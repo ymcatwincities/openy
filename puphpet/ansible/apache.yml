@@ -1,0 +1,39 @@
+---
+# This playbook installs apache
+
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: yes
+  sudo: yes
+
+  vars:
+    apache_listen_port: 80
+    apache_listen_port_ssl: 443
+    apache_create_vhosts: true
+    apache_vhosts_filename: "vhosts.conf"
+    apache_remove_default_vhost: true
+    cibox_ssl_folder: /etc/apache/ssl
+    cibox_server_ip: 192.168.56.132
+    apache_vhosts:
+      - {
+        servername: "{{ cibox_server_ip }}.xip.io",
+        documentroot: "/var/www"
+      }
+      - {
+        servername: "drupal.{{ cibox_server_ip }}.xip.io",
+        documentroot: "/var/www/docroot"
+      }
+    apache_vhosts_ssl:
+      - {
+        servername: "drupal.{{ cibox_server_ip }}.xip.io",
+        documentroot: "/var/www/docroot",
+        certificate_file: "{{ cibox_ssl_folder }}/apache.crt",
+        certificate_key_file: "{{ cibox_ssl_folder }}/apache.key",
+      }
+    apache_mods_enabled:
+      - rewrite.load
+      - ssl.load
+
+  roles:
+    - { role: cibox-ssl-config }
+    - { role: ansible-role-apache }

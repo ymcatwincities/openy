@@ -1,0 +1,16 @@
+name: Node
+type: module
+description: 'Allows content to be submitted to the site and displayed on pages.'
+package: Core
+# version: VERSION
+# core: 8.x
+configure: entity.node_type.collection
+dependencies:
+  - text
+  - entity_reference
+
+# Information added by Drupal.org packaging script on 2015-10-02
+version: '8.0.0-beta16'
+core: '8.x'
+project: 'drupal'
+datestamp: 1443747403

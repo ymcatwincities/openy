@@ -1,0 +1,4 @@
+services:
+  plugin.manager.migrate.cckfield:
+    class: Drupal\migrate\Plugin\MigratePluginManager
+    arguments: [cckfield, '@container.namespaces', '@cache.discovery', '@module_handler']
