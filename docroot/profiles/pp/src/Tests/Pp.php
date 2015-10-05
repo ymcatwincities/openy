@@ -21,7 +21,7 @@ class PpTest extends WebTestBase {
   /**
    * Tests Pp installation profile.
    */
-  function testPp() {
+  public function testPp() {
     $this->drupalGet('');
     // Check the login block is present.
     $this->assertLink(t('Create new account'));
@@ -43,4 +43,5 @@ class PpTest extends WebTestBase {
     // Ensure that there are no pending entity updates after installation.
     $this->assertFalse($this->container->get('entity.definition_update_manager')->needsUpdates(), 'After installation, entity schema is up to date.');
   }
+
 }
