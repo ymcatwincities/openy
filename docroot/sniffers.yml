@@ -28,8 +28,8 @@
     build_reports_dir: build_reports
 
     composer_global_require:
-      - drupal/coder:dev-8.x-2.x
       - squizlabs/php_codesniffer=2.3.0
+      - drupal/coder:dev-8.x-2.x
     git_repos:
       - { branch: 'master', repo: 'http://git.drupal.org/sandbox/coltrane/1921926.git', name: 'DrupalSecure' } # git clone --branch master http://git.drupal.org/sandbox/coltrane/1921926.git DrupalSecure
       - { branch: '8.x-1.x', repo: 'https://github.com/klausi/drupalpractice.git', name: 'DrupalPractice' } #git clone --branch 7.x-1.x https://github.com/klausi/drupalpractice.git DrupalPractice
