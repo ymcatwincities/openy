@@ -5,7 +5,7 @@
 
 - name: Update all composer dependencies
   sudo: yes
-  command: "{{drush_composer_bin}}" update
+  command: "{{drush_composer_bin}} update"
   args:
     chdir: /root/.composer/vendor/drush/drush/
 
@@ -15,7 +15,7 @@
 
 - name: Update all composer dependencies
   sudo: yes
-  command: "{{drush_composer_bin}}" update
+  command: "{{drush_composer_bin}} update"
   args:
     chdir: /usr/local/src/drush
 
