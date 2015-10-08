@@ -1,0 +1,13 @@
+name: Stable
+type: theme
+description: A default base theme using Drupal 8.0.0's core markup, CSS, and JavaScript.
+package: Core
+# version: VERSION
+# core: 8.x
+base theme: false
+
+# Information added by Drupal.org packaging script on 2015-10-07
+version: '8.0.0-rc1'
+core: '8.x'
+project: 'drupal'
+datestamp: 1444253576

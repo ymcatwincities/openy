@@ -188,13 +188,3 @@ AddEncoding gzip svgz
   # Disable content sniffing, since it's an attack vector.
   Header always set X-Content-Type-Options nosniff
 </IfModule>
-# Restrict access to YAML files.
-<Files ~ "\.yml$">
-  Order Allow,Deny
-  Deny from All
-</Files>
-# Restrict access to YAML files.
-<Files ~ "\.yml$">
-  Order Allow,Deny
-  Deny from All
-</Files>

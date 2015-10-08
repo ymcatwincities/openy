@@ -116,20 +116,20 @@ abstract class KernelTestBase extends TestBase {
    * @see config_get_config_directory()
    *
    * @throws \RuntimeException
-   *   Thrown when CONFIG_STAGING_DIRECTORY cannot be created or made writable.
+   *   Thrown when CONFIG_SYNC_DIRECTORY cannot be created or made writable.
    */
   protected function prepareConfigDirectories() {
     $this->configDirectories = array();
     include_once DRUPAL_ROOT . '/core/includes/install.inc';
     // Assign the relative path to the global variable.
-    $path = $this->siteDirectory . '/config_' . CONFIG_STAGING_DIRECTORY;
-    $GLOBALS['config_directories'][CONFIG_STAGING_DIRECTORY] = $path;
+    $path = $this->siteDirectory . '/config_' . CONFIG_SYNC_DIRECTORY;
+    $GLOBALS['config_directories'][CONFIG_SYNC_DIRECTORY] = $path;
     // Ensure the directory can be created and is writeable.
-    if (!install_ensure_config_directory(CONFIG_STAGING_DIRECTORY)) {
-      throw new \RuntimeException("Failed to create '" . CONFIG_STAGING_DIRECTORY . "' config directory $path");
+    if (!install_ensure_config_directory(CONFIG_SYNC_DIRECTORY)) {
+      throw new \RuntimeException("Failed to create '" . CONFIG_SYNC_DIRECTORY . "' config directory $path");
     }
     // Provide the already resolved path for tests.
-    $this->configDirectories[CONFIG_STAGING_DIRECTORY] = $path;
+    $this->configDirectories[CONFIG_SYNC_DIRECTORY] = $path;
   }
 
   /**
@@ -585,7 +585,14 @@ EOD;
    *   The rendered string output (typically HTML).
    */
   protected function render(array &$elements) {
-    $content = $this->container->get('renderer')->renderRoot($elements);
+    // Use the bare HTML page renderer to render our links.
+    $renderer = $this->container->get('bare_html_page_renderer');
+    $response = $renderer->renderBarePage(
+      $elements, '', $this->container->get('theme.manager')->getActiveTheme()->getName()
+    );
+
+    // Glean the content from the response object.
+    $content = $response->getContent();
     $this->setRawContent($content);
     $this->verbose('<pre style="white-space: pre-wrap">' . Html::escape($content));
     return $content;

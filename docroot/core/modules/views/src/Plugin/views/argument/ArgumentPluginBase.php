@@ -10,9 +10,10 @@ namespace Drupal\views\Plugin\views\argument;
 use Drupal\Component\Plugin\DependentPluginInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
-use Drupal\views\Plugin\CacheablePluginInterface;
 use Drupal\views\Plugin\views\PluginBase;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\ViewExecutable;
@@ -58,7 +59,7 @@ use Drupal\views\Views;
  * - numeric: If set to TRUE this field is numeric and will use %d instead of
  *            %s in queries.
  */
-abstract class ArgumentPluginBase extends HandlerBase implements CacheablePluginInterface {
+abstract class ArgumentPluginBase extends HandlerBase implements CacheableDependencyInterface {
 
   var $validator = NULL;
   var $argument = NULL;
@@ -457,6 +458,16 @@ abstract class ArgumentPluginBase extends HandlerBase implements CacheablePlugin
       $plugin->submitOptionsForm($form['summary']['options'][$summary_id], $form_state, $options);
       // Copy the now submitted options to their final resting place so they get saved.
       $option_values['summary_options'] = $options;
+    }
+
+    // If the 'Specify validation criteria' checkbox is not checked, reset the
+    // validation options.
+    if (empty($option_values['specify_validation'])) {
+      $option_values['validate']['type'] = 'none';
+      // We need to keep the empty array of options for the 'None' plugin as
+      // it will be needed later.
+      $option_values['validate']['options'] = ['none' => []];
+      $option_values['validate']['fail'] = 'not found';
     }
 
     $sanitized_id = $option_values['validate']['type'];
@@ -1235,24 +1246,24 @@ abstract class ArgumentPluginBase extends HandlerBase implements CacheablePlugin
   /**
    * {@inheritdoc}
    */
-  public function isCacheable() {
-    $result = TRUE;
+  public function getCacheMaxAge() {
+    $max_age = Cache::PERMANENT;
 
     // Asks all subplugins (argument defaults, argument validator and styles).
-    if (($plugin = $this->getPlugin('argument_default')) && $plugin instanceof CacheablePluginInterface) {
-      $result &= $plugin->isCacheable();
+    if (($plugin = $this->getPlugin('argument_default')) && $plugin instanceof CacheableDependencyInterface) {
+      $max_age = Cache::mergeMaxAges($max_age, $plugin->getCacheMaxAge());
     }
 
-    if (($plugin = $this->getPlugin('argument_validator')) && $plugin instanceof CacheablePluginInterface) {
-      $result &= $plugin->isCacheable();
+    if (($plugin = $this->getPlugin('argument_validator')) && $plugin instanceof CacheableDependencyInterface) {
+      $max_age = Cache::mergeMaxAges($max_age, $plugin->getCacheMaxAge());
     }
 
     // Summaries use style plugins.
-    if (($plugin = $this->getPlugin('style')) && $plugin instanceof CacheablePluginInterface) {
-      $result &= $plugin->isCacheable();
+    if (($plugin = $this->getPlugin('style')) && $plugin instanceof CacheableDependencyInterface) {
+      $max_age = Cache::mergeMaxAges($max_age, $plugin->getCacheMaxAge());
     }
 
-    return $result;
+    return $max_age;
   }
 
   /**
@@ -1266,19 +1277,41 @@ abstract class ArgumentPluginBase extends HandlerBase implements CacheablePlugin
     $contexts[] = 'url';
 
     // Asks all subplugins (argument defaults, argument validator and styles).
-    if (($plugin = $this->getPlugin('argument_default')) && $plugin instanceof CacheablePluginInterface) {
-      $contexts = array_merge($plugin->getCacheContexts(), $contexts);
+    if (($plugin = $this->getPlugin('argument_default')) && $plugin instanceof CacheableDependencyInterface) {
+      $contexts = Cache::mergeContexts($contexts, $plugin->getCacheContexts());
     }
 
-    if (($plugin = $this->getPlugin('argument_validator')) && $plugin instanceof CacheablePluginInterface) {
-      $contexts = array_merge($plugin->getCacheContexts(), $contexts);
+    if (($plugin = $this->getPlugin('argument_validator')) && $plugin instanceof CacheableDependencyInterface) {
+      $contexts = Cache::mergeContexts($contexts, $plugin->getCacheContexts());
     }
 
-    if (($plugin = $this->getPlugin('style')) && $plugin instanceof CacheablePluginInterface) {
-      $contexts = array_merge($plugin->getCacheContexts(), $contexts);
+    if (($plugin = $this->getPlugin('style')) && $plugin instanceof CacheableDependencyInterface) {
+      $contexts = Cache::mergeContexts($contexts, $plugin->getCacheContexts());
     }
 
     return $contexts;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $tags = [];
+
+    // Asks all subplugins (argument defaults, argument validator and styles).
+    if (($plugin = $this->getPlugin('argument_default')) && $plugin instanceof CacheableDependencyInterface) {
+      $tags = Cache::mergeTags($tags, $plugin->getCacheTags());
+    }
+
+    if (($plugin = $this->getPlugin('argument_validator')) && $plugin instanceof CacheableDependencyInterface) {
+      $tags = Cache::mergeTags($tags, $plugin->getCacheTags());
+    }
+
+    if (($plugin = $this->getPlugin('style')) && $plugin instanceof CacheableDependencyInterface) {
+      $tags = Cache::mergeTags($tags, $plugin->getCacheTags());
+    }
+
+    return $tags;
   }
 
   /**

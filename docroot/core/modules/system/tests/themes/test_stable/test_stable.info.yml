@@ -1,0 +1,11 @@
+name: Test Stable
+type: theme
+description: A theme to test that stable is set as the default.
+# version: VERSION
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2015-10-07
+version: '8.0.0-rc1'
+core: '8.x'
+project: 'drupal'
+datestamp: 1444253576

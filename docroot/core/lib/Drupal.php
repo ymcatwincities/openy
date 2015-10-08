@@ -81,7 +81,7 @@ class Drupal {
   /**
    * The current system version.
    */
-  const VERSION = '8.0.0-beta16';
+  const VERSION = '8.0.0-rc1';
 
   /**
    * Core API compatibility.
@@ -459,7 +459,7 @@ class Drupal {
    *
    * Use the typed data manager service for creating typed data objects.
    *
-   * @return \Drupal\Core\TypedData\TypedDataManager
+   * @return \Drupal\Core\TypedData\TypedDataManagerInterface
    *   The typed data manager.
    *
    * @see \Drupal\Core\TypedData\TypedDataManager::create()

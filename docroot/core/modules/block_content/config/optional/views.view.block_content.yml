@@ -52,8 +52,8 @@ display:
           id: 0
           total_pages: null
           tags:
-            previous: '‹ previous'
-            next: 'next ›'
+            previous: '‹ Previous'
+            next: 'Next ›'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -468,7 +468,8 @@ display:
         - url
         - url.query_args
         - user.permissions
-      cacheable: false
+      max-age: 0
+      tags: {  }
   page_1:
     display_plugin: page
     id: page_1
@@ -492,4 +493,5 @@ display:
         - url
         - url.query_args
         - user.permissions
-      cacheable: false
+      max-age: 0
+      tags: {  }

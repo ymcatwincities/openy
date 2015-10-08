@@ -7,9 +7,9 @@
 
 namespace Drupal\Tests\Core\Template;
 
-use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Render\RenderableInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Loader\StringLoader;
 use Drupal\Core\Template\TwigEnvironment;
 use Drupal\Core\Template\TwigExtension;
@@ -126,6 +126,33 @@ class TwigExtensionTest extends UnitTestCase {
   }
 
   /**
+   * Tests the active_theme_path function.
+   */
+  public function testActiveThemePath() {
+    $renderer = $this->getMock('\Drupal\Core\Render\RendererInterface');
+    $extension = new TwigExtension($renderer);
+    $theme_manager = $this->getMock('\Drupal\Core\Theme\ThemeManagerInterface');
+    $active_theme = $this->getMockBuilder('\Drupal\Core\Theme\ActiveTheme')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $active_theme
+      ->expects($this->once())
+      ->method('getPath')
+      ->willReturn('foo/bar');
+    $theme_manager
+      ->expects($this->once())
+      ->method('getActiveTheme')
+      ->willReturn($active_theme);
+    $extension->setThemeManager($theme_manager);
+
+    $loader = new \Twig_Loader_String();
+    $twig = new \Twig_Environment($loader);
+    $twig->addExtension($extension);
+    $result = $twig->render('{{ active_theme_path() }}');
+    $this->assertEquals('foo/bar', $result);
+  }
+
+  /**
    * Tests the escaping of objects implementing MarkupInterface.
    *
    * @covers ::escapeFilter
@@ -161,14 +188,14 @@ class TwigExtensionTest extends UnitTestCase {
     $twig_extension = new TwigExtension($renderer);
     $twig_environment = $this->prophesize(TwigEnvironment::class)->reveal();
 
-
     // Simulate t().
-    $string = '<em>will be markup</em>';
-    SafeMarkup::setMultiple([$string => ['html' => TRUE]]);
+    $markup = $this->prophesize(TranslatableMarkup::class);
+    $markup->__toString()->willReturn('<em>will be markup</em>');
+    $markup = $markup->reveal();
 
     $items = [
       '<em>will be escaped</em>',
-      $string,
+      $markup,
       ['#markup' => '<strong>will be rendered</strong>']
     ];
     $result = $twig_extension->safeJoin($twig_environment, $items, '<br/>');

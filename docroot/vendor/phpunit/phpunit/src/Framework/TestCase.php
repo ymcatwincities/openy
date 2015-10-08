@@ -670,6 +670,8 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
             $includePath        = "'." . $includePath . ".'";
             $codeCoverageFilter = "'." . $codeCoverageFilter . ".'";
 
+            $configurationFilePath = (isset($GLOBALS['__PHPUNIT_CONFIGURATION_FILE']) ? $GLOBALS['__PHPUNIT_CONFIGURATION_FILE'] : '');
+
             $template->setVar(
                 array(
                     'composerAutoload'                        => $composerAutoload,
@@ -690,7 +692,8 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
                     'isStrictAboutOutputDuringTests'          => $isStrictAboutOutputDuringTests,
                     'isStrictAboutTestSize'                   => $isStrictAboutTestSize,
                     'isStrictAboutTodoAnnotatedTests'         => $isStrictAboutTodoAnnotatedTests,
-                    'codeCoverageFilter'                      => $codeCoverageFilter
+                    'codeCoverageFilter'                      => $codeCoverageFilter,
+                    'configurationFilePath'                   => $configurationFilePath
                 )
             );
 
@@ -846,6 +849,11 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
         if (isset($e)) {
             if ($e instanceof PredictionException) {
                 $e = new PHPUnit_Framework_AssertionFailedError($e->getMessage());
+            }
+
+            if (!$e instanceof Exception) {
+                // Rethrow Error directly on PHP 7 as onNotSuccessfulTest does not support it
+                throw $e;
             }
 
             $this->onNotSuccessfulTest($e);

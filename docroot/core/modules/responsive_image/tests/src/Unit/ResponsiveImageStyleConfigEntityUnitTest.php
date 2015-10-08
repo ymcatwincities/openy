@@ -108,7 +108,7 @@ class ResponsiveImageStyleConfigEntityUnitTest extends UnitTestCase {
       ->with('test_group')
       ->willReturn(array('bartik' => 'theme', 'toolbar' => 'module'));
 
-    $dependencies = $entity->calculateDependencies();
+    $dependencies = $entity->calculateDependencies()->getDependencies();
     $this->assertEquals(['toolbar'], $dependencies['module']);
     $this->assertEquals(['bartik'], $dependencies['theme']);
     $this->assertEquals(['image.style.fallback', 'image.style.large', 'image.style.medium', 'image.style.small'], $dependencies['config']);
@@ -208,6 +208,10 @@ class ResponsiveImageStyleConfigEntityUnitTest extends UnitTestCase {
       'image_mapping_type' => 'image_style',
       'image_mapping' => 'thumbnail',
     ));
+    $entity->addImageStyleMapping('test_breakpoint2', '2x', array(
+      'image_mapping_type' => 'image_style',
+      'image_mapping' => '_original image_',
+    ));
 
     $expected = array(
       'test_breakpoint' => array(
@@ -235,6 +239,12 @@ class ResponsiveImageStyleConfigEntityUnitTest extends UnitTestCase {
           'multiplier' => '1x',
           'image_mapping_type' => 'image_style',
           'image_mapping' => 'thumbnail',
+        ),
+        '2x' => array(
+          'breakpoint_id' => 'test_breakpoint2',
+          'multiplier' => '2x',
+          'image_mapping_type' => 'image_style',
+          'image_mapping' => '_original image_',
         ),
       )
     );

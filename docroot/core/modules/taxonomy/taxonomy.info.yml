@@ -5,13 +5,12 @@ package: Core
 # version: VERSION
 # core: 8.x
 dependencies:
-  - entity_reference
   - node
   - text
 configure: entity.taxonomy_vocabulary.collection
 
-# Information added by Drupal.org packaging script on 2015-10-02
-version: '8.0.0-beta16'
+# Information added by Drupal.org packaging script on 2015-10-07
+version: '8.0.0-rc1'
 core: '8.x'
 project: 'drupal'
-datestamp: 1443747403
+datestamp: 1444253576

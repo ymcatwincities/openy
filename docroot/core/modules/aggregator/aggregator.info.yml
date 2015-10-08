@@ -6,12 +6,11 @@ package: Core
 # core: 8.x
 configure: aggregator.admin_settings
 dependencies:
-  - entity_reference
   - file
   - options
 
-# Information added by Drupal.org packaging script on 2015-10-02
-version: '8.0.0-beta16'
+# Information added by Drupal.org packaging script on 2015-10-07
+version: '8.0.0-rc1'
 core: '8.x'
 project: 'drupal'
-datestamp: 1443747403
+datestamp: 1444253576

@@ -260,7 +260,7 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     $this->siteDirectory = vfsStream::url('root/sites/simpletest/' . $suffix);
 
     mkdir($this->siteDirectory . '/files', 0775);
-    mkdir($this->siteDirectory . '/files/config/' . CONFIG_STAGING_DIRECTORY, 0775, TRUE);
+    mkdir($this->siteDirectory . '/files/config/' . CONFIG_SYNC_DIRECTORY, 0775, TRUE);
 
     // Ensure that all code that relies on drupal_valid_test_ua() can still be
     // safely executed. This primarily affects the (test) site directory
@@ -278,7 +278,7 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     new Settings($settings);
 
     $GLOBALS['config_directories'] = array(
-      CONFIG_STAGING_DIRECTORY => $this->siteDirectory . '/files/config/staging',
+      CONFIG_SYNC_DIRECTORY => $this->siteDirectory . '/files/config/sync',
     );
 
     foreach (Database::getAllConnectionInfo() as $key => $targets) {
@@ -907,11 +907,12 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     // Use the bare HTML page renderer to render our links.
     $renderer = $this->container->get('bare_html_page_renderer');
     $response = $renderer->renderBarePage(
-      $build, '', $this->container->get('theme.manager')->getActiveTheme()->getName()
+      $elements, '', $this->container->get('theme.manager')->getActiveTheme()->getName()
     );
 
     // Glean the content from the response object.
-    $this->setRawContent($response->getContent());
+    $content = $response->getContent();
+    $this->setRawContent($content);
     $this->verbose('<pre style="white-space: pre-wrap">' . Html::escape($content));
     return $content;
   }
@@ -942,7 +943,7 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     if (!$this->configImporter) {
       // Set up the ConfigImporter object for testing.
       $storage_comparer = new StorageComparer(
-        $this->container->get('config.storage.staging'),
+        $this->container->get('config.storage.sync'),
         $this->container->get('config.storage'),
         $this->container->get('config.manager')
       );
@@ -1087,7 +1088,7 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     if ($name === 'configDirectories') {
       trigger_error(sprintf("KernelTestBase::\$%s no longer exists. Use config_get_config_directory() directly instead.", $name), E_USER_DEPRECATED);
       return array(
-        CONFIG_STAGING_DIRECTORY => config_get_config_directory(CONFIG_STAGING_DIRECTORY),
+        CONFIG_SYNC_DIRECTORY => config_get_config_directory(CONFIG_SYNC_DIRECTORY),
       );
     }
 

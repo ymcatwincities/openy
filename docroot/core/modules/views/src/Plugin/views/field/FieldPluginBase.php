@@ -1260,7 +1260,7 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
       $value = strip_tags($value, $alter['preserve_tags']);
     }
 
-    $suffix = '';
+    $more_link = '';
     if (!empty($alter['trim']) && !empty($alter['max_length'])) {
       $length = strlen($value);
       $value = $this->renderTrimText($alter, $value);
@@ -1271,7 +1271,8 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
         $more_link_path = $this->options['alter']['more_link_path'];
         $more_link_path = strip_tags(Html::decodeEntities($this->viewsTokenReplace($more_link_path, $tokens)));
 
-        // Make sure that paths which were run through _url() work as well.
+        // Make sure that paths which were run through URL generation work as
+        // well.
         $base_path = base_path();
         // Checks whether the path starts with the base_path.
         if (strpos($more_link_path, $base_path) === 0) {
@@ -1280,9 +1281,7 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
 
         // @todo Views should expect and store a leading /. See
         //   https://www.drupal.org/node/2423913.
-        $more_link = \Drupal::l($more_link_text, CoreUrl::fromUserInput('/' . $more_link_path, array('attributes' => array('class' => array('views-more-link')))));
-
-        $suffix .= " " . $more_link;
+        $more_link = ' ' . $this->linkGenerator()->generate($more_link_text, CoreUrl::fromUserInput('/' . $more_link_path, array('attributes' => array('class' => array('views-more-link')))));
       }
     }
 
@@ -1290,10 +1289,8 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
       $value = nl2br($value);
     }
 
-    // Preserve whether or not the string is safe. Since $suffix comes from
-    // \Drupal::l(), it is safe to append.
     if ($value_is_safe) {
-      $value = ViewsRenderPipelineMarkup::create($value . $suffix);
+      $value = ViewsRenderPipelineMarkup::create($value);
     }
     $this->last_render_text = $value;
 
@@ -1304,16 +1301,16 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
       $value = $this->renderAsLink($alter, $value, $tokens);
     }
 
-    // Preserve whether or not the string is safe. Since $suffix comes from
+    // Preserve whether or not the string is safe. Since $more_link comes from
     // \Drupal::l(), it is safe to append. Use SafeMarkup::isSafe() here because
     // renderAsLink() can return both safe and unsafe values.
     if (SafeMarkup::isSafe($value)) {
-      return ViewsRenderPipelineMarkup::create($value . $suffix);
+      return ViewsRenderPipelineMarkup::create($value . $more_link);
     }
     else {
       // If the string is not already marked safe, it is still OK to return it
       // because it will be sanitized by Twig.
-      return $value . $suffix;
+      return $value . $more_link;
     }
   }
 
@@ -1501,7 +1498,8 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
     // parsed values.
     if (isset($alter['query'])) {
       // Convert the query to a string, perform token replacement, and then
-      // convert back to an array form for _l().
+      // convert back to an array form for
+      // \Drupal\Core\Utility\LinkGeneratorInterface::generate().
       $options['query'] = UrlHelper::buildQuery($alter['query']);
       $options['query'] = $this->viewsTokenReplace($options['query'], $tokens);
       $query = array();

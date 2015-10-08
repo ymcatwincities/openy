@@ -4,8 +4,8 @@ description: 'Theme for testing the available fields in user twig template'
 # version: VERSION
 # core: 8.x
 
-# Information added by Drupal.org packaging script on 2015-10-02
-version: '8.0.0-beta16'
+# Information added by Drupal.org packaging script on 2015-10-07
+version: '8.0.0-rc1'
 core: '8.x'
 project: 'drupal'
-datestamp: 1443747403
+datestamp: 1444253576

@@ -12,8 +12,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\entity_reference\Tests\EntityReferenceTestTrait;
+use Drupal\field\Tests\EntityReference\EntityReferenceTestTrait;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
@@ -105,8 +106,14 @@ class EntityReferenceFieldTest extends EntityUnitTestBase {
     $this->assertEqual($violations->count(), 1, 'Validation throws a violation.');
     $this->assertEqual($violations[0]->getMessage(), t('The referenced entity (%type: %id) does not exist.', array('%type' => $this->referencedEntityType, '%id' => 9999)));
 
-    // @todo Implement a test case for invalid bundle references after
-    //   https://www.drupal.org/node/2064191 is fixed.
+    // Test a non-referenceable bundle.
+    entity_test_create_bundle('non_referenceable', NULL, $this->referencedEntityType);
+    $referenced_entity = entity_create($this->referencedEntityType, array('type' => 'non_referenceable'));
+    $referenced_entity->save();
+    $entity->{$this->fieldName}->target_id = $referenced_entity->id();
+    $violations = $entity->{$this->fieldName}->validate();
+    $this->assertEqual($violations->count(), 1, 'Validation throws a violation.');
+    $this->assertEqual($violations[0]->getMessage(), t('The entity must be of bundle %bundle.', array('%bundle' => $this->bundle)));
   }
 
   /**
@@ -398,6 +405,37 @@ class EntityReferenceFieldTest extends EntityUnitTestBase {
     catch (EntityStorageException $e) {
       $this->pass($message);
     }
+  }
+
+  /**
+   * Tests the dependencies entity reference fields are created with.
+   */
+  public function testEntityReferenceFieldDependencies() {
+    $field_name = 'user_reference_field';
+    $entity_type = 'entity_test';
+
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'type' => 'entity_reference',
+      'entity_type' => $entity_type,
+      'settings' => [
+        'target_type' => 'user',
+      ],
+    ]);
+    $field_storage->save();
+    $this->assertEqual(['module' => ['entity_test', 'user']], $field_storage->getDependencies());
+
+    $field = FieldConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => $entity_type,
+      'bundle' => 'entity_test',
+      'label' => $field_name,
+      'settings' => [
+        'handler' => 'default',
+      ],
+    ]);
+    $field->save();
+    $this->assertEqual(['config' => ['field.storage.entity_test.user_reference_field'], 'module' => ['entity_test']], $field->getDependencies());
   }
 
 }
