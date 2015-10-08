@@ -9,6 +9,7 @@ use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ExtensionDiscovery;
 use Drupal\Core\Form\FormStateInterface;
@@ -88,12 +89,14 @@ function system_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<dd>' . t('The default drag-and-drop user interface for ordering tables in the administrative interface presents a challenge for some users, including users of screen readers and other assistive technology. The drag-and-drop interface can be disabled in a table by clicking a link labeled "Show row weights" above the table. The replacement interface allows users to order the table by choosing numerical weights instead of dragging table rows.') . '</dd>';
       $output .= '<dt>' . t('Configuring basic site settings') . '</dt>';
       $output .= '<dd>' . t('The System module provides pages for managing basic site configuration, including <a href=":date-time-settings">Date and time formats</a> and basic <a href=":site-info">Site information</a> (site name, email address to send mail from, home page, and error pages). Additional configuration pages are listed on the main <a href=":config">Configuration page</a>.', array(':date-time-settings' => \Drupal::url('entity.date_format.collection'), ':site-info' => \Drupal::url('system.site_information_settings'), ':config' => \Drupal::url('system.admin_config'))) . '</dd>';
+      $output .= '<dt>' . t('Checking site status') . '</dt>';
+      $output .= '<dd>' . t('The <a href=":status">Status report</a> provides an overview of the configuration, status, and health of your site. Review this report to make sure there are not any problems to address, and to find information about the software your site and web server are using.', array(':status' => \Drupal::url('system.status'))) . '</dd>';
       $output .= '<dt>' . t('Using maintenance mode') . '</dt>';
       $output .= '<dd>' . t('When you are performing site maintenance, you can prevent non-administrative users (including anonymous visitors) from viewing your site by putting it in <a href=":maintenance-mode">Maintenance mode</a>. This will prevent unauthorized users from making changes to the site while you are performing maintenance, or from seeing a broken site while updates are in progress.', array(':maintenance-mode' => \Drupal::url('system.site_maintenance_mode'))) . '</dd>';
       $output .= '<dt>' . t('Configuring for performance') . '</dt>';
       $output .= '<dd>' . t('On the <a href=":performance-page">Performance page</a>, the site can be configured to aggregate CSS and JavaScript files, making the total request size smaller. Note that, for small- to medium-sized websites, the <a href=":page-cache">Internal Page Cache module</a> should be installed so that pages are efficiently cached and reused for anonymous users. Finally, for websites of all sizes, the <a href=":dynamic-page-cache">Dynamic Page Cache module</a> should also be installed so that the non-personalized parts of pages are efficiently cached (for all users).', array(':performance-page' => \Drupal::url('system.performance_settings'), ':page-cache' => (\Drupal::moduleHandler()->moduleExists('page_cache')) ? \Drupal::url('help.page', array('name' => 'page_cache')) : '#', ':dynamic-page-cache' => (\Drupal::moduleHandler()->moduleExists('dynamic_page_cache')) ? \Drupal::url('help.page', array('name' => 'dynamic_page_cache')) : '#')) . '</dd>';
       $output .= '<dt>' . t('Configuring cron') . '</dt>';
-      $output .= '<dd>' . t('In order for the site and its modules to continue to operate well, a set of routine administrative operations must run on a regular basis; these operations are known as <em>cron</em> tasks. On the <a href=":cron">Cron page</a>, you can configure cron to run periodically as part of normal page requests, or you can turn this off and trigger cron from an outside process on your web server. You can verify the status of cron tasks by visiting the <a href=":status">Status report page</a>. For more information, see the <a href=":handbook">online documentation for configuring cron jobs</a>.', array(':status' => \Drupal::url('system.status'), ':handbook' => 'https://www.drupal.org/cron', ':cron' => \Drupal::url('system.cron_settings'))) . '</dd>';
+      $output .= '<dd>' . t('In order for the site and its modules to continue to operate well, a set of routine administrative operations must run on a regular basis; these operations are known as <em>cron</em> tasks. On the <a href=":cron">Cron page</a>, you can configure cron to run periodically as part of server responses by installing the <em>Automated Cron</em> module, or you can turn this off and trigger cron from an outside process on your web server. You can verify the status of cron tasks by visiting the <a href=":status">Status report page</a>. For more information, see the <a href=":handbook">online documentation for configuring cron jobs</a>.', array(':status' => \Drupal::url('system.status'), ':handbook' => 'https://www.drupal.org/cron', ':cron' => \Drupal::url('system.cron_settings'))) . '</dd>';
       $output .= '<dt>' . t('Configuring the file system') . '</dt>';
       $output .= '<dd>' . t('Your site has several file directories, which are used to store and process uploaded and generated files. The <em>public</em> file directory, which is configured in your settings.php file, is the default place for storing uploaded files. Links to files in this directory contain the direct file URL, so when the files are requested, the web server will send them directly without invoking your site code. This means that the files can be downloaded by anyone with the file URL, so requests are not access-controlled but they are efficient. The <em>private</em> file directory, also configured in your settings.php file and ideally located outside the site web root, is access controlled. Links to files in this directory are not direct, so requests to these files are mediated by your site code. This means that your site can check file access permission for each file before deciding to fulfill the request, so the requests are more secure, but less efficient. You should only use the private storage for files that need access control, not for files like your site logo and background images used on every page. The <em>temporary</em> file directory is used internally by your site code for various operations, and is configured on the <a href=":file-system">File system settings</a> page. You can also see the configured public and private file directories on this page, and choose whether public or private should be the default for uploaded files.', array(':file-system' => \Drupal::url('system.file_system_settings'))) . '</dd>';
       $output .= '<dt>' . t('Configuring the image toolkit') . '</dt>';
@@ -187,12 +190,10 @@ function system_theme() {
     'system_modules_details' => array(
       'render element' => 'form',
       'file' => 'system.admin.inc',
-      'function' => 'theme_system_modules_details',
     ),
     'system_modules_uninstall' => array(
       'render element' => 'form',
       'file' => 'system.admin.inc',
-      'function' => 'theme_system_modules_uninstall',
     ),
     'status_report' => array(
       'variables' => array('requirements' => NULL),
@@ -1424,4 +1425,12 @@ function system_path_insert() {
  */
 function system_path_delete($path) {
   \Drupal::service('path.alias_manager')->cacheClear();
+}
+
+/**
+ * Implements hook_query_TAG_alter() for entity reference selection handlers.
+ */
+function system_query_entity_reference_alter(AlterableInterface $query) {
+  $handler = $query->getMetadata('entity_reference_selection_handler');
+  $handler->entityQueryAlter($query);
 }

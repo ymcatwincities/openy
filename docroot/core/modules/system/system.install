@@ -1808,5 +1808,44 @@ function system_update_8011() {
 }
 
 /**
+ * Install the Stable base theme if needed.
+ */
+function system_update_8012() {
+  $theme_handler = \Drupal::service('theme_handler');
+  // Ensure we have fresh info.
+  $theme_handler->rebuildThemeData();
+  foreach ($theme_handler->listInfo() as $theme) {
+    // We first check that a base theme is set because if it's set to false then
+    // it's unset in \Drupal\Core\Extension\ThemeHandler::rebuildThemeData().
+    if (isset($theme->info['base theme']) && $theme->info['base theme'] == 'stable') {
+      $theme_handler->install(['stable']);
+      return;
+    }
+  }
+}
+
+/**
+ * Enable automated cron module and move the config into it.
+ */
+function system_update_8013() {
+  $config_factory = \Drupal::configFactory();
+  $system_cron_config = $config_factory->getEditable('system.cron');
+  if ($autorun = $system_cron_config->get('threshold.autorun')) {
+    // Install 'automated_cron' module.
+    \Drupal::service('module_installer')->install(['automated_cron'], FALSE);
+
+    // Copy 'autorun' value into the new module's 'interval' setting.
+    $config_factory->getEditable('automated_cron.settings')
+      ->set('interval', $autorun)
+      ->save(TRUE);
+  }
+
+  // Remove the 'autorun' key in system module config.
+  $system_cron_config
+    ->clear('threshold.autorun')
+    ->save(TRUE);
+}
+
+/**
  * @} End of "addtogroup updates-8.0.0-beta".
  */

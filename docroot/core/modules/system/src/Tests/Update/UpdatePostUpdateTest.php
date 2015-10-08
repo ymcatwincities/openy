@@ -59,7 +59,13 @@ class UpdatePostUpdateTest extends UpdatePathTestBase {
     $this->assertIdentical($updates, \Drupal::state()->get('post_update_test_execution', []));
 
     $key_value = \Drupal::keyValue('post_update');
-    array_unshift($updates, 'block_post_update_disable_blocks_with_missing_contexts');
+    $updates = array_merge([
+      'block_post_update_disable_blocks_with_missing_contexts',
+      'field_post_update_save_custom_storage_property',
+      'field_post_update_entity_reference_handler_setting',
+      'system_post_update_recalculate_configuration_entity_dependencies',
+      'views_post_update_update_cacheability_metadata',
+    ], $updates);
     $this->assertEqual($updates, $key_value->get('existing_updates'));
 
     $this->drupalGet('update.php/selection');

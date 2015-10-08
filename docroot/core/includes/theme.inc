@@ -546,11 +546,8 @@ function template_preprocess_datetime_wrapper(&$variables) {
     $variables['title'] = $element['#title'];
   }
 
-  // Display any error messages.
+  // Suppress error messages.
   $variables['errors'] = NULL;
-  if (!empty($element['#errors']) && empty($element['#error_no_message'])) {
-    $variables['errors'] = $element['#errors'];
-  }
 
   if (!empty($element['#description'])) {
     $variables['description'] = $element['#description'];
@@ -1049,6 +1046,7 @@ function template_preprocess_table(&$variables) {
  * @see https://www.drupal.org/node/1842756
  */
 function template_preprocess_item_list(&$variables) {
+  $variables['wrapper_attributes'] = new Attribute($variables['wrapper_attributes']);
   foreach ($variables['items'] as &$item) {
     $attributes = array();
     // If the item value is an array, then it is a render array.
@@ -1094,23 +1092,6 @@ function template_preprocess_item_list(&$variables) {
       'attributes' => new Attribute($attributes),
     );
   }
-}
-
-/**
- * Returns HTML for an indentation div; used for drag and drop tables.
- *
- * @param $variables
- *   An associative array containing:
- *   - size: Optional. The number of indentations to create.
- *
- * @ingroup themeable
- */
-function theme_indentation($variables) {
-  $output = '';
-  for ($n = 0; $n < $variables['size']; $n++) {
-    $output .= '<div class="js-indentation indentation">&nbsp;</div>';
-  }
-  return $output;
 }
 
 /**
@@ -1486,6 +1467,7 @@ function template_preprocess_install_page(&$variables) {
   // still in the process of being installed.
   $distribution_name = drupal_install_profile_distribution_name();
   $variables['site_name'] = $distribution_name;
+  $variables['site_version'] = drupal_install_profile_distribution_version();
 }
 
 /**
@@ -1658,7 +1640,15 @@ function template_preprocess_field_multiple_value_form(&$variables) {
       ),
     );
 
-    $variables['description'] = $element['#description'];
+    if (!empty($element['#description'])) {
+      $description_id = $element['#attributes']['aria-describedby'];
+      $description_attributes['id'] = $description_id;
+      $variables['description']['attributes'] = new Attribute($description_attributes);
+      $variables['description']['content'] = $element['#description'];
+
+      // Add the description's id to the table aria attributes.
+      $variables['table']['#attributes']['aria-describedby'] = $element['#attributes']['aria-describedby'];
+    }
   }
   else {
     $variables['elements'] = array();
@@ -1760,7 +1750,7 @@ function drupal_common_theme() {
       'variables' => array('status' => MARK_NEW),
     ),
     'item_list' => array(
-      'variables' => array('items' => array(), 'title' => '', 'list_type' => 'ul', 'attributes' => array(), 'empty' => NULL, 'context' => array()),
+      'variables' => array('items' => array(), 'title' => '', 'list_type' => 'ul', 'wrapper_attributes' => array(), 'attributes' => array(), 'empty' => NULL, 'context' => array()),
     ),
     'feed_icon' => array(
       'variables' => array('url' => NULL, 'title' => NULL),
@@ -1770,7 +1760,6 @@ function drupal_common_theme() {
     ),
     'indentation' => array(
       'variables' => array('size' => 1),
-      'function' => 'theme_indentation',
     ),
     // From theme.maintenance.inc.
     'maintenance_page' => array(

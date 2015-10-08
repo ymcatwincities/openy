@@ -10,7 +10,7 @@ namespace Drupal\user\Plugin\EntityReferenceSelection;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Entity\Plugin\EntityReferenceSelection\SelectionBase;
+use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -28,7 +28,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   weight = 1
  * )
  */
-class UserSelection extends SelectionBase {
+class UserSelection extends DefaultSelection {
 
   /**
    * The database connection.
@@ -120,7 +120,7 @@ class UserSelection extends SelectionBase {
     $form['filter']['settings'] = array(
       '#type' => 'container',
       '#attributes' => array('class' => array('entity_reference-settings')),
-      '#process' => array('_entity_reference_form_process_merge_parent'),
+      '#process' => array(array('\Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem', 'formProcessMergeParent')),
     );
 
     if ($selection_handler_settings['filter']['type'] == 'role') {

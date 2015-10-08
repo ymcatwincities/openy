@@ -256,6 +256,9 @@ Action module
 Aggregator module
 - Paris Liakos 'ParisLiakos' https://www.drupal.org/u/parisliakos
 
+Automated Cron module
+- ?
+
 Ban module
 - ?
 
@@ -322,10 +325,6 @@ Email module
 
 Editor module
 - Wim Leers 'Wim Leers' https://www.drupal.org/u/wim-leers
-
-Entity Reference module
-- Amitai Burstein 'Amitaibu' https://www.drupal.org/u/amitaibu
-- Andrei Mateescu 'amateescu' https://www.drupal.org/u/amateescu
 
 Field UI module
 - Yves Chedemois 'yched' https://www.drupal.org/u/yched

@@ -290,9 +290,13 @@ services:
     public: false
     tags:
       - { name: backend_overridable }
+  # @deprecated in Drupal 8.0.x and will be removed before 9.0.0. Use
+  #   config.storage.sync instead.
   config.storage.staging:
     class: Drupal\Core\Config\FileStorage
-    factory: Drupal\Core\Config\FileStorageFactory::getStaging
+    factory: Drupal\Core\Config\FileStorageFactory::getSync
+  config.storage.sync:
+    alias: config.storage.staging
   config.storage.snapshot:
     class: Drupal\Core\Config\DatabaseStorage
     arguments: ['@database', config_snapshot]
@@ -337,7 +341,6 @@ services:
     arguments: ['@request_stack', '@url_generator']
   form_error_handler:
     class: Drupal\Core\Form\FormErrorHandler
-    arguments: ['@string_translation', '@link_generator', '@renderer']
   form_cache:
     class: Drupal\Core\Form\FormCache
     arguments: ['@app.root', '@keyvalue.expirable', '@module_handler', '@current_user', '@csrf_token', '@logger.channel.form', '@request_stack', '@page_cache_request_policy']
@@ -1074,7 +1077,7 @@ services:
       - { name: event_subscriber }
   redirect_response_subscriber:
     class: Drupal\Core\EventSubscriber\RedirectResponseSubscriber
-    arguments: ['@url_generator', '@router.request_context']
+    arguments: ['@unrouted_url_assembler', '@router.request_context']
     tags:
       - { name: event_subscriber }
   redirect_leading_slashes_subscriber:

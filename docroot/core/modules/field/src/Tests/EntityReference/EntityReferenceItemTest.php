@@ -13,7 +13,6 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\entity_test\Entity\EntityTest;
-use Drupal\entity_reference\Tests\EntityReferenceTestTrait;
 use Drupal\entity_test\Entity\EntityTestStringId;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -36,7 +35,7 @@ class EntityReferenceItemTest extends FieldUnitTestBase {
    *
    * @var array
    */
-  public static $modules = array('entity_reference', 'taxonomy', 'text', 'filter', 'views');
+  public static $modules = ['taxonomy', 'text', 'filter', 'views', 'field'];
 
   /**
    * The taxonomy vocabulary to test with.
@@ -303,20 +302,34 @@ class EntityReferenceItemTest extends FieldUnitTestBase {
     $field_storage->save();
 
     // Do not specify any value for the 'handler' setting in order to verify
-    // that the default value is properly used.
+    // that the default handler with the correct derivative is used.
     $field = FieldConfig::create(array(
       'field_storage' => $field_storage,
       'bundle' => 'entity_test',
     ));
     $field->save();
-
     $field = FieldConfig::load($field->id());
-    $this->assertTrue($field->getSetting('handler') == 'default:entity_test');
+    $this->assertEqual($field->getSetting('handler'), 'default:entity_test');
 
+    // Change the target_type in the field storage, and check that the handler
+    // was correctly reassigned in the field.
+    $field_storage->setSetting('target_type', 'entity_test_rev');
+    $field_storage->save();
+    $field = FieldConfig::load($field->id());
+    $this->assertEqual($field->getSetting('handler'), 'default:entity_test_rev');
+
+    // Change the handler to another, non-derivative plugin.
     $field->setSetting('handler', 'views');
     $field->save();
     $field = FieldConfig::load($field->id());
-    $this->assertTrue($field->getSetting('handler') == 'views');
+    $this->assertEqual($field->getSetting('handler'), 'views');
+
+    // Change the target_type in the field storage again, and check that the
+    // non-derivative handler was unchanged.
+    $field_storage->setSetting('target_type', 'entity_test_rev');
+    $field_storage->save();
+    $field = FieldConfig::load($field->id());
+    $this->assertEqual($field->getSetting('handler'), 'views');
   }
 
   /**

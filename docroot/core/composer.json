@@ -28,18 +28,20 @@
     "egulias/email-validator": "1.2.*",
     "masterminds/html5": "~2.1",
     "symfony/psr-http-message-bridge": "v0.2",
-    "zendframework/zend-diactoros": "~1.1"
+    "zendframework/zend-diactoros": "~1.1",
+    "composer/semver": "~1.0"
   },
   "require-dev": {
     "behat/mink": "~1.6",
-    "behat/mink-goutte-driver": "dev-master#cc5ce119b5a8e06662f634b35967aff0b0c7dfdd",
+    "behat/mink-goutte-driver": "~1.2",
     "mikey179/vfsStream": "~1.2",
-    "phpunit/phpunit": "4.8.*",
+    "phpunit/phpunit": "~4.8",
     "symfony/css-selector": "2.7.*"
   },
   "replace": {
     "drupal/action": "self.version",
     "drupal/aggregator": "self.version",
+    "drupal/automated_cron": "self.version",
     "drupal/bartik": "self.version",
     "drupal/ban": "self.version",
     "drupal/basic_auth": "self.version",

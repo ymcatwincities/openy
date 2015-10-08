@@ -28,7 +28,7 @@ class MigrateSearchPageTest extends MigrateDrupal6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->executeMigration('d6_search_page');
+    $this->executeMigration('search_page');
   }
 
   /**
@@ -42,6 +42,8 @@ class MigrateSearchPageTest extends MigrateDrupal6TestBase {
     $configuration = $search_page->getPlugin()->getConfiguration();
     $this->assertIdentical($configuration['rankings'], array(
       'comments' => 5,
+      'promote' => 0,
+      'recent' => 0,
       'relevance' => 2,
       'sticky' => 8,
       'views' => 1,
@@ -58,7 +60,7 @@ class MigrateSearchPageTest extends MigrateDrupal6TestBase {
     /** @var \Drupal\migrate\Entity\MigrationInterface $migration */
     $migration = \Drupal::entityManager()
       ->getStorage('migration')
-      ->loadUnchanged('d6_search_page');
+      ->loadUnchanged('search_page');
     // Indicate we're rerunning a migration that's already run.
     $migration->getIdMap()->prepareUpdate();
     $this->executeMigration($migration);
