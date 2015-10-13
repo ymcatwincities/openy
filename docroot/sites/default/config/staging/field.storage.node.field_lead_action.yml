@@ -1,0 +1,20 @@
+uuid: 07608388-1ef1-4b83-904d-772505c651ad
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - node
+id: node.field_lead_action
+field_name: field_lead_action
+entity_type: node
+type: entity_reference
+settings:
+  target_type: block_content
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

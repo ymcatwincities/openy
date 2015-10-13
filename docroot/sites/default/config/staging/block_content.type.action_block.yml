@@ -1,0 +1,8 @@
+uuid: 8e5acc31-f188-4e4a-8f1d-29df149ed3aa
+langcode: en
+status: true
+dependencies: {  }
+id: action_block
+label: 'Action Block'
+revision: 0
+description: 'A basic action block to be placed in the specific region.'

@@ -1,0 +1,8 @@
+uuid: def6affd-a97b-43e8-a107-7bba44e4eb71
+langcode: en
+status: true
+dependencies: {  }
+id: html_week
+label: 'HTML Week'
+locked: true
+pattern: Y-\WW

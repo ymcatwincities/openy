@@ -1,7 +1,7 @@
 ---
-drupal_user: admin
-drupal_pass: propeople
-installation_profile_name: pp
+drupal_user: root
+drupal_pass: root
+installation_profile_name: ymca_demo
 mysql_user: root
 mysql_pass: root
 mysql_db: drupal

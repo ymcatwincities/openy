@@ -1,0 +1,80 @@
+/** header **/
+.node--type-article article section.header {
+  margin: 0 auto;
+  background-color: darkgray;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.node--type-article article section.header h1 {
+  color: white;
+}
+
+.node--type-article article section.header .left {
+  float: left;
+  width: 50%;
+}
+
+.node--type-article article section.header .right {
+  float: right;
+  width: 50%;
+}
+
+.node--type-article article section.lead {
+  margin: 0 auto;
+  background-color: lightgrey;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.node--type-article article section.lead .left {
+  float: left;
+  width: 50%;
+}
+
+.node--type-article article section.lead .right {
+  float: right;
+  width: 30%;
+}
+
+/** 3 cols **/
+.node--type-article article.node {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.node--type-article article.node .col-left {
+  width: 220px;
+  float: left;
+  background-color: lightgrey;
+  padding: 10px;
+}
+
+.node--type-article article.node .col-center {
+  width: 380px;
+  float: left;
+  padding: 10px;
+}
+
+.node--type-article article.node .col-right {
+  width: 300px;
+  float: left;
+  padding: 10px;
+}
+
+.node--type-article article.node.three-cols .col-center {
+  width: 380px;
+}
+
+.node--type-article article.node.sidebar-left .col-center {
+  width: 700px;
+}
+
+.node--type-article article.node.sidebar-right .col-center {
+  width: 620px;
+}
+
+.node--type-article article.node.no-cols .col-center {
+  width: 940px;
+}

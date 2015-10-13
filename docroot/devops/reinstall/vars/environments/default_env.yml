@@ -1,20 +1,11 @@
 ---
 env:
   pre_settings: []
-  modules:
-    - { name: 'dblog', status: true }
-    - { name: 'stage_file_proxy', status: false }
-    - { name: 'devel', status: false }
-    - { name: 'views_ui', status: false }
-    - { name: 'diff', status: false }
+  modules: []
   drush_commands:
-    # Update admin username and password.
-#    - { name: 'sqlq', status: true, arguments: "\"UPDATE users SET name='{{ drupal_user }}' WHERE uid=1\"" }
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
+    - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
+    - { name: 'config-import', status: true, arguments: "staging -y" }
   post_settings:
-    - { name: '$conf["error_level"]', status: true, value: '2' }
-    - { name: '$conf["cache"]', status: true, value: '0' }
-    - { name: '$conf["block_cache"]', status: true, value: '0' }
-    - { name: '$conf["preprocess_css"]', status: true, value: '0' }
-    - { name: '$conf["preprocess_js"]', status: true, value: '0' }
-    - { name: '$conf["stage_file_proxy_origin"]', status: false, value: "{{ origin_site_url }}" }
+    - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
+    - { name: '$settings["cache"]["bins"]["render"]', status: true, value: 'cache.backend.memory' }
