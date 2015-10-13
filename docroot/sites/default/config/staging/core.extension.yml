@@ -42,7 +42,7 @@ module:
   views_ui: 0
   menu_link_content: 1
   views: 10
-  ymca_demo: 1000
+  pp: 1000
 theme:
   classy: 0
   bartik: 0
