@@ -1,0 +1,14 @@
+name: Entity Embed
+type: module
+description: 'Allows entities to be rendered using a text format.'
+core: 8.x
+package: Filters
+dependencies:
+  - editor
+  - embed
+  - filter
+
+# Information added by drush on 2015-10-12
+version: '8.x-1.x-dev'
+project: 'entity_embed'
+datestamp: 1444646001

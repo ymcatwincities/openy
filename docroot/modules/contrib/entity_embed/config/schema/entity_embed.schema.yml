@@ -1,0 +1,21 @@
+# Schema for the configuration files of the Entity Embed module.
+
+embed.embed_type_settings.entity:
+  type: mapping
+  label: 'Schema for the entity embed type additions to an embed button entity'
+  mapping:
+    entity_type:
+      type: string
+      label: 'Entity type'
+    bundles:
+      type: sequence
+      label: 'Bundles'
+      sequence:
+        type: string
+        label: 'Bundle'
+    display_plugins:
+      type: sequence
+      label: 'Allowed display plugins'
+      sequence:
+        type: string
+        label: 'Display plugin'

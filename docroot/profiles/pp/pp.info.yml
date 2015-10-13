@@ -1,14 +1,43 @@
-name: CIBox initial profile
+name: PP
 type: profile
-description: 'Build a custom site without pre-configured functionality. Suitable for advanced users.'
-# version: VERSION
+description: 'Install with commonly used features pre-configured.'
 core: 8.x
 dependencies:
   - node
+  - history
   - block
-  - dblog
+  - breakpoint
+  - ckeditor
+  - color
+  - config
+  - comment
+  - contextual
+  - contact
+  - menu_link_content
+  - datetime
+  - block_content
+  - quickedit
+  - editor
+  - help
+  - image
+  - menu_ui
+  - options
+  - path
   - page_cache
   - dynamic_page_cache
+  - taxonomy
+  - dblog
+  - search
+  - shortcut
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  - tour
+  - automated_cron
 themes:
-  - stark
-
+  - bartik
+  - seven
+  - bartik_ymca

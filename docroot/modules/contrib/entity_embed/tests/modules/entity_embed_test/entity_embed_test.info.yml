@@ -1,0 +1,11 @@
+name: 'Entity Embed test'
+type: module
+description: 'Support module for the Entity Embed module tests.'
+core: 8.x
+package: Testing
+version: VERSION
+
+# Information added by drush on 2015-10-12
+version: '8.x-1.x-dev'
+project: 'entity_embed'
+datestamp: 1444646001
