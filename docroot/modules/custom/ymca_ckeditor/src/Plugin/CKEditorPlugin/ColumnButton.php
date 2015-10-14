@@ -23,7 +23,7 @@ use Drupal\editor\Entity\Editor;
 class ColumnButton extends PluginBase implements CKEditorPluginInterface, CKEditorPluginButtonsInterface {
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getButtons() {
     return array(
@@ -35,37 +35,38 @@ class ColumnButton extends PluginBase implements CKEditorPluginInterface, CKEdit
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function isInternal() {
     return FALSE;
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getDependencies(Editor $editor) {
     return array();
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getLibraries(Editor $editor) {
     return array();
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getFile() {
     return drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton/plugin.js';
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getConfig(Editor $editor) {
     return array();
   }
+
 }
