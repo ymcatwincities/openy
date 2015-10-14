@@ -29,7 +29,7 @@ class ColumnButton extends PluginBase implements CKEditorPluginInterface, CKEdit
     return array(
       'ColumnButton' => array(
         'label' => t('Columns'),
-        'image' => drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton/icon.png',
+        'image' => drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton/columnbutton.png',
       ),
     );
   }

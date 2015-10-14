@@ -4,3 +4,10 @@
  * @file
  * Contains ymca_ckeditor.module.
  */
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function ymca_ckeditor_page_attachments_alter(array &$attachments) {
+  $attachments['#attached']['library'][] = 'ymca_ckeditor/ymca-ckeditor';
+}
