@@ -16,23 +16,23 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
 
     if (REQUEST_TIME <= $start_date->getTimestamp()) {
       // Here will go content for before start date.
-      unset ($build['field_content_date_between']);
-      unset ($build['field_content_date_end']);
+      unset($build['field_content_date_between']);
+      unset($build['field_content_date_end']);
 
       // Cache to be invalidated when start time comes.
       $build['#cache']['max-age'] = $start_date->getTimestamp() - REQUEST_TIME;
     }
     elseif (REQUEST_TIME >= $end_date->getTimestamp()) {
       // Here will go content for after end date.
-      unset ($build['field_content_date_before']);
-      unset ($build['field_content_date_between']);
+      unset($build['field_content_date_before']);
+      unset($build['field_content_date_between']);
 
       // Ok, all the dates are behind. Cache permanently, by default.
     }
     else {
       // Here will go content for between dates.
-      unset ($build['field_content_date_before']);
-      unset ($build['field_content_date_end']);
+      unset($build['field_content_date_before']);
+      unset($build['field_content_date_end']);
 
       // Cache to be invalidated when end time comes.
       $build['#cache']['max-age'] = $end_date->getTimestamp() - REQUEST_TIME;
