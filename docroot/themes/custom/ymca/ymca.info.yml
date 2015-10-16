@@ -1,0 +1,18 @@
+name: YMCA
+type: theme
+description: 'YMCA specific theme'
+package: YMCA
+core: 8.x
+base theme: false
+libraries:
+  - ymca/global-styling
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  content: Content
+  footer: Footer
