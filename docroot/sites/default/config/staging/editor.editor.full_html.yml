@@ -39,7 +39,7 @@ settings:
             - DrupalImage
             - Table
             - HorizontalRule
-            - node
+            - block
             - ColumnButton
         -
           name: 'Block Formatting'
