@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_blocks.module.
+ */
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+  // Configure logic for date based blocks.
+  if ($entity->bundle() === 'date_block') {
+    $start_date = DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $entity->field_start_date->value, new DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $end_date = DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $entity->field_end_date->value, new DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+
+    if (REQUEST_TIME <= $start_date->getTimestamp()) {
+      // Here will go content for before start date.
+      unset ($build['field_content_date_between']);
+      unset ($build['field_content_date_end']);
+
+      // Cache to be invalidated when start time comes.
+      $build['#cache']['max-age'] = $start_date->getTimestamp() - REQUEST_TIME;
+    }
+    elseif (REQUEST_TIME >= $end_date->getTimestamp()) {
+      // Here will go content for after end date.
+      unset ($build['field_content_date_before']);
+      unset ($build['field_content_date_between']);
+
+      // Ok, all the dates are behind. Cache permanently, by default.
+    }
+    else {
+      // Here will go content for between dates.
+      unset ($build['field_content_date_before']);
+      unset ($build['field_content_date_end']);
+
+      // Cache to be invalidated when end time comes.
+      $build['#cache']['max-age'] = $end_date->getTimestamp() - REQUEST_TIME;
+    }
+
+    // Do not show date fields at all.
+    unset($build['field_start_date']);
+    unset($build['field_end_date']);
+  }
+}
