@@ -5,6 +5,7 @@ dependencies:
   config:
     - block_content.type.basic
     - block_content.type.date_block
+    - block_content.type.expander_block
   module:
     - block_content
     - entity_embed
@@ -16,6 +17,7 @@ type_settings:
   bundles:
     - basic
     - date_block
+    - expander_block
   display_plugins:
     - 'entity_reference:entity_reference_entity_view'
 icon_uuid: null
