@@ -1,0 +1,19 @@
+id: node.field_tags
+status: true
+langcode: en
+field_name: field_tags
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+  options_list_callback: null
+module: taxonomy
+active: true
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - taxonomy

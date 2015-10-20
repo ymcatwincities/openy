@@ -1,0 +1,13 @@
+name: 'Default content'
+type: module
+description: 'Imports default content when a module is enabled'
+package: Web services
+# core: 8.x
+dependencies:
+  - hal
+
+# Information added by Drupal.org packaging script on 2015-10-02
+version: '8.x-1.0-alpha2'
+core: '8.x'
+project: 'default_content'
+datestamp: 1443759248
