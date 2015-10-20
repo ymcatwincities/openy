@@ -6,6 +6,21 @@
  */
 
 /**
+ * Implements hook_theme().
+ */
+function ymca_blocks_theme($existing, $type, $theme, $path) {
+  return array(
+    'expander_block' => array(
+      'variables' => array(
+        'header' => NULL,
+        'content' => NULL,
+      ),
+      'template' => 'expander-block',
+    )
+  );
+}
+
+/**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
 function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
@@ -41,5 +56,18 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
     // Do not show date fields at all.
     hide($build['field_start_date']);
     hide($build['field_end_date']);
+  }
+  // Configure logic for expander block.
+  elseif ($entity->bundle() == 'expander_block') {
+    $build['expander'] = array(
+      '#theme' => 'expander_block',
+      '#header' => $build['field_block_header'],
+      '#content' => $build['field_block_content'],
+    );
+
+    $build['#attached']['library'][] = 'ymca_blocks/expander-block';
+
+    hide($build['field_block_header']);
+    hide($build['field_block_content']);
   }
 }
