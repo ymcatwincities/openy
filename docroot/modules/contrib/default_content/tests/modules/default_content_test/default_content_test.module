@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @file
+ * Defines sample default content for test purposes.
+ */

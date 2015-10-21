@@ -1,0 +1,19 @@
+id: node.page.field_tags
+status: true
+langcode: en
+field_name: field_tags
+entity_type: node
+bundle: page
+label: Tags
+description: 'Select the tag.'
+required: true
+default_value: {  }
+default_value_function: ''
+settings:
+  bundles:
+    - tags
+field_type: entity_reference
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.page
