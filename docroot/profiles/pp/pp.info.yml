@@ -36,6 +36,7 @@ dependencies:
   - views
   - views_ui
   - tour
+  - entity_embed
   - automated_cron
   - default_content
 themes:
