@@ -1,2 +1,5 @@
 sites/*/files
 sites/default/settings.php
+
+# Ignore sass cache files.
+*.sass-cache/
