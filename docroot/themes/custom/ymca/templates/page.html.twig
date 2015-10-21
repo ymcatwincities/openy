@@ -1,0 +1,283 @@
+{#
+/**
+ * @file
+ * Bartik's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ * - logo: The url of the logo image, as defined in theme settings.
+ * - site_name: The name of the site. This is empty when displaying the site
+ *   name has been disabled in the theme settings.
+ * - site_slogan: The slogan of the site. This is empty when displaying the site
+ *   slogan has been disabled in theme settings.
+
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.highlighted: Items for the highlighted region.
+ * - page.primary_menu: Items for the primary menu region.
+ * - page.secondary_menu: Items for the secondary menu region.
+ * - page.featured_top: Items for the featured top region.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.featured_bottom_first: Items for the first featured bottom region.
+ * - page.featured_bottom_second: Items for the second featured bottom region.
+ * - page.featured_bottom_third: Items for the third featured bottom region.
+ * - page.footer_first: Items for the first footer column.
+ * - page.footer_second: Items for the second footer column.
+ * - page.footer_third: Items for the third footer column.
+ * - page.footer_fourth: Items for the fourth footer column.
+ * - page.footer_fifth: Items for the fifth footer column.
+ * - page.breadcrumb: Items for the breadcrumb region.
+ *
+ * @see template_preprocess_page()
+ * @see bartik_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+<a href="#main" id="skip-link">Skip to main content</a>
+
+<div id="top"></div>
+
+<div id="sidebar" class="sidebar sidebar-left collapse width">
+    <form method="get" action="/search_results">
+        <div class="form-group col-xs-12">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="submit">Search</button>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-xs-12">
+        <a class="btn btn-block btn-default" href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">Sign In</a>
+    </div>
+    <ul id="sidebar-nav" class="nav-level-0 nav in"></ul>
+</div>
+
+<div class="viewport">
+    {{ page.secondary_menu }}
+    {{ page.header }}
+    <header id="page-head" class="page-head">
+        <div class="top-navs navbar-fixed-top" data-spy="affix" data-offset-top="1">
+            <article class="hidden-xs ">
+                <div id="site-search" class="site-search collapse">
+                    <div class="container search-container">
+                        <form action="/search_results" method="get">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control input-lg">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary btn-lg" type="submit">Search The Y</button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </form>
+                    </div>
+                </div>
+            </article>
+
+            <div id="support" class="hidden alert-tests alert alert-dismissable alert-warning alert-fixed">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <div class="container text-center">
+                    <span class="test test-js"> <strong>This site requires Javascript to function properly.</strong>
+                        Please enable Javascript.
+                    </span>
+                    <span class="test test-cookies"> <strong>This site requires Cookies to function properly.</strong>
+                        Please enable Cookies.
+                    </span>
+                    <span class="test test-modern-browser">
+                        <strong>You are using a version of Internet Explorer that is not optimized or supported.</strong>
+                        Some features may not work correctly. Upgrade to a
+                        <a href="http://whatbrowser.org" target="_blank">modern browser</a>
+                        such as
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer 9 or above</a>
+                        or
+                        <a href="http://google.com/chrome" target="_blank">Google Chrome</a>
+                        .
+                    </span>
+                </div>
+            </div>
+            <nav class="nav-global navbar-default navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ base_path }}">YMCA Twin Cities</a>
+                    </div>
+
+                    <ul id="utility-nav" class="nav navbar-nav pull-right hidden-xs">
+                        <li>
+                            <a href="/">YMCA Twin Cities</a>
+                        </li>
+                        <li>
+                            <a href="/membership/">Membership</a>
+                        </li>
+                        <li>
+                            <a href="/locations/">Locations</a>
+                        </li>
+                        <li>
+                            <a href="/all_y_schedules/">All Y Schedules</a>
+                        </li>
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        <li>
+                            <a href="/contact_us/">Contact</a>
+                        </li>
+                        <li>
+                            <a href="/give/">Give</a>
+                        </li>
+                        <li>
+                            <a href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">Sign In</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-link" data-toggle="collapse" href="#site-search">
+                                <span class="glyphicon glyphicon-search">
+                                    <span class="sr-only">Search</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+
+            {{ page.primary_menu }}
+
+        </div>
+
+    </header>
+
+    <div id="main" role="main" class="page-middle">
+        <div class="row breadcrumb-container hidden-xs">
+            <div class="container">
+                {{ page.breadcrumb }}
+            </div>
+        </div>
+        <section class="page-header page-title title-only">
+            <div class="container title-container">
+                <div class="row">
+                    <div class="col-sm-12 header-copy">
+                        {# TODO: output title #}
+                        <h1>{{ 404 }}</h1>
+                        {{ page.highlighted }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <section class="messages">
+                </section>
+
+                {{ page.content }}
+
+                {# TODO: replace test content with page content #}
+                <div class="row">
+                    <div class="col-sm-12 categories copy">
+                        <h1 id="component_146532">Page Not Found</h1>
+                        <article class="richtext" id="component_146533"><p>Sorry. The page you are looking for isn't here. You can click anywhere else on our navigation menu and begin once again.</p>
+                            <p>If you want to talk to someone, give us a call at 612-230-YMCA (9622).</p></article>
+                        <script type="text/javascript">
+                            /*<![CDATA[*/
+                            (function() {
+                                var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+                                sz.src = '//us1.siteimprove.com/js/siteanalyze_6004400.js';
+                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+                            })();
+                            /*]]>*/
+                        </script></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+    <!--googleoff: index-->
+    <footer id="page-footer" class="page-footer">
+        <div class="container">
+
+            {% if page.footer %}
+                {{ page.footer }}
+            {% endif %}
+
+
+            <div class="col-sm-3 text-center">
+
+                <a href="/" class="footer-brand brand">
+                    YMCA Twin Cities
+                    <small>
+                        For Youth Development
+                        <br/>
+                        For Healthy Living
+                        <br/>
+                        For Social Responsibility
+                    </small>
+                </a>
+            </div>
+
+            <nav class="col-sm-6">
+                <nav class="nav-footer row">
+                    {{ page.footer_menu }}
+                </nav>
+            </nav>
+            <div class="col-sm-3 social-disclaimer">
+                {{ page.footer_social }}
+                <p id="cw"></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
+
+    <section class="messages">
+    </section>
+
+<!--googleon: index-->
+</div>
+
+<!-- viewport -->
+<div id="modal" class="modal fade">
+    <div class="modal-cover"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+                <div id="modal-title" class="modal-title"></div>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+</div>
+
+{{ source("themes/custom/ymca/templates/template-scripts.html") }}
