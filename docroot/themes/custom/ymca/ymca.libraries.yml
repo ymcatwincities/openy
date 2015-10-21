@@ -2,17 +2,16 @@ global-styling:
   version: VERSION
   css:
     base:
-      css/bootstrap.min.css: {}
+      css/legacy/bootstrap.min.css: {}
     theme:
-      css/components.css: {}
+      css/legacy/components.css: {}
       css/style.css: {}
   js:
-    scripts/jquery-clockwork.js: {}
-    scripts/jquery-migrate.js: {}
+    scripts/legacy/jquery-clockwork.min.js: {}
+    scripts/legacy/jquery-migrate.min.js: {}
     scripts/init-templates.js: {}
-    scripts/bootstrap.min.js: {}
-    scripts/bootstrap.min.js: {}
-    scripts/plugins.min.js: {}
-    scripts/main.js: {}
+    scripts/legacy/bootstrap.min.js: {}
+    scripts/legacy/plugins.min.js: {}
+    scripts/legacy/main.min.js: {}
   dependencies:
     - core/jquery

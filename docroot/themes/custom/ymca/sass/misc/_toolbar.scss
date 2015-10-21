@@ -1,0 +1,14 @@
+.toolbar-tray-open.toolbar-fixed {
+  &.toolbar-horizontal {
+    .navbar-fixed-top {
+      margin-top: 79px;
+    }
+  }
+
+  &.toolbar-vertical {
+    .navbar-fixed-top {
+      left: 150px;
+      margin-top: 39px;
+    }
+  }
+}
