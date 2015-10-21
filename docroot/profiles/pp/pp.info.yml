@@ -37,7 +37,8 @@ dependencies:
   - views_ui
   - tour
   - automated_cron
+  - default_content
 themes:
   - bartik
   - seven
-  - bartik_ymca
+  - ymca
