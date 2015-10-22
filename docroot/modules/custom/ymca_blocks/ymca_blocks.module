@@ -16,7 +16,16 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
         'content' => NULL,
       ),
       'template' => 'expander-block',
-    )
+    ),
+    'promo_block' => array(
+      'variables' => array(
+        'header' => NULL,
+        'image' => NULL,
+        'content' => NULL,
+        'link' => NULL,
+      ),
+      'template' => 'promo-block',
+    ),
   );
 }
 
@@ -61,7 +70,7 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
     case 'expander_block':
       $build['expander'] = array(
         '#theme' => 'expander_block',
-        '#header' => $build['field_block_header'],
+        '#header' => \Drupal\Component\Utility\Html::escape($entity->field_block_header->value),
         '#content' => $build['field_block_content'],
       );
 
@@ -69,6 +78,21 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
 
       hide($build['field_block_header']);
       hide($build['field_block_content']);
+      break;
+
+    case 'promo_block':
+      $build['promo'] = array(
+        '#theme' => 'promo_block',
+        '#header' => \Drupal\Component\Utility\Html::escape($entity->field_block_header->value),
+        '#content' => $build['field_block_content'],
+        '#image' => $build['field_image'],
+        '#link' => $entity->field_link->uri,
+      );
+
+      hide($build['field_block_header']);
+      hide($build['field_block_content']);
+      hide($build['field_image']);
+      hide($build['field_link']);
       break;
   }
 }
