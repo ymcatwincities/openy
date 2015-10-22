@@ -1,11 +1,10 @@
+uuid: aea2d4cf-a8a0-48c0-ae1f-311bfb52a8b1
 langcode: en
-status: true
+status: false
 dependencies: {  }
 name: 'Restricted HTML'
 format: restricted_html
 weight: 0
-roles:
-  - anonymous
 filters:
   filter_html:
     id: filter_html

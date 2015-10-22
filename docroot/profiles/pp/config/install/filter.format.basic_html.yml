@@ -1,13 +1,12 @@
+uuid: 8bd15b37-bb0c-4828-8b00-e14aa5307e42
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - editor
 name: 'Basic HTML'
 format: basic_html
 weight: 0
-roles:
-  - authenticated
 filters:
   filter_html:
     id: filter_html
