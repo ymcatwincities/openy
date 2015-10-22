@@ -63,6 +63,7 @@
 #}
 {%
   set classes = [
+    'content',
     'node',
     'node--type-' ~ node.bundle|clean_class,
     node.isPromoted() ? 'node--promoted',
@@ -73,50 +74,33 @@
   ]
 %}
 {{ attach_library('classy/node') }}
-{% set sidebar_right = content.field_sidebar.0 is defined ? 1 : 0 %}
-{% set sidebar_navigation = content.field_sidebar_navigation.0['#markup'] == 1 ? 1 : 0 %}
-{% set article_class = (sidebar_navigation and sidebar_right) ? 'three-col' : sidebar_navigation ? 'sidebar-left' : sidebar_right ? 'sidebar-right' : 'no-cols' %}
 
-<article class="node clearfix {{ article_class }}">
-  <header>
-    <section class="header clearfix">
-      <div class="left">
-        <h1>{{ label }}</h1>
-        <p>{{ content.field_page_description }}</p>
-      </div>
-      <div class="right">
-        {{ content.field_header_image }}
-      </div>
-    </section>
-    <section class="lead clearfix">
-      <div class="left">{{ content.field_lead_description }}</div>
-      <div class="right">{{ content.field_lead_action }}</div>
-    </section>
-  </header>
-
-  {% if sidebar_navigation %}
-  <div class="col-left">
-    <div class="inner">
-      <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-      </ul>
+<section class="page-header page-title">
+  <div class="container title-container">
+    <div class="row">
+      {% include "themes/custom/ymca/templates/layout/node/node-header.html.twig" %}
     </div>
   </div>
-  {% endif %}
+</section>
 
-  {% if content.field_content %}
-  <div class="col-center">
-    <div class="inner">{{ content.field_content }}</div>
+<section class="lead-copy ">
+  <div class="container">
+    <div class="row">
+      {% include "themes/custom/ymca/templates/layout/node/node-lead.html.twig" %}
+    </div>
   </div>
-  {% endif %}
+</section>
 
-  {% if sidebar_right %}
-  <div class="col-right">
-    <div class="inner">{{ content.field_sidebar }}</div>
+<hr>
+
+<section{{ attributes.addClass(classes) }}>
+  <div class="container">
+
+    <section class="messages">
+    </section>
+
+    <div class="row">
+      {% include 'themes/custom/ymca/templates/layout/node/node-content.html.twig' %}
+    </div>
   </div>
-  {% endif %}
-
-</article>
+</section>

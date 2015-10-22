@@ -1,0 +1,25 @@
+{% set template = 'themes/custom/ymca/templates/layout/header/header-without-image.html.twig' %}
+{% if content.field_header_image.0 is defined %}
+  {% set template = 'themes/custom/ymca/templates/layout/header/header-with-image.html.twig' %}
+{% endif %}
+{% extends template %}
+
+{% block label_and_description %}
+  <h1>{{ label }}</h1>
+  <article class="richtext">
+    <p>{{ content.field_page_description }}</p>
+  </article>
+{% endblock %}
+
+{% block content_image %}
+  <figure class="text-center image_component">
+    {# TODO: Apply legacy attributes #}
+    {{ content.field_header_image }}
+    {#<img src="/_asset/ds30dv/masthead_health_fitness.jpg" class="img-responsive visible-xs" alt="" title="" border="0">#}
+  </figure>
+{% endblock %}
+
+{% block backgroundimage_url %}
+  {# TODO: Image style should be applied #}
+  {{ node.field_header_image.0.entity.url() }}
+{% endblock %}
