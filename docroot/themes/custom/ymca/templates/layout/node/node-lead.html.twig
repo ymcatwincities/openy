@@ -1,0 +1,16 @@
+{% set template = 'themes/custom/ymca/templates/layout/lead/lead-1col.html.twig' %}
+{% if content.field_lead_action.0 is defined %}
+  {% set template = 'themes/custom/ymca/templates/layout/lead/lead-2col.html.twig' %}
+{% endif %}
+{% extends template %}
+
+{% block lead_description %}
+  {{ content.field_lead_description }}
+{% endblock %}
+{% block call_to_action %}
+  {{ content.field_lead_action }}
+  <article class="richtext">
+    <h2 class="membership">Membership</h2>
+    <p>Perks include free Group Exercise classes, reduced rates on Personal Training and more. <a href="/membership/">TRY US FOR FREE</a>.</p>
+  </article>
+{% endblock %}

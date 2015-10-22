@@ -1,0 +1,19 @@
+{% if content.field_sidebar_navigation.0['#markup'] == '1' %}
+  {% set template = 'themes/custom/ymca/templates/layout/content/content-3col.html.twig' %}
+{% elseif content.field_sidebar.0 is defined %}
+  {% set template = 'themes/custom/ymca/templates/layout/content/content-2col.html.twig' %}
+{% else %}
+  {% set template = 'themes/custom/ymca/templates/layout/content/content-1col.html.twig' %}
+{% endif %}
+
+{% extends template %}
+
+{% block maincontent %}
+  <article class="richtext">
+    {{ content.field_content }}
+  </article>
+{% endblock %}
+
+{% block sidebar %}
+  {{ content.field_sidebar }}
+{% endblock %}
