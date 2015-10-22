@@ -6,6 +6,7 @@ dependencies:
     - block_content.type.basic
     - block_content.type.date_block
     - block_content.type.expander_block
+    - block_content.type.promo_block
   module:
     - block_content
     - entity_embed
@@ -18,6 +19,7 @@ type_settings:
     - basic
     - date_block
     - expander_block
+    - promo_block
   display_plugins:
     - 'entity_reference:entity_reference_entity_view'
 icon_uuid: null

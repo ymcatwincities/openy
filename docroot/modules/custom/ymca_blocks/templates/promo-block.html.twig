@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Promo block template.
+ *
+ * Available variables:
+ * - header: Block header.
+ * - content: Block content.
+ * - image: Image.
+ * - link: Link.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="promo-block">
+  <a href="{{ link }}">
+    {{ image }}
+    <h3>{{ header }}</h3>
+    <div class="content">{{ content }}</div>
+  </a>
+</div>
