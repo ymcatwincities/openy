@@ -39,6 +39,8 @@ dependencies:
   - entity_embed
   - automated_cron
   - default_content
+  - ymca_blocks
+  - ymca_ckeditor
 themes:
   - bartik
   - seven
