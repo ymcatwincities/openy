@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/12\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/15\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "6400fcf2-495b-41f2-b300-d852078531fc"
+            "value": "9255d01e-4c97-4f4c-bc00-a432f9716ee2"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Free Group Exercise Classes",
+            "value": "YMCA Twin Cities",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -47,7 +47,7 @@
     ],
     "weight": [
         {
-            "value": "0"
+            "value": "-50"
         }
     ],
     "expanded": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:ac689b70-886d-447f-ae57-87875e47538f"
-        }
-    ],
     "changed": [
         {
-            "value": "1445335646",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

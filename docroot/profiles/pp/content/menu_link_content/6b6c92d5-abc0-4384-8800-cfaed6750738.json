@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/10\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/22\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "182a83d0-f843-4e25-9822-34efca5fcf3d"
+            "value": "6b6c92d5-abc0-4384-8800-cfaed6750738"
         }
     ],
     "bundle": [
@@ -19,18 +19,18 @@
     ],
     "title": [
         {
-            "value": "Health & Fitness",
+            "value": "Sign In",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
         {
-            "uri": "internal:\/",
+            "uri": "internal:\/user\/login",
             "title": "",
             "options": []
         }
@@ -47,12 +47,12 @@
     ],
     "weight": [
         {
-            "value": "0"
+            "value": "-43"
         }
     ],
     "expanded": [
         {
-            "value": "1"
+            "value": "0"
         }
     ],
     "enabled": [
@@ -68,7 +68,7 @@
     ],
     "changed": [
         {
-            "value": "1445335548",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

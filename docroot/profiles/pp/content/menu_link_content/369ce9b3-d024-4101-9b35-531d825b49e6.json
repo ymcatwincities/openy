@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/13\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/17\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "134989d2-54d2-4a2a-a243-679da1c41aee"
+            "value": "369ce9b3-d024-4101-9b35-531d825b49e6"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Trainer-Led Classes",
+            "value": "Locations",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -47,12 +47,12 @@
     ],
     "weight": [
         {
-            "value": "0"
+            "value": "-48"
         }
     ],
     "expanded": [
         {
-            "value": "1"
+            "value": "0"
         }
     ],
     "enabled": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:182a83d0-f843-4e25-9822-34efca5fcf3d"
-        }
-    ],
     "changed": [
         {
-            "value": "1445336977",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

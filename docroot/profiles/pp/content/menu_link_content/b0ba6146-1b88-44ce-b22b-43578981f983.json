@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/15\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/19\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "95e780ba-9685-41d3-8400-b43632db35df"
+            "value": "b0ba6146-1b88-44ce-b22b-43578981f983"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Personal Training",
+            "value": "About",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -47,12 +47,12 @@
     ],
     "weight": [
         {
-            "value": "0"
+            "value": "-46"
         }
     ],
     "expanded": [
         {
-            "value": "1"
+            "value": "0"
         }
     ],
     "enabled": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:182a83d0-f843-4e25-9822-34efca5fcf3d"
-        }
-    ],
     "changed": [
         {
-            "value": "1445336972",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

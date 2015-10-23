@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/17\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/16\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "b6ef88bb-9955-4a17-a413-1982648094da"
+            "value": "8f6c0498-9766-4f80-8247-718a3f2c9fe7"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Metabolic Assessments",
+            "value": "Membership",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:95e780ba-9685-41d3-8400-b43632db35df"
-        }
-    ],
     "changed": [
         {
-            "value": "1445335784",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/14\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/20\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "d343984b-9a82-4b16-be05-5fad560d3faf"
+            "value": "2195b0e5-67df-40dc-bc00-ef99fe3b6ed3"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Trainer-Led Classes",
+            "value": "Contact",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -47,7 +47,7 @@
     ],
     "weight": [
         {
-            "value": "0"
+            "value": "-45"
         }
     ],
     "expanded": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:134989d2-54d2-4a2a-a243-679da1c41aee"
-        }
-    ],
     "changed": [
         {
-            "value": "1445335707",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/11\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/21\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "ac689b70-886d-447f-ae57-87875e47538f"
+            "value": "6bfa4e75-7857-485e-bc15-21c4f2d6a5c1"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Free Group Exercise Classes",
+            "value": "Give",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -47,12 +47,12 @@
     ],
     "weight": [
         {
-            "value": "0"
+            "value": "-44"
         }
     ],
     "expanded": [
         {
-            "value": "1"
+            "value": "0"
         }
     ],
     "enabled": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:182a83d0-f843-4e25-9822-34efca5fcf3d"
-        }
-    ],
     "changed": [
         {
-            "value": "1445336968",
+            "value": "1445526397",
             "lang": "en"
         }
     ],

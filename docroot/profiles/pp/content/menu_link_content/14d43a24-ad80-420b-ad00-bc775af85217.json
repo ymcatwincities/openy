@@ -1,7 +1,7 @@
 {
     "_links": {
         "self": {
-            "href": "http:\/\/default\/admin\/structure\/menu\/item\/16\/edit?_format=hal_json"
+            "href": "http:\/\/default\/admin\/structure\/menu\/item\/18\/edit?_format=hal_json"
         },
         "type": {
             "href": "http:\/\/drupal.org\/rest\/type\/menu_link_content\/menu_link_content"
@@ -9,7 +9,7 @@
     },
     "uuid": [
         {
-            "value": "0209b5e8-a707-4c24-a200-c455ca6d17ee"
+            "value": "14d43a24-ad80-420b-ad00-bc775af85217"
         }
     ],
     "bundle": [
@@ -19,13 +19,13 @@
     ],
     "title": [
         {
-            "value": "Personal Training",
+            "value": "All Y Schedules",
             "lang": "en"
         }
     ],
     "menu_name": [
         {
-            "value": "main"
+            "value": "top-menu"
         }
     ],
     "link": [
@@ -47,7 +47,7 @@
     ],
     "weight": [
         {
-            "value": "-50"
+            "value": "-47"
         }
     ],
     "expanded": [
@@ -66,14 +66,9 @@
             "lang": "en"
         }
     ],
-    "parent": [
-        {
-            "value": "menu_link_content:95e780ba-9685-41d3-8400-b43632db35df"
-        }
-    ],
     "changed": [
         {
-            "value": "1445335784",
+            "value": "1445526397",
             "lang": "en"
         }
     ],
