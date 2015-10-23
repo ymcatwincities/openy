@@ -6,8 +6,8 @@ package: Testing
 # core: 8.x
 hidden: true
 
-# Information added by Drupal.org packaging script on 2015-10-07
-version: '8.0.0-rc1'
+# Information added by Drupal.org packaging script on 2015-10-21
+version: '8.0.0-rc2'
 core: '8.x'
 project: 'drupal'
-datestamp: 1444253576
+datestamp: 1445469654
