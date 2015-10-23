@@ -7127,4 +7127,8 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-top: 39px;
 }
 
+.social-disclaimer .contextual-region .contextual .contextual-links li {
+  width: auto;
+}
+
 /*# sourceMappingURL=style.css.map */
