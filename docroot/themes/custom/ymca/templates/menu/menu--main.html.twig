@@ -65,7 +65,7 @@
       <li{{ ia }}>
         <strong>{{ item.title }}</strong>
         {% if item.below %}
-          {{ menus.menu_links_level_3(item.below, attributes, menu_level + 1) }}
+          {{ menus.menu_links_level_3(item.below, item, attributes, menu_level) }}
         {% endif %}
       </li>
     {% endfor %}
@@ -73,10 +73,15 @@
   {% endif %}
 {% endmacro %}
 
-{% macro menu_links_level_3(items, attributes, menu_level) %}
+{% macro menu_links_level_3(items, parent, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
     <ul class="nav-stacked nav">
+      {% set ia = parent.attributes %}
+      {% set ia = ia.addClass('nav-level-4') %}
+      <li{{ ia }}>
+        {{ link(parent.title, parent.url) }}
+      </li>
       {% for item in items %}
         {% set ia = item.attributes %}
         {% set ia = ia.addClass('nav-level-4') %}

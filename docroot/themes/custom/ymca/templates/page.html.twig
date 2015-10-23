@@ -80,7 +80,6 @@
 </div>
 
 <div class="viewport">
-    {{ page.secondary_menu }}
     {{ page.header }}
     <header id="page-head" class="page-head">
         <div class="top-navs navbar-fixed-top" data-spy="affix" data-offset-top="1">
@@ -132,39 +131,7 @@
                         <a class="navbar-brand" href="{{ base_path }}">YMCA Twin Cities</a>
                     </div>
 
-                    <ul id="utility-nav" class="nav navbar-nav pull-right hidden-xs">
-                        <li>
-                            <a href="/">YMCA Twin Cities</a>
-                        </li>
-                        <li>
-                            <a href="/membership/">Membership</a>
-                        </li>
-                        <li>
-                            <a href="/locations/">Locations</a>
-                        </li>
-                        <li>
-                            <a href="/all_y_schedules/">All Y Schedules</a>
-                        </li>
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        <li>
-                            <a href="/contact_us/">Contact</a>
-                        </li>
-                        <li>
-                            <a href="/give/">Give</a>
-                        </li>
-                        <li>
-                            <a href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">Sign In</a>
-                        </li>
-                        <li>
-                            <a class="btn btn-link" data-toggle="collapse" href="#site-search">
-                                <span class="glyphicon glyphicon-search">
-                                    <span class="sr-only">Search</span>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
+                  {{ page.secondary_menu }}
 
                 </div>
             </nav>
