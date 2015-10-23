@@ -1,0 +1,11 @@
+type: module
+name: File entity
+description: "Extends Drupal file entities to be fieldable and viewable."
+package: Media
+core: 8.x
+dependencies:
+  - file
+  - text
+  - views
+  - image
+configure: file_entity.settings

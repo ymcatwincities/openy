@@ -1,0 +1,21 @@
+<div id="{{ id }}" class="{{ classes }}"{{ attributes }}>
+
+  {{ title_prefix }}
+  {% if not page %}
+    <h2 {{ title_attributes }}><a href="{{ file_url }}">{{ label }}</a></h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if display_submitted %}
+    <div class="submitted">
+      {{ submitted }}
+    </div>
+  {% endif %}
+
+  <div class="content"{{ content_attributes }}>
+      {{ content|without('links') }}
+  </div>
+
+  {{ content.links }}
+
+</div>
