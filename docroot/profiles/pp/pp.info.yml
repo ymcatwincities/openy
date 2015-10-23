@@ -41,6 +41,7 @@ dependencies:
   - default_content
   - ymca_blocks
   - ymca_ckeditor
+  - file_entity
 themes:
   - bartik
   - seven

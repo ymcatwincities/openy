@@ -1,0 +1,66 @@
+file_entity.type.*:
+  type: config_entity
+  label: 'File type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    description:
+      type: text
+      label: 'Description'
+    mimetypes:
+      type: sequence
+      label: 'MIME types'
+      sequence:
+        - type: string
+          label: 'MIME type'
+
+file_entity.settings:
+  type: config_object
+  label: 'File Entity settings'
+  mapping:
+    max_filesize:
+      type: integer
+      label: 'Maximum upload size'
+    default_allowed_extensions:
+      type: string
+      label: 'Default allowed file extensions'
+    alt:
+      type: string
+      label: 'Alt attribute'
+    title:
+      type: string
+      label: 'Title attribute'
+    wizard_skip_file_type:
+      type: boolean
+      label: 'Skip filetype selection'
+    wizard_skip_scheme:
+      type: boolean
+      label: 'Skip scheme selection'
+    wizard_skip_fields:
+      type: boolean
+      label: 'Skip available fields'
+    allow_insecure_download:
+      type: boolean
+      label: Allow insecure downloads
+
+field.formatter.settings.file_image:
+  type: field.formatter.settings.image
+
+field.formatter.settings.file_size:
+  type: mapping
+
+action.configuration.file_delete_action:
+  type: action_configuration_default
+  label: 'Delete file configuration'
+
+action.configuration.file_permanent_action:
+  type: action_configuration_default
+  label: 'Set file to permanent configuration'
+
+action.configuration.file_temporary_action:
+  type: action_configuration_default
+  label: 'Set file to temporary configuration'
