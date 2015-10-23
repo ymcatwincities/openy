@@ -3,6 +3,7 @@ env:
   pre_settings: []
   modules:
     - { name: 'ymca_demo', status: true }
+    - { name: 'devel', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: false, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
