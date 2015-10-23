@@ -1,0 +1,15 @@
+krumo_path:
+  version: VERSION
+  js:
+    js/devel_krumo_path.js: {}
+devel:
+  version: 0
+  js:
+    js/devel.js: {}
+  css:
+    theme:
+      css/devel.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

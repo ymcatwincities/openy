@@ -1,0 +1,4 @@
+node_access:
+  version: VERSION
+  js:
+    devel_node_access.js: {}

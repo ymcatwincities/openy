@@ -1,0 +1,4 @@
+view devel_node_access information:
+  description: 'View the node access information blocks on node pages and the summary page.'
+  title: 'Access DNA information'
+  restrict access: TRUE

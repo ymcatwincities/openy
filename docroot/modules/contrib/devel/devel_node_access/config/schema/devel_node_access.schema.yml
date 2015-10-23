@@ -1,0 +1,12 @@
+# Schema for the configuration files of the Action module.
+
+devel_node_access.settings:
+  type: mapping
+  label: 'Devel node access settings'
+  mapping:
+    debug_mode:
+      type: boolean
+      label: 'Debug mode'
+    user_ajax:
+      type: boolean
+      label: 'User ajax'
