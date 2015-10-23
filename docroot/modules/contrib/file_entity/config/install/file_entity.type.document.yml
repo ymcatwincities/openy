@@ -1,0 +1,16 @@
+id: document
+label: Document
+description: 'A <em>Document</em> file is written information.'
+status: true
+mimetypes:
+  - 'text/plain'
+  - 'application/msword'
+  - 'application/vnd.ms-excel'
+  - 'application/pdf'
+  - 'application/vnd.ms-powerpoint'
+  - 'application/vnd.oasis.opendocument.text'
+  - 'application/vnd.oasis.opendocument.spreadsheet'
+  - 'application/vnd.oasis.opendocument.presentation'
+  - 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  - 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+  - 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
