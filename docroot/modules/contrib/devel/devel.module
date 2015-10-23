@@ -447,7 +447,7 @@ function devel_shutdown_real() {
   // Set $GLOBALS['devel_shutdown'] = FALSE in order to supress the
   // devel footer for a page.  Not necessary if your page outputs any
   // of the Content-type http headers tested below (e.g. text/xml,
-  // text/javascript, etc).  This is is advised where applicable.
+  // text/javascript, etc).  This is advised where applicable.
   if (!devel_silent() && !isset($GLOBALS['devel_shutdown']) && !isset($GLOBALS['devel_redirecting'])) {
 
     if (\Drupal::currentUser()->hasPermission('access devel information')) {

@@ -7,8 +7,8 @@ configure: admin/config/development/generate
 tags:
  - developer
 
-# Information added by Drupal.org packaging script on 2015-10-19
+# Information added by Drupal.org packaging script on 2015-10-21
 version: '8.x-1.x-dev'
 core: '8.x'
 project: 'devel'
-datestamp: 1445268859
+datestamp: 1445426655
