@@ -1,0 +1,18 @@
+services:
+  devel.event_subscriber:
+    class: Drupal\devel\EventSubscriber\DevelEventSubscriber
+    arguments: ['@config.factory', '@current_user', '@module_handler', '@url_generator']
+    tags:
+      - { name: event_subscriber }
+
+  devel.route_subscriber:
+    class: Drupal\devel\Routing\RouteSubscriber
+    arguments: ['@entity.manager']
+    tags:
+      - { name: event_subscriber }
+
+  devel.http_middleware:
+    class: Drupal\devel\StackMiddleware\DevelMiddleware
+    arguments: ['@config.factory']
+    tags:
+      - { name: http_middleware, priority: 350 }

@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function devel_node_access_uninstall() {
+  if (!\Drupal::moduleHandler()->moduleExists('devel') && ($devel_menu = menu_load('devel'))) {
+    // Delete the development menu.
+    $devel_menu->delete();
+  }
+}
