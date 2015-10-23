@@ -37,8 +37,10 @@
       {% set ia = item.attributes %}
       {% set ia = ia.addClass('dropdown nav-level-2') %}
       <li{{ item.attributes }}>
-        <a class="dropdown-toggle" data-toggle="dropdown">{{ item.title }}</a>
-        <b class="caret"></b>
+        <a class="dropdown-toggle" data-toggle="dropdown">
+          {{ item.title }}
+          <b class="caret"></b>
+        </a>
         <ul class="nav dropdown-menu">
           <li class="overview nav-level-3">
             {{ link(item.title, item.url) }}
