@@ -1,0 +1,60 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files: []
+  vars:
+    profile: pp
+    staging: sites/default/config/staging
+    exclude:
+      # Core modules configuration files:
+      - { name: 'core.extension.yml', status: true }
+      - { name: 'update.settings.yml', status: true }
+      - { name: 'system.action.comment_publish_action.yml', status: true }
+      - { name: 'system.action.comment_save_action.yml', status: true }
+      - { name: 'system.action.comment_unpublish_action.yml', status: true }
+      - { name: 'system.action.file_delete_action.yml', status: true }
+      - { name: 'system.action.file_permanent_action.yml', status: true }
+      - { name: 'system.action.file_temporary_action.yml', status: true }
+      - { name: 'system.action.node_delete_action.yml', status: true }
+      - { name: 'system.action.node_make_sticky_action.yml', status: true }
+      - { name: 'system.action.node_make_unsticky_action.yml', status: true }
+      - { name: 'system.action.node_promote_action.yml', status: true }
+      - { name: 'system.action.node_publish_action.yml', status: true }
+      - { name: 'system.action.node_save_action.yml', status: true }
+      - { name: 'system.action.node_unpromote_action.yml', status: true }
+      - { name: 'system.action.node_unpublish_action.yml', status: true }
+      - { name: 'system.action.user_add_role_action.administrator.yml', status: true }
+      - { name: 'system.action.user_block_user_action.yml', status: true }
+      - { name: 'system.action.user_cancel_user_action.yml', status: true }
+      - { name: 'system.action.user_remove_role_action.administrator.yml', status: true }
+      - { name: 'system.action.user_unblock_user_action.yml', status: true }
+      # Contributed modules config files:
+      - { name: 'embed.button.node.yml', status: true }
+      - { name: 'system.menu.devel.yml', status: true }
+      - { name: 'devel.settings.yml', status: true }
+
+
+  tasks:
+    - name: Export config
+      shell: drush config-export staging -y
+
+    - name: Remove excluded config files
+      file:
+        path: '{{ staging }}/{{ item.name }}'
+        state: absent
+      with_items: exclude
+
+    - name: Copy config to profile
+      synchronize:
+        src: '{{ staging }}/'
+        dest: profiles/{{ profile }}/config/install
+        delete: no
+        rsync_opts:
+          - '--exclude=.htaccess'
+
+    - name: Clean staging directory
+      shell: 'rm *.yml'
+      args:
+        chdir: '{{ staging }}'
