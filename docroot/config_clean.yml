@@ -45,6 +45,7 @@
         path: '{{ staging }}/{{ item.name }}'
         state: absent
       with_items: exclude
+      when: true == {{ item.status }}
 
     - name: Copy config to profile
       synchronize:
