@@ -1,0 +1,9 @@
+uuid: f0587e9c-df76-462e-831b-2760260f4bcf
+langcode: en
+status: true
+dependencies: {  }
+id: audio
+label: Audio
+description: 'An <em>Audio</em> file is a sound recording.'
+mimetypes:
+  - 'audio/*'
