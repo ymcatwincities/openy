@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Promo block template.
+ *
+ * Available variables:
+ * - header: Block header.
+ * - content: Block content.
+ * - image: Image.
+ * - link: Link.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<a class="wrapper" href="{{ link }}" title="{{ link_text }}">
+  {% if image.0 %}
+    <p>{{ image }}</p>
+  {% endif %}
+  <h3>{{ header }}</h3>
+  {{ content }}
+</a>
