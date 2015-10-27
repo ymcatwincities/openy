@@ -1,0 +1,5 @@
+migrate_tools.menu:
+  title: Migrations
+  parent: system.admin_structure
+  description: Manage migration processes.
+  route_name: entity.migration_group.list

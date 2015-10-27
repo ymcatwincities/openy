@@ -43,6 +43,9 @@ dependencies:
   - ymca_blocks
   - ymca_ckeditor
   - file_entity
+  - migrate
+  - migrate_plus
+  - migrate_tools
 themes:
   - bartik
   - seven

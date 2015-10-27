@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Set up source data and destination configuration for the migration example
+ * module. We do this in a separate module so migrate_example itself is a pure
+ * migration module.
+ */
+
+require_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'migrate_example_setup') . '/beer.install.inc';
+//require_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'migrate_example') . '/wine.install.inc';
+
+function migrate_example_setup_schema() {
+  $schema = migrate_example_beer_schema();
+//  $schema += migrate_example_wine_schema();
+  return $schema;
+}
+
+function migrate_example_setup_install() {
+  migrate_example_beer_install();
+}
