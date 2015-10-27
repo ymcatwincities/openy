@@ -1,0 +1,8 @@
+uuid: a6c15198-1921-4c3c-9055-854a7ac71664
+langcode: en
+status: true
+dependencies: {  }
+id: code_block
+label: 'Code Block'
+revision: 0
+description: 'A block with a code.'

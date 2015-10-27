@@ -9,3 +9,7 @@ is_admin: false
 permissions:
   - 'access content'
   - 'use text format restricted_html'
+  - 'view files'
+  - 'access comments'
+  - 'access site-wide contact form'
+  - 'search content'

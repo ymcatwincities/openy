@@ -1,0 +1,116 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files: []
+  vars:
+    profile: pp
+    staging: sites/default/config/staging
+    exclude:
+      # Core modules configuration files:
+      - { name: 'automated_cron.settings.yml', status: true }
+      - { name: 'block.block.bartik_account_menu.yml', status: true }
+      - { name: 'block.block.bartik_branding.yml', status: true }
+      - { name: 'block.block.bartik_breadcrumbs.yml', status: true }
+      - { name: 'block.block.bartik_content.yml', status: true }
+      - { name: 'block.block.bartik_footer.yml', status: true }
+      - { name: 'block.block.bartik_help.yml', status: true }
+      - { name: 'block.block.bartik_local_actions.yml', status: true }
+      - { name: 'block.block.bartik_local_tasks.yml', status: true }
+      - { name: 'block.block.bartik_main_menu.yml', status: true }
+      - { name: 'block.block.bartik_page_title.yml', status: true }
+      - { name: 'block.block.bartik_powered.yml', status: true }
+      - { name: 'block.block.bartik_search.yml', status: true }
+      - { name: 'block.block.bartik_tools.yml', status: true }
+      - { name: 'contact.form.feedback.yml', status: true }
+      - { name: 'contact.form.personal.yml', status: true }
+      - { name: 'contact.settings.yml', status: true }
+      - { name: 'core.date_format.fallback.yml', status: true }
+      - { name: 'core.date_format.html_datetime.yml', status: true }
+      - { name: 'core.date_format.html_date.yml', status: true }
+      - { name: 'core.date_format.html_month.yml', status: true }
+      - { name: 'core.date_format.html_time.yml', status: true }
+      - { name: 'core.date_format.html_week.yml', status: true }
+      - { name: 'core.date_format.html_yearless_date.yml', status: true }
+      - { name: 'core.date_format.html_year.yml', status: true }
+      - { name: 'core.date_format.long.yml', status: true }
+      - { name: 'core.date_format.medium.yml', status: true }
+      - { name: 'core.date_format.short.yml', status: true }
+      - { name: 'core.extension.yml', status: true }
+      - { name: 'dblog.settings.yml', status: true }
+      - { name: 'rdf.mapping.comment.comment.yml', status: true }
+      - { name: 'rdf.mapping.node.article.yml', status: true }
+      - { name: 'rdf.mapping.node.page.yml', status: true }
+      - { name: 'rdf.mapping.taxonomy_term.tags.yml', status: true }
+      - { name: 'rdf.mapping.user.user.yml', status: true }
+      - { name: 'search.page.node_search.yml', status: true }
+      - { name: 'search.page.user_search.yml', status: true }
+      - { name: 'search.settings.yml', status: true }
+      - { name: 'system.action.comment_publish_action.yml', status: true }
+      - { name: 'system.action.comment_save_action.yml', status: true }
+      - { name: 'system.action.comment_unpublish_action.yml', status: true }
+      - { name: 'system.action.file_delete_action.yml', status: true }
+      - { name: 'system.action.file_permanent_action.yml', status: true }
+      - { name: 'system.action.file_temporary_action.yml', status: true }
+      - { name: 'system.action.node_delete_action.yml', status: true }
+      - { name: 'system.action.node_make_sticky_action.yml', status: true }
+      - { name: 'system.action.node_make_unsticky_action.yml', status: true }
+      - { name: 'system.action.node_promote_action.yml', status: true }
+      - { name: 'system.action.node_publish_action.yml', status: true }
+      - { name: 'system.action.node_save_action.yml', status: true }
+      - { name: 'system.action.node_unpromote_action.yml', status: true }
+      - { name: 'system.action.node_unpublish_action.yml', status: true }
+      - { name: 'system.action.user_add_role_action.administrator.yml', status: true }
+      - { name: 'system.action.user_block_user_action.yml', status: true }
+      - { name: 'system.action.user_cancel_user_action.yml', status: true }
+      - { name: 'system.action.user_remove_role_action.administrator.yml', status: true }
+      - { name: 'system.action.user_unblock_user_action.yml', status: true }
+      - { name: 'update.settings.yml', status: true }
+      - { name: 'views.settings.yml', status: true }
+      - { name: 'views.view.archive.yml', status: true }
+      - { name: 'views.view.block_content.yml', status: true }
+      - { name: 'views.view.comments_recent.yml', status: true }
+      - { name: 'views.view.content_recent.yml', status: true }
+      - { name: 'views.view.content.yml', status: true }
+      - { name: 'views.view.file_entity_files.yml', status: true }
+      - { name: 'views.view.files.yml', status: true }
+      - { name: 'views.view.frontpage.yml', status: true }
+      - { name: 'views.view.glossary.yml', status: true }
+      - { name: 'views.view.taxonomy_term.yml', status: true }
+      - { name: 'views.view.user_admin_people.yml', status: true }
+      - { name: 'views.view.who_s_new.yml', status: true }
+      - { name: 'views.view.who_s_online.yml', status: true }
+      # Contributed modules config files:
+      - { name: 'devel.settings.yml', status: true }
+      - { name: 'embed.button.node.yml', status: true }
+      - { name: 'file_entity.settings.yml', status: true }
+      - { name: 'file_entity.type.audio.yml', status: true }
+      - { name: 'file_entity.type.document.yml', status: true }
+      - { name: 'file_entity.type.image.yml', status: true }
+      - { name: 'file_entity.type.video.yml', status: true }
+      - { name: 'system.menu.devel.yml', status: true }
+
+  tasks:
+    - name: Export config
+      shell: drush config-export staging -y
+
+    - name: Remove excluded config files
+      file:
+        path: '{{ staging }}/{{ item.name }}'
+        state: absent
+      with_items: exclude
+      when: true == {{ item.status }}
+
+    - name: Copy config to profile
+      synchronize:
+        src: '{{ staging }}/'
+        dest: profiles/{{ profile }}/config/install
+        delete: no
+        rsync_opts:
+          - '--exclude=.htaccess'
+
+    - name: Clean staging directory
+      shell: 'rm *.yml'
+      args:
+        chdir: '{{ staging }}'

@@ -1,8 +1,0 @@
-uuid: 5ef3db22-ec4f-42d8-9f00-e4a64016117f
-langcode: en
-status: true
-dependencies: {  }
-id: long
-label: 'Default long date'
-locked: false
-pattern: 'l, F j, Y - H:i'
