@@ -1,0 +1,27 @@
+id: ymca_migrate_block_content_basic
+label: Basic block migration.
+migration_group: ymca
+source:
+  plugin: embedded_data
+  data_rows:
+    - { id: 1, type: 'basic', info: 'Example block #1', body: 'Here the body...' }
+    - { id: 2, type: 'basic', info: 'Example block #2', body: 'Here the body...' }
+    - { id: 3, type: 'basic', info: 'Example block #3', body: 'Here the body...' }
+  ids:
+    id:
+      type: integer
+    type:
+      type: string
+    info:
+      type: string
+    body:
+      type: string
+process:
+  type: type
+  info: info
+  'body/value': body
+  'body/format':
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: entity:block_content

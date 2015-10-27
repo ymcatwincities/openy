@@ -1,0 +1,4 @@
+# A default group, assigned to any migrations with no explicit group.
+id: default
+label: Default
+description: A container for any migrations not explicitly assigned to a group.
