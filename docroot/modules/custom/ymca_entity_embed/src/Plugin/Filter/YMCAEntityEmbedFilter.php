@@ -33,8 +33,6 @@ use Drupal\entity_embed\Plugin\Filter\EntityEmbedFilter;
  * )
  */
 class YMCAEntityEmbedFilter extends EntityEmbedFilter implements ContainerFactoryPluginInterface {
-  use EntityHelperTrait;
-  use DomHelperTrait;
 
   /**
    * {@inheritdoc}
