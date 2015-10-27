@@ -90,6 +90,11 @@
       - { name: 'file_entity.type.image.yml', status: true }
       - { name: 'file_entity.type.video.yml', status: true }
       - { name: 'system.menu.devel.yml', status: true }
+      - { name: 'config_devel.settings.yml', status: true }
+      - { name: 'migrate_plus.migration_group.default.yml', status: true }
+      # Custom modules:
+      - { name: 'migrate.migration.ymca_block_content_basic.yml', status: true }
+      - { name: 'migrate_plus.migration_group.ymca.yml', status: true }
 
   tasks:
     - name: Export config
