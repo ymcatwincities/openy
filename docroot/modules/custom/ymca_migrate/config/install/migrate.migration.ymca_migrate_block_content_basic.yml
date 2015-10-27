@@ -1,4 +1,4 @@
-id: ymca_block_content_basic
+id: ymca_migrate_block_content_basic
 label: Basic block migration.
 migration_group: ymca
 source:
