@@ -3,11 +3,15 @@ env:
   pre_settings: []
   modules:
     - { name: 'ymca_demo', status: true }
+    - { name: 'ymca_migrate', status: true }
     - { name: 'devel', status: true }
+    - { name: 'config_inspector', status: true }
+    - { name: 'config_devel', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
+    - { name: 'migrate-import', status: true, arguments: "--group=ymca" }
   post_settings:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["cache"]["bins"]["render"]', status: true, value: 'cache.backend.memory' }
