@@ -1,0 +1,4 @@
+config_inspector:
+  css:
+    theme:
+      css/config_inspector.css: {}

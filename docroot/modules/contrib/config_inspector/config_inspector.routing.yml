@@ -1,0 +1,30 @@
+config_inspector.overview:
+  path: 'admin/config/development/configuration/inspect'
+  defaults:
+    _controller: '\Drupal\config_inspector\Controller\ConfigInspectorController::overview'
+  requirements:
+    _permission: 'inspect configuration'
+config_inspector.list_page:
+  path: 'admin/config/development/configuration/inspect/{name}/list'
+  defaults:
+    _controller: '\Drupal\config_inspector\Controller\ConfigInspectorController::getList'
+  requirements:
+    _permission: 'inspect configuration'
+config_inspector.tree_page:
+  path: 'admin/config/development/configuration/inspect/{name}/tree'
+  defaults:
+    _controller: '\Drupal\config_inspector\Controller\ConfigInspectorController::getTree'
+  requirements:
+    _permission: 'inspect configuration'
+config_inspector.form_page:
+  path: 'admin/config/development/configuration/inspect/{name}/form'
+  defaults:
+    _controller: '\Drupal\config_inspector\Controller\ConfigInspectorController::getForm'
+  requirements:
+    _permission: 'inspect configuration'
+config_inspector.raw_page:
+  path: 'admin/config/development/configuration/inspect/{name}/raw'
+  defaults:
+    _controller: '\Drupal\config_inspector\Controller\ConfigInspectorController::getRawData'
+  requirements:
+    _permission: 'inspect configuration'

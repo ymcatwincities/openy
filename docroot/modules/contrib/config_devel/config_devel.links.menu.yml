@@ -1,0 +1,5 @@
+config_devel.settings:
+  title: Config devel
+  description: 'Specify which configuration objects to automatically import/export.'
+  route_name: config_devel.settings
+  parent: system.admin_config_development

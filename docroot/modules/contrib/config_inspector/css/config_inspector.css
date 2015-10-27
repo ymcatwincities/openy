@@ -1,0 +1,10 @@
+.config-inspector-error .icon {
+  background: no-repeat center;
+    width: 16px;
+}
+.config-inspector-error .icon {
+  background-image: url(../icons/error.svg);
+}
+.no-svg .config-inspector-error .icon {
+  background-image: url(../icons/error.png);
+}
