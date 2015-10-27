@@ -43,6 +43,7 @@ dependencies:
   - ymca_blocks
   - ymca_ckeditor
   - file_entity
+  - ymca_styleguide
 themes:
   - bartik
   - seven
