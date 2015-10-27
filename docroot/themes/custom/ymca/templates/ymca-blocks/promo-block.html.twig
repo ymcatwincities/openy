@@ -13,12 +13,14 @@
  */
 #}
 
-<a class="wrapper" href="{{ link }}" title="{{ link_text }}">
-  {% if image.0 %}
-    <div class="img-crop img-crop-horizontal">
-      {{ image }}
-    </div>
-  {% endif %}
-  <h3>{{ header }}</h3>
-  {{ content }}
-</a>
+<article class="richtext">
+  <a class="wrapper" href="{{ link }}" title="{{ link_text }}">
+    {% if image.0 %}
+      <div class="img-crop img-crop-horizontal">
+        {{ image }}
+      </div>
+    {% endif %}
+    <h3>{{ header }}</h3>
+    {{ content }}
+  </a>
+</article>
