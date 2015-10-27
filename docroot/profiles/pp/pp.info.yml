@@ -37,6 +37,7 @@ dependencies:
   - views_ui
   - tour
   - entity_embed
+  - ymca_entity_embed
   - automated_cron
   - default_content
   - ymca_blocks
