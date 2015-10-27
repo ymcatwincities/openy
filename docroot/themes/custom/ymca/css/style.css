@@ -1,4 +1,7 @@
 @charset "UTF-8";
+/**
+* Main Colour Palette
+**/
 ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, input:-moz-placeholder {
   font-style: italic;
 }
@@ -6060,7 +6063,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   background: -webkit-linear-gradient(top, #4cc6f4 0, #02a6e8 100%);
   background: -o-linear-gradient(top, #4cc6f4 0, #02a6e8 100%);
   background: -ms-linear-gradient(top, #4cc6f4 0, #02a6e8 100%);
-  background: linear-gradient(to bottom, #4cc6f4 0, #02a6e8 100%);
+  background: linear-gradient(to bottom, #4cc6f4 0%, #02a6e8 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4cc6f4',endColorstr='#02a6e8',GradientType=0);
 }
 
@@ -7129,6 +7132,216 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
+}
+
+.sg-color {
+  color: #ffffff;
+  font-family: 'Cachet';
+  margin-bottom: 12px;
+  min-height: 50px;
+  padding: 12px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+.sg-color.bg-white {
+  border: 1px solid #636466;
+  color: #231f20;
+  padding: 11px;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-grey {
+  background-color: #636466;
+}
+
+.bg-black {
+  background-color: #231f20;
+}
+
+.bg-green-light {
+  background-color: #20bdbe;
+}
+
+.bg-green-medium {
+  background-color: #01a490;
+}
+
+.bg-green-dark {
+  background-color: #006b6b;
+}
+
+.bg-blue-light {
+  background-color: #00aeef;
+}
+
+.bg-blue-medium {
+  background-color: #0089d0;
+}
+
+.bg-blue-dark {
+  background-color: #0060af;
+}
+
+.bg-purple-light {
+  background-color: #c6168d;
+}
+
+.bg-purple-medium {
+  background-color: #92278f;
+}
+
+.bg-purple-dark {
+  background-color: #5c2e91;
+}
+
+.bg-red-light {
+  background-color: #f15922;
+}
+
+.bg-red-medium {
+  background-color: #ed1c24;
+}
+
+.bg-red-dark {
+  background-color: #a92b31;
+}
+
+.bg-orange-light {
+  background-color: #fcaf17;
+}
+
+.bg-orange-medium {
+  background-color: #f47920;
+}
+
+.bg-orange-dark {
+  background-color: #dd5828;
+}
+
+.bs-glyphicons-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.bs-glyphicons li {
+  float: left;
+  width: 25%;
+  height: 115px;
+  padding: 10px;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #fff;
+}
+
+.bs-glyphicons .glyphicon {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.bs-glyphicons .glyphicon-class {
+  display: block;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  .bs-glyphicons li {
+    width: 12.5%;
+    font-size: 12px;
+  }
+}
+.bs-example {
+  position: relative;
+  padding: 45px 15px 15px;
+  margin: 0 -15px 15px;
+  border-color: #e5e5e5 #eee #eee;
+  border-style: solid;
+  border-width: 1px 0;
+  -webkit-box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+.bs-example:after {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #959595;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  content: "Example";
+}
+
+@media (min-width: 768px) {
+  .bs-example {
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+}
+.highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+}
+.highlight pre {
+  background-color: transparent;
+  border: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  white-space: nowrap;
+  word-break: normal;
+}
+.highlight pre code {
+  background-color: transparent;
+  color: #333;
+  font-size: inherit;
+  padding: 0;
+}
+.highlight pre code:first-child {
+  display: inline-block;
+  padding-right: 45px;
+}
+.highlight pre code .nt {
+  color: #2f6f9f;
+}
+.highlight pre code .na {
+  color: #4f9fcf;
+}
+.highlight pre code .s {
+  color: #d44950;
+}
+
+.bs-example + .highlight {
+  margin: -15px -15px 15px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+@media (min-width: 768px) {
+  .bs-example + .highlight {
+    margin-top: -16px;
+    margin-right: 0;
+    margin-left: 0;
+    border-width: 1px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
