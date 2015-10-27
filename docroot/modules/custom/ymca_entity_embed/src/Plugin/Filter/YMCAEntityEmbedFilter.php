@@ -83,7 +83,7 @@ class YMCAEntityEmbedFilter extends EntityEmbedFilter implements ContainerFactor
             throw new EntityNotFoundException(sprintf('Unable to load embedded %s entity %s.', $entity_type, $id));
           }
         }
-        catch(\Exception $e) {
+        catch (\Exception $e) {
           watchdog_exception('entity_embed', $e);
         }
 
