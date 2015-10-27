@@ -35,3 +35,19 @@ function ymca_preprocess_breadcrumb(&$variables) {
     );
   }
 }
+
+/**
+ * Implements hook_preprocess_picture().
+ */
+function ymca_preprocess_picture(&$variables) {
+  // Add responsiveness.
+  $variables['attributes']['class'][] = 'img-responsive';
+}
+
+/**
+ * Implements hook_preprocess_image().
+ */
+function ymca_preprocess_image(&$variables) {
+  // Add responsiveness.
+  $variables['attributes']['class'][] = 'img-responsive';
+}
