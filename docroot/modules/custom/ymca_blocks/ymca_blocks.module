@@ -23,6 +23,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
         'image' => NULL,
         'content' => NULL,
         'link' => NULL,
+        'link_text' => NULL,
       ),
       'template' => 'promo-block',
     ),
@@ -87,6 +88,7 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
         '#content' => $build['field_block_content'],
         '#image' => $build['field_image'],
         '#link' => $entity->field_link->uri,
+        '#link_text' => $entity->field_link->title,
       );
 
       hide($build['field_block_header']);
