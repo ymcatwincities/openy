@@ -1,18 +1,18 @@
 <section class="content">
-<div class="container">
+<div class="container bs-docs-container">
 
   <div class="row">
 
     <div class="col-md-9">
       <div class="bs-docs-section">
-        <h1>Introduction</h1>
+        <h1 id="intro">Introduction</h1>
         <p class="lead"></p>
         <h2></h2>
         <p></p>
       </div>
 
       <div class="bs-docs-section">
-        <h1>Colours</h1>
+        <h1 id="colors">Colours</h1>
         <p class="lead"></p>
 
         <h2>Main palette</h2>
@@ -175,7 +175,7 @@
       </div>
 
       <div class="bs-docs-section">
-        <h1>Headings</h1>
+        <h1 id="headings">Headings</h1>
 
         <p class="lead">All HTML headings, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>, are available. <code>.h1</code> through <code>.h6</code> classes are also available, for when you want to match the font styling of a heading but still want your text to be displayed inline.</p>
 
@@ -224,9 +224,9 @@
       </div>
 
       <div class="bs-docs-section">
-        <h1>Text formats</h1>
+        <h1 id="typography">Text formats</h1>
 
-        <h2>Body</h2>
+        <h2 id="typography-body">Body</h2>
 
         <div class="bs-example">
           <p>
@@ -245,7 +245,7 @@
           </pre>
         </div>
 
-        <h2>Body lead</h2>
+        <h2 id="typography-bodylead">Body lead</h2>
 
         <p>Make a paragraph stand out by adding <code>.lead</code>.</p>
 
@@ -258,7 +258,7 @@
           </pre>
         </div>
 
-        <h2>Inline text elements</h2>
+        <h2 id="typography-inline">Inline text elements</h2>
 
         <h3>Marked text</h3>
         <div class="bs-example">
@@ -340,7 +340,35 @@
           </pre>
         </div>
 
-        <h2>Lists</h2>
+        <h2 id="typography-alignment">Alignment classes</h2>
+        <p>Easily realign text to components with text alignment classes.</p>
+        <div class="bs-example" data-example-id="text-alignment">
+          <p class="text-left">Left aligned text.</p>
+          <p class="text-center">Center aligned text.</p>
+          <p class="text-right">Right aligned text.</p>
+        </div>
+        <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-left"</span><span class="nt">&gt;</span>Left aligned text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-center"</span><span class="nt">&gt;</span>Center aligned text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-right"</span><span class="nt">&gt;</span>Right aligned text.<span class="nt">&lt;/p&gt;</span></code></pre></div>
+
+        <!-- Abbreviations -->
+        <h2 id="typography-abbreviations">Abbreviations</h2>
+        <p>Stylized implementation of HTML's <code>&lt;abbr&gt;</code> element for abbreviations and acronyms to show the expanded version on hover. Abbreviations with a <code>title</code> attribute have a light dotted bottom border and a help cursor on hover, providing additional context on hover and to users of assistive technologies.</p>
+
+        <h3>Basic abbreviation</h3>
+        <div class="bs-example" data-example-id="simple-abbr">
+          <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+        </div>
+        <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;abbr</span> <span class="na">title=</span><span class="s">"attribute"</span><span class="nt">&gt;</span>attr<span class="nt">&lt;/abbr&gt;</span></code></pre></div>
+
+        <h3>Initialism</h3>
+        <p>Add <code>.initialism</code> to an abbreviation for a slightly smaller font-size.</p>
+        <div class="bs-example" data-example-id="simple-initialism">
+          <p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr> is the best thing since sliced bread.</p>
+        </div>
+        <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;abbr</span> <span class="na">title=</span><span class="s">"HyperText Markup Language"</span> <span class="na">class=</span><span class="s">"initialism"</span><span class="nt">&gt;</span>HTML<span class="nt">&lt;/abbr&gt;</span></code></pre></div>
+
+        <h2 id="typography-lists">Lists</h2>
 
         <h3>Unordered</h3>
 
@@ -404,10 +432,96 @@
         </div>
 
 
+        <h2 id="typography-links">Links</h2>
+
+        <div class="bs-example">
+          This is a <a href="#">link</a>
+        </div>
+        <div class="highlight">
+          <pre>
+            <code class="language-html" data-lang="html">This is a <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>link<span class="nt">&lt;/a&gt;</span></code>
+          </pre>
+        </div>
+
+        <p>In case links is placed inside <code>&lt;h2&gt;</code> tags additional element is added</p>
+
+        <div class="bs-example">
+          <h1><a href="#">Header 1</a></h1>
+          <h2><a href="#">Header 2</a></h2>
+          <h3><a href="#">Header 3</a></h3>
+        </div>
+        <div class="highlight">
+          <pre>
+            <code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Header 1<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
+<span class="nt">&lt;h2&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Header 2<span class="nt">&lt;/a&gt;&lt;/h2&gt;</span>
+<span class="nt">&lt;h3&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Header 3<span class="nt">&lt;/a&gt;&lt;/h3&gt;</span></code>
+          </pre>
+        </div>
+
+        <p>Links can be stylized as button if inserted inside <code>&lt;p&gt;</code> tag with <code>.button</code> class</p>
+
+        <div class="bs-example">
+          <p class="button"><a href="#">Find Sea Turtle Classes</a></p>
+        </div>
+        <div class="highlight">
+          <pre>
+            <code class="language-html" data-lang="html">
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"button"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Find Sea Turtle Classes<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+            </code>
+          </pre>
+        </div>
+
         <p>typography, paragraphs, lists, links</p>
+        <p>http://www.ymcatwincities.org/swimming/swim_lessons/school-age_child/ collapsible</p>
+
+
+        <!-- Blockquotes -->
+        <h2 id="typography-blockquotes">Blockquotes</h2>
+        <p>For quoting blocks of content from another source within your document.</p>
+
+        <h3>Default blockquote</h3>
+        <p>Wrap <code>&lt;blockquote&gt;</code> around any <abbr title="HyperText Markup Language">HTML</abbr> as the quote. For straight quotes, we recommend a <code>&lt;p&gt;</code>.</p>
+        <div class="bs-example">
+          <blockquote>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+          </blockquote>
+        </div>
+        <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;blockquote&gt;</span>
+  <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/blockquote&gt;</span></code></pre></div>
+
+        <h3>Blockquote options</h3>
+        <p>Style and content changes for simple variations on a standard <code>&lt;blockquote&gt;</code>.</p>
+
+        <h4>Naming a source</h4>
+        <p>Add a <code>&lt;small&gt;</code> for identifying the source. Wrap the name of the source work in <code>&lt;cite&gt;</code>.</p>
+        <div class="bs-example">
+          <blockquote>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <small>Someone famous in <cite title="New York Police Department">NYPD</cite></small>
+          </blockquote>
+        </div>
+        <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;blockquote&gt;</span>
+  <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;small&gt;</span>Someone famous in <span class="nt">&lt;cite</span> <span class="na">title=</span><span class="s">"New York Police Department"</span><span class="nt">&gt;</span>NYPD<span class="nt">&lt;/cite&gt;&lt;/small&gt;</span>
+<span class="nt">&lt;/blockquote&gt;</span></code></pre></div>
+
+        <h4>Alternate displays</h4>
+        <p>Add <code>.text-right</code> for a blockquote with right-aligned content.</p>
+        <div class="bs-example" style="overflow: hidden;">
+          <blockquote class="text-right">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+          </blockquote>
+        </div>
+        <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;blockquote</span> <span class="na">class=</span><span class="s">"text-right"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/blockquote&gt;</span></code></pre></div>
+
+
       </div>
       <div class="bs-docs-section">
-        <h1>FONT-FACE ICONS</h1>
+        <h1 id="icons">FONT-FACE ICONS</h1>
 
         <p class="lead"></p>
 
@@ -1763,13 +1877,13 @@
         </p>
       </div>
       <div class="bs-docs-section">
-        <h1>Navigation</h1>
+        <h1 id="nav">Navigation</h1>
 
         <p class="lead"></p>
 
         <h2></h2>
 
-        <div class="bs-example" data-example-id="simple-pagination">
+        <div class="bs-example">
           <nav>
             <ul class="pagination">
               <li>
@@ -1818,7 +1932,7 @@
         <p></p>
       </div>
       <div class="bs-docs-section">
-        <h1>Image styles</h1>
+        <h1 id="imagestyles">Image styles</h1>
 
         <p class="lead"></p>
 
@@ -1827,7 +1941,7 @@
         <p></p>
       </div>
       <div class="bs-docs-section">
-        <h1>Embed media usage</h1>
+        <h1 id="media">Embed media usage</h1>
 
         <p class="lead"></p>
 
@@ -1838,7 +1952,7 @@
         <p></p>
       </div>
       <div class="bs-docs-section">
-        <h1>Grid</h1>
+        <h1 id="grid">Grid</h1>
 
         <p class="lead"></p>
 
@@ -1858,23 +1972,30 @@
     </div>
 
     <div class="col-md-3">
-      <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
-        <ul class="nav">
-          <li>Introduction</li>
-          <li>Colors</li>
-          <li>Typography</li>
-          <ul>
-            <li>Headings</li>
-            <li>Inline elements</li>
-            <li>Lists</li>
-            <li>Links</li>
-          </ul>
-          <li><s>Input groups – form elements</s></li>
-          <li>Icons</li>
-          <li>Navigation - pagination</li>
-          <li>Image styles</li>
-          <li>Embed media usage</li>
-          <li>Grid - BREAKPOINT BREAKDOWN (IN PIXELS)</li>
+      <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+        <ul class="nav bs-sidenav">
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#colors">Colors</a></li>
+          <li><a href="#headings">Headings</a></li>
+          <li>
+            <a href="#typography">Typography</a>
+            <ul class="nav">
+              <li><a href="#typography-body">Body</a></li>
+              <li><a href="#typography-bodylead">Body lead</a></li>
+              <li><a href="#typography-inline">Inline elements</a></li>
+              <li><a href="#typography-alignment">Alignment classes</a></li>
+              <li><a href="#typography-abbreviations">Abbreviations</a></li>
+              <li><a href="#typography-lists">Lists</a></li>
+              <li><a href="#typography-links">Links</a></li>
+              <li><a href="#typography-blockquotes">Blockquotes</a></li>
+            </ul>
+          </li>
+          <!--<li><s>Input groups – form elements</s></li>-->
+          <li><a href="#icons">Icons</a></li>
+          <li><a href="#nav">Navigation</a></li>
+          <li><a href="#imagestyles">Image styles</a></li>
+          <li><a href="#media">Embed media usage</a></li>
+          <li><a href="#grid">Grid system</a></li>
         </ul>
       </nav>
     </div>
