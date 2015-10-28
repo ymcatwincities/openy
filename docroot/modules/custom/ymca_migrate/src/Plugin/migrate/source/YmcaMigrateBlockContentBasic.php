@@ -52,4 +52,3 @@ class YmcaMigrateBlockContentBasic extends SqlBase {
   }
 
 }
-
