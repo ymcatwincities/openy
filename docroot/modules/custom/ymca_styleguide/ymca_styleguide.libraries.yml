@@ -1,0 +1,10 @@
+ymca_styleguide:
+  version: 0
+  css:
+    theme:
+      css/docs.css: {}
+      css/pygments-manni.css: {}
+  js:
+    js/docs.min.js: {}
+  dependencies:
+    - core/jquery
