@@ -20,6 +20,11 @@ class YMCAStyleGuideController extends ControllerBase {
   public function overview() {
     $build = [
       '#markup' => file_get_contents(__DIR__ . '/../../templates/overview.html'),
+      '#attached' => [
+        'library' => [
+          'ymca_styleguide/ymca_styleguide',
+        ],
+      ],
     ];
     return $build;
   }
