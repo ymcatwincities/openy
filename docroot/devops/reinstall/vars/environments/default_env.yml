@@ -8,6 +8,7 @@ env:
     - { name: 'config_inspector', status: true }
     - { name: 'config_devel', status: true }
   drush_commands:
+    - { name: 'sqlq', status: true, arguments: "--file=./modules/custom/ymca_migrate/misc/legacy.sql" }
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
