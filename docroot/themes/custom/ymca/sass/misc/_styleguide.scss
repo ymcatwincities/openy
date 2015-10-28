@@ -38,44 +38,6 @@
 .bg-orange-dark { background-color: $orange-dark; }
 
 
-// Icons
-
-.bs-glyphicons-list {
-  padding-left: 0;
-  list-style: none;
-}
-
-.bs-glyphicons li {
-  float: left;
-  width: 25%;
-  height: 115px;
-  padding: 10px;
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: center;
-  background-color: #f9f9f9;
-  border: 1px solid #fff;
-}
-
-.bs-glyphicons .glyphicon {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-.bs-glyphicons .glyphicon-class {
-  display: block;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-@media (min-width: 768px) {
-  .bs-glyphicons li {
-    width: 12.5%;
-    font-size: 12px;
-  }
-}
-
 .bs-example {
   position: relative;
   padding: 45px 15px 15px;
@@ -136,16 +98,6 @@
       &:first-child {
         display: inline-block;
         padding-right: 45px;
-      }
-
-      .nt {
-        color: #2f6f9f;
-      }
-      .na {
-        color: #4f9fcf;
-      }
-      .s {
-        color: #d44950;
       }
     }
   }

@@ -7222,41 +7222,6 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   background-color: #dd5828;
 }
 
-.bs-glyphicons-list {
-  padding-left: 0;
-  list-style: none;
-}
-
-.bs-glyphicons li {
-  float: left;
-  width: 25%;
-  height: 115px;
-  padding: 10px;
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: center;
-  background-color: #f9f9f9;
-  border: 1px solid #fff;
-}
-
-.bs-glyphicons .glyphicon {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-.bs-glyphicons .glyphicon-class {
-  display: block;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-@media (min-width: 768px) {
-  .bs-glyphicons li {
-    width: 12.5%;
-    font-size: 12px;
-  }
-}
 .bs-example {
   position: relative;
   padding: 45px 15px 15px;
@@ -7316,15 +7281,6 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 .highlight pre code:first-child {
   display: inline-block;
   padding-right: 45px;
-}
-.highlight pre code .nt {
-  color: #2f6f9f;
-}
-.highlight pre code .na {
-  color: #4f9fcf;
-}
-.highlight pre code .s {
-  color: #d44950;
 }
 
 .bs-example + .highlight {
