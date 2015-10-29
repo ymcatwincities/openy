@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Contains draggableviews.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function draggableviews_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the draggableviews module.
+    case 'help.page.draggableviews':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Complete rewrite of D7 draggableviews') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function draggableviews_views_data_alter(&$data) {
+
+  $data['draggableviews_structure']['weight'] = array(
+    'title' => t('Weight'),
+    'group' => t('Draggableviews'),
+    'field' => array(
+      'help' => t('Display the weight value.'),
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'help' => t('Sort entities by the draggableviews weight table field.'),
+      'handler' => 'draggableviews_handler_sort',
+    ),
+    'filter' => array(
+      'help' => t('Filter by the draggableviews weight value (Native handler only).'),
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['draggableviews_structure']['parent'] = array(
+    'title' => t('Parent'),
+    'help' => t('The parent entity id.'),
+    'group' => t('Draggableviews'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+    ),
+    'filter' => array(
+      'help' => t('Filter by the draggableviews parent\'s entity id (Native handler only).'),
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+
+  foreach (\Drupal::entityManager()->getDefinitions() as $entity_type_id => $entity_type) {
+    $base_table = $entity_type->getDataTable() ?: $entity_type->getBaseTable();
+    $entity_keys = $entity_type->getKeys();
+    if ($base_table && isset($data[$base_table]['table'])) {
+      $data[$base_table]['draggableviews'] = array(
+        'title' => $data[$base_table]['table']['group'],
+        'group' => t('Draggableviews'),
+        'help' => t('Provide a draggable functionality.'),
+        'entity field' => $entity_keys['id'],
+        'field' => array(
+          'id' => 'draggable_views_field',
+          'click sortable' => FALSE,
+        ),
+      );
+      // Explain to every entity how to join with draggableviews structure table.
+      $data['draggableviews_structure']['table']['join'][$base_table] = array(
+        'handler' => 'draggableviews_join_handler',
+        'left_table' => $base_table, // Because this is a direct link it could be left out.
+        'left_field' => $entity_keys['id'],
+        'field' => 'entity_id',
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter()
+ */
+function draggableviews_page_attachments_alter(&$page) {
+  $page['#attached']['library'][] = 'draggableviews/draggableviews_list';
+  $page['#attached']['library'][] = 'draggableviews/draggableviews_table';
+  $page['#attached']['drupalSettings']['draggableviews']['draggableviews_list']['draggableviews_row_class'] = 'views-field-draggableviews';
+}
