@@ -20,8 +20,6 @@ use Drupal\migrate\Row;
  */
 class YmcaMigrateFile extends SqlBase {
 
-  const URL_PREFIX = 'http://www.ymcatwincities.org/';
-
   /**
    * {@inheritdoc}
    */
@@ -62,12 +60,14 @@ class YmcaMigrateFile extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $url = self::URL_PREFIX . $row->getSourceProperty('url');
+    $config = \Drupal::config('ymca_migrate.settings');
+
+    $url = $config->get('url_prefix') . $row->getSourceProperty('url');
     $filename = basename($url);
     $row->setSourceProperty('name', $filename);
 
     // Use cached file if exists.
-    $cached = \Drupal::config('ymca_migrate.settings')->get('cache_dir') . '/' . $filename;
+    $cached = $config->get('cache_dir') . '/' . $filename;
     if (file_exists($cached)) {
       $file = file_get_contents($cached);
     }
@@ -78,7 +78,7 @@ class YmcaMigrateFile extends SqlBase {
 
     $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
     if ($file_uri === FALSE) {
-      throw new MigrateSkipRowException();
+      throw new MigrateSkipRowException(t('Cannot download %file.', array('%file' => $url)));
     }
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $row->setSourceProperty('filepath', $file_path);
