@@ -36,8 +36,11 @@ class DraggableViewsField extends Field {
   /**
    * {@inheritdoc}
    */
+  // @codingStandardsIgnoreStart
   public function render_item($count, $item) {
+    // @codingStandardsIgnoreEnd
     // Using internal method. @todo Reckeck after drupal stable release.
     return Markup::create('<!--form-item-' . $this->options['id'] . '--' . $this->view->row_index . '-->');
   }
+
 }

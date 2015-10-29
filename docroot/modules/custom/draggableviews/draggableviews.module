@@ -59,7 +59,8 @@ function draggableviews_views_data_alter(&$data) {
       // Explain to every entity how to join with draggableviews structure table.
       $data['draggableviews_structure']['table']['join'][$base_table] = array(
         'handler' => 'draggableviews_join_handler',
-        'left_table' => $base_table, // Because this is a direct link it could be left out.
+        // Because this is a direct link it could be left out.
+        'left_table' => $base_table,
         'left_field' => $entity_keys['id'],
         'field' => 'entity_id',
       );
@@ -68,7 +69,7 @@ function draggableviews_views_data_alter(&$data) {
 }
 
 /**
- * Implements hook_page_attachments_alter()
+ * Implements hook_page_attachments_alter().
  */
 function draggableviews_page_attachments_alter(&$page) {
   $page['#attached']['library'][] = 'draggableviews/draggableviews_list';
