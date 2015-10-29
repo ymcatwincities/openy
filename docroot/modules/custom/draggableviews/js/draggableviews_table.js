@@ -31,11 +31,11 @@
             }, 3000);
             $('<div class="draggableviews-changed-notice messages warning">' + Drupal.t('Order of this view has been changed.') + '</div>')
               .insertBefore($table).hide().fadeIn('slow').delay(3000).fadeOut('slow');
-          }
+          };
           // Hide Save button.
           $('#' + prop).parent().find('.form-actions input[id^="edit-submit"]').hide();
         }
       }
     }
-  }
+  };
 })(jQuery, Drupal, drupalSettings);

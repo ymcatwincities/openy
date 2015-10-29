@@ -46,5 +46,5 @@
     }
     });
   }
- }
+ };
 })(jQuery, Drupal, drupalSettings);
