@@ -77,7 +77,7 @@ function draggableviews_views_post_render(\Drupal\views\ViewExecutable $view, &$
     return;
   }
   // Add JavaScript for auto-save functionality.
-  if ($view->field['draggableviews']->displayHandler->usesAJAX())  {
+  if ($view->field['draggableviews']->displayHandler->usesAJAX()) {
     $output['#attached']['library'][] = 'draggableviews/draggableviews_table';
   }
 }
