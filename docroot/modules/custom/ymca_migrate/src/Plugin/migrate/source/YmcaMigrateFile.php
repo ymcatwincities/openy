@@ -21,7 +21,6 @@ use Drupal\migrate\Row;
 class YmcaMigrateFile extends SqlBase {
 
   const URL_PREFIX = 'http://www.ymcatwincities.org/';
-  const CACHE_DIR = '/var/www/cache';
 
   /**
    * {@inheritdoc}
