@@ -26,8 +26,8 @@ CREATE TABLE `legacy__file` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `legacy__file` (`id`, `url`) VALUES
-(1,	'http://www.ymcatwincities.org/_asset/qrq5fn/landing_promo_swim_lessons_050114.jpg'),
-(2,	'http://www.ymcatwincities.org/_asset/dbdh7e/landing_promo_sac_101715.jpg'),
-(3,	'http://www.ymcatwincities.org/_asset/3fcxe3/landing_promo_classes_080114.jpg');
+(1,	'_asset/qrq5fn/landing_promo_swim_lessons_050114.jpg'),
+(2,	'_asset/dbdh7e/landing_promo_sac_101715.jpg'),
+(3,	'_asset/3fcxe3/landing_promo_classes_080114.jpg');
 
--- 2015-10-29 08:31:52
+-- 2015-10-29 11:36:22

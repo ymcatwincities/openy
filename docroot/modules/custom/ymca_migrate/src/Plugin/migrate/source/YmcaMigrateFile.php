@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
@@ -18,6 +19,9 @@ use Drupal\migrate\Row;
  * )
  */
 class YmcaMigrateFile extends SqlBase {
+
+  const URL_PREFIX = 'http://www.ymcatwincities.org/';
+  const CACHE_DIR = '/var/www/cache';
 
   /**
    * {@inheritdoc}
@@ -59,12 +63,24 @@ class YmcaMigrateFile extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $url = $row->getSourceProperty('url');
+    $url = self::URL_PREFIX . $row->getSourceProperty('url');
     $filename = basename($url);
     $row->setSourceProperty('name', $filename);
 
-    $file = file_get_contents($url);
+    // Use cached file if exists.
+    $cached = self::CACHE_DIR . '/' . $filename;
+    if (file_exists($cached)) {
+      $file = file_get_contents($cached);
+    }
+    else {
+      $file = file_get_contents($url);
+      file_put_contents($cached, $file);
+    }
+
     $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
+    if ($file_uri === FALSE) {
+      throw new MigrateSkipRowException();
+    }
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $row->setSourceProperty('filepath', $file_path);
 
