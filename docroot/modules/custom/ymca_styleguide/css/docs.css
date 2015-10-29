@@ -1663,3 +1663,7 @@ h1[id] {
 .bs-example .promos article {
   margin-bottom: 20px;
 }
+
+.bs-docs-section-grid .pagination {
+  margin: 0;
+}
