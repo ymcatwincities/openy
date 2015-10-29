@@ -22,7 +22,7 @@ class YmcaMigrateBlockContentBasic extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('block_content_basic', 'b')
+    $query = $this->select('legacy__block_content_basic', 'b')
       ->fields('b', ['id', 'info', 'body']);
     return $query;
   }
@@ -32,6 +32,7 @@ class YmcaMigrateBlockContentBasic extends SqlBase {
    */
   public function fields() {
     $fields = [
+      'id' => $this->t('Block id'),
       'info' => $this->t('Block label'),
       'body' => $this->t('Body field value'),
     ];
