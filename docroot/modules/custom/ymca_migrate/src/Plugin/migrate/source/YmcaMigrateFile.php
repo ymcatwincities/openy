@@ -68,7 +68,7 @@ class YmcaMigrateFile extends SqlBase {
     $row->setSourceProperty('name', $filename);
 
     // Use cached file if exists.
-    $cached = self::CACHE_DIR . '/' . $filename;
+    $cached = \Drupal::config('ymca_migrate.settings')->get('cache_dir'). '/' . $filename;
     if (file_exists($cached)) {
       $file = file_get_contents($cached);
     }
