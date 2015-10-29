@@ -46,6 +46,7 @@ dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
+  - draggableviews
   - ymca_styleguide
 themes:
   - bartik
