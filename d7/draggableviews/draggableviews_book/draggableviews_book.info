@@ -1,0 +1,15 @@
+name = Draggableviews Book
+description = Reorder books
+package = Views
+core = 7.x
+
+files[] = draggableviews_book_views_handler_argument.inc
+
+dependencies[] = draggableviews
+dependencies[] = book
+; Information added by Drupal.org packaging script on 2015-07-11
+version = "7.x-2.1+9-dev"
+core = "7.x"
+project = "draggableviews"
+datestamp = "1436650744"
+
