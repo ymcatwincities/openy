@@ -23,6 +23,7 @@ class YMCAStyleGuideController extends ControllerBase {
       '#attached' => [
         'library' => [
           'ymca_styleguide/ymca_styleguide',
+          'ymca_styleguide/lightbox2',
         ],
       ],
     ];
