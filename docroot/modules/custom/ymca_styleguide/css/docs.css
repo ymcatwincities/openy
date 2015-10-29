@@ -911,6 +911,7 @@ h1[id] {
 
 .bs-example {
   position: relative;
+  overflow: hidden;
   padding: 45px 15px 15px;
   margin: 0 -15px 15px;
   border-color: #e5e5e5 #eee #eee;
@@ -1656,4 +1657,9 @@ h1[id] {
 }
 .toolbar-tray-open.toolbar-horizontal .docs-pointer {
   margin-top: -230px;
+}
+
+
+.bs-example .promos article {
+  margin-bottom: 20px;
 }

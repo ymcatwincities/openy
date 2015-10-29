@@ -431,6 +431,23 @@
           </pre>
         </div>
 
+        <h3>Checked</h3>
+
+        <div class="bs-example">
+          <ul class="list-ok-icon">
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipiscing elit</li>
+            <li>Eget porttitor lorem</li>
+          </ul>
+        </div>
+        <div class="highlight">
+          <pre>
+            <code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list-ok-icon"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code>
+          </pre>
+        </div>
+
 
         <h2 id="typography-links">Links</h2>
 
@@ -458,16 +475,42 @@
           </pre>
         </div>
 
-        <p>Links can be stylized as button if inserted inside <code>&lt;p&gt;</code> tag with <code>.button</code> class</p>
+        <p>In case link is referenced to PDF document additional element is added</p>
 
         <div class="bs-example">
-          <p class="button"><a href="#">Find Sea Turtle Classes</a></p>
+          <a href="http://www.ymcatwincities.org/_asset/vzvxon/Can-I-Participate-Form-English.pdf">Risk Assessment - English</a>
         </div>
         <div class="highlight">
           <pre>
-            <code class="language-html" data-lang="html">
-<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"button"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Find Sea Turtle Classes<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
-            </code>
+            <code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"doc.pdf"</span><span class="nt">&gt;</span>PDF Document<span class="nt">&lt;/a&gt;</span></code>
+          </pre>
+        </div>
+
+        <p>Link can be stylized as button if inserted inside <code>&lt;p&gt;</code> tag with <code>.button</code> class or if has <code>.button</code> class itself.</p>
+
+        <div class="bs-example">
+          <p class="button"><a href="#">Find Sea Turtle Classes</a></p>
+          <p><a href="#" class="button">I have .button</a> and <a href="#">I don't</a></p>
+        </div>
+        <div class="highlight">
+          <pre>
+            <code class="language-html" data-lang="html"><!--
+              --><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"button"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Find Sea Turtle Classes<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"button"</span><span class="nt">&gt;</span>I have .button<span class="nt">&lt;/a&gt;</span><!--
+              --></code>
+          </pre>
+        </div>
+
+        <p>Link appears as a greater blue button if inserted into a tag with <code>.button-solid-blue</code> class.</p>
+
+        <div class="bs-example">
+          <p class="button-solid-blue"><a href="#">Find Sea Turtle Classes</a></p>
+        </div>
+        <div class="highlight">
+          <pre>
+            <code class="language-html" data-lang="html"><!--
+              --><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"button-solid-blue"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Find Sea Turtle Classes<span class="nt">&lt;/a&gt;&lt;/p&gt;</span><!--
+              --></code>
           </pre>
         </div>
 
@@ -549,6 +592,32 @@
             <li>
               <span class="glyphicon icon-angle-right" aria-hidden="true"></span>
               <span class="glyphicon-class">glyphicon icon-angle-right</span>
+            </li>
+          </ul>
+
+          <div class="clearfix"></div>
+
+
+          <ul class="bs-glyphicons-list">
+            <li>
+              <span class="social-icon icon-facebook" aria-hidden="true"></span>
+              <span class="glyphicon-class">social-icon icon-facebook</span>
+            </li>
+            <li>
+              <span class="social-icon icon-youtube" aria-hidden="true"></span>
+              <span class="glyphicon-class">social-icon icon-youtube</span>
+            </li>
+            <li>
+              <span class="social-icon icon-pinterest" aria-hidden="true"></span>
+              <span class="glyphicon-class">social-icon icon-pinterest</span>
+            </li>
+            <li>
+              <span class="social-icon icon-twitter" aria-hidden="true"></span>
+              <span class="glyphicon-class">social-icon icon-twitter</span>
+            </li>
+            <li>
+              <span class="social-icon icon-flickr" aria-hidden="true"></span>
+              <span class="glyphicon-class">social-icon icon-flickr</span>
             </li>
           </ul>
 
@@ -1931,15 +2000,80 @@
 
         <p></p>
       </div>
+
       <div class="bs-docs-section">
-        <h1 id="imagestyles">Image styles</h1>
+        <h1 id="blocks">Embed blocks</h1>
 
-        <p class="lead"></p>
+        <p class="lead">There are several kinds of blocks that could be embeded via <abbr class="initialism" title="What You See Is What You Get">WYSIWYG</abbr>-editor</p>
 
-        <h2></h2>
+        <h2>Promo blocks</h2>
+
+        <p>Promo blocks are usually found in right sidebar</p>
+
+        <div class="bs-example" style="position:relative;overflow: hidden;">
+          <div class="col-md-4 sidebar-promos promos">
+            <article class="richtext">
+              <a class="wrapper" href="#" title="Learn more">
+                <div class="img-crop img-crop-horizontal">
+                  <img src="http://www.ymcatwincities.org/_asset/2dr7bk/landing_promo_group_training_050114.jpg" alt="Become a member" class="img-responsive">
+                </div>
+                <h2>Try Us for Free</h2>
+                <p>Promo block with image and link.</p>
+              </a>
+            </article>
+          </div>
+          <div class="col-md-4 sidebar-promos promos">
+            <article class="richtext">
+              <a class="wrapper" href="#" title="Learn more">
+                <h2>Try Us for Free</h2>
+                <p>Promo block without image.</p>
+              </a>
+            </article>
+          </div>
+          <div class="col-md-4 sidebar-promos promos">
+            <article class="richtext">
+              <div class="img-crop img-crop-horizontal">
+                <img src="http://www.ymcatwincities.org/_asset/2dr7bk/landing_promo_group_training_050114.jpg" alt="Become a member" class="img-responsive">
+              </div>
+              <h2>Try Us for Free</h2>
+              <p>Promo block without link.</p>
+            </article>
+          </div>
+        </div>
+
+        <h2>Expander blocks</h2>
+
+        <p>Expander block consists of a heading and a content and is collapsed by default.</p>
+
+        <div class="bs-example" style="position:relative;overflow: hidden;">
+          <article class="panel panel-default content-expander">
+            <div class="panel-heading">
+              <div class="panel-title">
+                <a class="accordion-toggle collapsed" data-parent=".panel-group" data-toggle="collapse" href="#collapse455088">
+                  <h3>Beginner</h3>
+                </a>
+              </div>
+            </div>
+            <div id="collapse455088" class="panel-collapse collapse" style="height: 0px;">
+              <div class="panel-body">
+                <article class="richtext">
+                  <h2>Goldfish</h2>
+                  <p>This class is for beginning swimmers who are comfortable putting their face in the water. Students learn to swim on their front and back with emphasis on independent pool entry and exit safety skills.</p>
+                  <p class="button"><a href="#">Find Goldfish Classes</a></p>
+                  <h2>Polliwog</h2>
+                  <p>This class is for swimmers who are well-adjusted to the water and eager to become more independent. Students learn to float independently for longer periods, and swim longer distances developing technique and form with floatation. They also learn more about pool and water safety.</p>
+                  <p class="button"><a href="#">Find Polliwog Classes</a></p>
+                </article>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <h2>Photo galleries</h2>
 
         <p></p>
       </div>
+
       <div class="bs-docs-section">
         <h1 id="media">Embed media usage</h1>
 
@@ -1993,7 +2127,7 @@
           <!--<li><s>Input groups – form elements</s></li>-->
           <li><a href="#icons">Icons</a></li>
           <li><a href="#nav">Navigation</a></li>
-          <li><a href="#imagestyles">Image styles</a></li>
+          <li><a href="#blocks">Embed blocks</a></li>
           <li><a href="#media">Embed media usage</a></li>
           <li><a href="#grid">Grid system</a></li>
         </ul>
