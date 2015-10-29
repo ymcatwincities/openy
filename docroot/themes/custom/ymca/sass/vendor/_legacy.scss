@@ -94,6 +94,18 @@ sup {
   content: "\f105";
 }
 
+.icon-laptop:before {
+  content: "\e900";
+}
+
+.icon-mobile:before {
+  content: "\e901";
+}
+
+.icon-tablet:before {
+  content: "\e902";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
