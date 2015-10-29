@@ -5,8 +5,6 @@
  * Contains draggableviews.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
-
 /**
  * Implements hook_views_data_alter().
  */
@@ -69,10 +67,17 @@ function draggableviews_views_data_alter(&$data) {
 }
 
 /**
- * Implements hook_page_attachments_alter().
+ * Implements hook_views_post_render().
  */
-function draggableviews_page_attachments_alter(&$page) {
-  $page['#attached']['library'][] = 'draggableviews/draggableviews_list';
-  $page['#attached']['library'][] = 'draggableviews/draggableviews_table';
-  $page['#attached']['drupalSettings']['draggableviews']['draggableviews_list']['draggableviews_row_class'] = 'views-field-draggableviews';
+function draggableviews_views_post_render(\Drupal\views\ViewExecutable $view, &$output, \Drupal\views\Plugin\views\cache\CachePluginBase $cache) {
+  // Porting of draggableviews_preprocess_views_view_table().
+
+  // If this view is not the sort view, then stop here.
+  if (!isset($view->field['draggableviews'])) {
+    return;
+  }
+  // Add JavaScript for auto-save functionality.
+  if ($view->field['draggableviews']->displayHandler->usesAJAX())  {
+    $output['#attached']['library'][] = 'draggableviews/draggableviews_table';
+  }
 }
