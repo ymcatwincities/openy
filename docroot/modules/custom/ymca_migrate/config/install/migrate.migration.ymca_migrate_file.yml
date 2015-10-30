@@ -1,6 +1,8 @@
 id: ymca_migrate_file
 label: Files migration
 migration_group: ymca
+migration_tags:
+  - file
 source:
   plugin: ymca_migrate_file
 process:
