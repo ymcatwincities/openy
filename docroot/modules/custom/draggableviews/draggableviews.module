@@ -13,18 +13,16 @@ function draggableviews_views_data_alter(&$data) {
   $data['draggableviews_structure']['weight'] = array(
     'title' => t('Weight'),
     'group' => t('Draggableviews'),
+    'help' => t('Display the weight value.'),
     'field' => array(
-      'help' => t('Display the weight value.'),
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
+      'id' => 'numeric',
     ),
     'sort' => array(
-      'help' => t('Sort entities by the draggableviews weight table field.'),
-      'handler' => 'draggableviews_handler_sort',
+      'id' => 'standard',
     ),
     'filter' => array(
       'help' => t('Filter by the draggableviews weight value (Native handler only).'),
-      'handler' => 'views_handler_filter_numeric',
+      'id' => 'numeric',
     ),
   );
   $data['draggableviews_structure']['parent'] = array(
@@ -32,11 +30,11 @@ function draggableviews_views_data_alter(&$data) {
     'help' => t('The parent entity id.'),
     'group' => t('Draggableviews'),
     'field' => array(
-      'handler' => 'views_handler_field_numeric',
+      'id' => 'numeric',
     ),
     'filter' => array(
       'help' => t('Filter by the draggableviews parent\'s entity id (Native handler only).'),
-      'handler' => 'views_handler_filter_numeric',
+      'id' => 'numeric',
     ),
   );
 
