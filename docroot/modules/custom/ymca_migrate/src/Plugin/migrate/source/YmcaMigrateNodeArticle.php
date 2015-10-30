@@ -50,7 +50,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // All the data blow we could fetch by making additional SQL requests.
+    // All the data below we could fetch by making additional SQL requests.
     $row->setSourceProperty('page_description', 'Here page description...');
     $row->setSourceProperty('lead_description', 'Here lead description...');
     $row->setSourceProperty('sidebar_navigation', 1);
