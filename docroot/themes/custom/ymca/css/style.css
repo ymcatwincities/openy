@@ -7316,7 +7316,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   }
 }
 .bs-example .carousel-caption {
-  margin-right: 0;
+  margin-right: 35px;
 }
 .bs-example .carousel-caption h1 {
   color: #fff;
