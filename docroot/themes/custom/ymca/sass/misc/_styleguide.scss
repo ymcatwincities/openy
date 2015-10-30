@@ -125,3 +125,12 @@ $sg-highlight-background: #f7f7f9;
   }
 }
 
+.bs-example {
+  .carousel-caption {
+    margin-right: 0;
+
+    h1 {
+      color: $white;
+    }
+  }
+}

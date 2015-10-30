@@ -7315,5 +7315,11 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
     margin-top: -16px;
   }
 }
+.bs-example .carousel-caption {
+  margin-right: 0;
+}
+.bs-example .carousel-caption h1 {
+  color: #fff;
+}
 
 /*# sourceMappingURL=style.css.map */
