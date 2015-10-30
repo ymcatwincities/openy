@@ -94,7 +94,9 @@
       - { name: 'migrate_plus.migration_group.default.yml', status: true }
       # Custom modules:
       - { name: 'migrate.migration.ymca_migrate_block_content_basic.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_block_content_promo_block.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_file.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_node_article.yml', status: true }
       - { name: 'migrate_plus.migration_group.ymca.yml', status: true }
       - { name: 'ymca_migrate.settings.yml', status: true }
 
