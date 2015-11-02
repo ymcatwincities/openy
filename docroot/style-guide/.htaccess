@@ -5,4 +5,4 @@ Options +Indexes
 Options +FollowSymLinks
 
 # Set the default handler.
-DirectoryIndex index.html
+DirectoryIndex styleguide.html
