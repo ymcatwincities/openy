@@ -63,8 +63,9 @@ class YmcaMigrateFile extends SqlBase {
     $config = \Drupal::config('ymca_migrate.settings');
 
     $url = $config->get('url_prefix') . $row->getSourceProperty('url');
-    $filename = basename($url);
-    $row->setSourceProperty('name', $filename);
+    $basename = basename($url);
+    $filename = md5($url) . '_' . $basename;
+    $row->setSourceProperty('name', $basename);
 
     // Use cached file if exists.
     $cached = $config->get('cache_dir') . '/' . $filename;
@@ -73,6 +74,7 @@ class YmcaMigrateFile extends SqlBase {
     }
     else {
       $file = file_get_contents($url);
+
       if ($file === FALSE) {
         $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
         $this->next();
