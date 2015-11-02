@@ -85,8 +85,6 @@ class YmcaMigrateFile extends SqlBase {
     }
 
     $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
-
-    $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Processing a file: @file', array('@file' => $url)), MigrationInterface::MESSAGE_INFORMATIONAL);
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $row->setSourceProperty('filepath', $file_path);
 
