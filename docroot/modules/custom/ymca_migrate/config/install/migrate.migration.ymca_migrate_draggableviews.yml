@@ -22,7 +22,10 @@ process:
   weight:
     plugin: default_value
     default_value: 10
-  parent: parent
+  parent:
+    plugin: migration
+    migration: ymca_migrate_node_article
+    source: parent
 destination:
   plugin: ymca_migrate_draggableviews
 migration_dependencies:

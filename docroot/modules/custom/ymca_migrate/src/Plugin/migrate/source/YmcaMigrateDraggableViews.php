@@ -25,7 +25,7 @@ class YmcaMigrateDraggableviews extends SqlBase {
    */
   public function query() {
     $query = $this->select('legacy__node_article', 'b')
-      ->fields('b', ['id']);
+      ->fields('b', ['id', 'parent']);
     return $query;
   }
 
@@ -44,13 +44,6 @@ class YmcaMigrateDraggableviews extends SqlBase {
     ];
 
     return $fields;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function prepareRow(Row $row) {
-    // @TODO: set parent id here...
   }
 
   /**
