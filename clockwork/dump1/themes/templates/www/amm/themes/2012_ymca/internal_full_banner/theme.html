@@ -1,0 +1,35 @@
+$include($site_themes_directory/templates/www/amm/themes/2012_ymca/_includes/header.html)
+[[ if content_area_4 ]]<section class="alerts"><h3>Special Alert</h3>$content_area_4</section>
+<a href="/alerts/index.xml" class="rss-link">Subscribe to Alerts</a>[[ end if content_area_4 ]]
+$include($site_themes_directory/templates/www/amm/themes/2012_ymca/_includes/top.html)
+<section id="main" class="internal jumbo-image no-sub[[ if ! content_area_2 ]] no-promo[[ end if content_area_2 ]]">
+	<div class="ctr">
+		[[ if content_area_3 ]]
+		<section id="slideshow">
+			$content_area_3
+		</section>
+		[[ end if content_area_3 ]]
+		[[ if ! content_area_3 ]]
+		$global_content_block_breadcrumbs
+		[[ end if content_area_3 ]]
+		<section class="content">
+				[[ if message ]]
+					<div class="message">$message
+						<ul>$start_loop_error_details
+							<li>$error_detail</li>
+							$end_loop_error_details
+						</ul>
+					</div>
+				[[ end if message ]]
+				
+				$content_area_1
+				$global_content_block_ratings
+		</section>
+		[[ if content_area_2 ]]
+		<section id="promos">
+			$content_area_2
+		</section>
+		[[ end if content_area_2 ]]
+	</div>
+</section>
+$include($site_themes_directory/templates/www/amm/themes/2012_ymca/_includes/footer.html)

@@ -1,0 +1,10 @@
+<div class="form-group">
+<label class="col-md-4 control-label select">$question_text <small>$include($optional_template) $include($required_template)</small></label>
+<div class="col-md-6">
+<select class="form-control [[ if required_template ]]required[[ end if required_template ]]">
+  $start_loop_responses
+  <option value="$value" $selected>$registration_question_response_esc</option>
+  $end_loop_responses
+</select>
+</div>
+</div>

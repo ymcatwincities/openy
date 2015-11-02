@@ -1,0 +1,22 @@
+[[ if notes: ]]
+
+Only renders in footer for larger YMCA pages
+
+[[ end if notes: ]]
+
+[[ if #none( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_home, theme_ymca_2013_camp_category_and_detail, 
+	theme_ymca_2013_camp_campaign_landing, theme_ymca_2013_camp_schedules, theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_home, theme_ymca_2013_location_campaign_landing, theme_ymca_2013_location_schedules, theme_ymca_2013_location_category_and_detail, theme_ymca_2013_errors ) ]]
+<section class="social-news social">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				$global_content_block_social
+			</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				$global_content_block_news
+			</div>
+		</div>
+	</div>
+</section>
+[[ end if #none( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_home, theme_ymca_2013_camp_category_and_detail, 
+	theme_ymca_2013_camp_campaign_landing, theme_ymca_2013_camp_schedules, theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_home, theme_ymca_2013_location_campaign_landing, theme_ymca_2013_location_schedules, theme_ymca_2013_location_category_and_detail, theme_ymca_2013_errors ) ]]

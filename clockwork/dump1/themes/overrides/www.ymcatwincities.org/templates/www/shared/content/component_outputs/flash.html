@@ -1,0 +1,22 @@
+<$component_tag class="flash_component $component_class" id="component_$component_id">
+	<div id="cw_flash_$component_id"></div>
+
+
+	<script language="JavaScript" type="text/javascript">
+		var flashvars = { };
+
+		var params = { 'align'  : 'middle',
+					   'salign' : 'lt' };
+
+		var attributes = { };
+		attributes.id = "myDynamicContent";
+		attributes.name = "myDynamicContent";
+
+		swfobject.embedSWF("$flash_src", "cw_flash_$component_id", "$width", "$height", "9.0.28","/amm/swf/expressInstall.swf", flashvars, params, attributes);
+
+	</script>
+	
+
+
+</$component_tag>
+

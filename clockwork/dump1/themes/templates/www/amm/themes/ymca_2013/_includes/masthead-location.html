@@ -1,0 +1,108 @@
+<section class="masthead location-masthead">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 back-link">
+				[[ if #any( theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_category_and_detail, 
+				theme_ymca_2013_location_campaign_landing, 
+				theme_ymca_2013_location_schedules, theme_ymca_2013_location_home ) ]]
+				<a href="/locations">Back to All Locations</a>
+				[[ end if #any( theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_category_and_detail, 
+				theme_ymca_2013_location_campaign_landing, 
+				theme_ymca_2013_location_schedules, theme_ymca_2013_location_home ) ]]
+				[[ if #any( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_category_and_detail, theme_ymca_2013_camp_campaign_landing, theme_ymca_2013_camp_schedules, theme_ymca_2013_camp_home ) ]]
+				<a href="/camps">Back to All Camps</a>
+				[[ end if #any( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_category_and_detail, theme_ymca_2013_camp_campaign_landing, theme_ymca_2013_camp_schedules, theme_ymca_2013_camp_home ) ]]
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<span class="masthead-brand">$content_area_95</span>
+			</div>
+			<div class="col-sm-4 text-center masthead-button" id="masthead-button">
+				[[ if #any( theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_category_and_detail, theme_ymca_2013_location_schedules, theme_ymca_2013_location_home ) ]]
+				$content_area_5
+				[[ end if #any( theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_category_and_detail, theme_ymca_2013_location_schedules, theme_ymca_2013_location_home ) ]]
+
+				[[ if #any( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_category_and_detail, theme_ymca_2013_camp_campaign_landing, theme_ymca_2013_camp_schedules, theme_ymca_2013_camp_home ) ]]
+				<a id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
+				[[ end if #any( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_category_and_detail, theme_ymca_2013_camp_campaign_landing, theme_ymca_2013_camp_schedules, theme_ymca_2013_camp_home ) ]]
+			</div>
+		</div>
+	</div>
+</section>
+<!--data-spy="affix" data-offset-top="144" -->
+<div class="location-details masthead-menu">
+	<div class="container">
+		<div class="row visible-xs">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-link location-hours-toggle" data-toggle="collapse" data-target="#directions-hours"><span class="glyphicon glyphicon-chevron-down pull-right"></span> Phone, Address and Hours</button>
+			</div>
+		</div>
+		<div class="row collapse directions-hours" id="directions-hours">
+			<div class="directions-hours-inner">
+				<div class="col-sm-3 col-md-2 phone clearfix">
+					<span class="tel">
+						<span class="glyphicon glyphicon-earphone bullet"></span>
+						$content_area_96
+						<span class="visible-xs">
+							<a class="call" target="_blank">
+								Call
+
+							</a>
+						</span>
+					</span>
+				</div>
+				<hr class="visible-xs">
+				<div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
+					<span class="glyphicon glyphicon-map-marker bullet"></span>
+					$content_area_97
+						<br class="visible-xs" />
+						<a class="directions" target="_blank">
+							<!-- <span class="hidden-sm"> -->
+							Directions
+							<!-- </span> -->
+							<span class="glyphicon glyphicon-share"></span>
+						</a>
+				</div>
+
+				<hr class="visible-xs">
+				<div class="hours col-lg-4 col-md-4 col-sm-4 clearfix">
+					[[ if #any( theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_category_and_detail, theme_ymca_2013_location_schedules, theme_ymca_2013_location_home ) ]]					
+					<span class="glyphicon glyphicon-time bullet"></span>
+					Today:
+					<time id="todays-hours"></time>
+					<span class="hidden-xs">
+					<a
+							data-toggle="collapse"
+							data-target="#all-hours"
+							class="hours-toggle">
+						All Hours
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</a>
+					</span>
+					[[ end if #any( theme_ymca_2013_location_primary_landing, theme_ymca_2013_location_category_and_detail, theme_ymca_2013_location_schedules, theme_ymca_2013_location_home ) ]]
+
+					[[ if #any( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_category_and_detail, theme_ymca_2013_camp_schedules, theme_ymca_2013_camp_home ) ]]
+
+					<a
+						data-toggle="collapse"
+						data-target="#all-hours"
+						class="hours-toggle hidden-xs">
+						Camp Office
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</a>
+
+					[[ end if #any( theme_ymca_2013_camp_primary_landing, theme_ymca_2013_camp_category_and_detail, theme_ymca_2013_camp_schedules, theme_ymca_2013_camp_home ) ]]
+					<div class="row mobile-hours visible-xs">
+						<div class="col-xs-12">
+							$content_area_98
+						</div>
+					</div>
+					<div id="all-hours" class="all-hours collapse">
+						<div class="hidden-xs">$content_area_98</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

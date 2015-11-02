@@ -1,0 +1,281 @@
+/***** Styles for AMM NAME *****/
+/* This site runs like Clockwork (http://www.clockwork.net/). */ 
+body, td, th, input, textarea, select {
+	font-family: Arial, Helvetica, sans-serif;  
+	font-size: 11px;
+}
+body {
+	margin: 0;
+	padding: 0; 
+	background: #eee;
+}                   
+#wrapper { 
+	margin: 0 auto;
+	padding: 0 12px 75px 12px;
+	background: #e4e4e4;
+	width: 752px; 
+	height: auto;
+}
+#content_wrapper { 
+	margin: 0;
+	padding: 0;
+	background: #e4e4e4;
+	width: 750px;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc; 
+	border-bottom: 1px solid #ccc; 
+	min-height: 500px;
+} 
+#header { 
+	margin: 0;
+	padding: 20px;
+    width: 710px;
+ 	height: 105px;
+	background-image: url(/amm/themes/default_shared/images/header_bg.jpg);
+	background-repeat: repeat-x; 
+	border-bottom: 1px solid #ccc; 
+	text-align: center;
+}     
+#main_nav { 
+	margin: 0;
+	padding: 0;
+    width: 750px;
+ 	height: 38px;
+	background-image: url(/amm/themes/default_shared/images/nav_bg.jpg);
+	background-repeat: repeat-x;                               
+	
+}   
+#main_nav ul { 
+	margin: 0;
+	padding: 0;
+	list-style: none;
+} 
+#main_nav ul li { 
+	margin: 0;
+	padding: 9px 0 0 0; 
+	float: left;
+	height: 23px;
+	border-right: 1px solid #ccc;    
+}  
+#main_nav ul li a {
+	margin: 0;         
+	padding: 10px 15px; 
+	font-size: 11px;
+	color: #999999;
+	font-weight: bold;
+	text-decoration: none;       
+	
+}     
+#main_nav ul li a:hover {
+	margin: 0;                   
+	padding: 10px 15px; 
+	font-size: 11px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;       
+ 
+}            
+#main_nav ul li.current a {
+	font-weight: bold;
+	color: #333;
+}
+#content { 
+	margin: 0;
+	padding: 0;
+    width: 750px;  
+	min-height: 500px;
+ 	background-image: url(/amm/themes/default_shared/images/content_bg.jpg);
+	background-repeat: repeat-y;                       
+} 
+#content_left, #content_right {
+	float: left;
+}
+#content_left {
+	width: 465px; 
+	padding: 10px 30px 20px 30px;
+}               
+#content_right {
+	width: 185px; 
+	padding: 10px 20px;
+}          
+#content_right ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;   
+	border-right: 1px solid #e2e2e2;   
+	border-left: 1px solid #e2e2e2;   
+}                   
+#content_right ul li {
+	margin: 0;
+	padding: 0; 
+
+	
+}              
+#content_right ul li a {
+	margin: 0;                  
+	display: block;     
+	font-size: 11px;
+	color: #999999;   
+    font-weight: bold;
+	text-decoration: none;
+	padding: 10px 15px;  
+	height: 12px; 
+   border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid #e2e2e2;
+}     
+#content_right ul li a:hover {
+	margin: 0;                  
+	display: block;     
+	font-size: 11px;
+	color: #fff;
+    font-weight: bold;
+	text-decoration: none;
+	padding: 10px 15px; 
+	height: 12px; 
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid #e2e2e2; 
+}  
+#footer { 
+	margin: 0;
+	padding: 0;
+	width: 752px; 
+	text-align: center;
+}  
+#footer p { 
+	color: #707070;
+}
+
+
+/* General Styles */  
+
+a:link, a:visited {
+	color:#333;
+}                
+a:hover, a:active {
+	color:#333;
+}
+blockquote { 
+	color: #333; 
+}      
+.message, .errortext {     
+	color: #b91418;    
+	font-weight: normal;
+}
+
+a.clockwork:link {      
+	font-size: 11px;
+	color: #707070;
+	text-decoration: underline;
+}
+a.clockwork:visited {
+	color: #707070;
+	text-decoration: underline;
+}
+a.clockwork:hover {
+	color: #707070;
+	text-decoration: underline;
+}
+
+a.clockwork:active {
+	color: #707070;
+}
+.clear { 
+	clear: both; 
+}   
+
+p {                     
+	font-size: 11px;
+	color: #333333;
+	line-height: 16px;
+}
+h1, .hd1 {              
+	font-size: 24px;
+	font-weight: normal;
+	color: #000000;
+	line-height: 27px;
+}
+h2, .hd2 {              
+	font-size: 14px;
+	line-height: 16px;
+	font-weight: bold;
+	color: #333333;
+}
+h3, .hd3 {              
+	font-size: 13px;
+	line-height: 15px;
+	font-weight: normal;
+	color: #666666;
+}
+h4, .hd4 {              
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;
+	line-height: 27px;
+}
+h5, .hd5 {              
+	font-size: 12px;
+	line-height: 16px;
+	font-weight: bold;
+	color: #333333;
+}
+h6, .hd6 {              
+	font-size: 11px;
+	line-height: 15px;
+	font-weight: normal;
+	color: #666666;
+}   
+
+
+/* gallery index component */
+
+div.gallery_index {
+       margin: 0px;
+       padding: 0px;
+}
+
+div.gallery_index ul {
+       list-style-type: none;
+       margin: 0px;
+       padding: 0px;
+}
+
+div.gallery_index ul li {
+       margin: 0px;
+       padding: 2px;
+       float: left;
+}
+
+div.gallery_index img {
+       border: 0px;
+
+}
+
+
+/* ACE product detail component */
+
+table.pricing_scheme {
+	margin: 0px;
+	padding: 0em;
+	border-collapse: collapse;
+	border: 1px solid;
+}
+
+table.pricing_scheme tr {
+	margin: 0px;
+	padding: 0em;
+}
+
+table.pricing_scheme th {
+	font-weight: bold;
+	background-color: silver;
+	margin: 0px;
+	padding: 0.25em;
+	border: 1px solid;
+}
+
+table.pricing_scheme td {
+	margin: 0px;
+	padding: 0.25em;
+	border: 1px solid;
+}
+

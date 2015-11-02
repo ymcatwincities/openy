@@ -1,0 +1,45 @@
+<header>
+	<div class="ctr">
+	<nav class="utility">
+			$ymca_utility_2011_nav
+			$global_content_block_login
+		<form action="/search_results/">
+			<label for="search">Search</label>
+			<input name="q" placeholder="Enter keywords" id="search" />
+			<button class="notranslate" type="submit"><span>search</span></button>
+		</form>
+		<div id="google_translate_element"></div>
+		<script>
+			(function(d,s,id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'google-translate-script'));
+		</script>
+		<script>
+		function googleTranslateElementInit() {
+		  new google.translate.TranslateElement({
+		    pageLanguage: 'en',
+		    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+		  }, 'google_translate_element');
+		}
+		</script>
+	</nav>
+    <hgroup>
+		<h2><a href="$home_page_url">The YMCA</a></h2>
+		<h3 class="notranslate">For Youth Development <sup>&trade;</sup><br/>
+			For Healthy Living<br/>
+			For Social Responsibility
+		</h3>
+    </hgroup>
+	</div>
+</header>
+<nav class="primary">
+	<header>
+	<h4 class="notranslate">YMCA Twin Cities</h4>
+	$global_content_block_ymca_alt_2011
+	</header>
+	$global_content_block_ymca_primary_2011
+</nav>

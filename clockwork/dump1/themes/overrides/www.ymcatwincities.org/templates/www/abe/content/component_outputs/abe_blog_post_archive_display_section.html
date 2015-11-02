@@ -1,0 +1,39 @@
+<!-- Section Archive View -->
+<div id="blog_archive">
+    <span class="blog_archive_message">$archive_message</span>
+    <ul id="blog_archive_list" class="blog_archive_list">
+    $start_loop_months
+        <li class="blog_archive_list_month" id="blog_archive_month_$year_$month">
+            $month, $year
+            <ul>
+                $start_loop_days
+                <li class="blog_archive_list_day" id="blog_archive_day_$blog_entry_date">
+                    $day, $month, $date, $year
+                    <ul>
+                        $start_loop_posts
+                        <li class="blog_archive_list_post" id="blog_archive_post_$blog_post_id">
+                            <div class="blog_archive_title" id="title_$blog_post_id"><a href="$permalink">$title_esc</a> | <a href="$blog_url">$blog_name</a></div>
+                            <div id="author_$blog_post_id" class="blog_archive_author">$author_esc</div>
+                            <div class="blog_archive_excerpt" id="excerpt_$blog_post_id">$excerpt_components</div>
+                        </li>
+                        $end_loop_posts
+                    </ul>
+                </li>
+                $end_loop_days
+            </ul>
+
+        </li>
+    $end_loop_months
+    </ul>
+</div>
+
+<!-- Pagination -->
+$start_loop_pages
+<div id="blog_pagination">
+    <ul id="blog_archive_pagination">
+    $start_loop_pagination_links
+        <li>$page</li>
+    $end_loop_pagination_links
+    </ul>
+</div>
+$end_loop_pages

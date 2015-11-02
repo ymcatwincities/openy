@@ -1,0 +1,183 @@
+<div id="component_$component_id">
+	[[ if show_top_search_box ]]
+	<div class="gsa_top_search_wrapper">
+		<!-- <form class="gsa_top_search_form" action="/search" method="get">
+		-->
+		<form class="gsa_top_search_form" method="get">
+			<div class="input-group">
+				<input type="text" name="q" class="form-control input-lg" value="$q">
+				<span class="input-group-btn">
+					<button class="btn btn-primary btn-lg" type="submit">Search</button>
+				</span>
+			</div>
+			$start_loop_search_form_params
+			<input type="hidden" name="$name_esc" value="$value_esc"/>
+			$end_loop_search_form_params
+		</form>
+	</div>
+	[[ end if show_top_search_box ]]
+
+
+[[ if ! results_found ]]
+	[[ if spelling_suggested ]]
+	<br />
+	<span class="gsa_spelling_suggestion_label">Did you mean:</span>
+	&nbsp;
+	<a href="$spelling_suggestion_url" class="gsa_spelling_suggestion">$spelling_suggestion</a>
+	[[ end if spelling_suggested ]]
+	<p>No results found</p>
+	[[ end if results_found ]]
+
+
+[[ if results_found ]]
+
+	[[ if show_search_info ]]
+	<div class="gsa_search_info_wrapper">
+		<p class="gsa_search_info_results">
+			Results
+			<span class="gsa_search_number">$start_result_number - $end_result_number</span>
+			of about
+			<span class="gsa_search_amount">$total_results for $q</span>
+			.
+		</p>
+		[[ if show_search_time ]]
+		<p class="gsa_search_info_time">
+			Search took
+			<span class="gsa_search_time">$search_time</span>
+			seconds.
+		</p>
+		[[ end if show_search_time ]]
+	</div>
+	[[ end if show_search_info ]]
+
+	[[ if spelling_suggested ]]
+	<br />
+	<span class="gsa_spelling_suggestion_label">Did you mean:</span>
+	&nbsp;
+	<a href="$spelling_suggestion_url" class="gsa_spelling_suggestion">$spelling_suggestion</a>
+	[[ end if spelling_suggested ]]
+
+	[[ if show_top_navigation ]]
+	<p id="gsa_top_nav">
+		[[ if previous_link ]]
+		<a href="$previous_link" id="gsa_top_nav_prev">&laquo; Previous</a>
+		&nbsp;[[ end if previous_link ]]
+			[[ if next_link ]]
+		<a href="$next_link" id="gsa_top_nav_prev">Next &raquo;</a>
+		&nbsp;[[ end if next_link ]]
+	</p>
+	[[ end if show_top_navigation ]]
+
+	[[ if show_sortby ]]
+	<p class="gsa_sortby">
+		[[ if sortby_date_url ]]
+		<a href="$sortby_date_url" class="sortby_date_url">Sort by date</a>
+		/ Sort by relevance
+		[[ end if sortby_date_url ]]
+		[[ if sortby_relevance_url ]]
+			Sort by date /
+		<a href="$sortby_relevance_url" class="sortby_relevance_url">Sort by relevance</a>
+		[[ end if sortby_relevance_url ]]
+	</p>
+	[[ end if show_sortby ]]
+	<div class="gsa_results_wrapper">
+		$start_loop_results
+		<div class="gsa_result">
+			[[ if mime_type_abbr ]]
+			<!-- <p class="gsa_smalltext">$mime_type_abbr</p>
+		-->
+			[[ end if mime_type_abbr ]]
+			
+				[[ if title ]]
+		<h4 class="gsa_result_headline">
+			<a href="$url_encoded" [[ if target ]] target="_blank" [[ end if target ]]>$title</a>
+		</h4>
+		[[ end if title ]]
+				
+				[[ if show_snippet ]]
+			
+					[[ if snippet ]]
+		<p class="gsa_snippet">$snippet</p>
+		[[ end if snippet ]]
+		[[ end if show_snippet ]]
+	</div>
+	$end_loop_results
+</div>
+[[ if filtered ]]
+	[[ if ! next_link ]]
+<p>
+	In order to show you the most relevant results, we have omitted 
+		some entries very similar to the $end_result_number already displayed.
+		If you like, you can
+	<a href="?q=$q&filter=0">
+		repeat the search with 
+		the omitted results included
+	</a>
+	.
+</p>
+[[ end if next_link ]]
+	[[ end if filtered ]]
+
+[[ end if results_found ]]
+
+
+[[ if show_bottom_search_box ]]
+<div class="gsa_bottom_search_wrapper">
+	<form class="gsa_bottom_search_form" method="get">
+		<input type="text" class="gsa_bottom_search_box" maxlength="255" size="15" name="q" value="$q" onfocus="this.select();" />
+		<input type="submit" name="gsa_bottom_box_button" value="submit" class="gsa_bottom_box_button"/>
+		$start_loop_search_form_params
+		<input type="hidden" name="$name_esc" value="$value_esc"/>
+		$end_loop_search_form_params
+	</form>
+</div>
+[[ end if show_bottom_search_box ]]
+
+
+[[ if results_found ]]
+	[[ if bottom_navigation_simple ]]
+<p class="gsa_bottom_nav">
+	[[ if previous_link ]]
+	<a href="$previous_link" class="gsa_bottom_nav_prev">&lt;Previous</a>
+	&nbsp;[[ end if previous_link ]]
+			[[ if next_link ]]
+	<a href="$next_link" class="gsa_bottom_nav_next">Next&gt;</a>
+	&nbsp;[[ end if next_link ]]
+</p>
+[[ end if bottom_navigation_simple ]]
+
+	[[ if bottom_navigation_pages ]]
+<div class="gsa_bottom_results_nav_wrapper text-left">
+	
+	<ul class="gsa_bottom_results pagination">
+				[[ if previous_link ]]
+		<li class="gsa_bottom_results_previous">
+			<a href="$previous_link">&laquo; Previous</a>
+		</li>
+		[[ end if previous_link ]]
+
+				$start_loop_bottom_navigation_previous_items
+		<li>
+			<a href="$nav_item_url" class="gsa_bottom_results_items">$nav_item_number</a>
+		</li>
+		$end_loop_bottom_navigation_previous_items
+		<li>
+			<span class="gsa_bottom_results_current">$bottom_nav_current_item_number</span>
+		</li>
+		$start_loop_bottom_navigation_next_items
+		<li>
+			<a href="$nav_item_url" class="gsa_bottom_results_number">$nav_item_number</a>
+		</li>
+		$end_loop_bottom_navigation_next_items
+
+				[[ if next_link ]]
+		<li class="gsa_bottom_results_next">
+			<a href="$next_link">Next  &raquo;</a>
+		</li>
+		[[ end if next_link ]]
+	</ul>
+</div>
+[[ end if bottom_navigation_pages ]]
+
+[[ end if results_found ]]
+</div>

@@ -1,0 +1,42 @@
+<span>
+	<form name="edit_profile_form" method="post" id="edit_profile_form">
+	<p class="require_desc" style="padding-left: 20px;"><sup style="color: red; font-weight: bold;">*</sup> Field is required.</p>
+	<input type="hidden" name="action_$component_id" value="save">
+	<input type="hidden" name="component_id" value="$component_id">
+	<input type="hidden" name="site_page_id" value="$site_page_id">
+	<input type="hidden" name="csrf_token" value="$csrf_token">
+	<fieldset>
+	<label for="c_$component_id\_email" class="$c_\$component_id\_email_style">Member Email:</label>
+	<input type="text" name="c_$component_id\_email" id="c_$component_id\_email" value="$c_$component_id\_email" class="$c_\$component_id\_email_style"><br/>
+	[[ if show_password ]]
+		<label for="c_$component_id\_password" class="$c_\$component_id\_password_style">New Password:</label>
+		<input type="password" name="c_$component_id\_password" id="c_$component_id\_password" class="$c_\$component_id\_password_style" autocomplete="off"><br/>
+		<small>Passwords must be 7 characters long and contain both letters and numbers.</small>
+		<label for="c_$component_id\_confirm_password" class="$c_\$component_id\_confirm_password_style">Confirm New Password:</label>
+		<input type="password" name="c_$component_id\_confirm_password" id="c_$component_id\_confirm_password" class="$c_\$component_id\_confirm_password_style" autocomplete="off"><br/>
+	[[ end if show_password ]]
+	</fieldset>
+	<fieldset class="mobile">
+	[[ if member_mobile_support_enabled ]]
+		[[ if member_mobile_number_set ]]
+			<label for="c_$component_id\_mobile_number" class="$c_\$component_id\_mobile_number_style">$c_$component_id\_mobile_number</label>
+			<input type="hidden" name="c_$component_id\_mobile_number" id="c_$component_id\_mobile_number" value="$c_$component_id\_mobile_number" class="$c_\$component_id\_mobile_number_style">
+			<a href="#" onclick="javascript:document.edit_profile_form.c_$component_id\_mobile_number.value='';document.edit_profile_form.submit()" class="button">Remove Mobile Number</a>
+		[[ end if member_mobile_number_set ]]
+		[[ if ! member_mobile_number_set ]]
+			<h3>To add a mobile number to your account text $confirm_keyword to $shortcode and input the code you receive below</h3>
+			<label for="c_$component_id\_code" class="$c_\$component_id\_code_style">Code:</label>
+				<input type="text" name="c_$component_id\_code" id="c_$component_id\_code" value="$c_$component_id\_code" class="$c_\$component_id\_code_style">
+		[[ end if member_mobile_number_set ]]
+	[[ end if member_mobile_support_enabled ]]
+	</fieldset>
+	<fieldset class="meta">
+	$start_loop_member_groups
+		$attributes_output
+	$end_loop_member_groups
+	</fieldset>
+	<br style="clear:both" />
+	<button type="submit" class="text"><span><span>Save Profile</span></span></button>
+		<br style="clear:both" />
+</form>
+</span>

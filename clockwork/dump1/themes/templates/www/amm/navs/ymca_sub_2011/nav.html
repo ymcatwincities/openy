@@ -1,0 +1,77 @@
+[[ if nav_level_2 ]]
+<nav id="subnav-utility" class="level-$smart_nav_current_level-current" >
+	$start_loop_nav_level_1
+	[[ if :active ]]
+	<h4 class="utility"><a href="$page_url">$html_esc_page_title</a></h4>
+	<ul class="utility">
+		$start_loop_nav_level_2
+			<li class="$nav_classes">
+				<a href="$page_url">$html_esc_page_title</a>
+				[[ if nav_level_3 ]]
+				<ul>
+					$start_loop_nav_level_3
+						<li class="$nav_classes">
+							<a href="$page_url">$html_esc_page_title</a>
+							[[ if nav_level_4 ]]
+							<ul>
+								$start_loop_nav_level_4
+									<li class="$nav_classes">
+										<a href="$page_url">$html_esc_page_title</a>
+										[[ if nav_level_5 ]]
+										<ul>
+											$start_loop_nav_level_5
+												<li class="$nav_classes">
+													<a href="$page_url">$html_esc_page_title</a>
+												</li>
+											$end_loop_nav_level_5
+										</ul>
+										[[ end if nav_level_5 ]]
+									</li>
+								$end_loop_nav_level_4
+							</ul>
+							[[ end if nav_level_4 ]]
+						</li>
+					$end_loop_nav_level_3
+				</ul>
+				[[ end if nav_level_3 ]]
+			</li>
+		$end_loop_nav_level_2
+	</ul>
+	[[ end if :active ]]
+	$end_loop_nav_level_1
+</nav>
+[[ end if nav_level_2 ]]
+[[ if nav_level_3 ]]
+<nav id="subnav">
+	$start_loop_nav_level_2
+	[[ if :active ]]
+	<h4 class="$page_abbr"><a href="$page_url">$html_esc_page_title</a></h4>
+	[[ end if :active ]]
+	$end_loop_nav_level_2
+	<ul>
+		$start_loop_nav_level_3
+			<li class="$nav_classes">
+				<a href="$page_url">$html_esc_page_title</a>
+				[[ if nav_level_4 ]]
+				<ul>
+					$start_loop_nav_level_4
+						<li class="$nav_classes">
+							<a href="$page_url">$html_esc_page_title</a>
+							[[ if nav_level_5 ]]
+							<ul>
+								$start_loop_nav_level_5
+									<li class="$nav_classes">
+										<a href="$page_url">$html_esc_page_title</a>
+									</li>
+								$end_loop_nav_level_5
+							</ul>
+							[[ end if nav_level_5 ]]
+						</li>
+					$end_loop_nav_level_4
+				</ul>
+				[[ end if nav_level_4 ]]
+			</li>
+		$end_loop_nav_level_3
+	</ul>
+</nav>
+[[ end if nav_level_3 ]]
