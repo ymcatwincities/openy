@@ -1,0 +1,61 @@
+---
+theme_id: 40
+theme_name: 'YMCA 2013: Membership Landing Page'
+theme_abbr: ymca_2013/membership_landing
+primary_content_area_index: 1
+site_association_id: null
+global_content_blocks:
+    - 
+        abbr: breadcrumbs
+        content_block_id: 148835
+        content_block_name: '[YMCA 2013] Breadcrumbs'
+    - 
+        abbr: news
+        content_block_id: 155497
+        content_block_name: '[YMCA 2013] News'
+    - 
+        abbr: sitewide_scripts
+        content_block_id: 318297
+        content_block_name: Sitewide Scripts
+    - 
+        abbr: social
+        content_block_id: 155495
+        content_block_name: '[YMCA 2013] Social'
+    - 
+        abbr: social_disclaimer
+        content_block_id: 245597
+        content_block_name: '[YMCA 2013] Social & Disclaimer'
+navs:
+    - 
+        nav_id: 12
+        nav_name: 'YMCA 2013: JSON'
+        nav_type: json
+        nav_abbr: ymca_2013_json
+        html_abbr: ymca_2013_json
+        php_abbr: ymca_2013_json
+        nav_description: null
+content_areas:
+    - 
+        content_area_name: Lead Copy
+        content_area_index: 1
+    - 
+        content_area_name: Lead Callout
+        content_area_index: 2
+    - 
+        content_area_name: Primary Content
+        content_area_index: 3
+    - 
+        content_area_name: Masthead Copy
+        content_area_index: 99
+    - 
+        content_area_name: Masthead Image / Button
+        content_area_index: 100
+    - 
+        content_area_name: Alerts
+        content_area_index: 101
+    - 
+        content_area_name: Modals
+        content_area_index: 102
+    - 
+        content_area_name: Above Primary Content
+        content_area_index: 4

@@ -1,0 +1,23 @@
+$start_loop_blog_post_listing
+<div class="blog_post_display blog_post_display_full_post $component_type">
+	<h2><a href="$url">$title_esc</a></h2>
+	<p class="posted_on_author">posted on <span class="date">$datetime</span> by <span class="author">$author_esc</span></p>
+	$full_components
+	$additional_content_components
+	<p class="comments_count">
+		<a href="$url" class="read_more">Read More</a> 
+		[[ if comments_active ]]
+		| 
+		[[ if multiple_comments_display ]]
+		<a href="$comment_page_url" class="comments">$comment_count Comments</a>
+		[[ end if multiple_comments_display ]]
+		[[ if single_comment_display ]]
+		<a href="$comment_page_url" class="comments">$comment_count Comment</a>
+		[[ end if single_comment_display ]]
+		[[ if no_comments_display ]]
+		<a href="$comment_page_url" class="comments">Comment</a>
+		[[ end if no_comments_display ]]
+		[[ end if comments_active ]]
+	</p>		
+</div>
+$end_loop_blog_post_listing

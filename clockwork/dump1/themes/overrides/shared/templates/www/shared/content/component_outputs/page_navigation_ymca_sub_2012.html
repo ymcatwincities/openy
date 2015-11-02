@@ -1,0 +1,117 @@
+
+
+<!-- TOP 2 LEVELS OF NAV ONLY ON LEVEL 2 -->
+[[ if nav_level_2 ]]
+[[ if ! nav_level_3 ]]
+$start_loop_nav_level_1
+[[ if :active ]]
+<nav id="subnav" class="level-$smart_nav_current_level-current" >
+	<h3>
+		<a href="$page_url">$html_esc_page_title</a>
+	</h3>
+	<ul>
+		$start_loop_nav_level_2
+		<li class="$nav_classes">
+			<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+		</li>
+		$end_loop_nav_level_2
+	</ul>
+</nav>
+
+[[ end if :active ]]
+$end_loop_nav_level_1
+[[ end if nav_level_3 ]]
+[[ end if nav_level_2 ]]
+
+
+
+<!-- NAV LEVELS 3 AND BELOW -->
+[[ if nav_level_3 ]]
+<nav id="subnav-utility" class="level-$smart_nav_current_level-current" >
+	$start_loop_nav_level_1
+		$start_loop_nav_level_2
+			[[ if :active ]]
+			[[ if nav_level_3 ]]
+	<h3>
+		<a href="$page_url">$html_esc_page_title</a>
+	</h3>
+	<ul>
+		$start_loop_nav_level_3
+		<li class="$nav_classes">
+			<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+			[[ if nav_level_4 ]]
+			<ul>
+				$start_loop_nav_level_4
+				<li class="$nav_classes">
+					<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+					[[ if nav_level_5 ]]
+					<ul>
+						$start_loop_nav_level_5
+						<li class="$nav_classes">
+							<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+							[[ if nav_level_6 ]]
+							<ul>
+								$start_loop_nav_level_6
+								<li class="$nav_classes">
+									<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+								</li>
+								$end_loop_nav_level_6
+							</ul>
+							[[ end if nav_level_6 ]]
+						</li>
+						$end_loop_nav_level_5
+					</ul>
+					[[ end if nav_level_5 ]]
+				</li>
+				$end_loop_nav_level_4
+			</ul>
+			[[ end if nav_level_4 ]]
+		</li>
+		$end_loop_nav_level_3
+	</ul>
+			[[ end if nav_level_3 ]]
+			[[ end if :active ]]
+			$end_loop_nav_level_2
+	$end_loop_nav_level_1
+</nav>
+[[ end if nav_level_3 ]]
+
+
+
+<!-- ALWAYS AVAILABLE HIDDEN LEVEL 2 FOR SELECT BOX SCRIPT USE -->
+[[ if nav_level_2 ]]
+<nav id="hidden-level-2" class="level-$smart_nav_current_level-current" >
+		<ul>
+		$start_loop_nav_level_2
+		<li class="$nav_classes">
+			<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+		</li>
+		$end_loop_nav_level_2
+	</ul>
+</nav>
+[[ end if nav_level_2 ]]
+<!-- ALWAYS AVAILABLE HIDDEN LEVEL 3 FOR SELECT BOX SCRIPT USE -->
+[[ if nav_level_2 ]]
+<nav id="hidden-level-3" class="level-$smart_nav_current_level-current" >
+		<ul>
+            $start_loop_nav_level_2
+            [[ if ! :last ]]
+            [[ if ! :active ]]
+            $start_loop_nav_level_3
+            [[ if ! :active ]]
+		<li class="$nav_classes">
+			<a href="$page_url" class="$nav_classes">$html_esc_page_title</a>
+        </li>
+            [[ end if :active ]]
+            $end_loop_nav_level_3
+            [[ end if :active ]]
+            [[ end if :last ]]
+    		$end_loop_nav_level_2
+	</ul>
+</nav>
+[[ end if nav_level_2 ]]
+<script>
+jQuery(function(){
+    renderDropdownNav();
+});
+</script>

@@ -1,0 +1,58 @@
+<div class="forward_to_friend_component" id="component_$component_id">
+	<form method="post">
+
+		<input type="hidden" name="action_$component_id" value="submit" />
+
+		<table class="text" cellpadding="5" cellspacing="1">
+			<tr>
+				<th style="text-align: right;" class="text">Page's URL: </th>
+				<td class="text"><a href="$c_$component_id\_url">$c_$component_id\_url</a></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;" class="text"><label for="c_$component_id\_name" class="$c_$component_id\_name_style">Your Name</label>: </th>
+				<td class="text">
+					<input type="text" id="c_$component_id\_name" name="c_$component_id\_name" value="$c_$component_id\_name_esc" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;" class="text"><label for="c_$component_id\_from_email" class="$c_$component_id\_from_email_style">Your E-mail</label><sup style="color: red;">*</sup>: </th>
+				<td class="text">
+					<input type="text" id="c_$component_id\_from_email" name="c_$component_id\_from_email" value="$c_$component_id\_from_email_esc" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right;" class="text"><label for="c_$component_id\_to_email" class="$c_$component_id\_to_email_style">Friend's E-mail</label><sup style="color: red;">*</sup>: </th>
+				<td class="text">
+					<input type="text" id="c_$component_id\_to_email" name="c_$component_id\_to_email" value="$c_$component_id\_to_email_esc" />
+				</td>
+			</tr>
+			<tr>
+				<th style="text-align: right; vertical-align: top;" class="text"><label for="c_$component_id\_message" class="$c_$component_id\_message_style">Message</label>: </th>
+				<td class="text">
+					<textarea class="text" id="c_$component_id\_message" name="c_$component_id\_message" cols="50" rows="5">$c_$component_id\_message_esc</textarea>
+				</td>
+			</tr>
+			<!-- Disable image verification for now
+			<tr>
+				<th style="text-align: right; vertical-align: top;" class="text"><span class="$c_$component_id\_image_verification_style">Verification</span><sup style="color: red;">*</sup>: </th>
+				<td class="text">
+					<img src="/images/display_image_verification.php?i=$image_verification_id" alt=""/>
+					<p>Please enter the text displayed above.</p>
+					<input class="text" type="text" name="c_$component_id\_image_verification" />
+				</td>
+			</tr>
+			-->
+			<tr>
+				<td class="text">&nbsp;</td>
+				<td class="text"><p><sup style="color: red;">*</sup>Field is required.</p></td>
+			</tr>
+			<tr>
+				<td class="text">&nbsp;</td>
+				<td class="text">
+					<input type="submit" class="text" value="Send E-mail" />
+				</td>
+			</tr>
+		</table>
+
+	</form>
+</div>

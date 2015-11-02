@@ -1,0 +1,6 @@
+<div class="form-group">
+  <label for="$field_name" class="col-md-4 control-label">$question_text  <small>$include($optional_template) $include($required_template)</small></label>
+  <div class="col-md-6">
+   <input type="text" class="form-control email text [[ if required_template ]]required[[ end if required_template ]]" id="$field_name\_$value" size="$cols" name="$field_name" id="$field_name" value="$registration_question_response_esc" />
+</div>
+</div>

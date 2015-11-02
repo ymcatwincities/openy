@@ -1,0 +1,9 @@
+  <$component_tag class="image_component" id="component_$component_id" style="$alignment_style">
+    <img src="$image_src" alt="$alt_text_esc" title="$alt_text_esc" $align_attribute border="0"/>
+    $start_loop_caption_credit
+	<$component_tag class="caption_credit">
+	  $start_loop_has_credit<span class="credit">$credit_esc</span>$end_loop_has_credit
+	  $start_loop_has_caption<span class="caption">$caption_esc</span>$end_loop_has_caption
+	</$component_tag>
+	$end_loop_caption_credit
+  </$component_tag>

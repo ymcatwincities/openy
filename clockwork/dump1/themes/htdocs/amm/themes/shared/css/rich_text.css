@@ -1,0 +1,63 @@
+
+.membership{
+
+}
+.schedules{
+	
+}
+.button{
+	
+}
+.button-blue{
+	
+}
+.button a,
+.button-blue a{
+	color: white !important;
+	text-align: center;
+	letter-spacing: 0px;
+	margin: 5px 0 0;
+	text-decoration: none;
+	display: inline-block;
+	text-transform: uppercase !important;
+	min-width: 106px;
+	font: bold 13px/30px 'Cachet', Arial;
+	text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3);
+	background-image: -webkit-gradient(
+		linear,
+		0 0,
+		0 100%,
+		from(rgba(0,0,0,0)),
+		to(rgba(69,66,163, 0.5)));
+	background-image: -moz-linear-gradient(-90deg, #aa1f8b, #712c8c);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.3);
+	-moz-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.3);
+}
+.button-blue a{
+	background-color: #148EB3;
+}
+.img-responsive{
+	max-width: 100%;
+}
+.img-responsive:after{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,.4);
+	content: 'Responsive';
+	border-radius: 3px 3px 0 0;
+	padding: 2px 5px;
+}
+.hidden-xs, .visible-x{
+	border: 5px solid red;
+}
+.list-ok-icon {
+
+}
+.lead-copy {
+font-size: 16px;
+  line-height: 26px;
+}
+}

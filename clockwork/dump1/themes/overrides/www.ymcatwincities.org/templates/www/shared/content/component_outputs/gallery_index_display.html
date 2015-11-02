@@ -1,0 +1,115 @@
+
+<script type="text/javascript">
+
+	var c_gallery_index_$component_id;
+	var component_$component_id\_item_data = [ ];
+
+	CWjQuery(document).ready(
+		function ( ) {
+			
+			var args =
+			{
+				'component_id': '$component_id', 
+				'component_type': '$component_type',
+				'gallery_id': $gallery_id,
+				'is_inline_gallery': true,
+				'is_lightbox_gallery': false
+			};
+			
+			[[ if lightbox_gallery ]]
+			args.is_inline_gallery = false;
+			args.is_lightbox_gallery = true;
+			[[ end if lightbox_gallery ]]
+			
+			c_gallery_index_$component_id = new Clockwork.Live.Components.GalleryIndexComponent( args );
+
+			[[ if lightbox_gallery ]]
+			CWjQuery("a[rel=component_$component_id\_item]").fancybox({
+				'transitionIn': 'fade',
+				'transitionOut': 'fade',
+				'titlePosition': 'inside',						
+				'titleFormat': function(title, currentArray, currentIndex, currentOpts) {
+					
+					var title = '';
+					
+					var credit = component_$component_id\_item_data[ currentIndex ].credit;
+					var credit_div = new Element( 'div' );
+					credit_div.innerHTML = credit;
+					
+					if ( credit.length ) {
+						title = title + credit_div.childNodes[0].nodeValue;
+					}
+					
+					var caption = component_$component_id\_item_data[ currentIndex ].caption;
+					var caption_div = new Element( 'div' );
+					caption_div.innerHTML = caption;
+					
+					if ( caption.length ) {
+						title = title + caption_div.childNodes[0].nodeValue;
+					}
+
+					return title;
+				}
+	
+			});
+
+			[[ end if lightbox_gallery ]]
+						
+		}
+	);
+	
+</script>
+
+[[ if hidden_code ]]
+<!-- Always show the next/prev buttons
+<style type="text/css"> 
+#fancybox-left-ico { 
+ left: 20px; 
+} 
+
+#fancybox-right-ico { 
+ right: 20px; 
+ left: auto; 
+} 
+
+</style>
+-->
+[[ end if hidden_code ]]
+
+<div id="component_$component_id" class="gallery_index">
+	<h2>$name</h2>
+
+	$start_loop_lightbox_wrapper
+		<ul>
+			$start_loop_images
+				<li>
+					<a rel="component_$component_id\_item" data="$asset_url_lightbox" href="$asset_url_lightbox" title="$caption_stripped_esc">
+						<img src="$asset_url" alt="$caption_stripped_esc" />
+					</a>
+					<script type="text/javascript">
+						component_$component_id\_item_data.push( { 'caption': '$caption_esc_js', 'credit': '$asset_credit_esc_js' } );
+					</script>
+				</li>
+			$end_loop_images
+		</ul>
+	$end_loop_lightbox_wrapper
+
+	
+	$start_loop_images_wrapper
+		<ul>
+			$start_loop_images
+				<li class="$current_class"><a href="$link_href" title="$asset_human_name_esc"><img src="$asset_url_esc" alt="$asset_human_name_esc" /></a></li>
+			$end_loop_images
+		</ul>
+	$end_loop_images_wrapper
+
+
+	$start_loop_numbers_wrapper
+		<ul>
+			$start_loop_images
+				<li class="$current_class"> <span style="$hide_first">|</span> <a href="$link_href" title="$asset_human_name_esc">$sequence_index</a></li>
+			$end_loop_images
+		</ul>
+	$end_loop_numbers_wrapper
+
+</div>

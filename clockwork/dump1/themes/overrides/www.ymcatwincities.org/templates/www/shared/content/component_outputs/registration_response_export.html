@@ -1,0 +1,39 @@
+
+[[ if is_logged_in ]]
+<div>
+<br/>
+	$total_responses total registrations to date
+</div>
+
+
+<a href="$csv_export_all_url">Download All registrations</a>
+
+
+[[ if weekly ]]
+<h4>Weekly registrations ($weekly_start_day_of_week - $weekly_end_day_of_week)</h4>
+[[ end if weekly ]]
+
+
+<div>
+$start_loop_csv_download_links
+
+[[ if interval_has_started ]]
+<a href="$csv_export_url">$start_date - $end_date</a> ( $n_responses registrations
+
+
+[[ if interval_incomplete ]]
+<i> - This time interval has not ended yet</i>
+[[ end if interval_incomplete ]]
+
+
+)
+
+[[ end if interval_has_started ]]
+
+[[ if ! interval_has_started ]]
+$start_date - $end_date
+[[ end if interval_has_started ]]
+<br/>
+$end_loop_csv_download_links
+</div>
+[[ end if is_logged_in ]]

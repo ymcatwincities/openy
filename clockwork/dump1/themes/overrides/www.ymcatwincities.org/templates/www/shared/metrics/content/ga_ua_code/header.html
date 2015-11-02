@@ -1,0 +1,19 @@
+<script type="text/javascript" src="/amm/js/jquery.analytics.min.js"></script>
+<script type="text/javascript">
+
+	var cwGA = CWjQuery(document).gaaware({
+		'UA': [ $ua_code_string_esc ],
+		[[ if ua_code_domain_string ]]
+		'domains': [ $ua_code_domain_string_esc ],
+		[[ end if ua_code_domain_string ]]
+		[[ if include_link_attribution ]]
+		'enhanced_link_attribution': true,
+		[[ end if include_link_attribution ]]
+		[[ if ! include_link_attribution ]]
+		'enhanced_link_attribution': false,
+		[[ end if include_link_attribution ]]
+		'exclude_subdomains': [],
+		'demographics_tracking': true
+	});
+
+</script>

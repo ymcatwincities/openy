@@ -1,0 +1,83 @@
+[[ if nav_level_3 ]]
+$start_loop_nav_level_1
+$start_loop_nav_level_2
+[[ if :active ]]
+<div class="panel-heading">
+	<h3 class="panel-title"><a href="$page_url">$html_esc_page_name</a></h3>
+</div>
+<div class="panel-body">
+	<div class="row">
+		<ul class="nav-level-3 nav nav-stacked">
+			<!-- <li class="$nav_classes"><a href="$page_url" class="overview-link">$html_esc_page_name</a></li>-->
+					$start_loop_nav_level_3
+					<li class="$nav_classes [[ if nav_level_4 ]]dropdown[[ end if nav_level_4 ]]">
+						[[ if ! nav_level_4 ]]
+						<a href="$page_url" class="$nav_classes">$html_esc_page_name</a>
+						[[ end if nav_level_4 ]]
+								[[ if nav_level_4 ]]
+						<a href="$page_url" class="dropdown-toggle" data-toggle="dropdown">
+							$html_esc_page_name <b class="caret"></b>
+						</a>
+						<ul class="nav-level-4 nav nav-stacked dropdown-menu">
+							<!-- <li class="$nav_classes">
+							<a href="$page_url" class="overview-link">$html_esc_page_name</a>
+						</li>
+						-->
+						$start_loop_nav_level_4
+						<li class="$nav_classes [[ if nav_level_5 ]]dropdown[[ end if nav_level_5 ]]">
+							[[ if ! nav_level_5 ]]
+							<a href="$page_url" class="$nav_classes">$html_esc_page_name</a>
+							[[ end if nav_level_5 ]]
+										[[ if nav_level_5 ]]
+							<a href="$page_url" class="dropdown-toggle" data-toggle="dropdown">
+								$html_esc_page_name <b class="caret"></b>
+							</a>
+							<ul class="nav-level-5 nav nav-stacked dropdown-menu">
+								<!-- <li class="$nav_classes">
+								<a href="$page_url" class="overview-link">$html_esc_page_name</a>
+							</li>
+							-->
+								$start_loop_nav_level_5
+							<li class="$nav_classes [[ if nav_level_6 ]]dropdown[[ end if nav_level_6 ]]">
+								[[ if ! nav_level_6 ]]
+								<a href="$page_url" class="$nav_classes">$html_esc_page_name</a>
+								[[ end if nav_level_6 ]]
+												[[ if nav_level_6 ]]
+								<a href="$page_url" class="dropdown-toggle" data-toggle="dropdown">
+									$html_esc_page_name
+									<b class="caret"></b>
+								</a>
+								<ul class="nav-level-5 nav nav-stacked dropdown-menu">
+									<!-- <li class="$nav_classes">
+									<a href="$page_url" class="overview-link">$html_esc_page_name</a>
+								</li>
+								-->
+										$start_loop_nav_level_6
+								<li class="$nav_classes">
+									<a href="$page_url" class="$nav_classes">$html_esc_page_name</a>
+								</li>
+								$end_loop_nav_level_6
+							</ul>
+							[[ end if nav_level_6 ]]
+						</li>
+						$end_loop_nav_level_5
+					</ul>
+					[[ end if nav_level_5 ]]
+				</li>
+				$end_loop_nav_level_4
+			</ul>
+			[[ end if nav_level_4 ]]
+			</li>
+			$end_loop_nav_level_3
+		</ul>
+	</div>
+</div>
+[[ end if :active ]]
+$end_loop_nav_level_2
+$end_loop_nav_level_1
+[[ end if nav_level_3 ]]
+<script>
+jQuery(function(){
+	initSubnavs();
+});
+</script>

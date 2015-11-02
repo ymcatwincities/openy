@@ -1,0 +1,18 @@
+
+<a href="$href">
+[[ if image_src ]]
+	<figure class="[[ if ! pull ]][[ if align ]]text-center [[ end if align ]][[ end if pull ]]image_component[[ if pull ]] pull-$align[[ end if pull ]]" id="component_$component_id">
+		<img src="$image_src" class="img-thumbnail img-responsive" alt="$alt_text_esc" title="$alt_text_esc" border="0"/>
+		[[ if caption_credit ]]
+		<figcaption class="caption_credit">
+			[[ if caption ]]
+			<p>$caption_esc</p>
+			[[ end if caption ]]
+    [[ if credit ]]
+			<small>$credit_esc</small>
+			[[ end if credit ]]
+		</figcaption>
+		[[ end if caption_credit ]]
+	</figure>
+[[ end if image_src ]]
+</a>

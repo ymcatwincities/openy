@@ -1,0 +1,59 @@
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}

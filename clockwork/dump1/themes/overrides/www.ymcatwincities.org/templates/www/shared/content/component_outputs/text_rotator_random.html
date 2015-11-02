@@ -1,0 +1,25 @@
+<script language="JavaScript">
+<!-- Hide from old browsers
+var textnumber = $text_total;
+var randomnumber = Math.random();
+var rand1 = Math.round( (textnumber-1) * randomnumber) + 1;
+var texts = new Array;
+	$start_loop_texts
+		texts[$sequence_index] = "$body_esc_js";
+	$end_loop_texts
+	
+var newSrc;
+
+if ( texts.length > 0 ) {
+	newSrc = texts[rand1];
+}
+else {
+	newSrc = "";
+}
+
+document.write('<span class="text"> '+newSrc+' </span>');
+// -->
+</script>
+<noscript>
+<span class="text"> $default_body </span>
+</noscript>

@@ -1,0 +1,14 @@
+<div id="component_$component_id" class="$component_type">
+<video width="$width_esc" height="$height_esc"[[ if auto_start ]] autoplay="true"[[ end if auto_start ]][[ if preview_image_src ]] poster="$preview_image_src_esc"[[ end if preview_image_src ]][[ if loop_type ]] loop[[ end if loop_type ]] controls preload="none">
+	[[ if asset_type_mp4 ]]<source type="video/mp4" src="$asset_url" />[[ end if asset_type_mp4 ]]
+	[[ if asset_type_flv ]]<source type="video/flv" src="$asset_url" />[[ end if asset_type_flv ]]
+	[[ if asset_type_mov ]]<source type="video/mov" src="$asset_url" />[[ end if asset_type_mov ]]
+	[[ if asset_type_m4v ]]<source type="video/m4v" src="$asset_url" />[[ end if asset_type_m4v ]]
+	<object width="$width_esc" height="$height_esc" type="application/x-shockwave-flash" data="/amm/js/video/flashmediaelement.swf"> 		
+		<param name="movie" value="/amm/js/video/flashmediaelement.swf" /> 
+		<param name="flashvars" value="controls=true[[ if preview_image_src ]]&poster=$preview_image_src_esc[[ end if preview_image_src ]]&file=$asset_url" />
+		<param name="wmode" value="transparent">
+		[[ if preview_image_src ]]<img src="$preview_image_src_esc" width="$width_esc" height="$height_esc" alt="No video playback capabilities" title="No video playback capabilities" />[[ end if preview_image_src ]]
+	</object>
+</video>
+</div><script type="text/javascript">window.c_$component_id = new CW.VideoPlayerComponentOutput( { 'component_id' : '$component_id', 'component_type' : '$component_type', 'auto_start': $auto_start, 'loop': $loop_type } );</script>

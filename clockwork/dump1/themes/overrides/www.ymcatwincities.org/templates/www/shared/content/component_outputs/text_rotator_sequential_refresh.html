@@ -1,0 +1,38 @@
+<script language="JavaScript" type="text/javascript">
+<!-- Hide from old browsers
+var total   = $text_total;
+var indexEQ = "textsequence_$component_id=";
+var cookieData = document.cookie.split(';');
+var sequenceNumber = 0;
+for(var i=0;i < cookieData.length;i++) {
+	var c = cookieData[i];
+	while (c.charAt(0)==' ') c = c.substring(1,c.length);
+	if (c.indexOf(indexEQ) == 0) {
+		var sequenceNumber = c.substring(indexEQ.length,c.length);
+	}
+}
+if( (sequenceNumber < 1) | (++sequenceNumber > total) ) {
+	var sequenceNumber = 1;
+}
+document.cookie = "textsequence_$component_id="+sequenceNumber+";path=/";
+var texts = new Array;
+	$start_loop_texts
+		texts[$sequence_index] = "$body_esc_js";
+	$end_loop_texts
+
+
+var newSrc;	
+
+if ( texts.length > 0 ) {
+	newSrc = texts[sequenceNumber];
+}
+else {
+	newSrc = "";
+}
+
+document.write('<span class="text"> '+newSrc+' </span>');
+// -->
+</script>
+<noscript>
+<span class="text"> $default_body </span>
+</noscript>
