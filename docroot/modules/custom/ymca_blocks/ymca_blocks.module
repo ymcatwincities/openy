@@ -14,6 +14,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
       'variables' => array(
         'header' => NULL,
         'content' => NULL,
+        'entity' => NULL,
       ),
       'template' => 'expander-block',
     ),
@@ -69,16 +70,21 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       break;
 
     case 'expander_block':
+      $content = $entity->field_block_content->get(0);
       $build['expander'] = array(
         '#theme' => 'expander_block',
-        '#header' => \Drupal\Component\Utility\Html::escape($entity->field_block_header->value),
-        '#content' => $build['field_block_content'],
+        '#header' => $entity->field_block_header->value,
+        '#content' => array(
+          '#type' => 'processed_text',
+          '#text' => $content->value,
+          '#format' => $content->format,
+          '#langcode' => $content->getLangcode(),
+        ),
+        '#entity' => $entity,
       );
 
-      $build['#attached']['library'][] = 'ymca_blocks/expander-block';
-
-      hide($build['field_block_header']);
-      hide($build['field_block_content']);
+      // TODO: Not required now, should live in theme.
+      // $build['#attached']['library'][] = 'ymca_blocks/expander-block';.
       break;
 
     case 'promo_block':

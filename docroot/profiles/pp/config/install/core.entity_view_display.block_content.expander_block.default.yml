@@ -12,18 +12,7 @@ id: block_content.expander_block.default
 targetEntityType: block_content
 bundle: expander_block
 mode: default
-content:
-  field_block_content:
-    type: text_default
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-  field_block_header:
-    type: string
-    weight: 0
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-hidden: {  }
+content: {  }
+hidden:
+  field_block_content: true
+  field_block_header: true

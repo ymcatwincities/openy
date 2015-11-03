@@ -7258,6 +7258,12 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   text-transform: uppercase;
   top: 15px;
 }
+.bs-example .carousel-caption {
+  margin-right: 35px;
+}
+.bs-example .carousel-caption h1 {
+  color: #fff;
+}
 
 @media (min-width: 768px) {
   .bs-example {
@@ -7314,12 +7320,6 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
     margin-right: 0;
     margin-top: -16px;
   }
-}
-.bs-example .carousel-caption {
-  margin-right: 35px;
-}
-.bs-example .carousel-caption h1 {
-  color: #fff;
 }
 
 /*# sourceMappingURL=style.css.map */
