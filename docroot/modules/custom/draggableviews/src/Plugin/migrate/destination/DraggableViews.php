@@ -13,6 +13,8 @@ use Drupal\migrate\Row;
 
 
 /**
+ * Defines destination plugin for Draggableviews.
+ *
  * @MigrateDestination(
  *   id = "draggableviews"
  * )
