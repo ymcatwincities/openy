@@ -43,7 +43,7 @@ CREATE TABLE `legacy__file` (
 INSERT INTO `legacy__file` (`id`, `url`) VALUES
 (1,	'_asset/qrq5fn/landing_promo_swim_lessons_050114.jpg'),
 (2,	'_asset/dbdh7e/landing_promo_sac_101715.jpg'),
-(3,	'_asset/dbdh7e/non_existent_file.jpg'),
+(3,	'non_existent_file.jpg'),
 (4,	'_asset/3fcxe3/landing_promo_classes_080114.jpg');
 
 DROP TABLE IF EXISTS `legacy__node_article`;

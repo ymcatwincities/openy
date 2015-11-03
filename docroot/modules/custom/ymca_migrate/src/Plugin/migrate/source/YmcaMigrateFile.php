@@ -7,7 +7,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
-use Drupal\migrate\MigrateSkipRowException;
+use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
@@ -63,8 +63,9 @@ class YmcaMigrateFile extends SqlBase {
     $config = \Drupal::config('ymca_migrate.settings');
 
     $url = $config->get('url_prefix') . $row->getSourceProperty('url');
-    $filename = basename($url);
-    $row->setSourceProperty('name', $filename);
+    $basename = basename($url);
+    $filename = md5($url) . '_' . $basename;
+    $row->setSourceProperty('name', $basename);
 
     // Use cached file if exists.
     $cached = $config->get('cache_dir') . '/' . $filename;
@@ -73,13 +74,16 @@ class YmcaMigrateFile extends SqlBase {
     }
     else {
       $file = file_get_contents($url);
+
+      if ($file === FALSE) {
+        $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
+        // @todo test this. Also we need to catch non existent files.
+        return FALSE;
+      }
       file_put_contents($cached, $file);
     }
 
     $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
-    if ($file_uri === FALSE) {
-      throw new MigrateSkipRowException(t('Cannot download %file.', array('%file' => $url)));
-    }
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $row->setSourceProperty('filepath', $file_path);
 
