@@ -70,10 +70,16 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       break;
 
     case 'expander_block':
+      $content = $entity->field_block_content->get(0);
       $build['expander'] = array(
         '#theme' => 'expander_block',
         '#header' => $entity->field_block_header->value,
-        '#content' => $build['field_block_content'],
+        '#content' => array(
+          '#type' => 'processed_text',
+          '#text' => $content->value,
+          '#format' => $content->format,
+          '#langcode' => $content->getLangcode(),
+        ),
         '#entity' => $entity,
       );
 
