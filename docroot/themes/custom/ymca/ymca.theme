@@ -51,3 +51,11 @@ function ymca_preprocess_image(&$variables) {
   // Add responsiveness.
   $variables['attributes']['class'][] = 'img-responsive';
 }
+
+/**
+ * Implements hook_preprocess_expander_block().
+ */
+function ymca_preprocess_expander_block(&$variables) {
+  $id = 'collapse-' . $variables['entity']->bundle() . '-' . $variables['entity']->id();
+  $variables['block_id'] = \Drupal\Component\Utility\Html::getUniqueId($id);
+}

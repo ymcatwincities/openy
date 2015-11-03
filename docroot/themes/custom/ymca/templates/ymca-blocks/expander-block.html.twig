@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Expander block template.
+ *
+ * Available variables:
+ * - header: Block header.
+ * - content: Block content.
+ * - block_id: Block ID.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<article class="panel panel-default content-expander">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <a class="accordion-toggle collapsed" data-parent=".panel-group" data-toggle="collapse" href="#{{ block_id }}">
+        <h3>{{ header }}</h3>
+      </a>
+    </div>
+  </div>
+  <div id="{{ block_id }}" class="panel-collapse collapse">
+    <div class="panel-body">{{ content }}</div>
+  </div>
+</article>
