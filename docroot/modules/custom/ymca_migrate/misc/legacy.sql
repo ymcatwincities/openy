@@ -51,12 +51,13 @@ CREATE TABLE `legacy__node_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `header_image` int(11) NOT NULL,
+  `parent` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `legacy__node_article` (`id`, `title`, `header_image`) VALUES
-(1,	'Example article #1',	3),
-(2,	'Example article #2',	2),
-(3,	'Example article #3',	1);
+INSERT INTO `legacy__node_article` (`id`, `title`, `header_image`, `parent`) VALUES
+(1,	'Example article #1',	3,	0),
+(2,	'Example article #2',	2,	1),
+(3,	'Example article #3',	1,	2);
 
--- 2015-10-30 05:38:17
+-- 2015-11-02 18:09:41

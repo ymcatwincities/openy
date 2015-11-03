@@ -57,7 +57,7 @@ function draggableviews_schema() {
         'unsigned' => FALSE,
         'not null' => TRUE,
         'default' => 0,
-        'description' => 'The order parent.',
+        'description' => 'The id of the parent.',
       ),
     ),
     'indexes' => array(
