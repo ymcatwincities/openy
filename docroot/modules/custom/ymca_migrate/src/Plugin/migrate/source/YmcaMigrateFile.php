@@ -77,9 +77,8 @@ class YmcaMigrateFile extends SqlBase {
 
       if ($file === FALSE) {
         $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
-        $this->next();
         // @todo test this. Also we need to catch non existent files.
-        return parent::prepareRow($row);
+        return FALSE;
       }
       file_put_contents($cached, $file);
     }
