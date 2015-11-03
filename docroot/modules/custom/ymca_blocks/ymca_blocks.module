@@ -77,9 +77,8 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
         '#entity' => $entity,
       );
 
-      // Not required now.
-      // TODO: Should live in theme.
-      // $build['#attached']['library'][] = 'ymca_blocks/expander-block';
+      // TODO: Not required now, should live in theme.
+      // $build['#attached']['library'][] = 'ymca_blocks/expander-block';.
       break;
 
     case 'promo_block':

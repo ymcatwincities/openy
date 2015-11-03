@@ -52,7 +52,6 @@ $sg-highlight-background: #f7f7f9;
   padding: 45px 15px 15px;
   position: relative;
 
-
   &:after {
     color: $sg-help-text;
     content: 'Example';
@@ -63,6 +62,14 @@ $sg-highlight-background: #f7f7f9;
     position: absolute;
     text-transform: uppercase;
     top: 15px;
+  }
+
+  .carousel-caption {
+    margin-right: 35px;
+
+    h1 {
+      color: $white;
+    }
   }
 }
 
@@ -122,15 +129,5 @@ $sg-highlight-background: #f7f7f9;
     margin-left: 0;
     margin-right: 0;
     margin-top: -16px;
-  }
-}
-
-.bs-example {
-  .carousel-caption {
-    margin-right: 35px;
-
-    h1 {
-      color: $white;
-    }
   }
 }
