@@ -27,7 +27,7 @@ process:
     migration: ymca_migrate_node_article
     source: parent
 destination:
-  plugin: ymca_migrate_draggableviews
+  plugin: draggableviews
 migration_dependencies:
   required:
     - ymca_migrate_node_article

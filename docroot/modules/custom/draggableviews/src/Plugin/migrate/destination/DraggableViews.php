@@ -3,11 +3,9 @@
 /**
  * @file
  * Contains destination plugin for Draggable Views database table.
- *
- * @TODO: Add DB connections as dependency injection.
  */
 
-namespace Drupal\ymca_migrate\Plugin\migrate\destination;
+namespace Drupal\draggableviews\Plugin\migrate\destination;
 
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\destination\DestinationBase;
@@ -16,10 +14,10 @@ use Drupal\migrate\Row;
 
 /**
  * @MigrateDestination(
- *   id = "ymca_migrate_draggableviews"
+ *   id = "draggableviews"
  * )
  */
-class YmcaMigrateDraggableViews extends DestinationBase {
+class DraggableViews extends DestinationBase {
 
   /**
    * Constructs an entity destination plugin.
@@ -49,6 +47,8 @@ class YmcaMigrateDraggableViews extends DestinationBase {
       'weight' => $row->getDestinationProperty('weight'),
       'parent' => $row->getDestinationProperty('parent'),
     ];
+    // @todo: Replace the code above with a service injected in the constructor.
+    // Look for url_alias destination plugin for the example.
     $result = db_insert('draggableviews_structure')->fields($record)->execute();
     return array($result);
   }

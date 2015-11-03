@@ -58,6 +58,6 @@ CREATE TABLE `legacy__node_article` (
 INSERT INTO `legacy__node_article` (`id`, `title`, `header_image`, `parent`) VALUES
 (1,	'Example article #1',	3,	0),
 (2,	'Example article #2',	2,	1),
-(3,	'Example article #3',	1,	1);
+(3,	'Example article #3',	1,	2);
 
 -- 2015-11-02 18:09:41
