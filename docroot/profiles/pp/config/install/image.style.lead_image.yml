@@ -1,0 +1,14 @@
+uuid: 073c4bf0-cb9a-4e1f-9749-732ccfb55490
+langcode: en
+status: true
+dependencies: {  }
+name: lead_image
+label: 'Lead image'
+effects:
+  02165527-1c42-440d-a900-c6cfde974c69:
+    uuid: 02165527-1c42-440d-a900-c6cfde974c69
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1000
+      height: 600
