@@ -4,36 +4,55 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
+    - field.field.node.article.body
+    - field.field.node.article.comment
     - field.field.node.article.field_content
+    - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
+    - field.field.node.article.field_header_variant
+    - field.field.node.article.field_image
     - field.field.node.article.field_lead_action
     - field.field.node.article.field_lead_description
     - field.field.node.article.field_page_description
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
+    - field.field.node.article.field_tags
     - node.type.article
   module:
     - image
     - options
     - text
     - user
+    - ymca_link_formatter
 id: node.article.full
 targetEntityType: node
 bundle: article
 mode: full
 content:
   field_content:
-    weight: 1
+    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_header_image:
-    type: image
+  field_header_button:
+    type: link_advanced_formatter
     weight: 5
     label: hidden
     settings:
-      image_style: medium
+      trim_length: '80'
+      url_only: false
+      url_plain: false
+      rel: 0
+      target: 0
+      classes: link-component
+    third_party_settings: {  }
+  field_header_image:
+    type: image
+    weight: 4
+    label: hidden
+    settings:
+      image_style: lead_image
       image_link: ''
     third_party_settings: {  }
   field_lead_action:
@@ -52,24 +71,26 @@ content:
     third_party_settings: {  }
   field_page_description:
     type: basic_string
-    weight: 4
+    weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
   field_sidebar:
-    weight: 2
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_sidebar_navigation:
     type: list_key
-    weight: 3
+    weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
-  links:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  body: true
+  comment: true
+  field_header_variant: true
+  field_image: true
+  field_tags: true
+  links: true

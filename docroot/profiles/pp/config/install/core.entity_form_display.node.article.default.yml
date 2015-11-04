@@ -3,16 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.article.body
+    - field.field.node.article.comment
     - field.field.node.article.field_content
+    - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
+    - field.field.node.article.field_header_variant
+    - field.field.node.article.field_image
     - field.field.node.article.field_lead_action
     - field.field.node.article.field_lead_description
     - field.field.node.article.field_page_description
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
+    - field.field.node.article.field_tags
     - node.type.article
   module:
     - image
+    - link
     - path
     - text
 id: node.article.default
@@ -26,47 +33,59 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_content:
-    weight: 11
+    weight: 13
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_header_button:
+    weight: 8
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
   field_header_image:
-    weight: 6
+    weight: 7
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_header_variant:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_lead_action:
-    weight: 9
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_lead_description:
-    weight: 8
+    weight: 10
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_page_description:
-    weight: 7
+    weight: 9
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
   field_sidebar:
-    weight: 12
+    weight: 14
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_sidebar_navigation:
-    weight: 10
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -102,4 +121,8 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  body: true
+  comment: true
+  field_image: true
+  field_tags: true
