@@ -1,6 +1,6 @@
-{% set template = 'themes/custom/ymca/templates/layout/header/header-without-image.html.twig' %}
+{% set template = '@ymca/layout/header/header-without-image.html.twig' %}
 {% if content.field_header_image.0 is defined %}
-  {% set template = 'themes/custom/ymca/templates/layout/header/header-with-image.html.twig' %}
+  {% set template = '@ymca/layout/header/header-with-image.html.twig' %}
 {% endif %}
 {% extends template %}
 
