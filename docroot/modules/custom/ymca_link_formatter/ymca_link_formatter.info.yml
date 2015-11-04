@@ -1,0 +1,7 @@
+name: ymca_link_formatter
+type: module
+description: YMCA Link formatter
+core: 8.x
+package: YMCA
+dependencies:
+  - link
