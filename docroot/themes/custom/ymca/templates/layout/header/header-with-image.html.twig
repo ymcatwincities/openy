@@ -2,6 +2,6 @@
   {% block label_and_description %}{% endblock %}
 </div>
 
-<div class="col-sm-6 header-image header-button" style="background-image: url({% block backgroundimage_url %}{% endblock %});">
+<div class="col-sm-6 header-image header-button" style="{% block backgroundimage_url %}{% endblock %}">
   {% block content_image %}{% endblock %}
 </div>

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_link_formatter.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ymca_link_formatter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ymca_link_formatter module.
+    case 'help.page.ymca_link_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('YMCA Link formatter') . '</p>';
+      return $output;
+
+    default:
+  }
+}

@@ -1,12 +1,13 @@
-{% set template = 'themes/custom/ymca/templates/layout/lead/lead-1col.html.twig' %}
+{% set template = 'lead-1col.html.twig' %}
 {% if content.field_lead_action.0 is defined %}
-  {% set template = 'themes/custom/ymca/templates/layout/lead/lead-2col.html.twig' %}
+  {% set template = 'lead-2col.html.twig' %}
 {% endif %}
-{% extends template %}
+{% extends '@ymca/layout/lead/' ~ template %}
 
 {% block lead_description %}
   {{ content.field_lead_description }}
 {% endblock %}
+
 {% block call_to_action %}
   {{ content.field_lead_action }}
   <article class="richtext">

@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Bartik's theme implementation to display a node.
+ * YMCA's theme implementation to display a node.
  *
  * Available variables:
  * - node: Full node entity.
@@ -78,18 +78,20 @@
 <section class="page-header page-title">
   <div class="container title-container">
     <div class="row">
-      {% include "themes/custom/ymca/templates/layout/node/node-header.html.twig" %}
+      {% include "@ymca/layout/node/node-header.html.twig" %}
     </div>
   </div>
 </section>
 
-<section class="lead-copy ">
+{% if (content.field_lead_description.0 or content.field_lead_action.0) %}
+<section class="lead-copy">
   <div class="container">
     <div class="row">
-      {% include "themes/custom/ymca/templates/layout/node/node-lead.html.twig" %}
+      {% include "@ymca/layout/node/node-lead.html.twig" %}
     </div>
   </div>
 </section>
+{% endif %}
 
 <hr>
 
@@ -100,7 +102,7 @@
     </section>
 
     <div class="row">
-      {% include 'themes/custom/ymca/templates/layout/node/node-content.html.twig' %}
+      {% include '@ymca/layout/node/node-content.html.twig' %}
     </div>
   </div>
 </section>
