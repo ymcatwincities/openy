@@ -12,7 +12,7 @@ env:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
-    - { name: 'migrate-import', status: true, arguments: "--group=ymca" }
+    - { name: 'migrate-import', status: true, arguments: "--group=ymca --force" }
   post_settings:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["cache"]["bins"]["render"]', status: true, value: 'cache.backend.memory' }
