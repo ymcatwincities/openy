@@ -62,13 +62,17 @@ class YmcaMigrateFile extends SqlBase {
   public function prepareRow(Row $row) {
     $config = \Drupal::config('ymca_migrate.settings');
 
-    $url = $config->get('url_prefix') . $row->getSourceProperty('url');
+    $rel_path = $row->getSourceProperty('url');
+    $url = $config->get('url_prefix') . $rel_path;
     $basename = basename($url);
-    $filename = md5($url) . '_' . $basename;
+    $dir_struct = dirname($rel_path);
+    $filename = $basename;
     $row->setSourceProperty('name', $basename);
 
+    $cache_dir = $config->get('cache_dir');
+
     // Use cached file if exists.
-    $cached = $config->get('cache_dir') . '/' . $filename;
+    $cached = $cache_dir . '/' . $dir_struct . '/' . $filename;
     if (file_exists($cached)) {
       $file = file_get_contents($cached);
     }
@@ -77,9 +81,10 @@ class YmcaMigrateFile extends SqlBase {
 
       if ($file === FALSE) {
         $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
-        // @todo test this. Also we need to catch non existent files.
         return FALSE;
       }
+      // Saving a file with a path.
+      mkdir($cache_dir . '/' . $dir_struct, 0764, TRUE);
       file_put_contents($cached, $file);
     }
 
