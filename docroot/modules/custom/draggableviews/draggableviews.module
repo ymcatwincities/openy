@@ -68,14 +68,55 @@ function draggableviews_views_data_alter(&$data) {
  * Implements hook_views_post_render().
  */
 function draggableviews_views_post_render(\Drupal\views\ViewExecutable $view, &$output, \Drupal\views\Plugin\views\cache\CachePluginBase $cache) {
-  // Porting of draggableviews_preprocess_views_view_table().
-
   // If this view is not the sort view, then stop here.
   if (!isset($view->field['draggableviews'])) {
     return;
   }
+
   // Add JavaScript for auto-save functionality.
   if ($view->field['draggableviews']->displayHandler->usesAJAX()) {
     $output['#attached']['library'][] = 'draggableviews/draggableviews_table';
   }
+}
+
+/**
+ * Implements hook_preprocess_views_view_table().
+ */
+function draggableviews_preprocess_views_view_table(&$variables) {
+  $view = $variables['view'];
+  if (!isset($view->field['draggableviews'])) {
+    return;
+  }
+
+  $result = $variables['view']->result;
+
+  // Get an index of the row by base field.
+  $get_index = function($id) use ($result) {
+    foreach ($result as $item) {
+      if ($item->nid == $id) {
+        return $item->index;
+      }
+    }
+    return FALSE;
+  };
+
+  // Get a depth of the row.
+  $get_depth = function($index) use ($result, $get_index, &$get_depth) {
+    if (!isset($result[$index])) {
+      return FALSE;
+    }
+    $row = $result[$index];
+    // If parent is available, set parent's depth +1.
+    return (!empty($row->draggableviews_structure_parent)) ? $get_depth($get_index($row->draggableviews_structure_parent)) + 1 : 0;
+  };
+
+  foreach ($variables['rows'] as $key => $row) {
+    $title = $row['columns']['title']['content'][0]['field_output']['#markup'];
+    $indent = [
+      '#theme' => 'indentation',
+      '#size' => $get_depth($key),
+    ];
+    $variables['rows'][$key]['columns']['title']['content'][0]['field_output']['#markup'] = render($indent) . $title;
+  }
+
 }
