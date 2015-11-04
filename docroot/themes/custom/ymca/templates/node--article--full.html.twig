@@ -83,13 +83,15 @@
   </div>
 </section>
 
-<section class="lead-copy ">
+{% if (content.field_lead_description.0 or content.field_lead_action.0) %}
+<section class="lead-copy">
   <div class="container">
     <div class="row">
       {% include "@ymca/layout/node/node-lead.html.twig" %}
     </div>
   </div>
 </section>
+{% endif %}
 
 <hr>
 
