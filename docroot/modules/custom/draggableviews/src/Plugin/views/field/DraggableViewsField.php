@@ -9,9 +9,7 @@ namespace Drupal\draggableviews\Plugin\views\field;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\draggableviews\DraggableViewsRows;
-use Drupal\node\Plugin\views\field\NodeBulkForm;
 use Drupal\system\Plugin\views\field\BulkForm;
-use Drupal\views\Plugin\views\field\Field;
 use Drupal\Core\Render\Markup;
 
 /**
