@@ -26,7 +26,10 @@ function ymca_alters_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function ymca_alters_form_node_article_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if (!in_array($form_id, ['node_article_form', 'node_article_edit_form'])) {
+    return;
+  }
   $form['field_header_image']['#states'] = [
     'visible' => [
       ':input[name="field_header_variant"]' => ['value' => 'image'],
