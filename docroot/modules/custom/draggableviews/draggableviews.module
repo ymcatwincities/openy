@@ -88,35 +88,87 @@ function draggableviews_preprocess_views_view_table(&$variables) {
     return;
   }
 
-  $result = $variables['view']->result;
+  $rows_helper = new \Drupal\draggableviews\DraggableViewsRows($variables['view']->result);
 
-  // Get an index of the row by base field.
-  $get_index = function($id) use ($result) {
-    foreach ($result as $item) {
-      if ($item->nid == $id) {
-        return $item->index;
-      }
-    }
-    return FALSE;
-  };
-
-  // Get a depth of the row.
-  $get_depth = function($index) use ($result, $get_index, &$get_depth) {
-    if (!isset($result[$index])) {
-      return FALSE;
-    }
-    $row = $result[$index];
-    // If parent is available, set parent's depth +1.
-    return (!empty($row->draggableviews_structure_parent)) ? $get_depth($get_index($row->draggableviews_structure_parent)) + 1 : 0;
-  };
-
+  // Add hierarchy.
   foreach ($variables['rows'] as $key => $row) {
     $title = $row['columns']['title']['content'][0]['field_output']['#markup'];
     $indent = [
       '#theme' => 'indentation',
-      '#size' => $get_depth($key),
+      '#size' => $rows_helper->getDepth($key),
     ];
     $variables['rows'][$key]['columns']['title']['content'][0]['field_output']['#markup'] = render($indent) . $title;
   }
 
+  // @todo: add tabledrag here.
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function draggableviews_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Get the right form.
+  if (strpos($form_id, 'views_form_') === 0) {
+    $view = $form_state->getBuildInfo()['args'][0];
+  }
+
+  if (!isset($view->field['draggableviews'])) {
+    return;
+  }
+
+  // Remove default submit button.
+  $form['actions']['submit']['#access'] = FALSE;
+
+  // Create draggableviews save order button.
+  $form['actions']['save_order'] = array(
+    '#value' => t('Save order'),
+    '#type' => 'submit',
+  );
+
+  // If there is no results remove the save-order button.
+  if (!isset($form['draggableviews'][0])) {
+    $form['actions']['save_order']['#access'] = FALSE;
+    return;
+  }
+
+  $form['actions']['save_order']['#submit'][] = 'draggableviews_views_submit';
+}
+
+/**
+ * Submit handler.
+ */
+function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $input = $form_state->getUserInput();
+
+  $view = $form_state->getBuildInfo()['args'][0];
+  $view_name = $view->id();
+  $view_display = $view->current_display;
+
+  // Reorder the items by weight.
+  uasort($input['draggableviews'], array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
+
+  $weight = 0;
+  foreach ($input['draggableviews'] as $item) {
+    // Remove old data.
+    db_delete('draggableviews_structure')
+      ->condition('view_name', $view_name)
+      ->condition('view_display', $view_display)
+      ->condition('entity_id', $item['id'])
+      ->execute();
+
+    // Add new data.
+    $record = [
+      'view_name' => $view_name,
+      'view_display' => $view_display,
+      'args' => '[]',
+      'entity_id' => $item['id'],
+      'weight' => $weight,
+    ];
+    // Save parent if exists
+    if (isset($item['parent'])) {
+      $record['parent'] = $item['parent'];
+    }
+    db_insert('draggableviews_structure')->fields($record)->execute();
+    $weight++;
+  }
 }
