@@ -179,6 +179,7 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   }
   catch (\Exception $e) {
     $transaction->rollback();
-    throw $e;
+    \Drupal::logger('draggableviews')->error($e->getMessage());
+    drupal_set_message(t('There was an error while saving the data. Please, try gain.'), 'warning');
   }
 }
