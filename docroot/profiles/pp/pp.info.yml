@@ -49,6 +49,7 @@ dependencies:
   - draggableviews
   - ymca_styleguide
   - ymca_link_formatter
+  - ymca_alters
 themes:
   - bartik
   - seven
