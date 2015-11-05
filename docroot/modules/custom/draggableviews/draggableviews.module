@@ -145,7 +145,7 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   $view_display = $view->current_display;
 
   // Reorder the items by weight.
-  uasort($input['draggableviews'], array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
+  uasort($input['draggableviews'], ['Drupal\Component\Utility\SortArray', 'sortByWeightElement']);
 
   $weight = 0;
 
@@ -179,7 +179,8 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   }
   catch (\Exception $e) {
     $transaction->rollback();
-    \Drupal::logger('draggableviews')->error($e->getMessage());
+    \Drupal::logger('draggableviews')->error('Failed with @message', ['@message' => $e->getMessage()]);
+    // @todo: Test it with AJAX.
     drupal_set_message(t('There was an error while saving the data. Please, try gain.'), 'warning');
   }
 }
