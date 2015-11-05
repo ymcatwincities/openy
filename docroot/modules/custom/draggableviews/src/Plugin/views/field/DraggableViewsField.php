@@ -48,7 +48,7 @@ class DraggableViewsField extends BulkForm {
    * {@inheritdoc}
    */
   public function viewsForm(&$form, FormStateInterface $form_state) {
-    // todo: d7 has $this->field_alias. How to make in d8?
+    // @todo d7 has $this->field_alias. How to make in d8?
     $field_alias = 'nid';
 
     $form[$this->options['id']] = [
