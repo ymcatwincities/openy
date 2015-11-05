@@ -148,27 +148,37 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   uasort($input['draggableviews'], array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
 
   $weight = 0;
-  foreach ($input['draggableviews'] as $item) {
-    // Remove old data.
-    db_delete('draggableviews_structure')
-      ->condition('view_name', $view_name)
-      ->condition('view_display', $view_display)
-      ->condition('entity_id', $item['id'])
-      ->execute();
 
-    // Add new data.
-    $record = [
-      'view_name' => $view_name,
-      'view_display' => $view_display,
-      'args' => '[]',
-      'entity_id' => $item['id'],
-      'weight' => $weight,
-    ];
-    // Save parent if exists.
-    if (isset($item['parent'])) {
-      $record['parent'] = $item['parent'];
+  $connection = \Drupal\Core\Database\Database::getConnection();
+  $transaction = $connection->startTransaction();
+  try {
+    foreach ($input['draggableviews'] as $item) {
+      // Remove old data.
+      $connection->delete('draggableviews_structure')
+        ->condition('view_name', $view_name)
+        ->condition('view_display', $view_display)
+        ->condition('entity_id', $item['id'])
+        ->execute();
+
+      // Add new data.
+      $record = [
+        'view_name' => $view_name,
+        'view_display' => $view_display,
+        'args' => '[]',
+        'entity_id' => $item['id'],
+        'weight' => $weight,
+      ];
+      // Save parent if exists.
+      if (isset($item['parent'])) {
+        $record['parent'] = $item['parent'];
+      }
+      $connection->insert('draggableviews_structure')->fields($record)->execute();
+      $weight++;
     }
-    db_insert('draggableviews_structure')->fields($record)->execute();
-    $weight++;
+
+  }
+  catch (\Exception $e) {
+    $transaction->rollback();
+    throw $e;
   }
 }
