@@ -164,7 +164,7 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
       'entity_id' => $item['id'],
       'weight' => $weight,
     ];
-    // Save parent if exists
+    // Save parent if exists.
     if (isset($item['parent'])) {
       $record['parent'] = $item['parent'];
     }
