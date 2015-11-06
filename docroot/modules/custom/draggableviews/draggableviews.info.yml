@@ -5,6 +5,3 @@ core: 8.x
 package: YMCA
 dependencies:
   - views
-libraries:
-  - draggableviews/draggableviews_list
-  - draggableviews/draggableviews_table

@@ -7,10 +7,10 @@
 
 namespace Drupal\draggableviews\Plugin\migrate\destination;
 
+use Drupal\Core\Database\Database;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\destination\DestinationBase;
 use Drupal\migrate\Row;
-
 
 /**
  * Defines destination plugin for Draggableviews.
@@ -49,9 +49,7 @@ class DraggableViews extends DestinationBase {
       'weight' => $row->getDestinationProperty('weight'),
       'parent' => $row->getDestinationProperty('parent'),
     ];
-    // @todo: Replace the code above with a service injected in the constructor.
-    // Look for url_alias destination plugin for the example.
-    $result = db_insert('draggableviews_structure')->fields($record)->execute();
+    $result = Database::getConnection()->insert('draggableviews_structure')->fields($record)->execute();
     return array($result);
   }
 
