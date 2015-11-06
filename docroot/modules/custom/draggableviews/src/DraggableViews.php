@@ -25,11 +25,11 @@ class DraggableViews {
   /**
    * Constructs DraggableViewsRows object.
    *
-   * @param \Drupal\views\ViewExecutable $viewExecutable
+   * @param \Drupal\views\ViewExecutable $view
    *   Views object.
    */
-  public function __construct(ViewExecutable $viewExecutable) {
-    $this->view = $viewExecutable;
+  public function __construct(ViewExecutable $view) {
+    $this->view = $view;
   }
 
   /**
@@ -64,7 +64,7 @@ class DraggableViews {
   }
 
   /**
-   * get HTML id for draggableviews table.
+   * Get HTML id for draggableviews table.
    */
   public function getHtmlId() {
     return Html::getId('draggableviews-table-' . $this->view->id() . '-' . $this->view->current_display);
