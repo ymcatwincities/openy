@@ -88,14 +88,14 @@ function draggableviews_preprocess_views_view_table(&$variables) {
     return;
   }
 
-  $rows_helper = new \Drupal\draggableviews\DraggableViewsRows($variables['view']->result);
+  $draggableviews = new \Drupal\draggableviews\DraggableViews($variables['view']);
 
   // Add hierarchy.
   foreach ($variables['rows'] as $key => $row) {
     $title = $row['columns']['title']['content'][0]['field_output']['#markup'];
     $indent = [
       '#theme' => 'indentation',
-      '#size' => $rows_helper->getDepth($key),
+      '#size' => $draggableviews->getDepth($key),
     ];
     $variables['rows'][$key]['columns']['title']['content'][0]['field_output']['#markup'] = render($indent) . $title;
   }

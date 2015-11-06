@@ -8,7 +8,7 @@
 namespace Drupal\draggableviews\Plugin\views\field;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\draggableviews\DraggableViewsRows;
+use Drupal\draggableviews\DraggableViews;
 use Drupal\system\Plugin\views\field\BulkForm;
 use Drupal\Core\Render\Markup;
 
@@ -56,7 +56,7 @@ class DraggableViewsField extends BulkForm {
     ];
 
     $range = count($this->view->result);
-    $row_helper = new DraggableViewsRows($this->view->result);
+    $draggableviews = new DraggableViews($this->view);
 
     foreach ($this->view->result as $row_index => $row) {
       $form[$this->options['id']][$row_index] = array(
@@ -81,14 +81,14 @@ class DraggableViewsField extends BulkForm {
       // Add parent.
       $form[$this->options['id']][$row_index]['parent'] = array(
         '#type' => 'hidden',
-        '#default_value' => $row_helper->getParent($row_index),
+        '#default_value' => $draggableviews->getParent($row_index),
         '#attributes' => array('class' => 'draggableviews-parent'),
       );
 
       // Add depth.
       $form[$this->options['id']][$row_index]['depth'] = array(
         '#type' => 'hidden',
-        '#default_value' => $row_helper->getDepth($row_index),
+        '#default_value' => $draggableviews->getDepth($row_index),
         '#attributes' => array('class' => 'draggableviews-depth'),
       );
     }

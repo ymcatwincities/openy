@@ -2,38 +2,40 @@
 
 /**
  * @file
- * Contains \Drupal\draggableviews\DraggabaleViewsRows class.
+ * Contains \Drupal\draggableviews\DraggableViews class.
  */
 
 namespace Drupal\draggableviews;
 
+use Drupal\views\ViewExecutable;
+
 /**
- * Class DraggableViewsRows.
+ * Class DraggableViews.
  */
-class DraggableViewsRows {
+class DraggableViews {
 
   /**
-   * Views result rows.
+   * The view.
    *
-   * @var array
+   * @var \Drupal\views\ViewExecutable $view
    */
-  protected $rows;
+  protected $view;
 
   /**
    * Constructs DraggableViewsRows object.
    *
-   * @param array $rows
-   *   Views result array of rows.
+   * @param \Drupal\views\ViewExecutable $viewExecutable
+   *   Views object.
    */
-  public function __construct(array $rows) {
-    $this->rows = $rows;
+  public function __construct(ViewExecutable $viewExecutable) {
+    $this->view = $viewExecutable;
   }
 
   /**
    * Get index by name and id.
    */
   public function getIndex($name, $id) {
-    foreach ($this->rows as $item) {
+    foreach ($this->view->result as $item) {
       if ($item->$name == $id) {
         return $item->index;
       }
@@ -45,10 +47,10 @@ class DraggableViewsRows {
    * Get depth.
    */
   public function getDepth($index) {
-    if (!isset($this->rows[$index])) {
+    if (!isset($this->view->result[$index])) {
       return FALSE;
     }
-    $row = $this->rows[$index];
+    $row = $this->view->result[$index];
     // If parent is available, set parent's depth +1.
     return (!empty($row->draggableviews_structure_parent)) ? $this->getDepth($this->getIndex('nid', $row->draggableviews_structure_parent)) + 1 : 0;
   }
@@ -57,7 +59,7 @@ class DraggableViewsRows {
    * Get parent.
    */
   public function getParent($index) {
-    return isset($this->rows[$index]->draggableviews_structure_parent) ? $this->rows[$index]->draggableviews_structure_parent : 0;
+    return isset($this->view->result[$index]->draggableviews_structure_parent) ? $this->view->result[$index]->draggableviews_structure_parent : 0;
   }
 
 }
