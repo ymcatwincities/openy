@@ -8,6 +8,7 @@
 namespace Drupal\draggableviews;
 
 use Drupal\views\ViewExecutable;
+use Drupal\Component\Utility\Html;
 
 /**
  * Class DraggableViews.
@@ -60,6 +61,13 @@ class DraggableViews {
    */
   public function getParent($index) {
     return isset($this->view->result[$index]->draggableviews_structure_parent) ? $this->view->result[$index]->draggableviews_structure_parent : 0;
+  }
+
+  /**
+   * Generate table HTML id.
+   */
+  public function generateHtmlId() {
+    return Html::getUniqueId('draggableviews-table-' . $this->view->id() . '-' . $this->view->current_display);
   }
 
 }
