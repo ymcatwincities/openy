@@ -92,6 +92,15 @@ class DraggableViewsField extends BulkForm {
         '#attributes' => array('class' => 'draggableviews-depth'),
       );
     }
+
+    $options = [
+      'table_id' => $draggableviews->getHtmlId(),
+      'action' => 'depth',
+      'relationship' => 'group',
+      'group' => 'draggableviews-depth',
+    ];
+    drupal_attach_tabledrag($form, $options);
+
   }
 
 }

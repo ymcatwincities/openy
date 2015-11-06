@@ -75,7 +75,7 @@ function draggableviews_views_post_render(\Drupal\views\ViewExecutable $view, &$
 
   // Add JavaScript for auto-save functionality.
   if ($view->field['draggableviews']->displayHandler->usesAJAX()) {
-    $output['#attached']['library'][] = 'draggableviews/draggableviews_table';
+//    $output['#attached']['library'][] = 'draggableviews/draggableviews_table';
   }
 }
 
@@ -100,7 +100,14 @@ function draggableviews_preprocess_views_view_table(&$variables) {
     $variables['rows'][$key]['columns']['title']['content'][0]['field_output']['#markup'] = render($indent) . $title;
   }
 
-  // @todo Add tabledrag here.
+  // Add table attributes.
+  $variables['attributes']['id'] = $draggableviews->getHtmlId();
+
+  // Add rows attributes.
+  foreach ($variables['rows'] as &$row) {
+    $row['attributes']->addClass('draggable');
+  }
+  unset($row);
 }
 
 /**

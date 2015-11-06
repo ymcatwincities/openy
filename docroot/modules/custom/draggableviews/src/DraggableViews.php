@@ -64,10 +64,10 @@ class DraggableViews {
   }
 
   /**
-   * Generate table HTML id.
+   * get HTML id for draggableviews table.
    */
-  public function generateHtmlId() {
-    return Html::getUniqueId('draggableviews-table-' . $this->view->id() . '-' . $this->view->current_display);
+  public function getHtmlId() {
+    return Html::getId('draggableviews-table-' . $this->view->id() . '-' . $this->view->current_display);
   }
 
 }
