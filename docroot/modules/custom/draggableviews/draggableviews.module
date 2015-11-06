@@ -100,18 +100,20 @@ function draggableviews_preprocess_views_view_table(&$variables) {
     $variables['rows'][$key]['columns']['title']['content'][0]['field_output']['#markup'] = render($indent) . $title;
   }
 
-  // @todo: add tabledrag here.
+  // @todo Add tabledrag here.
 }
 
 /**
  * Implements hook_form_alter().
  */
 function draggableviews_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // Get the right form.
-  if (strpos($form_id, 'views_form_') === 0) {
-    $view = $form_state->getBuildInfo()['args'][0];
+  // Filter the right form.
+  if (strpos($form_id, 'views_form_') === FALSE) {
+    return;
   }
 
+  // Check whether the view is draggable.
+  $view = $form_state->getBuildInfo()['args'][0];
   if (!isset($view->field['draggableviews'])) {
     return;
   }
@@ -180,7 +182,7 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   catch (\Exception $e) {
     $transaction->rollback();
     \Drupal::logger('draggableviews')->error('Failed with @message', ['@message' => $e->getMessage()]);
-    // @todo: Test it with AJAX.
+    // @todo Test it with AJAX.
     drupal_set_message(t('There was an error while saving the data. Please, try gain.'), 'warning');
   }
 }
