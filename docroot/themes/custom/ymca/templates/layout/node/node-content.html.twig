@@ -17,3 +17,8 @@
 {% block sidebar %}
   {{ content.field_sidebar }}
 {% endblock %}
+
+{% block navigationsidebar %}
+  <div>Navigation sidebar</div>
+  {{ parent() }}
+{% endblock %}
