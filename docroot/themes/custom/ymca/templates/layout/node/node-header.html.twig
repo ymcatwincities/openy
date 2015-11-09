@@ -1,6 +1,13 @@
-{% set template = 'header-without-image.html.twig' %}
-{% if content.field_header_image.0 is defined %}
-  {% set template = 'header-with-image.html.twig' %}
+{% set variant = node.field_header_variant.0.value %}
+{% if (variant == 'image' and content.field_header_image.0 is not defined) %}
+  {% set variant = 'none' %}
+{% endif %}
+{% if (variant == 'button' and content.field_header_button.0 is not defined) %}
+  {% set variant = 'none' %}
+{% endif %}
+{% set template = 'header-with-image.html.twig' %}
+{% if (variant == 'none') %}
+  {% set template = 'header-without-image.html.twig' %}
 {% endif %}
 
 {% extends '@ymca/layout/header/' ~ template %}
@@ -13,17 +20,17 @@
 {% endblock %}
 
 {% block content_image %}
-  {% if (node.field_header_variant.0.value == 'image') %}
+  {% if variant == 'image' %}
     <figure class="text-center image_component">
       {{ content.field_header_image }}
     </figure>
-  {% elseif (node.field_header_variant.0.value == 'button') %}
+  {% elseif variant == 'button' %}
     {{ content.field_header_button }}
   {% endif %}
 {% endblock %}
 
 {% block backgroundimage_url %}
-  {% if (node.field_header_variant.0.value == 'image') %}
+  {% if variant == 'image' %}
     background-image: url({{ node.field_header_image.0.entity.url() }});
   {% endif %}
 {% endblock %}
