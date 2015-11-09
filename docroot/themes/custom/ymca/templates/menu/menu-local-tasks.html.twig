@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display primary and secondary local tasks.
+ * Default theme implementation to display primary and secondary local tasks.
  *
  * Available variables:
  * - primary: HTML list items representing primary tasks.
@@ -11,17 +11,19 @@
  * themed in menu-local-task.html.twig.
  *
  * @see template_preprocess_menu_local_tasks()
+ *
+ * @ingroup themeable
  */
 #}
 <div class="row">
   <div class="container">
     {% if primary %}
       <h2 class="visually-hidden">{{ 'Primary tabs'|t }}</h2>
-      <ul class="tabs primary">{{ primary }}</ul>
+      <ul class="tabs--primary nav nav-tabs">{{ primary }}</ul>
     {% endif %}
     {% if secondary %}
       <h2 class="visually-hidden">{{ 'Secondary tabs'|t }}</h2>
-      <ul class="tabs secondary">{{ secondary }}</ul>
+      <ul class="tabs--secondary pagination pagination-sm">{{ secondary }}</ul>
     {% endif %}
   </div>
 </div>
