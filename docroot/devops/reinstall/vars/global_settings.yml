@@ -5,6 +5,7 @@ installation_profile_name: pp
 mysql_user: root
 mysql_pass: root
 mysql_db: drupal
+old_source_db_name: amm_source
 cache_folder: /var/www/cache
 backup_folder: /var/www/backup
 tmp_folder: /tmp
@@ -32,8 +33,10 @@ backup_pass: givemebackup
 # Source backup database that will be downloaded to build site.
 # In many cases this is production dump.
 source_backup_name: latest_prod.sql.gz
+old_source_backup_name: ymca20151103.sql.gz
 # URL to the source database. Can be overridden by CI server.
-source_database: http://{{ backup_user }}:{{ backup_pass }}@192.168.56.132/backup/{{ source_backup_name }}
+source_database: http://{{ backup_user }}:{{ backup_pass }}@178.62.224.139/backup/{{ source_backup_name }}
+old_source_db_name_url: http://{{ backup_user }}:{{ backup_pass }}@178.62.224.139/backup/{{ old_source_backup_name }}
 # Path where settings.php should be placed.
 settings_file_path: sites/default/settings.php
 settings_default_file_path: sites/default/default.settings.php

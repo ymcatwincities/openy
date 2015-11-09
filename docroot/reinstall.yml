@@ -21,6 +21,10 @@
   - include: devops/reinstall/prepare_environment.yml
     tags: [ 'prepare-environment' ]
 
+  - include: devops/reinstall/old_source_sql_workflow.yml
+    when: workflow_type == "profile" or workflow_type == "sql"
+    tags: [ 'profile-workflow', 'sql-workflow', 'prepare-environment' ]
+
   - include: devops/reinstall/pre_settings.yml
     when: workflow_type == "sql"
     tags: [ 'settings', 'pre-settings', 'sql-workflow' ]
