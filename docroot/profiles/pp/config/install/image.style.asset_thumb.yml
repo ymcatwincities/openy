@@ -1,0 +1,14 @@
+uuid: 6033977d-7f11-43be-a404-4e5e5b215ba5
+langcode: en
+status: true
+dependencies: {  }
+name: asset_thumb
+label: 'Asset Thumbnail'
+effects:
+  c92e2f5d-6bc3-4624-933a-586e9696ac8d:
+    uuid: c92e2f5d-6bc3-4624-933a-586e9696ac8d
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 30
+      height: 30

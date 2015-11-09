@@ -49,7 +49,7 @@ content:
     weight: 5
     label: above
     settings:
-      image_style: lead_image
+      image_style: 2013_masthead
       image_link: ''
     third_party_settings: {  }
     type: image
