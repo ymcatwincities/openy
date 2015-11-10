@@ -75,19 +75,13 @@
 %}
 {{ attach_library('classy/node') }}
 
-<section class="page-header page-title">
-  <div class="container title-container">
-    <div class="row">
-      {% include "@ymca/layout/node/node-header.html.twig" %}
-    </div>
-  </div>
-</section>
+{% include "@ymca/layout/node/node-header.html.twig" %}
 
 {% if (content.field_lead_description.0 or content.field_lead_action.0) %}
 <section class="lead-copy">
   <div class="container">
     <div class="row">
-      {% include "@ymca/layout/node/node-lead.html.twig" %}
+      {% include "@ymca/layout/node/node-lead.html.twig" with {content: content} only %}
     </div>
   </div>
 </section>
@@ -102,7 +96,7 @@
     </section>
 
     <div class="row">
-      {% include '@ymca/layout/node/node-content.html.twig' %}
+      {% include '@ymca/layout/node/node-content.html.twig' with {content: content} only %}
     </div>
   </div>
 </section>

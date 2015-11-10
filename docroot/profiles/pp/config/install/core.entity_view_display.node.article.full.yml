@@ -52,7 +52,7 @@ content:
     weight: 4
     label: hidden
     settings:
-      image_style: lead_image
+      image_style: 2013_masthead
       image_link: ''
     third_party_settings: {  }
   field_lead_action:

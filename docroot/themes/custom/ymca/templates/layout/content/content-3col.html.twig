@@ -1,18 +1,15 @@
 <div class="copy col-sm-7 col-sm-push-5 col-md-6 col-md-push-3">
   {% block maincontent %}{% endblock %}
-  {#<div id="fb-root"></div>#}
-  {#<script src="https://connect.facebook.net/en_US/all.js#xfbml=1"></script>#}
-  {#<fb:like-box href="https://www.facebook.com/YDPPTwinCities" width="420" height="300" force_wall="true" show_faces="false" border_color="" stream="true" header="false" class=" fb_iframe_widget" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=1382702231950329&amp;container_width=605&amp;force_wall=true&amp;header=false&amp;height=300&amp;href=https%3A%2F%2Fwww.facebook.com%2FYDPPTwinCities&amp;locale=en_US&amp;sdk=joey&amp;show_faces=false&amp;stream=true&amp;width=420"><span style="vertical-align: bottom; width: 420px; height: 300px;"><iframe name="faa4fa73" width="420px" height="300px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like_box Facebook Social Plugin" src="http://www.facebook.com/plugins/like_box.php?app_id=1382702231950329&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2Fjb3BUxkAISL.js%3Fversion%3D41%23cb%3Df1649cdcf%26domain%3Dwww.ymcatwincities.org%26origin%3Dhttp%253A%252F%252Fwww.ymcatwincities.org%252Ff359a3d7d%26relation%3Dparent.parent&amp;container_width=605&amp;force_wall=true&amp;header=false&amp;height=300&amp;href=https%3A%2F%2Fwww.facebook.com%2FYDPPTwinCities&amp;locale=en_US&amp;sdk=joey&amp;show_faces=false&amp;stream=true&amp;width=420" style="border: none; visibility: visible; width: 420px; height: 340.312px;" class=""></iframe></span></fb:like-box>#}
 </div>
 
 <div class="hidden-xs col-sm-5 col-md-3 col-sm-pull-7 col-md-pull-6 subnav">
-  {% block sidebarnavigation %}
+  {% block navigationsidebar %}
     {{ sidebar_navigation }}
+    <div class="visible-sm promos sidebar-promos">
+      {# Duplicate sidebar block contents for small screens #}
+      {{ block('sidebar') }}
+    </div>
   {% endblock %}
-  <div class="visible-sm promos sidebar-promos">
-    {# Duplicate sidebar block contents for small screens #}
-    {{ block('sidebar') }}
-  </div>
 </div>
 
 <div class="col-md-3 sidebar-promos promos hidden-sm visible-xs">
