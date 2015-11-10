@@ -52,12 +52,23 @@ CREATE TABLE `legacy__node_article` (
   `title` varchar(255) NOT NULL,
   `header_image` int(11) NOT NULL,
   `parent` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `legacy__node_article` (`id`, `title`, `header_image`, `parent`) VALUES
-(1,	'Example article #1',	3,	0),
-(2,	'Example article #2',	2,	1),
-(3,	'Example article #3',	1,	2);
+INSERT INTO `legacy__node_article` (`id`, `title`, `header_image`, `parent`, `weight`) VALUES
+(1,	'Swim Lessons',	3,	0,	1),
+(2,	'Swim Team',	3,	0,	2),
+(3,	'Blazers',	3,	2,	3),
+(4,	'Barracudas',	3,	2,	4),
+(5,	'Certifications and Training',	3,	0,	5),
+(6,	'Lifeguard Training',	3,	5,	6),
+(7,	'Lifeguard Training',	3,	6,	7),
+(8,	'Lifeguard Training Review',	3,	6,	8),
+(9,	'Lifeguard Module',	3,	6,	9),
+(10,	'CPR Training',	3,	5,	10),
+(11,	'Full Course',	3,	10,	11),
+(12,	'Renewal',	3,	10,	12),
+(13,	'Challange',	3,	10,	13);
 
--- 2015-11-02 18:09:41
+-- 2015-11-10 11:04:41
