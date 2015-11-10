@@ -20,7 +20,7 @@ class DraggableViews {
    *
    * @var \Drupal\views\ViewExecutable $view
    */
-  protected $view;
+  public $view;
 
   /**
    * Constructs DraggableViewsRows object.
@@ -45,7 +45,7 @@ class DraggableViews {
   }
 
   /**
-   * Get depth.
+   * Get depth by index.
    */
   public function getDepth($index) {
     if (!isset($this->view->result[$index])) {
@@ -57,10 +57,25 @@ class DraggableViews {
   }
 
   /**
-   * Get parent.
+   * Get parent by index.
    */
   public function getParent($index) {
     return isset($this->view->result[$index]->draggableviews_structure_parent) ? $this->view->result[$index]->draggableviews_structure_parent : 0;
+  }
+
+  /**
+   * Get ancestor by index.
+   */
+  public function getAncestor($index) {
+    $row = $this->view->result[$index];
+    return !empty($row->draggableviews_structure_parent) ? $this->getAncestor($this->getIndex('nid', $row->draggableviews_structure_parent)) : $index;
+  }
+
+  /**
+   * Return value by it's name and index.
+   */
+  public function getValue($name, $index) {
+    return $this->view->result[$index]->$name;
   }
 
   /**
