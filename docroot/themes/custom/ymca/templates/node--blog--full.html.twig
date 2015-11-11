@@ -75,28 +75,32 @@
 %}
 {{ attach_library('classy/node') }}
 
-{% include "@ymca/layout/node/node-header.html.twig" %}
+{% embed "@ymca/layout/header/header-without-image.html.twig" %}
+  {% block label_and_description %}
+    <h1>{{ label }}</h1>
+  {% endblock %}
+{% endembed %}
 
-{% if (content.field_lead_description.0 or content.field_lead_action.0) %}
-<section class="lead-copy">
-  <div class="container">
-    <div class="row">
-      {% include "@ymca/layout/node/node-lead.html.twig" with {content: content} only %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<hr>
-
-<section{{ attributes.addClass(classes) }}>
+<section {{ attributes.addClass(classes) }}>
   <div class="container">
 
     <section class="messages">
     </section>
 
     <div class="row">
-      {% include '@ymca/layout/node/node-content.html.twig' with {content: content, sidebar_navigation: sidebar_navigation} only %}
+      <div class="col-sm-3 col-md-2 back-to-blog">
+        <a href="{{ url('<front>') }}"><i class="glyphicon glyphicon-chevron-left"></i>Back to blog</a>
+      </div>
+      <div class="copy col-sm-8 col-md-9">
+        <div class="post_display_full">
+          <article class="richtext">
+            {{ content.body }}
+          </article>
+        </div>
+
+        {% include "@ymca/misc/add-this.html.twig" %}
+
+      </div>
     </div>
   </div>
 </section>

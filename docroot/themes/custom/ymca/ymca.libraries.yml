@@ -15,3 +15,8 @@ global-styling:
     scripts/legacy/main.min.js: {}
   dependencies:
     - core/jquery
+
+add-this:
+  version: 0
+  js:
+    //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924: { type: external, minified: true }
