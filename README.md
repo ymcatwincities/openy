@@ -35,7 +35,7 @@ http://drupal.192.168.56.132.xip.io/
 If ```xip.io``` not working - create row with
 
 ```hosts
-192.168.56.112 drupal.192.168.56.132.xip.io
+192.168.56.132 drupal.192.168.56.132.xip.io
 ```
 
 in ```/etc/hosts``` or just use another ServerName in apache.yml
