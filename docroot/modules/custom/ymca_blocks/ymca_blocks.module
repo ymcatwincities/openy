@@ -110,11 +110,9 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
  */
 function ymca_blocks_preprocess_node(&$variables) {
   $node = &$variables['node'];
-  if ($node->bundle() == 'article') {
-    if ($node->get('field_sidebar_navigation')->getValue()[0]) {
-      $variables['sidebar_navigation'] = \Drupal::service('plugin.manager.block')
-        ->createInstance('sidebar_navigation_block', array())
-        ->build();
-    }
+  if ($node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
+    $variables['sidebar_navigation'] = \Drupal::service('plugin.manager.block')
+      ->createInstance('sidebar_navigation_block', array())
+      ->build();
   }
 }
