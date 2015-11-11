@@ -28,14 +28,14 @@ class SidebarNavigation extends BlockBase {
    *
    * @var DraggableViews $draggableviews
    */
-  public $draggableviews = NULL;
+  protected $draggableviews = NULL;
 
   /**
    * Context node.
    *
    * @var Node $context
    */
-  public $context = NULL;
+  protected $context = NULL;
 
   /**
    * {@inheritdoc}
@@ -64,13 +64,12 @@ class SidebarNavigation extends BlockBase {
       ];
     }
 
-    // Get an ancestor for the current context.
     $nid = $this->context->id();
     $parent = $this->getParent($nid);
     $ancestor = $this->getAncestor($nid);
     $depth = $this->getDepth($nid);
 
-    // The list will be filtered by series of callbacks.
+    // The list will be filtered by the series of callbacks.
     // Filter out children of another branches.
     $filter = function($element) use ($ancestor) {
       if ($this->getAncestor($element['id']) != $ancestor && $this->getDepth($element['id']) > 0) {
@@ -80,7 +79,7 @@ class SidebarNavigation extends BlockBase {
     };
     $list = array_filter($list, $filter);
 
-    // Filter out children with depth grater then depth of context.
+    // Filter out children with a depth greater than depth of context.
     $filter = function($element) use ($depth) {
       if ($this->getDepth($element['id']) > ($depth + 1)) {
         return FALSE;
@@ -92,7 +91,7 @@ class SidebarNavigation extends BlockBase {
     // Filter out siblings with another parent.
     $filter = function($element) use ($ancestor, $depth, $nid, $parent) {
       static $siblings = [];
-      // Check if the element if sibling.
+      // Check if the element is sibling.
       if ($this->getAncestor($element['id']) == $ancestor && $this->getDepth($element['id']) == $depth && $element['id'] != $nid) {
         $siblings[] = $element['id'];
         // Another parent? Goodbye!
@@ -111,10 +110,14 @@ class SidebarNavigation extends BlockBase {
     // Finally generate the tree.
     $tree = $this->buildTree($list);
 
-    return [
-      '#theme' => 'item_list',
-      '#items' => $tree,
-    ];
+    if (is_array($tree) && count($tree)) {
+      return [
+        '#theme' => 'item_list',
+        '#items' => $tree,
+      ];
+    }
+
+    return NULL;
   }
 
   /**
