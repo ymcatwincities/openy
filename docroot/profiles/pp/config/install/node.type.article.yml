@@ -8,9 +8,9 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: Article
+name: Page
 type: article
-description: 'Standard article.'
+description: ''
 help: ''
 new_revision: false
 preview_mode: 1
