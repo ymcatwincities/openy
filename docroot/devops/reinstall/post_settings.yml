@@ -23,9 +23,6 @@
   when: item.status == true
   with_items: env.post_settings
 
-- name: Adding legacy database variable to settings.php
-  lineinfile: dest='{{ platform_settings_file }}' line='$databases[\"legacy\"][\"default\"] = array (\"database\" => \"{{ old_source_db_name }}\", \"username\" => \"{{ mysql_user }}\", \"password\" => \"{{ mysql_pass }}\", \"host\" => \"127.0.0.1\", \"port\" => \"\", \"driver\" => \"mysql\", \"prefix\" => \"\", );'
-
 - name: Copy settings back (WINDOWS)
   shell: cp {{ platform_settings_file }} {{ settings_file_path }}
   when: is_windows
