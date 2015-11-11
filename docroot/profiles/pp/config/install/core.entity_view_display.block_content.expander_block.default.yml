@@ -6,8 +6,6 @@ dependencies:
     - block_content.type.expander_block
     - field.field.block_content.expander_block.field_block_content
     - field.field.block_content.expander_block.field_block_header
-  module:
-    - text
 id: block_content.expander_block.default
 targetEntityType: block_content
 bundle: expander_block

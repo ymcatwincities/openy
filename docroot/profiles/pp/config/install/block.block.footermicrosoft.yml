@@ -2,6 +2,8 @@ uuid: 46e4ec30-5355-42d9-851a-2644cf8268b3
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - ymca
 id: footermicrosoft
