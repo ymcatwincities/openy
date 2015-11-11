@@ -19,9 +19,7 @@ process:
     plugin: migration
     migration: ymca_migrate_node_article
     source: id
-  weight:
-    plugin: default_value
-    default_value: 10
+  weight: weight
   parent:
     plugin: migration
     migration: ymca_migrate_node_article
