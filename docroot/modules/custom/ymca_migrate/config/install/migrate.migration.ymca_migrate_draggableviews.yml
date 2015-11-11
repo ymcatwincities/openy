@@ -1,6 +1,6 @@
 id: ymca_migrate_draggableviews
 label: Draggable views migration.
-migration_group: ymca
+migration_group: example
 migration_tags:
   - draggableviews
 source:

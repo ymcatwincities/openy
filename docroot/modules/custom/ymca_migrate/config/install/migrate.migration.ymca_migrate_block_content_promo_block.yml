@@ -1,6 +1,6 @@
 id: ymca_migrate_block_content_promo_block
 label: Promo block migration.
-migration_group: ymca
+migration_group: example
 migration_tags:
   - block_content
 source:
