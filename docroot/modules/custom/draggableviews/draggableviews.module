@@ -112,11 +112,13 @@ function draggableviews_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
   // Remove default submit button.
   $form['actions']['submit']['#access'] = FALSE;
 
-  // Create draggableviews save order button.
-  $form['actions']['save_order'] = array(
-    '#value' => t('Save order'),
-    '#type' => 'submit',
-  );
+  if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+    // Create draggableviews save order button.
+    $form['actions']['save_order'] = array(
+      '#value' => t('Save order'),
+      '#type' => 'submit',
+    );
+  }
 
   // If there is no results remove the save-order button.
   if (!isset($form['draggableviews'][0])) {
