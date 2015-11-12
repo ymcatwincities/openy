@@ -1,0 +1,24 @@
+uuid: d9a990a7-004b-4af7-801d-29e28db2ab0a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.camp.field_content
+    - node.type.camp
+  module:
+    - text
+    - user
+id: node.camp.default
+targetEntityType: node
+bundle: camp
+mode: default
+content:
+  field_content:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  links:
+    weight: 100
+hidden: {  }
