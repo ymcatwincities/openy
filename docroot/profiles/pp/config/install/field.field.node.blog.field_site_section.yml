@@ -1,0 +1,28 @@
+uuid: c4b5e709-cba3-428d-ad00-efd56960a5f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_site_section
+    - node.type.blog
+    - node.type.camp
+    - node.type.location
+id: node.blog.field_site_section
+field_name: field_site_section
+entity_type: node
+bundle: blog
+label: 'Site section'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      camp: camp
+      location: location
+    sort:
+      field: _none
+field_type: entity_reference

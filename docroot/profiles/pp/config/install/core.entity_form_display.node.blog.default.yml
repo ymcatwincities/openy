@@ -3,8 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.blog.body
+    - field.field.node.blog.field_content
     - field.field.node.blog.field_image
+    - field.field.node.blog.field_site_section
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
     - node.type.blog
@@ -17,35 +18,42 @@ targetEntityType: node
 bundle: blog
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 8
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 2
     settings: {  }
     third_party_settings: {  }
+  field_content:
+    weight: 9
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_image:
-    weight: 6
+    weight: 7
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_site_section:
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_summary:
-    weight: 7
+    weight: 8
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_tags:
-    weight: 9
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
