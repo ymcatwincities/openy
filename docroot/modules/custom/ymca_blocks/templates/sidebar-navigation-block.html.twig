@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Sidebar navigation template.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = ['contextual-region']
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_suffix }}
+  {{ content }}
+</div>
