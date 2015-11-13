@@ -33,6 +33,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
         'content' => NULL
       ),
       'template' => 'sidebar-navigation-block',
+      'file' => 'ymca_blocks.theme.inc'
     ),
   );
 }

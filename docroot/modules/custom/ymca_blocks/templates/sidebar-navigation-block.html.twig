@@ -3,13 +3,15 @@
  * @file
  * Sidebar navigation template.
  *
+ * Available variables:
+ * - attributes: Attributes.
+ * - title_suffix: Title suffix. To place contextual links.
+ * - content: Block content.
+ *
  * @ingroup themeable
  */
 #}
-{%
-  set classes = ['contextual-region']
-%}
-<div{{ attributes.addClass(classes) }}>
+<div{{ attributes }}>
   {{ title_suffix }}
   {{ content }}
 </div>
