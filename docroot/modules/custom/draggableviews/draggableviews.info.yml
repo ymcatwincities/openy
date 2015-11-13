@@ -1,4 +1,4 @@
-name: draggableviews
+name: DraggableViews
 type: module
 description: Complete rewrite of D7 draggableviews
 core: 8.x

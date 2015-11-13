@@ -9,26 +9,33 @@
  * Implements hook_theme().
  */
 function ymca_blocks_theme($existing, $type, $theme, $path) {
-  return array(
-    'expander_block' => array(
-      'variables' => array(
+  return [
+    'expander_block' => [
+      'variables' => [
         'header' => NULL,
         'content' => NULL,
         'entity' => NULL,
-      ),
+      ],
       'template' => 'expander-block',
-    ),
-    'promo_block' => array(
-      'variables' => array(
+    ],
+    'promo_block' => [
+      'variables' => [
         'header' => NULL,
         'image' => NULL,
         'content' => NULL,
         'link' => NULL,
         'link_text' => NULL,
-      ),
+      ],
       'template' => 'promo-block',
-    ),
-  );
+    ],
+    'sidebar_navigation_block' => [
+      'variables' => [
+        'content' => NULL,
+        'attributes' => NULL,
+      ],
+      'template' => 'sidebar-navigation-block',
+    ],
+  ];
 }
 
 /**
@@ -111,8 +118,23 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
 function ymca_blocks_preprocess_node(&$variables) {
   $node = &$variables['node'];
   if ($node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
-    $variables['sidebar_navigation'] = \Drupal::service('plugin.manager.block')
-      ->createInstance('sidebar_navigation_block', array())
+    $menu = \Drupal::service('plugin.manager.block')
+      ->createInstance('sidebar_navigation_block', [])
       ->build();
+    // We need custom template here to implement custom contextual links.
+    $variables['sidebar_navigation'] = [
+      '#theme' => 'sidebar_navigation_block',
+      '#content' => [
+        '#contextual_links' => [
+          'hierarchy' => [
+            'route_parameters' => [],
+          ],
+        ],
+        'menu' => $menu,
+      ],
+      '#attributes' => [
+        'class' => ['contextual-region'],
+      ],
+    ];
   }
 }

@@ -74,15 +74,17 @@ class DraggableViewsField extends BulkForm {
       );
     }
 
-    $options = [
-      'table_id' => $draggableviews->getHtmlId(),
-      'action' => 'match',
-      'relationship' => 'parent',
-      'group' => 'draggableviews-parent',
-      'subgroup' => 'draggableviews-parent',
-      'source' => 'draggableviews-id'
-    ];
-    drupal_attach_tabledrag($form, $options);
+    if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+      $options = [
+        'table_id' => $draggableviews->getHtmlId(),
+        'action' => 'match',
+        'relationship' => 'parent',
+        'group' => 'draggableviews-parent',
+        'subgroup' => 'draggableviews-parent',
+        'source' => 'draggableviews-id'
+      ];
+      drupal_attach_tabledrag($form, $options);
+    }
   }
 
 }
