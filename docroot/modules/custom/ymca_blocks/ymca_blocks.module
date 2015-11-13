@@ -9,33 +9,33 @@
  * Implements hook_theme().
  */
 function ymca_blocks_theme($existing, $type, $theme, $path) {
-  return array(
-    'expander_block' => array(
-      'variables' => array(
+  return [
+    'expander_block' => [
+      'variables' => [
         'header' => NULL,
         'content' => NULL,
         'entity' => NULL,
-      ),
+      ],
       'template' => 'expander-block',
-    ),
-    'promo_block' => array(
-      'variables' => array(
+    ],
+    'promo_block' => [
+      'variables' => [
         'header' => NULL,
         'image' => NULL,
         'content' => NULL,
         'link' => NULL,
         'link_text' => NULL,
-      ),
+      ],
       'template' => 'promo-block',
-    ),
-    'sidebar_navigation_block' => array(
-      'variables' => array(
-        'content' => NULL
-      ),
+    ],
+    'sidebar_navigation_block' => [
+      'variables' => [
+        'content' => NULL,
+        'attributes' => NULL,
+      ],
       'template' => 'sidebar-navigation-block',
-      'file' => 'ymca_blocks.theme.inc'
-    ),
-  );
+    ],
+  ];
 }
 
 /**
@@ -131,6 +131,9 @@ function ymca_blocks_preprocess_node(&$variables) {
           ],
         ],
         'menu' => $menu,
+      ],
+      '#attributes' => [
+        'class' => ['contextual-region'],
       ],
     ];
   }
