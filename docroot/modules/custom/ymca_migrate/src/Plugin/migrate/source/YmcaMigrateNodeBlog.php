@@ -46,6 +46,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
       'title' => $this->t('Blog title'),
       'created_on' => $this->t('Creation time'),
       'modified_on' => $this->t('Modification time'),
+      'content' => $this->t('Content'),
     ];
 
     return $fields;
@@ -61,6 +62,13 @@ class YmcaMigrateNodeBlog extends SqlBase {
       ->condition('blog_post_id', $row->getSourceProperty('blog_post_id'))
       ->execute()
       ->fetchAll();
+
+    // The code below is temporary. Just for the test.
+    foreach ($components as $item) {
+      if ($item['component_type'] == 'rich_text' && $item['content_area_index'] == 2) {
+        $row->setSourceProperty('content', $item['body']);
+      }
+    }
 
     return parent::prepareRow($row);
   }

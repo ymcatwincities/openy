@@ -29,6 +29,10 @@ process:
   changed:
     plugin: ymca_migrate_date
     source: modified_on
+  field_content/value: content
+  field_content/format:
+    plugin: default_value
+    default_value: full_html
 destination:
   plugin: entity:node
 migration_dependencies:
