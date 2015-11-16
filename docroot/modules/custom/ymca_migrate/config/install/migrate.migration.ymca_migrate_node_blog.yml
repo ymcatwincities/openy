@@ -1,0 +1,36 @@
+id: ymca_migrate_node_blog
+label: Blog migration.
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_node_blog
+process:
+  type:
+    plugin: default_value
+    default_value: blog
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  uid:
+    plugin: default_value
+    default_value: 1
+  sticky:
+    plugin: default_value
+    default_value: 0
+  status:
+    plugin: default_value
+    default_value: 1
+  created:
+    plugin: ymca_migrate_date
+    source: created_on
+  changed:
+    plugin: ymca_migrate_date
+    source: modified_on
+destination:
+  plugin: entity:node
+migration_dependencies:
+  required:
+    - ymca_migrate_taxonomy_term_tags
