@@ -1,0 +1,122 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateFile.
+ */
+
+namespace Drupal\ymca_migrate\Plugin\migrate\source;
+
+use Drupal\migrate\Entity\MigrationInterface;
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate\Row;
+
+/**
+ * Source plugin for file:image content.
+ *
+ * @MigrateSource(
+ *   id = "ymca_migrate_file_image"
+ * )
+ */
+class YmcaMigrateFileImage extends SqlBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function query() {
+    $query = $this->select('shared_asset', 'a')
+      ->fields('a', ['asset_id', 'file_key', 'name'])
+      ->fields('ae', ['extension']);
+    $query->join('shared_asset_extension', 'ae', 'a.extension_id = ae.asset_extension_id');
+    $query->condition(
+      'a.asset_id',
+      [
+        11712,
+        11711,
+        11601,
+        11600,
+        11554,
+        11553,
+        11471,
+        11472,
+        11469,
+        11470,
+      ],
+      'IN'
+    );
+    return $query;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fields() {
+    $fields = [
+      'asset_id' => $this->t('Asset ID'),
+      'file_key' => $this->t('File key'),
+      'name' => $this->t('File name (without extension)'),
+      'filename' => $this->t('File name'),
+      'filepath' => $this->t('File path'),
+      'extension' => $this->t('Extension'),
+    ];
+
+    return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIds() {
+    return [
+      'asset_id' => [
+        'type' => 'integer',
+        'alias' => 'a',
+      ],
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $config = \Drupal::config('ymca_migrate.settings');
+
+    $rel_path = '_asset/' . $row->getSourceProperty('file_key') . '/' . $row->getSourceProperty('name') . '.' . $row->getSourceProperty('extension');
+    $url = $config->get('url_prefix') . $rel_path;
+    $dir_struct = dirname($rel_path);
+    $filename = basename($url);
+    $row->setSourceProperty('filename', $filename);
+
+    $cache_dir = $config->get('cache_dir');
+
+    // Use cached file if exists.
+    $cached = $cache_dir . '/' . $dir_struct . '/' . $filename;
+    if (file_exists($cached)) {
+      $file = file_get_contents($cached);
+    }
+    else {
+      $file = file_get_contents($url);
+
+      if ($file === FALSE) {
+        $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
+        return FALSE;
+      }
+      // Saving a file with a path.
+      $full_dir = $cache_dir . '/' . $dir_struct;
+      if (!file_exists($full_dir)) {
+        mkdir($full_dir, 0764, TRUE);
+      }
+      file_put_contents($cached, $file);
+    }
+
+    $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
+    $file_path = \Drupal::service('file_system')->realpath($file_uri);
+    $row->setSourceProperty('filepath', $file_path);
+
+    $file_mime = mime_content_type($file_path);
+    $row->setSourceProperty('filemime', $file_mime);
+
+    return parent::prepareRow($row);
+  }
+
+}
