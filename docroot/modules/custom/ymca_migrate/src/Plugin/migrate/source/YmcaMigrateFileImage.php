@@ -101,7 +101,7 @@ class YmcaMigrateFileImage extends SqlBase {
         $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
         return FALSE;
       }
-      
+
       // Saving a file with a path.
       $full_dir = $cache_dir . '/' . $structure;
       if (!file_exists($full_dir)) {
@@ -109,11 +109,11 @@ class YmcaMigrateFileImage extends SqlBase {
       }
       file_put_contents($cached, $file);
     }
-    
+
     $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $file_mime = mime_content_type($file_path);
-    
+
     $row->setSourceProperty('filemime', $file_mime);
     $row->setSourceProperty('filename', $filename);
     $row->setSourceProperty('filepath', $file_path);
