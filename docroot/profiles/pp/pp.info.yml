@@ -27,6 +27,7 @@ dependencies:
   - dynamic_page_cache
   - taxonomy
   - dblog
+  - language
   - search
   - shortcut
   - toolbar
