@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.camp.field_content
     - node.type.camp
   module:
     - user
@@ -14,4 +15,6 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+hidden:
+  field_content: true
+  langcode: true

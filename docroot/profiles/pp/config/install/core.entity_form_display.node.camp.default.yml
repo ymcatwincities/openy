@@ -25,6 +25,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
     weight: 30

@@ -1,2 +1,3 @@
 cache_dir: /var/www/cache
-url_prefix: http://www.ymcatwincities.org/
+url_prefix: http://propeople:givemebackup@178.62.224.139/cache/
+timezone: America/Chicago

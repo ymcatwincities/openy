@@ -18,4 +18,5 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-hidden: {  }
+hidden:
+  langcode: true
