@@ -90,28 +90,30 @@ function ymca_preprocess_html(&$variables) {
   }
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     if ($node->getType() == 'blog') {
-      $id = $node->field_site_section->get(0)->getValue()['target_id'];
-      $site_section = \Drupal::entityManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
-      $site_section_bundle = $site_section->bundle();
+      if ($value = $node->field_site_section->getValue()) {
+        $id = $value[0]['target_id'];
+        $site_section = \Drupal::entityManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
+        $site_section_bundle = $site_section->bundle();
 
-      switch ($site_section_bundle) {
-        case 'camp':
-          $classes = [
-            'internal-template',
-            'ancestor-camps',
-            'page_post_detail',
-            'theme_ymca_2013_camp_category_and_detail',
-          ];
-          break;
+        switch ($site_section_bundle) {
+          case 'camp':
+            $classes = [
+              'internal-template',
+              'ancestor-camps',
+              'page_post_detail',
+              'theme_ymca_2013_camp_category_and_detail',
+            ];
+            break;
 
-        case 'location':
-          $classes = [
-            'locations-camps-template',
-            'ancestor-locations',
-            'page_post_detail',
-            'theme_ymca_2013_location_home',
-          ];
-          break;
+          case 'location':
+            $classes = [
+              'locations-camps-template',
+              'ancestor-locations',
+              'page_post_detail',
+              'theme_ymca_2013_location_home',
+            ];
+            break;
+        }
       }
     }
   }
@@ -125,10 +127,12 @@ function ymca_preprocess_html(&$variables) {
 function ymca_preprocess_page(&$variables) {
   if (isset($variables['node'])) {
     if (($node = $variables['node']) && $node->bundle() == 'blog') {
-      if ($id = $node->field_site_section->get(0)->getValue()['target_id']) {
-          $site_section = \Drupal::entityManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
-          $site_section_bundle = $site_section->bundle();
-          $variables['site_section_bundle'] = $site_section_bundle;
+      if ($value = $node->field_site_section->getValue()) {
+        if ($id = $value[0]['target_id']) {
+            $site_section = \Drupal::entityManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
+            $site_section_bundle = $site_section->bundle();
+            $variables['site_section_bundle'] = $site_section_bundle;
+        }
       }
     }
   }
