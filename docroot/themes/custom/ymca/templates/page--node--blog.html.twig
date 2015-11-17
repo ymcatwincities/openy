@@ -1,0 +1,10 @@
+{% extends "@ymca/page.html.twig" %}
+
+{% block primary_menu %}
+  {% if site_section_bundle %}
+    {% embed ["@ymca/layout/masthead-" ~ site_section_bundle ~ ".html.twig"] %}
+    {% endembed %}
+  {% else %}
+    {{ parent() }}
+  {% endif %}
+{% endblock %}
