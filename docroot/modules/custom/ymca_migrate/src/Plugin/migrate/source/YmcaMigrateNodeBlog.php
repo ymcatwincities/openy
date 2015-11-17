@@ -102,7 +102,11 @@ class YmcaMigrateNodeBlog extends SqlBase {
       }
       else {
         // There is no item in our map. Skip row and throw an error.
-        $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Undefined component: @component', array('@component' => $id)), MigrationInterface::MESSAGE_ERROR);
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t('Undefined component in blog_post #@post: @component', array('@component' => $id, '@post' => $row->getSourceProperty('blog_post_id'))),
+          MigrationInterface::MESSAGE_ERROR
+        );
         return FALSE;
       }
     }
