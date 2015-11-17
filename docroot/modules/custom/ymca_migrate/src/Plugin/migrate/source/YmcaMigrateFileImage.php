@@ -81,16 +81,16 @@ class YmcaMigrateFileImage extends SqlBase {
   public function prepareRow(Row $row) {
     $config = \Drupal::config('ymca_migrate.settings');
 
-    $rel_path = '_asset/' . $row->getSourceProperty('file_key') . '/' . $row->getSourceProperty('name') . '.' . $row->getSourceProperty('extension');
-    $url = $config->get('url_prefix') . $rel_path;
-    $dir_struct = dirname($rel_path);
+    $file_key = $row->getSourceProperty('file_key');
+    $file_extension = $row->getSourceProperty('extension');
+    $path_rel = 'asset/' . $file_key[0] . '/' . $file_key . '/' . $file_key . '.' . $file_extension;
+    $url = $config->get('url_prefix') . $path_rel;
+    $structure = dirname($path_rel);
     $filename = basename($url);
-    $row->setSourceProperty('filename', $filename);
-
     $cache_dir = $config->get('cache_dir');
 
     // Use cached file if exists.
-    $cached = $cache_dir . '/' . $dir_struct . '/' . $filename;
+    $cached = $cache_dir . '/' . $structure . '/' . $filename;
     if (file_exists($cached)) {
       $file = file_get_contents($cached);
     }
@@ -101,20 +101,22 @@ class YmcaMigrateFileImage extends SqlBase {
         $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
         return FALSE;
       }
+      
       // Saving a file with a path.
-      $full_dir = $cache_dir . '/' . $dir_struct;
+      $full_dir = $cache_dir . '/' . $structure;
       if (!file_exists($full_dir)) {
         mkdir($full_dir, 0764, TRUE);
       }
       file_put_contents($cached, $file);
     }
-
+    
     $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
-    $row->setSourceProperty('filepath', $file_path);
-
     $file_mime = mime_content_type($file_path);
+    
     $row->setSourceProperty('filemime', $file_mime);
+    $row->setSourceProperty('filename', $filename);
+    $row->setSourceProperty('filepath', $file_path);
 
     return parent::prepareRow($row);
   }
