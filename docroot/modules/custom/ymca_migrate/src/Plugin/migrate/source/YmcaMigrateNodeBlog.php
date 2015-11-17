@@ -33,7 +33,17 @@ class YmcaMigrateNodeBlog extends SqlBase {
           'modified_on',
         ]
       )
-      ->condition('blog_post_id', 856);
+      ->condition(
+        'blog_post_id',
+        [
+          856,
+          833,
+          828,
+          822,
+          821,
+        ],
+        'IN'
+      );
     return $query;
   }
 
