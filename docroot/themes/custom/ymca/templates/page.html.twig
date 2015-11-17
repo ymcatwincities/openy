@@ -136,7 +136,9 @@
                 </div>
             </nav>
 
-            {{ page.primary_menu }}
+            {% block primary_menu %}
+              {{ page.primary_menu }}
+            {% endblock %}
 
         </div>
 

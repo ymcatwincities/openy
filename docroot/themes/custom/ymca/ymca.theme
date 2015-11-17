@@ -5,6 +5,8 @@
  * Theme file.
  */
 
+define('SITE_SECTION_TARGET_TYPE', 'node');
+
 /**
  * Implements hook_preprocess_block() for block content.
  */
@@ -26,6 +28,15 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
 }
 
 /**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    array_unshift($suggestions, 'page__node__' . $node->bundle());
+  }
+}
+
+/**
  * Implements hook_preprocess_breadcrumb().
  */
 function ymca_preprocess_breadcrumb(&$variables) {
@@ -33,8 +44,9 @@ function ymca_preprocess_breadcrumb(&$variables) {
     // Special case for blog posts.
     if ($node->getType() == 'blog') {
       $variables['breadcrumb'] = [
-        new \Drupal\Core\Link('Home', '<front>'),
-        new \Drupal\Core\Link('Blog', '/blog')
+        new \Drupal\Core\Link('Home', Drupal\Core\Url::fromUri('internal:/')),
+        // TODO: replace with a link to /blog page.
+        new \Drupal\Core\Link('Blog', Drupal\Core\Url::fromUri($GLOBALS['base_url'] . '/blog', ['external' => TRUE])),
       ];
     }
     $variables['breadcrumb'][] = array(
@@ -65,4 +77,59 @@ function ymca_preprocess_image(&$variables) {
 function ymca_preprocess_expander_block(&$variables) {
   $id = 'collapse-' . $variables['entity']->bundle() . '-' . $variables['entity']->id();
   $variables['block_id'] = \Drupal\Component\Utility\Html::getUniqueId($id);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ymca_preprocess_html(&$variables) {
+  // Default classes.
+  $classes = ['landing-template'];
+  if (empty($variables['attributes'])) {
+    $variables['attributes'] = new \Drupal\Core\Template\Attribute();
+  }
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if ($node->getType() == 'blog') {
+      $id = $node->field_site_section->get(0)->getValue()['target_id'];
+      $site_section = \Drupal::entityManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
+      $site_section_bundle = $site_section->bundle();
+
+      switch ($site_section_bundle) {
+        case 'camp':
+          $classes = [
+            'internal-template',
+            'ancestor-camps',
+            'page_post_detail',
+            'theme_ymca_2013_camp_category_and_detail',
+          ];
+          break;
+
+        case 'location':
+          $classes = [
+            'locations-camps-template',
+            'ancestor-locations',
+            'page_post_detail',
+            'theme_ymca_2013_location_home',
+          ];
+          break;
+      }
+    }
+  }
+
+  $variables['attributes']->addClass($classes);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ymca_preprocess_page(&$variables) {
+  if (isset($variables['node'])) {
+    if (($node = $variables['node']) && $node->bundle() == 'blog') {
+      if ($id = $node->field_site_section->get(0)->getValue()['target_id']) {
+          $site_section = \Drupal::entityManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
+          $site_section_bundle = $site_section->bundle();
+          $variables['site_section_bundle'] = $site_section_bundle;
+      }
+    }
+  }
 }
