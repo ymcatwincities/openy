@@ -110,12 +110,14 @@ class YmcaMigrateFileImage extends SqlBase {
       file_put_contents($cached, $file);
     }
 
-    $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename);
+    $filename_human = $row->getSourceProperty('name') . '.' . $row->getSourceProperty('extension');
+
+    $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename_human);
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $file_mime = mime_content_type($file_path);
 
     $row->setSourceProperty('filemime', $file_mime);
-    $row->setSourceProperty('filename', $filename);
+    $row->setSourceProperty('filename', $filename_human);
     $row->setSourceProperty('filepath', $file_path);
 
     return parent::prepareRow($row);
