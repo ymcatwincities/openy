@@ -88,7 +88,7 @@
       - { name: 'views.view.who_s_new.yml', status: true }
       - { name: 'views.view.who_s_online.yml', status: true }
       - { name: 'tour.tour.language-add.yml', status: true }
-      - { name: 'tour.tour.language-edit', status: true }
+      - { name: 'tour.tour.language-edit.yml', status: true }
       - { name: 'tour.tour.language.yml', status: true }
       - { name: 'tour.tour.views-ui.yml', status: true }
       # Contributed modules config files:
