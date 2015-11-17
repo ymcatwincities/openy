@@ -37,3 +37,4 @@ content:
 hidden:
   field_end_date: true
   field_start_date: true
+  langcode: true

@@ -38,6 +38,8 @@
       - { name: 'core.date_format.medium.yml', status: true }
       - { name: 'core.date_format.short.yml', status: true }
       - { name: 'core.extension.yml', status: true }
+      - { name: 'core.entity_form_display.comment.comment.default.yml', status: true }
+      - { name: 'core.entity_view_display.comment.comment.default.yml', status: true }
       - { name: 'dblog.settings.yml', status: true }
       - { name: 'rdf.mapping.comment.comment.yml', status: true }
       - { name: 'rdf.mapping.node.article.yml', status: true }
@@ -85,6 +87,10 @@
       - { name: 'views.view.user_admin_people.yml', status: true }
       - { name: 'views.view.who_s_new.yml', status: true }
       - { name: 'views.view.who_s_online.yml', status: true }
+      - { name: 'tour.tour.language-add.yml', status: true }
+      - { name: 'tour.tour.language-edit.yml', status: true }
+      - { name: 'tour.tour.language.yml', status: true }
+      - { name: 'tour.tour.views-ui.yml', status: true }
       # Contributed modules config files:
       - { name: 'devel.settings.yml', status: true }
       - { name: 'embed.button.node.yml', status: true }
@@ -106,6 +112,9 @@
       - { name: 'migrate.migration.ymca_migrate_block_content_code_block.yml', status: true }
       - { name: 'migrate_plus.migration_group.example.yml', status: true }
       - { name: 'ymca_migrate.settings.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_file_image.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_node_blog.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_taxonomy_term_tags.yml', status: true }
 
   tasks:
     - name: Export config

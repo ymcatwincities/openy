@@ -64,3 +64,4 @@ hidden:
   field_sidebar: true
   field_sidebar_navigation: true
   field_tags: true
+  langcode: true
