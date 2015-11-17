@@ -114,7 +114,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * Transform component to property value.
    *
    * @param string $property
-   *   Property name (field name);
+   *   Property name (field name).
    * @param array $component
    *   Component with children.
    *
