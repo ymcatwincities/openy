@@ -20,6 +20,10 @@ use Drupal\migrate\Entity\MigrationInterface;
  */
 class YmcaMigrateNodeArticle extends SqlBase {
 
+  // @codingStandardsIgnoreStart
+  const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;
+  // @codingStandardsIgnoreEnd
+
   /**
    * {@inheritdoc}
    */
@@ -179,7 +183,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
    */
   public static function getMap() {
     return [
-      22 => [
+      self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
         1 => ['rich_text' => 'field_lead_description'],
         3 => ['rich_text' => 'field_content'],
         100 => ['link' => 'field_header_button'],
