@@ -20,6 +20,11 @@ process:
   status:
     plugin: default_value
     default_value: 1
+  field_content: field_content
+  field_lead_description: field_lead_description
+  field_header_button: field_header_button
+  field_header_variant: field_header_variant
+
 destination:
   plugin: entity:node
 migration_dependencies:
