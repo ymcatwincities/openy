@@ -23,8 +23,21 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('legacy__node_article', 'b')
-      ->fields('b', ['id', 'title', 'header_image']);
+    $query = $this->select('amm_site_page', 'p')
+      ->fields(
+        'p',
+        [
+          'site_page_id',
+          'page_title',
+        ]
+      )
+      ->condition(
+        'site_page_id',
+        [
+          8652,
+        ],
+        'IN'
+      );
     return $query;
   }
 
@@ -33,14 +46,8 @@ class YmcaMigrateNodeArticle extends SqlBase {
    */
   public function fields() {
     $fields = [
-      'id' => $this->t('Article id'),
-      'title' => $this->t('Article title'),
-      'page_description' => $this->t('Page description'),
-      'lead_description' => $this->t('Lead description'),
-      'sidebar_navigation' => $this->t('Sidebar navigation'),
-      'content' => $this->t('Content'),
-      'sidebar' => $this->t('Sidebar'),
-      'header_image' => $this->t('Header image id'),
+      'site_page_id' => $this->t('Page ID'),
+      'page_title' => $this->t('Page title'),
     ];
 
     return $fields;
@@ -50,13 +57,6 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // All the data below we could fetch by making additional SQL requests.
-    $row->setSourceProperty('page_description', 'Here page description...');
-    $row->setSourceProperty('lead_description', 'Here lead description...');
-    $row->setSourceProperty('sidebar_navigation', 1);
-    $row->setSourceProperty('content', 'Here content...');
-    $row->setSourceProperty('sidebar', 'Here sidebar...');
-
     return parent::prepareRow($row);
   }
 
@@ -65,9 +65,9 @@ class YmcaMigrateNodeArticle extends SqlBase {
    */
   public function getIds() {
     return [
-      'id' => [
+      'site_page_id' => [
         'type' => 'integer',
-        'alias' => 'b',
+        'alias' => 'p',
       ],
     ];
   }

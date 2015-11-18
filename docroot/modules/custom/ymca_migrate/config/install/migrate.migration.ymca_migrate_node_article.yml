@@ -1,6 +1,6 @@
 id: ymca_migrate_node_article
-label: Article migration.
-migration_group: example
+label: Page migration.
+migration_group: ymca
 migration_tags:
   - node
 source:
@@ -9,38 +9,19 @@ process:
   type:
     plugin: default_value
     default_value: article
-  title: title
+  title: page_title
   langcode:
     plugin: default_value
     source: language
-    default_value: "und"
+    default_value: en
   uid:
     plugin: default_value
     default_value: 1
   status:
     plugin: default_value
     default_value: 1
-  field_page_description/value: page_description
-  field_lead_description/value: lead_description
-  field_lead_description/format:
-    plugin: default_value
-    default_value: full_html
-  field_sidebar_navigation/value: sidebar_navigation
-  field_content/value: content
-  field_content/format:
-    plugin: default_value
-    default_value: full_html
-  field_sidebar/value: sidebar
-  field_sidebar/format:
-    plugin: default_value
-    default_value: full_html
-  field_header_image/target_id:
-    plugin: migration
-    migration: ymca_migrate_file
-    source: header_image
 destination:
   plugin: entity:node
 migration_dependencies:
   required:
-    - ymca_migrate_file
-    - ymca_migrate_block_content_basic
+    - ymca_migrate_file_image
