@@ -156,7 +156,10 @@ class YmcaMigrateNodeArticle extends SqlBase {
               $this->getCurrentIds(),
               $this->t(
                 'Component content_block_join (id: @component) has more than 1 child on page: #@page',
-                ['@component' => $component['site_page_component_id'],'@page' => $component['site_page_id']]
+                [
+                  '@component' => $component['site_page_component_id'],
+                  '@page' => $component['site_page_id']
+                ]
               ),
               MigrationInterface::MESSAGE_NOTICE
             );
@@ -170,7 +173,10 @@ class YmcaMigrateNodeArticle extends SqlBase {
               $this->getCurrentIds(),
               $this->t(
                 'Component content_block_join (id: @component) has empty join on page: #@page',
-                ['@component' => $component['site_page_component_id'], '@page' => $component['site_page_id']]
+                [
+                  '@component' => $component['site_page_component_id'],
+                  '@page' => $component['site_page_id']
+                ]
               ),
               MigrationInterface::MESSAGE_NOTICE
             );
@@ -183,7 +189,11 @@ class YmcaMigrateNodeArticle extends SqlBase {
               $this->getCurrentIds(),
               $this->t(
                 'Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
-                ['@component' => $component['site_page_component_id'], '@type' => $parent['component_type'], '@page' => $component['site_page_id']]
+                [
+                  '@component' => $component['site_page_component_id'],
+                  '@type' => $parent['component_type'],
+                  '@page' => $component['site_page_id']
+                ]
               ),
               MigrationInterface::MESSAGE_NOTICE
             );
@@ -224,6 +234,15 @@ class YmcaMigrateNodeArticle extends SqlBase {
     return NULL;
   }
 
+  /**
+   * Get component by parent ID.
+   *
+   * @param int $id
+   *   Component ID.
+   *
+   * @return mixed
+   *   Component array or FALSE.
+   */
   protected function getComponentByParent($id) {
     $result = $this->select('amm_site_page_component', 'c')
       ->fields('c')
