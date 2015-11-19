@@ -61,7 +61,7 @@ devel.system_state_edit:
   path: '/devel/state/edit/{state_name}'
   defaults:
     _form: '\Drupal\devel\Form\SystemStateEdit'
-    _title: 'Edit state variable: !state_name'
+    _title: 'Edit state variable: @state_name'
   options:
     _admin_route: TRUE
   requirements:
@@ -170,23 +170,3 @@ devel.run_cron:
   requirements:
     _permission: 'administer site configuration'
     _csrf_token: 'TRUE'
-
-devel.explain:
-  path: '/devel/explain/{request_id}/{qid}'
-  defaults:
-    _controller: '\Drupal\devel\Controller\DevelController::queryLogExplain'
-    _title: 'Explain query'
-  options:
-    _admin_route: TRUE
-  requirements:
-    _permission: 'access devel information'
-
-devel.arguments:
-  path: '/devel/arguments/{request_id}/{qid}'
-  defaults:
-    _controller: '\Drupal\devel\Controller\DevelController::queryLogArguments'
-    _title: 'Explain query'
-  options:
-    _admin_route: TRUE
-  requirements:
-    _permission: 'access devel information'

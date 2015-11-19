@@ -33,14 +33,14 @@ class ConfigEditor extends FormBase {
     $config = $this->config($config_name);
 
     if ($config === FALSE || $config->isNew()) {
-      drupal_set_message(t('Config !name does not exist in the system.', array('!name' => $config_name)), 'error');
+      drupal_set_message(t('Config @name does not exist in the system.', array('@name' => $config_name)), 'error');
       return;
     }
 
     $data = $config->get();
 
     if (empty($data)) {
-      drupal_set_message(t('Config !name exists but has no data.', array('!name' => $config_name)), 'warning');
+      drupal_set_message(t('Config @name exists but has no data.', array('@name' => $config_name)), 'warning');
       return;
     }
 
@@ -48,7 +48,7 @@ class ConfigEditor extends FormBase {
       $output = Yaml::encode($data);
     }
     catch (InvalidDataTypeException $e) {
-      drupal_set_message(t('Invalid data detected for !name : %error', array('!name' => $config_name, '%error' => $e->getMessage())), 'error');
+      drupal_set_message(t('Invalid data detected for @name : %error', array('@name' => $config_name, '%error' => $e->getMessage())), 'error');
       return;
     }
 

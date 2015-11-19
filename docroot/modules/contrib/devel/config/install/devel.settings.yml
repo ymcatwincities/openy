@@ -1,10 +1,4 @@
-query_display: FALSE
-query_sort: 0
-execution: 5
 api_url: 'api.drupal.org'
-timer: 0
-memory: 0
-redirect_page: 0
 page_alter: FALSE
 raw_names: FALSE
 error_handlers:

@@ -107,7 +107,7 @@ class VocabularyDevelGenerate extends DevelGenerateBase implements ContainerFact
 
     $new_vocs = $this->generateVocabularies($values['num'], $values['title_length']);
     if (!empty($new_vocs)) {
-      $this->setMessage($this->t('Created the following new vocabularies: !vocs', array('!vocs' => implode(', ', $new_vocs))));
+      $this->setMessage($this->t('Created the following new vocabularies: @vocs', array('@vocs' => implode(', ', $new_vocs))));
     }
   }
 
@@ -171,7 +171,7 @@ class VocabularyDevelGenerate extends DevelGenerateBase implements ContainerFact
     );
 
     if ($this->isNumber($values['num']) == FALSE) {
-      return drush_set_error('DEVEL_GENERATE_INVALID_INPUT', dt('Invalid number of vocabularies: !num.', array('!num' => $values['num'])));
+      return drush_set_error('DEVEL_GENERATE_INVALID_INPUT', dt('Invalid number of vocabularies: @num.', array('@num' => $values['num'])));
     }
 
     return $values;

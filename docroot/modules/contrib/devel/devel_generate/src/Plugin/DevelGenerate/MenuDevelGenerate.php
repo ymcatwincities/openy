@@ -211,7 +211,7 @@ class MenuDevelGenerate extends DevelGenerateBase implements ContainerFactoryPlu
     // Generate new menus.
     $new_menus = $this->generateMenus($values['num_menus'], $values['title_length']);
     if (!empty($new_menus)) {
-      $this->setMessage($this->t('Created the following new menus: !menus', array('!menus' => implode(', ', $new_menus))));
+      $this->setMessage($this->t('Created the following new menus: @menus', array('@menus' => implode(', ', $new_menus))));
     }
 
     // Generate new menu links.

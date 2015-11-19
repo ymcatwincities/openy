@@ -176,7 +176,7 @@ class UserDevelGenerate extends DevelGenerateBase implements ContainerFactoryPlu
         $account->save();
       }
     }
-    $this->setMessage($this->t('!num_users created.', array('!num_users' => $this->formatPlural($num, '1 user', '@count users'))));
+    $this->setMessage($this->t('@num_users created.', array('@num_users' => $this->formatPlural($num, '1 user', '@count users'))));
   }
 
   /**

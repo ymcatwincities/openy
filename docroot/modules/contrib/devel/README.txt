@@ -38,12 +38,6 @@ DEVEL GENERATE EXTENSIONS
 =========================
 Devel Images Provider [http://drupal.org/project/devel_image_provider] allows to configure external providers for images.
 
-COMPATIBILITY NOTES
-==================
-- Modules that use AHAH may have incompatibility with the query log and other
-  footer info. Consider setting $GLOBALS['devel_shutdown'] = FALSE if you run into
-  any issues.
-
 DRUSH UNIT TEST
 ==================
 See develDrushTest.php for an example of unit testing of the Drush integration.
