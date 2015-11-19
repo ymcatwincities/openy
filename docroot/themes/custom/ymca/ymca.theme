@@ -85,7 +85,7 @@ function ymca_preprocess_expander_block(&$variables) {
 function ymca_preprocess_node(&$variables) {
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
 
-  if ($variables['node']->bundle() == 'page') {
+  if ($variables['node']->bundle() == 'article') {
     $variables['header_image_url'] = '';
     if ($header_image = $variables['node']->field_header_image->getValue()) {
       $id = $header_image[0]['target_id'];
