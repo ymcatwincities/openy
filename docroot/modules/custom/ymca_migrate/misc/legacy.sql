@@ -29,9 +29,9 @@ CREATE TABLE `legacy__block_content_promo_block` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `legacy__block_content_promo_block` (`id`, `header`, `image`, `link`, `body`) VALUES
-(1,	'Example promo block #1',	1,	'http://example.com',	'Here is a text for the block...'),
-(2,	'Example promo block #2',	2,	'http://example.com',	'Here is a text for the block...'),
-(3,	'Example promo block #3',	3,	'http://example.com',	'Here is a text for the block...');
+(1,	'Example promo block #1',	1,	'http://example.com',	'<p>Here is a text for the block...</p>'),
+(2,	'Example promo block #2',	2,	'http://example.com',	'<p>Here is a text for the block...</p>'),
+(3,	'Example promo block #3',	3,	'http://example.com',	'<p>Here is a text for the block...</p>');
 
 DROP TABLE IF EXISTS `legacy__file`;
 CREATE TABLE `legacy__file` (

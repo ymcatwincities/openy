@@ -1,0 +1,25 @@
+<section id="carousel" class="carousel slide carousel-fade  masthead-carousel" data-interval="false">
+
+  <div class="carousel-inner even-heights">
+
+    <div class="item  active">
+      <div class="row">
+        <div class="col-md-8 image">
+          <div class="img-lg visible-md visible-lg" style="{% block backgroundimage_url %}{% endblock %}"></div>
+          {% block content_image %}{% endblock %}
+          {#<img class="img-responsive hidden-lg hidden-md" src="/_asset/24f4nr/masthead_slide_membership_111915.jpg">#}
+        </div>
+        <div class="caption col-md-4">
+          <div class="carousel-caption" style="{#height: 435px;#}">
+            {% block label_and_description %}{% endblock %}
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+

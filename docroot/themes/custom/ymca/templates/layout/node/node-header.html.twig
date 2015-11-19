@@ -1,13 +1,21 @@
-{% set variant = node.field_header_variant.0.value %}
+{% if is_front %}
+  {% set variant = 'front' %}
+{% else %}
+  {% set variant = node.field_header_variant.0.value %}
+{% endif %}
 {% if (variant == 'image' and content.field_header_image.0 is not defined) %}
   {% set variant = 'none' %}
 {% endif %}
 {% if (variant == 'button' and content.field_header_button.0 is not defined) %}
   {% set variant = 'none' %}
 {% endif %}
-{% set template = 'header-with-image.html.twig' %}
+
 {% if (variant == 'none') %}
   {% set template = 'header-without-image.html.twig' %}
+{% elseif variant == 'front' %}
+  {% set template = 'header-frontpage.html.twig' %}
+{% else %}
+  {% set template = 'header-with-image.html.twig' %}
 {% endif %}
 
 {% extends '@ymca/layout/header/' ~ template %}
@@ -17,10 +25,16 @@
   <article class="richtext">
     <p>{{ content.field_page_description }}</p>
   </article>
+  {% if variant == 'front' and node.field_header_button.title %}
+    <br>
+    {{ link(node.field_header_button.title, node.field_header_button.uri, {'class':['btn', 'btn-primary', 'btn-lg']}) }}
+  {% endif %}
 {% endblock %}
 
 {% block content_image %}
-  {% if variant == 'image' %}
+  {% if variant == 'front' %}
+    {{ content.field_header_image }}
+  {% elseif variant == 'image' %}
     <figure class="text-center image_component">
       {{ content.field_header_image }}
     </figure>
@@ -30,7 +44,7 @@
 {% endblock %}
 
 {% block backgroundimage_url %}
-  {% if variant == 'image' %}
-    background-image: url({{ node.field_header_image.0.entity.url() }});
+  {% if variant in ['image', 'front'] %}
+    background-image: url({{ header_image_url }});
   {% endif %}
 {% endblock %}
