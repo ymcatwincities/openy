@@ -1,11 +1,12 @@
-uuid: 22abcba1-02e5-4f66-af00-a83b5041da81
+uuid: a8eb5275-53b1-42bc-a104-4fdc9ab24c0a
 langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.action_block
     - field.storage.node.field_lead_action
     - node.type.article
+  module:
+    - text
 id: node.article.field_lead_action
 field_name: field_lead_action
 entity_type: node
@@ -16,11 +17,5 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:block_content'
-  handler_settings:
-    target_bundles:
-      action_block: action_block
-    sort:
-      field: _none
-field_type: entity_reference
+settings: {  }
+field_type: text_long

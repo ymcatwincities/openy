@@ -56,12 +56,10 @@ content:
       image_link: ''
     third_party_settings: {  }
   field_lead_action:
-    type: entity_reference_entity_view
+    type: text_default
     weight: 7
     label: hidden
-    settings:
-      view_mode: full
-      link: false
+    settings: {  }
     third_party_settings: {  }
   field_lead_description:
     type: text_default
