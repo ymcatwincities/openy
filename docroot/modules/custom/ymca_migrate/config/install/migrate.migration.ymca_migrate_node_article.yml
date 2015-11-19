@@ -24,6 +24,7 @@ process:
   field_lead_description: field_lead_description
   field_header_button: field_header_button
   field_header_variant: field_header_variant
+  field_sidebar: field_sidebar
 
 destination:
   plugin: entity:node
