@@ -1,3 +1,0 @@
-modules/custom/draggableviews/js/draggableviews_table.js: line 34, col 12, Don't make functions within a loop.
-
-1 error
