@@ -123,7 +123,7 @@ class TranslationManager implements TranslationInterface, TranslatorInterface {
    * Translates a string to the current language or to a given language.
    *
    * @param string $string
-   *   A string containing the English string to translate.
+   *   A string containing the English text to translate.
    * @param array $options
    *   An associative array of additional options, with the following elements:
    *   - 'langcode': The language code to translate to a language other than
@@ -134,6 +134,11 @@ class TranslationManager implements TranslationInterface, TranslatorInterface {
    *   The translated string.
    */
   protected function doTranslate($string, array $options = array()) {
+    // If a NULL langcode has been provided, unset it.
+    if (!isset($options['langcode']) && array_key_exists('langcode', $options)) {
+      unset($options['langcode']);
+    }
+
     // Merge in options defaults.
     $options = $options + [
       'langcode' => $this->defaultLangcode,

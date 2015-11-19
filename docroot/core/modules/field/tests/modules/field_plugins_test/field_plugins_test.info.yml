@@ -7,8 +7,8 @@ package: Testing
 dependencies:
   - text
 
-# Information added by Drupal.org packaging script on 2015-10-21
-version: '8.0.0-rc2'
+# Information added by Drupal.org packaging script on 2015-11-19
+version: '8.0.0'
 core: '8.x'
 project: 'drupal'
-datestamp: 1445469654
+datestamp: 1447942689

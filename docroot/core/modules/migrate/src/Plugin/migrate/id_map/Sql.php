@@ -12,6 +12,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\migrate\Entity\MigrationInterface;
+use Drupal\migrate\Event\MigrateIdMapMessageEvent;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\MigrateMessageInterface;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
@@ -286,6 +287,7 @@ class Sql extends PluginBase implements MigrateIdMapInterface, ContainerFactoryP
       foreach ($this->migration->getSourcePlugin()->getIds() as $id_definition) {
         $mapkey = 'sourceid' . $count++;
         $source_id_schema[$mapkey] = $this->getFieldSchema($id_definition);
+        $source_id_schema[$mapkey]['not null'] = TRUE;
 
         // With InnoDB, utf8mb4-based primary keys can't be over 191 characters.
         // Use ASCII-based primary keys instead.
@@ -562,6 +564,10 @@ class Sql extends PluginBase implements MigrateIdMapInterface, ContainerFactoryP
     $this->getDatabase()->insert($this->messageTableName())
       ->fields($fields)
       ->execute();
+
+    // Notify anyone listening of the message we've saved.
+    $this->eventDispatcher->dispatch(MigrateEvents::IDMAP_MESSAGE,
+      new MigrateIdMapMessageEvent($this->migration, $source_id_values, $message, $level));
   }
 
   /**

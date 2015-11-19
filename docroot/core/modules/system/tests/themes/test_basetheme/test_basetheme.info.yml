@@ -4,6 +4,8 @@ description: 'Test theme which acts as a base theme for other test subthemes.'
 # version: VERSION
 # core: 8.x
 base theme: false
+hidden: true
+
 libraries:
   - test_basetheme/global-styling
 stylesheets-remove:
@@ -21,8 +23,8 @@ libraries-extend:
   classy/base:
     - test_basetheme/global-styling
 
-# Information added by Drupal.org packaging script on 2015-10-21
-version: '8.0.0-rc2'
+# Information added by Drupal.org packaging script on 2015-11-19
+version: '8.0.0'
 core: '8.x'
 project: 'drupal'
-datestamp: 1445469654
+datestamp: 1447942689
