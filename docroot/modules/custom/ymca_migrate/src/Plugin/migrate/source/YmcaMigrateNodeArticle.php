@@ -91,7 +91,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      if (@$property = self::getMap()[$row->getSourceProperty('theme_id')][$item['content_area_index']][$item['component_type']]) {
+      if ($property = $this->checkMap($row->getSourceProperty('theme_id'), $item['content_area_index'], $item['component_type'])) {
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
@@ -177,6 +177,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
             return NULL;
           }
           // For now just take care of rich_text. If anything else log a message.
+          // @todo There are definitely another types like html_code, etc... Do it.
           if ($parent['component_type'] != 'rich_text') {
             $this->idMap->saveMessage(
               $this->getCurrentIds(),
@@ -251,6 +252,40 @@ class YmcaMigrateNodeArticle extends SqlBase {
         100 => ['link' => 'field_header_button'],
       ],
     ];
+  }
+
+  /**
+   * Checks the map.
+   *
+   * @param int $theme_id
+   *   Theme id.
+   * @param int $content_area_index
+   *   Content area index.
+   * @param string $component_type
+   *   Component type.
+   *
+   * @return mixed
+   *   Get mapped field or FALSE.
+   */
+  protected function checkMap($theme_id, $content_area_index, $component_type) {
+    $map = self::getMap();
+
+    // Check theme_id.
+    if (!array_key_exists($theme_id, $map)) {
+      return FALSE;
+    }
+
+    // Check content_area_index.
+    if (!array_key_exists($content_area_index, $map[$theme_id])) {
+      return FALSE;
+    }
+
+    // Finally get the result.
+    if (array_key_exists($component_type, $map[$theme_id][$content_area_index])) {
+      return $map[$theme_id][$content_area_index][$component_type];
+    }
+
+    return FALSE;
   }
 
   /**
