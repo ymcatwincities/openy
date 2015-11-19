@@ -63,7 +63,7 @@
 #}
 {%
   set classes = [
-    'content',
+    not is_front ? 'content',
     'node',
     'node--type-' ~ node.bundle|clean_class,
     node.isPromoted() ? 'node--promoted',
@@ -81,7 +81,7 @@
 <section class="lead-copy">
   <div class="container">
     <div class="row">
-      {% include "@ymca/layout/node/node-lead.html.twig" with {content: content} only %}
+      {% include "@ymca/layout/node/node-lead.html.twig" %}
     </div>
   </div>
 </section>
@@ -95,8 +95,12 @@
     <section class="messages">
     </section>
 
-    <div class="row">
-      {% include '@ymca/layout/node/node-content.html.twig' with {content: content, sidebar_navigation: sidebar_navigation} only %}
-    </div>
+    {% if is_front %}
+      {% include '@ymca/layout/node/node-content.html.twig' %}
+    {% else %}
+      <div class="row">
+        {% include '@ymca/layout/node/node-content.html.twig' %}
+      </div>
+    {% endif %}
   </div>
 </section>

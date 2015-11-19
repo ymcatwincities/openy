@@ -3,15 +3,21 @@
 {% elseif content.field_sidebar.0 is defined %}
   {% set template = 'content-2col.html.twig' %}
 {% else %}
-  {% set template = 'content-1col.html.twig' %}
+  {% set template = is_front ? 'content-1col-frontpage.html.twig' : 'content-1col.html.twig' %}
 {% endif %}
 
 {% extends '@ymca/layout/content/' ~ template %}
 
 {% block maincontent %}
-  <article class="richtext">
-    {{ content.field_content }}
-  </article>
+  {% if is_front %}
+    <section class="row main-promos promos hidden">
+      {{ content.field_content }}
+    </section>
+  {% else %}
+    <article class="richtext">
+      {{ content.field_content }}
+    </article>
+  {% endif %}
 {% endblock %}
 
 {% block sidebar %}

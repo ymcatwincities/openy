@@ -32,12 +32,18 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
   }
   $form['field_header_image']['#states'] = [
     'visible' => [
-      ':input[name="field_header_variant"]' => ['value' => 'image'],
+      ':input[name="field_header_variant"]' => [
+        ['value' => 'image'],
+        ['value' => 'slideshow'],
+      ],
     ],
   ];
   $form['field_header_button']['#states'] = [
     'visible' => [
-      ':input[name="field_header_variant"]' => ['value' => 'button'],
+      ':input[name="field_header_variant"]' => [
+        ['value' => 'button'],
+        ['value' => 'slideshow'],
+      ],
     ],
   ];
 }

@@ -1,17 +1,16 @@
-uuid: 07608388-1ef1-4b83-904d-772505c651ad
+uuid: dc0bc100-d64e-40eb-9600-a0cc1b359d0d
 langcode: en
 status: true
 dependencies:
   module:
-    - block_content
     - node
+    - text
 id: node.field_lead_action
 field_name: field_lead_action
 entity_type: node
-type: entity_reference
-settings:
-  target_type: block_content
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true
