@@ -379,6 +379,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
         $alt = $this->getAttributeData('alt_text', $component);
         $asset_id = $this->getAttributeData('asset_id', $component);
         // For speed up the process use specific migrated asset id.
+        // @todo Set proper asset id.
         $asset_id = 11712;
 
         // Get file.
