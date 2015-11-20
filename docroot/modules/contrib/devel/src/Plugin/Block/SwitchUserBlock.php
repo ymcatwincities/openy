@@ -7,7 +7,7 @@
 
 namespace Drupal\devel\Plugin\Block;
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -253,7 +253,7 @@ class SwitchUserBlock extends BlockBase implements ContainerFactoryPluginInterfa
       }
 
       if ($this->currentUser->id() === $account->id()) {
-        $links[$account->id()]['title'] = SafeMarkup::format('<strong>%user</strong>', ['%user' => $account->getDisplayName()]);
+        $links[$account->id()]['title'] = new FormattableMarkup('<strong>%user</strong>', ['%user' => $account->getDisplayName()]);
       }
     }
 

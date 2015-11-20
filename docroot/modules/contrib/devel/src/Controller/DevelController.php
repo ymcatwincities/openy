@@ -7,19 +7,13 @@
 
 namespace Drupal\devel\Controller;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Session\UserSession;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Returns responses for devel module routes.
@@ -153,20 +147,21 @@ class DevelController extends ControllerBase {
       ),
     );
 
+    $can_edit = $this->currentUser()->hasPermission('administer site configuration');
+
     $header = array(
       'name' => $this->t('Name'),
       'value' => $this->t('Value'),
-      'edit' => $this->t('Operations'),
     );
+
+    if ($can_edit) {
+      $header['edit'] = $this->t('Operations');
+    }
 
     $rows = array();
     // State class doesn't have getAll method so we get all states from the
     // KeyValueStorage.
     foreach ($this->keyValue('state')->getAll() as $state_name => $state) {
-      $operations['edit'] = array(
-        'title' => $this->t('Edit'),
-        'url' => Url::fromRoute('devel.system_state_edit', array('state_name' => $state_name)),
-      );
       $rows[$state_name] = array(
         'name' => array(
           'data' => $state_name,
@@ -175,10 +170,17 @@ class DevelController extends ControllerBase {
         'value' => array(
           'data' => kprint_r($state, TRUE),
         ),
-        'edit' => array(
-          'data' => array('#type' => 'operations', '#links' => $operations),
-        ),
       );
+
+      if ($can_edit) {
+        $operations['edit'] = array(
+          'title' => $this->t('Edit'),
+          'url' => Url::fromRoute('devel.system_state_edit', array('state_name' => $state_name)),
+        );
+        $rows[$state_name]['edit'] = array(
+          'data' => array('#type' => 'operations', '#links' => $operations),
+        );
+      }
     }
 
     $output['states'] = array(
@@ -272,83 +274,6 @@ class DevelController extends ControllerBase {
     }
 
     return $output;
-  }
-
-  /**
-   * Explain query callback called by the AJAX link in the query log.
-   */
-  function queryLogExplain($request_id = NULL, $qid = NULL) {
-    if (!is_numeric($request_id)) {
-      throw new AccessDeniedHttpException();
-    }
-
-    $path = "temporary://devel_querylog/$request_id.txt";
-    $path = file_stream_wrapper_uri_normalize($path);
-
-    $header = $rows = array();
-
-    if (file_exists($path)) {
-      $queries = Json::decode(file_get_contents($path));
-
-      if ($queries !== FALSE && isset($queries[$qid])) {
-        $query = $queries[$qid];
-        $result = db_query('EXPLAIN ' . $query['query'], (array)$query['args'])->fetchAllAssoc('table');
-
-        $i = 1;
-        foreach ($result as $row) {
-          $row = (array)$row;
-          if ($i == 1) {
-            $header = array_keys($row);
-          }
-          $rows[] = array_values($row);
-          $i++;
-        }
-      }
-    }
-
-    $build['explain'] = array(
-      '#type' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
-      '#empty' => $this->t('No explain log found.'),
-    );
-
-    $GLOBALS['devel_shutdown'] = FALSE;
-
-    return new Response(drupal_render($build));
-  }
-
-  /**
-   * Show query arguments, called by the AJAX link in the query log.
-   */
-  function queryLogArguments($request_id = NULL, $qid = NULL) {
-    if (!is_numeric($request_id)) {
-      throw new AccessDeniedHttpException();
-    }
-
-    $path = "temporary://devel_querylog/$request_id.txt";
-    $path = file_stream_wrapper_uri_normalize($path);
-
-    $output = $this->t('No arguments log found.');
-
-    if (file_exists($path)) {
-      $queries = Json::decode(file_get_contents($path));
-
-      if ($queries !== FALSE && isset($queries[$qid])) {
-        $query = $queries[$qid];
-        $conn = Database::getConnection();
-
-        $quoted = array();
-        foreach ((array)$query['args'] as $key => $val) {
-          $quoted[$key] = is_null($val) ? 'NULL' : $conn->quote($val);
-        }
-        $output = strtr($query['query'], $quoted);
-      }
-    }
-
-    $GLOBALS['devel_shutdown'] = FALSE;
-
-    return new Response($output);
   }
 
 }

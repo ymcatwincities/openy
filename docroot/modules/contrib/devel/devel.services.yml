@@ -10,9 +10,3 @@ services:
     arguments: ['@entity.manager']
     tags:
       - { name: event_subscriber }
-
-  devel.http_middleware:
-    class: Drupal\devel\StackMiddleware\DevelMiddleware
-    arguments: ['@config.factory']
-    tags:
-      - { name: http_middleware, priority: 350 }

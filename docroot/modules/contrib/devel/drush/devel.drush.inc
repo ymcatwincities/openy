@@ -5,7 +5,6 @@
  * Drush integration for the devel module.
  */
 
-use Drupal\Component\Uuid\Uuid;
 use Drupal\Component\Uuid\Php;
 
 /**

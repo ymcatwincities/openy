@@ -4,27 +4,9 @@ devel.settings:
   type: config_object
   label: 'Devel settings'
   mapping:
-    query_display:
-      type: boolean
-      label: 'Query display'
-    query_sort:
-      type: integer
-      label: 'Query sort'
-    execution:
-      type: integer
-      label: 'Execution thresold'
     api_url:
       type: string
       label: 'Drupal.org api url'
-    timer:
-      type: integer
-      label: 'Timer'
-    memory:
-      type: integer
-      label: 'Memory'
-    redirect_page:
-      type: integer
-      label: 'Redirect page'
     page_alter:
       type: boolean
       label: 'Page alter'

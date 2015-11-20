@@ -553,7 +553,11 @@ class ViewExecutable implements \Serializable {
    *   The items per page.
    */
   public function setItemsPerPage($items_per_page) {
-    $this->element['#cache']['keys'][] = 'items_per_page:' . $items_per_page;
+    // Check whether the element is pre rendered. At that point, the cache keys
+    // cannot longer be manipulated.
+    if (empty($this->element['#pre_rendered'])) {
+      $this->element['#cache']['keys'][] = 'items_per_page:' . $items_per_page;
+    }
     $this->items_per_page = $items_per_page;
 
     // If the pager is already initialized, pass it through to the pager.
@@ -583,8 +587,14 @@ class ViewExecutable implements \Serializable {
    *   The pager offset.
    */
   public function setOffset($offset) {
-    $this->element['#cache']['keys'][] = 'offset:' . $offset;
+    // Check whether the element is pre rendered. At that point, the cache keys
+    // cannot longer be manipulated.
+    if (empty($this->element['#pre_rendered'])) {
+      $this->element['#cache']['keys'][] = 'offset:' . $offset;
+    }
+
     $this->offset = $offset;
+
 
     // If the pager is already initialized, pass it through to the pager.
     if (!empty($this->pager)) {
@@ -1855,11 +1865,11 @@ class ViewExecutable implements \Serializable {
    * @param string $display_id
    *   (Optional) The display id. ( Used only to detail an exception. )
    *
-   * @throws \InvalidArgumentException
-   *   Thrown when the display plugin does not have a URL to return.
-   *
    * @return \Drupal\Core\Url
    *   The display handlers URL object.
+   *
+   * @throws \InvalidArgumentException
+   *   Thrown when the display plugin does not have a URL to return.
    */
   public function getUrlInfo($display_id = '') {
     $this->initDisplay();

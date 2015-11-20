@@ -6,8 +6,8 @@ package: Development
 tags:
  - developer
 
-# Information added by Drupal.org packaging script on 2015-10-21
+# Information added by Drupal.org packaging script on 2015-11-16
 version: '8.x-1.x-dev'
 core: '8.x'
 project: 'devel'
-datestamp: 1445426655
+datestamp: 1447717473

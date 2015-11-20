@@ -61,7 +61,7 @@ class SystemStateEdit extends FormBase {
     $old_value = $this->state->get($state_name);
 
     if (!isset($old_value)) {
-      drupal_set_message(t('State !name does not exist in the system.', array('!name' => $state_name)), 'warning');
+      drupal_set_message(t('State @name does not exist in the system.', array('@name' => $state_name)), 'warning');
       return;
     }
 
@@ -69,7 +69,7 @@ class SystemStateEdit extends FormBase {
     $disabled = !$this->checkObject($old_value);
 
     if ($disabled) {
-      drupal_set_message(t('Only simple structures are allowed to be edited. State !name contains objects.', array('!name' => $state_name)), 'warning');
+      drupal_set_message(t('Only simple structures are allowed to be edited. State @name contains objects.', array('@name' => $state_name)), 'warning');
     }
 
     // First we will show the user the content of the variable about to be edited.
@@ -87,7 +87,7 @@ class SystemStateEdit extends FormBase {
         $transport = 'yaml';
       }
       catch (InvalidDataTypeException $e) {
-        drupal_set_message(t('Invalid data detected for !name : %error', array('!name' => $state_name, '%error' => $e->getMessage())), 'error');
+        drupal_set_message(t('Invalid data detected for @name : %error', array('@name' => $state_name, '%error' => $e->getMessage())), 'error');
         return;
       }
     }

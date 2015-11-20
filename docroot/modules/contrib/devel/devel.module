@@ -6,9 +6,6 @@
  * Please contribute!
  */
 
-define('DEVEL_QUERY_SORT_BY_SOURCE', 0);
-define('DEVEL_QUERY_SORT_BY_DURATION', 1);
-
 define('DEVEL_ERROR_HANDLER_NONE', 0);
 define('DEVEL_ERROR_HANDLER_STANDARD', 1);
 define('DEVEL_ERROR_HANDLER_BACKTRACE_KRUMO', 2);
@@ -17,11 +14,8 @@ define('DEVEL_ERROR_HANDLER_BACKTRACE_DPM', 4);
 define('DEVEL_MIN_TEXTAREA', 50);
 
 use Drupal\comment\CommentInterface;
-use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\Timer;
 use Drupal\Component\Utility\Unicode;
-use Drupal\Component\Utility\Xss;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Query\AlterableInterface;
@@ -29,8 +23,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Template\Attribute;
-use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
 
 /**
@@ -113,21 +105,6 @@ function devel_translated_menu_link_alter(&$item) {
   elseif ($item['href'] == 'devel/menu/item') {
     $item['localized_options']['query'] = array('path' => current_path());
   }
-}
-
-/**
- * Implements hook_theme().
- * @todo Not used but these items are not themed properly for the moment. Help wanted.
- */
-function devel_theme() {
-  return array(
-    'devel_querylog' => array(
-      'variables' => array('header' => array(), 'rows' => array()),
-    ),
-    'devel_querylog_row' => array(
-      'variables' => array('row' => array()),
-    ),
-  );
 }
 
 /**
@@ -232,50 +209,6 @@ function devel_set_handler($handlers) {
 }
 
 /**
- * Checks whether Devel may be active.
- *
- * Devel is automatically disabled when:
- *   - The request come from a php cli.
- *   - The request has 'XDEBUG_PROFILE' parameter set.
- *   - The request come from Apache Benchmark.
- *   - The currently executing script is the front controller update.php.
- *   - The returned response isn't a \Drupal\Core\Render\HtmlResponse instance.
- *
- * You can manually disable devel at runtime by setting the global variable
- * 'devel_shutdown' to FALSE in your code:
- *
- * @code
- * if ($some_condition)  {
- *   $GLOBALS['devel_shutdown'] = FALSE;
- * }
- * @endcode
- *
- * You can manually disable devel adding the '_devel_silent' requirement
- * to your route definitions:
- *
- * @code
- * mymodule.silent_route:
- *   path: '/my-path'
- *   defaults:
- *     _controller: '\Drupal\mymodule\Controller\MyController::method'
- *   requirements:
- *     _devel_silent: 'TRUE'
- * @endcode
- *
- * @return bool
- *   Return whether Devel may be active.
- */
-function devel_silent() {
-  return
-    (PHP_SAPI === 'cli') ||
-    (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'ApacheBench') !== FALSE) ||
-    !empty($_REQUEST['XDEBUG_PROFILE']) ||
-    isset($GLOBALS['devel_shutdown']) ||
-    strstr($_SERVER['PHP_SELF'], 'update.php') ||
-    (($route = \Drupal::routeMatch()->getRouteObject()) && $route->getRequirement('_devel_silent'));
-}
-
-/**
  * Displays backtrace showing the route of calls to the current error.
  *
  * @param int $error_level
@@ -305,9 +238,7 @@ function backtrace_error_handler($error_level, $message, $filename, $line, $cont
       // We treat recoverable errors as fatal.
       _drupal_log_error(array(
         '%type' => isset($types[$error_level]) ? $severity_msg : 'Unknown error',
-        // The standard PHP error handler considers that the error messages
-        // are HTML. We mimick this behavior here.
-        '!message' => Xss::filterAdmin($message),
+        '@message' => $message,
         '%function' => $caller['function'],
         '%file' => $caller['file'],
         '%line' => $caller['line'],
@@ -347,12 +278,12 @@ function backtrace_error_handler($error_level, $message, $filename, $line, $cont
     $caller = Error::getLastCaller($backtrace);
     $variables = array(
       '%type' => isset($types[$error_level]) ? $severity_msg : 'Unknown error',
-      '!message' => Xss::filterAdmin($message),
+      '@message' => $message,
       '%function' => $caller['function'],
       '%file' => $caller['file'],
       '%line' => $caller['line'],
     );
-    $msg = t('%type: !message in %function (line %line of %file).', $variables);
+    $msg = t('%type: @message in %function (line %line of %file).', $variables);
 
     // Show message if error_level is ERROR_REPORTING_DISPLAY_SOME or higher.
     // (This is Drupal's error_level, which is different from $error_level,
@@ -392,18 +323,6 @@ function devel_get_core_version($version) {
 }
 
 /**
- * Runs on shutdown to clean up and display developer information.
- *
- * DevelEventSubscriber::onRequest registers this function as a shutdown function.
- * The bulk of the work is done in devel_shutdown_real().
- */
-function devel_shutdown() {
-  // Register the real shutdown function so it runs after other shutdown
-  // functions.
-  drupal_register_shutdown_function('devel_shutdown_real');
-}
-
-/**
  * Implements hook_page_attachments_alter().
  */
 function devel_page_attachments_alter(&$page) {
@@ -412,183 +331,7 @@ function devel_page_attachments_alter(&$page) {
       dpm($page, 'page');
     }
 
-    if (!devel_silent()) {
-      $page['#attached']['library'][] = 'devel/krumo_path';
-    }
-  }
-
-  // Add CSS for query log if should be displayed.
-  // This used to be in hook_page_build() but that is not called when redirect page is shown.
-  if (\Drupal::config('devel.settings')->get('query_display')) {
-    $page['#attached']['library'][] = 'devel/devel';
-  }
-}
-
-/**
- * Implements hook_ajax_render_alter().
- *
- * Disables our footer stuff based on ajax response.
- *
- * AJAX render responses sometimes are sent as text/html. We have to catch them
- * here and disable our footer stuff.
- */
-function devel_ajax_render_alter() {
-  $GLOBALS['devel_shutdown'] = FALSE;
-}
-
-/**
- * Runs on shutdown to display developer information in the footer.
- *
- * devel_shutdown() registers this function as a shutdown function.
- */
-function devel_shutdown_real() {
-  $output = $txt = '';
-
-  // Set $GLOBALS['devel_shutdown'] = FALSE in order to supress the
-  // devel footer for a page.  Not necessary if your page outputs any
-  // of the Content-type http headers tested below (e.g. text/xml,
-  // text/javascript, etc).  This is advised where applicable.
-  if (!devel_silent() && !isset($GLOBALS['devel_shutdown']) && !isset($GLOBALS['devel_redirecting'])) {
-
-    if (\Drupal::currentUser()->hasPermission('access devel information')) {
-      $queries = (devel_query_enabled() ? Database::getLog('devel', 'default') : NULL);
-      if (!empty($queries)) {
-        // Remove caller args to avoid recursion.
-        foreach ($queries as &$query) {
-          unset($query['caller']['args']);
-        }
-      }
-      $output .= devel_shutdown_summary($queries);
-      $output .= devel_shutdown_query($queries);
-    }
-
-    if ($output) {
-      // TODO: gzip this text if we are sending a gzip page.
-      // See drupal_page_header().
-      // For some reason, this is not actually printing for cached pages even
-      // though it gets executed and $output looks good.
-      print $output;
-    }
-  }
-}
-
-/**
- * Returns the rendered shutdown summary.
- */
-function devel_shutdown_summary($queries) {
-  $sum = 0;
-  $output = '';
-  list($counts, $query_summary) = devel_query_summary($queries);
-  $config_devel = \Drupal::config('devel.settings');
-
-  if ($config_devel->get('query_display')) {
-    // Query log on.
-    $output .= $query_summary;
-    $output .= t_safe(' Queries exceeding @threshold ms are <span class="marker">highlighted</span>.', array('@threshold' => $config_devel->get('execution')));
-  }
-
-  if ($config_devel->get('timer')) {
-    $output .= devel_timer();
-  }
-
-  $output .= devel_shutdown_memory();
-
-  if ($output) {
-    return '<div class="dev-query">' . $output . '</div>';
-  }
-}
-
-/**
- * Returns the rendered memory usage.
- */
-function devel_shutdown_memory() {
-  global $memory_init;
-
-  if (\Drupal::config('devel.settings')->get('memory')) {
-    $memory_shutdown = memory_get_usage();
-    $args = array(
-      '@memory_onrequest' => round($memory_init / 1024 / 1024, 2),
-      '@memory_shutdown' => round($memory_shutdown / 1024 / 1024, 2),
-      '@memory_peak' => round(memory_get_peak_usage(TRUE) / 1024 / 1024, 2)
-    );
-    $msg = '<span class="dev-memory-usages"> Memory used at onRequest event=<strong>@memory_onrequest</strong> MB, devel_shutdown()=<strong>@memory_shutdown</strong> MB, PHP peak=<strong>@memory_peak</strong> MB.</span>';
-    // theme() may not be available. not t() either.
-    return t_safe($msg, $args);
-  }
-}
-
-/**
- * Returns the rendered query log.
- */
-function devel_shutdown_query($queries) {
-  if (!empty($queries)) {
-    if (function_exists('theme_get_registry') && theme_get_registry()) {
-      // Safe to call theme('table).
-      list($counts, $query_summary) = devel_query_summary($queries);
-      $output = devel_query_table($queries, $counts);
-
-      // Save all queries to a file in temp dir. Retrieved via AJAX.
-      devel_query_put_contents($queries);
-    }
-    else {
-      $output = '</div>' . dprint_r($queries, TRUE);
-    }
-    return $output;
-  }
-}
-
-/**
- * Writes the variables information to a file.
- *
- * It will be retrieved on demand via AJAX.
- */
-function devel_query_put_contents($queries) {
-  $request_id = mt_rand(1, 1000000);
-  $path = "temporary://devel_querylog";
-
-  // Create the devel_querylog within the temp folder, if needed.
-  file_prepare_directory($path, FILE_CREATE_DIRECTORY);
-
-  // Occassionally wipe the querylog dir so that files don't accumulate.
-  if (mt_rand(1, 1000) == 401) {
-    devel_empty_dir($path);
-  }
-
-  $path .= "/$request_id.txt";
-  $path = file_stream_wrapper_uri_normalize($path);
-  // Save queries as a json array. No longer supressing errors per https://www.drupal.org/node/2267407.
-  file_put_contents($path, Json::encode($queries));
-  $settings['devel'] = array(
-    // A random string that is sent to the browser.
-    // It enables the AJAX to retrieve queries from this request.
-    'request_id' => $request_id,
-  );
-  print '<script type="text/javascript">jQuery.extend(drupalSettings, ' . json_encode($settings) . ");</script>\n";
-}
-
-/**
- * Returns whether query logging is enabled.
- */
-function devel_query_enabled() {
-  return method_exists('Drupal\Core\Database\Database', 'getLog') && \Drupal::config('devel.settings')->get('query_display');
-}
-
-/**
- * Returns the query summary.
- */
-function devel_query_summary($queries) {
-  if (\Drupal::config('devel.settings')->get('query_display') && is_array($queries)) {
-    $sum = 0;
-    foreach ($queries as $query) {
-      $text[] = $query['query'];
-      $sum += $query['time'];
-    }
-    $counts = array_count_values($text);
-    return array(
-      $counts,
-      t_safe('Executed @queries queries in @time ms.',
-      array('@queries' => count($queries), '@time' => round($sum * 1000, 2))),
-    );
+    $page['#attached']['library'][] = 'devel/krumo_path';
   }
 }
 
@@ -635,9 +378,9 @@ function kdevel_print_object($object, $prefix = NULL) {
 function devel_print_object($object, $prefix = NULL, $header = TRUE) {
   $output = '<div class="devel-obj-output">';
   if ($header) {
-    $output .= '<h3>' . t('Display of !type !obj', array(
-      '!type' => str_replace(array('$', '->'), '', $prefix),
-      '!obj' => gettype($object),
+    $output .= '<h3>' . t('Display of @type @obj', array(
+      '@type' => str_replace(array('$', '->'), '', $prefix),
+      '@obj' => gettype($object),
     )
     ) . '</h3>';
   }
@@ -767,141 +510,6 @@ function _devel_print_object($obj, $prefix = NULL, $parents = NULL, $object = FA
     $output .= "</dl>\n";
   }
   return $output;
-}
-
-/**
- * Shows all the queries for the page.
- *
- * Adds a table at the bottom of the page cataloguing data on all the database
- * queries that were made to generate the page.
- */
-function devel_query_table($queries, $counts) {
-  $version = devel_get_core_version(\Drupal::VERSION);
-  $header = array('ms', '#', 'where', 'ops', 'query', 'target');
-  $i = 0;
-  $config_devel = \Drupal::config('devel.settings');
-  $api = $config_devel->get('api_url');
-  $realpath = realpath('.') . '/';
-  foreach ($queries as $query) {
-    $file = str_replace('/', '!', str_replace($realpath, '', $query['caller']['file']));
-    $function = !empty($query['caller']['class']) ? $query['caller']['class'] . '::' : '';
-    $function .= $query['caller']['function'];
-    $function_path = explode('\\', $function);
-    $function_name = end($function_path);
-    $count = isset($counts[$query['query']]) ? $counts[$query['query']] : 0;
-
-    $diff = round($query['time'] * 1000, 2);
-    if ($diff > $config_devel->get('execution')) {
-      $cell[$i][] = array('data' => $diff, 'class' => array('marker'));
-    }
-    else {
-      $cell[$i][] = $diff;
-    }
-    $cell[$i][] = $count;
-    $url = Url::fromUri("http://$api/api/drupal/$file/function/$function_name/$version", array('attributes' => array('target' => '_blank')));
-    $cell[$i][] = \Drupal::l($function, $url, FALSE);
-    $ops[] = '<a href="#" title="' . t('Show placeholders') . '" class="dev-placeholders" qid="' . $i . '">P</a>';
-    $ops[] = '<a href="#" title="' . t('Show arguments') . '" class="dev-arguments" qid="' . $i . '">A</a>';
-    // EXPLAIN only valid for select queries.
-    if (strpos($query['query'], 'UPDATE') === FALSE && strpos($query['query'], 'INSERT') === FALSE && strpos($query['query'], 'DELETE') === FALSE) {
-      $ops[] = '<a href="#" title="' . t('Show explain') . '" class="dev-explain" qid="' . $i . '">E</a>';
-    }
-    $cell[$i][] = implode(' ', $ops);
-    // 3 divs for each variation of the query. Last 2 are hidden by default.
-    $placeholders = '<div class="dev-placeholders">' . Html::escape($query['query']) . "</div>\n";
-    $args = '<div class="dev-arguments" style="display: none;"></div>' . "\n";
-    $explain = '<div class="dev-explain" style="display: none;"></div>' . "\n";
-    $cell[$i][] = array(
-      'id' => "devel-query-$i",
-      'data' => $placeholders . $args . $explain,
-    );
-    $cell[$i][] = $query['target'];
-    $i++;
-    unset($diff, $count, $ops);
-  }
-  if (\Drupal::config('devel.settings')->get('query_sort')) {
-    usort($cell, '_devel_table_sort');
-  }
-  // @todo: quick fix for theme() disappearing.
-  return theme_devel_querylog(array('header' => $header, 'rows' => $cell));
-}
-
-/**
- * Themes devel's querylog row.
- */
-function theme_devel_querylog_row($variables) {
-  $row = $variables['row'];
-  $i = 0;
-  $output = '';
-  foreach ($row as $cell) {
-    $i++;
-
-    if (is_array($cell)) {
-      $data = !empty($cell['data']) ? $cell['data'] : '';
-      unset($cell['data']);
-      $attr = $cell;
-    }
-    else {
-      $data = $cell;
-      $attr = array();
-    }
-
-    $attr['class'][] = "cell cell-$i";
-    $attributes = new Attribute($attr);
-
-    $output .= "<div $attributes>$data</div>";
-  }
-  return $output;
-}
-
-/**
- * Themes devel's querylog.
- */
-function theme_devel_querylog($variables) {
-  $header = $variables['header'];
-  $rows = $variables['rows'];
-  $output = '';
-  if (!empty($header)) {
-    $output .= "<div class='devel-querylog devel-querylog-header clear-block'>";
-    // @todo: quick fix for theme() disappearing.
-    $output .= theme_devel_querylog_row(array('row' => $header));
-    $output .= "</div>";
-  }
-  if (!empty($rows)) {
-    $i = 0;
-    foreach ($rows as $row) {
-      $i++;
-      $zebra = ($i % 2) == 0 ? 'even' : 'odd';
-      $output .= "<div class='devel-querylog devel-querylog-$zebra clear-block'>";
-      // @todo: quick fix for theme() disappearing.
-      $output .= theme_devel_querylog_row(array('row' => $row));
-      $output .= "</div>";
-    }
-  }
-  return $output;
-}
-
-/**
- * Devel's table sort.
- */
-function _devel_table_sort($a, $b) {
-  $a = is_array($a[0]) ? $a[0]['data'] : $a[0];
-  $b = is_array($b[0]) ? $b[0]['data'] : $b[0];
-  if ($a < $b) {
-    return 1;
-  }
-  if ($a > $b) {
-    return -1;
-  }
-  return 0;
-}
-
-/**
- * Displays page execution time at the bottom of the page.
- */
-function devel_timer() {
-  $time = Timer::read('devel_page');
-  return t_safe(' Page execution time was @time ms.', array('@time' => $time));
 }
 
 /**

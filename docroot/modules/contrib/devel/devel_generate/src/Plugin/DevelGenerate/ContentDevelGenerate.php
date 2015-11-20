@@ -8,7 +8,7 @@
 namespace Drupal\devel_generate\Plugin\DevelGenerate;
 
 use Drupal\comment\CommentManagerInterface;
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -147,7 +147,7 @@ class ContentDevelGenerate extends DevelGenerateBase implements ContainerFactory
 
     if (empty($types)) {
       $create_url = $this->urlGenerator->generateFromRoute('node.type_add');
-      $this->setMessage($this->t('You do not have any content types that can be generated. <a href="@create-type">Go create a new content type</a>', array('@create-type' => $create_url)), 'error', FALSE);
+      $this->setMessage($this->t('You do not have any content types that can be generated. <a href=":create-type">Go create a new content type</a>', array(':create-type' => $create_url)), 'error', FALSE);
       return;
     }
 
@@ -168,9 +168,9 @@ class ContentDevelGenerate extends DevelGenerateBase implements ContainerFactory
             $instance = FieldConfig::loadByName('node', $type->id(), $field_name);
             $default_value = $instance->getDefaultValueLiteral();
             $default_mode = reset($default_value);
-            $fields[] = SafeMarkup::format('@field: !state', array(
+            $fields[] = new FormattableMarkup('@field: @state', array(
               '@field' => $instance->label(),
-              '!state' => $map[$default_mode['status']],
+              '@state' => $map[$default_mode['status']],
             ));
           }
         }
@@ -313,7 +313,7 @@ class ContentDevelGenerate extends DevelGenerateBase implements ContainerFactory
         $this->develGenerateContentAddNode($values);
         if (function_exists('drush_log') && $i % drush_get_option('feedback', 1000) == 0) {
           $now = time();
-          drush_log(dt('Completed !feedback nodes (!rate nodes/min)', array('!feedback' => drush_get_option('feedback', 1000), '!rate' => (drush_get_option('feedback', 1000) * 60) / ($now - $start))), 'ok');
+          drush_log(dt('Completed @feedback nodes (@rate nodes/min)', array('@feedback' => drush_get_option('feedback', 1000), '@rate' => (drush_get_option('feedback', 1000) * 60) / ($now - $start))), 'ok');
           $start = $now;
         }
       }
