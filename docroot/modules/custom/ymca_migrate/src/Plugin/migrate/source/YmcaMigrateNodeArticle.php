@@ -7,6 +7,8 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\file_entity\Entity\FileEntity;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 use Drupal\migrate\Entity\MigrationInterface;
@@ -28,6 +30,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
+    // @codingStandardsIgnoreStart
     $query = $this->select('amm_site_page', 'p')
       ->fields(
         'p',
@@ -40,11 +43,137 @@ class YmcaMigrateNodeArticle extends SqlBase {
       ->condition(
         'site_page_id',
         [
-          8652,
-          4563,
+          // Pages with single component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
+          5264,
+          5234,
+          22703,
+          4803,
+          5266,
+          15462,
+          5098,
+          5267,
+          5295,
+          18074,
+          18081,
+          5297,
+          15752,
+          5298,
+          5245,
+          5284,
+          5300,
+          5285,
+          6871,
+          5286,
+          5304,
+          6130,
+          6872,
+          5250,
+          5287,
+          5305,
+          6136,
+          5254,
+          6874,
+          13767,
+          16870,
+          19147,
+          5290,
+          6876,
+          6828,
+          6877,
+          // Pages with 2 component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
+          4811,
+          5105,
+          13828,
+          15843,
+          23217,
+          4670,
+          4812,
+          6873,
+          13830,
+          17304,
+          18891,
+          23439,
+          24946,
+          4813,
+          5185,
+          5204,
+          13832,
+          15853,
+          17305,
+          15855,
+          17307,
+          4815,
+          5152,
+          6827,
+          13836,
+          17308,
+          21306,
+          22699,
+          5232,
+          17309,
+          21311,
+          22700,
+          5133,
+          5172,
+          5210,
+          6714,
+          17310,
+          5096,
+          5134,
+          5191,
+          5265,
+          17323,
+          19440,
+          25185,
+          4941,
+          5097,
+          5237,
+          15862,
+          17064,
+          17324,
+          24462,
+          4942,
+          5159,
+          5238,
+          6735,
+          22438,
+          4805,
+          4943,
+          5099,
+          5115,
+          5239,
+          6853,
+          15872,
+          22463,
+          25247,
+          5217,
+          5241,
+          15873,
+          18145,
+          5139,
+          5179,
+          5198,
+          5242,
+          24732,
+          4808,
+          12856,
+          14283,
+          15840,
+          22728,
+          4809,
+          5145,
+          5164,
+          20068,
+          24941,
+          4810,
+          5124,
+          5201,
+          5222,
+          24055,
         ],
         'IN'
       );
+    // @codingStandardsIgnoreEnd
     return $query;
   }
 
@@ -60,6 +189,8 @@ class YmcaMigrateNodeArticle extends SqlBase {
       'field_lead_description' => $this->t('Content'),
       'field_header_button' => $this->t('Header button'),
       'field_header_variant' => $this->t('Header variant'),
+      'field_sidebar' => $this->t('Sidebar'),
+      'field_secondary_sidebar' => $this->t('Secondary sidebar'),
     ];
 
     return $fields;
@@ -73,21 +204,27 @@ class YmcaMigrateNodeArticle extends SqlBase {
     $components = $this->select('amm_site_page_component', 'c')
       ->fields('c')
       ->condition('site_page_id', $row->getSourceProperty('site_page_id'))
+      ->orderby('content_area_index', 'ASC')
+      ->orderby('sequence_index', 'ASC')
       ->execute()
       ->fetchAll();
 
     // Get components tree, where each component has its children.
     $components_tree = [];
+
+    // Write parents.
     foreach ($components as $item) {
       if (is_null($item['parent_component_id'])) {
         $components_tree[$item['site_page_component_id']] = $item;
       }
-      else {
+    }
+
+    // Write children.
+    foreach ($components as $item) {
+      if (!is_null($item['parent_component_id'])) {
         $components_tree[$item['parent_component_id']]['children'][$item['site_page_component_id']] = $item;
       }
     }
-
-    // @todo Sort components withing the same area by weight if more than one item.
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
@@ -96,8 +233,32 @@ class YmcaMigrateNodeArticle extends SqlBase {
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
           foreach ($properties as $property_name => $property_value) {
-            // @todo Add value to previous one if there are multiple components.
-            $row->setSourceProperty($property_name, $property_value);
+            // Some components may go to single field in Drupal, so take care of them.
+            if ($old_value = $row->getSourceProperty($property_name)) {
+              // Currently we are merging only properties that have 'value' key. Otherwise log message.
+              if (!array_key_exists('value', $old_value)) {
+                $this->idMap->saveMessage(
+                  $this->getCurrentIds(),
+                  $this->t(
+                    'Possible problem with merging multiple components on the page. (Page ID: @page, Field Name: @field).',
+                    [
+                      '@page' => $item['site_page_id'],
+                      '@field' => $property,
+                    ]
+                  ),
+                  MigrationInterface::MESSAGE_WARNING
+                );
+              }
+              // Do our merge here.
+              $new_value = $old_value;
+              $new_value['value'] .= $property_value['value'];
+            }
+            else {
+              // Here only one component for a field. Write it.
+              $new_value = $property_value;
+            }
+            // Finally, set our property.
+            $row->setSourceProperty($property_name, $new_value);
           }
         }
       }
@@ -106,8 +267,12 @@ class YmcaMigrateNodeArticle extends SqlBase {
         $this->idMap->saveMessage(
           $this->getCurrentIds(),
           $this->t(
-            'Undefined component in the page #@page: @component',
-            ['@component' => $id, '@page' => $row->getSourceProperty('site_page_id')]
+            'Undefined component in the page #@page: @component (@map)',
+            [
+              '@component' => $id,
+              '@page' => $row->getSourceProperty('site_page_id'),
+              '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
+            ]
           ),
           MigrationInterface::MESSAGE_ERROR
         );
@@ -132,13 +297,11 @@ class YmcaMigrateNodeArticle extends SqlBase {
     $value = [];
     switch ($component['component_type']) {
       case 'link':
-        if ($property == 'field_header_button') {
-          $value['field_header_variant'] = 'button';
-          $value['field_header_button'] = [
-            'uri' => $this->getAttributeData('url', $component),
-            'title' => $this->getAttributeData('text', $component),
-          ];
-        }
+        $value['field_header_variant'] = 'button';
+        $value['field_header_button'] = [
+          'uri' => $this->getAttributeData('url', $component),
+          'title' => $this->getAttributeData('text', $component),
+        ];
         break;
 
       case 'rich_text':
@@ -148,63 +311,99 @@ class YmcaMigrateNodeArticle extends SqlBase {
         ];
         break;
 
+      case 'text':
+        $value[$property] = [
+          'value' => $component['body'],
+          'format' => 'full_html',
+        ];
+        break;
+
       case 'content_block_join':
-        if ($property == 'field_sidebar') {
-          // Check for the children for the component. If more then 1 let's log a message.
-          if (count($component['children']) > 1) {
-            $this->idMap->saveMessage(
-              $this->getCurrentIds(),
-              $this->t(
-                'Component content_block_join (id: @component) has more than 1 child on page: #@page',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@page' => $component['site_page_id']
-                ]
-              ),
-              MigrationInterface::MESSAGE_NOTICE
-            );
-          }
-          // Get joined component id.
-          $joined_id = $this->getAttributeData('joined_content_block_component_id', $component);
-          $parent = $this->getComponentByParent($joined_id);
-          // If parent is missing log it.
-          if (!$parent) {
-            $this->idMap->saveMessage(
-              $this->getCurrentIds(),
-              $this->t(
-                'Component content_block_join (id: @component) has empty join on page: #@page',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@page' => $component['site_page_id']
-                ]
-              ),
-              MigrationInterface::MESSAGE_NOTICE
-            );
-            return NULL;
-          }
-          // For now just take care of rich_text. If anything else log a message.
-          // @todo There are definitely another types like html_code, etc... Do it.
-          if ($parent['component_type'] != 'rich_text') {
-            $this->idMap->saveMessage(
-              $this->getCurrentIds(),
-              $this->t(
-                'Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@type' => $parent['component_type'],
-                  '@page' => $component['site_page_id']
-                ]
-              ),
-              MigrationInterface::MESSAGE_NOTICE
-            );
-            return NULL;
-          }
-          // Finally, return body.
-          $value[$property] = [
-            'value' => $parent['body'],
-            'format' => 'full_html',
-          ];
+        // Check for the children for the component. If more then 1 let's log a message.
+        if (count($component['children']) > 1) {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              'Component content_block_join (id: @component) has more than 1 child on page: #@page',
+              [
+                '@component' => $component['site_page_component_id'],
+                '@page' => $component['site_page_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_NOTICE
+          );
         }
+        // Get joined component id.
+        $joined_id = $this->getAttributeData('joined_content_block_component_id', $component);
+        $parent = $this->getComponentByParent($joined_id);
+        // If parent is missing log it.
+        if (!$parent) {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              'Component content_block_join (id: @component) has empty join on page: #@page',
+              [
+                '@component' => $component['site_page_component_id'],
+                '@page' => $component['site_page_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_NOTICE
+          );
+          return NULL;
+        }
+        // For now just take care of rich_text. If anything else log a message.
+        // @todo There are definitely another types like html_code, etc... Do it.
+        if ($parent['component_type'] != 'rich_text') {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              'Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
+              [
+                '@component' => $component['site_page_component_id'],
+                '@type' => $parent['component_type'],
+                '@page' => $component['site_page_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_NOTICE
+          );
+          return NULL;
+        }
+        // Finally, return body.
+        $value[$property] = [
+          'value' => $parent['body'],
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'image':
+        $alt = $this->getAttributeData('alt_text', $component);
+        $asset_id = $this->getAttributeData('asset_id', $component);
+        // For speed up the process use specific migrated asset id.
+        // @todo Set proper asset id.
+        $asset_id = 11712;
+
+        // Get file.
+        $destination = $this->getDestinationId($asset_id, 'ymca_migrate_file_image');
+        /** @var FileEntity $file */
+        $file = \Drupal::entityManager()->getStorage('file')->load($destination);
+        $url = parse_url(file_create_url($file->getFileUri()));
+        $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
+        $value[$property] = [
+          'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'code_block':
+        $id = $this->getAttributeData('code_block_id', $component);
+        $destination = $this->getDestinationId($id, 'ymca_migrate_block_content_code_block');
+        /** @var BlockContent $block */
+        $block = \Drupal::entityManager()->getStorage('block_content')->load($destination);
+        $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
+        $value[$property] = [
+          'value' => sprintf($string, $block->id(), $block->uuid()),
+          'format' => 'full_html',
+        ];
         break;
 
       default:
@@ -212,6 +411,31 @@ class YmcaMigrateNodeArticle extends SqlBase {
     }
 
     return $value;
+  }
+
+  /**
+   * Get destination ID by the source ID for a migration.
+   *
+   * This method is a quick and dirty one, but for now it's doing the job.
+   * Should be rewritten by using Migrate API.
+   *
+   * @param mixed $source_id
+   *   Source ID.
+   * @param string $migration_id
+   *   Migration ID.
+   *
+   * @return mixed
+   *   Destination ID of FALSE.
+   *
+   * @todo Rewrite the method using Migrate API.
+   */
+  protected function getDestinationId($source_id, $migration_id) {
+    $table = 'migrate_map_' . $migration_id;
+    return db_select($table, 'm')
+      ->fields('m', ['destid1'])
+      ->condition('m.sourceid1', $source_id)
+      ->execute()
+      ->fetchField();
   }
 
   /**
@@ -265,12 +489,46 @@ class YmcaMigrateNodeArticle extends SqlBase {
   public static function getMap() {
     return [
       self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
-        1 => ['rich_text' => 'field_lead_description'],
-        3 => ['rich_text' => 'field_content'],
-        4 => ['content_block_join' => 'field_sidebar'],
-        100 => ['link' => 'field_header_button'],
+        1 => [
+          'rich_text' => 'field_lead_description',
+          'content_block_join' => 'field_lead_description',
+        ],
+        2 => [
+          'rich_text' => 'field_secondary_sidebar',
+          'content_block_join' => 'field_secondary_sidebar',
+        ],
+        3 => [
+          'rich_text' => 'field_content',
+          'text' => 'field_content',
+          'content_block_join' => 'field_content',
+          'code_block' => 'field_content',
+        ],
+        4 => [
+          'content_block_join' => 'field_sidebar',
+          'rich_text' => 'field_sidebar',
+          'image' => 'field_sidebar',
+        ],
+        100 => [
+          'link' => 'field_header_button',
+        ],
       ],
     ];
+  }
+
+  /**
+   * Get theme name.
+   *
+   * @param int $theme_id
+   *   Theme ID;
+   * @return mixed
+   *   Theme name or FALSE.
+   */
+  protected function getThemeName($theme_id) {
+    return $this->select('amm_theme', 't')
+      ->fields('t', ['theme_name'])
+      ->condition('t.theme_id', $theme_id)
+      ->execute()
+      ->fetchField();
   }
 
   /**

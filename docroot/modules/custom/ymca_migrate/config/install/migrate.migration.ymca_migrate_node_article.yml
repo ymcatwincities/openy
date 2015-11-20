@@ -25,6 +25,7 @@ process:
   field_header_button: field_header_button
   field_header_variant: field_header_variant
   field_sidebar: field_sidebar
+  field_secondary_sidebar: field_secondary_sidebar
 
 destination:
   plugin: entity:node
