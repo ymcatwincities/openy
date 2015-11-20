@@ -271,7 +271,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
             [
               '@component' => $id,
               '@page' => $row->getSourceProperty('site_page_id'),
-              '@map' => $row->getSourceProperty('theme_id') . ':' . $item['content_area_index'] . ':' . $item['component_type'],
+              '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
             ]
           ),
           MigrationInterface::MESSAGE_ERROR
@@ -513,6 +513,22 @@ class YmcaMigrateNodeArticle extends SqlBase {
         ],
       ],
     ];
+  }
+
+  /**
+   * Get theme name.
+   *
+   * @param int $theme_id
+   *   Theme ID;
+   * @return mixed
+   *   Theme name or FALSE.
+   */
+  protected function getThemeName($theme_id) {
+    return $this->select('amm_theme', 't')
+      ->fields('t', ['theme_name'])
+      ->condition('t.theme_id', $theme_id)
+      ->execute()
+      ->fetchField();
   }
 
   /**
