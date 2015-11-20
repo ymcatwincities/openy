@@ -1,17 +1,17 @@
-uuid: a8eb5275-53b1-42bc-a104-4fdc9ab24c0a
+uuid: 1d11c0e6-3d30-49f8-9202-02cfb70de534
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_lead_action
+    - field.storage.node.field_secondary_sidebar
     - node.type.article
   module:
     - text
-id: node.article.field_lead_action
-field_name: field_lead_action
+id: node.article.field_secondary_sidebar
+field_name: field_secondary_sidebar
 entity_type: node
 bundle: article
-label: 'Lead Action'
+label: 'Secondary Sidebar'
 description: ''
 required: false
 translatable: false

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.article.field_image
     - field.field.node.article.field_lead_description
     - field.field.node.article.field_page_description
+    - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_tags
@@ -36,6 +37,7 @@ hidden:
   field_image: true
   field_lead_description: true
   field_page_description: true
+  field_secondary_sidebar: true
   field_sidebar: true
   field_sidebar_navigation: true
   field_tags: true

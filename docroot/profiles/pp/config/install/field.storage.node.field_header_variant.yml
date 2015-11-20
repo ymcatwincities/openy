@@ -20,9 +20,6 @@ settings:
     -
       value: button
       label: 'Header button'
-    -
-      value: slideshow
-      label: Slideshow
   allowed_values_function: ''
 module: options
 locked: false

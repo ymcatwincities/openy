@@ -1,12 +1,12 @@
-uuid: dc0bc100-d64e-40eb-9600-a0cc1b359d0d
+uuid: a2e35478-ce6b-487b-903c-604d2ec42355
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - text
-id: node.field_lead_action
-field_name: field_lead_action
+id: node.field_secondary_sidebar
+field_name: field_secondary_sidebar
 entity_type: node
 type: text_long
 settings: {  }
