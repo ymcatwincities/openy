@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\file_entity\Entity\FileEntity;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
@@ -384,13 +385,22 @@ class YmcaMigrateNodeArticle extends SqlBase {
         $destination = $this->getDestinationId($asset_id, 'ymca_migrate_file_image');
         /** @var FileEntity $file */
         $file = \Drupal::entityManager()->getStorage('file')->load($destination);
-        $uuid = $file->uuid();
         $url = parse_url(file_create_url($file->getFileUri()));
-        $path = $url['path'];
-
-        // Fill the data.
+        $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
         $value[$property] = [
-          'value' => '<p><img alt="' . $alt . '" data-entity-type="file" data-entity-uuid="' . $file->uuid() . '" src="' . $path . '" /></p>',
+          'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'code_block':
+        $id = $this->getAttributeData('code_block_id', $component);
+        $destination = $this->getDestinationId($id, 'ymca_migrate_block_content_code_block');
+        /** @var BlockContent $block */
+        $block = \Drupal::entityManager()->getStorage('block_content')->load($destination);
+        $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
+        $value[$property] = [
+          'value' => sprintf($string, $block->id(), $block->uuid()),
           'format' => 'full_html',
         ];
         break;
@@ -490,6 +500,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
           'rich_text' => 'field_content',
           'text' => 'field_content',
           'content_block_join' => 'field_content',
+          'code_block' => 'field_content',
         ],
         4 => [
           'content_block_join' => 'field_sidebar',
