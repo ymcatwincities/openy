@@ -80,6 +80,31 @@ function ymca_preprocess_expander_block(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_node().
+ */
+function ymca_preprocess_node(&$variables) {
+  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+
+  if ($variables['node']->bundle() == 'article') {
+    $variables['header_image_url'] = '';
+    if ($header_image = $variables['node']->field_header_image->getValue()) {
+      $id = $header_image[0]['target_id'];
+      $file = \Drupal::entityManager()->getStorage('file')->load($id);
+      $original_path = $file->getFileUri();
+      // Load style.
+      $style = \Drupal::entityManager()->getStorage('image_style')->load('2013_masthead');
+      // Set up derivative file information.
+      $thumbnail = $style->buildUri($original_path);
+      // Create derivative if necessary.
+      if (!file_exists($thumbnail)) {
+        $style->createDerivative($original_path, $thumbnail);
+      }
+      $variables['header_image_url'] = file_create_url($thumbnail);
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_html().
  */
 function ymca_preprocess_html(&$variables) {
@@ -88,7 +113,14 @@ function ymca_preprocess_html(&$variables) {
   if (empty($variables['attributes'])) {
     $variables['attributes'] = new \Drupal\Core\Template\Attribute();
   }
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $classes = [
+      'home-template',
+      'page_home',
+      'theme_ymca_2013_home',
+    ];
+  }
+  elseif ($node = \Drupal::routeMatch()->getParameter('node')) {
     if ($node->getType() == 'blog') {
       if ($value = $node->field_site_section->getValue()) {
         $id = $value[0]['target_id'];

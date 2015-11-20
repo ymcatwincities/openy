@@ -11,9 +11,9 @@ dependencies:
     - field.field.node.article.field_header_image
     - field.field.node.article.field_header_variant
     - field.field.node.article.field_image
-    - field.field.node.article.field_lead_action
     - field.field.node.article.field_lead_description
     - field.field.node.article.field_page_description
+    - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_tags
@@ -55,14 +55,6 @@ content:
       image_style: 2013_masthead
       image_link: ''
     third_party_settings: {  }
-  field_lead_action:
-    type: entity_reference_entity_view
-    weight: 7
-    label: hidden
-    settings:
-      view_mode: full
-      link: false
-    third_party_settings: {  }
   field_lead_description:
     type: text_default
     weight: 6
@@ -72,6 +64,12 @@ content:
   field_page_description:
     type: basic_string
     weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_secondary_sidebar:
+    type: text_default
+    weight: 7
     label: hidden
     settings: {  }
     third_party_settings: {  }
