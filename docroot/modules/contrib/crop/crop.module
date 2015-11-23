@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * The Crop API Drupal module.
+ *
+ * Provides storage and API for image crops.
+ */
+
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\media_entity\MediaBundleInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function crop_theme() {
+  return [
+    'crop_crop_summary' => [
+      'variables' => ['data' => [], 'effect' => []],
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for crop_crop summary template.
+ *
+ * Default template: crop-crop-summary.twig.html.
+ */
+function template_preprocess_crop_crop_summary(&$variables) {
+  if (!empty($variables['data']['crop_type'])) {
+    $type = \Drupal::entityManager()->getStorage('crop_type')->load($variables['data']['crop_type']);
+    $variables['data']['crop_type'] = $type->label();
+  }
+}
+
+/**
+ * Implements hook_form_BASE_ID_alter().
+ *
+ * Adds crop configuraiton fields to media bundle form.
+ */
+function crop_form_media_bundle_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\media_entity\MediaBundleInterface $bundle */
+  $bundle = $form['#entity'];
+  $options = [];
+  $allowed_field_types = ['file', 'image'];
+  foreach (\Drupal::entityManager()->getFieldDefinitions('media', $bundle->id()) as $field_name => $field) {
+    if (in_array($field->getType(), $allowed_field_types) && !$field->getFieldStorageDefinition()->isBaseField()) {
+      $options[$field_name] = $field->getLabel();
+    }
+  }
+
+  $form['#entity_builders'][] = 'crop_media_bundle_form_builder';
+  $form['crop'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Crop configuration'),
+  ];
+
+  if (empty($options)) {
+    $form['crop']['image_field'] = [
+      '#type' => 'value',
+      '#value' => NULL,
+    ];
+
+    $form['crop']['message'] = [
+      '#markup' => t('There are no file or image fields on this bundle at the moment. In order to configure crop add at least one such field and come back.')
+    ];
+
+    return;
+  }
+
+  $form['crop']['image_field'] = [
+    '#type' => 'select',
+    '#title' => t('Image field'),
+    '#default_value' => $bundle->getThirdPartySetting('crop', 'image_field'),
+    '#options' => $options,
+    '#description' => t('Select field that stores image which needs to be cropped.'),
+  ];
+
+}
+
+/**
+ * Entity builder for Media bundle.
+ *
+ * Adds third party settings to Media bundle config entity.
+ *
+ * @see crop_form_media_bundle_form_alter()
+ */
+function crop_media_bundle_form_builder($entity_type, MediaBundleInterface $bundle, &$form, FormStateInterface $form_state) {
+  $bundle->setThirdPartySetting('crop', 'image_field', $form_state->getValue('image_field'));
+}

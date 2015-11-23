@@ -1,0 +1,8 @@
+name: Media entity crop
+description: 'Provides Media entity integration for Crop API.'
+core: 8.x
+package: Media
+type: module
+dependencies:
+  - crop
+  - media_entity
