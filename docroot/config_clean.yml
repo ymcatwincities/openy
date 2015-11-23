@@ -115,6 +115,11 @@
       - { name: 'migrate.migration.ymca_migrate_file_image.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_node_blog.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_taxonomy_term_tags.yml', status: true }
+      - { name: 'core.entity_form_display.block_content.action_block.default.yml', status: true }
+      - { name: 'core.entity_view_display.block_content.action_block.default.yml', status: true }
+      - { name: 'field.field.block_content.action_block.body.yml', status: true }
+      - { name: 'block_content.type.action_block.yml', status: true }
+      - { name: 'image.style.crop_thumbnail.yml', status: true }
 
   tasks:
     - name: Export config
