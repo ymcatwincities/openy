@@ -1,25 +1,24 @@
-uuid: 1f7532ea-3fa1-44f8-b200-cf3cb92bef33
+uuid: 47d6fcb5-ceaa-421d-8207-7ee6f004c5b1
 langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.action_block
-    - field.field.block_content.action_block.body
+    - block_content.type.image_block
+    - field.field.block_content.image_block.field_image
   module:
-    - text
-id: block_content.action_block.default
+    - image
+id: block_content.image_block.default
 targetEntityType: block_content
-bundle: action_block
+bundle: image_block
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
+  field_image:
     weight: 3
     settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
+    type: image_image
   info:
     type: string_textfield
     weight: -5
