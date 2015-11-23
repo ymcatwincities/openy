@@ -4,6 +4,17 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.location.field_alert
+    - field.field.node.location.field_body
+    - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_include_general_blog_posts
+    - field.field.node.location.field_join_override
+    - field.field.node.location.field_location
+    - field.field.node.location.field_location_working_hours
+    - field.field.node.location.field_main_promos
+    - field.field.node.location.field_membership_block
+    - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_s_content
     - node.type.location
   module:
     - user
@@ -15,4 +26,15 @@ content:
   links:
     weight: 100
 hidden:
+  field_alert: true
+  field_body: true
+  field_facebook_page_id: true
+  field_include_general_blog_posts: true
+  field_join_override: true
+  field_location: true
+  field_location_working_hours: true
+  field_main_promos: true
+  field_membership_block: true
+  field_promo_slideshow: true
+  field_schedule_s_content: true
   langcode: true
