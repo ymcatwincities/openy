@@ -5,4 +5,4 @@ dependencies: {  }
 id: image_block
 label: 'Image Block'
 revision: 0
-description: ''
+description: 'Block to upload image and display it in different sizes. Mainly will be used to be embedded in WYSIWYG.'
