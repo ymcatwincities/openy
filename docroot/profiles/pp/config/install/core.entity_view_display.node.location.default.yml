@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.location.field_location_working_hours
     - field.field.node.location.field_main_promos
     - field.field.node.location.field_membership_block
+    - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_s_content
     - node.type.location
@@ -87,6 +88,12 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+  field_phone:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_promo_slideshow:
     weight: 104
     label: above
