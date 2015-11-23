@@ -1,0 +1,8 @@
+uuid: cbad5ee2-8fc7-4de0-8926-38f8a1cf4ea7
+langcode: en
+status: true
+dependencies: {  }
+id: alert_block
+label: 'Alert Block'
+revision: 0
+description: ''
