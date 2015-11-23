@@ -1,0 +1,32 @@
+services:
+  libraries.manager:
+    class: Drupal\libraries\ExternalLibrary\ExternalLibraryManager
+    arguments:
+      - '@libraries.registry'
+      - '@libraries.extension_handler'
+      - '@libraries.php_file_loader'
+  libraries.registry:
+    class: Drupal\libraries\ExternalLibrary\Registry\ExternalLibraryRegistry
+    # @todo Reconsider the decision to go with JSON instead of YAML.
+    arguments: ['@serialization.json']
+  libraries.extension_handler:
+    class: Drupal\libraries\Extension\ExtensionHandler
+    arguments: ['%app.root', '@module_handler', '@theme_handler']
+  libraries.php_file_loader:
+    class: Drupal\libraries\ExternalLibrary\PhpFile\PhpRequireLoader
+  stream_wrapper.library_definitions:
+    class: Drupal\libraries\StreamWrapper\LibraryDefinitionsStream
+    arguments: ['@config.factory']
+    tags:
+      - { name: stream_wrapper, scheme: 'library-definitions' }
+  stream_wrapper.php_library_files:
+    class: Drupal\libraries\StreamWrapper\PhpLibraryFilesStream
+    tags:
+      - { name: stream_wrapper, scheme: 'php-file' }
+
+  cache.libraries:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: cache_factory:get
+    arguments: [library]

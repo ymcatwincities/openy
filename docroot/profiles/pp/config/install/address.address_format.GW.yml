@@ -1,0 +1,18 @@
+uuid: f531bf83-eaa9-4219-8200-a057c086e943
+langcode: en
+status: true
+dependencies: {  }
+countryCode: GW
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{4}'
+postalCodePrefix: null

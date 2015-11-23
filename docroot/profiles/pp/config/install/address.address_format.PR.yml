@@ -1,0 +1,23 @@
+uuid: 759c768e-b0bc-4835-871e-305e1c6539cb
+langcode: en
+status: true
+dependencies: {  }
+countryCode: PR
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - addressLine1
+  - addressLine2
+  - locality
+  - recipient
+  - organization
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: zip
+postalCodePattern: '(00[679]\d{2})(?:[ \-](\d{4}))?'
+postalCodePrefix: 'PR '

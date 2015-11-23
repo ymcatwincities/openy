@@ -1,0 +1,18 @@
+uuid: fd12d943-8c48-463e-9f09-09b68293f24d
+langcode: en
+status: true
+dependencies: {  }
+countryCode: ME
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '8\d{4}'
+postalCodePrefix: null

@@ -1,0 +1,19 @@
+uuid: 428e688d-fdc8-4548-9500-fa856a852b5a
+langcode: en
+status: true
+dependencies: {  }
+countryCode: MT
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+  - postalCode
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '[A-Z]{3}[ ]?\d{2,4}'
+postalCodePrefix: null

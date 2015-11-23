@@ -1,0 +1,19 @@
+uuid: db5995fb-f39d-4e8d-9000-c697baf22291
+langcode: en
+status: true
+dependencies: {  }
+countryCode: NI
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode\n%locality, %administrativeArea"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+  - administrativeArea
+administrativeAreaType: department
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{5}'
+postalCodePrefix: null

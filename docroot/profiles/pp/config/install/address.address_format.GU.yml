@@ -1,0 +1,25 @@
+uuid: 216773bb-b91f-4942-9400-b9ff40341319
+langcode: en
+status: true
+dependencies: {  }
+countryCode: GU
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %administrativeArea %postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - administrativeArea
+  - postalCode
+uppercaseFields:
+  - addressLine1
+  - addressLine2
+  - locality
+  - recipient
+  - organization
+  - administrativeArea
+administrativeAreaType: state
+localityType: city
+dependentLocalityType: null
+postalCodeType: zip
+postalCodePattern: '(969(?:[12]\d|3[12]))(?:[ \-](\d{4}))?'
+postalCodePrefix: null

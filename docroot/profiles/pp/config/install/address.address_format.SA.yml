@@ -1,0 +1,18 @@
+uuid: 207fef14-de10-47dd-8402-2c5b410dc39b
+langcode: en
+status: true
+dependencies: {  }
+countryCode: SA
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{5}'
+postalCodePrefix: null
