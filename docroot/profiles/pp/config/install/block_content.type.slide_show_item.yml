@@ -5,4 +5,4 @@ dependencies: {  }
 id: slide_show_item
 label: 'Slide Show Item'
 revision: 0
-description: ''
+description: 'Block with title + image + description + button fields for displaying single item within SlideShow blocks.'
