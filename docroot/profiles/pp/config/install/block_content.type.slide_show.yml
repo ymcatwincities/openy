@@ -5,4 +5,4 @@ dependencies: {  }
 id: slide_show
 label: 'Slide Show'
 revision: 0
-description: ''
+description: 'Block with a references to Slide Items. Used as Inserted on Date block fields (before, in between, after)'
