@@ -276,7 +276,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
-                    'Possible problem with merging multiple components on the page. (Page ID: @page, Field Name: @field).',
+                    '[DEV] Possible problem with merging multiple components on the page. (Page ID: @page, Field Name: @field).',
                     [
                       '@page' => $item['site_page_id'],
                       '@field' => $property,
@@ -301,12 +301,11 @@ class YmcaMigrateNodeArticle extends SqlBase {
       else {
         // Check for recursion. Probably it should be done in other migrations, like expander block, subcontent.
         // @todo Recheck this.
-
         if (!isset($item['content_area_index']) || !isset($item['component_type'])) {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              'It seems to be a recursion on the page #@page',
+              '[DEV] It seems to be a recursion on the page #@page.',
               ['@page' => $row->getSourceProperty('site_page_id')]
             ),
             MigrationInterface::MESSAGE_ERROR
@@ -317,7 +316,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              'Undefined component in the page #@page: @component (@map)',
+              '[DEV] Undefined component in the page #@page: @component (@map)',
               [
                 '@component' => $id,
                 '@page' => $row->getSourceProperty('site_page_id'),
@@ -375,7 +374,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              'Component content_block_join (id: @component) has more than 1 child on page: #@page',
+              '[DEV] Component content_block_join (id: @component) has more than 1 child on page: #@page',
               [
                 '@component' => $component['site_page_component_id'],
                 '@page' => $component['site_page_id']
@@ -392,7 +391,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              'Component content_block_join (id: @component) has empty join on page: #@page',
+              '[DEV] Component content_block_join (id: @component) has empty join on page: #@page',
               [
                 '@component' => $component['site_page_component_id'],
                 '@page' => $component['site_page_id']
@@ -417,7 +416,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              'Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
+              '[DEV] Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
               [
                 '@component' => $component['site_page_component_id'],
                 '@type' => $parent['component_type'],
