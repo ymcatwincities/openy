@@ -1,0 +1,18 @@
+uuid: 73e337c0-15ff-458b-9300-db43273de07b
+langcode: en
+status: true
+dependencies: {  }
+countryCode: CO
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality, %administrativeArea, %postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - administrativeArea
+uppercaseFields:
+  - locality
+administrativeAreaType: department
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{6}'
+postalCodePrefix: null

@@ -1,0 +1,18 @@
+uuid: d0b26f56-1324-4494-9c3a-58d22b649d49
+langcode: en
+status: true
+dependencies: {  }
+countryCode: CY
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{4}'
+postalCodePrefix: null

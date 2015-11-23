@@ -1,0 +1,18 @@
+uuid: 49274a9e-8859-4c9c-9c00-e7573385d11b
+langcode: en
+status: true
+dependencies: {  }
+countryCode: MA
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{5}'
+postalCodePrefix: null

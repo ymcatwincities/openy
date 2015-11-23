@@ -1,0 +1,20 @@
+uuid: b98ae6ad-c659-47ca-bd53-83bd8abce42f
+langcode: en
+status: true
+dependencies: {  }
+countryCode: TC
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%sortingCode\n%locality\n%postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+  - postalCode
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: 'TKCA 1ZZ'
+postalCodePrefix: null

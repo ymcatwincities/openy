@@ -1,0 +1,18 @@
+uuid: b17e1e3e-d2ce-4e33-9800-b13a682676d1
+langcode: en
+status: true
+dependencies: {  }
+countryCode: MW
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %sortingCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: null
+postalCodePattern: null
+postalCodePrefix: null

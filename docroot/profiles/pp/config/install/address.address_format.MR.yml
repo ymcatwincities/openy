@@ -1,0 +1,20 @@
+uuid: cda6acea-48a8-45ee-8f02-2eb0dd8651ac
+langcode: en
+status: true
+dependencies: {  }
+countryCode: MR
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - addressLine1
+  - addressLine2
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: null
+postalCodePattern: null
+postalCodePrefix: null
