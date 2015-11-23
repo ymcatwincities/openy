@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.crop_media_example.body
+    - field.field.node.crop_media_example.field_image_crop_media
+    - node.type.crop_media_example
+  module:
+    - text
+    - user
+id: node.crop_media_example.default
+targetEntityType: node
+bundle: crop_media_example
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  field_image_crop_media:
+    weight: 0
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+hidden:
+  langcode: true
+  links: true
