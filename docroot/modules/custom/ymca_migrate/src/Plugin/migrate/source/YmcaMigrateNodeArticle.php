@@ -170,6 +170,37 @@ class YmcaMigrateNodeArticle extends SqlBase {
           5201,
           5222,
           24055,
+          // Pages for menu migration.
+          '4802',
+          '4804',
+          '4805',
+          '4806',
+          '4807',
+          '4747',
+          '20256',
+          '8601',
+          '4748',
+          '4750',
+          '15737',
+          '15840',
+          '15841',
+          '15842',
+          '15739',
+          '22710',
+          '22712',
+          '22713',
+          '23010',
+          '22714',
+          '23694',
+          '23692',
+          '24048',
+          '23691',
+          '23695',
+          '5303',
+          '5304',
+          '5305',
+          '5283',
+          '5284'
         ],
         'IN'
       );
@@ -200,6 +231,11 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    // Some pages have NULL title, so create one.
+    if (!$row->getSourceProperty('page_title')) {
+      $row->setSourceProperty('page_title', t('Title'));
+    }
+
     // Get all component data.
     $components = $this->select('amm_site_page_component', 'c')
       ->fields('c')
@@ -263,19 +299,34 @@ class YmcaMigrateNodeArticle extends SqlBase {
         }
       }
       else {
-        // There is no item in our map. Set the message.
-        $this->idMap->saveMessage(
-          $this->getCurrentIds(),
-          $this->t(
-            'Undefined component in the page #@page: @component (@map)',
-            [
-              '@component' => $id,
-              '@page' => $row->getSourceProperty('site_page_id'),
-              '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
-            ]
-          ),
-          MigrationInterface::MESSAGE_ERROR
-        );
+        // Check for recursion. Probably it should be done in other migrations, like expander block, subcontent.
+        // @todo Recheck this.
+
+        if (!isset($item['content_area_index']) || !isset($item['component_type'])) {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              'It seems to be a recursion on the page #@page',
+              ['@page' => $row->getSourceProperty('site_page_id')]
+            ),
+            MigrationInterface::MESSAGE_ERROR
+          );
+        }
+        else {
+          // There is no item in our map. Set the message.
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              'Undefined component in the page #@page: @component (@map)',
+              [
+                '@component' => $id,
+                '@page' => $row->getSourceProperty('site_page_id'),
+                '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
+              ]
+            ),
+            MigrationInterface::MESSAGE_ERROR
+          );
+        }
       }
     }
 
@@ -351,9 +402,18 @@ class YmcaMigrateNodeArticle extends SqlBase {
           );
           return NULL;
         }
-        // For now just take care of rich_text. If anything else log a message.
+
+        // List of known components to join.
+        $available = [
+          'rich_text',
+          'image',
+          'html_code',
+        ];
+
+        // For now just take care of available components. If anything else log a message.
         // @todo There are definitely another types like html_code, etc... Do it.
-        if ($parent['component_type'] != 'rich_text') {
+
+        if (!in_array($parent['component_type'], $available)) {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
@@ -364,10 +424,11 @@ class YmcaMigrateNodeArticle extends SqlBase {
                 '@page' => $component['site_page_id']
               ]
             ),
-            MigrationInterface::MESSAGE_NOTICE
+            MigrationInterface::MESSAGE_ERROR
           );
           return NULL;
         }
+
         // Finally, return body.
         $value[$property] = [
           'value' => $parent['body'],
@@ -381,17 +442,27 @@ class YmcaMigrateNodeArticle extends SqlBase {
         // For speed up the process use specific migrated asset id.
         // @todo Set proper asset id.
         $asset_id = 11712;
-
         // Get file.
         $destination = $this->getDestinationId($asset_id, 'ymca_migrate_file_image');
-        /** @var FileEntity $file */
-        $file = \Drupal::entityManager()->getStorage('file')->load($destination);
-        $url = parse_url(file_create_url($file->getFileUri()));
-        $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
-        $value[$property] = [
-          'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
-          'format' => 'full_html',
-        ];
+
+        // For field_header_image we should upload image as a field.
+        if ($property == 'field_header_image') {
+          $value[$property] = [
+            'target_id' => $destination,
+          ];
+          $value['field_header_variant'] = 'image';
+        }
+        else {
+          // Here we use just inline image.
+          /** @var FileEntity $file */
+          $file = \Drupal::entityManager()->getStorage('file')->load($destination);
+          $url = parse_url(file_create_url($file->getFileUri()));
+          $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
+          $value[$property] = [
+            'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
+            'format' => 'full_html',
+          ];
+        }
         break;
 
       case 'code_block':
@@ -402,6 +473,53 @@ class YmcaMigrateNodeArticle extends SqlBase {
         $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
         $value[$property] = [
           'value' => sprintf($string, $block->id(), $block->uuid()),
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'headline';
+        $tag = $component['extra_data_1'];
+        $string = '<%s>%s</%s>';
+        $value[$property] = [
+          'value' => sprintf($string, $tag, $component['body'], $tag),
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'html_code':
+        $value[$property] = [
+          'value' => $component['body'],
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'line_break':
+        $breaks = '';
+        for ($i = 0; $i < $component['body']; $i++) {
+          $breaks .= '<br />';
+        }
+        $value[$property] = [
+          'value' => $breaks,
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'textpander':
+        $string = '<article class="panel panel-default textpander"><div class="panel-heading"><div class="panel-title">%s</div></div><div class="panel-collapse-in"><div class="panel-body">%s</div></div></article>';
+        $value[$property] = [
+          'value' => sprintf(
+            $string,
+            $this->getAttributeData('headline', $component),
+            $component['body']
+          ),
+          'format' => 'full_html',
+        ];
+        break;
+
+      case 'blockquote':
+        $string = '<blockquote class="blockquote"><p>%s</p><small>%s</small></blockquote>';
+        $value[$property] = [
+          'value' => sprintf($string, $component['body'], $component['href']),
           'format' => 'full_html',
         ];
         break;
@@ -492,6 +610,7 @@ class YmcaMigrateNodeArticle extends SqlBase {
         1 => [
           'rich_text' => 'field_lead_description',
           'content_block_join' => 'field_lead_description',
+          'headline' => 'field_lead_description',
         ],
         2 => [
           'rich_text' => 'field_secondary_sidebar',
@@ -502,14 +621,24 @@ class YmcaMigrateNodeArticle extends SqlBase {
           'text' => 'field_content',
           'content_block_join' => 'field_content',
           'code_block' => 'field_content',
+          'headline' => 'field_content',
+          'html_code' => 'field_content',
+          'line_break' => 'field_content',
+          'textpander' => 'field_content',
+          'blockquote' => 'field_content',
         ],
         4 => [
           'content_block_join' => 'field_sidebar',
           'rich_text' => 'field_sidebar',
           'image' => 'field_sidebar',
+          'code_block' => 'field_sidebar',
+          'html_code' => 'field_sidebar',
+          'line_break' => 'field_sidebar',
+          'blockquote' => 'field_sidebar',
         ],
         100 => [
           'link' => 'field_header_button',
+          'image' => 'field_header_image',
         ],
       ],
     ];
