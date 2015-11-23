@@ -5,4 +5,4 @@ dependencies: {  }
 id: alert_block
 label: 'Alert Block'
 revision: 0
-description: 'Block to have one textarea field with Code format that is suiatable for embedding javascript tracking code or any HTML code including iframes.'
+description: 'The block needs to be implemented by using cookie. It should be displayed for a visitor one time only. \nIt contains Content field only with a logic for handling cookies. The alert continues to display until the user clicks the "x" in the upper right of the alert display. \nBlock Is going to be used as reference from Page, Camp and Location CTs'
