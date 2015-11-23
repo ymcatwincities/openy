@@ -1,0 +1,10 @@
+name: ImageWidgetCrop
+type: module
+description: Provides an interface for using the features of the Crop API.
+core: 8.x
+package: Media
+dependencies:
+  - node
+  - crop
+  - image
+  - user

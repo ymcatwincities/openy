@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme override of all elements into the list of ImageStyle (sidebar crop).
+ *
+ * Used for grouped form items elements into crop_sidebar.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - anchor: The anchor to lie li elements into div wrapper element.
+ * - ratio: Ratio calculate instead of current image style.
+ * - label: The label of current ImageStyle.
+ * - has_parent: A flag to indicate that the container has one or more parent
+     containers.
+ *
+ * @see template_preprocess_crop_list_items()
+ */
+#}
+{%
+  set classes = [
+    has_parent ? 'js-form-wrapper',
+    has_parent ? 'form-wrapper',
+  ]
+%}
+<li {{ attributes.addClass(classes) }}>
+    <a href='{{ anchor }}'>
+        <span class='rectangle'><i>{{ ratio }}</i></span>
+        <span class='popin'>{{ label }}</span>
+        <div class='edit-box'>
+            <span class='delete'><i>Delete</i></span>
+        </div>
+    </a>
+</li>

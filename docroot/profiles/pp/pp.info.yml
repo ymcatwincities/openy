@@ -51,6 +51,8 @@ dependencies:
   - ymca_styleguide
   - ymca_link_formatter
   - ymca_alters
+  - crop
+  - image_widget_crop
 themes:
   - bartik
   - seven
