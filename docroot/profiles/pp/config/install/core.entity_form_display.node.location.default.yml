@@ -3,9 +3,24 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.location.field_alert
+    - field.field.node.location.field_body
+    - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_include_general_blog_posts
+    - field.field.node.location.field_join_override
+    - field.field.node.location.field_location
+    - field.field.node.location.field_location_working_hours
+    - field.field.node.location.field_main_promos
+    - field.field.node.location.field_membership_block
+    - field.field.node.location.field_phone
+    - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_s_content
     - node.type.location
   module:
+    - address
     - path
+    - telephone
+    - text
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -13,41 +28,125 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 15
     settings: {  }
     third_party_settings: {  }
+  field_alert:
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_body:
+    weight: 8
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_facebook_page_id:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_include_general_blog_posts:
+    weight: 13
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_join_override:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  field_location:
+    weight: 3
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_location_working_hours:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  field_main_promos:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_membership_block:
+    weight: 9
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_phone:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_promo_slideshow:
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_schedule_s_content:
+    weight: 11
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   langcode:
     type: language_select
-    weight: 2
+    weight: 1
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 18
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 16
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 17
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 14
     settings:
       match_operator: CONTAINS
       size: 60
