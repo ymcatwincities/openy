@@ -110,6 +110,15 @@
     tags:
       - sniffers
 
+  - name: Ensure composer files are absent
+    sudo: yes
+    file:
+      path: "{{ composer_dir }}/{{ item }}"
+      state: absent
+    with_items:
+      - composer.lock
+      - composer.json
+
   - name: Install composer global requires
     sudo: yes
     shell: "cd {{ composer_dir }} && composer require --prefer-dist {{ item }}"
