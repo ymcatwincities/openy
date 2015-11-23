@@ -53,6 +53,10 @@ dependencies:
   - ymca_alters
   - crop
   - image_widget_crop
+  - composer_manager
+  - libraries
+  - address
+  - telephone
 themes:
   - bartik
   - seven
