@@ -1,0 +1,4 @@
+{
+  "id": "test_asset_library",
+  "class": "Drupal\\libraries\\ExternalLibrary\\Asset\\AssetLibrary"
+}
