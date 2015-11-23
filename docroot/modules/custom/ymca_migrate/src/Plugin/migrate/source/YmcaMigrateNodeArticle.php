@@ -648,7 +648,8 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * Get theme name.
    *
    * @param int $theme_id
-   *   Theme ID;
+   *   Theme ID.
+   *
    * @return mixed
    *   Theme name or FALSE.
    */
