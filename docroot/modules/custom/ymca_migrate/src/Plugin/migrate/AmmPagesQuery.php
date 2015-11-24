@@ -79,6 +79,15 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    */
   public function setNeededIds(array $ids = array()) {
     // Updating array of IDs.
+    if (empty($this->needed_ids) && empty($ids)) {
+      $this->needed_ids = array();
+      return $this;
+    }
+
+    if (empty($this->needed_ids) && !empty($ids)) {
+      $this->needed_ids = $ids;
+      return $this;
+    }
     $this->needed_ids = array_merge($this->needed_ids, $ids);
     return $this;
   }
