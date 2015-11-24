@@ -34,7 +34,9 @@ class YmcaMigrateNodePage extends SqlBase {
   public function query() {
     $ymca_page_query = YmcaPagesQuery::init(array(), array(), $this);
 
-    return $ymca_page_query->getQueryByParent();
+    // Demo migration for Camps and all children here.
+    // @todo Danylevsky|podarok - Create copy of YmcaPagesQuery for Camps.
+    return $ymca_page_query->getQueryByParent(6985);
   }
 
   /**

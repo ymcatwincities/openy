@@ -39,6 +39,15 @@ class YmcaPagesQuery extends AmmPagesQuery {
   static private $instance;
 
   /**
+   * If the ID has children.
+   *
+   * @var boolean
+   */
+  private $has_children;
+
+  protected $query;
+
+  /**
    * YmcaBlogComponentsTree constructor.
    *
    * @param array $skip_ids
@@ -56,7 +65,32 @@ class YmcaPagesQuery extends AmmPagesQuery {
   protected function __construct($skip_ids, $needed_ids, SqlBase &$database) {
     $this->database = &$database;
     $this->tree = [];
+    // Let's by default have no children.
+    $this->has_children = FALSE;
+
+    $options['fetch'] = \PDO::FETCH_ASSOC;
+    $this->query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);
+    $this->query->fields('p',
+      [
+        'site_page_id',
+        'page_title',
+        'theme_id',
+        'parent_id',
+      ]);
     parent::__construct('page', $skip_ids, $needed_ids);
+  }
+
+  private function initQuery() {
+    // Initialize query single time.
+    $options['fetch'] = \PDO::FETCH_ASSOC;
+    $this->query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);
+    $this->query->fields('p',
+      [
+        'site_page_id',
+        'page_title',
+        'theme_id',
+        'parent_id',
+      ]);
   }
 
   /**
@@ -64,12 +98,9 @@ class YmcaPagesQuery extends AmmPagesQuery {
    */
   public function getQueryByParent($id = NULL) {
     if ($id) {
-      // @todo create recursion for children.
-      print_r('todo create recursion for children');
-      die;
+      $children_ids = $this->getAllChildren($id);
     }
-    $options['fetch'] = \PDO::FETCH_ASSOC;
-    $query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);
+
     // Pages with single component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
     $this->setNeededIds(
       [5264,
@@ -235,24 +266,28 @@ class YmcaPagesQuery extends AmmPagesQuery {
         '5284'
       ]
     );
-    $query->fields('p',
-      [
-        'site_page_id',
-        'page_title',
-        'theme_id',
-      ]);
-    $query->condition('site_page_id', $this->getNeededIds(), 'IN');
+
+    $this->query->condition('site_page_id', $this->getNeededIds(), 'IN');
     $skipped_ids = $this->getSkippedIds();
     if (!empty($skipped_ids)) {
-      $query->condition(
+      $this->query->condition(
         'site_page_id',
         $skipped_ids,
         'NOT IN'
       );
     }
-    return $query;
+    return $this->query;
   }
 
+  /**
+   * Setter for local SqlBase.
+   *
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $migrate_database
+   *   Reference to the plugin that is used current object.
+   *
+   * @return $this
+   *   Self.
+   */
   public function setSqlBase(SqlBase &$migrate_database) {
     $this->database = $migrate_database;
     return $this;
@@ -273,4 +308,67 @@ class YmcaPagesQuery extends AmmPagesQuery {
     self::$instance->setSqlBase($migrate_database);
     return self::$instance;
   }
+
+  /**
+   * Grab a list of all children for specific page ID.
+   *
+   * @param int $id
+   *   ID to process.
+   *
+   * @return array|boolean
+   *   Array of IDs. FALSE if no.
+   */
+  public function getAllChildren($id = 0) {
+
+    // @todo optimize this for /admin/structure/migrate/manage/ymca/migrations
+    if ($id == 0) {
+      $this->has_children = FALSE;
+      return FALSE;
+    }
+    if ($this->isInNeeded($id)) {
+      return FALSE;
+    }
+    $is_updated = $this->setNeededIds(array((int) $id));
+    if ($is_updated === FALSE) {
+      return FALSE;
+    }
+    // If no new addition, return.
+
+    $this->query->condition('parent_id', $this->getNeededIds(), 'IN');
+    $all_ids = $this->query->execute()->fetchAll();
+    //print_r($all_ids);
+    $this->initQuery();
+    if (!empty($all_ids)) {
+      foreach ($all_ids as $sub_id_key => $sub_id_data) {
+        $this->getAllChildren((int) $sub_id_data['site_page_id']);
+      }
+   }
+    $this->initQuery();
+    $this->query->condition('site_page_id', $this->getNeededIds(), 'IN');
+    $skipped_ids = $this->getSkippedIds();
+    if (!empty($skipped_ids)) {
+      $this->query->condition(
+        'site_page_id',
+        $skipped_ids,
+        'NOT IN'
+      );
+    }
+    return $this->query;
+  }
+
+  /**
+   * Check if ID is already in needed array.
+   *
+   * @param int $id
+   *   ID.
+   * @return bool
+   *   TRUE if already in, FALSE otherwise.
+   */
+  private function isInNeeded($id) {
+    if (array_search($id, $this->getNeededIds())) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
 }

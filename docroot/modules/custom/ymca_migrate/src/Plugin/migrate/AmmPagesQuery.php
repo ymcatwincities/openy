@@ -78,18 +78,19 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    * {@inheritdoc}
    */
   public function setNeededIds(array $ids = array()) {
-    // Updating array of IDs.
-    if (empty($this->needed_ids) && empty($ids)) {
-      $this->needed_ids = array();
-      return $this;
-    }
 
-    if (empty($this->needed_ids) && !empty($ids)) {
-      $this->needed_ids = $ids;
-      return $this;
+    // Emptying needed IDs array.
+    if ($ids === array()) {
+      $this->needed_ids = array();
+      return TRUE;
+    }
+    $old = $this->getNeededIds();
+    if (empty($old) && !empty($ids)) {
+      $this->needed_ids = array_values($ids);
+      return TRUE;
     }
     $this->needed_ids = array_merge($this->needed_ids, $ids);
-    return $this;
+    return TRUE;
   }
 
   /**
@@ -116,6 +117,10 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    *   Return needed IDs.
    */
   public function getNeededIds() {
+    if (isset($this->needed_ids)) {
+      return $this->needed_ids;
+    }
+    $this->needed_ids = array();
     return $this->needed_ids;
   }
 
