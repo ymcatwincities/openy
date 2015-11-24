@@ -23,4 +23,5 @@ interface YmcaSqlBaseInterface {
    *   Migrate row is currently processed.
    */
   public function __construct($skipIds, Connection $database, Row $row);
+
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Class that would be used for getting tree of Blogs to be migrated into Drupal CT.
+ * Class that would be used for getting tree of Pages to be migrated into Drupal CT.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
@@ -15,7 +15,7 @@ use Drupal\migrate\Row;
  *
  * @package Drupal\ymca_migrate
  */
-class YmcaBlogTree extends AmmCtTree {
+class YmcaPageTree extends AmmCtTree {
 
   /**
    * @var \Drupal\Core\Database\Connection
@@ -51,30 +51,36 @@ class YmcaBlogTree extends AmmCtTree {
    * @param \Drupal\migrate\Row $row
    *   Row that is processed within a Tree
    *
-   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaBlogTree $this
+   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaPageTree $this
    *   Returns itself.
    */
   protected function __construct($skipIds, Connection $database, Row $row) {
     $this->database = $database;
     $this->row = $row;
     $this->tree = [];
-    parent::__construct('blog', $skipIds);
+    parent::__construct('page', $skipIds);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getTree() {
+
+    // Some pages have NULL title, so create one.
+    if (!$this->row->getSourceProperty('page_title')) {
+      $this->row->setSourceProperty('page_title', t('Title'));
+    }
+
     // Get all component data.
-    $select = $this->database->select('abe_blog_post_component', 'c');
+    $select = $this->database->select('amm_site_page_component', 'c');
     $select->fields('c')
       ->condition(
-        'blog_post_id',
-        $this->row->getSourceProperty('blog_post_id')
+        'site_page_id',
+        $this->row->getSourceProperty('site_page_id')
       );
+    $select->orderBy('content_area_index', 'ASC');
+    $select->orderBy('sequence_index', 'ASC');
     $components = $select->execute()->fetchAll(\PDO::FETCH_ASSOC);
-
-    // Get components tree, where each component has its children.
 
     foreach ($components as $item) {
       if (is_null($item['parent_component_id'])) {

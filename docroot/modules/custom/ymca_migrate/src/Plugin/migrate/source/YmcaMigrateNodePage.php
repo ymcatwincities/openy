@@ -9,9 +9,10 @@ namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\file_entity\Entity\FileEntity;
+use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
-use Drupal\migrate\Entity\MigrationInterface;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaPageTree;
 
 /**
  * Source plugin for node:article content.
@@ -246,7 +247,8 @@ class YmcaMigrateNodePage extends SqlBase {
       ->fetchAll();
 
     // Get components tree, where each component has its children.
-    $components_tree = [];
+    $components_tree = YmcaPageTree::init(array(), $this->getDatabase(), $row)
+      ->getTree();
 
     // Write parents.
     foreach ($components as $item) {
@@ -264,7 +266,12 @@ class YmcaMigrateNodePage extends SqlBase {
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      if ($property = $this->checkMap($row->getSourceProperty('theme_id'), $item['content_area_index'], $item['component_type'])) {
+      if ($property = $this->checkMap(
+        $row->getSourceProperty('theme_id'),
+        $item['content_area_index'],
+        $item['component_type']
+      )
+      ) {
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
@@ -320,7 +327,9 @@ class YmcaMigrateNodePage extends SqlBase {
               [
                 '@component' => $id,
                 '@page' => $row->getSourceProperty('site_page_id'),
-                '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
+                '@map' => $this->getThemeName(
+                    $row->getSourceProperty('theme_id')
+                  ) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
               ]
             ),
             MigrationInterface::MESSAGE_ERROR
@@ -384,7 +393,10 @@ class YmcaMigrateNodePage extends SqlBase {
           );
         }
         // Get joined component id.
-        $joined_id = $this->getAttributeData('joined_content_block_component_id', $component);
+        $joined_id = $this->getAttributeData(
+          'joined_content_block_component_id',
+          $component
+        );
         $parent = $this->getComponentByParent($joined_id);
         // If parent is missing log it.
         if (!$parent) {
@@ -442,7 +454,10 @@ class YmcaMigrateNodePage extends SqlBase {
         // @todo Set proper asset id.
         $asset_id = 11712;
         // Get file.
-        $destination = $this->getDestinationId($asset_id, 'ymca_migrate_file_image');
+        $destination = $this->getDestinationId(
+          $asset_id,
+          'ymca_migrate_file_image'
+        );
 
         // For field_header_image we should upload image as a field.
         if ($property == 'field_header_image') {
@@ -454,7 +469,9 @@ class YmcaMigrateNodePage extends SqlBase {
         else {
           // Here we use just inline image.
           /** @var FileEntity $file */
-          $file = \Drupal::entityManager()->getStorage('file')->load($destination);
+          $file = \Drupal::entityManager()->getStorage('file')->load(
+            $destination
+          );
           $url = parse_url(file_create_url($file->getFileUri()));
           $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
           $value[$property] = [
@@ -466,9 +483,14 @@ class YmcaMigrateNodePage extends SqlBase {
 
       case 'code_block':
         $id = $this->getAttributeData('code_block_id', $component);
-        $destination = $this->getDestinationId($id, 'ymca_migrate_block_content_code_block');
+        $destination = $this->getDestinationId(
+          $id,
+          'ymca_migrate_block_content_code_block'
+        );
         /** @var BlockContent $block */
-        $block = \Drupal::entityManager()->getStorage('block_content')->load($destination);
+        $block = \Drupal::entityManager()->getStorage('block_content')->load(
+          $destination
+        );
         $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
         $value[$property] = [
           'value' => sprintf($string, $block->id(), $block->uuid()),
@@ -687,7 +709,10 @@ class YmcaMigrateNodePage extends SqlBase {
     }
 
     // Finally get the result.
-    if (array_key_exists($component_type, $map[$theme_id][$content_area_index])) {
+    if (array_key_exists(
+      $component_type,
+      $map[$theme_id][$content_area_index]
+    )) {
       return $map[$theme_id][$content_area_index][$component_type];
     }
 

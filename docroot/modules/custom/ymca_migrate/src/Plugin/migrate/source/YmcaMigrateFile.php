@@ -80,7 +80,11 @@ class YmcaMigrateFile extends SqlBase {
       $file = file_get_contents($url);
 
       if ($file === FALSE) {
-        $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t('Cannot download @file', array('@file' => $url)),
+          MigrationInterface::MESSAGE_ERROR
+        );
         return FALSE;
       }
       // Saving a file with a path.

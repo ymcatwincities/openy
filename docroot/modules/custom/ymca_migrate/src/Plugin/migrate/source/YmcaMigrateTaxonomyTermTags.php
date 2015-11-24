@@ -46,7 +46,10 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
    */
   public function prepareRow(Row $row) {
     // All the data blow we could fetch by making additional SQL requests.
-    $row->setSourceProperty('raw_tag_name', trim($row->getSourceProperty('top_raw_tag_name'), ','));
+    $row->setSourceProperty(
+      'raw_tag_name',
+      trim($row->getSourceProperty('top_raw_tag_name'), ',')
+    );
 
     return parent::prepareRow($row);
   }

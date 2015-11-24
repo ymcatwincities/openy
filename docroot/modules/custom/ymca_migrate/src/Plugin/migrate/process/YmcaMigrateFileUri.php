@@ -7,8 +7,8 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\process;
 
-use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\MigrateExecutableInterface;
+use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
@@ -23,7 +23,12 @@ class YmcaMigrateFileUri extends ProcessPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+  public function transform(
+    $value,
+    MigrateExecutableInterface $migrate_executable,
+    Row $row,
+    $destination_property
+  ) {
     return 'public://' . basename($value);
   }
 
