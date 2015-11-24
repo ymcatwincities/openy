@@ -14,17 +14,17 @@ class AlertsService {
   private $currentBlock;
 
   /**
-   * Constructs a new AlertsService
+   * Constructs a new AlertsService.
    */
   public function __construct() {
-    $this->currentBlock = null;
+    $this->currentBlock = NULL;
   }
 
   /**
    * Sets current Alert block.
    *
-   * @param \Drupal\block\Entity\Block $block
-   *   Alert Block entity.
+   * @param \Drupal\block_content\Entity\BlockContent $block
+   *   Alert Block content entity.
    */
   public function setCurrentAlertBlock(\Drupal\block_content\Entity\BlockContent $block) {
     $this->currentBlock = $block;
@@ -39,4 +39,5 @@ class AlertsService {
   public function getCurrentAlertBlock() {
     return $this->currentBlock;
   }
+
 }
