@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contract about getting tree of pages from source database.
+ * Contract about getting tree of components from source database.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;

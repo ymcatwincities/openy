@@ -70,7 +70,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
     if (!$this->row->getSourceProperty('page_title')) {
       $this->row->setSourceProperty('page_title', t('Title'));
     }
-
+    // Get all component data.
     // Get all component data.
     $select = $this->database->select('amm_site_page_component', 'c');
     $select->fields('c')
@@ -85,23 +85,13 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
     // Write parents.
     foreach ($components as $item) {
       if (is_null($item['parent_component_id'])) {
-        $components_tree[$item['site_page_component_id']] = $item;
+        $this->tree[$item['site_page_component_id']] = $item;
       }
     }
-
     // Write children.
     foreach ($components as $item) {
       if (!is_null($item['parent_component_id'])) {
-        $components_tree[$item['parent_component_id']]['children'][$item['site_page_component_id']] = $item;
-      }
-    }
-
-    foreach ($components as $item) {
-      if (is_null($item['parent_component_id'])) {
-        $this->tree[$item['blog_post_component_id']] = $item;
-      }
-      else {
-        $this->tree[$item['parent_component_id']]['children'][$item['blog_post_component_id']] = $item;
+        $this->tree[$item['parent_component_id']]['children'][$item['site_page_component_id']] = $item;
       }
     }
 
