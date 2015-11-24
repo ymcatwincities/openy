@@ -32,7 +32,6 @@ class YmcaMigrateNodePage extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    // @codingStandardsIgnoreStart
     $query = YmcaPagesQuery::init(array(), array(), $this->getDatabase())
       ->getQuery();
     return $query;

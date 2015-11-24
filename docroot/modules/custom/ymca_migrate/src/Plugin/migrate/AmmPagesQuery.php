@@ -94,10 +94,19 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
 
   /**
    * Get list of IDs to be processed.
+   *
+   * @return array|boolean
+   *   Returns array or FALSE if not set.
    */
   protected function getSkippedIds() {
     // Get list of skipped IDs cleared from needed ones.
-    return array_diff_key($this->skip_ids, $this->needed_ids);
+    if (!empty($this->skip_ids)) {
+      if (!empty($this->needed_ids)) {
+        return array_diff_key($this->skip_ids, $this->needed_ids);
+      }
+      return $this->skip_ids;
+    }
+    return FALSE;
   }
 
   /**
