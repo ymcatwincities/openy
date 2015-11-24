@@ -82,6 +82,20 @@ class YmcaPageTree extends AmmCtTree {
     $select->orderBy('sequence_index', 'ASC');
     $components = $select->execute()->fetchAll(\PDO::FETCH_ASSOC);
 
+    // Write parents.
+    foreach ($components as $item) {
+      if (is_null($item['parent_component_id'])) {
+        $components_tree[$item['site_page_component_id']] = $item;
+      }
+    }
+
+    // Write children.
+    foreach ($components as $item) {
+      if (!is_null($item['parent_component_id'])) {
+        $components_tree[$item['parent_component_id']]['children'][$item['site_page_component_id']] = $item;
+      }
+    }
+
     foreach ($components as $item) {
       if (is_null($item['parent_component_id'])) {
         $this->tree[$item['blog_post_component_id']] = $item;

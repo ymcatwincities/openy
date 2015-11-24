@@ -237,20 +237,6 @@ class YmcaMigrateNodePage extends SqlBase {
     $components_tree = YmcaPageTree::init(array(), $this->getDatabase(), $row)
       ->getTree();
 
-    // Write parents.
-    foreach ($components as $item) {
-      if (is_null($item['parent_component_id'])) {
-        $components_tree[$item['site_page_component_id']] = $item;
-      }
-    }
-
-    // Write children.
-    foreach ($components as $item) {
-      if (!is_null($item['parent_component_id'])) {
-        $components_tree[$item['parent_component_id']]['children'][$item['site_page_component_id']] = $item;
-      }
-    }
-
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
       if ($property = $this->checkMap(
