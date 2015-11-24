@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Components tree.
+ * Pages tree.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 /**
- * Class AmmComponentsTree
+ * Class AmmPagesTree
  *
  * @package Drupal\ymca_migrate
  */
-abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
+abstract class AmmPagesTree implements AmmPagesTreeInterface {
 
   /**
    * CT type to process on within an object.
@@ -28,20 +28,31 @@ abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
   protected $skip_ids;
 
   /**
-   * AmmComponentsTree constructor.
+   * Array of IDs to be added to tree creation.
+   *
+   * @var array
+   */
+  protected $needed_ids;
+
+  /**
+   * AmmPagesTree constructor.
    *
    * @param string $ct_type
    *   String of Drupal CT machine name.
    * @param array $skip_ids
    *   Array of IDs to be skipped from source DB.
+   * @param array $needed_ids
+   *   Array of IDs to be obtained from source DB.
    */
-  protected function __construct($ct_type, $skip_ids = array()) {
+  protected function __construct($ct_type, $skip_ids = array(), $needed_ids = array()) {
 
     $this->ctType = $ct_type;
     // By default we are working with all IDs.
     // Setting internal protected variable with an array of IDs to be skipped from a tree.
     $this->skip_ids = $skip_ids;
-    // Should we use this in PHP?
+    // Setting internal protected variable with an array of IDs to be added to a tree.
+    $this->needed_ids = $needed_ids;
+    // @todo Should we use this in PHP?
     return $this;
   }
 
@@ -51,6 +62,14 @@ abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
   public function setskip_ids(array $ids = array()) {
     // Updating array of IDs.
     $this->skip_ids = array_merge($this->skip_ids, $ids);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setneeded_ids(array $ids = array()) {
+    // Updating array of IDs.
+    $this->needed_ids = array_merge($this->needed_ids, $ids);
   }
 
   /**

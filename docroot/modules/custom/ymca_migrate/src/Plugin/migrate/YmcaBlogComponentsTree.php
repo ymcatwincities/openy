@@ -44,7 +44,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   /**
    * YmcaBlogComponentsTree constructor.
    *
-   * @param array $skipIds
+   * @param array $skip_ids
    *   Array of IDs to be skipped.
    * @param \Drupal\Core\Database\Connection $database
    *   SqlBase plugin for dealing with DB.
@@ -54,11 +54,11 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
    * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree $this
    *   Returns itself.
    */
-  protected function __construct($skipIds, Connection $database, Row $row) {
+  protected function __construct($skip_ids, Connection $database, Row $row) {
     $this->database = $database;
     $this->row = $row;
     $this->tree = [];
-    parent::__construct('blog', $skipIds);
+    parent::__construct('blog', $skip_ids);
   }
 
   /**
@@ -92,10 +92,10 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   /**
    * {@inheritdoc}
    */
-  static public function init($skipIds, Connection $database, Row $row) {
+  static public function init($skip_ids, Connection $database, Row $row) {
     if (isset(self::$instance)) {
       return self::$instance;
     }
-    return new self($skipIds, $database, $row);
+    return new self($skip_ids, $database, $row);
   }
 }
