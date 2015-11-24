@@ -17,15 +17,15 @@ process:
     default_value: '[]'
   entity_id:
     plugin: migration
-    migration: ymca_migrate_node_article
+    migration: ymca_migrate_node_page
     source: id
   weight: weight
   parent:
     plugin: migration
-    migration: ymca_migrate_node_article
+    migration: ymca_migrate_node_page
     source: parent
 destination:
   plugin: draggableviews
 migration_dependencies:
   required:
-    - ymca_migrate_node_article
+    - ymca_migrate_node_page

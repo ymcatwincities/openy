@@ -18,7 +18,7 @@ use Drupal\ymca_migrate\Plugin\migrate\YmcaPageComponentsTree;
  * Source plugin for node:article content.
  *
  * @MigrateSource(
- *   id = "ymca_migrate_node_article"
+ *   id = "ymca_migrate_node_page"
  * )
  */
 class YmcaMigrateNodePage extends SqlBase {
