@@ -1,0 +1,3 @@
+services:
+  alerts.service:
+    class: Drupal\ymca_blocks\AlertsService
