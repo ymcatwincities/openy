@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodeArticle.
+ * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
@@ -20,7 +20,7 @@ use Drupal\migrate\Entity\MigrationInterface;
  *   id = "ymca_migrate_node_article"
  * )
  */
-class YmcaMigrateNodeArticle extends SqlBase {
+class YmcaMigrateNodePage extends SqlBase {
 
   // @codingStandardsIgnoreStart
   const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;

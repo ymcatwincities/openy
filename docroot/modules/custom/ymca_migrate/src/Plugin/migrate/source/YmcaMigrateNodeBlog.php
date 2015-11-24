@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodeArticle.
+ * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
