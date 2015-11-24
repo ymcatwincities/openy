@@ -7,11 +7,11 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 /**
- * Class AmmPagesTree
+ * Class AmmPagesQuery
  *
  * @package Drupal\ymca_migrate
  */
-abstract class AmmPagesTree implements AmmPagesTreeInterface {
+abstract class AmmPagesQuery implements AmmPagesQueryInterface {
 
   /**
    * CT type to process on within an object.
@@ -35,7 +35,7 @@ abstract class AmmPagesTree implements AmmPagesTreeInterface {
   protected $needed_ids;
 
   /**
-   * AmmPagesTree constructor.
+   * AmmPagesQuery constructor.
    *
    * @param string $ct_type
    *   String of Drupal CT machine name.
@@ -49,9 +49,9 @@ abstract class AmmPagesTree implements AmmPagesTreeInterface {
     $this->ctType = $ct_type;
     // By default we are working with all IDs.
     // Setting internal protected variable with an array of IDs to be skipped from a tree.
-    $this->skip_ids = $skip_ids;
+    $this->setSkipIds($skip_ids);
     // Setting internal protected variable with an array of IDs to be added to a tree.
-    $this->needed_ids = $needed_ids;
+    $this->setNeededIds($needed_ids);
     // @todo Should we use this in PHP?
     return $this;
   }
@@ -59,7 +59,7 @@ abstract class AmmPagesTree implements AmmPagesTreeInterface {
   /**
    * {@inheritdoc}
    */
-  public function setskip_ids(array $ids = array()) {
+  public function setSkipIds(array $ids = array()) {
     // Updating array of IDs.
     $this->skip_ids = array_merge($this->skip_ids, $ids);
   }
@@ -67,7 +67,7 @@ abstract class AmmPagesTree implements AmmPagesTreeInterface {
   /**
    * {@inheritdoc}
    */
-  public function setneeded_ids(array $ids = array()) {
+  public function setNeededIds(array $ids = array()) {
     // Updating array of IDs.
     $this->needed_ids = array_merge($this->needed_ids, $ids);
   }
@@ -77,6 +77,6 @@ abstract class AmmPagesTree implements AmmPagesTreeInterface {
    *
    * @return $this
    */
-  abstract public function getTree();
+  abstract public function getQuery();
 
 }

@@ -24,7 +24,7 @@ interface AmmComponentsTreeInterface {
    * @param array $ids
    *   Array of IDs to be added.
    */
-  public function setskip_ids(array $ids);
+  public function setSkipIds(array $ids);
 
   /**
    * Get tree of IDs by CT type with skipped ID removed.

@@ -65,6 +65,8 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
    * {@inheritdoc}
    */
   public function getTree() {
+    // @todo Use setSkipIds data.
+    
     // Get all component data.
     $select = $this->database->select('abe_blog_post_component', 'c');
     $select->fields('c')

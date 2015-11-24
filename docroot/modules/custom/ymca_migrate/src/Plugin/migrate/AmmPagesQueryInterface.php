@@ -10,13 +10,13 @@ use Drupal\Core\Database\Connection;
 use Drupal\migrate\Row;
 
 /**
- * Interface AmmPagesTreeInterface
+ * Interface AmmPagesQueryInterface
  *
  * @package Drupal\ymca_migrate
  *
  * @todo add getCtType() and getskip_ids() if we'll need them.
  */
-interface AmmPagesTreeInterface {
+interface AmmPagesQueryInterface {
 
   /**
    * Update internal protected variable with array of IDs to be skipped from a tree.
@@ -24,7 +24,7 @@ interface AmmPagesTreeInterface {
    * @param array $ids
    *   Array of IDs to be excluded.
    */
-  public function setskip_ids(array $ids);
+  public function setSkipIds(array $ids);
 
   /**
    * Update internal protected variable with array of IDs to be added to a tree.
@@ -32,12 +32,12 @@ interface AmmPagesTreeInterface {
    * @param array $ids
    *   Array of IDs to be added.
    */
-  public function setneeded_ids(array $ids);
+  public function setNeededIds(array $ids);
 
   /**
    * Get tree of IDs by CT type with skipped ID removed.
    */
-  public function getTree();
+  public function getQuery();
 
   /**
    * Static method for Singleton.
@@ -50,7 +50,7 @@ interface AmmPagesTreeInterface {
    *   Database to be used for queries.
    * @param \Drupal\migrate\Row $row
    *   Migrate row that is processed.
-   * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesTreeInterface
+   * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */
   static public function init($skip_ids, $needed_ids,  Connection $database, Row $row);

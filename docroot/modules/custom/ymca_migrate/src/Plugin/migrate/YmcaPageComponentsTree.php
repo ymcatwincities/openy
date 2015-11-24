@@ -66,6 +66,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
    */
   public function getTree() {
 
+    // @todo Use setSkipIds data.
     // Some pages have NULL title, so create one.
     if (!$this->row->getSourceProperty('page_title')) {
       $this->row->setSourceProperty('page_title', t('Title'));

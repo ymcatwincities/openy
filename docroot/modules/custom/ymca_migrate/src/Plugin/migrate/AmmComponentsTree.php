@@ -48,7 +48,7 @@ abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
   /**
    * {@inheritdoc}
    */
-  public function setskip_ids(array $ids = array()) {
+  public function setSkipIds(array $ids = array()) {
     // Updating array of IDs.
     $this->skip_ids = array_merge($this->skip_ids, $ids);
   }
