@@ -26,7 +26,7 @@ interface AmmPagesQueryInterface {
   public function setSkipIds(array $ids);
 
   /**
-   * Update internal protected variable with array of IDs to be added to a tree.
+   * Update internal protected variable with array of IDs shouldn't be skipped from a tree.
    *
    * @param array $ids
    *   Array of IDs to be added.

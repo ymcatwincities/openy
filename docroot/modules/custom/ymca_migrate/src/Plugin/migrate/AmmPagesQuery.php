@@ -61,6 +61,15 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    */
   public function setSkipIds(array $ids = array()) {
     // Updating array of IDs.
+    if (empty($this->skip_ids) && empty($ids)) {
+      $this->skip_ids = array();
+      return $this;
+    }
+
+    if (empty($this->skip_ids) && !empty($ids)) {
+      $this->skip_ids = $ids;
+      return $this;
+    }
     $this->skip_ids = array_merge($this->skip_ids, $ids);
     return $this;
   }
@@ -73,6 +82,25 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
     $this->needed_ids = array_merge($this->needed_ids, $ids);
     return $this;
   }
+
+  /**
+   * Get list of IDs to be processed.
+   */
+  protected function getSkippedIds() {
+    // Get list of skipped IDs cleared from needed ones.
+    return array_diff_key($this->skip_ids, $this->needed_ids);
+  }
+
+  /**
+   * Getter for needed IDs.
+   *
+   * @return array
+   *   Return needed IDs.
+   */
+  protected function getNeededIds() {
+    return $this->needed_ids;
+  }
+
 
   /**
    * This method should be implemented within child class.
