@@ -11,11 +11,11 @@ use Drupal\Core\Database\Connection;
 use Drupal\migrate\Row;
 
 /**
- * Class YmcaPageTree.
+ * Class YmcaBlogTree.
  *
  * @package Drupal\ymca_migrate
  */
-class YmcaPageTree extends AmmCtTree {
+class YmcaBlogTree extends AmmCtTree {
 
   /**
    * @var \Drupal\Core\Database\Connection
@@ -42,7 +42,7 @@ class YmcaPageTree extends AmmCtTree {
   static private $instance;
 
   /**
-   * YmcaPageTree constructor.
+   * YmcaBlogTree constructor.
    *
    * @param array $skipIds
    *   Array of IDs to be skipped.
@@ -51,7 +51,7 @@ class YmcaPageTree extends AmmCtTree {
    * @param \Drupal\migrate\Row $row
    *   Row that is processed within a Tree
    *
-   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaPageTree $this
+   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaBlogTree $this
    *   Returns itself.
    */
   protected function __construct($skipIds, Connection $database, Row $row) {
