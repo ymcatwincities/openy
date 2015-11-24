@@ -98,7 +98,7 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    * @return array|boolean
    *   Returns array or FALSE if not set.
    */
-  protected function getSkippedIds() {
+  public function getSkippedIds() {
     // Get list of skipped IDs cleared from needed ones.
     if (!empty($this->skip_ids)) {
       if (!empty($this->needed_ids)) {
@@ -115,7 +115,7 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    * @return array
    *   Return needed IDs.
    */
-  protected function getNeededIds() {
+  public function getNeededIds() {
     return $this->needed_ids;
   }
 
@@ -125,6 +125,6 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    *
    * @return $this
    */
-  abstract public function getQuery();
+  abstract public function getIdsByParent($id);
 
 }

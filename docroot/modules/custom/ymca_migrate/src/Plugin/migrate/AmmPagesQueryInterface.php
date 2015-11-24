@@ -36,7 +36,7 @@ interface AmmPagesQueryInterface {
   /**
    * Get tree of IDs by CT type with skipped ID removed.
    */
-  public function getQuery();
+  public function getIdsByParent($id);
 
   /**
    * Static method for Singleton.
@@ -50,6 +50,6 @@ interface AmmPagesQueryInterface {
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */
-  static public function init($skip_ids, $needed_ids,  Connection $database);
+  static public function init($skip_ids, $needed_ids, Connection $database);
 
 }
