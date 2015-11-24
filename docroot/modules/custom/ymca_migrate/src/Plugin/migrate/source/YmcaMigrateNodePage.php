@@ -232,19 +232,6 @@ class YmcaMigrateNodePage extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Some pages have NULL title, so create one.
-    if (!$row->getSourceProperty('page_title')) {
-      $row->setSourceProperty('page_title', t('Title'));
-    }
-
-    // Get all component data.
-    $components = $this->select('amm_site_page_component', 'c')
-      ->fields('c')
-      ->condition('site_page_id', $row->getSourceProperty('site_page_id'))
-      ->orderby('content_area_index', 'ASC')
-      ->orderby('sequence_index', 'ASC')
-      ->execute()
-      ->fetchAll();
 
     // Get components tree, where each component has its children.
     $components_tree = YmcaPageTree::init(array(), $this->getDatabase(), $row)
