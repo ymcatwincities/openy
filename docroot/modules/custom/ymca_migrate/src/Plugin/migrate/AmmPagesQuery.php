@@ -62,6 +62,7 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
   public function setSkipIds(array $ids = array()) {
     // Updating array of IDs.
     $this->skip_ids = array_merge($this->skip_ids, $ids);
+    return $this;
   }
 
   /**
@@ -70,6 +71,7 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
   public function setNeededIds(array $ids = array()) {
     // Updating array of IDs.
     $this->needed_ids = array_merge($this->needed_ids, $ids);
+    return $this;
   }
 
   /**

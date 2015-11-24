@@ -7,7 +7,6 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\Core\Database\Connection;
-use Drupal\migrate\Row;
 
 /**
  * Interface AmmPagesQueryInterface
@@ -48,11 +47,9 @@ interface AmmPagesQueryInterface {
    *   Array of IDs to be added.
    * @param \Drupal\Core\Database\Connection $database
    *   Database to be used for queries.
-   * @param \Drupal\migrate\Row $row
-   *   Migrate row that is processed.
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */
-  static public function init($skip_ids, $needed_ids,  Connection $database, Row $row);
+  static public function init($skip_ids, $needed_ids,  Connection $database);
 
 }
