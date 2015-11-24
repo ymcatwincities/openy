@@ -11,7 +11,7 @@ use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
-use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogTree;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
 
 
 /**
@@ -24,7 +24,7 @@ use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogTree;
 class YmcaMigrateNodeBlog extends SqlBase {
 
   /*
-   * \Drupal\ymca_migrate\AmmCtTree
+   * \Drupal\ymca_migrate\AmmComponentsTree
    */
   protected $blogCtTree;
 
@@ -98,7 +98,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $components_tree = YmcaBlogTree::init(array(), $this->getDatabase(), $row)
+    $components_tree = YmcaBlogComponentsTree::init(array(), $this->getDatabase(), $row)
       ->getTree();
 
     // Foreach each parent component and check if there is a mapping.

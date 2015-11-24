@@ -1,19 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: podarok
- * Date: 24.11.15
- * Time: 13:52
+ * @file
+ * Components tree.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 /**
- * Class AmmCtTree
+ * Class AmmComponentsTree
  *
  * @package Drupal\ymca_migrate
  */
-abstract class AmmCtTree implements AmmCtTreeInterface {
+abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
 
   /**
    * CT type to process on within an object.
@@ -30,7 +28,7 @@ abstract class AmmCtTree implements AmmCtTreeInterface {
   protected $skipIds;
 
   /**
-   * AmmCtTree constructor.
+   * AmmComponentsTree constructor.
    *
    * @param string $ctType
    *   String of Drupal CT machine name.

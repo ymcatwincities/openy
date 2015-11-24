@@ -12,7 +12,7 @@ use Drupal\file_entity\Entity\FileEntity;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
-use Drupal\ymca_migrate\Plugin\migrate\YmcaPageTree;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaPageComponentsTree;
 
 /**
  * Source plugin for node:article content.
@@ -234,7 +234,7 @@ class YmcaMigrateNodePage extends SqlBase {
   public function prepareRow(Row $row) {
 
     // Get components tree, where each component has its children.
-    $components_tree = YmcaPageTree::init(array(), $this->getDatabase(), $row)
+    $components_tree = YmcaPageComponentsTree::init(array(), $this->getDatabase(), $row)
       ->getTree();
 
     // Foreach each parent component and check if there is a mapping.

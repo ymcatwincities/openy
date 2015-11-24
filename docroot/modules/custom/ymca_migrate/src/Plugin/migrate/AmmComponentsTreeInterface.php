@@ -10,13 +10,13 @@ use Drupal\Core\Database\Connection;
 use Drupal\migrate\Row;
 
 /**
- * Interface AmmCtTreeInterface
+ * Interface AmmComponentsTreeInterface
  *
  * @package Drupal\ymca_migrate
  *
  * @todo add getCtType() and getSkipIds() if we'll need them.
  */
-interface AmmCtTreeInterface {
+interface AmmComponentsTreeInterface {
 
   /**
    * Update internal protected variable with array of IDs to be skipped from a tree.
@@ -40,7 +40,7 @@ interface AmmCtTreeInterface {
    *   Database to be used for queries.
    * @param \Drupal\migrate\Row $row
    *   Migrate row that is processed.
-   * @return \Drupal\ymca_migrate\Plugin\migrate\AmmCtTreeInterface
+   * @return \Drupal\ymca_migrate\Plugin\migrate\AmmComponentsTreeInterface
    *   Returns self.
    */
   static public function init($skipIds, Connection $database, Row $row);
