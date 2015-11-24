@@ -98,7 +98,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
    */
   public function getQueryByParent($id = NULL) {
     if ($id) {
-      $children_ids = $this->getAllChildren($id);
+      return $this->getAllChildren($id);
     }
 
     // Pages with single component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
