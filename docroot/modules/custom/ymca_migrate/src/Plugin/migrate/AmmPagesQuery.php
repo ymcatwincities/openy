@@ -125,6 +125,6 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    *
    * @return $this
    */
-  abstract public function getIdsByParent($id);
+  abstract public function getQueryByParent($id);
 
 }

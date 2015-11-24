@@ -6,7 +6,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
-use Drupal\Core\Database\Connection;
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
  * Interface AmmPagesQueryInterface
@@ -36,7 +36,7 @@ interface AmmPagesQueryInterface {
   /**
    * Get tree of IDs by CT type with skipped ID removed.
    */
-  public function getIdsByParent($id);
+  public function getQueryByParent($id);
 
   /**
    * Static method for Singleton.
@@ -45,11 +45,11 @@ interface AmmPagesQueryInterface {
    *   Array of IDs to be skipped.
    * @param array $needed_ids
    *   Array of IDs to be added.
-   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
    *   Database to be used for queries.
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */
-  static public function init($skip_ids, $needed_ids, Connection $database);
+  static public function init($skip_ids, $needed_ids, SqlBase &$database);
 
 }
