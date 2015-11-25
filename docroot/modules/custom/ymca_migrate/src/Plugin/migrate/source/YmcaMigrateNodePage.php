@@ -2,25 +2,27 @@
 
 /**
  * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodeArticle.
+ * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\file_entity\Entity\FileEntity;
+use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
-use Drupal\migrate\Entity\MigrationInterface;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaPageComponentsTree;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaPagesQuery;
 
 /**
  * Source plugin for node:article content.
  *
  * @MigrateSource(
- *   id = "ymca_migrate_node_article"
+ *   id = "ymca_migrate_node_page"
  * )
  */
-class YmcaMigrateNodeArticle extends SqlBase {
+class YmcaMigrateNodePage extends SqlBase {
 
   // @codingStandardsIgnoreStart
   const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;
@@ -30,182 +32,12 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    // @codingStandardsIgnoreStart
-    $query = $this->select('amm_site_page', 'p')
-      ->fields(
-        'p',
-        [
-          'site_page_id',
-          'page_title',
-          'theme_id',
-        ]
-      )
-      ->condition(
-        'site_page_id',
-        [
-          // Pages with single component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
-          5264,
-          5234,
-          22703,
-          4803,
-          5266,
-          15462,
-          5098,
-          5267,
-          5295,
-          18074,
-          18081,
-          5297,
-          15752,
-          5298,
-          5245,
-          5284,
-          5300,
-          5285,
-          6871,
-          5286,
-          5304,
-          6130,
-          6872,
-          5250,
-          5287,
-          5305,
-          6136,
-          5254,
-          6874,
-          13767,
-          16870,
-          19147,
-          5290,
-          6876,
-          6828,
-          6877,
-          // Pages with 2 component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
-          4811,
-          5105,
-          13828,
-          15843,
-          23217,
-          4670,
-          4812,
-          6873,
-          13830,
-          17304,
-          18891,
-          23439,
-          24946,
-          4813,
-          5185,
-          5204,
-          13832,
-          15853,
-          17305,
-          15855,
-          17307,
-          4815,
-          5152,
-          6827,
-          13836,
-          17308,
-          21306,
-          22699,
-          5232,
-          17309,
-          21311,
-          22700,
-          5133,
-          5172,
-          5210,
-          6714,
-          17310,
-          5096,
-          5134,
-          5191,
-          5265,
-          17323,
-          19440,
-          25185,
-          4941,
-          5097,
-          5237,
-          15862,
-          17064,
-          17324,
-          24462,
-          4942,
-          5159,
-          5238,
-          6735,
-          22438,
-          4805,
-          4943,
-          5099,
-          5115,
-          5239,
-          6853,
-          15872,
-          22463,
-          25247,
-          5217,
-          5241,
-          15873,
-          18145,
-          5139,
-          5179,
-          5198,
-          5242,
-          24732,
-          4808,
-          12856,
-          14283,
-          15840,
-          22728,
-          4809,
-          5145,
-          5164,
-          20068,
-          24941,
-          4810,
-          5124,
-          5201,
-          5222,
-          24055,
-          // Pages for menu migration.
-          '4802',
-          '4804',
-          '4805',
-          '4806',
-          '4807',
-          '4747',
-          '20256',
-          '8601',
-          '4748',
-          '4750',
-          '15737',
-          '15840',
-          '15841',
-          '15842',
-          '15739',
-          '22710',
-          '22712',
-          '22713',
-          '23010',
-          '22714',
-          '23694',
-          '23692',
-          '24048',
-          '23691',
-          '23695',
-          '5303',
-          '5304',
-          '5305',
-          '5283',
-          '5284'
-        ],
-        'IN'
-      );
-    // @codingStandardsIgnoreEnd
-    return $query;
+    $ymca_page_query = YmcaPagesQuery::init(array(), array(), $this);
+
+    // Demo migration for Camps and all children here.
+    // @todo Danylevsky|podarok - Create copy of YmcaPagesQuery for Camps.
+    // or foreach loop across list of top level pages. <- preferred.
+    return $ymca_page_query->getQueryByParent(4693);
   }
 
   /**
@@ -231,40 +63,19 @@ class YmcaMigrateNodeArticle extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Some pages have NULL title, so create one.
-    if (!$row->getSourceProperty('page_title')) {
-      $row->setSourceProperty('page_title', t('Title'));
-    }
-
-    // Get all component data.
-    $components = $this->select('amm_site_page_component', 'c')
-      ->fields('c')
-      ->condition('site_page_id', $row->getSourceProperty('site_page_id'))
-      ->orderby('content_area_index', 'ASC')
-      ->orderby('sequence_index', 'ASC')
-      ->execute()
-      ->fetchAll();
 
     // Get components tree, where each component has its children.
-    $components_tree = [];
-
-    // Write parents.
-    foreach ($components as $item) {
-      if (is_null($item['parent_component_id'])) {
-        $components_tree[$item['site_page_component_id']] = $item;
-      }
-    }
-
-    // Write children.
-    foreach ($components as $item) {
-      if (!is_null($item['parent_component_id'])) {
-        $components_tree[$item['parent_component_id']]['children'][$item['site_page_component_id']] = $item;
-      }
-    }
+    $components_tree = YmcaPageComponentsTree::init(array(), $this->getDatabase(), $row)
+      ->getTree();
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      if ($property = $this->checkMap($row->getSourceProperty('theme_id'), $item['content_area_index'], $item['component_type'])) {
+      if ($property = $this->checkMap(
+        $row->getSourceProperty('theme_id'),
+        $item['content_area_index'],
+        $item['component_type']
+      )
+      ) {
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
@@ -384,7 +195,10 @@ class YmcaMigrateNodeArticle extends SqlBase {
           );
         }
         // Get joined component id.
-        $joined_id = $this->getAttributeData('joined_content_block_component_id', $component);
+        $joined_id = $this->getAttributeData(
+          'joined_content_block_component_id',
+          $component
+        );
         $parent = $this->getComponentByParent($joined_id);
         // If parent is missing log it.
         if (!$parent) {
@@ -442,7 +256,10 @@ class YmcaMigrateNodeArticle extends SqlBase {
         // @todo Set proper asset id.
         $asset_id = 11712;
         // Get file.
-        $destination = $this->getDestinationId($asset_id, 'ymca_migrate_file_image');
+        $destination = $this->getDestinationId(
+          $asset_id,
+          'ymca_migrate_file_image'
+        );
 
         // For field_header_image we should upload image as a field.
         if ($property == 'field_header_image') {
@@ -454,7 +271,9 @@ class YmcaMigrateNodeArticle extends SqlBase {
         else {
           // Here we use just inline image.
           /** @var FileEntity $file */
-          $file = \Drupal::entityManager()->getStorage('file')->load($destination);
+          $file = \Drupal::entityManager()->getStorage('file')->load(
+            $destination
+          );
           $url = parse_url(file_create_url($file->getFileUri()));
           $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
           $value[$property] = [
@@ -466,9 +285,14 @@ class YmcaMigrateNodeArticle extends SqlBase {
 
       case 'code_block':
         $id = $this->getAttributeData('code_block_id', $component);
-        $destination = $this->getDestinationId($id, 'ymca_migrate_block_content_code_block');
+        $destination = $this->getDestinationId(
+          $id,
+          'ymca_migrate_block_content_code_block'
+        );
         /** @var BlockContent $block */
-        $block = \Drupal::entityManager()->getStorage('block_content')->load($destination);
+        $block = \Drupal::entityManager()->getStorage('block_content')->load(
+          $destination
+        );
         $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
         $value[$property] = [
           'value' => sprintf($string, $block->id(), $block->uuid()),
@@ -687,7 +511,10 @@ class YmcaMigrateNodeArticle extends SqlBase {
     }
 
     // Finally get the result.
-    if (array_key_exists($component_type, $map[$theme_id][$content_area_index])) {
+    if (array_key_exists(
+      $component_type,
+      $map[$theme_id][$content_area_index]
+    )) {
       return $map[$theme_id][$content_area_index][$component_type];
     }
 

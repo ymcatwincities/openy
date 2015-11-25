@@ -2,14 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodeArticle.
+ * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
+
 
 /**
  * Source plugin for node:blog content.
@@ -19,6 +22,32 @@ use Drupal\migrate\Row;
  * )
  */
 class YmcaMigrateNodeBlog extends SqlBase {
+
+  /*
+   * \Drupal\ymca_migrate\AmmComponentsTree
+   */
+  protected $blogCtTree;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    MigrationInterface $migration,
+    StateInterface $state
+  ) {
+    parent::__construct(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $migration,
+      $state
+    );
+    $this->state = $state;
+
+  }
 
   /**
    * {@inheritdoc}
@@ -69,34 +98,22 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Get all component data.
-    $components = $this->select('abe_blog_post_component', 'c')
-      ->fields('c')
-      ->condition('blog_post_id', $row->getSourceProperty('blog_post_id'))
-      ->execute()
-      ->fetchAll();
-
-    // Get components tree, where each component has its children.
-    $components_tree = [];
-    foreach ($components as $item) {
-      if (is_null($item['parent_component_id'])) {
-        $components_tree[$item['blog_post_component_id']] = $item;
-      }
-      else {
-        $components_tree[$item['parent_component_id']]['children'][$item['blog_post_component_id']] = $item;
-      }
-    }
-
-    // @todo Sort components withing the same area by weight.
+    $components_tree = YmcaBlogComponentsTree::init(array(), $this->getDatabase(), $row)
+      ->getTree();
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      if ($property = self::getMap()[$item['content_area_index']][$item['component_type']]) {
+      if ($property = self::getMap(
+      )[$item['content_area_index']][$item['component_type']]
+      ) {
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
           foreach ($properties as $property_name => $property_value) {
-            $row->setSourceProperty($property_name, $row->getSourceProperty($property_name) . $property_value);
+            $row->setSourceProperty(
+              $property_name,
+              $row->getSourceProperty($property_name) . $property_value
+            );
           }
         }
       }
@@ -104,7 +121,13 @@ class YmcaMigrateNodeBlog extends SqlBase {
         // There is no item in our map. Skip row and throw an error.
         $this->idMap->saveMessage(
           $this->getCurrentIds(),
-          $this->t('Undefined component in blog_post #@post: @component', array('@component' => $id, '@post' => $row->getSourceProperty('blog_post_id'))),
+          $this->t(
+            'Undefined component in blog_post #@post: @component',
+            array(
+              '@component' => $id,
+              '@post' => $row->getSourceProperty('blog_post_id')
+            )
+          ),
           MigrationInterface::MESSAGE_ERROR
         );
         return FALSE;

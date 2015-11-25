@@ -27,7 +27,11 @@ class YmcaMigrateFileImage extends SqlBase {
     $query = $this->select('shared_asset', 'a')
       ->fields('a', ['asset_id', 'file_key', 'name'])
       ->fields('ae', ['extension']);
-    $query->join('shared_asset_extension', 'ae', 'a.extension_id = ae.asset_extension_id');
+    $query->join(
+      'shared_asset_extension',
+      'ae',
+      'a.extension_id = ae.asset_extension_id'
+    );
     $query->condition(
       'a.asset_id',
       [
@@ -98,7 +102,11 @@ class YmcaMigrateFileImage extends SqlBase {
       $file = file_get_contents($url);
 
       if ($file === FALSE) {
-        $this->idMap->saveMessage($this->getCurrentIds(), $this->t('Cannot download @file', array('@file' => $url)), MigrationInterface::MESSAGE_ERROR);
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t('Cannot download @file', array('@file' => $url)),
+          MigrationInterface::MESSAGE_ERROR
+        );
         return FALSE;
       }
 
@@ -110,9 +118,14 @@ class YmcaMigrateFileImage extends SqlBase {
       file_put_contents($cached, $file);
     }
 
-    $filename_human = $row->getSourceProperty('name') . '.' . $row->getSourceProperty('extension');
+    $filename_human = $row->getSourceProperty(
+        'name'
+      ) . '.' . $row->getSourceProperty('extension');
 
-    $file_uri = file_unmanaged_save_data($file, 'temporary://' . $filename_human);
+    $file_uri = file_unmanaged_save_data(
+      $file,
+      'temporary://' . $filename_human
+    );
     $file_path = \Drupal::service('file_system')->realpath($file_uri);
     $file_mime = mime_content_type($file_path);
 
