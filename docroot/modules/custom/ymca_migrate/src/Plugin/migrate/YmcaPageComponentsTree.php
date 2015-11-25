@@ -62,10 +62,12 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
   }
 
   /**
-   * {@inheritdoc}
+   * Method that can be used as approach for cyclic components.
    */
   public function getTree() {
 
+    // @todo implement $parent_component_id argument approach.
+    // @see YmcaPagesQuery::getAllChildren()
     // @todo Use setSkipIds data.
     // Some pages have NULL title, so create one.
     if (!$this->row->getSourceProperty('page_title')) {

@@ -343,9 +343,19 @@ class YmcaPagesQuery extends AmmPagesQuery {
         $this->getAllChildren((int) $sub_id_data['site_page_id']);
       }
    }
+    // @todo @danylevsky check for abandoned pages within source DB.
+    // $this->initQuery();
+    // $this->query->condition('site_page_id', array_merge($this->getNeededIds(), $this->getSkippedIds()), 'NOT IN');
+    // $abandoned_ids = $this->query->execute()->fetchAll();
+    // log this.
+
     $this->initQuery();
     $this->query->condition('site_page_id', $this->getNeededIds(), 'IN');
+    // @todo Add Pages only condition.
+    // $this->query->condition('theme_id', $this->getThemesIds('page'), 'IN');
+    // AmmPagesQuery should contain getThemesIds() method.
     $skipped_ids = $this->getSkippedIds();
+
     if (!empty($skipped_ids)) {
       $this->query->condition(
         'site_page_id',

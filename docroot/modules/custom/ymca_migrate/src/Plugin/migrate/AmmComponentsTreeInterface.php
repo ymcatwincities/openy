@@ -27,7 +27,7 @@ interface AmmComponentsTreeInterface {
   public function setSkipIds(array $ids);
 
   /**
-   * Get tree of IDs by CT type with skipped ID removed.
+   * Get tree of IDs by Component Type with skipped ID removed.
    */
   public function getTree();
 
