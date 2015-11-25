@@ -35,6 +35,13 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'sidebar-navigation-block',
     ],
+    'alert_block' => [
+      'variables' => [
+        'message' => NULL,
+        'inner_attributes' => NULL,
+      ],
+      'template' => 'alert-block',
+    ],
   ];
 }
 
@@ -108,6 +115,18 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       hide($build['field_block_content']);
       hide($build['field_image']);
       hide($build['field_link']);
+      break;
+
+    case 'alert_block':
+      $attributes = new \Drupal\Core\Template\Attribute();
+      $attributes->addClass('richtext');
+      $attributes->setAttribute('id', 'alert-block-' . $entity->id());
+      $build['alert'] = array(
+        '#theme' => 'alert_block',
+        '#message' => $entity->field_block_content->getValue()[0]['value'],
+        '#inner_attributes' => $attributes,
+      );
+      hide($build['field_block_content']);
       break;
   }
 }
