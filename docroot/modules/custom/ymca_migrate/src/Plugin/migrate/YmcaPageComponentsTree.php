@@ -7,7 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 
-use Drupal\Core\Database\Connection;
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
 /**
@@ -18,9 +18,9 @@ use Drupal\migrate\Row;
 class YmcaPageComponentsTree extends AmmComponentsTree {
 
   /**
-   * Database connection object.
+   * Database SqlBase object.
    *
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\migrate\Plugin\migrate\source\SqlBase
    */
   protected $database;
 
@@ -50,12 +50,12 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
    *
    * @param array $skip_ids
    *   Array of IDs to be skipped.
-   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
    *   SqlBase plugin for dealing with DB.
    * @param \Drupal\migrate\Row $row
    *   Row that is processed within a Tree.
    */
-  protected function __construct($skip_ids, Connection $database, Row $row) {
+  protected function __construct($skip_ids, SqlBase $database, Row $row) {
     $this->database = $database;
     $this->row = $row;
     $this->tree = [];
@@ -106,7 +106,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
   /**
    * {@inheritdoc}
    */
-  static public function init($skip_ids, Connection $database, Row $row) {
+  static public function init($skip_ids, SqlBase $database, Row $row) {
     if (isset(self::$instance)) {
       return self::$instance;
     }

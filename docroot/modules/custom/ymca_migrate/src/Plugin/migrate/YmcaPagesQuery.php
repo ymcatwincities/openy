@@ -7,7 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 
-use Drupal\Core\Database\Connection;
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
@@ -20,7 +20,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
   /**
    * Database to be used as active.
    *
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\migrate\Plugin\migrate\source\SqlBase
    */
   protected $database;
 
@@ -54,10 +54,10 @@ class YmcaPagesQuery extends AmmPagesQuery {
    *   Array of IDs to be skipped.
    * @param array $needed_ids
    *   Array of IDs to be added to tree creation.
-   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
    *   SqlBase plugin for dealing with DB.
    */
-  protected function __construct($skip_ids, $needed_ids, Connection &$database) {
+  protected function __construct($skip_ids, $needed_ids, SqlBase &$database) {
     // @todo Rethink if we can get rid of skip and needed IDs within constructor.
     $this->database = &$database;
     $this->tree = [];
@@ -80,6 +80,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
    * Method for init query with select parameters after fetch*() methods.
    */
   private function initQuery() {
+    $ymca_blogs_query = YmcaBlogsQuery::init($this->database, $this->query);
     // Initialize query single time.
     $options['fetch'] = \PDO::FETCH_ASSOC;
     $this->query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);

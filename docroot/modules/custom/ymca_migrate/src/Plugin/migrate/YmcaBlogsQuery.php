@@ -15,7 +15,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *
  * @package Drupal\ymca_migrate\Plugin\migrate
  */
-class YmcaBlogsQuery extends AmmBlogsQuery {
+class YmcaBlogsQuery extends AmmBlogsQuery implements AmmTokensInterface{
 
   /**
    * Database to be used as active.
@@ -46,7 +46,7 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
   private $hasChildren;
 
   /**
-   * Select Interface for active DB connection.
+   * Select Interface for active DB SqlBase.
    *
    * @var \Drupal\Core\Database\Query\SelectInterface
    */
@@ -155,13 +155,8 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
     );
     $abandoned_ids = $this->query->execute()->fetchAll();
 
-    watchdog(
-      'ymca_migrate',
-      'Blog posts not been migrated yet: @count',
-      array(
-        '@count' => count($abandoned_ids),
-      )
-    );
+    $message = t('Blog posts not been migrated yet: @count', array('@count' => count($abandoned_ids)));
+    \Drupal::logger('ymca_migrate')->error($message);
 
     $this->initQuery();
     $this->query->condition('blog_post_id', $this->getNeededIds(), 'IN');
@@ -174,6 +169,17 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
       );
     }
     return $this->query;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPageIds() {
+    // TODO: Implement getPageIds() method.
+  }
+
+  public function getAssetIds() {
+    // TODO: Implement getAssetIds() method.
   }
 
 }
