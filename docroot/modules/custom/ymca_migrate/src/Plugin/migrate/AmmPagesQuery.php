@@ -7,7 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 /**
- * Class AmmPagesQuery
+ * Class AmmPagesQuery.
  *
  * @package Drupal\ymca_migrate
  */
@@ -18,21 +18,21 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    *
    * @var string
    */
-  protected $ct_type;
+  protected $ctType;
 
   /**
    * Array of IDs to be skipped from tree creation.
    *
    * @var array
    */
-  protected $skip_ids;
+  protected $skipIds;
 
   /**
    * Array of IDs to be added to tree creation.
    *
    * @var array
    */
-  protected $needed_ids;
+  protected $neededIds;
 
   /**
    * AmmPagesQuery constructor.
@@ -61,16 +61,16 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    */
   public function setSkipIds(array $ids = array()) {
     // Updating array of IDs.
-    if (empty($this->skip_ids) && empty($ids)) {
-      $this->skip_ids = array();
+    if (empty($this->skipIds) && empty($ids)) {
+      $this->skipIds = array();
       return $this;
     }
 
-    if (empty($this->skip_ids) && !empty($ids)) {
-      $this->skip_ids = $ids;
+    if (empty($this->skipIds) && !empty($ids)) {
+      $this->skipIds = $ids;
       return $this;
     }
-    $this->skip_ids = array_merge($this->skip_ids, $ids);
+    $this->skipIds = array_merge($this->skipIds, $ids);
     return $this;
   }
 
@@ -81,31 +81,31 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
 
     // Emptying needed IDs array.
     if ($ids === array()) {
-      $this->needed_ids = array();
+      $this->neededIds = array();
       return TRUE;
     }
     $old = $this->getNeededIds();
     if (empty($old) && !empty($ids)) {
-      $this->needed_ids = array_values($ids);
+      $this->neededIds = array_values($ids);
       return TRUE;
     }
-    $this->needed_ids = array_merge($this->needed_ids, $ids);
+    $this->neededIds = array_merge($this->neededIds, $ids);
     return TRUE;
   }
 
   /**
    * Get list of IDs to be processed.
    *
-   * @return array|boolean
+   * @return array|bool
    *   Returns array or FALSE if not set.
    */
   public function getSkippedIds() {
     // Get list of skipped IDs cleared from needed ones.
-    if (!empty($this->skip_ids)) {
-      if (!empty($this->needed_ids)) {
-        return array_diff_key($this->skip_ids, $this->needed_ids);
+    if (!empty($this->skipIds)) {
+      if (!empty($this->neededIds)) {
+        return array_diff_key($this->skipIds, $this->neededIds);
       }
-      return $this->skip_ids;
+      return $this->skipIds;
     }
     return FALSE;
   }
@@ -117,11 +117,11 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
    *   Return needed IDs.
    */
   public function getNeededIds() {
-    if (isset($this->needed_ids)) {
-      return $this->needed_ids;
+    if (isset($this->neededIds)) {
+      return $this->neededIds;
     }
-    $this->needed_ids = array();
-    return $this->needed_ids;
+    $this->neededIds = array();
+    return $this->neededIds;
   }
 
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Class for getting children tree by top menu item.
+ * Class for getting page's children tree by top menu item.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
@@ -11,7 +11,7 @@ use Drupal\Core\Database\Connection;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
- * Class YmcaPagesQuery
+ * Class YmcaPagesQuery.
  *
  * @package Drupal\ymca_migrate\Plugin\migrate
  */
@@ -41,7 +41,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
   /**
    * If the ID has children.
    *
-   * @var boolean
+   * @var bool
    */
   private $has_children;
 
@@ -56,13 +56,9 @@ class YmcaPagesQuery extends AmmPagesQuery {
    *   Array of IDs to be added to tree creation.
    * @param \Drupal\Core\Database\Connection $database
    *   SqlBase plugin for dealing with DB.
-   * @param \Drupal\migrate\Row $row
-   *   Row that is processed within a Tree
-   *
-   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaPagesQuery $this
-   *   Returns itself.
    */
-  protected function __construct($skip_ids, $needed_ids, SqlBase &$database) {
+  protected function __construct($skip_ids, $needed_ids, Connection &$database) {
+    // @todo Rethink if we can get rid of skip and needed IDs within constructor.
     $this->database = &$database;
     $this->tree = [];
     // Let's by default have no children.
@@ -80,6 +76,9 @@ class YmcaPagesQuery extends AmmPagesQuery {
     parent::__construct('page', $skip_ids, $needed_ids);
   }
 
+  /**
+   * Method for init query with select parameters after fetch*() methods.
+   */
   private function initQuery() {
     // Initialize query single time.
     $options['fetch'] = \PDO::FETCH_ASSOC;
@@ -138,7 +137,9 @@ class YmcaPagesQuery extends AmmPagesQuery {
         5290,
         6876,
         6828,
-        6877,]);
+        6877
+      ]
+    );
     // Pages with 2 component type. Theme THEME_INTERNAL_CATEGORY_AND_DETAIL.
     $this->setNeededIds(
       [4811,
@@ -228,8 +229,8 @@ class YmcaPagesQuery extends AmmPagesQuery {
         4810,
         5124,
         5201,
-        5222,
-        24055]
+        5222
+      ]
     );
     // Pages for menu migration.
     $this->setNeededIds(
@@ -315,7 +316,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
    * @param int $id
    *   ID to process.
    *
-   * @return array|boolean
+   * @return array|bool
    *   Array of IDs. FALSE if no.
    */
   public function getAllChildren($id = 0) {
@@ -336,13 +337,13 @@ class YmcaPagesQuery extends AmmPagesQuery {
 
     $this->query->condition('parent_id', $this->getNeededIds(), 'IN');
     $all_ids = $this->query->execute()->fetchAll();
-    //print_r($all_ids);
+
     $this->initQuery();
     if (!empty($all_ids)) {
       foreach ($all_ids as $sub_id_key => $sub_id_data) {
         $this->getAllChildren((int) $sub_id_data['site_page_id']);
       }
-   }
+    }
     // @todo @danylevsky check for abandoned pages within source DB.
     // $this->initQuery();
     // $this->query->condition('site_page_id', array_merge($this->getNeededIds(), $this->getSkippedIds()), 'NOT IN');
@@ -371,6 +372,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
    *
    * @param int $id
    *   ID.
+   *
    * @return bool
    *   TRUE if already in, FALSE otherwise.
    */

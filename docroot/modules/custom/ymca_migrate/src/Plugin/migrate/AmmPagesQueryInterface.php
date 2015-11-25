@@ -9,7 +9,7 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
- * Interface AmmPagesQueryInterface
+ * Interface AmmPagesQueryInterface.
  *
  * @package Drupal\ymca_migrate
  *
@@ -47,6 +47,7 @@ interface AmmPagesQueryInterface {
    *   Array of IDs to be added.
    * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
    *   Database to be used for queries.
+   *
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */

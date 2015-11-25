@@ -18,6 +18,8 @@ use Drupal\migrate\Row;
 class YmcaBlogComponentsTree extends AmmComponentsTree {
 
   /**
+   * Database connection object.
+   *
    * @var \Drupal\Core\Database\Connection
    */
   protected $database;
@@ -37,6 +39,8 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   protected $tree;
 
   /**
+   * Singleton instance.
+   *
    * @var \Drupal\ymca_migrate\Plugin\migrate\AmmComponentsTree
    */
   static private $instance;
@@ -49,10 +53,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
    * @param \Drupal\Core\Database\Connection $database
    *   SqlBase plugin for dealing with DB.
    * @param \Drupal\migrate\Row $row
-   *   Row that is processed within a Tree
-   *
-   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree $this
-   *   Returns itself.
+   *   Row that is processed within a Tree.
    */
   protected function __construct($skip_ids, Connection $database, Row $row) {
     $this->database = $database;
@@ -66,7 +67,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
    */
   public function getTree() {
     // @todo Use setSkipIds data.
-    
+
     // Get all component data.
     $select = $this->database->select('abe_blog_post_component', 'c');
     $select->fields('c')
@@ -100,4 +101,5 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
     }
     return new self($skip_ids, $database, $row);
   }
+
 }

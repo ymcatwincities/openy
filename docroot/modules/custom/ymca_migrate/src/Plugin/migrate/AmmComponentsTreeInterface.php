@@ -10,7 +10,7 @@ use Drupal\Core\Database\Connection;
 use Drupal\migrate\Row;
 
 /**
- * Interface AmmComponentsTreeInterface
+ * Interface AmmComponentsTreeInterface.
  *
  * @package Drupal\ymca_migrate
  *
@@ -40,6 +40,7 @@ interface AmmComponentsTreeInterface {
    *   Database to be used for queries.
    * @param \Drupal\migrate\Row $row
    *   Migrate row that is processed.
+   *
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmComponentsTreeInterface
    *   Returns self.
    */

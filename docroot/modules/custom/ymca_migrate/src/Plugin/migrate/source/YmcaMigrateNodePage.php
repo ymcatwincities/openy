@@ -131,9 +131,7 @@ class YmcaMigrateNodePage extends SqlBase {
               [
                 '@component' => $id,
                 '@page' => $row->getSourceProperty('site_page_id'),
-                '@map' => $this->getThemeName(
-                    $row->getSourceProperty('theme_id')
-                  ) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
+                '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
               ]
             ),
             MigrationInterface::MESSAGE_ERROR

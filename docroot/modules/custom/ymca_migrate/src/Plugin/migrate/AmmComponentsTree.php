@@ -7,7 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 /**
- * Class AmmComponentsTree
+ * Class AmmComponentsTree.
  *
  * @package Drupal\ymca_migrate
  */
@@ -18,14 +18,14 @@ abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
    *
    * @var string
    */
-  protected $ct_type;
+  protected $ctType;
 
   /**
    * Array of IDs to be skipped from tree creation.
    *
    * @var array
    */
-  protected $skip_ids;
+  protected $skipIds;
 
   /**
    * AmmComponentsTree constructor.
@@ -40,7 +40,7 @@ abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
     $this->ctType = $ct_type;
     // By default we are working with all IDs.
     // Setting internal protected variable with an array of IDs to be skipped from a tree.
-    $this->skip_ids = $skip_ids;
+    $this->skipIds = $skip_ids;
     // Should we use this in PHP?
     return $this;
   }
@@ -50,7 +50,7 @@ abstract class AmmComponentsTree implements AmmComponentsTreeInterface {
    */
   public function setSkipIds(array $ids = array()) {
     // Updating array of IDs.
-    $this->skip_ids = array_merge($this->skip_ids, $ids);
+    $this->skipIds = array_merge($this->skipIds, $ids);
     return $this;
   }
 

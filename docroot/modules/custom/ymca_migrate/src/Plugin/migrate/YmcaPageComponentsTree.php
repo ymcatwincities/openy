@@ -18,6 +18,8 @@ use Drupal\migrate\Row;
 class YmcaPageComponentsTree extends AmmComponentsTree {
 
   /**
+   * Database connection object.
+   *
    * @var \Drupal\Core\Database\Connection
    */
   protected $database;
@@ -37,6 +39,8 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
   protected $tree;
 
   /**
+   * Singleton instance.
+   *
    * @var \Drupal\ymca_migrate\Plugin\migrate\AmmComponentsTree
    */
   static private $instance;
@@ -49,10 +53,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
    * @param \Drupal\Core\Database\Connection $database
    *   SqlBase plugin for dealing with DB.
    * @param \Drupal\migrate\Row $row
-   *   Row that is processed within a Tree
-   *
-   * @return \Drupal\ymca_migrate\Plugin\migrate\YmcaPageComponentsTree $this
-   *   Returns itself.
+   *   Row that is processed within a Tree.
    */
   protected function __construct($skip_ids, Connection $database, Row $row) {
     $this->database = $database;
@@ -111,4 +112,5 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
     }
     return new self($skip_ids, $database, $row);
   }
+
 }
