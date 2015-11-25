@@ -106,7 +106,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
   /**
    * {@inheritdoc}
    */
-  static public function init($skip_ids, SqlBase $database, Row $row) {
+  static public function init($skip_ids, SqlBase &$database, Row $row) {
     if (isset(self::$instance)) {
       return self::$instance;
     }
