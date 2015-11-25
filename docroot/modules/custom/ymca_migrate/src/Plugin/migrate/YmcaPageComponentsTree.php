@@ -76,7 +76,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
     }
     // Get all component data.
     // Get all component data.
-    $select = $this->database->select('amm_site_page_component', 'c');
+    $select = $this->database->getDatabase()->select('amm_site_page_component', 'c');
     $select->fields('c')
       ->condition(
         'site_page_id',
