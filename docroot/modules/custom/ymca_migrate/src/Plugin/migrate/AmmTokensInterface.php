@@ -6,7 +6,11 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
-
+/**
+ * Interface AmmTokensInterface.
+ *
+ * @package Drupal\ymca_migrate\Plugin\migrate
+ */
 interface AmmTokensInterface {
 
   /**
@@ -24,4 +28,5 @@ interface AmmTokensInterface {
    *   Array of Page's IDs in terms of AMM database.
    */
   public function getPageIds();
+
 }

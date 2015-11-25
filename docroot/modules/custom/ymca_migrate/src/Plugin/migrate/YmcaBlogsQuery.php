@@ -15,7 +15,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *
  * @package Drupal\ymca_migrate\Plugin\migrate
  */
-class YmcaBlogsQuery extends AmmBlogsQuery{
+class YmcaBlogsQuery extends AmmBlogsQuery {
 
   /**
    * Database to be used as active.
