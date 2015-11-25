@@ -148,8 +148,12 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
       $skipped_ids = array();
     }
     // Logging count of not migrated blog posts.
-     $this->query->condition('blog_post_id', array_merge($this->getNeededIds(), $skipped_ids), 'NOT IN');
-     $abandoned_ids = $this->query->execute()->fetchAll();
+    $this->query->condition(
+      'blog_post_id',
+      array_merge($this->getNeededIds(), $skipped_ids),
+      'NOT IN'
+    );
+    $abandoned_ids = $this->query->execute()->fetchAll();
 
     $this->migration->getIdMap()->saveMessage(
       $abandoned_ids,

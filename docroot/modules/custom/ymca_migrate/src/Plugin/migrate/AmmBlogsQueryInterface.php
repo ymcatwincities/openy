@@ -38,6 +38,7 @@ interface AmmBlogsQueryInterface {
    * Get list of IDs for migration.
    *
    * @return \Drupal\Core\Database\Query\SelectInterface
+   *   Returns prepared query for migration.
    */
   public function getQuery();
 

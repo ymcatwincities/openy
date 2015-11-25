@@ -30,7 +30,9 @@ class YmcaMigrateNodeBlog extends SqlBase {
   protected $blogCtTree;
 
   /**
-   * @var MigrationInterface
+   * Migration to be passed to child object.
+   *
+   * @var MigrationInterface.
    */
   protected $migration;
 
