@@ -55,8 +55,8 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
    * @param \Drupal\migrate\Row $row
    *   Row that is processed within a Tree.
    */
-  protected function __construct($skip_ids, SqlBase $database, Row $row) {
-    $this->database = $database;
+  protected function __construct($skip_ids, SqlBase &$database, Row $row) {
+    $this->database = &$database;
     $this->row = $row;
     $this->tree = [];
     parent::__construct('blog', $skip_ids);
@@ -69,7 +69,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
     // @todo Use setSkipIds data.
 
     // Get all component data.
-    $select = $this->database->select('abe_blog_post_component', 'c');
+    $select = $this->database->getDatabase()->select('abe_blog_post_component', 'c');
     $select->fields('c')
       ->condition(
         'blog_post_id',
@@ -95,7 +95,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   /**
    * {@inheritdoc}
    */
-  static public function init($skip_ids, SqlBase $database, Row $row) {
+  static public function init($skip_ids, SqlBase &$database, Row $row) {
     if (isset(self::$instance)) {
       return self::$instance;
     }

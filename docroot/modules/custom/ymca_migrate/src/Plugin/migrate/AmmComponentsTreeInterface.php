@@ -44,6 +44,6 @@ interface AmmComponentsTreeInterface {
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmComponentsTreeInterface
    *   Returns self.
    */
-  static public function init($skip_ids, SqlBase $database, Row $row);
+  static public function init($skip_ids, SqlBase &$database, Row $row);
 
 }

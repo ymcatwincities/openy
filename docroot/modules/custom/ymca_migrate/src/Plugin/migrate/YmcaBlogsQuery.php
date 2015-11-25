@@ -15,7 +15,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *
  * @package Drupal\ymca_migrate\Plugin\migrate
  */
-class YmcaBlogsQuery extends AmmBlogsQuery implements AmmTokensInterface{
+class YmcaBlogsQuery extends AmmBlogsQuery{
 
   /**
    * Database to be used as active.
@@ -74,7 +74,15 @@ class YmcaBlogsQuery extends AmmBlogsQuery implements AmmTokensInterface{
     $this->tree = [];
     // Let's by default have no children.
     $this->hasChildren = FALSE;
-
+    $this->setNeededIds(
+      [
+        856,
+        833,
+        828,
+        822,
+        821,
+      ]
+    );
     $this->initQuery();
     // @todo Should we use here CT machine name?
     parent::__construct('blog');
@@ -103,15 +111,6 @@ class YmcaBlogsQuery extends AmmBlogsQuery implements AmmTokensInterface{
    * {@inheritdoc}
    */
   public function getQuery() {
-    $this->setNeededIds(
-      [
-        856,
-        833,
-        828,
-        822,
-        821,
-      ]
-    );
     return $this->getAllChildren($this->getNeededIds());
 
   }
@@ -169,17 +168,6 @@ class YmcaBlogsQuery extends AmmBlogsQuery implements AmmTokensInterface{
       );
     }
     return $this->query;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPageIds() {
-    // TODO: Implement getPageIds() method.
-  }
-
-  public function getAssetIds() {
-    // TODO: Implement getAssetIds() method.
   }
 
 }
