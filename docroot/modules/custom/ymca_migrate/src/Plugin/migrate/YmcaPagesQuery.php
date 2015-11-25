@@ -8,7 +8,6 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
  * Class YmcaPagesQuery.
