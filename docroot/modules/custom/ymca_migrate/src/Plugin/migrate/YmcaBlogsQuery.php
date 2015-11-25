@@ -155,16 +155,12 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
     );
     $abandoned_ids = $this->query->execute()->fetchAll();
 
-    $this->migration->getIdMap()->saveMessage(
-      $abandoned_ids,
-      t(
-        'Blog posts not been migrated yet: @count',
-        array(
-          '@count' => count($abandoned_ids),
-        )
-      ),
-      MigrationInterface::MESSAGE_INFORMATIONAL
-    );
+    watchdog('ymca_migrate', t(
+      'Blog posts not been migrated yet: @count',
+      array(
+        '@count' => count($abandoned_ids),
+      )
+    ));
 
     $this->initQuery();
     $this->query->condition('blog_post_id', $this->getNeededIds(), 'IN');
