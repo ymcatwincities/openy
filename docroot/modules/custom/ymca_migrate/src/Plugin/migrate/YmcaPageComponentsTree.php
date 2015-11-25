@@ -34,7 +34,7 @@ class YmcaPageComponentsTree extends AmmComponentsTree {
   /**
    * Tree of components.
    *
-   * $var array
+   * $var array.
    */
   protected $tree;
 

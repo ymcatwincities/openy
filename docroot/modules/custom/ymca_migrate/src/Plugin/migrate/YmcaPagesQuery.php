@@ -27,7 +27,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
   /**
    * Tree of pages.
    *
-   * $var array
+   * $var array.
    */
   protected $tree;
 
@@ -43,7 +43,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
    *
    * @var bool
    */
-  private $has_children;
+  private $hasChildren;
 
   protected $query;
 
@@ -62,7 +62,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
     $this->database = &$database;
     $this->tree = [];
     // Let's by default have no children.
-    $this->has_children = FALSE;
+    $this->hasChildren = FALSE;
 
     $options['fetch'] = \PDO::FETCH_ASSOC;
     $this->query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);
@@ -323,7 +323,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
 
     // @todo optimize this for /admin/structure/migrate/manage/ymca/migrations
     if ($id == 0) {
-      $this->has_children = FALSE;
+      $this->hasChildren = FALSE;
       return FALSE;
     }
     if ($this->isInNeeded($id)) {

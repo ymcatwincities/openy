@@ -34,7 +34,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   /**
    * Tree of components.
    *
-   * $var array
+   * $var array.
    */
   protected $tree;
 
