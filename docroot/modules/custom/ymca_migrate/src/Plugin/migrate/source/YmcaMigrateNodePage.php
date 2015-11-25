@@ -37,7 +37,7 @@ class YmcaMigrateNodePage extends SqlBase {
     // Demo migration for Camps and all children here.
     // @todo Danylevsky|podarok - Create copy of YmcaPagesQuery for Camps.
     // or foreach loop across list of top level pages. <- preferred.
-    return $ymca_page_query->getQueryByParent(6985);
+    return $ymca_page_query->getQueryByParent(4552);
   }
 
   /**
