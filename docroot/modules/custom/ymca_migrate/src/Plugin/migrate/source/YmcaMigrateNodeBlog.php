@@ -23,7 +23,7 @@ use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
  *   id = "ymca_migrate_node_blog"
  * )
  */
-class YmcaMigrateNodeBlog extends SqlBase{
+class YmcaMigrateNodeBlog extends SqlBase {
 
   /*
    * \Drupal\ymca_migrate\AmmComponentsTree
@@ -69,13 +69,6 @@ class YmcaMigrateNodeBlog extends SqlBase{
 
     // Saving state to DB. We will use it for Token Migrations.
     $this->state->set('migrated_blog_ids', $ymca_blogs_query->getNeededIds());
-
-//    $id = 'ymca_migrate_node_article';
-//    $migration = \Drupal::entityManager()->getStorage('migration')->save()
-//    $migration = \Drupal::entityManager()->getStorage('migration')->load($id);
-//    $migration = new Migration();
-//    $executable = new \Drupal\migrate\MigrateExecutable($migration, new \Drupal\migrate\MigrateMessage());
-//    $executable->import();
 
     return $ymca_blogs_query->getQuery();
   }
