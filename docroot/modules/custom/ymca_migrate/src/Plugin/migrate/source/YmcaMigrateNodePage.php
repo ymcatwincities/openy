@@ -65,7 +65,7 @@ class YmcaMigrateNodePage extends SqlBase {
   public function prepareRow(Row $row) {
 
     // Get components tree, where each component has its children.
-    $components_tree = YmcaPageComponentsTree::init(array(), $this->getDatabase(), $row)
+    $components_tree = YmcaPageComponentsTree::init(array(), $this, $row)
       ->getTree();
 
     // Foreach each parent component and check if there is a mapping.

@@ -8,10 +8,12 @@
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\Core\State\StateInterface;
+use Drupal\migrate\Entity\Migration;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
 
 
 /**
@@ -29,6 +31,13 @@ class YmcaMigrateNodeBlog extends SqlBase {
   protected $blogCtTree;
 
   /**
+   * Migration to be passed to child object.
+   *
+   * @var MigrationInterface.
+   */
+  protected $migration;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(
@@ -38,6 +47,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
     MigrationInterface $migration,
     StateInterface $state
   ) {
+    $this->migration = &$migration;
     parent::__construct(
       $configuration,
       $plugin_id,
@@ -53,28 +63,14 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('abe_blog_post', 'b')
-      ->fields(
-        'b',
-        [
-          'blog_post_id',
-          'title',
-          'created_on',
-          'modified_on',
-        ]
-      )
-      ->condition(
-        'blog_post_id',
-        [
-          856,
-          833,
-          828,
-          822,
-          821,
-        ],
-        'IN'
-      );
-    return $query;
+
+    // @todo push logger only to the child class.
+    $ymca_blogs_query = YmcaBlogsQuery::init($this, $this->migration);
+
+    // Saving state to DB. We will use it for Token Migrations.
+    $this->state->set('migrated_blog_ids', $ymca_blogs_query->getNeededIds());
+
+    return $ymca_blogs_query->getQuery();
   }
 
   /**
@@ -98,7 +94,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $components_tree = YmcaBlogComponentsTree::init(array(), $this->getDatabase(), $row)
+    $components_tree = YmcaBlogComponentsTree::init(array(), $this, $row)
       ->getTree();
 
     // Foreach each parent component and check if there is a mapping.

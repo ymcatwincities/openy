@@ -6,7 +6,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
-use Drupal\Core\Database\Connection;
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
 /**
@@ -36,7 +36,7 @@ interface AmmComponentsTreeInterface {
    *
    * @param array $skip_ids
    *   Array of IDs to be skipped.
-   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
    *   Database to be used for queries.
    * @param \Drupal\migrate\Row $row
    *   Migrate row that is processed.
@@ -44,6 +44,6 @@ interface AmmComponentsTreeInterface {
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmComponentsTreeInterface
    *   Returns self.
    */
-  static public function init($skip_ids, Connection $database, Row $row);
+  static public function init($skip_ids, SqlBase &$database, Row $row);
 
 }

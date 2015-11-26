@@ -7,7 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 
-use Drupal\Core\Database\Connection;
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
 /**
@@ -18,9 +18,9 @@ use Drupal\migrate\Row;
 class YmcaBlogComponentsTree extends AmmComponentsTree {
 
   /**
-   * Database connection object.
+   * Database SqlBase object.
    *
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\migrate\Plugin\migrate\source\SqlBase
    */
   protected $database;
 
@@ -50,13 +50,13 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
    *
    * @param array $skip_ids
    *   Array of IDs to be skipped.
-   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
    *   SqlBase plugin for dealing with DB.
    * @param \Drupal\migrate\Row $row
    *   Row that is processed within a Tree.
    */
-  protected function __construct($skip_ids, Connection $database, Row $row) {
-    $this->database = $database;
+  protected function __construct($skip_ids, SqlBase &$database, Row $row) {
+    $this->database = &$database;
     $this->row = $row;
     $this->tree = [];
     parent::__construct('blog', $skip_ids);
@@ -69,7 +69,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
     // @todo Use setSkipIds data.
 
     // Get all component data.
-    $select = $this->database->select('abe_blog_post_component', 'c');
+    $select = $this->database->getDatabase()->select('abe_blog_post_component', 'c');
     $select->fields('c')
       ->condition(
         'blog_post_id',
@@ -95,7 +95,7 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   /**
    * {@inheritdoc}
    */
-  static public function init($skip_ids, Connection $database, Row $row) {
+  static public function init($skip_ids, SqlBase &$database, Row $row) {
     if (isset(self::$instance)) {
       return self::$instance;
     }
