@@ -76,11 +76,11 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
     $this->hasChildren = FALSE;
     $this->setNeededIds(
       [
+        859,
+        857,
         856,
-        833,
-        828,
-        822,
-        821,
+        855,
+        854,
       ]
     );
     $this->initQuery();

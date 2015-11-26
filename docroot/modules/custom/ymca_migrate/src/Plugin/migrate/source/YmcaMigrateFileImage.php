@@ -35,16 +35,11 @@ class YmcaMigrateFileImage extends SqlBase {
     $query->condition(
       'a.asset_id',
       [
+        11734,
+        11714,
         11712,
-        11711,
-        11601,
-        11600,
-        11554,
-        11553,
-        11471,
-        11472,
-        11469,
-        11470,
+        11709,
+        11707,
       ],
       'IN'
     );
