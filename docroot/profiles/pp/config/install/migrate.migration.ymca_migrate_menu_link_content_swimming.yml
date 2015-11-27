@@ -1,0 +1,33 @@
+uuid: 0a387fa1-ed8d-4fad-8e00-b113ea860bc6
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_link_content
+    - ymca_migrate
+id: ymca_migrate_menu_link_content_swimming
+migration_tags:
+  - menu
+label: 'Menu links migration'
+source:
+  plugin: ymca_migrate_menu_link_content_swimming
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link: link
+  weight: sequence_index
+  parent:
+    -
+      plugin: migration
+      migration: ymca_migrate_menu_link_content_swimming
+      source: parent_id
+    -
+      plugin: ymca_migrate_menu_link_content_parent
+destination:
+  plugin: 'entity:menu_link_content'
+template: null
+migration_dependencies: {  }
+migration_group: ymca
