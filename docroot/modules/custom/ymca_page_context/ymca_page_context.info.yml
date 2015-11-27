@@ -1,0 +1,5 @@
+name: YMCA Page Context
+type: module
+description: YMCA Helper Service to control page context.
+core: 8.x
+package: YMCA
