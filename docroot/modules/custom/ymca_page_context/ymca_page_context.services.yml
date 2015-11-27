@@ -1,0 +1,3 @@
+services:
+  pagecontext.service:
+    class: Drupal\ymca_page_context\PageContextService
