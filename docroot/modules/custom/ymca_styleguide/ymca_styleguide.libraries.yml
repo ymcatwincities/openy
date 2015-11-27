@@ -8,6 +8,7 @@ ymca_styleguide:
     js/docs.min.js: {}
   dependencies:
     - core/jquery
+    - core/drupal
 
 lightbox2:
   version: 0
