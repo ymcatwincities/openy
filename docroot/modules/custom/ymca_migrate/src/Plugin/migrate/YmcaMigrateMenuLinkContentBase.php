@@ -52,6 +52,7 @@ abstract class YmcaMigrateMenuLinkContentBase extends SqlBase {
       'title' => $this->t('Link Title'),
       'sequence_index' => $this->t('Weight'),
       'menu_name' => $this->t('Menu'),
+      'enabled' => $this->t('Enabled'),
     ];
 
     return $fields;
@@ -71,6 +72,11 @@ abstract class YmcaMigrateMenuLinkContentBase extends SqlBase {
 
     $row->setSourceProperty('menu_name', $this->getMenu());
     $row->setSourceProperty('link', ['uri' => 'internal:/']);
+
+    $row->setSourceProperty('enabled', TRUE);
+    if ($row->getSourceProperty('exclude_from_nav')) {
+      $row->setSourceProperty('enabled', FALSE);
+    }
 
     $parent = $row->getSourceProperty('parent_id');
     if ($parent == $this->getParentId()) {

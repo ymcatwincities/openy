@@ -93,6 +93,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
         'parent_id',
         'nav_level',
         'sequence_index',
+        'exclude_from_nav',
       ]);
   }
 
