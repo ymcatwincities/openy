@@ -15,7 +15,6 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
-use Drupal\ymca_migrate\Plugin\migrate\YmcaRow;
 
 
 /**
