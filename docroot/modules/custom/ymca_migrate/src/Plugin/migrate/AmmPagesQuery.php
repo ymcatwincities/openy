@@ -52,8 +52,6 @@ abstract class AmmPagesQuery implements AmmPagesQueryInterface {
     $this->setSkipIds($skip_ids);
     // Setting internal protected variable with an array of IDs to be added to a tree.
     $this->setNeededIds($needed_ids);
-    // @todo Should we use this in PHP?
-    return $this;
   }
 
   /**

@@ -38,6 +38,13 @@ class YmcaPagesQuery extends AmmPagesQuery {
   static private $instance;
 
   /**
+   * Array of \Drupal\ymca_migrate\Plugin\migrate\YmcaPagesQuery object by ct_type key.
+   * 
+   * @var array.
+   */
+  static private $instances;
+
+  /**
    * If the ID has children.
    *
    * @var bool
@@ -172,12 +179,23 @@ class YmcaPagesQuery extends AmmPagesQuery {
   /**
    * {@inheritdoc}
    */
-  static public function init($skip_ids, $needed_ids, Connection $database) {
-    if (isset(self::$instance)) {
+  static public function init($skip_ids, $needed_ids, Connection $database, $ct_type = '') {
+    if ($ct_type === '') {
+      if (isset(self::$instance)) {
+        return self::$instance;
+      }
+      self::$instance = new self($skip_ids, $needed_ids, $database);
       return self::$instance;
     }
-    self::$instance = new self($skip_ids, $needed_ids, $database);
-    return self::$instance;
+    // Factory by ct_type.
+    else {
+      if (isset(self::$instances[$ct_type])) {
+        return self::$instances[$ct_type];
+      }
+      self::$instances[$ct_type] = new self($skip_ids, $needed_ids, $database);
+      return self::$instances[$ct_type];
+    }
+
   }
 
   /**
