@@ -33,6 +33,7 @@ class MenuEntityReferenceLabelFormatter extends EntityReferenceFormatterBase {
    * @var \Drupal\menu_link_content\Entity\MenuLinkContent
    */
   private $entity;
+
   /**
    * {@inheritdoc}
    */
@@ -66,8 +67,12 @@ class MenuEntityReferenceLabelFormatter extends EntityReferenceFormatterBase {
    */
   public function settingsSummary() {
     $summary = array();
-    $summary[] = $this->getSetting('route_link') ? t('Link to the referenced entity') : t('No link');
-    $summary[] = ($this->getSetting('route_title') == '') ? t('Menu title for the route link') : t('Custom title for the route link');
+    $summary[] = $this->getSetting('route_link') ? t(
+      'Link to the referenced entity'
+    ) : t('No link');
+    $summary[] = ($this->getSetting('route_title') == '') ? t(
+      'Menu title for the route link'
+    ) : t('Custom title for the route link');
     return $summary;
   }
 
@@ -78,14 +83,24 @@ class MenuEntityReferenceLabelFormatter extends EntityReferenceFormatterBase {
     $elements = array();
     $output_as_link = $this->getSetting('route_link');
 
-    foreach ($this->getEntitiesToView($items, $langcode) as $delta => $this->entity) {
-      $label = ($this->getSetting('route_title') == '') ? $this->entity->label() : $this->getSetting('route_title');
+    foreach ($this->getEntitiesToView(
+      $items,
+      $langcode
+    ) as $delta => $this->entity) {
+      $label = ($this->getSetting('route_title') == '') ? $this->entity->label(
+      ) : $this->getSetting('route_title');
       // If the link is to be displayed and the entity has a uri, display a
       // link.
       if ($output_as_link && !$this->entity->isNew()) {
         try {
-          $uri = $this->entity->urlInfo();
-          $desc = $this->entity->toLink('test');
+
+          /* @var \Drupal\Core\Field\FieldItemList $route */
+          $route = $this->entity->get('link');
+
+          // We are dealing only with first item here.
+          /* @var \Drupal\link\Plugin\Field\FieldType\LinkItem $item */
+          $item = $route->get(0);
+          $uri = $item->getUrl();
         }
         catch (UndefinedLinkTemplateException $e) {
           // This exception is thrown by \Drupal\Core\Entity\Entity::urlInfo()
