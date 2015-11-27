@@ -51,6 +51,6 @@ interface AmmPagesQueryInterface {
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */
-  static public function init($skip_ids, $needed_ids, Connection $database);
+  static public function init($skip_ids, $needed_ids, Connection $database, $ct_type);
 
 }
