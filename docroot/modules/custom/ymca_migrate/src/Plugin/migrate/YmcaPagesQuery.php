@@ -7,7 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\Core\Database\Connection;
 
 /**
  * Class YmcaPagesQuery.
@@ -53,10 +53,10 @@ class YmcaPagesQuery extends AmmPagesQuery {
    *   Array of IDs to be skipped.
    * @param array $needed_ids
    *   Array of IDs to be added to tree creation.
-   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
-   *   SqlBase plugin for dealing with DB.
+   * @param \Drupal\Core\Database\Connection $database
+   *   Database connection.
    */
-  protected function __construct($skip_ids, $needed_ids, SqlBase &$database) {
+  protected function __construct($skip_ids, $needed_ids, Connection $database) {
     // @todo Rethink if we can get rid of skip and needed IDs within constructor.
     $this->database = &$database;
     $this->tree = [];
@@ -64,14 +64,16 @@ class YmcaPagesQuery extends AmmPagesQuery {
     $this->hasChildren = FALSE;
 
     $options['fetch'] = \PDO::FETCH_ASSOC;
-    $this->query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);
-    $this->query->fields('p',
+    $this->query = $this->database->select('amm_site_page', 'p', $options);
+    $this->query->fields(
+      'p',
       [
         'site_page_id',
         'page_title',
         'theme_id',
         'parent_id',
-      ]);
+      ]
+    );
     parent::__construct('page', $skip_ids, $needed_ids);
   }
 
@@ -79,16 +81,18 @@ class YmcaPagesQuery extends AmmPagesQuery {
    * Method for init query with select parameters after fetch*() methods.
    */
   private function initQuery() {
-    $ymca_blogs_query = YmcaBlogsQuery::init($this->database, $this->query);
     // Initialize query single time.
     $options['fetch'] = \PDO::FETCH_ASSOC;
-    $this->query = &$this->database->getDatabase()->select('amm_site_page', 'p', $options);
+    $this->query = $this->database->select('amm_site_page', 'p', $options);
     $this->query->fields('p',
       [
         'site_page_id',
         'page_title',
+        'page_name',
         'theme_id',
         'parent_id',
+        'nav_level',
+        'sequence_index',
       ]);
   }
 
@@ -165,32 +169,13 @@ class YmcaPagesQuery extends AmmPagesQuery {
   }
 
   /**
-   * Setter for local SqlBase.
-   *
-   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $migrate_database
-   *   Reference to the plugin that is used current object.
-   *
-   * @return $this
-   *   Self.
-   */
-  public function setSqlBase(SqlBase &$migrate_database) {
-    $this->database = $migrate_database;
-    return $this;
-  }
-
-  /**
    * {@inheritdoc}
    */
-  static public function init(
-    $skip_ids,
-    $needed_ids,
-    SqlBase &$migrate_database
-  ) {
+  static public function init($skip_ids, $needed_ids, Connection $database) {
     if (isset(self::$instance)) {
       return self::$instance;
     }
-    self::$instance = new self($skip_ids, $needed_ids, $migrate_database);
-    self::$instance->setSqlBase($migrate_database);
+    self::$instance = new self($skip_ids, $needed_ids, $database);
     return self::$instance;
   }
 
@@ -228,7 +213,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
         $this->getAllChildren((int) $sub_id_data['site_page_id']);
       }
     }
-    // @todo @danylevsky check for abandoned pages within source DB.
+    // @todo @danylevskyi check for abandoned pages within source DB.
     // $this->initQuery();
     // $this->query->condition('site_page_id', array_merge($this->getNeededIds(), $this->getSkippedIds()), 'NOT IN');
     // $abandoned_ids = $this->query->execute()->fetchAll();
@@ -246,6 +231,11 @@ class YmcaPagesQuery extends AmmPagesQuery {
         'NOT IN'
       );
     }
+
+    // Add order.
+    $this->query->orderBy('nav_level', 'ASC');
+    $this->query->orderBy('sequence_index', 'ASC');
+
     return $this->query;
   }
 
