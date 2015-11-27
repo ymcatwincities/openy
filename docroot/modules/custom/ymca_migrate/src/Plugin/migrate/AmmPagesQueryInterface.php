@@ -1,12 +1,12 @@
 <?php
+
 /**
  * @file
  * Contract about getting tree of pages from source database.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
-
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\Core\Database\Connection;
 
 /**
  * Interface AmmPagesQueryInterface.
@@ -45,12 +45,12 @@ interface AmmPagesQueryInterface {
    *   Array of IDs to be skipped.
    * @param array $needed_ids
    *   Array of IDs to be added.
-   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $database
+   * @param \Drupal\Core\Database\Connection $database
    *   Database to be used for queries.
    *
    * @return \Drupal\ymca_migrate\Plugin\migrate\AmmPagesQueryInterface
    *   Returns self.
    */
-  static public function init($skip_ids, $needed_ids, SqlBase &$database);
+  static public function init($skip_ids, $needed_ids, Connection $database);
 
 }
