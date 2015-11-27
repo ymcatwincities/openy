@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Entity\Migration;
 use Drupal\migrate\Entity\MigrationInterface;
@@ -14,6 +15,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaRow;
 
 
 /**
@@ -94,6 +96,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+
     $components_tree = YmcaBlogComponentsTree::init(array(), $this, $row)
       ->getTree();
 
@@ -164,7 +167,41 @@ class YmcaMigrateNodeBlog extends SqlBase {
         break;
 
       default:
+        preg_match_all("/<a.*href=\"{{internal_page_link_[0-9][0-9]*}}\">.*<\/a>/mU", $component['body'], $test);
+        if (empty($test) || empty($test[0])) {
+          $value = [$property => $component['body']];
+          break;
+        }
+        $html = Html::load($component['body']);
+        foreach ($test as $id => $matched) {
+          if (empty($matched)) {
+            continue;
+          }
+          foreach ($matched as $mid => $match) {
+            preg_match('/\>(.*?)\</mU', $match, $link_label);
+            if (!empty($link_label)) {
+              $link_label = $link_label[1];
+            } else {
+              $link_label = '';
+            }
+
+            $p = $html->createElement('drupal-entity');
+            $p->setAttribute('data-align', 'none');
+            $p->setAttribute('data-embed-button', 'menu_link');
+            $p->setAttribute('data-entity-embed-display', 'entity_reference:entity_reference_label_url');
+            $p->setAttribute('data-entity-embed-settings', htmlspecialchars_decode('{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $link_label . '&quot;}'));
+            // @todo replace with real menu item ID.
+            $p->setAttribute('data-entity-id', '148');
+            $p->setAttribute('data-entity-label', $link_label);
+            $p->setAttribute('data-entity-type', 'menu_link_content');
+            $p->setAttribute('data-entity-uuid', '6b6c92d5-abc0-4384-8800-cfaed6750738');
+            $html->appendChild($p);
+            $entity_embed_widget = $p->C14N();
+            $component['body'] = str_replace($match, $entity_embed_widget, $component['body']);
+          }
+        }
         $value = [$property => $component['body']];
+        break;
     }
 
     return $value;
