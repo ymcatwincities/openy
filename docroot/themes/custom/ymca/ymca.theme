@@ -83,6 +83,10 @@ function ymca_preprocess_expander_block(&$variables) {
  * Implements hook_preprocess_node().
  */
 function ymca_preprocess_node(&$variables) {
+  if ($variables['view_mode'] !== 'full') {
+    return;
+  }
+
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
 
   // Handle alerts.
@@ -103,6 +107,9 @@ function ymca_preprocess_node(&$variables) {
         \Drupal::service('pagecontext.service')->setContext($site_section);
       }
     }
+  }
+  elseif (in_array($variables['node']->bundle, array('location', 'camp'))) {
+    \Drupal::service('pagecontext.service')->setContext($variables['node']);
   }
 
   if ($variables['node']->bundle() == 'article') {

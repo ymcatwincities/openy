@@ -53,7 +53,7 @@ class YMCAStyleGuideController extends ControllerBase {
   /**
    * Sets up Page heading variant.
    *
-   * @param string $id
+   * @param string $type
    *   - Context in which styleguide should be rendered (null, page, location,
    *   camp).
    */

@@ -23,8 +23,8 @@ class PageContextService {
   /**
    * Sets current Alert block.
    *
-   * @param \Drupal\block_content\Entity\BlockContent $block
-   *   Alert Block content entity.
+   * @param \Drupal\node\Entity\Node $node
+   *   Context node entity.
    */
   public function setContext(\Drupal\node\Entity\Node $node) {
     $this->context = $node;
