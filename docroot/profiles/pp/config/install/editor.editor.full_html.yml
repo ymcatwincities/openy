@@ -41,6 +41,7 @@ settings:
             - HorizontalRule
             - block
             - ColumnButton
+            - menu_link
         -
           name: 'Block Formatting'
           items:
