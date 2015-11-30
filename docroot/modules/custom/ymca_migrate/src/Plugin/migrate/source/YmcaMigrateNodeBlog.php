@@ -213,7 +213,6 @@ class YmcaMigrateNodeBlog extends SqlBase {
                 '{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $link_label . '&quot;}'
               )
             );
-            // @todo replace with real menu item ID.
             /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
             $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
             $menu_id = $ymca_tokens_map->getMenuId($source_page_id);

@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: podarok
- * Date: 30.11.15
- * Time: 11:44
+ * @file
+ * Implements service for Token Map getter.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
@@ -11,6 +9,11 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\migrate\MigrateException;
 
+/**
+ * Class YmcaTokensMap.
+ *
+ * @package Drupal\ymca_migrate\Plugin\migrate
+ */
 class YmcaTokensMap {
 
   /**
@@ -32,7 +35,7 @@ class YmcaTokensMap {
    */
   private function prepopulateMigrations() {
 
-    // @todo obtain dynamically list of migrations.
+    // @todo obtain dynamically list of menu migrations.
     $ids = [
       'ymca_migrate_menu_link_content_kid_teen_activities',
       'ymca_migrate_menu_link_content_camps',
@@ -74,4 +77,5 @@ class YmcaTokensMap {
     }
     return FALSE;
   }
+
 }
