@@ -148,7 +148,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    *   Array of source fields.
    */
   protected function transform($property, array $component) {
-    // Here I'll just use switch statement.
+    // Here we'll just use switch statement.
     // As we have a lot of components and their logic is sophisticated I propose to use plugins.
     // Plugins could be reused within different migrations.
     $value = [];
@@ -242,7 +242,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
             else {
               $p->setAttribute('data-entity-id', $menu_id);
               $p->setAttribute('data-entity-label', $link_label);
-              $menu_link_entity = $menu_link_uuid = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
+              $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
               $menu_link_uuid = $menu_link_entity->uuid();
               $p->setAttribute(
                 'data-entity-uuid',
