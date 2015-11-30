@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Service for parsing AMM tokenized text string and replace it with needed data
+ * Service for parsing AMM tokenized text string and replace it with needed .
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
@@ -40,6 +40,7 @@ class YmcaReplaceTokens {
   public function processText($string = '') {
     $this->string = $string;
     $this->replacePageTokens();
+    $this->replaceAssetLinksTokens();
     return $this->string;
   }
 
@@ -132,4 +133,12 @@ class YmcaReplaceTokens {
       }
     }
   }
+
+  /**
+   * Replace tokens links to assets(non images).
+   */
+  private function replaceAssetLinksTokens() {
+
+  }
+  
 }
