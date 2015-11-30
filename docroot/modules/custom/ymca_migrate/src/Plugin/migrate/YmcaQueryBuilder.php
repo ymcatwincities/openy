@@ -48,6 +48,16 @@ class YmcaQueryBuilder {
   }
 
   /**
+   * Build a query.
+   *
+   * @return \Drupal\Core\Database\Query\Query
+   *   A query ready to use.
+   */
+  public function build() {
+    return $this->query;
+  }
+
+  /**
    * Get required IDs.
    *
    * @return array
@@ -97,19 +107,16 @@ class YmcaQueryBuilder {
    *
    * @param int $id
    *   ID to process.
-   *
-   * @return array|bool
-   *   Array of IDs. FALSE if no.
    */
   public function getAllChildren($id = 0) {
     // Do not get children for zero ID.
     if ($id == 0) {
-      return FALSE;
+      return;
     }
 
     // Skip if ID is already in required IDs.
     if (in_array($id, $this->getRequiredIds())) {
-      return FALSE;
+      return;
     }
 
     $this->initQuery();
@@ -126,8 +133,6 @@ class YmcaQueryBuilder {
 
     $this->initQuery();
     $this->query->condition('site_page_id', $this->getRequiredIds(), 'IN');
-
-    return $this->query;
   }
 
   /**
@@ -142,7 +147,6 @@ class YmcaQueryBuilder {
   public function getList(array $ids) {
     $this->addRequiredIds($ids);
     $this->query->condition('site_page_id', $this->getRequiredIds(), 'IN');
-    return $this->query;
   }
 
 }

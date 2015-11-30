@@ -49,8 +49,8 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
    */
   public function query() {
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
-    $query = $query_builder->getAllChildren($this->getParentId());
-    return $query;
+    $query_builder->getAllChildren($this->getParentId());
+    return $query_builder->build();
   }
 
   /**

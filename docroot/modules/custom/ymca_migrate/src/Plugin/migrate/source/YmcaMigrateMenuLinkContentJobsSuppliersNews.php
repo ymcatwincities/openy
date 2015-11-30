@@ -25,7 +25,10 @@ class YmcaMigrateMenuLinkContentJobsSuppliersNews extends YmcaMigrateMenuLinkCon
   public function query() {
     /* @var YmcaQueryBuilder $query_builder */
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
-    $query = $query_builder->getAllChildren(reset($this->getParentIds()));
+    foreach ($this->getParentIds() as $item) {
+      $query_builder->getAllChildren($item);
+    }
+    $query = $query_builder->build();
     return $query;
   }
 
