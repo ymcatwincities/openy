@@ -112,6 +112,7 @@ class YmcaQueryBuilder {
       return FALSE;
     }
 
+    $this->initQuery();
     $this->addRequiredIds([$id]);
     $this->query->condition('parent_id', $this->getRequiredIds(), 'IN');
     $all_ids = $this->query->execute()->fetchAll();

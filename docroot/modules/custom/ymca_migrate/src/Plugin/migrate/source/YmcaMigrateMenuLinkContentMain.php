@@ -22,7 +22,7 @@ class YmcaMigrateMenuLinkContentMain extends YmcaMigrateMenuLinkContent {
    * {@inheritdoc}
    */
   public function query() {
-    /* @var ґDrupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder $query_builder */
+    /* @var YmcaQueryBuilder $query_builder */
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
     $query = $query_builder->getList([
       4552,
