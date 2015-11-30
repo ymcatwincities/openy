@@ -83,6 +83,10 @@ function ymca_preprocess_expander_block(&$variables) {
  * Implements hook_preprocess_node().
  */
 function ymca_preprocess_node(&$variables) {
+  if ($variables['view_mode'] !== 'full') {
+    return;
+  }
+
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
 
   // Handle alerts.
@@ -94,6 +98,18 @@ function ymca_preprocess_node(&$variables) {
         \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
       }
     }
+  }
+
+  if ($variables['node']->hasField('field_site_section')) {
+    if ($value = $variables['node']->field_site_section->getValue()) {
+      if ($id = $value[0]['target_id']) {
+        $site_section = \Drupal::entityTypeManager()->getStorage('node')->load($id);
+        \Drupal::service('pagecontext.service')->setContext($site_section);
+      }
+    }
+  }
+  elseif (in_array($variables['node']->bundle, array('location', 'camp'))) {
+    \Drupal::service('pagecontext.service')->setContext($variables['node']);
   }
 
   if ($variables['node']->bundle() == 'article') {
@@ -120,7 +136,7 @@ function ymca_preprocess_node(&$variables) {
  */
 function ymca_preprocess_html(&$variables) {
   // Default classes.
-  $classes = ['landing-template'];
+  $classes = ['internal-template', 'theme_ymca_2013_internal_category_and_detail'];
   if (empty($variables['attributes'])) {
     $variables['attributes'] = new \Drupal\Core\Template\Attribute();
   }
@@ -131,33 +147,26 @@ function ymca_preprocess_html(&$variables) {
       'theme_ymca_2013_home',
     ];
   }
-  elseif ($node = \Drupal::routeMatch()->getParameter('node')) {
-    if ($node->getType() == 'blog') {
-      if ($value = $node->field_site_section->getValue()) {
-        $id = $value[0]['target_id'];
-        $site_section = \Drupal::entityTypeManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
-        $site_section_bundle = $site_section->bundle();
+  elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $site_section_bundle = $site_section->bundle();
+    switch ($site_section_bundle) {
+      case 'camp':
+        $classes = [
+          'internal-template',
+          'ancestor-camps',
+          'page_post_detail',
+          'theme_ymca_2013_camp_category_and_detail',
+        ];
+        break;
 
-        switch ($site_section_bundle) {
-          case 'camp':
-            $classes = [
-              'internal-template',
-              'ancestor-camps',
-              'page_post_detail',
-              'theme_ymca_2013_camp_category_and_detail',
-            ];
-            break;
-
-          case 'location':
-            $classes = [
-              'locations-camps-template',
-              'ancestor-locations',
-              'page_post_detail',
-              'theme_ymca_2013_location_home',
-            ];
-            break;
-        }
-      }
+      case 'location':
+        $classes = [
+          'locations-camps-template',
+          'ancestor-locations',
+          'page_post_detail',
+          'theme_ymca_2013_location_home',
+        ];
+        break;
     }
   }
 
@@ -174,15 +183,9 @@ function ymca_preprocess_page(&$variables) {
     $variables['page']['messages'] = $view_builder->view($block);
   }
 
-  if (isset($variables['node'])) {
-    if (($node = $variables['node']) && $node->bundle() == 'blog') {
-      if ($value = $node->field_site_section->getValue()) {
-        if ($id = $value[0]['target_id']) {
-            $site_section = \Drupal::entityTypeManager()->getStorage(SITE_SECTION_TARGET_TYPE)->load($id);
-            $site_section_bundle = $site_section->bundle();
-            $variables['site_section_bundle'] = $site_section_bundle;
-        }
-      }
-    }
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $site_section_bundle = $site_section->bundle();
+    $variables['site_section'] = $site_section;
+    $variables['site_section_bundle'] = $site_section_bundle;
   }
 }

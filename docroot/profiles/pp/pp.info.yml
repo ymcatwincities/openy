@@ -57,6 +57,7 @@ dependencies:
   - libraries
   - address
   - telephone
+  - ymca_page_context
 themes:
   - bartik
   - seven
