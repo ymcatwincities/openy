@@ -44,7 +44,8 @@ class YmcaTokensMap {
       'ymca_migrate_menu_link_content_health_fitness',
       'ymca_migrate_menu_link_content_locations',
       'ymca_migrate_menu_link_content_main',
-      'ymca_migrate_menu_link_content_swimming'
+      'ymca_migrate_menu_link_content_swimming',
+      'ymca_migrate_menu_link_content_jobs_suppliers_news'
     ];
     $this->migrations = \Drupal::entityManager()
       ->getStorage('migration')
