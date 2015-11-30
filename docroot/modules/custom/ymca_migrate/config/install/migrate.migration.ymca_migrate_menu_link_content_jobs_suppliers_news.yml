@@ -4,10 +4,10 @@ migration_group: ymca
 migration_tags:
   - menu
 source:
-  plugin: ymca_migrate_menu_link_content_jobs_suppliers_news
+  plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: jobs-suppliers-news
-    menu_parent_ids:
+    menu_parents:
       - 6737
       - 6870
       - 21824

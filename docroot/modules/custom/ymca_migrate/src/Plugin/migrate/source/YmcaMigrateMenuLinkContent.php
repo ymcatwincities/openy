@@ -33,24 +33,28 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
   /**
    * Get parent id item for the menu items.
    *
-   * @return int
-   *   Parent ID.
+   * @return array
+   *   Parent IDs array.
    */
-  public function getParentId() {
+  public function getParents() {
     $constants = $this->migration->get('source')['constants'];
-    if (isset($constants['menu_parent_id'])) {
-      return $constants['menu_parent_id'];
+    if (isset($constants['menu_parents'])) {
+      return $constants['menu_parents'];
     }
-    return 0;
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function query() {
+    /* @var YmcaQueryBuilder $query_builder */
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
-    $query_builder->getAllChildren($this->getParentId());
-    return $query_builder->build();
+    foreach ($this->getParents() as $item) {
+      $query_builder->getAllChildren($item);
+    }
+    $query = $query_builder->build();
+    return $query;
   }
 
   /**
@@ -88,16 +92,8 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
       $row->setSourceProperty('enabled', FALSE);
     }
 
-    // Get parent or parents.
-    if (!method_exists($this, 'getParentIds')) {
-      $parents = [$this->getParentId()];
-    }
-    else {
-      $parents = $this->getParentIds();
-    }
-
     // Remove parents from root items within the menu.
-    if (in_array($row->getSourceProperty('site_page_id'), $parents)) {
+    if (in_array($row->getSourceProperty('site_page_id'), $this->getParents())) {
       $row->setSourceProperty('parent_id', 0);
     }
   }

@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: child-care-preschool
-    menu_parent_id: 4946
+    menu_parents: [4946]
 process:
   bundle:
     plugin: default_value

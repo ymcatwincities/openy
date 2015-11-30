@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: swimming
-    menu_parent_id: 4693
+    menu_parents: [4693]
 process:
   bundle:
     plugin: default_value
