@@ -136,7 +136,6 @@ class YmcaReplaceTokens {
    * Replace tokens links to assets(non images).
    */
   private function replaceAssetLinksTokens() {
-    // {{internal_asset_link_8375}}
     preg_match_all(
       "/<a.*href=\"{{internal_asset_link_[0-9][0-9]*}}\">.*<\/a>/mU",
       $this->string,

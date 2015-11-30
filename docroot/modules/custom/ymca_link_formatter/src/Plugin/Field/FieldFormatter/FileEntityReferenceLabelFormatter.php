@@ -95,7 +95,8 @@ class FileEntityReferenceLabelFormatter extends EntityReferenceFormatterBase {
       if ($output_as_link && !$this->entity->isNew()) {
         try {
           $uri = $this->entity->getFileUri();
-        } catch (UndefinedLinkTemplateException $e) {
+        }
+        catch (UndefinedLinkTemplateException $e) {
           // This exception is thrown by \Drupal\Core\Entity\Entity::urlInfo()
           // and it means that the entity type doesn't have a link template nor
           // a valid "uri_callback", so don't bother trying to output a link for
