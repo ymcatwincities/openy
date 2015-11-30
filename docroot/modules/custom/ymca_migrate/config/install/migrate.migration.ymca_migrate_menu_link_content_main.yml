@@ -1,13 +1,12 @@
-id: ymca_migrate_menu_link_content_swimming
+id: ymca_migrate_menu_link_content_main
 label: Menu links migration
 migration_group: ymca
 migration_tags:
   - menu
 source:
-  plugin: ymca_migrate_menu_link_content
+  plugin: ymca_migrate_menu_link_content_main
   constants:
-    menu_name: swimming
-    menu_parent_id: 4693
+    menu_name: main-menu
 process:
   bundle:
     plugin: default_value
@@ -17,11 +16,7 @@ process:
   link: link
   weight: sequence_index
   parent:
-    -
-      plugin: migration
-      migration: ymca_migrate_menu_link_content_swimming
-      source: parent_id
-    -
-      plugin: ymca_migrate_menu_link_content_parent
+    plugin: default_value
+    default_value: 0
 destination:
   plugin: entity:menu_link_content

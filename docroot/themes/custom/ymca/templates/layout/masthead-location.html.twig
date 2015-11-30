@@ -7,11 +7,11 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
-				<span class="masthead-brand">$content_area_95</span>
+				<span class="masthead-brand">{{ node.label }}</span>
 			</div>
 			<div class="col-sm-4 text-center masthead-button" id="masthead-button">
-				$content_area_5
-			</div>
+        {{ node.field_join_override.0.value|raw }}
+      </div>
 		</div>
 	</div>
 </section>
@@ -28,7 +28,7 @@
 				<div class="col-sm-3 col-md-2 phone clearfix">
 					<span class="tel">
 						<span class="glyphicon glyphicon-earphone bullet"></span>
-						$content_area_96
+            {{ node.field_phone.0.value }}
 						<span class="visible-xs">
 							<a class="call" target="_blank">
 								Call
@@ -40,7 +40,13 @@
 				<hr class="visible-xs">
 				<div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
 					<span class="glyphicon glyphicon-map-marker bullet"></span>
-					$content_area_97
+          <span class="plaintext">
+            {{ node.field_location.0.address_line1 }},
+            <br class="visible-xs">
+            {{ node.field_location.0.address_line2 }}
+            {{ node.field_location.0.administrative_area }}
+            {{ node.field_location.0.postal_code }}
+          </span>
 						<br class="visible-xs" />
 						<a class="directions" target="_blank">
 							<!-- <span class="hidden-sm"> -->
