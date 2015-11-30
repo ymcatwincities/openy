@@ -1,4 +1,4 @@
-id: ymca_migrate_menu_link_content_swimming
+id: ymca_migrate_menu_link_content_kid_teen_activities
 label: Menu links migration
 migration_group: ymca
 migration_tags:
@@ -6,8 +6,8 @@ migration_tags:
 source:
   plugin: ymca_migrate_menu_link_content
   constants:
-    menu_name: swimming
-    menu_parent_id: 4693
+    menu_name: kids-teen-activities
+    menu_parent_id: 4835
 process:
   bundle:
     plugin: default_value
@@ -19,7 +19,7 @@ process:
   parent:
     -
       plugin: migration
-      migration: ymca_migrate_menu_link_content_swimming
+      migration: ymca_migrate_menu_link_content_kid_teen_activities
       source: parent_id
     -
       plugin: ymca_migrate_menu_link_content_parent

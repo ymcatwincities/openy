@@ -40,7 +40,7 @@ class YmcaPagesQuery extends AmmPagesQuery {
   /**
    * Array of \Drupal\ymca_migrate\Plugin\migrate\YmcaPagesQuery object by ct_type key.
    * 
-   * @var array.
+   * @var array
    */
   static private $instances;
 
