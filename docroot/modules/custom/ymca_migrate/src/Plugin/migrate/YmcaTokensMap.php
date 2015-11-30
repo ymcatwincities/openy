@@ -61,6 +61,7 @@ class YmcaTokensMap {
    *   FALSE if not found, integer of Menu Item ID otherwise.
    *
    * @throws \Drupal\migrate\MigrateException
+   *   Exception throws if sonething goes wrong.
    */
   public function getMenuId($source_id = NULL) {
     if ($source_id == NULL) {
