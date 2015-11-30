@@ -38,7 +38,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
   protected $migration;
 
   /**
-   * Sign In mnu item.
+   * Sign In menu item.
    */
   const DRUPAL_SIGN_IN_MENU_ITEM = 148;
 
@@ -71,9 +71,6 @@ class YmcaMigrateNodeBlog extends SqlBase {
 
     // @todo push logger only to the child class.
     $ymca_blogs_query = YmcaBlogsQuery::init($this, $this->migration);
-
-    // Saving state to DB. We will use it for Token Migrations.
-    $this->state->set('migrated_blog_ids', $ymca_blogs_query->getNeededIds());
 
     return $ymca_blogs_query->getQuery();
   }
