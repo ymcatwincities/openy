@@ -55,10 +55,7 @@ class YmcaMigrateMenuLinkContent extends SqlBase{
    */
   public function fields() {
     $fields = [
-      'site_page_id' => $this->t('Page ID'),
       'parent_id' => $this->t('Parent ID'),
-      'page_name' => $this->t('Page Name'),
-      'page_title' => $this->t('Page Title'),
       'title' => $this->t('Link Title'),
       'sequence_index' => $this->t('Weight'),
       'menu_name' => $this->t('Menu'),
