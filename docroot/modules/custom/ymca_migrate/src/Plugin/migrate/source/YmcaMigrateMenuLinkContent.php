@@ -5,38 +5,48 @@
  * Contains source plugin for migration menu links.
  */
 
-namespace Drupal\ymca_migrate\Plugin\migrate;
+namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaPagesQuery;
 use Drupal\migrate\Row;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
 
 /**
- * Source source plugin for menu_link_content items.
+ * Source plugin for menu_link_content items.
+ *
+ * @MigrateSource(
+ *   id = "ymca_migrate_menu_link_content"
+ * )
  */
-abstract class YmcaMigrateMenuLinkContentBase extends SqlBase {
+class YmcaMigrateMenuLinkContent extends SqlBase{
 
   /**
-   * Get menu.
+   * Get menu name.
    *
    * @return string
-   *   Menu name.
+   *   Machine menu name.
    */
-  abstract public function getMenu();
+  public function getMenu() {
+    return $this->migration->get('source')['constants']['menu_name'];
+  }
 
   /**
-   * Get parent ID.
+   * Get parent id item for the menu items.
    *
    * @return int
    *   Parent ID.
    */
-  abstract public function getParentId();
+  public function getParentId() {
+    return $this->migration->get('source')['constants']['menu_parent_id'];
+  }
 
   /**
    * {@inheritdoc}
    */
   public function query() {
-    $ymca_page_query = YmcaPagesQuery::init([], [], $this->getDatabase());
-    $query = $ymca_page_query->getQueryByParent($this->getParentId());
+    $query_builder = new YmcaQueryBuilder($this->getDatabase());
+    $query = $query_builder->getAllChildren($this->getParentId());
     return $query;
   }
 
