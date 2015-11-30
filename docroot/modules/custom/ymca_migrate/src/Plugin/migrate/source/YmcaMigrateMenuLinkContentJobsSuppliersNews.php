@@ -43,7 +43,7 @@ class YmcaMigrateMenuLinkContentJobsSuppliersNews extends YmcaMigrateMenuLinkCon
     if (isset($constants['menu_parent_ids'])) {
       return $constants['menu_parent_ids'];
     }
-    return 0;
+    return NULL;
   }
 
 }
