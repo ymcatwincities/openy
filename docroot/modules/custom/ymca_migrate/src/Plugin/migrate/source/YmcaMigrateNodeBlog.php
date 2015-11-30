@@ -148,7 +148,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    *   Array of source fields.
    */
   protected function transform($property, array $component) {
-    // Here I'll just use switch statement.
+    // Here we'll just use switch statement.
     // As we have a lot of components and their logic is sophisticated I propose to use plugins.
     // Plugins could be reused within different migrations.
     $value = [];
@@ -210,10 +210,15 @@ class YmcaMigrateNodeBlog extends SqlBase {
                 '{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $link_label . '&quot;}'
               )
             );
+            $p->setAttribute('data-entity-type', 'menu_link_content');
             /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
             $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
             $menu_id = $ymca_tokens_map->getMenuId($source_page_id);
             if ($menu_id === FALSE) {
+              $p->setAttribute(
+                'data-entity-uuid',
+                '6b6c92d5-abc0-4384-8800-cfaed6750738'
+              );
               $p->setAttribute(
                 'data-entity-id', self::DRUPAL_SIGN_IN_MENU_ITEM
               );
@@ -237,12 +242,14 @@ class YmcaMigrateNodeBlog extends SqlBase {
             else {
               $p->setAttribute('data-entity-id', $menu_id);
               $p->setAttribute('data-entity-label', $link_label);
+              $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
+              $menu_link_uuid = $menu_link_entity->uuid();
+              $p->setAttribute(
+                'data-entity-uuid',
+                $menu_link_uuid
+              );
             }
-            $p->setAttribute('data-entity-type', 'menu_link_content');
-            $p->setAttribute(
-              'data-entity-uuid',
-              '6b6c92d5-abc0-4384-8800-cfaed6750738'
-            );
+
             $html->appendChild($p);
             $entity_embed_widget = $p->C14N();
             $component['body'] = str_replace(
