@@ -41,6 +41,7 @@
       - { name: 'core.entity_form_display.comment.comment.default.yml', status: true }
       - { name: 'core.entity_view_display.comment.comment.default.yml', status: true }
       - { name: 'dblog.settings.yml', status: true }
+      - { name: 'image.style.thumbnail.yml', status: true }
       - { name: 'rdf.mapping.comment.comment.yml', status: true }
       - { name: 'rdf.mapping.node.article.yml', status: true }
       - { name: 'rdf.mapping.node.page.yml', status: true }
