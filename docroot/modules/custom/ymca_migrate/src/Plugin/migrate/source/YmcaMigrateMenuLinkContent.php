@@ -33,8 +33,8 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
   /**
    * Get parent id item for the menu items.
    *
-   * @return int
-   *   Parent ID.
+   * @return array
+   *   Parent IDs array.
    */
   public function getParents() {
     $constants = $this->migration->get('source')['constants'];
