@@ -40,6 +40,7 @@ class YmcaQueryBuilder {
    * YmcaQueryBuilder constructor.
    *
    * @param \Drupal\Core\Database\Connection $database
+   *   Database connection.
    */
   public function __construct(Connection $database) {
     $this->database = $database;

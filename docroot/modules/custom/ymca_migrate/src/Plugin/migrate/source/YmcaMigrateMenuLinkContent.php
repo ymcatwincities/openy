@@ -19,7 +19,7 @@ use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
  *   id = "ymca_migrate_menu_link_content"
  * )
  */
-class YmcaMigrateMenuLinkContent extends SqlBase{
+class YmcaMigrateMenuLinkContent extends SqlBase {
 
   /**
    * Get menu name.
