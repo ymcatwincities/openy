@@ -2,4 +2,6 @@ services:
   ymcatokensmap.service:
     class: Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap
   ymcaassetstokensmap.service:
-    class: Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap
+    class: Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap
+  ymcareplacetokens.service:
+    class: Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens

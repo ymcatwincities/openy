@@ -14,7 +14,7 @@ use Drupal\migrate\MigrateException;
  *
  * @package Drupal\ymca_migrate\Plugin\migrate
  */
-class YmcaAssetsTokensMap extends YmcaTokensMap {
+class YmcaAssetsTokensMap {
 
   /**
    * Array of migrations to search.
@@ -57,7 +57,7 @@ class YmcaAssetsTokensMap extends YmcaTokensMap {
    * @throws \Drupal\migrate\MigrateException
    *   Exception throws if something goes wrong.
    */
-  public function getMenuId($source_id = NULL) {
+  public function getAssetId($source_id = NULL) {
     if ($source_id == NULL) {
       throw new MigrateException(sprintf('Can\'t obtain file for zero iD'));
     }
