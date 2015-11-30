@@ -129,4 +129,19 @@ class YmcaQueryBuilder {
     return $this->query;
   }
 
+  /**
+   * Build query by flat list of IDs.
+   *
+   * @param array $ids
+   *   An array of IDs.
+   *
+   * @return \Drupal\Core\Database\Query\Query
+   *   Query.
+   */
+  public function getList(array $ids) {
+    $this->addRequiredIds($ids);
+    $this->query->condition('site_page_id', $this->getRequiredIds(), 'IN');
+    return $this->query;
+  }
+
 }
