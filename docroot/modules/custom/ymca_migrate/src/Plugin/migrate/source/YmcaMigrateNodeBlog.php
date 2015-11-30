@@ -7,8 +7,8 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\State\StateInterface;
-use Drupal\migrate\Entity\Migration;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
@@ -36,6 +36,11 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * @var MigrationInterface.
    */
   protected $migration;
+
+  /**
+   * Sign In menu item.
+   */
+  const DRUPAL_SIGN_IN_MENU_ITEM = 148;
 
   /**
    * {@inheritdoc}
@@ -67,9 +72,6 @@ class YmcaMigrateNodeBlog extends SqlBase {
     // @todo push logger only to the child class.
     $ymca_blogs_query = YmcaBlogsQuery::init($this, $this->migration);
 
-    // Saving state to DB. We will use it for Token Migrations.
-    $this->state->set('migrated_blog_ids', $ymca_blogs_query->getNeededIds());
-
     return $ymca_blogs_query->getQuery();
   }
 
@@ -94,6 +96,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+
     $components_tree = YmcaBlogComponentsTree::init(array(), $this, $row)
       ->getTree();
 
@@ -164,7 +167,93 @@ class YmcaMigrateNodeBlog extends SqlBase {
         break;
 
       default:
+        preg_match_all(
+          "/<a.*href=\"{{internal_page_link_[0-9][0-9]*}}\">.*<\/a>/mU",
+          $component['body'],
+          $test
+        );
+        if (empty($test) || empty($test[0])) {
+          $value = [$property => $component['body']];
+          break;
+        }
+        $html = Html::load($component['body']);
+        foreach ($test as $id => $matched) {
+          if (empty($matched)) {
+            continue;
+          }
+          foreach ($matched as $mid => $match) {
+            preg_match('/\>(.*?)\</mU', $match, $link_label);
+            if (!empty($link_label)) {
+              $link_label = $link_label[1];
+            }
+            else {
+              $link_label = '';
+            }
+
+            preg_match_all(
+              "/\{{internal_page_link_(.*?)\}}/",
+              $match,
+              $source_page_ids
+            );
+            $source_page_id = $source_page_ids[1][0];
+
+            $p = $html->createElement('drupal-entity');
+            $p->setAttribute('data-align', 'none');
+            $p->setAttribute('data-embed-button', 'menu_link');
+            $p->setAttribute(
+              'data-entity-embed-display',
+              'entity_reference:entity_reference_label_url'
+            );
+            $p->setAttribute(
+              'data-entity-embed-settings',
+              htmlspecialchars_decode(
+                '{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $link_label . '&quot;}'
+              )
+            );
+            /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
+            $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
+            $menu_id = $ymca_tokens_map->getMenuId($source_page_id);
+            if ($menu_id === FALSE) {
+              $p->setAttribute(
+                'data-entity-id', self::DRUPAL_SIGN_IN_MENU_ITEM
+              );
+              $p->setAttribute(
+                'data-entity-label', t(
+                  'Lost link to internal Page'
+                )
+              );
+              $this->idMap->saveMessage(
+                $this->getCurrentIds(),
+                $this->t(
+                  'Lost tokenizer link to internal Page for blog_post #@post: @component',
+                  array(
+                    '@component' => $component['rich_text'],
+                    '@post' => $component['blog_post_id']
+                  )
+                ),
+                MigrationInterface::MESSAGE_ERROR
+              );
+            }
+            else {
+              $p->setAttribute('data-entity-id', $menu_id);
+              $p->setAttribute('data-entity-label', $link_label);
+            }
+            $p->setAttribute('data-entity-type', 'menu_link_content');
+            $p->setAttribute(
+              'data-entity-uuid',
+              '6b6c92d5-abc0-4384-8800-cfaed6750738'
+            );
+            $html->appendChild($p);
+            $entity_embed_widget = $p->C14N();
+            $component['body'] = str_replace(
+              $match,
+              $entity_embed_widget,
+              $component['body']
+            );
+          }
+        }
         $value = [$property => $component['body']];
+        break;
     }
 
     return $value;
