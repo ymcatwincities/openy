@@ -140,9 +140,6 @@ class YmcaQueryBuilder {
    *
    * @param array $ids
    *   An array of IDs.
-   *
-   * @return \Drupal\Core\Database\Query\Query
-   *   Query.
    */
   public function getList(array $ids) {
     $this->addRequiredIds($ids);

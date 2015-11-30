@@ -88,8 +88,16 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
       $row->setSourceProperty('enabled', FALSE);
     }
 
-    $parent = $row->getSourceProperty('parent_id');
-    if ($parent == $this->getParentId()) {
+    // Get parent or parents.
+    if (!method_exists($this, 'getParentIds')) {
+      $parents = [$this->getParentId()];
+    }
+    else {
+      $parents = $this->getParentIds();
+    }
+
+    // Remove parents from root items within the menu.
+    if (in_array($row->getSourceProperty('site_page_id'), $parents)) {
       $row->setSourceProperty('parent_id', 0);
     }
   }

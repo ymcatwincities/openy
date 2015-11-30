@@ -46,29 +46,4 @@ class YmcaMigrateMenuLinkContentJobsSuppliersNews extends YmcaMigrateMenuLinkCon
     return 0;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function prepareRow(Row $row) {
-    // Page title could be empty, use page_name instead.
-    if ($title = $row->getSourceProperty('page_title')) {
-      $row->setSourceProperty('title', $title);
-    }
-    else {
-      $row->setSourceProperty('title', $row->getSourceProperty('page_name'));
-    }
-
-    $row->setSourceProperty('menu_name', $this->getMenu());
-    $row->setSourceProperty('link', ['uri' => 'internal:/']);
-
-    $row->setSourceProperty('enabled', TRUE);
-    if ($row->getSourceProperty('exclude_from_nav')) {
-      $row->setSourceProperty('enabled', FALSE);
-    }
-
-    if (in_array($row->getSourceProperty('site_page_id'), $this->getParentIds())) {
-      $row->setSourceProperty('parent_id', 0);
-    }
-  }
-
 }
