@@ -1,0 +1,15 @@
+uuid: cee7a98a-826e-4218-8b0b-11575d303c48
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - node
+label: Node
+id: node
+type_id: entity
+type_settings:
+  entity_type: node
+  bundles: {  }
+  display_plugins: {  }
+icon_uuid: null

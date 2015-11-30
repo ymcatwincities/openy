@@ -40,4 +40,9 @@ function ymca_link_formatter_entity_embed_display_plugins_for_context_alter(arra
     $definitions['entity_reference:entity_reference_label_url']['class'] = 'Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter\MenuEntityReferenceLabelFormatter';
     $definitions['entity_reference:entity_reference_label_url']['provider'] = 'ymca_link_formatter';
   }
+  if (isset($definitions['entity_reference:file_entity_reference_label_url'])) {
+    $definitions['entity_reference:file_entity_reference_label_url']['class'] = 'Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter\FileEntityReferenceLabelFormatter';
+    $definitions['entity_reference:file_entity_reference_label_url']['provider'] = 'ymca_link_formatter';
+  }
+
 }
