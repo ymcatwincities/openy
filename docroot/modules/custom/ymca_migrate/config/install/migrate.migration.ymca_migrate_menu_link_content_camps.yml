@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: camps
-    menu_parent_id: 6985
+    menu_parents: [6985]
 process:
   bundle:
     plugin: default_value

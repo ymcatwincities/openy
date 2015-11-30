@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: kids-teen-activities
-    menu_parent_id: 4835
+    menu_parents: [4835]
 process:
   bundle:
     plugin: default_value

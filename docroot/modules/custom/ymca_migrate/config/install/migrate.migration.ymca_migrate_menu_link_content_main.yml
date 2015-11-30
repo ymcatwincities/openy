@@ -7,6 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content_main
   constants:
     menu_name: main-menu
+    menu_parents: []
 process:
   bundle:
     plugin: default_value

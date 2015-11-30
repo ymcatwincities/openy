@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: locations
-    menu_parent_id: 7185
+    menu_parents: [7185]
 process:
   bundle:
     plugin: default_value

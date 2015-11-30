@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: community-programs
-    menu_parent_id: 5228
+    menu_parents: [5228]
 process:
   bundle:
     plugin: default_value

@@ -7,7 +7,7 @@ source:
   plugin: ymca_migrate_menu_link_content
   constants:
     menu_name: health-and-fitness
-    menu_parent_id: 4561
+    menu_parents: [4561]
 process:
   bundle:
     plugin: default_value
