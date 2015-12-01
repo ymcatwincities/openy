@@ -23,6 +23,34 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   // @codingStandardsIgnoreEnd
 
   /**
+   * Tokens replacement service.
+   *
+   * @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens.
+   */
+  public $replacetokens;
+
+  /**
+   * YmcaMigrateNodeBase constructor.
+   */
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    \Drupal\migrate\Entity\MigrationInterface $migration,
+    \Drupal\Core\State\StateInterface $state
+  ) {
+
+    $this->replacetokens = \Drupal::service('ymcareplacetokens.service');
+    parent::__construct(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $migration,
+      $state
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
@@ -32,10 +60,25 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
+      foreach ($item as $i_key => $i_value) {
+        if (is_array($i_value)) {
+//          $message = t('Item : @key -> data @count', array('@count' => var_export($i_value), '@key' => $i_key));
+//          \Drupal::logger('ymca_migrate')->error($message);
+          continue;
+        }
+        preg_match_all("/{{internal.*}}/im", $i_value, $test);
+        if (!empty($test) && !empty($test[0])) {
+          \Drupal::logger('ymca_migrate')->error($i_key . ' done');
+          $item[$i_key] = $this->replacetokens->processText($i_value);
+        }
+      }
+//      if (isset($item['body'])) {
+//        $item['body'] = $this->replacetokens->processText($item['body']);
+//      }
       if ($property = $this->checkMap(
         $row->getSourceProperty('theme_id'),
-        $item['content_area_index'],
-        $item['component_type']
+        isset($item['content_area_index']) ? $item['content_area_index'] : NULL,
+        isset($item['component_type']) ? $item['component_type'] : NULL
       )
       ) {
         // Set appropriate source properties.
@@ -118,12 +161,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    */
   protected function transform($property, array $component) {
     $value = [];
-
-    /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens $replace_tokens */
-    $replace_tokens = \Drupal::service('ymcareplacetokens.service');
-    if (isset($component['body'])) {
-      $component['body'] = $replace_tokens->processText($component['body']);
-    }
 
     switch ($component['component_type']) {
       case 'link':
@@ -219,8 +256,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'image':
-        $alt = $this->getAttributeData('alt_text', $component);
-        $asset_id = $this->getAttributeData('asset_id', $component);
         // For speed up the process use specific migrated asset id.
         // @todo Set proper asset id.
         $asset_id = 11712;
@@ -238,15 +273,13 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           $value['field_header_variant'] = 'image';
         }
         else {
-          // Here we use just inline image.
-          /** @var FileEntity $file */
-          $file = \Drupal::entityManager()->getStorage('file')->load(
-            $destination
-          );
-          $url = parse_url(file_create_url($file->getFileUri()));
-          $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
+          $asset_id = $this->getAttributeData('asset_id', $component);
+          $img = '<img src="{{internal_asset_link_' . $asset_id . '}}"/>';
+          // $url = parse_url(file_create_url($file->getFileUri()));
+          // $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
           $value[$property] = [
-            'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
+            'value' => $this->replacetokens->processText($img),
+            // 'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
             'format' => 'full_html',
           ];
         }
