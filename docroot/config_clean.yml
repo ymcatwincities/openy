@@ -126,6 +126,8 @@
       - { name: 'migrate.migration.ymca_migrate_menu_link_content_main.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_menu_link_content_swimming.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_node_page.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_node_camp.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_node_location.yml', status: true }
       - { name: 'core.entity_form_display.block_content.action_block.default.yml', status: true }
       - { name: 'core.entity_view_display.block_content.action_block.default.yml', status: true }
       - { name: 'field.field.block_content.action_block.body.yml', status: true }
