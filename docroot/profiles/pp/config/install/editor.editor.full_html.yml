@@ -42,7 +42,6 @@ settings:
             - block
             - ColumnButton
             - menu_link
-            - file
         -
           name: 'Block Formatting'
           items:

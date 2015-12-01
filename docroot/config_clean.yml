@@ -116,6 +116,16 @@
       - { name: 'migrate.migration.ymca_migrate_file_image.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_node_blog.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_taxonomy_term_tags.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_camps.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_child_care_preschool.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_community_programs.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_health_fitness.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_jobs_suppliers_news.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_kid_teen_activities.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_locations.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_main.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_menu_link_content_swimming.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_node_page.yml', status: true }
       - { name: 'core.entity_form_display.block_content.action_block.default.yml', status: true }
       - { name: 'core.entity_view_display.block_content.action_block.default.yml', status: true }
       - { name: 'field.field.block_content.action_block.body.yml', status: true }
