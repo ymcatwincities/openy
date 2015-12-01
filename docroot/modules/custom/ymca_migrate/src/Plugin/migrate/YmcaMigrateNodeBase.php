@@ -62,19 +62,13 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     foreach ($components_tree as $id => $item) {
       foreach ($item as $i_key => $i_value) {
         if (is_array($i_value)) {
-//          $message = t('Item : @key -> data @count', array('@count' => var_export($i_value), '@key' => $i_key));
-//          \Drupal::logger('ymca_migrate')->error($message);
           continue;
         }
         preg_match_all("/{{internal.*}}/im", $i_value, $test);
         if (!empty($test) && !empty($test[0])) {
-          \Drupal::logger('ymca_migrate')->error($i_key . ' done');
           $item[$i_key] = $this->replacetokens->processText($i_value);
         }
       }
-//      if (isset($item['body'])) {
-//        $item['body'] = $this->replacetokens->processText($item['body']);
-//      }
       if ($property = $this->checkMap(
         $row->getSourceProperty('theme_id'),
         isset($item['content_area_index']) ? $item['content_area_index'] : NULL,
@@ -275,11 +269,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         else {
           $asset_id = $this->getAttributeData('asset_id', $component);
           $img = '<img src="{{internal_asset_link_' . $asset_id . '}}"/>';
-          // $url = parse_url(file_create_url($file->getFileUri()));
-          // $string = '<p><img alt="%s" data-entity-type="file" data-entity-uuid="%s" src="%s" /></p>';
           $value[$property] = [
             'value' => $this->replacetokens->processText($img),
-            // 'value' => sprintf($string, $alt, $file->uuid(), $url['path']),
             'format' => 'full_html',
           ];
         }
