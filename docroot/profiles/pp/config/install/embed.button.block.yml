@@ -7,6 +7,7 @@ dependencies:
     - block_content.type.code_block
     - block_content.type.date_block
     - block_content.type.expander_block
+    - block_content.type.image_block
     - block_content.type.promo_block
   module:
     - block_content
@@ -21,6 +22,7 @@ type_settings:
     - code_block
     - date_block
     - expander_block
+    - image_block
     - promo_block
   display_plugins:
     - 'entity_reference:entity_reference_entity_view'
