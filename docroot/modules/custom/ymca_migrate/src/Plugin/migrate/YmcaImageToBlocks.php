@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Service for creating/reusing Image Blocks
+ * Service for creating/reusing Image Blocks.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
@@ -59,8 +59,9 @@ class YmcaImageToBlocks {
           'field_image' => $file_id,
           'info' => t('Image block for AMM asset: @id', array('@id' => $asset_id)),
           'type' => 'image_block'
-        ])->enforceIsNew();
-        $block->save();
+        ])
+        ->enforceIsNew();
+      $block->save();
       // @todo create new block with already migrated asset ID.
       return $block;
     }
@@ -72,4 +73,5 @@ class YmcaImageToBlocks {
     }
 
   }
+
 }

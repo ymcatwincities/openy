@@ -218,7 +218,6 @@ class YmcaReplaceTokens {
    * Replace tokens links to  images.
    */
   private function replaceImageLinksTokens() {
-    // <img class="alignright" style="margin:0 0 15px 15px;" src="{{internal_asset_link_11714}}" alt="Gentle Yoga—what’s it all about?" width="230" height="166" />
     preg_match_all(
       "/<img.*src=\"{{internal_asset_link_[0-9][0-9]*}}\".*\/>/mU",
       $this->string,
@@ -276,7 +275,7 @@ class YmcaReplaceTokens {
           'data-entity-uuid',
           $block->uuid()
         );
-        
+
         $this->html->appendChild($p);
         $entity_embed_widget = $p->C14N();
         $this->string = str_replace(
