@@ -118,6 +118,13 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    */
   protected function transform($property, array $component) {
     $value = [];
+
+    /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens $replace_tokens */
+    $replace_tokens = \Drupal::service('ymcareplacetokens.service');
+    if (isset($component['body'])) {
+      $component['body'] = $replace_tokens->processText($component['body']);
+    }
+
     switch ($component['component_type']) {
       case 'link':
         $value['field_header_variant'] = 'button';
