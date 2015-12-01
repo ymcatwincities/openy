@@ -150,7 +150,7 @@ class YmcaQueryBuilder {
    * Build query by selecting specific bundle.
    *
    * @param string $bundle
-   *
+   *   Bundle name.
    */
   public function getByBundle($bundle) {
     $this->query->condition('theme_id', $this->getThemesByBundle($bundle), 'IN');
