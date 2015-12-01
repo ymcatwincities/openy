@@ -219,7 +219,7 @@ class YmcaReplaceTokens {
    */
   private function replaceImageLinksTokens() {
     preg_match_all(
-      "/<img.*src=\"{{internal_asset_link_[0-9][0-9]*}}\".*\/>/mU",
+      "/<img.*src=\"{{internal_asset_link_[0-9][0-9]*}}\".*>/mU",
       $this->string,
       $test
     );
