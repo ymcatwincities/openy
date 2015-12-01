@@ -48,6 +48,7 @@ migration_dependencies:
   required:
     - ymca_migrate_taxonomy_term_tags
     - ymca_migrate_file_image
+    - ymca_migrate_file
     - ymca_migrate_menu_link_content_kid_teen_activities
     - ymca_migrate_menu_link_content_camps
     - ymca_migrate_menu_link_content_child_care_preschool
