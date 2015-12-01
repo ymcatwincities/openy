@@ -3,9 +3,20 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.camp.field_alert
+    - field.field.node.camp.field_alternate_location
+    - field.field.node.camp.field_body
+    - field.field.node.camp.field_camp_links
     - field.field.node.camp.field_content
+    - field.field.node.camp.field_facebook_page_id
+    - field.field.node.camp.field_include_general_blog_posts
+    - field.field.node.camp.field_location
+    - field.field.node.camp.field_main_promos
+    - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_registration_block
     - node.type.camp
   module:
+    - address
     - path
     - text
 id: node.camp.default
@@ -18,6 +29,35 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_alert:
+    weight: 35
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_alternate_location:
+    weight: 33
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_body:
+    weight: 36
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_camp_links:
+    weight: 37
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_content:
     weight: 31
     settings:
@@ -25,6 +65,49 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_facebook_page_id:
+    weight: 40
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_include_general_blog_posts:
+    weight: 41
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_location:
+    weight: 32
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_main_promos:
+    weight: 38
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_promo_slideshow:
+    weight: 34
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_registration_block:
+    weight: 39
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   langcode:
     type: language_select
     weight: 2

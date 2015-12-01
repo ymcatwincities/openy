@@ -1,18 +1,18 @@
-uuid: 83ca592d-82fa-4c47-8b00-a8cbb069fea1
+uuid: 04c43dca-1348-43bd-9503-3e50e7eb23fc
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_include_general_blog_posts
-    - node.type.location
-id: node.location.field_include_general_blog_posts
+    - node.type.camp
+id: node.camp.field_include_general_blog_posts
 field_name: field_include_general_blog_posts
 entity_type: node
-bundle: location
+bundle: camp
 label: 'Include general blog posts'
-description: 'checkbox “Include general blog posts”. If enabled we add posts from /blog feed into location’s blog.'
+description: 'Checkbox “Include general blog posts”. If enabled we add posts from /blog feed into location’s blog.'
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     value: 0
