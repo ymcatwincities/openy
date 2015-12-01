@@ -5,3 +5,5 @@ services:
     class: Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap
   ymcareplacetokens.service:
     class: Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens
+  ymcaimgtoblocks.service:
+    class: Drupal\ymca_migrate\Plugin\migrate\YmcaImageToBlocks

@@ -248,43 +248,35 @@ class YmcaReplaceTokens {
         $source_asset_id = $source_assets_ids[1][0];
 
         /*
-         * <drupal-entity data-align="none" data-embed-button="file" data-entity-embed-display="entity_reference:file_entity_reference_label_url" data-entity-embed-settings="{&quot;file_link&quot;:1,&quot;file_title&quot;:&quot;Custom file title&quot;}" data-entity-id="11" data-entity-label="File" data-entity-type="file" data-entity-uuid="15600458-5a9f-41a2-ac08-8bd7e0aa0cf2"></drupal-entity>
+         * <drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="166" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="789cb718-5793-47bd-8f00-b6a85229aa32"></drupal-entity>
          */
         $p = $this->html->createElement('drupal-entity');
         $p->setAttribute('data-align', 'none');
-        $p->setAttribute('data-embed-button', 'file');
-        $p->setAttribute('data-entity-type', 'file');
+        $p->setAttribute('data-embed-button', 'block');
+        $p->setAttribute('data-entity-type', 'block_content');
         $p->setAttribute(
           'data-entity-embed-display',
-          'entity_reference:file_entity_reference_label_url'
+          'entity_reference:entity_reference_entity_view'
         );
         $p->setAttribute(
           'data-entity-embed-settings',
           htmlspecialchars_decode(
-            '{&quot;file_link&quot;:1,&quot;file_title&quot;:&quot;' . $link_label . '&quot;}'
+            '{&quot;view_mode&quot;:&quot;default&quot;}'
           )
         );
-        $p->setAttribute('data-entity-type', 'file');
-        /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap $ymca_asset_tokens_map */
-        $ymca_asset_tokens_map = \Drupal::service('ymcaassetstokensmap.service');
-        $file_id = $ymca_asset_tokens_map->getAssetId($source_asset_id);
-        if ($file_id === FALSE) {
-          // @todo log.
-          return;
-        }
-        else {
-          $p->setAttribute('data-entity-id', $file_id);
-          $p->setAttribute('data-entity-label', $link_label);
-          $file_entity = \Drupal::entityManager()->getStorage(
-            'file'
-          )->load($file_id);
-          $file_uuid = $file_entity->uuid();
-          $p->setAttribute(
-            'data-entity-uuid',
-            $file_uuid
-          );
-        }
 
+        /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaImageToBlocks $ymca_image_blocks */
+        $ymca_image_blocks = \Drupal::service('ymcaimgtoblocks.service');
+        $block = $ymca_image_blocks->getBlock($source_asset_id);
+
+        $p->setAttribute('data-entity-id', $block->id());
+        $info = $block->get('info')->getValue();
+        $p->setAttribute('data-entity-label', $info[0]['value']);
+        $p->setAttribute(
+          'data-entity-uuid',
+          $block->uuid()
+        );
+        
         $this->html->appendChild($p);
         $entity_embed_widget = $p->C14N();
         $this->string = str_replace(
