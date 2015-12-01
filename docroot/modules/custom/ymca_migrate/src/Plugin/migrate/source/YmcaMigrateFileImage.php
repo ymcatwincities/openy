@@ -43,7 +43,8 @@ class YmcaMigrateFileImage extends SqlBase {
         8374,
         8375,
         8376,
-        1929
+        1929,
+        9144
       ],
       'IN'
     );
