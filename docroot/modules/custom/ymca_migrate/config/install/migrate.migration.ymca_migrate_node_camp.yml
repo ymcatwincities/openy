@@ -1,0 +1,27 @@
+id: ymca_migrate_node_camp
+label: Camps migration.
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_node_camp
+process:
+  type:
+    plugin: default_value
+    default_value: camp
+  title: page_title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: entity:node
+migration_dependencies:
+  required:
+    - ymca_migrate_file_image

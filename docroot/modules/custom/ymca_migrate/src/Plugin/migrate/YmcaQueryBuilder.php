@@ -146,4 +146,37 @@ class YmcaQueryBuilder {
     $this->query->condition('site_page_id', $this->getRequiredIds(), 'IN');
   }
 
+  /**
+   * Build query by selecting specific bundle.
+   *
+   * @param string $bundle
+   *   Bundle name.
+   */
+  public function getByBundle($bundle) {
+    $this->query->condition('theme_id', $this->getThemesByBundle($bundle), 'IN');
+  }
+
+  /**
+   * Get theme IDs by bundle.
+   *
+   * @param string $bundle
+   *   Bundle name.
+   *
+   * @return array
+   *   Array of theme IDs.
+   */
+  private function getThemesByBundle($bundle) {
+    $data = [
+      'page' => [22, 23, 29, 31, 17, 19],
+      'location' => [24],
+      'camp' => [18],
+    ];
+
+    if (!array_key_exists($bundle, $data)) {
+      return [];
+    }
+
+    return $data[$bundle];
+  }
+
 }
