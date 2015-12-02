@@ -4,7 +4,17 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.camp.field_alert
+    - field.field.node.camp.field_alternate_location
+    - field.field.node.camp.field_body
+    - field.field.node.camp.field_camp_links
     - field.field.node.camp.field_content
+    - field.field.node.camp.field_facebook_page_id
+    - field.field.node.camp.field_include_general_blog_posts
+    - field.field.node.camp.field_location
+    - field.field.node.camp.field_main_promos
+    - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_registration_block
     - node.type.camp
   module:
     - user
@@ -16,5 +26,15 @@ content:
   links:
     weight: 100
 hidden:
+  field_alert: true
+  field_alternate_location: true
+  field_body: true
+  field_camp_links: true
   field_content: true
+  field_facebook_page_id: true
+  field_include_general_blog_posts: true
+  field_location: true
+  field_main_promos: true
+  field_promo_slideshow: true
+  field_registration_block: true
   langcode: true
