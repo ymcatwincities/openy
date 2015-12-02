@@ -60,7 +60,7 @@
     <ul class="nav dropdown-menu"></ul>
   </li>
   {{ else }}
-  <li class="{{#if current}} current{{/if}} {{ dasherized }}{&#123;&#35;if abe_page }} abe{{/if}}">
+  <li class="{{#if current}} current{{/if}} {{ dasherized }}{{#if abe_page }} abe{{/if}}">
     <a href="{{ url }}" class="{{ classes }} {{#if overview }}overview {{/if}} link">{{ page_name }}</a>
   </li>
   {{/if}}
@@ -211,7 +211,7 @@
       <ul class="nav-level-3 nav nav-stacked">
         {{#each children }}
         {{#unless overview }}
-        <li class="{{#if children }} dropdown {&#123;&#35;if active }} open{{/if}}{{/if}}{&#123;&#35;if current}} current{{/if}}">
+        <li class="{{#if children }} dropdown {{#if active }} open{{/if}}{{/if}}{{#if current}} current{{/if}}">
           {{#unless children }}
           <a href="{{ url }}" class="">{{ page_name }}</a>
           {{ else }}
@@ -224,7 +224,7 @@
           </li> --}}
             {{#each children}}
             {{#unless overview}}
-            <li class="{{ classes }}{{#if children}} dropdown {&#123;&#35;if active }} open{{/if}}{{/if}}{&#123;&#35;if current}} current{{/if}}">
+            <li class="{{ classes }}{{#if children}} dropdown {{#if active }} open{{/if}}{{/if}}{{#if current}} current{{/if}}">
               {{#unless children }}
               <a href="{{ url }}" class="{{ classes }}">{{ page_name }}</a>
               {{ else }}
@@ -238,7 +238,7 @@
                 --}}
                 {{#each children }}
                 {{#unless overview}}
-                <li class="{{#if children}} dropdown {&#123;&#35;if active }} open{{/if}}{{/if}}{&#123;&#35;if current}} current{{/if}}">
+                <li class="{{#if children}} dropdown {{#if active }} open{{/if}}{{/if}}{{#if current}} current{{/if}}">
                   {{#unless children }}
                   <a href="{{ url }}" class="">{{ page_name }}</a>
                   {{ else }}
