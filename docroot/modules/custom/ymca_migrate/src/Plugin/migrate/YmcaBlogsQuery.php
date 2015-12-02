@@ -130,7 +130,7 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
     $this->query->fields(
       'cl',
       [
-        'value',
+        'label_id',
       ]
     );
   }

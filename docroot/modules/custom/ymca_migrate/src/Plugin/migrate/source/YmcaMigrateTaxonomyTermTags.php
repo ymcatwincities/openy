@@ -33,7 +33,7 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
    */
   public function fields() {
     $fields = [
-      'tag_id' => $this->t('Tag id'),
+      'label_id' => $this->t('Tag id'),
       'tag_name' => $this->t('Tag name'),
       'top_raw_tag_name' => $this->t('Raw tag name'),
     ];
@@ -53,10 +53,6 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
     $row->setSourceProperty(
       'top_raw_tag_name',
       $row->getSourceProperty('value')
-    );
-    $row->setSourceProperty(
-      'tag_id',
-      $row->getSourceProperty('label_id')
     );
 
     return parent::prepareRow($row);
