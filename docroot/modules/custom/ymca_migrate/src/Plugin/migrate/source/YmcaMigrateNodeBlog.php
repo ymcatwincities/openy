@@ -152,6 +152,13 @@ class YmcaMigrateNodeBlog extends SqlBase {
     // As we have a lot of components and their logic is sophisticated I propose to use plugins.
     // Plugins could be reused within different migrations.
     $value = [];
+
+    /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens $replace_tokens */
+    $replace_tokens = \Drupal::service('ymcareplacetokens.service');
+    if (isset($component['body'])) {
+      $component['body'] = $replace_tokens->processText($component['body']);
+    }
+
     switch ($component['component_type']) {
 
       case 'image':
@@ -167,9 +174,6 @@ class YmcaMigrateNodeBlog extends SqlBase {
         break;
 
       default:
-        /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens $replace_tokens */
-        $replace_tokens = \Drupal::service('ymcareplacetokens.service');
-        $component['body'] = $replace_tokens->processText($component['body']);
         $value = [$property => $component['body']];
         break;
     }
