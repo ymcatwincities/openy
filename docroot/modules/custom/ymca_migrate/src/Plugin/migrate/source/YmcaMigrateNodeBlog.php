@@ -87,6 +87,8 @@ class YmcaMigrateNodeBlog extends SqlBase {
       'content' => $this->t('Content'),
       'image' => $this->t('Teaser image'),
       'image_alt' => $this->t('Teaser image alt'),
+      'blog_id' => $this->t('ID for blog'),
+      'author' => $this->t('Author for the blog'),
     ];
 
     return $fields;
