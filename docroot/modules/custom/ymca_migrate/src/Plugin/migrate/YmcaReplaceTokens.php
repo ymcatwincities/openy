@@ -52,6 +52,7 @@ class YmcaReplaceTokens {
     $this->html = Html::load($this->string);
     $this->replacePageTokens();
     $this->replaceAssetLinksTokens();
+    $this->replaceImageLinksTokens();
     return $this->string;
   }
 
@@ -60,7 +61,7 @@ class YmcaReplaceTokens {
    */
   private function replacePageTokens() {
     preg_match_all(
-      "/<a.*href=\"{{internal_page_link_[0-9][0-9]*}}\">.*<\/a>/mU",
+      "/<a.*href=\"{{internal_page_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
       $this->string,
       $test
     );
@@ -137,7 +138,7 @@ class YmcaReplaceTokens {
    */
   private function replaceAssetLinksTokens() {
     preg_match_all(
-      "/<a.*href=\"{{internal_asset_link_[0-9][0-9]*}}\">.*<\/a>/mU",
+      "/<a.*href=\"{{internal_asset_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
       $this->string,
       $test
     );
@@ -201,6 +202,79 @@ class YmcaReplaceTokens {
             $file_uuid
           );
         }
+
+        $this->html->appendChild($p);
+        $entity_embed_widget = $p->C14N();
+        $this->string = str_replace(
+          $match,
+          $entity_embed_widget,
+          $this->string
+        );
+      }
+    }
+  }
+
+  /**
+   * Replace tokens links to  images.
+   */
+  private function replaceImageLinksTokens() {
+    preg_match_all(
+      "/<img.*src=\"{{internal_asset_link_[0-9][0-9]*}}\".*>/mU",
+      $this->string,
+      $test
+    );
+    if (empty($test) || empty($test[0])) {
+      return;
+    }
+    foreach ($test as $id => $matched) {
+      if (empty($matched)) {
+        continue;
+      }
+      foreach ($matched as $mid => $match) {
+        preg_match('/\>(.*?)\</mU', $match, $link_label);
+        if (!empty($link_label)) {
+          $link_label = $link_label[1];
+        }
+        else {
+          $link_label = '';
+        }
+
+        preg_match_all(
+          "/\{{internal_asset_link_(.*?)\}}/",
+          $match,
+          $source_assets_ids
+        );
+        $source_asset_id = $source_assets_ids[1][0];
+
+        /*
+         * <drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="166" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="789cb718-5793-47bd-8f00-b6a85229aa32"></drupal-entity>
+         */
+        $p = $this->html->createElement('drupal-entity');
+        $p->setAttribute('data-align', 'none');
+        $p->setAttribute('data-embed-button', 'block');
+        $p->setAttribute('data-entity-type', 'block_content');
+        $p->setAttribute(
+          'data-entity-embed-display',
+          'entity_reference:entity_reference_entity_view'
+        );
+        $p->setAttribute(
+          'data-entity-embed-settings',
+          htmlspecialchars_decode(
+            '{&quot;view_mode&quot;:&quot;default&quot;}'
+          )
+        );
+
+        /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaImageToBlocks $ymca_image_blocks */
+        $ymca_image_blocks = \Drupal::service('ymcaimgtoblocks.service');
+        $block = $ymca_image_blocks->getBlock($source_asset_id);
+
+        $p->setAttribute('data-entity-id', $block->id());
+        $info = $block->get('info')->getValue();
+        $p->setAttribute('data-entity-label', $info[0]['value']);
+        $p->setAttribute(
+          'data-entity-uuid',
+          $block->uuid()
+        );
 
         $this->html->appendChild($p);
         $entity_embed_widget = $p->C14N();

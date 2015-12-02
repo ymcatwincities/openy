@@ -64,7 +64,7 @@ class YmcaAssetsTokensMap {
     /* @var \Drupal\migrate\Entity\Migration $migration */
     foreach ($this->migrations as $id => $migration) {
       $map = $migration->getIdMap();
-      $dest = $map->getRowBySource(array('asset_id' => $source_id));
+      $dest = $map->getRowBySource(array('asset_id' => $source_id, 'id' => $source_id));
       if (!empty($dest)) {
         return $dest['destid1'];
       }
