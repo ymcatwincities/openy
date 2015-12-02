@@ -41,7 +41,7 @@ class YMCAMenuController extends ControllerBase {
     $this->database = $database;
   }
 
-   /**
+  /**
    * Outputs JSON-response.
    */
   public function json() {
@@ -197,4 +197,5 @@ class YMCAMenuController extends ControllerBase {
       'url' => "u",
     ];
   }
+
 }
