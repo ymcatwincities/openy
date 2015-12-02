@@ -16,6 +16,7 @@ global-styling:
     scripts/legacy/main.min.js: {}
   dependencies:
     - core/jquery
+    - core/drupal
 
 add-this:
   version: 0
