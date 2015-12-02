@@ -1,0 +1,7 @@
+ymca_menu.json_sitemap:
+  path: '/menu-json'
+  defaults:
+    _controller: '\Drupal\ymca_menu\Controller\YMCAMenuController::json'
+    _title: 'Site Menu JSON object'
+  requirements:
+    _access: 'TRUE'

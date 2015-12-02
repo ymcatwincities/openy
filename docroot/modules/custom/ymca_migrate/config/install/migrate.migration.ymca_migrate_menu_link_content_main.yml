@@ -16,6 +16,7 @@ process:
   menu_name: menu_name
   link: link
   weight: sequence_index
+  enabled: enabled
   parent:
     plugin: default_value
     default_value: 0
