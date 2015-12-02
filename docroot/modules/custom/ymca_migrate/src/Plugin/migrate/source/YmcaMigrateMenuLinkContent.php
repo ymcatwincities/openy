@@ -76,14 +76,7 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Page title could be empty, use page_name instead.
-    if ($title = $row->getSourceProperty('page_title')) {
-      $row->setSourceProperty('title', $title);
-    }
-    else {
-      $row->setSourceProperty('title', $row->getSourceProperty('page_name'));
-    }
-
+    $row->setSourceProperty('title', $row->getSourceProperty('page_name'));
     $row->setSourceProperty('menu_name', $this->getMenu());
     $row->setSourceProperty('link', ['uri' => 'internal:/']);
 
