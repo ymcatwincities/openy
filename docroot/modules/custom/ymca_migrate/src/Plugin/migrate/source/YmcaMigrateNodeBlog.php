@@ -99,17 +99,6 @@ class YmcaMigrateNodeBlog extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $source_tag_name = $row->getSourceProperty('value');
-    $term_query = \Drupal::entityQuery('taxonomy_term')
-      ->condition('vid', 'tags')
-      ->condition('name', $source_tag_name)
-      ->execute();
-    if (!empty($term_query)) {
-      $row->setSourceProperty(
-        'term_id',
-        array_shift($term_query)
-      );
-    }
 
     $components_tree = YmcaBlogComponentsTree::init(array(), $this, $row)
       ->getTree();
