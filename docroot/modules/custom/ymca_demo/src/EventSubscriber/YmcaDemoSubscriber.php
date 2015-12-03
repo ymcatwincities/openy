@@ -10,6 +10,11 @@ use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class YmcaDemoSubscriber.
+ *
+ * @package Drupal\ymca_demo\EventSubscriber
+ */
 class YmcaDemoSubscriber implements EventSubscriberInterface {
 
   /**
