@@ -44,7 +44,7 @@ abstract class YmcaMigrateUrlAliasBase extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $row->setSourceProperty('source', $this->getSourcePath($row->getSourceProperty('site_page_id')));
+    $row->setSourceProperty('source', $this->getSourcePath(['site_page_id' => $row->getSourceProperty('site_page_id')]));
     $row->setSourceProperty('alias', rtrim($row->getSourceProperty('page_subdirectory'), '/'));
     return parent::prepareRow($row);
   }
@@ -63,16 +63,16 @@ abstract class YmcaMigrateUrlAliasBase extends SqlBase {
   /**
    * Get source path.
    *
-   * @param int $source_id
-   *   Source ID.
+   * @param array $source
+   *   Example: ['site_page_id' => 10].
    *
    * @return bool|string
    *   Source path.
    */
-  protected function getSourcePath($source_id) {
+  protected function getSourcePath(array $source) {
     foreach ($this->migrations as $id => $migration) {
       $map = $migration->getIdMap();
-      $dest = $map->getRowBySource(array('site_page_id' => $source_id));
+      $dest = $map->getRowBySource($source);
       if (!empty($dest)) {
         return sprintf('/node/%d', $dest['destid1']);
       }
