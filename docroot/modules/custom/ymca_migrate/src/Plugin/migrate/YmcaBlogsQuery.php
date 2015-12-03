@@ -110,7 +110,7 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
         'modified_on',
         'blog_id',
         'author',
-        'publication_date'
+        'publication_date',
       ]
     );
     $this->query->addJoin('LEFT', 'catalog_entry', 'ce', 'b.blog_post_id = ce.entity_id');
