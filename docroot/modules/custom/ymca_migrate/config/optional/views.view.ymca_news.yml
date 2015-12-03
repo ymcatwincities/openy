@@ -1,4 +1,4 @@
-uuid: 3b3fbcd8-4c9e-4a96-b000-b28b86d9eabd
+uuid: 0c7b3ed3-d92a-4833-9b05-5e93f5ab6e44
 langcode: en
 status: true
 dependencies:
@@ -6,19 +6,15 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - node.type.blog
     - system.menu.main-menu
-    - taxonomy.vocabulary.tags
-  content:
-    - 'taxonomy_term:tags:7e6926b4-147e-465d-ad00-f34103ab4070'
-    - 'taxonomy_term:tags:b52e230c-5462-456e-a32e-465085ce49a7'
-    - 'taxonomy_term:tags:bd97a719-aa91-40c1-945a-90dbfa9dff6e'
-    - 'taxonomy_term:tags:c7efe31e-c2f4-42f8-984f-798ec0211dc5'
-    - 'taxonomy_term:tags:f124da65-1e50-44da-910a-10caf3d0bccb'
+#    - taxonomy.vocabulary.tags
+  content: []
+#    - 'taxonomy_term:tags:8da3e4c0-202b-45bd-a233-511d74d785d2'
   module:
     - node
-    - taxonomy
+#    - taxonomy
     - user
-id: ymca_twin_cities_blog
-label: 'YMCA Twin Cities Blog'
+id: ymca_news
+label: 'YMCA News'
 module: views
 description: ''
 tag: ''
@@ -162,11 +158,7 @@ display:
           admin_label: ''
           operator: or
           value:
-            1: 1
-            2: 2
-            3: 3
-            4: 4
-            5: 5
+            6: 6
           group: 1
           exposed: false
           expose:
@@ -217,7 +209,7 @@ display:
           expose:
             label: ''
           granularity: second
-      title: 'YMCA Twin Cities Blog'
+      title: 'YMCA News'
       header: {  }
       footer: {  }
       empty: {  }
@@ -247,7 +239,7 @@ display:
         type: some
       style:
         type: rss
-      path: blog/subscribe/index.xml
+      path: news/subscribe/index.xml
       displays:
         default: default
         page_1: page_1
@@ -267,10 +259,15 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: blog
+      path: news
       menu:
         type: normal
-        title: Blog
+        title: News
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
         menu_name: main-menu
     cache_metadata:
       max-age: -1
