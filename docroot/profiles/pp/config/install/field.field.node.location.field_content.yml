@@ -1,0 +1,21 @@
+uuid: d75f11b9-928e-4221-9913-19fc4f2ca029
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.location
+  module:
+    - text
+id: node.location.field_content
+field_name: field_content
+entity_type: node
+bundle: location
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

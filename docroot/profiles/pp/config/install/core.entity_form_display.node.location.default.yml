@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.location.field_alert
-    - field.field.node.location.field_body
+    - field.field.node.location.field_content
     - field.field.node.location.field_facebook_page_id
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
@@ -39,14 +39,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_body:
-    weight: 8
+  field_content:
+    weight: 26
     settings:
-      rows: 9
-      summary_rows: 3
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea_with_summary
+    type: text_textarea
   field_facebook_page_id:
     weight: 12
     settings:

@@ -20,6 +20,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   // @codingStandardsIgnoreStart
   const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;
   const YMCA_2013_LOCATIONS_CAMPS = 18;
+  const YMCA_2013_LOCATION_HOME = 24;
   // @codingStandardsIgnoreEnd
 
   /**
@@ -423,6 +424,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   public static function getMap() {
     return [
       self::YMCA_2013_LOCATIONS_CAMPS => [
+        1 => [
+          'rich_text' => 'field_content',
+        ],
+      ],
+      self::YMCA_2013_LOCATION_HOME => [
         1 => [
           'rich_text' => 'field_content',
         ],
