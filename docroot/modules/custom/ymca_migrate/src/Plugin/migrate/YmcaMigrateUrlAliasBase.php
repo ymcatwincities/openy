@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * @file
+ * Contains source plugin for url aliases.
+ */
+
+namespace Drupal\ymca_migrate\Plugin\migrate;
+
+use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate\Row;
+
+/**
+ * Base source plugin for url aliases.
+ */
+abstract class YmcaMigrateUrlAliasBase extends SqlBase {
+
+  /**
+   * Required migrations.
+   *
+   * @var array
+   */
+  protected $migrations = [];
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, $migration, $state) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
+    $this->prepopulateMigrations();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fields() {
+    return [
+      'source' => $this->t('Source path'),
+      'alias' => $this->t('Path alias'),
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $row->setSourceProperty('source', $this->getSourcePath($row->getSourceProperty('site_page_id')));
+    $row->setSourceProperty('alias', rtrim($row->getSourceProperty('page_subdirectory'), '/'));
+    return parent::prepareRow($row);
+  }
+
+  /**
+   * Prepopulate required migrations.
+   */
+  protected function prepopulateMigrations() {
+    $requirements = $this->migration->get('requirements');
+    $this->migrations = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage('migration')
+      ->loadMultiple($requirements);
+  }
+
+  /**
+   * Get source path.
+   *
+   * @param int $source_id
+   *   Source ID.
+   *
+   * @return bool|string
+   *   Source path.
+   */
+  protected function getSourcePath($source_id) {
+    foreach ($this->migrations as $id => $migration) {
+      $map = $migration->getIdMap();
+      $dest = $map->getRowBySource(array('site_page_id' => $source_id));
+      if (!empty($dest)) {
+        return sprintf('/node/%d', $dest['destid1']);
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIds() {
+    return [
+      'site_page_id' => [
+        'type' => 'integer',
+        'alias' => 'p',
+      ],
+    ];
+  }
+
+}
