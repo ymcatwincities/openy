@@ -6,14 +6,11 @@
 
 namespace Drupal\ymca_migrate\EventSubscriber;
 
-
 use Drupal\Component\Serialization\Yaml;
-use Drupal\file\Entity\File;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\views\Entity\View;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Mapping\Loader\YamlFileLoader;
 
 /**
  * Class MigrationEvents.
