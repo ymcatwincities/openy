@@ -81,6 +81,11 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
         856,
         855,
         854,
+        825,
+        850,
+        841,
+        832,
+        831,
       ]
     );
     $this->initQuery();
@@ -103,6 +108,29 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
         'title',
         'created_on',
         'modified_on',
+        'blog_id',
+        'author',
+      ]
+    );
+    $this->query->addJoin('LEFT', 'catalog_entry', 'ce', 'b.blog_post_id = ce.entity_id');
+    $this->query->fields(
+      'ce',
+      [
+        'entry_id',
+      ]
+    );
+    $this->query->addJoin('LEFT', 'catalog_label_association', 'cla', 'ce.entry_id = cla.entry_id');
+    $this->query->fields(
+      'cla',
+      [
+        'entry_id',
+      ]
+    );
+    $this->query->addJoin('LEFT', 'catalog_label', 'cl', 'cla.label_id = cl.label_id');
+    $this->query->fields(
+      'cl',
+      [
+        'label_id',
       ]
     );
   }
