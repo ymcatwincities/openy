@@ -2,22 +2,31 @@
 
 /**
  * @file
- * Contains migration for camps.
+ * Contains source plugin for url aliases.
  */
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
-use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateNodeBase;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateUrlAliasBase;
 
 /**
- * Source plugin for node:camp content.
+ * Source plugin for url aliases.
  *
  * @MigrateSource(
- *   id = "ymca_migrate_node_camp"
+ *   id = "ymca_migrate_url_alias_camp"
  * )
  */
-class YmcaMigrateNodeCamp extends YmcaMigrateNodeBase {
+class YmcaMigrateUrlAliasCamp extends YmcaMigrateUrlAliasBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getRequirements() {
+    return [
+      'ymca_migrate_node_camp',
+    ];
+  }
 
   /**
    * {@inheritdoc}
@@ -28,17 +37,6 @@ class YmcaMigrateNodeCamp extends YmcaMigrateNodeBase {
     // @todo Remove on it's time.
     $query_builder->setRange(0, 5);
     return $query_builder->build();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fields() {
-    $fields = [
-      'site_page_id' => $this->t('Page ID'),
-      'page_title' => $this->t('Page title'),
-    ];
-    return $fields;
   }
 
 }

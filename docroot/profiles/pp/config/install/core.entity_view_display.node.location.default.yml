@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.location.field_alert
-    - field.field.node.location.field_body
+    - field.field.node.location.field_content
     - field.field.node.location.field_facebook_page_id
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
@@ -32,8 +32,8 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_body:
-    weight: 106
+  field_content:
+    weight: 113
     label: above
     settings: {  }
     third_party_settings: {  }

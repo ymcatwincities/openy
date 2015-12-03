@@ -8,7 +8,6 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
-use Drupal\file_entity\Entity\FileEntity;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
@@ -20,6 +19,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
   // @codingStandardsIgnoreStart
   const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;
+  const YMCA_2013_LOCATIONS_CAMPS = 18;
+  const YMCA_2013_LOCATION_HOME = 24;
   // @codingStandardsIgnoreEnd
 
   /**
@@ -422,6 +423,16 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    */
   public static function getMap() {
     return [
+      self::YMCA_2013_LOCATIONS_CAMPS => [
+        1 => [
+          'rich_text' => 'field_content',
+        ],
+      ],
+      self::YMCA_2013_LOCATION_HOME => [
+        1 => [
+          'rich_text' => 'field_content',
+        ],
+      ],
       self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
         1 => [
           'rich_text' => 'field_lead_description',
