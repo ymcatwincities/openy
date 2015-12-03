@@ -19,7 +19,6 @@ dependencies:
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_status
-    - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - node.type.article
   module:
@@ -29,13 +28,6 @@ targetEntityType: node
 bundle: article
 mode: teaser
 content:
-  field_tags:
-    type: entity_reference_label
-    weight: 10
-    settings:
-      link: true
-    third_party_settings: {  }
-    label: above
   links:
     weight: 100
 hidden:
@@ -54,6 +46,5 @@ hidden:
   field_sidebar: true
   field_sidebar_navigation: true
   field_status: true
-  field_tags: true
   field_title_description: true
   langcode: true

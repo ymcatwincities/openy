@@ -19,7 +19,6 @@ dependencies:
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_status
-    - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - node.type.article
   module:
@@ -47,6 +46,5 @@ hidden:
   field_sidebar: true
   field_sidebar_navigation: true
   field_status: true
-  field_tags: true
   field_title_description: true
   langcode: true
