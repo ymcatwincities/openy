@@ -271,7 +271,7 @@ display:
       menu:
         type: normal
         title: Blog
-        menu_name: main-menu
+        menu_name: top-menu
     cache_metadata:
       max-age: -1
       contexts:

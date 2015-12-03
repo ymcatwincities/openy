@@ -268,7 +268,7 @@ display:
         parent: ''
         weight: 0
         context: '0'
-        menu_name: main-menu
+        menu_name: top-menu
     cache_metadata:
       max-age: -1
       contexts:
