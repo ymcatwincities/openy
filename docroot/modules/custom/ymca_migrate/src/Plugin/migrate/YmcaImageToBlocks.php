@@ -44,6 +44,7 @@ class YmcaImageToBlocks {
     $ymca_asset_tokens_map = \Drupal::service('ymcaassetstokensmap.service');
     $file_id = $ymca_asset_tokens_map->getAssetId($asset_id);
     if ($file_id == FALSE) {
+      // @todo We should write message and continue migration, but not drop it.
       throw new MigrateException(t('Can\'t obtain local file for asset ID: @id', array('@id' => $asset_id)));
     }
 

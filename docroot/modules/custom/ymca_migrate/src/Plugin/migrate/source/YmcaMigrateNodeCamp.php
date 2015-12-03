@@ -25,6 +25,7 @@ class YmcaMigrateNodeCamp extends YmcaMigrateNodeBase {
   public function query() {
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
     $query_builder->getByBundle('camp');
+    $query_builder->setRange(0, 5);
     return $query_builder->build();
   }
 

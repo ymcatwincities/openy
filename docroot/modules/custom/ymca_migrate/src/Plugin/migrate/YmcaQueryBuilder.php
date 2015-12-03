@@ -870,4 +870,16 @@ class YmcaQueryBuilder {
     $this->query->condition('site_page_id', $ids, 'NOT IN');
   }
 
+  /**
+   * Add range to the query.
+   *
+   * @param int $start
+   *   Start.
+   * @param int $length
+   *   Length.
+   */
+  public function setRange($start, $length) {
+    $this->query->range($start, $length);
+  }
+
 }
