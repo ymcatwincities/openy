@@ -22,6 +22,15 @@ class YmcaMigrateUrlAliasPage extends YmcaMigrateUrlAliasBase {
   /**
    * {@inheritdoc}
    */
+  protected function getRequirements() {
+    return [
+      'ymca_migrate_node_page',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function query() {
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
     $query_builder->getAllChildren(4693);

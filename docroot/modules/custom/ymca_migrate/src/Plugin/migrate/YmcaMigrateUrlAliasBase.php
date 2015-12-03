@@ -23,6 +23,14 @@ abstract class YmcaMigrateUrlAliasBase extends SqlBase {
   protected $migrations = [];
 
   /**
+   * Return list of required migrations.
+   *
+   * @return array
+   *   Array of migrations.
+   */
+  abstract protected function getRequirements();
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $migration, $state) {
@@ -53,7 +61,7 @@ abstract class YmcaMigrateUrlAliasBase extends SqlBase {
    * Prepopulate required migrations.
    */
   protected function prepopulateMigrations() {
-    $requirements = $this->migration->get('requirements');
+    $requirements = $this->getRequirements();
     $this->migrations = \Drupal::getContainer()
       ->get('entity.manager')
       ->getStorage('migration')
