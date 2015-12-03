@@ -23,8 +23,8 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('shared_tags', 'tags')
-      ->fields('tags', ['tag_id', 'tag_name', 'top_raw_tag_name']);
+    $query = $this->select('catalog_label', 'cpl')
+      ->fields('cpl', ['label_id', 'value'])->isNotNull('category_id');
     return $query;
   }
 
@@ -33,7 +33,7 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
    */
   public function fields() {
     $fields = [
-      'tag_id' => $this->t('Tag id'),
+      'label_id' => $this->t('Tag id'),
       'tag_name' => $this->t('Tag name'),
       'top_raw_tag_name' => $this->t('Raw tag name'),
     ];
@@ -48,7 +48,11 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
     // All the data blow we could fetch by making additional SQL requests.
     $row->setSourceProperty(
       'raw_tag_name',
-      trim($row->getSourceProperty('top_raw_tag_name'), ',')
+      $row->getSourceProperty('value')
+    );
+    $row->setSourceProperty(
+      'top_raw_tag_name',
+      $row->getSourceProperty('value')
     );
 
     return parent::prepareRow($row);
@@ -59,9 +63,9 @@ class YmcaMigrateTaxonomyTermTags extends SqlBase {
    */
   public function getIds() {
     return [
-      'tag_id' => [
+      'label_id' => [
         'type' => 'integer',
-        'alias' => 'tags',
+        'alias' => 'cpl',
       ],
     ];
   }

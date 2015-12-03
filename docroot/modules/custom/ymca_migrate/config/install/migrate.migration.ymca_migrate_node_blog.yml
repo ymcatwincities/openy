@@ -42,6 +42,10 @@ process:
     migration: ymca_migrate_file_image
     source: image
   field_image/alt: image_alt
+  field_tags/target_id:
+    plugin: migration
+    migration: ymca_migrate_taxonomy_term_tags
+    source: label_id
 destination:
   plugin: entity:node
 migration_dependencies:

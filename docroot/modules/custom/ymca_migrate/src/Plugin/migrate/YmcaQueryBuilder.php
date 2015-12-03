@@ -774,6 +774,7 @@ class YmcaQueryBuilder {
         'nav_level',
         'sequence_index',
         'exclude_from_nav',
+        'page_subdirectory',
       ]
     );
     $this->query->condition('is_redirect', 0);

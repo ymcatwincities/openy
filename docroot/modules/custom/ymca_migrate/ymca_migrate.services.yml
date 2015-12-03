@@ -7,3 +7,7 @@ services:
     class: Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens
   ymcaimgtoblocks.service:
     class: Drupal\ymca_migrate\Plugin\migrate\YmcaImageToBlocks
+  ymca_migrate.migrate_subscriber:
+    class: Drupal\ymca_migrate\EventSubscriber\MigrationEvents
+    tags:
+      - { name: 'event_subscriber' }
