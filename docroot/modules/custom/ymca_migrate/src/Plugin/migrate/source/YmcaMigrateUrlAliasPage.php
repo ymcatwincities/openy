@@ -33,6 +33,7 @@ class YmcaMigrateUrlAliasPage extends YmcaMigrateUrlAliasBase {
    */
   public function query() {
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
+    // @todo Get all pages.
     $query_builder->getAllChildren(4693);
     return $query_builder->build();
   }
