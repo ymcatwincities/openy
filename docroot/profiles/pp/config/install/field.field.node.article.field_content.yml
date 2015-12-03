@@ -11,7 +11,7 @@ id: node.article.field_content
 field_name: field_content
 entity_type: node
 bundle: article
-label: Content
+label: Body
 description: ''
 required: true
 translatable: false

@@ -150,17 +150,6 @@
             "lang": "en"
         }
     ],
-    "comment": [
-        {
-            "status": "2",
-            "cid": "0",
-            "last_comment_timestamp": "1448880162",
-            "last_comment_name": null,
-            "last_comment_uid": "1",
-            "comment_count": "0",
-            "lang": "en"
-        }
-    ],
     "field_content": [
         {
             "value": "<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"12\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"13\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"14\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"12\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"13\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"14\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n",
@@ -185,7 +174,7 @@
             "format": "full_html"
         }
     ],
-    "field_page_description": [
+    "field_title_description": [
         {
             "value": "$1 Enrollment and No Dues until January 2016"
         }
