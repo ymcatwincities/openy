@@ -11,7 +11,7 @@
 
 namespace Symfony\Component\DomCrawler;
 
-use Symfony\Component\CssSelector\CssSelector;
+use Symfony\Component\CssSelector\CssSelectorConverter;
 
 /**
  * Crawler eases navigation of a list of \DOMElement objects.
@@ -41,6 +41,18 @@ class Crawler extends \SplObjectStorage
     private $baseHref;
 
     /**
+     * @var \DOMDocument|null
+     */
+    private $document;
+
+    /**
+     * Whether the Crawler contains HTML or XML content (used when converting CSS to XPath).
+     *
+     * @var bool
+     */
+    private $isHtml = true;
+
+    /**
      * Constructor.
      *
      * @param mixed  $node       A Node to use as the base for the crawling
@@ -60,7 +72,8 @@ class Crawler extends \SplObjectStorage
      */
     public function clear()
     {
-        $this->removeAll($this);
+        parent::removeAll($this);
+        $this->document = null;
     }
 
     /**
@@ -160,34 +173,7 @@ class Crawler extends \SplObjectStorage
 
         try {
             // Convert charset to HTML-entities to work around bugs in DOMDocument::loadHTML()
-
-            if (function_exists('mb_convert_encoding')) {
-                $content = mb_convert_encoding($content, 'HTML-ENTITIES', $charset);
-            } elseif (function_exists('iconv')) {
-                $content = preg_replace_callback(
-                    '/[\x80-\xFF]+/',
-                    function ($m) {
-                        $m = unpack('C*', $m[0]);
-                        $i = 1;
-                        $entities = '';
-
-                        while (isset($m[$i])) {
-                            if (0xF0 <= $m[$i]) {
-                                $c = (($m[$i++] - 0xF0) << 18) + (($m[$i++] - 0x80) << 12) + (($m[$i++] - 0x80) << 6) + $m[$i++] - 0x80;
-                            } elseif (0xE0 <= $m[$i]) {
-                                $c = (($m[$i++] - 0xE0) << 12) + (($m[$i++] - 0x80) << 6) + $m[$i++]  - 0x80;
-                            } else {
-                                $c = (($m[$i++] - 0xC0) << 6) + $m[$i++] - 0x80;
-                            }
-
-                            $entities .= '&#'.$c.';';
-                        }
-
-                        return $entities;
-                    },
-                    iconv($charset, 'UTF-8', $content)
-                );
-            }
+            $content = mb_convert_encoding($content, 'HTML-ENTITIES', $charset);
         } catch (\Exception $e) {
         }
 
@@ -251,6 +237,8 @@ class Crawler extends \SplObjectStorage
         libxml_disable_entity_loader($disableEntities);
 
         $this->addDocument($dom);
+
+        $this->isHtml = false;
     }
 
     /**
@@ -299,10 +287,22 @@ class Crawler extends \SplObjectStorage
     public function addNode(\DOMNode $node)
     {
         if ($node instanceof \DOMDocument) {
-            $this->attach($node->documentElement);
-        } else {
-            $this->attach($node);
+            $node = $node->documentElement;
         }
+
+        if (!$node instanceof \DOMElement) {
+            throw new \InvalidArgumentException(sprintf('Nodes set in a Crawler must be DOMElement or DOMDocument instances, "%s" given.', get_class($node)));
+        }
+
+        if (null !== $this->document && $this->document !== $node->ownerDocument) {
+            @trigger_error('Attaching DOM nodes from multiple documents in a Crawler is deprecated as of 2.8 and will be forbidden in 3.0.', E_USER_DEPRECATED);
+        }
+
+        if (null === $this->document) {
+            $this->document = $node->ownerDocument;
+        }
+
+        parent::attach($node);
     }
 
     // Serializing and unserializing a crawler creates DOM objects in a corrupted state. DOM elements are not properly serializable.
@@ -650,12 +650,14 @@ class Crawler extends \SplObjectStorage
      */
     public function filter($selector)
     {
-        if (!class_exists('Symfony\\Component\\CssSelector\\CssSelector')) {
-            throw new \RuntimeException('Unable to filter with a CSS selector as the Symfony CssSelector is not installed (you can use filterXPath instead).');
+        if (!class_exists('Symfony\\Component\\CssSelector\\CssSelectorConverter')) {
+            throw new \RuntimeException('Unable to filter with a CSS selector as the Symfony CssSelector 2.8+ is not installed (you can use filterXPath instead).');
         }
 
+        $converter = new CssSelectorConverter($this->isHtml);
+
         // The CssSelector already prefixes the selector with descendant-or-self::
-        return $this->filterRelativeXPath(CssSelector::toXPath($selector));
+        return $this->filterRelativeXPath($converter->toXPath($selector));
     }
 
     /**
@@ -817,6 +819,136 @@ class Crawler extends \SplObjectStorage
     }
 
     /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function attach($object, $data = null)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::attach($object, $data);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function detach($object)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::detach($object);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function contains($object)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        return parent::contains($object);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function addAll($storage)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::addAll($storage);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function removeAll($storage)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::removeAll($storage);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function removeAllExcept($storage)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::removeAllExcept($storage);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function getInfo()
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        return parent::getInfo();
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function setInfo($data)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::setInfo($data);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function offsetExists($object)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        return parent::offsetExists($object);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function offsetSet($object, $data = null)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::offsetSet($object, $data);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function offsetUnset($object)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        parent::offsetUnset($object);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function offsetGet($object)
+    {
+        $this->triggerDeprecation(__METHOD__);
+
+        return parent::offsetGet($object);
+    }
+
+    /**
+     * @deprecated Using the SplObjectStorage API on the Crawler is deprecated as of 2.8 and will be removed in 3.0.
+     */
+    public function getHash($object)
+    {
+        $this->triggerDeprecation(__METHOD__, true);
+
+        return parent::getHash($object);
+    }
+
+    /**
      * Filters the list of nodes with an XPath expression.
      *
      * The XPath expression should already be processed to apply it in the context of each node.
@@ -833,7 +965,12 @@ class Crawler extends \SplObjectStorage
 
         foreach ($this as $node) {
             $domxpath = $this->createDOMXPath($node->ownerDocument, $prefixes);
-            $crawler->add($domxpath->query($xpath, $node));
+
+            foreach ($domxpath->query($xpath, $node) as $subNode) {
+                if ($subNode->nodeType === 1) {
+                    $crawler->add($subNode);
+                }
+            }
         }
 
         return $crawler;
@@ -872,6 +1009,8 @@ class Crawler extends \SplObjectStorage
 
             // BC for Symfony 2.4 and lower were elements were adding in a fake _root parent
             if (0 === strpos($expression, '/_root/')) {
+                @trigger_error('XPath expressions referencing the fake root node are deprecated since version 2.8 and will be unsupported in 3.0. Please use "./" instead of "/_root/".', E_USER_DEPRECATED);
+
                 $expression = './'.substr($expression, 7);
             } elseif (0 === strpos($expression, 'self::*/')) {
                 $expression = './'.substr($expression, 8);
@@ -1010,7 +1149,28 @@ class Crawler extends \SplObjectStorage
     private function createSubCrawler($nodes)
     {
         $crawler = new static($nodes, $this->uri, $this->baseHref);
+        $crawler->isHtml = $this->isHtml;
+        $crawler->document = $this->document;
 
         return $crawler;
+    }
+
+    private function triggerDeprecation($methodName, $useTrace = false)
+    {
+        if ($useTrace || defined('HHVM_VERSION')) {
+            if (PHP_VERSION_ID >= 50400) {
+                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
+            } else {
+                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            }
+
+            // The SplObjectStorage class performs calls to its own methods. These
+            // method calls must not lead to triggered deprecation notices.
+            if (isset($trace[2]['class']) && 'SplObjectStorage' === $trace[2]['class']) {
+                return;
+            }
+        }
+
+        @trigger_error('The '.$methodName.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
     }
 }
