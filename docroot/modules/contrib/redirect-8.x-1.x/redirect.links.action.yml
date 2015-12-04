@@ -1,0 +1,11 @@
+redirect.add:
+  route_name: redirect.add
+  title: 'Add redirect'
+  appears_on:
+    - 'redirect.list'
+
+redirect.goto_fix_404:
+  route_name: redirect.fix_404
+  title: 'Fix 404 pages with URL redirects'
+  appears_on:
+    - 'dblog.page_not_found'

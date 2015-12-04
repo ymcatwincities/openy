@@ -1,0 +1,9 @@
+name: Redirect
+type: module
+description: Allows users to redirect from old URLs to new URLs.
+core: 8.x
+configure: redirect.settings
+
+dependencies:
+ - link
+ - views
