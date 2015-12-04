@@ -28,68 +28,61 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    *
    * @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens.
    */
-  public $replacetokens;
+  public $replaceTokens;
 
   /**
-   * YmcaMigrateNodeBase constructor.
+   * {@inheritdoc}
    */
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    $plugin_definition,
-    \Drupal\migrate\Entity\MigrationInterface $migration,
-    \Drupal\Core\State\StateInterface $state
-  ) {
-
-    $this->replacetokens = \Drupal::service('ymcareplacetokens.service');
-    parent::__construct(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $migration,
-      $state
-    );
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, $migration, $state) {
+    $this->replaceTokens = \Drupal::service('ymcareplacetokens.service');
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
   }
 
   /**
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Get components tree, where each component has its children.
-    $components_tree = YmcaPageComponentsTree::init(array(), $this, $row)
-      ->getTree();
+    $page_id = $row->getSourceProperty('site_page_id');
+    $theme_id = $row->getSourceProperty('theme_id');
+
+    // Get components tree for the page, where each component has its children.
+    $tree_builder = new YmcaComponentTreeBuilder($page_id, $this->getDatabase());
+
+    // Get flat list of components and make token replacements.
+    $flat_components = $tree_builder->getComponents();
+    foreach ($flat_components as $c_key => $c_value) {
+      foreach ($c_value as $i_key => $i_value) {
+        preg_match_all("/{{internal.*}}/im", $i_value, $test);
+        if (!empty($test) && !empty($test[0])) {
+          $flat_components[$c_key][$i_key] = $this->replaceTokens->processText($i_value);
+        }
+      }
+    }
+
+    // Push processed components to tree builder object and build a tree.
+    $tree_builder->setComponents($flat_components);
+    $tree_builder->buildTree();
+
+    // Finally, get our new tree with replaced tokens.
+    $components_tree = $tree_builder->getTree();
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      foreach ($item as $i_key => $i_value) {
-        if (is_array($i_value)) {
-          continue;
-        }
-        preg_match_all("/{{internal.*}}/im", $i_value, $test);
-        if (!empty($test) && !empty($test[0])) {
-          $item[$i_key] = $this->replacetokens->processText($i_value);
-        }
-      }
-      if ($property = $this->checkMap(
-        $row->getSourceProperty('theme_id'),
-        isset($item['content_area_index']) ? $item['content_area_index'] : NULL,
-        isset($item['component_type']) ? $item['component_type'] : NULL
-      )
-      ) {
+      if ($property = $this->checkMap($theme_id, $item['content_area_index'], $item['component_type'])) {
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
           foreach ($properties as $property_name => $property_value) {
-            // Some components may go to single field in Drupal, so take care of them.
+            // Some components may go to multiple fields in Drupal, so take care of them.
             if ($old_value = $row->getSourceProperty($property_name)) {
               // Currently we are merging only properties that have 'value' key. Otherwise log message.
               if (!array_key_exists('value', $old_value)) {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
-                    '[DEV] Possible problem with merging multiple components on the page. (Page ID: @page, Field Name: @field).',
+                    '[DEV] Possible problem with merging multiple components. (Page ID: @page, Field Name: @field).',
                     [
-                      '@page' => $item['site_page_id'],
+                      '@page' => $page_id,
                       '@field' => $property,
                     ]
                   ),
@@ -110,34 +103,31 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         }
       }
       else {
-        // Check for recursion. Probably it should be done in other migrations, like expander block, subcontent.
-        // @todo Recheck this.
-        if (!isset($item['content_area_index']) || !isset($item['component_type'])) {
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[DEV] It seems to be a recursion on the page #@page.',
-              ['@page' => $row->getSourceProperty('site_page_id')]
-            ),
-            MigrationInterface::MESSAGE_ERROR
-          );
-        }
-        else {
-          // There is no item in our map. Set the message.
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[DEV] Undefined component in the page #@page: @component (@map)',
-              [
-                '@component' => $id,
-                '@page' => $row->getSourceProperty('site_page_id'),
-                '@map' => $this->getThemeName($row->getSourceProperty('theme_id')) . ':' . $item['content_area_index'] . ':' . $item['component_type'],
-              ]
-            ),
-            MigrationInterface::MESSAGE_ERROR
-          );
-        }
+        // There is no item in our map. Set the message.
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Undefined component in the page #@page: @component (@map)',
+            [
+              '@component' => $id,
+              '@page' => $page_id,
+              '@map' => sprintf(
+                '%s [id:%d]:%d:%s',
+                $this->getThemeName($theme_id),
+                $theme_id,
+                $item['content_area_index'],
+                $item['component_type']
+              ),
+            ]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
       }
+    }
+
+    // Some pages have NULL title, so use page name.
+    if (!$row->getSourceProperty('page_title')) {
+      $row->setSourceProperty('page_title', $row->getSourceProperty('page_name'));
     }
 
     return parent::prepareRow($row);
@@ -271,7 +261,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           $asset_id = $this->getAttributeData('asset_id', $component);
           $img = '<img src="{{internal_asset_link_' . $asset_id . '}}"/>';
           $value[$property] = [
-            'value' => $this->replacetokens->processText($img),
+            'value' => $this->replaceTokens->processText($img),
             'format' => 'full_html',
           ];
         }
