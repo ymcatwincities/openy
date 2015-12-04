@@ -1,21 +1,16 @@
 <?php
 
-/**
- * @file
- * Contains ymca_alters.module.
- */
-
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Implements hook_help().
+ * Implements hook_help()
  */
 function ymca_alters_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the ymca_alters module.
     case 'help.page.ymca_alters':
       $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
+       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Performs specific alters of default Drupal behavior') . '</p>';
       return $output;
 
@@ -24,7 +19,7 @@ function ymca_alters_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_alter()
  */
 function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if (!in_array($form_id, ['node_article_form', 'node_article_edit_form'])) {
