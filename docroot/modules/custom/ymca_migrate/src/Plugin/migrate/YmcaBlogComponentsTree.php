@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Class that would be used for getting tree of Blogs to be migrated into Drupal CT.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
@@ -10,11 +6,7 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
-/**
- * Class YmcaBlogComponentsTree.
- *
- * @package Drupal\ymca_migrate
- */
+
 class YmcaBlogComponentsTree extends AmmComponentsTree {
 
   /**
@@ -58,15 +50,15 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
   protected function __construct($skip_ids, SqlBase &$database, Row $row) {
     $this->database = &$database;
     $this->row = $row;
-    $this->tree = [];
+     $this->tree = [];
     parent::__construct('blog', $skip_ids);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getTree() {
-    // @todo Use setSkipIds data.
+  function getTree() {
+    //@todo Use setSkipIds data.
 
     // Get all component data.
     $select = $this->database->getDatabase()->select('abe_blog_post_component', 'c');
@@ -80,10 +72,9 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
     // Get components tree, where each component has its children.
 
     foreach ($components as $item) {
-      if (is_null($item['parent_component_id'])) {
+       if (is_null($item['parent_component_id'])) {
         $this->tree[$item['blog_post_component_id']] = $item;
-      }
-      else {
+      } else {
         $this->tree[$item['parent_component_id']]['children'][$item['blog_post_component_id']] = $item;
       }
     }
@@ -100,6 +91,15 @@ class YmcaBlogComponentsTree extends AmmComponentsTree {
       return self::$instance;
     }
     return new self($skip_ids, $database, $row);
+  }
+  
+    /**
+   * {@inheritdoc}
+   */
+  static public function __init($skip_ids, SqlBase &$database, Row $row) {
+    if (isset(self::$instance)) {
+      return self::$instance;}
+      return new self($skip_ids, $database, $row);
   }
 
 }
