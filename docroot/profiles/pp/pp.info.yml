@@ -59,6 +59,7 @@ dependencies:
   - telephone
   - ymca_page_context
   - ymca_menu
+  - redirect
 themes:
   - bartik
   - seven
