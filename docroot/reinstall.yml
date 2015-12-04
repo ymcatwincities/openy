@@ -10,6 +10,10 @@
     - devops/reinstall/vars/environments/global_env.yml
 
   tasks:
+  
+  - name: Do not build 
+    fail: msg="No need to build"
+          
   - name: Include specific variables per environment
     include_vars: "devops/reinstall/vars/environments/{{ pp_environment }}_env.yml"
     tags: [ 'settings', 'pre-settings', 'post-settings', 'modules-enable', 'drush-commands' ]
