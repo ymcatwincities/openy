@@ -2,11 +2,69 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.2.0 - 2015-11-24
+
+### Added
+
+- [#88](https://github.com/zendframework/zend-diactoros/pull/88) updates the
+  `SapiEmitter` to emit a `Content-Length` header with the content length as
+  reported by the response body stream, assuming that
+  `StreamInterface::getSize()` returns an integer.
+- [#77](https://github.com/zendframework/zend-diactoros/pull/77) adds a new
+  response type, `Zend\Diactoros\Response\TextResponse`, for returning plain
+  text responses. By default, it sets the content type to `text/plain;
+  charset=utf-8`; per the other response types, the signature is `new
+  TextResponse($text, $status = 200, array $headers = []`.
+- [#90](https://github.com/zendframework/zend-diactoros/pull/90) adds a new
+  `Zend\Diactoros\CallbackStream`, allowing you to back a stream with a PHP
+  callable (such as a generator) to generate the message content. Its
+  constructor accepts the callable: `$stream = new CallbackStream($callable);`
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#77](https://github.com/zendframework/zend-diactoros/pull/77) updates the
+  `HtmlResponse` to set the charset to utf-8 by default (if no content type
+  header is provided at instantiation).
+
+## 1.1.4 - 2015-10-16
+
+### Added
+
+- [#98](https://github.com/zendframework/zend-diactoros/pull/98) adds
+  `JSON_UNESCAPED_SLASHES` to the default `json_encode` flags used by
+  `Zend\Diactoros\Response\JsonResponse`.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#96](https://github.com/zendframework/zend-diactoros/pull/96) updates
+  `withPort()` to allow `null` port values (indicating usage of default for
+  the given scheme).
+- [#91](https://github.com/zendframework/zend-diactoros/pull/91) fixes the
+  logic of `withUri()` to do a case-insensitive check for an existing `Host`
+  header, replacing it with the new one.
+
 ## 1.1.3 - 2015-08-10
 
 ### Added
 
-- Nothing.
+- [#73](https://github.com/zendframework/zend-diactoros/pull/73) adds caching of
+  the vendor directory to the Travis-CI configuration, to speed up builds.
 
 ### Deprecated
 
@@ -181,7 +239,7 @@ immediately.
 - [#57](https://github.com/zendframework/zend-diactoros/pull/57) fixes the
   behavior of how the `ServerRequestFactory` marshals upload files when they are
   represented as a nested associative array.
-- [#49](https://github.com/zendframework/zend-diactoros/pull/49) provides several 
+- [#49](https://github.com/zendframework/zend-diactoros/pull/49) provides several
   fixes that ensure that Diactoros complies with the PSR-7 specification:
   - `MessageInterface::getHeaderLine()` MUST return a string (that string CAN be
     empty). Previously, Diactoros would return `null`.

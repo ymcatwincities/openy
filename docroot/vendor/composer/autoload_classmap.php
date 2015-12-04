@@ -437,6 +437,7 @@ return array(
     'SebastianBergmann\\Environment\\Runtime' => $vendorDir . '/sebastian/environment/src/Runtime.php',
     'SebastianBergmann\\Exporter\\Exporter' => $vendorDir . '/sebastian/exporter/src/Exporter.php',
     'SebastianBergmann\\GlobalState\\Blacklist' => $vendorDir . '/sebastian/global-state/src/Blacklist.php',
+    'SebastianBergmann\\GlobalState\\CodeExporter' => $vendorDir . '/sebastian/global-state/src/CodeExporter.php',
     'SebastianBergmann\\GlobalState\\Exception' => $vendorDir . '/sebastian/global-state/src/Exception.php',
     'SebastianBergmann\\GlobalState\\Restorer' => $vendorDir . '/sebastian/global-state/src/Restorer.php',
     'SebastianBergmann\\GlobalState\\RuntimeException' => $vendorDir . '/sebastian/global-state/src/RuntimeException.php',

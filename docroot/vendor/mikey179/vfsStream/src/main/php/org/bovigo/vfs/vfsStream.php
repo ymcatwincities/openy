@@ -66,7 +66,16 @@ class vfsStream
      */
     public static function url($path)
     {
-        return self::SCHEME . '://' . str_replace('\\', '/', $path);
+        return self::SCHEME . '://' . join(
+                '/',
+                array_map(
+                        'urlencode',    // ensure singe path parts are correctly urlencoded
+                        explode(
+                                '/',
+                                str_replace('\\', '/', $path)  // ensure correct directory separator
+                        )
+                )
+        );
     }
 
     /**
@@ -349,7 +358,10 @@ class vfsStream
         $ownName   = substr($name, 0, $firstSlash);
         $subDirs   = substr($name, $firstSlash + 1);
         $directory = new vfsStreamDirectory($ownName, $permissions);
-        self::newDirectory($subDirs, $permissions)->at($directory);
+        if (!empty($subDirs)) {
+            self::newDirectory($subDirs, $permissions)->at($directory);
+        }
+
         return $directory;
     }
 
