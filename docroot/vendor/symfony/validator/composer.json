@@ -43,10 +43,7 @@
         "symfony/expression-language": "For using the 2.4 Expression validator"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Validator\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": { "Symfony\\Component\\Validator\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

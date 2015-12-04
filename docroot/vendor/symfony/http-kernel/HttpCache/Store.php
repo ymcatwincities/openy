@@ -32,16 +32,12 @@ class Store implements StoreInterface
      * Constructor.
      *
      * @param string $root The path to the cache directory
-     *
-     * @throws \RuntimeException
      */
     public function __construct($root)
     {
         $this->root = $root;
         if (!is_dir($this->root)) {
-            if (false === @mkdir($this->root, 0777, true) && !is_dir($this->root)) {
-                throw new \RuntimeException(sprintf('Unable to create the store directory (%s).', $this->root));
-            }
+            mkdir($this->root, 0777, true);
         }
         $this->keyCache = new \SplObjectStorage();
         $this->locks = array();
@@ -78,7 +74,7 @@ class Store implements StoreInterface
     public function lock(Request $request)
     {
         $path = $this->getPath($this->getCacheKey($request).'.lck');
-        if (!is_dir(dirname($path)) && false === @mkdir(dirname($path), 0777, true) && !is_dir(dirname($path))) {
+        if (!is_dir(dirname($path)) && false === @mkdir(dirname($path), 0777, true)) {
             return false;
         }
 
@@ -342,7 +338,7 @@ class Store implements StoreInterface
     private function save($key, $data)
     {
         $path = $this->getPath($key);
-        if (!is_dir(dirname($path)) && false === @mkdir(dirname($path), 0777, true) && !is_dir(dirname($path))) {
+        if (!is_dir(dirname($path)) && false === @mkdir(dirname($path), 0777, true)) {
             return false;
         }
 

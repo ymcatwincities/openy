@@ -21,8 +21,7 @@ class PHPUnit_Framework_Constraint_FileExists extends PHPUnit_Framework_Constrai
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other Value or object to evaluate.
-     *
+     * @param  mixed $other Value or object to evaluate.
      * @return bool
      */
     protected function matches($other)
@@ -36,8 +35,7 @@ class PHPUnit_Framework_Constraint_FileExists extends PHPUnit_Framework_Constrai
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      *
-     * @param mixed $other Evaluated value or object.
-     *
+     * @param  mixed  $other Evaluated value or object.
      * @return string
      */
     protected function failureDescription($other)

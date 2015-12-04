@@ -104,12 +104,8 @@ function debug_resource($value = null)
 function choose_handler()
 {
     $handler = null;
-    if (function_exists('curl_multi_exec') && function_exists('curl_exec')) {
+    if (extension_loaded('curl')) {
         $handler = Proxy::wrapSync(new CurlMultiHandler(), new CurlHandler());
-    } elseif (function_exists('curl_exec')) {
-        $handler = new CurlHandler();
-    } elseif (function_exists('curl_multi_exec')) {
-        $handler = new CurlMultiHandler();
     }
 
     if (ini_get('allow_url_fopen')) {

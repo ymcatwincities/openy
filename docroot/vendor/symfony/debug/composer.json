@@ -27,10 +27,7 @@
         "symfony/http-kernel": "~2.3.24|~2.5.9|~2.6,>=2.6.2"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Debug\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": { "Symfony\\Component\\Debug\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

@@ -32,10 +32,7 @@
         "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\DependencyInjection\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": { "Symfony\\Component\\DependencyInjection\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

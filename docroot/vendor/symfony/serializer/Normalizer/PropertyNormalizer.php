@@ -50,7 +50,7 @@ class PropertyNormalizer extends AbstractNormalizer
         $allowedAttributes = $this->getAllowedAttributes($object, $context, true);
 
         foreach ($reflectionObject->getProperties() as $property) {
-            if (in_array($property->name, $this->ignoredAttributes) || $property->isStatic()) {
+            if (in_array($property->name, $this->ignoredAttributes)) {
                 continue;
             }
 
@@ -109,10 +109,6 @@ class PropertyNormalizer extends AbstractNormalizer
             $ignored = in_array($propertyName, $this->ignoredAttributes);
             if ($allowed && !$ignored && $reflectionClass->hasProperty($propertyName)) {
                 $property = $reflectionClass->getProperty($propertyName);
-
-                if ($property->isStatic()) {
-                    continue;
-                }
 
                 // Override visibility
                 if (!$property->isPublic()) {

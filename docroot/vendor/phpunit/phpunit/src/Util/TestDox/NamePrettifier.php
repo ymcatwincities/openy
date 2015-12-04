@@ -33,8 +33,7 @@ class PHPUnit_Util_TestDox_NamePrettifier
     /**
      * Prettifies the name of a test class.
      *
-     * @param string $name
-     *
+     * @param  string $name
      * @return string
      */
     public function prettifyTestClass($name)
@@ -61,8 +60,7 @@ class PHPUnit_Util_TestDox_NamePrettifier
     /**
      * Prettifies the name of a test method.
      *
-     * @param string $name
-     *
+     * @param  string $name
      * @return string
      */
     public function prettifyTestMethod($name)

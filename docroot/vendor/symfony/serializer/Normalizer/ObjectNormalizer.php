@@ -68,7 +68,6 @@ class ObjectNormalizer extends AbstractNormalizer
             $reflClass = new \ReflectionClass($object);
             foreach ($reflClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $reflMethod) {
                 if (
-                    !$reflMethod->isStatic() &&
                     !$reflMethod->isConstructor() &&
                     !$reflMethod->isDestructor() &&
                     0 === $reflMethod->getNumberOfRequiredParameters()
@@ -87,9 +86,7 @@ class ObjectNormalizer extends AbstractNormalizer
 
             // properties
             foreach ($reflClass->getProperties(\ReflectionProperty::IS_PUBLIC) as $reflProperty) {
-                if (!$reflProperty->isStatic()) {
-                    $attributes[$reflProperty->getName()] = true;
-                }
+                $attributes[$reflProperty->getName()] = true;
             }
 
             $attributes = array_keys($attributes);

@@ -29,10 +29,7 @@
         "psr/log": "For using the console logger"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Console\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": { "Symfony\\Component\\Console\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

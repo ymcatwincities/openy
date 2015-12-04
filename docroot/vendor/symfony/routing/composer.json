@@ -37,10 +37,7 @@
         "doctrine/annotations": "For using the annotation loader"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Routing\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": { "Symfony\\Component\\Routing\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {

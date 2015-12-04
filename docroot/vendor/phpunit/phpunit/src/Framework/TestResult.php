@@ -285,7 +285,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Informs the result that a testsuite will be started.
      *
      * @param PHPUnit_Framework_TestSuite $suite
-     *
      * @since  Method available since Release 2.2.0
      */
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
@@ -303,7 +302,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Informs the result that a testsuite was completed.
      *
      * @param PHPUnit_Framework_TestSuite $suite
-     *
      * @since  Method available since Release 2.2.0
      */
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
@@ -360,7 +358,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns true if no risky test occurred.
      *
      * @return bool
-     *
      * @since  Method available since Release 4.0.0
      */
     public function allHarmless()
@@ -372,7 +369,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Gets the number of risky tests.
      *
      * @return int
-     *
      * @since  Method available since Release 4.0.0
      */
     public function riskyCount()
@@ -404,7 +400,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns an Enumeration for the risky tests.
      *
      * @return array
-     *
      * @since  Method available since Release 4.0.0
      */
     public function risky()
@@ -426,7 +421,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns true if no test has been skipped.
      *
      * @return bool
-     *
      * @since  Method available since Release 3.0.0
      */
     public function noneSkipped()
@@ -438,7 +432,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Gets the number of skipped tests.
      *
      * @return int
-     *
      * @since  Method available since Release 3.0.0
      */
     public function skippedCount()
@@ -450,7 +443,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns an Enumeration for the skipped tests.
      *
      * @return array
-     *
      * @since  Method available since Release 3.0.0
      */
     public function skipped()
@@ -502,7 +494,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns the names of the tests that have passed.
      *
      * @return array
-     *
      * @since  Method available since Release 3.4.0
      */
     public function passed()
@@ -514,7 +505,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns the (top) test suite.
      *
      * @return PHPUnit_Framework_TestSuite
-     *
      * @since  Method available since Release 3.0.0
      */
     public function topTestSuite()
@@ -526,7 +516,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns whether code coverage information should be collected.
      *
      * @return bool If code coverage should be collected
-     *
      * @since  Method available since Release 3.2.0
      */
     public function getCollectCodeCoverageInformation()
@@ -765,7 +754,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns the PHP_CodeCoverage object.
      *
      * @return PHP_CodeCoverage
-     *
      * @since  Method available since Release 3.5.0
      */
     public function getCodeCoverage()
@@ -777,7 +765,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Sets the PHP_CodeCoverage object.
      *
      * @param PHP_CodeCoverage $codeCoverage
-     *
      * @since Method available since Release 3.6.0
      */
     public function setCodeCoverage(PHP_CodeCoverage $codeCoverage)
@@ -788,10 +775,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Enables or disables the error-to-exception conversion.
      *
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.2.14
      */
     public function convertErrorsToExceptions($flag)
@@ -807,7 +792,6 @@ class PHPUnit_Framework_TestResult implements Countable
      * Returns the error-to-exception conversion setting.
      *
      * @return bool
-     *
      * @since  Method available since Release 3.4.0
      */
     public function getConvertErrorsToExceptions()
@@ -818,10 +802,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Enables or disables the stopping when an error occurs.
      *
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.5.0
      */
     public function stopOnError($flag)
@@ -836,10 +818,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Enables or disables the stopping when a failure occurs.
      *
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.1.0
      */
     public function stopOnFailure($flag)
@@ -852,10 +832,8 @@ class PHPUnit_Framework_TestResult implements Countable
     }
 
     /**
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 4.0.0
      */
     public function beStrictAboutTestsThatDoNotTestAnything($flag)
@@ -869,7 +847,6 @@ class PHPUnit_Framework_TestResult implements Countable
 
     /**
      * @return bool
-     *
      * @since  Method available since Release 4.0.0
      */
     public function isStrictAboutTestsThatDoNotTestAnything()
@@ -878,10 +855,8 @@ class PHPUnit_Framework_TestResult implements Countable
     }
 
     /**
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 4.0.0
      */
     public function beStrictAboutOutputDuringTests($flag)
@@ -895,7 +870,6 @@ class PHPUnit_Framework_TestResult implements Countable
 
     /**
      * @return bool
-     *
      * @since  Method available since Release 4.0.0
      */
     public function isStrictAboutOutputDuringTests()
@@ -904,10 +878,8 @@ class PHPUnit_Framework_TestResult implements Countable
     }
 
     /**
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 4.0.0
      */
     public function beStrictAboutTestSize($flag)
@@ -921,7 +893,6 @@ class PHPUnit_Framework_TestResult implements Countable
 
     /**
      * @return bool
-     *
      * @since  Method available since Release 4.0.0
      */
     public function isStrictAboutTestSize()
@@ -930,10 +901,8 @@ class PHPUnit_Framework_TestResult implements Countable
     }
 
     /**
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 4.2.0
      */
     public function beStrictAboutTodoAnnotatedTests($flag)
@@ -947,7 +916,6 @@ class PHPUnit_Framework_TestResult implements Countable
 
     /**
      * @return bool
-     *
      * @since  Method available since Release 4.2.0
      */
     public function isStrictAboutTodoAnnotatedTests()
@@ -958,10 +926,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Enables or disables the stopping for risky tests.
      *
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 4.0.0
      */
     public function stopOnRisky($flag)
@@ -976,10 +942,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Enables or disables the stopping for incomplete tests.
      *
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.5.0
      */
     public function stopOnIncomplete($flag)
@@ -994,10 +958,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Enables or disables the stopping for skipped tests.
      *
-     * @param bool $flag
-     *
+     * @param  bool                        $flag
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.1.0
      */
     public function stopOnSkipped($flag)
@@ -1032,10 +994,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Sets the timeout for small tests.
      *
-     * @param int $timeout
-     *
+     * @param  int                         $timeout
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.6.0
      */
     public function setTimeoutForSmallTests($timeout)
@@ -1050,10 +1010,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Sets the timeout for medium tests.
      *
-     * @param int $timeout
-     *
+     * @param  int                         $timeout
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.6.0
      */
     public function setTimeoutForMediumTests($timeout)
@@ -1068,10 +1026,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Sets the timeout for large tests.
      *
-     * @param int $timeout
-     *
+     * @param  int                         $timeout
      * @throws PHPUnit_Framework_Exception
-     *
      * @since  Method available since Release 3.6.0
      */
     public function setTimeoutForLargeTests($timeout)
@@ -1086,9 +1042,8 @@ class PHPUnit_Framework_TestResult implements Countable
     /**
      * Returns the class hierarchy for a given class.
      *
-     * @param string $className
-     * @param bool   $asReflectionObjects
-     *
+     * @param  string $className
+     * @param  bool   $asReflectionObjects
      * @return array
      */
     protected function getHierarchy($className, $asReflectionObjects = false)

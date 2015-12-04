@@ -23,10 +23,7 @@
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\HttpFoundation\\": "" },
-        "classmap": [ "Resources/stubs" ],
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "classmap": [ "Resources/stubs" ]
     },
     "minimum-stability": "dev",
     "extra": {

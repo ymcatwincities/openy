@@ -53,7 +53,7 @@ class ApcCache extends CacheProvider
      */
     protected function doSave($id, $data, $lifeTime = 0)
     {
-        return apc_store($id, $data, $lifeTime);
+        return (bool) apc_store($id, $data, (int) $lifeTime);
     }
 
     /**
@@ -61,8 +61,7 @@ class ApcCache extends CacheProvider
      */
     protected function doDelete($id)
     {
-        // apc_delete returns false if the id does not exist
-        return apc_delete($id) || ! apc_exists($id);
+        return apc_delete($id);
     }
 
     /**

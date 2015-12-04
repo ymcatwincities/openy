@@ -22,8 +22,7 @@
         },
         {
             "name": "Rob Bast",
-            "email": "rob.bast@gmail.com",
-            "homepage": "http://robbast.nl"
+            "email": "rob.bast@gmail.com"
         }
     ],
     "support": {
@@ -31,11 +30,11 @@
         "issues": "https://github.com/composer/semver/issues"
     },
     "require": {
-        "php": "^5.3.2 || ^7.0"
+        "php": ">=5.3.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.5 || ^5.0.5",
-        "phpunit/phpunit-mock-objects": "2.3.0 || ^3.0"
+        "phpunit/phpunit": "~4.5",
+        "phpunit/phpunit-mock-objects": "~2.3"
     },
     "autoload": {
         "psr-4": {
@@ -44,12 +43,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Composer\\Semver\\": "tests"
+            "Composer\\Semver\\Test\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev"
+            "dev-master": "0.1-dev"
         }
     },
     "scripts": {

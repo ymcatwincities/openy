@@ -82,8 +82,7 @@ class MemcachedCache extends CacheProvider
      */
     protected function doContains($id)
     {
-        return false !== $this->memcached->get($id)
-            || $this->memcached->getResultCode() !== Memcached::RES_NOTFOUND;
+        return (false !== $this->memcached->get($id));
     }
 
     /**
@@ -102,8 +101,7 @@ class MemcachedCache extends CacheProvider
      */
     protected function doDelete($id)
     {
-        return $this->memcached->delete($id)
-            || $this->memcached->getResultCode() === Memcached::RES_NOTFOUND;
+        return $this->memcached->delete($id);
     }
 
     /**

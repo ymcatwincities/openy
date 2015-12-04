@@ -20,9 +20,8 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
                 <directory>./vendor</directory>
+                <directory>./Tests</directory>
             </exclude>
         </whitelist>
     </filter>

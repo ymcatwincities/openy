@@ -24,9 +24,9 @@ trait ContainerAwareTrait
     protected $container;
 
     /**
-     * Sets the container.
+     * Sets the Container associated with this Controller.
      *
-     * @param ContainerInterface|null $container A ContainerInterface instance or null
+     * @param ContainerInterface $container A ContainerInterface instance
      */
     public function setContainer(ContainerInterface $container = null)
     {
