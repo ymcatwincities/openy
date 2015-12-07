@@ -26,11 +26,22 @@ use Drupal\Core\TypedData\DataDefinition;
 class YmcaOfficeHoursItem extends FieldItemBase implements FieldItemInterface {
 
   /**
+   * Days of week.
+   *
+   * @var array
+   */
+  static public $days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+  /**
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['value'] = DataDefinition::create('any')
-      ->setLabel(t('Hours'));
+    $properties = [];
+
+    foreach (self::$days as $day) {
+      $properties['hours_' . $day] = DataDefinition::create('string')
+        ->setLabel(t('Hours for !day', array('!day' => $day)));
+    }
 
     return $properties;
   }
@@ -39,16 +50,18 @@ class YmcaOfficeHoursItem extends FieldItemBase implements FieldItemInterface {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return array(
-      'columns' => array(
-        'value' => array(
-          'description' => 'Serialized hours value.',
-          'type' => 'text',
-          'size' => 'tiny',
-          'not null' => FALSE,
-        ),
-      ),
-    );
+    $schema = [];
+
+    foreach (self::$days as $day) {
+      $schema['columns']['hours_' . $day] = [
+        'description' => sprintf('Hours for %s', ucfirst($day)),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ];
+    }
+
+    return $schema;
   }
 
 }
