@@ -7321,5 +7321,14 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
     margin-top: -16px;
   }
 }
+.page_home #block-tabs {
+  margin-top: 60px;
+}
+
+.node-preview-container {
+  background-color: #fff;
+  bottom: 0;
+  border-top: 2px solid #636466;
+}
 
 /*# sourceMappingURL=style.css.map */
