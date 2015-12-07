@@ -10,6 +10,7 @@ namespace Drupal\ymca_field_office_hours\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\TypedData\Plugin\DataType\StringData;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,7 +27,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
@@ -41,13 +42,31 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $element = [
-      '#markup' => 'Hello world!',
-    ];
-    return $element;
+    $elements = [];
+    foreach ($items as $delta => $item) {
+      $groups = [];
+      $lines = [];
+
+      foreach ($item as $i_item) {
+        /* @var StringData $i_item $a */
+        $groups[$i_item->getValue()]['days'][] = substr_replace($i_item->getName(), '', 0, 6);
+      }
+
+      foreach ($groups as $g_item_key => $g_item_value) {
+        $title = sprintf('%s - %s', reset($g_item_value['days']), array_pop($g_item_value['days']));
+        $lines[] = sprintf('%s: %s', $title, $g_item_key);
+      }
+
+      $elements[$delta] = [
+        '#theme' => 'item_list',
+        '#items' => $lines,
+      ];
+    }
+
+    return $elements;
   }
 
 }
