@@ -28,12 +28,12 @@ class YmcaOfficeHoursWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element['hours'] = array(
+    $value = isset($items[$delta]->value) ? $items[$delta]->value : '';
+    $element += array(
       '#type' => 'textfield',
-      '#title' => t('Hours'),
+      '#default_value' => $value,
     );
-
-    return $element;
+    return array('value' => $element);
   }
 
 }

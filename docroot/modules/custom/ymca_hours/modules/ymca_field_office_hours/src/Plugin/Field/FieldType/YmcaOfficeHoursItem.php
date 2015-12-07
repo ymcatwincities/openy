@@ -29,8 +29,7 @@ class YmcaOfficeHoursItem extends FieldItemBase implements FieldItemInterface {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['hours'] = DataDefinition::create('any')
-      ->setComputed(TRUE)
+    $properties['value'] = DataDefinition::create('any')
       ->setLabel(t('Hours'));
 
     return $properties;
@@ -42,10 +41,11 @@ class YmcaOfficeHoursItem extends FieldItemBase implements FieldItemInterface {
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     return array(
       'columns' => array(
-        'hours' => array(
-          'description' => 'Hours array',
-          'type' => 'varchar',
-          'length' => 2048,
+        'value' => array(
+          'description' => 'Serialized hours value.',
+          'type' => 'text',
+          'size' => 'tiny',
+          'not null' => FALSE,
         ),
       ),
     );
