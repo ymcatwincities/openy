@@ -10,6 +10,7 @@ namespace Drupal\ymca_field_office_hours\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_field_office_hours\Plugin\Field\FieldType\YmcaOfficeHoursItem;
 
 /**
  * Plugin implementation of the 'ymca_office_hours' widget.
@@ -28,12 +29,19 @@ class YmcaOfficeHoursWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $value = isset($items[$delta]->value) ? $items[$delta]->value : '';
-    $element += array(
-      '#type' => 'textfield',
-      '#default_value' => $value,
-    );
-    return array('value' => $element);
+    /** @var YmcaOfficeHoursItem $item */
+    $item = $items->get($delta);
+
+    foreach ($item::$days as $day) {
+      $name = 'hours_' . $day;
+      $hours = [
+        '#title' => t('!day hours', ['!day' => ucfirst($day)]),
+        '#type' => 'textfield',
+        '#default_value' => isset($item->{$name}) ? $item->{$name} : ''
+      ];
+      $element['hours_' . $day] = $hours;
+    }
+    return $element;
   }
 
 }
