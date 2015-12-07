@@ -34,6 +34,15 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     array_unshift($suggestions, 'page__node__' . $node->bundle());
   }
+  if (!\Drupal::service('path.matcher')->isFrontPage()) {
+    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+      $front_page = \Drupal::config('system.site')->get('page.front');
+      if ($node->url() == $front_page) {
+        array_unshift($suggestions, 'page__front');
+      }
+    }
+  }
 }
 
 /**
@@ -83,11 +92,15 @@ function ymca_preprocess_expander_block(&$variables) {
  * Implements hook_preprocess_node().
  */
 function ymca_preprocess_node(&$variables) {
-  if ($variables['view_mode'] !== 'full') {
+  if (!in_array($variables['view_mode'], array('full', 'default'))) {
     return;
   }
 
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  if (!$variables['is_front']) {
+    $front_page = \Drupal::config('system.site')->get('page.front');
+    $variables['is_front'] = $variables['node']->url() == $front_page;
+  }
 
   // Handle alerts.
   if ($variables['node']->hasField('field_alert')) {
@@ -140,7 +153,15 @@ function ymca_preprocess_html(&$variables) {
   if (empty($variables['attributes'])) {
     $variables['attributes'] = new \Drupal\Core\Template\Attribute();
   }
-  if (\Drupal::service('path.matcher')->isFrontPage()) {
+
+  if (!$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage()) {
+    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::request()->attributes->get('node_preview');
+      $variables['is_front'] = $node->url() == \Drupal::config('system.site')->get('page.front');
+    }
+  }
+
+  if ($variables['is_front']) {
     $classes = [
       'home-template',
       'page_home',
