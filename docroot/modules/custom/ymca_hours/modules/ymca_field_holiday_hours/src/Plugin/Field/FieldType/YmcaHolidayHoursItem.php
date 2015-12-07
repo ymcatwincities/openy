@@ -84,5 +84,4 @@ class YmcaHolidayHoursItem extends FieldItemBase implements FieldItemInterface {
     return TRUE;
   }
 
-
 }
