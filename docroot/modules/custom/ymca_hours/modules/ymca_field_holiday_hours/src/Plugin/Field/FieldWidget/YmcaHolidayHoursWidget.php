@@ -10,6 +10,7 @@ namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_field_office_hours\Plugin\Field\FieldType\YmcaOfficeHoursItem;
 
 /**
  * Plugin implementation of the 'ymca_holiday_hours' widget.
@@ -34,19 +35,22 @@ class YmcaHolidayHoursWidget extends WidgetBase {
     $element['holiday'] = [
       '#title' => t('Holiday title'),
       '#type' => 'textfield',
-      '#default_value' => isset($item->holiday) ? $item->holiday : ''
+      '#default_value' => isset($item->holiday) ? $item->holiday : '',
+      '#description' => t('Thanksgiving Day'),
     ];
 
     $element['hours'] = [
       '#title' => t('Holiday hours'),
       '#type' => 'textfield',
-      '#default_value' => isset($item->hours) ? $item->hours : ''
+      '#default_value' => isset($item->hours) ? $item->hours : '',
+      '#description' => t('Example: 1pm - 2pm'),
     ];
 
     $element['date'] = array(
       '#type' => 'date',
       '#title' => t('Date'),
-      '#default_value' => isset($item->date) ? $item->date : ''
+      '#default_value' => isset($item->date) ? $item->date : '',
+      '#description' => t('Example: 12/25/2015'),
     );
 
     return $element;

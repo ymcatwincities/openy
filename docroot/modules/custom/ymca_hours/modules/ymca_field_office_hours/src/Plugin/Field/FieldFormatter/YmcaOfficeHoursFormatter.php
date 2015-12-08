@@ -46,10 +46,10 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
-    foreach ($items as $delta => $item) {
-      $groups = [];
-      $lines = [];
+    $groups = [];
+    $lines = [];
 
+    foreach ($items as $delta => $item) {
       foreach ($item as $i_item) {
         /* @var StringData $i_item $a */
         $groups[$i_item->getValue()]['days'][] = substr_replace($i_item->getName(), '', 0, 6);
