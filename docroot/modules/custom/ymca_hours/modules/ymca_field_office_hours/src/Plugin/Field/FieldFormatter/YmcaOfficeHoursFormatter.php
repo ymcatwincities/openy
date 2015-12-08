@@ -57,6 +57,9 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
 
       foreach ($groups as $g_item_key => $g_item_value) {
         $title = sprintf('%s - %s', reset($g_item_value['days']), array_pop($g_item_value['days']));
+        if (count($g_item_value['days']) == 1) {
+          $title = reset($g_item_value['days']);
+        }
         $lines[] = sprintf('%s: %s', $title, $g_item_key);
       }
 
