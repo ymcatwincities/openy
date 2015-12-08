@@ -1,17 +1,17 @@
-uuid: c957c333-5e9f-4ad2-b600-a5226c0e80f0
+uuid: 7d2ca77d-2248-4e39-b700-dfa2f7176e04
 langcode: en
 status: true
 dependencies:
   module:
+    - block_content
     - node
-    - text
-id: node.field_location_working_hours
-field_name: field_location_working_hours
+id: node.field_working_hours
+field_name: field_working_hours
 entity_type: node
-type: text
+type: entity_reference
 settings:
-  max_length: 1024
-module: text
+  target_type: block_content
+module: core
 locked: false
 cardinality: 1
 translatable: true
