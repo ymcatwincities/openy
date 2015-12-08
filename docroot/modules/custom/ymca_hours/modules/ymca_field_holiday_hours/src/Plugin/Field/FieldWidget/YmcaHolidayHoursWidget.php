@@ -36,7 +36,7 @@ class YmcaHolidayHoursWidget extends WidgetBase {
       '#title' => t('Holiday title'),
       '#type' => 'textfield',
       '#default_value' => isset($item->holiday) ? $item->holiday : '',
-      '#description' => t('Thanksgiving Day'),
+      '#description' => t('Example: Thanksgiving Day'),
     ];
 
     $element['hours'] = [
