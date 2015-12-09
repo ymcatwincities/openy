@@ -31,6 +31,7 @@ class YmcaMigrateRedirect extends SqlBase {
         'redirect_target',
         'redirect_type',
         'redirect_url',
+        'redirect_page_id',
       ])
       ->condition('is_redirect', 1);
   }
@@ -56,9 +57,6 @@ class YmcaMigrateRedirect extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // @todo Remove hardcoded value when all migrations will be ready.
-    $row->setSourceProperty('redirect_page_id', 4747);
-
     $row->setSourceProperty('redirect_source', trim($row->getSourceProperty('page_subdirectory'), '/'));
     $row->setSourceProperty('redirect_redirect', $this->getRedirect($row));
 
@@ -71,7 +69,7 @@ class YmcaMigrateRedirect extends SqlBase {
    * @param Row $row
    *   Row object.
    *
-   * @return string
+   * @return string|bool
    *   Ready to use redirect path for redirect entity.
    */
   private function getRedirect(Row $row) {
@@ -87,6 +85,7 @@ class YmcaMigrateRedirect extends SqlBase {
       case 'url':
         return $row->getSourceProperty('redirect_url');
     }
+    return FALSE;
   }
 
   /**

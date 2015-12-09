@@ -20,8 +20,3 @@ process:
   status_code: redirect_type
 destination:
   plugin: entity:redirect
-migration_dependencies:
-  required:
-    - ymca_migrate_node_page
-    - ymca_migrate_node_camp
-    - ymca_migrate_node_location
