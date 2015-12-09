@@ -1,0 +1,5 @@
+webform.settings:
+  title: 'Webform settings'
+  description: 'Global configuration of webform functionality.'
+  route_name: webform.settings
+  parent: system.admin_config_content

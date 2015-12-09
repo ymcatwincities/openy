@@ -1,0 +1,57 @@
+webform.content_overview:
+  path: '/admin/content/webform'
+  defaults:
+    _title: 'Webforms'
+    _controller: '\Drupal\webform\Controller\WebformController::contentOverview'
+  requirements:
+    _permission: 'access all webform results'
+
+webform.settings:
+  path: '/admin/config/content/webform'
+  defaults:
+    _form: '\Drupal\webform\Form\WebformSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+
+# @TODO: These probably need different permissions.
+# @TODO: This needs to be restricted to only show on webform node types.
+webform.components:
+  path: '/node/{node}/webform'
+  defaults:
+    _form: '\Drupal\webform\Form\WebformComponentsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+webform.component_add_form:
+  path: '/node/{node}/webform/components/new/{component}'
+  defaults:
+    _form: '\Drupal\webform\Form\WebformComponentAddForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+webform.component_edit_form:
+  path: '/node/{node}/webform/components/edit/{component}'
+  defaults:
+    _form: '\Drupal\webform\Form\WebformComponentEditForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+webform.component_delete_form:
+  path: '/node/{node}/webform/components/delete/{component}'
+  defaults:
+    _form: '\Drupal\webform\Form\WebformComponentDeleteForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+# @todo Only show on webform enabled node types
+entity.node.webform:
+  path: '/node/{node}/webform'
+  defaults:
+    _title: 'Webform'
+    _form: '\Drupal\webform\Form\WebformComponentsForm'
+  requirements:
+    # @todo This needs to call/replicate webform_node_update_access().
+    _permission: 'edit webform components'
+  options:
+    _node_operation_route: TRUE

@@ -1,0 +1,801 @@
+<?php
+
+/**
+ * @file
+ *   Webform module install/schema hooks.
+ */
+
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_schema().
+ */
+function webform_schema() {
+  $schema = array();
+
+  $schema['webform'] = array(
+    'description' => 'Table for storing additional properties for webform nodes.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'next_serial' => array(
+        'description' => 'The serial number to give to the next submission to this webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'confirmation' => array(
+        'description' => 'The confirmation message or URL displayed to the user after submitting a form.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'confirmation_format' => array(
+        'description' => 'The {filter_format}.format of the confirmation message.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'redirect_url' => array(
+        'description' => 'The URL a user is redirected to after submitting a form.',
+        'type' => 'varchar',
+        'length' => 2048,
+        'default' => '<confirmation>',
+      ),
+      'status' => array(
+        'description' => 'Boolean value of a webform for open (1) or closed (0).',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'block' => array(
+         'description' => 'Boolean value for whether this form be available as a block.',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'allow_draft' => array(
+         'description' => 'Boolean value for whether submissions to this form be saved as a draft.',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'auto_save' => array(
+         'description' => 'Boolean value for whether submissions to this form should be auto-saved between pages.',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'submit_notice' => array(
+        'description' => 'Boolean value for whether to show or hide the previous submissions notification.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'confidential' => array(
+        'description' => 'Boolean value for whether to anonymize submissions.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'submit_text' => array(
+        'description' => 'The title of the submit button on the form.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'submit_limit' => array(
+        'description' => 'The number of submissions a single user is allowed to submit within an interval. -1 is unlimited.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => -1,
+      ),
+      'submit_interval' => array(
+        'description' => 'The amount of time in seconds that must pass before a user can submit another submission within the set limit.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => -1,
+      ),
+      'total_submit_limit' => array(
+        'description' => 'The total number of submissions allowed within an interval. -1 is unlimited.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => -1,
+      ),
+      'total_submit_interval' => array(
+        'description' => 'The amount of time in seconds that must pass before another submission can be submitted within the set limit.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => -1,
+      ),
+      'progressbar_bar' => array(
+        'description' => 'Boolean value indicating if the bar should be shown as part of the progress bar.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'progressbar_page_number' => array(
+        'description' => 'Boolean value indicating if the page number should be shown as part of the progress bar.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'progressbar_percent' => array(
+        'description' => 'Boolean value indicating if the percentage complete should be shown as part of the progress bar.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'progressbar_pagebreak_labels' => array(
+        'description' => 'Boolean value indicating if the pagebreak labels should be included as part of the progress bar.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'progressbar_include_confirmation' => array(
+        'description' => 'Boolean value indicating if the confirmation page should count as a page in the progress bar.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'progressbar_label_first' => array(
+        'description' => 'Label for the first page of the progress bar.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'progressbar_label_confirmation' => array(
+        'description' => 'Label for the last page of the progress bar.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'preview' => array(
+        'description' => 'Boolean value indicating if this form includes a page for previewing the submission.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'preview_next_button_label' => array(
+        'description' => 'The text for the button that will proceed to the preview page.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'preview_prev_button_label' => array(
+        'description' => 'The text for the button to go backwards from the preview page.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'preview_title' => array(
+        'description' => 'The title of the preview page, as used by the progress bar.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'preview_message' => array(
+        'description' => 'Text shown on the preview page of the form.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'preview_message_format' => array(
+        'description' => 'The {filter_format}.format of the preview page message.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'preview_excluded_components' => array(
+        'description' => 'Comma-separated list of component IDs that should not be included in this form\'s confirmation page.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+
+  $schema['webform_component'] = array(
+    'description' => 'Stores information about components for webform nodes.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'cid' => array(
+        'description' => 'The identifier for this component within this node, starts at 0 for each node.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'pid' => array(
+        'description' => 'If this component has a parent fieldset, the cid of that component.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'form_key' => array(
+        'description' => 'When the form is displayed and processed, this key can be used to reference the results.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'name' => array(
+        'description' => 'The label for this component.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The field type of this component (textfield, select, hidden, etc.).',
+        'type' => 'varchar',
+        'length' => 16,
+      ),
+      'value' => array(
+        'description' => 'The default value of the component when displayed to the end-user.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'extra' => array(
+        'description' => 'Additional information unique to the display or processing of this component.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'required' => array(
+        'description' => 'Boolean flag for if this component is required.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'weight' => array(
+        'description' => 'Determines the position of this component in the form.',
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid', 'cid'),
+  );
+
+  $schema['webform_conditional'] = array(
+    'description' => 'Holds information about conditional logic.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rgid' => array(
+        'description' => 'The rule group identifier for this group of rules.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'andor' => array(
+        'description' => 'Whether to AND or OR the actions in this group. All actions within the same rgid should have the same andor value.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'weight' => array(
+        'description' => 'Determines the position of this conditional compared to others.',
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid', 'rgid'),
+  );
+
+  $schema['webform_conditional_rules'] = array(
+    'description' => 'Holds information about conditional logic.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rgid' => array(
+        'description' => 'The rule group identifier for this group of rules.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rid' => array(
+        'description' => 'The rule identifier for this conditional rule.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'source_type' => array(
+        'description' => 'The type of source on which the conditional is based. Currently always "component". Indicates what type of ID the "source" column contains.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'source' => array(
+        'description' => 'The component ID being used in this condition.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'operator' => array(
+        'description' => 'Which operator (equal, contains, starts with, etc.) should be used for this comparison between the source and value?',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'value' => array(
+        'description' => 'The value to be compared with source.',
+        'type' => 'text',
+      ),
+    ),
+    'primary key' => array('nid', 'rgid', 'rid'),
+  );
+
+  $schema['webform_conditional_actions'] = array(
+    'description' => 'Holds information about conditional actions.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rgid' => array(
+        'description' => 'The rule group identifier for this group of rules.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'aid' => array(
+        'description' => 'The rule identifier for this conditional action.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'target_type' => array(
+        'description' => 'The type of target to be affected. Currently always "component". Indicates what type of ID the "target" column contains.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'target' => array(
+        'description' => 'The ID of the target to be affected. Typically a component ID.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'invert' => array(
+        'description' => 'If inverted, execute when rule(s) are false.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'action' => array(
+        'description' => 'The action to be performed on the target.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'argument' => array(
+        'description' => 'Optional argument for action.',
+        'type' => 'text',
+      ),
+    ),
+    'primary key' => array('nid', 'rgid', 'aid'),
+  );
+
+  $schema['webform_emails'] = array(
+    'description' => 'Holds information regarding e-mails that should be sent upon submitting a webform',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'eid' => array(
+        'description' => 'The e-mail identifier for this row\'s settings.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'email' => array(
+        'description' => 'The e-mail address that will be sent to upon submission. This may be an e-mail address, the special key "default" or a numeric value. If a numeric value is used, the value of a component will be substituted on submission.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'subject' => array(
+        'description' => 'The e-mail subject that will be used. This may be a string, the special key "default" or a numeric value. If a numeric value is used, the value of a component will be substituted on submission.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'from_name' => array(
+        'description' => 'The e-mail "from" name that will be used. This may be a string, the special key "default" or a numeric value. If a numeric value is used, the value of a component will be substituted on submission.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'from_address' => array(
+        'description' => 'The e-mail "from" e-mail address that will be used. This may be a string, the special key "default" or a numeric value. If a numeric value is used, the value of a component will be substituted on submission.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'template' => array(
+        'description' => 'A template that will be used for the sent e-mail. This may be a string or the special key "default", which will use the template provided by the theming layer.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'excluded_components' => array(
+        'description' => 'A list of components that will not be included in the [submission:values] token. A list of CIDs separated by commas.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'html' => array(
+        'description' => 'Determines if the e-mail will be sent in an HTML format. Requires Mime Mail module.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'attachments' => array(
+        'description' => 'Determines if the e-mail will include file attachments. Requires Mime Mail module.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'exclude_empty' => array(
+        'description' => 'Determines if the e-mail will include component with an empty value.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'extra' => array(
+        'description' => 'A serialized array of additional options for the e-mail configuration, including value mapping for the TO and FROM addresses for select lists.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'Whether this email is enabled.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'primary key' => array('nid', 'eid'),
+  );
+
+  $schema['webform_roles'] = array(
+    'description' => 'Holds access information regarding which roles are allowed to submit which webform nodes. Does not prevent access to the webform node entirely, use the {node_access} table for that purpose.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rid' => array(
+        'description' => 'The role identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid', 'rid'),
+  );
+
+  $schema['webform_submissions'] = array(
+    'description' => 'Holds general information about submissions outside of field values.',
+    'fields' => array(
+      'sid' => array(
+        'description' => 'The unique identifier for this submission.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'serial' => array(
+        'description' => 'The serial number of this submission.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The id of the user that completed this submission.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'is_draft' => array(
+         'description' => 'Is this a draft of the submission?',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'highest_valid_page' => array(
+         'description' => 'For drafts, the highest validated page number.',
+         'type' => 'int',
+         'size' => 'small',
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'submitted' => array(
+        'description' => 'Timestamp when the form was first saved as draft or submitted.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'completed' => array(
+        'description' => 'Timestamp when the form was submitted as complete (not draft).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'modified' => array(
+        'description' => 'Timestamp when the form was last saved (complete or draft).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'remote_addr' => array(
+        'description' => 'The IP address of the user that submitted the form.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+    ),
+    'primary key' => array('sid'),
+    'unique keys' => array(
+      'sid_nid' => array('sid', 'nid'),
+      'nid_serial' => array('nid', 'serial'),
+    ),
+    'indexes' => array(
+      'nid_uid_sid' => array('nid', 'uid', 'sid'),
+      'nid_sid' => array('nid', 'sid'),
+    ),
+  );
+
+  $schema['webform_submitted_data'] = array(
+    'description' => 'Stores all submitted field data for webform submissions.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'sid' => array(
+        'description' => 'The unique identifier for this submission.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'cid' => array(
+        'description' => 'The identifier for this component within this node, starts at 0 for each node.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'no' => array(
+        'description' => 'Usually this value is 0, but if a field has multiple values (such as a time or date), it may require multiple rows in the database.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '0',
+      ),
+      'data' => array(
+        'description' => 'The submitted value of this field, may be serialized for some components.',
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('nid', 'sid', 'cid', 'no'),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'sid_nid' => array('sid', 'nid'),
+      // For all but MS SQL Server databases, 64-character index is created on the data column after the schema is installed.
+    ),
+  );
+
+  $schema['webform_last_download'] = array(
+   'description' => 'Stores last submission number per user download.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+       'description' => 'The user identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+     'sid' => array(
+        'description' => 'The last downloaded submission number.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+     'requested' => array(
+        'description' => 'Timestamp of last download request.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid', 'uid'),
+  );
+
+  return $schema;
+}
+
+
+/**
+ * Implements hook_requirements().
+ */
+function webform_requirements($phase) {
+  $requirements = array();
+
+  // Ensure cURL exists if SimpleTest hasn't checked it already.
+  if (!class_exists('ZipArchive')) {
+    $requirements['webform_zip'] = array(
+      'title' => t('Zip archive support'),
+      'value' => t('Missing'),
+      'severity' => REQUIREMENT_WARNING,
+      'description' => t('PHP does not have the zip archive extension available. Webform module requires zip support for exporting submissions to Microsoft Excel.'),
+    );
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function webform_install() {
+  module_set_weight('webform', -1);
+
+  // Create Webform content type, if required.
+  $config = \Drupal::config('webform.settings');
+  if (!$config->get('install_skip_content_type_creation')) {
+    $webform = NodeType::create([
+      'name' => 'Webform',
+      'type' => 'webform',
+      'description' => 'Use <em>webforms</em> for forms or questionnaires accessible to users. Submission results and statistics are recorded and accessible to privileged users.',
+      'has_title' => TRUE,
+      'title_label' => 'Title',
+      'preview' => TRUE,
+      'status' => TRUE,
+      'promote' => FALSE,
+      'sticky' => FALSE,
+      'revision' => FALSE,
+      'submitted' => TRUE,
+      'langcode' => 'en',
+    ])->save();
+    if ($config->get('install_add_body_field')) {
+      node_add_body_field($webform);
+    }
+  }
+  else {
+    $edit_config = \Drupal::configFactory()->getEditable('webform.settings');
+    $edit_config->set('node_types_primary', [])->save();
+    $edit_config->clear('node_webform')->save();
+  }
+
+  // Set default values for config which require dynamic values.
+  $default_from_address = \Drupal::config('system.site')->get('mail') ? \Drupal::config('system.site')->get('mail') : ini_get('sendmail_from');
+  $default_from_name = \Drupal::config('system.site')->get('name');
+  \Drupal::configFactory()->getEditable('webform.settings')
+    ->set('email.default_from_address', $default_from_address)
+    ->set('email.default_from_name', $default_from_name)
+    ->save();
+
+  // Note: MS SQL Server does not support size-limited indexes and the column
+  // type (text) is too big to fit inside index size limits.
+
+  if (!db_index_exists('webform_submitted_data', 'data') && db_driver() != 'sqlsrv') {
+    $spec = [
+      // Example partial specification for a table:
+      'fields' => [
+        'data' => [
+          'description' => 'The submitted value of this field, may be serialized for some components.',
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => TRUE,
+        ],
+      ],
+      'indexes' => [
+        'webform_submitted_data' => ['data'],
+      ],
+    ];
+        db_add_index('webform_submitted_data', 'data', array(array('data', 64)), $spec);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function webform_uninstall() {
+  // Delete uploaded files.
+  $filepath = file_build_uri('webform');
+  file_unmanaged_delete_recursive($filepath);
+
+  // Delete the content type "webform" if:
+  //   a) there are no existing nodes of type webform and
+  //   b) no additional fields have been defined for node type webform, beyond
+  //      the default body field.
+  $webform_nodes = \Drupal::entityQuery('node')
+    ->condition('type', 'webform')
+    ->range(0, 1)
+    ->execute();
+  $entity_manager = \Drupal::entityManager();
+  $additional_fields = array_diff_key($entity_manager->getFieldDefinitions('node', 'webform'), $entity_manager->getBaseFieldDefinitions('node'));
+  unset($additional_fields['body']);
+  if (!$webform_nodes && !$additional_fields) {
+    $node_type = NodeType::load('webform');
+    if (!empty($node_type)) {
+      $node_type->delete();
+      drupal_flush_all_caches();
+    }
+  }
+}

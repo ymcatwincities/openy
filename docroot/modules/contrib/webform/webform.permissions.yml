@@ -1,0 +1,21 @@
+access all webform results:
+  title: 'Access all webform results'
+  description: 'Grants access to the "Results" tab on all webform content. Generally an administrative permission.'
+access own webform results:
+  title: 'Access own webform results'
+  description: 'Grants access to the "Results" tab to the author of webform content they have created.'
+edit all webform submissions:
+  title: 'Edit all webform submissions'
+  description: 'Allows editing of any webform submission by any user. Generally an administrative permission.'
+delete all webform submissions:
+  title: 'Delete all webform submissions'
+  description: 'Allows deleting of any webform submission by any user. Generally an administrative permission.'
+access own webform submissions:
+  title: 'Access own webform submissions'
+edit own webform submissions:
+  title: 'Edit own webform submissions'
+delete own webform submissions:
+  title: 'Delete own webform submissions'
+edit webform components:
+  title: 'Content authors: access and edit webform components and settings'
+  description: 'Grants additional access to the webform components and settings to users who can edit the content. Generally an authenticated user permission.'

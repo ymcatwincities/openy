@@ -1,0 +1,17 @@
+webform.content_overview:
+  title: 'Webforms'
+  route_name: webform.content_overview
+  base_route: system.admin_content
+
+
+webform.components:
+  route_name: webform.components
+  base_route: entity.node.canonical
+  title: 'Webform'
+  weight: 50
+
+entity.node.webform:
+  title: Webform
+  route_name: entity.node.webform
+  base_route: entity.node.canonical
+  weight: 2
