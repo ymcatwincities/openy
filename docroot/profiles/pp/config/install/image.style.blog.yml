@@ -1,7 +1,9 @@
 uuid: 32924e5a-30bd-4982-ad00-a2496b70920a
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - crop
 name: blog
 label: 'Blog Thumb'
 effects:
@@ -13,3 +15,9 @@ effects:
       width: 185
       height: null
       upscale: false
+  1e961eff-0b50-4d91-9006-062260339717:
+    uuid: 1e961eff-0b50-4d91-9006-062260339717
+    id: crop_crop
+    weight: 2
+    data:
+      crop_type: blog_thumb

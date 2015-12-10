@@ -1,7 +1,9 @@
 uuid: 073c4bf0-cb9a-4e1f-9749-732ccfb55490
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - crop
 name: 2013_masthead
 label: '2013 Masthead'
 effects:
@@ -12,3 +14,9 @@ effects:
     data:
       width: 1200
       height: 600
+  31cba406-b23a-4ab8-9f06-6b6bb07b6a16:
+    uuid: 31cba406-b23a-4ab8-9f06-6b6bb07b6a16
+    id: crop_crop
+    weight: 2
+    data:
+      crop_type: 2013_masthead
