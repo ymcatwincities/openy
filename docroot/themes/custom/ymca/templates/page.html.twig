@@ -171,7 +171,9 @@
                 {{ page.breadcrumb }}
             </div>
         </div>
-        {{ page.content }}
+        {% block content %}
+          {{ page.content }}
+        {% endblock %}
     </div>
 
 
