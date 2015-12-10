@@ -210,3 +210,26 @@ function ymca_preprocess_page(&$variables) {
     $variables['site_section_bundle'] = $site_section_bundle;
   }
 }
+
+/**
+ * Implements hook_preprocess_pager().
+ */
+function ymca_preprocess_pager(&$vars) {
+  foreach ($vars['items']['pages'] as &$item) {
+    $item['attributes'] = new \Drupal\Core\Template\Attribute();
+  }
+}
+
+/**
+ * @param $vars
+ */
+function ymca_preprocess_views_view(&$vars) {
+  if ($vars['view']->id() == 'ymca_twin_cities_blog' && $vars['view']->current_display == 'blog_page') {
+    $vars['categories'] = [];
+    foreach ($vars['view']->filter['field_tags_target_id']->options['value'] as $id) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id);
+      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $id));
+      $vars['categories'][] = $link;
+    }
+  }
+}

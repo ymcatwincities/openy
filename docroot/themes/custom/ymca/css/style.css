@@ -3329,7 +3329,7 @@ h2 a:not(.anchorjs-link):after {
   width: 100%;
 }
 
-.copy ol, .copy ul {
+.copy ol, .copy ul:not(.contextual-links) {
   padding-left: 30px;
   display: table;
 }
