@@ -1,4 +1,0 @@
-services:
-  plugin.manager.webform.component:
-    class: Drupal\webform\ComponentManager
-    parent: default_plugin_manager
