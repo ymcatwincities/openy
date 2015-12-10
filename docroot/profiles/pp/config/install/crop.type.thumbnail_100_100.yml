@@ -1,8 +1,0 @@
-uuid: b1d82d88-3273-463f-b400-fdb2b575253f
-langcode: en
-status: true
-dependencies: {  }
-label: 'Thumbnail (100×100)'
-id: thumbnail_100_100
-description: ''
-aspect_ratio: '100:100'
