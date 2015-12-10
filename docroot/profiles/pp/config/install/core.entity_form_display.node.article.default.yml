@@ -18,11 +18,12 @@ dependencies:
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_status
+    - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - node.type.article
   module:
     - datetime
-    - image
+    - image_widget_crop
     - link
     - path
     - text
@@ -77,10 +78,19 @@ content:
   field_header_image:
     weight: 8
     settings:
-      progress_indicator: throbber
       preview_image_style: thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - 2013_masthead
+        - 2013_promotion
+        - blog_thumb
+        - large_230_230
+        - medium_125_125
+        - small_75_75
+      crop_help_text: 'Select an image size to crop'
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: image_image
+    type: image_widget_crop
   field_header_variant:
     weight: 7
     settings: {  }
@@ -177,4 +187,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_tags: true
