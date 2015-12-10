@@ -1,0 +1,21 @@
+uuid: dd46ea65-e453-4430-b400-ea81b3c7c0f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.storage.contact_message.field_custom_text
+  module:
+    - text
+id: contact_message.personal_trainers_individual.field_custom_text
+field_name: field_custom_text
+entity_type: contact_message
+bundle: personal_trainers_individual
+label: 'Custom Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

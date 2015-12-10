@@ -1,0 +1,26 @@
+uuid: 95804147-a091-4ed1-8600-a653f55cba4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.storage.contact_message.field_what_is_your_preferred_y_l
+    - node.type.location
+id: contact_message.personal_trainers_individual.field_what_is_your_preferred_y_l
+field_name: field_what_is_your_preferred_y_l
+entity_type: contact_message
+bundle: personal_trainers_individual
+label: 'What is your preferred Y location'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: _none
+field_type: entity_reference
