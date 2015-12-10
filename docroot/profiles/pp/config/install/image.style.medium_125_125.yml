@@ -10,14 +10,14 @@ effects:
   811b6ce8-76ef-450b-a52f-47737557cd19:
     uuid: 811b6ce8-76ef-450b-a52f-47737557cd19
     id: image_scale
-    weight: 1
+    weight: -9
     data:
       width: 125
       height: 125
-      upscale: false
+      upscale: true
   d2cea8bd-b1ed-43c8-b700-ac5a609d77c1:
     uuid: d2cea8bd-b1ed-43c8-b700-ac5a609d77c1
     id: crop_crop
-    weight: 2
+    weight: -10
     data:
       crop_type: medium_125_125

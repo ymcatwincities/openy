@@ -10,14 +10,14 @@ effects:
   2edc79b0-1809-4374-ba5d-93221d239b19:
     uuid: 2edc79b0-1809-4374-ba5d-93221d239b19
     id: image_scale
-    weight: 1
+    weight: -9
     data:
       width: 230
       height: 230
-      upscale: false
+      upscale: true
   8e0ae977-a7cf-48fe-a338-56456f6e659e:
     uuid: 8e0ae977-a7cf-48fe-a338-56456f6e659e
     id: crop_crop
-    weight: 2
+    weight: -10
     data:
       crop_type: large_230_230
