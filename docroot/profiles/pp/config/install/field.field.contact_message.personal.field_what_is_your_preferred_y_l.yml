@@ -1,0 +1,26 @@
+uuid: e163f824-8775-473a-883e-62ec9a25a2b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal
+    - field.storage.contact_message.field_what_is_your_preferred_y_l
+    - node.type.location
+id: contact_message.personal.field_what_is_your_preferred_y_l
+field_name: field_what_is_your_preferred_y_l
+entity_type: contact_message
+bundle: personal
+label: 'What is your preferred Y location'
+description: 'Select preferred location from a list'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: _none
+field_type: entity_reference
