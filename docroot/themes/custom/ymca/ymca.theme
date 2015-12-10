@@ -221,7 +221,7 @@ function ymca_preprocess_pager(&$vars) {
 }
 
 /**
- * @param $vars
+ * Implements hook_preprocess_views_view().
  */
 function ymca_preprocess_views_view(&$vars) {
   if ($vars['view']->id() == 'ymca_twin_cities_blog' && $vars['view']->current_display == 'blog_page') {
