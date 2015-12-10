@@ -1,0 +1,32 @@
+webform.webform:
+  version: VERSION
+  js:
+    js/webform.js: {}
+  css:
+    theme:
+      css/webform.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+webform.admin:
+  version: VERSION
+  js:
+    js/webform-admin.js: {}
+  css:
+    theme:
+      css/webform-admin.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+webform.node_type_form:
+  version: VERSION
+  js:
+    js/node-type-form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
