@@ -9,12 +9,12 @@ dependencies:
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
     - field.field.node.location.field_location
-    - field.field.node.location.field_location_working_hours
     - field.field.node.location.field_main_promos
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_s_content
+    - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
@@ -66,12 +66,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_default
-  field_location_working_hours:
-    weight: 102
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
   field_main_promos:
     weight: 108
     label: above
@@ -107,6 +101,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_working_hours:
+    weight: 114
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   links:
     weight: 100
 hidden:

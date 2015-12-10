@@ -60,6 +60,9 @@ dependencies:
   - ymca_page_context
   - ymca_menu
   - redirect
+  - ymca_hours
+  - ymca_field_office_hours
+  - ymca_field_holiday_hours
 themes:
   - bartik
   - seven
