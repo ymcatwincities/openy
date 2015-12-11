@@ -22,22 +22,6 @@ use Drupal\node\Entity\Node;
 class YmcaLocationSchedule extends DestinationBase {
 
   /**
-   * Constructs an entity destination plugin.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param MigrationInterface $migration
-   *   The migration.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function import(Row $row, array $old_destination_id_values = []) {
