@@ -14,7 +14,7 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
-    - field.field.node.location.field_schedule_s_content
+    - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - user
@@ -36,5 +36,5 @@ hidden:
   field_membership_block: true
   field_phone: true
   field_promo_slideshow: true
-  field_schedule_s_content: true
+  field_working_hours: true
   langcode: true
