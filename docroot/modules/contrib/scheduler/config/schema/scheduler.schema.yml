@@ -1,0 +1,62 @@
+# Schema for Scheduler module configuration.
+
+scheduler.settings:
+  type: config_object
+  label: 'Scheduler settings'
+  mapping:
+    allow_date_only:
+      type: boolean
+      label: 'Allow date-only input'
+    date_format:
+      type: string
+      label: 'Full date and time format'
+    date_only_format:
+      type: string
+      label: 'Date part of the full format'
+    default_time:
+      type: string
+      label: 'Default Time'
+    lightweight_cron_access_key:
+      type: string
+      label: 'Lightweight cron access key'
+    log:
+      type: boolean
+      label: 'Log every Scheduler lightweight cron activation and completion message'
+    time_only_format:
+      type: string
+      label: 'Time part of the full format'
+
+node.type.*.third_party.scheduler:
+  type: mapping
+  label: 'Scheduler content type settings'
+  mapping:
+    publish_enable:
+      type: boolean
+      label: 'Enable scheduled publishing'
+    publish_past_date:
+      type: string
+      label: 'Action to be taken for publication dates in the past'
+    publish_required:
+      type: boolean
+      label: 'Require scheduled publishing'
+    publish_revision:
+      type: boolean
+      label: 'Create a new revision on publishing'
+    publish_touch:
+      type: boolean
+      label: 'Change content creation time to match the scheduled publish time'
+    unpublish_enable:
+      type: boolean
+      label: 'Enable scheduled unpublishing'
+    unpublish_required:
+      type: boolean
+      label: 'Require scheduled unpublishing'
+    unpublish_revision:
+      type: boolean
+      label: 'Create a new revision on unpublishing'
+    use_vertical_tabs:
+      type: boolean
+      label: 'Display the scheduling fields in vertical tabs'
+    expand_fieldset:
+      type: boolean
+      label: 'Always expand the scheduler date input fieldset'

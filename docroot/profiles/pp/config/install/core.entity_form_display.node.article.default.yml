@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.field.node.article.field_alert
     - field.field.node.article.field_content
-    - field.field.node.article.field_date_end_visibility
-    - field.field.node.article.field_date_published
     - field.field.node.article.field_exclude_from_navigation
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
@@ -22,10 +20,10 @@ dependencies:
     - field.field.node.article.field_title_description
     - node.type.article
   module:
-    - datetime
     - image_widget_crop
     - link
     - path
+    - scheduler
     - text
 id: node.article.default
 targetEntityType: node
@@ -52,16 +50,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_date_end_visibility:
-    weight: 33
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-  field_date_published:
-    weight: 34
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
   field_exclude_from_navigation:
     weight: 30
     settings:
@@ -166,6 +154,11 @@ content:
       display_label: true
     weight: 4
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -186,6 +179,11 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden:
   field_tags: true
