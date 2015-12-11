@@ -13,11 +13,13 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
-    - field.field.node.location.field_schedule_s_content
+    - field.field.node.location.field_schedule_content
+    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
+    - file
     - path
     - telephone
     - text
@@ -100,13 +102,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_schedule_s_content:
-    weight: 11
+  field_schedule_content:
+    weight: 28
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_schedule_documents:
+    weight: 29
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
   field_working_hours:
     weight: 27
     settings:
