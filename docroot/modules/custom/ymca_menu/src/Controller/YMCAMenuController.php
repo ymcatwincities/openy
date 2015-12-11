@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_menu\Controller;
 
+use \Drupal\Core\URL;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -135,8 +136,11 @@ class YMCAMenuController extends ControllerBase {
           'l' => $row->depth,
           'n' => unserialize($row->title),
           't' => unserialize($row->title),
-          'u' => $row->url,
+          'u' => '',
         );
+        if ($row->url) {
+          $tree->lookup[$row->mlid]['u'] = URL::fromUri($row->url)->toString();
+        }
         // Exclude from nav if menu item is disabled.
         if (!$row->enabled) {
           $tree->lookup[$row->mlid]['x'] = 1;
