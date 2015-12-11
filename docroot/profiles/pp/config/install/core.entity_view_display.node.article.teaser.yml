@@ -6,8 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.article.field_alert
     - field.field.node.article.field_content
-    - field.field.node.article.field_date_end_visibility
-    - field.field.node.article.field_date_published
     - field.field.node.article.field_exclude_from_navigation
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
@@ -34,8 +32,6 @@ content:
 hidden:
   field_alert: true
   field_content: true
-  field_date_end_visibility: true
-  field_date_published: true
   field_exclude_from_navigation: true
   field_header_button: true
   field_header_image: true

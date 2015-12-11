@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.field.node.article.field_alert
     - field.field.node.article.field_content
-    - field.field.node.article.field_date_end_visibility
-    - field.field.node.article.field_date_published
     - field.field.node.article.field_exclude_from_navigation
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
@@ -22,7 +20,6 @@ dependencies:
     - field.field.node.article.field_title_description
     - node.type.article
   module:
-    - datetime
     - image
     - link
     - options
@@ -46,22 +43,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_date_end_visibility:
-    weight: 16
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-  field_date_published:
-    weight: 17
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
   field_exclude_from_navigation:
     weight: 13
     label: above
