@@ -64,6 +64,7 @@ dependencies:
   - ymca_field_office_hours
   - ymca_field_holiday_hours
   - scheduler
+  - contact_storage
 themes:
   - bartik
   - seven
