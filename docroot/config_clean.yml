@@ -9,6 +9,7 @@
     staging: sites/default/config/staging
     exclude:
       # Core modules configuration files:
+      - { name: 'action.settings.yml', status: true }
       - { name: 'automated_cron.settings.yml', status: true }
       - { name: 'block.block.bartik_account_menu.yml', status: true }
       - { name: 'block.block.bartik_branding.yml', status: true }
@@ -106,6 +107,7 @@
       - { name: 'language.content_settings.redirect.redirect.yml', status: true }
       - { name: 'redirect.settings.yml', status: true }
       # Custom modules:
+      - { name: 'migrate.migration.ymca_migrate_node_location_schedule.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_block_content_basic.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_block_working_hours_block.yml', status: true }
       - { name: 'migrate.migration.ymca_migrate_url_alias_blog.yml', status: true }
@@ -348,6 +350,7 @@
       - { name: 'views.view.redirect.yml', status: true }
       - { name: 'views.view.ymca_news.yml', status: true }
       - { name: 'views.view.ymca_twin_cities_blog.yml', status: true }
+      - { name: 'views.view.scheduled_content.yml', status: true }
 
   tasks:
     - name: Export config
@@ -364,7 +367,7 @@
       synchronize:
         src: '{{ staging }}/'
         dest: profiles/{{ profile }}/config/install
-        delete: no
+        delete: yes
         rsync_opts:
           - '--exclude=.htaccess'
 
