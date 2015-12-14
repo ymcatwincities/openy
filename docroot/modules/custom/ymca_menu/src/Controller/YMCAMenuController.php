@@ -7,7 +7,7 @@
 
 namespace Drupal\ymca_menu\Controller;
 
-use Drupal\Core\URL;
+use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -128,11 +128,11 @@ class YMCAMenuController extends ControllerBase {
         );
         if ($row->url) {
           try {
-            $tree->lookup[$row->mlid]['u'] = URL::fromUri($row->url)->toString();
+            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->url)->toString();
           }
           catch (\InvalidArgumentException $e) {
             try {
-              $tree->lookup[$row->mlid]['u'] = URL::fromUserInput($row->url)->toString();
+              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->url)->toString();
             }
             catch (\InvalidArgumentException $e) {
               \Drupal::logger('ymca_menu')->error('[DEV] mlid:@mlid @message', [
