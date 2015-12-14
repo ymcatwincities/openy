@@ -76,7 +76,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
               }
               // Do our merge here.
               if (array_key_exists('value', $old_value)) {
-                // Here for simple values
+                // Here for simple values.
                 $new_value = $old_value;
                 $new_value['value'] .= $property_value['value'];
               }
