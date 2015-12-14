@@ -67,6 +67,7 @@ trait YmcaMigrateTrait {
   public function parsePromoBlock($text = '') {
     // @todo: Implement this method. @podarok, help if you have time.
     // Currently we'll use mock data.
+    $block_data = [];
     if ($text == '') {
       \Drupal::logger('ymca_migrate')->error(
         t('[DEV]: parsePromoBlock would use demo data, because text is empty')
