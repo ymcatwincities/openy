@@ -58,9 +58,10 @@ class YMCAMenuController extends ControllerBase {
     $tree = $this->initTree();
     $menus = static::menuList();
     foreach ($menus as $menu_id) {
-      $query = $this->database
-        ->select('menu_tree', 'mt')
-        ->condition('menu_name', $menu_id);
+      $query = $this->database->select('menu_tree', 'mt');
+      $query->leftJoin('menu_link_content', 'mlc', 'mt.id = CONCAT(mlc.bundle, :separator, mlc.uuid)', [':separator' => ':']);
+      $query->leftJoin('menu_link_content_data', 'mlcd', 'mlcd.id = mlc.id');
+      $query->condition('mt.menu_name', $menu_id);
       $query->fields('mt', array(
         'mlid',
         'id',
@@ -79,9 +80,10 @@ class YMCAMenuController extends ControllerBase {
         'weight',
         'enabled',
       ));
+      $query->fields('mlcd', array('link__uri'));
       $query
-        ->orderBy('depth')
-        ->orderBy('weight');
+        ->orderBy('mt.depth')
+        ->orderBy('mt.weight');
 
       $results = $query->execute();
       $rows = [];
@@ -126,13 +128,13 @@ class YMCAMenuController extends ControllerBase {
           't' => unserialize($row->title),
           'u' => '',
         );
-        if ($row->url) {
+        if ($row->link__uri) {
           try {
-            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->url)->toString();
+            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->link__uri)->toString();
           }
           catch (\InvalidArgumentException $e) {
             try {
-              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->url)->toString();
+              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->link__uri)->toString();
             }
             catch (\InvalidArgumentException $e) {
               \Drupal::logger('ymca_menu')->error('[DEV] mlid:@mlid @message', [
