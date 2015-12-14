@@ -53,4 +53,28 @@ trait YmcaMigrateTrait {
     return $block;
   }
 
+  /**
+   * Get block data for creating Promo Block.
+   *
+   * @param string $text
+   *   Original text with tokens to parse.
+   *
+   * @return array
+   *   Block data.
+   */
+  public function parsePromoBlock($text) {
+    // @todo: Implement this method. @podarok, help if you have time.
+    // Currently we'll use mock data.
+    $block_data = [
+      'header' => 'Header here...',
+      'image_id' => 9,
+      'image_alt' => 'Image alt',
+      'link_uri' => 'http://www.google.com',
+      'link_title' => 'Link title',
+      'content' => 'Content here...',
+    ];
+
+    return $block_data;
+  }
+
 }

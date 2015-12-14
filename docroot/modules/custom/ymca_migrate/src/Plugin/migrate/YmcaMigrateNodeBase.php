@@ -153,16 +153,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         // Add specific behaviour for field_main_promos.
         if ($property == 'field_main_promos') {
           // Here we should parse HTML of body field, create a promo block and insert a reference to it.
-          $block_data = [
-            'header' => 'header',
-            'image_id' => 9,
-            'image_alt' => 'Image alt',
-            'link_uri' => 'http://www.google.com',
-            'link_title' => 'Link title',
-            'content' => 'Content here',
-          ];
           /** @var BlockContent $block */
-          $block = $this->getPromoBlock($block_data);
+          $block = $this->getPromoBlock($this->parsePromoBlock($component['body']));
           $value[$property][]['target_id'] = $block->id();
         }
         else {
@@ -342,6 +334,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ];
         break;
 
+      case 'date_conditional_content':
+        if ($property == 'field_main_promos') {
+        }
+        break;
+
       default:
         $value[$property] = $component['body'];
     }
@@ -435,6 +432,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ],
         3 => [
           'rich_text' => 'field_main_promos',
+          'date_conditional_content' => 'field_main_promos',
         ]
       ],
       self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
