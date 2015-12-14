@@ -65,6 +65,9 @@ dependencies:
   - ymca_field_holiday_hours
   - scheduler
   - contact_storage
+  - metatag
+  - xmlsitemap
+  - globalredirect
 themes:
   - bartik
   - seven
