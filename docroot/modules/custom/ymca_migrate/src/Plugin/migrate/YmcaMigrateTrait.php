@@ -19,14 +19,15 @@ trait YmcaMigrateTrait {
    *
    * @param array $data
    *   Required list of items:
-   *    - header: Block header
-   *    - image_id: Image ID
-   *    - image_alt: Image alt
-   *    - link_uri: Link URI
-   *    - link_title: Link title
-   *    - content: Content
+   *    - header: Block header,
+   *    - image_id: Image ID,
+   *    - image_alt: Image alt,
+   *    - link_uri: Link URI,
+   *    - link_title: Link title,
+   *    - content: Content.
    *
    * @return BlockContent
+   *   Saved entity.
    */
   public function getPromoBlock(array $data) {
     $block = BlockContent::create([
