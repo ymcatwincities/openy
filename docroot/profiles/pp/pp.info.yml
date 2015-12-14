@@ -68,6 +68,7 @@ dependencies:
   - metatag
   #- xmlsitemap
   #- globalredirect
+
 themes:
   - bartik
   - seven
