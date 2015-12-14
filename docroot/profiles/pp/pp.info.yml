@@ -66,8 +66,8 @@ dependencies:
   - scheduler
   - contact_storage
   - metatag
-  - xmlsitemap
-  - globalredirect
+  #- xmlsitemap
+  #- globalredirect
 themes:
   - bartik
   - seven
