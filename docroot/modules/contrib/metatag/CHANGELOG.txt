@@ -1,0 +1,42 @@
+Metatag 8.x-1.0-beta3, 2015-12-08
+---------------------------------
+#2613654 by Michelle, DamienMcKenna: Automatically parse fields for images.
+#2563639 by juampynr, DamienMcKenna: Global configurations system.
+
+
+Metatag 8.x-1.0-beta2, 2015-11-23
+---------------------------------
+#2572469 by Berdir, platinum1, rakesh.gectcr, DamienMcKenna: Fixed the
+  composer.json file.
+
+
+Metatag 8.x-1.0-beta1, 2015-11-19
+---------------------------------
+Initial port by Damien McKenna and Michelle Cox.
+#2563663 by kikoalonsob: Don't convert the title to a string.
+#2563621 by jmolivas: Fixed DrupalConsole integration.
+#2579865 by afi13: Fixed definition of MetatagEmptyFormatter::viewElements().
+#2563667 by vincic: MetatagManager should only be used for objects implementing
+  ContentEntityInterface.
+#2569043 by Michelle: Field defaults weren't loading (core API change).
+#2579295 by Michelle: Fixed the field cardinality limitation.
+#2563667 by Michelle: Follow-up to add missing namespace.
+#2584835 by DamienMcKenna: Fixed double-HTML encoding of the page title.
+#2563637 by larowlan: Added some initial tests for the field type.
+#2596753 by Michelle: Don't encode apostrophes in the page title.
+#2576695 by Andrej Galuf, larowlan, DamienMcKenna: Double slashes in URLs were
+  being replaced.
+#2603548 by DuaelFr: Clear our the head_title array to avoid the site name being
+  added a second time.
+#2617192 by larowlan: Fixed tests due to a core API change.
+#2609138 by rakesh.gectcr: Removed unnecessary 'use' statements.
+#2593149 by larowlan: Inject dependencies into MetatagManager.
+#2593153 by larowlan: Inject dependencies into MetatagToken.
+#2593141 by larowlan: Add a MetatagManagerInterface to avoid type-hinting
+  concrete implementation.
+#2581351 by Michelle, larowlan, DamienMcKenna: Don't save default values to the
+  field, allow them to inherit from the default field settings.
+By DamienMcKenna: Updates to the README.txt file.
+#2572469 by rakesh.gectcr, DamienMcKenna, jaxxed, timmillwood: Added a
+  composer.json file.
+By DamienMcKenna: Added a LICENSE.txt to enforce the license on git mirrors.

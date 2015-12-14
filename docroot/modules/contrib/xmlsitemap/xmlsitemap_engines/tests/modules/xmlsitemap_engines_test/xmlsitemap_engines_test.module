@@ -1,0 +1,36 @@
+<?php
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_xmlsitemap_engine_info().
+ */
+function xmlsitemap_engines_test_xmlsitemap_engine_info() {
+  $engines['simpletest'] = array(
+    'name' => t('SimpleTest'),
+    'url' => 'http://example.com/',
+  );
+  return $engines;
+}
+
+/**
+ * Implements hook_xmlsitemap_engine_info_alter().
+ */
+function xmlsitemap_engines_test_xmlsitemap_engine_info_alter(&$engines) {
+  $engines['simpletest']['url'] = Url::fromUri('base://ping', array('absolute' => TRUE, 'query' => array('sitemap' => ''))) . '[sitemap]';
+}
+
+function xmlsitemap_engines_test_pinged() {
+  $query_sitemap = \Drupal::request()->query->get('sitemap');
+  //$query_sitemap = $query->get('sitemap');
+  if (empty($query_sitemap) || !UrlHelper::isValid($query_sitemap)) {
+    watchdog('xmlsitemap', 'No valid sitemap parameter provided.', array(), WATCHDOG_WARNING);
+    // @todo Remove this? Causes an extra watchdog error to be handled.
+    throw new NotFoundHttpException();
+  }
+  else {
+    watchdog('xmlsitemap', 'Recieved ping for @sitemap.', array('@sitemap' => $query_sitemap));
+  }
+}

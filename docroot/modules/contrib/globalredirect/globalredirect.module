@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * The Global Redirect module redirects for all paths which have aliases but
+ * are not using the aliases which reduces the risk of duplicate content.
+ */
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function globalredirect_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.globalredirect':
+      return t('This module will do a 301 redirect for all nodes which have an alias but are not using that alias.');
+  }
+}

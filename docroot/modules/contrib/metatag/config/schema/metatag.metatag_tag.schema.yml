@@ -1,0 +1,3 @@
+metatag.metatag_tag.*:
+  type: string
+  label: 'Metatag tag config'

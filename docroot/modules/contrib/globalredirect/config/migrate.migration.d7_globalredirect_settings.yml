@@ -1,0 +1,20 @@
+id: d7_globalredirect_settings
+source:
+  plugin: variable
+  variables:
+    - deslash
+    - nonclean_to_clean
+    - menu_check
+    - case_sensitive_urls
+    - canonical
+    - content_location_header
+    - term_path_handler
+    - frontpage_redirect
+    - ignore_admin_path
+    - comment_to_node
+process:
+  access_check: menu_check
+  normalize_aliases: case_sensitive_urls
+destination:
+  plugin: config
+  config_name: globalredirect.settings

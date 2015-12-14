@@ -1,0 +1,84 @@
+# Schema for the configuration files of the XMLSitemap module.
+
+xmlsitemap.settings:
+    type: mapping
+    label: 'XMLSitemap settings'
+    mapping:
+        minimum_lifetime:
+            type: integer
+            label: 'Minumum lifetime of an xmlsitemap xml file'
+        xsl:
+            type: integer
+            label: 'Check XSL functionality'
+        prefetch_aliases:
+            type: integer
+            label: 'Decide to prefetch aliases'
+        chunk_size:
+            type: string
+            label: 'Set chunk size'
+        batch_limit:
+            type: integer
+            label: 'Set batch limit'
+        path:
+            type: string
+            label: 'Path of the XML generated files'
+        frontpage_priority:
+            type: float
+            label: 'Priority of the frontpage'
+        frontpage_changefreq:
+            type: integer
+            label: 'Change frequency for frontpage'
+        lastmod_format:
+            type: string
+            label: 'Last modified xmlsitemap format'
+        gz:
+            type: boolean
+            label: 'Gz'
+        clean_url:
+            type: integer
+            label: 'Insert clean urls into sitemap'
+        cron_threshold_error:
+            type: integer
+            label: 'Threshold error for cron job'
+        cron_threshold_warning:
+            type: integer
+            label: 'Threshold warning for cron job'
+        regenerate_last:
+            type: undefined
+            label: 'Last regenerate xmlsitemap'
+        custom_links:
+            type: undefined
+            label: 'Custom links'
+        priority_default:
+            type: undefined
+            label: 'Default priority for a link'
+        languages:
+            type: mapping
+            label: 'Languages for xmlsitemap'
+
+xmlsitemap.*:
+    type: config_entity
+    label: 'Sitemap'
+    mapping:
+        id:
+            type: string
+            label: 'Sitemap id'
+        label:
+            type: string
+            label: 'Sitemap label'
+        chunks:
+            type: integer
+            label: 'Number of chunks'
+        links:
+            type: integer
+            label: 'Number of links'
+        max_filesize:
+            type: integer
+            label: 'Maximum filesize of the sitemap'
+        context:
+            type: mapping
+            label: 'Context of the sitemap'
+        updated:
+            type: integer
+            label: 'Last time sitemap was updated'
+

@@ -1,0 +1,14 @@
+services:
+  globalredirect.subscriber:
+    class: Drupal\globalredirect\EventSubscriber\GlobalredirectSubscriber
+    arguments: ['@config.factory', '@path.alias_manager', '@language_manager', '@module_handler', '@entity.manager', '@globalredirect.checker', '@router.request_context']
+    tags:
+      - { name: event_subscriber }
+  globalredirect.checker:
+    class: Drupal\globalredirect\RedirectChecker
+    arguments: ['@config.factory', '@access_manager', '@current_user', '@router.route_provider']
+  globalredirect.settings_cache_tag:
+      class: Drupal\globalredirect\EventSubscriber\GlobalredirectSettingsCacheTag
+      arguments: ['@cache_tags.invalidator']
+      tags:
+        - { name: event_subscriber }

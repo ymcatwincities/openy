@@ -1,0 +1,6 @@
+globalredirect.settings:
+  title: 'Global Redirect'
+  parent: system.admin_config_system
+  description: 'Choose which features you would like enabled for Global Redirect.'
+  route_name: globalredirect.settings
+  menu_name: admin
