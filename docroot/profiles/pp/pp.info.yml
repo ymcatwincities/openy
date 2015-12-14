@@ -67,7 +67,7 @@ dependencies:
   - contact_storage
   - metatag
   - xmlsitemap
-  - globalredirect
+  # - globalredirect
 themes:
   - bartik
   - seven
