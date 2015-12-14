@@ -17,6 +17,8 @@ use Drupal\migrate\Row;
  */
 abstract class YmcaMigrateNodeBase extends SqlBase {
 
+  use YmcaMigrateTrait;
+
   // @codingStandardsIgnoreStart
   const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;
   const YMCA_2013_LOCATIONS_CAMPS = 18;
@@ -58,8 +60,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           foreach ($properties as $property_name => $property_value) {
             // Some components may go to multiple fields in Drupal, so take care of them.
             if ($old_value = $row->getSourceProperty($property_name)) {
-              // Currently we are merging only properties that have 'value' key. Otherwise log message.
-              if (!array_key_exists('value', $old_value)) {
+              // Currently we are merging only properties that are array of arrays or have 'value' key. Otherwise log message.
+              if (!array_key_exists('value', $old_value) || !is_array($old_value[0])) {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
@@ -73,8 +75,16 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 );
               }
               // Do our merge here.
-              $new_value = $old_value;
-              $new_value['value'] .= $property_value['value'];
+              if (array_key_exists('value', $old_value)) {
+                // Here for simple values
+                $new_value = $old_value;
+                $new_value['value'] .= $property_value['value'];
+              }
+              else {
+                // Here for arrays.
+                $new_value = $old_value + $property_value;
+              }
+
             }
             else {
               // Here only one component for a field. Write it.
@@ -140,10 +150,28 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'rich_text':
-        $value[$property] = [
-          'value' => $component['body'],
-          'format' => 'full_html',
-        ];
+        // Add specific behaviour for field_main_promos.
+        if ($property == 'field_main_promos') {
+          // Here we should parse HTML of body field, create a promo block and insert a reference to it.
+          $block_data = [
+            'header' => 'header',
+            'image_id' => 9,
+            'image_alt' => 'Image alt',
+            'link_uri' => 'http://www.google.com',
+            'link_title' => 'Link title',
+            'content' => 'Content here',
+          ];
+          /** @var BlockContent $block */
+          $block = $this->getPromoBlock($block_data);
+          $value[$property][]['target_id'] = $block->id();
+        }
+        else {
+          $value[$property] = [
+            'value' => $component['body'],
+            'format' => 'full_html',
+          ];
+        }
+
         break;
 
       case 'text':
@@ -405,6 +433,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         1 => [
           'rich_text' => 'field_content',
         ],
+        3 => [
+          'rich_text' => 'field_main_promos',
+        ]
       ],
       self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
         1 => [
