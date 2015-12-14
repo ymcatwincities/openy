@@ -17,6 +17,8 @@ use Drupal\migrate\Row;
  */
 abstract class YmcaMigrateNodeBase extends SqlBase {
 
+  use YmcaMigrateTrait;
+
   // @codingStandardsIgnoreStart
   const THEME_INTERNAL_CATEGORY_AND_DETAIL = 22;
   const YMCA_2013_LOCATIONS_CAMPS = 18;
@@ -47,23 +49,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Get components tree for the page, where each component has its children.
     $tree_builder = new YmcaComponentTreeBuilder($page_id, $this->getDatabase());
-
-    // Get flat list of components and make token replacements.
-    $flat_components = $tree_builder->getComponents();
-    foreach ($flat_components as $c_key => $c_value) {
-      foreach ($c_value as $i_key => $i_value) {
-        preg_match_all("/{{internal.*}}/im", $i_value, $test);
-        if (!empty($test) && !empty($test[0])) {
-          $flat_components[$c_key][$i_key] = $this->replaceTokens->processText($i_value);
-        }
-      }
-    }
-
-    // Push processed components to tree builder object and build a tree.
-    $tree_builder->setComponents($flat_components);
-    $tree_builder->buildTree();
-
-    // Finally, get our new tree with replaced tokens.
     $components_tree = $tree_builder->getTree();
 
     // Foreach each parent component and check if there is a mapping.
@@ -75,8 +60,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           foreach ($properties as $property_name => $property_value) {
             // Some components may go to multiple fields in Drupal, so take care of them.
             if ($old_value = $row->getSourceProperty($property_name)) {
-              // Currently we are merging only properties that have 'value' key. Otherwise log message.
-              if (!array_key_exists('value', $old_value)) {
+              // Currently we are merging only properties that are array of arrays or have 'value' key. Otherwise log message.
+              if (!array_key_exists('value', $old_value) || !is_array($old_value[0])) {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
@@ -90,8 +75,16 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 );
               }
               // Do our merge here.
-              $new_value = $old_value;
-              $new_value['value'] .= $property_value['value'];
+              if (array_key_exists('value', $old_value)) {
+                // Here for simple values.
+                $new_value = $old_value;
+                $new_value['value'] .= $property_value['value'];
+              }
+              else {
+                // Here for arrays.
+                $new_value = $old_value + $property_value;
+              }
+
             }
             else {
               // Here only one component for a field. Write it.
@@ -157,10 +150,20 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'rich_text':
-        $value[$property] = [
-          'value' => $component['body'],
-          'format' => 'full_html',
-        ];
+        // Add specific behaviour for field_main_promos.
+        if ($property == 'field_main_promos') {
+          // Here we should parse HTML of body field, create a promo block and insert a reference to it.
+          /** @var BlockContent $block */
+          $block = $this->getPromoBlock($this->parsePromoBlock($component['body']));
+          $value[$property][]['target_id'] = $block->id();
+        }
+        else {
+          $value[$property] = [
+            'value' => $component['body'],
+            'format' => 'full_html',
+          ];
+        }
+
         break;
 
       case 'text':
@@ -331,6 +334,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ];
         break;
 
+      case 'date_conditional_content':
+        if ($property == 'field_main_promos') {
+        }
+        break;
+
       default:
         $value[$property] = $component['body'];
     }
@@ -422,6 +430,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         1 => [
           'rich_text' => 'field_content',
         ],
+        3 => [
+          'rich_text' => 'field_main_promos',
+          'date_conditional_content' => 'field_main_promos',
+        ]
       ],
       self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
         1 => [
