@@ -56,19 +56,7 @@ class YMCAMenuController extends ControllerBase {
   private function buildTree() {
     // Lookup stores all menu-link items.
     $tree = $this->initTree();
-
-    // The order of menus to be combined.
-    $menus = [
-      'main-menu',
-      'locations',
-      'health-and-fitness',
-      'swimming',
-      'child-care-preschool',
-      'kids-teen-activities',
-      'camps',
-      'community-programs',
-      'jobs-suppliers-news',
-    ];
+    $menus = static::menuList();
     foreach ($menus as $menu_id) {
       $query = $this->database
         ->select('menu_tree', 'mt')
@@ -122,7 +110,7 @@ class YMCAMenuController extends ControllerBase {
         for ($i = 1; $i < 9; $i++) {
           if (!empty($row->{'p' . $i}) && $row->{'p' . $i} != $row->mlid) {
             $anc_mlid = $row->{'p' . $i};
-            if ($menu_id == 'locations' && $anc_mlid == $locations_root) {
+            if ($menu_id == 'locations' && $anc_mlid == $locations_root && isset($locations_parent)) {
               $anc_mlid = $locations_parent;
             }
             $ancestors[] = $anc_mlid;
@@ -139,7 +127,20 @@ class YMCAMenuController extends ControllerBase {
           'u' => '',
         );
         if ($row->url) {
-          $tree->lookup[$row->mlid]['u'] = URL::fromUri($row->url)->toString();
+          try {
+            $tree->lookup[$row->mlid]['u'] = URL::fromUri($row->url)->toString();
+          }
+          catch (\InvalidArgumentException $e) {
+            try {
+              $tree->lookup[$row->mlid]['u'] = URL::fromUserInput($row->url)->toString();
+            }
+            catch (\InvalidArgumentException $e) {
+              \Drupal::logger('ymca_menu')->error('[DEV] mlid:@mlid @message', [
+                '@message' => $e->getMessage(),
+                '@mlid' => $row->mlid,
+              ]);
+            }
+          }
         }
         // Exclude from nav if menu item is disabled.
         if (!$row->enabled) {
@@ -199,6 +200,25 @@ class YMCAMenuController extends ControllerBase {
       'page_name' => "n",
       'page_title' => "t",
       'url' => "u",
+    ];
+  }
+
+  /**
+   * Return an ordered list of menus' machine names to be combined.
+   *
+   * @return array
+   */
+  public static function menuList() {
+    return [
+      'main-menu',
+      'locations',
+      'health-and-fitness',
+      'swimming',
+      'child-care-preschool',
+      'kids-teen-activities',
+      'camps',
+      'community-programs',
+      'jobs-suppliers-news',
     ];
   }
 
