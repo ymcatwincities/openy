@@ -7,7 +7,7 @@
 
 namespace Drupal\ymca_menu\Controller;
 
-use \Drupal\Core\URL;
+use Drupal\Core\URL;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;

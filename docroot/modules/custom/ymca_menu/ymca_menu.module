@@ -23,5 +23,6 @@ function ymca_menu_page_attachments(array &$attachments) {
   }
   $attachments['#attached']['drupalSettings']['page'] = array(
     'mlid' => !empty($mlid) ? $mlid : 0,
+    'liveUrl' => \Drupal::service('path.current')->getPath() . '/',
   );
 }
