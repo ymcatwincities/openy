@@ -55,7 +55,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     foreach ($components_tree as $id => $item) {
       if ($property = $this->checkMap($theme_id, $item['content_area_index'], $item['component_type'])) {
         // Set appropriate source properties.
-        $properties = $this->transform($property, $item, $row);
+        $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
           foreach ($properties as $property_name => $property_value) {
             // Some components may go to multiple fields in Drupal, so take care of them.
@@ -82,7 +82,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
               }
               else {
                 // Here for arrays.
-                $new_value = $old_value + $property_value;
+                $new_value = array_merge($old_value, $property_value);
               }
 
             }
@@ -133,13 +133,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    *   Property name (field name).
    * @param array $component
    *   Component with children.
-   * @param Row $row
-   *   Row object.
    *
    * @return array
    *   Array of source fields.
    */
-  protected function transform($property, array $component, Row $row) {
+  protected function transform($property, array $component) {
     $value = [];
 
     switch ($component['component_type']) {
@@ -338,7 +336,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
       case 'date_conditional_content':
         if ($property == 'field_main_promos') {
-          $this->createDateBlock($this->getDateComponentData($component));
+          /** @var BlockContent $block */
+          $block_data = $this->extractDateComponentData($component);
+          $block = $this->createDateBlock($block_data);
+          $value[$property][]['target_id'] = $block->id();
         }
         break;
 
@@ -349,7 +350,16 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     return $value;
   }
 
-  protected function getDateComponentData($component) {
+  /**
+   * Extract data for Date block.
+   *
+   * @param array $component
+   *   Component from the old DB.
+   *
+   * @return array
+   *   Ready to use data to create Date Block.
+   */
+  protected function extractDateComponentData(array $component) {
     // @todo: Get real data.
     // Fow now we'll use mock data.
     $data = [];
@@ -359,9 +369,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     $data['date_end'] = $this->convertDate($this->getAttributeData('end_date_time', $component));
 
     // Get content.
-    $data['content_before'] = $this->parsePromoBlock('string');
-    $data['content_between'] = $this->parsePromoBlock('string');
-    $data['content_end'] = $this->parsePromoBlock('string');
+    $data['content_before'] = 'Content before...';
+    $data['content_between'] = 'Content between...';
+    $data['content_end'] = 'Content end...';
+
+    return $data;
   }
 
   /**
