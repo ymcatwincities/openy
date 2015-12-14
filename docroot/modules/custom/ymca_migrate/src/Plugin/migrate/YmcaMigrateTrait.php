@@ -89,6 +89,9 @@ trait YmcaMigrateTrait {
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap $ymca_asset_tokens_map */
     $ymca_asset_tokens_map = \Drupal::service('ymcaassetstokensmap.service');
 
+    /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
+    $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
+    
     foreach ($match[0] as $block_id => $block) {
 
       $file_id = $ymca_asset_tokens_map->getAssetId($match[1][$block_id]);
@@ -102,8 +105,6 @@ trait YmcaMigrateTrait {
         return FALSE;
       }
 
-      /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
-      $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
       $menu_id = $ymca_tokens_map->getMenuId($match[5][$block_id]);
       if ($menu_id === FALSE) {
         \Drupal::logger('ymca_migrate')->error(
