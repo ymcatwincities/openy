@@ -47,23 +47,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Get components tree for the page, where each component has its children.
     $tree_builder = new YmcaComponentTreeBuilder($page_id, $this->getDatabase());
-
-    // Get flat list of components and make token replacements.
-    $flat_components = $tree_builder->getComponents();
-    foreach ($flat_components as $c_key => $c_value) {
-      foreach ($c_value as $i_key => $i_value) {
-        preg_match_all("/{{internal.*}}/im", $i_value, $test);
-        if (!empty($test) && !empty($test[0])) {
-          $flat_components[$c_key][$i_key] = $this->replaceTokens->processText($i_value);
-        }
-      }
-    }
-
-    // Push processed components to tree builder object and build a tree.
-    $tree_builder->setComponents($flat_components);
-    $tree_builder->buildTree();
-
-    // Finally, get our new tree with replaced tokens.
     $components_tree = $tree_builder->getTree();
 
     // Foreach each parent component and check if there is a mapping.
