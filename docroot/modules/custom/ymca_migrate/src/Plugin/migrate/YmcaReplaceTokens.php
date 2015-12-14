@@ -106,7 +106,7 @@ class YmcaReplaceTokens {
         $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
         $menu_id = $ymca_tokens_map->getMenuId($source_page_id);
         if ($menu_id === FALSE) {
-          // @todo log.
+          \Drupal::logger('ymca_migrate')->error(t('[DEV]: replacePageTokens menuid for pageID: @id is not found', array('@id' => $source_page_id)));
           return;
         }
         else {
@@ -187,7 +187,7 @@ class YmcaReplaceTokens {
         $ymca_asset_tokens_map = \Drupal::service('ymcaassetstokensmap.service');
         $file_id = $ymca_asset_tokens_map->getAssetId($source_asset_id);
         if ($file_id === FALSE) {
-          // @todo log.
+          \Drupal::logger('ymca_migrate')->error(t('[DEV]: replaceAssetLinksTokens fileid for assetID: @id is not found', array('@id' => $source_asset_id)));
           return;
         }
         else {
