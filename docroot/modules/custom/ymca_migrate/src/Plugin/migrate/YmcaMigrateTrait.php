@@ -29,8 +29,9 @@ trait YmcaMigrateTrait {
    * @return BlockContent
    *   Saved entity.
    */
-  public function getPromoBlock(array $data) {
+  public function createPromoBlock(array $data) {
     $block = BlockContent::create([
+      'type' => 'promo_block',
       'langcode' => 'en',
       'info' => t('Test Promo Block'),
       'field_block_header' => $data['header'],
@@ -46,11 +47,56 @@ trait YmcaMigrateTrait {
         'value' => $data['content'],
         'format' => 'full_html',
       ],
-      'type' => 'promo_block'
     ])
       ->enforceIsNew();
     $block->save();
     return $block;
+  }
+
+  /**
+   * Create and get Date Block.
+   *
+   * @param array $data
+   *   Required list of items:
+   *    - date_start: Start date,
+   *    - date_end: End date,
+   *    - content_before: Content before,
+   *    - content_between: Content between,
+   *    - content_end: Content end.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createDateBlock($data) {
+    $block = BlockContent::create([
+      'type' => 'date_block',
+      'langcode' => 'en',
+      'info' => t('Test Date Based Block'),
+      'field_start_date' => $data['date_start'],
+      'field_end_date' => $data['date_end'],
+      'field_content_date_before' => [
+        'value' => $data['content_before'],
+        'format' => 'full_html',
+      ],
+      'field_content_date_between' => [
+        'value' => $data['content_between'],
+        'format' => 'full_html',
+      ],
+      'field_content_date_end' => [
+        'value' => $data['content_end'],
+        'format' => 'full_html',
+      ],
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  public function convertDate($input) {
+    // @todo: Make real conversion.
+    // Fow now using just mock data.
+    $output = '2004-02-12T15:19:21';
+    return $output;
   }
 
   /**
