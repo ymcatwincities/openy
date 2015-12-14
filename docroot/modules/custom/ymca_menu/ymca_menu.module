@@ -1,0 +1,27 @@
+<?php
+/**
+ * @files
+ * Hooks for ymca_menu module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ymca_menu_page_attachments(array &$attachments) {
+  $menus = Drupal\ymca_menu\Controller\YMCAMenuController::menuList();
+  foreach ($menus as $menu) {
+    /* @var Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
+    if ($link = \Drupal::service('menu.active_trail')->getActiveLink($menu)) {
+      $connection = \Drupal\Core\Database\Database::getConnection();
+      $query = $connection
+        ->select('menu_tree', 'mt')
+        ->condition('id', $link->getPluginId());
+      $query->fields('mt', array('mlid'));
+      $mlid = $query->execute()->fetchField();
+      break;
+    }
+  }
+  $attachments['#attached']['drupalSettings']['page'] = array(
+    'mlid' => !empty($mlid) ? $mlid : 0,
+  );
+}
