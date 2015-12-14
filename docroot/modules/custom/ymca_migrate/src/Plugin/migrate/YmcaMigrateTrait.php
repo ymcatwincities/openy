@@ -91,7 +91,7 @@ trait YmcaMigrateTrait {
 
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
     $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
-    
+
     foreach ($match[0] as $block_id => $block) {
 
       $file_id = $ymca_asset_tokens_map->getAssetId($match[1][$block_id]);
@@ -131,14 +131,6 @@ trait YmcaMigrateTrait {
         'content' => $match[4][$block_id],
       ];
     }
-    $block_data = [
-      'header' => 'Header here...',
-      'image_id' => 9,
-      'image_alt' => 'Image alt',
-      'link_uri' => 'http://www.google.com',
-      'link_title' => 'Link title',
-      'content' => 'Content here...',
-    ];
 
     return $block_data;
   }
