@@ -109,8 +109,6 @@ trait YmcaMigrateTrait {
    *   Block data.
    */
   public function parsePromoBlock($text = '') {
-    // @todo: Implement this method. @podarok, help if you have time.
-    // Currently we'll use mock data.
     $block_data = [];
     if ($text == '') {
       \Drupal::logger('ymca_migrate')->error(

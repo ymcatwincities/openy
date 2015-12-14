@@ -211,6 +211,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         }
 
         // List of known components to join.
+        // @todo: Add subcontent here for datebased blocks.
         $available = [
           'rich_text',
           'image',
