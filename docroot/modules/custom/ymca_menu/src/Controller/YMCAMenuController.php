@@ -207,6 +207,7 @@ class YMCAMenuController extends ControllerBase {
    * Return an ordered list of menus' machine names to be combined.
    *
    * @return array
+   *   List of menu machine names.
    */
   public static function menuList() {
     return [

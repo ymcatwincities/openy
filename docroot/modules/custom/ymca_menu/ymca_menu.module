@@ -1,7 +1,7 @@
 <?php
 /**
- * @files
- * Hooks for ymca_menu module.
+ * @file
+ * Contiains hooks for ymca_menu module.
  */
 
 /**
