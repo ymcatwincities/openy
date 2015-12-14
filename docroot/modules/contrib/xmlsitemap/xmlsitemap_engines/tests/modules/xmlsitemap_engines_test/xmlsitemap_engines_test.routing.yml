@@ -1,8 +1,0 @@
-xmlsitemap_engines_test.ping:
-  path: '/ping'
-  defaults:
-    _content: '\Drupal\xmlsitemap_engines_test\Controller\XmlSitemapEnginesTestController::render'
-    _title: 'Ping'
-  requirements:
-    _access: 'TRUE'
-
