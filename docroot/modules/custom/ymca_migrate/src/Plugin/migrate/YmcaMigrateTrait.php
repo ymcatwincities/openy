@@ -8,6 +8,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\Component\Utility\Html;
 
 /**
  * Helper functions for Ymca Migrate plugins.
@@ -19,6 +20,7 @@ trait YmcaMigrateTrait {
    *
    * @param array $data
    *   Required list of items:
+   *    - info: Description,
    *    - header: Block header,
    *    - image_id: Image ID,
    *    - image_alt: Image alt,
@@ -29,30 +31,88 @@ trait YmcaMigrateTrait {
    * @return BlockContent
    *   Saved entity.
    */
-  public function getPromoBlock(array $data) {
-    $block = BlockContent::create(
-      [
-        'langcode' => 'en',
-        'info' => t('Test Promo Block'),
-        'field_block_header' => $data['header'],
-        'field_image' => [
-          'target_id' => $data['image_id'],
-          'alt' => $data['image_alt'],
-        ],
-        'field_link' => [
-          'uri' => $data['link_uri'],
-          'title' => $data['link_title']
-        ],
-        'field_block_content' => [
-          'value' => $data['content'],
-          'format' => 'full_html',
-        ],
-        'type' => 'promo_block'
-      ]
-    )
+  public function createPromoBlock(array $data) {
+    $block = BlockContent::create([
+      'type' => 'promo_block',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_block_header' => $data['header'],
+      'field_image' => [
+        'target_id' => $data['image_id'],
+        'alt' => $data['image_alt'],
+      ],
+      'field_link' => [
+        'uri' => $data['link_uri'],
+        'title' => $data['link_title']
+      ],
+      'field_block_content' => [
+        'value' => $data['content'],
+        'format' => 'full_html',
+      ],
+    ])
       ->enforceIsNew();
     $block->save();
     return $block;
+  }
+
+  /**
+   * Create and get Date Block.
+   *
+   * @param array $data
+   *   Required list of items:
+   *    - info: Description,
+   *    - date_start: Start date,
+   *    - date_end: End date,
+   *    - content_before: Content before,
+   *    - content_during: Content between,
+   *    - content_after: Content end.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createDateBlock($data) {
+    $block = BlockContent::create([
+      'type' => 'date_block',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_start_date' => $data['date_start'],
+      'field_end_date' => $data['date_end'],
+      'field_content_date_before' => [
+        'value' => $data['content_before'],
+        'format' => 'full_html',
+      ],
+      'field_content_date_between' => [
+        'value' => $data['content_during'],
+        'format' => 'full_html',
+      ],
+      'field_content_date_end' => [
+        'value' => $data['content_after'],
+        'format' => 'full_html',
+      ],
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  /**
+   * Convert date to Drupal format.
+   *
+   * @param string $input
+   *   Date in format: 'd/m/Y h:i:s a'.
+   *
+   * @return string
+   *   Date in format: 'Y-m-d\TH:i:s'.
+   */
+  public function convertDate($input) {
+    $date = \DateTime::createFromFormat(
+      'd/m/Y h:i:s a',
+      $input,
+      new \DateTimeZone(
+        \Drupal::config('ymca_migrate.settings')->get('timezone')
+      )
+    );
+    return $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
   }
 
   /**
@@ -65,26 +125,26 @@ trait YmcaMigrateTrait {
    *   Block data.
    */
   public function parsePromoBlock($text = '') {
-    // @todo: Implement this method. @podarok, help if you have time.
-    // Currently we'll use mock data.
     $block_data = [];
     if ($text == '') {
-      \Drupal::logger('ymca_migrate')->error(
+      // @todo: @podarok, please fix regex for understanding class for img.
+      // Added class to the default text.
+      \Drupal::logger('YmcaMigrateTrait')->error(
         t('[DEV]: parsePromoBlock would use demo data, because text is empty')
       );
-      $text = '<p><img src="{{internal_asset_link_9568}}" alt="Group Exercise" width="600" height="340" /></p>
+      $text = '<p><img class="img-responsive" src="{{internal_asset_link_9568}}" alt="Group Exercise" width="600" height="340" /></p>
 <h2>Group Exercise </h2>
 <p>Free drop-in classes for members.</p>
 <p><a href="{{internal_page_link_7842}}">Group Exercise</a></p>';
     }
     preg_match_all(
-      '/<p><img.*{{internal_asset_link_(.*)}}.*alt=\"(.*)\".*<\/p>.*[\n]<h2>(.*)<\/h2>.*[\n]<p>(.*)<\/p>.*[\n]<p><a.*{{internal_page_link_(.*)}}.*>(.*)<.*<\/p>/ixmU',
+      '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\"(.*)\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a.*{{internal_page_link_(.*)}}.*>(.*)<.*<\/p>/imU',
       $text,
       $match
     );
     if (count($match) != 7) {
       // Block(s) not detected.
-      \Drupal::logger('ymca_migrate')->info(t('Block is not detected'));
+      \Drupal::logger('YmcaMigrateTrait')->info(t('Block is not detected'));
       return FALSE;
     }
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap $ymca_asset_tokens_map */
@@ -97,9 +157,9 @@ trait YmcaMigrateTrait {
 
       $file_id = $ymca_asset_tokens_map->getAssetId($match[1][$block_id]);
       if ($file_id == FALSE) {
-        \Drupal::logger('ymca_migrate')->error(
+        \Drupal::logger('YmcaMigrateTrait')->error(
           t(
-            '[DEV]: parsePromoBlock fileid for assetID: @id is not found',
+            '[DEV]: parsePromoBlock failed for assetID: @id is not found',
             array('@id' => $match[1][$block_id])
           )
         );
@@ -108,10 +168,10 @@ trait YmcaMigrateTrait {
 
       $menu_id = $ymca_tokens_map->getMenuId($match[5][$block_id]);
       if ($menu_id === FALSE) {
-        \Drupal::logger('ymca_migrate')->error(
+        \Drupal::logger('YmcaMigrateTrait')->error(
           t(
             '[DEV]: parsePromoBlock menuid for pageID: @id is not found',
-            array('@id' => $menu_id)
+            array('@id' => $match[5][$block_id])
           )
         );
         return FALSE;
@@ -124,6 +184,11 @@ trait YmcaMigrateTrait {
       $menu_link_url = $menu_link_entity->url();
 
       $block_data[$block_id] = [
+        'info' => sprintf(
+          'Promo Block - %s [asset: %d]',
+          $match[2][$block_id],
+          $file_id
+        ),
         'header' => $match[3][$block_id],
         'image_id' => $file_id,
         'image_alt' => $match[2][$block_id],
@@ -133,7 +198,7 @@ trait YmcaMigrateTrait {
       ];
     }
 
-    return $block_data;
+    return reset($block_data);
   }
 
 }
