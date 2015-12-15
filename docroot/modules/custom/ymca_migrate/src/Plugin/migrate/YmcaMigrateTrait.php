@@ -138,7 +138,7 @@ trait YmcaMigrateTrait {
 <p><a href="{{internal_page_link_7842}}">Group Exercise</a></p>';
     }
     preg_match_all(
-      '/<p><img.*{{internal_asset_link_(.*)}}.*alt=\"(.*)\".*<\/p>.*[\n]<h2>(.*)<\/h2>.*[\n]<p>(.*)<\/p>.*[\n]<p><a.*{{internal_page_link_(.*)}}.*>(.*)<.*<\/p>/ixmU',
+      '/<p><img.*{{internal_asset_link_(.*)}}.*alt=\"(.*)\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p>(.*)<\/p>.*[\n]<p><a.*{{internal_page_link_(.*)}}.*>(.*)<.*<\/p>/imU',
       $text,
       $match
     );
