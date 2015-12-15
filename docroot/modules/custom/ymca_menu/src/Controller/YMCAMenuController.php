@@ -7,6 +7,8 @@
 
 namespace Drupal\ymca_menu\Controller;
 
+define('YMCA_MENU_ROOT_ID', 1);
+
 use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
@@ -107,8 +109,8 @@ class YMCAMenuController extends ControllerBase {
 
       foreach ($rows as $row) {
         // Point to parent tree-node and collect parents.
-        $ctree = &$tree->tree[0];
-        $ancestors = [0];
+        $ctree = &$tree->tree[YMCA_MENU_ROOT_ID];
+        $ancestors = [(string) YMCA_MENU_ROOT_ID];
         for ($i = 1; $i < 9; $i++) {
           if (!empty($row->{'p' . $i}) && $row->{'p' . $i} != $row->mlid) {
             $anc_mlid = $row->{'p' . $i};
@@ -171,15 +173,15 @@ class YMCAMenuController extends ControllerBase {
     $tree->tree = [];
 
     // Add root.
-    $tree->lookup[0] = array(
+    $tree->lookup[YMCA_MENU_ROOT_ID] = array(
       'a' => [],
       'b' => 'home',
       'n' => 'Home',
       't' => t('Home'),
       'u' => "/",
     );
-    $tree->tree[0] = [];
-    $tree->tree['o'] = [0];
+    $tree->tree[YMCA_MENU_ROOT_ID] = [];
+    $tree->tree['o'] = [YMCA_MENU_ROOT_ID];
 
     return $tree;
   }

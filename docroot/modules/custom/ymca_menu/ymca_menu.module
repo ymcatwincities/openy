@@ -17,12 +17,13 @@ function ymca_menu_page_attachments(array &$attachments) {
         ->select('menu_tree', 'mt')
         ->condition('id', $link->getPluginId());
       $query->fields('mt', array('mlid'));
-      $mlid = $query->execute()->fetchField();
+      $mlid = (int) $query->execute()->fetchField();
       break;
     }
   }
+  $current_path = \Drupal::service('path.current')->getPath();
   $attachments['#attached']['drupalSettings']['page'] = array(
-    'mlid' => !empty($mlid) ? $mlid : 0,
-    'liveUrl' => \Drupal::service('path.current')->getPath() . '/',
+    'mlid' => !empty($mlid) ? $mlid : YMCA_MENU_ROOT_ID,
+    'liveUrl' => \Drupal::service('path.alias_manager')->getAliasByPath($current_path) . '/',
   );
 }
