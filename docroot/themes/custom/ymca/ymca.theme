@@ -121,7 +121,7 @@ function ymca_preprocess_node(&$variables) {
       }
     }
   }
-  elseif (in_array($variables['node']->bundle, array('location', 'camp'))) {
+  elseif (in_array($variables['node']->bundle(), array('location', 'camp'))) {
     \Drupal::service('pagecontext.service')->setContext($variables['node']);
   }
 
