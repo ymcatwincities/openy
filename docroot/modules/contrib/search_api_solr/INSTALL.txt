@@ -1,0 +1,79 @@
+Setting up Solr
+---------------
+
+In order for this module to work, you will first need to set up a Solr server.
+For this, you can either purchase a server from a web Solr hosts or set up your
+own Solr server on your web server (if you have the necessary rights to do so).
+If you want to use a hosted solution, a number of companies are listed on the
+module's project page [1]. Otherwise, please follow the instructions below.
+A more detailed set of instructions is available at [2].
+
+[1] https://drupal.org/project/search_api_solr
+[2] https://drupal.org/node/1999310
+
+As a pre-requisite for running your own Solr server, you'll need Java 6 or
+higher.
+
+Download the latest version of Solr 4.x from [3] and unpack the archive
+somewhere outside of your web server's document tree.
+
+[3] http://www.apache.org/dyn/closer.cgi/lucene/solr/
+
+This module also supports Solr 1.4 and 3.x. For better performance and more
+features, 4.x should be used, though. 1.4 is discouraged altogether, as several
+features of the module don't work at all in 1.4.
+
+For small websites, using the example application, located in $SOLR/example/,
+usually suffices. In any case, you can use it for developing andd testing. The
+following instructions will assume you are using the example application,
+otherwise you should be able to substitute the corresponding paths.
+
+NOTE: The Solr 4.3+ example application is currently not completely supported
+with the configuration files included in this module, due to a slight change in
+directory structure. To fix this, simply copy, move or symlink the contrib/
+directory from the top level of the extracted Solr package one level down to
+example/.
+(For other directory structures: the contrib/ directory has to be in the
+directory two levels up from the one which includes the conf/ directory. For
+help, just start the Solr server and check the log files for WARN messages –
+they should state in which place Solr expects the directory to be.)
+
+CAUTION! For production sites, it is vital that you somehow prevent outside
+access to the Solr server. Otherwise, attackers could read, corrupt or delete
+all your indexed data. Using the example server WON'T prevent this by default.
+If it is available, the probably easiest way of preventing this is to disable
+outside access to the ports used by Solr through your server's network
+configuration or through the use of a firewall.
+Other options include adding basic HTTP authentication or renaming the solr/
+directory to a random string of characters and using that as the path.
+
+Before starting the Solr server you will have to make sure it uses the proper
+configuration files. These are located in the solr-conf/ directory in this
+module, in a sub-directory according to the Solr version you are using. Copy all
+the files from that directory into Solr's configuration directory
+($SOLR/example/solr/collection1/conf/ in case of the 4.x example application),
+after backing up all files that would be overwritten.
+
+NOTE: The mapping-ISOLatin1Accent.txt is only included in the module for
+completeness' sake, as it is required to start the Solr server. It will be
+usually advisable to just use the file of the example application in this case,
+though, as it contains really useful definitions, while the file provided with
+this module is empty, apart from some documentation. For licensing reasons, it
+is not possible for us to include the definitions in the example config file in
+the copy this module provides.
+
+You can then start Solr. For the example application, go to $SOLR/example/ and
+issue the following command (assuming Java is correctly installed):
+
+java -jar start.jar &
+
+Afterwards, go to [4] in your web browser to ensure Solr is running correctly.
+
+[4] http://localhost:8983/solr/#/
+
+You can then enable this module and create a new server, using the "Solr search"
+service class. Enter the hostname, port and path corresponding to your Solr
+server in the appropriate fields. The default values already correspond to the
+example application, so you won't have to change the values if you use that.
+If you are using HTTP Authentication to protect your Solr server you also have
+to provide the appropriate user and password here.

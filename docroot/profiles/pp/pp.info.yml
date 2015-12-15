@@ -28,7 +28,7 @@ dependencies:
   - taxonomy
   - dblog
   - language
-  - search
+  #- search
   - shortcut
   - toolbar
   - field_ui
@@ -68,6 +68,7 @@ dependencies:
   - metatag
   #- xmlsitemap
   #- globalredirect
+  - search_api_solr
 
 themes:
   - bartik

@@ -1,0 +1,42 @@
+views.query.search_api_query:
+  type: views_query
+  label: 'Search API query'
+  mapping:
+    search_api_bypass_access:
+      type: boolean
+      label: If the underlying search index has access checks enabled, this option allows you to disable them for this view.
+    entity_access:
+      type: boolean
+      label: Execute an access check for all result entities.
+    parse_mode:
+      type: string
+      label: Chooses how the search keys will be parsed.
+
+views.row.search_api:
+  type: views_row
+  mapping:
+    view_modes:
+      type: sequence
+      label: View modes for each datasource
+      sequence:
+        type: sequence
+        label: A list of all the bundles and their configured view mode
+        sequence:
+          type: string
+          label: View mode for the specific bundle
+
+views.filter.search_api_fulltext:
+  type: views_filter
+  mapping:
+    value:
+      type: string
+      label: Fulltext search
+    min_length:
+      type: integer
+      label: Minimum search string length
+    fields:
+      type: sequence
+      label: Fields to search on
+      sequence:
+        type: string
+        label: Field name
