@@ -1,0 +1,48 @@
+uuid: 7526039d-44a8-4cf9-b71b-27f918265676
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.article.field_content
+    - field.field.node.blog.field_content
+    - field.field.node.camp.field_body
+    - field.field.node.camp.field_content
+    - field.field.node.location.field_content
+    - search_api.server.solr
+  module:
+    - node
+id: default
+name: default
+description: ''
+read_only: false
+options:
+  index_directly: true
+  cron_limit: 50
+  processors:
+    language:
+      processor_id: language
+      weights: {  }
+      settings: {  }
+  fields:
+    search_api_language:
+      type: string
+    'entity:node/field_content':
+      type: text
+    'entity:node/field_body':
+      type: text
+    'entity:node/title':
+      type: string
+  'additional fields': {  }
+datasources:
+  - 'entity:node'
+datasource_configs:
+  'entity:node':
+    default: '1'
+    bundles:
+      article: '0'
+      blog: '0'
+      camp: '0'
+      location: '0'
+tracker: default
+tracker_config: {  }
+server: solr

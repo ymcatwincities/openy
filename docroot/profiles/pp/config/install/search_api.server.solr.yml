@@ -1,0 +1,38 @@
+uuid: 68f78c1a-d9c0-45e4-895e-947fe06e822b
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_solr
+id: solr
+name: Solr
+description: ''
+backend: search_api_solr
+backend_config:
+  server_description: ''
+  clean_ids: true
+  site_hash: true
+  scheme: http
+  host: 127.0.0.1
+  port: '8983'
+  path: /solr
+  http:
+    http_user: ''
+    http_pass: ''
+  advanced:
+    excerpt: 0
+    retrieve_data: 0
+    highlight_data: 0
+    skip_schema_check: 0
+    solr_version: '4'
+    http_method: AUTO
+  http_user: ''
+  http_pass: ''
+  excerpt: false
+  retrieve_data: false
+  highlight_data: false
+  skip_schema_check: false
+  solr_version: '4'
+  http_method: AUTO
+  autocorrect_spell: true
+  autocorrect_suggest_words: true
