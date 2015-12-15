@@ -7,8 +7,6 @@
 
 namespace Drupal\ymca_menu\Controller;
 
-define('YMCA_MENU_ROOT_ID', 1);
-
 use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
@@ -19,6 +17,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Responses for menu json object calls.
  */
 class YMCAMenuController extends ControllerBase {
+
+  /**
+   * Root page id.
+   */
+  const ROOT_ID = 1;
 
   /**
    * The database service.
@@ -83,6 +86,7 @@ class YMCAMenuController extends ControllerBase {
         'enabled',
       ));
       $query->fields('mlcd', array('link__uri'));
+      $query->addField('mlcd', 'id', 'mlcid');
       $query
         ->orderBy('mt.depth')
         ->orderBy('mt.weight');
@@ -109,8 +113,8 @@ class YMCAMenuController extends ControllerBase {
 
       foreach ($rows as $row) {
         // Point to parent tree-node and collect parents.
-        $ctree = &$tree->tree[YMCA_MENU_ROOT_ID];
-        $ancestors = [(string) YMCA_MENU_ROOT_ID];
+        $ctree = &$tree->tree[self::ROOT_ID];
+        $ancestors = [(string) self::ROOT_ID];
         for ($i = 1; $i < 9; $i++) {
           if (!empty($row->{'p' . $i}) && $row->{'p' . $i} != $row->mlid) {
             $anc_mlid = $row->{'p' . $i};
@@ -139,10 +143,16 @@ class YMCAMenuController extends ControllerBase {
               $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->link__uri)->toString();
             }
             catch (\InvalidArgumentException $e) {
-              \Drupal::logger('ymca_menu')->error('[DEV] mlid:@mlid @message', [
-                '@message' => $e->getMessage(),
-                '@mlid' => $row->mlid,
-              ]);
+              $menu_item_page_uri = Url::fromRoute(
+                'entity.menu_link_content.edit_form',
+                array(
+                  'menu_link_content' => $row->mlcid,
+                ));
+              \Drupal::logger('ymca_menu')
+                ->error('[DEV] Menu link path %path cannot be converted to URL. Check at <a href="@url">page</a>', [
+                  '%path' => $row->link__uri,
+                  '@url' => $menu_item_page_uri->toString(),
+                ]);
             }
           }
         }
@@ -173,15 +183,15 @@ class YMCAMenuController extends ControllerBase {
     $tree->tree = [];
 
     // Add root.
-    $tree->lookup[YMCA_MENU_ROOT_ID] = array(
+    $tree->lookup[self::ROOT_ID] = array(
       'a' => [],
       'b' => 'home',
       'n' => 'Home',
       't' => t('Home'),
       'u' => "/",
     );
-    $tree->tree[YMCA_MENU_ROOT_ID] = [];
-    $tree->tree['o'] = [YMCA_MENU_ROOT_ID];
+    $tree->tree[self::ROOT_ID] = [];
+    $tree->tree['o'] = [self::ROOT_ID];
 
     return $tree;
   }
