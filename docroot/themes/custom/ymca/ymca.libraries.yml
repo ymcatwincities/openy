@@ -17,6 +17,7 @@ global-styling:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/drupalSettings
 
 add-this:
   version: 0
