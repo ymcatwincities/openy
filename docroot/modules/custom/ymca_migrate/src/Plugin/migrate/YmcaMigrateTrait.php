@@ -92,11 +92,24 @@ trait YmcaMigrateTrait {
     return $block;
   }
 
+  /**
+   * Convert date to Drupal format.
+   *
+   * @param string $input
+   *   Date in format: 'd/m/Y h:i:s a'.
+   *
+   * @return string
+   *   Date in format: 'Y-m-d\TH:i:s'.
+   */
   public function convertDate($input) {
-    // @todo: Make real conversion.
-    // Fow now using just mock data.
-    $output = '2004-02-12T15:19:21';
-    return $output;
+    $date = \DateTime::createFromFormat(
+      'd/m/Y h:i:s a',
+      $input,
+      new \DateTimeZone(
+        \Drupal::config('ymca_migrate.settings')->get('timezone')
+      )
+    );
+    return $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
   }
 
   /**
