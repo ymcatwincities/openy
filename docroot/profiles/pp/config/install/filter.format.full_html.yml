@@ -8,7 +8,7 @@ dependencies:
     - ymca_entity_embed
 name: 'Full HTML'
 format: full_html
-weight: 1
+weight: -10
 filters:
   filter_align:
     id: filter_align
