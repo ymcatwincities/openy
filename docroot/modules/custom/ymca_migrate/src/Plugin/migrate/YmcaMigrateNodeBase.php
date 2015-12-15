@@ -434,7 +434,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             );
           }
           $block = $this->createPromoBlock($block_data);
-          // Sorry for that. No time...
           $format = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="%d" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
           $data['content' . $area_type] = sprintf(
             $format,

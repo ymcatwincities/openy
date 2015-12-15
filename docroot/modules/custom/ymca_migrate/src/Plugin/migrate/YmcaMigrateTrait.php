@@ -127,10 +127,12 @@ trait YmcaMigrateTrait {
   public function parsePromoBlock($text = '') {
     $block_data = [];
     if ($text == '') {
+      // @todo: @podarok, please fix regex for understanding class for img.
+      // Added class to the default text.
       \Drupal::logger('YmcaMigrateTrait')->error(
         t('[DEV]: parsePromoBlock would use demo data, because text is empty')
       );
-      $text = '<p><img src="{{internal_asset_link_9568}}" alt="Group Exercise" width="600" height="340" /></p>
+      $text = '<p><img class="img-responsive" src="{{internal_asset_link_9568}}" alt="Group Exercise" width="600" height="340" /></p>
 <h2>Group Exercise </h2>
 <p>Free drop-in classes for members.</p>
 <p><a href="{{internal_page_link_7842}}">Group Exercise</a></p>';
@@ -196,8 +198,6 @@ trait YmcaMigrateTrait {
       ];
     }
 
-    // @todo: @podarok, please fix regex for understanding class for img.
-    // Example <p><img class="img-responsive" ...
 
     return reset($block_data);
   }
