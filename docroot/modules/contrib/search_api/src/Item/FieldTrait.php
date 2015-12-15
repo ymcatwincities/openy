@@ -147,7 +147,7 @@ trait FieldTrait {
    * @see \Drupal\search_api\Item\GenericFieldInterface::setIndex()
    */
   public function setIndex(IndexInterface $index) {
-    if ($this->index->id() != $index->id()) {
+    if ($this->index != NULL && $this->index->id() != $index->id()) {
       throw new \InvalidArgumentException('Attempted to change the index of a field object.');
     }
     $this->index = $index;
