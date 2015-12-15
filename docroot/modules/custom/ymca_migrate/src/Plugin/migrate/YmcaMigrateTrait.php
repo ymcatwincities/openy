@@ -111,7 +111,7 @@ trait YmcaMigrateTrait {
   public function parsePromoBlock($text = '') {
     $block_data = [];
     if ($text == '') {
-      \Drupal::logger('ymca_migrate')->error(
+      \Drupal::logger('YmcaMigrateTrait')->error(
         t('[DEV]: parsePromoBlock would use demo data, because text is empty')
       );
       $text = '<p><img src="{{internal_asset_link_9568}}" alt="Group Exercise" width="600" height="340" /></p>
@@ -126,7 +126,7 @@ trait YmcaMigrateTrait {
     );
     if (count($match) != 7) {
       // Block(s) not detected.
-      \Drupal::logger('ymca_migrate')->info(t('Block is not detected'));
+      \Drupal::logger('YmcaMigrateTrait')->info(t('Block is not detected'));
       return FALSE;
     }
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap $ymca_asset_tokens_map */
@@ -139,7 +139,7 @@ trait YmcaMigrateTrait {
 
       $file_id = $ymca_asset_tokens_map->getAssetId($match[1][$block_id]);
       if ($file_id == FALSE) {
-        \Drupal::logger('ymca_migrate')->error(
+        \Drupal::logger('YmcaMigrateTrait')->error(
           t(
             '[DEV]: parsePromoBlock fileid for assetID: @id is not found',
             array('@id' => $match[1][$block_id])
@@ -150,7 +150,7 @@ trait YmcaMigrateTrait {
 
       $menu_id = $ymca_tokens_map->getMenuId($match[5][$block_id]);
       if ($menu_id === FALSE) {
-        \Drupal::logger('ymca_migrate')->error(
+        \Drupal::logger('YmcaMigrateTrait')->error(
           t(
             '[DEV]: parsePromoBlock menuid for pageID: @id is not found',
             array('@id' => $menu_id)
