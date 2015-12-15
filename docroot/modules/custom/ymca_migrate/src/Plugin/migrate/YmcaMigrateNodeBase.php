@@ -153,8 +153,19 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         // Add specific behaviour for field_main_promos.
         if ($property == 'field_main_promos') {
           // Here we should parse HTML of body field, create a promo block and insert a reference to it.
+          $block_data = $this->parsePromoBlock($component['body']);
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              '[LEAD] Could not parse rich_text for Promo block in component [@component].',
+              [
+                '@component' => $component['site_page_component_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_ERROR
+          );
           /** @var BlockContent $block */
-          $block = $this->createPromoBlock($this->parsePromoBlock($component['body']));
+          $block = $this->createPromoBlock($block_data);
           $value[$property][]['target_id'] = $block->id();
         }
         else {
@@ -338,7 +349,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       case 'date_conditional_content':
         if ($property == 'field_main_promos') {
           /** @var BlockContent $block */
-          $block_data = $this->extractDateComponentData($component);
+          $block_data = $this->processDateComponentData($component);
           $block = $this->createDateBlock($block_data);
           $value[$property][]['target_id'] = $block->id();
         }
@@ -352,27 +363,100 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   }
 
   /**
-   * Extract data for Date block.
+   * Process data for Date block.
    *
    * @param array $component
    *   Component from the old DB.
    *
    * @return array
-   *   Ready to use data to create Date Block.
+   *   Ready to use data to create Date Block. If promo block are inside
+   *   they will be created.
    */
-  protected function extractDateComponentData(array $component) {
-    // @todo: Get real data.
-    // Fow now we'll use mock data.
+  protected function processDateComponentData(array $component) {
     $data = [];
+
+    // Info.
+    $data['info'] = sprintf(
+      'Date Block for Component [%d]',
+      $component['site_page_component_id']
+    );
 
     // Get dates.
     $data['date_start'] = $this->convertDate($this->getAttributeData('start_date_time', $component));
     $data['date_end'] = $this->convertDate($this->getAttributeData('end_date_time', $component));
 
-    // Get content.
-    $data['content_before'] = 'Content before...';
-    $data['content_between'] = 'Content between...';
-    $data['content_end'] = 'Content end...';
+    // Set content defaults.
+    $data['content_before'] = '';
+    $data['content_during'] = '';
+    $data['content_after'] = '';
+
+    // Every date based block has areas, let's go over them.
+    $areas = ['before', 'during', 'after'];
+    foreach ($areas as $area) {
+      $area_type = $this->getAttributeData($area . '_parent_id', $component, 'component_type');
+      if ($area_type != 'subcontent') {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[LEAD] DateBlock component [@component] has something else [@else] than subcontent inside it.',
+            [
+              '@else' => $area_type,
+              '@component' => $component['site_page_component_id']
+            ]
+          ),
+          MigrationInterface::MESSAGE_WARNING
+        );
+      }
+
+      // Get the first inside component.
+      $subcontent_id = $this->getAttributeData($area . '_parent_id', $component, 'site_page_component_id');
+      $subcontent = $this->getComponentByParent($subcontent_id);
+      // Check if there is something.
+      if (!$subcontent) {
+        continue;
+      }
+
+      // So, here we just went dipper. Check what we got.
+      switch ($subcontent['component_type']) {
+        case 'rich_text':
+          /** @var BlockContent $block */
+          $block_data = $this->parsePromoBlock($subcontent['body']);
+          if (!$block_data) {
+            $this->idMap->saveMessage(
+              $this->getCurrentIds(),
+              $this->t(
+                '[LEAD] Could not parse rich_text for Promo block in component [@component].',
+                [
+                  '@component' => $component['site_page_component_id']
+                ]
+              ),
+              MigrationInterface::MESSAGE_ERROR
+            );
+          }
+          $block = $this->createPromoBlock($block_data);
+          // Sorry for that. No time...
+          $format = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="%d" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
+          $data['content' . $area_type] = sprintf(
+            $format,
+            $block->id(),
+            $block->uuid()
+          );
+          break;
+
+        default:
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              '[LEAD] Subcontent of component [@component] has something else [@else] than rich_text inside it.',
+              [
+                '@else' => $subcontent['component_type'],
+                '@component' => $component['site_page_component_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_ERROR
+          );
+      }
+    }
 
     return $data;
   }

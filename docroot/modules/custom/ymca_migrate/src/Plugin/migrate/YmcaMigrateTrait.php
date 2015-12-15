@@ -8,6 +8,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\Component\Utility\Html;
 
 /**
  * Helper functions for Ymca Migrate plugins.
@@ -19,6 +20,7 @@ trait YmcaMigrateTrait {
    *
    * @param array $data
    *   Required list of items:
+   *    - info: Description,
    *    - header: Block header,
    *    - image_id: Image ID,
    *    - image_alt: Image alt,
@@ -33,7 +35,7 @@ trait YmcaMigrateTrait {
     $block = BlockContent::create([
       'type' => 'promo_block',
       'langcode' => 'en',
-      'info' => t('Test Promo Block'),
+      'info' => $data['info'],
       'field_block_header' => $data['header'],
       'field_image' => [
         'target_id' => $data['image_id'],
@@ -58,11 +60,12 @@ trait YmcaMigrateTrait {
    *
    * @param array $data
    *   Required list of items:
+   *    - info: Description,
    *    - date_start: Start date,
    *    - date_end: End date,
    *    - content_before: Content before,
-   *    - content_between: Content between,
-   *    - content_end: Content end.
+   *    - content_during: Content between,
+   *    - content_after: Content end.
    *
    * @return BlockContent
    *   Saved entity.
@@ -71,7 +74,7 @@ trait YmcaMigrateTrait {
     $block = BlockContent::create([
       'type' => 'date_block',
       'langcode' => 'en',
-      'info' => t('Test Date Based Block'),
+      'info' => $data['info'],
       'field_start_date' => $data['date_start'],
       'field_end_date' => $data['date_end'],
       'field_content_date_before' => [
@@ -79,11 +82,11 @@ trait YmcaMigrateTrait {
         'format' => 'full_html',
       ],
       'field_content_date_between' => [
-        'value' => $data['content_between'],
+        'value' => $data['content_during'],
         'format' => 'full_html',
       ],
       'field_content_date_end' => [
-        'value' => $data['content_end'],
+        'value' => $data['content_after'],
         'format' => 'full_html',
       ],
     ])
@@ -154,7 +157,7 @@ trait YmcaMigrateTrait {
       if ($file_id == FALSE) {
         \Drupal::logger('YmcaMigrateTrait')->error(
           t(
-            '[DEV]: parsePromoBlock fileid for assetID: @id is not found',
+            '[DEV]: parsePromoBlock failed for assetID: @id is not found',
             array('@id' => $match[1][$block_id])
           )
         );
@@ -179,6 +182,11 @@ trait YmcaMigrateTrait {
       $menu_link_url = $menu_link_entity->url();
 
       $block_data[$block_id] = [
+        'info' => sprintf(
+          'Promo Block - %s [asset: %d]',
+          $match[2][$block_id],
+          $file_id
+        ),
         'header' => $match[3][$block_id],
         'image_id' => $file_id,
         'image_alt' => $match[2][$block_id],
@@ -188,7 +196,10 @@ trait YmcaMigrateTrait {
       ];
     }
 
-    return $block_data;
+    // @todo: @podarok, please fix regex for understanding class for img.
+    // Example <p><img class="img-responsive" ...
+
+    return reset($block_data);
   }
 
 }
