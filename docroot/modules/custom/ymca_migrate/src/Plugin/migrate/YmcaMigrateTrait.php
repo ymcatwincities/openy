@@ -198,6 +198,9 @@ trait YmcaMigrateTrait {
       ];
     }
 
+    if (empty($block_data)) {
+      // Todo: Thow message.
+    }
 
     return reset($block_data);
   }
