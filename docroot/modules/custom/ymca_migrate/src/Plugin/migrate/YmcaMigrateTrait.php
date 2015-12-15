@@ -169,7 +169,7 @@ trait YmcaMigrateTrait {
         \Drupal::logger('YmcaMigrateTrait')->error(
           t(
             '[DEV]: parsePromoBlock menuid for pageID: @id is not found',
-            array('@id' => $menu_id)
+            array('@id' => $match[5][$block_id])
           )
         );
         return FALSE;
