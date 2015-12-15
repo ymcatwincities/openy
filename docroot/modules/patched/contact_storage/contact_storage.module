@@ -106,4 +106,5 @@ function contact_storage_entity_type_alter(array &$entity_types) {
   $entity_types['contact_message']->setHandlerClass('views_data', '\Drupal\contact_storage\MessageViewsData');
   $entity_types['contact_message']->setListBuilderClass('\Drupal\Core\Entity\EntityListBuilder');
 
+  $entity_types['contact_form']->setViewBuilderClass('\Drupal\contact_storage\ContactFormViewBuilder');
 }

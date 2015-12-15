@@ -43,6 +43,7 @@ settings:
             - ColumnButton
             - menu_link
             - file
+            - webform
         -
           name: 'Block Formatting'
           items:
