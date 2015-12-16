@@ -7,7 +7,8 @@ env:
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
-    - { name: 'migrate-import', status: true, arguments: "--group=ymca --force" }
+    - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
+    - { name: 'migrate-import', status: true, arguments: "ymca_migrate_file_image --force" }
   post_settings:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$databases["legacy"]["default"]["database"]', status: true, value: '{{ old_source_db_name }}' }
