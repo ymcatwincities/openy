@@ -7,6 +7,7 @@
 
 - name: Run environment specific drush commands
   shell: "{{ php_env_vars }} drush -y {{ item.name }} {{ item.arguments }}"
+  ignore_errors: true
   register: echo
   when: item.status == true
   with_items: env.drush_commands
