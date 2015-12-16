@@ -62,7 +62,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             // Some components may go to multiple fields in Drupal, so take care of them.
             if ($old_value = $row->getSourceProperty($property_name)) {
               // Currently we are merging only properties that are array of arrays or have 'value' key. Otherwise log message.
-              if (!array_key_exists('value', $old_value) || !is_array($old_value[0])) {
+              if (!array_key_exists('value', $old_value) || !is_array(reset($old_value))) {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
@@ -288,9 +288,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'image':
-        // For speed up the process use specific migrated asset id.
-        // @todo Set proper asset id.
-        $asset_id = 11712;
+        $asset_id = $component['body'];
+        // For speed up development process use specific migrated asset id.
+        if ($this->isDev()) {
+          $asset_id = 11712;
+        }
         // Get file.
         $destination = $this->getDestinationId(
           $asset_id,
