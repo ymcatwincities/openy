@@ -5,6 +5,21 @@
  */
 
 /**
+ * Implements hook_theme().
+ */
+function ymca_menu_theme($existing, $type, $theme, $path) {
+  return [
+    'sidebar_navigation' => [
+      'variables' => [
+        'content' => NULL,
+        'attributes' => NULL,
+      ],
+      'template' => 'sidebar-navigation',
+    ],
+  ];
+}
+
+/**
  * Implements hook_page_attachments().
  */
 function ymca_menu_page_attachments(array &$attachments) {
@@ -26,4 +41,28 @@ function ymca_menu_page_attachments(array &$attachments) {
     'mlid' => !empty($mlid) ? $mlid : Drupal\ymca_menu\Controller\YMCAMenuController::ROOT_ID,
     'liveUrl' => \Drupal::service('path.alias_manager')->getAliasByPath($current_path) . '/',
   );
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function ymca_menu_preprocess_node(&$variables) {
+  $node = &$variables['node'];
+  if ($variables['view_mode'] == 'full' && $node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
+    /* var \Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
+    if ($link = \Drupal::service('menu.active_trail')->getActiveLink()) {
+      $menu_name = $link->getMenuName();
+      // We need custom template here to implement custom contextual links.
+      $variables['sidebar_navigation'] = [
+        '#theme' => 'sidebar_navigation',
+        '#content' => [
+          '#contextual_links' => [
+            'menu' => [
+              'route_parameters' => ['menu' => $menu_name],
+            ],
+          ],
+        ],
+      ];
+    }
+  }
 }
