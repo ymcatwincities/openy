@@ -28,7 +28,7 @@ trait YmcaMigrateTrait {
     }
 
     // Check Settings.
-    return Settings::get('pp_environment', 'default') === 'dev';
+    return Settings::get('pp_environment') === 'dev';
   }
 
   /**
