@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 back-link">
-				<a href="/locations">Back to All Locations</a>
+        {{ link('Back to All Locations'|t, 'base:locations') }}
 			</div>
 		</div>
 		<div class="row">
@@ -74,11 +74,11 @@
 
 					<div class="row mobile-hours visible-xs">
 						<div class="col-xs-12">
-							$content_area_98
+              {{ hours }}
 						</div>
 					</div>
 					<div id="all-hours" class="all-hours collapse">
-						<div class="hidden-xs">$content_area_98</div>
+						<div class="hidden-xs">{{ hours }}</div>
 					</div>
 				</div>
 			</div>

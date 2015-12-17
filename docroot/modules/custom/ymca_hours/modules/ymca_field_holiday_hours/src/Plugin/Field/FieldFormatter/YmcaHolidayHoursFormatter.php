@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -44,14 +45,21 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    foreach ($items as $delta => $item) {
+    $rows = [];
+
+    foreach ($items as $item) {
       $values = $item->getValue();
-      $lines[] = sprintf('%s - %s', $values['holiday'], $values['hours']);
+      $title = \Drupal\Component\Utility\Html::escape($values['holiday']);
+      $rows[] = [
+        Markup::create('<span>' . $title . '</span>:'),
+        $values['hours'],
+      ];
     }
 
-    $elements = [
-      '#theme' => 'item_list',
-      '#items' => $lines
+    $elements[0] = [
+      '#theme' => 'table',
+      '#header' => [],
+      '#rows' => $rows,
     ];
 
     return $elements;
