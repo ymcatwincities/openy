@@ -47,25 +47,39 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $groups = [];
-    $lines = [];
+    $rows = [];
 
     foreach ($items as $delta => $item) {
+      // Group days by their values.
       foreach ($item as $i_item) {
-        /* @var StringData $i_item $a */
-        $groups[$i_item->getValue()]['days'][] = substr_replace($i_item->getName(), '', 0, 6);
+        /* @var StringData $i_item */
+        $day = str_replace('hours_', '', $i_item->getName());
+        $value = $i_item->getValue();
+        if ($groups && end($groups)['value'] == $value) {
+          $group = &$groups[end(array_keys($groups))];
+          $group['days'][] = $day;
+        }
+        else {
+          $groups[] = [
+            'value' => $i_item->getValue(),
+            'days' => [$day],
+          ];
+        }
       }
 
-      foreach ($groups as $g_item_key => $g_item_value) {
-        $title = sprintf('%s - %s', reset($g_item_value['days']), array_pop($g_item_value['days']));
-        if (count($g_item_value['days']) == 1) {
-          $title = reset($g_item_value['days']);
+      foreach ($groups as $group) {
+        $title = sprintf('%s - %s', ucfirst(reset($group['days'])), ucfirst(end($group['days'])));
+        if (count($group['days']) == 1) {
+          $title = ucfirst(reset($group['days']));
         }
-        $lines[] = sprintf('%s: %s', $title, $g_item_key);
+        $hours = $group['value'];
+        $rows[] = [$title . ':', $hours];
       }
 
       $elements[$delta] = [
-        '#theme' => 'item_list',
-        '#items' => $lines,
+        '#theme' => 'table',
+        '#header' => [],
+        '#rows' => $rows,
       ];
     }
 
