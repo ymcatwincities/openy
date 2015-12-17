@@ -1,0 +1,16 @@
+uuid: 4eb8f711-602c-4a17-8e00-a3d42a2c8b60
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+id: db
+name: DB
+description: 'Database search server for Search API'
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 1
+  autocomplete:
+    suggest_suffix: true
+    suggest_words: true
