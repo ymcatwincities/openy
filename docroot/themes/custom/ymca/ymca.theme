@@ -210,7 +210,7 @@ function ymca_preprocess_page(&$variables) {
     $variables['site_section'] = $site_section;
     $variables['working_hours'] = '';
     if ($site_section_bundle == 'location') {
-      /* @var \Drupal\Core\Field\FieldItemListInterface $items $items */
+      /* @var \Drupal\Core\Field\FieldItemListInterface $items */
       $items = $site_section->field_working_hours->getValue()[0]['target_id'];
       $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($items);
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');

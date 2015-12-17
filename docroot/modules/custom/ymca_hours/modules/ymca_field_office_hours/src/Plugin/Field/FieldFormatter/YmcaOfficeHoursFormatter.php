@@ -52,16 +52,27 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
     foreach ($items as $delta => $item) {
       // Group days by their values.
       foreach ($item as $i_item) {
-        /* @var StringData $i_item $a */
-        $groups[$i_item->getValue()]['days'][] = str_replace('hours_', '', $i_item->getName());
+        /* @var StringData $i_item */
+        $day = str_replace('hours_', '', $i_item->getName());
+        $value = $i_item->getValue();
+        if ($groups && end($groups)['value'] == $value) {
+          $group = &$groups[end(array_keys($groups))];
+          $group['days'][] = $day;
+        }
+        else {
+          $groups[] = [
+            'value' => $i_item->getValue(),
+            'days' => [$day],
+          ];
+        }
       }
 
-      // TODO: fix incorrect logic.
-      foreach ($groups as $hours => $group) {
+      foreach ($groups as $group) {
         $title = sprintf('%s - %s', ucfirst(reset($group['days'])), ucfirst(end($group['days'])));
         if (count($group['days']) == 1) {
           $title = ucfirst(reset($group['days']));
         }
+        $hours = $group['value'];
         $rows[] = [$title . ':', $hours];
       }
 
