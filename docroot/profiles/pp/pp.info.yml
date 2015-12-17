@@ -28,7 +28,7 @@ dependencies:
   - taxonomy
   - dblog
   - language
-  #- search
+  - search
   - shortcut
   - toolbar
   - field_ui
