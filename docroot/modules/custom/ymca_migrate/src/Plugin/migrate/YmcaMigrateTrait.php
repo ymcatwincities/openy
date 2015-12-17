@@ -97,6 +97,9 @@ trait YmcaMigrateTrait {
       )
     );
     if ($date->getTimestamp() > REQUEST_TIME) {
+      \Drupal::logger('YmcaMigrateTrait')->info(
+        t('Outdated Date Block was filtered out.')
+      );
       return FALSE;
     }
 
