@@ -15,6 +15,8 @@ use Drupal\migrate\Row;
  */
 abstract class YmcaMigrateUrlAliasBase extends SqlBase {
 
+  use YmcaMigrateTrait;
+
   /**
    * Required migrations.
    *
