@@ -17,6 +17,8 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  */
 class YmcaBlogsQuery extends AmmBlogsQuery {
 
+  use YmcaMigrateTrait;
+
   /**
    * Database to be used as active.
    *
@@ -74,20 +76,24 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
     $this->tree = [];
     // Let's by default have no children.
     $this->hasChildren = FALSE;
-    $this->setNeededIds(
-      [
-        859,
-        857,
-        856,
-        855,
-        854,
-        825,
-        850,
-        841,
-        832,
-        831,
-      ]
-    );
+
+    if ($this->isDev()) {
+      $this->setNeededIds(
+        [
+          859,
+          857,
+          856,
+          855,
+          854,
+          825,
+          850,
+          841,
+          832,
+          831,
+        ]
+      );
+    }
+
     $this->initQuery();
     // @todo Should we use here CT machine name?
     parent::__construct('blog');
@@ -140,8 +146,12 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
    * {@inheritdoc}
    */
   public function getQuery() {
-    return $this->getAllChildren($this->getNeededIds());
-
+    if ($this->isDev()) {
+      return $this->getAllChildren($this->getNeededIds());
+    }
+    else {
+      return $this->query;
+    }
   }
 
   /**
