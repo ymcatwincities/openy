@@ -16,19 +16,19 @@ bundle: working_hours_block
 mode: default
 content:
   field_facility_hours:
-    weight: 1
+    weight: 0
     label: above
     settings: {  }
     third_party_settings: {  }
     type: ymca_office_hours
   field_holiday_hours:
-    weight: 0
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: ymca_holiday_hours
   field_workout_child_care:
-    weight: 2
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }

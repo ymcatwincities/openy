@@ -70,11 +70,12 @@ content:
     type: address_default
   field_main_promos:
     weight: 108
-    label: above
+    label: hidden
     settings:
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
   field_membership_block:
     weight: 107
     label: above
@@ -87,9 +88,10 @@ content:
   field_phone:
     weight: 112
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    type: basic_string
+    type: string
   field_promo_slideshow:
     weight: 104
     label: above
@@ -118,5 +120,7 @@ content:
     type: entity_reference_label
   links:
     weight: 100
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   langcode: true
