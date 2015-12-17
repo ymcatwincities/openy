@@ -28,7 +28,7 @@ trait YmcaMigrateTrait {
     }
 
     // Check Settings.
-    return Settings::get('pp_environment') === 'dev';
+    return Settings::get('pp_environment', 'default') === 'default';
   }
 
   /**
@@ -87,6 +87,19 @@ trait YmcaMigrateTrait {
    *   Saved entity.
    */
   public function createDateBlock($data) {
+    // Check if block is outdated.
+    /** @var \DateTime $date */
+    $date = \DateTime::createFromFormat(
+      DATETIME_DATETIME_STORAGE_FORMAT,
+      $data['date_end'],
+      new \DateTimeZone(
+        \Drupal::config('ymca_migrate.settings')->get('timezone')
+      )
+    );
+    if ($date->getTimestamp() > REQUEST_TIME) {
+      return FALSE;
+    }
+
     $block = BlockContent::create([
       'type' => 'date_block',
       'langcode' => 'en',

@@ -198,7 +198,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 /** @var BlockContent $block */
                 $block_data = $this->processDateComponentData($subcontent);
                 $block = $this->createDateBlock($block_data);
-                $value[$property][]['target_id'] = $block->id();
+                if ($block) {
+                  $value[$property][]['target_id'] = $block->id();
+                }
                 break;
 
               default:
@@ -387,7 +389,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           /** @var BlockContent $block */
           $block_data = $this->processDateComponentData($component);
           $block = $this->createDateBlock($block_data);
-          $value[$property][]['target_id'] = $block->id();
+          if ($block) {
+            $value[$property][]['target_id'] = $block->id();
+          }
         }
         break;
 
