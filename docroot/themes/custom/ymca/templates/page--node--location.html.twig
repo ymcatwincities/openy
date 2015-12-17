@@ -1,0 +1,13 @@
+{% extends "@ymca/page.html.twig" %}
+
+{% block sticky_nav %}
+  <div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar"></div>
+{% endblock %}
+
+{% block primary_menu %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+  {{ page.content }}
+{% endblock %}
