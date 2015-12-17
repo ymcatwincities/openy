@@ -1,0 +1,231 @@
+search_api.processor.plugin.add_url:
+  type: mapping
+  label: 'Add URL configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+
+search_api.processor.plugin.aggregated_field:
+  type: mapping
+  label: 'Add aggregation processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The aggregated fields configured for this index'
+      sequence:
+        type: mapping
+        label: 'One field to add'
+        mapping:
+          fields:
+            type: sequence
+            label: 'The selected fields to be aggregated'
+            sequence:
+              type: string
+              label: 'One field that should be part of the aggregation'
+          label:
+            type: string
+            label: 'The label of the new field'
+          type:
+            type: string
+            label: 'The type of the aggregation'
+
+search_api.processor.plugin.highlight:
+  type: mapping
+  label: 'Highlight processor configuration'
+  mapping:
+    prefix:
+      type: string
+      label: 'Text/HTML that will be prepended to all occurrences of search keywords in highlighted text'
+    suffix:
+      type: string
+      label: 'Text/HTML that will be appended to all occurrences of search keywords in highlighted text'
+    excerpt:
+      type: boolean
+      label: 'When enabled, an excerpt will be created for searches with keywords, containing all occurrences of keywords in a fulltext field.'
+    excerpt_length:
+      type: integer
+      label: 'The requested length of the excerpt, in characters'
+    highlight:
+      type: string
+      label: 'Defines whether returned fields should be highlighted (always/if returned/never).'
+
+search_api.processor.plugin.html_filter:
+  type: mapping
+  label: 'HTML filter processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'The field name'
+    title:
+      type: boolean
+      label: 'Title'
+    alt:
+      type: boolean
+      label: 'Alt'
+    tags:
+      type: sequence
+      label: 'Tag boosts'
+      sequence:
+        type: integer
+        label: Boost
+
+search_api.processor.plugin.ignorecase:
+  type: mapping
+  label: 'Ignore case processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+
+search_api.processor.plugin.ignore_character:
+  type: mapping
+  label: 'Ignore Character processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+    ignorable:
+      type: string
+      label: 'Regular expression for characters it should ignore to stem'
+    strip:
+      type: mapping
+      label: 'Configurable characters to ignore'
+      mapping:
+        character_sets:
+          type: sequence
+          label: 'Configuration of the character sets'
+          sequence:
+            type: ignore
+            label: 'Character set'
+
+search_api.processor.plugin.language:
+  type: mapping
+  label: 'Language field processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+
+search_api.processor.plugin.node_status:
+  type: mapping
+  label: 'node status processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+
+search_api.processor.plugin.rendered_item:
+  type: mapping
+  label: 'Rendered item processor configuration'
+  mapping:
+    # @todo Verify "sequence" is right here once schemas are really used.
+    view_mode:
+      type: sequence
+      label: 'The selected view modes for each datasource, by bundle'
+      sequence:
+        type: sequence
+        label: 'The selected view modes for the datasource, by bundle'
+        sequence:
+          type: string
+          label: 'The view mode used to render the entity for the specified bundle'
+    roles:
+      type: sequence
+      label: 'The selected roles'
+      sequence:
+        type: string
+        label: 'The user roles which will be active when the entity is rendered'
+
+search_api.processor.plugin.role_filter:
+  type: mapping
+  label: 'Role filter processor configuration'
+  mapping:
+    default:
+      type: boolean
+      label: 'Default'
+    roles:
+      type: sequence
+      label: 'The selected roles'
+      sequence:
+        type: string
+        label: 'The role name'
+
+search_api.processor.plugin.stopwords:
+  type: mapping
+  label: 'Stopwords processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+    stopwords:
+      type: sequence
+      label: 'entered stopwords'
+      sequence:
+        type: string
+        label: Stopword
+
+search_api.processor.plugin.tokenizer:
+  type: mapping
+  label: 'Tokenizer processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+    spaces:
+      type: string
+      label: 'Regular expression for spaces'
+    ignorable:
+      type: string
+      label: 'Regular expression for ignorables'
+    overlap_cjk:
+      type: integer
+      label: 'Defines if simple CJK handling should be enabled.'
+    minimum_word_size:
+      type: string
+      label: 'Defines the minimum word size'
+
+search_api.processor.plugin.transliteration:
+  type: mapping
+  label: 'Transliteration processor configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'
+
+search_api.processor.plugin.content_access:
+  type: mapping
+  label: 'Content Access configuration'
+  mapping:
+    fields:
+      type: sequence
+      label: 'The selected fields'
+      sequence:
+        type: string
+        label: 'Selected field'

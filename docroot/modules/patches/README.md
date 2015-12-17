@@ -5,3 +5,7 @@ description: This patch fixes Node preview with a destination in the url
 patch: 2615112-contact-storage-12.patch
 drupal.org issue: https://www.drupal.org/node/2615112#comment-10618470
 description: Add a view builder for contact_form
+
+patch: docroot/modules/patches/patch_search_api_solr.diff
+drupal.org issue: https://www.drupal.org/node/2635462
+description: solr install failed

@@ -1,0 +1,13 @@
+diff --git a/src/Item/FieldTrait.php b/src/Item/FieldTrait.php
+index e060848..5e4f2ad 100644
+--- a/src/Item/FieldTrait.php
++++ b/src/Item/FieldTrait.php
+@@ -147,7 +147,7 @@ public function getIndex() {
+    * @see \Drupal\search_api\Item\GenericFieldInterface::setIndex()
+    */
+   public function setIndex(IndexInterface $index) {
+-    if ($this->index->id() != $index->id()) {
++    if ($this->index != NULL && $this->index->id() != $index->id()) {
+       throw new \InvalidArgumentException('Attempted to change the index of a field object.');
+     }
+     $this->index = $index;

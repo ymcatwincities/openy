@@ -68,6 +68,8 @@ dependencies:
   - metatag
   #- xmlsitemap
   #- globalredirect
+  - search_api
+  - search_api_db
 
 themes:
   - bartik
