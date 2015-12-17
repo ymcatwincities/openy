@@ -34,8 +34,9 @@ class YmcaMigrateUrlAliasCamp extends YmcaMigrateUrlAliasBase {
   public function query() {
     $query_builder = new YmcaQueryBuilder($this->getDatabase());
     $query_builder->getByBundle('camp');
-    // @todo Remove on it's time.
-    $query_builder->setRange(0, 5);
+    if ($this->isDev()) {
+      $query_builder->setRange(0, 5);
+    }
     return $query_builder->build();
   }
 

@@ -10,6 +10,7 @@ use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait;
 
 /**
  * Source plugin definition.
@@ -23,6 +24,8 @@ use Drupal\migrate\Row;
  * )
  */
 class YmcaMigrateNodeLocationSchedule extends SqlBase {
+
+  use YmcaMigrateTrait;
 
   /**
    * Theme ID for schedule pages.
@@ -118,8 +121,10 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
       ->fetchField();
     $source_assets_ids = $this->getAssets($asset_text);
 
-    // @todo Remove next line when all assets will be migrated
-    $source_assets_ids = [8375, 8376];
+    // Provide hardcoded assets for dev environment.
+    if ($this->isDev()) {
+      $source_assets_ids = [8375, 8376];
+    }
 
     $assets = [];
     foreach ($source_assets_ids as $source_id) {

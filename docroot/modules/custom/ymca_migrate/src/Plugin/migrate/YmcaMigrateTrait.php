@@ -8,12 +8,28 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
-use Drupal\Component\Utility\Html;
+use Drupal\Core\Site\Settings;
 
 /**
  * Helper functions for Ymca Migrate plugins.
  */
 trait YmcaMigrateTrait {
+
+  /**
+   * Check if environment is dev.
+   *
+   * @return bool
+   *   TRUE if environment is dev.
+   */
+  public function isDev() {
+    // If there is environment var it wins.
+    if (isset($_SERVER['APP_ENV'])) {
+      return getenv('APP_ENV') === 'dev';
+    }
+
+    // Check Settings.
+    return Settings::get('pp_environment') === 'dev';
+  }
 
   /**
    * Create and get Promo Block.

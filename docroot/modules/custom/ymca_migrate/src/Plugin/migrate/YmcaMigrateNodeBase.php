@@ -62,7 +62,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             // Some components may go to multiple fields in Drupal, so take care of them.
             if ($old_value = $row->getSourceProperty($property_name)) {
               // Currently we are merging only properties that are array of arrays or have 'value' key. Otherwise log message.
-              if (!array_key_exists('value', $old_value) || !is_array($old_value[0])) {
+              if (!array_key_exists('value', $old_value) || !is_array(reset($old_value))) {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
@@ -76,13 +76,14 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 );
               }
               // Do our merge here.
+              // In new system we could have 1 field, but in the old one it's 2 fields. So, just merging text.
               if (array_key_exists('value', $old_value)) {
                 // Here for simple values.
                 $new_value = $old_value;
                 $new_value['value'] .= $property_value['value'];
               }
               else {
-                // Here for arrays.
+                // Here for arrays, ie multivalued fields.
                 $new_value = array_merge($old_value, $property_value);
               }
 
@@ -158,9 +159,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              '[LEAD] Could not parse rich_text for Promo block in component [@component].',
+              '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
               [
-                '@component' => $component['site_page_component_id']
+                '@component' => $component['site_page_component_id'],
+                '@data' => $component['body'],
               ]
             ),
             MigrationInterface::MESSAGE_ERROR
@@ -203,7 +205,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
-                    '[LEAD] Join contains something other [@other] than date_conditional_block on the page [@page]',
+                    '[DEV] Join contains something other [@other] than date_conditional_block on the page [@page]',
                     [
                       '@component' => $subcontent['component_type'],
                       '@page' => $component['site_page_id']
@@ -288,9 +290,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'image':
-        // For speed up the process use specific migrated asset id.
-        // @todo Set proper asset id.
-        $asset_id = 11712;
+        $asset_id = $component['body'];
+        // For speed up development process use specific migrated asset id.
+        if ($this->isDev()) {
+          $asset_id = 11712;
+        }
         // Get file.
         $destination = $this->getDestinationId(
           $asset_id,
@@ -413,7 +417,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       $component['site_page_component_id']
     );
 
-
     // Get dates.
     $date_start_old = $this->getAttributeData('start_date_time', $component);
     $data['date_start'] = $this->convertDate($date_start_old);
@@ -461,9 +464,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             $this->idMap->saveMessage(
               $this->getCurrentIds(),
               $this->t(
-                '[LEAD] Could not parse rich_text for Promo block in component [@component].',
+                '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
                 [
-                  '@component' => $component['site_page_component_id']
+                  '@component' => $component['site_page_component_id'],
+                  '@data' => $subcontent['body'],
                 ]
               ),
               MigrationInterface::MESSAGE_ERROR
@@ -489,9 +493,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
-                    '[LEAD] Could not parse rich_text for Promo block in component [@component].',
+                    '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
                     [
-                      '@component' => $join['site_page_component_id']
+                      '@component' => $join['site_page_component_id'],
+                      '@data' => $join['body'],
                     ]
                   ),
                   MigrationInterface::MESSAGE_ERROR
@@ -534,11 +539,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
               );
 
           }
-//          // Here will go:
-//          // - date_conditional_content
-//          // - rich_text
-//          dd($comp['component_type']);
-
           break;
 
         default:
