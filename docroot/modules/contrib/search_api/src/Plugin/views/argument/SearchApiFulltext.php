@@ -120,7 +120,9 @@ class SearchApiFulltext extends SearchApiArgument {
 
     $fields_info = $index->getFields();
     foreach ($index->getFulltextFields() as $field_id) {
-      $fields[$field_id] = $fields_info[$field_id]->getPrefixedLabel();
+      if (isset($fields[$field_id])) {
+        $fields[$field_id] = $fields_info[$field_id]->getPrefixedLabel();
+      }
     }
 
     return $fields;
