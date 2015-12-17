@@ -130,30 +130,3 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       break;
   }
 }
-
-/**
- * Implements hook_preprocess_node().
- */
-function ymca_blocks_preprocess_node(&$variables) {
-  $node = &$variables['node'];
-  if ($node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
-    $menu = \Drupal::service('plugin.manager.block')
-      ->createInstance('sidebar_navigation_block', [])
-      ->build();
-    // We need custom template here to implement custom contextual links.
-    $variables['sidebar_navigation'] = [
-      '#theme' => 'sidebar_navigation_block',
-      '#content' => [
-        '#contextual_links' => [
-          'hierarchy' => [
-            'route_parameters' => [],
-          ],
-        ],
-        'menu' => $menu,
-      ],
-      '#attributes' => [
-        'class' => ['contextual-region'],
-      ],
-    ];
-  }
-}

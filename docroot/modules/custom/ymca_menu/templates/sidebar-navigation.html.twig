@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Sidebar navigation template.
+ *
+ * Available variables:
+ * - attributes: Attributes.
+ * - title_suffix: Title suffix. To place contextual links.
+ * - content: Block content.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set panel_classes = ['panel', 'panel-default', 'panel-subnav'] %}
+<div{{ attributes.addClass(panel_classes) }}>
+  {{ title_suffix }}
+  {{ content }}
+</div>
