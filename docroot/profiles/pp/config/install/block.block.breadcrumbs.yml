@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - node
     - system
   theme:
     - ymca
@@ -23,3 +24,11 @@ visibility:
     pages: '<front>'
     negate: true
     context_mapping: {  }
+  node_type:
+    id: node_type
+    bundles:
+      article: article
+      blog: blog
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

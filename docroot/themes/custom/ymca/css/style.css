@@ -7325,6 +7325,10 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-top: 60px;
 }
 
+.locations-camps-template .tabs--primary, .ancestor-locations .tabs--primary, .theme_ymca_2013_location_home .tabs--primary {
+  margin-top: 51px;
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
