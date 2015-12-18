@@ -7329,6 +7329,12 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-top: 51px;
 }
 
+.location-schedules-content .file {
+  display: list-item;
+  list-style-type: disc;
+  margin-left: 40px;
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;

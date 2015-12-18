@@ -187,6 +187,14 @@ function ymca_preprocess_html(&$variables) {
           'page_post_detail',
           'theme_ymca_2013_location_home',
         ];
+        if (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
+          $classes = [
+            'schedules-template',
+            'ancestor-locations',
+            'page_schedules',
+            'theme_ymca_2013_location_home',
+          ];
+        }
         break;
     }
   }
