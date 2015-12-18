@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Contains Drupal\ymca_frontend\Controller.
+ */
+
+namespace Drupal\ymca_frontend\Controller;
+
+use Drupal\Core\Render\Element;
+use Drupal\node\NodeInterface;
+
+class YMCALocationSchedulesController {
+
+  public function content(NodeInterface $node) {
+    \Drupal::service('pagecontext.service')->setContext($node);
+    $markup = render(node_view($node, 'schedules'));
+
+    return array(
+      '#markup' => $markup,
+    );
+  }
+
+  public function setTitle(NodeInterface $node) {
+    return $node->getTitle();
+  }
+}
