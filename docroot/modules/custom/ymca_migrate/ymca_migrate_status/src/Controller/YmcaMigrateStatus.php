@@ -42,7 +42,7 @@ class YmcaMigrateStatus extends ControllerBase {
     'complex' => [
       'content_block_join',
 //      'subcontent',
-//      'date_conditional_content',
+      'date_conditional_content',
 //      'content_expander',
 //      'content_wrapper',
     ],
@@ -99,35 +99,17 @@ class YmcaMigrateStatus extends ControllerBase {
     // Setup.
     $this->dbLegacy = Database::getConnection('default', 'legacy');
 
-    // Get more complex pages.
-    // @todo Make as function if needed.
-    $more = [];
-    foreach ($this->getComplexPages() as $page) {
-      $components = $this->getComponentsByPage($page->site_page_id);
-      foreach ($components as $component) {
-        // Here examine only complex components.
-        if (in_array($component->component_type, $this->components['complex'])) {
-          // Get children components of the component.
-          $children = $this->getChildrenByComponent($component);
-          // Check if among children there are complex ones.
-          foreach ($children as $child) {
-            if (in_array($child->component_type, $this->components['complex'])) {
-              $more[$page->site_page_id] = $page;
-            }
-          }
-        }
-      }
-    }
-
     // Prepare table.
     $data = [
       0 => array_values($this->getSimplePages()),
       1 => array_values($this->getComplexPages()),
+      2 => array_values($this->getMoreComplexPages()),
     ];
 
     $header = [
       sprintf('Simple [%d]', count($this->getSimplePages())),
       sprintf('Complex [%d]', count($this->getComplexPages())),
+      sprintf('More complex [%d]', count($this->getMoreComplexPages())),
     ];
 
     $counters = [];
@@ -162,6 +144,36 @@ class YmcaMigrateStatus extends ControllerBase {
   }
 
   /**
+   * Get list of more complex pages.
+   *
+   * @return array
+   *   List of pages.
+   */
+  private function getMoreComplexPages() {
+    if (!array_key_exists(2, $this->pages)) {
+      $more = [];
+      foreach ($this->getComplexPages() as $page) {
+        $components = $this->getComponentsByPage($page->site_page_id);
+        foreach ($components as $component) {
+          // Here examine only complex components.
+          if (in_array($component->component_type, $this->components['complex'])) {
+            // Get children components of the component.
+            $children = $this->getChildrenByComponent($component);
+            // Check if among children there are complex ones.
+            foreach ($children as $child) {
+              if (in_array($child->component_type, $this->components['complex'])) {
+                $more[$page->site_page_id] = $page;
+              }
+            }
+          }
+        }
+      }
+      $this->pages[2] = $more;
+    }
+    return $this->pages[2];
+  }
+
+  /**
    * Get children of the component.
    *
    * @param $component
@@ -175,6 +187,25 @@ class YmcaMigrateStatus extends ControllerBase {
     switch ($component->component_type) {
       case 'content_block_join':
         $children = $this->getComponentsByParent($component->extra_data_1);
+        break;
+      case 'date_conditional_content':
+        // These block has 3 fields.
+        $types = ['during_parent_id', 'after_parent_id', 'before_parent_id'];
+        // Get all attributes and children to get real children.
+        $ancestors = $this->getComponentsByParent($component->site_page_component_id);
+        foreach ($ancestors as $ancestor) {
+          if ($ancestor->component_type == 'subcontent') {
+            foreach ($types as $type) {
+              if ($ancestor->body == $type) {
+                $res = $this->getComponentsByParent($ancestor->site_page_component_id);
+                foreach ($res as $res_item) {
+                  $children[$res_item->site_page_component_id] = $res_item;
+                }
+              }
+            }
+          }
+        }
+
         break;
     }
     return $children;
