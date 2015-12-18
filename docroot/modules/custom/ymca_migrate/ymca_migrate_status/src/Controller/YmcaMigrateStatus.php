@@ -52,6 +52,12 @@ class YmcaMigrateStatus extends ControllerBase {
    */
   private $pages = [];
 
+  /**
+   * Get pages for level 0 and 1.
+   *
+   * @param int $level
+   *   Level.
+   */
   private function calcPages($level) {
     switch ($level) {
       case 0:
@@ -167,7 +173,7 @@ class YmcaMigrateStatus extends ControllerBase {
   /**
    * Get children of the component.
    *
-   * @param $component
+   * @param \stdClass $component
    *   Component object.
    *
    * @return array
@@ -205,7 +211,7 @@ class YmcaMigrateStatus extends ControllerBase {
   /**
    * Get components by page ID.
    *
-   * @param $id
+   * @param int $id
    *   Page ID.
    *
    * @return array
@@ -221,7 +227,7 @@ class YmcaMigrateStatus extends ControllerBase {
   /**
    * Get components by Parent ID.
    *
-   * @param $id
+   * @param int $id
    *   Component ID.
    *
    * @return array
