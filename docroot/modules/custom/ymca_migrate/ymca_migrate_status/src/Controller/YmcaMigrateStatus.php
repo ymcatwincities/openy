@@ -41,10 +41,10 @@ class YmcaMigrateStatus extends ControllerBase {
   private $components = [
     'complex' => [
       'content_block_join',
-      'subcontent',
-      'date_conditional_content',
-      'content_expander',
-      'content_wrapper',
+//      'subcontent',
+//      'date_conditional_content',
+//      'content_expander',
+//      'content_wrapper',
     ],
   ];
 
@@ -99,6 +99,26 @@ class YmcaMigrateStatus extends ControllerBase {
     // Setup.
     $this->dbLegacy = Database::getConnection('default', 'legacy');
 
+    // Get more complex pages.
+    // @todo Make as function if needed.
+    $more = [];
+    foreach ($this->getComplexPages() as $page) {
+      $components = $this->getComponentsByPage($page->site_page_id);
+      foreach ($components as $component) {
+        // Here examine only complex components.
+        if (in_array($component->component_type, $this->components['complex'])) {
+          // Get children components of the component.
+          $children = $this->getChildrenByComponent($component);
+          // Check if among children there are complex ones.
+          foreach ($children as $child) {
+            if (in_array($child->component_type, $this->components['complex'])) {
+              $more[$page->site_page_id] = $page;
+            }
+          }
+        }
+      }
+    }
+
     // Prepare table.
     $data = [
       0 => array_values($this->getSimplePages()),
@@ -139,6 +159,57 @@ class YmcaMigrateStatus extends ControllerBase {
       '#header' => $header,
       '#rows' => $rows,
     );
+  }
+
+  /**
+   * Get children of the component.
+   *
+   * @param $component
+   *   Component object.
+   *
+   * @return array
+   *   A list of components.
+   */
+  private function getChildrenByComponent($component) {
+    $children = [];
+    switch ($component->component_type) {
+      case 'content_block_join':
+        $children = $this->getComponentsByParent($component->extra_data_1);
+        break;
+    }
+    return $children;
+  }
+
+  /**
+   * Get components by page ID.
+   *
+   * @param $id
+   *   Page ID.
+   *
+   * @return array
+   *   A list of components.
+   */
+  private function getComponentsByPage($id) {
+    $query = $this->dbLegacy->select('amm_site_page_component', 'c')
+      ->fields('c')
+      ->condition('site_page_id', $id);
+    return $query->execute()->fetchAllAssoc('site_page_component_id');
+  }
+
+  /**
+   * Get components by Parent ID.
+   *
+   * @param $id
+   *   Component ID.
+   *
+   * @return array
+   *   A list of components.
+   */
+  private function getComponentsByParent($id) {
+    $query = $this->dbLegacy->select('amm_site_page_component', 'c')
+      ->fields('c')
+      ->condition('parent_component_id', $id);
+    return $query->execute()->fetchAllAssoc('site_page_component_id');
   }
 
 }
