@@ -16,7 +16,7 @@ use Drupal\Core\TypedData\DataDefinition;
  * Plugin implementation of the 'ymca_office_hours' field type.
  *
  * @FieldType(
-               *   id = "options_email_item",
+ *   id = "options_email_item",
  *   label = @Translation("Options email item"),
  *   description = @Translation("Stores options email."),
  *   default_widget = "options_email_default",
