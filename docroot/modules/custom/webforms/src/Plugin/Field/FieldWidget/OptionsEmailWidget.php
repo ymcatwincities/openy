@@ -33,7 +33,6 @@ class OptionsEmailWidget extends WidgetBase {
 
     /** @var YmcaOfficeHoursItem $item */
     $item = $items->get($delta);
-    $bi = $form_state->getBuildInfo();
     if (!$this->isDefaultValueWidget($form_state)) {
       // $this->fieldDefinition->
       $def = $this->fieldDefinition->getDefaultValue($item->getEntity());
