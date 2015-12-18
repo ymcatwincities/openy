@@ -86,7 +86,6 @@ class YmcaMigrateStatus extends ControllerBase {
    *
    * @param array $pages
    *   List of pages to search.
-   *
    * @param int $level
    *   Level of nesting.
    */
@@ -179,12 +178,13 @@ class YmcaMigrateStatus extends ControllerBase {
    * @return array
    *   A list of components.
    */
-  private function getChildrenByComponent($component) {
+  private function getChildrenByComponent(\stdClass $component) {
     $children = [];
     switch ($component->component_type) {
       case 'content_block_join':
         $children = $this->getComponentsByParent($component->extra_data_1);
         break;
+
       case 'date_conditional_content':
         // These block has 3 fields.
         $types = ['during_parent_id', 'after_parent_id', 'before_parent_id'];
@@ -202,7 +202,6 @@ class YmcaMigrateStatus extends ControllerBase {
             }
           }
         }
-
         break;
     }
     return $children;
