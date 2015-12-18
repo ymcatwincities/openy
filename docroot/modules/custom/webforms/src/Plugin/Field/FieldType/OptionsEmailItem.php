@@ -10,7 +10,6 @@ namespace Drupal\webforms\Plugin\Field\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
@@ -64,35 +63,6 @@ class OptionsEmailItem extends FieldItemBase implements FieldItemInterface {
     ];
 
     return $schema;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
-    $allowed_values = $this->getSetting('allowed_values');
-    $allowed_values_function = $this->getSetting('allowed_values_function');
-
-    $element['allowed_values'] = array(
-      '#type' => 'textarea',
-      '#title' => t('Allowed values list'),
-      '#default_value' => $allowed_values,
-      '#rows' => 10,
-      '#field_has_data' => $has_data,
-      '#field_name' => $this->getFieldDefinition()->getName(),
-      '#entity_type' => $this->getEntity()->getEntityTypeId(),
-      '#allowed_values' => $allowed_values,
-    );
-
-    $element['allowed_values_function'] = array(
-      '#type' => 'item',
-      '#title' => t('Allowed values list'),
-      '#markup' => t('The value of this field is being determined by the %function function and may not be changed.', array('%function' => $allowed_values_function)),
-      '#access' => !empty($allowed_values_function),
-      '#value' => $allowed_values_function,
-    );
-
-    return $element;
   }
 
 }

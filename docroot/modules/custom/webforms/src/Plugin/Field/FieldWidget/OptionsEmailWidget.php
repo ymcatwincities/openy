@@ -7,13 +7,10 @@
 
 namespace Drupal\webforms\Plugin\Field\FieldWidget;
 
-use Drupal\contact\MessageForm;
-use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\field_ui\Form\FieldConfigEditForm;
 use Drupal\ymca_field_office_hours\Plugin\Field\FieldType\YmcaOfficeHoursItem;
 
 /**
@@ -34,8 +31,6 @@ class OptionsEmailWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    $set = $this->isDefaultValueWidget($form_state);
-
     /** @var YmcaOfficeHoursItem $item */
     $item = $items->get($delta);
     $bi = $form_state->getBuildInfo();
@@ -51,7 +46,7 @@ class OptionsEmailWidget extends WidgetBase {
         '#type' => 'select',
         '#title' => $this->t('Options'),
         '#options' => $options,
-        //'#default_value' => 1,
+        // @todo '#default_value' => 1,
         '#attributes' => array('class' => array('langcode-input')),
       );
 

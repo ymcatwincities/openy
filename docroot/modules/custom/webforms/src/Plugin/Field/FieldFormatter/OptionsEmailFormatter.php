@@ -10,7 +10,6 @@ namespace Drupal\webforms\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\TypedData\Plugin\DataType\StringData;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -45,13 +44,12 @@ class OptionsEmailFormatter extends FormatterBase implements ContainerFactoryPlu
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = [];
 
-      $elements[$delta] = [
-        '#title' => t('Option name'),
-        'type' => 'textfield',
-        '#required' => TRUE,
-      ];
+    $elements[] = [
+      '#title' => t('Option name'),
+      'type' => 'textfield',
+      '#required' => TRUE,
+    ];
 
     return $elements;
   }
