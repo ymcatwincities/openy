@@ -4,6 +4,7 @@ env:
   modules:
     - { name: 'ymca_demo', status: true }
     - { name: 'ymca_migrate', status: true }
+    - { name: 'ymca_migrate_status', status: true }
     - { name: 'devel', status: true }
     - { name: 'config_inspector', status: true }
     - { name: 'config_devel', status: true }
