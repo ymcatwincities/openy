@@ -13,6 +13,7 @@ dependencies:
   module:
     - telephone
     - text
+    - webforms
 id: contact_message.personal_trainers_individual.default
 targetEntityType: contact_message
 bundle: personal_trainers_individual
@@ -52,13 +53,10 @@ content:
     third_party_settings: {  }
     type: telephone_default
   field_what_is_your_preferred_y_l:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    weight: 6
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_email_default
 hidden:
   copy: true
   langcode: true

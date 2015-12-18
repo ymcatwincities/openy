@@ -12,6 +12,7 @@ dependencies:
     - field.field.contact_message.personal_trainers_individual.field_what_is_your_preferred_y_l
   module:
     - text
+    - webforms
 id: contact_message.personal_trainers_individual.default
 targetEntityType: contact_message
 bundle: personal_trainers_individual
@@ -51,11 +52,10 @@ content:
     third_party_settings: {  }
     type: string
   field_what_is_your_preferred_y_l:
-    weight: 4
-    label: inline
-    settings:
-      link: true
+    weight: 6
+    label: above
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: options_emails_formatter
 hidden:
   message: true
