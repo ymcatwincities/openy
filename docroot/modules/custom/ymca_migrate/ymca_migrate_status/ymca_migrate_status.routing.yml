@@ -1,0 +1,7 @@
+ymca_migrate_status.status:
+  path: /ymca-migrate-status
+  defaults:
+    _controller: '\Drupal\ymca_migrate_status\Controller\YmcaMigrateStatus::pageView'
+    _title: YMCA Migrate Status
+  requirements:
+    _permission: access content
