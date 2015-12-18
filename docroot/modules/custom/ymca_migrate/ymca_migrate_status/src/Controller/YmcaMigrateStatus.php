@@ -41,10 +41,7 @@ class YmcaMigrateStatus extends ControllerBase {
   private $components = [
     'complex' => [
       'content_block_join',
-//      'subcontent',
       'date_conditional_content',
-//      'content_expander',
-//      'content_wrapper',
     ],
   ];
 
@@ -55,41 +52,59 @@ class YmcaMigrateStatus extends ControllerBase {
    */
   private $pages = [];
 
-  /**
-   * Get list of complex [1] pages.
-   *
-   * @return array
-   *   List of complex [1] pages.
-   */
-  private function getComplexPages() {
-    if (!array_key_exists(1, $this->pages)) {
-      $query = $this->dbLegacy->select('amm_site_page', 'p');
-      $query->fields('p', ['site_page_id']);
-      $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
-      $query->condition('c.component_type', $this->components['complex'], 'IN');
-      $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
-      $query->distinct();
-      $this->pages[1] = $query->execute()->fetchAllAssoc('site_page_id');
+  private function calcPages($level) {
+    switch ($level) {
+      case 0:
+        $query = $this->dbLegacy->select('amm_site_page', 'p');
+        $query->fields('p', ['site_page_id']);
+        $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
+        $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
+        $this->pages['all'] = $query->execute()->fetchAllAssoc('site_page_id');
+        $this->pages[0] = array_diff_key($this->pages['all'], $this->pages[1]);
+        break;
+
+      case 1:
+        $query = $this->dbLegacy->select('amm_site_page', 'p');
+        $query->fields('p', ['site_page_id']);
+        $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
+        $query->condition('c.component_type', $this->components['complex'], 'IN');
+        $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
+        $query->distinct();
+        $this->pages[1] = $query->execute()->fetchAllAssoc('site_page_id');
+        break;
     }
-    return $this->pages[1];
   }
 
   /**
-   * Get list of simple [0] pages.
+   * Get pages with nested components.
    *
-   * @return array
-   *   List of simple [0] pages.
+   * @param array $pages
+   *   List of pages to search.
+   *
+   * @param int $level
+   *   Level of nesting.
    */
-  private function getSimplePages() {
-    if (!array_key_exists(0, $this->pages)) {
-      $query = $this->dbLegacy->select('amm_site_page', 'p');
-      $query->fields('p', ['site_page_id']);
-      $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
-      $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
-      $all = $query->execute()->fetchAllAssoc('site_page_id');
-      $this->pages[0] = array_diff_key($all, $this->getComplexPages());
+  private function calcNested(array $pages, $level) {
+    foreach ($pages as $page) {
+      $components = $this->getComponentsByPage($page->site_page_id);
+      foreach ($components as $component) {
+        // Here examine only complex components.
+        if (in_array($component->component_type, $this->components['complex'])) {
+          // Get children components of the component.
+          $children = $this->getChildrenByComponent($component);
+          // Check if among children there are complex ones.
+          foreach ($children as $child) {
+            if (in_array($child->component_type, $this->components['complex'])) {
+              $this->pages[$level][$page->site_page_id] = $page;
+            }
+          }
+        }
+      }
     }
-    return $this->pages[0];
+
+    // Update previous level.
+    $prev = $level - 1;
+    $this->pages[$prev] = array_diff_key($this->pages[$prev], $this->pages[$level]);
   }
 
   /**
@@ -99,22 +114,28 @@ class YmcaMigrateStatus extends ControllerBase {
     // Setup.
     $this->dbLegacy = Database::getConnection('default', 'legacy');
 
+    $this->calcPages(1);
+    $this->calcPages(0);
+    $this->calcNested($this->pages[1], 2);
+
     // Prepare table.
     $data = [
-      0 => array_values($this->getSimplePages()),
-      1 => array_values($this->getComplexPages()),
-      2 => array_values($this->getMoreComplexPages()),
+      0 => array_values($this->pages[0]),
+      1 => array_values($this->pages[1]),
+      2 => array_values($this->pages[2]),
     ];
 
-    $header = [
-      sprintf('Simple [%d]', count($this->getSimplePages())),
-      sprintf('Complex [%d]', count($this->getComplexPages())),
-      sprintf('More complex [%d]', count($this->getMoreComplexPages())),
-    ];
-
+    $header = [];
     $counters = [];
     foreach ($data as $item => $value) {
-      $counters[] = count($value);
+      $num = count($value);
+      $counters[] = $num;
+      $header[] = sprintf(
+        'Level #%d [%d], %d%%',
+        $item,
+        $num,
+        $num * 100 / count($this->pages['all'])
+      );
     }
 
     $count = TRUE;
@@ -141,36 +162,6 @@ class YmcaMigrateStatus extends ControllerBase {
       '#header' => $header,
       '#rows' => $rows,
     );
-  }
-
-  /**
-   * Get list of more complex pages.
-   *
-   * @return array
-   *   List of pages.
-   */
-  private function getMoreComplexPages() {
-    if (!array_key_exists(2, $this->pages)) {
-      $more = [];
-      foreach ($this->getComplexPages() as $page) {
-        $components = $this->getComponentsByPage($page->site_page_id);
-        foreach ($components as $component) {
-          // Here examine only complex components.
-          if (in_array($component->component_type, $this->components['complex'])) {
-            // Get children components of the component.
-            $children = $this->getChildrenByComponent($component);
-            // Check if among children there are complex ones.
-            foreach ($children as $child) {
-              if (in_array($child->component_type, $this->components['complex'])) {
-                $more[$page->site_page_id] = $page;
-              }
-            }
-          }
-        }
-      }
-      $this->pages[2] = $more;
-    }
-    return $this->pages[2];
   }
 
   /**
