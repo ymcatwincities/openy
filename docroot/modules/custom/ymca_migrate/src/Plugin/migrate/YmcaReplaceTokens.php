@@ -15,6 +15,8 @@ use Drupal\Component\Utility\Html;
  */
 class YmcaReplaceTokens {
 
+  use YmcaMigrateTrait;
+
   /**
    * Processed string.
    *
@@ -57,7 +59,7 @@ class YmcaReplaceTokens {
   }
 
   /**
-   * Pasre for Page Tokens replacements.
+   * Parse for Page Tokens replacements.
    */
   private function replacePageTokens() {
     preg_match_all(
@@ -163,7 +165,11 @@ class YmcaReplaceTokens {
           $match,
           $source_assets_ids
         );
+
         $source_asset_id = $source_assets_ids[1][0];
+        if ($this->isDev()) {
+          $source_asset_id = 9065;
+        }
 
         /*
          * <drupal-entity data-align="none" data-embed-button="file" data-entity-embed-display="entity_reference:file_entity_reference_label_url" data-entity-embed-settings="{&quot;file_link&quot;:1,&quot;file_title&quot;:&quot;Custom file title&quot;}" data-entity-id="11" data-entity-label="File" data-entity-type="file" data-entity-uuid="15600458-5a9f-41a2-ac08-8bd7e0aa0cf2"></drupal-entity>
@@ -244,7 +250,11 @@ class YmcaReplaceTokens {
           $match,
           $source_assets_ids
         );
+
         $source_asset_id = $source_assets_ids[1][0];
+        if ($this->isDev()) {
+          $source_asset_id = 9065;
+        }
 
         /*
          * <drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="166" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="789cb718-5793-47bd-8f00-b6a85229aa32"></drupal-entity>

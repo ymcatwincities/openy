@@ -138,12 +138,20 @@ trait YmcaMigrateTrait {
    */
   public function convertDate($input) {
     $date = \DateTime::createFromFormat(
-      'd/m/Y h:i:s a',
+      'm/d/Y h:i:s a',
       $input,
       new \DateTimeZone(
         \Drupal::config('ymca_migrate.settings')->get('timezone')
       )
     );
+
+    if (!$date) {
+      \Drupal::logger('YmcaMigrateTrait')->error(
+        t('[LEAD]: Date is incorrect.')
+      );
+      return FALSE;
+    }
+
     return $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
   }
 
@@ -213,7 +221,7 @@ trait YmcaMigrateTrait {
         'menu_link_content'
       )->load($menu_id);
       // @todo check this if url is not relevant - generate proper url to menu item.
-      $menu_link_url = $menu_link_entity->url();
+      $menu_link_url = 'internal:' . $menu_link_entity->url();
 
       $block_data[$block_id] = [
         'info' => sprintf(

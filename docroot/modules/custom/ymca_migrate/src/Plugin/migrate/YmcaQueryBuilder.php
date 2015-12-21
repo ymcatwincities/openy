@@ -172,6 +172,7 @@ class YmcaQueryBuilder {
    *   Array of theme IDs.
    */
   private function getThemesByBundle($bundle) {
+    // @todo: Deal with pages for themes 23, 29, 17, 19
     $data = [
       'page' => [22, 23, 29, 17, 19],
       'location' => [24],
