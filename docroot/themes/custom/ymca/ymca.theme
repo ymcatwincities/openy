@@ -242,10 +242,32 @@ function ymca_preprocess_pager(&$vars) {
  */
 function ymca_preprocess_views_view(&$vars) {
   if ($vars['view']->id() == 'ymca_twin_cities_blog' && $vars['view']->current_display == 'blog_page') {
+    $vars['base_path'] = base_path();
     $vars['categories'] = [];
     foreach ($vars['view']->filter['field_tags_target_id']->options['value'] as $id) {
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id);
       $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $id));
+      $vars['categories'][] = $link;
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_item_list().
+ */
+function ymca_preprocess_item_list(&$vars) {
+  // Detect blog search form by path, because we haven't some other id.
+  $current_path = \Drupal::service('path.current')->getPath();
+  if ($current_path == '/search/blog') {
+    $vars['base_path'] = base_path();
+    $vars['search_blog'] = TRUE;
+    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
+    foreach ($tree as $term_object) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_object->tid);
+      if ($term->name == 'News') {
+        continue;
+      }
+      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $term_object->tid));
       $vars['categories'][] = $link;
     }
   }
