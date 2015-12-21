@@ -70,6 +70,7 @@ dependencies:
   #- globalredirect
   - search_api
   - search_api_db
+  - webforms
   - ymca_frontend
 
 themes:
