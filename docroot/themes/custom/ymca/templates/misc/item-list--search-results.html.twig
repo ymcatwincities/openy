@@ -42,6 +42,11 @@
   <div class="container">
     <div class="row">
       <div{{ attributes.addClass(classes) }}>
+        {% if search_blog %}
+        <div class="back-to-blog hidden-xs">
+          <a href="{{ base_path ~ 'blog' }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ 'Back to blog'|t }}</a>
+        </div>
+        {% endif %}
         <div class="gsa_results_wrapper">
         {% if context.list_style %}
             {%- set attributes = attributes.addClass('item-list__' ~ context.list_style) %}
