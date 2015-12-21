@@ -7350,7 +7350,7 @@ body.path-search #block-mainpagecontent > h2 {
   display: none;
 }
 body.path-search #block-mainpagecontent ol {
-  padding: 0re;
+  padding: 0;
 }
 body.path-search #block-mainpagecontent li {
   list-style-type: none;
