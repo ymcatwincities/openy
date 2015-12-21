@@ -215,7 +215,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         // If parent is missing log it.
         if (!$parent) {
           \Drupal::logger('ymca_migrate')->info(
-            'Component content_block_join (id: @component) has empty join on page: #@page',
+            '[CLIENT] Component content_block_join (id: @component) has empty join on page: #@page',
             [
               '@component' => $component['site_page_component_id'],
               '@page' => $component['site_page_id']
