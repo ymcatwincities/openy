@@ -62,7 +62,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             // Some components may go to multiple fields in Drupal, so take care of them.
             if ($old_value = $row->getSourceProperty($property_name)) {
               // Currently we are merging only properties that are array of arrays or have 'value' key. Otherwise log message.
-              if (!array_key_exists('value', $old_value) || !is_array(reset($old_value))) {
+              if (!array_key_exists('value', $old_value) && !is_array(reset($old_value))) {
                 $this->idMap->saveMessage(
                   $this->getCurrentIds(),
                   $this->t(
@@ -102,7 +102,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         $this->idMap->saveMessage(
           $this->getCurrentIds(),
           $this->t(
-            '[DEV] Undefined component in the page #@page: @component (@map)',
+            '[DEV] Undefined component in the page #@page: @component (@map). DEBUG: --- @debug ----',
             [
               '@component' => $id,
               '@page' => $page_id,
@@ -113,6 +113,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
                 $item['content_area_index'],
                 $item['component_type']
               ),
+              '@debug' => sprintf('%s - %s - %s', $theme_id, $item['content_area_index'], $item['component_type'])
             ]
           ),
           MigrationInterface::MESSAGE_ERROR
@@ -156,17 +157,19 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         if ($property == 'field_main_promos') {
           // Here we should parse HTML of body field, create a promo block and insert a reference to it.
           $block_data = $this->parsePromoBlock($component['body']);
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
-              [
-                '@component' => $component['site_page_component_id'],
-                '@data' => $component['body'],
-              ]
-            ),
-            MigrationInterface::MESSAGE_ERROR
-          );
+          if (!$block_data) {
+            $this->idMap->saveMessage(
+              $this->getCurrentIds(),
+              $this->t(
+                '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
+                [
+                  '@component' => $component['site_page_component_id'],
+                  '@data' => $component['body'],
+                ]
+              ),
+              MigrationInterface::MESSAGE_ERROR
+            );
+          }
           /** @var BlockContent $block */
           $block = $this->createPromoBlock($block_data);
           $value[$property][]['target_id'] = $block->id();
@@ -188,108 +191,70 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'content_block_join':
-        switch ($property) {
-          case 'field_main_promos':
-            // Check what is inside the join.
-            $subcontent_all = $this->getComponentsByParent($component['extra_data_1']);
-            $subcontent = reset($subcontent_all);
-            switch ($subcontent['component_type']) {
-              case 'date_conditional_content':
-                /** @var BlockContent $block */
-                $block_data = $this->processDateComponentData($subcontent);
-                $block = $this->createDateBlock($block_data);
-                if ($block) {
-                  $value[$property][]['target_id'] = $block->id();
-                }
-                break;
-
-              default:
-                $this->idMap->saveMessage(
-                  $this->getCurrentIds(),
-                  $this->t(
-                    '[DEV] Join contains something other [@other] than date_conditional_block on the page [@page]',
-                    [
-                      '@component' => $subcontent['component_type'],
-                      '@page' => $component['site_page_id']
-                    ]
-                  ),
-                  MigrationInterface::MESSAGE_NOTICE
-                );
-            }
-            break;
-
-          default:
-            // Check for the children for the component. If more then 1 let's log a message.
-            if (count($component['children']) > 1) {
-              $this->idMap->saveMessage(
-                $this->getCurrentIds(),
-                $this->t(
-                  '[DEV] Component content_block_join (id: @component) has more than 1 child on page: #@page',
-                  [
-                    '@component' => $component['site_page_component_id'],
-                    '@page' => $component['site_page_id']
-                  ]
-                ),
-                MigrationInterface::MESSAGE_NOTICE
-              );
-            }
-            // Get joined component id.
-            $joined_id = $this->getAttributeData(
-              'joined_content_block_component_id',
-              $component
-            );
-            $parent_all = $this->getComponentsByParent($joined_id);
-            $parent = reset($parent_all);
-            // If parent is missing log it.
-            if (!$parent) {
-              $this->idMap->saveMessage(
-                $this->getCurrentIds(),
-                $this->t(
-                  '[DEV] Component content_block_join (id: @component) has empty join on page: #@page',
-                  [
-                    '@component' => $component['site_page_component_id'],
-                    '@page' => $component['site_page_id']
-                  ]
-                ),
-                MigrationInterface::MESSAGE_NOTICE
-              );
-              return NULL;
-            }
-
-            // List of known components to join.
-            // @todo: Add subcontent here for datebased blocks.
-            $available = [
-              'rich_text',
-              'image',
-              'html_code',
-            ];
-
-            // For now just take care of available components. If anything else log a message.
-            // @todo There are definitely another types like html_code, etc... Do it.
-
-            if (!in_array($parent['component_type'], $available)) {
-              $this->idMap->saveMessage(
-                $this->getCurrentIds(),
-                $this->t(
-                  '[DEV] Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
-                  [
-                    '@component' => $component['site_page_component_id'],
-                    '@type' => $parent['component_type'],
-                    '@page' => $component['site_page_id']
-                  ]
-                ),
-                MigrationInterface::MESSAGE_ERROR
-              );
-              return NULL;
-            }
-
-            // Finally, return body.
-            $value[$property] = [
-              'value' => $parent['body'],
-              'format' => 'full_html',
-            ];
+        // Check for the children for the component. If more then 1 let's log a message.
+        if (count($component['children']) > 1) {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              '[DEV] Component content_block_join (id: @component) has more than 1 child on page: #@page',
+              [
+                '@component' => $component['site_page_component_id'],
+                '@page' => $component['site_page_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_NOTICE
+          );
         }
-        break;
+        // Get joined component id.
+        $joined_id = $this->getAttributeData(
+          'joined_content_block_component_id',
+          $component
+        );
+        $parent_all = $this->getComponentsByParent($joined_id);
+        $parent = reset($parent_all);
+        // If parent is missing log it.
+        if (!$parent) {
+          \Drupal::logger('ymca_migrate')->info(
+            '[CLIENT] Component content_block_join (id: @component) has empty join on page: #@page',
+            [
+              '@component' => $component['site_page_component_id'],
+              '@page' => $component['site_page_id']
+            ]
+          );
+          return NULL;
+        }
+
+        // List of known components to join.
+        $available = [
+          'rich_text',
+          'image',
+          'html_code',
+        ];
+
+        // For now just take care of available components. If anything else log a message.
+        // @todo There are definitely another types like html_code, etc... Do it.
+
+        if (!in_array($parent['component_type'], $available)) {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              '[DEV] Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
+              [
+                '@component' => $component['site_page_component_id'],
+                '@type' => $parent['component_type'],
+                '@page' => $component['site_page_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_ERROR
+          );
+          return NULL;
+        }
+
+        // Finally, return body.
+        $value[$property] = [
+          'value' => $parent['body'],
+          'format' => 'full_html',
+        ];
 
       case 'image':
         $asset_id = $component['body'];
@@ -385,14 +350,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'date_conditional_content':
-        if ($property == 'field_main_promos') {
-          /** @var BlockContent $block */
-          $block_data = $this->processDateComponentData($component);
-          $block = $this->createDateBlock($block_data);
-          if ($block) {
-            $value[$property][]['target_id'] = $block->id();
-          }
+        if ($result = $this->transformDateBlock($component)) {
+          $value[$property] = $result;
         }
+
         break;
 
       default:
@@ -400,6 +361,43 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     }
 
     return $value;
+  }
+
+  /**
+   * Wrapper function for transforming date block component.
+   *
+   * @param array $component
+   *   Component.
+   *
+   * @return array
+   *   Property.
+   */
+  private function transformDateBlock($component) {
+    /** @var BlockContent $block */
+    $block_data = $this->processDateComponentData($component);
+    if (!$block_data) {
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to process date_conditional_content component [@component] on page [@page].',
+          [
+            '@component' => $component['site_page_component_id'],
+            '@page' => $component['site_page_id']
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+    }
+
+    $block = $this->createDateBlock($block_data);
+    if ($block) {
+      $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
+      return [
+        'value' => sprintf($string, $block->id(), $block->uuid()),
+        'format' => 'full_html',
+      ];
+    }
+    return FALSE;
   }
 
   /**
@@ -422,10 +420,14 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     );
 
     // Get dates.
-    $date_start_old = $this->getAttributeData('start_date_time', $component);
+    if (!$date_start_old = $this->getAttributeData('start_date_time', $component)) {
+      return FALSE;
+    }
     $data['date_start'] = $this->convertDate($date_start_old);
 
-    $date_end_old = $this->getAttributeData('end_date_time', $component);
+    if (!$date_end_old = $this->getAttributeData('end_date_time', $component)) {
+      return FALSE;
+    }
     $data['date_end'] = $this->convertDate($date_end_old);
 
     // Set content defaults.
@@ -436,22 +438,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     // Every date based block has areas, let's go over them.
     $areas = ['before', 'during', 'after'];
     foreach ($areas as $area) {
-      $area_type = $this->getAttributeData($area . '_parent_id', $component, 'component_type');
-      if ($area_type != 'subcontent') {
-        $this->idMap->saveMessage(
-          $this->getCurrentIds(),
-          $this->t(
-            '[LEAD] DateBlock component [@component] has something else [@else] than subcontent inside it.',
-            [
-              '@else' => $area_type,
-              '@component' => $component['site_page_component_id']
-            ]
-          ),
-          MigrationInterface::MESSAGE_WARNING
-        );
-      }
-
-      // Get the first inside component.
       $subcontent_id = $this->getAttributeData($area . '_parent_id', $component, 'site_page_component_id');
       $subcontent_all = $this->getComponentsByParent($subcontent_id);
       $subcontent = reset($subcontent_all);
@@ -459,100 +445,21 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         continue;
       }
 
-      // So, here we just went dipper. Check what we got.
+      // @todo Process nested elements.
+      // Currently we process only simple date based blocks.
       switch ($subcontent['component_type']) {
         case 'rich_text':
-          /** @var BlockContent $block */
-          $block_data = $this->parsePromoBlock($subcontent['body']);
-          if (!$block_data) {
-            $this->idMap->saveMessage(
-              $this->getCurrentIds(),
-              $this->t(
-                '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@data' => $subcontent['body'],
-                ]
-              ),
-              MigrationInterface::MESSAGE_ERROR
-            );
-          }
-          $block = $this->createPromoBlock($block_data);
-          $format = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="%d" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
-          $data['content' . $area_type] = sprintf(
-            $format,
-            $block->id(),
-            $block->uuid()
-          );
-          break;
-
-        case 'content_block_join':
-          $join_all = $this->getComponentsByParent($subcontent['extra_data_1']);
-          $join = reset($join_all);
-          switch ($join['component_type']) {
-            case 'rich_text':
-              /** @var BlockContent $block */
-              $block_data = $this->parsePromoBlock($join['body']);
-              if (!$block_data) {
-                $this->idMap->saveMessage(
-                  $this->getCurrentIds(),
-                  $this->t(
-                    '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
-                    [
-                      '@component' => $join['site_page_component_id'],
-                      '@data' => $join['body'],
-                    ]
-                  ),
-                  MigrationInterface::MESSAGE_ERROR
-                );
-              }
-              $block = $this->createPromoBlock($block_data);
-              $format = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="%d" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
-              $data['content' . $area_type] = sprintf(
-                $format,
-                $block->id(),
-                $block->uuid()
-              );
-              break;
-
-            case 'date_conditional_content':
-              $this->idMap->saveMessage(
-                $this->getCurrentIds(),
-                $this->t(
-                  '[LEAD] Recursion needed for component [@component] in [@page]',
-                  [
-                    '@page' => $component['site_page_id'],
-                    '@component' => $component['site_page_component_id']
-                  ]
-                ),
-                MigrationInterface::MESSAGE_ERROR
-              );
-              break;
-
-            default:
-              $this->idMap->saveMessage(
-                $this->getCurrentIds(),
-                $this->t(
-                  '[LEAD] content_block_join [@component] inside subcontent contains unknown component [@type].',
-                  [
-                    '@component' => $join['site_page_component_id'],
-                    '@type' => $join['component_type']
-                  ]
-                ),
-                MigrationInterface::MESSAGE_ERROR
-              );
-
-          }
+          $data['content_' . $area] = $this->replaceTokens->processText($subcontent['body']);
           break;
 
         default:
           $this->idMap->saveMessage(
             $this->getCurrentIds(),
             $this->t(
-              '[LEAD] Subcontent of component [@component] has something else [@else] than rich_text inside it.',
+              '[LEAD] Not simple component type [@component_type] within Date Based Block [@component_id].',
               [
-                '@else' => $subcontent['component_type'],
-                '@component' => $component['site_page_component_id']
+                '@component_type' => $subcontent['component_type'],
+                '@component_id' => $component['site_page_component_id']
               ]
             ),
             MigrationInterface::MESSAGE_ERROR
@@ -656,19 +563,20 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ],
         3 => [
           'rich_text' => 'field_main_promos',
-          'date_conditional_content' => 'field_main_promos',
-          'content_block_join' => 'field_main_promos',
-        ]
+        ],
       ],
       self::THEME_INTERNAL_CATEGORY_AND_DETAIL => [
         1 => [
           'rich_text' => 'field_lead_description',
           'content_block_join' => 'field_lead_description',
           'headline' => 'field_lead_description',
+          'line_break' => 'field_lead_description',
         ],
         2 => [
           'rich_text' => 'field_secondary_sidebar',
           'content_block_join' => 'field_secondary_sidebar',
+          'date_conditional_content' => 'field_secondary_sidebar',
+          'code_block' => 'field_secondary_sidebar',
         ],
         3 => [
           'rich_text' => 'field_content',
@@ -680,6 +588,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'line_break' => 'field_content',
           'textpander' => 'field_content',
           'blockquote' => 'field_content',
+          'image' => 'field_content',
         ],
         4 => [
           'content_block_join' => 'field_sidebar',
@@ -689,6 +598,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'html_code' => 'field_sidebar',
           'line_break' => 'field_sidebar',
           'blockquote' => 'field_sidebar',
+          'headline' => 'field_sidebar',
         ],
         100 => [
           'link' => 'field_header_button',
