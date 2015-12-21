@@ -10,6 +10,7 @@ namespace Drupal\ymca_migrate_status\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Url;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait;
 
 /**
@@ -62,7 +63,7 @@ class YmcaMigrateStatus extends ControllerBase {
     switch ($level) {
       case 0:
         $query = $this->dbLegacy->select('amm_site_page', 'p');
-        $query->fields('p', ['site_page_id']);
+        $query->fields('p', ['site_page_id', 'page_subdirectory']);
         $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
         $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
         $this->pages['all'] = $query->execute()->fetchAllAssoc('site_page_id');
@@ -125,8 +126,6 @@ class YmcaMigrateStatus extends ControllerBase {
 
     // Prepare table.
     $data = [
-      0 => array_values($this->pages[0]),
-      1 => array_values($this->pages[1]),
       2 => array_values($this->pages[2]),
     ];
 
@@ -136,8 +135,7 @@ class YmcaMigrateStatus extends ControllerBase {
       $num = count($value);
       $counters[] = $num;
       $header[] = sprintf(
-        'Level #%d [%d], %d%%',
-        $item,
+        '%d, %d%%',
         $num,
         $num * 100 / count($this->pages['all'])
       );
@@ -148,8 +146,9 @@ class YmcaMigrateStatus extends ControllerBase {
     $rows = [];
     while ($count === TRUE) {
       foreach ($data as $key => $value) {
-        $rows[$i][$key] = $value[$i]->site_page_id;
-        $rows[$i][$key] = $value[$i]->site_page_id;
+        $url = Url::fromUri($this->getLegacyUrl($value[$i]->site_page_id));
+        $link = \Drupal::l($value[$i]->site_page_id, $url);
+        $rows[$i][$key] = $link;
       }
       $i++;
 
@@ -237,6 +236,23 @@ class YmcaMigrateStatus extends ControllerBase {
       ->fields('c')
       ->condition('parent_component_id', $id);
     return $query->execute()->fetchAllAssoc('site_page_component_id');
+  }
+
+  /**
+   * Get legacy Url to the page.
+   *
+   * @param int $id
+   *   Page ID.
+   *
+   * @return string
+   *   Url to the page.
+   */
+  private function getLegacyUrl($id) {
+    $path = $this->pages['all'][$id]->page_subdirectory;
+    return sprintf(
+      'http://ymcatwincities.org%s',
+      rtrim($path, '/')
+    );
   }
 
 }
