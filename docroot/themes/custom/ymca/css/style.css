@@ -7357,4 +7357,12 @@ body.path-search #block-mainpagecontent li {
   list-style-image: none;
 }
 
+.align-left {
+  margin: 0 15px 15px 0;
+}
+
+.align-right {
+  margin: 0 0 15px 15px;
+}
+
 /*# sourceMappingURL=style.css.map */
