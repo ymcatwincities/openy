@@ -260,7 +260,7 @@ class YmcaReplaceTokens {
          * <drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="166" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="789cb718-5793-47bd-8f00-b6a85229aa32"></drupal-entity>
          */
         $p = $this->html->createElement('drupal-entity');
-        $p->setAttribute('data-align', 'none');
+        $p->setAttribute('data-align', 'right');
         $p->setAttribute('data-embed-button', 'block');
         $p->setAttribute('data-entity-type', 'block_content');
         $p->setAttribute(
