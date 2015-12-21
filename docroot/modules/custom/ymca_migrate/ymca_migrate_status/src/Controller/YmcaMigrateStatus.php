@@ -10,6 +10,7 @@ namespace Drupal\ymca_migrate_status\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Database;
+use Drupal\Core\GeneratedLink;
 use Drupal\Core\Url;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait;
 
@@ -54,6 +55,13 @@ class YmcaMigrateStatus extends ControllerBase {
   private $pages = [];
 
   /**
+   * List of migrations.
+   *
+   * @var array
+   */
+  private $migrations = [];
+
+  /**
    * Get pages for level 0 and 1.
    *
    * @param int $level
@@ -63,7 +71,7 @@ class YmcaMigrateStatus extends ControllerBase {
     switch ($level) {
       case 0:
         $query = $this->dbLegacy->select('amm_site_page', 'p');
-        $query->fields('p', ['site_page_id', 'page_subdirectory']);
+        $query->fields('p', ['site_page_id', 'page_subdirectory', 'page_title']);
         $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
         $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
         $this->pages['all'] = $query->execute()->fetchAllAssoc('site_page_id');
@@ -119,52 +127,45 @@ class YmcaMigrateStatus extends ControllerBase {
   public function pageView() {
     // Setup.
     $this->dbLegacy = Database::getConnection('default', 'legacy');
+    $this->prepopulateMigrations();
 
     $this->calcPages(1);
     $this->calcPages(0);
     $this->calcNested($this->pages[1], 2);
 
     // Prepare table.
-    $data = [
-      2 => array_values($this->pages[2]),
-    ];
-
-    $header = [];
-    $counters = [];
-    foreach ($data as $item => $value) {
-      $num = count($value);
-      $counters[] = $num;
-      $header[] = sprintf(
-        '%d, %d%%',
-        $num,
-        $num * 100 / count($this->pages['all'])
-      );
-    }
-
-    $count = TRUE;
-    $i = 0;
     $rows = [];
-    while ($count === TRUE) {
-      foreach ($data as $key => $value) {
-        $url = Url::fromUri($this->getLegacyUrl($value[$i]->site_page_id));
-        $link = \Drupal::l($value[$i]->site_page_id, $url);
-        $rows[$i][$key] = $link;
-      }
-      $i++;
+    foreach ($this->pages[2] as $id => $itm) {
+      // ID.
+      $rows[$id][] = $id;
 
-      $max = 10;
-      if (!$this->isDebug) {
-        $max = max($counters);
-      }
-      if ($max == $i) {
-        $count = FALSE;
+      // Title.
+      $rows[$id][] = $this->pages['all'][$id]->page_title;
+
+      // Legacy Link.
+      $url = Url::fromUri($this->getLegacyUrl($id));
+      $rows[$id][] = \Drupal::l('Old site', $url);
+
+      // Node Link.
+      if ($nid = $this->getDestinationId(['site_page_id' => $id])) {
+        $rows[$id][] = \Drupal::l('New site', Url::fromRoute('entity.node.canonical', ['node' => $nid]));
       }
     }
 
+    $num = count($this->pages[2]);
     return array(
-      '#theme' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
+      'info' => [
+        '#markup' => sprintf(
+          'Pages count: %s (%d%%)',
+          $num,
+          $num * 100 / count($this->pages['all'])
+        )
+      ],
+      'table' => [
+        '#theme' => 'table',
+        '#header' => ['ID', 'title', 'Old link', 'New link'],
+        '#rows' => $rows,
+      ],
     );
   }
 
@@ -253,6 +254,42 @@ class YmcaMigrateStatus extends ControllerBase {
       'http://ymcatwincities.org%s',
       rtrim($path, '/')
     );
+  }
+
+  /**
+   * Prepopulate migrations.
+   */
+  private function prepopulateMigrations() {
+    $migrations = [
+      'ymca_migrate_node_page',
+      'ymca_migrate_node_camp',
+      'ymca_migrate_node_location',
+    ];
+    $this->migrations = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage('migration')
+      ->loadMultiple($migrations);
+  }
+
+  /**
+   * Get destination Id.
+   *
+   * @param array $source
+   *   Example: ['site_page_id' => 10].
+   *
+   * @return bool|string
+   *   Destination ID.
+   */
+  private function getDestinationId(array $source) {
+    foreach ($this->migrations as $id => $migration) {
+      $map = $migration->getIdMap();
+      $dest = $map->getRowBySource($source);
+      if (!empty($dest)) {
+        return $dest['destid1'];
+      }
+    }
+
+    return FALSE;
   }
 
 }
