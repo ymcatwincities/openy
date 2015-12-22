@@ -208,6 +208,20 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             $value[$property]['value'] = $child['body'];
             break;
 
+          case 'field_location':
+            $children = $this->getComponentsByParent($component['extra_data_1']);
+            $child = reset($children);
+            $value[$property] = [
+              'country_code' => 'US',
+              'postal_code' => substr($child['body'], -5),
+              'address_line1' => substr_replace($child['body'], '', -5),
+            ];
+            break;
+
+          case 'field_membership_block':
+            // @todo Decide what to do. Has content block join with date block.
+            break;
+
           default:
             // Get joined component id.
             $joined_id = $this->getAttributeData(
@@ -641,6 +655,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         1 => [
           'rich_text' => 'field_content',
         ],
+        2 => [
+          'content_block_join' => 'field_membership_block',
+        ],
         3 => [
           'rich_text' => 'field_main_promos',
         ],
@@ -649,6 +666,12 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ],
         96 => [
           'content_block_join' => 'field_phone',
+        ],
+        97 => [
+          'content_block_join' => 'field_location',
+        ],
+        98 => [
+          'content_block_join' => NULL,
         ],
       ],
       self::$themes['ymca_2013_location_category_and_detail'] => [

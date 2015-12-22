@@ -29,6 +29,7 @@ process:
     source: constants/working_hours_id
   field_main_promos: field_main_promos
   field_phone: field_phone
+  field_location: field_location
 destination:
   plugin: entity:node
 migration_dependencies:
