@@ -652,6 +652,21 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         1 => [
           'rich_text' => 'field_content',
         ],
+        3 => [
+          'rich_text' => 'field_main_promos',
+        ],
+        94 => [
+          'code_block' => NULL,
+        ],
+        96 => [
+          'content_block_join' => 'field_phone',
+        ],
+        97 => [
+          'content_block_join' => 'field_location',
+        ],
+        98 => [
+          'content_block_join' => NULL,
+        ],
       ],
       self::$themes['ymca_2013_location_home'] => [
         1 => [
