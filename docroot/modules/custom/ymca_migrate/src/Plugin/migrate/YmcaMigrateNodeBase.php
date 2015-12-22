@@ -63,7 +63,12 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      if ($property = $this->checkMap($theme_id, $item['content_area_index'], $item['component_type'])) {
+      $property = $this->checkMap($theme_id, $item['content_area_index'], $item['component_type']);
+      if ($property !== FALSE) {
+        // Just silently skip the field if mapping is NULL.
+        if (is_null($property)) {
+          continue;
+        }
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
@@ -647,6 +652,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ],
         3 => [
           'rich_text' => 'field_main_promos',
+        ],
+        94 => [
+          'code_block' => NULL,
         ],
       ],
       self::$themes['ymca_2013_location_category_and_detail'] => [
