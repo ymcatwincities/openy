@@ -9,6 +9,7 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Database\Statement;
+use Drupal\Core\Url;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
@@ -156,8 +157,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     switch ($component['component_type']) {
       case 'link':
         $value['field_header_variant'] = 'button';
+        $url = Url::fromUri($this->getAttributeData('url', $component), ['absolute' => TRUE]);
         $value['field_header_button'] = [
-          'uri' => $this->getAttributeData('url', $component),
+          'uri' => $url->toString(),
           'title' => $this->getAttributeData('text', $component),
         ];
         break;
