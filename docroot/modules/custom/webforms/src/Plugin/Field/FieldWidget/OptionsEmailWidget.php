@@ -7,7 +7,11 @@
 
 namespace Drupal\webforms\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldConfig;
@@ -127,6 +131,176 @@ class OptionsEmailWidget extends WidgetBase {
     $new_recipients = array_unique(array_filter(array_merge($form_recipients, $recipients)));
     // Set recipients for sending out emails.
     $contact_form->setRecipients($new_recipients);
+  }
+
+  /**
+   * Special handling to create form elements for multiple values.
+   *
+   * Handles generic features for multiple fields:
+   * - number of widgets
+   * - AHAH-'add more' button
+   * - table display and drag-n-drop value reordering
+   */
+  protected function formMultipleElements(FieldItemListInterface $items, array &$form, FormStateInterface $form_state) {
+    $field_name = $this->fieldDefinition->getName();
+    $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
+    $parents = $form['#parents'];
+
+    // Determine the number of widgets to display.
+    switch ($cardinality) {
+      case FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED:
+        $field_state = static::getWidgetState($parents, $field_name, $form_state);
+        $max = $field_state['items_count'];
+        $is_multiple = TRUE;
+        break;
+
+      default:
+        $max = $cardinality - 1;
+        $is_multiple = ($cardinality > 1);
+        break;
+    }
+
+    $title = $this->fieldDefinition->getLabel();
+    $description = FieldFilteredMarkup::create(\Drupal::token()->replace($this->fieldDefinition->getDescription()));
+
+    $elements = array();
+
+    for ($delta = 0; $delta <= $max; $delta++) {
+      // Add a new empty item if it doesn't exist yet at this delta.
+      if (!isset($items[$delta])) {
+        $items->appendItem();
+      }
+
+      // For multiple fields, title and description are handled by the wrapping
+      // table.
+      if ($is_multiple) {
+        $element = [
+          '#title' => $this->t('@title (value @number)', ['@title' => $title, '@number' => $delta + 1]),
+          '#title_display' => 'invisible',
+          '#description' => '',
+        ];
+      }
+      else {
+        $element = [
+          '#title' => $title,
+          '#title_display' => 'before',
+          '#description' => $description,
+        ];
+      }
+
+      $element = $this->formSingleElement($items, $delta, $element, $form, $form_state);
+
+      if ($element) {
+        // Input field for the delta (drag-n-drop reordering).
+        if ($is_multiple) {
+          // We name the element '_weight' to avoid clashing with elements
+          // defined by widget.
+          $element['_weight'] = array(
+            '#type' => 'weight',
+            '#title' => $this->t('Weight for row @number', array('@number' => $delta + 1)),
+            '#title_display' => 'invisible',
+            // Note: this 'delta' is the FAPI #type 'weight' element's property.
+            '#delta' => $max,
+            '#default_value' => $items[$delta]->_weight ?: $delta,
+            '#weight' => 100,
+          );
+        }
+
+        $elements[$delta] = $element;
+      }
+    }
+
+    if ($elements) {
+      $elements += array(
+        '#theme' => 'field_multiple_value_form',
+        '#field_name' => $field_name,
+        '#cardinality' => $cardinality,
+        '#cardinality_multiple' => $this->fieldDefinition->getFieldStorageDefinition()->isMultiple(),
+        '#required' => $this->fieldDefinition->isRequired(),
+        '#title' => $title,
+        '#description' => $description,
+        '#max_delta' => $max,
+      );
+
+      // Add 'add more' button, if not working with a programmed form.
+      if ($cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED && !$form_state->isProgrammed()) {
+        $id_prefix = implode('-', array_merge($parents, array($field_name)));
+        $wrapper_id = Html::getUniqueId($id_prefix . '-add-more-wrapper');
+        $elements['#prefix'] = '<div id="' . $wrapper_id . '">';
+        $elements['#suffix'] = '</div>';
+
+        $elements['add_more'] = array(
+          '#type' => 'submit',
+          '#name' => strtr($id_prefix, '-', '_') . '_add_more',
+          '#value' => t('Add another item'),
+          '#attributes' => array('class' => array('field-add-more-submit')),
+          '#limit_validation_errors' => array(array_merge($parents, array($field_name))),
+          '#submit' => array(array(get_class($this), 'addMoreSubmit')),
+          '#ajax' => array(
+            'callback' => array(get_class($this), 'addMoreAjax'),
+            'wrapper' => $wrapper_id,
+            'effect' => 'fade',
+          ),
+        );
+        $elements['prepopulate_locations'] = [
+          '#type' => 'submit',
+          '#value' => t('Pre-populate with Locations'),
+          '#name' => strtr($id_prefix, '-', '_') . '_add_more',
+          '#attributes' => array('class' => array('field-add-more-submit')),
+          '#limit_validation_errors' => array(array_merge($parents, array($field_name))),
+          '#ajax' => [
+            'callback' => [get_class($this), 'addLocationsAjax'],
+            'wrapper' => $wrapper_id,
+            'effect' => 'fade',
+          ],
+          '#submit' => [
+            'callback' => [get_class($this), 'addLocationsSubmit']
+          ]
+        ];
+      }
+    }
+
+    return $elements;
+  }
+
+  /**
+   * Ajax callback for the "Pre-populate with Locations" button.
+   *
+   * This returns the new page content to replace the page content made obsolete
+   * by the form submission.
+   */
+  public function addLocationsAjax(array $form, FormStateInterface $form_state) {
+    $i = 0;
+  }
+
+  /**
+   * Ajax callback for the "Pre-populate with Locations" button.
+   *
+   * This returns the new page content to replace the page content made obsolete
+   * by the form submission.
+   */
+  public function addLocationsSubmit(array $form, FormStateInterface $form_state) {
+    $location_ids = \Drupal::entityQuery('node')
+      ->condition('type', 'location')
+      ->execute();
+    $location_entities = \Drupal::entityManager()->getStorage(
+      'node'
+    )->loadMultiple($location_ids);
+
+    $button = $form_state->getTriggeringElement();
+
+    // Go one level up in the form, to the widgets container.
+    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 1, -1));
+    $field_name = $element['#field_name'];
+    $parents = $element['#field_parents'];
+
+    // Increment the items count.
+    $field_state = static::getWidgetState($parents, $field_name, $form_state);
+    $field_state['items_count']++;
+    static::setWidgetState($parents, $field_name, $form_state, $field_state);
+
+    $form_state->setRebuild();
+
   }
 
 }
