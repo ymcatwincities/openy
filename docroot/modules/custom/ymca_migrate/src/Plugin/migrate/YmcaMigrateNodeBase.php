@@ -46,8 +46,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $migration, $state) {
-    $this->replaceTokens = \Drupal::service('ymcareplacetokens.service');
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
+    $this->replaceTokens = \Drupal::service('ymcareplacetokens.service');
   }
 
   /**
@@ -111,18 +111,14 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         $this->idMap->saveMessage(
           $this->getCurrentIds(),
           $this->t(
-            '[DEV] Undefined component in the page #@page: @component (@map). DEBUG: --- @debug ----',
+            '[DEV] Undefined: @debug ',
             [
-              '@component' => $id,
-              '@page' => $page_id,
-              '@map' => sprintf(
-                '%s [id:%d]:%d:%s',
-                $this->getThemeName($theme_id),
+              '@debug' => sprintf(
+                '%s - %s - %s',
                 $theme_id,
                 $item['content_area_index'],
                 $item['component_type']
-              ),
-              '@debug' => sprintf('%s - %s - %s', $theme_id, $item['content_area_index'], $item['component_type'])
+              )
             ]
           ),
           MigrationInterface::MESSAGE_ERROR
@@ -264,6 +260,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'value' => $parent['body'],
           'format' => 'full_html',
         ];
+
+        break;
 
       case 'image':
         $asset_id = $component['body'];
