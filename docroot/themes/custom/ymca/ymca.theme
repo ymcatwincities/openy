@@ -248,6 +248,18 @@ function ymca_preprocess_views_view(&$vars) {
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id);
       $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $id));
       $vars['categories'][] = $link;
+      // Pass Archive block data to the Search The Blog block.
+      if ($archive_lists = ymca_get_archive_data('blog')) {
+        $vars['archive_lists'] = $archive_lists;
+      }
+    }
+  }
+
+  if ($vars['view']->id() == 'ymca_news' && $vars['view']->current_display == 'page_news') {
+    $vars['base_path'] = base_path();
+    // Pass Archive block data to the YMCA News Archive block.
+    if ($archive_lists = ymca_get_archive_data('news')) {
+      $vars['archive_lists'] = $archive_lists;
     }
   }
 }
@@ -270,5 +282,40 @@ function ymca_preprocess_item_list(&$vars) {
       $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $term_object->tid));
       $vars['categories'][] = $link;
     }
+    // Pass Archive block data to the Search The Blog block.
+    if ($archive_lists = ymca_get_archive_data('blog')) {
+      $vars['archive_lists'] = $archive_lists;
+    }
   }
+}
+
+/**
+ * Returns an array with archive list data for blog and news.
+ */
+function ymca_get_archive_data($context) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('status', 1)
+    ->condition('type', 'blog');
+  $nids = $query->execute();
+  if (empty($nids)) {
+    return;
+  }
+
+  $context == 'news' ? $url_key = '/news/ymca_news_archive/' : '';
+  $context == 'blog' ? $url_key = '/blog/archive/' : '';
+
+  $nodes = entity_load_multiple('node', $nids);
+  $years = array();
+  foreach ($nodes as $node) {
+    $year = date('Y', $node->getCreatedTime());
+    $month = array(
+      'title' => date('F', $node->getCreatedTime()),
+      'number' => date('m', $node->getCreatedTime()),
+      'url' => Drupal\Core\Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
+    );
+    if (!in_array($month, $data[$year])) {
+      $data[$year][] = $month;
+    }
+  }
+  return $data;
 }

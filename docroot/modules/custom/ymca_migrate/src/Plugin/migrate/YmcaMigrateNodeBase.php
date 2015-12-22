@@ -179,6 +179,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
               ),
               MigrationInterface::MESSAGE_ERROR
             );
+            // Not found, returning.
+            break;
           }
           /** @var BlockContent $block */
           $block = $this->createPromoBlock($block_data);
