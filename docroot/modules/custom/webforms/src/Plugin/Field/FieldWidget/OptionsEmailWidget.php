@@ -242,6 +242,7 @@ class OptionsEmailWidget extends WidgetBase {
             'effect' => 'fade',
           ),
         );
+        // @todo place this form element to default form
         $elements['prepopulate_locations'] = [
           '#type' => 'submit',
           '#value' => t('Pre-populate with Locations'),
@@ -270,7 +271,7 @@ class OptionsEmailWidget extends WidgetBase {
    * by the form submission.
    */
   public function addLocationsAjax(array $form, FormStateInterface $form_state) {
-    $i = 0;
+    // @todo wrapper replacement code here, @see addMoreAjax as example
   }
 
   /**
@@ -287,19 +288,7 @@ class OptionsEmailWidget extends WidgetBase {
       'node'
     )->loadMultiple($location_ids);
 
-    $button = $form_state->getTriggeringElement();
-
-    // Go one level up in the form, to the widgets container.
-    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 1, -1));
-    $field_name = $element['#field_name'];
-    $parents = $element['#field_parents'];
-
-    // Increment the items count.
-    $field_state = static::getWidgetState($parents, $field_name, $form_state);
-    $field_state['items_count']++;
-    static::setWidgetState($parents, $field_name, $form_state, $field_state);
-
-    $form_state->setRebuild();
+    // @todo inject locations list to a form. @see addMoreSubmit as example
 
   }
 
