@@ -201,71 +201,62 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'content_block_join':
-        // Check for the children for the component. If more then 1 let's log a message.
-        if (count($component['children']) > 1) {
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[DEV] Component content_block_join (id: @component) has more than 1 child on page: #@page',
-              [
-                '@component' => $component['site_page_component_id'],
-                '@page' => $component['site_page_id']
-              ]
-            ),
-            MigrationInterface::MESSAGE_NOTICE
-          );
+        switch ($property) {
+          case 'field_phone':
+            $children = $this->getComponentsByParent($component['extra_data_1']);
+            $child = reset($children);
+            $value[$property]['value'] = $child['body'];
+            break;
+
+          default:
+            // Get joined component id.
+            $joined_id = $this->getAttributeData(
+              'joined_content_block_component_id',
+              $component
+            );
+            $parent_all = $this->getComponentsByParent($joined_id);
+            $parent = reset($parent_all);
+            // If parent is missing log it.
+            if (!$parent) {
+              \Drupal::logger('ymca_migrate')->info(
+                '[CLIENT] Component content_block_join (id: @component) has empty join on page: #@page',
+                [
+                  '@component' => $component['site_page_component_id'],
+                  '@page' => $component['site_page_id']
+                ]
+              );
+              return NULL;
+            }
+
+            // List of known components to join.
+            $available = [
+              'rich_text',
+              'image',
+              'html_code',
+            ];
+
+            if (!in_array($parent['component_type'], $available)) {
+              $this->idMap->saveMessage(
+                $this->getCurrentIds(),
+                $this->t(
+                  '[DEV] Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
+                  [
+                    '@component' => $component['site_page_component_id'],
+                    '@type' => $parent['component_type'],
+                    '@page' => $component['site_page_id']
+                  ]
+                ),
+                MigrationInterface::MESSAGE_ERROR
+              );
+              return NULL;
+            }
+
+            // Finally, return body.
+            $value[$property] = [
+              'value' => $parent['body'],
+              'format' => 'full_html',
+            ];
         }
-        // Get joined component id.
-        $joined_id = $this->getAttributeData(
-          'joined_content_block_component_id',
-          $component
-        );
-        $parent_all = $this->getComponentsByParent($joined_id);
-        $parent = reset($parent_all);
-        // If parent is missing log it.
-        if (!$parent) {
-          \Drupal::logger('ymca_migrate')->info(
-            '[CLIENT] Component content_block_join (id: @component) has empty join on page: #@page',
-            [
-              '@component' => $component['site_page_component_id'],
-              '@page' => $component['site_page_id']
-            ]
-          );
-          return NULL;
-        }
-
-        // List of known components to join.
-        $available = [
-          'rich_text',
-          'image',
-          'html_code',
-        ];
-
-        // For now just take care of available components. If anything else log a message.
-        // @todo There are definitely another types like html_code, etc... Do it.
-
-        if (!in_array($parent['component_type'], $available)) {
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[DEV] Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
-              [
-                '@component' => $component['site_page_component_id'],
-                '@type' => $parent['component_type'],
-                '@page' => $component['site_page_id']
-              ]
-            ),
-            MigrationInterface::MESSAGE_ERROR
-          );
-          return NULL;
-        }
-
-        // Finally, return body.
-        $value[$property] = [
-          'value' => $parent['body'],
-          'format' => 'full_html',
-        ];
-
         break;
 
       case 'image':
@@ -655,6 +646,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         ],
         94 => [
           'code_block' => NULL,
+        ],
+        96 => [
+          'content_block_join' => 'field_phone',
         ],
       ],
       self::$themes['ymca_2013_location_category_and_detail'] => [

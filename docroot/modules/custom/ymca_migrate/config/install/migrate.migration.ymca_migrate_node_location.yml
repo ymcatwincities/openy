@@ -28,6 +28,7 @@ process:
     migration: ymca_migrate_block_content_working_hours_block
     source: constants/working_hours_id
   field_main_promos: field_main_promos
+  field_phone: field_phone
 destination:
   plugin: entity:node
 migration_dependencies:
