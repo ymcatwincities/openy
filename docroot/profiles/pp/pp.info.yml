@@ -65,7 +65,7 @@ dependencies:
   - ymca_field_holiday_hours
   - scheduler
   - contact_storage
-  - metatag
+  #- metatag
   #- xmlsitemap
   #- globalredirect
   - search_api
