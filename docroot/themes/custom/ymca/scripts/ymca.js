@@ -16,9 +16,9 @@ Drupal.behaviors.ymca_theme = {
         blog_archive_month,
         blog_archive_year;
 
-      if (typeof url_vars["month"] != "undefined") {
-        blog_archive_month = url_vars["month"];
-        blog_archive_year = url_vars["year"];
+      if (typeof url_vars.month != "undefined") {
+        blog_archive_month = url_vars.month;
+        blog_archive_year = url_vars.year;
       }
       else {
         var path_split = window.location.pathname.split("/");
@@ -51,4 +51,4 @@ Drupal.behaviors.ymca_theme = {
       });
     });
   }
-}
+};
