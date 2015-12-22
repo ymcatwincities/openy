@@ -295,9 +295,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         $block = \Drupal::entityManager()->getStorage('block_content')->load(
           $destination
         );
-        $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
         $value[$property] = [
-          'value' => sprintf($string, $block->id(), $block->uuid()),
+          'value' => $this->getEmbedBlockString($block),
           'format' => 'full_html',
         ];
         break;
@@ -353,6 +352,33 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         if ($result = $this->transformDateBlock($component)) {
           $value[$property] = $result;
         }
+        break;
+
+      case 'content_expander':
+        $block_data = [
+          'info' => 'example expander block',
+          'header' => 'header',
+          'content' => 'content',
+        ];
+
+        if (!$block = $this->createExpanderBlock($block_data)) {
+          $this->idMap->saveMessage(
+            $this->getCurrentIds(),
+            $this->t(
+              '[DEV] Failed to created Expander Block from component [@component] on page [@page].',
+              [
+                '@component' => $component['site_page_component_id'],
+                '@page' => $component['site_page_id']
+              ]
+            ),
+            MigrationInterface::MESSAGE_ERROR
+          );
+        }
+
+        $value[$property] = [
+          'value' => $this->getEmbedBlockString($block),
+          'format' => 'full_html',
+        ];
 
         break;
 
@@ -391,9 +417,8 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     $block = $this->createDateBlock($block_data);
     if ($block) {
-      $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
       return [
-        'value' => sprintf($string, $block->id(), $block->uuid()),
+        'value' => $this->getEmbedBlockString($block),
         'format' => 'full_html',
       ];
     }
@@ -589,6 +614,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'textpander' => 'field_content',
           'blockquote' => 'field_content',
           'image' => 'field_content',
+          'content_expander' => 'field_content',
         ],
         4 => [
           'content_block_join' => 'field_sidebar',
