@@ -105,9 +105,9 @@ class YmcaMigrateNodeBlog extends SqlBase {
 
     // Foreach each parent component and check if there is a mapping.
     foreach ($components_tree as $id => $item) {
-      if ($property = self::getMap(
-      )[$item['content_area_index']][$item['component_type']]
-      ) {
+      if (isset(self::getMap()[$item['content_area_index']])
+        && isset(self::getMap()[$item['content_area_index']][$item['component_type']])
+        && $property = self::getMap()[$item['content_area_index']][$item['component_type']]) {
         // Set appropriate source properties.
         $properties = $this->transform($property, $item);
         if (is_array($properties) && count($properties)) {
