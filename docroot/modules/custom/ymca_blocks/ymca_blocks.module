@@ -85,6 +85,10 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
 
     case 'expander_block':
       $content = $entity->field_block_content->get(0);
+      if (!$content) {
+        \Drupal::logger('ymca_blocks')->notice(t('Content(expander block) is not found for entity: @id', ['@id' => $entity->id()]));
+        break;
+      }
       $build['expander'] = array(
         '#theme' => 'expander_block',
         '#header' => $entity->field_block_header->value,
