@@ -355,11 +355,63 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'content_expander':
+        // Prepare default block data.
         $block_data = [
-          'info' => 'example expander block',
-          'header' => 'header',
-          'content' => 'content',
+          'info' => sprintf(
+            'Expander Block for Component #%s',
+            $component['site_page_component_id']
+          ),
+          'header' => '',
+          'content' => '',
         ];
+
+        $ancestors = $this->getComponentsByParent($component['site_page_component_id']);
+
+        // Get block Header.
+        foreach ($ancestors as $id => $ancestor) {
+          if ($ancestor['body'] == 'heading_component_id') {
+            $result = $this->getComponentsByParent($id);
+            $head = reset($result);
+            if ($head['component_type'] != 'headline') {
+              $this->idMap->saveMessage(
+                $this->getCurrentIds(),
+                $this->t(
+                  '[DEV] Content Expander [@component] has unknown head component type [@type] on page [@page].',
+                  [
+                    '@component' => $component['site_page_component_id'],
+                    '@page' => $component['site_page_id'],
+                    '@type' => $head['component_type'],
+                  ]
+                ),
+                MigrationInterface::MESSAGE_ERROR
+              );
+            }
+            $block_data['header'] = $head['body'];
+          }
+        }
+
+        // Get content.
+        foreach ($ancestors as $id => $ancestor) {
+          if ($ancestor['body'] == 'content_component_id') {
+            $result = $this->getComponentsByParent($id);
+            $content = reset($result);
+            if ($content['component_type'] != 'rich_text') {
+              $this->idMap->saveMessage(
+                $this->getCurrentIds(),
+                $this->t(
+                  '[DEV] Content Expander [@component] has unknown content component type [@type] on page [@page].',
+                  [
+                    '@component' => $component['site_page_component_id'],
+                    '@page' => $component['site_page_id'],
+                    '@type' => $content['component_type'],
+                  ]
+                ),
+                MigrationInterface::MESSAGE_ERROR
+              );
+            }
+            $block_data['content'] = $this->replaceTokens->processText($content['body']);
+          }
+        }
 
         if (!$block = $this->createExpanderBlock($block_data)) {
           $this->idMap->saveMessage(
