@@ -72,6 +72,34 @@ trait YmcaMigrateTrait {
   }
 
   /**
+   * Create and get Expander Block.
+   *
+   * @param array $data
+   *   Required list of items:
+   *    - info: Description,
+   *    - header: Block header,
+   *    - content: Content.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createExpanderBlock(array $data) {
+    $block = BlockContent::create([
+      'type' => 'expander_block',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_block_header' => $data['header'],
+      'field_block_content' => [
+        'value' => $data['content'],
+        'format' => 'full_html',
+      ],
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  /**
    * Create and get Date Block.
    *
    * @param array $data
@@ -249,6 +277,20 @@ trait YmcaMigrateTrait {
     }
 
     return reset($block_data);
+  }
+
+  /**
+   * Create string for embedding block.
+   *
+   * @param \Drupal\block_content\Entity\BlockContent $block
+   *   Block object.
+   *
+   * @return string
+   *   String to put to WYSIWYG.
+   */
+  public function getEmbedBlockString(BlockContent $block) {
+    $string = '<drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;full&quot;}" data-entity-id="%u" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="%s"></drupal-entity>';
+    return sprintf($string, $block->id(), $block->uuid());
   }
 
   /**
