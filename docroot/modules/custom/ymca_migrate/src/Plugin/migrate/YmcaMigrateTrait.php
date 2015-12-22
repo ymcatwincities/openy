@@ -96,9 +96,19 @@ trait YmcaMigrateTrait {
         \Drupal::config('ymca_migrate.settings')->get('timezone')
       )
     );
+
+    if (!$date) {
+      \Drupal::logger('YmcaMigrateTrait')->info(
+        '[CLIENT] Date for Date Block is invalid: @info.',
+        ['@info' => $data['info']]
+      );
+      return FALSE;
+    }
+
     if ($date->getTimestamp() > REQUEST_TIME) {
       \Drupal::logger('YmcaMigrateTrait')->info(
-        t('Outdated Date Block was filtered out.')
+        '[CLIENT] Outdated Date Block was filtered out: @info.',
+        ['@info' => $data['info']]
       );
       return FALSE;
     }
