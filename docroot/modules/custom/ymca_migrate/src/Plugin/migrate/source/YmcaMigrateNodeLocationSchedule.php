@@ -125,7 +125,10 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
     if ($this->isDev()) {
       $source_assets_ids = [8375, 8376];
     }
-
+    // No assets? Returning.
+    if (!is_array($source_assets_ids)) {
+      return parent::prepareRow($row);
+    }
     $assets = [];
     foreach ($source_assets_ids as $source_id) {
       if ($dest_asset_id = $this->getDestination('asset', ['asset_id' => $source_id])) {
