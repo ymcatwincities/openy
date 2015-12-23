@@ -28,6 +28,11 @@ class MigrationEvents implements EventSubscriberInterface {
   public function onPostImport(MigrateImportEvent $event) {
     switch ($event->getMigration()->id()) {
       case 'ymca_migrate_taxonomy_term_tags':
+        // Check if the view is already exists.
+        if (\Drupal::entityManager()->getStorage('view')->load('ymca_news')) {
+          break;
+        }
+
         $loader = file_get_contents(drupal_get_path('module', 'ymca_migrate') . '/config/disabled/views.view.ymca_news.yml');
         $data = Yaml::decode($loader);
         $news_term_id = \Drupal::entityQuery('taxonomy_term')
@@ -39,8 +44,11 @@ class MigrationEvents implements EventSubscriberInterface {
         $data['display']['default']['display_options']['filters']['field_tags_target_id']['value'] = array($term_id => $term_id);
         $view = View::create($data);
         $view->set('dependencies', array('content' => array('taxonomy_term:tags:' . $news_term->uuid())));
-        // @todo check if view is already within DB.
         $view->save();
+
+        if (\Drupal::entityManager()->getStorage('view')->load('ymca_twin_cities_blog')) {
+          break;
+        }
 
         $loader = file_get_contents(drupal_get_path('module', 'ymca_migrate') . '/config/disabled/views.view.ymca_twin_cities_blog.yml');
         $data = Yaml::decode($loader);
@@ -58,7 +66,6 @@ class MigrationEvents implements EventSubscriberInterface {
 
         $view = View::create($data);
         $view->set('dependencies', array('content' => $deps));
-        // @todo check if view is already within DB.
         $view->save();
 
         break;
