@@ -220,20 +220,17 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'content_block_join':
+        $inner = $this->getContentBlockJoinInner($component);
         switch ($property) {
           case 'field_phone':
-            $children = $this->getComponentsByParent($component['extra_data_1']);
-            $child = reset($children);
-            $value[$property]['value'] = $child['body'];
+            $value[$property]['value'] = $inner['body'];
             break;
 
           case 'field_location':
-            $children = $this->getComponentsByParent($component['extra_data_1']);
-            $child = reset($children);
             $value[$property] = [
               'country_code' => 'US',
-              'postal_code' => substr($child['body'], -5),
-              'address_line1' => substr_replace($child['body'], '', -5),
+              'postal_code' => substr($inner['body'], -5),
+              'address_line1' => substr_replace($inner['body'], '', -5),
             ];
             break;
 
@@ -242,40 +239,22 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
             break;
 
           default:
-            // Get joined component id.
-            $joined_id = $this->getAttributeData(
-              'joined_content_block_component_id',
-              $component
-            );
-            $parent_all = $this->getComponentsByParent($joined_id);
-            $parent = reset($parent_all);
-            // If parent is missing log it.
-            if (!$parent) {
-              \Drupal::logger('ymca_migrate')->info(
-                '[CLIENT] Component content_block_join (id: @component) has empty join on page: #@page',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@page' => $component['site_page_id']
-                ]
-              );
-              return NULL;
-            }
-
-            // List of known components to join.
+            // List of components for simple transform. Just use their body.
+            // @todo Add date_conditional_content here (the logic is differ).
             $available = [
               'rich_text',
               'image',
               'html_code',
             ];
 
-            if (!in_array($parent['component_type'], $available)) {
+            if (!in_array($inner['component_type'], $available)) {
               $this->idMap->saveMessage(
                 $this->getCurrentIds(),
                 $this->t(
-                  '[DEV] Component content_block_join (id: @component) has unknown join (@type) on page: #@page',
+                  '[DEV] Component content_block_join [id: @component] has unknown join (@type) on page: #@page',
                   [
                     '@component' => $component['site_page_component_id'],
-                    '@type' => $parent['component_type'],
+                    '@type' => $inner['component_type'],
                     '@page' => $component['site_page_id']
                   ]
                 ),
@@ -284,9 +263,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
               return NULL;
             }
 
-            // Finally, return body.
+            // Finally, pass processed body.
             $value[$property] = [
-              'value' => $parent['body'],
+              'value' => $this->replaceTokens->processText($inner['body']),
               'format' => 'full_html',
             ];
         }
@@ -475,6 +454,29 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     }
 
     return $value;
+  }
+
+  /**
+   * Get inner component for content_block_join type.
+   *
+   * @param array $component
+   *   Component.
+   *
+   * @return mixed
+   *   Inner component.
+   */
+  private function getContentBlockJoinInner(array $component) {
+    $children = $this->getComponentsByParent($component['extra_data_1']);
+    if (!is_array($children) || empty($children)) {
+      \Drupal::logger('ymca_migrate')->info(
+        '[CLIENT] Component content_block_join [id: @component] has empty join.',
+        [
+          '@component' => $component['site_page_component_id'],
+        ]
+      );
+      return FALSE;
+    }
+    return reset($children);
   }
 
   /**
