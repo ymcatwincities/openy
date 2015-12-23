@@ -205,7 +205,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         }
         else {
           $value[$property] = [
-            'value' => $component['body'],
+            'value' => $this->replaceTokens->processText($component['body']),
             'format' => 'full_html',
           ];
         }
