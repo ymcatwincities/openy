@@ -108,7 +108,8 @@ class YmcaReplaceTokens {
         $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
         $menu_id = $ymca_tokens_map->getMenuId($source_page_id);
         if ($menu_id === FALSE) {
-          \Drupal::logger('ymca_migrate')->error(t('[DEV]: replacePageTokens menuid for pageID: @id is not found', array('@id' => $source_page_id)));
+          // @todo: Decide what to place in the text if no page found.
+          \Drupal::logger('ymca_migrate')->info('[CLIENT]: A token for non migrated page was found. Page ID: @id', ['@id' => $source_page_id]);
           return;
         }
         else {
