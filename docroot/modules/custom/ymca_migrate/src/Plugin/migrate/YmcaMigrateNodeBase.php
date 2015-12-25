@@ -745,6 +745,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'blockquote' => 'field_sidebar',
           'headline' => 'field_sidebar',
         ],
+        95 => NULL,
+        96 => NULL,
+        97 => NULL,
+        98 => NULL,
       ],
       self::$themes['ymca_2013_camp_primary_landing'] => [
         1 => [
@@ -781,6 +785,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'blockquote' => 'field_sidebar',
           'headline' => 'field_sidebar',
         ],
+        95 => NULL,
+        96 => NULL,
+        97 => NULL,
+        98 => NULL,
       ],
       self::$themes['ymca_2013_camp_category_and_detail'] => [
         1 => [
@@ -817,6 +825,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'blockquote' => 'field_sidebar',
           'headline' => 'field_sidebar',
         ],
+        95 => NULL,
+        96 => NULL,
+        97 => NULL,
+        98 => NULL,
       ],
       self::$themes['ymca_2013_location_primary_landing'] => [
         1 => [
@@ -853,6 +865,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           'blockquote' => 'field_sidebar',
           'headline' => 'field_sidebar',
         ],
+        95 => NULL,
+        96 => NULL,
+        97 => NULL,
+        98 => NULL,
       ],
       self::$themes['ymca_2013_internal_category_and_detail'] => [
         1 => [
@@ -939,6 +955,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     // Check content_area_index.
     if (!array_key_exists($content_area_index, $map[$theme_id])) {
       return FALSE;
+    }
+
+    // Some content areas should be totally skipped.
+    if (is_null($map[$theme_id][$content_area_index])) {
+      return NULL;
     }
 
     // Finally get the result.
