@@ -67,9 +67,16 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('amm_site_page', 'p')
-      ->fields('p')
-      ->condition('theme_id', self::$theme);
+    if ($this->isDev()) {
+      return $this->select('amm_site_page', 'p')
+        ->fields('p')
+        ->condition('site_page_id', [7836, 7885, 7926, 7952, 7973, 8015], 'IN');
+    }
+    else {
+      return $this->select('amm_site_page', 'p')
+        ->fields('p')
+        ->condition('theme_id', self::$theme);
+    }
   }
 
   /**
@@ -132,7 +139,11 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
     $assets = [];
     foreach ($source_assets_ids as $source_id) {
       if ($dest_asset_id = $this->getDestination('asset', ['asset_id' => $source_id])) {
-        $assets[]['target_id'] = $dest_asset_id;
+        $assets[] = [
+          'target_id' => $dest_asset_id,
+          'description' => $this->getAssetLabel($source_id),
+          'display' => TRUE,
+        ];
       }
       else {
         $this->idMap->saveMessage(
@@ -148,6 +159,23 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
     $row->setSourceProperty('schedule_documents', $assets);
 
     return parent::prepareRow($row);
+  }
+
+  /**
+   * Get asset label.
+   *
+   * @param int $id
+   *   Source asset ID.
+   *
+   * @return mixed
+   *   Asset label.
+   */
+  private function getAssetLabel($id) {
+    return $this->select('shared_asset', 'a')
+      ->fields('a', ['name'])
+      ->condition('asset_id', $id)
+      ->execute()
+      ->fetchField(0);
   }
 
   /**
