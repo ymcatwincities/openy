@@ -2,6 +2,123 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.3.2 - 2015-12-22
+
+### Added
+
+- [#124](https://github.com/zendframework/zend-diactoros/pull/124) adds four
+  more optional arguments to the `ServerRequest` constructor:
+  - `array $cookies`
+  - `array $queryParams`
+  - `null|array|object $parsedBody`
+  - `string $protocolVersion`
+  `ServerRequestFactory` was updated to pass values for each of these parameters
+  when creating an instance, instead of using the related `with*()` methods on
+  an instance.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#122](https://github.com/zendframework/zend-diactoros/pull/122) updates the
+  `ServerRequestFactory` to retrieve the HTTP protocol version and inject it in
+  the generated `ServerRequest`, which previously was not performed.
+
+## 1.3.1 - 2015-12-16
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#113](https://github.com/zendframework/zend-diactoros/pull/113) fixes an
+  issue in the response serializer, ensuring that the status code in the
+  deserialized response is an integer.
+- [#115](https://github.com/zendframework/zend-diactoros/pull/115) fixes an
+  issue in the various text-basd response types (`TextResponse`, `HtmlResponse`,
+  and `JsonResponse`); due to the fact that the constructor was not
+  rewinding the message body stream, `getContents()` was thus returning `null`,
+  as the pointer was at the end of the stream. The constructor now rewinds the
+  stream after populating it in the constructor.
+
+## 1.3.0 - 2015-12-15
+
+### Added
+
+- [#110](https://github.com/zendframework/zend-diactoros/pull/110) adds
+  `Zend\Diactoros\Response\SapiEmitterTrait`, which provides the following
+  private method definitions:
+  - `injectContentLength()`
+  - `emitStatusLine()`
+  - `emitHeaders()`
+  - `flush()`
+  - `filterHeader()`
+  The `SapiEmitter` implementation has been updated to remove those methods and
+  instead compose the trait.
+- [#111](https://github.com/zendframework/zend-diactoros/pull/111) adds
+  a new emitter implementation, `SapiStreamEmitter`; this emitter type will
+  loop through the stream instead of emitting it in one go, and supports content
+  ranges.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 1.2.1 - 2015-12-15
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#101](https://github.com/zendframework/zend-diactoros/pull/101) fixes the
+  `withHeader()` implementation to ensure that if the header existed previously
+  but using a different casing strategy, the previous version will be removed
+  in the cloned instance.
+- [#103](https://github.com/zendframework/zend-diactoros/pull/103) fixes the
+  constructor of `Response` to ensure that null status codes are not possible.
+- [#99](https://github.com/zendframework/zend-diactoros/pull/99) fixes
+  validation of header values submitted via request and response constructors as
+  follows:
+  - numeric (integer and float) values are now properly allowed (this solves
+    some reported issues with setting Content-Length headers)
+  - invalid header names (non-string values or empty strings) now raise an
+    exception.
+  - invalid individual header values (non-string, non-numeric) now raise an
+    exception.
+
 ## 1.2.0 - 2015-11-24
 
 ### Added
@@ -14,7 +131,7 @@ All notable changes to this project will be documented in this file, in reverse 
   response type, `Zend\Diactoros\Response\TextResponse`, for returning plain
   text responses. By default, it sets the content type to `text/plain;
   charset=utf-8`; per the other response types, the signature is `new
-  TextResponse($text, $status = 200, array $headers = []`.
+  TextResponse($text, $status = 200, array $headers = [])`.
 - [#90](https://github.com/zendframework/zend-diactoros/pull/90) adds a new
   `Zend\Diactoros\CallbackStream`, allowing you to back a stream with a PHP
   callable (such as a generator) to generate the message content. Its
