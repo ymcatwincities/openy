@@ -72,6 +72,8 @@ dependencies:
   - search_api_db
   - webforms
   - ymca_frontend
+  - csv_serialization
+  - rest
 
 themes:
   - bartik
