@@ -5,6 +5,7 @@ dependencies:
   module:
     - contact
     - contact_storage
+    - rest
     - user
 id: contact_messages
 label: 'Contact messages'
@@ -479,4 +480,50 @@ display:
         - user.permissions
       cacheable: false
       max-age: 0
+      tags: {  }
+  rest_export_1:
+    display_plugin: rest_export
+    id: rest_export_1
+    display_title: 'REST export'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      path: admin/structure/contact/messages/csv
+      style:
+        type: serializer
+        options:
+          uses_fields: false
+          formats:
+            csv: csv
+      row:
+        type: data_field
+        options:
+          field_options:
+            subject:
+              alias: ''
+              raw_output: false
+            name:
+              alias: ''
+              raw_output: false
+            contact_form_label:
+              alias: ''
+              raw_output: false
+            created:
+              alias: ''
+              raw_output: false
+            operations:
+              alias: ''
+              raw_output: false
+      pager:
+        type: none
+        options:
+          offset: 0
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user.permissions
       tags: {  }
