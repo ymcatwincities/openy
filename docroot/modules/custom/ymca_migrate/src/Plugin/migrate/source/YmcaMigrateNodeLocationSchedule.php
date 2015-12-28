@@ -130,18 +130,21 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
 
     // Provide hardcoded assets for dev environment.
     if ($this->isDev()) {
-      $source_assets_ids = [8375, 8376];
+      $source_assets_ids = [
+        8375 => t('Test label 1'),
+        8376 => t('Test label 2')
+      ];
     }
     // No assets? Returning.
     if (!is_array($source_assets_ids)) {
       return parent::prepareRow($row);
     }
     $assets = [];
-    foreach ($source_assets_ids as $source_id) {
+    foreach ($source_assets_ids as $source_id => $title) {
       if ($dest_asset_id = $this->getDestination('asset', ['asset_id' => $source_id])) {
         $assets[] = [
           'target_id' => $dest_asset_id,
-          'description' => $this->getAssetLabel($source_id),
+          'description' => $title,
           'display' => TRUE,
         ];
       }
@@ -162,55 +165,27 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
   }
 
   /**
-   * Get asset label.
-   *
-   * @param int $id
-   *   Source asset ID.
-   *
-   * @return mixed
-   *   Asset label.
-   */
-  private function getAssetLabel($id) {
-    return $this->select('shared_asset', 'a')
-      ->fields('a', ['name'])
-      ->condition('asset_id', $id)
-      ->execute()
-      ->fetchField(0);
-  }
-
-  /**
    * Extract assets from text.
    *
    * @param string $string
    *   A text to parse.
    *
    * @return array
-   *   List of source asset IDs.
+   *   List of source asset IDs and titles.
    */
   private function getAssets($string) {
     $ids = [];
-    preg_match_all(
-      "/<a.*href=\"{{internal_asset_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
-      $string,
-      $test
-    );
+
+    $regex = "/.*<li><a.*{{internal_asset_link_(\d+)}}.*>(.*)<\/a><\/li>/";
+    preg_match_all($regex, $string, $test);
 
     if (empty($test) || empty($test[0])) {
-      return FALSE;
+      return [];
     }
-    foreach ($test as $matched) {
-      if (empty($matched)) {
-        continue;
-      }
-      foreach ($matched as $match) {
-        preg_match_all(
-          "/\{{internal_asset_link_(.*?)\}}/",
-          $match,
-          $test_ids
-        );
-        $ids[] = $test_ids[1][0];
-      }
+    foreach ($test[0] as $key => $item) {
+      $ids[$test[1][$key]] = $test[2][$key];
     }
+
     return $ids;
   }
 
