@@ -180,7 +180,7 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
     preg_match_all($regex, $string, $test);
 
     if (empty($test) || empty($test[0])) {
-      return [];
+      return FALSE;
     }
     foreach ($test[0] as $key => $item) {
       $ids[$test[1][$key]] = $test[2][$key];
