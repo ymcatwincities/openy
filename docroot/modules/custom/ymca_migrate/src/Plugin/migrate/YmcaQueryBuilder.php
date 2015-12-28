@@ -104,6 +104,7 @@ class YmcaQueryBuilder {
     );
     $this->query->condition('is_redirect', 0);
     $this->query->condition('do_not_publish', 0);
+    $this->query->isNull('p.backup_of_site_page_id');
     $this->query->orderBy('nav_level', 'ASC');
     $this->query->orderBy('sequence_index', 'ASC');
   }

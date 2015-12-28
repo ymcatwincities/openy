@@ -74,6 +74,7 @@ class YmcaMigrateStatus extends ControllerBase {
         $query->fields('p', ['site_page_id', 'page_subdirectory', 'page_title']);
         $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
         $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
+        $this->query->isNull('p.backup_of_site_page_id');
         $this->pages['all'] = $query->execute()->fetchAllAssoc('site_page_id');
         $this->pages[0] = array_diff_key($this->pages['all'], $this->pages[1]);
         break;
@@ -84,6 +85,7 @@ class YmcaMigrateStatus extends ControllerBase {
         $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
         $query->condition('c.component_type', $this->components['complex'], 'IN');
         $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
+        $this->query->isNull('p.backup_of_site_page_id');
         $query->distinct();
         $this->pages[1] = $query->execute()->fetchAllAssoc('site_page_id');
         break;
