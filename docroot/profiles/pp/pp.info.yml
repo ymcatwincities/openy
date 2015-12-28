@@ -4,6 +4,7 @@ description: 'Install with commonly used features pre-configured.'
 core: 8.x
 dependencies:
   - node
+  - user
   - history
   - block
   - breakpoint
@@ -68,12 +69,12 @@ dependencies:
   #- metatag
   #- xmlsitemap
   #- globalredirect
-  - search_api
-  - search_api_db
+  #- search_api
+  #- search_api_db
   - webforms
   - ymca_frontend
-  - csv_serialization
   - rest
+  - csv_serialization
 
 themes:
   - bartik
