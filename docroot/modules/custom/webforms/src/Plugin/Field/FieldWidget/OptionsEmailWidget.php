@@ -7,8 +7,10 @@
 
 namespace Drupal\webforms\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Form\FormState;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -80,6 +82,11 @@ class OptionsEmailWidget extends WidgetBase {
       '#title' => t('Emails'),
       '#type' => 'textfield',
       '#default_value' => isset($item->option_emails) ? $item->option_emails : '',
+      '#required' => FALSE,
+    ];
+    $element['option_select'] = [
+      '#type' => 'checkbox',
+      '#default_value' => isset($item->option_select) ? $item->option_select : '',
       '#required' => FALSE,
     ];
 
@@ -258,10 +265,135 @@ class OptionsEmailWidget extends WidgetBase {
             'callback' => [get_class($this), 'addLocationsSubmit']
           ]
         ];
+        $elements['remove_items'] = [
+          '#type' => 'submit',
+          '#value' => t('Remove selected items'),
+          '#name' => strtr($id_prefix, '-', '_') . '_remove_items',
+          '#attributes' => array('class' => array('field-remove-items-submit')),
+          '#limit_validation_errors' => array(array_merge($parents, array($field_name))),
+          '#ajax' => [
+            'callback' => [get_class($this), 'removeItemsAjax'],
+            'wrapper' => $wrapper_id,
+            'effect' => 'fade',
+          ],
+          '#submit' => [
+            'callback' => [get_class($this), 'removeItemsSubmit']
+          ]
+        ];
       }
     }
 
     return $elements;
+  }
+
+  /**
+   * Generates the form element for a single copy of the widget.
+   */
+  protected function formSingleElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    if ($items->getName() == 'field_what_is_your_preferred_y_l') {
+      if ($form_state->getValue('remove_items') == TRUE) {
+        $items_to_be_removed = $form_state->getValue('items_to_be_removed');
+
+        $values = $form_state->getValue('default_value_input');
+        $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
+
+        if (in_array($delta, $items_to_be_removed)) {
+          $item = $items->get($delta);
+          $items->set($delta, array());
+        }
+      }
+
+      if ($form_state->getValue('locations') == TRUE) {
+        // Get all locations from form_state.
+        $location_entities = $form_state->getValue('location_entities');
+        $location_entities = array_values($location_entities);
+        $values = $form_state->getValue('default_value_input');
+        $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
+        $existed_items_count = count($values['field_what_is_your_preferred_y_l']);
+        $delta >= $existed_items_count ? $id = $delta - $existed_items_count : '';
+        if (isset($location_entities[$id])) {
+          $title = $location_entities[$id]->getTitle();
+          $item_values = $items->getValue();
+          $item_values[$delta] = array(
+            'option_name' => $title,
+            'option_emails' => '',
+            'option_select' => FALSE,
+          );
+          $items->setValue($item_values);
+        }
+      }
+    }
+    $entity = $items->getEntity();
+
+    $element += array(
+      '#field_parents' => $form['#parents'],
+      // Only the first widget should be required.
+      '#required' => $delta == 0 && $this->fieldDefinition->isRequired(),
+      '#delta' => $delta,
+      '#weight' => $delta,
+    );
+    $element = $this->formElement($items, $delta, $element, $form, $form_state);
+
+    if ($element) {
+      // Allow modules to alter the field widget form element.
+      $context = array(
+        'form' => $form,
+        'widget' => $this,
+        'items' => $items,
+        'delta' => $delta,
+        'default' => $this->isDefaultValueWidget($form_state),
+      );
+      \Drupal::moduleHandler()->alter(array('field_widget_form', 'field_widget_' . $this->getPluginId() . '_form'), $element, $form_state, $context);
+    }
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function extractFormValues(FieldItemListInterface $items, array $form, FormStateInterface $form_state) {
+    $field_name = $this->fieldDefinition->getName();
+
+    // Extract the values from $form_state->getValues().
+    $path = array_merge($form['#parents'], array($field_name));
+    $key_exists = NULL;
+    $values = NestedArray::getValue($form_state->getValues(), $path, $key_exists);
+
+    if ($key_exists) {
+      // Account for drag-and-drop reordering if needed.
+      if (!$this->handlesMultipleValues()) {
+        // Remove the 'value' of the 'add more' button.
+        unset($values['add_more']);
+        unset($values['prepopulate_locations']);
+        unset($values['remove_items']);
+
+        // The original delta, before drag-and-drop reordering, is needed to
+        // route errors to the correct form element.
+        foreach ($values as $delta => &$value) {
+          $value['_original_delta'] = $delta;
+        }
+
+        usort($values, function ($a, $b) {
+          return SortArray::sortByKeyInt($a, $b, '_weight');
+        });
+      }
+
+      // Let the widget massage the submitted values.
+      $values = $this->massageFormValues($values, $form, $form_state);
+
+      // Assign the values and remove the empty ones.
+      $items->setValue($values);
+      $items->filterEmptyItems();
+
+      // Put delta mapping in $form_state, so that flagErrors() can use it.
+      $field_state = static::getWidgetState($form['#parents'], $field_name, $form_state);
+      foreach ($items as $delta => $item) {
+        $field_state['original_deltas'][$delta] = isset($item->_original_delta) ? $item->_original_delta : $delta;
+        unset($item->_original_delta, $item->_weight);
+      }
+      static::setWidgetState($form['#parents'], $field_name, $form_state, $field_state);
+    }
   }
 
   /**
@@ -271,7 +403,23 @@ class OptionsEmailWidget extends WidgetBase {
    * by the form submission.
    */
   public function addLocationsAjax(array $form, FormStateInterface $form_state) {
-    // @todo wrapper replacement code here, @see addMoreAjax as example
+    $button = $form_state->getTriggeringElement();
+
+    // Go one level up in the form, to the widgets container.
+    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
+
+    // Ensure the widget allows adding additional items.
+    if ($element['#cardinality'] != FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
+      return;
+    }
+
+    // Add a DIV around the delta receiving the Ajax effect.
+    $delta = $element['#max_delta'];
+    $element[$delta]['#prefix'] = '<div class="ajax-new-content">' . (isset($element[$delta]['#prefix']) ? $element[$delta]['#prefix'] : '');
+    $element[$delta]['#suffix'] = (isset($element[$delta]['#suffix']) ? $element[$delta]['#suffix'] : '') . '</div>';
+    $form_state->setRebuild();
+
+    return $element;
   }
 
   /**
@@ -287,9 +435,98 @@ class OptionsEmailWidget extends WidgetBase {
     $location_entities = \Drupal::entityManager()->getStorage(
       'node'
     )->loadMultiple($location_ids);
+    $button = $form_state->getTriggeringElement();
 
-    // @todo inject locations list to a form. @see addMoreSubmit as example
+    // Go one level up in the form, to the widgets container.
+    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
+    $field_name = $element['#field_name'];
+    $parents = $element['#field_parents'];
 
+    // Increment the items count.
+    $field_state = static::getWidgetState($parents, $field_name, $form_state);
+
+    $values = $form_state->getValue('default_value_input');
+    $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
+
+    // Skip item which already have locations from the list.
+    foreach ($location_entities as $key => $entity) {
+      foreach ($values['field_what_is_your_preferred_y_l'] as $value) {
+        if ($entity->getTitle() == $value['option_name']) {
+          unset($location_entities[$key]);
+        }
+      }
+    }
+
+    $form_state->setValue('locations', TRUE);
+    $form_state->setValue('location_entities', $location_entities);
+    $items_count = count($location_entities);
+
+    $field_state['items_count'] += $items_count;
+    static::setWidgetState($parents, $field_name, $form_state, $field_state);
+
+    $form_state->setRebuild();
+  }
+
+  /**
+   * Ajax callback for the "Remove selected items" button.
+   *
+   * This returns the new page content to replace the page content made obsolete
+   * by the form submission.
+   */
+  public function removeItemsAjax(array $form, FormStateInterface $form_state) {
+    $button = $form_state->getTriggeringElement();
+
+    // Go one level up in the form, to the widgets container.
+    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
+
+    // Ensure the widget allows adding additional items.
+    if ($element['#cardinality'] != FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
+      return;
+    }
+
+    // Add a DIV around the delta receiving the Ajax effect.
+    $delta = $element['#max_delta'];
+    $element[$delta]['#prefix'] = '<div class="ajax-new-content">' . (isset($element[$delta]['#prefix']) ? $element[$delta]['#prefix'] : '');
+    $element[$delta]['#suffix'] = (isset($element[$delta]['#suffix']) ? $element[$delta]['#suffix'] : '') . '</div>';
+    $form_state->setRebuild();
+
+    return $element;
+  }
+
+  /**
+   * Ajax callback for the "Remove selected items" button.
+   *
+   * This returns the new page content to replace the page content made obsolete
+   * by the form submission.
+   */
+  public function removeItemsSubmit(array $form, FormStateInterface $form_state) {
+    $button = $form_state->getTriggeringElement();
+
+    // Go one level up in the form, to the widgets container.
+    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
+    $field_name = $element['#field_name'];
+    $parents = $element['#field_parents'];
+
+    // Increment the items count.
+    $field_state = static::getWidgetState($parents, $field_name, $form_state);
+
+    $items_to_be_removed = array();
+    $values = $form_state->getValue('default_value_input');
+    $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
+    foreach ($values['field_what_is_your_preferred_y_l'] as $key => $item) {
+      if ($item['option_select']) {
+        $items_to_be_removed[] = $key;
+      }
+    }
+    if (!empty($items_to_be_removed)) {
+      $form_state->setValue('remove_items', TRUE);
+      $form_state->setValue('items_to_be_removed', $items_to_be_removed);
+    }
+
+    $field_state['items_count'] -= count($items_to_be_removed);
+    static::setWidgetState($parents, $field_name, $form_state, $field_state);
+
+    $form_state->setRebuild();
   }
 
 }
