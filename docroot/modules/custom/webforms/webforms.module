@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Main module file for hooks.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_operation().
+ */
+function webforms_entity_operation(EntityInterface $entity) {
+  $operations = array();
+
+  if ($entity->getEntityType()->id() == 'contact_form' && $entity->id() != 'personal') {
+    $operations['webforms_export_csv'] = array(
+      'title' => t('Submissions CSV export'),
+      'weight' => 51,
+      'url' => \Drupal\Core\Url::fromRoute('entity.contact_form.export_csv', ['contact_form' => $entity->id()]),
+    );
+  }
+
+  return $operations;
+}
