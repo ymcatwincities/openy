@@ -1,13 +1,14 @@
-uuid: b6f41ed4-834f-486a-8252-82a85558202c
+uuid: 1a7d0487-84f7-47b2-a73c-60f7e52f5302
 langcode: en
 status: true
 dependencies:
   module:
     - contact
     - contact_storage
+    - rest
     - user
-id: contact_messages
-label: 'Contact messages'
+id: contact_messages_csv_export
+label: 'Contact messages CSV export'
 module: views
 description: 'View and manage messages sent through contact forms.'
 tag: ''
@@ -454,29 +455,45 @@ display:
       cacheable: false
       max-age: 0
       tags: {  }
-  page_1:
-    display_plugin: page
-    id: page_1
-    display_title: Page
-    position: 1
+  rest_export_1:
+    display_plugin: rest_export
+    id: rest_export_1
+    display_title: 'REST export'
+    position: 2
     display_options:
-      path: admin/structure/contact/messages
-      menu:
-        type: tab
-        title: List
-        description: 'Contact messages'
-        parent: contact.form_list
-        weight: 0
-        context: '0'
-        menu_name: admin
       display_extenders: {  }
+      style:
+        type: serializer
+        options:
+          uses_fields: false
+          formats:
+            csv: csv
+      row:
+        type: data_field
+        options:
+          field_options:
+            subject:
+              alias: ''
+              raw_output: false
+            name:
+              alias: ''
+              raw_output: false
+            contact_form_label:
+              alias: ''
+              raw_output: false
+            created:
+              alias: ''
+              raw_output: false
+            operations:
+              alias: ''
+              raw_output: false
+      path: admin/structure/contact/messages/csv
     cache_metadata:
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - request_format
         - url
-        - url.query_args
         - user.permissions
-      cacheable: false
-      max-age: 0
       tags: {  }
