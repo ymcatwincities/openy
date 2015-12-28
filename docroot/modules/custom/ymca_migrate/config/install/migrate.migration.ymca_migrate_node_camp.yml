@@ -21,6 +21,9 @@ process:
     plugin: default_value
     default_value: 1
   field_content: field_content
+  field_location: field_location
+  field_phone: field_phone
+  field_main_promos: field_main_promos
 destination:
   plugin: entity:node
 migration_dependencies:

@@ -27,6 +27,7 @@ process:
   field_sidebar: field_sidebar
   field_secondary_sidebar: field_secondary_sidebar
   field_header_image: field_header_image
+  field_sidebar_navigation: field_sidebar_navigation
 
 destination:
   plugin: entity:node
