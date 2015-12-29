@@ -45,7 +45,7 @@ class YmcaFacebookId extends DestinationBase {
     $nid = $this->getDestinationId(['site_page_id' => $row->getSourceProperty('page_id')], $this->migrations);
 
     if (!$nid) {
-      // There is no such ID migrated. Just skip
+      // There is no such ID migrated. Just skip.
       return FALSE;
     }
 
