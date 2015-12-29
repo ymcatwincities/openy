@@ -56,9 +56,18 @@ class OptionsEmailWidget extends WidgetBase {
 
       // Add our custom validator.
       $element['#element_validate'][] = array(get_class($this), 'validateElement');
-
+      $form_state->setRebuild();
       return $element;
 
+    }
+
+    if ($form_state->getValue('remove_items') == TRUE) {
+      $items_to_be_removed = $form_state->getValue('items_to_be_removed');
+      if (in_array($delta, $items_to_be_removed)) {
+        // Removing element from array by delta.
+        $form_state->setRebuild();
+        return NULL;
+      }
     }
 
     /** @var FieldConfig $definition */
@@ -90,6 +99,7 @@ class OptionsEmailWidget extends WidgetBase {
       '#required' => FALSE,
     ];
 
+    $form_state->setRebuild();
     return $element;
   }
 
@@ -290,16 +300,22 @@ class OptionsEmailWidget extends WidgetBase {
    * Generates the form element for a single copy of the widget.
    */
   protected function formSingleElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    if ($items->getName() == 'field_what_is_your_preferred_y_l') {
+
+    /** @var \Drupal\field\Entity\FieldConfig $definition */
+    $definition = $items->getFieldDefinition();
+    $field_type = $definition->getType();
+    $field_name = $definition->getName();
+    if ($field_type == 'options_email_item') {
       if ($form_state->getValue('remove_items') == TRUE) {
         $items_to_be_removed = $form_state->getValue('items_to_be_removed');
 
         $values = $form_state->getValue('default_value_input');
-        $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
+        $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
 
         if (in_array($delta, $items_to_be_removed)) {
           $item = $items->get($delta);
           $items->set($delta, array());
+          $form_state->setRebuild();
         }
       }
 
@@ -308,8 +324,8 @@ class OptionsEmailWidget extends WidgetBase {
         $location_entities = $form_state->getValue('location_entities');
         $location_entities = array_values($location_entities);
         $values = $form_state->getValue('default_value_input');
-        $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
-        $existed_items_count = count($values['field_what_is_your_preferred_y_l']);
+        $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
+        $existed_items_count = count($values[$field_name]);
         $delta >= $existed_items_count ? $id = $delta - $existed_items_count : '';
         if (isset($location_entities[$id])) {
           $title = $location_entities[$id]->getTitle();
@@ -321,6 +337,7 @@ class OptionsEmailWidget extends WidgetBase {
           );
           $items->setValue($item_values);
         }
+        $form_state->setRebuild();
       }
     }
     $entity = $items->getEntity();
@@ -345,7 +362,7 @@ class OptionsEmailWidget extends WidgetBase {
       );
       \Drupal::moduleHandler()->alter(array('field_widget_form', 'field_widget_' . $this->getPluginId() . '_form'), $element, $form_state, $context);
     }
-
+    $form_state->setRebuild();
     return $element;
   }
 
@@ -446,11 +463,11 @@ class OptionsEmailWidget extends WidgetBase {
     $field_state = static::getWidgetState($parents, $field_name, $form_state);
 
     $values = $form_state->getValue('default_value_input');
-    $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
+    $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
 
     // Skip item which already have locations from the list.
     foreach ($location_entities as $key => $entity) {
-      foreach ($values['field_what_is_your_preferred_y_l'] as $value) {
+      foreach ($values[$field_name] as $value) {
         if ($entity->getTitle() == $value['option_name']) {
           unset($location_entities[$key]);
         }
@@ -512,8 +529,8 @@ class OptionsEmailWidget extends WidgetBase {
 
     $items_to_be_removed = array();
     $values = $form_state->getValue('default_value_input');
-    $values['field_what_is_your_preferred_y_l'] = array_intersect_key($values['field_what_is_your_preferred_y_l'], array_flip(array_filter(array_keys($values['field_what_is_your_preferred_y_l']), 'is_numeric')));
-    foreach ($values['field_what_is_your_preferred_y_l'] as $key => $item) {
+    $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
+    foreach ($values[$field_name] as $key => $item) {
       if ($item['option_select']) {
         $items_to_be_removed[] = $key;
       }
