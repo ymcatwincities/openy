@@ -32,6 +32,27 @@ trait YmcaMigrateTrait {
   }
 
   /**
+   * Get destination ID.
+   *
+   * @param array $source
+   *   Example: ['site_page_id' => 10].
+   *
+   * @return mixed
+   *   Destination ID.
+   */
+  private function getDestinationId(array $source, array $migrations) {
+    foreach ($migrations as $id => $migration) {
+      $map = $migration->getIdMap();
+      $dest = $map->getRowBySource($source);
+      if (!empty($dest)) {
+        return $dest['destid1'];
+      }
+    }
+
+    return FALSE;
+  }
+
+  /**
    * Create and get Promo Block.
    *
    * @param array $data
