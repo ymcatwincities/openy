@@ -7,7 +7,6 @@
 
 namespace Drupal\webforms\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Form\FormState;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\SortArray;
@@ -16,7 +15,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\field\Entity\FieldConfig;
 use Drupal\ymca_field_office_hours\Plugin\Field\FieldType\YmcaOfficeHoursItem;
 
 /**
@@ -37,9 +35,80 @@ class OptionsEmailWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
+    /** @var \Drupal\field\Entity\FieldConfig $definition */
+    $definition = $items->getFieldDefinition();
+    $field_type = $definition->getType();
+    $field_name = $definition->getName();
+
+    $default_value_input = $form_state->getValue('default_value_input');
+    if ($field_type == 'options_email_item' && $form_state->getTriggeringElement()) {
+      //$form_state->setRebuild();
+      //$form_state->disableCache();
+      if ($form_state->getValue('remove_items') == TRUE && !isset($default_value_input[$field_name][$delta])) {
+        // Item already removed.
+        return NULL;
+      }
+      if ($form_state->getValue('remove_items') == TRUE) {
+        $items_to_be_removed = $form_state->getValue('items_to_be_removed');
+
+        $values = $form_state->getValue('default_value_input');
+        $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
+
+        if (in_array($delta, $items_to_be_removed)) {
+          //$item = $items->get($delta);
+          // $items->set($delta, array());
+          // $items->removeItem($delta);
+          // $form_state->setRebuild();
+          return NULL;
+        }
+      }
+
+      if ($form_state->getValue('locations') == TRUE) {
+        // Get all locations from form_state.
+        $location_entities = $form_state->getValue('location_entities');
+        $location_entities = array_values($location_entities);
+        $values = $form_state->getValue('default_value_input');
+        $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
+//        foreach ($values[$field_name] as $v_id => $v_element) {
+//          if ($v_element['option_name'] == NULL && $v_element['option_emails'] == NULL) {
+//            // Clean empty elements.
+//            unset($values[$field_name][$v_id]);
+//            unset($default_value_input[$field_name][$v_id]);
+//            $form_state->setValue('default_value_input', $default_value_input);
+//            $form_state->setRebuild();
+//          }
+//        }
+        $values[$field_name] = array_values($values[$field_name]);
+        $existed_items_count = count($values[$field_name]);
+        $delta >= $existed_items_count ? $id = $delta - $existed_items_count : $id = $delta;
+        if (isset($id) && isset($location_entities[$id])) {
+          $title = $location_entities[$id]->getTitle();
+          $item_values = $items->getValue();
+          $item_values[$delta] = array(
+            'option_name' => $title,
+            'option_emails' => '',
+            'option_select' => FALSE,
+          );
+          $items->setValue($item_values);
+        }
+        //$form_state->setRebuild();
+      }
+    }
+
     /** @var YmcaOfficeHoursItem $item */
     $item = $items->get($delta);
+    if ($item == NULL) {
+      $item_values = $items->getValue();
+      $item_values[$items->count()] = array(
+        'option_name' => $default_value_input[$field_name][$delta]['option_name'],
+        'option_emails' => $default_value_input[$field_name][$delta]['option_emails'],
+        'option_select' => FALSE,
+      );
+      $items->setValue($item_values);
+      $item = $items->get($items->count() - 1);
+    }
     if (!$this->isDefaultValueWidget($form_state)) {
+      // Display dropdown list of options.
       $def = $this->fieldDefinition->getDefaultValue($item->getEntity());
       $options = [];
       foreach ($def as $id => $item_data) {
@@ -56,22 +125,9 @@ class OptionsEmailWidget extends WidgetBase {
 
       // Add our custom validator.
       $element['#element_validate'][] = array(get_class($this), 'validateElement');
-      $form_state->setRebuild();
+      // $form_state->setRebuild();
       return $element;
-
     }
-
-    if ($form_state->getValue('remove_items') == TRUE) {
-      $items_to_be_removed = $form_state->getValue('items_to_be_removed');
-      if (in_array($delta, $items_to_be_removed)) {
-        // Removing element from array by delta.
-        $form_state->setRebuild();
-        return NULL;
-      }
-    }
-
-    /** @var FieldConfig $definition */
-    $definition = $item->getFieldDefinition();
 
     // Add field title.
     $element['title'] = [
@@ -93,13 +149,20 @@ class OptionsEmailWidget extends WidgetBase {
       '#default_value' => isset($item->option_emails) ? $item->option_emails : '',
       '#required' => FALSE,
     ];
-    $element['option_select'] = [
-      '#type' => 'checkbox',
-      '#default_value' => isset($item->option_select) ? $item->option_select : '',
-      '#required' => FALSE,
-    ];
-
-    $form_state->setRebuild();
+    if ($items->count() > 1 || isset($item->option_select)) {
+      $element['option_select'] = [
+        '#type' => 'checkbox',
+        '#title' => t('Flag for remove'),
+        '#default_value' => isset($item->option_select) ? $item->option_select : '',
+        '#required' => FALSE,
+      ];
+    }
+    if ($field_type == 'options_email_item' && ($form_state->getValue('locations') == TRUE || $form_state->getValue('remove_items') == TRUE)) {
+      if ($element['option_name']['#default_value'] == NULL && $element['option_emails']['#default_value'] == NULL) {
+        return NULL;
+      }
+    }
+    // $form_state->setRebuild();
     return $element;
   }
 
@@ -167,7 +230,7 @@ class OptionsEmailWidget extends WidgetBase {
     switch ($cardinality) {
       case FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED:
         $field_state = static::getWidgetState($parents, $field_name, $form_state);
-        $max = $field_state['items_count'];
+        $max = $field_state['items_count'] - 1;
         $is_multiple = TRUE;
         break;
 
@@ -184,7 +247,7 @@ class OptionsEmailWidget extends WidgetBase {
 
     for ($delta = 0; $delta <= $max; $delta++) {
       // Add a new empty item if it doesn't exist yet at this delta.
-      if (!isset($items[$delta])) {
+      if (!isset($items[$delta]) && $delta == 0) {
         $items->appendItem();
       }
 
@@ -275,24 +338,25 @@ class OptionsEmailWidget extends WidgetBase {
             'callback' => [get_class($this), 'addLocationsSubmit']
           ]
         ];
-        $elements['remove_items'] = [
-          '#type' => 'submit',
-          '#value' => t('Remove selected items'),
-          '#name' => strtr($id_prefix, '-', '_') . '_remove_items',
-          '#attributes' => array('class' => array('field-remove-items-submit')),
-          '#limit_validation_errors' => array(array_merge($parents, array($field_name))),
-          '#ajax' => [
-            'callback' => [get_class($this), 'removeItemsAjax'],
-            'wrapper' => $wrapper_id,
-            'effect' => 'fade',
-          ],
-          '#submit' => [
-            'callback' => [get_class($this), 'removeItemsSubmit']
-          ]
-        ];
+        if ($items->count() > 1) {
+          $elements['remove_items'] = [
+            '#type' => 'submit',
+            '#value' => t('Remove selected items'),
+            '#name' => strtr($id_prefix, '-', '_') . '_remove_items',
+            '#attributes' => array('class' => array('field-remove-items-submit')),
+            '#limit_validation_errors' => array(array_merge($parents, array($field_name))),
+            '#ajax' => [
+              'callback' => [get_class($this), 'removeItemsAjax'],
+              'wrapper' => $wrapper_id,
+              'effect' => 'fade',
+            ],
+            '#submit' => [
+              'callback' => [get_class($this), 'removeItemsSubmit']
+            ]
+          ];
+        }
       }
     }
-
     return $elements;
   }
 
@@ -301,45 +365,7 @@ class OptionsEmailWidget extends WidgetBase {
    */
   protected function formSingleElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    /** @var \Drupal\field\Entity\FieldConfig $definition */
-    $definition = $items->getFieldDefinition();
-    $field_type = $definition->getType();
-    $field_name = $definition->getName();
-    if ($field_type == 'options_email_item') {
-      if ($form_state->getValue('remove_items') == TRUE) {
-        $items_to_be_removed = $form_state->getValue('items_to_be_removed');
 
-        $values = $form_state->getValue('default_value_input');
-        $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
-
-        if (in_array($delta, $items_to_be_removed)) {
-          $item = $items->get($delta);
-          $items->set($delta, array());
-          $form_state->setRebuild();
-        }
-      }
-
-      if ($form_state->getValue('locations') == TRUE) {
-        // Get all locations from form_state.
-        $location_entities = $form_state->getValue('location_entities');
-        $location_entities = array_values($location_entities);
-        $values = $form_state->getValue('default_value_input');
-        $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
-        $existed_items_count = count($values[$field_name]);
-        $delta >= $existed_items_count ? $id = $delta - $existed_items_count : '';
-        if (isset($location_entities[$id])) {
-          $title = $location_entities[$id]->getTitle();
-          $item_values = $items->getValue();
-          $item_values[$delta] = array(
-            'option_name' => $title,
-            'option_emails' => '',
-            'option_select' => FALSE,
-          );
-          $items->setValue($item_values);
-        }
-        $form_state->setRebuild();
-      }
-    }
     $entity = $items->getEntity();
 
     $element += array(
@@ -419,7 +445,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public function addLocationsAjax(array $form, FormStateInterface $form_state) {
+  public static function addLocationsAjax(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
 
     // Go one level up in the form, to the widgets container.
@@ -427,7 +453,7 @@ class OptionsEmailWidget extends WidgetBase {
 
     // Ensure the widget allows adding additional items.
     if ($element['#cardinality'] != FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
-      return;
+      return NULL;
     }
 
     // Add a DIV around the delta receiving the Ajax effect.
@@ -445,7 +471,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public function addLocationsSubmit(array $form, FormStateInterface $form_state) {
+  public static function addLocationsSubmit(array $form, FormStateInterface $form_state) {
     $location_ids = \Drupal::entityQuery('node')
       ->condition('type', 'location')
       ->execute();
@@ -474,6 +500,10 @@ class OptionsEmailWidget extends WidgetBase {
       }
     }
 
+    if (!count($location_entities)) {
+      // No new locations.
+      return NULL;
+    }
     $form_state->setValue('locations', TRUE);
     $form_state->setValue('location_entities', $location_entities);
     $items_count = count($location_entities);
@@ -490,7 +520,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public function removeItemsAjax(array $form, FormStateInterface $form_state) {
+  public static function removeItemsAjax(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
 
     // Go one level up in the form, to the widgets container.
@@ -498,14 +528,14 @@ class OptionsEmailWidget extends WidgetBase {
 
     // Ensure the widget allows adding additional items.
     if ($element['#cardinality'] != FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
-      return;
+      return NULL;
     }
 
     // Add a DIV around the delta receiving the Ajax effect.
     $delta = $element['#max_delta'];
     $element[$delta]['#prefix'] = '<div class="ajax-new-content">' . (isset($element[$delta]['#prefix']) ? $element[$delta]['#prefix'] : '');
     $element[$delta]['#suffix'] = (isset($element[$delta]['#suffix']) ? $element[$delta]['#suffix'] : '') . '</div>';
-    $form_state->setRebuild();
+    //$form_state->setRebuild();
 
     return $element;
   }
@@ -516,7 +546,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public function removeItemsSubmit(array $form, FormStateInterface $form_state) {
+  public static function removeItemsSubmit(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
 
     // Go one level up in the form, to the widgets container.
@@ -531,7 +561,7 @@ class OptionsEmailWidget extends WidgetBase {
     $values = $form_state->getValue('default_value_input');
     $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
     foreach ($values[$field_name] as $key => $item) {
-      if ($item['option_select']) {
+      if ($item['option_select'] == 1) {
         $items_to_be_removed[] = $key;
       }
     }
@@ -539,8 +569,11 @@ class OptionsEmailWidget extends WidgetBase {
       $form_state->setValue('remove_items', TRUE);
       $form_state->setValue('items_to_be_removed', $items_to_be_removed);
     }
+    else {
+      return;
+    }
 
-    $field_state['items_count'] -= count($items_to_be_removed);
+    $field_state['items_count'] -= (count($items_to_be_removed) - 1);
     static::setWidgetState($parents, $field_name, $form_state, $field_state);
 
     $form_state->setRebuild();
