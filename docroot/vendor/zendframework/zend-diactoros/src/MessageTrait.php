@@ -204,6 +204,9 @@ trait MessageTrait
         $normalized = strtolower($header);
 
         $new = clone $this;
+        if ($new->hasHeader($header)) {
+            unset($new->headers[$new->headerNames[$normalized]]);
+        }
         $new->headerNames[$normalized] = $header;
         $new->headers[$header]         = $value;
 
@@ -334,11 +337,28 @@ trait MessageTrait
         $headerNames = $headers = [];
         foreach ($originalHeaders as $header => $value) {
             if (! is_string($header)) {
-                continue;
+                throw new InvalidArgumentException(sprintf(
+                    'Invalid header name; expected non-empty string, received %s',
+                    gettype($header)
+                ));
             }
 
-            if (! is_array($value) && ! is_string($value)) {
-                continue;
+            if (! is_array($value) && ! is_string($value) && ! is_numeric($value)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Invalid header value type; expected number, string, or array; received %s',
+                    (is_object($value) ? get_class($value) : gettype($value))
+                ));
+            }
+
+            if (is_array($value)) {
+                array_walk($value, function ($item) {
+                    if (! is_string($item) && ! is_numeric($item)) {
+                        throw new InvalidArgumentException(sprintf(
+                            'Invalid header value type; expected number, string, or array; received %s',
+                            (is_object($item) ? get_class($item) : gettype($item))
+                        ));
+                    }
+                });
             }
 
             if (! is_array($value)) {

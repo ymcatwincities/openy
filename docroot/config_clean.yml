@@ -351,6 +351,7 @@
       - { name: 'views.view.ymca_news.yml', status: true }
       - { name: 'views.view.ymca_twin_cities_blog.yml', status: true }
       - { name: 'views.view.scheduled_content.yml', status: true }
+      - { name: 'views.view.contact_messages.yml', status: true }
 
   tasks:
     - name: Export config

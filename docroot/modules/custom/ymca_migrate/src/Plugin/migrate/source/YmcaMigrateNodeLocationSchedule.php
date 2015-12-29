@@ -67,9 +67,16 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('amm_site_page', 'p')
-      ->fields('p')
-      ->condition('theme_id', self::$theme);
+    if ($this->isDev()) {
+      return $this->select('amm_site_page', 'p')
+        ->fields('p')
+        ->condition('site_page_id', [7836, 7885, 7926, 7952, 7973, 8015], 'IN');
+    }
+    else {
+      return $this->select('amm_site_page', 'p')
+        ->fields('p')
+        ->condition('theme_id', self::$theme);
+    }
   }
 
   /**
@@ -123,16 +130,23 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
 
     // Provide hardcoded assets for dev environment.
     if ($this->isDev()) {
-      $source_assets_ids = [8375, 8376];
+      $source_assets_ids = [
+        8375 => t('Test label 1'),
+        8376 => t('Test label 2')
+      ];
     }
     // No assets? Returning.
     if (!is_array($source_assets_ids)) {
       return parent::prepareRow($row);
     }
     $assets = [];
-    foreach ($source_assets_ids as $source_id) {
+    foreach ($source_assets_ids as $source_id => $title) {
       if ($dest_asset_id = $this->getDestination('asset', ['asset_id' => $source_id])) {
-        $assets[]['target_id'] = $dest_asset_id;
+        $assets[] = [
+          'target_id' => $dest_asset_id,
+          'description' => $title,
+          'display' => TRUE,
+        ];
       }
       else {
         $this->idMap->saveMessage(
@@ -157,32 +171,21 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
    *   A text to parse.
    *
    * @return array
-   *   List of source asset IDs.
+   *   List of source asset IDs and titles.
    */
   private function getAssets($string) {
     $ids = [];
-    preg_match_all(
-      "/<a.*href=\"{{internal_asset_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
-      $string,
-      $test
-    );
+
+    $regex = "/.*<li><a.*{{internal_asset_link_(\d+)}}.*>(.*)<\/a><\/li>/";
+    preg_match_all($regex, $string, $test);
 
     if (empty($test) || empty($test[0])) {
       return FALSE;
     }
-    foreach ($test as $matched) {
-      if (empty($matched)) {
-        continue;
-      }
-      foreach ($matched as $match) {
-        preg_match_all(
-          "/\{{internal_asset_link_(.*?)\}}/",
-          $match,
-          $test_ids
-        );
-        $ids[] = $test_ids[1][0];
-      }
+    foreach ($test[0] as $key => $item) {
+      $ids[$test[1][$key]] = $test[2][$key];
     }
+
     return $ids;
   }
 

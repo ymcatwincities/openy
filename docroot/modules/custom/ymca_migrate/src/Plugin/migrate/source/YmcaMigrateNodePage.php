@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateNodeBase;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
 
@@ -75,6 +76,7 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
         4760,
         4753,
         5100,
+        4563
       ]);
     }
     else {
@@ -82,6 +84,21 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
     }
     return $query_builder->build();
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $theme_id = $row->getSourceProperty('theme_id');
+
+    $show_sidebar = 0;
+    if (in_array($theme_id, [22, 17, 23])) {
+      $show_sidebar = 1;
+    }
+    $row->setSourceProperty('field_sidebar_navigation', ['value' => $show_sidebar]);
+
+    return parent::prepareRow($row);
   }
 
   /**
@@ -97,6 +114,7 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
       'field_header_variant' => $this->t('Header variant'),
       'field_sidebar' => $this->t('Sidebar'),
       'field_secondary_sidebar' => $this->t('Secondary sidebar'),
+      'field_sidebar_navigation' => $this->t('Show sidebar navigation'),
     ];
     return $fields;
   }
