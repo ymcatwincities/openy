@@ -48,6 +48,7 @@ dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
+  - migrate_source_csv
   - draggableviews
   - ymca_styleguide
   - ymca_link_formatter
