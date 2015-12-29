@@ -1712,6 +1712,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   float: none;
 }
 
+.nav-home .nav-level-4:first-child {
+  display: none;
+}
+
 .nav-home .nav-level-4 a {
   display: block;
   visibility: inherit;
@@ -2808,11 +2812,14 @@ legend small {
 .nav-home .nav-level-3 strong {
   display: block;
   margin: 0 10px;
-  padding: 0 5px;
+  padding: 0;
   border-bottom: 1px solid gray;
   font-weight: normal;
   font-size: 18px;
   font-family: 'Cachet';
+}
+.nav-home .nav-level-3 strong a {
+  color: #333;
 }
 .nav-home .nav-stacked {
   margin: 10px 5px;
