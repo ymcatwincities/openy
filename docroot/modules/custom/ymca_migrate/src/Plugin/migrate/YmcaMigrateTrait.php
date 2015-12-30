@@ -187,35 +187,39 @@ trait YmcaMigrateTrait {
    *    - content_before: Content before,
    *    - content_during: Content between,
    *    - content_after: Content end.
+   * @param bool $filter
+   *   Filter or not outdated blocks.
    *
    * @return BlockContent
    *   Saved entity.
    */
-  public function createDateBlock($data) {
-    // Check if block is outdated.
-    /** @var \DateTime $date */
-    $date = \DateTime::createFromFormat(
-      DATETIME_DATETIME_STORAGE_FORMAT,
-      $data['date_end'],
-      new \DateTimeZone(
-        \Drupal::config('ymca_migrate.settings')->get('timezone')
-      )
-    );
-
-    if (!$date) {
-      \Drupal::logger('YmcaMigrateTrait')->info(
-        '[CLIENT] Date for Date Block is invalid: @info.',
-        ['@info' => $data['info']]
+  public function createDateBlock($data, $filter = TRUE) {
+    if ($filter) {
+      // Check if block is outdated.
+      /** @var \DateTime $date */
+      $date = \DateTime::createFromFormat(
+        DATETIME_DATETIME_STORAGE_FORMAT,
+        $data['date_end'],
+        new \DateTimeZone(
+          \Drupal::config('ymca_migrate.settings')->get('timezone')
+        )
       );
-      return FALSE;
-    }
 
-    if ($date->getTimestamp() > REQUEST_TIME) {
-      \Drupal::logger('YmcaMigrateTrait')->info(
-        '[CLIENT] Outdated Date Block was filtered out: @info.',
-        ['@info' => $data['info']]
-      );
-      return FALSE;
+      if (!$date) {
+        \Drupal::logger('YmcaMigrateTrait')->info(
+          '[CLIENT] Date for Date Block is invalid: @info.',
+          ['@info' => $data['info']]
+        );
+        return FALSE;
+      }
+
+      if ($date->getTimestamp() > REQUEST_TIME) {
+        \Drupal::logger('YmcaMigrateTrait')->info(
+          '[CLIENT] Outdated Date Block was filtered out: @info.',
+          ['@info' => $data['info']]
+        );
+        return FALSE;
+      }
     }
 
     $block = BlockContent::create([

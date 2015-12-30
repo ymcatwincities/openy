@@ -181,9 +181,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     multiple components. The idea is to aggregate data in transform() method
     and then use it to set appropriate property. */
     if ($items = $this->getAggregated('field_promo_slideshow')) {
-      // Create slide show block with slideshow items
-      // Create date block
-      // inject slide show block to date block
       // Set property with the link to date block.
 
       // Create Slide Show
@@ -196,6 +193,26 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           $this->getCurrentIds(),
           $this->t(
             '[DEV] Failed to create Slide Show for page [@page]',
+            ['@page' => $page_id]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+      }
+
+      // Create date block.
+      $data = [
+        'info' => sprintf('Date Block for Slide Show [%d]', $page_id),
+        'date_start' => '1991-09-17\T00:00:01',
+        'date_end' => '1991-09-17\T00:00:02',
+        'content_before' => '',
+        'content_during' => '',
+        'content_after' => $this->getEmbedBlockString($slide_show),
+      ];
+      if (!$date_block = $this->createDateBlock($data, FALSE)) {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Failed to create Date Block for Slide Show for page [@page]',
             ['@page' => $page_id]
           ),
           MigrationInterface::MESSAGE_ERROR
