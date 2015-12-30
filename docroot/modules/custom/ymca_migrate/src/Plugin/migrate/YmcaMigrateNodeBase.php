@@ -652,21 +652,26 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     }
 
     if ($this->isDev()) {
-      $asset_id = 4;
+      $asset_id = 1929;
       $page_link_id = 4693;
     }
 
+    // Get asset destination.
+    $tokens_map = \Drupal::service('ymcaassetstokensmap.service');
+    $image_id = $tokens_map->getAssetId($asset_id);
+
     // Create slide show item.
-    // @todo It seems 'content' is never used.
+    // @todo: Remove redundant button field.
     $data = [
       'info' => sprintf('Slide Show Item [%d]', $component->id()),
-      'image_id' => 4,
+      'image_id' => $image_id,
       'image_alt' => $asset_alt,
       'title' => $title,
       'content' => '',
-      'button' => 'button',
+      'button' => '',
     ];
 
+    // @todo: Check and reuse Slide Show item.
     if (!$item = $this->createSlideShowItem($data)) {
       $this->idMap->saveMessage(
         $this->getCurrentIds(),
