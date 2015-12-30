@@ -686,6 +686,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         98 => [
           'content_block_join' => NULL,
         ],
+        99 => [
+          'rich_text' => 'field_promo_slideshow',
+          'date_conditional_content' => 'field_promo_slideshow',
+          'subcontent' => 'field_promo_slideshow',
+        ]
       ],
       self::$themes['ymca_2013_location_home'] => [
         1 => [
@@ -709,6 +714,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         98 => [
           'content_block_join' => NULL,
         ],
+        99 => [
+          'rich_text' => 'field_promo_slideshow',
+          'date_conditional_content' => 'field_promo_slideshow',
+          'subcontent' => 'field_promo_slideshow',
+        ]
       ],
       self::$themes['ymca_2013_location_category_and_detail'] => [
         1 => [
