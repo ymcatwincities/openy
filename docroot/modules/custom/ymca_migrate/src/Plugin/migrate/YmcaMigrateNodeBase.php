@@ -181,8 +181,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     multiple components. The idea is to aggregate data in transform() method
     and then use it to set appropriate property. */
     if ($items = $this->getAggregated('field_promo_slideshow')) {
-      // Set property with the link to date block.
-
       // Create Slide Show
       $data = [
         'info' => sprintf('Slide Show [%d]', $page_id),
@@ -199,7 +197,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         );
       }
 
-      // Create date block.
+      // Create date block. Outdated one to show 'after' content.
       $data = [
         'info' => sprintf('Date Block for Slide Show [%d]', $page_id),
         'date_start' => '1991-09-17\T00:00:01',
@@ -218,6 +216,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
           MigrationInterface::MESSAGE_ERROR
         );
       }
+
+      // Finally, set source property.
+      $row->setSourceProperty('field_promo_slideshow', ['target_id' => $date_block->id()]);
 
       // Reset aggregated data for the next row.
       $this->clearAggregated('field_promo_slideshow');
