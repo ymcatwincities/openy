@@ -93,6 +93,62 @@ trait YmcaMigrateTrait {
   }
 
   /**
+   * Create slide show item.
+   *
+   * @param array $data
+   *   Block data.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createSlideShowItem($data) {
+    $block = BlockContent::create([
+      'type' => 'slide_show_item',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_button' => $data['button'],
+      'field_image' => [
+        'target_id' => $data['image_id'],
+        'alt' => $data['image_alt'],
+      ],
+      'field_block_content' => [
+        'value' => $data['content'],
+        'format' => 'full_html',
+      ],
+      'field_title' => $data['title'],
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  /**
+   * Create slide show item.
+   *
+   * @param array $data
+   *   Block data.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createSlideShow($data) {
+    $items = [];
+    foreach ($data['items'] as $item) {
+      $items[]['target_id'] = $item;
+    }
+
+    $block = BlockContent::create([
+      'type' => 'slide_show',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_slide_show_item' => $items,
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  /**
    * Create and get Expander Block.
    *
    * @param array $data
@@ -131,35 +187,39 @@ trait YmcaMigrateTrait {
    *    - content_before: Content before,
    *    - content_during: Content between,
    *    - content_after: Content end.
+   * @param bool $filter
+   *   Filter or not outdated blocks.
    *
    * @return BlockContent
    *   Saved entity.
    */
-  public function createDateBlock($data) {
-    // Check if block is outdated.
-    /** @var \DateTime $date */
-    $date = \DateTime::createFromFormat(
-      DATETIME_DATETIME_STORAGE_FORMAT,
-      $data['date_end'],
-      new \DateTimeZone(
-        \Drupal::config('ymca_migrate.settings')->get('timezone')
-      )
-    );
-
-    if (!$date) {
-      \Drupal::logger('YmcaMigrateTrait')->info(
-        '[CLIENT] Date for Date Block is invalid: @info.',
-        ['@info' => $data['info']]
+  public function createDateBlock($data, $filter = TRUE) {
+    if ($filter) {
+      // Check if block is outdated.
+      /** @var \DateTime $date */
+      $date = \DateTime::createFromFormat(
+        DATETIME_DATETIME_STORAGE_FORMAT,
+        $data['date_end'],
+        new \DateTimeZone(
+          \Drupal::config('ymca_migrate.settings')->get('timezone')
+        )
       );
-      return FALSE;
-    }
 
-    if ($date->getTimestamp() > REQUEST_TIME) {
-      \Drupal::logger('YmcaMigrateTrait')->info(
-        '[CLIENT] Outdated Date Block was filtered out: @info.',
-        ['@info' => $data['info']]
-      );
-      return FALSE;
+      if (!$date) {
+        \Drupal::logger('YmcaMigrateTrait')->info(
+          '[CLIENT] Date for Date Block is invalid: @info.',
+          ['@info' => $data['info']]
+        );
+        return FALSE;
+      }
+
+      if ($date->getTimestamp() > REQUEST_TIME) {
+        \Drupal::logger('YmcaMigrateTrait')->info(
+          '[CLIENT] Outdated Date Block was filtered out: @info.',
+          ['@info' => $data['info']]
+        );
+        return FALSE;
+      }
     }
 
     $block = BlockContent::create([
