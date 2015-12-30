@@ -37,6 +37,13 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   ];
 
   /**
+   * Aggregated data.
+   *
+   * @var array
+   */
+  protected $aggregated = [];
+
+  /**
    * Tokens replacement service.
    *
    * @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens.
@@ -49,6 +56,44 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $migration, $state) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
     $this->replaceTokens = \Drupal::service('ymcareplacetokens.service');
+  }
+
+  /**
+   * Set aggregated data.
+   *
+   * @param string $item
+   *   Field name.
+   * @param mixed $data
+   *   Item.
+   */
+  protected function setAggregated($item, $data) {
+    $this->aggregated[$item][] = $data;
+  }
+
+  /**
+   * Get aggregated data.
+   *
+   * @param string $item
+   *   Field name.
+   *
+   * @return mixed
+   *   Aggregated data.
+   */
+  protected function getAggregated($item) {
+    if (array_key_exists($item, $this->aggregated)) {
+      return $this->aggregated[$item];
+    }
+    return FALSE;
+  }
+
+  /**
+   * Flush aggregated data.
+   *
+   * @param string $item
+   *   Field name.
+   */
+  protected function clearAggregated($item) {
+    unset($this->aggregated[$item]);
   }
 
   /**
@@ -132,6 +177,19 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       }
     }
 
+    /* Field field_promo_slideshow is too complex, because it consists of
+    multiple components. The idea is to aggregate data in transform() method
+    and then use it to set appropriate property. */
+    if ($this->getAggregated('field_promo_slideshow')) {
+      // Create slide show block with slideshow items
+      // Create date block
+      // inject slide show block to date block
+      // Set property with the link to date block.
+
+      // Reset aggregated data for the next row.
+      $this->clearAggregated('field_promo_slideshow');
+    }
+
     // Some pages have NULL title, so use page name.
     if (!$row->getSourceProperty('page_title')) {
       $row->setSourceProperty('page_title', $row->getSourceProperty('page_name'));
@@ -153,6 +211,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
    */
   protected function transform($property, array $component) {
     $value = [];
+
+    // Create component object.
+    $component_object = new AmmComponent($component);
 
     switch ($component['component_type']) {
       case 'link':
@@ -180,36 +241,40 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'rich_text':
-        // Add specific behaviour for field_main_promos.
-        if ($property == 'field_main_promos') {
-          // Here we should parse HTML of body field, create a promo block and insert a reference to it.
-          $block_data = $this->parsePromoBlock($component['body']);
-          if (!$block_data) {
-            $this->idMap->saveMessage(
-              $this->getCurrentIds(),
-              $this->t(
-                '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@data' => $component['body'],
-                ]
-              ),
-              MigrationInterface::MESSAGE_ERROR
-            );
-            // Not found, returning.
+        switch ($property) {
+          case 'field_main_promos':
+            // Here we should parse HTML of body field, create a promo block and insert a reference to it.
+            $block_data = $this->parsePromoBlock($component['body']);
+            if (!$block_data) {
+              $this->idMap->saveMessage(
+                $this->getCurrentIds(),
+                $this->t(
+                  '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
+                  [
+                    '@component' => $component['site_page_component_id'],
+                    '@data' => $component['body'],
+                  ]
+                ),
+                MigrationInterface::MESSAGE_ERROR
+              );
+              // Not found, returning.
+              break;
+            }
+            /** @var BlockContent $block */
+            $block = $this->createPromoBlock($block_data);
+            $value[$property][]['target_id'] = $block->id();
             break;
-          }
-          /** @var BlockContent $block */
-          $block = $this->createPromoBlock($block_data);
-          $value[$property][]['target_id'] = $block->id();
-        }
-        else {
-          $value[$property] = [
-            'value' => $this->replaceTokens->processText($component['body']),
-            'format' => 'full_html',
-          ];
-        }
 
+          case 'field_promo_slideshow':
+            $this->processSlideShowItem($component_object);
+            break;
+
+          default:
+            $value[$property] = [
+              'value' => $this->replaceTokens->processText($component['body']),
+              'format' => 'full_html',
+            ];
+        }
         break;
 
       case 'text':
@@ -364,8 +429,23 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'date_conditional_content':
-        if ($result = $this->transformDateBlock($component)) {
-          $value[$property] = $result;
+        switch ($property) {
+          case 'field_promo_slideshow':
+            $this->processSlideShowItem($component_object);
+            break;
+
+          default:
+            if ($result = $this->transformDateBlock($component)) {
+              $value[$property] = $result;
+            }
+        }
+        break;
+
+      case 'subcontent':
+        switch ($property) {
+          case 'field_promo_slideshow':
+            $this->processSlideShowItem($component_object);
+            break;
         }
         break;
 
@@ -454,6 +534,28 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     }
 
     return $value;
+  }
+
+  /**
+   * Process promo slide show.
+   *
+   * @param \Drupal\ymca_migrate\Plugin\migrate\AmmComponent $component
+   *   Amm Component object.
+   */
+  private function processSlideShowItem(AmmComponent $component) {
+    // We do not automatically migrate components like date_conditional_content or subcontent.
+    if ($component->type() != 'rich_text') {
+      \Drupal::logger('ymca_migrate')->info(
+        '[CLIENT] Slideshow complex component. Needs manual migration. [page: @page, component: @component]',
+        [
+          '@page' => $component->pageId(),
+          '@component' => $component->id(),
+        ]
+      );
+      return;
+    }
+
+    $this->setAggregated('field_promo_slideshow', 'item');
   }
 
   /**
