@@ -580,7 +580,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     // We do not automatically migrate components like date_conditional_content or subcontent.
     if ($component->type() != 'rich_text') {
       \Drupal::logger('ymca_migrate')->info(
-        '[CLIENT] Slideshow complex component. Needs manual migration. [page: @page, component: @component]',
+        '[CLIENT] Slide Show complex component. Needs manual migration. [page: @page, component: @component]',
         [
           '@page' => $component->pageId(),
           '@component' => $component->id(),
@@ -589,15 +589,81 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       return;
     }
 
-    // @todo Parse component body.
+    // There 2 kinds of available texts. With button (link) and without it.
+    $link_exist = FALSE;
+    if (strpos($component->body(), 'href') !== FALSE) {
+      // There is a link.
+      $link_exist = TRUE;
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*<p><a\shref=\"{{internal_page_link_(\d+)}}\">.*/";
+    }
+    else {
+      // There is no link.
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*/";
+    }
+
+    preg_match_all($regex, $component->body(), $test);
+
+    // Check the data.
+    $error = FALSE;
+
+    // Asset ID.
+    if (!isset($test[1][0]) || !is_numeric($test[1][0])) {
+      $error = TRUE;
+      $message = t('failed to parse the asset ID.');
+    }
+    $asset_id = $test[1][0];
+
+    // Asset alt.
+    if (!isset($test[2][0])) {
+      $error = TRUE;
+      $message = t('failed to parse the asset alt.');
+    }
+    $asset_alt = $test[2][0];
+
+    // Title.
+    if (!isset($test[3][0])) {
+      $error = TRUE;
+      $message = t('failed to parse the title.');
+    }
+    $title = $test[3][0];
+
+    // Page Link ID.
+    if ($link_exist == TRUE && !isset($test[4][0])) {
+      $error = TRUE;
+      $message = t('failed to parse page link ID.');
+    }
+    $page_link_id = $test[4][0];
+
+    // Write a message if there is an parsing error.
+    if ($error) {
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to parse Slide Show: [message: @message, page: @page, component: @component].',
+          [
+            '@message' => $message,
+            '@component' => $component->id(),
+            '@page' => $component->pageId()
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+      return;
+    }
+
+    if ($this->isDev()) {
+      $asset_id = 4;
+      $page_link_id = 4693;
+    }
 
     // Create slide show item.
+    // @todo It seems 'content' is never used.
     $data = [
       'info' => sprintf('Slide Show Item [%d]', $component->id()),
       'image_id' => 4,
-      'image_alt' => 'alt',
-      'title' => 'title',
-      'content' => 'content',
+      'image_alt' => $asset_alt,
+      'title' => $title,
+      'content' => '',
       'button' => 'button',
     ];
 
