@@ -181,7 +181,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     multiple components. The idea is to aggregate data in transform() method
     and then use it to set appropriate property. */
     if ($items = $this->getAggregated('field_promo_slideshow')) {
-      // Create Slide Show
+      // Create Slide Show.
       $data = [
         'info' => sprintf('Slide Show [%d]', $page_id),
         'items' => $items,
