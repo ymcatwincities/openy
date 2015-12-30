@@ -594,7 +594,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     if (strpos($component->body(), 'href') !== FALSE) {
       // There is a link.
       $link_exist = TRUE;
-      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*<p><a\shref=\"{{internal_page_link_(\d+)}}\">.*/";
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*<p>(<a\shref=\"{{internal_page_link_\d+}}\">.*<\/a>)<\/p>/";
     }
     else {
       // There is no link.
@@ -605,6 +605,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Check the data.
     $error = FALSE;
+    $message = '';
 
     // Asset ID.
     if (!isset($test[1][0]) || !is_numeric($test[1][0])) {
@@ -612,6 +613,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       $message = t('failed to parse the asset ID.');
     }
     $asset_id = $test[1][0];
+    if ($this->isDev()) {
+      $asset_id = 1929;
+    }
+    $tokens_map = \Drupal::service('ymcaassetstokensmap.service');
+    $image_id = $tokens_map->getAssetId($asset_id);
 
     // Asset alt.
     if (!isset($test[2][0])) {
@@ -627,12 +633,18 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     }
     $title = $test[3][0];
 
-    // Page Link ID.
-    if ($link_exist == TRUE && !isset($test[4][0])) {
-      $error = TRUE;
-      $message = t('failed to parse page link ID.');
+    // Link.
+    if ($link_exist) {
+      if (!isset($test[4][0])) {
+        $error = TRUE;
+        $message = t('failed to parse page link ID.');
+      }
+      $link = $test[4][0];
+      if ($this->isDev()) {
+        $link = '<a href="{{internal_page_link_4693}}">Learn More</a>';
+      }
+      $embedded_link = $this->replaceTokens->processText($link);
     }
-    $page_link_id = $test[4][0];
 
     // Write a message if there is an parsing error.
     if ($error) {
@@ -651,15 +663,6 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       return;
     }
 
-    if ($this->isDev()) {
-      $asset_id = 1929;
-      $page_link_id = 4693;
-    }
-
-    // Get asset destination.
-    $tokens_map = \Drupal::service('ymcaassetstokensmap.service');
-    $image_id = $tokens_map->getAssetId($asset_id);
-
     // Create slide show item.
     // @todo: Remove redundant button field.
     $data = [
@@ -670,6 +673,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       'content' => '',
       'button' => '',
     ];
+
+    // Add link if applicable.
+    if (isset($embedded_link)) {
+      $data['content'] = $embedded_link;
+    }
 
     // @todo: Check and reuse Slide Show item.
     if (!$item = $this->createSlideShowItem($data)) {
