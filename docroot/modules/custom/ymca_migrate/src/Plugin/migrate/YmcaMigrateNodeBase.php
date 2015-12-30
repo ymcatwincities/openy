@@ -180,11 +180,27 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     /* Field field_promo_slideshow is too complex, because it consists of
     multiple components. The idea is to aggregate data in transform() method
     and then use it to set appropriate property. */
-    if ($this->getAggregated('field_promo_slideshow')) {
+    if ($items = $this->getAggregated('field_promo_slideshow')) {
       // Create slide show block with slideshow items
       // Create date block
       // inject slide show block to date block
       // Set property with the link to date block.
+
+      // Create Slide Show
+      $data = [
+        'info' => sprintf('Slide Show [%d]', $page_id),
+        'items' => $items,
+      ];
+      if (!$slide_show = $this->createSlideShow($data)) {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Failed to create Slide Show for page [@page]',
+            ['@page' => $page_id]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+      }
 
       // Reset aggregated data for the next row.
       $this->clearAggregated('field_promo_slideshow');
@@ -537,10 +553,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   }
 
   /**
-   * Process promo slide show.
+   * Process Slide Show Item.
    *
    * @param \Drupal\ymca_migrate\Plugin\migrate\AmmComponent $component
-   *   Amm Component object.
+   *   Component object.
    */
   private function processSlideShowItem(AmmComponent $component) {
     // We do not automatically migrate components like date_conditional_content or subcontent.
@@ -555,7 +571,35 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       return;
     }
 
-    $this->setAggregated('field_promo_slideshow', 'item');
+    // @todo Parse component body.
+
+    // Create slide show item.
+    $data = [
+      'info' => sprintf('Slide Show Item [%d]', $component->id()),
+      'image_id' => 4,
+      'image_alt' => 'alt',
+      'title' => 'title',
+      'content' => 'content',
+      'button' => 'button',
+    ];
+
+    if (!$item = $this->createSlideShowItem($data)) {
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to create Slide Show Item [@component] on page [@page].',
+          [
+            '@component' => $component->id(),
+            '@page' => $component->pageId()
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+      return;
+    }
+
+    // Aggregate ID of the created block.
+    $this->setAggregated('field_promo_slideshow', $item->id());
   }
 
   /**

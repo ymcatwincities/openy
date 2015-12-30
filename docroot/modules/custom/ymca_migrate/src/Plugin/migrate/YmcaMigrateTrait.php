@@ -123,6 +123,32 @@ trait YmcaMigrateTrait {
   }
 
   /**
+   * Create slide show item.
+   *
+   * @param array $data
+   *   Block data.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createSlideShow($data) {
+    $items = [];
+    foreach ($data['items'] as $item) {
+      $items[]['target_id'] = $item;
+    }
+
+    $block = BlockContent::create([
+      'type' => 'slide_show',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_slide_show_item' => $items,
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  /**
    * Create and get Expander Block.
    *
    * @param array $data
