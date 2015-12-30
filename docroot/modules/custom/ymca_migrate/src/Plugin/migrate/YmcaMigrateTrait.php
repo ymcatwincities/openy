@@ -93,6 +93,36 @@ trait YmcaMigrateTrait {
   }
 
   /**
+   * Create slide show item.
+   *
+   * @param array $data
+   *   Block data.
+   *
+   * @return BlockContent
+   *   Saved entity.
+   */
+  public function createSlideShowItem($data) {
+    $block = BlockContent::create([
+      'type' => 'slide_show_item',
+      'langcode' => 'en',
+      'info' => $data['info'],
+      'field_button' => $data['button'],
+      'field_image' => [
+        'target_id' => $data['image_id'],
+        'alt' => $data['image_alt'],
+      ],
+      'field_block_content' => [
+        'value' => $data['content'],
+        'format' => 'full_html',
+      ],
+      'field_title' => $data['title'],
+    ])
+      ->enforceIsNew();
+    $block->save();
+    return $block;
+  }
+
+  /**
    * Create and get Expander Block.
    *
    * @param array $data
