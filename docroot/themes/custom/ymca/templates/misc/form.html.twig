@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<p class="text-right"><small>{{ '* All fields required unless otherwise noted'|t}}</small></p>
+<form{{ attributes }}>
+  {{ children }}
+</form>

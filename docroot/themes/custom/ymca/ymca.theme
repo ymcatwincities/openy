@@ -7,6 +7,11 @@
 
 define('SITE_SECTION_TARGET_TYPE', 'node');
 
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
+
+
 /**
  * Implements hook_preprocess_block() for block content.
  */
@@ -318,4 +323,93 @@ function ymca_get_archive_data($context) {
     }
   }
   return $data;
+}
+
+/**
+ * Prepares variables for input templates.
+ *
+ * Default template: input.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes.
+ */
+function ymca_preprocess_input(&$variables) {
+  $element = $variables['element'];
+  $variables['children'] = $element['#children'];
+
+  $classes = array(
+    'form-control',
+    'text',
+  );
+  if ($element['#type'] == 'submit') {
+    $classes = array(
+      'form_submit',
+      'btn',
+      'btn-lg',
+      'btn-primary',
+    );
+  }
+  elseif ($element['#type'] == 'email') {
+    $classes = array(
+      'form-control',
+      'text',
+      'email',
+    );
+  }
+
+  $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+}
+
+/**
+ * Prepares variables for textarea templates.
+ *
+ * Default template: textarea.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #description, #rows, #cols,
+ *     #placeholder, #required, #attributes, #resizable
+ *
+ */
+function ymca_preprocess_textarea(&$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, array('id', 'name', 'rows', 'cols', 'placeholder'));
+  Element\RenderElement::setAttributes($element, array('form-textarea'));
+  $variables['wrapper_attributes'] = new Attribute();
+  $variables['attributes'] = new Attribute($element['#attributes']);
+  $variables['value'] = $element['#value'];
+  $variables['resizable'] = !empty($element['#resizable']) ? $element['#resizable'] : NULL;
+  $variables['required'] = !empty($element['#required']) ? $element['#required'] : NULL;
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Prepares variables for select element templates.
+ *
+ * Default template: select.html.twig.
+ *
+ * It is possible to group options together; to do this, change the format of
+ * $options to an associative array in which the keys are group labels, and the
+ * values are associative arrays in the normal $options format.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #extra,
+ *     #multiple, #required, #name, #attributes, #size.
+ */
+function ymca_preprocess_select(&$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, array('id', 'name', 'size'));
+  Element\RenderElement::setAttributes($element, array('form-select'));
+
+  $variables['attributes'] = $element['#attributes'];
+  $variables['options'] = form_select_options($element);
+
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
 }
