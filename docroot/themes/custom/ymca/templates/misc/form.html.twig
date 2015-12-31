@@ -12,7 +12,10 @@
  * @ingroup themeable
  */
 #}
-<p class="text-right"><small>{{ '* All fields required unless otherwise noted'|t}}</small></p>
+
+{% if extra_text %}
+  <p class="text-right"><small>{{ extra_text }}</small></p>
+{% endif %}
 <form{{ attributes }}>
   {{ children }}
 </form>

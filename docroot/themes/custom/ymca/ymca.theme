@@ -251,7 +251,7 @@ function ymca_preprocess_views_view(&$vars) {
     $vars['categories'] = [];
     foreach ($vars['view']->filter['field_tags_target_id']->options['value'] as $id) {
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id);
-      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $id));
+      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $id));
       $vars['categories'][] = $link;
       // Pass Archive block data to the Search The Blog block.
       if ($archive_lists = ymca_get_archive_data('blog')) {
@@ -264,6 +264,23 @@ function ymca_preprocess_views_view(&$vars) {
     $vars['base_path'] = base_path();
     // Pass Archive block data to the YMCA News Archive block.
     if ($archive_lists = ymca_get_archive_data('news')) {
+      $vars['archive_lists'] = $archive_lists;
+    }
+  }
+
+  if ($vars['view']->id() == 'taxonomy_term' && $vars['view']->current_display == 'page_1') {
+    $vars['base_path'] = base_path();
+    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
+    foreach ($tree as $term_object) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_object->tid);
+      if ($term->name == 'News') {
+        continue;
+      }
+      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $term_object->tid));
+      $vars['categories'][] = $link;
+    }
+    // Pass Archive block data to the Search The Blog block.
+    if ($archive_lists = ymca_get_archive_data('blog')) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
@@ -284,7 +301,7 @@ function ymca_preprocess_item_list(&$vars) {
       if ($term->name == 'News') {
         continue;
       }
-      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/blog/' . $term_object->tid));
+      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $term_object->tid));
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
@@ -412,4 +429,31 @@ function ymca_preprocess_select(&$variables) {
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Prepares variables for form templates.
+ *
+ * Default template: form.html.twig.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #action, #method, #attributes, #children
+ */
+function ymca_preprocess_form(&$variables) {
+  $element = $variables['element'];
+  if (isset($element['#action'])) {
+    $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
+  }
+  Element::setAttributes($element, array('method', 'id'));
+  if (empty($element['#attributes']['accept-charset'])) {
+    $element['#attributes']['accept-charset'] = "UTF-8";
+  }
+  $variables['attributes'] = $element['#attributes'];
+  $variables['children'] = $element['#children'];
+
+  if (in_array('contact_message_form', $element['#theme'])) {
+    $variables['extra_text'] = t('* All fields required unless otherwise noted');
+  }
 }
