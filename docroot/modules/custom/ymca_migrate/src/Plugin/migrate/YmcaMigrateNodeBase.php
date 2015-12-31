@@ -37,6 +37,13 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   ];
 
   /**
+   * Aggregated data.
+   *
+   * @var array
+   */
+  protected $aggregated = [];
+
+  /**
    * Tokens replacement service.
    *
    * @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens.
@@ -49,6 +56,44 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $migration, $state) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
     $this->replaceTokens = \Drupal::service('ymcareplacetokens.service');
+  }
+
+  /**
+   * Set aggregated data.
+   *
+   * @param string $item
+   *   Field name.
+   * @param mixed $data
+   *   Item.
+   */
+  protected function setAggregated($item, $data) {
+    $this->aggregated[$item][] = $data;
+  }
+
+  /**
+   * Get aggregated data.
+   *
+   * @param string $item
+   *   Field name.
+   *
+   * @return mixed
+   *   Aggregated data.
+   */
+  protected function getAggregated($item) {
+    if (array_key_exists($item, $this->aggregated)) {
+      return $this->aggregated[$item];
+    }
+    return FALSE;
+  }
+
+  /**
+   * Flush aggregated data.
+   *
+   * @param string $item
+   *   Field name.
+   */
+  protected function clearAggregated($item) {
+    unset($this->aggregated[$item]);
   }
 
   /**
@@ -132,6 +177,53 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       }
     }
 
+    /* Field field_promo_slideshow is too complex, because it consists of
+    multiple components. The idea is to aggregate data in transform() method
+    and then use it to set appropriate property. */
+    if ($items = $this->getAggregated('field_promo_slideshow')) {
+      // Create Slide Show.
+      $data = [
+        'info' => sprintf('Slide Show [%d]', $page_id),
+        'items' => $items,
+      ];
+      if (!$slide_show = $this->createSlideShow($data)) {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Failed to create Slide Show for page [@page]',
+            ['@page' => $page_id]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+      }
+
+      // Create date block. Outdated one to show 'after' content.
+      $data = [
+        'info' => sprintf('Date Block for Slide Show [%d]', $page_id),
+        'date_start' => '1991-09-17\T00:00:01',
+        'date_end' => '1991-09-17\T00:00:02',
+        'content_before' => '',
+        'content_during' => '',
+        'content_after' => $this->getEmbedBlockString($slide_show),
+      ];
+      if (!$date_block = $this->createDateBlock($data, FALSE)) {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Failed to create Date Block for Slide Show for page [@page]',
+            ['@page' => $page_id]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+      }
+
+      // Finally, set source property.
+      $row->setSourceProperty('field_promo_slideshow', ['target_id' => $date_block->id()]);
+
+      // Reset aggregated data for the next row.
+      $this->clearAggregated('field_promo_slideshow');
+    }
+
     // Some pages have NULL title, so use page name.
     if (!$row->getSourceProperty('page_title')) {
       $row->setSourceProperty('page_title', $row->getSourceProperty('page_name'));
@@ -154,62 +246,61 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   protected function transform($property, array $component) {
     $value = [];
 
+    // Create component object.
+    $component_object = new AmmComponent($component);
+
     switch ($component['component_type']) {
       case 'link':
         $value['field_header_variant'] = 'button';
-        try {
-          $url = Url::fromUri($this->getAttributeData('url', $component), ['absolute' => TRUE]);
-        }
-        catch (\Exception $e) {
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[LEAD] Url can\'t be processed: [@url]',
-              [
-                '@url' => $this->getAttributeData('url', $component)
-              ]
-            ),
-            MigrationInterface::MESSAGE_ERROR
-          );
+
+        $url_string = $this->getAttributeData('url', $component);
+        // There are 2 kinds of URLs: http://... and /...
+        if ($url_string[0] == '/') {
+          $url_string = 'internal:' . $url_string;
         }
 
         $value['field_header_button'] = [
-          'uri' => isset($url) ? $url->toString() : $this->getAttributeData('url', $component),
+          'uri' => $url_string,
           'title' => $this->getAttributeData('text', $component),
         ];
+
         break;
 
       case 'rich_text':
-        // Add specific behaviour for field_main_promos.
-        if ($property == 'field_main_promos') {
-          // Here we should parse HTML of body field, create a promo block and insert a reference to it.
-          $block_data = $this->parsePromoBlock($component['body']);
-          if (!$block_data) {
-            $this->idMap->saveMessage(
-              $this->getCurrentIds(),
-              $this->t(
-                '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
-                [
-                  '@component' => $component['site_page_component_id'],
-                  '@data' => $component['body'],
-                ]
-              ),
-              MigrationInterface::MESSAGE_ERROR
-            );
-            // Not found, returning.
+        switch ($property) {
+          case 'field_main_promos':
+            // Here we should parse HTML of body field, create a promo block and insert a reference to it.
+            $block_data = $this->parsePromoBlock($component['body']);
+            if (!$block_data) {
+              $this->idMap->saveMessage(
+                $this->getCurrentIds(),
+                $this->t(
+                  '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
+                  [
+                    '@component' => $component['site_page_component_id'],
+                    '@data' => $component['body'],
+                  ]
+                ),
+                MigrationInterface::MESSAGE_ERROR
+              );
+              // Not found, returning.
+              break;
+            }
+            /** @var BlockContent $block */
+            $block = $this->createPromoBlock($block_data);
+            $value[$property][]['target_id'] = $block->id();
             break;
-          }
-          /** @var BlockContent $block */
-          $block = $this->createPromoBlock($block_data);
-          $value[$property][]['target_id'] = $block->id();
-        }
-        else {
-          $value[$property] = [
-            'value' => $this->replaceTokens->processText($component['body']),
-            'format' => 'full_html',
-          ];
-        }
 
+          case 'field_promo_slideshow':
+            $this->processSlideShowItem($component_object);
+            break;
+
+          default:
+            $value[$property] = [
+              'value' => $this->replaceTokens->processText($component['body']),
+              'format' => 'full_html',
+            ];
+        }
         break;
 
       case 'text':
@@ -364,8 +455,23 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         break;
 
       case 'date_conditional_content':
-        if ($result = $this->transformDateBlock($component)) {
-          $value[$property] = $result;
+        switch ($property) {
+          case 'field_promo_slideshow':
+            $this->processSlideShowItem($component_object);
+            break;
+
+          default:
+            if ($result = $this->transformDateBlock($component)) {
+              $value[$property] = $result;
+            }
+        }
+        break;
+
+      case 'subcontent':
+        switch ($property) {
+          case 'field_promo_slideshow':
+            $this->processSlideShowItem($component_object);
+            break;
         }
         break;
 
@@ -454,6 +560,135 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     }
 
     return $value;
+  }
+
+  /**
+   * Process Slide Show Item.
+   *
+   * @param \Drupal\ymca_migrate\Plugin\migrate\AmmComponent $component
+   *   Component object.
+   */
+  private function processSlideShowItem(AmmComponent $component) {
+    // We do not automatically migrate components like date_conditional_content or subcontent.
+    if ($component->type() != 'rich_text') {
+      \Drupal::logger('ymca_migrate')->info(
+        '[CLIENT] Slide Show complex component. Needs manual migration. [page: @page, component: @component]',
+        [
+          '@page' => $component->pageId(),
+          '@component' => $component->id(),
+        ]
+      );
+      return;
+    }
+
+    // There 2 kinds of available texts. With button (link) and without it.
+    $link_exist = FALSE;
+    if (strpos($component->body(), 'href') !== FALSE) {
+      // There is a link.
+      $link_exist = TRUE;
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*<p>(<a\shref=\"{{internal_page_link_\d+}}\">.*<\/a>)<\/p>/";
+    }
+    else {
+      // There is no link.
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*/";
+    }
+
+    preg_match_all($regex, $component->body(), $test);
+
+    // Check the data.
+    $error = FALSE;
+    $message = '';
+
+    // Asset ID.
+    if (!isset($test[1][0]) || !is_numeric($test[1][0])) {
+      $error = TRUE;
+      $message = t('failed to parse the asset ID.');
+    }
+    $asset_id = $test[1][0];
+    if ($this->isDev()) {
+      $asset_id = 1929;
+    }
+    $tokens_map = \Drupal::service('ymcaassetstokensmap.service');
+    $image_id = $tokens_map->getAssetId($asset_id);
+
+    // Asset alt.
+    if (!isset($test[2][0])) {
+      $error = TRUE;
+      $message = t('failed to parse the asset alt.');
+    }
+    $asset_alt = $test[2][0];
+
+    // Title.
+    if (!isset($test[3][0])) {
+      $error = TRUE;
+      $message = t('failed to parse the title.');
+    }
+    $title = $test[3][0];
+
+    // Link.
+    if ($link_exist) {
+      if (!isset($test[4][0])) {
+        $error = TRUE;
+        $message = t('failed to parse page link ID.');
+      }
+      $link = $test[4][0];
+      if ($this->isDev()) {
+        $link = '<a href="{{internal_page_link_4693}}">Learn More</a>';
+      }
+      $embedded_link = $this->replaceTokens->processText($link);
+    }
+
+    // Write a message if there is an parsing error.
+    if ($error) {
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to parse Slide Show: [message: @message, page: @page, component: @component].',
+          [
+            '@message' => $message,
+            '@component' => $component->id(),
+            '@page' => $component->pageId()
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+      return;
+    }
+
+    // Create slide show item.
+    // @todo: Remove redundant button field.
+    $data = [
+      'info' => sprintf('Slide Show Item [%d]', $component->id()),
+      'image_id' => $image_id,
+      'image_alt' => $asset_alt,
+      'title' => $title,
+      'content' => '',
+      'button' => '',
+    ];
+
+    // Add link if applicable.
+    if (isset($embedded_link)) {
+      $data['content'] = $embedded_link;
+    }
+
+    // @todo: Check and reuse Slide Show item.
+    if (!$item = $this->createSlideShowItem($data)) {
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to create Slide Show Item [@component] on page [@page].',
+          [
+            '@component' => $component->id(),
+            '@page' => $component->pageId()
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+      return;
+    }
+
+    // Aggregate ID of the created block.
+    $this->setAggregated('field_promo_slideshow', $item->id());
   }
 
   /**
@@ -686,6 +921,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         98 => [
           'content_block_join' => NULL,
         ],
+        99 => [
+          'rich_text' => 'field_promo_slideshow',
+          'date_conditional_content' => 'field_promo_slideshow',
+          'subcontent' => 'field_promo_slideshow',
+        ]
       ],
       self::$themes['ymca_2013_location_home'] => [
         1 => [
@@ -709,6 +949,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         98 => [
           'content_block_join' => NULL,
         ],
+        99 => [
+          'rich_text' => 'field_promo_slideshow',
+          'date_conditional_content' => 'field_promo_slideshow',
+          'subcontent' => 'field_promo_slideshow',
+        ]
       ],
       self::$themes['ymca_2013_location_category_and_detail'] => [
         1 => [
