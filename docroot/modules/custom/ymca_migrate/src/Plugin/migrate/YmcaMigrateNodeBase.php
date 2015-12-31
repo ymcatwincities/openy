@@ -252,26 +252,18 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     switch ($component['component_type']) {
       case 'link':
         $value['field_header_variant'] = 'button';
-        try {
-          $url = Url::fromUri($this->getAttributeData('url', $component), ['absolute' => TRUE]);
-        }
-        catch (\Exception $e) {
-          $this->idMap->saveMessage(
-            $this->getCurrentIds(),
-            $this->t(
-              '[LEAD] Url can\'t be processed: [@url]',
-              [
-                '@url' => $this->getAttributeData('url', $component)
-              ]
-            ),
-            MigrationInterface::MESSAGE_ERROR
-          );
+
+        $url_string = $this->getAttributeData('url', $component);
+        // There are 2 kinds of URLs: http://... and /...
+        if ($url_string[0] == '/') {
+          $url_string = 'internal:' . $url_string;
         }
 
         $value['field_header_button'] = [
-          'uri' => isset($url) ? $url->toString() : $this->getAttributeData('url', $component),
+          'uri' => $url_string,
           'title' => $this->getAttributeData('text', $component),
         ];
+
         break;
 
       case 'rich_text':
