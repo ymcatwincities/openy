@@ -30,6 +30,7 @@ process:
   field_main_promos: field_main_promos
   field_phone: field_phone
   field_location: field_location
+  field_promo_slideshow: field_promo_slideshow
 destination:
   plugin: entity:node
 migration_dependencies:
