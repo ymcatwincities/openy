@@ -53,7 +53,7 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
 
       // Check date.
       $date = \DateTime::createFromFormat(
-        'Y-m-d', $values['date'],
+        'm/d/Y', $values['date'],
         new \DateTimeZone(
           \Drupal::config('ymca_migrate.settings')->get('timezone')
         )
