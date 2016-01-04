@@ -13,7 +13,7 @@ entity_type: block_content
 bundle: date_block
 label: 'Content visible between dates'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

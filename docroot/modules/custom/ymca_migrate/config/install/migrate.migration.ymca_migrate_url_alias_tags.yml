@@ -21,9 +21,6 @@ source:
     -
       id: 6
       alias: /blog/nutrition
-    -
-      id: 8
-      alias: /news
   ids:
     id:
       type: integer
