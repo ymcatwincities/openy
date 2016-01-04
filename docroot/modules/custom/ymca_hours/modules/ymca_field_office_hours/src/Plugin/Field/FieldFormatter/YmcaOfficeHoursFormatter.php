@@ -67,12 +67,12 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
         }
       }
 
-      foreach ($groups as $group) {
-        $title = sprintf('%s - %s', ucfirst(reset($group['days'])), ucfirst(end($group['days'])));
-        if (count($group['days']) == 1) {
-          $title = ucfirst(reset($group['days']));
+      foreach ($groups as $group_item) {
+        $title = sprintf('%s - %s', ucfirst(reset($group_item['days'])), ucfirst(end($group_item['days'])));
+        if (count($group_item['days']) == 1) {
+          $title = ucfirst(reset($group_item['days']));
         }
-        $hours = $group['value'];
+        $hours = $group_item['value'];
         $rows[] = [$title . ':', $hours];
       }
 
