@@ -14,8 +14,8 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function pp_form_install_configure_form_alter(&$form, FormStateInterface $form_state) {
   // Add a placeholder as example that one can choose an arbitrary site name.
-  $form['site_information']['site_name']['#attributes']['placeholder'] = t('My site');
-  $form['#submit'][] = 'standard_form_install_configure_submit';
+  $form['site_information']['site_name']['#attributes']['placeholder'] = t('YMCA Twin Cities');
+  $form['#submit'][] = 'pp_form_install_configure_submit';
 }
 
 /**
@@ -23,5 +23,5 @@ function pp_form_install_configure_form_alter(&$form, FormStateInterface $form_s
  */
 function pp_form_install_configure_submit($form, FormStateInterface $form_state) {
   $site_mail = $form_state->getValue('site_mail');
-  ContactForm::load('feedback')->setRecipients([$site_mail])->trustData()->save();
+  ContactForm::load('personal')->setRecipients([$site_mail])->trustData()->save();
 }
