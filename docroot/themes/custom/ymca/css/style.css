@@ -7372,4 +7372,12 @@ body.path-search #block-mainpagecontent li {
   margin: 0 0 15px 15px;
 }
 
+.form-item {
+  margin-bottom: 15px;
+}
+
+#edit-preview {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

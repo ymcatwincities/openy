@@ -11,7 +11,6 @@ dependencies:
     - field.field.contact_message.personal_trainers_individual.field_phone_number
     - field.field.contact_message.personal_trainers_individual.field_what_is_your_preferred_y_l
   module:
-    - text
     - webforms
 id: contact_message.personal_trainers_individual.default
 targetEntityType: contact_message
@@ -19,11 +18,11 @@ bundle: personal_trainers_individual
 mode: default
 content:
   field_custom_text:
-    weight: 5
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    type: basic_string
   field_email_address:
     weight: 2
     label: inline

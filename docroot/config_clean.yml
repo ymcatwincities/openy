@@ -144,6 +144,9 @@
       - { name: 'core.entity_view_display.block_content.action_block.default.yml', status: true }
       - { name: 'field.field.block_content.action_block.body.yml', status: true }
       - { name: 'block_content.type.action_block.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_facebook_id.yml', status: true }
+      - { name: 'migrate.migration.ymca_migrate_url_alias_tags.yml', status: true }
+      - { name: 'views.view.contact_messages_csv_export.yml', status: true }
       - { name: 'image.style.crop_thumbnail.yml', status: true }
       - { name: 'address.address_format.AC.yml', status: true }
       - { name: 'address.address_format.AD.yml', status: true }
