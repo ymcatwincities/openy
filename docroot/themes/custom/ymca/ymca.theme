@@ -8,6 +8,7 @@
 define('SITE_SECTION_TARGET_TYPE', 'node');
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 
@@ -145,6 +146,38 @@ function ymca_preprocess_node(&$variables) {
         $style->createDerivative($original_path, $thumbnail);
       }
       $variables['header_image_url'] = file_create_url($thumbnail);
+    }
+  }
+
+  if ($variables['node']->bundle() == 'location') {
+    if ($variables['node']->field_include_general_blog_posts->value) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'blog')
+        ->condition('field_site_section.target_id', $variables['node']->id())
+        ->condition('status', 1);
+      $nids = $query->execute();
+
+      if (empty($nids) || count($nids) == 1) {
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('status', 1);
+        $new_nids = $query->execute();
+        if (empty($nids)) {
+          $nids = array_slice($new_nids, 0, 2);
+        }
+        if (count($nids) == 1) {
+          $nids[] = array_shift($new_nids);
+        }
+      }
+      $nodes = entity_load_multiple('node', $nids);
+      foreach ($nodes as $nid => $node) {
+        $items[] = array(
+          'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
+          'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
+          'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
+        );
+      }
+      $variables['news_events'] = $items;
     }
   }
 }
