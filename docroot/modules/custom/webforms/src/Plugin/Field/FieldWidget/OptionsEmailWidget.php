@@ -40,10 +40,10 @@ class OptionsEmailWidget extends WidgetBase {
     $field_type = $definition->getType();
     $field_name = $definition->getName();
 
+    $items_to_be_kept = $form_state->getValue('items_to_be_kept');
+
     $default_value_input = $form_state->getValue('default_value_input');
     if ($field_type == 'options_email_item' && $form_state->getTriggeringElement()) {
-      //$form_state->setRebuild();
-      //$form_state->disableCache();
       if ($form_state->getValue('remove_items') == TRUE && !isset($default_value_input[$field_name][$delta])) {
         // Item already removed.
         return NULL;
@@ -54,11 +54,8 @@ class OptionsEmailWidget extends WidgetBase {
         $values = $form_state->getValue('default_value_input');
         $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
 
-        if (in_array($delta, $items_to_be_removed)) {
-          //$item = $items->get($delta);
-          // $items->set($delta, array());
-          // $items->removeItem($delta);
-          // $form_state->setRebuild();
+        if (in_array($delta, array_keys($items_to_be_removed))) {
+          // Removing item by delta.
           return NULL;
         }
       }
@@ -69,15 +66,6 @@ class OptionsEmailWidget extends WidgetBase {
         $location_entities = array_values($location_entities);
         $values = $form_state->getValue('default_value_input');
         $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
-//        foreach ($values[$field_name] as $v_id => $v_element) {
-//          if ($v_element['option_name'] == NULL && $v_element['option_emails'] == NULL) {
-//            // Clean empty elements.
-//            unset($values[$field_name][$v_id]);
-//            unset($default_value_input[$field_name][$v_id]);
-//            $form_state->setValue('default_value_input', $default_value_input);
-//            $form_state->setRebuild();
-//          }
-//        }
         $values[$field_name] = array_values($values[$field_name]);
         $existed_items_count = count($values[$field_name]);
         $delta >= $existed_items_count ? $id = $delta - $existed_items_count : $id = $delta;
@@ -91,7 +79,6 @@ class OptionsEmailWidget extends WidgetBase {
           );
           $items->setValue($item_values);
         }
-        //$form_state->setRebuild();
       }
     }
 
@@ -125,7 +112,6 @@ class OptionsEmailWidget extends WidgetBase {
 
       // Add our custom validator.
       $element['#element_validate'][] = array(get_class($this), 'validateElement');
-      // $form_state->setRebuild();
       return $element;
     }
 
@@ -140,20 +126,20 @@ class OptionsEmailWidget extends WidgetBase {
     $element['option_name'] = [
       '#title' => t('Option name'),
       '#type' => 'textfield',
-      '#default_value' => isset($item->option_name) ? $item->option_name : '',
+      '#default_value' => isset($items_to_be_kept[$delta]->option_name) ? $items_to_be_kept[$delta]->option_name : isset($item->option_name) ? $item->option_name : '',
       '#required' => FALSE,
     ];
     $element['option_emails'] = [
       '#title' => t('Emails'),
       '#type' => 'textfield',
-      '#default_value' => isset($item->option_emails) ? $item->option_emails : '',
+      '#default_value' => isset($items_to_be_kept[$delta]->option_emails) ? $items_to_be_kept[$delta]->option_emails : isset($item->option_emails) ? $item->option_emails : '',
       '#required' => FALSE,
     ];
     if ($items->count() > 1 || isset($item->option_select)) {
       $element['option_select'] = [
         '#type' => 'checkbox',
         '#title' => t('Flag for remove'),
-        '#default_value' => isset($item->option_select) ? $item->option_select : '',
+        '#default_value' => isset($items_to_be_kept[$delta]->option_select) ? $items_to_be_kept[$delta]->option_select : isset($item->option_select) ? $item->option_select : '',
         '#required' => FALSE,
       ];
     }
@@ -162,7 +148,7 @@ class OptionsEmailWidget extends WidgetBase {
         return NULL;
       }
     }
-    // $form_state->setRebuild();
+
     return $element;
   }
 
@@ -558,13 +544,17 @@ class OptionsEmailWidget extends WidgetBase {
     $field_state = static::getWidgetState($parents, $field_name, $form_state);
 
     $items_to_be_removed = array();
+    $items_to_be_kept = array();
     $values = $form_state->getValue('default_value_input');
     $values[$field_name] = array_intersect_key($values[$field_name], array_flip(array_filter(array_keys($values[$field_name]), 'is_numeric')));
+    $items_to_be_kept = $values[$field_name];
     foreach ($values[$field_name] as $key => $item) {
       if ($item['option_select'] == 1) {
-        $items_to_be_removed[] = $key;
+        $items_to_be_removed[$key] = $item;
+        unset($items_to_be_kept[$key]);
       }
     }
+    $form_state->setValue('items_to_be_kept', $items_to_be_kept);
     if (!empty($items_to_be_removed)) {
       $form_state->setValue('remove_items', TRUE);
       $form_state->setValue('items_to_be_removed', $items_to_be_removed);
