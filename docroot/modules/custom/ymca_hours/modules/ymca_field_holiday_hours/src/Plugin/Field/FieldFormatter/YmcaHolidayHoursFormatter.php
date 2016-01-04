@@ -12,6 +12,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Plugin implementation of the 'ymca_holiday_hours' formatter.
@@ -49,11 +50,24 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
 
     foreach ($items as $item) {
       $values = $item->getValue();
-      $title = \Drupal\Component\Utility\Html::escape($values['holiday']);
-      $rows[] = [
-        Markup::create('<span>' . $title . '</span>:'),
-        $values['hours'],
-      ];
+
+      // Check date.
+      $date = \DateTime::createFromFormat(
+        'm/d/Y', $values['date'],
+        new \DateTimeZone(
+          \Drupal::config('ymca_migrate.settings')->get('timezone')
+        )
+      );
+      $holiday_timestamp = $date->getTimestamp();
+      $period = 60 * 60 * 24 * 14;
+
+      if (REQUEST_TIME < $holiday_timestamp && ($holiday_timestamp - REQUEST_TIME) <= $period) {
+        $title = Html::escape($values['holiday']);
+        $rows[] = [
+          Markup::create('<span>' . $title . '</span>:'),
+          $values['hours'],
+        ];
+      }
     }
 
     $elements[0] = [
