@@ -85,14 +85,9 @@ class OptionsEmailWidget extends WidgetBase {
     /** @var YmcaOfficeHoursItem $item */
     $item = $items->get($delta);
     if ($item == NULL) {
-      $item_values = $items->getValue();
-      $item_values[$items->count()] = array(
-        'option_name' => $default_value_input[$field_name][$delta]['option_name'],
-        'option_emails' => $default_value_input[$field_name][$delta]['option_emails'],
-        'option_select' => FALSE,
-      );
-      $items->setValue($item_values);
-      $item = $items->get($items->count() - 1);
+      // No predefined items, but we have them prepopulated already.
+      $items->setValue($form_state->getValue('all_items'));
+      $item = $items->get($delta);
     }
     if (!$this->isDefaultValueWidget($form_state)) {
       // Display dropdown list of options.
@@ -521,7 +516,6 @@ class OptionsEmailWidget extends WidgetBase {
     $delta = $element['#max_delta'];
     $element[$delta]['#prefix'] = '<div class="ajax-new-content">' . (isset($element[$delta]['#prefix']) ? $element[$delta]['#prefix'] : '');
     $element[$delta]['#suffix'] = (isset($element[$delta]['#suffix']) ? $element[$delta]['#suffix'] : '') . '</div>';
-    //$form_state->setRebuild();
 
     return $element;
   }
@@ -558,12 +552,20 @@ class OptionsEmailWidget extends WidgetBase {
     if (!empty($items_to_be_removed)) {
       $form_state->setValue('remove_items', TRUE);
       $form_state->setValue('items_to_be_removed', $items_to_be_removed);
+      for ($i = 0; $i <= max(array_keys($values[$field_name])) ; $i++) {
+        unset($values[$field_name][$i]['_weight']);
+        if (!isset($values[$field_name][$i])) {
+          $values[$field_name][$i] = FALSE;
+        }
+      }
+      ksort($values[$field_name]);
+      $form_state->setValue('all_items', $values[$field_name]);
     }
     else {
       return;
     }
 
-    $field_state['items_count'] -= (count($items_to_be_removed) - 1);
+    $field_state['items_count'] = count($values[$field_name]);
     static::setWidgetState($parents, $field_name, $form_state, $field_state);
 
     $form_state->setRebuild();
