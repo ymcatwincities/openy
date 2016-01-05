@@ -150,35 +150,41 @@ function ymca_preprocess_node(&$variables) {
   }
 
   if ($variables['node']->bundle() == 'location') {
-    if ($variables['node']->field_include_general_blog_posts->value) {
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'blog')
-        ->condition('field_site_section.target_id', $variables['node']->id())
-        ->condition('status', 1);
-      $nids = $query->execute();
+    // Load referenced ids to current location.
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'blog')
+      ->condition('field_site_section.target_id', $variables['node']->id())
+      ->condition('status', 1);
+    $referenced_nids = $query->execute();
+    // Load all ids of Blog Post CT.
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'blog')
+      ->condition('status', 1);
+    $all_nids = $query->execute();
 
-      if (empty($nids) || count($nids) == 1) {
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->condition('status', 1);
-        $new_nids = $query->execute();
-        if (empty($nids)) {
-          $nids = array_slice($new_nids, 0, 2);
-        }
-        if (count($nids) == 1) {
-          $nids[] = array_shift($new_nids);
-        }
+    // Pass relative Blog posts, even if their count is 0.
+    $nids = array_slice($referenced_nids, 0, 2);
+
+    // Extend by 1 or load 2 general Blog Posts If "Include General Blog Post" is checked.
+    if ($variables['node']->field_include_general_blog_posts->value) {
+      if (empty($referenced_nids)) {
+        $nids = array_slice($all_nids, 0, 2);
       }
-      $nodes = entity_load_multiple('node', $nids);
-      foreach ($nodes as $nid => $node) {
-        $items[] = array(
-          'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
-          'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
-          'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
-        );
+      else if (count($referenced_nids) == 1) {
+        $nids[] = array_shift($all_nids);
       }
-      $variables['news_events'] = $items;
     }
+
+    // Load nodes and build output array.
+    $nodes = entity_load_multiple('node', $nids);
+    foreach ($nodes as $nid => $node) {
+      $items[] = array(
+        'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
+        'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
+        'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
+      );
+    }
+    $variables['news_events'] = $items;
   }
 }
 
