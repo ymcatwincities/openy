@@ -1,16 +1,16 @@
-uuid: eba7fa9f-1665-41fb-bc50-80aa2f2078d1
+uuid: 1876bb8b-8cb2-4e89-8a00-a874a2498100
 langcode: en
 status: true
 dependencies:
   module:
     - contact
-    - text
 id: contact_message.field_custom_text
 field_name: field_custom_text
 entity_type: contact_message
-type: text_long
-settings: {  }
-module: text
+type: string_long
+settings:
+  case_sensitive: false
+module: core
 locked: false
 cardinality: 1
 translatable: true
