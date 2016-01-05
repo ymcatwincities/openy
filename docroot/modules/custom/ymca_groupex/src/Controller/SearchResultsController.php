@@ -13,14 +13,15 @@ use Drupal\node\NodeInterface;
 /**
  * Implements SearchResultsController.
  */
-class SearchResultsController extends ControllerBase {
+class SearchResultsController {
 
   /**
    * Show the page.
    */
   public function pageView(NodeInterface $node) {
     \Drupal::service('pagecontext.service')->setContext($node);
-    $markup = render(node_view($node, 'groupex'));
+    $view = node_view($node, 'groupex');
+    $markup = render($view);
 
     return array(
       '#markup' => $markup,

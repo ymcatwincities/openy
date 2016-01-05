@@ -8,8 +8,15 @@
  * Implements hook_preprocess_node().
  */
 function ymca_groupex_preprocess_node(&$variables) {
+  // Pass the form to the schedules page.
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'schedules') {
     $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\FindClassesForm');
     $variables['form_find_classes'] = \Drupal::service('renderer')->render($form, FALSE);
+  }
+
+  // Pass the search results to the schedules page.
+  if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'groupex') {
+    $results = ['#markup' => 'hello'];
+    $variables['groupex_search_results'] = \Drupal::service('renderer')->render($results, FALSE);
   }
 }
