@@ -1,0 +1,7 @@
+name: YMCA Master
+type: module
+description: 'Defines configs, etc.'
+core: 8.x
+package: YMCA
+dependencies:
+  - views
