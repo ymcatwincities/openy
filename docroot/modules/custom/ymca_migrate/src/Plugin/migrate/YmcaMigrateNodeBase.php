@@ -586,11 +586,11 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     if (strpos($component->body(), 'href') !== FALSE) {
       // There is a link.
       $link_exist = TRUE;
-      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*<p>(<a\shref=\"{{internal_page_link_\d+}}\">.*<\/a>)<\/p>/";
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)(?:.*)?}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h[1-6].*>(.*)<\/h[1-6]>\W*(?:<p>.*<\/p>)?\W*<p>(<a\shref=\"{{internal_page_link_\d+}}\">.*<\/a>)<\/p>/";
     }
     else {
       // There is no link.
-      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h1>(.*)<\/h1>\W*/";
+      $regex = "/<p><img\s*src=\"{{internal_asset_link_(\d+)(?:.*)?}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h[1-6].*>(.*)<\/h[1-6]>\W*/";
     }
 
     preg_match_all($regex, $component->body(), $test);
