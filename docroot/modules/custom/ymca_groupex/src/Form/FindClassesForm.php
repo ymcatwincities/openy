@@ -89,14 +89,15 @@ class FindClassesForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $form['note'] = [
-      '#markup' => $this->t('(Please select a location, class or category)'),
+      '#markup' => $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.'),
     ];
 
-    $form['locations'] = [
-      '#type' => 'checkboxes',
-      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
-      '#title' => t('Locations'),
-    ];
+    // Todo: Move that to all schedules form
+//    $form['locations'] = [
+//      '#type' => 'checkboxes',
+//      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
+//      '#title' => t('Locations'),
+//    ];
 
     $form['class_name'] = [
       '#type' => 'select',
@@ -117,21 +118,22 @@ class FindClassesForm extends FormBase {
     ];
 
     $form['time'] = [
-      '#type' => 'select',
+      '#type' => 'checkboxes',
       '#options' => [
-        'morning' => $this->t('Morning (6 a.m. - 12 p.m.'),
-        'afternoon' => $this->t('Afternoon (12 p.m. - 5 p.m.'),
-        'evening' => $this->t('Evening (5 p.m. - 10 p.m.'),
+        'morning' => $this->t('Morning (6 a.m. - 12 p.m.)'),
+        'afternoon' => $this->t('Afternoon (12 p.m. - 5 p.m.)'),
+        'evening' => $this->t('Evening (5 p.m. - 10 p.m.)'),
       ],
       '#title' => $this->t('Time of Day (optional)'),
     ];
 
     $form['view'] = [
-      '#type' => 'select',
+      '#type' => 'checkboxes',
       '#options' => [
         'day' => $this->t('Day'),
         'week' => $this->t('Week'),
       ],
+      '#default_value' => 'day',
       '#title' => $this->t('View Day or Week'),
       '#description' => $this->t('Selecting more than one location limits your search to one day.'),
     ];

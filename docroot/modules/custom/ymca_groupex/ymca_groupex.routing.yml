@@ -1,0 +1,7 @@
+ymca_groupex.schedules_search_results:
+  path: 'node/{node}/schedules/group_exercise_search_results'
+  defaults:
+    _controller: '\Drupal\ymca_groupex\Controller\SearchResultsController::pageView'
+    _title: 'Group exercise search results'
+  requirements:
+    _permission: 'access content'
