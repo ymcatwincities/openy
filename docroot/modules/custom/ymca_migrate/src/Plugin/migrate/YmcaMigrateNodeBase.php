@@ -277,11 +277,10 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
               $this->idMap->saveMessage(
                 $this->getCurrentIds(),
                 $this->t(
-                  '[QA] Needs manual migration: @message [@component], data: [@data]',
+                  '[QA] Needs manual migration: @message [@component]',
                   [
                     '@message' => $e->getMessage(),
                     '@component' => $component['site_page_component_id'],
-                    '@data' => $component['body'],
                   ]
                 ),
                 MigrationInterface::MESSAGE_ERROR

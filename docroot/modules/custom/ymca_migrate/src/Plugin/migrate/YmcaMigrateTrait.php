@@ -324,7 +324,7 @@ trait YmcaMigrateTrait {
 
     // Get link. It could be internal or external.
     $link_text = $match[5][0];
-    if (strpos($link_text, '{{internal') !== false) {
+    if (strpos($link_text, '{{internal') !== FALSE) {
       // It's a token.
       preg_match('/{{internal_page_link_(\d*)}}/imU', $link_text, $test);
       if (!isset($test[1]) || !is_numeric($test[1])) {
