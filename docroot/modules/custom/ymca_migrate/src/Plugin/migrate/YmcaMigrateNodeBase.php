@@ -270,20 +270,22 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         switch ($property) {
           case 'field_main_promos':
             // Here we should parse HTML of body field, create a promo block and insert a reference to it.
-            $block_data = $this->parsePromoBlock($component['body']);
-            if (!$block_data) {
+            try {
+              $block_data = $this->parsePromoBlock($component['body']);
+            }
+            catch (\Exception $e) {
               $this->idMap->saveMessage(
                 $this->getCurrentIds(),
                 $this->t(
-                  '[LEAD] Could not parse rich_text for Promo block in component [@component], data: [@data]',
+                  '[QA] Needs manual migration: @message [@component], data: [@data]',
                   [
+                    '@message' => $e->getMessage(),
                     '@component' => $component['site_page_component_id'],
                     '@data' => $component['body'],
                   ]
                 ),
                 MigrationInterface::MESSAGE_ERROR
               );
-              // Not found, returning.
               break;
             }
             /** @var BlockContent $block */
