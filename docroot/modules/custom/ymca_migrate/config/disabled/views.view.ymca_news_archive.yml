@@ -1,4 +1,4 @@
-uuid: 69bd5c79-39ae-408b-a248-7288c035eb06
+uuid: 325f15a2-0c70-4666-8b36-54d6fcbf4bc9
 langcode: en
 status: true
 dependencies:
@@ -8,17 +8,13 @@ dependencies:
     - system.menu.top-menu
     - taxonomy.vocabulary.tags
   content:
-    - 'taxonomy_term:tags:15fd4673-6f85-4897-9108-8fb802d73a10'
-    - 'taxonomy_term:tags:1e052c0e-aa4c-4045-8761-97c87439b2cc'
-    - 'taxonomy_term:tags:20d64a25-95c8-4e3a-bf1d-290cfeddc5f7'
-    - 'taxonomy_term:tags:272efc55-ac97-41f4-8a00-a151d8cdfb4b'
-    - 'taxonomy_term:tags:27389de6-1845-4d99-ab00-f09e625b912e'
+    - 'taxonomy_term:tags:8da3e4c0-202b-45bd-a233-511d74d785d2'
   module:
     - node
     - taxonomy
     - user
-id: ymca_twin_cities_blog_archive
-label: 'YMCA Twin Cities Blog Archive'
+id: ymca_news_archive
+label: 'YMCA News Archive'
 module: views
 description: ''
 tag: ''
@@ -64,11 +60,6 @@ display:
           offset: 0
           id: 0
           total_pages: null
-          tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -77,6 +68,11 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
           quantity: 9
       style:
         type: default
@@ -153,7 +149,6 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-          group: 1
         field_tags_target_id:
           id: field_tags_target_id
           table: node__field_tags
@@ -163,30 +158,22 @@ display:
           admin_label: ''
           operator: or
           value:
-            1: 1
-            2: 2
-            3: 3
-            4: 4
-            5: 5
+            6: 6
           group: 1
           exposed: false
           expose:
-            operator_id: field_tags_target_id_op
-            label: 'Tags (field_tags)'
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: field_tags_target_id_op
-            identifier: field_tags_target_id
+            operator: ''
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              editor: '0'
-              location_editor: '0'
-            reduce: true
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -199,7 +186,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: true
+          reduce_duplicates: false
           type: select
           limit: true
           vid: tags
@@ -222,20 +209,22 @@ display:
           expose:
             label: ''
           granularity: second
-      title: 'YMCA Twin Cities Blog'
+      title: 'YMCA News'
       header: {  }
-      footer: {  }
-      empty: {  }
-      relationships:
-        field_tags:
-          id: field_tags
-          table: node__field_tags
-          field: field_tags
+      footer:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
           relationship: none
           group_type: group
-          admin_label: 'field_tags: Taxonomy term'
-          required: false
-          plugin_id: standard
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: "<div class=\"col-md-3 sidebar-promos promos hidden-sm visible-xs\">\n                    <article class=\"richtext\" id=\"component_504752\"><a class=\"wrapper\" href=\"mailto:joan.schimml@ymcatwincities.org\" title=\"joan.schimml@ymcatwincities.org\"><h3>Media Contact</h3>\n<p><strong style=\"font-size:1.2em;\">Joan Schimml<br /></strong>Senior Director of Communications and Marketing</p>\n<p><strong>Email Joan</strong></p>\n</a></article>\n\n                </div>"
+          plugin_id: text_custom
+      empty: {  }
+      relationships: {  }
       arguments:
         created_year:
           id: created_year
@@ -250,7 +239,7 @@ display:
             title_enable: false
             title: All
           title_enable: true
-          title: Archive
+          title: 'YMCA News Archive'
           default_argument_type: raw
           default_argument_options:
             index: 2
@@ -284,8 +273,8 @@ display:
             value: all
             title_enable: false
             title: All
-          title_enable: false
-          title: ''
+          title_enable: true
+          title: 'YMCA News Archive'
           default_argument_type: raw
           default_argument_options:
             index: 3
@@ -308,10 +297,6 @@ display:
           entity_type: node
           plugin_id: date_month
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -323,17 +308,49 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  blog_page:
+  feed_news:
+    display_plugin: feed
+    id: feed_news
+    display_title: Feed
+    position: 2
+    display_options:
+      display_extenders: {  }
+      row:
+        type: node_rss
+      pager:
+        type: some
+      style:
+        type: rss
+      path: news/subscribe/index.xml
+      displays:
+        page_news: page_news
+        default: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_news:
     display_plugin: page
-    id: blog_page
+    id: page_news
     display_title: Page
     position: 1
     display_options:
       display_extenders: {  }
-      path: blog/archive/%/%
+      path: news/ymca_news_archive/%/%
       menu:
         type: normal
-        title: Blog
+        title: News
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
         menu_name: top-menu
       style:
         type: html_list
@@ -358,45 +375,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
-  feed_1:
-    display_plugin: feed
-    id: feed_1
-    display_title: Feed
-    position: 2
-    display_options:
-      display_extenders: {  }
-      row:
-        type: node_rss
-      pager:
-        type: some
-      style:
-        type: rss
-      path: blog/subscribe/index.xml
-      displays:
-        blog_page: blog_page
-        default: '0'
-      arguments: {  }
-      defaults:
-        arguments: false
-        relationships: false
-        link_display: false
-        link_url: false
-        title: false
-        sitename_title: false
-      relationships: {  }
-      link_display: '0'
-      link_url: ''
-      title: Blog
-      sitename_title: false
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
         - user
         - 'user.node_grants:view'
         - user.permissions
