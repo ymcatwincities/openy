@@ -76,7 +76,6 @@ dependencies:
   - ymca_frontend
   - rest
   - csv_serialization
-  - ymca_master
 
 themes:
   - bartik
