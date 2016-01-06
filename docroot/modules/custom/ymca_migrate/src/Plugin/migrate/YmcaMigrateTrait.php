@@ -332,7 +332,7 @@ trait YmcaMigrateTrait {
       }
       $menu_id = $ymca_tokens_map->getMenuId($test[1]);
       if ($menu_id === FALSE) {
-        throw new \Exception('Failed to get Menu ID.');
+        throw new \Exception(sprintf('Failed to get MenuID: [id: %s]', $test[1]));
       }
 
       /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
