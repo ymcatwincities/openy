@@ -307,7 +307,7 @@ function ymca_preprocess_views_view(&$vars) {
     }
   }
 
-  if ($vars['view']->id() == 'taxonomy_term' && $vars['view']->current_display == 'page_1') {
+  if ($vars['view']->id() == 'ymca_taxonomy_term' && $vars['view']->current_display == 'page_1') {
     $vars['base_path'] = base_path();
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
     foreach ($tree as $term_object) {
