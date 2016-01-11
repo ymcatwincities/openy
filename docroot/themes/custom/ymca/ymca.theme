@@ -8,6 +8,7 @@
 define('SITE_SECTION_TARGET_TYPE', 'node');
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 
@@ -147,6 +148,44 @@ function ymca_preprocess_node(&$variables) {
       $variables['header_image_url'] = file_create_url($thumbnail);
     }
   }
+
+  if ($variables['node']->bundle() == 'location') {
+    // Load referenced ids to current location.
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'blog')
+      ->condition('field_site_section.target_id', $variables['node']->id())
+      ->condition('status', 1);
+    $referenced_nids = $query->execute();
+    // Load all ids of Blog Post CT.
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'blog')
+      ->condition('status', 1);
+    $all_nids = $query->execute();
+
+    // Pass relative Blog posts, even if their count is 0.
+    $nids = array_slice($referenced_nids, 0, 2);
+
+    // Extend by 1 or load 2 general Blog Posts If "Include General Blog Post" is checked.
+    if ($variables['node']->field_include_general_blog_posts->value) {
+      if (empty($referenced_nids)) {
+        $nids = array_slice($all_nids, 0, 2);
+      }
+      else if (count($referenced_nids) == 1) {
+        $nids[] = array_shift($all_nids);
+      }
+    }
+
+    // Load nodes and build output array.
+    $nodes = entity_load_multiple('node', $nids);
+    foreach ($nodes as $nid => $node) {
+      $items[] = array(
+        'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
+        'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
+        'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
+      );
+    }
+    $variables['news_events'] = $items;
+  }
 }
 
 /**
@@ -246,29 +285,35 @@ function ymca_preprocess_pager(&$vars) {
  * Implements hook_preprocess_views_view().
  */
 function ymca_preprocess_views_view(&$vars) {
-  if ($vars['view']->id() == 'ymca_twin_cities_blog' && $vars['view']->current_display == 'blog_page') {
-    $vars['base_path'] = base_path();
-    $vars['categories'] = [];
-    foreach ($vars['view']->filter['field_tags_target_id']->options['value'] as $id) {
-      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id);
-      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $id));
-      $vars['categories'][] = $link;
-      // Pass Archive block data to the Search The Blog block.
-      if ($archive_lists = ymca_get_archive_data('blog')) {
+  if ($vars['view']->id() == 'ymca_twin_cities_blog' || $vars['view']->id() == 'ymca_twin_cities_blog_archive') {
+    if ($vars['view']->current_display == 'blog_page') {
+      $vars['base_path'] = base_path();
+      $vars['categories'] = [];
+      foreach ($vars['view']->filter['field_tags_target_id']->options['value'] as $id) {
+        $term = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->load($id);
+        $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $id));
+        $vars['categories'][] = $link;
+        // Pass Archive block data to the Search The Blog block.
+        if ($archive_lists = ymca_get_archive_data('blog')) {
+          $vars['archive_lists'] = $archive_lists;
+        }
+      }
+    }
+  }
+
+  if ($vars['view']->id() == 'ymca_news' || $vars['view']->id() == 'ymca_news_archive') {
+    if ($vars['view']->current_display == 'page_news') {
+      $vars['base_path'] = base_path();
+      // Pass Archive block data to the YMCA News Archive block.
+      if ($archive_lists = ymca_get_archive_data('news')) {
         $vars['archive_lists'] = $archive_lists;
       }
     }
   }
 
-  if ($vars['view']->id() == 'ymca_news' && $vars['view']->current_display == 'page_news') {
-    $vars['base_path'] = base_path();
-    // Pass Archive block data to the YMCA News Archive block.
-    if ($archive_lists = ymca_get_archive_data('news')) {
-      $vars['archive_lists'] = $archive_lists;
-    }
-  }
-
-  if ($vars['view']->id() == 'taxonomy_term' && $vars['view']->current_display == 'page_1') {
+  if ($vars['view']->id() == 'ymca_taxonomy_term' && $vars['view']->current_display == 'page_1') {
     $vars['base_path'] = base_path();
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
     foreach ($tree as $term_object) {
@@ -315,16 +360,25 @@ function ymca_preprocess_item_list(&$vars) {
  * Returns an array with archive list data for blog and news.
  */
 function ymca_get_archive_data($context) {
-  $query = \Drupal::entityQuery('node')
-    ->condition('status', 1)
-    ->condition('type', 'blog');
+  if ($context == 'news') {
+    $query = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('field_tags.target_id', 6)
+      ->condition('type', 'blog');
+    $url_key = '/news/ymca_news_archive/';
+  }
+  if ($context == 'blog') {
+    $query = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('field_tags.target_id', 6, '<>')
+      ->condition('type', 'blog');
+    $url_key = '/blog/archive/';
+  }
+
   $nids = $query->execute();
   if (empty($nids)) {
     return;
   }
-
-  $context == 'news' ? $url_key = '/news/ymca_news_archive/' : '';
-  $context == 'blog' ? $url_key = '/blog/archive/' : '';
 
   $nodes = entity_load_multiple('node', $nids);
   $years = array();

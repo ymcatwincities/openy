@@ -47,17 +47,18 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $rows = [];
-
+    $tz = new \DateTimeZone(\Drupal::config('ymca_migrate.settings')->get('timezone'));
     foreach ($items as $item) {
       $values = $item->getValue();
 
+      // Skip holidays with empty date.
+      if (empty($values['date'])) {
+        continue;
+      }
+
       // Check date.
-      $date = \DateTime::createFromFormat(
-        'm/d/Y', $values['date'],
-        new \DateTimeZone(
-          \Drupal::config('ymca_migrate.settings')->get('timezone')
-        )
-      );
+      $date = \DateTime::createFromFormat('Y-m-d', $values['date'], $tz);
+
       $holiday_timestamp = $date->getTimestamp();
       $period = 60 * 60 * 24 * 14;
 
