@@ -51,8 +51,12 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
 function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
   switch ($entity->bundle()) {
     case 'date_block':
-      $start_date = DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $entity->field_start_date->value, new DateTimeZone(DATETIME_STORAGE_TIMEZONE));
-      $end_date = DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $entity->field_end_date->value, new DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+      $fsd = $entity->get('field_start_date')->get(0)->getValue()['value'];
+      $fed = $entity->get('field_end_date')->get(0)->getValue()['value'];
+      $fsd_fix_time = str_replace('\\', '', $fsd);
+      $fed_fix_time = str_replace('\\', '', $fed);
+      $start_date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $fsd_fix_time, new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+      $end_date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $fed_fix_time, new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
 
       if (REQUEST_TIME <= $start_date->getTimestamp()) {
         // Here will go content for before start date.
