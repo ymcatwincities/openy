@@ -10,6 +10,7 @@ use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Class DateBlock.
@@ -106,15 +107,15 @@ class DateBlockService {
 
     switch ($this->getBlockState()) {
       case self::DBS_BEFORE:
-        $this->activeContent = $entity->get('field_content_date_before')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_content_date_before')->get(0)) ? '' : $entity->get('field_content_date_before')->get(0)->getValue()['value'];
         break;
 
       case self::DBS_MIDDLE:
-        $this->activeContent = $entity->get('field_content_date_between')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_content_date_between')->get(0)) ? '' : $entity->get('field_content_date_between')->get(0)->getValue()['value'];
         break;
 
       case self::DBS_AFTER:
-        $this->activeContent = $entity->get('field_content_date_end')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_content_date_end')->get(0)) ? '' : $entity->get('field_content_date_end')->get(0)->getValue()['value'];
         break;
 
     }
@@ -229,6 +230,7 @@ class DateBlockService {
     $slides = \Drupal::entityManager()->getStorage($b_type)->loadMultiple($ids);
 
     $i = 0;
+    $style = ImageStyle::load('2013_masthead');
     /** @var BlockContent $slide_entity */
     foreach ($slides as $id => $slide_entity) {
       $title = is_null($slide_entity->get('field_title')->get(0)) ? '' : $slide_entity->get('field_title')->get(0)->getValue()['value'];
@@ -236,9 +238,10 @@ class DateBlockService {
       $menu_link = is_null($slide_entity->get('field_block_content')->get(0)) ? NULL : $this->getMenuLinkEntity($slide_entity->get('field_block_content')->get(0)->getValue()['value']);
       $btn_url = is_null($menu_link) ? '' : $menu_link->get('link')->get(0)->getValue()['uri'];
       $btn_title = is_null($menu_link) ? '' : $menu_link->label();
+
       $this->slideShowItems[$i]['id'] = $i;
       $this->slideShowItems[$i]['title'] = $title;
-      $this->slideShowItems[$i]['img_url'] = file_create_url($img_url);
+      $this->slideShowItems[$i]['img_url'] = $style->buildUrl($img_url);
       $this->slideShowItems[$i]['btn_title'] = $btn_title;
       $this->slideShowItems[$i]['btn_url'] = $btn_url == '' ? '' : Url::fromUri($btn_url);
       $i++;
