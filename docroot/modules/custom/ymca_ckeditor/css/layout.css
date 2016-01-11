@@ -11,3 +11,19 @@
   float: right;
   width: 50%;
 }
+
+.cke_button__block_icon {
+  background-image: url("../img/ck_ico_block.png") !important;
+}
+
+.cke_button__menu_link_icon {
+  background-image: url("../img/ck_ico_menu.png") !important;
+}
+
+.cke_button__file_icon {
+  background-image: url("../img/ck_ico_file.png") !important;
+}
+
+.cke_button__webform_icon {
+  background-image: url("../img/ck_ico_webform.png") !important;
+}
