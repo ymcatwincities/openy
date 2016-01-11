@@ -8,51 +8,14 @@ namespace Drupal\ymca_groupex\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_groupex\GroupexRequestTrait;
 
 /**
  * Implements a FindClassesForm.
  */
 class FindClassesForm extends FormBase {
 
-  /**
-   * Uri to make requests.
-   */
-  const URI = 'http://api.groupexpro.com/schedule/embed';
-
-  /**
-   * Account ID.
-   */
-  const ACCOUNT = 3;
-
-  /**
-   * Make a request to GroupEx.
-   *
-   * @param $options
-   *   Request options.
-   *
-   * @return array
-   *   Data.
-   */
-  private function request($options) {
-    $client = \Drupal::httpClient();
-    $data = [];
-    $options_defaults = [
-      'query' => [
-        'a' => self::ACCOUNT,
-      ],
-    ];
-
-    try {
-      $response = $client->request('GET', self::URI, array_merge_recursive($options_defaults, $options));
-      $body = $response->getBody();
-      $data = json_decode($body->getContents());
-    }
-    catch(\Exception $e) {
-      watchdog_exception('ymca_groupex', $e);
-    }
-
-    return $data;
-  }
+  use GroupexRequestTrait;
 
   /**
    * Get form item options.
@@ -91,13 +54,6 @@ class FindClassesForm extends FormBase {
     $form['note'] = [
       '#markup' => $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.'),
     ];
-
-    // Todo: Move that to all schedules form
-//    $form['locations'] = [
-//      '#type' => 'checkboxes',
-//      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
-//      '#title' => t('Locations'),
-//    ];
 
     $form['class_name'] = [
       '#type' => 'select',
@@ -148,6 +104,13 @@ class FindClassesForm extends FormBase {
       '#value' => $this->t('Find Class'),
     ];
 
+    // Todo: Move that to all schedules form
+//    $form['locations'] = [
+//      '#type' => 'checkboxes',
+//      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
+//      '#title' => t('Locations'),
+//    ];
+
     return $form;
   }
 
@@ -155,7 +118,19 @@ class FindClassesForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    drupal_set_message($this->t('Yahoo!!!'));
+    $form_state->setRedirect(
+      'ymca_groupex.schedules_search_results',
+      ['node' => 4],
+      [
+        'query' => [
+          'location' => 26,
+          'class' => 'any',
+          'category' => 'any',
+          'time_of_day' => 'morning',
+          'filter_length' => 'day',
+          'filter_date' => '1 11 16'
+        ]
+      ]
+    );
   }
-
 }
