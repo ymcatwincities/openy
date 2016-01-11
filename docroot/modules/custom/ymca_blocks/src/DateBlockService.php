@@ -19,16 +19,22 @@ use Drupal\file\Entity\File;
 class DateBlockService {
 
   /**
+   * Start date.
+   *
    * @var \DateTime;
    */
   protected $startDate;
 
   /**
+   * End date.
+   *
    * @var \DateTime;
    */
   protected $endDate;
 
   /**
+   * Content been parsed.
+   *
    * @var string;
    */
   protected $activeContent;
@@ -58,7 +64,7 @@ class DateBlockService {
    *   Date block ID to work on.
    *
    * @return array
-   * Return array for adding to render afterwards.
+   *   Return array for adding to render afterwards.
    *
    * @throws \Exception
    */
@@ -102,15 +108,18 @@ class DateBlockService {
       case self::DBS_BEFORE:
         $this->activeContent = $entity->get('field_content_date_before')->get(0)->getValue()['value'];
         break;
+
       case self::DBS_MIDDLE:
         $this->activeContent = $entity->get('field_content_date_between')->get(0)->getValue()['value'];
         break;
+
       case self::DBS_AFTER:
         $this->activeContent = $entity->get('field_content_date_end')->get(0)->getValue()['value'];
         break;
+
     }
     // Obtain SlideShow.
-    $this->getSlideShowBlockEntity($this->activeContent);
+    $this->setSlideShowBlockEntity($this->activeContent);
 
     return $this;
   }
@@ -137,6 +146,7 @@ class DateBlockService {
         // Cache to be invalidated when start time comes.
         $build['#cache']['max-age'] = $this->startDate->getTimestamp() - REQUEST_TIME;
         break;
+
       case self::DBS_MIDDLE:
         hide($build['field_content_date_before']);
         hide($build['field_content_date_end']);
@@ -144,6 +154,7 @@ class DateBlockService {
         // Cache to be invalidated when end time comes.
         $build['#cache']['max-age'] = $this->endDate->getTimestamp() - REQUEST_TIME;
         break;
+
       case self::DBS_AFTER:
         hide($build['field_content_date_before']);
         hide($build['field_content_date_between']);
@@ -180,7 +191,15 @@ class DateBlockService {
     }
   }
 
-  private function getSlideShowBlockEntity($embed_data = '') {
+  /**
+   * SlideShow architecture parser.
+   *
+   * @param string $embed_data
+   *   String been parsed.
+   *
+   * @throws \Exception
+   */
+  private function setSlideShowBlockEntity($embed_data = '') {
     if ($embed_data == '') {
       throw new \Exception('Embed data cannot be empty');
     }
@@ -229,7 +248,7 @@ class DateBlockService {
   /**
    * Load MenuLink Entity from entity_embed code.
    *
-   * @param $embed_data
+   * @param string $embed_data
    *   String to be parsed for MenuLink entity_embed.
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
