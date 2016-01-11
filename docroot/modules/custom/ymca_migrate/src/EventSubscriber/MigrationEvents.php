@@ -46,11 +46,51 @@ class MigrationEvents implements EventSubscriberInterface {
         $view->set('dependencies', array('content' => array('taxonomy_term:tags:' . $news_term->uuid())));
         $view->save();
 
+        // Check if the view is already exists.
+        if (\Drupal::entityManager()->getStorage('view')->load('ymca_news_archive')) {
+          break;
+        }
+
+        $loader = file_get_contents(drupal_get_path('module', 'ymca_migrate') . '/config/disabled/views.view.ymca_news_archive.yml');
+        $data = Yaml::decode($loader);
+        $news_term_id = \Drupal::entityQuery('taxonomy_term')
+          ->condition('name', 'News')
+          ->condition('vid', 'tags')
+          ->execute();
+        $term_id = (int) array_shift($news_term_id);
+        $news_term = \Drupal::entityManager()->getStorage('taxonomy_term')->load($term_id);
+        $data['display']['default']['display_options']['filters']['field_tags_target_id']['value'] = array($term_id => $term_id);
+        $view = View::create($data);
+        $view->set('dependencies', array('content' => array('taxonomy_term:tags:' . $news_term->uuid())));
+        $view->save();
+
         if (\Drupal::entityManager()->getStorage('view')->load('ymca_twin_cities_blog')) {
           break;
         }
 
         $loader = file_get_contents(drupal_get_path('module', 'ymca_migrate') . '/config/disabled/views.view.ymca_twin_cities_blog.yml');
+        $data = Yaml::decode($loader);
+        $news_term_id = \Drupal::entityQuery('taxonomy_term')
+          ->condition('name', 'News', '!=')
+          ->condition('vid', 'tags')
+          ->execute();
+        $terms = \Drupal::entityManager()->getStorage('taxonomy_term')->loadMultiple($news_term_id);
+        $data['display']['default']['display_options']['filters']['field_tags_target_id']['value'] = array();
+        $deps = array();
+        foreach ($terms as $term) {
+          $data['display']['default']['display_options']['filters']['field_tags_target_id']['value'][(int) $term->id()] = (int) $term->id();
+          $deps[] = 'taxonomy_term:tags:' . $term->uuid();
+        }
+
+        $view = View::create($data);
+        $view->set('dependencies', array('content' => $deps));
+        $view->save();
+
+        if (\Drupal::entityManager()->getStorage('view')->load('ymca_twin_cities_blog_archive')) {
+          break;
+        }
+
+        $loader = file_get_contents(drupal_get_path('module', 'ymca_migrate') . '/config/disabled/views.view.ymca_twin_cities_blog_archive.yml');
         $data = Yaml::decode($loader);
         $news_term_id = \Drupal::entityQuery('taxonomy_term')
           ->condition('name', 'News', '!=')
