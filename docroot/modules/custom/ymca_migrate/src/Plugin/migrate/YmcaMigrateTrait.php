@@ -275,89 +275,89 @@ trait YmcaMigrateTrait {
   }
 
   /**
-   * Get block data for creating Promo Block.
+   * Parse Promo Block.
    *
    * @param string $text
-   *   Original text with tokens to parse.
+   *   Input text.
    *
    * @return array
    *   Block data.
+   *
+   * @throws \Exception
+   *   The problem fo the parser.
    */
   public function parsePromoBlock($text = '') {
     $block_data = [];
+
     if ($text == '') {
-      // @todo: @podarok, please fix regex for understanding class for img.
-      // Added class to the default text.
-      \Drupal::logger('YmcaMigrateTrait')->error(
-        t('[DEV]: parsePromoBlock would use demo data, because text is empty')
-      );
-      $text = '<p><img class="img-responsive" src="{{internal_asset_link_9568}}" alt="Group Exercise" width="600" height="340" /></p>
-<h2>Group Exercise </h2>
-<p>Free drop-in classes for members.</p>
-<p><a href="{{internal_page_link_7842}}">Group Exercise</a></p>';
+      throw new \Exception('Input text is empty.');
     }
-    preg_match_all(
-      '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\"(.*)\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a.*{{internal_page_link_(.*)}}.*>(.*)<.*<\/p>/imU',
-      $text,
-      $match
-    );
-    if (count($match) != 7) {
-      // Block(s) not detected.
-      \Drupal::logger('YmcaMigrateTrait')->info(t('Block is not detected'));
-      return FALSE;
+
+    $regex = '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\\"(.*)\\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a.*href=\\"({{internal_page_link_.*}}|http.*)\\".*>(.*)<.*<\/p>/imU';
+    preg_match_all($regex, $text, $match);
+
+    if (empty($match[0])) {
+      throw new \Exception('No promo blocks were detected.');
     }
+
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaAssetsTokensMap $ymca_asset_tokens_map */
     $ymca_asset_tokens_map = \Drupal::service('ymcaassetstokensmap.service');
 
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaTokensMap $ymca_tokens_map */
     $ymca_tokens_map = \Drupal::service('ymcatokensmap.service');
 
-    foreach ($match[0] as $block_id => $block) {
-
-      $file_id = $ymca_asset_tokens_map->getAssetId($match[1][$block_id]);
-      if ($file_id == FALSE) {
-        \Drupal::logger('YmcaMigrateTrait')->error(
-          t(
-            '[DEV]: parsePromoBlock failed for assetID: @id is not found',
-            array('@id' => $match[1][$block_id])
-          )
-        );
-        return FALSE;
-      }
-
-      $menu_id = $ymca_tokens_map->getMenuId($match[5][$block_id]);
-      if ($menu_id === FALSE) {
-        \Drupal::logger('YmcaMigrateTrait')->error(
-          t(
-            '[DEV]: parsePromoBlock menuid for pageID: @id is not found',
-            array('@id' => $match[5][$block_id])
-          )
-        );
-        return FALSE;
-      }
-      /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
-      $menu_link_entity = \Drupal::entityManager()->getStorage(
-        'menu_link_content'
-      )->load($menu_id);
-      // @todo check this if url is not relevant - generate proper url to menu item.
-      $menu_link_url = 'internal:' . $menu_link_entity->url();
-
-      $block_data[$block_id] = [
-        'info' => sprintf(
-          'Promo Block - %s [asset: %d]',
-          $match[2][$block_id],
-          $file_id
-        ),
-        'header' => $match[3][$block_id],
-        'image_id' => $file_id,
-        'image_alt' => $match[2][$block_id],
-        'link_uri' => $menu_link_url,
-        'link_title' => $match[6][$block_id],
-        'content' => $match[4][$block_id],
-      ];
+    // We hope that there comes only single promoBlock.
+    // Check if regex found more.
+    if (count($match[0]) > 1) {
+      throw new \Exception('Parser has found more than one Promo Block');
     }
 
-    return reset($block_data);
+    $file_id = $ymca_asset_tokens_map->getAssetId($match[1][0]);
+    if ($file_id == FALSE) {
+      if ($this->isDev()) {
+        $file_id = 4;
+      }
+      else {
+        throw new \Exception('Failed to get File ID via Asset ID.');
+      }
+    }
+
+    // Get link. It could be internal or external.
+    $link_text = $match[5][0];
+    if (strpos($link_text, '{{internal') !== FALSE) {
+      // It's a token.
+      preg_match('/{{internal_page_link_(\d*)}}/imU', $link_text, $test);
+      if (!isset($test[1]) || !is_numeric($test[1])) {
+        throw new \Exception('Failed to parse internal link token.');
+      }
+      $menu_id = $ymca_tokens_map->getMenuId($test[1]);
+      if ($menu_id === FALSE) {
+        throw new \Exception(sprintf('Failed to get MenuID: [id: %s]', $test[1]));
+      }
+
+      /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
+      $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
+      $uri = 'internal:' . $menu_link_entity->url();
+    }
+    else {
+      $uri = $link_text;
+    }
+
+    $block_data = [
+      'info' => sprintf(
+        'Promo Block - %s [asset: %d]',
+        $match[2][0],
+        $file_id
+      ),
+      'header' => $match[3][0],
+      'image_id' => $file_id,
+      'image_alt' => $match[2][0],
+      'link_uri' => $uri,
+      'link_title' => $match[6][0],
+      'content' => $match[4][0],
+    ];
+
+    return $block_data;
   }
 
   /**
