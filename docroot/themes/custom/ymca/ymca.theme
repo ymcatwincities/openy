@@ -170,6 +170,7 @@ function ymca_preprocess_node(&$variables) {
       ->condition('field_site_section.target_id', $variables['node']->id())
       ->condition('status', 1);
     $referenced_nids = $query->execute();
+    // Load all ids of Blog Post CT.
     if (empty($referenced_nids) || count($referenced_nids) == 1) {
       // Load all ids of Blog Post CT.
       $query = \Drupal::entityQuery('node')
