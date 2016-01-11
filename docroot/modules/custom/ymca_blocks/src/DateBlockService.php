@@ -8,9 +8,6 @@ namespace Drupal\ymca_blocks;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Field\EntityReferenceFieldItemList;
-use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
-use Drupal\Core\Field\TypedData\FieldItemDataDefinition;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 
@@ -37,21 +34,22 @@ class DateBlockService {
   protected $activeContent;
 
   /**
+   * SlideShow block entity.
+   *
    * @var BlockContent
    */
   protected $slideShowBlockEntity;
 
+  /**
+   * Array of items for template.
+   *
+   * @var array
+   */
   protected $slideShowItems;
 
   const DBS_BEFORE = 'before starting date';
   const DBS_MIDDLE = 'in the middle';
   const DBS_AFTER = 'after ending date';
-
-  /**
-   * DateBlock constructor.
-   */
-  public function __construct() {
-  }
 
   /**
    * Find Slides for specific Date Block by it's ID.
@@ -86,7 +84,7 @@ class DateBlockService {
   /**
    * Initial setter for a block.
    *
-   * @param BlockContent $date_block
+   * @param BlockContent $entity
    *   DateBlock to work with.
    *
    * @return $this
