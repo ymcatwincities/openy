@@ -57,7 +57,7 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
       }
 
       // Check date.
-      $date = \DateTime::createFromFormat('Y-m-d', $values['date'], $tz);
+      $date = \DateTime::createFromFormat('U', $values['date'], $tz);
 
       $holiday_timestamp = $date->getTimestamp();
       $period = 60 * 60 * 24 * 14;

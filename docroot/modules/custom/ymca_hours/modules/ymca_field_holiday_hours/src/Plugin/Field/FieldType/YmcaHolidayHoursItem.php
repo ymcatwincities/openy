@@ -62,9 +62,8 @@ class YmcaHolidayHoursItem extends FieldItemBase implements FieldItemInterface {
     ];
 
     $schema['columns']['date'] = [
-      'type' => 'varchar',
-      'description' => 'Date when a holiday occurs.',
-      'length' => 10,
+      'type' => 'int',
+      'description' => 'A unix timestamp indicating the date.',
       'not null' => TRUE,
     ];
 
@@ -76,10 +75,8 @@ class YmcaHolidayHoursItem extends FieldItemBase implements FieldItemInterface {
    */
   public function isEmpty() {
     $values = $this->getValue();
-    foreach ($values as $item) {
-      if ($item !== '') {
-        return FALSE;
-      }
+    if ($values['holiday'] !== '' && $values['hours'] !== '') {
+      return FALSE;
     }
     return TRUE;
   }
