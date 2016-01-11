@@ -1,58 +1,31 @@
 <section id="carousel" class="carousel slide carousel-fade  masthead-carousel" data-interval="false">
   <ol class="carousel-indicators">
-    <li data-target="#carousel" data-slide-to="0" class=" active"></li>
-    <li data-target="#carousel" data-slide-to="1" class=""></li>
-    <li data-target="#carousel" data-slide-to="2" class=""></li>
+    {% for slide in field_promo_slideshow_referenced_items %}
+      <li data-target="#carousel" data-slide-to="{{ slide.id }}" {% if slide.id == 0 %} class=" active" {% endif %}></li>
+    {% endfor %}
   </ol>
+
   <div class="carousel-inner even-heights">
-    <div class="item  active">
-      <div class="row">
-        <div class="col-md-8 image">
-          <div class="img-lg visible-md visible-lg" style="background-image: url(/_asset/b8wjdk/masthead_slides_pool_v3.jpg);"></div>
-          <img class="img-responsive hidden-lg hidden-md" src="/_asset/b8wjdk/masthead_slides_pool_v3.jpg">
-        </div>
-        <div class="caption col-md-4">
-          <div class="carousel-caption" style="height: 310px;">
-            <h1>Make a splash in our indoor pool</h1>
-            <br>
-            <p></p>
+    {% for slide in field_promo_slideshow_referenced_items %}
+      <div class="item {% if slide.id == 0 %} active {% endif %}">
+        <div class="row">
+          <div class="col-md-8 image">
+            <div class="img-lg visible-md visible-lg" style="background-image: url({{ slide.img_url }});"></div>
+            <img class="img-responsive hidden-lg hidden-md" src="{{ slide.img_url }}">
+          </div>
+          <div class="caption col-md-4">
+            <div class="carousel-caption" style="height: 310px;">
+              <h1>{{ slide.title }}</h1>
+              <br>
+              {% if slide.btn_url != '' %}
+                <a class="btn btn-primary btn-lg" href="{{ slide.btn_url }}">{{ slide.btn_title }}</a>
+              {% endif %}
+              <p></p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="item ">
-      <div class="row">
-        <div class="col-md-8 image">
-          <div class="img-lg visible-md visible-lg" style="background-image: url(/_asset/l9xyxy/masthead_slides_equipment_v2.jpg);"></div>
-          <img class="img-responsive hidden-lg hidden-md" src="/_asset/l9xyxy/masthead_slides_equipment_v2.jpg">
-        </div>
-        <div class="caption col-md-4">
-          <div class="carousel-caption" style="height: 310px;">
-            <h1>Equipment and training to support your fitness goals</h1>
-            <br>
-            <a class="btn btn-primary btn-lg" href="/locations/andover_ymca_community_center/about/amenities/">Learn More</a>
-            <p></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="item ">
-      <div class="row">
-        <div class="col-md-8 image">
-          <div class="img-lg visible-md visible-lg" style="background-image: url(/_asset/c5stwn/masthead_slides_group_exercse.jpg);"></div>
-          <img class="img-responsive hidden-lg hidden-md" src="/_asset/c5stwn/masthead_slides_group_exercse.jpg">
-        </div>
-        <div class="caption col-md-4">
-          <div class="carousel-caption" style="height: 310px;">
-            <h1>Hundreds of classes and programs to keep you healthy</h1>
-            <br>
-            <p></p>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
 
   </div>
   <a class="left carousel-control hidden-xs" href="#carousel" data-slide="prev">
