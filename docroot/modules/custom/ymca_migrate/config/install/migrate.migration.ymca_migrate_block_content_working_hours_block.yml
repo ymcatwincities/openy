@@ -30,11 +30,11 @@ source:
         -
           holiday: Holiday 1
           hours: 5am - 10pm
-          date: ''
+          date: 1452816000
         -
           holiday: holiday 2
           hours: 4am - 9pm
-          date: ''
+          date: 1452297600
   ids:
     id:
       type: integer

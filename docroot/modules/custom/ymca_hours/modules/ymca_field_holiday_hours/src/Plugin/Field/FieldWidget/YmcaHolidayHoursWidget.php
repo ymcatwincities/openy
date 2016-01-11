@@ -7,6 +7,7 @@
 
 namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -47,13 +48,28 @@ class YmcaHolidayHoursWidget extends WidgetBase {
     ];
 
     $element['date'] = array(
-      '#type' => 'date',
+      '#type' => 'datetime',
       '#title' => t('Date'),
-      '#default_value' => isset($item->date) ? $item->date : '',
-      '#description' => t('Example: 12/25/2015'),
+      '#default_value' => isset($item->date) ? DrupalDateTime::createFromTimestamp($item->date) : '',
+      '#date_time_element' => 'none',
     );
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    foreach ($values as &$item) {
+      if (!is_null($item['date']) && $item['date'] instanceof DrupalDateTime) {
+        $item['date'] = $item['date']->getTimestamp();
+      }
+      else {
+        $item['date'] = NULL;
+      }
+    }
+    return $values;
   }
 
 }
