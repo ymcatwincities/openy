@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Acquia Connector module.
+ */
+
+use Drupal\acquia_connector\Subscription;
+
+/**
+ * Implements hook_install().
+ */
+function acquia_search_install() {
+  // Send a heartbeat so the Acquia Network knows the module is enabled.
+  // This causes an invocation of hook_acquia_subscription_status() which is
+  // implemented in this module to set up the environment.
+
+  // Rebuild data about all currently available modules.
+   system_rebuild_module_data();
+
+  _acquia_search_set_version();
+  Subscription::update();
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function acquia_search_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break at install time
+  // Skip install checks if install.php is running. The weak install profile
+  // API means install.php calls hook_requirements for every module in a profile.
+  if ($phase == 'install' && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'install')) {
+    if (class_exists('Drupal\acquia_connector\Subscription')) {
+      if (Subscription::hasCredentials()) {
+        $severity = REQUIREMENT_OK;
+      }
+      else {
+        $severity = REQUIREMENT_ERROR;
+      }
+      $requirements['acquia_search_credentials'] = array(
+        'description' => t('In order to use Acquia search module you must have an Acquia Subscription. Please enter your Acquia Subscription keys.'),
+        'severity' => $severity,
+        'value' => '',
+      );
+    }
+    else {
+      $severity = REQUIREMENT_ERROR;
+      $requirements['acquia_search_credentials'] = array(
+        'description' => t('In order to use Acquia search module you must enable and configure the Acquia Connector module.'),
+        'severity' => $severity,
+        'value' => '',
+      );
+    }
+
+  }
+  if ($phase == 'runtime') {
+    // Check SSL support.
+    if (in_array('ssl', stream_get_transports(), TRUE)) {
+      $severity = REQUIREMENT_OK;
+      $requirements['acquia_search_ssl'] = array(
+        'description' => t('The Acquia Search module is using SSL to protect the privacy of your content.'),
+      );
+    }
+    else {
+      $severity = REQUIREMENT_WARNING;
+      $requirements['acquia_search_ssl'] = array(
+        'description' => t('In order to protect the privacy of your content with the Acquia Search module you must have SSL support enabled in PHP on your host.'),
+      );
+    }
+    $requirements['acquia_search_ssl']['title'] = t('Acquia Search');
+    $requirements['acquia_search_ssl']['severity'] = $severity;
+    $requirements['acquia_search_ssl']['value'] = '';
+
+  }
+  // Update the cached version whenever we may be updating the module.
+  if ($phase == 'runtime' || $phase == 'update') {
+    _acquia_search_set_version();
+  }
+
+  return $requirements;
+}
+
+/**
+ * Helper function to cache the Acquia Search version.
+ */
+function _acquia_search_set_version() {
+  // Cache the version in a variable so we can send it at not extra cost.
+  $version = \Drupal::config('acquia_search.settings')->get('version');
+  $info = system_get_info('module', 'acquia_search');
+  // Send the version, or at least the core compatibility as a fallback.
+  $new_version = isset($info['version']) ? (string) $info['version'] : (string) \Drupal::VERSION;
+  if ($version != $new_version) {
+    \Drupal::configFactory()->getEditable('acquia_search.settings')->set('version', $new_version)->save();
+  }
+}

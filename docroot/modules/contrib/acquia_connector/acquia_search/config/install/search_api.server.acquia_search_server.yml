@@ -1,0 +1,37 @@
+id: acquia_search_server
+name: 'Acquia Search API Solr server'
+uuid: 42747da4-4d1a-475b-a600-e5e12aadcccc
+description: ''
+status: false
+backend: search_api_solr_acquia
+backend_config:
+  clean_ids: true
+  site_hash: true
+  scheme: http
+  host: search.acquia.com
+  port: 80
+  path: /solr
+  http:
+    http_user: ''
+    http_pass: ''
+  advanced:
+    excerpt: 0
+    retrieve_data: 1
+    highlight_data: 1
+    skip_schema_check: 0
+    solr_version: 4
+    http_method: AUTO
+  http_user: ''
+  http_pass: ''
+  excerpt: 0
+  retrieve_data: 1
+  highlight_data: 1
+  skip_schema_check: 0
+  solr_version: 4
+  http_method: AUTO
+  autocorrect_spell: true
+  autocorrect_suggest_words: true
+langcode: en
+dependencies:
+  module:
+    - acquia_search
