@@ -170,11 +170,20 @@ function ymca_preprocess_node(&$variables) {
       ->condition('field_site_section.target_id', $variables['node']->id())
       ->condition('status', 1);
     $referenced_nids = $query->execute();
-    // Load all ids of Blog Post CT.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'blog')
-      ->condition('status', 1);
-    $all_nids = $query->execute();
+    if (empty($referenced_nids) || count($referenced_nids) == 1) {
+      // Load all ids of Blog Post CT.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'blog')
+        ->condition('status', 1);
+      $all_nids = $query->execute();
+      // Exclude nodes which referenced to other site sections.
+      $all_nodes = entity_load_multiple('node', $all_nids);
+      foreach ($all_nodes as $id => $n) {
+        if (isset($n->field_site_section->target_id)) {
+          unset($all_nids[$id]);
+        }
+      }
+    }
 
     // Pass relative Blog posts, even if their count is 0.
     $nids = array_slice($referenced_nids, 0, 2);
