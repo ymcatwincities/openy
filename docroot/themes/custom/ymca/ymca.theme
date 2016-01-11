@@ -119,6 +119,19 @@ function ymca_preprocess_node(&$variables) {
     }
   }
 
+  // Passing slideshow to template.
+  if ($variables['node']->hasField('field_promo_slideshow')) {
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = &$variables['node'];
+
+    if ($value = $variables['node']->field_promo_slideshow->getValue()) {
+      if ($id = $value[0]['target_id']) {
+        $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
+        $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
+      }
+    }
+  }
+
   if ($variables['node']->hasField('field_site_section')) {
     if ($value = $variables['node']->field_site_section->getValue()) {
       if ($id = $value[0]['target_id']) {
