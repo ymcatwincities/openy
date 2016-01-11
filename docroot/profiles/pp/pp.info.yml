@@ -76,6 +76,7 @@ dependencies:
   - ymca_frontend
   - rest
   - csv_serialization
+  - acquia_connector
 
 themes:
   - bartik
