@@ -59,9 +59,6 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
    *   The typed data manager.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, FormatterPluginManager $formatter_plugin_manager, TypedDataManager $typed_data_manager) {
-    if (!is_array($configuration)) {
-      \Drupal::logger('fixes 2')->critical(t('Not array @data', array('@data' => var_export($configuration, TRUE))));
-    }
     $this->formatterPluginManager = $formatter_plugin_manager;
     $this->setConfiguration($configuration);
     $this->setEntityManager($entity_manager);
