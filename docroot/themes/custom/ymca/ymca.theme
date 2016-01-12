@@ -201,7 +201,7 @@ function ymca_preprocess_node(&$variables) {
 
     // Load nodes and build output array.
     $nodes = entity_load_multiple('node', $nids);
-    foreach ($nodes as $nid => $node) {
+    foreach ($nodes as $nid => $n) {
       $items[] = array(
         'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
         'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
@@ -209,6 +209,8 @@ function ymca_preprocess_node(&$variables) {
       );
     }
     $variables['news_events'] = $items;
+    // Add facebook ID to the template.
+    $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
   }
   if ($variables['node']->bundle() == 'blog') {
     $back_link_title = t('Back to Blog');

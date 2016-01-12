@@ -125,6 +125,14 @@
           {% endfor %}
         </div>
       </div>
+      <div class="col-sm-5">
+        <h2>{{ 'On Facebook'|t }}</h2>
+        <div class="fb-page" data-href="https://www.facebook.com/{{ fb_id }}" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
+          <div class="fb-xfbml-parse-ignore">
+            <blockquote cite="https://www.facebook.com/{{ fb_id }}"><a href="https://www.facebook.com/{{ fb_id }}">{{ label }}</a></blockquote>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
