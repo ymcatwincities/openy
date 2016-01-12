@@ -204,8 +204,8 @@ function ymca_preprocess_node(&$variables) {
     $nodes = entity_load_multiple('node', $nids);
     foreach ($nodes as $nid => $n) {
       $items[] = array(
-        'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
-        'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
+        'title' => new \Drupal\Core\Link($n->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
+        'text' =>  Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
         'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
       );
     }
