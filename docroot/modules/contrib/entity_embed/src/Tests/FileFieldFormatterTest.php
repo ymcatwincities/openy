@@ -38,7 +38,7 @@ class FileFieldFormatterTest extends EntityEmbedTestBase {
   }
 
   /**
-   * Tests file field formatter Entity Embed Display plugins.
+   * Tests file field formatter display plugins.
    */
   public function testFileFieldFormatter() {
     // Ensure that file field formatters are available as plugins.
@@ -69,9 +69,9 @@ class FileFieldFormatterTest extends EntityEmbedTestBase {
       $this->assertIdentical((string) $conf_form['description']['#title'], 'Description');
     }
 
-    // Test entity embed using 'Generic file' Entity Embed Display plugin.
+    // Test entity embed using 'Generic file' display plugin.
     $embed_settings = array('description' => "This is sample description");
-    $content = '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->file->uuid() . '" data-entity-embed-display="file:file_default" data-entity-embed-settings=\'' . Json::encode($embed_settings) . '\'>This placeholder should not be rendered.</drupal-entity>';
+    $content = '<div data-entity-type="file" data-entity-uuid="' . $this->file->uuid() . '" data-entity-embed-display="file:file_default" data-entity-embed-settings=\'' . Json::encode($embed_settings) . '\'>This placeholder should not be rendered.</div>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test entity embed with file:file_default';
