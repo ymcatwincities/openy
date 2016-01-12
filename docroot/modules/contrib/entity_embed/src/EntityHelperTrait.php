@@ -217,6 +217,9 @@ trait EntityHelperTrait {
    *   A render array for the Entity Embed Display plugin.
    */
   protected function renderEntityEmbedDisplayPlugin(EntityInterface $entity, $plugin_id, array $plugin_configuration = array(), array $context = array()) {
+    if (!is_array($plugin_configuration)) {
+      \Drupal::logger('fixes 1')->critical(t('Not array @data', array('@data' => var_export($plugin_configuration, TRUE))));
+    }
     // Build the Entity Embed Display plugin.
     /** @var \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayBase $display */
     $display = $this->displayPluginManager()->createInstance($plugin_id, $plugin_configuration);
