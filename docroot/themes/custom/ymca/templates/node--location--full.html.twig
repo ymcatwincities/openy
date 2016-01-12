@@ -104,10 +104,11 @@
   </div>
 </section>
 
-{% if news_events %}
+{% if news_events or fb_id %}
 <section class="social">
   <div class="container">
     <div class="row">
+      {% if news_events %}
       <div class="col-sm-7">
         <h2>{{ 'News &amp; Events'|t }}</h2>
         <div id="excerpt-source">
@@ -125,6 +126,17 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
+      {% if fb_id %}
+      <div class="col-sm-5">
+        <h2>{{ 'On Facebook'|t }}</h2>
+        <div class="fb-page" data-href="https://www.facebook.com/{{ fb_id }}" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
+          <div class="fb-xfbml-parse-ignore">
+            <blockquote cite="https://www.facebook.com/{{ fb_id }}"><a href="https://www.facebook.com/{{ fb_id }}">{{ label }}</a></blockquote>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 </section>
