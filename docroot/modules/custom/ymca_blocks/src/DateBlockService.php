@@ -130,7 +130,6 @@ class DateBlockService {
       watchdog_exception(__CLASS__, $e);
     }
 
-
     return $this;
   }
 
