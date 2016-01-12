@@ -248,8 +248,8 @@ class DateBlockService {
       $title = is_null($slide_entity->get('field_title')->get(0)) ? '' : $slide_entity->get('field_title')->get(0)->getValue()['value'];
       $img_url = is_null($slide_entity->get('field_image')->get(0)) ? '' : File::load($slide_entity->get('field_image')->get(0)->getValue()['target_id'])->getFileUri();
       $menu_link = is_null($slide_entity->get('field_block_content')->get(0)) ? NULL : $this->getMenuLinkEntity($slide_entity->get('field_block_content')->get(0)->getValue()['value']);
-      $btn_url = is_null($menu_link) ? '' : $menu_link->get('link')->get(0)->getValue()['uri'];
-      $btn_title = is_null($menu_link) ? '' : $menu_link->label();
+      $btn_url = is_null($menu_link) || is_bool($menu_link) || is_null($menu_link->get('link')) ? '' : $menu_link->get('link')->get(0)->getValue()['uri'];
+      $btn_title = is_null($menu_link) || is_bool($menu_link) || is_null($menu_link->get('link')) ? '' : $menu_link->label();
 
       $this->slideShowItems[$i]['id'] = $i;
       $this->slideShowItems[$i]['title'] = $title;
