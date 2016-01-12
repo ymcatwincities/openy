@@ -10,7 +10,16 @@ namespace Drupal\entity_embed\Annotation;
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines an entity embed display annotation object.
+ * Defines an Entity Embed Display plugin annotation object.
+ *
+ * Plugin Namespace: Plugin/entity_embed/EntityEmbedDisplay.
+ *
+ * For a working example, see \Drupal\entity_embed\Plugin\entity_embed\EntityEmbedDisplay\FileFieldFormatter
+ *
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayBase
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager
+ * @see plugin_api
  *
  * @ingroup entity_embed_api
  *
@@ -26,7 +35,7 @@ class EntityEmbedDisplay extends Plugin {
   public $id;
 
   /**
-   * The human-readable name of the display plugin.
+   * The human-readable name of the Entity Embed Display plugin.
    *
    * @ingroup plugin_translatable
    *
@@ -35,10 +44,10 @@ class EntityEmbedDisplay extends Plugin {
   public $label = '';
 
   /**
-   * The entity types the display can apply to.
+   * The entity types the Entity Embed Display plugin can apply to.
    *
-   * To make the display plugin valid for all entity types, set this value to
-   * FALSE.
+   * To make the Entity Embed Display plugin valid for all entity types, set
+   * this value to FALSE.
    *
    * @var bool|array
    */

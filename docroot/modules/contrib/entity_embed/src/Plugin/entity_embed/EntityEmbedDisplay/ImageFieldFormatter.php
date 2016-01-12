@@ -16,7 +16,9 @@ use Drupal\Core\TypedData\TypedDataManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Embed entity displays for image field formatters.
+ * Entity Embed Display reusing image field formatters.
+ *
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface
  *
  * @EntityEmbedDisplay(
  *   id = "image",
@@ -122,11 +124,11 @@ class ImageFieldFormatter extends FileFieldFormatter {
     $alt = $this->getAttributeValue('alt', '');
     if ($alt === '') {
       // Do not change empty alt text to two double quotes if the previously
-      // used display plugin was not 'image:image'. That means that some other
-      // plugin was used so if this image formatter is selected at a later
-      // stage, then this should be treated as a new edit. We show two double
-      // quotes in place of empty alt text only if that was filled intentionally
-      // by the user.
+      // used Entity Embed Display plugin was not 'image:image'. That means that
+      // some other plugin was used so if this image formatter is selected at a
+      // later stage, then this should be treated as a new edit. We show two
+      // double quotes in place of empty alt text only if that was filled
+      // intentionally by the user.
       if (!empty($entity_element) && $entity_element['data-entity-embed-display'] == 'image:image') {
         $alt = '""';
       }
