@@ -102,6 +102,7 @@ function ymca_preprocess_node(&$variables) {
   if (!in_array($variables['view_mode'], array('full', 'default'))) {
     return;
   }
+  $variables['base_path'] = base_path();
 
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
   if (!$variables['is_front']) {
@@ -203,14 +204,16 @@ function ymca_preprocess_node(&$variables) {
     $nodes = entity_load_multiple('node', $nids);
     foreach ($nodes as $nid => $n) {
       $items[] = array(
-        'title' => new \Drupal\Core\Link($node->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
-        'text' =>  Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
+        'title' => new \Drupal\Core\Link($n->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
+        'text' =>  Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
         'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
       );
     }
     $variables['news_events'] = $items;
     // Add facebook ID to the template.
     $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
+    // Add membership block flag.
+    $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
   }
   if ($variables['node']->bundle() == 'blog') {
     $back_link_title = t('Back to Blog');
@@ -527,31 +530,4 @@ function ymca_preprocess_select(&$variables) {
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
-}
-
-/**
- * Prepares variables for form templates.
- *
- * Default template: form.html.twig.
- *
- * @param $variables
- *   An associative array containing:
- *   - element: An associative array containing the properties of the element.
- *     Properties used: #action, #method, #attributes, #children
- */
-function ymca_preprocess_form(&$variables) {
-  $element = $variables['element'];
-  if (isset($element['#action'])) {
-    $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
-  }
-  Element::setAttributes($element, array('method', 'id'));
-  if (empty($element['#attributes']['accept-charset'])) {
-    $element['#attributes']['accept-charset'] = "UTF-8";
-  }
-  $variables['attributes'] = $element['#attributes'];
-  $variables['children'] = $element['#children'];
-
-  if (in_array('contact_message_form', $element['#theme'])) {
-    $variables['extra_text'] = t('* All fields required unless otherwise noted');
-  }
 }
