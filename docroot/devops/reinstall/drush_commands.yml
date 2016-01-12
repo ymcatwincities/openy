@@ -1,12 +1,12 @@
 ---
 # This script contains commands to run drush commands that are specified in configuration.
 - name: Run general drush commands
-  shell: "APP_ENV=demo drush -y {{ item.name }} {{ item.arguments }}"
+  shell: "{{ php_env_vars }} drush -y {{ item.name }} {{ item.arguments }}"
   when: item.status == true
   with_items: global_env.drush_commands
 
 - name: Run environment specific drush commands
-  shell: "APP_ENV=demo drush -y {{ item.name }} {{ item.arguments }}"
+  shell: "{{ php_env_vars }} drush -y {{ item.name }} {{ item.arguments }}"
   ignore_errors: true
   register: echo
   when: item.status == true
