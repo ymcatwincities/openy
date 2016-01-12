@@ -6,6 +6,10 @@
 
 namespace Drupal\ymca_groupex;
 
+/**
+ * Fetches and prepares Groupex data.
+ * @package Drupal\ymca_groupex
+ */
 class GroupexScheduleFetcher {
 
   use GroupexRequestTrait;
