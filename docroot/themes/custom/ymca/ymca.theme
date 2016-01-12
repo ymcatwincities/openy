@@ -429,8 +429,12 @@ function ymca_get_archive_data($context) {
       'number' => date('m', $node->getCreatedTime()),
       'url' => Drupal\Core\Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
     );
-    if (!in_array($month, $data[$year])) {
-      $data[$year][] = $month;
+    $data[$year]['expanded'] = '';
+    if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year) {
+      $data[$year]['expanded'] = 'expanded';
+    }
+    if (!in_array($month, $data[$year]['months'])) {
+      $data[$year]['months'][] = $month;
     }
   }
   return $data;
