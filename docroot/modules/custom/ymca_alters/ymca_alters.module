@@ -30,7 +30,9 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
   // Rename 'Save and Publish' button everywhere.
   $bundles = ['article', 'camp', 'location', 'blog'];
   foreach ($bundles as $bundle) {
-    if ($form_id == sprintf('node_%s_edit_form', $bundle)) {
+    if (
+      $form_id == sprintf('node_%s_edit_form', $bundle) ||
+      $form_id == sprintf('node_%s_form', $bundle)) {
       $form['actions']['publish']['#value'] = t('Save');
     }
   }
