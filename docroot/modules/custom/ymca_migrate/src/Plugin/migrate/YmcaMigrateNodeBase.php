@@ -587,7 +587,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     if (strpos($component->body(), 'href') !== FALSE) {
       // There is a link.
       $link_exist = TRUE;
-      $regex = "/<p><img[^{}]*src=\"{{internal_asset_link_(\d+)(?:.*)?}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h[1-6].*>(.*)<\/h[1-6]>\W*(?:<p>.*<\/p>)?\W*<p>(<a\shref=\"{{internal_page_link_\d+}}\">.*<\/a>)<\/p>/";
+      $regex = "/<p><img[^{}]*src=\"{{internal_asset_link_(\d+)(?:.*)?}}\"\s*alt=\"([^\"]*)\"\s.*\/><\/p>\W*<h[1-6].*>(.*)<\/h[1-6]>\W*(?:<p>.*<\/p>)?\W*<p>(<a[^{}]*href=\"{{internal_page_link_\d+}}\">.*<\/a>)<\/p>/";
     }
     else {
       // There is no link.
