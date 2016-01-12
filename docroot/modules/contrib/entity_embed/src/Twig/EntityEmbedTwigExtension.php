@@ -58,9 +58,10 @@ class EntityEmbedTwigExtension extends \Twig_Extension {
    * @param string $entity_id
    *   The entity ID or entity UUID.
    * @param string $display_plugin
-   *   (optional) The display plugin to be used to render the entity.
+   *   (optional) The Entity Embed Display plugin to be used to render the
+   *   entity.
    * @param array $display_settings
-   *   (optional) A list of settings for the display plugin.
+   *   (optional) A list of settings for the Entity Embed Display plugin.
    *
    * @return array
    *   A render array from entity_view().
