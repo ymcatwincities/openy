@@ -15,11 +15,18 @@ class GroupexScheduleFetcher {
   use GroupexRequestTrait;
 
   /**
-   * Fetched data.
+   * Fetched raw data.
    *
    * @var array
    */
-  private $data = [];
+  private $rawData = [];
+
+  /**
+   * Enriched data.
+   *
+   * @var array
+   */
+  private $enrichedData = [];
 
   /**
    * Query parameters.
@@ -32,38 +39,105 @@ class GroupexScheduleFetcher {
    * Fetch data from the server.
    */
   private function getData() {
-    $data = [];
-//    $options = [
-//      'query' => [
-//        'schedule' => TRUE,
-//        'location' => 26,
-//        'start/end' => 1452474000,
-//        'category' => 410,
-//      ]
-//    ];
-//
-//    return $this->request($options);
-    $this->data = $data;
+    // No request parameters - no data.
+    if (empty($this->parameters)) {
+      $this->rawData = [];
+      return;
+    }
+
+    $options = [
+      'query' =>  [
+        'schedule' => TRUE,
+        'desc' => 'true',
+        'location' => $this->parameters['location'],
+      ],
+    ];
+
+    // Category is optional.
+    if ($this->parameters['category'] =! 'any') {
+      $options['query']['category'] = $this->parameters['category'];
+    }
+
+    $data = $this->request($options);
+
+    // @todo Filter out data by monring, afternoon, evening.
+    // @todo Group data by day, if parameter is week.
+    // @todo Filter out by class.
+
+    $rawData = [];
+    foreach ($data as $item) {
+      $rawData[$item->id] = $item;
+    }
+    $this->rawData = $rawData;
+  }
+
+  /**
+   * Enriches data.
+   */
+  private function enrichData() {
+    $data = $this->rawData;
+
+    foreach ($data as &$item) {
+      // Get address_1.
+      $item->address_1 = sprintf('%s with %s', $item->studio, $item->instructor);
+
+      // Get day.
+      $item->day = substr($item->date, 0, 3);
+
+      // Get start and end time.
+      preg_match("/(.*)-(.*)/i", $item->time, $output);
+      $item->start = $output[1];
+      $item->end = $output[2];
+    }
+
+    $this->enrichedData = $data;
   }
 
   /**
    * Get schedule.
    *
+   * Filter out extra data and prepare variables for templates.
+   *
    * @return array
-   *   A list of classes, ready to use.
+   *   A schedule. It could be of 2 types:
+   *    - day: all classes within classes key
+   *    - week: all classes grouped by day within days key
    */
   public function getSchedule() {
-    return [
-      [
-        'name' => 'Group Cycle',
-        'group' => 'Cardio',
-        'description' => 'Here class description...',
-        'address_1' => 'Studio 1 with Amber S',
-        'address_2' => 'Andover',
-        'time' => 'Mon 5:15am',
-        'duration' => '60 min',
-      ],
-    ];
+    // Prepare classes items.
+    $items = [];
+    foreach ($this->enrichedData as $item) {
+      $items[] = [
+        'name' => $item->title,
+        'group' => $item->category,
+        'description' => $item->desc,
+        'address_1' => $item->address_1,
+        'address_2' => $item->location,
+        'time' => sprintf('%s %s', $item->day, $item->start),
+        'duration' => sprintf('%d min', $item->length),
+      ];
+    }
+
+    // Pack classes into the schedule.
+    $schedule = [];
+    $schedule['type'] = $this->parameters['filter_length'];
+
+    if ($schedule['type'] == 'day') {
+      $current_day = date('D');
+      foreach ($items as $class) {
+        if ($class->day == $current_day) {
+          $schedule['classes'][] = $class;
+        }
+      }
+    }
+    else {
+      // Pack classes into days.
+      foreach ($items as $class) {
+        $schedule['days'][$class->day] = $class;
+      }
+    }
+
+    return $schedule;
   }
 
   /**
@@ -72,5 +146,6 @@ class GroupexScheduleFetcher {
   public function __construct(array $parameters) {
     $this->parameters = $parameters;
     $this->getData();
+    $this->enrichData();
   }
 }

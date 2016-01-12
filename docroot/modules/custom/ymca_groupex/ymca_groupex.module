@@ -15,6 +15,18 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'groupex-class',
     ],
+    'groupex_schedule_day' => [
+      'variables' => [
+        'classes' => [],
+      ],
+      'template' => 'groupex-schedule-day',
+    ],
+    'groupex_schedule_week' => [
+      'variables' => [
+        'days' => [],
+      ],
+      'template' => 'groupex-schedule-week',
+    ],
   ];
 }
 
@@ -33,22 +45,24 @@ function ymca_groupex_preprocess_node(&$variables) {
 
     // Get classes schedules.
     $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher(\Drupal::request()->query->all());
-    $classes = $fetcher->getSchedule();
+    $schedule = $fetcher->getSchedule();
 
-    // Wrap every class into theme function.
-    $items = array_map(function($class) {
-      return [
-        '#theme' => 'groupex_class',
-        '#class' => $class,
-      ];
-    }, $classes);
+    $a = 10;
 
-    // Here just return a list of themed classes.
-    // @todo [FrontEnd Dev] You may add additional elements to the page here.
-    $results = [
-      '#theme' => 'item_list',
-      '#items' => $items,
-    ];
+//    // Wrap every class into theme function.
+//    $items = array_map(function($class) {
+//      return [
+//        '#theme' => 'groupex_class',
+//        '#class' => $class,
+//      ];
+//    }, $classes);
+//
+//    // Here just return a list of themed classes.
+//    // @todo [FrontEnd Dev] You may add additional elements to the page here.
+//    $results = [
+//      '#theme' => 'item_list',
+//      '#items' => $items,
+//    ];
 
     $variables['groupex_search_results'] = \Drupal::service('renderer')->render($results, FALSE);
 
