@@ -531,30 +531,3 @@ function ymca_preprocess_select(&$variables) {
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
 }
-
-/**
- * Prepares variables for form templates.
- *
- * Default template: form.html.twig.
- *
- * @param $variables
- *   An associative array containing:
- *   - element: An associative array containing the properties of the element.
- *     Properties used: #action, #method, #attributes, #children
- */
-function ymca_preprocess_form(&$variables) {
-  $element = $variables['element'];
-  if (isset($element['#action'])) {
-    $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
-  }
-  Element::setAttributes($element, array('method', 'id'));
-  if (empty($element['#attributes']['accept-charset'])) {
-    $element['#attributes']['accept-charset'] = "UTF-8";
-  }
-  $variables['attributes'] = $element['#attributes'];
-  $variables['children'] = $element['#children'];
-
-  if (in_array('contact_message_form', $element['#theme'])) {
-    $variables['extra_text'] = t('* All fields required unless otherwise noted');
-  }
-}
