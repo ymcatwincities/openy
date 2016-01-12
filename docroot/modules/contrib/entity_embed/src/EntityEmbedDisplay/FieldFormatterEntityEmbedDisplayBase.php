@@ -92,7 +92,8 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
     if (!isset($this->fieldDefinition)) {
       $field_type = $this->getPluginDefinition()['field_type'];
       $this->fieldDefinition = BaseFieldDefinition::create($field_type);
-      // Ensure the field name is unique for each display plugin instance.
+      // Ensure the field name is unique for each Entity Embed Display plugin
+      // instance.
       static $index = 0;
       $this->fieldDefinition->setName('_entity_embed_' . $index++);
     }

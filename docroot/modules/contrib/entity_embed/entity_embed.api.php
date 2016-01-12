@@ -11,7 +11,7 @@
  */
 
 /**
- * Alter the display plugin definitions.
+ * Alter the Entity Embed Display plugin definitions.
  *
  * @param array &$info
  *   An associative array containing the plugin definitions keyed by plugin ID.
@@ -21,9 +21,10 @@ function hook_entity_embed_display_plugins_alter(array &$info) {
 }
 
 /**
- * Alter the display plugin definitions for a given context.
+ * Alter the Entity Embed Display plugin definitions for a given context.
  *
- * Usually used to remove certain display plugins for specific entities.
+ * Usually used to remove certain Entity Embed Display plugins for specific
+ * entities.
  *
  * @param array &$definitions
  *   Remove options from this list if they should not be available for the given

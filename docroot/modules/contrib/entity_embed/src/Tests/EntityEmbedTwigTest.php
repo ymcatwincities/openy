@@ -41,13 +41,13 @@ class EntityEmbedTwigTest extends EntityEmbedTestBase {
     $this->drupalGet('entity_embed_twig_test/id');
     $this->assertText($this->node->body->value, 'Embedded node exists in page');
 
-    // Test embedding using 'Label' display plugin.
+    // Test 'Label' Entity Embed Display plugin.
     $this->drupalGet('entity_embed_twig_test/label_plugin');
     $this->assertText($this->node->title->value, 'Title of the embedded node exists in page.');
     $this->assertNoText($this->node->body->value, 'Body of embedded node does not exists in page when "Label" plugin is used.');
     $this->assertLinkByHref('node/' . $this->node->id(), 0, 'Link to the embedded node exists when "Label" plugin is used.');
 
-    // Test embedding using 'Label' display plugin without linking to the node.
+    // Test 'Label' Entity Embed Display plugin without linking to the node.
     $this->drupalGet('entity_embed_twig_test/label_plugin_no_link');
     $this->assertText($this->node->title->value, 'Title of the embedded node exists in page.');
     $this->assertNoText($this->node->body->value, 'Body of embedded node does not exists in page when "Label" plugin is used.');

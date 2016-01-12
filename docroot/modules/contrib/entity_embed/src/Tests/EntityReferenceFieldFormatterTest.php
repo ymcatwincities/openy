@@ -84,14 +84,14 @@ class EntityReferenceFieldFormatterTest extends EntityEmbedTestBase {
   }
 
   /**
-   * Tests entity embed filter using entity reference display plugins.
+   * Tests filter using entity reference Entity Embed Display plugins.
    */
   public function testFilterEntityReferencePlugins() {
-    // Test entity embed using 'Label' display plugin.
-    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_label" data-entity-embed-settings=\'{"link":1}\'>This placeholder should not be rendered.</div>';
+    // Test 'Label' Entity Embed Display plugin.
+    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_label" data-entity-embed-settings=\'{"link":1}\'>This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
-    $settings['title'] = 'Test entity embed with entity_reference:entity_reference_label display plugin';
+    $settings['title'] = 'Test entity_reference:entity_reference_label Entity Embed Display plugin';
     $settings['body'] = array(array('value' => $content, 'format' => 'custom_format'));
     $node = $this->drupalCreateNode($settings);
     $this->drupalGet('node/' . $node->id());
@@ -100,11 +100,11 @@ class EntityReferenceFieldFormatterTest extends EntityEmbedTestBase {
     $this->assertNoText(strip_tags($content), 'Placeholder does not appears in the output when embed is successful.');
     $this->assertLinkByHref('node/' . $this->node->id(), 0, 'Link to the embedded node exists.');
 
-    // Test entity embed using 'Entity ID' display plugin.
-    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_entity_id">This placeholder should not be rendered.</div>';
+    // Test 'Entity ID' Entity Embed Display plugin.
+    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_entity_id">This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
-    $settings['title'] = 'Test entity embed with entity_reference:entity_reference_entity_id display plugin';
+    $settings['title'] = 'Test entity_reference:entity_reference_entity_id Entity Embed Display plugin';
     $settings['body'] = array(array('value' => $content, 'format' => 'custom_format'));
     $node = $this->drupalCreateNode($settings);
     $this->drupalGet('node/' . $node->id());
@@ -114,11 +114,11 @@ class EntityReferenceFieldFormatterTest extends EntityEmbedTestBase {
     $this->assertNoText(strip_tags($content), 'Placeholder does not appears in the output when embed is successful.');
     $this->assertNoLinkByHref('node/' . $this->node->id(), 'Link to the embedded node does not exists.');
 
-    // Test entity embed using 'Rendered entity' display plugin.
-    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</div>';
+    // Test 'Rendered entity' Entity Embed Display plugin.
+    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
-    $settings['title'] = 'Test entity embed with entity_reference:entity_reference_label display plugin';
+    $settings['title'] = 'Test entity_reference:entity_reference_label Entity Embed Display plugin';
     $settings['body'] = array(array('value' => $content, 'format' => 'custom_format'));
     $node = $this->drupalCreateNode($settings);
     $this->drupalGet('node/' . $node->id());

@@ -18,9 +18,14 @@ use Drupal\entity_embed\EntityHelperTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines a base display implementation that most display plugins will extend.
+ * Defines a base Entity Embed Display implementation.
  *
- * @ingroup entity_embed_api
+ * @see \Drupal\entity_embed\Annotation\EntityEmbedDisplay
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager
+ * @see plugin_api
+ *
+  * @ingroup entity_embed_api
  */
 abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFactoryPluginInterface, EntityEmbedDisplayInterface {
   use EntityHelperTrait;
@@ -84,7 +89,8 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
   }
 
   /**
-   * Validates that this display plugin applies to the current entity type.
+   * Validates that this Entity Embed Display plugin applies to the current
+   * entity type.
    *
    * This checks the plugin annotation's 'entity_types' value, which should be
    * an array of entity types that this plugin can process, or FALSE if the
