@@ -76,7 +76,7 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
     }
 
     // Check that the entity itself can be viewed by the user.
-    if ($entity = $this->getEntityFromContext()) {
+    if ($entity = $this->getEntityFromContext() && $account != NULL) {
       return $entity->access('view', $account);
     }
 
