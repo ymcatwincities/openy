@@ -63,7 +63,7 @@ class YmcaReplaceTokens {
    */
   private function replacePageTokens() {
     preg_match_all(
-      "/<a.*href=\"{{internal_page_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
+      "/<a[^{}]href=\"{{internal_page_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
       $this->string,
       $test
     );
@@ -141,7 +141,7 @@ class YmcaReplaceTokens {
    */
   private function replaceAssetLinksTokens() {
     preg_match_all(
-      "/<a.*href=\"{{internal_asset_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
+      "/<a[^{}]href=\"{{internal_asset_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
       $this->string,
       $test
     );

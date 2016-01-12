@@ -293,7 +293,7 @@ trait YmcaMigrateTrait {
       throw new \Exception('Input text is empty.');
     }
 
-    $regex = '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\\"(.*)\\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a.*href=\\"({{internal_page_link_.*}}|http.*)\\".*>(.*)<.*<\/p>/imU';
+    $regex = '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\\"(.*)\\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a[^{}]href=\\"({{internal_page_link_.*}}|http.*)\\".*>(.*)<.*<\/p>/imU';
     preg_match_all($regex, $text, $match);
 
     if (empty($match[0])) {
