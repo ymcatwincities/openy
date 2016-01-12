@@ -120,7 +120,7 @@ class OptionsEmailWidget extends WidgetBase {
 
       $element['option_emails'] = array(
         '#type' => 'select',
-        '#title' => $this->t('Options'),
+        '#title' => $this->fieldDefinition->getLabel(),
         '#options' => $options,
         // @todo '#default_value' => 1,
         '#attributes' => array('class' => array('langcode-input')),
