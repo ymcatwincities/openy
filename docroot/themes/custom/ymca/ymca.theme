@@ -6,6 +6,7 @@
  */
 
 define('SITE_SECTION_TARGET_TYPE', 'node');
+define('TERM_NEWS_TID', 6);
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Unicode;
@@ -170,10 +171,20 @@ function ymca_preprocess_node(&$variables) {
       ->condition('status', 1);
     $referenced_nids = $query->execute();
     // Load all ids of Blog Post CT.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'blog')
-      ->condition('status', 1);
-    $all_nids = $query->execute();
+    if (empty($referenced_nids) || count($referenced_nids) == 1) {
+      // Load all ids of Blog Post CT.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'blog')
+        ->condition('status', 1);
+      $all_nids = $query->execute();
+      // Exclude nodes which referenced to other site sections.
+      $all_nodes = entity_load_multiple('node', $all_nids);
+      foreach ($all_nodes as $id => $n) {
+        if (isset($n->field_site_section->target_id)) {
+          unset($all_nids[$id]);
+        }
+      }
+    }
 
     // Pass relative Blog posts, even if their count is 0.
     $nids = array_slice($referenced_nids, 0, 2);
@@ -198,6 +209,20 @@ function ymca_preprocess_node(&$variables) {
       );
     }
     $variables['news_events'] = $items;
+  }
+  if ($variables['node']->bundle() == 'blog') {
+    $back_link_title = t('Back to Blog');
+    $back_link_path = 'blog';
+    if ($field_tags_value = $variables['node']->field_tags->getValue()) {
+      foreach ($field_tags_value as $id) {
+        if ($id['target_id'] == TERM_NEWS_TID) {
+          $back_link_title = t('Back to News');
+          $back_link_path = 'news';
+        }
+      }
+    }
+    $variables['back_link_title'] = $back_link_title;
+    $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
   }
 }
 
@@ -376,14 +401,14 @@ function ymca_get_archive_data($context) {
   if ($context == 'news') {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
-      ->condition('field_tags.target_id', 6)
+      ->condition('field_tags.target_id', TERM_NEWS_TID)
       ->condition('type', 'blog');
     $url_key = '/news/ymca_news_archive/';
   }
   if ($context == 'blog') {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
-      ->condition('field_tags.target_id', 6, '<>')
+      ->condition('field_tags.target_id', TERM_NEWS_TID, '<>')
       ->condition('type', 'blog');
     $url_key = '/blog/archive/';
   }
