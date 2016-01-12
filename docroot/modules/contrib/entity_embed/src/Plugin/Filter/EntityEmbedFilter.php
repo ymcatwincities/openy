@@ -77,7 +77,7 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
 
-      foreach ($xpath->query('//drupal-entity[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
+      foreach ($xpath->query('//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
         /** @var \DOMElement $node */
         $entity_type = $node->getAttribute('data-entity-type');
         $entity = NULL;
@@ -120,7 +120,11 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
           watchdog_exception('entity_embed', $e);
         }
 
-        $this->replaceNodeContent($node, $entity_output);
+        // Ensure this element is using <div> now if it was <drupal-entity>.
+        if ($node->tagName == 'drupal-entity') {
+          $this->changeNodeName($node, 'div');
+        }
+        $this->setNodeContent($node, $entity_output);
       }
 
       $result->setProcessedText(Html::serialize($dom));
@@ -137,8 +141,8 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
       return $this->t('
         <p>You can embed entities. Additional properties can be added to the embed tag like data-caption and data-align if supported. Examples:</p>
         <ul>
-          <li>Embed by ID: <code>&lt;drupal-entity data-entity-type="node" data-entity-id="1" data-view-mode="teaser" /&gt;</code></li>
-          <li>Embed by UUID: <code>&lt;drupal-entity data-entity-type="node" data-entity-uuid="07bf3a2e-1941-4a44-9b02-2d1d7a41ec0e" data-view-mode="teaser" /&gt;</code></li>
+          <li>Embed by ID: <code>&lt;div data-entity-type="node" data-entity-id="1" data-view-mode="teaser" /&gt;</code></li>
+          <li>Embed by UUID: <code>&lt;div data-entity-type="node" data-entity-uuid="07bf3a2e-1941-4a44-9b02-2d1d7a41ec0e" data-view-mode="teaser" /&gt;</code></li>
         </ul>');
     }
     else {

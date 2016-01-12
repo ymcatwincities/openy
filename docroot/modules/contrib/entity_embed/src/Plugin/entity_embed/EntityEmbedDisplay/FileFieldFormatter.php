@@ -10,9 +10,7 @@ namespace Drupal\entity_embed\Plugin\entity_embed\EntityEmbedDisplay;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Entity Embed Display reusing file field formatters.
- *
- * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface
+ * Embed entity displays for file field formatters.
  *
  * @EntityEmbedDisplay(
  *   id = "file",
