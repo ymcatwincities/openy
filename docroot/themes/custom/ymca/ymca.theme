@@ -102,6 +102,7 @@ function ymca_preprocess_node(&$variables) {
   if (!in_array($variables['view_mode'], array('full', 'default'))) {
     return;
   }
+  $variables['base_path'] = base_path();
 
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
   if (!$variables['is_front']) {
@@ -211,6 +212,8 @@ function ymca_preprocess_node(&$variables) {
     $variables['news_events'] = $items;
     // Add facebook ID to the template.
     $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
+    // Add membership block flag.
+    $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
   }
   if ($variables['node']->bundle() == 'blog') {
     $back_link_title = t('Back to Blog');
