@@ -7,6 +7,7 @@
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\SafeMarkup;
 
 /**
  * Class YmcaReplaceTokens.
@@ -155,7 +156,7 @@ class YmcaReplaceTokens {
       foreach ($matched as $mid => $match) {
         preg_match('/\>(.*?)\</mU', $match, $link_label);
         if (!empty($link_label)) {
-          $link_label = $link_label[1];
+          $link_label = SafeMarkup::checkPlain($link_label[1]);
         }
         else {
           $link_label = '';
@@ -240,7 +241,7 @@ class YmcaReplaceTokens {
       foreach ($matched as $mid => $match) {
         preg_match('/\>(.*?)\</mU', $match, $link_label);
         if (!empty($link_label)) {
-          $link_label = $link_label[1];
+          $link_label = SafeMarkup::checkPlain($link_label[1]);
         }
         else {
           $link_label = '';
