@@ -12,7 +12,9 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\entity_embed\EntityEmbedDisplay\FieldFormatterEntityEmbedDisplayBase;
 
 /**
- * Embed entity displays for entity_reference field formatters.
+ * Entity Embed Display reusing entity reference field formatters.
+ *
+ * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface
  *
  * @EntityEmbedDisplay(
  *   id = "entity_reference",

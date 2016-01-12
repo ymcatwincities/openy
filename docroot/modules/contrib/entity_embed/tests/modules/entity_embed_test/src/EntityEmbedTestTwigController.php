@@ -24,7 +24,7 @@ class EntityEmbedTestTwigController {
   }
 
   /**
-   * Menu callback for testing entity_embed twig extension using 'label' display plugin.
+   * Menu callback for testing entity_embed twig extension using 'label' Entity Embed Display plugin.
    */
   public function labelPluginRender() {
     return array(
@@ -36,7 +36,7 @@ class EntityEmbedTestTwigController {
   }
 
   /**
-   * Menu callback for testing entity_embed twig extension using 'label' display plugin without linking to the node.
+   * Menu callback for testing entity_embed twig extension using 'label' Entity Embed Display plugin without linking to the node.
    */
   public function labelPluginNoLinkRender() {
     return array(
