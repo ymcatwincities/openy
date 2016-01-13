@@ -9,6 +9,7 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Site\Settings;
+use Drupal\Core\Url;
 
 /**
  * Helper functions for Ymca Migrate plugins.
@@ -337,7 +338,11 @@ trait YmcaMigrateTrait {
 
       /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
       $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
-      $uri = 'internal:' . $menu_link_entity->url();
+      $url = $menu_link_entity->getUrlObject();
+      $route = $url->getRouteName();
+      $params = $url->getRouteParameters();
+      $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      $uri = sprintf('internal:%s', $path);
     }
     else {
       $uri = $link_text;
