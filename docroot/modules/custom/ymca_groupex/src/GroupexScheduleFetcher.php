@@ -9,9 +9,6 @@ namespace Drupal\ymca_groupex;
 /**
  * Fetches and prepares Groupex data.
  * @package Drupal\ymca_groupex
- *
- * @todo Filter out by class.
- * @todo Filter out by date.
  */
 class GroupexScheduleFetcher {
 
@@ -125,10 +122,18 @@ class GroupexScheduleFetcher {
       $options['query']['category'] = $this->parameters['category'];
     }
 
-    // Class is optional.
-    if ($this->parameters['class'] =! 'any') {
-      $options['query']['class'] = $this->parameters['class'];
+    // @todo Filter by class.
+
+    // Filter by date.
+    $period = 60 * 60 * 24;
+    if ($this->parameters['filter_length'] == 'week') {
+      $period = 60 * 60 * 24 * 7;
     }
+    $dt = new \DateTime();
+    $date = $dt->createFromFormat(self::$date_filter_format, $this->parameters['filter_date']);
+    $date->setTime(1,0,0);
+    $options['query']['start'] = $date->getTimestamp();
+    $options['query']['end'] = $date->getTimestamp() + $period;
 
     $data = $this->request($options);
 
@@ -175,16 +180,6 @@ class GroupexScheduleFetcher {
     $filtered = $this->enrichedData;
     $param = $this->parameters;
 
-    // If schedule type is day limit by current day.
-    if ($param['filter_length'] == 'day') {
-      $filtered = array_filter($filtered, function($item) {
-        if ($item->day == date('D')) {
-          return TRUE;
-        }
-        return FALSE;
-      });
-    }
-
     // Filter out by time of the day.
     if (!empty($param['time_of_day'])) {
       $filtered = array_filter($filtered, function($item) use ($param) {
@@ -197,7 +192,6 @@ class GroupexScheduleFetcher {
 
     $this->filteredData = $filtered;
   }
-
 
   /**
    * Process parameters.

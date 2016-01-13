@@ -23,6 +23,13 @@ trait GroupexRequestTrait {
   public static $account = 3;
 
   /**
+   * Format of date filter.
+   *
+   * @var string
+   */
+  public static $date_filter_format = 'j n y';
+
+  /**
    * Make a request to GroupEx.
    *
    * @param $options

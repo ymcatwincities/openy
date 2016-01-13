@@ -160,7 +160,7 @@ class FindClassesForm extends FormBase {
     // Get date.
     /** @var DrupalDateTime $date */
     $date = $form_state->getValue('filter_date');
-    $params['filter_date'] = $date->format('j n y');
+    $params['filter_date'] = $date->format(self::$date_filter_format);
 
     // Perform redirect.
     $form_state->setRedirect(
