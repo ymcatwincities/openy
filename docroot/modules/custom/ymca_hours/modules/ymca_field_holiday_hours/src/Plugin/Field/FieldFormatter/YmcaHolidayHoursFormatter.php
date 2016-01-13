@@ -63,6 +63,10 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
 
       // Check date.
       $date = \DateTime::createFromFormat('U', $values['date']);
+      if (!$date) {
+        \Drupal::logger('ymca_field_holiday_hours')->error("Can't obtain the time.");
+        continue;
+      }
       $holiday_timestamp = $date->getTimestamp();
 
       // We have to show the block withing 14 days before the holiday.
