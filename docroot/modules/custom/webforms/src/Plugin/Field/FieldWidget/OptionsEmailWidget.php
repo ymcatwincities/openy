@@ -114,15 +114,16 @@ class OptionsEmailWidget extends WidgetBase {
       // Display dropdown list of options.
       $def = $this->fieldDefinition->getDefaultValue($item->getEntity());
       $options = [];
+      $options['undefined'] = t('Select one...');
       foreach ($def as $id => $item_data) {
         $options[$id] = $item_data['option_name'];
       }
 
       $element['option_emails'] = array(
         '#type' => 'select',
-        '#title' => $this->t('Options'),
+        '#title' => $this->fieldDefinition->getLabel(),
         '#options' => $options,
-        // @todo '#default_value' => 1,
+        '#default_value' => 'undefined',
         '#attributes' => array('class' => array('langcode-input')),
       );
 

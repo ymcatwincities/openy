@@ -51,40 +51,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
 function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
   switch ($entity->bundle()) {
     case 'date_block':
-      $fsd = $entity->get('field_start_date')->get(0)->getValue()['value'];
-      $fed = $entity->get('field_end_date')->get(0)->getValue()['value'];
-      $fsd_fix_time = str_replace('\\', '', $fsd);
-      $fed_fix_time = str_replace('\\', '', $fed);
-      $start_date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $fsd_fix_time, new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
-      $end_date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $fed_fix_time, new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
-
-      if (REQUEST_TIME <= $start_date->getTimestamp()) {
-        // Here will go content for before start date.
-        hide($build['field_content_date_between']);
-        hide($build['field_content_date_end']);
-
-        // Cache to be invalidated when start time comes.
-        $build['#cache']['max-age'] = $start_date->getTimestamp() - REQUEST_TIME;
-      }
-      elseif (REQUEST_TIME >= $end_date->getTimestamp()) {
-        // Here will go content for after end date.
-        hide($build['field_content_date_before']);
-        hide($build['field_content_date_between']);
-
-        // Ok, all the dates are behind. Cache permanently, by default.
-      }
-      else {
-        // Here will go content for between dates.
-        hide($build['field_content_date_before']);
-        hide($build['field_content_date_end']);
-
-        // Cache to be invalidated when end time comes.
-        $build['#cache']['max-age'] = $end_date->getTimestamp() - REQUEST_TIME;
-      }
-
-      // Do not show date fields at all.
-      hide($build['field_start_date']);
-      hide($build['field_end_date']);
+      \Drupal::service('dateslides.service')->viewAlter($build, $entity);
       break;
 
     case 'expander_block':
@@ -110,12 +77,23 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       break;
 
     case 'promo_block':
+      // Get path for promo block.
+      $url = $entity->field_link->get(0)->getUrl();
+      if ($url->isRouted()) {
+        $route = $url->getRouteName();
+        $params = $url->getRouteParameters();
+        $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      }
+      else {
+        $path = $url->getUri();
+      }
+
       $build['promo'] = array(
         '#theme' => 'promo_block',
         '#header' => \Drupal\Component\Utility\Html::escape($entity->field_block_header->value),
         '#content' => $build['field_block_content'],
         '#image' => $build['field_image'],
-        '#link' => $entity->field_link->uri,
+        '#link' => $path,
         '#link_text' => $entity->field_link->title,
       );
 
