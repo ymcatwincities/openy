@@ -47,7 +47,12 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $rows = [];
+
+    // Calculate timezone offset.
     $tz = new \DateTimeZone(\Drupal::config('ymca_migrate.settings')->get('timezone'));
+    $dt = new \DateTime(NULL, $tz);
+    $offset = $dt->getOffset();
+
     foreach ($items as $item) {
       $values = $item->getValue();
 
@@ -57,12 +62,16 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
       }
 
       // Check date.
-      $date = \DateTime::createFromFormat('U', $values['date'], $tz);
-
+      $date = \DateTime::createFromFormat('U', $values['date']);
       $holiday_timestamp = $date->getTimestamp();
+
+      // We have to show the block withing 14 days before the holiday.
       $period = 60 * 60 * 24 * 14;
 
-      if (REQUEST_TIME < $holiday_timestamp && ($holiday_timestamp - REQUEST_TIME) <= $period) {
+      $request = REQUEST_TIME + $offset;
+
+      // Show the block before the defined period and withing the current day.
+      if ($request < ($holiday_timestamp + (60 * 60 * 24)) && ($holiday_timestamp - $request) <= $period) {
         $title = Html::escape($values['holiday']);
         $rows[] = [
           Markup::create('<span>' . $title . '</span>:'),
