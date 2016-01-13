@@ -57,7 +57,8 @@
           var dialogSettings = {
             title: existingElement ? 'Edit ' + entity_label : 'Insert ' + entity_label,
             dialogClass: 'entity-select-dialog',
-            resizable: false
+            resizable: false,
+            minWidth: 800
           };
 
           var saveCallback = function (values) {
