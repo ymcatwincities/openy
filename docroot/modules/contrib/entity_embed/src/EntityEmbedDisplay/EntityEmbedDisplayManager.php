@@ -14,17 +14,15 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Component\Plugin\Exception\PluginException;
 
 /**
- * Provides an Entity Embed display plugin manager.
+ * Provides an Entity embed display plugin manager.
  *
  * @see \Drupal\entity_embed\Annotation\EntityEmbedDisplay
- * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayBase
  * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface
- * @see plugin_api
  */
 class EntityEmbedDisplayManager extends DefaultPluginManager {
 
   /**
-   * Constructs a new EntityEmbedDisplayManager.
+   * Constructs a new class instance.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths

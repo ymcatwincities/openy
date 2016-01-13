@@ -46,7 +46,7 @@ class ImageFieldFormatterTest extends EntityEmbedTestBase {
   }
 
   /**
-   * Tests image field formatter Entity Embed Display plugin.
+   * Tests image field formatter display plugin.
    */
   public function testImageFieldFormatter() {
     // Ensure that image field formatters are available as plugins.
@@ -81,11 +81,11 @@ class ImageFieldFormatterTest extends EntityEmbedTestBase {
     $this->assertIdentical($conf_form['title']['#type'], 'textfield');
     $this->assertIdentical((string) $conf_form['title']['#title'], 'Title');
 
-    // Test entity embed using 'Image' Entity Embed Display plugin.
+    // Test entity embed using 'Image' display plugin.
     $alt_text = "This is sample description";
     $title = "This is sample title";
     $embed_settings = array('image_link' => 'file');
-    $content = '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->image->uuid() . '" data-entity-embed-display="image:image" data-entity-embed-settings=\'' . Json::encode($embed_settings) . '\' alt="' . $alt_text . '" title="' . $title . '">This placeholder should not be rendered.</drupal-entity>';
+    $content = '<div data-entity-type="file" data-entity-uuid="' . $this->image->uuid() . '" data-entity-embed-display="image:image" data-entity-embed-settings=\'' . Json::encode($embed_settings) . '\' alt="' . $alt_text . '" title="' . $title . '">This placeholder should not be rendered.</div>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test entity embed with image:image';
@@ -97,9 +97,9 @@ class ImageFieldFormatterTest extends EntityEmbedTestBase {
     $this->assertLinkByHref(file_create_url($this->image->getFileUri()), 0, 'Link to the embedded image exists.');
 
     // Embed all three field types in one, to ensure they all render correctly.
-    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_label"></drupal-entity>';
-    $content .= '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->file->uuid() . '" data-entity-embed-display="file:file_default"></drupal-entity>';
-    $content .= '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->image->uuid() . '" data-entity-embed-display="image:image"></drupal-entity>';
+    $content = '<div data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="entity_reference:entity_reference_label"></div>';
+    $content .= '<div data-entity-type="file" data-entity-uuid="' . $this->file->uuid() . '" data-entity-embed-display="file:file_default"></div>';
+    $content .= '<div data-entity-type="file" data-entity-uuid="' . $this->image->uuid() . '" data-entity-embed-display="image:image"></div>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test node entity embedded first then a file entity';

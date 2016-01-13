@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Field\FormatterPluginManager;
 
 /**
- * Provides Entity Embed Display plugin definitions for field formatters.
+ * Provides entity embed display plugin definitions for field formatters.
  *
  * @see \Drupal\entity_embed\FieldFormatterEntityEmbedDisplayBase
  */
@@ -50,11 +50,10 @@ class FieldFormatterDeriver extends DeriverBase implements ContainerDeriverInter
    *
    * @throws \LogicException
    *   Throws an exception if field type is not defined in the annotation of the
-   *   Entity Embed Display plugin.
+   *   display plugin.
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    // The field type must be defined in the annotation of the Entity Embed
-    // Display plugin.
+    // The field type must be defined in the annotation of the display plugin.
     if (!isset($base_plugin_definition['field_type'])) {
       throw new \LogicException("Undefined field_type definition in plugin {$base_plugin_definition['id']}.");
     }

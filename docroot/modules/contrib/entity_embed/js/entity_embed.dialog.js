@@ -23,17 +23,6 @@
   };
 
   /**
-   * Behaviors for the entityEmbedDialog iframe.
-   */
-  Drupal.behaviors.entityEmbedDialog = {
-    attach: function (context, settings) {
-      $('body').once('js-entity-embed-dialog').on('entityBrowserIFrameAppend', function () {
-        $('.entity-select-dialog').trigger('resize');
-      });
-    }
-  };
-
-  /**
    * Entity Embed dialog utility functions.
    */
   Drupal.entityEmbedDialog = Drupal.entityEmbedDialog || {
@@ -44,9 +33,6 @@
       event.preventDefault();
       $(this).attr('target', '_blank');
       window.open(this.href, 'entityPreview', 'toolbar=0,scrollbars=1,location=1,statusbar=1,menubar=0,resizable=1');
-    },
-    selectionCompleted: function(event, uuid, entities) {
-      $('.entity-select-dialog .js-button-next').click();
     }
   };
 
