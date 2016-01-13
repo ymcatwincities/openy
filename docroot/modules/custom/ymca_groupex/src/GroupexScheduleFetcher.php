@@ -107,14 +107,17 @@ class GroupexScheduleFetcher {
     // Prepare classes items.
     $items = [];
     foreach ($this->enrichedData as $item) {
-      $items[] = [
-        'name' => $item->title,
-        'group' => $item->category,
-        'description' => $item->desc,
-        'address_1' => $item->address_1,
-        'address_2' => $item->location,
-        'time' => sprintf('%s %s', $item->day, $item->start),
-        'duration' => sprintf('%d min', $item->length),
+      $items[$item->id] = [
+        '#theme' => 'groupex_class',
+        '#class' => [
+          'name' => $item->title,
+          'group' => $item->category,
+          'description' => $item->desc,
+          'address_1' => $item->address_1,
+          'address_2' => $item->location,
+          'time' => sprintf('%s %s', $item->day, $item->start),
+          'duration' => sprintf('%d min', $item->length),
+        ],
       ];
     }
 
@@ -123,17 +126,18 @@ class GroupexScheduleFetcher {
     $schedule['type'] = $this->parameters['filter_length'];
 
     if ($schedule['type'] == 'day') {
+      // Get schedule for the current day.
       $current_day = date('D');
-      foreach ($items as $class) {
-        if ($class->day == $current_day) {
+      foreach ($items as $id => $class) {
+        if ($this->enrichedData[$id]->day == $current_day) {
           $schedule['classes'][] = $class;
         }
       }
     }
     else {
       // Pack classes into days.
-      foreach ($items as $class) {
-        $schedule['days'][$class->day] = $class;
+      foreach ($items as $id => $class) {
+        $schedule['days'][$this->enrichedData[$id]->day][] = $class;
       }
     }
 

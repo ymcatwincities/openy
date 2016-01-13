@@ -10,4 +10,12 @@
  */
 #}
 
-{{ dump(class) }}
+{#{{ dump(class) }}#}
+
+<article>
+  <dl>
+    {% for key, item in class %}
+      <dd>{{ key }} : {{ item }}</dd>
+    {% endfor %}
+  </dl>
+</article>

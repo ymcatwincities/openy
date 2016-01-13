@@ -10,4 +10,8 @@
  */
 #}
 
-{{ dump(classes) }}
+{% for class in classes %}
+  <dl>
+    <dd>{{ class }}</dd>
+  </dl>
+{% endfor %}

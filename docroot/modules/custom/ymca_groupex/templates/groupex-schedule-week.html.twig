@@ -10,4 +10,11 @@
  */
 #}
 
-{{ dump(days) }}
+{% for day, classes in days %}
+  <h2>{{ day }}</h2>
+  {% for class in classes %}
+    <dl>
+      <dd>{{ class }}</dd>
+    </dl>
+  {% endfor %}
+{% endfor %}
