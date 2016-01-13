@@ -176,7 +176,7 @@ class YmcaMigrateNodeLocationSchedule extends SqlBase {
   private function getAssets($string) {
     $ids = [];
 
-    $regex = "/.*<li><a.*{{internal_asset_link_(\d+)}}.*>(.*)<\/a><\/li>/";
+    $regex = "/.*<li><a[^{}]*{{internal_asset_link_(\d+)}}.*>(.*)<\/a><\/li>/";
     preg_match_all($regex, $string, $test);
 
     if (empty($test) || empty($test[0])) {

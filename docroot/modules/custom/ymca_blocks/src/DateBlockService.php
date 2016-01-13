@@ -71,17 +71,20 @@ class DateBlockService {
    */
   public function getSlides($date_block_id = 0) {
     if ($date_block_id == 0) {
-      throw new \Exception('Block ID shoudn\'t be zero');
+      \Drupal::logger('Date Blocks')->critical(t('Block ID shoudn\'t be zero'));
+      return FALSE;
     }
     /** @var BlockContent $date_block */
     $date_block = \Drupal::entityTypeManager()->getStorage('block_content')->load($date_block_id);
 
     if ($date_block->get('type')->get(0)->getValue()['target_id'] !== 'date_block') {
-      throw new \Exception('Block type is not date_block.');
+      \Drupal::logger('Date Blocks')->critical(t('Block type is not date_block.'));
+      return FALSE;
     }
 
     if ($date_block->_referringItem->getFieldDefinition()->get('field_name') != 'field_promo_slideshow') {
-      throw new \Exception('Block is not referenced from field_promo_slideshow.');
+      \Drupal::logger('Date Blocks')->critical(t('Block is not referenced from field_promo_slideshow.'));
+      return FALSE;
     }
 
     $this->initBlockData($date_block);
@@ -120,7 +123,12 @@ class DateBlockService {
 
     }
     // Obtain SlideShow.
-    $this->setSlideShowBlockEntity($this->activeContent);
+    try {
+      $this->setSlideShowBlockEntity($this->activeContent);
+    }
+    catch (\Exception $e) {
+      watchdog_exception(__CLASS__, $e);
+    }
 
     return $this;
   }
@@ -202,15 +210,18 @@ class DateBlockService {
    */
   private function setSlideShowBlockEntity($embed_data = '') {
     if ($embed_data == '') {
-      throw new \Exception('Embed data cannot be empty');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data cannot be empty'));
+      return FALSE;
     }
 
     preg_match_all("/<drupal-entity.*data-entity-uuid=\"(.*)\">.*<\/drupal-entity>/miU", $embed_data, $match);
     if (!isset($match[1][0])) {
-      throw new \Exception('Embed data contains no entity_embed code');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data contains no entity_embed code'));
+      return FALSE;
     }
     if (count($match[1]) !== 1) {
-      throw new \Exception('Embed data contains inappropriate entity_embed code. Should be single item only');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data contains inappropriate entity_embed code. Should be single item only'));
+      return FALSE;
     }
     $b_type = 'block_content';
     $query = \Drupal::entityQuery($b_type)
@@ -218,7 +229,8 @@ class DateBlockService {
       ->condition('uuid', $match[1][0])
       ->execute();
     if (empty($query)) {
-      throw new \Exception('Embed data contains uuid to non existent SlideShow block');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data contains uuid to non existent SlideShow block'));
+      return FALSE;
     }
     $slideshow_block_id = array_shift($query);
     $this->slideShowBlockEntity = \Drupal::entityManager()->getStorage($b_type)->load($slideshow_block_id);
@@ -236,8 +248,8 @@ class DateBlockService {
       $title = is_null($slide_entity->get('field_title')->get(0)) ? '' : $slide_entity->get('field_title')->get(0)->getValue()['value'];
       $img_url = is_null($slide_entity->get('field_image')->get(0)) ? '' : File::load($slide_entity->get('field_image')->get(0)->getValue()['target_id'])->getFileUri();
       $menu_link = is_null($slide_entity->get('field_block_content')->get(0)) ? NULL : $this->getMenuLinkEntity($slide_entity->get('field_block_content')->get(0)->getValue()['value']);
-      $btn_url = is_null($menu_link) ? '' : $menu_link->get('link')->get(0)->getValue()['uri'];
-      $btn_title = is_null($menu_link) ? '' : $menu_link->label();
+      $btn_url = is_null($menu_link) || is_bool($menu_link) || is_null($menu_link->get('link')) ? '' : $menu_link->get('link')->get(0)->getValue()['uri'];
+      $btn_title = is_null($menu_link) || is_bool($menu_link) || is_null($menu_link->get('link')) ? '' : $menu_link->label();
 
       $this->slideShowItems[$i]['id'] = $i;
       $this->slideShowItems[$i]['title'] = $title;
@@ -261,15 +273,18 @@ class DateBlockService {
    */
   private function getMenuLinkEntity($embed_data) {
     if ($embed_data == '') {
-      throw new \Exception('Embed data cannot be empty');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data cannot be empty'));
+      return FALSE;
     }
 
     preg_match_all("/<drupal-entity.*data-entity-type=\"menu_link_content\".*data-entity-uuid=\"(.*)\">.*<\/drupal-entity>/miU", $embed_data, $match);
     if (!isset($match[1][0])) {
-      throw new \Exception('Embed data contains no entity_embed code');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data contains no entity_embed code'));
+      return FALSE;
     }
     if (count($match[1]) !== 1) {
-      throw new \Exception('Embed data contains inappropriate entity_embed code. Should be single item Menu Link only');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data contains inappropriate entity_embed code. Should be single item Menu Link only'));
+      return FALSE;
     }
 
     $b_type = 'menu_link_content';
@@ -277,7 +292,8 @@ class DateBlockService {
       ->condition('uuid', $match[1][0])
       ->execute();
     if (empty($query)) {
-      throw new \Exception('Embed data contains uuid to non existent Menu Link item');
+      \Drupal::logger('Date Blocks')->critical(t('Embed data contains uuid to non existent Menu Link item'));
+      return FALSE;
     }
     $menu_item_id = array_shift($query);
     return \Drupal::entityManager()->getStorage($b_type)->load($menu_item_id);
