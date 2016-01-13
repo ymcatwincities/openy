@@ -9,6 +9,9 @@ namespace Drupal\ymca_groupex;
 /**
  * Fetches and prepares Groupex data.
  * @package Drupal\ymca_groupex
+ *
+ * @todo Filter out by class.
+ * @todo Filter out by date.
  */
 class GroupexScheduleFetcher {
 
@@ -29,11 +32,75 @@ class GroupexScheduleFetcher {
   private $enrichedData = [];
 
   /**
+   * Filtered data (enriched).
+   *
+   * @var array
+   */
+  private $filteredData = [];
+
+  /**
    * Query parameters.
    *
    * @var array
    */
   private $parameters = [];
+
+  /**
+   * ScheduleFetcher constructor.
+   */
+  public function __construct(array $parameters) {
+    $this->prepareParameters($parameters);
+    $this->getData();
+    $this->enrichData();
+    $this->filterData();
+  }
+
+  /**
+   * Get schedule.
+   *
+   * @return array
+   *   A schedule. It could be of 2 types:
+   *    - day: all classes within classes key
+   *    - week: all classes grouped by day within days key
+   */
+  public function getSchedule() {
+    // Prepare classes items.
+    $items = [];
+
+    foreach ($this->filteredData as $item) {
+      $items[$item->id] = [
+        '#theme' => 'groupex_class',
+        '#class' => [
+          'id' => $item->id,
+          'name' => $item->title,
+          'group' => $item->category,
+          'description' => $item->desc,
+          'address_1' => $item->address_1,
+          'address_2' => $item->location,
+          'time' => sprintf('%s %s', $item->day, $item->start),
+          'duration' => sprintf('%d min', $item->length),
+        ],
+      ];
+    }
+
+    // Pack classes into the schedule.
+    $schedule = [];
+    $schedule['type'] = $this->parameters['filter_length'];
+
+    if ($schedule['type'] == 'day') {
+      foreach ($items as $id => $class) {
+        $schedule['classes'][] = $class;
+      }
+    }
+    else {
+      // Pack classes into days.
+      foreach ($items as $id => $class) {
+        $schedule['days'][$this->enrichedData[$id]->day][] = $class;
+      }
+    }
+
+    return $schedule;
+  }
 
   /**
    * Fetch data from the server.
@@ -58,11 +125,12 @@ class GroupexScheduleFetcher {
       $options['query']['category'] = $this->parameters['category'];
     }
 
-    $data = $this->request($options);
+    // Class is optional.
+    if ($this->parameters['class'] =! 'any') {
+      $options['query']['class'] = $this->parameters['class'];
+    }
 
-    // @todo Filter out data by monring, afternoon, evening.
-    // @todo Group data by day, if parameter is week.
-    // @todo Filter out by class.
+    $data = $this->request($options);
 
     $rawData = [];
     foreach ($data as $item) {
@@ -88,68 +156,56 @@ class GroupexScheduleFetcher {
       preg_match("/(.*)-(.*)/i", $item->time, $output);
       $item->start = $output[1];
       $item->end = $output[2];
+
+      // Get time of day.
+      $datetime = new \DateTime($item->start);
+      $start_hour = $datetime->format('G');
+      $item->time_of_day = 'morning';
+      $item->time_of_day = ($start_hour >= 12) ? "afternoon" : $item->time_of_day;
+      $item->time_of_day = ($start_hour >= 17) ? "evening"   : $item->time_of_day;
     }
 
     $this->enrichedData = $data;
   }
 
   /**
-   * Get schedule.
-   *
-   * Filter out extra data and prepare variables for templates.
-   *
-   * @return array
-   *   A schedule. It could be of 2 types:
-   *    - day: all classes within classes key
-   *    - week: all classes grouped by day within days key
+   * Filter the enriched data.
    */
-  public function getSchedule() {
-    // Prepare classes items.
-    $items = [];
-    foreach ($this->enrichedData as $item) {
-      $items[$item->id] = [
-        '#theme' => 'groupex_class',
-        '#class' => [
-          'name' => $item->title,
-          'group' => $item->category,
-          'description' => $item->desc,
-          'address_1' => $item->address_1,
-          'address_2' => $item->location,
-          'time' => sprintf('%s %s', $item->day, $item->start),
-          'duration' => sprintf('%d min', $item->length),
-        ],
-      ];
-    }
+  private function filterData() {
+    $filtered = $this->enrichedData;
+    $param = $this->parameters;
 
-    // Pack classes into the schedule.
-    $schedule = [];
-    $schedule['type'] = $this->parameters['filter_length'];
-
-    if ($schedule['type'] == 'day') {
-      // Get schedule for the current day.
-      $current_day = date('D');
-      foreach ($items as $id => $class) {
-        if ($this->enrichedData[$id]->day == $current_day) {
-          $schedule['classes'][] = $class;
+    // If schedule type is day limit by current day.
+    if ($param['filter_length'] == 'day') {
+      $filtered = array_filter($filtered, function($item) {
+        if ($item->day == date('D')) {
+          return TRUE;
         }
-      }
-    }
-    else {
-      // Pack classes into days.
-      foreach ($items as $id => $class) {
-        $schedule['days'][$this->enrichedData[$id]->day][] = $class;
-      }
+        return FALSE;
+      });
     }
 
-    return $schedule;
+    // Filter out by time of the day.
+    if (!empty($param['time_of_day'])) {
+      $filtered = array_filter($filtered, function($item) use ($param) {
+        if (in_array($item->time_of_day, $param['time_of_day'])) {
+          return TRUE;
+        }
+        return FALSE;
+      });
+    }
+
+    $this->filteredData = $filtered;
   }
 
+
   /**
-   * ScheduleFetcher constructor.
+   * Process parameters.
+   *
+   * @param array $parameters
+   *   Input parameters.
    */
-  public function __construct(array $parameters) {
+  private function prepareParameters($parameters) {
     $this->parameters = $parameters;
-    $this->getData();
-    $this->enrichData();
   }
 }
