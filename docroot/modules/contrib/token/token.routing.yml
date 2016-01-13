@@ -1,0 +1,63 @@
+token.tree:
+  path: '/token/tree'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenTreeController::outputTree'
+  requirements:
+    _csrf_token: 'TRUE'
+
+token.autocomplete:
+  path: '/token/autocomplete/{token_type}/{filter}'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenAutocompleteController::autocomplete'
+  requirements:
+    _access: 'TRUE'
+
+token.flush_cache:
+  path: '/token/flush-cache'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenCacheController::flush'
+  requirements:
+    _permission: 'flush caches'
+    _csrf_token: 'TRUE'
+    _module_dependencies: 'admin_menu'
+
+token.devel_node_token:
+  path: '/node/{node}/devel/token'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenDevelController::devel_token_node'
+    _title: 'Tokens'
+  options:
+    _access_mode: 'ALL'
+  requirements:
+    _permission: 'access devel information'
+    _module_dependencies: 'devel'
+token.devel_comment_token:
+  path: '/comment/{comment}/devel/token'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenDevelController::devel_token_comment'
+    _title: 'Tokens'
+  options:
+    _access_mode: 'ALL'
+  requirements:
+    _permission: 'access devel information'
+    _module_dependencies: 'devel'
+token.devel_taxonomy_term_token:
+  path: '/taxonomy/term/{taxonomy_term}/devel/token'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenDevelController::devel_token_taxonomy_term'
+    _title: 'Tokens'
+  options:
+    _access_mode: 'ALL'
+  requirements:
+    _permission: 'access devel information'
+    _module_dependencies: 'devel'
+token.devel_user_token:
+  path: '/user/{user}/devel/token'
+  defaults:
+    _controller: '\Drupal\token\Controller\TokenDevelController::devel_token_user'
+    _title: 'Tokens'
+  options:
+    _access_mode: 'ALL'
+  requirements:
+    _permission: 'access devel information'
+    _module_dependencies: 'devel'
