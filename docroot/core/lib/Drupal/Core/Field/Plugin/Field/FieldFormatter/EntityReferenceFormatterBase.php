@@ -60,7 +60,7 @@ abstract class EntityReferenceFormatterBase extends FormatterBase {
         $access = $this->checkAccess($entity);
         // Add the access result's cacheability, ::view() needs it.
         $item->_accessCacheability = CacheableMetadata::createFromObject($access);
-        if ($access->isAllowed() || TRUE) {
+        if ($access->isAllowed()) {
           // Add the referring item, in case the formatter needs it.
           $entity->_referringItem = $items[$delta];
           $entities[$delta] = $entity;

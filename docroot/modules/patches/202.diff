@@ -1,0 +1,13 @@
+diff --git a/src/EntityEmbedDisplay/EntityEmbedDisplayBase.php b/src/EntityEmbedDisplay/EntityEmbedDisplayBase.php
+index 2e6ef49..87b0331 100644
+--- a/src/EntityEmbedDisplay/EntityEmbedDisplayBase.php
++++ b/src/EntityEmbedDisplay/EntityEmbedDisplayBase.php
+@@ -81,7 +81,7 @@ public function access(AccountInterface $account = NULL) {
+     }
+ 
+     // Check that the entity itself can be viewed by the user.
+-    if ($entity = $this->getEntityFromContext()) {
++    if ($entity = $this->getEntityFromContext() && $account) {
+       return $entity->access('view', $account);
+     }
+ 
