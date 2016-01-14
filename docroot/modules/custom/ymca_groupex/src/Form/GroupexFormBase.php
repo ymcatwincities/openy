@@ -155,4 +155,22 @@ abstract class GroupexFormBase extends FormBase {
     return $params;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $location = $form_state->getValue('location');
+
+    // User may select up to 4 locations.
+    if (count($location) > 4) {
+      $form_state->setError($form['location'], $this->t('Please, select less than 4 locations.'));
+    }
+
+    $filter_length = array_filter($form_state->getValue('filter_length'));
+    // User may not search by 2 locations and week period.
+    if (count($location) > 1 && reset($filter_length) != 'day') {
+      $form_state->setError($form['filter_length'], $this->t('Please, choose day view.'));
+    }
+  }
+
 }
