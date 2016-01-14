@@ -6,6 +6,10 @@
 
 namespace Drupal\ymca_groupex;
 
+/**
+ * Class GroupexRequestTrait
+ * @package Drupal\ymca_groupex
+ */
 trait GroupexRequestTrait {
 
   /**

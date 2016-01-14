@@ -22,16 +22,35 @@ abstract class GroupexFormBase extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    // Check if we have additional argument to prepopulate the form.
+    $refine = FALSE;
+    $params = [];
+    $args = func_get_args();
+    if (isset($args[2])) {
+      $refine = TRUE;
+      $params = $args[2];
+    }
+
+    // Classes IDs has some garbage withing the IDs, stupid GroupEx.
+    $class_name_options = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
+    $dirty_keys = array_keys($class_name_options);
+    $refined_keys = array_map(function($item) {
+      return str_replace('DESC--[', '', $item);
+    }, $dirty_keys);
+    $refined_options = array_combine($refined_keys, array_values($class_name_options));
+
     $form['class_name'] = [
       '#type' => 'select',
-      '#options' => ['any' => $this->t('All')] + $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title'),
+      '#options' => ['any' => $this->t('All')] + $refined_options,
       '#title' => $this->t('Class Name (optional)'),
+      '#default_value' => $refine ? $params['class'] : [],
     ];
 
     $form['category'] = [
       '#type' => 'select',
       '#options' => ['any' => $this->t('All')] + $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name'),
       '#title' => $this->t('Category (optional)'),
+      '#default_value' => $refine ? $params['category'] : [],
     ];
 
     $form['time_of_day'] = [
@@ -42,6 +61,7 @@ abstract class GroupexFormBase extends FormBase {
         'evening' => $this->t('Evening (5 p.m. - 10 p.m.)'),
       ],
       '#title' => $this->t('Time of Day (optional)'),
+      '#default_value' => $refine ? $params['time_of_day'] : [],
     ];
 
     $form['filter_length'] = [
@@ -50,15 +70,22 @@ abstract class GroupexFormBase extends FormBase {
         'day' => $this->t('Day'),
         'week' => $this->t('Week'),
       ],
-      '#default_value' => ['day'],
+      '#default_value' => $refine ? [$params['filter_length']] : ['day'],
       '#title' => $this->t('View Day or Week'),
       '#description' => $this->t('Selecting more than one location limits your search to one day.'),
     ];
 
+    $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME);
+    if ($refine) {
+      $filter_date_default = DrupalDateTime::createFromFormat(
+        self::$date_filter_format,
+        $params['filter_date']
+      );
+    }
     $form['filter_date'] = [
       '#type' => 'datetime',
       '#title' => $this->t('Start Date'),
-      '#default_value' => DrupalDateTime::createFromTimestamp(REQUEST_TIME),
+      '#default_value' => $filter_date_default,
       '#date_time_element' => 'none',
     ];
 
@@ -109,7 +136,7 @@ abstract class GroupexFormBase extends FormBase {
   protected function getRedirectParams(array $form, FormStateInterface $form_state) {
     $params = [
       'location' => array_values($form_state->getValue('location')),
-      'class' => str_replace('DESC--[', '', $form_state->getValue('class_name')),
+      'class' => $form_state->getValue('class_name'),
       'category' => $form_state->getValue('category'),
       'filter_length' => reset($form_state->getValue('filter_length')),
     ];

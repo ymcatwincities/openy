@@ -44,6 +44,10 @@ function ymca_groupex_preprocess_node(&$variables) {
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'groupex') {
     $query = \Drupal::request()->query->all();
 
+    // Output refine form.
+    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormFull', $query);
+    $variables['groupex_form_refine'] = \Drupal::service('renderer')->render($form, FALSE);
+
     // Get classes schedules.
     $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher($query);
     $schedule = $fetcher->getSchedule();
