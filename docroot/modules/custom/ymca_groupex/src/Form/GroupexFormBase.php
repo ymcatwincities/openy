@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\ymca_groupex\Form\GroupexFormBase
+ * Contains \Drupal\ymca_groupex\Form\GroupexFormBase.
  */
 
 namespace Drupal\ymca_groupex\Form;
@@ -35,7 +35,7 @@ abstract class GroupexFormBase extends FormBase {
     $class_name_options = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $dirty_keys = array_keys($class_name_options);
     $refined_keys = array_map(function($item) {
-      return str_replace('DESC--[', '', $item);
+      return str_replace(self::$id_strip, '', $item);
     }, $dirty_keys);
     $refined_options = array_combine($refined_keys, array_values($class_name_options));
 
@@ -103,11 +103,11 @@ abstract class GroupexFormBase extends FormBase {
   /**
    * Get form item options.
    *
-   * @param $data
+   * @param array $data
    *   Data to iterate.
-   * @param $key
+   * @param string $key
    *   Key name.
-   * @param $value
+   * @param string $value
    *   Value name.
    *
    * @return array

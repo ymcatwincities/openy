@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\ymca_groupex\Form\GroupexFormFull
+ * Contains \Drupal\ymca_groupex\Form\GroupexFormFull.
  */
 
 namespace Drupal\ymca_groupex\Form;
@@ -19,7 +19,11 @@ class GroupexFormFull extends GroupexFormBase {
     return 'groupex_form_full';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // @todo Implement submitter.
   }
 
 }

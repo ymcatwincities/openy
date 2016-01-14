@@ -8,7 +8,8 @@ namespace Drupal\ymca_groupex;
 
 /**
  * Fetches and prepares Groupex data.
- * @package Drupal\ymca_groupex
+ *
+ * @package Drupal\ymca_groupex.
  */
 class GroupexScheduleFetcher {
 
@@ -114,7 +115,7 @@ class GroupexScheduleFetcher {
     }
 
     $options = [
-      'query' =>  [
+      'query' => [
         'schedule' => TRUE,
         'desc' => 'true',
         'location' => $this->parameters['location'],
@@ -126,7 +127,10 @@ class GroupexScheduleFetcher {
       $options['query']['category'] = $this->parameters['category'];
     }
 
-    // @todo Filter by class.
+    // Class is optional.
+    if ($this->parameters['class'] !== 'any') {
+      $options['query']['class'] = self:: $id_strip . $this->parameters['class'];
+    }
 
     // Filter by date.
     $period = 60 * 60 * 24;
@@ -135,17 +139,17 @@ class GroupexScheduleFetcher {
     }
     $dt = new \DateTime();
     $date = $dt->createFromFormat(self::$date_filter_format, $this->parameters['filter_date']);
-    $date->setTime(1,0,0);
+    $date->setTime(1, 0, 0);
     $options['query']['start'] = $date->getTimestamp();
     $options['query']['end'] = $date->getTimestamp() + $period;
 
     $data = $this->request($options);
 
-    $rawData = [];
+    $raw_data = [];
     foreach ($data as $item) {
-      $rawData[$item->id] = $item;
+      $raw_data[$item->id] = $item;
     }
-    $this->rawData = $rawData;
+    $this->rawData = $raw_data;
   }
 
   /**
@@ -170,8 +174,8 @@ class GroupexScheduleFetcher {
       $datetime = new \DateTime($item->start);
       $start_hour = $datetime->format('G');
       $item->time_of_day = 'morning';
-      $item->time_of_day = ($start_hour >= 12) ? "afternoon" : $item->time_of_day;
-      $item->time_of_day = ($start_hour >= 17) ? "evening"   : $item->time_of_day;
+      $item->time_of_day = ($start_hour >= self::$time_afternoon) ? "afternoon" : $item->time_of_day;
+      $item->time_of_day = ($start_hour >= self::$time_evening) ? "evening" : $item->time_of_day;
     }
 
     $this->enrichedData = $data;
@@ -206,4 +210,5 @@ class GroupexScheduleFetcher {
   private function prepareParameters($parameters) {
     $this->parameters = $parameters;
   }
+
 }

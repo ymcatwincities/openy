@@ -34,6 +34,34 @@ trait GroupexRequestTrait {
   public static $date_filter_format = 'j n y';
 
   /**
+   * Groupex ID garbage.
+   *
+   * @var string
+   */
+  public static $id_strip = 'DESC--[';
+
+  /**
+   * Morning time.
+   *
+   * @var int
+   */
+  public static $time_morning = 6;
+
+  /**
+   * Afternoon time.
+   *
+   * @var int
+   */
+  public static $time_afternoon = 12;
+
+  /**
+   * Evening time.
+   *
+   * @var int
+   */
+  public static $time_evening = 17;
+
+  /**
    * Make a request to GroupEx.
    *
    * @param $options

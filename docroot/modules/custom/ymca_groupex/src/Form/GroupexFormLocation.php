@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\ymca_groupex\Form\GroupexFormLocation
+ * Contains \Drupal\ymca_groupex\Form\GroupexFormLocation.
  */
 
 namespace Drupal\ymca_groupex\Form;
