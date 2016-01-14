@@ -103,6 +103,8 @@ class GroupexScheduleFetcher {
 
   /**
    * Fetch data from the server.
+   *
+   * @todo The server return extra results for the day before of provided period.
    */
   private function getData() {
     // No request parameters - no data.
@@ -120,7 +122,7 @@ class GroupexScheduleFetcher {
     ];
 
     // Category is optional.
-    if ($this->parameters['category'] =! 'any') {
+    if ($this->parameters['category'] !== 'any') {
       $options['query']['category'] = $this->parameters['category'];
     }
 

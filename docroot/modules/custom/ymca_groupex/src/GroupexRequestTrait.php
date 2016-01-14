@@ -39,7 +39,6 @@ trait GroupexRequestTrait {
    *   Data.
    */
   private function request($options) {
-    return [];
     $client = \Drupal::httpClient();
     $data = [];
     $options_defaults = [

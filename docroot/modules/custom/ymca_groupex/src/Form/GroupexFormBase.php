@@ -19,67 +19,9 @@ abstract class GroupexFormBase extends FormBase {
   use GroupexRequestTrait;
 
   /**
-   * Get form item options.
-   *
-   * @param $data
-   *   Data to iterate.
-   * @param $key
-   *   Key name.
-   * @param $value
-   *   Value name.
-   *
-   * @return array
-   *   Array of options.
-   */
-  private function getOptions($data, $key, $value) {
-    $options = [];
-    foreach ($data as $item) {
-      $options[$item->$key] = $item->$value;
-    }
-
-    return $options;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['note'] = [
-      '#markup' => $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.'),
-    ];
-
-    // Get current node.
-    $node = \Drupal::routeMatch()->getParameter('node');
-
-    // Get location ID.
-    $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
-    $location_id = array_search(
-      $node->label(),
-      array_combine(
-        array_column($locations, 'id'),
-        array_column($locations, 'name')
-      ),
-      TRUE
-    );
-
-    // Form should not be shown if there is no Location.
-    if (!$location_id) {
-      \Drupal::logger('ymca_groupex')->error("Location ID could not be found.");
-      return [
-        '#markup' => $this->t('Sorry, search form is currently unavailable.'),
-      ];
-    }
-
-    $form['location'] = [
-      '#type' => 'hidden',
-      '#value' => $location_id,
-    ];
-
-    $form['nid'] = [
-      '#type' => 'hidden',
-      '#value' => $node->id(),
-    ];
-
     $form['class_name'] = [
       '#type' => 'select',
       '#options' => ['any' => $this->t('All')] + $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title'),
@@ -102,7 +44,6 @@ abstract class GroupexFormBase extends FormBase {
       '#title' => $this->t('Time of Day (optional)'),
     ];
 
-    // @todo Add JS which will toggle checkbox if one is selected.
     $form['filter_length'] = [
       '#type' => 'checkboxes',
       '#options' => [
@@ -133,12 +74,41 @@ abstract class GroupexFormBase extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Get form item options.
+   *
+   * @param $data
+   *   Data to iterate.
+   * @param $key
+   *   Key name.
+   * @param $value
+   *   Value name.
+   *
+   * @return array
+   *   Array of options.
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Get params.
+  protected function getOptions($data, $key, $value) {
+    $options = [];
+    foreach ($data as $item) {
+      $options[$item->$key] = $item->$value;
+    }
+
+    return $options;
+  }
+
+  /**
+   * Get redirect parameters.
+   *
+   * @param array $form
+   *   Drupal form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return array
+   *   Redirect parameters.
+   */
+  protected function getRedirectParams(array $form, FormStateInterface $form_state) {
     $params = [
-      'location' => $form_state->getValue('location'),
+      'location' => array_values($form_state->getValue('location')),
       'class' => str_replace('DESC--[', '', $form_state->getValue('class_name')),
       'category' => $form_state->getValue('category'),
       'filter_length' => reset($form_state->getValue('filter_length')),
@@ -155,12 +125,7 @@ abstract class GroupexFormBase extends FormBase {
     $date = $form_state->getValue('filter_date');
     $params['filter_date'] = $date->format(self::$date_filter_format);
 
-    // Perform redirect.
-    $form_state->setRedirect(
-      'ymca_groupex.schedules_search_results',
-      ['node' => $form_state->getValue('nid')],
-      ['query' => $params]
-    );
+    return $params;
   }
 
 }

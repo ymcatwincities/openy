@@ -53,6 +53,7 @@ function ymca_groupex_preprocess_node(&$variables) {
     ];
 
     // Output schedule by type.
+    // @todo Add schedule by location.
     switch ($schedule['type']) {
       case 'day':
         // Check if there is something.
