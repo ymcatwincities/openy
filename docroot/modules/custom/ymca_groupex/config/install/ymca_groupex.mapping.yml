@@ -1,2 +1,6 @@
 locations:
   - { id: 26, name: "Andover YMCA Community Center" }
+  - { id: 33, name: "Blaisdell YMCA" }
+  - { id: 30, name: "Burnsville YMCA" }
+  - { id: 16, name: "Eagan YMCA" }
+  - { id: 27, name: "Elk River YMCA" }
