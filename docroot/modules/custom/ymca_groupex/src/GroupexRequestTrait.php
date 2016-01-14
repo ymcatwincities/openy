@@ -7,8 +7,9 @@
 namespace Drupal\ymca_groupex;
 
 /**
- * Class GroupexRequestTrait
- * @package Drupal\ymca_groupex
+ * Class GroupexRequestTrait.
+ *
+ * @package Drupal\ymca_groupex.
  */
 trait GroupexRequestTrait {
 
@@ -31,40 +32,40 @@ trait GroupexRequestTrait {
    *
    * @var string
    */
-  public static $date_filter_format = 'j n y';
+  public static $dateFilterFormat = 'j n y';
 
   /**
    * Groupex ID garbage.
    *
    * @var string
    */
-  public static $id_strip = 'DESC--[';
+  public static $idStrip = 'DESC--[';
 
   /**
    * Morning time.
    *
    * @var int
    */
-  public static $time_morning = 6;
+  public static $timeMorning = 6;
 
   /**
    * Afternoon time.
    *
    * @var int
    */
-  public static $time_afternoon = 12;
+  public static $timeAfternoon = 12;
 
   /**
    * Evening time.
    *
    * @var int
    */
-  public static $time_evening = 17;
+  public static $timeEvening = 17;
 
   /**
    * Make a request to GroupEx.
    *
-   * @param $options
+   * @param array $options
    *   Request options.
    *
    * @return array
@@ -84,7 +85,7 @@ trait GroupexRequestTrait {
       $body = $response->getBody();
       $data = json_decode($body->getContents());
     }
-    catch(\Exception $e) {
+    catch (\Exception $e) {
       watchdog_exception('ymca_groupex', $e);
     }
 

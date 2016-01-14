@@ -146,7 +146,7 @@ class GroupexScheduleFetcher {
 
     // Class is optional.
     if ($this->parameters['class'] !== 'any') {
-      $options['query']['class'] = self:: $id_strip . $this->parameters['class'];
+      $options['query']['class'] = self::$idStrip. $this->parameters['class'];
     }
 
     // Filter by date.
@@ -155,7 +155,7 @@ class GroupexScheduleFetcher {
       $period = 60 * 60 * 24 * 7;
     }
     $dt = new \DateTime();
-    $date = $dt->createFromFormat(self::$date_filter_format, $this->parameters['filter_date']);
+    $date = $dt->createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date']);
     $date->setTime(1, 0, 0);
     $options['query']['start'] = $date->getTimestamp();
     $options['query']['end'] = $date->getTimestamp() + $period;
@@ -191,8 +191,8 @@ class GroupexScheduleFetcher {
       $datetime = new \DateTime($item->start);
       $start_hour = $datetime->format('G');
       $item->time_of_day = 'morning';
-      $item->time_of_day = ($start_hour >= self::$time_afternoon) ? "afternoon" : $item->time_of_day;
-      $item->time_of_day = ($start_hour >= self::$time_evening) ? "evening" : $item->time_of_day;
+      $item->time_of_day = ($start_hour >= self::$timeAfternoon) ? "afternoon" : $item->time_of_day;
+      $item->time_of_day = ($start_hour >= self::$timeEvening) ? "evening" : $item->time_of_day;
     }
 
     $this->enrichedData = $data;

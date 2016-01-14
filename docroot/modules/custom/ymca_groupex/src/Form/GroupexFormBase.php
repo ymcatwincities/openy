@@ -35,7 +35,7 @@ abstract class GroupexFormBase extends FormBase {
     $class_name_options = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $dirty_keys = array_keys($class_name_options);
     $refined_keys = array_map(function($item) {
-      return str_replace(self::$id_strip, '', $item);
+      return str_replace(self::$idStrip, '', $item);
     }, $dirty_keys);
     $refined_options = array_combine($refined_keys, array_values($class_name_options));
 
@@ -78,7 +78,7 @@ abstract class GroupexFormBase extends FormBase {
     $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME);
     if ($refine) {
       $filter_date_default = DrupalDateTime::createFromFormat(
-        self::$date_filter_format,
+        self::$dateFilterFormat,
         $params['filter_date']
       );
     }
@@ -150,7 +150,7 @@ abstract class GroupexFormBase extends FormBase {
     // Get date.
     /** @var DrupalDateTime $date */
     $date = $form_state->getValue('filter_date');
-    $params['filter_date'] = $date->format(self::$date_filter_format);
+    $params['filter_date'] = $date->format(self::$dateFilterFormat);
 
     return $params;
   }
