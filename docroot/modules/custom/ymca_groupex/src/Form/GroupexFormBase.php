@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\ymca_groupex\Form\FindClassesForm
+ * Contains \Drupal\ymca_groupex\Form\GroupexFormBase
  */
 
 namespace Drupal\ymca_groupex\Form;
@@ -12,9 +12,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_groupex\GroupexRequestTrait;
 
 /**
- * Implements a FindClassesForm.
+ * Implements Groupex form for location.
  */
-class FindClassesForm extends FormBase {
+abstract class GroupexFormBase extends FormBase {
 
   use GroupexRequestTrait;
 
@@ -38,13 +38,6 @@ class FindClassesForm extends FormBase {
     }
 
     return $options;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getFormId() {
-    return 'find_classes_form';
   }
 
   /**

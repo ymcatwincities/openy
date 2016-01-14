@@ -85,12 +85,14 @@ class GroupexScheduleFetcher {
     $schedule['type'] = $this->parameters['filter_length'];
 
     if ($schedule['type'] == 'day') {
+      $schedule['classes'] = [];
       foreach ($items as $id => $class) {
         $schedule['classes'][] = $class;
       }
     }
     else {
       // Pack classes into days.
+      $schedule['days'] = [];
       foreach ($items as $id => $class) {
         $schedule['days'][$this->enrichedData[$id]->day][] = $class;
       }

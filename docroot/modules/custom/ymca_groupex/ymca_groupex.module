@@ -36,30 +36,42 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
 function ymca_groupex_preprocess_node(&$variables) {
   // Pass the form to the schedules page.
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'schedules') {
-    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\FindClassesForm');
+    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormLocation');
     $variables['form_find_classes'] = \Drupal::service('renderer')->render($form, FALSE);
   }
 
   // Pass the search results to the schedules page.
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'groupex') {
+    $query = \Drupal::request()->query->all();
+
     // Get classes schedules.
-    $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher(\Drupal::request()->query->all());
+    $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher($query);
     $schedule = $fetcher->getSchedule();
+
+    $results = [
+      '#markup' => t('Nothing found...'),
+    ];
 
     // Output schedule by type.
     switch ($schedule['type']) {
       case 'day':
-        $results = [
-          '#theme' => 'groupex_schedule_day',
-          '#classes' => $schedule['classes'],
-        ];
+        // Check if there is something.
+        if (!empty($schedule['classes'])) {
+          $results = [
+            '#theme' => 'groupex_schedule_day',
+            '#classes' => $schedule['classes'],
+          ];
+        }
         break;
 
       case 'week':
-        $results = [
-          '#theme' => 'groupex_schedule_week',
-          '#days' => $schedule['days'],
-        ];
+        // Check if there is something.
+        if (!empty($schedule['days'])) {
+          $results = [
+            '#theme' => 'groupex_schedule_week',
+            '#days' => $schedule['days'],
+          ];
+        }
         break;
     }
 
