@@ -70,7 +70,7 @@ trait GroupexRequestTrait {
    * @return array
    *   Data.
    */
-  private function request($options) {
+  protected function request($options) {
     $client = \Drupal::httpClient();
     $data = [];
     $options_defaults = [

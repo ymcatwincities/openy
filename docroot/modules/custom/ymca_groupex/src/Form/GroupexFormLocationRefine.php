@@ -35,4 +35,30 @@ class GroupexFormLocationRefine extends GroupexFormBase {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
+
+    // Check if we have additional argument to prepopulate the form.
+    $refine = FALSE;
+    $params = [];
+    $args = func_get_args();
+    if (isset($args[2])) {
+      $refine = TRUE;
+      $params = $args[2];
+    }
+
+    $form['location'] = [
+      '#type' => 'checkboxes',
+      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
+      '#title' => $this->t('Location (optional—select up to 4)'),
+      '#weight' => -100,
+      '#default_value' => $refine ? $params['location'] : [],
+    ];
+
+    return $form;
+  }
+
 }
