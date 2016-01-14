@@ -135,7 +135,7 @@ abstract class GroupexFormBase extends FormBase {
    */
   protected function getRedirectParams(array $form, FormStateInterface $form_state) {
     $params = [
-      'location' => array_values($form_state->getValue('location')),
+      'location' => array_filter($form_state->getValue('location')),
       'class' => $form_state->getValue('class_name'),
       'category' => $form_state->getValue('category'),
       'filter_length' => reset($form_state->getValue('filter_length')),

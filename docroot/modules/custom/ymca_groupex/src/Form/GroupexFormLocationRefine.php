@@ -23,24 +23,7 @@ class GroupexFormLocationRefine extends GroupexFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Get current node.
-    /** @var Node $node */
-    $node = \Drupal::routeMatch()->getParameter('node');
-
-    $form_state->setRedirect(
-      'ymca_groupex.schedules_search_results',
-      ['node' => $node->id()],
-      ['query' => $this->getRedirectParams($form, $form_state)]
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildForm($form, $form_state);
-
     // Check if we have additional argument to prepopulate the form.
     $refine = FALSE;
     $params = [];
@@ -49,6 +32,8 @@ class GroupexFormLocationRefine extends GroupexFormBase {
       $refine = TRUE;
       $params = $args[2];
     }
+
+    $form = parent::buildForm($form, $form_state, $params);
 
     $form['location'] = [
       '#type' => 'checkboxes',
@@ -59,6 +44,21 @@ class GroupexFormLocationRefine extends GroupexFormBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Get current node.
+    /** @var Node $node */
+    $node = \Drupal::routeMatch()->getParameter('node');
+
+    $form_state->setRedirect(
+      'ymca_groupex.schedules_search_results',
+      ['node' => $node->id()],
+      ['query' => $this->getRedirectParams($form, $form_state)]
+    );
   }
 
 }

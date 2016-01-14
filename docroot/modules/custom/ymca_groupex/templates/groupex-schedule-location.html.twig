@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Groupex location schedule template.
+ *
+ * Available variables:
+ * - locations: array of days with arrays of classes;
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% for location, classes in locations %}
+  <h2>{{ location }}</h2>
+  {% for class in classes %}
+    <dl>
+      <dd>{{ class }}</dd>
+    </dl>
+  {% endfor %}
+{% endfor %}

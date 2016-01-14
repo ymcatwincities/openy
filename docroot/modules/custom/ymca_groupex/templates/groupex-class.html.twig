@@ -15,7 +15,9 @@
 <article>
   <dl>
     {% for key, item in class %}
+      {% if key != 'description' %}
       <dd>{{ key }} : {{ item }}</dd>
+      {%  endif %}
     {% endfor %}
   </dl>
 </article>

@@ -69,34 +69,51 @@ class GroupexScheduleFetcher {
       $items[$item->id] = [
         '#theme' => 'groupex_class',
         '#class' => [
-          'id' => $item->id,
-          'name' => $item->title,
-          'group' => $item->category,
+          'id' => trim($item->id),
+          'name' => trim($item->title),
+          'group' => trim($item->category),
           'description' => $item->desc,
           'address_1' => $item->address_1,
-          'address_2' => $item->location,
+          'address_2' => trim($item->location),
           'time' => sprintf('%s %s', $item->day, $item->start),
-          'duration' => sprintf('%d min', $item->length),
+          'duration' => sprintf('%d min', trim($item->length)),
         ],
       ];
     }
 
     // Pack classes into the schedule.
     $schedule = [];
-    $schedule['type'] = $this->parameters['filter_length'];
 
-    if ($schedule['type'] == 'day') {
-      $schedule['classes'] = [];
-      foreach ($items as $id => $class) {
-        $schedule['classes'][] = $class;
-      }
+    // There 3 types of schedules.
+    //  - day: show classes for single day.
+    //  - week: show classes for week grouped by day.
+    //  - location: show classes for 1 day grouped by location.
+    $schedule['type'] = $this->parameters['filter_length'];
+    if (count($this->parameters['location']) > 1) {
+      $schedule['type'] = 'location';
     }
-    else {
-      // Pack classes into days.
-      $schedule['days'] = [];
-      foreach ($items as $id => $class) {
-        $schedule['days'][$this->enrichedData[$id]->day][] = $class;
-      }
+
+    switch ($schedule['type']) {
+      case 'day':
+        $schedule['classes'] = [];
+        foreach ($items as $id => $class) {
+          $schedule['classes'][] = $class;
+        }
+        break;
+
+      case 'week':
+        $schedule['days'] = [];
+        foreach ($items as $id => $class) {
+          $schedule['days'][$this->enrichedData[$id]->day][] = $class;
+        }
+        break;
+
+      case 'location':
+        $schedule['locations'] = [];
+        foreach ($items as $id => $class) {
+          $schedule['locations'][trim($this->enrichedData[$id]->location)][] = $class;
+        }
+        break;
     }
 
     return $schedule;
@@ -118,7 +135,7 @@ class GroupexScheduleFetcher {
       'query' => [
         'schedule' => TRUE,
         'desc' => 'true',
-        'location' => $this->parameters['location'],
+        'location' => array_filter($this->parameters['location']),
       ],
     ];
 
@@ -160,7 +177,7 @@ class GroupexScheduleFetcher {
 
     foreach ($data as &$item) {
       // Get address_1.
-      $item->address_1 = sprintf('%s with %s', $item->studio, $item->instructor);
+      $item->address_1 = sprintf('%s with %s', trim($item->studio), trim($item->instructor));
 
       // Get day.
       $item->day = substr($item->date, 0, 3);

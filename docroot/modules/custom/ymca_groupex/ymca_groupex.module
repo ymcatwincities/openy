@@ -27,6 +27,12 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'groupex-schedule-week',
     ],
+    'groupex_schedule_location' => [
+      'variables' => [
+        'locations' => [],
+      ],
+      'template' => 'groupex-schedule-location',
+    ],
   ];
 }
 
@@ -57,7 +63,6 @@ function ymca_groupex_preprocess_node(&$variables) {
     ];
 
     // Output schedule by type.
-    // @todo Add schedule by location.
     switch ($schedule['type']) {
       case 'day':
         // Check if there is something.
@@ -75,6 +80,16 @@ function ymca_groupex_preprocess_node(&$variables) {
           $results = [
             '#theme' => 'groupex_schedule_week',
             '#days' => $schedule['days'],
+          ];
+        }
+        break;
+
+      case 'location':
+        // Check if there is something.
+        if (!empty($schedule['locations'])) {
+          $results = [
+            '#theme' => 'groupex_schedule_location',
+            '#locations' => $schedule['locations'],
           ];
         }
         break;
