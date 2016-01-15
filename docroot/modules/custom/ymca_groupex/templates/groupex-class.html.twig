@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Groupex class template.
+ *
+ * Available variables:
+ * - class: array of single class variables;
+ *
+ * @ingroup themeable
+ */
+#}
+
+{#{{ dump(class) }}#}
+
+<article>
+  <dl>
+    {% for key, item in class %}
+      {% if key != 'description' %}
+      <dd>{{ key }} : {{ item }}</dd>
+      {%  endif %}
+    {% endfor %}
+  </dl>
+</article>
