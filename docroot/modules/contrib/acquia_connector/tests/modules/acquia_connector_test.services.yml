@@ -1,0 +1,5 @@
+services:
+  acquia_connector_test.nspi_request:
+    class: Drupal\acquia_connector_test\Controller\NspiRequest
+    tags:
+      - {name: event_subscriber}
