@@ -9,6 +9,7 @@ namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Site\Settings;
+use Drupal\Core\Url;
 
 /**
  * Helper functions for Ymca Migrate plugins.
@@ -293,7 +294,7 @@ trait YmcaMigrateTrait {
       throw new \Exception('Input text is empty.');
     }
 
-    $regex = '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\\"(.*)\\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a.*href=\\"({{internal_page_link_.*}}|http.*)\\".*>(.*)<.*<\/p>/imU';
+    $regex = '/<p.*><img.*{{internal_asset_link_(.*)}}.*alt=\\"(.*)\\".*<\/p>.*[\n]<h2.*>(.*)<\/h2>.*[\n]<p.*>(.*)<\/p>.*[\n]<p.*><a[^{}]*href=\\"({{internal_page_link_.*}}|http.*)\\".*>(.*)<.*<\/p>/imU';
     preg_match_all($regex, $text, $match);
 
     if (empty($match[0])) {
@@ -337,7 +338,11 @@ trait YmcaMigrateTrait {
 
       /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
       $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
-      $uri = 'internal:' . $menu_link_entity->url();
+      $url = $menu_link_entity->getUrlObject();
+      $route = $url->getRouteName();
+      $params = $url->getRouteParameters();
+      $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      $uri = sprintf('internal:%s', $path);
     }
     else {
       $uri = $link_text;

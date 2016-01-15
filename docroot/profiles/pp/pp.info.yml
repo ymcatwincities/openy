@@ -77,6 +77,8 @@ dependencies:
   - rest
   - csv_serialization
   - acquia_connector
+  - ymca_groupex
+
 
 themes:
   - bartik

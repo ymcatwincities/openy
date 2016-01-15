@@ -1,0 +1,20 @@
+token.devel_node_tab:
+  route_name: token.devel_node_token
+  title: 'Tokens'
+  parent_id: devel.devel_node_tab
+  weight: 20
+token.devel_comment_tab:
+  route_name: token.devel_comment_token
+  title: 'Tokens'
+  parent_id: devel.devel_comment_tab
+  weight: 20
+token.devel_term_tab:
+  route_name: token.devel_taxonomy_term_token
+  title: 'Tokens'
+  parent_id: devel.devel_taxonomy_term_tab
+  weight: 20
+token.devel_user_tab:
+  route_name: token.devel_user_token
+  title: 'Tokens'
+  parent_id: devel.devel_user_tab
+  weight: 20

@@ -47,6 +47,7 @@ class YmcaHolidayHoursWidget extends WidgetBase {
       '#description' => t('Example: 1pm - 2pm'),
     ];
 
+    // Set default value.
     $element['date'] = array(
       '#type' => 'datetime',
       '#title' => t('Date'),
@@ -63,7 +64,8 @@ class YmcaHolidayHoursWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     foreach ($values as &$item) {
       if (!is_null($item['date']) && $item['date'] instanceof DrupalDateTime) {
-        $item['date'] = $item['date']->getTimestamp();
+        // Here we need to save the date with 00:00:00 UTC.
+        $item['date'] = strtotime($item['date']->format('d-m-Y'));
       }
       else {
         $item['date'] = NULL;
