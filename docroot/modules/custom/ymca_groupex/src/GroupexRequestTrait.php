@@ -76,12 +76,12 @@ trait GroupexRequestTrait {
     $data = [];
     $options_defaults = [
       'query' => [
-        'a' => self::$account,
+        'a' => GroupexRequestTrait::$account,
       ],
     ];
 
     try {
-      $response = $client->request('GET', self::$uri, array_merge_recursive($options_defaults, $options));
+      $response = $client->request('GET', GroupexRequestTrait::$uri, array_merge_recursive($options_defaults, $options));
       $body = $response->getBody();
       $data = json_decode($body->getContents());
     }

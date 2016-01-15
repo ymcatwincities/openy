@@ -31,16 +31,15 @@ abstract class GroupexFormBase extends FormBase {
       $params = $args[2];
     }
 
+    $form['#attributes'] = ['class' => ['groupex-search-form']];
+
     // Classes IDs has some garbage withing the IDs.
     $class_name_options = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $dirty_keys = array_keys($class_name_options);
     $refined_keys = array_map(function($item) {
-      return str_replace(self::$idStrip, '', $item);
+      return str_replace(GroupexRequestTrait::$idStrip, '', $item);
     }, $dirty_keys);
     $refined_options = array_combine($refined_keys, array_values($class_name_options));
-
-    $form['#attributes'] = ['class' => ['groupex-search-form']];
-
     $form['class_name'] = [
       '#type' => 'select',
       '#options' => ['any' => $this->t('All')] + $refined_options,
