@@ -1,0 +1,8 @@
+entity.acquia_search_server.delete_form:
+  path: '/admin/config/search/search-api/server/acquia_search_server/delete'
+  requirements:
+    _access: 'FALSE'
+entity.acquia_search_index.delete_form:
+  path: '/admin/config/search/search-api/index/acquia_search_index/delete'
+  requirements:
+    _access: 'FALSE'

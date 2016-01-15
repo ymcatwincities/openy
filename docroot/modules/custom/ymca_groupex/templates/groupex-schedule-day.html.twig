@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Groupex day schedule template.
+ *
+ * Available variables:
+ * - classes: an array of classes;
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% for class in classes %}
+  <dl>
+    <dd>{{ class }}</dd>
+  </dl>
+{% endfor %}
