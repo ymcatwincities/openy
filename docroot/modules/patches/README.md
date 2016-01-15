@@ -9,3 +9,7 @@ description: Add a view builder for contact_form
 patch: docroot/modules/patches/patch_search_api_solr.diff
 drupal.org issue: https://www.drupal.org/node/2635462
 description: solr install failed
+
+patch: docroot/modules/patches/202.diff
+github.com issue: https://github.com/drupal-media/entity_embed/pull/202
+description: anonymous access enabler
