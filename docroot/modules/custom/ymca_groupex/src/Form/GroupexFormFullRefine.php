@@ -34,7 +34,13 @@ class GroupexFormFullRefine extends GroupexFormBase {
 
     $form = parent::buildForm($form, $form_state, $params);
 
-    $form['location']['#default_value'] = $refine ? $params['location'] : [];
+    $form['location'] = [
+      '#type' => 'checkboxes',
+      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
+      '#title' => $this->t('Location (optional—select up to 4)'),
+      '#weight' => -100,
+      '#default_value' => $refine ? $params['location'] : [],
+    ];
 
     return $form;
   }
