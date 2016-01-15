@@ -5,6 +5,7 @@
  */
 
 namespace Drupal\ymca_groupex;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Fetches and prepares Groupex data.
@@ -154,8 +155,7 @@ class GroupexScheduleFetcher {
     if ($this->parameters['filter_length'] == 'week') {
       $period = 60 * 60 * 24 * 7;
     }
-    $dt = new \DateTime();
-    $date = $dt->createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date']);
+    $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp']);
     $date->setTime(1, 0, 0);
     $options['query']['start'] = $date->getTimestamp();
     $options['query']['end'] = $date->getTimestamp() + $period;
@@ -193,6 +193,9 @@ class GroupexScheduleFetcher {
       $item->time_of_day = 'morning';
       $item->time_of_day = ($start_hour >= self::$timeAfternoon) ? "afternoon" : $item->time_of_day;
       $item->time_of_day = ($start_hour >= self::$timeEvening) ? "evening" : $item->time_of_day;
+
+      // Add timestamp.
+      $item->timestamp = DrupalDateTime::createFromTimestamp(strtotime($item->date))->getTimestamp();
     }
 
     $this->enrichedData = $data;
@@ -215,6 +218,14 @@ class GroupexScheduleFetcher {
       });
     }
 
+    // Filter out by the date.
+    $filtered = array_filter($filtered, function($item) use ($param) {
+      if ($item->timestamp >= $param['filter_timestamp']) {
+        return TRUE;
+      }
+      return FALSE;
+    });
+
     $this->filteredData = $filtered;
   }
 
@@ -226,6 +237,11 @@ class GroupexScheduleFetcher {
    */
   private function prepareParameters($parameters) {
     $this->parameters = $parameters;
+
+    // Add timestamp of filter date.
+    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date']);
+    $date->setTime(0, 0, 0);
+    $this->parameters['filter_timestamp'] = $date->getTimestamp();
   }
 
 }
