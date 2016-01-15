@@ -1,6 +1,24 @@
 locations:
-  - { id: 26, name: "Andover YMCA Community Center" }
-  - { id: 33, name: "Blaisdell YMCA" }
-  - { id: 30, name: "Burnsville YMCA" }
-  - { id: 16, name: "Eagan YMCA" }
-  - { id: 27, name: "Elk River YMCA" }
+  - { id: 26, name: "Andover YMCA Community Center" },
+  - { id: 33, name: "Blaisdell YMCA" },
+  - { id: 30, name: "Burnsville YMCA" },
+  - { id: 34, name: "" },
+  - { id: 16, name: "Eagan YMCA" },
+  - { id: 27, name: "Elk River YMCA" },
+  - { id: 19, name: "Hastings YMCA" },
+  - { id: 313, name: "Heritage Park YMCA" },
+  - { id: 17, name: "Hudson YMCA"},
+  - { id: 18, name: "Lino Lakes YMCA" },
+  - { id: 28, name: "Minneapolis Downtown YMCA"},
+  - { id: 1677, name: "Mounds View Community Center" },
+  - { id: 31, name: "New Hope YMCA" },
+  - { id: 32, name: "Ridgedale YMCA" },
+  - { id: 53, name: "River Valley YMCA"},
+  - { id: 20, name: "Shoreview YMCA" },
+  - { id: 29, name: "Southdale YMCA - Edina" },
+  - { id: 14, name: "St. Paul Downtown YMCA" },
+  - { id: 35, name: "St. Paul Eastside YMCA" },
+  - { id: 12, name: "St. Paul Midway YMCA" },
+  - { id: 25, name: "West St. Paul YMCA" },
+  - { id: 21, name: "White Bear Area YMCA" },
+  - { id: 13, name: "Woodbury YMCA" }
