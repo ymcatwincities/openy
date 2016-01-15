@@ -85,9 +85,9 @@ class GroupexScheduleFetcher {
     $schedule = [];
 
     // There 3 types of schedules.
-    //  - day: show classes for single day.
-    //  - week: show classes for week grouped by day.
-    //  - location: show classes for 1 day grouped by location.
+    // Day: show classes for single day.
+    // Week: show classes for week grouped by day.
+    // Location: show classes for 1 day grouped by location.
     $schedule['type'] = $this->parameters['filter_length'];
     if (count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
@@ -146,7 +146,7 @@ class GroupexScheduleFetcher {
 
     // Class is optional.
     if ($this->parameters['class'] !== 'any') {
-      $options['query']['class'] = self::$idStrip. $this->parameters['class'];
+      $options['query']['class'] = self::$idStrip . $this->parameters['class'];
     }
 
     // Filter by date.

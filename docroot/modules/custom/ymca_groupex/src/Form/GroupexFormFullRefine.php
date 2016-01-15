@@ -1,23 +1,22 @@
 <?php
 /**
  * @file
- * Contains \Drupal\ymca_groupex\Form\GroupexFormLocationRefine.
+ * Contains \Drupal\ymca_groupex\Form\GroupexFormFullRefine.
  */
 
 namespace Drupal\ymca_groupex\Form;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\Entity\Node;
 
 /**
- * Implements Groupex Location Refine Form.
+ * Implements Groupex Full Refine Form.
  */
-class GroupexFormLocationRefine extends GroupexFormBase {
+class GroupexFormFullRefine extends GroupexFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'groupex_form_location_refine';
+    return 'groupex_form_full_refine';
   }
 
   /**
@@ -44,13 +43,8 @@ class GroupexFormLocationRefine extends GroupexFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Get current node.
-    /** @var Node $node */
-    $node = \Drupal::routeMatch()->getParameter('node');
-
     $form_state->setRedirect(
-      'ymca_groupex.schedules_search_results',
-      ['node' => $node->id()],
+      'ymca_groupex.all_schedules_search_results',
       ['query' => $this->getRedirectParams($form, $form_state)]
     );
   }

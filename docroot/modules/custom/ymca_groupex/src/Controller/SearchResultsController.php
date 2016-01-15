@@ -23,9 +23,9 @@ class SearchResultsController {
     $view = node_view($node, 'groupex');
     $markup = render($view);
 
-    return array(
+    return [
       '#markup' => $markup,
-    );
+    ];
   }
 
 }

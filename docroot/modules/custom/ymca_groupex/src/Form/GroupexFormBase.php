@@ -39,6 +39,8 @@ abstract class GroupexFormBase extends FormBase {
     }, $dirty_keys);
     $refined_options = array_combine($refined_keys, array_values($class_name_options));
 
+    $form['#attributes'] = ['class' => ['groupex-search-form']];
+
     $form['class_name'] = [
       '#type' => 'select',
       '#options' => ['any' => $this->t('All')] + $refined_options,
@@ -159,7 +161,7 @@ abstract class GroupexFormBase extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $location = $form_state->getValue('location');
+    $location = array_filter($form_state->getValue('location'));
 
     // User may select up to 4 locations.
     if (count($location) > 4) {
