@@ -166,7 +166,15 @@ function ymca_preprocess_node(&$variables) {
     }
   }
 
-  if ($variables['node']->hasField('field_site_section')) {
+  if ($variables['node']->hasField('field_related')) {
+    if ($value = $variables['node']->field_related->getValue()) {
+      if ($id = $value[0]['target_id']) {
+        $site_section = \Drupal::entityTypeManager()->getStorage('node')->load($id);
+        \Drupal::service('pagecontext.service')->setContext($site_section);
+      }
+    }
+  }
+  elseif ($variables['node']->hasField('field_site_section')) {
     if ($value = $variables['node']->field_site_section->getValue()) {
       if ($id = $value[0]['target_id']) {
         $site_section = \Drupal::entityTypeManager()->getStorage('node')->load($id);
