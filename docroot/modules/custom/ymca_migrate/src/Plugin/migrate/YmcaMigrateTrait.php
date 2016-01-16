@@ -342,7 +342,7 @@ trait YmcaMigrateTrait {
       $route = $url->getRouteName();
       $params = $url->getRouteParameters();
       $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
-      $uri = sprintf('internal:%s', $path);
+      $uri = sprintf('base:%s', $path);
     }
     else {
       $uri = $link_text;
