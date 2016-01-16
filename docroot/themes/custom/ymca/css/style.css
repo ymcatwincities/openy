@@ -7415,4 +7415,30 @@ body.path-search #block-mainpagecontent li {
   display: none;
 }
 
+.form-wrapper {
+  margin-bottom: 15px;
+}
+
+.field--type-list-integer legend {
+  border: none;
+  margin: 0;
+  padding: 7px 0;
+}
+.field--type-list-integer .fieldset-legend {
+  color: #000;
+  text-transform: none;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.field--type-list-integer label {
+  font-weight: normal;
+}
+.field--type-list-integer input {
+  margin-right: 10px;
+}
+.field--type-list-integer .form-item {
+  margin: 0 0 7px;
+}
+
 /*# sourceMappingURL=style.css.map */
