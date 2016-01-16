@@ -32,6 +32,10 @@ function ymca_detect_locations_pages() {
   $data['current_alias'] = \Drupal::request()->getRequestUri();
   $crumbs = explode('/', $data['current_alias']);
   if (preg_match('/locations/', $data['current_alias'], $matches)) {
+    if (base_path() !== '/') {
+      unset($crumbs[1]);
+      array_values($crumbs);
+    }
     if (count($crumbs) >= 4 && $crumbs[3] != 'schedules') {
       $crumbs = explode('/', $data['current_alias']);
       $data['path_of_location_node'] = base_path() . $crumbs[1] . '/' . $crumbs[2];

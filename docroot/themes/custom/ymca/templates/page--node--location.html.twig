@@ -170,7 +170,12 @@
     {% include "@ymca/layout/node/node-location-header.html.twig" %}
     {% if not page_schedules %}
     <section class="lead-copy locations-lead-copy">
-      <div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar affix-top"></div>
+      {% block camplocationmenu %}
+        {% if site_section_bundle in ['location', 'camp'] %}
+          <div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar">
+          </div>
+        {% endif %}
+      {% endblock %}
       {% if page.breadcrumb %}
       {% block breadcrumb %}
         <div class="row breadcrumb-container hidden-xs">
@@ -261,6 +266,3 @@
 </div>
 
 {{ source("@ymca/template-scripts.html") }}
-
-{% block camplocationmenu %}
-{% endblock %}
