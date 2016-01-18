@@ -4,3 +4,10 @@
  * @file
  * Module for hook_update_N.
  */
+
+/**
+ * Protecting sites with a shield.
+ */
+function ymca_master_update_8001() {
+  module_load_install('shield');
+}
