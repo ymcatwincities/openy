@@ -37,11 +37,13 @@ trait YmcaMigrateTrait {
    *
    * @param array $source
    *   Example: ['site_page_id' => 10].
+   * @param array $migrations
+   *   List of migrations.
    *
    * @return mixed
    *   Destination ID.
    */
-  private function getDestinationId(array $source, array $migrations) {
+  public static function getDestinationId(array $source, array $migrations) {
     foreach ($migrations as $id => $migration) {
       $map = $migration->getIdMap();
       $dest = $map->getRowBySource($source);
@@ -338,10 +340,10 @@ trait YmcaMigrateTrait {
 
       /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
       $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
+
+      /** @var Url $url */
       $url = $menu_link_entity->getUrlObject();
-      $route = $url->getRouteName();
-      $params = $url->getRouteParameters();
-      $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      $path = $url->toString();
       $uri = sprintf('internal:%s', $path);
     }
     else {

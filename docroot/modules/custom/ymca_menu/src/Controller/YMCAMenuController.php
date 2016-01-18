@@ -51,8 +51,15 @@ class YMCAMenuController extends ControllerBase {
    * Outputs JSON-response.
    */
   public function json() {
-    $options = $this->buildTree();
-    return new JsonResponse($options);
+    if ($cache = \Drupal::cache()->get(YMCA_MENU_CACHE_CID)) {
+      $data = $cache->data;
+    }
+    else {
+      $data = $this->buildTree();
+      \Drupal::cache()->set(YMCA_MENU_CACHE_CID, $data);
+    }
+
+    return new JsonResponse($data);
   }
 
   /**
