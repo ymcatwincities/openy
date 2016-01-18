@@ -95,7 +95,6 @@ function ymca_menu_menu_link_content_delete(Drupal\Core\Entity\EntityInterface $
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
 }
 
-
 /**
  * Implements hook_form_BASE_FORM_ID_alter() for node_form.
  *
