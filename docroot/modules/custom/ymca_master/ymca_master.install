@@ -9,5 +9,5 @@
  * Protecting sites with a shield.
  */
 function ymca_master_update_8001() {
-  module_load_install('shield');
+  \Drupal::service('module_installer')->install(array('shield'), TRUE);
 }
