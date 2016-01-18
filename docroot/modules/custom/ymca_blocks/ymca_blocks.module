@@ -86,6 +86,7 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       }
       else {
         $path = $url->getUri();
+        $path = preg_replace('/^base:/', '', $path);
       }
 
       $build['promo'] = array(

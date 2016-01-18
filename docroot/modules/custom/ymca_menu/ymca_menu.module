@@ -4,6 +4,8 @@
  * Contiains hooks for ymca_menu module.
  */
 
+define('YMCA_MENU_CACHE_CID', 'ymca_menu:menu');
+
 /**
  * Implements hook_theme().
  */
@@ -68,4 +70,25 @@ function ymca_menu_preprocess_node(&$variables) {
       ];
     }
   }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_menu_menu_link_content_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function ymca_menu_menu_link_content_update(Drupal\Core\Entity\EntityInterface $entity) {
+  \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function ymca_menu_menu_link_content_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
 }
