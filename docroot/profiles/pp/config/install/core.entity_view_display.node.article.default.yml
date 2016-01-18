@@ -93,7 +93,7 @@ content:
     type: entity_reference_label
   field_secondary_sidebar:
     weight: 8
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
@@ -117,7 +117,7 @@ content:
     type: list_default
   field_title_description:
     weight: 9
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
