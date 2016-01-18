@@ -1,0 +1,4 @@
+enabled: 1
+login: admin
+password: propeople
+message: 'You have to authorise on this site'
