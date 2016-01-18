@@ -1,0 +1,14 @@
+diff --git a/src/Plugin/Filter/EntityEmbedFilter.php b/src/Plugin/Filter/EntityEmbedFilter.php
+index 01b4d73..ac9c3d6 100644
+--- a/src/Plugin/Filter/EntityEmbedFilter.php
++++ b/src/Plugin/Filter/EntityEmbedFilter.php
+@@ -117,6 +117,9 @@ public function process($text, $langcode) {
+           }
+         }
+         catch(\Exception $e) {
++          if ($e instanceof \Drupal\Core\Form\EnforcedResponseException) {
++            throw $e;
++          }
+           watchdog_exception('entity_embed', $e);
+         }
+ 

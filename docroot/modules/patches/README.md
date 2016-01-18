@@ -13,3 +13,7 @@ description: solr install failed
 patch: docroot/modules/patches/202.diff
 github.com issue: https://github.com/drupal-media/entity_embed/pull/202
 description: anonymous access enabler
+
+patch: docroot/modules/patches/203.diff
+github.com issue: https://github.com/drupal-media/entity_embed/pull/203
+description: Fix redirects for entity_embed
