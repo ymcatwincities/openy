@@ -716,3 +716,5 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
 }
+
+$config_directories["staging"] = 'sites/default/config/staging';
