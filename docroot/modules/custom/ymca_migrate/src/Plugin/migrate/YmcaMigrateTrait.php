@@ -37,7 +37,6 @@ trait YmcaMigrateTrait {
    *
    * @param array $source
    *   Example: ['site_page_id' => 10].
-   *
    * @param array $migrations
    *   List of migrations.
    *
