@@ -1,6 +1,7 @@
 ---
 env:
-  pre_settings: []
+  pre_settings:
+    - { name: '$settings["hash_salt"]', status: true, value: '1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ'}
   modules:
     - { name: 'ymca_demo', status: true }
     - { name: 'ymca_migrate', status: true }
@@ -8,11 +9,12 @@ env:
     - { name: 'devel', status: true }
     - { name: 'config_inspector', status: true }
     - { name: 'config_devel', status: true }
+    - { name: 'stage_file_proxy', status: true }
   drush_commands:
     - { name: 'sqlq', status: true, arguments: "--file=./modules/custom/ymca_migrate/misc/legacy.sql" }
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
-    - { name: 'config-import', status: false, arguments: "staging -y --partial" }
+    - { name: 'config-import', status: true, arguments: "staging -y --partial" }
     - { name: 'migrate-import', status: true, arguments: "--group=ymca --force" }
     #- { name: 'search-api-reindex', status: true, arguments: "" }
     #- { name: 'search-api-index', status: true, arguments: "" }
@@ -26,3 +28,5 @@ env:
     - { name: '$databases["legacy"]["default"]["host"]', status: true, value: '127.0.0.1' }
     - { name: '$databases["legacy"]["default"]["namespace"]', status: true, value: 'Drupal\\\\Core\\\\Database\\\\Driver\\\\mysql' }
     - { name: '$databases["legacy"]["default"]["driver"]', status: true, value: 'mysql' }
+    - { name: '$config["stage_file_proxy.settings"]["origin"]', status: true, value: '{{ origin_site_url }}' }
+

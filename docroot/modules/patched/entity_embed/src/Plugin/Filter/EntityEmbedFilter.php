@@ -117,8 +117,12 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
           }
         }
         catch(\Exception $e) {
+          if ($e instanceof \Drupal\Core\Form\EnforcedResponseException) {
+            throw $e;
+          }
           watchdog_exception('entity_embed', $e);
         }
+
 
         $this->replaceNodeContent($node, $entity_output);
       }
