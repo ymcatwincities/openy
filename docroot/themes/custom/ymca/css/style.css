@@ -7342,6 +7342,41 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-left: 40px;
 }
 
+.locations-page-under-lead-copy h2 {
+  color: #5e5e5e;
+  font-weight: bold;
+  font-size: 34px;
+  font-family: 'Cachet';
+}
+.locations-page-under-lead-copy li {
+  position: relative;
+  margin: 5px 0;
+  padding-left: 20px;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .locations-page-under-lead-copy li {
+    float: left;
+    width: 50%;
+  }
+}
+.locations-page-under-lead-copy li a {
+  font-weight: bold;
+  font-family: 'Cachet';
+}
+.locations-page-under-lead-copy li:before {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  margin-right: 8px;
+  color: #bebcbc;
+  content: '>';
+  font-family: 'YMCA';
+}
+.locations-page-under-lead-copy ul {
+  padding: 0;
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
@@ -7378,6 +7413,32 @@ body.path-search #block-mainpagecontent li {
 
 #edit-preview {
   display: none;
+}
+
+.form-wrapper {
+  margin-bottom: 15px;
+}
+
+.field--type-list-integer legend {
+  border: none;
+  margin: 0;
+  padding: 7px 0;
+}
+.field--type-list-integer .fieldset-legend {
+  color: #000;
+  text-transform: none;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.field--type-list-integer label {
+  font-weight: normal;
+}
+.field--type-list-integer input {
+  margin-right: 10px;
+}
+.field--type-list-integer .form-item {
+  margin: 0 0 7px;
 }
 
 /*# sourceMappingURL=style.css.map */

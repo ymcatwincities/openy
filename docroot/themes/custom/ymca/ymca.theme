@@ -12,6 +12,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Path;
 
 
 /**
@@ -22,6 +23,27 @@ function ymca_preprocess_block(&$variables) {
   if (in_array($variables['derivative_plugin_id'], $footer_menu_blocks)) {
     $variables['attributes']['class'][] = 'col-xs-6 col-sm-4';
   }
+}
+
+/**
+ * Detects pages relative to location node.
+ */
+function ymca_detect_locations_pages() {
+  $data['current_alias'] = \Drupal::request()->getRequestUri();
+  $crumbs = explode('/', $data['current_alias']);
+  if (preg_match('/locations/', $data['current_alias'], $matches)) {
+    if (base_path() !== '/') {
+      unset($crumbs[1]);
+      array_values($crumbs);
+    }
+    if (count($crumbs) >= 4 && $crumbs[3] != 'schedules') {
+      $crumbs = explode('/', $data['current_alias']);
+      $data['path_of_location_node'] = base_path() . $crumbs[1] . '/' . $crumbs[2];
+
+      return $data;
+    }
+  }
+  return;
 }
 
 /**
@@ -49,6 +71,20 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
         array_unshift($suggestions, 'page__front');
       }
     }
+  }
+  // Detect all pages which referenced to locations by uri.
+  if ($data = ymca_detect_locations_pages()) {
+    array_push($suggestions, 'page__node__location');
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  // Detect all pages which referenced to locations by uri.
+  if ($data = ymca_detect_locations_pages()) {
+    array_push($suggestions, 'node__article__location__full');
   }
 }
 
@@ -293,6 +329,15 @@ function ymca_preprocess_html(&$variables) {
         break;
     }
   }
+  // Detect all pages which referenced to locations by uri.
+  if ($data = ymca_detect_locations_pages()) {
+    $classes = [
+      'landing-template',
+      'ancestor-locations',
+      'page_post_detail',
+      'theme_ymca_2013_location_primary_landing',
+    ];
+  }
 
   $variables['attributes']->addClass($classes);
 }
@@ -318,8 +363,43 @@ function ymca_preprocess_page(&$variables) {
       $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($items);
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
       $variables['working_hours'] = $view_builder->view($block);
+      // Passing slideshow to template.
+      if ($site_section->hasField('field_promo_slideshow') && \Drupal::service('current_route_match')->getRouteName() != 'ymca_frontend.location_schedules') {
+        if ($value = $site_section->field_promo_slideshow->getValue()) {
+          if ($id = $value[0]['target_id']) {
+            $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
+            $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
+          }
+        }
+      }
     }
     $variables['site_section_bundle'] = $site_section_bundle;
+  }
+  // Detect all pages which referenced to locations by uri.
+  if ($data = ymca_detect_locations_pages()) {
+    // Get id of location node.
+    if (preg_match('/\d/', \Drupal::service('path.alias_manager')->getPathByAlias($data['path_of_location_node']), $matches)) {
+      if (is_numeric($matches[0])) {
+        $site_section = entity_load('node', $matches[0]);
+        $site_section_bundle = $site_section->bundle();
+        $variables['site_section'] = $site_section;
+        $variables['working_hours'] = '';
+        if ($site_section_bundle == 'location') {
+          /* @var \Drupal\Core\Field\FieldItemListInterface $items */
+          $items = $site_section->field_working_hours->getValue()[0]['target_id'];
+          $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($items);
+          $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+          $variables['working_hours'] = $view_builder->view($block);
+          $variables['site_section_bundle'] = $site_section_bundle;
+          $variables['inner_page'] = TRUE;
+          $variables['secondary_sidebar'] = $variables['node']->field_secondary_sidebar->view('default');
+          $variables['lead_description'] = $variables['node']->field_lead_description->view('default');
+        }
+      }
+    }
+  }
+  if (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
+    $variables['page_schedules'] = TRUE;
   }
 }
 
@@ -538,4 +618,31 @@ function ymca_preprocess_select(&$variables) {
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Prepares variables for form templates.
+ *
+ * Default template: form.html.twig.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #action, #method, #attributes, #children
+ */
+function ymca_preprocess_form(&$variables) {
+  $element = $variables['element'];
+  if (isset($element['#action'])) {
+    $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
+  }
+  Element::setAttributes($element, array('method', 'id'));
+  if (empty($element['#attributes']['accept-charset'])) {
+    $element['#attributes']['accept-charset'] = "UTF-8";
+  }
+  $variables['attributes'] = $element['#attributes'];
+  $variables['children'] = $element['#children'];
+
+  if ($element['#form_id'] == 'user_login_form' || $element['#form_id'] == 'user_pass') {
+    $variables['attributes']['class'][] = 'container';
+  }
 }

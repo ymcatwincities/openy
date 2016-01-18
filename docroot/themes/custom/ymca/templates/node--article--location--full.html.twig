@@ -62,77 +62,31 @@
  */
 #}
 {%
-  set classes = [
-    not is_front ? 'content',
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'clearfix',
-  ]
+set classes = [
+not is_front ? 'content',
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+'clearfix',
+]
 %}
 {{ attach_library('classy/node') }}
 
-<section class="locations-page-under-lead-copy">
-  <div class="container">
-    <section class="messages">
-    </section>
-    <div class="row features">
-      {% include "@ymca/layout/node/node-location-lead.html.twig" %}
-    </div>
-  </div>
-</section>
-
-<hr>
-
 <section{{ attributes.addClass(classes) }}>
   <div class="container">
+
     <section class="messages">
     </section>
-    <div class="row">
-      <section class="main-promos promos even-heights">
-        {{ content.field_main_promos }}
-      </section>
-    </div>
-  </div>
-</section>
 
-{% if news_events or fb_id %}
-<section class="social">
-  <div class="container">
-    <div class="row">
-      {% if news_events %}
-      <div class="col-sm-7">
-        <h2>{{ 'News &amp; Events'|t }}</h2>
-        <div id="excerpt-source">
-          {% for item in news_events %}
-          <div class="post-excerpt clearfix">
-            <div class="post-excerpt-content">
-              <h2 class="post-title">{{ item.title }}</h2>
-              <article class="richtext">{{ item.text|raw }}</article>
-              <p class="comments_count">
-                {{ item.read_more }}
-                <a href="{{ item.read_more_url }}" class="read-more">{{ 'Continue Reading'|t }}</a>
-              </p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
+    {% if is_front %}
+      {% include '@ymca/layout/node/node-content.html.twig' %}
+    {% else %}
+      <div class="row">
+        {% include '@ymca/layout/node/node-content.html.twig' %}
       </div>
-      {% endif %}
-      {% if fb_id %}
-      <div class="col-sm-5">
-        <h2>{{ 'On Facebook'|t }}</h2>
-        <div class="fb-page" data-href="https://www.facebook.com/{{ fb_id }}" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
-          <div class="fb-xfbml-parse-ignore">
-            <blockquote cite="https://www.facebook.com/{{ fb_id }}"><a href="https://www.facebook.com/{{ fb_id }}">{{ label }}</a></blockquote>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-    </div>
+    {% endif %}
   </div>
 </section>
-{% endif %}
