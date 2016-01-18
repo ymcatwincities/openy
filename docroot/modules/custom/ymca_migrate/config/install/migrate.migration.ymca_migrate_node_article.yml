@@ -28,6 +28,7 @@ process:
   field_secondary_sidebar: field_secondary_sidebar
   field_header_image: field_header_image
   field_sidebar_navigation: field_sidebar_navigation
+  field_related: field_related
 
 destination:
   plugin: entity:node
@@ -45,3 +46,5 @@ migration_dependencies:
     - ymca_migrate_menu_link_content_main
     - ymca_migrate_menu_link_content_swimming
     - ymca_migrate_menu_link_content_redirect
+    - ymca_migreate_node_camp
+    - ymca_migreate_node_location
