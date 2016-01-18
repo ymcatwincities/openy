@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * @file
+ *   Integration between Acquia Drupal and Acquia's hosted solr search service.
+ */
+
+use Drupal\search_api\Entity\Server;
+use Drupal\search_api\Entity\Index;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\acquia_connector\Subscription;
+
+/**
+ * Implementation of hook_acquia_subscription_status().
+ *
+ * @param array|bool $subscription
+ */
+function acquia_search_acquia_subscription_status($subscription = FALSE) {
+  if (!empty($subscription['active'])) {
+    // Refresh the salt with the subscription data returned by the heartbeat
+    // since it can change periodically.
+    $salt = \Drupal::config('acquia_search.settings')->get('derived_key_salt');
+    if (isset($subscription['derived_key_salt']) && $salt != $subscription['derived_key_salt']) {
+      \Drupal::configFactory()->getEditable('acquia_search.settings')
+        ->set('derived_key_salt', $subscription['derived_key_salt'])
+        ->save();
+    }
+    // Enable search.
+    if ($server = Server::load('acquia_search_server')) {
+      $server->set('status', TRUE);
+      $server->save();
+    }
+    if ($index = Index::load('acquia_search_index')) {
+      $index->set('status', TRUE);
+      $index->save();
+    }
+  }
+  elseif (is_int($subscription)) {
+    switch ($subscription) {
+      case Subscription::NOT_FOUND:
+      case Subscription::EXPIRED:
+        // Disable search.
+        if ($server = Server::load('acquia_search_server')) {
+          $server->set('status', FALSE);
+          $server->save();
+        }
+        if ($index = Index::load('acquia_search_index')) {
+          $index->set('status', FALSE);
+          $index->save();
+        }
+        break;
+    }
+  }
+}
+
+/**
+ * Acquia Search helper function. Returns search host.
+ *
+ * @param array $subscription
+ *
+ * @return string search server url.
+ */
+function acquia_search_get_search_host($subscription = array()) {
+  if (empty($subscription)) {
+    $subscription = \Drupal::config('acquia_connector.settings')->get('subscription_data');
+  }
+
+  $search_host = \Drupal::config('acquia_search.settings')->get('host');
+  // Adding the subscription specific colony to the heartbeat data.
+  if (!empty($subscription['heartbeat_data']['search_service_colony'])) {
+    $search_host = $subscription['heartbeat_data']['search_service_colony'];
+  }
+  // Check if we are on Acquia Cloud hosting. @see NN-2503
+  if (!empty($_ENV['AH_SITE_ENVIRONMENT']) && !empty($_ENV['AH_CURRENT_REGION'])) {
+    if ($_ENV['AH_CURRENT_REGION'] == 'us-east-1' && $search_host == 'search.acquia.com') {
+      $search_host = 'internal-search.acquia.com';
+    }
+    elseif (strpos($search_host, 'search-' . $_ENV['AH_CURRENT_REGION']) === 0) {
+      $search_host = 'internal-' . $search_host;
+    }
+  }
+  return $search_host;
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ * Don't allow delete default server and index.
+ *
+ * @param array $operations
+ * @param \EntityInterface $entity
+ */
+function acquia_search_entity_operation_alter(array &$operations, EntityInterface $entity) {
+  if (empty($operations['delete'])) {
+    return;
+  }
+  $do_not_delete = [
+    'acquia_search_server',
+    'acquia_search_index',
+  ];
+  if (array_search($entity->id(), $do_not_delete) !== FALSE) {
+    unset($operations['delete']);
+  }
+}

@@ -338,10 +338,10 @@ trait YmcaMigrateTrait {
 
       /* @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link_entity */
       $menu_link_entity = \Drupal::entityManager()->getStorage('menu_link_content')->load($menu_id);
+
+      /** @var Url $url */
       $url = $menu_link_entity->getUrlObject();
-      $route = $url->getRouteName();
-      $params = $url->getRouteParameters();
-      $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      $path = $url->toString();
       $uri = sprintf('internal:%s', $path);
     }
     else {

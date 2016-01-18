@@ -1,0 +1,6 @@
+acquia_connector.settings:
+  title: 'Acquia Connector settings'
+  description: 'Acquia connector settings.'
+  parent: system.admin_config_system
+  route_name: acquia_connector.settings
+  weight: -20

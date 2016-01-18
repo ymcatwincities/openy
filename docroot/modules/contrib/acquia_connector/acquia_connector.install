@@ -1,0 +1,183 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Acquia Connector module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\acquia_connector\Controller\TestStatusController;
+use Drupal\acquia_connector\Subscription;
+
+/**
+ * Implements hook_requirements().
+ *
+ * @return array
+ *   An array describing the status of the site regarding available updates. If
+ *   there is no update data, only one record will be returned, indicating that
+ *   the status of core can't be determined. If data is available, there will be
+ *   two records: one for core, and another for all of contrib (assuming there
+ *   are any contributed modules or themes enabled on the site). In addition to
+ *   the fields expected by hook_requirements ('value', 'severity', and
+ *   optionally 'description'), this array will contain a 'reason' attribute,
+ *   which is an integer constant to indicate why the given status is being
+ *   returned (UPDATE_NOT_SECURE, UPDATE_NOT_CURRENT, or UPDATE_UNKNOWN). This
+ *   is used for generating the appropriate email notification messages during
+ *   update_cron(), and might be useful for other modules that invoke
+ *   update_requirements() to find out if the site is up to date or not.
+ *
+ * @see _update_message_text()
+ * @see _update_cron_notify()
+ */
+function acquia_connector_requirements($phase) {
+  $requirements = array();
+
+  switch ($phase) {
+    case 'runtime':
+      acquia_connector_load_versions();
+      $config = \Drupal::config('acquia_connector.settings');
+      $use_cron = $config->get('spi.use_cron');
+      $last_sent = \Drupal::state()->get('acquia_connector.cron_last', 0);
+      $has_credentials = Subscription::hasCredentials();
+
+      if ($has_credentials) {
+        $key = sha1(Drupal::service('private_key')->get());
+        $config_url = $description = $interval = '';
+        $ago = REQUEST_TIME - $last_sent;
+
+        $blocked = $config->get('spi.blocked');
+        $environment_change = \Drupal::service('acquia_connector.spi')->checkEnvironmentChange();
+        $is_acquia_hosted = \Drupal::service('acquia_connector.spi')->checkAcquiaHosted();
+        $name_required = is_null($config->get('spi.site_name')) && is_null($config->get('spi.site_machine_name')) && !$is_acquia_hosted;
+
+        if ($blocked) {
+          $severity = REQUIREMENT_WARNING;
+          $config_url = Url::fromRoute('acquia_connector.environment_change')->toString();
+          $description = 'This site has been blocked from sending profile data to Acquia Cloud. <a href="@config-page">Unblock this site</a>.';
+        }
+        elseif ($environment_change) {
+          $severity = REQUIREMENT_ERROR;
+          $config_url = Url::fromRoute('acquia_connector.environment_change')->toString();
+          $description = 'A change in your site\'s environment has been detected. SPI data cannot be submitted until this is resolved. Please <a href="@config-page">confirm the action you wish to take</a>.';
+        }
+        elseif ($name_required) {
+          $severity = REQUIREMENT_ERROR;
+          $config_url = Url::fromRoute('acquia_connector.settings')->toString();
+          $description = 'You are not currently sending site profile data to Acquia Cloud. Please <a href="@config-page">provide a site name</a>.';
+        }
+        elseif ($ago >= 60 * 60 * 36) { // 1.5 days ago.
+          $severity = REQUIREMENT_WARNING;
+          $description = 'SPI data has not been reported to the Acquia Subscription for more than a day.<br/>';
+        }
+        else {
+          $severity = REQUIREMENT_OK;
+        }
+
+        if (!$environment_change && !$blocked && !$name_required) {
+          if (!$use_cron) {
+            $config_url = Url::fromRoute('acquia_connector.settings')->toString();
+            $description .= 'You are not sending SPI data via Drupal\'s cron system. <a href="@config-page">View Acquia Subscription configuration</a> for details.<br/>';
+          }
+          else {
+            $interval = $config->get('cron_interval');
+            if ($config->get('cron_interval_override')) {
+              $interval = $config->get('cron_interval_override');
+            }
+            $description .= 'SPI data will be sent once every @interval minutes once cron is called. ';
+          }
+          $description .= 'You can <a href="@spi-send">manually send SPI data</a>.';
+        }
+
+        if ($last_sent == 0) {
+          $value = t('SPI data has not been sent');
+        }
+        else {
+          $value = t('Last sent @time ago', array('@time' =>  \Drupal::service('date.formatter')->formatInterval($ago)));
+        }
+        $requirements['acquia_spi'] = array(
+          'title' => t('Acquia Subscription SPI'),
+          'severity' => $severity,
+          'value' => $value,
+          'description' => t($description, array('@interval' => $interval, '@config-page' => $config_url, '@spi-send' => Url::fromRoute('acquia_connector.send', array(), array('query' => array('destination' => 'admin/reports/status', 'key' => $key), 'absolute' => TRUE))->toString())),
+        );
+      }
+
+      // Inform users on subscription status. Either we know they are active,
+      // or we know they have credentials but not active (not set up yet) or
+      // we have credentials but an inactive subscription (either bad
+      // credentials or expired subscription).
+      if (Subscription::isActive()) {
+        $requirements['acquia_subscription_status'] = array(
+          'title' => t('Acquia Subscription status'),
+          'severity' => REQUIREMENT_OK,
+          'value' => t('Active'),
+          'description' => t('You can <a href="@refresh-status">manually refresh the subscription status</a>.', array('@refresh-status' => Url::fromRoute('acquia_connector.refresh_status', array(), array('absolute' => TRUE))->toString())),
+        );
+      }
+      elseif (!$has_credentials) {
+        $requirements['acquia_subscription_status'] = array(
+          'title' => t('Acquia Subscription status'),
+          'severity' => REQUIREMENT_WARNING,
+          'value' => t('Unknown'),
+          'description' => t('You did not complete your signup to the Acquia Subscription. You can provide the subscription identifier and the subscription key at the <a href="@settings">Acquia settings</a> page or try to <a href="@refresh-status">manually refresh the subscription status</a>.', ['@settings' => Url::fromRoute('acquia_connector.settings')->toString(), '@refresh-status' => Url::fromRoute('acquia_connector.refresh_status')->toString()])
+        );
+      }
+      else {
+        $subscription = $config->get('subscription_data');
+        $href = isset($subscription['href']) ? $subscription['href'] . '/health' : 'http://acquia.com/network';
+        $requirements['acquia_subscription_status'] = array(
+          'title' => t('Acquia Subscription status'),
+          'severity' => REQUIREMENT_WARNING,
+          'value' => t('Inactive'),
+          'description' => t('Your subscription is expired or you are using an invalid identifier and key pair. You can check the subscription identifier and the subscription key at the <a href=":settings">Acquia settings</a> page. Check <a href=":acquia-network">your subscription on the Acquia Subscription</a> for further status information.', [':settings' => Url::fromRoute('acquia_connector.settings')->toString(), ':acquia-network' => $href]),
+        );
+      }
+
+      // Acquia SPI custom tests status.
+      $variables = array(
+        '@help'     => Url::fromUri('base:admin/help/acquia_connector', ['absolute' => TRUE])->toString(),
+        '@validate' => Url::fromRoute('acquia_connector.test_validate', [], ['absolute' => TRUE])->toString(),
+      );
+
+      $modules = \Drupal::moduleHandler()->getImplementations('acquia_connector_spi_test');
+      if (empty($modules)) {
+        $description = 'No custom tests were detected in any module.<br/>';
+        $value       = 'Not implemented (<a href="@help">more information</a>)';
+        $severity    = REQUIREMENT_OK;
+      }
+      else {
+        $status = new TestStatusController();
+        $result = $status->testStatus();
+        if (!empty($result)) {
+          $modules = implode(', ', array_keys($result));
+          $description = 'Custom tests within the following module(s) have failed validation and will not be sent: %modules. <br/>Please check the error logs for more information regarding how to pass validation or <a href="@validate">perform another validation check</a>. (A validation check can also be performed via the Drush command, "spi-test-validate.")';
+          $value       = 'Failed (<a href="@help">more information</a>)';
+          $severity    = REQUIREMENT_ERROR;
+        }
+        else {
+          $modules     = implode(', ', $modules);
+          $description = 'Custom test data is structured properly and is sending from: %modules';
+          $value       = 'Passed';
+          $severity    = REQUIREMENT_OK;
+        }
+
+        $variables['%modules'] = $modules;
+      }
+      $requirements['acquia_spi_test'] = array(
+        'title'       => t('Acquia Subscription SPI Custom Tests'),
+        'description' => t($description, $variables),
+        'value'       => t($value, $variables),
+        'severity'    => $severity,
+      );
+    break;
+  }
+
+  return $requirements;
+}
+
+/**
+ * Rebuild all the menu data.
+ */
+function acquia_connector_update_8001() {
+  \Drupal::service('router.builder')->rebuild();
+}

@@ -1,0 +1,5 @@
+name: YMCA GroupEx Pro
+type: module
+description: Provides integration with GroupEx Pro.
+core: 8.x
+package: YMCA
