@@ -7,8 +7,10 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateNodeBase;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
 
 /**
@@ -76,7 +78,9 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
         4760,
         4753,
         5100,
-        4563
+        4563,
+        7985,
+        9638,
       ]);
     }
     else {
@@ -97,6 +101,51 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
       $show_sidebar = 1;
     }
     $row->setSourceProperty('field_sidebar_navigation', ['value' => $show_sidebar]);
+
+    // We should relate pages only to locations and camps.
+    $path = $row->getSourceProperty('page_subdirectory');
+    preg_match('/\/(?:camps|locations)\//', $path, $test);
+    if (!empty($test)) {
+      // Get path of parent node.
+      preg_match('/\/(?:camps|locations)\/.*?\//', $path, $test);
+      if (!empty($test)) {
+        // For development just use static one.
+        if ($this->isDev()) {
+          $path = '/locations/elk_river_ymca/';
+        }
+
+        // Get id of the node.
+        $source = $this->select('amm_site_page', 'p')
+          ->fields('p', ['site_page_id'])
+          ->condition('page_subdirectory', $test[0])
+          ->execute()
+          ->fetchAssoc();
+
+        if ($source) {
+          // Ok. We've got an ID let's check for it's mapping.
+          $migration_ids = [
+            'ymca_migrate_node_camp',
+            'ymca_migrate_node_location',
+          ];
+          $migrations = \Drupal::entityManager()
+            ->getStorage('migration')
+            ->loadMultiple($migration_ids);
+
+          $id = YmcaMigrateTrait::getDestinationId($source, $migrations);
+          if (!$id) {
+            $this->idMap->saveMessage(
+              $this->getCurrentIds(),
+              $this->t(
+                '[QA] Failed to get mapping [@page]', ['@page' => $source['site_page_id']]
+              ),
+              MigrationInterface::MESSAGE_ERROR
+            );
+          }
+
+          $row->setSourceProperty('field_related', ['target_id' => $id]);
+        }
+      }
+    }
 
     return parent::prepareRow($row);
   }

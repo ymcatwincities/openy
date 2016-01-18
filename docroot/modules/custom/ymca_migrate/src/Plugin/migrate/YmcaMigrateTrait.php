@@ -37,11 +37,13 @@ trait YmcaMigrateTrait {
    *
    * @param array $source
    *   Example: ['site_page_id' => 10].
+   * @param array $migrations
+   *   List of migrations.
    *
    * @return mixed
    *   Destination ID.
    */
-  private function getDestinationId(array $source, array $migrations) {
+  public static function getDestinationId(array $source, array $migrations) {
     foreach ($migrations as $id => $migration) {
       $map = $migration->getIdMap();
       $dest = $map->getRowBySource($source);

@@ -42,7 +42,7 @@ class YmcaFacebookId extends DestinationBase {
       ->getStorage('migration')
       ->loadMultiple($dependencies['required']);
 
-    $nid = $this->getDestinationId(['site_page_id' => $row->getSourceProperty('page_id')], $this->migrations);
+    $nid = YmcaMigrateTrait::getDestinationId(['site_page_id' => $row->getSourceProperty('page_id')], $this->migrations);
 
     if (!$nid) {
       // There is no such ID migrated. Just skip.
