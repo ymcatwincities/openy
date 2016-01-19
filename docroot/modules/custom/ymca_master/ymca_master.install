@@ -5,9 +5,33 @@
  * Module for hook_update_N.
  */
 
+use Drupal\field\Entity\FieldConfig;
+
 /**
  * Protecting sites with a shield.
  */
 function ymca_master_update_8001() {
   \Drupal::service('module_installer')->install(array('shield'), TRUE);
+}
+
+/**
+ * Remove 'field_exclude_from_navigation' field from 'Page' content type.
+ */
+function ymca_master_update_8002() {
+  $field_config = FieldConfig::loadByName('node', 'article', 'field_exclude_from_navigation');
+
+  $field_storage = $field_config->getFieldStorageDefinition();
+  $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
+  $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
+
+  if ($field_storage && !$field_storage->isLocked()) {
+    $field_config->delete();
+    \Drupal::logger('ymca_master')->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+  }
+  else {
+    \Drupal::logger('ymca_master')->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+  }
+
+  // Fields are purged on cron.
+  field_purge_batch(10);
 }
