@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ymca_personify_preprocess_node(&$variables) {
+//  $a = 10;
+//  $personify_url = 'https://ygtcprod2.personifycloud.com';
+//  $personify_wsdl = sprintf('%s/sso/webservice/service.asmx?WSDL', $personify_url);
+//
+//  $vendor_id = 8;
+//  $vendor_username = 'ClockWork';
+//  $vendor_password = 'FE37C379FAD80A38E231D668DA572A24';
+//  $vendor_block = '55AADFF5C5741E09FE39D7E319B1A0DA';
+//
+//  $params = ['connection_timeout' => 10];
+//
+//  try {
+//    $client = new SoapClient($personify_wsdl, $params);
+//  }
+//  catch (Exception $e) {
+//    watchdog_exception('ymca_personify', $e);
+//  }
+//
+//  $customer_token = "1.209530450.174838391.1448256205";
+//  try {
+//    $res = $client->SSOCustomerTokenIsValid($vendor_username, $vendor_password, $customer_token);
+//  }
+//  catch (Exception $e) {
+//
+//  }
+}
+
