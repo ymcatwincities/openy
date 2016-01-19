@@ -1,0 +1,13 @@
+name: Stage File Proxy
+type: module
+description: 'Proxies files from production server so you do not have to transfer them manually'
+package: Development
+# version: VERSION
+# core: 8.x
+configure: stage_file_proxy.admin_form
+
+# Information added by Drupal.org packaging script on 2015-10-29
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'stage_file_proxy'
+datestamp: 1446138957
