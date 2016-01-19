@@ -6,6 +6,8 @@
 
 define('YMCA_MENU_CACHE_CID', 'ymca_menu:menu');
 
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
 /**
  * Implements hook_theme().
  */
@@ -91,4 +93,85 @@ function ymca_menu_menu_link_content_update(Drupal\Core\Entity\EntityInterface $
  */
 function ymca_menu_menu_link_content_delete(Drupal\Core\Entity\EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form.
+ *
+ * Adds menu item 'Exclude from nav' field to the node form.
+ *
+ * @see ymca_menu_form_node_form_submit()
+ */
+function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) {
+  // If menu_ui haven't altered the form, there is nothing to display.
+  if (!isset($form['menu'])) {
+    return;
+  }
+  // Generate a list of possible parents (not including this link or descendants).
+  // @todo This must be handled in a #process handler.
+  $node = $form_state->getFormObject()->getEntity();
+  $defaults = menu_ui_get_menu_link_defaults($node);
+  // If menu link item is not created, there is nothing to display.
+  if (!$defaults['id']) {
+    return;
+  }
+  /** @var \Drupal\node\NodeTypeInterface $node_type */
+  $node_type = $node->type->entity;
+  /** @var \Drupal\Core\Menu\MenuParentFormSelectorInterface $menu_parent_selector */
+  $menu_parent_selector = \Drupal::service('menu.parent_form_selector');
+  $menu_names = menu_ui_get_menus();
+  $type_menus = $node_type->getThirdPartySetting('menu_ui', 'available_menus', array('main'));
+  $available_menus = array();
+  foreach ($type_menus as $menu) {
+    $available_menus[$menu] = $menu_names[$menu];
+  }
+  if ($defaults['id']) {
+    $default = $defaults['menu_name'] . ':' . $defaults['parent'];
+  }
+  else {
+    $default = $node_type->getThirdPartySetting('menu_ui', 'parent', 'main:');
+  }
+  $parent_element = $menu_parent_selector->parentSelectElement($default, $defaults['id'], $available_menus);
+  // If no possible parent menu items were found, there is nothing to display.
+  if (empty($parent_element)) {
+    return;
+  }
+
+  $menu_link = MenuLinkContent::load($defaults['entity_id']);
+  $form['menu']['menu_link_disabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exclude from nav'),
+    '#description' => t('Excluding page from mega nav, sidebar, sticky and mobile menus'),
+    '#default_value' => !$menu_link->isEnabled(),
+    '#states' => array(
+      'invisible' => array(
+        'input[name="menu[enabled]"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
+    }
+  }
+}
+
+/**
+ * Form submission handler for 'Exclude from nav' checkbox on the node form.
+ *
+ * @see ymca_menu_form_node_form_alter()
+ */
+function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) {
+  if (!$form_state->isValueEmpty('menu')) {
+    $values = $form_state->getValue('menu');
+    if (!empty($values['enabled']) && trim($values['title'])) {
+      /** @var \Drupal\menu_link_content\MenuLinkContentInterface $entity */
+      if (!empty($values['entity_id'])) {
+        $entity = MenuLinkContent::load($values['entity_id']);
+        $entity->enabled->value = (int) (!$values['menu_link_disabled']);
+        $entity->save();
+      }
+    }
+  }
 }
