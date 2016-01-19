@@ -699,6 +699,18 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
+$databases = array("default" => array ("default" => array ("database" => "drupal", "username" => "root", "password" => "root", "host" => "127.0.0.1", "port" => "", "driver" => "mysql", "prefix" => "", ), ), );
+$settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
+$settings["pp_environment"] = "default";
+$config_directories["staging"] = "sites/default/config/staging";
+$databases["legacy"]["default"]["database"] = "amm_source";
+$databases["legacy"]["default"]["username"] = "root";
+$databases["legacy"]["default"]["password"] = "root";
+$databases["legacy"]["default"]["host"] = "127.0.0.1";
+$databases["legacy"]["default"]["namespace"] = "Drupal\\Core\\Database\\Driver\\mysql";
+$databases["legacy"]["default"]["driver"] = "mysql";
+$config["stage_file_proxy.settings"]["origin"] = "http://ymcatwincities.prod.acquia-sites.com/";
+
 /**
  * Load local development override configuration, if available.
  *
@@ -709,12 +721,6 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  *
  * Keep this code block at the end of this file to take full effect.
  */
-# if (file_exists(__DIR__ . '/settings.local.php')) {
-#   include __DIR__ . '/settings.local.php';
-# }
-
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
+if (file_exists(__DIR__ . '/settings.local.php')) {
+  include __DIR__ . '/settings.local.php';
 }
-
-$config_directories["staging"] = 'sites/default/config/staging';
