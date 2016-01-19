@@ -131,7 +131,7 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
   else {
     $default = $node_type->getThirdPartySetting('menu_ui', 'parent', 'main:');
   }
-  $parent_element = $menu_parent_selector->parentSelectElement($default,  $defaults['id'], $available_menus);
+  $parent_element = $menu_parent_selector->parentSelectElement($default, $defaults['id'], $available_menus);
   // If no possible parent menu items were found, there is nothing to display.
   if (empty($parent_element)) {
     return;
@@ -158,15 +158,14 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
 }
 
 /**
- * Form submission handler for menu item 'Exclude from nav' field on the node
- * form.
+ * Form submission handler for 'Exclude from nav' checkbox on the node form.
  *
  * @see ymca_menu_form_node_form_alter()
  */
 function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) {
   if (!$form_state->isValueEmpty('menu')) {
     $values = $form_state->getValue('menu');
-    if (!empty($values['enabled']) && trim($values['title']))  {
+    if (!empty($values['enabled']) && trim($values['title'])) {
       /** @var \Drupal\menu_link_content\MenuLinkContentInterface $entity */
       if (!empty($values['entity_id'])) {
         $entity = MenuLinkContent::load($values['entity_id']);
