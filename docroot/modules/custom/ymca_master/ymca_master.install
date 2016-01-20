@@ -35,3 +35,41 @@ function ymca_master_update_8002() {
   // Fields are purged on cron.
   field_purge_batch(10);
 }
+
+/**
+ * Set appropriate node aliases for news pages.
+ */
+function ymca_master_update_8003() {
+
+  $news_term_id = \Drupal::entityQuery('taxonomy_term')
+    ->condition('name', 'News')
+    ->condition('vid', 'tags')
+    ->execute();
+  $term_id = (int) array_shift($news_term_id);
+
+  $news_node_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->condition('field_tags', $term_id)
+    ->execute();
+
+  foreach (array_values($news_node_ids) as $id) {
+    $sources[] = '/node/' . $id;
+  }
+
+  $aliases_to_change = db_select('url_alias', 'ua')
+    ->fields('ua', ['source', 'alias'])
+    ->condition('ua.source', $sources, 'IN')
+    ->execute()
+    ->fetchAllAssoc('source');
+  /** @var \Drupal\node\Entity\Node $node */
+  foreach ($aliases_to_change as $item) {
+    // We should change only is alias has started with /blog substring.
+    if (substr($item->alias, 0, 5) === '/blog') {
+      db_update('url_alias')
+        ->fields(array('alias' => substr_replace($item->alias, "/news", 0, 5)))
+        ->condition('source', $item->source)
+        ->execute();
+    }
+  }
+
+}
