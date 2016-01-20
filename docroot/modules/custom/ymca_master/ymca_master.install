@@ -61,7 +61,7 @@ function ymca_master_update_8003() {
     ->condition('ua.source', $sources, 'IN')
     ->execute()
     ->fetchAllAssoc('source');
-  
+
   foreach ($aliases_to_change as $item) {
     preg_match("/\/blog\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,4})\/(.*)/", $item->alias, $match);
     if (count($match) != 6) {
