@@ -63,13 +63,23 @@ function ymca_master_update_8003() {
     ->fetchAllAssoc('source');
   /** @var \Drupal\node\Entity\Node $node */
   foreach ($aliases_to_change as $item) {
-    // We should change only is alias has started with /blog substring.
-    if (substr($item->alias, 0, 5) === '/blog') {
+    preg_match("/\/blog\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,4})\/(.*)/", $item->alias, $match);
+    if (count($match) != 6) {
+      continue;
+    }
+    if (strlen($match[2]) == 1) {
+      $match[2] = '0' . $match[2];
+    }
+    if (strlen($match[3]) == 1) {
+      $match[3] = '0' . $match[3];
+    }
+    $new_alias = '/news/' . $match[1] . '/' . $match[2] . '/' . $match[3] . '/' . $match[4] . '/' . $match[5];
+
       db_update('url_alias')
-        ->fields(array('alias' => substr_replace($item->alias, "/news", 0, 5)))
+        ->fields(array('alias' => $new_alias))
         ->condition('source', $item->source)
         ->execute();
-    }
+
   }
 
 }
