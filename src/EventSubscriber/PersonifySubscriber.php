@@ -6,7 +6,9 @@
 
 namespace Drupal\ymca_personify\EventSubscriber;
 
-use Drupal\Core\Database\Database;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Url;
+use Drupal\personify_sso\PersonifySso;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,23 +20,82 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PersonifySubscriber implements EventSubscriberInterface {
 
   /**
-   * Check for login
+   * PersonifySso instance.
+   *
+   * @var PersonifySso
    */
-  public function checkForLogin(GetResponseEvent $event) {
-    if ($event->getRequest()->query->get('login-me')) {
-      if (\Drupal::getContainer()->get('current_user')->id() == 0) {
-        $account = \Drupal::getContainer()
-          ->get('entity.manager')
-          ->getStorage('user')
-          ->load(1);
-        user_login_finalize($account);
+  private $sso = NULL;
 
-        // Update the user table timestamp noting user has logged in.
-        Database::getConnection()->update('users_field_data')
-          ->fields(array('login' => time()))
-          ->condition('uid', 1)
-          ->execute();
+  /**
+   * Config.
+   *
+   * @var array
+   */
+  private $config = [];
+
+  /**
+   * Redirect user to Personify SSO server.
+   *
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   */
+  public function personifyRedirect(GetResponseEvent $event) {
+    if (!is_null($event->getRequest()->query->get('login'))) {
+      $options = [
+        'absolute' => TRUE,
+        'query' => [
+          'authorize' => 1,
+        ],
+      ];
+      $url = Url::fromUserInput('/', $options)->toString();
+
+      $this->initPersonifySso();
+
+      $vendor_token = $this->sso->getVendorToken($url);
+      $options = [
+        'query' => [
+          'vi' => $this->config['vendor_id'],
+          'vt' => $vendor_token,
+        ],
+      ];
+      $redirect_url = Url::fromUri($this->config['url_login'], $options)->toString();
+      $redirect = TrustedRedirectResponse::create($redirect_url);
+      $event->setResponse($redirect);
+    }
+  }
+
+  /**
+   * Check customer token and login.
+   *
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   */
+  public function personifyLogin(GetResponseEvent $event) {
+    $query = $event->getRequest()->query;
+    if ($query->get('authorize') && $query->get('ct')) {
+      $this->initPersonifySso();
+      $customer_token = $query->get('ct');
+      $decrypted_token = $this->sso->decryptCustomerToken($customer_token);
+      if ($this->sso->validateCustomerToken($decrypted_token)) {
+        // Yes, you are welcome!
       }
+      else {
+        // Something went wrong. Show message. Log error.
+      }
+    }
+  }
+
+  /**
+   * Initialize PersonifySso object.
+   */
+  private function initPersonifySso() {
+    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
+    if (is_null($this->sso)) {
+      $this->sso = new PersonifySso(
+        $this->config['wsdl'],
+        $this->config['vendor_id'],
+        $this->config['vendor_username'],
+        $this->config['vendor_password'],
+        $this->config['vendor_block']
+      );
     }
   }
 
@@ -42,7 +103,10 @@ class PersonifySubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   static function getSubscribedEvents() {
-    $events[KernelEvents::REQUEST][] = ['checkForLogin'];
+    $events[KernelEvents::REQUEST] = [
+      ['personifyRedirect'],
+      ['personifyLogin'],
+    ];
     return $events;
   }
 
