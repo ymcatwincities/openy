@@ -1,0 +1,6 @@
+wsdl: https://ygtcprod2.personifycloud.com/sso/webservice/service.asmx?WSDL
+vendor_id: 8
+vendor_username: ClockWork
+vendor_password: ***REMOVED***
+vendor_block: ***REMOVED***
+url_login: http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337
