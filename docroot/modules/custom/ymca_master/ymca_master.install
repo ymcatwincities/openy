@@ -75,10 +75,10 @@ function ymca_master_update_8003() {
     }
     $new_alias = '/news/' . $match[1] . '/' . $match[2] . '/' . $match[3] . '/' . $match[4] . '/' . $match[5];
 
-      db_update('url_alias')
-        ->fields(array('alias' => $new_alias))
-        ->condition('source', $item->source)
-        ->execute();
+    db_update('url_alias')
+      ->fields(array('alias' => $new_alias))
+      ->condition('source', $item->source)
+      ->execute();
 
   }
 
