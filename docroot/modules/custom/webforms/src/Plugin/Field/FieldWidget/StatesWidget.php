@@ -65,9 +65,9 @@ class StatesWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $us_subdivisions = file_get_contents(drupal_get_path('module', 'webforms') . '/resources/US.json');
-    $us_subdivisions = json_decode($us_subdivisions, true);
+    $us_subdivisions = json_decode($us_subdivisions, TRUE);
     $ca_subdivisions = file_get_contents(drupal_get_path('module', 'webforms') . '/resources/CA.json');
-    $ca_subdivisions = json_decode($ca_subdivisions, true);
+    $ca_subdivisions = json_decode($ca_subdivisions, TRUE);
 
     $us_options = array();
     foreach ($us_subdivisions['subdivisions'] as $state) {

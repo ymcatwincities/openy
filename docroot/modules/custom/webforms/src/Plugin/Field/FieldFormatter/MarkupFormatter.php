@@ -117,7 +117,7 @@ class MarkupFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $elements = array();
     $url = NULL;
     if ($this->getSetting('link_to_entity')) {
-      // For the default revision this falls back to 'canonical'
+      // For the default revision this falls back to 'canonical'.
       $url = $items->getEntity()->urlInfo('revision');
     }
 
