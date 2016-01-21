@@ -1,0 +1,30 @@
+uuid: d401acbb-35b5-400a-9000-b867b8f59540
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - block_content.type.date_block
+    - block_content.type.promo_block
+    - field.storage.node.field_main_promos
+    - node.type.camp
+id: node.camp.field_main_promos
+field_name: field_main_promos
+entity_type: node
+bundle: camp
+label: 'Main Promos'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      basic: basic
+      date_block: date_block
+      promo_block: promo_block
+    sort:
+      field: _none
+field_type: entity_reference
