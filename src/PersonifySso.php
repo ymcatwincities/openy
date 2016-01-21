@@ -179,4 +179,32 @@ class PersonifySso {
     return FALSE;
   }
 
+  /**
+   * Get customer info.
+   *
+   * @param $token
+   *   Encrypted token.
+   *
+   * @return array|bool
+   *   Customer info.
+   */
+  public function getCustomerInfo($token) {
+    $params = [
+      'vendorUsername' => $this->vendor_username,
+      'vendorPassword' => $this->vendor_password,
+      'customerToken' => $token,
+    ];
+
+    try {
+      $response = $this->client->SSOCustomerGetByCustomerToken($params);
+      $info = (array) $response->SSOCustomerGetByCustomerTokenResult;
+      return $info;
+    }
+    catch (\Exception $e) {
+      watchdog_exception('personify_sso', $e);
+    }
+
+    return FALSE;
+  }
+
 }
