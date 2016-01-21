@@ -1,0 +1,8 @@
+uuid: 57a7e6e2-cbc1-44f6-8c02-2b89fc7d80d7
+langcode: en
+status: true
+dependencies: {  }
+label: 'Medium (125×125)'
+id: medium_125_125
+description: ''
+aspect_ratio: '125:125'
