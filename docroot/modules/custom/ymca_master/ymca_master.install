@@ -5,9 +5,81 @@
  * Module for hook_update_N.
  */
 
+use Drupal\field\Entity\FieldConfig;
+
 /**
  * Protecting sites with a shield.
  */
 function ymca_master_update_8001() {
   \Drupal::service('module_installer')->install(array('shield'), TRUE);
+}
+
+/**
+ * Remove 'field_exclude_from_navigation' field from 'Page' content type.
+ */
+function ymca_master_update_8002() {
+  $field_config = FieldConfig::loadByName('node', 'article', 'field_exclude_from_navigation');
+
+  $field_storage = $field_config->getFieldStorageDefinition();
+  $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
+  $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
+
+  if ($field_storage && !$field_storage->isLocked()) {
+    $field_config->delete();
+    \Drupal::logger('ymca_master')->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+  }
+  else {
+    \Drupal::logger('ymca_master')->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+  }
+
+  // Fields are purged on cron.
+  field_purge_batch(10);
+}
+
+/**
+ * Set appropriate node aliases for news pages.
+ */
+function ymca_master_update_8003() {
+  // @todo run this after next reimport from ClockWork source DB.
+  $news_term_id = \Drupal::entityQuery('taxonomy_term')
+    ->condition('name', 'News')
+    ->condition('vid', 'tags')
+    ->execute();
+  $term_id = (int) array_shift($news_term_id);
+
+  $news_node_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->condition('field_tags', $term_id)
+    ->execute();
+
+  foreach (array_values($news_node_ids) as $id) {
+    $sources[] = '/node/' . $id;
+  }
+
+  $aliases_to_change = db_select('url_alias', 'ua')
+    ->fields('ua', ['source', 'alias'])
+    ->condition('ua.source', $sources, 'IN')
+    ->execute()
+    ->fetchAllAssoc('source');
+
+  foreach ($aliases_to_change as $item) {
+    preg_match("/\/blog\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,4})\/(.*)/", $item->alias, $match);
+    if (count($match) != 6) {
+      continue;
+    }
+    if (strlen($match[2]) == 1) {
+      $match[2] = '0' . $match[2];
+    }
+    if (strlen($match[3]) == 1) {
+      $match[3] = '0' . $match[3];
+    }
+    $new_alias = '/news/' . $match[1] . '/' . $match[2] . '/' . $match[3] . '/' . $match[4] . '/' . $match[5];
+
+    db_update('url_alias')
+      ->fields(array('alias' => $new_alias))
+      ->condition('source', $item->source)
+      ->execute();
+
+  }
+
 }
