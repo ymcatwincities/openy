@@ -35,3 +35,51 @@ function ymca_master_update_8002() {
   // Fields are purged on cron.
   field_purge_batch(10);
 }
+
+/**
+ * Set appropriate node aliases for news pages.
+ */
+function ymca_master_update_8003() {
+  // @todo run this after next reimport from ClockWork source DB.
+  $news_term_id = \Drupal::entityQuery('taxonomy_term')
+    ->condition('name', 'News')
+    ->condition('vid', 'tags')
+    ->execute();
+  $term_id = (int) array_shift($news_term_id);
+
+  $news_node_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->condition('field_tags', $term_id)
+    ->execute();
+
+  foreach (array_values($news_node_ids) as $id) {
+    $sources[] = '/node/' . $id;
+  }
+
+  $aliases_to_change = db_select('url_alias', 'ua')
+    ->fields('ua', ['source', 'alias'])
+    ->condition('ua.source', $sources, 'IN')
+    ->execute()
+    ->fetchAllAssoc('source');
+
+  foreach ($aliases_to_change as $item) {
+    preg_match("/\/blog\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,4})\/(.*)/", $item->alias, $match);
+    if (count($match) != 6) {
+      continue;
+    }
+    if (strlen($match[2]) == 1) {
+      $match[2] = '0' . $match[2];
+    }
+    if (strlen($match[3]) == 1) {
+      $match[3] = '0' . $match[3];
+    }
+    $new_alias = '/news/' . $match[1] . '/' . $match[2] . '/' . $match[3] . '/' . $match[4] . '/' . $match[5];
+
+    db_update('url_alias')
+      ->fields(array('alias' => $new_alias))
+      ->condition('source', $item->source)
+      ->execute();
+
+  }
+
+}
