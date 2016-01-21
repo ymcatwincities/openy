@@ -1,0 +1,26 @@
+ymca_personify.sign_in:
+  title: Sign In
+  description: Sign in via Personify
+  route_name: ymca_personify.personify_login
+  weight: 100
+  menu_name: top-menu
+ymca_personify.account:
+  title: Account
+  description: Personify Account
+  route_name: ymca_personify.personify_account
+  weight: 110
+  menu_name: top-menu
+ymca_personify.account_my:
+  title: My Account
+  description: Personify Account
+  route_name: ymca_personify.personify_account
+  parent: ymca_personify.account
+  weight: 10
+  menu_name: top-menu
+ymca_personify.sign_out:
+  title: Sign Out
+  description: Personify Sign Out
+  route_name: ymca_personify.personify_signout
+  parent: ymca_personify.account
+  weight: 20
+  menu_name: top-menu
