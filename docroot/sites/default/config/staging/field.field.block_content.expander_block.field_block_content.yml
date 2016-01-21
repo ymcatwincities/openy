@@ -1,0 +1,21 @@
+uuid: 4cf50100-6411-4ef5-9500-d2af8494b569
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.expander_block
+    - field.storage.block_content.field_block_content
+  module:
+    - text
+id: block_content.expander_block.field_block_content
+field_name: field_block_content
+entity_type: block_content
+bundle: expander_block
+label: 'Block Content'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

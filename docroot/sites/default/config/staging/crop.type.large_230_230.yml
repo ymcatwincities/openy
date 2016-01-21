@@ -1,0 +1,8 @@
+uuid: 72b44d0e-42fc-42e3-9f00-de3c05920ad9
+langcode: en
+status: true
+dependencies: {  }
+label: 'Large (230×230)'
+id: large_230_230
+description: ''
+aspect_ratio: '230:230'
