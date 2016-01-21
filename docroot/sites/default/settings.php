@@ -699,6 +699,12 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
+}
+
+$config_directories["staging"] = 'sites/default/config/staging';
+
 /**
  * Load local development override configuration, if available.
  *
@@ -709,8 +715,6 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  *
  * Keep this code block at the end of this file to take full effect.
  */
-# if (file_exists(__DIR__ . '/settings.local.php')) {
-#   include __DIR__ . '/settings.local.php';
-# }
-$databases = array("default" => array ("default" => array ("database" => "drupal", "username" => "root", "password" => "root", "host" => "127.0.0.1", "port" => "", "driver" => "mysql", "prefix" => "", ), ), );
-$settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
+if (file_exists(__DIR__ . '/settings.local.php')) {
+  include __DIR__ . '/settings.local.php';
+}
