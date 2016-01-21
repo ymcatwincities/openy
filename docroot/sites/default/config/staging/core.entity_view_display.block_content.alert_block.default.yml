@@ -1,0 +1,22 @@
+uuid: 35da3bc1-928f-4799-b100-c8e85410cc4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.field.block_content.alert_block.field_block_content
+  module:
+    - text
+id: block_content.alert_block.default
+targetEntityType: block_content
+bundle: alert_block
+mode: default
+content:
+  field_block_content:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+hidden:
+  langcode: true

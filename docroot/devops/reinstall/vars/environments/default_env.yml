@@ -9,6 +9,7 @@ env:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-import', status: true, arguments: "staging -y --partial" }
+    - { name: 'cr', status: true, arguments: "" }
     - { name: 'migrate-import', status: true, arguments: "--group=ymca --force" }
     #- { name: 'search-api-reindex', status: true, arguments: "" }
     #- { name: 'search-api-index', status: true, arguments: "" }
