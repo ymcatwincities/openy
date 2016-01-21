@@ -1,0 +1,6 @@
+name: 'Entity Embed test'
+type: module
+description: 'Support module for the Entity Embed module tests.'
+core: 8.x
+package: Testing
+version: VERSION
