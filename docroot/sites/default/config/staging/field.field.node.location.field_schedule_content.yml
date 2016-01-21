@@ -1,0 +1,21 @@
+uuid: c10925d3-3e3e-4a6d-ba5c-926e34600b49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_schedule_content
+    - node.type.location
+  module:
+    - text
+id: node.location.field_schedule_content
+field_name: field_schedule_content
+entity_type: node
+bundle: location
+label: 'Schedule Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

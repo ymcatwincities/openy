@@ -1,0 +1,8 @@
+uuid: 00741978-0189-4cae-b90c-1200376ad6e8
+langcode: en
+status: true
+dependencies: {  }
+label: '2013 Masthead'
+id: 2013_masthead
+description: ''
+aspect_ratio: '1200:600'
