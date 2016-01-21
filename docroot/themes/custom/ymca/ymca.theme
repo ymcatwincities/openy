@@ -368,11 +368,19 @@ function ymca_preprocess_page(&$variables) {
         $variables['lead_description'] = $variables['node']->field_lead_description->view('default');
       }
       // Passing slideshow to template.
-      if ($variables['node']->bundle() == 'location' && $site_section->hasField('field_promo_slideshow') && \Drupal::service('current_route_match')->getRouteName() != 'ymca_frontend.location_schedules') {
-        if ($value = $site_section->field_promo_slideshow->getValue()) {
-          if ($id = $value[0]['target_id']) {
-            $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
-            $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
+      if ($variables['node']->bundle() == 'location' && $site_section->hasField('field_promo_slideshow')) {
+        // Exclude these routes.
+        $exclude = [
+          'ymca_frontend.location_schedules',
+          'ymca_groupex.schedules_search_results',
+        ];
+        $route = \Drupal::service('current_route_match')->getRouteName();
+        if (!in_array($route, $exclude)) {
+          if ($value = $site_section->field_promo_slideshow->getValue()) {
+            if ($id = $value[0]['target_id']) {
+              $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
+              $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
+            }
           }
         }
       }
