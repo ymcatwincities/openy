@@ -712,3 +712,39 @@ function ymca_preprocess_form(&$variables) {
     $variables['attributes']['class'][] = 'container';
   }
 }
+
+/**
+ * Implements template_preprocess_search_result().
+ */
+function ymca_preprocess_search_result(&$vars) {
+  if (isset($_GET['keys'])) {
+    $index = 'keys';
+  }
+  elseif (isset($_GET['q'])) {
+    $index = 'q';
+  }
+  else {
+    return;
+  }
+  if (empty($vars['result'])) {
+    return;
+  }
+  if (!in_array($vars['result']['type'], ['Location'])) {
+    return;
+  }
+  $p = 0;
+  $search_string = \Drupal\Component\Utility\SafeMarkup::checkPlain($_GET[$index]);
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = &$vars['result']['node'];
+  /** @var \Drupal\file\Plugin\Field\FieldType\FileFieldItemList $docs */
+  $docs = $node->get('field_schedule_documents');
+  /** @var \Drupal\file\Plugin\Field\FieldType\FileItem $id */
+  foreach ($docs as $id) {
+    similar_text($id->getValue()['description'], $search_string, $p);
+    if ($p > 50) {
+      // Passing schedules sub uri with pdf in a query for covering CSS catch.
+      $vars['url'] = $vars['url'] . '/schedules?pdf';
+      return;
+    }
+  }
+}
