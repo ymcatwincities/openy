@@ -714,13 +714,3 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
 # }
 $databases = array("default" => array ("default" => array ("database" => "drupal", "username" => "root", "password" => "root", "host" => "127.0.0.1", "port" => "", "driver" => "mysql", "prefix" => "", ), ), );
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
-$settings["pp_environment"] = "default";
-$config_directories["staging"] = "sites/default/config/staging";
-$settings["cache"]["bins"]["render"] = "cache.backend.memory";
-$databases["legacy"]["default"]["database"] = "amm_source";
-$databases["legacy"]["default"]["username"] = "root";
-$databases["legacy"]["default"]["password"] = "root";
-$databases["legacy"]["default"]["host"] = "127.0.0.1";
-$databases["legacy"]["default"]["namespace"] = "Drupal\\Core\\Database\\Driver\\mysql";
-$databases["legacy"]["default"]["driver"] = "mysql";
-$config["stage_file_proxy.settings"]["origin"] = "http://ymcatwincities.prod.acquia-sites.com/";
