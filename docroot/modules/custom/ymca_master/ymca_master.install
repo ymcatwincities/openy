@@ -83,3 +83,10 @@ function ymca_master_update_8003() {
   }
 
 }
+
+/**
+ * Install ymca_personify module.
+ */
+function ymca_master_update_8004() {
+  \Drupal::service('module_installer')->install(array('ymca_personify'), TRUE);
+}
