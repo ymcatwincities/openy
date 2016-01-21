@@ -3,3 +3,11 @@ services:
     class: Drupal\ymca_personify\EventSubscriber\PersonifySubscriber
     tags:
       - { name: event_subscriber }
+  ymca_personify.login_access_checker:
+    class: Drupal\ymca_personify\Access\PersonifyLoginAccessCheck
+    tags:
+      - { name: access_check, applies_to: _access_personify_login }
+  ymca_personify.account_access_checker:
+    class: Drupal\ymca_personify\Access\PersonifyAccountAccessCheck
+    tags:
+      - { name: access_check, applies_to: _access_personify_account }
