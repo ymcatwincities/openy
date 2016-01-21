@@ -369,7 +369,7 @@ function ymca_preprocess_page(&$variables) {
       }
       // Passing slideshow to template.
       if ($variables['node']->bundle() == 'location' && $site_section->hasField('field_promo_slideshow')) {
-        // Exclude these rotes.
+        // Exclude these routes.
         $exclude = [
           'ymca_frontend.location_schedules',
           'ymca_groupex.schedules_search_results',
