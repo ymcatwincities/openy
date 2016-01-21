@@ -41,7 +41,7 @@ $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml'
  * In case the error level could not be fetched from the database, as for
  * example the database connection failed, we rely only on this value.
  */
-$config['system.logging']['error_level'] = 'verbose';
+// $config['system.logging']['error_level'] = 'verbose';
 
 /**
  * Disable CSS and JS aggregation.
