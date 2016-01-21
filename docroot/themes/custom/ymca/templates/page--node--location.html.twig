@@ -159,6 +159,9 @@
 
     {% block primary_menu_outside %}
       {% if site_section_bundle in ['location', 'camp'] %}
+        <script>
+          var isCampLocation = true;
+        </script>
         {% include ["@ymca/layout/masthead-" ~ site_section_bundle ~ ".html.twig"] with { node:site_section, hours:working_hours } %}
       {% endif %}
     {% endblock %}
@@ -185,7 +188,7 @@
         </div>
       {% endblock %}
       {% endif %}
-      {% if inner_page %}
+      {% if lead_description or secondary_sidebar or node.label %}
       <div class="container">
         <div class="row">
           <div class="col-sm-8 lead left">

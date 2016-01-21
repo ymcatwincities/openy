@@ -1,0 +1,23 @@
+uuid: b2157536-ef7f-48d8-872d-450b40b9558d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_membership_block
+    - node.type.location
+id: node.location.field_membership_block
+field_name: field_membership_block
+entity_type: node
+bundle: location
+label: 'Membership block'
+description: 'checkbox (yes/no). Membership block is global setting WYSIWYG field that is exactly the same on whole website. If checkbox is checked block is displayed on the page.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -7335,6 +7335,9 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 .locations-camps-template .tabs--primary, .ancestor-locations .tabs--primary, .theme_ymca_2013_location_home .tabs--primary {
   margin-top: 51px;
 }
+.locations-camps-template .page-middle .content.node--view-mode-full, .ancestor-locations .page-middle .content.node--view-mode-full, .theme_ymca_2013_location_home .page-middle .content.node--view-mode-full {
+  background: none;
+}
 
 .location-schedules-content .file {
   display: list-item;
@@ -7342,6 +7345,9 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-left: 40px;
 }
 
+.locations-camps-template .locations-page-under-lead-copy {
+  padding-top: 10px;
+}
 .locations-page-under-lead-copy h2 {
   color: #5e5e5e;
   font-weight: bold;
@@ -7405,6 +7411,19 @@ body.path-search #block-mainpagecontent li {
 
 .align-right {
   margin: 0 0 15px 15px;
+}
+
+.promos > .richtext > .richtext > a {
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.61);
+  text-align: left;
+  text-decoration: none;
+  -moz-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  -ms-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+}
+.promos > .richtext > .richtext > a:hover {
+  background-color: #FFF;
 }
 
 .form-item {
