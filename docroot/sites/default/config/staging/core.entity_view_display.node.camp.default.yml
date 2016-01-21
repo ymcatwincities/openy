@@ -88,7 +88,7 @@ content:
     type: entity_reference_entity_view
   field_phone:
     weight: 112
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
