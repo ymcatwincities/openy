@@ -540,7 +540,7 @@ function ymca_preprocess_input(&$variables) {
       'text',
     );
   }
-  elseif ($element['#type'] == 'submit') {
+  elseif ($element['#type'] == 'submit' && $element['#ajax_processed'] != TRUE) {
     $classes = array(
       'form_submit',
       'btn',
@@ -558,8 +558,10 @@ function ymca_preprocess_input(&$variables) {
       'email',
     );
   }
+  if (isset($classes)) {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
 
-  $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
 }
 
 /**
