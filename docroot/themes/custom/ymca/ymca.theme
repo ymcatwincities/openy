@@ -626,7 +626,6 @@ function ymca_preprocess_select(&$variables) {
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #action, #method, #attributes, #children
  */
-
 function ymca_preprocess_form(&$variables) {
   $element = $variables['element'];
   if (isset($element['#action'])) {
