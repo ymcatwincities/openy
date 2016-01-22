@@ -1,0 +1,23 @@
+uuid: 1886b021-9df4-49a1-9f04-0490381bea17
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: 2013_promotion
+label: '2013 Promotion'
+effects:
+  fe999747-82f1-468a-8b05-058db0a3f4bc:
+    uuid: fe999747-82f1-468a-8b05-058db0a3f4bc
+    id: crop_crop
+    weight: 2
+    data:
+      crop_type: 2013_promotion
+  850781a2-9107-4495-9352-826d0e352dc2:
+    uuid: 850781a2-9107-4495-9352-826d0e352dc2
+    id: image_scale
+    weight: 3
+    data:
+      width: 600
+      height: 340
+      upscale: true

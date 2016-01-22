@@ -1,0 +1,21 @@
+uuid: ad974843-fea6-419e-a239-571eb576626d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sidebar
+    - node.type.article
+  module:
+    - text
+id: node.article.field_sidebar
+field_name: field_sidebar
+entity_type: node
+bundle: article
+label: Sidebar
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
