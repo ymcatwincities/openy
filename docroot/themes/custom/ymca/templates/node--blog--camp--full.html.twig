@@ -63,7 +63,7 @@
 #}
 {%
   set classes = [
-    not is_front ? 'content',
+    'content',
     'node',
     'node--type-' ~ node.bundle|clean_class,
     node.isPromoted() ? 'node--promoted',
@@ -75,40 +75,31 @@
 %}
 {{ attach_library('classy/node') }}
 
-<section class="lead-copy locations-lead-copy">
-  <div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar affix-top"></div>
-  <div class="row breadcrumb-container hidden-xs">
-    <div class="container">
-      <article>
-        <ol class="breadcrumb">
-          <li><a href="{{ url('<front>') }}">{{ 'Home'|t }}</a></li>
-          {#TODO: add location url when it's ready#}
-          <li><a href="{{ url('<front>') }}">{{ 'Locations'|t }}</a></li>
-          <li><a href="{{ "/node/" ~ node.id }}">{{ node.label }}</a></li>
-          <li class="active">{{ 'Schedules'|t }}</li>
-        </ol>
-      </article>
-    </div>
-  </div>
+<section {{ attributes.addClass(classes) }}>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12 lead left">
-        <h1>{{ 'Schedules'|t }}</h1>
-      </div>
-    </div>
-  </div>
-</section>
-<hr>
-<section class="content">
-  <div class="container">
+
     <section class="messages">
     </section>
+
     <div class="row">
-      <div class="col-sm-12 categories copy">
-        {{ groupex_form_refine }}
-        {{ groupex_search_results }}
-        {{ content.field_schedule_content }}
-        {{ content.field_schedule_documents }}
+      <div class="copy col-sm-7 col-sm-push-5 col-md-9 col-md-push-3">
+        <div class="post_display_full">
+          <article class="richtext">
+            {{ content.field_content }}
+          </article>
+        </div>
+
+        {% include "@ymca/misc/add-this.html.twig" %}
+
+      </div>
+
+      <div class="
+                    hidden-xs col-sm-5 col-md-3
+                    col-sm-pull-7 col-md-pull-9
+                     subnav">
+        <div class="panel panel-default panel-subnav">
+
+        </div>
       </div>
     </div>
   </div>
