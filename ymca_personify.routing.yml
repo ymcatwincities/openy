@@ -5,6 +5,13 @@ ymca_personify.personify_login:
     _title: Personify
   requirements:
     _access_personify_login: 'TRUE'
+ymca_personify.personify_auth:
+  path: personify/auth
+  defaults:
+    _controller: \Drupal\ymca_personify\Controller\PersonifyController::authPage
+    _title: Personify Auth
+  requirements:
+    _access_personify_login: 'TRUE'
 ymca_personify.personify_account:
   path: personify/account
   defaults:

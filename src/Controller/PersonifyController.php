@@ -10,6 +10,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\personify_sso\PersonifySso;
 use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class PersonifyController.
@@ -17,56 +18,121 @@ use Drupal\Core\Url;
 class PersonifyController extends ControllerBase {
 
   /**
+   * PersonifySso instance.
+   *
+   * @var PersonifySso
+   */
+  private $sso = NULL;
+
+  /**
+   * Config.
+   *
+   * @var array
+   */
+  private $config = [];
+
+  /**
+   * Initialize PersonifySso object.
+   */
+  private function initPersonifySso() {
+    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
+    if (is_null($this->sso)) {
+      $this->sso = new PersonifySso(
+        $this->config['wsdl'],
+        $this->config['vendor_id'],
+        $this->config['vendor_username'],
+        $this->config['vendor_password'],
+        $this->config['vendor_block']
+      );
+    }
+  }
+
+  /**
    * Show the page.
    */
   public function loginPage() {
-    $config = \Drupal::config('ymca_personify.settings')->getRawData();
-    $sso = new PersonifySso(
-      $config['wsdl'],
-      $config['vendor_id'],
-      $config['vendor_username'],
-      $config['vendor_password'],
-      $config['vendor_block']
-    );
+    $this->initPersonifySso();
 
-    $options = [
-      'absolute' => TRUE,
-      'query' => [
-        'personify' => 1,
-      ],
-    ];
-    $url = Url::fromUserInput('/', $options)->toString();
+    $options = ['absolute' => TRUE];
+    $url = Url::fromRoute('ymca_personify.personify_auth', [], $options)->toString();
 
-    $vendor_token = $sso->getVendorToken($url);
+    $vendor_token = $this->sso->getVendorToken($url);
     $options = [
       'query' => [
-        'vi' => $config['vendor_id'],
+        'vi' => $this->config['vendor_id'],
         'vt' => $vendor_token,
       ],
     ];
-    $redirect_url = Url::fromUri($config['url_login'], $options)->toString();
+
+    $redirect_url = Url::fromUri($this->config['url_login'], $options)->toString();
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
+
+    return [
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
   }
 
   /**
    * Account page.
    */
   public function accountPage() {
-    $config = $this->config('ymca_personify.settings');
-    $redirect_url = Url::fromUri($config->get('url_account'))->toString();
+    $redirect_url = Url::fromUri($this->config['url_account'])->toString();
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
+    return [
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
   }
 
   /**
    * SignOut page.
    */
   public function signOutPage() {
-    $config = $this->config('ymca_personify.settings');
-    $redirect_url = Url::fromUri($config->get('url_sign_out'))->toString();
+    unset($_SESSION['personify_token']);
+    user_cookie_delete('personify_authorized');
+
+    $redirect_url = Url::fromUri($this->config['url_sign_out'])->toString();
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
+
+    return [
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
+  }
+
+  /**
+   * Auth page.
+   */
+  public function authPage() {
+    $query = \Drupal::request()->query->all();
+    if (isset($query['ct']) && !empty($query['ct'])) {
+      $this->initPersonifySso();
+      $decrypted_token = $this->sso->decryptCustomerToken($query['ct']);
+      if ($token = $this->sso->validateCustomerToken($decrypted_token)) {
+        user_cookie_save(['personify_authorized' => TRUE]);
+        $session = \Drupal::service('session_manager');
+        $_SESSION['personify_token'] = $token;
+        $session->start();
+        \Drupal::logger('ymca_personify')->info('A user logged in via Personify.');
+      }
+      else {
+        \Drupal::logger('ymca_personify')->warning('An attempt to login with wrong personify token was detected.');
+      }
+    }
+    $redirect = new RedirectResponse(Url::fromRoute('<front>')->toString());
+    $redirect->send();
+    return [
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
   }
 
 }
