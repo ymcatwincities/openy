@@ -4457,6 +4457,10 @@ object {
 .group-ex .pagination .btn-default {
   text-align: center;
 }
+.group-ex .pagination .dropdown-menu  {
+  display: none;
+  padding-left: 0;
+}
 
 .lt-ie8 {
   .social-icon {
