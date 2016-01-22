@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ymca_personify_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'ymca_personify/personify';
+}
