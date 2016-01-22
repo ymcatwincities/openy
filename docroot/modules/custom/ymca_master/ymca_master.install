@@ -83,3 +83,11 @@ function ymca_master_update_8003() {
   }
 
 }
+
+/**
+ * Update config of ymca_groupex module.
+ */
+function ymca_master_update_8004() {
+  \Drupal::service('module_installer')->uninstall(array('ymca_groupex'));
+  \Drupal::service('module_installer')->install(array('ymca_groupex'));
+}

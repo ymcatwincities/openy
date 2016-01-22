@@ -76,7 +76,8 @@ class GroupexScheduleFetcher {
           'description' => $item->desc,
           'address_1' => $item->address_1,
           'address_2' => trim($item->location),
-          'time' => sprintf('%s %s', $item->day, $item->start),
+          'date' =>  $item->date,
+          'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
         ],
       ];
@@ -99,7 +100,13 @@ class GroupexScheduleFetcher {
         $schedule['classes'] = [];
         foreach ($items as $id => $class) {
           $schedule['classes'][] = $class;
+          // Pass location's title.
+          $schedule['title'] = trim($this->enrichedData[$id]->location);
         }
+        // Pass 'View This Week’s PDF' href.
+        $l = array_shift($this->parameters['location']);
+        $t = $this->parameters['filter_timestamp'];
+        $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
         break;
 
       case 'week':
@@ -107,13 +114,28 @@ class GroupexScheduleFetcher {
         foreach ($items as $id => $class) {
           $schedule['days'][$this->enrichedData[$id]->day][] = $class;
         }
+        // Pass 'View This Week’s PDF' href.
+        $l = array_shift($this->parameters['location']);
+        $t = $this->parameters['filter_timestamp'];
+        $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
         break;
 
       case 'location':
         $schedule['locations'] = [];
+        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations_short');
         foreach ($items as $id => $class) {
-          $schedule['locations'][trim($this->enrichedData[$id]->location)][] = $class;
+          $short_location_name = trim($this->enrichedData[$id]->location);
+          foreach ($locations as $location) {
+            if ($location['name'] == $short_location_name) {
+              $l = $location['id'];
+            }
+          }
+          $t = $this->parameters['filter_timestamp'];
+          $pdf_href = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $schedule['locations'][$short_location_name]['classes'][] = $class;
+          $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
+        $schedule['filter_date'] = date('l, F d, Y', $this->parameters['filter_timestamp']);
         break;
     }
 
@@ -180,7 +202,7 @@ class GroupexScheduleFetcher {
       $item->address_1 = sprintf('%s with %s', trim($item->studio), trim($item->instructor));
 
       // Get day.
-      $item->day = substr($item->date, 0, 3);
+      $item->day = $item->date;
 
       // Get start and end time.
       preg_match("/(.*)-(.*)/i", $item->time, $output);
