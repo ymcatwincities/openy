@@ -35,10 +35,31 @@ function ymca_detect_locations_pages() {
         if ($id = $value[0]['target_id']) {
           $site_section = \Drupal::entityTypeManager()->getStorage('node')->load($id);
           \Drupal::service('pagecontext.service')->setContext($site_section);
-
-          return $site_section;
         }
       }
+    }
+    if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+      return ($site_section->bundle() == 'location' && $node->bundle() != 'location') ? $site_section : NULL;
+    }
+  }
+  return;
+}
+
+/**
+ * Detects pages relative to location node.
+ */
+function ymca_detect_camp_pages() {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if ($node->hasField('field_related')) {
+      if ($value = $node->field_related->getValue()) {
+        if ($id = $value[0]['target_id']) {
+          $site_section = \Drupal::entityTypeManager()->getStorage('node')->load($id);
+          \Drupal::service('pagecontext.service')->setContext($site_section);
+        }
+      }
+    }
+    if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+      return ($site_section->bundle() == 'camp' && $node->bundle() != 'camp') ? $site_section : NULL;
     }
   }
   return;
@@ -74,6 +95,14 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
   if ($data = ymca_detect_locations_pages()) {
     array_push($suggestions, 'page__node__location');
   }
+  if ($data = ymca_detect_camp_pages()) {
+    if ($node->bundle() != 'camp') {
+      array_push($suggestions, 'page__node__camp_inner');
+    }
+    else {
+      array_push($suggestions, 'page__node__camp');
+    }
+  }
 }
 
 /**
@@ -92,7 +121,7 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
 function ymca_preprocess_breadcrumb(&$variables) {
   if (($node = \Drupal::routeMatch()->getParameter('node')) && $variables['breadcrumb']) {
     // Special case for blog posts.
-    if ($node->getType() == 'blog') {
+    if ($node->bundle() == 'blog') {
       $variables['breadcrumb'] = [
         new \Drupal\Core\Link('Home', Drupal\Core\Url::fromUri('internal:/')),
         // TODO: replace with a link to /blog page.
@@ -168,6 +197,7 @@ function ymca_preprocess_node(&$variables) {
     }
   }
 
+  // Defining context.
   if ($variables['node']->hasField('field_related')) {
     if ($value = $variables['node']->field_related->getValue()) {
       if ($id = $value[0]['target_id']) {
@@ -188,6 +218,7 @@ function ymca_preprocess_node(&$variables) {
     \Drupal::service('pagecontext.service')->setContext($variables['node']);
   }
 
+  // Article specific preprocessing.
   if ($variables['node']->bundle() == 'article') {
     $variables['header_image_url'] = '';
     if ($header_image = $variables['node']->field_header_image->getValue()) {
@@ -206,7 +237,8 @@ function ymca_preprocess_node(&$variables) {
     }
   }
 
-  if ($variables['node']->bundle() == 'location') {
+  // Location specific preprocessing.
+  if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
     // Load referenced ids to current location.
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'blog')
@@ -215,18 +247,12 @@ function ymca_preprocess_node(&$variables) {
     $referenced_nids = $query->execute();
     // Load all ids of Blog Post CT.
     if (empty($referenced_nids) || count($referenced_nids) == 1) {
-      // Load all ids of Blog Post CT.
+      // Load all ids of Blog Post CT that are not related to any site section.
       $query = \Drupal::entityQuery('node')
         ->condition('type', 'blog')
+        ->notExists('field_site_section')
         ->condition('status', 1);
       $all_nids = $query->execute();
-      // Exclude nodes which referenced to other site sections.
-      $all_nodes = entity_load_multiple('node', $all_nids);
-      foreach ($all_nodes as $id => $n) {
-        if (isset($n->field_site_section->target_id)) {
-          unset($all_nids[$id]);
-        }
-      }
     }
 
     // Pass relative Blog posts, even if their count is 0.
@@ -257,6 +283,8 @@ function ymca_preprocess_node(&$variables) {
     // Add membership block flag.
     $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
   }
+
+  // Blog specific preprocessing.
   if ($variables['node']->bundle() == 'blog') {
     $back_link_title = t('Back to Blog');
     $back_link_path = 'blog';
@@ -271,6 +299,8 @@ function ymca_preprocess_node(&$variables) {
     $variables['back_link_title'] = $back_link_title;
     $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
   }
+
+  $variables['site_section_bundle'] = $site_section ? $site_section->bundle() : '';
 }
 
 /**
@@ -301,22 +331,36 @@ function ymca_preprocess_html(&$variables) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'camp':
-        $classes = [
-          'internal-template',
-          'ancestor-camps',
-          'page_post_detail',
-          'theme_ymca_2013_camp_category_and_detail',
-        ];
+        if (isset($variables['node_type']) && $variables['node_type'] == 'camp') {
+          // Camp itself.
+          $classes = [
+            'locations-camps-template',
+            'ancestor-camps',
+            'theme_ymca_2013_camp_home',
+          ];
+        }
+        else {
+          // Camp children pages.
+          $classes = [
+            'landing-template',
+            'ancestor-camps',
+            'theme_ymca_2013_camp_primary_landing',
+          ];
+        }
         break;
 
       case 'location':
-        $classes = [
-          'locations-camps-template',
-          'ancestor-locations',
-          'page_post_detail',
-          'theme_ymca_2013_location_home',
-        ];
-        if (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
+        // Location itself.
+        if (isset($variables['node_type']) && $variables['node_type'] == 'location') {
+          $classes = [
+            'locations-camps-template',
+            'ancestor-locations',
+            'page_post_detail',
+            'theme_ymca_2013_location_home',
+          ];
+        }
+        // Location schedule page.
+        elseif (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
           $classes = [
             'schedules-template',
             'ancestor-locations',
@@ -324,17 +368,17 @@ function ymca_preprocess_html(&$variables) {
             'theme_ymca_2013_location_home',
           ];
         }
+        else {
+          // Referenced nodes and other pages.
+          $classes = [
+            'landing-template',
+            'ancestor-locations',
+            'page_post_detail',
+            'theme_ymca_2013_location_home',
+          ];
+        }
         break;
     }
-  }
-  // Detect all pages which referenced to locations by uri.
-  if ($data = ymca_detect_locations_pages()) {
-    $classes = [
-      'landing-template',
-      'ancestor-locations',
-      'page_post_detail',
-      'theme_ymca_2013_location_primary_landing',
-    ];
   }
 
   $variables['attributes']->addClass($classes);
@@ -382,6 +426,32 @@ function ymca_preprocess_page(&$variables) {
               $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
             }
           }
+        }
+      }
+    }
+    elseif ($site_section_bundle == 'camp') {
+      // Passing slideshow to template.
+      if ($variables['node']->bundle() == 'camp' && $site_section->hasField('field_promo_slideshow')) {
+        if ($value = $site_section->field_promo_slideshow->getValue()) {
+          if ($id = $value[0]['target_id']) {
+            $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
+            $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
+          }
+        }
+      }
+      if ($variables['node']->hasField('field_secondary_sidebar')) {
+        if (!$variables['node']->field_secondary_sidebar->isEmpty()) {
+          $variables['secondary_sidebar'] = $variables['node']->field_secondary_sidebar->view('full');
+        }
+      }
+      if ($variables['node']->hasField('field_lead_description')) {
+        if (!$variables['node']->field_lead_description->isEmpty()) {
+          $variables['lead_description'] = $variables['node']->field_lead_description->view('full');
+        }
+      }
+      if ($variables['node']->bundle() == 'camp') {
+        if ($variables['node']->hasField('field_camp_links') && !$variables['node']->field_camp_links->isEmpty()) {
+          $variables['field_camp_links'] = $variables['node']->field_camp_links->view('full');
         }
       }
     }
@@ -540,7 +610,7 @@ function ymca_preprocess_input(&$variables) {
       'text',
     );
   }
-  elseif ($element['#type'] == 'submit') {
+  elseif ($element['#type'] == 'submit' && $element['#ajax_processed'] != TRUE) {
     $classes = array(
       'form_submit',
       'btn',
@@ -558,8 +628,10 @@ function ymca_preprocess_input(&$variables) {
       'email',
     );
   }
+  if (isset($classes)) {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
 
-  $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
 }
 
 /**
@@ -638,5 +710,41 @@ function ymca_preprocess_form(&$variables) {
 
   if ($element['#form_id'] == 'user_login_form' || $element['#form_id'] == 'user_pass') {
     $variables['attributes']['class'][] = 'container';
+  }
+}
+
+/**
+ * Implements template_preprocess_search_result().
+ */
+function ymca_preprocess_search_result(&$vars) {
+  if (isset($_GET['keys'])) {
+    $index = 'keys';
+  }
+  elseif (isset($_GET['q'])) {
+    $index = 'q';
+  }
+  else {
+    return;
+  }
+  if (empty($vars['result'])) {
+    return;
+  }
+  if (!in_array($vars['result']['type'], ['Location'])) {
+    return;
+  }
+  $p = 0;
+  $search_string = \Drupal\Component\Utility\SafeMarkup::checkPlain($_GET[$index]);
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = &$vars['result']['node'];
+  /** @var \Drupal\file\Plugin\Field\FieldType\FileFieldItemList $docs */
+  $docs = $node->get('field_schedule_documents');
+  /** @var \Drupal\file\Plugin\Field\FieldType\FileItem $id */
+  foreach ($docs as $id) {
+    similar_text($id->getValue()['description'], $search_string, $p);
+    if ($p > 50) {
+      // Passing schedules sub uri with pdf in a query for covering CSS catch.
+      $vars['url'] = $vars['url'] . '/schedules?pdf';
+      return;
+    }
   }
 }

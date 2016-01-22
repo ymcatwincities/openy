@@ -78,9 +78,8 @@ dependencies:
   - csv_serialization
   - acquia_connector
   - ymca_groupex
+  - ymca_personify
   - ymca_master
-
-
 themes:
   - bartik
   - seven

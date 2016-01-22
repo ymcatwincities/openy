@@ -4,3 +4,26 @@
 .align-right {
   margin: 0 0 15px 15px;
 }
+
+.promos {
+
+  & > .richtext {
+
+    & > .richtext {
+
+      & > a {
+        padding: 0;
+        background-color: rgba(255,255,255,.61);
+        text-align: left;
+        text-decoration: none;
+        -moz-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+        -ms-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+        transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+
+        &:hover {
+          background-color: #FFF;
+        }
+      }
+    }
+  }
+}

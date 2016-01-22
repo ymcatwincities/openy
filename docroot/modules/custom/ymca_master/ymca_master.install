@@ -85,9 +85,27 @@ function ymca_master_update_8003() {
 }
 
 /**
- * Update config of ymca_groupex module.
+ * Install ymca_personify module.
  */
 function ymca_master_update_8004() {
+  \Drupal::service('module_installer')->install(array('ymca_personify'), TRUE);
+}
+
+/**
+ * Configure menu items for personify.
+ */
+function ymca_master_update_8005() {
+  // Remove Sign In old link.
+  /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('menu_link_content');
+  $entity = $storage->load(210);
+  $entity->delete();
+}
+
+/**
+ * Update config of ymca_groupex module.
+ */
+function ymca_master_update_8006() {
   \Drupal::service('module_installer')->uninstall(array('ymca_groupex'));
-  \Drupal::service('module_installer')->install(array('ymca_groupex'));
+  \Drupal::service('module_installer')->install(array('ymca_groupex'), TRUE);
 }
