@@ -2,7 +2,7 @@ locations:
   - { id: 26, name: "Andover YMCA Community Center" }
   - { id: 33, name: "Blaisdell YMCA" }
   - { id: 30, name: "Burnsville YMCA" }
-  - { id: 34, name: "" }
+  - { id: 34, name: "Coon Rapids YMCA" }
   - { id: 16, name: "Eagan YMCA" }
   - { id: 27, name: "Elk River YMCA" }
   - { id: 19, name: "Hastings YMCA" }
@@ -22,3 +22,27 @@ locations:
   - { id: 25, name: "West St. Paul YMCA" }
   - { id: 21, name: "White Bear Area YMCA" }
   - { id: 13, name: "Woodbury YMCA" }
+locations_short:
+  - { id: 26, name: "Andover" }
+  - { id: 33, name: "Blaisdell" }
+  - { id: 30, name: "Burnsville" }
+  - { id: 34, name: "Coon Rapids" }
+  - { id: 16, name: "Eagan" }
+  - { id: 27, name: "Elk River" }
+  - { id: 19, name: "Hastings" }
+  - { id: 313, name: "Heritage Park" }
+  - { id: 17, name: "Hudson, WI" }
+  - { id: 18, name: "Lino Lakes" }
+  - { id: 28, name: "Minneapolis Downtown"}
+  - { id: 1677, name: "Mounds View Community Center" }
+  - { id: 31, name: "New Hope" }
+  - { id: 32, name: "Ridgedale" }
+  - { id: 53, name: "River Valley"}
+  - { id: 20, name: "Shoreview" }
+  - { id: 29, name: "Southdale" }
+  - { id: 14, name: "St. Paul Downtown" }
+  - { id: 35, name: "St. Paul Eastside" }
+  - { id: 12, name: "St. Paul Midway" }
+  - { id: 25, name: "West St. Paul" }
+  - { id: 21, name: "White Bear Area" }
+  - { id: 13, name: "Woodbury" }

@@ -101,3 +101,11 @@ function ymca_master_update_8005() {
   $entity = $storage->load(210);
   $entity->delete();
 }
+
+/**
+ * Update config of ymca_groupex module.
+ */
+function ymca_master_update_8006() {
+  \Drupal::service('module_installer')->uninstall(array('ymca_groupex'));
+  \Drupal::service('module_installer')->install(array('ymca_groupex'), TRUE);
+}
