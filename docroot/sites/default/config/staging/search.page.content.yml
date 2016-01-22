@@ -1,0 +1,14 @@
+uuid: f4ce536e-2af3-487b-ad00-dc00d449daaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: content
+label: Content
+path: results
+weight: 0
+plugin: node_search
+configuration:
+  rankings:
+    relevance: 8
