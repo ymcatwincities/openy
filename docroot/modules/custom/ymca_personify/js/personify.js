@@ -18,12 +18,11 @@
   Drupal.behaviors.personify = {
     attach: function(context, settings) {
       var cookie = $.cookie('Drupal.visitor.personify_authorized');
-      console.log(cookie);
-      if (cookie !== undefined) {
-        $('#block-topmenu ul li a', context).filter('a[href="/personify/login"]').hide();
+      if (cookie) {
+        $('#block-topmenu ul li a', context).filter('a[href$="/personify/login"]').hide();
       }
       else {
-        $('#block-topmenu ul li a', context).filter('a[href="/personify/account"]').hide();
+        $('#block-topmenu ul li a', context).filter('a[href$="/personify/account"]').hide();
       }
     }
   };
