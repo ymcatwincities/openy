@@ -18,18 +18,22 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
     'groupex_schedule_day' => [
       'variables' => [
         'classes' => [],
+        'title' => '',
+        'pdf_href' => '',
       ],
       'template' => 'groupex-schedule-day',
     ],
     'groupex_schedule_week' => [
       'variables' => [
         'days' => [],
+        'pdf_href' => '',
       ],
       'template' => 'groupex-schedule-week',
     ],
     'groupex_schedule_location' => [
       'variables' => [
         'locations' => [],
+        'filter_date' => '',
       ],
       'template' => 'groupex-schedule-location',
     ],
@@ -62,6 +66,8 @@ function ymca_groupex_schedule_layout(array $query) {
         $results = [
           '#theme' => 'groupex_schedule_day',
           '#classes' => $schedule['classes'],
+          '#title' => $schedule['title'],
+          '#pdf_href' => $schedule['pdf_href'],
         ];
       }
       break;
@@ -72,6 +78,7 @@ function ymca_groupex_schedule_layout(array $query) {
         $results = [
           '#theme' => 'groupex_schedule_week',
           '#days' => $schedule['days'],
+          '#pdf_href' => $schedule['pdf_href'],
         ];
       }
       break;
@@ -82,6 +89,7 @@ function ymca_groupex_schedule_layout(array $query) {
         $results = [
           '#theme' => 'groupex_schedule_location',
           '#locations' => $schedule['locations'],
+          '#filter_date' => $schedule['filter_date'],
         ];
       }
       break;
