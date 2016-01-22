@@ -7337,11 +7337,13 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-top: 60px;
 }
 
+.node--type-location .page-middle .content.node--view-mode-full,
+.node--type-camp .page-middle .content.node--view-mode-full {
+  background: none;
+}
+
 .locations-camps-template .tabs--primary, .ancestor-locations .tabs--primary, .theme_ymca_2013_location_home .tabs--primary {
   margin-top: 51px;
-}
-.locations-camps-template .page-middle .content.node--view-mode-full, .ancestor-locations .page-middle .content.node--view-mode-full, .theme_ymca_2013_location_home .page-middle .content.node--view-mode-full {
-  background: none;
 }
 
 .location-schedules-content .file {
