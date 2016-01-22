@@ -1,0 +1,65 @@
+// Typography
+
+h1, h2, h3, h4, h5, h6 {
+  //@include semibold;
+}
+
+h1 {
+  font-size: rem(26px);
+
+  @include susy-media(tablet) {
+    font-size: rem(40px);
+  }
+
+  @include susy-media(desktop) {
+    font-size: rem(32px);
+  }
+}
+
+h2 {
+  font-size: rem(30px);
+
+  section > & {
+    margin-bottom: rem(20px);
+    border-top: 2px solid $grey-6;
+    padding-top: rem(25px);
+  }
+}
+
+h3 {
+  font-size: rem(24px);
+}
+
+h4 {
+  font-size: rem(18px);
+}
+
+a {
+  color: $links;
+  text-decoration: none;
+
+  img {
+    display: block;
+  }
+
+  &:hover {
+    color: $hover-links;
+  }
+}
+
+p {
+  @include helvetica;
+  line-height: 1.428571429;
+
+  main & {
+    font-size: rem(14px);
+  }
+
+  section > & {
+    margin-bottom: rem(10px);
+  }
+
+  .columns & {
+    margin-bottom: rem(10px);
+  }
+}
