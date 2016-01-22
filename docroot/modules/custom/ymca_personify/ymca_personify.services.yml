@@ -1,8 +1,4 @@
 services:
-  ymca_personify_subscriber:
-    class: Drupal\ymca_personify\EventSubscriber\PersonifySubscriber
-    tags:
-      - { name: event_subscriber }
   ymca_personify.login_access_checker:
     class: Drupal\ymca_personify\Access\PersonifyLoginAccessCheck
     tags:
