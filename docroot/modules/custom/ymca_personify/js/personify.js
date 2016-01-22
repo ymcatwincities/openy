@@ -18,7 +18,7 @@
   Drupal.behaviors.personify = {
     attach: function(context, settings) {
       var cookie = $.cookie('Drupal.visitor.personify_authorized');
-      // @todo: Make account dropdown menu with My account and Sign Out items (They are already in the top menu)
+      console.log(cookie);
       if (cookie !== undefined) {
         $('#block-topmenu ul li a', context).filter('a[href="/personify/login"]').hide();
       }
