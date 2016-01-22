@@ -35,7 +35,6 @@ class PersonifyController extends ControllerBase {
    * Initialize PersonifySso object.
    */
   private function initPersonifySso() {
-    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
     if (is_null($this->sso)) {
       $this->sso = new PersonifySso(
         $this->config['wsdl'],
@@ -51,6 +50,7 @@ class PersonifyController extends ControllerBase {
    * Show the page.
    */
   public function loginPage() {
+    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
     $this->initPersonifySso();
 
     $options = ['absolute' => TRUE];
@@ -79,9 +79,12 @@ class PersonifyController extends ControllerBase {
    * Account page.
    */
   public function accountPage() {
+    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
+
     $redirect_url = Url::fromUri($this->config['url_account'])->toString();
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
+
     return [
       '#cache' => [
         'max-age' => 0,
@@ -93,7 +96,8 @@ class PersonifyController extends ControllerBase {
    * SignOut page.
    */
   public function signOutPage() {
-    unset($_SESSION['personify_token']);
+    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
+
     user_cookie_delete('personify_authorized');
 
     $redirect_url = Url::fromUri($this->config['url_sign_out'])->toString();
@@ -113,13 +117,12 @@ class PersonifyController extends ControllerBase {
   public function authPage() {
     $query = \Drupal::request()->query->all();
     if (isset($query['ct']) && !empty($query['ct'])) {
+      $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
       $this->initPersonifySso();
+
       $decrypted_token = $this->sso->decryptCustomerToken($query['ct']);
       if ($token = $this->sso->validateCustomerToken($decrypted_token)) {
         user_cookie_save(['personify_authorized' => TRUE]);
-        $session = \Drupal::service('session_manager');
-        $_SESSION['personify_token'] = $token;
-        $session->start();
         \Drupal::logger('ymca_personify')->info('A user logged in via Personify.');
       }
       else {

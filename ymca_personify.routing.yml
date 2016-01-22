@@ -4,25 +4,25 @@ ymca_personify.personify_login:
     _controller: \Drupal\ymca_personify\Controller\PersonifyController::loginPage
     _title: Personify
   requirements:
-    _access_personify_login: 'TRUE'
+    _permission: access content
 ymca_personify.personify_auth:
   path: personify/auth
   defaults:
     _controller: \Drupal\ymca_personify\Controller\PersonifyController::authPage
     _title: Personify Auth
   requirements:
-    _access_personify_login: 'TRUE'
+    _permission: access content
 ymca_personify.personify_account:
   path: personify/account
   defaults:
     _controller: \Drupal\ymca_personify\Controller\PersonifyController::AccountPage
     _title: Personify Account
   requirements:
-    _access_personify_account: 'TRUE'
+    _permission: access content
 ymca_personify.personify_signout:
   path: personify/sign_out
   defaults:
     _controller: \Drupal\ymca_personify\Controller\PersonifyController::SignOutPage
     _title: Personify SignOut
   requirements:
-    _access_personify_account: 'TRUE'
+    _permission: access content
