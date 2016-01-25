@@ -566,14 +566,16 @@ function ymca_get_archive_data($context) {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
       ->condition('field_tags.target_id', TERM_NEWS_TID)
-      ->condition('type', 'blog');
+      ->condition('type', 'blog')
+      ->sort('created', 'DESC');
     $url_key = '/news/ymca_news_archive/';
   }
   if ($context == 'blog') {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
-      ->condition('field_tags.target_id', TERM_NEWS_TID, '<>')
-      ->condition('type', 'blog');
+      ->condition('field_tags.target_id', NULL, 'IS NULL')
+      ->condition('type', 'blog')
+      ->sort('created', 'DESC');
     $url_key = '/blog/archive/';
   }
 
@@ -599,6 +601,15 @@ function ymca_get_archive_data($context) {
       $data[$year]['months'][] = $month;
     }
   }
+
+  // Remove 2011, 2012 years from archive.
+  if (isset($data['2011'])) {
+    unset($data['2011']);
+  }
+  if (isset($data['2012'])) {
+    unset($data['2012']);
+  }
+
   return $data;
 }
 
