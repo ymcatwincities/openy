@@ -319,8 +319,6 @@ function ymca_preprocess_node(&$variables) {
  * Implements hook_preprocess_html().
  */
 function ymca_preprocess_html(&$variables) {
-  dpm(\Drupal::service('router.route_provider'));
-
   // Default classes.
   $classes = ['internal-template', 'theme_ymca_2013_internal_category_and_detail'];
   if (empty($variables['attributes'])) {
