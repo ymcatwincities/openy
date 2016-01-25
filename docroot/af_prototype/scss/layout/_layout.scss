@@ -1,0 +1,72 @@
+//General settings for html,body,etc
+
+@viewport{
+  zoom: 1;
+  width: extend-to-zoom;
+}
+
+@-ms-viewport{
+  width: extend-to-zoom;
+  zoom: 1;
+}
+
+html {
+  @include cachet;
+  background-color: $default-background-color;
+  color: $default-color;
+  font-size: $base-font-size; // Don't modify static unit.
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  line-height: 1.25;
+  position: relative;
+
+  // Lock layout to 1920px;
+  @include susy-media(120em) {
+    //max-width: rem(1920px);
+    margin: 0 auto;
+  }
+}
+
+body {
+  // Disable in production mode;
+  @include show-breakpoints;
+}
+
+.index-link {
+  // Disable in production mode;
+  @include index-link;
+}
+
+main {
+  background-color: #fff;
+}
+
+.columns {
+  @include susy-media(tablet) {
+    @include clearfix;
+  }
+
+  &__left {
+    @include susy-media(tablet) {
+      @include span(4 of 8);
+    }
+
+    @include susy-media(desktop) {
+      @include span(5 of 10);
+    }
+  }
+
+  &__right {
+    @include susy-media(tablet) {
+      @include span(last 4 of 8);
+    }
+
+    @include susy-media(desktop) {
+      @include span(last 5 of 10);
+    }
+  }
+}
+
+iframe {
+  width: 100%;
+}

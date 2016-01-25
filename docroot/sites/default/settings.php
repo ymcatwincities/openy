@@ -708,9 +708,10 @@ $config_directories["staging"] = 'sites/default/config/staging';
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
   switch ($_ENV['AH_SITE_ENVIRONMENT']) {
     case 'dev':
-      if (file_exists(__DIR__ . '/settings.dev.php')) {
-        include __DIR__ . '/settings.dev.php';
-      }
+      // Uncomment the next lines to include Drupal development settings.
+//      if (file_exists(__DIR__ . '/settings.dev.php')) {
+//        include __DIR__ . '/settings.dev.php';
+//      }
       break;
   }
 }

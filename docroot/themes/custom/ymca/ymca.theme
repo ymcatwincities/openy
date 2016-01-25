@@ -58,6 +58,14 @@ function ymca_detect_camp_pages() {
         }
       }
     }
+    if ($node->hasField('field_site_section')) {
+      if ($value = $node->field_site_section->getValue()) {
+        if ($id = $value[0]['target_id']) {
+          $site_section = \Drupal::entityTypeManager()->getStorage('node')->load($id);
+          \Drupal::service('pagecontext.service')->setContext($site_section);
+        }
+      }
+    }
     if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
       return ($site_section->bundle() == 'camp' && $node->bundle() != 'camp') ? $site_section : NULL;
     }
@@ -112,6 +120,10 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
   // Detect all pages which referenced to locations by uri.
   if ($data = ymca_detect_locations_pages()) {
     array_push($suggestions, 'node__article__location__full');
+  }
+  // Detect all pages which referenced to locations by uri.
+  if ($data = ymca_detect_camp_pages() && $variables['elements']['#node']->bundle() == 'blog') {
+    array_push($suggestions, 'node__blog__camp__full');
   }
 }
 
