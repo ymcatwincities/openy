@@ -6,4 +6,5 @@ id: location_editor
 label: 'Location Editor'
 weight: 4
 is_admin: null
-permissions: {  }
+permissions:
+  - 'use text format inline_html'
