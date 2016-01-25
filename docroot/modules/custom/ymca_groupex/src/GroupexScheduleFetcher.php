@@ -240,9 +240,17 @@ class GroupexScheduleFetcher {
       });
     }
 
-    // Filter out by the date.
+    // Filter out by the date. I.
     $filtered = array_filter($filtered, function($item) use ($param) {
       if ($item->timestamp >= $param['filter_timestamp']) {
+        return TRUE;
+      }
+      return FALSE;
+    });
+
+    // Filter out by the date. II.
+    $filtered = array_filter($filtered, function($item) use ($param) {
+      if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
         return TRUE;
       }
       return FALSE;
