@@ -569,17 +569,25 @@ function ymca_get_archive_data($context) {
       ->condition('type', 'blog')
       ->sort('created', 'DESC');
     $url_key = '/news/ymca_news_archive/';
+    $nids = $query->execute();
   }
   if ($context == 'blog') {
-    $query = \Drupal::entityQuery('node')
+    $query1 = \Drupal::entityQuery('node')
       ->condition('status', 1)
       ->condition('field_tags.target_id', NULL, 'IS NULL')
       ->condition('type', 'blog')
       ->sort('created', 'DESC');
+    $query2 = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('field_tags.target_id', TERM_NEWS_TID, '<>')
+      ->condition('type', 'blog')
+      ->sort('created', 'DESC');
+    $blog_nids = $query1->execute();
+    $other_nids = $query2->execute();
+    $nids = array_merge($blog_nids, $other_nids);
     $url_key = '/blog/archive/';
   }
 
-  $nids = $query->execute();
   if (empty($nids)) {
     return;
   }
