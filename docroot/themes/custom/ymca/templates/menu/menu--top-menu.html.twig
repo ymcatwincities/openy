@@ -36,8 +36,29 @@
     {% set attributes = attributes.addClass(['nav', 'navbar-nav', 'pull-right', 'hidden-xs']) %}
     <ul{{ attributes }}>
     {% for item in items %}
+      {% if item.below %}
+        {% set item_attributes = item.attributes %}
+        {% set item_attributes = item_attributes.addClass('dropdown') %}
+      {% endif %}
       <li{{ item.attributes }}>
-        {{ link(item.title, item.url) }}
+        {% if not item.below %}
+          {{ link(item.title, item.url) }}
+        {% else %}
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            {{ item.title }}
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            {% for inner_item in item.below %}
+              <li>
+                {{ link(inner_item.title, inner_item.url) }}
+              </li>
+              {% if not loop.last %}
+                <li class="divider"></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
       </li>
     {% endfor %}
       {# Search icon #}
