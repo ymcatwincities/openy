@@ -1,0 +1,11 @@
+.sidebar {
+  @include susy-media(desktop) {
+    @include span(last 3 of 12);
+  }
+}
+
+.content-with-sidebar {
+  @include susy-media(desktop) {
+    @include span(9 of 12);
+  }
+}

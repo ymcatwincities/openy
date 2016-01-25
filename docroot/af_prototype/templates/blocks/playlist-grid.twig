@@ -1,0 +1,13 @@
+{% if playlist_data %}
+<div class="playlist-group">
+  {% for item in playlist_data %}
+    <article class="playlist-group__item {% if item.link %}playlist-group__item-with-links{% endif %}">
+      <h2>{{ item.title }}</h2>
+      {{ item.content }}
+      {% if item.link %}
+        <a href="{{ item.link }}" class="playlist-group__external-link button button--purple">Find {{ item.title }} Classes</a>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
+{% endif %}
