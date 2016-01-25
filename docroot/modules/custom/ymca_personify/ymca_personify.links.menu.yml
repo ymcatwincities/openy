@@ -9,6 +9,7 @@ ymca_personify.account:
   description: Personify Account
   route_name: ymca_personify.personify_account
   weight: 110
+  expanded: TRUE
   menu_name: top-menu
 ymca_personify.account_my:
   title: My Account

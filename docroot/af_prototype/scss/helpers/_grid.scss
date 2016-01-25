@@ -1,0 +1,97 @@
+// Susy grid.
+$debug: false; // Set true to show the grid.
+$show-image: 'hide';
+
+@if $debug == false {
+  $show-image: 'hide';
+} @else {
+  $show-image: 'show';
+}
+
+// Grid definition for all breakpoints. Use http://gridcalculator.dk/#/1200/12/52/20 to generate the grid.
+$susy: (
+  flow: ltr,
+  math: fluid,
+  container-position: rem($container-margin),
+  container: auto,
+  columns: $column-mobile,
+  gutters: 15px/44px,
+  column-width: false,
+  debug: (
+    image: $show-image,
+    color: rgba(#66f, .25),
+    output: background,
+    toggle: top right,
+  )
+);
+
+$susy_tablet: (
+  container-position: rem($container-margin * 4),
+  container: auto,
+  columns: $column-tablet,
+  gutters: 38px/59px,
+  column-width: false,
+  debug: (
+    image: $show-image,
+    color: rgba(#999, .25),
+    output: background,
+    toggle: top right,
+  ),
+);
+
+$susy_desktop: (
+  columns: $column-desktop,
+  gutters: 36px/62px,
+  container-position: rem($container-margin * 4),
+  container: auto,
+  debug: (
+    image: $show-image,
+    color: rgba(#222, .25),
+    output: background,
+    toggle: top right,
+  ),
+);
+
+// Pick specific breakpoint.
+$susy-media: (
+  // max-width: 769px
+  mobileOnly: (
+    media: screen,
+    max-width: em($tablet - 1) * 1em,
+  ),
+
+  // max-width: 1999px
+  mobileTabletOnly: (
+    media: screen,
+    max-width: em($desktop - 1) * 1em,
+  ),
+
+  // min-width: 480px
+  mobileLandscape: em($mobile-landscape) * 1em,
+
+  // min-width: 768px and max-width: 1999px 
+  tabletOnly: (
+    media: screen,
+    min-width: em($tablet) * 1em,
+    max-width: em($desktop - 1) * 1em,
+  ),
+
+  // min-width: 768px
+  tablet: em($tablet) * 1em,
+
+  // min-width: 1999px
+  desktop: em($desktop) * 1em,
+);
+
+
+.container {
+  @include container();
+
+  @include susy-media(tablet) {
+    @include container($susy_tablet);
+  }
+
+  @include susy-media(desktop) {
+    @include container($susy_desktop);
+  }
+}

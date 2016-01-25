@@ -1,0 +1,13 @@
+<ul class="activities-grid">
+  {% for activity in activities %}
+    <li class="activity">
+      <a href="{{ activity.link }}" class="activity__link">
+        <span class="activity__link__title">{{ activity.title }}</span>
+        <img class="activity__link__image" src='{{ activity.image }}' alt="Image of {{ activity.title }}" />
+      </a>
+      {% if activity.heart %}
+        <a href="#" class="activity__heart"></a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
