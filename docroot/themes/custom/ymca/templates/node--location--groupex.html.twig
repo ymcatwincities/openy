@@ -104,17 +104,11 @@
     <section class="messages">
     </section>
     <div class="row">
-      <div class="left col-sm-6">
-        <article class="richtext">
-          {{ groupex_form_refine }}
-          {{ groupex_search_results }}
-        </article>
-      </div>
-      <div class="right col-sm-6">
-        <article class="richtext location-schedules-content">
-          {{ content.field_schedule_content }}
-          {{ content.field_schedule_documents }}
-        </article>
+      <div class="col-sm-12 categories copy">
+        {{ groupex_form_refine }}
+        {{ groupex_search_results }}
+        {{ content.field_schedule_content }}
+        {{ content.field_schedule_documents }}
       </div>
     </div>
   </div>

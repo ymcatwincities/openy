@@ -1,0 +1,46 @@
+{
+   "site_title":"YMCA Prototype",
+   "img_path": "images/",
+   "modules":[
+      {
+         "name":"Module 1",
+         "link":"http://google.com"
+      },
+      {
+         "name":"Module 2",
+         "link":"http://google.com"
+      },
+      {
+         "name":"Module 3",
+         "link":"http://google.com"
+      },
+      {
+         "name":"Module 4",
+         "link":"http://google.com"
+      },
+      {
+         "name":"Module 5",
+         "link":"http://google.com"
+      },
+      {
+         "name":"Module 6",
+         "link":"http://google.com"
+      },
+      {
+         "name":"Module 7",
+         "link":"http://google.com"
+      }
+   ],
+   "jsmodules":[
+      {
+         "name":"Fancybox 2",
+         "link":"http://fancyapps.com/fancybox/",
+         "description":"fancyBox is a tool that offers a nice and elegant way to add zooming functionality for images, html content and multi-media on your webpages. It is built on the top of the popular JavaScript framework jQuery and is both easy to implement and a snap to customize."
+      },
+      {
+         "name":"Flexslider",
+         "link":"http://www.woothemes.com/flexslider/",
+         "description":"An awesome, fully responsive jQuery slider toolkit."
+      }
+   ]
+}

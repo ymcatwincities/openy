@@ -1,8 +1,5 @@
-.locations-camps-template, .ancestor-locations, .theme_ymca_2013_location_home {
-
-  .tabs--primary {
-    margin-top: 51px;
-  }
+.node--type-location,
+.node--type-camp {
 
   .page-middle {
 
@@ -10,6 +7,14 @@
       background: none;
     }
   }
+}
+
+.locations-camps-template, .ancestor-locations, .theme_ymca_2013_location_home {
+
+  .tabs--primary {
+    margin-top: 51px;
+  }
+
 }
 
 .location-schedules-content {

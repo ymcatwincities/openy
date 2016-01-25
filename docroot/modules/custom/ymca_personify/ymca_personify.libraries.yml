@@ -1,0 +1,7 @@
+personify:
+  version: 1.x
+  js:
+    js/personify.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery.cookie

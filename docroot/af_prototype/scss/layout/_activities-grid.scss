@@ -1,0 +1,150 @@
+// Activities block.
+
+.activities-grid {
+  @extend %clearfix;
+  padding-bottom: gutter(4) ;
+
+  @include susy-media(tablet) {
+    padding-bottom: gutter(10);
+  }
+
+  @include susy-media(desktop) {
+    padding-bottom: gutter(12);
+  }
+}
+
+.activity {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  height: rem(140px);
+  background-color: $light-blue;
+  cursor: pointer;
+  box-shadow: 0 2px 2px rgba(0,0,0,.2);
+  @extend %three-block-behaviour;
+
+  @include susy-media(tablet) {
+    height: rem(220px);
+  }
+
+  &__link {
+    $link-root: &;
+    position: relative;
+    display: table;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    background-color: rgba(20, 20, 20, 0.7);
+    transition: background-color 0.35s ease-in-out;
+
+    &:hover {
+      background-color: rgba(0,0,0,0);
+
+      #{$link-root}__title {
+        transform: scale(1.1);
+      }
+
+      #{$link-root}__image {
+        transform: scale(1) translate(0,-50%);
+        transform: scale3d(1,1,1) translate3d(0,-50%,0);
+        opacity: .8;
+      }
+    }
+
+    &__title {
+      position: relative;
+      display: table-cell;
+      z-index: 15;
+      padding: rem(20px);
+      vertical-align: middle;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: rem(24px);
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      color: white;
+      transition: all 0.35s ease-in-out;
+
+      @include susy-media(tablet) {
+        font-size: rem(30px);
+      }
+    }
+
+    &__image {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: block;
+      min-height: 100%;
+      min-width: 100%;
+      opacity: 0.6;
+      z-index: 5;
+      transform: scale(1.1) translate(0,-45%);
+      transform: scale3d(1.1,1.1,1) translate3d(0,-45%,0);
+      transform-origin: center center;
+      transition: all 0.35s ease-in-out;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+
+  &__heart {
+    @extend .icon-heart-outlined;
+    padding: rem(5px 5px 2px);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 15;
+    color: #fff;
+    transition: color ease-in-out .2s;
+
+    @include susy-media(tablet) {
+      bottom: 10px;
+      right: 10px;
+      padding: rem(5px);
+    }
+
+    &:hover {
+      color: $maroon;
+    }
+
+    &:before {
+      @extend %icons;
+      font-size: rem(32px);
+      z-index: 25;
+      position: relative;
+    }
+
+    &:after {
+      @extend %icons;
+      content: "\e602";
+      font-size: rem(32px);
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: rem(5px 5px 2px);
+      color: lighten($maroon,5);
+      z-index: 20;
+
+      @include susy-media(tablet) {
+        padding: rem(5px);
+      }
+    }
+
+    &:active {
+      transform: scale3d(0.9,0.9,1);
+    }
+
+    &-active {
+      @extend .icon-heart;
+      color: lighten($maroon,5);
+      &:before {
+        text-shadow: 0px 0px 10px lighten($maroon,35);
+      }
+      &:after {
+        transition: all ease-in-out .45s;
+        opacity: 0;
+        transform: scale3d(2.5,2.5,1);
+      }
+    }
+  }
+}
