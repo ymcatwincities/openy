@@ -109,3 +109,10 @@ function ymca_master_update_8006() {
   \Drupal::service('module_installer')->uninstall(array('ymca_groupex'));
   \Drupal::service('module_installer')->install(array('ymca_groupex'), TRUE);
 }
+
+/**
+ * Install ymca_search_alter module.
+ */
+function ymca_master_update_8007() {
+  \Drupal::service('module_installer')->install(array('ymca_search_alter'), TRUE);
+}
