@@ -16,7 +16,7 @@
     <li class="blog_months_container_li" id="blog_archive_year_{{ key }}" {% if list.expanded %}style="display: list-item;"{% endif %}>
       <ul class="blog_months_list">
         {% for month in list.months %}
-          <li class="blog_month_li"><a href="{{ month.url }}" class="blog_month_link" id="blog_archive_month_{{ key ~ '_' ~ month.number }}">{{ month.title }}</a></li>
+          <li class="blog_month_li"><a href="{{ month.url }}" class="blog_month_link{% if month.active %} active{% endif %}" id="blog_archive_month_{{ key ~ '_' ~ month.number }}">{{ month.title }}</a></li>
         {% endfor %}
       </ul>
     </li>
