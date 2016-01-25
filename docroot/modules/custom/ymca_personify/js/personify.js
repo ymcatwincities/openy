@@ -19,10 +19,10 @@
     attach: function(context, settings) {
       var cookie = $.cookie('Drupal.visitor.personify_authorized');
       if (cookie) {
-        $('#block-topmenu ul li a', context).filter('a[href$="/personify/login"]').hide();
+        $('.nav-global a[href$="/personify/login"]', context).parent('li').hide();
       }
       else {
-        $('#block-topmenu ul li a', context).filter('a[href$="/personify/account"]').hide();
+        $('.nav-global a[href$="/personify/account"]', context).parents('li.dropdown').hide();
       }
     }
   };
