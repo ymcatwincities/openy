@@ -51,6 +51,7 @@ class SearchController extends \Drupal\search\Controller\SearchController {
 
     $build['#title'] = $plugin->suggestedTitle();
     $build['search_form'] = $this->entityFormBuilder()->getForm($entity, 'search');
+    $build['search_form']['#attributes']['style'] = 'display:none;';
 
     // Build search results, if keywords or other search parameters are in the
     // GET parameters. Note that we need to try the search if 'keys' is in
@@ -71,12 +72,6 @@ class SearchController extends \Drupal\search\Controller\SearchController {
         // conditions were entered.
         drupal_set_message($this->t('Please enter some keywords.'), 'error');
       }
-    }
-
-    if (count($results)) {
-      $build['search_results_title'] = array(
-        '#markup' => '<h2>' . $this->t('Search results') . '</h2>',
-      );
     }
 
     $build['search_results'] = array(
@@ -110,6 +105,5 @@ class SearchController extends \Drupal\search\Controller\SearchController {
 
     return $build;
   }
-
 
 }
