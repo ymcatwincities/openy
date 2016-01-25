@@ -20,20 +20,12 @@ class RouteSubscriber extends RouteSubscriberBase {
    */
   public function alterRoutes(RouteCollection $collection) {
     foreach ($collection as &$item) {
-      /** @var Route */
+      /** @var Route $item */
       if ($item->getPath() == '/search/results') {
         $item->setPath('/search_results');
+        $item->setDefault('_controller', 'Drupal\ymca_search_alter\Controller\SearchController::view');
       }
     }
-//    // Change path '/user/login' to '/login'.
-//    if ($route = $collection->get('user.login')) {
-//      $route->setPath('/login');
-//    }
-//    // Always deny access to '/user/logout'.
-//    // Note that the second parameter of setRequirement() is a string.
-//    if ($route = $collection->get('user.logout')) {
-//      $route->setRequirement('_access', 'FALSE');
-//    }
   }
 
 }
