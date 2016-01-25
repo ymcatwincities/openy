@@ -596,10 +596,16 @@ function ymca_get_archive_data($context) {
   $years = array();
   foreach ($nodes as $node) {
     $year = date('Y', $node->getCreatedTime());
+    $number = date('m', $node->getCreatedTime());
+    $active = FALSE;
+    if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year && \Drupal::routeMatch()->getRawParameter('arg_1') == $number) {
+      $active = TRUE;
+    }
     $month = array(
       'title' => date('F', $node->getCreatedTime()),
-      'number' => date('m', $node->getCreatedTime()),
+      'number' => $number,
       'url' => Drupal\Core\Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
+      'active' => $active ? TRUE : FALSE,
     );
     $data[$year]['expanded'] = '';
     if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year) {
