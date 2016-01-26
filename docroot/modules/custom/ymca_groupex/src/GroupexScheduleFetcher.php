@@ -38,6 +38,13 @@ class GroupexScheduleFetcher {
   private $filteredData = [];
 
   /**
+   * Fixed data (enriched).
+   *
+   * @var array
+   */
+  private $fixedData = [];
+
+  /**
    * Query parameters.
    *
    * @var array
@@ -52,6 +59,7 @@ class GroupexScheduleFetcher {
     $this->getData();
     $this->enrichData();
     $this->filterData();
+    $this->fixData();
   }
 
   /**
@@ -66,7 +74,7 @@ class GroupexScheduleFetcher {
     // Prepare classes items.
     $items = [];
 
-    foreach ($this->filteredData as $item) {
+    foreach ($this->fixedData as $item) {
       $items[$item->id] = [
         '#theme' => 'groupex_class',
         '#class' => [
@@ -144,8 +152,6 @@ class GroupexScheduleFetcher {
 
   /**
    * Fetch data from the server.
-   *
-   * @todo The server return extra results for the day before of provided period.
    */
   private function getData() {
     // No request parameters - no data.
@@ -240,23 +246,58 @@ class GroupexScheduleFetcher {
       });
     }
 
-    // Filter out by the date. I.
-    $filtered = array_filter($filtered, function($item) use ($param) {
-      if ($item->timestamp >= $param['filter_timestamp']) {
-        return TRUE;
-      }
-      return FALSE;
-    });
+    // Groupex response have some redundant data. Filter it out.
+    if ($param['filter_length'] == 'day') {
+      // Filter out by the date. Cut off days before.
+      $filtered = array_filter($filtered, function($item) use ($param) {
+        if ($item->timestamp >= $param['filter_timestamp']) {
+          return TRUE;
+        }
+        return FALSE;
+      });
 
-    // Filter out by the date. II.
-    $filtered = array_filter($filtered, function($item) use ($param) {
-      if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
-        return TRUE;
-      }
-      return FALSE;
-    });
+      // Filter out by the date. Cut off days after.
+      $filtered = array_filter($filtered, function($item) use ($param) {
+        if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
+          return TRUE;
+        }
+        return FALSE;
+      });
+    }
 
     $this->filteredData = $filtered;
+  }
+
+  /**
+   * Fix data.
+   */
+  private function fixData() {
+    $data = $this->filteredData;
+
+    // Groupex returns invalid date for the first day of the week.
+    // Example: tue, 02, Feb; wed, 27, Feb; thu, 28, Feb.
+    // So, fixing.
+    if ($this->parameters['filter_length'] == 'week') {
+      // Get current day.
+      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp']);
+      $current_day = $date->format('N');
+
+      // Search for the day equals current.
+      foreach ($data as &$item) {
+        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp);
+        if ($current_day == $item_date->format('N')) {
+          // Set proper data.
+          $new_timestamp = $item->timestamp - 60 * 60 * 24 * 7;
+          $new_date = DrupalDateTime::createFromTimestamp($new_timestamp);
+          $full_date = $new_date->format('l, F j, Y');
+          $item->date = $full_date;
+          $item->day = $full_date;
+          $item->timestamp = $new_timestamp;
+        }
+      }
+    }
+
+    $this->fixedData = $data;
   }
 
   /**
