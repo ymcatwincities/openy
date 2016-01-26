@@ -7,3 +7,9 @@ services:
     class: Drupal\ymca_personify\Access\PersonifyAccountAccessCheck
     tags:
       - { name: access_check, applies_to: _access_personify_account }
+  ymca_personify.page_cache_response_policy.personify:
+    class: Drupal\ymca_personify\PageCache\Personify
+    arguments: ['@current_route_match']
+    public: false
+    tags:
+      - { name: page_cache_response_policy }
