@@ -153,6 +153,12 @@ abstract class GroupexFormBase extends FormBase {
     $date = $form_state->getValue('filter_date');
     $params['filter_date'] = $date->format(self::$dateFilterFormat);
 
+    // Toggle filter_length if user has selected more than 1 location and week period.
+    if ($params['filter_length'] == 'week' && count($params['location']) > 1) {
+      $params['filter_length'] = 'day';
+      drupal_set_message(t('Search results across multiple locations are limited to a single day.'), 'warning');
+    }
+
     return $params;
   }
 
@@ -165,12 +171,6 @@ abstract class GroupexFormBase extends FormBase {
     // User may select up to 4 locations.
     if (count($location) > 4) {
       $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
-    }
-
-    $filter_length = $form_state->getValue('filter_length');
-    // User may not search by 2 locations and week period.
-    if (count($location) > 1 && reset($filter_length) != 'day') {
-      $form_state->setError($form['filter_length'], $this->t('Search results across multiple locations are limited to a single day.'));
     }
   }
 
