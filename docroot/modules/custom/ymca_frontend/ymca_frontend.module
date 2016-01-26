@@ -1,36 +1,19 @@
 <?php
 /**
  * @file
- * Contains Drupal\ymca_frontend\Controller.
+ * Module file.
  */
-
-namespace Drupal\ymca_frontend\Controller;
-
-use Drupal\Core\Render\Element;
-use Drupal\node\NodeInterface;
 
 /**
- * Controller for Scheduler view mode of Location CT.
+ * Implements hook_theme().
  */
-class YMCALocationSchedulesController {
-
-  /**
-   * Set Markup.
-   */
-  public function content(NodeInterface $node) {
-    \Drupal::service('pagecontext.service')->setContext($node);
-    $markup = render(node_view($node, 'schedules'));
-
-    return array(
-      '#markup' => $markup,
-    );
-  }
-
-  /**
-   * Set Title.
-   */
-  public function setTitle(NodeInterface $node) {
-    return $node->getTitle();
-  }
-
+function ymca_frontend_theme($existing, $type, $theme, $path) {
+  return [
+    'locations_content' => [
+      'variables' => [
+        'locations' => [],
+      ],
+      'template' => 'locations-content',
+    ],
+  ];
 }
