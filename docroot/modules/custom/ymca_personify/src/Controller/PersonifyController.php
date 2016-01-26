@@ -68,11 +68,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return [
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    return [];
   }
 
   /**
@@ -85,11 +81,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return [
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    return [];
   }
 
   /**
@@ -104,11 +96,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return [
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    return [];
   }
 
   /**
@@ -131,11 +119,8 @@ class PersonifyController extends ControllerBase {
     }
     $redirect = new RedirectResponse(Url::fromRoute('<front>')->toString());
     $redirect->send();
-    return [
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+
+    return [];
   }
 
 }
