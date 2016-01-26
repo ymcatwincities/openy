@@ -164,7 +164,7 @@ abstract class GroupexFormBase extends FormBase {
 
     // User may select up to 4 locations.
     if (count($location) > 4) {
-      $form_state->setError($form['location'], $this->t('Please, select less than 4 locations.'));
+      $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
     }
 
     $filter_length = $form_state->getValue('filter_length');
