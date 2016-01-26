@@ -170,7 +170,7 @@ abstract class GroupexFormBase extends FormBase {
     $filter_length = $form_state->getValue('filter_length');
     // User may not search by 2 locations and week period.
     if (count($location) > 1 && reset($filter_length) != 'day') {
-      $form_state->setError($form['filter_length'], $this->t('Please, choose day view.'));
+      $form_state->setError($form['filter_length'], $this->t('Search results across multiple locations are limited to a single day.'));
     }
   }
 
