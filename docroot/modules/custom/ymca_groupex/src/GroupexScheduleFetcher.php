@@ -38,11 +38,11 @@ class GroupexScheduleFetcher {
   private $filteredData = [];
 
   /**
-   * Fixed data (enriched).
+   * Processed data (enriched).
    *
    * @var array
    */
-  private $fixedData = [];
+  private $processedData = [];
 
   /**
    * Query parameters.
@@ -59,7 +59,7 @@ class GroupexScheduleFetcher {
     $this->getData();
     $this->enrichData();
     $this->filterData();
-    $this->fixData();
+    $this->processData();
   }
 
   /**
@@ -74,7 +74,7 @@ class GroupexScheduleFetcher {
     // Prepare classes items.
     $items = [];
 
-    foreach ($this->fixedData as $item) {
+    foreach ($this->processedData as $item) {
       $items[$item->id] = [
         '#theme' => 'groupex_class',
         '#class' => [
@@ -269,14 +269,14 @@ class GroupexScheduleFetcher {
   }
 
   /**
-   * Fix data.
+   * Process data.
    */
-  private function fixData() {
+  private function processData() {
     $data = $this->filteredData;
 
     // Groupex returns invalid date for the first day of the week.
-    // Example: tue, 02, Feb; wed, 27, Feb; thu, 28, Feb.
-    // So, fixing.
+    // Example: tue, 02, Feb; wed, 27, Jan; thu, 28, Jan.
+    // So, processing.
     if ($this->parameters['filter_length'] == 'week') {
       // Get current day.
       $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp']);
@@ -297,7 +297,7 @@ class GroupexScheduleFetcher {
       }
     }
 
-    $this->fixedData = $data;
+    $this->processedData = $data;
   }
 
   /**
