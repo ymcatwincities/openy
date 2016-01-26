@@ -116,3 +116,11 @@ function ymca_master_update_8006() {
 function ymca_master_update_8007() {
   \Drupal::service('module_installer')->install(array('ymca_search_alter'), TRUE);
 }
+
+/**
+ * Enable config of ymca_frontend module.
+ */
+function ymca_master_update_8008() {
+  \Drupal::service('module_installer')->uninstall(array('ymca_frontend'));
+  \Drupal::service('module_installer')->install(array('ymca_frontend'), TRUE);
+}
