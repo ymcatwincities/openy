@@ -7412,6 +7412,10 @@ body.path-search #block-mainpagecontent li {
   list-style-image: none;
 }
 
+.path-search-results #block-tabs {
+  display: none;
+}
+
 .align-left {
   margin: 0 15px 15px 0;
 }

@@ -66,12 +66,12 @@ abstract class GroupexFormBase extends FormBase {
     ];
 
     $form['filter_length'] = [
-      '#type' => 'checkboxes',
+      '#type' => 'radios',
       '#options' => [
         'day' => $this->t('Day'),
         'week' => $this->t('Week'),
       ],
-      '#default_value' => $refine ? [$params['filter_length']] : ['day'],
+      '#default_value' => $refine ? $params['filter_length'] : 'day',
       '#title' => $this->t('View Day or Week'),
       '#description' => $this->t('Selecting more than one location limits your search to one day.'),
     ];
@@ -139,7 +139,7 @@ abstract class GroupexFormBase extends FormBase {
       'location' => array_filter($form_state->getValue('location')),
       'class' => $form_state->getValue('class_name'),
       'category' => $form_state->getValue('category'),
-      'filter_length' => reset($form_state->getValue('filter_length')),
+      'filter_length' => $form_state->getValue('filter_length'),
     ];
 
     // Time of day is optional.
@@ -153,6 +153,12 @@ abstract class GroupexFormBase extends FormBase {
     $date = $form_state->getValue('filter_date');
     $params['filter_date'] = $date->format(self::$dateFilterFormat);
 
+    // Toggle filter_length if user has selected more than 1 location and week period.
+    if ($params['filter_length'] == 'week' && count($params['location']) > 1) {
+      $params['filter_length'] = 'day';
+      drupal_set_message(t('Search results across multiple locations are limited to a single day.'), 'warning');
+    }
+
     return $params;
   }
 
@@ -164,13 +170,7 @@ abstract class GroupexFormBase extends FormBase {
 
     // User may select up to 4 locations.
     if (count($location) > 4) {
-      $form_state->setError($form['location'], $this->t('Please, select less than 4 locations.'));
-    }
-
-    $filter_length = array_filter($form_state->getValue('filter_length'));
-    // User may not search by 2 locations and week period.
-    if (count($location) > 1 && reset($filter_length) != 'day') {
-      $form_state->setError($form['filter_length'], $this->t('Please, choose day view.'));
+      $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
     }
   }
 
