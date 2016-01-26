@@ -62,10 +62,10 @@
 <div id="top"></div>
 
 <div id="sidebar" class="sidebar sidebar-left collapse width">
-  <form method="get" action="{{ base_path }}search/results">
+  <form method="get" action="{{ path('search.view_content') }}">
     <div class="form-group col-xs-12">
       <div class="input-group">
-        <input type="text" name="keys" class="form-control">
+        <input type="text" name="q" class="form-control">
                 <span class="input-group-btn">
                     <button class="btn btn-info" type="submit">Search</button>
                 </span>
@@ -86,9 +86,9 @@
       <article class="hidden-xs ">
         <div id="site-search" class="site-search collapse">
           <div class="container search-container">
-            <form action="{{ base_path }}search/results" method="get">
+            <form action="{{ path('search.view_content') }}" method="get">
               <div class="input-group">
-                <input type="text" name="keys" class="form-control input-lg">
+                <input type="text" name="q" class="form-control input-lg">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary btn-lg" type="submit">Search The Y</button>
                                 </span>
