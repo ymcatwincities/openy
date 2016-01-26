@@ -1,0 +1,5 @@
+services:
+  ymca_search_alter.route_subscriber:
+    class: Drupal\ymca_search_alter\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
