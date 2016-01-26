@@ -287,12 +287,11 @@ class GroupexScheduleFetcher {
         $item_date = DrupalDateTime::createFromTimestamp($item->timestamp);
         if ($current_day == $item_date->format('N')) {
           // Set proper data.
-          $new_timestamp = $item->timestamp - 60 * 60 * 24 * 7;
-          $new_date = DrupalDateTime::createFromTimestamp($new_timestamp);
-          $full_date = $new_date->format('l, F j, Y');
+          $item_date->modify('-7 days');
+          $full_date = $item_date->format('l, F j, Y');
           $item->date = $full_date;
           $item->day = $full_date;
-          $item->timestamp = $new_timestamp;
+          $item->timestamp = $item_date->format('U');
         }
       }
     }
