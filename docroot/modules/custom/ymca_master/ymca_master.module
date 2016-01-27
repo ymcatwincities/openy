@@ -1,11 +1,17 @@
 <?php
 /**
  * @file
- * Contains ymca_master specific functions
+ * Contains ymca_master specific functions.
  */
 
 use Drupal\Core\Config\InstallStorage;
 
+/**
+ * Helper function to reimport config.
+ *
+ * @param string $filename
+ *   Relative path to the config.
+ */
 function _ymca_master_import_config($filename) {
   $contents = @file_get_contents($filename);
   if (!$contents) {
