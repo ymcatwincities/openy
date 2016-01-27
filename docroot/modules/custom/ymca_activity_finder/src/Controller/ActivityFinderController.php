@@ -22,9 +22,9 @@ class ActivityFinderController extends ControllerBase {
   /**
    * Get node by ID.
    *
-   * @param $id
-   *
+   * @param mixed $id
    *   Node ID.
+   *
    * @return \Drupal\node\Entity\Node
    *   Node object.
    *
@@ -44,9 +44,9 @@ class ActivityFinderController extends ControllerBase {
   /**
    * Render a page.
    *
-   * @param $id
+   * @param mixed $id
    *   Node ID.
-   * @param $title
+   * @param string $title
    *   Cleaned title.
    *
    * @return array
@@ -85,9 +85,9 @@ class ActivityFinderController extends ControllerBase {
   /**
    * Get page title.
    *
-   * @param $id
-   *  Node ID.
-   * @param $title
+   * @param mixed $id
+   *   Node ID.
+   * @param string $title
    *   Cleaned title.
    *
    * @return string
