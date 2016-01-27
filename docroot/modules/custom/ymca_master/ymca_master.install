@@ -6,6 +6,7 @@
  */
 
 use Drupal\field\Entity\FieldConfig;
+use Drupal\block_content\Entity\BlockContent;
 
 /**
  * Protecting sites with a shield.
@@ -123,4 +124,16 @@ function ymca_master_update_8007() {
 function ymca_master_update_8008() {
   \Drupal::service('module_installer')->uninstall(array('ymca_frontend'));
   \Drupal::service('module_installer')->install(array('ymca_frontend'), TRUE);
+}
+
+/**
+ * Enable config of ymca_frontend module.
+ */
+function ymca_master_update_8009() {
+  module_load_include('php', 'ymca_master', 'include/ymca_master.8009');
+  $blocks = _ymca_master_schedules_block_data();
+  foreach ($blocks as $block_data) {
+    $block = BlockContent::create($block_data)->enforceIsNew();
+    $block->save();
+  }
 }
