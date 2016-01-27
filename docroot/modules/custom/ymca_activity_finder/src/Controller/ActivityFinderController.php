@@ -7,8 +7,10 @@
 namespace Drupal\ymca_activity_finder\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Form\EnforcedResponseException;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\ymca_activity_finder\ActivityFinderTrait;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -42,31 +44,49 @@ class ActivityFinderController extends ControllerBase {
   }
 
   /**
-   * Render a page.
+   * Check arguments.
    *
-   * @param mixed $id
-   *   Node ID.
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
    * @param string $title
    *   Cleaned title.
    *
+   * @throws \Exception
+   *   Exception.
+   */
+  private function checkArgs(NodeInterface $node, $title) {
+    // Check bundle.
+    if ($node->bundle() != 'article') {
+      throw new \Exception('The node has a wrong type.');
+    }
+
+    // Check title.
+    if ($title != ActivityFinderTrait::cleanTitle($node->label())) {
+      throw new \Exception('The node has a wrong title.');
+    }
+  }
+
+  /**
+   * Get produce page.
+   *
+   * @param mixed $id
+   *   Node ID.
+   * @param mixed $title
+   *   Title.
+   *
    * @return array
    *   Render array.
+   *
+   * @throws EnforcedResponseException
+   *   Exception.
+   *
+   * @throws NotFoundHttpException
+   *   Exception.
    */
   public function productView($id, $title) {
     try {
       $node = $this->getNode($id);
-
-      // Check bundle.
-      if ($node->bundle() != 'article') {
-        \Drupal::logger('ymca_activity_finder')->info('The node has a wrong type.');
-        throw new NotFoundHttpException();
-      }
-
-      // Check title.
-      if ($title != ActivityFinderTrait::cleanTitle($node->label())) {
-        \Drupal::logger('ymca_activity_finder')->info('The node has a wrong title.');
-        throw new NotFoundHttpException();
-      }
+      $this->checkArgs($node, $title);
 
       \Drupal::service('pagecontext.service')->setContext($node);
       $view = node_view($node, 'product');
@@ -75,6 +95,9 @@ class ActivityFinderController extends ControllerBase {
       return [
         '#markup' => $markup,
       ];
+    }
+    catch (EnforcedResponseException $e) {
+      throw $e;
     }
     catch (\Exception $e) {
       watchdog_exception('ymca_activity_finder', $e, RfcLogLevel::INFO);
