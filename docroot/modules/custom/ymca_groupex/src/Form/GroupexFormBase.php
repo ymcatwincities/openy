@@ -85,6 +85,7 @@ abstract class GroupexFormBase extends FormBase {
     }
     $form['filter_date'] = [
       '#type' => 'datetime',
+      '#date_date_format' => 'mm/dd/yyyy',
       '#title' => $this->t('Start Date'),
       '#default_value' => $filter_date_default,
       '#date_time_element' => 'none',
@@ -92,7 +93,7 @@ abstract class GroupexFormBase extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Find Class'),
+      '#value' => $this->t('Find Classes'),
     ];
 
     // Attach JS.

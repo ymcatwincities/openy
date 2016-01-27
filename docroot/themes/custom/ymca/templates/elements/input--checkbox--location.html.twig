@@ -13,9 +13,9 @@
  */
 #}
 <div class="form-group" data-toggle="buttons">
-  <label class="control-label btn-block btn btn-default " for="{{ attributes.id }}" title="{{ attribute(element, '#title') }}">
+  <label class="control-label btn-block btn btn-default {{ attribute(attributes, 'checked') ? 'active' }}" for="{{ attributes.id }}" title="{{ attribute(element, '#title') }}">
     <input {{ attributes }} />
-    <span class="glyphicon glyphicon-unchecked hidden-xs"></span>
+    <span class="glyphicon glyphicon-{{ attribute(attributes, 'checked') ? 'check' : 'unchecked' }} hidden-xs"></span>
     {{ attribute(element, '#title') }}
   </label>
 </div>

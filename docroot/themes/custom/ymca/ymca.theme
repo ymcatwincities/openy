@@ -802,6 +802,10 @@ function ymca_theme() {
     'ymca_groupex_form_full' => [
       'render element' => 'form',
     ],
+    'ymca_groupex_form_full_refine' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-groupex-form-full-refine',
+    ],
   ];
 }
 
@@ -818,6 +822,23 @@ function ymca_form_groupex_form_full_alter(&$form, \Drupal\Core\Form\FormStateIn
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
   $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_full_refine_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'ymca_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location__expanded';
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#theme'] = ['ymca_groupex_form_full_refine'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
 }
@@ -875,6 +896,10 @@ function ymca_prerender_datetime($element) {
     $element[$child_key]['#attributes']['class'] = ['form-control', 'text'];
     $element[$child_key]['#attributes']['autocomplete'] = 'off';
     $element[$child_key]['#attributes']['id'] = $element[$child_key]['#id'];
+    $element[$child_key]['#attributes']['name'] = $element[$child_key]['#name'];
+    $element[$child_key]['#attributes']['value'] = $element[$child_key]['#value'];
+    unset($element[$child_key]['#attributes']['data-drupal-date-format']);
+    unset($element[$child_key]['#attached']);
     $element[$child_key]['#theme'] = 'input__date__schedule';
     $element[$child_key]['#theme_wrappers'] = [];
     $element[$child_key]['#title_display'] = 'hidden';
