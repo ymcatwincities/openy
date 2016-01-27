@@ -1,11 +1,11 @@
 <?php
 /**
  * @file
- * Contains helper function for ymca_master_update_8009.
+ * Contains helper function for ymca_master_update_8011.
  */
 
 /**
- * Helper function for ymca_master_update_8009().
+ * Helper function for ymca_master_update_8011().
  */
 function _ymca_master_schedules_block_data() {
   $data["6b8733c5-ea71-43a1-9604-4fb7c03f38aa"] = [
@@ -69,6 +69,53 @@ function _ymca_master_schedules_block_data() {
       'summary' => "",
       'format' => "full_html",
     ],
+    ],
+  ];
+
+  $data[] = [
+    'langcode' => "en",
+    'type' => "basic",
+    'uuid' => "316a6852-f5e2-4970-ae00-a2d39467a7f3",
+    'info' => "All Y Schedules form title",
+    'changed' => "1453896361",
+    'body' => [
+      [
+        'value' => '<h2>Free Group Exercise Classes—No Registration Required</h2>',
+        'summary' => "",
+        'format' => "full_html",
+      ],
+    ],
+  ];
+
+  $data[] = [
+    'langcode' => "en",
+    'type' => "basic",
+    'uuid' => "e1cd8fce-1c82-41ac-9c00-af006b083aae",
+    'info' => "All Y Schedules lead left",
+    'changed' => "1453896224",
+    'body' => [
+      [
+        'value' => '<article class="richtext"><p>Whether you’re young or old, beginner or veteran, the YMCA offers a variety of equipment, classes and programs for getting and staying healthy.</p></article>',
+        'summary' => "",
+        'format' => "full_html",
+      ],
+    ],
+  ];
+
+  $data[] = [
+    'langcode' => "en",
+    'type' => "basic",
+    'uuid' => "d5f95c9b-9891-483a-bb00-0d8904b8d005",
+    'info' => "All Y Schedules lead right",
+    'changed' => "1453896304",
+    'body' => [
+      [
+        'value' => '<article class="richtext">
+<h2><drupal-entity data-align="none" data-embed-button="menu_link" data-entity-embed-display="entity_reference:entity_reference_label_url" data-entity-embed-settings="{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;Try Us for Free&quot;}" data-entity-id="2069" data-entity-label="Menu Link" data-entity-type="menu_link_content" data-entity-uuid="41354487-fbeb-4935-a400-ddef3199eb10"></drupal-entity>&nbsp;</h2>
+</article>',
+        'summary' => "",
+        'format' => "full_html",
+      ],
     ],
   ];
 
