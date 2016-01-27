@@ -188,10 +188,13 @@ function ymca_master_update_8011() {
     $block->save();
   }
   _ymca_master_import_config('sites/default/config/staging/block.block.schedulesrightblocks.yml');
+  _ymca_master_import_config('sites/default/config/staging/block.block.allyschedulesformtitle.yml');
+  _ymca_master_import_config('sites/default/config/staging/block.block.allyschedulesleadleft.yml');
+  _ymca_master_import_config('sites/default/config/staging/block.block.allyschedulesleadright.yml');
 }
 
 /**
- * Helper function to reimport config.
+ * Helper function to re-import config.
  *
  * @param string $filename
  *   Relative path to the config.
@@ -223,4 +226,3 @@ function _ymca_master_import_config($filename) {
     $this->configFactory->getEditable($config_name)->setData($data)->save();
   }
 }
-
