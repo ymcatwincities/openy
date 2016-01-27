@@ -43,14 +43,14 @@ abstract class GroupexFormBase extends FormBase {
     $form['class_name'] = [
       '#type' => 'select',
       '#options' => ['any' => $this->t('All')] + $refined_options,
-      '#title' => $this->t('Class Name (optional)'),
+      '#title' => $this->t('Class Name') . ' <small>(' . $this->t('optional') . ')</small>',
       '#default_value' => $refine ? $params['class'] : [],
     ];
 
     $form['category'] = [
       '#type' => 'select',
       '#options' => ['any' => $this->t('All')] + $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name'),
-      '#title' => $this->t('Category (optional)'),
+      '#title' => $this->t('Category') . ' <small>(' . $this->t('optional') . ')</small>',
       '#default_value' => $refine ? $params['category'] : [],
     ];
 
@@ -61,7 +61,7 @@ abstract class GroupexFormBase extends FormBase {
         'afternoon' => $this->t('Afternoon (12 p.m. - 5 p.m.)'),
         'evening' => $this->t('Evening (5 p.m. - 10 p.m.)'),
       ],
-      '#title' => $this->t('Time of Day (optional)'),
+      '#title' => $this->t('Time of Day') . ' <small>(' . $this->t('optional') . ')</small>',
       '#default_value' => $refine ? $params['time_of_day'] : [],
     ];
 
