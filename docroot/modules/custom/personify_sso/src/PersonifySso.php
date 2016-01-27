@@ -7,7 +7,8 @@
 namespace Drupal\personify_sso;
 
 /**
- * Class PersonifySsO
+ * Class PersonifySsO.
+ *
  * @package Drupal\personify_sso.
  */
 class PersonifySso {
@@ -24,28 +25,32 @@ class PersonifySso {
    *
    * @var int
    */
-  private $vendor_id = NULL;
+  private $vendorId = NULL;
 
   /**
    * Vendor username.
+   *
    * @var string
    */
-  private $vendor_username = NULL;
+  private $vendorUsername = NULL;
 
   /**
    * Vendor password.
+   *
    * @var string
    */
-  private $vendor_password = NULL;
+  private $vendorPassword = NULL;
 
   /**
    * Vendor block.
+   *
    * @var string
    */
-  private $vendor_block = NULL;
+  private $vendorBlock = NULL;
 
   /**
    * Soap client.
+   *
    * @var \SoapClient
    */
   private $client = NULL;
@@ -66,10 +71,10 @@ class PersonifySso {
    */
   public function __construct($wsdl, $vendor_id, $vendor_username, $vendor_password, $vendor_block) {
     $this->wsdl = $wsdl;
-    $this->vendor_id = $vendor_id;
-    $this->vendor_username = $vendor_username;
-    $this->vendor_password = $vendor_password;
-    $this->vendor_block = $vendor_block;
+    $this->vendorId = $vendor_id;
+    $this->vendorUsername = $vendor_username;
+    $this->vendorPassword = $vendor_password;
+    $this->vendorBlock = $vendor_block;
 
     $this->initClient();
   }
@@ -94,7 +99,7 @@ class PersonifySso {
   /**
    * Get vendor token.
    *
-   * @param $url
+   * @param string $url
    *   Absolute Url.
    *
    * @return string|bool
@@ -102,9 +107,9 @@ class PersonifySso {
    */
   public function getVendorToken($url) {
     $params = [
-      'vendorUsername' => $this->vendor_username,
-      'vendorPassword' => $this->vendor_password,
-      'vendorBlock' => $this->vendor_block,
+      'vendorUsername' => $this->vendorUsername,
+      'vendorPassword' => $this->vendorPassword,
+      'vendorBlock' => $this->vendorBlock,
       'url' => $url,
     ];
 
@@ -122,7 +127,7 @@ class PersonifySso {
   /**
    * Validate custom token.
    *
-   * @param $token
+   * @param string $token
    *   Customer token.
    *
    * @return string|bool
@@ -130,8 +135,8 @@ class PersonifySso {
    */
   public function validateCustomerToken($token) {
     $params = [
-      'vendorUsername' => $this->vendor_username,
-      'vendorPassword' => $this->vendor_password,
+      'vendorUsername' => $this->vendorUsername,
+      'vendorPassword' => $this->vendorPassword,
       'customerToken' => $token,
     ];
     try {
@@ -153,7 +158,7 @@ class PersonifySso {
   /**
    * Decrypt customer Token.
    *
-   * @param $token
+   * @param string $token
    *   Encrypted customer token.
    *
    * @return string|bool
@@ -161,9 +166,9 @@ class PersonifySso {
    */
   public function decryptCustomerToken($token) {
     $params = [
-      'vendorUsername' => $this->vendor_username,
-      'vendorPassword' => $this->vendor_password,
-      'vendorBlock' => $this->vendor_block,
+      'vendorUsername' => $this->vendorUsername,
+      'vendorPassword' => $this->vendorPassword,
+      'vendorBlock' => $this->vendorBlock,
       'customerToken' => $token,
     ];
 
@@ -182,7 +187,7 @@ class PersonifySso {
   /**
    * Get customer info.
    *
-   * @param $token
+   * @param string $token
    *   Encrypted token.
    *
    * @return array|bool
@@ -190,8 +195,8 @@ class PersonifySso {
    */
   public function getCustomerInfo($token) {
     $params = [
-      'vendorUsername' => $this->vendor_username,
-      'vendorPassword' => $this->vendor_password,
+      'vendorUsername' => $this->vendorUsername,
+      'vendorPassword' => $this->vendorPassword,
       'customerToken' => $token,
     ];
 
