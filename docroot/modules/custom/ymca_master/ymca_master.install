@@ -180,4 +180,5 @@ function ymca_master_update_8010() {
     $block = BlockContent::create($block_data)->enforceIsNew();
     $block->save();
   }
+  _ymca_master_import_config('sites/default/config/staging/block.block.schedulesrightblocks.yml');
 }
