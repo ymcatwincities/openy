@@ -844,6 +844,37 @@ function ymca_form_groupex_form_full_refine_alter(&$form, \Drupal\Core\Form\Form
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_location_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_location_refine_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'ymca_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location__expanded';
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#theme'] = ['ymca_groupex_form_full_refine'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
  * Prerender callback from locations checkboxes.
  */
 function ymca_prerender_checkboxes($element) {
