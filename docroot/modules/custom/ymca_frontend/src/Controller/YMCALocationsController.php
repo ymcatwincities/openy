@@ -17,7 +17,7 @@ class YMCALocationsController {
   public function content() {
     $base_path = base_path();
     $locations = \Drupal::config('ymca_frontend.locations')->get();
-    foreach($locations as $location) {
+    foreach ($locations as $location) {
       // Push locations only with YMCA and Camp tags.
       if ($location['tags'] == 'YMCA' || $location['tags'] == 'Camp') {
         $location['address2']         = '';
