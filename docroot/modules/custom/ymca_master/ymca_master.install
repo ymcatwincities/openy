@@ -124,3 +124,10 @@ function ymca_master_update_8008() {
   \Drupal::service('module_installer')->uninstall(array('ymca_frontend'));
   \Drupal::service('module_installer')->install(array('ymca_frontend'), TRUE);
 }
+
+/**
+ * Enable ymca_activity_finder module.
+ */
+function ymca_master_update_8009() {
+  \Drupal::service('module_installer')->install(['ymca_activity_finder'], TRUE);
+}
