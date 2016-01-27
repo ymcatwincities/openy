@@ -38,7 +38,7 @@ class GroupexFormLocationRefine extends GroupexFormBase {
     $form['location'] = [
       '#type' => 'checkboxes',
       '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
-      '#title' => $this->t('Location (optional—select up to 4)'),
+      '#title' => $this->t('Location') . ' <small>' . $this->t('(optional—select up to 4)') . '</small>',
       '#weight' => -100,
       '#default_value' => $refine ? $params['location'] : [],
     ];
