@@ -29,4 +29,3 @@ class RouteSubscriber extends RouteSubscriberBase {
   }
 
 }
-?>

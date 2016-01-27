@@ -127,10 +127,54 @@ function ymca_master_update_8008() {
 }
 
 /**
- * Enable config of ymca_frontend module.
+ * Fix token replacements.
  */
 function ymca_master_update_8009() {
-  module_load_include('php', 'ymca_master', 'include/ymca_master.8009');
+  $fields = [
+    'field_content',
+    'field_lead_description',
+    'field_sidebar',
+    'field_summary',
+  ];
+
+  // Get all nodes with non-replaced tokens.
+  $ids = [];
+  foreach ($fields as $field) {
+    $query = db_select(sprintf('node__%s', $field), 'c')
+      ->fields('c', ['entity_id']);
+
+    $or = db_or();
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_asset_link') . '%', 'LIKE');
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_page_link') . '%', 'LIKE');
+
+    $query->condition($or);
+
+    $ids += $query->execute()->fetchAllKeyed(0, 0);
+  }
+
+  $service = Drupal::service('ymcareplacetokens.service');
+
+  // Replace tokens withing the nodes and fields.
+  foreach ($ids as $nid) {
+    $node = \Drupal\node\Entity\Node::load($nid);
+    foreach ($fields as $field) {
+      if ($node->hasField($field)) {
+        foreach ($node->$field as &$item) {
+          $item->set('value', $service->processText($item->value));
+        }
+      }
+    }
+
+    $node->save();
+  }
+
+}
+
+/**
+ * Recreate schedules blocks.
+ */
+function ymca_master_update_8010() {
+  module_load_include('php', 'ymca_master', 'include/ymca_master.8010');
   $blocks = _ymca_master_schedules_block_data();
   foreach ($blocks as $block_data) {
     $block = BlockContent::create($block_data)->enforceIsNew();
