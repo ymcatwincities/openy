@@ -84,7 +84,7 @@ class GroupexScheduleFetcher {
           'description' => $item->desc,
           'address_1' => $item->address_1,
           'address_2' => trim($item->location),
-          'date' =>  $item->date,
+          'date' => $item->date,
           'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
         ],
