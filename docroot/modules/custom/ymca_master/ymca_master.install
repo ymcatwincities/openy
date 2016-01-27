@@ -179,8 +179,8 @@ function ymca_master_update_8010() {
 /**
  * Recreate schedules blocks.
  */
-function ymca_master_update_8010() {
-  module_load_include('php', 'ymca_master', 'include/ymca_master.8010');
+function ymca_master_update_8011() {
+  module_load_include('php', 'ymca_master', 'include/ymca_master.8011');
   $blocks = _ymca_master_schedules_block_data();
   foreach ($blocks as $block_data) {
     $block = BlockContent::create($block_data)->enforceIsNew();
