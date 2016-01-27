@@ -15,7 +15,7 @@ function _ymca_master_schedules_block_data() {
     'info' => "Schedules right blocks",
     'changed' => "1453894288",
     'body' => [[
-        'value' => '<article class="content_wrapper panel-group" id="component_153748">
+      'value' => '<article class="content_wrapper panel-group" id="component_153748">
         <article class="panel panel-default content-expander" id="component_153745">
         <div class="panel-heading">
         <div class="panel-title">
@@ -66,9 +66,9 @@ function _ymca_master_schedules_block_data() {
         </div>
         </article>
         </article>',
-        'summary' => "",
-        'format' => "full_html",
-      ],
+      'summary' => "",
+      'format' => "full_html",
+    ],
     ],
   ];
 
