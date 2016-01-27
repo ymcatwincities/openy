@@ -129,8 +129,6 @@ function ymca_master_update_8008() {
  * Fix token replacements.
  */
 function ymca_master_update_8009() {
-  $key = '{{internal_asset_link_';
-
   $fields = [
     'field_content',
     'field_lead_description',
@@ -142,8 +140,14 @@ function ymca_master_update_8009() {
   $ids = [];
   foreach ($fields as $field) {
     $query = db_select(sprintf('node__%s', $field), 'c')
-      ->fields('c', ['entity_id'])
-      ->condition(sprintf('%s_value', $field), '%' . db_like($key) . '%', 'LIKE');
+      ->fields('c', ['entity_id']);
+
+    $or = db_or();
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_asset_link') . '%', 'LIKE');
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_page_link') . '%', 'LIKE');
+
+    $query->condition($or);
+
     $ids += $query->execute()->fetchAllKeyed(0, 0);
   }
 
