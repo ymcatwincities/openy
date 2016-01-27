@@ -1,0 +1,7 @@
+ymca_activity_finder.product:
+  path: /activity_finder/category/subcategory/{id}/{title}
+  defaults:
+    _controller: \Drupal\ymca_activity_finder\Controller\ActivityFinderController::productView
+    _title_callback: \Drupal\ymca_activity_finder\Controller\ActivityFinderController::productTitle
+  requirements:
+    _permission: access content
