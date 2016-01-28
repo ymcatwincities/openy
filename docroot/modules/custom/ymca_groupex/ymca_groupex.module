@@ -51,8 +51,8 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
 /**
  * Helper function to make schedules layout.
  *
- * @param array $query
- *   Query parameters.
+ * @param array $schedule
+ *   Fetched and process schedule.
  *
  * @return array
  *   Results render array.
@@ -122,7 +122,7 @@ function ymca_groupex_preprocess_node(&$variables) {
     $schedule = $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
 
     // Are results empty?
-    $variables['empty_results'] =\Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
+    $variables['empty_results'] = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
 
     // Output schedule.
     $formatted_schedule = ymca_groupex_schedule_layout($schedule);
