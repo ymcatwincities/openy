@@ -179,7 +179,7 @@ abstract class GroupexFormBase extends FormBase {
     }
 
     // Set current date if user hasn't provide a value.
-    if(!$form_state->getValue('filter_date')) {
+    if (!$form_state->getValue('filter_date')) {
       $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME);
       $form_state->setValue('filter_date', $date);
     }
