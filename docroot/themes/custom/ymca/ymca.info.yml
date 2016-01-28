@@ -17,3 +17,8 @@ regions:
   content: Content
   footer_menu: 'Footer menus'
   footer_social: 'Footer social'
+  schedule_right: 'Schedule right'
+  schedule_lead_left: 'Schedule lead left'
+  schedule_lead_right: 'Schedule lead right'
+  schedule_form_title: 'Schedule form title'
+  schedule_form_description: 'Schedule form description'

@@ -1,0 +1,31 @@
+uuid: 32220754-a10f-4ad0-8800-ae4ffbb69ac4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:d5f95c9b-9891-483a-bb00-0d8904b8d005'
+  module:
+    - block_content
+    - system
+  theme:
+    - ymca
+id: allyschedulesleadright
+theme: ymca
+region: schedule_lead_right
+weight: null
+provider: null
+plugin: 'block_content:d5f95c9b-9891-483a-bb00-0d8904b8d005'
+settings:
+  id: 'block_content:d5f95c9b-9891-483a-bb00-0d8904b8d005'
+  label: 'All Y Schedules lead right'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /all_y_schedules
+    negate: false
+    context_mapping: {  }

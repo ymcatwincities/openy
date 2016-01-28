@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'checkboxes' #type form element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The rendered checkboxes.
+ *
+ * @see template_preprocess_checkboxes()
+ *
+ * @ingroup themeable
+ */
+ @todo: remove this file once https://www.drupal.org/node/1819284 is resolved.
+ This is identical to core/modules/system/templates/container.html.twig
+#}
+
+<div class="panel panel-default content-expander">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#group-ex-locations" href="#collapse-locations">
+        <h4>
+          {{ attribute(element, '#title') }}
+        </h4>
+      </a>
+    </div>
+  </div>
+  <div id="collapse-locations" class="panel-collapse collapse">
+    <div class="row">
+      <div class="panel-body">
+        <div class="group-ex-locations" id="group-ex-locations">
+          {{ element }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

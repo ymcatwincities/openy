@@ -332,11 +332,33 @@ function ymca_preprocess_html(&$variables) {
     }
   }
 
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+
   if ($variables['is_front']) {
     $classes = [
       'home-template',
       'page_home',
       'theme_ymca_2013_home',
+    ];
+  }
+  elseif ($current_route_name == 'ymca_groupex.all_schedules_search') {
+    $classes = [
+      'schedules-template',
+      'theme_ymca_2013_all_schedules',
+    ];
+  }
+  elseif ($current_route_name == 'ymca_frontend.location_schedules') {
+    $classes = [
+      'schedules-template',
+      'ancestor-locations',
+      'theme_ymca_2013_location_schedules',
+    ];
+  }
+  elseif ($current_route_name == 'ymca_groupex.schedules_search_results') {
+    $classes = [
+      'landing-template',
+      'ancestor-locations',
+      'theme_ymca_2013_location_primary_landing',
     ];
   }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
@@ -716,11 +738,33 @@ function ymca_preprocess_select(&$variables) {
   Element::setAttributes($element, array('id', 'name', 'size'));
   Element\RenderElement::setAttributes($element, array('form-select'));
 
+//  if (isset($element['#title_extra'])) {
+//    $variables['title_extra'] = $element['#title_extra'];
+//  }
+
   $variables['attributes'] = $element['#attributes'];
   $variables['options'] = form_select_options($element);
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function ymca_preprocess_form_element(&$variables) {
+  if (!empty($variables['element']['#title_extra'])) {
+    $variables['label']['#title_extra'] = $variables['element']['#title_extra'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_form_element_label().
+ */
+function ymca_preprocess_form_element_label(&$variables) {
+  if (!empty($variables['element']['#title_extra'])) {
+    $variables['title_extra']['#markup'] = $variables['element']['#title_extra'];
+  }
 }
 
 /**
@@ -784,4 +828,149 @@ function ymca_preprocess_search_result(&$vars) {
       return;
     }
   }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_theme() {
+  return [
+    'ymca_groupex_form_full' => [
+      'render element' => 'form',
+    ],
+    'ymca_groupex_form_full_refine' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-groupex-form-full-refine',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_full_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'ymca_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location';
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#theme'] = ['ymca_groupex_form_full'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_full_refine_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'ymca_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location__expanded';
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#theme'] = ['ymca_groupex_form_full_refine'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_location_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_groupex_form_location_refine_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'ymca_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location__expanded';
+  $form['time_of_day']['#pre_render'][] = 'ymca_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['filter_date']['#theme'] = 'datetime__groupex';
+  $form['#theme'] = ['ymca_groupex_form_full_refine'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Prerender callback from locations checkboxes.
+ */
+function ymca_prerender_checkboxes($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#theme'] = 'input__checkbox__location';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Prerender callback from locations checkboxes.
+ */
+function ymca_prerender_checkboxes_day($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#theme'] = 'input__checkbox__location_day';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Prerender callback from locations checkboxes.
+ */
+function ymca_prerender_radios($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#theme'] = 'input__radio__schedule';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Prerender callback from locations datetime.
+ */
+function ymca_prerender_datetime($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#type'] = 'textfield';
+    $element[$child_key]['#process'] = [];
+    $element[$child_key]['#pre_render'] = [];
+    $element[$child_key]['#attributes']['type'] = 'text';
+    $element[$child_key]['#attributes']['placeholder'] = 'mm/dd/yy';
+    $element[$child_key]['#attributes']['class'] = ['form-control', 'text'];
+    $element[$child_key]['#attributes']['autocomplete'] = 'off';
+    $element[$child_key]['#attributes']['id'] = $element[$child_key]['#id'];
+    $element[$child_key]['#attributes']['name'] = $element[$child_key]['#name'];
+    $element[$child_key]['#attributes']['value'] = $element[$child_key]['#value'];
+    unset($element[$child_key]['#attributes']['data-drupal-date-format']);
+    unset($element[$child_key]['#attached']);
+    $element[$child_key]['#theme'] = 'input__date__schedule';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
+  return $element;
 }
