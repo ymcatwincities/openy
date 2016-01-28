@@ -9,20 +9,23 @@ namespace Drupal\config_import;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Config\ConfigManagerInterface;
 
+/**
+ * Implements Config Importer Service.
+ */
 class ConfigImporterService {
 
-  /**
- * The config manager.
- *
- * @var \Drupal\Core\Config\ConfigManagerInterface
- */
+ /**
+  * The config manager.
+  *
+  * @var \Drupal\Core\Config\ConfigManagerInterface
+  */
   protected $configManager;
 
   /**
    * Constructs a new ConfigImporterService.
    *
-   * @param \Drupal\Core\Form\FormValidatorInterface $form_validator
-   *   The form validator.
+   * @param \Drupal\Core\Config\ConfigManagerInterface $config_manager
+   *   The config manager.
    */
   public function __construct(ConfigManagerInterface $config_manager) {
     $this->configManager = $config_manager;
@@ -70,8 +73,10 @@ class ConfigImporterService {
    *   Entity type id.
    *
    * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   The entity storage.
    */
   private function getStorage($entity_type_id) {
     return $this->configManager->getEntityManager()->getStorage($entity_type_id);
   }
+
 }
