@@ -1,0 +1,5 @@
+name: Config Importer
+type: module
+description: Provides Config importer service.
+core: 8.x
+package: YMCA
