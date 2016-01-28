@@ -5,6 +5,7 @@
  */
 
 namespace Drupal\ymca_groupex;
+
 use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
@@ -52,9 +53,17 @@ class GroupexScheduleFetcher {
   private $parameters = [];
 
   /**
+   * Cached schedule.
+   *
+   * @var array
+   */
+  private $schedule = [];
+
+  /**
    * ScheduleFetcher constructor.
    */
-  public function __construct(array $parameters) {
+  public function __construct() {
+    $parameters = \Drupal::request()->query->all()['query'];
     $this->prepareParameters($parameters);
     $this->getData();
     $this->enrichData();
@@ -71,6 +80,11 @@ class GroupexScheduleFetcher {
    *    - week: all classes grouped by day within days key
    */
   public function getSchedule() {
+    // Use cached schedule if already processed.
+    if ($this->schedule) {
+      return $this->schedule;
+    }
+
     // Prepare classes items.
     $items = [];
 
@@ -147,7 +161,9 @@ class GroupexScheduleFetcher {
         break;
     }
 
-    return $schedule;
+    $this->schedule = $schedule;
+
+    return $this->schedule;
   }
 
   /**
@@ -312,6 +328,16 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date']);
     $date->setTime(0, 0, 0);
     $this->parameters['filter_timestamp'] = $date->getTimestamp();
+  }
+
+  /**
+   * Check if results are empty.
+   *
+   * @return bool
+   *   True if schedule is empty, false otherwise.
+   */
+  public function isEmpty() {
+    return empty($this->rawData);
   }
 
 }
