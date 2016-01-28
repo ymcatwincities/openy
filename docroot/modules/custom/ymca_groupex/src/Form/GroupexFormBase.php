@@ -85,10 +85,11 @@ abstract class GroupexFormBase extends FormBase {
     }
     $form['filter_date'] = [
       '#type' => 'datetime',
-      '#date_date_format' => 'mm/dd/yyyy',
+      '#date_date_format' => 'm/d/y',
       '#title' => $this->t('Start Date'),
       '#default_value' => $filter_date_default,
       '#date_time_element' => 'none',
+      '#date_date_element' => 'text',
     ];
 
     $form['submit'] = [
@@ -172,6 +173,12 @@ abstract class GroupexFormBase extends FormBase {
     // User may select up to 4 locations.
     if (count($location) > 4) {
       $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
+    }
+
+    // Set current date if user hasn't provide a value.
+    if(!$form_state->getValue('filter_date')) {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME);
+      $form_state->setValue('filter_date', $date);
     }
   }
 
