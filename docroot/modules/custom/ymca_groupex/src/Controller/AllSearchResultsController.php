@@ -21,13 +21,12 @@ class AllSearchResultsController extends ControllerBase {
     $query = \Drupal::request()->query->all()['query'];
 
     // Get classes schedules.
-    $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher($query);
-    $schedule = $fetcher->getSchedule();
+    $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
 
     // Are results empty?
-    $empty_results = empty($schedule['days']) && empty($schedule['locations']) && empty($schedule['classes']);
+    $empty_results = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
 
-    $formatted_results = ymca_groupex_schedule_layout($query, $schedule);
+    $formatted_results = ymca_groupex_schedule_layout($schedule);
     $form = $this->formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormFullRefine', $query);
 
     return [
