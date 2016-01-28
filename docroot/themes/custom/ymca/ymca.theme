@@ -332,6 +332,8 @@ function ymca_preprocess_html(&$variables) {
     }
   }
 
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+
   if ($variables['is_front']) {
     $classes = [
       'home-template',
@@ -339,12 +341,24 @@ function ymca_preprocess_html(&$variables) {
       'theme_ymca_2013_home',
     ];
   }
-  elseif (in_array(\Drupal::service('current_route_match')->getRouteName(), [
-    'ymca_groupex.all_schedules_search',
-  ])) {
+  elseif ($current_route_name == 'ymca_groupex.all_schedules_search') {
     $classes = [
       'schedules-template',
       'theme_ymca_2013_all_schedules',
+    ];
+  }
+  elseif ($current_route_name == 'ymca_frontend.location_schedules') {
+    $classes = [
+      'schedules-template',
+      'ancestor-locations',
+      'theme_ymca_2013_location_schedules',
+    ];
+  }
+  elseif ($current_route_name == 'ymca_groupex.schedules_search_results') {
+    $classes = [
+      'landing-template',
+      'ancestor-locations',
+      'theme_ymca_2013_location_primary_landing',
     ];
   }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
