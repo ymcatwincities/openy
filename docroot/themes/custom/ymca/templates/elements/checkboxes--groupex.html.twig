@@ -18,6 +18,11 @@
 
 <label class="control-label">
   {{ attribute(element, '#title')|raw }}
+  {% if attribute(element, '#title_extra') %}
+  <small>
+    {{ attribute(element, '#title_extra')|raw }}
+  </small>
+  {% endif %}
 </label>
 <div class="group-ex-time form-group">
   {{ element }}

@@ -17,6 +17,11 @@
 
 <label class="control-label">
   {{ attribute(element, '#title')|raw }}
+  {% if attribute(element, '#title_extra') %}
+    <small>
+      {{ attribute(element, '#title_extra')|raw }}
+    </small>
+  {% endif %}
 </label>
 <div id="group-ex-locations">
   <div class="group-ex-locations">
