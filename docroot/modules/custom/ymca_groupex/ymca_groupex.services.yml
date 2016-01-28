@@ -1,0 +1,3 @@
+services:
+  ymca_groupex.schedule_fetcher:
+    class: Drupal\ymca_groupex\GroupexScheduleFetcher

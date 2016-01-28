@@ -6,6 +6,7 @@
  */
 
 use Drupal\field\Entity\FieldConfig;
+use Drupal\block_content\Entity\BlockContent;
 
 /**
  * Protecting sites with a shield.
@@ -173,4 +174,31 @@ function ymca_master_update_8009() {
  */
 function ymca_master_update_8010() {
   \Drupal::service('module_installer')->install(['ymca_activity_finder'], TRUE);
+}
+
+/**
+ * Enable config_import module.
+ */
+function ymca_master_update_8011() {
+  \Drupal::service('module_installer')->install(['config_import'], TRUE);
+}
+
+/**
+ * Recreate schedules blocks.
+ */
+function ymca_master_update_8012() {
+  module_load_include('php', 'ymca_master', 'include/ymca_master.8011');
+  $blocks = _ymca_master_schedules_block_data();
+  foreach ($blocks as $block_data) {
+    $block = BlockContent::create($block_data)->enforceIsNew();
+    $block->save();
+  }
+
+  // Re-import configs.
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/block.block.schedulesrightblocks.yml',
+    'sites/default/config/staging/block.block.allyschedulesformtitle.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadleft.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadright.yml',
+  ]);
 }
