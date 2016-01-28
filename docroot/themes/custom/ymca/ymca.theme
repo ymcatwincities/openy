@@ -738,11 +738,33 @@ function ymca_preprocess_select(&$variables) {
   Element::setAttributes($element, array('id', 'name', 'size'));
   Element\RenderElement::setAttributes($element, array('form-select'));
 
+//  if (isset($element['#title_extra'])) {
+//    $variables['title_extra'] = $element['#title_extra'];
+//  }
+
   $variables['attributes'] = $element['#attributes'];
   $variables['options'] = form_select_options($element);
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function ymca_preprocess_form_element(&$variables) {
+  if (!empty($variables['element']['#title_extra'])) {
+    $variables['label']['#title_extra'] = $variables['element']['#title_extra'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_form_element_label().
+ */
+function ymca_preprocess_form_element_label(&$variables) {
+  if (!empty($variables['element']['#title_extra'])) {
+    $variables['title_extra']['#markup'] = $variables['element']['#title_extra'];
+  }
 }
 
 /**
