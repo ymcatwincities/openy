@@ -28,7 +28,7 @@ class GroupexFormFull extends GroupexFormBase {
     $form['location'] = [
       '#type' => 'checkboxes',
       '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
-      '#title' => $this->t('Location (optional—select up to 4)'),
+      '#title' => $this->t('Locations'),
       '#weight' => -100,
     ];
 
