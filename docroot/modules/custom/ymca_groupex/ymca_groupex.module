@@ -57,7 +57,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
  * @return array
  *   Results render array.
  */
-function ymca_groupex_schedule_layout(array $query, $schedule) {
+function ymca_groupex_schedule_layout(array $schedule) {
   $results = [];
 
   // Output schedule by type.
@@ -119,14 +119,13 @@ function ymca_groupex_preprocess_node(&$variables) {
     $variables['groupex_form_refine'] = \Drupal::service('renderer')->render($form, FALSE);
 
     // Get classes schedules.
-    $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher($query);
-    $schedule = $fetcher->getSchedule();
+    $schedule = $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
 
     // Are results empty?
-    $variables['empty_results'] = empty($schedule['days']) && empty($schedule['locations']) && empty($schedule['classes']);
+    $variables['empty_results'] =\Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
 
     // Output schedule.
-    $formatted_schedule = ymca_groupex_schedule_layout($query, $schedule);
+    $formatted_schedule = ymca_groupex_schedule_layout($schedule);
     $variables['groupex_search_results'] = \Drupal::service('renderer')->render($formatted_schedule, FALSE);
   }
 }
