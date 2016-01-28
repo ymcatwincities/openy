@@ -7,7 +7,6 @@
 
 use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
-use Drupal\Core\Config\InstallStorage;
 
 /**
  * Protecting sites with a shield.
@@ -178,51 +177,28 @@ function ymca_master_update_8010() {
 }
 
 /**
- * Recreate schedules blocks.
+ * Enable config_import module.
  */
 function ymca_master_update_8011() {
+  \Drupal::service('module_installer')->install(['config_import'], TRUE);
+}
+
+/**
+ * Recreate schedules blocks.
+ */
+function ymca_master_update_8012() {
   module_load_include('php', 'ymca_master', 'include/ymca_master.8011');
   $blocks = _ymca_master_schedules_block_data();
   foreach ($blocks as $block_data) {
     $block = BlockContent::create($block_data)->enforceIsNew();
     $block->save();
   }
-  _ymca_master_import_config('sites/default/config/staging/block.block.schedulesrightblocks.yml');
-  _ymca_master_import_config('sites/default/config/staging/block.block.allyschedulesformtitle.yml');
-  _ymca_master_import_config('sites/default/config/staging/block.block.allyschedulesleadleft.yml');
-  _ymca_master_import_config('sites/default/config/staging/block.block.allyschedulesleadright.yml');
-}
 
-/**
- * Helper function to re-import config.
- *
- * @param string $filename
- *   Relative path to the config.
- */
-function _ymca_master_import_config($filename) {
-  $contents = @file_get_contents($filename);
-  if (!$contents) {
-    return;
-  }
-  $config_manager = \Drupal::service('config.manager');
-  $data = (new InstallStorage())->decode($contents);
-  $config_name = basename($filename, '.yml');
-  $entity_type_id = $config_manager->getEntityTypeIdByName($config_name);
-  if ($entity_type_id) {
-    $entity_storage = $config_manager->getEntityManager()->getStorage($entity_type_id);
-    $entity_id = $entity_storage::getIDFromConfigName($config_name, $entity_storage->getEntityType()->getConfigPrefix());
-    $entity_type = $entity_storage->getEntityType();
-    $id_key = $entity_type->getKey('id');
-    $data[$id_key] = $entity_id;
-    $entity = $entity_storage->create($data);
-    if ($existing_entity = $entity_storage->load($entity_id)) {
-      $entity
-        ->set('uuid', $existing_entity->uuid())
-        ->enforceIsNew(FALSE);
-    }
-    $entity_storage->save($entity);
-  }
-  else {
-    $this->configFactory->getEditable($config_name)->setData($data)->save();
-  }
+  // Re-import configs.
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/block.block.schedulesrightblocks.yml',
+    'sites/default/config/staging/block.block.allyschedulesformtitle.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadleft.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadright.yml',
+  ]);
 }
