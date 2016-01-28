@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Contains sidebar search and menu that is used in mobile layout.
+ */
+#}
+
+<div id="sidebar" class="sidebar sidebar-left collapse width">
+  <form method="get" action="{{ path('search.view_content') }}">
+    <div class="form-group col-xs-12">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="submit">{{ "Search"|t }}</button>
+        </span>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-xs-12">
+    <a class="btn btn-block btn-default" href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">{{ "Sign In"|t }}</a>
+  </div>
+  <ul id="sidebar-nav" class="nav-level-0 nav in"></ul>
+</div>
