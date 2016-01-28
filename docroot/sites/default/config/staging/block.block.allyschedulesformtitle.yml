@@ -1,0 +1,31 @@
+uuid: 0c945c90-5fce-49cf-bf04-4e44152c9485
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:316a6852-f5e2-4970-ae00-a2d39467a7f3'
+  module:
+    - block_content
+    - system
+  theme:
+    - ymca
+id: allyschedulesformtitle
+theme: ymca
+region: schedule_form_title
+weight: null
+provider: null
+plugin: 'block_content:316a6852-f5e2-4970-ae00-a2d39467a7f3'
+settings:
+  id: 'block_content:316a6852-f5e2-4970-ae00-a2d39467a7f3'
+  label: 'All Y Schedules form title'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /all_y_schedules
+    negate: false
+    context_mapping: {  }
