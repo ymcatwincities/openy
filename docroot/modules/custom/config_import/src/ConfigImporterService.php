@@ -14,11 +14,11 @@ use Drupal\Core\Config\ConfigManagerInterface;
  */
 class ConfigImporterService {
 
- /**
-  * The config manager.
-  *
-  * @var \Drupal\Core\Config\ConfigManagerInterface
-  */
+  /**
+   * The config manager.
+   *
+   * @var \Drupal\Core\Config\ConfigManagerInterface
+   */
   protected $configManager;
 
   /**
