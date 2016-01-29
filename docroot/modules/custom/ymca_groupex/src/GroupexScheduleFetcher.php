@@ -63,7 +63,8 @@ class GroupexScheduleFetcher {
    * ScheduleFetcher constructor.
    */
   public function __construct() {
-    $parameters = \Drupal::request()->query->all()['query'];
+    $parameters = \Drupal::request()->query->all();
+
     $this->prepareParameters($parameters);
     $this->getData();
     $this->enrichData();
