@@ -41,6 +41,7 @@ class GroupexFormFull extends GroupexFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect(
       'ymca_groupex.all_schedules_search_results',
+      [],
       ['query' => $this->getRedirectParams($form, $form_state)]
     );
   }
