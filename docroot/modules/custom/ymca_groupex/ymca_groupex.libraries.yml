@@ -1,7 +1,0 @@
-ymca_groupex:
-  version: 1.x
-  js:
-    js/form.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
