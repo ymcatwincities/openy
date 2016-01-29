@@ -18,7 +18,7 @@ class AllSearchResultsController extends ControllerBase {
    * Show the page.
    */
   public function pageView() {
-    $query = \Drupal::request()->query->all()['query'];
+    $query = \Drupal::request()->query->all();
 
     // Get classes schedules.
     $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
