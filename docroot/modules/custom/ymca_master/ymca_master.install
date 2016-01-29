@@ -215,8 +215,8 @@ function ymca_master_update_8013() {
   while ($row = $query->fetchObject()) {
     // Create new alias here.
     $suffix = 'group_exercise_search_results';
-    $source = sprintf('%s/%s', $row->source, $suffix);
-    $alias = sprintf('%s/%s', $row->alias, $suffix);
+    $source = $row->source . '/' . $suffix;
+    $alias = $row->alias . '/' . $suffix;
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
   }
 }
