@@ -170,9 +170,15 @@ class GroupexScheduleFetcher {
    * Fetch data from the server.
    */
   private function getData() {
+    $this->rawData = [];
+
     // No request parameters - no data.
     if (empty($this->parameters)) {
-      $this->rawData = [];
+      return;
+    }
+
+    // No locations provided - return empty.
+    if (!isset($this->parameters['location'])) {
       return;
     }
 
