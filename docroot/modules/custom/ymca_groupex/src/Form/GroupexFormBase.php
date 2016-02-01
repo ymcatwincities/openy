@@ -22,6 +22,8 @@ abstract class GroupexFormBase extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $timezone = new \DateTimeZone($this->config('system.date')->get('timezone')['default']);
+
     // Check if we have additional argument to prepopulate the form.
     $refine = FALSE;
     $params = [];
@@ -79,12 +81,15 @@ abstract class GroupexFormBase extends FormBase {
       '#description' => $this->t('Selecting more than one location limits your search to one day.'),
     ];
 
-    $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME);
+    $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
     if ($refine) {
-      $filter_date_default = DrupalDateTime::createFromFormat(
+      $date = DrupalDateTime::createFromFormat(
         self::$dateFilterFormat,
-        $params['filter_date']
+        $params['filter_date'],
+        $timezone
       );
+      $date->setTime(0, 0, 0);
+      $filter_date_default = $date;
     }
     $form['filter_date'] = [
       '#type' => 'datetime',
@@ -171,6 +176,8 @@ abstract class GroupexFormBase extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $timezone = new \DateTimeZone($this->config('system.date')->get('timezone')['default']);
+
     $location = array_filter($form_state->getValue('location'));
 
     // User may select up to 4 locations.
@@ -180,7 +187,7 @@ abstract class GroupexFormBase extends FormBase {
 
     // Set current date if user hasn't provide a value.
     if (!$form_state->getValue('filter_date')) {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME);
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
       $form_state->setValue('filter_date', $date);
     }
   }

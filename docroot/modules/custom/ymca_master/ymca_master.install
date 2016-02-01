@@ -202,3 +202,21 @@ function ymca_master_update_8012() {
     'sites/default/config/staging/block.block.allyschedulesleadright.yml',
   ]);
 }
+
+/**
+ * Add aliases for groupex search results.
+ */
+function ymca_master_update_8013() {
+  $query = db_select('url_alias', 'a')
+    ->fields('a')
+    ->condition('source', '/node/%/schedules', 'LIKE')
+    ->execute();
+
+  while ($row = $query->fetchObject()) {
+    // Create new alias here.
+    $suffix = 'group_exercise_search_results';
+    $source = $row->source . '/' . $suffix;
+    $alias = $row->alias . '/' . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+  }
+}
