@@ -1,0 +1,13 @@
+services:
+  ymca_breadcrumb.blog_node:
+    class: Drupal\ymca_breadcrumb\YMCANewsBlogBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+  ymca_breadcrumb.news_blog_listings:
+    class: Drupal\ymca_breadcrumb\YMCANewsBlogListingsBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 5000 }
+  ymca_breadcrumb.blog_category:
+    class: Drupal\ymca_breadcrumb\YMCABlogCategoryBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 5000 }
