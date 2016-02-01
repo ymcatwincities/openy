@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Helper trait.
+ * Contains Blog category breadcrumb builder.
  */
 
 namespace Drupal\ymca_breadcrumb;

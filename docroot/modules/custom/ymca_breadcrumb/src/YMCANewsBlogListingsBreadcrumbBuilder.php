@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Helper trait.
+ * Contains breadcrumb builder for news- and blog-related listing pages.
  */
 
 namespace Drupal\ymca_breadcrumb;
@@ -12,7 +12,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Class YMCANewsBlogBreadcrumbBuilder.
