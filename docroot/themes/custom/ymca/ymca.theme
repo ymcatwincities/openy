@@ -131,19 +131,7 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
  * Implements hook_preprocess_breadcrumb().
  */
 function ymca_preprocess_breadcrumb(&$variables) {
-  if (($node = \Drupal::routeMatch()->getParameter('node')) && $variables['breadcrumb']) {
-    // Special case for blog posts.
-    if ($node->bundle() == 'blog') {
-      $variables['breadcrumb'] = [
-        new \Drupal\Core\Link('Home', Drupal\Core\Url::fromUri('internal:/')),
-        // TODO: replace with a link to /blog page.
-        new \Drupal\Core\Link('Blog', Drupal\Core\Url::fromUri($GLOBALS['base_url'] . '/blog', ['external' => TRUE])),
-      ];
-    }
-    $variables['breadcrumb'][] = array(
-      'text' => $node->getTitle()
-    );
-  }
+
 }
 
 /**
@@ -312,7 +300,7 @@ function ymca_preprocess_node(&$variables) {
     $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
   }
 
-  $variables['site_section_bundle'] = $site_section ? $site_section->bundle() : '';
+  $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
 }
 
 /**
@@ -500,6 +488,9 @@ function ymca_preprocess_page(&$variables) {
  * Implements hook_preprocess_pager().
  */
 function ymca_preprocess_pager(&$vars) {
+  if (empty($vars['items']['pages'])) {
+    return;
+  }
   foreach ($vars['items']['pages'] as &$item) {
     $item['attributes'] = new \Drupal\Core\Template\Attribute();
   }
@@ -632,6 +623,9 @@ function ymca_get_archive_data($context) {
     $data[$year]['expanded'] = '';
     if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year) {
       $data[$year]['expanded'] = 'expanded';
+    }
+    if (!isset($data[$year]['months'])) {
+      $data[$year]['months'] = [];
     }
     if (!in_array($month, $data[$year]['months'])) {
       $data[$year]['months'][] = $month;

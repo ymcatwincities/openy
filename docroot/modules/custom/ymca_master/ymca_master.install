@@ -220,3 +220,10 @@ function ymca_master_update_8013() {
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
   }
 }
+
+/**
+ * Enable ymca_breadcrumb module.
+ */
+function ymca_master_update_8014() {
+  \Drupal::service('module_installer')->install(['ymca_breadcrumb'], TRUE);
+}
