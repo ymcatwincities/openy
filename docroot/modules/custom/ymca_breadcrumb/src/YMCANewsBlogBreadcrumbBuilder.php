@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Helper trait.
+ * Contains global blog and news entries breadcrumb builder.
  */
 
 namespace Drupal\ymca_breadcrumb;
@@ -24,7 +24,7 @@ class YMCANewsBlogBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   use LinkGeneratorTrait;
 
   /**
-   * News taxomony term id.
+   * News taxonomy term id.
    *
    * @var int
    */
@@ -37,6 +37,11 @@ class YMCANewsBlogBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   private $node;
 
+  /**
+   * This builder's handled routes.
+   *
+   * @var array
+   */
   static private $routes = [
     'entity.node.preview',
     'entity.node.canonical',
