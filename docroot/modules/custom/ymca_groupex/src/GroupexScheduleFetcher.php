@@ -60,9 +60,17 @@ class GroupexScheduleFetcher {
   private $schedule = [];
 
   /**
+   * Timezone.
+   *
+   * @var \DateTimeZone
+   */
+  private $timezone = NULL;
+
+  /**
    * ScheduleFetcher constructor.
    */
   public function __construct() {
+    $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
     $parameters = \Drupal::request()->query->all();
 
     $this->prepareParameters($parameters);
@@ -158,7 +166,7 @@ class GroupexScheduleFetcher {
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
-        $schedule['filter_date'] = date('l, F d, Y', $this->parameters['filter_timestamp']);
+        $schedule['filter_date'] = date('l, F j, Y', $this->parameters['filter_timestamp']);
         break;
     }
 
@@ -202,14 +210,14 @@ class GroupexScheduleFetcher {
     }
 
     // Filter by date.
-    $period = 60 * 60 * 24;
+    $interval = 'P1D';
     if ($this->parameters['filter_length'] == 'week') {
-      $period = 60 * 60 * 24 * 7;
+      $interval = 'P1W';
     }
-    $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp']);
-    $date->setTime(1, 0, 0);
+    $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
+
     $options['query']['start'] = $date->getTimestamp();
-    $options['query']['end'] = $date->getTimestamp() + $period;
+    $options['query']['end'] = $date->add(new \DateInterval($interval))->getTimestamp();
 
     $data = $this->request($options);
 
@@ -246,7 +254,10 @@ class GroupexScheduleFetcher {
       $item->time_of_day = ($start_hour >= self::$timeEvening) ? "evening" : $item->time_of_day;
 
       // Add timestamp.
-      $item->timestamp = DrupalDateTime::createFromTimestamp(strtotime($item->date))->getTimestamp();
+      $format = 'l, F j, Y';
+      $datetime = DrupalDateTime::createFromFormat($format, $item->date, $this->timezone);
+      $datetime->setTime(0, 0, 0);
+      $item->timestamp = $datetime->getTimestamp();
     }
 
     $this->enrichedData = $data;
@@ -302,15 +313,15 @@ class GroupexScheduleFetcher {
     // So, processing.
     if ($this->parameters['filter_length'] == 'week') {
       // Get current day.
-      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp']);
+      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
       $current_day = $date->format('N');
 
       // Search for the day equals current.
       foreach ($data as &$item) {
-        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp);
+        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
         if ($current_day == $item_date->format('N')) {
           // Set proper data.
-          $item_date->modify('-7 days');
+          $item_date->sub(new \DateInterval('P7D'));
           $full_date = $item_date->format('l, F j, Y');
           $item->date = $full_date;
           $item->day = $full_date;
@@ -331,8 +342,7 @@ class GroupexScheduleFetcher {
   private function prepareParameters($parameters) {
     $this->parameters = $parameters;
 
-    // Add timestamp of filter date.
-    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date']);
+    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date'], $this->timezone);
     $date->setTime(0, 0, 0);
     $this->parameters['filter_timestamp'] = $date->getTimestamp();
   }

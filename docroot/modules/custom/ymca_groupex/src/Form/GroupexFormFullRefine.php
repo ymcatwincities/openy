@@ -29,7 +29,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
     $args = func_get_args();
     if (isset($args[2])) {
       $refine = TRUE;
-      $params = $args[2];
+      $params = $args[2]['query'];
     }
 
     $form = parent::buildForm($form, $form_state, $params);
@@ -52,6 +52,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect(
       'ymca_groupex.all_schedules_search_results',
+      [],
       ['query' => $this->getRedirectParams($form, $form_state)]
     );
   }
