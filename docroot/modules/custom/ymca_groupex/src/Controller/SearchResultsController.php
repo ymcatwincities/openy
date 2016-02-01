@@ -25,6 +25,9 @@ class SearchResultsController {
 
     return [
       '#markup' => $markup,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 

@@ -34,6 +34,9 @@ class AllSearchResultsController extends ControllerBase {
       '#schedule' => $formatted_results,
       '#empty_results' => $empty_results,
       '#theme' => 'groupex_all_search_results',
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
