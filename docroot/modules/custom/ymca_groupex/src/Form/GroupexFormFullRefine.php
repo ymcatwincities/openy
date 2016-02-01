@@ -29,7 +29,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
     $args = func_get_args();
     if (isset($args[2])) {
       $refine = TRUE;
-      $params = $args[2]['query'];
+      $params = $args[2];
     }
 
     $form = parent::buildForm($form, $form_state, $params);
