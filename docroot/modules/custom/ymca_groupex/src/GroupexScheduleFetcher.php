@@ -186,8 +186,14 @@ class GroupexScheduleFetcher {
       return;
     }
 
-    // No locations provided - return empty.
-    if (!isset($this->parameters['location'])) {
+    // One of the 3 search parameters should be provided:
+    // 1. Location
+    // 2. Class name
+    // 3. Category
+    if (
+      !isset($this->parameters['location']) &&
+      $this->parameters['class'] == 'any' &&
+      $this->parameters['category'] == 'any') {
       return;
     }
 
