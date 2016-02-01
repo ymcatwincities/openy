@@ -10,7 +10,6 @@ namespace Drupal\ymca_migrate_status\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Database;
-use Drupal\Core\GeneratedLink;
 use Drupal\Core\Url;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait;
 
@@ -74,7 +73,7 @@ class YmcaMigrateStatus extends ControllerBase {
         $query->fields('p', ['site_page_id', 'page_subdirectory', 'page_title']);
         $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
         $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
-        $this->query->isNull('p.backup_of_site_page_id');
+        $query->isNull('p.backup_of_site_page_id');
         $this->pages['all'] = $query->execute()->fetchAllAssoc('site_page_id');
         $this->pages[0] = array_diff_key($this->pages['all'], $this->pages[1]);
         break;
@@ -85,7 +84,7 @@ class YmcaMigrateStatus extends ControllerBase {
         $query->addJoin('left', 'amm_site_page_component', 'c', 'p.site_page_id = c.site_page_id');
         $query->condition('c.component_type', $this->components['complex'], 'IN');
         $query->condition('c.component_type', $this->getSkippedPages(), 'NOT IN');
-        $this->query->isNull('p.backup_of_site_page_id');
+        $query->isNull('p.backup_of_site_page_id');
         $query->distinct();
         $this->pages[1] = $query->execute()->fetchAllAssoc('site_page_id');
         break;
@@ -149,7 +148,7 @@ class YmcaMigrateStatus extends ControllerBase {
       $rows[$id][] = \Drupal::l('Old site', $url);
 
       // Node Link.
-      if ($nid = $this->getDestinationId(['site_page_id' => $id])) {
+      if ($nid = YmcaMigrateTrait::getDestinationId(['site_page_id' => $id], $this->migrations)) {
         $rows[$id][] = \Drupal::l('New site', Url::fromRoute('entity.node.canonical', ['node' => $nid]));
       }
     }
@@ -271,27 +270,6 @@ class YmcaMigrateStatus extends ControllerBase {
       ->get('entity.manager')
       ->getStorage('migration')
       ->loadMultiple($migrations);
-  }
-
-  /**
-   * Get destination Id.
-   *
-   * @param array $source
-   *   Example: ['site_page_id' => 10].
-   *
-   * @return bool|string
-   *   Destination ID.
-   */
-  private function getDestinationId(array $source) {
-    foreach ($this->migrations as $id => $migration) {
-      $map = $migration->getIdMap();
-      $dest = $map->getRowBySource($source);
-      if (!empty($dest)) {
-        return $dest['destid1'];
-      }
-    }
-
-    return FALSE;
   }
 
 }
