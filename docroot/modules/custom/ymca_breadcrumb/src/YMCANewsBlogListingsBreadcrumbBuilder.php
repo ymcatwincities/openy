@@ -55,16 +55,16 @@ class YMCANewsBlogListingsBreadcrumbBuilder implements BreadcrumbBuilderInterfac
     switch ($route_match->getRouteName()) {
       case 'view.ymca_news.page_news':
         $breadcrumb->addLink(Link::createFromRoute($this->t('News'), '<none>'));
-      break;
+        break;
 
       case 'view.ymca_news_archive.page_news':
         $breadcrumb->addLink(Link::createFromRoute($this->t('News'), 'view.ymca_news.page_news'));
         $breadcrumb->addLink(Link::createFromRoute($this->t('YMCA News Archive'), '<none>'));
-      break;
+        break;
 
       case 'view.ymca_twin_cities_blog.blog_page':
         $breadcrumb->addLink(Link::createFromRoute($this->t('Blog'), '<none>'));
-      break;
+        break;
     }
 
     return $breadcrumb;

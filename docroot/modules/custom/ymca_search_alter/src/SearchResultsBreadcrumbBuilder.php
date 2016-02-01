@@ -3,6 +3,7 @@
  * @file
  * Contains \Drupal\ymca_search_alter\Controller\SearchController.
  */
+
 namespace Drupal\ymca_search_alter;
 
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
