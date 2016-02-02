@@ -26,7 +26,7 @@ function ymca_aliases_entity_update(Drupal\Core\Entity\EntityInterface $entity) 
     }
     $source = '/node/' . $entity->id();
     $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
-    if (is_array($existing) && isset($existing['pid'])) {
+    if (!empty($existing['pid'])) {
       \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $existing['pid']);
     }
     else {
