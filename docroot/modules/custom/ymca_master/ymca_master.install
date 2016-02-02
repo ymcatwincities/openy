@@ -222,8 +222,12 @@ function ymca_master_update_8013() {
 }
 
 /**
- * Enable ymca_breadcrumb module.
+ * Enable modules.
  */
 function ymca_master_update_8014() {
-  \Drupal::service('module_installer')->install(['ymca_breadcrumb'], TRUE);
+  $modules = [
+    'ymca_breadcrumb',
+    'ymca_aliases',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
 }

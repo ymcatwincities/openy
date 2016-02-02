@@ -1,28 +1,28 @@
 <?php
 /**
  * @file
- * Helper trait.
+ * Contains Url Cleaner class.
  */
 
-namespace Drupal\ymca_activity_finder;
+namespace Drupal\ymca_aliases;
 
 /**
- * Class ActivityFinderTrait.
+ * Cleans a string to use in URL.
  *
- * @package Drupal\ymca_activity_finder.
+ * @package Drupal\ymca_aliases.
  */
-trait ActivityFinderTrait {
+class UrlCleaner {
 
   /**
-   * Clean title.
+   * Clean a string.
    *
    * @param string $str
-   *   Title to clean.
+   *   String to clean.
    *
    * @return string
-   *   Cleaned title.
+   *   Cleaned string.
    */
-  static public function cleanTitle($str) {
+  static public function clean($str) {
     $clean = preg_replace('/[^a-zA-Z0-9\/_|+ -]/', '', $str);
     $clean = strtolower(trim($clean, '_'));
     $clean = preg_replace('/[\/_|+ -]+/', '_', $clean);
