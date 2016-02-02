@@ -78,8 +78,10 @@ class NodeAlias {
           $id = $section->getValue()[0]['target_id'];
           $target_alias = $this->aliasManager->getAliasByPath('/node/' . $id);
           preg_match('/\/(?:locations|camps)\/(\w+)/', $target_alias, $test);
-
-          $url_parts = array_merge(['prefix' => $test[1]], $url_parts);
+          $url_parts = array_merge(
+            ['prefix' => $test[1] . '_news__events'],
+            $url_parts
+          );
           $alias = '/' . implode('/', $url_parts);
           break;
         }
