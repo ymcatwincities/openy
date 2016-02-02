@@ -19,8 +19,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ActivityFinderController extends ControllerBase {
 
-  use ActivityFinderTrait;
-
   /**
    * Get node by ID.
    *
@@ -61,7 +59,7 @@ class ActivityFinderController extends ControllerBase {
     }
 
     // Check title.
-    if ($title != ActivityFinderTrait::cleanTitle($node->label())) {
+    if ($title != \Drupal::service('ymca_aliases.url_cleaner')->clean($node->label())) {
       throw new \Exception('The node has a wrong title.');
     }
   }
