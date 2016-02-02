@@ -8,6 +8,7 @@ namespace Drupal\ymca_aliases;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Path\AliasManager;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
 /**
@@ -76,10 +77,12 @@ class NodeAlias {
         $section = $node->get('field_site_section');
         if (!$section->isEmpty()) {
           $id = $section->getValue()[0]['target_id'];
+          $target_node = Node::load($id);
           $target_alias = $this->aliasManager->getAliasByPath('/node/' . $id);
           preg_match('/\/(?:locations|camps)\/(\w+)/', $target_alias, $test);
+          $prefix = $target_node->bundle() == 'camp' ? $test[1] . '_news__events' : $test[1];
           $url_parts = array_merge(
-            ['prefix' => $test[1] . '_news__events'],
+            ['prefix' => $prefix],
             $url_parts
           );
           $alias = '/' . implode('/', $url_parts);
