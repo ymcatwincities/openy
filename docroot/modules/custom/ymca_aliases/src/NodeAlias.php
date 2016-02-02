@@ -41,9 +41,9 @@ class NodeAlias {
   /**
    * NodeAlias constructor.
    */
-  public function __construct(UrlCleaner $urlCleaner, AliasManager $aliasManager) {
-    $this->urlCleaner = $urlCleaner;
-    $this->aliasManager = $aliasManager;
+  public function __construct(UrlCleaner $url_cleaner, AliasManager $alias_manager) {
+    $this->urlCleaner = $url_cleaner;
+    $this->aliasManager = $alias_manager;
   }
 
   /**
