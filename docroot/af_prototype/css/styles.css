@@ -1441,10 +1441,10 @@ iframe {
 }
 @media (min-width: 75em) {
   .filter-form__days {
-    width: 62.0985%;
+    width: 57.88722%;
     float: left;
     margin-right: 1.07066%;
-    padding-left: 4.21128%;
+    padding-left: 2.09443%;
     border-top: none;
     padding-top: 0;
     margin-bottom: 0;
@@ -1553,10 +1553,11 @@ iframe {
   float: right;
   -webkit-transition: color 300ms ease;
   transition: color 300ms ease;
+  padding-left: 0.625rem !important;
 }
 @media (min-width: 75em) {
   .filter-form__show-more {
-    width: 14.86291%;
+    width: 11.56317%;
     float: right;
     margin-right: 0;
     margin-top: 10px !important;
@@ -1564,6 +1565,15 @@ iframe {
 }
 .filter-form__show-more:hover {
   color: #0060af;
+}
+@media (min-width: 75em) {
+  .filter-form__top-submit {
+    width: 6.34921%;
+    float: right;
+    margin-right: 0;
+    margin-top: 10px !important;
+    float: right;
+  }
 }
 .filter #show-more-less {
   display: none;
