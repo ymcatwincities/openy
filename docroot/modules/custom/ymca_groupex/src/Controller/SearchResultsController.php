@@ -7,7 +7,6 @@
 
 namespace Drupal\ymca_groupex\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\NodeInterface;
 
 /**

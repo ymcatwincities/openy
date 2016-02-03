@@ -107,6 +107,9 @@ abstract class GroupexFormBase extends FormBase {
 
     // Attach JS.
     $form['#attached']['library'][] = 'ymca_groupex/ymca_groupex';
+    $form['#cache'] = [
+      'max-age' => 0,
+    ];
 
     return $form;
   }

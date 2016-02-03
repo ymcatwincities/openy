@@ -491,7 +491,8 @@ function ymca_preprocess_page(&$variables) {
     }
     $variables['site_section_bundle'] = $site_section_bundle;
   }
-  if (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
+  if (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules' ||
+    \Drupal::service('current_route_match')->getRouteName() == 'ymca_groupex.schedules_search_results') {
     $variables['page_schedules'] = TRUE;
   }
 }

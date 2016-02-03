@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_entity_insert().
+ */
+function ymca_aliases_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity instanceof \Drupal\node\NodeInterface) {
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity);
+    \Drupal::service('path.alias_storage')->save('/node/' . $entity->id(), $alias, 'en');
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function ymca_aliases_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity instanceof \Drupal\node\NodeInterface) {
+    // Check whether we need to update an alias.
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity);
+    if (empty($alias)) {
+      return;
+    }
+    $source = '/node/' . $entity->id();
+    $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
+    $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
+  }
+}
