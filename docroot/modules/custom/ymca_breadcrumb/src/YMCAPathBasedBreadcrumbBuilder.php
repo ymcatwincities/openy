@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ *
  * Contains Path based breadcrumb builder, with current page title appended to
  * the end.
  */
