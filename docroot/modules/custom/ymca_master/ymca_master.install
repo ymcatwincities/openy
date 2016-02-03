@@ -242,6 +242,16 @@ function ymca_master_update_8015() {
     ->condition('type', 'camp')
     ->execute();
 
+  // Create aliases for News & Events pages of existing Camps.
+  $suffix = '/about/news__events';
+  foreach ($camp_ids as $id) {
+    $camp_path = '/node/' . $id;
+    $news_events_path = $camp_path . $suffix;
+    $camp_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($camp_path);
+    $news_events_path_alias = $camp_path_alias . $suffix;
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en');
+  }
+
   // Camp-related 'News & Events' nodes.
   $nids = \Drupal::entityQuery('node')
     ->condition('title', 'News & Events')
@@ -252,14 +262,4 @@ function ymca_master_update_8015() {
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $nodes = $storage->loadMultiple($nids);
   $storage->delete($nodes);
-
-  // Create aliases for News & Events pages of existing Camps.
-  $suffix = '/about/news__events';
-  foreach ($camp_ids as $id) {
-    $camp_path = '/node/' . $id;
-    $news_events_path = $camp_path . $suffix;
-    $camp_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($camp_path);
-    $news_events_path_alias = $camp_path_alias . $suffix;
-    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en');
-  }
 }
