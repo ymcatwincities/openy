@@ -59,6 +59,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
  */
 function ymca_groupex_schedule_layout(array $schedule) {
   $results = [];
+  $cache = ['max-age' => 0];
 
   // Output schedule by type.
   switch ($schedule['type']) {
@@ -70,6 +71,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
           '#classes' => $schedule['classes'],
           '#title' => $schedule['title'],
           '#pdf_href' => $schedule['pdf_href'],
+          '#cache' => $cache,
         ];
       }
       break;
@@ -81,6 +83,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
           '#theme' => 'groupex_schedule_week',
           '#days' => $schedule['days'],
           '#pdf_href' => $schedule['pdf_href'],
+          '#cache' => $cache,
         ];
       }
       break;
@@ -92,6 +95,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
           '#theme' => 'groupex_schedule_location',
           '#locations' => $schedule['locations'],
           '#filter_date' => $schedule['filter_date'],
+          '#cache' => $cache,
         ];
       }
       break;
