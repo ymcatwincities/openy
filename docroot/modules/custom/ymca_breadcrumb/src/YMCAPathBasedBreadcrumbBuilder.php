@@ -1,9 +1,7 @@
 <?php
 /**
  * @file
- *
- * Contains Path based breadcrumb builder, with current page title appended to
- * the end.
+ * Contains modified Path based breadcrumb builder.
  */
 
 namespace Drupal\ymca_breadcrumb;
