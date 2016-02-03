@@ -21,16 +21,12 @@ function ymca_aliases_entity_update(Drupal\Core\Entity\EntityInterface $entity) 
   if ($entity instanceof \Drupal\node\NodeInterface) {
     // Check whether we need to update an alias.
     $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity);
-    if (!$alias) {
+    if (empty($alias)) {
       return;
     }
     $source = '/node/' . $entity->id();
     $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
-    if (!empty($existing['pid'])) {
-      \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $existing['pid']);
-    }
-    else {
-      \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
-    }
+    $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
 }

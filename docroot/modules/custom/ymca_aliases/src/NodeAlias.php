@@ -78,15 +78,15 @@ class NodeAlias {
         if (!$section->isEmpty()) {
           $id = $section->getValue()[0]['target_id'];
           $target_node = Node::load($id);
-          $target_alias = $this->aliasManager->getAliasByPath('/node/' . $id);
-          preg_match('/\/(?:locations|camps)\/(\w+)/', $target_alias, $test);
-          $prefix = $target_node->bundle() == 'camp' ? $test[1] . '_news__events' : $test[1];
-          $url_parts = array_merge(
-            ['prefix' => $prefix],
-            $url_parts
-          );
-          $alias = '/' . implode('/', $url_parts);
-          break;
+          if ($target_node->bundle() == 'camp') {
+            $target_alias = $this->aliasManager->getAliasByPath('/node/' . $id);
+            preg_match('/\/camps\/(\w+)/', $target_alias, $test);
+            if (!empty($test[1])) {
+              $url_parts = array_merge(['prefix' => $test[1] . '_news__events'], $url_parts);
+              $alias = '/' . implode('/', $url_parts);
+              break;
+            }
+          }
         }
 
         // Check whether the post has 'news' tag.
