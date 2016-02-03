@@ -8,6 +8,7 @@ namespace Drupal\ymca_aliases;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Path\AliasManager;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
 /**
@@ -76,12 +77,16 @@ class NodeAlias {
         $section = $node->get('field_site_section');
         if (!$section->isEmpty()) {
           $id = $section->getValue()[0]['target_id'];
-          $target_alias = $this->aliasManager->getAliasByPath('/node/' . $id);
-          preg_match('/\/(?:locations|camps)\/(\w+)/', $target_alias, $test);
-
-          $url_parts = array_merge(['prefix' => $test[1]], $url_parts);
-          $alias = '/' . implode('/', $url_parts);
-          break;
+          $target_node = Node::load($id);
+          if ($target_node->bundle() == 'camp') {
+            $target_alias = $this->aliasManager->getAliasByPath('/node/' . $id);
+            preg_match('/\/camps\/(\w+)/', $target_alias, $test);
+            if (!empty($test[1])) {
+              $url_parts = array_merge(['prefix' => $test[1] . '_news__events'], $url_parts);
+              $alias = '/' . implode('/', $url_parts);
+              break;
+            }
+          }
         }
 
         // Check whether the post has 'news' tag.
