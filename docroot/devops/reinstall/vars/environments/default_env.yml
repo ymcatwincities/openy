@@ -16,7 +16,7 @@ env:
     - { name: 'search-index', status: true, arguments: "" }
   post_settings:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
-    - { name: '$settings["cache"]["bins"]["render"]', status: true, value: 'cache.backend.memory' }
+    - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$databases["legacy"]["default"]["database"]', status: true, value: '{{ old_source_db_name }}' }
     - { name: '$databases["legacy"]["default"]["username"]', status: true, value: 'root' }
     - { name: '$databases["legacy"]["default"]["password"]', status: true, value: 'root' }
