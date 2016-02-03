@@ -106,7 +106,7 @@ class YMCABlogCampBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implement
     );
 
     // Path-based builder with modified request context.
-    $pathBasedBreadcrumbBuilder = new PathBasedBreadcrumbBuilder(
+    $path_based_breadcrumb_builder = new PathBasedBreadcrumbBuilder(
       $request_context,
       $this->accessManager,
       $this->router,
@@ -120,7 +120,7 @@ class YMCABlogCampBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implement
     /*
      * @var \Drupal\Core\Breadcrumb\Breadcrumb
      */
-    $breadcrumb = $pathBasedBreadcrumbBuilder->build($route_match);
+    $breadcrumb = $path_based_breadcrumb_builder->build($route_match);
     $breadcrumb->addLink(Link::fromTextAndUrl($this->t('News & Events'), $url));
     $breadcrumb->addLink(Link::createFromRoute($this->node->getTitle(), '<none>'));
 

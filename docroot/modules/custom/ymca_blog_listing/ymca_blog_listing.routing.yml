@@ -1,4 +1,3 @@
-
 ymca_blog_listing.news_events_page_controller:
   path: node/{node}/about/news__events
   defaults:
