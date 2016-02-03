@@ -226,8 +226,37 @@ function ymca_master_update_8013() {
  */
 function ymca_master_update_8014() {
   $modules = [
-    'ymca_breadcrumb',
     'ymca_aliases',
+    'ymca_blog_listing',
+    'ymca_breadcrumb',
   ];
   \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Remove all Camp-related 'News & Events' nodes.
+ */
+function ymca_master_update_8015() {
+  // Camps.
+  $camp_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'camp')
+    ->execute();
+
+  // Camp-related 'News & Events' nodes.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('name', 'News & Events')
+    ->condition('field_related.target_id', $camp_ids, 'IN')
+    ->execute();
+
+  \Drupal::entityTypeManager()->getStorage('node')->delete($nids);
+
+  // Create aliases for News & Events pages of existing Camps.
+  $suffix = '/about/news__events';
+  foreach ($camp_ids as $id) {
+    $camp_path = '/node/' . $id;
+    $news_events_path = $camp_path . $suffix;
+    $camp_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($camp_path);
+    $news_events_path_alias = $camp_path_alias . $suffix;
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en');
+  }
 }
