@@ -244,10 +244,11 @@ function ymca_master_update_8015() {
 
   // Camp-related 'News & Events' nodes.
   $nids = \Drupal::entityQuery('node')
-    ->condition('name', 'News & Events')
+    ->condition('title', 'News & Events')
     ->condition('field_related.target_id', $camp_ids, 'IN')
     ->execute();
 
+  // Remove nodes.
   \Drupal::entityTypeManager()->getStorage('node')->delete($nids);
 
   // Create aliases for News & Events pages of existing Camps.
