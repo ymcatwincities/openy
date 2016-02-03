@@ -1,0 +1,17 @@
+uuid: b37e3520-24fd-4795-8400-e463fa19210c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.product
+  module:
+    - user
+id: node.product.default
+targetEntityType: node
+bundle: product
+mode: default
+content:
+  links:
+    weight: 100
+hidden:
+  langcode: true
