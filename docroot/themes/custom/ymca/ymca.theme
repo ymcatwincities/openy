@@ -87,7 +87,9 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  * Implements hook_theme_HOOK_alter().
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node && !in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
     array_unshift($suggestions, 'page__node__' . $node->bundle());
   }
   if (!\Drupal::service('path.matcher')->isFrontPage()) {
@@ -268,6 +270,7 @@ function ymca_preprocess_node(&$variables) {
       }
     }
 
+    $items = [];
     // Load nodes and build output array.
     $nodes = entity_load_multiple('node', $nids);
     foreach ($nodes as $nid => $n) {
@@ -281,7 +284,9 @@ function ymca_preprocess_node(&$variables) {
     // Add facebook ID to the template.
     $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
     // Add membership block flag.
-    $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
+    if ($variables['node']->hasField('field_membership_block')) {
+      $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
+    }
   }
 
   // Blog specific preprocessing.
@@ -347,6 +352,13 @@ function ymca_preprocess_html(&$variables) {
       'landing-template',
       'ancestor-locations',
       'theme_ymca_2013_location_primary_landing',
+    ];
+  }
+  elseif ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+    $classes = [
+      'internal-template',
+      'ancestor-camps',
+      'theme_ymca_2013_camp_category_and_detail',
     ];
   }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
