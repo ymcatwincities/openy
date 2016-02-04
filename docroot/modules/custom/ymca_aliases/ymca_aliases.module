@@ -10,6 +10,9 @@
 function ymca_aliases_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity instanceof \Drupal\node\NodeInterface) {
     $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity);
+    if (empty($alias)) {
+      return;
+    }
     \Drupal::service('path.alias_storage')->save('/node/' . $entity->id(), $alias, 'en');
   }
 }
