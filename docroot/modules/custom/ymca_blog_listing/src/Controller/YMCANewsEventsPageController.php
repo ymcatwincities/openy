@@ -28,7 +28,6 @@ class YMCANewsEventsPageController extends ControllerBase {
    *   Return render array.
    */
   public function pageView(NodeInterface $node) {
-    \Drupal::service('pagecontext.service')->setContext($node);
     $view = views_embed_view('camp_blog_listing', 'blog_listing_embed', $node->id());
 
     return [

@@ -19,7 +19,6 @@ class YMCALocationSchedulesController {
    * Set Markup.
    */
   public function content(NodeInterface $node) {
-    \Drupal::service('pagecontext.service')->setContext($node);
     $node_view = node_view($node, 'schedules');
     $markup = render($node_view);
 
