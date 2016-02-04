@@ -65,6 +65,7 @@ class YMCANewsBlogListingsBreadcrumbBuilder implements BreadcrumbBuilderInterfac
         $breadcrumb->addLink(Link::createFromRoute($this->t('Blog'), '<none>'));
         break;
     }
+    $breadcrumb->addCacheContexts(['url.path']);
 
     return $breadcrumb;
   }

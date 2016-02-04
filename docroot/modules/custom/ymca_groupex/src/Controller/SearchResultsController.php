@@ -18,7 +18,6 @@ class SearchResultsController {
    * Show the page.
    */
   public function pageView(NodeInterface $node) {
-    \Drupal::service('pagecontext.service')->setContext($node);
     $view = node_view($node, 'groupex');
     $markup = render($view);
 

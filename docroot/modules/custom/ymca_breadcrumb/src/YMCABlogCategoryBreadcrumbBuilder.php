@@ -55,6 +55,7 @@ class YMCABlogCategoryBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       Link::fromTextAndUrl($this->t('Blog'), Url::fromUri('internal:/blog')),
       Link::createFromRoute($this->term->getName(), '<none>'),
     ]);
+    $breadcrumb->addCacheContexts(['url.path']);
 
     return $breadcrumb;
   }
