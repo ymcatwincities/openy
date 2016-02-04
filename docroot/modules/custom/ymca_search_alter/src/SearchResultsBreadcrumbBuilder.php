@@ -37,6 +37,8 @@ class SearchResultsBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       Link::createFromRoute($this->t('Search results'), '<none>'),
     ];
     $breadcrumb->setLinks($links);
+    $breadcrumb->addCacheContexts(['url.path']);
+
     return $breadcrumb;
   }
 
