@@ -93,10 +93,8 @@ class YMCABlogCampBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implement
   public function build(RouteMatchInterface $route_match) {
     $context = \Drupal::service('pagecontext.service')->getContext();
     $url = Url::fromRoute('ymca_blog_listing.news_events_page_controller', ['node' => $context->id()]);
-    $path = trim($url->toString(), '/');
-
-    // Debug.
-    dpm($path);
+    $path_alias = \Drupal::service('path.alias_manager')->getAliasByPath('/' . $url->getInternalPath(), 'en');
+    $path = trim($path_alias, '/');
 
     $request_context = new RequestContext(
       $this->context->getBaseUrl(),
