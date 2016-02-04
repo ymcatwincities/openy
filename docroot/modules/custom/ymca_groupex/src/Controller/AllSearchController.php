@@ -21,6 +21,9 @@ class AllSearchController extends ControllerBase {
     $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormFull');
     return [
       'form' => $form,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 

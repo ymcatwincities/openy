@@ -56,7 +56,8 @@ class YmcaOfficeHoursFormatter extends FormatterBase implements ContainerFactory
         $day = str_replace('hours_', '', $i_item->getName());
         $value = $i_item->getValue();
         if ($groups && end($groups)['value'] == $value) {
-          $group = &$groups[end(array_keys($groups))];
+          $array_keys = array_keys($groups);
+          $group = &$groups[end($array_keys)];
           $group['days'][] = $day;
         }
         else {

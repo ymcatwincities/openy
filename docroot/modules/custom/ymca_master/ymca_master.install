@@ -6,6 +6,7 @@
  */
 
 use Drupal\field\Entity\FieldConfig;
+use Drupal\block_content\Entity\BlockContent;
 
 /**
  * Protecting sites with a shield.
@@ -123,4 +124,142 @@ function ymca_master_update_8007() {
 function ymca_master_update_8008() {
   \Drupal::service('module_installer')->uninstall(array('ymca_frontend'));
   \Drupal::service('module_installer')->install(array('ymca_frontend'), TRUE);
+}
+
+/**
+ * Fix token replacements.
+ */
+function ymca_master_update_8009() {
+  $fields = [
+    'field_content',
+    'field_lead_description',
+    'field_sidebar',
+    'field_summary',
+  ];
+
+  // Get all nodes with non-replaced tokens.
+  $ids = [];
+  foreach ($fields as $field) {
+    $query = db_select(sprintf('node__%s', $field), 'c')
+      ->fields('c', ['entity_id']);
+
+    $or = db_or();
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_asset_link') . '%', 'LIKE');
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_page_link') . '%', 'LIKE');
+
+    $query->condition($or);
+
+    $ids += $query->execute()->fetchAllKeyed(0, 0);
+  }
+
+  $service = Drupal::service('ymcareplacetokens.service');
+
+  // Replace tokens withing the nodes and fields.
+  foreach ($ids as $nid) {
+    $node = \Drupal\node\Entity\Node::load($nid);
+    foreach ($fields as $field) {
+      if ($node->hasField($field)) {
+        foreach ($node->$field as &$item) {
+          $item->set('value', $service->processText($item->value));
+        }
+      }
+    }
+
+    $node->save();
+  }
+}
+
+/**
+ * Enable ymca_activity_finder module.
+ */
+function ymca_master_update_8010() {
+  \Drupal::service('module_installer')->install(['ymca_activity_finder'], TRUE);
+}
+
+/**
+ * Enable config_import module.
+ */
+function ymca_master_update_8011() {
+  \Drupal::service('module_installer')->install(['config_import'], TRUE);
+}
+
+/**
+ * Recreate schedules blocks.
+ */
+function ymca_master_update_8012() {
+  module_load_include('php', 'ymca_master', 'include/ymca_master.8011');
+  $blocks = _ymca_master_schedules_block_data();
+  foreach ($blocks as $block_data) {
+    $block = BlockContent::create($block_data)->enforceIsNew();
+    $block->save();
+  }
+
+  // Re-import configs.
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/block.block.schedulesrightblocks.yml',
+    'sites/default/config/staging/block.block.allyschedulesformtitle.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadleft.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadright.yml',
+  ]);
+}
+
+/**
+ * Add aliases for groupex search results.
+ */
+function ymca_master_update_8013() {
+  $query = db_select('url_alias', 'a')
+    ->fields('a')
+    ->condition('source', '/node/%/schedules', 'LIKE')
+    ->execute();
+
+  while ($row = $query->fetchObject()) {
+    // Create new alias here.
+    $suffix = 'group_exercise_search_results';
+    $source = $row->source . '/' . $suffix;
+    $alias = $row->alias . '/' . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+  }
+}
+
+/**
+ * Enable modules.
+ */
+function ymca_master_update_8014() {
+  $modules = [
+    'ymca_aliases',
+    'ymca_blog_listing',
+    'ymca_breadcrumb',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Remove all Camp-related 'News & Events' nodes.
+ */
+function ymca_master_update_8015() {
+  // Camps.
+  $camp_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'camp')
+    ->execute();
+
+  // Create aliases for News & Events pages of existing Camps.
+  $suffix = '/about/news__events';
+  foreach ($camp_ids as $id) {
+    $camp_path = '/node/' . $id;
+    $news_events_path = $camp_path . $suffix;
+    $camp_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($camp_path);
+    $news_events_path_alias = $camp_path_alias . $suffix;
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en');
+  }
+
+  // Camp-related 'News & Events' nodes.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('title', 'News & Events')
+    ->condition('field_related.target_id', $camp_ids, 'IN')
+    ->execute();
+
+  // Remove nodes.
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $nodes = $storage->loadMultiple($nids);
+  $storage->delete($nodes);
 }

@@ -37,26 +37,29 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'groupex-schedule-location',
     ],
+    'groupex_all_search_results' => [
+      'variables' => [
+        'form' => '',
+        'schedule' => '',
+        'empty_results' => FALSE,
+      ],
+      'template' => 'groupex-all-search-results',
+    ],
   ];
 }
 
 /**
  * Helper function to make schedules layout.
  *
- * @param array $query
- *   Query parameters.
+ * @param array $schedule
+ *   Fetched and process schedule.
  *
  * @return array
  *   Results render array.
  */
-function ymca_groupex_schedule_layout(array $query) {
-  // Get classes schedules.
-  $fetcher = new \Drupal\ymca_groupex\GroupexScheduleFetcher($query);
-  $schedule = $fetcher->getSchedule();
-
-  $results = [
-    '#markup' => t('Nothing found...'),
-  ];
+function ymca_groupex_schedule_layout(array $schedule) {
+  $results = [];
+  $cache = ['max-age' => 0];
 
   // Output schedule by type.
   switch ($schedule['type']) {
@@ -68,6 +71,7 @@ function ymca_groupex_schedule_layout(array $query) {
           '#classes' => $schedule['classes'],
           '#title' => $schedule['title'],
           '#pdf_href' => $schedule['pdf_href'],
+          '#cache' => $cache,
         ];
       }
       break;
@@ -79,6 +83,7 @@ function ymca_groupex_schedule_layout(array $query) {
           '#theme' => 'groupex_schedule_week',
           '#days' => $schedule['days'],
           '#pdf_href' => $schedule['pdf_href'],
+          '#cache' => $cache,
         ];
       }
       break;
@@ -90,6 +95,7 @@ function ymca_groupex_schedule_layout(array $query) {
           '#theme' => 'groupex_schedule_location',
           '#locations' => $schedule['locations'],
           '#filter_date' => $schedule['filter_date'],
+          '#cache' => $cache,
         ];
       }
       break;
@@ -116,8 +122,14 @@ function ymca_groupex_preprocess_node(&$variables) {
     $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormLocationRefine', $query);
     $variables['groupex_form_refine'] = \Drupal::service('renderer')->render($form, FALSE);
 
+    // Get classes schedules.
+    $schedule = $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
+
+    // Are results empty?
+    $variables['empty_results'] = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
+
     // Output schedule.
-    $schedule = ymca_groupex_schedule_layout($query);
-    $variables['groupex_search_results'] = \Drupal::service('renderer')->render($schedule, FALSE);
+    $formatted_schedule = ymca_groupex_schedule_layout($schedule);
+    $variables['groupex_search_results'] = \Drupal::service('renderer')->render($formatted_schedule, FALSE);
   }
 }
