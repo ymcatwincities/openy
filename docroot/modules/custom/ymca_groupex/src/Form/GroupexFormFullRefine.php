@@ -37,7 +37,8 @@ class GroupexFormFullRefine extends GroupexFormBase {
     $form['location'] = [
       '#type' => 'checkboxes',
       '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
-      '#title' => $this->t('Location (optional—select up to 4)'),
+      '#title' => $this->t('Location'),
+      '#title_extra' => $this->t('(optional—select up to 4)'),
       '#weight' => -100,
       '#default_value' => $refine ? $params['location'] : [],
     ];
@@ -51,6 +52,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect(
       'ymca_groupex.all_schedules_search_results',
+      [],
       ['query' => $this->getRedirectParams($form, $form_state)]
     );
   }

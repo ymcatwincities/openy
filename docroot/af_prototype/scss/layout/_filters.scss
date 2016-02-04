@@ -156,8 +156,8 @@
       margin-bottom: 0;
       opacity: 1;
       @include susy-media(desktop) {
-        @include span(15 of 24);
-        @include prefix(1 of 24);
+        @include span(14 of 24);
+        @include prefix(1 of 48);
         border-top: none;
         padding-top: 0;
         margin-bottom: 0;
@@ -243,14 +243,23 @@
       color: $grey-6;
       float: right;
       transition: color 300ms ease;
+      padding-left: rem(10px) !important;
 
       @include susy-media(desktop) {
-        @include span(last 2 of 12);
+        @include span(last 3 of 24);
         margin-top: 10px !important;
       }
 
       &:hover {
         color: $dark-blue;
+      }
+    }
+
+    &__top-submit {
+      @include susy-media(desktop) {
+        @include span(last 1 of 12);
+        margin-top: 10px !important;
+        float: right;
       }
     }
   }
