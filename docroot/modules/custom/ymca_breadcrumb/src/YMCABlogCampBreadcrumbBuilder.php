@@ -95,6 +95,9 @@ class YMCABlogCampBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implement
     $url = Url::fromRoute('ymca_blog_listing.news_events_page_controller', ['node' => $context->id()]);
     $path = trim($url->toString(), '/');
 
+    // Debug.
+    dpm($path);
+
     $request_context = new RequestContext(
       $this->context->getBaseUrl(),
       $this->context->getMethod(),
