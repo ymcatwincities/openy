@@ -59,7 +59,7 @@ class YMCANewsBlogBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         return FALSE;
       }
     }
-    if (!$node->bundle() == 'blog' || $node->field_site_section->getValue()) {
+    if ($node->bundle() != 'blog' || $node->field_site_section->getValue()) {
       return FALSE;
     }
     $this->node = $node;
@@ -91,6 +91,7 @@ class YMCANewsBlogBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       Link::fromTextAndUrl($this->t($listing_name), Url::fromUri($listing_uri)),
       Link::createFromRoute($this->node->getTitle(), '<none>'),
     ]);
+    $breadcrumb->addCacheContexts(['url.path']);
 
     return $breadcrumb;
   }
