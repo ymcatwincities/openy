@@ -82,7 +82,7 @@ abstract class GroupexFormBase extends FormBase {
     ];
 
     $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
-    if ($refine) {
+    if ($refine && !empty($params['filter_date'])) {
       $date = DrupalDateTime::createFromFormat(
         self::$dateFilterFormat,
         $params['filter_date'],
