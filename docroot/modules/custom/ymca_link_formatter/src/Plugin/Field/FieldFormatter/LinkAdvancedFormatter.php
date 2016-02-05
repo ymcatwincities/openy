@@ -125,7 +125,7 @@ class LinkAdvancedFormatter extends LinkFormatter {
         $element[$delta]['#url'] = $url;
 
         if (!empty($item->_attributes)) {
-          $element[$delta]['#options'] += array ('attributes' => array());
+          $element[$delta]['#options'] += array('attributes' => array());
           $element[$delta]['#options']['attributes'] += $item->_attributes;
           // Unset field item attributes since they have been included in the
           // formatter output and should not be rendered in the field template.
