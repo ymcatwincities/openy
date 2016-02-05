@@ -348,6 +348,13 @@ class GroupexScheduleFetcher {
   private function prepareParameters($parameters) {
     $this->parameters = $parameters;
 
+    // The old site has a habit to provide empty filter_date. Fix it here.
+    if (empty($this->parameters['filter_date'])) {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone);
+      $this->parameters['filter_date'] = $date->format(self::$dateFilterFormat);
+    }
+
+    // Set timestamp.
     $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date'], $this->timezone);
     $date->setTime(0, 0, 0);
     $this->parameters['filter_timestamp'] = $date->getTimestamp();
