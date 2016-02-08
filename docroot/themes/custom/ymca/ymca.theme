@@ -244,7 +244,7 @@ function ymca_preprocess_node(&$variables) {
       // Display Location Membership block.
       $block = \Drupal::entityTypeManager()->getStorage('block_content')->load(MEMBERSHIP_BLOCK_ID);
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
-      $variables['secondary_sidebar'] = $view_builder->view($block);
+      $variables['membership_block'] = $view_builder->view($block);
     }
   }
 
