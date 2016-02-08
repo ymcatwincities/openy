@@ -6,6 +6,6 @@
 
 {% block call_to_action %}
   {% if show_membership_block %}
-    {% include "@ymca/ymca-blocks/membership-block.html.twig" %}
+    {{ membership_block }}
   {% endif %}
 {% endblock %}
