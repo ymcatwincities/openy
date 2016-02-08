@@ -241,6 +241,10 @@ function ymca_preprocess_node(&$variables) {
     // Add membership block flag.
     if ($variables['node']->hasField('field_membership_block')) {
       $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
+      // Display Location Membership block.
+      $block = \Drupal::entityTypeManager()->getStorage('block_content')->load(MEMBERSHIP_BLOCK_ID);
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+      $variables['secondary_sidebar'] = $view_builder->view($block);
     }
   }
 
