@@ -22,7 +22,7 @@ third_party_settings:
     use_vertical_tabs: true
 name: Product
 type: product
-description: ''
+description: Product.
 help: ''
 new_revision: false
 preview_mode: 1
