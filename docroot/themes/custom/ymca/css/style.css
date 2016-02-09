@@ -7444,6 +7444,15 @@ body.path-search #block-mainpagecontent li {
   -webkit-transition-duration: 0s;
 }
 
+.gsa_results_wrapper ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+.copy .pagination {
+  padding-left: 0 !important;
+}
+
 .form-item {
   margin-bottom: 15px;
 }

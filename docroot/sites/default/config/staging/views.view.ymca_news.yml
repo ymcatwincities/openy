@@ -1,4 +1,4 @@
-uuid: 325f15a2-0c70-4666-8b36-54d6fcbf4bc9
+uuid: 0c7b3ed3-d92a-4833-9b05-5e93f5ab6e44
 langcode: en
 status: true
 dependencies:
@@ -13,8 +13,8 @@ dependencies:
     - node
     - taxonomy
     - user
-id: ymca_news_archive
-label: 'YMCA News Archive'
+id: ymca_news
+label: 'YMCA News'
 module: views
 description: ''
 tag: ''
@@ -225,84 +225,13 @@ display:
           plugin_id: text_custom
       empty: {  }
       relationships: {  }
-      arguments:
-        created_year:
-          id: created_year
-          table: node_field_data
-          field: created_year
-          relationship: none
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: true
-          title: 'YMCA News Archive'
-          default_argument_type: raw
-          default_argument_options:
-            index: 2
-            use_alias: false
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          entity_type: node
-          plugin_id: date_year
-        created_month:
-          id: created_month
-          table: node_field_data
-          field: created_month
-          relationship: none
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: true
-          title: 'YMCA News Archive'
-          default_argument_type: raw
-          default_argument_options:
-            index: 3
-            use_alias: false
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          entity_type: node
-          plugin_id: date_month
+      arguments: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - user
         - 'user.node_grants:view'
@@ -330,7 +259,6 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - user
         - 'user.node_grants:view'
         - user.permissions
@@ -342,7 +270,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: news/ymca_news_archive/%/%
+      path: news
       menu:
         type: normal
         title: News
@@ -386,7 +314,6 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - user
         - 'user.node_grants:view'
