@@ -67,8 +67,8 @@ class NodeAlias {
 
         $url_parts = [
           'year' => $date->format('Y'),
-          'month' => $date->format('n'),
-          'day' => $date->format('j'),
+          'month' => $date->format('m'),
+          'day' => $date->format('d'),
           'id' => $node->id(),
           'suffix' => $this->urlCleaner->clean($node->getTitle()),
         ];
