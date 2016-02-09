@@ -82,7 +82,7 @@ class DateBlockService {
       return FALSE;
     }
 
-    if ($date_block->_referringItem->getFieldDefinition()->get('field_name') != 'field_promo_slideshow') {
+    if (isset($date_block->_referringItem) && $date_block->_referringItem->getFieldDefinition()->get('field_name') != 'field_promo_slideshow') {
       \Drupal::logger('Date Blocks')->critical(t('Block is not referenced from field_promo_slideshow.'));
       return FALSE;
     }
