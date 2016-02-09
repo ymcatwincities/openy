@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Search results page content template.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<section class="page-header page-title title-only">
+  <div class="container title-container">
+    <div class="row">
+      <div class="col-sm-12 header-copy">
+        <h1>{{ 'Search Results'|t }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 categories copy">
+        <div class="gsa_top_search_wrapper">
+          {{ search_form }}
+        </div>
+        {{ search_results }}
+        <div class="gsa_bottom_results_nav_wrapper text-left">
+          {{ pager }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
