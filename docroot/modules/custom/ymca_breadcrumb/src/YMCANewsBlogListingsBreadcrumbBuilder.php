@@ -31,6 +31,7 @@ class YMCANewsBlogListingsBreadcrumbBuilder implements BreadcrumbBuilderInterfac
     'view.ymca_news.page_news',
     'view.ymca_news_archive.page_news',
     'view.ymca_twin_cities_blog.blog_page',
+    'view.ymca_twin_cities_blog_archive.blog_page',
   ];
 
   /**
@@ -63,6 +64,11 @@ class YMCANewsBlogListingsBreadcrumbBuilder implements BreadcrumbBuilderInterfac
 
       case 'view.ymca_twin_cities_blog.blog_page':
         $breadcrumb->addLink(Link::createFromRoute($this->t('Blog'), '<none>'));
+        break;
+
+      case 'view.ymca_twin_cities_blog_archive.blog_page':
+        $breadcrumb->addLink(Link::createFromRoute($this->t('Blog'), 'view.ymca_twin_cities_blog.blog_page'));
+        $breadcrumb->addLink(Link::createFromRoute($this->t('Archive'), '<none>'));
         break;
     }
     $breadcrumb->addCacheContexts(['url.path']);
