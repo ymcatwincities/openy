@@ -13,3 +13,7 @@ services:
     public: false
     tags:
       - { name: page_cache_response_policy }
+  ymca_personify_token_checker:
+      class: Drupal\ymca_personify\EventSubscriber\TokenChecker
+      tags:
+        - { name: event_subscriber }
