@@ -12,6 +12,11 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class TokenChecker.
+ *
+ * @package Drupal\ymca_personify\EventSubscriber
+ */
 class TokenChecker implements EventSubscriberInterface {
 
   /**
@@ -82,7 +87,7 @@ class TokenChecker implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  static function getSubscribedEvents() {
+  static public function getSubscribedEvents() {
     $events[KernelEvents::REQUEST][] = ['checkToken'];
     return $events;
   }
