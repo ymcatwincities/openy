@@ -91,6 +91,7 @@ class PersonifyController extends ControllerBase {
     $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
 
     user_cookie_delete('personify_authorized');
+    user_cookie_delete('personify_time');
 
     $redirect_url = Url::fromUri($this->config['url_sign_out'])->toString();
     $redirect = new TrustedRedirectResponse($redirect_url);
@@ -110,7 +111,10 @@ class PersonifyController extends ControllerBase {
 
       $decrypted_token = $this->sso->decryptCustomerToken($query['ct']);
       if ($token = $this->sso->validateCustomerToken($decrypted_token)) {
-        user_cookie_save(['personify_authorized' => TRUE]);
+        user_cookie_save([
+          'personify_authorized' => $token,
+          'personify_time' => REQUEST_TIME,
+        ]);
         \Drupal::logger('ymca_personify')->info('A user logged in via Personify.');
       }
       else {
