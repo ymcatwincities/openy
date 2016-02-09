@@ -7453,6 +7453,10 @@ body.path-search #block-mainpagecontent li {
   float: right;
 }
 
+.copy .pagination {
+  padding-left: 0 !important;
+}
+
 .form-item {
   margin-bottom: 15px;
 }

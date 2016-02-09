@@ -50,8 +50,8 @@ class SearchController extends \Drupal\search\Controller\SearchController {
     }
 
     $build['#title'] = $plugin->suggestedTitle();
-    $build['search_form'] = $this->entityFormBuilder()->getForm($entity, 'search');
-    $build['search_form']['#attributes']['style'] = 'display:none;';
+    $build['#search_form'] = $this->entityFormBuilder()->getForm($entity, 'search');
+    $build['#search_form']['#attributes']['style'] = 'display:none;';
 
     // Build search results, if keywords or other search parameters are in the
     // GET parameters. Note that we need to try the search if 'keys' is in
@@ -74,7 +74,7 @@ class SearchController extends \Drupal\search\Controller\SearchController {
       }
     }
 
-    $build['search_results'] = array(
+    $build['#search_results'] = array(
       '#theme' => array('item_list__search_results__' . $plugin->getPluginId(), 'item_list__search_results'),
       '#items' => $results,
       '#empty' => array(
@@ -95,13 +95,14 @@ class SearchController extends \Drupal\search\Controller\SearchController {
     // that search index, so that cached search result pages are invalidated
     // when necessary.
     if ($plugin->getType()) {
-      $build['search_results']['#cache']['tags'][] = 'search_index';
-      $build['search_results']['#cache']['tags'][] = 'search_index:' . $plugin->getType();
+      $build['#search_results']['#cache']['tags'][] = 'search_index';
+      $build['#search_results']['#cache']['tags'][] = 'search_index:' . $plugin->getType();
     }
 
-    $build['pager'] = array(
+    $build['#pager'] = array(
       '#type' => 'pager',
     );
+    $build['#theme'] = ['search_results_page'];
 
     return $build;
   }
