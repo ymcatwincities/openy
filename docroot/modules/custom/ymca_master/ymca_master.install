@@ -160,7 +160,18 @@ function ymca_master_update_8009() {
     foreach ($fields as $field) {
       if ($node->hasField($field)) {
         foreach ($node->$field as &$item) {
-          $item->set('value', $service->processText($item->value));
+          try {
+            $item->set('value', $service->processText($item->value));
+          }
+          catch (Exception $e) {
+            // Set unprocessed value and log an error.
+            $item->set('value', $item->value);
+            \Drupal::logger('ymca_master')
+              ->error(
+                'Replacement tokens error: %message',
+                ['%message' => $e->getMessage()]
+              );
+          }
         }
       }
     }
@@ -262,4 +273,16 @@ function ymca_master_update_8015() {
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $nodes = $storage->loadMultiple($nids);
   $storage->delete($nodes);
+}
+
+/**
+ * Test PUSH_MIGRATE_UPDATE_TO_PROD job.
+ */
+function ymca_master_update_8016() {
+  $env = 'default';
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    $env = 'Acquia';
+  }
+  \Drupal::logger('ymca_master')
+    ->info('Hello! Current environment is: %env.', ['%env' => $env]);
 }
