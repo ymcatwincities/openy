@@ -159,7 +159,22 @@ class YmcaMigrateNodeBlog extends SqlBase {
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens $replace_tokens */
     $replace_tokens = \Drupal::service('ymcareplacetokens.service');
     if (isset($component['body'])) {
-      $component['body'] = $replace_tokens->processText($component['body']);
+      try {
+        $component['body'] = $replace_tokens->processText($component['body']);
+      }
+      catch (\Exception $e) {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            'A problem with token replacements: blog_post_id: @blog, message: @message',
+            array(
+              '@blog' => $component['blog_post_id'],
+              '@message' => $e->getMessage(),
+            )
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+      }
     }
 
     switch ($component['component_type']) {
