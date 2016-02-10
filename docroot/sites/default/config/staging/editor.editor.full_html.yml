@@ -47,6 +47,7 @@ settings:
           name: 'Block Formatting'
           items:
             - Format
+            - Styles
         -
           name: Tools
           items:
@@ -54,7 +55,7 @@ settings:
             - Source
   plugins:
     stylescombo:
-      styles: ''
+      styles: p.button|Button
 image_upload:
   status: true
   scheme: public
