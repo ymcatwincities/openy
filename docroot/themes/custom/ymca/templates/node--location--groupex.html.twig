@@ -104,17 +104,41 @@
     <section class="messages">
     </section>
     <div class="row">
-      <div class="left col-sm-6">
-        <article class="richtext">
-          {{ groupex_form_refine }}
-          {{ groupex_search_results }}
-        </article>
-      </div>
-      <div class="right col-sm-6">
-        <article class="richtext location-schedules-content">
-          {{ content.field_schedule_content }}
-          {{ content.field_schedule_documents }}
-        </article>
+      <div class="col-sm-12 categories copy">
+        {% if empty_results %}
+          <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ "Sorry, no classes matching the search were found."|t }}
+            {{ "Please select at least one filter option to run a search."|t }}
+          </div>
+        {% else %}
+          <div class="row result-actions">
+            <div class="col-xs-12">
+              <div class="pull-left">
+                <a class="btn-default btn" data-toggle="collapse" data-parent="#accordion" href="#collapse-refine-search">{{ "Refine your search"|t }}</a>
+              </div>
+              <div class="pull-right">
+                <a href="#print" class="btn btn-default print-page">
+                  <span class="glyphicon glyphicon-print"></span>
+                  {{ "Print"|t }}
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="panel panel-default group-ex-panel">
+          <div id="collapse-refine-search" class="panel-collapse collapse {{ empty_results ? 'in' }}">
+            <div class="row">
+              <div class="panel-body">
+                {{ groupex_form_refine }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{ groupex_search_results }}
+
       </div>
     </div>
   </div>

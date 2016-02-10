@@ -64,7 +64,7 @@ class YmcaReplaceTokens {
    */
   private function replacePageTokens() {
     preg_match_all(
-      "/<a[^{}]*href=\"{{internal_page_link_[0-9][0-9]*}}\".*>.*<\/a>/mU",
+      "/<a.*href=.*{{internal_page_link_\d+}}.*>.*<\/a>/mU",
       $this->string,
       $test
     );
@@ -85,7 +85,7 @@ class YmcaReplaceTokens {
         }
 
         preg_match_all(
-          "/\{{internal_page_link_(.*?)\}}/",
+          "/{{internal_page_link_(\d+)}}/",
           $match,
           $source_page_ids
         );
@@ -227,7 +227,7 @@ class YmcaReplaceTokens {
    */
   private function replaceImageLinksTokens() {
     preg_match_all(
-      "/<img.*src=\"{{internal_asset_link_[0-9][0-9]*}}\".*>/mU",
+      "/<img.*src=\"{{internal_asset_link_\d+(?:_\w+)?}}\".*>/mU",
       $this->string,
       $test
     );
@@ -248,7 +248,7 @@ class YmcaReplaceTokens {
         }
 
         preg_match_all(
-          "/\{{internal_asset_link_(.*?)\}}/",
+          "/{{internal_asset_link_(\d+)(?:_\w+)?}}/",
           $match,
           $source_assets_ids
         );
@@ -278,7 +278,12 @@ class YmcaReplaceTokens {
 
         /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaImageToBlocks $ymca_image_blocks */
         $ymca_image_blocks = \Drupal::service('ymcaimgtoblocks.service');
-        $block = $ymca_image_blocks->getBlock($source_asset_id);
+        try {
+          $block = $ymca_image_blocks->getBlock($source_asset_id);
+        }
+        catch (\Exception $e) {
+          throw new \Exception($e->getMessage());
+        }
 
         $p->setAttribute('data-entity-id', $block->id());
         $info = $block->get('info')->getValue();

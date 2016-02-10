@@ -5,9 +5,284 @@
  * Module for hook_update_N.
  */
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\block_content\Entity\BlockContent;
+
 /**
  * Protecting sites with a shield.
  */
 function ymca_master_update_8001() {
   \Drupal::service('module_installer')->install(array('shield'), TRUE);
+}
+
+/**
+ * Remove 'field_exclude_from_navigation' field from 'Page' content type.
+ */
+function ymca_master_update_8002() {
+  $field_config = FieldConfig::loadByName('node', 'article', 'field_exclude_from_navigation');
+
+  $field_storage = $field_config->getFieldStorageDefinition();
+  $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
+  $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
+
+  if ($field_storage && !$field_storage->isLocked()) {
+    $field_config->delete();
+    \Drupal::logger('ymca_master')->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+  }
+  else {
+    \Drupal::logger('ymca_master')->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+  }
+
+  // Fields are purged on cron.
+  field_purge_batch(10);
+}
+
+/**
+ * Set appropriate node aliases for news pages.
+ */
+function ymca_master_update_8003() {
+  // @todo run this after next reimport from ClockWork source DB.
+  $news_term_id = \Drupal::entityQuery('taxonomy_term')
+    ->condition('name', 'News')
+    ->condition('vid', 'tags')
+    ->execute();
+  $term_id = (int) array_shift($news_term_id);
+
+  $news_node_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->condition('field_tags', $term_id)
+    ->execute();
+
+  foreach (array_values($news_node_ids) as $id) {
+    $sources[] = '/node/' . $id;
+  }
+
+  $aliases_to_change = db_select('url_alias', 'ua')
+    ->fields('ua', ['source', 'alias'])
+    ->condition('ua.source', $sources, 'IN')
+    ->execute()
+    ->fetchAllAssoc('source');
+
+  foreach ($aliases_to_change as $item) {
+    preg_match("/\/blog\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,4})\/(.*)/", $item->alias, $match);
+    if (count($match) != 6) {
+      continue;
+    }
+    if (strlen($match[2]) == 1) {
+      $match[2] = '0' . $match[2];
+    }
+    if (strlen($match[3]) == 1) {
+      $match[3] = '0' . $match[3];
+    }
+    $new_alias = '/news/' . $match[1] . '/' . $match[2] . '/' . $match[3] . '/' . $match[4] . '/' . $match[5];
+
+    db_update('url_alias')
+      ->fields(array('alias' => $new_alias))
+      ->condition('source', $item->source)
+      ->execute();
+
+  }
+
+}
+
+/**
+ * Install ymca_personify module.
+ */
+function ymca_master_update_8004() {
+  \Drupal::service('module_installer')->install(array('ymca_personify'), TRUE);
+}
+
+/**
+ * Configure menu items for personify.
+ */
+function ymca_master_update_8005() {
+  // Remove Sign In old link.
+  /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('menu_link_content');
+  $entity = $storage->load(210);
+  $entity->delete();
+}
+
+/**
+ * Update config of ymca_groupex module.
+ */
+function ymca_master_update_8006() {
+  \Drupal::service('module_installer')->uninstall(array('ymca_groupex'));
+  \Drupal::service('module_installer')->install(array('ymca_groupex'), TRUE);
+}
+
+/**
+ * Install ymca_search_alter module.
+ */
+function ymca_master_update_8007() {
+  \Drupal::service('module_installer')->install(array('ymca_search_alter'), TRUE);
+}
+
+/**
+ * Enable config of ymca_frontend module.
+ */
+function ymca_master_update_8008() {
+  \Drupal::service('module_installer')->uninstall(array('ymca_frontend'));
+  \Drupal::service('module_installer')->install(array('ymca_frontend'), TRUE);
+}
+
+/**
+ * Fix token replacements.
+ */
+function ymca_master_update_8009() {
+  $fields = [
+    'field_content',
+    'field_lead_description',
+    'field_sidebar',
+    'field_summary',
+  ];
+
+  // Get all nodes with non-replaced tokens.
+  $ids = [];
+  foreach ($fields as $field) {
+    $query = db_select(sprintf('node__%s', $field), 'c')
+      ->fields('c', ['entity_id']);
+
+    $or = db_or();
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_asset_link') . '%', 'LIKE');
+    $or->condition(sprintf('%s_value', $field), '%' . db_like('{{internal_page_link') . '%', 'LIKE');
+
+    $query->condition($or);
+
+    $ids += $query->execute()->fetchAllKeyed(0, 0);
+  }
+
+  $service = Drupal::service('ymcareplacetokens.service');
+
+  // Replace tokens withing the nodes and fields.
+  foreach ($ids as $nid) {
+    $node = \Drupal\node\Entity\Node::load($nid);
+    foreach ($fields as $field) {
+      if ($node->hasField($field)) {
+        foreach ($node->$field as &$item) {
+          try {
+            $item->set('value', $service->processText($item->value));
+          }
+          catch (Exception $e) {
+            // Set unprocessed value and log an error.
+            $item->set('value', $item->value);
+            \Drupal::logger('ymca_master')
+              ->error(
+                'Replacement tokens error: %message',
+                ['%message' => $e->getMessage()]
+              );
+          }
+        }
+      }
+    }
+
+    $node->save();
+  }
+}
+
+/**
+ * Enable ymca_activity_finder module.
+ */
+function ymca_master_update_8010() {
+  \Drupal::service('module_installer')->install(['ymca_activity_finder'], TRUE);
+}
+
+/**
+ * Enable config_import module.
+ */
+function ymca_master_update_8011() {
+  \Drupal::service('module_installer')->install(['config_import'], TRUE);
+}
+
+/**
+ * Recreate schedules blocks.
+ */
+function ymca_master_update_8012() {
+  module_load_include('php', 'ymca_master', 'include/ymca_master.8011');
+  $blocks = _ymca_master_schedules_block_data();
+  foreach ($blocks as $block_data) {
+    $block = BlockContent::create($block_data)->enforceIsNew();
+    $block->save();
+  }
+
+  // Re-import configs.
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/block.block.schedulesrightblocks.yml',
+    'sites/default/config/staging/block.block.allyschedulesformtitle.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadleft.yml',
+    'sites/default/config/staging/block.block.allyschedulesleadright.yml',
+  ]);
+}
+
+/**
+ * Add aliases for groupex search results.
+ */
+function ymca_master_update_8013() {
+  $query = db_select('url_alias', 'a')
+    ->fields('a')
+    ->condition('source', '/node/%/schedules', 'LIKE')
+    ->execute();
+
+  while ($row = $query->fetchObject()) {
+    // Create new alias here.
+    $suffix = 'group_exercise_search_results';
+    $source = $row->source . '/' . $suffix;
+    $alias = $row->alias . '/' . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+  }
+}
+
+/**
+ * Enable modules.
+ */
+function ymca_master_update_8014() {
+  $modules = [
+    'ymca_aliases',
+    'ymca_blog_listing',
+    'ymca_breadcrumb',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Remove all Camp-related 'News & Events' nodes.
+ */
+function ymca_master_update_8015() {
+  // Camps.
+  $camp_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'camp')
+    ->execute();
+
+  // Create aliases for News & Events pages of existing Camps.
+  $suffix = '/about/news__events';
+  foreach ($camp_ids as $id) {
+    $camp_path = '/node/' . $id;
+    $news_events_path = $camp_path . $suffix;
+    $camp_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($camp_path);
+    $news_events_path_alias = $camp_path_alias . $suffix;
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en');
+  }
+
+  // Camp-related 'News & Events' nodes.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('title', 'News & Events')
+    ->condition('field_related.target_id', $camp_ids, 'IN')
+    ->execute();
+
+  // Remove nodes.
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $nodes = $storage->loadMultiple($nids);
+  $storage->delete($nodes);
+}
+
+/**
+ * Test PUSH_MIGRATE_UPDATE_TO_PROD job.
+ */
+function ymca_master_update_8016() {
+  $env = 'default';
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    $env = 'Acquia';
+  }
+  \Drupal::logger('ymca_master')
+    ->info('Hello! Current environment is: %env.', ['%env' => $env]);
 }

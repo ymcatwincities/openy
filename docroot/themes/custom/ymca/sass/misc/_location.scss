@@ -1,7 +1,20 @@
+.node--type-location,
+.node--type-camp {
+
+  .page-middle {
+
+    .content.node--view-mode-full {
+      background: none;
+    }
+  }
+}
+
 .locations-camps-template, .ancestor-locations, .theme_ymca_2013_location_home {
+
   .tabs--primary {
     margin-top: 51px;
   }
+
 }
 
 .location-schedules-content {
@@ -13,12 +26,18 @@
 }
 
 .locations-page-under-lead-copy {
+
+  .locations-camps-template & {
+    padding-top: 10px;
+  }
+
   h2 {
     color: #5e5e5e;
     font-weight: bold;
     font-size: 34px;
     font-family: 'Cachet';
   }
+
   li {
     @media (min-width: 768px) {
       float: left;
@@ -32,6 +51,7 @@
     margin: 5px 0;
     padding-left: 20px;
     list-style: none;
+
     &:before {
       position: absolute;
       top: 2px;
@@ -42,6 +62,7 @@
       font-family: 'YMCA';
     }
   }
+
   ul {
     padding: 0;
   }

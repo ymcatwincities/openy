@@ -5,6 +5,7 @@
  */
 
 namespace Drupal\ymca_groupex;
+
 use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
@@ -38,6 +39,13 @@ class GroupexScheduleFetcher {
   private $filteredData = [];
 
   /**
+   * Processed data (enriched).
+   *
+   * @var array
+   */
+  private $processedData = [];
+
+  /**
    * Query parameters.
    *
    * @var array
@@ -45,13 +53,31 @@ class GroupexScheduleFetcher {
   private $parameters = [];
 
   /**
+   * Cached schedule.
+   *
+   * @var array
+   */
+  private $schedule = [];
+
+  /**
+   * Timezone.
+   *
+   * @var \DateTimeZone
+   */
+  private $timezone = NULL;
+
+  /**
    * ScheduleFetcher constructor.
    */
-  public function __construct(array $parameters) {
+  public function __construct() {
+    $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+    $parameters = \Drupal::request()->query->all();
+
     $this->prepareParameters($parameters);
     $this->getData();
     $this->enrichData();
     $this->filterData();
+    $this->processData();
   }
 
   /**
@@ -63,10 +89,15 @@ class GroupexScheduleFetcher {
    *    - week: all classes grouped by day within days key
    */
   public function getSchedule() {
+    // Use cached schedule if already processed.
+    if ($this->schedule) {
+      return $this->schedule;
+    }
+
     // Prepare classes items.
     $items = [];
 
-    foreach ($this->filteredData as $item) {
+    foreach ($this->processedData as $item) {
       $items[$item->id] = [
         '#theme' => 'groupex_class',
         '#class' => [
@@ -76,7 +107,8 @@ class GroupexScheduleFetcher {
           'description' => $item->desc,
           'address_1' => $item->address_1,
           'address_2' => trim($item->location),
-          'time' => sprintf('%s %s', $item->day, $item->start),
+          'date' => $item->date,
+          'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
         ],
       ];
@@ -99,7 +131,13 @@ class GroupexScheduleFetcher {
         $schedule['classes'] = [];
         foreach ($items as $id => $class) {
           $schedule['classes'][] = $class;
+          // Pass location's title.
+          $schedule['title'] = trim($this->enrichedData[$id]->location);
         }
+        // Pass 'View This Week’s PDF' href.
+        $l = array_shift($this->parameters['location']);
+        $t = $this->parameters['filter_timestamp'];
+        $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
         break;
 
       case 'week':
@@ -107,28 +145,55 @@ class GroupexScheduleFetcher {
         foreach ($items as $id => $class) {
           $schedule['days'][$this->enrichedData[$id]->day][] = $class;
         }
+        // Pass 'View This Week’s PDF' href.
+        $l = array_shift($this->parameters['location']);
+        $t = $this->parameters['filter_timestamp'];
+        $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
         break;
 
       case 'location':
         $schedule['locations'] = [];
+        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations_short');
         foreach ($items as $id => $class) {
-          $schedule['locations'][trim($this->enrichedData[$id]->location)][] = $class;
+          $short_location_name = trim($this->enrichedData[$id]->location);
+          foreach ($locations as $location) {
+            if ($location['name'] == $short_location_name) {
+              $l = $location['id'];
+            }
+          }
+          $t = $this->parameters['filter_timestamp'];
+          $pdf_href = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $schedule['locations'][$short_location_name]['classes'][] = $class;
+          $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
+        $schedule['filter_date'] = date('l, F j, Y', $this->parameters['filter_timestamp']);
         break;
     }
 
-    return $schedule;
+    $this->schedule = $schedule;
+
+    return $this->schedule;
   }
 
   /**
    * Fetch data from the server.
-   *
-   * @todo The server return extra results for the day before of provided period.
    */
   private function getData() {
+    $this->rawData = [];
+
     // No request parameters - no data.
     if (empty($this->parameters)) {
-      $this->rawData = [];
+      return;
+    }
+
+    // One of the 3 search parameters should be provided:
+    // 1. Location.
+    // 2. Class name.
+    // 3. Category.
+    if (
+      !isset($this->parameters['location']) &&
+      $this->parameters['class'] == 'any' &&
+      $this->parameters['category'] == 'any') {
       return;
     }
 
@@ -151,14 +216,14 @@ class GroupexScheduleFetcher {
     }
 
     // Filter by date.
-    $period = 60 * 60 * 24;
+    $interval = 'P1D';
     if ($this->parameters['filter_length'] == 'week') {
-      $period = 60 * 60 * 24 * 7;
+      $interval = 'P1W';
     }
-    $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp']);
-    $date->setTime(1, 0, 0);
+    $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
+
     $options['query']['start'] = $date->getTimestamp();
-    $options['query']['end'] = $date->getTimestamp() + $period;
+    $options['query']['end'] = $date->add(new \DateInterval($interval))->getTimestamp();
 
     $data = $this->request($options);
 
@@ -180,7 +245,7 @@ class GroupexScheduleFetcher {
       $item->address_1 = sprintf('%s with %s', trim($item->studio), trim($item->instructor));
 
       // Get day.
-      $item->day = substr($item->date, 0, 3);
+      $item->day = $item->date;
 
       // Get start and end time.
       preg_match("/(.*)-(.*)/i", $item->time, $output);
@@ -195,7 +260,10 @@ class GroupexScheduleFetcher {
       $item->time_of_day = ($start_hour >= self::$timeEvening) ? "evening" : $item->time_of_day;
 
       // Add timestamp.
-      $item->timestamp = DrupalDateTime::createFromTimestamp(strtotime($item->date))->getTimestamp();
+      $format = 'l, F j, Y';
+      $datetime = DrupalDateTime::createFromFormat($format, $item->date, $this->timezone);
+      $datetime->setTime(0, 0, 0);
+      $item->timestamp = $datetime->getTimestamp();
     }
 
     $this->enrichedData = $data;
@@ -218,15 +286,57 @@ class GroupexScheduleFetcher {
       });
     }
 
-    // Filter out by the date.
-    $filtered = array_filter($filtered, function($item) use ($param) {
-      if ($item->timestamp >= $param['filter_timestamp']) {
-        return TRUE;
-      }
-      return FALSE;
-    });
+    // Groupex response have some redundant data. Filter it out.
+    if ($param['filter_length'] == 'day') {
+      // Filter out by the date. Cut off days before.
+      $filtered = array_filter($filtered, function($item) use ($param) {
+        if ($item->timestamp >= $param['filter_timestamp']) {
+          return TRUE;
+        }
+        return FALSE;
+      });
+
+      // Filter out by the date. Cut off days after.
+      $filtered = array_filter($filtered, function($item) use ($param) {
+        if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
+          return TRUE;
+        }
+        return FALSE;
+      });
+    }
 
     $this->filteredData = $filtered;
+  }
+
+  /**
+   * Process data.
+   */
+  private function processData() {
+    $data = $this->filteredData;
+
+    // Groupex returns invalid date for the first day of the week.
+    // Example: tue, 02, Feb; wed, 27, Jan; thu, 28, Jan.
+    // So, processing.
+    if ($this->parameters['filter_length'] == 'week') {
+      // Get current day.
+      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
+      $current_day = $date->format('N');
+
+      // Search for the day equals current.
+      foreach ($data as &$item) {
+        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
+        if ($current_day == $item_date->format('N')) {
+          // Set proper data.
+          $item_date->sub(new \DateInterval('P7D'));
+          $full_date = $item_date->format('l, F j, Y');
+          $item->date = $full_date;
+          $item->day = $full_date;
+          $item->timestamp = $item_date->format('U');
+        }
+      }
+    }
+
+    $this->processedData = $data;
   }
 
   /**
@@ -238,10 +348,26 @@ class GroupexScheduleFetcher {
   private function prepareParameters($parameters) {
     $this->parameters = $parameters;
 
-    // Add timestamp of filter date.
-    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date']);
+    // The old site has a habit to provide empty filter_date. Fix it here.
+    if (empty($this->parameters['filter_date'])) {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone);
+      $this->parameters['filter_date'] = $date->format(self::$dateFilterFormat);
+    }
+
+    // Set timestamp.
+    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date'], $this->timezone);
     $date->setTime(0, 0, 0);
     $this->parameters['filter_timestamp'] = $date->getTimestamp();
+  }
+
+  /**
+   * Check if results are empty.
+   *
+   * @return bool
+   *   True if schedule is empty, false otherwise.
+   */
+  public function isEmpty() {
+    return empty($this->rawData);
   }
 
 }

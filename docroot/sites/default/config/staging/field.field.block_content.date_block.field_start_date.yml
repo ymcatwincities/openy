@@ -1,0 +1,24 @@
+uuid: f745abdb-ac45-4603-bd00-f08d7d7524d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.date_block
+    - field.storage.block_content.field_start_date
+  module:
+    - datetime
+id: block_content.date_block.field_start_date
+field_name: field_start_date
+entity_type: block_content
+bundle: date_block
+label: 'Start date'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime
