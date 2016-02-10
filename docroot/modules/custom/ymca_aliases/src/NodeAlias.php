@@ -10,6 +10,9 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Path\AliasManager;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\Core\Menu\MenuTreeStorageInterface;
+use Drupal\Core\Url;
 
 /**
  * Builds an alias for a node.
@@ -40,11 +43,19 @@ class NodeAlias {
   protected $aliasManager;
 
   /**
+   * Menu tree storage.
+   *
+   * @var MenuTreeStorageInterface
+   */
+  protected $treeStorage;
+
+  /**
    * NodeAlias constructor.
    */
-  public function __construct(UrlCleaner $url_cleaner, AliasManager $alias_manager) {
+  public function __construct(UrlCleaner $url_cleaner, AliasManager $alias_manager, MenuTreeStorageInterface $tree_storage) {
     $this->urlCleaner = $url_cleaner;
     $this->aliasManager = $alias_manager;
+    $this->treeStorage = $tree_storage;
   }
 
   /**
@@ -105,6 +116,49 @@ class NodeAlias {
         $url_parts = array_merge(['prefix' => 'blog'], $url_parts);
         $alias = '/' . implode('/', $url_parts);
 
+        break;
+
+      // Pattern is [parent-menu-item-path]/[node-title].
+      case 'article':
+        $defaults = menu_ui_get_menu_link_defaults($node);
+        if (empty($defaults['id'])) {
+          // There is no parent menu link, the node isn't in menu tree.
+          return NULL;
+        }
+        // Get current menu link content entity associated with the node.
+        $menu_link = MenuLinkContent::load($defaults['entity_id']);
+        $parent_id = $menu_link->getParentId();
+        if (!$parent_id) {
+          // There is no parent menu link, the node is root.
+          $alias = '/' . $this->urlCleaner->clean($node->getTitle());
+        }
+        else {
+          // Parent menu link plugin definition.
+          $parent_menu_link_array = $this->treeStorage->load($parent_id);
+          $parent_mlid = $parent_menu_link_array['metadata']['entity_id'];
+
+          // Parent menu link content entity.
+          $parent_menu_link = MenuLinkContent::load($parent_mlid);
+          $uri = $parent_menu_link->get('link')->first()->uri;
+          $url = Url::fromUri($uri);
+          if ($url->isRouted()) {
+            $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/' . $url->getInternalPath(), 'en');
+          }
+          elseif ($url->isExternal()) {
+            // Can't build alias, if the parent menu item has ån external link.
+            $alias = '';
+          }
+          else {
+            if ($uri_parts = parse_url($uri)) {
+              if ($uri_parts['scheme'] == 'internal') {
+                $alias = $uri_parts['path'];
+              }
+            }
+          }
+
+          // Add cleaned title to the end of alias.
+          $alias .= '/' . $this->urlCleaner->clean($node->getTitle());
+        }
         break;
     }
 
