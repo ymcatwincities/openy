@@ -96,7 +96,6 @@
       - { name: 'tour.tour.language.yml', status: true }
       - { name: 'tour.tour.views-ui.yml', status: true }
       # Contributed modules config files:
-      - { name: 'devel.settings.yml', status: true }
       - { name: 'embed.button.node.yml', status: true }
       - { name: 'file_entity.settings.yml', status: true }
       - { name: 'file_entity.type.audio.yml', status: true }
@@ -357,6 +356,38 @@
       - { name: 'views.view.ymca_twin_cities_blog.yml', status: true }
       - { name: 'views.view.scheduled_content.yml', status: true }
       - { name: 'views.view.contact_messages.yml', status: true }
+      - { name: 'ymca_personify.settings.yml', status: true }
+      - { name: 'contact.form.personal_trainers_individual.yml', status: true }
+      - { name: 'comment.type.comment.yml', status: true }
+      - { name: 'block.block.classy_page_title.yml', status: true }
+      - { name: 'block.block.footercopyright.yml', status: true }
+      - { name: 'block.block.footermenucenter.yml', status: true }
+      - { name: 'block.block.footermenuleft.yml', status: true }
+      - { name: 'block.block.footermenuright.yml', status: true }
+      - { name: 'block.block.footermicrosoft.yml', status: true }
+      - { name: 'block.block.mainnavigation.yml', status: true }
+      - { name: 'block.block.mainpagecontent.yml', status: true }
+      - { name: 'block.block.seven_breadcrumbs.yml', status: true }
+      - { name: 'block.block.seven_content.yml', status: true }
+      - { name: 'block.block.seven_help.yml', status: true }
+      - { name: 'block.block.seven_local_actions.yml', status: true }
+      - { name: 'block.block.seven_login.yml', status: true }
+      - { name: 'block.block.seven_messages.yml', status: true }
+      - { name: 'block.block.seven_page_title.yml', status: true }
+      - { name: 'block.block.seven_primary_local_tasks.yml', status: true }
+      - { name: 'block.block.seven_secondary_local_tasks.yml', status: true }
+      - { name: 'block.block.socialiconsfooter.yml', status: true }
+      - { name: 'block.block.tabs.yml', status: true }
+      - { name: 'block_content.type.alert_block.yml', status: true }
+      - { name: 'block_content.type.basic.yml', status: true }
+      - { name: 'block_content.type.code_block.yml', status: true }
+      - { name: 'block_content.type.date_block.yml', status: true }
+      - { name: 'block_content.type.expander_block.yml', status: true }
+      - { name: 'block_content.type.image_block.yml', status: true }
+      - { name: 'block_content.type.promo_block.yml', status: true }
+      - { name: 'block_content.type.slide_show.yml', status: true }
+      - { name: 'block_content.type.slide_show_item.yml', status: true }
+      - { name: 'block_content.type.working_hours_block.yml', status: true }
 
   tasks:
     - name: Export config

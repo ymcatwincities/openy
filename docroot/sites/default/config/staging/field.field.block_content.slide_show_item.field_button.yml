@@ -1,0 +1,19 @@
+uuid: c62cc25c-d06c-46c5-9f00-fbce894ec823
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.slide_show_item
+    - field.storage.block_content.field_button
+id: block_content.slide_show_item.field_button
+field_name: field_button
+entity_type: block_content
+bundle: slide_show_item
+label: Button
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

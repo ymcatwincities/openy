@@ -1,0 +1,17 @@
+<div class="utility-bar">
+{% if breadcrumbs_data %}
+  <nav class="utility-bar__breadcrumb">
+    {% for item in breadcrumbs_data %}
+      <a href="{{ item.link }}">{{ item.title }}</a>
+    {% endfor %}
+  </nav>
+{% endif %}
+
+{% if utility_bar_data %}
+  <nav class="utility-bar__links">
+    {% for item in utility_bar_data %}
+      <a href="{{ item.href }}" class="{{ item.class }}">{{ item.title }}</a>
+    {% endfor %}
+  </nav>
+{% endif %}
+</div>

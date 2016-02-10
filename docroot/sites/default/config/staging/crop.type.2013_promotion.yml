@@ -1,0 +1,8 @@
+uuid: ccb2f1b1-bad3-46a0-9700-fb0809750dec
+langcode: en
+status: true
+dependencies: {  }
+label: '2013 Promotion'
+id: 2013_promotion
+description: ''
+aspect_ratio: '600:340'

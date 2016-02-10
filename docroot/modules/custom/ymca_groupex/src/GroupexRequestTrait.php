@@ -32,7 +32,7 @@ trait GroupexRequestTrait {
    *
    * @var string
    */
-  public static $dateFilterFormat = 'j n y';
+  public static $dateFilterFormat = 'm d y';
 
   /**
    * Groupex ID garbage.
