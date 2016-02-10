@@ -160,7 +160,18 @@ function ymca_master_update_8009() {
     foreach ($fields as $field) {
       if ($node->hasField($field)) {
         foreach ($node->$field as &$item) {
-          $item->set('value', $service->processText($item->value));
+          try {
+            $item->set('value', $service->processText($item->value));
+          }
+          catch (Exception $e) {
+            // Set unprocessed value and log an error.
+            $item->set('value', $item->value);
+            \Drupal::logger('ymca_master')
+              ->error(
+                'Replacement tokens error: %message',
+                ['%message' => $e->getMessage()]
+              );
+          }
         }
       }
     }
