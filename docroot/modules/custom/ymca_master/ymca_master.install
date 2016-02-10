@@ -263,3 +263,15 @@ function ymca_master_update_8015() {
   $nodes = $storage->loadMultiple($nids);
   $storage->delete($nodes);
 }
+
+/**
+ * Test PUSH_MIGRATE_UPDATE_TO_PROD job.
+ */
+function ymca_master_update_8016() {
+  $env = 'default';
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    $env = 'Acquia';
+  }
+  \Drupal::logger('ymca_master')
+    ->info('Hello! Current environment is: %env.', ['%env' => $env]);
+}
