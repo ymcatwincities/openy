@@ -123,7 +123,7 @@ class NodeAlias {
         $defaults = menu_ui_get_menu_link_defaults($node);
         if (empty($defaults['id'])) {
           // There is no parent menu link, the node isn't in menu tree.
-          return;
+          return NULL;
         }
         // Get current menu link content entity associated with the node.
         $menu_link = MenuLinkContent::load($defaults['entity_id']);
