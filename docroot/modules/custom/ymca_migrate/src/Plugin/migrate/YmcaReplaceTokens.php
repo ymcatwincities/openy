@@ -278,7 +278,12 @@ class YmcaReplaceTokens {
 
         /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaImageToBlocks $ymca_image_blocks */
         $ymca_image_blocks = \Drupal::service('ymcaimgtoblocks.service');
-        $block = $ymca_image_blocks->getBlock($source_asset_id);
+        try {
+          $block = $ymca_image_blocks->getBlock($source_asset_id);
+        }
+        catch (\Exception $e) {
+          throw new \Exception($e->getMessage());
+        }
 
         $p->setAttribute('data-entity-id', $block->id());
         $info = $block->get('info')->getValue();
