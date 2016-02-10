@@ -8,8 +8,8 @@
 /**
  * Implements hook_entity_delete().
  */
-function ymca_migrate_entity_delete($entity, $type) {
-  if ($entity instanceof \Drupal\node\NodeInterface) {
+function ymca_migrate_entity_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node') {
     if ($entity->bundle() == 'article') {
       db_delete('migrate_map_ymca_migrate_node_page')
         ->condition('destid1', $entity->id())
