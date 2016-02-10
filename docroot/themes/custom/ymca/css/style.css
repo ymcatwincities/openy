@@ -7449,6 +7449,10 @@ body.path-search #block-mainpagecontent li {
   padding: 0;
 }
 
+.news-footer .promos {
+  float: right;
+}
+
 .copy .pagination {
   padding-left: 0 !important;
 }
