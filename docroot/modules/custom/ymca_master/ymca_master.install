@@ -300,8 +300,8 @@ function ymca_master_update_8017() {
   ymca_fix_menu_link_content();
 }
 
-/*
- * Update camps migration.
+/**
+ * Update camp migrations.
  */
 function ymca_master_update_8018() {
   // Re-import configs.
