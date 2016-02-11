@@ -286,3 +286,16 @@ function ymca_master_update_8016() {
   \Drupal::logger('ymca_master')
     ->info('Hello! Current environment is: %env.', ['%env' => $env]);
 }
+
+/**
+ * Fix menu_link_content links.
+ *
+ * Current architecture implies running the migration of menu_link_content
+ * entities before the pages migration. So, menu_link_content entities
+ * do not know anything about node ids. That's why this code should be run after
+ * the migration of the second dump.
+ */
+function ymca_master_update_8017() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_fix_menu_link_content();
+}
