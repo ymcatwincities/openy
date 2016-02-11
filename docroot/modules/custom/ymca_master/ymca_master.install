@@ -286,3 +286,28 @@ function ymca_master_update_8016() {
   \Drupal::logger('ymca_master')
     ->info('Hello! Current environment is: %env.', ['%env' => $env]);
 }
+
+/*
+ * Update camps migration.
+ */
+function ymca_master_update_8017() {
+  // Re-import configs.
+  $module = drupal_get_path('module', 'ymca_migrate');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $module . '/config/install/migrate.migration.ymca_migrate_node_camp.yml',
+  ]);
+
+  // Run migrations only on build server.
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    return;
+  }
+  $id = 'ymca_migrate_node_camp';
+  /** @var \Drupal\migrate\Entity\Migration $migration */
+  $migration = \Drupal\migrate\Entity\Migration::load($id);
+  $migration->set('requirements', []);
+  $migration->getIdMap()->prepareUpdate();
+  $migrate_message = new \Drupal\migrate\MigrateMessage();
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $executable = new \Drupal\migrate\MigrateExecutable($migration, $migrate_message, $event_dispatcher);
+  $executable->import();
+}
