@@ -287,10 +287,23 @@ function ymca_master_update_8016() {
     ->info('Hello! Current environment is: %env.', ['%env' => $env]);
 }
 
+/**
+ * Fix menu_link_content links.
+ *
+ * Current architecture implies running the migration of menu_link_content
+ * entities before the pages migration. So, menu_link_content entities
+ * do not know anything about node ids. That's why this code should be run after
+ * the migration of the second dump.
+ */
+function ymca_master_update_8017() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_fix_menu_link_content();
+}
+
 /*
  * Update camps migration.
  */
-function ymca_master_update_8017() {
+function ymca_master_update_8018() {
   // Re-import configs.
   $module = drupal_get_path('module', 'ymca_migrate');
   \Drupal::service('config_import.importer')->importConfigs([
@@ -298,16 +311,7 @@ function ymca_master_update_8017() {
   ]);
 
   // Run migrations only on build server.
-  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-    return;
+  if (!isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    ymca_run_migration('ymca_migrate_node_camp', TRUE, TRUE);
   }
-  $id = 'ymca_migrate_node_camp';
-  /** @var \Drupal\migrate\Entity\Migration $migration */
-  $migration = \Drupal\migrate\Entity\Migration::load($id);
-  $migration->set('requirements', []);
-  $migration->getIdMap()->prepareUpdate();
-  $migrate_message = new \Drupal\migrate\MigrateMessage();
-  $event_dispatcher = \Drupal::service('event_dispatcher');
-  $executable = new \Drupal\migrate\MigrateExecutable($migration, $migrate_message, $event_dispatcher);
-  $executable->import();
 }
