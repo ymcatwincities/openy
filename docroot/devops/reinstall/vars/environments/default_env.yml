@@ -18,7 +18,7 @@ env:
     - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
     - { name: 'search-api-reindex', status: false, arguments: "" }
     - { name: 'search-api-index', status: false, arguments: "" }
-    - { name: 'search-index', status: false, arguments: "" }
+    - { name: 'search-index', status: true, arguments: "" }
   post_settings:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
