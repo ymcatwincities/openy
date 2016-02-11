@@ -907,6 +907,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
         1 => [
           'rich_text' => 'field_content',
         ],
+        2 => [
+          'rich_text' => 'field_camp_links',
+        ],
         3 => [
           'rich_text' => 'field_main_promos',
         ],
