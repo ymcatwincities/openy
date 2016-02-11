@@ -76,6 +76,12 @@ content:
     type: text_default
   field_sidebar_navigation:
     type: list_key
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_title_description:
+    type: text_default
     weight: 2
     label: hidden
     settings: {  }
@@ -87,6 +93,5 @@ hidden:
   field_related: true
   field_status: true
   field_tags: true
-  field_title_description: true
   langcode: true
   links: true
