@@ -48,9 +48,12 @@
   padding-left: 0 !important;
 }
 
-section.node--type-blog {
-  .post_display_full img {
+.post_display_full,
+.blog_post_display_full_post {
+
+  img {
     float: right;
     margin: 0 0 15px 15px;
+    max-width: 500px;
   }
 }
