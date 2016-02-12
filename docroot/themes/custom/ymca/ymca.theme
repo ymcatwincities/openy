@@ -148,6 +148,8 @@ function ymca_preprocess_expander_block(&$variables) {
  * Implements hook_preprocess_node().
  */
 function ymca_preprocess_node(&$variables) {
+  $variables['date_formatted'] = \Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
+
   if (!in_array($variables['view_mode'], array('full', 'default'))) {
     return;
   }
