@@ -10,7 +10,9 @@
 				<span class="masthead-brand">{{ node.label }}</span>
 			</div>
 			<div class="col-sm-4 text-center masthead-button" id="masthead-button">
-        {{ node.field_join_override.0.value|raw }}
+        {% if node.field_join_override.0.value %}
+          <a href="" id="join-button">{{ node.field_join_override.0.value|raw }}</a>
+        {% endif %}
       </div>
 		</div>
 	</div>
