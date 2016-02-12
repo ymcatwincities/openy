@@ -7457,6 +7457,11 @@ body.path-search #block-mainpagecontent li {
   padding-left: 0 !important;
 }
 
+section.node--type-blog .post_display_full img {
+  float: right;
+  margin: 0 0 15px 15px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
