@@ -299,3 +299,15 @@ function ymca_master_update_8017() {
   module_load_include('php', 'ymca_master', 'include/helper');
   ymca_fix_menu_link_content();
 }
+
+/**
+ * Enable Membership block by default.
+ */
+function ymca_master_update_8018() {
+  db_update('node__field_membership_block')
+    ->fields(array('field_membership_block_value' => 1))
+    ->execute();
+  db_update('node_revision__field_membership_block')
+    ->fields(array('field_membership_block_value' => 1))
+    ->execute();
+}
