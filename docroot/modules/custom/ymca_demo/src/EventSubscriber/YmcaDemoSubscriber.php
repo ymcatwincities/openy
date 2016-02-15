@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Events for running tools after import.
- */
 
 namespace Drupal\ymca_demo\EventSubscriber;
 

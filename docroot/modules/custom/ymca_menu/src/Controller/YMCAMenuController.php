@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_menu\Controller\YMCAMenuController.
- */
-
 namespace Drupal\ymca_menu\Controller;
 
 use Drupal\Core\Url;

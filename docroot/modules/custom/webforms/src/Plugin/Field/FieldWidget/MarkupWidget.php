@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\webforms\Plugin\Field\FieldWidget\MarkupWidget.
- */
-
 namespace Drupal\webforms\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;

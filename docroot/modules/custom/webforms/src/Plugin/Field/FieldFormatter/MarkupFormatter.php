@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\webforms\Plugin\Field\FieldFormatter\MarkupFormatter.
- */
-
 namespace Drupal\webforms\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityManagerInterface;
