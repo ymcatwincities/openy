@@ -126,7 +126,7 @@ class YmcaReplaceTokens {
       }
 
       // Get link label.
-      $link_label = new HtmlEscapedText($test[2][$key]);
+      $link_label = $test[2][$key];
 
       // Get source page id.
       preg_match('/{{internal_page_link_(\d+)}}/miU', $item, $test_page_id);
@@ -182,7 +182,7 @@ class YmcaReplaceTokens {
       }
 
       // Get link label.
-      $link_label = new HtmlEscapedText($test[2][$key]);
+      $link_label = $test[2][$key];
 
       // Get source asset id.
       preg_match('/{{internal_asset_link_(\d+)}}/miU', $item, $test_asset_id);
