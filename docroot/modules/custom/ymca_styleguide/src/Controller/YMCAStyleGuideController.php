@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_styleguide\Controller\YMCAStyleGuideController.
- */
-
 namespace Drupal\ymca_styleguide\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

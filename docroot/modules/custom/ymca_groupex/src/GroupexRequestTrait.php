@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Helper trait.
- */
 
 namespace Drupal\ymca_groupex;
 

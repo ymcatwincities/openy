@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains YMCA SidebarNavigation block.
- */
-
 namespace Drupal\ymca_blocks\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;

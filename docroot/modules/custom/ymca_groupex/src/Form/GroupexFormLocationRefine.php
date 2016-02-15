@@ -1,10 +1,7 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ymca_groupex\Form\GroupexFormLocationRefine.
- */
 
 namespace Drupal\ymca_groupex\Form;
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 

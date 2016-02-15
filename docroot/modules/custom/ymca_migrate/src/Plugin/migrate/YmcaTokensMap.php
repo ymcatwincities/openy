@@ -1,11 +1,6 @@
 <?php
-/**
- * @file
- * Implements service for Token Map getter.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
-
 
 use Drupal\migrate\MigrateException;
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\draggableviews\DraggableViews class.
- */
-
 namespace Drupal\draggableviews;
 
 use Drupal\views\ViewExecutable;

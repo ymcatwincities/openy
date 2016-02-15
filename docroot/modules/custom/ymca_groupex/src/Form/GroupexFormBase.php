@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ymca_groupex\Form\GroupexFormBase.
- */
 
 namespace Drupal\ymca_groupex\Form;
 

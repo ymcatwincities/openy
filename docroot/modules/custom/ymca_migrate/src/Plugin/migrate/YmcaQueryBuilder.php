@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Helper class to build queries for migrations.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\Core\Database\Connection;
