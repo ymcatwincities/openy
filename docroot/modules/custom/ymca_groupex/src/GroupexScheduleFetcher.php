@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Fetches schedules.
- */
 
 namespace Drupal\ymca_groupex;
 

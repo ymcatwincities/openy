@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains field type definition.
- */
-
 namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
