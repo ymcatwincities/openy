@@ -723,6 +723,8 @@ if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
             'username' => 's19044',
             'password' => 'YASRSkorw8gnC4d',
             'host' => '127.0.0.1',
+            'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+            'driver' => 'mysql',
           ],
         ];
       break;
@@ -734,6 +736,8 @@ if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
           'username' => 's19045',
           'password' => 'YASRSkorw8gnC4d',
           'host' => '127.0.0.1',
+          'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+          'driver' => 'mysql',
         ],
       ];
       break;
@@ -745,6 +749,8 @@ if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
           'username' => 's19043',
           'password' => 'eGEH5VCMimW7FC5',
           'host' => '127.0.0.1',
+          'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+          'driver' => 'mysql',
         ],
       ];
       break;
