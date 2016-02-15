@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Field\Plugin\Field\FieldType\StatesItem.
- */
-
 namespace Drupal\webforms\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
@@ -12,7 +7,6 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\StringItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType;
-
 
 /**
  * Defines the 'webform_states' field type.

@@ -47,3 +47,13 @@
 .copy .pagination {
   padding-left: 0 !important;
 }
+
+.post_display_full,
+.blog_post_display_full_post {
+
+  img {
+    float: right;
+    margin: 0 0 15px 15px;
+    max-width: 500px;
+  }
+}

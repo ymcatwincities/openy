@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains source plugin for url aliases.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Row;

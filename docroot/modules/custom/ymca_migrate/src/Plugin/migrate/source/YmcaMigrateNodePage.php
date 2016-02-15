@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Entity\MigrationInterface;

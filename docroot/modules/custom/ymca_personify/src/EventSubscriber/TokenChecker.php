@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Checks whether the Personify token is valid.
- */
 
 namespace Drupal\ymca_personify\EventSubscriber;
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Plugin\Filter\EntityEmbedFilter.
- */
-
 namespace Drupal\ymca_entity_embed\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;

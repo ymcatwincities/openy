@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Camp blog listing breadcrumb builder.
- */
 
 namespace Drupal\ymca_blog_listing;
 

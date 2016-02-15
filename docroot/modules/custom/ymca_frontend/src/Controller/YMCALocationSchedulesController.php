@@ -1,14 +1,9 @@
 <?php
-/**
- * @file
- * Contains Drupal\ymca_frontend\Controller\YMCALocationSchedulesController.
- */
 
 namespace Drupal\ymca_frontend\Controller;
 
 use Drupal\Core\Render\Element;
 use Drupal\node\NodeInterface;
-
 
 /**
  * Controller for Scheduler view mode of Location CT.
