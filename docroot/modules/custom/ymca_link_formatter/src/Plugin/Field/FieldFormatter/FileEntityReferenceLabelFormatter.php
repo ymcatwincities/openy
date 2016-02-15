@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter\FileEntityReferenceLabelFormatter.
- */
-
 namespace Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
@@ -12,7 +7,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-
 
 /**
  * Plugin implementation of the 'entity reference label' formatter.

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains node alias builder class.
- */
 
 namespace Drupal\ymca_aliases;
 

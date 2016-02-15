@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\Component\Utility\Html;
@@ -14,7 +9,6 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
-
 
 /**
  * Source plugin for node:blog content.

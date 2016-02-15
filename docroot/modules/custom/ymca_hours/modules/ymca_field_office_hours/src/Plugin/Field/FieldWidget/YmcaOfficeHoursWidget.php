@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains YMCA office hours widget.
- */
-
 namespace Drupal\ymca_field_office_hours\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;

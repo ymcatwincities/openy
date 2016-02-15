@@ -1,11 +1,6 @@
 <?php
-/**
- * @file
- * Class for getting blogs's children tree by top menu item.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
-
 
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;

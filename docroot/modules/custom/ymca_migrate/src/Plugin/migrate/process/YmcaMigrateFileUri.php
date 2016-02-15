@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\process\YmcaMigrateFileUri.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\process;
 
 use Drupal\migrate\MigrateExecutableInterface;
