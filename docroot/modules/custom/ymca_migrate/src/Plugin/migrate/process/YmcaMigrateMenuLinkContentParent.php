@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains process plugin to get menu item parent.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\process;
 
 use Drupal\Core\Entity\Entity;

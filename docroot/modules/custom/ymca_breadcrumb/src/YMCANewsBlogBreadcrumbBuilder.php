@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains global blog and news entries breadcrumb builder.
- */
 
 namespace Drupal\ymca_breadcrumb;
 

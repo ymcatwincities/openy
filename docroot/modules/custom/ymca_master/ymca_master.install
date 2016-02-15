@@ -301,9 +301,21 @@ function ymca_master_update_8017() {
 }
 
 /**
- * Update camp migrations.
+ * Enable Membership block by default.
  */
 function ymca_master_update_8018() {
+  db_update('node__field_membership_block')
+    ->fields(array('field_membership_block_value' => 1))
+    ->execute();
+  db_update('node_revision__field_membership_block')
+    ->fields(array('field_membership_block_value' => 1))
+    ->execute();
+}
+
+/**
+ * Update camp migrations.
+ */
+function ymca_master_update_8019() {
   // Re-import configs.
   $module = drupal_get_path('module', 'ymca_migrate');
   \Drupal::service('config_import.importer')->importConfigs([

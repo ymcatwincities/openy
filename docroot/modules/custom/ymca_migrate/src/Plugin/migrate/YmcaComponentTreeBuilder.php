@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Helper class to build component tree.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\Core\Database\Connection;

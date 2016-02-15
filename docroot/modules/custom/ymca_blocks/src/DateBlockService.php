@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Date Block parser service.
- */
 
 namespace Drupal\ymca_blocks;
 

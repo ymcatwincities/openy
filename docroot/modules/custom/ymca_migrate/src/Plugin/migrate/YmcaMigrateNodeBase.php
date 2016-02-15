@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains base plugin for node migrations.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;

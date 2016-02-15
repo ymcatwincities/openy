@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Url Cleaner class.
- */
 
 namespace Drupal\ymca_aliases;
 

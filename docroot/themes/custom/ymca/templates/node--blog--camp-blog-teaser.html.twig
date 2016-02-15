@@ -1,15 +1,13 @@
 {#
 /**
  * @file
- * YMCA's theme implementation to display a node.
+ * Default theme implementation to display a node.
  *
  * Available variables:
- * - node: Full node entity.
- *   - id: The node ID.
- *   - bundle: The type of the node, for example, "page" or "article".
- *   - authorid: The user ID of the node author.
- *   - createdtime: Time the node was published formatted in Unix timestamp.
- *   - changedtime: Time the node was changed formatted in Unix timestamp.
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
  * - label: The title of the node.
  * - content: All node items. Use {{ content }} to print them all,
  *   or print a subset such as {{ content.field_example }}. Use
@@ -59,30 +57,31 @@
  *   is an administrator.
  *
  * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ *
+ * @ingroup themeable
  */
 #}
-{%
-  set classes = [
-    not is_front ? 'content',
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'clearfix',
-  ]
-%}
-{{ attach_library('classy/node') }}
 
-<section{{ attributes.addClass(classes) }}>
-  <div class="container">
+<div {{ attributes.addClass(['blog_post_display', 'blog_post_display_full_post']) }}>
 
-    <section class="messages">
-    </section>
+  <h2{{ title_attributes }}>
+    <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+  </h2>
 
-    <div class="row">
-      {% include '@ymca/layout/node/node-content.html.twig' %}
-    </div>
+  <p class="posted_on_author">
+    {% trans %}posted on <span class="date">{{ date_formatted }}</span>{% endtrans %}
+  </p>
+
+  <div{{ content_attributes }}>
+    {{ content }}
   </div>
-</section>
+
+  <p class="comments_count">
+    <a href="{{ url }}" class="read_more">{{ "Read More"|t }}</a>
+  </p>
+
+</div>
