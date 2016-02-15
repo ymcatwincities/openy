@@ -38,3 +38,35 @@ function ymca_fix_menu_link_content() {
     }
   }
 }
+
+/**
+ * Run migration.
+ *
+ * @param string $migration
+ *   Migration ID.
+ * @param bool|FALSE $update
+ *   Run migration in 'update' mode.
+ * @param bool|FALSE $force
+ *   Run migration without dependencies.
+ */
+function ymca_run_migration($migration, $update = FALSE, $force = FALSE) {
+  $id = $migration;
+
+  /** @var \Drupal\migrate\Entity\Migration $migration */
+  $migration = \Drupal\migrate\Entity\Migration::load($id);
+  $migrate_message = new \Drupal\migrate\MigrateMessage();
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+
+  // Run migration without dependencies.
+  if ($force) {
+    $migration->set('requirements', []);
+  }
+
+  // Run migration in 'update' mode.
+  if ($update) {
+    $migration->getIdMap()->prepareUpdate();
+  }
+
+  $executable = new \Drupal\migrate\MigrateExecutable($migration, $migrate_message, $event_dispatcher);
+  $executable->import();
+}
