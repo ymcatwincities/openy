@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains destination plugin for migration YMCA Facebook IDs.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\destination;
 
 use Drupal\migrate\Entity\MigrationInterface;

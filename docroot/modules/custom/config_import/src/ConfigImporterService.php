@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains ConfigImporterService.
- */
 
 namespace Drupal\config_import;
 

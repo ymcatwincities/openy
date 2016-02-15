@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Components tree.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
