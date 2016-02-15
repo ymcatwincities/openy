@@ -705,6 +705,10 @@ if (file_exists('/var/www/site-php')) {
 
 $config_directories["staging"] = 'sites/default/config/staging';
 
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
+}
+
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
   switch ($_ENV['AH_SITE_ENVIRONMENT']) {
     case 'dev':
