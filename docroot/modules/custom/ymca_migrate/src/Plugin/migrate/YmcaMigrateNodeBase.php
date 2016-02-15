@@ -602,8 +602,18 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Asset ID.
     if (!isset($test[1][0]) || !is_numeric($test[1][0])) {
-      $error = TRUE;
-      $message = t('failed to parse the asset ID.');
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to parse asset ID: [page: @page, component: @component].',
+          [
+            '@page' => $component->pageId(),
+            '@component' => $component->id(),
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+      return;
     }
     $asset_id = $test[1][0];
     if ($this->isDev()) {
@@ -629,31 +639,24 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     // Link.
     if ($link_exist) {
       if (!isset($test[4][0])) {
-        $error = TRUE;
-        $message = t('failed to parse page link ID.');
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Failed to parse page link ID: [page: @page, component: @component].',
+            [
+              '@page' => $component->pageId(),
+              '@component' => $component->id(),
+            ]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+        return;
       }
       $link = $test[4][0];
       if ($this->isDev()) {
         $link = '<a href="{{internal_page_link_4693}}">Learn More</a>';
       }
       $embedded_link = $this->replaceTokens->processText($link);
-    }
-
-    // Write a message if there is an parsing error.
-    if ($error) {
-      $this->idMap->saveMessage(
-        $this->getCurrentIds(),
-        $this->t(
-          '[DEV] Failed to parse Slide Show: [message: @message, page: @page, component: @component].',
-          [
-            '@message' => $message,
-            '@component' => $component->id(),
-            '@page' => $component->pageId()
-          ]
-        ),
-        MigrationInterface::MESSAGE_ERROR
-      );
-      return;
     }
 
     // Create slide show item.

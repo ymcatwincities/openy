@@ -141,8 +141,9 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
               MigrationInterface::MESSAGE_ERROR
             );
           }
-
-          $row->setSourceProperty('field_related', ['target_id' => $id]);
+          else {
+            $row->setSourceProperty('field_related', ['target_id' => $id]);
+          }
         }
       }
     }
