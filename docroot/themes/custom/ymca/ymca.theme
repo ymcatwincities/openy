@@ -961,7 +961,7 @@ function ymca_preprocess_menu__top_menu(&$variables) {
   $liveUrl = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
   /* Set active link for top menu by comparing urls */
   foreach ($variables['items'] as $key => $item) {
-    $url = $item['url']->toString();  dpm($url);
+    $url = $item['url']->toString();
     if (strstr($liveUrl, $url) && $url !== base_path()) {
       $variables['items'][$key]['in_active_trail'] = TRUE;
     }
