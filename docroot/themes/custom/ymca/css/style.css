@@ -7437,7 +7437,8 @@ body.path-search #block-mainpagecontent li {
   background-color: #FFF;
 }
 
-.navbar-default .navbar-nav > li > a.is-active {
+.navbar-default .navbar-nav > li > a.is-active,
+.navbar-default .navbar-nav > li.is-active > a {
   border-top: 2px solid #aa228d;
   background-color: #fff;
   color: #555;
