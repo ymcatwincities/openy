@@ -1,14 +1,9 @@
 <?php
-/**
- * @file
- * Service for creating/reusing Image Blocks.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\migrate\MigrateException;
-
 
 /**
  * Class YmcaImageToBlocks.

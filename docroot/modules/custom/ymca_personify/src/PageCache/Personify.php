@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_personify\PageCache\Personify.
- */
-
 namespace Drupal\ymca_personify\PageCache;
 
 use Drupal\Core\PageCache\ResponsePolicyInterface;

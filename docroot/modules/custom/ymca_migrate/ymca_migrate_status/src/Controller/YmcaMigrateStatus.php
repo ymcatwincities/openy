@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate_status\Controller\YmcaMigrateStatus.
- */
-
 namespace Drupal\ymca_migrate_status\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

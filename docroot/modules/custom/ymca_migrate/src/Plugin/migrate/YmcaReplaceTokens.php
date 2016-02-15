@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Service for parsing AMM tokenized text string and replace it with needed .
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 

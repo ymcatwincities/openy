@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Blog category breadcrumb builder.
- */
 
 namespace Drupal\ymca_breadcrumb;
 
