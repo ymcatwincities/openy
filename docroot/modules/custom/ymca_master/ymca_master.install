@@ -304,10 +304,15 @@ function ymca_master_update_8017() {
  * Enable Membership block by default.
  */
 function ymca_master_update_8018() {
-  db_update('node__field_membership_block')
-    ->fields(array('field_membership_block_value' => 1))
-    ->execute();
-  db_update('node_revision__field_membership_block')
-    ->fields(array('field_membership_block_value' => 1))
-    ->execute();
+  $map = [
+    'node__field_membership_block' => 'field_membership_block_value',
+    'node_revision__field_membership_block' => 'field_membership_block_value',
+    'node__field_include_general_blog_posts' => 'field_include_general_blog_posts_value',
+    'node_revision__field_include_general_blog_posts' => 'field_include_general_blog_posts_value',
+  ];
+  foreach ($map as $table => $column) {
+    db_update($table)
+      ->fields(array($column => 1))
+      ->execute();
+  }
 }
