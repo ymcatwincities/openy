@@ -322,29 +322,31 @@ function ymca_master_update_8019() {
     $module . '/config/install/migrate.migration.ymca_migrate_node_camp.yml',
   ]);
 
-  // Run migrations only on build server.
-  if (!isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-    // We should remove all blocks created by previous before running migration update.
-    $remove = [
-      'date_block',
-      'expander_block',
-      'image_block',
-      'promo_block',
-      'slide_show',
-      'slide_show_item',
-    ];
-    $ids = \Drupal::entityQuery('block_content')
-      ->condition('type', $remove, 'IN')
-      ->execute();
+  // We should remove all blocks created by previous before running migration update.
+  $remove = [
+    'date_block',
+    'expander_block',
+    'image_block',
+    'promo_block',
+    'slide_show',
+    'slide_show_item',
+  ];
+  $ids = \Drupal::entityQuery('block_content')
+    ->condition('type', $remove, 'IN')
+    ->execute();
 
-    $storage = \Drupal::entityTypeManager()->getStorage('block_content');
-    $blocks = $storage->loadMultiple($ids);
-    $storage->delete($blocks);
+  $storage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $blocks = $storage->loadMultiple($ids);
+  $storage->delete($blocks);
 
-    // Run migrations update.
-    ymca_run_migration('ymca_migrate_node_blog', TRUE, TRUE);
-    ymca_run_migration('ymca_migrate_node_camp', TRUE, TRUE);
-    ymca_run_migration('ymca_migrate_node_location', TRUE, TRUE);
-    ymca_run_migration('ymca_migrate_node_page', TRUE, TRUE);
-  }
+  // Run migrations update.
+  ymca_run_migration('ymca_migrate_node_blog', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_camp', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_location', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_page', TRUE, TRUE);
+
+  // Run some content fixes.
+  ymca_master_update_8015();
+  ymca_master_update_8017();
+  ymca_master_update_8018();
 }
