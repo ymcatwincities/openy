@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.promo_block
+    - block_content.type.date_block
     - field.storage.node.field_promo_slideshow
     - node.type.article
 id: node.article.field_promo_slideshow
@@ -20,7 +20,7 @@ settings:
   handler: 'default:block_content'
   handler_settings:
     target_bundles:
-      promo_block: promo_block
+      date_block: date_block
     sort:
       field: _none
 field_type: entity_reference
