@@ -705,6 +705,10 @@ if (file_exists('/var/www/site-php')) {
 
 $config_directories["staging"] = 'sites/default/config/staging';
 
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
+}
+
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
   switch ($_ENV['AH_SITE_ENVIRONMENT']) {
     case 'dev':
@@ -712,6 +716,43 @@ if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
 //      if (file_exists(__DIR__ . '/settings.dev.php')) {
 //        include __DIR__ . '/settings.dev.php';
 //      }
+
+        $databases['legacy'] = [
+          'default' => [
+            'database' => 'ymcatwincdb78901',
+            'username' => 's19044',
+            'password' => 'YASRSkorw8gnC4d',
+            'host' => '127.0.0.1',
+            'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+            'driver' => 'mysql',
+          ],
+        ];
+      break;
+
+    case 'stage':
+      $databases['legacy'] = [
+        'default' => [
+          'database' => 'E5g2tZkwSrjeUbv',
+          'username' => 's19045',
+          'password' => 'YASRSkorw8gnC4d',
+          'host' => '127.0.0.1',
+          'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+          'driver' => 'mysql',
+        ],
+      ];
+      break;
+
+    case 'prod';
+      $databases['legacy'] = [
+        'default' => [
+          'database' => 'ymcatwincdb78902',
+          'username' => 's19043',
+          'password' => 'eGEH5VCMimW7FC5',
+          'host' => '127.0.0.1',
+          'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+          'driver' => 'mysql',
+        ],
+      ];
       break;
   }
 }

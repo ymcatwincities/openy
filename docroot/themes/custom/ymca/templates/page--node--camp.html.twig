@@ -57,8 +57,6 @@
  */
 #}
 
-<a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
-
 <div id="top"></div>
 
 {% include "@ymca/sidebar-search-and-menu.html.twig" %}
@@ -124,15 +122,6 @@
       {% block camplocationmenu %}
         {% if site_section_bundle in ['location', 'camp'] %}
           <div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar">
-          </div>
-        {% endif %}
-      {% endblock %}
-      {% block breadcrumb %}
-        {% if page.breadcrumb %}
-          <div class="row breadcrumb-container hidden-xs">
-            <div class="container">
-              {{ page.breadcrumb }}
-            </div>
           </div>
         {% endif %}
       {% endblock %}

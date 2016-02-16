@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_ckeditor\Plugin\CKEditorPlugin\ColumnButton.
- */
-
 namespace Drupal\ymca_ckeditor\Plugin\CKEditorPlugin;
 
 use Drupal\ckeditor\CKEditorPluginInterface;

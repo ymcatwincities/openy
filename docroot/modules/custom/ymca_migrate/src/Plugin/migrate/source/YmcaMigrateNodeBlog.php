@@ -1,20 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogComponentsTree;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
-
 
 /**
  * Source plugin for node:blog content.
@@ -159,7 +152,22 @@ class YmcaMigrateNodeBlog extends SqlBase {
     /* @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens $replace_tokens */
     $replace_tokens = \Drupal::service('ymcareplacetokens.service');
     if (isset($component['body'])) {
-      $component['body'] = $replace_tokens->processText($component['body']);
+      try {
+        $component['body'] = $replace_tokens->processText($component['body']);
+      }
+      catch (\Exception $e) {
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            'A problem with token replacements: blog_post_id: @blog, message: @message',
+            array(
+              '@blog' => $component['blog_post_id'],
+              '@message' => $e->getMessage(),
+            )
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+      }
     }
 
     switch ($component['component_type']) {

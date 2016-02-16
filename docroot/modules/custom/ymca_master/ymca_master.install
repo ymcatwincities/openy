@@ -160,7 +160,18 @@ function ymca_master_update_8009() {
     foreach ($fields as $field) {
       if ($node->hasField($field)) {
         foreach ($node->$field as &$item) {
-          $item->set('value', $service->processText($item->value));
+          try {
+            $item->set('value', $service->processText($item->value));
+          }
+          catch (Exception $e) {
+            // Set unprocessed value and log an error.
+            $item->set('value', $item->value);
+            \Drupal::logger('ymca_master')
+              ->error(
+                'Replacement tokens error: %message',
+                ['%message' => $e->getMessage()]
+              );
+          }
         }
       }
     }
@@ -262,4 +273,85 @@ function ymca_master_update_8015() {
   $storage = \Drupal::entityTypeManager()->getStorage('node');
   $nodes = $storage->loadMultiple($nids);
   $storage->delete($nodes);
+}
+
+/**
+ * Test PUSH_MIGRATE_UPDATE_TO_PROD job.
+ */
+function ymca_master_update_8016() {
+  $env = 'default';
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    $env = 'Acquia';
+  }
+  \Drupal::logger('ymca_master')
+    ->info('Hello! Current environment is: %env.', ['%env' => $env]);
+}
+
+/**
+ * Fix menu_link_content links.
+ *
+ * Current architecture implies running the migration of menu_link_content
+ * entities before the pages migration. So, menu_link_content entities
+ * do not know anything about node ids. That's why this code should be run after
+ * the migration of the second dump.
+ */
+function ymca_master_update_8017() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_fix_menu_link_content();
+}
+
+/**
+ * Enable Membership block by default.
+ */
+function ymca_master_update_8018() {
+  $map = [
+    'node__field_membership_block' => 'field_membership_block_value',
+    'node_revision__field_membership_block' => 'field_membership_block_value',
+    'node__field_include_general_blog_posts' => 'field_include_general_blog_posts_value',
+    'node_revision__field_include_general_blog_posts' => 'field_include_general_blog_posts_value',
+  ];
+  foreach ($map as $table => $column) {
+    db_update($table)
+      ->fields(array($column => 1))
+      ->execute();
+  }
+}
+
+/**
+ * Update camp migrations.
+ */
+function ymca_master_update_8019() {
+  // Re-import configs.
+  $module = drupal_get_path('module', 'ymca_migrate');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $module . '/config/install/migrate.migration.ymca_migrate_node_camp.yml',
+  ]);
+
+  // We should remove all blocks created by previous before running migration update.
+  $remove = [
+    'date_block',
+    'expander_block',
+    'image_block',
+    'promo_block',
+    'slide_show',
+    'slide_show_item',
+  ];
+  $ids = \Drupal::entityQuery('block_content')
+    ->condition('type', $remove, 'IN')
+    ->execute();
+
+  $storage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $blocks = $storage->loadMultiple($ids);
+  $storage->delete($blocks);
+
+  // Run migrations update.
+  ymca_run_migration('ymca_migrate_node_blog', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_camp', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_location', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_page', TRUE, TRUE);
+
+  // Run some content fixes.
+  ymca_master_update_8015();
+  ymca_master_update_8017();
+  ymca_master_update_8018();
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_blog_listing\Controller\YMCANewsEventsPageController.
- */
-
 namespace Drupal\ymca_blog_listing\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

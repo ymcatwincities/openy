@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ymca_search_alter\Routing\RouteSubscriber.
- */
 
 namespace Drupal\ymca_search_alter\Routing;
 

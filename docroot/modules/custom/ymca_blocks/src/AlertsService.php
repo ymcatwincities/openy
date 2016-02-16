@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_blocks\AlertsService.
- */
-
 namespace Drupal\ymca_blocks;
 
 /**
