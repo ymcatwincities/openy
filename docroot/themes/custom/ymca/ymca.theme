@@ -100,8 +100,16 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
     array_push($suggestions, 'node__article__location__full');
   }
   // Detect all pages which referenced to locations by uri.
-  if ($data = ymca_detect_camp_pages() && $variables['elements']['#node']->bundle() == 'blog') {
-    array_push($suggestions, 'node__blog__camp__full');
+  if ($data = ymca_detect_camp_pages()) {
+    switch ($variables['elements']['#node']->bundle()) {
+      case 'blog':
+        array_push($suggestions, 'node__blog__camp__full');
+        break;
+
+      case 'article':
+        array_push($suggestions, 'node__article__camp__full');
+        break;
+    }
   }
 }
 
@@ -140,6 +148,8 @@ function ymca_preprocess_expander_block(&$variables) {
  * Implements hook_preprocess_node().
  */
 function ymca_preprocess_node(&$variables) {
+  $variables['date_formatted'] = \Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
+
   if (!in_array($variables['view_mode'], array('full', 'default'))) {
     return;
   }
@@ -200,28 +210,24 @@ function ymca_preprocess_node(&$variables) {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'blog')
       ->condition('field_site_section.target_id', $variables['node']->id())
-      ->condition('status', 1);
-    $referenced_nids = $query->execute();
-    // Load all ids of Blog Post CT.
-    if (empty($referenced_nids) || count($referenced_nids) == 1) {
+      ->condition('status', 1)
+      ->sort('created', 'DESC')
+      ->range(0, 2);
+    $nids = $query->execute();
+
+    // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
+    if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
       // Load all ids of Blog Post CT that are not related to any site section.
       $query = \Drupal::entityQuery('node')
         ->condition('type', 'blog')
         ->notExists('field_site_section')
-        ->condition('status', 1);
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->range(0, 2 - count($nids));
       $all_nids = $query->execute();
-    }
-
-    // Pass relative Blog posts, even if their count is 0.
-    $nids = array_slice($referenced_nids, 0, 2);
-
-    // Extend by 1 or load 2 general Blog Posts If "Include General Blog Post" is checked.
-    if ($variables['node']->field_include_general_blog_posts->value) {
-      if (empty($referenced_nids)) {
-        $nids = array_slice($all_nids, 0, 2);
-      }
-      else if (count($referenced_nids) == 1) {
-        $nids[] = array_shift($all_nids);
+      // Append general blog posts ids to already fetched nids.
+      foreach ($all_nids as $nid) {
+        $nids[] = $nid;
       }
     }
 
@@ -229,13 +235,15 @@ function ymca_preprocess_node(&$variables) {
     // Load nodes and build output array.
     $nodes = entity_load_multiple('node', $nids);
     foreach ($nodes as $nid => $n) {
+      $node_url = Drupal\Core\Url::fromUri('entity:node/' . $nid);
       $items[] = array(
-        'title' => new \Drupal\Core\Link($n->getTitle(), Drupal\Core\Url::fromUri('internal:/node/' . $nid)),
+        'title' => new \Drupal\Core\Link($n->getTitle(), $node_url),
         'text' =>  Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
-        'read_more_url' => Drupal\Core\Url::fromUri('internal:/node/' . $nid),
+        'read_more_url' => $node_url,
       );
     }
     $variables['news_events'] = $items;
+
     // Add facebook ID to the template.
     $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
     // Add membership block flag.
@@ -243,8 +251,10 @@ function ymca_preprocess_node(&$variables) {
       $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
       // Display Location Membership block.
       $block = \Drupal::entityTypeManager()->getStorage('block_content')->load(MEMBERSHIP_BLOCK_ID);
-      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
-      $variables['membership_block'] = $view_builder->view($block);
+      if (!is_null($block)) {
+        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+        $variables['membership_block'] = $view_builder->view($block);
+      }
     }
   }
 
@@ -943,4 +953,19 @@ function ymca_prerender_datetime($element) {
   }
   $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
   return $element;
+}
+
+/**
+ * Implements hook_preprocess_menu__top_menu().
+ */
+function ymca_preprocess_menu__top_menu(&$variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $liveUrl = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  /* Set active link for top menu by comparing urls */
+  foreach ($variables['items'] as $key => $item) {
+    $url = $item['url']->toString();
+    if (strstr($liveUrl, $url) && $url !== base_path()) {
+      $variables['items'][$key]['in_active_trail'] = TRUE;
+    }
+  }
 }

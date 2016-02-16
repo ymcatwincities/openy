@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains field type definition.
- */
-
 namespace Drupal\ymca_field_office_hours\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;

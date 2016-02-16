@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
@@ -23,13 +18,8 @@ trait YmcaMigrateTrait {
    *   TRUE if environment is dev.
    */
   public function isDev() {
-    // If there is environment var it wins.
-    if (isset($_SERVER['APP_ENV'])) {
-      return getenv('APP_ENV') === 'dev';
-    }
-
-    // Check Settings.
-    return Settings::get('pp_environment', 'default') === 'default';
+    // For now (in the sql flow) we should run all migrations not in dev mode.
+    return FALSE;
   }
 
   /**

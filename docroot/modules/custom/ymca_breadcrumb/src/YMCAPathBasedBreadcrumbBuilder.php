@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains modified Path based breadcrumb builder.
- */
 
 namespace Drupal\ymca_breadcrumb;
 
