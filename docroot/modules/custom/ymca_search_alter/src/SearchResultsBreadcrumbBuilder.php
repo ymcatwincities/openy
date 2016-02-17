@@ -40,7 +40,7 @@ class SearchResultsBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       ];
     }
     $breadcrumb->setLinks($links);
-    $breadcrumb->addCacheContexts(['url.path']);
+    $breadcrumb->addCacheContexts(['url.path', 'url.query_args:f']);
 
     return $breadcrumb;
   }
