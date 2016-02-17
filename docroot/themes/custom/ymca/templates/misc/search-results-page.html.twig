@@ -10,8 +10,10 @@
 
  {% if search_blog %}
    {% set classes = 'copy col-sm-8 col-md-9' %}
+   {% set pager_classes = 'col-md-12' %}
  {% else %}
    {% set classes = 'col-sm-12 categories copy' %}
+   {% set pager_classes = 'col-md-8' %}
 {% endif %}
 <section class="page-header page-title title-only">
   <div class="container title-container">
@@ -37,7 +39,7 @@
         {{ search_results }}
         <div class="gsa_bottom_results_nav_wrapper text-left">
           <div class="row">
-            <div class="col-md-12">
+            <div class="{{ pager_classes }}">
               {{ pager }}
             </div>
           </div>
