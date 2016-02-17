@@ -1,10 +1,10 @@
-id: ymca_migrate_url_alias_location_schedule
-label: URL aliases for location schedules pages
+id: ymca_migrate_url_alias_location
+label: URL aliases
 migration_group: ymca
 migration_tags:
   - node
 source:
-  plugin: ymca_migrate_url_alias_location_schedule
+  plugin: ymca_migrate_url_alias_location
 process:
   source: source
   alias: alias
