@@ -7,6 +7,7 @@
 
 use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Database\Database;
 
 /**
  * Protecting sites with a shield.
@@ -321,11 +322,9 @@ function ymca_master_update_8018() {
  * Update camp migrations.
  */
 function ymca_master_update_8019() {
-  // Re-import configs.
-  $module = drupal_get_path('module', 'ymca_migrate');
-  \Drupal::service('config_import.importer')->importConfigs([
-    $module . '/config/install/migrate.migration.ymca_migrate_node_camp.yml',
-  ]);
+  module_load_include('php', 'ymca_master', 'include/helper');
+
+  $ignore = Drupal::config('ymca_migrate.settings')->get('ignore');
 
   // We should remove all blocks created by previous before running migration update.
   $remove = [
@@ -336,8 +335,10 @@ function ymca_master_update_8019() {
     'slide_show',
     'slide_show_item',
   ];
+
   $ids = \Drupal::entityQuery('block_content')
     ->condition('type', $remove, 'IN')
+    ->condition('id', $ignore['block_content'], 'NOT IN')
     ->execute();
 
   $storage = \Drupal::entityTypeManager()->getStorage('block_content');
@@ -354,4 +355,35 @@ function ymca_master_update_8019() {
   ymca_master_update_8015();
   ymca_master_update_8017();
   ymca_master_update_8018();
+}
+
+/**
+ * Fix trailing slashes issue.
+ */
+function ymca_master_update_8020() {
+  $db = Database::getConnection();
+  $query = $db->select('url_alias', 'ua')
+    ->fields('ua', ['source', 'alias'])
+    ->execute();
+
+  $repo = \Drupal::service('redirect.repository');
+
+  while ($alias = $query->fetchObject()) {
+    if (substr($alias->alias, -1, 1) !== '/') {
+      $source_path = ltrim($alias->alias . '/', '/');
+      try {
+        if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
+          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect->setSource($source_path);
+          $redirect->setRedirect($alias->source);
+          $redirect->setLanguage('en');
+          $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+          $redirect->save();
+        }
+      }
+      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+        watchdog_exception('ymca_master', $e);
+      }
+    }
+  }
 }
