@@ -34,9 +34,9 @@ class SearchResultsBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     ];
     if (isset($_GET['f'][0]) && $_GET['f'][0] == 'type:blog') {
       $links = [
-          Link::createFromRoute($this->t('Home'), '<front>'),
-          Link::createFromRoute($this->t('Blog'), 'view.ymca_twin_cities_blog.blog_page'),
-          Link::createFromRoute($this->t('Search Blog'), '<none>'),
+        Link::createFromRoute($this->t('Home'), '<front>'),
+        Link::createFromRoute($this->t('Blog'), 'view.ymca_twin_cities_blog.blog_page'),
+        Link::createFromRoute($this->t('Search Blog'), '<none>'),
       ];
     }
     $breadcrumb->setLinks($links);
