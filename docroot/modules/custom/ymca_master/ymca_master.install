@@ -387,3 +387,41 @@ function ymca_master_update_8020() {
     }
   }
 }
+
+/**
+ * Fix trailing slashes for old redirects.
+ */
+function ymca_master_update_8021() {
+  $db = Database::getConnection();
+  $query = $db->select('redirect', 'r')
+    ->fields('r', [
+      'redirect_source__path',
+      'redirect_redirect__uri',
+    ])
+    ->condition('r.redirect_redirect__uri', $db->escapeLike('internal:') . '%', 'LIKE')
+    ->condition('r.redirect_source__path', '%' . $db->escapeLike('/'), 'NOT LIKE')
+    ->execute();
+
+  $repo = \Drupal::service('redirect.repository');
+  $alias_manager = \Drupal::service('path.alias_manager');
+
+  while ($old = $query->fetchObject()) {
+    $uri = $old->redirect_redirect__uri;
+    $source_path = $old->redirect_source__path . '/';
+    if ($destination = $alias_manager->getPathByAlias(str_replace('internal:', '', $uri), 'en')) {
+      try {
+        if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
+          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect->setSource($source_path);
+          $redirect->setRedirect($destination);
+          $redirect->setLanguage('en');
+          $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+          $redirect->save();
+        }
+      }
+      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+        watchdog_exception('ymca_master', $e);
+      }
+    }
+  }
+}
