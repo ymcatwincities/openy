@@ -538,12 +538,12 @@ function ymca_preprocess_views_view(&$vars) {
 }
 
 /**
- * Implements template_preprocess_item_list().
+ * Implements template_preprocess_search_results_page().
  */
-function ymca_preprocess_item_list(&$vars) {
+function ymca_preprocess_search_results_page(&$vars) {
   // Detect blog search form by path, because we haven't some other id.
   $current_path = \Drupal::service('path.current')->getPath();
-  if ($current_path == '/search/blog') {
+  if ($current_path == '/search_results' && isset($_GET['f'][0]) && $_GET['f'][0] == 'type:blog') {
     $vars['base_path'] = base_path();
     $vars['search_blog'] = TRUE;
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
