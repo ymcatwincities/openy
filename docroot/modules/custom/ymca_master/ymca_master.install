@@ -321,6 +321,8 @@ function ymca_master_update_8018() {
  * Update camp migrations.
  */
 function ymca_master_update_8019() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+
   // Re-import configs.
   $module = drupal_get_path('module', 'ymca_migrate');
   \Drupal::service('config_import.importer')->importConfigs([
