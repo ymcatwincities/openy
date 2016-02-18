@@ -1,11 +1,6 @@
 <?php
-/**
- * @file
- * Class that would be used for getting tree of Blogs to be migrated into Drupal CT.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
-
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;

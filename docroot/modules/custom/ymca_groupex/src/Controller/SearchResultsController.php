@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_groupex\Controller\SearchResultsController.
- */
-
 namespace Drupal\ymca_groupex\Controller;
 
 use Drupal\node\NodeInterface;

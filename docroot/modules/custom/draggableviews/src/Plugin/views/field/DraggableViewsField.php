@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\draggableviews\Plugin\views\field\DraggableViewsField.
- */
-
 namespace Drupal\draggableviews\Plugin\views\field;
 
 use Drupal\Core\Form\FormStateInterface;

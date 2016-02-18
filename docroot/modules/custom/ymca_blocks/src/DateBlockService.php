@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Date Block parser service.
- */
 
 namespace Drupal\ymca_blocks;
 
@@ -76,6 +72,11 @@ class DateBlockService {
     }
     /** @var BlockContent $date_block */
     $date_block = \Drupal::entityTypeManager()->getStorage('block_content')->load($date_block_id);
+
+    if (empty($date_block)) {
+      \Drupal::logger('Date Blocks')->critical(t('Could not load block ID @id.', array('@id' => $date_block_id)));
+      return FALSE;
+    }
 
     if ($date_block->get('type')->get(0)->getValue()['target_id'] !== 'date_block') {
       \Drupal::logger('Date Blocks')->critical(t('Block type is not date_block.'));
@@ -247,15 +248,16 @@ class DateBlockService {
     foreach ($slides as $id => $slide_entity) {
       $title = is_null($slide_entity->get('field_title')->get(0)) ? '' : $slide_entity->get('field_title')->get(0)->getValue()['value'];
       $img_url = is_null($slide_entity->get('field_image')->get(0)) ? '' : File::load($slide_entity->get('field_image')->get(0)->getValue()['target_id'])->getFileUri();
-      $menu_link = is_null($slide_entity->get('field_block_content')->get(0)) ? NULL : $this->getMenuLinkEntity($slide_entity->get('field_block_content')->get(0)->getValue()['value']);
-      $btn_url = is_null($menu_link) || is_bool($menu_link) || is_null($menu_link->get('link')) ? '' : $menu_link->get('link')->get(0)->getValue()['uri'];
-      $btn_title = is_null($menu_link) || is_bool($menu_link) || is_null($menu_link->get('link')) ? '' : $menu_link->label();
+      $description = '';
+      if ($content = $slide_entity->get('field_block_content')->get(0)) {
+        $value = $content->getValue();
+        $description = check_markup($value['value'], $value['format']);
+      }
 
       $this->slideShowItems[$i]['id'] = $i;
       $this->slideShowItems[$i]['title'] = $title;
       $this->slideShowItems[$i]['img_url'] = $style->buildUrl($img_url);
-      $this->slideShowItems[$i]['btn_title'] = $btn_title;
-      $this->slideShowItems[$i]['btn_url'] = $btn_url == '' ? '' : Url::fromUri($btn_url);
+      $this->slideShowItems[$i]['description'] = $description;
       $i++;
     }
   }
