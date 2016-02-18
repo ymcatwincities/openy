@@ -63,7 +63,7 @@ content:
     type: image
   field_lead_description:
     weight: 7
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
