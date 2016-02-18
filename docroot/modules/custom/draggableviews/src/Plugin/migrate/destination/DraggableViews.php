@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains destination plugin for Draggable Views database table.
- */
-
 namespace Drupal\draggableviews\Plugin\migrate\destination;
 
 use Drupal\Core\Database\Database;

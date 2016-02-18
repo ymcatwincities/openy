@@ -36,11 +36,13 @@
     {% set attributes = attributes.addClass(['nav', 'navbar-nav', 'pull-right', 'hidden-xs']) %}
     <ul{{ attributes }}>
     {% for item in items %}
-      {% if item.below %}
-        {% set item_attributes = item.attributes %}
-        {% set item_attributes = item_attributes.addClass('dropdown') %}
-      {% endif %}
-      <li{{ item.attributes }}>
+      {%
+        set classes = [
+        item.in_active_trail ? 'is-active',
+        item.below ? 'dropdown',
+        ]
+      %}
+      <li{{ item.attributes.addClass(classes) }}>
         {% if not item.below %}
           {{ link(item.title, item.url) }}
         {% else %}

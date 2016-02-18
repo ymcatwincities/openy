@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_groupex\Controller\AllSearchController.
- */
-
 namespace Drupal\ymca_groupex\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

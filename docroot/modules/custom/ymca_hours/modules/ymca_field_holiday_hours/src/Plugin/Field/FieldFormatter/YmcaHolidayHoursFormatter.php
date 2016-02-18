@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains YMCA holiday hours formatter.
- */
-
 namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Render\Markup;

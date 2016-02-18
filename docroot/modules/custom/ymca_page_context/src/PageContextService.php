@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_page_context\PageContextService.
- */
-
 namespace Drupal\ymca_page_context;
 
 /**

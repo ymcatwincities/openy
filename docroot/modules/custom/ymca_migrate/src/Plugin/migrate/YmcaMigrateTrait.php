@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
