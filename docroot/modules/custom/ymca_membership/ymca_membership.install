@@ -39,14 +39,14 @@ function ymca_membership_install() {
  */
 function _ymca_membership_blocks_content() {
   return [
-   'Membership page: Form Enrollment Fee' => '<h4>Enrollment Fee</h4>
+    'Membership page: Form Enrollment Fee' => '<h4>Enrollment Fee</h4>
 <p><span style="text-align:center;color:#9b1e79;font-size:21px;letter-spacing:-3px;font-weight:normal;"><span style="text-decoration:line-through;color:#565656;">$50</span> $5</span><br />
 Get this special offer through February 29!</p>
 <h4>What happens next?</h4>
 <p class="p2">Once you submit this form, we’ll contact you within 24 hours to talk about what you want out of the Y.</p>
 <p class="p2">Must provide a valid photo ID and be at least 18 years of age to activate 5 day trial membership.</p>
 ',
-   'Membership page: What Does It Cost?' => '<h2>What does it cost?</h2>
+    'Membership page: What Does It Cost?' => '<h2>What does it cost?</h2>
 
 <article class="row content_group row-1" id="component_391397">
 <section class="col-sm-offset-1 col-sm-4" id="group_0_391397">
@@ -134,5 +134,5 @@ per additional adult</p>
 </section>
 </article>
 ',
- ];
+  ];
 }
