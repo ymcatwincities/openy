@@ -52,7 +52,7 @@ class YMCAMembershipPage extends ControllerBase {
    * @param string $form_id
    *   Contact form machine name.
    *
-   * @return
+   * @return array
    *   Form build array.
    */
   private function getForm($form_id) {
@@ -74,7 +74,7 @@ class YMCAMembershipPage extends ControllerBase {
    * @param string $block_description
    *   Block description.
    *
-   * @return
+   * @return array
    *   Form build array.
    */
   private function getBlock($block_description) {
@@ -85,8 +85,8 @@ class YMCAMembershipPage extends ControllerBase {
       ]);
 
     $block_build = [
-      '#markup' => '<div>No block named «<em>' . $block_description . '</em>» found.'
-        . \Drupal::l('Add block', Url::fromUri('base:block/add')) .'</div>'
+      '#markup' => '<div>No block named «<em>' . $block_description . '</em>» found. '
+        . \Drupal::l('Add block', Url::fromUri('base:block/add')) . '</div>'
     ];
     if ($block) {
       $block_content_entity = reset($block);
