@@ -425,3 +425,11 @@ function ymca_master_update_8021() {
     }
   }
 }
+
+/**
+ * Fix redundant configs.
+ */
+function ymca_master_update_8022() {
+  Drupal::configFactory()->getEditable('stage_file_proxy.settings')->delete();
+  Drupal::configFactory()->getEditable('devel.settings')->delete();
+}
