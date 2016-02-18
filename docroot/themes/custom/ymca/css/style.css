@@ -7464,6 +7464,14 @@ body.path-search #block-mainpagecontent li {
   max-width: 500px;
 }
 
+.copy > .richtext:first-child > .richtext {
+  margin-top: 0;
+}
+
+.groupex-search-form > p:first-child {
+  margin-bottom: 10px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
