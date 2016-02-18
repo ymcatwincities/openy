@@ -1,0 +1,10 @@
+assets:
+  - { name: 'top_bg',        path: 'membership_b_bg_1.jpg' }
+  - { name: 'ico_bicycle',   path: 'membership_b_ico_bicycle.jpg' }
+  - { name: 'ico_branches',  path: 'membership_b_ico_branches.jpg' }
+  - { name: 'ico_discounts', path: 'membership_b_ico_discounts.jpg' }
+  - { name: 'ico_fitness',   path: 'membership_b_ico_fitness.jpg' }
+  - { name: 'ico_money',     path: 'membership_b_ico_money.jpg' }
+  - { name: 'ico_pools',     path: 'membership_b_ico_pools.jpg' }
+  - { name: 'ico_water',     path: 'membership_b_ico_water.jpg' }
+  - { name: 'bottom_bg',     path: 'ymca-membership-bg-2.jpg' }
