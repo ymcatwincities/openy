@@ -31,11 +31,11 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
   field_alert:
-    weight: 28
+    weight: 17
     settings:
       match_operator: CONTAINS
       size: 60
@@ -50,14 +50,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
   field_header_button:
-    weight: 9
+    weight: 10
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_header_image:
-    weight: 8
+    weight: 9
     settings:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
@@ -73,7 +73,7 @@ content:
     third_party_settings: {  }
     type: image_widget_crop
   field_header_variant:
-    weight: 7
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -85,7 +85,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
   field_promo_slideshow:
-    weight: 27
+    weight: 16
     settings:
       match_operator: CONTAINS
       size: 60
@@ -93,7 +93,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_related:
-    weight: 29
+    weight: 18
     settings:
       match_operator: CONTAINS
       size: 60
@@ -120,43 +120,43 @@ content:
     third_party_settings: {  }
     type: options_select
   field_status:
-    weight: 31
+    weight: 21
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_title_description:
-    weight: 26
+    weight: 1
     settings:
-      rows: 5
+      rows: 2
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   langcode:
     type: language_select
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 20
     settings: {  }
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 6
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -167,7 +167,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
@@ -175,7 +175,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 19
     settings: {  }
     third_party_settings: {  }
 hidden:
