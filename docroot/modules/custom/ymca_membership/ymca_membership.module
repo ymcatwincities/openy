@@ -11,10 +11,19 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
   return [
     'membership_page' => [
       'variables' => [
-        'block_price_top' => [],
-        'block_price_bottom' => [],
+        'assets' => [],
+        'assets_path' => '',
+        'block_form_fee' => '',
+        'block_cost' => '',
+        'form' => '',
       ],
       'template' => 'membership-page',
     ],
+    'datebased_block_with_cl' => [
+      'variables' => [
+        'content' => '',
+      ],
+      'template' => 'datebased-block',
+    ]
   ];
 }
