@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\ymca_menu\YmcaMenuServiceProvider.
- */
 
 namespace Drupal\ymca_menu;
 
@@ -24,4 +20,5 @@ class YmcaMenuServiceProvider extends ServiceProviderBase {
     // default MenuActiveTrail class.
     $definition->setClass('Drupal\ymca_menu\YmcaMenuActiveTrail');
   }
+
 }
