@@ -38,7 +38,9 @@
       </div>
     </div>
     <div class="row centered bottom">
-      <p style="font-size:16px;color:#fff;opacity:.5;">Youth, student or family plus member? Please <a href="/locations/">visit your local Y</a> to join.</p>
+      <p style="font-size:16px;color:#fff;opacity:.5;">Youth, student or family plus member? Please
+        {{ link('visit your local Y', 'base:locations/') }}
+         to join.</p>
     </div>
   </article></section>
 
@@ -166,10 +168,18 @@
 
   <!-- Membership Bottom Area -->
   <div class="container membership-bottom-area">
-    <article class="row"><section class="col-md-4 col-sm-4"><article><h3>Membership Plans</h3>
-          <p>Get details on <a href="/membership/membership_plans/">membership plans and rates</a>.</p>
+    <article class="row">
+      <section class="col-md-4 col-sm-4">
+        <article>
+          <h3>Membership Plans</h3>
+          <p>Get details on {{ link('membership plans and rates', 'base:membership/membership_plans/') }}.</p>
           <br /><h3>Corporate Wellness</h3>
-          <p>The Y partners with organizations around the Twin Cities to offer <a href="/membership/corporate_wellness/">corporate wellness programs</a> for employers and employees.</p></article></section><section id="group_1_391439" class="col-md-4 col-sm-4"><article class="richtext" id="component_393016"><h3>Ways to Save</h3>
+          <p>The Y partners with organizations around the Twin Cities to offer {{ link('corporate wellness programs', 'base:membership/corporate_wellness/') }} for employers and employees.</p>
+        </article>
+      </section>
+      <section id="group_1_391439" class="col-md-4 col-sm-4">
+        <article class="richtext" id="component_393016">
+          <h3>Ways to Save</h3>
           <h4>Health insurance programs</h4>
           <p>Enjoy double-digit reimbursement on your monthly dues. Find your insurance provider:</p>
           <ul><li>BlueCross and BlueShield of Minnesota</li>
@@ -178,10 +188,21 @@
             <li>Preferred One</li>
             <li>UCare</li>
           </ul><h4>Statewide savings</h4>
-          <p>Membership with YMCA of the Greater Twin Cities gives you <a href="/membership/statewide_access/">free access to Minnesota and Hudson, Wisconsin</a> YMCA locations.</p></article></section><section id="group_2_391439" class="col-md-4 col-sm-4"><article class="richtext" id="component_393022"><h3>Financial Assistance</h3>
-          <p>Special rates are available for those who meet income requirements—everyone is welcome to apply for a Y membership. <a href="/membership/financial_assistance/">Learn more</a></p>
+          <p>Membership with YMCA of the Greater Twin Cities gives you
+            {{ link('free access to Minnesota and Hudson, Wisconsin', 'base:membership/statewide_access') }}
+            YMCA locations.</p>
+        </article>
+      </section>
+      <section id="group_2_391439" class="col-md-4 col-sm-4">
+        <article class="richtext" id="component_393022">
+          <h3>Financial Assistance</h3>
+          <p>Special rates are available for those who meet income requirements—everyone is welcome to apply for a Y membership. {{ link('Learn more', 'base:membership/financial_assistance/') }}</p>
           <br /><h3>Silver&amp;Fit and SilverSneakers<sup>®</sup></h3>
-          <p>The YMCA participates in the Silver&amp;Fit and SilverSneakers program for Medicare age members. Check with your insurance provider to determine if you are eligible.</p></article></section></article></div>
+          <p>The YMCA participates in the Silver&amp;Fit and SilverSneakers program for Medicare age members. Check with your insurance provider to determine if you are eligible.</p>
+        </article>
+      </section>
+    </article>
+  </div>
 
   <!-- Modals content -->
   <div id="user_modals">
