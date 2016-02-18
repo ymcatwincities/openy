@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\ymca_menu\YmcaMenuActiveTrail.
- */
 
 namespace Drupal\ymca_menu;
 
@@ -68,4 +64,5 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
 
     return $found;
   }
+
 }
