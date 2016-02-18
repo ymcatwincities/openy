@@ -1,4 +1,9 @@
-<div class="copy col-sm-7 col-sm-push-5 col-md-6 col-md-push-3">
+{% if sidebar is empty %}
+  {% set classes =  'copy col-sm-7 col-sm-push-5 col-md-9 col-md-push-3' %}
+{% else %}
+  {% set classes =  'copy col-sm-7 col-sm-push-5 col-md-6 col-md-push-3' %}
+{% endif %}
+<div class="{{ classes }}">
   {% block maincontent %}{% endblock %}
 </div>
 
@@ -11,7 +16,8 @@
     </div>
   {% endblock %}
 </div>
-
+{% if sidebar is not empty %}
 <div class="col-md-3 sidebar-promos promos hidden-sm visible-xs">
   {% block sidebar %}{% endblock %}
 </div>
+{% endif %}
