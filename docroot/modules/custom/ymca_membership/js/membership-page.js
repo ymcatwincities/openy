@@ -43,7 +43,7 @@
 
     $('form.registration_block select option').each(function() {
       var location = window.location.hash.replace('#', '');
-      if (location != '' && $(this).text().toLowerCase().match(location)) {
+      if (location !== '' && $(this).text().toLowerCase().match(location)) {
         $(this).attr('selected', true);
         $('.try-the-y-toggle').trigger('click');
       }
