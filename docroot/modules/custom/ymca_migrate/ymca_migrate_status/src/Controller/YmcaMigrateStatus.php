@@ -122,7 +122,7 @@ class YmcaMigrateStatus extends ControllerBase {
    */
   public function pageView() {
     // Setup.
-    $this->dbLegacy = Database::getConnection('default', 'legacy');
+    $this->dbLegacy = Database::getConnection('default', 'amm_source');
     $this->prepopulateMigrations();
 
     $this->calcPages(1);

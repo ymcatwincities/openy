@@ -73,6 +73,11 @@ class DateBlockService {
     /** @var BlockContent $date_block */
     $date_block = \Drupal::entityTypeManager()->getStorage('block_content')->load($date_block_id);
 
+    if (empty($date_block)) {
+      \Drupal::logger('Date Blocks')->critical(t('Could not load block ID @id.', array('@id' => $date_block_id)));
+      return FALSE;
+    }
+
     if ($date_block->get('type')->get(0)->getValue()['target_id'] !== 'date_block') {
       \Drupal::logger('Date Blocks')->critical(t('Block type is not date_block.'));
       return FALSE;
