@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Implements AmmComponent.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
 

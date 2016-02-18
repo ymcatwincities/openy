@@ -21,38 +21,22 @@
  * @ingroup themeable
  */
 #}
-{% set main_title = search_blog ? 'Search Blog' : 'Search Results' %}
 
-{%
-  set classes = [
-  search_blog ? 'copy col-sm-8 col-md-9',
-  not search_blog ? 'col-sm-12 categories copy',
-  ]
-%}
-
-  {% if search_blog %}
-  <div class="back-to-blog hidden-xs">
-    <a href="{{ base_path ~ 'blog' }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ 'Back to blog'|t }}</a>
-  </div>
+<div class="gsa_results_wrapper">
+  {% if context.list_style %}
+      {%- set attributes = attributes.addClass('item-list__' ~ context.list_style) %}
   {% endif %}
-  <div class="gsa_results_wrapper">
-    {% if context.list_style %}
-        {%- set attributes = attributes.addClass('item-list__' ~ context.list_style) %}
-    {% endif %}
-    {% if items or empty %}
-      {%- if title is not empty -%}
-        <h3>{{ title }}</h3>
-      {%- endif -%}
+  {% if items or empty %}
+    {%- if title is not empty -%}
+      <h3>{{ title }}</h3>
+    {%- endif -%}
 
-      {%- if items -%}
-          {%- for item in items -%}
-            {{ item.value }}
-          {%- endfor -%}
-      {%- else -%}
-        {{- empty -}}
-      {%- endif -%}
-    {%- endif %}
-  </div>
-{% if search_blog is defined and search_blog %}
-  {% include "@ymca/ymca-blocks/search-the-blog.html.twig" %}
-{% endif %}
+    {%- if items -%}
+        {%- for item in items -%}
+          {{ item.value }}
+        {%- endfor -%}
+    {%- else -%}
+      {{- empty -}}
+    {%- endif -%}
+  {%- endif %}
+</div>

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains base plugin for node migrations.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\block_content\Entity\BlockContent;
@@ -298,7 +293,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
           default:
             $value[$property] = [
-              'value' => $this->replaceTokens->processText($component['body']),
+              'value' => '<article class="richtext original">' . $this->replaceTokens->processText($component['body']) . '</article>',
               'format' => 'full_html',
             ];
         }
@@ -357,7 +352,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
             // Finally, pass processed body.
             $value[$property] = [
-              'value' => $this->replaceTokens->processText($inner['body']),
+              'value' => '<article class="richtext original">' . $this->replaceTokens->processText($inner['body']) . '</article>',
               'format' => 'full_html',
             ];
         }
@@ -602,8 +597,18 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
     // Asset ID.
     if (!isset($test[1][0]) || !is_numeric($test[1][0])) {
-      $error = TRUE;
-      $message = t('failed to parse the asset ID.');
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          '[DEV] Failed to parse asset ID: [page: @page, component: @component].',
+          [
+            '@page' => $component->pageId(),
+            '@component' => $component->id(),
+          ]
+        ),
+        MigrationInterface::MESSAGE_ERROR
+      );
+      return;
     }
     $asset_id = $test[1][0];
     if ($this->isDev()) {
@@ -629,31 +634,24 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
     // Link.
     if ($link_exist) {
       if (!isset($test[4][0])) {
-        $error = TRUE;
-        $message = t('failed to parse page link ID.');
+        $this->idMap->saveMessage(
+          $this->getCurrentIds(),
+          $this->t(
+            '[DEV] Failed to parse page link ID: [page: @page, component: @component].',
+            [
+              '@page' => $component->pageId(),
+              '@component' => $component->id(),
+            ]
+          ),
+          MigrationInterface::MESSAGE_ERROR
+        );
+        return;
       }
       $link = $test[4][0];
       if ($this->isDev()) {
         $link = '<a href="{{internal_page_link_4693}}">Learn More</a>';
       }
       $embedded_link = $this->replaceTokens->processText($link);
-    }
-
-    // Write a message if there is an parsing error.
-    if ($error) {
-      $this->idMap->saveMessage(
-        $this->getCurrentIds(),
-        $this->t(
-          '[DEV] Failed to parse Slide Show: [message: @message, page: @page, component: @component].',
-          [
-            '@message' => $message,
-            '@component' => $component->id(),
-            '@page' => $component->pageId()
-          ]
-        ),
-        MigrationInterface::MESSAGE_ERROR
-      );
-      return;
     }
 
     // Create slide show item.
@@ -906,6 +904,9 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
       self::$themes['ymca_2013_locations_camps'] => [
         1 => [
           'rich_text' => 'field_content',
+        ],
+        2 => [
+          'rich_text' => 'field_camp_links',
         ],
         3 => [
           'rich_text' => 'field_main_promos',

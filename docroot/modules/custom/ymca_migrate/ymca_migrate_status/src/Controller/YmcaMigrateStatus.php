@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate_status\Controller\YmcaMigrateStatus.
- */
-
 namespace Drupal\ymca_migrate_status\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
@@ -127,7 +122,7 @@ class YmcaMigrateStatus extends ControllerBase {
    */
   public function pageView() {
     // Setup.
-    $this->dbLegacy = Database::getConnection('default', 'legacy');
+    $this->dbLegacy = Database::getConnection('default', 'amm_source');
     $this->prepopulateMigrations();
 
     $this->calcPages(1);

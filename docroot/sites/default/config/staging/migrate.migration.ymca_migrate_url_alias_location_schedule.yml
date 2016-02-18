@@ -1,16 +1,8 @@
-uuid: 561e382c-68d3-4054-ba00-fe2757e45922
-langcode: en
-status: true
-dependencies:
-  config:
-    - migrate.migration.ymca_migrate_node_location
-  module:
-    - path
-    - ymca_migrate
 id: ymca_migrate_url_alias_location_schedule
+label: URL aliases for location schedules pages
+migration_group: ymca
 migration_tags:
   - node
-label: 'URL aliases for location schedules pages'
 source:
   plugin: ymca_migrate_url_alias_location_schedule
 process:
@@ -21,8 +13,6 @@ process:
     default_value: en
 destination:
   plugin: url_alias
-template: null
 migration_dependencies:
   required:
     - ymca_migrate_node_location
-migration_group: ymca

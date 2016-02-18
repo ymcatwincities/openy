@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter\LinkAdvancedFormatter.
- */
-
 namespace Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Unicode;

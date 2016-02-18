@@ -1,4 +1,0 @@
-administer stage_file_proxy settings:
-  title: 'Administer Stage File Proxy module'
-  description: 'Perform administration tasks for the Stage File Proxy module.'
-  restrict access: TRUE
