@@ -2,12 +2,12 @@
 env:
   pre_settings:
     - { name: '$settings["hash_salt"]', status: true, value: '1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ'}
-    - { name: '$databases["legacy"]["default"]["database"]', status: true, value: '{{ old_source_db_name }}' }
-    - { name: '$databases["legacy"]["default"]["username"]', status: true, value: 'root' }
-    - { name: '$databases["legacy"]["default"]["password"]', status: true, value: 'root' }
-    - { name: '$databases["legacy"]["default"]["host"]', status: true, value: '127.0.0.1' }
-    - { name: '$databases["legacy"]["default"]["namespace"]', status: true, value: 'Drupal\\\\Core\\\\Database\\\\Driver\\\\mysql' }
-    - { name: '$databases["legacy"]["default"]["driver"]', status: true, value: 'mysql' }
+    - { name: '$databases["amm_source"]["default"]["database"]', status: true, value: '{{ old_source_db_name }}' }
+    - { name: '$databases["amm_source"]["default"]["username"]', status: true, value: 'root' }
+    - { name: '$databases["amm_source"]["default"]["password"]', status: true, value: 'root' }
+    - { name: '$databases["amm_source"]["default"]["host"]', status: true, value: '127.0.0.1' }
+    - { name: '$databases["amm_source"]["default"]["namespace"]', status: true, value: 'Drupal\\\\Core\\\\Database\\\\Driver\\\\mysql' }
+    - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
   modules:
     - { name: 'devel config_inspector config_devel stage_file_proxy', status: true }
@@ -19,7 +19,7 @@ env:
     - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
     - { name: 'search-api-reindex', status: false, arguments: "" }
     - { name: 'search-api-index', status: false, arguments: "" }
-    - { name: 'search-index', status: true, arguments: "" }
+    - { name: 'search-index', status: false, arguments: "" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: true, value: '{{ origin_site_url }}' }
