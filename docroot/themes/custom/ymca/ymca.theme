@@ -6,7 +6,6 @@
  */
 
 define('SITE_SECTION_TARGET_TYPE', 'node');
-define('TERM_NEWS_TID', 6);
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Unicode;
