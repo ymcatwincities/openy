@@ -1,4 +1,9 @@
-<div class="copy col-sm-7 col-sm-push-5 col-md-6 col-md-push-3">
+{% if content.field_sidebar.0 is defined %}
+  {% set classes = 'copy col-sm-7 col-sm-push-5 col-md-6 col-md-push-3' %}
+{% else %}
+  {% set classes = 'copy col-sm-7 col-sm-push-5 col-md-9 col-md-push-3' %}
+{% endif %}
+<div class="{{ classes }}">
   {% block maincontent %}{% endblock %}
 </div>
 
@@ -7,11 +12,12 @@
     {{ sidebar_navigation }}
     <div class="visible-sm promos sidebar-promos">
       {# Duplicate sidebar block contents for small screens #}
-      {{ block('sidebar') }}
+      {{ content.field_sidebar }}
     </div>
   {% endblock %}
 </div>
-
+{% if content.field_sidebar.0 is defined %}
 <div class="col-md-3 sidebar-promos promos hidden-sm visible-xs">
-  {% block sidebar %}{% endblock %}
+  {{ content.field_sidebar }}
 </div>
+{% endif %}
