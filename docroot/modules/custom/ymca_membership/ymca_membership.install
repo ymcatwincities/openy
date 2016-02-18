@@ -38,7 +38,7 @@ function ymca_membership_install() {
  *   Blocks content.
  */
 function _ymca_membership_blocks_content() {
- return [
+  return [
    'Membership page: Form Enrollment Fee' => '<h4>Enrollment Fee</h4>
 <p><span style="text-align:center;color:#9b1e79;font-size:21px;letter-spacing:-3px;font-weight:normal;"><span style="text-decoration:line-through;color:#565656;">$50</span> $5</span><br />
 Get this special offer through February 29!</p>
