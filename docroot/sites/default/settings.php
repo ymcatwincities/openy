@@ -699,19 +699,14 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
+$config_directories["staging"] = 'sites/default/config/staging';
+
+// Default DB credentials.
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
 }
 
-$config_directories["staging"] = 'sites/default/config/staging';
-
-if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  switch ($_ENV['AH_SITE_ENVIRONMENT']) {
-    case 'dev':
-      // Uncomment the next lines to include Drupal development settings.
-//      if (file_exists(__DIR__ . '/settings.dev.php')) {
-//        include __DIR__ . '/settings.dev.php';
-//      }
-      break;
-  }
+// Legacy DB credentials.
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
 }

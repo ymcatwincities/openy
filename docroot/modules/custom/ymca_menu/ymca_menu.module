@@ -199,9 +199,30 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
       /** @var \Drupal\menu_link_content\MenuLinkContentInterface $entity */
       if (!empty($values['entity_id'])) {
         $entity = MenuLinkContent::load($values['entity_id']);
-        $entity->enabled->value = (int) (!$values['menu_link_disabled']);
-        $entity->save();
+        $enabled = (int) (!$values['menu_link_disabled']);
+        if ($entity->enabled->value != $enabled) {
+          $entity->enabled->value = $enabled;
+          $entity->save();
+        }
       }
+
+      // Update node alias, since all required data is available now.
+      $nid = $form_state->getValue('nid');
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $node_storage->resetCache(array($nid));
+      $node = $node_storage->load($nid);
+      if ($node->bundle() == 'article') {
+        // Check whether we need to update an alias.
+        $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
+        if (empty($alias)) {
+          return;
+        }
+        $source = '/node/' . $nid;
+        $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
+        $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
+        \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
+      }
+
     }
   }
 }

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ymca_personify\Controller\PersonifyController.
- */
 
 namespace Drupal\ymca_personify\Controller;
 

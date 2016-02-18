@@ -1,18 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter\FileEntityReferenceLabelFormatter.
- */
-
 namespace Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-
 
 /**
  * Plugin implementation of the 'entity reference label' formatter.
@@ -108,7 +103,7 @@ class FileEntityReferenceLabelFormatter extends EntityReferenceFormatterBase {
       if ($output_as_link && isset($uri) && !$this->entity->isNew()) {
         $elements[$delta] = [
           '#type' => 'link',
-          '#title' => $label,
+          '#title' => new FormattableMarkup($label, []),
           '#url' => Url::fromUri(file_create_url($uri)),
         ];
 

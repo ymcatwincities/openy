@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_migrate\Plugin\migrate\source\YmcaMigrateNodePage.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Entity\MigrationInterface;
@@ -141,8 +136,9 @@ class YmcaMigrateNodePage extends YmcaMigrateNodeBase {
               MigrationInterface::MESSAGE_ERROR
             );
           }
-
-          $row->setSourceProperty('field_related', ['target_id' => $id]);
+          else {
+            $row->setSourceProperty('field_related', ['target_id' => $id]);
+          }
         }
       }
     }

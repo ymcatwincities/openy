@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Helper trait.
- */
 
 namespace Drupal\ymca_groupex;
 
@@ -32,7 +28,7 @@ trait GroupexRequestTrait {
    *
    * @var string
    */
-  public static $dateFilterFormat = 'm d y';
+  public static $dateFilterFormat = 'm/d/y';
 
   /**
    * Groupex ID garbage.

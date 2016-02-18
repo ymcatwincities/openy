@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ymca_personify\Access\PersonifyLoginAccessCheck.
- */
 
 namespace Drupal\ymca_personify\Access;
 

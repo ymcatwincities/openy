@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains migration for locations.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateNodeBase;
