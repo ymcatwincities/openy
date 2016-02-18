@@ -1,11 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains migration for location schedules.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
+
 use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;

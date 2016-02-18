@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains YMCA holiday hours widget.
- */
-
 namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Datetime\DrupalDateTime;

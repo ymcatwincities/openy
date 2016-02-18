@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Ymca office hours formatter.
- */
-
 namespace Drupal\webforms\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;

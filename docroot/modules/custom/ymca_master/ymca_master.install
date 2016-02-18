@@ -7,6 +7,7 @@
 
 use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Database\Database;
 
 /**
  * Protecting sites with a shield.
@@ -285,4 +286,142 @@ function ymca_master_update_8016() {
   }
   \Drupal::logger('ymca_master')
     ->info('Hello! Current environment is: %env.', ['%env' => $env]);
+}
+
+/**
+ * Fix menu_link_content links.
+ *
+ * Current architecture implies running the migration of menu_link_content
+ * entities before the pages migration. So, menu_link_content entities
+ * do not know anything about node ids. That's why this code should be run after
+ * the migration of the second dump.
+ */
+function ymca_master_update_8017() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_fix_menu_link_content();
+}
+
+/**
+ * Enable Membership block by default.
+ */
+function ymca_master_update_8018() {
+  $map = [
+    'node__field_membership_block' => 'field_membership_block_value',
+    'node_revision__field_membership_block' => 'field_membership_block_value',
+    'node__field_include_general_blog_posts' => 'field_include_general_blog_posts_value',
+    'node_revision__field_include_general_blog_posts' => 'field_include_general_blog_posts_value',
+  ];
+  foreach ($map as $table => $column) {
+    db_update($table)
+      ->fields(array($column => 1))
+      ->execute();
+  }
+}
+
+/**
+ * Update camp migrations.
+ */
+function ymca_master_update_8019() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+
+  $ignore = Drupal::config('ymca_migrate.settings')->get('ignore');
+
+  // We should remove all blocks created by previous before running migration update.
+  $remove = [
+    'date_block',
+    'expander_block',
+    'image_block',
+    'promo_block',
+    'slide_show',
+    'slide_show_item',
+  ];
+
+  $ids = \Drupal::entityQuery('block_content')
+    ->condition('type', $remove, 'IN')
+    ->condition('id', $ignore['block_content'], 'NOT IN')
+    ->execute();
+
+  $storage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $blocks = $storage->loadMultiple($ids);
+  $storage->delete($blocks);
+
+  // Run migrations update.
+  ymca_run_migration('ymca_migrate_node_blog', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_camp', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_location', TRUE, TRUE);
+  ymca_run_migration('ymca_migrate_node_page', TRUE, TRUE);
+
+  // Run some content fixes.
+  ymca_master_update_8015();
+  ymca_master_update_8017();
+  ymca_master_update_8018();
+}
+
+/**
+ * Fix trailing slashes issue.
+ */
+function ymca_master_update_8020() {
+  $db = Database::getConnection();
+  $query = $db->select('url_alias', 'ua')
+    ->fields('ua', ['source', 'alias'])
+    ->execute();
+
+  $repo = \Drupal::service('redirect.repository');
+
+  while ($alias = $query->fetchObject()) {
+    if (substr($alias->alias, -1, 1) !== '/') {
+      $source_path = ltrim($alias->alias . '/', '/');
+      try {
+        if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
+          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect->setSource($source_path);
+          $redirect->setRedirect($alias->source);
+          $redirect->setLanguage('en');
+          $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+          $redirect->save();
+        }
+      }
+      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+        watchdog_exception('ymca_master', $e);
+      }
+    }
+  }
+}
+
+/**
+ * Fix trailing slashes for old redirects.
+ */
+function ymca_master_update_8021() {
+  $db = Database::getConnection();
+  $query = $db->select('redirect', 'r')
+    ->fields('r', [
+      'redirect_source__path',
+      'redirect_redirect__uri',
+    ])
+    ->condition('r.redirect_redirect__uri', $db->escapeLike('internal:') . '%', 'LIKE')
+    ->condition('r.redirect_source__path', '%' . $db->escapeLike('/'), 'NOT LIKE')
+    ->execute();
+
+  $repo = \Drupal::service('redirect.repository');
+  $alias_manager = \Drupal::service('path.alias_manager');
+
+  while ($old = $query->fetchObject()) {
+    $uri = $old->redirect_redirect__uri;
+    $source_path = $old->redirect_source__path . '/';
+    if ($destination = $alias_manager->getPathByAlias(str_replace('internal:', '', $uri), 'en')) {
+      try {
+        if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
+          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect->setSource($source_path);
+          $redirect->setRedirect($destination);
+          $redirect->setLanguage('en');
+          $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+          $redirect->save();
+        }
+      }
+      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+        watchdog_exception('ymca_master', $e);
+      }
+    }
+  }
 }

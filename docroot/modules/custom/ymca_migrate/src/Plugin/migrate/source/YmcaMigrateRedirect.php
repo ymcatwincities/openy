@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains redirects migration.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;

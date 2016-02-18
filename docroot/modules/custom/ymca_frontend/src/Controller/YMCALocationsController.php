@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\ymca_frontend\Controller\YMCALocationsController.
- */
 
 namespace Drupal\ymca_frontend\Controller;
 

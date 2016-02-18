@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Personify Sso class.
- */
 
 namespace Drupal\personify_sso;
 
