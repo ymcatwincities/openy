@@ -3,7 +3,7 @@ env:
   pre_settings:
     - { name: '$settings["hash_salt"]', status: true, value: '1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ'}
   modules:
-    - { name: 'ymca_demo ymca_migrate ymca_migrate_status devel config_inspector config_devel stage_file_proxy', status: true }
+    - { name: 'ymca_demo ymca_migrate ymca_migrate_status devel config_inspector config_devel', status: true }
   drush_commands:
     - { name: 'sqlq', status: true, arguments: "--file=./modules/custom/ymca_migrate/misc/legacy.sql" }
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
