@@ -190,7 +190,7 @@ trait EntityHelperTrait {
     $build = $this->renderEntityEmbedDisplayPlugin(
       $entity,
       $context['data-entity-embed-display'],
-      (array) $context['data-entity-embed-settings'],
+      $context['data-entity-embed-settings'],
       $context
     );
     // @todo Should this hook get invoked if $build is an empty array?
