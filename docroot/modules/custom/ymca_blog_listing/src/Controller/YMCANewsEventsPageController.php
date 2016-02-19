@@ -23,7 +23,19 @@ class YMCANewsEventsPageController extends ControllerBase {
    *   Return render array.
    */
   public function pageView(NodeInterface $node) {
-    $view = views_embed_view('camp_blog_listing', 'blog_listing_embed', $node->id());
+    $view = '';
+    switch ($node->getType()) {
+      case 'camp':
+        $view = views_embed_view('camp_blog_listing', 'blog_listing_embed', $node->id());
+        break;
+
+      case 'location':
+        $view = views_embed_view('location_blog_listing', 'blog_listing_embed', $node->id());
+        break;
+
+      default:
+        \Drupal::logger('ymca_blog_listing')->alert(t('Not defined CT view.'));
+    }
 
     return [
       'view' => $view,
