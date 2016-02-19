@@ -37,7 +37,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
       '#title' => $this->t('Location'),
       '#title_extra' => $this->t('(optional—select up to 4)'),
       '#weight' => -100,
-      '#default_value' => $refine ? $params['location'] : [],
+      '#default_value' => ($refine && !empty($params['location'])) ? $params['location'] : [],
     ];
 
     return $form;
