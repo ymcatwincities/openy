@@ -7392,6 +7392,17 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   padding: 0;
 }
 
+body.node--type-camp.locations-camps-template .locations-page-under-lead-copy {
+  margin-top: -22px;
+  padding-top: 22px;
+}
+@media screen and (max-width: 1200px) {
+  body.node--type-camp.locations-camps-template .locations-page-under-lead-copy {
+    margin-top: -30px;
+    padding-top: 30px;
+  }
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
@@ -7464,6 +7475,14 @@ body.path-search #block-mainpagecontent li {
   float: right;
   margin: 0 0 15px 15px;
   max-width: 500px;
+}
+
+.copy > .richtext:first-child > .richtext {
+  margin-top: 0;
+}
+
+.groupex-search-form > p:first-child {
+  margin-bottom: 10px;
 }
 
 .form-item {
