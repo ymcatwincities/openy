@@ -3836,7 +3836,9 @@ a.tel {
 }
 
 .day-results .result-date, .week-results .result-name {
-  display: none;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 a[href$=pdf]:after, .lead-copy li a[href$=pdf]:after, .pdf-link:after {
