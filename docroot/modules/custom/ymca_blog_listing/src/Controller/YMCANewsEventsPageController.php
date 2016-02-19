@@ -30,7 +30,7 @@ class YMCANewsEventsPageController extends ControllerBase {
         break;
 
       case 'location':
-        $view = views_embed_view('location_blog_listing', 'blog_listing_embed', $node->id());
+        $view = views_embed_view('location_blog_listing', 'blog_listing_embed');
         break;
 
       default:
