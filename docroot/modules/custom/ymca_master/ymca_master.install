@@ -425,3 +425,18 @@ function ymca_master_update_8021() {
     }
   }
 }
+
+/**
+ * Fix redundant configs.
+ */
+function ymca_master_update_8022() {
+  Drupal::configFactory()->getEditable('stage_file_proxy.settings')->delete();
+  Drupal::configFactory()->getEditable('devel.settings')->delete();
+}
+
+/**
+ * Enable YMCA Membership module.
+ */
+function ymca_master_update_8023() {
+  \Drupal::service('module_installer')->install(array('ymca_membership'), TRUE);
+}

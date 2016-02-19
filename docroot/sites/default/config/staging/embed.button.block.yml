@@ -9,6 +9,7 @@ dependencies:
     - block_content.type.expander_block
     - block_content.type.image_block
     - block_content.type.promo_block
+    - block_content.type.slide_show
   module:
     - block_content
     - entity_embed
@@ -24,6 +25,9 @@ type_settings:
     - expander_block
     - image_block
     - promo_block
+    - slide_show
   display_plugins:
     - 'entity_reference:entity_reference_entity_view'
+  entity_browser: ''
+  entity_browser_settings: null
 icon_uuid: null
