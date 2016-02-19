@@ -31,6 +31,13 @@ trait GroupexRequestTrait {
   public static $dateFilterFormat = 'm/d/y';
 
   /**
+   * Format for full date.
+   *
+   * @var string
+   */
+  public static $dateFullFormat = 'l, F j, Y';
+
+  /**
    * Groupex ID garbage.
    *
    * @var string
