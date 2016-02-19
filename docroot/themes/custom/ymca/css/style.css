@@ -7392,12 +7392,12 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   padding: 0;
 }
 
-body.node--type-camp.locations-camps-template .locations-page-under-lead-copy {
+body.locations-camps-template .locations-page-under-lead-copy {
   margin-top: -22px;
   padding-top: 22px;
 }
 @media screen and (max-width: 1200px) {
-  body.node--type-camp.locations-camps-template .locations-page-under-lead-copy {
+  body.locations-camps-template .locations-page-under-lead-copy {
     margin-top: -30px;
     padding-top: 30px;
   }
