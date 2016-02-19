@@ -45,7 +45,7 @@ class GroupexFormLocation extends GroupexFormBase {
     }
 
     $form['note'] = [
-      '#markup' => $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.'),
+      '#markup' => '<p>' . $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.') . '</p>',
       '#weight' => -100,
     ];
 
