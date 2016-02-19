@@ -293,7 +293,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
           default:
             $value[$property] = [
-              'value' => '<article class="richtext original">' . $this->replaceTokens->processText($component['body']) . '</article>',
+              'value' => '<div class="richtext original">' . $this->replaceTokens->processText($component['body']) . '</div>',
               'format' => 'full_html',
             ];
         }
@@ -352,7 +352,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
 
             // Finally, pass processed body.
             $value[$property] = [
-              'value' => '<article class="richtext original">' . $this->replaceTokens->processText($inner['body']) . '</article>',
+              'value' => '<div class="richtext original">' . $this->replaceTokens->processText($inner['body']) . '</div>',
               'format' => 'full_html',
             ];
         }
