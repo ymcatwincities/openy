@@ -35,10 +35,11 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
       switch ($bundle) {
         case 'article':
           if ($field_related_value = $node->field_related->getValue()) {
-            if (!empty($field_related_value)) {
-              $related = \Drupal::entityTypeManager()->getStorage('node')->load($field_related_value[0]['target_id']);
-              if ($related->bundle() == 'location') {
-                $route_name_matched = 'ymca_frontend.locations';
+            if (!empty($field_related_value[0]['target_id'])) {
+              if ($related = \Drupal::entityTypeManager()->getStorage('node')->load($field_related_value[0]['target_id'])) {
+                if ($related->bundle() == 'location') {
+                  $route_name_matched = 'ymca_frontend.locations';
+                }
               }
             }
           }
