@@ -50,7 +50,9 @@
             <div class="row">
               <div class="col-sm-12">
                 <h3>
+                  {% if pdf_href is not null %}
                   <a class="btn btn-default pull-right btn-xs pdf-link" href="{{ pdf_href }}">{{ 'View This Week’s PDF'|t }}</a>
+                  {% endif %}
                   <span class="result-date">{{ day }}</span>
                 </h3>
               </div>
