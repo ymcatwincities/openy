@@ -6,4 +6,4 @@ membership_page:
   js:
     js/membership-page.js: {}
   dependencies:
-    - core/drupal
+    - core/jquery
