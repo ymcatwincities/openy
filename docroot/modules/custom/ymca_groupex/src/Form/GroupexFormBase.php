@@ -63,7 +63,7 @@ abstract class GroupexFormBase extends FormBase {
       ],
       '#title' => $this->t('Time of Day'),
       '#title_extra' => $this->t('(optional)'),
-      '#default_value' => $refine ? $params['time_of_day'] : [],
+      '#default_value' => ($refine && !empty($params['time_of_day'])) ? $params['time_of_day'] : [],
     ];
 
     $form['filter_length'] = [

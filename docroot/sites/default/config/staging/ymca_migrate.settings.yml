@@ -4,3 +4,6 @@ timezone: America/Chicago
 ignore:
   block_content:
     - 1136
+    - 8341
+    - 8331
+    - 8336
