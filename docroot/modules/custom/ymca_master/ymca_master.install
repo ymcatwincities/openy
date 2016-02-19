@@ -440,3 +440,34 @@ function ymca_master_update_8022() {
 function ymca_master_update_8023() {
   \Drupal::service('module_installer')->install(array('ymca_membership'), TRUE);
 }
+
+/**
+ * Remove all Camp-related 'News & Events' nodes.
+ */
+function ymca_master_update_8024() {
+  // Camps.
+  $loc_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  // Create aliases for News & Events pages of existing Camps.
+  $suffix = '/about/news__events';
+  foreach ($loc_ids as $id) {
+    $loc_path = '/node/' . $id;
+    $news_events_path = $loc_path . $suffix;
+    $loc_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($loc_path);
+    $news_events_path_alias = $loc_path_alias . $suffix;
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en');
+  }
+
+  // Camp-related 'News & Events' nodes.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('title', 'News & Events')
+    ->condition('field_related.target_id', $loc_ids, 'IN')
+    ->execute();
+
+  // Remove nodes.
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $nodes = $storage->loadMultiple($nids);
+  $storage->delete($nodes);
+}
