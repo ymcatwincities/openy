@@ -88,7 +88,7 @@ abstract class GroupexFormBase extends FormBase {
     }
     $form['filter_date'] = [
       '#type' => 'datetime',
-      '#date_date_format' => 'j/d/y',
+      '#date_date_format' => 'n/d/y',
       '#title' => $this->t('Start Date'),
       '#default_value' => $filter_date_default,
       '#date_time_element' => 'none',
