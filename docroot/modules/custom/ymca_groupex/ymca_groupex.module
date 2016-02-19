@@ -42,6 +42,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
         'form' => '',
         'schedule' => '',
         'empty_results' => FALSE,
+        'image' => '',
       ],
       'template' => 'groupex-all-search-results',
     ],
