@@ -20,6 +20,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
         'classes' => [],
         'title' => '',
         'pdf_href' => '',
+        'image' => '',
       ],
       'template' => 'groupex-schedule-day',
     ],
@@ -27,6 +28,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       'variables' => [
         'days' => [],
         'pdf_href' => '',
+        'image' => '',
       ],
       'template' => 'groupex-schedule-week',
     ],
@@ -61,6 +63,9 @@ function ymca_groupex_schedule_layout(array $schedule) {
   $results = [];
   $cache = ['max-age' => 0];
 
+  $module_path = drupal_get_path('module', 'ymca_groupex');
+  $image = \Drupal\Core\Url::fromUri('base:' . $module_path . '/assets/endorsed_by_silverfit_sm.png');
+
   // Output schedule by type.
   switch ($schedule['type']) {
     case 'day':
@@ -72,6 +77,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
           '#title' => $schedule['title'],
           '#pdf_href' => $schedule['pdf_href'],
           '#cache' => $cache,
+          '#image' => $image,
         ];
       }
       break;
@@ -84,6 +90,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
           '#days' => $schedule['days'],
           '#pdf_href' => $schedule['pdf_href'],
           '#cache' => $cache,
+          '#image' => $image,
         ];
       }
       break;
