@@ -260,9 +260,6 @@ function ymca_preprocess_node(&$variables) {
         $variables['membership_block'] = $view_builder->view($block);
       }
     }
-    // Remove YMCA from title.
-    $title = $variables['node']->getTitle();
-    $variables['node']->label = str_replace('YMCA', '', $title);
   }
 
   // Blog specific preprocessing.
