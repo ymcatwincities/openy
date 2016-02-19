@@ -3836,9 +3836,7 @@ a.tel {
 }
 
 .day-results .result-date, .week-results .result-name {
-  font-size: 18px;
-  text-transform: uppercase;
-  font-weight: bold;
+  display: none;
 }
 
 a[href$=pdf]:after, .lead-copy li a[href$=pdf]:after, .pdf-link:after {
@@ -7483,6 +7481,10 @@ body.path-search #block-mainpagecontent li {
 
 .groupex-search-form > p:first-child {
   margin-bottom: 10px;
+}
+
+.sidebar-promos a.wrapper h2 {
+  font-size: 24px;
 }
 
 .form-item {
