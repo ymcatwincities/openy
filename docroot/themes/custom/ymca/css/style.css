@@ -7475,7 +7475,7 @@ body.path-search #block-mainpagecontent li {
   max-width: 500px;
 }
 
-.copy > .richtext:first-child > .richtext {
+.copy > .richtext:first-child > .richtext:first-child {
   margin-top: 0;
 }
 
@@ -7485,6 +7485,24 @@ body.path-search #block-mainpagecontent li {
 
 .sidebar-promos a.wrapper h2 {
   font-size: 24px;
+}
+
+nav#block-footermenuleft,
+nav#block-footermenucenter,
+nav#block-footermenuright {
+  padding-left: 0;
+}
+
+.landing-template.ancestor-camps .content {
+  padding: 40px 0 60px;
+}
+.landing-template.ancestor-camps section.node--type-article img {
+  float: left;
+  margin: 0 15px 15px 0;
+}
+
+.print-group-link {
+  margin-top: 15px;
 }
 
 .form-item {

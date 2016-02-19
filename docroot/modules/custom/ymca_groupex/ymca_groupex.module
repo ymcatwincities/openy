@@ -113,6 +113,14 @@ function ymca_groupex_preprocess_node(&$variables) {
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'schedules') {
     $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormLocation');
     $variables['form_find_classes'] = \Drupal::service('renderer')->render($form, FALSE);
+    $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+    $location_name = $variables['node']->getTitle();
+    foreach ($locations as $location) {
+      if ($location['name'] == $location_name) {
+        $l = $location['id'];
+      }
+    }
+    $variables['print_group_exercise_uri'] = 'http://www.groupexpro.com/ymcatwincities/print.php?account=3&amp;l=' . $l;
   }
 
   // Pass the search results to the schedules page.
