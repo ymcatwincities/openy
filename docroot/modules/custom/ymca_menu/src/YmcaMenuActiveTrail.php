@@ -19,6 +19,10 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
   public function getActiveLink($menu_name = NULL) {
     // Call the parent method to implement the default behavior.
     $found = parent::getActiveLink($menu_name);
+    // Only override active link detection for Top menu.
+    if ($menu_name !== 'top-menu') {
+      return $found;
+    }
 
     $route_name = \Drupal::routeMatch()->getRouteName();
     if ($route_name == 'ymca_groupex.all_schedules_search_results') {
@@ -67,7 +71,7 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
         ->loadLinksByRoute($route_name_matched);
       if ($links) {
         foreach ($links as $link) {
-          if ($link->getMenuName() == 'top-menu') {
+          if ($link->getMenuName() == $menu_name) {
             $found = $link;
           }
         }
