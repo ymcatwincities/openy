@@ -440,3 +440,11 @@ function ymca_master_update_8022() {
 function ymca_master_update_8023() {
   \Drupal::service('module_installer')->install(array('ymca_membership'), TRUE);
 }
+
+/**
+ * Run files migration.
+ */
+function ymca_master_update_8024() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_run_migration('ymca_migrate_file_image', TRUE, TRUE);
+}
