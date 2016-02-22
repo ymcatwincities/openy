@@ -90,3 +90,16 @@ nav#block-footermenuright {
 .print-group-link {
   margin-top: 15px;
 }
+
+.sidebar-promos {
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+  p {
+    padding: 0;
+  }
+  &.promos .richtext p {
+    padding: 0 20px 10px;
+  }
+}
