@@ -93,8 +93,8 @@ nav#block-footermenuright {
 
 .sidebar-promos {
   iframe {
-    max-width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
   p {
     padding: 0;
