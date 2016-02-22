@@ -7526,6 +7526,10 @@ nav#block-footermenuright {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
 
+.carousel-control.hidden {
+  display: none !important;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
