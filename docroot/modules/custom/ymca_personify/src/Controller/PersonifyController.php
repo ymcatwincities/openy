@@ -93,7 +93,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return $redirect[];
+    return $redirect;
   }
 
   /**
