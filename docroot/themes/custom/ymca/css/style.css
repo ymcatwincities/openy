@@ -7505,6 +7505,17 @@ nav#block-footermenuright {
   margin-top: 15px;
 }
 
+.sidebar-promos iframe {
+  width: 100% !important;
+  height: auto !important;
+}
+.sidebar-promos p {
+  padding: 0;
+}
+.sidebar-promos.promos .richtext p {
+  padding: 0 20px 10px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
