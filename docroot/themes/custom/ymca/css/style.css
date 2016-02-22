@@ -7520,6 +7520,12 @@ nav#block-footermenuright {
   top: 130px;
 }
 
+.carousel-caption .btn {
+  padding: 15px 35px !important;
+  font-size: 16px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
 .form-item {
   margin-bottom: 15px;
 }
