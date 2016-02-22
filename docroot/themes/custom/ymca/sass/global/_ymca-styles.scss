@@ -105,7 +105,41 @@ nav#block-footermenuright {
 }
 
 .toolbar-fixed.toolbar-horizontal.page_home .nav-home.affix {
+  top: 90px;
+}
+.toolbar-fixed.toolbar-horizontal.page_home.toolbar-tray-open .nav-home.affix {
   top: 130px;
+}
+@media screen and (max-width: 767px) {
+  .page_home #block-tabs {
+    margin-top: 0;
+  }
+  .page_home.toolbar-vertical {
+    padding-top: 0 !important;
+    #page-head {
+      .navbar-fixed-top {
+        margin-top: 0;
+        left: 0;
+      }
+      .top-navs.navbar-fixed-top.affix .nav-global {
+        top: 0;
+      }
+      .top-navs.navbar-fixed-top.affix-top .nav-global {
+        top: 39px !important;
+      }
+    }
+    .acquia-active-subscription {
+      display: none;
+    }
+    &.sidebar-in #sidebar {
+      margin-top: 39px;
+    }
+  }
+  .page_home.toolbar-vertical.toolbar-fixed {
+    #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
+      top: 39px !important;
+    }
+  }
 }
 
 .carousel-caption .btn {
