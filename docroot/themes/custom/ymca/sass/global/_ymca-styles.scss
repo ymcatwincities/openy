@@ -110,6 +110,13 @@ nav#block-footermenuright {
 .toolbar-fixed.toolbar-horizontal.page_home.toolbar-tray-open .nav-home.affix {
   top: 130px;
 }
+.no-touch .toolbar-fixed.toolbar-vertical.toolbar-tray-open .nav-home.affix {
+  position: fixed;
+  top: 90px;
+  bottom: auto;
+  width: auto;
+  left: 150px;
+}
 @media screen and (max-width: 767px) {
   #block-tabs {
     margin-top: 0;
@@ -122,7 +129,7 @@ nav#block-footermenuright {
         left: 0;
       }
       .top-navs.navbar-fixed-top.affix .nav-global {
-        top: 0;
+        top: 0 !important;
       }
       .top-navs.navbar-fixed-top.affix-top .nav-global {
         top: 39px !important;
@@ -135,13 +142,18 @@ nav#block-footermenuright {
       margin-top: 39px;
     }
   }
-  .page_home.toolbar-vertical.toolbar-fixed {
+  .toolbar-vertical.toolbar-fixed {
+    #page-head .top-navs.navbar-fixed-top.affix .nav-global {
+      top: 39px !important;
+    }
     #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
       top: 39px !important;
     }
   }
 }
-
+.toolbar-oriented .toolbar-bar {
+  z-index: 1002;
+}
 .carousel-caption .btn {
   padding: 15px 35px !important;
   font-size: 16px !important;
