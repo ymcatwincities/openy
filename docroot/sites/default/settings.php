@@ -712,7 +712,7 @@ if (file_exists('/var/www/site-php')) {
 }
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  if (isset($_GET['q']) && strpos($_GET['q'], 'admin') === 0) {
+  if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
     ini_set('memory_limit', '2048M');
   }
 }
