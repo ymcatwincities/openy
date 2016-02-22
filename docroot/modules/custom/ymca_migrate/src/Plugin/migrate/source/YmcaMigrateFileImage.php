@@ -30,6 +30,7 @@ class YmcaMigrateFileImage extends SqlBase {
       'ae',
       'a.extension_id = ae.asset_extension_id'
     );
+    $query->condition('a.asset_id', [3729, 5586], 'NOT IN');
 
     if ($this->isDev()) {
       $query->condition(
