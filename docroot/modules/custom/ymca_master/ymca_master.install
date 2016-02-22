@@ -445,6 +445,14 @@ function ymca_master_update_8023() {
  * Run files migration.
  */
 function ymca_master_update_8024() {
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    ini_set('memory_limit', '2048M');
+    $dir = DRUPAL_ROOT . '/' . \Drupal\Core\StreamWrapper\PublicStream::basePath() . '/cache';
+    $config = \Drupal::service('config.factory')->getEditable('ymca_migrate.settings');
+    $config->set('cache_dir', $dir);
+    $config->save();
+  }
+
   module_load_include('php', 'ymca_master', 'include/helper');
   ymca_run_migration('ymca_migrate_file_image', TRUE, TRUE);
 }
