@@ -710,3 +710,9 @@ if (file_exists('/var/www/site-php')) {
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
 }
+
+if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+  if (isset($_GET['q']) && strpos($_GET['q'], 'admin') === 0) {
+    ini_set('memory_limit', '2048M');
+  }
+}
