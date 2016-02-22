@@ -7525,27 +7525,27 @@ nav#block-footermenuright {
 }
 
 @media screen and (max-width: 767px) {
-  .page_home #block-tabs {
+  #block-tabs {
     margin-top: 0;
   }
 
-  .page_home.toolbar-vertical {
+  .toolbar-vertical {
     padding-top: 0 !important;
   }
-  .page_home.toolbar-vertical #page-head .navbar-fixed-top {
+  .toolbar-vertical #page-head .navbar-fixed-top {
     margin-top: 0;
     left: 0;
   }
-  .page_home.toolbar-vertical #page-head .top-navs.navbar-fixed-top.affix .nav-global {
+  .toolbar-vertical #page-head .top-navs.navbar-fixed-top.affix .nav-global {
     top: 0;
   }
-  .page_home.toolbar-vertical #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
+  .toolbar-vertical #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
     top: 39px !important;
   }
-  .page_home.toolbar-vertical .acquia-active-subscription {
+  .toolbar-vertical .acquia-active-subscription {
     display: none;
   }
-  .page_home.toolbar-vertical.sidebar-in #sidebar {
+  .toolbar-vertical.sidebar-in #sidebar {
     margin-top: 39px;
   }
 

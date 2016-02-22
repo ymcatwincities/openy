@@ -111,10 +111,10 @@ nav#block-footermenuright {
   top: 130px;
 }
 @media screen and (max-width: 767px) {
-  .page_home #block-tabs {
+  #block-tabs {
     margin-top: 0;
   }
-  .page_home.toolbar-vertical {
+  .toolbar-vertical {
     padding-top: 0 !important;
     #page-head {
       .navbar-fixed-top {
