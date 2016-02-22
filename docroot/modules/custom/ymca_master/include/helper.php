@@ -67,6 +67,8 @@ function ymca_run_migration($migration, $update = FALSE, $force = FALSE) {
     $migration->getIdMap()->prepareUpdate();
   }
 
+  $migration->setStatus(\Drupal\migrate\Entity\MigrationInterface::STATUS_IDLE);
+
   $executable = new \Drupal\migrate\MigrateExecutable($migration, $migrate_message, $event_dispatcher);
   $executable->import();
 }
