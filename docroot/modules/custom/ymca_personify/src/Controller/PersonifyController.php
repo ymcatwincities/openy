@@ -64,7 +64,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return [];
+    return $redirect;
   }
 
   /**
@@ -77,7 +77,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return [];
+    return $redirect;
   }
 
   /**
@@ -93,7 +93,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return [];
+    return $redirect[];
   }
 
   /**
@@ -120,7 +120,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new RedirectResponse(Url::fromRoute('<front>')->toString());
     $redirect->send();
 
-    return [];
+    return $redirect;
   }
 
 }
