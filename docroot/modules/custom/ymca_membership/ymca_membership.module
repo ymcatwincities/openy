@@ -76,11 +76,14 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
 function ymca_membership_mail_alter(&$message) {
   if ($message['id'] == 'contact_page_mail') {
     if (!empty($message['params']['contact_form']) && $message['params']['contact_form']->id() == 'membership_form') {
-
+      $theme_url = URL::fromUri('base:themes/custom/ymca/img');
+      $theme_url->setAbsolute(TRUE);
+      $site_url = URL::fromRoute('<front>');
+      $site_url->setAbsolute(TRUE);
       $mail_wrapper_build = [
         '#theme' => 'membership_mail_wrapper',
-        '#theme_path' => 'http://drupal.192.168.56.132.xip.io/themes/custom/ymca/img',
-        '#site_path' => 'http://drupal.192.168.56.132.xip.io/',
+        '#theme_path' => $theme_url,
+        '#site_path' => $site_url,
         '#current_date_month_text_long' => date('F'),
         '#current_date_day' => date('j'),
         '#current_date_year_long' => date('Y'),
