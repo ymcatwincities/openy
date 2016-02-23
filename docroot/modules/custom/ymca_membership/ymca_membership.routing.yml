@@ -5,3 +5,10 @@ ymca_membership.page:
     _title: Membership
   requirements:
     _permission: access content
+ymca_membership.thank_you:
+  path: membership/thank-you
+  defaults:
+    _controller: \Drupal\ymca_membership\Controller\YMCAMembershipPage::submissionView
+    _title: Membership
+  requirements:
+    _permission: access content

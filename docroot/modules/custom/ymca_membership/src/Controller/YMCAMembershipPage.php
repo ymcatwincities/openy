@@ -5,6 +5,7 @@ namespace Drupal\ymca_membership\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Link;
 
 /**
  * Implements YMCAMembershipPage.
@@ -102,4 +103,73 @@ class YMCAMembershipPage extends ControllerBase {
     return $block_build;
   }
 
+  public function submissionView() {
+    $uuid = \Drupal::request()->query->get('key');
+    // Load submission data.
+    $submissions = $this->entityTypeManager()
+      ->getStorage('contact_message')
+      ->loadByProperties([
+        'uuid' => $uuid,
+      ]);
+
+    // Incorrect UUID entered.
+    if (!$submissions) {
+      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+    }
+
+    $submission = reset($submissions);
+
+    // Submission data available only for 1 minute.
+    if (time() - $submission->created->getValue()[0]['value'] > 60) {
+      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+    }
+
+    $location_build = [];
+    $location_title = '';
+    $location = \Drupal::service('webforms.node_extractor')
+      ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+    if (!$location) {
+      \Drupal::logger('ymca_membership')->alert(t('Unbound prefered Y location value selected.'));
+    }
+    else {
+      $location_title = $location->getTitle();
+      $address = $location->field_location->getValue()[0];
+      list($line1, $line2) = explode(', ', $address['address_line1'], 2);
+      $gmaps_address = str_replace(' ', '+', $line1);
+      $phone = $location->field_phone->getValue()[0]['value'];
+
+      $map_link = new Link('Map and Directions', URL::fromUri('http://maps.google.com/', [
+        'query' => ['q' => $address['address_line1'] . $address['postal_code']],
+      ]));
+
+      $location_build = [
+        // TODO: full title should be retrieved from other field.
+        'full_title' => $location->getTitle(),
+        'gmaps_address' => $gmaps_address,
+        'address_line1' => $line1,
+        'address_line2' => $line2,
+        'postal_code' => $address['postal_code'],
+        'map_link' => $map_link,
+        'phone' => $phone,
+        'more_link' => new Link('More about this location', URL::fromUri('entity:node/' . $location->id())),
+      ];
+    }
+
+    $submission_build = [
+      'firstname' => $submission->field_first_name->getValue()[0]['value'],
+      'lastname' => $submission->field_last_name->getValue()[0]['value'],
+      'email' => $submission->field_email_address->getValue()[0]['value'],
+      'phone' => $submission->field_phone_number->getValue()[0]['value'],
+      'location' => $location_title,
+    ];
+
+    return [
+      '#theme' => 'membership_thank_you',
+      '#location' => $location_build,
+      '#submission' => $submission_build,
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
+  }
 }
