@@ -1,0 +1,7 @@
+edit mimemail user settings:
+  title: Edit Mime Mail user settings
+  description: Edit user specific settings for Mime Mail.
+send arbitrary files:
+  title: Send arbitrary files
+  description: Attach or embed files located outside the public files directory.
+  restrict access: true
