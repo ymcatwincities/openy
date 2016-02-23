@@ -1,0 +1,23 @@
+uuid: 5d272878-c296-4814-a600-eeffcf59c705
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.block_content.field_set_as_global_alert
+id: block_content.alert_block.field_set_as_global_alert
+field_name: field_set_as_global_alert
+entity_type: block_content
+bundle: alert_block
+label: 'Global Alert'
+description: 'Set this Alert block as global. <strong>Overrides all others.</strong>'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Set as Global Alert'
+  off_label: 'Not Global'
+field_type: boolean
