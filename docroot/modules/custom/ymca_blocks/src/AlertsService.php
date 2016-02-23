@@ -29,7 +29,11 @@ class AlertsService {
    *   Alert Block content entity.
    */
   public function setCurrentAlertBlock(\Drupal\block_content\Entity\BlockContent $block) {
-    // All pages with an alert block should get cache invalidated.
+    if (!is_null($this->currentBlock)) {
+      // All pages with an old alert block should get cache invalidated.
+      \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $this->currentBlock->id()]);
+    }
+    // All pages with an alert block should get cache invalidated as well.
     \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
     $this->currentBlock = $block;
   }
@@ -69,7 +73,7 @@ class AlertsService {
 
   /**
    * Get AlertBlock dependent on cookies.
-   * 
+   *
    * @return bool|\Drupal\block_content\Entity\BlockContent
    *   FALSE if user closed Alert Block, object otherwise.
    */
