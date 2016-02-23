@@ -68,6 +68,8 @@ class AlertsService {
   }
 
   /**
+   * Get AlertBlock dependent on cookies.
+   * 
    * @return bool|\Drupal\block_content\Entity\BlockContent
    *   FALSE if user closed Alert Block, object otherwise.
    */
