@@ -523,3 +523,10 @@ function ymca_master_update_8025() {
   ymca_master_update_8020();
   ymca_master_update_8021();
 }
+
+/**
+ * Enable MIMEMail module.
+ */
+function ymca_master_update_8026() {
+  \Drupal::service('module_installer')->install(['mailsystem', 'mimemail'], TRUE);
+}
