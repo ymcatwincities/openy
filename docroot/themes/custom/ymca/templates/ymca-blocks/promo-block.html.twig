@@ -14,19 +14,18 @@
  */
 #}
 
-<article class="richtext">
+<div class="richtext">
   {% if link %}
-  <a class="wrapper" href="{{ link }}" title="{{ link_text }}">
     <div class="img-crop img-crop-horizontal">{{ image }}</div>
     <h2>{{ header }}</h2>
     <p>{{ content }}</p>
-  </a>
+    <a href="{{ link }}">{{ link_text }}</a>
   {% else %}
     <div class="text-promo">
       {{ _self.block_content(image, header, content) }}
     </div>
   {% endif %}
-</article>
+</div>
 
 {% macro block_content(image, header, content) %}
   {% if image.0 %}
