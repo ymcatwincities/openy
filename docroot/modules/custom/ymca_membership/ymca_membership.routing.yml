@@ -1,0 +1,7 @@
+ymca_membership.page:
+  path: membership
+  defaults:
+    _controller: \Drupal\ymca_membership\Controller\YMCAMembershipPage::pageView
+    _title: Membership
+  requirements:
+    _permission: access content

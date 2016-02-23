@@ -18,7 +18,7 @@ class YmcaMigrateRedirect extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('amm_site_page', 'p')
+    $query = $this->select('amm_site_page', 'p')
       ->fields('p',
       [
         'site_page_id',
@@ -29,6 +29,11 @@ class YmcaMigrateRedirect extends SqlBase {
         'redirect_page_id',
       ])
       ->condition('is_redirect', 1);
+
+    // Omit duplicate redirect.
+    $query->condition('site_page_id', [27706], 'NOT IN');
+
+    return $query;
   }
 
   /**
