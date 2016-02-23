@@ -485,7 +485,6 @@ function ymca_master_update_8025() {
   $storage->delete($blocks);
 
   // Run migrations update.
-  // @todo: Create migration for new menu item
   $migrations = [
     'ymca_migrate_block_content_code_block',
     'ymca_migrate_menu_link_content_camps',
@@ -495,6 +494,7 @@ function ymca_master_update_8025() {
     'ymca_migrate_menu_link_content_kid_teen_activities',
     'ymca_migrate_menu_link_content_locations',
     'ymca_migrate_menu_link_content_swimming',
+    'ymca_migrate_menu_link_content_our_cause',
     'ymca_migrate_menu_link_content_redirect',
     'ymca_migrate_node_blog',
     'ymca_migrate_node_page',
