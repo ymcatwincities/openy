@@ -69,3 +69,46 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
     $form['field_membership_block']['#suffix'] = render($link);
   }
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function ymca_alters_block_content_presave(
+  Drupal\Core\Entity\EntityInterface $entity
+) {
+  /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $ty */
+  $ty = $entity->get('type');
+  if (!isset($ty)) {
+    return;
+  }
+  $type = $ty->getValue()[0]['target_id'];
+  if ($type != 'alert_block') {
+    return;
+  }
+  $global = $entity->get('field_set_as_global_alert');
+  $global_val = $global->getValue()[0]['value'];
+  if ($global_val != 1) {
+    // Prevents from saving loop.
+    return;
+  }
+  $query = \Drupal::entityQuery('block_content')
+    ->condition('type', 'alert_block')
+    ->condition('field_set_as_global_alert', 1)
+    ->execute();
+
+  $blocks = \Drupal::entityManager()->getStorage('block_content')->loadMultiple(array_keys($query));
+  /** @var \Drupal\block_content\Entity\BlockContent $block */
+  foreach ($blocks as $block) {
+    if ($block->uuid() == $entity->uuid()) {
+      // All pages with an updated block should get cache invalidated.
+      \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
+      // No need to change itself.
+      continue;
+    }
+    // Unset all other alert blocks.
+    $block->set('field_set_as_global_alert', 0);
+    $block->save();
+    // All pages with an old block should get cache invalidated.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
+  }
+}
