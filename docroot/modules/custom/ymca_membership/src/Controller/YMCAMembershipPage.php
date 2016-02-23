@@ -117,7 +117,7 @@ class YMCAMembershipPage extends ControllerBase {
 
     // Incorrect UUID entered.
     if (!$submissions) {
-      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Incorrect UUID entered');
     }
 
     $submission = reset($submissions);
