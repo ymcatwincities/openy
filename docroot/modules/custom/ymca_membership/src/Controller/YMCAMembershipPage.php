@@ -103,6 +103,9 @@ class YMCAMembershipPage extends ControllerBase {
     return $block_build;
   }
 
+  /**
+   * Builds Membership thank you page.
+   */
   public function submissionView() {
     $uuid = \Drupal::request()->query->get('key');
     // Load submission data.
@@ -172,4 +175,5 @@ class YMCAMembershipPage extends ControllerBase {
       ],
     ];
   }
+
 }
