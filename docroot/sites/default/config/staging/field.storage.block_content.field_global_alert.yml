@@ -1,11 +1,11 @@
-uuid: 76419228-2dc2-47e4-9b12-184a49edeaf5
+uuid: cc3a52c5-fd70-42a9-bf1b-27873482cd76
 langcode: en
 status: true
 dependencies:
   module:
     - block_content
-id: block_content.field_set_as_global_alert
-field_name: field_set_as_global_alert
+id: block_content.field_global_alert
+field_name: field_global_alert
 entity_type: block_content
 type: boolean
 settings: {  }
