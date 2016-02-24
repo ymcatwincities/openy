@@ -34,7 +34,7 @@ class YMCANewsEventsPageController extends ControllerBase {
         break;
 
       default:
-        \Drupal::logger('ymca_blog_listing')->alert(t('Not defined CT view.'));
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
     }
 
     return [
