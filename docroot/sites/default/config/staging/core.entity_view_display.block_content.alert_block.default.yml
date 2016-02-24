@@ -5,6 +5,7 @@ dependencies:
   config:
     - block_content.type.alert_block
     - field.field.block_content.alert_block.field_block_content
+    - field.field.block_content.alert_block.field_global_alert
   module:
     - text
 id: block_content.alert_block.default
@@ -19,4 +20,5 @@ content:
     third_party_settings: {  }
     type: text_default
 hidden:
+  field_global_alert: true
   langcode: true

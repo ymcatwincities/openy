@@ -4,6 +4,7 @@
  * Alert block template.
  *
  * Available variables:
+ * - title: Title to display;
  * - message: Alert block message;
  * - inner_attributes: attributes object for inner span.
  *
@@ -14,7 +15,7 @@
 <section class="messages">
   <div id="alerts" class="hidden alert-messages alert alert-block alert-info alert-dismissable ">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>{{ 'Special Alert'|t }}:</strong>
+    <strong>{{ title }}:</strong>
     <span class="message"><span {{ inner_attributes }}>{{ message }}</span></span>
   </div>
 </section>

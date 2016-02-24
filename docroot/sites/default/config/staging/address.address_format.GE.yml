@@ -1,0 +1,18 @@
+uuid: 6991c580-7abc-4b10-8408-8d14a2011334
+langcode: en
+status: true
+dependencies: {  }
+countryCode: GE
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{4}'
+postalCodePrefix: null

@@ -1,5 +1,5 @@
 id: ymca_migrate_node_blog
-label: Blog migration.
+label: 'Blog migration.'
 migration_group: ymca
 migration_tags:
   - node
@@ -47,7 +47,7 @@ process:
     migration: ymca_migrate_taxonomy_term_tags
     source: label_id
 destination:
-  plugin: entity:node
+  plugin: 'entity:node'
 migration_dependencies:
   required:
     - ymca_migrate_taxonomy_term_tags
