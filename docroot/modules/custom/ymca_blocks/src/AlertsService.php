@@ -59,10 +59,18 @@ class AlertsService {
     if ($this->globalAlert != FALSE) {
       return $this->getGlobalAlertByUser();
     }
-    $query = \Drupal::entityQuery('block_content')
-      ->condition('type', 'alert_block')
-      ->condition('field_set_as_global_alert', 1)
-      ->execute();
+
+    try {
+      $query = \Drupal::entityQuery('block_content')
+        ->condition('type', 'alert_block')
+        ->condition('field_global_alert', 1)
+        ->execute();
+    }
+    catch (\Exception $e) {
+      watchdog_exception('AlertsService', $e);
+      return FALSE;
+    }
+
     if (empty($query)) {
       return FALSE;
     }

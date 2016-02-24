@@ -85,7 +85,10 @@ function ymca_alters_block_content_presave(
   if ($type != 'alert_block') {
     return;
   }
-  $global = $entity->get('field_set_as_global_alert');
+  if (!$entity->hasField('field_global_alert')) {
+    return;
+  }
+  $global = $entity->get('field_global_alert');
   $global_val = $global->getValue()[0]['value'];
   if ($global_val != 1) {
     // Prevents from saving loop.
@@ -93,7 +96,7 @@ function ymca_alters_block_content_presave(
   }
   $query = \Drupal::entityQuery('block_content')
     ->condition('type', 'alert_block')
-    ->condition('field_set_as_global_alert', 1)
+    ->condition('field_global_alert', 1)
     ->execute();
 
   $blocks = \Drupal::entityManager()->getStorage('block_content')->loadMultiple(array_keys($query));
@@ -106,7 +109,7 @@ function ymca_alters_block_content_presave(
       continue;
     }
     // Unset all other alert blocks.
-    $block->set('field_set_as_global_alert', 0);
+    $block->set('field_global_alert', 0);
     $block->save();
     // All pages with an old block should get cache invalidated.
     \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
