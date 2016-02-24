@@ -58,10 +58,116 @@
   }
 }
 
-.copy > .richtext:first-child > .richtext {
+.copy > .richtext:first-child > .richtext:first-child {
   margin-top: 0;
 }
 
 .groupex-search-form > p:first-child {
   margin-bottom: 10px;
+}
+
+.sidebar-promos a.wrapper h2 {
+  font-size: 24px;
+}
+
+nav#block-footermenuleft,
+nav#block-footermenucenter,
+nav#block-footermenuright {
+  padding-left: 0;
+}
+
+.landing-template.ancestor-camps {
+  .content {
+    padding: 40px 0 60px;
+  }
+
+  section.node--type-article img {
+    float: left;
+    margin: 0 15px 15px 0;
+  }
+}
+
+.print-group-link {
+  margin-top: 15px;
+}
+
+.sidebar-promos {
+  iframe {
+    width: 100% !important;
+    height: auto !important;
+  }
+  p {
+    padding: 0;
+  }
+  &.promos .richtext p {
+    padding: 0 20px 10px;
+  }
+  &.promos .richtext .text-promo p {
+    padding: 0;
+  }
+}
+
+.toolbar-fixed.toolbar-horizontal.page_home .nav-home.affix {
+  top: 90px;
+}
+.toolbar-fixed.toolbar-horizontal.page_home.toolbar-tray-open .nav-home.affix {
+  top: 130px;
+}
+.no-touch .toolbar-fixed.toolbar-vertical.toolbar-tray-open .nav-home.affix {
+  position: fixed;
+  top: 90px;
+  bottom: auto;
+  width: auto;
+  left: 150px;
+}
+@media screen and (max-width: 767px) {
+  #block-tabs {
+    margin-top: 0;
+  }
+  .toolbar-vertical {
+    padding-top: 0 !important;
+    #page-head {
+      .navbar-fixed-top {
+        margin-top: 0;
+        left: 0;
+      }
+      .top-navs.navbar-fixed-top.affix .nav-global {
+        top: 0 !important;
+      }
+      .top-navs.navbar-fixed-top.affix-top .nav-global {
+        top: 39px !important;
+      }
+    }
+    .acquia-active-subscription {
+      display: none;
+    }
+    &.sidebar-in #sidebar {
+      margin-top: 39px;
+    }
+  }
+  .toolbar-vertical.toolbar-fixed {
+    #page-head .top-navs.navbar-fixed-top.affix .nav-global {
+      top: 39px !important;
+    }
+    #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
+      top: 39px !important;
+    }
+  }
+}
+.toolbar-oriented .toolbar-bar {
+  z-index: 1002;
+}
+.carousel-caption .btn {
+  padding: 15px 35px !important;
+  font-size: 20px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-control.hidden {
+  display: none !important;
+}
+
+section.node--type-camp.content,
+section.node--type-location.content {
+  padding-top: 0;
 }

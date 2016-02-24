@@ -46,4 +46,5 @@ migration_dependencies:
     - ymca_migrate_menu_link_content_locations
     - ymca_migrate_menu_link_content_main
     - ymca_migrate_menu_link_content_swimming
+    - ymca_migrate_menu_link_content_our_cause
     - ymca_migrate_menu_link_content_redirect

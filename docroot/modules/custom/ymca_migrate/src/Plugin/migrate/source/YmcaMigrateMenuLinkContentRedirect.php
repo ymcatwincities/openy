@@ -175,6 +175,11 @@ class YmcaMigrateMenuLinkContentRedirect extends SqlBase {
           'title' => $row->getSourceProperty('page_name'),
           'link' => $row->getSourceProperty('redirect_url'),
         ];
+
+        // Specific redirect for SSO Sign Out page.
+        if ($row->getSourceProperty('site_page_id') == 13300) {
+          $data['link'] = 'internal:/personify/sign_out';
+        }
         break;
     }
     return $data;

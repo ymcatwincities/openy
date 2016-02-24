@@ -440,3 +440,98 @@ function ymca_master_update_8022() {
 function ymca_master_update_8023() {
   \Drupal::service('module_installer')->install(array('ymca_membership'), TRUE);
 }
+
+/**
+ * Run files migration.
+ */
+function ymca_master_update_8024() {
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    ini_set('memory_limit', '2048M');
+    $dir = DRUPAL_ROOT . '/' . \Drupal\Core\StreamWrapper\PublicStream::basePath() . '/cache';
+    $config = \Drupal::service('config.factory')->getEditable('ymca_migrate.settings');
+    $config->set('cache_dir', $dir);
+    $config->save();
+  }
+
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_run_migration('ymca_migrate_file_image', TRUE, TRUE);
+}
+
+/**
+ * Run migration for 2nd dump.
+ */
+function ymca_master_update_8025() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+
+  $ignore = Drupal::config('ymca_migrate.settings')->get('ignore');
+
+  // We should remove all blocks created by previous before running migration update.
+  $remove = [
+    'date_block',
+    'expander_block',
+    'image_block',
+    'promo_block',
+    'slide_show',
+    'slide_show_item',
+  ];
+
+  $ids = \Drupal::entityQuery('block_content')
+    ->condition('type', $remove, 'IN')
+    ->condition('id', $ignore['block_content'], 'NOT IN')
+    ->execute();
+
+  $storage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $blocks = $storage->loadMultiple($ids);
+  $storage->delete($blocks);
+
+  // Run migrations update.
+  $migrations = [
+    'ymca_migrate_block_content_code_block',
+    'ymca_migrate_menu_link_content_main',
+    'ymca_migrate_menu_link_content_camps',
+    'ymca_migrate_menu_link_content_child_care_preschool',
+    'ymca_migrate_menu_link_content_health_fitness',
+    'ymca_migrate_menu_link_content_jobs_suppliers_news',
+    'ymca_migrate_menu_link_content_kid_teen_activities',
+    'ymca_migrate_menu_link_content_locations',
+    'ymca_migrate_menu_link_content_swimming',
+    'ymca_migrate_menu_link_content_our_cause',
+    'ymca_migrate_menu_link_content_redirect',
+    'ymca_migrate_node_blog',
+    'ymca_migrate_node_page',
+    'ymca_migrate_node_camp',
+    'ymca_migrate_node_location',
+    'ymca_migrate_node_location_schedule',
+    'ymca_migrate_redirect',
+    'ymca_migrate_url_alias_page',
+    'ymca_migrate_url_alias_blog',
+    'ymca_migrate_url_alias_camp',
+    'ymca_migrate_url_alias_location',
+    'ymca_migrate_url_alias_location_schedule',
+    'ymca_migrate_taxonomy_term_tags',
+    'ymca_migrate_url_alias_tags',
+  ];
+
+  foreach ($migrations as $item) {
+    ymca_run_migration($item, TRUE, TRUE);
+  }
+
+  // Run some content fixes.
+  ymca_master_update_8015();
+  ymca_master_update_8017();
+  ymca_master_update_8018();
+  ymca_master_update_8020();
+  ymca_master_update_8021();
+}
+
+/**
+ * Enable mimemail & mailsystem modules.
+ */
+function ymca_master_update_8026() {
+  \Drupal::service('module_installer')->install(['mailsystem', 'mimemail'], TRUE);
+  $path = drupal_get_path('module', 'ymca_master');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/mailsystem.settings.yml',
+    $path . '/config/optional/mimemail.settings.yml',
+  ]);
+}
