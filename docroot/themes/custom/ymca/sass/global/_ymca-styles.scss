@@ -102,6 +102,9 @@ nav#block-footermenuright {
   &.promos .richtext p {
     padding: 0 20px 10px;
   }
+  &.promos .richtext .text-promo p {
+    padding: 0;
+  }
 }
 
 .toolbar-fixed.toolbar-horizontal.page_home .nav-home.affix {

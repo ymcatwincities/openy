@@ -7515,6 +7515,9 @@ nav#block-footermenuright {
 .sidebar-promos.promos .richtext p {
   padding: 0 20px 10px;
 }
+.sidebar-promos.promos .richtext .text-promo p {
+  padding: 0;
+}
 
 .toolbar-fixed.toolbar-horizontal.page_home .nav-home.affix {
   top: 90px;
