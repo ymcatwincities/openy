@@ -19,14 +19,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_global_alert:
-    weight: 1
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
 hidden:
+  field_global_alert: true
   langcode: true
