@@ -525,13 +525,14 @@ function ymca_master_update_8025() {
 }
 
 /**
- * Enable mimemail & mailsystem modules.
+ * Update location titles.
  */
 function ymca_master_update_8026() {
-  \Drupal::service('module_installer')->install(['mailsystem', 'mimemail'], TRUE);
-  $path = drupal_get_path('module', 'ymca_master');
-  \Drupal::service('config_import.importer')->importConfigs([
-    $path . '/config/optional/mailsystem.settings.yml',
-    $path . '/config/optional/mimemail.settings.yml',
-  ]);
+  $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+  foreach ($mappings as $item) {
+    if ($node = \Drupal\node\Entity\Node::load($item['entity_id'])) {
+      $node->setTitle($item['name']);
+      $node->save();
+    }
+  }
 }
