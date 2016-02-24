@@ -1,0 +1,18 @@
+uuid: 66511443-89ec-40f4-a100-f1c334ca26a9
+langcode: en
+status: true
+dependencies: {  }
+countryCode: CD
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %sortingCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: null
+postalCodePattern: null
+postalCodePrefix: null

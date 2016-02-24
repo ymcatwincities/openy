@@ -1,0 +1,15 @@
+uuid: 8561d827-4203-4811-9611-1711b7216cca
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: contact_an_aquatics_manager
+label: 'Contact an aquatics manager'
+recipients:
+  - webmaster@example.com
+reply: ''
+weight: 0
