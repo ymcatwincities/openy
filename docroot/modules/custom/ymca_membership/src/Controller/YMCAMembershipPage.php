@@ -103,6 +103,9 @@ class YMCAMembershipPage extends ControllerBase {
     return $block_build;
   }
 
+  /**
+   * Builds Membership thank you page.
+   */
   public function submissionView() {
     $uuid = \Drupal::request()->query->get('key');
     // Load submission data.
@@ -114,7 +117,7 @@ class YMCAMembershipPage extends ControllerBase {
 
     // Incorrect UUID entered.
     if (!$submissions) {
-      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Incorrect UUID entered');
     }
 
     $submission = reset($submissions);
@@ -172,4 +175,5 @@ class YMCAMembershipPage extends ControllerBase {
       ],
     ];
   }
+
 }
