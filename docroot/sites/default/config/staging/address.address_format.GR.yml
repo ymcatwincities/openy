@@ -1,0 +1,19 @@
+uuid: 0b3eb1fe-03ea-4425-9e07-7ed133ace0a1
+langcode: en
+status: true
+dependencies: {  }
+countryCode: GR
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{3} ?\d{2}'
+postalCodePrefix: null
