@@ -5,7 +5,7 @@ dependencies:
   config:
     - block_content.type.alert_block
     - field.field.block_content.alert_block.field_block_content
-    - field.field.block_content.alert_block.field_set_as_global_alert
+    - field.field.block_content.alert_block.field_global_alert
   module:
     - text
 id: block_content.alert_block.default
@@ -20,7 +20,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_set_as_global_alert:
+  field_global_alert:
     weight: 1
     settings:
       display_label: true

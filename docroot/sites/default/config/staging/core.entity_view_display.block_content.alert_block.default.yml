@@ -5,7 +5,7 @@ dependencies:
   config:
     - block_content.type.alert_block
     - field.field.block_content.alert_block.field_block_content
-    - field.field.block_content.alert_block.field_set_as_global_alert
+    - field.field.block_content.alert_block.field_global_alert
   module:
     - text
 id: block_content.alert_block.default
@@ -19,7 +19,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_set_as_global_alert:
+  field_global_alert:
     weight: 1
     label: above
     settings:
