@@ -1,5 +1,5 @@
 id: ymca_migrate_block_content_code_block
-label: Code block migration.
+label: 'Code block migration.'
 migration_group: ymca
 migration_tags:
   - block_content
@@ -15,4 +15,4 @@ process:
     plugin: default_value
     default_value: code
 destination:
-  plugin: entity:block_content
+  plugin: 'entity:block_content'

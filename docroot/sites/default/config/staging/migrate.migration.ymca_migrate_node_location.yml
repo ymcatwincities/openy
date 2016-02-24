@@ -1,5 +1,5 @@
 id: ymca_migrate_node_location
-label: Locations migration.
+label: 'Locations migration.'
 migration_group: ymca
 migration_tags:
   - node
@@ -32,7 +32,7 @@ process:
   field_location: field_location
   field_promo_slideshow: field_promo_slideshow
 destination:
-  plugin: entity:node
+  plugin: 'entity:node'
 migration_dependencies:
   required:
     - ymca_migrate_file_image

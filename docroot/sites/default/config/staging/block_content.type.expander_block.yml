@@ -1,0 +1,8 @@
+uuid: ab531227-a1ac-4ba9-8725-37513106b49c
+langcode: en
+status: true
+dependencies: {  }
+id: expander_block
+label: 'Expander Block'
+revision: 0
+description: 'Collapsible block.'

@@ -1,5 +1,5 @@
 id: ymca_migrate_redirect
-label: Redirects migration
+label: 'Redirects migration'
 migration_group: ymca
 migration_tags:
   - redirect
@@ -19,4 +19,4 @@ process:
   redirect_redirect: redirect_redirect
   status_code: redirect_type
 destination:
-  plugin: entity:redirect
+  plugin: 'entity:redirect'
