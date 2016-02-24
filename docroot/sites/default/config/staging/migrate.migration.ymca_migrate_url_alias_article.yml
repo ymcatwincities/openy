@@ -1,5 +1,5 @@
 id: ymca_migrate_url_alias_page
-label: URL aliases
+label: 'URL aliases'
 migration_group: ymca
 migration_tags:
   - node
