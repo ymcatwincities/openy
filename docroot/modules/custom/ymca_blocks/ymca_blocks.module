@@ -92,7 +92,7 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
 
       $build['promo'] = array(
         '#theme' => 'promo_block',
-        '#header' => \Drupal\Component\Utility\Html::escape($entity->field_block_header->value),
+        '#header' => html_entity_decode($entity->field_block_header->value),
         '#content' => $build['field_block_content'],
         '#image' => $build['field_image'],
         '#link' => $path,
