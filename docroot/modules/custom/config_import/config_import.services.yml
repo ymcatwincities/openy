@@ -1,4 +1,4 @@
 services:
   config_import.importer:
     class: Drupal\config_import\ConfigImporterService
-    arguments: ['@config.manager']
+    arguments: ['@config.manager', '@config.factory']

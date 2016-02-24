@@ -1,0 +1,9 @@
+mailsystem_test.theme:
+  path: '/mailsystem-test/theme'
+  defaults:
+    _title: 'Mailsystem theme'
+    _controller: '\Drupal\mailsystem_test\Controller\MailsystemTestController::sendMail'
+  options:
+    no_cache: 'TRUE'
+  requirements:
+    _access: 'TRUE'
