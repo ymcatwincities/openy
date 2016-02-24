@@ -64,7 +64,7 @@ class YmcaMigrateBrokenLinks extends ControllerBase {
   }
 
   /**
-   * Get page address by id
+   * Get page address by id.
    *
    * @param int $id
    *   Page ID.
