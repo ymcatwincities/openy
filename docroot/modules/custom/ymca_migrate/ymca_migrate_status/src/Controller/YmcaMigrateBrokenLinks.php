@@ -46,6 +46,8 @@ class YmcaMigrateBrokenLinks extends ControllerBase {
         else {
           $tokens[$token]['count']++;
         }
+
+        $tokens[$token]['places'] .= $item['bundle'] . '/' . $item['entity_id'] . ' ';
       }
     }
 
@@ -55,7 +57,7 @@ class YmcaMigrateBrokenLinks extends ControllerBase {
     });
 
     return array(
-      '#header' => ['Token ID', 'Address', 'Usages'],
+      '#header' => ['Token ID', 'Address', 'Count', 'Places'],
       '#theme' => 'table',
       '#rows' => $tokens,
     );
