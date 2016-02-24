@@ -1,0 +1,14 @@
+uuid: f4b976c7-3f28-4580-8d00-db003e435fd0
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.location_editor
+  module:
+    - user
+id: user_remove_role_action.location_editor
+label: 'Remove the Location Editor role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: location_editor

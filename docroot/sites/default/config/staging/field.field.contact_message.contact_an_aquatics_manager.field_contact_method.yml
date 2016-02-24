@@ -1,0 +1,21 @@
+uuid: 8cb38543-052c-4701-8000-a5e06bb7d02d
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_an_aquatics_manager
+    - field.storage.contact_message.field_contact_method
+  module:
+    - options
+id: contact_message.contact_an_aquatics_manager.field_contact_method
+field_name: field_contact_method
+entity_type: contact_message
+bundle: contact_an_aquatics_manager
+label: 'What is your preferred contact method?'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

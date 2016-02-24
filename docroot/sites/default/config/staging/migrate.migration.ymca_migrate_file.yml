@@ -1,5 +1,5 @@
 id: ymca_migrate_file
-label: Files migration
+label: 'Files migration'
 migration_group: example
 migration_tags:
   - file
@@ -18,4 +18,4 @@ process:
     plugin: default_value
     default_value: 1
 destination:
-  plugin: entity:file
+  plugin: 'entity:file'
