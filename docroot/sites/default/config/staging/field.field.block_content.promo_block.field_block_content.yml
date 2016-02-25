@@ -13,7 +13,7 @@ entity_type: block_content
 bundle: promo_block
 label: Text
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
