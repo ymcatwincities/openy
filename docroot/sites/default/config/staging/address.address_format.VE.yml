@@ -1,0 +1,20 @@
+uuid: 5707bed2-3d68-4804-882e-467e4a7cdcb5
+langcode: en
+status: true
+dependencies: {  }
+countryCode: VE
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality %postalCode, %administrativeArea"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - administrativeArea
+uppercaseFields:
+  - locality
+  - administrativeArea
+administrativeAreaType: province
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{4}'
+postalCodePrefix: null

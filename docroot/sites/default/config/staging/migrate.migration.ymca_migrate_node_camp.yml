@@ -1,5 +1,5 @@
 id: ymca_migrate_node_camp
-label: Camps migration.
+label: 'Camps migration.'
 migration_group: ymca
 migration_tags:
   - node
@@ -27,7 +27,7 @@ process:
   field_promo_slideshow: field_promo_slideshow
   field_camp_links: field_camp_links
 destination:
-  plugin: entity:node
+  plugin: 'entity:node'
 migration_dependencies:
   required:
     - ymca_migrate_file_image

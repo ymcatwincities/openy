@@ -1,5 +1,5 @@
 id: ymca_migrate_node_page
-label: Page migration.
+label: 'Page migration.'
 migration_group: ymca
 migration_tags:
   - node
@@ -29,9 +29,8 @@ process:
   field_header_image: field_header_image
   field_sidebar_navigation: field_sidebar_navigation
   field_related: field_related
-
 destination:
-  plugin: entity:node
+  plugin: 'entity:node'
 migration_dependencies:
   required:
     - ymca_migrate_taxonomy_term_tags
