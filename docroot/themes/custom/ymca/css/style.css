@@ -4076,9 +4076,6 @@ a[href$=pdf]:hover {
   z-index: 5000;
   margin: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
 }
 .alert-messages > * {
   vertical-align: top;
@@ -7587,6 +7584,26 @@ nav#block-footermenuright {
 section.node--type-camp.content,
 section.node--type-location.content {
   padding-top: 0;
+}
+
+.form-type-radio {
+  padding-top: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  min-height: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+.form-type-radio input {
+  float: left;
+  margin-left: -20px;
+}
+.form-type-radio label {
+  display: inline;
+  margin-bottom: 0;
+  font-weight: normal;
+  cursor: pointer;
 }
 
 .form-item {

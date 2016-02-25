@@ -171,3 +171,25 @@ section.node--type-camp.content,
 section.node--type-location.content {
   padding-top: 0;
 }
+
+.form-type-radio {
+  padding-top: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  min-height: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+
+  input {
+    float: left;
+    margin-left: -20px;
+  }
+  
+  label {
+    display: inline;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+  }
+}
