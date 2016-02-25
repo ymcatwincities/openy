@@ -7589,15 +7589,23 @@ section.node--type-location.content {
   padding-top: 0;
 }
 
-.field--type-list-string fieldset legend {
+.field--type-list-string fieldset legend,
+.field--type-list-integer fieldset legend {
   font-weight: bold;
   color: #333;
   text-transform: none;
   font-size: 14px;
   margin-bottom: 0;
+  padding: 7px 0 0;
 }
 
-form .js-form-type-radio {
+.field--type-list-string fieldset legend .fieldset-legend,
+.field--type-list-integer fieldset legend .fieldset-legend {
+  line-height: 20px;
+  color: #333;
+}
+
+body form .js-form-type-radio.form-item {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0;
@@ -7606,11 +7614,11 @@ form .js-form-type-radio {
   padding-left: 20px;
   vertical-align: middle;
 }
-form .js-form-type-radio input {
+body form .js-form-type-radio.form-item input {
   float: left;
   margin-left: -20px;
 }
-form .js-form-type-radio label {
+body form .js-form-type-radio.form-item label {
   display: inline;
   margin-bottom: 0;
   font-weight: normal;
