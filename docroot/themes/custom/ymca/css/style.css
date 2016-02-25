@@ -4076,9 +4076,9 @@ a[href$=pdf]:hover {
   z-index: 5000;
   margin: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.75);
 }
 .alert-messages > * {
   vertical-align: top;
@@ -7587,6 +7587,42 @@ nav#block-footermenuright {
 section.node--type-camp.content,
 section.node--type-location.content {
   padding-top: 0;
+}
+
+.field--type-list-string fieldset legend,
+.field--type-list-integer fieldset legend {
+  font-weight: bold;
+  color: #333;
+  text-transform: none;
+  font-size: 14px;
+  margin-bottom: 0;
+  padding: 7px 0 0;
+}
+
+.field--type-list-string fieldset legend .fieldset-legend,
+.field--type-list-integer fieldset legend .fieldset-legend {
+  line-height: 20px;
+  color: #333;
+}
+
+body form .js-form-type-radio.form-item {
+  padding-top: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  min-height: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+body form .js-form-type-radio.form-item input {
+  float: left;
+  margin-left: -20px;
+}
+body form .js-form-type-radio.form-item label {
+  display: inline;
+  margin-bottom: 0;
+  font-weight: normal;
+  cursor: pointer;
 }
 
 .form-item {
