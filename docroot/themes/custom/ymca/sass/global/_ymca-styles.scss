@@ -172,6 +172,14 @@ section.node--type-location.content {
   padding-top: 0;
 }
 
+.field--type-list-string fieldset legend {
+  font-weight: bold;
+  color: #333;
+  text-transform: none;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
 form .js-form-type-radio {
   padding-top: 7px;
   margin-top: 0;
