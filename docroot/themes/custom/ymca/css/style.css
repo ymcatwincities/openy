@@ -7589,7 +7589,7 @@ section.node--type-location.content {
   padding-top: 0;
 }
 
-.form-type-radio {
+.js-form-type-radio {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0;
@@ -7598,11 +7598,11 @@ section.node--type-location.content {
   padding-left: 20px;
   vertical-align: middle;
 }
-.form-type-radio input {
+.js-form-type-radio input {
   float: left;
   margin-left: -20px;
 }
-.form-type-radio label {
+.js-form-type-radio label {
   display: inline;
   margin-bottom: 0;
   font-weight: normal;
