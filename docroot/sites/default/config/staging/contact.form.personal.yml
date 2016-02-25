@@ -1,0 +1,10 @@
+uuid: 470daccc-e7fd-47c3-b663-997f463a620e
+langcode: en
+status: true
+dependencies: {  }
+id: personal
+label: 'Personal contact form'
+recipients:
+  - admin@example.com
+reply: ''
+weight: 0

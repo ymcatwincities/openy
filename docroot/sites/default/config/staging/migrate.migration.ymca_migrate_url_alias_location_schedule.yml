@@ -1,5 +1,5 @@
 id: ymca_migrate_url_alias_location_schedule
-label: URL aliases for location schedules pages
+label: 'URL aliases for location schedules pages'
 migration_group: ymca
 migration_tags:
   - node

@@ -68,4 +68,66 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
     $link = $edit_link->toRenderable();
     $form['field_membership_block']['#suffix'] = render($link);
   }
+  if ($form_id == 'entity_embed_dialog') {
+    if ($form['attributes']['data-embed-button']['#value'] == 'menu_link') {
+      $storage = $form_state->getStorage();
+      $form['attributes']['data-button'] = array(
+        '#title' => t('Use button style'),
+        '#type' => 'checkbox',
+        '#default_value' => !isset($storage['entity_element']['data-button']) ? 0 : $storage['entity_element']['data-button'],
+        '#wrapper_attributes' => array('class' => array('container-inline')),
+        '#attributes' => array('class' => array('container-inline')),
+        '#parents' => array('attributes', 'data-button'),
+      );
+      $form_state->setRebuild();
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function ymca_alters_block_content_presave(
+  Drupal\Core\Entity\EntityInterface $entity
+) {
+  /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $ty */
+  $ty = $entity->get('type');
+  if (!isset($ty)) {
+    return;
+  }
+  $type = $ty->getValue()[0]['target_id'];
+  if ($type != 'alert_block') {
+    return;
+  }
+  if (!$entity->hasField('field_global_alert')) {
+    return;
+  }
+  $global = $entity->get('field_global_alert');
+  $global_val = $global->getValue()[0]['value'];
+  if ($global_val != 1) {
+    // Prevents from saving loop.
+    return;
+  }
+  $query = \Drupal::entityQuery('block_content')
+    ->condition('type', 'alert_block')
+    ->condition('field_global_alert', 1)
+    ->execute();
+
+  $blocks = \Drupal::entityManager()->getStorage('block_content')->loadMultiple(array_keys($query));
+  /** @var \Drupal\block_content\Entity\BlockContent $block */
+  foreach ($blocks as $block) {
+    if ($block->uuid() == $entity->uuid()) {
+      // All pages with an updated block should get cache invalidated.
+      \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
+      // No need to change itself.
+      continue;
+    }
+    // Unset all other alert blocks.
+    $block->set('field_global_alert', 0);
+    $block->save();
+    // All pages with an old block should get cache invalidated.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
+  }
+  // We should invalidate all rendered cache, because block was changed/created.
+  \Drupal::service('cache_tags.invalidator')->invalidateTags(['rendered']);
 }

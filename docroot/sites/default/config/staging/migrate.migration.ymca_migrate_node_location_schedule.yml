@@ -1,5 +1,5 @@
 id: ymca_migrate_node_location_schedule
-label: Location schedules migration.
+label: 'Location schedules migration.'
 migration_group: ymca
 migration_tags:
   - node

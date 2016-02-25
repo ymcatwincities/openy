@@ -1,0 +1,17 @@
+uuid: f172cb3b-9132-4b6a-8100-a6a56818ba86
+langcode: en
+status: true
+dependencies: {  }
+countryCode: GI
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\nGIBRALTAR\n%postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: null
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: 'GX11 1AA'
+postalCodePrefix: null
