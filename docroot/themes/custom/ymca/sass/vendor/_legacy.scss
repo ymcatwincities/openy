@@ -4387,10 +4387,8 @@ a[href$=pdf]:hover {
   z-index: 5000;
   margin: 0;
   border-radius: 0;
-  -webkit-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
-  
+  @include box-shadow(0px -1px 4px 0px rgba(0,0,0,0.75));
+
   > * {
     vertical-align: top;
   }
