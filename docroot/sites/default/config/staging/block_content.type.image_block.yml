@@ -1,0 +1,8 @@
+uuid: d60378b1-aecf-410e-8c41-65cc799598d5
+langcode: en
+status: true
+dependencies: {  }
+id: image_block
+label: 'Image Block'
+revision: 0
+description: 'Block to upload image and display it in different sizes. Mainly will be used to be embedded in WYSIWYG.'

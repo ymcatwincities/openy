@@ -63,9 +63,13 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node && !in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
-    array_unshift($suggestions, 'page__node__' . $node->bundle());
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if (!in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
+      array_unshift($suggestions, 'page__node__' . $node->bundle());
+    }
+    else {
+      array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
+    }
   }
   if (!\Drupal::service('path.matcher')->isFrontPage()) {
     if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
@@ -163,17 +167,6 @@ function ymca_preprocess_node(&$variables) {
   if (!$variables['is_front']) {
     $front_page = \Drupal::config('system.site')->get('page.front');
     $variables['is_front'] = $variables['node']->url() == $front_page;
-  }
-
-  // Handle alerts.
-  if ($variables['node']->hasField('field_alert')) {
-    if ($values = $variables['node']->field_alert->getValue()) {
-      if (!empty($values[0]['target_id'])) {
-        $id = $values[0]['target_id'];
-        $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($id);
-        \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
-      }
-    }
   }
 
   // Passing slideshow to template.
@@ -327,13 +320,6 @@ function ymca_preprocess_html(&$variables) {
       'theme_ymca_2013_location_primary_landing',
     ];
   }
-  elseif ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
-    $classes = [
-      'internal-template',
-      'ancestor-camps',
-      'theme_ymca_2013_camp_category_and_detail',
-    ];
-  }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
@@ -344,6 +330,14 @@ function ymca_preprocess_html(&$variables) {
             'locations-camps-template',
             'ancestor-camps',
             'theme_ymca_2013_camp_home',
+          ];
+        }
+        elseif ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+          $classes = [
+            'internal-template',
+            'ancestor-camps',
+            'page_news__events',
+            'theme_ymca_2013_camp_category_and_detail',
           ];
         }
         else {
@@ -357,8 +351,17 @@ function ymca_preprocess_html(&$variables) {
         break;
 
       case 'location':
+        // Locations News & Events page.
+        if ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+          $classes = [
+            'internal-template',
+            'ancestor-locations',
+            'page_news__events',
+            'theme_ymca_2013_location_category_and_detail',
+          ];
+        }
         // Location itself.
-        if (isset($variables['node_type']) && $variables['node_type'] == 'location') {
+        elseif (isset($variables['node_type']) && $variables['node_type'] == 'location') {
           $classes = [
             'locations-camps-template',
             'ancestor-locations',
@@ -367,7 +370,7 @@ function ymca_preprocess_html(&$variables) {
           ];
         }
         // Location schedule page.
-        elseif (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
+        elseif ($current_route_name == 'ymca_frontend.location_schedules') {
           $classes = [
             'schedules-template',
             'ancestor-locations',
@@ -396,9 +399,27 @@ function ymca_preprocess_html(&$variables) {
  */
 function ymca_preprocess_page(&$variables) {
   // Alerts on the page.
+  if (isset($variables['node']) && !($block = \Drupal::service('alerts.service')->getCurrentAlertBlock())) {
+    if ($variables['node']->hasField('field_alert')) {
+      if ($values = $variables['node']->field_alert->getValue()) {
+        if (!empty($values[0]['target_id'])) {
+          $id = $values[0]['target_id'];
+          $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($id);
+          \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
+        }
+      }
+    }
+  }
+  $blocks = [];
   if ($block = \Drupal::service('alerts.service')->getCurrentAlertBlock()) {
+    $blocks[] = $block;
+  }
+  if ($global_block = \Drupal::service('alerts.service')->getGlobalAlertBlock()) {
+    $blocks[] = $global_block;
+  }
+  if (!empty($blocks)) {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
-    $variables['page']['messages'] = $view_builder->view($block);
+    $variables['page']['messages'] = $view_builder->viewMultiple($blocks);
   }
 
   /** @var \Drupal\node\Entity\Node $site_section */

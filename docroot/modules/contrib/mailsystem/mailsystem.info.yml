@@ -1,0 +1,14 @@
+package: 'Mail'
+name: 'Mail System'
+description: 'Provides a user interface for per-module and site-wide mail_system selection.'
+type: module
+# core: 8.x
+configure: mailsystem.settings
+dependencies:
+ - filter
+
+# Information added by Drupal.org packaging script on 2016-01-13
+version: '8.x-4.0-alpha1'
+core: '8.x'
+project: 'mailsystem'
+datestamp: 1452701662

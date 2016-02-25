@@ -126,8 +126,11 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
 
         $this->replaceNodeContent($node, $entity_output);
       }
-
-      $result->setProcessedText(Html::serialize($dom));
+      $processedText = Html::serialize($dom);
+      if (isset($context['data-button']) && $context['data-button']) {
+        $processedText = '<p class="button">' . Html::serialize($dom) . '</p>';
+      }
+      $result->setProcessedText($processedText);
     }
 
     return $result;

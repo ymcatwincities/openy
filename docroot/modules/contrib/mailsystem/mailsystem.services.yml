@@ -1,0 +1,8 @@
+services:
+  mailsystem.theme.registry:
+    class: Drupal\Core\Theme\Registry
+    arguments: ['@app.root', '@cache.default', '@lock', '@module_handler', '@theme_handler', '@theme.initialization']
+    tags:
+      - { name: needs_destruction }
+    calls:
+      - [setThemeManager, ['@theme.manager']]
