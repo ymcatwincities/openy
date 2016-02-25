@@ -1,5 +1,5 @@
 id: ymca_migrate_menu_link_content_redirect
-label: Menu links migration for the redirects
+label: 'Menu links migration for the redirects'
 migration_group: ymca
 migration_tags:
   - menu
@@ -18,7 +18,7 @@ process:
     plugin: ymca_migrate_menu_link_content_parent
     source: parent_mlid
 destination:
-  plugin: entity:menu_link_content
+  plugin: 'entity:menu_link_content'
 migration_dependencies:
   required:
     - ymca_migrate_menu_link_content_camps

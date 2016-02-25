@@ -1,0 +1,25 @@
+uuid: d42c1796-0309-48eb-b000-a275f92b8b41
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:slide_show_item:62341130-9c75-49ae-bc24-36eb580fb1c5'
+  module:
+    - block_content
+  theme:
+    - ymca
+id: daycampkumalyaslideshow
+theme: ymca
+region: '-1'
+weight: null
+provider: null
+plugin: 'block_content:62341130-9c75-49ae-bc24-36eb580fb1c5'
+settings:
+  id: 'block_content:62341130-9c75-49ae-bc24-36eb580fb1c5'
+  label: 'DAY CAMP KUMALYA slideshow'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

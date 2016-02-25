@@ -164,7 +164,7 @@ class GroupexScheduleFetcher {
 
       case 'location':
         $schedule['locations'] = [];
-        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations_short');
+        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {

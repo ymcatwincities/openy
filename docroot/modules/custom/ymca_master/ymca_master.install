@@ -525,13 +525,63 @@ function ymca_master_update_8025() {
 }
 
 /**
- * Enable mimemail & mailsystem modules.
+ * Update location titles.
  */
 function ymca_master_update_8026() {
-  \Drupal::service('module_installer')->install(['mailsystem', 'mimemail'], TRUE);
-  $path = drupal_get_path('module', 'ymca_master');
-  \Drupal::service('config_import.importer')->importConfigs([
-    $path . '/config/optional/mailsystem.settings.yml',
-    $path . '/config/optional/mimemail.settings.yml',
-  ]);
+  $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+  foreach ($mappings as $item) {
+    if ($node = \Drupal\node\Entity\Node::load($item['entity_id'])) {
+      $node->setTitle($item['name']);
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Remove all Locations-related 'News & Events' nodes.
+ */
+function ymca_master_update_8027() {
+  // Locations.
+  $loc_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  // Create aliases for News & Events pages of existing Locations.
+  $suffix = '/about/news__events';
+  foreach ($loc_ids as $id) {
+    $loc_path = '/node/' . $id;
+    $news_events_path = $loc_path . $suffix;
+    $loc_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($loc_path);
+    $news_events_path_alias = $loc_path_alias . $suffix;
+    // Existing News & Events node alias.
+    $alias = \Drupal::service('path.alias_storage')->load(['alias' => $news_events_path_alias]);
+    $pid = !empty($alias['pid']) ? $alias['pid'] : NULL;
+    // Create new alias or update existing.
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en', $pid);
+  }
+
+  // Location-related 'News & Events' nodes.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('title', 'News & Events')
+    ->condition('field_related.target_id', $loc_ids, 'IN')
+    ->execute();
+
+  // Update News & Events menu links.
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $nodes = $storage->loadMultiple($nids);
+  foreach ($nodes as $node) {
+    $menu_link_info = menu_ui_get_menu_link_defaults($node);
+    // Load menu link.
+    if (!$menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load($menu_link_info['entity_id'])) {
+      \Drupal::logger('ymca_master')->alert(t('Node menu_link found for node %node', array('%node' => $node->id())));
+      continue;
+    }
+    $lnid = $node->field_related->getValue()[0]['target_id'];
+    // Update menu link.
+    $menu_link->set('link', ['uri' => 'internal:/node/' . $lnid . '/about/news__events']);
+    $menu_link->save();
+  }
+
+  // Remove News & Events nodes.
+  $storage->delete($nodes);
 }
