@@ -68,6 +68,20 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
     $link = $edit_link->toRenderable();
     $form['field_membership_block']['#suffix'] = render($link);
   }
+  if ($form_id == 'entity_embed_dialog') {
+    if ($form['attributes']['data-embed-button']['#value'] == 'menu_link') {
+      $storage = $form_state->getStorage();
+      $form['attributes']['data-button'] = array(
+        '#title' => t('Use button style'),
+        '#type' => 'checkbox',
+        '#default_value' => !isset($storage['entity_element']['data-button']) ? 0 : $storage['entity_element']['data-button'],
+        '#wrapper_attributes' => array('class' => array('container-inline')),
+        '#attributes' => array('class' => array('container-inline')),
+        '#parents' => array('attributes', 'data-button'),
+      );
+      $form_state->setRebuild();
+    }
+  }
 }
 
 /**
