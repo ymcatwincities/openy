@@ -10,7 +10,6 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Entity\EntityInterface;
 
-
 /**
  * Prepares variables for individual form element templates.
  *
