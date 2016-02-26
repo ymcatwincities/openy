@@ -681,10 +681,10 @@ function ymca_master_update_8029() {
         $entity->save();
 
         \Drupal::logger('ymca_migrate')->info(
-          'Tokens have been successfully replaced in !entity_type:!entity_id.',
+          'Tokens have been successfully replaced in %entity_type:%entity_id.',
           [
-            '!entity_type' => $entity_type,
-            '!entity_id' => $entity_id,
+            '%entity_type' => $entity_type,
+            '%entity_id' => $entity_id,
           ]
         );
       }
