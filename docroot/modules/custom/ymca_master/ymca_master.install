@@ -585,3 +585,12 @@ function ymca_master_update_8027() {
   // Remove News & Events nodes.
   $storage->delete($nodes);
 }
+
+/**
+ * Enable metatag, token modules.
+ */
+function ymca_master_update_8028() {
+  \Drupal::service('module_installer')->install(array('metatag'), TRUE);
+  \Drupal::service('module_installer')->install(array('metatag_open_graph'), TRUE);
+  \Drupal::service('module_installer')->install(array('token'), TRUE);
+}
