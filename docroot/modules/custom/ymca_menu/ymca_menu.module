@@ -137,6 +137,12 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
   if (!isset($form['menu'])) {
     return;
   }
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
+    }
+  }
   // Generate a list of possible parents (not including this link or descendants).
   // @todo This must be handled in a #process handler.
   $node = $form_state->getFormObject()->getEntity();
@@ -179,12 +185,6 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
       ),
     ),
   );
-
-  foreach (array_keys($form['actions']) as $action) {
-    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
-      $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
-    }
-  }
 }
 
 /**
@@ -205,24 +205,24 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
           $entity->save();
         }
       }
-
-      // Update node alias, since all required data is available now.
-      $nid = $form_state->getValue('nid');
-      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-      $node_storage->resetCache(array($nid));
-      $node = $node_storage->load($nid);
-      if ($node->bundle() == 'article') {
-        // Check whether we need to update an alias.
-        $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
-        if (empty($alias)) {
-          return;
-        }
-        $source = '/node/' . $nid;
-        $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
-        $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
-        \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
-      }
-
     }
+  }
+
+  // Update node alias.
+  $path = $form_state->getValue('path');
+  $nid = $form_state->getValue('nid');
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $node_storage->resetCache(array($nid));
+  $node = $node_storage->load($nid);
+  if ($node->bundle() == 'article' && empty($path[0]['alias'])) {
+    // Check whether we need to update an alias.
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
+    if (empty($alias)) {
+      return;
+    }
+    $source = '/node/' . $nid;
+    $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
+    $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
 }
