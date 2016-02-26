@@ -72,3 +72,22 @@ function ymca_run_migration($migration, $update = FALSE, $force = FALSE) {
   $executable = new \Drupal\migrate\MigrateExecutable($migration, $migrate_message, $event_dispatcher);
   $executable->import();
 }
+
+/**
+ * Get legacy address of the page by ID.
+ *
+ * @param int $id
+ *   Page ID.
+ *
+ * @return mixed
+ *   Page address.
+ */
+function ymca_get_legacy_page_address($id) {
+  $db = Database::getConnection('default', 'amm_source');
+  $field = $db->select('amm_site_page', 'p')
+    ->fields('p', ['page_subdirectory'])
+    ->condition('p.site_page_id', $id)
+    ->execute()
+    ->fetchField();
+  return $field;
+}

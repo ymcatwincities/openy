@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function metatag_install() {
-  drupal_set_message(t("To adjust global defaults, go to admin/structure/metatag_defaults. If you need to set metatags for a specific entity, edit it's bundle and add the Metatag field."));
+  drupal_set_message(t("To adjust global defaults, go to admin/config/search/metatag. If you need to set metatags for a specific entity, edit it's bundle and add the Metatag field."));
 }
 
 /**
@@ -214,7 +214,7 @@ function metatag_update_8102(&$sandbox) {
 /**
  * Move field defaults to Metatag Defaults.
  */
-function metatag_update_8103(&$sandbox) {
+function metatag_update_8103() {
   $config_installer = \Drupal::service('config.installer');
   $entity_manager = \Drupal::service('entity.manager');
 
@@ -234,17 +234,23 @@ function metatag_update_8103(&$sandbox) {
       ->setSyncing(TRUE)
       ->setSourceStorage($source_storage);
   }
+
   // Install new configuration for Metatag.
   $config_installer->installDefaultConfig('module', 'metatag');
+
+  // Apply all entity definition changes.
+  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
 
   /**
    * 2. Extract Metatag field defaults.
    */
   $entity_info = $entity_manager->getDefinitions();
   $tags = array();
+
   // Get all of the field storage entities of type metatag.
-  $field_storage_configs = $entity_manager->getStorage('field_storage_config')
-                                         ->loadByProperties(array('type' => 'metatag'));
+  $field_storage_configs = $entity_manager
+    ->getStorage('field_storage_config')
+    ->loadByProperties(array('type' => 'metatag'));
 
   foreach ($field_storage_configs as $key => $field_storage) {
     $field_name = $field_storage->getName();
@@ -304,4 +310,33 @@ function metatag_update_8103(&$sandbox) {
   else {
     return (string) t("There were Metatag field configurations that needed to be converted.");
   }
+}
+
+/**
+ * Rebuild routes after moving Metatag admin from Structure to Config.
+ */
+function metatag_update_8104() {
+  \Drupal::service('router.builder')->setRebuildNeeded();
+}
+
+/**
+ * Rebuild routes after renaming.
+ */
+function metatag_update_8105() {
+  \Drupal::service('router.builder')->setRebuildNeeded();
+}
+
+/**
+ * Add the metatag_defaults config entity to the site.
+ */
+function metatag_update_8106() {
+  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+}
+
+/**
+ * Enable the new metatag_open_graph module.
+ */
+function metatag_update_8107() {
+  \Drupal::service('module_installer')->install(array('metatag_open_graph'));
+  return (string) t("The new Metatag: Open Graph module has been enabled.");
 }

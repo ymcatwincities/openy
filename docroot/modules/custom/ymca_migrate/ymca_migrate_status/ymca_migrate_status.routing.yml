@@ -12,3 +12,10 @@ ymca_migrate_status.broken_links:
     _title: YMCA Migrate Broken Links
   requirements:
     _permission: access content
+ymca_migrate_status.non_migrated:
+  path: /ymca-migrate-non-migrated
+  defaults:
+    _controller: '\Drupal\ymca_migrate_status\Controller\YmcaMigrateNonMigrated::pageView'
+    _title: YMCA Migrate Non Migrated Pages
+  requirements:
+    _permission: access content
