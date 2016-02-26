@@ -187,8 +187,8 @@ class CKEditor extends EditorBase implements ContainerFactoryPluginInterface {
     // Hidden CKEditor instance. We need a hidden CKEditor instance with all
     // plugins enabled, so we can retrieve CKEditor's per-feature metadata (on
     // which tags, attributes, styles and classes are enabled). This metadata is
-    // necessary for certain filters' (e.g. the html_filter filter) settings to
-    // be updated accordingly.
+    // necessary for certain filters' (for instance, the html_filter filter)
+    // settings to be updated accordingly.
     // Get a list of all external plugins and their corresponding files.
     $plugins = array_keys($this->ckeditorPluginManager->getDefinitions());
     $all_external_plugins = array();
@@ -298,8 +298,11 @@ class CKEditor extends EditorBase implements ContainerFactoryPluginInterface {
     );
 
     // Finally, set Drupal-specific CKEditor settings.
+    $root_relative_file_url = function ($uri) {
+      return file_url_transform_relative(file_create_url($uri));
+    };
     $settings += array(
-      'drupalExternalPlugins' => array_map('file_create_url', $external_plugin_files),
+      'drupalExternalPlugins' => array_map($root_relative_file_url, $external_plugin_files),
     );
 
     // Parse all CKEditor plugin JavaScript files for translations.
@@ -348,9 +351,10 @@ class CKEditor extends EditorBase implements ContainerFactoryPluginInterface {
       // If this language code is available in a Drupal mapping, use that to
       // compute a possibility for matching from the Drupal langcode to the
       // CKEditor langcode.
-      // e.g. CKEditor uses the langcode 'no' for Norwegian, Drupal uses 'nb'.
-      // This would then remove the 'no' => 'no' mapping and replace it with
-      // 'nb' => 'no'. Now Drupal knows which CKEditor translation to load.
+      // For instance, CKEditor uses the langcode 'no' for Norwegian, Drupal
+      // uses 'nb'. This would then remove the 'no' => 'no' mapping and replace
+      // it with 'nb' => 'no'. Now Drupal knows which CKEditor translation to
+      // load.
       if (isset($language_mappings[$langcode]) && !isset($langcodes[$language_mappings[$langcode]])) {
         $langcodes[$language_mappings[$langcode]] = $langcode;
         unset($langcodes[$langcode]);
@@ -420,6 +424,7 @@ class CKEditor extends EditorBase implements ContainerFactoryPluginInterface {
     $this->moduleHandler->alter('ckeditor_css', $css, $editor);
     $css = array_merge($css, _ckeditor_theme_css());
     $css = array_map('file_create_url', $css);
+    $css = array_map('file_url_transform_relative', $css);
 
     return array_values($css);
   }

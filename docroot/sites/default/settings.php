@@ -699,14 +699,28 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
-$config_directories["staging"] = 'sites/default/config/staging';
-
-// Default DB credentials.
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
-}
-
-// Legacy DB credentials.
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
-}
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use settings.local.php to override variables on secondary (staging,
+ * development, etc) installations of this site. Typically used to disable
+ * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
+ * other things that should not happen on development and testing sites.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
+# if (file_exists(__DIR__ . '/settings.local.php')) {
+#   include __DIR__ . '/settings.local.php';
+# }
+$databases = array("default" => array ("default" => array ("database" => "drupal", "username" => "root", "password" => "root", "host" => "127.0.0.1", "port" => "", "driver" => "mysql", "prefix" => "", ), ), );
+$settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
+$databases["amm_source"]["default"]["database"] = "amm_source";
+$databases["amm_source"]["default"]["username"] = "root";
+$databases["amm_source"]["default"]["password"] = "root";
+$databases["amm_source"]["default"]["host"] = "127.0.0.1";
+$databases["amm_source"]["default"]["namespace"] = "Drupal\\Core\\Database\\Driver\\mysql";
+$databases["amm_source"]["default"]["driver"] = "mysql";
+$config_directories["staging"] = "sites/default/config/staging";
+$settings["install_profile"] = "pp";
+$settings["pp_environment"] = "default";
+$config["stage_file_proxy.settings"]["origin"] = "http://ymcatwincities.prod.acquia-sites.com/";
