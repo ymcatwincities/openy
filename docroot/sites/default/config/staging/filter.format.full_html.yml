@@ -5,6 +5,7 @@ dependencies:
   module:
     - editor
     - entity_embed
+    - rel_to_abs
     - ymca_entity_embed
 name: 'Full HTML'
 format: full_html
@@ -79,4 +80,10 @@ filters:
     provider: ymca_entity_embed
     status: false
     weight: -46
+    settings: {  }
+  rel_to_abs:
+    id: rel_to_abs
+    provider: rel_to_abs
+    status: true
+    weight: 0
     settings: {  }

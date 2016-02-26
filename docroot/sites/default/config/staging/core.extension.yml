@@ -39,6 +39,7 @@ module:
   language: 0
   libraries: 0
   link: 0
+  mailsystem: 0
   menu_ui: 0
   metatag: 0
   metatag_open_graph: 0
@@ -46,6 +47,7 @@ module:
   migrate_plus: 0
   migrate_source_csv: 0
   migrate_tools: 0
+  mimemail: 0
   node: 0
   options: 0
   page_cache: 0
@@ -54,6 +56,7 @@ module:
   quickedit: 0
   rdf: 0
   redirect: 0
+  rel_to_abs: 0
   rest: 0
   scheduler: 0
   search: 0
