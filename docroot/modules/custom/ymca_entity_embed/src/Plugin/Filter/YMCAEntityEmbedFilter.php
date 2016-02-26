@@ -3,17 +3,11 @@
 namespace Drupal\ymca_entity_embed\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\entity_embed\EntityHelperTrait;
 use Drupal\entity_embed\Exception\EntityNotFoundException;
 use Drupal\entity_embed\Exception\RecursiveRenderingException;
 use Drupal\filter\FilterProcessResult;
-use Drupal\filter\Plugin\FilterBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\embed\DomHelperTrait;
 use Drupal\entity_embed\Plugin\Filter\EntityEmbedFilter;
 
 /**

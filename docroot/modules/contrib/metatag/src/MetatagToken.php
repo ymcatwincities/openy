@@ -49,7 +49,7 @@ class MetatagToken {
    * @param array $settings
    * @return mixed|string $string
    */
-  public function tokenReplace($string, $data, $settings = array()){
+  public function tokenReplace($string, $data, $settings) {
     if ($this->moduleHandler->moduleExists('token')) {
       return $this->contribReplace($string, $data, $settings);
     }
@@ -67,24 +67,22 @@ class MetatagToken {
    */
   public function tokenBrowser() {
     $form = array();
-    $token_tree_hint = '';
+
+    $form['intro_text'] = array(
+      '#markup' => '<p>' . t('Configure the meta tags below. Use tokens to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).') . '</p>',
+    );
+
     if ($this->moduleHandler->moduleExists('token')) {
-      // Add the token popup to the top of the fieldset.
       $form['tokens'] = array(
-        '#theme' => 'token_tree',
+        '#theme' => 'token_tree_link',
         '#token_types' => 'all',
         '#global_types' => TRUE,
         '#click_insert' => TRUE,
         '#show_restricted' => FALSE,
         '#recursion_limit' => 3,
-        '#dialog' => TRUE,
+        '#text' => t('Browse available tokens'),
       );
-      $token_tree_hint = '(see the "Browse available tokens" popup)';
     }
-
-    $form['intro_text'] = array(
-      '#markup' => '<p>' . t('Configure the meta tags below. Use tokens @token_tree_hint to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).', array('@token_tree_hint' => $token_tree_hint)) . '</p>',
-    );
 
     return $form;
   }
@@ -98,14 +96,10 @@ class MetatagToken {
    * @return mixed|string
    */
   private function coreReplace($string, $data, $settings = array()) {
-    // @TODO: Remove this temp code.
-    // This is just here as a way to see all available tokens in debugger.
-    $tokens = $this->coreToken->getInfo();
-
-    $options = array('clear' => TRUE);
+    $settings += array('clear' => TRUE);
 
     // Replace tokens with core Token service.
-    $replaced = $this->coreToken->replace($string, $data, $options);
+    $replaced = $this->coreToken->replace($string, $data, $settings);
 
     // Ensure that there are no double-slash sequences due to empty token values.
     $replaced = preg_replace('/(?<!:)\/+\//', '/', $replaced);

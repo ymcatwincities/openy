@@ -21,7 +21,7 @@ class TokenMenuTest extends TokenTestBase {
    *
    * @var array
    */
-  public static $modules = array('path', 'token', 'token_test', 'menu_ui', 'node');
+  public static $modules = ['menu_ui', 'node'];
 
   function testMenuTokens() {
     // Add a menu.

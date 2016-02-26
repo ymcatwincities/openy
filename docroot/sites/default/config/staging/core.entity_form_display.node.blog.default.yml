@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.blog.field_site_section
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
+    - image.style.thumbnail
     - node.type.blog
   module:
     - image
