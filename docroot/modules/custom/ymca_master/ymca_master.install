@@ -590,6 +590,12 @@ function ymca_master_update_8027() {
  * Install and configure contrib modules.
  */
 function ymca_master_update_8028() {
+  \Drupal::service('module_installer')->install(array('metatag'), TRUE);
+  \Drupal::service('module_installer')->install(
+    array('metatag_open_graph'),
+    TRUE
+  );
+  \Drupal::service('module_installer')->install(array('token'), TRUE);
   \Drupal::service('module_installer')->install(
     ['mailsystem', 'mimemail', 'rel_to_abs'],
     TRUE
@@ -694,5 +700,4 @@ function ymca_master_update_8029() {
   // Restore Redirect settings.
   $config->set('auto_redirect', TRUE);
   $config->save();
-
 }

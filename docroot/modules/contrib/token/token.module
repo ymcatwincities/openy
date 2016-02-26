@@ -5,6 +5,7 @@
  * Enhances the token API in core: adds a browseable UI, missing tokens, etc.
  */
 
+use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\Xss;
@@ -17,33 +18,18 @@ use Drupal\Core\Utility\Token;
 use Drupal\Core\Url;
 
 /**
- * The maximum depth for token tree recursion.
- */
-define('TOKEN_MAX_DEPTH', 9);
-
-/**
  * Implements hook_help().
  */
 function token_help($route_name, RouteMatchInterface $route_match) {
   if ($route_name == 'help.page.token') {
-    $current_url = Url::fromRoute('<current>');
-    if ($current_url->toString() != '/admin/help/token') {
-      // Because system_modules() executes hook_help() for each module to 'test'
-      // if they will return anything, but not actually display it, we want to
-      // return a TRUE value if this is not actually the help page.
-      return TRUE;
-    }
+    $token_tree = \Drupal::service('token.tree_builder')->buildAllRenderable([
+      'click_insert' => FALSE,
+      'show_restricted' => TRUE,
+    ]);
+
     $output = '<dl>';
     $output .= '<dt>' . t('List of the currently available tokens on this site') . '</dt>';
-    $token_tree = array(
-      '#theme' => 'token_tree',
-      '#token_types' => 'all',
-      '#click_insert' => FALSE,
-      '#show_restricted' => TRUE,
-    );
-    /** @var \Drupal\Core\Render\RendererInterface $renderer */
-    $renderer = \Drupal::service('renderer');
-    $output .= '<dd>' . $renderer->render($token_tree) . '</dd>';
+    $output .= '<dd>' . \Drupal::service('renderer')->render($token_tree) . '</dd>';
     $output .= '</dl>';
     return $output;
   }
@@ -57,95 +43,35 @@ function _token_core_supported_modules() {
 }
 
 /**
- * Implements hook_admin_menu_output_alter().
- */
-function token_admin_menu_output_alter(&$content) {
-  $content['icon']['icon']['flush-cache']['token'] = array(
-    '#title' => t('Token registry'),
-    '#href' => 'token/flush-cache',
-    '#options' => array(
-      'query' => drupal_get_destination() + array('token' => \Drupal::csrfToken()->get('token/flush-cache')),
-    ),
-  );
-}
-
-function token_type_load($token_type) {
-  $info = token_get_info();
-  return isset($info['types'][$token_type]) ? $info['types'][$token_type] : FALSE;
-}
-
-/**
  * Implements hook_theme().
  */
 function token_theme() {
-  $info['tree_table'] = array(
-    'variables' => array(
-      'header' => array(),
-      'rows' => array(),
-      'attributes' => array(),
-      'empty' => '',
-      'caption' => '',
-    ),
-    'function' => 'theme_tree_table',
-    'file' => 'token.pages.inc',
-  );
-  $info['token_tree'] = array(
-    'variables' => array(
-      'token_types' => array(),
+  $info['token_tree_link'] = [
+    'variables' => [
+      'token_types' => [],
       'global_types' => TRUE,
       'click_insert' => TRUE,
       'show_restricted' => FALSE,
       'recursion_limit' => 3,
-      'dialog' => FALSE,
-    ),
-    'function' => 'theme_token_tree',
-    'file' => 'token.pages.inc',
-  );
-  $info['token_tree_link'] = array(
-    'variables' => array(
       'text' => NULL,
-      'options' => array(),
-      'dialog' => TRUE,
-    ) + $info['token_tree']['variables'],
-    'function' => 'theme_token_tree_link',
+      'options' => [],
+    ],
     'file' => 'token.pages.inc',
-  );
+  ];
 
   return $info;
-}
-
-/**
- * Implements hook_form_alter().
- *
- * Adds a submit handler to forms which could affect the tokens available on
- * the site.
- */
-function token_form_alter(&$form, $form_state, $form_id) {
-  switch ($form_id) {
-    // Profile field forms.
-    case 'profile_field_form':
-    case 'profile_field_delete':
-    // User picture form.
-    case 'user_admin_settings':
-    // System date type form.
-    // @todo Remove when http://drupal.org/node/1173706 is fixed.
-    case 'system_add_date_format_type_form':
-    case 'system_delete_date_format_type_form':
-      $form += array('#submit' => array());
-      array_unshift($form['#submit'], 'token_clear_cache');
-      break;
-  }
 }
 
 /**
  * Implements hook_block_view_alter().
  */
 function token_block_view_alter(&$build, BlockPluginInterface $block) {
-  $config = $block->getConfiguration();
-  $label = $config['label'];
+  $label = $build['#configuration']['label'];
   if ($label != '<none>') {
     // The label is automatically escaped, avoid escaping it twice.
-    $build['#configuration']['label'] = \Drupal::token()->replace($label, array(), array('sanitize' => FALSE));
+    // @todo https://www.drupal.org/node/2580723 will add a method or option
+    //   to the token API to do this, use that when available.
+    $build['#configuration']['label'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($label, array()));
   }
 }
 
@@ -156,16 +82,6 @@ function token_form_block_form_alter(&$form, FormStateInterface $form_state) {
   $form['settings']['label']['#description'] = t('This field supports tokens.');
   $form['settings']['label']['#element_validate'][] = 'token_element_validate';
   $form['settings']['label'] += array('#token_types' => array());
-}
-
-/**
- * Implements hook_widget_form_alter().
- */
-function token_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
-  if (!empty($element['#description']) && is_string($element['#description'])) {
-    /* @var \Drupal\Core\Field\FieldItemListInterface $context['items'] */
-    $element['#description'] = Xss::filterAdmin(\Drupal::token()->replace($context['items']->getFieldDefinition()->getDescription()));
-  }
 }
 
 /**
@@ -195,48 +111,30 @@ function token_field_info_alter(&$info) {
 }
 
 /**
- * Implements hook_field_display_alter().
+ * Implements hook_date_format_insert().
  */
-function token_field_display_alter(&$display, $context) {
-  if ($context['view_mode'] == 'token') {
-    $view_display = entity_get_display($context['instance']['entity_type'], $context['instance']['bundle'], $context['view_mode']);
-    // If the token view mode fell back to the 'default' view mode, then
-    // use the default token formatter.
-    if (!$view_display->status()) {
-      $field_type_info = \Drupal::service('plugin.manager.field.type')->getDefinition(($context['field']['type']));
-
-      // If the field has specified a specific formatter to be used by default
-      // with tokens, use that, otherwise use the default formatter.
-      $formatter = !empty($field_type_info['default_token_formatter']) ? $field_type_info['default_token_formatter'] : $field_type_info['default_formatter'];
-
-      // Now that we have a formatter, fill in all the settings.
-      $display['type'] = $formatter;
-      $formatter_info = \Drupal::service('plugin.manager.field.formatter')->getDefinition($display['type']);
-      $display['settings'] = isset($formatter_info['settings']) ? $formatter_info['settings'] : array();
-      $display['settings']['label'] = 'hidden';
-      $display['module'] = $formatter_info['module'];
-    }
-  }
-}
-
-/**
- * Implements hook_field_create_instance().
- */
-function token_field_create_instance($instance) {
+function token_date_format_insert() {
   token_clear_cache();
 }
 
 /**
- * Implements hook_field_update_instance().
+ * Implements hook_date_format_delete().
  */
-function token_field_update_instance($instance) {
+function token_date_format_delete() {
   token_clear_cache();
 }
 
 /**
- * Implements hook_field_delete_instance().
+ * Implements hook_field_storage_config_presave().
  */
-function token_field_delete_instance($instance) {
+function token_field_config_presave($instance) {
+  token_clear_cache();
+}
+
+/**
+ * Implements hook_field_storage_config_delete().
+ */
+function token_field_config_delete($instance) {
   token_clear_cache();
 }
 
@@ -245,48 +143,9 @@ function token_field_delete_instance($instance) {
  */
 function token_clear_cache() {
   \Drupal::token()->resetInfo();
-  drupal_static_reset('token_get_info');
-  drupal_static_reset('token_get_global_token_types');
-  drupal_static_reset('token_get_entity_mapping');
-  drupal_static_reset('token_build_tree');
-  drupal_static_reset('_token_profile_fields');
-  drupal_static_reset('token_menu_link_load');
+  \Drupal::service('token.entity_mapper')->resetInfo();
+  drupal_static_reset('token_menu_link_load_all_parents');
   drupal_static_reset('token_book_link_load');
-  drupal_static_reset('token_node_menu_link_load');
-  drupal_static_reset('_token_field_info');
-}
-
-/**
- * Return an array of entity type to token type mappings.
- *
- * Why do we need this? Because when the token API was moved to core we did not
- * re-use the entity type as the base name for taxonomy terms and vocabulary
- * tokens.
- *
- * @see token_entity_info_alter()
- * @see http://drupal.org/node/737726
- */
-function token_get_entity_mapping($value_type = 'token', $value = NULL, $fallback = FALSE) {
-  $mapping = &drupal_static(__FUNCTION__, array());
-
-  if (empty($mapping)) {
-    foreach (\Drupal::entityManager()->getDefinitions() as $entity_type => $info) {
-      $mapping[$entity_type] = $info->get('token type') ? $info->get('token type') : $entity_type;
-    }
-    // Allow modules to alter the mapping array.
-    \Drupal::moduleHandler()->alter('token_entity_mapping', $mapping);
-  }
-
-  if (!isset($value)) {
-    return $value_type == 'token' ? array_flip($mapping) : $mapping;
-  }
-  elseif ($value_type == 'token') {
-    $return = array_search($value, $mapping);
-    return $return !== FALSE ? $return : ($fallback ? $value : FALSE);
-  }
-  elseif ($value_type == 'entity') {
-    return isset($mapping[$value]) ? $mapping[$value] : ($fallback ? $value : FALSE);
-  }
 }
 
 /**
@@ -295,29 +154,34 @@ function token_get_entity_mapping($value_type = 'token', $value = NULL, $fallbac
  * Because some token types to do not match their entity type names, we have to
  * map them to the proper type. This is purely for other modules' benefit.
  *
- * @see token_get_entity_mapping()
+ * @see \Drupal\token\TokenEntityMapperInterface::getEntityTypeMappings()
  * @see http://drupal.org/node/737726
  */
 function token_entity_type_alter(array &$entity_types) {
+  $devel_exists = \Drupal::moduleHandler()->moduleExists('devel');
   /* @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
-  foreach (array_keys($entity_types) as $entity_type) {
-    if ($entity_types[$entity_type]->get('token type')) {
-      // If the entity's token type is already defined, great!
-      continue;
+  foreach ($entity_types as $entity_type_id => $entity_type) {
+    if (!$entity_type->get('token_type')) {
+      // Fill in default token types for entities.
+      switch ($entity_type_id) {
+        case 'taxonomy_term':
+        case 'taxonomy_vocabulary':
+          // Stupid taxonomy token types...
+          $entity_type->set('token_type', str_replace('taxonomy_', '', $entity_type_id));
+          break;
+
+        default:
+          // By default the token type is the same as the entity type.
+          $entity_type->set('token_type', $entity_type_id);
+          break;
+      }
     }
 
-    // Fill in default token types for entities.
-    switch ($entity_type) {
-      case 'taxonomy_term':
-      case 'taxonomy_vocabulary':
-        // Stupid taxonomy token types...
-        $entity_types[$entity_type]->set('token type', str_replace('taxonomy_', '', $entity_type));
-        break;
-
-      default:
-        // By default the token type is the same as the entity type.
-        $entity_types[$entity_type]->set('token type', $entity_type);
-        break;
+    if ($devel_exists
+      && $entity_type->hasViewBuilderClass()
+      && ($canonical = $entity_type->getLinkTemplate('canonical'))
+      && !$entity_type->hasLinkTemplate('token-devel')) {
+      $entity_type->setLinkTemplate('token-devel', $canonical . '/devel/token');
     }
   }
 }
@@ -350,70 +214,6 @@ function token_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
- * Retrieve, sort, store token info from the cache.
- *
- * @param $token_type
- *   The optional token type that if specified will return
- *   $info['types'][$token_type].
- * @param $token
- *   The optional token name if specified will return
- *   $info['tokens'][$token_type][$token].
- *
- * @return
- *   An array of all token information from hook_token_info(), or the array
- *   of a token type or specific token.
- *
- * @see hook_token_info()
- * @see hook_token_info_alter()
- */
-function token_get_info($token_type = NULL, $token = NULL) {
-  // Use the advanced drupal_static() pattern, since this is called very often.
-  static $drupal_static_fast;
-  if (!isset($drupal_static_fast)) {
-    $drupal_static_fast['token_info'] = &drupal_static(__FUNCTION__);
-  }
-  $token_info = &$drupal_static_fast['token_info'];
-
-  if (empty($token_info)) {
-    $token_info = \Drupal::token()->getInfo();
-
-    // @todo: Move this into the token service and deprecate this function.
-    foreach (array_keys($token_info['types']) as $type_key) {
-      if (isset($token_info['types'][$type_key]['type'])) {
-        $base_type = $token_info['types'][$type_key]['type'];
-        // If this token type extends another token type, then merge in
-        // the base token type's tokens.
-        if (isset($token_info['tokens'][$base_type])) {
-          $token_info['tokens'] += array($type_key => array());
-          $token_info['tokens'][$type_key] += $token_info['tokens'][$base_type];
-        }
-      }
-      else {
-        // Add a 'type' value to each token type so we can properly use
-        // token_type_load().
-        $token_info['types'][$type_key]['type'] = $type_key;
-      }
-    }
-
-    // Pre-sort tokens.
-    uasort($token_info['types'], 'token_asort_tokens');
-    foreach (array_keys($token_info['tokens']) as $type) {
-      uasort($token_info['tokens'][$type], 'token_asort_tokens');
-    }
-  }
-
-  if (isset($token_type) && isset($token)) {
-    return isset($token_info['tokens'][$token_type][$token]) ? $token_info['tokens'][$token_type][$token] : NULL;
-  }
-  elseif (isset($token_type)) {
-    return isset($token_info['types'][$token_type]) ? $token_info['types'][$token_type] : NULL;
-  }
-  else {
-    return $token_info;
-  }
-}
-
-/**
  * Return the module responsible for a token.
  *
  * @param string $type
@@ -422,125 +222,12 @@ function token_get_info($token_type = NULL, $token = NULL) {
  *   The token name.
  *
  * @return mixed
- *   The value of $info['tokens'][$type][$name]['module'] from token_get_info(),
- *   or NULL if the value does not exist.
+ *   The value of $info['tokens'][$type][$name]['module'] from token info, or
+ *   NULL if the value does not exist.
  */
 function _token_module($type, $name) {
-  $token_info = token_get_info($type, $name);
+  $token_info = \Drupal::token()->getTokenInfo($type, $name);
   return isset($token_info['module']) ? $token_info['module'] : NULL;
-}
-
-/**
- * uasort() callback to sort tokens by the 'name' property.
- */
-function token_asort_tokens($token_a, $token_b) {
-  return strnatcmp($token_a['name'], $token_b['name']);
-}
-
-/**
- * Get a list of token types that can be used without any context (global).
- *
- * @return
- *   An array of global token types.
- */
-function token_get_global_token_types() {
-  $global_types = &drupal_static(__FUNCTION__, array());
-
-  if (empty($global_types)) {
-    $token_info = token_get_info();
-    foreach ($token_info['types'] as $type => $type_info) {
-      // If the token types has not specified that 'needs-data' => TRUE, then
-      // it is a global token type that will always be replaced in any context.
-      if (empty($type_info['needs-data'])) {
-        $global_types[] = $type;
-      }
-    }
-  }
-
-  return $global_types;
-}
-
-/**
- * Validate an tokens in raw text based on possible contexts.
- *
- * @param $value
- *   A string with the raw text containing the raw tokens, or an array of
- *   tokens from token_scan().
- * @param $tokens
- *   An array of token types that will be used when token replacement is
- *   performed.
- * @return
- *   An array with the invalid tokens in their original raw forms.
- */
-function token_get_invalid_tokens_by_context($value, $valid_types = array()) {
-  if (in_array('all', $valid_types)) {
-    $info = token_get_info();
-    $valid_types = array_keys($info['types']);
-  }
-  else {
-    // Add the token types that are always valid in global context.
-    $valid_types = array_merge($valid_types, token_get_global_token_types());
-  }
-
-  $invalid_tokens = array();
-  $value_tokens = is_string($value) ? \Drupal::token()->scan($value) : $value;
-
-  foreach ($value_tokens as $type => $tokens) {
-    if (!in_array($type, $valid_types)) {
-      // If the token type is not a valid context, its tokens are invalid.
-      $invalid_tokens = array_merge($invalid_tokens, array_values($tokens));
-    }
-    else {
-      // Check each individual token for validity.
-      $invalid_tokens = array_merge($invalid_tokens, token_get_invalid_tokens($type, $tokens));
-    }
-  }
-
-  array_unique($invalid_tokens);
-  return $invalid_tokens;
-}
-
-/**
- * Validate an array of tokens based on their token type.
- *
- * @param $type
- *   The type of tokens to validate (e.g. 'node', etc.)
- * @param $tokens
- *   A keyed array of tokens, and their original raw form in the source text.
- * @return
- *   An array with the invalid tokens in their original raw forms.
- */
-function token_get_invalid_tokens($type, $tokens) {
-  $token_info = token_get_info();
-  $invalid_tokens = array();
-
-  foreach ($tokens as $token => $full_token) {
-    // Split token up if it has chains.
-    $parts = explode(':', $token, 2);
-
-    if (!isset($token_info['tokens'][$type][$parts[0]])) {
-      // This is an invalid token (not defined).
-      $invalid_tokens[] = $full_token;
-    }
-    elseif (count($parts) == 2) {
-      $sub_token_info = $token_info['tokens'][$type][$parts[0]];
-      if (!empty($sub_token_info['dynamic'])) {
-        // If this token has been flagged as a dynamic token, skip it.
-        continue;
-      }
-      elseif (empty($sub_token_info['type'])) {
-        // If the token has chains, but does not support it, it is invalid.
-        $invalid_tokens[] = $full_token;
-      }
-      else {
-        // Resursively check the chained tokens.
-        $sub_tokens = \Drupal::token()->findWithPrefix(array($token => $full_token), $parts[0]);
-        $invalid_tokens = array_merge($invalid_tokens, token_get_invalid_tokens($sub_token_info['type'], $sub_tokens));
-      }
-    }
-  }
-
-  return $invalid_tokens;
 }
 
 /**
@@ -578,7 +265,7 @@ function token_element_validate($element, FormStateInterface $form_state) {
   // Validate if an element must have a minimum number of tokens.
   if (isset($element['#min_tokens']) && count($tokens) < $element['#min_tokens']) {
     // @todo Change this error message to include the minimum number.
-    $error = \Drupal::translation()->formatPlural($element['#min_tokens'], 'The %element-title cannot contain fewer than one token.', 'The %element-title must contain at least @count tokens.', array('%element-title' => $title));
+    $error = \Drupal::translation()->formatPlural($element['#min_tokens'], 'The %element-title must contain at least one token.', 'The %element-title must contain at least @count tokens.', array('%element-title' => $title));
     $form_state->setError($element, $error);
   }
 
@@ -591,7 +278,7 @@ function token_element_validate($element, FormStateInterface $form_state) {
 
   // Check if the field defines specific token types.
   if (isset($element['#token_types'])) {
-    $invalid_tokens = token_get_invalid_tokens_by_context($tokens, $element['#token_types']);
+    $invalid_tokens = \Drupal::token()->getInvalidTokensByContext($tokens, $element['#token_types']);
     if ($invalid_tokens) {
       $form_state->setError($element, t('The %element-title is using the following invalid tokens: @invalid-tokens.', array('%element-title' => $title, '@invalid-tokens' => implode(', ', $invalid_tokens))));
     }
@@ -601,37 +288,33 @@ function token_element_validate($element, FormStateInterface $form_state) {
 }
 
 /**
- * Deprecated. Use token_element_validate() instead.
- */
-function token_element_validate_token_context(&$element, FormStateInterface $form_state) {
-  return token_element_validate($element, $form_state);
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  */
-function token_form_field_ui_field_instance_edit_form_alter(&$form, $form_state) {
-  if (!isset($form['instance']) || $form['#field']->isLocked()) {
+function token_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state) {
+  $field_config = $form_state->getFormObject()->getEntity();
+  $field_storage = $field_config->getFieldStorageDefinition();
+  if ($field_storage->isLocked()) {
     return;
   }
-  $field_type = $form['#field']->getType();
-  if (($field_type == 'file' || $field_type == 'image') && isset($form['instance']['settings']['file_directory'])) {
+  $field_type = $field_storage->getType();
+  if (($field_type == 'file' || $field_type == 'image') && isset($form['settings']['file_directory'])) {
     // GAH! We can only support global tokens in the upload file directory path.
-    $form['instance']['settings']['file_directory']['#element_validate'][] = 'token_element_validate';
-    $form['instance']['settings']['file_directory'] += array('#token_types' => array());
-    $form['instance']['settings']['file_directory']['#description'] .= ' ' . t('This field supports tokens.');
+    $form['settings']['file_directory']['#element_validate'][] = 'token_element_validate';
+    // Date support needs to be implicitly added, as while technically it's not
+    // a global token, it is a not only used but is the default value.
+    // https://www.drupal.org/node/2642160
+    $form['settings']['file_directory'] += array('#token_types' => array('date'));
+    $form['settings']['file_directory']['#description'] .= ' ' . t('This field supports tokens.');
   }
 
   // Note that the description is tokenized via token_field_widget_form_alter().
-  $form['instance']['description']['#description'] .= '<br />' . t('This field supports tokens.');
-  $form['instance']['description']['#element_validate'][] = 'token_element_validate';
-  $form['instance']['description'] += array('#token_types' => array());
+  $form['description']['#element_validate'][] = 'token_element_validate';
+  $form['description'] += array('#token_types' => array());
 
-  $form['instance']['settings']['token_tree'] = array(
-    '#theme' => 'token_tree',
+  $form['token_tree'] = array(
+    '#theme' => 'token_tree_link',
     '#token_types' => array(),
-    '#dialog' => TRUE,
-    '#weight' => $form['instance']['description']['#weight'] + 0.5,
+    '#weight' => $form['description']['#weight'] + 0.5,
   );
 }
 
@@ -641,19 +324,17 @@ function token_form_field_ui_field_instance_edit_form_alter(&$form, $form_state)
  * Alters the configure action form to add token context validation and
  * adds the token tree for a better token UI and selection.
  */
-function token_form_system_actions_configure_alter(&$form, $form_state) {
-  $action = actions_function_lookup($form['actions_action']['#value']);
-
-  switch ($action) {
-    case 'system_message_action':
-    case 'system_send_email_action':
-    case 'system_goto_action':
-      $form['token_tree'] = array(
-        '#theme' => 'token_tree',
+function token_form_action_add_form_alter(&$form, $form_state) {
+  switch ($form['plugin']['#value']) {
+    case 'action_message_action':
+    case 'action_send_email_action':
+    case 'action_goto_action':
+      $form['token_tree'] = [
+        '#theme' => 'token_tree_link',
         '#token_types' => 'all',
-        '#dialog' => TRUE,
         '#weight' => 100,
-      );
+      ];
+      $form['actions']['#weight'] = 101;
       // @todo Add token validation to the action fields that can use tokens.
       break;
   }
@@ -666,7 +347,7 @@ function token_form_system_actions_configure_alter(&$form, $form_state) {
  * adds the token tree for a better token UI and selection.
  */
 function token_form_user_admin_settings_alter(&$form, FormStateInterface $form_state) {
-  $email_token_help = t('Available variables are: [site:name], [site:url], [user:name], [user:mail], [site:login-url], [site:url-brief], [user:edit-url], [user:one-time-login-url], [user:cancel-url].');
+  $email_token_help = t('Available variables are: [site:name], [site:url], [user:display-name], [user:account-name], [user:mail], [site:login-url], [site:url-brief], [user:edit-url], [user:one-time-login-url], [user:cancel-url].');
 
   foreach (Element::children($form) as $key) {
     $element = &$form[$key];
@@ -714,166 +395,11 @@ function token_form_user_admin_settings_alter(&$form, FormStateInterface $form_s
 
   // Add the token tree UI.
   $form['email']['token_tree'] = array(
-    '#theme' => 'token_tree',
+    '#theme' => 'token_tree_link',
     '#token_types' => array('user'),
     '#show_restricted' => TRUE,
-    '#dialog' => TRUE,
     '#weight' => 90,
   );
-}
-
-/**
- * Build a tree array of tokens used for themeing or information.
- *
- * @param $token_type
- *   The token type.
- * @param $flat_tree
- *   A boolean if TRUE will only make a flat array of tokens, otherwise
- *   child tokens will be inside the 'children' parameter of a token.
- * @param $show_restricted
- *   A boolean if TRUE will show restricted tokens. Otherwise they will be
- *   hidden. Default is FALSE.
- * @param $recursion_limit
- *   An integer with the maximum number of token levels to recurse.
- * @param $parents
- *   An optional array with the current parents of the tokens.
- */
-function token_build_tree($token_type, array $options = array()) {
-  // Static cache of already built token trees.
-  $trees = &drupal_static(__FUNCTION__, array());
-
-  $options += array(
-    'restricted' => FALSE,
-    'depth' => 4,
-    'data' => array(),
-    'values' => FALSE,
-    'flat' => FALSE,
-  );
-
-  // Do not allow past the maximum token information depth.
-  $options['depth'] = min($options['depth'], TOKEN_MAX_DEPTH);
-
-  // If $token_type is an entity, make sure we are using the actual token type.
-  if ($entity_token_type = token_get_entity_mapping('entity', $token_type)) {
-    $token_type = $entity_token_type;
-  }
-
-  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
-  $tree_cid = "token_tree:{$token_type}:{$langcode}:{$options['depth']}";
-
-  // If we do not have this base tree in the static cache, check the cache
-  // otherwise generate and store it in the cache.
-  if (!isset($trees[$tree_cid])) {
-    if ($cache = \Drupal::cache('data')->get($tree_cid)) {
-      $trees[$tree_cid] = $cache->data;
-    }
-    else {
-      $options['parents'] = array();
-      $trees[$tree_cid] = _token_build_tree($token_type, $options);
-      \Drupal::cache('data')->set($tree_cid, $trees[$tree_cid], Cache::PERMANENT, array(Token::TOKEN_INFO_CACHE_TAG));
-    }
-  }
-
-  $tree = $trees[$tree_cid];
-
-  // If the user has requested a flat tree, convert it.
-  if (!empty($options['flat'])) {
-    $tree = token_flatten_tree($tree);
-  }
-
-  // Fill in token values.
-  if (!empty($options['values'])) {
-    $token_values = array();
-    foreach ($tree as $token => $token_info) {
-      if (!empty($token_info['dynamic']) || !empty($token_info['restricted'])) {
-        continue;
-      }
-      elseif (!isset($token_info['value'])) {
-        $token_values[$token_info['token']] = $token;
-      }
-    }
-    if (!empty($token_values)) {
-      $token_values = \Drupal::token()->generate($token_type, $token_values, $options['data']);
-      foreach ($token_values as $token => $replacement) {
-        $tree[$token]['value'] = $replacement;
-      }
-    }
-  }
-
-  return $tree;
-}
-
-/**
- * Flatten a token tree.
- */
-function token_flatten_tree($tree) {
-  $result = array();
-  foreach ($tree as $token => $token_info) {
-    $result[$token] = $token_info;
-    if (isset($token_info['children']) && is_array($token_info['children'])) {
-      $result += token_flatten_tree($token_info['children']);
-      // unset($result[$token]['children']);
-    }
-  }
-  return $result;
-}
-
-/**
- * Generate a token tree.
- */
-function _token_build_tree($token_type, array $options) {
-  $options += array(
-    'parents' => array(),
-  );
-
-  $info = token_get_info();
-  if ($options['depth'] <= 0 || !isset($info['types'][$token_type]) || !isset($info['tokens'][$token_type])) {
-    return array();
-  }
-
-  $tree = array();
-  foreach ($info['tokens'][$token_type] as $token => $token_info) {
-    // Build the raw token string.
-    $token_parents = $options['parents'];
-    if (empty($token_parents)) {
-      // If the parents array is currently empty, assume the token type is its
-      // parent.
-      $token_parents[] = $token_type;
-    }
-    elseif (in_array($token, array_slice($token_parents, 1), TRUE)) {
-      // Prevent duplicate recursive tokens. For example, this will prevent
-      // the tree from generating the following tokens or deeper:
-      // [comment:parent:parent]
-      // [comment:parent:root:parent]
-      continue;
-    }
-
-    $token_parents[] = $token;
-    if (!empty($token_info['dynamic'])) {
-      $token_parents[] = '?';
-    }
-    $raw_token = '[' . implode(':', $token_parents) . ']';
-    $tree[$raw_token] = $token_info;
-    $tree[$raw_token]['raw token'] = $raw_token;
-
-    // Add the token's real name (leave out the base token type).
-    $tree[$raw_token]['token'] = implode(':', array_slice($token_parents, 1));
-
-    // Add the token's parent as its raw token value.
-    if (!empty($options['parents'])) {
-      $tree[$raw_token]['parent'] = '[' . implode(':', $options['parents']) . ']';
-    }
-
-    // Fetch the child tokens.
-    if (!empty($token_info['type'])) {
-      $child_options = $options;
-      $child_options['depth']--;
-      $child_options['parents'] = $token_parents;
-      $tree[$raw_token]['children'] = _token_build_tree($token_info['type'], $child_options);
-    }
-  }
-
-  return $tree;
 }
 
 /**
@@ -989,9 +515,6 @@ function token_render_array(array $array, array $options = array()) {
     $value = $array[$key];
     $rendered[] = is_array($value) ? $renderer->renderPlain($value) : (string) $value;
   }
-  if (!empty($options['sanitize'])) {
-    $rendered = array_map('\Drupal\Component\Utility\SafeMarkup::checkPlain', $rendered);
-  }
   $join = isset($options['join']) ? $options['join'] : ', ';
   return implode($join, $rendered);
 }
@@ -1004,9 +527,6 @@ function token_render_array_value($value, array $options = array()) {
   $renderer = \Drupal::service('renderer');
 
   $rendered = is_array($value) ? $renderer->renderPlain($value) : (string) $value;
-  if (!empty($options['sanitize'])) {
-    $rendered = SafeMarkup::checkPlain($rendered);
-  }
   return $rendered;
 }
 

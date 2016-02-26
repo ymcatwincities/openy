@@ -68,14 +68,19 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     }
 
     // Populate fields which have not been overridden in the entity.
-    foreach ($default_tags as $tag_id => $tag_value) {
-      if (!isset($values[$tag_id]) && !empty($tag_value)) {
-        $values[$tag_id] = $tag_value;
+    if (!empty($default_tags)) {
+      foreach ($default_tags as $tag_id => $tag_value) {
+        if (!isset($values[$tag_id]) && !empty($tag_value)) {
+          $values[$tag_id] = $tag_value;
+        }
       }
     }
 
     // Create the form element.
     $element = $this->metatagManager->form($values, $element);
+
+    // Put the form element into the form's "advanced" group.
+    $element['#group'] = 'advanced';
 
     return $element;
   }

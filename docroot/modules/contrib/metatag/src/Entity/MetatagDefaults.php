@@ -39,7 +39,7 @@ use Drupal\metatag\MetatagDefaultsInterface;
  *     "edit-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/edit",
  *     "delete-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/delete",
  *     "revert-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/revert",
- *     "collection" = "/admin/structure/visibility_group"
+ *     "collection" = "/admin/structure/metatag_defaults"
  *   }
  * )
  */

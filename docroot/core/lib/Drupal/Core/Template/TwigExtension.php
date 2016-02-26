@@ -135,7 +135,9 @@ class TwigExtension extends \Twig_Extension {
       new \Twig_SimpleFunction('url', array($this, 'getUrl'), array('is_safe_callback' => array($this, 'isUrlGenerationSafe'))),
       new \Twig_SimpleFunction('path', array($this, 'getPath'), array('is_safe_callback' => array($this, 'isUrlGenerationSafe'))),
       new \Twig_SimpleFunction('link', array($this, 'getLink')),
-      new \Twig_SimpleFunction('file_url', 'file_create_url'),
+      new \Twig_SimpleFunction('file_url', function ($uri) {
+        return file_url_transform_relative(file_create_url($uri));
+      }),
       new \Twig_SimpleFunction('attach_library', [$this, 'attachLibrary']),
       new \Twig_SimpleFunction('active_theme_path', [$this, 'getActiveThemePath']),
       new \Twig_SimpleFunction('active_theme', [$this, 'getActiveTheme']),
@@ -315,8 +317,8 @@ class TwigExtension extends \Twig_Extension {
    * ampersand ("&") which separates query params. Thus we cannot mark
    * the generated URL as always safe, but only when we are sure there won't be
    * multiple query params. This is the case when there are none or only one
-   * constant parameter given. E.g. we know beforehand this will not need to
-   * be escaped:
+   * constant parameter given. For instance, we know beforehand this will not
+   * need to be escaped:
    * - path('route')
    * - path('route', {'param': 'value'})
    * But the following may need to be escaped:
