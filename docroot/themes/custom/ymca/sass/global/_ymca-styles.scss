@@ -244,3 +244,11 @@ body form .js-form-type-radio.form-item {
 .content-expander .panel-title h4 a.collapsed:before {
   content: "\e081";
 }
+
+.masthead-brand .richtext p {
+  margin-top:5px;
+  line-height:90%;
+  span {
+    font-size: 50%;
+  }
+}
