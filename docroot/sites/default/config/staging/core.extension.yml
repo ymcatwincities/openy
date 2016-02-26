@@ -40,6 +40,8 @@ module:
   libraries: 0
   link: 0
   menu_ui: 0
+  metatag: 0
+  metatag_open_graph: 0
   migrate: 0
   migrate_plus: 0
   migrate_source_csv: 0
@@ -62,6 +64,7 @@ module:
   taxonomy: 0
   telephone: 0
   text: 0
+  token: 0
   toolbar: 0
   tour: 0
   update: 0
