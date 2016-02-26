@@ -57,8 +57,9 @@ class YmcaMigrateBrokenLinks extends ControllerBase {
     });
 
     return array(
-      'info' => [],
+      'info' => [
         '#markup' => t('Total number of non-replaced tokens: !number', ['!number' => count($data)]),
+      ],
       'table' => [
         '#header' => ['Token ID', 'Address', 'Count', 'Places'],
         '#theme' => 'table',

@@ -537,7 +537,7 @@ function ymca_master_update_8026() {
   }
 }
 
-/*
+/**
  * Remove all Locations-related 'News & Events' nodes.
  */
 function ymca_master_update_8027() {
@@ -587,14 +587,30 @@ function ymca_master_update_8027() {
 }
 
 /**
- * Fix non-replaced tokens.
+ * Install and configure contrib modules.
  */
 function ymca_master_update_8028() {
+  \Drupal::service('module_installer')->install(
+    ['mailsystem', 'mimemail', 'rel_to_abs'],
+    TRUE
+  );
+
+  $path = drupal_get_path('module', 'ymca_master');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/mailsystem.settings.yml',
+    $path . '/config/optional/mimemail.settings.yml',
+    $path . '/config/optional/filter.format.full_html.yml',
+  ]);
+}
+
+/**
+ * Fix non-replaced tokens.
+ */
+function ymca_master_update_8029() {
   module_load_include('php', 'ymca_master', 'include/helper');
 
   $db = Database::getConnection('default');
-  $config = \Drupal::service('config.factory')
-    ->getEditable('redirect.settings');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
   $validator = \Drupal::pathValidator();
 
   // Do not process redirects on save.
@@ -645,7 +661,7 @@ function ymca_master_update_8028() {
             if ($address = ymca_get_legacy_page_address($token)) {
               if ($validator->isValid($address)) {
                 $replace['tokens'][$token] = $test[0][$id];
-                $replace['links'][$token] = $address;
+                $replace['links'][$token] = ltrim($address, '/');
               }
             }
           }
