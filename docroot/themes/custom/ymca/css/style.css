@@ -7625,6 +7625,13 @@ body form .js-form-type-radio.form-item label {
   cursor: pointer;
 }
 
+.group-ex span.result-name {
+  white-space: normal;
+}
+.group-ex h3 .btn-default {
+  margin-left: 7px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
