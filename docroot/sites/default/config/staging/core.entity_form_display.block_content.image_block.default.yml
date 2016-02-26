@@ -5,6 +5,7 @@ dependencies:
   config:
     - block_content.type.image_block
     - field.field.block_content.image_block.field_image
+    - image.style.thumbnail
   module:
     - image
 id: block_content.image_block.default
