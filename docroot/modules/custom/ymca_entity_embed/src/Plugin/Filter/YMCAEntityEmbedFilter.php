@@ -16,7 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\embed\DomHelperTrait;
 use Drupal\entity_embed\Plugin\Filter\EntityEmbedFilter;
 
-
 /**
  * Provides a filter to display embedded entities based on data attributes.
  *

@@ -47,7 +47,13 @@ class YmcaMigrateBrokenLinks extends ControllerBase {
           $tokens[$token]['count']++;
         }
 
-        $tokens[$token]['places'] .= $item['bundle'] . '/' . $item['entity_id'] . ' ';
+        $places = $item['bundle'] . ':' . $item['entity_id'] . ' ';
+        if (!isset($tokens[$token]['places'])) {
+          $tokens[$token]['places'] = $places;
+        }
+        else {
+          $tokens[$token]['places'] .= $places;
+        }
       }
     }
 
@@ -57,9 +63,14 @@ class YmcaMigrateBrokenLinks extends ControllerBase {
     });
 
     return array(
-      '#header' => ['Token ID', 'Address', 'Count', 'Places'],
-      '#theme' => 'table',
-      '#rows' => $tokens,
+      'info' => [
+        '#markup' => t('Total number of non-replaced tokens: @number', ['@number' => count($data)]),
+      ],
+      'table' => [
+        '#header' => ['Token ID', 'Address', 'Count', 'Places'],
+        '#theme' => 'table',
+        '#rows' => $tokens,
+      ],
     );
   }
 
