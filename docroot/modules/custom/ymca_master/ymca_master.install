@@ -587,10 +587,117 @@ function ymca_master_update_8027() {
 }
 
 /**
- * Enable metatag, token modules.
+ * Install and configure contrib modules.
  */
 function ymca_master_update_8028() {
   \Drupal::service('module_installer')->install(array('metatag'), TRUE);
-  \Drupal::service('module_installer')->install(array('metatag_open_graph'), TRUE);
+  \Drupal::service('module_installer')->install(
+    array('metatag_open_graph'),
+    TRUE
+  );
   \Drupal::service('module_installer')->install(array('token'), TRUE);
+  \Drupal::service('module_installer')->install(
+    ['mailsystem', 'mimemail', 'rel_to_abs'],
+    TRUE
+  );
+
+  $path = drupal_get_path('module', 'ymca_master');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/mailsystem.settings.yml',
+    $path . '/config/optional/mimemail.settings.yml',
+    $path . '/config/optional/filter.format.full_html.yml',
+  ]);
+}
+
+/**
+ * Fix non-replaced tokens.
+ */
+function ymca_master_update_8029() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+
+  $db = Database::getConnection('default');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+  $validator = \Drupal::pathValidator();
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $tables = [
+    'block_content__field_block_content',
+    'node__field_camp_links',
+    'node__field_content',
+    'node__field_secondary_sidebar',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  $problems = [];
+  foreach ($tables as $table) {
+    list($entity_type, $field) = explode('__', $table);
+    $col = $field . '_value';
+    $stmt = $db->select($table, 't')
+      ->fields('t')
+      ->condition('t.' . $col, '%' . $db->escapeLike('{{internal_page_link_') . '%', 'LIKE')
+      ->execute();
+
+    while ($data = $stmt->fetchObject()) {
+      $problems[$entity_type][$data->entity_id][] = $field;
+    }
+  }
+
+  // We've identified problem. Let's process them.
+  foreach ($problems as $entity_type => $entities) {
+    $storage = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage($entity_type);
+    foreach ($entities as $entity_id => $fields) {
+      /** @var \Drupal\Core\Entity\Entity $entity */
+      $entity = $storage->load($entity_id);
+      $processed_fields = [];
+
+      foreach ($fields as $field) {
+        $replace = FALSE;
+
+        $original = $entity->$field->value;
+        preg_match_all('/{{internal_page_link_(\d+)}}/miU', $original, $test);
+        if (!empty($test[1])) {
+          foreach ($test[1] as $id => $token) {
+            // Check each token. If the destination is valid. Add to replace array.
+            if ($address = ymca_get_legacy_page_address($token)) {
+              if ($validator->isValid($address)) {
+                $replace['tokens'][$token] = $test[0][$id];
+                $replace['links'][$token] = ltrim($address, '/');
+              }
+            }
+          }
+        }
+
+        if ($replace) {
+          $processed_fields[$field] = str_replace($replace['tokens'], $replace['links'], $original);
+        }
+      }
+
+      // Finally, save entity with processed fields.
+      foreach ($processed_fields as $field_name => $new_value) {
+        $entity->set($field_name, [
+          'value' => $new_value,
+          'format' => 'full_html',
+        ]);
+        $entity->save();
+
+        \Drupal::logger('ymca_migrate')->info(
+          'Tokens have been successfully replaced in %entity_type:%entity_id.',
+          [
+            '%entity_type' => $entity_type,
+            '%entity_id' => $entity_id,
+          ]
+        );
+      }
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
 }
