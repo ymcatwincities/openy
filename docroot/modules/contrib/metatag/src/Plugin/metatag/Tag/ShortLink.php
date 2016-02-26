@@ -6,10 +6,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
-use Drupal\metatag\Annotation\MetatagTag;
-
 /**
  * Provides a plugin for the 'shortlink' meta tag.
  *

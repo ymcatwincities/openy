@@ -11,9 +11,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
-use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Form\FormStateInterface;
-
 abstract class MetaPropertyBase extends MetaNameBase {
   /**
    * Display the meta tag.
