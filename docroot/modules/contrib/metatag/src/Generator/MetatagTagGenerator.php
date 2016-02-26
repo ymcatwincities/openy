@@ -13,6 +13,7 @@ class MetatagTagGenerator extends Generator {
   /**
    * Generator plugin.
    *
+   * @param string $base_class
    * @param string $module
    * @param string $name
    * @param string $label
@@ -21,9 +22,12 @@ class MetatagTagGenerator extends Generator {
    * @param string $class_name
    * @param string $group
    * @param string $weight
+   * @param bool $image
+   * @param bool $multiple
    */
-  public function generate($module, $name, $label, $description, $plugin_id, $class_name, $group, $weight) {
+  public function generate($base_class, $module, $name, $label, $description, $plugin_id, $class_name, $group, $weight, $image, $multiple) {
     $parameters = [
+      'base_class' => $base_class,
       'module' => $module,
       'name' => $name,
       'label' => $label,
@@ -32,6 +36,8 @@ class MetatagTagGenerator extends Generator {
       'class_name' => $class_name,
       'group' => $group,
       'weight' => $weight,
+      'image' => $image,
+      'multiple' => $multiple,
     ];
 
     $this->renderFile(

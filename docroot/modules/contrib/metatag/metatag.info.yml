@@ -6,8 +6,8 @@ package: SEO
 dependencies:
   - field
 
-# Information added by Drupal.org packaging script on 2015-12-08
-version: '8.x-1.0-beta3'
+# Information added by Drupal.org packaging script on 2016-02-26
+version: '8.x-1.0-beta4+7-dev'
 core: '8.x'
 project: 'metatag'
-datestamp: 1449616143
+datestamp: 1456454343

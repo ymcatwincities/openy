@@ -328,10 +328,10 @@ function theme_get_setting($setting_name, $theme = NULL) {
 
       // Generate the path to the logo image.
       if ($cache[$theme]->get('logo.use_default')) {
-        $cache[$theme]->set('logo.url', file_create_url($theme_object->getPath() . '/logo.svg'));
+        $cache[$theme]->set('logo.url', file_url_transform_relative(file_create_url($theme_object->getPath() . '/logo.svg')));
       }
       elseif ($logo_path = $cache[$theme]->get('logo.path')) {
-        $cache[$theme]->set('logo.url', file_create_url($logo_path));
+        $cache[$theme]->set('logo.url', file_url_transform_relative(file_create_url($logo_path)));
       }
 
       // Generate the path to the favicon.
@@ -339,14 +339,14 @@ function theme_get_setting($setting_name, $theme = NULL) {
         $favicon_path = $cache[$theme]->get('favicon.path');
         if ($cache[$theme]->get('favicon.use_default')) {
           if (file_exists($favicon = $theme_object->getPath() . '/favicon.ico')) {
-            $cache[$theme]->set('favicon.url', file_create_url($favicon));
+            $cache[$theme]->set('favicon.url', file_url_transform_relative(file_create_url($favicon)));
           }
           else {
-            $cache[$theme]->set('favicon.url', file_create_url('core/misc/favicon.ico'));
+            $cache[$theme]->set('favicon.url', file_url_transform_relative(file_create_url('core/misc/favicon.ico')));
           }
         }
         elseif ($favicon_path) {
-          $cache[$theme]->set('favicon.url', file_create_url($favicon_path));
+          $cache[$theme]->set('favicon.url', file_url_transform_relative(file_create_url($favicon_path)));
         }
         else {
           $cache[$theme]->set('features.favicon', FALSE);
@@ -727,7 +727,8 @@ function template_preprocess_links(&$variables) {
  *     to an empty string, but can be set to NULL for the attribute to be
  *     omitted. Usually, neither omission nor an empty string satisfies
  *     accessibility requirements, so it is strongly encouraged for code
- *     calling _theme('image') to pass a meaningful value for this variable.
+ *     building variables for image.html.twig templates to pass a meaningful
+ *     value for this variable.
  *     - http://www.w3.org/TR/REC-html40/struct/objects.html#h-13.8
  *     - http://www.w3.org/TR/xhtml1/dtds.html
  *     - http://dev.w3.org/html5/spec/Overview.html#alt
@@ -740,7 +741,7 @@ function template_preprocess_links(&$variables) {
  */
 function template_preprocess_image(&$variables) {
   if (!empty($variables['uri'])) {
-    $variables['attributes']['src'] = file_create_url($variables['uri']);
+    $variables['attributes']['src'] = file_url_transform_relative(file_create_url($variables['uri']));
   }
   // Generate a srcset attribute conforming to the spec at
   // http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#attr-img-srcset
@@ -748,7 +749,7 @@ function template_preprocess_image(&$variables) {
     $srcset = array();
     foreach ($variables['srcset'] as $src) {
       // URI is mandatory.
-      $source = file_create_url($src['uri']);
+      $source = file_url_transform_relative(file_create_url($src['uri']));
       if (isset($src['width']) && !empty($src['width'])) {
         $source .= ' ' . $src['width'];
       }
@@ -1519,7 +1520,7 @@ function template_preprocess_field(&$variables, $hook) {
   }
 
   // Merge attributes when a single-value field has a hidden label.
-  if ($element['#label_display'] == 'hidden' && !$variables['multiple']) {
+  if ($element['#label_display'] == 'hidden' && !$variables['multiple'] && !empty($element['#items'][0]->_attributes)) {
     $variables['attributes'] = NestedArray::mergeDeep($variables['attributes'], (array) $element['#items'][0]->_attributes);
   }
 
@@ -1721,11 +1722,12 @@ function drupal_common_theme() {
     'image' => array(
       // HTML 4 and XHTML 1.0 always require an alt attribute. The HTML 5 draft
       // allows the alt attribute to be omitted in some cases. Therefore,
-      // default the alt attribute to an empty string, but allow code calling
-      // _theme('image') to pass explicit NULL for it to be omitted. Usually,
-      // neither omission nor an empty string satisfies accessibility
-      // requirements, so it is strongly encouraged for code calling
-      // _theme('image') to pass a meaningful value for the alt variable.
+      // default the alt attribute to an empty string, but allow code providing
+      // variables to image.html.twig templates to pass explicit NULL for it to
+      // be omitted. Usually, neither omission nor an empty string satisfies
+      // accessibility requirements, so it is strongly encouraged for code
+      // building variables for image.html.twig templates to pass a meaningful
+      // value for the alt variable.
       // - http://www.w3.org/TR/REC-html40/struct/objects.html#h-13.8
       // - http://www.w3.org/TR/xhtml1/dtds.html
       // - http://dev.w3.org/html5/spec/Overview.html#alt
@@ -1765,7 +1767,7 @@ function drupal_common_theme() {
       'render element' => 'page',
     ),
     'maintenance_task_list' => array(
-      'variables' => array('items' => NULL, 'active' => NULL,  'variant' => NULL),
+      'variables' => array('items' => NULL, 'active' => NULL, 'variant' => NULL),
     ),
     'authorize_report' => array(
       'variables' => ['messages' => [], 'attributes' => []],

@@ -1,3 +1,8 @@
+.token-tree-dialog {
+  border: 1px solid #6b6b6b;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 0 10px #6b6b6b;
+}
 
 .token-tree {
   font-size: 0.85em;

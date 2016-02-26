@@ -6,10 +6,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
-
 /**
  * The standard page title.
  *
