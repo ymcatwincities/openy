@@ -7663,6 +7663,14 @@ body form .js-form-type-radio.form-item label {
   content: "\e081";
 }
 
+.masthead-brand .richtext p {
+  margin-top: 5px;
+  line-height: 90%;
+}
+.masthead-brand .richtext p span {
+  font-size: 50%;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
