@@ -27,7 +27,6 @@
           blog_archive_year = path_split[path_split.length - 3];
         }
 
-        var component_id = '400002';
         var component_el = $(".abe_blog_archives_display");
 
         var blog_current_year_el = component_el.find("#blog_archive_year_" + blog_archive_year);
