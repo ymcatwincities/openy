@@ -389,11 +389,11 @@ class GroupexScheduleFetcher {
   /**
    * Get PDF link to location schedule.
    *
-   * @param $location
+   * @param int $location
    *   Location ID.
-   * @param $timestamp
+   * @param int $timestamp
    *   Timestamp.
-   * @param $category
+   * @param int $category
    *   Category.
    *
    * @return \Drupal\Core\Url
