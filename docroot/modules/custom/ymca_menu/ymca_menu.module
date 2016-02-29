@@ -8,6 +8,9 @@ define('YMCA_MENU_CACHE_CID', 'ymca_menu:menu');
 
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Database\Database;
+use Drupal\ymca_menu\Controller\YMCAMenuController;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_theme().
@@ -45,7 +48,7 @@ function ymca_menu_page_attachments(array &$attachments) {
         // Select the first matching link.
         $found = reset($links);
         if ($found->isEnabled()) {
-          $connection = \Drupal\Core\Database\Database::getConnection();
+          $connection = Database::getConnection();
           $query = $connection
             ->select('menu_tree', 'mt')
             ->fields('mt', array('mlid'))
@@ -56,14 +59,14 @@ function ymca_menu_page_attachments(array &$attachments) {
     }
   }
   if (!$mlid) {
-    $menus = Drupal\ymca_menu\Controller\YMCAMenuController::menuList();
+    $menus = YMCAMenuController::menuList();
     foreach ($menus as $menu) {
       /* @var Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
       if ($link = \Drupal::service('menu.active_trail')->getActiveLink($menu)) {
         if (!$link->isEnabled()) {
           continue;
         }
-        $connection = \Drupal\Core\Database\Database::getConnection();
+        $connection = Database::getConnection();
         $query = $connection
           ->select('menu_tree', 'mt')
           ->fields('mt', array('mlid'))
@@ -75,7 +78,7 @@ function ymca_menu_page_attachments(array &$attachments) {
   }
   $current_path = \Drupal::service('path.current')->getPath();
   $attachments['#attached']['drupalSettings']['page'] = array(
-    'mlid' => !empty($mlid) ? $mlid : Drupal\ymca_menu\Controller\YMCAMenuController::ROOT_ID,
+    'mlid' => !empty($mlid) ? $mlid : YMCAMenuController::ROOT_ID,
     'liveUrl' => \Drupal::service('path.alias_manager')->getAliasByPath($current_path) . '/',
   );
 }
@@ -107,21 +110,21 @@ function ymca_menu_preprocess_node(&$variables) {
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
-function ymca_menu_menu_link_content_insert(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_menu_menu_link_content_insert(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
 }
 
 /**
  * Implements hook_ENTITY_TYPE_update().
  */
-function ymca_menu_menu_link_content_update(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_menu_menu_link_content_update(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
 }
 
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function ymca_menu_menu_link_content_delete(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_menu_menu_link_content_delete(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
 }
 
@@ -136,6 +139,12 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
   // If menu_ui haven't altered the form, there is nothing to display.
   if (!isset($form['menu'])) {
     return;
+  }
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
+    }
   }
   // Generate a list of possible parents (not including this link or descendants).
   // @todo This must be handled in a #process handler.
@@ -179,12 +188,6 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
       ),
     ),
   );
-
-  foreach (array_keys($form['actions']) as $action) {
-    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
-      $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
-    }
-  }
 }
 
 /**
@@ -205,24 +208,24 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
           $entity->save();
         }
       }
-
-      // Update node alias, since all required data is available now.
-      $nid = $form_state->getValue('nid');
-      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-      $node_storage->resetCache(array($nid));
-      $node = $node_storage->load($nid);
-      if ($node->bundle() == 'article') {
-        // Check whether we need to update an alias.
-        $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
-        if (empty($alias)) {
-          return;
-        }
-        $source = '/node/' . $nid;
-        $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
-        $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
-        \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
-      }
-
     }
+  }
+
+  // Update node alias.
+  $path = $form_state->getValue('path');
+  $nid = $form_state->getValue('nid');
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $node_storage->resetCache(array($nid));
+  $node = $node_storage->load($nid);
+  if ($node->bundle() == 'article' && empty($path[0]['alias'])) {
+    // Check whether we need to update an alias.
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
+    if (empty($alias)) {
+      return;
+    }
+    $source = '/node/' . $nid;
+    $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
+    $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
 }

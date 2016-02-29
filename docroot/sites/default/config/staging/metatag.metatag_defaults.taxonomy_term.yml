@@ -1,0 +1,9 @@
+uuid: 97d1ee6b-9df8-4886-a200-be04ea4d57f2
+langcode: en
+status: true
+dependencies: {  }
+id: taxonomy_term
+label: 'Taxonomy term'
+tags:
+  title: '[term:name] | [site:name]'
+  description: '[term:description]'
