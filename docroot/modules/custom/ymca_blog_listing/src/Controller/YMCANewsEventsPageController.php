@@ -3,8 +3,8 @@
 namespace Drupal\ymca_blog_listing\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\node\NodeInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class YMCANewsEventsPageController.
@@ -34,7 +34,7 @@ class YMCANewsEventsPageController extends ControllerBase {
         break;
 
       default:
-        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+        throw new NotFoundHttpException();
     }
 
     return [
