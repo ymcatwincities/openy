@@ -7625,6 +7625,52 @@ body form .js-form-type-radio.form-item label {
   cursor: pointer;
 }
 
+.group-ex span.result-name {
+  white-space: normal;
+}
+.group-ex h3 .btn-default {
+  margin-left: 7px;
+}
+
+.content-expander .panel-title h2,
+.content-expander .panel-title h4 {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.content-expander .panel-title h2 a:after,
+.content-expander .panel-title h4 a:after {
+  display: none;
+}
+
+.content-expander .panel-title h2 a:before,
+.content-expander .panel-title h4 a:before {
+  position: relative;
+  top: 0;
+  margin-right: .3em;
+  content: "\e082";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: .7em;
+  font-family: 'Glyphicons Halflings';
+}
+
+.content-expander .panel-title h2 a.collapsed:before,
+.content-expander .panel-title h4 a.collapsed:before {
+  content: "\e081";
+}
+
+.masthead-brand .richtext p {
+  margin-top: 5px;
+  line-height: 90%;
+}
+.masthead-brand .richtext p span {
+  font-size: 50%;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
