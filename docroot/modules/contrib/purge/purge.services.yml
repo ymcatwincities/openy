@@ -1,0 +1,105 @@
+parameters:
+
+  # Enable Drupal's X-Drupal-Cache-Tags response header. This HTTP response
+  # header describes what got rendered onto every page with descriptive text
+  # keys uniquely identifying every rendered object. This then enables external
+  # caching platforms - exactly what this module is for - to leverage this.
+  http.response.debug_cacheability_headers: true
+
+services:
+
+  # PURGE.QUEUERS
+  #
+  # Manages services tagged 'purge_queuer' by exposing them in end-user
+  # interfaces and allowing users to disable/enable them.
+  purge.queuers:
+    class: Drupal\purge\Plugin\Purge\Queuer\QueuersService
+    public: true
+    arguments: ['@plugin.manager.purge.queuer', '@config.factory']
+  plugin.manager.purge.queuer:
+    class: Drupal\purge\Plugin\Purge\Queuer\PluginManager
+    parent: default_plugin_manager
+    public: false
+
+  # PURGE.INVALIDATION.FACTORY
+  #
+  # The invalidation object factory, generates 'purge instruction' value objects
+  # on demand. Invalidations have state and flow freely between queue and
+  # purgers, but can also be instantiated through the factory and get fed to the
+  # purger straight away.
+  purge.invalidation.factory:
+    class: Drupal\purge\Plugin\Purge\Invalidation\InvalidationsService
+    arguments: ['@plugin.manager.purge.invalidation']
+  plugin.manager.purge.invalidation:
+    class: Drupal\purge\Plugin\Purge\Invalidation\PluginManager
+    parent: default_plugin_manager
+    public: false
+
+  # PURGE.QUEUE:
+  #
+  # The queue service which stores, claims, releases and accepts invalidation
+  # objects returning from 'purge.purgers'.
+  purge.queue:
+    class: Drupal\purge\Plugin\Purge\Queue\QueueService
+    arguments: ['@plugin.manager.purge.queue', '@config.factory', '@purge.queue.txbuffer',  '@purge.queue.stats', '@purge.invalidation.factory', '@purge.purgers']
+    tags:
+      - { name: needs_destruction }
+  purge.queue.txbuffer:
+    class: Drupal\purge\Plugin\Purge\Queue\TxBuffer
+    public: false
+  purge.queue.stats:
+    class: Drupal\purge\Plugin\Purge\Queue\StatsTracker
+    arguments: ['@state']
+    tags:
+      - { name: needs_destruction }
+  plugin.manager.purge.queue:
+    class: Drupal\purge\Plugin\Purge\Queue\PluginManager
+    parent: default_plugin_manager
+    public: false
+
+  # PURGE.DIAGNOSTICS:
+  #
+  # The diagnostics service which monitors and warns for problematic situations
+  # that can occur during purging. When it detects severe issues, it will
+  # prevent all purges in the first place.
+  purge.diagnostics:
+    class: Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticsService
+    arguments: ['@plugin.manager.purge.diagnostics']
+    calls:
+    - [setContainer, ['@service_container']]
+  plugin.manager.purge.diagnostics:
+    class:  Drupal\purge\Plugin\Purge\DiagnosticCheck\PluginManager
+    parent: default_plugin_manager
+    public: false
+
+  # PURGE.PROCESSORS
+  #
+  # Processors pull items from the queue and initiate purging activity.
+  purge.processors:
+    class: Drupal\purge\Plugin\Purge\Processor\ProcessorsService
+    arguments: ['@plugin.manager.purge.processor', '@config.factory']
+  plugin.manager.purge.processor:
+    class: Drupal\purge\Plugin\Purge\Processor\PluginManager
+    parent: default_plugin_manager
+    public: false
+
+  # PURGE.PURGERS:
+  #
+  # The executive service which lets enabled purgers invalidate external caches.
+  purge.purgers:
+    class: Drupal\purge\Plugin\Purge\Purger\PurgersService
+    arguments: ['@plugin.manager.purge.purgers', '@config.factory', '@lock', '@purge.diagnostics']
+  plugin.manager.purge.purgers:
+    class: Drupal\purge\Plugin\Purge\Purger\PluginManager
+    parent: default_plugin_manager
+    public: false
+
+  # LOGGER.CHANNEL.PURGE
+  #
+  # Unified logger channel for the purge module and all its submodules. The core
+  # purge APIs won't log anything at all, but leaves that up to purgers,
+  # processing policies and other submodules.
+  logger.channel.purge:
+    parent: logger.channel_base
+    arguments: ['purge']
+    public: false
