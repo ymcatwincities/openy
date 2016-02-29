@@ -134,7 +134,7 @@ function ymca_groupex_preprocess_node(&$variables) {
     $variables['groupex_form_refine'] = \Drupal::service('renderer')->render($form, FALSE);
 
     // Get classes schedules.
-    $schedule = $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
+    $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
 
     // Are results empty?
     $variables['empty_results'] = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
