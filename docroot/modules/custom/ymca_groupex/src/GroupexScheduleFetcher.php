@@ -3,6 +3,7 @@
 namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Url;
 
 /**
  * Fetches and prepares Groupex data.
@@ -133,9 +134,9 @@ class GroupexScheduleFetcher {
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $l = array_shift($this->parameters['location']);
-          $t = $this->parameters['filter_timestamp'];
-          $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $location_id = reset($this->parameters['location']);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -151,9 +152,9 @@ class GroupexScheduleFetcher {
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $l = array_shift($this->parameters['location']);
-          $t = $this->parameters['filter_timestamp'];
-          $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $location = reset($this->parameters['location']);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = self::getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -165,15 +166,16 @@ class GroupexScheduleFetcher {
       case 'location':
         $schedule['locations'] = [];
         $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+        $location_id = NULL;
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {
             if ($location['name'] == $short_location_name) {
-              $l = $location['id'];
+              $location_id = $location['geid'];
             }
           }
-          $t = $this->parameters['filter_timestamp'];
-          $pdf_href = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $pdf_href = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
@@ -382,6 +384,39 @@ class GroupexScheduleFetcher {
    */
   public function isEmpty() {
     return empty($this->rawData);
+  }
+
+  /**
+   * Get PDF link to location schedule.
+   *
+   * @param int $location
+   *   Location ID.
+   * @param int $timestamp
+   *   Timestamp.
+   * @param int $category
+   *   Category.
+   *
+   * @return \Drupal\Core\Url
+   *   Link.
+   */
+  static public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
+    $uri = 'http://www.groupexpro.com/ymcatwincities/print.php';
+
+    $query = [
+      'font' => 'larger',
+      'account' => GroupexRequestTrait::$account,
+      'l' => $location,
+    ];
+
+    if ($timestamp) {
+      $query['week'] = $timestamp;
+    }
+
+    if ($category) {
+      $query['c'] = $category;
+    }
+
+    return Url::fromUri($uri, ['query' => $query]);
   }
 
 }
