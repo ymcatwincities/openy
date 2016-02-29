@@ -1,0 +1,10 @@
+purge_purger_http_header:
+  type: mapping
+  label: 'HTTP Header'
+  mapping:
+    field:
+      type: string
+      translatable: false
+    value:
+      type: string
+      translatable: false
