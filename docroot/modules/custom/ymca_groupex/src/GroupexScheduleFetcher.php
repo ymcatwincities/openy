@@ -152,9 +152,9 @@ class GroupexScheduleFetcher {
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $l = array_shift($this->parameters['location']);
-          $t = $this->parameters['filter_timestamp'];
-          $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $location = reset($this->parameters['location']);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = $this->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -166,16 +166,16 @@ class GroupexScheduleFetcher {
       case 'location':
         $schedule['locations'] = [];
         $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+        $location_id = NULL;
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {
             if ($location['name'] == $short_location_name) {
-              $l = $location['geid'];
+              $location_id = $location['geid'];
             }
           }
-          $t = $this->parameters['filter_timestamp'];
-          $c = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $pdf_href = $this->getPdfLink($l, $t, $c);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $pdf_href = $this->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
