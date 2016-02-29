@@ -4,8 +4,8 @@ namespace Drupal\ymca_membership\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Link;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Implements YMCAMembershipPage.
@@ -117,14 +117,14 @@ class YMCAMembershipPage extends ControllerBase {
 
     // Incorrect UUID entered.
     if (!$submissions) {
-      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Incorrect UUID entered');
+      throw new NotFoundHttpException('Incorrect UUID entered');
     }
 
     $submission = reset($submissions);
 
     // Submission data available only for 1 minute.
     if (time() - $submission->created->getValue()[0]['value'] > 60) {
-      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+      throw new NotFoundHttpException();
     }
 
     $location_build = [];

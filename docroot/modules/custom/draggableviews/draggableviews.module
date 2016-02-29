@@ -5,6 +5,10 @@
  * Contains draggableviews.module.
  */
 
+use Drupal\draggableviews\DraggableViews;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Database\Database;
+
 /**
  * Implements hook_views_data_alter().
  */
@@ -72,7 +76,7 @@ function draggableviews_preprocess_views_view_table(&$variables) {
     return;
   }
 
-  $draggableviews = new \Drupal\draggableviews\DraggableViews($variables['view']);
+  $draggableviews = new DraggableViews($variables['view']);
 
   // Add hierarchy.
   foreach ($variables['rows'] as $key => $row) {
@@ -97,7 +101,7 @@ function draggableviews_preprocess_views_view_table(&$variables) {
 /**
  * Implements hook_form_alter().
  */
-function draggableviews_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function draggableviews_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Filter the right form.
   if (strpos($form_id, 'views_form_') === FALSE) {
     return;
@@ -132,7 +136,7 @@ function draggableviews_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
 /**
  * Submit handler.
  */
-function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+function draggableviews_views_submit(&$form, FormStateInterface $form_state) {
   $input = $form_state->getUserInput();
 
   $view = $form_state->getBuildInfo()['args'][0];
@@ -141,7 +145,7 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
 
   $weight = 0;
 
-  $connection = \Drupal\Core\Database\Database::getConnection();
+  $connection = Database::getConnection();
   $transaction = $connection->startTransaction();
   try {
     foreach ($input['draggableviews'] as $item) {
@@ -171,7 +175,7 @@ function draggableviews_views_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   }
   catch (\Exception $e) {
     $transaction->rollback();
-    \Drupal::logger('draggableviews')->error('Failed with @message', ['@message' => $e->getMessage()]);
+    Drupal::logger('draggableviews')->error('Failed with @message', ['@message' => $e->getMessage()]);
     drupal_set_message(t('There was an error while saving the data. Please, try gain.'), 'warning');
   }
 }

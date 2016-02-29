@@ -8,6 +8,11 @@
 use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Database\Database;
+use Drupal\node\Entity\Node;
+use Drupal\redirect\Entity\Redirect;
+use Drupal\redirect\Exception\RedirectLoopException;
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 
 /**
  * Protecting sites with a shield.
@@ -157,7 +162,7 @@ function ymca_master_update_8009() {
 
   // Replace tokens withing the nodes and fields.
   foreach ($ids as $nid) {
-    $node = \Drupal\node\Entity\Node::load($nid);
+    $node = Node::load($nid);
     foreach ($fields as $field) {
       if ($node->hasField($field)) {
         foreach ($node->$field as &$item) {
@@ -373,7 +378,7 @@ function ymca_master_update_8020() {
       $source_path = ltrim($alias->alias . '/', '/');
       try {
         if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
-          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect = Redirect::create();
           $redirect->setSource($source_path);
           $redirect->setRedirect($alias->source);
           $redirect->setLanguage('en');
@@ -381,7 +386,7 @@ function ymca_master_update_8020() {
           $redirect->save();
         }
       }
-      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+      catch (RedirectLoopException $e) {
         watchdog_exception('ymca_master', $e);
       }
     }
@@ -411,15 +416,15 @@ function ymca_master_update_8021() {
     if ($destination = $alias_manager->getPathByAlias(str_replace('internal:', '', $uri), 'en')) {
       try {
         if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
-          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect = Redirect::create();
           $redirect->setSource($source_path);
           $redirect->setRedirect($destination);
           $redirect->setLanguage('en');
-          $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+          $redirect->setStatusCode(Drupal::config('redirect.settings')->get('default_status_code'));
           $redirect->save();
         }
       }
-      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+      catch (RedirectLoopException $e) {
         watchdog_exception('ymca_master', $e);
       }
     }
@@ -447,7 +452,7 @@ function ymca_master_update_8023() {
 function ymca_master_update_8024() {
   if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
     ini_set('memory_limit', '2048M');
-    $dir = DRUPAL_ROOT . '/' . \Drupal\Core\StreamWrapper\PublicStream::basePath() . '/cache';
+    $dir = DRUPAL_ROOT . '/' . PublicStream::basePath() . '/cache';
     $config = \Drupal::service('config.factory')->getEditable('ymca_migrate.settings');
     $config->set('cache_dir', $dir);
     $config->save();
@@ -530,7 +535,7 @@ function ymca_master_update_8025() {
 function ymca_master_update_8026() {
   $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
   foreach ($mappings as $item) {
-    if ($node = \Drupal\node\Entity\Node::load($item['entity_id'])) {
+    if ($node = Node::load($item['entity_id'])) {
       $node->setTitle($item['name']);
       $node->save();
     }
@@ -572,7 +577,7 @@ function ymca_master_update_8027() {
   foreach ($nodes as $node) {
     $menu_link_info = menu_ui_get_menu_link_defaults($node);
     // Load menu link.
-    if (!$menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load($menu_link_info['entity_id'])) {
+    if (!$menu_link = MenuLinkContent::load($menu_link_info['entity_id'])) {
       \Drupal::logger('ymca_master')->alert(t('Node menu_link found for node %node', array('%node' => $node->id())));
       continue;
     }

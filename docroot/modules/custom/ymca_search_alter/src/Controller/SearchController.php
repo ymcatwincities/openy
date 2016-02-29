@@ -8,11 +8,12 @@ use Drupal\search\SearchPageInterface;
 use Drupal\search\SearchPageRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\search\Controller\SearchController as DrupalSearchController;
 
 /**
  * Route controller for search.
  */
-class SearchController extends \Drupal\search\Controller\SearchController {
+class SearchController extends DrupalSearchController {
 
   /**
    * {@inheritdoc}
