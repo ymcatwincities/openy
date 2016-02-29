@@ -6,10 +6,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaHttpEquivBase;
-use Drupal\metatag\Annotation\MetatagTag;
-
 /**
  * The advanced "Content Language" meta tag.
  *

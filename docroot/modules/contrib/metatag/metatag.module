@@ -8,23 +8,22 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\metatag\Entity\MetatagDefaults;
 
 /**
  * Implements hook_help().
  */
 function metatag_help($route_name, RouteMatchInterface $route_match) {
-  $output = '';
+
   switch ($route_name) {
     // Main module help for the Metatag module.
     case 'help.page.metatag':
-      $output .= '<h3>' . t('About') . '</h3>';
+      $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('This module allows you to automatically provide structured metadata, aka "meta
 tags", about your website and web pages.') . '</p>';
+      return $output;
       break;
   }
 
-  return $output;
 }
 
 /**
@@ -61,7 +60,7 @@ function metatag_page_attachments(array &$attachments) {
     return;
   }
 
-  $metatag_attachments = drupal_static('metatag_attachments');
+  $metatag_attachments = &drupal_static('metatag_attachments');
 
   if (is_null($metatag_attachments)) {
     // Load the meta tags from the route.
@@ -213,7 +212,7 @@ function metatag_get_tags_from_route() {
 
   // Then, set tag overrides for this particular entity.
   $entity = metatag_get_route_entity();
-  if (!empty($entity)) {
+  if (!empty($entity) && $entity instanceof ContentEntityInterface) {
     $metatags = array_merge($metatags, $metatag_manager->tagsFromEntity($entity));
   }
 

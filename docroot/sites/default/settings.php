@@ -710,6 +710,8 @@ if (file_exists('/var/www/site-php')) {
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
 }
+$settings["install_profile"] = "pp";
+
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {

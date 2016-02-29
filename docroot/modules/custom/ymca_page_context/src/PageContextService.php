@@ -2,6 +2,8 @@
 
 namespace Drupal\ymca_page_context;
 
+use Drupal\node\Entity\Node;
+
 /**
  * Controls in what context page header should be rendered.
  */
@@ -18,10 +20,10 @@ class PageContextService {
   /**
    * Overrides current context.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param Node $node
    *   Context node entity.
    */
-  public function setContext(\Drupal\node\Entity\Node $node) {
+  public function setContext(Node $node) {
     $this->context = $node;
   }
 

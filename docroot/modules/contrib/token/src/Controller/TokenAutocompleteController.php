@@ -9,6 +9,8 @@ namespace Drupal\token\Controller;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\token\TreeBuilderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,6 +18,24 @@ use Symfony\Component\HttpFoundation\Request;
  * Returns autocomplete responses for tokens.
  */
 class TokenAutocompleteController extends ControllerBase {
+
+  /**
+   * @var \Drupal\token\TreeBuilderInterface
+   */
+  protected $treeBuilder;
+
+  public function __construct(TreeBuilderInterface $tree_builder) {
+    $this->treeBuilder = $tree_builder;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('token.tree_builder')
+    );
+  }
 
   /**
    * Retrieves suggestions for block category autocompletion.
@@ -40,7 +60,7 @@ class TokenAutocompleteController extends ControllerBase {
     }
     else {
       $depth = max(1, substr_count($filter, ':'));
-      $tree = token_build_tree($token_type, array('flat' => TRUE, 'depth' => $depth));
+      $tree = $this->treeBuilder->buildTree($token_type, ['flat' => TRUE, 'depth' => $depth]);
       foreach (array_keys($tree) as $token) {
         if (strpos($token, $filter) === 0) {
           $matches[$token] = levenshtein($token, $filter);

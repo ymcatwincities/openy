@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.product.field_category
+    - field.field.node.product.field_content
+    - field.field.node.product.field_locations
     - node.type.product
   module:
     - user
@@ -15,4 +18,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_category: true
+  field_content: true
+  field_locations: true
   langcode: true

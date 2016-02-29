@@ -12,4 +12,4 @@ metatag.metatag_defaults.*:
       type: sequence
       label: 'Tags'
       sequence:
-        type: metatag.metatag_tag.[plugin_id]
+        type: metatag.metatag_tag.[%key]
