@@ -5,6 +5,10 @@
  */
 
 use Drupal\Core\Database\Database;
+use Drupal\migrate\MigrateMessage;
+use Drupal\migrate\Entity\MigrationInterface;
+use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\Entity\Migration;
 
 /**
  * Fixes menu_link_content entities.
@@ -52,9 +56,9 @@ function ymca_fix_menu_link_content() {
 function ymca_run_migration($migration, $update = FALSE, $force = FALSE) {
   $id = $migration;
 
-  /** @var \Drupal\migrate\Entity\Migration $migration */
-  $migration = \Drupal\migrate\Entity\Migration::load($id);
-  $migrate_message = new \Drupal\migrate\MigrateMessage();
+  /** @var Migration $migration */
+  $migration = Migration::load($id);
+  $migrate_message = new MigrateMessage();
   $event_dispatcher = \Drupal::service('event_dispatcher');
 
   // Run migration without dependencies.
@@ -67,8 +71,27 @@ function ymca_run_migration($migration, $update = FALSE, $force = FALSE) {
     $migration->getIdMap()->prepareUpdate();
   }
 
-  $migration->setStatus(\Drupal\migrate\Entity\MigrationInterface::STATUS_IDLE);
+  $migration->setStatus(MigrationInterface::STATUS_IDLE);
 
-  $executable = new \Drupal\migrate\MigrateExecutable($migration, $migrate_message, $event_dispatcher);
+  $executable = new MigrateExecutable($migration, $migrate_message, $event_dispatcher);
   $executable->import();
+}
+
+/**
+ * Get legacy address of the page by ID.
+ *
+ * @param int $id
+ *   Page ID.
+ *
+ * @return mixed
+ *   Page address.
+ */
+function ymca_get_legacy_page_address($id) {
+  $db = Database::getConnection('default', 'amm_source');
+  $field = $db->select('amm_site_page', 'p')
+    ->fields('p', ['page_subdirectory'])
+    ->condition('p.site_page_id', $id)
+    ->execute()
+    ->fetchField();
+  return $field;
 }

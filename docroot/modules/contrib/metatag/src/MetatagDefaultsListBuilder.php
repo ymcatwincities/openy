@@ -9,7 +9,6 @@ namespace Drupal\metatag;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Provides a listing of Metatag defaults entities.
@@ -61,10 +60,11 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
   }
 
   /**
-   * Renders the Metatag defaults lable plus its configuration.
+   * Renders the Metatag defaults label plus its configuration.
    *
    * @param EntityInterface $entity
    *   The Metatag defaults entity.
+   *
    * @return
    *   Render array for a table cell.
    */
@@ -81,9 +81,10 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
       list($entity_label, $bundle_label) = explode(': ', $entity->get('label'));
       $inherits .= ', ' . $entity_label;
     }
-    $output .= '<div>
-                  <p>Inherits meta tags from: ' . $inherits . '</p>
-                </div>';
+
+    if (!empty($inherits)) {
+      $output .= '<div><p>' . t('Inherits meta tags from: @inherits', array('@inherits' => $inherits)) . '</p></div>';
+    }
     $tags = $entity->get('tags');
     if (count($tags)) {
       $output .= '<table>

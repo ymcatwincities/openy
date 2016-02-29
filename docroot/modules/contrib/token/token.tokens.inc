@@ -63,11 +63,11 @@ function token_token_info_alter(&$info) {
   $entities = \Drupal::entityManager()->getDefinitions();
   foreach ($entities as $entity => $entity_info) {
     /* @var \Drupal\Core\Entity\EntityType $entity_info */
-    if (!$entity_info->get('token type')) {
+    if (!$entity_info->get('token_type')) {
       continue;
     }
 
-    $token_type = $entity_info->get('token type');
+    $token_type = $entity_info->get('token_type');
     if (!isset($info['types'][$token_type]) || !isset($info['tokens'][$token_type])) {
       continue;
     }
@@ -390,8 +390,6 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     $langcode = NULL;
   }
 
-  $sanitize = !empty($options['sanitize']);
-
   // Date tokens.
   if ($type == 'date') {
     $date = !empty($data['date']) ? $data['date'] : REQUEST_TIME;
@@ -431,11 +429,11 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'log':
-          $replacements[$original] = $sanitize ? Xss::filter($node->revision_log->value) : $node->revision_log->value;
+          $replacements[$original] = (string) $node->revision_log->value;
           break;
         case 'content-type':
           $type_name = \Drupal::entityManager()->getStorage('node_type')->load($node->getType())->label();
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($type_name) : $type_name;
+          $replacements[$original] = $type_name;
           break;
       }
     }
@@ -460,14 +458,13 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'name':
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($node_type->label()) : $node_type->label();
+          $replacements[$original] = $node_type->label();
           break;
         case 'machine-name':
-          // This is a machine name so does not ever need to be sanitized.
           $replacements[$original] = $node_type->id();
           break;
         case 'description':
-          $replacements[$original] = $sanitize ? Xss::filter($node_type->getDescription()) : $node_type->getDescription();
+          $replacements[$original] = $node_type->getDescription();
           break;
         case 'node-count':
           $count = \Drupal::entityQueryAggregate('node')
@@ -507,7 +504,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $parents = $term_storage->loadAllParents($term->id());
           $root_term = end($parents);
           if ($root_term->id() != $term->id()) {
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($root_term->label()) : $root_term->label();
+            $replacements[$original] = $root_term->label();
           }
           break;
       }
@@ -539,7 +536,6 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'machine-name':
-          // This is a machine name so does not ever need to be sanitized.
           $replacements[$original] = $vocabulary->id();
           break;
         case 'edit-url':
@@ -557,11 +553,11 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
       switch ($name) {
         case 'basename':
           $basename = pathinfo($file->uri->value, PATHINFO_BASENAME);
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($basename) : $basename;
+          $replacements[$original] = $basename;
           break;
         case 'extension':
           $extension = pathinfo($file->uri->value, PATHINFO_EXTENSION);
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($extension) : $extension;
+          $replacements[$original] = $extension;
           break;
         case 'size-raw':
           $replacements[$original] = (int) $file->filesize->value;
@@ -617,7 +613,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
       switch ($name) {
         case 'ip-address':
           $ip = \Drupal::request()->getClientIp();
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($ip) : $ip;
+          $replacements[$original] = $ip;
           break;
       }
     }
@@ -640,7 +636,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $replacements[$original] = $link->getPluginId();
           break;
         case 'title':
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($link->getTitle()) : $link->getTitle();
+          $replacements[$original] = $link->getTitle();
           break;
         case 'url':
           $replacements[$original] = $link->getUrlObject()->setAbsolute()->toString();
@@ -649,7 +645,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
 
           /** @var \Drupal\Core\Menu\MenuLinkInterface $parent */
           if ($link->getParent() && $parent = $menu_link_manager->createInstance($link->getParent())) {
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($parent->getTitle()) : $parent->getTitle();
+            $replacements[$original] = $parent->getTitle();
           }
           break;
         case 'parents':
@@ -660,7 +656,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
         case 'root';
           if ($link->getParent() && $parent_ids = array_keys(token_menu_link_load_all_parents($link->getPluginId()))) {
             $root = $menu_link_manager->createInstance(array_shift($parent_ids));
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($root->getTitle()) : $root->label();
+            $replacements[$original] = $root->getTitle();
           }
           break;
       }
@@ -695,7 +691,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $request = \Drupal::request();
           $route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT);
           $title = \Drupal::service('title_resolver')->getTitle($request, $route);
-          $replacements[$original] = $sanitize ? $title : Html::decodeEntities($title);
+          $replacements[$original] = $title;
           break;
         case 'url':
           $replacements[$original] = Url::fromRoute('<current>', [], $url_options)->toString();
@@ -720,7 +716,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
       foreach ($arg_tokens as $name => $original) {
         $parts = explode('/', $path);
         if (is_numeric($name) && isset($parts[$name])) {
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($parts[$name]) : $parts[$name];
+          $replacements[$original] = $parts[$name];
         }
       }
     }
@@ -728,10 +724,9 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     // [current-page:query] dynamic tokens.
     if ($query_tokens = \Drupal::token()->findWithPrefix($tokens, 'query')) {
       foreach ($query_tokens as $name => $original) {
-        // @todo Should this use filter_input()?
         if (\Drupal::request()->query->has($name)) {
           $value = \Drupal::request()->query->get($name);
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($value) : $value;
+          $replacements[$original] = $value;
         }
       }
     }
@@ -755,12 +750,12 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
       switch ($name) {
         case 'path':
           $value = !($url->getOption('alias')) ? \Drupal::service('path.alias_manager')->getAliasByPath($path, $langcode) : $path;
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($value) : $value;
+          $replacements[$original] = $value;
           break;
         case 'alias':
           // @deprecated
           $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path, $langcode);
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($alias) : $alias;
+          $replacements[$original] = $alias;
           break;
         case 'absolute':
           $replacements[$original] = $url->setAbsolute()->toString();
@@ -797,7 +792,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
   }
 
   // Entity tokens.
-  if (!empty($data[$type]) && $entity_type = token_get_entity_mapping('token', $type)) {
+  if (!empty($data[$type]) && $entity_type = \Drupal::service('token.entity_mapper')->getEntityTypeForTokenType($type)) {
     /* @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $data[$type];
 
@@ -812,7 +807,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
         case 'original':
           if (_token_module($type, 'original') == 'token' && !empty($entity->original)) {
             $label = $entity->original->label();
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($label) : $label;
+            $replacements[$original] = $label;
           }
           break;
       }
@@ -853,12 +848,12 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
         case 'first':
           $value = $array[$keys[0]];
           $value = is_array($value) ? $renderer->renderPlain($value) : (string) $value;
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($value) : $value;
+          $replacements[$original] = $value;
           break;
         case 'last':
           $value = $array[$keys[count($keys) - 1]];
           $value = is_array($value) ? $renderer->renderPlain($value) : (string) $value;
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($value) : $value;
+          $replacements[$original] =$value;
           break;
         case 'count':
           $replacements[$original] = count($keys);
@@ -928,7 +923,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
 
   // If $type is a token type, $data[$type] is empty but $data[$entity_type] is
   // not, re-run token replacements.
-  if (empty($data[$type]) && ($entity_type = token_get_entity_mapping('token', $type)) && $entity_type != $type && !empty($data[$entity_type]) && empty($options['recursive'])) {
+  if (empty($data[$type]) && ($entity_type = \Drupal::service('token.entity_mapper')->getEntityTypeForTokenType($type)) && $entity_type != $type && !empty($data[$entity_type]) && empty($options['recursive'])) {
     $data[$type] = $data[$entity_type];
     $options['recursive'] = TRUE;
     $replacements += \Drupal::moduleHandler()->invokeAll('tokens', array($type, $tokens, $data, $options, $bubbleable_metadata));
@@ -938,7 +933,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
   // present in $data, then throw an error.
   if (!empty($GLOBALS['drupal_test_info']['test_run_id'])) {
     // Only check when tests are running.
-    $type_info = token_get_info($type);
+    $type_info = \Drupal::token()->getTypeInfo($type);
     if (!empty($type_info['needs-data']) && !isset($data[$type_info['needs-data']])) {
       trigger_error(t('Attempting to perform token replacement for token type %type without required data', array('%type' => $type)), E_USER_WARNING);
     }
@@ -964,7 +959,6 @@ function book_token_info() {
  */
 function book_tokens($type, $tokens, array $data = array(), array $options = array(), BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
-  $sanitize = !empty($options['sanitize']);
 
   // Node tokens.
   if ($type == 'node' && !empty($data['node'])) {
@@ -976,7 +970,7 @@ function book_tokens($type, $tokens, array $data = array(), array $options = arr
       foreach ($tokens as $name => $original) {
         switch ($name) {
           case 'book':
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($link['title']) : $link['title'];
+            $replacements[$original] = $link['title'];
             break;
         }
       }
@@ -1058,8 +1052,6 @@ function menu_ui_tokens($type, $tokens, array $data = array(), array $options = 
     $langcode = NULL;
   }
 
-  $sanitize = !empty($options['sanitize']);
-
   // Node tokens.
   if ($type == 'node' && !empty($data['node'])) {
     /** @var \Drupal\node\NodeInterface $node */
@@ -1071,7 +1063,7 @@ function menu_ui_tokens($type, $tokens, array $data = array(), array $options = 
           $url = $node->urlInfo();
           if ($links = $menu_link_manager->loadLinksByRoute($url->getRouteName(), $url->getRouteParameters())) {
             $link = reset($links);
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($link->getTitle()) : $link->getTitle();
+            $replacements[$original] = $link->getTitle();
           }
           break;
       }
@@ -1100,7 +1092,7 @@ function menu_ui_tokens($type, $tokens, array $data = array(), array $options = 
       switch ($name) {
         case 'menu':
           if ($menu = Menu::load($link->getMenuName())) {
-            $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($menu->label()) : $menu->label();
+            $replacements[$original] = $menu->label();
           }
           break;
 
@@ -1124,16 +1116,15 @@ function menu_ui_tokens($type, $tokens, array $data = array(), array $options = 
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'name':
-          $replacements[$original] = $sanitize ? SafeMarkup::checkPlain($menu->label()) : $menu->label();
+          $replacements[$original] = $menu->label();
           break;
 
         case 'machine-name':
-          // This is a machine name so does not ever need to be sanitized.
           $replacements[$original] = $menu->id();
           break;
 
         case 'description':
-          $replacements[$original] = $sanitize ? Xss::filter($menu->getDescription()) : $menu->getDescription();
+          $replacements[$original] = $menu->getDescription();
           break;
 
         case 'menu-link-count':
@@ -1166,7 +1157,7 @@ function field_token_info_alter(&$info) {
     }
 
     // Make sure a token type exists for this entity.
-    $token_type = token_get_entity_mapping('entity', $entity_type_id);
+    $token_type = \Drupal::service('token.entity_mapper')->getTokenTypeForEntityType($entity_type_id);
     if (empty($token_type)) {
       continue;
     }
@@ -1193,11 +1184,15 @@ function field_token_info_alter(&$info) {
 
       // Generate a description for the token.
 
-      list($label, $labels) = _token_field_label($entity_type_id, $field_name);
-      $description = t('@type field.', array('@type' => $type_info[$field->getType()]['label']));
-      if (count($labels) > 1) {
-        unset($labels[$label]);
-        $description .= ' ' . t('Also known as %labels.', array('%labels' => implode(', ', $labels)));
+      $labels = _token_field_label($entity_type_id, $field_name);
+      $label = array_shift($labels);
+      $params['@type'] = $type_info[$field->getType()]['label'];
+      if (!empty($labels)) {
+        $params['%labels'] = implode(', ', $labels);
+        $description = t('@type field. Also known as %labels.', $params);
+      }
+      else {
+        $description = t('@type field.', $params);
       }
 
       $info['tokens'][$token_type][$field_name] = array(
@@ -1217,27 +1212,24 @@ function field_token_info_alter(&$info) {
  * Based on field_views_field_label().
  */
 function _token_field_label($entity_type, $field_name) {
-  $label_counter = array();
-  $all_labels = array();
+  $labels = [];
   // Count the amount of instances per label per field.
-  foreach (array_keys(\Drupal::entityManager()->getBundleInfo($entity_type)) as $bundle) {
-    $bundle_instances = array_filter(\Drupal::entityManager()->getFieldDefinitions($entity_type, $bundle), function ($field_definition) {
-        return $field_definition instanceof FieldConfigInterface;
-      });
+  foreach (array_keys(\Drupal::service('entity_type.bundle.info')->getBundleInfo($entity_type)) as $bundle) {
+    $bundle_instances = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type, $bundle);
     if (isset($bundle_instances[$field_name])) {
       $instance = $bundle_instances[$field_name];
       $label = $instance->getLabel();
-      $label_counter[$label] = isset($label_counter[$label]) ? ++$label_counter[$label] : 1;
-      $all_labels[$label] = TRUE;
+      $labels[$label] = isset($labels[$label]) ? ++$labels[$label] : 1;
     }
   }
-  if (empty($label_counter)) {
-    return array($field_name, $all_labels);
+
+  if (empty($labels)) {
+    return [$field_name];
   }
-  // Sort the field labels by it most used label and return the most used one.
-  arsort($label_counter);
-  $label_counter = array_keys($label_counter);
-  return array($label_counter[0], $all_labels);
+
+  // Sort the field labels by it most used label and return the labels.
+  arsort($labels);
+  return array_keys($labels);
 }
 
 /**
@@ -1246,6 +1238,8 @@ function _token_field_label($entity_type, $field_name) {
 function field_tokens($type, $tokens, array $data = array(), array $options = array(), BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
   $langcode = isset($options['langcode']) ? $options['langcode'] : NULL;
+
+  $renderer = \Drupal::service('renderer');
 
   // Entity tokens.
   if ($type == 'entity' && !empty($data['entity_type']) && !empty($data['entity']) && !empty($data['token_type'])) {
@@ -1260,6 +1254,12 @@ function field_tokens($type, $tokens, array $data = array(), array $options = ar
     // inside field_attach_view().
     unset($entity->_field_view_prepared);
 
+    $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display')
+      ->load($entity->getEntityTypeId() . '.' . $entity->bundle() . '.token');
+    $token_view_display = (!empty($view_display) && $view_display->status());
+    /** @var \Drupal\Core\Field\FieldTypePluginManager $fieldTypeManager */
+    $fieldTypeManager = \Drupal::service('plugin.manager.field.field_type');
+
     foreach ($tokens as $name => $original) {
       // Replace the [entity:field-name] token only if token module added this
       // token.
@@ -1270,10 +1270,24 @@ function field_tokens($type, $tokens, array $data = array(), array $options = ar
           continue;
         }
 
-        $field_output = $entity->$name->view('token');
+        $display_options = 'token';
+        if (!$token_view_display) {
+          // We don't have the token view display and should fall back on
+          // default formatters. If the field has specified a specific formatter
+          // to be used by default with tokens, use that, otherwise use the
+          // default formatter.
+          $field_type_definition = $fieldTypeManager->getDefinition($entity->getFieldDefinition($name)->getType());
+
+          $display_options = [
+            'type' => !empty($field_type_definition['default_token_formatter']) ? $field_type_definition['default_token_formatter'] : $field_type_definition['default_formatter'],
+            'label' => 'hidden',
+          ];
+        }
+
+        $field_output = $entity->$name->view($display_options);
         $field_output['#token_options'] = $options;
         $field_output['#pre_render'][] = 'token_pre_render_field_token';
-        $replacements[$original] = drupal_render($field_output);
+        $replacements[$original] = $renderer->renderPlain($field_output);
       }
     }
 

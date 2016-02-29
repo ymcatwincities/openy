@@ -8,6 +8,7 @@ dependencies:
     - field.field.block_content.slide_show_item.field_button
     - field.field.block_content.slide_show_item.field_image
     - field.field.block_content.slide_show_item.field_title
+    - image.style.thumbnail
   module:
     - image
     - text
