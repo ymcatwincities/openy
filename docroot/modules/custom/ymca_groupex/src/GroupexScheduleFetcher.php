@@ -136,7 +136,7 @@ class GroupexScheduleFetcher {
         if (!empty($this->parameters['location'])) {
           $location_id = reset($this->parameters['location']);
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = $this->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -154,7 +154,7 @@ class GroupexScheduleFetcher {
         if (!empty($this->parameters['location'])) {
           $location = reset($this->parameters['location']);
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = $this->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = self::getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -175,7 +175,7 @@ class GroupexScheduleFetcher {
             }
           }
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $pdf_href = $this->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+          $pdf_href = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
@@ -399,20 +399,24 @@ class GroupexScheduleFetcher {
    * @return \Drupal\Core\Url
    *   Link.
    */
-  public function getPdfLink($location, $timestamp, $category) {
+  static public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
     $uri = 'http://www.groupexpro.com/ymcatwincities/print.php';
 
-    $link = Url::fromUri($uri, [
-      'query' => [
-        'font' => 'larger',
-        'account' => GroupexRequestTrait::$account,
-        'l' => $location,
-        'c' => $category,
-        'week' => $timestamp,
-      ],
-    ]);
+    $query = [
+      'font' => 'larger',
+      'account' => GroupexRequestTrait::$account,
+      'l' => $location,
+    ];
 
-    return $link;
+    if ($timestamp) {
+      $query['week'] = $timestamp;
+    }
+
+    if ($category) {
+      $query['c'] = $category;
+    }
+
+    return Url::fromUri($uri, ['query' => $query]);
   }
 
 }

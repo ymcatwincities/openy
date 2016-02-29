@@ -4,6 +4,8 @@
  * Module file.
  */
 
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
+
 /**
  * Implements hook_theme().
  */
@@ -117,10 +119,10 @@ function ymca_groupex_preprocess_node(&$variables) {
     $location_name = $variables['node']->getTitle();
     foreach ($locations as $location) {
       if ($location['name'] == $location_name) {
-        $l = $location['id'];
+        $location_id = $location['geid'];
       }
     }
-    $variables['print_group_exercise_uri'] = 'http://www.groupexpro.com/ymcatwincities/print.php?account=3&amp;l=' . $l;
+    $variables['print_group_exercise_uri'] = GroupexScheduleFetcher::getPdfLink($location_id);
   }
 
   // Pass the search results to the schedules page.
