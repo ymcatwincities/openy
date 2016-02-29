@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
 
 /**
  * Prepares variables for individual form element templates.
@@ -134,7 +135,7 @@ function webforms_entity_operation(EntityInterface $entity) {
     $operations['webforms_export_csv'] = array(
       'title' => t('Submissions CSV export'),
       'weight' => 51,
-      'url' => \Drupal\Core\Url::fromRoute('entity.contact_form.export_csv', ['contact_form' => $entity->id()]),
+      'url' => Url::fromRoute('entity.contact_form.export_csv', ['contact_form' => $entity->id()]),
     );
   }
 

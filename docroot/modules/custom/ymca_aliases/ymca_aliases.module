@@ -4,12 +4,15 @@
  * Module file.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
 /**
  * Implements hook_entity_insert().
  */
-function ymca_aliases_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_aliases_entity_insert(EntityInterface $entity) {
   // Proceed only with nodes.
-  if (!($entity instanceof \Drupal\node\NodeInterface)) {
+  if (!($entity instanceof NodeInterface)) {
     return;
   }
   // Don't proceed with articles, since their alias requires menu link updated.
@@ -27,9 +30,9 @@ function ymca_aliases_entity_insert(Drupal\Core\Entity\EntityInterface $entity) 
 /**
  * Implements hook_entity_update().
  */
-function ymca_aliases_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_aliases_entity_update(EntityInterface $entity) {
   // Proceed only with nodes.
-  if (!($entity instanceof \Drupal\node\NodeInterface)) {
+  if (!($entity instanceof NodeInterface)) {
     return;
   }
   // Don't proceed with articles, since their alias requires menu link updated.

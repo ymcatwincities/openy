@@ -5,10 +5,12 @@
  * Contains ymca_migrate.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Implements hook_entity_delete().
  */
-function ymca_migrate_entity_delete(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_migrate_entity_delete(EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node') {
     if ($entity->bundle() == 'article') {
       db_delete('migrate_map_ymca_migrate_node_page')

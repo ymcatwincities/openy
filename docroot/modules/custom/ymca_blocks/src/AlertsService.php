@@ -2,6 +2,9 @@
 
 namespace Drupal\ymca_blocks;
 
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Controls what Alert is active.
  */
@@ -11,7 +14,7 @@ class AlertsService {
   /**
    * Global Alert block object.
    *
-   * @var \Drupal\block_content\Entity\BlockContent
+   * @var BlockContent
    */
   private $globalAlert = FALSE;
 
@@ -25,10 +28,10 @@ class AlertsService {
   /**
    * Sets current Alert block.
    *
-   * @param \Drupal\block_content\Entity\BlockContent $block
+   * @param BlockContent $block
    *   Alert Block content entity.
    */
-  public function setCurrentAlertBlock(\Drupal\block_content\Entity\BlockContent $block) {
+  public function setCurrentAlertBlock(BlockContent $block) {
     if (!is_null($this->currentBlock)) {
       // All pages with an old alert block should get cache invalidated.
       \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $this->currentBlock->id()]);
@@ -42,7 +45,7 @@ class AlertsService {
    * Returns current Alert Block.
    *
    * @return mixed
-   *   An instance of \Drupal\block_content\Entity\BlockContent or null.
+   *   An instance of BlockContent or null.
    */
   public function getCurrentAlertBlock() {
     return $this->currentBlock;
@@ -51,7 +54,7 @@ class AlertsService {
   /**
    * Returns Global Alert block.
    *
-   * @return bool|\Drupal\block_content\Entity\BlockContent|\Drupal\Core\Entity\EntityInterface
+   * @return bool|BlockContent|EntityInterface
    *   Block object or FALSE if not found.
    */
   public function getGlobalAlertBlock() {
@@ -82,7 +85,7 @@ class AlertsService {
   /**
    * Get AlertBlock dependent on cookies.
    *
-   * @return bool|\Drupal\block_content\Entity\BlockContent
+   * @return bool|BlockContent
    *   FALSE if user closed Alert Block, object otherwise.
    */
   private function getGlobalAlertByUser() {
