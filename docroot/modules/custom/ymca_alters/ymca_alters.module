@@ -5,9 +5,13 @@
  * Contains ymca_alters.module.
  */
 
-define('MEMBERSHIP_BLOCK_ID', '1136');
-
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+define('MEMBERSHIP_BLOCK_ID', '1136');
 
 /**
  * Implements hook_help().
@@ -28,7 +32,7 @@ function ymca_alters_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_form_alter().
  */
-function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Rename 'Save and Publish' button everywhere.
   $bundles = ['article', 'camp', 'location', 'blog'];
   foreach ($bundles as $bundle) {
@@ -61,10 +65,10 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
 
   // Add membership block edit link.
   if ($form_id == 'node_location_edit_form') {
-    $edit_link_url = \Drupal\Core\Url::fromUri('internal:/block/' . MEMBERSHIP_BLOCK_ID);
+    $edit_link_url = Url::fromUri('internal:/block/' . MEMBERSHIP_BLOCK_ID);
     $edit_link_url->setOption('attributes', array('target' => '_blank'));
-    /* @var \Drupal\Core\Link $edit_link */
-    $edit_link = new \Drupal\Core\Link('Edit Membership block', $edit_link_url);
+    /* @var Link $edit_link */
+    $edit_link = new Link('Edit Membership block', $edit_link_url);
     $link = $edit_link->toRenderable();
     $form['field_membership_block']['#suffix'] = render($link);
   }
@@ -87,9 +91,7 @@ function ymca_alters_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
 /**
  * Implements hook_ENTITY_TYPE_presave().
  */
-function ymca_alters_block_content_presave(
-  Drupal\Core\Entity\EntityInterface $entity
-) {
+function ymca_alters_block_content_presave(EntityInterface $entity) {
   /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $ty */
   $ty = $entity->get('type');
   if (!isset($ty)) {
