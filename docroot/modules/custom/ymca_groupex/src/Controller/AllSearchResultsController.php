@@ -34,6 +34,7 @@ class AllSearchResultsController extends ControllerBase {
       '#empty_results' => $empty_results,
       '#theme' => 'groupex_all_search_results',
       '#image' => $image,
+      '#interval' => $query['filter_length'],
       '#cache' => [
         'max-age' => 0,
       ],
