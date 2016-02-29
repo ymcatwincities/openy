@@ -3,6 +3,7 @@
 namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Url;
 
 /**
  * Fetches and prepares Groupex data.
@@ -169,11 +170,12 @@ class GroupexScheduleFetcher {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {
             if ($location['name'] == $short_location_name) {
-              $l = $location['id'];
+              $l = $location['geid'];
             }
           }
           $t = $this->parameters['filter_timestamp'];
-          $pdf_href = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $c = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $pdf_href = $this->getPdfLink($l, $t, $c);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
@@ -382,6 +384,35 @@ class GroupexScheduleFetcher {
    */
   public function isEmpty() {
     return empty($this->rawData);
+  }
+
+  /**
+   * Get PDF link to location schedule.
+   *
+   * @param $location
+   *   Location ID.
+   * @param $timestamp
+   *   Timestamp.
+   * @param $category
+   *   Category.
+   *
+   * @return \Drupal\Core\Url
+   *   Link.
+   */
+  public function getPdfLink($location, $timestamp, $category) {
+    $uri = 'http://www.groupexpro.com/ymcatwincities/print.php';
+
+    $link = Url::fromUri($uri, [
+      'query' => [
+        'font' => 'larger',
+        'account' => GroupexRequestTrait::$account,
+        'l' => $location,
+        'c' => $category,
+        'week' => $timestamp,
+      ],
+    ]);
+
+    return $link;
   }
 
 }
