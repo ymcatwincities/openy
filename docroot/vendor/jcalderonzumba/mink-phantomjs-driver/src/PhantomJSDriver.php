@@ -152,7 +152,7 @@ class PhantomJSDriver extends BasePhantomJSDriver {
     $nodeElements = array();
 
     if (!isset($elements["ids"])) {
-      return array();
+      return null;
     }
 
     foreach ($elements["ids"] as $i => $elementId) {

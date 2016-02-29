@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.article.field_status
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
+    - image.style.2013_masthead
     - node.type.article
   module:
     - image
