@@ -134,9 +134,9 @@ class GroupexScheduleFetcher {
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $l = array_shift($this->parameters['location']);
-          $t = $this->parameters['filter_timestamp'];
-          $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $location_id = reset($this->parameters['location']);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = $this->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
