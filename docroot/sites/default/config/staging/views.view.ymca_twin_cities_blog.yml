@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.blog
-    - system.menu.top-menu
     - taxonomy.vocabulary.tags
   content:
     - 'taxonomy_term:tags:0b74b845-be1d-405d-a502-2d333b4aa44e'
@@ -299,8 +298,13 @@ display:
       display_extenders: {  }
       path: blog
       menu:
-        type: normal
+        type: none
         title: Blog
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
         menu_name: top-menu
       style:
         type: html_list
