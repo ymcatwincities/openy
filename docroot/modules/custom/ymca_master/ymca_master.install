@@ -713,6 +713,10 @@ function ymca_master_update_8029() {
  * Update locations menu links.
  */
 function ymca_master_update_8030() {
+  $path = drupal_get_path('module', 'ymca_membership');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_membership.config.yml',
+  ]);
   // Recreate default membership blocks.
   module_load_include('install', 'ymca_membership', 'ymca_membership');
   ymca_membership_install();
