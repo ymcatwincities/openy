@@ -41,12 +41,24 @@
       }
     });
 
-    $('form.contact-message-membership-form-form select option').each(function() {
-      var location = window.location.hash.replace('#', '');
-      if (location !== '' && $(this).text().toLowerCase().match(location)) {
-        $(this).attr('selected', true);
-        $('.try-the-y-toggle').trigger('click');
-      }
-    });
   });
 })(jQuery);
+
+Drupal.behaviors.z_ymca_membership_page = {
+  attach: function (context, settings) {
+    if (jQuery('.page_membership, .page_membership_new', context).length) {
+      // if on membership page & there is a hash, expand and preselect
+      if (window.location.hash) {
+        // pre-select form dropdown
+        if (settings.webform_mapping[window.location.hash] !== undefined) {
+          jQuery(window).scrollTop(jQuery('h2').first().offset().top-120);
+          setTimeout(function () {
+            jQuery('.try-the-y-toggle').trigger('click');
+          }, 0);
+
+          jQuery(".contact-message-membership-form-form select").val(settings.webform_mapping[window.location.hash]);
+        }
+      }
+    }
+  }
+};

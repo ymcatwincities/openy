@@ -127,10 +127,15 @@ class YMCAMembershipPage extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    $location_build = [];
-    $location_title = '';
+    $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
+    $reference_field_value = $submission->{$field_name}->getValue();
+    $field_definition = $submission->getFieldDefinition($field_name);
+    $field_default_values = $field_definition->getDefaultValue($submission);
+
+    $location_title = $field_default_values[$reference_field_value['0']['option_emails']]['option_name'];
     $location = \Drupal::service('webforms.node_extractor')
-      ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+      ->extractNode($submission, $field_name, 'location');
+    $location_build = [];
     if (!$location) {
       \Drupal::logger('ymca_membership')->alert(t('Unbound prefered Y location value selected.'));
     }
@@ -145,6 +150,17 @@ class YMCAMembershipPage extends ControllerBase {
         'query' => ['q' => $address['address_line1'] . $address['postal_code']],
       ]));
 
+      $location_name = '';
+      $mapping = \Drupal::config('ymca_groupex.mapping')->get('locations');
+      foreach ($mapping as $row) {
+        if ($row['entity_id'] == $location->id()) {
+          $location_name = $row['name'];
+          break;
+        }
+      }
+      // Embed map.
+      $map = $this->getBlock("[$location_name] Small map");
+
       $location_build = [
         // TODO: full title should be retrieved from other field.
         'full_title' => $location->getTitle(),
@@ -155,6 +171,7 @@ class YMCAMembershipPage extends ControllerBase {
         'map_link' => $map_link,
         'phone' => $phone,
         'more_link' => new Link('More about this location', URL::fromUri('entity:node/' . $location->id())),
+        'map' => $map,
       ];
     }
 

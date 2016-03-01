@@ -13,6 +13,8 @@ use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\Component\Utility\Unicode;
+use Drupal\ymca_aliases\UrlCleaner;
 
 /**
  * Protecting sites with a shield.
@@ -705,4 +707,115 @@ function ymca_master_update_8029() {
   // Restore Redirect settings.
   $config->set('auto_redirect', TRUE);
   $config->save();
+}
+
+/**
+ * Update locations menu links.
+ */
+function ymca_master_update_8030() {
+  $path = drupal_get_path('module', 'ymca_membership');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_membership.config.yml',
+  ]);
+  // Recreate default membership blocks.
+  module_load_include('install', 'ymca_membership', 'ymca_membership');
+  ymca_membership_install();
+
+  // Locations.
+  $loc_ids = Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  $storage = Drupal::entityTypeManager()->getStorage('menu_link_content');
+  foreach ($loc_ids as $id) {
+    $loc_path = '/node/' . $id;
+    $alias = Drupal::service('path.alias_manager')->getAliasByPath($loc_path);
+    // Lookup menu links by location alias.
+    $query = Drupal::entityQuery('menu_link_content')
+      ->condition('link.uri', 'internal:' . $alias)
+      ->condition('menu_name', 'locations')
+      ->sort('id', 'ASC')
+      ->range(0, 1);
+    $results = $query->execute();
+    if (!$results) {
+      continue;
+    }
+    $menu_link_id = reset($results);
+    // Update menu link url, set 'entity:' scheme.
+    $menu_link = MenuLinkContent::load($menu_link_id);
+    $menu_link->set('link', ['uri' => 'entity:node/' . $id]);
+    $menu_link->save();
+  }
+}
+
+/**
+ * Extend ymca_groupex.mapping by machine_name, replace absolute 'Join' links.
+ */
+function ymca_master_update_8031() {
+  // Locations.
+  $loc_ids = Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  $mapping = Drupal::configFactory()->getEditable('ymca_groupex.mapping');
+  $locations = $mapping->get('locations');
+
+  $storage = Drupal::entityTypeManager()->getStorage('menu_link_content');
+  foreach ($loc_ids as $nid) {
+    $query = Drupal::entityQuery('menu_link_content')
+      ->condition('link.uri', 'entity:node/' . $nid)
+      ->condition('menu_name', 'locations')
+      ->sort('id', 'ASC')
+      ->range(0, 1);
+    $results = $query->execute();
+    if (!$results) {
+      continue;
+    }
+    $menu_link_id = reset($results);
+    $menu_link = MenuLinkContent::load($menu_link_id);
+
+    // Search 'Join' link of the location.
+    $properties = [
+      'title' => 'Join',
+      'parent' => 'menu_link_content:' . $menu_link->uuid(),
+    ];
+    if ($links = $storage->loadByProperties($properties)) {
+      $join_link = reset($links);
+      $parts = parse_url($join_link->link->getValue()[0]['uri']);
+      // Some unfit 'Join' link, skip the location.
+      if ($parts['host'] !== 'www.ymcatwincities.org' || $parts['path'] !== '/membership/') {
+        continue;
+      }
+      // Lookup the location in the config.
+      $config_row = NULL;
+      foreach ($locations as $cid => $location) {
+        if ($location['entity_id'] == $nid) {
+          $config_row = &$locations[$cid];
+          break;
+        }
+      }
+      // Skip if the location isn't found in the config.
+      if (!isset($config_row)) {
+        continue;
+      }
+
+      // Generate machine name if it isn't presented.
+      if (!$machine_name = $parts['fragment']) {
+        $machine_name = UrlCleaner::clean($config_row['name']);
+      }
+
+      // Update config.
+      $config_row['machine_name'] = $machine_name;
+
+      // Unlink variable from config row.
+      unset($config_row);
+
+      // Update menu link, it shouldn't be absolute anymore.
+      $join_link->set('link', ['uri' => 'internal:/membership#' . $machine_name]);
+      $join_link->save();
+    }
+  }
+
+  // Save config.
+  $mapping->set('locations', $locations)->save();
 }
