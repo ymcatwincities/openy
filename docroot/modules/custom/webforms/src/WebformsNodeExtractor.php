@@ -45,19 +45,13 @@ class WebformsNodeExtractor {
 
     $field_definition = $submission->getFieldDefinition($field_name);
     $field_default_values = $field_definition->getDefaultValue($submission);
-    $node_title = $field_default_values[$reference_field_value['0']['option_emails']]['option_name'];
 
-    $nodes = $this->entityTypeManager
-      ->getStorage('node')
-      ->loadByProperties([
-        'title' => $node_title,
-        'type' => $bundle,
-      ]);
-
-    if (!$nodes) {
+    if (!$nid = $field_default_values[$reference_field_value['0']['option_emails']]['option_reference']) {
       return NULL;
     }
-    $node = reset($nodes);
+    $node = $this->entityTypeManager
+      ->getStorage('node')
+      ->load($nid);
 
     return $node;
   }
