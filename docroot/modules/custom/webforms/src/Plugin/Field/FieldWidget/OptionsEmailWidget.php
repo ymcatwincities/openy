@@ -163,7 +163,7 @@ class OptionsEmailWidget extends WidgetBase {
         'target_bundles' => ['location' => 'location'],
       ],
       '#target_type' => 'node',
-      '#default_value' => isset($items_to_be_kept[$delta]->option_reference) ? $items_to_be_kept[$delta]->option_reference : isset($item->option_reference) ? $item->option_reference : NULL,//isset($items_to_be_kept[$delta]->option_emails) ? $items_to_be_kept[$delta]->option_emails : isset($item->option_emails) ? $item->option_emails : '',
+      '#default_value' => isset($items_to_be_kept[$delta]->option_reference) ? $items_to_be_kept[$delta]->option_reference : isset($item->option_reference) ? $item->option_reference : NULL,
       '#required' => FALSE,
     ];
     $element['option_emails'] = [

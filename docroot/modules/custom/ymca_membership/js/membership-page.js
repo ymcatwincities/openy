@@ -50,7 +50,7 @@ Drupal.behaviors.z_ymca_membership_page = {
       // if on membership page & there is a hash, expand and preselect
       if (window.location.hash) {
         // pre-select form dropdown
-        if (settings.webform_mapping[window.location.hash] != undefined) {
+        if (settings.webform_mapping[window.location.hash] !== undefined) {
           jQuery(window).scrollTop(jQuery('h2').first().offset().top-120);
           setTimeout(function () {
             jQuery('.try-the-y-toggle').trigger('click');
