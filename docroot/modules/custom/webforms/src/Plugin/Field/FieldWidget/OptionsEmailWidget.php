@@ -10,7 +10,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\ymca_field_office_hours\Plugin\Field\FieldType\YmcaOfficeHoursItem;
 
 /**
  * Plugin implementation of the 'ymca_office_hours' widget.
@@ -44,13 +43,8 @@ class OptionsEmailWidget extends WidgetBase {
     $items_to_be_kept = $form_state->getValue('items_to_be_kept');
 
     $default_value_input = $form_state->getValue('default_value_input');
-    if ($field_type == 'options_email_item' && $form_state->getTriggeringElement(
-      )
-    ) {
-      if ($form_state->getValue(
-          'remove_items'
-        ) == TRUE && !isset($default_value_input[$field_name][$delta])
-      ) {
+    if ($field_type == 'options_email_item' && $form_state->getTriggeringElement()) {
+      if ($form_state->getValue('remove_items') == TRUE && !isset($default_value_input[$field_name][$delta])) {
         // Item already removed.
         return NULL;
       }
@@ -91,6 +85,7 @@ class OptionsEmailWidget extends WidgetBase {
           $item_values[$delta] = array(
             'option_name' => $title,
             'option_emails' => '',
+            'option_reference' => $location_entities[$id],
             'option_select' => FALSE,
           );
           $items->setValue($item_values);
@@ -98,20 +93,32 @@ class OptionsEmailWidget extends WidgetBase {
       }
     }
 
-    /** @var YmcaOfficeHoursItem $item */
     $item = $items->get($delta);
     if ($item == NULL) {
       // No predefined items, but we have them prepopulated already.
       $items->setValue($form_state->getValue('all_items'));
       $item = $items->get($delta);
     }
+    if (is_numeric($item->option_reference)) {
+      $item->option_reference = \Drupal::entityTypeManager()->getStorage('node')->load($item->option_reference);
+    }
     if (!$this->isDefaultValueWidget($form_state)) {
       // Display dropdown list of options.
       $def = $this->fieldDefinition->getDefaultValue($item->getEntity());
+      $mapping = \Drupal::config('ymca_groupex.mapping')->get('locations');
+      $machine_name_mapping = [];
       $options = [];
       $options['undefined'] = t('Select one...');
       foreach ($def as $id => $item_data) {
         $options[$id] = $item_data['option_name'];
+        if (!empty($item_data['option_reference'])) {
+          foreach ($mapping as $row) {
+            if ($row['entity_id'] == $item_data['option_reference']) {
+              $machine_name_mapping['#' . $row['machine_name']] = $id;
+              break;
+            }
+          }
+        }
       }
 
       $element['option_emails'] = array(
@@ -120,6 +127,11 @@ class OptionsEmailWidget extends WidgetBase {
         '#options' => $options,
         '#default_value' => 'undefined',
         '#attributes' => array('class' => array('langcode-input')),
+        '#attached' => [
+          'drupalSettings' => [
+            'webform_mapping' => $machine_name_mapping,
+          ],
+        ],
       );
 
       // Add our custom validator.
@@ -144,6 +156,16 @@ class OptionsEmailWidget extends WidgetBase {
       '#default_value' => isset($items_to_be_kept[$delta]->option_name) ? $items_to_be_kept[$delta]->option_name : isset($item->option_name) ? $item->option_name : '',
       '#required' => FALSE,
     ];
+    $element['option_reference'] = [
+      '#title' => t('Reference'),
+      '#type' => 'entity_autocomplete',
+      '#selection_settings' => [
+        'target_bundles' => ['location' => 'location'],
+      ],
+      '#target_type' => 'node',
+      '#default_value' => isset($items_to_be_kept[$delta]->option_reference) ? $items_to_be_kept[$delta]->option_reference : isset($item->option_reference) ? $item->option_reference : NULL,//isset($items_to_be_kept[$delta]->option_emails) ? $items_to_be_kept[$delta]->option_emails : isset($item->option_emails) ? $item->option_emails : '',
+      '#required' => FALSE,
+    ];
     $element['option_emails'] = [
       '#title' => t('Emails'),
       '#type' => 'textfield',
@@ -158,10 +180,7 @@ class OptionsEmailWidget extends WidgetBase {
         '#required' => FALSE,
       ];
     }
-    if ($field_type == 'options_email_item' && ($form_state->getValue(
-          'locations'
-        ) == TRUE || $form_state->getValue('remove_items') == TRUE)
-    ) {
+    if ($field_type == 'options_email_item' && ($form_state->getValue('locations') || $form_state->getValue('remove_items'))) {
       if ($element['option_name']['#default_value'] == NULL && $element['option_emails']['#default_value'] == NULL) {
         return NULL;
       }
