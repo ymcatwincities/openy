@@ -30,6 +30,8 @@ class OptionsEmailItem extends FieldItemBase implements FieldItemInterface {
 
     $properties['option_name'] = DataDefinition::create('string')
       ->setLabel(t('Option name'));
+    $properties['option_reference'] = DataDefinition::create('string')
+      ->setLabel(t('Option reference'));
     $properties['option_emails'] = DataDefinition::create('string')
       ->setLabel(t('Option emails'));
 
