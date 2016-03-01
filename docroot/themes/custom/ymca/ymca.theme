@@ -320,6 +320,13 @@ function ymca_preprocess_html(&$variables) {
       'theme_ymca_2013_location_primary_landing',
     ];
   }
+  elseif ($current_route_name == 'ymca_membership.page') {
+    $classes = [
+      'landing-template',
+      'page_membership',
+      'theme_ymca_2015_blank_internal_with_nav',
+    ];
+  }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
