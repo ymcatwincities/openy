@@ -12,7 +12,7 @@ field_name: field_join_override
 entity_type: node
 bundle: location
 label: 'Join override'
-description: 'textarea with WYSIWYG (if contains no data -> display default /join "TRY THE Y FOR FREE" button )'
+description: "Use HTML for overriding default button behavior.<br />\r\nE.g. &lt;a href=&quot;https://give.ymcatwincities.org/northcommunity&quot;&gt;GIVE NOW&lt;/a&gt;"
 required: false
 translatable: false
 default_value: {  }

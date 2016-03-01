@@ -79,7 +79,7 @@ content:
   field_include_general_blog_posts:
     weight: 20
     settings:
-      display_label: false
+      display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
   field_location:
@@ -135,22 +135,10 @@ content:
     weight: 8
     settings: {  }
     third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
     weight: 9
     settings: {  }
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 6
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -172,4 +160,6 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  promote: true
+  sticky: true
