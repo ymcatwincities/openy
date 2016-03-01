@@ -359,6 +359,14 @@ class GroupexScheduleFetcher {
       }
     }
 
+    // Replace <span class="subbed"> with normal text.
+    foreach ($data as &$item) {
+      preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->address_1, $test);
+      if (!empty($test)) {
+        $item->address_1 = str_replace($test[0], ' ' . $test[1], $item->address_1);
+      }
+    }
+
     $this->processedData = $data;
   }
 
