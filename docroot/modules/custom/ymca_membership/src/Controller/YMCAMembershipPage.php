@@ -127,7 +127,7 @@ class YMCAMembershipPage extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    $field_name = 'field_what_is_your_preferred_y_l';
+    $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
     $reference_field_value = $submission->{$field_name}->getValue();
     $field_definition = $submission->getFieldDefinition($field_name);
     $field_default_values = $field_definition->getDefaultValue($submission);
