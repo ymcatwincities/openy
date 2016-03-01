@@ -337,10 +337,16 @@ class GroupexScheduleFetcher {
       // Get current day.
       $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
       $current_day = $date->format('N');
+      $current_date = $date->format('j');
 
       // Search for the day equals current.
       foreach ($data as &$item) {
         $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
+        if ($current_date == $item_date->format('j')) {
+          unset($item);
+          continue;
+        }
+
         if ($current_day == $item_date->format('N')) {
           // Set proper data.
           $item_date->sub(new \DateInterval('P7D'));
@@ -349,6 +355,15 @@ class GroupexScheduleFetcher {
           $item->day = $full_date;
           $item->timestamp = $item_date->format('U');
         }
+
+      }
+    }
+
+    // Replace <span class="subbed"> with normal text.
+    foreach ($data as &$item) {
+      preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->address_1, $test);
+      if (!empty($test)) {
+        $item->address_1 = str_replace($test[0], ' ' . $test[1], $item->address_1);
       }
     }
 

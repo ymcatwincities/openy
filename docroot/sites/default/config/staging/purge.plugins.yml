@@ -1,0 +1,10 @@
+purgers:
+  -
+    order_index: 1
+    instance_id: ffd776af8e
+    plugin_id: http
+processors: {  }
+queuers: {  }
+queue: database
+_core:
+  default_config_hash: zszQgrpbU_SwoV7zSROlOcgRTndttz24blQTCXuJlUU
