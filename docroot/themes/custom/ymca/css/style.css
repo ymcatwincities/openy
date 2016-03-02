@@ -7475,7 +7475,7 @@ body.path-search #block-mainpagecontent li {
 .blog_post_display_full_post img {
   float: right;
   margin: 0 0 15px 15px;
-  max-width: 500px;
+  max-width: 230px;
 }
 
 .copy > .richtext:first-child > .richtext:first-child {
@@ -7508,9 +7508,9 @@ nav#block-footermenuright {
   margin-top: 15px;
 }
 
+.sidebar-promos p,
 .sidebar-promos iframe {
   width: 100% !important;
-  height: auto !important;
 }
 .sidebar-promos p {
   padding: 0;
@@ -7669,6 +7669,10 @@ body form .js-form-type-radio.form-item label {
 }
 .masthead-brand .richtext p span {
   font-size: 50%;
+}
+
+.schedules-template .panel-group > .content-expander > .panel-heading a:before {
+  display: none;
 }
 
 .form-item {
