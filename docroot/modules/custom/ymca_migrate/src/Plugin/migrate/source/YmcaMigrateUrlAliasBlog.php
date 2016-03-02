@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains source plugin for url aliases.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateUrlAliasBase;
 use Drupal\migrate\Row;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaBlogsQuery;
@@ -85,7 +81,21 @@ class YmcaMigrateUrlAliasBlog extends YmcaMigrateUrlAliasBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $row->setSourceProperty('source', $this->getSourcePath(['blog_post_id' => $row->getSourceProperty('blog_post_id')]));
+    $source = $this->getSourcePath(['blog_post_id' => $row->getSourceProperty('blog_post_id')]);
+    if ($source) {
+      $row->setSourceProperty('source', $source);
+    }
+    else {
+      $this->idMap->saveMessage(
+        $this->getCurrentIds(),
+        $this->t(
+          "[DEV] Alias source is undefined for blog post ID: [@id]",
+          array('@id' => $row->getSourceProperty('blog_post_id'))
+        ),
+        MigrationInterface::MESSAGE_WARNING
+      );
+    }
+
     $row->setSourceProperty('alias', $this->makeAlias($row));
   }
 

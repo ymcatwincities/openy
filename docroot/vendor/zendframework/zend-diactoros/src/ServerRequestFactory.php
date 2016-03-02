@@ -14,6 +14,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use stdClass;
+use UnexpectedValueException;
 
 /**
  * Class for marshaling a request object from the current PHP environment.
@@ -60,19 +61,20 @@ abstract class ServerRequestFactory
         $server  = static::normalizeServer($server ?: $_SERVER);
         $files   = static::normalizeFiles($files ?: $_FILES);
         $headers = static::marshalHeaders($server);
-        $request = new ServerRequest(
+
+        return new ServerRequest(
             $server,
             $files,
             static::marshalUriFromServer($server, $headers),
             static::get('REQUEST_METHOD', $server, 'GET'),
             'php://input',
-            $headers
+            $headers,
+            $cookies ?: $_COOKIE,
+            $query ?: $_GET,
+            $body ?: $_POST,
+            static::marshalProtocolVersion($server)
         );
 
-        return $request
-            ->withCookieParams($cookies ?: $_COOKIE)
-            ->withQueryParams($query ?: $_GET)
-            ->withParsedBody($body ?: $_POST);
     }
 
     /**
@@ -196,11 +198,6 @@ abstract class ServerRequestFactory
     {
         $headers = [];
         foreach ($server as $key => $value) {
-            if (strpos($key, 'HTTP_COOKIE') === 0) {
-                // Cookies are handled using the $_COOKIE superglobal
-                continue;
-            }
-
             if ($value && strpos($key, 'HTTP_') === 0) {
                 $name = strtr(substr($key, 5), '_', ' ');
                 $name = strtr(ucwords(strtolower($name)), ' ', '-');
@@ -454,5 +451,27 @@ abstract class ServerRequestFactory
             $normalizedFiles[$key] = self::createUploadedFileFromSpec($spec);
         }
         return $normalizedFiles;
+    }
+
+    /**
+     * Return HTTP protocol version (X.Y)
+     *
+     * @param array $server
+     * @return string
+     */
+    private static function marshalProtocolVersion(array $server)
+    {
+        if (! isset($server['SERVER_PROTOCOL'])) {
+            return '1.1';
+        }
+
+        if (! preg_match('#^(HTTP/)?(?P<version>[1-9]\d*\.\d)$#', $server['SERVER_PROTOCOL'], $matches)) {
+            throw new UnexpectedValueException(sprintf(
+                'Unrecognized protocol version (%s)',
+                $server['SERVER_PROTOCOL']
+            ));
+        }
+
+        return $matches['version'];
     }
 }

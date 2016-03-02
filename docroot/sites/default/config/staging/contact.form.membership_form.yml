@@ -1,0 +1,16 @@
+uuid: 6844e010-b0c3-4aaa-be07-7eda1208dca2
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: 'entity:node/2311'
+id: membership_form
+label: 'Membership form'
+recipients:
+  - membershipdirector@ymcatwincities.org
+  - leads@ymcatwincities.org
+reply: ''
+weight: 0

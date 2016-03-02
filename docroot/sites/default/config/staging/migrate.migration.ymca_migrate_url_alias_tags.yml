@@ -1,0 +1,47 @@
+id: ymca_migrate_url_alias_tags
+label: 'URL aliases'
+migration_group: ymca
+migration_tags:
+  - taxonomy_term
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 2
+      alias: /blog/community
+    -
+      id: 3
+      alias: /blog/fitness
+    -
+      id: 4
+      alias: /blog/healthy_kids
+    -
+      id: 5
+      alias: /blog/lifestyle
+    -
+      id: 6
+      alias: /blog/nutrition
+  ids:
+    id:
+      type: integer
+  constants:
+    prefix: /taxonomy/term/
+process:
+  term_id:
+    plugin: migration
+    migration: ymca_migrate_taxonomy_term_tags
+    source: id
+  source:
+    plugin: concat
+    source:
+      - constants/prefix
+      - '@term_id'
+  alias: alias
+  langcode:
+    plugin: default_value
+    default_value: en
+destination:
+  plugin: url_alias
+migration_dependencies:
+  required:
+    - ymca_migrate_taxonomy_term_tags

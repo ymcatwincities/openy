@@ -1,0 +1,6 @@
+services:
+  ymca_aliases.url_cleaner:
+    class: Drupal\ymca_aliases\UrlCleaner
+  ymca_aliases.node_alias:
+    class: Drupal\ymca_aliases\NodeAlias
+    arguments: ['@ymca_aliases.url_cleaner', '@path.alias_manager', '@menu.tree_storage']

@@ -1,4 +1,4 @@
-Drupal Vagrant Dev box for CIbox support
+Drupal Vagrant Dev box for CIbox support.
 ======
 
 #Installation

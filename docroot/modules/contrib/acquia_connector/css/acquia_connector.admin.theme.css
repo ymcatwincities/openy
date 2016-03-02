@@ -1,0 +1,143 @@
+.an-start-form {
+  border:1px solid;
+  border-color:#ccc;
+  padding:35px 35px 10px 35px;
+  min-width:930px;
+  margin-bottom:30px;
+  background-color: #fff;
+}
+
+h2#an-info-header {
+  min-width: 350px;
+  min-height: 50px;
+  display:block;
+  text-indent:-9999px;
+  background-image:url('../images/logo-an-word.png');
+  background-repeat:no-repeat;
+  background-position:145px 0;
+  padding-left:145px;
+  position:relative;
+}
+
+h2#an-info-header:before {
+  content: ' ';
+  height: 136px;
+  width:116px;
+  background-image:url('../images/logo-an-image.png');
+  background-repeat:no-repeat;
+  position:absolute;
+  top:-20px;
+  left:0;
+}
+
+.an-slogan {
+  min-width: 509px;
+  min-height: 51px;
+  display:block;
+  text-indent:-9999px;
+  background-image:url('../images/logo-an-slogan.png');
+  background-repeat:no-repeat;
+  background-position:145px 0;
+  padding-left:145px;
+}
+
+div#an-info-box{
+  display: table;
+  width: 90%;
+  table-layout: fixed;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+#an-info-box div.cell{
+  display: table-cell;
+  padding-right: 2em;
+  vertical-align: top;
+  text-align: left;
+  text-align:center;
+  width:33%;
+}
+
+#an-info-box div.cell .cell-title {
+  font-size:20px;
+  font-weight:300;
+  color:#666;
+  position:relative;
+  padding:0 10%;
+  margin-bottom:25px;
+}
+
+#an-info-box div.cell:first-child .cell-title {
+  padding:0 25%;
+}
+
+#an-info-box div.cell.with-arrow .cell-title:after {
+  content: ' ';
+  height: 174px;
+  width:64px;
+  background-image:url('../images/separator-arrow.png');
+  background-repeat:no-repeat;
+  position:absolute;
+  top:0px;
+  right:-40px;
+}
+
+#an-info-box div.cell img {
+  display:block;
+  margin:0 auto 25px;
+}
+
+#an-info-box div.cell .cell-p {
+  text-align:left;
+  font-size:15px;
+}
+
+#an-info-box div.cell.an-left{
+}
+
+#an-info-box div.cell.an-center{
+  padding-left: 2em;
+}
+
+#an-info-box div.cell.an-right{
+  padding-left: 2em;
+}
+
+#acquia-agent-an-trial-form {
+  padding-bottom: 2em;
+}
+
+div#an-pg-container{
+  display: table;
+  width: 100%;
+}
+
+div#an-pg-form{
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+}
+
+div.an-pg-banner{
+  display: table-cell;
+  text-align: right;
+  padding-left: 1em;
+}
+
+#acquia-agent-settings-form-banner{
+  padding-top: 1em;
+}
+
+.acquia-spi, .acquia-identification {
+  padding-left: 1em;
+}
+
+fieldset .fieldset-legend {
+    font-weight: bold;
+}
+
+div.an-wrapper{
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+}

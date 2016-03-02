@@ -4,4 +4,4 @@ description: Migrations for the YMCA project.
 source_type: Legacy CMS database
 shared_configuration:
   source:
-    key: legacy
+    key: amm_source

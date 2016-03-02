@@ -2,12 +2,20 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 back-link">
-				<a href="/camps">Back to All Camps</a>
+        {{ link('Back to All Camps'|t, 'base:camps') }}
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
-				<span class="masthead-brand">$content_area_95</span>
+				<span class="masthead-brand">
+					{% if node.field_subtitle.0.value is not empty %}
+					<article class="richtext">
+						<p>{{ node.label }}<br><span>{{ node.field_subtitle.0.value }}</span></p>
+					</article>
+					{% else %}
+						{{ node.label }}
+					{% endif %}
+				</span>
 			</div>
 			<div class="col-sm-4 text-center masthead-button" id="masthead-button">
 				<a id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
@@ -28,7 +36,7 @@
 				<div class="col-sm-3 col-md-2 phone clearfix">
 					<span class="tel">
 						<span class="glyphicon glyphicon-earphone bullet"></span>
-						$content_area_96
+            {{ node.field_phone.0.value }}
 						<span class="visible-xs">
 							<a class="call" target="_blank">
 								Call
@@ -40,7 +48,13 @@
 				<hr class="visible-xs">
 				<div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
 					<span class="glyphicon glyphicon-map-marker bullet"></span>
-					$content_area_97
+          <span class="plaintext">
+            {{ node.field_location.0.address_line1 }}
+            <br class="visible-xs">
+            {{ node.field_location.0.address_line2 }}
+            {{ node.field_location.0.administrative_area }}
+            {{ node.field_location.0.postal_code }}
+          </span>
 						<br class="visible-xs" />
 						<a class="directions" target="_blank">
 							<!-- <span class="hidden-sm"> -->
@@ -63,11 +77,19 @@
 
 					<div class="row mobile-hours visible-xs">
 						<div class="col-xs-12">
-							$content_area_98
+              {# TODO: #}
+              <p>{{ node.field_location.0.postal_code }} {{ node.field_location.0.address_line1 }}</p>
+              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }}</p>
+              <p>{{ node.field_phone.0.value }}</p>
 						</div>
 					</div>
 					<div id="all-hours" class="all-hours collapse">
-						<div class="hidden-xs">$content_area_98</div>
+						<div class="hidden-xs">
+              {# TODO: #}
+              <p>{{ node.field_location.0.address_line1 }}</p>
+              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
+              <p>{{ node.field_phone.0.value }}</p>
+						</div>
 					</div>
 				</div>
 			</div>

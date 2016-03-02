@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Installation file for Scheduler module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function scheduler_requirements($phase) {
+  $requirements = array();
+
+  // Report server internal clock.
+  if ($phase === 'runtime') {
+    $user = \Drupal::currentUser();
+
+    $now = REQUEST_TIME;
+    $system_date = \Drupal::config('system.date');
+    $date_default_timezone = $system_date->get('timezone.default') ?: date_default_timezone_get();
+    $date_formatter = \Drupal::service('date.formatter');
+
+    $t_options = [
+      // For %utc specify 'GMT' as the timezone (4th parameter) so that no
+      // timezone offset is returned.
+      '%utc' => $date_formatter->format($now, 'custom', 'jS F Y, H:i:s P', 'GMT'),
+      // For %localtime do not specify any timezone parameter so that the user
+      // or site default setting is returned.
+      '%localtime' => $date_formatter->format($now, 'custom', 'jS F Y, H:i:s P T e'),
+      '%daylight_saving' => $date_formatter->format($now, 'custom', 'I') ? t('currently in daylight saving mode') : t('not in daylight saving mode'),
+      '%date_default_timezone' => $date_default_timezone,
+      '%date_default_offset' => $date_formatter->format($now, 'custom', 'P', $date_default_timezone),
+      '%date_default_code' => $date_formatter->format($now, 'custom', 'T', $date_default_timezone),
+      '@account_edit' => \Drupal::url('entity.user.edit_form', ['user' => $user->id()]),
+      '@admin_regional_settings' => \Drupal::url('system.regional_settings'),
+    ];
+
+    $descriptions = [
+      t('In most cases the server time matches Coordinated Universal Time (UTC).', $t_options),
+      t('Default timezone: %date_default_timezone (%date_default_code), offset from GMT by %date_default_offset hours. This timezone can be <a href="@admin_regional_settings">changed by admin users</a> with the appropriate access.', $t_options),
+    ];
+    if ($system_date->get('timezone.user.configurable')) {
+      $descriptions[] = t('Local time: %localtime (%daylight_saving). You can change this via your <a href="@account_edit">user account</a>.', $t_options);
+      if (!$user->getTimezone()) {
+        $descriptions[] = t('Note: The user timezone has not been stored, so defaulting to the website timezone.');
+      }
+    }
+    else {
+      $descriptions[] = t('Your local time is %localtime (%daylight_saving). This is not configurable by you.', $t_options);
+    }
+
+    $requirements['scheduler_timecheck'] = array(
+      'title' => t('Time Check'),
+      'value' => t('Server time: @utc', ['@utc' => $date_formatter->format($now, 'custom', 'jS F Y, H:i:s P', 'GMT')]),
+      'description' => array(
+        '#type' => 'inline_template',
+        '#template' => '{{ description|raw }}',
+        '#context' => array('description' => implode('<br />', $descriptions)),
+      ),
+    );
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function scheduler_install() {
+  // Add our base fields to the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function scheduler_uninstall() {
+  // Remove our base fields from the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}

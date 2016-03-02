@@ -1712,6 +1712,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   float: none;
 }
 
+.nav-home .nav-level-4:first-child {
+  display: none;
+}
+
 .nav-home .nav-level-4 a {
   display: block;
   visibility: inherit;
@@ -2808,11 +2812,14 @@ legend small {
 .nav-home .nav-level-3 strong {
   display: block;
   margin: 0 10px;
-  padding: 0 5px;
+  padding: 0;
   border-bottom: 1px solid gray;
   font-weight: normal;
   font-size: 18px;
   font-family: 'Cachet';
+}
+.nav-home .nav-level-3 strong a {
+  color: #333;
 }
 .nav-home .nav-stacked {
   margin: 10px 5px;
@@ -3329,7 +3336,7 @@ h2 a:not(.anchorjs-link):after {
   width: 100%;
 }
 
-.copy ol, .copy ul {
+.copy ol, .copy ul:not(.contextual-links) {
   padding-left: 30px;
   display: table;
 }
@@ -4069,6 +4076,9 @@ a[href$=pdf]:hover {
   z-index: 5000;
   margin: 0;
   border-radius: 0;
+  -moz-box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.75);
 }
 .alert-messages > * {
   vertical-align: top;
@@ -4134,6 +4144,11 @@ object {
 
 .group-ex .pagination .btn-default {
   text-align: center;
+}
+
+.group-ex .pagination .dropdown-menu {
+  display: none;
+  padding-left: 0;
 }
 
 .lt-ie8 .social-icon {
@@ -7320,6 +7335,378 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
     margin-right: 0;
     margin-top: -16px;
   }
+}
+.page_home #block-tabs {
+  margin-top: 60px;
+}
+
+.node--type-location .page-middle .content.node--view-mode-full,
+.node--type-camp .page-middle .content.node--view-mode-full {
+  background: none;
+}
+
+.locations-camps-template .tabs--primary, .ancestor-locations .tabs--primary, .theme_ymca_2013_location_home .tabs--primary {
+  margin-top: 51px;
+}
+
+.location-schedules-content .file {
+  display: list-item;
+  list-style-type: disc;
+  margin-left: 40px;
+}
+
+.locations-camps-template .locations-page-under-lead-copy {
+  padding-top: 10px;
+}
+.locations-page-under-lead-copy h2 {
+  color: #5e5e5e;
+  font-weight: bold;
+  font-size: 34px;
+  font-family: 'Cachet';
+}
+.locations-page-under-lead-copy li {
+  position: relative;
+  margin: 5px 0;
+  padding-left: 20px;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .locations-page-under-lead-copy li {
+    float: left;
+    width: 50%;
+  }
+}
+.locations-page-under-lead-copy li a {
+  font-weight: bold;
+  font-family: 'Cachet';
+}
+.locations-page-under-lead-copy li:before {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  margin-right: 8px;
+  color: #bebcbc;
+  content: '>';
+  font-family: 'YMCA';
+}
+.locations-page-under-lead-copy ul {
+  padding: 0;
+}
+
+body.locations-camps-template .locations-page-under-lead-copy {
+  margin-top: -22px;
+  padding-top: 22px;
+}
+@media screen and (max-width: 1200px) {
+  body.locations-camps-template .locations-page-under-lead-copy {
+    margin-top: -30px;
+    padding-top: 30px;
+  }
+}
+
+.node-preview-container {
+  background-color: #fff;
+  bottom: 0;
+  border-top: 2px solid #636466;
+}
+
+body.path-search #block-mainpagecontent {
+  background-color: #fff;
+  overflow: hidden;
+}
+body.path-search #block-mainpagecontent > form,
+body.path-search #block-mainpagecontent > h2 {
+  display: none;
+}
+body.path-search #block-mainpagecontent ol {
+  padding: 0;
+}
+body.path-search #block-mainpagecontent li {
+  list-style-type: none;
+  list-style-image: none;
+}
+
+.path-search-results #block-tabs {
+  display: none;
+}
+
+.align-left {
+  margin: 0 15px 15px 0;
+}
+
+.align-right {
+  margin: 0 0 15px 15px;
+}
+
+.promos > .richtext > .richtext > a {
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.61);
+  text-align: left;
+  text-decoration: none;
+  -moz-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  -ms-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+}
+.promos > .richtext > .richtext > a:hover {
+  background-color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a.is-active,
+.navbar-default .navbar-nav > li.is-active > a {
+  border-top: 2px solid #aa228d;
+  background-color: #fff;
+  color: #555;
+}
+
+.gsa_results_wrapper ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+.news-footer .promos {
+  float: right;
+}
+
+.copy .pagination {
+  padding-left: 0 !important;
+}
+
+.post_display_full img,
+.blog_post_display_full_post img {
+  float: right;
+  margin: 0 0 15px 15px;
+  max-width: 230px;
+}
+
+.copy > .richtext:first-child > .richtext:first-child {
+  margin-top: 0;
+}
+
+.groupex-search-form > p:first-child {
+  margin-bottom: 10px;
+}
+
+.sidebar-promos a.wrapper h2 {
+  font-size: 24px;
+}
+
+nav#block-footermenuleft,
+nav#block-footermenucenter,
+nav#block-footermenuright {
+  padding-left: 0;
+}
+
+.landing-template.ancestor-camps .content {
+  padding: 40px 0 60px;
+}
+.landing-template.ancestor-camps section.node--type-article img {
+  float: left;
+  margin: 0 15px 15px 0;
+}
+
+.print-group-link {
+  margin-top: 15px;
+}
+
+.sidebar-promos p,
+.sidebar-promos iframe {
+  width: 100% !important;
+}
+.sidebar-promos p {
+  padding: 0;
+}
+.sidebar-promos.promos .richtext p {
+  padding: 0 20px 10px;
+}
+.sidebar-promos.promos .richtext .text-promo p {
+  padding: 0;
+}
+
+.toolbar-fixed.toolbar-horizontal.page_home .nav-home.affix {
+  top: 90px;
+}
+
+.toolbar-fixed.toolbar-horizontal.page_home.toolbar-tray-open .nav-home.affix {
+  top: 130px;
+}
+
+.no-touch .toolbar-fixed.toolbar-vertical.toolbar-tray-open .nav-home.affix {
+  position: fixed;
+  top: 90px;
+  bottom: auto;
+  width: auto;
+  left: 150px;
+}
+
+@media screen and (max-width: 767px) {
+  #block-tabs {
+    margin-top: 0;
+  }
+
+  .toolbar-vertical {
+    padding-top: 0 !important;
+  }
+  .toolbar-vertical #page-head .navbar-fixed-top {
+    margin-top: 0;
+    left: 0;
+  }
+  .toolbar-vertical #page-head .top-navs.navbar-fixed-top.affix .nav-global {
+    top: 0 !important;
+  }
+  .toolbar-vertical #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
+    top: 39px !important;
+  }
+  .toolbar-vertical .acquia-active-subscription {
+    display: none;
+  }
+  .toolbar-vertical.sidebar-in #sidebar {
+    margin-top: 39px;
+  }
+
+  .toolbar-vertical.toolbar-fixed #page-head .top-navs.navbar-fixed-top.affix .nav-global {
+    top: 39px !important;
+  }
+  .toolbar-vertical.toolbar-fixed #page-head .top-navs.navbar-fixed-top.affix-top .nav-global {
+    top: 39px !important;
+  }
+}
+.toolbar-oriented .toolbar-bar {
+  z-index: 1002;
+}
+
+.carousel-caption .btn {
+  padding: 15px 35px !important;
+  font-size: 20px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-control.hidden {
+  display: none !important;
+}
+
+section.node--type-camp.content,
+section.node--type-location.content {
+  padding-top: 0;
+}
+
+.field--type-list-string fieldset legend,
+.field--type-list-integer fieldset legend {
+  font-weight: bold;
+  color: #333;
+  text-transform: none;
+  font-size: 14px;
+  margin-bottom: 0;
+  padding: 7px 0 0;
+}
+
+.field--type-list-string fieldset legend .fieldset-legend,
+.field--type-list-integer fieldset legend .fieldset-legend {
+  line-height: 20px;
+  color: #333;
+}
+
+body form .js-form-type-radio.form-item {
+  padding-top: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  min-height: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+body form .js-form-type-radio.form-item input {
+  float: left;
+  margin-left: -20px;
+}
+body form .js-form-type-radio.form-item label {
+  display: inline;
+  margin-bottom: 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.group-ex span.result-name {
+  white-space: normal;
+}
+.group-ex h3 .btn-default {
+  margin-left: 7px;
+}
+
+.content-expander .panel-title h2,
+.content-expander .panel-title h4 {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.content-expander .panel-title h2 a:after,
+.content-expander .panel-title h4 a:after {
+  display: none;
+}
+
+.content-expander .panel-title h2 a:before,
+.content-expander .panel-title h4 a:before {
+  position: relative;
+  top: 0;
+  margin-right: .3em;
+  content: "\e082";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: .7em;
+  font-family: 'Glyphicons Halflings';
+}
+
+.content-expander .panel-title h2 a.collapsed:before,
+.content-expander .panel-title h4 a.collapsed:before {
+  content: "\e081";
+}
+
+.masthead-brand .richtext p {
+  margin-top: 5px;
+  line-height: 90%;
+}
+.masthead-brand .richtext p span {
+  font-size: 50%;
+}
+
+.schedules-template .panel-group > .content-expander > .panel-heading a:before {
+  display: none;
+}
+
+.form-item {
+  margin-bottom: 15px;
+}
+
+#edit-preview {
+  display: none;
+}
+
+.form-wrapper {
+  margin-bottom: 15px;
+}
+
+.field--type-list-integer legend {
+  border: none;
+  margin: 0;
+  padding: 7px 0;
+}
+.field--type-list-integer .fieldset-legend {
+  color: #000;
+  text-transform: none;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.field--type-list-integer label {
+  font-weight: normal;
+}
+.field--type-list-integer input {
+  margin-right: 10px;
+}
+.field--type-list-integer .form-item {
+  margin: 0 0 7px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -5,12 +5,14 @@
     "license": "GPL-2.0+",
     "require": {
         "composer/installers": "^1.0.21",
-        "wikimedia/composer-merge-plugin": "^1.3.0"
+        "wikimedia/composer-merge-plugin": "~1.3"
     },
     "replace": {
         "drupal/core": "~8.0",
         "drupal/address": "8.*",
-        "drupal/webprofiler": "8.*"
+        "drupal/csv_serialization": "8.*",
+        "drupal/webprofiler": "8.*",
+        "drupal/search_api_solr": "8.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -27,7 +29,9 @@
             "include": [
                 "core/composer.json",
                 "modules/contrib/address/composer.json",
-                "modules/contrib/devel/webprofiler/composer.json"
+                "modules/contrib/csv_serialization/composer.json",
+                "modules/contrib/devel/webprofiler/composer.json",
+                "modules/contrib/search_api_solr/composer.json"
             ],
             "recurse": false,
             "replace": false,

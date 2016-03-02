@@ -1,0 +1,48 @@
+id: ymca_migrate_block_content_working_hours_block
+label: 'Working hours block migration.'
+migration_group: ymca
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      type: working_hours_block
+      info: 'Example working hours block'
+      facility:
+        -
+          hours_mon: '5am - 10pm'
+          hours_tue: '5am - 10pm'
+          hours_wed: '5am - 10pm'
+          hours_thu: '5am - 10pm'
+          hours_fri: '5am - 10pm'
+          hours_sat: '6am - 9pm'
+          hours_sun: '6am - 9pm'
+      child:
+        -
+          hours_mon: '8:30am - 8:30pm'
+          hours_tue: '8:30am - 8:30pm'
+          hours_wed: '8:30am - 8:30pm'
+          hours_thu: '8:30am - 8:30pm'
+          hours_fri: '8:30am - 8:30pm'
+          hours_sat: '8am - 1pm'
+          hours_sun: '9am - 6pm'
+      holidays:
+        -
+          holiday: 'Holiday 1'
+          hours: '5am - 10pm'
+          date: 1452816000
+        -
+          holiday: 'holiday 2'
+          hours: '4am - 9pm'
+          date: 1452297600
+  ids:
+    id:
+      type: integer
+process:
+  type: type
+  info: info
+  field_facility_hours: facility
+  field_workout_child_care: child
+  field_holiday_hours: holidays
+destination:
+  plugin: 'entity:block_content'

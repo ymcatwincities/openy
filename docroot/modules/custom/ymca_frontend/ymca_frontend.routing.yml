@@ -1,0 +1,15 @@
+ymca_frontend.location_schedules:
+  path: 'node/{node}/schedules'
+  defaults:
+    _controller: '\Drupal\ymca_frontend\Controller\YMCALocationSchedulesController::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationSchedulesController::setTitle'
+  requirements:
+    _permission: 'access content'
+
+ymca_frontend.locations:
+  path: 'locations'
+  defaults:
+    _controller: '\Drupal\ymca_frontend\Controller\YMCALocationsController::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationsController::setTitle'
+  requirements:
+    _permission: 'access content'

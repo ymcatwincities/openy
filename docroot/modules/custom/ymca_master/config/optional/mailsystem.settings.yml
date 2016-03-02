@@ -1,0 +1,4 @@
+theme: ymca
+defaults:
+  sender: php_mail
+  formatter: mime_mail

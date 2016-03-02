@@ -1,0 +1,68 @@
+// Styleguide.
+
+.styleguide-section {
+  > h2 {
+    border-bottom: 4px solid $blue;
+    padding-bottom: rem(5px);
+    margin-bottom: rem(15px);
+  }
+}
+
+.styleguide-element {
+  margin-bottom: rem(20px);
+
+  @include susy-media(tablet) {
+    @include clearfix;
+  }
+}
+
+.styles-display {
+  @include susy-media(tablet) {
+    @include span(4 of 8);
+  }
+
+  @include susy-media(desktop) {
+    @include span(6 of 12);
+  }
+}
+
+.styles-params {
+  @include susy-media(tablet) {
+    @include span(last 4 of 8);
+  }
+
+  @include susy-media(desktop) {
+    @include span(last 6 of 12);
+  }
+}
+
+.icon-list {
+  @extend %clearfix;
+
+  li {
+    @include gallery(2);
+    border: 1px solid $blue;
+    margin-bottom: gutter(4);
+    text-align: center;
+    padding: rem(20px 10px);
+
+
+    @include susy-media(tablet) {
+      @include gallery(2 of 8);
+      margin-bottom: gutter(8);
+    }
+
+    @include susy-media(desktop) {
+      @include gallery(2 of 12);
+      margin-bottom: gutter(12);
+    }
+  }
+}
+
+.icon_apeareance  {
+  font-size: rem(25px);
+}
+
+.icon-class-name {
+  display: block;
+}

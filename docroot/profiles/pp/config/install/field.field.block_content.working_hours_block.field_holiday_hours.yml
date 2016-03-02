@@ -1,0 +1,29 @@
+uuid: 4b5e01b0-90fc-4dbb-9052-82419000b41d
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.working_hours_block
+    - field.storage.block_content.field_holiday_hours
+  module:
+    - ymca_field_holiday_hours
+id: block_content.working_hours_block.field_holiday_hours
+field_name: field_holiday_hours
+entity_type: block_content
+bundle: working_hours_block
+label: 'Holiday Hours'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    holiday: ''
+    hours: ''
+    date: ''
+  -
+    holiday: ''
+    hours: ''
+    date: ''
+default_value_callback: ''
+settings: {  }
+field_type: ymca_holiday_hours

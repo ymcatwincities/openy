@@ -1,0 +1,9 @@
+name: Entity Embed
+type: module
+description: 'Allows entities to be embedded using a text editor.'
+core: 8.x
+package: Filters
+dependencies:
+  - editor
+  - embed
+  - filter

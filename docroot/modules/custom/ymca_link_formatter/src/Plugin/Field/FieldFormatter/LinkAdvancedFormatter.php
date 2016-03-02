@@ -1,16 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter\LinkAdvancedFormatter.
- */
-
 namespace Drupal\ymca_link_formatter\Plugin\Field\FieldFormatter;
 
-use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\link\LinkItemInterface;
 use Drupal\link\Plugin\Field\FieldFormatter\LinkFormatter;
 
 /**
@@ -68,6 +64,7 @@ class LinkAdvancedFormatter extends LinkFormatter {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
+    // Add custom attributes.
     foreach ($items as &$item) {
       if (!empty($item->_attributes['class'])) {
         $item->_attributes['class'][] = $this->getSetting('classes');
@@ -78,6 +75,34 @@ class LinkAdvancedFormatter extends LinkFormatter {
     }
 
     return parent::viewElements($items, $langcode);
+  }
+
+  /**
+   * Builds the \Drupal\Core\Url object for a link field item.
+   *
+   * @param \Drupal\link\LinkItemInterface $item
+   *   The link field item being rendered.
+   *
+   * @return \Drupal\Core\Url
+   *   An Url object.
+   */
+  protected function buildUrl(LinkItemInterface $item) {
+    $url = $item->getUrl() ?: Url::fromRoute('<none>');
+
+    $settings = $this->getSettings();
+    $options = $url->getOptions();
+
+    // Add optional 'rel' attribute to link options.
+    if (!empty($settings['rel'])) {
+      $options['attributes']['rel'] = $settings['rel'];
+    }
+    // Add optional 'target' attribute to link options.
+    if (!empty($settings['target'])) {
+      $options['attributes']['target'] = $settings['target'];
+    }
+    $url->setOptions($options);
+
+    return $url;
   }
 
 }

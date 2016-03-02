@@ -142,6 +142,3 @@ parameters:
     - sftp
     - webcal
     - rtsp
-services:
-  cache.backend.memory:
-    class: Drupal\Core\Cache\MemoryBackendFactory

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains YMCA SidebarNavigation block.
- */
-
 namespace Drupal\ymca_blocks\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -43,7 +38,13 @@ class SidebarNavigation extends BlockBase {
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
-    $this->context = \Drupal::request()->attributes->get('node');
+    $route_name = \Drupal::service('current_route_match')->getRouteName();
+    if ($route_name == 'entity.node.preview') {
+      $this->context = \Drupal::request()->attributes->get('node_preview');
+    }
+    else {
+      $this->context = \Drupal::request()->attributes->get('node');
+    }
 
     $view = Views::getView('draggabletest');
     $view->preview('page_1');
@@ -54,6 +55,10 @@ class SidebarNavigation extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    if (!$this->context) {
+      return;
+    }
+
     // Get a flat list of items with id and parent_id.
     $list = [];
     foreach ($this->draggableviews->view->result as $index => $item) {

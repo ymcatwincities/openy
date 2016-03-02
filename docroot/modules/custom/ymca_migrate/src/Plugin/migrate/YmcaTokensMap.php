@@ -1,11 +1,6 @@
 <?php
-/**
- * @file
- * Implements service for Token Map getter.
- */
 
 namespace Drupal\ymca_migrate\Plugin\migrate;
-
 
 use Drupal\migrate\MigrateException;
 
@@ -34,19 +29,13 @@ class YmcaTokensMap {
    * Internal migrations getter.
    */
   private function prepopulateMigrations() {
-
-    // @todo obtain dynamically list of menu migrations.
-    $ids = [
-      'ymca_migrate_menu_link_content_kid_teen_activities',
-      'ymca_migrate_menu_link_content_camps',
-      'ymca_migrate_menu_link_content_child_care_preschool',
-      'ymca_migrate_menu_link_content_community_programs',
-      'ymca_migrate_menu_link_content_health_fitness',
-      'ymca_migrate_menu_link_content_locations',
-      'ymca_migrate_menu_link_content_main',
-      'ymca_migrate_menu_link_content_swimming',
-      'ymca_migrate_menu_link_content_jobs_suppliers_news'
-    ];
+    // Get a list of menu link content migrations.
+    $dir = drupal_get_path('module', 'ymca_migrate') . '/config/install';
+    $list = file_scan_directory($dir, '/migrate.migration.ymca_migrate_menu_link_content_*/');
+    $ids = [];
+    foreach ($list as $item) {
+      $ids[] = str_replace('migrate.migration.', '', $item->name);
+    }
     $this->migrations = \Drupal::entityManager()
       ->getStorage('migration')
       ->loadMultiple($ids);

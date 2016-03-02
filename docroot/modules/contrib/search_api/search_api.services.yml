@@ -1,0 +1,34 @@
+services:
+  plugin.manager.search_api.backend:
+    class: Drupal\search_api\Backend\BackendPluginManager
+    parent: default_plugin_manager
+
+  plugin.manager.search_api.data_type:
+    class: Drupal\search_api\DataType\DataTypePluginManager
+    parent: default_plugin_manager
+
+  plugin.manager.search_api.datasource:
+    class: Drupal\search_api\Datasource\DatasourcePluginManager
+    parent: default_plugin_manager
+
+  plugin.manager.search_api.processor:
+    class: Drupal\search_api\Processor\ProcessorPluginManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@string_translation']
+
+  plugin.manager.search_api.tracker:
+    class: Drupal\search_api\Tracker\TrackerPluginManager
+    parent: default_plugin_manager
+
+  search_api.index_task_manager:
+    class: Drupal\search_api\Task\IndexTaskManager
+    arguments: ['@state', '@entity.manager']
+
+  search_api.results_static_cache:
+    class: Drupal\search_api\Query\ResultsCache
+    arguments: ['@request_stack']
+
+  search_api.server_task_manager:
+    class: Drupal\search_api\Task\ServerTaskManager
+    arguments: ['@database', '@entity.manager']
+    tags:
+      - { name: backend_overridable }

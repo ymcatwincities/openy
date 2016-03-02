@@ -1,0 +1,5 @@
+name: YMCA Frontend
+type: module
+description: 'Defines view modes, routes, etc.'
+core: 8.x
+package: YMCA
