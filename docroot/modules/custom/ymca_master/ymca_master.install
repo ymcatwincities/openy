@@ -841,8 +841,6 @@ function ymca_master_update_8032() {
     $redirect->setRedirect($existing_alias->getSourceUrl());
     $redirect->setLanguage('en');
     $redirect->setStatusCode(Drupal::config('redirect.settings')->get('default_status_code'));
-    $hash = $redirect->generateHash($redirect->getSourceUrl(), $redirect->getSourceUrl(), $redirect->language()->getName());
-    $redirect->set('hash', $hash);
     try {
       $redirect->save();
     }
