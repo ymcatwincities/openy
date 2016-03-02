@@ -126,7 +126,12 @@ class OptionsEmailWidget extends WidgetBase {
         '#title' => $this->fieldDefinition->getLabel(),
         '#options' => $options,
         '#default_value' => 'undefined',
-        '#attributes' => array('class' => array('langcode-input')),
+        '#required' => $this->fieldDefinition->isRequired(),
+        '#attributes' => [
+          'class' => [
+            'langcode-input',
+          ],
+        ],
         '#attached' => [
           'drupalSettings' => [
             'webform_mapping' => $machine_name_mapping,
@@ -214,14 +219,15 @@ class OptionsEmailWidget extends WidgetBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form state at the time of validation.
    */
-  public static function validateElement(
-    array $element,
-    FormStateInterface $form_state
-  ) {
+  public static function validateElement(array $element, FormStateInterface $form_state) {
     // Getting field name.
-    $field_name = array_shift($element['#parents']);
+    $field_name = reset($element['#parents']);
     // Getting index of select item.
     $loc_index = $form_state->getValue($field_name);
+    if (!empty($loc_index) && $loc_index[0]['option_emails'] == 'undefined') {
+      $form_state->setError($element, t('Please, select a location.'));
+      return;
+    }
     // Form build info.
     $bi = $form_state->getBuildInfo();
     /** @var \Drupal\contact\MessageForm $callback */
