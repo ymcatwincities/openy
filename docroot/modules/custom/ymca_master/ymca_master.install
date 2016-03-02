@@ -837,8 +837,9 @@ function ymca_master_update_8032() {
 
     /** @var Redirect $redirect */
     $redirect = Redirect::create();
-    $redirect->setSource(str_replace('/southdale_ymca/', '/southdale_ymca_edina/', $existing_alias->getSourceUrl()));
-    $redirect->setRedirect($existing_alias->getSourceUrl());
+    $source = preg_replace("/^build\d+\/(.*)/", "$0 --> $2 $1", $existing_alias->getSourceUrl());
+    $redirect->setSource(str_replace('/southdale_ymca/', '/southdale_ymca_edina/', $source));
+    $redirect->setRedirect($source);
     $redirect->setLanguage('en');
     $redirect->setStatusCode(Drupal::config('redirect.settings')->get('default_status_code'));
     try {
