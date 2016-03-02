@@ -73,11 +73,6 @@ default_value:
     option_emails: 'dt.sales@ymcampls.org,Andrew.Hoffman@YMCAtwincities.org'
   -
     option_select: 0
-    option_name: 'Mounds View Community Center'
-    option_reference: '15'
-    option_emails: ''
-  -
-    option_select: 0
     option_name: 'New Hope YMCA'
     option_reference: '16'
     option_emails: 'nm.sales@ymcampls.org,carolyn.ball@ymcatwincities.org'
