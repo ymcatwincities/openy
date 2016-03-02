@@ -10,6 +10,7 @@ third_party_settings:
 id: membership_form
 label: 'Membership form'
 recipients:
-  - webmaster@example.com
+  - membershipdirector@ymcatwincities.org
+  - leads@ymcatwincities.org
 reply: ''
 weight: 0
