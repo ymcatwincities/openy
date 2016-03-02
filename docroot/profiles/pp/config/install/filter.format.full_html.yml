@@ -8,7 +8,7 @@ dependencies:
     - ymca_entity_embed
 name: 'Full HTML'
 format: full_html
-weight: 1
+weight: -10
 filters:
   filter_align:
     id: filter_align
@@ -37,7 +37,7 @@ filters:
   entity_embed:
     id: entity_embed
     provider: entity_embed
-    status: false
+    status: true
     weight: -45
     settings: {  }
   filter_html:
@@ -77,6 +77,6 @@ filters:
   ymca_entity_embed:
     id: ymca_entity_embed
     provider: ymca_entity_embed
-    status: true
+    status: false
     weight: -46
     settings: {  }

@@ -1,0 +1,3 @@
+administer_mailsystem:
+  title: Administer Mail System
+  description: Select the default, per-module, and per-mailing MailSystemInterface to use for formatting and sending email messages.

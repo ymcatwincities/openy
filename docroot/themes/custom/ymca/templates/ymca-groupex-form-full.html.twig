@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<form{{ attributes }}>
+  <fieldset>
+    <label class="control-label">
+      {{ "Location"|t }}
+      <small>({{ "optional—select up to 4"|t }} )</small>
+    </label>
+
+    {{ form }}
+  </fieldset>
+</form>

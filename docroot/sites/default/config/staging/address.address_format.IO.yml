@@ -1,0 +1,20 @@
+uuid: 17f643a3-65db-43b3-ae31-49f73b2995fc
+langcode: en
+status: true
+dependencies: {  }
+countryCode: IO
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%sortingCode\n%locality\n%postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+  - postalCode
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: 'BBND 1ZZ'
+postalCodePrefix: null

@@ -1,0 +1,21 @@
+uuid: 4ab94eea-578d-44a6-9c03-3b643bdc461c
+langcode: en
+status: true
+dependencies: {  }
+countryCode: PF
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality %administrativeArea"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - administrativeArea
+  - postalCode
+uppercaseFields:
+  - locality
+  - administrativeArea
+administrativeAreaType: island
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '987\d{2}'
+postalCodePrefix: null

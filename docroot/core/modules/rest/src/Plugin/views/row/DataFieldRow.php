@@ -88,6 +88,10 @@ class DataFieldRow extends RowPluginBase {
 
     if ($fields = $this->view->display_handler->getOption('fields')) {
       foreach ($fields as $id => $field) {
+        // Don't show the field if it has been excluded.
+        if (!empty($field['exclude'])) {
+          continue;
+        }
         $form['field_options'][$id]['field'] = array(
           '#markup' => $id,
         );
@@ -138,10 +142,13 @@ class DataFieldRow extends RowPluginBase {
     $output = array();
 
     foreach ($this->view->field as $id => $field) {
-      // If this is not unknown and the raw output option has been set, just get
-      // the raw value.
-      if (($field->field_alias != 'unknown') && !empty($this->rawOutputOptions[$id])) {
-        $value = $field->sanitizeValue($field->getValue($row), 'xss_admin');
+      // Don't render anything if this field is excluded.
+      if (!empty($field->options['exclude'])) {
+        continue;
+      }
+      // If the raw output option has been set, just get the raw value.
+      if (!empty($this->rawOutputOptions[$id])) {
+        $value = $field->getValue($row);
       }
       // Otherwise, pass this through the field advancedRender() method.
       else {

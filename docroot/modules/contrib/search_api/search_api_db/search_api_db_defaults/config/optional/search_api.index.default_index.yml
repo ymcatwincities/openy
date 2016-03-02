@@ -1,0 +1,186 @@
+id: default_index
+name: 'Default content index'
+description: 'Default content index created by the Database Search Defaults module'
+read_only: false
+options:
+  index_directly: true
+  cron_limit: 50
+  processors:
+    content_access:
+      processor_id: content_access
+      weights:
+        preprocess_index: -6
+        preprocess_query: -4
+      settings: {  }
+    highlight:
+      processor_id: highlight
+      weights:
+        postprocess_query: -9
+      settings:
+        highlight: always
+        excerpt: true
+        excerpt_length: 256
+        prefix: '<strong>'
+        suffix: '</strong>'
+    html_filter:
+      processor_id: html_filter
+      weights:
+        preprocess_index: -3
+        preprocess_query: -6
+      settings:
+        fields:
+          - rendered_item
+        title: true
+        alt: true
+        tags:
+          h1: 5
+          h2: 3
+          h3: 2
+          string: 2
+          b: 2
+    ignorecase:
+      processor_id: ignorecase
+      weights:
+        preprocess_index: -5
+        preprocess_query: -8
+      settings:
+        fields:
+          - rendered_item
+          - 'entity:node/title'
+    language:
+      processor_id: language
+      weights:
+        preprocess_index: -50
+      settings: {  }
+    node_status:
+      processor_id: node_status
+      weights:
+        preprocess_index: -10
+      settings: {  }
+    rendered_item:
+      processor_id: rendered_item
+      weights:
+        preprocess_index: -8
+      settings:
+        roles:
+          anonymous: anonymous
+        view_mode:
+          'entity:node':
+            article: search_index
+            page: search_index
+    stopwords:
+      processor_id: stopwords
+      weights:
+        preprocess_query: -10
+        postprocess_query: -10
+      settings:
+        fields:
+          - rendered_item
+          - 'entity:node/title'
+        stopwords:
+          - a
+          - an
+          - and
+          - are
+          - as
+          - at
+          - be
+          - but
+          - by
+          - for
+          - if
+          - in
+          - into
+          - is
+          - it
+          - 'no'
+          - not
+          - of
+          - 'on'
+          - or
+          - s
+          - such
+          - t
+          - that
+          - the
+          - their
+          - then
+          - there
+          - these
+          - they
+          - this
+          - to
+          - was
+          - will
+          - with
+    tokenizer:
+      processor_id: tokenizer
+      weights:
+        preprocess_index: -2
+        preprocess_query: -5
+      settings:
+        fields:
+          - rendered_item
+          - 'entity:node/title'
+        spaces: ''
+        overlap_cjk: 1
+        minimum_word_size: '3'
+    transliteration:
+      processor_id: transliteration
+      weights:
+        preprocess_index: -4
+        preprocess_query: -7
+      settings:
+        fields:
+          - rendered_item
+          - 'entity:node/title'
+  fields:
+    search_api_language:
+      type: string
+    'entity:node/title':
+      type: text
+      boost: 8
+    rendered_item:
+      type: text
+    'entity:node/created':
+      type: date
+    'entity:node/changed':
+      type: date
+    'entity:node/status':
+      type: boolean
+    'entity:node/sticky':
+      type: boolean
+    'entity:node/field_tags:entity:name':
+      type: string
+    'entity:node/uid:entity:name':
+      type: string
+    'entity:node/uid':
+      type: integer
+    search_api_node_grants:
+      type: string
+    'entity:node/type':
+      type: string
+  'additional fields':
+    'entity:node/field_tags': 'entity:node/field_tags'
+    'entity:node/field_tags:entity': 'entity:node/field_tags:entity'
+    'entity:node/uid': 'entity:node/uid'
+    'entity:node/uid:entity': 'entity:node/uid:entity'
+datasources:
+  - 'entity:node'
+datasource_configs:
+  'entity:node':
+    default: '1'
+    bundles:
+      article: '0'
+      page: '0'
+tracker: default
+tracker_config: {  }
+server: default_server
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.field.node.article.field_tags
+    - search_api.server.default_server
+  module:
+    - node

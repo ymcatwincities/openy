@@ -56,7 +56,7 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 8
+          items_per_page: 10
           offset: 0
           id: 0
           total_pages: null
@@ -211,7 +211,18 @@ display:
           granularity: second
       title: 'YMCA News'
       header: {  }
-      footer: {  }
+      footer:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: "<div class=\"col-md-3 sidebar-promos promos hidden-sm visible-xs\">\n                    <article class=\"richtext\" id=\"component_504752\"><a class=\"wrapper\" href=\"mailto:joan.schimml@ymcatwincities.org\" title=\"joan.schimml@ymcatwincities.org\"><h3>Media Contact</h3>\n<p><strong style=\"font-size:1.2em;\">Joan Schimml<br /></strong>Senior Director of Communications and Marketing</p>\n<p><strong>Email Joan</strong></p>\n</a></article>\n\n                </div>"
+          plugin_id: text_custom
       empty: {  }
       relationships: {  }
       arguments: {  }
@@ -226,9 +237,9 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  feed_1:
+  feed_news:
     display_plugin: feed
-    id: feed_1
+    id: feed_news
     display_title: Feed
     position: 2
     display_options:
@@ -241,8 +252,8 @@ display:
         type: rss
       path: news/subscribe/index.xml
       displays:
-        default: default
-        page_1: page_1
+        page_news: page_news
+        default: '0'
     cache_metadata:
       max-age: -1
       contexts:
@@ -252,9 +263,9 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_1:
+  page_news:
     display_plugin: page
-    id: page_1
+    id: page_news
     display_title: Page
     position: 1
     display_options:
@@ -269,6 +280,22 @@ display:
         weight: 0
         context: '0'
         menu_name: top-menu
+      style:
+        type: html_list
+        options:
+          row_class: 'post-excerpt clearfix'
+          default_row_class: false
+          uses_fields: false
+          type: ul
+          wrapper_class: ''
+          class: search-results-ul
+      defaults:
+        style: false
+        row: false
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: teaser
     cache_metadata:
       max-age: -1
       contexts:

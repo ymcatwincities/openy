@@ -18,6 +18,7 @@ dependencies:
   module:
     - address
     - path
+    - scheduler
     - text
 id: node.camp.default
 targetEntityType: node
@@ -124,6 +125,11 @@ content:
       display_label: true
     weight: 15
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -144,5 +150,10 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

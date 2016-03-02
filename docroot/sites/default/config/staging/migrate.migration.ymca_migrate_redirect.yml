@@ -1,0 +1,22 @@
+id: ymca_migrate_redirect
+label: 'Redirects migration'
+migration_group: ymca
+migration_tags:
+  - redirect
+source:
+  plugin: ymca_migrate_redirect
+process:
+  type:
+    plugin: default_value
+    default_value: redirect
+  language:
+    plugin: default_value
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1
+  redirect_source: redirect_source
+  redirect_redirect: redirect_redirect
+  status_code: redirect_type
+destination:
+  plugin: 'entity:redirect'

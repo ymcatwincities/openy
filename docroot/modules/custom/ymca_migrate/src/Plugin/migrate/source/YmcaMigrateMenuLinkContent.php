@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains source plugin for migration menu links.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
+use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateTrait;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
 
 /**
@@ -19,6 +15,8 @@ use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;
  * )
  */
 class YmcaMigrateMenuLinkContent extends SqlBase {
+
+  use YmcaMigrateTrait;
 
   /**
    * Get menu name.
@@ -78,7 +76,15 @@ class YmcaMigrateMenuLinkContent extends SqlBase {
   public function prepareRow(Row $row) {
     $row->setSourceProperty('title', $row->getSourceProperty('page_name'));
     $row->setSourceProperty('menu_name', $this->getMenu());
-    $row->setSourceProperty('link', ['uri' => 'internal:/']);
+
+    if ($this->isDev()) {
+      $row->setSourceProperty('link', ['uri' => 'internal:/']);
+    }
+    else {
+      $row->setSourceProperty('link', [
+        'uri' => sprintf('internal:%s', rtrim($row->getSourceProperty('page_subdirectory'), '/'))
+      ]);
+    }
 
     $row->setSourceProperty('enabled', TRUE);
     if ($row->getSourceProperty('exclude_from_nav')) {

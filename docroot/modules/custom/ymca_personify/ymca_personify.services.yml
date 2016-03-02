@@ -1,0 +1,19 @@
+services:
+  ymca_personify.login_access_checker:
+    class: Drupal\ymca_personify\Access\PersonifyLoginAccessCheck
+    tags:
+      - { name: access_check, applies_to: _access_personify_login }
+  ymca_personify.account_access_checker:
+    class: Drupal\ymca_personify\Access\PersonifyAccountAccessCheck
+    tags:
+      - { name: access_check, applies_to: _access_personify_account }
+  ymca_personify.page_cache_response_policy.personify:
+    class: Drupal\ymca_personify\PageCache\Personify
+    arguments: ['@current_route_match']
+    public: false
+    tags:
+      - { name: page_cache_response_policy }
+  ymca_personify_token_checker:
+      class: Drupal\ymca_personify\EventSubscriber\TokenChecker
+      tags:
+        - { name: event_subscriber }

@@ -1,0 +1,5 @@
+services:
+  search_api_solr.event_subscriber:
+    class: Drupal\search_api_solr\EventSubscriber\AutoloaderSubscriber
+    tags:
+      - { name: event_subscriber }

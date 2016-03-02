@@ -1,0 +1,21 @@
+uuid: 087ea4a3-c7f7-4457-b001-1ebd97fa67b8
+langcode: en
+status: true
+dependencies: {  }
+countryCode: MX
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%dependentLocality\n%postalCode %locality, %administrativeArea"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+  - administrativeArea
+  - postalCode
+administrativeAreaType: state
+localityType: city
+dependentLocalityType: neighborhood
+postalCodeType: postal
+postalCodePattern: '\d{5}'
+postalCodePrefix: null

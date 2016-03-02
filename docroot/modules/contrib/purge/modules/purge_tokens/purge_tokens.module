@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Purge Tokens - Adds tokens support for external cache invalidation.
+ */
+
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\purge\Plugin\Purge\Invalidation\InvalidationInterface;
+
+/**
+ * Implements hook_token_info().
+ */
+function purge_tokens_token_info() {
+  return [
+    'types' => [
+      'invalidation' => [
+        'name' => t('Cache invalidation'),
+        'description' => t('Tokens related to cache invalidation of individual items.'),
+        'needs-data' => 'invalidation',
+      ],
+      'invalidations' => [
+        'name' => t('Cache invalidations'),
+        'description' => t('Tokens related to mass cache invalidation.'),
+        'needs-data' => 'invalidations',
+      ],
+    ],
+    'tokens' => [
+      'invalidation' => [
+        'expression' => [
+          'name' => t("Expression"),
+          'description' => t("A string the cache invalidation instruction is expressed in, for instance '<code>http://site.com/url</code>' for URL invalidations or '<code>tag:1</code>' for tags."),
+        ],
+        'type' => [
+          'name' => t("Type"),
+          'description' => t("The type of invalidation by plugin ID, for instance <code>tag</code>, <code>wildcardpath</code> or <code>url</code>."),
+        ],
+      ],
+      'invalidations' => [
+        'separated_pipe' => [
+          'name' => t("Pipe separated"),
+          'description' => t("Merged list of all expressions, for example <code>tag:1|tag:2|path/4|http://url5|tag:6</code>."),
+        ],
+        'separated_comma' => [
+          'name' => t("Comma separated"),
+          'description' => t("Merged list of all expressions, for example <code>tag:1,tag:2,path/4,http://url5,tag:6</code>."),
+        ],
+        'separated_tab' => [
+          'name' => t("Tab separated"),
+          'description' => t("Merged list of all expressions, for example <code>tag:1\ttag:2\tpath/4</code>."),
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function purge_tokens_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+
+  // Replace tokens for individual invalidation objects.
+  if (($type == 'invalidation') && ($data['invalidation'] instanceof InvalidationInterface)) {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'expression':
+          if (is_string($expression = $data['invalidation']->getExpression())) {
+            $bubbleable_metadata->setCacheMaxAge(0);
+            $replacements[$original] = $expression;
+          }
+          break;
+        case 'type':
+          $bubbleable_metadata->setCacheMaxAge(0);
+          $replacements[$original] = $data['invalidation']->getType();
+          break;
+      }
+    }
+  }
+
+  // Replace tokens for sets of invalidation objects.
+  elseif (($type == 'invalidations') && ($data['invalidations'][0] instanceof InvalidationInterface)) {
+    $join = function($invalidations, $separator) {
+      $expressions = [];
+      foreach ($invalidations as $invalidation) {
+        if (is_string($expression = $invalidation->getExpression())) {
+          $expressions[] = $expression;
+        }
+      }
+      return implode($separator, $expressions);
+    };
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'separated_pipe':
+          $bubbleable_metadata->setCacheMaxAge(0);
+          $replacements[$original] = $join($data['invalidations'], '|');
+          break;
+        case 'separated_comma':
+          $bubbleable_metadata->setCacheMaxAge(0);
+          $replacements[$original] = $join($data['invalidations'], ',');
+          break;
+        case 'separated_tab':
+          $bubbleable_metadata->setCacheMaxAge(0);
+          $replacements[$original] = $join($data['invalidations'], "\t");
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}

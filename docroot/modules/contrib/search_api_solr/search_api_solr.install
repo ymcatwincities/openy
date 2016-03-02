@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function search_api_solr_requirements($phase) {
+  $ret = array();
+
+  if ($phase == 'runtime') {
+    /** @var \Drupal\search_api\ServerInterface[] $servers */
+    $servers = entity_load_multiple_by_properties('search_api_server', array('backend' => 'search_api_solr', 'status' => TRUE));
+    $count = 0;
+    $unavailable = 0;
+    $last = NULL;
+    foreach ($servers as $server) {
+      if (!$server->getBackend()->ping()) {
+        ++$unavailable;
+        $last = $server;
+      }
+      ++$count;
+    }
+    if (!$count) {
+      return array();
+    }
+    $ret['search_api_solr'] = array(
+      'title' => \Drupal::translation()->translate('Solr servers'),
+      'value' => \Drupal::translation()->formatPlural($count, '1 server', '@count servers'),
+    );
+    if ($unavailable) {
+      if ($unavailable == 1) {
+        $ret['search_api_solr']['description'] = \Drupal::translation()->translate('The Solr server of <a href="!url">%name</a> could not be reached.',
+            array('!url' => \Drupal\Core\Url::fromRoute('entity.search_api_server.canonical', array('search_api_server' => $last->id()))->toString(), '%name' => $last->label()));
+      }
+      else {
+        $ret['search_api_solr']['description'] = \Drupal::translation()->translate('@count Solr servers could not be reached.', array('@count' => $unavailable));
+      }
+      $ret['search_api_solr']['severity'] = REQUIREMENT_ERROR;
+    }
+    else {
+      $ret['search_api_solr']['description'] = \Drupal::translation()->formatPlural($count, 'The Solr server could be reached.', 'All @count Solr servers could be reached.');
+      $ret['search_api_solr']['severity'] = REQUIREMENT_OK;
+    }
+  }
+
+  return $ret;
+}

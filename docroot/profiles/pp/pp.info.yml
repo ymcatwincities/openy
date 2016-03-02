@@ -4,6 +4,7 @@ description: 'Install with commonly used features pre-configured.'
 core: 8.x
 dependencies:
   - node
+  - user
   - history
   - block
   - breakpoint
@@ -47,6 +48,7 @@ dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
+  - migrate_source_csv
   - draggableviews
   - ymca_styleguide
   - ymca_link_formatter
@@ -60,6 +62,25 @@ dependencies:
   - ymca_page_context
   - ymca_menu
   - redirect
+  - ymca_hours
+  - ymca_field_office_hours
+  - ymca_field_holiday_hours
+  - scheduler
+  - contact_storage
+  #- metatag
+  #- xmlsitemap
+  #- globalredirect
+  #- search_api
+  #- search_api_db
+  - webforms
+  - ymca_frontend
+  - rest
+  - csv_serialization
+  - acquia_connector
+  - ymca_groupex
+  - ymca_personify
+  - ymca_search_alter
+  - ymca_master
 themes:
   - bartik
   - seven

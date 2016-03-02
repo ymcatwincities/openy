@@ -1,0 +1,21 @@
+id: ymca_migrate_block_content_basic
+label: 'Basic block migration.'
+migration_group: example
+migration_tags:
+  - block_content
+source:
+  plugin: ymca_migrate_block_content_basic
+process:
+  type:
+    plugin: default_value
+    default_value: basic
+  info: info
+  body/value: body
+  body/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:block_content'
+migration_dependencies:
+  required:
+    - ymca_migrate_file

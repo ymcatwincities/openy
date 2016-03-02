@@ -36,13 +36,13 @@ settings:
           name: Media
           items:
             - Blockquote
-            - DrupalImage
             - Table
             - HorizontalRule
             - block
             - ColumnButton
             - menu_link
             - file
+            - webform
         -
           name: 'Block Formatting'
           items:

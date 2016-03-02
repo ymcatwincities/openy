@@ -1,0 +1,51 @@
+id: database_search_index
+name: 'Test index'
+description: 'An index used for testing'
+read_only: false
+options:
+  cron_limit: -1
+  index_directly: false
+  fields:
+    'entity:entity_test/id':
+      type: integer
+    'entity:entity_test/name':
+      type: text
+      boost: 5.0
+    'entity:entity_test/body':
+      type: text
+    'entity:entity_test/type':
+      type: string
+    'entity:entity_test/keywords':
+      type: string
+    'entity:entity_test/category':
+      type: string
+    search_api_language:
+      type: string
+  processors:
+    language:
+      processor_id: language
+      weights:
+        preprocess_index: -50
+      settings: {  }
+datasources:
+  - 'entity:entity_test'
+datasource_configs: {  }
+tracker: default
+tracker_config: {  }
+server: database_search_server
+status: true
+langcode: en
+dependencies:
+  config:
+    - field.field.entity_test.article.body
+    - field.field.entity_test.article.keywords
+    - field.field.entity_test.article.category
+    - field.field.entity_test.item.body
+    - field.field.entity_test.item.keywords
+    - field.field.entity_test.item.category
+    - field.storage.entity_test.body
+    - field.storage.entity_test.keywords
+    - field.storage.entity_test.category
+    - search_api.server.database_search_server
+  module:
+    - entity_test

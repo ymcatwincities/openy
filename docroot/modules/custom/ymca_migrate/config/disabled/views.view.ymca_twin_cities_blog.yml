@@ -60,10 +60,15 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 8
+          items_per_page: 10
           offset: 0
           id: 0
           total_pages: null
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -72,11 +77,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
           quantity: 9
       style:
         type: default
@@ -153,6 +153,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          group: 1
         field_tags_target_id:
           id: field_tags_target_id
           table: node__field_tags
@@ -170,18 +171,22 @@ display:
           group: 1
           exposed: false
           expose:
-            operator_id: ''
-            label: ''
+            operator_id: field_tags_target_id_op
+            label: 'Tags (field_tags)'
             description: ''
             use_operator: false
-            operator: ''
-            identifier: ''
+            operator: field_tags_target_id_op
+            identifier: field_tags_target_id
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            reduce: false
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -194,7 +199,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: true
           type: select
           limit: true
           vid: tags
@@ -221,14 +226,104 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships: {  }
-      arguments: {  }
+      relationships:
+        field_tags:
+          id: field_tags
+          table: node__field_tags
+          field: field_tags
+          relationship: none
+          group_type: group
+          admin_label: 'field_tags: Taxonomy term'
+          required: false
+          plugin_id: standard
+      arguments:
+        tid:
+          id: tid
+          table: taxonomy_term_field_data
+          field: tid
+          relationship: field_tags
+          group_type: group
+          admin_label: ''
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: true
+          title: '{{ arguments.tid }}'
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+          entity_type: taxonomy_term
+          entity_field: tid
+          plugin_id: taxonomy
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  blog_page:
+    display_plugin: page
+    id: blog_page
+    display_title: Page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: blog
+      menu:
+        type: normal
+        title: Blog
+        menu_name: top-menu
+      style:
+        type: html_list
+        options:
+          row_class: 'post-excerpt clearfix'
+          default_row_class: false
+          uses_fields: false
+          type: ul
+          wrapper_class: ''
+          class: search-results-ul
+      defaults:
+        style: false
+        row: false
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: teaser
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
         - url.query_args
         - user
         - 'user.node_grants:view'
@@ -249,35 +344,26 @@ display:
         type: rss
       path: blog/subscribe/index.xml
       displays:
-        default: default
-        page_1: page_1
+        blog_page: blog_page
+        default: '0'
+      arguments: {  }
+      defaults:
+        arguments: false
+        relationships: false
+        link_display: false
+        link_url: false
+        title: false
+        sitename_title: false
+      relationships: {  }
+      link_display: '0'
+      link_url: ''
+      title: Blog
+      sitename_title: false
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
-  page_1:
-    display_plugin: page
-    id: page_1
-    display_title: Page
-    position: 1
-    display_options:
-      display_extenders: {  }
-      path: blog
-      menu:
-        type: normal
-        title: Blog
-        menu_name: top-menu
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions

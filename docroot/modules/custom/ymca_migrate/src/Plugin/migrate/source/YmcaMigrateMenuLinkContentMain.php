@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains source plugin for migration menu links.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
 use Drupal\ymca_migrate\Plugin\migrate\YmcaQueryBuilder;

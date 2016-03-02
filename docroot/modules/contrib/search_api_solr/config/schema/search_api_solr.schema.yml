@@ -1,0 +1,24 @@
+# Schema for configuration files of the Search API Solr module.
+
+search_api_solr.settings:
+  type: mapping
+  label: 'Search API Solr settings'
+  mapping:
+    last_optimize:
+      type: integer
+      label: 'Last time the indexes were optimized'
+    autocomplete_max_occurrences:
+      type: float
+      label: 'Autocomplete max occurences'
+    index_prefix:
+      type: string
+      label: 'The default prefix for Solr indexes'
+    http_get_max_length:
+      type: integer
+      label: 'The maximum number of bytes that can be handled as an HTTP GET query'
+    cron_action:
+      type: string
+      label: 'Cron action'
+    site_hash:
+      type: string
+      label: 'Site hash'

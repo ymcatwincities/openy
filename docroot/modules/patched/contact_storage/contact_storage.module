@@ -1,0 +1,110 @@
+<?php
+
+/**
+ * @file
+ * Contains main module logic.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\contact\ContactFormInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\contact\Entity\ContactForm;
+
+/**
+ * Implements hook_form_FORM_ID_alter() for contact_form_form().
+ */
+function contact_storage_form_contact_form_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\contact\ContactFormInterface $contact_form */
+  $contact_form = $form_state->getFormObject()->getEntity();
+  $form['contact_storage_uri'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redirect Page'),
+    '#description' => t('Input the Uri (entity:node/NODE-ID) of the Page to redirect the form after Submit.'),
+    '#default_value' => $contact_form->getThirdPartySetting('contact_storage', 'redirect_uri', FALSE),
+  );
+  $form['#entity_builders'][] = 'contact_storage_contact_form_form_builder';
+}
+/**
+ * Entity builder for the contact form edit form with third party options.
+ *
+ * @see contact_storage_test_form_contact_form_edit_form_alter()
+ */
+function contact_storage_contact_form_form_builder($entity_type, ContactFormInterface $contact_form, &$form, FormStateInterface $form_state) {
+  $contact_form->setThirdPartySetting('contact_storage', 'redirect_uri', $form_state->getValue('contact_storage_uri'));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for contact_form_form().
+ */
+function contact_storage_form_contact_message_form_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['submit']['#submit'][] = 'contact_storage_contact_message_redirect_submit';
+}
+
+/**
+ * Implements a Submit Callback for contact_message_form.
+ */
+function contact_storage_contact_message_redirect_submit(&$form, &$form_state) {
+  /* @var \Drupal\contact\MessageInterface $contact_message */
+  $contact_message = $form_state->getFormObject()->getEntity();
+  $contact_form = ContactForm::load($contact_message->bundle());
+  if ($redirect_uri = $contact_form->getThirdPartySetting('contact_storage', 'redirect_uri', FALSE)) {
+    $form_state->setRedirectUrl(Url::fromUri($redirect_uri));
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function contact_storage_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'contact_message') {
+    $fields = array();
+    $fields['id'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Message ID'))
+      ->setDescription(t('The message ID.'))
+      ->setReadOnly(TRUE)
+      // Explicitly set this to 'contact' so that
+      // ContentEntityDatabaseStorage::usesDedicatedTable() doesn't attempt to
+      // put the ID in a dedicated table.
+      // @todo Remove when https://www.drupal.org/node/1498720 is in.
+      ->setProvider('contact')
+      ->setSetting('unsigned', TRUE);
+
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Created'))
+      ->setDescription(t('The time that the message was created.'))
+      ->setTranslatable(TRUE)
+      ->setReadOnly(TRUE);
+
+    return $fields;
+  }
+}
+
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function contact_storage_entity_type_alter(array &$entity_types) {
+  /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+  // Set the controller class for nodes to an alternate implementation of the
+  // Drupal\Core\Entity\EntityStorageInterface interface.
+  $entity_types['contact_message']->setStorageClass('\Drupal\Core\Entity\Sql\SqlContentEntityStorage');
+  $keys = $entity_types['contact_message']->getKeys();
+  $keys['id'] = 'id';
+  $entity_types['contact_message']->set('entity_keys', $keys);
+  $entity_types['contact_message']->set('base_table', 'contact_message');
+  // Add edit and delete forms.
+  $entity_types['contact_message']->setFormClass('edit', '\Drupal\contact_storage\MessageEditForm');
+  $entity_types['contact_message']->setFormClass('delete', '\Drupal\contact_storage\Form\MessageDeleteForm');
+  // Allow edit/delete links in list builder.
+  $entity_types['contact_message']->setLinkTemplate('collection', '/admin/structure/contact/messages');
+  $entity_types['contact_message']->setLinkTemplate('edit-form', '/admin/structure/contact/messages/{contact_message}');
+  $entity_types['contact_message']->setLinkTemplate('delete-form', '/admin/structure/contact/messages/{contact_message}/delete');
+  // @todo Replace with access control handler when not enough.
+  $entity_types['contact_message']->set('admin_permission', 'administer contact forms');
+  // Integrate with Views.
+  $entity_types['contact_message']->setHandlerClass('views_data', '\Drupal\contact_storage\MessageViewsData');
+  $entity_types['contact_message']->setListBuilderClass('\Drupal\Core\Entity\EntityListBuilder');
+
+  $entity_types['contact_form']->setViewBuilderClass('\Drupal\contact_storage\ContactFormViewBuilder');
+}

@@ -1,0 +1,665 @@
+<?php
+
+/**
+ * @file
+ * Scheduler publishes and unpublishes nodes on dates specified by the user.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+
+// The default format to use if no custom format has been configured.
+define('SCHEDULER_DATE_FORMAT', 'Y-m-d H:i:s');
+
+// The default date and time formats to use when only a date has been entered.
+// These should match the date and time parts of SCHEDULER_DATE_FORMAT above.
+define('SCHEDULER_DATE_ONLY_FORMAT', 'Y-m-d');
+define('SCHEDULER_TIME_ONLY_FORMAT', 'H:i:s');
+
+// The default time that will be used, until Admin sets a different value.
+define('SCHEDULER_DEFAULT_TIME', '00:00:00');
+
+// The full set of date and time letters allowed in the scheduler date format.
+define('SCHEDULER_DATE_LETTERS', 'djmnFMyY');
+define('SCHEDULER_TIME_LETTERS', 'hHgGisaA');
+
+/**
+ * Implements hook_menu().
+ */
+function scheduler_menu() {
+  $items = array();
+  $items['scheduler/cron'] = array(
+    'title' => 'Lightweight cron handler',
+    'description' => 'Run the lightweight cron process',
+    'page callback' => '_scheduler_run_cron',
+    'access callback' => '_scheduler_cron_access',
+    'access arguments' => array(2),
+    'type' => MENU_CALLBACK,
+    'file' => 'scheduler.cron.inc',
+  );
+  return $items;
+}
+
+/**
+ * Return the users access to the scheduler list page.
+ *
+ * Separate function required because of the two access values to be checked.
+ *
+ * @param int $uid
+ *   The user ID of the user of which the scheduled nodes will be listed. Omit
+ *   this when listing the nodes of all users.
+ */
+function scheduler_list_access_callback($uid = NULL) {
+  $account = \Drupal::currentUser();
+
+  // All Scheduler users can see their own scheduled content via their user
+  // page. In addition, if they have 'view scheduled content' permission they
+  // will be able to see all scheduled content by all authors.
+  return \Drupal::currentUser()->hasPermission('view scheduled content') || ($uid == $account->id() && \Drupal::currentUser()->hasPermission('schedule (un)publishing of nodes'));
+}
+
+/**
+ * Implements hook_help().
+ */
+function scheduler_help($section) {
+  $output = '';
+  switch ($section) {
+    case 'admin/config/content/scheduler':
+      $output = '<p>' . t('Some Scheduler options are set for each different content type, and are accessed via the <a href="@link">admin content type</a> list.', array('@link' => Url::fromRoute('entity.node_type.collection'))) . '</br>';
+      $output .= t('The options and settings below are common to all content types.') . '</p>';
+      break;
+
+    case 'admin/config/content/scheduler/cron':
+      $base_url = $GLOBALS['base_url'];
+      $access_key = \Drupal::config('scheduler.settings')->get('lightweight_cron_access_key');
+      $cron_url = $base_url . '/scheduler/cron' . ($access_key ? '/' . $access_key : '');
+      $output = '<p>' . t("When you have set up Drupal's standard crontab job cron.php then Scheduler will be executed during each cron run. However, if you would like finer granularity to scheduler, but don't want to run Drupal's cron more often then you can use the lightweight cron handler provided by Scheduler. This is an independent cron job which only runs the scheduler process and does not execute any cron tasks defined by Drupal core or any other modules.") . '</p>';
+      $output .= '<p>' . t("Scheduler's cron is at /scheduler/cron and a sample crontab entry to run scheduler every minute might look like:") . '</p>';
+      $output .= '<code>* * * * * wget -q -O /dev/null "' . $cron_url . '"</code>';
+      $output .= '<p>' . t('or') . '</p>';
+      $output .= '<code>* * * * * curl -s -o /dev/null "' . $cron_url . '"</code><br/><br/>';
+      break;
+
+    case 'admin/help#scheduler':
+      // This is shown at the top of admin/help/scheduler.
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Scheduler module provides the functionality for automatic publishing and unpublishing of nodes at specified future dates.') . '</p>';
+      $output .= '<p>' . t('You can read more in the <a href="@readme">readme.txt</a> file.', array('@readme' => $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'scheduler') . '/README.txt')) . '</p>';
+      break;
+
+    default:
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_form_node_type_form_alter().
+ */
+function scheduler_form_node_type_form_alter(array &$form, FormStateInterface $form_state) {
+  // Load the real code only when needed.
+  module_load_include('inc', 'scheduler', 'scheduler.admin');
+  _scheduler_form_node_type_form_alter($form, $form_state);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form.
+ */
+function scheduler_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Load the real code only when needed. First check that the user has
+  // permission to use Scheduler.
+  if (\Drupal::currentUser()->hasPermission('schedule (un)publishing of nodes')) {
+    // Check if scheduling has been enabled for this node type.
+    /** @var \Drupal\node\NodeTypeInterface $type */
+    $type = $form_state->getFormObject()->getEntity()->type->entity;
+    $publishing_enabled = $type->getThirdPartySetting('scheduler', 'publish_enable', FALSE);
+    $unpublishing_enabled = $type->getThirdPartySetting('scheduler', 'unpublish_enable', FALSE);
+
+    if ($publishing_enabled || $unpublishing_enabled) {
+      module_load_include('inc', 'scheduler', 'scheduler.edit');
+      _scheduler_form_alter($form, $form_state);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function scheduler_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() === 'node') {
+    $fields['publish_on'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Publish on'))
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp_no_default',
+        'weight' => 30,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(TRUE);
+
+    $fields['unpublish_on'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Unpublish on'))
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp_no_default',
+        'weight' => 30,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(TRUE)
+      ->addConstraint('SchedulerUnpublishOn');
+
+    return $fields;
+  }
+}
+
+/**
+ * Checks whether a scheduled action on a node is allowed.
+ *
+ * This provides a way for other modules to prevent scheduled publishing or
+ * unpublishing, by implementing hook_scheduler_allow_publishing() or
+ * hook_scheduler_allow_unpublishing().
+ *
+ * @see hook_scheduler_allow_publishing()
+ * @see hook_scheduler_allow_unpublishing()
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node on which the action is to be performed.
+ * @param string $action
+ *   The action that needs to be checked. Can be 'publish' or 'unpublish'.
+ *
+ * @return bool
+ *   TRUE if the action is allowed, FALSE if not.
+ */
+function _scheduler_allow(NodeInterface $node, $action) {
+  // Default to TRUE.
+  $result = TRUE;
+  // Check that other modules allow the action.
+  $hook = 'scheduler_allow_' . $action . 'ing';
+  foreach (\Drupal::moduleHandler()->getImplementations($hook) as $module) {
+    $function = $module . '_' . $hook;
+    $result &= $function($node);
+  }
+
+  return $result;
+}
+
+/**
+ * Parse a time/date as UTC time.
+ *
+ * The php function strptime() has a limited life, due to it returning varying
+ * results on different operating systems. It is not supported on Windows
+ * platforms at all. The replacement function date_parse_from_format() is not
+ * as flexible as strptime(), for example it forces two-digit minutes and
+ * seconds. _scheduler_strptime() gives us more control over the entities that
+ * are parsed and how the matching is achieved.
+ *
+ * @param string $date
+ *   The string to parse.
+ * @param string $format
+ *   The date format used in $date. For details on the date format options, see
+ *   the PHP date() function.
+ *
+ * @return int
+ *   The parsed time converted to a UTC timestamp using mktime().
+ */
+function _scheduler_strptime($date, $format) {
+  // Build a regex pattern for each element allowed in the date and time format.
+  $date_entities_and_replacements = array(
+    // Date elements, one for each character in SCHEDULER_DATE_LETTERS.
+    'd' => '(\d{2})',      // Day of the month with leading zero.
+    'j' => '(\d{1,2})',    // Day of the month without leading zero.
+    'm' => '(\d{2})',      // Month number with leading zero.
+    'n' => '(\d{1,2})',    // Month number without leading zero.
+    'M' => '(\w{3})',      // Three-letter month abbreviation.
+    'F' => '(\w{3,9})',    // Full month name, from 3 to 9 letters.
+    'y' => '(\d{2})',      // Two-digit year.
+    'Y' => '(\d{4})',      // Four-digit year.
+
+    // Time elements, one for each character in SCHEDULER_TIME_LETTERS.
+    'h' => '(\d{2})',      // Hours in 12-hour format with leading zero.
+    'H' => '(\d{2})',      // Hours in 24-hour format with leading zero.
+    'g' => '(\d{1,2})',    // Hours in 12-hour format without leading zero.
+    'G' => '(\d{1,2})',    // Hours in 24-hour format without leading zero.
+    'i' => '(\d{2})',      // Minutes with leading zero.
+    's' => '(\d{2})',      // Seconds with leading zero.
+    'a' => '([ap]m)',      // Lower case meridian.
+    'A' => '([AP]M)',      // Upper case meridian.
+  );
+  $date_entities = array_keys($date_entities_and_replacements);
+  $date_regex_replacements = array_values($date_entities_and_replacements);
+  $custom_pattern = str_replace($date_entities, $date_regex_replacements, $format);
+  if (!preg_match("#$custom_pattern#", $date, $value_matches)) {
+    return FALSE;
+  }
+
+  if (!preg_match_all('/(\w)/', $format, $entity_matches)) {
+    return FALSE;
+  }
+
+  $results = array('day' => 0, 'month' => 0, 'year' => 0, 'hour' => 0, 'minute' => 0, 'second' => 0, 'meridiem' => NULL);
+  $index = 1;
+  foreach ($entity_matches[1] as $entity) {
+    $value = intval($value_matches[$index]);
+    switch ($entity) {
+      case 'd':
+      case 'j':
+        $results['day'] = $value;
+        break;
+
+      case 'm':
+      case 'n':
+        $results['month'] = $value;
+        break;
+
+      case 'M':
+      case 'F':
+        // Derive a time value from the matched month name text.
+        $temp_time = strtotime($value_matches[$index]);
+        if (empty($temp_time)) {
+          // If the text is not a valid month name or abbreviation then fail.
+          return FALSE;
+        }
+        // Derive the month number from the month name.
+        $results['month'] = date('n', $temp_time);
+        break;
+
+      case 'y':
+      case 'Y':
+        $results['year'] = $value;
+        break;
+
+      case 'H':
+      case 'h':
+      case 'g':
+      case 'G':
+        $results['hour'] = $value;
+        break;
+
+      case 'i':
+        $results['minute'] = $value;
+        break;
+
+      case 's':
+        $results['second'] = $value;
+        break;
+
+      case 'a':
+      case 'A':
+        $results['meridiem'] = $value_matches[$index];
+        break;
+
+    }
+    $index++;
+  }
+  if ((strncasecmp($results['meridiem'], "pm", 2) == 0) && ($results['hour'] < 12)) {
+    $results['hour'] += 12;
+  }
+  if ((strncasecmp($results['meridiem'], "am", 2) == 0) && ($results['hour'] == 12)) {
+    $results['hour'] -= 12;
+  }
+
+  $time = mktime($results['hour'], $results['minute'], $results['second'], $results['month'], $results['day'], $results['year']);
+  return $time;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for node entities.
+ */
+function scheduler_node_view(array &$build, EntityInterface $node, EntityViewDisplayInterface $display, $view_mode) {
+  // If the node is going to be unpublished then add this information to the
+  // header for googlebot. Only do this when the current page is the full-page
+  // view of the node.
+  if (!empty($node->unpublish_on->value) && node_is_page($node)) {
+    $unavailable_after = date('d-M-Y H:i:s T', $node->unpublish_on->value);
+    $metatag = [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'googlebot',
+        'content' => 'unavailable_after: ' . $unavailable_after,
+      ],
+    ];
+    $build['#attached']['html_head'][] = [$metatag, 'scheduler_unavailable'];
+  }
+}
+
+/**
+ * Implements hook_node_validate().
+ * @todo hook_node_validate() and hook_node_submit() have been removed (#2420295)
+ */
+function scheduler_node_validate($node, array $form, FormStateInterface $form_state) {
+  // Adjust the entered times for timezone consideration. Note, we must check
+  // to see if the value is numeric. If it is, assume we have already done the
+  // strtotime conversion. This prevents us running strtotime on a value we have
+  // already converted. This is needed because Drupal 6 removed 'submit' and
+  // added 'presave' and all this happens at different times.
+  $date_format = \Drupal::config('scheduler.settings')->get('date_format');
+  $entity = $node->type->entity;
+
+  if (!empty($node->publish_on->value) && !is_numeric($node->publish_on->value)) {
+    $publishtime = $node->publish_on->value;
+    if ($publishtime === FALSE) {
+      $form_state->setErrorByName('publish_on', t("The 'publish on' value does not match the expected format of %time", array('%time' => \Drupal::service('date.formatter')->format(REQUEST_TIME, 'custom', $date_format))));
+    }
+    elseif ($publishtime && $entity->getThirdPartySetting('scheduler', 'publish_past_date', 'error') == 'error' && $publishtime < REQUEST_TIME) {
+      $form_state->setErrorByName('publish_on', t("The 'publish on' date must be in the future"));
+    }
+  }
+
+  if (!empty($node->unpublish_on->value) && !is_numeric($node->unpublish_on->value)) {
+    $unpublishtime = $node->unpublish_on->value;
+    if ($unpublishtime === FALSE) {
+      $form_state->setErrorByName('unpublish_on', t("The 'unpublish on' value does not match the expected format of %time", array('%time' => \Drupal::service('date.formatter')->format(REQUEST_TIME, 'custom', $date_format))));
+    }
+    elseif ($unpublishtime && $unpublishtime < REQUEST_TIME) {
+      $form_state->setErrorByName('unpublish_on', t("The 'unpublish on' date must be in the future"));
+    }
+  }
+
+  if (isset($publishtime) && isset($unpublishtime) && $unpublishtime < $publishtime) {
+    $form_state->setErrorByName('unpublish_on', t("The 'unpublish on' date must be later than the 'publish on' date."));
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for node entities.
+ */
+function scheduler_node_presave(EntityInterface $node) {
+  if ($node->publish_on->value > 0) {
+    // Check that other modules allow the action on this node.
+    $publication_allowed = _scheduler_allow($node, 'publish');
+
+    // Publish the node immediately if the publication date is in the past.
+    $entity = $node->type->entity;
+    $publish_immediately = $entity->getThirdPartySetting('scheduler', 'publish_past_date', 'error') == 'publish';
+
+    if ($publication_allowed && $publish_immediately && $node->publish_on->value <= REQUEST_TIME) {
+      // If required, set the created date to match published date.
+      if ($entity->getThirdPartySetting('scheduler', 'publish_touch', 0)) {
+        $node->setCreatedTime($node->publish_on->value);
+      }
+      $node->publish_on->value = 0;
+      $node->setPublished(TRUE);
+      // Allow modules to react to immediate publishing.
+      _scheduler_scheduler_api($node, 'publish_immediately');
+    }
+    else {
+      // Ensure the node is unpublished as it will be published by cron later.
+      $node->setPublished(FALSE);
+
+      // Only inform the user that the node is scheduled if publication has not
+      // been prevented by other modules. Those modules have to display a
+      // message themselves explaining why publication is denied.
+      if ($publication_allowed) {
+        $date_format = \Drupal::config('scheduler.settings')->get('date_format');
+        drupal_set_message(t('This post is unpublished and will be published @publish_time.', array('@publish_time' => \Drupal::service('date.formatter')->format($node->publish_on->value, 'custom', $date_format))), 'status', FALSE);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for node entities.
+ */
+function scheduler_node_insert(EntityInterface $node) {
+  // Only insert into database if we need to (un)publish this node at some date.
+  if (!empty($node->publish_on->value) || !empty($node->unpublish_on->value)) {
+    // Invoke the events to indicate that a new node has been scheduled.
+    if (\Drupal::moduleHandler()->moduleExists('rules')) {
+      if (!empty($node->publish_on->value)) {
+        rules_invoke_event('scheduler_new_node_is_scheduled_for_publishing_event', $node, $node->publish_on->value, $node->unpublish_on->value);
+      }
+      if (!empty($node->unpublish_on->value)) {
+        rules_invoke_event('scheduler_new_node_is_scheduled_for_unpublishing_event', $node, $node->publish_on->value, $node->unpublish_on->value);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for node entities.
+ */
+function scheduler_node_update(EntityInterface $node) {
+  if (!empty($node->publish_on->value) || !empty($node->unpublish_on->value)) {
+    // Invoke the events to indicate that an existing node has been scheduled.
+    if (\Drupal::moduleHandler()->moduleExists('rules')) {
+      if (!empty($node->publish_on->value)) {
+        rules_invoke_event('scheduler_existing_node_is_scheduled_for_publishing_event', $node, $node->publish_on->value, $node->unpublish_on->value);
+      }
+      if (!empty($node->unpublish_on->value)) {
+        rules_invoke_event('scheduler_existing_node_is_scheduled_for_unpublishing_event', $node, $node->publish_on->value, $node->unpublish_on->value);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function scheduler_cron() {
+  // Load the cron functions file.
+  module_load_include('inc', 'scheduler', 'scheduler.cron');
+
+  // During cron runs we do not want i18n_sync to make any changes to the
+  // translation nodes, as this affects processing later in the same cron job.
+  // Hence we save the i18n_sync state here, turn it off for the duration of
+  // Scheduler cron processing, then restore the setting afterwards.
+  // @todo Replace this workaround with a hook implementation when issue
+  //   #2136557 lands.
+  // @see https://drupal.org/node/1182450
+  // @see https://drupal.org/node/2136557
+  if (\Drupal::moduleHandler()->moduleExists('i18n_sync')) {
+    $i18n_sync_saved_state = i18n_sync();
+    i18n_sync(FALSE);
+  }
+
+  // Use drupal_static so that any function can find out if we are running
+  // Scheduler cron. Set the default value to FALSE, then turn on the flag.
+  // @see scheduler_cron_is_running()
+  $scheduler_cron = &drupal_static(__FUNCTION__, FALSE);
+  $scheduler_cron = TRUE;
+
+  _scheduler_publish();
+  _scheduler_unpublish();
+
+  // Reset the static scheduler_cron flag.
+  drupal_static_reset(__FUNCTION__);
+
+  // Restore the i18n_sync state.
+  \Drupal::moduleHandler()->moduleExists('i18n_sync') ? i18n_sync($i18n_sync_saved_state) : NULL;
+}
+
+/**
+ * Return whether Scheduler cron is running.
+ *
+ * This function can be called from any Scheduler function, from any contrib
+ * module or from custom PHP in a view or rule.
+ *
+ * @return bool
+ *   TRUE if scheduler_cron is currently running. FALSE if not.
+ */
+function scheduler_cron_is_running() {
+  return drupal_static('scheduler_cron');
+}
+
+/**
+ * Access callback for the lightweight cron url /scheduler/cron/key.
+ *
+ * @param string $cron_key
+ *   The cron key that was passed as a URL argument.
+ *
+ * @return bool
+ *   TRUE if the cron url key is correct. FALSE otherwise.
+ */
+function _scheduler_cron_access($cron_key) {
+  $valid_cron_key = \Drupal::config('scheduler.settings')->get('lightweight_cron_access_key');
+  return $valid_cron_key == $cron_key;
+}
+
+/**
+ * Scheduler API to perform actions when nodes are (un)published.
+ *
+ * This allows other modules to implement hook_scheduler_api($node, $action).
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node object.
+ * @param string $action
+ *   The action being performed, either 'pre_publish', 'publish',
+ *   'publish_immediately', 'pre_unpublish' or 'unpublish'.
+ */
+function _scheduler_scheduler_api(NodeInterface $node, $action) {
+  foreach (\Drupal::moduleHandler()->getImplementations('scheduler_api') as $module) {
+    $function = $module . '_scheduler_api';
+    $function($node, $action);
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function scheduler_views_api() {
+  $info['api'] = 2;
+  return $info;
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function scheduler_field_extra_fields() {
+  $fields = array();
+
+  foreach (node_type_get_types() as $type) {
+    $entity = $type->type->entity;
+
+    $publishing_enabled = $entity->getThirdPartySetting('scheduler', 'publish_enable', 0);
+    $unpublishing_enabled = $entity->getThirdPartySetting('scheduler', 'unpublish_enable', 0);
+    $use_vertical_tabs = $entity->getThirdPartySetting('scheduler', 'use_vertical_tabs', 1);
+
+    if (($publishing_enabled || $unpublishing_enabled) && !$use_vertical_tabs) {
+      $fields['node'][$type->type]['form']['scheduler_settings'] = array(
+        'label' => t('Scheduler'),
+        'description' => t('Fieldset containing scheduling settings'),
+        'weight' => 0,
+      );
+    }
+  }
+  return $fields;
+}
+
+/**
+ * Prepares variables for node templates.
+ *
+ * Makes the publish_on and unpublish_on data available as theme variables.
+ *
+ * @see template_preprocess_node()
+ */
+function scheduler_preprocess_node(&$variables) {
+  /* @var $node \Drupal\node\NodeInterface */
+  $node = $variables['node'];
+  $date_format = \Drupal::config('scheduler.settings')->get('date_format');
+  if (!empty($node->publish_on->value) && $node->publish_on->value && is_numeric($node->publish_on->value)) {
+    $variables['publish_on'] = \Drupal::service('date.formatter')->format($node->publish_on->value, 'custom', $date_format);
+  }
+  if (!empty($node->unpublish_on->value) && $node->unpublish_on->value && is_numeric($node->unpublish_on->value)) {
+    $variables['unpublish_on'] = \Drupal::service('date.formatter')->format($node->unpublish_on->value, 'custom', $date_format);
+  }
+}
+
+/**
+ * Implements hook_feeds_processor_targets_alter().
+ *
+ * This function exposes publish_on and unpublish_on as mappable targets to the
+ * Feeds module.
+ */
+function scheduler_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_name) {
+  // Scheduler module only works on nodes.
+  if ($entity_type == 'node') {
+    $publishing_enabled = $entity_type->getThirdPartySetting('scheduler', 'publish_enable', 0);
+    $unpublishing_enabled = $entity_type->getThirdPartySetting('scheduler', 'unpublish_enable', 0);
+
+    if ($publishing_enabled) {
+      $targets['publish_on'] = array(
+        'name' => t('Scheduler: publish on'),
+        'description' => t('The date when the Scheduler module will publish the node.'),
+        'callback' => 'scheduler_feeds_set_target',
+      );
+    }
+    if ($unpublishing_enabled) {
+      $targets['unpublish_on'] = array(
+        'name' => t('Scheduler: unpublish on'),
+        'description' => t('The date when the Scheduler module will unpublish the node.'),
+        'callback' => 'scheduler_feeds_set_target',
+      );
+    }
+  }
+}
+
+/**
+ * Mapping callback for the Feeds module.
+ */
+function scheduler_feeds_set_target($source, $entity, $target, $value, $mapping) {
+  // We expect a string or integer, but can accomodate an array, by taking the
+  // first item. Use trim() so that a string of blanks is reduced to empty.
+  $value = is_array($value) ? trim(reset($value)) : trim($value);
+
+  // Convert input from parser to timestamp form. If $value is empty or blank
+  // then strtotime() must not be used, otherwise it returns the current time.
+  if (!empty($value) && !is_numeric($value)) {
+    if (!$timestamp = strtotime($value)) {
+      throw new FeedsValidationException(
+        // Throw an exception if the date format was not recognized.
+        t('Value %value for @source could not be converted to a valid %target date.', array(
+          '@source' => $mapping['source'],
+          '%value' => $value,
+          '%target' => $target,
+        )
+      ));
+    }
+  }
+  else {
+    $timestamp = $value;
+  }
+
+  // If the timestamp is valid then use it to set the target field in the node.
+  if (is_numeric($timestamp) && $timestamp > 0) {
+    $entity->$target = $timestamp;
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function scheduler_ctools_plugin_directory($owner, $plugin_type) {
+ // Declare a form pane (panels content type) for use in ctools and page
+ // manager. This allows the Scheduler fieldset to be placed in a panel.
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return 'plugins/content_types';
+  }
+}
+
+/**
+ * Implements hook_i18n_sync_options().
+ */
+function scheduler_i18n_sync_options($entity_type, $bundle_name) {
+  // Keep the scheduler dates synchronised between separate nodes which have
+  // been defined as translations of each other.
+  if ($entity_type == 'node') {
+    $options = array();
+    if ($entity_type->getThirdPartySetting('scheduler', 'publish_enable')) {
+      $options['publish_on'] = array(
+        'title' => t('Publish on'),
+        'description' => t('Scheduler Publish date and time'),
+      );
+    }
+    if ($entity_type->getThirdPartySetting('scheduler', 'unpublish_enable')) {
+      $options['unpublish_on'] = array(
+        'title' => t('Unpublish on'),
+        'description' => t('Scheduler Unpublish date and time'),
+      );
+    }
+    return $options;
+  }
+}

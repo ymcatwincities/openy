@@ -1,0 +1,49 @@
+id: ymca_migrate_node_location
+label: 'Locations migration.'
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_node_location
+  constants:
+    working_hours_id: 1
+process:
+  type:
+    plugin: default_value
+    default_value: location
+  title: page_title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+  field_content: field_content
+  field_working_hours/target_id:
+    plugin: migration
+    migration: ymca_migrate_block_content_working_hours_block
+    source: constants/working_hours_id
+  field_main_promos: field_main_promos
+  field_phone: field_phone
+  field_location: field_location
+  field_promo_slideshow: field_promo_slideshow
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - ymca_migrate_file_image
+    - ymca_migrate_block_content_working_hours_block
+    - ymca_migrate_menu_link_content_camps
+    - ymca_migrate_menu_link_content_child_care_preschool
+    - ymca_migrate_menu_link_content_community_programs
+    - ymca_migrate_menu_link_content_health_fitness
+    - ymca_migrate_menu_link_content_jobs_suppliers_news
+    - ymca_migrate_menu_link_content_kid_teen_activities
+    - ymca_migrate_menu_link_content_locations
+    - ymca_migrate_menu_link_content_main
+    - ymca_migrate_menu_link_content_swimming
+    - ymca_migrate_menu_link_content_redirect

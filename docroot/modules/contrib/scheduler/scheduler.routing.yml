@@ -1,0 +1,16 @@
+scheduler.admin_form:
+  path: /admin/config/content/scheduler
+  defaults:
+    _title: Scheduler
+    _form: \Drupal\scheduler\Form\SchedulerAdminForm
+  requirements:
+    _permission: 'administer scheduler'
+
+scheduler.cron_form:
+  path: /admin/config/content/scheduler/cron
+  defaults:
+    _title: Lightweight cron
+    _description: Configuration form for the lightweight cron.
+    _form: \Drupal\scheduler\Form\SchedulerCronForm
+  requirements:
+    _permission: 'administer scheduler'

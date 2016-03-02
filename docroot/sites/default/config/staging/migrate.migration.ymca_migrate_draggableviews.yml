@@ -1,0 +1,31 @@
+id: ymca_migrate_draggableviews
+label: 'Draggable views migration.'
+migration_group: example
+migration_tags:
+  - draggableviews
+source:
+  plugin: ymca_migrate_draggableviews
+process:
+  view_name:
+    plugin: default_value
+    default_value: draggabletest
+  view_display:
+    plugin: default_value
+    default_value: page_1
+  args:
+    plugin: default_value
+    default_value: '[]'
+  entity_id:
+    plugin: migration
+    migration: ymca_migrate_node_page
+    source: id
+  weight: weight
+  parent:
+    plugin: migration
+    migration: ymca_migrate_node_page
+    source: parent
+destination:
+  plugin: draggableviews
+migration_dependencies:
+  required:
+    - ymca_migrate_node_page

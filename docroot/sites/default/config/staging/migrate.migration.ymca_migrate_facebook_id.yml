@@ -1,0 +1,18 @@
+id: ymca_migrate_facebook_id
+label: 'Facebook IDs migration.'
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: csv
+  path: modules/custom/ymca_migrate/misc/facebook_ids.csv
+  header_row_count: 1
+  identifiers:
+    - page_id
+process: {  }
+destination:
+  plugin: ymca_facebook_id
+migration_dependencies:
+  required:
+    - ymca_migrate_node_location
+    - ymca_migrate_node_camp

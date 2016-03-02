@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.field.node.article.field_alert
     - field.field.node.article.field_content
-    - field.field.node.article.field_date_end_visibility
-    - field.field.node.article.field_date_published
     - field.field.node.article.field_exclude_from_navigation
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
@@ -18,13 +16,14 @@ dependencies:
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_status
+    - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - node.type.article
   module:
-    - datetime
-    - image
+    - image_widget_crop
     - link
     - path
+    - scheduler
     - text
 id: node.article.default
 targetEntityType: node
@@ -51,16 +50,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_date_end_visibility:
-    weight: 33
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-  field_date_published:
-    weight: 34
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
   field_exclude_from_navigation:
     weight: 30
     settings:
@@ -77,10 +66,19 @@ content:
   field_header_image:
     weight: 8
     settings:
-      progress_indicator: throbber
       preview_image_style: thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - 2013_masthead
+        - 2013_promotion
+        - blog_thumb
+        - large_230_230
+        - medium_125_125
+        - small_75_75
+      crop_help_text: 'Select an image size to crop'
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: image_image
+    type: image_widget_crop
   field_header_variant:
     weight: 7
     settings: {  }
@@ -156,6 +154,11 @@ content:
       display_label: true
     weight: 4
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -177,4 +180,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_tags: true

@@ -1,0 +1,10 @@
+uuid: b875e6d5-a817-45aa-b201-1dfd24aaff11
+langcode: en
+status: true
+dependencies: {  }
+id: personal_trainers_individual
+label: 'Personal Trainers - individual'
+recipients:
+  - personal@example.com
+reply: ''
+weight: 0

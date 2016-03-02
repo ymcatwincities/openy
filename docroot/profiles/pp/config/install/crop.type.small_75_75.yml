@@ -1,0 +1,8 @@
+uuid: 882fb876-ea06-4499-b43e-6233ef7fa08f
+langcode: en
+status: true
+dependencies: {  }
+label: 'Small (75×75)'
+id: small_75_75
+description: ''
+aspect_ratio: '75:75'

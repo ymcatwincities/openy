@@ -1,0 +1,7 @@
+# @todo Update the key when https://www.drupal.org/node/2291073 is fixed.
+search_api.tracker.plugin.default:
+  type: sequence
+  label: 'Entity tracker configuration'
+  sequence:
+    type: string
+    label: 'An entity bundle'

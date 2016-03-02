@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains source plugin for url aliases.
- */
-
 namespace Drupal\ymca_migrate\Plugin\migrate;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
@@ -14,6 +9,8 @@ use Drupal\migrate\Row;
  * Base source plugin for url aliases.
  */
 abstract class YmcaMigrateUrlAliasBase extends SqlBase {
+
+  use YmcaMigrateTrait;
 
   /**
    * Required migrations.

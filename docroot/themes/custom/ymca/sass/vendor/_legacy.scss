@@ -1,3 +1,4 @@
+@charset "UTF-8";
 ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, input:-moz-placeholder {
   font-style: italic;
 }
@@ -1862,7 +1863,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .nav > li > a {
   float: none;
 }
-
+.nav-home .nav-level-4:first-child {
+  display: none;
+}
 .nav-home .nav-level-4 a {
   display: block;
   visibility: inherit;
@@ -3036,11 +3039,14 @@ legend {
   .nav-level-3 strong {
     display: block;
     margin: 0 10px;
-    padding: 0 5px;
+    padding: 0;
     border-bottom: 1px solid gray;
     font-weight: normal;
     font-size: 18px;
     font-family: 'Cachet';
+  }
+  .nav-level-3 strong a {
+    color: #333;
   }
   .nav-stacked {
     margin: 10px 5px;
@@ -3597,7 +3603,7 @@ h2 a:not(.anchorjs-link):after {
 }
 
 .copy {
-  ol, ul {
+  ol, ul:not(.contextual-links) {
     padding-left: 30px;
     display: table;
   }
@@ -4381,6 +4387,8 @@ a[href$=pdf]:hover {
   z-index: 5000;
   margin: 0;
   border-radius: 0;
+  @include box-shadow(0px -1px 4px 0px rgba(0,0,0,0.75));
+
   > * {
     vertical-align: top;
   }
@@ -4450,6 +4458,10 @@ object {
 
 .group-ex .pagination .btn-default {
   text-align: center;
+}
+.group-ex .pagination .dropdown-menu  {
+  display: none;
+  padding-left: 0;
 }
 
 .lt-ie8 {
