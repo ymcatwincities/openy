@@ -819,3 +819,13 @@ function ymca_master_update_8031() {
   // Save config.
   $mapping->set('locations', $locations)->save();
 }
+
+/**
+ * Add ymca_hours services.
+ */
+function ymca_master_update_8032() {
+  $path = drupal_get_path('module', 'ymca_hours');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/ymca_hours.services.yml',
+  ]);
+}
