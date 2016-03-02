@@ -49,6 +49,12 @@ Drupal.behaviors.z_ymca_membership_page = {
     if (jQuery('.page_membership, .page_membership_new', context).length) {
       // Expand form if there were errors during the form validation.
       if (jQuery('form .error', context).size()) {
+        // Wrap drupal error messages and move to appropriate place.
+        jQuery("div[role=alert]")
+          .wrap('<div class="inline-messages alert-error alert-dismissable"></div>')
+          .parent()
+          .prependTo(jQuery('.inline-messages-placeholder'));
+        // Add required classes for theming.
         jQuery('form .error', context).each(function () {
           jQuery(this).addClass('errortext');
         });
