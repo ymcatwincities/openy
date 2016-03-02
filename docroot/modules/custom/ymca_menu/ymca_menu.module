@@ -63,9 +63,6 @@ function ymca_menu_page_attachments(array &$attachments) {
     foreach ($menus as $menu) {
       /* @var Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
       if ($link = \Drupal::service('menu.active_trail')->getActiveLink($menu)) {
-        if (!$link->isEnabled()) {
-          continue;
-        }
         $connection = Database::getConnection();
         $query = $connection
           ->select('menu_tree', 'mt')
