@@ -54,7 +54,7 @@
   img {
     float: right;
     margin: 0 0 15px 15px;
-    max-width: 500px;
+    max-width: 230px;
   }
 }
 
@@ -92,9 +92,9 @@ nav#block-footermenuright {
 }
 
 .sidebar-promos {
+  p,
   iframe {
     width: 100% !important;
-    height: auto !important;
   }
   p {
     padding: 0;
@@ -251,4 +251,8 @@ body form .js-form-type-radio.form-item {
   span {
     font-size: 50%;
   }
+}
+
+.schedules-template .panel-group > .content-expander > .panel-heading a:before {
+  display: none;
 }
