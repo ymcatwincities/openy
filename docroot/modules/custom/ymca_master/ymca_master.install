@@ -373,8 +373,8 @@ function ymca_master_update_8020() {
     ->fields('ua', ['source', 'alias'])
     ->execute();
 
+  /** @var \Drupal\redirect\RedirectRepository $repo */
   $repo = \Drupal::service('redirect.repository');
-
   while ($alias = $query->fetchObject()) {
     if (substr($alias->alias, -1, 1) !== '/') {
       $source_path = ltrim($alias->alias . '/', '/');
@@ -821,9 +821,40 @@ function ymca_master_update_8031() {
 }
 
 /**
- * Add ymca_hours services.
+ * Add missed redirects.
  */
 function ymca_master_update_8032() {
+  /** @var \Drupal\redirect\RedirectRepository $repo */
+  $repo = \Drupal::service('redirect.repository');
+
+  $ids = \Drupal::entityQuery('redirect')
+    ->condition('redirect_source__path', '%/southdale_ymca/%', 'LIKE')
+    ->execute();
+
+  foreach ($ids as $id) {
+    /** @var Redirect $existing_alias */
+    $existing_alias = $repo->load($id);
+
+    /** @var Redirect $redirect */
+    $redirect = Redirect::create();
+    $source = preg_replace("/^build\d+\/(.*)/", "$1", $existing_alias->getSourceUrl());
+    $redirect->setSource(str_replace('/southdale_ymca/', '/southdale_ymca_edina/', $source));
+    $redirect->setRedirect($source);
+    $redirect->setLanguage('en');
+    $redirect->setStatusCode(Drupal::config('redirect.settings')->get('default_status_code'));
+    try {
+      $redirect->save();
+    }
+    catch (\Exception $e) {
+      watchdog_exception(__FUNCTION__, $e);
+    }
+  }
+}
+
+/**
+ * Add ymca_hours services.
+ */
+function ymca_master_update_8033() {
   $path = drupal_get_path('module', 'ymca_hours');
   \Drupal::service('config_import.importer')->importConfigs([
     $path . '/ymca_hours.services.yml',

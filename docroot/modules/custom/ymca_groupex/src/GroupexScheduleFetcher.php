@@ -68,9 +68,7 @@ class GroupexScheduleFetcher {
    */
   public function __construct() {
     $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
-    $parameters = \Drupal::request()->query->all();
-
-    $this->prepareParameters($parameters);
+    $this->parameters = self::normalizeParameters(\Drupal::request()->query->all());
     $this->getData();
     $this->enrichData();
     $this->filterData();
@@ -371,24 +369,50 @@ class GroupexScheduleFetcher {
   }
 
   /**
-   * Process parameters.
+   * Normalize parameters.
    *
    * @param array $parameters
    *   Input parameters.
+   *
+   * @return array
+   *   Normalized parameters.
    */
-  private function prepareParameters($parameters) {
-    $this->parameters = $parameters;
+  static public function normalizeParameters($parameters) {
+    $normalized = $parameters;
+
+    $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
 
     // The old site has a habit to provide empty filter_date. Fix it here.
-    if (empty($this->parameters['filter_date'])) {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone);
-      $this->parameters['filter_date'] = $date->format(self::$dateFilterFormat);
+    if (empty($normalized['filter_date'])) {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
     }
 
-    // Set timestamp.
-    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date'], $this->timezone);
-    $date->setTime(0, 0, 0);
-    $this->parameters['filter_timestamp'] = $date->getTimestamp();
+    // Convert date parameter to timestamp.
+    // Date parameter can by with leading zero or not.
+    $origin_dtz = new \DateTimeZone(date_default_timezone_get());
+    $remote_dtz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+    $origin_dt = new \DateTime('now', $origin_dtz);
+    $remote_dt = new \DateTime('now', $remote_dtz);
+    $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
+
+    // Add offset. Function strtotime() uses default timezone.
+    if ($timestamp = strtotime($normalized['filter_date'])) {
+      $timestamp += $offset;
+    }
+    else {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      $timestamp = $date->format('U');
+    }
+
+    // Add timestamp.
+    $normalized['filter_timestamp'] = $timestamp;
+
+    // Finally, normalize filter_date.
+    $date = DrupalDateTime::createFromTimestamp($normalized['filter_timestamp'], $timezone);
+    $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
+
+    return $normalized;
   }
 
   /**
