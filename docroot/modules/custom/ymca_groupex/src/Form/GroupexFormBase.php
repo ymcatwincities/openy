@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
 /**
  * Implements Groupex form for location.
@@ -26,7 +27,7 @@ abstract class GroupexFormBase extends FormBase {
     $args = func_get_args();
     if (isset($args[2])) {
       $refine = TRUE;
-      $params = $args[2];
+      $params = GroupexScheduleFetcher::normalizeParameters($args[2]);
     }
 
     $form['#attributes'] = ['class' => ['groupex-search-form']];
