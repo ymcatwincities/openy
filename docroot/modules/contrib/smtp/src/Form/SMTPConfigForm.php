@@ -37,8 +37,9 @@ class SMTPConfigForm extends ConfigFormBase {
     }
 
     $form['onoff'] = array(
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => t('Install options'),
+      '#open' => TRUE,
     );
     $form['onoff']['smtp_on'] = array(
       '#type' => 'radios',
@@ -49,8 +50,9 @@ class SMTPConfigForm extends ConfigFormBase {
     );
 
     $form['server'] = array(
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => t('SMTP server settings'),
+      '#open' => TRUE,
     );
     $form['server']['smtp_host'] = array(
       '#type' => 'textfield',
@@ -65,7 +67,7 @@ class SMTPConfigForm extends ConfigFormBase {
       '#description' => t('The address of your outgoing SMTP backup server. If the primary server can\'t be found this one will be tried. This is optional.'),
     );
     $form['server']['smtp_port'] = array(
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#title' => t('SMTP port'),
       '#size' => 6,
       '#maxlength' => 6,
@@ -96,9 +98,10 @@ class SMTPConfigForm extends ConfigFormBase {
     );
 
     $form['auth'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => t('SMTP Authentication'),
       '#description' => t('Leave blank if your SMTP server does not require authentication.'),
+      '#open' => TRUE,
     );
     $form['auth']['smtp_username'] = array(
       '#type' => 'textfield',
@@ -114,8 +117,9 @@ class SMTPConfigForm extends ConfigFormBase {
     );
 
     $form['email_options'] = array(
-      '#type'  => 'fieldset',
+      '#type'  => 'details',
       '#title' => t('E-mail options'),
+      '#open' => TRUE,
     );
     $form['email_options']['smtp_from'] = array(
       '#type' => 'textfield',
@@ -138,8 +142,9 @@ class SMTPConfigForm extends ConfigFormBase {
     );
 
     $form['email_test'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => t('Send test e-mail'),
+      '#open' => TRUE,
     );
     $form['email_test']['smtp_test_address'] = array(
       '#type' => 'textfield',
@@ -198,7 +203,7 @@ class SMTPConfigForm extends ConfigFormBase {
     $values = $form_state->getValues();
     $config = $this->configFactory->getEditable('smtp.settings');
     $mail_config = $this->configFactory->getEditable('system.mail');
-    $mail_system = $mail_config->get('interface');
+    $mail_system = $mail_config->get('interface.default');
 
     // Updating config vars.
     if (isset($values['smtp_password'])) {
@@ -215,6 +220,19 @@ class SMTPConfigForm extends ConfigFormBase {
       ->set('smtp_allowhtml', $values['smtp_allowhtml'])
       ->set('smtp_debugging', $values['smtp_debugging'])
       ->save();
+
+    // Set as default mail system if module is enabled.
+    if ($config->get('smtp_on')) {
+      if ($mail_system != 'SMTPMailSystem') {
+        $config->set('prev_mail_system', $mail_system);
+      }
+      $mail_system = 'SMTPMailSystem';
+      $mail_config->set('interface.default', $mail_system)->save();
+    }
+    else {
+      $mail_system = $config->get('prev_mail_system');
+      $mail_config->set('interface.default', $mail_system)->save();
+    }
 
     // If an address was given, send a test e-mail message.
     if ($test_address = $values['smtp_test_address']) {

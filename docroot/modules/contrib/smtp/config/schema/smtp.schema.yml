@@ -38,3 +38,6 @@ smtp.settings:
     smtp_debugging:
       type: boolean
       label: 'Enable debugging'
+    prev_mail_system:
+      type: text
+      label: 'Previous mail system'

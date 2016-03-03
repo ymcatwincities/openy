@@ -9,6 +9,8 @@
  * Implements hook_install().
  */
 function smtp_install() {
+  $mail_config = \Drupal::config('system.mail');
+
   // Setting default config vars.
   \Drupal::service('config.factory')->getEditable('smtp.settings')
     ->set('smtp_on', 0)
@@ -23,6 +25,7 @@ function smtp_install() {
     ->set('smtp_allowhtml', '')
     ->set('smtp_test_address', '')
     ->set('smtp_debugging', 0)
+    ->set('prev_mail_system', $mail_config->get('interface.default'))
     ->save();
 }
 
@@ -30,11 +33,12 @@ function smtp_install() {
  * Implements hook_uninstall().
  */
 function smtp_uninstall() {
-  $smtp_config = \Drupal::service('config.factory')->getEditable('smtp.settings');
+  $config = \Drupal::service('config.factory');
+  $smtp_config = $config->getEditable('smtp.settings');
 
   // Restore previous mail system.
-  \Drupal::config('system.mail')
-    ->set('interface', $smtp_config->get('prev_mail_system'))
+  $config->getEditable('system.mail')
+    ->set('interface.default', $smtp_config->get('prev_mail_system'))
     ->save();
 
   // Cleaning garbage.
