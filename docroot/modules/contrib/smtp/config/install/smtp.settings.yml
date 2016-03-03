@@ -10,3 +10,4 @@ smtp_fromname: ''
 smtp_allowhtml: ''
 smtp_test_address: ''
 smtp_debugging: false
+prev_mail_system: 'php_mail'
