@@ -10,6 +10,6 @@ third_party_settings:
 id: contact_an_aquatics_manager
 label: 'Contact an aquatics manager'
 recipients:
-  - webmaster@example.com
+  - Shannon.kinstler@ymcatwincities.org
 reply: ''
 weight: 0
