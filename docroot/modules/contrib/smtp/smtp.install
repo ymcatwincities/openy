@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * The installation instructions for the SMTP Authentication Support.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function smtp_install() {
+  // Setting default config vars.
+  \Drupal::service('config.factory')->getEditable('smtp.settings')
+    ->set('smtp_on', 0)
+    ->set('smtp_host', '')
+    ->set('smtp_hostbackup', '')
+    ->set('smtp_port', '25')
+    ->set('smtp_protocol', 'standard')
+    ->set('smtp_username', '')
+    ->set('smtp_password', '')
+    ->set('smtp_from', '')
+    ->set('smtp_fromname', '')
+    ->set('smtp_allowhtml', '')
+    ->set('smtp_test_address', '')
+    ->set('smtp_debugging', 0)
+    ->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function smtp_uninstall() {
+  $smtp_config = \Drupal::service('config.factory')->getEditable('smtp.settings');
+
+  // Restore previous mail system.
+  \Drupal::config('system.mail')
+    ->set('interface', $smtp_config->get('prev_mail_system'))
+    ->save();
+
+  // Cleaning garbage.
+  $smtp_config->delete();
+}
