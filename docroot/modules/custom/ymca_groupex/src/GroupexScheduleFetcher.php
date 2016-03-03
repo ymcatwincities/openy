@@ -396,7 +396,7 @@ class GroupexScheduleFetcher {
     $remote_dt = new \DateTime('now', $remote_dtz);
     $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
 
-    // Add offset. Function strtotime() uses default timezone
+    // Add offset. Function strtotime() uses default timezone.
     if ($timestamp = strtotime($normalized['filter_date'])) {
       $timestamp += $offset;
     }
@@ -405,7 +405,7 @@ class GroupexScheduleFetcher {
       $timestamp = $date->format('U');
     }
 
-    // Add timestamp
+    // Add timestamp.
     $normalized['filter_timestamp'] = $timestamp;
 
     // Finally, normalize filter_date.
