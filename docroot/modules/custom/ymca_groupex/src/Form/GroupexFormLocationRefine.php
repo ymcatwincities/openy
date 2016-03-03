@@ -4,6 +4,7 @@ namespace Drupal\ymca_groupex\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
 /**
  * Implements Groupex Location Refine Form.
@@ -27,7 +28,7 @@ class GroupexFormLocationRefine extends GroupexFormBase {
     $args = func_get_args();
     if (isset($args[2])) {
       $refine = TRUE;
-      $params = $args[2];
+      $params = GroupexScheduleFetcher::normalizeParameters($args[2]);
     }
 
     $form = parent::buildForm($form, $form_state, $params);
