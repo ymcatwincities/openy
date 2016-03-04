@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements template_preprocess_field().
+ */
+function ymca_hours_preprocess_field(&$variables, $hook) {
+  if ($variables['field_type'] == 'ymca_holiday_hours') {
+    if (empty($variables['items'][0]['content']['#rows'])) {
+      $variables['label_hidden'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function ymca_hours_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  ymca_hours_set_expiration($entity);
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ymca_hours_entity_presave(EntityInterface $entity) {
+  ymca_hours_set_expiration($entity);
+}
+
+/**
+ * Set expiration date for hours block.
+ *
+ * @param EntityInterface $entity
+ *   Entity.
+ */
+function ymca_hours_set_expiration(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'block_content') {
+    if ($entity->bundle() == 'working_hours_block') {
+      // CacheInvalidator will always invalidate the block if it has empty expiration date.
+      // So, set 1 week by default.
+      $expire = REQUEST_TIME + 60 * 60 * 24 * 7;
+
+      // Calculate the offset.
+      $tz = new \DateTimeZone(\Drupal::config('ymca_migrate.settings')->get('timezone'));
+      $dt = new \DateTime(NULL, $tz);
+      $tz_offset = $dt->getOffset();
+      $holidays_offset = Drupal::config('ymca_hours.settings')->get('holidays_offset');
+      $offset = $tz_offset + $holidays_offset;
+
+      // Get the list of holidays.
+      $holidays = [];
+      $field_holidays = $entity->get('field_holiday_hours');
+      foreach ($field_holidays as $item) {
+        // Skip holiday with empty dates.
+        $item_date = $item->get('date');
+        if ($item_date) {
+          $holidays[] = $item_date->getValue();
+        }
+      }
+
+      asort($holidays);
+
+      // Find the nearest holiday.
+      foreach ($holidays as $date) {
+        if ($date > REQUEST_TIME) {
+          // Add 14 days + TZ offset here...
+          $expire = $date - $offset;
+          break;
+        }
+      }
+
+      Drupal::state()->set('ymca_hours_' . $entity->id(), $expire);
+    }
+  }
+}

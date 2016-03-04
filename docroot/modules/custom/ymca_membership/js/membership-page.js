@@ -41,12 +41,37 @@
       }
     });
 
-    $('form.contact-message-membership-form-form select option').each(function() {
-      var location = window.location.hash.replace('#', '');
-      if (location !== '' && $(this).text().toLowerCase().match(location)) {
-        $(this).attr('selected', true);
-        $('.try-the-y-toggle').trigger('click');
-      }
-    });
   });
 })(jQuery);
+
+Drupal.behaviors.z_ymca_membership_page = {
+  attach: function (context, settings) {
+    if (jQuery('.page_membership, .page_membership_new', context).length) {
+      // Expand form if there were errors during the form validation.
+      if (jQuery('form .error', context).size()) {
+        // Wrap drupal error messages and move to appropriate place.
+        jQuery("div[role=alert]")
+          .wrap('<div class="inline-messages alert-error alert-dismissable"></div>')
+          .parent()
+          .prependTo(jQuery('.inline-messages-placeholder'));
+        // Add required classes for theming.
+        jQuery('form .error', context).each(function () {
+          jQuery(this).addClass('errortext');
+        });
+        jQuery(window).scrollTop(jQuery('h2').first().offset().top-120);
+      }
+      // if on membership page & there is a hash, expand and preselect
+      if (window.location.hash) {
+        // pre-select form dropdown
+        if (settings.webform_mapping[window.location.hash] !== undefined) {
+          jQuery(window).scrollTop(jQuery('h2').first().offset().top-120);
+          setTimeout(function () {
+            jQuery('.try-the-y-toggle').trigger('click');
+          }, 0);
+
+          jQuery(".contact-message-membership-form-form select").val(settings.webform_mapping[window.location.hash]);
+        }
+      }
+    }
+  }
+};
