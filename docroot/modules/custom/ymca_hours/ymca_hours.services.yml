@@ -1,6 +1,6 @@
 services:
-  ymca_hours_cache_invalidator:
-    class: Drupal\ymca_hours\EventSubscriber\CacheInvalidator
+  ymca_hours_page_cache_request_policy:
+    class: Drupal\ymca_hours\PageCache\YmcaHours
     arguments: ['@path.alias_manager', '@entity_type.manager', '@state', '@cache_tags.invalidator']
     tags:
-      - { name: event_subscriber }
+      - { name: page_cache_request_policy }
