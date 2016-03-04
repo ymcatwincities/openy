@@ -31,7 +31,6 @@ class YmcaHours implements RequestPolicyInterface {
    */
   protected $entityTypeManager;
 
-
   /**
    * State.
    *
