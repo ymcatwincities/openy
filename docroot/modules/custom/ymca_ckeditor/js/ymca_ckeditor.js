@@ -16,9 +16,11 @@
      * Editor attach callback.
      */
     attach: function (context, settings) {
-      for (var i in window.CKEDITOR.dtd) {
-        if (i.substring(0, 1) != '$') {
-          window.CKEDITOR.dtd[i]['drupal-entity'] = 1;
+      if (typeOf(window.CKEDITOR.dtd) != 'undefined') {
+        for (var i in window.CKEDITOR.dtd) {
+          if (i.substring(0, 1) != '$') {
+            window.CKEDITOR.dtd[i]['drupal-entity'] = 1;
+          }
         }
       }
     }
