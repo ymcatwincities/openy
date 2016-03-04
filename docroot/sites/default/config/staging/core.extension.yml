@@ -60,7 +60,6 @@ module:
   purge_queuer_coretags: 0
   purge_tokens: 0
   purge_ui: 0
-  quickedit: 0
   rdf: 0
   redirect: 0
   rel_to_abs: 0
