@@ -13,3 +13,5 @@ recipients:
   - Shannon.kinstler@ymcatwincities.org
 reply: ''
 weight: 0
+prefix: '<div class="row"><div class="col-md-8">'
+suffix: '</div></div>'

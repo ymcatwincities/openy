@@ -850,3 +850,13 @@ function ymca_master_update_8032() {
     }
   }
 }
+
+/**
+ * Add ymca_hours services.
+ */
+function ymca_master_update_8033() {
+  $path = drupal_get_path('module', 'ymca_hours');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/ymca_hours.services.yml',
+  ]);
+}
