@@ -622,7 +622,7 @@ class SMTPMailSystem implements MailInterface {
 
     // If the input is a valid email address in its entirety, then there is
     // nothing to do, just return that.
-    if (\Drupal::service('email.validator')->isValid($input)) {
+    if (\Drupal::service('email.validator')->isValid(trim($input))) {
       $components['email'] = trim($input);
       return $components;
     }
@@ -631,7 +631,7 @@ class SMTPMailSystem implements MailInterface {
     //  some name <address@example.com>
     //  "another name" <address@example.com>
     //  <address@example.com>
-    if (preg_match('/^"?([^"\t\n]*)"?\s*<([^>\t\n]*)>$/', $input, $matches)) {
+    if (preg_match('/^"?([^"\t\n]*)"?\s*<([^>\t\n]*)>$/', trim($input), $matches)) {
       $components['name'] = trim($matches[1]);
       $components['email'] = trim($matches[2]);
     }
