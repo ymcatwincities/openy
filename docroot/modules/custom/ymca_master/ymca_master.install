@@ -852,9 +852,19 @@ function ymca_master_update_8032() {
 }
 
 /**
- * Import configs.
+ * Add ymca_hours services.
  */
 function ymca_master_update_8033() {
+  $path = drupal_get_path('module', 'ymca_hours');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/ymca_hours.services.yml',
+  ]);
+}
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8034() {
   $path = drupal_get_path('module', 'ymca_master') . '/config/optional/contact_water_safety/';
   \Drupal::service('config_import.importer')->importConfigs([
     $path . 'contact.form.contact_water_safety.yml',
