@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\contact\Entity\ContactForm.
- */
-
 namespace Drupal\webforms;
 
 use Drupal\contact\Entity\ContactForm as CoreContactForm;
