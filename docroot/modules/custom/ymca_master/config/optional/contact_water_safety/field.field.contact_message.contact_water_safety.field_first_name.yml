@@ -1,0 +1,19 @@
+uuid: 51be1858-cce1-42fd-8209-9fb8414d0d16
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.storage.contact_message.field_first_name
+id: contact_message.contact_water_safety.field_first_name
+field_name: field_first_name
+entity_type: contact_message
+bundle: contact_water_safety
+label: 'First Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
