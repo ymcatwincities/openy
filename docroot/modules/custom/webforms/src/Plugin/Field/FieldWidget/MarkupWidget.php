@@ -2,6 +2,7 @@
 
 namespace Drupal\webforms\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -70,7 +71,7 @@ class MarkupWidget extends WidgetBase {
     }
     else {
       $element['value'] = $element + array(
-        '#markup' => $items[$delta]->value,
+        '#markup' => new FormattableMarkup($items[$delta]->value, []),
       );
     }
 
