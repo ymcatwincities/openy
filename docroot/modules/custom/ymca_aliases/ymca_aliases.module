@@ -15,14 +15,25 @@ function ymca_aliases_entity_insert(EntityInterface $entity) {
   if (!($entity instanceof NodeInterface)) {
     return;
   }
+
   // Don't proceed with articles, since their alias requires menu link updated.
   if ($entity->bundle() == 'article') {
     return;
   }
+
+  // Don't proceed with the blog if there is an alias provided manually.
+  if ($entity->bundle() == 'blog') {
+    $path = $entity->get('path');
+    if (isset($path[0]) && !empty($path[0]->alias)) {
+      return;
+    }
+  }
+
   // Generate alias.
   if (!$alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity)) {
     return;
   }
+
   // Save generated alias.
   \Drupal::service('path.alias_storage')->save('/node/' . $entity->id(), $alias, 'en');
 }
@@ -35,14 +46,25 @@ function ymca_aliases_entity_update(EntityInterface $entity) {
   if (!($entity instanceof NodeInterface)) {
     return;
   }
+
   // Don't proceed with articles, since their alias requires menu link updated.
   if ($entity->bundle() == 'article') {
     return;
   }
+
+  // Don't proceed with the blog if there is an alias provided manually.
+  if ($entity->bundle() == 'blog') {
+    $path = $entity->get('path');
+    if (isset($path[0]) && !empty($path[0]->alias)) {
+      return;
+    }
+  }
+
   // Generate alias.
   if (!$alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity)) {
     return;
   }
+
   $source = '/node/' . $entity->id();
   // Check whether we need to update an alias.
   $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);

@@ -2,12 +2,13 @@
 
 namespace Drupal\ymca_field_holiday_hours\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Render\Markup;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Template\Attribute;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Render\FormattableMarkup;
 
 /**
  * Plugin implementation of the 'ymca_holiday_hours' formatter.
@@ -46,7 +47,14 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
     // Calculate timezone offset.
     $tz = new \DateTimeZone(\Drupal::config('ymca_migrate.settings')->get('timezone'));
     $dt = new \DateTime(NULL, $tz);
-    $offset = $dt->getOffset();
+    $tz_offset = $dt->getOffset();
+
+    // The Holiday Hours should be shown before 14 days.
+    $holidays_offset = \Drupal::config('ymca_hours.settings')->get('holidays_offset');
+    $before_offset = $tz_offset + $holidays_offset;
+
+    // Also the Holiday Hours should be shown during the day.
+    $after_offset = 60 * 60 * 24;
 
     foreach ($items as $item) {
       $values = $item->getValue();
@@ -56,32 +64,20 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
         continue;
       }
 
-      // Check date.
-      $date = \DateTime::createFromFormat('U', $values['date']);
-      if (!$date) {
-        \Drupal::logger('ymca_field_holiday_hours')->error("Can't obtain the time.");
-        continue;
-      }
-      $holiday_timestamp = $date->getTimestamp();
+      $holiday_timestamp = $values['date'];
 
-      // We have to show the block withing 14 days before the holiday.
-      $period = 60 * 60 * 24 * 14;
-
-      $request = REQUEST_TIME + $offset;
-
-      // Show the block before the defined period and withing the current day.
-      if ($request < ($holiday_timestamp + (60 * 60 * 24)) && ($holiday_timestamp - $request) <= $period) {
+      if (REQUEST_TIME < ($holiday_timestamp + $after_offset) && ($holiday_timestamp - REQUEST_TIME) <= $before_offset) {
         $title = Html::escape($values['holiday']);
         $rows[] = [
-          Markup::create('<span>' . $title . '</span>:'),
+          new FormattableMarkup('<span>' . $title . '</span>:', []),
           $values['hours'],
         ];
       }
     }
 
     $elements[0] = [
+      '#attributes' => new Attribute(['class' => 'holiday-hours']),
       '#theme' => 'table',
-      '#header' => [],
       '#rows' => $rows,
     ];
 

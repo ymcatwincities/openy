@@ -1,0 +1,21 @@
+uuid: 51999d9a-a464-4db7-940f-1543c07cea0c
+langcode: en
+status: true
+dependencies: {  }
+id: ffd776af8e
+name: ACQUIA
+invalidationtype: tag
+hostname: localhost
+port: 80
+path: /
+request_method: BAN
+scheme: http
+verify: '1'
+headers: {  }
+body: ''
+body_content_type: text/plain
+timeout: !!float 1
+connect_timeout: !!float 1
+cooldown_time: !!float 0
+max_requests: 100
+http_errors: true
