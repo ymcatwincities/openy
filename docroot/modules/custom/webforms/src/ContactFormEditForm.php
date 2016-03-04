@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\contact\ContactFormEditForm.
- */
-
 namespace Drupal\webforms;
 
 use Drupal\Core\Form\FormStateInterface;
