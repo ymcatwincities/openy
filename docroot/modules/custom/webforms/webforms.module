@@ -141,3 +141,19 @@ function webforms_entity_operation(EntityInterface $entity) {
 
   return $operations;
 }
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function webforms_entity_type_alter(array &$entity_types) {
+  // Override contact form.
+  $entity_types['contact_form']->setClass('Drupal\webforms\ContactForm');
+  $entity_types['contact_form']->setFormClass('add', 'Drupal\webforms\ContactFormEditForm');
+  $entity_types['contact_form']->setFormClass('edit', 'Drupal\webforms\ContactFormEditForm');
+  $config_export = $entity_types['contact_form']->get('config_export');
+  $config_export[] = 'prefix';
+  $config_export[] = 'suffix';
+  $entity_types['contact_form']->set('config_export', $config_export);
+  // Override contact message.
+  $entity_types['contact_message']->setFormClass('default', 'Drupal\webforms\MessageForm');
+}
