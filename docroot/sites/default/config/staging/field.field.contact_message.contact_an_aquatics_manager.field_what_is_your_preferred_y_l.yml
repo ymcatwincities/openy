@@ -18,92 +18,92 @@ translatable: true
 default_value:
   -
     option_select: 0
-    option_name: 'Andover'
-    option_emails: 'Becca.Morness@ymcatwincities.org'
+    option_name: Andover
+    option_emails: Becca.Morness@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Blaisdell'
-    option_emails: 'Darla.Hansen@ymcatwincities.org'
+    option_name: Blaisdell
+    option_emails: Darla.Hansen@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Burnsville'
-    option_emails: 'lori.hokenson@ymcatwincities.org'
+    option_name: Burnsville
+    option_emails: lori.hokenson@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Eagan'
-    option_emails: 'Andre.Davis@ymcatwincities.org'
+    option_name: Eagan
+    option_emails: Andre.Davis@ymcatwincities.org
   -
     option_select: 0
     option_name: 'Elk River'
-    option_emails: 'darrin.christiansen@ymcatwincities.org'
+    option_emails: darrin.christiansen@ymcatwincities.org
   -
     option_select: 0
     option_name: 'Emma B. Howe'
-    option_emails: 'Allison.Sladek@ymcatwincities.org'
+    option_emails: Allison.Sladek@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Hastings'
-    option_emails: 'Sandy.Wilsnach@ymcatwincities.org'
+    option_name: Hastings
+    option_emails: Sandy.Wilsnach@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Hudson'
-    option_emails: 'Breanna.Burmester@YMCAtwincities.org'
+    option_name: Hudson
+    option_emails: Breanna.Burmester@YMCAtwincities.org
   -
     option_select: 0
     option_name: 'Lino Lakes'
-    option_emails: 'Evan.Plotz@ymcatwincities.org'
+    option_emails: Evan.Plotz@ymcatwincities.org
   -
     option_select: 0
     option_name: 'Minneapolis Downtown'
-    option_emails: 'Mary.Lokowich@ymcatwincities.org'
+    option_emails: Mary.Lokowich@ymcatwincities.org
   -
     option_select: 0
     option_name: 'New Hope'
-    option_emails: 'Nate.Brisley@ymcatwincities.org'
+    option_emails: Nate.Brisley@ymcatwincities.org
   -
     option_select: 0
     option_name: 'North Community'
-    option_emails: 'lyndsey.ross@ymcatwincities.org'
-  -  
+    option_emails: lyndsey.ross@ymcatwincities.org
+  -
     option_select: 0
-    option_name: 'Ridgedale'
-    option_emails: 'Bruce.Nielsen@ymcatwincities.org'
+    option_name: Ridgedale
+    option_emails: Bruce.Nielsen@ymcatwincities.org
   -
     option_select: 0
     option_name: 'River Valley'
-    option_emails: 'Ernest.Kaehler@ymcatwincities.org'
+    option_emails: Ernest.Kaehler@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Shoreview'
-    option_emails: 'Jesse.Zachay@YMCAtwincities.org'
+    option_name: Shoreview
+    option_emails: Jesse.Zachay@YMCAtwincities.org
   -
     option_select: 0
-    option_name: 'Southdale'
-    option_emails: 'Courtney.Phillips@ymcatwincities.org'	
+    option_name: Southdale
+    option_emails: Courtney.Phillips@ymcatwincities.org
   -
     option_select: 0
     option_name: 'St. Paul Downtown'
-    option_emails: 'William.Grapentine@ymcatwincities.org'
+    option_emails: William.Grapentine@ymcatwincities.org
   -
     option_select: 0
     option_name: 'St. Paul Eastside'
-    option_emails: 'lacey.vansickle@ymcatwincities.org'
+    option_emails: lacey.vansickle@ymcatwincities.org
   -
     option_select: 0
     option_name: 'St. Paul Midway'
-    option_emails: 'Corina.Forcey@ymcatwincities.org'
+    option_emails: Corina.Forcey@ymcatwincities.org
   -
     option_select: 0
     option_name: 'West St. Paul'
-    option_emails: 'Ernest.Kaehler@ymcatwincities.org'
+    option_emails: Ernest.Kaehler@ymcatwincities.org
   -
     option_select: 0
     option_name: 'White Bear Area'
-    option_emails: 'Madeline.Hoe@ymcatwincities.org'
+    option_emails: Madeline.Hoe@ymcatwincities.org
   -
     option_select: 0
-    option_name: 'Woodbury'
-    option_emails: 'monique.johnson@ymcatwincities.org'
+    option_name: Woodbury
+    option_emails: monique.johnson@ymcatwincities.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item
