@@ -4567,7 +4567,7 @@ a.wrapper:hover {
   .directions-hours .address {
     margin-left: -10%;
     position: relative;
-    width: 51.6%;
+    width: 44.6%;
     overflow: hidden;
   }
 
@@ -7627,9 +7627,6 @@ body form .js-form-type-radio.form-item label {
 
 .group-ex span.result-name {
   white-space: normal;
-}
-.group-ex h3 .btn-default {
-  margin-left: 7px;
 }
 
 .content-expander .panel-title h2,
