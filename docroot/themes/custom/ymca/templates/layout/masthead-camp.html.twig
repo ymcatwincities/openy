@@ -33,7 +33,7 @@
 		</div>
 		<div class="row collapse directions-hours" id="directions-hours">
 			<div class="directions-hours-inner">
-				<div class="col-sm-3 col-md-2 phone clearfix">
+				<div class="col-sm-5 col-md-3 phone clearfix">
 					<span class="tel">
 						<span class="glyphicon glyphicon-earphone bullet"></span>
             {{ node.field_phone.0.value }}
@@ -46,7 +46,7 @@
 					</span>
 				</div>
 				<hr class="visible-xs">
-				<div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
+				<div class="col-lg-5 col-sm-5 col-md-5 address clearfix">
 					<span class="glyphicon glyphicon-map-marker bullet"></span>
           <span class="plaintext">
             {{ node.field_location.0.address_line1 }}
@@ -86,8 +86,8 @@
 					<div id="all-hours" class="all-hours collapse">
 						<div class="hidden-xs">
               {# TODO: #}
-              <p>{{ node.field_location.0.address_line1 }}</p>
-              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
+              <p>{{ node.field_location.0.address_line1 }}{{ node.field_location.0.address_line2 }} </p>
+              <p> {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
               <p>{{ node.field_phone.0.value }}</p>
 						</div>
 					</div>
