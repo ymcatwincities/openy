@@ -136,7 +136,7 @@
   tags: YMCA
   latitude: 45.2347415
   longitude: -92.9858569
-  icon: /_asset/z8xsu9/map_icon_blue.png
+  icon: /themes/custom/ymca/img/map_icon_blue.png
   geid: null
   personify_brcode: '38'
   shadow: /amm/themes/2011_ymca/images/map_shadow.png
@@ -244,7 +244,7 @@
   tags: YMCA
   latitude: 45.103924
   longitude: -93.202378
-  icon: /_asset/z8xsu9/map_icon_blue.png
+  icon: /themes/custom/ymca/img/map_icon_blue.png
   geid: 1677
   personify_brcode: 79
   shadow: /amm/themes/2011_ymca/images/map_shadow.png
