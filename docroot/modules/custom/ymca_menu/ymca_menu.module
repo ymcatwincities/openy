@@ -60,6 +60,19 @@ function ymca_menu_page_attachments(array &$attachments) {
   }
   if (!$mlid) {
     $menus = YMCAMenuController::menuList();
+    if (!empty($node)) {
+      // Alter menu list to prioritize corresponiding menus for locations/camps.
+      switch ($node->bundle()) {
+        case 'location':
+          array_unshift($menus, 'locations');
+          break;
+
+        case 'camp':
+          array_unshift($menus, 'camps');
+          break;
+      }
+    }
+
     foreach ($menus as $menu) {
       /* @var Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
       if ($link = \Drupal::service('menu.active_trail')->getActiveLink($menu)) {
