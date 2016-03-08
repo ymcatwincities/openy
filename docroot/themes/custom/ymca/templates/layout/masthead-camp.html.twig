@@ -50,8 +50,8 @@
 					<span class="glyphicon glyphicon-map-marker bullet"></span>
           <span class="plaintext">
             {{ node.field_location.0.address_line1 }}
+		    {{ node.field_location.0.address_line2 }}
             <br class="visible-xs">
-            {{ node.field_location.0.address_line2 }}
             {{ node.field_location.0.administrative_area }}
             {{ node.field_location.0.postal_code }}
           </span>
@@ -78,16 +78,16 @@
 					<div class="row mobile-hours visible-xs">
 						<div class="col-xs-12">
               {# TODO: #}
-              <p>{{ node.field_location.0.postal_code }} {{ node.field_location.0.address_line1 }}</p>
-              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }}</p>
+              <p>{{ node.field_location.0.address_line1 }}</p>
+              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
               <p>{{ node.field_phone.0.value }}</p>
 						</div>
 					</div>
 					<div id="all-hours" class="all-hours collapse">
 						<div class="hidden-xs">
               {# TODO: #}
-              <p>{{ node.field_location.0.address_line1 }}{{ node.field_location.0.address_line2 }} </p>
-              <p> {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
+              <p>{{ node.field_location.0.address_line1 }} </p>
+              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
               <p>{{ node.field_phone.0.value }}</p>
 						</div>
 					</div>
