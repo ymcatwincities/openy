@@ -79,6 +79,9 @@ class YMCAEntityEmbedFilter extends EntityEmbedFilter implements ContainerFactor
         if ($node->tagName == 'drupal-entity') {
           $this->changeNodeName($node, 'div');
         }
+//        if ($node->tagName == 'drupal-entity-inline') {
+//          $this->changeNodeName($node, 'span');
+//        }
         $this->replaceNodeContent($node, $entity_output);
       }
 
