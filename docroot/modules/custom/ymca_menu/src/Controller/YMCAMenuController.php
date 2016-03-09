@@ -226,17 +226,8 @@ class YMCAMenuController extends ControllerBase {
    *   List of menu machine names.
    */
   public static function menuList() {
-    return [
-      'main-menu',
-      'locations',
-      'health-and-fitness',
-      'swimming',
-      'child-care-preschool',
-      'kids-teen-activities',
-      'camps',
-      'community-programs',
-      'jobs-suppliers-news',
-    ];
+    $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+    return $menu_list;
   }
 
 }
