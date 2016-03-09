@@ -19,7 +19,8 @@
       dtd['drupal-entity'] = {'#': 1};
       dtd['drupal-entity-inline'] = {'#': 1};
       // Register drupal-entity element as allowed child, in each tag that can
-      // contain a span element.
+      // contain a div element and drupal-entity-inline element as allowed
+      // child, in each tag that can contain a span element.
       for (tagName in dtd) {
         if (dtd[tagName].div) {
           dtd[tagName]['drupal-entity'] = 1;
