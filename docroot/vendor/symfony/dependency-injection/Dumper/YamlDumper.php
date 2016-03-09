@@ -65,7 +65,7 @@ class YamlDumper extends Dumper
                 $class = substr($class, 1);
             }
 
-            $code .= sprintf("        class: %s\n", $class);
+            $code .= sprintf("        class: %s\n", $this->dumper->dump($class));
         }
 
         if (!$definition->isPublic()) {
@@ -89,7 +89,7 @@ class YamlDumper extends Dumper
         }
 
         if ($definition->getFile()) {
-            $code .= sprintf("        file: %s\n", $definition->getFile());
+            $code .= sprintf("        file: %s\n", $this->dumper->dump($definition->getFile()));
         }
 
         if ($definition->isSynthetic()) {
@@ -101,7 +101,7 @@ class YamlDumper extends Dumper
         }
 
         if ($definition->getFactoryClass(false)) {
-            $code .= sprintf("        factory_class: %s\n", $definition->getFactoryClass(false));
+            $code .= sprintf("        factory_class: %s\n", $this->dumper->dump($definition->getFactoryClass(false)));
         }
 
         if ($definition->isLazy()) {
@@ -109,11 +109,11 @@ class YamlDumper extends Dumper
         }
 
         if ($definition->getFactoryMethod(false)) {
-            $code .= sprintf("        factory_method: %s\n", $definition->getFactoryMethod(false));
+            $code .= sprintf("        factory_method: %s\n", $this->dumper->dump($definition->getFactoryMethod(false)));
         }
 
         if ($definition->getFactoryService(false)) {
-            $code .= sprintf("        factory_service: %s\n", $definition->getFactoryService(false));
+            $code .= sprintf("        factory_service: %s\n", $this->dumper->dump($definition->getFactoryService(false)));
         }
 
         if ($definition->getArguments()) {
@@ -129,7 +129,7 @@ class YamlDumper extends Dumper
         }
 
         if (ContainerInterface::SCOPE_CONTAINER !== $scope = $definition->getScope()) {
-            $code .= sprintf("        scope: %s\n", $scope);
+            $code .= sprintf("        scope: %s\n", $this->dumper->dump($scope));
         }
 
         if (null !== $decorated = $definition->getDecoratedService()) {

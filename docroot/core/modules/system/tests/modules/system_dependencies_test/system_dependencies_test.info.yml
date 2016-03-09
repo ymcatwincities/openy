@@ -7,8 +7,8 @@ package: Testing
 dependencies:
   - _missing_dependency
 
-# Information added by Drupal.org packaging script on 2016-02-24
-version: '8.0.4'
+# Information added by Drupal.org packaging script on 2016-03-02
+version: '8.0.5'
 core: '8.x'
 project: 'drupal'
-datestamp: 1456343433
+datestamp: 1456915397
