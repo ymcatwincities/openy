@@ -54,6 +54,26 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'membership-mail',
     ],
+
+    'membership_mail_editor' => [
+      'variables' => [
+        'message' => NULL,
+        'firstname' => '',
+        'lastname' => '',
+        'phone' => '',
+        'email' => '',
+        'location' => [
+          'name' => '',
+          'address_line1' => '',
+          'address_line2' => '',
+          'zip' => '',
+          'phone' => '',
+          'map' => '',
+          'link' => '',
+        ],
+      ],
+      'template' => 'membership-mail-editor',
+    ],
     'membership_mail_wrapper' => [
       'variables' => [
         'content_area_1' => '',
@@ -94,6 +114,7 @@ function ymca_membership_mail_alter(&$message) {
         '#content_area_2' => '',
         '#content_area_3' => '',
       ];
+      $message['subject'] = 'YMCA Membership Inquiry';
       // Output link to the mail is being sent to editors.
       if ($message['id'] == 'contact_page_mail') {
         $url = URL::fromRoute('entity.contact_message.edit_form', [
@@ -102,11 +123,18 @@ function ymca_membership_mail_alter(&$message) {
         $url->setAbsolute(TRUE);
         $link = new Link($url->toString(), $url);
         $mail_wrapper_build['#content_area_3']['#markup'] = 'Submission can be found at ' . $link->toString();
+        $mail_wrapper_build['#content_area_1']['#theme'] = 'membership_mail_editor';
+        /* @var \Drupal\contact\Entity\Message $submission */
+        $submission = $message['params']['contact_message'];
+        $location = \Drupal::service('webforms.node_extractor')
+          ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+        if ($location) {
+          $message['subject'] = 'Membership Inquiry - ' . $location->getTitle();
+        }
       }
       $message['body'] = [
         \Drupal::service('renderer')->render($mail_wrapper_build),
       ];
-      $message['subject'] = 'YMCA Membership Inquiry';
       $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
     }
   }
@@ -116,9 +144,26 @@ function ymca_membership_mail_alter(&$message) {
  * Preprocess function.
  */
 function ymca_membership_preprocess_membership_mail(&$variables) {
+  ymca_membership_preprocess_membership_mail_message($variables);
+}
+
+/**
+ * Preprocess function.
+ */
+function ymca_membership_preprocess_membership_mail_editor(&$variables) {
+  ymca_membership_preprocess_membership_mail_message($variables);
+}
+
+/**
+ * Preprocess function.
+ */
+function ymca_membership_preprocess_membership_mail_message(&$variables) {
   /* @var \Drupal\contact\Entity\Message $submission */
   $submission = $variables['message']['params']['contact_message'];
   $variables['firstname'] = $submission->field_first_name->getValue()[0]['value'];
+  $variables['lastname'] = $submission->field_last_name->getValue()[0]['value'];
+  $variables['phone'] = $submission->field_phone_number->getValue()[0]['value'];
+  $variables['email'] = $submission->field_email_address->getValue()[0]['value'];
 
   $location = \Drupal::service('webforms.node_extractor')
     ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
