@@ -17,18 +17,22 @@
       // @see https://www.drupal.org/node/2448449#comment-9717735
       var dtd = CKEDITOR.dtd, tagName;
       dtd['drupal-entity'] = {'#': 1};
+      dtd['drupal-entity-inline'] = {'#': 1};
       // Register drupal-entity element as allowed child, in each tag that can
       // contain a span element.
       for (tagName in dtd) {
-        if (dtd[tagName].span) {
+        if (dtd[tagName].div) {
           dtd[tagName]['drupal-entity'] = 1;
+        }
+        if (dtd[tagName].span && tagName != '$removeEmpty') {
+          dtd[tagName]['drupal-entity-inline'] = 1;
         }
       }
 
       // Generic command for adding/editing entities of all types.
       editor.addCommand('editdrupalentity', {
-        allowedContent: 'drupal-entity[*]',
-        requiredContent: 'drupal-entity[*]',
+        allowedContent: 'drupal-entity[*], drupal-entity-inline[*]',
+        requiredContent: 'drupal-entity[*], drupal-entity-inline[*]',
         modes: { wysiwyg : 1 },
         canUndo: true,
         exec: function (editor, data) {
@@ -61,7 +65,9 @@
           };
 
           var saveCallback = function (values) {
-            var entityElement = editor.document.createElement('drupal-entity');
+            var type = values.attributes['data-embed-button'];
+            var tagName = editor.config.DrupalEntity_buttons[type].style == 'inline' ? 'drupal-entity-inline' : 'drupal-entity';
+            var entityElement = editor.document.createElement(tagName);
             var attributes = values.attributes;
             for (var key in attributes) {
               entityElement.setAttribute(key, attributes[key]);
@@ -83,8 +89,8 @@
       // Register the entity embed widget.
       editor.widgets.add('drupalentity', {
         // Minimum HTML which is required by this widget to work.
-        allowedContent: 'drupal-entity[*]',
-        requiredContent: 'drupal-entity[*]',
+        allowedContent: 'drupal-entity[*], drupal-entity-inline[*]',
+        requiredContent: 'drupal-entity[*], drupal-entity-inline[*]',
 
         // Simply recognize the element as our own. The inner markup if fetched
         // and inserted the init() callback, since it requires the actual DOM
