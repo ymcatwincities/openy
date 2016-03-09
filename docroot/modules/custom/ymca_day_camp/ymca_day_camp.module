@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ymca_day_camp_entity_presave(EntityInterface $entity) {
+  // Remove site section field value if the blog post is day camp one.
+  if ($entity->getEntityTypeId() == 'node') {
+    if ($entity->bundle() == 'blog') {
+      $day_camp = $entity->get('field_related_camps_locations');
+      if (!$day_camp->isEmpty()) {
+        $site_section = $entity->get('field_site_section');
+        foreach ($site_section as $index => $item) {
+          unset($site_section[$index]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ymca_day_camp_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (!in_array($form_id, ['node_blog_edit_form', 'node_blog_form'])) {
+    return;
+  }
+
+  // Default value for day_camp_news checkbox.
+  $default = FALSE;
+  if ($form_id == 'node_blog_edit_form') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $field = $node->get('field_related_camps_locations');
+    if ($field->isEmpty() === FALSE) {
+      $default = TRUE;
+    }
+  }
+
+  // Add day camps logic to the blog.
+  $form['day_camp_news'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Day camp new'),
+    '#description' => t('Toggle the checkbox if this blog post is shared between several camps or locations.'),
+    '#default_value' => $default,
+  ];
+
+  $form['field_site_section']['#states'] = [
+    'invisible' => [
+      ':input[name="day_camp_news"]' => ['checked' => TRUE],
+    ],
+  ];
+
+  $form['field_related_camps_locations']['#states'] = [
+    'invisible' => [
+      ':input[name="day_camp_news"]' => ['checked' => FALSE],
+    ],
+  ];
+}

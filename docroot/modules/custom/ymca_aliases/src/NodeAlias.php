@@ -108,8 +108,14 @@ class NodeAlias {
           }
         }
 
-        // Finally set 'blog' prefix.
-        $url_parts = array_merge(['prefix' => 'blog'], $url_parts);
+        // Set 'blog' or 'day_camp_news' prefix.
+        $prefix = ['prefix' => 'blog'];
+        $day_camp = $node->get('field_related_camps_locations');
+        if (!$day_camp->isEmpty()) {
+          $prefix['prefix'] = 'day_camp_news';
+        }
+
+        $url_parts = array_merge($prefix, $url_parts);
         $alias = '/' . implode('/', $url_parts);
 
         break;
