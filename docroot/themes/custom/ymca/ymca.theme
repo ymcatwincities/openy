@@ -203,14 +203,29 @@ function ymca_preprocess_node(&$variables) {
 
   // Location specific preprocessing.
   if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
-    // Load referenced ids to current location.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'blog')
-      ->condition('field_site_section.target_id', $variables['node']->id())
-      ->condition('status', 1)
-      ->sort('created', 'DESC')
-      ->range(0, 2);
-    $nids = $query->execute();
+    // Camps may also output special day_camp blog posts.
+
+    if ($variables['node']->bundle() == 'location') {
+      // Load referenced ids to current location.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'blog')
+        ->condition('field_site_section.target_id', $variables['node']->id())
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->range(0, 2);
+      $nids = $query->execute();
+    }
+    else {
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'blog')
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->range(0, 2);
+      $query->orConditionGroup()
+        ->condition('field_site_section.target_id', $variables['node']->id())
+        ->condition('field_related_camps_locations.target_id', $variables['node']->id());
+      $nids = $query->execute();
+    }
 
     // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
     if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
