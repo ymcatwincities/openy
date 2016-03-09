@@ -416,7 +416,9 @@ function ymca_preprocess_html(&$variables) {
   foreach ($html_head_link as $key1 => &$value1) {
     foreach ($value1 as $key2 => &$value2) {
       if ($value2['rel'] == 'shortcut icon') {
-        $value2['href'] = '/themes/custom/ymca/img/favicon/' . $icon;
+        $path = drupal_get_path('theme', 'ymca') . '/img/favicon/' . $icon;
+        $value2['href'] = Drupal\Core\Url::fromUri('base:' . $path)->toString();
+        break;
       }
     }
   }
