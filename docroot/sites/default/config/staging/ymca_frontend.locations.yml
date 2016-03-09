@@ -136,10 +136,10 @@
   tags: YMCA
   latitude: 45.2347415
   longitude: -92.9858569
-  icon: /_asset/z8xsu9/map_icon_blue.png
+  icon: themes/custom/ymca/img/map_icon_blue.png
   geid: null
   personify_brcode: '38'
-  shadow: /amm/themes/2011_ymca/images/map_shadow.png
+  shadow: themes/custom/ymca/img/map_shadow.png
   'HRS Mon-Fri': 'Open summer 2016'
   'HRS Sat-Sun': 'Open summer 2016'
 -
@@ -244,10 +244,10 @@
   tags: YMCA
   latitude: 45.103924
   longitude: -93.202378
-  icon: /_asset/z8xsu9/map_icon_blue.png
+  icon: themes/custom/ymca/img/map_icon_blue.png
   geid: 1677
   personify_brcode: 79
-  shadow: /amm/themes/2011_ymca/images/map_shadow.png
+  shadow: themes/custom/ymca/img/map_shadow.png
   'HRS Mon-Fri': 'M-TH: 8 a.m. - 7 p.m. F: 8 a.m. - 6 p.m.'
   'HRS Sat-Sun': 'SAT 8:00 a.m. - 6:00 p.m. SUN Closed'
 -

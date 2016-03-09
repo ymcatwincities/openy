@@ -3,3 +3,5 @@ ymca-ckeditor:
   css:
     layout:
       css/layout.css: {}
+  js:
+    js/ymca_ckeditor.js: {}

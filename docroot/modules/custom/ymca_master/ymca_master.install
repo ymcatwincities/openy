@@ -850,3 +850,31 @@ function ymca_master_update_8032() {
     }
   }
 }
+
+/**
+ * Add ymca_hours services.
+ */
+function ymca_master_update_8033() {
+  $path = drupal_get_path('module', 'ymca_hours');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/ymca_hours.services.yml',
+  ]);
+}
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8034() {
+  $path = drupal_get_path('module', 'ymca_master') . '/config/optional/contact_water_safety/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'contact.form.contact_water_safety.yml',
+    $path . 'core.entity_form_display.contact_message.contact_water_safety.default.yml',
+    $path . 'core.entity_view_display.contact_message.contact_water_safety.default.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_comments.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_email_address.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_first_name.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_label.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_last_name.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_response_required.yml',
+  ]);
+}
