@@ -331,20 +331,20 @@ function ymca_preprocess_html(&$variables) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'camp':
-        if (isset($variables['node_type']) && $variables['node_type'] == 'camp') {
-          // Camp itself.
-          $classes = [
-            'locations-camps-template',
-            'ancestor-camps',
-            'theme_ymca_2013_camp_home',
-          ];
-        }
-        elseif ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+        if ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
           $classes = [
             'internal-template',
             'ancestor-camps',
             'page_news__events',
             'theme_ymca_2013_camp_category_and_detail',
+          ];
+        }
+        elseif (isset($variables['node_type']) && $variables['node_type'] == 'camp') {
+          // Camp itself.
+          $classes = [
+            'locations-camps-template',
+            'ancestor-camps',
+            'theme_ymca_2013_camp_home',
           ];
         }
         else {
