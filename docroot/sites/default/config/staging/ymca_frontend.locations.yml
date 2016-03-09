@@ -177,7 +177,7 @@
   personify_brcode: 18
   shadow: themes/custom/ymca/img/map_shadow.png
   'HRS Mon-Fri': '6:00 a.m. - 7:30 p.m.'
-  'HRS Sat-Sun': 'SAT 9:00 a.m. - 5:00 p.m. SUN 9:00 a.m. - 2:00 p.m.'
+  'HRS Sat-Sun': 'SAT 9:00 a.m. - 5:00 p.m. SUN Closed'
 -
   name: Hudson
   address1: '2211 Vine Street'
