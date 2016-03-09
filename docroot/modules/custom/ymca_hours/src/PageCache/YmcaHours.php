@@ -77,11 +77,11 @@ class YmcaHours implements RequestPolicyInterface {
     $storage = $this->entityTypeManager->getStorage('node');
 
     if (!$node = $storage->load($nid)) {
-      return static::ALLOW;
+      return;
     }
 
     if ($node->bundle() != 'location') {
-      return static::ALLOW;
+      return;
     }
 
     if ($field = $node->get('field_working_hours')) {
@@ -96,7 +96,7 @@ class YmcaHours implements RequestPolicyInterface {
       }
     }
 
-    return static::ALLOW;
+    return;
   }
 
 }
