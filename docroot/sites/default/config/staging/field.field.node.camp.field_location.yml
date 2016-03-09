@@ -22,11 +22,11 @@ settings:
   fields:
     postalCode: postalCode
     addressLine1: addressLine1
+    addressLine2: addressLine2
     administrativeArea: '0'
     locality: '0'
     dependentLocality: '0'
     sortingCode: '0'
-    addressLine2: '0'
     organization: '0'
     recipient: '0'
   langcode_override: ''
