@@ -966,7 +966,6 @@ function ymca_master_update_8036() {
     }
     if (count($s) == count($nodes)) {
       Drupal::logger('ymca_master')->info('Manually resolve alias conficts of these nodes: %nids', ['%nids' => implode(', ', $nodes)]);
-      dpm($dup->alias, 'Only nodes use this alias');
     }
     else {
       // This nodes should be removed.
