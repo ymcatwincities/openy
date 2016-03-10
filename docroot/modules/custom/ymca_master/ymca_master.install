@@ -897,3 +897,115 @@ function ymca_master_update_8035() {
     ->condition('alias', '/day_camp_news')
     ->execute();
 }
+
+/**
+ * [YMCA-600] Url aliases clean up.
+ */
+function ymca_master_update_8036() {
+  $db = Database::getConnection();
+
+  // Delete full duplicates.
+  $s = $db->select('url_alias', 'u')
+    ->fields('u', ['alias', 'source', 'langcode']);
+  $s->addExpression('min(pid)', 'minpid');
+  $res = $s->groupBy('source')
+    ->groupBy('alias')
+    ->groupBy('langcode')
+    ->having('count(*) > 1')
+    ->execute()
+    ->fetchAll();
+
+  $dup_count = 0;
+  foreach ($res as $r) {
+    $dup_count += $db->delete('url_alias')
+      ->condition('alias', $r->alias)
+      ->condition('source', $r->source)
+      ->condition('langcode', $r->langcode)
+      ->condition('pid', $r->minpid, '<>')
+      ->execute();
+  }
+  Drupal::logger('ymca_master')->info('%dc duplicated aliases removed', ['%dc' => $dup_count]);
+
+  // Delete aliases of deleted nodes.
+  $s = $db->select('url_alias', 'u')
+    ->fields('u', ['pid']);
+  $s->leftJoin('node', 'n', 'CONCAT(:prefix, n.nid) = u.source', [':prefix' => '/node/']);
+  $r = $s->isNull('n.nid')
+    ->condition('u.source', '/node/%', 'LIKE')
+    ->condition('u.source', '/node/%/%', 'NOT LIKE')
+    ->execute()
+    ->fetchAllKeyed(0, 0);
+
+  $orfaned = $db->delete('url_alias')
+    ->condition('pid', $r)
+    ->execute();
+  Drupal::logger('ymca_master')->info('%o orfaned aliases have been removed.', ['%o' => $orfaned]);
+
+  // Delete nodes and aliases, that were replaced by custom pages.
+  $nodes_to_be_deleted = [];
+  $node_storage = Drupal::entityTypeManager()->getStorage('node');
+  $dups = $db->select('url_alias', 'u')
+    ->fields('u', ['alias'])
+    ->groupBy('u.alias')
+    ->having('count(*) > 1')
+    ->execute()
+    ->fetchAll();
+
+  foreach ($dups as $dup) {
+    $s = $db->select('url_alias', 'u')
+      ->fields('u', ['pid', 'source'])
+      ->condition('alias', $dup->alias)
+      ->execute()
+      ->fetchAllKeyed();
+    // List nodes that are using this aliase.
+    $nodes = [];
+    foreach ($s as $pid => $source) {
+      if (preg_match('/\/node\/(\d+)$/', $source, $match)) {
+        $nodes[$pid] = $match[1];
+      }
+    }
+    if (count($s) == count($nodes)) {
+      Drupal::logger('ymca_master')->info('Manually resolve alias confict of these nodes: %nids', ['%nids' => implode(', ', $nodes)]);
+      dpm($dup->alias, 'Only nodes use this alias');
+    }
+    else {
+      // This nodes should be removed.
+      foreach ($nodes as $pid => $nid) {
+        $node = $node_storage->load($nid);
+        // Check if the node is in menu tree.
+        $query = \Drupal::entityQuery('menu_link_content')
+          ->condition('link.uri', 'entity:node/' . $node->id())
+          ->sort('id', 'ASC')
+          ->range(0, 1);
+        $result = $query->execute();
+        if ($result) {
+          // Unlink node from menu tree.
+          $menu_link_id = reset($result);
+          $menu_link = MenuLinkContent::load($menu_link_id);
+          $menu_link->set('link', ['uri' => 'internal:' . $dup->alias]);
+          $menu_link->save();
+        }
+        $nodes_to_be_deleted[] = $node;
+      };
+    }
+  }
+  $node_storage->delete($nodes_to_be_deleted);
+  Drupal::logger('ymca_master')->info('%d nodes have been delete since they are replaced with custom pages', ['%d' => count($nodes_to_be_deleted)]);
+
+  // Search orfaned redirects.
+  $s = $db->select('redirect', 'r')
+    ->fields('r', 'rid');
+  $s->leftJoin('node', 'n', "CONCAT('internal:/node/', n.nid) = redirect_redirect__uri");
+  $s->condition('redirect_redirect_uri', 'internal:/node/%', 'LIKE')
+    ->condition('redirect_redirect_uri', 'internal:/node/%/%', 'NOT LIKE')
+    ->isNotNull('n.nid');
+  $rids = $s->execute()->fetchAllKeyed(0, 0);
+
+  // Remove them
+  if ($rids) {
+    $orfaned_redirects_deleted = $db->delete('redirect')
+      ->condition('rid', $rids, 'IN')
+      ->execute();
+    Drupal::logger('ymca_master')->info('%d orfaned redirects have been deleted', ['%d' => $orfaned_redirects_deleted]);
+  }
+}
