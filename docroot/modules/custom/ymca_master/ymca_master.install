@@ -993,10 +993,10 @@ function ymca_master_update_8036() {
 
   // Search orfaned redirects.
   $s = $db->select('redirect', 'r')
-    ->fields('r', 'rid');
+    ->fields('r', ['rid']);
   $s->leftJoin('node', 'n', "CONCAT('internal:/node/', n.nid) = redirect_redirect__uri");
-  $s->condition('redirect_redirect_uri', 'internal:/node/%', 'LIKE')
-    ->condition('redirect_redirect_uri', 'internal:/node/%/%', 'NOT LIKE')
+  $s->condition('redirect_redirect__uri', 'internal:/node/%', 'LIKE')
+    ->condition('redirect_redirect__uri', 'internal:/node/%/%', 'NOT LIKE')
     ->isNotNull('n.nid');
   $rids = $s->execute()->fetchAllKeyed(0, 0);
 
