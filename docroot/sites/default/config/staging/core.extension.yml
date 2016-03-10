@@ -69,6 +69,7 @@ module:
   serialization: 0
   shield: 0
   shortcut: 0
+  smtp: 0
   system: 0
   taxonomy: 0
   telephone: 0
