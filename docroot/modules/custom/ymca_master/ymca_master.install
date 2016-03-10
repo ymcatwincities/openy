@@ -13,7 +13,6 @@ use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
-use Drupal\Component\Utility\Unicode;
 use Drupal\ymca_aliases\UrlCleaner;
 
 /**
@@ -877,4 +876,24 @@ function ymca_master_update_8034() {
     $path . 'field.field.contact_message.contact_water_safety.field_last_name.yml',
     $path . 'field.field.contact_message.contact_water_safety.field_response_required.yml',
   ]);
+}
+
+/**
+ * Add day camps features.
+ */
+function ymca_master_update_8035() {
+  \Drupal::service('module_installer')->install(['ymca_day_camp'], TRUE);
+
+  // Remove day_camp_news node.
+  $node = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getStorage('node')
+    ->load(491);
+  $node->delete();
+
+  // Remove the alias.
+  $db = Database::getConnection();
+  $db->delete('url_alias')
+    ->condition('alias', '/day_camp_news')
+    ->execute();
 }
