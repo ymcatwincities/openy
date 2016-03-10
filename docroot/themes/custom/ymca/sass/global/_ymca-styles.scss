@@ -157,6 +157,20 @@ nav#block-footermenuright {
 .toolbar-oriented .toolbar-bar {
   z-index: 1002;
 }
+
+.no-touch {
+  .toolbar-fixed {
+    .nav-location.affix, .locations-camps-template .nav-location.affix {
+      top: 90px;
+    }
+  }
+  .toolbar-fixed.toolbar-horizontal.toolbar-tray-open {
+    .nav-location.affix, .locations-camps-template .nav-location.affix {
+      top: 130px;
+    }
+  }
+}
+
 .carousel-caption .btn {
   padding: 15px 35px !important;
   font-size: 20px !important;
