@@ -899,7 +899,7 @@ function ymca_master_update_8035() {
 }
 
 /**
- * [YMCA-600] Url aliases clean up.
+ * YMCA-600 Url aliases clean up.
  */
 function ymca_master_update_8036() {
   $db = Database::getConnection();
