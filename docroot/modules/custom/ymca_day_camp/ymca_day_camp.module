@@ -47,7 +47,7 @@ function ymca_day_camp_form_alter(&$form, FormStateInterface $form_state, $form_
   // Add day camps logic to the blog.
   $form['day_camp_news'] = [
     '#type' => 'checkbox',
-    '#title' => t('Day camp new'),
+    '#title' => t('Day camp news'),
     '#description' => t('Toggle the checkbox if this blog post is shared between several camps or locations.'),
     '#default_value' => $default,
   ];
