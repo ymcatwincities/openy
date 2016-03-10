@@ -924,7 +924,7 @@ function ymca_master_update_8036() {
       ->condition('pid', $r->minpid, '<>')
       ->execute();
   }
-  Drupal::logger('ymca_master')->info('%dc duplicated aliases removed', ['%dc' => $dup_count]);
+  Drupal::logger('ymca_master')->info('%dc duplicated aliases have been removed', ['%dc' => $dup_count]);
 
   // Delete aliases of deleted nodes.
   $s = $db->select('url_alias', 'u')
@@ -965,7 +965,7 @@ function ymca_master_update_8036() {
       }
     }
     if (count($s) == count($nodes)) {
-      Drupal::logger('ymca_master')->info('Manually resolve alias confict of these nodes: %nids', ['%nids' => implode(', ', $nodes)]);
+      Drupal::logger('ymca_master')->info('Manually resolve alias conficts of these nodes: %nids', ['%nids' => implode(', ', $nodes)]);
       dpm($dup->alias, 'Only nodes use this alias');
     }
     else {
@@ -990,7 +990,7 @@ function ymca_master_update_8036() {
     }
   }
   $node_storage->delete($nodes_to_be_deleted);
-  Drupal::logger('ymca_master')->info('%d nodes have been delete since they are replaced with custom pages', ['%d' => count($nodes_to_be_deleted)]);
+  Drupal::logger('ymca_master')->info('%d nodes have been delete since they were replaced with custom pages', ['%d' => count($nodes_to_be_deleted)]);
 
   // Search orfaned redirects.
   $s = $db->select('redirect', 'r')
@@ -1001,7 +1001,7 @@ function ymca_master_update_8036() {
     ->isNotNull('n.nid');
   $rids = $s->execute()->fetchAllKeyed(0, 0);
 
-  // Remove them
+  // Remove them.
   if ($rids) {
     $orfaned_redirects_deleted = $db->delete('redirect')
       ->condition('rid', $rids, 'IN')
