@@ -937,7 +937,7 @@ function ymca_master_update_8036() {
     ->fetchAllKeyed(0, 0);
 
   $orfaned = $db->delete('url_alias')
-    ->condition('pid', $r)
+    ->condition('pid', $r, 'IN')
     ->execute();
   Drupal::logger('ymca_master')->info('%o orfaned aliases have been removed.', ['%o' => $orfaned]);
 
