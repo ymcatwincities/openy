@@ -997,7 +997,7 @@ function ymca_master_update_8036() {
   $s->leftJoin('node', 'n', "CONCAT('internal:/node/', n.nid) = redirect_redirect__uri");
   $s->condition('redirect_redirect__uri', 'internal:/node/%', 'LIKE')
     ->condition('redirect_redirect__uri', 'internal:/node/%/%', 'NOT LIKE')
-    ->isNotNull('n.nid');
+    ->isNull('n.nid');
   $rids = $s->execute()->fetchAllKeyed(0, 0);
 
   // Remove them.
