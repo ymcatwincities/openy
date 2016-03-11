@@ -17,9 +17,21 @@ class RouteSubscriber extends RouteSubscriberBase {
   public function alterRoutes(RouteCollection $collection) {
     foreach ($collection as &$item) {
       /** @var Route $item */
-      if ($item->getPath() == '/search/results') {
-        $item->setPath('/search_results');
-        $item->setDefault('_controller', 'Drupal\ymca_search_alter\Controller\SearchController::view');
+      switch ($item->getPath()) {
+        case '/search/results':
+          $item->setPath('/search_results');
+          $item->setDefault(
+            '_controller',
+            'Drupal\ymca_search_alter\Controller\SearchController::view'
+          );
+          break;
+
+        case '/sitemap':
+          $item->setPath('/sitemap_navigation');
+          break;
+
+        default:
+          continue;
       }
     }
   }
