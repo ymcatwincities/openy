@@ -116,7 +116,7 @@ class NodeAlias {
             $prefix['prefix'] = 'day_camp_news';
           }
         }
-        
+
         $url_parts = array_merge($prefix, $url_parts);
         $alias = '/' . implode('/', $url_parts);
 
