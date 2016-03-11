@@ -15,11 +15,13 @@ function ymca_day_camp_entity_presave(EntityInterface $entity) {
   // Remove site section field value if the blog post is day camp one.
   if ($entity->getEntityTypeId() == 'node') {
     if ($entity->bundle() == 'blog') {
-      $day_camp = $entity->get('field_related_camps_locations');
-      if (!$day_camp->isEmpty()) {
-        $site_section = $entity->get('field_site_section');
-        foreach ($site_section as $index => $item) {
-          unset($site_section[$index]);
+      if ($entity->hasField('field_related_camps_locations')) {
+        $day_camp = $entity->get('field_related_camps_locations');
+        if (!$day_camp->isEmpty()) {
+          $site_section = $entity->get('field_site_section');
+          foreach ($site_section as $index => $item) {
+            unset($site_section[$index]);
+          }
         }
       }
     }
@@ -38,9 +40,11 @@ function ymca_day_camp_form_alter(&$form, FormStateInterface $form_state, $form_
   $default = FALSE;
   if ($form_id == 'node_blog_edit_form') {
     $node = \Drupal::routeMatch()->getParameter('node');
-    $field = $node->get('field_related_camps_locations');
-    if ($field->isEmpty() === FALSE) {
-      $default = TRUE;
+    if ($node->hasField('field_related_camps_locations')) {
+      $field = $node->get('field_related_camps_locations');
+      if ($field->isEmpty() === FALSE) {
+        $default = TRUE;
+      }
     }
   }
 
