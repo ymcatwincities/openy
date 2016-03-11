@@ -106,6 +106,7 @@ class Entity extends EmbedTypeBase implements ContainerFactoryPluginInterface {
       'entity_type' => 'node',
       'bundles' => [],
       'display_plugins' => [],
+      'style' => 'block',
       'entity_browser' => '',
       'entity_browser_settings' => [],
     ];
@@ -142,6 +143,17 @@ class Entity extends EmbedTypeBase implements ContainerFactoryPluginInterface {
         '#description' => $this->t('If none are selected, all are allowed.'),
       );
       $form['bundles']['#access'] = !empty($form['bundles']['#options']);
+
+      $form['style'] = array(
+        '#type' => 'radios',
+        '#title' => $this->t('Style'),
+        '#options' => [
+          'inline' => $this->t('Inline'),
+          'block' => $this->t('Block'),
+        ],
+        '#default_value' => $this->getConfigurationValue('style') ?: 'block',
+        '#description' => $this->t('How it should be embeded in editor.'),
+      );
 
       // Allow option to limit Entity Embed Display plugins.
       $form['display_plugins'] = array(
@@ -210,6 +222,7 @@ class Entity extends EmbedTypeBase implements ContainerFactoryPluginInterface {
     $entity_browser = $form_state->getValue('entity_browser') == '_none' ? '' : $form_state->getValue('entity_browser');
     $form_state->setValue('entity_browser', $entity_browser);
     $form_state->setValue('entity_browser_settings', $form_state->getValue('entity_browser_settings'));
+    $form_state->setValue('style', $form_state->getValue('style'));
 
     parent::submitConfigurationForm($form, $form_state);
   }
