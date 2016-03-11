@@ -20,13 +20,13 @@ bundle: blog
 mode: default
 content:
   field_content:
-    weight: 103
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_image:
-    weight: 102
+    weight: 0
     label: hidden
     settings:
       image_style: ''
@@ -38,5 +38,4 @@ hidden:
   field_site_section: true
   field_summary: true
   field_tags: true
-  langcode: true
   links: true
