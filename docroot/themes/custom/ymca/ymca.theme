@@ -64,15 +64,18 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
-    if (!in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
-      array_unshift($suggestions, 'page__node__' . $node->bundle());
+    if (in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
+      array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
+    }
+    elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
+      array_push($suggestions, 'page__node__location_inner');
     }
     else {
-      array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
+      array_unshift($suggestions, 'page__node__' . $node->bundle());
     }
   }
   if (!\Drupal::service('path.matcher')->isFrontPage()) {
-    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+    if ($route_name == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
       $front_page = \Drupal::config('system.site')->get('page.front');
       if ($node->url() == $front_page) {
@@ -82,7 +85,7 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
   }
   // Detect all pages which referenced to locations by uri.
   if ($data = ymca_detect_locations_pages()) {
-    if ($node->bundle() != 'location') {
+    if ($node->bundle() != 'location' || !in_array($route_name, ['entity.node.preview', 'entity.node.canonical'])) {
       array_push($suggestions, 'page__node__location_inner');
     }
     else {
