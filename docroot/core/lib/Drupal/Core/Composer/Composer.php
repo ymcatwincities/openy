@@ -20,7 +20,7 @@ use Composer\Semver\Constraint\Constraint;
 class Composer {
 
   protected static $packageToCleanup = [
-    'behat/mink' => ['tests', 'driver-testsuite'],
+    'behat/mink' => ['driver-testsuite'],
     'behat/mink-browserkit-driver' => ['tests'],
     'behat/mink-goutte-driver' => ['tests'],
     'doctrine/cache' => ['tests'],

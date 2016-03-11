@@ -13,7 +13,6 @@ use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
-use Drupal\Component\Utility\Unicode;
 use Drupal\ymca_aliases\UrlCleaner;
 
 /**
@@ -877,4 +876,242 @@ function ymca_master_update_8034() {
     $path . 'field.field.contact_message.contact_water_safety.field_last_name.yml',
     $path . 'field.field.contact_message.contact_water_safety.field_response_required.yml',
   ]);
+}
+
+/**
+ * Add day camps features.
+ */
+function ymca_master_update_8035() {
+  \Drupal::service('module_installer')->install(['ymca_day_camp'], TRUE);
+
+  // Remove day_camp_news node.
+  $node = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getStorage('node')
+    ->load(491);
+  $node->delete();
+
+  // Remove the alias.
+  $db = Database::getConnection();
+  $db->delete('url_alias')
+    ->condition('alias', '/day_camp_news')
+    ->execute();
+}
+
+/**
+ * YMCA-600 Url aliases clean up.
+ */
+function ymca_master_update_8036() {
+  $db = Database::getConnection();
+
+  // Delete full duplicates.
+  $s = $db->select('url_alias', 'u')
+    ->fields('u', ['alias', 'source', 'langcode']);
+  $s->addExpression('min(pid)', 'minpid');
+  $res = $s->groupBy('source')
+    ->groupBy('alias')
+    ->groupBy('langcode')
+    ->having('count(*) > 1')
+    ->execute()
+    ->fetchAll();
+
+  $dup_count = 0;
+  foreach ($res as $r) {
+    $dup_count += $db->delete('url_alias')
+      ->condition('alias', $r->alias)
+      ->condition('source', $r->source)
+      ->condition('langcode', $r->langcode)
+      ->condition('pid', $r->minpid, '<>')
+      ->execute();
+  }
+  Drupal::logger('ymca_master')->info('%dc duplicated aliases have been removed', ['%dc' => $dup_count]);
+
+  // Delete aliases of deleted nodes.
+  $s = $db->select('url_alias', 'u')
+    ->fields('u', ['pid']);
+  $s->leftJoin('node', 'n', 'CONCAT(:prefix, n.nid) = u.source', [':prefix' => '/node/']);
+  $r = $s->isNull('n.nid')
+    ->condition('u.source', '/node/%', 'LIKE')
+    ->condition('u.source', '/node/%/%', 'NOT LIKE')
+    ->execute()
+    ->fetchAllKeyed(0, 0);
+
+  $orfaned = $db->delete('url_alias')
+    ->condition('pid', $r, 'IN')
+    ->execute();
+  Drupal::logger('ymca_master')->info('%o orfaned aliases have been removed.', ['%o' => $orfaned]);
+
+  // Delete nodes and aliases, that were replaced by custom pages.
+  $nodes_to_be_deleted = [];
+  $node_storage = Drupal::entityTypeManager()->getStorage('node');
+  $dups = $db->select('url_alias', 'u')
+    ->fields('u', ['alias'])
+    ->groupBy('u.alias')
+    ->having('count(*) > 1')
+    ->execute()
+    ->fetchAll();
+
+  foreach ($dups as $dup) {
+    $s = $db->select('url_alias', 'u')
+      ->fields('u', ['pid', 'source'])
+      ->condition('alias', $dup->alias)
+      ->execute()
+      ->fetchAllKeyed();
+    // List nodes that are using this aliase.
+    $nodes = [];
+    foreach ($s as $pid => $source) {
+      if (preg_match('/\/node\/(\d+)$/', $source, $match)) {
+        $nodes[$pid] = $match[1];
+      }
+    }
+    if (count($s) == count($nodes)) {
+      Drupal::logger('ymca_master')
+        ->info('Manually resolve alias conficts of these nodes: %nids', ['%nids' => implode(', ', $nodes)]);
+    }
+    else {
+      // These nodes should be removed.
+      foreach ($nodes as $pid => $nid) {
+        $node = $node_storage->load($nid);
+        // Check if the node is in menu tree.
+        $query = \Drupal::entityQuery('menu_link_content')
+          ->condition('link.uri', 'entity:node/' . $node->id())
+          ->sort('id', 'ASC')
+          ->range(0, 1);
+        $result = $query->execute();
+        if ($result) {
+          // Unlink node from menu tree.
+          $menu_link_id = reset($result);
+          $menu_link = MenuLinkContent::load($menu_link_id);
+          $menu_link->set('link', ['uri' => 'internal:' . $dup->alias]);
+          $menu_link->save();
+        }
+        $nodes_to_be_deleted[] = $node;
+      };
+      if ($nodes) {
+        // Delete aliases of nodes to be deleted.
+        $pids = array_keys($nodes);
+        $orfaned = $db->delete('url_alias')
+          ->condition('pid', $pids, 'IN')
+          ->execute();
+        Drupal::logger('ymca_master')
+          ->info('%o orfaned aliases have been removed.', ['%o' => $orfaned]);
+      }
+    }
+  }
+  $node_storage->delete($nodes_to_be_deleted);
+  Drupal::logger('ymca_master')
+    ->info('%d nodes have been deleted since they were replaced with custom pages', ['%d' => count($nodes_to_be_deleted)]);
+
+  // Search orfaned redirects.
+  $s = $db->select('redirect', 'r')
+    ->fields('r', ['rid']);
+  $s->leftJoin('node', 'n', "CONCAT('internal:/node/', n.nid) = redirect_redirect__uri");
+  $s->condition('redirect_redirect__uri', 'internal:/node/%', 'LIKE')
+    ->condition('redirect_redirect__uri', 'internal:/node/%/%', 'NOT LIKE')
+    ->isNull('n.nid');
+  $rids = $s->execute()->fetchAllKeyed(0, 0);
+
+  // Remove them.
+  if ($rids) {
+    $orfaned_redirects_deleted = $db->delete('redirect')
+      ->condition('rid', $rids, 'IN')
+      ->execute();
+    Drupal::logger('ymca_master')
+      ->info('%d orfaned redirects have been deleted', ['%d' => $orfaned_redirects_deleted]);
+  }
+}
+
+/**
+ * Fix embed entities code.
+ */
+function ymca_master_update_8037() {
+  $db = Database::getConnection('default');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $tables = [
+    'block_content__body',
+    'block_content__field_block_content',
+    'block_content__field_content_date_before',
+    'block_content__field_content_date_between',
+    'block_content__field_content_date_end',
+    'node__field_content',
+    'node__field_lead_description',
+    'node__field_secondary_sidebar',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  // Let's build a full list of embeds.
+  $embeds = [];
+  foreach ($tables as $table) {
+    list($entity_type, $field) = explode('__', $table);
+    $col = $field . '_value';
+
+    $result = $db->select($table, 't')->fields('t')
+      ->condition('t.' . $col, '%' . $db->escapeLike('drupal-entity') . '%', 'LIKE')
+      ->execute();
+
+    while ($data = $result->fetchObject()) {
+      $embeds[$entity_type][$data->entity_id][] = $field;
+    }
+  }
+
+  // Loop ove each embed and fix the problem.
+  foreach ($embeds as $entity_type => $entities) {
+    $storage = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage($entity_type);
+    foreach ($entities as $entity_id => $fields) {
+      $entity = $storage->load($entity_id);
+      $processed_fields = [];
+
+      foreach ($fields as $field) {
+        if ($entity->hasField($field)) {
+          $original = $entity->$field->value;
+          $replace = FALSE;
+
+          // Find all embeds that need to be replaced.
+          preg_match_all('/<drupal-entity.*data-embed-button=\"(?:menu_link|file)\".*><\/drupal-entity>/miU', $original, $test);
+          if (empty($test[0])) {
+            continue;
+          }
+
+          // Create map for str_replace.
+          foreach ($test[0] as $embed) {
+            $replace['from'][] = $embed;
+            $replace['to'][] = str_replace('drupal-entity', 'drupal-entity-inline', $embed);
+          }
+
+          if ($replace) {
+            $processed_fields[$field] = str_replace($replace['from'], $replace['to'], $original);
+          }
+        }
+      }
+
+      // Finally, save entity with processed fields.
+      foreach ($processed_fields as $field_name => $new_value) {
+        $entity->set($field_name, [
+          'value' => $new_value,
+          'format' => 'full_html',
+        ]);
+        $entity->save();
+
+        \Drupal::logger('ymca_master')->info(
+          'Replaced drupal-entity with drupal-entity-inline in %entity_type:%entity_id.',
+          [
+            '%entity_type' => $entity_type,
+            '%entity_id' => $entity_id,
+          ]
+        );
+      }
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
 }

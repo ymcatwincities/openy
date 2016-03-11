@@ -28,6 +28,7 @@ class DrupalEntity extends EmbedCKEditorPluginBase {
   protected function getButton(EmbedButtonInterface $embed_button) {
     $button = parent::getButton($embed_button);
     $button['entity_type'] = $embed_button->getTypeSetting('entity_type');
+    $button['style'] = $embed_button->getTypeSetting('style') ?: 'block';
     return $button;
   }
 

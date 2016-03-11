@@ -21,6 +21,7 @@ content:
     weight: 2
     settings:
       placeholder: ''
+      size: 60
     third_party_settings: {  }
     type: email_default
   field_first_name:
