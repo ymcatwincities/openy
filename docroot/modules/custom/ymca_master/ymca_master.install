@@ -1073,7 +1073,7 @@ function ymca_master_update_8037() {
         if ($entity->hasField($field)) {
           $original = $entity->$field->value;
           $replace = FALSE;
-          
+
           // Find all embeds that need to be replaced.
           preg_match_all('/<drupal-entity.*data-embed-button=\"(?:menu_link|file)\".*><\/drupal-entity>/miU', $original, $test);
           if (empty($test[0])) {
