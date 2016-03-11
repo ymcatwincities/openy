@@ -8,23 +8,23 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\editor\Entity\Editor;
 
 /**
- * Defines the "ColumnButton" plugin.
+ * Defines the "ColumnButton3x" plugin.
  *
  * @CKEditorPlugin(
- *   id = "columnbutton",
- *   label = @Translation("ColumnButton")
+ *   id = "columnbutton3x",
+ *   label = @Translation("ColumnButton3x")
  * )
  */
-class ColumnButton extends PluginBase implements CKEditorPluginInterface, CKEditorPluginButtonsInterface {
+class ColumnButton3x extends PluginBase implements CKEditorPluginInterface, CKEditorPluginButtonsInterface {
 
   /**
    * {@inheritdoc}
    */
   public function getButtons() {
     return array(
-      'ColumnButton' => array(
-        'label' => t('Columns'),
-        'image' => drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton/columnbutton.png',
+      'ColumnButton3x' => array(
+        'label' => t('Columns 3x'),
+        'image' => drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton/columnbutton3x.png',
       ),
     );
   }
@@ -54,7 +54,7 @@ class ColumnButton extends PluginBase implements CKEditorPluginInterface, CKEdit
    * {@inheritdoc}
    */
   public function getFile() {
-    return drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton/plugin.js';
+    return drupal_get_path('module', 'ymca_ckeditor') . '/js/plugins/columnbutton3x/plugin.js';
   }
 
   /**
