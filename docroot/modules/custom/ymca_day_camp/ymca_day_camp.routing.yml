@@ -1,0 +1,7 @@
+ymca_day_camp.day_camp_news:
+  path: day_camp_news
+  defaults:
+    _controller: \Drupal\ymca_day_camp\Controller\DayCampNewsController::pageView
+    _title: Day Camp News
+  requirements:
+    _permission: access content
