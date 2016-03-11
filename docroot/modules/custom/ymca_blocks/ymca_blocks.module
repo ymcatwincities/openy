@@ -83,15 +83,19 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
 
     case 'promo_block':
       // Get path for promo block.
-      $url = $entity->field_link->get(0)->getUrl();
-      if ($url->isRouted()) {
-        $route = $url->getRouteName();
-        $params = $url->getRouteParameters();
-        $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      if ($entity->field_link->get(0)) {
+        $url = $entity->field_link->get(0)->getUrl();
       }
-      else {
-        $path = $url->getUri();
-        $path = preg_replace('/^base:/', '', $path);
+      if (isset($url)) {
+        if ($url->isRouted()) {
+          $route = $url->getRouteName();
+          $params = $url->getRouteParameters();
+          $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+        }
+        else {
+          $path = $url->getUri();
+          $path = preg_replace('/^base:/', '', $path);
+        }
       }
 
       $build['promo'] = array(
@@ -99,7 +103,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         '#header' => html_entity_decode($entity->field_block_header->value),
         '#content' => $build['field_block_content'],
         '#image' => $build['field_image'],
-        '#link' => $path,
+        '#link' => isset($path) ? $path : '',
         '#link_text' => $entity->field_link->title,
       );
 
