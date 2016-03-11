@@ -69,11 +69,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  langcode:
-    type: language_select
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
   path:
     type: path
     weight: 6
