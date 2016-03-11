@@ -88,6 +88,7 @@ module:
   ymca_blog_listing: 0
   ymca_breadcrumb: 0
   ymca_ckeditor: 0
+  ymca_day_camp: 0
   ymca_demo: 0
   ymca_entity_embed: 0
   ymca_field_holiday_hours: 0
