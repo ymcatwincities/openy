@@ -1020,3 +1020,98 @@ function ymca_master_update_8036() {
       ->info('%d orfaned redirects have been deleted', ['%d' => $orfaned_redirects_deleted]);
   }
 }
+
+/**
+ * Fix embed entities code.
+ */
+function ymca_master_update_8037() {
+  $db = Database::getConnection('default');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $tables = [
+    'block_content__body',
+    'block_content__field_block_content',
+    'block_content__field_content_date_before',
+    'block_content__field_content_date_between',
+    'block_content__field_content_date_end',
+    'node__field_content',
+    'node__field_lead_description',
+    'node__field_secondary_sidebar',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  // Let's build a full list of embeds.
+  $embeds = [];
+  foreach ($tables as $table) {
+    list($entity_type, $field) = explode('__', $table);
+    $col = $field . '_value';
+
+    $result = $db->select($table, 't')->fields('t')
+      ->condition('t.' . $col, '%' . $db->escapeLike('drupal-entity') . '%', 'LIKE')
+      ->execute();
+
+    while ($data = $result->fetchObject()) {
+      $embeds[$entity_type][$data->entity_id][] = $field;
+    }
+  }
+
+  // Loop ove each embed and fix the problem.
+  foreach ($embeds as $entity_type => $entities) {
+    $storage = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage($entity_type);
+    foreach ($entities as $entity_id => $fields) {
+      $entity = $storage->load($entity_id);
+      $processed_fields = [];
+
+      foreach ($fields as $field) {
+        if ($entity->hasField($field)) {
+          $original = $entity->$field->value;
+          $replace = FALSE;
+          
+          // Find all embeds that need to be replaced.
+          preg_match_all('/<drupal-entity.*data-embed-button=\"(?:menu_link|file)\".*><\/drupal-entity>/miU', $original, $test);
+          if (empty($test[0])) {
+            continue;
+          }
+
+          // Create map for str_replace.
+          foreach ($test[0] as $embed) {
+            $replace['from'][] = $embed;
+            $replace['to'][] = str_replace('drupal-entity', 'drupal-entity-inline', $embed);
+          }
+
+          if ($replace) {
+            $processed_fields[$field] = str_replace($replace['from'], $replace['to'], $original);
+          }
+        }
+      }
+
+      // Finally, save entity with processed fields.
+      foreach ($processed_fields as $field_name => $new_value) {
+        $entity->set($field_name, [
+          'value' => $new_value,
+          'format' => 'full_html',
+        ]);
+        $entity->save();
+
+        \Drupal::logger('ymca_master')->info(
+          'Replaced drupal-entity with drupal-entity-inline in %entity_type:%entity_id.',
+          [
+            '%entity_type' => $entity_type,
+            '%entity_id' => $entity_id,
+          ]
+        );
+      }
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
+}
