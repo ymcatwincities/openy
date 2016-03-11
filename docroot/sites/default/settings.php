@@ -718,3 +718,4 @@ if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
     ini_set('memory_limit', '2048M');
   }
 }
+$settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
