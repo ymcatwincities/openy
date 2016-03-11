@@ -13,6 +13,9 @@ type_settings:
   entity_type: menu_link_content
   bundles:
     - menu_link_content
+  style: inline
   display_plugins:
     - 'entity_reference:entity_reference_label_url'
+  entity_browser: ''
+  entity_browser_settings: null
 icon_uuid: null

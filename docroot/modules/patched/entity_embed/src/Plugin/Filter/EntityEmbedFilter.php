@@ -77,7 +77,7 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
 
-      foreach ($xpath->query('//drupal-entity[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
+      foreach ($xpath->query('//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
         /** @var \DOMElement $node */
         $entity_type = $node->getAttribute('data-entity-type');
         $entity = NULL;
