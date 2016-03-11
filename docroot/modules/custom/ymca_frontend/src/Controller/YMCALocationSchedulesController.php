@@ -4,11 +4,14 @@ namespace Drupal\ymca_frontend\Controller;
 
 use Drupal\Core\Render\Element;
 use Drupal\node\NodeInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Controller for Scheduler view mode of Location CT.
  */
 class YMCALocationSchedulesController {
+
+  use StringTranslationTrait;
 
   /**
    * Set Markup.
@@ -26,7 +29,7 @@ class YMCALocationSchedulesController {
    * Set Title.
    */
   public function setTitle(NodeInterface $node) {
-    return $node->getTitle();
+    return $this->t('Schedules');
   }
 
 }
