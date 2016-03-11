@@ -85,7 +85,7 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
   }
   // Detect all pages which referenced to locations by uri.
   if ($data = ymca_detect_locations_pages()) {
-    if ($node->bundle() != 'location' || !in_array($route_name, ['entity.node.preview', 'entity.node.canonical'])) {
+    if ($node->bundle() != 'location') {
       array_push($suggestions, 'page__node__location_inner');
     }
     else {
