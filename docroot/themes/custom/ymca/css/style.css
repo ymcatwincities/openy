@@ -1657,6 +1657,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   height: 50px;
   font-size: 15px;
 }
+.no-touch .toolbar-fixed .nav-location.affix, .no-touch .toolbar-fixed .locations-camps-template .nav-location.affix {
+  top: 90px;
+}
+.no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-location.affix, .no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .locations-camps-template .nav-location.affix {
+  top: 130px;
+}
 
 .lt-ie8 .nav-location.affix, .lt-ie8 .locations-camps-template .nav-location.affix {
   position: absolute;
