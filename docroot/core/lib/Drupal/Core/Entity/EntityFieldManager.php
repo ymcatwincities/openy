@@ -269,13 +269,19 @@ class EntityFieldManager implements EntityFieldManagerInterface {
     // translatable values.
     foreach (array_intersect_key($keys, array_flip(['id', 'revision', 'uuid', 'bundle'])) as $key => $field_name) {
       if (!isset($base_field_definitions[$field_name])) {
-        throw new \LogicException("The $field_name field definition does not exist and it is used as $key entity key.");
+        \Drupal::logger('test')->debug($field_name);
+        continue;
+//        throw new \LogicException("The $field_name field definition does not exist and it is used as $key entity key.");
       }
       if ($base_field_definitions[$field_name]->isRevisionable()) {
-        throw new \LogicException("The {$base_field_definitions[$field_name]->getLabel()} field cannot be revisionable as it is used as $key entity key.");
+        \Drupal::logger('test')->debug($field_name);
+        continue;
+//        throw new \LogicException("The {$base_field_definitions[$field_name]->getLabel()} field cannot be revisionable as it is used as $key entity key.");
       }
       if ($base_field_definitions[$field_name]->isTranslatable()) {
-        throw new \LogicException("The {$base_field_definitions[$field_name]->getLabel()} field cannot be translatable as it is used as $key entity key.");
+        \Drupal::logger('test')->debug($field_name);
+        continue;
+//        throw new \LogicException("The {$base_field_definitions[$field_name]->getLabel()} field cannot be translatable as it is used as $key entity key.");
       }
     }
 
