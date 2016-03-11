@@ -75,29 +75,6 @@
 %}
 {{ attach_library('classy/node') }}
 
-<section class="lead-copy locations-lead-copy">
-  <div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar affix-top"></div>
-  <div class="row breadcrumb-container hidden-xs">
-    <div class="container">
-      <article>
-        <ol class="breadcrumb">
-          <li><a href="{{ url('<front>') }}">{{ 'Home'|t }}</a></li>
-          {#TODO: add location url when it's ready#}
-          <li><a href="{{ url('<front>') }}">{{ 'Locations'|t }}</a></li>
-          <li><a href="{{ "/node/" ~ node.id }}">{{ node.label }}</a></li>
-          <li class="active">{{ 'Schedules'|t }}</li>
-        </ol>
-      </article>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 lead left">
-        <h1>{{ 'Schedules'|t }}</h1>
-      </div>
-    </div>
-  </div>
-</section>
 <hr>
 <section class="content">
   <div class="container">
