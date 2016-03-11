@@ -1,0 +1,5 @@
+sitemap.theme:
+  version: VERSION
+  css:
+    theme:
+      css/sitemap.theme.css: {}
