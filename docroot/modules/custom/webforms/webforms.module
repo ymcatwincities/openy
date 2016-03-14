@@ -159,7 +159,7 @@ function webforms_entity_type_alter(array &$entity_types) {
 }
 
 /**
- * Implements hook_validation_contraint_alter().
+ * Implements hook_validation_constraint_alter().
  */
 function webforms_validation_constraint_alter(array &$definitions) {
   // Use Symfony's email validator to prevent 'test@test@ to be a valid address.
