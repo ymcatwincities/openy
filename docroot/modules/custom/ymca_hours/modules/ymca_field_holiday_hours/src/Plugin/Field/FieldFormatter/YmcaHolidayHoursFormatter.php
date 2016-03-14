@@ -69,8 +69,11 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
       if (REQUEST_TIME < ($holiday_timestamp + $after_offset) && ($holiday_timestamp - REQUEST_TIME) <= $before_offset) {
         $title = Html::escape($values['holiday']);
         $rows[] = [
-          new FormattableMarkup('<span>' . $title . '</span>:', []),
-          $values['hours'],
+          'data' => [
+            new FormattableMarkup('<span>' . $title . '</span>:', []),
+            $values['hours'],
+          ],
+          'data-timestamp' => $holiday_timestamp,
         ];
       }
     }
