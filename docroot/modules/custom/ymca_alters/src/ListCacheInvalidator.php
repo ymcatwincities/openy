@@ -32,10 +32,10 @@ class ListCacheInvalidator {
   }
 
   /**
-   * Invalidate tags
+   * Invalidate tags.
    *
    * @param \Drupal\node\NodeInterface $node
-   *   Blog node
+   *   Blog node.
    */
   public function invalidate(NodeInterface $node) {
     $tags = [];
