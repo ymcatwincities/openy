@@ -219,15 +219,24 @@ function ymca_preprocess_node(&$variables) {
       $nids = $query->execute();
     }
     else {
+      // Day camp news have the highest priority.
       $query = \Drupal::entityQuery('node')
         ->condition('type', 'blog')
         ->condition('status', 1)
+        ->condition('field_related_camps_locations.target_id', $variables['node']->id())
         ->sort('created', 'DESC')
         ->range(0, 2);
-      $query->orConditionGroup()
-        ->condition('field_site_section.target_id', $variables['node']->id())
-        ->condition('field_related_camps_locations.target_id', $variables['node']->id());
       $nids = $query->execute();
+
+      if (count($nids) < 2) {
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('status', 1)
+          ->condition('field_site_section.target_id', $variables['node']->id())
+          ->sort('created', 'DESC')
+          ->range(0, 2 - count($nids));
+        $nids = $query->execute();
+      }
     }
 
     // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
