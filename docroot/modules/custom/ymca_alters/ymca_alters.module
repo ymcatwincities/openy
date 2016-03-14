@@ -133,3 +133,25 @@ function ymca_alters_block_content_presave(EntityInterface $entity) {
   // We should invalidate all rendered cache, because block was changed/created.
   \Drupal::service('cache_tags.invalidator')->invalidateTags(['rendered']);
 }
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ymca_alters_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node') {
+    if ($entity->bundle() == 'blog') {
+      Drupal::service('ymca_alters.list_cache_invalidator')->invalidate($entity);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function ymca_alters_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node') {
+    if ($entity->bundle() == 'blog') {
+      Drupal::service('ymca_alters.list_cache_invalidator')->invalidate($entity);
+    }
+  }
+}
