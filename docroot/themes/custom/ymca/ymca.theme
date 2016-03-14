@@ -469,7 +469,7 @@ function ymca_preprocess_page(&$variables) {
         if (!empty($values[0]['target_id'])) {
           $id = $values[0]['target_id'];
           $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($id);
-          if ($block != NULL || !$block) {
+          if ($block) {
             \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
           }
         }
