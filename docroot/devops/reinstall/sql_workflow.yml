@@ -65,7 +65,7 @@
 
 - name: Import config
   sudo: yes
-  shell: "{{ php_env_vars }} drush -y config-import staging -l --partial {{ site_url }}"
+  shell: "{{ php_env_vars }} drush -y config-import staging --partial -l {{ site_url }}"
 
 # Update database.
 - name: Updating database
