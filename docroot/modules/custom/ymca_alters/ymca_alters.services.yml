@@ -1,0 +1,4 @@
+services:
+  ymca_alters.list_cache_invalidator:
+    class: Drupal\ymca_alters\ListCacheInvalidator
+    arguments: ['@cache_tags.invalidator']
