@@ -722,6 +722,15 @@ function ymca_get_archive_data($context) {
 }
 
 /**
+ * Implements hook_preprocess_node__blog__camp_blog_teaser().
+ */
+function ymca_preprocess_node__blog__camp_blog_teaser(&$vars) {
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $vars['page_title'] = $site_section->getTitle();
+  }
+}
+
+/**
  * Prepares variables for input templates.
  *
  * Default template: input.html.twig.
