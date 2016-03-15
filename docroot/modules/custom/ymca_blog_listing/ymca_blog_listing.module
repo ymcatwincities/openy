@@ -57,16 +57,24 @@ function ymca_blog_listing_preprocess_node(&$variables) {
       }
 
       // Finally, extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
-      if (count($ids) < 2 && $node->field_include_general_blog_posts->value) {
-        // Load all ids of Blog Post CT that are not related to any site section.
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->notExists('field_site_section')
-          ->condition('status', 1)
-          ->sort('created', 'DESC')
-          ->range(0, 2 - count($ids));
-        $ids += $query->execute();
+      if (count($ids) < 2) {
+        $field_include_name = 'field_include_general_blog_posts';
+        if ($node->hasField($field_include_name)) {
+          $field_include = $node->get($field_include_name);
+          if (!$field_include->isEmpty()) {
+            // Load all ids of Blog Post CT that are not related to any site section.
+            $query = \Drupal::entityQuery('node')
+              ->condition('type', 'blog')
+              ->notExists('field_site_section')
+              ->notExists('field_related_camps_locations')
+              ->condition('status', 1)
+              ->sort('created', 'DESC')
+              ->range(0, 2 - count($ids));
+            $ids += $query->execute();
+          }
+        }
       }
+
     }
     catch (Exception $e) {
       watchdog_exception('ymca_blog_listing', $e);
