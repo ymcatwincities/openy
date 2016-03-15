@@ -1,0 +1,10 @@
+uuid: 63e8983d-2b9f-46da-8400-b3dea612e82e
+langcode: en
+status: true
+dependencies: {  }
+id: contact_personal_training
+label: 'Contact Personal Training'
+recipients:
+  - Chad.Baldwin@ymcatwincities.org
+reply: ''
+weight: 0

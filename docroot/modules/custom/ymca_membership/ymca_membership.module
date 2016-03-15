@@ -6,6 +6,7 @@
 
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\contact\MessageInterface;
 
 /**
  * Implements hook_theme().
@@ -229,4 +230,13 @@ function ymca_membership_contact_message_redirect_submit(&$form, &$form_state) {
       'key' => $contact_message->uuid(),
     ],
   ]));
+}
+
+/**
+ * Implements hook_webforms_sent_message_alter().
+ */
+function ymca_membership_webforms_sent_message_alter(&$messages, MessageInterface $message) {
+  if ($message->bundle() == 'membership_form') {
+    $messages = [];
+  }
 }
