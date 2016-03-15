@@ -15,41 +15,31 @@ function ymca_blog_listing_preprocess_node(&$variables) {
   $node = $variables['node'];
   $bundles = ['location', 'camp'];
   if (in_array($node->bundle(), $bundles)) {
+    $items = [];
     $ids = [];
 
     try {
-      if ($node->bundle() == 'location') {
-        // Load referenced ids to current location.
+      // Day camp news have the highest priority.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'blog')
+        ->condition('status', 1)
+        ->condition('field_related_camps_locations.target_id', $node->id())
+        ->sort('created', 'DESC')
+        ->range(0, 2);
+      $ids = $query->execute();
+
+      // Extend the results with related posts.
+      if (count($ids) < 2) {
         $query = \Drupal::entityQuery('node')
           ->condition('type', 'blog')
+          ->condition('status', 1)
           ->condition('field_site_section.target_id', $node->id())
-          ->condition('status', 1)
           ->sort('created', 'DESC')
-          ->range(0, 2);
-        $ids = $query->execute();
-      }
-      else {
-        // Day camp news have the highest priority.
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->condition('status', 1)
-          ->condition('field_related_camps_locations.target_id', $node->id())
-          ->sort('created', 'DESC')
-          ->range(0, 2);
-        $ids = $query->execute();
-
-        if (count($ids) < 2) {
-          $query = \Drupal::entityQuery('node')
-            ->condition('type', 'blog')
-            ->condition('status', 1)
-            ->condition('field_site_section.target_id', $node->id())
-            ->sort('created', 'DESC')
-            ->range(0, 2 - count($ids));
-          $ids = $query->execute();
-        }
+          ->range(0, 2 - count($ids));
+        $ids += $query->execute();
       }
 
-      // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
+      // Finally, extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
       if (count($ids) < 2 && $node->field_include_general_blog_posts->value) {
         // Load all ids of Blog Post CT that are not related to any site section.
         $query = \Drupal::entityQuery('node')
@@ -58,11 +48,7 @@ function ymca_blog_listing_preprocess_node(&$variables) {
           ->condition('status', 1)
           ->sort('created', 'DESC')
           ->range(0, 2 - count($ids));
-        $all_ids = $query->execute();
-        // Append general blog posts ids to already fetched ids.
-        foreach ($all_ids as $nid) {
-          $ids[] = $nid;
-        }
+        $ids += $query->execute();
       }
     }
     catch (Exception $e) {
@@ -70,7 +56,6 @@ function ymca_blog_listing_preprocess_node(&$variables) {
     }
 
     // Load nodes and build output array.
-    $items = [];
     $nodes = \Drupal::getContainer()->get('entity.manager')->getStorage('node')->loadMultiple($ids);
     foreach ($nodes as $nid => $n) {
       $node_url = Drupal\Core\Url::fromUri('entity:node/' . $nid);
