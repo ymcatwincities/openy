@@ -1,0 +1,10 @@
+uuid: 37f206fa-490f-4af4-ad04-4d74d04cbff1
+langcode: en
+status: true
+dependencies: {  }
+id: journey_to_freedom
+label: 'Journey to Freedom'
+recipients:
+  - elin.aldrich@ymcatwincities.org
+reply: ''
+weight: 0
