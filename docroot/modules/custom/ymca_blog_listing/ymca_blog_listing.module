@@ -69,7 +69,7 @@ function ymca_blog_listing_preprocess_node(&$variables) {
       }
     }
     catch (Exception $e) {
-      watchdog_exception('theme', $e);
+      watchdog_exception('ymca_blog_listing', $e);
     }
 
     // Load nodes and build output array.
