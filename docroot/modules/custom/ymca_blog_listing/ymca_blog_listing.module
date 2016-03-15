@@ -6,6 +6,23 @@
  */
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_blog_listing_theme($existing, $type, $theme, $path) {
+  return [
+    'ymca_news_events' => [
+      'variables' => [
+        'items' => NULL,
+      ],
+      'template' => 'ymca-news-events',
+    ],
+  ];
+}
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -57,14 +74,26 @@ function ymca_blog_listing_preprocess_node(&$variables) {
 
     // Load nodes and build output array.
     $nodes = \Drupal::getContainer()->get('entity.manager')->getStorage('node')->loadMultiple($ids);
+
     foreach ($nodes as $nid => $n) {
-      $node_url = Drupal\Core\Url::fromUri('entity:node/' . $nid);
-      $items[] = array(
-        'title' => new \Drupal\Core\Link($n->getTitle(), $node_url),
-        'text' =>  Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
+      $node_url = Url::fromUri('entity:node/' . $nid);
+      $items[] = [
+        'title' => new Link($n->getTitle(), $node_url),
+        'text' => Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
         'read_more_url' => $node_url,
-      );
+      ];
     }
-    $variables['news_events'] = $items;
+
+    $variables['news_events'] = [
+      '#theme' => 'ymca_news_events',
+      '#items' => $items,
+      '#cache' => [
+        'tags' => Cache::mergeTags(
+          ['node_list'],
+          Cache::buildTags('node', $ids)
+        )
+      ]
+    ];
+
   }
 }
