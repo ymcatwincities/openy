@@ -208,42 +208,58 @@ function ymca_preprocess_node(&$variables) {
   if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
     // Camps may also output special day_camp blog posts.
 
-    if ($variables['node']->bundle() == 'location') {
-      // Load referenced ids to current location.
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'blog')
-        ->condition('field_site_section.target_id', $variables['node']->id())
-        ->condition('status', 1)
-        ->sort('created', 'DESC')
-        ->range(0, 2);
-      $nids = $query->execute();
-    }
-    else {
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'blog')
-        ->condition('status', 1)
-        ->sort('created', 'DESC')
-        ->range(0, 2);
-      $query->orConditionGroup()
-        ->condition('field_site_section.target_id', $variables['node']->id())
-        ->condition('field_related_camps_locations.target_id', $variables['node']->id());
-      $nids = $query->execute();
-    }
+    $nids = [];
 
-    // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
-    if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
-      // Load all ids of Blog Post CT that are not related to any site section.
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'blog')
-        ->notExists('field_site_section')
-        ->condition('status', 1)
-        ->sort('created', 'DESC')
-        ->range(0, 2 - count($nids));
-      $all_nids = $query->execute();
-      // Append general blog posts ids to already fetched nids.
-      foreach ($all_nids as $nid) {
-        $nids[] = $nid;
+    try {
+      if ($variables['node']->bundle() == 'location') {
+        // Load referenced ids to current location.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('field_site_section.target_id', $variables['node']->id())
+          ->condition('status', 1)
+          ->sort('created', 'DESC')
+          ->range(0, 2);
+        $nids = $query->execute();
       }
+      else {
+        // Day camp news have the highest priority.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('status', 1)
+          ->condition('field_related_camps_locations.target_id', $variables['node']->id())
+          ->sort('created', 'DESC')
+          ->range(0, 2);
+        $nids = $query->execute();
+
+        if (count($nids) < 2) {
+          $query = \Drupal::entityQuery('node')
+            ->condition('type', 'blog')
+            ->condition('status', 1)
+            ->condition('field_site_section.target_id', $variables['node']->id())
+            ->sort('created', 'DESC')
+            ->range(0, 2 - count($nids));
+          $nids = $query->execute();
+        }
+      }
+
+      // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
+      if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
+        // Load all ids of Blog Post CT that are not related to any site section.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->notExists('field_site_section')
+          ->condition('status', 1)
+          ->sort('created', 'DESC')
+          ->range(0, 2 - count($nids));
+        $all_nids = $query->execute();
+        // Append general blog posts ids to already fetched nids.
+        foreach ($all_nids as $nid) {
+          $nids[] = $nid;
+        }
+      }
+    }
+    catch (Exception $e) {
+      watchdog_exception('theme', $e);
     }
 
     $items = [];
@@ -453,7 +469,9 @@ function ymca_preprocess_page(&$variables) {
         if (!empty($values[0]['target_id'])) {
           $id = $values[0]['target_id'];
           $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($id);
-          \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
+          if ($block) {
+            \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
+          }
         }
       }
     }

@@ -1,12 +1,7 @@
 uuid: b875e6d5-a817-45aa-b201-1dfd24aaff11
 langcode: en
 status: true
-dependencies:
-  module:
-    - contact_storage
-third_party_settings:
-  contact_storage:
-    redirect_uri: 'entity:node/2200'
+dependencies: {  }
 id: personal_trainers_individual
 label: 'Personal Trainers - individual'
 recipients:

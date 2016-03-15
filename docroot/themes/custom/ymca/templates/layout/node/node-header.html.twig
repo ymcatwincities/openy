@@ -22,9 +22,11 @@
 
 {% block label_and_description %}
   <h1>{{ label }}</h1>
+  {% if content.field_title_description.0 %}
   <article class="richtext">
     <p>{{ content.field_title_description }}</p>
   </article>
+  {% endif %}
   {% if variant == 'front' and node.field_header_button.title %}
     <br>
     {{ link(node.field_header_button.title, node.field_header_button.uri, {'class':['btn', 'btn-primary', 'btn-lg']}) }}

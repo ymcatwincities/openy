@@ -1115,3 +1115,11 @@ function ymca_master_update_8037() {
   $config->set('auto_redirect', TRUE);
   $config->save();
 }
+
+/**
+ * Webforms bug fixing.
+ */
+function ymca_master_update_8038() {
+  Drupal::configFactory()->getEditable('views.view.contact_messages')->delete();
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
