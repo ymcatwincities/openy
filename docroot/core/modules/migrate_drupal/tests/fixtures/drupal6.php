@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreFile
 /**
  * @file
  * A database agnostic dump for testing purposes.
@@ -87,6 +88,48 @@ $connection->insert('actions')
   'callback',
   'parameters',
   'description',
+))
+->values(array(
+  'aid' => '1',
+  'type' => 'comment',
+  'callback' => 'comment_unpublish_by_keyword_action',
+  'parameters' => 'a:1:{s:8:"keywords";a:1:{i:0;s:6:"drupal";}}',
+  'description' => 'Unpublish comment containing keyword(s)',
+))
+->values(array(
+  'aid' => '2',
+  'type' => 'node',
+  'callback' => 'node_assign_owner_action',
+  'parameters' => 'a:1:{s:9:"owner_uid";s:1:"2";}',
+  'description' => 'Change the author of a post',
+))
+->values(array(
+  'aid' => '3',
+  'type' => 'node',
+  'callback' => 'node_unpublish_by_keyword_action',
+  'parameters' => 'a:1:{s:8:"keywords";a:1:{i:0;s:6:"drupal";}}',
+  'description' => 'Unpublish post containing keyword(s)',
+))
+->values(array(
+  'aid' => '4',
+  'type' => 'system',
+  'callback' => 'system_message_action',
+  'parameters' => 'a:1:{s:7:"message";s:21:"Drupal migration test";}',
+  'description' => 'Display a message to the user',
+))
+->values(array(
+  'aid' => '5',
+  'type' => 'system',
+  'callback' => 'system_send_email_action',
+  'parameters' => 'a:3:{s:9:"recipient";s:16:"test@example.com";s:7:"subject";s:21:"Drupal migration test";s:7:"message";s:21:"Drupal migration test";}',
+  'description' => 'Send e-mail',
+))
+->values(array(
+  'aid' => '6',
+  'type' => 'system',
+  'callback' => 'system_goto_action',
+  'parameters' => 'a:1:{s:3:"url";s:22:"https://www.drupal.org";}',
+  'description' => 'Redirect to URL',
 ))
 ->values(array(
   'aid' => 'comment_publish_action',
@@ -195,6 +238,30 @@ $connection->schema()->createTable('actions_aid', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('actions_aid')
+->fields(array(
+  'aid',
+))
+->values(array(
+  'aid' => '1',
+))
+->values(array(
+  'aid' => '2',
+))
+->values(array(
+  'aid' => '3',
+))
+->values(array(
+  'aid' => '4',
+))
+->values(array(
+  'aid' => '5',
+))
+->values(array(
+  'aid' => '6',
+))
+->execute();
 
 $connection->schema()->createTable('aggregator_category', array(
   'fields' => array(
@@ -32287,13 +32354,19 @@ $connection->insert('url_alias')
   'pid' => '1',
   'src' => 'node/1',
   'dst' => 'alias-one',
-  'language' => 'en',
+  'language' => 'af',
 ))
 ->values(array(
   'pid' => '2',
   'src' => 'node/2',
   'dst' => 'alias-two',
   'language' => 'en',
+))
+->values(array(
+  'pid' => '3',
+  'src' => 'node/3',
+  'dst' => 'alias-three',
+  'language' => '',
 ))
 ->execute();
 
@@ -33988,7 +34061,7 @@ $connection->insert('vocabulary')
   'hierarchy' => '1',
   'multiple' => '1',
   'required' => '0',
-  'tags' => '0',
+  'tags' => '1',
   'module' => 'taxonomy',
   'weight' => '5',
 ))
@@ -34013,7 +34086,7 @@ $connection->insert('vocabulary')
   'relations' => '1',
   'hierarchy' => '0',
   'multiple' => '0',
-  'required' => '0',
+  'required' => '1',
   'tags' => '0',
   'module' => 'taxonomy',
   'weight' => '0',

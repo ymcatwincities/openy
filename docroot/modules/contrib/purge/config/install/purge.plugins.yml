@@ -1,0 +1,4 @@
+purgers: {}
+processors: {}
+queuers: {}
+queue: 'database'

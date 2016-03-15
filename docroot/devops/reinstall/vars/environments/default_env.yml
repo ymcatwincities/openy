@@ -2,15 +2,16 @@
 env:
   pre_settings:
     - { name: '$settings["hash_salt"]', status: true, value: '1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ'}
-    - { name: '$databases["legacy"]["default"]["database"]', status: true, value: '{{ old_source_db_name }}' }
-    - { name: '$databases["legacy"]["default"]["username"]', status: true, value: 'root' }
-    - { name: '$databases["legacy"]["default"]["password"]', status: true, value: 'root' }
-    - { name: '$databases["legacy"]["default"]["host"]', status: true, value: '127.0.0.1' }
-    - { name: '$databases["legacy"]["default"]["namespace"]', status: true, value: 'Drupal\\\\Core\\\\Database\\\\Driver\\\\mysql' }
-    - { name: '$databases["legacy"]["default"]["driver"]', status: true, value: 'mysql' }
+    - { name: '$databases["amm_source"]["default"]["database"]', status: true, value: '{{ old_source_db_name }}' }
+    - { name: '$databases["amm_source"]["default"]["username"]', status: true, value: 'root' }
+    - { name: '$databases["amm_source"]["default"]["password"]', status: true, value: 'root' }
+    - { name: '$databases["amm_source"]["default"]["host"]', status: true, value: '127.0.0.1' }
+    - { name: '$databases["amm_source"]["default"]["namespace"]', status: true, value: 'Drupal\\\\Core\\\\Database\\\\Driver\\\\mysql' }
+    - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
+    - { name: '$settings["install_profile"]', status: true, value: 'pp' }
   modules:
-    - { name: 'devel config_inspector config_devel stage_file_proxy', status: true }
+    - { name: 'devel config_inspector config_devel', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }

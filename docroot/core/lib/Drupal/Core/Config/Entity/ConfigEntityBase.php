@@ -40,16 +40,6 @@ abstract class ConfigEntityBase extends Entity implements ConfigEntityInterface 
   protected $originalId;
 
   /**
-   * The name of the property that is used to store plugin configuration.
-   *
-   * This is needed when the entity uses a LazyPluginCollection, to dictate
-   * where the plugin configuration should be stored.
-   *
-   * @var string
-   */
-  protected $pluginConfigKey;
-
-  /**
    * The enabled/disabled status of the configuration entity.
    *
    * @var bool
@@ -102,6 +92,17 @@ abstract class ConfigEntityBase extends Entity implements ConfigEntityInterface 
    * @var array
    */
   protected $third_party_settings = array();
+
+  /**
+   * Information maintained by Drupal core about configuration.
+   *
+   * Keys:
+   * - default_config_hash: A hash calculated by the config.installer service
+   *   and added during installation.
+   *
+   * @var array
+   */
+  protected $_core = [];
 
   /**
    * Trust supplied data and not use configuration schema on save.
@@ -296,6 +297,9 @@ abstract class ConfigEntityBase extends Entity implements ConfigEntityInterface 
     if (empty($this->third_party_settings)) {
       unset($properties['third_party_settings']);
     }
+    if (empty($this->_core)) {
+      unset($properties['_core']);
+    }
     return $properties;
   }
 
@@ -346,6 +350,32 @@ abstract class ConfigEntityBase extends Entity implements ConfigEntityInterface 
       // need to recalculate the dependencies.
       $this->calculateDependencies();
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __sleep() {
+    $keys_to_unset = [];
+    if ($this instanceof EntityWithPluginCollectionInterface) {
+      $vars = get_object_vars($this);
+      foreach ($this->getPluginCollections() as $plugin_config_key => $plugin_collection) {
+        // Save any changes to the plugin configuration to the entity.
+        $this->set($plugin_config_key, $plugin_collection->getConfiguration());
+        // If the plugin collections are stored as properties on the entity,
+        // mark them to be unset.
+        $keys_to_unset += array_filter($vars, function ($value) use ($plugin_collection) {
+          return $plugin_collection === $value;
+        });
+      }
+    }
+
+    $vars = parent::__sleep();
+
+    if (!empty($keys_to_unset)) {
+      $vars = array_diff($vars, array_keys($keys_to_unset));
+    }
+    return $vars;
   }
 
   /**

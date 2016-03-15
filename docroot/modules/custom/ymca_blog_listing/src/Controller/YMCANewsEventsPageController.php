@@ -3,8 +3,8 @@
 namespace Drupal\ymca_blog_listing\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\node\NodeInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class YMCANewsEventsPageController.
@@ -23,7 +23,19 @@ class YMCANewsEventsPageController extends ControllerBase {
    *   Return render array.
    */
   public function pageView(NodeInterface $node) {
-    $view = views_embed_view('camp_blog_listing', 'blog_listing_embed', $node->id());
+    $view = '';
+    switch ($node->getType()) {
+      case 'camp':
+        $view = views_embed_view('camp_blog_listing', 'blog_listing_embed', $node->id());
+        break;
+
+      case 'location':
+        $view = views_embed_view('location_blog_listing', 'blog_listing_embed');
+        break;
+
+      default:
+        throw new NotFoundHttpException();
+    }
 
     return [
       'view' => $view,

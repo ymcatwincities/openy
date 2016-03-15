@@ -1,3 +1,47 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+#2563623/2674732/2675208 by DamienMcKenna, esclapes, NickWilde, achton: Quote
+  submodule strings to avoid YAML compatibility problems.
+#2658242 by mr.baileys: Default meta tags were not translated into the entity's
+  language.
+By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
+#2664276 by DamienMcKenna, StevenPatz, rajeev_drupal: Wrong default base class
+  for generated tag plugins.
+
+
+Metatag 8.x-1.0-beta4, 2016-02-06
+---------------------------------
+#2634844 by swentel: Only load entity meta tags on actual content entity pages.
+#2648752 by juampynr: Fixed the token browser integration.
+#2642430 by juampynr: Moved settings pages under admin/config.
+#2646706 by heykarthikwithu: Removed unused 'use' statements.
+#2645338 by Dane Powell: Fixed variable assumptions in MetatagFirehose.
+#2643370 by flocondetoile: Fixed hook_block().
+#2631408 by juampynr: Filter HTML from the meta tag output.
+#2653512 by DamienMcKenna, ivanjaros: Missing ampersand in drupal_static call.
+#2630068 by jaxxed, DamienMcKenna: Moved the meta tags fields into the
+  'advanced' section of the entity form.
+#2657142 by TravisCarden: Incorrect path in MetatagDefaults annotations.
+#2656494 by DamienMcKenna, webflo, cyb.tachyon, alexdmccabe: Added translation
+  support for the default configs.
+#2634844 by mr.baileys: Ensure that the entity system doesn't break entity
+  pages that don't have meta tags enabled.
+#2659854 by mr.baileys: The config inheritance info was displayed when not
+  needed and was not translatable.
+#2624422 by mr.baileys: Added tests to confirm meta tag handling is loaded
+  correctly when there is no default value available.
+#2658902 by swentel, DamienMcKenna: Renamed 'Add Metatag defaults' to something
+  more easily understood.
+#2636348 by DamienMcKenna: Config entity not working correctly after updating
+  from beta2.
+By DamienMcKenna: Note in the README.txt that Token is now required.
+#2663874 by mr.baileys: Fixed arguments to annotation translations for two
+  Google meta tags.
+#2663650 by DamienMcKenna: Updated/fixed the DrupalConsole integration.
+#2663650 by mr.baileys: Further fixes to the DrupalConsole integration.
+#2563623 by DamienMcKenna: Moved OG tags to new submodule, added several more.
+
+
 Metatag 8.x-1.0-beta3, 2015-12-08
 ---------------------------------
 #2613654 by Michelle, DamienMcKenna: Automatically parse fields for images.

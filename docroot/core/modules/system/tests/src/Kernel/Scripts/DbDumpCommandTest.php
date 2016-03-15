@@ -27,7 +27,7 @@ class DbDumpCommandTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  protected function setUp() {
     parent::setUp();
 
     // Determine what database backend is running, and set the skip flag.
@@ -57,6 +57,7 @@ class DbDumpCommandTest extends KernelTestBase {
     $this->assertContains("'name' => 'test", $output, 'Insert name field found');
     $this->assertContains("'path' => 'test", $output, 'Insert path field found');
     $this->assertContains("'pattern_outline' => 'test", $output, 'Insert pattern_outline field found');
+    $this->assertContains("// @codingStandardsIgnoreFile", $output);
   }
 
   /**

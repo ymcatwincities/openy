@@ -108,8 +108,16 @@ class NodeAlias {
           }
         }
 
-        // Finally set 'blog' prefix.
-        $url_parts = array_merge(['prefix' => 'blog'], $url_parts);
+        // Set 'blog' or 'day_camp_news' prefix.
+        $prefix = ['prefix' => 'blog'];
+        if ($node->hasField('field_related_camps_locations')) {
+          $day_camp = $node->get('field_related_camps_locations');
+          if (!$day_camp->isEmpty()) {
+            $prefix['prefix'] = 'day_camp_news';
+          }
+        }
+
+        $url_parts = array_merge($prefix, $url_parts);
         $alias = '/' . implode('/', $url_parts);
 
         break;
@@ -119,14 +127,14 @@ class NodeAlias {
         $defaults = menu_ui_get_menu_link_defaults($node);
         if (empty($defaults['id'])) {
           // There is no parent menu link, the node isn't in menu tree.
-          return NULL;
+          return '/' . $this->urlCleaner->clean($node->getTitle());
         }
         // Get current menu link content entity associated with the node.
         $menu_link = MenuLinkContent::load($defaults['entity_id']);
         $parent_id = $menu_link->getParentId();
         if (!$parent_id) {
           // There is no parent menu link, the node is root.
-          $alias = '/' . $this->urlCleaner->clean($node->getTitle());
+          $alias = '';
         }
         else {
           // Parent menu link plugin definition.
@@ -151,10 +159,10 @@ class NodeAlias {
               }
             }
           }
-
-          // Add cleaned title to the end of alias.
-          $alias .= '/' . $this->urlCleaner->clean($node->getTitle());
         }
+
+        // Add cleaned title to the end of alias.
+        $alias .= '/' . $this->urlCleaner->clean($node->getTitle());
         break;
     }
 

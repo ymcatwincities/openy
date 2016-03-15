@@ -14,6 +14,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\field\FieldConfigInterface;
 
 /**
  * Implements hook_help().
@@ -96,9 +97,9 @@ function content_translation_language_types_info_alter(array &$language_types) {
  *   canonical link template cannot be enabled for translation. Setting this key
  *   to TRUE overrides that. When that key is set, the Content Translation
  *   module will not provide any UI for translating the entity type, and the
- *   entity type should implement its own UI. This is useful for (e.g.) entity
- *   types that are embedded into others for editing (which would not need a
- *   canonical link, but could still support translation).
+ *   entity type should implement its own UI. For instance, this is useful for
+ *   entity types that are embedded into others for editing (which would not
+ *   need a canonical link, but could still support translation).
  * - content_translation_metadata: To implement its business logic the content
  *   translation UI relies on various metadata items describing the translation
  *   state. The default implementation is provided by
@@ -199,9 +200,17 @@ function content_translation_entity_base_field_info(EntityTypeInterface $entity_
  *   which columns should be synchronized across different translations and
  *   which are translatable. This is useful for instance to translate the
  *   "alt" and "title" textual elements of an image field, while keeping the
- *   same image on every translation.
+ *   same image on every translation. Each group has the following keys:
+ *   - title: Title of the column group.
+ *   - translatable: (optional) If the column group should be translatable by
+ *     default, defaults to FALSE.
+ *   - columns: (optional) A list of columns of this group. Defaults to the
+ *     name of he group as the single column.
+ *   - require_all_groups_for_translation: (optional) Set to TRUE to enforce
+ *     that making this column group translatable requires all others to be
+ *     translatable too.
  *
- *   @see Drupal\image\Plugin\Field\FieldType\imageItem.
+ * @see Drupal\image\Plugin\Field\FieldType\ImageItem
  */
 function content_translation_field_info_alter(&$info) {
   foreach ($info as $key => $settings) {

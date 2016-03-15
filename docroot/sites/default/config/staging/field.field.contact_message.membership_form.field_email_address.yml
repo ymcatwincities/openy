@@ -1,0 +1,19 @@
+uuid: da58689f-1a34-4af2-a217-2320d0ef830c
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.membership_form
+    - field.storage.contact_message.field_email_address
+id: contact_message.membership_form.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: membership_form
+label: 'Email Address'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

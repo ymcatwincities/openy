@@ -8,6 +8,7 @@ dependencies:
     - field.field.block_content.promo_block.field_block_header
     - field.field.block_content.promo_block.field_image
     - field.field.block_content.promo_block.field_link
+    - image.style.thumbnail
   module:
     - image
     - link

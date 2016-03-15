@@ -1,0 +1,25 @@
+uuid: 28f70491-9807-4b39-af00-f03f10735663
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:promo_block:f5e280c5-62a8-4b72-b800-c47487648054'
+  module:
+    - block_content
+  theme:
+    - ymca
+id: workatwarren
+theme: ymca
+region: '-1'
+weight: null
+provider: null
+plugin: 'block_content:f5e280c5-62a8-4b72-b800-c47487648054'
+settings:
+  id: 'block_content:f5e280c5-62a8-4b72-b800-c47487648054'
+  label: 'Work at Warren'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
 /**
  * Implements Groupex form for location.
@@ -26,7 +27,7 @@ abstract class GroupexFormBase extends FormBase {
     $args = func_get_args();
     if (isset($args[2])) {
       $refine = TRUE;
-      $params = $args[2];
+      $params = GroupexScheduleFetcher::normalizeParameters($args[2]);
     }
 
     $form['#attributes'] = ['class' => ['groupex-search-form']];
@@ -40,7 +41,7 @@ abstract class GroupexFormBase extends FormBase {
     $refined_options = array_combine($refined_keys, array_values($class_name_options));
     $form['class_name'] = [
       '#type' => 'select',
-      '#options' => ['any' => $this->t('All')] + $refined_options,
+      '#options' => ['any' => $this->t('(all)')] + $refined_options,
       '#title' => $this->t('Class Name'),
       '#title_extra' => $this->t('(optional)'),
       '#default_value' => $refine ? $params['class'] : [],
@@ -48,7 +49,7 @@ abstract class GroupexFormBase extends FormBase {
 
     $form['category'] = [
       '#type' => 'select',
-      '#options' => ['any' => $this->t('All')] + $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name'),
+      '#options' => ['any' => $this->t('(all)')] + $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name'),
       '#title' => $this->t('Category'),
       '#title_extra' => $this->t('(optional)'),
       '#default_value' => $refine ? $params['category'] : [],
@@ -57,13 +58,13 @@ abstract class GroupexFormBase extends FormBase {
     $form['time_of_day'] = [
       '#type' => 'checkboxes',
       '#options' => [
-        'morning' => $this->t('Morning (6 a.m. - 12 p.m.)'),
-        'afternoon' => $this->t('Afternoon (12 p.m. - 5 p.m.)'),
-        'evening' => $this->t('Evening (5 p.m. - 10 p.m.)'),
+        'morning' => $this->t('Morning <small>(6 a.m. - 12 p.m.)</small>'),
+        'afternoon' => $this->t('Afternoon <small>(12 p.m. - 5 p.m.)</small>'),
+        'evening' => $this->t('Evening <small>(5 p.m. - 10 p.m.)</small>'),
       ],
       '#title' => $this->t('Time of Day'),
       '#title_extra' => $this->t('(optional)'),
-      '#default_value' => $refine ? $params['time_of_day'] : [],
+      '#default_value' => ($refine && !empty($params['time_of_day'])) ? $params['time_of_day'] : [],
     ];
 
     $form['filter_length'] = [
@@ -74,7 +75,6 @@ abstract class GroupexFormBase extends FormBase {
       ],
       '#default_value' => $refine ? $params['filter_length'] : 'day',
       '#title' => $this->t('View Day or Week'),
-      '#description' => $this->t('Selecting more than one location limits your search to one day.'),
     ];
 
     $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
@@ -89,7 +89,7 @@ abstract class GroupexFormBase extends FormBase {
     }
     $form['filter_date'] = [
       '#type' => 'datetime',
-      '#date_date_format' => 'm/d/y',
+      '#date_date_format' => 'n/d/y',
       '#title' => $this->t('Start Date'),
       '#default_value' => $filter_date_default,
       '#date_time_element' => 'none',

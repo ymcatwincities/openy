@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.blog.field_content
     - field.field.node.blog.field_image
+    - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
@@ -19,13 +20,13 @@ bundle: blog
 mode: default
 content:
   field_content:
-    weight: 103
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_image:
-    weight: 102
+    weight: 0
     label: hidden
     settings:
       image_style: ''
@@ -33,8 +34,8 @@ content:
     third_party_settings: {  }
     type: image
 hidden:
+  field_related_camps_locations: true
   field_site_section: true
   field_summary: true
   field_tags: true
-  langcode: true
   links: true

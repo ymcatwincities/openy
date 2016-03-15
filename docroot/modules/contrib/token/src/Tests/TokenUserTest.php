@@ -37,6 +37,11 @@ class TokenUserTest extends TokenTestBase {
   public function setUp() {
     parent::setUp();
 
+    $this->account = $this->drupalCreateUser(['administer users', 'administer account settings']);
+    $this->drupalLogin($this->account);
+  }
+
+  public function testUserTokens() {
     // Enable user pictures.
     \Drupal::state()->set('user_pictures', 1);
     \Drupal::state()->set('user_picture_file_size', '');
@@ -47,11 +52,6 @@ class TokenUserTest extends TokenTestBase {
       $this->fail('Could not create directory ' . $picture_path . '.');
     }
 
-    $this->account = $this->drupalCreateUser(array('administer users'));
-    $this->drupalLogin($this->account);
-  }
-
-  function testUserTokens() {
     // Add a user picture to the account.
     $image = current($this->drupalGetTestFiles('image'));
     $edit = array('files[user_picture_0]' => drupal_realpath($image->uri));
@@ -110,5 +110,12 @@ class TokenUserTest extends TokenTestBase {
       'roles:keys' => (string) DRUPAL_ANONYMOUS_RID,
     );
     $this->assertTokens('user', array('user' => $anonymous), $tokens);
+  }
+
+  public function testUserAccountSettings() {
+    $this->drupalGet('admin/config/people/accounts');
+    $this->assertText('The list of available tokens that can be used in e-mails is provided below.');
+    $this->assertLink('Browse available tokens.');
+    $this->assertLinkByHref('token/tree');
   }
 }

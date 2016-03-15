@@ -125,6 +125,24 @@
   'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
   'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
 -
+  name: 'Forest Lake'
+  address1: '19845 Forest Rd N'
+  address2: null
+  city: 'Forest Lake'
+  state: MN
+  zip: 55025
+  phone: 651-259-2133
+  url: /locations/forest_lake_ymca/
+  tags: YMCA
+  latitude: 45.2347415
+  longitude: -92.9858569
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: null
+  personify_brcode: '38'
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': 'Open summer 2016'
+  'HRS Sat-Sun': 'Open summer 2016'
+-
   name: Hastings
   address1: '85 Pleasant Drive'
   address2: null
@@ -159,7 +177,7 @@
   personify_brcode: 18
   shadow: themes/custom/ymca/img/map_shadow.png
   'HRS Mon-Fri': '6:00 a.m. - 7:30 p.m.'
-  'HRS Sat-Sun': 'SAT 9:00 a.m. - 5:00 p.m. SUN 9:00 a.m. - 2:00 p.m.'
+  'HRS Sat-Sun': 'SAT 9:00 a.m. - 5:00 p.m. SUN Closed'
 -
   name: Hudson
   address1: '2211 Vine Street'
@@ -214,6 +232,24 @@
   shadow: themes/custom/ymca/img/map_shadow.png
   'HRS Mon-Fri': '5:30 a.m. - 10:00 p.m.'
   'HRS Sat-Sun': '7:00 a.m. - 8:00 p.m.'
+-
+  name: 'Mounds View Community Center'
+  address1: '5394 Edgewood Dr.'
+  address2: null
+  city: 'Mounds View'
+  state: MN
+  zip: 55112
+  phone: 763-717-4040
+  url: locations/mounds_view_community_center/
+  tags: YMCA
+  latitude: 45.103924
+  longitude: -93.202378
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 1677
+  personify_brcode: 79
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': 'M-TH: 8 a.m. - 7 p.m. F: 8 a.m. - 6 p.m.'
+  'HRS Sat-Sun': 'SAT 8:00 a.m. - 6:00 p.m. SUN Closed'
 -
   name: 'New Hope'
   address1: '7601 42nd Avenue North'
@@ -377,24 +413,6 @@
   'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
   'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
 -
-  name: University
-  address1: '1801 University Ave. SE'
-  address2: null
-  city: Minneapolis
-  state: MN
-  zip: 55414
-  phone: 612-676-7700
-  url: locations/university_ymca/
-  tags: YMCA
-  latitude: 44.97717
-  longitude: -93.230603
-  icon: themes/custom/ymca/img/map_icon_blue.png
-  geid: null
-  personify_brcode: null
-  shadow: themes/custom/ymca/img/map_shadow.png
-  'HRS Mon-Fri': '8:00 a.m. - 5:00 p.m.'
-  'HRS Sat-Sun': Closed
--
   name: 'West St. Paul'
   address1: '150 Thompson Avenue East'
   address2: null
@@ -413,7 +431,7 @@
   'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
   'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
 -
-  name: 'White Bear Lake'
+  name: 'White Bear Area'
   address1: '2100 Orchard Lane'
   address2: null
   city: 'White Bear Area'

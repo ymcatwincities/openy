@@ -10,6 +10,8 @@ namespace Drupal\system\Tests\Entity;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\entity_test\Entity\EntityTestMulRev;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
@@ -369,6 +371,10 @@ class EntityTranslationTest extends EntityLanguageTestBase {
     // Save the translation and check that the expected hooks are fired.
     $translation->save();
     $hooks = $this->getHooksInfo();
+
+    $this->assertEqual($hooks['entity_translation_create'], $langcode, 'The generic entity translation creation hook has fired.');
+    $this->assertEqual($hooks[$entity_type . '_translation_create'], $langcode, 'The entity-type-specific entity translation creation hook has fired.');
+
     $this->assertEqual($hooks['entity_translation_insert'], $langcode, 'The generic entity translation insertion hook has fired.');
     $this->assertEqual($hooks[$entity_type . '_translation_insert'], $langcode, 'The entity-type-specific entity translation insertion hook has fired.');
 
@@ -434,6 +440,10 @@ class EntityTranslationTest extends EntityLanguageTestBase {
     $this->assertEqual($entity->language()->getId(), $default_langcode, 'The original language has been preserved.');
     $translation->save();
     $hooks = $this->getHooksInfo();
+
+    $this->assertEqual($hooks['entity_translation_create'], $langcode2, 'The generic entity translation creation hook has fired.');
+    $this->assertEqual($hooks[$entity_type . '_translation_create'], $langcode2, 'The entity-type-specific entity translation creation hook has fired.');
+
     $this->assertEqual($hooks['entity_translation_insert'], $langcode2, 'The generic entity translation insertion hook has fired.');
     $this->assertEqual($hooks[$entity_type . '_translation_insert'], $langcode2, 'The entity-type-specific entity translation insertion hook has fired.');
 
@@ -481,7 +491,13 @@ class EntityTranslationTest extends EntityLanguageTestBase {
     $entity->removeTranslation($langcode2);
     $entity->save();
     $hooks = $this->getHooksInfo();
-    $this->assertFalse($hooks, 'No hooks are run when adding and removing a translation without storing it.');
+
+    $this->assertTrue(isset($hooks['entity_translation_create']), 'The generic entity translation creation hook is run when adding and removing a translation without storing it.');
+    unset($hooks['entity_translation_create']);
+    $this->assertTrue(isset($hooks[$entity_type . '_translation_create']), 'The entity-type-specific entity translation creation hook is run when adding and removing a translation without storing it.');
+    unset($hooks[$entity_type . '_translation_create']);
+
+    $this->assertFalse($hooks, 'No other hooks beyond the entity translation creation hooks are run when adding and removing a translation without storing it.');
 
     // Check that hooks are fired only when actually storing data.
     $entity = $this->reloadEntity($entity);
@@ -552,6 +568,9 @@ class EntityTranslationTest extends EntityLanguageTestBase {
     );
     $this->assertEqual($translation->description->getValue(), $expected, 'Language-aware default values correctly populated.');
     $this->assertEqual($translation->description->getLangcode(), $langcode2, 'Field object has the expected langcode.');
+
+    // Reset hook firing information.
+    $this->getHooksInfo();
   }
 
   /**
@@ -808,6 +827,99 @@ class EntityTranslationTest extends EntityLanguageTestBase {
         }
       }
     }
+  }
+
+  /**
+   * Tests if entity translation statuses are correct after removing two
+   * translation.
+   */
+  public function testDeleteEntityTranslation() {
+    $entity_type = 'entity_test_mul';
+    $controller = $this->entityManager->getStorage($entity_type);
+
+    // Create a translatable test field.
+    $field_storage = FieldStorageConfig::create([
+      'entity_type' => $entity_type,
+      'field_name' => 'translatable_test_field',
+      'type' => 'field_test',
+    ]);
+    $field_storage->save();
+
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'label' => $this->randomMachineName(),
+      'bundle' => $entity_type,
+    ]);
+    $field->save();
+
+    // Create an untranslatable test field.
+    $field_storage = FieldStorageConfig::create([
+      'entity_type' => $entity_type,
+      'field_name' => 'untranslatable_test_field',
+      'type' => 'field_test',
+      'translatable' => FALSE,
+    ]);
+    $field_storage->save();
+
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'label' => $this->randomMachineName(),
+      'bundle' => $entity_type,
+    ]);
+    $field->save();
+
+    // Create an entity with both translatable and untranslatable test fields.
+    $values = array(
+      'name' => $this->randomString(),
+      'translatable_test_field' => $this->randomString(),
+      'untranslatable_test_field' => $this->randomString(),
+    );
+
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+    $entity = $controller->create($values);
+
+    foreach ($this->langcodes as $langcode) {
+      $entity->addTranslation($langcode, $values);
+    }
+    $entity->save();
+
+    // Assert there are no deleted languages in the lists yet.
+    $this->assertNull(\Drupal::state()->get('entity_test.delete.translatable_test_field'));
+    $this->assertNull(\Drupal::state()->get('entity_test.delete.untranslatable_test_field'));
+
+    // Remove the second and third langcodes from the entity.
+    $entity->removeTranslation('l1');
+    $entity->removeTranslation('l2');
+    $entity->save();
+
+    // Ensure that for the translatable test field the second and third
+    // langcodes are in the deleted languages list.
+    $actual = \Drupal::state()->get('entity_test.delete.translatable_test_field');
+    $expected_translatable = ['l1', 'l2'];
+    sort($actual);
+    sort($expected_translatable);
+    $this->assertEqual($actual, $expected_translatable);
+    // Ensure that the untranslatable test field is untouched.
+    $this->assertNull(\Drupal::state()->get('entity_test.delete.untranslatable_test_field'));
+
+    // Delete the entity, which removes all remaining translations.
+    $entity->delete();
+
+    // All languages have been deleted now.
+    $actual = \Drupal::state()->get('entity_test.delete.translatable_test_field');
+    $expected_translatable[] = 'en';
+    $expected_translatable[] = 'l0';
+    sort($actual);
+    sort($expected_translatable);
+    $this->assertEqual($actual, $expected_translatable);
+
+    // The untranslatable field is shared and only deleted once, for the
+    // default langcode.
+    $actual = \Drupal::state()->get('entity_test.delete.untranslatable_test_field');
+    $expected_untranslatable = ['en'];
+    sort($actual);
+    sort($expected_untranslatable);
+    $this->assertEqual($actual, $expected_untranslatable);
   }
 
 }

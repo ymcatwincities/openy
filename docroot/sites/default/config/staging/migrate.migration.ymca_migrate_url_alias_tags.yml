@@ -1,5 +1,5 @@
 id: ymca_migrate_url_alias_tags
-label: URL aliases
+label: 'URL aliases'
 migration_group: ymca
 migration_tags:
   - taxonomy_term
@@ -35,7 +35,7 @@ process:
     plugin: concat
     source:
       - constants/prefix
-      - @term_id
+      - '@term_id'
   alias: alias
   langcode:
     plugin: default_value
@@ -45,4 +45,3 @@ destination:
 migration_dependencies:
   required:
     - ymca_migrate_taxonomy_term_tags
-    

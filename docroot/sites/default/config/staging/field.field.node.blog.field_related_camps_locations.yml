@@ -1,0 +1,28 @@
+uuid: 76621f04-07fb-4713-b500-edb33c44af04
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_camps_locations
+    - node.type.blog
+    - node.type.camp
+    - node.type.location
+id: node.blog.field_related_camps_locations
+field_name: field_related_camps_locations
+entity_type: node
+bundle: blog
+label: 'Related Camps & Locations'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      camp: camp
+      location: location
+    sort:
+      field: _none
+field_type: entity_reference

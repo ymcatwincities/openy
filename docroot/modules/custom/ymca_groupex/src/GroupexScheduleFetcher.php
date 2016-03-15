@@ -3,6 +3,7 @@
 namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Url;
 
 /**
  * Fetches and prepares Groupex data.
@@ -67,9 +68,7 @@ class GroupexScheduleFetcher {
    */
   public function __construct() {
     $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
-    $parameters = \Drupal::request()->query->all();
-
-    $this->prepareParameters($parameters);
+    $this->parameters = self::normalizeParameters(\Drupal::request()->query->all());
     $this->getData();
     $this->enrichData();
     $this->filterData();
@@ -89,6 +88,8 @@ class GroupexScheduleFetcher {
     if ($this->schedule) {
       return $this->schedule;
     }
+
+    $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
 
     // Prepare classes items.
     $items = [];
@@ -118,7 +119,7 @@ class GroupexScheduleFetcher {
     // Week: show classes for week grouped by day.
     // Location: show classes for 1 day grouped by location.
     $schedule['type'] = $this->parameters['filter_length'];
-    if (count($this->parameters['location']) > 1) {
+    if (!empty($this->parameters['location']) && count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
     }
 
@@ -127,13 +128,19 @@ class GroupexScheduleFetcher {
         $schedule['classes'] = [];
         foreach ($items as $id => $class) {
           $schedule['classes'][] = $class;
-          // Pass location's title.
           $schedule['title'] = trim($this->enrichedData[$id]->location);
         }
-        // Pass 'View This Week’s PDF' href.
-        $l = array_shift($this->parameters['location']);
-        $t = $this->parameters['filter_timestamp'];
-        $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+        // Pass 'View This Week’s PDF' href if some location selected.
+        if (!empty($this->parameters['location'])) {
+          $location_id = reset($this->parameters['location']);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+        }
+
+        // If no location selected show date instead of title.
+        if (empty($this->parameters['location'])) {
+          $schedule['title'] = $filter_date->format(GroupexRequestTrait::$dateFullFormat);
+        }
         break;
 
       case 'week':
@@ -141,33 +148,40 @@ class GroupexScheduleFetcher {
         foreach ($items as $id => $class) {
           $schedule['days'][$this->enrichedData[$id]->day][] = $class;
         }
-        // Pass 'View This Week’s PDF' href.
-        $l = array_shift($this->parameters['location']);
-        $t = $this->parameters['filter_timestamp'];
-        $schedule['pdf_href'] = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+        // Pass 'View This Week’s PDF' href if some location selected.
+        if (!empty($this->parameters['location'])) {
+          $location = reset($this->parameters['location']);
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = self::getPdfLink($location, $this->parameters['filter_timestamp'], $category);
+        }
+
+        // If no location selected show date instead of title.
+        if (empty($this->parameters['location'])) {
+          $schedule['day'] = $filter_date->format(GroupexRequestTrait::$dateFullFormat);
+        }
         break;
 
       case 'location':
         $schedule['locations'] = [];
-        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations_short');
+        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+        $location_id = NULL;
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {
             if ($location['name'] == $short_location_name) {
-              $l = $location['id'];
+              $location_id = $location['geid'];
             }
           }
-          $t = $this->parameters['filter_timestamp'];
-          $pdf_href = 'http://www.groupexpro.com/ymcatwincities/print.php?font=larger&amp;account=3&amp;l=' . $l . '&amp;c=category&amp;week=' . $t;
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $pdf_href = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
-        $schedule['filter_date'] = date('l, F j, Y', $this->parameters['filter_timestamp']);
+        $schedule['filter_date'] = date(GroupexRequestTrait::$dateFullFormat, $this->parameters['filter_timestamp']);
         break;
     }
 
     $this->schedule = $schedule;
-
     return $this->schedule;
   }
 
@@ -197,9 +211,13 @@ class GroupexScheduleFetcher {
       'query' => [
         'schedule' => TRUE,
         'desc' => 'true',
-        'location' => array_filter($this->parameters['location']),
       ],
     ];
+
+    // Location is optional.
+    if (!empty($this->parameters['location'])) {
+      $options['query']['location'] = array_filter($this->parameters['location']);
+    }
 
     // Category is optional.
     if ($this->parameters['category'] !== 'any') {
@@ -317,18 +335,33 @@ class GroupexScheduleFetcher {
       // Get current day.
       $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
       $current_day = $date->format('N');
+      $current_date = $date->format('j');
 
       // Search for the day equals current.
       foreach ($data as &$item) {
         $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
+        if ($current_date == $item_date->format('j')) {
+          unset($item);
+          continue;
+        }
+
         if ($current_day == $item_date->format('N')) {
           // Set proper data.
           $item_date->sub(new \DateInterval('P7D'));
-          $full_date = $item_date->format('l, F j, Y');
+          $full_date = $item_date->format(GroupexRequestTrait::$dateFullFormat);
           $item->date = $full_date;
           $item->day = $full_date;
           $item->timestamp = $item_date->format('U');
         }
+
+      }
+    }
+
+    // Replace <span class="subbed"> with normal text.
+    foreach ($data as &$item) {
+      preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->address_1, $test);
+      if (!empty($test)) {
+        $item->address_1 = str_replace($test[0], ' ' . $test[1], $item->address_1);
       }
     }
 
@@ -336,24 +369,50 @@ class GroupexScheduleFetcher {
   }
 
   /**
-   * Process parameters.
+   * Normalize parameters.
    *
    * @param array $parameters
    *   Input parameters.
+   *
+   * @return array
+   *   Normalized parameters.
    */
-  private function prepareParameters($parameters) {
-    $this->parameters = $parameters;
+  static public function normalizeParameters($parameters) {
+    $normalized = $parameters;
+
+    $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
 
     // The old site has a habit to provide empty filter_date. Fix it here.
-    if (empty($this->parameters['filter_date'])) {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone);
-      $this->parameters['filter_date'] = $date->format(self::$dateFilterFormat);
+    if (empty($normalized['filter_date'])) {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
     }
 
-    // Set timestamp.
-    $date = DrupalDateTime::createFromFormat(self::$dateFilterFormat, $this->parameters['filter_date'], $this->timezone);
-    $date->setTime(0, 0, 0);
-    $this->parameters['filter_timestamp'] = $date->getTimestamp();
+    // Convert date parameter to timestamp.
+    // Date parameter can by with leading zero or not.
+    $origin_dtz = new \DateTimeZone(date_default_timezone_get());
+    $remote_dtz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+    $origin_dt = new \DateTime('now', $origin_dtz);
+    $remote_dt = new \DateTime('now', $remote_dtz);
+    $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
+
+    // Add offset. Function strtotime() uses default timezone.
+    if ($timestamp = strtotime($normalized['filter_date'])) {
+      $timestamp += $offset;
+    }
+    else {
+      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      $timestamp = $date->format('U');
+    }
+
+    // Add timestamp.
+    $normalized['filter_timestamp'] = $timestamp;
+
+    // Finally, normalize filter_date.
+    $date = DrupalDateTime::createFromTimestamp($normalized['filter_timestamp'], $timezone);
+    $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
+
+    return $normalized;
   }
 
   /**
@@ -364,6 +423,39 @@ class GroupexScheduleFetcher {
    */
   public function isEmpty() {
     return empty($this->rawData);
+  }
+
+  /**
+   * Get PDF link to location schedule.
+   *
+   * @param int $location
+   *   Location ID.
+   * @param int $timestamp
+   *   Timestamp.
+   * @param int $category
+   *   Category.
+   *
+   * @return \Drupal\Core\Url
+   *   Link.
+   */
+  static public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
+    $uri = 'http://www.groupexpro.com/ymcatwincities/print.php';
+
+    $query = [
+      'font' => 'larger',
+      'account' => GroupexRequestTrait::$account,
+      'l' => $location,
+    ];
+
+    if ($timestamp) {
+      $query['week'] = $timestamp;
+    }
+
+    if ($category) {
+      $query['c'] = $category;
+    }
+
+    return Url::fromUri($uri, ['query' => $query]);
   }
 
 }

@@ -30,7 +30,7 @@ class BookTest extends WebTestBase {
   /**
    * A book node.
    *
-   * @var object
+   * @var \Drupal\node\NodeInterface
    */
   protected $book;
 
@@ -77,11 +77,13 @@ class BookTest extends WebTestBase {
     $this->bookAuthor = $this->drupalCreateUser(array('create new books', 'create book content', 'edit own book content', 'add content to books'));
     $this->webUser = $this->drupalCreateUser(array('access printer-friendly version', 'node test view'));
     $this->webUserWithoutNodeAccess = $this->drupalCreateUser(array('access printer-friendly version'));
-    $this->adminUser = $this->drupalCreateUser(array('create new books', 'create book content', 'edit own book content', 'add content to books', 'administer blocks', 'administer permissions', 'administer book outlines', 'node test view', 'administer content types', 'administer site configuration'));
+    $this->adminUser = $this->drupalCreateUser(array('create new books', 'create book content', 'edit any book content', 'delete any book content', 'add content to books', 'administer blocks', 'administer permissions', 'administer book outlines', 'node test view', 'administer content types', 'administer site configuration'));
   }
 
   /**
    * Creates a new book with a page hierarchy.
+   *
+   * @return \Drupal\node\NodeInterface[]
    */
   function createBook() {
     // Create new book.
@@ -338,6 +340,9 @@ class BookTest extends WebTestBase {
    *   A book node ID or set to 'new' to create a new book.
    * @param int|null $parent
    *   (optional) Parent book reference ID. Defaults to NULL.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The created node.
    */
   function createBookNode($book_nid, $parent = NULL) {
     // $number does not use drupal_static as it should not be reset
@@ -439,6 +444,60 @@ class BookTest extends WebTestBase {
   }
 
   /**
+   * Tests BookManager::getTableOfContents().
+   */
+  public function testGetTableOfContents() {
+    // Create new book.
+    $nodes = $this->createBook();
+    $book = $this->book;
+
+    $this->drupalLogin($this->bookAuthor);
+
+    /*
+     * Add Node 5 under Node 2.
+     * Add Node 6, 7, 8, 9, 10, 11 under Node 3.
+     * Book
+     *  |- Node 0
+     *   |- Node 1
+     *   |- Node 2
+     *    |- Node 5
+     *  |- Node 3
+     *   |- Node 6
+     *    |- Node 7
+     *     |- Node 8
+     *      |- Node 9
+     *       |- Node 10
+     *        |- Node 11
+     *  |- Node 4
+     */
+    foreach ([5 => 2, 6 => 3, 7 => 6, 8 => 7, 9 => 8, 10 => 9, 11 => 10] as $child => $parent) {
+      $nodes[$child] = $this->createBookNode($book->id(), $nodes[$parent]->id());
+    }
+    $this->drupalGet($nodes[0]->toUrl('edit-form'));
+    // Snice Node 0 has children 2 levels deep, nodes 10 and 11 should not
+    // appear in the selector.
+    $this->assertNoOption('edit-book-pid', $nodes[10]->id());
+    $this->assertNoOption('edit-book-pid', $nodes[11]->id());
+    // Node 9 should be available as an option.
+    $this->assertOption('edit-book-pid', $nodes[9]->id());
+
+    // Get a shallow set of options.
+    /** @var \Drupal\book\BookManagerInterface $manager */
+    $manager = $this->container->get('book.manager');
+    $options = $manager->getTableOfContents($book->id(), 3);
+    $expected_nids = [$book->id(), $nodes[0]->id(), $nodes[1]->id(), $nodes[2]->id(), $nodes[3]->id(), $nodes[6]->id(), $nodes[4]->id()];
+    $this->assertEqual(count($options), count($expected_nids));
+    $diff = array_diff($expected_nids, array_keys($options));
+    $this->assertTrue(empty($diff), 'Found all expected option keys');
+    // Exclude Node 3.
+    $options = $manager->getTableOfContents($book->id(), 3, array($nodes[3]->id()));
+    $expected_nids = array($book->id(), $nodes[0]->id(), $nodes[1]->id(), $nodes[2]->id(), $nodes[4]->id());
+    $this->assertEqual(count($options), count($expected_nids));
+    $diff = array_diff($expected_nids, array_keys($options));
+    $this->assertTrue(empty($diff), 'Found all expected option keys after excluding Node 3');
+  }
+
+  /**
    * Tests the book navigation block when an access module is installed.
    */
   function testNavigationBlockOnAccessModuleInstalled() {
@@ -495,6 +554,25 @@ class BookTest extends WebTestBase {
      $node_storage->resetCache(array($this->book->id()));
      $node = $node_storage->load($this->book->id());
      $this->assertTrue(empty($node->book), 'Deleting childless top-level book node properly allowed.');
+
+     // Tests directly deleting a book parent.
+     $nodes = $this->createBook();
+     $this->drupalLogin($this->adminUser);
+     $this->drupalGet($this->book->urlInfo('delete-form'));
+     $this->assertRaw(t('%title is part of a book outline, and has associated child pages. If you proceed with deletion, the child pages will be relocated automatically.', ['%title' => $this->book->label()]));
+     // Delete parent, and visit a child page.
+     $this->drupalPostForm($this->book->urlInfo('delete-form'), [], t('Delete'));
+     $this->drupalGet($nodes[0]->urlInfo());
+     $this->assertResponse(200);
+     $this->assertText($nodes[0]->label());
+     // The book parents should be updated.
+     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+     $node_storage->resetCache();
+     $child = $node_storage->load($nodes[0]->id());
+     $this->assertEqual($child->id(), $child->book['bid'], 'Child node book ID updated when parent is deleted.');
+     // 3rd-level children should now be 2nd-level.
+     $second = $node_storage->load($nodes[1]->id());
+     $this->assertEqual($child->id(), $second->book['bid'], '3rd-level child node is now second level when top-level node is deleted.');
    }
 
   /**
@@ -540,6 +618,7 @@ class BookTest extends WebTestBase {
     $this->drupalGet('node/' . $empty_book->id() . '/outline');
     $this->assertRaw(t('Book outline'));
     $this->assertOptionSelected('edit-book-bid', 0, 'Node does not belong to a book');
+    $this->assertNoLink(t('Remove from book outline'));
 
     $edit = array();
     $edit['book[bid]'] = '1';
@@ -559,6 +638,8 @@ class BookTest extends WebTestBase {
     $this->drupalLogin($this->adminUser);
     $this->drupalGet('node/' . $book->id() . '/outline');
     $this->assertRaw(t('Book outline'));
+    $this->clickLink(t('Remove from book outline'));
+    $this->assertRaw(t('Are you sure you want to remove %title from the book hierarchy?', array('%title' => $book->label())));
 
     // Create a new node and set the book after the node was created.
     $node = $this->drupalCreateNode(array('type' => 'book'));

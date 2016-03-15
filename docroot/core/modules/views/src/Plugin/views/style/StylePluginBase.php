@@ -134,6 +134,9 @@ abstract class StylePluginBase extends PluginBase {
 
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function destroy() {
     parent::destroy();
 
@@ -255,6 +258,9 @@ abstract class StylePluginBase extends PluginBase {
     return !empty($this->definition['even empty']);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function defineOptions() {
     $options = parent::defineOptions();
     $options['grouping'] = array('default' => array());
@@ -267,6 +273,9 @@ abstract class StylePluginBase extends PluginBase {
     return $options;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
     // Only fields-based views can handle grouping.  Style plugins can also exclude
@@ -358,6 +367,9 @@ abstract class StylePluginBase extends PluginBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validateOptionsForm(&$form, FormStateInterface $form_state) {
     // Don't run validation on style plugins without the grouping setting.
     if ($form_state->hasValue(array('style_options', 'grouping'))) {
@@ -470,9 +482,17 @@ abstract class StylePluginBase extends PluginBase {
    * grouping.
    *
    * @param $sets
-   *   Array containing the grouping sets to render.
+   *   An array keyed by group content containing the grouping sets to render.
+   *   Each set contains the following associative array:
+   *   - group: The group content.
+   *   - level: The hierarchical level of the grouping.
+   *   - rows: The result rows to be rendered in this group..
    * @param $level
-   *   Integer indicating the hierarchical level of the grouping.
+   *   (deprecated) This is no longer used and will be removed in Drupal 9. The
+   *   'level' key in $sets is used to indicate the hierarchical level of the
+   *   grouping.
+   *
+   * @todo Remove the $level parameter in https://www.drupal.org/node/2633890.
    *
    * @return string
    *   Rendered output of given grouping sets.
@@ -481,16 +501,16 @@ abstract class StylePluginBase extends PluginBase {
     $output = array();
     $theme_functions = $this->view->buildThemeFunctions($this->groupingTheme);
     foreach ($sets as $set) {
+      $level = isset($set['level']) ? $set['level'] : 0;
+
       $row = reset($set['rows']);
       // Render as a grouping set.
       if (is_array($row) && isset($row['group'])) {
-        $output[] = array(
+        $single_output = array(
           '#theme' => $theme_functions,
           '#view' => $this->view,
           '#grouping' => $this->options['grouping'][$level],
-          '#grouping_level' => $level,
           '#rows' => $set['rows'],
-          '#title' => $set['group'],
         );
       }
       // Render as a record set.
@@ -503,10 +523,11 @@ abstract class StylePluginBase extends PluginBase {
         }
 
         $single_output = $this->renderRowGroup($set['rows']);
-        $single_output['#grouping_level'] = $level;
-        $single_output['#title'] = $set['group'];
-        $output[] = $single_output;
       }
+
+      $single_output['#grouping_level'] = $level;
+      $single_output['#title'] = $set['group'];
+      $output[] = $single_output;
     }
     unset($this->view->row_index);
     return $output;
@@ -534,9 +555,11 @@ abstract class StylePluginBase extends PluginBase {
    *   array(
    *     'grouping_field_1:grouping_1' => array(
    *       'group' => 'grouping_field_1:content_1',
+   *       'level' => 0,
    *       'rows' => array(
    *         'grouping_field_2:grouping_a' => array(
    *           'group' => 'grouping_field_2:content_a',
+   *           'level' => 1,
    *           'rows' => array(
    *             $row_index_1 => $row_1,
    *             $row_index_2 => $row_2,
@@ -568,7 +591,7 @@ abstract class StylePluginBase extends PluginBase {
         // hierarchically positioned set where the current row belongs to.
         // While iterating, parent groups, that do not exist yet, are added.
         $set = &$sets;
-        foreach ($groupings as $info) {
+        foreach ($groupings as $level => $info) {
           $field = $info['field'];
           $rendered = isset($info['rendered']) ? $info['rendered'] : $group_rendered;
           $rendered_strip = isset($info['rendered_strip']) ? $info['rendered_strip'] : FALSE;
@@ -601,6 +624,7 @@ abstract class StylePluginBase extends PluginBase {
           // Create the group if it does not exist yet.
           if (empty($set[$grouping])) {
             $set[$grouping]['group'] = $group_content;
+            $set[$grouping]['level'] = $level;
             $set[$grouping]['rows'] = array();
           }
 
@@ -783,6 +807,9 @@ abstract class StylePluginBase extends PluginBase {
     return $value;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validate() {
     $errors = parent::validate();
 
@@ -801,6 +828,9 @@ abstract class StylePluginBase extends PluginBase {
     return $errors;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function query() {
     parent::query();
     if (isset($this->view->rowPlugin)) {

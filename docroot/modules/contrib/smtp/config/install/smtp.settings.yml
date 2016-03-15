@@ -1,0 +1,13 @@
+smtp_on: false
+smtp_host: ''
+smtp_hostbackup: ''
+smtp_port: ''
+smtp_protocol: ''
+smtp_username: ''
+smtp_password: ''
+smtp_from: ''
+smtp_fromname: ''
+smtp_allowhtml: ''
+smtp_test_address: ''
+smtp_debugging: false
+prev_mail_system: 'php_mail'

@@ -1062,10 +1062,13 @@ function system_rebuild_module_data() {
 
 /**
  * Returns an array of default theme features.
+ *
+ * @see \Drupal\Core\Extension\ThemeHandler::$defaultFeatures
  */
 function _system_default_theme_features() {
   return array(
     'favicon',
+    'logo',
     'node_user_picture',
     'comment_user_picture',
     'comment_user_verification',
@@ -1163,9 +1166,9 @@ function system_default_region($theme) {
  * for the user by \Drupal\system\Controller\SystemController::compactPage().
  *
  * If the user does not have the cookie, the default value is given by the
- * system variable 'admin_compact_mode', which itself defaults to FALSE. This
- * does not have a user interface to set it: it is a hidden variable which can
- * be set in the settings.php file.
+ * configuration variable 'system.site.admin_compact_mode', which itself
+ * defaults to FALSE. This does not have a user interface to set it: it is a
+ * hidden variable which can be set in the settings.php file.
  *
  * @return bool
  *   TRUE when in compact mode, FALSE when in expanded mode.
@@ -1409,22 +1412,24 @@ function system_block_view_system_main_block_alter(array &$build, BlockPluginInt
 /**
  * Implements hook_path_update().
  */
-function system_path_update() {
-  \Drupal::service('path.alias_manager')->cacheClear();
+function system_path_update($path) {
+  $alias_manager = \Drupal::service('path.alias_manager');
+  $alias_manager->cacheClear($path['source']);
+  $alias_manager->cacheClear($path['original']['source']);
 }
 
 /**
  * Implements hook_path_insert().
  */
-function system_path_insert() {
-  \Drupal::service('path.alias_manager')->cacheClear();
+function system_path_insert($path) {
+  \Drupal::service('path.alias_manager')->cacheClear($path['source']);
 }
 
 /**
  * Implements hook_path_delete().
  */
 function system_path_delete($path) {
-  \Drupal::service('path.alias_manager')->cacheClear();
+  \Drupal::service('path.alias_manager')->cacheClear($path['source']);
 }
 
 /**

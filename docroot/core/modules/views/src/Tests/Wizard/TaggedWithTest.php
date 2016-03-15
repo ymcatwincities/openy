@@ -41,14 +41,14 @@ class TaggedWithTest extends WizardTestBase {
   protected $nodeTypeWithoutTags;
 
   /**
-   * Node type without an autocomplete tagging field.
+   * The vocabulary used for the test tag field.
    *
    * @var \Drupal\taxonomy\VocabularyInterface
    */
   protected $tagVocabulary;
 
   /**
-   * Node type without an autocomplete tagging field.
+   * Holds the field storage for test tag field.
    *
    * @var \Drupal\field\FieldStorageConfigInterface
    */
@@ -77,7 +77,7 @@ class TaggedWithTest extends WizardTestBase {
     $this->nodeTypeWithoutTags = $this->drupalCreateContentType();
 
     // Create the vocabulary for the tag field.
-    $this->tagVocabulary = entity_create('taxonomy_vocabulary',  array(
+    $this->tagVocabulary = entity_create('taxonomy_vocabulary', array(
       'name' => 'Views testing tags',
       'vid' => 'views_testing_tags',
     ));
