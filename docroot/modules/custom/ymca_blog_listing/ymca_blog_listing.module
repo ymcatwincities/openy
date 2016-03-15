@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Component\Utility\Unicode;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ymca_blog_listing_preprocess_node(&$variables) {
+  // Add list News & Events items to camps and locations.
+  $node = $variables['node'];
+  $bundles = ['location', 'camp'];
+  if (in_array($node->bundle(), $bundles)) {
+    $ids = [];
+
+    try {
+      if ($node->bundle() == 'location') {
+        // Load referenced ids to current location.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('field_site_section.target_id', $node->id())
+          ->condition('status', 1)
+          ->sort('created', 'DESC')
+          ->range(0, 2);
+        $ids = $query->execute();
+      }
+      else {
+        // Day camp news have the highest priority.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('status', 1)
+          ->condition('field_related_camps_locations.target_id', $node->id())
+          ->sort('created', 'DESC')
+          ->range(0, 2);
+        $ids = $query->execute();
+
+        if (count($ids) < 2) {
+          $query = \Drupal::entityQuery('node')
+            ->condition('type', 'blog')
+            ->condition('status', 1)
+            ->condition('field_site_section.target_id', $node->id())
+            ->sort('created', 'DESC')
+            ->range(0, 2 - count($ids));
+          $ids = $query->execute();
+        }
+      }
+
+      // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
+      if (count($ids) < 2 && $node->field_include_general_blog_posts->value) {
+        // Load all ids of Blog Post CT that are not related to any site section.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->notExists('field_site_section')
+          ->condition('status', 1)
+          ->sort('created', 'DESC')
+          ->range(0, 2 - count($ids));
+        $all_ids = $query->execute();
+        // Append general blog posts ids to already fetched ids.
+        foreach ($all_ids as $nid) {
+          $ids[] = $nid;
+        }
+      }
+    }
+    catch (Exception $e) {
+      watchdog_exception('theme', $e);
+    }
+
+    // Load nodes and build output array.
+    $items = [];
+    $nodes = \Drupal::getContainer()->get('entity.manager')->getStorage('node')->loadMultiple($ids);
+    foreach ($nodes as $nid => $n) {
+      $node_url = Drupal\Core\Url::fromUri('entity:node/' . $nid);
+      $items[] = array(
+        'title' => new \Drupal\Core\Link($n->getTitle(), $node_url),
+        'text' =>  Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
+        'read_more_url' => $node_url,
+      );
+    }
+    $variables['news_events'] = $items;
+  }
+}
