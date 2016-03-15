@@ -3,6 +3,7 @@
 namespace Drupal\ymca_groupex\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
 /**
  * Implements Groupex Full Refine Form.
@@ -26,7 +27,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
     $args = func_get_args();
     if (isset($args[2])) {
       $refine = TRUE;
-      $params = $args[2];
+      $params = GroupexScheduleFetcher::normalizeParameters($args[2]);
     }
 
     $form = parent::buildForm($form, $form_state, $params);
@@ -37,7 +38,7 @@ class GroupexFormFullRefine extends GroupexFormBase {
       '#title' => $this->t('Location'),
       '#title_extra' => $this->t('(optional—select up to 4)'),
       '#weight' => -100,
-      '#default_value' => $refine ? $params['location'] : [],
+      '#default_value' => ($refine && !empty($params['location'])) ? $params['location'] : [],
     ];
 
     return $form;

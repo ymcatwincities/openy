@@ -1,0 +1,65 @@
+uuid: 65cc7bae-dc00-4ec4-874e-7868cc06cac3
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.field.contact_message.contact_water_safety.field_comments
+    - field.field.contact_message.contact_water_safety.field_email_address
+    - field.field.contact_message.contact_water_safety.field_first_name
+    - field.field.contact_message.contact_water_safety.field_label
+    - field.field.contact_message.contact_water_safety.field_last_name
+    - field.field.contact_message.contact_water_safety.field_response_required
+  module:
+    - webforms
+id: contact_message.contact_water_safety.default
+targetEntityType: contact_message
+bundle: contact_water_safety
+mode: default
+content:
+  field_comments:
+    type: string_textarea
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_email_address:
+    weight: 3
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_label:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_response_required:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+hidden:
+  copy: true
+  langcode: true
+  mail: true
+  message: true
+  name: true
+  subject: true

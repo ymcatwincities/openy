@@ -1,0 +1,4 @@
+theme: ymca
+defaults:
+  sender: SMTPMailSystem
+  formatter: mime_mail

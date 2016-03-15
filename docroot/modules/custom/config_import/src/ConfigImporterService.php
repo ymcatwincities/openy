@@ -4,6 +4,7 @@ namespace Drupal\config_import;
 
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Config\ConfigManagerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Implements Config Importer Service.
@@ -18,13 +19,21 @@ class ConfigImporterService {
   protected $configManager;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a new ConfigImporterService.
    *
    * @param \Drupal\Core\Config\ConfigManagerInterface $config_manager
    *   The config manager.
    */
-  public function __construct(ConfigManagerInterface $config_manager) {
+  public function __construct(ConfigManagerInterface $config_manager, ConfigFactoryInterface $config_factory) {
     $this->configManager = $config_manager;
+    $this->configFactory = $config_factory;
   }
 
   /**

@@ -25,27 +25,24 @@ class GroupexFormLocation extends GroupexFormBase {
     // Get current node.
     $node = \Drupal::routeMatch()->getParameter('node');
 
-    // Get location ID.
-    $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
-    $location_id = array_search(
-      $node->label(),
-      array_combine(
-        array_column($locations, 'id'),
-        array_column($locations, 'name')
-      ),
-      TRUE
-    );
+    $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+    $location_id = FALSE;
+    foreach ($mappings as $item) {
+      if ($item['entity_id'] == $node->id()) {
+        $location_id = $item['geid'];
+      }
+    }
 
     // Form should not be shown if there is no Location.
     if (!$location_id) {
       \Drupal::logger('ymca_groupex')->error("Location ID could not be found.");
       return [
-        '#markup' => $this->t('Sorry, search form is currently unavailable.'),
+        '#markup' => $this->t('Sorry, the search is not supported.'),
       ];
     }
 
     $form['note'] = [
-      '#markup' => $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.'),
+      '#markup' => '<p>' . $this->t('Search dates and times for drop-in classes (no registration required). Choose a specific category or time of day, or simply click through to view all.') . '</p>',
       '#weight' => -100,
     ];
 

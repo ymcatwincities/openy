@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Administrative interface for Purge.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function purge_ui_theme() {
+  return [
+    'purge_ui_dashboard' => [
+      'render element' => 'build',
+    ],
+  ];
+}

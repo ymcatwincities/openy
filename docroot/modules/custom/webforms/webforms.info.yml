@@ -6,4 +6,3 @@ package: Webforms
 dependencies:
   - views
   - contact
-  - contact_storage

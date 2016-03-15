@@ -5,6 +5,10 @@
  * Contains ymca_blocks.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Template\Attribute;
+
 /**
  * Implements hook_theme().
  */
@@ -37,6 +41,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
     ],
     'alert_block' => [
       'variables' => [
+        'title' => t('Special Alert'),
         'message' => NULL,
         'inner_attributes' => NULL,
       ],
@@ -48,7 +53,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
-function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
   switch ($entity->bundle()) {
     case 'date_block':
       \Drupal::service('dateslides.service')->viewAlter($build, $entity);
@@ -78,23 +83,27 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
 
     case 'promo_block':
       // Get path for promo block.
-      $url = $entity->field_link->get(0)->getUrl();
-      if ($url->isRouted()) {
-        $route = $url->getRouteName();
-        $params = $url->getRouteParameters();
-        $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+      if ($entity->field_link->get(0)) {
+        $url = $entity->field_link->get(0)->getUrl();
       }
-      else {
-        $path = $url->getUri();
-        $path = preg_replace('/^base:/', '', $path);
+      if (isset($url)) {
+        if ($url->isRouted()) {
+          $route = $url->getRouteName();
+          $params = $url->getRouteParameters();
+          $path = \Drupal::urlGenerator()->generateFromRoute($route, $params);
+        }
+        else {
+          $path = $url->getUri();
+          $path = preg_replace('/^base:/', '', $path);
+        }
       }
 
       $build['promo'] = array(
         '#theme' => 'promo_block',
-        '#header' => \Drupal\Component\Utility\Html::escape($entity->field_block_header->value),
+        '#header' => html_entity_decode($entity->field_block_header->value),
         '#content' => $build['field_block_content'],
         '#image' => $build['field_image'],
-        '#link' => $path,
+        '#link' => isset($path) ? $path : '',
         '#link_text' => $entity->field_link->title,
       );
 
@@ -111,7 +120,7 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
       $format = $field->get('format')->getString();
       $text = check_markup($value, $format);
 
-      $attributes = new \Drupal\Core\Template\Attribute();
+      $attributes = new Attribute();
       $attributes->addClass('richtext');
       $attributes->setAttribute('id', 'alert-block-' . $entity->id());
       $build['alert'] = array(
@@ -119,6 +128,14 @@ function ymca_blocks_block_content_view_alter(array &$build, Drupal\Core\Entity\
         '#message' => $text,
         '#inner_attributes' => $attributes,
       );
+
+      if ($entity->hasField('field_global_alert')) {
+        $is_global = $entity->get('field_global_alert');
+        $global_val = $is_global->getValue()[0]['value'];
+        if ($global_val == 1) {
+          $build['alert']['#title'] = t('Global Alert');
+        }
+      }
 
       hide($build['field_block_content']);
       break;

@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.blog
-    - system.menu.top-menu
     - taxonomy.vocabulary.tags
   content:
     - 'taxonomy_term:tags:3f810a1e-8a8e-45d4-8900-de6c71d99914'
@@ -344,7 +343,7 @@ display:
       display_extenders: {  }
       path: news/ymca_news_archive/%/%
       menu:
-        type: normal
+        type: none
         title: News
         description: ''
         expanded: false

@@ -1,0 +1,15 @@
+uuid: 0907dfdd-0441-48c2-a000-cf2293960052
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - node
+label: Node
+id: node
+type_id: entity
+type_settings:
+  entity_type: node
+  bundles: {  }
+  display_plugins: {  }
+icon_uuid: null

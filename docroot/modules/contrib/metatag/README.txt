@@ -14,6 +14,16 @@ LinkedIn, etc (see below).
 This version of the module only works with the v8.0.x releases of Drupal.
 
 
+Requirements
+--------------------------------------------------------------------------------
+Metatag for Drupal 8 requires the following:
+
+* Token
+  https://www.drupal.org/project/token
+  Provides a popup browser to see the available tokens for use in meta tag
+  fields.
+
+
 Features
 --------------------------------------------------------------------------------
 The primary features include:
@@ -36,9 +46,8 @@ The primary features include:
 
 Standard usage scenario
 --------------------------------------------------------------------------------
-
 1. Install the module.
-2. Open admin/structure/metatag_defaults.
+2. Open admin/config/search/metatag.
 3. Adjust global and entity defaults. Fill in reasonable default values for any
    of the meta tags that need to be customized. Tokens may be used to
    automatically assign values. If the Token module is enabled there will be a
@@ -59,6 +68,7 @@ Standard usage scenario
        enabled for this entity, select "Users may translate this field" to use
        Drupal's translation system.
 
+
 DrupalConsole integration
 --------------------------------------------------------------------------------
 Using the DrupalConsole, it is possible to generate new meta tags, either for
@@ -73,24 +83,14 @@ This will guide the site builder through the necessary steps to create a new
 meta tag plugin and add it to a module.
 
 
-Related modules
---------------------------------------------------------------------------------
-Some modules are available that extend Metatag with additional functionality:
-
-* Token
-  https://www.drupal.org/project/token
-  Provides a popup browser to see the available tokens for use in meta tag
-  fields.
-
-
 Credits / contact
 --------------------------------------------------------------------------------
 Currently maintained by Damien McKenna [2] and Dave Reid [3]. Drupal 7 module
 originally written by Dave Reid. Drupal 8 port by Damien McKenna and Michelle
 Cox [4], and sponsored by Mediacurrent [5], with contributions from Lee Rowlands
-[6], Rakesh James [7] and many others.
+[6], Rakesh James [7], Ivo Van Geertruyen [8], and many others.
 
-Ongoing development is sponsored by Mediacurrent and Palantir.net [8].
+Ongoing development is sponsored by Mediacurrent and Palantir.net [9].
 
 The best way to contact the authors is to submit an issue, be it a support
 request, a feature request or a bug report, in the project issue queue:
@@ -106,4 +106,5 @@ References
 5: http://www.mediacurrent.com/
 6: https://www.drupal.org/u/larowlan
 7: https://www.drupal.org/u/rakesh.gectcr
-8: http://www.palantir.net/
+8: https://www.drupal.org/u/mr.baileys
+9: http://www.palantir.net/

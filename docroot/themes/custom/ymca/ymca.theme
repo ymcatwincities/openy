@@ -6,7 +6,7 @@
  */
 
 define('SITE_SECTION_TARGET_TYPE', 'node');
-define('TERM_NEWS_TID', 6);
+define('TERM_TID_NEWS', 6);
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Unicode;
@@ -64,12 +64,19 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node && !in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
-    array_unshift($suggestions, 'page__node__' . $node->bundle());
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if (in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
+      array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
+    }
+    elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
+      array_push($suggestions, 'page__node__location_inner');
+    }
+    else {
+      array_unshift($suggestions, 'page__node__' . $node->bundle());
+    }
   }
   if (!\Drupal::service('path.matcher')->isFrontPage()) {
-    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+    if ($route_name == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
       $front_page = \Drupal::config('system.site')->get('page.front');
       if ($node->url() == $front_page) {
@@ -166,17 +173,6 @@ function ymca_preprocess_node(&$variables) {
     $variables['is_front'] = $variables['node']->url() == $front_page;
   }
 
-  // Handle alerts.
-  if ($variables['node']->hasField('field_alert')) {
-    if ($values = $variables['node']->field_alert->getValue()) {
-      if (!empty($values[0]['target_id'])) {
-        $id = $values[0]['target_id'];
-        $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($id);
-        \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
-      }
-    }
-  }
-
   // Passing slideshow to template.
   if ($variables['node']->hasField('field_promo_slideshow')) {
     /** @var \Drupal\node\Entity\Node $node */
@@ -211,29 +207,60 @@ function ymca_preprocess_node(&$variables) {
 
   // Location specific preprocessing.
   if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
-    // Load referenced ids to current location.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'blog')
-      ->condition('field_site_section.target_id', $variables['node']->id())
-      ->condition('status', 1)
-      ->sort('created', 'DESC')
-      ->range(0, 2);
-    $nids = $query->execute();
+    // Camps may also output special day_camp blog posts.
 
-    // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
-    if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
-      // Load all ids of Blog Post CT that are not related to any site section.
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'blog')
-        ->notExists('field_site_section')
-        ->condition('status', 1)
-        ->sort('created', 'DESC')
-        ->range(0, 2 - count($nids));
-      $all_nids = $query->execute();
-      // Append general blog posts ids to already fetched nids.
-      foreach ($all_nids as $nid) {
-        $nids[] = $nid;
+    $nids = [];
+
+    try {
+      if ($variables['node']->bundle() == 'location') {
+        // Load referenced ids to current location.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('field_site_section.target_id', $variables['node']->id())
+          ->condition('status', 1)
+          ->sort('created', 'DESC')
+          ->range(0, 2);
+        $nids = $query->execute();
       }
+      else {
+        // Day camp news have the highest priority.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->condition('status', 1)
+          ->condition('field_related_camps_locations.target_id', $variables['node']->id())
+          ->sort('created', 'DESC')
+          ->range(0, 2);
+        $nids = $query->execute();
+
+        if (count($nids) < 2) {
+          $query = \Drupal::entityQuery('node')
+            ->condition('type', 'blog')
+            ->condition('status', 1)
+            ->condition('field_site_section.target_id', $variables['node']->id())
+            ->sort('created', 'DESC')
+            ->range(0, 2 - count($nids));
+          $nids = $query->execute();
+        }
+      }
+
+      // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
+      if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
+        // Load all ids of Blog Post CT that are not related to any site section.
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->notExists('field_site_section')
+          ->condition('status', 1)
+          ->sort('created', 'DESC')
+          ->range(0, 2 - count($nids));
+        $all_nids = $query->execute();
+        // Append general blog posts ids to already fetched nids.
+        foreach ($all_nids as $nid) {
+          $nids[] = $nid;
+        }
+      }
+    }
+    catch (Exception $e) {
+      watchdog_exception('theme', $e);
     }
 
     $items = [];
@@ -269,7 +296,7 @@ function ymca_preprocess_node(&$variables) {
     $back_link_path = 'blog';
     if ($field_tags_value = $variables['node']->field_tags->getValue()) {
       foreach ($field_tags_value as $id) {
-        if ($id['target_id'] == TERM_NEWS_TID) {
+        if ($id['target_id'] == TERM_TID_NEWS) {
           $back_link_title = t('Back to News');
           $back_link_path = 'news';
         }
@@ -328,18 +355,26 @@ function ymca_preprocess_html(&$variables) {
       'theme_ymca_2013_location_primary_landing',
     ];
   }
-  elseif ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+  elseif ($current_route_name == 'ymca_membership.page') {
     $classes = [
-      'internal-template',
-      'ancestor-camps',
-      'theme_ymca_2013_camp_category_and_detail',
+      'landing-template',
+      'page_membership',
+      'theme_ymca_2015_blank_internal_with_nav',
     ];
   }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'camp':
-        if (isset($variables['node_type']) && $variables['node_type'] == 'camp') {
+        if ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+          $classes = [
+            'internal-template',
+            'ancestor-camps',
+            'page_news__events',
+            'theme_ymca_2013_camp_category_and_detail',
+          ];
+        }
+        elseif (isset($variables['node_type']) && $variables['node_type'] == 'camp') {
           // Camp itself.
           $classes = [
             'locations-camps-template',
@@ -358,8 +393,17 @@ function ymca_preprocess_html(&$variables) {
         break;
 
       case 'location':
+        // Locations News & Events page.
+        if ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+          $classes = [
+            'internal-template',
+            'ancestor-locations',
+            'page_news__events',
+            'theme_ymca_2013_location_category_and_detail',
+          ];
+        }
         // Location itself.
-        if (isset($variables['node_type']) && $variables['node_type'] == 'location') {
+        elseif (isset($variables['node_type']) && $variables['node_type'] == 'location') {
           $classes = [
             'locations-camps-template',
             'ancestor-locations',
@@ -368,7 +412,7 @@ function ymca_preprocess_html(&$variables) {
           ];
         }
         // Location schedule page.
-        elseif (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules') {
+        elseif ($current_route_name == 'ymca_frontend.location_schedules') {
           $classes = [
             'schedules-template',
             'ancestor-locations',
@@ -388,8 +432,31 @@ function ymca_preprocess_html(&$variables) {
         break;
     }
   }
-
   $variables['attributes']->addClass($classes);
+
+  $icon = 'favicon.ico';
+  if (
+    in_array('theme_ymca_2013_location_home', $classes) ||
+    in_array('theme_ymca_2013_location_category_and_detail', $classes)) {
+    $icon = 'favicon-locations.ico';
+  }
+  elseif (
+    in_array('theme_ymca_2013_camp_home', $classes) ||
+    in_array('theme_ymca_2013_camp_category_and_detail', $classes) ||
+    in_array('theme_ymca_2013_camp_primary_landing', $classes)) {
+    $icon = 'favicon-alt.ico';
+  }
+
+  $html_head_link = &$variables['page']['#attached']['html_head_link'];
+  foreach ($html_head_link as $key1 => &$value1) {
+    foreach ($value1 as $key2 => &$value2) {
+      if ($value2['rel'] == 'shortcut icon') {
+        $path = drupal_get_path('theme', 'ymca') . '/img/favicon/' . $icon;
+        $value2['href'] = Drupal\Core\Url::fromUri('base:' . $path)->toString();
+        break;
+      }
+    }
+  }
 }
 
 /**
@@ -397,9 +464,29 @@ function ymca_preprocess_html(&$variables) {
  */
 function ymca_preprocess_page(&$variables) {
   // Alerts on the page.
+  if (isset($variables['node']) && !($block = \Drupal::service('alerts.service')->getCurrentAlertBlock())) {
+    if ($variables['node']->hasField('field_alert')) {
+      if ($values = $variables['node']->field_alert->getValue()) {
+        if (!empty($values[0]['target_id'])) {
+          $id = $values[0]['target_id'];
+          $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($id);
+          if ($block) {
+            \Drupal::service('alerts.service')->setCurrentAlertBlock($block);
+          }
+        }
+      }
+    }
+  }
+  $blocks = [];
   if ($block = \Drupal::service('alerts.service')->getCurrentAlertBlock()) {
+    $blocks[] = $block;
+  }
+  if ($global_block = \Drupal::service('alerts.service')->getGlobalAlertBlock()) {
+    $blocks[] = $global_block;
+  }
+  if (!empty($blocks)) {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
-    $variables['page']['messages'] = $view_builder->view($block);
+    $variables['page']['messages'] = $view_builder->viewMultiple($blocks);
   }
 
   /** @var \Drupal\node\Entity\Node $site_section */
@@ -569,7 +656,7 @@ function ymca_get_archive_data($context) {
   if ($context == 'news') {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
-      ->condition('field_tags.target_id', TERM_NEWS_TID)
+      ->condition('field_tags.target_id', 6)
       ->condition('type', 'blog')
       ->sort('created', 'DESC');
     $url_key = '/news/ymca_news_archive/';
@@ -583,7 +670,7 @@ function ymca_get_archive_data($context) {
       ->sort('created', 'DESC');
     $query2 = \Drupal::entityQuery('node')
       ->condition('status', 1)
-      ->condition('field_tags.target_id', TERM_NEWS_TID, '<>')
+      ->condition('field_tags.target_id', TERM_TID_NEWS, '<>')
       ->condition('type', 'blog')
       ->sort('created', 'DESC');
     $blog_nids = $query1->execute();
@@ -632,6 +719,15 @@ function ymca_get_archive_data($context) {
   }
 
   return $data;
+}
+
+/**
+ * Implements hook_preprocess_node__blog__camp_blog_teaser().
+ */
+function ymca_preprocess_node__blog__camp_blog_teaser(&$vars) {
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $vars['page_title'] = $site_section->getTitle();
+  }
 }
 
 /**
@@ -958,19 +1054,4 @@ function ymca_prerender_datetime($element) {
   }
   $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
   return $element;
-}
-
-/**
- * Implements hook_preprocess_menu__top_menu().
- */
-function ymca_preprocess_menu__top_menu(&$variables) {
-  $current_path = \Drupal::service('path.current')->getPath();
-  $liveUrl = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
-  /* Set active link for top menu by comparing urls */
-  foreach ($variables['items'] as $key => $item) {
-    $url = $item['url']->toString();
-    if (strstr($liveUrl, $url) && $url !== base_path()) {
-      $variables['items'][$key]['in_active_trail'] = TRUE;
-    }
-  }
 }

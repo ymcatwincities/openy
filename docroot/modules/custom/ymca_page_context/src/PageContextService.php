@@ -2,6 +2,8 @@
 
 namespace Drupal\ymca_page_context;
 
+use Drupal\node\Entity\Node;
+
 /**
  * Controls in what context page header should be rendered.
  */
@@ -18,10 +20,10 @@ class PageContextService {
   /**
    * Overrides current context.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param Node $node
    *   Context node entity.
    */
-  public function setContext(\Drupal\node\Entity\Node $node) {
+  public function setContext(Node $node) {
     $this->context = $node;
   }
 
@@ -35,6 +37,15 @@ class PageContextService {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
       if (in_array($node->bundle(), ['camp', 'location'])) {
         return $node;
+      }
+      if ($node->hasField('field_related_camps_locations')) {
+        if ($values = $node->field_related_camps_locations->getValue()) {
+          foreach ($values as $value) {
+            if ($id = $value['target_id']) {
+              return \Drupal::entityTypeManager()->getStorage('node')->load($id);
+            }
+          }
+        }
       }
       if ($node->hasField('field_related')) {
         if ($value = $node->field_related->getValue()) {

@@ -77,7 +77,7 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
 
-      foreach ($xpath->query('//drupal-entity[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
+      foreach ($xpath->query('//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
         /** @var \DOMElement $node */
         $entity_type = $node->getAttribute('data-entity-type');
         $entity = NULL;
@@ -126,8 +126,11 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
 
         $this->replaceNodeContent($node, $entity_output);
       }
-
-      $result->setProcessedText(Html::serialize($dom));
+      $processedText = Html::serialize($dom);
+      if (isset($context['data-button']) && $context['data-button']) {
+        $processedText = '<p class="button">' . Html::serialize($dom) . '</p>';
+      }
+      $result->setProcessedText($processedText);
     }
 
     return $result;

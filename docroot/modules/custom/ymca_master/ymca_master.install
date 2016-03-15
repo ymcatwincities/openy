@@ -8,6 +8,12 @@
 use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Database\Database;
+use Drupal\node\Entity\Node;
+use Drupal\redirect\Entity\Redirect;
+use Drupal\redirect\Exception\RedirectLoopException;
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\ymca_aliases\UrlCleaner;
 
 /**
  * Protecting sites with a shield.
@@ -157,7 +163,7 @@ function ymca_master_update_8009() {
 
   // Replace tokens withing the nodes and fields.
   foreach ($ids as $nid) {
-    $node = \Drupal\node\Entity\Node::load($nid);
+    $node = Node::load($nid);
     foreach ($fields as $field) {
       if ($node->hasField($field)) {
         foreach ($node->$field as &$item) {
@@ -366,14 +372,14 @@ function ymca_master_update_8020() {
     ->fields('ua', ['source', 'alias'])
     ->execute();
 
+  /** @var \Drupal\redirect\RedirectRepository $repo */
   $repo = \Drupal::service('redirect.repository');
-
   while ($alias = $query->fetchObject()) {
     if (substr($alias->alias, -1, 1) !== '/') {
       $source_path = ltrim($alias->alias . '/', '/');
       try {
         if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
-          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect = Redirect::create();
           $redirect->setSource($source_path);
           $redirect->setRedirect($alias->source);
           $redirect->setLanguage('en');
@@ -381,7 +387,7 @@ function ymca_master_update_8020() {
           $redirect->save();
         }
       }
-      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+      catch (RedirectLoopException $e) {
         watchdog_exception('ymca_master', $e);
       }
     }
@@ -411,17 +417,709 @@ function ymca_master_update_8021() {
     if ($destination = $alias_manager->getPathByAlias(str_replace('internal:', '', $uri), 'en')) {
       try {
         if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
-          $redirect = \Drupal\redirect\Entity\Redirect::create();
+          $redirect = Redirect::create();
           $redirect->setSource($source_path);
           $redirect->setRedirect($destination);
           $redirect->setLanguage('en');
-          $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+          $redirect->setStatusCode(Drupal::config('redirect.settings')->get('default_status_code'));
           $redirect->save();
         }
       }
-      catch (\Drupal\redirect\Exception\RedirectLoopException $e) {
+      catch (RedirectLoopException $e) {
         watchdog_exception('ymca_master', $e);
       }
     }
   }
+}
+
+/**
+ * Fix redundant configs.
+ */
+function ymca_master_update_8022() {
+  Drupal::configFactory()->getEditable('stage_file_proxy.settings')->delete();
+  Drupal::configFactory()->getEditable('devel.settings')->delete();
+}
+
+/**
+ * Enable YMCA Membership module.
+ */
+function ymca_master_update_8023() {
+  \Drupal::service('module_installer')->install(array('ymca_membership'), TRUE);
+}
+
+/**
+ * Run files migration.
+ */
+function ymca_master_update_8024() {
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    ini_set('memory_limit', '2048M');
+    $dir = DRUPAL_ROOT . '/' . PublicStream::basePath() . '/cache';
+    $config = \Drupal::service('config.factory')->getEditable('ymca_migrate.settings');
+    $config->set('cache_dir', $dir);
+    $config->save();
+  }
+
+  module_load_include('php', 'ymca_master', 'include/helper');
+  ymca_run_migration('ymca_migrate_file_image', TRUE, TRUE);
+}
+
+/**
+ * Run migration for 2nd dump.
+ */
+function ymca_master_update_8025() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+
+  $ignore = Drupal::config('ymca_migrate.settings')->get('ignore');
+
+  // We should remove all blocks created by previous before running migration update.
+  $remove = [
+    'date_block',
+    'expander_block',
+    'image_block',
+    'promo_block',
+    'slide_show',
+    'slide_show_item',
+  ];
+
+  $ids = \Drupal::entityQuery('block_content')
+    ->condition('type', $remove, 'IN')
+    ->condition('id', $ignore['block_content'], 'NOT IN')
+    ->execute();
+
+  $storage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $blocks = $storage->loadMultiple($ids);
+  $storage->delete($blocks);
+
+  // Run migrations update.
+  $migrations = [
+    'ymca_migrate_block_content_code_block',
+    'ymca_migrate_menu_link_content_main',
+    'ymca_migrate_menu_link_content_camps',
+    'ymca_migrate_menu_link_content_child_care_preschool',
+    'ymca_migrate_menu_link_content_health_fitness',
+    'ymca_migrate_menu_link_content_jobs_suppliers_news',
+    'ymca_migrate_menu_link_content_kid_teen_activities',
+    'ymca_migrate_menu_link_content_locations',
+    'ymca_migrate_menu_link_content_swimming',
+    'ymca_migrate_menu_link_content_our_cause',
+    'ymca_migrate_menu_link_content_redirect',
+    'ymca_migrate_node_blog',
+    'ymca_migrate_node_page',
+    'ymca_migrate_node_camp',
+    'ymca_migrate_node_location',
+    'ymca_migrate_node_location_schedule',
+    'ymca_migrate_redirect',
+    'ymca_migrate_url_alias_page',
+    'ymca_migrate_url_alias_blog',
+    'ymca_migrate_url_alias_camp',
+    'ymca_migrate_url_alias_location',
+    'ymca_migrate_url_alias_location_schedule',
+    'ymca_migrate_taxonomy_term_tags',
+    'ymca_migrate_url_alias_tags',
+  ];
+
+  foreach ($migrations as $item) {
+    ymca_run_migration($item, TRUE, TRUE);
+  }
+
+  // Run some content fixes.
+  ymca_master_update_8015();
+  ymca_master_update_8017();
+  ymca_master_update_8018();
+  ymca_master_update_8020();
+  ymca_master_update_8021();
+}
+
+/**
+ * Update location titles.
+ */
+function ymca_master_update_8026() {
+  $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+  foreach ($mappings as $item) {
+    if ($node = Node::load($item['entity_id'])) {
+      $node->setTitle($item['name']);
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Remove all Locations-related 'News & Events' nodes.
+ */
+function ymca_master_update_8027() {
+  // Locations.
+  $loc_ids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  // Create aliases for News & Events pages of existing Locations.
+  $suffix = '/about/news__events';
+  foreach ($loc_ids as $id) {
+    $loc_path = '/node/' . $id;
+    $news_events_path = $loc_path . $suffix;
+    $loc_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($loc_path);
+    $news_events_path_alias = $loc_path_alias . $suffix;
+    // Existing News & Events node alias.
+    $alias = \Drupal::service('path.alias_storage')->load(['alias' => $news_events_path_alias]);
+    $pid = !empty($alias['pid']) ? $alias['pid'] : NULL;
+    // Create new alias or update existing.
+    \Drupal::service('path.alias_storage')->save($news_events_path, $news_events_path_alias, 'en', $pid);
+  }
+
+  // Location-related 'News & Events' nodes.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('title', 'News & Events')
+    ->condition('field_related.target_id', $loc_ids, 'IN')
+    ->execute();
+
+  // Update News & Events menu links.
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $nodes = $storage->loadMultiple($nids);
+  foreach ($nodes as $node) {
+    $menu_link_info = menu_ui_get_menu_link_defaults($node);
+    // Load menu link.
+    if (!$menu_link = MenuLinkContent::load($menu_link_info['entity_id'])) {
+      \Drupal::logger('ymca_master')->alert(t('Node menu_link found for node %node', array('%node' => $node->id())));
+      continue;
+    }
+    $lnid = $node->field_related->getValue()[0]['target_id'];
+    // Update menu link.
+    $menu_link->set('link', ['uri' => 'internal:/node/' . $lnid . '/about/news__events']);
+    $menu_link->save();
+  }
+
+  // Remove News & Events nodes.
+  $storage->delete($nodes);
+}
+
+/**
+ * Install and configure contrib modules.
+ */
+function ymca_master_update_8028() {
+  \Drupal::service('module_installer')->install(array('metatag'), TRUE);
+  \Drupal::service('module_installer')->install(
+    array('metatag_open_graph'),
+    TRUE
+  );
+  \Drupal::service('module_installer')->install(array('token'), TRUE);
+  \Drupal::service('module_installer')->install(
+    ['mailsystem', 'mimemail', 'rel_to_abs'],
+    TRUE
+  );
+
+  $path = drupal_get_path('module', 'ymca_master');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/mailsystem.settings.yml',
+    $path . '/config/optional/mimemail.settings.yml',
+    $path . '/config/optional/filter.format.full_html.yml',
+  ]);
+}
+
+/**
+ * Fix non-replaced tokens.
+ */
+function ymca_master_update_8029() {
+  module_load_include('php', 'ymca_master', 'include/helper');
+
+  $db = Database::getConnection('default');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+  $validator = \Drupal::pathValidator();
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $tables = [
+    'block_content__field_block_content',
+    'node__field_camp_links',
+    'node__field_content',
+    'node__field_secondary_sidebar',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  $problems = [];
+  foreach ($tables as $table) {
+    list($entity_type, $field) = explode('__', $table);
+    $col = $field . '_value';
+    $stmt = $db->select($table, 't')
+      ->fields('t')
+      ->condition('t.' . $col, '%' . $db->escapeLike('{{internal_page_link_') . '%', 'LIKE')
+      ->execute();
+
+    while ($data = $stmt->fetchObject()) {
+      $problems[$entity_type][$data->entity_id][] = $field;
+    }
+  }
+
+  // We've identified problem. Let's process them.
+  foreach ($problems as $entity_type => $entities) {
+    $storage = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage($entity_type);
+    foreach ($entities as $entity_id => $fields) {
+      /** @var \Drupal\Core\Entity\Entity $entity */
+      $entity = $storage->load($entity_id);
+      $processed_fields = [];
+
+      foreach ($fields as $field) {
+        $replace = FALSE;
+
+        $original = $entity->$field->value;
+        preg_match_all('/{{internal_page_link_(\d+)}}/miU', $original, $test);
+        if (!empty($test[1])) {
+          foreach ($test[1] as $id => $token) {
+            // Check each token. If the destination is valid. Add to replace array.
+            if ($address = ymca_get_legacy_page_address($token)) {
+              if ($validator->isValid($address)) {
+                $replace['tokens'][$token] = $test[0][$id];
+                $replace['links'][$token] = ltrim($address, '/');
+              }
+            }
+          }
+        }
+
+        if ($replace) {
+          $processed_fields[$field] = str_replace($replace['tokens'], $replace['links'], $original);
+        }
+      }
+
+      // Finally, save entity with processed fields.
+      foreach ($processed_fields as $field_name => $new_value) {
+        $entity->set($field_name, [
+          'value' => $new_value,
+          'format' => 'full_html',
+        ]);
+        $entity->save();
+
+        \Drupal::logger('ymca_migrate')->info(
+          'Tokens have been successfully replaced in %entity_type:%entity_id.',
+          [
+            '%entity_type' => $entity_type,
+            '%entity_id' => $entity_id,
+          ]
+        );
+      }
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
+}
+
+/**
+ * Update locations menu links.
+ */
+function ymca_master_update_8030() {
+  $path = drupal_get_path('module', 'ymca_membership');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_membership.config.yml',
+  ]);
+  // Recreate default membership blocks.
+  module_load_include('install', 'ymca_membership', 'ymca_membership');
+  ymca_membership_install();
+
+  // Locations.
+  $loc_ids = Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  $storage = Drupal::entityTypeManager()->getStorage('menu_link_content');
+  foreach ($loc_ids as $id) {
+    $loc_path = '/node/' . $id;
+    $alias = Drupal::service('path.alias_manager')->getAliasByPath($loc_path);
+    // Lookup menu links by location alias.
+    $query = Drupal::entityQuery('menu_link_content')
+      ->condition('link.uri', 'internal:' . $alias)
+      ->condition('menu_name', 'locations')
+      ->sort('id', 'ASC')
+      ->range(0, 1);
+    $results = $query->execute();
+    if (!$results) {
+      continue;
+    }
+    $menu_link_id = reset($results);
+    // Update menu link url, set 'entity:' scheme.
+    $menu_link = MenuLinkContent::load($menu_link_id);
+    $menu_link->set('link', ['uri' => 'entity:node/' . $id]);
+    $menu_link->save();
+  }
+}
+
+/**
+ * Extend ymca_groupex.mapping by machine_name, replace absolute 'Join' links.
+ */
+function ymca_master_update_8031() {
+  // Locations.
+  $loc_ids = Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+
+  $mapping = Drupal::configFactory()->getEditable('ymca_groupex.mapping');
+  $locations = $mapping->get('locations');
+
+  $storage = Drupal::entityTypeManager()->getStorage('menu_link_content');
+  foreach ($loc_ids as $nid) {
+    $query = Drupal::entityQuery('menu_link_content')
+      ->condition('link.uri', 'entity:node/' . $nid)
+      ->condition('menu_name', 'locations')
+      ->sort('id', 'ASC')
+      ->range(0, 1);
+    $results = $query->execute();
+    if (!$results) {
+      continue;
+    }
+    $menu_link_id = reset($results);
+    $menu_link = MenuLinkContent::load($menu_link_id);
+
+    // Search 'Join' link of the location.
+    $properties = [
+      'title' => 'Join',
+      'parent' => 'menu_link_content:' . $menu_link->uuid(),
+    ];
+    if ($links = $storage->loadByProperties($properties)) {
+      $join_link = reset($links);
+      $parts = parse_url($join_link->link->getValue()[0]['uri']);
+      // Some unfit 'Join' link, skip the location.
+      if ($parts['host'] !== 'www.ymcatwincities.org' || $parts['path'] !== '/membership/') {
+        continue;
+      }
+      // Lookup the location in the config.
+      $config_row = NULL;
+      foreach ($locations as $cid => $location) {
+        if ($location['entity_id'] == $nid) {
+          $config_row = &$locations[$cid];
+          break;
+        }
+      }
+      // Skip if the location isn't found in the config.
+      if (!isset($config_row)) {
+        continue;
+      }
+
+      // Generate machine name if it isn't presented.
+      if (!$machine_name = $parts['fragment']) {
+        $machine_name = UrlCleaner::clean($config_row['name']);
+      }
+
+      // Update config.
+      $config_row['machine_name'] = $machine_name;
+
+      // Unlink variable from config row.
+      unset($config_row);
+
+      // Update menu link, it shouldn't be absolute anymore.
+      $join_link->set('link', ['uri' => 'internal:/membership#' . $machine_name]);
+      $join_link->save();
+    }
+  }
+
+  // Save config.
+  $mapping->set('locations', $locations)->save();
+}
+
+/**
+ * Add missed redirects.
+ */
+function ymca_master_update_8032() {
+  /** @var \Drupal\redirect\RedirectRepository $repo */
+  $repo = \Drupal::service('redirect.repository');
+
+  $ids = \Drupal::entityQuery('redirect')
+    ->condition('redirect_source__path', '%/southdale_ymca/%', 'LIKE')
+    ->execute();
+
+  foreach ($ids as $id) {
+    /** @var Redirect $existing_alias */
+    $existing_alias = $repo->load($id);
+
+    /** @var Redirect $redirect */
+    $redirect = Redirect::create();
+    $source = preg_replace("/^build\d+\/(.*)/", "$1", $existing_alias->getSourceUrl());
+    $redirect->setSource(str_replace('/southdale_ymca/', '/southdale_ymca_edina/', $source));
+    $redirect->setRedirect($source);
+    $redirect->setLanguage('en');
+    $redirect->setStatusCode(Drupal::config('redirect.settings')->get('default_status_code'));
+    try {
+      $redirect->save();
+    }
+    catch (\Exception $e) {
+      watchdog_exception(__FUNCTION__, $e);
+    }
+  }
+}
+
+/**
+ * Add ymca_hours services.
+ */
+function ymca_master_update_8033() {
+  $path = drupal_get_path('module', 'ymca_hours');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/ymca_hours.services.yml',
+  ]);
+}
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8034() {
+  $path = drupal_get_path('module', 'ymca_master') . '/config/optional/contact_water_safety/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'contact.form.contact_water_safety.yml',
+    $path . 'core.entity_form_display.contact_message.contact_water_safety.default.yml',
+    $path . 'core.entity_view_display.contact_message.contact_water_safety.default.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_comments.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_email_address.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_first_name.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_label.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_last_name.yml',
+    $path . 'field.field.contact_message.contact_water_safety.field_response_required.yml',
+  ]);
+}
+
+/**
+ * Add day camps features.
+ */
+function ymca_master_update_8035() {
+  \Drupal::service('module_installer')->install(['ymca_day_camp'], TRUE);
+
+  // Remove day_camp_news node.
+  $node = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getStorage('node')
+    ->load(491);
+  $node->delete();
+
+  // Remove the alias.
+  $db = Database::getConnection();
+  $db->delete('url_alias')
+    ->condition('alias', '/day_camp_news')
+    ->execute();
+}
+
+/**
+ * YMCA-600 Url aliases clean up.
+ */
+function ymca_master_update_8036() {
+  $db = Database::getConnection();
+
+  // Delete full duplicates.
+  $s = $db->select('url_alias', 'u')
+    ->fields('u', ['alias', 'source', 'langcode']);
+  $s->addExpression('min(pid)', 'minpid');
+  $res = $s->groupBy('source')
+    ->groupBy('alias')
+    ->groupBy('langcode')
+    ->having('count(*) > 1')
+    ->execute()
+    ->fetchAll();
+
+  $dup_count = 0;
+  foreach ($res as $r) {
+    $dup_count += $db->delete('url_alias')
+      ->condition('alias', $r->alias)
+      ->condition('source', $r->source)
+      ->condition('langcode', $r->langcode)
+      ->condition('pid', $r->minpid, '<>')
+      ->execute();
+  }
+  Drupal::logger('ymca_master')->info('%dc duplicated aliases have been removed', ['%dc' => $dup_count]);
+
+  // Delete aliases of deleted nodes.
+  $s = $db->select('url_alias', 'u')
+    ->fields('u', ['pid']);
+  $s->leftJoin('node', 'n', 'CONCAT(:prefix, n.nid) = u.source', [':prefix' => '/node/']);
+  $r = $s->isNull('n.nid')
+    ->condition('u.source', '/node/%', 'LIKE')
+    ->condition('u.source', '/node/%/%', 'NOT LIKE')
+    ->execute()
+    ->fetchAllKeyed(0, 0);
+
+  $orfaned = $db->delete('url_alias')
+    ->condition('pid', $r, 'IN')
+    ->execute();
+  Drupal::logger('ymca_master')->info('%o orfaned aliases have been removed.', ['%o' => $orfaned]);
+
+  // Delete nodes and aliases, that were replaced by custom pages.
+  $nodes_to_be_deleted = [];
+  $node_storage = Drupal::entityTypeManager()->getStorage('node');
+  $dups = $db->select('url_alias', 'u')
+    ->fields('u', ['alias'])
+    ->groupBy('u.alias')
+    ->having('count(*) > 1')
+    ->execute()
+    ->fetchAll();
+
+  foreach ($dups as $dup) {
+    $s = $db->select('url_alias', 'u')
+      ->fields('u', ['pid', 'source'])
+      ->condition('alias', $dup->alias)
+      ->execute()
+      ->fetchAllKeyed();
+    // List nodes that are using this aliase.
+    $nodes = [];
+    foreach ($s as $pid => $source) {
+      if (preg_match('/\/node\/(\d+)$/', $source, $match)) {
+        $nodes[$pid] = $match[1];
+      }
+    }
+    if (count($s) == count($nodes)) {
+      Drupal::logger('ymca_master')
+        ->info('Manually resolve alias conficts of these nodes: %nids', ['%nids' => implode(', ', $nodes)]);
+    }
+    else {
+      // These nodes should be removed.
+      foreach ($nodes as $pid => $nid) {
+        $node = $node_storage->load($nid);
+        // Check if the node is in menu tree.
+        $query = \Drupal::entityQuery('menu_link_content')
+          ->condition('link.uri', 'entity:node/' . $node->id())
+          ->sort('id', 'ASC')
+          ->range(0, 1);
+        $result = $query->execute();
+        if ($result) {
+          // Unlink node from menu tree.
+          $menu_link_id = reset($result);
+          $menu_link = MenuLinkContent::load($menu_link_id);
+          $menu_link->set('link', ['uri' => 'internal:' . $dup->alias]);
+          $menu_link->save();
+        }
+        $nodes_to_be_deleted[] = $node;
+      };
+      if ($nodes) {
+        // Delete aliases of nodes to be deleted.
+        $pids = array_keys($nodes);
+        $orfaned = $db->delete('url_alias')
+          ->condition('pid', $pids, 'IN')
+          ->execute();
+        Drupal::logger('ymca_master')
+          ->info('%o orfaned aliases have been removed.', ['%o' => $orfaned]);
+      }
+    }
+  }
+  $node_storage->delete($nodes_to_be_deleted);
+  Drupal::logger('ymca_master')
+    ->info('%d nodes have been deleted since they were replaced with custom pages', ['%d' => count($nodes_to_be_deleted)]);
+
+  // Search orfaned redirects.
+  $s = $db->select('redirect', 'r')
+    ->fields('r', ['rid']);
+  $s->leftJoin('node', 'n', "CONCAT('internal:/node/', n.nid) = redirect_redirect__uri");
+  $s->condition('redirect_redirect__uri', 'internal:/node/%', 'LIKE')
+    ->condition('redirect_redirect__uri', 'internal:/node/%/%', 'NOT LIKE')
+    ->isNull('n.nid');
+  $rids = $s->execute()->fetchAllKeyed(0, 0);
+
+  // Remove them.
+  if ($rids) {
+    $orfaned_redirects_deleted = $db->delete('redirect')
+      ->condition('rid', $rids, 'IN')
+      ->execute();
+    Drupal::logger('ymca_master')
+      ->info('%d orfaned redirects have been deleted', ['%d' => $orfaned_redirects_deleted]);
+  }
+}
+
+/**
+ * Fix embed entities code.
+ */
+function ymca_master_update_8037() {
+  $db = Database::getConnection('default');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $tables = [
+    'block_content__body',
+    'block_content__field_block_content',
+    'block_content__field_content_date_before',
+    'block_content__field_content_date_between',
+    'block_content__field_content_date_end',
+    'node__field_content',
+    'node__field_lead_description',
+    'node__field_secondary_sidebar',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  // Let's build a full list of embeds.
+  $embeds = [];
+  foreach ($tables as $table) {
+    list($entity_type, $field) = explode('__', $table);
+    $col = $field . '_value';
+
+    $result = $db->select($table, 't')->fields('t')
+      ->condition('t.' . $col, '%' . $db->escapeLike('drupal-entity') . '%', 'LIKE')
+      ->execute();
+
+    while ($data = $result->fetchObject()) {
+      $embeds[$entity_type][$data->entity_id][] = $field;
+    }
+  }
+
+  // Loop ove each embed and fix the problem.
+  foreach ($embeds as $entity_type => $entities) {
+    $storage = \Drupal::getContainer()
+      ->get('entity.manager')
+      ->getStorage($entity_type);
+    foreach ($entities as $entity_id => $fields) {
+      $entity = $storage->load($entity_id);
+      $processed_fields = [];
+
+      foreach ($fields as $field) {
+        if ($entity->hasField($field)) {
+          $original = $entity->$field->value;
+          $replace = FALSE;
+
+          // Find all embeds that need to be replaced.
+          preg_match_all('/<drupal-entity.*data-embed-button=\"(?:menu_link|file)\".*><\/drupal-entity>/miU', $original, $test);
+          if (empty($test[0])) {
+            continue;
+          }
+
+          // Create map for str_replace.
+          foreach ($test[0] as $embed) {
+            $replace['from'][] = $embed;
+            $replace['to'][] = str_replace('drupal-entity', 'drupal-entity-inline', $embed);
+          }
+
+          if ($replace) {
+            $processed_fields[$field] = str_replace($replace['from'], $replace['to'], $original);
+          }
+        }
+      }
+
+      // Finally, save entity with processed fields.
+      foreach ($processed_fields as $field_name => $new_value) {
+        $entity->set($field_name, [
+          'value' => $new_value,
+          'format' => 'full_html',
+        ]);
+        $entity->save();
+
+        \Drupal::logger('ymca_master')->info(
+          'Replaced drupal-entity with drupal-entity-inline in %entity_type:%entity_id.',
+          [
+            '%entity_type' => $entity_type,
+            '%entity_id' => $entity_id,
+          ]
+        );
+      }
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
+}
+
+/**
+ * Webforms bug fixing.
+ */
+function ymca_master_update_8038() {
+  Drupal::configFactory()->getEditable('views.view.contact_messages')->delete();
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }

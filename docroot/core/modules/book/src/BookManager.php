@@ -397,7 +397,7 @@ class BookManager implements BookManagerInterface {
     foreach ($tree as $data) {
       if ($data['link']['depth'] > $depth_limit) {
         // Don't iterate through any links on this level.
-        break;
+        return;
       }
       if (!in_array($data['link']['nid'], $exclude)) {
         $nids[] = $data['link']['nid'];
@@ -408,7 +408,8 @@ class BookManager implements BookManagerInterface {
 
     foreach ($tree as $data) {
       $nid = $data['link']['nid'];
-      if (in_array($nid, $exclude)) {
+      // Check for excluded or missing node.
+      if (empty($nodes[$nid])) {
         continue;
       }
       $toc[$nid] = $indent . ' ' . Unicode::truncate($nodes[$nid]->label(), 30, TRUE, TRUE);
@@ -439,9 +440,9 @@ class BookManager implements BookManagerInterface {
     if ($nid == $original['bid']) {
       // Handle deletion of a top-level post.
       $result = $this->bookOutlineStorage->loadBookChildren($nid);
-
-      foreach ($result as $child) {
-        $child['bid'] = $child['nid'];
+      $children = $this->entityManager->getStorage('node')->loadMultiple(array_keys($result));
+      foreach ($children as $child) {
+        $child->book['bid'] = $child->id();
         $this->updateOutline($child);
       }
     }

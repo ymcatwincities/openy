@@ -1,0 +1,9 @@
+membership_page:
+  version: VERSION
+  css:
+    theme:
+      css/membership-page.css: {}
+  js:
+    js/membership-page.js: {}
+  dependencies:
+    - core/jquery

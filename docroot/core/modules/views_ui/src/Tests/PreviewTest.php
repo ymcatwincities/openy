@@ -21,7 +21,7 @@ class PreviewTest extends UITestBase {
    *
    * @var array
    */
-  public static $testViews = array('test_preview', 'test_pager_full', 'test_mini_pager');
+  public static $testViews = array('test_preview', 'test_preview_error', 'test_pager_full', 'test_mini_pager', 'test_click_sort');
 
   /**
    * Tests contextual links in the preview form.
@@ -90,6 +90,34 @@ class PreviewTest extends UITestBase {
     $this->drupalPostForm(NULL, array(), t('Update preview'));
     $result = $this->xpath('//div[@id="views-live-preview"]/pre');
     $this->assertTrue(strpos($result[0], '<title>' . $view['page[title]'] . '</title>'), 'The Feed RSS preview was rendered.');
+
+    // Test the non-default UI display options.
+    // Statistics only, no query.
+    $settings = \Drupal::configFactory()->getEditable('views.settings');
+    $settings->set('ui.show.performance_statistics', TRUE)->save();
+    $this->drupalGet('admin/structure/views/view/test_preview/edit');
+    $this->drupalPostForm(NULL, $edit = array('view_args' => '100'), t('Update preview'));
+    $this->assertText(t('Query build time'));
+    $this->assertText(t('Query execute time'));
+    $this->assertText(t('View render time'));
+    $this->assertNoRaw('<strong>Query</strong>');
+
+    // Statistics and query.
+    $settings->set('ui.show.sql_query.enabled', TRUE)->save();
+    $this->drupalPostForm(NULL, $edit = array('view_args' => '100'), t('Update preview'));
+    $this->assertText(t('Query build time'));
+    $this->assertText(t('Query execute time'));
+    $this->assertText(t('View render time'));
+    $this->assertRaw('<strong>Query</strong>');
+    $this->assertText("SELECT views_test_data.name AS views_test_data_name\nFROM \n{views_test_data} views_test_data\nWHERE (( (views_test_data.id = &#039;100&#039; ) ))");
+
+    // Test that the statistics and query are rendered above the preview.
+    $this->assertTrue(strpos($this->getRawContent(), 'views-query-info') < strpos($this->getRawContent(), 'view-test-preview') , 'Statistics shown above the preview.');
+
+    // Test that statistics and query rendered below the preview.
+    $settings->set('ui.show.sql_query.where', 'below')->save();
+    $this->drupalPostForm(NULL, $edit = array('view_args' => '100'), t('Update preview'));
+    $this->assertTrue(strpos($this->getRawContent(), 'view-test-preview') < strpos($this->getRawContent(), 'views-query-info'), 'Statistics shown below the preview.');
   }
 
   /**
@@ -228,6 +256,44 @@ class PreviewTest extends UITestBase {
     // Check that additional assets are attached.
     $this->assertTrue(strpos($this->getDrupalSettings()['ajaxPageState']['libraries'], 'views_ui_test/views_ui_test.test') !== FALSE, 'Attached library found.');
     $this->assertRaw('css/views_ui_test.test.css', 'Attached CSS asset found.');
+  }
+
+  /**
+   * Tests view validation error messages in the preview.
+   */
+  public function testPreviewError() {
+    $this->drupalGet('admin/structure/views/view/test_preview_error/edit');
+    $this->assertResponse(200);
+
+    $this->drupalPostForm(NULL, $edit = array(), t('Update preview'));
+
+    $this->assertText('Unable to preview due to validation errors.', 'Preview error text found.');
+  }
+
+  /**
+   * Tests the link to sort in the preview form.
+   */
+  public function testPreviewSortLink() {
+
+    // Get the preview.
+    $this->getPreviewAJAX('test_click_sort', 'page_1', 0);
+
+    // Test that the header label is present.
+    $elements = $this->xpath('//th[contains(@class, :class)]/a', array(':class' => 'views-field views-field-name'));
+    $this->assertTrue(!empty($elements), 'The header label is present.');
+
+    // Verify link.
+    $this->assertLinkByHref('preview/page_1?_wrapper_format=drupal_ajax&order=name&sort=desc', 0, 'The output URL is as expected.');
+
+    // Click link to sort.
+    $this->clickPreviewLinkAJAX($elements[0]['href'], 0);
+
+    // Test that the header label is present.
+    $elements = $this->xpath('//th[contains(@class, :class)]/a', array(':class' => 'views-field views-field-name is-active'));
+    $this->assertTrue(!empty($elements), 'The header label is present.');
+
+    // Verify link.
+    $this->assertLinkByHref('preview/page_1?_wrapper_format=drupal_ajax&order=name&sort=asc', 0, 'The output URL is as expected.');
   }
 
   /**

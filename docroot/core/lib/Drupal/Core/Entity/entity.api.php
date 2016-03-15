@@ -592,7 +592,8 @@ function hook_ENTITY_TYPE_access(\Drupal\Core\Entity\EntityInterface $entity, $o
  *   The account trying to access the entity.
  * @param array $context
  *   An associative array of additional context values. By default it contains
- *   language:
+ *   language and the entity type ID:
+ *   - entity_type_id - the entity type ID.
  *   - langcode - the current language code.
  * @param string $entity_bundle
  *   The entity bundle name.
@@ -698,7 +699,6 @@ function hook_entity_type_alter(array &$entity_types) {
  *
  * @see \Drupal\Core\Entity\EntityManagerInterface::getAllViewModes()
  * @see \Drupal\Core\Entity\EntityManagerInterface::getViewModes()
- * @see hook_entity_view_mode_info()
  */
 function hook_entity_view_mode_info_alter(&$view_modes) {
   $view_modes['user']['full']['status'] = TRUE;
@@ -1964,7 +1964,7 @@ function hook_ENTITY_TYPE_field_values_init(\Drupal\Core\Entity\FieldableEntityI
  *
  * @return array
  *   The array structure is identical to that of the return value of
- *   \Drupal\Core\Entity\EntityManagerInterface::getExtraFields().
+ *   \Drupal\Core\Entity\EntityFieldManagerInterface::getExtraFields().
  */
 function hook_entity_extra_field_info() {
   $extra = array();

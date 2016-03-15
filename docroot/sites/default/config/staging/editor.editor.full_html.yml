@@ -38,8 +38,9 @@ settings:
             - Blockquote
             - Table
             - HorizontalRule
+            - ColumnButton2x
+            - ColumnButton3x
             - block
-            - ColumnButton
             - menu_link
             - file
             - webform

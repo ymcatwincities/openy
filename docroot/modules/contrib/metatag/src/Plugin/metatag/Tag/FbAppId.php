@@ -6,10 +6,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
-use Drupal\metatag\Annotation\MetatagTag;
-
 /**
  * The Facebook "fb:app_id" meta tag.
  *

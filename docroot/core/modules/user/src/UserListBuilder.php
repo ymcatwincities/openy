@@ -58,7 +58,7 @@ class UserListBuilder extends EntityListBuilder {
    * @param \Drupal\Core\Routing\RedirectDestinationInterface $redirect_destination
    *   The redirect destination service.
    */
-  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, QueryFactory $query_factory, DateFormatterInterface $date_formatter,  RedirectDestinationInterface $redirect_destination) {
+  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, QueryFactory $query_factory, DateFormatterInterface $date_formatter, RedirectDestinationInterface $redirect_destination) {
     parent::__construct($entity_type, $storage);
     $this->queryFactory = $query_factory;
     $this->dateFormatter = $date_formatter;
@@ -152,7 +152,7 @@ class UserListBuilder extends EntityListBuilder {
       '#items' => $users_roles,
     );
     $row['member_for'] = $this->dateFormatter->formatTimeDiffSince($entity->getCreatedTime());
-    $row['access'] = $entity->access ? $this->t('@time ago', array('@time' => $this->dateFormatter->formatTimeDiffSince($entity->getLastAccessedTime()))) : t('never');
+    $row['access'] = $entity->getLastAccessedTime() ? $this->t('@time ago', array('@time' => $this->dateFormatter->formatTimeDiffSince($entity->getLastAccessedTime()))) : t('never');
     return $row + parent::buildRow($entity);
   }
 

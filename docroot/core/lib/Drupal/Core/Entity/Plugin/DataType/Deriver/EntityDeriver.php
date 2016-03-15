@@ -87,7 +87,7 @@ class EntityDeriver implements ContainerDeriverInterface {
       ) + $base_plugin_definition;
 
       // Incorporate the bundles as entity:$entity_type:$bundle, if any.
-      foreach (entity_get_bundles($entity_type_id) as $bundle => $bundle_info) {
+      foreach (\Drupal::entityManager()->getBundleInfo($entity_type_id) as $bundle => $bundle_info) {
         if ($bundle !== $entity_type_id) {
           $this->derivatives[$entity_type_id . ':' . $bundle] = array(
             'label' => $bundle_info['label'],

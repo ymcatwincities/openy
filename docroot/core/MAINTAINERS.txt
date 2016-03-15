@@ -24,16 +24,11 @@ Drupal 8
 - Alex Pott 'alexpott' https://www.drupal.org/u/alexpott
   (Framework Manager)
 
-Provisional membership: None at this time.
+Provisional membership:
+- Scott Reeves 'Cottser' https://www.drupal.org/u/cottser
 
 Drupal 7
 - David Rothstein 'David_Rothstein' https://www.drupal.org/u/david_rothstein
-  (Release Manager, Framework Manager, Product Manager)
-
-Provisional membership: None at this time.
-
-Drupal 6
-- Gábor Hojtsy 'Gábor Hojtsy' https://www.drupal.org/u/gábor-hojtsy
   (Release Manager, Framework Manager, Product Manager)
 
 Provisional membership: None at this time.
@@ -87,7 +82,6 @@ Cron system
 
 CSS
 - John Albin Wilkins 'JohnAlbin' https://www.drupal.org/u/johnalbin
-- Lewis Nyman 'LewisNyman' https://www.drupal.org/u/lewisnyman
 
 Database system
 - Larry Garfield 'Crell' https://www.drupal.org/u/crell
@@ -391,11 +385,12 @@ Number module
 Options module
 - Yves Chedemois 'yched' https://www.drupal.org/u/yched
 
+Page Cache module
+- Lorenz Schori 'znerol' https://www.drupal.org/u/znerol
+- Fabian Franz 'Fabianx' https://www.drupal.org/u/fabianx
+
 Path module
 - ?
-
-Phone module
-- Dave Reid 'davereid' https://www.drupal.org/u/davereid
 
 Quick Edit module
 - Wim Leers 'Wim Leers' https://www.drupal.org/u/wim-leers
@@ -443,6 +438,9 @@ Taxonomy module
 - Nathaniel Catchpole 'catch' https://www.drupal.org/u/catch
 - Benjamin Doherty 'bangpound' https://www.drupal.org/u/bangpound
 
+Telephone module
+- Dave Reid 'davereid' https://www.drupal.org/u/davereid
+
 Text module
 - ?
 
@@ -486,7 +484,10 @@ Classy theme
 - Morten Birch Heide-Jørgensen 'mortendk' https://www.drupal.org/u/mortendk
 
 Seven theme
-- Lewis Nyman 'LewisNyman' https://www.drupal.org/u/lewisnyman
+- ?
+
+Stable theme
+- Scott Reeves 'Cottser' https://www.drupal.org/u/cottser
 
 Stark theme
 - John Albin Wilkins 'JohnAlbin' https://www.drupal.org/u/johnalbin

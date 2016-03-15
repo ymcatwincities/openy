@@ -20,7 +20,7 @@ class TokenBlockTest extends TokenTestBase {
    *
    * @var array
    */
-  public static $modules = array('path', 'token', 'token_test', 'block', 'node', 'views', 'block_content');
+  public static $modules = ['block', 'node', 'views', 'block_content'];
 
   /**
    * {@inheritdoc}

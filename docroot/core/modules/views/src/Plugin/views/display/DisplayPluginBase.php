@@ -2335,13 +2335,17 @@ abstract class DisplayPluginBase extends PluginBase implements DisplayPluginInte
       '#cache_properties' => ['#view_id', '#view_display_show_admin_links', '#view_display_plugin_id'],
     ];
 
+    // When something passes $cache = FALSE, they're asking us not to create our
+    // own render cache for it. However, we still need to include certain pieces
+    // of cacheability metadata (e.g.: cache contexts), so they can bubble up.
+    // Thus, we add the cacheability metadata first, then modify / remove the
+    // cache keys depending on the $cache argument.
+    $this->applyDisplayCachablityMetadata($this->view->element);
     if ($cache) {
       $this->view->element['#cache'] += ['keys' => []];
       // Places like \Drupal\views\ViewExecutable::setCurrentPage() set up an
       // additional cache context.
       $this->view->element['#cache']['keys'] = array_merge(['views', 'display', $this->view->element['#name'], $this->view->element['#display_id']], $this->view->element['#cache']['keys']);
-
-      $this->applyDisplayCachablityMetadata($this->view->element);
     }
     else {
       // Remove the cache keys, to ensure render caching is not triggered. We
@@ -2441,6 +2445,16 @@ abstract class DisplayPluginBase extends PluginBase implements DisplayPluginInte
     $result = $query->validate();
     if (!empty($result) && is_array($result)) {
       $errors = array_merge($errors, $result);
+    }
+
+    // Check for missing relationships.
+    $relationships = array_keys($this->getHandlers('relationship'));
+    foreach (ViewExecutable::getHandlerTypes() as $type => $handler_type_info) {
+      foreach ($this->getHandlers($type) as $handler_id => $handler) {
+        if (!empty($handler->options['relationship']) && $handler->options['relationship'] != 'none' && !in_array($handler->options['relationship'], $relationships)) {
+          $errors[] = $this->t('The %handler_type %handler uses a relationship that has been removed.', array('%handler_type' => $handler_type_info['lstitle'], '%handler' => $handler->adminLabel()));
+        }
+      }
     }
 
     // Validate handlers.

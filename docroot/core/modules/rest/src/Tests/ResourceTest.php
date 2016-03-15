@@ -6,6 +6,8 @@
  */
 
 namespace Drupal\rest\Tests;
+
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\Role;
 
@@ -104,6 +106,47 @@ class ResourceTest extends RESTTestBase {
     // application/hal+json, so it returns a 406.
     $this->assertResponse('406', 'HTTP response code is 406 when the resource does not define formats, because it falls back to the canonical, non-REST route.');
     $this->curlClose();
+  }
+
+  /**
+   * Tests that resource URI paths are formatted properly.
+   */
+  public function testUriPaths() {
+    $this->enableService('entity:entity_test');
+    /** @var \Drupal\rest\Plugin\Type\ResourcePluginManager $manager */
+    $manager = \Drupal::service('plugin.manager.rest');
+
+    foreach ($manager->getDefinitions() as $resource => $definition) {
+      foreach ($definition['uri_paths'] as $key => $uri_path) {
+        $this->assertFalse(strpos($uri_path, '//'), 'The resource URI path does not have duplicate slashes.');
+      }
+    }
+  }
+
+  /**
+   * Tests that a resource with a missing plugin does not cause an exception.
+   */
+  public function testMissingPlugin() {
+    $settings = array(
+      'entity:nonexisting' => array(
+        'GET' => array(
+          'supported_formats' => array(
+            'hal_json',
+          ),
+        ),
+      ),
+    );
+
+    try {
+      // Attempt to enable the resource.
+      $this->config->set('resources', $settings);
+      $this->config->save();
+      $this->rebuildCache();
+      $this->pass('rest.settings referencing a missing REST resource plugin does not cause an exception.');
+    }
+    catch (PluginNotFoundException $e) {
+      $this->fail('rest.settings referencing a missing REST resource plugin caused an exception.');
+    }
   }
 
 }

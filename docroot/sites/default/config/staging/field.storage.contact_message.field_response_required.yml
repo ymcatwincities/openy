@@ -1,0 +1,27 @@
+uuid: c7782a49-3871-45b5-b22c-449adccff5c7
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_response_required
+field_name: field_response_required
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'no'
+      label: 'No'
+    -
+      value: 'yes'
+      label: 'Yes, please e-mail me'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -5,7 +5,6 @@
  * Contains \Drupal\migrate\Plugin\migrate\process\Migration.
  */
 
-
 namespace Drupal\migrate\Plugin\migrate\process;
 
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -28,11 +27,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Migration extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The process plugin manager.
+   *
    * @var \Drupal\migrate\Plugin\MigratePluginManager
    */
   protected $processPluginManager;
 
   /**
+   * The entity storage manager.
+   *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $migrationStorage;
@@ -99,6 +102,10 @@ class Migration extends ProcessPluginBase implements ContainerFactoryPluginInter
       }
     }
 
+    if (!$destination_ids && !empty($this->configuration['no_stub'])) {
+      return NULL;
+    }
+
     if (!$destination_ids && ($self || isset($this->configuration['stub_id']) || count($migrations) == 1)) {
       // If the lookup didn't succeed, figure out which migration will do the
       // stubbing.
@@ -115,7 +122,7 @@ class Migration extends ProcessPluginBase implements ContainerFactoryPluginInter
       // Only keep the process necessary to produce the destination ID.
       $process = $migration->get('process');
 
-      // We already have the source id values but need to key them for the Row
+      // We already have the source ID values but need to key them for the Row
       // constructor.
       $source_ids = $migration->getSourcePlugin()->getIds();
       $values = array();
@@ -148,7 +155,7 @@ class Migration extends ProcessPluginBase implements ContainerFactoryPluginInter
   }
 
   /**
-   * Skip the migration process entirely if the value is FALSE.
+   * Skips the migration process entirely if the value is FALSE.
    *
    * @param mixed $value
    *   The incoming value to transform.

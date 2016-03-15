@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreFile
 /**
  * @file
  * A database agnostic dump for testing purposes.
@@ -416,6 +417,48 @@ $connection->insert('actions')
   'callback',
   'parameters',
   'label',
+))
+->values(array(
+  'aid' => '2',
+  'type' => 'comment',
+  'callback' => 'comment_unpublish_by_keyword_action',
+  'parameters' => 'a:1:{s:8:"keywords";a:1:{i:0;s:6:"drupal";}}',
+  'label' => 'Unpublish comment containing keyword(s)',
+))
+->values(array(
+  'aid' => '3',
+  'type' => 'node',
+  'callback' => 'node_assign_owner_action',
+  'parameters' => 'a:1:{s:9:"owner_uid";s:1:"2";}',
+  'label' => 'Change the author of content',
+))
+->values(array(
+  'aid' => '4',
+  'type' => 'node',
+  'callback' => 'node_unpublish_by_keyword_action',
+  'parameters' => 'a:1:{s:8:"keywords";a:1:{i:0;s:6:"drupal";}}',
+  'label' => 'Unpublish content containing keyword(s)',
+))
+->values(array(
+  'aid' => '5',
+  'type' => 'system',
+  'callback' => 'system_message_action',
+  'parameters' => 'a:1:{s:7:"message";s:21:"Drupal migration test";}',
+  'label' => 'Display a message to the user',
+))
+->values(array(
+  'aid' => '6',
+  'type' => 'system',
+  'callback' => 'system_send_email_action',
+  'parameters' => 'a:3:{s:9:"recipient";s:16:"test@example.com";s:7:"subject";s:21:"Drupal migration test";s:7:"message";s:21:"Drupal migration test";}',
+  'label' => 'Send e-mail',
+))
+->values(array(
+  'aid' => '7',
+  'type' => 'system',
+  'callback' => 'system_goto_action',
+  'parameters' => 'a:1:{s:3:"url";s:22:"https://www.drupal.org";}',
+  'label' => 'Redirect to URL',
 ))
 ->values(array(
   'aid' => 'comment_publish_action',
@@ -4288,6 +4331,33 @@ $connection->schema()->createTable('field_data_field_file', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('field_data_field_file')
+->fields(array(
+  'entity_type',
+  'bundle',
+  'deleted',
+  'entity_id',
+  'revision_id',
+  'language',
+  'delta',
+  'field_file_fid',
+  'field_file_display',
+  'field_file_description',
+))
+->values(array(
+  'entity_type' => 'node',
+  'bundle' => 'test_content_type',
+  'deleted' => '0',
+  'entity_id' => '1',
+  'revision_id' => '1',
+  'language' => 'und',
+  'delta' => '0',
+  'field_file_fid' => '2',
+  'field_file_display' => '1',
+  'field_file_description' => 'file desc',
+))
+->execute();
+
 $connection->schema()->createTable('field_data_field_float', array(
   'fields' => array(
     'entity_type' => array(
@@ -6023,6 +6093,33 @@ $connection->schema()->createTable('field_revision_field_file', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('field_revision_field_file')
+->fields(array(
+  'entity_type',
+  'bundle',
+  'deleted',
+  'entity_id',
+  'revision_id',
+  'language',
+  'delta',
+  'field_file_fid',
+  'field_file_display',
+  'field_file_description',
+))
+->values(array(
+  'entity_type' => 'node',
+  'bundle' => 'test_content_type',
+  'deleted' => '0',
+  'entity_id' => '1',
+  'revision_id' => '1',
+  'language' => 'und',
+  'delta' => '0',
+  'field_file_fid' => '2',
+  'field_file_display' => '1',
+  'field_file_description' => 'file desc',
+))
+->execute();
+
 $connection->schema()->createTable('field_revision_field_float', array(
   'fields' => array(
     'entity_type' => array(
@@ -7292,6 +7389,13 @@ $connection->insert('file_usage')
 ))
 ->values(array(
   'fid' => '1',
+  'module' => 'file',
+  'type' => 'node',
+  'id' => '1',
+  'count' => '2',
+))
+->values(array(
+  'fid' => '2',
   'module' => 'file',
   'type' => 'node',
   'id' => '1',
@@ -18829,7 +18933,7 @@ $connection->insert('menu_links')
 ->values(array(
   'menu_name' => 'menu-test-menu',
   'mlid' => '467',
-  'plid' => '0',
+  'plid' => '469',
   'link_path' => 'http://google.com',
   'router_path' => '',
   'link_title' => 'Google',
@@ -18840,10 +18944,10 @@ $connection->insert('menu_links')
   'has_children' => '0',
   'expanded' => '0',
   'weight' => '0',
-  'depth' => '1',
+  'depth' => '2',
   'customized' => '1',
-  'p1' => '467',
-  'p2' => '0',
+  'p1' => '469',
+  'p2' => '467',
   'p3' => '0',
   'p4' => '0',
   'p5' => '0',
@@ -19007,6 +19111,33 @@ $connection->insert('menu_links')
   'p1' => '1',
   'p2' => '175',
   'p3' => '475',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'management',
+  'mlid' => '478',
+  'plid' => '20',
+  'link_path' => 'admin/content/book',
+  'router_path' => 'admin/content/book',
+  'link_title' => 'custom link test',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:0:"";}}',
+  'module' => 'menu',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '1',
+  'p1' => '1',
+  'p2' => '20',
+  'p3' => '478',
   'p4' => '0',
   'p5' => '0',
   'p6' => '0',

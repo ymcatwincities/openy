@@ -1,0 +1,5 @@
+name: YMCA Membership
+type: module
+description: Implements membership page.
+core: 8.x
+package: YMCA

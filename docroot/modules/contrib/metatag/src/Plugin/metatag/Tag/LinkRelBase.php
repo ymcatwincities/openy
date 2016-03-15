@@ -10,9 +10,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
-use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Form\FormStateInterface;
-
 abstract class LinkRelBase extends MetaNameBase {
   /**
    * Display the meta tag.

@@ -49,7 +49,7 @@ class MetatagTag extends Plugin {
   public $name;
 
   /**
-   * The group this meta tag fits in, corresponds to a MetatagGroup plugn.
+   * The group this meta tag fits in, corresponds to a MetatagGroup plugin.
    *
    * @var string
    */
