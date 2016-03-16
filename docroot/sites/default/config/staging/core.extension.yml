@@ -14,6 +14,7 @@ module:
   config_import: 0
   config_inspector: 0
   contact: 0
+  contact_storage: 0
   contextual: 0
   crop: 0
   csv_serialization: 0
@@ -68,6 +69,7 @@ module:
   serialization: 0
   shield: 0
   shortcut: 0
+  simple_sitemap: 0
   sitemap: 0
   smtp: 0
   system: 0
