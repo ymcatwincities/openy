@@ -1,0 +1,23 @@
+uuid: e5295e13-6d0c-484c-9000-c6112eef79ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.contact_personal_training.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: contact_personal_training
+label: 'Phone Number'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: '(###)###-####'
+default_value_callback: ''
+settings: {  }
+field_type: telephone

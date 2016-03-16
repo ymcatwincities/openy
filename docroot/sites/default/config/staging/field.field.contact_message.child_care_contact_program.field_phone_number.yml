@@ -1,0 +1,23 @@
+uuid: 7f9a6af6-29ee-42ba-8b40-6427f00829ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.child_care_contact_program
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.child_care_contact_program.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: child_care_contact_program
+label: 'Phone number'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: '(###)###-####'
+default_value_callback: ''
+settings: {  }
+field_type: telephone

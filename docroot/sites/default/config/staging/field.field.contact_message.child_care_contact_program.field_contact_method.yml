@@ -1,0 +1,21 @@
+uuid: 2c66099c-e2f2-4c17-8843-67cdde0b4e7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.child_care_contact_program
+    - field.storage.contact_message.field_contact_method
+  module:
+    - options
+id: contact_message.child_care_contact_program.field_contact_method
+field_name: field_contact_method
+entity_type: contact_message
+bundle: child_care_contact_program
+label: 'Preferred contact method'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

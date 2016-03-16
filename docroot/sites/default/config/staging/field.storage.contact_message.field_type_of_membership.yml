@@ -1,0 +1,36 @@
+uuid: e38c7b82-65f2-4a37-9907-7c4ef29bf356
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_type_of_membership
+field_name: field_type_of_membership
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: youth
+      label: 'Youth (10-17 years)'
+    -
+      value: student
+      label: 'Student (18-25 years, in college)'
+    -
+      value: adult
+      label: Adult
+    -
+      value: dual
+      label: 'Dual (two people in household)'
+    -
+      value: family
+      label: 'Family (one or two adults with dependents)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
