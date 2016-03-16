@@ -152,8 +152,18 @@ content:
       display_label: false
     third_party_settings: {  }
     type: boolean_checkbox
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   copy: true
+  field_fax: true
+  field_form_divider1: true
+  field_label: true
+  field_order_email: true
+  field_website_url: true
   mail: true
   message: true
   name: true

@@ -63,6 +63,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   copy: true
   mail: true
