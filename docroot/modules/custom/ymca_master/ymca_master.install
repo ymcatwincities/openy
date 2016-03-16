@@ -1123,3 +1123,10 @@ function ymca_master_update_8038() {
   Drupal::configFactory()->getEditable('views.view.contact_messages')->delete();
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
+
+/**
+ * INstall simple_sitemap.
+ */
+function ymca_master_update_8039() {
+  \Drupal::service('module_installer')->install(['simple_sitemap'], TRUE);
+}
