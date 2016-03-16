@@ -1134,4 +1134,6 @@ function ymca_master_update_8039() {
   \Drupal::service('config_import.importer')->importConfigs([
     $path . 'simple_sitemap.settings.yml',
   ]);
+  $sitemap = new \Drupal\simple_sitemap\Simplesitemap();
+  $sitemap->generate_sitemap('cron');
 }
