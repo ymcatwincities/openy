@@ -30,6 +30,8 @@
     node_type ? 'node--type-' ~ node_type|clean_class,
     db_offline ? 'db-offline',
   ]
+%}
+{%
   set page_title = is_front ? 'YMCA Twin Cities' : head_title.title
 %}
 
