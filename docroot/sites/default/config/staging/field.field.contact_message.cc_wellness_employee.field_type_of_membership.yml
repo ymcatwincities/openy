@@ -1,0 +1,21 @@
+uuid: 2d373fa2-3ee4-465a-b900-0ec18364727e
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employee
+    - field.storage.contact_message.field_type_of_membership
+  module:
+    - options
+id: contact_message.cc_wellness_employee.field_type_of_membership
+field_name: field_type_of_membership
+entity_type: contact_message
+bundle: cc_wellness_employee
+label: 'Type of membership'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

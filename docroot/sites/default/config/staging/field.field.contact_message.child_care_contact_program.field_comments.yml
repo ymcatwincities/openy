@@ -1,0 +1,19 @@
+uuid: 7e8de352-227a-4293-9850-80b495682805
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.child_care_contact_program
+    - field.storage.contact_message.field_comments
+id: contact_message.child_care_contact_program.field_comments
+field_name: field_comments
+entity_type: contact_message
+bundle: child_care_contact_program
+label: 'Notes or comments (optional)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

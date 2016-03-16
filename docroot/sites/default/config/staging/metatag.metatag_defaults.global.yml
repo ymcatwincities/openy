@@ -6,8 +6,10 @@ id: global
 label: Global
 tags:
   canonical_url: '[site:url]'
+  title: '[current-page:title] | [site:name]'
   content_language: en
   generator: 'YMCA platform'
   og_type: website
+  og_image: '[site:url]/themes/custom/ymca/img/ymca-logo-full.png'
   og_site_name: '[site:name]'
-  og_title: '[current-page:title]'
+  og_title: '[current-page:title] | [site:name]'
