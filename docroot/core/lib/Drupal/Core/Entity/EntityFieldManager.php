@@ -252,11 +252,12 @@ class EntityFieldManager implements EntityFieldManagerInterface {
       }
     }
 
+
     // Force contact_storage_entity_base_field_info() to run.
-    if (function_exists('contact_storage_entity_base_field_info')) {
-      if ($this->moduleHandler->getImplementations('entity_base_field_info') == FALSE) {
-        require_once DRUPAL_ROOT . '/modules/patched/contact_storage/contact_storage.module';
-        $module_definitions = contact_storage_entity_base_field_info($entity_type) ;
+    if ($this->moduleHandler->getImplementations('entity_base_field_info') == FALSE) {
+      require_once DRUPAL_ROOT . '/modules/patched/contact_storage/contact_storage.module';
+      if (function_exists('contact_storage_entity_base_field_info')) {
+        $module_definitions = contact_storage_entity_base_field_info($entity_type);
         if (!empty($module_definitions)) {
           // Ensure the provider key actually matches the name of the provider
           // defining the field.
