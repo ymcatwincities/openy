@@ -1,0 +1,19 @@
+uuid: 75b3c28f-2a9c-4821-a600-c478960aa859
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - webforms
+id: contact_message.field_childcare_location
+field_name: field_childcare_location
+entity_type: contact_message
+type: options_email_item
+settings: {  }
+module: webforms
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
