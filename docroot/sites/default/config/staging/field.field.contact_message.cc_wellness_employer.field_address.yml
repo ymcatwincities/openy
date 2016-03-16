@@ -1,0 +1,34 @@
+uuid: c09a1013-f552-4db8-a20f-15b93a839aa5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employer
+    - field.storage.contact_message.field_address
+  module:
+    - address
+id: contact_message.cc_wellness_employer.field_address
+field_name: field_address
+entity_type: contact_message
+bundle: cc_wellness_employer
+label: Address
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries:
+    US: US
+  fields:
+    administrativeArea: administrativeArea
+    locality: locality
+    postalCode: postalCode
+    addressLine1: addressLine1
+    addressLine2: addressLine2
+    dependentLocality: '0'
+    sortingCode: '0'
+    organization: '0'
+    recipient: '0'
+  langcode_override: ''
+field_type: address

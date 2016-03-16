@@ -1,0 +1,19 @@
+uuid: 6ff4f27d-69a8-40f7-bf21-33514be6173c
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employer
+    - field.storage.contact_message.field_email_address
+id: contact_message.cc_wellness_employer.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: cc_wellness_employer
+label: 'Email Address'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

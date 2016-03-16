@@ -1,0 +1,23 @@
+uuid: b10f736d-69d3-4042-9200-ac2d4b9fe8e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_wm_biz
+id: contact_message.become_a_supplier.field_wm_biz
+field_name: field_wm_biz
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Are you a minority, women or veteran owned business (51% required ownership)?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
