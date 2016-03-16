@@ -1,0 +1,25 @@
+custom: {  }
+entity_types:
+  node_type:
+    blog:
+      index: 1
+      priority: '0.5'
+    camp:
+      index: 1
+      priority: '0.5'
+    location:
+      index: 1
+      priority: '0.5'
+    article:
+      index: 1
+      priority: '0.5'
+    product:
+      index: 1
+      priority: '0.5'
+settings:
+  max_links: '5000'
+  cron_generate: 1
+  remove_duplicates: 1
+  batch_process_limit: '1500'
+_core:
+  default_config_hash: fICH612phS7-D_8q-m1YjgYFM8Mcy_5JestT1H_nkPQ
