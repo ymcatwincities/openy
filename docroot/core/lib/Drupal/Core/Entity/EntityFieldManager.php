@@ -252,6 +252,27 @@ class EntityFieldManager implements EntityFieldManagerInterface {
       }
     }
 
+
+    // Force contact_storage_entity_base_field_info() to run.
+    if ($this->moduleHandler->getImplementations('entity_base_field_info') == FALSE) {
+      require_once DRUPAL_ROOT . '/modules/patched/contact_storage/contact_storage.module';
+      if (function_exists('contact_storage_entity_base_field_info')) {
+        $module_definitions = contact_storage_entity_base_field_info($entity_type);
+        if (!empty($module_definitions)) {
+          // Ensure the provider key actually matches the name of the provider
+          // defining the field.
+          foreach ($module_definitions as $field_name => $definition) {
+            // @todo Remove this check once FieldDefinitionInterface exposes a
+            //  proper provider setter. See https://www.drupal.org/node/2225961.
+            if ($definition instanceof BaseFieldDefinition && $definition->getProvider() == NULL) {
+              $definition->setProvider($module);
+            }
+            $base_field_definitions[$field_name] = $definition;
+          }
+        }
+      }
+    }
+
     // Automatically set the field name, target entity type and bundle
     // for non-configurable fields.
     foreach ($base_field_definitions as $field_name => $base_field_definition) {
@@ -264,6 +285,7 @@ class EntityFieldManager implements EntityFieldManagerInterface {
 
     // Invoke alter hook.
     $this->moduleHandler->alter('entity_base_field_info', $base_field_definitions, $entity_type);
+
 
     // Ensure defined entity keys are there and have proper revisionable and
     // translatable values.
