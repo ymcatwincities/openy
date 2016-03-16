@@ -1,0 +1,8 @@
+uuid: 26f2370a-6b00-48a1-9d00-f9240d759400
+langcode: en
+status: true
+dependencies: {  }
+id: node__camp
+label: 'Content: Camp'
+tags:
+  title: '[current-page:title] | [site:name]'
