@@ -1135,5 +1135,5 @@ function ymca_master_update_8039() {
     $path . 'simple_sitemap.settings.yml',
   ]);
   $sitemap = new \Drupal\simple_sitemap\Simplesitemap();
-  $sitemap->generate_sitemap('cron');
+  $sitemap->generate_sitemap('drush');
 }
