@@ -1,0 +1,19 @@
+uuid: 4e24d6d5-0357-4f11-9c1c-281694716386
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.storage.contact_message.field_last_name
+id: contact_message.journey_to_freedom.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: journey_to_freedom
+label: 'Last Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,9 @@
+uuid: a5522383-dd60-459c-8140-64455136dd59
+langcode: en
+status: true
+dependencies: {  }
+id: node__location
+label: 'Content: Location'
+tags:
+  title: '[current-page:title] | [site:name]'
+  og_title: '[current-page:title] | [site:name]'
