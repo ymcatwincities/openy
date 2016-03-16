@@ -1,0 +1,21 @@
+uuid: cb8e45ea-cecc-4719-a600-e5bb3cfabe33
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.storage.contact_message.field_contact_method
+  module:
+    - options
+id: contact_message.journey_to_freedom.field_contact_method
+field_name: field_contact_method
+entity_type: contact_message
+bundle: journey_to_freedom
+label: 'What is your preferred contact method?'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
