@@ -304,6 +304,14 @@ function ymca_preprocess_node(&$variables) {
     }
     $variables['back_link_title'] = $back_link_title;
     $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
+    // Preprocessing for day camp news.
+    $variables['is_day_camp_news'] = FALSE;
+    if ($variables['node']->hasField('field_related_camps_locations')) {
+      $day_camp = $variables['node']->get('field_related_camps_locations');
+      if (!$day_camp->isEmpty()) {
+        $variables['is_day_camp_news'] = TRUE;
+      }
+    }
   }
 
   $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
