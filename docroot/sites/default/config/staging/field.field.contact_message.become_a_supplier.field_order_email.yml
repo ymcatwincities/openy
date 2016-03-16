@@ -1,0 +1,19 @@
+uuid: b19ed4ea-e683-4678-a500-d1bdc66856b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_order_email
+id: contact_message.become_a_supplier.field_order_email
+field_name: field_order_email
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Order Processing Email'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

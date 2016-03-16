@@ -1,0 +1,18 @@
+uuid: 9a7e354f-671e-40c2-b201-1d6b1dd705c5
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_order_email
+field_name: field_order_email
+entity_type: contact_message
+type: email
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
