@@ -24,4 +24,10 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_childcare_location: true
+  field_comments: true
+  field_contact_method: true
+  field_email_address: true
+  field_last_name: true
+  field_phone_number: true

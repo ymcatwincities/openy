@@ -62,6 +62,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   copy: true
   mail: true
