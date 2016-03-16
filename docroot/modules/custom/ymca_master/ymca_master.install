@@ -14,6 +14,7 @@ use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
+use Drupal\simple_sitemap\Simplesitemap;
 
 /**
  * Protecting sites with a shield.
@@ -1134,6 +1135,6 @@ function ymca_master_update_8039() {
   \Drupal::service('config_import.importer')->importConfigs([
     $path . 'simple_sitemap.settings.yml',
   ]);
-  $sitemap = new \Drupal\simple_sitemap\Simplesitemap();
+  $sitemap = new Simplesitemap();
   $sitemap->generate_sitemap('drush');
 }
