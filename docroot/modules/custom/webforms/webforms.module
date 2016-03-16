@@ -151,9 +151,28 @@ function webforms_entity_type_alter(array &$entity_types) {
   $entity_types['contact_form']->setFormClass('add', 'Drupal\webforms\ContactFormEditForm');
   $entity_types['contact_form']->setFormClass('edit', 'Drupal\webforms\ContactFormEditForm');
   $config_export = $entity_types['contact_form']->get('config_export');
+  // TODO: Move to ThirdPartySettings.
   $config_export[] = 'prefix';
   $config_export[] = 'suffix';
+  $config_export[] = 'provideSubmissionPage';
+  $config_export[] = 'submissionPageContent';
+  $config_export[] = 'submissionPageTitle';
   $entity_types['contact_form']->set('config_export', $config_export);
   // Override contact message.
   $entity_types['contact_message']->setFormClass('default', 'Drupal\webforms\MessageForm');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function webforms_theme($existing, $type, $theme, $path) {
+  return [
+    'webform_submission_page' => [
+      'variables' => [
+        'content' => '',
+        'title' => '',
+      ],
+      'template' => 'submission-page',
+    ],
+  ];
 }
