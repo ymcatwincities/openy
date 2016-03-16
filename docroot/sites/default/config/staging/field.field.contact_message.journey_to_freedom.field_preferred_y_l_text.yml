@@ -1,0 +1,21 @@
+uuid: e0578c87-e7f2-485c-8c16-22787f2534cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.storage.contact_message.field_preferred_y_l_text
+  module:
+    - options
+id: contact_message.journey_to_freedom.field_preferred_y_l_text
+field_name: field_preferred_y_l_text
+entity_type: contact_message
+bundle: journey_to_freedom
+label: 'Y Location'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
