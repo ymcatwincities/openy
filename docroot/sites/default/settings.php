@@ -714,9 +714,9 @@ $settings["install_profile"] = "pp";
 
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+ini_set('memory_limit', '256M');
   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
     ini_set('memory_limit', '2048M');
   }
-  ini_set('memory_limit', '256M');
 }
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
