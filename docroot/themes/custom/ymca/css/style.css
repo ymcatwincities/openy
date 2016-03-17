@@ -1657,12 +1657,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   height: 50px;
   font-size: 15px;
 }
-.no-touch .toolbar-fixed .nav-location.affix, .no-touch .toolbar-fixed .locations-camps-template .nav-location.affix {
-  top: 90px;
-}
-.no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-location.affix, .no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .locations-camps-template .nav-location.affix {
-  top: 130px;
-}
 
 .lt-ie8 .nav-location.affix, .lt-ie8 .locations-camps-template .nav-location.affix {
   position: absolute;
@@ -7580,6 +7574,13 @@ nav#block-footermenuright {
   z-index: 1002;
 }
 
+.no-touch .toolbar-fixed .nav-location.affix, .no-touch .toolbar-fixed .locations-camps-template .nav-location.affix {
+  top: 90px;
+}
+.no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-location.affix, .no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .locations-camps-template .nav-location.affix {
+  top: 130px;
+}
+
 .carousel-caption .btn {
   padding: 15px 35px !important;
   font-size: 20px !important;
@@ -7676,6 +7677,32 @@ body form .js-form-type-radio.form-item label {
 
 .schedules-template .panel-group > .content-expander > .panel-heading a:before {
   display: none;
+}
+
+.post-excerpt .read-more-wrapper a {
+  color: #0089d0;
+  font-size: 16px;
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  -webkit-transition: color .2s ease-out;
+  -moz-transition: color .2s ease-out;
+  -ms-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+.post-excerpt .read-more-wrapper a:hover {
+  text-decoration: none;
+  color: #006ea7;
+}
+.post-excerpt .read-more-wrapper a:after {
+  text-transform: none;
+  position: relative;
+  top: 1px;
+  margin-left: 10px;
+  content: 'o';
+  vertical-align: baseline;
+  font-size: 20px;
+  font-family: 'YMCA';
 }
 
 .form-item {

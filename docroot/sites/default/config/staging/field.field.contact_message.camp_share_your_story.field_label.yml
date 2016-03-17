@@ -1,0 +1,23 @@
+uuid: 1bf6b300-97b9-4a90-9b03-03ed7316a8b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_label
+  module:
+    - webforms
+id: contact_message.camp_share_your_story.field_label
+field_name: field_label
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'YOUR INFO'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 'YOUR INFO '
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item
