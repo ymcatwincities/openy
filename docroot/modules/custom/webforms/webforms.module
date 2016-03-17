@@ -157,7 +157,7 @@ function webforms_entity_type_alter(array &$entity_types) {
   $config_export[] = 'provideSubmissionPage';
   $config_export[] = 'submissionPageContent';
   $config_export[] = 'submissionPageTitle';
-  $config_export[] = 'email_settings';
+  $config_export[] = 'email';
   $entity_types['contact_form']->set('config_export', $config_export);
   // Override contact message.
   $entity_types['contact_message']->setFormClass('default', 'Drupal\webforms\MessageForm');
