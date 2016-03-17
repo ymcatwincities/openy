@@ -91,6 +91,38 @@ class ContactFormEditForm extends CoreContactFormEditForm {
       '#value' => $path['langcode'],
     );
 
+    $email_settings = $contact_form->getEmailSettings();
+      $form['email_settings'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Email templates'),
+      '#collapsible' => TRUE,
+      '#open' => $email_settings['custom'],
+      '#tree' => TRUE,
+    );
+    $form['email_settings']['custom'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use custom email template'),
+      '#default_value' => $email_settings['custom'],
+    );
+    $form['email_settings']['subject'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Email subject'),
+      '#default_value' => $email_settings['subject'],
+      '#description' => $this->t('Tokens are supported.'),
+    );
+    $form['email_settings']['content'] = array(
+      '#type' => 'text_format',
+      '#title' => $this->t('Email content'),
+      '#description' => $this->t('Enter markup to use for email content.'),
+    );
+    $form['email_settings']['content']['#format'] = $email_settings['content']['format'];
+    $form['email_settings']['content']['#default_value'] = $email_settings['content']['value'];
+    $form['email_settings']['tokens'] = array(
+      '#theme' => 'token_tree_link',
+      '#token_types' => ['user', 'contact_message'],
+      '#click_insert' => FALSE,
+    );
+
     return $form;
   }
 
