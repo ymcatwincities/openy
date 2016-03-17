@@ -267,3 +267,31 @@ body form .js-form-type-radio.form-item {
 .schedules-template .panel-group > .content-expander > .panel-heading a:before {
   display: none;
 }
+
+.post-excerpt {
+  .read-more-wrapper a {
+    color: #0089d0;
+    font-size: 16px;
+    font-family: "Cachet",Arial,sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-transition: color .2s ease-out;
+    -moz-transition: color .2s ease-out;
+    -ms-transition: color .2s ease-out;
+    transition: color .2s ease-out;
+    &:hover {
+      text-decoration: none;
+      color: #006ea7;
+    }
+    &:after {
+      text-transform: none;
+      position: relative;
+      top: 1px;
+      margin-left: 10px;
+      content: 'o';
+      vertical-align: baseline;
+      font-size: 20px;
+      font-family: 'YMCA';
+    }
+  }
+}
