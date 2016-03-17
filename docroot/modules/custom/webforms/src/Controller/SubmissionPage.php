@@ -41,7 +41,7 @@ class SubmissionPage extends ControllerBase {
 
     // Submission data available only for 1 minute.
     if (time() - $submission->created->getValue()[0]['value'] > 60) {
-//      throw new NotFoundHttpException();
+      throw new NotFoundHttpException();
     }
 
     // Retrieve submission page content.
