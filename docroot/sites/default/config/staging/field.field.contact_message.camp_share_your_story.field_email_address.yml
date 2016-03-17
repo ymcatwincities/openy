@@ -1,0 +1,19 @@
+uuid: 16ac09c3-110e-48e2-9300-bb4327ec4a90
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_email_address
+id: contact_message.camp_share_your_story.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: camp_share_your_story
+label: Email
+description: user@example.com
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

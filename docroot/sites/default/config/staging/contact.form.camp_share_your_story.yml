@@ -1,0 +1,17 @@
+uuid: 2d97e67b-3cca-479c-ad00-0c52bf90e403
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: camp_share_your_story
+label: 'Camp - Share Your Story'
+recipients:
+  - missy.huppert@ymcatwincities.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''

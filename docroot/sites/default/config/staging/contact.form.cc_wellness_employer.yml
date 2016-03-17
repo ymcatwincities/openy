@@ -10,6 +10,3 @@ reply: ''
 weight: 0
 prefix: ''
 suffix: ''
-provideSubmissionPage: false
-submissionPageContent: {  }
-submissionPageTitle: 'Thank you'
