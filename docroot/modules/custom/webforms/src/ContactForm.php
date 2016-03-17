@@ -55,7 +55,7 @@ class ContactForm extends CoreContactForm {
     'subject' => '',
     'content' => [
       'value' => '',
-      'format' => 'code',
+      'format' => 'full_html',
     ],
   ];
 
