@@ -25,6 +25,10 @@ class SubmissionPage extends ControllerBase {
     }
 
     $uuid = \Drupal::request()->query->get('key');
+    if (!$uuid) {
+      throw new NotFoundHttpException('UUID missed');
+    }
+
     // Load submission data.
     $submissions = $this->entityTypeManager()
       ->getStorage('contact_message')
