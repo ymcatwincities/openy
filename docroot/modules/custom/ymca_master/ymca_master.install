@@ -1142,4 +1142,11 @@ function ymca_master_update_8040() {
     'sites/default/config/staging/contact.form.contact_an_aquatics_manager.yml',
     'sites/default/config/staging/views.view.contact_messages.yml',
   ]);
+
+  // Set thank you page alias.
+  $contact_form = $this->entityTypeManager()
+    ->getStorage('contact_form')
+    ->load('contact_an_aquatics_manager');
+  $path_info = $contact_form->getSubmissionPagePath();
+  \Drupal::service('path.alias_storage')->save($path_info['source'], '/swimming/contact_an_aquatics_manager/thank_you', 'en');
 }
