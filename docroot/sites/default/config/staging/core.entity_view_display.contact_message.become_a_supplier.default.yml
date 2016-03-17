@@ -176,4 +176,9 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_fax: true
+  field_form_divider1: true
+  field_label: true
+  field_order_email: true
+  field_website_url: true
