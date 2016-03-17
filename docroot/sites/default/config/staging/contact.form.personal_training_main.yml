@@ -1,0 +1,12 @@
+uuid: e37310ce-2b53-4e01-a806-6cf611d4cc46
+langcode: en
+status: true
+dependencies: {  }
+id: personal_training_main
+label: 'Personal Training (main)'
+recipients:
+  - jennifer.menk@ymcatwincities.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''

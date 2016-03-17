@@ -1,0 +1,170 @@
+uuid: eb0943ea-d57f-4f97-9e00-c49319707ae0
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.field.contact_message.become_a_supplier.field_address
+    - field.field.contact_message.become_a_supplier.field_category_class
+    - field.field.contact_message.become_a_supplier.field_cell_phone
+    - field.field.contact_message.become_a_supplier.field_ceo_first_name
+    - field.field.contact_message.become_a_supplier.field_ceo_last_name
+    - field.field.contact_message.become_a_supplier.field_company_name
+    - field.field.contact_message.become_a_supplier.field_electronic_po
+    - field.field.contact_message.become_a_supplier.field_email_address
+    - field.field.contact_message.become_a_supplier.field_fein
+    - field.field.contact_message.become_a_supplier.field_first_name
+    - field.field.contact_message.become_a_supplier.field_form_divider
+    - field.field.contact_message.become_a_supplier.field_last_name
+    - field.field.contact_message.become_a_supplier.field_phone_number
+    - field.field.contact_message.become_a_supplier.field_product_catalog
+    - field.field.contact_message.become_a_supplier.field_supplier_portal
+    - field.field.contact_message.become_a_supplier.field_title
+    - field.field.contact_message.become_a_supplier.field_vendor_portal
+    - field.field.contact_message.become_a_supplier.field_w9
+    - field.field.contact_message.become_a_supplier.field_wm_biz
+  module:
+    - address
+    - telephone
+    - webforms
+id: contact_message.become_a_supplier.default
+targetEntityType: contact_message
+bundle: become_a_supplier
+mode: default
+content:
+  field_address:
+    weight: 10
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_category_class:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_cell_phone:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_ceo_first_name:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ceo_last_name:
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_company_name:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_electronic_po:
+    weight: 4
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_email_address:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_fein:
+    weight: 17
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_first_name:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_form_divider:
+    weight: 18
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 21
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_product_catalog:
+    weight: 6
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_supplier_portal:
+    weight: 5
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_title:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_vendor_portal:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_w9:
+    weight: 3
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_wm_biz:
+    weight: 8
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  field_fax: true
+  field_form_divider1: true
+  field_label: true
+  field_order_email: true
+  field_website_url: true
+  mail: true
+  message: true
+  name: true
+  subject: true
