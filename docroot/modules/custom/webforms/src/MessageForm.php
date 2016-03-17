@@ -57,6 +57,7 @@ class MessageForm extends CoreMessageForm {
     }
     else {
       $contact_form = $message->getContactForm();
+      // Redirect to submission page if it is provided.
       if ($contact_form->getProvideSubmissionPage()) {
         $params = [
           'contact_form' => $contact_form->id(),
