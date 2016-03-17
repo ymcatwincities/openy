@@ -1,0 +1,12 @@
+name: Simple XML Sitemap
+type: module
+description: 'This module creates a standard conform xml sitemap of your content.'
+configure: simple_sitemap.settings
+package: SEO
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2016-02-27
+version: '8.x-2.1'
+core: '8.x'
+project: 'simple_sitemap'
+datestamp: 1456591442

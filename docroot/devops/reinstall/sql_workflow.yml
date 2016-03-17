@@ -63,10 +63,6 @@
   shell: "{{ php_env_vars }} drush -y rr -l {{ site_url }} || true"
   when: rebuild_registry
 
-- name: Import config
-  sudo: yes
-  shell: "{{ php_env_vars }} drush -y config-import staging --partial -l {{ site_url }}"
-
 # Update database.
 - name: Updating database
   sudo: yes
