@@ -16,9 +16,7 @@ class ContactFormEditForm extends CoreContactFormEditForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    /**
-     * @var \Drupal\webforms\ContactForm $contact_form
-     */
+    /* @var \Drupal\webforms\ContactForm $contact_form */
     $contact_form = $this->entity;
     $form['prefix'] = array(
       '#type' => 'textarea',
@@ -128,9 +126,7 @@ class ContactFormEditForm extends CoreContactFormEditForm {
   public function save(array $form, FormStateInterface $form_state) {
     parent::save($form, $form_state);
 
-    /**
-     * @var \Drupal\webforms\ContactForm $contact_form
-     */
+    /* @var \Drupal\webforms\ContactForm $contact_form */
     $contact_form = $this->entity;
 
     $path = $contact_form->path;

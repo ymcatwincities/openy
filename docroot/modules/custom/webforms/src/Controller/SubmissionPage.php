@@ -15,9 +15,7 @@ class SubmissionPage extends ControllerBase {
    * Show the page.
    */
   public function buildPage($contact_form) {
-    /**
-     * @var ContactForm $contact_form
-     */
+    /* @var ContactForm $contact_form */
     $contact_form = $this->entityTypeManager()
       ->getStorage('contact_form')
       ->load($contact_form);
@@ -43,7 +41,7 @@ class SubmissionPage extends ControllerBase {
 
     // Submission data available only for 1 minute.
     if (time() - $submission->created->getValue()[0]['value'] > 60) {
-      throw new NotFoundHttpException();
+//      throw new NotFoundHttpException();
     }
 
     // Retrieve submission page content.
