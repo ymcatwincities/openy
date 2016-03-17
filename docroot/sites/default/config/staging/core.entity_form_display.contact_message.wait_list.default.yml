@@ -1,0 +1,74 @@
+uuid: ba0e8b17-e45e-4aa4-8200-f856af261084
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.field.contact_message.wait_list.field_child_first_and_last_name
+    - field.field.contact_message.wait_list.field_email_address
+    - field.field.contact_message.wait_list.field_first_name
+    - field.field.contact_message.wait_list.field_label
+    - field.field.contact_message.wait_list.field_last_name
+    - field.field.contact_message.wait_list.field_phone_number
+    - field.field.contact_message.wait_list.field_school
+  module:
+    - telephone
+    - webforms
+id: contact_message.wait_list.default
+targetEntityType: contact_message
+bundle: wait_list
+mode: default
+content:
+  field_child_first_and_last_name:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_email_address:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_label:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_school:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  copy: true
+  mail: true
+  message: true
+  name: true
+  subject: true

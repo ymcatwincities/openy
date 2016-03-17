@@ -77,9 +77,17 @@ class YMCANewsBlogBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         }
       }
     }
-
     $listing_name = $is_news ? 'News' : 'Blog';
     $listing_uri = $is_news ? 'internal:/news' : 'internal:/blog';
+
+    // Special logic for Day Camp News.
+    if ($this->node->hasField('field_related_camps_locations')) {
+      $day_camp = $this->node->get('field_related_camps_locations');
+      if (!$day_camp->isEmpty()) {
+        $listing_name = 'Day Camp News';
+        $listing_uri = 'internal:/day_camp_news';
+      }
+    }
 
     $breadcrumb = new Breadcrumb();
     $breadcrumb->setLinks([
