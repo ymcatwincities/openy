@@ -117,18 +117,7 @@
       <div class="col-sm-7">
         <h2>{{ 'News &amp; Events'|t }}</h2>
         <div id="excerpt-source">
-          {% for item in news_events %}
-          <div class="post-excerpt clearfix">
-            <div class="post-excerpt-content">
-              <h2 class="post-title">{{ item.title }}</h2>
-              <article class="richtext">{{ item.text|raw }}</article>
-              <p class="comments_count">
-                {{ item.read_more }}
-                <a href="{{ item.read_more_url }}" class="read-more">{{ 'Continue Reading'|t }}</a>
-              </p>
-            </div>
-          </div>
-          {% endfor %}
+          {{ news_events }}
         </div>
       </div>
       {% endif %}
