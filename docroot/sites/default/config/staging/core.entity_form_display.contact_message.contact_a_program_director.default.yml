@@ -1,0 +1,45 @@
+uuid: b7afb1a8-78b8-4905-9b00-a88a0ea94ebe
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_a_program_director
+    - field.field.contact_message.contact_a_program_director.field_first_name
+id: contact_message.contact_a_program_director.default
+targetEntityType: contact_message
+bundle: contact_a_program_director
+mode: default
+content:
+  copy:
+    weight: 50
+  field_first_name:
+    weight: 51
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  mail:
+    weight: -40
+  message:
+    type: string_textarea
+    weight: 0
+    settings:
+      rows: 12
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    weight: -50
+  subject:
+    type: string_textfield
+    weight: -10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

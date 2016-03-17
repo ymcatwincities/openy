@@ -1,0 +1,23 @@
+uuid: 69b7131a-5085-485f-b200-b285edf1a4ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_form_divider1
+  module:
+    - webforms
+id: contact_message.become_a_supplier.field_form_divider1
+field_name: field_form_divider1
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Company Info'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'PLEASE FILL OUT THE FOLLOWING COMPANY INFORMATION'
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item

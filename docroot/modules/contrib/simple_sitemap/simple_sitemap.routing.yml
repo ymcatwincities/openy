@@ -1,0 +1,29 @@
+simple_sitemap.sitemap:
+  path: '/sitemap.xml'
+  defaults:
+    _controller: '\Drupal\simple_sitemap\Controller\SimplesitemapController::get_sitemap'
+  requirements:
+    _access: 'TRUE'
+
+simple_sitemap.chunk:
+  path: '/sitemaps/{sitemap_id}/sitemap.xml'
+  defaults:
+    _controller: '\Drupal\simple_sitemap\Controller\SimplesitemapController::get_sitemap'
+  requirements:
+    _access: 'TRUE'
+
+simple_sitemap.settings:
+  path: '/admin/config/search/simplesitemap'
+  defaults:
+    _form: '\Drupal\simple_sitemap\Form\SimplesitemapSettingsForm'
+    _title: 'Simple XML Sitemap Settings'
+  requirements:
+    _permission: 'administer sitemap settings'
+
+simple_sitemap.settings_custom:
+  path: '/admin/config/search/simplesitemap/custom'
+  defaults:
+    _form: '\Drupal\simple_sitemap\Form\SimplesitemapCustomLinksForm'
+    _title: 'Simple XML Sitemap Settings'
+  requirements:
+    _permission: 'administer sitemap settings'

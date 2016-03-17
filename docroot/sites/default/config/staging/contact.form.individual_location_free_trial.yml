@@ -1,0 +1,12 @@
+uuid: bd6dc36c-1905-49e8-b408-8a37ea31b678
+langcode: en
+status: true
+dependencies: {  }
+id: individual_location_free_trial
+label: 'Individual Location Free Trial Pages'
+recipients:
+  - personal@example.com
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
