@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Component\Utility\SortArray;
 
 /**
  * Implements hook_theme().
@@ -31,70 +32,138 @@ function ymca_blog_listing_preprocess_node(&$variables) {
   // Add list News & Events items to camps and locations.
   $node = $variables['node'];
   $bundles = ['location', 'camp'];
-  if (in_array($node->bundle(), $bundles)) {
-    $items = [];
-    $ids = [];
+  if (!in_array($node->bundle(), $bundles)) {
+    return;
+  }
 
-    try {
-      // Day camp news have the highest priority.
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'blog')
-        ->condition('status', 1)
-        ->condition('field_related_camps_locations.target_id', $node->id())
-        ->sort('created', 'DESC')
-        ->range(0, 2);
-      $ids = $query->execute();
-
-      // Extend the results with related posts.
-      if (count($ids) < 2) {
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->condition('status', 1)
-          ->condition('field_site_section.target_id', $node->id())
-          ->sort('created', 'DESC')
-          ->range(0, 2 - count($ids));
-        $ids += $query->execute();
-      }
-
-      // Finally, extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
-      if (count($ids) < 2) {
-        $field_include_name = 'field_include_general_blog_posts';
-        if ($node->hasField($field_include_name)) {
-          $field_include = $node->get($field_include_name);
-          if (!$field_include->isEmpty()) {
-            // Load all ids of Blog Post CT that are not related to any site section.
-            $query = \Drupal::entityQuery('node')
-              ->condition('type', 'blog')
-              ->notExists('field_site_section')
-              ->notExists('field_related_camps_locations')
-              ->condition('status', 1)
-              ->sort('created', 'DESC')
-              ->range(0, 2 - count($ids));
-            $ids += $query->execute();
-          }
-        }
-      }
-
-    }
-    catch (Exception $e) {
-      watchdog_exception('ymca_blog_listing', $e);
-    }
-
-    // Load nodes and build output array.
-    $nodes = \Drupal::getContainer()->get('entity.manager')->getStorage('node')->loadMultiple($ids);
-
-    foreach ($nodes as $nid => $n) {
-      $node_url = Url::fromUri('entity:node/' . $nid);
-      $items[] = [
-        'title' => new Link($n->getTitle(), $node_url),
-        'text' => Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
-        'read_more_url' => $node_url,
+  // Load & prepare posts.
+  $load_posts = function($ids) {
+    $posts = [];
+    $items = \Drupal::getContainer()->get('entity.manager')->getStorage('node')->loadMultiple($ids);
+    foreach ($items as $node) {
+      $url = Url::fromUri('entity:node/' . $node->id());
+      $posts[] = [
+        'title' => new Link($node->getTitle(), $url),
+        'text' => Unicode::truncate($node->field_summary->value, 180, TRUE, FALSE),
+        'read_more_url' => $url,
+        'created' => $node->getCreatedTime(),
+        'id' => $node->id(),
       ];
+    }
+    return $posts;
+  };
+
+  // Sort posts by date.
+  $sort_posts = function ($a, $b) {
+    return SortArray::sortByKeyInt($b, $a, 'created');
+  };
+
+  // Data to output.
+  $posts = [];
+
+  // Here we'll store fetched ids.
+  $ids = [
+    'day' => 0,
+    'related' => 0,
+    'general' => 0,
+  ];
+
+  // Indicates whether general posts should be included.
+  $available_general = FALSE;
+
+  $nid = $node->id();
+
+  // Check if general blog posts available for the node.
+  $field_name_general = 'field_include_general_blog_posts';
+  if ($node->hasField($field_name_general)) {
+    $field_data_general = $node->get($field_name_general);
+    if ($field_data_general->getValue()[0]['value']) {
+      $available_general = TRUE;
+    }
+  }
+
+  // Create parent query object.
+  $query_parent = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->condition('status', NODE_PUBLISHED)
+    ->sort('created', 'DESC')
+    ->range(0, 2);
+
+  // Retrieve and sort day posts.
+  $query = clone $query_parent;
+  $result = $query
+    ->condition('field_related_camps_locations.target_id', $nid)
+    ->execute();
+  $ids['day'] = $load_posts($result);
+  usort($ids['day'], $sort_posts);
+
+  // Retrieve and sort related posts.
+  $query = clone $query_parent;
+  $result = $query
+    ->condition('field_site_section.target_id', $nid)
+    ->execute();
+  $ids['related'] = $load_posts($result);
+  usort($ids['related'], $sort_posts);
+
+  // Retrieve and sort general posts (if they are allowed).
+  $query = clone $query_parent;
+  if ($available_general) {
+    $result = $query
+      ->notExists('field_site_section')
+      ->notExists('field_related_camps_locations')
+      ->execute();
+    $ids['general'] = $load_posts($result);
+    usort($ids['general'], $sort_posts);
+  }
+
+  // Only 2 day camp news.
+  if (count($ids['day']) == 2 && empty($ids['related'])) {
+    $posts = $ids['day'];
+  }
+  // Only 2 related news.
+  elseif (count($ids['related']) == 2 && empty($ids['day'])) {
+    $posts = $ids['related'];
+  }
+  // 1 related and 1 day camp news.
+  elseif (!empty($ids['day']) && !empty($ids['related'])) {
+    $posts[] = reset($ids['day']);
+    $posts[] = reset($ids['related']);
+  }
+  // 1 day and 1 general.
+  elseif (count($ids['day']) == 1 && empty($ids['related'])) {
+    $posts[] = reset($ids['day']);
+    if ($available_general) {
+      $posts[] = reset($ids['general']);
+    }
+  }
+  // 1 related and 1 general.
+  elseif (count($ids['related']) == 1 && empty($ids['day'])) {
+    $posts[] = reset($ids['related']);
+    if ($available_general) {
+      $posts[] = reset($ids['general']);
+    }
+  }
+  // General posts, if allowed.
+  elseif (empty($ids['day']) && empty($ids['related'])) {
+    if (empty($ids['general'])) {
+      return;
+    }
+
+    $posts = $ids['general'];
+  }
+
+  if (!empty($posts)) {
+    usort($posts, $sort_posts);
+
+    // Collect ids for node_list tag.
+    $ids = [];
+    foreach ($posts as $item) {
+      $ids[] = $item['id'];
     }
 
     $variables['news_events'] = [
       '#theme' => 'ymca_news_events',
-      '#items' => $items,
+      '#items' => $posts,
       '#cache' => [
         'tags' => Cache::mergeTags(
           ['node_list'],
@@ -102,6 +171,5 @@ function ymca_blog_listing_preprocess_node(&$variables) {
         )
       ]
     ];
-
   }
 }
