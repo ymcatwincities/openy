@@ -1144,7 +1144,7 @@ function ymca_master_update_8040() {
   ]);
 
   // Set thank you page alias.
-  $contact_form = $this->entityTypeManager()
+  $contact_form = \Drupal::entityTypeManager()
     ->getStorage('contact_form')
     ->load('contact_an_aquatics_manager');
   $path_info = $contact_form->getSubmissionPagePath();
