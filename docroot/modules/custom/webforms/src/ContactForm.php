@@ -46,6 +46,20 @@ class ContactForm extends CoreContactForm {
   protected $submissionPageTitle = 'Thank you';
 
   /**
+   * Form's email settings.
+   *
+   * @var array
+   */
+  protected $email_settings = [
+    'custom' => FALSE,
+    'subject' => '',
+    'content' => [
+      'value' => '',
+      'format' => 'code',
+    ],
+  ];
+
+  /**
    * {@inheritdoc}
    */
   public function getPrefix() {
@@ -138,6 +152,13 @@ class ContactForm extends CoreContactForm {
     );
 
     return $path;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEmailSettings() {
+    return $this->email_settings;
   }
 
 }
