@@ -1,0 +1,19 @@
+uuid: 6096eb8f-d374-4afd-9655-85a11675b8ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_fein
+id: contact_message.become_a_supplier.field_fein
+field_name: field_fein
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Federal ID Number: (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
