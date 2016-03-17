@@ -1,0 +1,18 @@
+uuid: 3a838d78-9fae-4d9b-b600-f034aa12c1cf
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: wait_list
+label: 'Wait list'
+recipients:
+  - Kathleen.Hajduk@YMCAtwincities.org
+  - John.Bronson@YMCAtwincities.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
