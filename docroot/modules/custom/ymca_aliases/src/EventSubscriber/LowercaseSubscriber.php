@@ -13,11 +13,11 @@ use Symfony\Component\Routing\RouteCollection;
  * KernelEvents::REQUEST subscriber for redirecting q=path/to/page requests.
  */
 class LowercaseSubscriber implements EventSubscriberInterface {
-  
+
   /**
    * Route provider service.
    *
-   * @var  RouteProvider
+   * @var RouteProvider
    */
   protected $routeProvider;
 
@@ -25,6 +25,7 @@ class LowercaseSubscriber implements EventSubscriberInterface {
    * LowercaseSubscriber constructor.
    *
    * @param \Drupal\Core\Routing\RouteProvider $routeProvider
+   *   Passed router provider.
    */
   public function __construct(RouteProvider $routeProvider) {
     $this->routeProvider = $routeProvider;
@@ -34,6 +35,7 @@ class LowercaseSubscriber implements EventSubscriberInterface {
    * Normalizes the path aliases.
    *
    * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   *   Passed event.
    */
   public function redirectLowercaseAliases(GetResponseEvent $event) {
     $request = $event->getRequest();
