@@ -1124,3 +1124,12 @@ function ymca_master_update_8038() {
   Drupal::configFactory()->getEditable('views.view.contact_messages')->delete();
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8039() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.day_camp_news.yml',
+  ]);
+}

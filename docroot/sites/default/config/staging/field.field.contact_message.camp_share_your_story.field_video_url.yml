@@ -1,0 +1,19 @@
+uuid: 69f222db-a590-4f8a-9e16-228abc49d031
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_video_url
+id: contact_message.camp_share_your_story.field_video_url
+field_name: field_video_url
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'Or a video to share? (Video URL: YouTube, please, less than 2 minutes)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
