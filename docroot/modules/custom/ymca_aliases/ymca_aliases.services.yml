@@ -6,6 +6,6 @@ services:
     arguments: ['@ymca_aliases.url_cleaner', '@path.alias_manager', '@menu.tree_storage']
   lowercase.subscriber:
     class: Drupal\ymca_aliases\EventSubscriber\LowercaseSubscriber
-    arguments: ['@router.route_provider']
+    arguments: ['@router.route_provider', 'pagecontext.service']
     tags:
       - { name: event_subscriber }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_aliases\EventSubscriber\LowercaseSubscriber.
- */
-
 namespace Drupal\ymca_aliases\EventSubscriber;
 
 use Drupal\Core\Routing\RouteProvider;
@@ -20,13 +15,15 @@ use Symfony\Component\Routing\RouteCollection;
 class LowercaseSubscriber implements EventSubscriberInterface {
   
   /**
+   * Route provider service.
+   *
    * @var  RouteProvider
    */
   protected $routeProvider;
 
   /**
    * LowercaseSubscriber constructor.
-   * 
+   *
    * @param \Drupal\Core\Routing\RouteProvider $routeProvider
    */
   public function __construct(RouteProvider $routeProvider) {
@@ -39,7 +36,6 @@ class LowercaseSubscriber implements EventSubscriberInterface {
    * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    */
   public function redirectLowercaseAliases(GetResponseEvent $event) {
-    
     $request = $event->getRequest();
     $path = $request->getPathInfo();
     /** @var RouteCollection $ret */
@@ -48,15 +44,14 @@ class LowercaseSubscriber implements EventSubscriberInterface {
       return;
     }
     if (strtolower($path) !== $path) {
-      $event->setResponse(new RedirectResponse(strtolower($path), 301));
+      $event->setResponse(new RedirectResponse(strtolower($GLOBALS['base_url'] . $path), 301));
     }
   }
-
 
   /**
    * {@inheritdoc}
    */
-  static function getSubscribedEvents() {
+  public static function getSubscribedEvents() {
     // This needs to run before RouterListener::onKernelRequest(), which has
     // a priority of 32. Otherwise, that aborts the request if no matching
     // route is found.
@@ -65,4 +60,5 @@ class LowercaseSubscriber implements EventSubscriberInterface {
 
     return $events;
   }
+
 }
