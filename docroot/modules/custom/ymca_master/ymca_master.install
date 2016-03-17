@@ -1133,3 +1133,13 @@ function ymca_master_update_8039() {
     'sites/default/config/staging/views.view.day_camp_news.yml',
   ]);
 }
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8040() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/contact.form.contact_an_aquatics_manager.yml',
+    'sites/default/config/staging/views.view.contact_messages.yml',
+  ]);
+}
