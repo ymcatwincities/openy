@@ -1,0 +1,89 @@
+<?php
+/**
+ * @file
+ * Module install and update procedures.
+ */
+
+use Drupal\simple_sitemap\Simplesitemap;
+
+/**
+ * Implements hook_requirements().
+ */
+function simple_sitemap_requirements($phase) {
+  $requirements = array();
+
+  if (!extension_loaded('xmlwriter')) {
+    $requirements['simple_sitemap_php_extensions'] = array(
+      'title' => t('Simple XML sitemap PHP extensions'),
+      'value' => t('Missing PHP xmlwriter extension'),
+      'description' => t("In order to be able to generate sitemaps, the Simple XML sitemap module requires the <em>xmlwriter</em> PHP extension to be enabled."),
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+
+  switch($phase) {
+    case 'runtime':
+      $sitemap = new \Drupal\simple_sitemap\Simplesitemap();
+      $generated_ago = $sitemap->get_generated_ago();
+      if (!$generated_ago) {
+        $value = t('Not available');
+        $description = t("The sitemap has not been generated yet. Run cron, or <a href='@generate'>generate</a> the sitemap manually.", array('@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap'));
+        $severity = REQUIREMENT_WARNING;
+      }
+      else {
+        $value = t('XML sitemap is available');
+        $description = t("The <a href='@sitemap'>XML sitemap</a> was generated @ago ago. <a href='@generate'>Regenerate</a>.", array('@ago' => $generated_ago, '@sitemap' => $GLOBALS['base_url'] . '/sitemap.xml', '@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap'));
+        $severity = REQUIREMENT_INFO;
+      }
+      $requirements['simple_sitemap_generated'] = array(
+        'title' => 'Simple XML sitemap',
+        'value' => $value,
+        'description' => $description,
+        'severity' => $severity,
+      );
+      break;
+  }
+  return $requirements;
+}
+
+/**
+ * Implements hook_schema().
+ */
+function simple_sitemap_schema() {
+  $schema['simple_sitemap'] = array(
+    'description' => 'Holds XML sitemaps as strings for quick retrieval.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Sitemap chunk unique identifier.',
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+      ),
+      'sitemap_string' => array(
+        'description' => 'XML sitemap chunk string.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+      ),
+      'sitemap_created' => array(
+        'description' => 'Timestamp of sitemap chunk generation.',
+        'type' => 'int',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function simple_sitemap_install() {
+  $sitemap = new Simplesitemap;
+  $sitemap->generate_sitemap('cron');
+  $base_url = $GLOBALS['base_url'];
+  drupal_set_message(t("You can now include content into the <a href='@sitemap_url' target='_blank'>XML sitemap</a> by visiting the corresponding entity type edit pages (e.g. <a href='@content_type_url' target='_blank'>content type</a>, <a href='@taxonomy_vocabulary_url' target='_blank'>taxonomy vocabulary</a>, <a href='@menu_url' target='_blank'>menu</a> and <a href='@user_url' target='_blank'>user</a> pages.)<br/>Custom links can be added on <a href='@config_url' target='_blank'>this configuration page</a>.", array('@sitemap_url' => "$base_url/sitemap.xml", '@content_type_url' => "$base_url/admin/structure/types", '@taxonomy_vocabulary_url' => "$base_url/admin/structure/taxonomy", '@menu_url' => "$base_url/admin/structure/menu", '@user_url' => "$base_url/admin/config/people/accounts", '@config_url' => "$base_url/admin/config/search/simplesitemap/custom")));
+}
+

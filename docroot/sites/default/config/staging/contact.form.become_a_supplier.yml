@@ -1,0 +1,11 @@
+uuid: d408036d-15b6-442a-a845-69f7f5926357
+langcode: en
+status: true
+dependencies: {  }
+id: become_a_supplier
+label: 'Become a supplier'
+recipients:
+  - Heidi.murphy@ymcatwincities.org
+  - Deanna.esaw@ymcatwincities.org
+reply: ''
+weight: 0

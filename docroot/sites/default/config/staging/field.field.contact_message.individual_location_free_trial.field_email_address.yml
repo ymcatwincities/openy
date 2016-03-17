@@ -1,0 +1,21 @@
+uuid: 56f8dfcb-8352-424c-a837-550ad8af1eb5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.individual_location_free_trial
+    - field.storage.contact_message.field_email_address
+id: contact_message.individual_location_free_trial.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: individual_location_free_trial
+label: Email
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: user@email.com
+default_value_callback: ''
+settings: {  }
+field_type: email

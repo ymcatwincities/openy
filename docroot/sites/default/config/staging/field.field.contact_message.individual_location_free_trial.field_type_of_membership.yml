@@ -1,0 +1,21 @@
+uuid: fc203679-697f-421e-b300-0aab2da675aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.individual_location_free_trial
+    - field.storage.contact_message.field_type_of_membership
+  module:
+    - options
+id: contact_message.individual_location_free_trial.field_type_of_membership
+field_name: field_type_of_membership
+entity_type: contact_message
+bundle: individual_location_free_trial
+label: 'What type of membership are you interested in?'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
