@@ -50,7 +50,7 @@ class ContactForm extends CoreContactForm {
    *
    * @var array
    */
-  protected $email_settings = [
+  protected $email = [
     'custom' => FALSE,
     'subject' => '',
     'content' => [
@@ -158,7 +158,7 @@ class ContactForm extends CoreContactForm {
    * {@inheritdoc}
    */
   public function getEmailSettings() {
-    return $this->email_settings;
+    return $this->email;
   }
 
 }
