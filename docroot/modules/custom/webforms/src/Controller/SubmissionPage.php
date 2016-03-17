@@ -7,12 +7,12 @@ use Drupal\webforms\ContactForm;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Implements YMCAMembershipPage.
+ * Implements SubmissionPage.
  */
 class SubmissionPage extends ControllerBase {
 
   /**
-   * Show the page.
+   * Build the page.
    */
   public function buildPage($contact_form) {
     /* @var ContactForm $contact_form */

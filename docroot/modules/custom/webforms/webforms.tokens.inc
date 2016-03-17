@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Builds placeholder replacement tokens for node-related data.
+ * Builds placeholder replacement tokens for contact form submission data.
  */
 
 use Drupal\Core\Datetime\Entity\DateFormat;
@@ -20,13 +20,13 @@ function webforms_token_info() {
     'needs-data' => 'contact_message',
   );
 
-  // Core tokens for nodes.
+  // Core tokens for webforms.
   $message['mid'] = array(
     'name' => t("Message ID"),
     'description' => t('The unique ID of the content item, or "message".'),
   );
 
-  // Chained tokens for nodes.
+  // Chained tokens for webforms.
   $message['created'] = array(
     'name' => t("Date submitted"),
     'type' => 'date',
@@ -60,7 +60,7 @@ function webforms_tokens($type, $tokens, array $data, array $options, Bubbleable
 
     foreach ($tokens as $name => $original) {
       switch ($name) {
-        // Simple key values on the node.
+        // Simple key values on the message.
         case 'mid':
           $replacements[$original] = $message->id();
           break;
