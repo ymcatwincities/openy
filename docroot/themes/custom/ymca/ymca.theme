@@ -13,6 +13,7 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Path;
+use Drupal\Core\Url;
 
 
 /**
@@ -1003,6 +1004,8 @@ function ymca_page_attachments_alter(array &$page) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'location':
+        $url = URL::fromUri('internal:/blog/subscribe/index.xml');
+        $url->setAbsolute(TRUE);
         // <link rel="alternate" type="application/rss+xml" title="Subscribe to Blog" href="{{ base_url }}/blog/subscribe/index.xml"/>
         $rss = [
           '#type' => 'html_tag',
@@ -1011,7 +1014,7 @@ function ymca_page_attachments_alter(array &$page) {
             'rel' => 'alternate',
             'type' => 'application/rss+xml',
             'title' => t('Subscribe to Blog'),
-            'href' => $GLOBALS['base_url'] . '/blog/subscribe/index.xml'
+            'href' => $url->toString(),
           ]
         ];
         break;
