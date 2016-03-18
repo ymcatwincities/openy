@@ -221,6 +221,9 @@
     shell: 'if grep -o "\<[E]\>" {{ build_reports_dir }}/scsslint{{ item.name }}.txt; then echo "<strong>`grep -o "\<[E]\>" {{ build_reports_dir }}/scsslint{{ item.name }}.txt | wc -l`</strong> errors for SCSS-lint {{ item.name }} standard file {{ webroot }}/{{ build_reports_dir }}/scsslint{{ item.name }}.txt" >> {{ workspace_root }}/{{ artifacts_file }} && exit 1; fi'
     with_items: scsslint_folders
 
+  - name: Mismatched entities
+    shell: 'MISMATCH=`drush ev "print \Drupal::service(\"entity.definition_update_manager\")->needsUpdates();"` if [ $MISMATCH == 1 ]; then echo "There are mismatched fields found!" >> {{ build_reports_dir }}/DrupalStatus.txt; fi'
+
   - name: Website credentials
     sudo: yes
     lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Build site installed at {{ webroot }}" create=yes state=present
