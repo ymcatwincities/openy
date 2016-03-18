@@ -46,7 +46,7 @@ class LowercaseSubscriber implements EventSubscriberInterface {
     if ($ret->count() == NULL) {
       return;
     }
-    if (Unicode::strtolower($path) !== $path) {
+    if (Unicode::strtolower($path) !== $path && $request->server->get('HTTP_X_REQUESTED_WITH') !== 'XMLHttpRequest') {
       $event->setResponse(new RedirectResponse(Unicode::strtolower($GLOBALS['base_url'] . $path), 301));
     }
   }
