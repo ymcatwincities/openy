@@ -14,7 +14,7 @@ use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
-use Drupal\simple_sitemap\Simplesitemap;
+use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 
 /**
  * Protecting sites with a shield.
@@ -1132,4 +1132,90 @@ function ymca_master_update_8039() {
   \Drupal::service('config_import.importer')->importConfigs([
     'sites/default/config/staging/views.view.day_camp_news.yml',
   ]);
+}
+
+/**
+ * Fix mismatched fields.
+ */
+function ymca_master_update_8040() {
+  // Fucking service has protected getChangeList method.
+  // We'll just parse getChangeSummary() method in order not to override the service.
+  $summary = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
+  $list = [];
+  foreach ($summary as $entity_type => $items) {
+    foreach ($items as $item) {
+      // Get file name.
+      $arg = $item->getArguments();
+      $data = reset($arg);
+      $explode = explode('.', $data);
+      $field_name = $explode[1];
+
+      // Get operation. By default assume update.
+      $operation = FALSE;
+      $ops = [
+        EntityDefinitionUpdateManagerInterface::DEFINITION_CREATED => 'Create',
+        EntityDefinitionUpdateManagerInterface::DEFINITION_UPDATED => 'Update',
+        EntityDefinitionUpdateManagerInterface::DEFINITION_DELETED => 'Delete',
+      ];
+      foreach ($ops as $id => $op) {
+        if (strpos($item->getUntranslatedString(), $op) !== FALSE) {
+          $operation = $id;
+        }
+      }
+
+      $list[$entity_type]['field_storage_definitions'][$field_name] = $operation;
+    }
+  }
+
+  $entity_manager = \Drupal::service('entity.manager');
+  $db = Database::getConnection();
+
+  foreach ($list as $entity_type_id => $change_list) {
+    if (!empty($change_list['field_storage_definitions'])) {
+      $storage_definitions = $entity_manager->getFieldStorageDefinitions($entity_type_id);
+      $original_storage_definitions = $entity_manager->getLastInstalledFieldStorageDefinitions($entity_type_id);
+
+      foreach ($change_list['field_storage_definitions'] as $field_name => $change) {
+        $storage_definition = isset($storage_definitions[$field_name]) ? $storage_definitions[$field_name] : NULL;
+        $original_storage_definition = isset($original_storage_definitions[$field_name]) ? $original_storage_definitions[$field_name] : NULL;
+
+        $table = $entity_type_id . '__' . $field_name;
+        $config = 'field.storage.' . $entity_type_id . '.' . $field_name;
+
+        try {
+          switch ($change) {
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_CREATED:
+              $entity_manager->onFieldStorageDefinitionCreate($storage_definition);
+              break;
+
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_UPDATED:
+              // Remove active config and re-import if DB table not found.
+              if ($db->schema()->tableExists($table) == FALSE) {
+                $active_config = Drupal::configFactory()->getEditable($config);
+                if ($active_config) {
+                  $active_config->delete();
+                }
+
+                $config_file = DRUPAL_ROOT . '/sites/default/config/staging/' . $config . '.yml';
+                if (file_exists($config_file)) {
+                  \Drupal::service('config_import.importer')->importConfigs([
+                    'sites/default/config/staging/' . $config . '.yml',
+                  ]);
+                }
+              }
+              $entity_manager->onFieldStorageDefinitionUpdate($storage_definition, $original_storage_definition);
+              break;
+
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_DELETED:
+              $entity_manager->onFieldStorageDefinitionDelete($original_storage_definition);
+              break;
+          }
+        }
+        catch (Exception $e) {
+          watchdog_exception('ymca_master', $e);
+        }
+      }
+    }
+  }
+
 }
