@@ -157,6 +157,7 @@ function webforms_entity_type_alter(array &$entity_types) {
   $config_export[] = 'provideSubmissionPage';
   $config_export[] = 'submissionPageContent';
   $config_export[] = 'submissionPageTitle';
+  $config_export[] = 'email';
   $entity_types['contact_form']->set('config_export', $config_export);
   // Override contact message.
   $entity_types['contact_message']->setFormClass('default', 'Drupal\webforms\MessageForm');
@@ -183,4 +184,46 @@ function webforms_theme($existing, $type, $theme, $path) {
       'template' => 'submission-page',
     ],
   ];
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function webforms_mail_alter(&$message) {
+  // Alter only contact form messages.
+  if (!in_array($message['id'], ['contact_page_mail', 'contact_page_copy'])) {
+    return;
+  }
+  // No form provided.
+  if (empty($message['params']['contact_form'])) {
+    return;
+  }
+
+  // Retrieve email settings.
+  $contact_form = $message['params']['contact_form'];
+  $email_settings = $contact_form->getEmailSettings();
+
+  // Do not alter emails if it is not asked.
+  if (!$email_settings['custom']) {
+    return;
+  }
+
+  // Not a copy to sender.
+  if ($message['id'] == 'contact_page_mail') {
+    $content = $email_settings['content'];
+
+    // Replace tokens.
+    $token_data = [
+      'contact_message' => $message['params']['contact_message'],
+    ];
+
+    $content['value'] = \Drupal::token()->replace($content['value'], $token_data);
+    $subject = \Drupal::token()->replace($email_settings['subject'], $token_data);
+
+    $message['subject'] = $subject;
+    $message['body'] = [
+      check_markup($content['value'], $content['format']),
+    ];
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+  }
 }
