@@ -14,7 +14,7 @@ use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
-use Drupal\simple_sitemap\Simplesitemap;
+use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 
 /**
  * Protecting sites with a shield.
@@ -1134,6 +1134,7 @@ function ymca_master_update_8039() {
   ]);
 }
 
+
 /**
  * Import configs.
  */
@@ -1150,4 +1151,152 @@ function ymca_master_update_8040() {
     ->load('contact_an_aquatics_manager');
   $path_info = $contact_form->getSubmissionPagePath();
   \Drupal::service('path.alias_storage')->save($path_info['source'], '/swimming/contact_an_aquatics_manager/thank_you', 'en');
+}
+
+/**
+ * Fix mismatched fields.
+ */
+function ymca_master_update_8041() {
+  drupal_flush_all_caches();
+
+  // We'll just parse getChangeSummary() method in order not to override the service.
+  $summary = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
+  $list = [];
+  foreach ($summary as $entity_type => $items) {
+    foreach ($items as $item) {
+      // Get file name.
+      $arg = $item->getArguments();
+      $data = reset($arg);
+      $explode = explode('.', $data);
+      $field_name = $explode[1];
+
+      // Get operation. By default assume update.
+      $operation = FALSE;
+      $ops = [
+        EntityDefinitionUpdateManagerInterface::DEFINITION_CREATED => 'Create',
+        EntityDefinitionUpdateManagerInterface::DEFINITION_UPDATED => 'Update',
+        EntityDefinitionUpdateManagerInterface::DEFINITION_DELETED => 'Delete',
+      ];
+      foreach ($ops as $id => $op) {
+        if (strpos($item->getUntranslatedString(), $op) !== FALSE) {
+          $operation = $id;
+        }
+      }
+
+      $list[$entity_type]['field_storage_definitions'][$field_name] = $operation;
+    }
+  }
+
+  $entity_manager = \Drupal::service('entity.manager');
+  $db = Database::getConnection();
+
+  foreach ($list as $entity_type_id => $change_list) {
+    if (!empty($change_list['field_storage_definitions'])) {
+      $storage_definitions = $entity_manager->getFieldStorageDefinitions($entity_type_id);
+      $original_storage_definitions = $entity_manager->getLastInstalledFieldStorageDefinitions($entity_type_id);
+
+      foreach ($change_list['field_storage_definitions'] as $field_name => $change) {
+        $storage_definition = isset($storage_definitions[$field_name]) ? $storage_definitions[$field_name] : NULL;
+        $original_storage_definition = isset($original_storage_definitions[$field_name]) ? $original_storage_definitions[$field_name] : NULL;
+
+        $table = $entity_type_id . '__' . $field_name;
+        $config = 'field.storage.' . $entity_type_id . '.' . $field_name;
+
+        try {
+          switch ($change) {
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_CREATED:
+              $entity_manager->onFieldStorageDefinitionCreate($storage_definition);
+              break;
+
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_UPDATED:
+              // Remove active config and re-import if DB table not found.
+              if ($db->schema()->tableExists($table) == FALSE) {
+                $active_config = Drupal::configFactory()->getEditable($config);
+                if ($active_config) {
+                  $active_config->delete();
+                }
+
+                $config_file = DRUPAL_ROOT . '/sites/default/config/staging/' . $config . '.yml';
+                if (file_exists($config_file)) {
+                  \Drupal::service('config_import.importer')->importConfigs([
+                    'sites/default/config/staging/' . $config . '.yml',
+                  ]);
+                }
+              }
+              $entity_manager->onFieldStorageDefinitionUpdate($storage_definition, $original_storage_definition);
+              break;
+
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_DELETED:
+              $entity_manager->onFieldStorageDefinitionDelete($original_storage_definition);
+              break;
+          }
+        }
+        catch (Exception $e) {
+          watchdog_exception('ymca_master', $e);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Remove broken fields.
+ */
+function ymca_master_update_8042() {
+  drupal_flush_all_caches();
+
+  $fields = [
+    'field_category_class' => [
+      'contact_message.become_a_supplier',
+    ],
+    'field_vendor_portal' => [
+      'contact_message.become_a_supplier',
+    ],
+    'field_type_of_membership' => [
+      'contact_message.cc_wellness_employee',
+      'contact_message.individual_location_free_trial',
+    ],
+    'field_preferred_y_l_text' => [
+      'contact_message.cc_wellness_employee',
+      'contact_message.journey_to_freedom',
+    ],
+    'field_childcare_location' => [
+      'contact_message.contact_a_program_director',
+    ],
+    'field_what_is_your_preferred_y_l' => [
+      'contact_message.contact_an_aquatics_manager',
+      'contact_message.membership_form',
+      'contact_message.personal_training_main',
+    ],
+  ];
+
+  foreach ($fields as $field_name => $usages) {
+    $field_storage_definition = 'field.storage.contact_message.' . $field_name;
+
+    foreach ($usages as $usage) {
+      $field_definition = 'field.field.' . $usage . '.' . $field_name;
+
+      foreach (['entity_view_display', 'entity_form_display'] as $item) {
+        $config = Drupal::configFactory()->getEditable('core.' . $item . '.' . $usage . '.default');
+        $data = $config->get();
+        foreach ($data['dependencies']['config'] as $id => $dependency) {
+          if ($field_definition == $dependency) {
+            unset($data['dependencies']['config'][$id]);
+            break;
+          }
+        }
+        unset($data['content'][$field_name]);
+
+        $config->setData($data);
+        $config->save();
+      }
+
+      // Remove field definition.
+      \Drupal::configFactory()->getEditable($field_definition)->delete();
+    }
+
+    // Remove field storage.
+    \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
+  }
+
 }

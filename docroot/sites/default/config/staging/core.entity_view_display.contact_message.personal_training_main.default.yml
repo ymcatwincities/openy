@@ -6,9 +6,9 @@ dependencies:
     - contact.form.personal_training_main
     - field.field.contact_message.personal_training_main.field_email_address
     - field.field.contact_message.personal_training_main.field_first_name
+    - field.field.contact_message.personal_training_main.field_form_divider
     - field.field.contact_message.personal_training_main.field_last_name
     - field.field.contact_message.personal_training_main.field_phone_number
-    - field.field.contact_message.personal_training_main.field_what_is_your_preferred_y_l
   module:
     - webforms
 id: contact_message.personal_training_main.default
@@ -29,6 +29,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_form_divider:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: webform_markup_formatter
   field_last_name:
     weight: 2
     label: above
@@ -42,12 +49,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_what_is_your_preferred_y_l:
-    weight: 5
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: options_emails_formatter
   message:
     type: string
     weight: 0

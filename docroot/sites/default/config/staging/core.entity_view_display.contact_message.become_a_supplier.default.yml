@@ -3,26 +3,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - contact.form.become_a_supplier
-    - field.field.contact_message.become_a_supplier.field_address
-    - field.field.contact_message.become_a_supplier.field_category_class
-    - field.field.contact_message.become_a_supplier.field_cell_phone
-    - field.field.contact_message.become_a_supplier.field_ceo_first_name
-    - field.field.contact_message.become_a_supplier.field_ceo_last_name
-    - field.field.contact_message.become_a_supplier.field_company_name
-    - field.field.contact_message.become_a_supplier.field_electronic_po
-    - field.field.contact_message.become_a_supplier.field_email_address
-    - field.field.contact_message.become_a_supplier.field_fein
-    - field.field.contact_message.become_a_supplier.field_first_name
-    - field.field.contact_message.become_a_supplier.field_form_divider
-    - field.field.contact_message.become_a_supplier.field_last_name
-    - field.field.contact_message.become_a_supplier.field_phone_number
-    - field.field.contact_message.become_a_supplier.field_product_catalog
-    - field.field.contact_message.become_a_supplier.field_supplier_portal
-    - field.field.contact_message.become_a_supplier.field_title
-    - field.field.contact_message.become_a_supplier.field_vendor_portal
-    - field.field.contact_message.become_a_supplier.field_w9
-    - field.field.contact_message.become_a_supplier.field_wm_biz
+    0: contact.form.become_a_supplier
+    1: field.field.contact_message.become_a_supplier.field_address
+    3: field.field.contact_message.become_a_supplier.field_cell_phone
+    4: field.field.contact_message.become_a_supplier.field_ceo_first_name
+    5: field.field.contact_message.become_a_supplier.field_ceo_last_name
+    6: field.field.contact_message.become_a_supplier.field_company_name
+    7: field.field.contact_message.become_a_supplier.field_electronic_po
+    8: field.field.contact_message.become_a_supplier.field_email_address
+    9: field.field.contact_message.become_a_supplier.field_fein
+    10: field.field.contact_message.become_a_supplier.field_first_name
+    11: field.field.contact_message.become_a_supplier.field_form_divider
+    12: field.field.contact_message.become_a_supplier.field_last_name
+    13: field.field.contact_message.become_a_supplier.field_phone_number
+    14: field.field.contact_message.become_a_supplier.field_product_catalog
+    15: field.field.contact_message.become_a_supplier.field_supplier_portal
+    16: field.field.contact_message.become_a_supplier.field_title
+    18: field.field.contact_message.become_a_supplier.field_w9
+    19: field.field.contact_message.become_a_supplier.field_wm_biz
   module:
     - address
     - options
@@ -38,12 +36,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_default
-  field_category_class:
-    weight: 9
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   field_cell_phone:
     weight: 13
     label: above
@@ -145,12 +137,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_vendor_portal:
-    weight: 5
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   field_w9:
     weight: 1
     label: above
