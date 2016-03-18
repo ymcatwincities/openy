@@ -11,7 +11,6 @@ dependencies:
     - field.field.contact_message.individual_location_free_trial.field_label
     - field.field.contact_message.individual_location_free_trial.field_last_name
     - field.field.contact_message.individual_location_free_trial.field_phone_number
-    - field.field.contact_message.individual_location_free_trial.field_type_of_membership
   module:
     - options
     - webforms
@@ -65,12 +64,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_type_of_membership:
-    weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   message:
     type: string
     weight: 0

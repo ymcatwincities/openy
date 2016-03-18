@@ -9,8 +9,7 @@ dependencies:
     - field.field.contact_message.cc_wellness_employee.field_first_name
     - field.field.contact_message.cc_wellness_employee.field_last_name
     - field.field.contact_message.cc_wellness_employee.field_phone_number
-    - field.field.contact_message.cc_wellness_employee.field_preferred_y_l_text
-    - field.field.contact_message.cc_wellness_employee.field_type_of_membership
+    - field.field.contact_message.cc_wellness_employee.field_preferred_y_text
   module:
     - telephone
 id: contact_message.cc_wellness_employee.default
@@ -19,14 +18,14 @@ bundle: cc_wellness_employee
 mode: default
 content:
   field_company_name:
-    weight: 6
+    weight: 7
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_email_address:
-    weight: 2
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -47,21 +46,21 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_phone_number:
-    weight: 3
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-  field_preferred_y_l_text:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-  field_type_of_membership:
+  field_preferred_y_text:
     weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   copy: true
   mail: true
