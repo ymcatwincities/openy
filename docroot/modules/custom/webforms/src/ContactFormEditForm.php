@@ -91,6 +91,38 @@ class ContactFormEditForm extends CoreContactFormEditForm {
       '#value' => $path['langcode'],
     );
 
+    $email_settings = $contact_form->getEmailSettings();
+    $form['email'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Email templates'),
+      '#collapsible' => TRUE,
+      '#open' => $email_settings['custom'],
+      '#tree' => TRUE,
+    );
+    $form['email']['custom'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use custom email template'),
+      '#default_value' => $email_settings['custom'],
+    );
+    $form['email']['subject'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Email subject'),
+      '#default_value' => $email_settings['subject'],
+      '#description' => $this->t('Tokens are supported.'),
+    );
+    $form['email']['content'] = array(
+      '#type' => 'text_format',
+      '#title' => $this->t('Email content'),
+      '#description' => $this->t('Enter markup to use for email content.'),
+    );
+    $form['email']['content']['#format'] = $email_settings['content']['format'];
+    $form['email']['content']['#default_value'] = $email_settings['content']['value'];
+    $form['email']['tokens'] = array(
+      '#theme' => 'token_tree_link',
+      '#token_types' => ['user', 'contact_message'],
+      '#click_insert' => FALSE,
+    );
+
     return $form;
   }
 

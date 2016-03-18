@@ -1134,10 +1134,29 @@ function ymca_master_update_8039() {
   ]);
 }
 
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8040() {
+  drupal_flush_all_caches();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/contact.form.contact_an_aquatics_manager.yml',
+    'sites/default/config/staging/views.view.contact_messages.yml',
+  ]);
+
+  // Set thank you page alias.
+  $contact_form = \Drupal::entityTypeManager()
+    ->getStorage('contact_form')
+    ->load('contact_an_aquatics_manager');
+  $path_info = $contact_form->getSubmissionPagePath();
+  \Drupal::service('path.alias_storage')->save($path_info['source'], '/swimming/contact_an_aquatics_manager/thank_you', 'en');
+}
+
 /**
  * Fix mismatched fields.
  */
-function ymca_master_update_8040() {
+function ymca_master_update_8041() {
   // Fucking service has protected getChangeList method.
   // We'll just parse getChangeSummary() method in order not to override the service.
   $summary = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
@@ -1210,12 +1229,10 @@ function ymca_master_update_8040() {
               $entity_manager->onFieldStorageDefinitionDelete($original_storage_definition);
               break;
           }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
           watchdog_exception('ymca_master', $e);
         }
       }
     }
   }
-
 }
