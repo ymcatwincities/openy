@@ -1159,7 +1159,6 @@ function ymca_master_update_8040() {
 function ymca_master_update_8041() {
   drupal_flush_all_caches();
 
-  // Fucking service has protected getChangeList method.
   // We'll just parse getChangeSummary() method in order not to override the service.
   $summary = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
   $list = [];
