@@ -12,6 +12,18 @@ type: list_string
 settings:
   allowed_values:
     -
+      value: 1920s
+      label: 1920s
+    -
+      value: 1930s
+      label: 1930s
+    -
+      value: 1940s
+      label: 1940s
+    -
+      value: 1950s
+      label: 1950s
+    -
       value: 1960s
       label: 1960s
     -
