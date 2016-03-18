@@ -995,3 +995,28 @@ function ymca_prerender_datetime($element) {
   $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
   return $element;
 }
+
+/**
+ * Implements MYTHEME_page_attachments_alter().
+ */
+function ymca_page_attachments_alter(array &$page) {
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $site_section_bundle = $site_section->bundle();
+    switch ($site_section_bundle) {
+      case 'location':
+        // <link rel="alternate" type="application/rss+xml" title="Subscribe to Blog" href="{{ base_url }}/blog/subscribe/index.xml"/>
+        $rss = [
+          '#type' => 'html_tag',
+          '#tag' => 'link',
+          '#attributes' => [
+            'rel' => 'alternate',
+            'type' => 'application/rss+xml',
+            'title' => t('Subscribe to Blog'),
+            'href' => $GLOBALS['base_url'] . '/blog/subscribe/index.xml'
+          ]
+        ];
+        break;
+    }
+    $page['#attached']['html_head'][] = [$rss, 'rss'];
+  }
+}

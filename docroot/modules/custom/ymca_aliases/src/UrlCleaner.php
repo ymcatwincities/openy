@@ -2,6 +2,8 @@
 
 namespace Drupal\ymca_aliases;
 
+use Drupal\Component\Utility\Unicode;
+
 /**
  * Cleans a string to use in URL.
  *
@@ -20,7 +22,7 @@ class UrlCleaner {
    */
   static public function clean($str) {
     $clean = preg_replace('/[^a-zA-Z0-9\/_|+ -]/', '', $str);
-    $clean = strtolower(trim($clean, '_'));
+    $clean = Unicode::strtolower(trim($clean, '_'));
     $clean = preg_replace('/[\/_|+ -]+/', '_', $clean);
     return $clean;
   }

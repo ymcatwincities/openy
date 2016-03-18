@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\RouteCollection;
+use Drupal\Component\Utility\Unicode;
 
 /**
  * KernelEvents::REQUEST subscriber for redirecting q=path/to/page requests.
@@ -45,8 +46,8 @@ class LowercaseSubscriber implements EventSubscriberInterface {
     if ($ret->count() == NULL) {
       return;
     }
-    if (strtolower($path) !== $path) {
-      $event->setResponse(new RedirectResponse(strtolower($GLOBALS['base_url'] . $path), 301));
+    if (Unicode::strtolower($path) !== $path) {
+      $event->setResponse(new RedirectResponse(Unicode::strtolower($GLOBALS['base_url'] . $path), 301));
     }
   }
 
