@@ -222,7 +222,7 @@
     with_items: scsslint_folders
 
   - name: Mismatched entities
-    shell: 'MISMATCH=`drush ev "print \Drupal::service(\"entity.definition_update_manager\")->needsUpdates();"` if [ $MISMATCH == 1 ]; then echo "There are mismatched fields found!" >> {{ build_reports_dir }}/DrupalStatus.txt; fi'
+    shell: 'MISMATCH=`{{ php_env_vars }} drush ev "print \Drupal::service(\"entity.definition_update_manager\")->needsUpdates();"` if [ $MISMATCH == 1 ]; then echo "There are mismatched fields found!" >> {{ build_reports_dir }}/DrupalStatus.txt; fi'
 
   - name: Website credentials
     sudo: yes
