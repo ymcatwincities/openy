@@ -4,12 +4,13 @@ status: true
 dependencies:
   config:
     - contact.form.personal_trainers_individual
-    - field.field.contact_message.personal_trainers_individual.field_custom_text
+    - field.field.contact_message.personal_trainers_individual.field_comments
+    - field.field.contact_message.personal_trainers_individual.field_contact_method
     - field.field.contact_message.personal_trainers_individual.field_email_address
     - field.field.contact_message.personal_trainers_individual.field_first_name
+    - field.field.contact_message.personal_trainers_individual.field_form_divider
     - field.field.contact_message.personal_trainers_individual.field_last_name
     - field.field.contact_message.personal_trainers_individual.field_phone_number
-    - field.field.contact_message.personal_trainers_individual.field_what_is_your_preferred_y_l
   module:
     - telephone
     - webforms
@@ -18,29 +19,40 @@ targetEntityType: contact_message
 bundle: personal_trainers_individual
 mode: default
 content:
-  field_custom_text:
+  field_comments:
     weight: 7
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+  field_contact_method:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_email_address:
-    weight: 2
+    weight: 3
     settings:
       placeholder: user@email.com
       size: 60
     third_party_settings: {  }
     type: email_default
   field_first_name:
-    weight: 0
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_form_divider:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
   field_last_name:
-    weight: 1
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -52,11 +64,6 @@ content:
       placeholder: '(###)###-####'
     third_party_settings: {  }
     type: telephone_default
-  field_what_is_your_preferred_y_l:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: options_email_default
 hidden:
   copy: true
   langcode: true

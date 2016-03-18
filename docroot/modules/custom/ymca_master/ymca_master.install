@@ -1157,6 +1157,8 @@ function ymca_master_update_8040() {
  * Fix mismatched fields.
  */
 function ymca_master_update_8041() {
+  drupal_flush_all_caches();
+
   // Fucking service has protected getChangeList method.
   // We'll just parse getChangeSummary() method in order not to override the service.
   $summary = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
@@ -1236,4 +1238,72 @@ function ymca_master_update_8041() {
       }
     }
   }
+}
+
+/**
+ * Remove broken fields.
+ */
+function ymca_master_update_8042() {
+  drupal_flush_all_caches();
+
+  // Remove all contact messages.
+  $ids = \Drupal::entityQuery('contact_message')->execute();
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('contact_message');
+  $messages = $storage->loadMultiple($ids);
+  $storage->delete($messages);
+
+  $fields = [
+    'field_category_class' => [
+      'contact_message.become_a_supplier',
+    ],
+    'field_vendor_portal' => [
+      'contact_message.become_a_supplier',
+    ],
+    'field_type_of_membership' => [
+      'contact_message.cc_wellness_employee',
+      'contact_message.individual_location_free_trial',
+    ],
+    'field_preferred_y_l_text' => [
+      'contact_message.cc_wellness_employee',
+      'contact_message.journey_to_freedom',
+    ],
+    'field_childcare_location' => [
+      'contact_message.contact_a_program_director',
+    ],
+    'field_what_is_your_preferred_y_l' => [
+      'contact_message.contact_an_aquatics_manager',
+      'contact_message.membership_form',
+      'contact_message.personal_training_main',
+    ],
+  ];
+
+  foreach ($fields as $field_name => $usages) {
+    $field_storage_definition = 'field.storage.contact_message.' . $field_name;
+
+    foreach ($usages as $usage) {
+      $field_definition = 'field.field.' . $usage . '.' . $field_name;
+
+      foreach (['entity_view_display', 'entity_form_display'] as $item) {
+        $config = Drupal::configFactory()->getEditable('core.' . $item . '.' . $usage . '.default');
+        $data = $config->get();
+        foreach ($data['dependencies']['config'] as $id => $dependency) {
+          if ($field_definition == $dependency) {
+            unset($data['dependencies']['config'][$id]);
+            break;
+          }
+        }
+        unset($data['content'][$field_name]);
+
+        $config->setData($data);
+        $config->save();
+      }
+
+      // Remove field definition.
+      \Drupal::configFactory()->getEditable($field_definition)->delete();
+    }
+
+    // Remove field storage.
+    \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
+  }
+
 }
