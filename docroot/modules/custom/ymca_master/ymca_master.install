@@ -1229,7 +1229,8 @@ function ymca_master_update_8041() {
               $entity_manager->onFieldStorageDefinitionDelete($original_storage_definition);
               break;
           }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
           watchdog_exception('ymca_master', $e);
         }
       }
