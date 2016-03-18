@@ -6,9 +6,9 @@ dependencies:
     - contact.form.personal_training_main
     - field.field.contact_message.personal_training_main.field_email_address
     - field.field.contact_message.personal_training_main.field_first_name
+    - field.field.contact_message.personal_training_main.field_form_divider
     - field.field.contact_message.personal_training_main.field_last_name
     - field.field.contact_message.personal_training_main.field_phone_number
-    - field.field.contact_message.personal_training_main.field_what_is_your_preferred_y_l
   module:
     - telephone
     - webforms
@@ -18,37 +18,43 @@ bundle: personal_training_main
 mode: default
 content:
   field_email_address:
-    weight: 2
+    weight: 3
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: email_default
   field_first_name:
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_last_name:
     weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_form_divider:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_phone_number:
-    weight: 3
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-  field_what_is_your_preferred_y_l:
+  langcode:
+    type: language_select
     weight: 4
     settings: {  }
     third_party_settings: {  }
-    type: options_email_default
 hidden:
   copy: true
   mail: true
