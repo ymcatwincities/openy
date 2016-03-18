@@ -13,9 +13,12 @@ spi:
   server: 'https://nspi.acquia.com'
   ssl_override: false
   ssl_verify: true
-  def_vars: {  }
+  def_vars:
+    preprocess_css:
+      optional: 0
+      description: ''
   def_waived_vars: {  }
-  def_timestamp: 0
+  def_timestamp: 1374783288
   new_optional_data: 1
   admin_priv: 1
   send_node_user: 1
@@ -46,8 +49,9 @@ spi:
     variables: {  }
     time: 0
   cron_interval: 28800
-  site_name: 'YMCA CX Platform'
-  site_machine_name: ymca_cx_platform
+  site_name: 'YMCA Twin Cities: prod'
+  site_machine_name: 71389be1_8032_48ad_98a8_9a7e4b95b965__ymcatwincities
+  site_uuid: 8f274707-e55a-4c98-941d-bbaee17ceb91
 mapping:
   acquia_spi_send_node_user:
     - acquia_connector.settings

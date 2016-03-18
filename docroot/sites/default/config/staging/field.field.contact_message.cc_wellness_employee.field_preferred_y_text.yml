@@ -1,20 +1,20 @@
-uuid: 2d373fa2-3ee4-465a-b900-0ec18364727e
+uuid: 2912b35d-e90f-4287-845f-95e60a159683
 langcode: en
 status: true
 dependencies:
   config:
     - contact.form.cc_wellness_employee
-    - field.storage.contact_message.field_type_of_membership
+    - field.storage.contact_message.field_preferred_y_text
   module:
     - options
-id: contact_message.cc_wellness_employee.field_type_of_membership
-field_name: field_type_of_membership
+id: contact_message.cc_wellness_employee.field_preferred_y_text
+field_name: field_preferred_y_text
 entity_type: contact_message
 bundle: cc_wellness_employee
-label: 'Type of membership'
+label: 'Preferred Y Location'
 description: ''
-required: true
-translatable: true
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
