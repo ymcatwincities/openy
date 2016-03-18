@@ -1245,12 +1245,6 @@ function ymca_master_update_8041() {
 function ymca_master_update_8042() {
   drupal_flush_all_caches();
 
-  // Remove all contact messages.
-  $ids = \Drupal::entityQuery('contact_message')->execute();
-  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('contact_message');
-  $messages = $storage->loadMultiple($ids);
-  $storage->delete($messages);
-
   $fields = [
     'field_category_class' => [
       'contact_message.become_a_supplier',
