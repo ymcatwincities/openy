@@ -10,7 +10,6 @@ dependencies:
     - field.field.contact_message.journey_to_freedom.field_first_name
     - field.field.contact_message.journey_to_freedom.field_last_name
     - field.field.contact_message.journey_to_freedom.field_phone_number
-    - field.field.contact_message.journey_to_freedom.field_preferred_y_l_text
   module:
     - options
 id: contact_message.journey_to_freedom.default
@@ -53,12 +52,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_preferred_y_l_text:
-    weight: 5
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   message:
     type: string
     weight: 0
