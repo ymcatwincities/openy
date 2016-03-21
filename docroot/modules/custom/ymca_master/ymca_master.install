@@ -1302,20 +1302,53 @@ function ymca_master_update_8042() {
 }
 
 /**
- * Cleanup "contact_message.field_storage_definitions".
+ * Cleanup field configs.
  */
 function ymca_master_update_8043() {
+  // Remove all test contact messages.
+  $ids = \Drupal::entityQuery('contact_message')->execute();
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('contact_message');
+  $messages = $storage->loadMultiple($ids);
+  $storage->delete($messages);
+
   $clean = [
     'field_type_of_membership',
     'field_preferred_y_l_text',
+    'field_what_is_your_preferred_y_l',
   ];
 
+  // Clean field definitions.
   $storage = \Drupal::keyValue('entity.definitions.installed');
   $data = $storage->get('contact_message.field_storage_definitions');
-
   foreach ($clean as $item) {
     unset($data[$item]);
   }
-
   $storage->set('contact_message.field_storage_definitions', $data);
+
+  // Clean storage schema.
+  $storage = \Drupal::keyValue('entity.storage_schema.sql');
+  foreach ($clean as $item) {
+    $storage->delete('contact_message.field_schema_data.' . $item);
+  }
+
+  // Clean bundle field map.
+  $storage = \Drupal::keyValue('entity.definitions.bundle_field_map');
+  $data = $storage->get('contact_message');
+  foreach ($clean as $item) {
+    unset($data[$item]);
+  }
+  $storage->set('contact_message', $data);
+
+  // Clean field deleted state.
+  $storage = \Drupal::keyValue('state');
+  $data = $storage->get('field.field.deleted');
+  foreach ($clean as $item) {
+    foreach ($data as $id => $field) {
+      if ($field['field_name'] == $item) {
+        unset($data[$id]);
+      }
+    }
+  }
+  $storage->set('field.field.deleted', $data);
 }
+
