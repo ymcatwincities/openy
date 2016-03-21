@@ -7612,7 +7612,8 @@ section.node--type-location.content {
   color: #333;
 }
 
-body form .js-form-type-radio.form-item {
+body form .js-form-type-radio.form-item,
+body form .field--widget-boolean-checkbox {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0;
@@ -7621,11 +7622,13 @@ body form .js-form-type-radio.form-item {
   padding-left: 20px;
   vertical-align: middle;
 }
-body form .js-form-type-radio.form-item input {
+body form .js-form-type-radio.form-item input,
+body form .field--widget-boolean-checkbox input {
   float: left;
   margin-left: -20px;
 }
-body form .js-form-type-radio.form-item label {
+body form .js-form-type-radio.form-item label,
+body form .field--widget-boolean-checkbox label {
   display: inline;
   margin-bottom: 0;
   font-weight: normal;
@@ -7703,6 +7706,27 @@ body form .js-form-type-radio.form-item label {
   vertical-align: baseline;
   font-size: 20px;
   font-family: 'YMCA';
+}
+
+.checkbox-custom-label {
+  font-weight: bold;
+  padding: 7px 0 0;
+}
+
+.field--widget-boolean-checkbox label {
+  font-weight: normal;
+}
+
+.field--type-address summary {
+  display: none;
+}
+.field--type-address div.address-container-inline > div.form-item {
+  float: none;
+  margin-right: 0;
+}
+
+.field--type-list-string legend {
+  border: none;
 }
 
 .form-item {
