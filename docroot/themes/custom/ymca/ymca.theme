@@ -1019,6 +1019,8 @@ function ymca_page_attachments_alter(array &$page) {
         ];
         break;
     }
-    $page['#attached']['html_head'][] = [$rss, 'rss'];
+    if (isset($rss)) {
+      $page['#attached']['html_head'][] = [$rss, 'rss'];
+    }
   }
 }
