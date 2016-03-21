@@ -14,7 +14,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Path;
 use Drupal\Core\Url;
-
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_preprocess_block() for block content.
@@ -1023,4 +1023,30 @@ function ymca_page_attachments_alter(array &$page) {
       $page['#attached']['html_head'][] = [$rss, 'rss'];
     }
   }
+}
+
+/**
+ * Implements THEME_proprocess_file_link().
+ */
+function ymca_preprocess_file_link(&$variables) {
+  $file = $variables['file'];
+  $options = array();
+
+  $file_entity = ($file instanceof File) ? $file : File::load($file->fid);
+  $url = file_create_url($file_entity->getFileUri());
+  $options['query'][$file->getChangedTime()] = '';
+
+  $mime_type = $file->getMimeType();
+  $options['attributes']['type'] = $mime_type . '; length=' . $file->getSize();
+
+  // Use the description as the link text if available.
+  if (empty($variables['description'])) {
+    $link_text = $file_entity->getFilename();
+  }
+  else {
+    $link_text = $variables['description'];
+    $options['attributes']['title'] = $file_entity->getFilename();
+  }
+
+  $variables['link'] = \Drupal::l($link_text, Url::fromUri($url, $options));
 }
