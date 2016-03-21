@@ -1134,7 +1134,6 @@ function ymca_master_update_8039() {
   ]);
 }
 
-
 /**
  * Import configs.
  */
@@ -1299,4 +1298,98 @@ function ymca_master_update_8042() {
     \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
   }
 
+}
+
+/**
+ * Cleanup wedged field configs.
+ */
+function ymca_master_update_8043() {
+  // Remove all test contact messages.
+  $ids = \Drupal::entityQuery('contact_message')->execute();
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('contact_message');
+  $messages = $storage->loadMultiple($ids);
+  $storage->delete($messages);
+
+  // Manually remove wedged fields.
+  $fields = [
+    'field_childcare_location' => [
+      'contact_message.contact_a_program_director',
+    ],
+    'field_y_location_email' => [
+      'contact_message.contact_an_aquatics_manager',
+      'contact_message.membership_form',
+    ],
+  ];
+
+  foreach ($fields as $field_name => $usages) {
+    $field_storage_definition = 'field.storage.contact_message.' . $field_name;
+
+    foreach ($usages as $usage) {
+      $field_definition = 'field.field.' . $usage . '.' . $field_name;
+
+      foreach (['entity_view_display', 'entity_form_display'] as $item) {
+        $config = Drupal::configFactory()->getEditable('core.' . $item . '.' . $usage . '.default');
+        $data = $config->get();
+        foreach ($data['dependencies']['config'] as $id => $dependency) {
+          if ($field_definition == $dependency) {
+            unset($data['dependencies']['config'][$id]);
+            break;
+          }
+        }
+        unset($data['content'][$field_name]);
+
+        $config->setData($data);
+        $config->save();
+      }
+
+      // Remove field definition.
+      \Drupal::configFactory()->getEditable($field_definition)->delete();
+    }
+
+    // Remove field storage.
+    \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
+  }
+
+  // Additional cleaning.
+  $clean = [
+    'field_type_of_membership',
+    'field_preferred_y_l_text',
+    'field_what_is_your_preferred_y_l',
+    'field_childcare_location',
+    'field_y_location_email',
+  ];
+
+  // Clean field definitions.
+  $storage = \Drupal::keyValue('entity.definitions.installed');
+  $data = $storage->get('contact_message.field_storage_definitions');
+  foreach ($clean as $item) {
+    unset($data[$item]);
+  }
+  $storage->set('contact_message.field_storage_definitions', $data);
+
+  // Clean storage schema.
+  $storage = \Drupal::keyValue('entity.storage_schema.sql');
+  foreach ($clean as $item) {
+    $storage->delete('contact_message.field_schema_data.' . $item);
+  }
+
+  // Clean bundle field map.
+  $storage = \Drupal::keyValue('entity.definitions.bundle_field_map');
+  $data = $storage->get('contact_message');
+  foreach ($clean as $item) {
+    unset($data[$item]);
+  }
+  $storage->set('contact_message', $data);
+
+  // Clean field deleted state.
+  $storage = \Drupal::keyValue('state');
+  $data = $storage->get('field.field.deleted');
+  foreach ($clean as $item) {
+    foreach ($data as $id => $field) {
+      if ($field['field_name'] == $item) {
+        unset($data[$id]);
+      }
+    }
+  }
+  $storage->set('field.field.deleted', $data);
 }
