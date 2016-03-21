@@ -1350,7 +1350,7 @@ function ymca_master_update_8043() {
     \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
   }
 
-  // Additional cleaning
+  // Additional cleaning.
   $clean = [
     'field_type_of_membership',
     'field_preferred_y_l_text',
