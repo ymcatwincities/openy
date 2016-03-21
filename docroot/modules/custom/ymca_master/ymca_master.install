@@ -1300,3 +1300,22 @@ function ymca_master_update_8042() {
   }
 
 }
+
+/**
+ * Cleanup "contact_message.field_storage_definitions".
+ */
+function ymca_master_update_8043() {
+  $clean = [
+    'field_type_of_membership',
+    'field_preferred_y_l_text',
+  ];
+
+  $storage = \Drupal::keyValue('entity.definitions.installed');
+  $data = $storage->get('contact_message.field_storage_definitions');
+
+  foreach ($clean as $item) {
+    unset($data[$item]);
+  }
+
+  $storage->set('contact_message.field_storage_definitions', $data);
+}
