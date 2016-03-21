@@ -11,6 +11,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
 
 /**
  * Prepares variables for individual form element templates.
@@ -241,7 +242,7 @@ function webforms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       // 1) Field widget type is 'checkbox'.
       // 2) Field type is 'boolean'.
       if (strstr($key, 'field_') && isset($form[$key]['widget']['value']['#type']) && $form[$key]['widget']['value']['#type'] == 'checkbox') {
-        $field_config = \Drupal\field\Entity\FieldConfig::loadByName('contact_message', $bundle, $key);
+        $field_config = FieldConfig::loadByName('contact_message', $bundle, $key);
         if ($field_config->getType() == 'boolean') {
           $form[$key]['#prefix'] = '<div class="checkbox-custom-label control-label text">' . $field_config->getLabel() . '</div>';
         }
