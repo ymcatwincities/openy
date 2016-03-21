@@ -1393,3 +1393,13 @@ function ymca_master_update_8043() {
   }
   $storage->set('field.field.deleted', $data);
 }
+
+/**
+ * Update membership page fields.
+ */
+function ymca_master_update_8044() {
+  $path = drupal_get_path('module', 'ymca_membership');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_membership.config.yml',
+  ]);
+}

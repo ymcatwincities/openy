@@ -200,7 +200,8 @@ section.node--type-location.content {
   line-height: 20px;
   color: #333;
 }
-body form .js-form-type-radio.form-item {
+body form .js-form-type-radio.form-item,
+body form .field--widget-boolean-checkbox {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0;
@@ -294,4 +295,29 @@ body form .js-form-type-radio.form-item {
       font-family: 'YMCA';
     }
   }
+}
+
+.checkbox-custom-label {
+  font-weight: bold;
+  padding: 7px 0 0;
+}
+
+.field--widget-boolean-checkbox {
+  label {
+    font-weight: normal;
+  }
+}
+
+.field--type-address {
+  summary {
+    display: none;
+  }
+  div.address-container-inline > div.form-item {
+    float: none;
+    margin-right: 0;
+  }
+}
+
+.field--type-list-string legend {
+  border: none;
 }
