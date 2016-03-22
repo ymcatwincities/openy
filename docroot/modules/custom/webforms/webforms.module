@@ -10,6 +10,8 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
 
 /**
  * Prepares variables for individual form element templates.
@@ -225,6 +227,27 @@ function webforms_mail_alter(&$message) {
       check_markup($content['value'], $content['format']),
     ];
     $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function webforms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_name = strstr($form_id, 'contact_message_')) {
+    $form_name = preg_replace('/contact_message_/', '', $form_name);
+    $bundle = preg_replace('/_form/', '', $form_name);
+    foreach ($form as $key => $children) {
+      // Acceptance criteria for applying field's label to checkbox widget:
+      // 1) Field widget type is 'checkbox'.
+      // 2) Field type is 'boolean'.
+      if (strstr($key, 'field_') && isset($form[$key]['widget']['value']['#type']) && $form[$key]['widget']['value']['#type'] == 'checkbox') {
+        $field_config = FieldConfig::loadByName('contact_message', $bundle, $key);
+        if ($field_config->getType() == 'boolean') {
+          $form[$key]['#prefix'] = '<div class="checkbox-custom-label control-label text">' . $field_config->getLabel() . '</div>';
+        }
+      }
+    }
   }
 }
 
