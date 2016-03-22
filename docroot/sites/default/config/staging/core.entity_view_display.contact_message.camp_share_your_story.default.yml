@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - contact.form.camp_share_your_story
+    - field.field.contact_message.camp_share_your_story.field_camp_email_list
     - field.field.contact_message.camp_share_your_story.field_comments
     - field.field.contact_message.camp_share_your_story.field_decade
     - field.field.contact_message.camp_share_your_story.field_email_address
@@ -21,6 +22,12 @@ targetEntityType: contact_message
 bundle: camp_share_your_story
 mode: default
 content:
+  field_camp_email_list:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: options_emails_formatter
   field_comments:
     weight: 5
     label: above

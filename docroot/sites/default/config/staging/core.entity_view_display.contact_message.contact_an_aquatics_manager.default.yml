@@ -11,6 +11,7 @@ dependencies:
     - field.field.contact_message.contact_an_aquatics_manager.field_label
     - field.field.contact_message.contact_an_aquatics_manager.field_last_name
     - field.field.contact_message.contact_an_aquatics_manager.field_phone_number
+    - field.field.contact_message.contact_an_aquatics_manager.field_y_location_email
   module:
     - options
     - webforms
@@ -64,6 +65,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_y_location_email:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: options_emails_formatter
   message:
     type: string
     weight: 0
