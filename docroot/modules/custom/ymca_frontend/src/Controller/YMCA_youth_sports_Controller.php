@@ -5,7 +5,7 @@ namespace Drupal\ymca_frontend\Controller;
 /**
  * Controller for "Youth Sports" page.
  */
-class YMCA_youth_sports_Controller {
+class YMCAYouthSportsController {
 
   /**
    * Set page's content.

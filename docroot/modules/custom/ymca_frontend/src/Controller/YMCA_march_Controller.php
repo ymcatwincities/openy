@@ -5,7 +5,7 @@ namespace Drupal\ymca_frontend\Controller;
 /**
  * Controller for "March" page.
  */
-class YMCA_march_Controller {
+class YMCAMarchController {
 
   /**
    * Set page's content.
