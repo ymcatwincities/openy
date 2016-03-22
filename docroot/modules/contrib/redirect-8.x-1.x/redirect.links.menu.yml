@@ -28,7 +28,7 @@ redirect.fix_404:
 redirect.goto_fix_404:
   title: 'Fix 404 pages'
   parent: redirect.list
-  route_name: dblog.page_not_found
+  route_name: redirect.fix_404
   description: 'Fix 404 pages with URL redirects.'
   menu_name: admin
 
