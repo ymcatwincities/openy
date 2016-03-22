@@ -1480,3 +1480,10 @@ function ymca_master_update_8046() {
     $path . '/config/optional/ymca_alters.config.yml',
   ]);
 }
+
+/**
+ * Install captcha.
+ */
+function ymca_master_update_8047() {
+  \Drupal::service('module_installer')->install(['captcha', 'image_captcha'], TRUE);
+}
