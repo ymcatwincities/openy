@@ -51,6 +51,7 @@ class RedirectSourceWidget extends WidgetBase {
       '#maxlength' => 2048,
       '#required' => $element['#required'],
       '#field_prefix' => \Drupal::url('<front>', array(), array('absolute' => TRUE)),
+      '#attributes' => array('data-disable-refocus' => 'true'),
     );
 
     // If creating new URL add checks.

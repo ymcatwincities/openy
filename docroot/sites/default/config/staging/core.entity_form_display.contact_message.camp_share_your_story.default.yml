@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - contact.form.camp_share_your_story
+    - field.field.contact_message.camp_share_your_story.field_camp_email_list
     - field.field.contact_message.camp_share_your_story.field_comments
     - field.field.contact_message.camp_share_your_story.field_decade
     - field.field.contact_message.camp_share_your_story.field_email_address
@@ -21,15 +22,20 @@ targetEntityType: contact_message
 bundle: camp_share_your_story
 mode: default
 content:
+  field_camp_email_list:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
   field_comments:
-    weight: 4
+    weight: 6
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
   field_decade:
-    weight: 7
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
@@ -41,14 +47,14 @@ content:
     third_party_settings: {  }
     type: email_default
   field_first_name:
-    weight: 2
+    weight: 4
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_image:
-    weight: 5
+    weight: 7
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -61,19 +67,24 @@ content:
     third_party_settings: {  }
     type: webform_markup_widget
   field_last_name:
-    weight: 3
+    weight: 5
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_video_url:
-    weight: 6
+    weight: 8
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   copy: true
   mail: true

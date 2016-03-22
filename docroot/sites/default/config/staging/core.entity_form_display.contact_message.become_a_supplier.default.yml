@@ -3,29 +3,31 @@ langcode: en
 status: true
 dependencies:
   config:
-    0: contact.form.become_a_supplier
-    1: field.field.contact_message.become_a_supplier.field_address
-    3: field.field.contact_message.become_a_supplier.field_cell_phone
-    4: field.field.contact_message.become_a_supplier.field_ceo_first_name
-    5: field.field.contact_message.become_a_supplier.field_ceo_last_name
-    6: field.field.contact_message.become_a_supplier.field_company_name
-    7: field.field.contact_message.become_a_supplier.field_electronic_po
-    8: field.field.contact_message.become_a_supplier.field_email_address
-    9: field.field.contact_message.become_a_supplier.field_fax
-    10: field.field.contact_message.become_a_supplier.field_fein
-    11: field.field.contact_message.become_a_supplier.field_first_name
-    12: field.field.contact_message.become_a_supplier.field_form_divider
-    13: field.field.contact_message.become_a_supplier.field_form_divider1
-    14: field.field.contact_message.become_a_supplier.field_label
-    15: field.field.contact_message.become_a_supplier.field_last_name
-    16: field.field.contact_message.become_a_supplier.field_order_email
-    17: field.field.contact_message.become_a_supplier.field_phone_number
-    18: field.field.contact_message.become_a_supplier.field_product_catalog
-    19: field.field.contact_message.become_a_supplier.field_supplier_portal
-    20: field.field.contact_message.become_a_supplier.field_title
-    22: field.field.contact_message.become_a_supplier.field_w9
-    23: field.field.contact_message.become_a_supplier.field_website_url
-    24: field.field.contact_message.become_a_supplier.field_wm_biz
+    - contact.form.become_a_supplier
+    - field.field.contact_message.become_a_supplier.field_address
+    - field.field.contact_message.become_a_supplier.field_category_class
+    - field.field.contact_message.become_a_supplier.field_cell_phone
+    - field.field.contact_message.become_a_supplier.field_ceo_first_name
+    - field.field.contact_message.become_a_supplier.field_ceo_last_name
+    - field.field.contact_message.become_a_supplier.field_company_name
+    - field.field.contact_message.become_a_supplier.field_electronic_po
+    - field.field.contact_message.become_a_supplier.field_email_address
+    - field.field.contact_message.become_a_supplier.field_fax
+    - field.field.contact_message.become_a_supplier.field_fein
+    - field.field.contact_message.become_a_supplier.field_first_name
+    - field.field.contact_message.become_a_supplier.field_form_divider
+    - field.field.contact_message.become_a_supplier.field_form_divider1
+    - field.field.contact_message.become_a_supplier.field_label
+    - field.field.contact_message.become_a_supplier.field_last_name
+    - field.field.contact_message.become_a_supplier.field_order_email
+    - field.field.contact_message.become_a_supplier.field_phone_number
+    - field.field.contact_message.become_a_supplier.field_product_catalog
+    - field.field.contact_message.become_a_supplier.field_supplier_portal
+    - field.field.contact_message.become_a_supplier.field_title
+    - field.field.contact_message.become_a_supplier.field_vendor_portal
+    - field.field.contact_message.become_a_supplier.field_w9
+    - field.field.contact_message.become_a_supplier.field_website_url
+    - field.field.contact_message.become_a_supplier.field_wm_biz
   module:
     - address
     - link
@@ -42,10 +44,15 @@ content:
       default_country: null
     third_party_settings: {  }
     type: address_default
+  field_category_class:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_cell_phone:
     weight: 22
     settings:
-      placeholder: ''
+      placeholder: '(###)###-####'
     third_party_settings: {  }
     type: telephone_default
   field_ceo_first_name:
@@ -159,6 +166,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_vendor_portal:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
   field_w9:
     weight: 1
     settings:

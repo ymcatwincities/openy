@@ -250,3 +250,25 @@ function webforms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     }
   }
 }
+
+/**
+ * Implements hook_entity_embed_display_plugins_for_context_alter().
+ */
+function webforms_entity_embed_display_plugins_for_context_alter($definitions_for_context, $contexts) {
+  if (isset($definitions_for_context['entity_reference:entity_reference_entity_view'])) {
+    $definitions_for_context['entity_reference:entity_reference_entity_view']['class'] = 'Drupal\webforms\Plugin\entity_embed\EntityEmbedDisplay\EntityReferenceFieldFormatter';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_embed_alter().
+ */
+function webforms_contact_form_embed_alter(&$build, $entity, $context) {
+  foreach ($context['data-entity-embed-settings'] as $field_name => $default_value) {
+    if (!empty($build[$field_name]['widget'][0]['option_emails']) && $default_value != -1) {
+      $build[$field_name]['widget'][0]['option_emails']['#default_value'] = $default_value;
+      $build[$field_name]['widget'][0]['option_emails']['#value'] = $default_value;
+      $build[$field_name]['#attributes']['class'][] = 'hidden';
+    }
+  }
+}
