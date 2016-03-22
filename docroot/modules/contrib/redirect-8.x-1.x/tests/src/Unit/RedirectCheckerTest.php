@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\Tests\redirect\Unit\RedirectRequestSubscriberTest.
+ * Contains Drupal\Tests\redirect\Unit\RedirectCheckerTest.
  */
 
 namespace Drupal\Tests\redirect\Unit;
@@ -12,6 +12,7 @@ use Drupal\Tests\UnitTestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\Routing\Route;
 
 /**
  * Tests the redirect logic.
@@ -25,7 +26,7 @@ class RedirectCheckerTest extends UnitTestCase {
    */
   public function testCanRedirect() {
 
-    $config = array('redirect.settings' => array('ignore_admin_path' => FALSE));
+    $config = array('redirect.settings' => array('ignore_admin_path' => FALSE, 'access_check' => TRUE));
 
     $state = $this->getMockBuilder('Drupal\Core\State\StateInterface')
       ->getMock();
@@ -40,6 +41,18 @@ class RedirectCheckerTest extends UnitTestCase {
       ->getMock();
     $route_provider = $this->getMockBuilder('Drupal\Core\Routing\RouteProviderInterface')
       ->getMock();
+
+    $route = new Route('/example');
+    $route_provider->expects($this->any())
+      ->method('getRouteByName')
+      ->willReturn($route);
+
+    $access->expects($this->any())
+      ->method('checkNamedRoute')
+      ->willReturnMap([
+        ['denied_route', [], $account, FALSE, FALSE],
+        ['allowed_route', [], $account, FALSE, TRUE],
+      ]);
 
     $checker = new RedirectChecker($this->getConfigFactoryStub($config), $state, $access, $account, $route_provider);
 
@@ -62,6 +75,14 @@ class RedirectCheckerTest extends UnitTestCase {
       ->method('get')
       ->with('system.maintenance_mode')
       ->will($this->returnValue(TRUE));
+
+    // Route access check, deny access.
+    $request = $this->getRequestStub('index.php', 'GET');
+    $this->assertFalse($checker->canRedirect($request, 'denied_route'), 'Can not redirect');
+
+    // Route access check, deny access.
+    $request = $this->getRequestStub('index.php', 'GET');
+    $this->assertTrue($checker->canRedirect($request, 'allowed_route'), 'Can redirect');
 
     $checker = new RedirectChecker($this->getConfigFactoryStub($config), $state, $access, $account, $route_provider);
 
