@@ -87,6 +87,34 @@
         }
       );
       $('.main-promos').removeClass('hidden');
+
+      // Youth Sports page
+      (function($) {
+        $(document).ready(function() {
+          $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
+            e.preventDefault();
+            var top = $('.content-cards').offset().top;
+            $('html, body').animate({scrollTop: top}, 1000);
+            return false;
+          });
+
+          $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
+            e.preventDefault();
+            var top = $('.video-container').offset().top;
+            $('html, body').animate({scrollTop: top}, 1000);
+            return false;
+          });
+        });
+      })(jQuery);
+
+      // 2014 Annual Report pages
+      $(".page_2014_annual_report a[data-toggle='collapse']").click(function() {
+        if ($(this).text() == 'Read more') {
+          $(this).addClass('opened');
+        } else {
+          $(this).text('Read more');
+        }
+      });
     }
   };
 })(jQuery);
