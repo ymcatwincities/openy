@@ -147,7 +147,10 @@ function ymca_alters_sitemap_links_alter(array &$sitemap_links) {
       $split = parse_url($url);
       $uri = isset($split['path']) ? isset($split['query']) ? isset($split['fragment']) ? $split['path'] . '?' . $split['query'] . '#' . $split['fragment'] : $split['path'] . '?' . $split['query'] : $split['path'] : NULL;
       if (in_array($uri, array_values($skip))) {
-        unset($sitemap_links[$id][$lang]);
+        unset($sitemap_links[$id]['urls'][$lang]);
+        if (empty($sitemap_links[$id]['urls'])) {
+          unset($sitemap_links[$id]);
+        }
       }
     }
   }
