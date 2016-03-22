@@ -17,6 +17,9 @@ settings:
     -
       value: phone
       label: Phone
+    -
+      value: none
+      label: None
   allowed_values_function: ''
 module: options
 locked: false

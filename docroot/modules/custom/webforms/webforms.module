@@ -10,6 +10,8 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldConfig;
 
 /**
  * Prepares variables for individual form element templates.
@@ -225,5 +227,48 @@ function webforms_mail_alter(&$message) {
       check_markup($content['value'], $content['format']),
     ];
     $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function webforms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_name = strstr($form_id, 'contact_message_')) {
+    $form_name = preg_replace('/contact_message_/', '', $form_name);
+    $bundle = preg_replace('/_form/', '', $form_name);
+    foreach ($form as $key => $children) {
+      // Acceptance criteria for applying field's label to checkbox widget:
+      // 1) Field widget type is 'checkbox'.
+      // 2) Field type is 'boolean'.
+      if (strstr($key, 'field_') && isset($form[$key]['widget']['value']['#type']) && $form[$key]['widget']['value']['#type'] == 'checkbox') {
+        $field_config = FieldConfig::loadByName('contact_message', $bundle, $key);
+        if ($field_config->getType() == 'boolean') {
+          $form[$key]['#prefix'] = '<div class="checkbox-custom-label control-label text">' . $field_config->getLabel() . '</div>';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_embed_display_plugins_for_context_alter().
+ */
+function webforms_entity_embed_display_plugins_for_context_alter($definitions_for_context, $contexts) {
+  if (isset($definitions_for_context['entity_reference:entity_reference_entity_view'])) {
+    $definitions_for_context['entity_reference:entity_reference_entity_view']['class'] = 'Drupal\webforms\Plugin\entity_embed\EntityEmbedDisplay\EntityReferenceFieldFormatter';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_embed_alter().
+ */
+function webforms_contact_form_embed_alter(&$build, $entity, $context) {
+  foreach ($context['data-entity-embed-settings'] as $field_name => $default_value) {
+    if (!empty($build[$field_name]['widget'][0]['option_emails']) && $default_value != -1) {
+      $build[$field_name]['widget'][0]['option_emails']['#default_value'] = $default_value;
+      $build[$field_name]['widget'][0]['option_emails']['#value'] = $default_value;
+      $build[$field_name]['#attributes']['class'][] = 'hidden';
+    }
   }
 }

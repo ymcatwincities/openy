@@ -11,8 +11,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 
-define('MEMBERSHIP_BLOCK_ID', '1136');
-
 /**
  * Implements hook_help().
  */
@@ -64,8 +62,9 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
   }
 
   // Add membership block edit link.
-  if ($form_id == 'node_location_edit_form') {
-    $edit_link_url = Url::fromUri('internal:/block/' . MEMBERSHIP_BLOCK_ID);
+  if ($form_id == 'node_location_edit_form' || $form_id == 'node_location_form') {
+    $membership_block_id = \Drupal::config('ymca_alters.config')->get('membership_block_id');
+    $edit_link_url = Url::fromUri('internal:/block/' . $membership_block_id);
     $edit_link_url->setOption('attributes', array('target' => '_blank'));
     /* @var Link $edit_link */
     $edit_link = new Link('Edit Membership block', $edit_link_url);

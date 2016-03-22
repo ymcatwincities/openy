@@ -1,8 +1,16 @@
 uuid: 2cf5a674-ee92-44a8-8600-c907fc64b5ca
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - entity_embed
 name: Code
 format: code
 weight: -9
-filters: {  }
+filters:
+  entity_embed:
+    id: entity_embed
+    provider: entity_embed
+    status: true
+    weight: 0
+    settings: {  }

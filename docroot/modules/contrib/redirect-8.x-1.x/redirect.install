@@ -6,8 +6,8 @@
 
 use Drupal\redirect\Entity\Redirect;
 use Drupal\Core\Database\Database;
-  use Drupal\views\Entity\View;
-  use Symfony\Component\Yaml\Yaml;
+use Drupal\views\Entity\View;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Rehash redirects to account for case insensitivity.
