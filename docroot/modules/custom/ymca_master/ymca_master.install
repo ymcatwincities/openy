@@ -1393,3 +1393,80 @@ function ymca_master_update_8043() {
   }
   $storage->set('field.field.deleted', $data);
 }
+
+/**
+ * Update membership page fields.
+ */
+function ymca_master_update_8044() {
+  $path = drupal_get_path('module', 'ymca_membership');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_membership.config.yml',
+  ]);
+}
+
+/**
+ * Update not migrated blocks with entity embed data.
+ */
+function ymca_master_update_8045() {
+  $data = [
+    12319 => ['id' => 11016, 'uuid' => 'c12b4948-f083-4a58-a201-1bb81dff45b3'],
+    12318 => ['id' => 11031, 'uuid' => '4a3aa4c7-4fcf-47a9-8b51-818317d79f01'],
+    12315 => ['id' => 11036, 'uuid' => '1ecc4d72-2c24-4395-9b07-7c38ca7cf0d9'],
+    12317 => ['id' => 11041, 'uuid' => '32935da1-e1c6-462a-8200-e8f0a12e683d'],
+    12320 => ['id' => 11051, 'uuid' => '7196df40-8b97-4a51-9800-d4e7b2e85a17'],
+    12321 => ['id' => 11056, 'uuid' => '9deb5b81-8382-4db1-9621-333c530de353'],
+    12314 => ['id' => 11061, 'uuid' => '41f01ea7-aff5-4fc4-9f09-9cc4976609a9'],
+    12322 => ['id' => 11066, 'uuid' => '5d8054cf-51aa-4aa7-9b04-4c603bbe6b0b'],
+    12323 => ['id' => 11071, 'uuid' => 'ed84887b-162b-419b-9200-c3f3a5556de4'],
+    12316 => ['id' => 11026, 'uuid' => 'a606769f-b24a-4d57-8907-7b4ff5ba32ec'],
+  ];
+
+  $db = Database::getConnection('default');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $table = 'node__field_sidebar';
+  $field = str_replace('node__', '', $table);
+  $col = $field . '_value';
+
+  foreach ($data as $block_id => $replace_data) {
+    $search = '<div class="richtext original">' . $block_id . '</div>';
+    $stmt = $db->select($table, 's')
+      ->fields('s', ['entity_id', $col])
+      ->condition($col, '%' . $db->escapeLike($search) . '%', 'LIKE')
+      ->execute();
+
+    foreach ($stmt as $item) {
+      if (!$entity = $storage->load($item->entity_id)) {
+        continue;
+      }
+
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $subject = $entity->$field->value;
+      $replace = '<div class="richtext original"><drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="' . $replace_data['id'] . '" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="' . $replace_data['uuid'] . '"></drupal-entity></div>';
+
+      $value = str_replace($search, $replace, $subject);
+      $entity->set($field, [
+        'value' => $value,
+        'format' => 'full_html',
+      ]);
+      $entity->save();
+
+      \Drupal::logger('ymca_master')->info(
+        'Replaced non-migrated sidebar block with embed data in node %node.',
+        ['%node' => $item->entity_id]
+      );
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
+}

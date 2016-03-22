@@ -684,7 +684,8 @@ function ymca_preprocess_input(&$variables) {
   $element = $variables['element'];
   $variables['children'] = $element['#children'];
 
-  if ($element['#type'] == 'textfield' || $element['#type'] == 'tel' || $element['#type'] == 'password') {
+  $types = array('url', 'textfield', 'tel', 'password');
+  if (in_array($element['#type'], $types)) {
     $classes = array(
       'form-control',
       'text',
@@ -774,9 +775,27 @@ function ymca_preprocess_select(&$variables) {
  * Implements hook_preprocess_form_element().
  */
 function ymca_preprocess_form_element(&$variables) {
-  if (!empty($variables['element']['#title_extra'])) {
-    $variables['label']['#title_extra'] = $variables['element']['#title_extra'];
+  $element = $variables['element'];
+  if (!empty($element['#title_extra'])) {
+    $variables['label']['#title_extra'] = $element['#title_extra'];
   }
+  // Prepare address field.
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line1') {
+     $variables['label']['#title'] = t('Address 1');
+  }
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line2') {
+    $variables['label']['#title_display'] = $variables['label_display'] = $variables['title_display'] = 'before';
+    $variables['label']['#title'] = t('Address 2 <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level2') {
+    $variables['label']['#title'] = t('City <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level1') {
+    $variables['label']['#title'] = t('State <small>(optional) </small>');
+    $element['#options'][''] = t('Select State or Province');
+    $element['#empty_option'] = t('Select State or Province');
+  }
+  $variables['element'] = $element;
 }
 
 /**
