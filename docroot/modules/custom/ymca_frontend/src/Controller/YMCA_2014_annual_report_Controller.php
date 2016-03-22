@@ -5,7 +5,7 @@ namespace Drupal\ymca_frontend\Controller;
 /**
  * Controller for "2014 Annual Report" page.
  */
-class YMCA_2014_annual_report_Controller {
+class YMCA2014AnnualReportController {
 
   /**
    * Set page's content.

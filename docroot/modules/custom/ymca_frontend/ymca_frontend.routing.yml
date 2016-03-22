@@ -17,31 +17,31 @@ ymca_frontend.locations:
 ymca_frontend.youth_sports:
   path: 'youth_sports'
   defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCA_youth_sports_Controller::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_youth_sports_Controller::setTitle'
+    _controller: '\Drupal\ymca_frontend\Controller\YMCAYouthSportsController::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCAYouthSportsController::setTitle'
   requirements:
     _permission: 'access content'
 
 ymca_frontend.march:
   path: 'march'
   defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCA_march_Controller::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_march_Controller::setTitle'
+    _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
   requirements:
     _permission: 'access content'
 
 ymca_frontend.2014_annual_report:
   path: 'about/annual_reports/2014_annual_report'
   defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_Controller::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_Controller::setTitle'
+    _controller: '\Drupal\ymca_frontend\Controller\YMCA2014AnnualReportController::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA2014AnnualReportController::setTitle'
   requirements:
     _permission: 'access content'
 
 ymca_frontend.2014_annual_report_leaders:
   path: 'about/annual_reports/2014_annual_report/cause-driven_leaders'
   defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_leaders_Controller::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_leaders_Controller::setTitle'
+    _controller: '\Drupal\ymca_frontend\Controller\YMCA2014AnnualReportLeadersController::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA2014AnnualReportLeadersController::setTitle'
   requirements:
     _permission: 'access content'

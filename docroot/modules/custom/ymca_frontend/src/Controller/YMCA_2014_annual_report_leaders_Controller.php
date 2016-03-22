@@ -5,7 +5,7 @@ namespace Drupal\ymca_frontend\Controller;
 /**
  * Controller for "Cause-driven Leaders" page.
  */
-class YMCA_2014_annual_report_leaders_Controller {
+class YMCA2014AnnualReportLeadersController {
 
   /**
    * Set page's content.
