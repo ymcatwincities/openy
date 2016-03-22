@@ -1480,3 +1480,13 @@ function ymca_master_update_8046() {
     $path . '/config/optional/ymca_alters.config.yml',
   ]);
 }
+
+/**
+ * Update config.
+ */
+function ymca_master_update_8047() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/ymca_alters.config.yml',
+  ]);
+}

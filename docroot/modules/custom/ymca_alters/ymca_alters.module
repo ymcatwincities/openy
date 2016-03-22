@@ -132,3 +132,23 @@ function ymca_alters_block_content_presave(EntityInterface $entity) {
   // We should invalidate all rendered cache, because block was changed/created.
   \Drupal::service('cache_tags.invalidator')->invalidateTags(['rendered']);
 }
+
+/**
+ * Implements hook_sitemap_links_alter().
+ */
+function ymca_alters_sitemap_links_alter(array &$sitemap_links) {
+  /** @var array $skip */
+  $skip = \Drupal::config('ymca_alters.config')->get('sitemap_xml_skip_uris');
+  if (empty($skip)) {
+    return;
+  }
+  foreach ($sitemap_links as $id => $link) {
+    foreach ($link['urls'] as $lang => $url) {
+      $split = parse_url($url);
+      $uri = isset($split['path']) ? isset($split['query']) ? isset($split['fragment']) ? $split['path'] . '?' . $split['query'] . '#' . $split['fragment'] : $split['path'] . '?' . $split['query'] : $split['path'] : NULL;
+      if (in_array($uri, array_values($skip))) {
+        unset($sitemap_links[$id][$lang]);
+      }
+    }
+  }
+}
