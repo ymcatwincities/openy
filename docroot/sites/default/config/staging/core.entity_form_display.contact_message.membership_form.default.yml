@@ -4,12 +4,12 @@ status: true
 dependencies:
   config:
     - contact.form.membership_form
-    - field.field.contact_message.membership_form.field_contact_method
     - field.field.contact_message.membership_form.field_email_address
     - field.field.contact_message.membership_form.field_first_name
     - field.field.contact_message.membership_form.field_label
     - field.field.contact_message.membership_form.field_last_name
     - field.field.contact_message.membership_form.field_phone_number
+    - field.field.contact_message.membership_form.field_y_location_email
   module:
     - telephone
     - webforms
@@ -18,11 +18,6 @@ targetEntityType: contact_message
 bundle: membership_form
 mode: default
 content:
-  field_contact_method:
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
   field_email_address:
     weight: 3
     settings:
@@ -56,6 +51,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+  field_y_location_email:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
 hidden:
   copy: true
   langcode: true

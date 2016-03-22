@@ -8,6 +8,7 @@ dependencies:
     - field.field.contact_message.cc_wellness_employee.field_email_address
     - field.field.contact_message.cc_wellness_employee.field_first_name
     - field.field.contact_message.cc_wellness_employee.field_last_name
+    - field.field.contact_message.cc_wellness_employee.field_membership_type
     - field.field.contact_message.cc_wellness_employee.field_phone_number
     - field.field.contact_message.cc_wellness_employee.field_preferred_y_text
   module:
@@ -45,6 +46,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_membership_type:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_phone_number:
     weight: 4
     settings:
