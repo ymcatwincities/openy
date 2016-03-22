@@ -13,3 +13,35 @@ ymca_frontend.locations:
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationsController::setTitle'
   requirements:
     _permission: 'access content'
+
+ymca_frontend.youth_sports:
+  path: 'youth_sports'
+  defaults:
+    _controller: '\Drupal\ymca_frontend\Controller\YMCA_youth_sports_Controller::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_youth_sports_Controller::setTitle'
+  requirements:
+    _permission: 'access content'
+
+ymca_frontend.march:
+  path: 'march'
+  defaults:
+    _controller: '\Drupal\ymca_frontend\Controller\YMCA_march_Controller::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_march_Controller::setTitle'
+  requirements:
+    _permission: 'access content'
+
+ymca_frontend.2014_annual_report:
+  path: 'about/annual_reports/2014_annual_report'
+  defaults:
+    _controller: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_Controller::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_Controller::setTitle'
+  requirements:
+    _permission: 'access content'
+
+ymca_frontend.2014_annual_report_leaders:
+  path: 'about/annual_reports/2014_annual_report/cause-driven_leaders'
+  defaults:
+    _controller: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_leaders_Controller::content'
+    _title_callback: '\Drupal\ymca_frontend\Controller\YMCA_2014_annual_report_leaders_Controller::setTitle'
+  requirements:
+    _permission: 'access content'
