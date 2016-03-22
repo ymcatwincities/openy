@@ -1482,11 +1482,20 @@ function ymca_master_update_8046() {
 }
 
 /**
- * Update config.
+ * Install captcha.
  */
 function ymca_master_update_8047() {
+  \Drupal::service('module_installer')->install(['captcha', 'image_captcha'], TRUE);
+}
+
+/**
+ * Update config.
+ */
+function ymca_master_update_8048() {
   $path = drupal_get_path('module', 'ymca_alters');
-  \Drupal::service('config_import.importer')->importConfigs([
-    $path . '/config/optional/ymca_alters.config.yml',
-  ]);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/optional/ymca_alters.config.yml',
+    ]
+  );
 }
