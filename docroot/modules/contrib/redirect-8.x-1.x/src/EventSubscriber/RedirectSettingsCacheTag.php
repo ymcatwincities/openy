@@ -1,23 +1,29 @@
 <?php
+
 /**
  * @file
  * Contains \Drupal\redirect\EventSubscriber\RedirectSettingsCacheTag.
  */
+
 namespace Drupal\redirect\EventSubscriber;
+
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 /**
  * A subscriber invalidating the 'rendered' cache tag when saving redirect settings.
  */
 class RedirectSettingsCacheTag implements EventSubscriberInterface {
+
   /**
    * The cache tags invalidator.
    *
    * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
    */
   protected $cacheTagsInvalidator;
+
   /**
    * Constructs a RedirectSettingsCacheTag object.
    *
@@ -27,6 +33,7 @@ class RedirectSettingsCacheTag implements EventSubscriberInterface {
   public function __construct(CacheTagsInvalidatorInterface $cache_tags_invalidator) {
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
   }
+
   /**
    * Invalidate the 'rendered' cache tag whenever the settings are modified.
    *
@@ -40,6 +47,7 @@ class RedirectSettingsCacheTag implements EventSubscriberInterface {
       $this->cacheTagsInvalidator->invalidateTags(['rendered']);
     }
   }
+
   /**
    * {@inheritdoc}
    */
@@ -47,4 +55,5 @@ class RedirectSettingsCacheTag implements EventSubscriberInterface {
     $events[ConfigEvents::SAVE][] = ['onSave'];
     return $events;
   }
+
 }
