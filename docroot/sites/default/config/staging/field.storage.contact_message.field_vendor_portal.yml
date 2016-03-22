@@ -1,25 +1,25 @@
-uuid: dacb4b3b-0404-43b2-8210-165f7c80fd76
+uuid: 62e81cb1-185a-45df-a700-f3d3a92df31e
 langcode: en
 status: true
 dependencies:
   module:
     - contact
     - options
-id: contact_message.field_contact_method
-field_name: field_contact_method
+id: contact_message.field_vendor_portal
+field_name: field_vendor_portal
 entity_type: contact_message
 type: list_string
 settings:
   allowed_values:
     -
-      value: email
-      label: E-mail
+      value: 'Yes'
+      label: 'Yes'
     -
-      value: phone
-      label: Phone
+      value: 'No'
+      label: 'No'
     -
-      value: none
-      label: None
+      value: 'Not Applicable'
+      label: 'Not Applicable'
   allowed_values_function: ''
 module: options
 locked: false
