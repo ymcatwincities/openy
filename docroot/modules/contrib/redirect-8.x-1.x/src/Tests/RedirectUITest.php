@@ -166,6 +166,13 @@ class RedirectUITest extends WebTestBase {
     ), t('Save'));
     $this->assertRaw(t('The anchor fragments are not allowed.'));
 
+    // Adding path that starts with /
+    $this->drupalPostForm('admin/config/search/redirect/add', array(
+      'redirect_source[0][path]' => '/page-to-redirect',
+      'redirect_redirect[0][uri]' => '/node',
+    ), t('Save'));
+    $this->assertRaw(t('The url to redirect from should not start with a forward slash (/).'));
+
     // Test filters.
     // Add a new redirect.
     $this->drupalPostForm('admin/config/search/redirect/add', array(
@@ -219,6 +226,7 @@ class RedirectUITest extends WebTestBase {
 
     $this->assertUrl('admin/config/search/redirect');
     $this->assertText(t('There is no redirect yet.'));
+
   }
 
   /**
@@ -473,6 +481,10 @@ class RedirectUITest extends WebTestBase {
     $redirect->setStatusCode(301);
     $redirect->save();
     $this->assertRedirect('a-path', 'https://www.example.org');
+    $this->drupalLogin($this->adminUser);
+    $this->drupalPostForm('admin/config/search/redirect/settings', ['redirect_deslash' => 1], t('Save configuration'));
+    $this->drupalGet('/2015/10/10/');
+    $this->assertResponse(404);
   }
 
 }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\Core\Entity\ContentEntityConfirmFormBase\RedirectDeleteForm
+ * Contains \Drupal\redirect\Form\RedirectDeleteForm.
  */
 
 namespace Drupal\redirect\Form;
