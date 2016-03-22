@@ -14,6 +14,7 @@ third_party_settings:
       - health-and-fitness
       - jobs-suppliers-news
       - kids-teen-activities
+      - lakefront-music-fest
       - locations
       - swimming
     parent: 'camps:'

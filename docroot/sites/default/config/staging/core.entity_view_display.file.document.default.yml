@@ -1,0 +1,30 @@
+uuid: 6b62bc46-5dbe-41aa-8f42-668ed2efb125
+langcode: en
+status: true
+dependencies:
+  config:
+    - file_entity.type.document
+  module:
+    - file
+    - file_entity
+id: file.document.default
+targetEntityType: file
+bundle: document
+mode: default
+content:
+  filename:
+    type: string
+    label: hidden
+    weight: -5
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  uri:
+    type: file_uri
+    label: hidden
+    weight: -5
+    settings:
+      link_to_file: false
+      file_download_path: false
+    third_party_settings: {  }
+hidden: {  }

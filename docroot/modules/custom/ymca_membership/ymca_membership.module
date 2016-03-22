@@ -127,8 +127,9 @@ function ymca_membership_mail_alter(&$message) {
         $mail_wrapper_build['#content_area_1']['#theme'] = 'membership_mail_editor';
         /* @var \Drupal\contact\Entity\Message $submission */
         $submission = $message['params']['contact_message'];
+        $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
         $location = \Drupal::service('webforms.node_extractor')
-          ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+          ->extractNode($submission, $field_name, 'location');
         if ($location) {
           $message['subject'] = 'Membership Inquiry - ' . $location->getTitle();
         }
@@ -166,8 +167,9 @@ function ymca_membership_preprocess_membership_mail_message(&$variables) {
   $variables['phone'] = $submission->field_phone_number->getValue()[0]['value'];
   $variables['email'] = $submission->field_email_address->getValue()[0]['value'];
 
+  $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
   $location = \Drupal::service('webforms.node_extractor')
-    ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+    ->extractNode($submission, $field_name, 'location');
 
   if (!$location) {
     \Drupal::logger('ymca_membership')->alert(t('Unbound prefered Y location value selected.'));
