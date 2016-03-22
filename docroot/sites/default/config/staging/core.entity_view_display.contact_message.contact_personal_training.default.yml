@@ -8,10 +8,13 @@ dependencies:
     - field.field.contact_message.contact_personal_training.field_contact_method
     - field.field.contact_message.contact_personal_training.field_email_address
     - field.field.contact_message.contact_personal_training.field_first_name
+    - field.field.contact_message.contact_personal_training.field_form_divider
     - field.field.contact_message.contact_personal_training.field_last_name
     - field.field.contact_message.contact_personal_training.field_phone_number
+    - field.field.contact_message.contact_personal_training.field_preferred_y_text
   module:
     - options
+    - webforms
 id: contact_message.contact_personal_training.default
 targetEntityType: contact_message
 bundle: contact_personal_training
@@ -42,6 +45,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_form_divider:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: webform_markup_formatter
   field_last_name:
     weight: 2
     label: above
@@ -55,6 +65,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_preferred_y_text:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
   message:
     type: string
     weight: 0

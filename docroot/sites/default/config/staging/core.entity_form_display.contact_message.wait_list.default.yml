@@ -11,6 +11,7 @@ dependencies:
     - field.field.contact_message.wait_list.field_last_name
     - field.field.contact_message.wait_list.field_phone_number
     - field.field.contact_message.wait_list.field_school
+    - field.field.contact_message.wait_list.field_wait_list_email_option
   module:
     - telephone
     - webforms
@@ -20,14 +21,14 @@ bundle: wait_list
 mode: default
 content:
   field_child_first_and_last_name:
-    weight: 5
+    weight: 7
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_email_address:
-    weight: 4
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -54,18 +55,28 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_phone_number:
-    weight: 3
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
   field_school:
-    weight: 6
+    weight: 8
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_wait_list_email_option:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
+  langcode:
+    type: language_select
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   copy: true
   mail: true

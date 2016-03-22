@@ -3,14 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    0: contact.form.contact_a_program_director
-    2: field.field.contact_message.contact_a_program_director.field_comments
-    3: field.field.contact_message.contact_a_program_director.field_contact_method
-    4: field.field.contact_message.contact_a_program_director.field_email_address
-    5: field.field.contact_message.contact_a_program_director.field_first_name
-    6: field.field.contact_message.contact_a_program_director.field_label
-    7: field.field.contact_message.contact_a_program_director.field_last_name
-    8: field.field.contact_message.contact_a_program_director.field_phone_number
+    - contact.form.contact_a_program_director
+    - field.field.contact_message.contact_a_program_director.field_comments
+    - field.field.contact_message.contact_a_program_director.field_contact_method
+    - field.field.contact_message.contact_a_program_director.field_email_address
+    - field.field.contact_message.contact_a_program_director.field_first_name
+    - field.field.contact_message.contact_a_program_director.field_label
+    - field.field.contact_message.contact_a_program_director.field_last_name
+    - field.field.contact_message.contact_a_program_director.field_phone_number
+    - field.field.contact_message.contact_a_program_director.field_y_location_email
   module:
     - webforms
 id: contact_message.contact_a_program_director.default
@@ -32,6 +33,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: webform_markup_formatter
+  field_y_location_email:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: options_emails_formatter
   message:
     type: string
     weight: 0
@@ -40,7 +47,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
 hidden:
-  field_childcare_location: true
   field_comments: true
   field_contact_method: true
   field_email_address: true
