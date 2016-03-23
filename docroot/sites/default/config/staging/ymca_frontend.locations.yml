@@ -167,7 +167,7 @@
   city: Minneapolis
   state: MN
   zip: 55405
-  phone: 612-821-2193
+  phone: 612-230-3987
   url: locations/heritage_park_ymca/
   tags: YMCA
   latitude: 44.981475
@@ -176,8 +176,8 @@
   geid: 27
   personify_brcode: 18
   shadow: themes/custom/ymca/img/map_shadow.png
-  'HRS Mon-Fri': '6:00 a.m. - 7:30 p.m.'
-  'HRS Sat-Sun': 'SAT 9:00 a.m. - 5:00 p.m. SUN Closed'
+  'HRS Mon-Fri': '6:00 a.m. - 8:30 p.m.'
+  'HRS Sat-Sun': 'SAT 9:00 a.m. - 1:00 p.m. SUN Closed'
 -
   name: Hudson
   address1: '2211 Vine Street'
@@ -396,7 +396,7 @@
   'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
 -
   name: 'St. Paul Midway'
-  address1: '1761 University Avenue West'
+  address1: '1761 University Avenue'
   address2: null
   city: 'Saint Paul'
   state: MN
@@ -434,7 +434,7 @@
   name: 'White Bear Area'
   address1: '2100 Orchard Lane'
   address2: null
-  city: 'White Bear Area'
+  city: 'White Bear Lake'
   state: MN
   zip: 55110
   phone: 651-777-8103

@@ -165,6 +165,9 @@ class SitemapGenerator {
     $writer->writeAttribute('xmlns', self::XMLNS);
     $writer->writeAttribute('xmlns:xhtml', self::XMLNS_XHTML);
 
+    // Invoke alter hook.
+    \Drupal::moduleHandler()->alter('sitemap_links', $sitemap_links);
+
     foreach ($sitemap_links as $link) {
       $writer->startElement('url');
 
