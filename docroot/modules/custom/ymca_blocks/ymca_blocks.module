@@ -75,6 +75,9 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
           '#langcode' => $content->getLangcode(),
         ),
         '#entity' => $entity,
+        '#cache' => [
+          'tags' => ['ymca_cron']
+        ],
       );
 
       // TODO: Not required now, should live in theme.
@@ -127,6 +130,9 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         '#theme' => 'alert_block',
         '#message' => $text,
         '#inner_attributes' => $attributes,
+        '#cache' => [
+          'tags' => ['ymca_cron']
+        ],
       );
 
       if ($entity->hasField('field_global_alert')) {
