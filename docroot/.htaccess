@@ -189,7 +189,7 @@ AddEncoding gzip svgz
 # Add basic auth for specific page.
 SetEnvIf Request_URI ^/locations/youth_in_government/delegation_director_portal/delegation_director_guide require_auth=true
 
-AuthUserFile .htpasswd
+AuthUserFile /mnt/gfs/home/ymcatwincities/.htpasswd
 AuthName "The page you attempted to view is for Members only. Please log in."
 AuthType Basic
 Order Deny,Allow
