@@ -1499,3 +1499,10 @@ function ymca_master_update_8048() {
     ]
   );
 }
+
+/**
+ * Install ymca_cron.
+ */
+function ymca_master_update_8049() {
+  \Drupal::service('module_installer')->install(['ymca_cron'], TRUE);
+}
