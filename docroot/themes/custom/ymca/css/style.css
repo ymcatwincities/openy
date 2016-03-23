@@ -3839,7 +3839,11 @@ a.tel {
   display: none;
 }
 
-a[href$=pdf]:after, .lead-copy li a[href$=pdf]:after, .pdf-link:after {
+a[href$=pdf]:after,
+a[href*=".pdf?"]:after,
+.lead-copy li a[href$=pdf]:after,
+.lead-copy li a[href*=".pdf?"]:after,
+.pdf-link:after {
   margin: 0 5px;
   content: 'p';
   text-transform: none;
@@ -3847,7 +3851,8 @@ a[href$=pdf]:after, .lead-copy li a[href$=pdf]:after, .pdf-link:after {
   font-family: 'YMCA';
 }
 
-a[href$=pdf]:hover {
+a[href$=pdf]:hover,
+a[href*=".pdf?"]:hover {
   text-decoration: none;
 }
 
