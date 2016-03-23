@@ -117,7 +117,7 @@
       });
 
       // March pages.
-      if ($('body').hasClass('path-march-winners') && window.location.search !== '') {
+      if ($('body').hasClass('path-march') && window.location.search !== '') {
         $('#main-description').hide();
         $('#main-description-individual').show();
       }
