@@ -134,6 +134,32 @@ function ymca_alters_block_content_presave(EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_sitemap_links_alter().
+ */
+function ymca_alters_sitemap_links_alter(array &$sitemap_links) {
+  /** @var array $skip */
+  $skip = \Drupal::config('ymca_alters.config')->get('sitemap_xml_skip_uris');
+  if (empty($skip)) {
+    return;
+  }
+  else {
+    foreach ($skip as &$item) {
+      $item = $GLOBALS['base_url'] . $item;
+    }
+  }
+  foreach ($sitemap_links as $id => $link) {
+    foreach ($link['urls'] as $lang => $url) {
+      if (in_array($url, array_values($skip))) {
+        unset($sitemap_links[$id]['urls'][$lang]);
+        if (empty($sitemap_links[$id]['urls'])) {
+          unset($sitemap_links[$id]);
+        }
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_user_login().
  */
 function ymca_alters_user_login($account) {

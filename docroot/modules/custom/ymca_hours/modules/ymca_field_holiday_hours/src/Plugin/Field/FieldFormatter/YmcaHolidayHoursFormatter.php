@@ -82,6 +82,9 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
       '#attributes' => new Attribute(['class' => 'holiday-hours']),
       '#theme' => 'table',
       '#rows' => $rows,
+      '#cache' => [
+        'tags' => ['ymca_cron']
+      ],
     ];
 
     return $elements;
