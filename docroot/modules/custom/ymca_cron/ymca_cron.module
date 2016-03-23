@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function ymca_cron_cron() {
+  $storage = \Drupal::state();
+  $cache_invalidator = \Drupal::service('cache_tags.invalidator');
+
+  $period = \Drupal::config('ymca_cron.settings')->get('period');
+  $collection = 'ymca_cron_run';
+
+  $time = $storage->get($collection);
+  if (!$time || REQUEST_TIME - $time > $period) {
+    $cache_invalidator->invalidateTags(['ymca_cron']);
+    $storage->set($collection, REQUEST_TIME);
+  }
+}

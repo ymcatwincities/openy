@@ -152,30 +152,27 @@ class DateBlockService {
       case self::DBS_BEFORE:
         hide($build['field_content_date_between']);
         hide($build['field_content_date_end']);
-
-        // Cache to be invalidated when start time comes.
-        $build['#cache']['max-age'] = $this->startDate->getTimestamp() - REQUEST_TIME;
         break;
 
       case self::DBS_MIDDLE:
         hide($build['field_content_date_before']);
         hide($build['field_content_date_end']);
-
-        // Cache to be invalidated when end time comes.
-        $build['#cache']['max-age'] = $this->endDate->getTimestamp() - REQUEST_TIME;
         break;
 
       case self::DBS_AFTER:
         hide($build['field_content_date_before']);
         hide($build['field_content_date_between']);
-
-        // Ok, all the dates are behind. Cache permanently, by default.
         break;
     }
 
     // Do not show date fields at all.
     hide($build['field_start_date']);
     hide($build['field_end_date']);
+
+    // Invalidate cache by cron.
+    $build['#cache'] = [
+      'tags' => ['ymca_cron']
+    ];
 
     return $this;
   }

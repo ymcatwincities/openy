@@ -71,6 +71,13 @@ function ymca_blog_listing_preprocess_node(&$variables) {
   // Indicates whether general posts should be included.
   $available_general = FALSE;
 
+  // We should not show news in the list.
+  $term_query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('name', 'News')
+    ->condition('vid', 'tags')
+    ->execute();
+  $news_term_id = reset($term_query);
+
   $nid = $node->id();
 
   // Check if general blog posts available for the node.
@@ -84,10 +91,17 @@ function ymca_blog_listing_preprocess_node(&$variables) {
 
   // Create parent query object.
   $query_parent = \Drupal::entityQuery('node')
-    ->condition('type', 'blog')
-    ->condition('status', NODE_PUBLISHED)
     ->sort('created', 'DESC')
     ->range(0, 2);
+
+  $condition_news = $query_parent->orConditionGroup()
+    ->notExists('field_tags')
+    ->condition('field_tags.target_id', $news_term_id, '!=');
+
+  $query_parent
+    ->condition('type', 'blog')
+    ->condition('status', NODE_PUBLISHED)
+    ->condition($condition_news);
 
   // Retrieve and sort day posts.
   $query = clone $query_parent;
