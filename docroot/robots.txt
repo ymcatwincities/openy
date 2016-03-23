@@ -59,9 +59,11 @@ Disallow: /index.php/user/password/
 Disallow: /index.php/user/register/
 Disallow: /index.php/user/login/
 Disallow: /index.php/user/logout/
-Disallow: */archive/
-Disallow: */group_exercise_search_results/
-Disallow: */thank_you/
+# End of Drupal core rules
+
+Disallow: */archive
+Disallow: */group_exercise_search_results
+Disallow: */thank_you
 Disallow: *?action_9455
 Disallow: *?category
 Disallow: *?filter_length
