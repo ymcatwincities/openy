@@ -7734,6 +7734,10 @@ body form .field--widget-boolean-checkbox label {
   border: none;
 }
 
+ul.linklist {
+  padding-left: 0;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
