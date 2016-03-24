@@ -45,7 +45,7 @@
       {% for item in items %}
         <div{{ item.attributes }}>{{ item.content }}</div>
       {% endfor %}
-      <div><a href="{{ groupex_schedule }}">Group Exercise Schedule</a></div>
+      <div><span class="file"><a href="{{ groupex_schedule }}">Group Exercise Schedule</a></span></div>
     </div>
   {% else %}
     {% for item in items %}
