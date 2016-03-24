@@ -185,17 +185,3 @@ AddEncoding gzip svgz
   # Disable content sniffing, since it's an attack vector.
   Header always set X-Content-Type-Options nosniff
 </IfModule>
-
-# Add basic auth for specific page.
-SetEnvIf Request_URI ^/locations/youth_in_government/delegation_director_portal/delegation_director_guide require_auth=true
-
-AuthUserFile /mnt/gfs/home/ymcatwincities/.htpasswd
-AuthName "The page you attempted to view is for Members only. Please log in."
-AuthType Basic
-Order Deny,Allow
-
-Deny from all
-Satisfy any
-Require valid-user
-Allow from env=!require_auth
-

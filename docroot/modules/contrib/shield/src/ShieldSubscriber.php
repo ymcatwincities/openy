@@ -23,7 +23,13 @@ class ShieldSubscriber implements EventSubscriberInterface {
    */
   public function ShieldLoad(GetResponseEvent $event) {
     // Get config.
-    $config = \Drupal::config('shield.config');
+    $config_name = 'shield.config';
+
+    // Invoke alter hook.
+    \Drupal::moduleHandler()->alter('shield_config', $config_name);
+
+    $config = \Drupal::config($config_name);
+
     // Do nothing if disabled.
     if (!$config->get('enabled')) {
       return;
