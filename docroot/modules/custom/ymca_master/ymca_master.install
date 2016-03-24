@@ -1506,3 +1506,44 @@ function ymca_master_update_8048() {
 function ymca_master_update_8049() {
   \Drupal::service('module_installer')->install(['ymca_cron'], TRUE);
 }
+
+/**
+ * Fix youtube protocol.
+ */
+function ymca_master_update_8050() {
+  $db = Database::getConnection('default');
+  $storage = \Drupal::service('entity.manager')->getStorage('block_content');
+
+  $table = 'block_content__field_code';
+  $field = str_replace('block_content__', '', $table);
+  $col = $field . '_value';
+  $search = 'src="//www.youtube.com';
+  $replace = 'src="http://www.youtube.com';
+
+  $result = $db->select($table, 'c')
+    ->fields('c', ['entity_id', $col])
+    ->condition($col, '%' . $db->escapeLike($search) . '%', 'LIKE')
+    ->execute();
+
+  foreach ($result as $item) {
+    if (!$entity = $storage->load($item->entity_id)) {
+      continue;
+    }
+
+    if (!$entity->hasField($field)) {
+      continue;
+    }
+
+    $subject = $entity->$field->value;
+    $entity->set($field, [
+      'value' => str_replace($search, $replace, $subject),
+      'format' => 'full_html',
+    ]);
+    $entity->save();
+
+    \Drupal::logger('ymca_master')->info(
+      'Replaced youtube protocol in block %block.',
+      ['%block' => $item->entity_id]
+    );
+  }
+}
