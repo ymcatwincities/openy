@@ -29,6 +29,8 @@ class GroupexFormFull extends GroupexFormBase {
       '#weight' => -100,
     ];
 
+    $form['filter_length']['#description'] = t('Selecting more than one location limits your search to one day.');
+
     return $form;
   }
 
