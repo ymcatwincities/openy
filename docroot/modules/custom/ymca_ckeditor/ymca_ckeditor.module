@@ -11,7 +11,10 @@ use Drupal\editor\Entity\Editor;
  * Implements hook_page_attachments_alter().
  */
 function ymca_ckeditor_page_attachments_alter(array &$attachments) {
-  $attachments['#attached']['library'][] = 'ymca_ckeditor/ymca-ckeditor';
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $attachments['#attached']['library'][] = 'ymca_ckeditor/ymca-ckeditor';
+  }
 }
 
 /**
