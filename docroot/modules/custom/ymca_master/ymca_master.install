@@ -1547,3 +1547,15 @@ function ymca_master_update_8050() {
     );
   }
 }
+
+/**
+ * Add shield alternative config.
+ */
+function ymca_master_update_8051() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/optional/ymca_alters.shield.yml',
+    ]
+  );
+}

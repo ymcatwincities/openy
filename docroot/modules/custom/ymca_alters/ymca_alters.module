@@ -207,3 +207,14 @@ function ymca_alters_preprocess_field(&$variables) {
     $variables['groupex_schedule'] = GroupexScheduleFetcher::getPdfLink($location);
   }
 }
+
+/**
+ * Implements hook_shield_config_alter().
+ */
+function ymca_alters_shield_config_alter(&$config_name) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if ($node->id() == 1075) {
+      $config_name = 'ymca_alters.shield';
+    }
+  }
+}
