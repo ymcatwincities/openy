@@ -22,8 +22,8 @@ ymca_frontend.youth_sports:
   requirements:
     _permission: 'access content'
 
-ymca_frontend.march:
-  path: 'march'
+ymca_frontend.march_winners:
+  path: 'march/winners'
   defaults:
     _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
