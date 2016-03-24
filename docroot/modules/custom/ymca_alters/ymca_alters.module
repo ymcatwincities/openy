@@ -5,9 +5,11 @@
  * Contains ymca_alters.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 
@@ -176,5 +178,22 @@ function ymca_alters_user_login($account) {
 function ymca_alters_user_logout($account) {
   if (isset($_COOKIE['ah_app_server']) && PHP_SAPI !== 'cli') {
     setcookie('ah_app_server', '', 0, '/');
+  }
+}
+
+/**
+ * Implements hook_tokens_alter().
+ */
+function ymca_alters_tokens_alter(
+  array &$replacements,
+  array $context,
+  BubbleableMetadata $bubbleable_metadata
+) {
+  $tokens = $context['tokens'];
+  foreach ($tokens as $token_raw => $token_name) {
+    if (!isset($replacements[$token_name])) {
+      // Replace empty token with empty string for not letting its name instead.
+      $replacements[$token_name] = new Markup();
+    }
   }
 }
