@@ -10,6 +10,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
 /**
  * Implements hook_help().
@@ -176,5 +177,44 @@ function ymca_alters_user_login($account) {
 function ymca_alters_user_logout($account) {
   if (isset($_COOKIE['ah_app_server']) && PHP_SAPI !== 'cli') {
     setcookie('ah_app_server', '', 0, '/');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ymca_alters_preprocess_field(&$variables) {
+  if ($variables['element']['#field_name'] == 'field_schedule_documents') {
+    if (!$node = \Drupal::routeMatch()->getParameter('node')) {
+      return;
+    }
+
+    $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+    $location = FALSE;
+    foreach ($mappings as $item) {
+      if ($item['entity_id'] == $node->id()) {
+        $location = $item['geid'];
+      }
+    }
+
+    if (!$location) {
+      \Drupal::logger('ymca_alters')->warning(
+        'Location ID for node %node was not found',
+        ['%node' => $node->id()]
+      );
+    }
+
+    $variables['groupex_schedule'] = GroupexScheduleFetcher::getPdfLink($location);
+  }
+}
+
+/**
+ * Implements hook_shield_config_alter().
+ */
+function ymca_alters_shield_config_alter(&$config_name) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if ($node->id() == 1075) {
+      $config_name = 'ymca_alters.shield';
+    }
   }
 }
