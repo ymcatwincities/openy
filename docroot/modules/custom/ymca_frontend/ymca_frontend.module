@@ -46,4 +46,5 @@ function ymca_frontend_preprocess_page__about__annual_reports__2014_annual_repor
  */
 function ymca_frontend_preprocess_page__march(&$variables) {
   $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
+  $variables['path_to_theme_img'] = base_path() . drupal_get_path('theme', 'ymca') . '/img/';
 }
