@@ -115,6 +115,12 @@
           $(this).text('Read more');
         }
       });
+
+      // March pages.
+      if ($('body').hasClass('path-march') && window.location.search !== '') {
+        $('#main-description').hide();
+        $('#main-description-individual').show();
+      }
     }
   };
 })(jQuery);
