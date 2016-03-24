@@ -185,7 +185,7 @@ function ymca_alters_user_logout($account) {
  */
 function ymca_alters_preprocess_field(&$variables) {
   if ($variables['element']['#field_name'] == 'field_schedule_documents') {
-    if(!$node = \Drupal::routeMatch()->getParameter('node')) {
+    if (!$node = \Drupal::routeMatch()->getParameter('node')) {
       return;
     }
 
