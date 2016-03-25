@@ -313,25 +313,20 @@ $settings['update_free_access'] = FALSE;
 /**
  * External access proxy settings:
  *
- * If your site must access the Internet via a web proxy then you can enter the
- * proxy settings here. Set the full URL of the proxy, including the port, in
- * variables:
- * - $settings['http_client_config']['proxy']['http']: The proxy URL for HTTP
- *   requests.
- * - $settings['http_client_config']['proxy']['https']: The proxy URL for HTTPS
- *   requests.
- * You can pass in the user name and password for basic authentication in the
- * URLs in these settings.
- *
- * You can also define an array of host names that can be accessed directly,
- * bypassing the proxy, in $settings['http_client_config']['proxy']['no'].
- *
- * If these settings are not configured, the system environment variables
- * HTTP_PROXY, HTTPS_PROXY, and NO_PROXY on the web server will be used instead.
+ * If your site must access the Internet via a web proxy then you can enter
+ * the proxy settings here. Currently only basic authentication is supported
+ * by using the username and password variables. The proxy_user_agent variable
+ * can be set to NULL for proxies that require no User-Agent header or to a
+ * non-empty string for proxies that limit requests to a specific agent. The
+ * proxy_exceptions variable is an array of host names to be accessed directly,
+ * not via proxy.
  */
-# $settings['http_client_config']['proxy']['http'] = 'http://proxy_user:proxy_pass@example.com:8080';
-# $settings['http_client_config']['proxy']['https'] = 'http://proxy_user:proxy_pass@example.com:8080';
-# $settings['http_client_config']['proxy']['no'] = ['127.0.0.1', 'localhost'];
+# $settings['proxy_server'] = '';
+# $settings['proxy_port'] = 8080;
+# $settings['proxy_username'] = '';
+# $settings['proxy_password'] = '';
+# $settings['proxy_user_agent'] = '';
+# $settings['proxy_exceptions'] = array('127.0.0.1', 'localhost');
 
 /**
  * Reverse Proxy Configuration:
@@ -704,29 +699,27 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
-/**
- * Load local development override configuration, if available.
- *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
- * other things that should not happen on development and testing sites.
- *
- * Keep this code block at the end of this file to take full effect.
- */
-# if (file_exists(__DIR__ . '/settings.local.php')) {
-#   include __DIR__ . '/settings.local.php';
-# }
-$databases = array("default" => array ("default" => array ("database" => "drupal", "username" => "root", "password" => "root", "host" => "127.0.0.1", "port" => "", "driver" => "mysql", "prefix" => "", ), ), );
-$settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
-$databases["amm_source"]["default"]["database"] = "amm_source";
-$databases["amm_source"]["default"]["username"] = "root";
-$databases["amm_source"]["default"]["password"] = "root";
-$databases["amm_source"]["default"]["host"] = "127.0.0.1";
-$databases["amm_source"]["default"]["namespace"] = "Drupal\\Core\\Database\\Driver\\mysql";
-$databases["amm_source"]["default"]["driver"] = "mysql";
-$config_directories["staging"] = "sites/default/config/staging";
+$config_directories["staging"] = 'sites/default/config/staging';
+
+// Default DB credentials.
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
+}
+
+// Legacy DB credentials.
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
+}
 $settings["install_profile"] = "pp";
-$settings["pp_environment"] = "default";
-$config["stage_file_proxy.settings"]["origin"] = "http://ymcatwincities.prod.acquia-sites.com/";
-include __DIR__ . '/settings.dev.php';
+
+
+if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+  ini_set('memory_limit', '256M');
+  if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
+    ini_set('memory_limit', '2048M');
+  }
+}
+if (function_exists('drush_main')) {
+  ini_set('memory_limit', '2048M');
+}
+$settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
