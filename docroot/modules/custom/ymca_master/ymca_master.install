@@ -1603,3 +1603,12 @@ function ymca_master_update_8053() {
     }
   }
 }
+
+/**
+ * Fix metatag config.
+ */
+function ymca_master_update_8054() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/metatag.metatag_defaults.global.yml',
+  ]);
+}
