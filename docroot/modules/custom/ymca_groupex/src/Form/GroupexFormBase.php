@@ -44,7 +44,7 @@ abstract class GroupexFormBase extends FormBase {
       '#options' => ['any' => $this->t('(all)')] + $refined_options,
       '#title' => $this->t('Class Name'),
       '#title_extra' => $this->t('(optional)'),
-      '#default_value' => $refine ? $params['class'] : [],
+      '#default_value' => $refine && !empty($params['class']) ? $params['class'] : [],
     ];
 
     $form['category'] = [
@@ -52,7 +52,7 @@ abstract class GroupexFormBase extends FormBase {
       '#options' => ['any' => $this->t('(all)')] + $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name'),
       '#title' => $this->t('Category'),
       '#title_extra' => $this->t('(optional)'),
-      '#default_value' => $refine ? $params['category'] : [],
+      '#default_value' => $refine && !empty($params['category']) ? $params['category'] : [],
     ];
 
     $form['time_of_day'] = [
@@ -73,7 +73,7 @@ abstract class GroupexFormBase extends FormBase {
         'day' => $this->t('Day'),
         'week' => $this->t('Week'),
       ],
-      '#default_value' => $refine ? $params['filter_length'] : 'day',
+      '#default_value' => $refine && !empty($params['filter_length']) ? $params['filter_length'] : 'day',
       '#title' => $this->t('View Day or Week'),
     ];
 
