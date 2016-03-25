@@ -1559,3 +1559,13 @@ function ymca_master_update_8051() {
     ]
   );
 }
+
+/**
+ * Fix page config.
+ */
+function ymca_master_update_8052() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/node.type.article.yml',
+  ]);
+}
+
