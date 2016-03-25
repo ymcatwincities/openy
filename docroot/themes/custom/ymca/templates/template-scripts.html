@@ -93,8 +93,7 @@
 
 <script id="programs-services-nav-template" type="text/x-handlebars-template">
   {{#each children}}
-  {{#if_gt @index compare=6}}
-  {{#if_lt @index compare=13}}
+  {{#if_eq show_in_meganav compare=1}}
   {{#if children}}
   <li class="{{#if children}} dropdown{{/if}} {{ classes }} {{ dasherized }} nav-level-{{ nav_level }}">
     <a class="dropdown-toggle {{#if active}} active{{/if}}" data-toggle="dropdown">
@@ -186,8 +185,7 @@
     <a href="{{ url }}" class="{{ classes }} link">{{{ page_name }}}</a>
   </li>
   {{/if}}
-  {{/if_lt}}
-  {{/if_gt}}
+  {{/if_eq}}
   {{/each}}
 </script>
 

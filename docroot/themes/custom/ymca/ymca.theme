@@ -710,6 +710,11 @@ function ymca_preprocess_input(&$variables) {
       'email',
     );
   }
+  // HTML5 validation for telephone number.
+  if ($element['#type'] == 'tel') {
+    $variables['attributes']['pattern'] = '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$';
+    $variables['attributes']['title'] = t('Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890');
+  }
   if (isset($classes)) {
     $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
   }
@@ -770,6 +775,24 @@ function ymca_preprocess_select(&$variables) {
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
+
+  // Sort location options.
+  if (in_array('option_emails', $variables['element']['#parents'])) {
+    $options = $variables['options'];
+    // Remove empty option from array, due to sort reason.
+    $empty_option = $options[0];
+    unset($options[0]);
+    // Sort options array by location's label.
+    $sort = array();
+    foreach ($options as $key => $row) {
+      $sort[$key] = $row['label'];
+    }
+    array_multisort($sort, SORT_ASC, $options);
+    // Pass back empty option on first position.
+    array_unshift($options, $empty_option);
+    // Finally pass back sorted options array.
+    $variables['options'] = $options;
+  }
 }
 
 /**
