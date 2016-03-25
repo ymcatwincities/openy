@@ -75,7 +75,6 @@ class YMCABlogCampLocationBreadcrumbBuilder extends PathBasedBreadcrumbBuilder i
       return FALSE;
     }
     $this->node = $node;
-    
     $context = \Drupal::service('pagecontext.service')->getContext();
     if ($context && ($context->bundle() == 'location' || $context->bundle() == 'camp')) {
       return TRUE;
