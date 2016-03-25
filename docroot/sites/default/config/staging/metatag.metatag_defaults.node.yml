@@ -5,4 +5,4 @@ dependencies: {  }
 id: node
 label: Content
 tags:
-  description: '[node:summary]'
+  description: '[node:ymca_summary]'

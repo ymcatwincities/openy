@@ -60,7 +60,7 @@ class YMCAMenuController extends ControllerBase {
   /**
    * Builds sitemap tree.
    */
-  private function buildTree() {
+  public function buildTree() {
     // Lookup stores all menu-link items.
     $tree = $this->initTree();
     $menus = static::menuList();
@@ -228,6 +228,19 @@ class YMCAMenuController extends ControllerBase {
   public static function menuList() {
     $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
     return $menu_list;
+  }
+
+  /**
+   * Builds Main menu configuration page.
+   */
+  public function configMainMenu() {
+    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_menu\Form\YmcaMainMenuConfigForm');
+    return [
+      'form' => $form,
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
   }
 
 }
