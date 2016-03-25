@@ -777,7 +777,7 @@ function ymca_preprocess_select(&$variables) {
   $variables['attributes']['class'][] = 'text';
 
   // Sort location options.
-  if ($element['#name'] == 'field_y_location_email[0][option_emails]') {
+  if (in_array('option_emails', $variables['element']['#parents'])) {
     $options = $variables['options'];
     // Remove empty option from array, due to sort reason.
     $empty_option = $options[0];
