@@ -1257,12 +1257,12 @@
                                     <p class="sub-title">3 month of Membership</p>
                                     <select class="form-select form-control text">
                                         {% for id, name  in winners.second_prize.locations %}
-                                            <option value="{{ id }}">{{ name }}</option>
+                                            <option{% if loop.first%} selected="selected"{% endif %} value="{{ id }}">{{ name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 {% for key, location in winners.second_prize.winners %}
-                                    <div class="table-location table-location-{{ key }}{% if not loop.first %} hide{% endif %}">
+                                    <div class="table-location table-location-{{ key }} hide">
                                         <div class="col-sm-6">
                                             <table class="results-table">
                                                 <tbody>
@@ -1301,12 +1301,12 @@
                                     <p class="sub-title">3 months of towel service</p>
                                     <select class="form-select form-control text">
                                         {% for id, name  in winners.third_prize.locations %}
-                                            <option value="{{ id }}">{{ name }}</option>
+                                            <option{% if loop.first%} selected="selected"{% endif %} value="{{ id }}">{{ name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 {% for key, location in winners.third_prize.winners %}
-                                    <div class="table-location table-location-{{ key }}{% if not loop.first %} hide{% endif %}">
+                                    <div class="table-location table-location-{{ key }} hide">
                                         <div class="col-sm-6">
                                             <table class="results-table">
                                                 <tbody>

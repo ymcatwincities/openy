@@ -139,6 +139,7 @@
         $('.table-location', $parent).addClass('hide');
         $('.table-location-' + val, $parent).removeClass('hide');
       });
+      $('select', $wrap).trigger('change');
     }
   }
 })(jQuery);
