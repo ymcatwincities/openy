@@ -206,7 +206,7 @@ class DateBlockService {
    *
    * @throws \Exception
    *
-   * @return
+   * @return bool
    *   FALSE if there is an error.
    */
   private function setSlideShowBlockEntity($embed_data = '') {
