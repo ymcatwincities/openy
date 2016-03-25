@@ -74,6 +74,9 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
     $form['field_membership_block']['#suffix'] = render($link);
   }
   if ($form_id == 'entity_embed_dialog') {
+    if (empty($form['attributes']['data-embed-button'])) {
+      return;
+    }
     if ($form['attributes']['data-embed-button']['#value'] == 'menu_link') {
       $storage = $form_state->getStorage();
       $form['attributes']['data-button'] = array(
