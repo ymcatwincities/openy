@@ -34,7 +34,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
     $cache_key = 'ymca_march_winners';
     $cache = $this->cache->get($cache_key);
     if ($cache) {
-      return $cache->data;
+      //      return $cache->data;
     }
 
     $winners = [
@@ -85,6 +85,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
           ];
         }
       }
+      asort($sub_locations);
       $winners['second_prize']['locations'] = $sub_locations;
       $winners['second_prize']['winners'] = $location_winners;
     }
@@ -102,6 +103,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
           ];
         }
       }
+      asort($sub_locations);
       $winners['third_prize']['locations'] = $sub_locations;
       $winners['third_prize']['winners'] = $location_winners;
     }
