@@ -1568,3 +1568,38 @@ function ymca_master_update_8052() {
     'sites/default/config/staging/node.type.article.yml',
   ]);
 }
+
+/**
+ * Add missing redirects.
+ */
+function ymca_master_update_8053() {
+  $items = [
+    'all_y_schedules',
+    'camps/family_camp_365',
+    'camps/ymca_day_camp',
+    'camps/ymca_family_camp',
+    'camps/ymca_teen_wilderness',
+    'health__fitness/active_older_adults/news_and_schedules_for_active_older_adults',
+    'health__fitness/free_group_exercise_classes',
+    'health__fitness/personal_training',
+    'health__fitness/trainer-led_classes/kettlebells_advanced',
+    'health__fitness/trainer-led_classes/kettlebells_beginner',
+    'health__fitness/trainer-led_classes/kettlebells_intermediate',
+    'health__fitness/yrun',
+    'locations',
+    'membership',
+  ];
+
+  $repo = \Drupal::service('redirect.repository');
+  foreach ($items as $item) {
+    $source_path = ltrim($item . '/');
+    if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
+      $redirect = Redirect::create();
+      $redirect->setSource($source_path);
+      $redirect->setRedirect($item);
+      $redirect->setLanguage('en');
+      $redirect->setStatusCode(301);
+      $redirect->save();
+    }
+  }
+}
