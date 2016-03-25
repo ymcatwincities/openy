@@ -1568,4 +1568,3 @@ function ymca_master_update_8052() {
     'sites/default/config/staging/node.type.article.yml',
   ]);
 }
-
