@@ -5,8 +5,6 @@
  * Module file.
  */
 
-define('YMCA_FRONTEND_PATH_TO_IMG', $GLOBALS['base_url'] . drupal_get_path('module', 'ymca_frontend') . '/img/');
-define('YMCA_FRONTEND_PATH_TO_PDF', $GLOBALS['base_url'] . drupal_get_path('module', 'ymca_frontend') . '/pdf/');
 
 /**
  * Implements hook_theme().
@@ -26,30 +24,30 @@ function ymca_frontend_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess().
  */
 function ymca_frontend_preprocess_page__youth_sports(&$variables) {
-  $variables['path_to_img'] = YMCA_FRONTEND_PATH_TO_IMG;
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
 }
 
 /**
  * Implements hook_preprocess().
  */
 function ymca_frontend_preprocess_page__about__annual_reports__2014_annual_report(&$variables) {
-  $variables['path_to_img'] = YMCA_FRONTEND_PATH_TO_IMG;
-  $variables['path_to_pdf'] = YMCA_FRONTEND_PATH_TO_PDF;
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
+  $variables['path_to_pdf'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
 }
 
 /**
  * Implements hook_preprocess().
  */
 function ymca_frontend_preprocess_page__about__annual_reports__2014_annual_report_cause_driven_leaders(&$variables) {
-  $variables['path_to_img'] = YMCA_FRONTEND_PATH_TO_IMG;
-  $variables['path_to_pdf'] = YMCA_FRONTEND_PATH_TO_PDF;
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
+  $variables['path_to_pdf'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
 }
 
 /**
  * Implements hook_preprocess().
  */
 function ymca_frontend_preprocess_page__march(&$variables) {
-  $variables['path_to_img'] = YMCA_FRONTEND_PATH_TO_IMG;
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
   $variables['path_to_theme_img'] = base_path() . drupal_get_path('theme', 'ymca') . '/img/';
   /** @var \Drupal\ymca_frontend\YMCAMarchWinner $service */
   $service = \Drupal::service('ymca_frontend.march_winners');
