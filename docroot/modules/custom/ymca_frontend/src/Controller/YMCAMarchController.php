@@ -11,9 +11,9 @@ class YMCAMarchController {
    * Set page's content.
    */
   public function content() {
-    return array(
+    return [
       '#markup' => '',
-    );
+    ];
   }
 
   /**
