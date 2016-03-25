@@ -5,8 +5,8 @@
  * Module file.
  */
 
-define('YMCA_FRONTEND_PATH_TO_IMG', base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/');
-define('YMCA_FRONTEND_PATH_TO_PDF', base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/');
+define('YMCA_FRONTEND_PATH_TO_IMG', $GLOBALS['base_url'] . drupal_get_path('module', 'ymca_frontend') . '/img/');
+define('YMCA_FRONTEND_PATH_TO_PDF', $GLOBALS['base_url'] . drupal_get_path('module', 'ymca_frontend') . '/pdf/');
 
 /**
  * Implements hook_theme().
