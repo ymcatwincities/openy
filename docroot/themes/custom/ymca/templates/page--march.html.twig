@@ -56,7 +56,6 @@
  * @see html.html.twig
  */
 #}
-
 <a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
 
 <div id="top"></div>
@@ -64,1056 +63,1330 @@
 {% include "@ymca/sidebar-search-and-menu.html.twig" %}
 
 <div class="viewport">
-  {{ page.header }}
+    {{ page.header }}
+    <div id="main" role="main">
+        {% block content %}
+            {{ page.content }}
+        {% endblock %}
+        <section class="content">
+            <div class="container">
+                <section class="messages"></section>
+            </div>
+            <div class="container-full-width">
+                <script type="text/javascript">
+                    /*! iFrame Resizer (iframeSizer.min.js ) - v3.5.3 - 2016-02-23
+                     *  Desc: Force cross domain iframes to size to content.
+                     *  Requires: iframeResizer.contentWindow.min.js to be loaded into the target frame.
+                     *  Copyright: (c) 2016 David J. Bradshaw - dave@bradshaw.net
+                     *  License: MIT
+                     */
+                    !function (a) {
+                        "use strict";
+                        function b(b, c, d) {
+                            "addEventListener"in a ? b.addEventListener(c, d, !1) : "attachEvent"in a && b.attachEvent("on" + c, d)
+                        }
 
-  <div id="main" role="main">
-    {% block content %}
-      {{ page.content }}
-    {% endblock %}
+                        function c(b, c, d) {
+                            "removeEventListener"in a ? b.removeEventListener(c, d, !1) : "detachEvent"in a && b.detachEvent("on" + c, d)
+                        }
 
-      <section class="content">
+                        function d() {
+                            var b, c = ["moz", "webkit", "o", "ms"];
+                            for (b = 0; b < c.length && !N; b += 1)N = a[c[b] + "RequestAnimationFrame"];
+                            N || h("setup", "RequestAnimationFrame not supported")
+                        }
+
+                        function e(b) {
+                            var c = "Host page: " + b;
+                            return a.top !== a.self && (c = a.parentIFrame && a.parentIFrame.getId ? a.parentIFrame.getId() + ": " + b : "Nested host page: " + b), c
+                        }
+
+                        function f(a) {
+                            return K + "[" + e(a) + "]"
+                        }
+
+                        function g(a) {
+                            return P[a] ? P[a].log : G
+                        }
+
+                        function h(a, b) {
+                            k("log", a, b, g(a))
+                        }
+
+                        function i(a, b) {
+                            k("info", a, b, g(a))
+                        }
+
+                        function j(a, b) {
+                            k("warn", a, b, !0)
+                        }
+
+                        function k(b, c, d, e) {
+                            !0 === e && "object" == typeof a.console && console[b](f(c), d)
+                        }
+
+                        function l(d) {
+                            function e() {
+                                function a() {
+                                    s(V), p(W)
+                                }
+
+                                g("Height"), g("Width"), t(a, V, "init")
+                            }
+
+                            function f() {
+                                var a = U.substr(L).split(":");
+                                return {iframe: P[a[0]].iframe, id: a[0], height: a[1], width: a[2], type: a[3]}
+                            }
+
+                            function g(a) {
+                                var b = Number(P[W]["max" + a]), c = Number(P[W]["min" + a]), d = a.toLowerCase(), e = Number(V[d]);
+                                h(W, "Checking " + d + " is in range " + c + "-" + b), c > e && (e = c, h(W, "Set " + d + " to min value")), e > b && (e = b, h(W, "Set " + d + " to max value")), V[d] = "" + e
+                            }
+
+                            function k() {
+                                function a() {
+                                    function a() {
+                                        var a = 0, d = !1;
+                                        for (h(W, "Checking connection is from allowed list of origins: " + c); a < c.length; a++)if (c[a] === b) {
+                                            d = !0;
+                                            break
+                                        }
+                                        return d
+                                    }
+
+                                    function d() {
+                                        var a = P[W].remoteHost;
+                                        return h(W, "Checking connection is from: " + a), b === a
+                                    }
+
+                                    return c.constructor === Array ? a() : d()
+                                }
+
+                                var b = d.origin, c = P[W].checkOrigin;
+                                if (c && "" + b != "null" && !a())throw new Error("Unexpected message received from: " + b + " for " + V.iframe.id + ". Message was: " + d.data + ". This error can be disabled by setting the checkOrigin: false option or by providing of array of trusted domains.");
+                                return !0
+                            }
+
+                            function l() {
+                                return K === ("" + U).substr(0, L) && U.substr(L).split(":")[0]in P
+                            }
+
+                            function w() {
+                                var a = V.type in{"true": 1, "false": 1, undefined: 1};
+                                return a && h(W, "Ignoring init message from meta parent page"), a
+                            }
+
+                            function y(a) {
+                                return U.substr(U.indexOf(":") + J + a)
+                            }
+
+                            function z(a) {
+                                h(W, "MessageCallback passed: {iframe: " + V.iframe.id + ", message: " + a + "}"), N("messageCallback", {
+                                    iframe: V.iframe,
+                                    message: JSON.parse(a)
+                                }), h(W, "--")
+                            }
+
+                            function A() {
+                                var b = document.body.getBoundingClientRect(), c = V.iframe.getBoundingClientRect();
+                                return JSON.stringify({
+                                    iframeHeight: c.height,
+                                    iframeWidth: c.width,
+                                    clientHeight: Math.max(document.documentElement.clientHeight, a.innerHeight || 0),
+                                    clientWidth: Math.max(document.documentElement.clientWidth, a.innerWidth || 0),
+                                    offsetTop: parseInt(c.top - b.top, 10),
+                                    offsetLeft: parseInt(c.left - b.left, 10),
+                                    scrollTop: a.pageYOffset,
+                                    scrollLeft: a.pageXOffset
+                                })
+                            }
+
+                            function B(a, b) {
+                                function c() {
+                                    u("Send Page Info", "pageInfo:" + A(), a, b)
+                                }
+
+                                x(c, 32)
+                            }
+
+                            function C() {
+                                function d(b, c) {
+                                    function d() {
+                                        P[g] ? B(P[g].iframe, g) : e()
+                                    }
+
+                                    ["scroll", "resize"].forEach(function (e) {
+                                        h(g, b + e + " listener for sendPageInfo"), c(a, e, d)
+                                    })
+                                }
+
+                                function e() {
+                                    d("Remove ", c)
+                                }
+
+                                function f() {
+                                    d("Add ", b)
+                                }
+
+                                var g = W;
+                                f(), P[g].stopPageInfo = e
+                            }
+
+                            function D() {
+                                P[W] && P[W].stopPageInfo && (P[W].stopPageInfo(), delete P[W].stopPageInfo)
+                            }
+
+                            function E() {
+                                var a = !0;
+                                return null === V.iframe && (j(W, "IFrame (" + V.id + ") not found"), a = !1), a
+                            }
+
+                            function F(a) {
+                                var b = a.getBoundingClientRect();
+                                return o(W), {
+                                    x: Math.floor(Number(b.left) + Number(M.x)),
+                                    y: Math.floor(Number(b.top) + Number(M.y))
+                                }
+                            }
+
+                            function G(b) {
+                                function c() {
+                                    M = g, H(), h(W, "--")
+                                }
+
+                                function d() {
+                                    return {x: Number(V.width) + f.x, y: Number(V.height) + f.y}
+                                }
+
+                                function e() {
+                                    a.parentIFrame ? a.parentIFrame["scrollTo" + (b ? "Offset" : "")](g.x, g.y) : j(W, "Unable to scroll to requested position, window.parentIFrame not found")
+                                }
+
+                                var f = b ? F(V.iframe) : {x: 0, y: 0}, g = d();
+                                h(W, "Reposition requested from iFrame (offset x:" + f.x + " y:" + f.y + ")"), a.top !== a.self ? e() : c()
+                            }
+
+                            function H() {
+                                !1 !== N("scrollCallback", M) ? p(W) : q()
+                            }
+
+                            function I(b) {
+                                function c() {
+                                    var a = F(g);
+                                    h(W, "Moving to in page link (#" + e + ") at x: " + a.x + " y: " + a.y), M = {
+                                        x: a.x,
+                                        y: a.y
+                                    }, H(), h(W, "--")
+                                }
+
+                                function d() {
+                                    a.parentIFrame ? a.parentIFrame.moveToAnchor(e) : h(W, "In page link #" + e + " not found and window.parentIFrame not found")
+                                }
+
+                                var e = b.split("#")[1] || "", f = decodeURIComponent(e), g = document.getElementById(f) || document.getElementsByName(f)[0];
+                                g ? c() : a.top !== a.self ? d() : h(W, "In page link #" + e + " not found")
+                            }
+
+                            function N(a, b) {
+                                return m(W, a, b)
+                            }
+
+                            function O() {
+                                switch (P[W].firstRun && T(), V.type) {
+                                    case"close":
+                                        n(V.iframe);
+                                        break;
+                                    case"message":
+                                        z(y(6));
+                                        break;
+                                    case"scrollTo":
+                                        G(!1);
+                                        break;
+                                    case"scrollToOffset":
+                                        G(!0);
+                                        break;
+                                    case"pageInfo":
+                                        B(P[W].iframe, W), C();
+                                        break;
+                                    case"pageInfoStop":
+                                        D();
+                                        break;
+                                    case"inPageLink":
+                                        I(y(9));
+                                        break;
+                                    case"reset":
+                                        r(V);
+                                        break;
+                                    case"init":
+                                        e(), N("initCallback", V.iframe), N("resizedCallback", V);
+                                        break;
+                                    default:
+                                        e(), N("resizedCallback", V)
+                                }
+                            }
+
+                            function Q(a) {
+                                var b = !0;
+                                return P[a] || (b = !1, j(V.type + " No settings for " + a + ". Message was: " + U)), b
+                            }
+
+                            function S() {
+                                for (var a in P)u("iFrame requested init", v(a), document.getElementById(a), a)
+                            }
+
+                            function T() {
+                                P[W].firstRun = !1
+                            }
+
+                            var U = d.data, V = {}, W = null;
+                            "[iFrameResizerChild]Ready" === U ? S() : l() ? (V = f(), W = R = V.id, !w() && Q(W) && (h(W, "Received: " + U), E() && k() && O())) : i(W, "Ignored: " + U)
+                        }
+
+                        function m(a, b, c) {
+                            var d = null, e = null;
+                            if (P[a]) {
+                                if (d = P[a][b], "function" != typeof d)throw new TypeError(b + " on iFrame[" + a + "] is not a function");
+                                e = d(c)
+                            }
+                            return e
+                        }
+
+                        function n(a) {
+                            var b = a.id;
+                            h(b, "Removing iFrame: " + b), a.parentNode.removeChild(a), m(b, "closedCallback", b), h(b, "--"), delete P[b]
+                        }
+
+                        function o(b) {
+                            null === M && (M = {
+                                x: void 0 !== a.pageXOffset ? a.pageXOffset : document.documentElement.scrollLeft,
+                                y: void 0 !== a.pageYOffset ? a.pageYOffset : document.documentElement.scrollTop
+                            }, h(b, "Get page position: " + M.x + "," + M.y))
+                        }
+
+                        function p(b) {
+                            null !== M && (a.scrollTo(M.x, M.y), h(b, "Set page position: " + M.x + "," + M.y), q())
+                        }
+
+                        function q() {
+                            M = null
+                        }
+
+                        function r(a) {
+                            function b() {
+                                s(a), u("reset", "reset", a.iframe, a.id)
+                            }
+
+                            h(a.id, "Size reset requested by " + ("init" === a.type ? "host page" : "iFrame")), o(a.id), t(b, a, "reset")
+                        }
+
+                        function s(a) {
+                            function b(b) {
+                                a.iframe.style[b] = a[b] + "px", h(a.id, "IFrame (" + e + ") " + b + " set to " + a[b] + "px")
+                            }
+
+                            function c(b) {
+                                H || "0" !== a[b] || (H = !0, h(e, "Hidden iFrame detected, creating visibility listener"), y())
+                            }
+
+                            function d(a) {
+                                b(a), c(a)
+                            }
+
+                            var e = a.iframe.id;
+                            P[e] && (P[e].sizeHeight && d("height"), P[e].sizeWidth && d("width"))
+                        }
+
+                        function t(a, b, c) {
+                            c !== b.type && N ? (h(b.id, "Requesting animation frame"), N(a)) : a()
+                        }
+
+                        function u(a, b, c, d) {
+                            function e() {
+                                var e = P[d].targetOrigin;
+                                h(d, "[" + a + "] Sending msg to iframe[" + d + "] (" + b + ") targetOrigin: " + e), c.contentWindow.postMessage(K + b, e)
+                            }
+
+                            function f() {
+                                i(d, "[" + a + "] IFrame(" + d + ") not found"), P[d] && delete P[d]
+                            }
+
+                            function g() {
+                                c && "contentWindow"in c && null !== c.contentWindow ? e() : f()
+                            }
+
+                            d = d || c.id, P[d] && g()
+                        }
+
+                        function v(a) {
+                            return a + ":" + P[a].bodyMarginV1 + ":" + P[a].sizeWidth + ":" + P[a].log + ":" + P[a].interval + ":" + P[a].enablePublicMethods + ":" + P[a].autoResize + ":" + P[a].bodyMargin + ":" + P[a].heightCalculationMethod + ":" + P[a].bodyBackground + ":" + P[a].bodyPadding + ":" + P[a].tolerance + ":" + P[a].inPageLinks + ":" + P[a].resizeFrom + ":" + P[a].widthCalculationMethod
+                        }
+
+                        function w(a, c) {
+                            function d() {
+                                function b(b) {
+                                    1 / 0 !== P[w][b] && 0 !== P[w][b] && (a.style[b] = P[w][b] + "px", h(w, "Set " + b + " = " + P[w][b] + "px"))
+                                }
+
+                                function c(a) {
+                                    if (P[w]["min" + a] > P[w]["max" + a])throw new Error("Value for min" + a + " can not be greater than max" + a)
+                                }
+
+                                c("Height"), c("Width"), b("maxHeight"), b("minHeight"), b("maxWidth"), b("minWidth")
+                            }
+
+                            function e() {
+                                var a = c && c.id || S.id + F++;
+                                return null !== document.getElementById(a) && (a += F++), a
+                            }
+
+                            function f(b) {
+                                return R = b, "" === b && (a.id = b = e(), G = (c || {}).log, R = b, h(b, "Added missing iframe ID: " + b + " (" + a.src + ")")), b
+                            }
+
+                            function g() {
+                                h(w, "IFrame scrolling " + (P[w].scrolling ? "enabled" : "disabled") + " for " + w), a.style.overflow = !1 === P[w].scrolling ? "hidden" : "auto", a.scrolling = !1 === P[w].scrolling ? "no" : "yes"
+                            }
+
+                            function i() {
+                                ("number" == typeof P[w].bodyMargin || "0" === P[w].bodyMargin) && (P[w].bodyMarginV1 = P[w].bodyMargin, P[w].bodyMargin = "" + P[w].bodyMargin + "px")
+                            }
+
+                            function k() {
+                                var b = P[w].firstRun, c = P[w].heightCalculationMethod in O;
+                                !b && c && r({iframe: a, height: 0, width: 0, type: "init"})
+                            }
+
+                            function l() {
+                                Function.prototype.bind && (P[w].iframe.iFrameResizer = {
+                                    close: n.bind(null, P[w].iframe),
+                                    resize: u.bind(null, "Window resize", "resize", P[w].iframe),
+                                    moveToAnchor: function (a) {
+                                        u("Move to anchor", "inPageLink:" + a, P[w].iframe, w)
+                                    },
+                                    sendMessage: function (a) {
+                                        a = JSON.stringify(a), u("Send Message", "message:" + a, P[w].iframe, w)
+                                    }
+                                })
+                            }
+
+                            function m(c) {
+                                function d() {
+                                    u("iFrame.onload", c, a), k()
+                                }
+
+                                b(a, "load", d), u("init", c, a)
+                            }
+
+                            function o(a) {
+                                if ("object" != typeof a)throw new TypeError("Options is not an object")
+                            }
+
+                            function p(a) {
+                                for (var b in S)S.hasOwnProperty(b) && (P[w][b] = a.hasOwnProperty(b) ? a[b] : S[b])
+                            }
+
+                            function q(a) {
+                                return "" === a || "file://" === a ? "*" : a
+                            }
+
+                            function s(b) {
+                                b = b || {}, P[w] = {
+                                    firstRun: !0,
+                                    iframe: a,
+                                    remoteHost: a.src.split("/").slice(0, 3).join("/")
+                                }, o(b), p(b), P[w].targetOrigin = !0 === P[w].checkOrigin ? q(P[w].remoteHost) : "*"
+                            }
+
+                            function t() {
+                                return w in P && "iFrameResizer"in a
+                            }
+
+                            var w = f(a.id);
+                            t() ? j(w, "Ignored iFrame, already setup.") : (s(c), g(), d(), i(), m(v(w)), l())
+                        }
+
+                        function x(a, b) {
+                            null === Q && (Q = setTimeout(function () {
+                                Q = null, a()
+                            }, b))
+                        }
+
+                        function y() {
+                            function b() {
+                                function a(a) {
+                                    function b(b) {
+                                        return "0px" === P[a].iframe.style[b]
+                                    }
+
+                                    function c(a) {
+                                        return null !== a.offsetParent
+                                    }
+
+                                    c(P[a].iframe) && (b("height") || b("width")) && u("Visibility change", "resize", P[a].iframe, a)
+                                }
+
+                                for (var b in P)a(b)
+                            }
+
+                            function c(a) {
+                                h("window", "Mutation observed: " + a[0].target + " " + a[0].type), x(b, 16)
+                            }
+
+                            function d() {
+                                var a = document.querySelector("body"), b = {
+                                    attributes: !0,
+                                    attributeOldValue: !1,
+                                    characterData: !0,
+                                    characterDataOldValue: !1,
+                                    childList: !0,
+                                    subtree: !0
+                                }, d = new e(c);
+                                d.observe(a, b)
+                            }
+
+                            var e = a.MutationObserver || a.WebKitMutationObserver;
+                            e && d()
+                        }
+
+                        function z(a) {
+                            function b() {
+                                B("Window " + a, "resize")
+                            }
+
+                            h("window", "Trigger event: " + a), x(b, 16)
+                        }
+
+                        function A() {
+                            function a() {
+                                B("Tab Visable", "resize")
+                            }
+
+                            "hidden" !== document.visibilityState && (h("document", "Trigger event: Visiblity change"), x(a, 16))
+                        }
+
+                        function B(a, b) {
+                            function c(a) {
+                                return "parent" === P[a].resizeFrom && P[a].autoResize && !P[a].firstRun
+                            }
+
+                            for (var d in P)c(d) && u(a, b, document.getElementById(d), d)
+                        }
+
+                        function C() {
+                            b(a, "message", l), b(a, "resize", function () {
+                                z("resize")
+                            }), b(document, "visibilitychange", A), b(document, "-webkit-visibilitychange", A), b(a, "focusin", function () {
+                                z("focus")
+                            }), b(a, "focus", function () {
+                                z("focus")
+                            })
+                        }
+
+                        function D() {
+                            function a(a, c) {
+                                function d() {
+                                    if (!c.tagName)throw new TypeError("Object is not a valid DOM element");
+                                    if ("IFRAME" !== c.tagName.toUpperCase())throw new TypeError("Expected <IFRAME> tag, found <" + c.tagName + ">")
+                                }
+
+                                c && (d(), w(c, a), b.push(c))
+                            }
+
+                            var b;
+                            return d(), C(), function (c, d) {
+                                switch (b = [], typeof d) {
+                                    case"undefined":
+                                    case"string":
+                                        Array.prototype.forEach.call(document.querySelectorAll(d || "iframe"), a.bind(void 0, c));
+                                        break;
+                                    case"object":
+                                        a(c, d);
+                                        break;
+                                    default:
+                                        throw new TypeError("Unexpected data type (" + typeof d + ")")
+                                }
+                                return b
+                            }
+                        }
+
+                        function E(a) {
+                            a.fn.iFrameResize = function (a) {
+                                return this.filter("iframe").each(function (b, c) {
+                                    w(c, a)
+                                }).end()
+                            }
+                        }
+
+                        var F = 0, G = !1, H = !1, I = "message", J = I.length, K = "[iFrameSizer]", L = K.length, M = null, N = a.requestAnimationFrame, O = {
+                            max: 1,
+                            scroll: 1,
+                            bodyScroll: 1,
+                            documentElementScroll: 1
+                        }, P = {}, Q = null, R = "Host Page", S = {
+                            autoResize: !0,
+                            bodyBackground: null,
+                            bodyMargin: null,
+                            bodyMarginV1: 8,
+                            bodyPadding: null,
+                            checkOrigin: !0,
+                            inPageLinks: !1,
+                            enablePublicMethods: !0,
+                            heightCalculationMethod: "bodyOffset",
+                            id: "iFrameResizer",
+                            interval: 32,
+                            log: !1,
+                            maxHeight: 1 / 0,
+                            maxWidth: 1 / 0,
+                            minHeight: 0,
+                            minWidth: 0,
+                            resizeFrom: "parent",
+                            scrolling: !1,
+                            sizeHeight: !0,
+                            sizeWidth: !1,
+                            tolerance: 0,
+                            widthCalculationMethod: "scroll",
+                            closedCallback: function () {
+                            },
+                            initCallback: function () {
+                            },
+                            messageCallback: function () {
+                                j("MessageCallback function not defined")
+                            },
+                            resizedCallback: function () {
+                            },
+                            scrollCallback: function () {
+                                return !0
+                            }
+                        };
+                        a.jQuery && E(jQuery), "function" == typeof define && define.amd ? define([], D) : "object" == typeof module && "object" == typeof module.exports ? module.exports = D() : a.iFrameResize = a.iFrameResize || D()
+                    }(window || {});
+                    //# sourceMappingURL=iframeResizer.map
+                </script>
+                <style id="main-styles">
+                    .nav-global.navbar-default.navbar {
+                        display: none;
+                        top: 0 !important;
+                    }
+
+                    #sidebar {
+                        margin-top: 33px;
+                        border-right: 0;
+                    }
+
+                    #page-head,
+                    .breadcrumb-container {
+                        display: none !important;
+                    }
+
+                    .viewport {
+                        background: #fff;
+                    }
+
+                    #main {
+                        margin-top: 0;
+                    }
+
+                    .page-middle .content {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
+
+                    #top-nav {
+                        background-color: #b2d8e;
+                        background-image: -webkit-linear-gradient(#5b2d8e, #532881);
+                        background-image: -moz-linear-gradient(#5b2d8e, #532881);
+                        background-image: -o-linear-gradient(#5b2d8e, #532881);
+                        background-image: linear-gradient(#5b2d8e, #532881);
+                        height: 72px;
+                        line-height: 72px;
+                        padding: 0 30px;
+                    }
+
+                    #top-nav ul {
+                        float: right;
+                        list-style-image: none;
+                        list-style-type: none;
+                        margin: 0;
+                    }
+
+                    #top-nav ul li {
+                        display: inline-block;
+                    }
+
+                    #top-nav ul li a {
+                        color: #fff;
+                        font-size: 18px;
+                        display: inline-block;
+                        padding: 0 40px;
+                        font-family: "Cachet", Arial, sans-serif;
+                    }
+
+                    #top-nav ul li a:hover {
+                        text-decoration: none;
+                        background-color: #532881;
+                        background-image: -webkit-linear-gradient(#532881, #5b2d8e);
+                        background-image: -moz-linear-gradient(#532881, #5b2d8e);
+                        background-image: -o-linear-gradient(#532881, #5b2d8e);
+                        background-image: linear-gradient(#532881, #5b2d8e);
+                    }
+
+                    #top-nav .back-link {
+                        color: #aa9ebb;
+                        display: inline-block;
+                        font-size: 16px;
+                    }
+
+                    #top-nav .back-link .glyphicon {
+                        font-size: 12px;
+                        margin-right: 5px;
+                    }
+
+                    #hero-section {
+                        background: url("//www.ymcatwincities.org/_asset/wlp8rl/ymca_member_retention_hero.jpg") no-repeat center 0;
+                        background-size: cover;
+                        position: relative;
+                        padding: 107px 0 100px;
+                    }
+
+                    #hero-section img {
+                        width: 100%;
+                    }
+
+                    #hero-section .logo {
+                        background: url("//www.ymcatwincities.org/_asset/xn39w6/ymca-white-logo.png") no-repeat 0 0;
+                        background-size: contain;
+                        height: 111px;
+                        margin: 0 auto 60px;
+                        width: 145px;
+                    }
+
+                    #hero-section .container {
+                        text-align: center;
+                        width: 100%;
+                    }
+
+                    #hero-section .date {
+                        color: #c6188b;
+                        font-size: 50px;
+                        font-family: "Cachet", Arial, sans-serif;
+                        font-weight: bold;
+                        text-shadow: 2px 2px 7px #000;
+                    }
+
+                    #hero-section h1 {
+                        color: #fff;
+                        font-size: 100px;
+                        font-family: "Cachet", Arial, sans-serif;
+                        font-weight: bold;
+                        text-shadow: 2px 2px 7px #000;
+                        margin: 0;
+                    }
+
+                    #main-description {
+                        padding: 80px 0 75px;
+                    }
+
+                    #main-description .col-xs-12 {
+                        text-align: center;
+                        padding: 0 50px;
+                    }
+
+                    #main-description h2 {
+                        font-size: 25px;
+                        margin: 30px 0 20px;
+                        color: #000;
+                        text-transform: uppercase;
+                    }
+
+                    #main-description p {
+                        color: #777;
+                        font-size: 20px;
+                        line-height: 25px;
+                        font-family: "Cachet", Arial, sans-serif;
+                    }
+
+                    #main-description .wrap,
+                    #main-description-individual .wrap {
+                        height: 100px;
+                        line-height: 100px;
+                    }
+
+                    #main-description-individual {
+                        padding: 80px 0 60px;
+                        display: none;
+                    }
+
+                    #main-description-individual .col-xs-12 {
+                        text-align: center;
+                        padding: 0 50px;
+                    }
+
+                    #main-description-individual h2 {
+                        font-size: 25px;
+                        margin: 40px 0 15px;
+                        color: #c51a8b;
+                        text-transform: uppercase;
+                    }
+
+                    #main-description-individual p {
+                        color: #777;
+                        font-size: 20px;
+                        line-height: 25px;
+                        font-family: "Cachet", Arial, sans-serif;
+                        margin-bottom: 35px;
+                    }
+
+                    #main-description-individual p span {
+                        color: #424242;
+                    }
+
+                    #main-description-individual p.other-winners {
+                        color: #a7a7a7;
+                    }
+
+                    #main-description-individual .your-prize {
+                        border: 2px solid #fbae1f;
+                        border-radius: 2px;
+                        max-width: 380px;
+                        margin: 75px auto 25px;
+                        font-weight: bold;
+                        color: #f37823;
+                        font-size: 20px;
+                        line-height: 25px;
+                        text-transform: uppercase;
+                        padding: 50px 20px;
+                        position: relative;
+                    }
+
+                    #main-description-individual .your-prize img {
+                        position: absolute;
+                        top: -22px;
+                        left: 50%;
+                        margin-left: -22px;
+                    }
+
+                    .ymca-retention-iframe {
+                        width: 100%;
+                    }
+
+                    .img-responsive {
+                        width: 100%;
+                    }
+
+                    #prizes {
+                        background: url("{{ path_to_theme_img }}prizes_bg.png") no-repeat center 0;
+                        background-size: cover;
+                        padding: 95px 0 30px;
+                    }
+
+                    #prizes .container {
+                        padding: 0 15px;
+                        max-width: 790px;
+                    }
+
+                    #prizes .grand-prize {
+                        background: url("{{ path_to_theme_img }}winners_grand_prize_title.png") no-repeat center 0;
+                        padding: 48px 0 0;
+                        margin-bottom: 100px;
+                    }
+
+                    #prizes .grand-prize p {
+                        color: #777;
+                        font-size: 20px;
+                        line-height: 25px;
+                        text-align: center;
+                        font-family: "Cachet", Arial, sans-serif;
+                        margin-bottom: 0;
+                    }
+
+                    #prizes .grand-prize .col-sm-6 .inner {
+                        background: #fff url("{{ path_to_theme_img }}winners_tickets.png") no-repeat 35px 26px;
+                        padding: 25px 20px 25px 133px;
+                        font-family: "Cachet", Arial, sans-serif;
+                        margin-bottom: 30px;
+                    }
+
+                    #prizes .grand-prize .winner {
+                        color: #c6188b;
+                        font-size: 15px;
+                        line-height: 20px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+
+                    #prizes .grand-prize .name {
+                        color: #5c2d8f;
+                        font-size: 20px;
+                        line-height: 25px;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+
+                    #prizes .grand-prize .id {
+                        color: #424242;
+                        font-size: 15px;
+                        font-weight: bold;
+                    }
+
+                    #prizes .grand-prize .location-line {
+                        color: #777;
+                        font-size: 15px;
+                    }
+
+                    #prizes .grand-prize .location-line span {
+                        color: #c6188b;
+                        margin-right: 4px;
+                    }
+
+                    #prizes .first-prize {
+                        background: url("{{ path_to_theme_img }}first_prize_title.png") no-repeat center 0;
+                        padding: 40px 0 0;
+                        font-family: "Cachet", Arial, sans-serif;
+                    }
+
+                    #prizes .first-prize p {
+                        color: #777;
+                        font-size: 20px;
+                        line-height: 25px;
+                        text-align: center;
+                        margin-bottom: 0;
+                    }
+
+                    #prizes .first-prize p:first-child {
+                        color: #000;
+                    }
+
+                    #prizes .first-prize .titles {
+                        margin: 27px 0 15px;
+                    }
+
+                    #prizes .first-prize .card-1 .inner {
+                        background: #fff url("{{ path_to_theme_img }}first_prize_1.png") no-repeat 35px 36px;
+                        padding: 25px 20px 25px 133px;
+                        margin-bottom: 30px;
+                    }
+
+                    #prizes .first-prize .card-2 .inner {
+                        background: #fff url("{{ path_to_theme_img }}first_prize_2.png") no-repeat 34px 25px;
+                        padding: 25px 20px 25px 133px;
+                        margin-bottom: 30px;
+                    }
+
+                    #prizes .first-prize .winner {
+                        color: #f47920;
+                        font-size: 15px;
+                        line-height: 20px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+
+                    #prizes .first-prize .name {
+                        color: #ec1d24;
+                        font-size: 20px;
+                        line-height: 25px;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+
+                    #prizes .first-prize .id {
+                        color: #424242;
+                        font-size: 15px;
+                        font-weight: bold;
+                    }
+
+                    #prizes .first-prize .location-line {
+                        color: #777;
+                        font-size: 15px;
+                    }
+
+                    #prizes .first-prize .location-line span {
+                        color: #f05923;
+                        margin-right: 4px;
+                    }
+
+                    #second-prize {
+                        background: url("{{ path_to_theme_img }}winners_2nd_prize_title.png") no-repeat center 0;
+                        padding: 40px 0 0;
+                        margin: 100px 0 100px;
+                        font-family: "Cachet", Arial, sans-serif;
+                    }
+
+                    #third-prize {
+                        background: url("{{ path_to_theme_img }}winners_3rd_prize_title.png") no-repeat center 0;
+                        padding: 40px 0 0;
+                        margin: 100px 0 100px;
+                        font-family: "Cachet", Arial, sans-serif;
+                    }
+
+                    .second-third-prizes-wrapper .container {
+                        padding: 0 15px;
+                        max-width: 790px;
+                    }
+
+                    .second-third-prizes-wrapper .sub-title {
+                        color: #777;
+                        font-size: 20px;
+                        line-height: 25px;
+                        text-align: center;
+                        margin-bottom: 0;
+                    }
+
+                    .second-third-prizes-wrapper .form-select {
+                        max-width: 380px;
+                        margin: 60px auto;
+                        font-size: 14px;
+                        height: 50px;
+                    }
+
+                    .results-table {
+                        margin-bottom: 30px;
+                        width: 100%;
+                    }
+
+                    .results-table td {
+                        color: #777;
+                        font-size: 13px;
+                        line-height: 20px;
+                        padding: 15px 5px;
+                    }
+
+                    .results-table td:first-child {
+                        color: #424242;
+                        width: 10%;
+                    }
+
+                    .results-table td.name {
+                        color: #00aa95;
+                        font-weight: bold;
+                        font-size: 15px;
+                        text-transform: uppercase;
+                        width: 62%;
+                    }
+
+                    .results-table .even td {
+                        background-color: #f9f9f9;
+                    }
+
+                    #third-prize .results-table td.name {
+                        color: #0889cd;
+                    }
+
+                    @media screen and (max-width: 768px) {
+                        .nav-global.navbar-default.navbar {
+                            display: block;
+                        }
+
+                        #top-nav {
+                            display: none;
+                        }
+
+                        #hero-section .date {
+                            font-size: 30px;
+                        }
+
+                        #hero-section h1 {
+                            font-size: 40px;
+                            margin-top: 20px;
+                        }
+
+                        #main-description {
+                            padding: 30px 0;
+                        }
+
+                        #main-description p br {
+                            display: none;
+                        }
+
+                        #main-description h2 {
+                            margin: 10px 0 20px;
+                        }
+
+                        #prizes {
+                            padding: 30px 0 0;
+                        }
+
+                        #prizes .grand-prize {
+                            margin-bottom: 50px;
+                        }
+
+                        #second-prize,
+                        #third-prize {
+                            margin: 50px 0;
+                        }
+
+                        .results-table {
+                            margin-bottom: 0;
+                        }
+                    }
+                </style>
+                <nav class="nav-global navbar-default navbar" style="top: 0px;">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".sidebar-left">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="/">YMCA Twin Cities</a>
+                        </div>
+                    </div>
+                </nav>
+                <div id="top"></div>
+                <div id="sidebar" class="sidebar sidebar-left collapse width">
+                    <ul id="sidebar-nav" class="nav-level-0 nav in">
+                        <li class="dropdown back-to-full-menu nav-level-1 open active">
+                            <ul class="nav dropdown-menu">
+                                <li><a href="/">BACK TO YMCA TWIN CITIES</a></li>
+                                <li><a href="/">Prizes</a></li>
+                                <li><a href="/">YMCA Quiz</a></li>
+                                <li><a href="http://ymcatwincities.org/march/rules">Detailed Rules</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- TOP BAR -->
+                <nav id="top-nav"><a href="/" class="back-link">
+                        <span class="glyphicon glyphicon-arrow-left"></span>BACK TO YMCA TWIN CITIES
+                    </a>
+                    <ul>
+                        <li><a href="#prizes">Prizes</a></li>
+                        <li><a href="#quiz">YMCA Quiz</a></li>
+                        <li><a href="http://ymcatwincities.org/march/rules">Detailed Rules</a></li>
+                    </ul>
+                </nav>
+                <!-- HERO SECTION -->
+                <div id="hero-section">
+                    <div class="container">
+                        <div class="logo"></div>
+                        <div class="date">MARCH 7-27 2016</div>
+                        <h1>UP YOUR GAME!</h1>
+                    </div>
+                </div>
+                <div id="main-description">
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-xs-12">
+                                <div class="wrap">
+                                    <img src="{{ path_to_theme_img }}winners_user1.png" alt="Thank you for playing!">
+                                </div>
+                                <h2>Thank you for playing!</h2>
+
+                                <p>Please check your email<br/>
+                                    to see the results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="main-description-individual">
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-xs-12">
+                                <div class="wrap">
+                                    <img src="{{ path_to_theme_img }}winners_user1.png" alt="Thank you for playing!">
+                                </div>
+                                <h2>CONGRATULATIONS!</h2>
+
+                                <p>You have won the <span>Second Prize:</span></p>
+
+                                <div class="your-prize"><img src="{{ path_to_theme_img }}winners_cup_ico.png" alt=""/>3
+                                    month of Membership
+                                </div>
+                                <p>Your prize has been credited to <br/> your account.</p>
+
+                                <p class="other-winners">See other winners below.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="prizes">
+                    <div class="container grand-prize">
+                        <div class="row">
+                            <p>4 suite tickets to the </p>
+
+                            <p>Minnesota Timberwolves vs Dallas Mavericks</p>
+
+                            <p>April 3, 2016</p>
+                            <br/><br/>
+                            {% for item in winners.grand_prize %}
+                                <div class="col-sm-6">
+                                    <div class="inner">
+                                        <div class="winner">winner:</div>
+                                        <div class="name">{{ item.name }}</div>
+                                        <div class="id">ID: ******** {{ item.id }}</div>
+                                        <div class="location-line">
+                                            <span class="glyphicon glyphicon-map-marker bullet"></span>{{ item.location }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="container first-prize">
+                            <div class="row">
+                                <div class="col-sm-6 titles">
+                                    <p>Shabazz Muhammed</p>
+
+                                    <p>signed basketball</p>
+                                    <br/>
+                                </div>
+                                <div class="col-sm-6 titles">
+                                    <p>Andrew Wiggins</p>
+
+                                    <p>signed jersey</p>
+                                    <br/>
+                                </div>
+                                {% for item in winners.first_prize %}
+                                    <div class="col-sm-6 card-{{ loop.index }}">
+                                        <div class="inner">
+                                            <div class="winner">winner:</div>
+                                            <div class="name">{{ item.name }}</div>
+                                            <div class="id">ID: ******** {{ item.id }}</div>
+                                            <div class="location-line">
+                                                <span class="glyphicon glyphicon-map-marker bullet"></span>{{ item.location }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="second-prize" class="second-third-prizes-wrapper">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="sub-title">3 month of Membership</p>
+                                    <select class="form-select form-control text">
+                                        {% for id, name  in winners.second_prize.locations %}
+                                            <option value="{{ id }}">{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% for key, location in winners.second_prize.winners %}
+                                    <div class="table-location table-location-{{ key }}{% if not loop.first %} hide{% endif %}">
+                                        <div class="col-sm-6">
+                                            <table class="results-table">
+                                                <tbody>
+                                                {% for winner in location|slice(0, 20) %}
+                                                    <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+                                                        <td>{{ loop.index }}.</td>
+                                                        <td class="name">{{ winner.name }}</td>
+                                                        <td>ID: ******** {{ winner.id }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <table class="results-table">
+                                                <tbody>
+                                                {% for winner in location|slice(20, 40) %}
+                                                    <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+                                                        <td>{{ (20) + loop.index }}.</td>
+                                                        <td class="name">{{ winner.name }}</td>
+                                                        <td>ID: ******** {{ winner.id }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="third-prize" class="second-third-prizes-wrapper">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="sub-title">3 months of towel service</p>
+                                    <select class="form-select form-control text">
+                                        {% for id, name  in winners.third_prize.locations %}
+                                            <option value="{{ id }}">{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% for key, location in winners.third_prize.winners %}
+                                    <div class="table-location table-location-{{ key }}{% if not loop.first %} hide{% endif %}">
+                                        <div class="col-sm-6">
+                                            <table class="results-table">
+                                                <tbody>
+                                                {% for winner in location|slice(0, 20) %}
+                                                    <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+                                                        <td>{{ loop.index }}.</td>
+                                                        <td class="name">{{ winner.name }}</td>
+                                                        <td>ID: ******** {{ winner.id }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <table class="results-table">
+                                                <tbody>
+                                                {% for winner in location|slice(20, 40) %}
+                                                    <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+                                                        <td>{{ (20) + loop.index }}.</td>
+                                                        <td class="name">{{ winner.name }}</td>
+                                                        <td>ID: ******** {{ winner.id }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+
+    <!--googleoff: index-->
+    <footer id="page-footer" class="page-footer">
         <div class="container">
 
-          <section class="messages">
-          </section>
+            {% if page.footer %}
+                {{ page.footer }}
+            {% endif %}
 
+            <div class="col-sm-3 text-center">
+                {% include "@ymca/brand-link.html.twig" %}
+            </div>
 
+            <nav class="col-sm-6">
+                <nav class="nav-footer row">
+                    {{ page.footer_menu }}
+                </nav>
+            </nav>
+            <div class="col-sm-3 social-disclaimer">
+                {{ page.footer_social }}
+                <p id="cw"></p>
+            </div>
         </div>
-        <div class="container-full-width">
-          <script type="text/javascript">
-            /*! iFrame Resizer (iframeSizer.min.js ) - v3.5.3 - 2016-02-23
-             *  Desc: Force cross domain iframes to size to content.
-             *  Requires: iframeResizer.contentWindow.min.js to be loaded into the target frame.
-             *  Copyright: (c) 2016 David J. Bradshaw - dave@bradshaw.net
-             *  License: MIT
-             */
-            !function(a){"use strict";function b(b,c,d){"addEventListener"in a?b.addEventListener(c,d,!1):"attachEvent"in a&&b.attachEvent("on"+c,d)}function c(b,c,d){"removeEventListener"in a?b.removeEventListener(c,d,!1):"detachEvent"in a&&b.detachEvent("on"+c,d)}function d(){var b,c=["moz","webkit","o","ms"];for(b=0;b<c.length&&!N;b+=1)N=a[c[b]+"RequestAnimationFrame"];N||h("setup","RequestAnimationFrame not supported")}function e(b){var c="Host page: "+b;return a.top!==a.self&&(c=a.parentIFrame&&a.parentIFrame.getId?a.parentIFrame.getId()+": "+b:"Nested host page: "+b),c}function f(a){return K+"["+e(a)+"]"}function g(a){return P[a]?P[a].log:G}function h(a,b){k("log",a,b,g(a))}function i(a,b){k("info",a,b,g(a))}function j(a,b){k("warn",a,b,!0)}function k(b,c,d,e){!0===e&&"object"==typeof a.console&&console[b](f(c),d)}function l(d){function e(){function a(){s(V),p(W)}g("Height"),g("Width"),t(a,V,"init")}function f(){var a=U.substr(L).split(":");return{iframe:P[a[0]].iframe,id:a[0],height:a[1],width:a[2],type:a[3]}}function g(a){var b=Number(P[W]["max"+a]),c=Number(P[W]["min"+a]),d=a.toLowerCase(),e=Number(V[d]);h(W,"Checking "+d+" is in range "+c+"-"+b),c>e&&(e=c,h(W,"Set "+d+" to min value")),e>b&&(e=b,h(W,"Set "+d+" to max value")),V[d]=""+e}function k(){function a(){function a(){var a=0,d=!1;for(h(W,"Checking connection is from allowed list of origins: "+c);a<c.length;a++)if(c[a]===b){d=!0;break}return d}function d(){var a=P[W].remoteHost;return h(W,"Checking connection is from: "+a),b===a}return c.constructor===Array?a():d()}var b=d.origin,c=P[W].checkOrigin;if(c&&""+b!="null"&&!a())throw new Error("Unexpected message received from: "+b+" for "+V.iframe.id+". Message was: "+d.data+". This error can be disabled by setting the checkOrigin: false option or by providing of array of trusted domains.");return!0}function l(){return K===(""+U).substr(0,L)&&U.substr(L).split(":")[0]in P}function w(){var a=V.type in{"true":1,"false":1,undefined:1};return a&&h(W,"Ignoring init message from meta parent page"),a}function y(a){return U.substr(U.indexOf(":")+J+a)}function z(a){h(W,"MessageCallback passed: {iframe: "+V.iframe.id+", message: "+a+"}"),N("messageCallback",{iframe:V.iframe,message:JSON.parse(a)}),h(W,"--")}function A(){var b=document.body.getBoundingClientRect(),c=V.iframe.getBoundingClientRect();return JSON.stringify({iframeHeight:c.height,iframeWidth:c.width,clientHeight:Math.max(document.documentElement.clientHeight,a.innerHeight||0),clientWidth:Math.max(document.documentElement.clientWidth,a.innerWidth||0),offsetTop:parseInt(c.top-b.top,10),offsetLeft:parseInt(c.left-b.left,10),scrollTop:a.pageYOffset,scrollLeft:a.pageXOffset})}function B(a,b){function c(){u("Send Page Info","pageInfo:"+A(),a,b)}x(c,32)}function C(){function d(b,c){function d(){P[g]?B(P[g].iframe,g):e()}["scroll","resize"].forEach(function(e){h(g,b+e+" listener for sendPageInfo"),c(a,e,d)})}function e(){d("Remove ",c)}function f(){d("Add ",b)}var g=W;f(),P[g].stopPageInfo=e}function D(){P[W]&&P[W].stopPageInfo&&(P[W].stopPageInfo(),delete P[W].stopPageInfo)}function E(){var a=!0;return null===V.iframe&&(j(W,"IFrame ("+V.id+") not found"),a=!1),a}function F(a){var b=a.getBoundingClientRect();return o(W),{x:Math.floor(Number(b.left)+Number(M.x)),y:Math.floor(Number(b.top)+Number(M.y))}}function G(b){function c(){M=g,H(),h(W,"--")}function d(){return{x:Number(V.width)+f.x,y:Number(V.height)+f.y}}function e(){a.parentIFrame?a.parentIFrame["scrollTo"+(b?"Offset":"")](g.x,g.y):j(W,"Unable to scroll to requested position, window.parentIFrame not found")}var f=b?F(V.iframe):{x:0,y:0},g=d();h(W,"Reposition requested from iFrame (offset x:"+f.x+" y:"+f.y+")"),a.top!==a.self?e():c()}function H(){!1!==N("scrollCallback",M)?p(W):q()}function I(b){function c(){var a=F(g);h(W,"Moving to in page link (#"+e+") at x: "+a.x+" y: "+a.y),M={x:a.x,y:a.y},H(),h(W,"--")}function d(){a.parentIFrame?a.parentIFrame.moveToAnchor(e):h(W,"In page link #"+e+" not found and window.parentIFrame not found")}var e=b.split("#")[1]||"",f=decodeURIComponent(e),g=document.getElementById(f)||document.getElementsByName(f)[0];g?c():a.top!==a.self?d():h(W,"In page link #"+e+" not found")}function N(a,b){return m(W,a,b)}function O(){switch(P[W].firstRun&&T(),V.type){case"close":n(V.iframe);break;case"message":z(y(6));break;case"scrollTo":G(!1);break;case"scrollToOffset":G(!0);break;case"pageInfo":B(P[W].iframe,W),C();break;case"pageInfoStop":D();break;case"inPageLink":I(y(9));break;case"reset":r(V);break;case"init":e(),N("initCallback",V.iframe),N("resizedCallback",V);break;default:e(),N("resizedCallback",V)}}function Q(a){var b=!0;return P[a]||(b=!1,j(V.type+" No settings for "+a+". Message was: "+U)),b}function S(){for(var a in P)u("iFrame requested init",v(a),document.getElementById(a),a)}function T(){P[W].firstRun=!1}var U=d.data,V={},W=null;"[iFrameResizerChild]Ready"===U?S():l()?(V=f(),W=R=V.id,!w()&&Q(W)&&(h(W,"Received: "+U),E()&&k()&&O())):i(W,"Ignored: "+U)}function m(a,b,c){var d=null,e=null;if(P[a]){if(d=P[a][b],"function"!=typeof d)throw new TypeError(b+" on iFrame["+a+"] is not a function");e=d(c)}return e}function n(a){var b=a.id;h(b,"Removing iFrame: "+b),a.parentNode.removeChild(a),m(b,"closedCallback",b),h(b,"--"),delete P[b]}function o(b){null===M&&(M={x:void 0!==a.pageXOffset?a.pageXOffset:document.documentElement.scrollLeft,y:void 0!==a.pageYOffset?a.pageYOffset:document.documentElement.scrollTop},h(b,"Get page position: "+M.x+","+M.y))}function p(b){null!==M&&(a.scrollTo(M.x,M.y),h(b,"Set page position: "+M.x+","+M.y),q())}function q(){M=null}function r(a){function b(){s(a),u("reset","reset",a.iframe,a.id)}h(a.id,"Size reset requested by "+("init"===a.type?"host page":"iFrame")),o(a.id),t(b,a,"reset")}function s(a){function b(b){a.iframe.style[b]=a[b]+"px",h(a.id,"IFrame ("+e+") "+b+" set to "+a[b]+"px")}function c(b){H||"0"!==a[b]||(H=!0,h(e,"Hidden iFrame detected, creating visibility listener"),y())}function d(a){b(a),c(a)}var e=a.iframe.id;P[e]&&(P[e].sizeHeight&&d("height"),P[e].sizeWidth&&d("width"))}function t(a,b,c){c!==b.type&&N?(h(b.id,"Requesting animation frame"),N(a)):a()}function u(a,b,c,d){function e(){var e=P[d].targetOrigin;h(d,"["+a+"] Sending msg to iframe["+d+"] ("+b+") targetOrigin: "+e),c.contentWindow.postMessage(K+b,e)}function f(){i(d,"["+a+"] IFrame("+d+") not found"),P[d]&&delete P[d]}function g(){c&&"contentWindow"in c&&null!==c.contentWindow?e():f()}d=d||c.id,P[d]&&g()}function v(a){return a+":"+P[a].bodyMarginV1+":"+P[a].sizeWidth+":"+P[a].log+":"+P[a].interval+":"+P[a].enablePublicMethods+":"+P[a].autoResize+":"+P[a].bodyMargin+":"+P[a].heightCalculationMethod+":"+P[a].bodyBackground+":"+P[a].bodyPadding+":"+P[a].tolerance+":"+P[a].inPageLinks+":"+P[a].resizeFrom+":"+P[a].widthCalculationMethod}function w(a,c){function d(){function b(b){1/0!==P[w][b]&&0!==P[w][b]&&(a.style[b]=P[w][b]+"px",h(w,"Set "+b+" = "+P[w][b]+"px"))}function c(a){if(P[w]["min"+a]>P[w]["max"+a])throw new Error("Value for min"+a+" can not be greater than max"+a)}c("Height"),c("Width"),b("maxHeight"),b("minHeight"),b("maxWidth"),b("minWidth")}function e(){var a=c&&c.id||S.id+F++;return null!==document.getElementById(a)&&(a+=F++),a}function f(b){return R=b,""===b&&(a.id=b=e(),G=(c||{}).log,R=b,h(b,"Added missing iframe ID: "+b+" ("+a.src+")")),b}function g(){h(w,"IFrame scrolling "+(P[w].scrolling?"enabled":"disabled")+" for "+w),a.style.overflow=!1===P[w].scrolling?"hidden":"auto",a.scrolling=!1===P[w].scrolling?"no":"yes"}function i(){("number"==typeof P[w].bodyMargin||"0"===P[w].bodyMargin)&&(P[w].bodyMarginV1=P[w].bodyMargin,P[w].bodyMargin=""+P[w].bodyMargin+"px")}function k(){var b=P[w].firstRun,c=P[w].heightCalculationMethod in O;!b&&c&&r({iframe:a,height:0,width:0,type:"init"})}function l(){Function.prototype.bind&&(P[w].iframe.iFrameResizer={close:n.bind(null,P[w].iframe),resize:u.bind(null,"Window resize","resize",P[w].iframe),moveToAnchor:function(a){u("Move to anchor","inPageLink:"+a,P[w].iframe,w)},sendMessage:function(a){a=JSON.stringify(a),u("Send Message","message:"+a,P[w].iframe,w)}})}function m(c){function d(){u("iFrame.onload",c,a),k()}b(a,"load",d),u("init",c,a)}function o(a){if("object"!=typeof a)throw new TypeError("Options is not an object")}function p(a){for(var b in S)S.hasOwnProperty(b)&&(P[w][b]=a.hasOwnProperty(b)?a[b]:S[b])}function q(a){return""===a||"file://"===a?"*":a}function s(b){b=b||{},P[w]={firstRun:!0,iframe:a,remoteHost:a.src.split("/").slice(0,3).join("/")},o(b),p(b),P[w].targetOrigin=!0===P[w].checkOrigin?q(P[w].remoteHost):"*"}function t(){return w in P&&"iFrameResizer"in a}var w=f(a.id);t()?j(w,"Ignored iFrame, already setup."):(s(c),g(),d(),i(),m(v(w)),l())}function x(a,b){null===Q&&(Q=setTimeout(function(){Q=null,a()},b))}function y(){function b(){function a(a){function b(b){return"0px"===P[a].iframe.style[b]}function c(a){return null!==a.offsetParent}c(P[a].iframe)&&(b("height")||b("width"))&&u("Visibility change","resize",P[a].iframe,a)}for(var b in P)a(b)}function c(a){h("window","Mutation observed: "+a[0].target+" "+a[0].type),x(b,16)}function d(){var a=document.querySelector("body"),b={attributes:!0,attributeOldValue:!1,characterData:!0,characterDataOldValue:!1,childList:!0,subtree:!0},d=new e(c);d.observe(a,b)}var e=a.MutationObserver||a.WebKitMutationObserver;e&&d()}function z(a){function b(){B("Window "+a,"resize")}h("window","Trigger event: "+a),x(b,16)}function A(){function a(){B("Tab Visable","resize")}"hidden"!==document.visibilityState&&(h("document","Trigger event: Visiblity change"),x(a,16))}function B(a,b){function c(a){return"parent"===P[a].resizeFrom&&P[a].autoResize&&!P[a].firstRun}for(var d in P)c(d)&&u(a,b,document.getElementById(d),d)}function C(){b(a,"message",l),b(a,"resize",function(){z("resize")}),b(document,"visibilitychange",A),b(document,"-webkit-visibilitychange",A),b(a,"focusin",function(){z("focus")}),b(a,"focus",function(){z("focus")})}function D(){function a(a,c){function d(){if(!c.tagName)throw new TypeError("Object is not a valid DOM element");if("IFRAME"!==c.tagName.toUpperCase())throw new TypeError("Expected <IFRAME> tag, found <"+c.tagName+">")}c&&(d(),w(c,a),b.push(c))}var b;return d(),C(),function(c,d){switch(b=[],typeof d){case"undefined":case"string":Array.prototype.forEach.call(document.querySelectorAll(d||"iframe"),a.bind(void 0,c));break;case"object":a(c,d);break;default:throw new TypeError("Unexpected data type ("+typeof d+")")}return b}}function E(a){a.fn.iFrameResize=function(a){return this.filter("iframe").each(function(b,c){w(c,a)}).end()}}var F=0,G=!1,H=!1,I="message",J=I.length,K="[iFrameSizer]",L=K.length,M=null,N=a.requestAnimationFrame,O={max:1,scroll:1,bodyScroll:1,documentElementScroll:1},P={},Q=null,R="Host Page",S={autoResize:!0,bodyBackground:null,bodyMargin:null,bodyMarginV1:8,bodyPadding:null,checkOrigin:!0,inPageLinks:!1,enablePublicMethods:!0,heightCalculationMethod:"bodyOffset",id:"iFrameResizer",interval:32,log:!1,maxHeight:1/0,maxWidth:1/0,minHeight:0,minWidth:0,resizeFrom:"parent",scrolling:!1,sizeHeight:!0,sizeWidth:!1,tolerance:0,widthCalculationMethod:"scroll",closedCallback:function(){},initCallback:function(){},messageCallback:function(){j("MessageCallback function not defined")},resizedCallback:function(){},scrollCallback:function(){return!0}};a.jQuery&&E(jQuery),"function"==typeof define&&define.amd?define([],D):"object"==typeof module&&"object"==typeof module.exports?module.exports=D():a.iFrameResize=a.iFrameResize||D()}(window||{});
-            //# sourceMappingURL=iframeResizer.map
-          </script>
-          <style id="main-styles">
-            .nav-global.navbar-default.navbar {
-              display: none;
-              top: 0 !important;
-            }
-            #sidebar {
-              margin-top: 33px;
-              border-right: 0;
-            }
-            #page-head,
-            .breadcrumb-container {
-              display: none !important;
-            }
-            .viewport {
-              background: #fff;
-            }
-            #main {
-              margin-top: 0;
-            }
-            .page-middle .content {
-              padding-top: 0;
-              padding-bottom: 0;
-            }
-            #top-nav {
-              background-color: #b2d8e;
-              background-image: -webkit-linear-gradient(#5b2d8e, #532881);
-              background-image: -moz-linear-gradient(#5b2d8e, #532881);
-              background-image: -o-linear-gradient(#5b2d8e, #532881);
-              background-image: linear-gradient(#5b2d8e, #532881);
-              height: 72px;
-              line-height: 72px;
-              padding: 0 30px;
-            }
-            #top-nav ul {
-              float: right;
-              list-style-image: none;
-              list-style-type: none;
-              margin: 0;
-            }
-            #top-nav ul li {
-              display: inline-block;
-            }
-            #top-nav ul li a {
-              color: #fff;
-              font-size: 18px;
-              display: inline-block;
-              padding: 0 40px;
-              font-family: "Cachet", Arial, sans-serif;
-            }
-            #top-nav ul li a:hover {
-              text-decoration: none;
-              background-color: #532881;
-              background-image: -webkit-linear-gradient(#532881, #5b2d8e);
-              background-image: -moz-linear-gradient(#532881, #5b2d8e);
-              background-image: -o-linear-gradient(#532881, #5b2d8e);
-              background-image: linear-gradient(#532881, #5b2d8e);
-            }
-            #top-nav .back-link {
-              color: #aa9ebb;
-              display: inline-block;
-              font-size: 16px;
-            }
-            #top-nav .back-link .glyphicon {
-              font-size: 12px;
-              margin-right: 5px;
-            }
-            #hero-section {
-              background: url("//www.ymcatwincities.org/_asset/wlp8rl/ymca_member_retention_hero.jpg") no-repeat center 0;
-              background-size: cover;
-              position: relative;
-              padding: 107px 0 100px;
-            }
-            #hero-section img {
-              width: 100%;
-            }
-            #hero-section .logo {
-              background: url("//www.ymcatwincities.org/_asset/xn39w6/ymca-white-logo.png") no-repeat 0 0;
-              background-size: contain;
-              height: 111px;
-              margin: 0 auto 60px;
-              width: 145px;
-            }
-            #hero-section .container {
-              text-align: center;
-              width: 100%;
-            }
-            #hero-section .date {
-              color: #c6188b;
-              font-size: 50px;
-              font-family: "Cachet", Arial, sans-serif;
-              font-weight: bold;
-              text-shadow: 2px 2px 7px #000;
-            }
-            #hero-section h1 {
-              color: #fff;
-              font-size: 100px;
-              font-family: "Cachet", Arial, sans-serif;
-              font-weight: bold;
-              text-shadow: 2px 2px 7px #000;
-              margin: 0;
-            }
-            #main-description {
-              padding: 80px 0 75px;
-            }
-            #main-description .col-xs-12 {
-              text-align: center;
-              padding: 0 50px;
-            }
-            #main-description h2 {
-              font-size: 25px;
-              margin: 30px 0 20px;
-              color: #000;
-              text-transform: uppercase;
-            }
-            #main-description p {
-              color: #777;
-              font-size: 20px;
-              line-height: 25px;
-              font-family: "Cachet", Arial, sans-serif;
-            }
-            #main-description .wrap,
-            #main-description-individual .wrap {
-              height: 100px;
-              line-height: 100px;
-            }
-            #main-description-individual {
-              padding: 80px 0 60px;
-              display: none;
-            }
-            #main-description-individual .col-xs-12 {
-              text-align: center;
-              padding: 0 50px;
-            }
-            #main-description-individual h2 {
-              font-size: 25px;
-              margin: 40px 0 15px;
-              color: #c51a8b;
-              text-transform: uppercase;
-            }
-            #main-description-individual p {
-              color: #777;
-              font-size: 20px;
-              line-height: 25px;
-              font-family: "Cachet", Arial, sans-serif;
-              margin-bottom: 35px;
-            }
-            #main-description-individual p span {
-              color: #424242;
-            }
-            #main-description-individual p.other-winners {
-              color: #a7a7a7;
-            }
-            #main-description-individual .your-prize {
-              border: 2px solid #fbae1f;
-              border-radius: 2px;
-              max-width: 380px;
-              margin: 75px auto 25px;
-              font-weight: bold;
-              color: #f37823;
-              font-size: 20px;
-              line-height: 25px;
-              text-transform: uppercase;
-              padding: 50px 20px;
-              position: relative;
-            }
-            #main-description-individual .your-prize img {
-              position: absolute;
-              top: -22px;
-              left: 50%;
-              margin-left: -22px;
-            }
-            .ymca-retention-iframe {
-              width: 100%;
-            }
-            .img-responsive {
-              width: 100%;
-            }
-            #prizes {
-              background: url("{{ path_to_theme_img }}prizes_bg.png") no-repeat center 0;
-              background-size: cover;
-              padding: 95px 0 30px;
-            }
-            #prizes .container {
-              padding: 0 15px;
-              max-width: 790px;
-            }
-            #prizes .grand-prize {
-              background: url("{{ path_to_theme_img }}winners_grand_prize_title.png") no-repeat center 0;
-              padding: 48px 0 0;
-              margin-bottom: 100px;
-            }
-            #prizes .grand-prize p {
-              color: #777;
-              font-size: 20px;
-              line-height: 25px;
-              text-align: center;
-              font-family: "Cachet", Arial, sans-serif;
-              margin-bottom: 0;
-            }
-            #prizes .grand-prize .col-sm-6 .inner {
-              background: #fff url("{{ path_to_theme_img }}winners_tickets.png") no-repeat 35px 26px;
-              padding: 25px 20px 25px 133px;
-              font-family: "Cachet", Arial, sans-serif;
-              margin-bottom: 30px;
-            }
-            #prizes .grand-prize .winner {
-              color: #c6188b;
-              font-size: 15px;
-              line-height: 20px;
-              font-weight: bold;
-              text-transform: uppercase;
-            }
-            #prizes .grand-prize .name {
-              color: #5c2d8f;
-              font-size: 20px;
-              line-height: 25px;
-              text-transform: uppercase;
-              font-weight: bold;
-            }
-            #prizes .grand-prize .id {
-              color: #424242;
-              font-size: 15px;
-              font-weight: bold;
-            }
-            #prizes .grand-prize .location-line {
-              color: #777;
-              font-size: 15px;
-            }
-            #prizes .grand-prize .location-line span {
-              color: #c6188b;
-              margin-right: 4px;
-            }
+    </footer>
 
-            #prizes .first-prize {
-              background: url("{{ path_to_theme_img }}first_prize_title.png") no-repeat center 0;
-              padding: 40px 0 0;
-              font-family: "Cachet", Arial, sans-serif;
-            }
-            #prizes .first-prize p {
-              color: #777;
-              font-size: 20px;
-              line-height: 25px;
-              text-align: center;
-              margin-bottom: 0;
-            }
-            #prizes .first-prize p:first-child {
-              color: #000;
-            }
-            #prizes .first-prize .titles {
-              margin: 27px 0 15px;
-            }
-            #prizes .first-prize .card-1 .inner {
-              background: #fff url("{{ path_to_theme_img }}first_prize_1.png") no-repeat 35px 36px;
-              padding: 25px 20px 25px 133px;
-              margin-bottom: 30px;
-            }
-            #prizes .first-prize .card-2 .inner {
-              background: #fff url("{{ path_to_theme_img }}first_prize_2.png") no-repeat 34px 25px;
-              padding: 25px 20px 25px 133px;
-              margin-bottom: 30px;
-            }
-            #prizes .first-prize .winner {
-              color: #f47920;
-              font-size: 15px;
-              line-height: 20px;
-              font-weight: bold;
-              text-transform: uppercase;
-            }
-            #prizes .first-prize .name {
-              color: #ec1d24;
-              font-size: 20px;
-              line-height: 25px;
-              text-transform: uppercase;
-              font-weight: bold;
-            }
-            #prizes .first-prize .id {
-              color: #424242;
-              font-size: 15px;
-              font-weight: bold;
-            }
-            #prizes .first-prize .location-line {
-              color: #777;
-              font-size: 15px;
-            }
-            #prizes .first-prize .location-line span {
-              color: #f05923;
-              margin-right: 4px;
-            }
-            #second-prize {
-              background: url("{{ path_to_theme_img }}winners_2nd_prize_title.png") no-repeat center 0;
-              padding: 40px 0 0;
-              margin: 100px 0 100px;
-              font-family: "Cachet", Arial, sans-serif;
-            }
-            #third-prize {
-              background: url("{{ path_to_theme_img }}winners_3rd_prize_title.png") no-repeat center 0;
-              padding: 40px 0 0;
-              margin: 100px 0 100px;
-              font-family: "Cachet", Arial, sans-serif;
-            }
-            .second-third-prizes-wrapper .container {
-              padding: 0 15px;
-              max-width: 790px;
-            }
-            .second-third-prizes-wrapper .sub-title {
-              color: #777;
-              font-size: 20px;
-              line-height: 25px;
-              text-align: center;
-              margin-bottom: 0;
-            }
-            .second-third-prizes-wrapper .form-select {
-              max-width: 380px;
-              margin: 60px auto;
-              font-size: 14px;
-              height: 50px;
-            }
-            .results-table {
-              margin-bottom: 30px;
-              width: 100%;
-            }
-            .results-table td {
-              color: #777;
-              font-size: 13px;
-              line-height: 20px;
-              padding: 15px 5px;
-            }
-            .results-table td:first-child {
-              color: #424242;
-              width: 10%;
-            }
-            .results-table td.name {
-              color: #00aa95;
-              font-weight: bold;
-              font-size: 15px;
-              text-transform: uppercase;
-              width: 62%;
-            }
-            .results-table .even td {
-              background-color: #f9f9f9;
-            }
-            #third-prize .results-table td.name {
-              color: #0889cd;
-            }
-            @media screen and (max-width: 768px) {
-              .nav-global.navbar-default.navbar {
-                display: block;
-              }
-              #top-nav {
-                display: none;
-              }
-              #hero-section .date {
-                font-size: 30px;
-              }
-              #hero-section h1 {
-                font-size: 40px;
-                margin-top: 20px;
-              }
-              #main-description {
-                padding: 30px 0;
-              }
-              #main-description p br {
-                display: none;
-              }
-              #main-description h2 {
-                margin: 10px 0 20px;
-              }
-              #prizes {
-                padding: 30px 0 0;
-              }
-              #prizes .grand-prize {
-                margin-bottom: 50px;
-              }
-              #second-prize,
-              #third-prize {
-                margin: 50px 0;
-              }
-              .results-table {
-                margin-bottom: 0;
-              }
-            }
-          </style>
-          <nav class="nav-global navbar-default navbar" style="top: 0px;">
-            <div class="container">
-              <div class="navbar-header">
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".sidebar-left">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">YMCA Twin Cities</a>
-              </div>
-            </div>
-          </nav><div id="top"></div>
-          <div id="sidebar" class="sidebar sidebar-left collapse width">
-            <ul id="sidebar-nav" class="nav-level-0 nav in"><li class="dropdown back-to-full-menu nav-level-1 open active">
-                <ul class="nav dropdown-menu"><li><a href="/">BACK TO YMCA TWIN CITIES</a></li>
-                  <li><a href="/">Prizes</a></li>
-                  <li><a href="/">YMCA Quiz</a></li>
-                  <li><a href="http://ymcatwincities.org/march/rules">Detailed Rules</a></li>
-                </ul></li>
-            </ul>
-          </div>
-          <!-- TOP BAR --><nav id="top-nav"><a href="/" class="back-link">
-              <span class="glyphicon glyphicon-arrow-left"></span>BACK TO YMCA TWIN CITIES
-            </a>
-            <ul>
-              <li><a href="#prizes">Prizes</a></li>
-              <li><a href="#quiz">YMCA Quiz</a></li>
-              <li><a href="http://ymcatwincities.org/march/rules">Detailed Rules</a></li>
-            </ul></nav>
-          <!-- HERO SECTION -->
-          <div id="hero-section">
-            <div class="container">
-              <div class="logo"></div>
-              <div class="date">MARCH 7-27 2016</div>
-              <h1>UP YOUR GAME!</h1>
-            </div>
-          </div>
-          <div id="main-description">
-            <div class="row">
-              <div class="container">
-                <div class="col-xs-12">
-                  <div class="wrap">
-                    <img src="{{ path_to_theme_img }}winners_user1.png" alt="Thank you for playing!">
-                  </div>
-                  <h2>Thank you for playing!</h2>
-                  <p>Please check your email<br/>
-                    to see the results.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="main-description-individual">
-            <div class="row">
-              <div class="container">
-                <div class="col-xs-12">
-                  <div class="wrap">
-                    <img src="{{ path_to_theme_img }}winners_user1.png" alt="Thank you for playing!">
-                  </div>
-                  <h2>CONGRATULATIONS!</h2>
-                  <p>You have won the <span>Second Prize:</span></p>
-                  <div class="your-prize"><img src="{{ path_to_theme_img }}winners_cup_ico.png" alt=""/>3 month of Membership</div>
-                  <p>Your prize has been credited to <br/> your account.</p>
-                  <p class="other-winners">See other winners below.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="prizes">
-            <div class="container grand-prize">
-              <div class="row">
-                <p>4 suite tickets to the </p>
-                <p>Minnesota Timberwolves vs Dallas Mavericks</p>
-                <p>April 3, 2016</p>
-                <br/><br/>
-                <div class="col-sm-6">
-                  <div class="inner">
-                    <div class="winner">winner:</div>
-                    <div class="name">Katrina P.</div>
-                    <div class="id">ID: ******** 4822</div>
-                    <div class="location-line"><span class="glyphicon glyphicon-map-marker bullet"></span>Blaisdell</div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="inner">
-                    <div class="winner">winner:</div>
-                    <div class="name">Jerome M.</div>
-                    <div class="id">ID: ******** 4822</div>
-                    <div class="location-line"><span class="glyphicon glyphicon-map-marker bullet"></span>Mounds View Community Center</div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="inner">
-                    <div class="winner">winner:</div>
-                    <div class="name">Katrina P.</div>
-                    <div class="id">ID: ******** 4822</div>
-                    <div class="location-line"><span class="glyphicon glyphicon-map-marker bullet"></span>Blaisdell</div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="inner">
-                    <div class="winner">winner:</div>
-                    <div class="name">Jerome M.</div>
-                    <div class="id">ID: ******** 4822</div>
-                    <div class="location-line"><span class="glyphicon glyphicon-map-marker bullet"></span>Mounds View Community Center</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="container first-prize">
-              <div class="row">
-                <div class="col-sm-6 titles">
-                  <p>Shabazz Muhammed</p>
-                  <p>signed basketball</p>
-                  <br/>
-                </div>
-                <div class="col-sm-6 titles">
-                  <p>Andrew Wiggins</p>
-                  <p>signed jersey</p>
-                  <br/>
-                </div>
-                <div class="col-sm-6 card-1">
-                  <div class="inner">
-                    <div class="winner">winner:</div>
-                    <div class="name">Katrina P.</div>
-                    <div class="id">ID: ******** 4822</div>
-                    <div class="location-line"><span class="glyphicon glyphicon-map-marker bullet"></span>Blaisdell</div>
-                  </div>
-                </div>
-                <div class="col-sm-6 card-2">
-                  <div class="inner">
-                    <div class="winner">winner:</div>
-                    <div class="name">Jerome M.</div>
-                    <div class="id">ID: ******** 4822</div>
-                    <div class="location-line"><span class="glyphicon glyphicon-map-marker bullet"></span>Mounds View Community Center</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="second-prize" class="second-third-prizes-wrapper">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-12">
-                <p class="sub-title">3 month of Membership</p>
-                  <select class="form-select form-control text">
-                    <option>White Bear Area</option>
-                    <option>White Bear Area</option>
-                    <option>White Bear Area</option>
-                  </select>
-                </div>
-                <div class="col-sm-6">
-                  <table class="results-table">
-                    <tbody>
-                      <tr class="odd">
-                        <td>1.</td>
-                        <td class="name">Amelia C.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>2.</td>
-                        <td class="name">Angela b.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>3.</td>
-                        <td class="name">Barry w.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>4.</td>
-                        <td class="name">Bernard g.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>5.</td>
-                        <td class="name">Catherine h.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>6.</td>
-                        <td class="name">Christie a.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>7.</td>
-                        <td class="name">Christopher p.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>8.</td>
-                        <td class="name">Cristina v.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>9.</td>
-                        <td class="name">Dustin s.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>10.</td>
-                        <td class="name">Eloise c.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>11.</td>
-                        <td class="name">Emmett b.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>12.</td>
-                        <td class="name">Eric j.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>13.</td>
-                        <td class="name">Erik v.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>14.</td>
-                        <td class="name">Ernesto w.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>15.</td>
-                        <td class="name">Esther w.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>16.</td>
-                        <td class="name">Evan	p.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>17.</td>
-                        <td class="name">Faye	B.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>18.</td>
-                        <td class="name">Gregg M.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="odd">
-                        <td>19.</td>
-                        <td class="name">Jaime f.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                      <tr class="even">
-                        <td>20.</td>
-                        <td class="name">Janet c.</td>
-                        <td>ID: ******** 0021</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-sm-6">
-                  <table class="results-table">
-                    <tbody>
-                    <tr class="odd">
-                      <td>21.</td>
-                      <td class="name">Jared	Day</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>22.</td>
-                      <td class="name">Jody	Hudson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>23.</td>
-                      <td class="name">Juan	Pearson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>24.</td>
-                      <td class="name">Judith	Salazar</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>25.</td>
-                      <td class="name">Kelly	Norman</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>26.</td>
-                      <td class="name">Kurt	Stephens</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>27.</td>
-                      <td class="name">Lucille	Keller</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>28.</td>
-                      <td class="name">Marie	Boyd</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>29.</td>
-                      <td class="name">Mindy	Reeves</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>30.</td>
-                      <td class="name">Miriam	Lyons</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>31.</td>
-                      <td class="name">Otis	Bennett</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>32.</td>
-                      <td class="name">Robin	Jackson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>33.</td>
-                      <td class="name">Roxanne	Curtis</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>34.</td>
-                      <td class="name">Samantha	Williams</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>35.</td>
-                      <td class="name">Samuel	Sharp</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>36.</td>
-                      <td class="name">Travis	Parsons</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>37.</td>
-                      <td class="name">Vicki	Brock</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>38.</td>
-                      <td class="name">Wade	Parker</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>39.</td>
-                      <td class="name">Wanda	Mccarthy</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>40.</td>
-                      <td class="name">Wilson	Johnson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="third-prize" class="second-third-prizes-wrapper">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-12">
-                  <p class="sub-title">3 months of towel service</p>
-                  <select class="form-select form-control text">
-                    <option>White Bear Area</option>
-                    <option>White Bear Area</option>
-                    <option>White Bear Area</option>
-                  </select>
-                </div>
-                <div class="col-sm-6">
-                  <table class="results-table">
-                    <tbody>
-                    <tr class="odd">
-                      <td>1.</td>
-                      <td class="name">Amelia C.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>2.</td>
-                      <td class="name">Angela b.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>3.</td>
-                      <td class="name">Barry w.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>4.</td>
-                      <td class="name">Bernard g.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>5.</td>
-                      <td class="name">Catherine h.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>6.</td>
-                      <td class="name">Christie a.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>7.</td>
-                      <td class="name">Christopher p.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>8.</td>
-                      <td class="name">Cristina v.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>9.</td>
-                      <td class="name">Dustin s.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>10.</td>
-                      <td class="name">Eloise c.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>11.</td>
-                      <td class="name">Emmett b.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>12.</td>
-                      <td class="name">Eric j.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>13.</td>
-                      <td class="name">Erik v.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>14.</td>
-                      <td class="name">Ernesto w.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>15.</td>
-                      <td class="name">Esther w.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>16.</td>
-                      <td class="name">Evan	p.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>17.</td>
-                      <td class="name">Faye	B.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>18.</td>
-                      <td class="name">Gregg M.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>19.</td>
-                      <td class="name">Jaime f.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>20.</td>
-                      <td class="name">Janet c.</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-sm-6">
-                  <table class="results-table">
-                    <tbody>
-                    <tr class="odd">
-                      <td>21.</td>
-                      <td class="name">Jared	Day</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>22.</td>
-                      <td class="name">Jody	Hudson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>23.</td>
-                      <td class="name">Juan	Pearson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>24.</td>
-                      <td class="name">Judith	Salazar</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>25.</td>
-                      <td class="name">Kelly	Norman</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>26.</td>
-                      <td class="name">Kurt	Stephens</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>27.</td>
-                      <td class="name">Lucille	Keller</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>28.</td>
-                      <td class="name">Marie	Boyd</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>29.</td>
-                      <td class="name">Mindy	Reeves</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>30.</td>
-                      <td class="name">Miriam	Lyons</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>31.</td>
-                      <td class="name">Otis	Bennett</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>32.</td>
-                      <td class="name">Robin	Jackson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>33.</td>
-                      <td class="name">Roxanne	Curtis</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>34.</td>
-                      <td class="name">Samantha	Williams</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>35.</td>
-                      <td class="name">Samuel	Sharp</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>36.</td>
-                      <td class="name">Travis	Parsons</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>37.</td>
-                      <td class="name">Vicki	Brock</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>38.</td>
-                      <td class="name">Wade	Parker</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="odd">
-                      <td>39.</td>
-                      <td class="name">Wanda	Mccarthy</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    <tr class="even">
-                      <td>40.</td>
-                      <td class="name">Wilson	Johnson</td>
-                      <td>ID: ******** 0021</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          {#<iframe class="ymca-retention-iframe" src="http://162.243.112.9/demo/membership/set/code/" frameborder="0" scrolling="no"></iframe>#}
-        </div>
-    </section>
-  </div>
-
-  <!--googleoff: index-->
-  <footer id="page-footer" class="page-footer">
-    <div class="container">
-
-      {% if page.footer %}
-        {{ page.footer }}
-      {% endif %}
-
-
-      <div class="col-sm-3 text-center">
-
-        {% include "@ymca/brand-link.html.twig" %}
-
-      </div>
-
-      <nav class="col-sm-6">
-        <nav class="nav-footer row">
-          {{ page.footer_menu }}
-        </nav>
-      </nav>
-      <div class="col-sm-3 social-disclaimer">
-        {{ page.footer_social }}
-        <p id="cw"></p>
-      </div>
+    <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a>
     </div>
-  </footer>
 
-  <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
+    {{ page.messages }}
 
-  {{ page.messages }}
-
-  <!--googleon: index-->
+    <!--googleon: index-->
 </div>
 
 <!-- viewport -->
 <div id="modal" class="modal fade">
-  <div class="modal-cover"></div>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
-        <div id="modal-title" class="modal-title"></div>
-      </div>
-      <div id="modal-body" class="modal-body"></div>
+    <div class="modal-cover"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+                <div id="modal-title" class="modal-title"></div>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
     </div>
-  </div>
 </div>
 
 {{ source("@ymca/template-scripts.html") }}
