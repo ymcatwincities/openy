@@ -57,7 +57,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
       }
     }
 
-    /** First Prize */
+    /* First Prize */
     if (!empty($list->first_prize)) {
       foreach ($list->first_prize as $item) {
         $winners['first_prize'][] = [
