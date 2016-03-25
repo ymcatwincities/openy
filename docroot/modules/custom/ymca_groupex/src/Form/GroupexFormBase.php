@@ -73,7 +73,7 @@ abstract class GroupexFormBase extends FormBase {
         'day' => $this->t('Day'),
         'week' => $this->t('Week'),
       ],
-      '#default_value' => $refine ? $params['filter_length'] : 'day',
+      '#default_value' => $refine && !empty($params['filter_length']) ? $params['filter_length'] : 'day',
       '#title' => $this->t('View Day or Week'),
     ];
 
