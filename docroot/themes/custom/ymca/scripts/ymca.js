@@ -141,5 +141,5 @@
       });
       $('select', $wrap).trigger('change');
     }
-  }
+  };
 })(jQuery);
