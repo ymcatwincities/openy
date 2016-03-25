@@ -5,9 +5,10 @@
  * Contains ymca_alters.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
@@ -73,6 +74,9 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
     $form['field_membership_block']['#suffix'] = render($link);
   }
   if ($form_id == 'entity_embed_dialog') {
+    if (empty($form['attributes']['data-embed-button'])) {
+      return;
+    }
     if ($form['attributes']['data-embed-button']['#value'] == 'menu_link') {
       $storage = $form_state->getStorage();
       $form['attributes']['data-button'] = array(
@@ -177,6 +181,23 @@ function ymca_alters_user_login($account) {
 function ymca_alters_user_logout($account) {
   if (isset($_COOKIE['ah_app_server']) && PHP_SAPI !== 'cli') {
     setcookie('ah_app_server', '', 0, '/');
+  }
+}
+
+/**
+ * Implements hook_tokens_alter().
+ */
+function ymca_alters_tokens_alter(
+  array &$replacements,
+  array $context,
+  BubbleableMetadata $bubbleable_metadata
+) {
+  $tokens = $context['tokens'];
+  foreach ($tokens as $token_raw => $token_name) {
+    if (!isset($replacements[$token_name])) {
+      // Replace empty token with empty string for not letting its name instead.
+      $replacements[$token_name] = '';
+    }
   }
 }
 
