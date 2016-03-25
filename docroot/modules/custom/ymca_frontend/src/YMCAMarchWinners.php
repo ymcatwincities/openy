@@ -5,8 +5,7 @@ namespace Drupal\ymca_frontend;
 use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
- * Interface YMCAMarchWinnersInterface
- *
+ * Interface YMCAMarchWinnersInterface.
  */
 class YMCAMarchWinners implements YMCAMarchWinnersInterface {
 
@@ -28,13 +27,13 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
   }
 
   /**
-   * Get winners.
+   * {@inheritdoc}
    */
   public function getWinners() {
     $cache_key = 'ymca_march_winners';
     $cache = $this->cache->get($cache_key);
     if ($cache) {
-      //      return $cache->data;
+      return $cache->data;
     }
 
     $winners = [
@@ -47,7 +46,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
     $json = file_get_contents(drupal_get_path('module', 'ymca_frontend') . '/files/winners.json');
     $list = json_decode($json);
 
-    /** Grand prize. */
+    /* Grand prize. */
     if (!empty($list->grand_prize)) {
       foreach ($list->grand_prize as $item) {
         $winners['grand_prize'][] = [
@@ -72,7 +71,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
     // Get list of locations.
     $locations = $this->getLocations();
 
-    /** Second Prize */
+    /* Second Prize */
     if (!empty($list->second_prize)) {
       $sub_locations = [];
       $location_winners = [];
@@ -90,7 +89,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
       $winners['second_prize']['winners'] = $location_winners;
     }
 
-    /** Third prize */
+    /* Third prize */
     if (!empty($list->third_prize)) {
       $sub_locations = [];
       $location_winners = [];
@@ -120,6 +119,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
    *   Information about winner.
    *
    * @return string
+   *   Winner name.
    */
   public function getWinnerName(\stdClass $item) {
     $name = '';
@@ -142,6 +142,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
    *   Information about winner.
    *
    * @return string
+   *   Winner id.
    */
   public function getWinnerId(\stdClass $item) {
 
@@ -155,6 +156,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
    *   Information about winner.
    *
    * @return string
+   *   Location name.
    */
   public function getWinnerLocation(\stdClass $item) {
     // Get list of locations.
@@ -166,6 +168,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
    * Get list of locations.
    *
    * @return array
+   *   List of locations.
    */
   public function getLocations() {
     static $locations;
@@ -182,4 +185,5 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
     }
     return $locations;
   }
+
 }
