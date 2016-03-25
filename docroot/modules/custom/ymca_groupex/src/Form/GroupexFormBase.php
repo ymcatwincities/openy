@@ -44,7 +44,7 @@ abstract class GroupexFormBase extends FormBase {
       '#options' => ['any' => $this->t('(all)')] + $refined_options,
       '#title' => $this->t('Class Name'),
       '#title_extra' => $this->t('(optional)'),
-      '#default_value' => $refine ? $params['class'] : [],
+      '#default_value' => $refine && !empty($params['class']) ? $params['class'] : [],
     ];
 
     $form['category'] = [
