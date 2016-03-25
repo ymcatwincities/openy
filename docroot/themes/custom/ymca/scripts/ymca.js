@@ -130,7 +130,7 @@
   Drupal.behaviors.ymca_march_winners = {
     attach: function (context, settings) {
       var $wrap = $('#prizes', context);
-      if ($wrap.length == 0) {
+      if ($wrap.length === 0) {
         return false;
       }
       $('select', $wrap).on('change', function () {
