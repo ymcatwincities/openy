@@ -46,7 +46,7 @@ class YmcaMainMenuConfigForm implements FormInterface {
       if ($key === 'o' || !$item) {
         continue;
       }
-      $lookup = $menu_tree->lookup[$key];
+      $lookup = isset($menu_tree->lookup[$key]) ? $menu_tree->lookup[$key] : NULL;
       // Skip disabled menu items.
       if (!$lookup || !empty($lookup['x'])) {
         continue;
