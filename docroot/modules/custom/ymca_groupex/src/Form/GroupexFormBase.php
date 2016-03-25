@@ -52,7 +52,7 @@ abstract class GroupexFormBase extends FormBase {
       '#options' => ['any' => $this->t('(all)')] + $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name'),
       '#title' => $this->t('Category'),
       '#title_extra' => $this->t('(optional)'),
-      '#default_value' => $refine ? $params['category'] : [],
+      '#default_value' => $refine && !empty($params['category']) ? $params['category'] : [],
     ];
 
     $form['time_of_day'] = [
