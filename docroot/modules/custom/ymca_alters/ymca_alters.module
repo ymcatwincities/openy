@@ -6,11 +6,13 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_help().
@@ -223,26 +225,38 @@ function ymca_alters_shield_config_alter(&$config_name) {
 }
 
 /**
-* Implements hook_entity_view_alter().
-*
-* @see https://github.com/enjoyiacm/unset_html_head_link/blob/master/unset_html_head_link.module
-*/
-function ymca_alters_entity_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+ * Implements hook_entity_view_alter().
+ *
+ * @see https://github.com/enjoyiacm/unset_html_head_link/blob/master/unset_html_head_link.module
+ */
+function ymca_alters_entity_view_alter(
+  array &$build,
+  EntityInterface $entity,
+  EntityViewDisplayInterface $display
+) {
   // Cheking view_mode for node.
-  if ($build['#view_mode'] === 'full' && $entity Instanceof \Drupal\node\NodeInterface) {
+  if ($build['#view_mode'] === 'full' && $entity instanceof NodeInterface) {
     // Cheking html_head_link on attached tags in head.
-    if (!isset($build['#attached']['html_head_link'])) return;
-    // Array to unset.
-    // Also, you may unset any head links you want (like rel="canonical" or rel="shortlink").
-    $unset_html_head_link = [      
+    if (!isset($build['#attached']['html_head_link'])) {
+      return;
+    }
+    $unset_html_head_link = [
       'delete-form',
       'edit-form',
       'version-history',
-      'revision'
+      'revision',
+      'devel-render',
+      'devel-load',
+      'token-devel'
     ];
-    // Unset loop.
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
-      if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) unset($build['#attached']['html_head_link'][$key]);
+      if (isset($value[0]['rel']) && in_array(
+          $value[0]['rel'],
+          $unset_html_head_link
+        )
+      ) {
+        unset($build['#attached']['html_head_link'][$key]);
+      }
     }
   }
 }
