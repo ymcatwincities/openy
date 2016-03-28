@@ -127,6 +127,33 @@
   /**
    * March winners.
    */
+  Drupal.behaviors.ymca_march = {
+    attach: function (context, settings) {
+      if ($('#quiz').length > 0 || $('#march-rules').length > 0) {
+        $('#sidebar:eq(0)').remove();
+        $('.navbar-toggle').click(function () {
+          var menu = '<li><li><a href="'+ drupalSettings.path.baseUrl + 'march#prizes">Prizes</a></li><li><a href="'+ drupalSettings.path.baseUrl + 'march#quiz">YMCA Quiz</a></li><li><a href="'+ drupalSettings.path.baseUrl + 'march/rules">Detailed Rules</a></li>';
+          $('#sidebar-nav .nav.dropdown-menu').html(menu);
+        });
+
+        // QUIZ show.
+        $('#quiz .button').click(function (e) {
+          e.preventDefault();
+          $('#quiz').hide();
+          $('#quiz-questions').show();
+        });
+        $('#quiz-questions').hide();
+
+        $('#quiz-frame').load(function () {
+          $('#quiz-frame').iFrameResize({checkOrigin: false, heightCalculationMethod: 'lowestElement'});
+        });
+      }
+    }
+  };
+
+  /**
+   * March winners.
+   */
   Drupal.behaviors.ymca_march_winners = {
     attach: function (context, settings) {
       var $wrap = $('#prizes', context);
