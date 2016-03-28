@@ -7738,6 +7738,10 @@ ul.linklist {
   padding-left: 0;
 }
 
+.google-maps iframe {
+  width: 100% !important;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
