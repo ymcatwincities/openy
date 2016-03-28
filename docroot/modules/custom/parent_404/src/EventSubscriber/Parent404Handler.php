@@ -32,12 +32,13 @@ class Parent404Handler extends HttpExceptionSubscriberBase {
    *   Event.
    */
   public function on404(GetResponseForExceptionEvent $event) {
-    $request_path = $event->getRequest()->getPathInfo();
+    $request = $event->getRequest();
+    $request_path = $request->getPathInfo();
     $items = explode('/', $request_path);
     $dir = $items[1];
     $to_direct = ['blog', 'news'];
     if (in_array($dir, $to_direct)) {
-      $redirect = new RedirectResponse('/' . $dir, 303);
+      $redirect = new RedirectResponse($request->getBaseUrl() . '/' . $dir, 303);
       $event->setResponse($redirect);
     }
   }
