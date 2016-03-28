@@ -224,6 +224,7 @@ function ymca_alters_shield_config_alter(&$config_name) {
 
 /**
 * Implements hook_entity_view_alter().
+* @see https://github.com/enjoyiacm/unset_html_head_link/blob/master/unset_html_head_link.module
 */
 function ymca_alters_entity_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
   // Cheking view_mode for node.
