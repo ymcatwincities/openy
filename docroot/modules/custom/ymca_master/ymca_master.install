@@ -1620,3 +1620,89 @@ function ymca_master_update_8054() {
 function ymca_master_update_8055() {
   \Drupal::service('module_installer')->install(['parent_404'], TRUE);
 }
+
+/**
+ * Fix non-replaced /_asset/ links.
+ */
+function ymca_master_update_8056() {
+  $entity_type_id = 'node';
+  $db = Database::getConnection('default');
+  $storage = \Drupal::service('entity.manager')->getStorage($entity_type_id);
+
+  $tables = [
+    'node__field_content',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  foreach ($tables as $table) {
+    $field = str_replace($entity_type_id . '__', '', $table);
+    $col = $field . '_value';
+
+    $result = $db->select($table, 'c')
+      ->fields('c', ['entity_id', $col])
+      ->condition($col, '%' . $db->escapeLike('/_asset/') . '%', 'LIKE')
+      ->execute();
+
+    foreach ($result as $item) {
+      $replace = [];
+
+      if (!$entity = $storage->load($item->entity_id)) {
+        continue;
+      }
+
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $subject = $entity->$field->value;
+      preg_match_all("/\/_asset\/\w{6}\/(?:[^.]*.\w{3,4})/", $subject, $test);
+      if (empty($test) || empty($test[0])) {
+        continue;
+      }
+
+      foreach ($test[0] as $index => $matched) {
+        $parts = explode('/', $matched);
+        $filename = array_pop($parts);
+
+        // Check whether the file exists...
+        $test_file = \Drupal::entityQuery('file')
+          ->condition('filename', $filename)
+          ->execute();
+
+        if (!$test_file) {
+          \Drupal::logger('ymca_master')->notice(
+            'File not found while replacing non-migrated /_asset/ links in %entity_type_id %entity_id.',
+            [
+              '%entity_type_id' => $entity_type_id,
+              '%entity_id' => $entity->id(),
+            ]
+          );
+          continue;
+        }
+
+        $replace['from'][] = $test[0][$index];
+        $replace['to'][] = '/sites/default/files/' . $filename;
+      }
+
+      if (empty($replace)) {
+        continue;
+      }
+
+      $entity->set($field, [
+        'value' => str_replace($replace['from'], $replace['to'], $subject),
+        'format' => $entity->$field->format,
+      ]);
+
+      $entity->save();
+
+      \Drupal::logger('ymca_master')->info(
+        'Replaced non-migrate asset links in %entity_type_id %entity_id.',
+        [
+          '%entity_type_id' => $entity_type_id,
+          '%entity_id' => $entity->id(),
+        ]
+      );
+    }
+  }
+}
