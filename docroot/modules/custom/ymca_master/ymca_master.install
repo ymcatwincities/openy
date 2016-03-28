@@ -1613,3 +1613,10 @@ function ymca_master_update_8054() {
     'sites/default/config/staging/metatag.metatag_defaults.node.yml',
   ]);
 }
+
+/**
+ * Install parent_404 module.
+ */
+function ymca_master_update_8055() {
+  \Drupal::service('module_installer')->install(['parent_404'], TRUE);
+}
