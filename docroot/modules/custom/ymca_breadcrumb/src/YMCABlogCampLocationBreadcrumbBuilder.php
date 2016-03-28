@@ -79,7 +79,7 @@ class YMCABlogCampLocationBreadcrumbBuilder extends PathBasedBreadcrumbBuilder i
     if (!$context) {
       return FALSE;
     }
-    if ($context->bundle() == 'location' || $context->bundle() == 'camp')) {
+    if ($context->bundle() == 'location' || $context->bundle() == 'camp') {
       return TRUE;
     }
 
