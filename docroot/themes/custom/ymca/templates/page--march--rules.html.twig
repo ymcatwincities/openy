@@ -636,20 +636,20 @@
                 </nav><div id="top"></div>
                 <div id="sidebar" class="sidebar sidebar-left collapse width">
                     <ul id="sidebar-nav" class="nav-level-0 nav in"><li class="dropdown back-to-full-menu nav-level-1 open active">
-                            <ul class="nav dropdown-menu"><li><a href="/">BACK TO YMCA TWIN CITIES</a></li>
-                                <li><a href="{{ base_path }}#prizes">Prizes</a></li>
-                                <li><a href="{{ base_path }}#quiz">YMCA Quiz</a></li>
-                                <li><a href="{{ base_path }}march/rules">Detailed Rules</a></li>
+                            <ul class="nav dropdown-menu"><li><a href="{{ base_path }}">BACK TO YMCA TWIN CITIES</a></li>
+                                <li><a href="{{ base_path }}march#prizes">Prizes</a></li>
+                                <li><a href="{{ base_path }}march#quiz">YMCA Quiz</a></li>
+                                <li><a href="#">Detailed Rules</a></li>
                             </ul></li>
                     </ul>
                 </div>
-                <!-- TOP BAR --><nav id="top-nav"><a href="/" class="back-link">
+                <!-- TOP BAR --><nav id="top-nav"><a href="{{ base_path }}" class="back-link">
                         <span class="glyphicon glyphicon-arrow-left"></span>BACK TO YMCA TWIN CITIES
                     </a>
                     <ul>
-                        <li><a href="#prizes">Prizes</a></li>
-                        <li><a href="#quiz">YMCA Quiz</a></li>
-                        <li><a href="{{ base_path }}march/rules">Detailed Rules</a></li>
+                        <li><a href="{{ base_path }}march#prizes">Prizes</a></li>
+                        <li><a href="{{ base_path }}march#quiz">YMCA Quiz</a></li>
+                        <li><a href="#">Detailed Rules</a></li>
                     </ul></nav>
                 <!-- HERO SECTION -->
                 <div id="hero-section">
@@ -659,104 +659,54 @@
                         <h1>UP YOUR GAME!</h1>
                     </div>
                 </div>
-                <!-- DESCRIPTION SECTION -->
-                <div id="main-description">
-                    <div class="row">
-                        <div class="container">
-                            <div class="col-sm-4">
-                                <div class="wrap">
-                                    <img src="{{ path_to_img_march }}retention_ico1.png" alt="Join the team" />
-                                </div>
-                                <h2>Join the team</h2>
-                                <p>Ready to start?<br />
-                                    Just enter your facility access ID<br /> in the form below.<br />
-                                    You are in the game now.
-                                </p>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="wrap">
-                                    <img src="{{ path_to_img_march }}retention_ico2.png" alt="Take your shot" />
-                                </div>
-                                <h2>Take your shot</h2>
-                                <p>Each time you visit the YMCA you<br /> receive one entry to the<br /> game. More visits equal to more<br /> chances to win. </p>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="wrap">
-                                    <img src="{{ path_to_img_march }}retention_ico3.png" alt="Score and win" />
-                                </div>
-                                <h2>Score and win</h2>
-                                <p>More entries means more chances to win, see list of prizes below.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- PRIZES SECTION-->
-                <div id="prizes">
-                    <div class="container grand-prize">
-                        <div class="wrapper">
-                            <h2>GRAND PRIZE</h2>
-                            <p>4 suite tickets <br />
-                                to the April 3rd Game
-                            </p>
-                            <div class="team col-sm-6">
-                                <div class="inner">
-                                    <p>Minnesota</p>
-                                    <p>Timberwolves</p>
-                                </div>
-                            </div>
-                            <div class="team col-sm-6">
-                                <div class="inner purple">
-                                    <p>Dallas</p>
-                                    <p>Mavericks</p>
-                                </div>
-                            </div>
-                            <div class="winners">
-                                <span>x 4 winners</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container first-prize">
-                        <div class="col-sm-6">
-                            <img src="{{ path_to_img_march }}first_prize_1.png" alt="" />
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="{{ path_to_img_march }}first_prize_2.png" alt="" />
-                        </div>
-                    </div>
-                    <div class="container second-prize">
-                        <div class="col-sm-6">
-                            <img src="{{ path_to_img_march }}second_prize_1.png" alt="" />
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="{{ path_to_img_march }}second_prize_2.png" alt="" />
-                        </div>
-                    </div>
-                </div>
-                <div id="guaranteed-prizes">
+                <div id="march-rules" class="row">
                     <div class="container">
-                        <h2>Guaranteed prize</h2>
-                        <img src="{{ path_to_img_march }}guaranteed_prize.png" alt="Guaranteed prize" />
-                        <p>When you visit any of the Y branches <span>8 or more times</span> during the promotion</p>
-                    </div>
-                </div>
-                <!-- QUIZ SECTION-->
-                <div id="quiz">
-                    <div class="container">
-                        <h2>Did you know?</h2>
-                        <p>That basketball was invented in 1891 in Springfield, Massachusetts by YMCA instructor <span>James Naismith</span>.
-                            At first it consisted of peach baskets and a soccer style ball. The YMCA had a major role in spreading
-                            basketball throughout the United States, Canada, and the world.
-                            Eventually it grew to a multi-billion dollar enterprise by the end of the century</p>
-                    </div>
-                    <div class="container">
-                        <a class="button btn btn-lg" href="/">TAKE THE QUIZ FOR A BONUS ENTRY</a>
-                        <span class="star">WIN BONUS ENTRY</span>
-                    </div>
-                </div>
-                <!-- QUIZ SECTION-->
-                <div id="quiz-questions">
-                    <div class="container">
-                        <iframe id="quiz-frame" class="ymca-retention-iframe" src="http://162.243.112.9/demo/membership/quiz/" frameborder="0" scrolling="no"></iframe>
+                        <div class="col-sm-12">
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <h2>Registration and Eligibility</h2>
+                            <p> </p>
+                            <p>Promotion is open to all members who register on ymcatwincities.org/march.  Member must have a valid/active membership to the YMCA of Greater Twin Cities (The Y) prior to end of day Sunday, March 27, 2016 to be eligible for participation.</p>
+                            <p>Member must enter their facility access id on the website to enter.</p>
+
+                            <p>No promotional fees or purchase required.</p>
+
+                            <p>Employees and immediate family members of The YMCA of Greater Twin Cities are not eligible for this promotion. </p>
+
+                            <p> </p>
+                            <h2>Prizes</h2>
+                            <p> </p>
+                            <p>2 types of prizes will be awarded, threshold achievement and game of chance.</p>
+                            <p> </p>
+                            <p><strong>Component 1: Threshold Achievement</strong></p>
+                            <p>Participants are eligible to receive 4 guest passes for visiting the Y eight (8) or more days during the promotion.</p>
+                            <p>Guest pass awards will be added to the member’s account within fourteen (14) days of the promotion close.</p>
+                            <p> </p>
+                            <p><strong>Component 2: Game of Chance</strong></p>
+                            <p>Participants are also eligible for a chance to win a prize.  Entries are assigned based on three criteria:</p>
+                            <p>Visit the Y.  Earn an entry (automatically) for visiting the Y. Limit one entry per day, per branch, per visit. Entries will not be accepted if multiple entries are received within the same day.</p>
+                            <p>Take a Quiz. Visit the promotional microsite, and complete the online quiz to earn a bonus entry (automatically). Limit one bonus per promotion for taking a quiz. Entries will not be accepted if multiple quiz entries are received within the same promotional period.</p>
+                            <p>Participate in Branch.  Visit your local Y, complete the designated in-branch activity to earn a bonus entry code.  Participants must add the bonus entry code to their promotional account to receive a bonus entry. Branches will have optional activities for participation. Contact your local branch for the rules regarding the activity.  Limit one bonus entry per day, per branch for customized branch activity. Entries will not be accepted if multiple entries are received within the same day.</p>
+                            <p>Prize winners will be selected and notified within fourteen (14) days of the promotion close.</p>
+                            <p>Winners are limited to one prize per branch per promotion. </p>
+                            <p>Grand prizes and first prizes are based on YMCA association wide entries. Second prizes and third prizes are based on YMCA branch entries. </p>
+                            <p>The YMCA Association will award four(4) grand prize winners and two (2) first prize winners based on all entries received.</p>
+                            <p>Each branch will award forty(40) second prize winners and fifteen (15) third prize winners per promotion.</p>
+                            <p>Promotion run <strong>Monday, March 7, 2016</strong> through <strong>Sunday, March 27, 2016</strong>. Closing date for entry will be the final day of the promotion at 11:59pm Central Time. After this time, no further entries to the promotion will be permitted. </p>
+                            <p>Winner’s names will be posted online after the promotion has been completed.</p>
+                            <p>Winners will be notified by phone within fourteen  (14) days of the announcement if prize has not already been claimed. If the winner cannot be contacted or does not claim prize within fourteen (14) days of notification, we reserve the right to withdraw the prize from the winner and pick a replacement winner.  </p>
+                            <p> </p>
+                            <p>
+                            </p><h2>General</h2>
+                            <p></p>
+                            <p>No responsibility can be accepted for entries not received for whatever reason.</p>
+                            <p>The YMCA of the Greater Twin Cities reserves the right to cancel or amend the promotion and these terms and conditions without notice. </p>
+                            <p>No substitution or cash alternative to the prizes will be offered. The prizes are not transferable; youth under the age of 18 can transfer their prize to a parent/guardian who is a member of the Y. </p>
+                            <p>This promotion is in no way sponsored, endorsed or administered by, or associated with the Timberwolves. You are providing your information to the YMCA of the Greater Twin Cities and not to any other party. </p>
+                            <p>Registration into the promotion will be deemed as acceptance of these terms and conditions.</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                        </div>
                     </div>
                 </div>
             </div>
