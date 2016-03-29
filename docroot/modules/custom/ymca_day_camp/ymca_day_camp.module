@@ -45,7 +45,7 @@ function ymca_day_camp_form_alter(&$form, FormStateInterface $form_state, $form_
     if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
-    if ($node->hasField('field_related_camps_locations')) {
+    if (isset($node) && $node->hasField('field_related_camps_locations')) {
       $field = $node->get('field_related_camps_locations');
       if ($field->isEmpty() === FALSE) {
         $default = TRUE;
