@@ -52,7 +52,7 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
 
-    if ($node instanceof NodeInterface) {
+    if (isset($node) && $node instanceof NodeInterface) {
       $bundle = $node->bundle();
       switch ($bundle) {
         case 'article':
