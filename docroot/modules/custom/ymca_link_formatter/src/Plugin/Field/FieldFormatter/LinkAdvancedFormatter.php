@@ -21,6 +21,7 @@ use Drupal\link\Plugin\Field\FieldFormatter\LinkFormatter;
  * )
  */
 class LinkAdvancedFormatter extends LinkFormatter {
+
   /**
    * {@inheritdoc}
    */

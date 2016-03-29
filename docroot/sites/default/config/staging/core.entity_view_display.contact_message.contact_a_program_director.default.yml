@@ -4,7 +4,16 @@ status: true
 dependencies:
   config:
     - contact.form.contact_a_program_director
+    - field.field.contact_message.contact_a_program_director.field_comments
+    - field.field.contact_message.contact_a_program_director.field_contact_method
+    - field.field.contact_message.contact_a_program_director.field_email_address
     - field.field.contact_message.contact_a_program_director.field_first_name
+    - field.field.contact_message.contact_a_program_director.field_label
+    - field.field.contact_message.contact_a_program_director.field_last_name
+    - field.field.contact_message.contact_a_program_director.field_phone_number
+    - field.field.contact_message.contact_a_program_director.field_y_location_email
+  module:
+    - webforms
 id: contact_message.contact_a_program_director.default
 targetEntityType: contact_message
 bundle: contact_a_program_director
@@ -17,6 +26,19 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_label:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: webform_markup_formatter
+  field_y_location_email:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: options_emails_formatter
   message:
     type: string
     weight: 0
@@ -24,4 +46,9 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_comments: true
+  field_contact_method: true
+  field_email_address: true
+  field_last_name: true
+  field_phone_number: true

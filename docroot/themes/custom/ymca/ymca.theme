@@ -13,7 +13,8 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Path;
-
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_preprocess_block() for block content.
@@ -207,82 +208,14 @@ function ymca_preprocess_node(&$variables) {
 
   // Location specific preprocessing.
   if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
-    // Camps may also output special day_camp blog posts.
-
-    $nids = [];
-
-    try {
-      if ($variables['node']->bundle() == 'location') {
-        // Load referenced ids to current location.
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->condition('field_site_section.target_id', $variables['node']->id())
-          ->condition('status', 1)
-          ->sort('created', 'DESC')
-          ->range(0, 2);
-        $nids = $query->execute();
-      }
-      else {
-        // Day camp news have the highest priority.
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->condition('status', 1)
-          ->condition('field_related_camps_locations.target_id', $variables['node']->id())
-          ->sort('created', 'DESC')
-          ->range(0, 2);
-        $nids = $query->execute();
-
-        if (count($nids) < 2) {
-          $query = \Drupal::entityQuery('node')
-            ->condition('type', 'blog')
-            ->condition('status', 1)
-            ->condition('field_site_section.target_id', $variables['node']->id())
-            ->sort('created', 'DESC')
-            ->range(0, 2 - count($nids));
-          $nids = $query->execute();
-        }
-      }
-
-      // Extend by 1 or load 2 general Blog Posts if "Include General Blog Post" is checked.
-      if (count($nids) < 2 && $variables['node']->field_include_general_blog_posts->value) {
-        // Load all ids of Blog Post CT that are not related to any site section.
-        $query = \Drupal::entityQuery('node')
-          ->condition('type', 'blog')
-          ->notExists('field_site_section')
-          ->condition('status', 1)
-          ->sort('created', 'DESC')
-          ->range(0, 2 - count($nids));
-        $all_nids = $query->execute();
-        // Append general blog posts ids to already fetched nids.
-        foreach ($all_nids as $nid) {
-          $nids[] = $nid;
-        }
-      }
-    }
-    catch (Exception $e) {
-      watchdog_exception('theme', $e);
-    }
-
-    $items = [];
-    // Load nodes and build output array.
-    $nodes = entity_load_multiple('node', $nids);
-    foreach ($nodes as $nid => $n) {
-      $node_url = Drupal\Core\Url::fromUri('entity:node/' . $nid);
-      $items[] = array(
-        'title' => new \Drupal\Core\Link($n->getTitle(), $node_url),
-        'text' =>  Unicode::truncate($n->field_summary->value, 180, TRUE, FALSE),
-        'read_more_url' => $node_url,
-      );
-    }
-    $variables['news_events'] = $items;
-
     // Add facebook ID to the template.
     $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
     // Add membership block flag.
     if ($variables['node']->hasField('field_membership_block')) {
       $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
       // Display Location Membership block.
-      $block = \Drupal::entityTypeManager()->getStorage('block_content')->load(MEMBERSHIP_BLOCK_ID);
+      $membership_block_id = \Drupal::config('ymca_alters.config')->get('membership_block_id');
+      $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($membership_block_id);
       if (!is_null($block)) {
         $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
         $variables['membership_block'] = $view_builder->view($block);
@@ -304,6 +237,14 @@ function ymca_preprocess_node(&$variables) {
     }
     $variables['back_link_title'] = $back_link_title;
     $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
+    // Preprocessing for day camp news.
+    $variables['is_day_camp_news'] = FALSE;
+    if ($variables['node']->hasField('field_related_camps_locations')) {
+      $day_camp = $variables['node']->get('field_related_camps_locations');
+      if (!$day_camp->isEmpty()) {
+        $variables['is_day_camp_news'] = TRUE;
+      }
+    }
   }
 
   $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
@@ -744,7 +685,8 @@ function ymca_preprocess_input(&$variables) {
   $element = $variables['element'];
   $variables['children'] = $element['#children'];
 
-  if ($element['#type'] == 'textfield' || $element['#type'] == 'tel' || $element['#type'] == 'password') {
+  $types = array('url', 'textfield', 'tel', 'password');
+  if (in_array($element['#type'], $types)) {
     $classes = array(
       'form-control',
       'text',
@@ -767,6 +709,11 @@ function ymca_preprocess_input(&$variables) {
       'text',
       'email',
     );
+  }
+  // HTML5 validation for telephone number.
+  if ($element['#type'] == 'tel') {
+    $variables['attributes']['pattern'] = '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$';
+    $variables['attributes']['title'] = t('Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890');
   }
   if (isset($classes)) {
     $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
@@ -828,15 +775,51 @@ function ymca_preprocess_select(&$variables) {
 
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
+
+  // Sort location options.
+  if (in_array('option_emails', $variables['element']['#parents'])) {
+    $options = $variables['options'];
+    // Remove empty option from array, due to sort reason.
+    $empty_option = $options[0];
+    unset($options[0]);
+    // Sort options array by location's label.
+    $sort = array();
+    foreach ($options as $key => $row) {
+      $sort[$key] = $row['label'];
+    }
+    array_multisort($sort, SORT_ASC, $options);
+    // Pass back empty option on first position.
+    array_unshift($options, $empty_option);
+    // Finally pass back sorted options array.
+    $variables['options'] = $options;
+  }
 }
 
 /**
  * Implements hook_preprocess_form_element().
  */
 function ymca_preprocess_form_element(&$variables) {
-  if (!empty($variables['element']['#title_extra'])) {
-    $variables['label']['#title_extra'] = $variables['element']['#title_extra'];
+  $element = $variables['element'];
+  if (!empty($element['#title_extra'])) {
+    $variables['label']['#title_extra'] = $element['#title_extra'];
   }
+  // Prepare address field.
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line1') {
+     $variables['label']['#title'] = t('Address 1');
+  }
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line2') {
+    $variables['label']['#title_display'] = $variables['label_display'] = $variables['title_display'] = 'before';
+    $variables['label']['#title'] = t('Address 2 <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level2') {
+    $variables['label']['#title'] = t('City <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level1') {
+    $variables['label']['#title'] = t('State <small>(optional) </small>');
+    $element['#options'][''] = t('Select State or Province');
+    $element['#empty_option'] = t('Select State or Province');
+  }
+  $variables['element'] = $element;
 }
 
 /**
@@ -1054,4 +1037,59 @@ function ymca_prerender_datetime($element) {
   }
   $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
   return $element;
+}
+
+/**
+ * Implements MYTHEME_page_attachments_alter().
+ */
+function ymca_page_attachments_alter(array &$page) {
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $site_section_bundle = $site_section->bundle();
+    switch ($site_section_bundle) {
+      case 'location':
+        $url = URL::fromUri('internal:/blog/subscribe/index.xml');
+        $url->setAbsolute(TRUE);
+        // <link rel="alternate" type="application/rss+xml" title="Subscribe to Blog" href="{{ base_url }}/blog/subscribe/index.xml"/>
+        $rss = [
+          '#type' => 'html_tag',
+          '#tag' => 'link',
+          '#attributes' => [
+            'rel' => 'alternate',
+            'type' => 'application/rss+xml',
+            'title' => t('Subscribe to Blog'),
+            'href' => $url->toString(),
+          ]
+        ];
+        break;
+    }
+    if (isset($rss)) {
+      $page['#attached']['html_head'][] = [$rss, 'rss'];
+    }
+  }
+}
+
+/**
+ * Implements THEME_proprocess_file_link().
+ */
+function ymca_preprocess_file_link(&$variables) {
+  $file = $variables['file'];
+  $options = array();
+
+  $file_entity = ($file instanceof File) ? $file : File::load($file->fid);
+  $url = file_create_url($file_entity->getFileUri());
+  $options['query'][$file->getChangedTime()] = '';
+
+  $mime_type = $file->getMimeType();
+  $options['attributes']['type'] = $mime_type . '; length=' . $file->getSize();
+
+  // Use the description as the link text if available.
+  if (empty($variables['description'])) {
+    $link_text = $file_entity->getFilename();
+  }
+  else {
+    $link_text = $variables['description'];
+    $options['attributes']['title'] = $file_entity->getFilename();
+  }
+
+  $variables['link'] = \Drupal::l($link_text, Url::fromUri($url, $options));
 }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\redirect\Form\RedirectFormController
+ * Contains \Drupal\redirect\Form\RedirectForm.
  */
 
 namespace Drupal\redirect\Form;
@@ -97,6 +97,9 @@ class RedirectForm extends ContentEntityForm {
     }
     if (strpos($source['path'], '#') !== FALSE) {
       $form_state->setErrorByName('redirect_source', t('The anchor fragments are not allowed.'));
+    }
+    if (strpos($source['path'], '/') === 0) {
+      $form_state->setErrorByName('redirect_source', t('The url to redirect from should not start with a forward slash (/).'));
     }
 
     try {

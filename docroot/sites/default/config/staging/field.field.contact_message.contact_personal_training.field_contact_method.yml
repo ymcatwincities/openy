@@ -1,0 +1,21 @@
+uuid: a0ce9269-57de-48e2-8907-7d456beb7129
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.storage.contact_message.field_contact_method
+  module:
+    - options
+id: contact_message.contact_personal_training.field_contact_method
+field_name: field_contact_method
+entity_type: contact_message
+bundle: contact_personal_training
+label: 'What is your preferred contact method?'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

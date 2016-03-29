@@ -1,0 +1,19 @@
+uuid: e477de98-dcf5-471f-bb3e-622103611df4
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_last_name
+id: contact_message.camp_share_your_story.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'Last Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

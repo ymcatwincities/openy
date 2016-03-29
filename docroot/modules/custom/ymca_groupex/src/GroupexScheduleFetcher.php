@@ -118,7 +118,7 @@ class GroupexScheduleFetcher {
     // Day: show classes for single day.
     // Week: show classes for week grouped by day.
     // Location: show classes for 1 day grouped by location.
-    $schedule['type'] = $this->parameters['filter_length'];
+    $schedule['type'] = isset($this->parameters['filter_length']) ? $this->parameters['filter_length'] : 'day';
     if (!empty($this->parameters['location']) && count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
     }

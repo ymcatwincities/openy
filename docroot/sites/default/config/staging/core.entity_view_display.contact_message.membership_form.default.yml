@@ -6,9 +6,10 @@ dependencies:
     - contact.form.membership_form
     - field.field.contact_message.membership_form.field_email_address
     - field.field.contact_message.membership_form.field_first_name
+    - field.field.contact_message.membership_form.field_label
     - field.field.contact_message.membership_form.field_last_name
     - field.field.contact_message.membership_form.field_phone_number
-    - field.field.contact_message.membership_form.field_what_is_your_preferred_y_l
+    - field.field.contact_message.membership_form.field_y_location_email
   module:
     - webforms
 id: contact_message.membership_form.default
@@ -29,6 +30,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_label:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: webform_markup_formatter
   field_last_name:
     weight: 3
     label: above
@@ -42,8 +50,8 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_what_is_your_preferred_y_l:
-    weight: 5
+  field_y_location_email:
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }

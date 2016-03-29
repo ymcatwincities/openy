@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
 
@@ -13,9 +13,9 @@
 
       $(function () {
         var url_vars = getUrlVars(),
-            blog_archive_active = false,
-            blog_archive_month,
-            blog_archive_year;
+          blog_archive_active = false,
+          blog_archive_month,
+          blog_archive_year;
 
         if (typeof url_vars.month != "undefined") {
           blog_archive_month = url_vars.month;
@@ -32,7 +32,7 @@
         var blog_current_year_el = component_el.find("#blog_archive_year_" + blog_archive_year);
         blog_current_year_el.css({"display": "block"});
         blog_current_year_el.prevAll('.blog_year_li').addClass("expanded")
-            .find('.blog_year_link > i').removeClass('glyphicon-plus-sign').addClass('glyphicon-minus-sign');
+          .find('.blog_year_link > i').removeClass('glyphicon-plus-sign').addClass('glyphicon-minus-sign');
         component_el.find("#blog_archive_month_" + blog_archive_year + "_" + blog_archive_month).addClass("active");
 
         component_el.find('.blog_year_link').on('click', function (e) {
@@ -87,6 +87,86 @@
         }
       );
       $('.main-promos').removeClass('hidden');
+
+      // Youth Sports page
+      (function ($) {
+        $(document).ready(function () {
+          $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
+            e.preventDefault();
+            var top = $('.content-cards').offset().top;
+            $('html, body').animate({scrollTop: top}, 1000);
+            return false;
+          });
+
+          $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
+            e.preventDefault();
+            var top = $('.video-container').offset().top;
+            $('html, body').animate({scrollTop: top}, 1000);
+            return false;
+          });
+        });
+      })(jQuery);
+
+      // 2014 Annual Report pages
+      $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
+        if ($(this).text() == 'Read more') {
+          $(this).addClass('opened');
+        } else {
+          $(this).text('Read more');
+        }
+      });
+
+      // March pages.
+      if ($('body').hasClass('path-march') && window.location.search !== '') {
+        $('#main-description').hide();
+        $('#main-description-individual').show();
+      }
+    }
+  };
+
+  /**
+   * March winners.
+   */
+  Drupal.behaviors.ymca_march = {
+    attach: function (context, settings) {
+      if ($('#quiz').length > 0 || $('#march-rules').length > 0) {
+        $('#sidebar:eq(0)').remove();
+        $('.navbar-toggle').click(function () {
+          var menu = '<li><li><a href="'+ drupalSettings.path.baseUrl + 'march#prizes">Prizes</a></li><li><a href="'+ drupalSettings.path.baseUrl + 'march#quiz">YMCA Quiz</a></li><li><a href="'+ drupalSettings.path.baseUrl + 'march/rules">Detailed Rules</a></li>';
+          $('#sidebar-nav .nav.dropdown-menu').html(menu);
+        });
+
+        // QUIZ show.
+        $('#quiz .button').click(function (e) {
+          e.preventDefault();
+          $('#quiz').hide();
+          $('#quiz-questions').show();
+        });
+        $('#quiz-questions').hide();
+
+        $('#quiz-frame').load(function () {
+          $('#quiz-frame').iFrameResize({checkOrigin: false, heightCalculationMethod: 'lowestElement'});
+        });
+      }
+    }
+  };
+
+  /**
+   * March winners.
+   */
+  Drupal.behaviors.ymca_march_winners = {
+    attach: function (context, settings) {
+      var $wrap = $('#prizes', context);
+      if ($wrap.length === 0) {
+        return false;
+      }
+      $('select', $wrap).on('change', function () {
+        var val = $(this).val();
+        var $parent = $(this).parents('.container');
+        $('.table-location', $parent).addClass('hide');
+        $('.table-location-' + val, $parent).removeClass('hide');
+      });
+      $('select', $wrap).trigger('change');
     }
   };
 })(jQuery);
