@@ -39,7 +39,12 @@ function ymca_day_camp_form_alter(&$form, FormStateInterface $form_state, $form_
   // Default value for day_camp_news checkbox.
   $default = FALSE;
   if ($form_id == 'node_blog_edit_form') {
-    $node = \Drupal::routeMatch()->getParameter('node');
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+      $node = \Drupal::routeMatch()->getParameter('node');
+    }
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
     if ($node->hasField('field_related_camps_locations')) {
       $field = $node->get('field_related_camps_locations');
       if ($field->isEmpty() === FALSE) {
