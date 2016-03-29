@@ -30,15 +30,22 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
+  field_alert:
+    weight: 11
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_content:
-    weight: 0
-    label: hidden
+    weight: 1
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_header_button:
-    weight: 5
-    label: hidden
+    weight: 6
+    label: above
     settings:
       trim_length: '80'
       classes: link-component
@@ -49,49 +56,68 @@ content:
     third_party_settings: {  }
     type: link_advanced_formatter
   field_header_image:
-    weight: 4
-    label: hidden
+    weight: 5
+    label: above
     settings:
       image_style: 2013_masthead
       image_link: ''
     third_party_settings: {  }
     type: image
   field_lead_description:
-    weight: 6
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-  field_secondary_sidebar:
     weight: 7
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_sidebar:
-    weight: 1
+  field_promo_slideshow:
+    weight: 10
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_related:
+    weight: 12
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_secondary_sidebar:
+    weight: 8
     label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_sidebar:
+    weight: 2
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_sidebar_navigation:
-    weight: 3
-    label: hidden
+    weight: 4
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: list_key
+  field_status:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
   field_title_description:
-    weight: 2
+    weight: 9
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
 hidden:
-  field_alert: true
   field_header_variant: true
-  field_promo_slideshow: true
-  field_related: true
-  field_status: true
   field_tags: true
   langcode: true
-  links: true
