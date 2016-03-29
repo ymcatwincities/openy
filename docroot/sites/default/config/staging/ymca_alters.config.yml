@@ -1,1 +1,7 @@
 membership_block_id: 10971
+sitemap_xml_skip_uris:
+  - /child_care__preschool/contact_a_program_director/thank_you
+  - /membership/corporate_wellness/employees/contact_corporate_wellness/thank_you
+  - /community_programs/volunteer
+  - /home
+  - /locations/southdale_ymca_edina/health_fitness
