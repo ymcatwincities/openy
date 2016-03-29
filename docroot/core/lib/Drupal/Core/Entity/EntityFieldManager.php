@@ -265,6 +265,7 @@ class EntityFieldManager implements EntityFieldManagerInterface {
     // Invoke alter hook.
     $this->moduleHandler->alter('entity_base_field_info', $base_field_definitions, $entity_type);
 
+
     // Ensure defined entity keys are there and have proper revisionable and
     // translatable values.
     foreach (array_intersect_key($keys, array_flip(['id', 'revision', 'uuid', 'bundle'])) as $key => $field_name) {

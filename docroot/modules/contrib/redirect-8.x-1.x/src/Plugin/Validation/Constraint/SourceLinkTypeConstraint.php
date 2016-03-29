@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\redirect\Plugin\Validation\Constraint\LinkTypeConstraint.
+ * Contains \Drupal\redirect\Plugin\Validation\Constraint\SourceLinkTypeConstraint.
  */
 
 namespace Drupal\redirect\Plugin\Validation\Constraint;

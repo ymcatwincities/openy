@@ -1,0 +1,19 @@
+uuid: 0b8c5ef5-8f50-492c-bb02-2b53a05dee9a
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - webforms
+id: contact_message.field_camp_email_list
+field_name: field_camp_email_list
+entity_type: contact_message
+type: options_email_item
+settings: {  }
+module: webforms
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

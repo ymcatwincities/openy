@@ -17,3 +17,11 @@ description: anonymous access enabler
 patch: docroot/modules/patches/203.diff
 github.com issue: https://github.com/drupal-media/entity_embed/pull/203
 description: Fix redirects for entity_embed
+
+patch: docroot/modules/patches/redirect_update_path.patch
+github.com issue: https://github.com/md-systems/redirect/pull/96
+description: Fix invalid redirect_update_path() hook implementation
+
+patch: docroot/modules/patches/shield_config_aleter.patch
+drupal.org issue: https://www.drupal.org/node/2693023
+description: Add config alter

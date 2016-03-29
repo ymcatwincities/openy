@@ -4,3 +4,8 @@ services:
   ymca_aliases.node_alias:
     class: Drupal\ymca_aliases\NodeAlias
     arguments: ['@ymca_aliases.url_cleaner', '@path.alias_manager', '@menu.tree_storage']
+  lowercase.subscriber:
+    class: Drupal\ymca_aliases\EventSubscriber\LowercaseSubscriber
+    arguments: ['@router.route_provider', 'pagecontext.service']
+    tags:
+      - { name: event_subscriber }

@@ -81,7 +81,7 @@ function redirect_path_update(array $path) {
   // Delete all redirects having the same source as this alias.
   redirect_delete_by_path($path['alias'], $path['langcode'], FALSE);
   if ($original_path['alias'] != $path['alias']) {
-    if (!redirect_repository()->findMatchingRedirect($original_path['alias'], array(), $original_path['langcode'])) {
+    if (!redirect_repository()->findMatchingRedirect(ltrim($original_path['alias'], '/'), array(), $original_path['langcode'])) {
       $redirect = Redirect::create();
       $redirect->setSource($original_path['alias']);
       $redirect->setRedirect($path['source']);

@@ -1,0 +1,23 @@
+uuid: efd84c1e-b4dc-4c8c-b526-3844e16e6ad3
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_form_divider
+  module:
+    - webforms
+id: contact_message.become_a_supplier.field_form_divider
+field_name: field_form_divider
+entity_type: contact_message
+bundle: become_a_supplier
+label: CEO
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'CEO OR OWNER''S NAME'
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item

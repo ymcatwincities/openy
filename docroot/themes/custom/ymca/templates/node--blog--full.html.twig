@@ -88,10 +88,14 @@
     </section>
 
     <div class="row">
+      {% if not is_day_camp_news %}
       <div class="col-sm-3 col-md-2 back-to-blog">
         <a href="{{ back_link_path }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ back_link_title }}</a>
       </div>
       <div class="copy col-sm-8 col-md-9">
+      {% else %}
+      <div class="copy col-sm-12 categories">
+      {% endif %}
         <div class="post_display_full">
           <article class="richtext">
             {{ content.field_content }}
