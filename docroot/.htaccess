@@ -745,14 +745,6 @@ RewriteRule ^$ http://www.ymcatwincities.org [R=301,L]
 RewriteCond %{HTTP_HOST} ^www\.ymcatwincities\.net [NC]
 RewriteRule ^$ http://www.ymcatwincities.org [R=301,L]
 
-# Redirect ymcatwincities.org -> http://www.ymcatwincities.org
-RewriteCond %{HTTP_HOST} ^ymcatwincities\.org [NC]
-RewriteRule ^$ http://www.ymcatwincities.org [R=301,L]
-
-# Redirect www.ymcatwincities.org -> http://www.ymcatwincities.org
-RewriteCond %{HTTP_HOST} ^www\.ymcatwincities\.org [NC]
-RewriteRule ^$ http://www.ymcatwincities.org [R=301,L]
-
 # Redirect ymcavendors.org -> http://www.ymcatwincities.org/suppliers
 RewriteCond %{HTTP_HOST} ^ymcavendors\.org [NC]
 RewriteRule ^$ http://www.ymcatwincities.org/suppliers [R=301,L]
