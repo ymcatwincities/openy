@@ -1706,3 +1706,23 @@ function ymca_master_update_8056() {
     }
   }
 }
+
+/**
+ * Remove comment module.
+ */
+function ymca_master_update_8057() {
+  $factory = \Drupal::configFactory();
+  $installer = Drupal::service('module_installer');
+
+  $remove = [
+    'field.storage.comment.comment_body',
+    'field.field.comment.comment.comment_body',
+    'field.storage.node.comment',
+  ];
+
+  foreach ($remove as $name) {
+    $factory->getEditable($name)->delete();
+  }
+
+  $installer->uninstall(['comment'], TRUE);
+}
