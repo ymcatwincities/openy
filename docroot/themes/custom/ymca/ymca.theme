@@ -96,10 +96,9 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
   }
   if (!\Drupal::service('path.matcher')->isFrontPage()) {
     if ($route_name == 'entity.node.preview') {
-      $node = \Drupal::routeMatch()->getParameter('node_preview');
       $front_page = \Drupal::config('system.site')->get('page.front');
-      if ($node->url() == $front_page) {
-        array_unshift($suggestions, 'page__front');
+      if ('/node/' . $node->id() == $front_page) {
+        array_push($suggestions, 'page__front');
       }
     }
   }
@@ -202,7 +201,7 @@ function ymca_preprocess_node(&$variables) {
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
   if (!$variables['is_front']) {
     $front_page = \Drupal::config('system.site')->get('page.front');
-    $variables['is_front'] = $variables['node']->url() == $front_page;
+    $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
   }
 
   // Passing slideshow to template.
@@ -291,13 +290,6 @@ function ymca_preprocess_html(&$variables) {
     $variables['attributes'] = new \Drupal\Core\Template\Attribute();
   }
 
-  if (!$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage()) {
-    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
-      $node = \Drupal::request()->attributes->get('node_preview');
-      $variables['is_front'] = $node->url() == \Drupal::config('system.site')->get('page.front');
-    }
-  }
-
   $current_route_name = \Drupal::service('current_route_match')->getRouteName();
 
   if ($current_route_name == 'entity.node.canonical') {
@@ -305,6 +297,12 @@ function ymca_preprocess_html(&$variables) {
   }
   if ($current_route_name == 'entity.node.preview') {
     $node = \Drupal::routeMatch()->getParameter('node_preview');
+  }
+
+  if (!$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage()) {
+    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+      $variables['is_front'] = '/node/' . $node->id() == \Drupal::config('system.site')->get('page.front');
+    }
   }
 
   if ($variables['is_front']) {
