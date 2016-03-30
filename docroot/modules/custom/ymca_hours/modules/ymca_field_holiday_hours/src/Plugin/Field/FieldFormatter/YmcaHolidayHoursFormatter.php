@@ -45,7 +45,7 @@ class YmcaHolidayHoursFormatter extends FormatterBase implements ContainerFactor
     $rows = [];
 
     // Calculate timezone offset.
-    $tz = new \DateTimeZone(\Drupal::config('ymca_migrate.settings')->get('timezone'));
+    $tz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
     $dt = new \DateTime(NULL, $tz);
     $tz_offset = $dt->getOffset();
 
