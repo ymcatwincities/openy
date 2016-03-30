@@ -448,7 +448,7 @@ class GroupexScheduleFetcher {
     ];
 
     if ($timestamp) {
-      $query['week'] = $timestamp;
+      $query['week'] = strtotime('last Monday', $timestamp);
     }
 
     if ($category) {
