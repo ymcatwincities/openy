@@ -125,10 +125,6 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
  * Implements hook_theme_HOOK_alter().
  */
 function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables) {
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
-    $node = \Drupal::routeMatch()->getParameter('node_preview');
-  }
   if (in_array('node__blog__default', $suggestions)) {
     array_push($suggestions, 'node__blog__full');
   }
