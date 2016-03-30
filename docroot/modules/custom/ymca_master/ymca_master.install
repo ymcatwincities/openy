@@ -1735,3 +1735,24 @@ function ymca_master_update_8058() {
     'sites/default/config/staging/core.entity_view_display.node.article.default.yml',
   ]);
 }
+
+/**
+ * Fix /sso_sign_out redirect.
+ */
+function ymca_master_update_8059() {
+  // Remove old one.
+  $repo = \Drupal::service('redirect.repository');
+  $result = $repo->findBySourcePath('sso_sign_out');
+  if (!empty($result)) {
+    $redirect = reset($result);
+    $redirect->delete();
+  }
+
+  // Add new one.
+  $redirect = Redirect::create();
+  $redirect->setSource('sso_sign_out');
+  $redirect->setRedirect('/');
+  $redirect->setLanguage('en');
+  $redirect->setStatusCode(301);
+  $redirect->save();
+}

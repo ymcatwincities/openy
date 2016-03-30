@@ -52,12 +52,7 @@ class GroupexFormLocationRefine extends GroupexFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Get current node.
     /** @var Node $node */
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
-      $node = \Drupal::routeMatch()->getParameter('node');
-    }
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
-      $node = \Drupal::routeMatch()->getParameter('node_preview');
-    }
+    $node = \Drupal::routeMatch()->getParameter('node');
 
     $form_state->setRedirect(
       'ymca_groupex.schedules_search_results',
