@@ -33,9 +33,9 @@ function ymca_menu_theme($existing, $type, $theme, $path) {
 function ymca_menu_page_attachments(array &$attachments) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   $mlid = FALSE;
-  if (in_array($route_name, ['entity.node.canonical', 'node.node_preview'])) {
+  if (in_array($route_name, ['entity.node.canonical', 'entity.node.preview'])) {
     $node = \Drupal::routeMatch()->getParameter('node');
-    if ($route_name == 'node.node_preview') {
+    if ($route_name == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
     $context = \Drupal::service('pagecontext.service')->getContext();
@@ -88,6 +88,9 @@ function ymca_menu_page_attachments(array &$attachments) {
     }
   }
   $current_path = \Drupal::service('path.current')->getPath();
+  if ($route_name == 'entity.node.preview') {
+    $current_path = '/node/' . $node->id();
+  }
   $attachments['#attached']['drupalSettings']['page'] = array(
     'mlid' => !empty($mlid) ? $mlid : YMCAMenuController::ROOT_ID,
     'liveUrl' => \Drupal::service('path.alias_manager')->getAliasByPath($current_path) . '/',
@@ -100,7 +103,7 @@ function ymca_menu_page_attachments(array &$attachments) {
  */
 function ymca_menu_preprocess_node(&$variables) {
   $node = &$variables['node'];
-  if ($variables['view_mode'] == 'full' && $node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
+  if (($variables['view_mode'] == 'full' || $variables['view_mode'] == 'default') && $node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
     /* var \Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
     if ($link = \Drupal::service('menu.active_trail')->getActiveLink()) {
       $menu_name = $link->getMenuName();
