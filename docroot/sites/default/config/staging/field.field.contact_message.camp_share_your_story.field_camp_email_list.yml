@@ -46,6 +46,10 @@ default_value:
     option_name: 'Camp Widjiwagan'
     option_reference: null
     option_emails: missy.huppert@ymcatwincities.org
+  -
+    option_name: 'Camp Ihduhapi'
+    option_reference: null
+    option_emails: missy.huppert@ymcatwincities.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

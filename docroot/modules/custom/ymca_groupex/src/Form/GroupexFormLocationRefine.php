@@ -33,13 +33,14 @@ class GroupexFormLocationRefine extends GroupexFormBase {
 
     $form = parent::buildForm($form, $form_state, $params);
 
+    $location_opts = !empty($params['location']) ? $params['location'] : [];
     $form['location'] = [
       '#type' => 'checkboxes',
       '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
       '#title' => $this->t('Location'),
       '#title_extra' => $this->t('(optional—select up to 4)'),
       '#weight' => -100,
-      '#default_value' => $refine ? $params['location'] : [],
+      '#default_value' => $refine ? $location_opts : [],
     ];
 
     return $form;
@@ -51,7 +52,12 @@ class GroupexFormLocationRefine extends GroupexFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Get current node.
     /** @var Node $node */
-    $node = \Drupal::routeMatch()->getParameter('node');
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+      $node = \Drupal::routeMatch()->getParameter('node');
+    }
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
 
     $form_state->setRedirect(
       'ymca_groupex.schedules_search_results',

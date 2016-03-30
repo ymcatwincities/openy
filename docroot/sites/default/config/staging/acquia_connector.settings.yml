@@ -46,8 +46,9 @@ spi:
     - acquia_spi_use_cron
   ignored_set_variables: {  }
   saved_variables:
-    variables: {  }
-    time: 0
+    variables:
+      - cache
+    time: 1459161474
   cron_interval: 28800
   site_name: 'YMCA Twin Cities: prod'
   site_machine_name: 71389be1_8032_48ad_98a8_9a7e4b95b965__ymcatwincities

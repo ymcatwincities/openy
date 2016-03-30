@@ -23,7 +23,12 @@ class GroupexFormLocation extends GroupexFormBase {
     $form = parent::buildForm($form, $form_state);
 
     // Get current node.
-    $node = \Drupal::routeMatch()->getParameter('node');
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+      $node = \Drupal::routeMatch()->getParameter('node');
+    }
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
 
     $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
     $location_id = FALSE;
