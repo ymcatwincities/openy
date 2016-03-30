@@ -410,7 +410,7 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromTimestamp($normalized['filter_timestamp'], $timezone);
     $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
 
-    // Add default filter_length
+    // Add default filter_length.
     if (!isset($normalized['filter_length'])) {
       $normalized['filter_length'] = 'day';
     }
@@ -451,7 +451,7 @@ class GroupexScheduleFetcher {
     ];
 
     if ($timestamp) {
-      $query['week'] = $timestamp;
+      $query['week'] = strtotime('Monday this week', $timestamp);
     }
 
     if ($category) {
