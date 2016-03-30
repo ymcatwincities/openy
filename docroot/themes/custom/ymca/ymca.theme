@@ -96,7 +96,7 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
         }
       }
     }
-    // Detect all pages which referenced to locations by uri.
+    // Detect all pages which referenced to locations by context.
     if ($data = ymca_detect_locations_pages()) {
       if ($node->bundle() != 'location') {
         array_push($suggestions, 'page__node__location_inner');
@@ -104,6 +104,7 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
         array_push($suggestions, 'page__node__location');
       }
     }
+    // Detect all pages which referenced to camps by context.
     if ($data = ymca_detect_camp_pages()) {
       if ($node->bundle() != 'camp') {
         array_push($suggestions, 'page__node__camp_inner');
