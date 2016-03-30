@@ -68,6 +68,355 @@ AddEncoding gzip svgz
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
+  
+  # 301 --- andoverymca.org => http://www.ymcatwincities.org/locations/andover_ymca_community_center
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^andoverymca\.org$ http://www.ymcatwincities.org/locations/andover_ymca_community_center? [L,R=301]
+
+# 301 --- burnsvilleymca.org => http://www.ymcatwincities.org/locations/burnsville_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^burnsvilleymca\.org$ http://www.ymcatwincities.org/locations/burnsville_ymca? [L,R=301]
+
+# 301 --- campdunord.org => http://www.ymcatwincities.org/camps/camp_du_nord
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campdunord\.org$ http://www.ymcatwincities.org/camps/camp_du_nord? [L,R=301]
+
+# 301 --- campicaghowan.org => http://www.ymcatwincities.org/camps/camp_icaghowan
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campicaghowan\.org$ http://www.ymcatwincities.org/camps/camp_icaghowan? [L,R=301]
+
+# 301 --- campihduhapi.org => http://www.ymcatwincities.org/camps/camp_ihduhapi
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campihduhapi\.org$ http://www.ymcatwincities.org/camps/camp_ihduhapi? [L,R=301]
+
+# 301 --- campmenogyn.org => http://www.ymcatwincities.org/camps/camp_menogyn
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campmenogyn\.org$ http://www.ymcatwincities.org/camps/camp_menogyn? [L,R=301]
+
+# 301 --- campstcroix.org => http://www.ymcatwincities.org/camps/camp_st_croix
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campstcroix\.org$ http://www.ymcatwincities.org/camps/camp_st_croix? [L,R=301]
+
+# 301 --- campstreefland.org => http://www.ymcatwincities.org/camps/day_camp_streefland
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campstreefland\.org$ http://www.ymcatwincities.org/camps/day_camp_streefland? [L,R=301]
+
+# 301 --- campwarren.org => http://www.ymcatwincities.org/camps/camp_warren
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campwarren\.org$ http://www.ymcatwincities.org/camps/camp_warren? [L,R=301]
+
+# 301 --- campwidjiwagan.org => http://www.ymcatwincities.org/camps/camp_widjiwagan
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^campwidjiwagan\.org$ http://www.ymcatwincities.org/camps/camp_widjiwagan? [L,R=301]
+
+# 301 --- coonrapidsymca.org => http://www.ymcatwincities.org/locations/emma_b_howe_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^coonrapidsymca\.org$ http://www.ymcatwincities.org/locations/emma_b_howe_ymca? [L,R=301]
+
+# 301 --- daycampchristmastree.org => http://www.ymcatwincities.org/camps/day_camp_christmas_tree
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampchristmastree\.org$ http://www.ymcatwincities.org/camps/day_camp_christmas_tree? [L,R=301]
+
+# 301 --- daycampguyrobinson.org => http://www.ymcatwincities.org/camps/day_camp_guy_robinson
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampguyrobinson\.org$ http://www.ymcatwincities.org/camps/day_camp_guy_robinson? [L,R=301]
+
+# 301 --- daycampheritage.org => http://www.ymcatwincities.org/camps/day_camp_heritage
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampheritage\.org$ http://www.ymcatwincities.org/camps/day_camp_heritage? [L,R=301]
+
+# 301 --- daycampihduhapi.org => http://www.ymcatwincities.org/camps/day_camp_ihduhapi
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampihduhapi\.org$ http://www.ymcatwincities.org/camps/day_camp_ihduhapi? [L,R=301]
+
+# 301 --- daycampkiciyapi.org => http://www.ymcatwincities.org/camps/day_camp_kici_yapi
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampkiciyapi\.org$ http://www.ymcatwincities.org/camps/day_camp_kici_yapi? [L,R=301]
+
+# 301 --- daycampkumalya.org => http://www.ymcatwincities.org/camps/day_camp_kumalya
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampkumalya\.org$ http://www.ymcatwincities.org/camps/day_camp_kumalya? [L,R=301]
+
+# 301 --- daycampmanitou.org => http://www.ymcatwincities.org/camps/day_camp_manitou
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampmanitou\.org$ http://www.ymcatwincities.org/camps/day_camp_manitou? [L,R=301]
+
+# 301 --- daycampspringlake.org => http://www.ymcatwincities.org/camps/day_camp_spring_lake
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycampspringlake\.org$ http://www.ymcatwincities.org/camps/day_camp_spring_lake? [L,R=301]
+
+# 301 --- daycroix.org => http://www.ymcatwincities.org/camps/day_camp_daycroix
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^daycroix\.org$ http://www.ymcatwincities.org/camps/day_camp_daycroix? [L,R=301]
+
+# 301 --- dunord.org => http://www.ymcatwincities.org/camps/camp_du_nord
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^dunord\.org$ http://www.ymcatwincities.org/camps/camp_du_nord? [L,R=301]
+
+# 301 --- eaganymca.org => http://www.ymcatwincities.org/locations/eagan_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^eaganymca\.org$ http://www.ymcatwincities.org/locations/eagan_ymca? [L,R=301]
+
+# 301 --- edinaymca.org => http://www.ymcatwincities.org/locations/southdale_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^edinaymca\.org$ http://www.ymcatwincities.org/locations/southdale_ymca? [L,R=301]
+
+# 301 --- elkriverymca.org => http://www.ymcatwincities.org/locations/elk_river_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^elkriverymca\.org$ http://www.ymcatwincities.org/locations/elk_river_ymca? [L,R=301]
+
+# 301 --- emmabhoweymca.org => http://www.ymcatwincities.org/locations/emma_b_howe_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^emmabhoweymca\.org$ http://www.ymcatwincities.org/locations/emma_b_howe_ymca? [L,R=301]
+
+# 301 --- heritageparkymca.org => http://www.ymcatwincities.org/locations/heritage_park_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^heritageparkymca\.org$ http://www.ymcatwincities.org/locations/heritage_park_ymca? [L,R=301]
+
+# 301 --- hudsonymca.org => http://www.ymcatwincities.org/locations/hudson_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^hudsonymca\.org$ http://www.ymcatwincities.org/locations/hudson_ymca? [L,R=301]
+
+# 301 --- menogyn.org => http://www.ymcatwincities.org/camps/camp_menogyn
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^menogyn\.org$ http://www.ymcatwincities.org/camps/camp_menogyn? [L,R=301]
+
+# 301 --- midwayymca.org => http://www.ymcatwincities.org/locations/st_paul_midway_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^midwayymca\.org$ http://www.ymcatwincities.org/locations/st_paul_midway_ymca? [L,R=301]
+
+# 301 --- minneapolisymca.org => http://www.ymcatwincities.org/locations/minneapolis_downtown_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^minneapolisymca\.org$ http://www.ymcatwincities.org/locations/minneapolis_downtown_ymca? [L,R=301]
+
+# 301 --- minnesotavalleyymca.org => http://www.ymcatwincities.org/locations/burnsville_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^minnesotavalleyymca\.org$ http://www.ymcatwincities.org/locations/burnsville_ymca? [L,R=301]
+
+# 301 --- minnetonkaymca.org => http://www.ymcatwincities.org/locations/ridgedale_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^minnetonkaymca\.org$ http://www.ymcatwincities.org/locations/ridgedale_ymca? [L,R=301]
+
+# 301 --- mnvalleyymca.org => http://www.ymcatwincities.org/locations/river_valley_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^mnvalleyymca\.org$ http://www.ymcatwincities.org/locations/river_valley_ymca? [L,R=301]
+
+# 301 --- mnyig.org => http://www.ymcatwincities.org/locations/youth_in_government
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^mnyig\.org$ http://www.ymcatwincities.org/locations/youth_in_government? [L,R=301]
+
+# 301 --- newhopeymca.org => http://www.ymcatwincities.org/locations/new_hope_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^newhopeymca\.org$ http://www.ymcatwincities.org/locations/new_hope_ymca? [L,R=301]
+
+# 301 --- northcommunityymca.org => http://www.ymcatwincities.org/locations/north_community_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^northcommunityymca\.org$ http://www.ymcatwincities.org/locations/north_community_ymca? [L,R=301]
+
+# 301 --- priorlakeymca.org => http://www.ymcatwincities.org/locations/river_valley_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^priorlakeymca\.org$ http://www.ymcatwincities.org/locations/river_valley_ymca? [L,R=301]
+
+# 301 --- ridgedaleymca.org => http://www.ymcatwincities.org/locations/ridgedale_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ridgedaleymca\.org$ http://www.ymcatwincities.org/locations/ridgedale_ymca? [L,R=301]
+
+# 301 --- rivervalleyymca.org => http://www.ymcatwincities.org/locations/river_valley_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^rivervalleyymca\.org$ http://www.ymcatwincities.org/locations/river_valley_ymca? [L,R=301]
+
+# 301 --- shoreviewymca.org => http://www.ymcatwincities.org/locations/shoreview_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^shoreviewymca\.org$ http://www.ymcatwincities.org/locations/shoreview_ymca? [L,R=301]
+
+# 301 --- southdaleymca.org => http://www.ymcatwincities.org/locations/southdale_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^southdaleymca\.org$ http://www.ymcatwincities.org/locations/southdale_ymca? [L,R=301]
+
+# 301 --- southminneapolisymca.org => http://www.ymcatwincities.org/locations/blaisdell_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^southminneapolisymca\.org$ http://www.ymcatwincities.org/locations/blaisdell_ymca? [L,R=301]
+
+# 301 --- stpauldowntownymca.org => http://www.ymcatwincities.org/locations/st_paul_downtown_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^stpauldowntownymca\.org$ http://www.ymcatwincities.org/locations/st_paul_downtown_ymca? [L,R=301]
+
+# 301 --- stpauleastsideymca.org => http://www.ymcatwincities.org/locations/st_paul_eastside_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^stpauleastsideymca\.org$ http://www.ymcatwincities.org/locations/st_paul_eastside_ymca? [L,R=301]
+
+# 301 --- stpaulmidwayymca.org => http://www.ymcatwincities.org/locations/st_paul_midway_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^stpaulmidwayymca\.org$ http://www.ymcatwincities.org/locations/st_paul_midway_ymca? [L,R=301]
+
+# 301 --- twincitiesymca.org => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^twincitiesymca\.org$ http://www.ymcatwincities.org/? [L,R=301]
+
+# 301 --- universitymny.org => http://www.ymcatwincities.org/locations/university_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^universitymny\.org$ http://www.ymcatwincities.org/locations/university_ymca? [L,R=301]
+
+# 301 --- uymn.org => http://www.ymcatwincities.org/locations/university_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^uymn\.org$ http://www.ymcatwincities.org/locations/university_ymca? [L,R=301]
+
+# 301 --- weststpaulymca.org => http://www.ymcatwincities.org/locations/west_st_paul_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^weststpaulymca\.org$ http://www.ymcatwincities.org/locations/west_st_paul_ymca? [L,R=301]
+
+# 301 --- whitebearareaymca.org => http://www.ymcatwincities.org/locations/white_bear_area_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^whitebearareaymca\.org$ http://www.ymcatwincities.org/locations/white_bear_area_ymca? [L,R=301]
+
+# 301 --- whitebearlakeymca.org => http://www.ymcatwincities.org/locations/white_bear_area_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^whitebearlakeymca\.org$ http://www.ymcatwincities.org/locations/white_bear_area_ymca? [L,R=301]
+
+# 301 --- widji.org => http://www.ymcatwincities.org/camps/camp_widjiwagan
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^widji\.org$ http://www.ymcatwincities.org/camps/camp_widjiwagan? [L,R=301]
+
+# 301 --- widjiwagan.org => http://www.ymcatwincities.org/camps/camp_widjiwagan
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^widjiwagan\.org$ http://www.ymcatwincities.org/camps/camp_widjiwagan? [L,R=301]
+
+# 301 --- woodburyymca.org => http://www.ymcatwincities.org/locations/woodbury_ymca
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^woodburyymca\.org$ http://www.ymcatwincities.org/locations/woodbury_ymca? [L,R=301]
+
+# 301 --- ydpp.org => http://www.ymcatwincities.org/health__fitness/diabetes_prevention
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ydpp\.org$ http://www.ymcatwincities.org/health__fitness/diabetes_prevention? [L,R=301]
+
+# 301 --- ygtc.org => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ygtc\.org$ http://www.ymcatwincities.org/? [L,R=301]
+
+# 301 --- ymcacamping.com => http://www.ymcatwincities.org/camps
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcacamping\.com$ http://www.ymcatwincities.org/camps? [L,R=301]
+
+# 301 --- ymcacamping.net => http://www.ymcatwincities.org/camps
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcacamping\.net$ http://www.ymcatwincities.org/camps? [L,R=301]
+
+# 301 --- ymcacamping.org => http://www.ymcatwincities.org/camps
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcacamping\.org$ http://www.ymcatwincities.org/camps? [L,R=301]
+
+# 301 --- ymcacamps.net => http://www.ymcatwincities.org/camps
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcacamps\.net$ http://www.ymcatwincities.org/camps? [L,R=301]
+
+# 301 --- ymcacamps.org => http://www.ymcatwincities.org/camps
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcacamps\.org$ http://www.ymcatwincities.org/camps? [L,R=301]
+
+# 301 --- ymcacorporatewellness.org => http://www.ymcatwincities.org/membership/corporate_wellness
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcacorporatewellness\.org$ http://www.ymcatwincities.org/membership/corporate_wellness? [L,R=301]
+
+# 301 --- ymcadaycampchristmastree.org => http://www.ymcatwincities.org/camps/day_camp_christmas_tree
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampchristmastree\.org$ http://www.ymcatwincities.org/camps/day_camp_christmas_tree? [L,R=301]
+
+# 301 --- ymcadaycampguyrobinson.org => http://www.ymcatwincities.org/camps/day_camp_guy_robinson
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampguyrobinson\.org$ http://www.ymcatwincities.org/camps/day_camp_guy_robinson? [L,R=301]
+
+# 301 --- ymcadaycampheritage.org => http://www.ymcatwincities.org/camps/day_camp_heritage
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampheritage\.org$ http://www.ymcatwincities.org/camps/day_camp_heritage? [L,R=301]
+
+# 301 --- ymcadaycampihduhapi.org => http://www.ymcatwincities.org/camps/day_camp_ihduhapi
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampihduhapi\.org$ http://www.ymcatwincities.org/camps/day_camp_ihduhapi? [L,R=301]
+
+# 301 --- ymcadaycampkiciyapi.org => http://www.ymcatwincities.org/camps/day_camp_kici_yapi
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampkiciyapi\.org$ http://www.ymcatwincities.org/camps/day_camp_kici_yapi? [L,R=301]
+
+# 301 --- ymcadaycampkumalya.org => http://www.ymcatwincities.org/camps/day_camp_kumalya
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampkumalya\.org$ http://www.ymcatwincities.org/camps/day_camp_kumalya? [L,R=301]
+
+# 301 --- ymcadaycampmanitou.org => http://www.ymcatwincities.org/camps/day_camp_manitou
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampmanitou\.org$ http://www.ymcatwincities.org/camps/day_camp_manitou? [L,R=301]
+
+# 301 --- ymcadaycampspringlake.org => http://www.ymcatwincities.org/camps/day_camp_spring_lake
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycampspringlake\.org$ http://www.ymcatwincities.org/camps/day_camp_spring_lake? [L,R=301]
+
+# 301 --- ymcadaycroix.org => http://www.ymcatwincities.org/camps/day_camp_daycroix
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadaycroix\.org$ http://www.ymcatwincities.org/camps/day_camp_daycroix? [L,R=301]
+
+# 301 --- ymcadiscoversummer.org => http://www.ymcatwincities.org/child_care__preschool/summer_programs/summer_at_the_y
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcadiscoversummer\.org$ http://www.ymcatwincities.org/child_care__preschool/summer_programs/summer_at_the_y? [L,R=301]
+
+# 301 --- ymcagtc.com => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcagtc\.com$ http://www.ymcatwincities.org/? [L,R=301]
+
+# 301 --- ymcagtc.org => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcagtc\.org$ http://www.ymcatwincities.org/? [L,R=301]
+
+# 301 --- ymcampls.org => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcampls\.org$ http://www.ymcatwincities.org/? [L,R=301]
+
+# 301 --- ymcamusicfesttickets.org => http://www.ymcatwincities.org/lakefront_music_fest
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcamusicfesttickets\.org$ http://www.ymcatwincities.org/lakefront_music_fest? [L,R=301]
+
+# 301 --- ymcapersonaltraining.org => http://www.ymcatwincities.org/health__fitness/personal_training
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcapersonaltraining\.org$ http://www.ymcatwincities.org/health__fitness/personal_training? [L,R=301]
+
+# 301 --- ymcarun.org => http://www.ymcatwincities.org/health__fitness/yrun
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcarun\.org$ http://www.ymcatwincities.org/health__fitness/yrun? [L,R=301]
+
+# 301 --- ymcastpaul.org => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcastpaul\.org$ http://www.ymcatwincities.org/? [L,R=301]
+
+# 301 --- ymcatricityskatepark.org => http://www.ymcatwincities.org/child_care__preschool/summer_programs/edina_and_eden_prairie/tri_city_skate_park
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcatricityskatepark\.org$ http://www.ymcatwincities.org/child_care__preschool/summer_programs/edina_and_eden_prairie/tri_city_skate_park? [L,R=301]
+
+# 301 --- ymcatwincities.net => http://www.ymcatwincities.org
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcatwincities\.net$ http://www.ymcatwincities.org/? [L,R=301]
+
+# MALFORMED LINE SKIPPED: ymcatwincities.org
+
+# 301 --- ymcavendors.org => http://www.ymcatwincities.org/suppliers
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ymcavendors\.org$ http://www.ymcatwincities.org/suppliers? [L,R=301]
+
+# MALFORMED LINE SKIPPED: ymcayouthenrichmentcenter.org
+
+# MALFORMED LINE SKIPPED: ymcayouthintervention.org
+
+# 301 --- ysportsburnsville.org => http://www.ymcatwincities.org/locations/burnsville_ymca/kid__teen_activities/sports
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ysportsburnsville\.org$ http://www.ymcatwincities.org/locations/burnsville_ymca/kid__teen_activities/sports? [L,R=301]
+
+# 301 --- ysportseagan.org => http://www.ymcatwincities.org/locations/eagan_ymca/kid__teen_activities/sports
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ysportseagan\.org$ http://www.ymcatwincities.org/locations/eagan_ymca/kid__teen_activities/sports? [L,R=301]
+
+# 301 --- ysportssouthdale.org => http://www.ymcatwincities.org/locations/southdale_ymca/kid__teen_activities/sports
+RewriteCond %{HTTP_HOST} ^$
+RewriteRule ^ysportssouthdale\.org$ http://www.ymcatwincities.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
+
+# MALFORMED LINE SKIPPED: ytricamp.org
+
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
