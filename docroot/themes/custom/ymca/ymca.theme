@@ -129,18 +129,24 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
   if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
     $node = \Drupal::routeMatch()->getParameter('node_preview');
   }
+  if (in_array('node__blog__default', $suggestions)) {
+    array_push($suggestions, 'node__blog__full');
+  }
+  if (in_array('node__article__default', $suggestions)) {
+    array_push($suggestions, 'node__article__full');
+  }
   // Detect all pages which referenced to location by context.
-  if ($node->bundle() == 'location') {
+  if ($data = ymca_detect_locations_pages()) {
     array_push($suggestions, 'node__article__location__full');
-    if (in_array('node__location__default', $suggestions)) {
-      array_push($suggestions, 'node__location__full');
-    }
+  }
+  if (in_array('node__location__default', $suggestions)) {
+    array_push($suggestions, 'node__location__full');
+  }
+  if (in_array('node__camp__default', $suggestions)) {
+    array_push($suggestions, 'node__camp__full');
   }
   // Detect all pages which referenced to camp by context.
-  if ($node->bundle() == 'camp') {
-    if (in_array('node__camp__default', $suggestions)) {
-      array_push($suggestions, 'node__camp__full');
-    }
+  if ($data = ymca_detect_camp_pages()) {
     switch ($variables['elements']['#node']->bundle()) {
       case 'blog':
         array_push($suggestions, 'node__blog__camp__full');
@@ -150,12 +156,6 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
         array_push($suggestions, 'node__article__camp__full');
         break;
     }
-  }
-  if (in_array('node__blog__default', $suggestions)) {
-    array_push($suggestions, 'node__blog__full');
-  }
-  if (in_array('node__article__default', $suggestions)) {
-    array_push($suggestions, 'node__article__full');
   }
 }
 
