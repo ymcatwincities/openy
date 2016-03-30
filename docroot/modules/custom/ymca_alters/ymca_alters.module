@@ -190,7 +190,13 @@ function ymca_alters_user_logout($account) {
  */
 function ymca_alters_preprocess_field(&$variables) {
   if ($variables['element']['#field_name'] == 'field_schedule_documents') {
-    if (!$node = \Drupal::routeMatch()->getParameter('node')) {
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+      $node = \Drupal::routeMatch()->getParameter('node');
+    }
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
+    if (!isset($node)) {
       return;
     }
 
@@ -217,7 +223,13 @@ function ymca_alters_preprocess_field(&$variables) {
  * Implements hook_shield_config_alter().
  */
 function ymca_alters_shield_config_alter(&$config_name) {
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+  }
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $node = \Drupal::routeMatch()->getParameter('node_preview');
+  }
+  if (isset($node)) {
     if ($node->id() == 1075) {
       $config_name = 'ymca_alters.shield';
     }
