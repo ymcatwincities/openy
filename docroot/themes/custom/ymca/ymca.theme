@@ -75,7 +75,7 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
 /**
  * Implements hook_theme_HOOK_alter().
  */
-function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables){
+function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     if ($route_name == 'entity.node.preview') {
