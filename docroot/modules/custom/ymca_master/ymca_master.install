@@ -1726,3 +1726,12 @@ function ymca_master_update_8057() {
 
   $installer->uninstall(['comment'], TRUE);
 }
+
+/**
+ * Remove comment module.
+ */
+function ymca_master_update_8058() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/core.entity_view_display.node.article.default.yml',
+  ]);
+}
