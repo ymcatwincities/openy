@@ -194,7 +194,7 @@ trait YmcaMigrateTrait {
         DATETIME_DATETIME_STORAGE_FORMAT,
         $data['date_end'],
         new \DateTimeZone(
-          \Drupal::config('ymca_migrate.settings')->get('timezone')
+          \Drupal::config('system.date')->get('timezone')['default']
         )
       );
 
@@ -253,7 +253,7 @@ trait YmcaMigrateTrait {
       'm/d/Y h:i:s a',
       $input,
       new \DateTimeZone(
-        \Drupal::config('ymca_migrate.settings')->get('timezone')
+        \Drupal::config('system.date')->get('timezone')['default']
       )
     );
 
