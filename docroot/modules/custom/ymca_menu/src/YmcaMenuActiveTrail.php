@@ -45,9 +45,7 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
     // If a node is displayed, load the default parent menu item
     // from the node type's menu settings and return it instead
     // of the default one.
-    if ($this->routeMatch->getRouteName() == 'entity.node.canonical') {
-      $node = \Drupal::routeMatch()->getParameter('node');
-    }
+    $node = \Drupal::routeMatch()->getParameter('node');
     if ($this->routeMatch->getRouteName() == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
