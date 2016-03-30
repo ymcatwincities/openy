@@ -21,10 +21,10 @@ dependencies:
     - node.type.article
   module:
     - image
-    - link
     - options
     - text
     - user
+    - ymca_link_formatter
 id: node.article.default
 targetEntityType: node
 bundle: article
@@ -47,13 +47,14 @@ content:
     weight: 6
     label: above
     settings:
-      trim_length: 80
+      trim_length: '80'
+      classes: link-component
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: 0
+      target: 0
     third_party_settings: {  }
-    type: link
+    type: link_advanced_formatter
   field_header_image:
     weight: 5
     label: above
@@ -99,7 +100,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    type: list_key
   field_status:
     weight: 14
     label: above

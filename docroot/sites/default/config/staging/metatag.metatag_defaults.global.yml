@@ -5,10 +5,9 @@ dependencies: {  }
 id: global
 label: Global
 tags:
-  title: '[current-page:title] | [site:name]'
   content_language: en
-  generator: 'YMCA platform'
-  og_site_name: '[site:name]'
-  og_type: website
-  og_title: '[current-page:title] | [site:name]'
+  title: '[current-page:title] | [site:name]'
   og_image: '[site:url]/themes/custom/ymca/img/ymca-logo-social.png'
+  og_site_name: '[site:name]'
+  og_title: '[current-page:title] | [site:name]'
+  og_type: website
