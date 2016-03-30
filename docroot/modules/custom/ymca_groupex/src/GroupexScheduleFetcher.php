@@ -191,10 +191,8 @@ class GroupexScheduleFetcher {
   private function getData() {
     $this->rawData = [];
 
-    // No request parameters - no data.
-    if (empty($this->parameters)) {
-      return;
-    }
+    $class = !empty($this->parameters['class']) ? $this->parameters['class'] : '';
+    $category = !empty($this->parameters['category']) ? $this->parameters['category'] : '';
 
     // One of the 3 search parameters should be provided:
     // 1. Location.
@@ -202,8 +200,8 @@ class GroupexScheduleFetcher {
     // 3. Category.
     if (
       !isset($this->parameters['location']) &&
-      $this->parameters['class'] == 'any' &&
-      $this->parameters['category'] == 'any') {
+      $class == 'any' &&
+      $category == 'any') {
       return;
     }
 
@@ -220,13 +218,13 @@ class GroupexScheduleFetcher {
     }
 
     // Category is optional.
-    if ($this->parameters['category'] !== 'any') {
-      $options['query']['category'] = $this->parameters['category'];
+    if ($category !== 'any') {
+      $options['query']['category'] = $category;
     }
 
     // Class is optional.
-    if ($this->parameters['class'] !== 'any') {
-      $options['query']['class'] = self::$idStrip . $this->parameters['class'];
+    if ($class !== 'any') {
+      $options['query']['class'] = self::$idStrip . $class;
     }
 
     // Filter by date.
@@ -412,6 +410,11 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromTimestamp($normalized['filter_timestamp'], $timezone);
     $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
 
+    // Add default filter_length.
+    if (!isset($normalized['filter_length'])) {
+      $normalized['filter_length'] = 'day';
+    }
+
     return $normalized;
   }
 
@@ -448,7 +451,7 @@ class GroupexScheduleFetcher {
     ];
 
     if ($timestamp) {
-      $query['week'] = $timestamp;
+      $query['week'] = strtotime('Monday this week', $timestamp);
     }
 
     if ($category) {

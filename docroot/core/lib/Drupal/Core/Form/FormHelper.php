@@ -72,4 +72,25 @@ class FormHelper {
     }
   }
 
+  /**
+   * Helper function to pass on the current request destination.
+   *
+   * @param array $options
+   *   An options array to pass the destination into.
+   *
+   * @return array
+   *   Options array with current destination for
+   *   FormStateInterface::setRedirect()
+   *
+   * @see \Drupal\Core\Form\FormStateInterface::setRedirect()
+   */
+  public static function redirectOptionsPassThroughDestination($options = []) {
+    if ($destination = \Drupal::request()->query->get('destination')) {
+      \Drupal::request()->query->remove('destination');
+      $options['query']['destination'] = $destination;
+     }
+
+    return $options;
+  }
+
 }
