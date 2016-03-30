@@ -77,22 +77,18 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  if ($route_name == 'entity.node.canonical') {
-    $node = \Drupal::routeMatch()->getParameter('node');
-  }
+  $node = \Drupal::routeMatch()->getParameter('node');
   if ($route_name == 'entity.node.preview') {
     $node = \Drupal::routeMatch()->getParameter('node_preview');
   }
-  if (isset($node)) {
-    if (in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
-      array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
-    }
-    elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
-      array_push($suggestions, 'page__node__location_inner');
-    }
-    else {
-      array_unshift($suggestions, 'page__node__' . $node->bundle());
-    }
+  if (in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
+    array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
+  }
+  elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
+    array_push($suggestions, 'page__node__location_inner');
+  }
+  else {
+    array_unshift($suggestions, 'page__node__' . $node->bundle());
   }
   if (!\Drupal::service('path.matcher')->isFrontPage()) {
     if ($route_name == 'entity.node.preview') {
