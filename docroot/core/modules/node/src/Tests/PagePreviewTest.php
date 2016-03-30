@@ -263,6 +263,31 @@ class PagePreviewTest extends NodeTestBase {
     $this->drupalPostForm('node/add/page', array($title_key => 'Preview'), t('Preview'));
     $this->clickLink(t('Back to content editing'));
     $this->assertRaw('edit-submit');
+
+    // Check the user journey from the content overview page.
+    // Add a node to preview.
+    $node = $this->drupalCreateNode(array());
+    $edit = ['title[0][value]' => 'Test node'];
+
+    // Create a user that can access the content overview page, and node edit
+    // operation.
+    $web_user = $this->drupalCreateUser(array('access content overview', 'administer nodes', 'edit any page content', 'access user profiles'));
+    $this->drupalLogin($web_user);
+
+    // Goto the content overview page and click Edit.
+    $this->drupalGet('admin/content');
+    $this->clickLink(t('Edit'));
+
+    // Preview the node.
+    $this->drupalPostForm(NULL, $edit, t('Preview'));
+    $this->assertLink(t('Back to content editing'));
+
+    // Go back and save.
+    $this->clickLink(t('Back to content editing'));
+    $this->drupalPostForm(NULL, $edit, t('Save and keep published'));
+
+    // We should have returned to admin/content via passed destination param.
+    $this->assertUrl('admin/content');
   }
 
   /**

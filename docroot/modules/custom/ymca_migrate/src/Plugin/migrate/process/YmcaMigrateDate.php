@@ -29,7 +29,7 @@ class YmcaMigrateDate extends ProcessPluginBase {
       'Y-m-d H:i:s',
       $value,
       new \DateTimeZone(
-        \Drupal::config('ymca_migrate.settings')->get('timezone')
+        \Drupal::config('system.date')->get('timezone')['default']
       )
     );
     return $date->getTimestamp();

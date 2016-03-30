@@ -5,6 +5,17 @@ dependencies: {  }
 id: personal
 label: 'Personal contact form'
 recipients:
-  - admin@example.com
+  - servicedesk@ymcatwincities.org
 reply: ''
 weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: false
+submissionPageContent: {  }
+submissionPageTitle: 'Thank you'
+email:
+  custom: false
+  subject: ''
+  content:
+    value: ''
+    format: full_html
