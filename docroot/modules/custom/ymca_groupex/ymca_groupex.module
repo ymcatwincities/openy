@@ -85,7 +85,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
         $results = [
           '#theme' => 'groupex_schedule_week',
           '#days' => $schedule['days'],
-          '#pdf_href' => $schedule['pdf_href'],
+          '#pdf_href' => !empty($schedule['pdf_href']) ? $schedule['pdf_href'] : NULL,
           '#cache' => $cache,
         ];
       }
