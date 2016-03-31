@@ -1775,3 +1775,12 @@ function ymca_master_update_8061() {
     'sites/default/config/staging/redirect.settings.yml',
   ]);
 }
+
+/**
+ * Make working hours field required.
+ */
+function ymca_master_update_8062() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/field.field.node.location.field_working_hours.yml',
+  ]);
+}
