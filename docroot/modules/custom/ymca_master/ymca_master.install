@@ -1784,3 +1784,12 @@ function ymca_master_update_8062() {
     'sites/default/config/staging/field.field.node.location.field_working_hours.yml',
   ]);
 }
+
+/**
+ * Update field config.
+ */
+function ymca_master_update_8063() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/field.field.contact_message.contact_a_program_director.field_label.yml',
+  ]);
+}
