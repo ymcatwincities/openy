@@ -1756,3 +1756,22 @@ function ymca_master_update_8059() {
   $redirect->setStatusCode(301);
   $redirect->save();
 }
+
+/**
+ * Fix duplicate blog posts.
+ */
+function ymca_master_update_8060() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog.yml',
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog_archive.yml',
+  ]);
+}
+
+/**
+ * Fix trailing slashes issue.
+ */
+function ymca_master_update_8061() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/redirect.settings.yml',
+  ]);
+}
