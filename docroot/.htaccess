@@ -381,6 +381,10 @@ RewriteRule ^$ http://www.ymcatwincities.org/health__fitness/personal_training? 
 RewriteCond %{HTTP_HOST} ^ymcarun\.org$
 RewriteRule ^$ http://www.ymcatwincities.org/health__fitness/yrun? [L,R=301]
 
+# 301 --- http://www.ymcarun.org => http://www.ymcatwincities.org/health__fitness/yrun
+RewriteCond %{HTTP_HOST} ^www\.ymcarun\.org$
+RewriteRule ^$ http://www.ymcatwincities.org/health__fitness/yrun? [L,R=301]
+
 # 301 --- http://ymcastpaul.org => http://www.ymcatwincities.org
 RewriteCond %{HTTP_HOST} ^ymcastpaul\.org$
 RewriteRule ^$ http://www.ymcatwincities.org/? [L,R=301]
