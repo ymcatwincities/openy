@@ -1,0 +1,5 @@
+ymca_menu.main_menu_config:
+  title: 'Main menu configuration'
+  description: 'Configure main menu.'
+  route_name: ymca_menu.main_menu_config
+  base_route: entity.menu.collection
