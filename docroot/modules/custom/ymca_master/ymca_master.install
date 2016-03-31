@@ -1784,3 +1784,13 @@ function ymca_master_update_8062() {
     'sites/default/config/staging/field.field.node.location.field_working_hours.yml',
   ]);
 }
+
+/**
+ * Fix comment dependencies.
+ */
+function ymca_master_update_8063() {
+  $installer = \Drupal::service('module_installer');
+  $installer->install(['comment'], TRUE);
+  field_cron();
+  $installer->uninstall(['comment'], TRUE);
+}
