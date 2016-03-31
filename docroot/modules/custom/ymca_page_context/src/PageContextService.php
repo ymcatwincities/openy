@@ -38,7 +38,7 @@ class PageContextService {
     if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
-    if(isset($node)) {
+    if (isset($node)) {
       if (in_array($node->bundle(), ['camp', 'location'])) {
         return $node;
       }
