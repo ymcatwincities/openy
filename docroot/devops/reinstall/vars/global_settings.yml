@@ -1,5 +1,5 @@
 ---
-drupal_user: admin
+drupal_user: Yadmin
 drupal_pass: propeople
 installation_profile_name: pp
 mysql_user: root

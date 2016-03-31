@@ -11,7 +11,7 @@ dependencies:
     - field.field.contact_message.personal_trainers_individual.field_form_divider
     - field.field.contact_message.personal_trainers_individual.field_last_name
     - field.field.contact_message.personal_trainers_individual.field_phone_number
-    - field.field.contact_message.personal_trainers_individual.field_preferred_y_text
+    - field.field.contact_message.personal_trainers_individual.field_y_location_email
   module:
     - telephone
     - webforms
@@ -65,11 +65,11 @@ content:
       placeholder: '(###)###-####'
     third_party_settings: {  }
     type: telephone_default
-  field_preferred_y_text:
-    weight: 8
+  field_y_location_email:
+    weight: 9
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_email_default
 hidden:
   copy: true
   langcode: true

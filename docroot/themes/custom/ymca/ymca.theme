@@ -30,7 +30,13 @@ function ymca_preprocess_block(&$variables) {
  * Detects pages relative to location node.
  */
 function ymca_detect_locations_pages() {
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+  }
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $node = \Drupal::routeMatch()->getParameter('node_preview');
+  }
+  if (isset($node)) {
     if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
       return ($site_section->bundle() == 'location' && $node->bundle() != 'location') ? $site_section : NULL;
     }
@@ -39,10 +45,16 @@ function ymca_detect_locations_pages() {
 }
 
 /**
- * Detects pages relative to location node.
+ * Detects pages relative to camp node.
  */
 function ymca_detect_camp_pages() {
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+  }
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $node = \Drupal::routeMatch()->getParameter('node_preview');
+  }
+  if (isset($node)) {
     if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
       return ($site_section->bundle() == 'camp' && $node->bundle() != 'camp') ? $site_section : NULL;
     }
@@ -65,41 +77,38 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!empty($node) || $node = \Drupal::routeMatch()->getParameter('node_preview')) {
     if (in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
       array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
-    }
-    elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
+    } elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
       array_push($suggestions, 'page__node__location_inner');
-    }
-    else {
+    } else {
       array_unshift($suggestions, 'page__node__' . $node->bundle());
     }
-  }
-  if (!\Drupal::service('path.matcher')->isFrontPage()) {
-    if ($route_name == 'entity.node.preview') {
-      $node = \Drupal::routeMatch()->getParameter('node_preview');
-      $front_page = \Drupal::config('system.site')->get('page.front');
-      if ($node->url() == $front_page) {
-        array_unshift($suggestions, 'page__front');
+    if (!\Drupal::service('path.matcher')->isFrontPage()) {
+      if ($route_name == 'entity.node.preview') {
+        $front_page = \Drupal::config('system.site')->get('page.front');
+        if ('/node/' . $node->id() == $front_page) {
+          array_push($suggestions, 'page__front');
+        }
       }
     }
-  }
-  // Detect all pages which referenced to locations by uri.
-  if ($data = ymca_detect_locations_pages()) {
-    if ($node->bundle() != 'location') {
-      array_push($suggestions, 'page__node__location_inner');
+    // Detect all pages which referenced to locations by context.
+    if ($data = ymca_detect_locations_pages()) {
+      if ($node->bundle() != 'location') {
+        array_push($suggestions, 'page__node__location_inner');
+      } else {
+        array_push($suggestions, 'page__node__location');
+      }
     }
-    else {
-      array_push($suggestions, 'page__node__location');
-    }
-  }
-  if ($data = ymca_detect_camp_pages()) {
-    if ($node->bundle() != 'camp') {
-      array_push($suggestions, 'page__node__camp_inner');
-    }
-    else {
-      array_push($suggestions, 'page__node__camp');
+    // Detect all pages which referenced to camps by context.
+    if ($data = ymca_detect_camp_pages()) {
+      if ($node->bundle() != 'camp') {
+        array_push($suggestions, 'page__node__camp_inner');
+      } else {
+        array_push($suggestions, 'page__node__camp');
+      }
     }
   }
 }
@@ -108,11 +117,23 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
  * Implements hook_theme_HOOK_alter().
  */
 function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables) {
-  // Detect all pages which referenced to locations by uri.
+  if (in_array('node__blog__default', $suggestions)) {
+    array_push($suggestions, 'node__blog__full');
+  }
+  if (in_array('node__article__default', $suggestions)) {
+    array_push($suggestions, 'node__article__full');
+  }
+  // Detect all pages which referenced to location by context.
   if ($data = ymca_detect_locations_pages()) {
     array_push($suggestions, 'node__article__location__full');
   }
-  // Detect all pages which referenced to locations by uri.
+  if (in_array('node__location__default', $suggestions)) {
+    array_push($suggestions, 'node__location__full');
+  }
+  if (in_array('node__camp__default', $suggestions)) {
+    array_push($suggestions, 'node__camp__full');
+  }
+  // Detect all pages which referenced to camp by context.
   if ($data = ymca_detect_camp_pages()) {
     switch ($variables['elements']['#node']->bundle()) {
       case 'blog':
@@ -171,7 +192,7 @@ function ymca_preprocess_node(&$variables) {
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
   if (!$variables['is_front']) {
     $front_page = \Drupal::config('system.site')->get('page.front');
-    $variables['is_front'] = $variables['node']->url() == $front_page;
+    $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
   }
 
   // Passing slideshow to template.
@@ -260,14 +281,20 @@ function ymca_preprocess_html(&$variables) {
     $variables['attributes'] = new \Drupal\Core\Template\Attribute();
   }
 
-  if (!$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage()) {
-    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
-      $node = \Drupal::request()->attributes->get('node_preview');
-      $variables['is_front'] = $node->url() == \Drupal::config('system.site')->get('page.front');
-    }
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+
+  if ($current_route_name == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+  }
+  if ($current_route_name == 'entity.node.preview') {
+    $node = \Drupal::routeMatch()->getParameter('node_preview');
   }
 
-  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+  if (!$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage()) {
+    if (\Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+      $variables['is_front'] = '/node/' . $node->id() == \Drupal::config('system.site')->get('page.front');
+    }
+  }
 
   if ($variables['is_front']) {
     $classes = [
@@ -315,12 +342,13 @@ function ymca_preprocess_html(&$variables) {
             'theme_ymca_2013_camp_category_and_detail',
           ];
         }
-        elseif (isset($variables['node_type']) && $variables['node_type'] == 'camp') {
+        elseif ($node->getType() == 'camp') {
           // Camp itself.
           $classes = [
             'locations-camps-template',
             'ancestor-camps',
             'theme_ymca_2013_camp_home',
+            'node--type-camp',
           ];
         }
         else {
@@ -344,12 +372,13 @@ function ymca_preprocess_html(&$variables) {
           ];
         }
         // Location itself.
-        elseif (isset($variables['node_type']) && $variables['node_type'] == 'location') {
+        elseif ($node->getType()  == 'location') {
           $classes = [
             'locations-camps-template',
             'ancestor-locations',
             'page_post_detail',
             'theme_ymca_2013_location_home',
+            'node--type-location',
           ];
         }
         // Location schedule page.
@@ -404,6 +433,9 @@ function ymca_preprocess_html(&$variables) {
  * Implements hook_preprocess_html().
  */
 function ymca_preprocess_page(&$variables) {
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $variables['node'] = \Drupal::routeMatch()->getParameter('node_preview');
+  }
   // Alerts on the page.
   if (isset($variables['node']) && !($block = \Drupal::service('alerts.service')->getCurrentAlertBlock())) {
     if ($variables['node']->hasField('field_alert')) {

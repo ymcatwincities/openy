@@ -19,6 +19,19 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
   public function getActiveLink($menu_name = NULL) {
     // Call the parent method to implement the default behavior.
     $found = parent::getActiveLink($menu_name);
+    // Lookup for a Active Link of preview node.
+    $route_name = $this->routeMatch->getRouteName();
+    if (is_null($found) && $route_name == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+      $route_parameters = array('node' => $node->id());
+      // Load links matching this route.
+      $links = $this->menuLinkManager->loadLinksByRoute('entity.node.canonical', $route_parameters, $menu_name);
+      // Select the first matching link.
+      if ($links) {
+        $found = reset($links);
+      }
+    }
+
     // Only override active link detection for Top menu.
     if ($menu_name !== 'top-menu') {
       return $found;
@@ -32,9 +45,12 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
     // If a node is displayed, load the default parent menu item
     // from the node type's menu settings and return it instead
     // of the default one.
-    $node = $this->routeMatch->getParameter('node');
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($this->routeMatch->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
 
-    if ($node instanceof NodeInterface) {
+    if (isset($node) && $node instanceof NodeInterface) {
       $bundle = $node->bundle();
       switch ($bundle) {
         case 'article':

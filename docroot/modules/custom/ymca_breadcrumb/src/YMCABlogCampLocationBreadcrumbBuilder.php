@@ -20,11 +20,11 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 
 /**
- * Class YMCABlogCampBreadcrumbBuilder.
+ * Class YMCABlogCampLocationBreadcrumbBuilder.
  *
  * @package Drupal\ymca_breadcrumb.
  */
-class YMCABlogCampBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implements BreadcrumbBuilderInterface {
+class YMCABlogCampLocationBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   use LinkGeneratorTrait;
 
   /**
@@ -74,11 +74,14 @@ class YMCABlogCampBreadcrumbBuilder extends PathBasedBreadcrumbBuilder implement
     if ($node->bundle() != 'blog') {
       return FALSE;
     }
+    $this->node = $node;
     $context = \Drupal::service('pagecontext.service')->getContext();
-    if (!$context || $context->bundle() != 'camp') {
+    if (!$context) {
       return FALSE;
     }
-    $this->node = $node;
+    if ($context->bundle() == 'location' || $context->bundle() == 'camp') {
+      return TRUE;
+    }
 
     return TRUE;
   }
