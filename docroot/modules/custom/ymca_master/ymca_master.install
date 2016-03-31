@@ -1756,3 +1756,12 @@ function ymca_master_update_8059() {
   $redirect->setStatusCode(301);
   $redirect->save();
 }
+
+/**
+ * Remove trailing slashes with Redirect.
+ */
+function ymca_master_update_8060() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/redirect.settings.yml',
+  ]);
+}
