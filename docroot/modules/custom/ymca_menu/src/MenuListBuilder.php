@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\menu_ui\MenuListBuilder.
- */
-
 namespace Drupal\ymca_menu;
 
 use Drupal\menu_ui\MenuListBuilder as CoreMenuListBuilder;
