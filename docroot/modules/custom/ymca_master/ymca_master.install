@@ -1822,9 +1822,19 @@ function ymca_master_update_8066() {
 }
 
 /**
- * Remove main menu link items.
+ * Install config for managing page with winners.
  */
 function ymca_master_update_8067() {
+  $path = drupal_get_path('module', 'ymca_frontend');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_frontend.retention.yml',
+  ]);
+}
+
+/**
+ * Remove main menu link items.
+ */
+function ymca_master_update_8068() {
   $query = Drupal::entityQuery('menu_link_content')
     ->condition('menu_name', 'main');
   $results = $query->execute();

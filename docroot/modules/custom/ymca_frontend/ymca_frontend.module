@@ -56,6 +56,13 @@ function ymca_frontend_add_paths(&$variables) {
  */
 function ymca_frontend_preprocess_page__march(&$variables) {
   ymca_frontend_add_paths($variables);
+  $variables['display_winners'] = FALSE;
+  if (\Drupal::config('ymca_frontend.retention')->get('display_winners')) {
+    /** @var \Drupal\ymca_frontend\YMCAMarchWinner $service */
+    $service = \Drupal::service('ymca_frontend.march_winners');
+    $variables['winners'] = $service->getWinners();
+    $variables['display_winners'] = TRUE;
+  }
 }
 
 /**
