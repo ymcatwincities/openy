@@ -182,4 +182,18 @@
       $('select', $wrap).trigger('change');
     }
   };
+
+  /**
+   * Cliendside Email validation.
+   */
+  Drupal.behaviors.ymca_email_pattern = {
+    attach: function (context, settings) {
+      $("input[type=email]", context).each(function () {
+        if (!$(this).attr('pattern')) {
+          $(this).attr('pattern', '[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.(?:[a-zA-Z0-9-\\.]+)*');
+        }
+      });
+    }
+  };
+
 })(jQuery);
