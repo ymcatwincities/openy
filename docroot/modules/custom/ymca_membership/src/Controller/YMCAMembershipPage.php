@@ -187,6 +187,8 @@ class YMCAMembershipPage extends ControllerBase {
       '#theme' => 'membership_thank_you',
       '#location' => $location_build,
       '#submission' => $submission_build,
+      '#block_special_offer' => $this->getBlock('Membership thank you: Special Offer'),
+      '#block_whats_next' => $this->getBlock('Membership thank you: What is next?'),
       '#cache' => [
         'max-age' => 0,
       ],
