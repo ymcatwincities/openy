@@ -1820,3 +1820,13 @@ function ymca_master_update_8065() {
 function ymca_master_update_8066() {
   \Drupal::service('module_installer')->uninstall(['ymca_cron'], TRUE);
 }
+
+/**
+ * Install config for managing page with winners.
+ */
+function ymca_master_update_8067() {
+  $path = drupal_get_path('module', 'ymca_frontend');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_frontend.retention.yml',
+  ]);
+}
