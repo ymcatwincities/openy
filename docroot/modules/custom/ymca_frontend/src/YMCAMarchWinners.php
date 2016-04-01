@@ -201,6 +201,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
    * Identify winner by email.
    *
    * @return array|bool
+   *   Title and name of the prize.
    */
   public function identifyIndividualPrize() {
     if (!isset($_GET['email'])) {
