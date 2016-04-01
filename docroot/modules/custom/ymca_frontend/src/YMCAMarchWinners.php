@@ -68,27 +68,21 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
       }
     }
 
-    // Get list of locations.
-    $locations = $this->getLocations();
-
     /* Second Prize */
     if (!empty($list->second_prize)) {
-      $sub_locations = [];
-      $location_winners = [];
-      foreach ($list->second_prize as $key => $location) {
-        $sub_locations[$key] = isset($locations[$key]) ? $locations[$key]['name'] : t('No Name');
-        foreach ($location as $item) {
-          $location_winners[$key][] = [
-            'name' => $this->getWinnerName($item),
-            'id' => $this->getWinnerId($item),
-          ];
-        }
+      foreach ($list->second_prize as $item) {
+        $location = $this->getWinnerLocation($item);
+        $winners['second_prize'][$location] = [
+          'name' => $this->getWinnerName($item),
+          'id' => $this->getWinnerId($item),
+          'location' => $location,
+        ];
       }
-      asort($sub_locations);
-      $winners['second_prize']['locations'] = $sub_locations;
-      $winners['second_prize']['winners'] = $location_winners;
+      ksort($winners['second_prize']);
     }
 
+    // Get list of locations.
+    $locations = $this->getLocations();
     /* Third prize */
     if (!empty($list->third_prize)) {
       $sub_locations = [];
