@@ -1813,3 +1813,10 @@ function ymca_master_update_8065() {
     'sites/default/config/staging/views.view.ymca_twin_cities_blog_archive.yml',
   ]);
 }
+
+/**
+ * Uninstall ymca_cron.
+ */
+function ymca_master_update_8066() {
+  \Drupal::service('module_installer')->uninstall(['ymca_cron'], TRUE);
+}
