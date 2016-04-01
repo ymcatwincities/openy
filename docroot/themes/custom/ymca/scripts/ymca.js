@@ -156,7 +156,7 @@
    */
   Drupal.behaviors.ymca_march_winners = {
     attach: function (context, settings) {
-      var $wrap = $('#prizes', context);
+      var $wrap = $('#more-prizes', context);
       if ($wrap.length === 0) {
         return false;
       }
