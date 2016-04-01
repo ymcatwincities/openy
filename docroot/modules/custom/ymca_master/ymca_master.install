@@ -1830,3 +1830,17 @@ function ymca_master_update_8067() {
     $path . '/config/install/ymca_frontend.retention.yml',
   ]);
 }
+
+/**
+ * Remove main menu link items.
+ */
+function ymca_master_update_8068() {
+  $query = Drupal::entityQuery('menu_link_content')
+    ->condition('menu_name', 'main');
+  $results = $query->execute();
+
+  // Remove links.
+  $storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $links = $storage->loadMultiple($results);
+  $storage->delete($links);
+}
