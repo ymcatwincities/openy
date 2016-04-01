@@ -1795,9 +1795,19 @@ function ymca_master_update_8063() {
 }
 
 /**
- * Remove day camp posts from blog & blog archive.
+ * Fix comment dependencies.
  */
 function ymca_master_update_8064() {
+  $installer = \Drupal::service('module_installer');
+  $installer->install(['comment'], TRUE);
+  field_cron();
+  $installer->uninstall(['comment'], TRUE);
+}
+
+/**
+ * Remove day camp posts from blog & blog archive.
+ */
+function ymca_master_update_8065() {
   \Drupal::service('config_import.importer')->importConfigs([
     'sites/default/config/staging/views.view.ymca_twin_cities_blog.yml',
     'sites/default/config/staging/views.view.ymca_twin_cities_blog_archive.yml',
