@@ -83,6 +83,19 @@
             .eq(0)
             .prepend(thumb);
 
+          $('p', this).each(function (i) {
+            // Remove all comment nodes.
+            $(this)
+              .contents()
+              .filter(function(){
+                return this.nodeType == 8;
+              })
+              .remove();
+            var text = $(this).html();
+            if (text.replace(/\s/g, '') === '') {
+              $(this).addClass('hidden');
+            }
+          });
           $(this).find('p:empty').remove();
         }
       );
@@ -169,4 +182,18 @@
       $('select', $wrap).trigger('change');
     }
   };
+
+  /**
+   * Cliendside Email validation.
+   */
+  Drupal.behaviors.ymca_email_pattern = {
+    attach: function (context, settings) {
+      $("input[type=email]", context).each(function () {
+        if (!$(this).attr('pattern')) {
+          $(this).attr('pattern', '[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.(?:[a-zA-Z0-9-\\.]+)*');
+        }
+      });
+    }
+  };
+
 })(jQuery);
