@@ -1793,3 +1793,13 @@ function ymca_master_update_8063() {
     'sites/default/config/staging/field.field.contact_message.contact_a_program_director.field_label.yml',
   ]);
 }
+
+/**
+ * Remove day camp posts from blog & blog archive.
+ */
+function ymca_master_update_8064() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog.yml',
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog_archive.yml',
+  ]);
+}
