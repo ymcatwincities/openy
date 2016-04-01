@@ -1786,9 +1786,18 @@ function ymca_master_update_8062() {
 }
 
 /**
- * Fix comment dependencies.
+ * Update field config.
  */
 function ymca_master_update_8063() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/field.field.contact_message.contact_a_program_director.field_label.yml',
+  ]);
+}
+
+/**
+ * Fix comment dependencies.
+ */
+function ymca_master_update_8064() {
   $installer = \Drupal::service('module_installer');
   $installer->install(['comment'], TRUE);
   field_cron();

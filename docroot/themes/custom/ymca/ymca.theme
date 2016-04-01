@@ -77,10 +77,8 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
-    if ($route_name == 'entity.node.preview') {
-      $node = \Drupal::routeMatch()->getParameter('node_preview');
-    }
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!empty($node) || $node = \Drupal::routeMatch()->getParameter('node_preview')) {
     if (in_array($route_name, ['ymca_blog_listing.news_events_page_controller'])) {
       array_push($suggestions, 'page__node__about__news__events__' . $node->bundle());
     } elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
@@ -88,30 +86,29 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
     } else {
       array_unshift($suggestions, 'page__node__' . $node->bundle());
     }
-  }
-  if (!\Drupal::service('path.matcher')->isFrontPage()) {
-    if ($route_name == 'entity.node.preview') {
-      $front_page = \Drupal::config('system.site')->get('page.front');
-      if ('/node/' . $node->id() == $front_page) {
-        array_push($suggestions, 'page__front');
+    if (!\Drupal::service('path.matcher')->isFrontPage()) {
+      if ($route_name == 'entity.node.preview') {
+        $front_page = \Drupal::config('system.site')->get('page.front');
+        if ('/node/' . $node->id() == $front_page) {
+          array_push($suggestions, 'page__front');
+        }
       }
     }
-  }
-  // Detect all pages which referenced to locations by uri.
-  if ($data = ymca_detect_locations_pages()) {
-    if ($node->bundle() != 'location') {
-      array_push($suggestions, 'page__node__location_inner');
+    // Detect all pages which referenced to locations by context.
+    if ($data = ymca_detect_locations_pages()) {
+      if ($node->bundle() != 'location') {
+        array_push($suggestions, 'page__node__location_inner');
+      } else {
+        array_push($suggestions, 'page__node__location');
+      }
     }
-    else {
-      array_push($suggestions, 'page__node__location');
-    }
-  }
-  if ($data = ymca_detect_camp_pages()) {
-    if ($node->bundle() != 'camp') {
-      array_push($suggestions, 'page__node__camp_inner');
-    }
-    else {
-      array_push($suggestions, 'page__node__camp');
+    // Detect all pages which referenced to camps by context.
+    if ($data = ymca_detect_camp_pages()) {
+      if ($node->bundle() != 'camp') {
+        array_push($suggestions, 'page__node__camp_inner');
+      } else {
+        array_push($suggestions, 'page__node__camp');
+      }
     }
   }
 }
