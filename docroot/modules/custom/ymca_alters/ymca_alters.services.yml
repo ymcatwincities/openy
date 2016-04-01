@@ -1,0 +1,4 @@
+services:
+  ymca_date_cache_reset:
+    class: Drupal\ymca_alters\YmcaDateCacheReset
+    arguments: ['@cache_tags.invalidator', '@logger.factory']
