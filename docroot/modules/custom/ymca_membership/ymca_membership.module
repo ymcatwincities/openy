@@ -27,8 +27,8 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
       'variables' => [
         'location' => '',
         'submission' => '',
-        'block_form_fee' => '',
-        'block_cost' => '',
+        'block_whats_next' => '',
+        'block_special_offer' => '',
         'form' => '',
       ],
       'template' => 'membership-thank-you',

@@ -12,16 +12,41 @@ use Drupal\Core\Entity\EntityInterface;
  * Implements hook_entity_presave().
  */
 function ymca_day_camp_entity_presave(EntityInterface $entity) {
-  // Remove site section field value if the blog post is day camp one.
+  // If user switched the post to day camp field section should be removed.
+  // If user associated the post to some camp, day camp checkbox should be removed.
   if ($entity->getEntityTypeId() == 'node') {
     if ($entity->bundle() == 'blog') {
-      if ($entity->hasField('field_related_camps_locations')) {
-        $day_camp = $entity->get('field_related_camps_locations');
-        if (!$day_camp->isEmpty()) {
-          $site_section = $entity->get('field_site_section');
-          foreach ($site_section as $index => $item) {
-            unset($site_section[$index]);
-          }
+      // Do not process new nodes.
+      if ($entity->isNew()) {
+        return;
+      }
+
+      $field_related = 'field_related_camps_locations';
+      $field_section = 'field_site_section';
+
+      // Check whether the fields are present.
+      if (!$entity->hasField($field_related) || !$entity->hasField($field_section)) {
+        return;
+      }
+
+      $original = $entity->original;
+
+      $related['new'] = $entity->get($field_related);
+      $related['original'] = $original->get($field_related);
+      if (!$related['new']->isEmpty() && $related['original']->isEmpty()) {
+        $section['new'] = $entity->get($field_section);
+        foreach ($section['new'] as $index => $item) {
+          unset($section['new'][$index]);
+        }
+        return;
+      }
+
+      $section['new'] = $entity->get($field_section);
+      $section['original'] = $original->get($field_section);
+      if (!$section['new']->isEmpty() && $section['original']->isEmpty()) {
+        $related['new'] = $entity->get($field_related);
+        foreach ($related['new'] as $index => $item) {
+          unset($related['new'][$index]);
         }
       }
     }
