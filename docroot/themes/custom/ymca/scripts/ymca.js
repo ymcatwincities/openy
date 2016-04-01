@@ -83,6 +83,19 @@
             .eq(0)
             .prepend(thumb);
 
+          $('p', this).each(function (i) {
+            // Remove all comment nodes.
+            $(this)
+              .contents()
+              .filter(function(){
+                return this.nodeType == 8;
+              })
+              .remove();
+            var text = $(this).html();
+            if (text.replace(/\s/g, '') === '') {
+              $(this).addClass('hidden');
+            }
+          });
           $(this).find('p:empty').remove();
         }
       );
