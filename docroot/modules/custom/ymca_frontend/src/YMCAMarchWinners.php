@@ -5,7 +5,7 @@ namespace Drupal\ymca_frontend;
 use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
- * Interface YMCAMarchWinnersInterface.
+ * Service for calculating winners.
  */
 class YMCAMarchWinners implements YMCAMarchWinnersInterface {
 
@@ -53,6 +53,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
           'name' => $this->getWinnerName($item),
           'id' => $this->getWinnerId($item),
           'location' => $this->getWinnerLocation($item),
+          'mail' => $this->getWinnerMail($item),
         ];
       }
     }
@@ -64,6 +65,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
           'name' => $this->getWinnerName($item),
           'id' => $this->getWinnerId($item),
           'location' => $this->getWinnerLocation($item),
+          'mail' => $this->getWinnerMail($item),
         ];
       }
     }
@@ -76,6 +78,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
           'name' => $this->getWinnerName($item),
           'id' => $this->getWinnerId($item),
           'location' => $location,
+          'mail' => $this->getWinnerMail($item),
         ];
       }
       ksort($winners['second_prize']);
@@ -93,6 +96,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
           $location_winners[$key][] = [
             'name' => $this->getWinnerName($item),
             'id' => $this->getWinnerId($item),
+            'mail' => $this->getWinnerMail($item),
           ];
         }
       }
@@ -144,6 +148,19 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
   }
 
   /**
+   * Get winner mail.
+   *
+   * @param \stdClass $item
+   *   Information about winner.
+   *
+   * @return string
+   *   Winner mail.
+   */
+  public function getWinnerMail(\stdClass $item) {
+    return strtolower($item->mail);
+  }
+
+  /**
    * Get winner location name.
    *
    * @param \stdClass $item
@@ -178,6 +195,74 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
       }
     }
     return $locations;
+  }
+
+  /**
+   * Identify winner by email.
+   *
+   * @return array|bool
+   */
+  public function identifyIndividualPrize() {
+    if (!isset($_GET['email'])) {
+      return FALSE;
+    }
+    $email = strtolower($_GET['email']);
+    $prizes = [
+      'grand_prize' => [
+        'title' => t('Grand Prize'),
+        'prize' => t('Suite tickets to the Minnesota Timberwolves vs Dallas Mavericks April 3, 2016'),
+      ],
+      'first_prize' => [
+        'title' => t('First Prize'),
+        'prize' => [
+          t("Shabazz Muhammed<br>signed basketball"),
+          t("Andrew Wiggins<br>signed jersey"),
+        ],
+      ],
+      'second_prize' => [
+        'title' => t('Second Prize'),
+        'prize' => t('3 month of Membership'),
+      ],
+      'third_prize' => [
+        'title' => t('Third Prize'),
+        'prize' => t('3 months of towel service'),
+      ],
+    ];
+    $winners = $this->getWinners();
+    // Search in grand prize.
+    foreach ($winners['grand_prize'] as $winner) {
+      if ($email == $winner['mail']) {
+        return $prizes['grand_prize'];
+      }
+    }
+
+    // Search in first prize.
+    foreach ($winners['first_prize'] as $key => $winner) {
+      if ($email == $winner['mail']) {
+        return [
+          'title' => $prizes['first_prize']['title'],
+          'prize' => $prizes['first_prize']['prize'][$key],
+        ];
+      }
+    }
+
+    // Search in second prize.
+    foreach ($winners['second_prize'] as $key => $winner) {
+      if ($email == $winner['mail']) {
+        return $prizes['second_prize'];
+      }
+    }
+
+    // Search in third prize.
+    foreach ($winners['third_prize']['winners'] as $location) {
+      foreach ($location as $winner) {
+        if ($email == $winner['mail']) {
+          return $prizes['third_prize'];
+        }
+      }
+    }
+
+    return FALSE;
   }
 
 }
