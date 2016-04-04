@@ -126,8 +126,6 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
    *
    * @param string $path
    *   The request path with a leading slash.
-   * @param array $exclude
-   *   An array of paths or system paths to skip.
    *
    * @return \Symfony\Component\HttpFoundation\Request
    *   A populated request object or NULL if the path couldn't be matched.
