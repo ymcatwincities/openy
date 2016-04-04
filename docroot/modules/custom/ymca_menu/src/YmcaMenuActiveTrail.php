@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_menu;
 
+use Behat\Mink\Exception\Exception;
 use Drupal\Core\Menu\MenuActiveTrail;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatch;
@@ -159,6 +160,10 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
       return NULL;
     }
     catch (AccessDeniedHttpException $e) {
+      return NULL;
+    }
+    catch (Exception $e) {
+      watchdog_exception('ymca_menu', $e);
       return NULL;
     }
   }
