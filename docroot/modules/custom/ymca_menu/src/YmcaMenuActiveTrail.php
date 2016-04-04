@@ -3,8 +3,13 @@
 namespace Drupal\ymca_menu;
 
 use Drupal\Core\Menu\MenuActiveTrail;
-use Drupal\node\Entity\NodeType;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Routing\RouteMatch;
+use Drupal\Core\ParamConverter\ParamNotConvertedException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 define('TERM_NEWS_TID', 6);
 
@@ -84,17 +89,82 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
 
     if (isset($route_name_matched)) {
       $links = \Drupal::service('plugin.manager.menu.link')
-        ->loadLinksByRoute($route_name_matched);
+        ->loadLinksByRoute($route_name_matched, [], $menu_name);
       if ($links) {
-        foreach ($links as $link) {
-          if ($link->getMenuName() == $menu_name) {
-            $found = $link;
+        $found = reset($links);
+      }
+    }
+
+    // Pathbased active trail detection.
+    if (!$found) {
+      // Consequently contract path by removing it's last parts.
+      $context = \Drupal::service('router.request_context');
+      $path = trim($context->getPathInfo(), '/');
+      $path_elements = explode('/', $path);
+      while (count($path_elements) > 1) {
+        array_pop($path_elements);
+        $path = '/' . implode('/', $path_elements);
+        // Retrive request for the page.
+        $route_request = $this->getRequestForPath($path);
+        if ($route_request) {
+          $route_match = RouteMatch::createFromRequest($route_request);
+          $links = \Drupal::service('plugin.manager.menu.link')
+            ->loadLinksByRoute($route_match->getRouteName(), $route_match->getRawParameters(), $menu_name);
+          if ($links) {
+            $found = reset($links);
+            break;
           }
         }
       }
     }
 
     return $found;
+  }
+
+  /**
+   * Matches a path in the router.
+   *
+   * @param string $path
+   *   The request path with a leading slash.
+   *
+   * @return \Symfony\Component\HttpFoundation\Request
+   *   A populated request object or NULL if the path couldn't be matched.
+   */
+  protected function getRequestForPath($path) {
+    // @todo Use the RequestHelper once https://www.drupal.org/node/2090293 is
+    //   fixed.
+    $request = Request::create($path);
+    // Performance optimization: set a short accept header to reduce overhead in
+    // AcceptHeaderMatcher when matching the request.
+    $request->headers->set('Accept', 'text/html');
+    // Find the system path by resolving aliases, language prefix, etc.
+    $processed = \Drupal::service('path_processor_manager')->processInbound($path, $request);
+    if (empty($processed) || !empty($exclude[$processed])) {
+      // This resolves to the front page, which we already add.
+      return NULL;
+    }
+    \Drupal::service('path.current')->setPath($processed, $request);
+    // Attempt to match this path to provide a fully built request.
+    try {
+      $request->attributes->add(\Drupal::service('router')->matchRequest($request));
+      return $request;
+    }
+    catch (ParamNotConvertedException $e) {
+      return NULL;
+    }
+    catch (ResourceNotFoundException $e) {
+      return NULL;
+    }
+    catch (MethodNotAllowedException $e) {
+      return NULL;
+    }
+    catch (AccessDeniedHttpException $e) {
+      return NULL;
+    }
+    catch (\Exception $e) {
+      watchdog_exception('ymca_menu', $e);
+      return NULL;
+    }
   }
 
 }
