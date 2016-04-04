@@ -11,6 +11,7 @@ class YMCAMarchController {
    * Set page's content.
    */
   public function content() {
+    \Drupal::service('page_cache_kill_switch')->trigger();
     return [
       '#markup' => '',
     ];
