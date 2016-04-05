@@ -107,9 +107,11 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
         // Retrive request for the page.
         $route_request = $this->getRequestForPath($path);
         if ($route_request) {
-          $route_match = RouteMatch::createFromRequest($route_request);
+          $route_match = RouteMatch::createFromRequest($route_request);$abu = $this->routeMatch->getRawParameters();
+          $route_parameters = $route_match->getRawParameters();
+          $route_parameters = $route_parameters->all();
           $links = \Drupal::service('plugin.manager.menu.link')
-            ->loadLinksByRoute($route_match->getRouteName(), $route_match->getRawParameters(), $menu_name);
+            ->loadLinksByRoute($route_match->getRouteName(), $route_parameters, $menu_name);
           if ($links) {
             $found = reset($links);
             break;
