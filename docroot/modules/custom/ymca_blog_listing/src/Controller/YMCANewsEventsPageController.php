@@ -27,19 +27,34 @@ class YMCANewsEventsPageController extends ControllerBase {
     switch ($node->getType()) {
       case 'camp':
         $view = views_embed_view('camp_blog_listing', 'blog_listing_embed', $node->id());
+        $output = array('view' => $view);
         break;
 
       case 'location':
-        $view = views_embed_view('location_blog_listing', 'blog_listing_embed');
+        $query = \Drupal::entityQuery('node')
+          ->condition('type', 'blog')
+          ->sort('created', 'DESC')
+          ->range(0, 10);
+        $group = $query->orConditionGroup()
+          ->condition('field_site_section.target_id', NULL, 'IS NULL')
+          ->condition('field_site_section.target_id', $node->id());
+        $nids = $query->condition($group)->execute();
+        
+        $output = array('#markup' => '');
+        if (!empty($nids)) {
+          $node_storage = \Drupal::entityManager()->getStorage('node');
+          $nodes = $node_storage->loadMultiple($nids);
+          foreach ($nodes as $node) {
+            $output['#markup'] .= render(node_view($node, 'location_blog_teaser'));
+          }
+        }
         break;
 
       default:
         throw new NotFoundHttpException();
     }
 
-    return [
-      'view' => $view,
-    ];
+    return $output;
   }
 
 }
