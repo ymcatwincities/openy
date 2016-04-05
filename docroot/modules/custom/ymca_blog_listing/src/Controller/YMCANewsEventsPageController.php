@@ -45,7 +45,8 @@ class YMCANewsEventsPageController extends ControllerBase {
           $node_storage = \Drupal::entityManager()->getStorage('node');
           $nodes = $node_storage->loadMultiple($nids);
           foreach ($nodes as $node) {
-            $output['#markup'] .= render(node_view($node, 'location_blog_teaser'));
+            $node_view = node_view($node, 'location_blog_teaser');
+            $output['#markup'] .= render($node_view);
           }
         }
         break;
