@@ -39,7 +39,7 @@ class YMCANewsEventsPageController extends ControllerBase {
           ->condition('field_site_section.target_id', NULL, 'IS NULL')
           ->condition('field_site_section.target_id', $node->id());
         $nids = $query->condition($group)->execute();
-        
+
         $output = array('#markup' => '');
         if (!empty($nids)) {
           $node_storage = \Drupal::entityManager()->getStorage('node');
