@@ -48,7 +48,7 @@ class YmcaCustomHoursWidgetDefault extends WidgetBase {
     foreach ($item::$days as $day) {
       $name = 'hours_' . $day;
       $hours = [
-        '#title' => t('!day', ['!day' => ucfirst($day)]),
+        '#title' => t('%day', ['%day' => ucfirst($day)]),
         '#type' => 'textfield',
         '#default_value' => isset($item->{$name}) ? $item->{$name} : '',
         '#placeholder' => t('Example: 9am - 10pm'),
