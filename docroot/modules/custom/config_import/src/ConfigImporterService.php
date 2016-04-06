@@ -2,60 +2,161 @@
 
 namespace Drupal\config_import;
 
+use Drupal\Component\Uuid\UuidInterface;
+use Drupal\Core\Config\CachedStorage;
+use Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher;
+use Drupal\Core\Config\ConfigImporterException;
 use Drupal\Core\Config\ConfigManagerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Lock\LockBackendInterface;
+use Drupal\Core\Config\TypedConfigManager;
+use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\ProxyClass\Extension\ModuleInstaller;
+use Drupal\Core\Extension\ThemeHandler;
+use Drupal\Core\StringTranslation\TranslationManager;
+use Drupal\Core\File\FileSystem;
+use Drupal\Core\Config\ConfigException;
 use Exception;
+use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\StorageComparer;
 use Drupal\Core\Config\ConfigImporter;
 
 /**
- * Implements Config Importer Service.
+ * Class ConfigImporterService.
+ *
+ * @package Drupal\config_import
  */
-class ConfigImporterService {
+class ConfigImporterService implements ConfigImporterServiceInterface {
 
   /**
-   * The config manager.
+   * Uuid definition.
    *
-   * @var \Drupal\Core\Config\ConfigManagerInterface
+   * @var UuidInterface
+   */
+  protected $uuid;
+
+  /**
+   * CachedStorage definition.
+   *
+   * @var CachedStorage
+   */
+  protected $configStorage;
+
+  /**
+   * ConfigManager definition.
+   *
+   * @var ConfigManagerInterface
    */
   protected $configManager;
 
   /**
-   * The config factory.
+   * ContainerAwareEventDispatcher definition.
    *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   * @var ContainerAwareEventDispatcher
    */
-  protected $configFactory;
+  protected $eventDispatcher;
 
   /**
-   * Constructs a new ConfigImporterService.
+   * LockBackend definition.
    *
-   * @param \Drupal\Core\Config\ConfigManagerInterface $config_manager
-   *   The config manager.
+   * @var LockBackendInterface
    */
-  public function __construct(ConfigManagerInterface $config_manager, ConfigFactoryInterface $config_factory) {
+  protected $lock;
+
+  /**
+   * TypedConfigManager definition.
+   *
+   * @var TypedConfigManager
+   */
+  protected $configTyped;
+
+  /**
+   * ModuleHandler definition.
+   *
+   * @var ModuleHandler
+   */
+  protected $moduleHandler;
+
+  /**
+   * ModuleInstaller definition.
+   *
+   * @var ModuleInstaller
+   */
+  protected $moduleInstaller;
+
+  /**
+   * ThemeHandler definition.
+   *
+   * @var ThemeHandler
+   */
+  protected $themeHandler;
+
+  /**
+   * TranslationManager definition.
+   *
+   * @var TranslationManager
+   */
+  protected $translationManager;
+
+  /**
+   * FileSystem definition.
+   *
+   * @var FileSystem
+   */
+  protected $fileSystem;
+
+  /**
+   * ConfigImporterService constructor.
+   *
+   * @param UuidInterface $uuid
+   *   Uuid.
+   * @param CachedStorage $config_storage
+   *   CachedStorage.
+   * @param ConfigManagerInterface $config_manager
+   *   ConfigManager.
+   * @param ContainerAwareEventDispatcher $event_dispatcher
+   *   ContainerAwareEventDispatcher.
+   * @param LockBackendInterface $lock
+   *   LockBackend.
+   * @param TypedConfigManager $config_typed
+   *   TypedConfigManager.
+   * @param ModuleHandler $module_handler
+   *   ModuleHandler.
+   * @param ModuleInstaller $module_installer
+   *   ModuleInstaller.
+   * @param ThemeHandler $theme_handler
+   *   ThemeHandler.
+   * @param TranslationManager $translation_manager
+   *   TranslationManager.
+   * @param FileSystem $file_system
+   *   FileSystem.
+   */
+  public function __construct(UuidInterface $uuid, CachedStorage $config_storage, ConfigManagerInterface $config_manager, ContainerAwareEventDispatcher $event_dispatcher, LockBackendInterface $lock, TypedConfigManager $config_typed, ModuleHandler $module_handler, ModuleInstaller $module_installer, ThemeHandler $theme_handler, TranslationManager $translation_manager, FileSystem $file_system) {
+    $this->uuid = $uuid;
+    $this->configStorage = $config_storage;
     $this->configManager = $config_manager;
-    $this->configFactory = $config_factory;
+    $this->eventDispatcher = $event_dispatcher;
+    $this->lock = $lock;
+    $this->configTyped = $config_typed;
+    $this->moduleHandler = $module_handler;
+    $this->moduleInstaller = $module_installer;
+    $this->themeHandler = $theme_handler;
+    $this->translationManager = $translation_manager;
+    $this->fileSystem = $file_system;
   }
 
   /**
-   * Import config.
-   *
-   * @param array $files
-   *   Array of strings, each item is a path to config file.
+   * {@inheritdoc}
    */
   public function importConfigs(array $files) {
     // @todo The next string doesn't work during installation. Hardcode it.
-    // $uri = 'temporary://confi_tmp_' . \Drupal::service('uuid')->generate();
-    $tmp_dir = '/tmp/confi_tmp_' . \Drupal::service('uuid')->generate();
+    // $uri = 'temporary://confi_tmp_' . $this->uuid->->generate();
+    $tmp_dir = '/tmp/confi_tmp_' . $this->uuid->generate();
 
     try {
       $this->export($tmp_dir);
     }
     catch (Exception $e) {
-      watchdog_exception('config_import', $e);
-      return;
+      throw new ConfigImporterException($e->getMessage());
     }
 
     foreach ($files as $source) {
@@ -65,11 +166,15 @@ class ConfigImporterService {
     $this->import($tmp_dir);
   }
 
-  public function import($dir) {
-    $active_storage = \Drupal::service('config.storage');
+  /**
+   * Import config from temporary directory.
+   *
+   * @param string $dir
+   *   Temporary directory.
+   */
+  protected function import($dir) {
     $source_storage = new FileStorage($dir);
-    $config_manager = \Drupal::service('config.manager');
-    $storage_comparer = new StorageComparer($source_storage, $active_storage, $config_manager);
+    $storage_comparer = new StorageComparer($source_storage, $this->configStorage, $this->configManager);
 
     if (!$storage_comparer->createChangelist()->hasChanges()) {
       return;
@@ -77,46 +182,45 @@ class ConfigImporterService {
 
     $config_importer = new ConfigImporter(
       $storage_comparer,
-      \Drupal::service('event_dispatcher'),
-      \Drupal::service('config.manager'),
-      \Drupal::lock(),
-      \Drupal::service('config.typed'),
-      \Drupal::moduleHandler(),
-      \Drupal::service('module_installer'),
-      \Drupal::service('theme_handler'),
-      \Drupal::service('string_translation')
+      $this->eventDispatcher,
+      $this->configManager,
+      $this->lock,
+      $this->configTyped,
+      $this->moduleHandler,
+      $this->moduleInstaller,
+      $this->themeHandler,
+      $this->translationManager
     );
-
 
     try {
       $config_importer->import();
     }
-    catch (Exception $e) {
-      watchdog_exception('config_import', $e);
+    catch (ConfigException $e) {
+      $message = 'The import failed due for the following reasons:' . "\n";
+      $message .= implode("\n", $config_importer->getErrors());
+      throw new ConfigImporterException($message);
     }
   }
 
   /**
-   * Export active configuration to temporary directory.
+   * Export configuration to temporary directory.
    *
    * @param string $dir
-   *   Uri of a temporary directory.
+   *   Path to directory.
    *
-   * @throws Exception
-   *   When fails to create a directory.
+   * @throws \Exception
+   *   When fails to create temporary directory.
    */
-  public function export($dir) {
-    $result = \Drupal::service('file_system')->mkdir($dir);
+  protected function export($dir) {
+    $result = $this->fileSystem->mkdir($dir);
     if (!$result) {
       throw new \Exception('Failed to create temporary directory: ' . $dir);
     }
-    $source_storage = \Drupal::service('config.storage');
+    $source_storage = $this->configStorage;
     $destination_storage = new FileStorage($dir);
 
-    $filters = [
-      'devel.settings',
-      'config_devel.settings',
-    ];
+    $filters = [];
+    $this->moduleHandler->alter('config_import_configs', $filters);
 
     foreach ($source_storage->listAll() as $name) {
       if (in_array($name, $filters)) {

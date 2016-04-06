@@ -1845,6 +1845,9 @@ function ymca_master_update_8068() {
   $storage->delete($links);
 }
 
+/**
+ * Extend working hours block.
+ */
 function ymca_master_update_8069() {
   \Drupal::service('module_installer')->install(['ymca_field_custom_hours'], TRUE);
 
