@@ -42,6 +42,7 @@ class YmcaCustomHoursWidgetDefault extends WidgetBase {
       '#title' => t('Custom hours label'),
       '#type' => 'textfield',
       '#default_value' => isset($item->hours_label) ? $item->hours_label : '',
+      '#description' => t('To remove entire section clear this field and click Save.')
     ];
 
     foreach ($item::$days as $day) {
