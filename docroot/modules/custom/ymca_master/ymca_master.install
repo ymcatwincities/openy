@@ -1844,3 +1844,19 @@ function ymca_master_update_8068() {
   $links = $storage->loadMultiple($results);
   $storage->delete($links);
 }
+
+/**
+ * Extend working hours block.
+ */
+function ymca_master_update_8069() {
+  \Drupal::service('module_installer')->install(['ymca_field_custom_hours'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'core.entity_form_display.block_content.working_hours_block.default.yml',
+    $path . 'core.entity_view_display.block_content.working_hours_block.default.yml',
+    $path . 'core.extension.yml',
+    $path . 'field.field.block_content.working_hours_block.field_custom_hours.yml',
+    $path . 'field.storage.block_content.field_custom_hours.yml',
+  ]);
+}
