@@ -51,7 +51,7 @@ class YmcaCustomHoursWidgetDefault extends WidgetBase {
         '#title' => t('!day', ['!day' => ucfirst($day)]),
         '#type' => 'textfield',
         '#default_value' => isset($item->{$name}) ? $item->{$name} : '',
-        '#description' => t('Example: 9am - 10pm'),
+        '#placeholder' => t('Example: 9am - 10pm'),
       ];
       $element['hours_' . $day] = $hours;
     }
