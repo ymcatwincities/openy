@@ -238,9 +238,9 @@ function ymca_alters_entity_view_alter(
   EntityInterface $entity,
   EntityViewDisplayInterface $display
 ) {
-  // Cheking view_mode for node.
+  // Checking view_mode for node.
   if ($build['#view_mode'] === 'full' && $entity instanceof NodeInterface) {
-    // Cheking html_head_link on attached tags in head.
+    // Checking html_head_link on attached tags in head.
     if (!isset($build['#attached']['html_head_link'])) {
       return;
     }
@@ -263,4 +263,32 @@ function ymca_alters_entity_view_alter(
       }
     }
   }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ymca_alters_page_attachments(array &$page) {
+  // Add canonical tag for custom routes.
+  $route = \Drupal::routeMatch();
+  $name = $route->getRouteName();
+
+  $match = \Drupal::config('ymca_alters.config')->get('custom_routes_canonical');
+
+  if (!in_array($name, $match)) {
+    return;
+  }
+
+  $url = Url::fromRouteMatch($route);
+  $url->setOption('absolute', TRUE);
+
+  $canonical = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'canonical',
+      'content' => $url->toString(),
+    ],
+  ];
+
+  $page['#attached']['html_head'][] = [$canonical, 'canonical'];
 }
