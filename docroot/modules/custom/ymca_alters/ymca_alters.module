@@ -190,15 +190,7 @@ function ymca_alters_user_logout($account) {
  */
 function ymca_alters_preprocess_field(&$variables) {
   if ($variables['element']['#field_name'] == 'field_schedule_documents') {
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
-      $node = \Drupal::routeMatch()->getParameter('node');
-    }
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
-      $node = \Drupal::routeMatch()->getParameter('node_preview');
-    }
-    if (!isset($node)) {
-      return;
-    }
+    $node = \Drupal::routeMatch()->getParameter('node');
 
     $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
     $location = FALSE;
