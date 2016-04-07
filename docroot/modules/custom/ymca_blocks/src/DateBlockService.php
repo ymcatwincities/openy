@@ -211,7 +211,6 @@ class DateBlockService {
    */
   private function setSlideShowBlockEntity($embed_data = '') {
     if ($embed_data == '') {
-      \Drupal::logger('content')->notice(t('SlideShow embed data is empty.'));
       return FALSE;
     }
 
