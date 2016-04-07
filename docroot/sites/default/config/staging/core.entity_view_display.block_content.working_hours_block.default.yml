@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - block_content.type.working_hours_block
+    - field.field.block_content.working_hours_block.field_custom_hours
     - field.field.block_content.working_hours_block.field_facility_hours
     - field.field.block_content.working_hours_block.field_holiday_hours
     - field.field.block_content.working_hours_block.field_workout_child_care
   module:
+    - ymca_field_custom_hours
     - ymca_field_holiday_hours
     - ymca_field_office_hours
 id: block_content.working_hours_block.default
@@ -15,6 +17,12 @@ targetEntityType: block_content
 bundle: working_hours_block
 mode: default
 content:
+  field_custom_hours:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: ymca_custom_hours_default
   field_facility_hours:
     weight: 0
     label: above
@@ -22,7 +30,7 @@ content:
     third_party_settings: {  }
     type: ymca_office_hours
   field_holiday_hours:
-    weight: 2
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }

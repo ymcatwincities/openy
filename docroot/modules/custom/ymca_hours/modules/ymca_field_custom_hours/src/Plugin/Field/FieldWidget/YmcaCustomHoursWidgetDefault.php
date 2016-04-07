@@ -1,31 +1,31 @@
 <?php
 
-namespace Drupal\ymca_field_office_hours\Plugin\Field\FieldWidget;
+namespace Drupal\ymca_field_custom_hours\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\ymca_field_office_hours\Plugin\Field\FieldType\YmcaOfficeHoursItem;
+use Drupal\ymca_field_custom_hours\Plugin\Field\FieldType\YmcaCustomHoursItem;
 
 /**
- * Plugin implementation of the 'ymca_office_hours' widget.
+ * Plugin implementation for ymca_custom_hours widget.
  *
  * @FieldWidget(
- *   id = "ymca_office_hours_default",
- *   label = @Translation("YMCA office hours"),
+ *   id = "ymca_custom_hours_default",
+ *   label = @Translation("YMCA custom hours"),
  *   field_types = {
- *     "ymca_office_hours"
+ *     "ymca_custom_hours"
  *   }
  * )
  */
-class YmcaOfficeHoursWidget extends WidgetBase {
+class YmcaCustomHoursWidgetDefault extends WidgetBase {
 
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    /** @var YmcaOfficeHoursItem $item */
+    /** @var YmcaCustomHoursItem $item */
     $item = $items->get($delta);
 
     /** @var FieldConfig $definition */
@@ -38,14 +38,20 @@ class YmcaOfficeHoursWidget extends WidgetBase {
       '#value' => $definition->label(),
     ];
 
+    $element['hours_label'] = [
+      '#title' => t('Custom hours label'),
+      '#type' => 'textfield',
+      '#default_value' => isset($item->hours_label) ? $item->hours_label : '',
+      '#description' => t('To remove entire section clear this field and click Save.')
+    ];
+
     foreach ($item::$days as $day) {
       $name = 'hours_' . $day;
       $hours = [
         '#title' => t('%day', ['%day' => ucfirst($day)]),
         '#type' => 'textfield',
         '#default_value' => isset($item->{$name}) ? $item->{$name} : '',
-        '#description' => t('Example: 9am - 10pm'),
-        '#required' => TRUE,
+        '#placeholder' => t('Example: 9am - 10pm'),
       ];
       $element['hours_' . $day] = $hours;
     }
