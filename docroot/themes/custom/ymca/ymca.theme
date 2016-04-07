@@ -731,9 +731,6 @@ function ymca_preprocess_input(&$variables) {
       'btn-lg',
       'btn-primary',
     );
-    if ($variables['attributes']['value'] == t('Send message')) {
-      $variables['attributes']['value'] = t('Submit');
-    }
   }
   elseif ($element['#type'] == 'email') {
     $classes = array(
