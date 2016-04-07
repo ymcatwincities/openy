@@ -1860,3 +1860,13 @@ function ymca_master_update_8069() {
     $path . 'field.storage.block_content.field_custom_hours.yml',
   ]);
 }
+
+/**
+ * Add custom routes canonical config.
+ */
+function ymca_master_update_8070() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . '/config/optional/ymca_alters.config.yml']
+  );
+}
