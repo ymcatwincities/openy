@@ -1870,3 +1870,14 @@ function ymca_master_update_8070() {
     [$path . '/config/optional/ymca_alters.config.yml']
   );
 }
+
+/**
+ * Update phone.
+ */
+function ymca_master_update_8071() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'ymca_frontend.locations.yml'
+  ]);
+}
