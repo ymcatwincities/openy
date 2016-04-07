@@ -1872,9 +1872,20 @@ function ymca_master_update_8070() {
 }
 
 /**
- * Update blog archive configuration.
+ * Update phone.
  */
 function ymca_master_update_8071() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'ymca_frontend.locations.yml'
+  ]);
+}
+
+/**
+ * Update blog archive configuration.
+ */
+function ymca_master_update_8072() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [$path . 'views.view.ymca_twin_cities_blog_archive.yml']
