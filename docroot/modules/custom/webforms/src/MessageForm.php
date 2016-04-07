@@ -29,6 +29,20 @@ class MessageForm extends CoreMessageForm {
   /**
    * {@inheritdoc}
    */
+  public function actions(array $form, FormStateInterface $form_state) {
+    $elements = parent::actions($form, $form_state);
+    $elements['submit']['#value'] = $this->t('Submit');
+    $elements['preview'] = array(
+      '#type' => 'submit',
+      '#value' => $this->t('Preview'),
+      '#submit' => array('::submitForm', '::preview'),
+    );
+    return $elements;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     $message = $this->entity;
     $user = $this->currentUser();
