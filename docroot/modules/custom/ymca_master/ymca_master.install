@@ -1881,3 +1881,13 @@ function ymca_master_update_8071() {
     $path . 'ymca_frontend.locations.yml'
   ]);
 }
+
+/**
+ * Update blog archive configuration.
+ */
+function ymca_master_update_8072() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . 'views.view.ymca_twin_cities_blog_archive.yml']
+  );
+}
