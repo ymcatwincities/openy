@@ -128,13 +128,17 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       // The logic to show/hide the block.
       $status = FALSE;
 
+
       // Get timestamp from date field.
-      $get_time = function($field_name) use ($entity) {
+      $get_time = function($field_name) use ($entity, $timezone) {
         if ($entity->hasField($field_name)) {
           $field_start = $entity->get($field_name);
           $data = $field_start->get(0)->getValue();
           if (!empty($data['value'])) {
-            $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+            $timezone = &drupal_static('timezone');
+            if (!isset($timezone)) {
+              $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+            }
             $date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $data['value'], $timezone);
             if ($date instanceof \DateTime) {
               return $date->getTimestamp();
