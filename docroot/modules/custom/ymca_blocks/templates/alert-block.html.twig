@@ -12,6 +12,7 @@
  */
 #}
 
+{% if show %}
 <section class="messages">
   <div id="alerts" class="hidden alert-messages alert alert-block alert-info alert-dismissable ">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -19,3 +20,4 @@
     <span class="message"><span {{ inner_attributes }}>{{ message }}</span></span>
   </div>
 </section>
+{% endif %}
