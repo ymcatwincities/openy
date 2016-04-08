@@ -56,10 +56,6 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
  * Implements hook_ENTITY_TYPE_view_alter().
  */
 function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
-  if ($entity->getEntityTypeId() != 'block_content') {
-    return;
-  }
-
   /** @var \Drupal\block_content\Entity\BlockContent $entity */
 
   switch ($entity->bundle()) {
@@ -134,7 +130,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
           $field_start = $entity->get($field_name);
           $data = $field_start->get(0)->getValue();
           if (!empty($data['value'])) {
-            $timezone = &drupal_static('timezone');
+            $timezone = &drupal_static('ymca_blocks_block_content_view_alter_timezone');
             if (!isset($timezone)) {
               $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
             }
