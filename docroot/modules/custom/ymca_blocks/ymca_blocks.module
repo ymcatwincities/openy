@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\text\Plugin\Field\FieldType\TextLongItem;
 
 /**
  * Implements hook_theme().
@@ -44,6 +45,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
         'title' => t('Special Alert'),
         'message' => NULL,
         'inner_attributes' => NULL,
+        'show' => FALSE,
       ],
       'template' => 'alert-block',
     ],
@@ -54,6 +56,12 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
  * Implements hook_ENTITY_TYPE_view_alter().
  */
 function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if ($entity->getEntityTypeId() != 'block_content') {
+    return;
+  }
+
+  /** @var \Drupal\block_content\Entity\BlockContent $entity */
+
   switch ($entity->bundle()) {
     case 'date_block':
       \Drupal::service('dateslides.service')->viewAlter($build, $entity);
@@ -117,7 +125,46 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       break;
 
     case 'alert_block':
-      // Get message.
+      // The logic to show/hide the block.
+      $status = FALSE;
+
+      // Get timestamp from date field.
+      $get_time = function($field_name) use ($entity) {
+        if ($entity->hasField($field_name)) {
+          $field_start = $entity->get($field_name);
+          $data = $field_start->get(0)->getValue();
+          if (!empty($data['value'])) {
+            $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+            $date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $data['value'], $timezone);
+            if ($date instanceof \DateTime) {
+              return $date->getTimestamp();
+            }
+          }
+        }
+        return NULL;
+      };
+
+      $date_start = $get_time('field_start_date');
+      $date_end = $get_time('field_end_date');
+
+      if (!$date_start && !$date_end) {
+        $status = TRUE;
+      }
+
+      if (!$date_start && $date_end) {
+        $status = REQUEST_TIME < $date_end;
+      }
+
+      if ($date_start && !$date_end) {
+        $status = REQUEST_TIME > $date_start;
+      }
+
+      if ($date_start && $date_end) {
+        $status = (REQUEST_TIME > $date_start) && (REQUEST_TIME < $date_end);
+      }
+
+      // Block processing.
+      /** @var TextLongItem $field */
       $field = $entity->field_block_content->get(0);
       $value = $field->get('value')->getString();
       $format = $field->get('format')->getString();
@@ -130,6 +177,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         '#theme' => 'alert_block',
         '#message' => $text,
         '#inner_attributes' => $attributes,
+        '#show' => $status,
         '#cache' => [
           'tags' => ['ymca_cron']
         ],
