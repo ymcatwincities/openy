@@ -68,6 +68,9 @@ AddEncoding gzip svgz
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
+
+  # 301 --- _asset/n3yx68/doc.pdf => sites/default/files/doc.pdf
+  RewriteRule ^/?_asset/.*/(.*)\.pdf$ /sites/default/files/$1.pdf [L,R=301]
   
 # 301 --- http://andoverymca.org => http://www.ymcatwincities.org/locations/andover_ymca_community_center
 RewriteCond %{HTTP_HOST} ^andoverymca\.org$

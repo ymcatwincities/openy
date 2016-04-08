@@ -1,0 +1,24 @@
+uuid: 861d8770-d1b9-405c-9604-4efbb3d1b432
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.block_content.field_end_date
+  module:
+    - datetime
+id: block_content.alert_block.field_end_date
+field_name: field_end_date
+entity_type: block_content
+bundle: alert_block
+label: 'End date'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime
