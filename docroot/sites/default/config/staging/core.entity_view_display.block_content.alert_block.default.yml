@@ -5,7 +5,9 @@ dependencies:
   config:
     - block_content.type.alert_block
     - field.field.block_content.alert_block.field_block_content
+    - field.field.block_content.alert_block.field_end_date
     - field.field.block_content.alert_block.field_global_alert
+    - field.field.block_content.alert_block.field_start_date
   module:
     - text
 id: block_content.alert_block.default
@@ -20,5 +22,7 @@ content:
     third_party_settings: {  }
     type: text_default
 hidden:
+  field_end_date: true
   field_global_alert: true
+  field_start_date: true
   langcode: true
