@@ -1891,3 +1891,18 @@ function ymca_master_update_8072() {
     [$path . 'views.view.ymca_twin_cities_blog_archive.yml']
   );
 }
+
+/**
+ * Update alert block.
+ */
+function ymca_master_update_8073() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.block_content.alert_block.default.yml',
+      $path . 'core.entity_view_display.block_content.alert_block.default.yml',
+      $path . 'field.field.block_content.alert_block.field_end_date.yml',
+      $path . 'field.field.block_content.alert_block.field_start_date.yml',
+    ]
+  );
+}
