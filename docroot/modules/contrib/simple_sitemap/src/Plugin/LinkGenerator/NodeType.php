@@ -23,14 +23,8 @@ class NodeType extends LinkGeneratorBase {
   /**
    * {@inheritdoc}
    */
-  function get_entities_of_bundle($bundle) {
-
-    $query = \Drupal::database()->select('node_field_data', 'n')
-      ->fields('n', array('nid', 'changed'))
-      ->condition('type', $bundle)
-      ->condition('status', 1);
-
-    $info = array(
+  public function getInfo() {
+    return array(
       'field_info' => array(
         'entity_id' => 'nid',
         'lastmod' => 'changed',
@@ -40,6 +34,15 @@ class NodeType extends LinkGeneratorBase {
         'entity_type' => 'node',
       )
     );
-    return array('query' => $query, 'info' => $info);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuery($bundle) {
+    return $this->database->select('node_field_data', 'n')
+      ->fields('n', array('nid', 'changed'))
+      ->condition('type', $bundle)
+      ->condition('status', 1);
   }
 }

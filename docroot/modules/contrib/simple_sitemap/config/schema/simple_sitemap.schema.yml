@@ -1,0 +1,56 @@
+simple_sitemap.settings:
+  type: config_object
+  mapping:
+    settings:
+      type: mapping
+      mapping:
+        max_links:
+          label: 'Max links'
+          type: integer
+        cron_generate:
+          label: 'Cron generate'
+          type: boolean
+        remove_duplicates:
+          label: 'Remove duplicates'
+          type: boolean
+        batch_process_limit:
+          label: 'Batch process limit'
+          type: integer
+    custom:
+      label: 'Custom'
+      type: sequence
+      sequence:
+        type: mapping
+        mapping:
+          path:
+            label: 'Path'
+            type: string
+          priority:
+            label: 'Priority'
+            type: float
+    entity_types:
+      label: 'Entity types'
+      type: sequence
+      sequence:
+        type: sequence
+        sequence:
+          type: mapping
+          mapping:
+            index:
+              label: 'Index'
+              type: integer
+            priority:
+              label: 'Priority'
+              type: float
+            entities:
+              label: 'Entities'
+              type: sequence
+              sequence:
+                type: mapping
+                mapping:
+                  index:
+                    label: 'Index'
+                    type: integer
+                  priority:
+                    label: 'Priority'
+                    type: float

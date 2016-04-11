@@ -23,13 +23,8 @@ class TaxonomyVocabulary extends LinkGeneratorBase {
   /**
    * {@inheritdoc}
    */
-  function get_entities_of_bundle($bundle) {
-
-    $query = \Drupal::database()->select('taxonomy_term_field_data', 't')
-      ->fields('t', array('tid', 'changed'))
-      ->condition('vid', $bundle);
-
-    $info = array(
+  public function getInfo() {
+    return array(
       'field_info' => array(
         'entity_id' => 'tid',
         'lastmod' => 'changed',
@@ -39,6 +34,15 @@ class TaxonomyVocabulary extends LinkGeneratorBase {
         'entity_type' => 'taxonomy_term',
       )
     );
-    return array('query' => $query, 'info' => $info);
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuery($bundle) {
+    return $this->database->select('taxonomy_term_field_data', 't')
+      ->fields('t', array('tid', 'changed'))
+      ->condition('vid', $bundle);
+  }
+
 }
