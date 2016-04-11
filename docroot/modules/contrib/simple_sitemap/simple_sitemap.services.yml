@@ -2,3 +2,6 @@ services:
   plugin.manager.simple_sitemap:
     class: Drupal\simple_sitemap\SimplesitemapManager
     parent: default_plugin_manager
+  simple_sitemap.generator:
+    class: Drupal\simple_sitemap\Simplesitemap
+    arguments: ['@config.factory']
