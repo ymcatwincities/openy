@@ -1906,3 +1906,13 @@ function ymca_master_update_8073() {
     ]
   );
 }
+
+/**
+ * Setup sitemap.
+ */
+function ymca_master_update_8074() {
+  // Remove redundant node.
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $entity = $storage->load(2801);
+  $entity->delete();
+}
