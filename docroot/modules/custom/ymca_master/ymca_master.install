@@ -1916,3 +1916,16 @@ function ymca_master_update_8074() {
   $entity = $storage->load(2801);
   $entity->delete();
 }
+
+/**
+ * Fix sitemap permissions.
+ */
+function ymca_master_update_8075() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.anonymous.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+}
