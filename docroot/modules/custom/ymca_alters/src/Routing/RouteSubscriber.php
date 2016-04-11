@@ -21,6 +21,10 @@ class RouteSubscriber extends RouteSubscriberBase {
         case '/node/{node}':
           $item->setDefault('_controller', 'Drupal\ymca_alters\Controller\NodeViewController::view');
           break;
+
+        case '/sitemap':
+          $item->setPath('/sitemap_navigation');
+          break;
       }
     }
   }
