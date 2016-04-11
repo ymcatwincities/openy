@@ -77,45 +77,55 @@ default_value:
     option_reference: '16'
     option_emails: 'nm.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,nm.sales@ymcatwincities.org'
   -
+    option_select: 0
     option_name: 'Ridgedale - Minnetonka'
     option_reference: '17'
     option_emails: 're.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,re.sales@ymcatwincities.org'
   -
+    option_select: 0
     option_name: 'River Valley - Prior Lake'
     option_reference: '18'
     option_emails: 'Nate.Rinehart@ymcatwincities.org,Lindsay.Tasche@ymcatwincities.org'
   -
+    option_select: 0
     option_name: 'St. Paul Downtown'
     option_reference: '19'
     option_emails: 'sk.sales@ymcastpaul.org,Andrew.Hoffman@YMCAtwincities.org'
   -
+    option_select: 0
     option_name: 'St. Paul Eastside'
     option_reference: '20'
     option_emails: 'ea.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org'
   -
+    option_select: 0
     option_name: 'St. Paul Midway'
     option_reference: '21'
     option_emails: 'my.sales@ymcastpaul.org,nate.rinehart@ymcatwincities.org'
   -
+    option_select: 0
     option_name: Shoreview
     option_reference: '22'
     option_emails: 'nw.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org,nw.sales@ymcatwincities.org'
   -
+    option_select: 0
     option_name: 'Southdale - Edina'
     option_reference: '23'
-    option_emails: 'sd.sales@ymcampls.org,Nate.Rinehart@ymcatwincities.org,sd.sales@ymcatwincities.org'
+    option_emails: 'sd.sales@ymcampls.org,Nate.Rinehart@ymcatwincities.org'
   -
+    option_select: 0
     option_name: 'West St. Paul'
     option_reference: '24'
-    option_emails: 'so.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org'
+    option_emails: 'so.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,Chris.Edwards@YMCAtwincities.org'
   -
+    option_select: 0
     option_name: 'White Bear Area'
     option_reference: '25'
     option_emails: 'ne.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org'
   -
+    option_select: 0
     option_name: Woodbury
     option_reference: '26'
-    option_emails: 'se.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org'
+    option_emails: 'se.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,Cassie.Schmuecker@ymcatwincities.org'
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item
