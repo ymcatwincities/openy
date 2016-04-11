@@ -9,7 +9,6 @@ namespace Drupal\simple_sitemap\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\simple_sitemap\Simplesitemap;
 
 /**
  * SimplesitemapSettingsFrom
@@ -35,7 +34,9 @@ class SimplesitemapSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $sitemap = new Simplesitemap;
+    $sitemap = \Drupal::service('simple_sitemap.generator');
+
+    $form['simple_sitemap_settings']['#prefix'] = "<div class='description'>" .t("If you would like to say thanks and support the development of this module, a <a target='_blank' href='@url'>donation</a> is always appreciated.", array('@url' => 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5AFYRSBLGSC3W')) . "</div>";
 
     $form['simple_sitemap_settings']['regenerate'] = array(
       '#title' => t('Regenerate sitemap'),
@@ -46,34 +47,32 @@ class SimplesitemapSettingsForm extends ConfigFormBase {
     $form['simple_sitemap_settings']['regenerate']['regenerate_submit'] = array(
       '#type' => 'submit',
       '#value' => t('Regenerate sitemap'),
-      '#submit' => array('::generate_sitemap'),
+      '#submit' => array('::generateSitemap'),
       '#validate' => array(), // Skip form-level validator.
     );
 
     $form['simple_sitemap_settings']['settings'] = array(
       '#title' => t('Settings'),
       '#type' => 'fieldset',
-//      '#markup' => '<p>' . t('Various sitemap settings.') . '</p>',
     );
 
     $form['simple_sitemap_settings']['settings']['cron_generate'] = array(
       '#type' => 'checkbox',
       '#title' => t('Regenerate the sitemap on every cron run'),
       '#description' => t('Uncheck this if you intend to only regenerate the sitemap manually or via drush.'),
-      '#default_value' => $sitemap->get_setting('cron_generate'),
+      '#default_value' => $sitemap->getSetting('cron_generate'),
     );
 
     $form['simple_sitemap_settings']['advanced'] = array(
       '#title' => t('Advanced settings'),
       '#type' => 'details',
-//      '#markup' => '<p>' . t('Various performance settings.') . '</p>',
     );
 
     $form['simple_sitemap_settings']['advanced']['remove_duplicates'] = array(
       '#type' => 'checkbox',
       '#title' => t('Remove duplicate links'),
-      '#description' => t('Uncheck this to significantly speed up the sitemap generation process on a huge site (>20 000 entities).'),
-      '#default_value' => $sitemap->get_setting('remove_duplicates'),
+      '#description' => t('Uncheck this to significantly speed up the sitemap generation process on a huge site (more than 20 000 indexed entities).'),
+      '#default_value' => $sitemap->getSetting('remove_duplicates'),
     );
 
     $form['simple_sitemap_settings']['advanced']['max_links'] = array(
@@ -82,16 +81,16 @@ class SimplesitemapSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#maxlength' => 5,
       '#size' => 5,
-      '#default_value' => $sitemap->get_setting('max_links'),
+      '#default_value' => $sitemap->getSetting('max_links'),
     );
 
     $form['simple_sitemap_settings']['advanced']['batch_process_limit'] = array(
       '#title' => t('Refresh batch every n links'),
-      '#description' => t("During sitemap generation, the batch process will issue a page refresh after n links processed to prevent PHP timeout and memory exhaustion. Increasing this number will reduce the number of times Drupal has to bootstrap (thus speeding up the generation process), but will require more memory and less strict PHP timeout settings."),
+      '#description' => t("During sitemap generation, the batch process will issue a page refresh after n links processed to prevent PHP timeouts and memory exhaustion. Increasing this number will reduce the number of times Drupal has to bootstrap (thus speeding up the generation process), but will require more memory and less strict PHP timeout settings."),
       '#type' => 'textfield',
       '#maxlength' => 5,
       '#size' => 5,
-      '#default_value' => $sitemap->get_setting('batch_process_limit'),
+      '#default_value' => $sitemap->getSetting('batch_process_limit'),
     );
 
     return parent::buildForm($form, $form_state);
@@ -104,13 +103,13 @@ class SimplesitemapSettingsForm extends ConfigFormBase {
     $max_links = $form_state->getValue('max_links');
     if ($max_links != '') {
       if (!is_numeric($max_links) || $max_links < 1 || $max_links != round($max_links)) {
-        $form_state->setErrorByName('', t("The value of the max links field must be a positive integer greater than 0."));
+        $form_state->setErrorByName('', t("The value of the <em>Maximum links in a sitemap</em> field must be empty, or a positive integer greater than 0."));
       }
     }
 
   $batch_process_limit = $form_state->getValue('batch_process_limit');
     if (!is_numeric($batch_process_limit) || $batch_process_limit < 1 || $batch_process_limit != round($batch_process_limit)) {
-      $form_state->setErrorByName('', t("The value of the batch refresh rate field must be a positive integer greater than 0."));
+      $form_state->setErrorByName('', t("The value of the <em>Refresh batch every n links</em> field must be a positive integer greater than 0."));
     }
   }
 
@@ -118,16 +117,16 @@ class SimplesitemapSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $sitemap = new Simplesitemap;
-    $sitemap->save_setting('max_links', $form_state->getValue('max_links'));
-    $sitemap->save_setting('cron_generate', $form_state->getValue('cron_generate'));
-    $sitemap->save_setting('remove_duplicates', $form_state->getValue('remove_duplicates'));
-    $sitemap->save_setting('batch_process_limit', $form_state->getValue('batch_process_limit'));
+    $sitemap = \Drupal::service('simple_sitemap.generator');
+    $sitemap->saveSetting('max_links', $form_state->getValue('max_links'));
+    $sitemap->saveSetting('cron_generate', $form_state->getValue('cron_generate'));
+    $sitemap->saveSetting('remove_duplicates', $form_state->getValue('remove_duplicates'));
+    $sitemap->saveSetting('batch_process_limit', $form_state->getValue('batch_process_limit'));
     parent::submitForm($form, $form_state);
   }
 
-  public function generate_sitemap(array &$form, FormStateInterface $form_state) {
-    $sitemap = new Simplesitemap;
-    $sitemap->generate_sitemap();
+  public function generateSitemap(array &$form, FormStateInterface $form_state) {
+    $sitemap = \Drupal::service('simple_sitemap.generator');
+    $sitemap->generateSitemap();
   }
 }

@@ -24,13 +24,8 @@ class User extends LinkGeneratorBase {
   /**
    * {@inheritdoc}
    */
-  function get_entities_of_bundle($bundle) {
-
-    $query = \Drupal::database()->select('users_field_data', 'u')
-      ->fields('u', array('uid', 'changed'))
-      ->condition('status', 1);
-
-    $info = array(
+  public function getInfo() {
+    return array(
       'field_info' => array(
         'entity_id' => 'uid',
         'lastmod' => 'changed',
@@ -38,7 +33,17 @@ class User extends LinkGeneratorBase {
       'path_info' => array(
         'route_name' => 'entity.user.canonical',
         'entity_type' => 'user',
-      ));
-    return array('query' => $query, 'info' => $info);
+      )
+    );
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuery($bundle) {
+    return $this->database->select('users_field_data', 'u')
+      ->fields('u', array('uid', 'changed'))
+      ->condition('status', 1);
+  }
+
 }

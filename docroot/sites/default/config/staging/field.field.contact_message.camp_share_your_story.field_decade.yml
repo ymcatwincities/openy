@@ -13,7 +13,7 @@ entity_type: contact_message
 bundle: camp_share_your_story
 label: 'What decade is your story from? (optional)'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
