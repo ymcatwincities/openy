@@ -4,8 +4,15 @@
  * Main module file containing hooks.
  */
 
-use Drupal\simple_sitemap\Simplesitemap;
-use Drupal\simple_sitemap\SitemapGenerator;
+use Drupal\simple_sitemap\Form;
+
+/**
+ * Implements hook_help.
+ */
+function simple_sitemap_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  return $route_name === 'help.page.simple_sitemap' ?
+    check_markup(file_get_contents(dirname(__FILE__) . "/README.txt")) : NULL;
+}
 
 /**
  * Implements hook_form_alter.
@@ -13,21 +20,49 @@ use Drupal\simple_sitemap\SitemapGenerator;
  * Adds sitemap settings to entity types that are supported via plugins.
  */
 function simple_sitemap_form_alter(&$form, $form_state, $form_id) {
-  $sitemap_form_entity_data = Simplesitemap::get_sitemap_form_entity_data($form_state, $form_id);
-  if (empty($sitemap_form_entity_data))
-    return;
-  $entity_type_id = $sitemap_form_entity_data['entity_type_id'];
-  $bundle_name = $sitemap_form_entity_data['bundle_name'];
 
-  $sitemap = new Simplesitemap;
+  // Do not alter the form if user lacks certain permissions.
+  if (!\Drupal::currentUser()->hasPermission('administer sitemap settings'))
+    return;
+
+  $f = new Form($form, $form_state, $form_id);
+
+  // Do not alter the form if it is irrelevant to sitemap generation.
+  if (empty($f->entityType))
+    return;
+
+  $sitemap = \Drupal::service('simple_sitemap.generator');
 
   // Get current entity type sitemap settings.
-  $entity_types = $sitemap->get_config('entity_types');
+  $entity_types = $sitemap->getConfig('entity_types');
+
+  // Do not alter the form, if sitemap is disabled for entity type.
+  if ($f->entityType == 'bundle_instance' && empty($entity_types[$f->entityTypeId][$f->bundleName]['index']))
+    return;
+
+  // Setting default form values.
+  $index = 0;
+  $priority = Form::PRIORITY_DEFAULT;
+
+  // Overwriting defaults if settings found for bundle.
+  if (isset($entity_types[$f->entityTypeId][$f->bundleName]['index'])) {
+    $bundle_index = $index = $entity_types[$f->entityTypeId][$f->bundleName]['index'];
+    $bundle_priority = $priority = $entity_types[$f->entityTypeId][$f->bundleName]['priority'];
+  }
+
+  // Overwriting defaults if settings found for entity.
+  if ($f->entityType == 'bundle_instance') {
+    if (isset($entity_types[$f->entityTypeId][$f->bundleName]['entities'][$f->entityId]['index'])) {
+      $index = $entity_types[$f->entityTypeId][$f->bundleName]['entities'][$f->entityId]['index'];
+      $priority = $entity_types[$f->entityTypeId][$f->bundleName]['entities'][$f->entityId]['priority'];
+    }
+  }
 
   $form['simple_sitemap'] = array(
     '#type' => 'details',
-    '#group' => 'additional_settings',
+    '#group' => isset($form['additional_settings']) ? 'additional_settings' : 'advanced',
     '#title' => t('Simple XML sitemap'),
+    '#description' => $f->entityType == 'bundle_instance' ? t('Settings for this specific entity can be overridden here.') : '',
   );
 
   // Attach some js magic to forms.
@@ -37,35 +72,48 @@ function simple_sitemap_form_alter(&$form, $form_state, $form_id) {
     $form['simple_sitemap']['#attached']['library'][] = 'simple_sitemap/fieldsetSummaries';
   }
 
-  $index_content_checked = isset($entity_types[$entity_type_id][$bundle_name]['index']) ? $entity_types[$entity_type_id][$bundle_name]['index'] : FALSE;
   $form['simple_sitemap']['simple_sitemap_index_content'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Index content of this type'),
-    '#default_value' => $index_content_checked,
+    '#type' => 'radios',
+    '#default_value' => $index,
+    '#options' => [
+      0 => $f->entityType == 'bundle_instance' ? t('Do not index this entity') : t('Do not index entities of this type'),
+      1 => $f->entityType == 'bundle_instance' ? t('Index this entity') : t('Index entities of this type'),
+    ]
   );
-
-  $priority = isset($entity_types[$entity_type_id][$bundle_name]['priority']) ? $entity_types[$entity_type_id][$bundle_name]['priority'] : SitemapGenerator::PRIORITY_DEFAULT;
+  if ($f->entityType == 'bundle_instance' && isset($bundle_index)) {
+    $form['simple_sitemap']['simple_sitemap_index_content']['#options'][$bundle_index] .= ' <em>(' . t('Default') . ')</em>';
+  }
+  
   $form['simple_sitemap']['simple_sitemap_priority'] = array(
     '#type' => 'select',
     '#title' => t('Priority'),
-    '#description' => t('The priority entities of this bundle will have in the eyes of search engine bots.'),
-    '#options' => SitemapGenerator::get_priority_select_values(),
+    '#description' => $f->entityType == 'bundle_instance' ? t('The priority this entity will have in the eyes of search engine bots.') : t('The priority entities of this bundle will have in the eyes of search engine bots.'),
     '#default_value' => $priority,
+    '#options' => Form::getPrioritySelectValues(),
   );
+  if ($f->entityType == 'bundle_instance' && isset($bundle_priority)) {
+    $form['simple_sitemap']['simple_sitemap_priority']['#options'][(string)$bundle_priority] .= ' (' . t('Default') . ')';
+  }
 
   $form['simple_sitemap']['simple_sitemap_regenerate_now'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Regenerate sitemap after hitting Save'),
-    '#description' => t('This setting will regenerate the whole sitemap including the above changes.<br/>Otherwise the sitemap will be rebuilt on next cron run.'),
+    '#title' => t('Regenerate sitemap after hitting <em>Save</em>'),
+    '#description' => t('This setting will regenerate the whole sitemap including the above changes.'),
     '#default_value' => FALSE,
   );
+  if ($sitemap->getSetting('cron_generate')) {
+    $form['simple_sitemap']['simple_sitemap_regenerate_now']['#description'] .= '</br>' . t('Otherwise the sitemap will be regenerated on the next cron run.');
+  }
 
-  $form['#simple_sitemap']['entity_type_id'] = $entity_type_id;
-  $form['#simple_sitemap']['bundle_name'] = $bundle_name;
+  $form['#simple_sitemap'] = $f;
 
   // Add submission handler.
   if (isset($form['actions']['submit']['#submit'])) {
-    $form['actions']['submit']['#submit'][] = 'simple_sitemap_entity_form_submit';
+    foreach (array_keys($form['actions']) as $action) {
+      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+        $form['actions'][$action]['#submit'][] = 'simple_sitemap_entity_form_submit';
+      }
+    }
   }
   else { // Fix for account page rendering other submit handlers not usable.
     $form['#submit'][] = 'simple_sitemap_entity_form_submit';
@@ -77,29 +125,48 @@ function simple_sitemap_form_alter(&$form, $form_state, $form_id) {
  */
 function simple_sitemap_entity_form_submit($form, &$form_state) {
 
-  $sitemap = new Simplesitemap;
-  $values = $form_state->getValues();
-
   // Only make changes in DB if sitemap settings actually changed.
-  if ($values['simple_sitemap_index_content'] != $form['simple_sitemap']['simple_sitemap_index_content']['#default_value']
-    || $values['simple_sitemap_priority'] != $form['simple_sitemap']['simple_sitemap_priority']['#default_value']) {
+  if (Form::valuesChanged($form, $form_state)) {
 
-    $entity_type_id = $form['#simple_sitemap']['entity_type_id'];
-    $bundle_name = $form['#simple_sitemap']['bundle_name'];
+    $sitemap = \Drupal::service('simple_sitemap.generator');
+    $f = $form['#simple_sitemap'];
+    $values = $form_state->getValues();
 
     // Get current entity type sitemap settings.
-    $entity_types = $sitemap->get_config('entity_types');
+    $entity_types = $sitemap->getConfig('entity_types');
 
-    $entity_types[$entity_type_id][$bundle_name]['index'] = $values['simple_sitemap_index_content'];
-    $entity_types[$entity_type_id][$bundle_name]['priority'] = $values['simple_sitemap_priority'];
+    switch ($f->entityType) {
+
+      case 'custom':
+      case 'bundle':
+        $f->bundleName = !empty($f->bundleName) ? $f->bundleName : Form::getNewEntityId($form_state);
+        $entity_types[$f->entityTypeId][$f->bundleName]['index'] = $values['simple_sitemap_index_content'];
+        $entity_types[$f->entityTypeId][$f->bundleName]['priority'] = $values['simple_sitemap_priority'];
+        break;
+
+      case 'bundle_instance':
+        $f->entityId = !empty($f->entityId) ? $f->entityId : Form::getNewEntityId($form_state);
+
+        // Delete overrides if they are identical to bundle settings.
+        if ($values['simple_sitemap_index_content'] == $entity_types[$f->entityTypeId][$f->bundleName]['index']
+          && $values['simple_sitemap_priority'] == $entity_types[$f->entityTypeId][$f->bundleName]['priority']) {
+          unset($entity_types[$f->entityTypeId][$f->bundleName]['entities'][$f->entityId]);
+        }
+        // Else save overrides for this entity.
+        else {
+          $entity_types[$f->entityTypeId][$f->bundleName]['entities'][$f->entityId]['index'] = $values['simple_sitemap_index_content'];
+          $entity_types[$f->entityTypeId][$f->bundleName]['entities'][$f->entityId]['priority'] = $values['simple_sitemap_priority'];
+        }
+        break;
+    }
 
     // Save new entity type settings.
-    $sitemap->save_config('entity_types', $entity_types);
-  }
+    $sitemap->saveConfig('entity_types', $entity_types);
 
-  // Regenerate sitemaps according to user setting.
-  if ($values['simple_sitemap_regenerate_now']) {
-    $sitemap->generate_sitemap();
+    // Regenerate sitemaps according to user setting.
+    if ($values['simple_sitemap_regenerate_now']) {
+      $sitemap->generateSitemap();
+    }
   }
 }
 
@@ -107,10 +174,10 @@ function simple_sitemap_entity_form_submit($form, &$form_state) {
  * Implements hook_cron.
  */
 function simple_sitemap_cron() {
-  $sitemap = new Simplesitemap;
-  if ($sitemap->get_setting('cron_generate')) {
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  if ($sitemap->getSetting('cron_generate')) {
     // Regenerate sitemap for all languages.
-    $sitemap->generate_sitemap('cron');
+    $sitemap->generateSitemap('backend');
   }
 }
 
@@ -120,15 +187,35 @@ function simple_sitemap_cron() {
  * Removes settings of the removed bundle.
  */
 function simple_sitemap_entity_bundle_delete($entity_type_id, $bundle) {
-  $sitemap = new Simplesitemap;
-  $entity_types = $sitemap->get_config('entity_types');
-  $bundle_entity_type_id = \Drupal::entityManager()->getDefinition($entity_type_id)->getBundleEntityType();
-
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  $entity_types = $sitemap->getConfig('entity_types');
+  $bundle_entity_type_id = \Drupal::entityTypeManager()->getDefinition($entity_type_id)->getBundleEntityType();
   if (isset($entity_types[$bundle_entity_type_id][$bundle])) {
     unset($entity_types[$bundle_entity_type_id][$bundle]);
-    $sitemap->save_config('entity_types', $entity_types);
-    drupal_set_message(t("You may want to <a href='@url'>regenerate</a> your XML sitemap now.
-    Otherwise it will be rebuilt on the next cron run.", //todo: First check if cron generation is enabled.
-      array('@url' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap')));
+    $sitemap->saveConfig('entity_types', $entity_types);
+    $message = t("You may want to <a href='@url'>regenerate</a> your XML sitemap now.", array('@url' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap'));
+    if ($sitemap->getSetting('cron_generate')) {
+      $message .= '</br>' . t('Otherwise the sitemap will be regenerated on the next cron run.');
+    }
+    drupal_set_message($message);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ *
+ * Removes settings of the removed entity.
+ */
+function simple_sitemap_entity_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  $entity_types = $sitemap->getConfig('entity_types');
+  $entity_type = $entity->getEntityType();
+  if (!empty($entity_type->getBundleEntityType())) {
+    $bundle_entity_type = $entity_type->getBundleEntityType();
+    $bundle = $entity->bundle();
+    if (isset($entity_types[$bundle_entity_type][$bundle]['entities'][$entity->id()])) {
+      unset($entity_types[$bundle_entity_type][$bundle]['entities'][$entity->id()]);
+      $sitemap->saveConfig('entity_types', $entity_types);
+    }
   }
 }
