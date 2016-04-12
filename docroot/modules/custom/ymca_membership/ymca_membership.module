@@ -213,8 +213,17 @@ function ymca_membership_preprocess_membership_mail_message(&$variables) {
 /**
  * Implements hook_form_FORM_ID_alter() for contact_form_form().
  */
-function ymca_membership_form_contact_message_form_alter(&$form, &$form_state, $form_id) {
+function ymca_membership_form_contact_message_form_alter(&$form, &$form_state, $form_id) {exit();
   $form['actions']['submit']['#submit'][] = 'ymca_membership_contact_message_redirect_submit';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for contact_form_edit_form().
+ */
+function ymca_membership_form_contact_form_edit_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['id']['#default_value']) && $form['id']['#default_value'] == 'membership_form') {
+    unset($form['submission_page']);
+  }
 }
 
 /**
