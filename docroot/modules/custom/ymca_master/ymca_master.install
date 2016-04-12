@@ -1963,3 +1963,15 @@ function ymca_master_update_8076() {
     ]
   );
 }
+
+/**
+ * Enable messages block.
+ */
+function ymca_master_update_8077() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block.block.messages.yml',
+    ]
+  );
+}

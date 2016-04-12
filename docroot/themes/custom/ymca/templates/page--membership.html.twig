@@ -114,6 +114,11 @@
         </div>
       </div>
     {% endblock %}
+    {% if page.highlighted %}
+      <div class="container alerts-wrapper">
+        {{ page.highlighted }}
+      </div>
+    {% endif %}
     <div class="content">
       {% block content %}
         {{ page.content }}

@@ -7755,6 +7755,10 @@ p.legend {
   text-transform: uppercase;
 }
 
+.alerts-wrapper .alert {
+  margin-top: 20px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
