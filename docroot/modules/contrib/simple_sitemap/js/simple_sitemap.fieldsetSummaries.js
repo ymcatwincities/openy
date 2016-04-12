@@ -10,7 +10,7 @@
     attach: function(context) {
       $(context).find('#edit-simple-sitemap').drupalSetSummary(function (context) {
         var vals = [];
-        if ($(context).find('#edit-simple-sitemap-index-content').is(':checked')) {
+        if ($(context).find('#edit-simple-sitemap-index-content-1').is(':checked')) {
 
           // Display summary of the settings in tabs.
           vals.push(Drupal.t('Included in sitemap'));

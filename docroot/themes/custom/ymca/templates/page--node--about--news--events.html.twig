@@ -149,8 +149,11 @@
     <section class="content">
       <div class="container">
 
-        <section class="messages">
-        </section>
+        {% if page.highlighted %}
+          <div class="container alerts-wrapper">
+            {{ page.highlighted }}
+          </div>
+        {% endif %}
 
         <div class="row">
           <div class="copy col-sm-7 col-sm-push-5 col-md-9 col-md-push-3">
