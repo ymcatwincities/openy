@@ -1,14 +1,14 @@
 simple_sitemap.sitemap:
   path: '/sitemap.xml'
   defaults:
-    _controller: '\Drupal\simple_sitemap\Controller\SimplesitemapController::get_sitemap'
+    _controller: '\Drupal\simple_sitemap\Controller\SimplesitemapController::getSitemap'
   requirements:
     _access: 'TRUE'
 
 simple_sitemap.chunk:
   path: '/sitemaps/{sitemap_id}/sitemap.xml'
   defaults:
-    _controller: '\Drupal\simple_sitemap\Controller\SimplesitemapController::get_sitemap'
+    _controller: '\Drupal\simple_sitemap\Controller\SimplesitemapController::getSitemap'
   requirements:
     _access: 'TRUE'
 

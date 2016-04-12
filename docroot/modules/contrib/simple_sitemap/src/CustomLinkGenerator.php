@@ -21,7 +21,7 @@ class CustomLinkGenerator {
    * @return array $urls
    *
    */
-  public function get_custom_paths($custom_paths) {
+  public function getCustomPaths($custom_paths) {
     $paths = array();
     foreach($custom_paths as $i => $custom_path) {
       $paths[$i]['path'] = $custom_path['path'];

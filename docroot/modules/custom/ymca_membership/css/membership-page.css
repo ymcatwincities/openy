@@ -109,7 +109,7 @@ body { overflow-x: hidden; }
     position: relative;
 }
 @media screen and (max-width: 767px) {
-    .become-a-member {
+    .become-a-member.content_wrapper {
         background-color: #f8f8f8;
         padding: 0;
         margin-bottom: 0px;
