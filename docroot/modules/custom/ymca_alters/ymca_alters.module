@@ -190,15 +190,7 @@ function ymca_alters_user_logout($account) {
  */
 function ymca_alters_preprocess_field(&$variables) {
   if ($variables['element']['#field_name'] == 'field_schedule_documents') {
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
-      $node = \Drupal::routeMatch()->getParameter('node');
-    }
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
-      $node = \Drupal::routeMatch()->getParameter('node_preview');
-    }
-    if (!isset($node)) {
-      return;
-    }
+    $node = \Drupal::routeMatch()->getParameter('node');
 
     $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
     $location = FALSE;
@@ -246,9 +238,9 @@ function ymca_alters_entity_view_alter(
   EntityInterface $entity,
   EntityViewDisplayInterface $display
 ) {
-  // Cheking view_mode for node.
+  // Checking view_mode for node.
   if ($build['#view_mode'] === 'full' && $entity instanceof NodeInterface) {
-    // Cheking html_head_link on attached tags in head.
+    // Checking html_head_link on attached tags in head.
     if (!isset($build['#attached']['html_head_link'])) {
       return;
     }
@@ -271,4 +263,45 @@ function ymca_alters_entity_view_alter(
       }
     }
   }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ymca_alters_page_attachments(array &$page) {
+  // Add canonical tag for custom routes.
+  $route = \Drupal::routeMatch();
+  $name = $route->getRouteName();
+
+  $match = \Drupal::config('ymca_alters.config')->get('custom_routes_canonical');
+
+  if (!in_array($name, $match)) {
+    return;
+  }
+
+  $url = Url::fromRouteMatch($route);
+  $url->setOption('absolute', TRUE);
+
+  $canonical = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'canonical',
+      'content' => $url->toString(),
+    ],
+  ];
+
+  $page['#attached']['html_head'][] = [$canonical, 'canonical'];
+}
+
+/**
+ * Implements hook_simple_sitemap_links_alter().
+ */
+function ymca_alters_simple_sitemap_links_alter(&$links) {
+  $exclude = \Drupal::entityQuery('node')
+    ->condition('field_sitemap_exclude', 1)
+    ->execute();
+
+  $links = array_filter($links, function($item) use ($exclude) {
+    return !in_array(substr($item['path'], 5), $exclude);
+  });
 }

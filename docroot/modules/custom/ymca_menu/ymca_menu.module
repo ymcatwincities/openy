@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contiains hooks for ymca_menu module.
+ * Contains hooks for ymca_menu module.
  */
 
 define('YMCA_MENU_CACHE_CID', 'ymca_menu:menu');
@@ -61,9 +61,10 @@ function ymca_menu_page_attachments(array &$attachments) {
   }
   if (!$mlid) {
     $menus = YMCAMenuController::menuList();
-    if (!empty($node)) {
-      // Alter menu list to prioritize corresponiding menus for locations/camps.
-      switch ($node->bundle()) {
+    $context = \Drupal::service('pagecontext.service')->getContext();
+    if ($context && in_array($context->bundle(), ['location', 'camp'])) {
+      // Alter menu list to prioritize corresponding menus for locations/camps.
+      switch ($context->bundle()) {
         case 'location':
           array_unshift($menus, 'locations');
           break;
@@ -88,6 +89,7 @@ function ymca_menu_page_attachments(array &$attachments) {
     }
   }
   $current_path = \Drupal::service('path.current')->getPath();
+  // Node preview page workaround.
   if ($route_name == 'entity.node.preview') {
     $current_path = '/node/' . $node->id();
   }
@@ -243,4 +245,12 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
     $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function ymca_menu_entity_type_alter(array &$entity_types) {
+  // Override menu list builder form.
+  $entity_types['menu']->setListBuilderClass('Drupal\ymca_menu\MenuListBuilder');
 }

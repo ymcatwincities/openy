@@ -1830,3 +1830,136 @@ function ymca_master_update_8067() {
     $path . '/config/install/ymca_frontend.retention.yml',
   ]);
 }
+
+/**
+ * Remove main menu link items.
+ */
+function ymca_master_update_8068() {
+  $query = Drupal::entityQuery('menu_link_content')
+    ->condition('menu_name', 'main');
+  $results = $query->execute();
+
+  // Remove links.
+  $storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $links = $storage->loadMultiple($results);
+  $storage->delete($links);
+}
+
+/**
+ * Extend working hours block.
+ */
+function ymca_master_update_8069() {
+  \Drupal::service('module_installer')->install(['ymca_field_custom_hours'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'core.entity_form_display.block_content.working_hours_block.default.yml',
+    $path . 'core.entity_view_display.block_content.working_hours_block.default.yml',
+    $path . 'core.extension.yml',
+    $path . 'field.field.block_content.working_hours_block.field_custom_hours.yml',
+    $path . 'field.storage.block_content.field_custom_hours.yml',
+  ]);
+}
+
+/**
+ * Add custom routes canonical config.
+ */
+function ymca_master_update_8070() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . '/config/optional/ymca_alters.config.yml']
+  );
+}
+
+/**
+ * Update phone.
+ */
+function ymca_master_update_8071() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'ymca_frontend.locations.yml'
+  ]);
+}
+
+/**
+ * Update blog archive configuration.
+ */
+function ymca_master_update_8072() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . 'views.view.ymca_twin_cities_blog_archive.yml']
+  );
+}
+
+/**
+ * Update alert block.
+ */
+function ymca_master_update_8073() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.block_content.alert_block.default.yml',
+      $path . 'core.entity_view_display.block_content.alert_block.default.yml',
+      $path . 'field.field.block_content.alert_block.field_end_date.yml',
+      $path . 'field.field.block_content.alert_block.field_start_date.yml',
+    ]
+  );
+}
+
+/**
+ * Setup sitemap.
+ */
+function ymca_master_update_8074() {
+  // Remove redundant node.
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $entity = $storage->load(2801);
+  $entity->delete();
+}
+
+/**
+ * Fix sitemap permissions.
+ */
+function ymca_master_update_8075() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.anonymous.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+}
+
+/**
+ * Configure exclude from sitemap.
+ */
+function ymca_master_update_8076() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+      $path . 'field.field.node.article.field_sitemap_exclude.yml',
+      $path . 'field.field.node.blog.field_sitemap_exclude.yml',
+      $path . 'field.field.node.camp.field_sitemap_exclude.yml',
+      $path . 'field.field.node.location.field_sitemap_exclude.yml',
+      $path . 'field.storage.node.field_sitemap_exclude.yml',
+    ]
+  );
+}
