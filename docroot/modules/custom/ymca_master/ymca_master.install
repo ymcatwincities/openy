@@ -1975,3 +1975,15 @@ function ymca_master_update_8077() {
     ]
   );
 }
+
+/**
+ * Update membership config.
+ */
+function ymca_master_update_8078() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_membership.config.yml',
+    ]
+  );
+}
