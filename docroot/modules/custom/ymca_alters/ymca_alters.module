@@ -251,7 +251,7 @@ function ymca_alters_entity_view_alter(
       'revision',
       'devel-render',
       'devel-load',
-      'token-devel'
+      'token-devel',
     ];
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
       if (isset($value[0]['rel']) && in_array(
@@ -262,6 +262,39 @@ function ymca_alters_entity_view_alter(
         unset($build['#attached']['html_head_link'][$key]);
       }
     }
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function ymca_alters_page_attachments_alter(array &$attachments) {
+  // Array to unset.
+  $unset_html_head_link = [
+    'delete-form',
+    'edit-form',
+    'version-history',
+    'revision',
+    'devel-render',
+    'devel-load',
+    'token-devel'
+  ];
+  // Unset loop.
+  foreach ($attachments['#attached']['html_head_link'] as $key => $value) {
+    if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) {
+      unset($attachments['#attached']['html_head_link'][$key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function ymca_alters_module_implements_alter(&$implementations, $hook) {
+  if ($hook === 'page_attachments_alter') {
+    $group = $implementations['ymca_alters'];
+    unset($implementations['ymca_alters']);
+    $implementations['ymca_alters'] = $group;
   }
 }
 
