@@ -288,17 +288,6 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
 }
 
 /**
- * Implements hook_module_implements_alter().
- */
-function ymca_alters_module_implements_alter(&$implementations, $hook) {
-  if ($hook === 'page_attachments_alter') {
-    $group = $implementations['ymca_alters'];
-    unset($implementations['ymca_alters']);
-    $implementations['ymca_alters'] = $group;
-  }
-}
-
-/**
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
