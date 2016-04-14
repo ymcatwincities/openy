@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies: {  }
 id: youth_sports_landing_page
-label: 'Youth Sports Landing Page'
+label: 'Youth Sports'
 use_admin_theme: false
-path: /youth_sports1
+path: /youth_sports
 access_logic: and
 access_conditions: {  }
 parameters: {  }
