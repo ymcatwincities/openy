@@ -2011,3 +2011,54 @@ function ymca_master_update_8079() {
     }
   }
 }
+
+/**
+ * Migrate exclude from sitemap option.
+ */
+function ymca_master_update_8080() {
+  $db = Database::getConnection();
+  $db_legacy = Database::getConnection('default', 'amm_source');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $field_name = 'field_sitemap_exclude';
+
+  $pages = $db_legacy->select('amm_site_page', 'p')
+    ->fields('p', ['site_page_id'])
+    ->condition('p.exclude_from_sitemap', 1)
+    ->execute()
+    ->fetchAll();
+
+  foreach ($pages as $page) {
+    $id = $db->select('migrate_map_ymca_migrate_node_page', 'm')
+      ->fields('m', ['destid1'])
+      ->condition('sourceid1', $page->site_page_id)
+      ->execute()
+      ->fetchField();
+
+    if (!$id) {
+      continue;
+    }
+
+    $node = $storage->load($id);
+    if (!$node) {
+      continue;
+    }
+
+    if (!$node->hasField('field_sitemap_exclude')) {
+      continue;
+    }
+
+    $field = $node->get($field_name);
+    if (!$delta = $field->get(0)) {
+      $field->applyDefaultValue(FALSE);
+      $delta = $field->get(0);
+    }
+
+    $delta->set('value', 1);
+    $node->save();
+
+    \Drupal::logger('ymca_master')->info(
+      'The node %node was excluded from sitemap',
+      ['%node' => $id]
+    );
+  }
+}
