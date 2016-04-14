@@ -13,7 +13,7 @@
 
   Drupal.behaviors.simple_sitemapForm = {
     attach: function(context) {
-        if ($(context).find('#edit-simple-sitemap-index-content').is(':checked')) {
+        if ($(context).find('#edit-simple-sitemap-index-content-1').is(':checked')) {
           // Show 'Priority' field if 'Index sitemap' is ticked.
           $('.form-item-simple-sitemap-priority').show();
         }
@@ -24,7 +24,7 @@
         // Show 'Regenerate sitemap' field if setting has changed.
         $( "#edit-simple-sitemap-index-content" ).change(function() {
           $('.form-item-simple-sitemap-regenerate-now').show();
-          if ($(context).find('#edit-simple-sitemap-index-content').is(':checked')) {
+          if ($(context).find('#edit-simple-sitemap-index-content-1').is(':checked')) {
             // Show 'Priority' field if 'Index sitemap' is ticked.
             $('.form-item-simple-sitemap-priority').show();
           }

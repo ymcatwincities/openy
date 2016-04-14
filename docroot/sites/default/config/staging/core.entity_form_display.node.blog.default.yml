@@ -7,12 +7,15 @@ dependencies:
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_sitemap_exclude
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
     - image.style.thumbnail
     - node.type.blog
   module:
     - image
+    - path
+    - scheduler
     - text
 id: node.blog.default
 targetEntityType: node
@@ -54,6 +57,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+  field_sitemap_exclude:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
   field_summary:
     weight: 8
     settings:
@@ -69,6 +78,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
     weight: 6

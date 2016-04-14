@@ -4,8 +4,6 @@
  * Module install and update procedures.
  */
 
-use Drupal\simple_sitemap\Simplesitemap;
-
 /**
  * Implements hook_requirements().
  */
@@ -23,8 +21,8 @@ function simple_sitemap_requirements($phase) {
 
   switch($phase) {
     case 'runtime':
-      $sitemap = new \Drupal\simple_sitemap\Simplesitemap();
-      $generated_ago = $sitemap->get_generated_ago();
+      $sitemap = \Drupal::service('simple_sitemap.generator');
+      $generated_ago = $sitemap->getGeneratedAgo();
       if (!$generated_ago) {
         $value = t('Not available');
         $description = t("The sitemap has not been generated yet. Run cron, or <a href='@generate'>generate</a> the sitemap manually.", array('@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap'));
@@ -81,9 +79,8 @@ function simple_sitemap_schema() {
  * Implements hook_install().
  */
 function simple_sitemap_install() {
-  $sitemap = new Simplesitemap;
-  $sitemap->generate_sitemap('cron');
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  $sitemap->generateSitemap('backend');
   $base_url = $GLOBALS['base_url'];
   drupal_set_message(t("You can now include content into the <a href='@sitemap_url' target='_blank'>XML sitemap</a> by visiting the corresponding entity type edit pages (e.g. <a href='@content_type_url' target='_blank'>content type</a>, <a href='@taxonomy_vocabulary_url' target='_blank'>taxonomy vocabulary</a>, <a href='@menu_url' target='_blank'>menu</a> and <a href='@user_url' target='_blank'>user</a> pages.)<br/>Custom links can be added on <a href='@config_url' target='_blank'>this configuration page</a>.", array('@sitemap_url' => "$base_url/sitemap.xml", '@content_type_url' => "$base_url/admin/structure/types", '@taxonomy_vocabulary_url' => "$base_url/admin/structure/taxonomy", '@menu_url' => "$base_url/admin/structure/menu", '@user_url' => "$base_url/admin/config/people/accounts", '@config_url' => "$base_url/admin/config/search/simplesitemap/custom")));
 }
-

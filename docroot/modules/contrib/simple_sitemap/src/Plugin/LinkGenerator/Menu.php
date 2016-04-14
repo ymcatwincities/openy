@@ -23,15 +23,8 @@ class Menu extends LinkGeneratorBase {
   /**
    * {@inheritdoc}
    */
-  function get_entities_of_bundle($bundle) {
-
-    $query = \Drupal::database()->select('menu_tree', 'm')
-      ->fields('m', array('mlid', 'route_name', 'route_parameters', 'options'))
-      ->condition('menu_name', $bundle)
-      ->condition('enabled', 1)
-      ->condition('route_name', '', '!=');
-
-    $info = array(
+  function getInfo() {
+    return array(
       'field_info' => array(
         'entity_id' => 'mlid',
         'route_name' => 'route_name',
@@ -40,6 +33,16 @@ class Menu extends LinkGeneratorBase {
       ),
       'path_info' => array()
     );
-    return array('query' => $query, 'info' => $info);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuery($bundle) {
+    return $this->database->select('menu_tree', 'm')
+      ->fields('m', array('mlid', 'route_name', 'route_parameters', 'options'))
+      ->condition('menu_name', $bundle)
+      ->condition('enabled', 1)
+      ->condition('route_name', '', '!=');
   }
 }
