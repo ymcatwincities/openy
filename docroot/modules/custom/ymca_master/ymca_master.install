@@ -2062,3 +2062,17 @@ function ymca_master_update_8080() {
     );
   }
 }
+
+/**
+ * Install modules.
+ */
+function ymca_master_update_8081() {
+  $install = [
+    'ctools',
+    'panels',
+    'page_manager',
+    'page_manager_ui',
+    'layout_plugin',
+  ];
+  \Drupal::service('module_installer')->install($install, TRUE);
+}

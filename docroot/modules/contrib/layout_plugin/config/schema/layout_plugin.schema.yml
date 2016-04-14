@@ -1,0 +1,9 @@
+# Schema for layout plugin configuration.
+
+layout_plugin.settings:
+  type: mapping
+  mapping: { }
+
+layout_plugin.settings.*:
+  type: layout_plugin.settings
+
