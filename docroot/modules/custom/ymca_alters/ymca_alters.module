@@ -251,7 +251,7 @@ function ymca_alters_entity_view_alter(
       'revision',
       'devel-render',
       'devel-load',
-      'token-devel',
+      'token-devel'
     ];
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
       if (isset($value[0]['rel']) && in_array(
