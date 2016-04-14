@@ -17,13 +17,15 @@ required: true
 translatable: false
 default_value:
   -
+    option_select: 0
     option_name: 'Highland Elementary '
     option_reference: null
     option_emails: John.Bronson@YMCAtwincities.org
   -
+    option_select: 0
     option_name: 'Deerwood Elementary '
     option_reference: null
-    option_emails: Chelsea.swiggum@ymcatwincities.org
+    option_emails: Casey.Christian@ymcatwincities.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

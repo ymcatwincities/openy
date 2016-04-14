@@ -17,3 +17,4 @@ permissions:
   8: 'access shortcuts'
   9: 'search content'
   11: 'use text format inline_html'
+  12: 'access sitemap'

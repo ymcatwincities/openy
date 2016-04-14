@@ -4,8 +4,6 @@
  * Drush integration.
  */
 
-use Drupal\simple_sitemap\Simplesitemap;
-
 /**
  * Implements hook_drush_command().
  */
@@ -24,6 +22,6 @@ function simple_sitemap_drush_command() {
  * Regenerate sitemap for all languages.
  */
 function drush_simple_sitemap_generate() {
-  $sitemap = new Simplesitemap;
-  $sitemap->generate_sitemap('drush');
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  $sitemap->generateSitemap('drush');
 }

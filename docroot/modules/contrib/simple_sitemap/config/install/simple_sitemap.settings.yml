@@ -1,7 +1,7 @@
 custom:
   -
     path: /
-    priority: 1
+    priority: 1.0
 
 entity_types: []
 

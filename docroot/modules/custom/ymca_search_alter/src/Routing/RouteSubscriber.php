@@ -25,13 +25,6 @@ class RouteSubscriber extends RouteSubscriberBase {
             'Drupal\ymca_search_alter\Controller\SearchController::view'
           );
           break;
-
-        case '/sitemap':
-          $item->setPath('/sitemap_navigation');
-          break;
-
-        default:
-          continue;
       }
     }
   }

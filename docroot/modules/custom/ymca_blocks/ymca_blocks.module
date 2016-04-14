@@ -132,7 +132,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
           if (!empty($data['value'])) {
             $timezone = &drupal_static('ymca_blocks_block_content_view_alter_timezone');
             if (!isset($timezone)) {
-              $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+              $timezone = new \DateTimeZone(DATETIME_STORAGE_TIMEZONE);
             }
             $date = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $data['value'], $timezone);
             if ($date instanceof \DateTime) {

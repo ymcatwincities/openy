@@ -17,7 +17,7 @@ required: false
 translatable: true
 default_value:
   -
-    value: '<legend>Enter Your Information</legend>'
+    value: '<p class="legend">Enter Your Information</p>'
 default_value_callback: ''
 settings: {  }
 field_type: webform_markup_item
