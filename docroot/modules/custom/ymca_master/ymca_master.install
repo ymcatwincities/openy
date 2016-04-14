@@ -1987,3 +1987,27 @@ function ymca_master_update_8078() {
     ]
   );
 }
+
+/**
+ * Remove redundant redirects.
+ */
+function ymca_master_update_8079() {
+  $alias_manager = \Drupal::service('path.alias_manager');
+  $redirect_repo = \Drupal::service('redirect.repository');
+
+  $ids = \Drupal::entityQuery('node')->execute();
+  foreach ($ids as $nid) {
+    // Remove redirect if it has node alias + trailing slash redirect as a source.
+    $source = ltrim($alias_manager->getAliasByPath('/node/' . $nid), '/') . '/';
+    $redirect = $redirect_repo->findBySourcePath($source);
+    if (!empty($redirect)) {
+      foreach ($redirect as $item) {
+        $item->delete();
+        \Drupal::logger('ymca_master')->info(
+          'The redirect for the source %source was removed',
+          ['%source' => $source]
+        );
+      }
+    }
+  }
+}
