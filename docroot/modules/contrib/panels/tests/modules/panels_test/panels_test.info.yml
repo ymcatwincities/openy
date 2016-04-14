@@ -1,0 +1,14 @@
+type: module
+name: Panels Test
+description: 'Required for Panels simpletests only.'
+# core: 8.x
+dependencies:
+  - page_manager
+  - panels
+  - layout_plugin
+
+# Information added by Drupal.org packaging script on 2016-02-16
+version: '8.x-3.0-beta4'
+core: '8.x'
+project: 'panels'
+datestamp: 1455657542
