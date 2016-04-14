@@ -2076,3 +2076,16 @@ function ymca_master_update_8081() {
   ];
   \Drupal::service('module_installer')->install($install, TRUE);
 }
+
+/**
+ * Add Youth Sports Landing Page as Panels page.
+ */
+function ymca_master_update_8082() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+    ]
+  );
+}
