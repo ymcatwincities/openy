@@ -2064,5 +2064,5 @@ function ymca_master_update_8080() {
 
   // Regenerate sitemap.
   $sitemap = \Drupal::service('simple_sitemap.generator');
-  $sitemap->generateSitemap('backend');
+  $sitemap->generateSitemap('drush');
 }
