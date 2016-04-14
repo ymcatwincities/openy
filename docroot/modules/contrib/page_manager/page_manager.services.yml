@@ -1,0 +1,34 @@
+services:
+  page_manager.current_user_context:
+    class: Drupal\page_manager\EventSubscriber\CurrentUserContext
+    arguments: ['@current_user', '@entity_type.manager']
+    tags:
+      - { name: 'event_subscriber' }
+  page_manager.route_param_context:
+    class: Drupal\page_manager\EventSubscriber\RouteParamContext
+    arguments: ['@router.route_provider', '@request_stack']
+    tags:
+      - { name: 'event_subscriber' }
+  page_manager.context_mapper:
+    class: Drupal\page_manager\ContextMapper
+    arguments: ['@entity.repository']
+  page_manager.page_manager_routes:
+    class: Drupal\page_manager\Routing\PageManagerRoutes
+    arguments: ['@entity_type.manager', '@cache_tags.invalidator']
+    tags:
+      - { name: 'event_subscriber' }
+  page_manager.variant_route_filter:
+    class: Drupal\page_manager\Routing\VariantRouteFilter
+    arguments: ['@entity_type.manager', '@path.current']
+    tags:
+      - { name: route_filter }
+      - { name: service_collector, tag: non_lazy_route_enhancer, call: addRouteEnhancer }
+  page_manager.route_name_response_subscriber:
+    class: Drupal\page_manager\EventSubscriber\RouteNameResponseSubscriber
+    tags:
+      - { name: event_subscriber }
+    arguments: ['@current_route_match']
+  page_manager.page_access_check:
+    class: Drupal\page_manager\Entity\PageAccessCheck
+    tags:
+      - { name: access_check, applies_to: _page_access }
