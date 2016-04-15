@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.camp.field_phone
     - field.field.node.camp.field_promo_slideshow
     - field.field.node.camp.field_registration_block
-    - field.field.node.camp.field_sitemap_exclude
     - field.field.node.camp.field_subtitle
     - node.type.camp
   module:
@@ -114,6 +113,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_sitemap_exclude: true
   field_subtitle: true
   langcode: true
