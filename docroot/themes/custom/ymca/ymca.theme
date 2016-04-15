@@ -949,7 +949,6 @@ function ymca_form_groupex_form_full_alter(&$form, \Drupal\Core\Form\FormStateIn
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
@@ -966,7 +965,6 @@ function ymca_form_groupex_form_full_refine_alter(&$form, \Drupal\Core\Form\Form
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full_refine'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
@@ -981,7 +979,6 @@ function ymca_form_groupex_form_location_alter(&$form, \Drupal\Core\Form\FormSta
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
 }
@@ -997,7 +994,6 @@ function ymca_form_groupex_form_location_refine_alter(&$form, \Drupal\Core\Form\
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full_refine'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
