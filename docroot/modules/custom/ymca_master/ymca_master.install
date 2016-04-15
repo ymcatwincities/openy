@@ -2076,3 +2076,44 @@ function ymca_master_update_8081() {
   ];
   \Drupal::service('module_installer')->install($install, TRUE);
 }
+
+/**
+ * Remove exclude sitemap field.
+ */
+function ymca_master_update_8082() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+    ]
+  );
+
+  $factory = \Drupal::configFactory();
+  $delete = [
+    'field.field.node.article.field_sitemap_exclude',
+    'field.field.node.blog.field_sitemap_exclude',
+    'field.field.node.camp.field_sitemap_exclude',
+    'field.field.node.location.field_sitemap_exclude',
+    'field.storage.node.field_sitemap_exclude',
+  ];
+  foreach ($delete as $item) {
+    $factory->getEditable($item)->delete();
+  }
+}

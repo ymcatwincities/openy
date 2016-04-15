@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_sitemap_exclude
     - field.field.node.article.field_status
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
@@ -121,12 +120,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_sitemap_exclude:
-    weight: 26
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
   field_status:
     weight: 21
     settings: {  }
