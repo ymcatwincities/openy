@@ -2153,5 +2153,10 @@ function ymca_master_update_8083() {
     $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['index'] = 0;
     $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['priority'] = 0.5;
     $sitemap->saveConfig('entity_types', $entity_types);
+
+    \Drupal::logger('ymca_master')->info(
+      'The node %node was excluded from sitemap',
+      ['%node' => $id]
+    );
   }
 }
