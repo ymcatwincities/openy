@@ -2117,3 +2117,41 @@ function ymca_master_update_8082() {
     $factory->getEditable($item)->delete();
   }
 }
+
+/**
+ * Migrate exclude from sitemap option for native widget.
+ */
+function ymca_master_update_8083() {
+  $db = Database::getConnection();
+  $db_legacy = Database::getConnection('default', 'amm_source');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+
+  $pages = $db_legacy->select('amm_site_page', 'p')
+    ->fields('p', ['site_page_id'])
+    ->condition('p.exclude_from_sitemap', 1)
+    ->execute()
+    ->fetchAll();
+
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  foreach ($pages as $page) {
+    $id = $db->select('migrate_map_ymca_migrate_node_page', 'm')
+      ->fields('m', ['destid1'])
+      ->condition('sourceid1', $page->site_page_id)
+      ->execute()
+      ->fetchField();
+
+    if (!$id) {
+      continue;
+    }
+
+    $node = $storage->load($id);
+    if (!$node) {
+      continue;
+    }
+
+    $entity_types = $sitemap->getConfig('entity_types');
+    $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['index'] = 0;
+    $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['priority'] = 0.5;
+    $sitemap->saveConfig('entity_types', $entity_types);
+  }
+}
