@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_content
     - field.field.node.location.field_schedule_documents
-    - field.field.node.location.field_sitemap_exclude
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
@@ -41,6 +40,5 @@ hidden:
   field_promo_slideshow: true
   field_schedule_content: true
   field_schedule_documents: true
-  field_sitemap_exclude: true
   field_working_hours: true
   langcode: true
