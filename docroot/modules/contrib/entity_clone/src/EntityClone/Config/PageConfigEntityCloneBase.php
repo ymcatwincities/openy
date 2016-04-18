@@ -2,11 +2,13 @@
 
 namespace Drupal\entity_clone\EntityClone\Config;
 
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\Component\Utility\Random;
 use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 use Drupal\entity_clone\EntityClone\EntityCloneInterface;
 use Drupal\page_manager\Entity\PageVariant;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -99,10 +101,24 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
       $hash = strtolower($rand->name(8, TRUE));
       $var = $variant->createDuplicate();
       $var->set('page', $cloned_entity->id());
+      $conf = $var->getVariantPlugin()->getConfiguration();
+      foreach ($conf['blocks'] as $uuid => $bdata) {
+        $buuid = explode(':', $bdata['id']);
+        $entities = \Drupal::entityManager()->getStorage($buuid[0])->loadByProperties(['uuid' => $buuid[1]]);
+        /** @var BlockContent $block */
+        $block = array_shift($entities);
+        $cloner = new ConfigWithFieldEntityClone($this->entityTypeManager, $buuid[0]);
+        $label = $block->info->getValue()[0]['value'] . ' ' . $hash;
+        $dup_block = $cloner->cloneEntity($block, $block->createDuplicate(), ['info' => $label]);
+        $dup_block->save();
+        $conf['blocks'][$uuid]['id'] = $dup_block->getEntityTypeId() . ':' . $dup_block->uuid();
+        $conf['blocks'][$uuid]['label'] = $label;
+      }
+      $var->getVariantPlugin()->setConfiguration($conf);
       $new_variants[$variant->id() . $hash] = $var->set('id', $variant->id() . $hash);
       $new_variants[$variant->id() . $hash]->save();
     }
-    
+
     $cloned_entity->set('variants', $new_variants);
     $cloned_entity->save();
     return $cloned_entity;
