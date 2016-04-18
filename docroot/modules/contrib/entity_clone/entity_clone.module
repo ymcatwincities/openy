@@ -37,6 +37,10 @@ function entity_clone_entity_type_build(array &$entity_types) {
       'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\PageConfigEntityCloneBase',
       'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\PageConfigEntityCloneFormBase',
     ],
+    'block_content' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\ConfigWithFieldEntityClone',
+      'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\CustomBlockConfigEntityCloneFormBase',
+    ],
     'file' => [
       'entity_clone' => '\Drupal\entity_clone\EntityClone\Content\FileEntityClone',
     ],

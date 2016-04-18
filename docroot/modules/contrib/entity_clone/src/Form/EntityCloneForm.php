@@ -136,7 +136,7 @@ class EntityCloneForm extends FormBase {
     if (isset($entity_clone_form_handler) && $entity_clone_form_handler) {
       $properties = $entity_clone_form_handler->getNewValues($form_state);
     }
-
+    
     $cloned_entity = $entity_clone_handler->cloneEntity($this->entity, $this->entity->createDuplicate(), $properties);
 
     drupal_set_message($this->stringTranslationManager->translate('The entity <em>@entity (@entity_id)</em> of type <em>@type</em> was cloned', [

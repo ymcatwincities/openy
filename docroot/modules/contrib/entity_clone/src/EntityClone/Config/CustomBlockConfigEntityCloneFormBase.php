@@ -12,9 +12,9 @@ use Drupal\entity_clone\EntityClone\EntityCloneFormInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class PageConfigEntityCloneFormBase.
+ * Class CustomBlockConfigEntityCloneFormBase.
  */
-class PageConfigEntityCloneFormBase extends ConfigEntityCloneFormBase {
+class CustomBlockConfigEntityCloneFormBase implements EntityHandlerInterface, EntityCloneFormInterface {
 
   /**
    * The entity type manager.
@@ -26,7 +26,7 @@ class PageConfigEntityCloneFormBase extends ConfigEntityCloneFormBase {
   protected $entityTypeManager;
 
   /**
-   * Constructs a new PageConfigEntityCloneFormBase.
+   * Constructs a new CustomBlockConfigEntityCloneFormBase.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The entity type manager.
@@ -55,9 +55,9 @@ class PageConfigEntityCloneFormBase extends ConfigEntityCloneFormBase {
     $form = [];
 
     if ($this->entityTypeManager->getDefinition($entity->getEntityTypeId())->getKey('label')) {
-      $form['label'] = array(
+      $form['info'] = array(
         '#type' => 'textfield',
-        '#title' => $this->translationManager->translate('New Label'),
+        '#title' => $this->translationManager->translate('New Description'),
         '#maxlength' => 255,
         '#required' => TRUE,
       );
@@ -66,13 +66,6 @@ class PageConfigEntityCloneFormBase extends ConfigEntityCloneFormBase {
     $form['id'] = array(
       '#type' => 'machine_name',
       '#title' => $this->translationManager->translate('New Id'),
-      '#maxlength' => 255,
-      '#required' => TRUE,
-    );
-
-    $form['path'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->translationManager->translate('New Path'),
       '#maxlength' => 255,
       '#required' => TRUE,
     );
@@ -103,16 +96,9 @@ class PageConfigEntityCloneFormBase extends ConfigEntityCloneFormBase {
       $field_prefix = $form_state->getCompleteForm()['id']['#field_prefix'];
     }
 
-    if (strpos($form_state->getValue('path'), '/') === 0) {
-      $path = $form_state->getValue('path');
-    }
-    else {
-      $path = '/' . $form_state->getValue('path');
-    }
     return [
       'id' => $field_prefix . $form_state->getValue('id'),
-      'label' => $form_state->getValue('label'),
-      'path' => $path,
+      'label' => $form_state->getValue('info'),
     ];
   }
 
