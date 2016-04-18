@@ -63,13 +63,6 @@ class CustomBlockConfigEntityCloneFormBase implements EntityHandlerInterface, En
       );
     }
 
-    $form['id'] = array(
-      '#type' => 'machine_name',
-      '#title' => $this->translationManager->translate('New Id'),
-      '#maxlength' => 255,
-      '#required' => TRUE,
-    );
-
     // If entity must have a prefix
     // (e.g. entity_form_mode, entity_view_mode, ...).
     if (method_exists($entity, 'getTargetType')) {
@@ -89,15 +82,8 @@ class CustomBlockConfigEntityCloneFormBase implements EntityHandlerInterface, En
    * {@inheritdoc}
    */
   public function getNewValues(FormStateInterface $form_state) {
-    // If entity must have a prefix
-    // (e.g. entity_form_mode, entity_view_mode, ...).
-    $field_prefix = '';
-    if (isset($form_state->getCompleteForm()['id']['#field_prefix'])) {
-      $field_prefix = $form_state->getCompleteForm()['id']['#field_prefix'];
-    }
-
+    
     return [
-      'id' => $field_prefix . $form_state->getValue('id'),
       'label' => $form_state->getValue('info'),
     ];
   }
