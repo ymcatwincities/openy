@@ -92,6 +92,7 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
       $cloned_entity->set($key, $property);
     }
 
+    // Save for now for ability to use latest data.
     $cloned_entity->save();
 
     $variants = $entity->getVariants();
@@ -110,16 +111,19 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
         $cloner = new ConfigWithFieldEntityClone($this->entityTypeManager, $buuid[0]);
         $label = $block->info->getValue()[0]['value'] . ' ' . $hash;
         $dup_block = $cloner->cloneEntity($block, $block->createDuplicate(), ['info' => $label]);
+        // Save for ability to have real uuid.
         $dup_block->save();
         $conf['blocks'][$uuid]['id'] = $dup_block->getEntityTypeId() . ':' . $dup_block->uuid();
         $conf['blocks'][$uuid]['label'] = $label;
       }
       $var->getVariantPlugin()->setConfiguration($conf);
       $new_variants[$variant->id() . $hash] = $var->set('id', $variant->id() . $hash);
+      // Save for ability to add it to Page.
       $new_variants[$variant->id() . $hash]->save();
     }
 
     $cloned_entity->set('variants', $new_variants);
+    // Final save for cloned page.
     $cloned_entity->save();
     return $cloned_entity;
 
