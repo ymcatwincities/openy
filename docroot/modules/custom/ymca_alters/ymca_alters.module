@@ -317,16 +317,3 @@ function ymca_alters_page_attachments(array &$page) {
 
   $page['#attached']['html_head'][] = [$canonical, 'canonical'];
 }
-
-/**
- * Implements hook_simple_sitemap_links_alter().
- */
-function ymca_alters_simple_sitemap_links_alter(&$links) {
-  $exclude = \Drupal::entityQuery('node')
-    ->condition('field_sitemap_exclude', 1)
-    ->execute();
-
-  $links = array_filter($links, function($item) use ($exclude) {
-    return !in_array(substr($item['path'], 5), $exclude);
-  });
-}
