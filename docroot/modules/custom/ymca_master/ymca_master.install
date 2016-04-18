@@ -2080,7 +2080,7 @@ function ymca_master_update_8081() {
 /**
  * Remove exclude sitemap field.
  */
-function ymca_master_update_8082() {
+function ymca_master_update_8083() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -2121,7 +2121,7 @@ function ymca_master_update_8082() {
 /**
  * Migrate exclude from sitemap option for native widget.
  */
-function ymca_master_update_8083() {
+function ymca_master_update_8084() {
   $db = Database::getConnection();
   $db_legacy = Database::getConnection('default', 'amm_source');
   $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
