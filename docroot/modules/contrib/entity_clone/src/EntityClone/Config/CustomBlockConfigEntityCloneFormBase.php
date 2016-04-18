@@ -82,7 +82,7 @@ class CustomBlockConfigEntityCloneFormBase implements EntityHandlerInterface, En
    * {@inheritdoc}
    */
   public function getNewValues(FormStateInterface $form_state) {
-    
+
     return [
       'label' => $form_state->getValue('info'),
     ];
