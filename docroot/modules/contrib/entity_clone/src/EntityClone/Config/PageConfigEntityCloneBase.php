@@ -2,11 +2,13 @@
 
 namespace Drupal\entity_clone\EntityClone\Config;
 
+use Drupal\Component\Utility\Random;
 use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\entity_clone\EntityClone\EntityCloneInterface;
+use Drupal\page_manager\Entity\PageVariant;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -61,6 +63,7 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
     // @todo make this dynamic if needed.
     $path_key = 'path';
 
+
     // Set new entity properties.
     if (isset($properties['id'])) {
       if ($id_key) {
@@ -87,6 +90,20 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
       $cloned_entity->set($key, $property);
     }
 
+    $cloned_entity->save();
+
+    $variants = $entity->getVariants();
+    $rand = new Random();
+    /** @var PageVariant $variant */
+    foreach ($variants as $variant) {
+      $hash = strtolower($rand->name(8, TRUE));
+      $var = $variant->createDuplicate();
+      $var->set('page', $cloned_entity->id());
+      $new_variants[$variant->id() . $hash] = $var->set('id', $variant->id() . $hash);
+      $new_variants[$variant->id() . $hash]->save();
+    }
+    
+    $cloned_entity->set('variants', $new_variants);
     $cloned_entity->save();
     return $cloned_entity;
 
