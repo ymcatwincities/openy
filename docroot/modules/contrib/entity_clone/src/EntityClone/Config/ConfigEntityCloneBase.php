@@ -56,16 +56,8 @@ class ConfigEntityCloneBase implements EntityHandlerInterface, EntityCloneInterf
    */
   public function cloneEntity(EntityInterface $entity, EntityInterface $cloned_entity, $properties = []) {
     /** @var \Drupal\core\Config\Entity\ConfigEntityInterface $cloned_entity */
-    $id_key = $this->entityTypeManager->getDefinition($this->entityTypeId)->getKey('id');
-    $label_key = $this->entityTypeManager->getDefinition($this->entityTypeId)->getKey('label');
 
-    // Set new entity properties.
-    if (isset($properties['id'])) {
-      if ($id_key) {
-        $cloned_entity->set($id_key, $properties['id']);
-      }
-      unset($properties['id']);
-    }
+    $label_key = $this->entityTypeManager->getDefinition($this->entityTypeId)->getKey('label');
 
     if (isset($properties['label'])) {
       if ($label_key) {
