@@ -2173,3 +2173,17 @@ function ymca_master_update_8084() {
     );
   }
 }
+
+/**
+ * Add Youth Sports Landing Page as Panels page. Enable entity_clone.
+ */
+function ymca_master_update_8085() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+    ]
+  );
+  \Drupal::service('module_installer')->install(['entity_clone'], TRUE);
+}
