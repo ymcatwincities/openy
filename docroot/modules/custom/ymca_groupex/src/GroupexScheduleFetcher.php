@@ -290,7 +290,7 @@ class GroupexScheduleFetcher {
 
     // Filter out by time of the day.
     if (!empty($param['time_of_day'])) {
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if (in_array($item->time_of_day, $param['time_of_day'])) {
           return TRUE;
         }
@@ -301,7 +301,7 @@ class GroupexScheduleFetcher {
     // Groupex response have some redundant data. Filter it out.
     if ($param['filter_length'] == 'day') {
       // Filter out by the date. Cut off days before.
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if ($item->timestamp >= $param['filter_timestamp']) {
           return TRUE;
         }
@@ -309,7 +309,7 @@ class GroupexScheduleFetcher {
       });
 
       // Filter out by the date. Cut off days after.
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
           return TRUE;
         }
