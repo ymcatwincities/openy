@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
+    - field.field.node.article.field_state
     - field.field.node.article.field_status
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
@@ -101,6 +102,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_key
+  field_state:
+    weight: 13
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
   field_status:
     weight: 12
     label: above
