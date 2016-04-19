@@ -1,0 +1,7 @@
+layout_plugin.settings.layout_example_test:
+  type: layout_plugin.settings
+  label: 'Settings for layout_example_test layout'
+  mapping:
+    setting_1:
+      type: string
+      label: 'First setting'
