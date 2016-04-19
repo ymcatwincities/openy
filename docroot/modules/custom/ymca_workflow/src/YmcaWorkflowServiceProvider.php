@@ -1,16 +1,15 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\ymca_workflow\YmcaWorkflowServiceProvider
- */
-
 namespace Drupal\ymca_workflow;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
 
+/**
+ * Override default paramconverter.
+ */
 class YmcaWorkflowServiceProvider extends ServiceProviderBase {
+
   /**
    * {@inheritdoc}
    */
@@ -19,4 +18,5 @@ class YmcaWorkflowServiceProvider extends ServiceProviderBase {
     $definition = $container->getDefinition('paramconverter.entity');
     $definition->setClass('Drupal\ymca_workflow\YmcaWorkflowEntityConverter');
   }
+
 }
