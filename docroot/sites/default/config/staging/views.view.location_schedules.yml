@@ -522,6 +522,7 @@ display:
           entity_field: uid
           plugin_id: user_uid
       display_extenders: {  }
+      title: 'Location schedules'
     cache_metadata:
       max-age: 0
       contexts:
@@ -540,16 +541,16 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content/localtion_schedules
+      path: user/%user/location_schedules
       menu:
         type: tab
         title: 'Location schedules'
         description: ''
         expanded: false
-        parent: system.admin_content
+        parent: user.page
         weight: 10
         context: '0'
-        menu_name: admin
+        menu_name: account
     cache_metadata:
       max-age: 0
       contexts:
