@@ -1,0 +1,13 @@
+name: Entity Browser
+description: 'Entity browsing and selecting component.'
+type: module
+package: Media
+# core: 8.x
+test_dependencies:
+  - ctools
+
+# Information added by Drupal.org packaging script on 2016-02-19
+version: '8.x-1.0-alpha2'
+core: '8.x'
+project: 'entity_browser'
+datestamp: 1455881646

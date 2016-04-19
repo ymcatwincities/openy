@@ -1,0 +1,70 @@
+common:
+  version: VERSION
+  js:
+    js/entity_browser.common.js: {}
+  dependencies:
+    - core/underscore
+
+iframe:
+  version: VERSION
+  js:
+    js/entity_browser.iframe.js: {}
+  dependencies:
+    - core/drupalSettings
+    - entity_browser/common
+
+iframe_selection:
+  version: VERSION
+  js:
+    js/entity_browser.iframe_selection.js: {}
+  dependencies:
+    - core/drupalSettings
+
+entity_reference:
+  version: VERSION
+  css:
+    component:
+      css/entity_browser.entity_reference.css: {}
+  js:
+    js/entity_browser.entity_reference.js: {}
+  dependencies:
+    - entity_browser/common
+    - core/jquery.ui.sortable
+
+modal:
+  version: VERSION
+  js:
+    js/entity_browser.modal.js: {}
+  dependencies:
+    - core/drupalSettings
+    - core/underscore
+
+modal_selection:
+  version: VERSION
+  js:
+    js/entity_browser.modal_selection.js: {}
+  dependencies:
+    - core/drupalSettings
+
+tabs:
+  version: VERSION
+  css:
+    component:
+      css/entity_browser.tabs.css: {}
+  js:
+    js/entity_browser.tabs.js: {}
+  dependencies:
+    - core/drupalSettings
+
+view:
+  version: VERSION
+  js:
+    js/entity_browser.view.js: {}
+  dependencies:
+
+multi_step_display:
+  version: VERSION
+  js:
+    js/entity_browser.multi_step_display.js: {}
+  dependencies:
+    - core/jquery.ui.sortable
