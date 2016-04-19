@@ -2196,6 +2196,7 @@ function ymca_master_update_8086() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'core.entity_form_display.user.user.default.yml',
+      $path . 'core.entity_view_display.user.user.compact.yml',
       $path . 'core.entity_view_display.user.user.default.yml',
       $path . 'field.field.user.user.field_locations.yml',
       $path . 'field.storage.user.field_locations.yml',
