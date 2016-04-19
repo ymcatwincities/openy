@@ -92,10 +92,21 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
     }
   }
 
+  // Hide field_locations on user account edit form.
   if ($form_id == 'user_form') {
     $user = \Drupal::currentUser();
     if (!$user->hasPermission('administer users')) {
       $form['field_locations']['#access'] = FALSE;
+    }
+  }
+
+  // Hide extra fields when editing document file type.
+  if ($form_id == 'file_document_edit_form') {
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('administer files')) {
+      $form['uid']['#access'] = FALSE;
+      $form['filename']['#access'] = FALSE;
+      $form['actions']['delete']['#access'] = FALSE;
     }
   }
 }
