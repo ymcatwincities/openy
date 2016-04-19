@@ -1,0 +1,11 @@
+uuid: 3b4f9e7d-8ade-4b35-9700-b6e69e939704
+langcode: en
+status: true
+dependencies: {  }
+id: youth_sports_landing_page
+label: 'Youth Sports'
+use_admin_theme: false
+path: /youth_sports
+access_logic: and
+access_conditions: {  }
+parameters: {  }

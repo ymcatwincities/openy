@@ -1975,3 +1975,215 @@ function ymca_master_update_8077() {
     ]
   );
 }
+
+/**
+ * Update membership config.
+ */
+function ymca_master_update_8078() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_membership.config.yml',
+    ]
+  );
+}
+
+/**
+ * Remove redundant redirects.
+ */
+function ymca_master_update_8079() {
+  $alias_manager = \Drupal::service('path.alias_manager');
+  $redirect_repo = \Drupal::service('redirect.repository');
+
+  $ids = \Drupal::entityQuery('node')->execute();
+  foreach ($ids as $nid) {
+    // Remove redirect if it has node alias + trailing slash redirect as a source.
+    $source = ltrim($alias_manager->getAliasByPath('/node/' . $nid), '/') . '/';
+    $redirect = $redirect_repo->findBySourcePath($source);
+    if (!empty($redirect)) {
+      foreach ($redirect as $item) {
+        $item->delete();
+        \Drupal::logger('ymca_master')->info(
+          'The redirect for the source %source was removed',
+          ['%source' => $source]
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Migrate exclude from sitemap option.
+ */
+function ymca_master_update_8080() {
+  $db = Database::getConnection();
+  $db_legacy = Database::getConnection('default', 'amm_source');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $field_name = 'field_sitemap_exclude';
+
+  $pages = $db_legacy->select('amm_site_page', 'p')
+    ->fields('p', ['site_page_id'])
+    ->condition('p.exclude_from_sitemap', 1)
+    ->execute()
+    ->fetchAll();
+
+  foreach ($pages as $page) {
+    $id = $db->select('migrate_map_ymca_migrate_node_page', 'm')
+      ->fields('m', ['destid1'])
+      ->condition('sourceid1', $page->site_page_id)
+      ->execute()
+      ->fetchField();
+
+    if (!$id) {
+      continue;
+    }
+
+    $node = $storage->load($id);
+    if (!$node) {
+      continue;
+    }
+
+    if (!$node->hasField('field_sitemap_exclude')) {
+      continue;
+    }
+
+    $field = $node->get($field_name);
+    if (!$delta = $field->get(0)) {
+      $field->applyDefaultValue(FALSE);
+      $delta = $field->get(0);
+    }
+
+    $delta->set('value', 1);
+    $node->save();
+
+    \Drupal::logger('ymca_master')->info(
+      'The node %node was excluded from sitemap',
+      ['%node' => $id]
+    );
+  }
+}
+
+/**
+ * Install modules.
+ */
+function ymca_master_update_8081() {
+  $install = [
+    'ctools',
+    'panels',
+    'page_manager',
+    'page_manager_ui',
+    'layout_plugin',
+  ];
+  \Drupal::service('module_installer')->install($install, TRUE);
+}
+
+/**
+ * Add Youth Sports Landing Page as Panels page.
+ */
+function ymca_master_update_8082() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+    ]
+  );
+}
+
+/**
+ * Remove exclude sitemap field.
+ */
+function ymca_master_update_8083() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+    ]
+  );
+
+  $factory = \Drupal::configFactory();
+  $delete = [
+    'field.field.node.article.field_sitemap_exclude',
+    'field.field.node.blog.field_sitemap_exclude',
+    'field.field.node.camp.field_sitemap_exclude',
+    'field.field.node.location.field_sitemap_exclude',
+    'field.storage.node.field_sitemap_exclude',
+  ];
+  foreach ($delete as $item) {
+    $factory->getEditable($item)->delete();
+  }
+}
+
+/**
+ * Migrate exclude from sitemap option for native widget.
+ */
+function ymca_master_update_8084() {
+  $db = Database::getConnection();
+  $db_legacy = Database::getConnection('default', 'amm_source');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+
+  $pages = $db_legacy->select('amm_site_page', 'p')
+    ->fields('p', ['site_page_id'])
+    ->condition('p.exclude_from_sitemap', 1)
+    ->execute()
+    ->fetchAll();
+
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  foreach ($pages as $page) {
+    $id = $db->select('migrate_map_ymca_migrate_node_page', 'm')
+      ->fields('m', ['destid1'])
+      ->condition('sourceid1', $page->site_page_id)
+      ->execute()
+      ->fetchField();
+
+    if (!$id) {
+      continue;
+    }
+
+    $node = $storage->load($id);
+    if (!$node) {
+      continue;
+    }
+
+    $entity_types = $sitemap->getConfig('entity_types');
+    $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['index'] = 0;
+    $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['priority'] = 0.5;
+    $sitemap->saveConfig('entity_types', $entity_types);
+
+    \Drupal::logger('ymca_master')->info(
+      'The node %node was excluded from sitemap',
+      ['%node' => $id]
+    );
+  }
+}
+
+/**
+ * Add Youth Sports Landing Page as Panels page. Enable entity_clone.
+ */
+function ymca_master_update_8085() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+    ]
+  );
+  \Drupal::service('module_installer')->install(['entity_clone'], TRUE);
+}
