@@ -27,7 +27,7 @@ class OptionsEmailWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function formElement(FieldItemListInterface $items, $delta, array $element,  array &$form, FormStateInterface $form_state) {
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
     /** @var \Drupal\field\Entity\FieldConfig $definition */
     $definition = $items->getFieldDefinition();
