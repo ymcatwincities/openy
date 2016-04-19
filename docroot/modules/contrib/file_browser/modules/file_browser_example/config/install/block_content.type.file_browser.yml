@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: file_browser
+label: 'File Browser'
+revision: 1
+description: 'An example Custom Block type that uses File Browser''s Entity Browser and EntityReferenceImageFormatter.'
