@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Defines library requirements and install routines for File Browser.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function file_browser_install() {
+  // Add an icon for File Browser.
+  $data = file_get_contents(dirname(__FILE__) . '/file_browser_icon.png');
+  $file = file_save_data($data, 'public://file_browser_icon.png', FILE_EXISTS_REPLACE);
+
+  // Update our configuration to use the icon.
+  $uuid = $file->uuid();
+  $configuration = \Drupal::configFactory()->getEditable('embed.button.file_browser');
+  $configuration->set('icon_uuid', $uuid);
+  $configuration->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function file_browser_uninstall() {
+  Drupal::configFactory()->getEditable('image.style.file_entity_browser_thumbnail')->delete();
+  Drupal::configFactory()->getEditable('embed.button.file_browser')->delete();
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function file_browser_requirements($phase) {
+
+  $requirements = [];
+
+  // Optionally use the Libraries module to determine our library paths.
+  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+    $imagesloaded_path = libraries_get_path('imagesloaded') . '/imagesloaded.pkgd.min.js';
+    $masonry_path = libraries_get_path('masonry') . '/dist/masonry.pkgd.min.js';
+  }
+  else {
+    $imagesloaded_path = DRUPAL_ROOT . '/libraries/imagesloaded/imagesloaded.pkgd.min.js';
+    $masonry_path = DRUPAL_ROOT . '/libraries/masonry/dist/masonry.pkgd.min.js';
+  }
+
+  if (!file_exists($imagesloaded_path)) {
+    $requirements['imagesloaded'] = array(
+      'title' => t('imagesLoaded library missing'),
+      'description' => t(
+'File Browser requires the imagesLoaded library. Download the newest release
+from https://github.com/desandro/imagesloaded releases and place it in /libraries'
+      ),
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+
+  if (!file_exists($masonry_path)) {
+    $requirements['masonry'] = array(
+      'title' => t('Dropzone library missing'),
+      'description' => t(
+'File Browser requires the Masonry library. Download the newest release from
+https://github.com/desandro/masonry/releases and place it in /libraries'
+      ),
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+
+  return $requirements;
+}
