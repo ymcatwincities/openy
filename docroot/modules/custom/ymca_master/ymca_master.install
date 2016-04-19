@@ -2189,7 +2189,7 @@ function ymca_master_update_8085() {
 }
 
 /**
- *
+ * Replace PDF files for location schedules feature.
  */
 function ymca_master_update_8086() {
   $path = 'sites/default/config/staging/';
