@@ -14,15 +14,10 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
-  field_locations:
-    weight: 6
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
   member_for:
     weight: 5
+    settings: {  }
+    third_party_settings: {  }
   user_picture:
     type: image
     weight: 0
@@ -31,4 +26,5 @@ content:
       image_link: content
     third_party_settings: {  }
     label: hidden
-hidden: {  }
+hidden:
+  field_locations: true
