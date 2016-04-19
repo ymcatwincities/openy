@@ -125,7 +125,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       $status = FALSE;
 
       // Get timestamp from date field.
-      $get_time = function($field_name) use ($entity) {
+      $get_time = function ($field_name) use ($entity) {
         if ($entity->hasField($field_name)) {
           $field_start = $entity->get($field_name);
           $data = $field_start->get(0)->getValue();
