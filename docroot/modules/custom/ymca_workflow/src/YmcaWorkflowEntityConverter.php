@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\ymca_workflow\YmcaWorkflowEntityConverter.
+ */
+
+namespace Drupal\ymca_workflow;
+
+use Drupal\Core\ParamConverter\EntityConverter;
+
+/**
+ * Overrides EntityConverter to load latest revision on node edit form.
+ */
+class YmcaWorkflowEntityConverter extends EntityConverter {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function convert($value, $definition, $name, array $defaults) {
+    $entity = parent::convert($value, $definition, $name, $defaults);
+
+    if ($defaults['_route'] == 'entity.node.edit_form') {
+      // Always load the latest revision.
+      $node_storage = \Drupal::entityManager()->getStorage('node');
+      $vids = $node_storage->revisionIds($entity);
+      $latest_revision_vid = array_pop($vids);
+      if ($entity->vid->value != $latest_revision_vid) {
+        $entity = node_revision_load($latest_revision_vid);
+        $request = \Drupal::request();
+        if ($request->getMethod() == 'GET') {
+          drupal_set_message('Latest version of the content was loaded.');
+        }
+      }
+    }
+
+    return $entity;
+  }
+}
