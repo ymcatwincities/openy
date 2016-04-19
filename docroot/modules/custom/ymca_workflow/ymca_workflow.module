@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_workflow specific functions.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ymca_workflow_entity_presave(EntityInterface $entity) {
+  // Proceed only with nodes.
+  if (!($entity instanceof NodeInterface)) {
+    return;
+  }
+
+  // When revision set to be published, set it to default.
+  if ($entity->field_state->value == 'workflow_published') {
+    $entity->status->value = 1;
+    $entity->isDefaultRevision(TRUE);
+  }
+}
+
+/**
+ * Implements hook_entity_prepare_form().
+ */
+function ymca_workflow_entity_prepare_form(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Form\FormStateInterface $form_state)
+{
+  // Proceed only with nodes and Edit operation.
+  if (!($entity instanceof NodeInterface) || $operation != 'edit') {
+    return;
+  }
+
+  // If current revision is active -- create new revision and set it inactive.
+  if ($entity->isDefaultRevision()) {
+    $entity->setNewRevision();
+    $entity->isDefaultRevision(FALSE);
+  }
+}
