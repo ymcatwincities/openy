@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 
 /**
@@ -27,8 +28,7 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
 /**
  * Implements hook_entity_prepare_form().
  */
-function ymca_workflow_entity_prepare_form(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Form\FormStateInterface $form_state)
-{
+function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, FormStateInterface $form_state) {
   // Proceed only with nodes and Edit operation.
   if (!($entity instanceof NodeInterface) || $operation != 'edit') {
     return;
