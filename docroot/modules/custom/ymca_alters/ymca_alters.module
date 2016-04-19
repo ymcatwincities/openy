@@ -91,6 +91,13 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
       $form_state->setRebuild();
     }
   }
+
+  if ($form_id == 'user_form') {
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('administer users')) {
+      $form['field_locations']['#access'] = FALSE;
+    }
+  }
 }
 
 /**
