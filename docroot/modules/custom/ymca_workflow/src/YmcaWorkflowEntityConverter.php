@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_workflow\YmcaWorkflowEntityConverter.
- */
-
 namespace Drupal\ymca_workflow;
 
 use Drupal\Core\ParamConverter\EntityConverter;
@@ -36,4 +31,5 @@ class YmcaWorkflowEntityConverter extends EntityConverter {
 
     return $entity;
   }
+
 }
