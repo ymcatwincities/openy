@@ -122,20 +122,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-<<<<<<< fb38ef0d1ecd01763f761ced3eeb1df9773f63c3
-=======
-  field_sitemap_exclude:
-    weight: 26
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
   field_state:
     weight: 27
     settings: {  }
     third_party_settings: {  }
     type: workflow_default
->>>>>>> Configuration.
   field_status:
     weight: 21
     settings: {  }
