@@ -1,0 +1,2 @@
+permission_callbacks:
+  - \Drupal\workflow_operations\WorkflowPermissions::workflowTypePermissions
