@@ -35,7 +35,7 @@ abstract class GroupexFormBase extends FormBase {
     // Classes IDs has some garbage withing the IDs.
     $class_name_options = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $dirty_keys = array_keys($class_name_options);
-    $refined_keys = array_map(function($item) {
+    $refined_keys = array_map(function ($item) {
       return str_replace(GroupexRequestTrait::$idStrip, '', $item);
     }, $dirty_keys);
     $refined_options = array_combine($refined_keys, array_values($class_name_options));
