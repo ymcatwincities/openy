@@ -10,3 +10,4 @@ permissions:
   0: 'use text format inline_html'
   2: 'edit any document files'
   3: 'bypass file access'
+  4: 'view the administration theme'
