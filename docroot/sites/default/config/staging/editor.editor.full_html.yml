@@ -42,7 +42,7 @@ settings:
             - ColumnButton3x
             - block
             - menu_link
-            - file
+            - file_browser
             - webform
         -
           name: 'Block Formatting'
