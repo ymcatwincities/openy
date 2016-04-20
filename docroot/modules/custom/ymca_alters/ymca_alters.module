@@ -302,7 +302,7 @@ function ymca_alters_page_attachments(array &$page) {
   $match = \Drupal::config('ymca_alters.config')->get('custom_routes_canonical');
 
   if (!in_array($name, $match)) {
-    //return;
+    return;
   }
 
   $url = Url::fromRouteMatch($route);
