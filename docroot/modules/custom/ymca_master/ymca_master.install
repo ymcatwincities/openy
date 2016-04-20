@@ -2187,3 +2187,21 @@ function ymca_master_update_8085() {
   );
   \Drupal::service('module_installer')->install(['entity_clone'], TRUE);
 }
+
+/**
+ * Replace PDF files for location schedules feature.
+ */
+function ymca_master_update_8086() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.user.user.default.yml',
+      $path . 'core.entity_view_display.user.user.compact.yml',
+      $path . 'core.entity_view_display.user.user.default.yml',
+      $path . 'field.field.user.user.field_locations.yml',
+      $path . 'field.storage.user.field_locations.yml',
+      $path . 'user.role.location_editor.yml',
+      $path . 'views.view.location_schedules.yml',
+    ]
+  );
+}
