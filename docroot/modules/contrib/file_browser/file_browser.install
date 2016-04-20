@@ -10,14 +10,16 @@
  */
 function file_browser_install() {
   // Add an icon for File Browser.
-  $data = file_get_contents(dirname(__FILE__) . '/file_browser_icon.png');
-  $file = file_save_data($data, 'public://file_browser_icon.png', FILE_EXISTS_REPLACE);
-  // Update our configuration to use the icon.
-  if ($file instanceof FileInterface) {
-    $uuid = $file->uuid();
-    $configuration = \Drupal::configFactory()->getEditable('embed.button.file_browser');
-    $configuration->set('icon_uuid', $uuid);
-    $configuration->save();
+  if (file_exists(dirname(__FILE__) . '/file_browser_icon.png')) {
+    $data = file_get_contents(dirname(__FILE__) . '/file_browser_icon.png');
+    $file = file_save_data($data, 'public://file_browser_icon.png', FILE_EXISTS_REPLACE);
+    // Update our configuration to use the icon.
+    if ($file instanceof FileInterface) {
+      $uuid = $file->uuid();
+      $configuration = \Drupal::configFactory()->getEditable('embed.button.file_browser');
+      $configuration->set('icon_uuid', $uuid);
+      $configuration->save();
+    }
   }
 }
 
