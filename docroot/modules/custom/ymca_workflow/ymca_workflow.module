@@ -23,6 +23,12 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
     $entity->status->value = 1;
     $entity->isDefaultRevision(TRUE);
   }
+
+  // When revision set to be unpublished, set it to default and unpublished.
+  if ($entity->field_state->value == 'workflow_unpublished') {
+    $entity->status->value = 0;
+    $entity->isDefaultRevision(TRUE);
+  }
 }
 
 /**
@@ -58,4 +64,16 @@ function ymca_workflow_form_alter(&$form, FormStateInterface $form_state, $form_
   }
 
   $form['actions']['submit']['#access'] = TRUE;
+}
+
+/**
+ * Implements hook_workflow_permitted_state_transitions_alter().
+ */
+function ymca_workflow_workflow_permitted_state_transitions_alter(&$transitions, $context) {
+  // Do not allow to keep published status. Every time any change is done
+  // it should go through Draft / Needs review statuses.
+  $current_state = $context['state']->id;
+  if ($current_state == 'workflow_published') {
+    unset($transitions['workflow_published_published']);
+  }
 }
