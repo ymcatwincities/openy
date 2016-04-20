@@ -19,3 +19,8 @@ permissions:
   - 'administer nodes'
   - 'view all revisions'
   - 'bypass node access'
+  - 'access contextual links'
+  - 'use text format full_html'
+  - 'access toolbar'
+  - 'schedule workflow workflow_transition'
+  - 'view the administration theme'

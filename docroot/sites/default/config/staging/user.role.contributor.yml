@@ -12,3 +12,8 @@ permissions:
   - 'delete own article content'
   - 'edit own article content'
   - 'view own unpublished content'
+  - 'access contextual links'
+  - 'use text format full_html'
+  - 'access toolbar'
+  - 'view the administration theme'
+  - 'schedule workflow workflow_transition'
