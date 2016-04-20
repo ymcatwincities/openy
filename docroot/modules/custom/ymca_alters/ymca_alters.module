@@ -290,6 +290,11 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
+  // Alter CSS for File Browser.
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $page['#attached']['library'][] = 'ymca_alters/file_browser';
+  }
   // Add canonical tag for custom routes.
   $route = \Drupal::routeMatch();
   $name = $route->getRouteName();
@@ -297,7 +302,7 @@ function ymca_alters_page_attachments(array &$page) {
   $match = \Drupal::config('ymca_alters.config')->get('custom_routes_canonical');
 
   if (!in_array($name, $match)) {
-    return;
+    //return;
   }
 
   $url = Url::fromRouteMatch($route);
