@@ -29,7 +29,7 @@ class RouteSubscriber extends RouteSubscriberBase {
     }
 
     // Set Location schedules views page to use admin theme.
-    // view.[VIEW NAME].[DISPLAY NAME]
+    // view.[VIEW NAME].[DISPLAY NAME].
     if ($route = $collection->get('view.location_schedules.location_schedules_page')) {
       $route->setOption('_admin_route', TRUE);
     }
