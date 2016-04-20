@@ -2217,8 +2217,6 @@ function ymca_master_update_8086() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'core.base_field_override.node.article.status.yml',
-      $path . 'core.entity_form_display.node.article.default.yml',
       $path . 'field.field.node.article.field_state.yml',
       $path . 'field.storage.node.field_state.yml',
       $path . 'node.type.article.yml',
@@ -2259,4 +2257,13 @@ function ymca_master_update_8086() {
       $path . 'workflow.transition.workflow_unpublished_unpublished.yml',
     ]
   );
+
+  $factory = \Drupal::configFactory();
+  $delete = [
+    'field.field.node.article.field_status',
+    'field.storage.node.field_status',
+  ];
+  foreach ($delete as $item) {
+    $factory->getEditable($item)->delete();
+  }
 }
