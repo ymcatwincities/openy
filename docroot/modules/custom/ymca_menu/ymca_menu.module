@@ -269,10 +269,10 @@ function ymca_menu_form_node_form_validate($form, FormStateInterface $form_state
   /** @var \Drupal\node\Entity\Node $node */
   $node = $co->getEntity();
   $node->set('title', $title[0]['value']);
-  //$nid = $form_state->getValue('nid');
-  //$node_storage = \Drupal::entityTypeManager()->getStorage('node');
-  //$node_storage->resetCache(array($nid));
-  //$node = $node_storage->load($nid);
+  /** @var \Drupal\node\Entity\NodeType $node_type */
+  $node_type = $node->type->entity;
+  $node_type->setThirdPartySetting('menu_ui', 'parent', $form_state->getValue('menu_parent'));
+  
   if ($node->bundle() == 'article' && empty($path[0]['alias'])) {
     // Check whether we need to update an alias.
     $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
