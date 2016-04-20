@@ -40,3 +40,22 @@ function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, 
     $entity->isDefaultRevision(FALSE);
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function ymca_workflow_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'node_article_edit_form') {
+    return;
+  }
+  if (isset($form['actions']['publish'])) {
+    $form['actions']['publish']['#access'] = FALSE;
+    unset($form['actions']['publish']['#dropbutton']);
+  }
+  if (isset($form['actions']['unpublish'])) {
+    $form['actions']['unpublish']['#access'] = FALSE;
+    unset($form['actions']['publish']['#dropbutton']);
+  }
+
+  $form['actions']['submit']['#access'] = TRUE;
+}
