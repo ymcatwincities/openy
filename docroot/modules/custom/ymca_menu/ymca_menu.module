@@ -163,6 +163,12 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
       $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
     }
   }
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#validate'][] = 'ymca_menu_form_node_form_validate';
+    }
+  }
   // Generate a list of possible parents (not including this link or descendants).
   // @todo This must be handled in a #process handler.
   $node = $form_state->getFormObject()->getEntity();
@@ -245,6 +251,40 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
     $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
+}
+
+/**
+ * Form validation handler for 'Exclude from nav' checkbox on the node form.
+ *
+ * @see ymca_menu_form_node_form_alter()
+ */
+function ymca_menu_form_node_form_validate($form, FormStateInterface $form_state) {
+
+  // Check node alias.
+  $path = $form_state->getValue('path');
+  $title = $form_state->getValue('title');
+  $bi = $form_state->getBuildInfo();
+  /** @var \Drupal\node\NodeForm $co */
+  $co = $bi['callback_object'];
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $co->getEntity();
+  $node->set('title', $title[0]['value']);
+  //$nid = $form_state->getValue('nid');
+  //$node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  //$node_storage->resetCache(array($nid));
+  //$node = $node_storage->load($nid);
+  if ($node->bundle() == 'article' && empty($path[0]['alias'])) {
+    // Check whether we need to update an alias.
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
+    if (empty($alias)) {
+      return;
+    }
+    $existing = Drupal::service('path.alias_storage')->load(['alias' => $alias]);
+    if (!empty($existing['pid'])) {
+      $form_state->setErrorByName('alias', t('The alias %alias is already in use.', array('%alias' => $alias)));
+    }
+  }
+  $node->validate();
 }
 
 /**
