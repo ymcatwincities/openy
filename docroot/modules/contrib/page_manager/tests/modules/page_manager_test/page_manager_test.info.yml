@@ -1,0 +1,10 @@
+type: module
+name: Page Manager Test
+description: 'Required for page manager simpletests only.'
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2016-02-16
+version: '8.x-1.0-alpha23'
+core: '8.x'
+project: 'page_manager'
+datestamp: 1455652444

@@ -216,11 +216,9 @@ class DateBlockService {
 
     preg_match_all("/<drupal-entity.*data-entity-uuid=\"(.*)\">.*<\/drupal-entity>/miU", $embed_data, $match);
     if (!isset($match[1][0])) {
-      \Drupal::logger('content')->notice(t('SlideShow embed data contains no entity_embed code.'));
       return FALSE;
     }
     if (count($match[1]) !== 1) {
-      \Drupal::logger('content')->notice(t('SlideShow embed data contains inappropriate entity_embed code. Should be single item only.'));
       return FALSE;
     }
     $b_type = 'block_content';
@@ -229,7 +227,6 @@ class DateBlockService {
       ->condition('uuid', $match[1][0])
       ->execute();
     if (empty($query)) {
-      \Drupal::logger('content')->notice(t('SlideShow embed data contains uuid to non existent SlideShow block.'));
       return FALSE;
     }
     $slideshow_block_id = array_shift($query);

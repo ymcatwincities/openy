@@ -1,0 +1,23 @@
+onecol:
+  label: Single column
+  category: Columns: 1
+  path: plugins/layouts/onecol
+  icon: onecol.png
+  css: onecol.css
+  template: panels-onecol
+  regions:
+    middle:
+      label: Middle column
+
+twocol:
+  label: Two column
+  category: Columns: 2
+  path: plugins/layouts/twocol
+  icon: twocol.png
+  css: twocol.css
+  template: panels-twocol
+  regions:
+    left:
+      label: Left side
+    right:
+      label: Right side
