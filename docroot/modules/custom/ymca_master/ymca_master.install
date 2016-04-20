@@ -2217,6 +2217,7 @@ function ymca_master_update_8086() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      $path . 'core.entity_form_display.node.article.default.yml',
       $path . 'field.field.node.article.field_state.yml',
       $path . 'field.storage.node.field_state.yml',
       $path . 'node.type.article.yml',
@@ -2232,6 +2233,7 @@ function ymca_master_update_8086() {
       $path . 'workflow.state.workflow_draft.yml',
       $path . 'workflow.state.workflow_needs_review.yml',
       $path . 'workflow.state.workflow_published.yml',
+      $path . 'workflow.state.workflow_unpublished.yml',
       $path . 'workflow.transition.workflow_(creation)_draft.yml',
       $path . 'workflow.transition.workflow_(creation)_needs_review.yml',
       $path . 'workflow.transition.workflow_(creation)_published.yml',
