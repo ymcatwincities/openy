@@ -14,10 +14,12 @@ function file_browser_install() {
   $file = @file_save_data($data, 'public://file_browser_icon.png', FILE_EXISTS_REPLACE);
 
   // Update our configuration to use the icon.
-  $uuid = $file->uuid();
-  $configuration = \Drupal::configFactory()->getEditable('embed.button.file_browser');
-  $configuration->set('icon_uuid', $uuid);
-  $configuration->save();
+  if ($file instanceof FileInterface) {
+    $uuid = $file->uuid();
+    $configuration = \Drupal::configFactory()->getEditable('embed.button.file_browser');
+    $configuration->set('icon_uuid', $uuid);
+    $configuration->save();
+  }
 }
 
 /**
