@@ -1,0 +1,5 @@
+file_browser:
+  version: VERSION
+  css:
+    theme:
+      css/file_browser.css: {}

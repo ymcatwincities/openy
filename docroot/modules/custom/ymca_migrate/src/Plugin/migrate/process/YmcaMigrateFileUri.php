@@ -18,12 +18,7 @@ class YmcaMigrateFileUri extends ProcessPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function transform(
-    $value,
-    MigrateExecutableInterface $migrate_executable,
-    Row $row,
-    $destination_property
-  ) {
+  public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     return 'public://' . basename($value);
   }
 
