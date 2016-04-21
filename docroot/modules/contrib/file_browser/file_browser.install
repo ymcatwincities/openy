@@ -11,7 +11,7 @@
 function file_browser_install() {
   // Add an icon for File Browser.
   $data = file_get_contents(drupal_get_path('module', 'file_browser') . '/file_browser_icon.png');
-  $file = file_save_data($data, 'public://file_browser_icon.png', FILE_EXISTS_REPLACE);
+  $file = @file_save_data($data, 'public://file_browser_icon.png', FILE_EXISTS_REPLACE);
 
   // Update our configuration to use the icon.
   $uuid = $file->uuid();
