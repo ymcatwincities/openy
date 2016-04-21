@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - node
+label: 'Content Browser'
+id: content_browser
+type_id: entity
+type_settings:
+  entity_type: node
+  bundles: {  }
+  display_plugins: {  }
+  entity_browser: browse_content
+  entity_browser_settings:
+    display_review: false
+icon_uuid: null
