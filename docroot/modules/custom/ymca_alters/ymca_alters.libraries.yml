@@ -5,3 +5,8 @@ schedules_date:
   dependencies:
     - core/drupal
     - core/jquery
+file_browser:
+  version: VERSION
+  css:
+    theme:
+      css/file_browser.css: {}
