@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ymca_alters\Form\YmcaVariantPluginEditBlockForm.
- */
-
 namespace Drupal\ymca_alters\Form;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -39,4 +34,5 @@ class YmcaVariantPluginEditBlockForm extends VariantPluginEditBlockForm {
 
     return $form;
   }
+
 }
