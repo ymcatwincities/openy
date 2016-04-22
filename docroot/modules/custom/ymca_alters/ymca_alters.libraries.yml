@@ -3,3 +3,8 @@ file_browser:
   css:
     theme:
       css/file_browser.css: {}
+content_browser:
+  version: VERSION
+  css:
+    theme:
+      css/content_browser.css: {}
