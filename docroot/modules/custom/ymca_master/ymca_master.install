@@ -2231,3 +2231,15 @@ function ymca_master_update_8087() {
     ]
   );
 }
+
+/**
+ * Make Tags field required for blog post.
+ */
+function ymca_master_update_8088() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_tags.yml',
+    ]
+  );
+}
