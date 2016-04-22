@@ -2233,9 +2233,21 @@ function ymca_master_update_8087() {
 }
 
 /**
- * Enable Content Browser module & import relative configs.
+ * Make Tags field required for blog post.
  */
 function ymca_master_update_8088() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_tags.yml',
+    ]
+  );
+}
+
+/**
+ * Enable Content Browser module & import relative configs.
+ */
+function ymca_master_update_8089() {
   \Drupal::service('module_installer')->install(['content_browser'], TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
