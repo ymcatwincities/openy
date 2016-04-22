@@ -33,6 +33,11 @@ class RouteSubscriber extends RouteSubscriberBase {
     if ($route = $collection->get('view.location_schedules.location_schedules_page')) {
       $route->setOption('_admin_route', TRUE);
     }
+
+    // Replace page manager block edit form with our customization.
+    if ($route = $collection->get('page_manager.variant_edit_block')) {
+      $route->setDefault('_form', '\Drupal\ymca_alters\Form\YmcaVariantPluginEditBlockForm');
+    }
   }
 
 }
