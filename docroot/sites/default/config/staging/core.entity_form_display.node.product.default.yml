@@ -9,7 +9,6 @@ dependencies:
     - node.type.product
   module:
     - path
-    - scheduler
     - text
 id: node.product.default
 targetEntityType: node

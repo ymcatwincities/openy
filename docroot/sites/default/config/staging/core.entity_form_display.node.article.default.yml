@@ -23,7 +23,6 @@ dependencies:
     - image_widget_crop
     - link
     - path
-    - scheduler
     - text
     - workflowfield
 id: node.article.default
