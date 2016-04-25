@@ -20,6 +20,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.article
   module:
+    - entity_browser
     - image_widget_crop
     - link
     - path
@@ -96,11 +97,14 @@ content:
   field_related:
     weight: 18
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: entity_browser_entity_reference
   field_secondary_sidebar:
     weight: 12
     settings:
@@ -180,4 +184,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_sitemap_exclude: true
   field_tags: true
