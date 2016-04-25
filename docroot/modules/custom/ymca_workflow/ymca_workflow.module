@@ -25,9 +25,8 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
   if ($entity->field_state->value == 'workflow_published') {
     $scheduling = $entity->field_state->workflow_scheduling;
     if ($scheduling['scheduled']) {
-      $strtotime = strtotime($scheduling['date_time']['workflow_scheduled_date']);
-      $request_time = REQUEST_TIME;
-      if (REQUEST_TIME < strtotime($scheduling['date_time']['workflow_scheduled_date'])) {
+      $scheduled_string = $scheduling['date_time']['workflow_scheduled_date'] . ' ' . $scheduling['date_time']['workflow_scheduled_hour'] . ' ' . $scheduling['date_time']['workflow_scheduled_timezone'];
+      if (REQUEST_TIME < strtotime($scheduled_string)) {
         return;
       }
     }
@@ -39,7 +38,8 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
   if ($entity->field_state->value == 'workflow_unpublished') {
     $scheduling = $entity->field_state->workflow_scheduling;
     if ($scheduling['scheduled']) {
-      if (REQUEST_TIME < strtotime($scheduling['date_time']['workflow_scheduled_date'])) {
+      $scheduled_string = $scheduling['date_time']['workflow_scheduled_date'] . ' ' . $scheduling['date_time']['workflow_scheduled_hour'] . ' ' . $scheduling['date_time']['workflow_scheduled_timezone'];
+      if (REQUEST_TIME < strtotime($scheduled_string)) {
         return;
       }
     }
