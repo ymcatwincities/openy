@@ -2243,3 +2243,30 @@ function ymca_master_update_8088() {
     ]
   );
 }
+
+/**
+ * Enable Content Browser module & import relative configs.
+ */
+function ymca_master_update_8089() {
+  \Drupal::service('module_installer')->install(['content_browser'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.blog.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.camp.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_mode.node.content_browser_preview.yml',
+      $path . 'embed.button.content_browser.yml',
+      $path . 'entity_browser.browser.browse_content.yml',
+      $path . 'entity_browser.browser.browse_content_modal.yml',
+      $path . 'views.view.content_browser_node.yml',
+    ]
+  );
+}
