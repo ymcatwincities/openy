@@ -23,7 +23,15 @@ class YmcaWorkflowEntityConverter extends EntityConverter {
       if ($entity->vid->value != $latest_revision_vid) {
         $entity = node_revision_load($latest_revision_vid);
         $request = \Drupal::request();
-        if ($request->getMethod() == 'GET') {
+        $request_route = $request->attributes->get('_route');
+        // Code got triggered for building Tabs, so we need to make sure
+        // do not display message on a view page.
+        if (
+          $request->getMethod() == 'GET'
+          && (
+            empty($request_route)
+            || (!empty($request_route) && $request_route == 'entity.node.edit_form')
+          )) {
           drupal_set_message('Latest version of the content was loaded.');
         }
       }
