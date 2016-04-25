@@ -7,11 +7,17 @@ use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Access\AccessResultForbidden;
 use Drupal\node\NodeInterface;
 
+/**
+ * Controller for Preview tab.
+ */
 class YmcaWorkflowController {
-  protected $latest_revision_vid;
+  protected $latestRevisionVid;
 
   protected $node;
 
+  /**
+   * Constructor to avoid duplicate code in access and preview methods.
+   */
   public function __construct() {
     $request = \Drupal::request();
     $storage = \Drupal::entityManager()->getStorage('node');
@@ -21,18 +27,24 @@ class YmcaWorkflowController {
       $this->node = node_load($this->node);
     }
     $vids = $storage->revisionIds($this->node);
-    $this->latest_revision_vid = array_pop($vids);
+    $this->latestRevisionVid = array_pop($vids);
   }
 
+  /**
+   * Check access to Preview tab.
+   */
   public function access(AccountInterface $account) {
-    if ($this->latest_revision_vid > $this->node->getRevisionId()) {
+    if ($this->latestRevisionVid > $this->node->getRevisionId()) {
       return new AccessResultAllowed();
     }
     return new AccessResultForbidden();
   }
 
+  /**
+   * Callback for Preview page.
+   */
   public function preview() {
-    $node_revision = node_revision_load($this->latest_revision_vid);
+    $node_revision = node_revision_load($this->latestRevisionVid);
 
     $page = node_view($node_revision);
 
