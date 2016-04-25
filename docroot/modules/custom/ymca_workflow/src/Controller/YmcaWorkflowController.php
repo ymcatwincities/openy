@@ -15,11 +15,15 @@ class YmcaWorkflowController {
 
   protected $node;
 
+  protected $route;
+
   /**
    * Constructor to avoid duplicate code in access and preview methods.
    */
   public function __construct() {
     $request = \Drupal::request();
+    $this->route = $request->attributes->get('_route_object');
+
     $storage = \Drupal::entityManager()->getStorage('node');
 
     $this->node = $request->get('node');
@@ -34,8 +38,13 @@ class YmcaWorkflowController {
    * Check access to Preview tab.
    */
   public function access(AccountInterface $account) {
+    $node_revision_access_check = \Drupal::getContainer()->get('access_check.node.revision');
+
+    // Check if user has access to view latest revision.
+    $node_revision_access = $node_revision_access_check->access($this->route, $account, $this->latestRevisionVid);
+
     if ($this->latestRevisionVid > $this->node->getRevisionId()) {
-      return new AccessResultAllowed();
+      return $node_revision_access;
     }
     return new AccessResultForbidden();
   }
