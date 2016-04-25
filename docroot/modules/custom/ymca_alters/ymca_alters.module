@@ -294,7 +294,8 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
     'revision',
     'devel-render',
     'devel-load',
-    'token-devel'
+    'token-devel',
+    'clone-form',
   ];
   // Unset loop.
   foreach ($attachments['#attached']['html_head_link'] as $key => $value) {
