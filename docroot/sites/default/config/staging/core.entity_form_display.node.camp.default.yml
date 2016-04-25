@@ -20,7 +20,6 @@ dependencies:
   module:
     - address
     - path
-    - scheduler
     - telephone
     - text
 id: node.camp.default

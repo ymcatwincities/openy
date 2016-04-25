@@ -21,7 +21,6 @@ dependencies:
     - address
     - file_browser
     - path
-    - scheduler
     - telephone
     - text
 id: node.location.default
