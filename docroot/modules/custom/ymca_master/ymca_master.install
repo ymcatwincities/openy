@@ -2290,6 +2290,10 @@ function ymca_master_update_8087() {
   foreach ($delete as $item) {
     $factory->getEditable($item)->delete();
   }
+
+  // Disable module.
+  \Drupal::service('module_installer')->uninstall(array('scheduler'));
+
   drupal_flush_all_caches();
 }
 
