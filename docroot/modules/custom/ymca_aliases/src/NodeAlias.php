@@ -124,6 +124,36 @@ class NodeAlias {
 
       // Pattern is [parent-menu-item-path]/[node-title].
       case 'article':
+        if (!$node->id()) {
+          // Node not yet saved. Figuring out the future path.
+          /** @var \Drupal\node\Entity\NodeType $node_type */
+          $node_type = $node->type->entity;
+          $tps = $node_type->getThirdPartySetting('menu_ui', 'parent');
+          $parent = explode(':', $tps);
+          if (isset($parent[2])) {
+            $pid = \Drupal::entityManager()->loadEntityByUuid('menu_link_content', $parent[2]);
+            $uri = $pid->get('link')->first()->uri;
+            $url = Url::fromUri($uri);
+            if ($url->isRouted()) {
+              $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/' . $url->getInternalPath(), 'en');
+            }
+            elseif ($url->isExternal()) {
+              // Can't build alias, if the parent menu item has ån external link.
+              $alias = '';
+            }
+            else {
+              if ($uri_parts = parse_url($uri)) {
+                if ($uri_parts['scheme'] == 'internal') {
+                  $alias = $uri_parts['path'];
+                }
+              }
+            }
+            // Add cleaned title to the end of alias.
+            $alias .= '/' . $this->urlCleaner->clean($node->getTitle());
+            break;
+          }
+        }
+
         $defaults = menu_ui_get_menu_link_defaults($node);
         if (empty($defaults['id'])) {
           // There is no parent menu link, the node isn't in menu tree.

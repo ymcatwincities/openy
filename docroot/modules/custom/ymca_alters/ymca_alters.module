@@ -268,14 +268,11 @@ function ymca_alters_entity_view_alter(array &$build, EntityInterface $entity, E
       'revision',
       'devel-render',
       'devel-load',
-      'token-devel'
+      'token-devel',
+      'clone-form',
     ];
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
-      if (isset($value[0]['rel']) && in_array(
-          $value[0]['rel'],
-          $unset_html_head_link
-        )
-      ) {
+      if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) {
         unset($build['#attached']['html_head_link'][$key]);
       }
     }
@@ -294,7 +291,8 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
     'revision',
     'devel-render',
     'devel-load',
-    'token-devel'
+    'token-devel',
+    'clone-form',
   ];
   // Unset loop.
   foreach ($attachments['#attached']['html_head_link'] as $key => $value) {
@@ -308,6 +306,11 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
+  // Alter CSS for File Browser.
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $page['#attached']['library'][] = 'ymca_alters/file_browser';
+  }
   // Add canonical tag for custom routes.
   $route = \Drupal::routeMatch();
   $name = $route->getRouteName();
