@@ -18,15 +18,31 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
     return;
   }
 
+  // All revisions to be unpublished unless published.
+  $entity->status->value = 0;
+
   // When revision set to be published, set it to default.
   if ($entity->field_state->value == 'workflow_published') {
+    $scheduling = $entity->field_state->workflow_scheduling;
+    if ($scheduling['scheduled']) {
+      $strtotime = strtotime($scheduling['date_time']['workflow_scheduled_date']);
+      $request_time = REQUEST_TIME;
+      if (REQUEST_TIME < strtotime($scheduling['date_time']['workflow_scheduled_date'])) {
+        return;
+      }
+    }
     $entity->status->value = 1;
     $entity->isDefaultRevision(TRUE);
   }
 
   // When revision set to be unpublished, set it to default and unpublished.
   if ($entity->field_state->value == 'workflow_unpublished') {
-    $entity->status->value = 0;
+    $scheduling = $entity->field_state->workflow_scheduling;
+    if ($scheduling['scheduled']) {
+      if (REQUEST_TIME < strtotime($scheduling['date_time']['workflow_scheduled_date'])) {
+        return;
+      }
+    }
     $entity->isDefaultRevision(TRUE);
   }
 }
@@ -51,7 +67,7 @@ function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, 
  * Implements hook_form_alter().
  */
 function ymca_workflow_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id != 'node_article_edit_form') {
+  if ($form_id != 'node_article_edit_form' && $form_id != 'node_article_form') {
     return;
   }
   if (isset($form['actions']['publish'])) {
