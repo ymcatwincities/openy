@@ -306,10 +306,11 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
-  // Alter CSS for File Browser.
+  // Alter CSS for File Browser, Content Browser.
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {
     $page['#attached']['library'][] = 'ymca_alters/file_browser';
+    $page['#attached']['library'][] = 'ymca_alters/content_browser';
   }
   // Add canonical tag for custom routes.
   $route = \Drupal::routeMatch();
