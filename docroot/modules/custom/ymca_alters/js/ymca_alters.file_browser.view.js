@@ -1,5 +1,5 @@
 /**
- * @file ymca_alters.content_browser.view.js
+ * @file file_browser.view.js
  */
 (function ($, Drupal, drupalSettings) {
 
@@ -8,13 +8,25 @@
   /**
    * Registers behaviours related to view widget.
    */
-  Drupal.behaviors.ContentBrowserView = {
+
+  Drupal.behaviors.FileBrowserView = {
     attach: function (context) {
+      $('.view-content').prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>').once();
+      $('.view-content').imagesLoaded(function () {
+        $('.view-content').masonry({
+          columnWidth: '.grid-sizer',
+          gutter: '.gutter-sizer',
+          itemSelector: '.grid-item',
+          percentPosition: true,
+          isFitWidth:true
+        });
+      });
+
       // Determine field cardinality.
       var uuid = drupalSettings.path.currentQuery.uuid;
       var cardinality = parent.drupalSettings.entity_browser[uuid].cardinality;
 
-      $('.views-row').once('bind-click-event').click(function () {
+      $('.grid-item').once('bind-click-event').click(function () {
         // Special handling for cardinality = 1.
         if (cardinality === 1) {
           $(this).siblings().each(function() {
