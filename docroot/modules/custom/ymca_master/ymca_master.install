@@ -2187,3 +2187,59 @@ function ymca_master_update_8085() {
   );
   \Drupal::service('module_installer')->install(['entity_clone'], TRUE);
 }
+
+/**
+ * Replace PDF files for location schedules feature.
+ */
+function ymca_master_update_8086() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.user.user.default.yml',
+      $path . 'core.entity_view_display.user.user.compact.yml',
+      $path . 'core.entity_view_display.user.user.default.yml',
+      $path . 'field.field.user.user.field_locations.yml',
+      $path . 'field.storage.user.field_locations.yml',
+      $path . 'user.role.location_editor.yml',
+      $path . 'views.view.location_schedules.yml',
+    ]
+  );
+}
+
+/**
+ * Enable File Browser module & import relative configs.
+ */
+function ymca_master_update_8087() {
+  \Drupal::service('module_installer')->install(['file_browser'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+      $path . 'core.entity_form_display.block_content.image_block.default.yml',
+      $path . 'core.entity_form_display.block_content.promo_block.default.yml',
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'dropzonejs.settings.yml',
+      $path . 'editor.editor.full_html.yml',
+      $path . 'embed.button.file_browser.yml',
+      $path . 'entity_browser.browser.browse_files.yml',
+      $path . 'entity_browser.browser.browse_files_modal.yml',
+      $path . 'image.style.file_entity_browser_thumbnail.yml',
+      $path . 'views.view.files_entity_browser.yml',
+    ]
+  );
+}
+
+/**
+ * Make Tags field required for blog post.
+ */
+function ymca_master_update_8088() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_tags.yml',
+    ]
+  );
+}

@@ -91,6 +91,24 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
       $form_state->setRebuild();
     }
   }
+
+  // Hide field_locations on user account edit form.
+  if ($form_id == 'user_form') {
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('administer users')) {
+      $form['field_locations']['#access'] = FALSE;
+    }
+  }
+
+  // Hide extra fields when editing document file type.
+  if ($form_id == 'file_document_edit_form') {
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('administer files')) {
+      $form['uid']['#access'] = FALSE;
+      $form['filename']['#access'] = FALSE;
+      $form['actions']['delete']['#access'] = FALSE;
+    }
+  }
 }
 
 /**
@@ -236,11 +254,7 @@ function ymca_alters_shield_config_alter(&$config_name) {
  *
  * @see https://github.com/enjoyiacm/unset_html_head_link/blob/master/unset_html_head_link.module
  */
-function ymca_alters_entity_view_alter(
-  array &$build,
-  EntityInterface $entity,
-  EntityViewDisplayInterface $display
-) {
+function ymca_alters_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
   // Checking view_mode for node.
   if ($build['#view_mode'] === 'full' && $entity instanceof NodeInterface) {
     // Checking html_head_link on attached tags in head.
@@ -254,14 +268,11 @@ function ymca_alters_entity_view_alter(
       'revision',
       'devel-render',
       'devel-load',
-      'token-devel'
+      'token-devel',
+      'clone-form',
     ];
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
-      if (isset($value[0]['rel']) && in_array(
-          $value[0]['rel'],
-          $unset_html_head_link
-        )
-      ) {
+      if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) {
         unset($build['#attached']['html_head_link'][$key]);
       }
     }
@@ -280,7 +291,8 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
     'revision',
     'devel-render',
     'devel-load',
-    'token-devel'
+    'token-devel',
+    'clone-form',
   ];
   // Unset loop.
   foreach ($attachments['#attached']['html_head_link'] as $key => $value) {
@@ -294,6 +306,11 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
+  // Alter CSS for File Browser.
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $page['#attached']['library'][] = 'ymca_alters/file_browser';
+  }
   // Add canonical tag for custom routes.
   $route = \Drupal::routeMatch();
   $name = $route->getRouteName();

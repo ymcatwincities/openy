@@ -21,6 +21,7 @@ env:
     - { name: 'search-api-reindex', status: false, arguments: "" }
     - { name: 'search-api-index', status: false, arguments: "" }
     - { name: 'search-index', status: false, arguments: "" }
+    - { name: 'config-set', status: true, arguments: "shield.config enabled 1" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: false, value: '{{ origin_site_url }}' }
