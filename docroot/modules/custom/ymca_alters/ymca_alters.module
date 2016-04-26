@@ -340,20 +340,24 @@ function ymca_alters_page_attachments(array &$page) {
  * Implements hook_library_info_alter().
  */
 function ymca_alters_library_info_alter(&$libraries, $extension) {
-  if ($extension == 'content_browser' && isset($libraries['view'])) {
-    $new_js = [];
-    $replacements = [
-      'js/content_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.content_browser.view.js',
-    ];
-
-    foreach ($libraries['view']['js'] as $source => $options) {
-      if (isset($replacements[$source])) {
-        $new_js[$replacements[$source]] = $options;
-      }
-      else {
-        $new_js[$source] = $options;
-      }
-    }
-    $libraries['view']['js'] = $new_js;
+  $extensions = ['content_browser', 'file_browser'];
+  if (!in_array($extension, $extensions) || !isset($libraries['view'])) {
+    return;
   }
+
+  $new_js = [];
+  $replacements = [
+    'js/content_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.content_browser.view.js',
+    'js/file_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.file_browser.view.js',
+  ];
+
+  foreach ($libraries['view']['js'] as $source => $options) {
+    if (isset($replacements[$source])) {
+      $new_js[$replacements[$source]] = $options;
+    }
+    else {
+      $new_js[$source] = $options;
+    }
+  }
+  $libraries['view']['js'] = $new_js;
 }
