@@ -68,7 +68,9 @@ AddEncoding gzip svgz
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
-  RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC]
+  RewriteRule ^(.*)$ http://ymcamn.org/$1 [L,R=301,NC]
+  
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
