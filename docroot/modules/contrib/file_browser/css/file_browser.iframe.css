@@ -1,0 +1,9 @@
+/**
+ * @file file_browser.iframe.css
+ */
+
+/* Remove the border on our iframe element. */
+
+#edit-field-file-browser-reference iframe {
+  border: none;
+}
