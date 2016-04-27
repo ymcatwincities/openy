@@ -2272,7 +2272,7 @@ function ymca_master_update_8089() {
 }
 
 /**
- * Update content, menus and redirects to use new domain www.ymcamn.org
+ * Update content, menus and redirects to use new domain www.ymcamn.org.
  */
 function ymca_master_update_8090() {
   $db = Database::getConnection();
@@ -2295,8 +2295,6 @@ function ymca_master_update_8090() {
     // Menu.
     'menu_link_content_data' => 'link__uri',
     // Nodes content.
-    // 'node_field_data' => 'title',
-    // 'node_field_revision' => 'title',
     'node_revision__field_camp_links' => 'field_camp_links_value',
     'node_revision__field_content' => 'field_content_value',
     'node_revision__field_header_button' => 'field_header_button_uri',
