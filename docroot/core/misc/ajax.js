@@ -272,7 +272,10 @@
    */
   Drupal.ajax.expired = function () {
     return Drupal.ajax.instances.filter(function (instance) {
-      return instance && instance.element !== false && !document.body.contains(instance.element);
+      if (instance && !(instance.element instanceof HTMLElement)) {
+        Drupal.throwError(new Error(Drupal.t('TypeError: instance.element is not a HTMLElement')));
+      }
+      return instance && instance.element !== false && instance.element instanceof HTMLElement && !document.body.contains(instance.element);
     });
   };
 
