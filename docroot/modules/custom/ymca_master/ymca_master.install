@@ -2270,3 +2270,26 @@ function ymca_master_update_8089() {
     ]
   );
 }
+
+/**
+ * Update content, menus and redirects to use new domain www.ymcamn.org
+ */
+function ymca_master_update_8090() {
+  $db = Database::getConnection();
+  $places = [
+    'node_field_data' => 'title',
+  ];
+  $replacements = [
+    'www.ymcatwincities.org' => 'www.ymcamn.org',
+    'http://ymcatwincities.org' => 'http://ymcamn.org',
+  ];
+
+  foreach ($places as $table => $field) {
+    foreach ($replacements as $find => $replace) {
+      $db->update($table)
+        ->expression($field, 'REPLACE(' . $field . ', \'' . $find . '\', \'' . $replace . '\')')
+        ->condition($field, '%' . $db->escapeLike($find) . '%', 'LIKE')
+        ->execute();
+    }
+  }
+}
