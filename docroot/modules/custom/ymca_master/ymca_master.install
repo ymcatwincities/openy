@@ -2349,3 +2349,65 @@ function ymca_master_update_8089() {
 
   drupal_flush_all_caches();
 }
+
+/**
+ * Update content, menus and redirects to use new domain www.ymcamn.org.
+ */
+function ymca_master_update_8090() {
+  $db = Database::getConnection();
+  $places = [
+    // Blocks content.
+    'block_content_revision__body' => 'body_value',
+    'block_content_revision__field_block_content' => 'field_block_content_value',
+    'block_content_revision__field_code' => 'field_code_value',
+    'block_content_revision__field_content_date_end' => 'field_content_date_end_value',
+    'block_content_revision__field_link' => 'field_link_uri',
+    'block_content_r__aa8e471054' => 'field_content_date_between_value',
+    'block_content_r__c25b317576' => 'field_content_date_before_value',
+    'block_content__body' => 'body_value',
+    'block_content__field_block_content' => 'field_block_content_value',
+    'block_content__field_code' => 'field_code_value',
+    'block_content__field_content_date_before' => 'field_content_date_before_value',
+    'block_content__field_content_date_between' => 'field_content_date_between_value',
+    'block_content__field_content_date_end' => 'field_content_date_end_value',
+    'block_content__field_link' => 'field_link_uri',
+    // Menu.
+    'menu_link_content_data' => 'link__uri',
+    // Nodes content.
+    'node_revision__field_camp_links' => 'field_camp_links_value',
+    'node_revision__field_content' => 'field_content_value',
+    'node_revision__field_header_button' => 'field_header_button_uri',
+    'node_revision__field_join_override' => 'field_join_override_value',
+    'node_revision__field_lead_description' => 'field_lead_description_value',
+    'node_revision__field_schedule_content' => 'field_schedule_content_value',
+    'node_revision__field_secondary_sidebar' => 'field_secondary_sidebar_value',
+    'node_revision__field_sidebar' => 'field_sidebar_value',
+    'node_revision__field_summary' => 'field_summary_value',
+    'node_revision__field_title_description' => 'field_title_description_value',
+    'node__field_camp_links' => 'field_camp_links_value',
+    'node__field_content' => 'field_content_value',
+    'node__field_header_button' => 'field_header_button_uri',
+    'node__field_join_override' => 'field_join_override_value',
+    'node__field_lead_description' => 'field_lead_description_value',
+    'node__field_schedule_content' => 'field_schedule_content_value',
+    'node__field_secondary_sidebar' => 'field_secondary_sidebar_value',
+    'node__field_sidebar' => 'field_sidebar_value',
+    'node__field_summary' => 'field_summary_value',
+    'node__field_title_description' => 'field_title_description_value',
+    // Redirects.
+    'redirect' => 'redirect_redirect__uri',
+  ];
+  $replacements = [
+    'www.ymcatwincities.org' => 'www.ymcamn.org',
+    'http://ymcatwincities.org' => 'http://ymcamn.org',
+  ];
+
+  foreach ($places as $table => $column) {
+    foreach ($replacements as $find => $replace) {
+      $db->update($table)
+        ->expression($column, 'REPLACE(' . $column . ', \'' . $find . '\', \'' . $replace . '\')')
+        ->condition($column, '%' . $db->escapeLike($find) . '%', 'LIKE')
+        ->execute();
+    }
+  }
+}
