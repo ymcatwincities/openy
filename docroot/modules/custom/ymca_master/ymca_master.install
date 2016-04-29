@@ -2305,6 +2305,9 @@ function ymca_master_update_8093() {
       $path . 'field.storage.node.field_state.yml',
 
       $path . 'views.view.needs_review.yml',
+
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.editor.yml',
     ]
   );
 
