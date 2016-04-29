@@ -350,7 +350,7 @@ class WorkflowTransitionElement extends FormElement {
 
     // Display scheduling form under certain conditions.
     if ($settings_schedule == TRUE) {
-      $timezone = $user->getTimeZone();
+      $timezone = drupal_get_user_timezone();
 
       $timezone_options = array_combine(timezone_identifiers_list(), timezone_identifiers_list());
       $timestamp = $transition ? $transition->getTimestamp() : REQUEST_TIME;
