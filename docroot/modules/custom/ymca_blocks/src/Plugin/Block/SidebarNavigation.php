@@ -76,7 +76,7 @@ class SidebarNavigation extends BlockBase {
 
     // The list will be filtered by the series of callbacks.
     // Filter out children of another branches.
-    $filter = function($element) use ($ancestor) {
+    $filter = function ($element) use ($ancestor) {
       if ($this->getAncestor($element['id']) != $ancestor && $this->getDepth($element['id']) > 0) {
         return FALSE;
       }
@@ -85,7 +85,7 @@ class SidebarNavigation extends BlockBase {
     $list = array_filter($list, $filter);
 
     // Filter out children with a depth greater than depth of context.
-    $filter = function($element) use ($depth) {
+    $filter = function ($element) use ($depth) {
       if ($this->getDepth($element['id']) > ($depth + 1)) {
         return FALSE;
       }
@@ -94,7 +94,7 @@ class SidebarNavigation extends BlockBase {
     $list = array_filter($list, $filter);
 
     // Filter out siblings with another parent.
-    $filter = function($element) use ($ancestor, $depth, $nid, $parent) {
+    $filter = function ($element) use ($ancestor, $depth, $nid, $parent) {
       static $siblings = [];
       // Check if the element is sibling.
       if ($this->getAncestor($element['id']) == $ancestor && $this->getDepth($element['id']) == $depth && $element['id'] != $nid) {

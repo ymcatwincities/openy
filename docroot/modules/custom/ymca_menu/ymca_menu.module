@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contiains hooks for ymca_menu module.
+ * Contains hooks for ymca_menu module.
  */
 
 define('YMCA_MENU_CACHE_CID', 'ymca_menu:menu');
@@ -33,17 +33,18 @@ function ymca_menu_theme($existing, $type, $theme, $path) {
 function ymca_menu_page_attachments(array &$attachments) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   $mlid = FALSE;
-  if (in_array($route_name, ['entity.node.canonical', 'node.node_preview'])) {
+  if (in_array($route_name, ['entity.node.canonical', 'entity.node.preview'])) {
     $node = \Drupal::routeMatch()->getParameter('node');
-    if ($route_name == 'node.node_preview') {
+    if ($route_name == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
     $context = \Drupal::service('pagecontext.service')->getContext();
-    if ($node->bundle() == 'blog' && $context && $context->bundle() == 'camp') {
+    if ($node->bundle() == 'blog' && $context && ($context->bundle() == 'camp' || $context->bundle() == 'location')) {
       $route_parameters = ['node' => $context->id()];
+      $menu_name = $context->bundle() . 's';
       // Search News & Events page of context camp.
       $links = \Drupal::service('plugin.manager.menu.link')
-        ->loadLinksByRoute('ymca_blog_listing.news_events_page_controller', $route_parameters, 'camps');
+        ->loadLinksByRoute('ymca_blog_listing.news_events_page_controller', $route_parameters, $menu_name);
       if ($links) {
         // Select the first matching link.
         $found = reset($links);
@@ -60,9 +61,10 @@ function ymca_menu_page_attachments(array &$attachments) {
   }
   if (!$mlid) {
     $menus = YMCAMenuController::menuList();
-    if (!empty($node)) {
-      // Alter menu list to prioritize corresponiding menus for locations/camps.
-      switch ($node->bundle()) {
+    $context = \Drupal::service('pagecontext.service')->getContext();
+    if ($context && in_array($context->bundle(), ['location', 'camp'])) {
+      // Alter menu list to prioritize corresponding menus for locations/camps.
+      switch ($context->bundle()) {
         case 'location':
           array_unshift($menus, 'locations');
           break;
@@ -87,9 +89,14 @@ function ymca_menu_page_attachments(array &$attachments) {
     }
   }
   $current_path = \Drupal::service('path.current')->getPath();
+  // Node preview page workaround.
+  if ($route_name == 'entity.node.preview') {
+    $current_path = '/node/' . $node->id();
+  }
   $attachments['#attached']['drupalSettings']['page'] = array(
     'mlid' => !empty($mlid) ? $mlid : YMCAMenuController::ROOT_ID,
     'liveUrl' => \Drupal::service('path.alias_manager')->getAliasByPath($current_path) . '/',
+    'meganav' => \Drupal::config('ymca_menu.main_menu')->get('items'),
   );
 }
 
@@ -98,7 +105,7 @@ function ymca_menu_page_attachments(array &$attachments) {
  */
 function ymca_menu_preprocess_node(&$variables) {
   $node = &$variables['node'];
-  if ($variables['view_mode'] == 'full' && $node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
+  if (($variables['view_mode'] == 'full' || $variables['view_mode'] == 'default') && $node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
     /* var \Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
     if ($link = \Drupal::service('menu.active_trail')->getActiveLink()) {
       $menu_name = $link->getMenuName();
@@ -154,6 +161,12 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
   foreach (array_keys($form['actions']) as $action) {
     if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
       $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
+    }
+  }
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#validate'][] = 'ymca_menu_form_node_form_validate';
     }
   }
   // Generate a list of possible parents (not including this link or descendants).
@@ -238,4 +251,47 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
     $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
+}
+
+/**
+ * Form validation handler for 'Exclude from nav' checkbox on the node form.
+ *
+ * @see ymca_menu_form_node_form_alter()
+ */
+function ymca_menu_form_node_form_validate($form, FormStateInterface $form_state) {
+
+  // Check node alias.
+  $path = $form_state->getValue('path');
+  $title = $form_state->getValue('title');
+
+  $bi = $form_state->getBuildInfo();
+  /** @var \Drupal\node\NodeForm $co */
+  $co = $bi['callback_object'];
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $co->getEntity();
+  $node->set('title', $title[0]['value']);
+  /** @var \Drupal\node\Entity\NodeType $node_type */
+  $node_type = $node->type->entity;
+  $node_type->setThirdPartySetting('menu_ui', 'parent', $form_state->getValue('menu')['menu_parent']);
+
+  if ($node->bundle() == 'article' && empty($path[0]['alias'])) {
+    // Check whether we need to update an alias.
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
+    if (empty($alias)) {
+      return;
+    }
+    $existing = Drupal::service('path.alias_storage')->load(['alias' => $alias]);
+    if (!empty($existing['pid'])) {
+      $form_state->setErrorByName('alias', t('The alias %alias is already in use.', array('%alias' => $alias)));
+    }
+  }
+  $node->validate();
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function ymca_menu_entity_type_alter(array &$entity_types) {
+  // Override menu list builder form.
+  $entity_types['menu']->setListBuilderClass('Drupal\ymca_menu\MenuListBuilder');
 }

@@ -64,7 +64,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return $redirect;
+    exit();
   }
 
   /**
@@ -77,7 +77,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return $redirect;
+    exit();
   }
 
   /**
@@ -93,7 +93,7 @@ class PersonifyController extends ControllerBase {
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return $redirect;
+    exit();
   }
 
   /**
@@ -117,10 +117,12 @@ class PersonifyController extends ControllerBase {
         \Drupal::logger('ymca_personify')->warning('An attempt to login with wrong personify token was detected.');
       }
     }
-    $redirect = new RedirectResponse(Url::fromRoute('<front>')->toString());
+
+    $redirect_url = Url::fromUri($this->config['url_account'])->toString();
+    $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    return $redirect;
+    exit();
   }
 
 }

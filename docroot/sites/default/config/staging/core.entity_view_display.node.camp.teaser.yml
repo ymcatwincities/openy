@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.camp.field_phone
     - field.field.node.camp.field_promo_slideshow
     - field.field.node.camp.field_registration_block
+    - field.field.node.camp.field_subtitle
     - node.type.camp
   module:
     - user
@@ -39,4 +40,5 @@ hidden:
   field_phone: true
   field_promo_slideshow: true
   field_registration_block: true
+  field_subtitle: true
   langcode: true

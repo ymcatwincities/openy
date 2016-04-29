@@ -1,0 +1,18 @@
+# Initial Conversion to info.yml file for d8.
+name: Panels
+description: 'Core Panels display functions; provides no external UI, at least one other Panels module should be enabled.'
+type: module
+package: Panels
+# core: 8.x
+configure: panels.admin
+dependencies:
+  - ctools (>= 3.0-alpha21)
+  - layout_plugin
+test_dependencies:
+  - page_manager
+
+# Information added by Drupal.org packaging script on 2016-02-16
+version: '8.x-3.0-beta4'
+core: '8.x'
+project: 'panels'
+datestamp: 1455657542

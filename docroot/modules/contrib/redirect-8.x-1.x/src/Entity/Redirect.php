@@ -95,34 +95,6 @@ class Redirect extends ContentEntityBase {
   }
 
   /**
-   * {@inheritdoc}
-   *
-   * @todo - here we unserialize the options fields for source and redirect.
-   *   Shouldn't this be done automatically?
-   */
-  public static function blapostLoad(EntityStorageInterface $storage_controller, array &$entities) {
-    foreach ($entities as $entity) {
-      $i = 0;
-      foreach ($entity->get('redirect_source') as $source) {
-        if (is_string($source->options)) {
-          $entity->redirect_source->get($i)->options = unserialize($source->options);
-        }
-        $i++;
-      }
-      $i = 0;
-      foreach ($entity->get('redirect_redirect') as $redirect) {
-        if (is_string($redirect->options)) {
-          $entity->redirect_redirect->get($i)->options = unserialize($redirect->options);
-        }
-        else {
-          $entity->redirect_redirect->get($i)->options = array();
-        }
-        $i++;
-      }
-    }
-  }
-
-  /**
    * Sets the redirect language.
    *
    * @param string $language
@@ -321,6 +293,7 @@ class Redirect extends ContentEntityBase {
       ->setTranslatable(FALSE)
       ->setSettings(array(
         'link_type' => LinkItemInterface::LINK_GENERIC,
+        'title' => DRUPAL_DISABLED
       ))
       ->setDisplayOptions('form', array(
         'type' => 'link',

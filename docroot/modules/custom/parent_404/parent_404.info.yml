@@ -1,0 +1,4 @@
+name: Parent 404
+type: module
+description: Redirects user to parent page (if found) on 404 error.
+core: 8.x

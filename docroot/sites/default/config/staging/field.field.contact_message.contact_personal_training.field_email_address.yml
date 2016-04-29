@@ -1,0 +1,21 @@
+uuid: 618f14f3-ad82-459c-8306-6a3ba2b63953
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.storage.contact_message.field_email_address
+id: contact_message.contact_personal_training.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: contact_personal_training
+label: Email
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: user@email.com
+default_value_callback: ''
+settings: {  }
+field_type: email

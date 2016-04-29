@@ -14,12 +14,14 @@ env:
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
+    - { name: 'config-set', status: true, arguments: "system.file path.temporary /tmp -y" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
     - { name: 'cr', status: true, arguments: "" }
     - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
     - { name: 'search-api-reindex', status: false, arguments: "" }
     - { name: 'search-api-index', status: false, arguments: "" }
     - { name: 'search-index', status: false, arguments: "" }
+    - { name: 'config-set', status: true, arguments: "shield.config enabled 1" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: false, value: '{{ origin_site_url }}' }

@@ -14,6 +14,7 @@ use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
+use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 
 /**
  * Protecting sites with a shield.
@@ -1122,4 +1123,1212 @@ function ymca_master_update_8037() {
 function ymca_master_update_8038() {
   Drupal::configFactory()->getEditable('views.view.contact_messages')->delete();
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8039() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.day_camp_news.yml',
+  ]);
+}
+
+/**
+ * Import configs.
+ */
+function ymca_master_update_8040() {
+  drupal_flush_all_caches();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/contact.form.contact_an_aquatics_manager.yml',
+    'sites/default/config/staging/views.view.contact_messages.yml',
+  ]);
+
+  // Set thank you page alias.
+  $contact_form = \Drupal::entityTypeManager()
+    ->getStorage('contact_form')
+    ->load('contact_an_aquatics_manager');
+  $path_info = $contact_form->getSubmissionPagePath();
+  \Drupal::service('path.alias_storage')->save($path_info['source'], '/swimming/contact_an_aquatics_manager/thank_you', 'en');
+}
+
+/**
+ * Fix mismatched fields.
+ */
+function ymca_master_update_8041() {
+  drupal_flush_all_caches();
+
+  // We'll just parse getChangeSummary() method in order not to override the service.
+  $summary = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
+  $list = [];
+  foreach ($summary as $entity_type => $items) {
+    foreach ($items as $item) {
+      // Get file name.
+      $arg = $item->getArguments();
+      $data = reset($arg);
+      $explode = explode('.', $data);
+      $field_name = $explode[1];
+
+      // Get operation. By default assume update.
+      $operation = FALSE;
+      $ops = [
+        EntityDefinitionUpdateManagerInterface::DEFINITION_CREATED => 'Create',
+        EntityDefinitionUpdateManagerInterface::DEFINITION_UPDATED => 'Update',
+        EntityDefinitionUpdateManagerInterface::DEFINITION_DELETED => 'Delete',
+      ];
+      foreach ($ops as $id => $op) {
+        if (strpos($item->getUntranslatedString(), $op) !== FALSE) {
+          $operation = $id;
+        }
+      }
+
+      $list[$entity_type]['field_storage_definitions'][$field_name] = $operation;
+    }
+  }
+
+  $entity_manager = \Drupal::service('entity.manager');
+  $db = Database::getConnection();
+
+  foreach ($list as $entity_type_id => $change_list) {
+    if (!empty($change_list['field_storage_definitions'])) {
+      $storage_definitions = $entity_manager->getFieldStorageDefinitions($entity_type_id);
+      $original_storage_definitions = $entity_manager->getLastInstalledFieldStorageDefinitions($entity_type_id);
+
+      foreach ($change_list['field_storage_definitions'] as $field_name => $change) {
+        $storage_definition = isset($storage_definitions[$field_name]) ? $storage_definitions[$field_name] : NULL;
+        $original_storage_definition = isset($original_storage_definitions[$field_name]) ? $original_storage_definitions[$field_name] : NULL;
+
+        $table = $entity_type_id . '__' . $field_name;
+        $config = 'field.storage.' . $entity_type_id . '.' . $field_name;
+
+        try {
+          switch ($change) {
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_CREATED:
+              $entity_manager->onFieldStorageDefinitionCreate($storage_definition);
+              break;
+
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_UPDATED:
+              // Remove active config and re-import if DB table not found.
+              if ($db->schema()->tableExists($table) == FALSE) {
+                $active_config = Drupal::configFactory()->getEditable($config);
+                if ($active_config) {
+                  $active_config->delete();
+                }
+
+                $config_file = DRUPAL_ROOT . '/sites/default/config/staging/' . $config . '.yml';
+                if (file_exists($config_file)) {
+                  \Drupal::service('config_import.importer')->importConfigs([
+                    'sites/default/config/staging/' . $config . '.yml',
+                  ]);
+                }
+              }
+              $entity_manager->onFieldStorageDefinitionUpdate($storage_definition, $original_storage_definition);
+              break;
+
+            case EntityDefinitionUpdateManagerInterface::DEFINITION_DELETED:
+              $entity_manager->onFieldStorageDefinitionDelete($original_storage_definition);
+              break;
+          }
+        }
+        catch (Exception $e) {
+          watchdog_exception('ymca_master', $e);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Remove broken fields.
+ */
+function ymca_master_update_8042() {
+  drupal_flush_all_caches();
+
+  $fields = [
+    'field_category_class' => [
+      'contact_message.become_a_supplier',
+    ],
+    'field_vendor_portal' => [
+      'contact_message.become_a_supplier',
+    ],
+    'field_type_of_membership' => [
+      'contact_message.cc_wellness_employee',
+      'contact_message.individual_location_free_trial',
+    ],
+    'field_preferred_y_l_text' => [
+      'contact_message.cc_wellness_employee',
+      'contact_message.journey_to_freedom',
+    ],
+    'field_childcare_location' => [
+      'contact_message.contact_a_program_director',
+    ],
+    'field_what_is_your_preferred_y_l' => [
+      'contact_message.contact_an_aquatics_manager',
+      'contact_message.membership_form',
+      'contact_message.personal_training_main',
+    ],
+  ];
+
+  foreach ($fields as $field_name => $usages) {
+    $field_storage_definition = 'field.storage.contact_message.' . $field_name;
+
+    foreach ($usages as $usage) {
+      $field_definition = 'field.field.' . $usage . '.' . $field_name;
+
+      foreach (['entity_view_display', 'entity_form_display'] as $item) {
+        $config = Drupal::configFactory()->getEditable('core.' . $item . '.' . $usage . '.default');
+        $data = $config->get();
+        foreach ($data['dependencies']['config'] as $id => $dependency) {
+          if ($field_definition == $dependency) {
+            unset($data['dependencies']['config'][$id]);
+            break;
+          }
+        }
+        unset($data['content'][$field_name]);
+
+        $config->setData($data);
+        $config->save();
+      }
+
+      // Remove field definition.
+      \Drupal::configFactory()->getEditable($field_definition)->delete();
+    }
+
+    // Remove field storage.
+    \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
+  }
+
+}
+
+/**
+ * Cleanup wedged field configs.
+ */
+function ymca_master_update_8043() {
+  // Remove all test contact messages.
+  $ids = \Drupal::entityQuery('contact_message')->execute();
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('contact_message');
+  $messages = $storage->loadMultiple($ids);
+  $storage->delete($messages);
+
+  // Manually remove wedged fields.
+  $fields = [
+    'field_childcare_location' => [
+      'contact_message.contact_a_program_director',
+    ],
+    'field_y_location_email' => [
+      'contact_message.contact_an_aquatics_manager',
+      'contact_message.membership_form',
+    ],
+  ];
+
+  foreach ($fields as $field_name => $usages) {
+    $field_storage_definition = 'field.storage.contact_message.' . $field_name;
+
+    foreach ($usages as $usage) {
+      $field_definition = 'field.field.' . $usage . '.' . $field_name;
+
+      foreach (['entity_view_display', 'entity_form_display'] as $item) {
+        $config = Drupal::configFactory()->getEditable('core.' . $item . '.' . $usage . '.default');
+        $data = $config->get();
+        foreach ($data['dependencies']['config'] as $id => $dependency) {
+          if ($field_definition == $dependency) {
+            unset($data['dependencies']['config'][$id]);
+            break;
+          }
+        }
+        unset($data['content'][$field_name]);
+
+        $config->setData($data);
+        $config->save();
+      }
+
+      // Remove field definition.
+      \Drupal::configFactory()->getEditable($field_definition)->delete();
+    }
+
+    // Remove field storage.
+    \Drupal::configFactory()->getEditable($field_storage_definition)->delete();
+  }
+
+  // Additional cleaning.
+  $clean = [
+    'field_type_of_membership',
+    'field_preferred_y_l_text',
+    'field_what_is_your_preferred_y_l',
+    'field_childcare_location',
+    'field_y_location_email',
+  ];
+
+  // Clean field definitions.
+  $storage = \Drupal::keyValue('entity.definitions.installed');
+  $data = $storage->get('contact_message.field_storage_definitions');
+  foreach ($clean as $item) {
+    unset($data[$item]);
+  }
+  $storage->set('contact_message.field_storage_definitions', $data);
+
+  // Clean storage schema.
+  $storage = \Drupal::keyValue('entity.storage_schema.sql');
+  foreach ($clean as $item) {
+    $storage->delete('contact_message.field_schema_data.' . $item);
+  }
+
+  // Clean bundle field map.
+  $storage = \Drupal::keyValue('entity.definitions.bundle_field_map');
+  $data = $storage->get('contact_message');
+  foreach ($clean as $item) {
+    unset($data[$item]);
+  }
+  $storage->set('contact_message', $data);
+
+  // Clean field deleted state.
+  $storage = \Drupal::keyValue('state');
+  $data = $storage->get('field.field.deleted');
+  foreach ($clean as $item) {
+    foreach ($data as $id => $field) {
+      if ($field['field_name'] == $item) {
+        unset($data[$id]);
+      }
+    }
+  }
+  $storage->set('field.field.deleted', $data);
+}
+
+/**
+ * Update membership page fields.
+ */
+function ymca_master_update_8044() {
+  $path = drupal_get_path('module', 'ymca_membership');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_membership.config.yml',
+  ]);
+}
+
+/**
+ * Update not migrated blocks with entity embed data.
+ */
+function ymca_master_update_8045() {
+  $data = [
+    12319 => ['id' => 11016, 'uuid' => 'c12b4948-f083-4a58-a201-1bb81dff45b3'],
+    12318 => ['id' => 11031, 'uuid' => '4a3aa4c7-4fcf-47a9-8b51-818317d79f01'],
+    12315 => ['id' => 11036, 'uuid' => '1ecc4d72-2c24-4395-9b07-7c38ca7cf0d9'],
+    12317 => ['id' => 11041, 'uuid' => '32935da1-e1c6-462a-8200-e8f0a12e683d'],
+    12320 => ['id' => 11051, 'uuid' => '7196df40-8b97-4a51-9800-d4e7b2e85a17'],
+    12321 => ['id' => 11056, 'uuid' => '9deb5b81-8382-4db1-9621-333c530de353'],
+    12314 => ['id' => 11061, 'uuid' => '41f01ea7-aff5-4fc4-9f09-9cc4976609a9'],
+    12322 => ['id' => 11066, 'uuid' => '5d8054cf-51aa-4aa7-9b04-4c603bbe6b0b'],
+    12323 => ['id' => 11071, 'uuid' => 'ed84887b-162b-419b-9200-c3f3a5556de4'],
+    12316 => ['id' => 11026, 'uuid' => 'a606769f-b24a-4d57-8907-7b4ff5ba32ec'],
+  ];
+
+  $db = Database::getConnection('default');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $config = \Drupal::service('config.factory')->getEditable('redirect.settings');
+
+  // Do not process redirects on save.
+  $config->set('auto_redirect', FALSE);
+  $config->save();
+
+  $table = 'node__field_sidebar';
+  $field = str_replace('node__', '', $table);
+  $col = $field . '_value';
+
+  foreach ($data as $block_id => $replace_data) {
+    $search = '<div class="richtext original">' . $block_id . '</div>';
+    $stmt = $db->select($table, 's')
+      ->fields('s', ['entity_id', $col])
+      ->condition($col, '%' . $db->escapeLike($search) . '%', 'LIKE')
+      ->execute();
+
+    foreach ($stmt as $item) {
+      if (!$entity = $storage->load($item->entity_id)) {
+        continue;
+      }
+
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $subject = $entity->$field->value;
+      $replace = '<div class="richtext original"><drupal-entity data-align="none" data-embed-button="block" data-entity-embed-display="entity_reference:entity_reference_entity_view" data-entity-embed-settings="{&quot;view_mode&quot;:&quot;default&quot;}" data-entity-id="' . $replace_data['id'] . '" data-entity-label="Block" data-entity-type="block_content" data-entity-uuid="' . $replace_data['uuid'] . '"></drupal-entity></div>';
+
+      $value = str_replace($search, $replace, $subject);
+      $entity->set($field, [
+        'value' => $value,
+        'format' => 'full_html',
+      ]);
+      $entity->save();
+
+      \Drupal::logger('ymca_master')->info(
+        'Replaced non-migrated sidebar block with embed data in node %node.',
+        ['%node' => $item->entity_id]
+      );
+    }
+  }
+
+  // Restore Redirect settings.
+  $config->set('auto_redirect', TRUE);
+  $config->save();
+}
+
+/**
+ * Update config.
+ */
+function ymca_master_update_8046() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/ymca_alters.config.yml',
+  ]);
+}
+
+/**
+ * Install captcha.
+ */
+function ymca_master_update_8047() {
+  \Drupal::service('module_installer')->install(['captcha', 'image_captcha'], TRUE);
+}
+
+/**
+ * Update config.
+ */
+function ymca_master_update_8048() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/optional/ymca_alters.config.yml',
+    ]
+  );
+}
+
+/**
+ * Install ymca_cron.
+ */
+function ymca_master_update_8049() {
+  \Drupal::service('module_installer')->install(['ymca_cron'], TRUE);
+}
+
+/**
+ * Fix youtube protocol.
+ */
+function ymca_master_update_8050() {
+  $db = Database::getConnection('default');
+  $storage = \Drupal::service('entity.manager')->getStorage('block_content');
+
+  $table = 'block_content__field_code';
+  $field = str_replace('block_content__', '', $table);
+  $col = $field . '_value';
+  $search = 'src="//www.youtube.com';
+  $replace = 'src="http://www.youtube.com';
+
+  $result = $db->select($table, 'c')
+    ->fields('c', ['entity_id', $col])
+    ->condition($col, '%' . $db->escapeLike($search) . '%', 'LIKE')
+    ->execute();
+
+  foreach ($result as $item) {
+    if (!$entity = $storage->load($item->entity_id)) {
+      continue;
+    }
+
+    if (!$entity->hasField($field)) {
+      continue;
+    }
+
+    $subject = $entity->$field->value;
+    $entity->set($field, [
+      'value' => str_replace($search, $replace, $subject),
+      'format' => 'full_html',
+    ]);
+    $entity->save();
+
+    \Drupal::logger('ymca_master')->info(
+      'Replaced youtube protocol in block %block.',
+      ['%block' => $item->entity_id]
+    );
+  }
+}
+
+/**
+ * Add shield alternative config.
+ */
+function ymca_master_update_8051() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/optional/ymca_alters.shield.yml',
+    ]
+  );
+}
+
+/**
+ * Fix page config.
+ */
+function ymca_master_update_8052() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/node.type.article.yml',
+  ]);
+}
+
+/**
+ * Add missing redirects.
+ */
+function ymca_master_update_8053() {
+  $items = [
+    'all_y_schedules',
+    'camps/family_camp_365',
+    'camps/ymca_day_camp',
+    'camps/ymca_family_camp',
+    'camps/ymca_teen_wilderness',
+    'health__fitness/active_older_adults/news_and_schedules_for_active_older_adults',
+    'health__fitness/free_group_exercise_classes',
+    'health__fitness/personal_training',
+    'health__fitness/trainer-led_classes/kettlebells_advanced',
+    'health__fitness/trainer-led_classes/kettlebells_beginner',
+    'health__fitness/trainer-led_classes/kettlebells_intermediate',
+    'health__fitness/yrun',
+    'locations',
+    'membership',
+  ];
+
+  $repo = \Drupal::service('redirect.repository');
+  foreach ($items as $item) {
+    $source_path = ltrim($item . '/');
+    if (!$repo->findMatchingRedirect($source_path, [], 'en')) {
+      $redirect = Redirect::create();
+      $redirect->setSource($source_path);
+      $redirect->setRedirect($item);
+      $redirect->setLanguage('en');
+      $redirect->setStatusCode(301);
+      $redirect->save();
+    }
+  }
+}
+
+/**
+ * Fix metatag config.
+ */
+function ymca_master_update_8054() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/metatag.metatag_defaults.global.yml',
+    'sites/default/config/staging/metatag.metatag_defaults.node.yml',
+  ]);
+}
+
+/**
+ * Install parent_404 module.
+ */
+function ymca_master_update_8055() {
+  \Drupal::service('module_installer')->install(['parent_404'], TRUE);
+}
+
+/**
+ * Fix non-replaced /_asset/ links.
+ */
+function ymca_master_update_8056() {
+  $entity_type_id = 'node';
+  $db = Database::getConnection('default');
+  $storage = \Drupal::service('entity.manager')->getStorage($entity_type_id);
+
+  $tables = [
+    'node__field_content',
+    'node__field_sidebar',
+    'node__field_summary',
+  ];
+
+  foreach ($tables as $table) {
+    $field = str_replace($entity_type_id . '__', '', $table);
+    $col = $field . '_value';
+
+    $result = $db->select($table, 'c')
+      ->fields('c', ['entity_id', $col])
+      ->condition($col, '%' . $db->escapeLike('/_asset/') . '%', 'LIKE')
+      ->execute();
+
+    foreach ($result as $item) {
+      $replace = [];
+
+      if (!$entity = $storage->load($item->entity_id)) {
+        continue;
+      }
+
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $subject = $entity->$field->value;
+      preg_match_all("/\/_asset\/\w{6}\/(?:[^.]*.\w{3,4})/", $subject, $test);
+      if (empty($test) || empty($test[0])) {
+        continue;
+      }
+
+      foreach ($test[0] as $index => $matched) {
+        $parts = explode('/', $matched);
+        $filename = array_pop($parts);
+
+        // Check whether the file exists...
+        $test_file = \Drupal::entityQuery('file')
+          ->condition('filename', $filename)
+          ->execute();
+
+        if (!$test_file) {
+          \Drupal::logger('ymca_master')->notice(
+            'File not found while replacing non-migrated /_asset/ links in %entity_type_id %entity_id.',
+            [
+              '%entity_type_id' => $entity_type_id,
+              '%entity_id' => $entity->id(),
+            ]
+          );
+          continue;
+        }
+
+        $replace['from'][] = $test[0][$index];
+        $replace['to'][] = '/sites/default/files/' . $filename;
+      }
+
+      if (empty($replace)) {
+        continue;
+      }
+
+      $entity->set($field, [
+        'value' => str_replace($replace['from'], $replace['to'], $subject),
+        'format' => $entity->$field->format,
+      ]);
+
+      $entity->save();
+
+      \Drupal::logger('ymca_master')->info(
+        'Replaced non-migrate asset links in %entity_type_id %entity_id.',
+        [
+          '%entity_type_id' => $entity_type_id,
+          '%entity_id' => $entity->id(),
+        ]
+      );
+    }
+  }
+}
+
+/**
+ * Remove comment module.
+ */
+function ymca_master_update_8057() {
+  $factory = \Drupal::configFactory();
+  $installer = Drupal::service('module_installer');
+
+  $remove = [
+    'field.storage.comment.comment_body',
+    'field.field.comment.comment.comment_body',
+    'field.storage.node.comment',
+  ];
+
+  foreach ($remove as $name) {
+    $factory->getEditable($name)->delete();
+  }
+
+  $installer->uninstall(['comment'], TRUE);
+}
+
+/**
+ * Remove comment module.
+ */
+function ymca_master_update_8058() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/core.entity_view_display.node.article.default.yml',
+  ]);
+}
+
+/**
+ * Fix /sso_sign_out redirect.
+ */
+function ymca_master_update_8059() {
+  // Remove old one.
+  $repo = \Drupal::service('redirect.repository');
+  $result = $repo->findBySourcePath('sso_sign_out');
+  if (!empty($result)) {
+    $redirect = reset($result);
+    $redirect->delete();
+  }
+
+  // Add new one.
+  $redirect = Redirect::create();
+  $redirect->setSource('sso_sign_out');
+  $redirect->setRedirect('/');
+  $redirect->setLanguage('en');
+  $redirect->setStatusCode(301);
+  $redirect->save();
+}
+
+/**
+ * Fix duplicate blog posts.
+ */
+function ymca_master_update_8060() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog.yml',
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog_archive.yml',
+  ]);
+}
+
+/**
+ * Fix trailing slashes issue.
+ */
+function ymca_master_update_8061() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/redirect.settings.yml',
+  ]);
+}
+
+/**
+ * Make working hours field required.
+ */
+function ymca_master_update_8062() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/field.field.node.location.field_working_hours.yml',
+  ]);
+}
+
+/**
+ * Update field config.
+ */
+function ymca_master_update_8063() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/field.field.contact_message.contact_a_program_director.field_label.yml',
+  ]);
+}
+
+/**
+ * Fix comment dependencies.
+ */
+function ymca_master_update_8064() {
+  $installer = \Drupal::service('module_installer');
+  $installer->install(['comment'], TRUE);
+  field_cron();
+  $installer->uninstall(['comment'], TRUE);
+}
+
+/**
+ * Remove day camp posts from blog & blog archive.
+ */
+function ymca_master_update_8065() {
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog.yml',
+    'sites/default/config/staging/views.view.ymca_twin_cities_blog_archive.yml',
+  ]);
+}
+
+/**
+ * Uninstall ymca_cron.
+ */
+function ymca_master_update_8066() {
+  \Drupal::service('module_installer')->uninstall(['ymca_cron'], TRUE);
+}
+
+/**
+ * Install config for managing page with winners.
+ */
+function ymca_master_update_8067() {
+  $path = drupal_get_path('module', 'ymca_frontend');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/install/ymca_frontend.retention.yml',
+  ]);
+}
+
+/**
+ * Remove main menu link items.
+ */
+function ymca_master_update_8068() {
+  $query = Drupal::entityQuery('menu_link_content')
+    ->condition('menu_name', 'main');
+  $results = $query->execute();
+
+  // Remove links.
+  $storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $links = $storage->loadMultiple($results);
+  $storage->delete($links);
+}
+
+/**
+ * Extend working hours block.
+ */
+function ymca_master_update_8069() {
+  \Drupal::service('module_installer')->install(['ymca_field_custom_hours'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'core.entity_form_display.block_content.working_hours_block.default.yml',
+    $path . 'core.entity_view_display.block_content.working_hours_block.default.yml',
+    $path . 'core.extension.yml',
+    $path . 'field.field.block_content.working_hours_block.field_custom_hours.yml',
+    $path . 'field.storage.block_content.field_custom_hours.yml',
+  ]);
+}
+
+/**
+ * Add custom routes canonical config.
+ */
+function ymca_master_update_8070() {
+  $path = drupal_get_path('module', 'ymca_alters');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . '/config/optional/ymca_alters.config.yml']
+  );
+}
+
+/**
+ * Update phone.
+ */
+function ymca_master_update_8071() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'ymca_frontend.locations.yml'
+  ]);
+}
+
+/**
+ * Update blog archive configuration.
+ */
+function ymca_master_update_8072() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . 'views.view.ymca_twin_cities_blog_archive.yml']
+  );
+}
+
+/**
+ * Update alert block.
+ */
+function ymca_master_update_8073() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.block_content.alert_block.default.yml',
+      $path . 'core.entity_view_display.block_content.alert_block.default.yml',
+      $path . 'field.field.block_content.alert_block.field_end_date.yml',
+      $path . 'field.field.block_content.alert_block.field_start_date.yml',
+    ]
+  );
+}
+
+/**
+ * Setup sitemap.
+ */
+function ymca_master_update_8074() {
+  // Remove redundant node.
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $entity = $storage->load(2801);
+  $entity->delete();
+}
+
+/**
+ * Fix sitemap permissions.
+ */
+function ymca_master_update_8075() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.anonymous.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+}
+
+/**
+ * Configure exclude from sitemap.
+ */
+function ymca_master_update_8076() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+      $path . 'field.field.node.article.field_sitemap_exclude.yml',
+      $path . 'field.field.node.blog.field_sitemap_exclude.yml',
+      $path . 'field.field.node.camp.field_sitemap_exclude.yml',
+      $path . 'field.field.node.location.field_sitemap_exclude.yml',
+      $path . 'field.storage.node.field_sitemap_exclude.yml',
+    ]
+  );
+}
+
+/**
+ * Enable messages block.
+ */
+function ymca_master_update_8077() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block.block.messages.yml',
+    ]
+  );
+}
+
+/**
+ * Update membership config.
+ */
+function ymca_master_update_8078() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_membership.config.yml',
+    ]
+  );
+}
+
+/**
+ * Remove redundant redirects.
+ */
+function ymca_master_update_8079() {
+  $alias_manager = \Drupal::service('path.alias_manager');
+  $redirect_repo = \Drupal::service('redirect.repository');
+
+  $ids = \Drupal::entityQuery('node')->execute();
+  foreach ($ids as $nid) {
+    // Remove redirect if it has node alias + trailing slash redirect as a source.
+    $source = ltrim($alias_manager->getAliasByPath('/node/' . $nid), '/') . '/';
+    $redirect = $redirect_repo->findBySourcePath($source);
+    if (!empty($redirect)) {
+      foreach ($redirect as $item) {
+        $item->delete();
+        \Drupal::logger('ymca_master')->info(
+          'The redirect for the source %source was removed',
+          ['%source' => $source]
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Migrate exclude from sitemap option.
+ */
+function ymca_master_update_8080() {
+  $db = Database::getConnection();
+  $db_legacy = Database::getConnection('default', 'amm_source');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $field_name = 'field_sitemap_exclude';
+
+  $pages = $db_legacy->select('amm_site_page', 'p')
+    ->fields('p', ['site_page_id'])
+    ->condition('p.exclude_from_sitemap', 1)
+    ->execute()
+    ->fetchAll();
+
+  foreach ($pages as $page) {
+    $id = $db->select('migrate_map_ymca_migrate_node_page', 'm')
+      ->fields('m', ['destid1'])
+      ->condition('sourceid1', $page->site_page_id)
+      ->execute()
+      ->fetchField();
+
+    if (!$id) {
+      continue;
+    }
+
+    $node = $storage->load($id);
+    if (!$node) {
+      continue;
+    }
+
+    if (!$node->hasField('field_sitemap_exclude')) {
+      continue;
+    }
+
+    $field = $node->get($field_name);
+    if (!$delta = $field->get(0)) {
+      $field->applyDefaultValue(FALSE);
+      $delta = $field->get(0);
+    }
+
+    $delta->set('value', 1);
+    $node->save();
+
+    \Drupal::logger('ymca_master')->info(
+      'The node %node was excluded from sitemap',
+      ['%node' => $id]
+    );
+  }
+}
+
+/**
+ * Install modules.
+ */
+function ymca_master_update_8081() {
+  $install = [
+    'ctools',
+    'panels',
+    'page_manager',
+    'page_manager_ui',
+    'layout_plugin',
+  ];
+  \Drupal::service('module_installer')->install($install, TRUE);
+}
+
+/**
+ * Add Youth Sports Landing Page as Panels page.
+ */
+function ymca_master_update_8082() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+    ]
+  );
+}
+
+/**
+ * Remove exclude sitemap field.
+ */
+function ymca_master_update_8083() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+    ]
+  );
+
+  $factory = \Drupal::configFactory();
+  $delete = [
+    'field.field.node.article.field_sitemap_exclude',
+    'field.field.node.blog.field_sitemap_exclude',
+    'field.field.node.camp.field_sitemap_exclude',
+    'field.field.node.location.field_sitemap_exclude',
+    'field.storage.node.field_sitemap_exclude',
+  ];
+  foreach ($delete as $item) {
+    $factory->getEditable($item)->delete();
+  }
+}
+
+/**
+ * Migrate exclude from sitemap option for native widget.
+ */
+function ymca_master_update_8084() {
+  $db = Database::getConnection();
+  $db_legacy = Database::getConnection('default', 'amm_source');
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+
+  $pages = $db_legacy->select('amm_site_page', 'p')
+    ->fields('p', ['site_page_id'])
+    ->condition('p.exclude_from_sitemap', 1)
+    ->execute()
+    ->fetchAll();
+
+  $sitemap = \Drupal::service('simple_sitemap.generator');
+  foreach ($pages as $page) {
+    $id = $db->select('migrate_map_ymca_migrate_node_page', 'm')
+      ->fields('m', ['destid1'])
+      ->condition('sourceid1', $page->site_page_id)
+      ->execute()
+      ->fetchField();
+
+    if (!$id) {
+      continue;
+    }
+
+    $node = $storage->load($id);
+    if (!$node) {
+      continue;
+    }
+
+    $entity_types = $sitemap->getConfig('entity_types');
+    $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['index'] = 0;
+    $entity_types['node_type'][$node->bundle()]['entities'][$node->id()]['priority'] = 0.5;
+    $sitemap->saveConfig('entity_types', $entity_types);
+
+    \Drupal::logger('ymca_master')->info(
+      'The node %node was excluded from sitemap',
+      ['%node' => $id]
+    );
+  }
+}
+
+/**
+ * Add Youth Sports Landing Page as Panels page. Enable entity_clone.
+ */
+function ymca_master_update_8085() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+    ]
+  );
+  \Drupal::service('module_installer')->install(['entity_clone'], TRUE);
+}
+
+/**
+ * Replace PDF files for location schedules feature.
+ */
+function ymca_master_update_8086() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.user.user.default.yml',
+      $path . 'core.entity_view_display.user.user.compact.yml',
+      $path . 'core.entity_view_display.user.user.default.yml',
+      $path . 'field.field.user.user.field_locations.yml',
+      $path . 'field.storage.user.field_locations.yml',
+      $path . 'user.role.location_editor.yml',
+      $path . 'views.view.location_schedules.yml',
+    ]
+  );
+}
+
+/**
+ * Enable File Browser module & import relative configs.
+ */
+function ymca_master_update_8087() {
+  \Drupal::service('module_installer')->install(['file_browser'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page.youth_sports_landing_page.yml',
+      $path . 'page_manager.page_variant.youth_sports.yml',
+      $path . 'core.entity_form_display.block_content.image_block.default.yml',
+      $path . 'core.entity_form_display.block_content.promo_block.default.yml',
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'dropzonejs.settings.yml',
+      $path . 'editor.editor.full_html.yml',
+      $path . 'embed.button.file_browser.yml',
+      $path . 'entity_browser.browser.browse_files.yml',
+      $path . 'entity_browser.browser.browse_files_modal.yml',
+      $path . 'image.style.file_entity_browser_thumbnail.yml',
+      $path . 'views.view.files_entity_browser.yml',
+    ]
+  );
+}
+
+/**
+ * Make Tags field required for blog post.
+ */
+function ymca_master_update_8088() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_tags.yml',
+    ]
+  );
+}
+
+/**
+ * Enable Content Browser module & import relative configs.
+ */
+function ymca_master_update_8089() {
+  \Drupal::service('module_installer')->install(['content_browser'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.blog.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.camp.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_mode.node.content_browser_preview.yml',
+      $path . 'embed.button.content_browser.yml',
+      $path . 'entity_browser.browser.browse_content.yml',
+      $path . 'entity_browser.browser.browse_content_modal.yml',
+      $path . 'views.view.content_browser_node.yml',
+    ]
+  );
+}
+
+/**
+ * Update content, menus and redirects to use new domain www.ymcamn.org.
+ */
+function ymca_master_update_8090() {
+  $db = Database::getConnection();
+  $places = [
+    // Blocks content.
+    'block_content_revision__body' => 'body_value',
+    'block_content_revision__field_block_content' => 'field_block_content_value',
+    'block_content_revision__field_code' => 'field_code_value',
+    'block_content_revision__field_content_date_end' => 'field_content_date_end_value',
+    'block_content_revision__field_link' => 'field_link_uri',
+    'block_content_r__aa8e471054' => 'field_content_date_between_value',
+    'block_content_r__c25b317576' => 'field_content_date_before_value',
+    'block_content__body' => 'body_value',
+    'block_content__field_block_content' => 'field_block_content_value',
+    'block_content__field_code' => 'field_code_value',
+    'block_content__field_content_date_before' => 'field_content_date_before_value',
+    'block_content__field_content_date_between' => 'field_content_date_between_value',
+    'block_content__field_content_date_end' => 'field_content_date_end_value',
+    'block_content__field_link' => 'field_link_uri',
+    // Menu.
+    'menu_link_content_data' => 'link__uri',
+    // Nodes content.
+    'node_revision__field_camp_links' => 'field_camp_links_value',
+    'node_revision__field_content' => 'field_content_value',
+    'node_revision__field_header_button' => 'field_header_button_uri',
+    'node_revision__field_join_override' => 'field_join_override_value',
+    'node_revision__field_lead_description' => 'field_lead_description_value',
+    'node_revision__field_schedule_content' => 'field_schedule_content_value',
+    'node_revision__field_secondary_sidebar' => 'field_secondary_sidebar_value',
+    'node_revision__field_sidebar' => 'field_sidebar_value',
+    'node_revision__field_summary' => 'field_summary_value',
+    'node_revision__field_title_description' => 'field_title_description_value',
+    'node__field_camp_links' => 'field_camp_links_value',
+    'node__field_content' => 'field_content_value',
+    'node__field_header_button' => 'field_header_button_uri',
+    'node__field_join_override' => 'field_join_override_value',
+    'node__field_lead_description' => 'field_lead_description_value',
+    'node__field_schedule_content' => 'field_schedule_content_value',
+    'node__field_secondary_sidebar' => 'field_secondary_sidebar_value',
+    'node__field_sidebar' => 'field_sidebar_value',
+    'node__field_summary' => 'field_summary_value',
+    'node__field_title_description' => 'field_title_description_value',
+    // Redirects.
+    'redirect' => 'redirect_redirect__uri',
+  ];
+  $replacements = [
+    'www.ymcatwincities.org' => 'www.ymcamn.org',
+    'http://ymcatwincities.org' => 'http://ymcamn.org',
+  ];
+
+  foreach ($places as $table => $column) {
+    foreach ($replacements as $find => $replace) {
+      $db->update($table)
+        ->expression($column, 'REPLACE(' . $column . ', \'' . $find . '\', \'' . $replace . '\')')
+        ->condition($column, '%' . $db->escapeLike($find) . '%', 'LIKE')
+        ->execute();
+    }
+  }
 }

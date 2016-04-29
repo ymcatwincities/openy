@@ -118,7 +118,7 @@ class GroupexScheduleFetcher {
     // Day: show classes for single day.
     // Week: show classes for week grouped by day.
     // Location: show classes for 1 day grouped by location.
-    $schedule['type'] = $this->parameters['filter_length'];
+    $schedule['type'] = isset($this->parameters['filter_length']) ? $this->parameters['filter_length'] : 'day';
     if (!empty($this->parameters['location']) && count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
     }
@@ -191,10 +191,8 @@ class GroupexScheduleFetcher {
   private function getData() {
     $this->rawData = [];
 
-    // No request parameters - no data.
-    if (empty($this->parameters)) {
-      return;
-    }
+    $class = !empty($this->parameters['class']) ? $this->parameters['class'] : '';
+    $category = !empty($this->parameters['category']) ? $this->parameters['category'] : '';
 
     // One of the 3 search parameters should be provided:
     // 1. Location.
@@ -202,8 +200,8 @@ class GroupexScheduleFetcher {
     // 3. Category.
     if (
       !isset($this->parameters['location']) &&
-      $this->parameters['class'] == 'any' &&
-      $this->parameters['category'] == 'any') {
+      $class == 'any' &&
+      $category == 'any') {
       return;
     }
 
@@ -220,13 +218,13 @@ class GroupexScheduleFetcher {
     }
 
     // Category is optional.
-    if ($this->parameters['category'] !== 'any') {
-      $options['query']['category'] = $this->parameters['category'];
+    if ($category !== 'any') {
+      $options['query']['category'] = $category;
     }
 
     // Class is optional.
-    if ($this->parameters['class'] !== 'any') {
-      $options['query']['class'] = self::$idStrip . $this->parameters['class'];
+    if ($class !== 'any') {
+      $options['query']['class'] = self::$idStrip . $class;
     }
 
     // Filter by date.
@@ -292,7 +290,7 @@ class GroupexScheduleFetcher {
 
     // Filter out by time of the day.
     if (!empty($param['time_of_day'])) {
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if (in_array($item->time_of_day, $param['time_of_day'])) {
           return TRUE;
         }
@@ -303,7 +301,7 @@ class GroupexScheduleFetcher {
     // Groupex response have some redundant data. Filter it out.
     if ($param['filter_length'] == 'day') {
       // Filter out by the date. Cut off days before.
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if ($item->timestamp >= $param['filter_timestamp']) {
           return TRUE;
         }
@@ -311,7 +309,7 @@ class GroupexScheduleFetcher {
       });
 
       // Filter out by the date. Cut off days after.
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
           return TRUE;
         }
@@ -412,6 +410,11 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromTimestamp($normalized['filter_timestamp'], $timezone);
     $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
 
+    // Add default filter_length.
+    if (!isset($normalized['filter_length'])) {
+      $normalized['filter_length'] = 'day';
+    }
+
     return $normalized;
   }
 
@@ -448,7 +451,7 @@ class GroupexScheduleFetcher {
     ];
 
     if ($timestamp) {
-      $query['week'] = $timestamp;
+      $query['week'] = strtotime('Monday this week', $timestamp);
     }
 
     if ($category) {

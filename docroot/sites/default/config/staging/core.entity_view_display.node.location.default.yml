@@ -28,27 +28,27 @@ bundle: location
 mode: default
 content:
   field_alert:
-    weight: 105
+    weight: 4
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_content:
-    weight: 113
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_facebook_page_id:
-    weight: 110
+    weight: 7
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_include_general_blog_posts:
-    weight: 111
+    weight: 8
     label: above
     settings:
       format: default
@@ -57,19 +57,19 @@ content:
     third_party_settings: {  }
     type: boolean
   field_join_override:
-    weight: 103
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_location:
-    weight: 101
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_main_promos:
-    weight: 108
+    weight: 6
     label: hidden
     settings:
       view_mode: full
@@ -77,7 +77,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_entity_view
   field_membership_block:
-    weight: 107
+    weight: 5
     label: above
     settings:
       format: default
@@ -86,41 +86,42 @@ content:
     third_party_settings: {  }
     type: boolean
   field_phone:
-    weight: 112
+    weight: 9
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_promo_slideshow:
-    weight: 104
+    weight: 3
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_schedule_content:
-    weight: 115
+    weight: 12
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_schedule_documents:
-    weight: 116
+    weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
     type: file_default
   field_working_hours:
-    weight: 114
+    weight: 11
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   links:
-    weight: 100
+    weight: 0
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_sitemap_exclude: true
   langcode: true

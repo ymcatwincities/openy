@@ -5,10 +5,10 @@ dependencies: {  }
 id: ffd776af8e
 name: ACQUIA
 invalidationtype: tag
-hostname: localhost
+hostname: ymcawincities.org
 port: 80
 path: /
-request_method: BAN
+request_method: DELETE
 scheme: http
 verify: '1'
 headers: {  }
@@ -17,5 +17,5 @@ body_content_type: text/plain
 timeout: !!float 1
 connect_timeout: !!float 1
 cooldown_time: !!float 0
-max_requests: 100
+max_requests: 20
 http_errors: true

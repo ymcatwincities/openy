@@ -4,7 +4,7 @@ description: Provides a user interface for the Token API and some missing core t
 # core: 8.x
 
 # Information added by Drupal.org packaging script on 2016-01-21
-version: '8.x-1.0-alpha1+27-dev'
+version: '8.x-1.0-alpha2'
 core: '8.x'
 project: 'token'
-datestamp: 1453363385
+datestamp: 1453363741

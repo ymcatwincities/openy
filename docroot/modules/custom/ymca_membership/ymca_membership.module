@@ -27,8 +27,8 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
       'variables' => [
         'location' => '',
         'submission' => '',
-        'block_form_fee' => '',
-        'block_cost' => '',
+        'block_whats_next' => '',
+        'block_special_offer' => '',
         'form' => '',
       ],
       'template' => 'membership-thank-you',
@@ -127,8 +127,9 @@ function ymca_membership_mail_alter(&$message) {
         $mail_wrapper_build['#content_area_1']['#theme'] = 'membership_mail_editor';
         /* @var \Drupal\contact\Entity\Message $submission */
         $submission = $message['params']['contact_message'];
+        $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
         $location = \Drupal::service('webforms.node_extractor')
-          ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+          ->extractNode($submission, $field_name, 'location');
         if ($location) {
           $message['subject'] = 'Membership Inquiry - ' . $location->getTitle();
         }
@@ -166,8 +167,9 @@ function ymca_membership_preprocess_membership_mail_message(&$variables) {
   $variables['phone'] = $submission->field_phone_number->getValue()[0]['value'];
   $variables['email'] = $submission->field_email_address->getValue()[0]['value'];
 
+  $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
   $location = \Drupal::service('webforms.node_extractor')
-    ->extractNode($submission, 'field_what_is_your_preferred_y_l', 'location');
+    ->extractNode($submission, $field_name, 'location');
 
   if (!$location) {
     \Drupal::logger('ymca_membership')->alert(t('Unbound prefered Y location value selected.'));
@@ -213,6 +215,29 @@ function ymca_membership_preprocess_membership_mail_message(&$variables) {
  */
 function ymca_membership_form_contact_message_form_alter(&$form, &$form_state, $form_id) {
   $form['actions']['submit']['#submit'][] = 'ymca_membership_contact_message_redirect_submit';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for contact_form_edit_form().
+ */
+function ymca_membership_form_contact_form_edit_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['id']['#default_value']) && $form['id']['#default_value'] == 'membership_form') {
+    unset($form['submission_page']);
+    unset($form['contact_storage_uri']);
+    $special_offer_id = \Drupal::config('ymca_membership.config')->get('thank_you_special_offer_block_id');
+    $what_is_next_id = \Drupal::config('ymca_membership.config')->get('thank_you_what_is_next_block_id');
+    $special_offer_link = new Link(t('Special Offer'), Url::fromUri('internal:/block/' . $special_offer_id));
+    $what_is_next_link = new Link(t('What is next'), Url::fromUri('internal:/block/' . $what_is_next_id));
+    $form['email']['#suffix'] = t('
+      <strong>Edit blocks on Thank you page</strong><br/>
+      Edit "@special_offer_link" block.<br/>
+      Edit "@what_is_next_link" block.',
+      array(
+        '@special_offer_link' => render($special_offer_link->toRenderable()),
+        '@what_is_next_link' => render($what_is_next_link->toRenderable()),
+      )
+    );
+  }
 }
 
 /**

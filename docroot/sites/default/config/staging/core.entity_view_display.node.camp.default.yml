@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.camp.field_phone
     - field.field.node.camp.field_promo_slideshow
     - field.field.node.camp.field_registration_block
+    - field.field.node.camp.field_subtitle
     - node.type.camp
   module:
     - address
@@ -26,45 +27,45 @@ bundle: camp
 mode: default
 content:
   field_alert:
-    weight: 105
+    weight: 5
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_alternate_location:
-    weight: 103
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_body:
-    weight: 106
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_camp_links:
-    weight: 107
+    weight: 7
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_content:
-    weight: 101
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_facebook_page_id:
-    weight: 110
+    weight: 10
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_include_general_blog_posts:
-    weight: 111
+    weight: 11
     label: above
     settings:
       format: default
@@ -73,13 +74,13 @@ content:
     third_party_settings: {  }
     type: boolean
   field_location:
-    weight: 102
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_main_promos:
-    weight: 108
+    weight: 8
     label: above
     settings:
       view_mode: full
@@ -87,29 +88,30 @@ content:
     third_party_settings: {  }
     type: entity_reference_entity_view
   field_phone:
-    weight: 112
+    weight: 12
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_promo_slideshow:
-    weight: 104
+    weight: 4
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_registration_block:
-    weight: 109
+    weight: 9
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   links:
-    weight: 100
+    weight: 0
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_subtitle: true
   langcode: true

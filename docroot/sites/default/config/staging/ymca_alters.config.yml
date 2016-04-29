@@ -1,0 +1,22 @@
+membership_block_id: 10971
+sitemap_xml_skip_uris:
+  - /child_care__preschool/contact_a_program_director/thank_you
+  - /membership/corporate_wellness/employees/contact_corporate_wellness/thank_you
+  - /community_programs/volunteer
+  - /home
+  - /locations/southdale_ymca_edina/health_fitness
+custom_routes_canonical:
+  - ymca_membership.page
+  - ymca_groupex.schedules_search_results
+  - ymca_groupex.all_schedules_search
+  - ymca_groupex.all_schedules_search_results
+  - ymca_blog_listing.news_events_page_controller
+  - ymca_day_camp.day_camp_news
+  - ymca_frontend.location_schedules
+  - ymca_frontend.locations
+  - ymca_frontend.youth_sports
+  - ymca_frontend.march
+  - ymca_frontend.march_rules
+  - ymca_frontend.march_winners
+  - ymca_frontend.2014_annual_report
+  - ymca_frontend.2014_annual_report_leaders

@@ -32,4 +32,5 @@ hidden:
   field_related_camps_locations: true
   field_site_section: true
   field_tags: true
+  langcode: true
   links: true

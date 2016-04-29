@@ -12,6 +12,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Path\AliasManager;
 use Drupal\Core\PathProcessor\InboundPathProcessorInterface;
 use Drupal\Core\Routing\MatchingRouteNotFoundException;
@@ -20,6 +21,7 @@ use Drupal\Core\Url;
 use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\redirect\RedirectChecker;
 use Drupal\redirect\RedirectRepository;
+use Psr\Log\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -117,7 +119,13 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
    *   The event to process.
    */
   public function onKernelRequestCheckRedirect(GetResponseEvent $event) {
-    $request = $event->getRequest();
+    // Get a clone of the request. During inbound processing the request
+    // can be altered. Allowing this here can lead to unexpected behavior.
+    // For example the path_processor.files inbound processor provided by
+    // the system module alters both the path and the request; only the
+    // changes to the request will be propagated, while the change to the
+    // path will be lost.
+    $request = clone $event->getRequest();
 
     if (!$this->checker->canRedirect($request)) {
       return;
@@ -198,10 +206,8 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
       try {
         $path_info = $this->aliasManager->getPathByAlias($path_info);
         $this->setResponse($event, Url::fromUri('internal:' . $path_info));
-      }
-      catch (MatchingRouteNotFoundException $e) {
-        // Do nothing here as it is not our responsibility to handle this.
-
+      } catch (\Exception $e) {
+        watchdog_exception('redirect', $e, $e->getMessage(), [], RfcLogLevel::WARNING);
       }
     }
   }

@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Allows to flexibly create, browse and select entities.
+ */
+
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\Core\Render\Element;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme().
+ *
+ * Overrides the core html theme to use a custom template for iframes.
+ */
+function entity_browser_theme() {
+  return [
+    'html__entity_browser__iframe' => [
+      'template' => 'html--entity-browser--iframe',
+      'render element' => 'html',
+      'preprocess functions' => ['template_preprocess_html']
+    ],
+    'html__entity_browser__modal' => [
+      'template' => 'html--entity-browser--iframe',
+      'render element' => 'html',
+      'preprocess functions' => ['template_preprocess_html']
+    ],
+    'page__entity_browser__iframe' => [
+      'template' => 'page--entity-browser--iframe',
+      'render element' => 'html',
+      'preprocess functions' => ['template_preprocess_page']
+    ],
+    'page__entity_browser__modal' => [
+      'template' => 'page--entity-browser--iframe',
+      'render element' => 'html',
+      'preprocess functions' => ['template_preprocess_page']
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function entity_browser_form_alter(&$form, FormStateInterface &$form_state) {
+  $entity_browser_dialog_edit = \Drupal::service('request_stack')->getCurrentRequest()->get('_route');
+  if ($entity_browser_dialog_edit == 'entity_browser.edit_form') {
+    // Let's allow the save button only.
+    foreach (Element::children($form['actions']) as $key) {
+      $form['actions'][$key]['#access'] = $key == 'submit';
+    }
+    // Use Ajax.
+    $form['actions']['submit']['#ajax'] = [
+      'url' => Url::fromRoute('entity_browser.edit_form', ['entity_type' => $form_state->getFormObject()->getEntity()->getEntityTypeId(), 'entity' => $form_state->getFormObject()->getEntity()->id()])
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page__entity_browser__iframe().
+ *
+ * Tries to figure out where messages block lives and display it separately.
+ */
+function entity_browser_preprocess_page__entity_browser__iframe(&$variables) {
+  $variables['messages'] = '';
+  $blocks = \Drupal::entityTypeManager()->getStorage('block')->loadByProperties([
+    'theme' => \Drupal::theme()->getActiveTheme()->getName(),
+    'plugin' => 'system_messages_block',
+  ]);
+
+  if (($messages = current($blocks)) && !empty($variables['page'][$messages->getRegion()][$messages->id()])) {
+    $variables['messages'] = $variables['page'][$messages->getRegion()][$messages->id()];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page__entity_browser__modal().
+ *
+ * Tries to figure out where messages block lives and display it separately.
+ */
+function entity_browser_preprocess_page__entity_browser__modal(&$variables) {
+  entity_browser_preprocess_page__entity_browser__iframe($variables);
+}

@@ -1,0 +1,19 @@
+uuid: 4aa12d8f-bf07-477b-8e31-495c5e5d9a93
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - webforms
+id: contact_message.field_y_location_email
+field_name: field_y_location_email
+entity_type: contact_message
+type: options_email_item
+settings: {  }
+module: webforms
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,17 @@
+schedules_date:
+  version: 1.x
+  js:
+    js/sd.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+file_browser:
+  version: VERSION
+  css:
+    theme:
+      css/file_browser.css: {}
+content_browser:
+  version: VERSION
+  css:
+    theme:
+      css/content_browser.css: {}

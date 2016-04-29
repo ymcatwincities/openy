@@ -10,3 +10,5 @@ tags:
   content_language: en
   shortlink: '[site:url]'
   og_type: website
+  og_site_name: '[site:name]'
+  og_title: '[site:name]'
