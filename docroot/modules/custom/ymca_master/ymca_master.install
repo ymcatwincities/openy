@@ -2283,7 +2283,6 @@ function ymca_master_update_8093() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-//      $path . 'core.entity_form_display.node.article.default.yml',
       $path . 'core.entity_form_display.node.blog.default.yml',
       $path . 'core.entity_form_display.node.camp.default.yml',
       $path . 'core.entity_form_display.node.location.default.yml',
@@ -2301,6 +2300,7 @@ function ymca_master_update_8093() {
       $path . 'core.entity_view_display.node.location.groupex.yml',
       $path . 'core.entity_view_display.node.location.schedules.yml',
       $path . 'core.entity_view_display.node.location.teaser.yml',
+
       $path . 'field.field.node.article.field_state.yml',
       $path . 'field.storage.node.field_state.yml',
 
@@ -2308,6 +2308,36 @@ function ymca_master_update_8093() {
 
       $path . 'user.role.contributor.yml',
       $path . 'user.role.editor.yml',
+
+      // Workflow related configs.
+      $path . 'workflow.settings.yml',
+      $path . 'workflow.state.workflow_(creation).yml',
+      $path . 'workflow.state.workflow_draft.yml',
+      $path . 'workflow.state.workflow_needs_review.yml',
+      $path . 'workflow.state.workflow_published.yml',
+      $path . 'workflow.state.workflow_unpublished.yml',
+      $path . 'workflow.transition.workflow_(creation)_draft.yml',
+      $path . 'workflow.transition.workflow_(creation)_needs_review.yml',
+      $path . 'workflow.transition.workflow_(creation)_published.yml',
+      $path . 'workflow.transition.workflow_draft_draft.yml',
+      $path . 'workflow.transition.workflow_draft_needs_review.yml',
+      $path . 'workflow.transition.workflow_draft_published.yml',
+      $path . 'workflow.transition.workflow_needs_review_draft.yml',
+      $path . 'workflow.transition.workflow_needs_review_needs_review.yml',
+      $path . 'workflow.transition.workflow_needs_review_published.yml',
+      $path . 'workflow.transition.workflow_published_draft.yml',
+      $path . 'workflow.transition.workflow_published_needs_review.yml',
+      $path . 'workflow.transition.workflow_published_published.yml',
+      $path . 'workflow.workflow.workflow.yml',
+      $path . 'workflow_access.settings.yml',
+      $path . 'workflow.transition.workflow_(creation)_unpublished.yml',
+      $path . 'workflow.transition.workflow_draft_unpublished.yml',
+      $path . 'workflow.transition.workflow_needs_review_unpublished.yml',
+      $path . 'workflow.transition.workflow_published_unpublished.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
+      $path . 'workflow.transition.workflow_unpublished_published.yml',
+      $path . 'workflow.transition.workflow_unpublished_unpublished.yml',
     ]
   );
 
@@ -2318,10 +2348,16 @@ function ymca_master_update_8093() {
     'field.field.node.camp.field_sitemap_exclude',
     'field.field.node.location.field_sitemap_exclude',
     'field.storage.node.field_sitemap_exclude',
+    // Remove Status field.
+    'field.field.node.article.field_status',
+    'field.storage.node.field_status',
   ];
   foreach ($delete as $item) {
     $factory->getEditable($item)->delete();
   }
+
+  // Disable Scheduler module.
+  \Drupal::service('module_installer')->uninstall(array('scheduler'));
 
   drupal_flush_all_caches();
 }
