@@ -1,0 +1,12 @@
+media.bundle_add:
+  route_name: media.bundle_add
+  title: 'Add media bundle'
+  appears_on:
+    - entity.media_bundle.collection
+
+entity_browser.add:
+  route_name: entity.entity_browser.add_form
+  title: 'Add Entity browser'
+  weight: 0
+  appears_on:
+    - entity.entity_browser.collection

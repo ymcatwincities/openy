@@ -1,0 +1,69 @@
+uuid: 26408f19-20af-410a-8506-6a7491354ec5
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_category_class
+field_name: field_category_class
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Awards and Branded Merchandise (A)'
+      label: 'Awards and Branded Merchandise (A)'
+    -
+      value: 'Administrative Expenses (AE)'
+      label: 'Administrative Expenses (AE)'
+    -
+      value: 'Banking and Insurance (BI)'
+      label: 'Banking and Insurance (BI)'
+    -
+      value: 'Construction, Architectural and Engineering (CAE)'
+      label: 'Construction, Architectural and Engineering (CAE)'
+    -
+      value: 'Camping and Climbing Gear (CCG)'
+      label: 'Camping and Climbing Gear (CCG)'
+    -
+      value: 'Event and Banquet (EV)'
+      label: 'Event and Banquet (EV)'
+    -
+      value: 'Food (F)'
+      label: 'Food (F)'
+    -
+      value: 'Facility maintenance and Custodial supplies (FAC)'
+      label: 'Facility maintenance and Custodial supplies (FAC)'
+    -
+      value: 'First Aid Supplies (FAS)'
+      label: 'First Aid Supplies (FAS)'
+    -
+      value: 'Parks, museums, theater, sports, and entertainment (FIELDTRIP)'
+      label: 'Parks, museums, theater, sports, and entertainment (FIELDTRIP)'
+    -
+      value: 'Technology, Audio and Video (IT)'
+      label: 'Technology, Audio and Video (IT)'
+    -
+      value: 'Marketing, Graphics, Print and Sales (MGS)'
+      label: 'Marketing, Graphics, Print and Sales (MGS)'
+    -
+      value: 'Art, crafts, sporting equip, fitness equip, swim supplies, games, music, video, uniforms etc. (PROGRAM)'
+      label: 'Art, crafts, sporting equip, fitness equip, swim supplies, games, music, video, uniforms etc. (PROGRAM)'
+    -
+      value: 'Transportation, Buses, Vehicles (TSP)'
+      label: 'Transportation, Buses, Vehicles (TSP)'
+    -
+      value: 'Utilities and Cable (UT)'
+      label: 'Utilities and Cable (UT)'
+    -
+      value: 'Vending (VN)'
+      label: 'Vending (VN)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

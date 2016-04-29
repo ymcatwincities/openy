@@ -1657,12 +1657,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   height: 50px;
   font-size: 15px;
 }
-.no-touch .toolbar-fixed .nav-location.affix, .no-touch .toolbar-fixed .locations-camps-template .nav-location.affix {
-  top: 90px;
-}
-.no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-location.affix, .no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .locations-camps-template .nav-location.affix {
-  top: 130px;
-}
 
 .lt-ie8 .nav-location.affix, .lt-ie8 .locations-camps-template .nav-location.affix {
   position: absolute;
@@ -3845,7 +3839,11 @@ a.tel {
   display: none;
 }
 
-a[href$=pdf]:after, .lead-copy li a[href$=pdf]:after, .pdf-link:after {
+a[href$=pdf]:after,
+a[href*=".pdf?"]:after,
+.lead-copy li a[href$=pdf]:after,
+.lead-copy li a[href*=".pdf?"]:after,
+.pdf-link:after {
   margin: 0 5px;
   content: 'p';
   text-transform: none;
@@ -3853,7 +3851,8 @@ a[href$=pdf]:after, .lead-copy li a[href$=pdf]:after, .pdf-link:after {
   font-family: 'YMCA';
 }
 
-a[href$=pdf]:hover {
+a[href$=pdf]:hover,
+a[href*=".pdf?"]:hover {
   text-decoration: none;
 }
 
@@ -4573,7 +4572,7 @@ a.wrapper:hover {
   .directions-hours .address {
     margin-left: -10%;
     position: relative;
-    width: 44.6%;
+    width: 50%;
     overflow: hidden;
   }
 
@@ -7347,7 +7346,9 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 }
 
 .node--type-location .page-middle .content.node--view-mode-full,
-.node--type-camp .page-middle .content.node--view-mode-full {
+.node--type-location .page-middle .content.node--view-mode-default,
+.node--type-camp .page-middle .content.node--view-mode-full,
+.node--type-camp .page-middle .content.node--view-mode-default {
   background: none;
 }
 
@@ -7580,6 +7581,13 @@ nav#block-footermenuright {
   z-index: 1002;
 }
 
+.no-touch .toolbar-fixed .nav-location.affix, .no-touch .toolbar-fixed .locations-camps-template .nav-location.affix {
+  top: 90px;
+}
+.no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-location.affix, .no-touch .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .locations-camps-template .nav-location.affix {
+  top: 130px;
+}
+
 .carousel-caption .btn {
   padding: 15px 35px !important;
   font-size: 20px !important;
@@ -7611,7 +7619,8 @@ section.node--type-location.content {
   color: #333;
 }
 
-body form .js-form-type-radio.form-item {
+body form .js-form-type-radio.form-item,
+body form .field--widget-boolean-checkbox {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0;
@@ -7620,11 +7629,13 @@ body form .js-form-type-radio.form-item {
   padding-left: 20px;
   vertical-align: middle;
 }
-body form .js-form-type-radio.form-item input {
+body form .js-form-type-radio.form-item input,
+body form .field--widget-boolean-checkbox input {
   float: left;
   margin-left: -20px;
 }
-body form .js-form-type-radio.form-item label {
+body form .js-form-type-radio.form-item label,
+body form .field--widget-boolean-checkbox label {
   display: inline;
   margin-bottom: 0;
   font-weight: normal;
@@ -7676,6 +7687,76 @@ body form .js-form-type-radio.form-item label {
 
 .schedules-template .panel-group > .content-expander > .panel-heading a:before {
   display: none;
+}
+
+.post-excerpt .read-more-wrapper a {
+  color: #0089d0;
+  font-size: 16px;
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  -webkit-transition: color .2s ease-out;
+  -moz-transition: color .2s ease-out;
+  -ms-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+.post-excerpt .read-more-wrapper a:hover {
+  text-decoration: none;
+  color: #006ea7;
+}
+.post-excerpt .read-more-wrapper a:after {
+  text-transform: none;
+  position: relative;
+  top: 1px;
+  margin-left: 10px;
+  content: 'o';
+  vertical-align: baseline;
+  font-size: 20px;
+  font-family: 'YMCA';
+}
+
+.checkbox-custom-label {
+  font-weight: bold;
+  padding: 7px 0 0;
+}
+
+.field--widget-boolean-checkbox label {
+  font-weight: normal;
+}
+
+.field--type-address summary {
+  display: none;
+}
+.field--type-address div.address-container-inline > div.form-item {
+  float: none;
+  margin-right: 0;
+}
+
+.field--type-list-string legend {
+  border: none;
+}
+
+ul.linklist {
+  padding-left: 0;
+}
+
+.google-maps iframe {
+  width: 100% !important;
+}
+
+p.legend {
+  border-bottom: 1px solid #e5e5e5;
+  color: #a2a2a2;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1em;
+  margin-bottom: 20px;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.alerts-wrapper .alert {
+  margin-top: 20px;
 }
 
 .form-item {

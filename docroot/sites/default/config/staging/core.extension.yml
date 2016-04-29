@@ -6,14 +6,15 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  captcha: 0
   ckeditor: 0
   color: 0
-  comment: 0
   composer_manager: 0
   config: 0
   config_import: 0
   config_inspector: 0
   contact: 0
+  contact_storage: 0
   contextual: 0
   crop: 0
   csv_serialization: 0
@@ -34,6 +35,7 @@ module:
   help: 0
   history: 0
   image: 0
+  image_captcha: 0
   image_widget_crop: 0
   language: 0
   libraries: 0
@@ -50,6 +52,7 @@ module:
   node: 0
   options: 0
   page_cache: 0
+  parent_404: 0
   path: 0
   personify_sso: 0
   purge: 0
@@ -68,8 +71,10 @@ module:
   serialization: 0
   shield: 0
   shortcut: 0
+  simple_sitemap: 0
   sitemap: 0
   smtp: 0
+  syslog: 0
   system: 0
   taxonomy: 0
   telephone: 0
@@ -91,6 +96,7 @@ module:
   ymca_day_camp: 0
   ymca_demo: 0
   ymca_entity_embed: 0
+  ymca_field_custom_hours: 0
   ymca_field_holiday_hours: 0
   ymca_field_office_hours: 0
   ymca_frontend: 0

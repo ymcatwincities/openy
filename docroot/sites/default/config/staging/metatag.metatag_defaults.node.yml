@@ -5,5 +5,4 @@ dependencies: {  }
 id: node
 label: Content
 tags:
-  description: '[node:field_content]'
-  og_type: article
+  description: '[node:ymca_summary]'

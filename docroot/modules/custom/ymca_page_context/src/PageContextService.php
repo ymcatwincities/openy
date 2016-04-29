@@ -34,18 +34,13 @@ class PageContextService {
    *   An instance of \Drupal\node\Entity\Node or null.
    */
   public function getContext() {
-    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
+    if (isset($node)) {
       if (in_array($node->bundle(), ['camp', 'location'])) {
         return $node;
-      }
-      if ($node->hasField('field_related_camps_locations')) {
-        if ($values = $node->field_related_camps_locations->getValue()) {
-          foreach ($values as $value) {
-            if ($id = $value['target_id']) {
-              return \Drupal::entityTypeManager()->getStorage('node')->load($id);
-            }
-          }
-        }
       }
       if ($node->hasField('field_related')) {
         if ($value = $node->field_related->getValue()) {

@@ -108,7 +108,6 @@ abstract class AmmBlogsQuery implements AmmBlogsQueryInterface {
     return $this->neededIds;
   }
 
-
   /**
    * This method should be implemented within child class.
    *

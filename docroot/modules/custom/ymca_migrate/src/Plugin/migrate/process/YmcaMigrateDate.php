@@ -18,18 +18,13 @@ class YmcaMigrateDate extends ProcessPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function transform(
-    $value,
-    MigrateExecutableInterface $migrate_executable,
-    Row $row,
-    $destination_property
-  ) {
+  public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     // Site wide Timezone settings is currently doesn't work, so use custom config.
     $date = \DateTime::createFromFormat(
       'Y-m-d H:i:s',
       $value,
       new \DateTimeZone(
-        \Drupal::config('ymca_migrate.settings')->get('timezone')
+        \Drupal::config('system.date')->get('timezone')['default']
       )
     );
     return $date->getTimestamp();

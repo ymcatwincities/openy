@@ -1,0 +1,106 @@
+# Schema for configuration files of the Entity browser module.
+
+entity_browser.browser.*:
+  type: config_entity
+  label: 'Entity browser'
+  mapping:
+    name:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    display:
+      type: string
+      label: 'Display plugin ID'
+    display_configuration:
+      type: entity_browser.browser.display.[%parent.display]
+    selection_display:
+      type: string
+      label: 'Selection display plugin ID'
+    selection_display_configuration:
+      type: entity_browser.browser.selection_display.[%parent.selection_display]
+    widget_selector:
+      type: string
+      label: 'Widget selector plugin ID'
+    widget_selector_configuration:
+      type: entity_browser.browser.widget_selector.[%parent.widget_selector]
+    widgets:
+      type: sequence
+      label: 'Widgets'
+      sequence:
+        type: mapping
+        mapping:
+          id:
+            type: string
+          uuid:
+            type: string
+          label:
+            type: label
+          weight:
+            type: integer
+          settings:
+            type: entity_browser.browser.widget.[%parent.id]
+
+entity_browser.browser.display.standalone:
+  type: mapping
+  label: 'Standalone display configuration'
+  mapping:
+    path:
+      type: string
+      label: 'Page path'
+
+entity_browser.browser.display.iframe:
+  type: mapping
+  label: 'iFrame display configuration'
+  mapping:
+    width:
+      type: string
+      label: 'iFrame width'
+    height:
+      type: string
+      label: 'iFrame height'
+    link_text:
+      type: string
+      label: 'Link text'
+    auto_open:
+      type: boolean
+      label: 'Auto open'
+
+entity_browser.browser.display.modal:
+  type: mapping
+  label: 'Modal display configuration'
+  mapping:
+    width:
+      type: string
+      label: 'Modal width'
+    height:
+      type: string
+      label: 'Modal height'
+    link_text:
+      type: string
+      label: 'Link text'
+
+entity_browser.browser.widget.upload:
+  type: mapping
+  label: 'Upload widget configuration'
+  mapping:
+    upload_location:
+      type: string
+      label: 'Upload location'
+
+entity_browser.browser.widget.view:
+  type: mapping
+  label: 'View widget configuration'
+  mapping:
+    view:
+      type: string
+      label: 'View ID'
+    view_display:
+      type: string
+      label: 'View display ID'
+    arguments:
+      type: sequence
+      sequence:
+        type: integer
+        label: 'View display arguments'

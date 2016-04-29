@@ -8,6 +8,21 @@
 })(window,document,'script','dataLayer','GTM-577PGP');</script>
 <!-- End Google Tag Manager -->
 
+<!-- Optimize.ly -->
+<script>
+(function(projectId) { 
+    var protocol = ('https:' == document.location.protocol ? 
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' + 
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})("2665540759");
+</script>
+<!-- end of Optimize.ly -->
 <script id="excerpt-template" type="text/x-handlebars-template">
   {{#each excerpts}}
   <article class="row post-excerpt">
@@ -78,8 +93,7 @@
 
 <script id="programs-services-nav-template" type="text/x-handlebars-template">
   {{#each children}}
-  {{#if_gt @index compare=6}}
-  {{#if_lt @index compare=13}}
+  {{#if_eq show_in_meganav compare=1}}
   {{#if children}}
   <li class="{{#if children}} dropdown{{/if}} {{ classes }} {{ dasherized }} nav-level-{{ nav_level }}">
     <a class="dropdown-toggle {{#if active}} active{{/if}}" data-toggle="dropdown">
@@ -171,8 +185,7 @@
     <a href="{{ url }}" class="{{ classes }} link">{{{ page_name }}}</a>
   </li>
   {{/if}}
-  {{/if_lt}}
-  {{/if_gt}}
+  {{/if_eq}}
   {{/each}}
 </script>
 

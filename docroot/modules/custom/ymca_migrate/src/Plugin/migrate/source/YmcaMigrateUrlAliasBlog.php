@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_migrate\Plugin\migrate\source;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\migrate\Entity\MigrationInterface;
 use Drupal\ymca_migrate\Plugin\migrate\YmcaMigrateUrlAliasBase;
 use Drupal\migrate\Row;
@@ -44,7 +45,7 @@ class YmcaMigrateUrlAliasBlog extends YmcaMigrateUrlAliasBase {
    */
   protected function cleanTitle($str) {
     $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $str);
-    $clean = strtolower(trim($clean, '_'));
+    $clean = Unicode::strtolower(trim($clean, '_'));
     $clean = preg_replace("/[\/_|+ -]+/", '_', $clean);
     return $clean;
   }
