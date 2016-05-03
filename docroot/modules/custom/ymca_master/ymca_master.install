@@ -2369,8 +2369,6 @@ function ymca_master_update_8094() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      // $path . 'field.field.node.article.field_state.yml',
-      // $path . 'field.storage.node.field_state.yml',
       $path . 'core.entity_form_display.node.article.default.yml',
       $path . 'core.entity_form_display.node.blog.default.yml',
       $path . 'core.entity_form_display.node.camp.default.yml',
