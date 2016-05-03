@@ -22,7 +22,6 @@ dependencies:
     - file_browser
     - inline_entity_form
     - path
-    - scheduler
     - telephone
     - text
 id: node.location.default
