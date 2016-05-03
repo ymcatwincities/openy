@@ -21,7 +21,6 @@ dependencies:
     - address
     - inline_entity_form
     - path
-    - scheduler
     - telephone
     - text
 id: node.camp.default

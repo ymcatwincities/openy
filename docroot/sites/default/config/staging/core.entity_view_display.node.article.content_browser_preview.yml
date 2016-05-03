@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_status
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - node.type.article

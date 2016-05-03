@@ -4,22 +4,10 @@ status: true
 dependencies:
   module:
     - menu_ui
-    - scheduler
 third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-  scheduler:
-    expand_fieldset: false
-    publish_enable: false
-    publish_past_date: error
-    publish_required: false
-    publish_revision: false
-    publish_touch: false
-    unpublish_enable: false
-    unpublish_required: false
-    unpublish_revision: false
-    use_vertical_tabs: true
 name: Product
 type: product
 description: Product.
