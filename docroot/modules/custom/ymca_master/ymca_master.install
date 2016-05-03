@@ -2266,10 +2266,10 @@ function ymca_master_update_8090() {
 }
 
 /**
- * Enabling entity_inline_form.
+ * Enabling inline_entity_form.
  */
 function ymca_master_update_8091() {
-  \Drupal::service('module_installer')->install(array('entity_inline_form'), TRUE);
+  \Drupal::service('module_installer')->install(array('inline_entity_form'), TRUE);
 }
 
 /**
