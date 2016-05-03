@@ -2332,3 +2332,24 @@ function ymca_master_update_8090() {
     }
   }
 }
+
+/**
+ * Enabling entity_inline_form.
+ */
+function ymca_master_update_8091() {
+  \Drupal::service('module_installer')->install(array('entity_inline_form'), TRUE);
+}
+
+/**
+ * Enabling inline form for all block's references.
+ */
+function ymca_master_update_8092() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+    ]
+  );
+}

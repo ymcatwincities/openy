@@ -20,6 +20,7 @@ dependencies:
   module:
     - address
     - file_browser
+    - inline_entity_form
     - path
     - scheduler
     - telephone
@@ -37,11 +38,15 @@ content:
   field_alert:
     weight: 6
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_content:
     weight: 14
     settings:
@@ -78,11 +83,15 @@ content:
   field_main_promos:
     weight: 8
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_membership_block:
     weight: 7
     settings:
@@ -98,11 +107,15 @@ content:
   field_promo_slideshow:
     weight: 5
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_schedule_content:
     weight: 16
     settings:
@@ -125,11 +138,15 @@ content:
   field_working_hours:
     weight: 15
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   langcode:
     type: language_select
     weight: 2
