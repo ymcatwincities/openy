@@ -82,7 +82,6 @@ function ymca_workflow_form_alter(&$form, FormStateInterface $form_state, $form_
   }
   // Set "Create new revision" enabled by default.
   $form['revision']['#default_value'] = TRUE;
-  $form['revision']['#attributes']['disabled'] = TRUE;
 
   if (isset($form['actions']['publish'])) {
     $form['actions']['publish']['#access'] = FALSE;
