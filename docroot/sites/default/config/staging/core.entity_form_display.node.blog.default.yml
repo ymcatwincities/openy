@@ -14,7 +14,6 @@ dependencies:
     - entity_browser
     - file_browser
     - path
-    - scheduler
     - text
 id: node.blog.default
 targetEntityType: node

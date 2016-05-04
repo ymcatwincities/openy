@@ -1,0 +1,10 @@
+### Workflow Transition CRUD
+entity.workflow_transition.revert_form:
+  path: '/workflow_transition/{workflow_transition}/revert'
+  defaults:
+    _entity_form: 'workflow_transition.revert'
+    _title: 'Revert Workflow transition'
+  requirements:
+#    _entity_access: 'workflow_transition.revert'
+    _custom_access: '\Drupal\workflow_operations\WorkflowAccessControlHandler::revertAccess'
+#    _access: 'true'

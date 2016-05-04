@@ -11,7 +11,8 @@
   Drupal.behaviors.ContentBrowserView = {
     attach: function (context) {
       // Determine field cardinality.
-      var cardinality = parent.drupalSettings.entity_browser[drupalSettings.path.currentQuery.uuid].cardinality;
+      var uuid = drupalSettings.path.currentQuery.uuid;
+      var cardinality = parent.drupalSettings.entity_browser[uuid].cardinality;
 
       $('.views-row').once('bind-click-event').click(function () {
         // Special handling for cardinality = 1.

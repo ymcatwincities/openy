@@ -1,0 +1,10 @@
+# Permissions are declared in Workflow (not Workflow UI) so other contrib
+# modules can make use of it.
+
+administer workflow:
+  title: 'Administer workflows'
+  description: 'Administer all Workflow configurations and settings.'
+  restrict access: true
+
+permission_callbacks:
+  - \Drupal\workflow\WorkflowPermissions::workflowTypePermissions
