@@ -14,8 +14,8 @@ define('WORKFLOW_CREATION_STATE_NAME', '(' . t('creation') . ')');
 /**
  * Role ID for anonymous users.
  */
-// Add brackets to indicate a special role, and distinguish from frequently used 'author' role.
-define('WORKFLOW_ROLE_AUTHOR_NAME', '(' . t('author') . ')');
+// #2657072 brackets are added later to indicate a special role, and distinguish from frequently used 'author' role.
+define('WORKFLOW_ROLE_AUTHOR_NAME', 'Author');
 define('WORKFLOW_ROLE_AUTHOR_RID', 'workflow_author');
 
 use Drupal\Core\Entity\EntityInterface;
@@ -92,14 +92,14 @@ function TODOworkflow_entity_type_build(array &$entity_types) {
  * be accessible to Anonymous.
  */
 function workflow_user_cancel($edit, $account, $method) {
-  Workflow::workflowManager()->cancelUser($edit, $account, $method);
+  \Drupal::service('workflow.manager')->cancelUser($edit, $account, $method);
 }
 
 /**
  * Implements hook_user_delete().
  */
 function workflow_user_delete($account) {
-  Workflow::workflowManager()->deleteUser($account);
+  \Drupal::service('workflow.manager')->deleteUser($account);
 }
 
 /**
@@ -109,7 +109,7 @@ function workflow_user_delete($account) {
  * The technical name for the Workflow entity is 'workflow_type'.
  */
 function workflow_workflow_type_insert(EntityInterface $entity) {
-  Workflow::workflowManager()->participateUserRoles($entity);
+  \Drupal::service('workflow.manager')->participateUserRoles($entity);
 }
 
 /**
@@ -132,7 +132,7 @@ function workflow_entity_update(EntityInterface $entity) {
     'workflow_scheduled_transition',
   ])) {
     // Execute/save the transitions fom the widgets in the entity form.
-    Workflow::workflowManager()->executeTransitionsOfEntity($entity);
+    \Drupal::service('workflow.manager')->executeTransitionsOfEntity($entity);
   }
 }
 
@@ -185,7 +185,7 @@ function workflow_entity_delete(EntityInterface $entity) {
  * Given a timeframe, execute all scheduled transitions.
  */
 function workflow_cron() {
-  Workflow::workflowManager()->executeScheduledTransitionsBetween(0, REQUEST_TIME);
+  \Drupal::service('workflow.manager')->executeScheduledTransitionsBetween(0, REQUEST_TIME);
 }
 
 /**
@@ -197,7 +197,7 @@ function workflow_cron() {
  */
 function workflow_execute_transition(WorkflowTransitionInterface $transition, $force = FALSE) {
   // Execute transition and update the attached entity.
-  return Workflow::workflowManager()->executeTransition($transition);
+  return \Drupal::service('workflow.manager')->executeTransition($transition);
 }
 
 /**
@@ -247,7 +247,9 @@ function workflow_get_user_role_names($permission) {
   if (!$roles[$permission]) {
     // Copied from AccountForm::form().
     $roles[$permission] = array_map(array('\Drupal\Component\Utility\Html', 'escape'),
-      array(WORKFLOW_ROLE_AUTHOR_RID => WORKFLOW_ROLE_AUTHOR_NAME) + user_role_names(TRUE, $permission));
+      array(
+        WORKFLOW_ROLE_AUTHOR_RID => '(' . t(WORKFLOW_ROLE_AUTHOR_NAME) . ')'
+      ) + user_role_names(FALSE, $permission));
   }
 
   return $roles[$permission];
@@ -476,10 +478,10 @@ function workflow_current_user(\Drupal\Core\Session\AccountInterface $account = 
  *
  * @return string $current_sid
  *
- * @deprecated : use Workflow::workflowManager()->getCurrentStateId()
+ * @deprecated : use \Drupal::service('workflow.manager')->getCurrentStateId()
  */
 function workflow_node_current_state(EntityInterface $entity, $field_name = '') {
-  return Workflow::workflowManager()->getCurrentStateId($entity, $field_name);
+  return \Drupal::service('workflow.manager')->getCurrentStateId($entity, $field_name);
 }
 
 /**
@@ -490,10 +492,10 @@ function workflow_node_current_state(EntityInterface $entity, $field_name = '') 
  *
  * @return string $previous_sid
  *
- * @deprecated : use Workflow::workflowManager()->getPreviousStateId()
+ * @deprecated : use \Drupal::service('workflow.manager')->getPreviousStateId()
  */
 function workflow_node_previous_state($entity, $field_name = '') {
-  return Workflow::workflowManager()->getPreviousStateId($entity, $field_name);
+  return \Drupal::service('workflow.manager')->getPreviousStateId($entity, $field_name);
 }
 
 /**
