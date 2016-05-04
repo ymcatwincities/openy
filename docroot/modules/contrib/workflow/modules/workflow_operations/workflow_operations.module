@@ -5,10 +5,7 @@
  * Adds an 'Revert' link to the first workflow history row.
  */
 
-use Drupal\user\UserInterface;
-use Drupal\workflow\Entity\WorkflowManager;
 use Drupal\workflow\Entity\WorkflowTransitionInterface;
-use Drupal\workflow_operations\Form\WorkflowTransitionRevertForm;
 use Drupal\workflow_operations\WorkflowAccessControlHandler;
 
 /**
