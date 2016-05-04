@@ -61,6 +61,11 @@ function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, 
     return;
   }
 
+  // Proceed only with associated nodes.
+  if (!$entity->hasField('field_state')) {
+    return;
+  }
+
   // If current revision is active -- create new revision and set it inactive.
   if ($entity->isDefaultRevision()) {
     $entity->setNewRevision();
