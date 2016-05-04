@@ -7,15 +7,15 @@
 
 namespace Drupal\workflowfield\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityFormBuilderInterface;
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\workflow\Entity\WorkflowManager;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\workflow\Entity\WorkflowManagerInterface;
 use Drupal\workflow\Entity\WorkflowState;
 use Drupal\workflow\Entity\WorkflowTransition;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -152,7 +152,7 @@ class WorkflowDefaultFormatter extends FormatterBase implements ContainerFactory
     // @todo: Perhaps global user is not always the correct user.
     // E.g., on ScheduledTransition->execute()? But this function is mostly used in UI.
 
-    $current_sid = WorkflowManager::getCurrentStateId($entity, $field_name);
+    $current_sid = $this->workflowManager()->getCurrentStateId($entity, $field_name);
     /* @var $current_state WorkflowState */
     $current_state = WorkflowState::load($current_sid);
 
@@ -245,4 +245,12 @@ class WorkflowDefaultFormatter extends FormatterBase implements ContainerFactory
     return $this->entityFormBuilder;
   }
 
+  /**
+   * Retrieves the WorkflowManager.
+   *
+   * @return WorkflowManagerInterface
+   */
+  protected function workflowManager() {
+    return \Drupal::service('workflow.manager');
+  }
 }

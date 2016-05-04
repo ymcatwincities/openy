@@ -171,7 +171,7 @@ class WorkflowTransitionForm extends ContentEntityForm {
     // where $entity is passed by reference.
     // $this->copyFormValuesToEntity($entity, $form, $form_state);
     $item = $form_state->getValues();
-    $entity = WorkflowTransitionElement::copyFormItemValuesToEntity($entity, $form, $item);
+    $entity = WorkflowTransitionElement::copyFormItemValuesToEntity($entity, $form, $form_state, $item);
 
     // Mark the entity as NOT requiring validation. (Used in validateForm().)
     $entity->setValidationRequired(FALSE);

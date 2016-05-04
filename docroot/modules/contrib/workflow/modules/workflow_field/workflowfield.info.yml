@@ -9,8 +9,8 @@ dependencies:
   - options
   - workflow
 
-# Information added by Drupal.org packaging script on 2015-12-28
-version: '8.x-1.0-beta4'
+# Information added by Drupal.org packaging script on 2016-01-31
+version: '8.x-1.0-beta4+10-dev'
 core: '8.x'
 project: 'workflow'
-datestamp: 1451335745
+datestamp: 1454252649
