@@ -3,6 +3,7 @@
 namespace Drupal\ymca_workflow;
 
 use Drupal\Core\ParamConverter\EntityConverter;
+use Drupal\node\NodeInterface;
 
 /**
  * Overrides EntityConverter to load latest revision on node edit form.
@@ -14,6 +15,16 @@ class YmcaWorkflowEntityConverter extends EntityConverter {
    */
   public function convert($value, $definition, $name, array $defaults) {
     $entity = parent::convert($value, $definition, $name, $defaults);
+
+    // Proceed only with nodes.
+    if (!($entity instanceof NodeInterface)) {
+      return $entity;
+    }
+
+    // Proceed only with associated nodes.
+    if (!$entity->hasField('field_state')) {
+      return $entity;
+    }
 
     if ($defaults['_route'] == 'entity.node.edit_form') {
       // Always load the latest revision.

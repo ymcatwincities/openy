@@ -18,6 +18,11 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
     return;
   }
 
+  // Proceed only with associated nodes.
+  if (!$entity->hasField('field_state')) {
+    return;
+  }
+
   // All revisions to be unpublished unless published.
   $entity->status->value = 0;
 
@@ -53,6 +58,11 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
 function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, FormStateInterface $form_state) {
   // Proceed only with nodes and Edit operation.
   if (!($entity instanceof NodeInterface) || $operation != 'edit') {
+    return;
+  }
+
+  // Proceed only with associated nodes.
+  if (!$entity->hasField('field_state')) {
     return;
   }
 
