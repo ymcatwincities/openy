@@ -2265,7 +2265,6 @@ function ymca_master_update_8090() {
   }
 }
 
-
 /**
  * Install workflow module.
  */
@@ -2370,10 +2369,7 @@ function ymca_master_update_8094() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-//      $path . 'field.field.node.article.field_state.yml',
-//      $path . 'field.storage.node.field_state.yml',
       $path . 'core.entity_form_display.node.article.default.yml',
-
       $path . 'core.entity_form_display.node.blog.default.yml',
       $path . 'core.entity_form_display.node.camp.default.yml',
       $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
@@ -2388,6 +2384,27 @@ function ymca_master_update_8094() {
       $path . 'entity_browser.browser.browse_content.yml',
       $path . 'entity_browser.browser.browse_content_modal.yml',
       $path . 'views.view.content_browser_node.yml',
+    ]
+  );
+}
+
+/**
+ * Enabling inline_entity_form.
+ */
+function ymca_master_update_8091() {
+  \Drupal::service('module_installer')->install(array('inline_entity_form'), TRUE);
+}
+
+/**
+ * Enabling inline form for all block's references.
+ */
+function ymca_master_update_8095() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
     ]
   );
 }
