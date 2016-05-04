@@ -5,8 +5,8 @@
       var d = new Date(),
           out = [];
 
-      out[0] = d.getDate();
-      out[1] = d.getMonth() + 1;
+      out[0] = d.getMonth() + 1;
+      out[1] = d.getDate();
       out[2] = d.getFullYear().toString().slice(-2);
 
       // Add leading zero if needed.
