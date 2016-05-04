@@ -2091,47 +2091,6 @@ function ymca_master_update_8082() {
 }
 
 /**
- * Remove exclude sitemap field.
- */
-function ymca_master_update_8083() {
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'core.entity_form_display.node.article.default.yml',
-      $path . 'core.entity_form_display.node.blog.default.yml',
-      $path . 'core.entity_form_display.node.camp.default.yml',
-      $path . 'core.entity_form_display.node.location.default.yml',
-      $path . 'core.entity_view_display.node.article.default.yml',
-      $path . 'core.entity_view_display.node.article.full.yml',
-      $path . 'core.entity_view_display.node.article.rss.yml',
-      $path . 'core.entity_view_display.node.article.teaser.yml',
-      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
-      $path . 'core.entity_view_display.node.blog.default.yml',
-      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
-      $path . 'core.entity_view_display.node.blog.teaser.yml',
-      $path . 'core.entity_view_display.node.camp.default.yml',
-      $path . 'core.entity_view_display.node.camp.teaser.yml',
-      $path . 'core.entity_view_display.node.location.default.yml',
-      $path . 'core.entity_view_display.node.location.groupex.yml',
-      $path . 'core.entity_view_display.node.location.schedules.yml',
-      $path . 'core.entity_view_display.node.location.teaser.yml',
-    ]
-  );
-
-  $factory = \Drupal::configFactory();
-  $delete = [
-    'field.field.node.article.field_sitemap_exclude',
-    'field.field.node.blog.field_sitemap_exclude',
-    'field.field.node.camp.field_sitemap_exclude',
-    'field.field.node.location.field_sitemap_exclude',
-    'field.storage.node.field_sitemap_exclude',
-  ];
-  foreach ($delete as $item) {
-    $factory->getEditable($item)->delete();
-  }
-}
-
-/**
  * Migrate exclude from sitemap option for native widget.
  */
 function ymca_master_update_8084() {
@@ -2245,33 +2204,6 @@ function ymca_master_update_8088() {
 }
 
 /**
- * Enable Content Browser module & import relative configs.
- */
-function ymca_master_update_8089() {
-  \Drupal::service('module_installer')->install(['content_browser'], TRUE);
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'core.entity_form_display.node.article.default.yml',
-      $path . 'core.entity_form_display.node.blog.default.yml',
-      $path . 'core.entity_form_display.node.camp.default.yml',
-      $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.article.default.yml',
-      $path . 'core.entity_view_display.node.blog.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.blog.default.yml',
-      $path . 'core.entity_view_display.node.camp.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.location.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.location.default.yml',
-      $path . 'core.entity_view_mode.node.content_browser_preview.yml',
-      $path . 'embed.button.content_browser.yml',
-      $path . 'entity_browser.browser.browse_content.yml',
-      $path . 'entity_browser.browser.browse_content_modal.yml',
-      $path . 'views.view.content_browser_node.yml',
-    ]
-  );
-}
-
-/**
  * Update content, menus and redirects to use new domain www.ymcamn.org.
  */
 function ymca_master_update_8090() {
@@ -2331,4 +2263,148 @@ function ymca_master_update_8090() {
         ->execute();
     }
   }
+}
+
+/**
+ * Install workflow module.
+ */
+function ymca_master_update_8093() {
+  $install = [
+    'workflow',
+    'workflow_ui',
+    'workflowfield',
+    'workflow_operations',
+    'workflow_access',
+    'ymca_workflow',
+  ];
+  \Drupal::service('module_installer')->install($install, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+
+      $path . 'field.field.node.article.field_state.yml',
+      $path . 'field.storage.node.field_state.yml',
+
+      $path . 'views.view.needs_review.yml',
+
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.editor.yml',
+
+      // Workflow related configs.
+      $path . 'workflow.settings.yml',
+      $path . 'workflow.state.workflow_(creation).yml',
+      $path . 'workflow.state.workflow_draft.yml',
+      $path . 'workflow.state.workflow_needs_review.yml',
+      $path . 'workflow.state.workflow_published.yml',
+      $path . 'workflow.state.workflow_unpublished.yml',
+      $path . 'workflow.transition.workflow_(creation)_draft.yml',
+      $path . 'workflow.transition.workflow_(creation)_needs_review.yml',
+      $path . 'workflow.transition.workflow_(creation)_published.yml',
+      $path . 'workflow.transition.workflow_draft_draft.yml',
+      $path . 'workflow.transition.workflow_draft_needs_review.yml',
+      $path . 'workflow.transition.workflow_draft_published.yml',
+      $path . 'workflow.transition.workflow_needs_review_draft.yml',
+      $path . 'workflow.transition.workflow_needs_review_needs_review.yml',
+      $path . 'workflow.transition.workflow_needs_review_published.yml',
+      $path . 'workflow.transition.workflow_published_draft.yml',
+      $path . 'workflow.transition.workflow_published_needs_review.yml',
+      $path . 'workflow.transition.workflow_published_published.yml',
+      $path . 'workflow.workflow.workflow.yml',
+      $path . 'workflow_access.settings.yml',
+      $path . 'workflow.transition.workflow_(creation)_unpublished.yml',
+      $path . 'workflow.transition.workflow_draft_unpublished.yml',
+      $path . 'workflow.transition.workflow_needs_review_unpublished.yml',
+      $path . 'workflow.transition.workflow_published_unpublished.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
+      $path . 'workflow.transition.workflow_unpublished_published.yml',
+      $path . 'workflow.transition.workflow_unpublished_unpublished.yml',
+    ]
+  );
+
+  $factory = \Drupal::configFactory();
+  $delete = [
+    'field.field.node.article.field_sitemap_exclude',
+    'field.field.node.blog.field_sitemap_exclude',
+    'field.field.node.camp.field_sitemap_exclude',
+    'field.field.node.location.field_sitemap_exclude',
+    'field.storage.node.field_sitemap_exclude',
+    // Remove Status field.
+    'field.field.node.article.field_status',
+    'field.storage.node.field_status',
+  ];
+  foreach ($delete as $item) {
+    $factory->getEditable($item)->delete();
+  }
+
+  // Disable Scheduler module.
+  \Drupal::service('module_installer')->uninstall(array('scheduler'));
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable Content Browser module & import relative configs.
+ */
+function ymca_master_update_8094() {
+  \Drupal::service('module_installer')->install(['content_browser'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.blog.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.camp.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_mode.node.content_browser_preview.yml',
+      $path . 'embed.button.content_browser.yml',
+      $path . 'entity_browser.browser.browse_content.yml',
+      $path . 'entity_browser.browser.browse_content_modal.yml',
+      $path . 'views.view.content_browser_node.yml',
+    ]
+  );
+}
+
+/**
+ * Enabling inline_entity_form.
+ */
+function ymca_master_update_8091() {
+  \Drupal::service('module_installer')->install(array('inline_entity_form'), TRUE);
+}
+
+/**
+ * Enabling inline form for all block's references.
+ */
+function ymca_master_update_8095() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+    ]
+  );
 }
