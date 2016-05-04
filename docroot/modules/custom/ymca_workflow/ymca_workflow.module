@@ -80,6 +80,10 @@ function ymca_workflow_form_alter(&$form, FormStateInterface $form_state, $form_
   if ($form_id != 'node_article_edit_form' && $form_id != 'node_article_form') {
     return;
   }
+  // Set "Create new revision" enabled by default.
+  $form['revision']['#default_value'] = TRUE;
+  $form['revision']['#access'] = FALSE;
+
   if (isset($form['actions']['publish'])) {
     $form['actions']['publish']['#access'] = FALSE;
     unset($form['actions']['publish']['#dropbutton']);
