@@ -18,6 +18,11 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
     return;
   }
 
+  // Proceed only with associated nodes.
+  if (!$entity->hasField('field_state')) {
+    return;
+  }
+
   // All revisions to be unpublished unless published.
   $entity->status->value = 0;
 
