@@ -83,6 +83,16 @@ class Workflow extends ConfigEntityBase implements WorkflowInterface {
   public $transitions = array();
 
   /**
+   * Retrieves the workflow manager.
+   *
+   * @return \Drupal\workflow\Entity\WorkflowManagerInterface
+   *   The workflow manager.
+   */
+  public static function workflowManager() {
+    return \Drupal::service('workflow.manager');
+  }
+
+  /**
    * CRUD functions.
    */
 
@@ -214,13 +224,6 @@ class Workflow extends ConfigEntityBase implements WorkflowInterface {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public static function workflowManager() {
-    return new WorkflowManager();
-  }
-
-  /**
    * Property functions.
    */
 
@@ -310,7 +313,7 @@ class Workflow extends ConfigEntityBase implements WorkflowInterface {
   public function getNextSid(EntityInterface $entity, $field_name, AccountInterface $user, $force = FALSE) {
     $new_sid = FALSE;
 
-    $current_sid = WorkflowManager::getCurrentStateId($entity, $field_name);
+    $current_sid = Workflow::workflowManager()->getCurrentStateId($entity, $field_name);
     /* @var $current_state WorkflowState */
     $current_state = WorkflowState::load($current_sid);
     $options = $current_state->getOptions($entity, $field_name, $user, $force);

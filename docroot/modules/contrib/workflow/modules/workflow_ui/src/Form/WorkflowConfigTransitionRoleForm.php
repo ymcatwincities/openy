@@ -20,23 +20,13 @@ class WorkflowConfigTransitionRoleForm extends WorkflowConfigTransitionFormBase 
 
   /**
    * {@inheritdoc}
-   *
-   * Create an $entity for every From-state.
    */
-  public function load() {
-    $entities = array();
+  protected $entitiesKey = 'workflow_state';
 
-    $workflow = $this->workflow;
-    $states = $workflow->getStates($all = 'CREATION');
-    if ($states) {
-      foreach ($states as $state) {
-        $from = $state->id();
-        $entities[$from] = $state;
-      }
-    }
-
-    return $entities;
-  }
+  /**
+   * {@inheritdoc}
+   */
+  protected $type = 'permission';
 
   /**
    * {@inheritdoc}
@@ -56,7 +46,6 @@ class WorkflowConfigTransitionRoleForm extends WorkflowConfigTransitionFormBase 
         }
       }
     }
-
     return $header;
   }
 
@@ -136,13 +125,6 @@ class WorkflowConfigTransitionRoleForm extends WorkflowConfigTransitionFormBase 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $workflow = $this->workflow;
     // Make sure 'author' is checked for (creation) -> [something].
@@ -194,8 +176,6 @@ class WorkflowConfigTransitionRoleForm extends WorkflowConfigTransitionFormBase 
     }
 
     drupal_set_message(t('The workflow was updated.'));
-
-    return;
   }
 
 }

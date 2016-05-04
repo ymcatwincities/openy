@@ -20,14 +20,6 @@ use Drupal\Core\Session\AccountInterface;
 interface WorkflowInterface {
 
   /**
-   * Retrieves the entity manager service.
-   *
-   * @return \Drupal\workflow\Entity\WorkflowManagerInterface
-   *   The entity manager service.
-   */
-  public static function workflowManager();
-
-  /**
    * Returns the workflow id.
    *
    * @return string

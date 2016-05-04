@@ -58,11 +58,11 @@ class WorkflowConfigTransitionListBuilder extends ConfigEntityListBuilder {
     $form_type = workflow_ui_url_get_form_type();
     switch ($form_type) {
       case 'transition_roles':
-        $form = new WorkflowConfigTransitionRoleForm('permission', $workflow);
+        $form = new WorkflowConfigTransitionRoleForm();
         return $this->formBuilder()->getForm($form);
 
       case 'transition_labels':
-        $form = new WorkflowConfigTransitionLabelForm('label', $workflow);
+        $form = new WorkflowConfigTransitionLabelForm();
         return $this->formBuilder()->getForm($form);
 
       default:
