@@ -16,8 +16,8 @@ display_configuration:
   widget_ids:
     735d146c-a4b2-4327-a057-d109e0905e05: 'Upload files'
     a4ad947c-9669-497c-9988-24351955a02f: 'Files listing'
-  width: 1100
-  height: 650
+  width: '1100'
+  height: '650'
   link_text: 'Select files'
   auto_open: true
 selection_display: no_display

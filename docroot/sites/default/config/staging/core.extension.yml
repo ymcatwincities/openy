@@ -15,20 +15,28 @@ module:
   config_inspector: 0
   contact: 0
   contact_storage: 0
+  content_browser: 0
   contextual: 0
   crop: 0
   csv_serialization: 0
+  ctools: 0
   datetime: 0
   dblog: 0
   default_content: 0
   draggableviews: 0
+  dropzonejs: 0
+  dropzonejs_eb_widget: 0
   dynamic_page_cache: 0
   editor: 0
   embed: 0
+  entity_browser: 0
+  entity_clone: 0
   entity_embed: 0
+  entity_reference: 0
   field: 0
   field_ui: 0
   file: 0
+  file_browser: 0
   file_entity: 0
   filter: 0
   hal: 0
@@ -37,7 +45,9 @@ module:
   image: 0
   image_captcha: 0
   image_widget_crop: 0
+  inline_entity_form: 0
   language: 0
+  layout_plugin: 0
   libraries: 0
   link: 0
   mailsystem: 0
@@ -46,12 +56,13 @@ module:
   metatag_open_graph: 0
   migrate: 0
   migrate_plus: 0
-  migrate_source_csv: 0
-  migrate_tools: 0
   mimemail: 0
   node: 0
   options: 0
   page_cache: 0
+  page_manager: 0
+  page_manager_ui: 0
+  panels: 0
   parent_404: 0
   path: 0
   personify_sso: 0
@@ -85,6 +96,11 @@ module:
   user: 0
   views_ui: 0
   webforms: 0
+  workflow: 0
+  workflow_access: 0
+  workflow_operations: 0
+  workflow_ui: 0
+  workflowfield: 0
   ymca_activity_finder: 0
   ymca_aliases: 0
   ymca_alters: 0
@@ -111,6 +127,7 @@ module:
   ymca_personify: 0
   ymca_search_alter: 0
   ymca_styleguide: 0
+  ymca_workflow: 0
   menu_link_content: 1
   views: 10
 theme:
