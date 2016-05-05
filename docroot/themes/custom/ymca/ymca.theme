@@ -607,13 +607,7 @@ function ymca_preprocess_search_results_page(&$vars) {
     $vars['base_path'] = base_path();
     $vars['search_blog'] = TRUE;
 
-    $available_terms = array(
-      'Community' => 1,
-      'Fitness' => 2,
-      'Healthy Kids' => 3,
-      'Lifestyle' => 4,
-      'Nutrition' => 5,
-    );
+    $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
     foreach ($available_terms as $name => $tid) {
       $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
       $vars['categories'][] = $link;
