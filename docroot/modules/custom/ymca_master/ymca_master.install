@@ -2356,7 +2356,15 @@ function ymca_master_update_8093() {
   }
 
   // Disable Scheduler module.
-  \Drupal::service('module_installer')->uninstall(array('scheduler'));
+  // We should ensure the publish_on and unpublish_on fields are empty.
+  $db = Database::getConnection();
+  $db->update('node_field_data')
+    ->fields([
+      'publish_on' => NULL,
+      'unpublish_on' => NULL
+    ])
+    ->execute();
+  Drupal::service('module_installer')->uninstall(['scheduler']);
 
   drupal_flush_all_caches();
 }
