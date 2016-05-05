@@ -606,13 +606,16 @@ function ymca_preprocess_search_results_page(&$vars) {
   if ($current_path == '/search_results' && isset($_GET['f'][0]) && $_GET['f'][0] == 'type:blog') {
     $vars['base_path'] = base_path();
     $vars['search_blog'] = TRUE;
-    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
-    foreach ($tree as $term_object) {
-      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_object->tid);
-      if ($term->name == 'News') {
-        continue;
-      }
-      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $term_object->tid));
+
+    $available_terms = array(
+      'Community' => 1,
+      'Fitness' => 2,
+      'Healthy Kids' => 3,
+      'Lifestyle' => 4,
+      'Nutrition' => 5,
+    );
+    foreach ($available_terms as $name => $tid) {
+      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
