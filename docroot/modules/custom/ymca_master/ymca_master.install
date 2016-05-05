@@ -2204,6 +2204,7 @@ function ymca_master_update_8088() {
 }
 
 /**
+<<<<<<< HEAD
  * Update content, menus and redirects to use new domain www.ymcamn.org.
  */
 function ymca_master_update_8090() {
@@ -2413,6 +2414,16 @@ function ymca_master_update_8095() {
       $path . 'core.entity_form_display.node.article.default.yml',
       $path . 'core.entity_form_display.node.camp.default.yml',
       $path . 'core.entity_form_display.node.location.default.yml',
+}
+
+/**
+ * Add new theme specific config.
+ */
+function ymca_master_update_8096() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_frontend.settings.yml',
     ]
   );
 }
