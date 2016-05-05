@@ -2204,7 +2204,6 @@ function ymca_master_update_8088() {
 }
 
 /**
-<<<<<<< HEAD
  * Update content, menus and redirects to use new domain www.ymcamn.org.
  */
 function ymca_master_update_8090() {
