@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Plugin\views\argument\NumericArgument.
- */
-
 namespace Drupal\views\Plugin\views\argument;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -67,7 +62,7 @@ class NumericArgument extends ArgumentPluginBase {
     }
 
     if (!empty($this->options['break_phrase'])) {
-      $break = static::breakString($this->argument, TRUE);
+      $break = static::breakString($this->argument, FALSE);
       $this->value = $break->value;
       $this->operator = $break->operator;
     }
@@ -100,7 +95,7 @@ class NumericArgument extends ArgumentPluginBase {
     $this->ensureMyTable();
 
     if (!empty($this->options['break_phrase'])) {
-      $break = static::breakString($this->argument, TRUE);
+      $break = static::breakString($this->argument, FALSE);
       $this->value = $break->value;
       $this->operator = $break->operator;
     }
