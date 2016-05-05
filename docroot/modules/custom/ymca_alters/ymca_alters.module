@@ -13,6 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Query\AlterableInterface;
 
 /**
  * Implements hook_help().
@@ -360,4 +361,22 @@ function ymca_alters_library_info_alter(&$libraries, $extension) {
     }
   }
   $libraries['view']['js'] = $new_js;
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function ymca_alters_query_needs_review_alter($query) {
+  $query->addJoin(
+    'LEFT',
+    'node_revision__field_state',
+    '',
+    'node_field_data_node_field_revision.nid = node_revision__field_state.entity_id AND (node_revision__field_state.deleted = :views_join_condition_0 AND node_revision__field_state.langcode = node_field_data_node_field_revision.langcode)',
+    array(':views_join_condition_0' => 0)
+  );
+  $query->condition(
+    'node_revision__field_state.field_state_value',
+    'workflow_needs_review',
+    'LIKE'
+  );
 }
