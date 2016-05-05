@@ -2428,3 +2428,15 @@ function ymca_master_update_8096() {
     ]
   );
 }
+
+/**
+ * Update views "Needs review" config.
+ */
+function ymca_master_update_8097() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.needs_review.yml',
+    ]
+  );
+}
