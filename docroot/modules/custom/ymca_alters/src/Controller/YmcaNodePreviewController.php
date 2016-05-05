@@ -31,20 +31,22 @@ class YmcaNodePreviewController extends NodePreviewController {
 
       // Set the node path as the canonical URL to prevent duplicate content.
       $build['#attached']['html_head_link'][] = array(
-        array(
+        [
           'rel' => $rel,
-          'href' => $node_preview->url($rel),
-        )
-      , TRUE);
+          'href' => $node_preview->url($rel)
+        ],
+        TRUE
+      );
 
       if ($rel == 'canonical') {
         // Set the non-aliased canonical path as a default shortlink.
         $build['#attached']['html_head_link'][] = array(
-          array(
+          [
             'rel' => 'shortlink',
-            'href' => $node_preview->url($rel, array('alias' => TRUE)),
-          )
-        , TRUE);
+            'href' => $node_preview->url($rel, array('alias' => TRUE))
+          ],
+          TRUE
+        );
       }
     }
 
