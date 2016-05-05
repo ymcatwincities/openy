@@ -22,6 +22,10 @@ class RouteSubscriber extends RouteSubscriberBase {
           $item->setDefault('_controller', 'Drupal\ymca_alters\Controller\NodeViewController::view');
           break;
 
+        case '/node/preview/{node_preview}/{view_mode_id}':
+          $item->setDefault('_controller', '\Drupal\ymca_alters\Controller\YmcaNodePreviewController::view');
+          break;
+
         case '/sitemap':
           $item->setPath('/sitemap_navigation');
           break;
