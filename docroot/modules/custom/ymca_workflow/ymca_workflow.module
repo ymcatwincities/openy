@@ -50,6 +50,12 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
     }
     $entity->isDefaultRevision(TRUE);
   }
+
+  // Do not set default revision for states differ from published & unpublished.
+  $exclude = ['workflow_published', 'workflow_unpublished'];
+  if (!in_array($entity->field_state->value, $exclude)) {
+    $entity->isDefaultRevision(FALSE);
+  }
 }
 
 /**
@@ -66,11 +72,15 @@ function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, 
     return;
   }
 
-//  // If current revision is active -- create new revision and set it inactive.
-//  if ($entity->isDefaultRevision()) {
-//    $entity->setNewRevision();
-//    $entity->isDefaultRevision(FALSE);
-//  }
+  // Here we should always load the latest revision (with the greatest ID).
+  $storage = \Drupal::entityManager()->getStorage('node');
+  $greatestId = max($storage->revisionIds($entity));
+  $entity = $storage->loadRevision($greatestId);
+
+  // Inject latest revision into the form.
+  $build_info = $form_state->getBuildInfo();
+  $form_object = $build_info['callback_object'];
+  $form_object->setEntity($entity);
 }
 
 /**
