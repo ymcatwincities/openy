@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\TypedData\Plugin\DataType\DateTimeIso8601.
- */
-
 namespace Drupal\Core\TypedData\Plugin\DataType;
 
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -48,4 +43,3 @@ class DateTimeIso8601 extends StringData implements DateTimeInterface {
     }
   }
 }
-

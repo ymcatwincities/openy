@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Executable\ExecutablePluginBase.
- */
-
 namespace Drupal\Core\Executable;
 
 use Drupal\Core\Plugin\ContextAwarePluginBase;
@@ -89,4 +84,3 @@ abstract class ExecutablePluginBase extends ContextAwarePluginBase implements Ex
     return $this;
   }
 }
-

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Extension\ModuleInstallerInterface.
- */
-
 namespace Drupal\Core\Extension;
 
 /**
@@ -87,4 +82,3 @@ interface ModuleInstallerInterface {
   public function validateUninstall(array $module_list);
 
 }
-
