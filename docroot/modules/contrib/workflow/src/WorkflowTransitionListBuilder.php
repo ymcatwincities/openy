@@ -223,8 +223,6 @@ class WorkflowTransitionListBuilder extends EntityListBuilder implements FormInt
    * {@inheritdoc}
    *
    * Builds the entity listing as renderable array for table.html.twig.
-   *
-   * @todo Add a link to add a new item to the #empty text.
    */
   public function render() {
     $build = array();
@@ -232,11 +230,6 @@ class WorkflowTransitionListBuilder extends EntityListBuilder implements FormInt
     // @todo d8-port: get pager working.
     $this->limit = \Drupal::config('workflow.settings')->get('workflow_states_per_page');  // TODO D8-port
     // $output .= theme('pager', array('tags' => $limit)); // TODO D8-port
-
-    // @todo d8-port: get core title working: $build['table']['#title'] by getTitle() is not working.
-    $build['workflow_list_title'] = array(
-      '#markup' => $this->getTitle(),
-    );
 
     $build += parent::render();
 

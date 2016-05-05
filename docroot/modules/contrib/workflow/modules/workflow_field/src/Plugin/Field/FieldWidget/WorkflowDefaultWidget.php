@@ -115,18 +115,23 @@ class WorkflowDefaultWidget extends WidgetBase {
     $transition->setTargetEntity($entity);
 
     if (!$this->isDefaultValueWidget($form_state)) {
+      // Here, on entity form, not the $element is added, but the entity form.
+      // Problem 1: adding the element, does not add added fields.
+      // Problem 2: adding the form, generates wrong UI.
+      // Problem 3: does not work on ScheduledTransition.
 
-      // Here, not the $element is added, but the entity form.
-
-      // Option 1: use the Element.
+      // Step 1: use the Element.
       $element['#default_value'] = $transition;
       $element += WorkflowTransitionElement::transitionElement($element, $form_state, $form);
 
-      // Option 2: use the Form, in order to get extra fields.
-      //$entity_form_builder = \Drupal::getContainer()->get('entity.form_builder');
-      //$element += $entity_form_builder->getForm($transition, 'add');
-      //// Remove the action button. The Entity itself has one.
-      //unset($element['actions']);
+      // Step 2: use the Form, in order to get extra fields.
+      $entity_form_builder = \Drupal::getContainer()->get('entity.form_builder');
+      $workflow_form = $entity_form_builder->getForm($transition, 'add');
+      // Determine and add the attached fields.
+      $attached_fields = Workflow::workflowManager()->getAttachedFields('workflow_transition', $wid);
+      foreach ($attached_fields as $attached_field) {
+        $element[$attached_field] = $workflow_form[$attached_field];
+      }
 
       // Option 3: use the true Element.
       // $form = $this->element($form, $form_state, $transition);
@@ -228,7 +233,7 @@ class WorkflowDefaultWidget extends WidgetBase {
         // where $entity/$transition is passed by reference.
         // $this->copyFormValuesToEntity($entity, $form, $form_state);
         /* @var $transition \Drupal\workflow\Entity\WorkflowTransitionInterface */
-        $transition = WorkflowTransitionElement::copyFormItemValuesToEntity($transition, $form, $item);
+        $transition = WorkflowTransitionElement::copyFormItemValuesToEntity($transition, $form, $form_state, $item);
 
         // Try to execute the transition. Return $from_sid when error.
         if (!$transition) {
