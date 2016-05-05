@@ -2243,3 +2243,15 @@ function ymca_master_update_8088() {
     ]
   );
 }
+
+/**
+ * Add new theme specific config.
+ */
+function ymca_master_update_8089() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_frontend.settings.yml',
+    ]
+  );
+}
