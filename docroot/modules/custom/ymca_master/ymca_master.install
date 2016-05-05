@@ -2413,6 +2413,8 @@ function ymca_master_update_8095() {
       $path . 'core.entity_form_display.node.article.default.yml',
       $path . 'core.entity_form_display.node.camp.default.yml',
       $path . 'core.entity_form_display.node.location.default.yml',
+    ]
+  );
 }
 
 /**
