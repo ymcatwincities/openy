@@ -52,9 +52,12 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
   }
 
   // Do not set default revision for states differ from published & unpublished.
-  $exclude = ['workflow_published', 'workflow_unpublished'];
-  if (!in_array($entity->field_state->value, $exclude)) {
-    $entity->isDefaultRevision(FALSE);
+  // Acceptable only for existing nodes.
+  if (!$entity->isNew()) {
+    $exclude = ['workflow_published', 'workflow_unpublished'];
+    if (!in_array($entity->field_state->value, $exclude)) {
+      $entity->isDefaultRevision(FALSE);
+    }
   }
 }
 
