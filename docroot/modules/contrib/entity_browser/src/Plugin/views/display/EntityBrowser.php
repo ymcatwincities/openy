@@ -13,6 +13,10 @@ use Drupal\views\Plugin\views\display\DisplayPluginBase;
 /**
  * The plugin that handles entity browser display.
  *
+ * "entity_browser_display" is a custom property, used with
+ * \Drupal\views\Views::getApplicableViews() to retrieve all views with a
+ * 'Entity Browser' display.
+ *
  * @ingroup views_display_plugins
  *
  * @ViewsDisplay(
@@ -20,7 +24,8 @@ use Drupal\views\Plugin\views\display\DisplayPluginBase;
  *   title = @Translation("Entity browser"),
  *   help = @Translation("Displays a view as Entity browser widget."),
  *   theme = "views_view",
- *   admin = @Translation("Entity browser")
+ *   admin = @Translation("Entity browser"),
+ *   entity_browser_display = TRUE
  * )
  */
 class EntityBrowser extends DisplayPluginBase {
