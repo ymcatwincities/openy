@@ -1,0 +1,18 @@
+type: module
+name: Migrate Advanced Example Setup
+description: 'Separate site configuration for the example from the actual migration.'
+package: Migration
+# core: 8.x
+hidden: 1
+dependencies:
+  - comment
+  - image
+  - text
+  - taxonomy
+  - rest
+
+# Information added by Drupal.org packaging script on 2016-04-19
+version: '8.x-2.x-dev'
+core: '8.x'
+project: 'migrate_plus'
+datestamp: 1461097746

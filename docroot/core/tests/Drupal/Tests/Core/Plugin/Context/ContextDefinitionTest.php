@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\Core\Plugin\Context\ContextDefinitionTest.
- */
-
 namespace Drupal\Tests\Core\Plugin\Context;
 
 use Drupal\Core\Plugin\Context\ContextDefinition;
@@ -15,7 +10,7 @@ use Drupal\Tests\UnitTestCase;
  *
  * @group Plugin
  *
- * @coversDefaultClass Drupal\Core\Plugin\Context\ContextDefinition
+ * @coversDefaultClass \Drupal\Core\Plugin\Context\ContextDefinition
  */
 class ContextDefinitionTest extends UnitTestCase {
 
@@ -118,7 +113,7 @@ class ContextDefinitionTest extends UnitTestCase {
    * @dataProvider providerGetDataDefinition
    * @covers ::getDataDefinition
    * @uses \Drupal
-   * @uses Drupal\Component\Utility\SafeMarkup
+   * @uses \Drupal\Component\Utility\SafeMarkup
    */
   public function testGetDataDefinitionInvalidType($is_multiple) {
     // Since we're trying to make getDataDefinition() throw an exception in

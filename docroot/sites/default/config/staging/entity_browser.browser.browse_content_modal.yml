@@ -13,8 +13,8 @@ display: modal
 display_configuration:
   widget_ids:
     4c451234-3275-46b2-8861-97297999306b: 'Content Browser'
-  width: 1100
-  height: 650
+  width: '1100'
+  height: '650'
   link_text: 'Select content'
   auto_open: true
 selection_display: no_display

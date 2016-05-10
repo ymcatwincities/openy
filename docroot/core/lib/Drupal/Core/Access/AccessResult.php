@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Core\Access\AccessResult.
- */
 
 namespace Drupal\Core\Access;
 
@@ -87,7 +83,7 @@ abstract class AccessResult implements AccessResultInterface, RefinableCacheable
    *   will be TRUE.
    */
   public static function forbiddenIf($condition) {
-    return $condition ? static::forbidden(): static::neutral();
+    return $condition ? static::forbidden() : static::neutral();
   }
 
   /**
