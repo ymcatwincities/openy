@@ -61,6 +61,7 @@ abstract class SelectionDisplayBase extends PluginBase implements SelectionDispl
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->eventDispatcher = $event_dispatcher;
     $this->entityManager = $entity_manager;
+    $this->setConfiguration($configuration);
   }
 
   /**
@@ -97,7 +98,7 @@ abstract class SelectionDisplayBase extends PluginBase implements SelectionDispl
    * {@inheritdoc}
    */
   public function setConfiguration(array $configuration) {
-    $this->configuration = $configuration;
+    $this->configuration = $configuration + $this->defaultConfiguration();
   }
 
   /**
