@@ -86,7 +86,12 @@ class EntityBrowserFormController extends HtmlFormController implements Containe
    * {@inheritdoc}
    */
   protected function getFormObject(RouteMatchInterface $route_match, $form_arg) {
-    return $this->loadBrowser()->getFormObject();
+    $browser = $this->loadBrowser();
+    if ($original_path = $this->request->get('original_path')) {
+      $browser->addAdditionalWidgetParameters(['path_parts' => explode('/', $original_path)]);
+    }
+
+    return $browser->getFormObject();
   }
 
   /**
