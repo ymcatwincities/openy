@@ -5,7 +5,7 @@ dependencies: {  }
 id: ffd776af8e
 name: ACQUIA
 invalidationtype: tag
-hostname: ymcawincities.org
+hostname: www.ymcamn.org
 port: 80
 path: /
 request_method: DELETE
