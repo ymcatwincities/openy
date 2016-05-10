@@ -14,6 +14,7 @@ use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
+use Drupal\Core\Database\Driver\mysql\Select;
 
 /**
  * Implements hook_help().
@@ -366,9 +367,10 @@ function ymca_alters_library_info_alter(&$libraries, $extension) {
 /**
  * Implements hook_query_TAG_alter().
  *
- * @param \Drupal\Core\Database\Driver\mysql\Select $query
+ * @param Select $query
+ *   Query to be processed on.
  */
-function ymca_alters_query_needs_review_alter($query) {
+function ymca_alters_query_needs_review_alter(Select $query) {
   // Select all revisions for field 'State'.
   $language = Drupal::languageManager()->getCurrentLanguage();
   $field_state_revisions = db_select('node_revision__field_state', 'n')
