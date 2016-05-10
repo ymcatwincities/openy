@@ -2204,6 +2204,11 @@ function ymca_master_update_8088() {
 }
 
 /**
+<<<<<<< HEAD
+ * Add new theme specific config.
+ */
+function ymca_master_update_8089() {
+=======
  * Update content, menus and redirects to use new domain www.ymcamn.org.
  */
 function ymca_master_update_8090() {
