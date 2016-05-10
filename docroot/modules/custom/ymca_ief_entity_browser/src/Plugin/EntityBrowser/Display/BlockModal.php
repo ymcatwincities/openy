@@ -4,12 +4,16 @@ namespace Drupal\ymca_ief_entity_browser\Plugin\EntityBrowser\Display;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Uuid\UuidInterface;
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\entity_browser\DisplayRouterInterface;
 use Drupal\entity_browser\Events\Events;
 use Drupal\entity_browser\Events\RegisterJSCallbacks;
 use Drupal\entity_browser\Plugin\EntityBrowser\Display\Modal;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Form\FormStateInterface;
@@ -28,8 +32,56 @@ use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
  */
 class BlockModal extends Modal implements DisplayRouterInterface {
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $current_route_match, UuidInterface $uuid, CurrentPathStack $current_path, Request $request) {
+  /**
+   * Config factory.
+   *
+   * @var ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+
+  /**
+   * BlockModal constructor.
+   *
+   * @param array $configuration
+   *   Configuration.
+   * @param string $plugin_id
+   *   Plugin ID.
+   * @param mixed $plugin_definition
+   *   Plugin Configuration.
+   * @param EventDispatcherInterface $event_dispatcher
+   *   Event dispatcher.
+   * @param RouteMatchInterface $current_route_match
+   *   Current route.
+   * @param UuidInterface $uuid
+   *   UUID.
+   * @param CurrentPathStack $current_path
+   *   Current path.
+   * @param Request $request
+   *   Request.
+   * @param ConfigFactoryInterface $config_factory
+   *   Config factory.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $current_route_match, UuidInterface $uuid, CurrentPathStack $current_path, Request $request, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $current_route_match, $uuid, $current_path, $request);
+    $this->configFactory = $config_factory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('event_dispatcher'),
+      $container->get('current_route_match'),
+      $container->get('uuid'),
+      $container->get('path.current'),
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('config.factory')
+    );
   }
 
   /**
@@ -45,8 +97,11 @@ class BlockModal extends Modal implements DisplayRouterInterface {
     $original_path = $this->currentPath->getPath();
 
     $field_name = $form_state->getTriggeringElement()['#parents'][0];
-    $form = $form_state->getCompleteForm();
-    $options = array_keys($form[$field_name]['widget']['actions']['bundle']['#options']);
+    $form_info = explode('_', $form_state->getBuildInfo()['form_id']);
+
+    /** @var ImmutableConfig $config */
+    $config = $this->configFactory->get('field.field.node.' . $form_info[1] . '.' . $field_name);
+    $options = array_keys($config->get('settings')['handler_settings']['target_bundles']);
 
     $data = [
       'query_parameters' => [
