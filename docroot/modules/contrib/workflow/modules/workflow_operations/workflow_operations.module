@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Adds an 'Revert' link to the first workflow history row.
+ */
+
+use Drupal\workflow\Entity\WorkflowTransitionInterface;
+use Drupal\workflow_operations\WorkflowAccessControlHandler;
+
+/**
+ * Implements hook_rules_event_info().
+ *
+ * @todo: Add support for every entity_type in Revert rules.
+ */
+function workflow_operations_rules_event_info() {
+  workflow_debug( __FILE__ , __FUNCTION__, __LINE__);  // @todo D8-port: still test this snippet.
+  $events = array(
+    'workflow_state_reverted' => array(
+      'group' => t('Workflow'),
+      'label' => t('Workflow state reverted'),
+      'variables' => rules_events_node_variables(t('updated content'), TRUE),
+    ),
+  );
+  return $events;
+}
+
+/**
+ * Core hooks: Change the operations column in a Entity list.
+ * Add a 'revert' operation.
+ *
+ * @see EntityListBuilder::getOperations().
+ *
+ * @param \Drupal\Core\Entity\EntityInterface[] $entities
+ *
+ * @return array
+ */
+function workflow_operations_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
+  $operations = array();
+
+  // Check correct entity type.
+  if (!in_array($entity->getEntityTypeId(), ['workflow_transition'])) {
+    return $operations;
+  }
+
+  $user = workflow_current_user();
+  /* @var $transition WorkflowTransitionInterface */
+  $transition = $entity;
+
+  // Check access, to avoid that user sees a revert link, but is not allowed to
+  // view the revert form. Use $first to check only once per page.
+  static $first = TRUE;
+
+  if ($first) {
+    $handler = new WorkflowAccessControlHandler();
+    $is_allowed = $handler->access($transition, 'revert', $user, FALSE);
+    if (!$is_allowed) {
+      // No access. We may try at next row.
+      return $operations;
+    }
+  }
+
+  // Only mark the first row.
+  if ($first) {
+    // Some states are not fit to revert to. In each of these cases, prohibit
+    // to revert to an even older state.
+    if ((!$from_state = $transition->getFromState()) || !$from_state->isActive() || $from_state->isCreationState()) {
+      $first = FALSE;
+    }
+    else {
+      // Let's ask other modules if the reversion is allowed. Reversing old and new sid!
+      $permitted = \Drupal::moduleHandler()->invokeAll('workflow', ['transition revert', $transition, $user]); // @todo: add revert operation.
+      // Stop if a module says so.
+      if (!in_array(FALSE, $permitted, TRUE)) {
+        // Add the operation - it is not vetoed.
+        // @todo: Pluggability problem: the revert_form route is fixed in WorkflowTransition Annotation. Add to some alter() function.
+        $operations['revert'] = array(
+          'title' => t('Revert to last state'),
+          'url' => \Drupal\Core\Url::fromRoute('entity.workflow_transition.revert_form', ['workflow_transition' => $transition->id()]),
+          'query' => \Drupal::destination()->getAsArray(), // Add destination.
+          'weight' => 50,
+        );
+
+        $first = FALSE;
+      }
+    }
+  }
+
+  return $operations;
+}
+
+/**
+ * Implements hook_entity_operation_alter
+ * This hook is not needed in this case.
+ */
+//function workflow_operations_entity_operation_alter(array $operations, \Drupal\Core\Entity\EntityInterface $entity) {
+//}

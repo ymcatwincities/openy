@@ -1,0 +1,21 @@
+langcode: nl
+status: true
+dependencies:
+  module:
+    - action
+    - node
+    - workflow
+id: change_a_node_to_next_workflow_state
+label: 'Change a node to next Workflow state'
+type: node
+plugin: workflow_node_next_state_action
+configuration:
+  label: 'Change a node to next Workflow state'
+  id: change_a_node_to_next_workflow_state
+  plugin: workflow_node_next_state_action
+  type: node
+  workflow_scheduling:
+    scheduled: '0'
+  comment: 'New state is set by a triggered Action.'
+  force: 0
+  actions: {  }

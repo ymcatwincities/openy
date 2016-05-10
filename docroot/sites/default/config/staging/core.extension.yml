@@ -66,7 +66,6 @@ module:
   redirect: 0
   rel_to_abs: 0
   rest: 0
-  scheduler: 0
   search: 0
   serialization: 0
   shield: 0
