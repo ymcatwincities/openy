@@ -9,7 +9,7 @@ _core:
   default_config_hash: WGwnSPRCNGA47XCvOKZ8ekzdi0hIUEKvWbqZKubEfLc
 name: browse_block_modal
 label: 'Browser for Block (modal)'
-display: modal
+display: block_modal
 display_configuration:
   widget_ids:
     f28f249d-67a6-427e-ba57-87c94fd0b70d: 'Content Browser'
