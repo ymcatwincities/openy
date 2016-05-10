@@ -84,7 +84,9 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
     } elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
       array_push($suggestions, 'page__node__location_inner');
     } else {
-      array_unshift($suggestions, 'page__node__' . $node->bundle());
+      if (is_object($node)) {
+        array_unshift($suggestions, 'page__node__' . $node->bundle());
+      }
     }
     if (!\Drupal::service('path.matcher')->isFrontPage()) {
       if ($route_name == 'entity.node.preview') {
@@ -438,7 +440,7 @@ function ymca_preprocess_page(&$variables) {
   }
   // Alerts on the page.
   if (isset($variables['node']) && !($block = \Drupal::service('alerts.service')->getCurrentAlertBlock())) {
-    if ($variables['node']->hasField('field_alert')) {
+    if (is_object($variables['node']) && $variables['node']->hasField('field_alert')) {
       if ($values = $variables['node']->field_alert->getValue()) {
         if (!empty($values[0]['target_id'])) {
           $id = $values[0]['target_id'];

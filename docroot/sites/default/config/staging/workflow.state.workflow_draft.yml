@@ -1,0 +1,10 @@
+uuid: 6e173265-1bed-4261-9500-f044277459c7
+langcode: en
+status: '1'
+dependencies: {  }
+id: workflow_draft
+label: Draft
+module: null
+wid: workflow
+weight: '-8'
+sysid: 0
