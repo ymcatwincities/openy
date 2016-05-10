@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Form\SelectionDisplayConfig.
- */
-
 namespace Drupal\entity_browser\Form;
 
 use Drupal\entity_browser\EntityBrowserInterface;

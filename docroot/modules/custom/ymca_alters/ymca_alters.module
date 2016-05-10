@@ -13,6 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Query\AlterableInterface;
 
 /**
  * Implements hook_help().
@@ -360,4 +361,42 @@ function ymca_alters_library_info_alter(&$libraries, $extension) {
     }
   }
   $libraries['view']['js'] = $new_js;
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ *
+ * @param \Drupal\Core\Database\Driver\mysql\Select $query
+ */
+function ymca_alters_query_needs_review_alter($query) {
+  // Select all revisions for field 'State'.
+  $language = Drupal::languageManager()->getCurrentLanguage();
+  $field_state_revisions = db_select('node_revision__field_state', 'n')
+    ->fields('n')
+    ->condition('n.deleted', 0)
+    ->condition('n.langcode', $language->getId())
+    ->execute()
+    ->fetchAllAssoc('entity_id');
+
+  // Filter rows only with 'workflow_needs_review'.
+  $nids_to_be_viewed = [];
+  foreach ($field_state_revisions as $vid => $revision) {
+    if ($revision->field_state_value == 'workflow_needs_review') {
+      $nids_to_be_viewed[] = $revision->entity_id;
+    }
+  }
+
+  // Add conditions which we can't add through View UI.
+  $query->addJoin(
+    'LEFT',
+    'node_revision__field_state',
+    '',
+    'node_field_data_node_field_revision.nid = node_revision__field_state.entity_id AND (node_revision__field_state.deleted = :views_join_condition_0 AND node_revision__field_state.langcode = node_field_data_node_field_revision.langcode)',
+    array(':views_join_condition_0' => 0)
+  );
+  $query->condition(
+    'node_field_data.nid',
+    $nids_to_be_viewed,
+    'IN'
+  );
 }

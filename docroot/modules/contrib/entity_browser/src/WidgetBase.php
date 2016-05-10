@@ -168,6 +168,14 @@ abstract class WidgetBase extends PluginBase implements WidgetInterface, Contain
   /**
    * {@inheritdoc}
    */
+  public function setLabel($label) {
+    $this->label = $label;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getWeight() {
     return $this->weight;
   }

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\entity_browser\Wizard\EntityBrowserWizardAdd.
- */
 
 namespace Drupal\entity_browser\Wizard;
 
