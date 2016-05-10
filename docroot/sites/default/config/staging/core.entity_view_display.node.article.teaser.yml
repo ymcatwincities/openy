@@ -41,6 +41,7 @@ hidden:
   field_sidebar: true
   field_sidebar_navigation: true
   field_state: true
+  field_status: true
   field_tags: true
   field_title_description: true
   langcode: true

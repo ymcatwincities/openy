@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\node\Tests\NodeRevisionsAllTest.
- */
-
 namespace Drupal\node\Tests;
 
 /**
@@ -79,7 +74,7 @@ class NodeRevisionsAllTest extends NodeTestBase {
     // Get last node for simple checks.
     $node = $nodes[3];
 
-    // Create and login user.
+    // Create and log in user.
     $content_admin = $this->drupalCreateUser(
       array(
         'view all revisions',

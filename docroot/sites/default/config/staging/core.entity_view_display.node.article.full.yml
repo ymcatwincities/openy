@@ -92,6 +92,8 @@ hidden:
   field_header_variant: true
   field_promo_slideshow: true
   field_related: true
+  field_state: true
+  field_status: true
   field_tags: true
   langcode: true
   links: true
