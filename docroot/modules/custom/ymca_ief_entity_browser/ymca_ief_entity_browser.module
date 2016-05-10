@@ -6,6 +6,7 @@
  */
 
 use Drupal\entity_browser\Events\Events;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_implements_alter().
@@ -57,5 +58,27 @@ function ymca_ief_entity_browser_inline_entity_form_reference_form_alter(&$refer
 
     // Add cardinality for this widget so that we can handle it later.
     $reference_form['#attached']['drupalSettings']['entity_browser'][$display->getUuid()]['cardinality'] = $instance->getFieldStorageDefinition()->getCardinality();
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ymca_ief_entity_browser_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'views_exposed_form') {
+    if ($form['#id'] == 'views-exposed-form-content-browser-block-entity-browser-1') {
+      $types = \Drupal::request()->query->all()['types'];
+      $options = array_combine($types, $types);
+
+      unset($form['type']['#options']['All']);
+      $form['type']['#options'] = $options;
+
+      // Remove 'All' value from default user input.
+      $input = $form_state->getUserInput();
+      if ($input['type'] == 'All') {
+        $input['type'] = reset($types);
+        $form_state->setUserInput($input);
+      }
+    }
   }
 }
