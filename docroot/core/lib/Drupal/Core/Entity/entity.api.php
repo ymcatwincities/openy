@@ -5,7 +5,6 @@
  * Hooks and documentation related to entities.
  */
 
-use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\DynamicallyFieldableEntityStorageInterface;
@@ -277,8 +276,8 @@ use Drupal\node\Entity\NodeType;
  *   content entity type that uses bundles, the 'bundle_label' annotation gives
  *   the human-readable name to use for a bundle of this entity type (for
  *   example, "Content type" for the Node entity).
- * - The annotation will refer to several controller classes, which you will
- *   also need to define:
+ * - The annotation will refer to several handler classes, which you will also
+ *   need to define:
  *   - list_builder: Define a class that extends
  *     \Drupal\Core\Config\Entity\ConfigEntityListBuilder (for configuration
  *     entities) or \Drupal\Core\Entity\EntityListBuilder (for content
@@ -298,7 +297,7 @@ use Drupal\node\Entity\NodeType;
  *     annotation has value TRUE), define a class that extends
  *     \Drupal\content_translation\ContentTranslationHandler, to translate
  *     the content. Configuration translation is handled automatically by the
- *     Configuration Translation module, without the need of a controller class.
+ *     Configuration Translation module, without the need of a handler class.
  *   - access: If your configuration entity has complex permissions, you might
  *     need an access control handling, implementing
  *     \Drupal\Core\Entity\EntityAccessControlHandlerInterface, but most entities
@@ -381,10 +380,10 @@ use Drupal\node\Entity\NodeType;
  *   an object to the controller for the route.
  * - defaults: For entity form routes, use _entity_form rather than the generic
  *   _controller or _form. The value is composed of the entity type machine name
- *   and a form controller type from the entity annotation (see @ref define
- *   above more more on controllers and annotation). So, in this example,
- *   block.default refers to the 'default' form controller on the block entity
- *   type, whose annotation contains:
+ *   and a form handler type from the entity annotation (see @ref define above
+ *   more more on handlers and annotation). So, in this example, block.default
+ *   refers to the 'default' form handler on the block entity type, whose
+ *   annotation contains:
  *   @code
  *   handlers = {
  *     "form" = {
@@ -1264,7 +1263,9 @@ function hook_entity_query_alter(\Drupal\Core\Entity\Query\QueryInterface $query
  * Act on entities being assembled before rendering.
  *
  * @param &$build
- *   A renderable array representing the entity content.
+ *   A renderable array representing the entity content. The module may add
+ *   elements to $build prior to rendering. The structure of $build is a
+ *   renderable array as expected by drupal_render().
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity object.
  * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display
@@ -1272,10 +1273,6 @@ function hook_entity_query_alter(\Drupal\Core\Entity\Query\QueryInterface $query
  *   entity components.
  * @param $view_mode
  *   The view mode the entity is rendered in.
- *
- * The module may add elements to $build prior to rendering. The
- * structure of $build is a renderable array as expected by
- * drupal_render().
  *
  * @see hook_entity_view_alter()
  * @see hook_ENTITY_TYPE_view()
@@ -1298,7 +1295,9 @@ function hook_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $en
  * Act on entities of a particular type being assembled before rendering.
  *
  * @param &$build
- *   A renderable array representing the entity content.
+ *   A renderable array representing the entity content. The module may add
+ *   elements to $build prior to rendering. The structure of $build is a
+ *   renderable array as expected by drupal_render().
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity object.
  * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display
@@ -1306,10 +1305,6 @@ function hook_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $en
  *   entity components.
  * @param $view_mode
  *   The view mode the entity is rendered in.
- *
- * The module may add elements to $build prior to rendering. The
- * structure of $build is a renderable array as expected by
- * drupal_render().
  *
  * @see hook_ENTITY_TYPE_view_alter()
  * @see hook_entity_view()

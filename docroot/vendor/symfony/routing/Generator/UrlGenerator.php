@@ -76,6 +76,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     );
 
     /**
+     * @var string This regexp matches all characters that are not or should not be encoded by rawurlencode (see list in array above).
+     */
+    private $urlEncodingSkipRegexp = '#[^-.~a-zA-Z0-9_/@:;,=+!*|]#';
+
+    /**
      * Constructor.
      *
      * @param RouteCollection      $routes  A RouteCollection instance
@@ -143,6 +148,20 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
      */
     protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens, array $requiredSchemes = array())
     {
+        if (is_bool($referenceType) || is_string($referenceType)) {
+            @trigger_error('The hardcoded value you are using for the $referenceType argument of the '.__CLASS__.'::generate method is deprecated since version 2.8 and will not be supported anymore in 3.0. Use the constants defined in the UrlGeneratorInterface instead.', E_USER_DEPRECATED);
+
+            if (true === $referenceType) {
+                $referenceType = self::ABSOLUTE_URL;
+            } elseif (false === $referenceType) {
+                $referenceType = self::ABSOLUTE_PATH;
+            } elseif ('relative' === $referenceType) {
+                $referenceType = self::RELATIVE_PATH;
+            } elseif ('network' === $referenceType) {
+                $referenceType = self::NETWORK_PATH;
+            }
+        }
+
         $variables = array_flip($variables);
         $mergedParams = array_replace($defaults, $this->context->getParameters(), $parameters);
 
@@ -182,19 +201,21 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
 
         if ('' === $url) {
             $url = '/';
+        } elseif (preg_match($this->urlEncodingSkipRegexp, $url)) {
+            // the context base URL is already encoded (see Symfony\Component\HttpFoundation\Request)
+            $url = strtr(rawurlencode($url), $this->decodedChars);
         }
-
-        // the contexts base URL is already encoded (see Symfony\Component\HttpFoundation\Request)
-        $url = strtr(rawurlencode($url), $this->decodedChars);
 
         // the path segments "." and ".." are interpreted as relative reference when resolving a URI; see http://tools.ietf.org/html/rfc3986#section-3.3
         // so we need to encode them as they are not used for this purpose here
         // otherwise we would generate a URI that, when followed by a user agent (e.g. browser), does not match this route
-        $url = strtr($url, array('/../' => '/%2E%2E/', '/./' => '/%2E/'));
-        if ('/..' === substr($url, -3)) {
-            $url = substr($url, 0, -2).'%2E%2E';
-        } elseif ('/.' === substr($url, -2)) {
-            $url = substr($url, 0, -1).'%2E';
+        if (false !== strpos($url, '/.')) {
+            $url = strtr($url, array('/../' => '/%2E%2E/', '/./' => '/%2E/'));
+            if ('/..' === substr($url, -3)) {
+                $url = substr($url, 0, -2).'%2E%2E';
+            } elseif ('/.' === substr($url, -2)) {
+                $url = substr($url, 0, -1).'%2E';
+            }
         }
 
         $schemeAuthority = '';
@@ -202,16 +223,7 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
             $scheme = $this->context->getScheme();
 
             if ($requiredSchemes) {
-                $schemeMatched = false;
-                foreach ($requiredSchemes as $requiredScheme) {
-                    if ($scheme === $requiredScheme) {
-                        $schemeMatched = true;
-
-                        break;
-                    }
-                }
-
-                if (!$schemeMatched) {
+                if (!in_array($scheme, $requiredSchemes, true)) {
                     $referenceType = self::ABSOLUTE_URL;
                     $scheme = current($requiredSchemes);
                 }
@@ -273,11 +285,14 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         }
 
         // add a query string if needed
-        $extra = array_diff_key($parameters, $variables, $defaults);
+        $extra = array_udiff_assoc(array_diff_key($parameters, $variables), $defaults, function ($a, $b) {
+            return $a == $b ? 0 : 1;
+        });
+
         if ($extra && $query = http_build_query($extra, '', '&')) {
             // "/" and "?" can be left decoded for better user experience, see
             // http://tools.ietf.org/html/rfc3986#section-3.4
-            $url .= '?'.strtr($query, array('%2F' => '/'));
+            $url .= '?'.(false === strpos($query, '%2F') ? $query : strtr($query, array('%2F' => '/')));
         }
 
         return $url;

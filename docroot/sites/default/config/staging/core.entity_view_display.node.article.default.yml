@@ -101,7 +101,6 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_key
   field_state:
     weight: 13
     type: list_default

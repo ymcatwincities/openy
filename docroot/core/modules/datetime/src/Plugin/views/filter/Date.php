@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\datetime\Plugin\views\filter\Date.
- */
-
 namespace Drupal\datetime\Plugin\views\filter;
 
 use Drupal\Core\Datetime\DateFormatterInterface;
@@ -117,7 +112,7 @@ class Date extends NumericDate implements ContainerFactoryPluginInterface {
    * Override parent method, which deals with dates as integers.
    */
   protected function opSimple($field) {
-    $origin =  (!empty($this->value['type']) && $this->value['type'] == 'offset') ? $this->requestStack->getCurrentRequest()->server->get('REQUEST_TIME') : 0;
+    $origin = (!empty($this->value['type']) && $this->value['type'] == 'offset') ? $this->requestStack->getCurrentRequest()->server->get('REQUEST_TIME') : 0;
     $value = intval(strtotime($this->value['value'], $origin));
 
     // Convert to ISO. UTC is used since dates are stored in UTC.

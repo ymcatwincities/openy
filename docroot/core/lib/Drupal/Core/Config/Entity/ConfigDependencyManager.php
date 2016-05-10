@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Config\Entity\ConfigDependencyManager.
- */
-
 namespace Drupal\Core\Config\Entity;
 
 use Drupal\Component\Graph\Graph;
@@ -22,10 +17,10 @@ use Drupal\Component\Utility\SortArray;
  * The configuration dependency value is structured like this:
  * @code
  * array(
- *   'config => array(
+ *   'config' => array(
  *     // An array of configuration entity object names. Recalculated on save.
  *   ),
- *   'content => array(
+ *   'content' => array(
  *     // An array of content entity configuration dependency names. The default
  *     // format is "ENTITY_TYPE_ID:BUNDLE:UUID". Recalculated on save.
  *   ),
@@ -170,7 +165,7 @@ class ConfigDependencyManager {
       // If checking content, module, or theme dependencies, discover which
       // entities are dependent on the entities that have a direct dependency.
       foreach ($dependent_entities as $entity) {
-        $entities_to_check[] =  $entity->getConfigDependencyName();
+        $entities_to_check[] = $entity->getConfigDependencyName();
       }
     }
     $dependencies = array_merge($this->createGraphConfigEntityDependencies($entities_to_check), $dependent_entities);
@@ -296,10 +291,10 @@ class ConfigDependencyManager {
    *   The configuration dependencies. The array is structured like this:
    *   @code
    *   array(
-   *     'config => array(
+   *     'config' => array(
    *       // An array of configuration entity object names.
    *     ),
-   *     'content => array(
+   *     'content' => array(
    *       // An array of content entity configuration dependency names. The default
    *       // format is "ENTITY_TYPE_ID:BUNDLE:UUID".
    *     ),

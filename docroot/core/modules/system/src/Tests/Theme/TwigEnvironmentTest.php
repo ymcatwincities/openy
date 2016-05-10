@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Theme\TwigEnvironmentTest.
- */
-
 namespace Drupal\system\Tests\Theme;
 
 use Drupal\Component\Utility\Html;
@@ -133,4 +128,3 @@ class TwigEnvironmentTest extends KernelTestBase {
   }
 
 }
-
