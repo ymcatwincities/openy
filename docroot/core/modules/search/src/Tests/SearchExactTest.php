@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search\Tests\SearchExactTest.
- */
-
 namespace Drupal\search\Tests;
 
 /**
@@ -17,7 +12,7 @@ class SearchExactTest extends SearchTestBase {
    * Tests that the correct number of pager links are found for both keywords and phrases.
    */
   function testExactQuery() {
-    // Login with sufficient privileges.
+    // Log in with sufficient privileges.
     $user = $this->drupalCreateUser(array('create page content', 'search content'));
     $this->drupalLogin($user);
 

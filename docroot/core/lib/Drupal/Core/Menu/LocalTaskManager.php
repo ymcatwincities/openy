@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Menu\LocalTaskManager.
- */
-
 namespace Drupal\Core\Menu;
 
 use Drupal\Component\Plugin\Exception\PluginException;
@@ -183,7 +178,7 @@ class LocalTaskManager extends DefaultPluginManager implements LocalTaskManagerI
    * {@inheritdoc}
    */
   public function getDefinitions() {
-    $definitions =  parent::getDefinitions();
+    $definitions = parent::getDefinitions();
 
     $count = 0;
     foreach ($definitions as &$definition) {

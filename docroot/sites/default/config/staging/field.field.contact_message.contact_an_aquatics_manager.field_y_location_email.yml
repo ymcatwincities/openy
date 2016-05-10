@@ -65,7 +65,7 @@ default_value:
     option_select: 0
     option_name: 'New Hope'
     option_reference: '16'
-    option_emails: Nate.Brisley@ymcatwincities.org
+    option_emails: Tami.Koehler@ymcamn.org
   -
     option_select: 0
     option_name: 'Ridgedale - Minnetonka'
@@ -122,9 +122,10 @@ default_value:
     option_reference: '27'
     option_emails: lyndsey.ross@ymcatwincities.org
   -
+    option_select: 0
     option_name: Andover
     option_reference: '4'
-    option_emails: Becca.Morness@ymcatwincities.org
+    option_emails: Will.Ganje@ymcatwincities.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

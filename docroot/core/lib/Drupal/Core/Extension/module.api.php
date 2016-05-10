@@ -198,6 +198,12 @@ function hook_modules_installed($modules) {
  * If the module implements hook_schema(), the database tables will
  * be created before this hook is fired.
  *
+ * If the module provides a MODULE.routing.yml or alters routing information
+ * these changes will not be available when this hook is fired. If up-to-date
+ * router information is required, for example to use \Drupal\Core\Url, then
+ * (preferably) use hook_modules_installed() or rebuild the router in the
+ * hook_install() implementation.
+ *
  * Implementations of this hook are by convention declared in the module's
  * .install file. The implementation can rely on the .module file being loaded.
  * The hook will only be called when a module is installed. The module's schema
@@ -887,6 +893,9 @@ function hook_updater_info_alter(&$updaters) {
  * Other severity levels have no effect on the installation.
  * Module dependencies do not belong to these installation requirements,
  * but should be defined in the module's .info.yml file.
+ *
+ * During installation (when $phase == 'install'), if you need to load a class
+ * from your module, you'll need to include the class file directly.
  *
  * The 'runtime' phase is not limited to pure installation requirements
  * but can also be used for more general status information like maintenance
