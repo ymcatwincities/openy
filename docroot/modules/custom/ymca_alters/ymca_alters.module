@@ -13,6 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Query\AlterableInterface;
 
 /**
  * Implements hook_help().
@@ -306,10 +307,11 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
-  // Alter CSS for File Browser.
+  // Alter CSS for File Browser, Content Browser.
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {
     $page['#attached']['library'][] = 'ymca_alters/file_browser';
+    $page['#attached']['library'][] = 'ymca_alters/content_browser';
   }
   // Add canonical tag for custom routes.
   $route = \Drupal::routeMatch();
@@ -333,4 +335,48 @@ function ymca_alters_page_attachments(array &$page) {
   ];
 
   $page['#attached']['html_head'][] = [$canonical, 'canonical'];
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function ymca_alters_library_info_alter(&$libraries, $extension) {
+  $extensions = ['content_browser', 'file_browser'];
+  if (!in_array($extension, $extensions) || !isset($libraries['view'])) {
+    return;
+  }
+
+  $new_js = [];
+  $replacements = [
+    'js/content_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.content_browser.view.js',
+    'js/file_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.file_browser.view.js',
+  ];
+
+  foreach ($libraries['view']['js'] as $source => $options) {
+    if (isset($replacements[$source])) {
+      $new_js[$replacements[$source]] = $options;
+    }
+    else {
+      $new_js[$source] = $options;
+    }
+  }
+  $libraries['view']['js'] = $new_js;
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function ymca_alters_query_needs_review_alter($query) {
+  $query->addJoin(
+    'LEFT',
+    'node_revision__field_state',
+    '',
+    'node_field_data_node_field_revision.nid = node_revision__field_state.entity_id AND (node_revision__field_state.deleted = :views_join_condition_0 AND node_revision__field_state.langcode = node_field_data_node_field_revision.langcode)',
+    array(':views_join_condition_0' => 0)
+  );
+  $query->condition(
+    'node_revision__field_state.field_state_value',
+    'workflow_needs_review',
+    'LIKE'
+  );
 }

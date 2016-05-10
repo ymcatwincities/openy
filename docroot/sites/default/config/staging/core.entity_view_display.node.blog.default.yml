@@ -36,6 +36,7 @@ content:
 hidden:
   field_related_camps_locations: true
   field_site_section: true
+  field_sitemap_exclude: true
   field_summary: true
   field_tags: true
   langcode: true

@@ -1,0 +1,5 @@
+view.needs_review.page_1:
+  title: 'Needs Review'
+  parent: system.admin_content
+  description: 'Dashboard of content in Needs Review status.'
+  route_name: view.needs_review.page_1

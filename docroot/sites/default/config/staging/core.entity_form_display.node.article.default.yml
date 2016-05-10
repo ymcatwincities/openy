@@ -14,17 +14,19 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_status
+    - field.field.node.article.field_state
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - image.style.thumbnail
     - node.type.article
   module:
+    - entity_browser
     - image_widget_crop
+    - inline_entity_form
     - link
     - path
-    - scheduler
     - text
+    - workflowfield
 id: node.article.default
 targetEntityType: node
 bundle: article
@@ -38,11 +40,15 @@ content:
   field_alert:
     weight: 17
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_content:
     weight: 14
     settings:
@@ -88,19 +94,26 @@ content:
   field_promo_slideshow:
     weight: 16
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_related:
     weight: 18
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: entity_browser_entity_reference
   field_secondary_sidebar:
     weight: 12
     settings:
@@ -120,11 +133,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_status:
-    weight: 21
+  field_state:
+    weight: 27
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: workflow_default
   field_title_description:
     weight: 1
     settings:
@@ -180,4 +193,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_sitemap_exclude: true
   field_tags: true
