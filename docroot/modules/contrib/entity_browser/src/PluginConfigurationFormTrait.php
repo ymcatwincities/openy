@@ -36,12 +36,12 @@ trait PluginConfigurationFormTrait {
     $values = $form_state->getValues();
 
     if ($this instanceof WidgetInterface) {
-      $values = $values['table'][$this->uuid()];
+      $values = $values['table'][$this->uuid()]['form'];
     }
 
     if (!empty($values)) {
       foreach ($values as $key => $value) {
-        if (isset($this->configuration[$key])) {
+        if (array_key_exists($key, $this->configuration)) {
           $this->configuration[$key] = $value;
         }
       }

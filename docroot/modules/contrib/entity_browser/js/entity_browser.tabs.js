@@ -5,7 +5,7 @@
  */
 (function ($, Drupal, drupalSettings) {
 
-  "use strict";
+  'use strict';
 
   /**
    * Registers behaviours related to tab display.
@@ -56,7 +56,7 @@
    */
   Drupal.theme.entityTabs = function (tabsClass) {
     return $('<ul role="navigation" aria-label="Tabs"></ul>')
-        .addClass(tabsClass)
+        .addClass(tabsClass);
   };
 
   /**
@@ -78,7 +78,7 @@
     return $('<li class="tabs__tab" tabindex="-1"></li>')
       .addClass(settings.class)
       .append($('<a href="#"></a>').addClass(settings.class).attr('data-button-id', settings.id)
-        .append(settings.title)
+      .append(settings.title)
     );
   };
 
