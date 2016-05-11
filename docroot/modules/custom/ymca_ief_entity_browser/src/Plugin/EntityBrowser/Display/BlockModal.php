@@ -39,7 +39,6 @@ class BlockModal extends Modal implements DisplayRouterInterface {
    */
   protected $configFactory;
 
-
   /**
    * BlockModal constructor.
    *
@@ -92,7 +91,7 @@ class BlockModal extends Modal implements DisplayRouterInterface {
     /** @var \Drupal\entity_browser\Events\RegisterJSCallbacks $event */
     $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
     $js_event_object->registerCallback('Drupal.entityBrowser.selectionCompleted');
-    $js_event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $js_event_object );
+    $js_event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $js_event_object);
 
     $original_path = $this->currentPath->getPath();
 
@@ -137,7 +136,7 @@ class BlockModal extends Modal implements DisplayRouterInterface {
         ],
         '#attributes' => $data['attributes'],
         '#attached' => [
-          'library' => ['core/drupal.dialog.ajax',  'entity_browser/modal'],
+          'library' => ['core/drupal.dialog.ajax', 'entity_browser/modal'],
           'drupalSettings' => [
             'entity_browser' => [
               'modal' => [
