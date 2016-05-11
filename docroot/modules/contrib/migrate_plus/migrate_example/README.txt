@@ -49,8 +49,8 @@ read the files in the following order:
 
 RUNNING THE MIGRATIONS
 ----------------------
-The migrate_tools module (also part of the migrate_plus project) provides the
-tools you need to perform migration processes. At this time, the web UI only
+The migrate_tools module (https://www.drupal.org/project/migrate_tools) provides
+the tools you need to perform migration processes. At this time, the web UI only
 provides status information - to perform migration operations, you need to use
 the drush commands.
 
@@ -65,7 +65,6 @@ drush ms               # Abbreviation for migrate-status
 
 # Run the import operation for all the beer migrations.
 drush mi --group=beer  # Abbreviation for migrate-import
-
 
 # Look at what you've done! Also, visit the site and see the imported content,
 # user accounts, etc.

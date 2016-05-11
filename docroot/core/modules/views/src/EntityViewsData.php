@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\EntityViewsData.
- */
-
 namespace Drupal\views;
 
 use Drupal\Core\Entity\ContentEntityType;
@@ -28,7 +23,7 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
   use StringTranslationTrait;
 
   /**
-   * Entity type for this views controller instance.
+   * Entity type for this views data handler instance.
    *
    * @var \Drupal\Core\Entity\EntityTypeInterface
    */
@@ -68,7 +63,7 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
    * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
    *   The entity type to provide views integration for.
    * @param \Drupal\Core\Entity\Sql\SqlEntityStorageInterface $storage_controller
-   *   The storage controller used for this entity type.
+   *   The storage handler used for this entity type.
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
@@ -182,6 +177,16 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
       );
     }
 
+    if ($this->entityType->hasViewBuilderClass()) {
+      $data[$base_table]['rendered_entity'] = [
+        'field' => [
+          'title' => $this->t('Rendered entity'),
+          'help' => $this->t('Renders an entity in a view mode.'),
+          'id' => 'rendered_entity',
+        ],
+      ];
+    }
+
     // Setup relations to the revisions/property data.
     if ($data_table) {
       $data[$base_table]['table']['join'][$data_table] = [
@@ -230,7 +235,7 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
     // Load all typed data definitions of all fields. This should cover each of
     // the entity base, revision, data tables.
     $field_definitions = $this->entityManager->getBaseFieldDefinitions($this->entityType->id());
-    if ($table_mapping = $this->storage->getTableMapping()) {
+    if ($table_mapping = $this->storage->getTableMapping($field_definitions)) {
       // Fetch all fields that can appear in both the base table and the data
       // table.
       $entity_keys = $this->entityType->getKeys();
@@ -491,7 +496,7 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
         $views_field['title'] = $this->t('Translation language');
       }
       if ($table == $this->entityType->getBaseTable() || $table == $this->entityType->getRevisionTable()) {
-        $views_field['title'] =  $this->t('Original language');
+        $views_field['title'] = $this->t('Original language');
       }
     }
   }

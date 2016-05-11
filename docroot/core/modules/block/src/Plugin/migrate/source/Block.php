@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\block\Plugin\migrate\source\Block.
- */
-
 namespace Drupal\block\Plugin\migrate\source;
 
 use Drupal\migrate\Row;
@@ -68,7 +63,7 @@ class Block extends DrupalSqlBase {
    */
   protected function initializeIterator() {
     $this->defaultTheme = $this->variableGet('theme_default', 'Garland');
-    $this->adminTheme = $this->variableGet('admin_theme', null);
+    $this->adminTheme = $this->variableGet('admin_theme', NULL);
     return parent::initializeIterator();
   }
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\contact\Tests\ContactStorageTest.
- */
-
 namespace Drupal\contact\Tests;
 
 use Drupal\Component\Utility\Unicode;
@@ -41,7 +36,7 @@ class ContactStorageTest extends ContactSitewideTest {
    * Tests configuration options and the site-wide contact form.
    */
   public function testContactStorage() {
-    // Create and login administrative user.
+    // Create and log in administrative user.
     $admin_user = $this->drupalCreateUser(array(
       'access site-wide contact form',
       'administer contact forms',
