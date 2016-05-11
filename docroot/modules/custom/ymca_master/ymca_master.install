@@ -2460,3 +2460,11 @@ function ymca_master_update_8098() {
     ]
   );
 }
+
+/**
+ * Enable Big Pipe core module.
+ */
+function ymca_master_update_8099() {
+  \Drupal::service('module_installer')->install(array('big_pipe'), TRUE);
+  \Drupal::service('module_installer')->uninstall(['image_widget_crop']);
+}
