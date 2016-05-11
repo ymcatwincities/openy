@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Queue\QueueFactory.
- */
-
 namespace Drupal\Core\Queue;
 
 use Drupal\Core\Site\Settings;
@@ -69,4 +64,3 @@ class QueueFactory implements ContainerAwareInterface {
     return $this->queues[$name];
   }
 }
-

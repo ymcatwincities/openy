@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views_ui\Tests\TranslatedStringTest.
- */
-
 namespace Drupal\views_ui\Tests;
 
 use Drupal\language\Entity\ConfigurableLanguage;
@@ -53,7 +48,7 @@ class TranslatedViewTest extends WebTestBase {
       'translate interface',
     ];
 
-    // Create and login user.
+    // Create and log in user.
     $this->adminUser = $this->drupalCreateUser($permissions);
     $this->drupalLogin($this->adminUser);
 

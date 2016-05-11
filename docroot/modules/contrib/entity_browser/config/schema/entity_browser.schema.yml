@@ -104,3 +104,30 @@ entity_browser.browser.widget.view:
       sequence:
         type: integer
         label: 'View display arguments'
+
+field.widget.settings.entity_browser_entity_reference:
+  type: mapping
+  label: 'Entity browser entity reference widget'
+  mapping:
+    entity_browser:
+      type: string
+      label: 'Entity Browser'
+    field_widget_display:
+      type: string
+      label: 'Field widget display'
+    field_widget_edit:
+      type: boolean
+      label: 'Field widget edit'
+    field_widget_remove:
+      type: boolean
+      label: 'Field widget remove'
+    open:
+      type: boolean
+      label: 'Open'
+    field_widget_display_settings:
+      type: mapping
+      label: 'Field widget display settings'
+      mapping:
+        view_mode:
+          type: string
+          label: 'View mode'

@@ -14,7 +14,7 @@ display_configuration:
   widget_ids:
     4c451234-3275-46b2-8861-97297999306b: 'Content Browser'
   width: 100%
-  height: 768
+  height: '768'
   link_text: 'Select content'
   auto_open: true
 selection_display: no_display
