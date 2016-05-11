@@ -2440,3 +2440,23 @@ function ymca_master_update_8097() {
     ]
   );
 }
+
+/**
+ * Combine entity browser and inline entity form.
+ */
+function ymca_master_update_8098() {
+  $modules = [
+    'entity_browser_entity_form',
+    'ymca_ief_entity_browser',
+  ];
+
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.content_browser_block.yml',
+      $path . 'entity_browser.browser.browse_block_modal.yml',
+    ]
+  );
+}

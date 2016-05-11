@@ -365,8 +365,6 @@ function ymca_alters_library_info_alter(&$libraries, $extension) {
 
 /**
  * Implements hook_query_TAG_alter().
- *
- * @param \Drupal\Core\Database\Driver\mysql\Select $query
  */
 function ymca_alters_query_needs_review_alter($query) {
   // Select all revisions for field 'State'.
