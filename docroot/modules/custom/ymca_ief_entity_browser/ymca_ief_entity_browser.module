@@ -24,7 +24,7 @@ function ymca_ief_entity_browser_module_implements_alter(&$implementations, $hoo
 /**
  * Implements hook_inline_entity_form_reference_form_alter().
  */
-function ymca_ief_entity_browser_inline_entity_form_reference_form_alter(&$reference_form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+function ymca_ief_entity_browser_inline_entity_form_reference_form_alter(&$reference_form, FormStateInterface &$form_state) {
   $entity_manager = \Drupal::service('entity.manager');
   \Drupal::service('event_dispatcher')
     ->addListener(
@@ -33,7 +33,11 @@ function ymca_ief_entity_browser_inline_entity_form_reference_form_alter(&$refer
     );
 
   /** @var \Drupal\field\FieldConfigInterface $instance */
-  $instance = $form_state->get(['inline_entity_form', $reference_form['#ief_id'], 'instance']);
+  $instance = $form_state->get([
+    'inline_entity_form',
+    $reference_form['#ief_id'],
+    'instance'
+  ]);
 
   // @todo Move browser ID to the configuration.
   $entity_browser_id = 'browse_block_modal';
