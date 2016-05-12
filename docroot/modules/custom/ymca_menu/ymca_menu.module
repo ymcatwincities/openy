@@ -119,6 +119,7 @@ function ymca_menu_preprocess_node(&$variables) {
             ],
           ],
         ],
+        '#attributes' => ['class' => ['panel', 'panel-default', 'panel-subnav']]
       ];
     }
   }
