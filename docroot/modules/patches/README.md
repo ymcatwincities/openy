@@ -28,3 +28,7 @@ description: Add config alter
 
 patch: docroot/modules/patches/entity_embed-entity-browser.patch
 description: Fix to make Entity Browser work as widget for Entity Embed.
+
+patch: docroot/modules/patches/acquia_purge-2724253-fix.diff
+drupal.org issue: https://www.drupal.org/node/2724253
+description: Fix for latest dev and purge module interface
