@@ -7759,6 +7759,95 @@ p.legend {
   margin-top: 20px;
 }
 
+#modal.annual-report-modal .modal-cover {
+  position: fixed;
+}
+#modal.annual-report-modal .modal-header {
+  background: #92288d;
+  border-radius: 0;
+  padding: 17px 50px 15px;
+}
+#modal.annual-report-modal .modal-header #modal-title {
+  overflow: hidden;
+  line-height: 30px;
+}
+#modal.annual-report-modal .modal-header #modal-title h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: normal;
+  margin: 0;
+  line-height: 30px;
+}
+#modal.annual-report-modal .modal-header #modal-title .modal-close {
+  background: none;
+  color: #fff;
+  font-family: "Cachet", Arial, sans-serif;
+  font-weight: bold;
+  right: 10px;
+  text-decoration: none;
+  top: 11px;
+}
+#modal.annual-report-modal .modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.modal-annual-report {
+  padding: 40px 60px 80px;
+}
+.modal-annual-report p {
+  color: #777;
+  font-size: 15px;
+  line-height: 25px;
+  margin-bottom: 25px;
+}
+.modal-annual-report .blue_quote,
+.modal-annual-report .purple_quote {
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 20px;
+  line-height: 28px;
+  padding: 60px 0 40px 23px;
+  margin-bottom: 40px;
+}
+.modal-annual-report .blue_quote .sign,
+.modal-annual-report .purple_quote .sign {
+  color: #a7a7a7;
+  font-style: italic;
+}
+.modal-annual-report .blue_quote .sign p,
+.modal-annual-report .purple_quote .sign p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+.modal-annual-report .blue_quote .sign p:first-child,
+.modal-annual-report .purple_quote .sign p:first-child {
+  color: #424242;
+  margin-top: 30px;
+}
+.modal-annual-report .blue_quote {
+  background: url("../img/quote_blue.png") no-repeat 0 0;
+  color: #0889cd;
+}
+.modal-annual-report .purple_quote {
+  background: url("../img/quote_purple.png") no-repeat 0 0;
+  color: #92288d;
+}
+.modal-annual-report iframe {
+  margin: 40px 0;
+}
+.modal-annual-report .fullwidth {
+  margin: 0 -60px;
+}
+.modal-annual-report th,
+.modal-annual-report .heading-row td {
+  background: #0889cd;
+  color: #fff;
+}
+.modal-annual-report tr.total td {
+  font-weight: bold;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
