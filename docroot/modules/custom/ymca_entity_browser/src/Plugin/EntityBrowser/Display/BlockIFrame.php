@@ -31,6 +31,7 @@ class BlockIFrame extends IFrame implements DisplayRouterInterface {
 
   /**
    * BlockIFrame constructor.
+   *
    * @param array $configuration
    *   Configuration.
    * @param string $plugin_id
@@ -120,4 +121,5 @@ class BlockIFrame extends IFrame implements DisplayRouterInterface {
       ],
     ];
   }
+
 }
