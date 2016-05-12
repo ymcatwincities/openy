@@ -354,14 +354,18 @@ p.legend {
   .modal-header {
     background: #92288d;
     border-radius: 0;
-    padding: 0 50px 15px;
+    padding: 17px 50px 15px;
 
     #modal-title {
+      overflow: hidden;
+      line-height: 30px;
+
       h2 {
         font-size: 30px;
         text-transform: uppercase;
         font-weight: normal;
         margin: 0;
+        line-height: 30px;
       }
       .modal-close {
         background: none;
@@ -428,5 +432,14 @@ p.legend {
   .fullwidth {
     margin: 0 -60px;
   }
+  th,
+  .heading-row td {
+    background: #0889cd;
+    color: #fff;
+  }
+  tr.total td {
+    font-weight: bold;
+  }
+
 }
 

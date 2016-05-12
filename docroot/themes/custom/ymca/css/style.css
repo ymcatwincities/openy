@@ -7765,13 +7765,18 @@ p.legend {
 #modal.annual-report-modal .modal-header {
   background: #92288d;
   border-radius: 0;
-  padding: 0 50px 15px;
+  padding: 17px 50px 15px;
+}
+#modal.annual-report-modal .modal-header #modal-title {
+  overflow: hidden;
+  line-height: 30px;
 }
 #modal.annual-report-modal .modal-header #modal-title h2 {
   font-size: 30px;
   text-transform: uppercase;
   font-weight: normal;
   margin: 0;
+  line-height: 30px;
 }
 #modal.annual-report-modal .modal-header #modal-title .modal-close {
   background: none;
@@ -7833,6 +7838,14 @@ p.legend {
 }
 .modal-annual-report .fullwidth {
   margin: 0 -60px;
+}
+.modal-annual-report th,
+.modal-annual-report .heading-row td {
+  background: #0889cd;
+  color: #fff;
+}
+.modal-annual-report tr.total td {
+  font-weight: bold;
 }
 
 .form-item {
