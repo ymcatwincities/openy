@@ -2462,9 +2462,28 @@ function ymca_master_update_8098() {
 }
 
 /**
- * Enable Big Pipe core module.
+ * Combine entity embed and entity browser for blocks.
  */
 function ymca_master_update_8099() {
+  $install = ['ymca_entity_browser'];
+  \Drupal::service('module_installer')->install($install, TRUE);
+
+  $uninstall = ['ymca_ief_entity_browser'];
+  \Drupal::service('module_installer')->uninstall($uninstall, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
+
+/**
+ * Enable Big Pipe core module.
+ */
+function ymca_master_update_8100() {
   \Drupal::service('module_installer')->install(array('big_pipe'), TRUE);
   \Drupal::service('module_installer')->uninstall(['image_widget_crop']);
 }
