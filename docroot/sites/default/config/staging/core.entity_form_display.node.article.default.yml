@@ -17,11 +17,10 @@ dependencies:
     - field.field.node.article.field_state
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
-    - image.style.thumbnail
     - node.type.article
   module:
     - entity_browser
-    - image_widget_crop
+    - file_browser
     - inline_entity_form
     - link
     - path
@@ -66,19 +65,15 @@ content:
   field_header_image:
     weight: 9
     settings:
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - 2013_masthead
-        - 2013_promotion
-        - blog_thumb
-        - large_230_230
-        - medium_125_125
-        - small_75_75
-      crop_help_text: 'Select an image size to crop'
-      progress_indicator: throbber
+      entity_browser: browse_files_modal
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: image_widget_crop
+    type: file_browser
   field_header_variant:
     weight: 8
     settings: {  }
@@ -108,9 +103,9 @@ content:
     settings:
       entity_browser: browse_content_modal
       field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      open: 0
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
@@ -134,7 +129,7 @@ content:
     third_party_settings: {  }
     type: options_select
   field_state:
-    weight: 27
+    weight: 19
     settings: {  }
     third_party_settings: {  }
     type: workflow_default
