@@ -384,6 +384,12 @@ function ymca_alters_query_needs_review_alter($query) {
     }
   }
 
+  // If there is no nids to view, return nothing.
+  if (empty($nids_to_be_viewed)) {
+    $query->condition('node_field_data.nid', 0);
+    return;
+  }
+
   // Add conditions which we can't add through View UI.
   $query->addJoin(
     'LEFT',
@@ -397,4 +403,5 @@ function ymca_alters_query_needs_review_alter($query) {
     $nids_to_be_viewed,
     'IN'
   );
+
 }

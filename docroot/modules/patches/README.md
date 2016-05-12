@@ -25,3 +25,6 @@ description: Fix invalid redirect_update_path() hook implementation
 patch: docroot/modules/patches/shield_config_aleter.patch
 drupal.org issue: https://www.drupal.org/node/2693023
 description: Add config alter
+
+patch: docroot/modules/patches/entity_embed-entity-browser.patch
+description: Fix to make Entity Browser work as widget for Entity Embed.
