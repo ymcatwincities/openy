@@ -386,7 +386,7 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
    * {@inheritdoc}
    */
   public function getTimeHint() {
-    return 300.0;
+    return 10.0;
   }
 
 }
