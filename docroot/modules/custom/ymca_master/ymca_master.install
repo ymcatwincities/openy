@@ -2494,3 +2494,17 @@ function ymca_master_update_8100() {
     ]
   );
 }
+
+/**
+ * Install acquia_purge module and respective configs.
+ */
+function ymca_master_update_8103() {
+  \Drupal::service('module_installer')->install(array('acquia_purge'), TRUE);
+  Drupal::configFactory()->getEditable('purge_purger_http.settings.ffd776af8e')->delete();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'purge.plugins.yml',
+    ]
+  );
+}

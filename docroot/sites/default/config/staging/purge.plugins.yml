@@ -1,8 +1,8 @@
 purgers:
   -
     order_index: 1
-    instance_id: ffd776af8e
-    plugin_id: http
+    instance_id: c5008bc4b7
+    plugin_id: acquia_purge
 processors: {  }
 queuers: {  }
 queue: database
