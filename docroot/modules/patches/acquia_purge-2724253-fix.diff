@@ -10,7 +10,7 @@ index d6ee145..b63ad54 100644
 +   * {@inheritdoc}
 +   */
 +  public function getTimeHint() {
-+    return 300.0;
++    return 10.0;
 +  }
 +
  }
