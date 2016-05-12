@@ -2486,4 +2486,11 @@ function ymca_master_update_8099() {
 function ymca_master_update_8100() {
   \Drupal::service('module_installer')->install(array('big_pipe'), TRUE);
   \Drupal::service('module_installer')->uninstall(['image_widget_crop']);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml'
+    ]
+  );
 }
