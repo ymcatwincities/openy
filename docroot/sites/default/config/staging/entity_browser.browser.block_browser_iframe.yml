@@ -1,0 +1,27 @@
+uuid: 2c85af55-2847-4860-8222-febb756b64c8
+langcode: en
+status: true
+dependencies:
+  module:
+    - views
+name: block_browser_iframe
+label: 'Block Browser (IFrame)'
+display: block_iframe
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  5454a94a-a9ef-49b6-8721-a26407431e11:
+    settings:
+      view: content_browser_block
+      view_display: entity_browser_1
+    uuid: 5454a94a-a9ef-49b6-8721-a26407431e11
+    weight: 1
+    label: view
+    id: view

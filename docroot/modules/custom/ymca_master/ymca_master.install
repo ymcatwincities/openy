@@ -2460,3 +2460,24 @@ function ymca_master_update_8098() {
     ]
   );
 }
+
+/**
+ * Combine entity embed and entity browser for blocks.
+ */
+function ymca_master_update_8099() {
+  $installer = \Drupal::service('module_installer');
+
+  $install = ['ymca_entity_browser'];
+  \Drupal::service('module_installer')->install($install, TRUE);
+
+  $uninstall = ['ymca_ief_entity_browser'];
+  \Drupal::service('module_installer')->uninstall($uninstall, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
