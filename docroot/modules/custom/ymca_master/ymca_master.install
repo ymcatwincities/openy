@@ -2508,3 +2508,13 @@ function ymca_master_update_8103() {
     ]
   );
 }
+
+/**
+ * Update block browser config.
+ */
+function ymca_master_update_8104() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [$path . 'entity_browser.browser.block_browser_iframe.yml']
+  );
+}
