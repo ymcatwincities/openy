@@ -15,7 +15,6 @@ use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
-use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_help().
