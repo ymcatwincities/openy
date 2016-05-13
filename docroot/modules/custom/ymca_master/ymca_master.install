@@ -2510,12 +2510,13 @@ function ymca_master_update_8103() {
 }
 
 /**
- * Fix view filter condition.
+ * Update configs.
  */
-function ymca_master_update_8105() {
+function ymca_master_update_8104() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
       $path . 'views.view.content_browser_block.yml',
     ]
   );
