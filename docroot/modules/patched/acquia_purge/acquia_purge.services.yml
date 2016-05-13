@@ -1,0 +1,5 @@
+services:
+  acquia_purge.hostinginfo:
+    class: Drupal\acquia_purge\HostingInfo
+    arguments: ['@settings']
+    public: true

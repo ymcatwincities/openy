@@ -1,0 +1,11 @@
+name: Acquia Purge
+type: module
+description: 'Top-notch cache invalidation on Acquia Cloud!'
+package: "Purge - reverse proxies & CDNs"
+version: VERSION
+core: 8.x
+dependencies:
+  - purge
+  - purge_drush
+  - purge_queuer_coretags
+  - purge_processor_cron
