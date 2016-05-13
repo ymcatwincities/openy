@@ -32,3 +32,7 @@ description: Fix to make Entity Browser work as widget for Entity Embed.
 patch: docroot/modules/patches/acquia_purge-2724253-fix.diff
 drupal.org issue: https://www.drupal.org/node/2724253
 description: Fix for latest dev and purge module interface
+
+patch: docroot/modules/patches/27000495.patch
+drupal.org issue: https://www.drupal.org/node/2700495
+description: Method removing expired drupalSettings.ajax tries to remove settings when there is no ajax defined

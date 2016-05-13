@@ -2508,3 +2508,15 @@ function ymca_master_update_8103() {
     ]
   );
 }
+
+/**
+ * Fix view filter condition.
+ */
+function ymca_master_update_8105() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.content_browser_block.yml',
+    ]
+  );
+}
