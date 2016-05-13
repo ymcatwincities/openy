@@ -1213,7 +1213,7 @@
         // Ajax behavior.
         if (instance.selector) {
           var selector = instance.selector.replace('#', '');
-          if (selector in ajaxSettings) {
+          if (ajaxSettings && selector in ajaxSettings) {
             delete ajaxSettings[selector];
           }
         }
