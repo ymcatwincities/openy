@@ -2510,7 +2510,7 @@ function ymca_master_update_8103() {
 }
 
 /**
- * Update configs. Add "New" prefix for all tabs.
+ * Update configs. Add "New" prefix for all tabs. Fix file modal to inline.
  */
 function ymca_master_update_8104() {
   $path = 'sites/default/config/staging/';
@@ -2518,6 +2518,9 @@ function ymca_master_update_8104() {
     [
       $path . 'entity_browser.browser.block_browser_iframe.yml',
       $path . 'views.view.content_browser_block.yml',
+      $path . 'core.entity_form_display.block_content.image_block.default.yml',
+      $path . 'core.entity_form_display.block_content.promo_block.default.yml',
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml'
     ]
   );
 }
