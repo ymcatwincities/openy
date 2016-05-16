@@ -311,6 +311,7 @@ function ymca_alters_page_attachments(array &$page) {
   // Alter CSS for File Browser, Content Browser.
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {
+    $page['#attached']['library'][] = 'ymca_alters/blocks';
     $page['#attached']['library'][] = 'ymca_alters/file_browser';
     $page['#attached']['library'][] = 'ymca_alters/content_browser';
   }

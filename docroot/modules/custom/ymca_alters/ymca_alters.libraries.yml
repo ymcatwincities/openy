@@ -15,3 +15,8 @@ content_browser:
   css:
     theme:
       css/content_browser.css: {}
+blocks:
+  version: VERSION
+  css:
+    theme:
+      css/blocks.css: {}
