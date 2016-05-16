@@ -2510,7 +2510,7 @@ function ymca_master_update_8103() {
 }
 
 /**
- * Update configs.
+ * Update configs. Add "New" prefix for all tabs.
  */
 function ymca_master_update_8104() {
   $path = 'sites/default/config/staging/';
