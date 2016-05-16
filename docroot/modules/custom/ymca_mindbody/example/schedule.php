@@ -1,6 +1,6 @@
 <?php
 // @codingStandardsIgnoreFile
-require_once('../MindBodyAPI.php');
+require_once('../src/MindBodyAPI.php');
 
 ?>
 <html>
