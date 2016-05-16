@@ -33,7 +33,7 @@ widgets:
       bundle: basic
     uuid: 1fee238e-c4e4-49cb-aae2-aab41be73c77
     weight: 2
-    label: Basic Block
+    label: 'New Basic Block'
     id: entity_form
   d22a8d66-fb5f-4127-8974-2c5750a056b4:
     settings:
@@ -41,7 +41,7 @@ widgets:
       bundle: promo_block
     uuid: d22a8d66-fb5f-4127-8974-2c5750a056b4
     weight: 3
-    label: Promo Block
+    label: 'New Promo Block'
     id: entity_form
   084db389-8dbe-434d-87b0-929b24f0bccb:
     settings:
@@ -49,7 +49,7 @@ widgets:
       bundle: code_block
     uuid: 084db389-8dbe-434d-87b0-929b24f0bccb
     weight: 4
-    label: Code Block
+    label: 'New Code Block'
     id: entity_form
   9e0a9724-f965-4fbe-b3f1-367df99e5563:
     settings:
@@ -57,7 +57,7 @@ widgets:
       bundle: date_block
     uuid: 9e0a9724-f965-4fbe-b3f1-367df99e5563
     weight: 5
-    label: Date Block
+    label: 'New Date Block'
     id: entity_form
   9f40a062-e73c-4e24-901e-e0e0dd7a68a2:
     settings:
@@ -65,7 +65,7 @@ widgets:
       bundle: expander_block
     uuid: 9f40a062-e73c-4e24-901e-e0e0dd7a68a2
     weight: 6
-    label: Expander Block
+    label: 'New Expander Block'
     id: entity_form
   97c53b5e-6880-457b-a4e8-b878e0196275:
     settings:
@@ -73,7 +73,7 @@ widgets:
       bundle: image_block
     uuid: 97c53b5e-6880-457b-a4e8-b878e0196275
     weight: 7
-    label: Image Block
+    label: 'New Image Block'
     id: entity_form
   4ad07e2d-946f-46e9-b0bb-161b85c33ba3:
     settings:
@@ -81,5 +81,5 @@ widgets:
       bundle: slide_show
     uuid: 4ad07e2d-946f-46e9-b0bb-161b85c33ba3
     weight: 8
-    label: Slide Show
+    label: 'New Slide Show'
     id: entity_form
