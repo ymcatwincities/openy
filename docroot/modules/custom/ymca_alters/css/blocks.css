@@ -1,0 +1,37 @@
+.entity-embed-dialog iframe {
+  width: 100% !important;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-row {
+  border: 1px solid #ccc;
+  display: inline-block;
+  margin: 1%;
+  max-height: 340px;
+  overflow: hidden;
+  padding: 5px;
+  vertical-align: top;
+  width: 22%;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-row img {
+  max-width: 100%;
+  height: auto;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-field-entity-browser-select {
+  float: left;
+  margin-right: 10px;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-field-entity-browser-select .form-item {
+  margin: 0;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-field-info {
+  margin-bottom: 10px;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-row iframe {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-row .hero-image {
+  margin-top: 0;
+}
+.view-content-browser-block.view-display-id-entity_browser_1 .views-row .modal {
+  display: none;
+}

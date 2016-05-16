@@ -128,7 +128,9 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       $get_time = function ($field_name) use ($entity) {
         if ($entity->hasField($field_name)) {
           $field_start = $entity->get($field_name);
-          $data = $field_start->get(0)->getValue();
+          if ($field_start->get(0)) {
+            $data = $field_start->get(0)->getValue();
+          }
           if (!empty($data['value'])) {
             $timezone = &drupal_static('ymca_blocks_block_content_view_alter_timezone');
             if (!isset($timezone)) {
