@@ -2524,3 +2524,18 @@ function ymca_master_update_8104() {
     ]
   );
 }
+
+/**
+ * Add Mapping entity.
+ */
+function ymca_master_update_8105() {
+  \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mappings.mapping_type.location.yml',
+      $path . 'ymca_mappings.mapping_type.trainer.yml',
+    ]
+  );
+}
