@@ -30,13 +30,13 @@ function ymca_mappings_theme() {
   $theme = [];
   $theme['mapping'] = [
     'render element' => 'elements',
-    'file' => 'mapping.page.inc',
+    'file' => 'ymca_mappings.page.inc',
     'template' => 'mapping',
   ];
   $theme['mapping_content_add_list'] = [
     'render element' => 'content',
     'variables' => ['content' => NULL],
-    'file' => 'mapping.page.inc',
+    'file' => 'ymca_mappings.page.inc',
   ];
   return $theme;
 }

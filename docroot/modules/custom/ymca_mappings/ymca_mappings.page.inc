@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains mapping.page.inc.
+ * Contains ymca_mappings.page.inc.
  *
  * Page callback for Mapping entities.
  */
