@@ -42,8 +42,8 @@ function ymca_mappings_theme() {
 }
 
 /**
-* Implements hook_theme_suggestions_HOOK().
-*/
+ * Implements hook_theme_suggestions_HOOK().
+ */
 function ymca_mappings_theme_suggestions_mapping(array $variables) {
   $suggestions = array();
   $entity = $variables['elements']['#mapping'];
