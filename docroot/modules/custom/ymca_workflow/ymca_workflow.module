@@ -117,6 +117,9 @@ function ymca_workflow_workflow_permitted_state_transitions_alter(&$transitions,
   // it should go through Draft / Needs review statuses.
   $current_state = $context['state']->id;
   if ($current_state == 'workflow_published') {
-    unset($transitions['workflow_published_published']);
+    // Allow admin to publish content any time.
+    if (!in_array('administrator', \Drupal::currentUser()->getRoles())) {
+      unset($transitions['workflow_published_published']);
+    }
   }
 }

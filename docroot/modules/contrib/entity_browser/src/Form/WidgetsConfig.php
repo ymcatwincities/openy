@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Form\WidgetsConfig.
- */
-
 namespace Drupal\entity_browser\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -209,13 +204,8 @@ class WidgetsConfig extends FormBase {
     /** @var \Drupal\entity_browser\WidgetInterface $widget */
     foreach ($entity_browser->getWidgets() as $uuid => $widget) {
       $widget->submitConfigurationForm($form, $form_state);
-      $widget->setConfiguration([
-        'settings' => !empty($table[$uuid]['form']) ? $table[$uuid]['form'] : [],
-        'weight' => $table[$uuid]['weight'],
-        'label' => $table[$uuid]['label'],
-        'uuid' => $uuid,
-        'id' => $widget->id(),
-      ]);
+      $widget->setWeight($table[$uuid]['weight']);
+      $widget->setLabel($table[$uuid]['label']);
     }
   }
 

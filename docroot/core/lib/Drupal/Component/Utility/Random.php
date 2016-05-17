@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\Utility\Random.
- */
-
 namespace Drupal\Component\Utility;
 
 /**
@@ -139,12 +134,12 @@ class Random {
    * Generate a string that looks like a word (letters only, alternating consonants and vowels).
    *
    * @param int $length
-   *  The desired word length.
+   *   The desired word length.
    *
    * @return string
    */
   public function word($length) {
-    mt_srand((double) microtime()*1000000);
+    mt_srand((double) microtime() * 1000000);
 
     $vowels = array("a", "e", "i", "o", "u");
     $cons = array("b", "c", "d", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "u", "v", "w", "tr",

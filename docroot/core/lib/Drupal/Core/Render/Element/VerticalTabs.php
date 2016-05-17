@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Render\Element\VerticalTabs.
- */
-
 namespace Drupal\Core\Render\Element;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -29,24 +24,24 @@ use Drupal\Core\Render\Element;
  *
  * $form['author'] = array(
  *   '#type' => 'details',
- *   '#title' => 'Author',
+ *   '#title' => $this->t('Author'),
  *   '#group' => 'information',
  * );
  *
  * $form['author']['name'] = array(
  *   '#type' => 'textfield',
- *   '#title' => t('Name'),
+ *   '#title' => $this->t('Name'),
  * );
  *
  * $form['publication'] = array(
  *   '#type' => 'details',
- *   '#title' => t('Publication'),
+ *   '#title' => $this->t('Publication'),
  *   '#group' => 'information',
  * );
  *
  * $form['publication']['publisher'] = array(
  *   '#type' => 'textfield',
- *   '#title' => t('Publisher'),
+ *   '#title' => $this->t('Publisher'),
  * );
  * @endcode
  *
@@ -136,7 +131,7 @@ class VerticalTabs extends RenderElement {
     $element[$name . '__active_tab'] = array(
       '#type' => 'hidden',
       '#default_value' => $element['#default_tab'],
-      '#attributes' => array('class' => array('vertical-tabs-active-tab')),
+      '#attributes' => array('class' => array('vertical-tabs__active-tab')),
     );
     // Clean up the active tab value so it's not accidentally stored in
     // settings forms.

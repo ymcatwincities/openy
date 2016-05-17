@@ -239,13 +239,10 @@ class EntityInlineForm implements InlineFormInterface {
    *   The form state of the parent form.
    */
   public static function submitCleanFormState(&$entity_form, FormStateInterface $form_state) {
-    $info = \Drupal::entityTypeManager()->getDefinition($entity_form['#entity_type']);
-    if (!$info->get('field_ui_base_route')) {
-      // The entity type is not fieldable, nothing to cleanup.
-      return;
-    }
-
-    $bundle = $entity_form['#entity']->bundle();
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
+    $entity = $entity_form['#entity'];
+    $bundle = $entity->bundle();
+    /** @var \Drupal\Core\Field\FieldDefinitionInterface[] $instances */
     $instances = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity_form['#entity_type'], $bundle);
     foreach ($instances as $instance) {
       $field_name = $instance->getName();

@@ -5,7 +5,7 @@
  */
 (function ($, Drupal, drupalSettings) {
 
-  "use strict";
+  'use strict';
 
   /**
    * Registers behaviours related to IEF "use existing" feature.
@@ -22,7 +22,7 @@
   /**
    * Reacts on entities being selected via entity form.
    */
-  Drupal.entityBrowserEntityForm.valuesUpdated = function() {
+  Drupal.entityBrowserEntityForm.valuesUpdated = function () {
     $(this).parent().find('.ief-entity-submit').trigger('entities-selected');
   };
 

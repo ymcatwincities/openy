@@ -29,6 +29,8 @@
     attach: function (context, settings) {
       $('body').once('js-entity-embed-dialog').on('entityBrowserIFrameAppend', function () {
         $('.entity-select-dialog').trigger('resize');
+        // Hide the next button, the click is triggered by Drupal.entityEmbedDialog.selectionCompleted.
+        $('.entity-select-dialog .js-button-next').hide();
       });
     }
   };

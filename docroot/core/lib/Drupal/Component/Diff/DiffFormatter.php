@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\Diff\DiffFormatter.
- */
-
 namespace Drupal\Component\Diff;
 
 use Drupal\Component\Diff\Engine\DiffOpCopy;
@@ -78,7 +73,7 @@ class DiffFormatter {
         $context = $edit->orig;
       }
       else {
-        if (! is_array($block)) {
+        if (!is_array($block)) {
           $context = array_slice($context, sizeof($context) - $nlead);
           $x0 = $xi - sizeof($context);
           $y0 = $yi - sizeof($context);

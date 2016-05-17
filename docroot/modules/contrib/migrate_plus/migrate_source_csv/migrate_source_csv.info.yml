@@ -1,7 +1,0 @@
-type: module
-name: Migrate Source CSV
-description: 'CSV source migration.'
-package: Migration
-core: 8.x
-dependencies:
-  - migrate

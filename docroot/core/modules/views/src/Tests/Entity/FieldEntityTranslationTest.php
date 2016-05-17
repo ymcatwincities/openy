@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Tests\Entity\FieldEntityTranslationTest.
- */
-
 namespace Drupal\views\Tests\Entity;
 
 use Drupal\Core\Language\Language;
@@ -46,9 +41,7 @@ class FieldEntityTranslationTest extends ViewTestBase {
     /** @var \Drupal\content_translation\ContentTranslationManagerInterface $content_translation_manager */
     $content_translation_manager = \Drupal::service('content_translation.manager');
 
-    $content_translation_manager->setEnabled('node', 'article', 'title');
-    $content_translation_manager->setEnabled('node', 'article', 'sticky');
-    $content_translation_manager->setEnabled('node', 'article', 'published');
+    $content_translation_manager->setEnabled('node', 'article', TRUE);
 
     $language = ConfigurableLanguage::create([
       'id' => 'es',
@@ -66,13 +59,13 @@ class FieldEntityTranslationTest extends ViewTestBase {
     $node = Node::create([
       'type' => 'article',
       'title' => 'example EN',
-      'sticky' => false,
+      'sticky' => FALSE,
     ]);
     $node->save();
 
     $translation = $node->addTranslation('es');
     $translation->title->value = 'example ES';
-    $translation->sticky->value = true;
+    $translation->sticky->value = TRUE;
     $translation->save();
 
     $this->drupalGet('test_entity_field_renderers/entity_translation');

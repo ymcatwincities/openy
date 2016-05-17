@@ -5,12 +5,19 @@ common:
   dependencies:
     - core/underscore
 
+entity_list:
+  version: VERSION
+  css:
+    component:
+      css/entity_browser.entity_list.css: {}
+
 iframe:
   version: VERSION
   js:
     js/entity_browser.iframe.js: {}
   dependencies:
     - core/drupalSettings
+    - core/jquery.once
     - entity_browser/common
 
 iframe_selection:
@@ -22,13 +29,11 @@ iframe_selection:
 
 entity_reference:
   version: VERSION
-  css:
-    component:
-      css/entity_browser.entity_reference.css: {}
   js:
     js/entity_browser.entity_reference.js: {}
   dependencies:
     - entity_browser/common
+    - entity_browser/entity_list
     - core/jquery.ui.sortable
 
 modal:
@@ -55,16 +60,19 @@ tabs:
     js/entity_browser.tabs.js: {}
   dependencies:
     - core/drupalSettings
+    - core/jquery.once
 
 view:
   version: VERSION
   js:
     js/entity_browser.view.js: {}
   dependencies:
+    - core/jquery.once
 
 multi_step_display:
   version: VERSION
   js:
     js/entity_browser.multi_step_display.js: {}
   dependencies:
+    - entity_browser/entity_list
     - core/jquery.ui.sortable

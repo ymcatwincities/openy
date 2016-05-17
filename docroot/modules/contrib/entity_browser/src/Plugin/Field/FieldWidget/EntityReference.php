@@ -18,11 +18,14 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Validation\Plugin\Validation\Constraint\NotNullConstraint;
 use Drupal\entity_browser\Events\Events;
 use Drupal\entity_browser\Events\RegisterJSCallbacks;
 use Drupal\entity_browser\FieldWidgetDisplayManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * Plugin implementation of the 'entity_reference' widget for entity browser.
@@ -241,6 +244,36 @@ class EntityReference extends WidgetBase implements ContainerFactoryPluginInterf
   /**
    * {@inheritdoc}
    */
+  public function flagErrors(FieldItemListInterface $items, ConstraintViolationListInterface $violations, array $form, FormStateInterface $form_state) {
+    if ($violations->count() > 0) {
+      /** @var \Symfony\Component\Validator\ConstraintViolation $violation */
+      foreach ($violations as $offset => $violation) {
+        // The value of the required field is checked through the "not null"
+        // constraint, whose message is not very useful. We override it here for
+        // better UX.
+        if ($violation->getConstraint() instanceof NotNullConstraint) {
+          $violations->set($offset, new ConstraintViolation(
+            $this->t('@name field is required.', ['@name' => $items->getFieldDefinition()->getLabel()]),
+            '',
+            [],
+            $violation->getRoot(),
+            $violation->getPropertyPath(),
+            $violation->getInvalidValue(),
+            $violation->getPlural(),
+            $violation->getCode(),
+            $violation->getConstraint(),
+            $violation->getCause()
+          ));
+        }
+      }
+    }
+
+    parent::flagErrors($items, $violations, $form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
     $entity_storage = $this->entityManager->getStorage($entity_type);
@@ -317,6 +350,7 @@ class EntityReference extends WidgetBase implements ContainerFactoryPluginInterf
       '#id' => $details_id,
       '#type' => 'details',
       '#open' => !empty($ids) || $this->getSetting('open'),
+      '#required' => $this->fieldDefinition->isRequired(),
       'target_id' => [
         '#type' => 'hidden',
         '#id' => $hidden_id,
@@ -338,7 +372,7 @@ class EntityReference extends WidgetBase implements ContainerFactoryPluginInterf
       $entity_browser_uuid = sha1(implode('-', array_merge($form['#parents'], [$this->fieldDefinition->getName(), $delta])));
       $entity_browser_display = $entity_browser->getDisplay();
       $entity_browser_display->setUuid($entity_browser_uuid);
-      $element['entity_browser'] = $entity_browser_display->displayEntityBrowser();
+      $element['entity_browser'] = $entity_browser_display->displayEntityBrowser($form_state);
       $element['#attached']['library'][] = 'entity_browser/entity_reference';
       $element['#attached']['drupalSettings']['entity_browser'] = [
         $entity_browser->getDisplay()->getUuid() => [
