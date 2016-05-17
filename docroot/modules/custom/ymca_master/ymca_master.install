@@ -2539,3 +2539,21 @@ function ymca_master_update_8105() {
     ]
   );
 }
+
+/**
+ * Initial fields for TrainerID.
+ */
+function ymca_master_update_8106() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.trainer.default.yml',
+      $path . 'core.entity_view_display.mapping.trainer.default.yml',
+      $path . 'field.field.mapping.trainer.field_mindbody_trainer_id.yml',
+      $path . 'field.field.mapping.trainer.field_trainer_page_ref.yml',
+      $path . 'field.storage.mapping.field_mindbody_trainer_id.yml',
+      $path . 'field.storage.mapping.field_trainer_page_ref.yml',
+    ]
+  );
+}
