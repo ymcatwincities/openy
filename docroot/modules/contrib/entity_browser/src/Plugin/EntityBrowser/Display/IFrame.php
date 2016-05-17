@@ -15,6 +15,7 @@ use Drupal\entity_browser\DisplayBase;
 use Drupal\entity_browser\DisplayRouterInterface;
 use Drupal\entity_browser\Events\Events;
 use Drupal\entity_browser\Events\RegisterJSCallbacks;
+use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\Core\Path\CurrentPathStack;
@@ -127,43 +128,51 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser() {
+  public function displayEntityBrowser(FormStateInterface $form_state) {
     $uuid = $this->getUuid();
     /** @var \Drupal\entity_browser\Events\RegisterJSCallbacks $event */
     // TODO - $uuid is unused in this event but we need to pass it as
     // constructor expects it. See https://www.drupal.org/node/2600706 for more
     // info.
-    $event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
-    $event_object->registerCallback('Drupal.entityBrowser.selectionCompleted');
-    $event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $event_object );
+    $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
+    $js_event_object->registerCallback('Drupal.entityBrowser.selectionCompleted');
+    $callback_event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $js_event_object);
     $original_path = $this->currentPath->getPath();
+    $data = [
+      'query_parameters' => [
+        'query' => [
+          'uuid' => $uuid,
+          'original_path' => $original_path,
+        ],
+      ],
+      'attributes' => [
+        'href' => '#browser',
+        'class' => ['entity-browser-handle', 'entity-browser-iframe'],
+        'data-uuid' => $uuid,
+        'data-original-path' => $original_path,
+      ],
+    ];
+    $event_object = new AlterEntityBrowserDisplayData($this->configuration['entity_browser_id'], $uuid, $this->getPluginDefinition(), $form_state, $data);
+    $event = $this->eventDispatcher->dispatch(Events::ALTER_BROWSER_DISPLAY_DATA, $event_object);
+    $data = $event->getData();
     return [
       '#theme_wrappers' => ['container'],
       'link' => [
         '#type' => 'html_tag',
         '#tag' => 'a',
         '#value' => $this->configuration['link_text'],
-        '#attributes' => [
-          'href' => '#browser',
-          'class' => ['entity-browser-handle', 'entity-browser-iframe'],
-          'data-uuid' => $uuid,
-          'data-original-path' => $original_path,
-        ],
+        '#attributes' => $data['attributes'],
         '#attached' => [
           'library' => ['entity_browser/iframe'],
           'drupalSettings' => [
             'entity_browser' => [
               'iframe' => [
                 $uuid => [
-                  'src' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], [
-                    'query' => [
-                      'uuid' => $uuid,
-                      'original_path' => $original_path,
-                    ]
-                  ])->toString(),
+                  'src' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], $data['query_parameters'])
+                    ->toString(),
                   'width' => $this->configuration['width'],
                   'height' => $this->configuration['height'],
-                  'js_callbacks' => $event->getCallbacks(),
+                  'js_callbacks' => $callback_event->getCallbacks(),
                   'entity_browser_id' => $this->configuration['entity_browser_id'],
                   'auto_open' => $this->configuration['auto_open'],
                 ],

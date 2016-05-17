@@ -14,6 +14,7 @@ use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
+use Drupal\Core\Breadcrumb\Breadcrumb;
 
 /**
  * Implements hook_help().
@@ -310,6 +311,7 @@ function ymca_alters_page_attachments(array &$page) {
   // Alter CSS for File Browser, Content Browser.
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {
+    $page['#attached']['library'][] = 'ymca_alters/blocks';
     $page['#attached']['library'][] = 'ymca_alters/file_browser';
     $page['#attached']['library'][] = 'ymca_alters/content_browser';
   }
@@ -367,6 +369,30 @@ function ymca_alters_library_info_alter(&$libraries, $extension) {
  * Implements hook_query_TAG_alter().
  */
 function ymca_alters_query_needs_review_alter($query) {
+  // Select all revisions for field 'State'.
+  $language = Drupal::languageManager()->getCurrentLanguage();
+  $field_state_revisions = db_select('node_revision__field_state', 'n')
+    ->fields('n')
+    ->condition('n.deleted', 0)
+    ->condition('n.langcode', $language->getId())
+    ->execute()
+    ->fetchAllAssoc('entity_id');
+
+  // Filter rows only with 'workflow_needs_review'.
+  $nids_to_be_viewed = [];
+  foreach ($field_state_revisions as $vid => $revision) {
+    if ($revision->field_state_value == 'workflow_needs_review') {
+      $nids_to_be_viewed[] = $revision->entity_id;
+    }
+  }
+
+  // If there is no nids to view, return nothing.
+  if (empty($nids_to_be_viewed)) {
+    $query->condition('node_field_data.nid', 0);
+    return;
+  }
+
+  // Add conditions which we can't add through View UI.
   $query->addJoin(
     'LEFT',
     'node_revision__field_state',
@@ -375,8 +401,50 @@ function ymca_alters_query_needs_review_alter($query) {
     array(':views_join_condition_0' => 0)
   );
   $query->condition(
-    'node_revision__field_state.field_state_value',
-    'workflow_needs_review',
-    'LIKE'
+    'node_field_data.nid',
+    $nids_to_be_viewed,
+    'IN'
   );
+
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  // Add breadcrumbs trailing title to all pages, except filtered.
+  $node = $route_match->getParameter('node');
+  $path_info = explode('/', \Drupal::request()->getPathInfo());
+
+  // Skip frontpage.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    return;
+  }
+
+  // Skip blog post.
+  if ($node && $node->bundle() == 'blog') {
+    return;
+  }
+
+  // Skip blog archive.
+  if ($path_info[1] == 'blog' && $path_info[2] == 'archive') {
+    return;
+  }
+
+  // Skip paths.
+  $paths = [
+    'news__events',
+    'blog',
+    'search_results'
+  ];
+
+  foreach ($paths as $item) {
+    if (end($path_info) == $item) {
+      return;
+    }
+  }
+
+  $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
+  $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
+  $breadcrumb->addCacheContexts(['url.path']);
 }

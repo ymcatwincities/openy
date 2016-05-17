@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Enables the user registration and login system.
+ */
+
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Component\Utility\Unicode;
@@ -13,15 +18,11 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
+use Drupal\system\Entity\Action;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
-
-/**
- * @file
- * Enables the user registration and login system.
- */
 
 /**
  * Maximum length of username text field.
@@ -66,7 +67,7 @@ function user_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<dt>' . t('Managing account settings') . '</dt>';
       $output .= '<dd>' . t('The <a href=":accounts">Account settings page</a> allows you to manage settings for the displayed name of the Anonymous user role, personal contact forms, user registration settings, and account cancellation settings. On this page you can also manage settings for account personalization, and adapt the text for the email messages that users receive when they register or request a password recovery. You may also set which role is automatically assigned new permissions whenever a module is enabled (the Administrator role).', array(':accounts'  => \Drupal::url('entity.user.admin_form'))) . '</dd>';
       $output .= '<dt>' . t('Managing user account fields') . '</dt>';
-      $output .= '<dd>' . t('Because User accounts are an entity type, you can extend them by adding fields through the Manage fields tab on the <a href=":accounts">Account settings page</a>. By adding fields for e.g., a picture, a biography, or address, you can a create a custom profile for the users of the website. For background information on entities and fields, see the <a href=":field_help">Field module help page</a>.', array(':field_help'=>(\Drupal::moduleHandler()->moduleExists('field')) ? \Drupal::url('help.page', array('name' => 'field')) : '#', ':accounts' => \Drupal::url('entity.user.admin_form'))) . '</dd>';
+      $output .= '<dd>' . t('Because User accounts are an entity type, you can extend them by adding fields through the Manage fields tab on the <a href=":accounts">Account settings page</a>. By adding fields for e.g., a picture, a biography, or address, you can a create a custom profile for the users of the website. For background information on entities and fields, see the <a href=":field_help">Field module help page</a>.', array(':field_help' => (\Drupal::moduleHandler()->moduleExists('field')) ? \Drupal::url('help.page', array('name' => 'field')) : '#', ':accounts' => \Drupal::url('entity.user.admin_form'))) . '</dd>';
       $output .= '</dl>';
       return $output;
 
@@ -446,12 +447,12 @@ function user_template_preprocess_default_variables_alter(&$variables) {
  *
  * Default template: username.html.twig.
  *
+ * Modules that make any changes to variables like 'name' or 'extra' must ensure
+ * that the final string is safe.
+ *
  * @param array $variables
  *   An associative array containing:
  *   - account: The user account (\Drupal\Core\Session\AccountInterface).
- *
- * Modules that make any changes to variables like 'name' or 'extra' must ensure
- * that the final string is safe.
  */
 function template_preprocess_username(&$variables) {
   $account = $variables['account'] ?: new AnonymousUserSession();
@@ -563,7 +564,7 @@ function user_user_logout($account) {
 }
 
 /**
- * Generates a unique URL for a user to login and reset their password.
+ * Generates a unique URL for a user to log in and reset their password.
  *
  * @param \Drupal\user\UserInterface $account
  *   An object containing the user account.
@@ -985,7 +986,7 @@ function user_user_role_insert(RoleInterface $role) {
 
   $add_id = 'user_add_role_action.' . $role->id();
   if (!entity_load('action', $add_id)) {
-    $action = entity_create('action', array(
+    $action = Action::create(array(
       'id' => $add_id,
       'type' => 'user',
       'label' => t('Add the @label role to the selected users', array('@label' => $role->label())),
@@ -998,7 +999,7 @@ function user_user_role_insert(RoleInterface $role) {
   }
   $remove_id = 'user_remove_role_action.' . $role->id();
   if (!entity_load('action', $remove_id)) {
-    $action = entity_create('action', array(
+    $action = Action::create(array(
       'id' => $remove_id,
       'type' => 'user',
       'label' => t('Remove the @label role from the selected users', array('@label' => $role->label())),

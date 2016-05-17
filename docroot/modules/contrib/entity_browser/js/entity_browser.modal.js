@@ -4,9 +4,9 @@
  * Defines the behavior of the entity browser's modal display.
  */
 (function ($, Drupal, drupalSettings) {
-	
-  "use strict";
-  
+
+  'use strict';
+
   Drupal.AjaxCommands.prototype.select_entities = function (ajax, response, status) {
     var uuid = drupalSettings.entity_browser.modal.uuid;
 
@@ -22,7 +22,7 @@
       _.each(drupalSettings.entity_browser.modal, function (instance) {
         _.each(instance.js_callbacks, function (callback) {
           // Get the callback.
-          var callback = callback.split('.');
+          callback = callback.split('.');
           var fn = window;
 
           for (var j = 0; j < callback.length; j++) {
@@ -30,11 +30,11 @@
           }
 
           if (typeof fn === 'function') {
-            $('input[data-uuid="' +instance.uuid + '"]').not('.entity-browser-processed')
+            $('input[data-uuid="' + instance.uuid + '"]').not('.entity-browser-processed')
               .bind('entities-selected', fn).addClass('entity-browser-processed');
           }
         });
       });
     }
-  }
+  };
 }(jQuery, Drupal, drupalSettings));

@@ -1,0 +1,8 @@
+name: YMCA Entity Browser Implementation
+type: module
+description: Integrates Entity Browser with IEF and Entity Embed.
+core: 8.x
+package: YMCA
+dependencies:
+  - entity_embed
+  - entity_browser_entity_form

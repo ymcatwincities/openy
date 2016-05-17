@@ -18,8 +18,8 @@ class SearchController extends DrupalSearchController {
   /**
    * {@inheritdoc}
    */
-  public function __construct(SearchPageRepositoryInterface $search_page_repository, LoggerInterface $logger, RendererInterface $renderer) {
-    parent::__construct($search_page_repository, $logger, $renderer);
+  public function __construct(SearchPageRepositoryInterface $search_page_repository, RendererInterface $renderer) {
+    parent::__construct($search_page_repository, $renderer);
   }
 
   /**

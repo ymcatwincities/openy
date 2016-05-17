@@ -17,6 +17,10 @@ class YmcaWorkflowServiceProvider extends ServiceProviderBase {
     // Overrides language_manager class to test domain language negotiation.
     $definition = $container->getDefinition('paramconverter.entity');
     $definition->setClass('Drupal\ymca_workflow\YmcaWorkflowEntityConverter');
+
+    // Overrides workflow.manager class to add/overwite workflow logic.
+    $definition = $container->getDefinition('workflow.manager');
+    $definition->setClass('Drupal\ymca_workflow\YmcaWorkflowManager');
   }
 
 }

@@ -1,0 +1,7 @@
+name: YMCA Entity Browser Inline Entity Form
+type: module
+description: Integrates Entity Browser modal form with IEF.
+core: 8.x
+package: YMCA
+dependencies:
+  - entity_browser_entity_form

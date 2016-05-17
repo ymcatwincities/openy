@@ -8,7 +8,6 @@
 namespace Drupal\migrate_plus\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
-use Drupal\migrate\Entity\MigrationInterface;
 
 /**
  * Defines the Migration Group entity.
@@ -55,7 +54,7 @@ class MigrationGroup extends ConfigEntityBase implements MigrationGroupInterface
 
     // Order the migrations according to their dependencies.
     /** @var MigrationInterface[] $migrations */
-    $migrations = \Drupal::entityManager()->getStorage('migration')->loadMultiple($names);
+    $migrations = \Drupal::entityTypeManager()->getStorage('migration')->loadMultiple($names);
 
     // Delete in reverse order, so dependencies are never violated.
     $migrations = array_reverse($migrations);

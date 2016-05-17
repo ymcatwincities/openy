@@ -6,8 +6,8 @@ package: Fields
 test_dependencies:
   - entity_reference_revisions
 
-# Information added by Drupal.org packaging script on 2016-04-20
-version: '8.x-1.0-alpha6'
+# Information added by Drupal.org packaging script on 2016-04-24
+version: '8.x-1.0-alpha6+1-dev'
 core: '8.x'
 project: 'inline_entity_form'
-datestamp: 1461165841
+datestamp: 1461456242

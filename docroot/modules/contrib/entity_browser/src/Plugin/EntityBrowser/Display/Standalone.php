@@ -8,6 +8,7 @@ namespace Drupal\entity_browser\Plugin\EntityBrowser\Display;
 
 use Drupal\entity_browser\DisplayBase;
 use Drupal\entity_browser\DisplayRouterInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Presents entity browser as a standalone form.
@@ -24,7 +25,31 @@ class Standalone extends DisplayBase implements DisplayRouterInterface {
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser() {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form['path'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Path'),
+      '#required' => TRUE,
+      '#description' => $this->t('The path at which the browser will be accessible. Must begin with a forward slash.'),
+      '#default_value' => $this->configuration['path'],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return [
+      'path' => '',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function displayEntityBrowser(FormStateInterface $form_state) {
     // @TODO Implement it.
   }
 

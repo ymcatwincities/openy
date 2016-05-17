@@ -2440,3 +2440,87 @@ function ymca_master_update_8097() {
     ]
   );
 }
+
+/**
+ * Combine entity browser and inline entity form.
+ */
+function ymca_master_update_8098() {
+  $modules = [
+    'entity_browser_entity_form',
+    'ymca_ief_entity_browser',
+  ];
+
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.content_browser_block.yml',
+      $path . 'entity_browser.browser.browse_block_modal.yml',
+    ]
+  );
+}
+
+/**
+ * Combine entity embed and entity browser for blocks.
+ */
+function ymca_master_update_8099() {
+  $install = ['ymca_entity_browser'];
+  \Drupal::service('module_installer')->install($install, TRUE);
+
+  $uninstall = ['ymca_ief_entity_browser'];
+  \Drupal::service('module_installer')->uninstall($uninstall, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
+
+/**
+ * Enable Big Pipe core module.
+ */
+function ymca_master_update_8100() {
+  \Drupal::service('module_installer')->install(array('big_pipe'), TRUE);
+  \Drupal::service('module_installer')->uninstall(['image_widget_crop']);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml'
+    ]
+  );
+}
+
+/**
+ * Install acquia_purge module and respective configs.
+ */
+function ymca_master_update_8103() {
+  \Drupal::service('module_installer')->install(array('acquia_purge'), TRUE);
+  Drupal::configFactory()->getEditable('purge_purger_http.settings.ffd776af8e')->delete();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'purge.plugins.yml',
+    ]
+  );
+}
+
+/**
+ * Update configs. Add "New" prefix for all tabs. Fix file modal to inline.
+ */
+function ymca_master_update_8104() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'views.view.content_browser_block.yml',
+      $path . 'core.entity_form_display.block_content.image_block.default.yml',
+      $path . 'core.entity_form_display.block_content.promo_block.default.yml',
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml'
+    ]
+  );
+}

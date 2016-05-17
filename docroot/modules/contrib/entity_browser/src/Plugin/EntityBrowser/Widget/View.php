@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\entity_browser\WidgetBase;
 use Drupal\Core\Url;
+use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -23,6 +24,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
  * @EntityBrowserWidget(
  *   id = "view",
  *   label = @Translation("View"),
+ *   provider = "views",
  *   description = @Translation("Uses a view to provide entity listing in a browser's widget.")
  * )
  */
@@ -208,5 +210,43 @@ class View extends WidgetBase implements ContainerFactoryPluginInterface {
 
     $this->selectEntities($entities, $form_state);
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $options = [];
+    // Get only those enabled Views that have entity_browser displays.
+    $displays = Views::getApplicableViews('entity_browser_display');
+    foreach ($displays as $display) {
+      list($view_id, $display_id) = $display;
+      $view = $this->entityManager->getStorage('view')->load($view_id);
+      $options[$view_id . '.' . $display_id] = $this->t('@view : @display', array('@view' => $view->label(), '@display' => $view->get('display')[$display_id]['display_title']));
+    }
+
+    $form['view'] = [
+      '#type' => 'select',
+      '#title' => $this->t('View : View display'),
+      '#default_value' => $this->configuration['view'] . '.' . $this->configuration['view_display'],
+      '#options' => $options,
+      '#required' => TRUE,
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues()['table'][$this->uuid()]['form'];
+
+    if (!empty($values['view'])) {
+      list($view_id, $display_id) = explode('.', $values['view']);
+      $this->configuration['view'] = $view_id;
+      $this->configuration['view_display'] = $display_id;
+    }
+  }
+
 
 }

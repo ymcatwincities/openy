@@ -29,6 +29,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
 
 /**
  * Presents entity browser in an Modal.
@@ -131,26 +132,35 @@ class Modal extends DisplayBase implements DisplayRouterInterface {
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser() {
+  public function displayEntityBrowser(FormStateInterface $form_state) {
     $uuid = $this->getUuid();
     /** @var \Drupal\entity_browser\Events\RegisterJSCallbacks $event */
     // TODO - $uuid is unused in this event but we need to pass it as
     // constructor expects it. See https://www.drupal.org/node/2600706 for more
     // info.
-    $event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
-    $event_object->registerCallback('Drupal.entityBrowser.selectionCompleted');
-    $event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $event_object );
+    $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
+    $js_event_object->registerCallback('Drupal.entityBrowser.selectionCompleted');
+    $js_event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $js_event_object );
     $original_path = $this->currentPath->getPath();
+    $data = [
+      'query_parameters' => [
+        'query' => [
+          'uuid' => $uuid,
+          'original_path' => $original_path,
+        ],
+      ],
+      'attributes' => [
+        'data-uuid' => $uuid,
+      ],
+    ];
+    $event_object = new AlterEntityBrowserDisplayData($this->configuration['entity_browser_id'], $uuid, $this->getPluginDefinition(), $form_state, $data);
+    $event = $this->eventDispatcher->dispatch(Events::ALTER_BROWSER_DISPLAY_DATA, $event_object);
+    $data = $event->getData();
     return [
       '#theme_wrappers' => ['container'],
       'path' => [
         '#type' => 'hidden',
-        '#value' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], [
-          'query' => [
-            'uuid' => $uuid,
-            'original_path' => $original_path,
-          ],
-        ])->toString(),
+        '#value' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], $data['query_parameters'])->toString(),
       ],
       'open_modal' => [
         '#type' => 'submit',
@@ -162,9 +172,7 @@ class Modal extends DisplayBase implements DisplayRouterInterface {
           'callback' => [$this, 'openModal'],
           'event' => 'click',
         ],
-        '#attributes' => [
-          'data-uuid' => $uuid,
-        ],
+        '#attributes' => $data['attributes'],
         '#attached' => [
           'library' => ['core/drupal.dialog.ajax',  'entity_browser/modal'],
           'drupalSettings' => [
@@ -172,7 +180,7 @@ class Modal extends DisplayBase implements DisplayRouterInterface {
               'modal' => [
                 $uuid => [
                   'uuid' => $uuid,
-                  'js_callbacks' => $event->getCallbacks(),
+                  'js_callbacks' => $js_event->getCallbacks(),
                   'original_path' => $original_path,
                 ],
               ],
@@ -322,7 +330,7 @@ class Modal extends DisplayBase implements DisplayRouterInterface {
       ],
     ];
 
-    $event->setResponse(new Response(\Drupal::service('bare_html_page_renderer')->renderBarePage($render, 'Entity browser', 'entity_browser_propagation')));
+    $event->setResponse(new Response(\Drupal::service('bare_html_page_renderer')->renderBarePage($render, 'Entity browser', 'page')));
   }
 
   /**

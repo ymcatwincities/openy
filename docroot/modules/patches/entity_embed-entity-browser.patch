@@ -1,0 +1,26 @@
+diff --git a/docroot/modules/patched/entity_embed/js/entity_embed.dialog.js b/docroot/modules/patched/entity_embed/js/entity_embed.dialog.js
+index a3bfd07..8ba5162 100644
+--- a/docroot/modules/patched/entity_embed/js/entity_embed.dialog.js
++++ b/docroot/modules/patched/entity_embed/js/entity_embed.dialog.js
+@@ -29,6 +29,8 @@
+     attach: function (context, settings) {
+       $('body').once('js-entity-embed-dialog').on('entityBrowserIFrameAppend', function () {
+         $('.entity-select-dialog').trigger('resize');
++        // Hide the next button, the click is triggered by Drupal.entityEmbedDialog.selectionCompleted.
++        $('.entity-select-dialog .js-button-next').hide();
+       });
+     }
+   };
+diff --git a/docroot/modules/patched/entity_embed/src/Form/EntityEmbedDialog.php b/docroot/modules/patched/entity_embed/src/Form/EntityEmbedDialog.php
+index 13cd283..1589864 100644
+--- a/docroot/modules/patched/entity_embed/src/Form/EntityEmbedDialog.php
++++ b/docroot/modules/patched/entity_embed/src/Form/EntityEmbedDialog.php
+@@ -207,7 +207,7 @@ public function buildSelectStep(array &$form, FormStateInterface $form_state) {
+       $this->eventDispatcher->addListener(Events::REGISTER_JS_CALLBACKS, [$this, 'registerJSCallback']);
+ 
+       $form['attributes']['entity_browser']['#theme_wrappers'] = ['container'];
+-      $form['attributes']['entity_browser']['browser'] = $this->entityBrowser->getDisplay()->displayEntityBrowser();
++      $form['attributes']['entity_browser']['browser'] = $this->entityBrowser->getDisplay()->displayEntityBrowser($form_state);
+       $form['attributes']['entity_browser']['entity-id'] = [
+         '#type' => 'hidden',
+         '#default_value' => $entity ? $entity->id() : '',

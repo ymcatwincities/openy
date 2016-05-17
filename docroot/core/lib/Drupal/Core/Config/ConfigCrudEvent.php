@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Config\ConfigCrudEvent.
- */
-
 namespace Drupal\Core\Config;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -54,4 +49,3 @@ class ConfigCrudEvent extends Event {
   }
 
 }
-
