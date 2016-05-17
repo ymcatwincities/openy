@@ -426,6 +426,11 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
     return;
   }
 
+  // Skip blog archive.
+  if ($path_info[1] == 'blog' && $path_info[2] == 'archive') {
+    return;
+  }
+
   // Skip paths.
   $paths = [
     'news__events',
