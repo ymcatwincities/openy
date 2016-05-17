@@ -1,0 +1,16 @@
+# Mapping menu items definition
+entity.mapping.collection:
+  title: 'Mapping list'
+  route_name: entity.mapping.collection
+  description: 'List Mapping entities'
+  parent: system.admin_structure
+  weight: 100
+
+# Mapping type menu items definition
+entity.mapping_type.collection:
+  title: 'Mapping type'
+  route_name: entity.mapping_type.collection
+  description: 'List Mapping type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
