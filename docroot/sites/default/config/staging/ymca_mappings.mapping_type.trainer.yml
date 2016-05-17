@@ -1,0 +1,6 @@
+uuid: 45af45c3-c3a8-4897-af98-516ac9a8f686
+langcode: en
+status: true
+dependencies: {  }
+id: trainer
+label: Trainer
