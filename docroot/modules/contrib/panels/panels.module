@@ -73,130 +73,6 @@ function panels_page_variant_presave(PageVariantInterface $page_variant) {
 
 // --------------------------------------------------------------------------
 // Core Drupal hook implementations
-
-/**
- * Implementation of hook_theme()
- */
-function panels_theme() {
-  $theme = array();
-
-  /*
-  $layouts = panels_get_layouts();
-  foreach ($layouts as $name => $data) {
-    foreach (array('theme', 'admin theme') as $callback) {
-      if (!empty($data[$callback])) {
-        $theme[$data[$callback]] = array(
-          'variables' => array('css_id' => NULL, 'content' => NULL, 'settings' => NULL, 'display' => NULL, 'layout' => NULL, 'renderer' => NULL),
-          'path' => $data['path'],
-          'file' => $data['file'],
-        );
-
-        // if no theme function exists, assume template.
-        if (!function_exists("theme_$data[theme]")) {
-          $theme[$data[$callback]]['template'] = str_replace('_', '-', $data[$callback]);
-          $theme[$data[$callback]]['file'] = $data['file']; // for preprocess.
-        }
-      }
-    }
-  }
-  */
-
-  // @todo: Port the follow to Drupal 8!
-  /*
-  $theme['panels_layout_link'] = array(
-    'variables' => array('title' => NULL, 'id' => NULL, 'image' => NULL, 'link' => NULL, 'class' => NULL),
-  );
-  $theme['panels_layout_icon'] = array(
-    'variables' => array('id' => NULL, 'image' => NULL, 'title' => NULL),
-  );
-  $theme['panels_pane'] = array(
-    'variables' => array('output' => array(), 'pane' => array(), 'display' => array()),
-    'path' => drupal_get_path('module', 'panels') . '/templates',
-    'template' => 'panels-pane',
-  );
-  $theme['panels_common_content_list'] = array(
-    'variables' => array('display' => NULL),
-    'file' => 'includes/common.inc',
-  );
-  $theme['panels_render_display_form'] = array(
-    'render element' => 'element',
-  );
-
-  $theme['panels_dashboard'] = array(
-    'variables' => array(),
-    'path' => drupal_get_path('module', 'panels') . '/templates',
-    'file' => '../includes/callbacks.inc',
-    'template' => 'panels-dashboard',
-  );
-
-  $theme['panels_dashboard_link'] = array(
-    'variables' => array('link' => array()),
-    'path' => drupal_get_path('module', 'panels') . '/templates',
-    'file' => '../includes/callbacks.inc',
-    'template' => 'panels-dashboard-link',
-  );
-
-  $theme['panels_dashboard_block'] = array(
-    'variables' => array('block' => array()),
-    'path' => drupal_get_path('module', 'panels') . '/templates',
-    'file' => '../includes/callbacks.inc',
-    'template' => 'panels-dashboard-block',
-  );
-
-  $theme['panels_add_content_modal'] = array(
-    'variables' => array('renderer' => NULL, 'categories' => array(), 'region' => NULL, 'category' => NULL, 'column_count' => 2),
-    'path' => drupal_get_path('module', 'panels') . '/templates',
-    'file' => '../includes/add-content.inc',
-    'template' => 'panels-add-content-modal',
-  );
-
-  $theme['panels_add_content_link'] = array(
-    'variables' => array('renderer' => NULL, 'region' => NULL, 'content_type' => NULL),
-    'path' => drupal_get_path('module', 'panels') . '/templates',
-    'file' => '../includes/add-content.inc',
-    'template' => 'panels-add-content-link',
-  );
-
-  // We don't need layout and style themes in maintenance mode.
-  // Disabling this: See http://drupal.org/node/979912 for information.
-//  if (defined('MAINTENANCE_MODE')) {
-//    return $theme;
-//  }
-
-  // Register layout and style themes on behalf of all of these items.
-  ctools_include('plugins', 'panels');
-
-  $styles = panels_get_styles();
-  foreach ($styles as $name => $data) {
-    if (!empty($data['render pane'])) {
-      $theme[$data['render pane']] = array(
-        'variables' => array('content' => NULL, 'pane' => NULL, 'display' => NULL, 'style' => NULL, 'settings' => NULL),
-        'path' => $data['path'],
-        'file' => $data['file'],
-      );
-    }
-    if (!empty($data['render region'])) {
-      $theme[$data['render region']] = array(
-        'variables' => array('display' => NULL, 'owner_id' => NULL, 'panes' => NULL, 'settings' => NULL, 'region_id' => NULL, 'style' => NULL),
-        'path' => $data['path'],
-        'file' => $data['file'],
-      );
-    }
-
-    if (!empty($data['hook theme'])) {
-      if (is_array($data['hook theme'])) {
-        $theme += $data['hook theme'];
-      }
-      else if (function_exists($data['hook theme'])) {
-        $data['hook theme']($theme, $data);
-      }
-    }
-  }
-  */
-
-  return $theme;
-}
-
 /**
  * Implementation of hook_menu
  */
@@ -220,19 +96,6 @@ function panels_menu() {
     'file' => 'includes/callbacks.inc',
     'access arguments' => array('use panels dashboard'),
   );
-  // Provide a nice location for a panels admin panel.
-  $items['admin/structure/panels'] = array(
-    'title' => 'Panels',
-    'page callback' => 'panels_admin_page',
-    'description' => 'Get a bird\'s eye view of items related to Panels.',
-  ) + $admin_base;
-
-  $items['admin/structure/panels/dashboard'] = array(
-    'title' => 'Dashboard',
-    'page callback' => 'panels_admin_page',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => -10,
-  ) + $admin_base;
 
   $items['admin/structure/panels/settings'] = array(
     'title' => 'Settings',
@@ -272,118 +135,17 @@ function panels_menu() {
     }
   }
 
-
   return $items;
 }
 
 /**
- * Menu loader function to load a cache item for Panels AJAX.
- *
- * This load all of the includes needed to perform AJAX, and loads the
- * cache object and makes sure it is valid.
- */
-function panels_edit_cache_load($cache_key) {
-  ctools_include('display-edit', 'panels');
-  ctools_include('plugins', 'panels');
-  ctools_include('ajax');
-  ctools_include('modal');
-  ctools_include('context');
-
-  return panels_edit_cache_get($cache_key);
-}
-
-/**
- * Implementation of hook_init()
- */
-function panels_init() {
-  // Safety: go away if CTools is not at an appropriate version.
-  if (!module_invoke('ctools', 'api_version', PANELS_REQUIRED_CTOOLS_API)) {
-    if (user_access('administer site configuration')) {
-      drupal_set_message(t('Panels is enabled but CTools is out of date. All Panels modules are disabled until CTools is updated. See the status page for more information.'), 'error');
-    }
-    return;
+ * Implements hook_cache_flush().
+ * TODO: Implement the cache_panels, if applicable for 8.x
+  function panels_cache_flush() {
+      return array('cache_panels');
   }
-
-  ctools_add_css('panels', 'panels');
-}
-
-/**
- * Implementation of hook_flush_caches().
- *
- * We implement this so that we can be sure our legacy rendering state setting
- * in $conf is updated whenever caches are cleared.
  */
-//function panels_flush_caches() {
-//  $legacy = panels_get_legacy_state();
-//  $legacy->determineStatus();
-//}
 
-/**
- * Implements hook_flush_caches().
- */
-function panels_flush_caches() {
-  if (db_table_exists('cache_panels')) {
-    return array('cache_panels');
-  }
-}
-
-// ---------------------------------------------------------------------------
-// CTools hook implementations
-//
-// These aren't core Drupal hooks but they are just as important.
-
-/**
- * Implementation of hook_ctools_plugin_directory() to let the system know
- * we implement task and task_handler plugins.
- */
-function panels_ctools_plugin_directory($module, $plugin) {
-  // Safety: go away if CTools is not at an appropriate version.
-  if (!module_invoke('ctools', 'api_version', PANELS_REQUIRED_CTOOLS_API)) {
-    return;
-  }
-
-  // We don't support the 'ctools' 'cache' plugin and pretending to causes
-  // errors when they're in use.
-  if ($module == 'ctools' && $plugin == 'cache') {
-    return;
-    // if we did we'd make a plugin/ctools_cache or something.
-  }
-
-  if ($module == 'page_manager' || $module == 'panels' || $module == 'ctools' || $module == 'stylizer') {
-    // Panels and CTools both implement a 'cache' plugin but we don't implement
-    // the CTools version.
-    if ($module == 'ctools' && $plugin == 'cache') {
-      return;
-    }
-
-    return 'plugins/' . $plugin;
-  }
-}
-
-/**
- * Implements hook_ctools_plugin_type().
- *
- * Register layout, style, cache, and display_renderer plugin types, declaring
- * relevant plugin type information as necessary.
- */
-function panels_ctools_plugin_type() {
-  return array(
-    'layouts' => array(
-      'load themes' => TRUE, // Can define layouts in themes
-      'process' => 'panels_layout_process',
-      'child plugins' => TRUE,
-    ),
-    'styles' => array(
-      'load themes' => TRUE,
-      'process' => 'panels_plugin_styles_process',
-      'child plugins' => TRUE,
-    ),
-    'cache' => array(),
-    'display_renderers' => array(
-      'classes' => array('renderer'),
-    ),
-  );
-}
 
 /**
  * Ensure a layout has a minimal set of data.
@@ -392,42 +154,6 @@ function panels_layout_process(&$plugin) {
   $plugin += array(
     'category' => t('Miscellaneous'),
     'description' => '',
-  );
-}
-
-/**
- * Implementation of hook_ctools_plugin_api().
- *
- * Inform CTools about version information for various plugins implemented by
- * Panels.
- *
- * @param string $owner
- *   The system name of the module owning the API about which information is
- *   being requested.
- * @param string $api
- *   The name of the API about which information is being requested.
- */
-function panels_ctools_plugin_api($owner, $api) {
-  if ($owner == 'panels' && $api == 'styles') {
-    // As of 6.x-3.6, Panels has a slightly new system for style plugins.
-    return array('version' => 2.0);
-  }
-
-  if ($owner == 'panels' && $api == 'pipelines') {
-    return array(
-      'version' => 1,
-      'path' => drupal_get_path('module', 'panels') . '/includes',
-    );
-  }
-}
-
-/**
- * Implementation of hook_views_api().
- */
-function panels_views_api() {
-  return array(
-    'api' => 2,
-    'path' => drupal_get_path('module', 'panels') . '/plugins/views',
   );
 }
 
@@ -1405,12 +1131,10 @@ function panels_ajax_router() {
 // When editing displays and the like, Panels has a caching system that relies
 // on a callback to determine where to get the actual cache.
 
-// @todo This system needs to be better documented so that it can be
-// better used.
+// @todo This system needs to be ported to Drupal 8
 
 /**
  * Get an object from cache.
- */
 function panels_cache_get($obj, $did, $skip_cache = FALSE) {
   ctools_include('object-cache');
   // we often store contexts in cache, so let's just make sure we can load
@@ -1418,22 +1142,23 @@ function panels_cache_get($obj, $did, $skip_cache = FALSE) {
   ctools_include('context');
   return ctools_object_cache_get($obj, 'panels_display:' . $did, $skip_cache);
 }
+ */
 
 /**
  * Save the edited object into the cache.
- */
 function panels_cache_set($obj, $did, $cache) {
   ctools_include('object-cache');
   return ctools_object_cache_set($obj, 'panels_display:' . $did, $cache);
 }
+ */
 
 /**
  * Clear a object from the cache; used if the editing is aborted.
- */
 function panels_cache_clear($obj, $did) {
   ctools_include('object-cache');
   return ctools_object_cache_clear($obj, 'panels_display:' . $did);
 }
+ */
 
 /**
  * Create the default cache for editing panel displays.
@@ -1441,7 +1166,6 @@ function panels_cache_clear($obj, $did) {
  * If an application is using the Panels display editor without having
  * specified a cache key, this method can be used to create the default
  * cache.
- */
 function panels_edit_cache_get_default(&$display, $content_types = NULL, $title = FALSE) {
   if (empty($content_types)) {
     $content_types = ctools_content_get_available_types();
@@ -1458,11 +1182,12 @@ function panels_edit_cache_get_default(&$display, $content_types = NULL, $title 
   panels_edit_cache_set($cache);
   return $cache;
 }
+ */
 
 /**
  * Method to allow modules to provide their own caching mechanism for the
  * display editor.
- */
+
 function panels_edit_cache_get($cache_key) {
   if (strpos($cache_key, ':') !== FALSE) {
     list($module, $argument) = explode(':', $cache_key, 2);
@@ -1472,11 +1197,11 @@ function panels_edit_cache_get($cache_key) {
   // Fall back to our normal method:
   return panels_cache_get('display', $cache_key);
 }
+ */
 
 /**
  * Method to allow modules to provide their own caching mechanism for the
  * display editor.
- */
 function panels_edit_cache_set($cache) {
   $cache_key = $cache->display->cache_key;
   if (strpos($cache_key, ':') !== FALSE) {
@@ -1487,11 +1212,12 @@ function panels_edit_cache_set($cache) {
   // Fall back to our normal method:
   return panels_cache_set('display', $cache_key, $cache);
 }
+ */
 
 /**
  * Method to allow modules to provide their own mechanism to write the
  * cache used in the display editor.
- */
+
 function panels_edit_cache_save($cache) {
   $cache_key = $cache->display->cache_key;
   if (strpos($cache_key, ':') !== FALSE) {
@@ -1504,11 +1230,11 @@ function panels_edit_cache_save($cache) {
   // Fall back to our normal method:
   return panels_save_display($cache->display);
 }
-
+ */
 /**
  * Method to allow modules to provide their own mechanism to clear the
  * cache used in the display editor.
- */
+
 function panels_edit_cache_clear($cache) {
   $cache_key = $cache->display->cache_key;
   if (strpos($cache_key, ':') !== FALSE) {
@@ -1521,10 +1247,10 @@ function panels_edit_cache_clear($cache) {
   // Fall back to our normal method:
   return panels_cache_clear('display', $cache_key);
 }
-
+ */
 /**
  * Method to allow modules to provide a mechanism to break locks.
- */
+
 function panels_edit_cache_break_lock($cache) {
   if (empty($cache->locked)) {
     return;
@@ -1542,7 +1268,7 @@ function panels_edit_cache_break_lock($cache) {
   // no fallback.
   return;
 }
-
+ */
 // --------------------------------------------------------------------------
 // Callbacks on behalf of the panel_context plugin.
 //
@@ -1765,35 +1491,4 @@ function panels_print_layout($layout, $content, $meta = 'standard') {
  */
 function _panels_builder_filter($layout) {
   return empty($layout['builder']);
-}
-
-// --------------------------------------------------------------------------
-// Deprecated functions
-//
-// Everything below this line will eventually go away.
-
-/**
- * panels path helper function
- */
-function panels_get_path($file, $base_path = FALSE, $module = 'panels') {
-  $output = $base_path ? base_path() : '';
-  return $output . drupal_get_path('module', $module) . '/' . $file;
-}
-
-/**
- * Remove default sidebar related body classes and provide own css classes
- */
-function panels_preprocess_html(&$vars) {
-  $panel_body_css = &drupal_static('panel_body_css');
-  if (!empty($panel_body_css['body_classes_to_remove'])) {
-    $classes_to_remove = explode(' ', $panel_body_css['body_classes_to_remove']);
-    foreach ($vars['classes_array'] as $key => $css_class) {
-      if (in_array($css_class, $classes_to_remove)) {
-        unset($vars['classes_array'][$key]);
-      }
-    }
-  }
-  if (!empty($panel_body_css['body_classes_to_add'])) {
-    $vars['classes_array'][] = check_plain($panel_body_css['body_classes_to_add']);
-  }
 }
