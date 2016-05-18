@@ -20,7 +20,7 @@ default_value:
     option_select: 0
     option_name: Andover
     option_reference: '4'
-    option_emails: 'an.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,an.sales@ymcatwincities.org'
+    option_emails: 'an.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,an.sales@ymcatwincities.org,Nicole.Aurelius@ymcamn.org'
   -
     option_select: 0
     option_name: Blaisdell
@@ -90,7 +90,7 @@ default_value:
     option_select: 0
     option_name: 'St. Paul Downtown'
     option_reference: '19'
-    option_emails: 'sk.sales@ymcastpaul.org,Andrew.Hoffman@YMCAtwincities.org'
+    option_emails: 'sk.sales@ymcastpaul.org,Andrew.Hoffman@YMCAtwincities.org,Carolyn.Selness@ymcamn.org'
   -
     option_select: 0
     option_name: 'St. Paul Eastside'
@@ -105,7 +105,7 @@ default_value:
     option_select: 0
     option_name: Shoreview
     option_reference: '22'
-    option_emails: 'nw.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org,nw.sales@ymcatwincities.org'
+    option_emails: 'nw.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org,nw.sales@ymcatwincities.org,Natalie.Anvary@ymcamn.org'
   -
     option_select: 0
     option_name: 'Southdale - Edina'
@@ -126,6 +126,10 @@ default_value:
     option_name: Woodbury
     option_reference: '26'
     option_emails: 'se.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,Cassie.Schmuecker@ymcatwincities.org'
+  -
+    option_name: 'Forest Lake'
+    option_reference: '2746'
+    option_emails: 'Angela.Baldwin@ymcamn.org,carolyn.ball@ymcatwincities.org'
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item
