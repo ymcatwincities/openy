@@ -1,0 +1,7 @@
+ymca_google.mvp:
+  path: admin/google_cal_mvp
+  defaults:
+    _controller: \Drupal\ymca_google\Controller\MvpController::pageView
+    _title: List of events
+  requirements:
+    _permission: 'access administration pages'
