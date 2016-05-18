@@ -2596,13 +2596,25 @@ function ymca_master_update_8108() {
 }
 
 /**
- * Update configs.
+ * Update Content Browser configs.
  */
 function ymca_master_update_8109() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'views.view.content_browser_block.yml',
+    ]
+  );
+}
+
+/**
+ * Set ymca_rest_export plugin for the CSV export.
+ */
+function ymca_master_update_8110() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.contact_messages_csv_export.yml',
     ]
   );
 }
