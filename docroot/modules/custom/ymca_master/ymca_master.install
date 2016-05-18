@@ -2557,3 +2557,23 @@ function ymca_master_update_8106() {
     ]
   );
 }
+
+/**
+ * Initial fields for Location mapping.
+ */
+function ymca_master_update_8107() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.location.default.yml',
+      $path . 'core.entity_view_display.mapping.location.default.yml',
+      $path . 'field.field.mapping.location.field_groupex_id.yml',
+      $path . 'field.field.mapping.location.field_location_ref.yml',
+      $path . 'field.field.mapping.location.field_mindbody_id.yml',
+      $path . 'field.storage.mapping.field_groupex_id.yml',
+      $path . 'field.storage.mapping.field_location_ref.yml',
+      $path . 'field.storage.mapping.field_mindbody_id.yml',
+    ]
+  );
+}
