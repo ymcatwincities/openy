@@ -6,6 +6,9 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
 use Drupal\rest\Plugin\views\display\RestExport;
 use Drupal\views\Plugin\views\display\ResponseDisplayPluginInterface;
+use Drupal\Core\Routing\RouteProviderInterface;
+use Drupal\Core\State\StateInterface;
+use Drupal\Core\Render\RendererInterface
 
 /**
  * The plugin that handles Data response callbacks for REST resources.
@@ -26,7 +29,7 @@ class YmcaRestExport extends RestExport implements ResponseDisplayPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, \Drupal\Core\Routing\RouteProviderInterface $route_provider, \Drupal\Core\State\StateInterface $state, \Drupal\Core\Render\RendererInterface $renderer) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteProviderInterface $route_provider, StateInterface $state, RendererInterface $renderer) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $route_provider, $state, $renderer);
   }
 
@@ -36,7 +39,7 @@ class YmcaRestExport extends RestExport implements ResponseDisplayPluginInterfac
   public static function buildResponse($view_id, $display_id, array $args = []) {
     $build = static::buildBasicRenderable($view_id, $display_id, $args);
 
-    /** @var \Drupal\Core\Render\RendererInterface $renderer */
+    /** @var RendererInterface $renderer */
     $renderer = \Drupal::service('renderer');
 
     $output = $renderer->renderRoot($build);
