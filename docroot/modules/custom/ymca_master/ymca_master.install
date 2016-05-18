@@ -15,6 +15,7 @@ use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
+use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
  * Protecting sites with a shield.
@@ -2576,4 +2577,20 @@ function ymca_master_update_8107() {
       $path . 'field.storage.mapping.field_mindbody_id.yml',
     ]
   );
+}
+
+/**
+ * Populate location mappings.
+ */
+function ymca_master_update_8108() {
+  $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+  foreach ($locations as $location) {
+    $mapping = Mapping::create([
+      'type' => 'location',
+      'field_location_ref' => $location['entity_id'],
+      'field_groupex_id' => $location['geid'],
+    ]);
+    $mapping->setName($location['name']);
+    $mapping->save();
+  }
 }
