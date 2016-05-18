@@ -2,7 +2,6 @@
 
 namespace Drupal\rest\Plugin\views\display;
 
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
 use Drupal\Core\Render\RenderContext;
@@ -285,12 +284,6 @@ class RestExport extends PathPluginBase implements ResponseDisplayPluginInterfac
 
     $response = new CacheableResponse($output, 200);
     $cache_metadata = CacheableMetadata::createFromRenderArray($build);
-
-    // Quick test for Acquia proxy. Just remove cache tags.
-    if ($view_id == 'contact_messages_csv_export') {
-      $cache_metadata->setCacheTags([]);
-    }
-
     $response->addCacheableDependency($cache_metadata);
 
     $response->headers->set('Content-type', $build['#content_type']);
