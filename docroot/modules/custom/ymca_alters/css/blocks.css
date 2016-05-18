@@ -1,15 +1,28 @@
+@media screen and (max-width: 1368px) {
+  .ui-dialog--narrow {
+    left: 50px !important;
+    right: 50px !important;
+  }
+}
+.entity-browser-block-browser-iframe-form .is-horizontal .tabs.secondary .tabs__tab {
+  margin: 0 0.5em 0 0;
+}
+#views-exposed-form-content-browser-block-entity-browser-1 .form--inline .form-actions {
+  clear: none;
+  margin-top: 30px;
+  float: left;
+}
 .entity-embed-dialog iframe {
   width: 100% !important;
 }
-.view-content-browser-block.view-display-id-entity_browser_1 .views-row {
+.view-content-browser-block.view-display-id-entity_browser_1 .views-row .views-col {
   border: 1px solid #ccc;
-  display: inline-block;
   margin: 1%;
   max-height: 340px;
   overflow: hidden;
   padding: 5px;
   vertical-align: top;
-  width: 22%;
+  width: 23% !important;
 }
 .view-content-browser-block.view-display-id-entity_browser_1 .views-row img {
   max-width: 100%;
