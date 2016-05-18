@@ -50,6 +50,13 @@
       provider: null,
 
       /**
+       * The ID of the plugin for this block.
+       *
+       * @type {string}
+       */
+      plugin_id: null,
+
+      /**
        * The HTML content of the block. This is stored in the model as the
        * IPE doesn't actually care what the block's content is, the functional
        * elements of the model are the metadata. The BlockView renders this
@@ -57,8 +64,26 @@
        *
        * @type {string}
        */
-      html: null
+      html: null,
 
+      /**
+       * Whether or not this block is currently in a syncing state.
+       *
+       * @type {bool}
+       */
+      syncing: false
+
+    },
+
+    /**
+     * @type {function}
+     *
+     * @return {string}
+     *   A URL that can be used to refresh this Block model. Only fetch methods
+     *   are supported currently.
+     */
+    url: function () {
+      return Drupal.panels_ipe.urlRoot(drupalSettings) + '/block/' + this.get('uuid');
     }
 
   });
