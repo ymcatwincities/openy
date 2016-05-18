@@ -1,0 +1,19 @@
+uuid: ac713056-2c43-48f6-8e1f-0ace5a8ab88d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_mindbody_id
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_mindbody_id
+field_name: field_mindbody_id
+entity_type: mapping
+bundle: location
+label: 'MindBody ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
