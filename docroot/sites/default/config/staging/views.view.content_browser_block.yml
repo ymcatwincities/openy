@@ -68,12 +68,16 @@ display:
             offset_label: Offset
           quantity: 9
       style:
-        type: default
+        type: grid
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
+          columns: 4
+          automatic_width: true
+          alignment: horizontal
+          col_class_default: true
+          col_class_custom: ''
+          row_class_default: true
+          row_class_custom: ''
       row:
         type: fields
         options:
@@ -335,7 +339,22 @@ display:
           entity_type: block_content
           entity_field: info
           plugin_id: string
-      sorts: {  }
+      sorts:
+        changed:
+          id: changed
+          table: block_content_field_data
+          field: changed
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+          entity_type: block_content
+          entity_field: changed
+          plugin_id: date
       header: {  }
       footer: {  }
       empty: {  }
@@ -358,13 +377,13 @@ display:
         - 'config:core.entity_view_display.block_content.alert_block.default'
         - 'config:core.entity_view_display.block_content.basic.default'
         - 'config:core.entity_view_display.block_content.code_block.default'
-        - 'config:core.entity_view_display.block_content.date_block.default'
         - 'config:core.entity_view_display.block_content.expander_block.default'
-        - 'config:core.entity_view_display.block_content.image_block.default'
         - 'config:core.entity_view_display.block_content.promo_block.default'
-        - 'config:core.entity_view_display.block_content.slide_show.default'
         - 'config:core.entity_view_display.block_content.slide_show_item.default'
         - 'config:core.entity_view_display.block_content.working_hours_block.default'
+        - 'config:core.entity_view_display.block_content.date_block.default'
+        - 'config:core.entity_view_display.block_content.image_block.default'
+        - 'config:core.entity_view_display.block_content.slide_show.default'
   entity_browser_1:
     display_plugin: entity_browser
     id: entity_browser_1
