@@ -8,7 +8,7 @@ use Drupal\rest\Plugin\views\display\RestExport;
 use Drupal\views\Plugin\views\display\ResponseDisplayPluginInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\Core\Render\RendererInterface
+use Drupal\Core\Render\RendererInterface;
 
 /**
  * The plugin that handles Data response callbacks for REST resources.
