@@ -2741,3 +2741,10 @@ function ymca_master_update_8115() {
     ]
   );
 }
+
+/**
+ * Install flood control module.
+ */
+function ymca_master_update_8119() {
+  \Drupal::service('module_installer')->install(['flood_unblock'], TRUE);
+}
