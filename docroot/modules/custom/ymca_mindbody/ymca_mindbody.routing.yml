@@ -1,0 +1,6 @@
+ymca_mindbody.credentials.settings:
+  path: '/admin/config/content/mindbody/settings'
+  defaults:
+    _form: '\Drupal\ymca_mindbody\Form\MindbodyCredentialsSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
