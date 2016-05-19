@@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_aliases\UrlCleaner;
 
 /**
  * Plugin implementation of the 'ymca_office_hours' widget.
@@ -99,7 +100,11 @@ class OptionsEmailWidget extends WidgetBase {
     if (!$this->isDefaultValueWidget($form_state)) {
       // Display dropdown list of options.
       $def = $this->fieldDefinition->getDefaultValue($item->getEntity());
-      $mapping = \Drupal::config('ymca_groupex.mapping')->get('locations');
+
+      $mapping_ids = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->execute();
+      $mapping = \Drupal::entityManager()->getStorage('mapping')->loadMultiple($mapping_ids);
       $machine_name_mapping = [];
       $options = [];
       $options['undefined'] = t('Select one...');
@@ -107,8 +112,10 @@ class OptionsEmailWidget extends WidgetBase {
         $options[$id] = $item_data['option_name'];
         if (!empty($item_data['option_reference'])) {
           foreach ($mapping as $row) {
-            if ($row['entity_id'] == $item_data['option_reference']) {
-              $machine_name_mapping['#' . $row['machine_name']] = $id;
+            $field_location_ref = $row->field_location_ref->getValue();
+            if ($field_location_ref[0]['target_id'] == $item_data['option_reference']) {
+              $machine_name = UrlCleaner::clean($row->get('name')->value);
+              $machine_name_mapping['#' . $machine_name] = $id;
               break;
             }
           }
