@@ -2745,6 +2745,13 @@ function ymca_master_update_8115() {
 /**
  * Install flood control module.
  */
-function ymca_master_update_8119() {
+function ymca_master_update_8116() {
   \Drupal::service('module_installer')->install(['flood_unblock'], TRUE);
+}
+
+/**
+ * Delete ymca_groupex.mapping config.
+ */
+function ymca_master_update_8117() {
+  Drupal::configFactory()->getEditable('ymca_groupex.mapping')->delete();
 }

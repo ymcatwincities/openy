@@ -163,13 +163,17 @@ class GroupexScheduleFetcher {
 
       case 'location':
         $schedule['locations'] = [];
-        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
         $location_id = NULL;
+        $locations_ids = \Drupal::entityQuery('mapping')
+          ->condition('type', 'location')
+          ->execute();
+        $locations = \Drupal::entityManager()->getStorage('mapping')->loadMultiple($locations_ids);
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {
-            if ($location['name'] == $short_location_name) {
-              $location_id = $location['geid'];
+            if ($location->get('name')->value == $short_location_name) {
+              $field_groupex_id = $location->field_groupex_id->getValue();
+              $location_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
             }
           }
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
