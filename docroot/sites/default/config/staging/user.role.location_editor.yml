@@ -18,3 +18,4 @@ permissions:
   9: 'access browse_content_modal entity browser pages'
   10: 'access browse_files entity browser pages'
   11: 'access browse_files_modal entity browser pages'
+  12: 'dropzone upload files'
