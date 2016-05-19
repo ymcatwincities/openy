@@ -2676,6 +2676,40 @@ function ymca_master_update_8111() {
 }
 
 /**
+ * Remove redundant groupex location.
+ */
+function ymca_master_update_8112() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_groupex.mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Re-import location mappings.
+ */
+function ymca_master_update_8113() {
+  // Delete all Location mappings.
+  $ids = \Drupal::entityQuery('mapping')
+    ->condition('type', 'location')
+    ->execute();
+
+  $storage = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getStorage('mapping');
+  $entities = $storage->loadMultiple($ids);
+  $storage->delete($entities);
+
+  // Populate entities.
+  ymca_master_update_8108();
+
+  // Update location mappings.
+  ymca_master_update_8111();
+}
+
+/**
  * Import MindBody trainers IDs.
  */
 function ymca_master_update_8114() {
