@@ -1,0 +1,25 @@
+uuid: f8880e8a-a6a4-428e-b5a5-bdbc62623d3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_groupex_id
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_groupex_id
+field_name: field_groupex_id
+entity_type: mapping
+bundle: location
+label: 'Groupex ID'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
