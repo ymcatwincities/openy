@@ -2703,6 +2703,6 @@ function ymca_master_update_8113() {
   // Populate entities.
   ymca_master_update_8108();
 
-  // Update location mappings
+  // Update location mappings.
   ymca_master_update_8111();
 }
