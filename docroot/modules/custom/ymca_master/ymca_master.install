@@ -2727,3 +2727,10 @@ function ymca_master_update_8114() {
     $mapping->save();
   }
 }
+
+/**
+ * Delete ymca_groupex.mapping config.
+ */
+function ymca_master_update_8115() {
+  Drupal::configFactory()->getEditable('ymca_groupex.mapping')->delete();
+}
