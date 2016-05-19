@@ -2674,3 +2674,22 @@ function ymca_master_update_8111() {
 
   }
 }
+
+/**
+ * Import MindBody trainers IDs.
+ */
+function ymca_master_update_8114() {
+  // Read CSV file with map.
+  $path = drupal_get_path('module', 'ymca_master');
+  $csv_file = $path . '/misc/trainers_mindbody.csv';
+  $map = array_map('str_getcsv', file($csv_file));
+
+  foreach ($map as $trainer) {
+    $mapping = Mapping::create([
+      'type' => 'trainer',
+      'field_mindbody_trainer_id' => $trainer[0],
+    ]);
+    $mapping->setName($trainer[1]);
+    $mapping->save();
+  }
+}
