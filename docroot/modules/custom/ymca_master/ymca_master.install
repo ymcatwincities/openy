@@ -2727,3 +2727,17 @@ function ymca_master_update_8114() {
     $mapping->save();
   }
 }
+
+/**
+ * Update Content Browser configs.
+ */
+function ymca_master_update_8115() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.editor.yml',
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}
