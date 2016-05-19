@@ -272,6 +272,9 @@ entity_types:
         2604:
           index: 0
           priority: 0.5
+        3496:
+          index: 0
+          priority: 0.5
 settings:
   max_links: 20000
   cron_generate: true

@@ -1,2 +1,2 @@
 interface:
-  default: SMTPMailSystem
+  default: null
