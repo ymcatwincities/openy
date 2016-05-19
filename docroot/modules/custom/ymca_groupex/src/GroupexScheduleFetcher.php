@@ -167,7 +167,6 @@ class GroupexScheduleFetcher {
         $locations_ids = \Drupal::entityQuery('mapping')
           ->condition('type', 'location')
           ->execute();
-        $location = FALSE;
         $locations = \Drupal::entityManager()->getStorage('mapping')->loadMultiple($locations_ids);
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
