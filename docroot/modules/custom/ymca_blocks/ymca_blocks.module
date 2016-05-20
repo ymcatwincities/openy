@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\text\Plugin\Field\FieldType\TextLongItem;
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_theme().
@@ -105,11 +106,27 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         }
       }
 
+      // Get image.
+      $image_item_values = $build['field_image'][0]['#item']->getValue();
+      $image_file = File::load($image_item_values['target_id']);
+      $image = \Drupal::service('image.factory')->get($image_file->getFileUri());
+
+      // Get content.
+      $text = $build['field_block_content'][0]['#text'];
+      // Wrap content in <p> tag if needed.
+      if (substr($text, 0, 3) !== '<p>') {
+        $build['field_block_content'][0]['#text'] = '<p>' . $text . '</p>';
+      }
+
       $build['promo'] = array(
         '#theme' => 'promo_block',
         '#header' => html_entity_decode($entity->field_block_header->value),
-        '#content' => $build['field_block_content'],
-        '#image' => $build['field_image'],
+        '#content' => $build['field_block_content'][0],
+        '#image' => [
+          '#theme' => 'image',
+          '#uri' => $image->getSource(),
+          '#alt' => isset($image_item_values['alt']) ? $image_item_values['alt'] : '',
+        ],
         '#link' => isset($path) ? $path : '',
         '#link_text' => $entity->field_link->title,
       );
