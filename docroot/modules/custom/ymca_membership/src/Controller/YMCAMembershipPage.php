@@ -151,13 +151,15 @@ class YMCAMembershipPage extends ControllerBase {
       ]));
 
       $location_name = '';
-      $mapping = \Drupal::config('ymca_groupex.mapping')->get('locations');
-      foreach ($mapping as $row) {
-        if ($row['entity_id'] == $location->id()) {
-          $location_name = $row['name'];
-          break;
-        }
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_location_ref', $location->id())
+        ->execute();
+      $mapping_id = reset($mapping_id);
+      if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+        $location_name = $mapping->get('name')->value;
       }
+
       // Embed map.
       $map = $this->getBlock("[$location_name] Small map");
 

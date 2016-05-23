@@ -1,0 +1,17 @@
+.panel-3col-stacked {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.panel-3col-stacked > .panel-panel {
+  flex: 0 1 25%;
+}
+
+.panel-3col-stacked > .panel-full-width {
+  flex: 0 1 100%;
+}
+
+.panel-3col-stacked > .panel-col-middle {
+  flex: 0 1 50%;
+}

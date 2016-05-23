@@ -50,7 +50,7 @@
       // the form is rendered.
       if (context.className == 'panels-ipe-block-plugin-form flip-container'
         && settings['panels_ipe']['toggle_preview']) {
-        var $form = $('.ipe-block-plugin-form');
+        var $form = $('.ipe-block-form');
 
         // Flip the form.
         $form.toggleClass('flipped');
@@ -72,8 +72,16 @@
       // A new Block Content entity has been created. Trigger an app-level event
       // to switch tabs and open the placement form.
       if (settings['panels_ipe']['new_block_content']) {
-        Drupal.panels_ipe.app.trigger('addContentBlock', settings['panels_ipe']['new_block_content']);
+        var data = settings['panels_ipe']['new_block_content'];
         delete settings['panels_ipe']['new_block_content'];
+        Drupal.panels_ipe.app.trigger('addContentBlock', data);
+      }
+
+      // A Block Content entity has been edited.
+      if (settings['panels_ipe']['edit_block_content']) {
+        var data = settings['panels_ipe']['edit_block_content'];
+        delete settings['panels_ipe']['edit_block_content'];
+        Drupal.panels_ipe.app.trigger('editContentBlockDone', data);
       }
     }
   };
@@ -94,15 +102,14 @@
     var tab_collection = new Drupal.panels_ipe.TabCollection();
 
     if (settings.panels_ipe.layout.changeable) {
-      tab_collection.add({title: 'Change Layout', id: 'change_layout'});
+      tab_collection.add(createTabModel(Drupal.t('Change Layout'), 'change_layout'));
     }
-    tab_collection.add({title: 'Create Content', id: 'create_content'});
-    tab_collection.add({title: 'Place Content', id: 'place_content'});
+    tab_collection.add(createTabModel(Drupal.t('Manage Content'), 'manage_content'));
 
     // The edit/save/cancel tabs are special, and are tracked by our app.
-    var edit_tab = new Drupal.panels_ipe.TabModel({title: 'Edit', id: 'edit'});
-    var save_tab = new Drupal.panels_ipe.TabModel({title: 'Save', id: 'save'});
-    var cancel_tab = new Drupal.panels_ipe.TabModel({title: 'Cancel', id: 'cancel'});
+    var edit_tab = createTabModel(Drupal.t('Edit'), 'edit');
+    var save_tab = createTabModel(Drupal.t('Save'), 'save');
+    var cancel_tab = createTabModel(Drupal.t('Cancel'), 'cancel');
     tab_collection.add(edit_tab);
     tab_collection.add(save_tab);
     tab_collection.add(cancel_tab);
@@ -121,8 +128,7 @@
     if (settings.panels_ipe.layout.changeable) {
       tab_views.change_layout = new Drupal.panels_ipe.LayoutPicker();
     }
-    tab_views.create_content = new Drupal.panels_ipe.BlockContentPicker();
-    tab_views.place_content = new Drupal.panels_ipe.BlockPicker();
+    tab_views.manage_content = new Drupal.panels_ipe.BlockPicker();
 
     // Create an AppView instance.
     Drupal.panels_ipe.app_view = new Drupal.panels_ipe.AppView({
@@ -171,8 +177,15 @@
     // initializing and ready to render.
     Backbone.trigger('PanelsIPEInitialized');
 
-    // Render our AppView.
-    $('body').append(Drupal.panels_ipe.app_view.render().$el);
+    // Render our AppView, without rendering the layout.
+    $('body').append(Drupal.panels_ipe.app_view.render(false).$el);
+
+    // Set our initial URL root.
+    Drupal.panels_ipe.setUrlRoot(settings);
+
+    function createTabModel(title, id) {
+      return new Drupal.panels_ipe.TabModel({title: title, id: id});
+    }
   };
 
   Drupal.panels_ipe.setFlipperHeight = function ($form) {
@@ -188,14 +201,11 @@
       $current_side = $form.find('.flipper > .back');
     }
 
-    // If the new side is larger than the current side, change the height.
-    if ($new_side.outerHeight() > $current_side.outerHeight()) {
-      $current_side.animate({height: $new_side.outerHeight() + 10}, 600);
-    }
+    $current_side.animate({height: $new_side.outerHeight() + 10}, 600);
   };
 
   /**
-   * Returns the urlRoot for all callbacks
+   * Returns the urlRoot for all callbacks.
    *
    * @param {Object} settings
    *   The contextual drupalSettings.
@@ -204,8 +214,18 @@
    *   A base path for most other URL callbacks in this App.
    */
   Drupal.panels_ipe.urlRoot = function (settings) {
+    return settings.panels_ipe.url_root;
+  };
+
+  /**
+   * Sets the urlRoot for all callbacks.
+   *
+   * @param {Object} settings
+   *   The contextual drupalSettings.
+   */
+  Drupal.panels_ipe.setUrlRoot = function (settings) {
     var panels_display = settings.panels_ipe.panels_display;
-    return settings.path.baseUrl + 'admin/panels_ipe/variant/' + panels_display.storage_type + '/' + panels_display.storage_id;
+    settings.panels_ipe.url_root = settings.path.baseUrl + 'admin/panels_ipe/variant/' + panels_display.storage_type + '/' + panels_display.storage_id;
   };
 
 }(jQuery, _, Backbone, Drupal));

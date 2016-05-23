@@ -57,6 +57,13 @@ class RelToAbs extends FilterBase {
     }
     $new_base_url = $base_url;
 
+    // Check if Drupal installed in subdirectory.
+    $sub_dir = FALSE;
+    $parts = parse_url($new_base_url);
+    if ($parts['path'] !== '/') {
+      $sub_dir = $parts['path'];
+    }
+
     foreach ($needles as $needle) {
       while ($pos = strpos($txt, $needle)) {
         $pos += strlen($needle);
@@ -67,6 +74,12 @@ class RelToAbs extends FilterBase {
           $new_txt .= substr($txt, 0, $pos);
         }
         $txt = substr($txt, $pos);
+        // Remove leading sub-directory prefix if site installed in subdir.
+        if ($sub_dir) {
+          if (substr($txt, 0, strlen($sub_dir)) == $sub_dir) {
+            $txt = substr($txt, strlen($sub_dir));
+          }
+        }
       }
       $txt = $new_txt . $txt;
       $new_txt = '';

@@ -20,3 +20,9 @@ blocks:
   css:
     theme:
       css/blocks.css: {}
+  js:
+    js/ymca_alters.blocks.js: {}
+    /libraries/equalize/js/equalize.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
