@@ -1,6 +1,9 @@
-
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
+
+/**
+ * @file
+ *
+ */
 
 
 define('APPLICATION_NAME', 'Google Calendar API PHP Quickstart');
@@ -8,13 +11,15 @@ define('CREDENTIALS_PATH', __DIR__ . '/calendar-mvp.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/cs.json');
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/calendar-php-quickstart.json
-define('SCOPES', implode(' ', array(
-    Google_Service_Calendar::CALENDAR)
-));
-
-//if (php_sapi_name() != 'cli') {
-//  throw new Exception('This application must be run on the command line.');
-//}
+define(
+  'SCOPES',
+  implode(
+    ' ',
+    array(
+      Google_Service_Calendar::CALENDAR
+    )
+  )
+);
 
 /**
  * Returns an authorized API client.
@@ -31,7 +36,8 @@ function getClient() {
   $credentialsPath = expandHomeDirectory(CREDENTIALS_PATH);
   if (file_exists($credentialsPath)) {
     $accessToken = file_get_contents($credentialsPath);
-  } else {
+  }
+  else {
     // Request authorization from the user.
     $authUrl = $client->createAuthUrl();
     printf("Open the following link in your browser:\n%s\n", $authUrl);
@@ -42,8 +48,8 @@ function getClient() {
     $accessToken = $client->authenticate($authCode);
 
     // Store the credentials to disk.
-    if(!file_exists(dirname($credentialsPath))) {
-      mkdir(dirname($credentialsPath), 0700, true);
+    if (!file_exists(dirname($credentialsPath))) {
+      mkdir(dirname($credentialsPath), 0700, TRUE);
     }
     file_put_contents($credentialsPath, $accessToken);
     printf("Credentials saved to %s\n", $credentialsPath);
@@ -60,8 +66,11 @@ function getClient() {
 
 /**
  * Expands the home directory alias '~' to the full path.
- * @param string $path the path to expand.
- * @return string the expanded path.
+ * 
+ * @param string $path
+ *   The path to expand.
+ * @return string
+ *   The expanded path.
  */
 function expandHomeDirectory($path) {
   $homeDirectory = getenv('HOME');
@@ -87,7 +96,8 @@ $results = $service->events->listEvents($calendarId, $optParams);
 $out = '';
 if (count($results->getItems()) == 0) {
   $out .= "No upcoming events found.\n";
-} else {
+}
+else {
   $out .= "Upcoming events:\n";
   foreach ($results->getItems() as $event) {
     $start = $event->start->dateTime;
