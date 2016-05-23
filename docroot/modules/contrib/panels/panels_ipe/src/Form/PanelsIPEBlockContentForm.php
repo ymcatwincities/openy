@@ -16,11 +16,18 @@ class PanelsIPEBlockContentForm extends BlockContentForm {
    * {@inheritdoc}
    */
   protected function actions(array $form, FormStateInterface $form_state) {
+
+    $button_value = $this->t('Create and Place');
+    if (!$this->entity->isNew()) {
+      $button_value = $this->t('Update');
+    }
+
     // Override normal BlockContentForm actions as we need to be AJAX
     // compatible, and also need to communicate with our App.
     $actions['submit'] = [
       '#type' => 'button',
-      '#value' => $this->t('Create and Place'),
+      '#value' => $button_value,
+      '#name' => 'panels_ipe_submit',
       '#ajax' => [
         'callback' => '::submitForm',
         'wrapper' => 'panels-ipe-block-type-form-wrapper',
@@ -41,6 +48,11 @@ class PanelsIPEBlockContentForm extends BlockContentForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
+    $form['is_new'] = [
+      '#type' => 'value',
+      '#value' => $this->entity->isNew(),
+    ];
+
     // Wrap our form so that our submit callback can re-render the form.
     $form['#prefix'] = '<div id="panels-ipe-block-type-form-wrapper">';
     $form['#suffix'] = '</div>';
@@ -52,8 +64,11 @@ class PanelsIPEBlockContentForm extends BlockContentForm {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Return early if there are any errors.
-    if ($form_state->hasAnyErrors()) {
+    $triggering_element = $form_state->getTriggeringElement();
+
+    // Return early if there are any errors or if a button we're not aware of
+    // submitted the form.
+    if ($form_state->hasAnyErrors() || $triggering_element['#name'] !== 'panels_ipe_submit') {
       return $form;
     }
 
@@ -63,7 +78,12 @@ class PanelsIPEBlockContentForm extends BlockContentForm {
     parent::save($form, $form_state);
 
     // Inform the App that we've created a new Block Content entity.
-    $form['#attached']['drupalSettings']['panels_ipe']['new_block_content'] = $this->entity->uuid();
+    if ($form_state->getValue('is_new')) {
+      $form['#attached']['drupalSettings']['panels_ipe']['new_block_content'] = $this->entity->uuid();
+    }
+    else {
+      $form['#attached']['drupalSettings']['panels_ipe']['edit_block_content'] = $this->entity->uuid();
+    }
 
     return $form;
   }

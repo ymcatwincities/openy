@@ -1,0 +1,12 @@
+{
+    "name": "ymca/google",
+    "type": "drupal-module",
+    "description": "YMCA Google services integration.",
+    "homepage": "http://ymcamn.org",
+    "license": "GPL-2.0+",
+    "require": {
+        "google/apiclient": "^1.1"
+    },
+    "minimum-stability": "dev"
+}
+
