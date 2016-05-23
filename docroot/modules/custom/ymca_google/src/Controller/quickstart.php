@@ -86,7 +86,7 @@ $client = get_client();
 $service = new Google_Service_Calendar($client);
 
 // Print the next 10 events on the user's calendar.
-$calendarId = 'primary';
+$calendarId = '7rrsac9rvavuu68e5cmdho7di0@group.calendar.google.com';
 $optParams = array(
   'maxResults' => 10,
   'orderBy' => 'startTime',
@@ -94,6 +94,44 @@ $optParams = array(
   'timeMin' => date('c'),
 );
 $results = $service->events->listEvents($calendarId, $optParams);
+/** @var Google_Service_Calendar_Events_Resource $events */
+$events = $service->events;
+$event = new Google_Service_Calendar_Event(array(
+  'summary' => 'Test from code',
+  'location' => 'Kyiv, Ukraine, 01042',
+  'description' => 'Description for test event from code.',
+  'start' => array(
+    'dateTime' => '2016-05-24T09:00:00-07:00',
+    'timeZone' => 'UTC',
+  ),
+  'end' => array(
+    'dateTime' => '2016-05-24T17:00:00-07:00',
+    'timeZone' => 'UTC',
+  ),
+ // 'recurrence' => array(
+ //   'RRULE:FREQ=DAILY;COUNT=2'
+ // ),
+ // 'attendees' => array(
+ //   array('email' => 'lpage@example.com'),
+ //   array('email' => 'sbrin@example.com'),
+ // ),
+ // 'reminders' => array(
+ //   'useDefault' => FALSE,
+ //   'overrides' => array(
+ //     array('method' => 'email', 'minutes' => 24 * 60),
+ //     array('method' => 'popup', 'minutes' => 10),
+ //   ),
+ // ),
+));
+
+
+
+
+$list = $service->calendarList->listCalendarList();
+
+
+$events->insert('7rrsac9rvavuu68e5cmdho7di0@group.calendar.google.com', $event);
+
 $out = '';
 if (count($results->getItems()) == 0) {
   $out .= "No upcoming events found.\n";
@@ -109,5 +147,5 @@ else {
     $out .= sprintf("%s (%s)\n", $event->getSummary(), $start);
     $out .= '<pre>' . print_r($event, TRUE) . '</pre>';
   }
-
+;
 }
