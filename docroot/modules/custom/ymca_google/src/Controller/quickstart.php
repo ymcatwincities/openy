@@ -1,16 +1,14 @@
 <?php
-
 /**
  * @file
- *
+ * Quickstart rework.
  */
-
 
 define('APPLICATION_NAME', 'Google Calendar API PHP Quickstart');
 define('CREDENTIALS_PATH', __DIR__ . '/calendar-mvp.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/cs.json');
 // If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/calendar-php-quickstart.json
+// at ~/.credentials/calendar-php-quickstart.json.
 define(
   'SCOPES',
   implode(
@@ -23,9 +21,11 @@ define(
 
 /**
  * Returns an authorized API client.
- * @return Google_Client the authorized client object
+ *
+ * @return Google_Client
+ *   The authorized client object
  */
-function getClient() {
+function get_client() {
   $client = new Google_Client();
   $client->setApplicationName(APPLICATION_NAME);
   $client->setScopes(SCOPES);
@@ -33,7 +33,7 @@ function getClient() {
   $client->setAccessType('offline');
 
   // Load previously authorized credentials from a file.
-  $credentialsPath = expandHomeDirectory(CREDENTIALS_PATH);
+  $credentialsPath = expand_home_directory(CREDENTIALS_PATH);
   if (file_exists($credentialsPath)) {
     $accessToken = file_get_contents($credentialsPath);
   }
@@ -69,10 +69,11 @@ function getClient() {
  *
  * @param string $path
  *   The path to expand.
+ *
  * @return string
  *   The expanded path.
  */
-function expandHomeDirectory($path) {
+function expand_home_directory($path) {
   $homeDirectory = getenv('HOME');
   if (empty($homeDirectory)) {
     $homeDirectory = getenv("HOMEDRIVE") . getenv("HOMEPATH");
@@ -81,7 +82,7 @@ function expandHomeDirectory($path) {
 }
 
 // Get the API client and construct the service object.
-$client = getClient();
+$client = get_client();
 $service = new Google_Service_Calendar($client);
 
 // Print the next 10 events on the user's calendar.
