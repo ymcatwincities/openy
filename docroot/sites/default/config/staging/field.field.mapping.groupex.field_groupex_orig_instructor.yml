@@ -1,0 +1,19 @@
+uuid: 2b8a887a-5697-4641-aede-173a3d4b89fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_groupex_orig_instructor
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_groupex_orig_instructor
+field_name: field_groupex_orig_instructor
+entity_type: mapping
+bundle: groupex
+label: 'Groupex Original Instructor'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

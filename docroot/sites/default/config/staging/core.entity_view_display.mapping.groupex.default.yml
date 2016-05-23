@@ -1,0 +1,109 @@
+uuid: c1a8072e-ed57-4728-9557-29a353970f63
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.groupex.field_groupex_category
+    - field.field.mapping.groupex.field_groupex_class_id
+    - field.field.mapping.groupex.field_groupex_description
+    - field.field.mapping.groupex.field_groupex_instructor
+    - field.field.mapping.groupex.field_groupex_location
+    - field.field.mapping.groupex.field_groupex_orig_instructor
+    - field.field.mapping.groupex.field_groupex_studio
+    - field.field.mapping.groupex.field_groupex_sub_instructor
+    - field.field.mapping.groupex.field_timestamp_end
+    - field.field.mapping.groupex.field_timestamp_start
+    - ymca_mappings.mapping_type.groupex
+  module:
+    - user
+id: mapping.groupex.default
+targetEntityType: mapping
+bundle: groupex
+mode: default
+content:
+  field_groupex_category:
+    weight: 4
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_groupex_class_id:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_groupex_description:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_groupex_instructor:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_groupex_location:
+    weight: 8
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_groupex_orig_instructor:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_groupex_studio:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_groupex_sub_instructor:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_timestamp_end:
+    weight: 2
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_timestamp_start:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

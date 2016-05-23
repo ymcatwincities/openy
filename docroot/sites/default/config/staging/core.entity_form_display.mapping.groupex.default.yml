@@ -1,0 +1,109 @@
+uuid: c3bcc301-a199-4f1d-b2db-fb5ffe1dd32f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.groupex.field_groupex_category
+    - field.field.mapping.groupex.field_groupex_class_id
+    - field.field.mapping.groupex.field_groupex_description
+    - field.field.mapping.groupex.field_groupex_instructor
+    - field.field.mapping.groupex.field_groupex_location
+    - field.field.mapping.groupex.field_groupex_orig_instructor
+    - field.field.mapping.groupex.field_groupex_studio
+    - field.field.mapping.groupex.field_groupex_sub_instructor
+    - field.field.mapping.groupex.field_timestamp_end
+    - field.field.mapping.groupex.field_timestamp_start
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.default
+targetEntityType: mapping
+bundle: groupex
+mode: default
+content:
+  field_groupex_category:
+    weight: 14
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_groupex_class_id:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_description:
+    weight: 20
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_groupex_instructor:
+    weight: 15
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_location:
+    weight: 18
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_orig_instructor:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_studio:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_sub_instructor:
+    weight: 17
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_timestamp_end:
+    weight: 12
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_timestamp_start:
+    weight: 11
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
