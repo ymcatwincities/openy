@@ -66,7 +66,7 @@ function getClient() {
 
 /**
  * Expands the home directory alias '~' to the full path.
- * 
+ *
  * @param string $path
  *   The path to expand.
  * @return string
