@@ -67,7 +67,7 @@ class GooglePush {
    * @return $this
    */
   public function addEventForUpdate(\Google_Service_Calendar_Event $event) {
-    $this->allEvents['update'][] = $event;
+    $this->allEvents['update'][$event->getId()] = $event;
     
     return $this;
   }
@@ -80,7 +80,7 @@ class GooglePush {
    * @return $this
    */
   public function addEventForDelete(\Google_Service_Calendar_Event $event) {
-    $this->allEvents['delete'][] = $event;
+    $this->allEvents['delete'][$event->getId()] = $event;
 
     return $this;
   }
@@ -93,7 +93,7 @@ class GooglePush {
    * @return $this
    */
   public function addEventForCreate(\Google_Service_Calendar_Event $event) {
-    $this->allEvents['create'][] = $event;
+    $this->allEvents['create'][$event->getId()] = $event;
 
     return $this;
   }
@@ -102,8 +102,29 @@ class GooglePush {
    * @return $this
    */
   public function proceed() {
-    // @todo implement
 
+    foreach ($this->allEvents as $method => $events) {
+      switch ($method) {
+        case 'update':
+          /** @var \Google_Service_Calendar_Event $event */
+          foreach ($events as $event) {
+            $this->allEvents[$method][$event->getId()] = $this->calEvents->update($this->calendarId, $event->getId(), $event);
+          }
+          break;
+        case 'delete':
+          /** @var \Google_Service_Calendar_Event $event */
+          foreach ($events as $event) {
+            $this->allEvents[$method][$event->getId()] = $this->calEvents->delete($this->calendarId, $event->getId());
+          }
+          break;
+        case 'insert':
+          /** @var \Google_Service_Calendar_Event $event */
+          foreach ($events as $event) {
+            $this->allEvents[$method][$event->getId()] = $this->calEvents->insert($this->calendarId, $event);
+          }
+          break;
+      }
+    }
     return $this;
   }
 
@@ -140,8 +161,10 @@ class GooglePush {
       // ),
     ));
 
-    $this->calEvents->insert($this->calendarId, $event);
+    $this->addEventForCreate($event);
+    $this->proceed();
 
+    return $this->calEvents->insert($this->calendarId, $event)->getHtmlLink();
   }
 
   /**
@@ -204,6 +227,15 @@ class GooglePush {
       $homeDirectory = getenv("HOMEDRIVE") . getenv("HOMEPATH");
     }
     return str_replace('~', realpath($homeDirectory), $path);
+  }
+
+  /**
+   * Getter for all events. Can be used after proceed.
+   *
+   * @return array
+   */
+  public function getAllEvents() {
+    return $this->allEvents;
   }
   
 }
