@@ -13,7 +13,6 @@ class MvpController {
    * Show the page.
    */
   public function pageView() {
-    //include_once 'quickstart.php';
 
     /** @var GooglePush $pusher */
     $pusher = $entity_manager = \Drupal::service('ymca_google.pusher');
