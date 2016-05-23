@@ -54,7 +54,7 @@ class GooglePush {
     // Init basic array.
     $this->allEvents = [
       'update' => [],
-      'create' => [],
+      'insert' => [],
       'delete' => []
     ];
   }
@@ -90,12 +90,19 @@ class GooglePush {
    *
    * @param \Google_Service_Calendar_Event $event
    *
-   * @return $this
+   * @return string
+   *   Returns key of the event within array.
    */
   public function addEventForCreate(\Google_Service_Calendar_Event $event) {
-    $this->allEvents['create'][$event->getId()] = $event;
-
-    return $this;
+    if ($event->getId() == NULL) {
+      $hash = spl_object_hash($event);
+      $this->allEvents['insert'][$hash] = $event;
+      return $hash;
+    }
+    else {
+      $this->allEvents['insert'][$event->getId()] = $event;
+      return $event->getId();
+    }
   }
 
   /**
@@ -103,24 +110,26 @@ class GooglePush {
    */
   public function proceed() {
 
-    foreach ($this->allEvents as $method => $events) {
+    foreach ($this->allEvents as $method => &$events) {
       switch ($method) {
         case 'update':
           /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as $event) {
-            $this->allEvents[$method][$event->getId()] = $this->calEvents->update($this->calendarId, $event->getId(), $event);
+          foreach ($events as &$event) {
+            $event = $this->calEvents->update($this->calendarId, $event->getId(), $event);
+            $this->allEvents[$method][$event->getId()] = $event;
           }
           break;
         case 'delete':
           /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as $event) {
-            $this->allEvents[$method][$event->getId()] = $this->calEvents->delete($this->calendarId, $event->getId());
+          foreach ($events as &$event) {
+            $event = $this->calEvents->delete($this->calendarId, $event->getId());
+            $this->allEvents[$method][$event->getId()] = $event;
           }
           break;
         case 'insert':
           /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as $event) {
-            $this->allEvents[$method][$event->getId()] = $this->calEvents->insert($this->calendarId, $event);
+          foreach ($events as $hash => &$event) {
+            $event = $this->calEvents->insert($this->calendarId, $event);
           }
           break;
       }
@@ -161,10 +170,10 @@ class GooglePush {
       // ),
     ));
 
-    $this->addEventForCreate($event);
+    $hash = $this->addEventForCreate($event);
     $this->proceed();
 
-    return $this->calEvents->insert($this->calendarId, $event)->getHtmlLink();
+    return $this->allEvents['insert'][$hash]->getHtmlLink();
   }
 
   /**
