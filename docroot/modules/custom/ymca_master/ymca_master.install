@@ -2755,3 +2755,10 @@ function ymca_master_update_8116() {
 function ymca_master_update_8117() {
   Drupal::configFactory()->getEditable('ymca_groupex.mapping')->delete();
 }
+
+/**
+ * Add Gcal POC.
+ */
+function ymca_master_update_8118() {
+  \Drupal::service('module_installer')->install(['ymca_google'], TRUE);
+}
