@@ -1,10 +1,12 @@
 <?php
-/**
- * @file
- * Google Push service.
- */
+
 namespace Drupal\ymca_google;
 
+/**
+ * Class GooglePush.
+ *
+ * @package Drupal\ymca_google
+ */
 class GooglePush {
 
 
@@ -69,6 +71,7 @@ class GooglePush {
    * Populate array of events to be updated.
    *
    * @param \Google_Service_Calendar_Event $event
+   *   Event to be added.
    *
    * @return $this
    *   Chaining.
@@ -83,6 +86,7 @@ class GooglePush {
    * Populate array of events to be deleted.
    *
    * @param \Google_Service_Calendar_Event $event
+   *   Event to be added.
    *
    * @return $this
    *   Chaining.
@@ -97,6 +101,7 @@ class GooglePush {
    * Populate array of events to be created.
    *
    * @param \Google_Service_Calendar_Event $event
+   *   Event to be added.
    *
    * @return string
    *   Returns key of the event within array.
@@ -133,6 +138,7 @@ class GooglePush {
             );
           }
           break;
+
         case 'delete':
           /** @var \Google_Service_Calendar_Event $event */
           foreach ($events as $hash => &$event) {
@@ -142,6 +148,7 @@ class GooglePush {
             );
           }
           break;
+
         case 'insert':
           /** @var \Google_Service_Calendar_Event $event */
           foreach ($events as $hash => &$event) {
@@ -171,20 +178,6 @@ class GooglePush {
           'dateTime' => '2016-05-24T17:00:00-07:00',
           'timeZone' => 'UTC',
         ),
-        // 'recurrence' => array(
-        //   'RRULE:FREQ=DAILY;COUNT=2'
-        // ),
-        // 'attendees' => array(
-        //   array('email' => 'lpage@example.com'),
-        //   array('email' => 'sbrin@example.com'),
-        // ),
-        // 'reminders' => array(
-        //   'useDefault' => FALSE,
-        //   'overrides' => array(
-        //     array('method' => 'email', 'minutes' => 24 * 60),
-        //     array('method' => 'popup', 'minutes' => 10),
-        //   ),
-        // ),
       )
     );
 
@@ -264,6 +257,7 @@ class GooglePush {
    * Getter for all events. Can be used after proceed.
    *
    * @return array
+   *   Array of events, sorted by method.
    */
   public function getAllEvents() {
     return $this->allEvents;
