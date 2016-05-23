@@ -17,9 +17,9 @@ class MvpController {
 
     /** @var GooglePush $pusher */
     $pusher = $entity_manager = \Drupal::service('ymca_google.pusher');
-    $pusher->createTestEvent();
+
     $element = [
-      '#markup' => 'Hello user'
+      '#markup' => $pusher->createTestEvent()
     ];
     return $element;
   }
