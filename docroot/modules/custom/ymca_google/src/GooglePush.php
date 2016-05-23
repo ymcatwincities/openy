@@ -114,16 +114,14 @@ class GooglePush {
       switch ($method) {
         case 'update':
           /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as &$event) {
+          foreach ($events as $hash => &$event) {
             $event = $this->calEvents->update($this->calendarId, $event->getId(), $event);
-            $this->allEvents[$method][$event->getId()] = $event;
           }
           break;
         case 'delete':
           /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as &$event) {
+          foreach ($events as $hash => &$event) {
             $event = $this->calEvents->delete($this->calendarId, $event->getId());
-            $this->allEvents[$method][$event->getId()] = $event;
           }
           break;
         case 'insert':
