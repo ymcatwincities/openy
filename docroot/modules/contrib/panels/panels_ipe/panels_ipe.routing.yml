@@ -16,20 +16,31 @@ panels_ipe.block_plugins:
     _method: 'GET'
 
 panels_ipe.block_plugin.form:
-  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layout/{layout_id}/block_plugins/{plugin_id}/form'
+  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_plugins/{plugin_id}/form'
+  defaults:
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::getBlockPluginForm'
+  requirements:
+    _panels_storage_access: read
+    _permission: 'access panels in-place editing'
+  options:
+    _admin_route: FALSE
+
+panels_ipe.block_plugin_existing.form:
+  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_plugins/{plugin_id}/block/{block_uuid}/form'
   defaults:
     _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::getBlockPluginForm'
   requirements:
     _panels_storage_access: read
     _permission: 'access panels in-place editing'
 
-panels_ipe.block_plugin_existing.form:
-  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layout/{layout_id}/block_plugins/{plugin_id}/block/{block_uuid}/form'
+panels_ipe.remove_block:
+  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/remove_block'
   defaults:
-    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::getBlockPluginForm'
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::handleRemoveBlockRequest'
   requirements:
-    _panels_storage_access: read
+    _panels_storage_access: update
     _permission: 'access panels in-place editing'
+    _method: 'DELETE'
 
 panels_ipe.block_content_types:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_content/types'
@@ -46,7 +57,15 @@ panels_ipe.block_content.form:
     _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::getBlockContentForm'
   requirements:
     _panels_storage_access: read
-    _permission: 'access panels in-place editing'
+    _permission: 'access panels in-place editing+administer blocks'
+
+panels_ipe.block_content_existing.form:
+  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_content/{type}/block/{block_content_uuid}/form'
+  defaults:
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::getBlockContentForm'
+  requirements:
+    _panels_storage_access: read
+    _permission: 'access panels in-place editing+administer blocks'
 
 panels_ipe.layouts:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts'
@@ -68,7 +87,16 @@ panels_ipe.layout.form:
 panels_ipe.layout.update:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts/{layout_id}'
   defaults:
-    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::updateLayout'
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::handleUpdateLayoutRequest'
+  requirements:
+    _panels_storage_access: update
+    _permission: 'access panels in-place editing'
+    _method: 'PUT'
+
+panels_ipe.layout.update_tempstore:
+  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts/{layout_id}/tempstore'
+  defaults:
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::handleUpdateLayoutTempStorageRequest'
   requirements:
     _panels_storage_access: update
     _permission: 'access panels in-place editing'
@@ -77,8 +105,21 @@ panels_ipe.layout.update:
 panels_ipe.layout.save:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts/{layout_id}'
   defaults:
-    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::createLayout'
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::handleCreateLayoutRequest'
   requirements:
     _panels_storage_access: update
     _permission: 'access panels in-place editing'
     _method: 'POST'
+
+# @todo Add/consolidate routes for all Block CRUD operations.
+
+panels_ipe.block.read:
+  path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block/{block_uuid}'
+  defaults:
+    _controller: '\Drupal\panels_ipe\Controller\PanelsIPEPageController::getBlock'
+  requirements:
+    _panels_storage_access: read
+    _permission: 'access panels in-place editing'
+    _method: 'GET'
+  options:
+    _admin_route: FALSE

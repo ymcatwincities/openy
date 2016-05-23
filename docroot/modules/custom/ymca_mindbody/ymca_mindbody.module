@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_mindbody.module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ymca_mindbody_menu() {
+  $items['admin/config/content/mindbody/settings'] = array(
+    'title' => 'Mindbody API credentials',
+    'route_name' => 'ymca_mindbody.credentials.settings',
+  );
+
+  return $items;
+}
