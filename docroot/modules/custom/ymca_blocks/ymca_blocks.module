@@ -31,6 +31,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
         'content' => NULL,
         'link' => NULL,
         'link_text' => NULL,
+        'is_home' => NULL,
       ],
       'template' => 'promo-block',
     ],
@@ -129,6 +130,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         ],
         '#link' => isset($path) ? $path : '',
         '#link_text' => $entity->field_link->title,
+        '#is_home' => \Drupal::service('path.matcher')->isFrontPage() ? TRUE : FALSE,
       );
 
       hide($build['field_block_header']);
