@@ -1,0 +1,3 @@
+services:
+  ymca_google.pusher:
+    class: Drupal\ymca_google\GooglePush
