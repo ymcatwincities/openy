@@ -20,16 +20,22 @@ class GooglePush {
   private $calendarId;
 
   /**
+   * Google Calendar Service.
+   *
    * @var \Google_Service_Calendar
    */
   private $calService;
 
   /**
+   * Google Calendar Events Service.
+   *
    * @var \Google_Service_Calendar_Events_Resource
    */
   private $calEvents;
 
   /**
+   * Google Client.
+   *
    * @var \Google_Client
    */
   private $googleClient;
@@ -61,23 +67,25 @@ class GooglePush {
 
   /**
    * Populate array of events to be updated.
-   * 
+   *
    * @param \Google_Service_Calendar_Event $event
    *
    * @return $this
+   *   Chaining.
    */
   public function addEventForUpdate(\Google_Service_Calendar_Event $event) {
     $this->allEvents['update'][$event->getId()] = $event;
-    
+
     return $this;
   }
 
   /**
    * Populate array of events to be deleted.
-   * 
+   *
    * @param \Google_Service_Calendar_Event $event
    *
    * @return $this
+   *   Chaining.
    */
   public function addEventForDelete(\Google_Service_Calendar_Event $event) {
     $this->allEvents['delete'][$event->getId()] = $event;
@@ -106,7 +114,10 @@ class GooglePush {
   }
 
   /**
+   * Proceed all events collected by add methods.
+   *
    * @return $this
+   *   Chaining.
    */
   public function proceed() {
 
@@ -115,13 +126,20 @@ class GooglePush {
         case 'update':
           /** @var \Google_Service_Calendar_Event $event */
           foreach ($events as $hash => &$event) {
-            $event = $this->calEvents->update($this->calendarId, $event->getId(), $event);
+            $event = $this->calEvents->update(
+              $this->calendarId,
+              $event->getId(),
+              $event
+            );
           }
           break;
         case 'delete':
           /** @var \Google_Service_Calendar_Event $event */
           foreach ($events as $hash => &$event) {
-            $event = $this->calEvents->delete($this->calendarId, $event->getId());
+            $event = $this->calEvents->delete(
+              $this->calendarId,
+              $event->getId()
+            );
           }
           break;
         case 'insert':
@@ -136,37 +154,39 @@ class GooglePush {
   }
 
   /**
-   * Create test event
+   * Create test event.
    */
   public function createTestEvent() {
 
-    $event = new \Google_Service_Calendar_Event(array(
-      'summary' => 'Test from code',
-      'location' => 'Kyiv, Ukraine, 01042',
-      'description' => 'Description for test event from code.',
-      'start' => array(
-        'dateTime' => '2016-05-24T09:00:00-07:00',
-        'timeZone' => 'UTC',
-      ),
-      'end' => array(
-        'dateTime' => '2016-05-24T17:00:00-07:00',
-        'timeZone' => 'UTC',
-      ),
-      // 'recurrence' => array(
-      //   'RRULE:FREQ=DAILY;COUNT=2'
-      // ),
-      // 'attendees' => array(
-      //   array('email' => 'lpage@example.com'),
-      //   array('email' => 'sbrin@example.com'),
-      // ),
-      // 'reminders' => array(
-      //   'useDefault' => FALSE,
-      //   'overrides' => array(
-      //     array('method' => 'email', 'minutes' => 24 * 60),
-      //     array('method' => 'popup', 'minutes' => 10),
-      //   ),
-      // ),
-    ));
+    $event = new \Google_Service_Calendar_Event(
+      array(
+        'summary' => 'Test from code',
+        'location' => 'Kyiv, Ukraine, 01042',
+        'description' => 'Description for test event from code.',
+        'start' => array(
+          'dateTime' => '2016-05-24T09:00:00-07:00',
+          'timeZone' => 'UTC',
+        ),
+        'end' => array(
+          'dateTime' => '2016-05-24T17:00:00-07:00',
+          'timeZone' => 'UTC',
+        ),
+        // 'recurrence' => array(
+        //   'RRULE:FREQ=DAILY;COUNT=2'
+        // ),
+        // 'attendees' => array(
+        //   array('email' => 'lpage@example.com'),
+        //   array('email' => 'sbrin@example.com'),
+        // ),
+        // 'reminders' => array(
+        //   'useDefault' => FALSE,
+        //   'overrides' => array(
+        //     array('method' => 'email', 'minutes' => 24 * 60),
+        //     array('method' => 'popup', 'minutes' => 10),
+        //   ),
+        // ),
+      )
+    );
 
     $hash = $this->addEventForCreate($event);
     $this->proceed();
@@ -190,6 +210,7 @@ class GooglePush {
     // Load previously authorized credentials from a file.
     $credentialsPath = $this->expandHomeDirectory(GooglePush::CREDENTIALS_PATH);
     if (file_exists($credentialsPath)) {
+      // @todo rewrite to config.
       $accessToken = file_get_contents($credentialsPath);
     }
     else {
@@ -204,16 +225,19 @@ class GooglePush {
 
       // Store the credentials to disk.
       if (!file_exists(dirname($credentialsPath))) {
+        // @todo rewrite to config.
         mkdir(dirname($credentialsPath), 0700, TRUE);
       }
       file_put_contents($credentialsPath, $accessToken);
       printf("Credentials saved to %s\n", $credentialsPath);
     }
+    // @todo rewrite to config.
     $client->setAccessToken($accessToken);
 
     // Refresh the token if it's expired.
     if ($client->isAccessTokenExpired()) {
       $client->refreshToken($client->getRefreshToken());
+      // @todo rewrite to config.
       file_put_contents($credentialsPath, $client->getAccessToken());
     }
     return $client;
@@ -244,5 +268,5 @@ class GooglePush {
   public function getAllEvents() {
     return $this->allEvents;
   }
-  
+
 }
