@@ -1,3 +1,6 @@
 services:
   ymca_google.pusher:
     class: Drupal\ymca_google\GooglePush
+  ymca_google.groupex_syncer:
+    class: Drupal\ymca_google\GroupexSyncer
+    arguments: [@state, @ymca_groupex.data_fetcher]
