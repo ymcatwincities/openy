@@ -45,7 +45,7 @@ default_value:
     option_select: 0
     option_name: 'Emma B. Howe - Coon Rapids'
     option_reference: '9'
-    option_emails: 'en.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,en.sales@ymcatwincities.org,Casandra.Lokrantz@ymcamn.org'
+    option_emails: 'en.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,en.sales@ymcatwincities.org'
   -
     option_select: 0
     option_name: Hastings
@@ -127,7 +127,6 @@ default_value:
     option_reference: '26'
     option_emails: 'se.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,Cassie.Schmuecker@ymcatwincities.org'
   -
-    option_select: 0
     option_name: 'Forest Lake'
     option_reference: '2746'
     option_emails: 'Angela.Baldwin@ymcamn.org,carolyn.ball@ymcatwincities.org'
