@@ -7,10 +7,11 @@ dependencies:
 id: mapping.field_groupex_category
 field_name: field_groupex_category
 entity_type: mapping
-type: integer
+type: string
 settings:
-  unsigned: false
-  size: normal
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1
