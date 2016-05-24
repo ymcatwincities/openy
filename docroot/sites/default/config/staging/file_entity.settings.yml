@@ -1,4 +1,4 @@
-max_filesize: 10000000
+max_filesize: 50000000
 default_allowed_extensions: 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm'
 alt: '[file:field_file_image_alt_text]'
 title: '[file:field_file_image_title_text]'
