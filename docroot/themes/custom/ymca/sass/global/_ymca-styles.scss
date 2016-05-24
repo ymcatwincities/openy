@@ -345,11 +345,12 @@ p.legend {
   margin-top: 20px;
 }
 
-#modal.annual-report-modal {
+.modal-cover {
+  position: fixed;
+  z-index: 1040;
+}
 
-  .modal-cover {
-    position: fixed;
-  }
+#modal.annual-report-modal {
 
   .modal-header {
     background: #92288d;
@@ -442,4 +443,3 @@ p.legend {
   }
 
 }
-
