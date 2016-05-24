@@ -356,6 +356,10 @@ p.legend {
     border-radius: 0;
     padding: 17px 50px 15px;
 
+    @media screen and (max-width: 767px) {
+      padding: 17px 50px 15px 10px;
+    }
+
     #modal-title {
       overflow: hidden;
       line-height: 30px;
@@ -382,10 +386,19 @@ p.legend {
     border-radius: 0;
     border: none;
   }
+  @media screen and (max-width: 767px) {
+    .modal-dialog {
+      padding: 9px 28px 9px 9px;
+    }
+  }
 }
 
 .modal-annual-report {
   padding: 40px 60px 80px;
+
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
 
   p {
     color: #777;
@@ -431,6 +444,9 @@ p.legend {
   }
   .fullwidth {
     margin: 0 -60px;
+    @media screen and (max-width: 767px) {
+      margin: 0 -10px;
+    }
   }
   th,
   .heading-row td {
@@ -440,6 +456,17 @@ p.legend {
   tr.total td {
     font-weight: bold;
   }
-
+  @media screen and (max-width: 767px) {
+    .table-responsive {
+      th:first-child {
+        white-space: normal;
+        width: 150px;
+      }
+      td:first-child {
+        white-space: normal;
+        width: 150px;
+      }
+    }
+  }
 }
 
