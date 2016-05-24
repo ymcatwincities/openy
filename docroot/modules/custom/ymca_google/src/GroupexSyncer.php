@@ -15,7 +15,7 @@ class GroupexSyncer implements GroupexSyncerInterface {
   /**
    * The name of key to store schedule.
    */
-  const scheduleKey = 'ymca_google_syncer_schedule';
+  const SCHEDULE_KEY = 'ymca_google_syncer_schedule';
 
   /**
    * State.
@@ -31,6 +31,12 @@ class GroupexSyncer implements GroupexSyncerInterface {
    */
   protected $fetcher;
 
+  /**
+   * Groupex repository.
+   *
+   * @var GroupexRepositoryInterface
+   */
+  protected $repository;
 
   /**
    * Default interval (week).
@@ -44,7 +50,7 @@ class GroupexSyncer implements GroupexSyncerInterface {
    *
    * @var int
    */
-  protected $length = 3;
+  protected $length = 24;
 
   /**
    * Schedule.
@@ -60,10 +66,13 @@ class GroupexSyncer implements GroupexSyncerInterface {
    *   State.
    * @param GroupexDataFetcherInterface $fetcher
    *   Groupex data fetcher.
+   * @param GroupexRepositoryInterface $repository
+   *   Groupex repository.
    */
-  public function __construct(StateInterface $state, GroupexDataFetcherInterface $fetcher) {
+  public function __construct(StateInterface $state, GroupexDataFetcherInterface $fetcher, GroupexRepositoryInterface $repository) {
     $this->state = $state;
     $this->fetcher = $fetcher;
+    $this->repository = $repository;
 
     $this->schedule = $this->getSchedule();
   }
@@ -72,13 +81,16 @@ class GroupexSyncer implements GroupexSyncerInterface {
    * {@inheritdoc}
    */
   public function sync() {
-    // Fetch Groupex data.
-    $data = $this->fetcher->fetch(
-      $this->schedule['steps'][$this->schedule['current']]['start'],
-      $this->schedule['steps'][$this->schedule['current']]['end']
-    );
+    $start = $this->schedule['steps'][$this->schedule['current']]['start'];
+    $end = $this->schedule['steps'][$this->schedule['current']]['end'];
 
-    // @todo Save data here...
+    // Fetch Groupex data.
+    $data = $this->fetcher->fetch($start, $end);
+
+    // Save data to the repository.
+    if (!empty($data)) {
+      $this->repository->save($data, $start, $end);
+    }
 
     // Update schedule.
     $next = $this->schedule['current'] + 1;
@@ -93,17 +105,19 @@ class GroupexSyncer implements GroupexSyncerInterface {
     }
 
     // Save schedule.
-    $this->state->set(self::scheduleKey, $new_schedule);
+    $this->state->set(self::SCHEDULE_KEY, $new_schedule);
   }
 
   /**
    * Get a schedule.
+   *
    * @return array
+   *   Schedule.
    */
   protected function getSchedule() {
-    if (!$schedule = $this->state->get(self::scheduleKey)) {
+    if (!$schedule = $this->state->get(self::SCHEDULE_KEY)) {
       $schedule = $this->buildSchedule(REQUEST_TIME);
-      $this->state->set(self::scheduleKey, $schedule);
+      $this->state->set(self::SCHEDULE_KEY, $schedule);
     }
 
     $this->schedule = $schedule;
@@ -113,17 +127,13 @@ class GroupexSyncer implements GroupexSyncerInterface {
   /**
    * Build schedule.
    *
-   * @param null $start
+   * @param int $start
    *   Start timestamp.
    *
    * @return array
    *   Schedule.
    */
-  protected function buildSchedule($start = NULL) {
-    if (is_null($start)) {
-      $start = REQUEST_TIME;
-    }
-
+  protected function buildSchedule($start) {
     $schedule = [
       'steps' => [],
       'current' => 0,
@@ -131,7 +141,7 @@ class GroupexSyncer implements GroupexSyncerInterface {
 
     for ($i = 0; $i < $this->length; $i++) {
       if ($i == 0) {
-        $schedule['steps'][$i]['start'] = REQUEST_TIME;
+        $schedule['steps'][$i]['start'] = $start;
       }
       else {
         $schedule['steps'][$i]['start'] = $schedule['steps'][$i - 1]['end'];

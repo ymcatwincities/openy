@@ -12,6 +12,6 @@ interface GroupexSyncerInterface {
   /**
    * Sync data.
    */
-  function sync();
+  public function sync();
 
 }
