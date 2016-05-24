@@ -11,8 +11,6 @@
   Drupal.behaviors.PromoBlocks = {
     attach: function (context) {
 
-      console.log('test');
-
       // Decorate promos which were migrated as is (without entity embed).
       var promos = $('.sidebar-promos > .richtext.original');
       promos.each(
