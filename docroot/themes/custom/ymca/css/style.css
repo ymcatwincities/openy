@@ -7767,6 +7767,11 @@ p.legend {
   border-radius: 0;
   padding: 17px 50px 15px;
 }
+@media screen and (max-width: 767px) {
+  #modal.annual-report-modal .modal-header {
+    padding: 17px 50px 15px 10px;
+  }
+}
 #modal.annual-report-modal .modal-header #modal-title {
   overflow: hidden;
   line-height: 30px;
@@ -7794,6 +7799,11 @@ p.legend {
 
 .modal-annual-report {
   padding: 40px 60px 80px;
+}
+@media screen and (max-width: 767px) {
+  .modal-annual-report {
+    padding: 10px;
+  }
 }
 .modal-annual-report p {
   color: #777;
@@ -7839,6 +7849,11 @@ p.legend {
 .modal-annual-report .fullwidth {
   margin: 0 -60px;
 }
+@media screen and (max-width: 767px) {
+  .modal-annual-report .fullwidth {
+    margin: 0 -10px;
+  }
+}
 .modal-annual-report th,
 .modal-annual-report .heading-row td {
   background: #0889cd;
@@ -7846,6 +7861,16 @@ p.legend {
 }
 .modal-annual-report tr.total td {
   font-weight: bold;
+}
+@media screen and (max-width: 767px) {
+  .modal-annual-report .table-responsive th:first-child {
+    white-space: normal;
+    width: 150px;
+  }
+  .modal-annual-report .table-responsive td:first-child {
+    white-space: normal;
+    width: 150px;
+  }
 }
 
 .form-item {
