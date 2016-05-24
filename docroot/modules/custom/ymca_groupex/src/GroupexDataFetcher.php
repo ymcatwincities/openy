@@ -8,14 +8,14 @@ namespace Drupal\ymca_groupex;
  * @package Drupal\ymca_groupex
  */
 class GroupexDataFetcher implements GroupexDataFetcherInterface {
-  
+
   use GroupexRequestTrait;
 
   /**
    * GroupexDataFetcher constructor.
    */
   public function __construct() {
-    
+
   }
 
   /**
