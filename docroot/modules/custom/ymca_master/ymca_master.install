@@ -2764,9 +2764,21 @@ function ymca_master_update_8118() {
 }
 
 /**
- * Create Groupex mapping bundle.
+ * Update file limit settings.
  */
 function ymca_master_update_8119() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'file_entity.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Create Groupex mapping bundle.
+ */
+function ymca_master_update_8120() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
