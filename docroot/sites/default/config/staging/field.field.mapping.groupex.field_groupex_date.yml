@@ -1,0 +1,19 @@
+uuid: 8d5dca37-4c46-4df6-8b2e-0f6a176a6f8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_groupex_date
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_groupex_date
+field_name: field_groupex_date
+entity_type: mapping
+bundle: groupex
+label: 'Groupex Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
