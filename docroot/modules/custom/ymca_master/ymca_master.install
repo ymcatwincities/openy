@@ -2762,3 +2762,15 @@ function ymca_master_update_8117() {
 function ymca_master_update_8118() {
   \Drupal::service('module_installer')->install(['ymca_google'], TRUE);
 }
+
+/**
+ * Update file limit settings.
+ */
+function ymca_master_update_8119() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'file_entity.settings.yml',
+    ]
+  );
+}
