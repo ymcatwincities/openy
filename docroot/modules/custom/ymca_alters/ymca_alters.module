@@ -214,12 +214,15 @@ function ymca_alters_preprocess_field(&$variables) {
     if ($route == 'ymca_frontend.location_schedules') {
       $node = \Drupal::routeMatch()->getParameter('node');
 
-      $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_location_ref', $node->id())
+        ->execute();
+      $mapping_id = reset($mapping_id);
       $location = FALSE;
-      foreach ($mappings as $item) {
-        if ($item['entity_id'] == $node->id()) {
-          $location = $item['geid'];
-        }
+      if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+        $field_groupex_id = $mapping->field_groupex_id->getValue();
+        $location = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
       }
 
       if (!$location) {
@@ -308,6 +311,9 @@ function ymca_alters_page_attachments_alter(array &$attachments) {
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
+  // Add original promo blocks decorator.
+  $page['#attached']['library'][] = 'ymca_alters/promo_blocks';
+
   // Alter CSS for File Browser, Content Browser.
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {

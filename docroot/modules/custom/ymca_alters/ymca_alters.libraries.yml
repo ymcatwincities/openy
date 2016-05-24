@@ -5,6 +5,13 @@ schedules_date:
   dependencies:
     - core/drupal
     - core/jquery
+promo_blocks:
+  version: 1.x
+  js:
+    js/ymca_alters.promo_blocks.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
 file_browser:
   version: VERSION
   css:
@@ -20,3 +27,9 @@ blocks:
   css:
     theme:
       css/blocks.css: {}
+  js:
+    js/ymca_alters.blocks.js: {}
+    /libraries/equalize/js/equalize.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
