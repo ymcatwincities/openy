@@ -14,10 +14,11 @@ type_id: entity
 type_settings:
   entity_type: file
   bundles: {  }
+  style: inline
   display_plugins:
     - 'file:file_default'
     - 'image:image'
   entity_browser: browse_files
   entity_browser_settings:
     display_review: false
-icon_uuid: a48b016e-9da1-4dd6-ac00-c48e4a2a4ed2
+icon_uuid: null

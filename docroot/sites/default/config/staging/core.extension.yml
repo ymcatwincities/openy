@@ -42,6 +42,7 @@ module:
   file_browser: 0
   file_entity: 0
   filter: 0
+  flood_unblock: 0
   hal: 0
   help: 0
   history: 0
@@ -118,6 +119,7 @@ module:
   ymca_field_holiday_hours: 0
   ymca_field_office_hours: 0
   ymca_frontend: 0
+  ymca_google: 0
   ymca_groupex: 0
   ymca_hours: 0
   ymca_link_formatter: 0
