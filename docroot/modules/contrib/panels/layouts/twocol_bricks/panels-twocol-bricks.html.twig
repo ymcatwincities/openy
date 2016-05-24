@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * Template for a 2 column panel layout.
+ *
+ * This template provides a two column panel display layout with full width
+ * areas at the top, bottom and in the middle.
+ *
+ * Variables:
+ * - $id: An optional CSS id to use for the layout.
+ * - $content: An array of content, each item in the array is keyed to one
+ *   panel of the layout. This layout supports the following sections:
+ *   - content.top: Content in the top row.
+ *   - content.left_above: Content in the top left column.
+ *   - content.right_above: Content in the top right column.
+ *   - content.middle: Content in the middle column.
+ *   - content.left_below: Content in the bottom left column.
+ *   - content.right_below: Content in the bottom right column.
+ *   - content.bottom: Content in the bottom row.
+ */
+#}
+<div class="panel-2col-bricks" {% if css_id %}{{ css_id }}{% endif %}>
+  <div class="panel-panel panel-full-width">
+    {{ content.top }}
+  </div>
+
+  <div class="panel-panel">
+    {{ content.left_above }}
+  </div>
+
+  <div class="panel-panel">
+    {{ content.right_above }}
+  </div>
+
+  <div class="panel-panel panel-full-width">
+    {{ content.middle }}
+  </div>
+
+  <div class="panel-panel">
+    {{ content.left_below }}
+  </div>
+
+  <div class="panel-panel">
+    {{ content.right_below }}
+  </div>
+
+  <div class="panel-panel panel-full-width">
+    {{ content.bottom }}
+  </div>
+</div>

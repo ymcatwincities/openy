@@ -11,6 +11,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
@@ -107,13 +108,28 @@ class StandardDisplayBuilder extends DisplayBuilderBase implements ContainerFact
           $block_render_array = [
             '#theme' => 'block',
             '#attributes' => [],
+            '#contextual_links' => [],
             '#weight' => $weight++,
             '#configuration' => $block->getConfiguration(),
             '#plugin_id' => $block->getPluginId(),
             '#base_plugin_id' => $block->getBaseId(),
             '#derivative_plugin_id' => $block->getDerivativeId(),
           ];
-          $block_render_array['content'] = $block->build();
+
+          // Build the block and bubble its attributes up if possible. This
+          // allows modules like Quickedit to function.
+          // See \Drupal\block\BlockViewBuilder::preRender() for reference.
+          $content = $block->build();
+          if ($content !== NULL && !Element::isEmpty($content)) {
+            foreach (['#attributes', '#contextual_links'] as $property) {
+              if (isset($content[$property])) {
+                $block_render_array[$property] += $content[$property];
+                unset($content[$property]);
+              }
+            }
+          }
+
+          $block_render_array['content'] = $content;
 
           $build[$region][$block_id] = $block_render_array;
         }

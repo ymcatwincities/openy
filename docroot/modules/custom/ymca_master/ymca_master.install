@@ -15,6 +15,7 @@ use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
+use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
  * Protecting sites with a shield.
@@ -2523,4 +2524,241 @@ function ymca_master_update_8104() {
       $path . 'core.entity_form_display.block_content.slide_show_item.default.yml'
     ]
   );
+}
+
+/**
+ * Add Mapping entity.
+ */
+function ymca_master_update_8105() {
+  \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mappings.mapping_type.location.yml',
+      $path . 'ymca_mappings.mapping_type.trainer.yml',
+    ]
+  );
+}
+
+/**
+ * Initial fields for TrainerID.
+ */
+function ymca_master_update_8106() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.trainer.default.yml',
+      $path . 'core.entity_view_display.mapping.trainer.default.yml',
+      $path . 'field.field.mapping.trainer.field_mindbody_trainer_id.yml',
+      $path . 'field.field.mapping.trainer.field_trainer_page_ref.yml',
+      $path . 'field.storage.mapping.field_mindbody_trainer_id.yml',
+      $path . 'field.storage.mapping.field_trainer_page_ref.yml',
+    ]
+  );
+}
+
+/**
+ * Initial fields for Location mapping.
+ */
+function ymca_master_update_8107() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.location.default.yml',
+      $path . 'core.entity_view_display.mapping.location.default.yml',
+      $path . 'field.field.mapping.location.field_groupex_id.yml',
+      $path . 'field.field.mapping.location.field_location_ref.yml',
+      $path . 'field.field.mapping.location.field_mindbody_id.yml',
+      $path . 'field.storage.mapping.field_groupex_id.yml',
+      $path . 'field.storage.mapping.field_location_ref.yml',
+      $path . 'field.storage.mapping.field_mindbody_id.yml',
+    ]
+  );
+}
+
+/**
+ * Populate location mappings.
+ */
+function ymca_master_update_8108() {
+  $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+  foreach ($locations as $location) {
+    $mapping = Mapping::create([
+      'type' => 'location',
+      'field_location_ref' => $location['entity_id'],
+      'field_groupex_id' => $location['geid'],
+    ]);
+    $mapping->setName($location['name']);
+    $mapping->save();
+  }
+}
+
+/**
+ * Update Content Browser configs.
+ */
+function ymca_master_update_8109() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.content_browser_block.yml',
+    ]
+  );
+}
+
+/**
+ * Set ymca_rest_export plugin for the CSV export.
+ */
+function ymca_master_update_8110() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.contact_messages_csv_export.yml',
+    ]
+  );
+}
+
+/**
+ * Update location mappings.
+ */
+function ymca_master_update_8111() {
+  // Map: Mindbody ID => Location ID.
+  $map = [
+    1 => 4,
+    2 => 21,
+    3 => 13,
+    4 => 25,
+    5 => 14,
+    6 => 10,
+    7 => 17,
+    8 => 18,
+    9 => 8,
+    10 => 5,
+    11 => 6,
+    12 => 9,
+    13 => 7,
+    14 => 2746,
+    15 => 26,
+    16 => 24,
+    17 => 19,
+    18 => 23,
+    19 => 22,
+    20 => 16,
+    22 => 12,
+    23 => 11,
+    24 => 20,
+  ];
+
+  /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('mapping');
+
+  foreach ($map as $mindbody_id => $location_id) {
+    $query = \Drupal::entityQuery('mapping')
+      ->condition('type', 'location')
+      ->condition('field_location_ref', $location_id)
+      ->execute();
+
+    if ($query) {
+      /** @var Mapping $mapping */
+      $mapping = $storage->load(reset($query));
+      if ($mapping) {
+        $mapping->set('field_mindbody_id', $mindbody_id);
+        $mapping->save();
+        \Drupal::logger('ymca_master')->info(
+          'Add MindBody ID to mapping #%mapping.',
+          ['%mapping' => $mapping->id()]
+        );
+      }
+    }
+
+  }
+}
+
+/**
+ * Remove redundant groupex location.
+ */
+function ymca_master_update_8112() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_groupex.mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Re-import location mappings.
+ */
+function ymca_master_update_8113() {
+  // Delete all Location mappings.
+  $ids = \Drupal::entityQuery('mapping')
+    ->condition('type', 'location')
+    ->execute();
+
+  $storage = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getStorage('mapping');
+  $entities = $storage->loadMultiple($ids);
+  $storage->delete($entities);
+
+  // Populate entities.
+  ymca_master_update_8108();
+
+  // Update location mappings.
+  ymca_master_update_8111();
+}
+
+/**
+ * Import MindBody trainers IDs.
+ */
+function ymca_master_update_8114() {
+  // Read CSV file with map.
+  $path = drupal_get_path('module', 'ymca_master');
+  $csv_file = $path . '/misc/trainers_mindbody.csv';
+  $map = array_map('str_getcsv', file($csv_file));
+
+  foreach ($map as $trainer) {
+    $mapping = Mapping::create([
+      'type' => 'trainer',
+      'field_mindbody_trainer_id' => $trainer[0],
+    ]);
+    $mapping->setName($trainer[1]);
+    $mapping->save();
+  }
+}
+
+/**
+ * Update Content Browser configs.
+ */
+function ymca_master_update_8115() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.editor.yml',
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}
+
+/**
+ * Install flood control module.
+ */
+function ymca_master_update_8116() {
+  \Drupal::service('module_installer')->install(['flood_unblock'], TRUE);
+}
+
+/**
+ * Delete ymca_groupex.mapping config.
+ */
+function ymca_master_update_8117() {
+  Drupal::configFactory()->getEditable('ymca_groupex.mapping')->delete();
+}
+
+/**
+ * Add Gcal POC.
+ */
+function ymca_master_update_8118() {
+  \Drupal::service('module_installer')->install(['ymca_google'], TRUE);
 }

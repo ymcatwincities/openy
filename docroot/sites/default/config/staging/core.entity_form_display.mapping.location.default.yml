@@ -1,0 +1,56 @@
+uuid: 3d3db165-b37c-4c99-acbb-d683ffbfbd3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.location.field_groupex_id
+    - field.field.mapping.location.field_location_ref
+    - field.field.mapping.location.field_mindbody_id
+    - ymca_mappings.mapping_type.location
+id: mapping.location.default
+targetEntityType: mapping
+bundle: location
+mode: default
+content:
+  field_groupex_id:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_location_ref:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_mindbody_id:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
