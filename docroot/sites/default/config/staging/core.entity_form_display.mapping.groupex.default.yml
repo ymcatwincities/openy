@@ -5,12 +5,14 @@ dependencies:
   config:
     - field.field.mapping.groupex.field_groupex_category
     - field.field.mapping.groupex.field_groupex_class_id
+    - field.field.mapping.groupex.field_groupex_date
     - field.field.mapping.groupex.field_groupex_description
     - field.field.mapping.groupex.field_groupex_instructor
     - field.field.mapping.groupex.field_groupex_location
     - field.field.mapping.groupex.field_groupex_orig_instructor
     - field.field.mapping.groupex.field_groupex_studio
     - field.field.mapping.groupex.field_groupex_sub_instructor
+    - field.field.mapping.groupex.field_groupex_time
     - field.field.mapping.groupex.field_timestamp_end
     - field.field.mapping.groupex.field_timestamp_start
     - ymca_mappings.mapping_type.groupex
@@ -27,6 +29,13 @@ content:
     type: number
   field_groupex_class_id:
     weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_date:
+    weight: 21
     settings:
       size: 60
       placeholder: ''
@@ -69,6 +78,13 @@ content:
     type: string_textfield
   field_groupex_sub_instructor:
     weight: 17
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_time:
+    weight: 22
     settings:
       size: 60
       placeholder: ''
