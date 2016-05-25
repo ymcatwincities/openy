@@ -5,7 +5,7 @@ services:
     calls:
       - [addStep, ['@ymca_groupex.data_fetcher', 'fetch']]
       - [addStep, ['@ymca_groupex.drupal_proxy', 'saveEntities']]
-      - [addStep, ['@ymca_google.pusher', 'createTestEvent']]
+      - [addStep, ['@ymca_google.pusher', 'push']]
 
       #- [saveMapping, ['@ymca_sync.groupex_drupal_proxy']]
       #- [proceed, ['@ymca_sync.gcal_pusher']]
