@@ -1,7 +1,7 @@
 services:
   ymca_google.pusher:
     class: Drupal\ymca_google\GooglePush
-    #arguments: ['@y_syncer.groupx_data_wrapper']
+    arguments: ['@ymca_google.groupex_wrapper']
     #calls:
      # - [getGcalEvents, ['@y_syncer.groupx_data_wrapper']]
   ymca_google.groupex_wrapper:
