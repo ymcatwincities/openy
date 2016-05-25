@@ -11,7 +11,7 @@ services:
     class: Drupal\ymca_google\GroupexRepository
     arguments: []
 
-  ymca_google.groupex:
+  ymca_google.groupex_wrapper:
     class: Drupal\ymca_google\GcalGroupexWrapper
     arguments: []
 
