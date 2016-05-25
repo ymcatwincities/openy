@@ -1,0 +1,14 @@
+{
+  "name": "drupal/ymca_sync",
+  "type": "drupal-module",
+  "description": "YMCA Sync services. Webservises.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/ymca_sync",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/ymca_sync",
+    "source": "http://cgit.drupalcode.org/ymca_sync"
+  },
+  "require": { }
+}
