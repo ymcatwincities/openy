@@ -41,6 +41,8 @@ class DrupalProxy implements DrupalProxyInterface {
    * {@inheritdoc}
    */
   public function saveEntities() {
+    $entities = [];
+
     foreach ($this->dataWrapper->getSourceData() as $item) {
       // Parse time to create timestamps.
       preg_match("/(.*)-(.*)/i", $item->time, $output);
@@ -65,7 +67,11 @@ class DrupalProxy implements DrupalProxyInterface {
       ]);
       $mapping->setName($item->location . ' [' . $item->id . ']');
       $mapping->save();
+
+      $entities[] = $mapping;
     }
+
+    $this->dataWrapper->setProxyData($entities);
   }
 
   /**
