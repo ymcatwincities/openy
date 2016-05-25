@@ -50,21 +50,23 @@ class GooglePush {
   private $allEvents;
 
   /**
+   * Wrapper to be used.
+   *
+   * @var GcalGroupexWrapperInterface
+   */
+  private $wrapper;
+
+  /**
    * GooglePush constructor.
    */
-  public function __construct() {
+  public function __construct(GcalGroupexWrapperInterface $wrapper) {
     $this->calendarId = '7rrsac9rvavuu68e5cmdho7di0@group.calendar.google.com';
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
     $this->calService = new \Google_Service_Calendar($this->googleClient);
     $this->calEvents = $this->calService->events;
 
-    // Init basic array.
-    $this->allEvents = [
-      'update' => [],
-      'insert' => [],
-      'delete' => []
-    ];
+    $this->wrapper = $wrapper;
   }
 
   /**
@@ -126,6 +128,11 @@ class GooglePush {
    */
   public function proceed() {
 
+   // @todo Prepopulate allEvents properly. 
+//    // Init basic array.
+//    $this->wrapper->getDrupalEntitiesFromSource();
+//    $this->allEvents = $this->wrapper->getDestinationEntitiesFromProxy();
+    
     foreach ($this->allEvents as $method => &$events) {
       switch ($method) {
         case 'update':
