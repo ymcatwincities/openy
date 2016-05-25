@@ -14,7 +14,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    * Constructor.
    */
   public function __construct() {
-
+    $i = 0;
   }
 
 }
