@@ -4,7 +4,6 @@ namespace Drupal\ymca_sync;
 
 use Drupal\ymca_google\GcalGroupexWrapperInterface;
 
-
 /**
  * Class Syncer.
  *
@@ -36,13 +35,18 @@ class Syncer implements SyncerInterface {
     $this->wrapper = $wrapper;
   }
 
-
+  /**
+   * {@inheritdoc}
+   */
   public function proceed() {
     foreach ($this->steps as $id => $step) {
       $step['plugin']->$step['method']($step['args']);
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function addStep($plugin, $method = 'run', array $args = []) {
     $this->steps[] = ['plugin' => $plugin, 'method' => $method, 'args' => $args];
   }

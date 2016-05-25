@@ -15,7 +15,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var array
    */
-  protected $sourceData;
+  protected $sourceData = [];
 
   /**
    * Prepared data for proxy system.
@@ -30,11 +30,15 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    * @var array
    */
   protected $destinationData;
+
   /**
-   * Constructor.
+   * Source data setter.
+   *
+   * @param $data
+   *   Source data from Groupex.
    */
-  public function __construct() {
-    $i = 0;
+  public function setSourceData($data) {
+    $this->sourceData = $data;
   }
 
   /**
