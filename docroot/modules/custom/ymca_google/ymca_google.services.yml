@@ -6,7 +6,7 @@ services:
      # - [getGcalEvents, ['@y_syncer.groupx_data_wrapper']]
   ymca_google.groupex_syncer:
     class: Drupal\ymca_google\GroupexSyncer
-    arguments: [@state, @ymca_groupex.data_fetcher, @ymca_google.groupex_repository]
+    arguments: ['@state', '@ymca_groupex.data_fetcher', '@ymca_google.groupex_repository']
   ymca_google.groupex_repository:
     class: Drupal\ymca_google\GroupexRepository
     arguments: []
