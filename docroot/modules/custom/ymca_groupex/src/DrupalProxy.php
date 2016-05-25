@@ -1,24 +1,24 @@
 <?php
 
-namespace Drupal\ymca_google;
+namespace Drupal\ymca_groupex;
 
-use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\ymca_google\GcalGroupexWrapper;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
- * Class GroupexRepository.
+ * Class DrupalProxy.
  *
- * @package Drupal\ymca_google
+ * @package Drupal\ymca_groupex
  */
-class GroupexRepository implements GroupexRepositoryInterface {
+class DrupalProxy implements DrupalProxyInterface {
 
   /**
-   * Timezone string.
+   * Data wrapper.
    *
-   * @var string
+   * @var GcalGroupexWrapper
    */
-  protected $timezoneString = 'UTC';
+  protected $dataWrapper;
 
   /**
    * Timezone object.
@@ -28,17 +28,20 @@ class GroupexRepository implements GroupexRepositoryInterface {
   protected $timezone;
 
   /**
-   * Constructor.
+   * DrupalProxy constructor.
+   *
+   * @param GcalGroupexWrapper $data_wrapper
    */
-  public function __construct() {
-    $this->timezone = new \DateTimeZone($this->timezoneString);
+  public function __construct(GcalGroupexWrapper $data_wrapper) {
+    $this->dataWrapper = $data_wrapper;
+    $this->timezone = new \DateTimeZone('UTC');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function save(array $data, $start, $end) {
-    foreach ($data as $item) {
+  public function saveEntities() {
+    foreach ($this->dataWrapper->getSourceData() as $item) {
       // Parse time to create timestamps.
       preg_match("/(.*)-(.*)/i", $item->time, $output);
       $item->timestamp_start = $this->extractTimestamp($item->date, $output[1]);

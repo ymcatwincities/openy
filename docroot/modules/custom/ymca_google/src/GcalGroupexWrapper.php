@@ -42,6 +42,13 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   }
 
   /**
+   * Source data getter.
+   */
+  public function getSourceData() {
+    return $this->sourceData;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDrupalEntitiesFromSource() {
