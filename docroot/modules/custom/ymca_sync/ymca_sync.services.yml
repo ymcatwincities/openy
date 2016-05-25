@@ -3,7 +3,8 @@ services:
     class: Drupal\ymca_sync\Syncer
     arguments: ['@ymca_google.groupex']
     calls:
-      - [addStep, ['@ymca_groupex.data_fetcher', 'fetch', [1,2,3]]]
+      - [addStep, ['@ymca_groupex.data_fetcher', 'fetch']]
+      - [addStep, ['@ymca_groupex.drupal_proxy', 'fetch']]
       - [addStep, ['@ymca_google.pusher', 'createTestEvent']]
 
       #- [saveMapping, ['@ymca_sync.groupex_drupal_proxy']]
