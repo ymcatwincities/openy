@@ -22,14 +22,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var array
    */
-  protected $proxyData;
-
-  /**
-   * Prepared data for destination system.
-   *
-   * @var array
-   */
-  protected $destinationData;
+  protected $proxyData = [];
 
   /**
    * Source data setter.
@@ -46,45 +39,6 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    */
   public function getSourceData() {
     return $this->sourceData;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDrupalEntitiesFromSource() {
-    // TODO: Implement getDrupalEntitiesFromSource() method.
-
-    foreach ($this->sourceData as $id => &$sourceItem) {
-      $this->proxyData[$id] = new \stdClass();
-      $this->proxyData[$id]->title = $sourceItem->title;
-      $this->proxyData[$id]->entity_id = $sourceItem->id;
-    }
-    return $this->sourceData;
-
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDestinationEntitiesFromProxy() {
-    // TODO: Implement getDestinationEntitiesFromProxy() method.
-
-    foreach ($this->proxyData as $id => &$hostEntity) {
-      $this->destinationData['insert'][] = array(
-        'summary' => $hostEntity->title,
-        'location' => 'Kyiv, Ukraine, 01042',
-        'description' => 'Description for test event from code.',
-        'start' => array(
-          'dateTime' => '2016-05-24T09:00:00-07:00',
-          'timeZone' => 'UTC',
-        ),
-        'end' => array(
-          'dateTime' => '2016-05-24T17:00:00-07:00',
-          'timeZone' => 'UTC',
-        ),
-      );
-    }
-    return $this->destinationData;
   }
 
   /**
