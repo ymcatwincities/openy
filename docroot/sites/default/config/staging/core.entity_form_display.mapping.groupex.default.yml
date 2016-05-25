@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.mapping.groupex.field_gcal_id
     - field.field.mapping.groupex.field_groupex_category
     - field.field.mapping.groupex.field_groupex_class_id
     - field.field.mapping.groupex.field_groupex_date
@@ -21,6 +22,13 @@ targetEntityType: mapping
 bundle: groupex
 mode: default
 content:
+  field_gcal_id:
+    weight: 23
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_groupex_category:
     weight: 14
     settings:

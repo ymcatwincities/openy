@@ -2796,6 +2796,7 @@ function ymca_master_update_8120() {
       $path . 'field.field.mapping.groupex.field_timestamp_start.yml',
       $path . 'field.field.mapping.groupex.field_groupex_date.yml',
       $path . 'field.field.mapping.groupex.field_groupex_time.yml',
+      $path . 'field.field.mapping.groupex.field_gcal_id.yml',
       $path . 'field.storage.mapping.field_groupex_category.yml',
       $path . 'field.storage.mapping.field_groupex_class_id.yml',
       $path . 'field.storage.mapping.field_groupex_description.yml',
@@ -2808,6 +2809,7 @@ function ymca_master_update_8120() {
       $path . 'field.storage.mapping.field_timestamp_start.yml',
       $path . 'field.storage.mapping.field_groupex_date.yml',
       $path . 'field.storage.mapping.field_groupex_time.yml',
+      $path . 'field.storage.mapping.field_gcal_id.yml',
       $path . 'ymca_mappings.mapping_type.groupex.yml',
     ]
   );
