@@ -2762,3 +2762,53 @@ function ymca_master_update_8117() {
 function ymca_master_update_8118() {
   \Drupal::service('module_installer')->install(['ymca_google'], TRUE);
 }
+
+/**
+ * Update file limit settings.
+ */
+function ymca_master_update_8119() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'file_entity.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Create Groupex mapping bundle.
+ */
+function ymca_master_update_8120() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.groupex.default.yml',
+      $path . 'core.entity_view_display.mapping.groupex.default.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_category.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_class_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_description.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_location.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_orig_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_studio.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_sub_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_end.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_start.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_date.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_time.yml',
+      $path . 'field.storage.mapping.field_groupex_category.yml',
+      $path . 'field.storage.mapping.field_groupex_class_id.yml',
+      $path . 'field.storage.mapping.field_groupex_description.yml',
+      $path . 'field.storage.mapping.field_groupex_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_location.yml',
+      $path . 'field.storage.mapping.field_groupex_orig_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_studio.yml',
+      $path . 'field.storage.mapping.field_groupex_sub_instructor.yml',
+      $path . 'field.storage.mapping.field_timestamp_end.yml',
+      $path . 'field.storage.mapping.field_timestamp_start.yml',
+      $path . 'field.storage.mapping.field_groupex_date.yml',
+      $path . 'field.storage.mapping.field_groupex_time.yml',
+      $path . 'ymca_mappings.mapping_type.groupex.yml',
+    ]
+  );
+}

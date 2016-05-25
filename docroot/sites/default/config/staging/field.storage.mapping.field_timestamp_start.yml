@@ -1,0 +1,20 @@
+uuid: 817fa443-2822-4d7a-82b8-65d7a3699773
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_timestamp_start
+field_name: field_timestamp_start
+entity_type: mapping
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
