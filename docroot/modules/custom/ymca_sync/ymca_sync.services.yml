@@ -4,7 +4,7 @@ services:
     arguments: ['@ymca_google.groupex']
     calls:
       - [addStep, ['@ymca_groupex.data_fetcher', 'fetch']]
-      - [addStep, ['@ymca_groupex.drupal_proxy', 'fetch']]
+      - [addStep, ['@ymca_groupex.drupal_proxy', 'saveEntities']]
       - [addStep, ['@ymca_google.pusher', 'createTestEvent']]
 
       #- [saveMapping, ['@ymca_sync.groupex_drupal_proxy']]
