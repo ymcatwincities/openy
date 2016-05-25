@@ -57,6 +57,11 @@ class GooglePush {
   private $wrapper;
 
   /**
+   * @var array
+   */
+  private $sourceEntities;
+
+  /**
    * GooglePush constructor.
    */
   public function __construct(GcalGroupexWrapperInterface $wrapper) {
@@ -131,7 +136,10 @@ class GooglePush {
    // @todo Prepopulate allEvents properly. 
 //    // Init basic array.
 //    $this->wrapper->getDrupalEntitiesFromSource();
-//    $this->allEvents = $this->wrapper->getDestinationEntitiesFromProxy();
+    $this->sourceEntities = $this->wrapper->getProxyData();
+    foreach ($this->sourceEntities as $id => $entity) {
+      $this->allEvents['insert'][] = $this->drupaEntityToGcalEvent($entity);
+    }
     
     foreach ($this->allEvents as $method => &$events) {
       switch ($method) {
@@ -192,6 +200,26 @@ class GooglePush {
     $this->proceed();
 
     return $this->allEvents['insert'][$hash]->getHtmlLink();
+  }
+
+  private function drupaEntityToGcalEvent($entity) {
+    $event = new \Google_Service_Calendar_Event(
+      array(
+        // @todo add title to mapping.
+        'summary' => $entity->id(),
+        'location' => $entity->field_groupex_location->getValue(),
+        'description' => $entity->field_groupex_description->getValue(),
+        'start' => array(
+          'dateTime' => '2016-05-24T09:00:00-07:00',
+          'timeZone' => 'UTC',
+        ),
+        'end' => array(
+          'dateTime' => '2016-05-24T17:00:00-07:00',
+          'timeZone' => 'UTC',
+        ),
+      )
+    );
+    return $event;
   }
 
   /**
