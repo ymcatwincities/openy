@@ -32,6 +32,7 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
     ];
 
     $data = $this->request($options);
+    // @todo $wrapper->setGroupexData($data);
     return $data;
   }
 
