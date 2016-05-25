@@ -94,4 +94,11 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     return $this->proxyData;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function SetProxyData($data) {
+    $this->proxyData = $data;
+  }
+
 }
