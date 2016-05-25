@@ -1,0 +1,19 @@
+uuid: 8a3bc8ab-8cf3-420a-9c99-43597b6de163
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_groupex_studio
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_groupex_studio
+field_name: field_groupex_studio
+entity_type: mapping
+bundle: groupex
+label: 'Groupex Studio'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

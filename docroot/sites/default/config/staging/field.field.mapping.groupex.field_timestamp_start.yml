@@ -1,0 +1,23 @@
+uuid: d4358f1b-ce22-4f11-8e3d-2f2301d32150
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_timestamp_start
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_timestamp_start
+field_name: field_timestamp_start
+entity_type: mapping
+bundle: groupex
+label: 'Timestamp Start'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

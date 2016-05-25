@@ -1,0 +1,19 @@
+uuid: 8c56550a-85ac-41f7-af79-a8b39371add5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_groupex_sub_instructor
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_groupex_sub_instructor
+field_name: field_groupex_sub_instructor
+entity_type: mapping
+bundle: groupex
+label: 'Groupex Sub Instructor'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
