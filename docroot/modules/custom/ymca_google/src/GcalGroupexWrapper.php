@@ -46,14 +46,11 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    */
   public function getDrupalEntitiesFromSource() {
     // TODO: Implement getDrupalEntitiesFromSource() method.
-    $this->sourceData = [
-      0 => ['title' => 'Event1', 'id' => 123],
-      1 => ['title' => 'Event2', 'id' => 124],
-    ];
+
     foreach ($this->sourceData as $id => &$sourceItem) {
       $this->proxyData[$id] = new \stdClass();
-      $this->proxyData[$id]->title = $sourceItem['title'];
-      $this->proxyData[$id]->entity_id = $sourceItem['id'];
+      $this->proxyData[$id]->title = $sourceItem->title;
+      $this->proxyData[$id]->entity_id = $sourceItem->id;
     }
     return $this->sourceData;
 
@@ -66,7 +63,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     // TODO: Implement getDestinationEntitiesFromProxy() method.
 
     foreach ($this->proxyData as $id => &$hostEntity) {
-      $this->destinationData[] = array(
+      $this->destinationData['insert'][] = array(
         'summary' => $hostEntity->title,
         'location' => 'Kyiv, Ukraine, 01042',
         'description' => 'Description for test event from code.',
