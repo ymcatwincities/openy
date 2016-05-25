@@ -2824,3 +2824,10 @@ function ymca_master_update_8121() {
     ]
   );
 }
+
+/**
+ * Add YMCA Sync module.
+ */
+function ymca_master_update_8121() {
+  \Drupal::service('module_installer')->install(['ymca_sync'], TRUE);
+}
