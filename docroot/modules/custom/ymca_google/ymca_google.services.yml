@@ -10,8 +10,6 @@ services:
   ymca_google.groupex_repository:
     class: Drupal\ymca_google\GroupexRepository
     arguments: []
-
   ymca_google.groupex_wrapper:
     class: Drupal\ymca_google\GcalGroupexWrapper
     arguments: []
-
