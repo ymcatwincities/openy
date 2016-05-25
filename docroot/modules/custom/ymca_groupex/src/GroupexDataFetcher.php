@@ -21,19 +21,20 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
   /**
    * {@inheritdoc}
    */
-  public function fetch($start, $end) {
-    $options = [
-      'query' => [
-        'schedule' => TRUE,
-        'desc' => 'true',
-        'start' => $start,
-        'end' => $end,
-      ],
-    ];
-
-    $data = $this->request($options);
-    // @todo $wrapper->setGroupexData($data);
-    return $data;
+  public function fetch(/*$start = 0, $end = 0*/ array $a) {
+    $i = 0;
+//    $options = [
+//      'query' => [
+//        'schedule' => TRUE,
+//        'desc' => 'true',
+//        'start' => $start,
+//        'end' => $end,
+//      ],
+//    ];
+//
+//    $data = $this->request($options);
+//    // @todo $wrapper->setGroupexData($data);
+//    return $data;
   }
 
 }

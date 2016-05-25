@@ -20,6 +20,13 @@ class Syncer implements SyncerInterface {
   protected $wrapper;
 
   /**
+   * Array of steps.
+   * 
+   * @var array
+   */
+  protected $steps;
+
+  /**
    * Syncer constructor.
    *
    * @param GcalGroupexWrapperInterface $wrapper
@@ -29,9 +36,14 @@ class Syncer implements SyncerInterface {
     $this->wrapper = $wrapper;
   }
 
-  
+
   public function proceed() {
-    $i = 0;
+    foreach ($this->steps as $id => $step) {
+      $step['plugin']->$step['method']($step['args']);
+    }
   }
 
+  public function addStep($plugin, $method = 'run', array $args = []) {
+    $this->steps[] = ['plugin' => $plugin, 'method' => $method, 'args' => $args];
+  }
 }

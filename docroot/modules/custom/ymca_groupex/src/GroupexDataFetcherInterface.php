@@ -20,6 +20,6 @@ interface GroupexDataFetcherInterface {
    * @return mixed
    *   Fetched data.
    */
-  public function fetch($start, $end);
+  public function fetch(/*$start, $end*/array $a);
 
 }
