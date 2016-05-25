@@ -5,4 +5,4 @@ services:
     calls:
       - [addStep, ['@ymca_groupex.data_fetcher', 'fetch']]
 #      - [addStep, ['@ymca_groupex.drupal_proxy', 'saveEntities']]
-#      - [addStep, ['@ymca_google.pusher', 'push']]
+      - [addStep, ['@ymca_google.pusher', 'push']]
