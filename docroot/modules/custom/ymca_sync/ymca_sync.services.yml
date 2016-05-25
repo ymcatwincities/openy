@@ -2,8 +2,9 @@ services:
   ymca_sync.groupex_gcal:
     class: Drupal\ymca_sync\Syncer
     arguments: ['@ymca_google.groupex']
-    #calls:
-    #  - [fetch, ['@ymca_sync.groupex_data_fetcher']]
+    calls:
+      - [addStep, ['@ymca_groupex.data_fetcher', 'fetch', [1,2,3]]]
+
       #- [saveMapping, ['@ymca_sync.groupex_drupal_proxy']]
       #- [proceed, ['@ymca_sync.gcal_pusher']]
   #y_syncer.groupx_data_wrapper:
