@@ -29,4 +29,9 @@ class Syncer implements SyncerInterface {
     $this->wrapper = $wrapper;
   }
 
+  
+  public function proceed() {
+    $i = 0;
+  }
+
 }
