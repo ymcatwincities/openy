@@ -2812,3 +2812,15 @@ function ymca_master_update_8120() {
     ]
   );
 }
+
+/**
+ * Add flash mime types.
+ */
+function ymca_master_update_8121() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/file_entity.type.video.yml',
+    ]
+  );
+}
