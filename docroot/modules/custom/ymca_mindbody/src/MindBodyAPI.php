@@ -1,5 +1,7 @@
 <?php
 
+namespace Drupal\ymca_mindbody;
+
 // @codingStandardsIgnoreFile
 class MindBodyAPI {
 	public $credentials;
@@ -19,7 +21,7 @@ class MindBodyAPI {
 		{
 			$option = array('trace'=>1);
 		}
-		$this->client = new soapclient($wsdlUrl, $option);
+		$this->client = new \SoapClient($wsdlUrl, $option);
 		$this->client->__setLocation($endpointUrl);
 	}
 
