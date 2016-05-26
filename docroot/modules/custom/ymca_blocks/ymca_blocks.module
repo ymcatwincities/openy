@@ -107,27 +107,33 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         }
       }
 
-      // Get image.
-      $image_item_values = $build['field_image'][0]['#item']->getValue();
-      $image_file = File::load($image_item_values['target_id']);
-      $image = \Drupal::service('image.factory')->get($image_file->getFileUri());
+      // Get image, if exists.
+      if (isset($build['field_image'][0])) {
+        $image_item_values = $build['field_image'][0]['#item']->getValue();
+        $image_file = File::load($image_item_values['target_id']);
+        $image = \Drupal::service('image.factory')->get($image_file->getFileUri());
+        $image_build = [
+          '#theme' => 'image',
+          '#uri' => $image->getSource(),
+          '#alt' => isset($image_item_values['alt']) ? $image_item_values['alt'] : '',
+        ];
+      }
 
       // Get content.
-      $text = $build['field_block_content'][0]['#text'];
-      // Wrap content in <p> tag if needed.
-      if (substr($text, 0, 3) !== '<p>') {
-        $build['field_block_content'][0]['#text'] = '<p>' . $text . '</p>';
+      if (isset($build['field_block_content'][0])) {
+        $content_build = $build['field_block_content'][0];
+        $text = $content_build['#text'];
+        // Wrap content in <p> tag if needed.
+        if (substr($text, 0, 3) !== '<p>') {
+          $content_build['#text'] = '<p>' . $text . '</p>';
+        }
       }
 
       $build['promo'] = array(
         '#theme' => 'promo_block',
         '#header' => html_entity_decode($entity->field_block_header->value),
-        '#content' => $build['field_block_content'][0],
-        '#image' => [
-          '#theme' => 'image',
-          '#uri' => $image->getSource(),
-          '#alt' => isset($image_item_values['alt']) ? $image_item_values['alt'] : '',
-        ],
+        '#content' => isset($content_build) ? $content_build : NULL,
+        '#image' => isset($image_build) ? $image_build : NULL,
         '#link' => isset($path) ? $path : '',
         '#link_text' => $entity->field_link->title,
         '#is_home' => \Drupal::service('path.matcher')->isFrontPage() ? TRUE : FALSE,
