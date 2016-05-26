@@ -26,6 +26,9 @@ class MindbodyResultsController {
 
     return [
       '#markup' => '<div class="content"><div class="container">' . $search_results . '</div></div>',
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
