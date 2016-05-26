@@ -6,4 +6,6 @@ id: video
 label: Video
 description: 'A <em>Video</em> file is a moving visual recording.'
 mimetypes:
-  - 'video/*'
+  - "video/*\r"
+  - "application/x-shockwave-flash\r"
+  - application/json
