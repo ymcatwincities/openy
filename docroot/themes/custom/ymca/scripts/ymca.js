@@ -2,17 +2,17 @@
   var ymca_theme_semaphore = false;
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
+      
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
+
       if (!ymca_theme_semaphore) {
         ymca_theme_semaphore = true;
-
-        function getUrlVars() {
-          var vars = {};
-          var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-            vars[key] = value;
-          });
-          return vars;
-        }
-
         var url_vars = getUrlVars(),
           blog_archive_active = false,
           blog_archive_month,
