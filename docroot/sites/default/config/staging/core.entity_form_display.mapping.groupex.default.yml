@@ -14,6 +14,7 @@ dependencies:
     - field.field.mapping.groupex.field_groupex_studio
     - field.field.mapping.groupex.field_groupex_sub_instructor
     - field.field.mapping.groupex.field_groupex_time
+    - field.field.mapping.groupex.field_groupex_title
     - field.field.mapping.groupex.field_timestamp_end
     - field.field.mapping.groupex.field_timestamp_start
     - ymca_mappings.mapping_type.groupex
@@ -93,6 +94,13 @@ content:
     type: string_textfield
   field_groupex_time:
     weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_groupex_title:
+    weight: 24
     settings:
       size: 60
       placeholder: ''
