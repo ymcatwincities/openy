@@ -1,17 +1,18 @@
 (function ($) {
+  var ymca_theme_semaphore = false;
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
+      if (!ymca_theme_semaphore) {
+        ymca_theme_semaphore = true;
 
-      function getUrlVars() {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-          vars[key] = value;
-        });
-        return vars;
-      }
+        function getUrlVars() {
+          var vars = {};
+          var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = value;
+          });
+          return vars;
+        }
 
-
-      $(function () {
         var url_vars = getUrlVars(),
           blog_archive_active = false,
           blog_archive_month,
@@ -49,35 +50,31 @@
             year_li.addClass("expanded");
           }
         });
-      });
 
-      // Youth Sports page
-      (function ($) {
-        $(document).ready(function () {
-          $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
-            e.preventDefault();
-            var top = $('.content-cards').offset().top;
-            $('html, body').animate({scrollTop: top}, 1000);
-            return false;
-          });
-
-          $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
-            e.preventDefault();
-            var top = $('.video-container').offset().top;
-            $('html, body').animate({scrollTop: top}, 1000);
-            return false;
-          });
+        // Youth Sports page
+        $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
+          e.preventDefault();
+          var top = $('.content-cards').offset().top;
+          $('html, body').animate({scrollTop: top}, 1000);
+          return false;
         });
-      })(jQuery);
 
-      // 2014 Annual Report pages
-      $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
-        if ($(this).text() == 'Read more') {
-          $(this).addClass('opened');
-        } else {
-          $(this).text('Read more');
-        }
-      });
+        $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
+          e.preventDefault();
+          var top = $('.video-container').offset().top;
+          $('html, body').animate({scrollTop: top}, 1000);
+          return false;
+        });
+
+        // 2014 Annual Report pages
+        $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
+          if ($(this).text() == 'Read more') {
+            $(this).addClass('opened');
+          } else {
+            $(this).text('Read more');
+          }
+        });
+      }
     }
   };
 
