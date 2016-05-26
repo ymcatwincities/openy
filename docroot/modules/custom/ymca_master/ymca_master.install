@@ -2811,7 +2811,7 @@ function ymca_master_update_8120() {
       $path . 'field.storage.mapping.field_groupex_date.yml',
       $path . 'field.storage.mapping.field_groupex_time.yml',
       $path . 'field.storage.mapping.field_gcal_id.yml',
-      $path . 'field.storage.mapping.groupex_title.yml',
+      $path . 'field.storage.mapping.field_groupex_title.yml',
       $path . 'ymca_mappings.mapping_type.groupex.yml',
     ]
   );
