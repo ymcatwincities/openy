@@ -97,6 +97,10 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
         $data = array_slice($data, 0, 3);
       }
       $this->dataWrapper->setSourceData($data);
+      $this->dataWrapper->setTimeFrame([
+        'start' => $start,
+        'end' => $end,
+      ]);
     }
 
     // Update schedule.

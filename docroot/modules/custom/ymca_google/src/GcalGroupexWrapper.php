@@ -25,6 +25,13 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   protected $proxyData = [];
 
   /**
+   * Time frame for the data.
+   *
+   * @var array
+   */
+  protected $timeFrame = [];
+
+  /**
    * Source data setter.
    *
    * @param $data
@@ -51,8 +58,22 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * {@inheritdoc}
    */
-  public function SetProxyData($data) {
+  public function setProxyData($data) {
     $this->proxyData = $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTimeFrame(array $frame) {
+    $this->timeFrame = $frame;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTimeFrame() {
+    return $this->timeFrame;
   }
 
 }
