@@ -8,5 +8,5 @@ services:
       debug: true
   ymca_groupex.drupal_proxy:
     class: Drupal\ymca_groupex\DrupalProxy
-    arguments: ['@ymca_google.groupex_wrapper', '@entity.query']
+    arguments: ['@ymca_google.groupex_wrapper', '@entity.query', '@logger.factory']
 
