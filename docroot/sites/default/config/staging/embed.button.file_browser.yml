@@ -14,6 +14,7 @@ type_id: entity
 type_settings:
   entity_type: file
   bundles: {  }
+  style: inline
   display_plugins:
     - 'file:file_default'
     - 'image:image'
