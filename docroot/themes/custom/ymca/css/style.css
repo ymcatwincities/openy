@@ -7510,6 +7510,10 @@ nav#block-footermenuright {
   float: left;
   margin: 0 15px 15px 0;
 }
+.landing-template.ancestor-camps section.node--type-article .sidebar-promos img {
+  float: none;
+  margin: 0;
+}
 
 .print-group-link {
   margin-top: 15px;
