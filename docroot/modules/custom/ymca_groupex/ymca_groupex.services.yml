@@ -1,3 +1,7 @@
 services:
   ymca_groupex.schedule_fetcher:
     class: Drupal\ymca_groupex\GroupexScheduleFetcher
+  ymca_groupex.data_fetcher:
+    class: Drupal\ymca_groupex\GroupexDataFetcher
+    arguments: ["@config.manager"]
+
