@@ -3,6 +3,7 @@
 namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\ymca_google\GcalGroupexWrapper;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -69,36 +70,12 @@ class DrupalProxy implements DrupalProxyInterface {
     $entities = [];
 
     foreach ($this->dataWrapper->getSourceData() as $item) {
-      // Parse time to create timestamps.
-      $all_day = FALSE;
-      preg_match("/(.*)-(.*)/i", $item->time, $output);
-      if (isset($output[1]) && isset($output[2])) {
-        $time_start = $output[1];
-        $time_end = $output[2];
-      }
-      else {
-        // If we can't fetch exact time, assume it as all day event.
-        $all_day = TRUE;
-        $time_start = '12:00pm';
-        $time_end = '12:00pm';
+      $item->date = "Sunday, May 29, 2016";
 
-        // Log exception for unknown values.
-        if ($item->time != "All Day") {
-          $message = 'DrupalProxy: Got unknown time value (%value) for the class ID %ID';
-          $this->loggerFactory->get('ymca_sync')->error(
-            $message,
-            ['%value' => $item->time, '%ID' => $item->id]
-          );
-        }
-      }
-
-      $item->timestamp_start = $this->extractTimestamp($item->date, $time_start);
-      $item->timestamp_end = $this->extractTimestamp($item->date, $time_end);
-
-      // Just add 24 hours for All day events.
-      if ($all_day) {
-        $item->timestamp_end = $item->timestamp_start + (60 * 60 * 24);
-      }
+      // Generate timestamps.
+      $timestamps = $this->buildTimestamps($item->date, $item->time);
+      $item->timestamp_start = $timestamps['start'];
+      $item->timestamp_end = $timestamps['end'];
 
       // Try to find existing mapping.
       $existing = $this->findByGroupexId($item->id);
@@ -121,11 +98,13 @@ class DrupalProxy implements DrupalProxyInterface {
           'field_timestamp_end' => $item->timestamp_end,
           'field_timestamp_start' => $item->timestamp_start,
         ]);
-        $mapping->setName($item->location . ' [' . $item->id . ']');
+        $mapping->setName($item->title . ' [' . $item->id . ']');
         $mapping->save();
         $entities['insert'][] = $mapping;
       }
       else {
+        $save = TRUE;
+
         // Entity exists. Check for the diff.
         $diff = $this->diff($existing, $item);
 
@@ -137,13 +116,36 @@ class DrupalProxy implements DrupalProxyInterface {
             $existing->set($field_name, $value);
           }
 
-          // Add recurring event.
+          // The event is recurring.
           if (!empty($diff['date'])) {
+            $field_date = $existing->get('field_groupex_date');
+
+            // If the date doesn't exists in the list add it.
+            $exists = FALSE;
+            /** @var FieldItemList $list */
+            $list = $field_date->getValue();
+            foreach ($list as $list_item) {
+              if (strcmp($list_item['value'], $diff['date']['date']) == 0) {
+                $exists = TRUE;
+                $save = FALSE;
+              }
+            }
+
+            if (!$exists) {
+              // Add new date item.
+              $field_date->appendItem($diff['date']['date']);
+
+              // Update timestamp end field.
+              $timestamps = $this->buildTimestamps($diff['date']['date'], $diff['date']['time']);
+              $existing->set('field_timestamp_end', $timestamps['end']);
+            }
 
           }
 
-          $existing->save();
-          $entities['update'][] = $existing;
+          if ($save) {
+            $existing->save();
+            $entities['update'][] = $existing;
+          }
         }
       }
 
@@ -223,6 +225,53 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
+   * Build timestamps (start and end) for a class.
+   *
+   * @param string $date
+   *   Date string. For example: "Tuesday, May 31, 2016".
+   * @param string $time
+   *   Time string. Example: "5:05am" or "All Day".
+   *
+   * @return array
+   *   Array with start and ent timestamps.
+   */
+  private function buildTimestamps($date, $time) {
+    $timestamps = [];
+
+    $all_day = FALSE;
+    preg_match("/(.*)-(.*)/i", $time, $output);
+    if (isset($output[1]) && isset($output[2])) {
+      $time_start = $output[1];
+      $time_end = $output[2];
+    }
+    else {
+      // If we can't fetch exact time, assume it as all day event.
+      $all_day = TRUE;
+      $time_start = '12:00pm';
+      $time_end = '12:00pm';
+
+      // Log exception for unknown values.
+      if ($time != "All Day") {
+        $message = 'DrupalProxy: Got unknown time value (%value)';
+        $this->loggerFactory->get('ymca_sync')->error(
+          $message,
+          ['%value' => $time]
+        );
+      }
+    }
+
+    $timestamps['start'] = $this->extractTime($date, $time_start);
+    $timestamps['end'] = $this->extractTime($date, $time_end);
+
+    // Just add 24 hours for All day events.
+    if ($all_day) {
+      $timestamps['end'] = $timestamps['start'] + (60 * 60 * 24);
+    }
+
+    return $timestamps;
+  }
+
+  /**
    * Extract timestamp from date and time strings.
    *
    * @param string $date
@@ -233,7 +282,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @return int
    *   Timestamp.
    */
-  private function extractTimestamp($date, $time) {
+  private function extractTime($date, $time) {
     $dateTime = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $date, $this->timezone);
     $start_datetime = new \DateTime($time);
 
