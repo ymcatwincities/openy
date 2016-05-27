@@ -67,11 +67,14 @@ class DrupalProxy implements DrupalProxyInterface {
    * {@inheritdoc}
    */
   public function saveEntities() {
-    $entities = [];
+    $frame = $this->dataWrapper->getTimeFrame();
+    $entities = [
+      'insert' => [],
+      'update' => [],
+      'delete' => [],
+    ];
 
     foreach ($this->dataWrapper->getSourceData() as $item) {
-      $item->date = "Sunday, May 29, 2016";
-
       // Generate timestamps.
       $timestamps = $this->buildTimestamps($item->date, $item->time);
       $item->timestamp_start = $timestamps['start'];
@@ -97,6 +100,8 @@ class DrupalProxy implements DrupalProxyInterface {
           'field_groupex_title' => $item->title,
           'field_timestamp_end' => $item->timestamp_end,
           'field_timestamp_start' => $item->timestamp_start,
+          'field_time_frame_start' => $frame['start'],
+          'field_time_frame_end' => $frame['end'],
         ]);
         $mapping->setName($item->title . ' [' . $item->id . ']');
         $mapping->save();
@@ -138,6 +143,9 @@ class DrupalProxy implements DrupalProxyInterface {
               // Update timestamp end field.
               $timestamps = $this->buildTimestamps($diff['date']['date'], $diff['date']['time']);
               $existing->set('field_timestamp_end', $timestamps['end']);
+
+              // Extend time frame end.
+              $existing->set('field_time_frame_end', $frame['end']);
             }
 
           }
@@ -149,6 +157,20 @@ class DrupalProxy implements DrupalProxyInterface {
         }
       }
 
+    }
+
+    // Check whether entities were deleted from groupex.
+    $cached_ids = $this->findByTimeFrame($frame['start'], $frame['end']);
+    $fetched_ids = [];
+
+    // Get IDs of fetched classes.
+    foreach ($this->dataWrapper->getSourceData() as $item) {
+      $fetched_ids[$item->id] = $item->id;
+    }
+
+    $delete_ids = array_diff($cached_ids, $fetched_ids);
+    foreach ($delete_ids as $delete_id) {
+      $entities['delete'][] = $this->findByGroupexId($delete_id);
     }
 
     $this->dataWrapper->setProxyData($entities);
@@ -207,6 +229,35 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
+   * Get mappings withing time frame.
+   *
+   * @param int $start
+   *   Timestamp of start.
+   * @param int $end
+   *   Timestamp of end.
+   *
+   * @return array
+   *   Array of Groupex IDs.
+   */
+  private function findByTimeFrame($start, $end) {
+    $ids = [];
+
+    $result = $this->queryFactory->get('mapping')
+      ->condition('type', 'groupex')
+      ->condition('field_time_frame_start', $start, '>=')
+      ->condition('field_time_frame_end', $end, '<=')
+      ->execute();
+
+    foreach ($result as $id) {
+      $mapping = Mapping::load($id);
+      $id = $mapping->field_groupex_class_id->value;
+      $ids[$id] = $id;
+    }
+
+    return $ids;
+  }
+
+  /**
    * Find mapping by Groupex class ID.
    *
    * @param string $id
@@ -217,11 +268,14 @@ class DrupalProxy implements DrupalProxyInterface {
    */
   public function findByGroupexId($id) {
     $result = $this->queryFactory->get('mapping')
+      ->condition('type', 'groupex')
       ->condition('field_groupex_class_id', $id)
       ->execute();
     if (!empty($result)) {
       return Mapping::load(reset($result));
     }
+
+    return FALSE;
   }
 
   /**
