@@ -2876,3 +2876,16 @@ function ymca_master_update_8122() {
 
   \Drupal::service('module_installer')->install(['ymca_sync'], TRUE);
 }
+
+/**
+ * Import GCal credentials config.
+ */
+function ymca_master_update_8123() {
+  $path = drupal_get_path('module', 'ymca_google') . '/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_google.token.yml',
+      $path . 'ymca_google.settings.yml',
+    ]
+  );
+}
