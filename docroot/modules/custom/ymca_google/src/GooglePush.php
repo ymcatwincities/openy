@@ -2,6 +2,8 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Core\Config\ConfigFactory;
+
 /**
  * Class GooglePush.
  *
@@ -9,11 +11,6 @@ namespace Drupal\ymca_google;
  */
 class GooglePush {
 
-
-  const APPLICATION_NAME = 'groupx-to-gcal-sync';
-  const CREDENTIALS_PATH = __DIR__ . '/calendar-mvp.json';
-  const CLIENT_SECRET_PATH = __DIR__ . '/cs.json';
-  const SCOPES = \Google_Service_Calendar::CALENDAR;
   /**
    * ID for Google Calendar.
    *
@@ -54,7 +51,14 @@ class GooglePush {
    *
    * @var GcalGroupexWrapperInterface
    */
-  private $wrapper;
+  protected $dataWrapper;
+
+  /**
+   * Config Factory.
+   *
+   * @var ConfigFactory
+   */
+  protected $configFactory;
 
   /**
    * @var array
@@ -63,15 +67,23 @@ class GooglePush {
 
   /**
    * GooglePush constructor.
+   *
+   * @param GcalGroupexWrapperInterface $data_wrapper
+   *   Data wrapper.
+   * @param ConfigFactory $config_factory
+   *   Config Factory.
    */
-  public function __construct(GcalGroupexWrapperInterface $wrapper) {
+  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory) {
+    $this->dataWrapper = $data_wrapper;
+    $this->configFactory = $config_factory;
+
     $this->calendarId = '7rrsac9rvavuu68e5cmdho7di0@group.calendar.google.com';
+
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
     $this->calService = new \Google_Service_Calendar($this->googleClient);
     $this->calEvents = $this->calService->events;
 
-    $this->wrapper = $wrapper;
   }
 
   /**
@@ -227,65 +239,30 @@ class GooglePush {
    *
    * @return \Google_Client
    *   The authorized client object
+   *
+   * @see https://developers.google.com/google-apps/calendar/quickstart/php
    */
   private function getClient() {
+    $settings = $this->configFactory->get('ymca_google.settings');
+    $token = $this->configFactory->get('ymca_google.token');
+
     $client = new \Google_Client();
-    $client->setApplicationName(GooglePush::APPLICATION_NAME);
-    $client->setScopes(GooglePush::SCOPES);
-    $client->setAuthConfigFile(GooglePush::CLIENT_SECRET_PATH);
+    $client->setApplicationName($settings->get('application_name'));
+    $client->setScopes(\Google_Service_Calendar::CALENDAR);
+    $client->setAuthConfig(json_encode($settings->get('auth_config')));
+    $client->setAccessToken(json_encode($token->get('credentials')));
+
     $client->setAccessType('offline');
-
-    // Load previously authorized credentials from a file.
-    $credentialsPath = $this->expandHomeDirectory(GooglePush::CREDENTIALS_PATH);
-    if (file_exists($credentialsPath)) {
-      // @todo rewrite to config.
-      $accessToken = file_get_contents($credentialsPath);
-    }
-    else {
-      // Request authorization from the user.
-      $authUrl = $client->createAuthUrl();
-      printf("Open the following link in your browser:\n%s\n", $authUrl);
-      print 'Enter verification code: ';
-      $authCode = trim(fgets(STDIN));
-
-      // Exchange authorization code for an access token.
-      $accessToken = $client->authenticate($authCode);
-
-      // Store the credentials to disk.
-      if (!file_exists(dirname($credentialsPath))) {
-        // @todo rewrite to config.
-        mkdir(dirname($credentialsPath), 0700, TRUE);
-      }
-      file_put_contents($credentialsPath, $accessToken);
-      printf("Credentials saved to %s\n", $credentialsPath);
-    }
-    // @todo rewrite to config.
-    $client->setAccessToken($accessToken);
 
     // Refresh the token if it's expired.
     if ($client->isAccessTokenExpired()) {
       $client->refreshToken($client->getRefreshToken());
-      // @todo rewrite to config.
-      file_put_contents($credentialsPath, $client->getAccessToken());
+      $editable = $this->configFactory->getEditable('ymca_google.token');
+      $editable->set('credentials', json_decode($client->getAccessToken(), TRUE));
+      $editable->save();
     }
-    return $client;
-  }
 
-  /**
-   * Expands the home directory alias '~' to the full path.
-   *
-   * @param string $path
-   *   The path to expand.
-   *
-   * @return string
-   *   The expanded path.
-   */
-  private function expandHomeDirectory($path) {
-    $homeDirectory = getenv('HOME');
-    if (empty($homeDirectory)) {
-      $homeDirectory = getenv("HOMEDRIVE") . getenv("HOMEPATH");
-    }
-    return str_replace('~', realpath($homeDirectory), $path);
+    return $client;
   }
 
   /**
