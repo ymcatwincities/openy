@@ -3,6 +3,10 @@
 namespace Drupal\ymca_google;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
  * Class GooglePush.
@@ -10,41 +14,6 @@ use Drupal\Core\Config\ConfigFactory;
  * @package Drupal\ymca_google
  */
 class GooglePush {
-
-  /**
-   * ID for Google Calendar.
-   *
-   * @var string
-   */
-  private $calendarId;
-
-  /**
-   * Google Calendar Service.
-   *
-   * @var \Google_Service_Calendar
-   */
-  private $calService;
-
-  /**
-   * Google Calendar Events Service.
-   *
-   * @var \Google_Service_Calendar_Events_Resource
-   */
-  private $calEvents;
-
-  /**
-   * Google Client.
-   *
-   * @var \Google_Client
-   */
-  private $googleClient;
-
-  /**
-   * Keyed array of events to be processed.
-   *
-   * @var array
-   */
-  private $allEvents;
 
   /**
    * Wrapper to be used.
@@ -61,9 +30,39 @@ class GooglePush {
   protected $configFactory;
 
   /**
-   * @var array
+   * ID for Google Calendar.
+   *
+   * @var string
    */
-  private $sourceEntities;
+  protected $calendarId;
+
+  /**
+   * Google Calendar Service.
+   *
+   * @var \Google_Service_Calendar
+   */
+  protected $calService;
+
+  /**
+   * Google Calendar Events Service.
+   *
+   * @var \Google_Service_Calendar_Events_Resource
+   */
+  protected $calEvents;
+
+  /**
+   * Google Client.
+   *
+   * @var \Google_Client
+   */
+  protected $googleClient;
+
+  /**
+   * Logger channel.
+   *
+   * @var LoggerChannelInterface
+   */
+  protected $logger;
 
   /**
    * GooglePush constructor.
@@ -72,165 +71,130 @@ class GooglePush {
    *   Data wrapper.
    * @param ConfigFactory $config_factory
    *   Config Factory.
+   * @param LoggerChannelFactoryInterface $logger
+   *   Logger.
    */
-  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory) {
+  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
+    $this->logger = $logger->get('ymca_google');
 
-    $this->calendarId = '7rrsac9rvavuu68e5cmdho7di0@group.calendar.google.com';
+    $settings = $this->configFactory->get('ymca_google.settings');
+    $this->calendarId = $settings->get('calendar_id');
 
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
     $this->calService = new \Google_Service_Calendar($this->googleClient);
     $this->calEvents = $this->calService->events;
-
-  }
-
-  /**
-   * Populate array of events to be updated.
-   *
-   * @param \Google_Service_Calendar_Event $event
-   *   Event to be added.
-   *
-   * @return $this
-   *   Chaining.
-   */
-  public function addEventForUpdate(\Google_Service_Calendar_Event $event) {
-    $this->allEvents['update'][$event->getId()] = $event;
-
-    return $this;
-  }
-
-  /**
-   * Populate array of events to be deleted.
-   *
-   * @param \Google_Service_Calendar_Event $event
-   *   Event to be added.
-   *
-   * @return $this
-   *   Chaining.
-   */
-  public function addEventForDelete(\Google_Service_Calendar_Event $event) {
-    $this->allEvents['delete'][$event->getId()] = $event;
-
-    return $this;
-  }
-
-  /**
-   * Populate array of events to be created.
-   *
-   * @param \Google_Service_Calendar_Event $event
-   *   Event to be added.
-   *
-   * @return string
-   *   Returns key of the event within array.
-   */
-  public function addEventForCreate(\Google_Service_Calendar_Event $event) {
-    if ($event->getId() == NULL) {
-      $hash = spl_object_hash($event);
-      $this->allEvents['insert'][$hash] = $event;
-      return $hash;
-    }
-    else {
-      $this->allEvents['insert'][$event->getId()] = $event;
-      return $event->getId();
-    }
   }
 
   /**
    * Proceed all events collected by add methods.
-   *
-   * @return $this
-   *   Chaining.
    */
   public function proceed() {
+    $data = $this->dataWrapper->getProxyData();
+    foreach ($data as $op => $entities) {
+      foreach ($entities as $entity) {
+        $event = $this->drupalEntityToGcalEvent($entity);
 
-   // @todo Prepopulate allEvents properly. 
-//    // Init basic array.
-//    $this->wrapper->getDrupalEntitiesFromSource();
-    $this->sourceEntities = $this->wrapper->getProxyData();
-    foreach ($this->sourceEntities as $id => $entity) {
-      $this->allEvents['insert'][] = $this->drupaEntityToGcalEvent($entity);
-    }
-    
-    foreach ($this->allEvents as $method => &$events) {
-      switch ($method) {
-        case 'update':
-          /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as $hash => &$event) {
-            $event = $this->calEvents->update(
-              $this->calendarId,
-              $event->getId(),
-              $event
-            );
-          }
-          break;
+        switch ($op) {
+          case 'update':
+            try {
+              $this->calEvents->update(
+                $this->calendarId,
+                $event->getId(),
+                $event
+              );
+            }
+            catch (\Google_Service_Exception $e) {
+              $msg = 'Error while updating event for entity [%id]: %msg';
+              $this->logger->error($msg, [
+                '%id' => $entity->id(),
+                '%msg' => $e->getMessage(),
+              ]);
+            }
+            break;
 
-        case 'delete':
-          /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as $hash => &$event) {
-            $event = $this->calEvents->delete(
-              $this->calendarId,
-              $event->getId()
-            );
-          }
-          break;
+          case 'delete':
+            try {
+              $this->calEvents->delete(
+                $this->calendarId,
+                $event->getId()
+              );
+            }
+            catch (\Google_Service_Exception $e) {
+              $msg = 'Error while deleting event for entity [%id]: %msg';
+              $this->logger->error($msg, [
+                '%id' => $entity->id(),
+                '%msg' => $e->getMessage(),
+              ]);
+            }
+            break;
 
-        case 'insert':
-          /** @var \Google_Service_Calendar_Event $event */
-          foreach ($events as $hash => &$event) {
-            $event = $this->calEvents->insert($this->calendarId, $event);
-          }
-          break;
+          case 'insert':
+            try {
+              $event = $this->calEvents->insert($this->calendarId, $event);
+              $entity->set('field_gcal_id', $event->getId());
+              $entity->save();
+            }
+            catch (\Google_Service_Exception $e) {
+              $msg = 'Error while inserting event for entity [%id]: %msg';
+              $this->logger->error($msg, [
+                '%id' => $entity->id(),
+                '%msg' => $e->getMessage(),
+              ]);
+            }
+            break;
+        }
+
       }
     }
-    return $this;
+
   }
 
   /**
-   * Create test event.
+   * Convert mapping entity to event
+   *
+   * @param Mapping $entity
+   *  Mapping entity.
+   *
+   * @return \Google_Service_Calendar_Event
    */
-  public function createTestEvent() {
+  private function drupalEntityToGcalEvent($entity) {
+    // @todo Fix this code to work with recurring events.
+    $recurring = FALSE;
 
-    $event = new \Google_Service_Calendar_Event(
-      array(
-        'summary' => 'Test from code',
-        'location' => 'Kyiv, Ukraine, 01042',
-        'description' => 'Description for test event from code.',
-        'start' => array(
-          'dateTime' => '2016-05-24T09:00:00-07:00',
-          'timeZone' => 'UTC',
-        ),
-        'end' => array(
-          'dateTime' => '2016-05-24T17:00:00-07:00',
-          'timeZone' => 'UTC',
-        ),
-      )
-    );
+    $field_date = $entity->get('field_groupex_date');
+    $list_date = $field_date->getValue();
+    if (count($list_date) > 1) {
+      $recurring = TRUE;
+      $this->logger->debug('We have got recurring event...');
+    }
 
-    $hash = $this->addEventForCreate($event);
-    $this->proceed();
+    $description = strip_tags(trim(html_entity_decode($entity->field_groupex_description->value)));
+    $location = trim($entity->field_groupex_location->value);
+    $summary = trim($entity->field_groupex_title->value);
+    $start = $entity->field_timestamp_start->value;
+    $end = $entity->field_timestamp_end->value;
 
-    return $this->allEvents['insert'][$hash]->getHtmlLink();
-  }
+    $timezone = new \DateTimeZone('UTC');
+    $startDateTime = DrupalDateTime::createFromTimestamp($start, $timezone);
+    $endDateTime = DrupalDateTime::createFromTimestamp($end, $timezone);
 
-  private function drupaEntityToGcalEvent($entity) {
-    $event = new \Google_Service_Calendar_Event(
-      array(
-        // @todo add title to mapping.
-        'summary' => $entity->id(),
-        'location' => $entity->field_groupex_location->getValue(),
-        'description' => $entity->field_groupex_description->getValue(),
-        'start' => array(
-          'dateTime' => '2016-05-24T09:00:00-07:00',
-          'timeZone' => 'UTC',
-        ),
-        'end' => array(
-          'dateTime' => '2016-05-24T17:00:00-07:00',
-          'timeZone' => 'UTC',
-        ),
-      )
-    );
+    $event = new \Google_Service_Calendar_Event([
+      'summary' => $summary,
+      'location' => $location,
+      'description' => $description,
+      'start' => [
+        'dateTime' => $startDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
+        'timeZone' => 'UTC',
+      ],
+      'end' => [
+        'dateTime' => $endDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
+        'timeZone' => 'UTC',
+      ],
+    ]);
+
     return $event;
   }
 
@@ -263,16 +227,6 @@ class GooglePush {
     }
 
     return $client;
-  }
-
-  /**
-   * Getter for all events. Can be used after proceed.
-   *
-   * @return array
-   *   Array of events, sorted by method.
-   */
-  public function getAllEvents() {
-    return $this->allEvents;
   }
 
 }
