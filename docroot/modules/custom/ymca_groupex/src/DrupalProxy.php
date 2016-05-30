@@ -244,7 +244,7 @@ class DrupalProxy implements DrupalProxyInterface {
     $result = $this->queryFactory->get('mapping')
       ->condition('type', 'groupex')
       ->condition('field_time_frame_start', $start, '>=')
-      ->condition('field_time_frame_end', $end, '<=')
+      ->condition('field_time_frame_start', $end, '<')
       ->execute();
 
     foreach ($result as $id) {
