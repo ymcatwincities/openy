@@ -2832,7 +2832,7 @@ function ymca_master_update_8121() {
 /**
  * Add YMCA Sync module and update fields.
  */
-function ymca_master_update_8122() {
+function ymca_master_update_8123() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -2880,7 +2880,7 @@ function ymca_master_update_8122() {
 /**
  * Import GCal credentials config.
  */
-function ymca_master_update_8123() {
+function ymca_master_update_8124() {
   $path = drupal_get_path('module', 'ymca_google') . '/config/install/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
