@@ -20,7 +20,7 @@ class Syncer implements SyncerInterface {
 
   /**
    * Array of steps.
-   * 
+   *
    * @var array
    */
   protected $steps;
@@ -50,4 +50,5 @@ class Syncer implements SyncerInterface {
   public function addStep($plugin, $method = 'run', array $args = []) {
     $this->steps[] = ['plugin' => $plugin, 'method' => $method, 'args' => $args];
   }
+
 }

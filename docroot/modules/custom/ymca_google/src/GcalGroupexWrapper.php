@@ -34,10 +34,10 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * Source data setter.
    *
-   * @param $data
+   * @param array $data
    *   Source data from Groupex.
    */
-  public function setSourceData($data) {
+  public function setSourceData(array $data) {
     $this->sourceData = $data;
   }
 
@@ -58,7 +58,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * {@inheritdoc}
    */
-  public function setProxyData($data) {
+  public function setProxyData(array $data) {
     $this->proxyData = $data;
   }
 

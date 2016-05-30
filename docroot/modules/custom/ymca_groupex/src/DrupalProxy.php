@@ -181,14 +181,13 @@ class DrupalProxy implements DrupalProxyInterface {
    *
    * @param MappingInterface $entity
    *   Mapping entity.
-   *
-   * @param $class
+   * @param \stdClass $class
    *   Class item (enriched with timestamps).
    *
    * @return mixed
    *   Diff array.
    */
-  protected function diff(MappingInterface $entity, $class) {
+  protected function diff(MappingInterface $entity, \stdClass $class) {
     $diff['fields'] = [];
     $diff['date'] = [];
 
