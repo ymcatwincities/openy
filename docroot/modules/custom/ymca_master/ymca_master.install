@@ -2824,3 +2824,16 @@ function ymca_master_update_8121() {
     ]
   );
 }
+
+/**
+ * Increase fiel upload max size for file_browsers.
+ */
+function ymca_master_update_8122() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.browse_files.yml',
+      $path . 'entity_browser.browser.browse_files_modal.yml'
+    ]
+  );
+}
