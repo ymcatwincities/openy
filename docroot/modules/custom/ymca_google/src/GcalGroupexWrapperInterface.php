@@ -13,16 +13,17 @@ interface GcalGroupexWrapperInterface {
    * Array of entities to be cached and enriched on host system.
    *
    * @return array
+   *   Proxy data.
    */
   public function getProxyData();
 
   /**
    * Set proxy data.
    *
-   * @param $data
+   * @param array $data
    *   Proxy data.
    */
-  public function setProxyData($data);
+  public function setProxyData(array $data);
 
   /**
    * Get array of source data.
@@ -35,10 +36,10 @@ interface GcalGroupexWrapperInterface {
   /**
    * Set source data.
    *
-   * @param $data
+   * @param array $data
    *   Proxy data.
    */
-  public function setSourceData($data);
+  public function setSourceData(array $data);
 
   /**
    * Set time frame.
@@ -55,4 +56,5 @@ interface GcalGroupexWrapperInterface {
    *   Array with time frame.
    */
   public function getTimeFrame();
+
 }

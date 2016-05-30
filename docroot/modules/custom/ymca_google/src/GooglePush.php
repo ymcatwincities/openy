@@ -153,14 +153,15 @@ class GooglePush {
   }
 
   /**
-   * Convert mapping entity to event
+   * Convert mapping entity to an event.
    *
    * @param Mapping $entity
-   *  Mapping entity.
+   *   Mapping entity.
    *
    * @return \Google_Service_Calendar_Event
+   *   Event.
    */
-  private function drupalEntityToGcalEvent($entity) {
+  private function drupalEntityToGcalEvent(Mapping $entity) {
     // @todo Fix this code to work with recurring events.
     $recurring = FALSE;
 
