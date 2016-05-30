@@ -2826,7 +2826,7 @@ function ymca_master_update_8121() {
 }
 
 /**
- * Increase fiel upload max size for file_browsers.
+ * Increase file upload max size for file_browsers.
  */
 function ymca_master_update_8122() {
   $path = 'sites/default/config/staging/';
