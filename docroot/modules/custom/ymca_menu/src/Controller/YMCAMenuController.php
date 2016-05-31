@@ -3,10 +3,8 @@
 namespace Drupal\ymca_menu\Controller;
 
 use Drupal\Core\Url;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Responses for menu json object calls.
@@ -17,30 +15,6 @@ class YMCAMenuController extends ControllerBase {
    * Root page id.
    */
   const ROOT_ID = 1;
-
-  /**
-   * The database service.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $database;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('database'));
-  }
-
-  /**
-   * Constructs a YMCAMenuController object.
-   *
-   * @param \Drupal\Core\Database\Connection $database
-   *   A database connection.
-   */
-  public function __construct(Connection $database) {
-    $this->database = $database;
-  }
 
   /**
    * Outputs JSON-response.
