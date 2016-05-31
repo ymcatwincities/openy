@@ -1,8 +1,8 @@
 <?php
 
 namespace Drupal\ymca_google;
-use Drupal\Core\State\StateInterface;
 
+use Drupal\Core\State\StateInterface;
 
 /**
  * Class GcalGroupexWrapper.
@@ -58,6 +58,12 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    */
   protected $state;
 
+  /**
+   * GcalGroupexWrapper constructor.
+   *
+   * @param StateInterface $state
+   *   State.
+   */
   public function __construct(StateInterface $state) {
     $this->state = $state;
   }
