@@ -1,5 +1,5 @@
 application_name: "groupx-to-gcal-sync"
-calendar_id: "7rrsac9rvavuu68e5cmdho7di0@group.calendar.google.com"
+calendar_id: "primary"
 auth_config:
   installed:
     client_id: "998573300936-4j41694p09k82j20clovck0d7r79q2s1.apps.googleusercontent.com"

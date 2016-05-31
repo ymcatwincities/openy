@@ -111,6 +111,13 @@ class GooglePush {
   }
 
   /**
+   * Clear calendar method. Only primary can be cleared here.
+   */
+  public function clear() {
+    $this->calService->calendars->clear($this->calendarId);
+  }
+
+  /**
    * Proceed all events collected by add methods.
    */
   public function proceed() {
@@ -135,8 +142,10 @@ class GooglePush {
               );
             }
             catch (\Exception $e) {
-              $msg = 'Error while updating event for entity [%id]: %msg';
+
+              $msg = '%type : Error while updating event for entity [%id]: %msg';
               $this->logger->error($msg, [
+                '%type' => get_class($e),
                 '%id' => $entity->id(),
                 '%msg' => $e->getMessage(),
               ]);
