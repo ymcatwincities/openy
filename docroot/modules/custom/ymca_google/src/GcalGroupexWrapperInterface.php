@@ -57,4 +57,17 @@ interface GcalGroupexWrapperInterface {
    */
   public function getTimeFrame();
 
+  /**
+   * Get schedule.
+   *
+   * @return mixed
+   *   Schedule.
+   */
+  public function getSchedule();
+
+  /**
+   * Update schedule and move pointer.
+   */
+  public function next();
+
 }

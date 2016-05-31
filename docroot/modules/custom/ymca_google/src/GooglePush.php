@@ -150,6 +150,9 @@ class GooglePush {
       }
     }
 
+    // Mark this step as done in the schedule.
+    $this->dataWrapper->next();
+
   }
 
   /**
