@@ -110,17 +110,13 @@ function ymca_menu_preprocess_node(&$variables) {
     if ($link = \Drupal::service('menu.active_trail')->getActiveLink()) {
       $menu_name = $link->getMenuName();
       // We need custom template here to implement custom contextual links.
-      $variables['sidebar_navigation'] = [
-        '#theme' => 'sidebar_navigation',
-        '#content' => [
-          '#contextual_links' => [
-            'menu' => [
-              'route_parameters' => ['menu' => $menu_name],
-            ],
-          ],
-        ],
-        '#attributes' => ['class' => ['panel', 'panel-default', 'panel-subnav']]
-      ];
+      $sidebar_navigation_block = \Drupal::entityTypeManager()->getStorage('block')->load('sidebarnavigation');
+      if (!is_null($sidebar_navigation_block)) {
+        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+        $variables['sidebar_navigation'] = [
+          $view_builder->view($sidebar_navigation_block),
+        ];
+      }
     }
   }
 }
