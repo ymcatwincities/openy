@@ -128,19 +128,19 @@ class GooglePush {
                 $entity->field_gcal_id->value,
                 $event
               );
+
+              $this->logger->info(
+                'Groupex event (%id) has been updated.',
+                ['%id' => $entity->field_groupex_class_id->value]
+              );
             }
-            catch (\Google_Service_Exception $e) {
+            catch (\Exception $e) {
               $msg = 'Error while updating event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
                 '%msg' => $e->getMessage(),
               ]);
             }
-
-            $this->logger->info(
-              'Groupex event (%id) has been updated.',
-              ['%id' => $entity->field_groupex_class_id->value]
-            );
 
             break;
 
@@ -150,22 +150,22 @@ class GooglePush {
                 $this->calendarId,
                 $entity->field_gcal_id->value
               );
+
+              $groupex_id = $entity->field_groupex_class_id->value;
+              $storage = $this->entityTypeManager->getStorage('mapping');
+              $storage->delete([$entity]);
+
+              $this->logger->info(
+                'Groupex event (%id) has been deleted.', ['%id' => $groupex_id]
+              );
             }
-            catch (\Google_Service_Exception $e) {
+            catch (\Exception $e) {
               $msg = 'Error while deleting event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
                 '%msg' => $e->getMessage(),
               ]);
             }
-
-            $groupex_id = $entity->field_groupex_class_id->value;
-            $storage = $this->entityTypeManager->getStorage('mapping');
-            $storage->delete([$entity]);
-
-            $this->logger->info(
-              'Groupex event (%id) has been deleted.', ['%id' => $groupex_id]
-            );
 
             break;
 
@@ -174,17 +174,17 @@ class GooglePush {
 
             try {
               $event = $this->calEvents->insert($this->calendarId, $event);
+
+              $entity->set('field_gcal_id', $event->getId());
+              $entity->save();
             }
-            catch (\Google_Service_Exception $e) {
+            catch (\Exception $e) {
               $msg = 'Error while inserting event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
                 '%msg' => $e->getMessage(),
               ]);
             }
-
-            $entity->set('field_gcal_id', $event->getId());
-            $entity->save();
 
             break;
         }
