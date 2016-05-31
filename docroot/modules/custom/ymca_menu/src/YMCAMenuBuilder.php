@@ -114,10 +114,10 @@ class YMCAMenuBuilder {
           continue;
         }
 
-        if (!isset($branch[$this->children_key])) {
-          $branch[$this->children_key] = [];
+        if (!isset($branch[$this->childrenKey])) {
+          $branch[$this->childrenKey] = [];
         }
-        $branch[$this->children_key][] = $this->getBranch($id, $page_tree[$id], $next_level);
+        $branch[$this->childrenKey][] = $this->getBranch($id, $page_tree[$id], $next_level);
       }
     }
 
@@ -125,7 +125,7 @@ class YMCAMenuBuilder {
   }
 
   /**
-   * Hide from navigarion.
+   * Hide from navigation.
    *
    * Figure out if the page being evaluated should be hidden in the structure
    * because it's excluded from nav and we're not on it or a
