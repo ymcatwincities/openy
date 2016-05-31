@@ -1,7 +1,7 @@
 services:
   ymca_google.pusher:
     class: Drupal\ymca_google\GooglePush
-    arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.factory', '@entity_type.manager']
+    arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.factory', '@entity_type.manager', '@ymca_groupex.drupal_proxy']
   ymca_google.groupex_wrapper:
     class: Drupal\ymca_google\GcalGroupexWrapper
     arguments: ['@state']

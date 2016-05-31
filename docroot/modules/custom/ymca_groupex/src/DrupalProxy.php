@@ -150,10 +150,6 @@ class DrupalProxy implements DrupalProxyInterface {
               // Add new date item.
               $field_date->appendItem($diff['date']['date']);
 
-              // Update timestamp end field.
-              $timestamps = $this->buildTimestamps($diff['date']['date'], $diff['date']['time']);
-              $existing->set('field_timestamp_end', $timestamps['end']);
-
               // Extend time frame end.
               $existing->set('field_time_frame_end', $frame['end']);
             }
@@ -302,7 +298,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @return array
    *   Array with start and ent timestamps.
    */
-  private function buildTimestamps($date, $time) {
+  public function buildTimestamps($date, $time) {
     $timestamps = [];
 
     $all_day = FALSE;
@@ -349,7 +345,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @return int
    *   Timestamp.
    */
-  private function extractTime($date, $time) {
+  public function extractTime($date, $time) {
     $dateTime = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $date, $this->timezone);
     $start_datetime = new \DateTime($time);
 
