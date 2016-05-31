@@ -173,6 +173,8 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
 
   /**
    * Remove schedule.
+   *
+   * Used for resetting current schedule.
    */
   public function removeSchedule() {
     $this->state->delete(self::SCHEDULE_KEY);
