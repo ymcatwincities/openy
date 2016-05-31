@@ -4,8 +4,10 @@ namespace Drupal\ymca_google;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\ymca_groupex\GroupexDataFetcher;
 use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
@@ -65,6 +67,13 @@ class GooglePush {
   protected $logger;
 
   /**
+   * Entity type manager.
+   *
+   * @var EntityTypeManager
+   */
+  protected $entityTypeManager;
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -73,11 +82,14 @@ class GooglePush {
    *   Config Factory.
    * @param LoggerChannelFactoryInterface $logger
    *   Logger.
+   * @param EntityTypeManager $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger) {
+  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
     $this->logger = $logger->get('ymca_google');
+    $this->entityTypeManager = $entity_type_manager;
 
     $settings = $this->configFactory->get('ymca_google.settings');
     $this->calendarId = $settings->get('calendar_id');
@@ -129,13 +141,15 @@ class GooglePush {
                 '%msg' => $e->getMessage(),
               ]);
             }
+
+            $storage = $this->entityTypeManager->getStorage('mapping');
+            $storage->delete([$entity->id()]);
+
             break;
 
           case 'insert':
             try {
               $event = $this->calEvents->insert($this->calendarId, $event);
-              $entity->set('field_gcal_id', $event->getId());
-              $entity->save();
             }
             catch (\Google_Service_Exception $e) {
               $msg = 'Error while inserting event for entity [%id]: %msg';
@@ -144,6 +158,10 @@ class GooglePush {
                 '%msg' => $e->getMessage(),
               ]);
             }
+
+            $entity->set('field_gcal_id', $event->getId());
+            $entity->save();
+
             break;
         }
 
