@@ -4,4 +4,4 @@ services:
     arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.factory']
   ymca_google.groupex_wrapper:
     class: Drupal\ymca_google\GcalGroupexWrapper
-    arguments: []
+    arguments: ['@state']
