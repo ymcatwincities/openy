@@ -50,6 +50,9 @@ class YMCAMenuBuilder {
         break;
       }
     }
+
+    // Load meganav menu link id parents.
+    $this->megaNav = \Drupal::config('ymca_menu.main_menu')->get('items');
   }
 
   /**
@@ -196,6 +199,15 @@ class YMCAMenuBuilder {
       $page['current'] = TRUE;
       $page['active']  = TRUE;
     }
+
+    if (in_array($page_id, $this->megaNav)) {
+      $page['show_in_meganav'] = TRUE;
+    }
+
+    $dasherized_page_name = strtolower($page['page_name']);
+    $dasherized_page_name = str_replace('&', '', $dasherized_page_name);
+    $dasherized_page_name = str_replace(' ', '-', $dasherized_page_name);
+    $page['dasherized'] = $dasherized_page_name;
 
     return $page;
   }
