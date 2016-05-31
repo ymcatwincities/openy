@@ -21,14 +21,14 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var int
    */
-  private $steps = 24;
+  private $steps = 180;
 
   /**
    * Step length.
    *
    * @var int
    */
-  private $length = 604800;
+  private $length = 86400;
 
   /**
    * Raw source data from source system.
