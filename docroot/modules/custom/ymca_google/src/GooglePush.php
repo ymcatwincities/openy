@@ -114,6 +114,9 @@ class GooglePush {
    * Clear calendar method. Only primary can be cleared here.
    */
   public function clear() {
+    if ($this->calendarId != 'primary') {
+      return;
+    }
     $this->calService->calendars->clear($this->calendarId);
   }
 
