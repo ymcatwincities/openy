@@ -69,4 +69,31 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
 
   }
 
+  /**
+   * Get Groupex class by ID.
+   *
+   * @param string $id
+   *   Class ID.
+   *
+   * @return mixed
+   *   Class description item.
+   */
+  public function getClassById($id) {
+    $result = FALSE;
+
+    $options = [
+      'query' => [
+        'description' => TRUE,
+        'id' => $id
+      ],
+    ];
+
+    $data = $this->request($options);
+    if (!empty($data)) {
+      $result = reset($data);
+    }
+
+    return $result;
+  }
+
 }

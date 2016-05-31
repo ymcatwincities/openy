@@ -46,6 +46,11 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $loggerFactory;
 
   /**
+   * @var GroupexDataFetcher
+   */
+  protected $fetcher;
+
+  /**
    * DrupalProxy constructor.
    *
    * @param GcalGroupexWrapper $data_wrapper
@@ -54,11 +59,14 @@ class DrupalProxy implements DrupalProxyInterface {
    *   Query factory.
    * @param LoggerChannelFactory $logger_factory
    *   Logger factory.
+   * @param GroupexDataFetcher $fetcher
+   *   Groupex data fetcher.
    */
-  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger_factory) {
+  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger_factory, GroupexDataFetcher $fetcher) {
     $this->dataWrapper = $data_wrapper;
     $this->queryFactory = $query_factory;
     $this->loggerFactory = $logger_factory;
+    $this->fetcher = $fetcher;
 
     $this->timezone = new \DateTimeZone('UTC');
   }
@@ -170,7 +178,11 @@ class DrupalProxy implements DrupalProxyInterface {
 
     $delete_ids = array_diff($cached_ids, $fetched_ids);
     foreach ($delete_ids as $delete_id) {
-      $entities['delete'][] = $this->findByGroupexId($delete_id);
+      // Make sure we deleting really deleted event.
+      $result = $this->fetcher->getClassById($delete_id);
+      if ($result && $result->description == 'No description available.') {
+        $entities['delete'][] = $this->findByGroupexId($delete_id);
+      }
     }
 
     $this->dataWrapper->setProxyData($entities);
