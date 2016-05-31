@@ -118,6 +118,7 @@ class DrupalProxy implements DrupalProxyInterface {
         $entities['insert'][] = $mapping;
       }
       else {
+        // @todo Check if calendarId is present to insert or update.
         $save = TRUE;
 
         // Entity exists. Check for the diff.
