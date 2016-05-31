@@ -21,14 +21,14 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var int
    */
-  private $steps = 180;
+  private $steps = 24;
 
   /**
    * Step length.
    *
    * @var int
    */
-  private $length = 86400;
+  private $length = 604800;
 
   /**
    * Raw source data from source system.
@@ -116,7 +116,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * {@inheritdoc}
    */
-  public function next() {
+  public function next($noExceptions = TRUE) {
     $schedule = $this->getSchedule();
     $next = $schedule['current'] + 1;
     if ($next >= $this->steps) {
