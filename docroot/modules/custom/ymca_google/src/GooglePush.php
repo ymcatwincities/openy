@@ -7,6 +7,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\ymca_groupex\DrupalProxy;
 use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
@@ -73,6 +74,13 @@ class GooglePush {
   protected $entityTypeManager;
 
   /**
+   * Proxy.
+   *
+   * @var DrupalProxy
+   */
+  protected $proxy;
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -83,12 +91,15 @@ class GooglePush {
    *   Logger.
    * @param EntityTypeManager $entity_type_manager
    *   Entity type manager.
+   * @param DrupalProxy $proxy
+   *   Proxy.
    */
-  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager) {
+  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
     $this->logger = $logger->get('ymca_google');
     $this->entityTypeManager = $entity_type_manager;
+    $this->proxy = $proxy;
 
     $settings = $this->configFactory->get('ymca_google.settings');
     $this->calendarId = $settings->get('calendar_id');
@@ -196,15 +207,8 @@ class GooglePush {
    *   Event.
    */
   private function drupalEntityToGcalEvent(Mapping $entity) {
-    // @todo Fix this code to work with recurring events.
-    $recurring = FALSE;
-
     $field_date = $entity->get('field_groupex_date');
     $list_date = $field_date->getValue();
-    if (count($list_date) > 1) {
-      $recurring = TRUE;
-      $this->logger->debug('We have got recurring event...');
-    }
 
     $description = strip_tags(trim(html_entity_decode($entity->field_groupex_description->value)));
     $location = trim($entity->field_groupex_location->value);
@@ -229,6 +233,43 @@ class GooglePush {
         'timeZone' => 'UTC',
       ],
     ]);
+
+    // Add logic for recurring events.
+    if (count($list_date) > 1) {
+      $time = $entity->field_groupex_time->value;
+
+      // Get start timestamps of all events.
+      $timestamps = [];
+      foreach ($list_date as $id => $item) {
+        $stamps = $this->proxy->buildTimestamps($item['value'], $time);
+        $timestamps[$id] = $stamps['start'];
+      }
+
+      sort($timestamps, SORT_NUMERIC);
+
+      // Get frequency.
+      $diff = $timestamps[1] - $timestamps[0];
+
+      // Get timestamp of the last event.
+      $timezone = new \DateTimeZone('UTC');
+      $dateTime = DrupalDateTime::createFromTimestamp(end($timestamps), $timezone);
+      $until = $dateTime->format('Ymd\THis\Z');
+
+      // Check whether it is daily event.
+      if ($diff != 86400) {
+        $message = 'Failed to get frequency on Groupex event (%id)';
+        $this->logger->error(
+          $message,
+          ['%id' => $entity->field_groupex_class_id->value]
+        );
+        return $event;
+      }
+
+      $event['recurrence'] = [
+        'RRULE:FREQ=DAILY;UNTIL=' . $until,
+      ];
+
+    }
 
     return $event;
   }
