@@ -7,7 +7,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\ymca_groupex\GroupexDataFetcher;
 use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
@@ -107,14 +106,15 @@ class GooglePush {
     $data = $this->dataWrapper->getProxyData();
     foreach ($data as $op => $entities) {
       foreach ($entities as $entity) {
-        $event = $this->drupalEntityToGcalEvent($entity);
 
         switch ($op) {
           case 'update':
+            $event = $this->drupalEntityToGcalEvent($entity);
+
             try {
               $this->calEvents->update(
                 $this->calendarId,
-                $event->getId(),
+                $entity->field_gcal_id->value,
                 $event
               );
             }
@@ -125,13 +125,19 @@ class GooglePush {
                 '%msg' => $e->getMessage(),
               ]);
             }
+
+            $this->logger->info(
+              'Groupex event (%id) has been updated.',
+              ['%id' => $entity->field_groupex_class_id->value]
+            );
+
             break;
 
           case 'delete':
             try {
               $this->calEvents->delete(
                 $this->calendarId,
-                $event->getId()
+                $entity->field_gcal_id->value
               );
             }
             catch (\Google_Service_Exception $e) {
@@ -142,12 +148,19 @@ class GooglePush {
               ]);
             }
 
+            $groupex_id = $entity->field_groupex_class_id->value;
             $storage = $this->entityTypeManager->getStorage('mapping');
-            $storage->delete([$entity->id()]);
+            $storage->delete([$entity]);
+
+            $this->logger->info(
+              'Groupex event (%id) has been deleted.', ['%id' => $groupex_id]
+            );
 
             break;
 
           case 'insert':
+            $event = $this->drupalEntityToGcalEvent($entity);
+
             try {
               $event = $this->calEvents->insert($this->calendarId, $event);
             }
