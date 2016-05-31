@@ -46,6 +46,8 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $loggerFactory;
 
   /**
+   * Data fetcher.
+   *
    * @var GroupexDataFetcher
    */
   protected $fetcher;
