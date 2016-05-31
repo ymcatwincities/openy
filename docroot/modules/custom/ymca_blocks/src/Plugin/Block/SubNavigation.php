@@ -28,6 +28,9 @@ class SubNavigation extends BlockBase {
       '#content' => array(
         'active_menu_tree' => $active_menu_tree,
       ),
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 

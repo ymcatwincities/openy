@@ -37,7 +37,10 @@ class SidebarNavigation extends BlockBase {
           'route_parameters' => ['menu' => $menu_name],
         ],
       ],
-      '#attributes' => ['class' => ['panel', 'panel-default', 'panel-subnav']]
+      '#attributes' => ['class' => ['panel', 'panel-default', 'panel-subnav']],
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
