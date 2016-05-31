@@ -65,7 +65,7 @@ class YMCAMenuController extends ControllerBase {
     $tree = $this->initTree();
     $menus = static::menuList();
     foreach ($menus as $menu_id) {
-      $query = $this->database->select('menu_tree', 'mt');
+      $query = db_select('menu_tree', 'mt');
       $query->leftJoin('menu_link_content', 'mlc', 'mt.id = CONCAT(mlc.bundle, :separator, mlc.uuid)', [':separator' => ':']);
       $query->leftJoin('menu_link_content_data', 'mlcd', 'mlcd.id = mlc.id');
       $query->condition('mt.menu_name', $menu_id);

@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Masthead navigation template.
+ *
+ * Available variables:
+ * - content: Block content.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<nav id="masthead-menu" class="nav-home masthead-menu navbar hidden-xs">
+  <div class="container">
+    <div class="navbar-collapse collapse">
+      <div class="row">
+        <ul class="nav-level-1 nav navbar-nav">
+        {% for item in content.active_menu_tree.children %}
+          {% if item.children %}
+          <li class="{% if item.children %} dropdown{% endif %} {{ item.classes }} {{ item.dasherized }} nav-level-{{ item.nav_level }}">
+            <a class="dropdown-toggle {% if item.active %} active{% endif %}" data-toggle="dropdown">
+              {{ item.page_name }} <b class="caret"></b>
+            </a>
+            <ul class="nav dropdown-menu">
+              {% for item in children %}
+              <li class="overview {{ item.classes }} {{ item.dasherized }} nav-level-{{ item.nav_level }}">
+                <a class="{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
+              </li>
+              {% endfor %}
+              <li>
+                <ul class="row-level-2">
+                  {% for item in children %}
+                  <li class="{{ item.classes }} {{ item.dasherized }} nav-level-{{ item.nav_level }}">
+                    <strong>
+                      <a class="{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
+                    </strong>
+                    <ul class="nav-stacked nav">
+                      {% for item in children %}
+                      <li class="{{ item.classes }} {{ item.dasherized }} nav-level-{{ item.nav_level }}">
+                        <a class="{% if item.current %} current{% endif %}{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
+                      </li>
+                      {% endfor %}
+                      {% for item in children %}
+                      <li class="{{ item.classes }} {{ item.dasherized }} nav-level-{{ item.nav_level }}">
+                        <a class="{% if item.current %} current{% endif %}{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
+                      </li>
+                      {% endfor %}
+                      {% for item in children %}
+                      <li class="{{ item.classes }} {{ item.dasherized }} nav-level-{{ item.nav_level }}">
+                        <a class="{% if item.current %} current{% endif %}{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            </ul>
+          </li>
+          {{ else }}
+          <li class="{{ item.classes }}{% if item.current %} current{% endif %} {{ item.dasherized }}">
+            <a href="{{ item.url }}" class="{{ item.classes }} link">{{ item.page_name }}</a>
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
