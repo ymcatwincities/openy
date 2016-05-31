@@ -39,11 +39,6 @@
                           <a class="{% if item.current %} current{% endif %}{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
                         </li>
                         {% endfor %}
-                        {% for item in item.children %}
-                        <li class="{% if item.active %} active{% endif %}{% if item.parent %} parent{% endif %} {{ item.dasherized }} nav-level-{{ item.nav_level + 1 }}">
-                          <a class="{% if item.current %} current{% endif %}{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
-                        </li>
-                        {% endfor %}
                       </ul>
                     </li>
                     {% endfor %}
