@@ -128,6 +128,16 @@ class GooglePush {
     foreach ($data as $op => $entities) {
       foreach ($entities as $entity) {
 
+        // Refresh the token if it's expired.
+        if ($this->googleClient->isAccessTokenExpired()) {
+          $this->logger->info('Token is expired. Refreshing...');
+
+          $this->googleClient->refreshToken($this->googleClient->getRefreshToken());
+          $editable = $this->configFactory->getEditable('ymca_google.token');
+          $editable->set('credentials', json_decode($this->googleClient->getAccessToken(), TRUE));
+          $editable->save();
+        }
+
         switch ($op) {
           case 'update':
             $event = $this->drupalEntityToGcalEvent($entity);
