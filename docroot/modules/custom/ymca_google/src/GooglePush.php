@@ -304,7 +304,7 @@ class GooglePush {
 
       // Diff in Weeks.
       $diff = ($timestamps[1] - $timestamps[0]) / 604800;
-      if (!is_integer($diff)) {
+      if (!is_int($diff)) {
         $this->logger->error('Got invalid interval %int for frequency for Groupex event %id', ['%int' => $diff, ['%id' => $groupex_id]]);
         return FALSE;
       }
@@ -348,21 +348,6 @@ class GooglePush {
     }
 
     return $client;
-  }
-
-  public function getEvent() {
-
-//    $event = $this->calService->events->get($this->calendarId, );
-
-    $optParams = array(
-      'maxResults' => 10,
-      'orderBy' => 'startTime',
-      'singleEvents' => TRUE,
-      'timeMin' => date('c', REQUEST_TIME - 86400),
-    );
-
-    $events = $this->calService->events->listEvents($this->calendarId, $optParams);
-    $a = 10;
   }
 
 }
