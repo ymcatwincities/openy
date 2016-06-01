@@ -97,7 +97,7 @@ class GooglePush {
   public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
-    $this->logger = $logger->get('ymca_google');
+    $this->logger = $logger->get('gcal_groupex');
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
 
@@ -225,12 +225,25 @@ class GooglePush {
     $list_date = $field_date->getValue();
 
     $description = '';
-    $instructor = trim($entity->field_groupex_instructor->value);
-    if (empty($instructor)) {
-      $message = 'Failed to load instructor for Groupex event (%id)';
-      $this->logger->error($message, ['%id' => $groupex_id]);
+    $instructor = '';
+    $default = trim($entity->field_groupex_instructor->value);
+    if (empty($default)) {
+      $sub_instructor = trim($entity->field_groupex_sub_instructor->value);
+      if (empty($sub_instructor)) {
+        $original_instructor = trim($entity->field_groupex_orig_instructor->value);
+        if (!empty($original_instructor)) {
+          $instructor = $original_instructor;
+        }
+      }
+      else {
+        $instructor = $sub_instructor;
+      }
     }
     else {
+      $instructor = $default;
+    }
+
+    if (!empty($instructor)) {
       $description = 'Instructor: ' . $instructor . "\n\n";
     }
 

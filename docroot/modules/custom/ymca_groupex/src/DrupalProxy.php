@@ -5,6 +5,7 @@ namespace Drupal\ymca_groupex;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_google\GcalGroupexWrapper;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_mappings\Entity\Mapping;
@@ -39,11 +40,11 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $queryFactory;
 
   /**
-   * Logger factory.
+   * Logger.
    *
-   * @var QueryFactory
+   * @var LoggerChannelInterface
    */
-  protected $loggerFactory;
+  protected $logger;
 
   /**
    * Data fetcher.
@@ -59,15 +60,15 @@ class DrupalProxy implements DrupalProxyInterface {
    *   Data wrapper.
    * @param QueryFactory $query_factory
    *   Query factory.
-   * @param LoggerChannelFactory $logger_factory
+   * @param LoggerChannelFactory $logger
    *   Logger factory.
    * @param GroupexDataFetcher $fetcher
    *   Groupex data fetcher.
    */
-  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger_factory, GroupexDataFetcher $fetcher) {
+  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger, GroupexDataFetcher $fetcher) {
     $this->dataWrapper = $data_wrapper;
     $this->queryFactory = $query_factory;
-    $this->loggerFactory = $logger_factory;
+    $this->logger = $logger->get('gcal_groupex');
     $this->fetcher = $fetcher;
 
     $this->timezone = new \DateTimeZone('UTC');
@@ -323,10 +324,7 @@ class DrupalProxy implements DrupalProxyInterface {
       // Log exception for unknown values.
       if ($time != "All Day") {
         $message = 'DrupalProxy: Got unknown time value (%value)';
-        $this->loggerFactory->get('ymca_sync')->error(
-          $message,
-          ['%value' => $time]
-        );
+        $this->logger->error($message, ['%value' => $time]);
       }
     }
 
