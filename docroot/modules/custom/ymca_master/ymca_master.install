@@ -2848,7 +2848,7 @@ function ymca_master_update_8123() {
       $path . 'block.block.mastheadnavigationblock.yml',
       $path . 'block.block.sidebarnavigation.yml',
       $path . 'block.block.subnavigationblock.yml',
-      $path . 'block.block.mainnavigation.yml',git
+      $path . 'block.block.mainnavigation.yml',
     ]
   );
 }
