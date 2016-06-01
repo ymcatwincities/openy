@@ -118,50 +118,56 @@ class DrupalProxy implements DrupalProxyInterface {
         $entities['insert'][] = $mapping;
       }
       else {
-        // @todo Check if calendarId is present to insert or update.
-        $save = TRUE;
-
-        // Entity exists. Check for the diff.
-        $diff = $this->diff($existing, $item);
-
-        // Proceed only with changed entities.
-        if (!empty($diff['date']) || !empty($diff['fields'])) {
-
-          // Update fields.
-          foreach ($diff['fields'] as $field_name => $value) {
-            $existing->set($field_name, $value);
-          }
-
-          // The event is recurring.
-          if (!empty($diff['date'])) {
-            $field_date = $existing->get('field_groupex_date');
-
-            // If the date doesn't exists in the list add it.
-            $exists = FALSE;
-            /** @var FieldItemList $list */
-            $list = $field_date->getValue();
-            foreach ($list as $list_item) {
-              if (strcmp($list_item['value'], $diff['date']['date']) == 0) {
-                $exists = TRUE;
-                $save = FALSE;
-              }
-            }
-
-            if (!$exists) {
-              // Add new date item.
-              $field_date->appendItem($diff['date']['date']);
-
-              // Extend time frame end.
-              $existing->set('field_time_frame_end', $frame['end']);
-            }
-
-          }
-
-          if ($save) {
-            $existing->save();
-            $entities['update'][] = $existing;
-          }
+        if ($existing->get('field_gcal_id')->isEmpty()) {
+          $entities['insert'][] = $existing;
         }
+        else {
+          // Check the diff.
+          $save = TRUE;
+
+          $diff = $this->diff($existing, $item);
+
+          // Proceed only with changed entities.
+          if (!empty($diff['date']) || !empty($diff['fields'])) {
+
+            // Update fields.
+            foreach ($diff['fields'] as $field_name => $value) {
+              $existing->set($field_name, $value);
+            }
+
+            // The event is recurring.
+            if (!empty($diff['date'])) {
+              $field_date = $existing->get('field_groupex_date');
+
+              // If the date doesn't exists in the list add it.
+              $exists = FALSE;
+              /** @var FieldItemList $list */
+              $list = $field_date->getValue();
+              foreach ($list as $list_item) {
+                if (strcmp($list_item['value'], $diff['date']['date']) == 0) {
+                  $exists = TRUE;
+                  $save = FALSE;
+                }
+              }
+
+              if (!$exists) {
+                // Add new date item.
+                $field_date->appendItem($diff['date']['date']);
+
+                // Extend time frame end.
+                $existing->set('field_time_frame_end', $frame['end']);
+              }
+
+            }
+
+            if ($save) {
+              $existing->save();
+              $entities['update'][] = $existing;
+            }
+          }
+
+        }
+
       }
 
     }
