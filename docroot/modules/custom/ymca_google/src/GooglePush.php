@@ -125,6 +125,17 @@ class GooglePush {
    */
   public function proceed() {
     $data = $this->dataWrapper->getProxyData();
+
+    $message = 'Stats: insert - %insert, update - %update, delete - %delete';
+    $this->logger->info(
+      $message,
+      [
+        '%insert' => count($data['insert']),
+        '%update' => count($data['update']),
+        '%delete' => count($data['delete']),
+      ]
+    );
+
     foreach ($data as $op => $entities) {
       foreach ($entities as $entity) {
 
