@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Component\Utility\Timer;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -126,17 +127,10 @@ class GooglePush {
   public function proceed() {
     $data = $this->dataWrapper->getProxyData();
 
-    $message = 'Stats: insert - %insert, update - %update, delete - %delete';
-    $this->logger->info(
-      $message,
-      [
-        '%insert' => count($data['insert']),
-        '%update' => count($data['update']),
-        '%delete' => count($data['delete']),
-      ]
-    );
-
     foreach ($data as $op => $entities) {
+      Timer::start($op);
+      $exceptions[$op] = 0;
+
       foreach ($entities as $entity) {
 
         // Refresh the token if it's expired.
@@ -169,7 +163,7 @@ class GooglePush {
               );
             }
             catch (\Exception $e) {
-
+              $exceptions[$op]++;
               $msg = '%type : Error while updating event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%type' => get_class($e),
@@ -196,6 +190,7 @@ class GooglePush {
               );
             }
             catch (\Exception $e) {
+              $exceptions[$op]++;
               $msg = 'Error while deleting event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
@@ -218,6 +213,7 @@ class GooglePush {
               $entity->save();
             }
             catch (\Exception $e) {
+              $exceptions[$op]++;
               $msg = 'Error while inserting event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
@@ -229,6 +225,33 @@ class GooglePush {
         }
 
       }
+
+      // Log performance.
+      $schedule = $this->dataWrapper->getSchedule();
+      $timeZone = new \DateTimeZone('UTC');
+      $current = $schedule['current'];
+
+      $startDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['start'], $timeZone);
+      $startDate = $startDateTime->format('c');
+
+      $endDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['end'], $timeZone);
+      $endDate = $endDateTime->format('c');
+
+      $message = 'Stats: operation - %op, items - %items, exceptions - %exceptions, time - %time. Time frame: %start - %end. Source data: %source. Processed - %processed.';
+      $this->logger->info(
+        $message,
+        [
+          '%op' => $op,
+          '%items' => count($data[$op]),
+          '%time' => Timer::read($op),
+          '%start' => $startDate,
+          '%end' => $endDate,
+          '%source' => count($this->dataWrapper->getSourceData()),
+          '%processed' => count($data['delete']) + count($data['update']) + count($data['insert']),
+          '%exceptions' => $exceptions[$op]
+        ]
+      );
+      Timer::stop($op);
     }
 
     // Mark this step as done in the schedule.
