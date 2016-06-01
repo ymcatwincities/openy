@@ -273,6 +273,8 @@ class GooglePush {
 
     // Add logic for recurring events.
     if (count($list_date) > 1) {
+      $this->logger->info('Recurring Groupex event [%id]', ['%id' => $groupex_id]);
+
       $time = $entity->field_groupex_time->value;
 
       // Get start timestamps of all events.
@@ -305,7 +307,6 @@ class GooglePush {
       $event['recurrence'] = [
         'RRULE:FREQ=DAILY;UNTIL=' . $until,
       ];
-
     }
 
     return $event;
