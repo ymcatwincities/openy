@@ -141,6 +141,9 @@ class GooglePush {
         switch ($op) {
           case 'update':
             $event = $this->drupalEntityToGcalEvent($entity);
+            if (!$event) {
+              break;
+            }
 
             try {
               $this->calEvents->update(
@@ -193,6 +196,9 @@ class GooglePush {
 
           case 'insert':
             $event = $this->drupalEntityToGcalEvent($entity);
+            if (!$event) {
+              break;
+            }
 
             try {
               $event = $this->calEvents->insert($this->calendarId, $event);
@@ -296,26 +302,17 @@ class GooglePush {
 
       sort($timestamps, SORT_NUMERIC);
 
-      // Get frequency.
-      $diff = $timestamps[1] - $timestamps[0];
-
-      // Get timestamp of the last event.
-      $timezone = new \DateTimeZone('UTC');
-      $dateTime = DrupalDateTime::createFromTimestamp(end($timestamps), $timezone);
-      $until = $dateTime->format('Ymd\THis\Z');
-
-      // Check whether it is daily event.
-      if ($diff != 86400) {
-        $message = 'Failed to get frequency on Groupex event (%id)';
-        $this->logger->error(
-          $message,
-          ['%id' => $groupex_id]
-        );
-        return $event;
+      // Diff in Weeks.
+      $diff = ($timestamps[1] - $timestamps[0]) / 604800;
+      if (!is_integer($diff)) {
+        $this->logger->error('Got invalid interval %int for frequency for Groupex event %id', ['%int' => $diff, ['%id' => $groupex_id]]);
+        return FALSE;
       }
+      $count = $entity->get('field_groupex_date')->count();
+      $this->logger->info('Found frequency %freq with count %count', ['%freq' => $diff, '%count' => $count]);
 
       $event['recurrence'] = [
-        'RRULE:FREQ=DAILY;UNTIL=' . $until,
+        "RRULE:FREQ=WEEKLY;INTERVAL=$diff;COUNT=$count;"
       ];
     }
 
@@ -351,6 +348,21 @@ class GooglePush {
     }
 
     return $client;
+  }
+
+  public function getEvent() {
+
+//    $event = $this->calService->events->get($this->calendarId, );
+
+    $optParams = array(
+      'maxResults' => 10,
+      'orderBy' => 'startTime',
+      'singleEvents' => TRUE,
+      'timeMin' => date('c', REQUEST_TIME - 86400),
+    );
+
+    $events = $this->calService->events->listEvents($this->calendarId, $optParams);
+    $a = 10;
   }
 
 }
