@@ -219,10 +219,22 @@ class GooglePush {
    *   Event.
    */
   private function drupalEntityToGcalEvent(Mapping $entity) {
+    $groupex_id = $entity->field_groupex_class_id->value;
+
     $field_date = $entity->get('field_groupex_date');
     $list_date = $field_date->getValue();
 
-    $description = strip_tags(trim(html_entity_decode($entity->field_groupex_description->value)));
+    $description = '';
+    $instructor = trim($entity->field_groupex_instructor->value);
+    if (empty($instructor)) {
+      $message = 'Failed to load instructor for Groupex event (%id)';
+      $this->logger->error($message, ['%id' => $groupex_id]);
+    }
+    else {
+      $description = 'Instructor: ' . $instructor . "\n\n";
+    }
+
+    $description .= strip_tags(trim(html_entity_decode($entity->field_groupex_description->value)));
     $location = trim($entity->field_groupex_location->value);
     $summary = trim($entity->field_groupex_title->value);
     $start = $entity->field_timestamp_start->value;
@@ -272,7 +284,7 @@ class GooglePush {
         $message = 'Failed to get frequency on Groupex event (%id)';
         $this->logger->error(
           $message,
-          ['%id' => $entity->field_groupex_class_id->value]
+          ['%id' => $groupex_id]
         );
         return $event;
       }
