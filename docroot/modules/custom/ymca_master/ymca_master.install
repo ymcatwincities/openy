@@ -2826,16 +2826,29 @@ function ymca_master_update_8121() {
 }
 
 /**
- * Add YMCA menu blocks.
+ * Increase file upload max size for file_browsers.
  */
 function ymca_master_update_8122() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.browse_files.yml',
+      $path . 'entity_browser.browser.browse_files_modal.yml'
+    ]
+  );
+}
+
+/**
+ * Add YMCA menu blocks.
+ */
+function ymca_master_update_8123() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'block.block.mastheadnavigationblock.yml',
       $path . 'block.block.sidebarnavigation.yml',
       $path . 'block.block.subnavigationblock.yml',
-      $path . 'block.block.mainnavigation.yml',git 
+      $path . 'block.block.mainnavigation.yml',git
     ]
   );
 }
