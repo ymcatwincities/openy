@@ -124,7 +124,7 @@ class DrupalProxy implements DrupalProxyInterface {
         }
         else {
           // Check the diff.
-          $save = TRUE;
+          $save = FALSE;
 
           $diff = $this->diff($existing, $item);
 

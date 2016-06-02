@@ -158,6 +158,8 @@ class GooglePush {
               );
 
               $processed[$op]++;
+              // Saving updated entity only when it was pushed successfully.
+              $entity->save();
             }
             catch (\Google_Service_Exception $e) {
               $message = 'Google_Service_Exception [%op]: %message';
