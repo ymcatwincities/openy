@@ -123,54 +123,26 @@ class DrupalProxy implements DrupalProxyInterface {
           $entities['insert'][] = $existing;
         }
         else {
-          // Check the diff.
-          $save = FALSE;
-
-          $diff = $this->diff($existing, $item);
-
           // Proceed only with changed entities.
+          $diff = $this->diff($existing, $item);
           if (!empty($diff['date']) || !empty($diff['fields'])) {
-
-            // Update fields.
+            // Update fields if updates exist.
             foreach ($diff['fields'] as $field_name => $value) {
               $existing->set($field_name, $value);
             }
 
-            // The event is recurring.
+            // The event is recurring. Append new date and extend time frame.
             if (!empty($diff['date'])) {
               $field_date = $existing->get('field_groupex_date');
-
-              // If the date doesn't exists in the list add it.
-              $exists = FALSE;
-              /** @var FieldItemList $list */
-              $list = $field_date->getValue();
-              foreach ($list as $list_item) {
-                if (strcmp($list_item['value'], $diff['date']['date']) == 0) {
-                  $exists = TRUE;
-                  $save = FALSE;
-                }
-              }
-
-              if (!$exists) {
-                // Add new date item.
-                $field_date->appendItem($diff['date']['date']);
-
-                // Extend time frame end.
-                $existing->set('field_time_frame_end', $frame['end']);
-              }
-
+              $field_date->appendItem($diff['date']);
+              $existing->set('field_time_frame_end', $frame['end']);
             }
 
-            if ($save) {
-              $existing->save();
-              $entities['update'][] = $existing;
-            }
+            // Add entity to update list.
+            $entities['update'][] = $existing;
           }
-
         }
-
       }
-
     }
 
     // Check whether entities were deleted from groupex.
@@ -200,16 +172,20 @@ class DrupalProxy implements DrupalProxyInterface {
    * @param MappingInterface $entity
    *   Mapping entity.
    * @param \stdClass $class
-   *   Class item (enriched with timestamps).
+   *   Class item.
    *
    * @return mixed
    *   Diff array.
    */
   protected function diff(MappingInterface $entity, \stdClass $class) {
+    /* The are two features we should compare:
+    1. The fields. Some fields may be updated. For, example "title".
+    2. A new date for recurring entity may be added. */
+
     $diff['fields'] = [];
     $diff['date'] = [];
 
-    // Compare simple fields.
+    // Simply compare field values (without date field and ID).
     $compare = [
       'field_groupex_category' => 'category',
       'field_groupex_description' => 'desc',
@@ -230,17 +206,23 @@ class DrupalProxy implements DrupalProxyInterface {
       }
     }
 
-    // Check timestamps.
-    if (
-      $entity->field_timestamp_start->value == $class->timestamp_start &&
-      $entity->field_timestamp_end->value == $class->timestamp_end
-    ) {
-      return $diff;
+    /* Field 'field_groupex_date' is multiple, so, we need to compare each value
+    with the new date. If we don't find it in the least we'll get new
+    recurring date. */
+
+    $found = FALSE;
+    $field_date = $entity->get('field_groupex_date');
+    $list = $field_date->getValue();
+    foreach ($list as $list_item) {
+      if (strcmp($list_item['value'], $class->date) == 0) {
+        $found = TRUE;
+      }
     }
 
-    // The event is recurring.
-    $diff['date']['date'] = $class->date;
-    $diff['date']['time'] = $class->time;
+    // The event is recurring and the date is new. Add it to the diff result.
+    if (!$found) {
+      $diff['date'] = $class->date;
+    }
 
     return $diff;
   }

@@ -366,8 +366,6 @@ class GooglePush {
 
     // Add logic for recurring events.
     if (count($list_date) > 1) {
-      // $this->logger->info('Recurring Groupex event [%id]', ['%id' => $groupex_id]);
-
       $time = $entity->field_groupex_time->value;
 
       // Get start timestamps of all events.
@@ -386,7 +384,6 @@ class GooglePush {
         return FALSE;
       }
       $count = $entity->get('field_groupex_date')->count();
-      // $this->logger->info('Found frequency %freq with count %count', ['%freq' => $diff, '%count' => $count]);
 
       // Get timestamp of the last event.
       $timezone = new \DateTimeZone('UTC');
