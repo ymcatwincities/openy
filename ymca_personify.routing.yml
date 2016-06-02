@@ -32,4 +32,4 @@ ymca_mindbody.personify_customer_orders:
     _controller: \Drupal\ymca_personify\Controller\PersonifyController::customerOrders
     _title: Personify Customer Orders
   requirements:
-    _permission: access content
+    _permission: administer site configuration
