@@ -364,7 +364,7 @@ class GooglePush {
 
     // Add logic for recurring events.
     if (count($list_date) > 1) {
-      $this->logger->info('Recurring Groupex event [%id]', ['%id' => $groupex_id]);
+      // $this->logger->info('Recurring Groupex event [%id]', ['%id' => $groupex_id]);
 
       $time = $entity->field_groupex_time->value;
 
@@ -384,10 +384,15 @@ class GooglePush {
         return FALSE;
       }
       $count = $entity->get('field_groupex_date')->count();
-      $this->logger->info('Found frequency %freq with count %count', ['%freq' => $diff, '%count' => $count]);
+      // $this->logger->info('Found frequency %freq with count %count', ['%freq' => $diff, '%count' => $count]);
+
+      // Get timestamp of the last event.
+      $timezone = new \DateTimeZone('UTC');
+      $dateTime = DrupalDateTime::createFromTimestamp(end($timestamps), $timezone);
+      $until = $dateTime->format('Ymd\THis\Z');
 
       $event['recurrence'] = [
-        "RRULE:FREQ=WEEKLY;INTERVAL=$diff;COUNT=$count;"
+        "RRULE:FREQ=WEEKLY;INTERVAL=$diff;COUNT=$count;UNTIL=$until;"
       ];
     }
 
