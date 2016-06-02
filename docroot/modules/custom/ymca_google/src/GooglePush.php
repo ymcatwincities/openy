@@ -129,7 +129,7 @@ class GooglePush {
 
     foreach ($data as $op => $entities) {
       Timer::start($op);
-      $exceptions[$op] = 0;
+      $processed[$op] = 0;
 
       foreach ($entities as $entity) {
 
@@ -157,13 +157,20 @@ class GooglePush {
                 $event
               );
 
-              $this->logger->info(
-                'Groupex event (%id) has been updated.',
-                ['%id' => $entity->field_groupex_class_id->value]
-              );
+              $processed[$op]++;
+            }
+            catch (\Google_Service_Exception $e) {
+              $message = 'Google_Service_Exception [%op]: %message';
+              $this->logger->error(
+                $message,
+                [
+                  '%message' => $e->getMessage(),
+                  '%op' => $op,
+                ]);
+              $this->logStats($op, $processed);
+              return;
             }
             catch (\Exception $e) {
-              $exceptions[$op]++;
               $msg = '%type : Error while updating event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%type' => get_class($e),
@@ -181,16 +188,23 @@ class GooglePush {
                 $entity->field_gcal_id->value
               );
 
-              $groupex_id = $entity->field_groupex_class_id->value;
               $storage = $this->entityTypeManager->getStorage('mapping');
               $storage->delete([$entity]);
 
-              $this->logger->info(
-                'Groupex event (%id) has been deleted.', ['%id' => $groupex_id]
-              );
+              $processed[$op]++;
+            }
+            catch (\Google_Service_Exception $e) {
+              $message = 'Google_Service_Exception [%op]: %message';
+              $this->logger->error(
+                $message,
+                [
+                  '%message' => $e->getMessage(),
+                  '%op' => $op,
+                ]);
+              $this->logStats($op, $processed);
+              return;
             }
             catch (\Exception $e) {
-              $exceptions[$op]++;
               $msg = 'Error while deleting event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
@@ -211,9 +225,21 @@ class GooglePush {
 
               $entity->set('field_gcal_id', $event->getId());
               $entity->save();
+
+              $processed[$op]++;
+            }
+            catch (\Google_Service_Exception $e) {
+              $message = 'Google_Service_Exception [%op]: %message';
+              $this->logger->error(
+                $message,
+                [
+                  '%message' => $e->getMessage(),
+                  '%op' => $op,
+                ]);
+              $this->logStats($op, $processed);
+              return;
             }
             catch (\Exception $e) {
-              $exceptions[$op]++;
               $msg = 'Error while inserting event for entity [%id]: %msg';
               $this->logger->error($msg, [
                 '%id' => $entity->id(),
@@ -226,37 +252,52 @@ class GooglePush {
 
       }
 
-      // Log performance.
-      $schedule = $this->dataWrapper->getSchedule();
-      $timeZone = new \DateTimeZone('UTC');
-      $current = $schedule['current'];
+      $this->logStats($op, $processed);
 
-      $startDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['start'], $timeZone);
-      $startDate = $startDateTime->format('c');
-
-      $endDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['end'], $timeZone);
-      $endDate = $endDateTime->format('c');
-
-      $message = 'Stats: operation - %op, items - %items, exceptions - %exceptions, time - %time. Time frame: %start - %end. Source data: %source. Processed - %processed.';
-      $this->logger->info(
-        $message,
-        [
-          '%op' => $op,
-          '%items' => count($data[$op]),
-          '%time' => Timer::read($op),
-          '%start' => $startDate,
-          '%end' => $endDate,
-          '%source' => count($this->dataWrapper->getSourceData()),
-          '%processed' => count($data['delete']) + count($data['update']) + count($data['insert']),
-          '%exceptions' => $exceptions[$op]
-        ]
-      );
-      Timer::stop($op);
     }
 
     // Mark this step as done in the schedule.
     $this->dataWrapper->next();
 
+  }
+
+  /**
+   * Log.
+   *
+   * @param string $op
+   *   Operation.
+   * @param array $processed
+   *   Processed.
+   *
+   * @throws \Exception
+   */
+  private function logStats($op, $processed) {
+    $data = $this->dataWrapper->getProxyData();
+    $schedule = $this->dataWrapper->getSchedule();
+    $timeZone = new \DateTimeZone('UTC');
+    $current = $schedule['current'];
+
+    $startDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['start'], $timeZone);
+    $startDate = $startDateTime->format('c');
+
+    $endDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['end'], $timeZone);
+    $endDate = $endDateTime->format('c');
+
+    $message = 'Stats: op - %op, items - %items, processed - %processed, success - %success%. Time - %time. Time frame: %start - %end. Source data: %source. ';
+    $this->logger->info(
+      $message,
+      [
+        '%op' => $op,
+        '%items' => count($data[$op]),
+        '%time' => Timer::read($op),
+        '%start' => $startDate,
+        '%end' => $endDate,
+        '%source' => count($this->dataWrapper->getSourceData()),
+        '%processed' => $processed[$op],
+        '%success' => $processed[$op] * 100 / count($data[$op]),
+      ]
+    );
+    Timer::stop($op);
   }
 
   /**
