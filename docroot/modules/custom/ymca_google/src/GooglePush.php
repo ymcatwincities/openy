@@ -170,8 +170,6 @@ class GooglePush {
                   '%op' => $op,
                 ]);
               $this->logStats($op, $processed);
-              $lock = \Drupal::lock();
-              $lock->release('ymca_sync.groupex_gcal');
               return;
             }
             catch (\Exception $e) {
@@ -206,8 +204,6 @@ class GooglePush {
                   '%op' => $op,
                 ]);
               $this->logStats($op, $processed);
-              $lock = \Drupal::lock();
-              $lock->release('ymca_sync.groupex_gcal');
               return;
             }
             catch (\Exception $e) {
@@ -243,8 +239,6 @@ class GooglePush {
                   '%op' => $op,
                 ]);
               $this->logStats($op, $processed);
-              $lock = \Drupal::lock();
-              $lock->release('ymca_sync.groupex_gcal');
               return;
             }
             catch (\Exception $e) {
