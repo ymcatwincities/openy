@@ -225,7 +225,7 @@ class DrupalProxy implements DrupalProxyInterface {
     foreach ($compare as $drupal_field => $groupex_field) {
       $drupal_value = $entity->{$drupal_field}->value;
       $groupex_value = $class->{$groupex_field};
-      if (strcmp($drupal_value, $groupex_value) != 0) {
+      if (strcmp($drupal_value, $groupex_value) !== 0) {
         $diff['fields'][$drupal_field] = $groupex_value;
       }
     }
