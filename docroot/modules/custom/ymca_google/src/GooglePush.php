@@ -391,7 +391,7 @@ class GooglePush {
       $until = $dateTime->format('Ymd\THis\Z');
 
       $event['recurrence'] = [
-        "RRULE:FREQ=WEEKLY;INTERVAL=$diff;COUNT=$count;UNTIL=$until;"
+        "RRULE:FREQ=WEEKLY;INTERVAL=$diff;COUNT=$count;"
       ];
     }
 
