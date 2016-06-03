@@ -2904,9 +2904,20 @@ function ymca_master_update_8124() {
 }
 
 /**
- * Add fields to location mapping entity.
+ * Import personify configs.
  */
 function ymca_master_update_8125() {
+  $path = drupal_get_path('module', 'ymca_personify');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/install/ymca_personify.settings.yml',
+    ]
+  );
+}
+/**
+ * Add fields to location mapping entity.
+ */
+function ymca_master_update_8126() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -2952,7 +2963,7 @@ function ymca_master_update_8125() {
 /**
  * Enrich location mapping entities with new data.
  */
-function ymca_master_update_8126() {
+function ymca_master_update_8127() {
   $config = \Drupal::config('ymca_frontend.locations')->get();
 
   $map = [
