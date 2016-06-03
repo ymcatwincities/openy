@@ -1,0 +1,19 @@
+uuid: bd019c09-5286-4631-b33a-fb63a27c5371
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_latitude
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_latitude
+field_name: field_location_latitude
+entity_type: mapping
+bundle: location
+label: 'Location Latitude'
+description: 'Example: 45.2456'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
