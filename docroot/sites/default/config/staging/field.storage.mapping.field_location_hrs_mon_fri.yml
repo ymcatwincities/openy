@@ -1,0 +1,21 @@
+uuid: e60d362f-1e72-441a-bae7-a70b01a81960
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_location_hrs_mon_fri
+field_name: field_location_hrs_mon_fri
+entity_type: mapping
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
