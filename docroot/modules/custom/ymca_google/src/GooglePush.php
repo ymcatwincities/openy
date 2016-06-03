@@ -360,7 +360,7 @@ class GooglePush {
         '%end' => $endDate,
         '%source' => count($this->dataWrapper->getSourceData()),
         '%processed' => $processed[$op],
-        '%success' => is_null(count($data[$op])) ? '100%' : $processed[$op] * 100 / count($data[$op]),
+        '%success' => count($data[$op]) == 0 ? '100%' : $processed[$op] * 100 / count($data[$op]),
       ]
     );
     Timer::stop($op);
