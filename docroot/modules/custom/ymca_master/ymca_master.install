@@ -2928,6 +2928,7 @@ function ymca_master_update_8125() {
       $path . 'field.field.mapping.location.field_location_state.yml',
       $path . 'field.field.mapping.location.field_location_tags.yml',
       $path . 'field.field.mapping.location.field_location_zip.yml',
+      $path . 'field.field.mapping.location.field_location_url.yml',
       $path . 'field.storage.mapping.field_location_address_1.yml',
       $path . 'field.storage.mapping.field_location_address_2.yml',
       $path . 'field.storage.mapping.field_location_city.yml',
@@ -2943,6 +2944,7 @@ function ymca_master_update_8125() {
       $path . 'field.storage.mapping.field_location_state.yml',
       $path . 'field.storage.mapping.field_location_tags.yml',
       $path . 'field.storage.mapping.field_location_zip.yml',
+      $path . 'field.storage.mapping.field_location_url.yml',
     ]
   );
 }
