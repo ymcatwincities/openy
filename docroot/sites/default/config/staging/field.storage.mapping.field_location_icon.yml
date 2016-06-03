@@ -1,0 +1,21 @@
+uuid: c3c51d2c-dece-49cc-9ebe-151f37dc7a13
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_location_icon
+field_name: field_location_icon
+entity_type: mapping
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
