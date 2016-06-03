@@ -19,6 +19,7 @@ dependencies:
     - field.field.mapping.location.field_location_ref
     - field.field.mapping.location.field_location_state
     - field.field.mapping.location.field_location_tags
+    - field.field.mapping.location.field_location_url
     - field.field.mapping.location.field_location_zip
     - field.field.mapping.location.field_mindbody_id
     - ymca_mappings.mapping_type.location
@@ -134,6 +135,13 @@ content:
     type: string_textfield
   field_location_tags:
     weight: 21
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_url:
+    weight: 29
     settings:
       size: 60
       placeholder: ''
