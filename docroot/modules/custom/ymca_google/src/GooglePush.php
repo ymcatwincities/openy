@@ -181,7 +181,7 @@ class GooglePush {
                     '%op' => $op,
                   ]);
                 $this->logStats($op, $processed);
-                if (!strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+                if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
                   // Rate limit exceeded, retry. @todo limit number of retries.
                   return;
                 }
@@ -233,7 +233,7 @@ class GooglePush {
                     '%op' => $op,
                   ]);
                 $this->logStats($op, $processed);
-                if (!strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+                if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
                   // Rate limit exceeded, retry. @todo limit number of retries.
                   return;
                 }
@@ -286,7 +286,7 @@ class GooglePush {
                     '%op' => $op,
                   ]);
                 $this->logStats($op, $processed);
-                if (!strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+                if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
                   // Rate limit exceeded, retry. @todo limit number of retries.
                   return;
                 }
