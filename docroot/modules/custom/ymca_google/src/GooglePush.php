@@ -8,6 +8,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Url;
 use Drupal\ymca_groupex\DrupalProxy;
 use Drupal\ymca_mappings\Entity\Mapping;
 
@@ -68,6 +69,13 @@ class GooglePush {
   protected $logger;
 
   /**
+   * Logger Factory.
+   *
+   * @var LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
    * Entity type manager.
    *
    * @var EntityTypeManager
@@ -99,6 +107,7 @@ class GooglePush {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
     $this->logger = $logger->get('gcal_groupex');
+    $this->loggerFactory = $logger;
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
 
@@ -131,6 +140,7 @@ class GooglePush {
       Timer::start($op);
       $processed[$op] = 0;
 
+      /** @var Mapping $entity */
       foreach ($entities as $entity) {
 
         // Refresh the token if it's expired.
@@ -162,15 +172,33 @@ class GooglePush {
               $entity->save();
             }
             catch (\Google_Service_Exception $e) {
-              $message = 'Google_Service_Exception [%op]: %message';
-              $this->logger->error(
-                $message,
-                [
-                  '%message' => $e->getMessage(),
-                  '%op' => $op,
-                ]);
-              $this->logStats($op, $processed);
-              return;
+              if ($e->getCode() == 403) {
+                $message = 'Google_Service_Exception [%op]: %message';
+                $this->logger->error(
+                  $message,
+                  [
+                    '%message' => $e->getMessage(),
+                    '%op' => $op,
+                  ]);
+                $this->logStats($op, $processed);
+                if (!strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+                  // Rate limit exceeded, retry. @todo limit number of retries.
+                  return;
+                }
+              }
+              else {
+                $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+                  $this->loggerFactory->get('GroupX_CM')->error(
+                    $message,
+                    [
+                      '%op' => $op,
+                      '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+                      '%message' => $e->getMessage()
+                    ]
+                  );
+                $this->logStats($op, $processed);
+              }
+
             }
             catch (\Exception $e) {
               $msg = '%type : Error while updating event for entity [%id]: %msg';
@@ -196,15 +224,33 @@ class GooglePush {
               $processed[$op]++;
             }
             catch (\Google_Service_Exception $e) {
-              $message = 'Google_Service_Exception [%op]: %message';
-              $this->logger->error(
-                $message,
-                [
-                  '%message' => $e->getMessage(),
-                  '%op' => $op,
-                ]);
-              $this->logStats($op, $processed);
-              return;
+              if ($e->getCode() == 403) {
+                $message = 'Google_Service_Exception [%op]: %message';
+                $this->logger->error(
+                  $message,
+                  [
+                    '%message' => $e->getMessage(),
+                    '%op' => $op,
+                  ]);
+                $this->logStats($op, $processed);
+                if (!strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+                  // Rate limit exceeded, retry. @todo limit number of retries.
+                  return;
+                }
+              }
+              else {
+                $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+                $this->loggerFactory->get('GroupX_CM')->error(
+                  $message,
+                  [
+                    '%op' => $op,
+                    '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+                    '%message' => $e->getMessage()
+                  ]
+                );
+                $this->logStats($op, $processed);
+              }
+
             }
             catch (\Exception $e) {
               $msg = 'Error while deleting event for entity [%id]: %msg';
@@ -231,15 +277,33 @@ class GooglePush {
               $processed[$op]++;
             }
             catch (\Google_Service_Exception $e) {
-              $message = 'Google_Service_Exception [%op]: %message';
-              $this->logger->error(
-                $message,
-                [
-                  '%message' => $e->getMessage(),
-                  '%op' => $op,
-                ]);
-              $this->logStats($op, $processed);
-              return;
+              if ($e->getCode() == 403) {
+                $message = 'Google_Service_Exception [%op]: %message';
+                $this->logger->error(
+                  $message,
+                  [
+                    '%message' => $e->getMessage(),
+                    '%op' => $op,
+                  ]);
+                $this->logStats($op, $processed);
+                if (!strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+                  // Rate limit exceeded, retry. @todo limit number of retries.
+                  return;
+                }
+              }
+              else {
+                $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+                $this->loggerFactory->get('GroupX_CM')->error(
+                  $message,
+                  [
+                    '%op' => $op,
+                    '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+                    '%message' => $e->getMessage()
+                  ]
+                );
+                $this->logStats($op, $processed);
+              }
+
             }
             catch (\Exception $e) {
               $msg = 'Error while inserting event for entity [%id]: %msg';
