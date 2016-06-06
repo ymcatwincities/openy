@@ -1,6 +1,8 @@
 <?php
 
 namespace Drupal\ymca_frontend\Controller;
+
+use Drupal\Component\Utility\SortArray;
 use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
@@ -55,6 +57,10 @@ class YMCALocationsController {
       }
     }
 
+    // Sort locations alphabetically.
+    uasort($locations_processed, array($this, 'sortLocations'));
+    $locations_processed = array_values($locations_processed);
+
     return array(
       '#theme' => 'locations_content',
       '#locations' => array(),
@@ -86,6 +92,21 @@ class YMCALocationsController {
    */
   public function setTitle() {
     return t('Locations');
+  }
+
+  /**
+   * Sorts the location alphabetically.
+   *
+   * @param array $a
+   *   First item for comparison.
+   * @param array $b
+   *   Second item for comparison.
+   *
+   * @return int
+   *   The comparison result for uasort().
+   */
+  public function sortLocations(array $a, array $b) {
+    return SortArray::sortByKeyString($a, $b, 'name');
   }
 
 }
