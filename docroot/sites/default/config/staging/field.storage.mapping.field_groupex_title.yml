@@ -1,0 +1,21 @@
+uuid: 1e471b9c-51dd-4e7b-b85c-5cf1ad1c7768
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_groupex_title
+field_name: field_groupex_title
+entity_type: mapping
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
