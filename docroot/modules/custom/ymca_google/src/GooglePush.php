@@ -188,14 +188,14 @@ class GooglePush {
               }
               else {
                 $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-                  $this->loggerFactory->get('GroupX_CM')->error(
-                    $message,
-                    [
-                      '%op' => $op,
-                      '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-                      '%message' => $e->getMessage()
-                    ]
-                  );
+                $this->loggerFactory->get('GroupX_CM')->error(
+                  $message,
+                  [
+                    '%op' => $op,
+                    '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+                    '%message' => $e->getMessage()
+                  ]
+                );
                 $this->logStats($op, $processed);
               }
 
