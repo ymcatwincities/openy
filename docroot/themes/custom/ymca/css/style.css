@@ -7880,6 +7880,10 @@ p.legend {
   }
 }
 
+#block-subnavigationblock {
+  position: static;
+}
+
 .form-item {
   margin-bottom: 15px;
 }

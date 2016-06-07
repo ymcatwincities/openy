@@ -23,8 +23,26 @@ class SidebarNavigation extends BlockBase {
     $builder = new YMCAMenuBuilder();
     $active_menu_tree = $builder->getActiveMenuTree();
 
-    if ($link = \Drupal::service('menu.active_trail')->getActiveLink()) {
-      $menu_name = $link->getMenuName();
+    // Reduce page tree only for context for Location and Camps.
+    if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+      if ($site_section->bundle() == 'location' || $site_section->bundle() == 'camp') {
+        foreach ($active_menu_tree['children'] as $key => $child) {
+          if (isset($child['active']) && $child['active']) {
+            foreach ($child['children'] as $sub_key => $sub_child) {
+              if (isset($sub_child['active']) && $sub_child['active']) {
+                $active_menu_tree = $active_menu_tree['children'][$key]['children'][$sub_key];
+              }
+            }
+          }
+        }
+      }
+    }
+
+    $menu_name = '';
+    if ($mlid = $builder->getActiveMlid()) {
+      if ($link = \Drupal::entityTypeManager()->getStorage('menu_link_content')->load($mlid)) {
+        $menu_name = $link->getMenuName();
+      }
     }
 
     return [

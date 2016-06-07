@@ -10,6 +10,8 @@ regions:
   header: Header
   primary_menu: 'Primary menu'
   secondary_menu: 'Secondary menu'
+  location_menu: 'Location menu'
+  sidebar_menu: 'Sidebar menu'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   highlighted: Highlighted
