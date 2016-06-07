@@ -8,7 +8,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\Url;
 use Drupal\ymca_groupex\DrupalProxy;
 use Drupal\ymca_mappings\Entity\Mapping;
 
@@ -18,6 +17,11 @@ use Drupal\ymca_mappings\Entity\Mapping;
  * @package Drupal\ymca_google
  */
 class GooglePush {
+
+  /**
+   * Date format for RRULE.
+   */
+  const RRULE_DATE = 'Ymd\THis\Z';
 
   /**
    * Wrapper to be used.
@@ -407,56 +411,92 @@ class GooglePush {
     $description .= strip_tags(trim(html_entity_decode($entity->field_groupex_description->value)));
     $location = trim($entity->field_groupex_location->value);
     $summary = trim($entity->field_groupex_title->value);
-    $start = $entity->field_timestamp_start->value;
-    $end = $entity->field_timestamp_end->value;
 
+    // Prepare objects.
     $timezone = new \DateTimeZone('UTC');
-    $startDateTime = DrupalDateTime::createFromTimestamp($start, $timezone);
-    $endDateTime = DrupalDateTime::createFromTimestamp($end, $timezone);
+    $date_time = new \DateTime();
+    $date_time->setTimezone($timezone);
 
+    // Start of the event.
+    $start_date_time = clone $date_time;
+    $start_date_time->setTimestamp($entity->field_timestamp_start->value);
+
+    // End of the event.
+    $end_date_time = clone $date_time;
+    $end_date_time->setTimestamp($entity->field_timestamp_end->value);
+
+    // Create Google event.
     $event = new \Google_Service_Calendar_Event([
       'summary' => $summary,
       'location' => $location,
       'description' => $description,
       'start' => [
-        'dateTime' => $startDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
+        'dateTime' => $start_date_time->format(DATETIME_DATETIME_STORAGE_FORMAT),
         'timeZone' => 'UTC',
       ],
       'end' => [
-        'dateTime' => $endDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
+        'dateTime' => $end_date_time->format(DATETIME_DATETIME_STORAGE_FORMAT),
         'timeZone' => 'UTC',
       ],
     ]);
 
     // Add logic for recurring events.
     if (count($list_date) > 1) {
-      $time = $entity->field_groupex_time->value;
+      $rrule = [];
 
-      // Get start timestamps of all events.
+      // Get start timestamps of all events and sort them.
       $timestamps = [];
       foreach ($list_date as $id => $item) {
-        $stamps = $this->proxy->buildTimestamps($item['value'], $time);
+        $stamps = $this->proxy->buildTimestamps($item['value'], $entity->field_groupex_time->value);
         $timestamps[$id] = $stamps['start'];
       }
-
       sort($timestamps, SORT_NUMERIC);
 
-      // Diff in Weeks.
+      // Check the frequency between dates. Exit if it's not weekly event.
       $diff = ($timestamps[1] - $timestamps[0]) / 604800;
       if (!is_int($diff)) {
         $this->logger->error('Got invalid interval %int for frequency for Groupex event %id', ['%int' => $diff, ['%id' => $groupex_id]]);
         return FALSE;
       }
-      $count = $entity->get('field_groupex_date')->count();
 
-      // Get timestamp of the last event.
-      $timezone = new \DateTimeZone('UTC');
-      $dateTime = DrupalDateTime::createFromTimestamp(end($timestamps), $timezone);
-      $until = $dateTime->format('Ymd\THis\Z');
+      // Get datetime object of the last event (RRULE until).
+      $until_date_time = clone $date_time;
+      $until_date_time->setTimestamp(end($timestamps));
+      $until_str = $until_date_time->format(self::RRULE_DATE);
 
-      $event['recurrence'] = [
-        "RRULE:FREQ=WEEKLY;INTERVAL=$diff;COUNT=$count;"
-      ];
+      $rrule[] = "RRULE:FREQ=WEEKLY;INTERVAL=1;UNTIL=$until_str";
+
+      /* Events may have excluded dates. In order to check whether the date
+       * was excluded we need to check every event in the list of date field
+       * of the mapping entity. If date is not present - it's excluded. */
+
+      // Get list of groupex dates in simple format.
+      $dates = [];
+      foreach ($timestamps as $timestamp_item) {
+        $dates[] = $date_time->setTimestamp($timestamp_item)->format(self::RRULE_DATE);
+      }
+
+      // Loop over the each single week and check if the date exists in the event.
+      $exclude = [];
+      $current = $start_date_time->getTimestamp();
+      while ($current <= $until_date_time->getTimestamp()) {
+        $date_time->setTimestamp($current);
+        $needle = $date_time->format(self::RRULE_DATE);
+        if (!in_array($needle, $dates)) {
+          $exclude[] = $needle;
+        }
+
+        // Go to next week.
+        $date_time->add(new \DateInterval('P1W'));
+        $current = $date_time->getTimestamp();
+      }
+
+      if (!empty($exclude)) {
+        // We've got some excluded dates. Add them to event object.
+        $rrule[] = "EXDATE:" . implode(',', $exclude);
+      }
+
+      $event['recurrence'] = $rrule;
     }
 
     return $event;
