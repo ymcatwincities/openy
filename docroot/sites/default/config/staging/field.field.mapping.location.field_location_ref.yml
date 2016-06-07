@@ -12,7 +12,7 @@ entity_type: mapping
 bundle: location
 label: Location
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
