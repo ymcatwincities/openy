@@ -117,11 +117,6 @@ class MindbodyPOCForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    $values['mb_location'] = 2;
-    $values['mb_program'] = 1;
-    $values['mb_session_type'] = 23;
-    $values['mb_trainer'] = 100000064;
-    $values['step'] = 5;
 
     if ($trigger_element = $form_state->getTriggeringElement()) {
       switch ($trigger_element['#name']) {
