@@ -18,14 +18,18 @@ class MindbodyResultsController {
       'location' => is_numeric($query['location']) ? $query['location'] : '',
       'program' => is_numeric($query['program']) ? $query['program'] : '',
       'session_type' => is_numeric($query['session_type']) ? $query['session_type'] : '',
-      'trainer' => is_numeric($query['trainer']) ? $query['trainer'] : '',
+      'trainer' => isset($query['trainer']) ? $query['trainer'] : '',
+      'start_time' => isset($query['start_time']) ? $query['start_time'] : '',
+      'end_time' => isset($query['end_time']) ? $query['end_time'] : '',
+      'start_date' => isset($query['start_date']) ? $query['start_date'] : '',
+      'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
     );
 
     $form = new MindbodyPOCForm();
     $search_results = $form->getSearchResults($values);
 
     return [
-      '#markup' => '<div class="content"><div class="container">' . $search_results . '</div></div>',
+      '#markup' => render($search_results),
       '#cache' => [
         'max-age' => 0,
       ],
