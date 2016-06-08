@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\ymca_mindbody\MindBodyAPI;
 use Drupal\ymca_mindbody\MindbodyProxyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ImmutableConfig;
 
 /**
  * Provides the POC form for Schedules Personal Training.
@@ -17,12 +18,21 @@ class MindbodyPOCForm extends FormBase {
 
   /**
    * Mindbody Proxy.
+   *
    * @var MindbodyProxyInterface
    */
   protected $proxy;
 
+  /**
+   * Credentials.
+   *
+   * @var ImmutableConfig
+   */
+  protected $credentials;
+
   public function __construct(MindbodyProxyInterface $proxy) {
     $this->proxy = $proxy;
+    $this->credentials = $this->config('mindbody.settings');
 
     $credentials = $this->config('ymca_mindbody.settings')->get();
     $this->sourcename = $credentials['sourcename'];
@@ -44,26 +54,6 @@ class MindbodyPOCForm extends FormBase {
    */
   public function getFormId() {
     return 'mindbody_poc';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbApp() {
-    $mb_app = new MindBodyAPI('AppointmentService', TRUE);
-    $mb_app->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_app;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbStaff() {
-    $mb_staff = new MindBodyAPI('StaffService', TRUE);
-    $mb_staff->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_staff;
   }
 
   /**
@@ -149,28 +139,24 @@ class MindbodyPOCForm extends FormBase {
     }
 
     if (isset($values['location']) && isset($values['program']) && isset($values['session_type'])) {
-      /*
-       * NOTE: MINDBODY API doesn't support filtering staff by location without specific date and time.
-       * That's why we see all trainers, even courts.
-       * see screenshot https://goo.gl/I9uNY2
-       * see API Docs https://developers.mindbodyonline.com/Develop/StaffService
-       */
+
+      /* NOTE: MINDBODY API doesn't support filtering staff by location without
+       * specific date and time. That's why we see all trainers, even courts.
+       * See https://developers.mindbodyonline.com/Develop/StaffService */
       $booking_params = array(
         'UserCredentials' => array(
-          'Username' => $this->user_name,
-          'Password' => $this->user_password,
-          'SiteIDs' => array(
-            $this->site_id,
-          ),
+          'Username' => $this->credentials->get('user_name'),
+          'Password' => $this->credentials->get('user_password'),
+          'SiteIDs' => [$this->credentials->get('site_id')],
         ),
-        'SessionTypeIDs' => array($values['session_type']),
-        'LocationIDs' => array($values['location']),
+        'SessionTypeIDs' => [$values['session_type']],
+        'LocationIDs' => [$values['location']],
       );
-      $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
+      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
       $staff_list = array();
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-        $photo = $this->mbStaff()->call('GetStaffImgURL', array('StaffID' => $bookable_item->Staff->ID));
+        $photo = $this->proxy->call('StaffService', 'GetStaffImgURL', ['StaffID' => $bookable_item->Staff->ID]);
         $staff_list[$bookable_item->Staff->ID] = $bookable_item->Staff;
       }
       $trainer_options = array(
@@ -218,17 +204,15 @@ class MindbodyPOCForm extends FormBase {
    */
   public function getSearchResults($values) {
     if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer'])) {
-      $booking_params = array(
-        'UserCredentials' => array(
-          'Username' => $this->user_name,
-          'Password' => $this->user_password,
-          'SiteIDs' => array(
-            $this->site_id,
-          ),
-        ),
-        'SessionTypeIDs' => array($values['session_type']),
-        'LocationIDs' => array($values['location']),
-      );
+      $booking_params = [
+        'UserCredentials' => [
+          'Username' => $this->credentials->get('user_name'),
+          'Password' => $this->credentials->get('user_password'),
+          'SiteIDs' => $this->credentials->get('site_id'),
+        ],
+        'SessionTypeIDs' => [$values['session_type']],
+        'LocationIDs' => [$values['location']],
+      ];
 
       if (!empty($values['trainer']) && $values['trainer'] != 'all') {
         $booking_params['StaffIDs'] = array($values['trainer']);
@@ -236,7 +220,8 @@ class MindbodyPOCForm extends FormBase {
       $booking_params['StartDate'] = date('Y-m-d', strtotime('+ 1 day'));
       $booking_params['EndDate'] = date('Y-m-d', strtotime('+ 4 day'));
 
-      $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
+      // Todo: Move this method to appropriate class.
+      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
       $search_results = '';
       if (count($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem) == 1) {
