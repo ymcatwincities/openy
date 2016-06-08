@@ -1,4 +1,4 @@
-#mindbody-poc-form-wrapper {
+#mindbody-pt-form-wrapper {
   padding: 0 0 100px;
 
   .header-row {
@@ -97,7 +97,11 @@
     @media screen and (max-width: 767px) {
       padding: 0 15px 10px;
     }
-
+    .ajax-progress-throbber {
+      position: absolute;
+      right: 5px;
+      top: 0;
+    }
     .inner {
       background-color: $grey1;
       border-radius: 2px;
@@ -114,8 +118,14 @@
 
       label {
         display: inline-block;
-        line-height: 16px;
+        line-height: 58px;
         vertical-align: middle;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        padding: 0 25px 0 45px;
       }
 
       input {
@@ -160,17 +170,21 @@
       border: 1px solid $grey2;
       position: relative;
 
+      label {
+        display: block;
+      }
+
       .label-wrapper {
         text-align: center;
         height: 70px;
         line-height: 70px;
-
-        label {
-          color: $black2;
-          font-size: 18px;
+        color: $black2;
+        font-size: 18px;
+        vertical-align: middle;
+        span {
+          display: inline-block;
           line-height: 20px;
           vertical-align: middle;
-          display: inline-block;
         }
       }
 
@@ -179,7 +193,7 @@
       }
 
       img {
-        max-width: 100%;
+        width: 100%;
         height: auto;
       }
 
@@ -240,10 +254,7 @@
   }
 
   .form-item-mb-trainer {
-    margin-bottom: 100px;
-    @media screen and (max-width: 767px) {
-      margin-bottom: 20px;
-    }
+    margin-bottom: 0;
     label {
       color: $grey4;
       font-size: 20px;
@@ -424,16 +435,6 @@
     #location-wrapper,
     #program-wrapper,
     #session-type-wrapper {
-      display: none;
-    }
-  }
-
-  &.step-5 {
-    #location-wrapper,
-    #program-wrapper,
-    #session-type-wrapper,
-    #trainer-wrapper,
-    .ok-button {
       display: none;
     }
     .form-group {

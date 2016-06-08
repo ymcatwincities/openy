@@ -48,7 +48,8 @@
 #}
 {%
   set classes = [
-    'col-sm-4',
+    'col-md-4',
+    'col-sm-6',
     'equalize-me-by-height',
     'js-form-item',
     'form-item',
@@ -84,8 +85,12 @@
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
   {% if label_display == 'after' %}
-    <img src="{{ img_path }}" />
-    <div class="label-wrapper">{{ label }}</div>
+    <label for="{{ id }}" class="option">
+      <img src="{{ img_path }}" />
+      <div class="label-wrapper">
+        <span>{{ title }}</span>
+      </div>
+    </label>
   {% endif %}
   {% if errors %}
     <div class="form-item--error-message">

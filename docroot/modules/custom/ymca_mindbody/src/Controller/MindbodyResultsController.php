@@ -2,7 +2,7 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
-use Drupal\ymca_mindbody\Form\MindbodyPOCForm;
+use Drupal\ymca_mindbody\Form\MindbodyPTForm;
 
 /**
  * Controller for "Mindbody results" page.
@@ -25,7 +25,7 @@ class MindbodyResultsController {
       'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
     );
 
-    $form = new MindbodyPOCForm();
+    $form = new MindbodyPTForm();
     $search_results = $form->getSearchResults($values);
 
     return [
