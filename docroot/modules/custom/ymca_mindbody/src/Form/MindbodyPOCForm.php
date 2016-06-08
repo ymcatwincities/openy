@@ -74,7 +74,7 @@ class MindbodyPOCForm extends FormBase {
       case 'location':
         $icon = 'location2';
         $id = 'location-wrapper';
-      break;
+        break;
 
       case 'program':
         $icon = 'training';
@@ -171,6 +171,7 @@ class MindbodyPOCForm extends FormBase {
       '#default_value' => isset($values['mb_location']) ? $values['mb_location'] : '',
       '#prefix' => '<div id="location-wrapper" class="row"><div class="container">',
       '#suffix' => '</div></div>',
+      '#description' => $this->t('You can only select 1 branch per search'),
       '#limit_validation_errors' => array(),
       '#required' => TRUE,
       '#weight' => 2,
@@ -467,7 +468,7 @@ class MindbodyPOCForm extends FormBase {
       $end_time = $time_options[$values['end_time']];
       $start_date = date('n/d/Y', strtotime($values['start_date']));
       $end_date = date('n/d/Y', strtotime($values['end_date']));
-      $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date .'</div>';
+      $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
 
       $search_results = [
         '#theme' => 'mindbody_results_content',
