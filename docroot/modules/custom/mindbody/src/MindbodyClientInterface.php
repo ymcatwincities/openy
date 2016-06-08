@@ -22,6 +22,6 @@ interface MindbodyClientInterface {
    * @return \stdClass
    *   A result.
    */
-  public function call($service, $endpoint, array $params);
+  public function call($service, $endpoint, array $params = []);
 
 }
