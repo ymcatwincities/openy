@@ -72,6 +72,10 @@
     }
   }
 
+  select:hover {
+    border-color: $green3;
+  }
+
   #location-wrapper {
     padding-top: 70px;
     @media screen and (max-width: 767px) {
@@ -163,7 +167,6 @@
 
   .form-item-mb-program {
     padding: 0 15px 15px;
-
     .inner {
       background-color: $grey1;
       border-radius: 2px;
@@ -215,13 +218,19 @@
   .form-item-mb-session-type {
     padding: 0 15px 20px;
 
+    .ajax-progress-throbber {
+      position: absolute;
+      right: 5px;
+      top: 0;
+    }
+
     .inner {
       background-color: $grey1;
       border-radius: 2px;
       border: 1px solid $grey2;
       color: $black2;
       position: relative;
-      padding: 0px 10px 0px 40px;
+      padding: 0px 25px 0px 40px;
       min-height: 58px;
       line-height: 58px;
 
@@ -234,8 +243,14 @@
 
       label {
         display: inline-block;
-        line-height: 16px;
+        line-height: 58px;
         vertical-align: middle;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        padding: 0 25px 0 45px;
       }
 
     }
@@ -307,6 +322,9 @@
       font-size: 14px;
       border-color: $grey2;
       text-indent: 30px;
+      &:hover {
+        color: $green3;
+      }
       @media screen and (max-width: 767px) {
         width: 125px;
       }
