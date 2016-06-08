@@ -11,21 +11,21 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\RemoveCommand;
 
 /**
- * Provides the POC form for Schedules Personal Training.
+ * Provides the Personal Training Form.
  *
  * @ingroup ymca_mindbody
  */
-class MindbodyPOCForm extends FormBase {
+class MindbodyPTForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'mindbody_poc';
+    return 'mindbody_pt';
   }
 
   /**
-   * MindbodyPOCForm constructor.
+   * MindbodyPTForm constructor.
    */
   public function __construct() {
     $credentials = $this->config('ymca_mindbody.settings')->get();
@@ -153,7 +153,7 @@ class MindbodyPOCForm extends FormBase {
       '#value' => $values['step'],
     ];
 
-    $form['#prefix'] = '<div id="mindbody-poc-form-wrapper" class="content step-' . $values['step'] . '">';
+    $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
     $locations = $this->mbSite()->call('GetLocations', array());
@@ -172,12 +172,10 @@ class MindbodyPOCForm extends FormBase {
       '#prefix' => '<div id="location-wrapper" class="row"><div class="container">',
       '#suffix' => '</div></div>',
       '#description' => $this->t('You can only select 1 branch per search'),
-      '#limit_validation_errors' => array(),
-      '#required' => TRUE,
       '#weight' => 2,
       '#ajax' => array(
         'callback' => array($this, 'rebuildAjaxCallback'),
-        'wrapper' => 'mindbody-poc-form-wrapper',
+        'wrapper' => 'mindbody-pt-form-wrapper',
         'event' => 'change',
         'method' => 'replace',
         'effect' => 'fade',
@@ -204,12 +202,10 @@ class MindbodyPOCForm extends FormBase {
         '#default_value' => isset($values['mb_program']) ? $values['mb_program'] : '',
         '#prefix' => '<div id="program-wrapper" class="row"><div class="container">',
         '#suffix' => '</div></div>',
-        '#limit_validation_errors' => array(),
-        '#required' => TRUE,
         '#weight' => 4,
         '#ajax' => array(
           'callback' => array($this, 'rebuildAjaxCallback'),
-          'wrapper' => 'mindbody-poc-form-wrapper',
+          'wrapper' => 'mindbody-pt-form-wrapper',
           'method' => 'replace',
           'event' => 'change',
           'effect' => 'fade',
@@ -237,12 +233,10 @@ class MindbodyPOCForm extends FormBase {
         '#default_value' => isset($values['mb_session_type']) ? $values['mb_session_type'] : '',
         '#prefix' => '<div id="session-type-wrapper" class="row"><div class="container">',
         '#suffix' => '</div></div>',
-        '#limit_validation_errors' => array(),
-        '#required' => TRUE,
         '#weight' => 6,
         '#ajax' => array(
           'callback' => array($this, 'rebuildAjaxCallback'),
-          'wrapper' => 'mindbody-poc-form-wrapper',
+          'wrapper' => 'mindbody-pt-form-wrapper',
           'event' => 'change',
           'effect' => 'fade',
           'progress' => array(
@@ -292,8 +286,6 @@ class MindbodyPOCForm extends FormBase {
         '#type' => 'select',
         '#title' => $this->t('Trainer'),
         '#options' => $trainer_options,
-        '#limit_validation_errors' => array(),
-        '#required' => TRUE,
         '#default_value' => isset($values['mb_trainer']) ? $values['mb_trainer'] : 'all',
         '#prefix' => '<div id="trainer-wrapper" class="row"><div class="container"><div class="col-sm-4">',
         '#suffix' => '</div></div></div>',
@@ -304,32 +296,6 @@ class MindbodyPOCForm extends FormBase {
       $form['actions']['#prefix'] = '<div id="actions-wrapper" class="row"><div class="container"><div class="col-sm-12">';
       $form['actions']['#suffix'] = '</div></div></div>';
 
-      $form['actions']['ok'] = array(
-        '#type' => 'submit',
-        '#value' => $this->t('OK'),
-        '#name' => 'ok',
-        '#submit' => array(array($this, 'rebuildAjaxSubmit')),
-        '#ajax' => array(
-          'callback' => array($this, 'rebuildAjaxCallback'),
-          'wrapper' => 'mindbody-poc-form-wrapper',
-          'effect' => 'fade',
-          'progress' => array(
-            'type' => 'throbber',
-          ),
-        ),
-        '#attributes' => [
-          'class' => [
-            'ok-button', 'form_submit', 'btn', 'btn-lg', 'btn-primary',
-          ]
-        ],
-      );
-    }
-
-    if ($values['step'] >= 5) {
-      $form['mb_trainer_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('trainer', $trainer_options[$values['mb_trainer']]),
-        '#weight' => 7,
-      );
       $timezone = drupal_get_user_timezone();
       // Initially srart date defined as today.
       $start_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
@@ -404,13 +370,6 @@ class MindbodyPOCForm extends FormBase {
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function rebuildAjaxSubmit(array &$form, FormStateInterface $form_state) {
-    $form_state->setRebuild();
   }
 
   /**
@@ -496,7 +455,7 @@ class MindbodyPOCForm extends FormBase {
         '#session_type' => $bookable_item->SessionType->Name,
         '#trainer' => $trainer,
         '#datetime' => $datetime,
-        '#back_link' => Url::fromRoute('ymca_mindbody.poc'),
+        '#back_link' => Url::fromRoute('ymca_mindbody.pt'),
         '#base_path' => base_path(),
         '#days' => $days,
       ];
@@ -539,7 +498,7 @@ class MindbodyPOCForm extends FormBase {
         'end_date'     => $values['mb_end_date']['date'],
       ];
       $form_state->setRedirect(
-        'ymca_mindbody.poc.results',
+        'ymca_mindbody.pt.results',
         [],
         ['query' => $params]
       );
