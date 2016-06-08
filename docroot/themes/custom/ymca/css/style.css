@@ -8019,6 +8019,18 @@ p.legend {
     padding-top: 35px;
   }
 }
+#mindbody-poc-form-wrapper #location-wrapper .fieldset-wrapper {
+  position: relative;
+  padding-top: 25px;
+}
+#mindbody-poc-form-wrapper #location-wrapper .fieldset-wrapper .description {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  font-style: italic;
+  color: #a7a7a7;
+  font-family: "Cachet", Arial, sans-serif;
+}
 #mindbody-poc-form-wrapper .form-item-mb-location {
   padding: 15px;
 }
