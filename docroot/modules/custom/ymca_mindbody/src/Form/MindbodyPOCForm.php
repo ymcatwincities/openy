@@ -442,7 +442,7 @@ class MindbodyPOCForm extends FormBase {
       $start_time = $time_options[$values['start_time']];
       $end_time = $time_options[$values['end_time']];
 
-      foreach($time_options as $key => $option) {
+      foreach ($time_options as $key => $option) {
         if ($option == $start_time) {
           $start_index = $key;
         }
