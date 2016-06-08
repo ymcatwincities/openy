@@ -438,17 +438,36 @@ class MindbodyPOCForm extends FormBase {
 
       $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
 
+      $time_options = $this->getTimeOptions();
+      $start_time = $time_options[$values['start_time']];
+      $end_time = $time_options[$values['end_time']];
+
+      foreach($time_options as $key => $option) {
+        if ($option == $start_time) {
+          $start_index = $key;
+        }
+        if ($option == $end_time) {
+          $end_index = $key;
+        }
+      }
+      $time_range = range($start_index, $end_index);
+
       $days = [];
       // Group results by date and trainer.
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-        $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
-        $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-        $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-          'is_available' => TRUE,
-          'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
-          // To Do: Add bookable link.
-          'href' => '#',
-        ];
+        // Additionally filter results by time.
+        $start_time = date('G', strtotime($bookable_item->StartDateTime));
+        $end_time = date('G', strtotime($bookable_item->EndDateTime));
+        if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+          $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
+          $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
+          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+            'is_available' => TRUE,
+            'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
+            // To Do: Add bookable link.
+            'href' => '#',
+          ];
+        }
       }
 
       $programs = $this->mbSite()->call('GetPrograms', array('OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment'));
