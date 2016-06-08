@@ -8011,6 +8011,9 @@ p.legend {
   margin-bottom: 25px;
   margin-left: 15px;
 }
+#mindbody-pt-form-wrapper select:hover {
+  border-color: #26bcbd;
+}
 #mindbody-pt-form-wrapper #location-wrapper {
   padding-top: 70px;
 }
@@ -8143,13 +8146,18 @@ p.legend {
 #mindbody-pt-form-wrapper .form-item-mb-session-type {
   padding: 0 15px 20px;
 }
+#mindbody-pt-form-wrapper .form-item-mb-session-type .ajax-progress-throbber {
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
 #mindbody-pt-form-wrapper .form-item-mb-session-type .inner {
   background-color: #f8f8f8;
   border-radius: 2px;
   border: 1px solid #e9e9e9;
   color: #1d1d1b;
   position: relative;
-  padding: 0px 10px 0px 40px;
+  padding: 0px 25px 0px 40px;
   min-height: 58px;
   line-height: 58px;
 }
@@ -8161,8 +8169,14 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-item-mb-session-type .inner label {
   display: inline-block;
-  line-height: 16px;
+  line-height: 58px;
   vertical-align: middle;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  padding: 0 25px 0 45px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-session-type.checked .inner {
   background-color: #c6188b;
@@ -8224,6 +8238,9 @@ p.legend {
   font-size: 14px;
   border-color: #e9e9e9;
   text-indent: 30px;
+}
+#mindbody-pt-form-wrapper .form-item-mb-start-time select:hover {
+  color: #26bcbd;
 }
 @media screen and (max-width: 767px) {
   #mindbody-pt-form-wrapper .form-item-mb-start-time select {
