@@ -142,7 +142,7 @@
    */
   Drupal.behaviors.ymca_mindbody = {
     attach: function (context, settings) {
-      $('#mindbody-poc-form-wrapper a.change').on('click', function(e) {
+      $('#mindbody-pt-form-wrapper a.change').on('click', function(e) {
         e.preventDefault();
         var id = $(this).attr('href');
         $(id).slideDown();
