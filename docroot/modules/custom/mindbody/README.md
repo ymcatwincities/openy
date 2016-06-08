@@ -10,4 +10,4 @@ MindBody API client implementation.
 ## How to use
 
 For example, to get a list of locations use the next code:
-`$locations = \Drupal::service('mindbody.client')->call('SiteService', 'GetLocations', []);`
+`$locations = \Drupal::service('mindbody.client')->call('SiteService', 'GetLocations');`
