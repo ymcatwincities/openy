@@ -1,0 +1,6 @@
+uuid: 683233e8-8162-44b8-8ca2-63a4e9bfeeed
+langcode: en
+status: true
+dependencies: {  }
+id: mindbody_cache
+label: 'MindBody Cache'
