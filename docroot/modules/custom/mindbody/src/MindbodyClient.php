@@ -52,7 +52,7 @@ class MindbodyClient implements MindbodyClientInterface {
    * @param ConfigFactoryInterface $config_factory
    *   Config factory.
    */
-  function __construct(ConfigFactoryInterface $config_factory) {
+  public function __construct(ConfigFactoryInterface $config_factory) {
     $this->configFactory = $config_factory;
   }
 
@@ -104,7 +104,7 @@ class MindbodyClient implements MindbodyClientInterface {
   public function call($service, $endpoint, array $params) {
     $this->setCredentials();
     $this->setUpClient($service);
-    return $this->client->{$endpoint}($this->GetMindbodyParams($params));
+    return $this->client->{$endpoint}($this->getMindbodyParams($params));
   }
 
   /**
@@ -116,16 +116,16 @@ class MindbodyClient implements MindbodyClientInterface {
    * @return array
    *   Params.
    */
-  protected function GetMindbodyParams(array $additions) {
+  protected function getMindbodyParams(array $additions) {
     $params['SourceCredentials'] = $this->credentials;
     $params['XMLDetail'] = 'Full';
-    $params['PageSize'] = null;
-    $params['CurrentPageIndex'] = null;
+    $params['PageSize'] = NULL;
+    $params['CurrentPageIndex'] = NULL;
     if (empty($additions['Fields'])) {
-      $params['Fields'] = null;
+      $params['Fields'] = NULL;
     }
 
-    return array('Request' => array_merge($params, $additions));
+    return ['Request' => array_merge($params, $additions)];
   }
 
 }
