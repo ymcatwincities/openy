@@ -101,7 +101,7 @@ class MindbodyClient implements MindbodyClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function call($service, $endpoint, array $params) {
+  public function call($service, $endpoint, array $params = []) {
     $this->setCredentials();
     $this->setUpClient($service);
     return $this->client->{$endpoint}($this->getMindbodyParams($params));
