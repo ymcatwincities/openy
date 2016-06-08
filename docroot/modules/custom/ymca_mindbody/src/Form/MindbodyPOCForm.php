@@ -5,6 +5,8 @@ namespace Drupal\ymca_mindbody\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\ymca_mindbody\MindBodyAPI;
+use Drupal\ymca_mindbody\MindbodyProxyInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the POC form for Schedules Personal Training.
@@ -14,16 +16,14 @@ use Drupal\ymca_mindbody\MindBodyAPI;
 class MindbodyPOCForm extends FormBase {
 
   /**
-   * {@inheritdoc}
+   * Mindbody Proxy.
+   * @var MindbodyProxyInterface
    */
-  public function getFormId() {
-    return 'mindbody_poc';
-  }
+  protected $proxy;
 
-  /**
-   * MindbodyPOCForm constructor.
-   */
-  public function __construct() {
+  public function __construct(MindbodyProxyInterface $proxy) {
+    $this->proxy = $proxy;
+
     $credentials = $this->config('ymca_mindbody.settings')->get();
     $this->sourcename = $credentials['sourcename'];
     $this->password = $credentials['password'];
@@ -35,11 +35,15 @@ class MindbodyPOCForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  protected function mbSite() {
-    $mb_site = new MindBodyAPI('SiteService', TRUE);
-    $mb_site->setCredentials($this->sourcename, $this->password, array($this->site_id));
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('ymca_mindbody.proxy'));
+  }
 
-    return $mb_site;
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'mindbody_poc';
   }
 
   /**
@@ -71,7 +75,7 @@ class MindbodyPOCForm extends FormBase {
 
     $values = $form_state->getUserInput();
 
-    $locations = $this->mbSite()->call('GetLocations', array());
+    $locations = $this->proxy->call('SiteService', 'GetLocations');
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
       if ($location->HasClasses != TRUE) {
@@ -98,7 +102,7 @@ class MindbodyPOCForm extends FormBase {
     );
 
     if (isset($values['location'])) {
-      $programs = $this->mbSite()->call('GetPrograms', array('OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment'));
+      $programs = $this->proxy->call('SiteService', 'GetPrograms', ['OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment']);
       $program_options = [];
       foreach ($programs->GetProgramsResult->Programs->Program as $program) {
         $program_options[$program->ID] = $program->Name;
@@ -121,7 +125,7 @@ class MindbodyPOCForm extends FormBase {
     }
 
     if (isset($values['location']) && isset($values['program'])) {
-      $session_types = $this->mbSite()->call('GetSessionTypes', array('OnlineOnly' => FALSE, 'ProgramIDs' => array($values['program'])));
+      $session_types = $this->proxy->call('SiteService', 'GetSessionTypes', ['OnlineOnly' => FALSE, 'ProgramIDs' => [$values['program']]]);
       $session_type_options = [];
       foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
         $session_type_options[$type->ID] = $type->Name;
