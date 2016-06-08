@@ -1,0 +1,19 @@
+uuid: 355abb70-ba3d-4f8b-b19f-45641fff0c53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_mindbody_data
+    - ymca_mappings.mapping_type.mindbody_cache
+id: mapping.mindbody_cache.field_mindbody_data
+field_name: field_mindbody_data
+entity_type: mapping
+bundle: mindbody_cache
+label: 'MindBody Data'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
