@@ -1,0 +1,21 @@
+uuid: 7a6f65eb-7645-4321-99ef-28566753e171
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_mindbody_params
+field_name: field_mindbody_params
+entity_type: mapping
+type: string
+settings:
+  max_length: 512
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

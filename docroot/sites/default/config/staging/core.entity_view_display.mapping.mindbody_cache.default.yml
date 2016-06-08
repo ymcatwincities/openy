@@ -1,0 +1,67 @@
+uuid: 91e3d412-3c91-43e5-af6a-bd525621cc19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.mindbody_cache.field_mindbody_data
+    - field.field.mapping.mindbody_cache.field_mindbody_hits
+    - field.field.mapping.mindbody_cache.field_mindbody_method
+    - field.field.mapping.mindbody_cache.field_mindbody_params
+    - field.field.mapping.mindbody_cache.field_mindbody_service
+    - ymca_mappings.mapping_type.mindbody_cache
+  module:
+    - user
+id: mapping.mindbody_cache.default
+targetEntityType: mapping
+bundle: mindbody_cache
+mode: default
+content:
+  field_mindbody_data:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_mindbody_hits:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_mindbody_method:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_mindbody_params:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_mindbody_service:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

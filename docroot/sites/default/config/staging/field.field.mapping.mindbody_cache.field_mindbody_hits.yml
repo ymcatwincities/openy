@@ -1,0 +1,25 @@
+uuid: d92106eb-5378-4194-b29e-9c863e00d0ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_mindbody_hits
+    - ymca_mappings.mapping_type.mindbody_cache
+id: mapping.mindbody_cache.field_mindbody_hits
+field_name: field_mindbody_hits
+entity_type: mapping
+bundle: mindbody_cache
+label: 'MindBody Hits'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

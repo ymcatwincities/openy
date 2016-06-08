@@ -1,0 +1,20 @@
+uuid: 62649473-3fed-4bd4-a2f4-289552b505e3
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_mindbody_hits
+field_name: field_mindbody_hits
+entity_type: mapping
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
