@@ -12,9 +12,9 @@ interface MindbodyClientInterface {
   /**
    * Make request to MindBody API.
    *
-   * @param $service
+   * @param string $service
    *   Service name. Example: 'SiteService'.
-   * @param $endpoint
+   * @param string $endpoint
    *   Endpoint name. Example: 'GetLocations'.
    * @param array $params
    *   Array of parameters.
