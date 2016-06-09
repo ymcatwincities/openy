@@ -1,0 +1,13 @@
+# MindBody Cache menu items definition
+entity.mindbody_cache.collection:
+  title: 'MindBody Cache list'
+  route_name: entity.mindbody_cache.collection
+  description: 'List MindBody Cache entities'
+  parent: system.admin_structure
+  weight: 100
+
+mindbody_cache.admin.structure.settings:
+  title: MindBody Cache settings
+  description: 'Configure MindBody Cache entities'
+  route_name: mindbody_cache.settings
+  parent: system.admin_structure
