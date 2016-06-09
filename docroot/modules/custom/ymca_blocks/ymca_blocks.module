@@ -51,6 +51,18 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'alert-block',
     ],
+    'sub_navigation_block' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'sub-navigation-block',
+    ],
+    'masthead_navigation_block' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'masthead-navigation-block',
+    ],
   ];
 }
 
