@@ -1,0 +1,23 @@
+uuid: af5a621f-329a-4582-ac5a-7cbbe71535cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_time_frame_end
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_time_frame_end
+field_name: field_time_frame_end
+entity_type: mapping
+bundle: groupex
+label: 'Time Frame End'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
