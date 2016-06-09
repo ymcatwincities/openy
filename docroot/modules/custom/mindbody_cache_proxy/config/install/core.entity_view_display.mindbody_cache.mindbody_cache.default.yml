@@ -29,11 +29,12 @@ content:
     third_party_settings: {  }
     type: string
   field_mindbody_cache_params:
-    weight: 3
+    weight: 5
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    type: basic_string
+    type: string
   field_mindbody_cache_service:
     weight: 1
     label: above

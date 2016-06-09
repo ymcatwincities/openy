@@ -1,4 +1,4 @@
-uuid: 63145999-a6ee-47b8-b59a-3ad1ec3876b8
+uuid: e7f83ea7-359e-4d5e-8f3f-96a7dc625f8c
 langcode: en
 status: true
 dependencies:
@@ -7,8 +7,10 @@ dependencies:
 id: mindbody_cache.field_mindbody_cache_params
 field_name: field_mindbody_cache_params
 entity_type: mindbody_cache
-type: string_long
+type: string
 settings:
+  max_length: 1024
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false
