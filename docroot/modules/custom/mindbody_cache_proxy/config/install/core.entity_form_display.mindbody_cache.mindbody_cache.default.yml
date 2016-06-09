@@ -1,0 +1,65 @@
+uuid: 52cc8d58-f543-40eb-bda7-0dde6aba7238
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_data
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_endpoint
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_params
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_service
+  module:
+    - mindbody_cache_proxy
+id: mindbody_cache.mindbody_cache.default
+targetEntityType: mindbody_cache
+bundle: mindbody_cache
+mode: default
+content:
+  field_mindbody_cache_data:
+    weight: 14
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_mindbody_cache_endpoint:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_mindbody_cache_params:
+    weight: 15
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_mindbody_cache_service:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

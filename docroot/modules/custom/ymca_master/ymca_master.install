@@ -3035,9 +3035,24 @@ function ymca_master_update_8128() {
 }
 
 /**
- * Migrate location schedules to blocks.
+ * Install MindBody modules.
  */
 function ymca_master_update_8129() {
+  $modules = ['mindbody', 'mindbody_cache_proxy', 'ymca_mindbody'];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Migrate location schedules to blocks.
+ */
+function ymca_master_update_8130() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
