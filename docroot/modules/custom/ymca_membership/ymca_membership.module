@@ -19,6 +19,8 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
         'assets_path' => '',
         'block_form_fee' => '',
         'block_cost' => '',
+        'block_become_a_member' => '',
+        'block_ready_started' => '',
         'form' => '',
       ],
       'template' => 'membership-page',
