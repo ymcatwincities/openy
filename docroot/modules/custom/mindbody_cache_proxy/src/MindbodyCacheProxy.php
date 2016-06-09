@@ -85,6 +85,12 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
     return $result;
   }
 
+  /**
+   * Update stats.
+   *
+   * @param string $type
+   *   Either: 'hit' or 'miss' string.
+   */
   protected function updateStats($type) {
     $current = $this->state->get(self::STORAGE);
     $date_time = new \DateTime();
@@ -115,7 +121,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
   private function flushStats($type) {
     $date_time = new \DateTime();
     $date_time->setTimezone(new \DateTimeZone('UTC'));
-    $date_time->setTime(0,0,0);
+    $date_time->setTime(0, 0, 0);
 
     $data = new \stdClass();
     $data->timestamp = $date_time->getTimestamp();
