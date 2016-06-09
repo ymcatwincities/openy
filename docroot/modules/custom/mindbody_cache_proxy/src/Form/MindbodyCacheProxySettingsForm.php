@@ -13,7 +13,7 @@ class MindbodyCacheProxySettingsForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
+  public function getFormId() {
     return 'mindbody_cache_proxy_settings_form';
   }
 
