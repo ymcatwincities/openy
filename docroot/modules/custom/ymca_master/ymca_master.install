@@ -3037,8 +3037,9 @@ function ymca_master_update_8128() {
 /**
  * Install MindBody modules.
  */
-function ymca_master_update_8128() {
-  \Drupal::service('module_installer')->install(['mindbody', 'mindbody_cache_proxy', 'ymca_mindbody'], TRUE);
+function ymca_master_update_8129() {
+  $modules = ['mindbody', 'mindbody_cache_proxy', 'ymca_mindbody'];
+  \Drupal::service('module_installer')->install($modules, TRUE);
 
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
