@@ -13,12 +13,14 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
     - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
+    - entity_browser
     - file_browser
     - inline_entity_form
     - path
@@ -115,6 +117,17 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+  field_schedule_block:
+    weight: 26
+    settings:
+      entity_browser: browse_block_modal
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
   field_schedule_content:
     weight: 16
     settings:
