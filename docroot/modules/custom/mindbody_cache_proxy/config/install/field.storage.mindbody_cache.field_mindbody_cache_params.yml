@@ -1,0 +1,19 @@
+uuid: 63145999-a6ee-47b8-b59a-3ad1ec3876b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - mindbody_cache_proxy
+id: mindbody_cache.field_mindbody_cache_params
+field_name: field_mindbody_cache_params
+entity_type: mindbody_cache
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
