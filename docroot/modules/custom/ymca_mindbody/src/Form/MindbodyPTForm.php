@@ -32,26 +32,28 @@ class MindbodyPTForm extends FormBase {
   protected $credentials;
 
   /**
+   * MindbodyPTForm constructor.
+   *
+   * @param MindbodyCacheProxyInterface $cache_proxy
+   *   Mindbody cache proxy.
+   */
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
+    $this->proxy = $cache_proxy;
+    $this->credentials = $this->config('mindbody.settings');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('mindbody_cache_proxy.client'));
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'mindbody_pt';
-  }
-
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
-    $this->proxy = $cache_proxy;
-    $this->credentials = $this->config('mindbody.settings');
-
-    $credentials = $this->config('ymca_mindbody.settings')->get();
-    $this->sourcename = $credentials['sourcename'];
-    $this->password = $credentials['password'];
-    $this->site_id = $credentials['site_id'];
-    $this->user_name = $credentials['user_name'];
-    $this->user_password = $credentials['user_password'];
-  }
-
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('mindbody_cache_proxy.client'));
   }
 
   /**
@@ -363,17 +365,15 @@ class MindbodyPTForm extends FormBase {
    */
   public function getSearchResults($values) {
     if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer']) && isset($values['start_date']) && isset($values['end_date'])) {
-      $booking_params = array(
-        'UserCredentials' => array(
-          'Username' => $this->user_name,
-          'Password' => $this->user_password,
-          'SiteIDs' => array(
-            $this->site_id,
-          ),
-        ),
-        'SessionTypeIDs' => array($values['session_type']),
-        'LocationIDs' => array($values['location']),
-      );
+      $booking_params = [
+        'UserCredentials' => [
+          'Username' => $this->credentials->get('user_name'),
+          'Password' => $this->credentials->get('user_password'),
+          'SiteIDs' => [$this->credentials->get('site_id')],
+        ],
+        'SessionTypeIDs' => [$values['session_type']],
+        'LocationIDs' => [$values['location']],
+      ];
 
       if (!empty($values['trainer']) && $values['trainer'] != 'all') {
         $booking_params['StaffIDs'] = array($values['trainer']);
@@ -381,7 +381,7 @@ class MindbodyPTForm extends FormBase {
       $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
       $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
 
-      $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
+      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
       $time_options = $this->getTimeOptions();
       $start_time = $time_options[$values['start_time']];

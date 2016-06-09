@@ -3021,25 +3021,15 @@ function ymca_master_update_8127() {
 }
 
 /**
- * Add MindBody Cache mapping entity.
+ * Install MindBody modules.
  */
 function ymca_master_update_8128() {
+  \Drupal::service('module_installer')->install(['mindbody', 'mindbody_cache_proxy', 'ymca_mindbody'], TRUE);
+
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'core.entity_form_display.mapping.mindbody_cache.default.yml',
-      $path . 'core.entity_view_display.mapping.mindbody_cache.default.yml',
-      $path . 'field.field.mapping.mindbody_cache.field_mindbody_data.yml',
-      $path . 'field.field.mapping.mindbody_cache.field_mindbody_hits.yml',
-      $path . 'field.field.mapping.mindbody_cache.field_mindbody_method.yml',
-      $path . 'field.field.mapping.mindbody_cache.field_mindbody_params.yml',
-      $path . 'field.field.mapping.mindbody_cache.field_mindbody_service.yml',
-      $path . 'field.storage.mapping.field_mindbody_data.yml',
-      $path . 'field.storage.mapping.field_mindbody_hits.yml',
-      $path . 'field.storage.mapping.field_mindbody_method.yml',
-      $path . 'field.storage.mapping.field_mindbody_params.yml',
-      $path . 'field.storage.mapping.field_mindbody_service.yml',
-      $path . 'ymca_mappings.mapping_type.mindbody_cache.yml',
+      $path . 'mindbody.settings.yml',
     ]
   );
 }
