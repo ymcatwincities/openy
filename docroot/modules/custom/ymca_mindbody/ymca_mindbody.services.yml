@@ -1,4 +1,0 @@
-services:
-  ymca_mindbody.proxy:
-    class: Drupal\ymca_mindbody\MindbodyProxy
-    arguments: ["@mindbody.client"]
