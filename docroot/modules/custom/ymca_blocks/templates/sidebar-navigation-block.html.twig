@@ -11,7 +11,44 @@
  * @ingroup themeable
  */
 #}
-<div{{ attributes }}>
-  {{ title_suffix }}
-  {{ content }}
-</div>
+{% for item in content.active_menu_tree.children %}
+  {% if item.active %}
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <a href="{{ item.url }}">{{ item.page_name }}</a>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <ul class="nav-level-3 nav nav-stacked">
+        {% for item in item.children %}
+        <li class="{% if item.children %} dropdown {% if item.active %} open{% endif %}{% endif %}{% if item.current %} current{% endif %}">
+          <a href="{{ item.url }}" class="">{{ item.page_name }}</a>
+          <ul class="nav-level-4 nav nav-stacked dropdown-menu">
+            {% for item in item.children %}
+            <li class="{{ item.classes }}{% if item.children %} dropdown {% if item.active %} open{% endif %}{% endif %}{% if item.current %} current{% endif %}">
+              <a href="{{ item.url }}" class="{{ item.classes }}">{{ item.page_name }}</a>
+              <ul class="nav-level-5 nav nav-stacked dropdown-menu">
+                {% for item in item.children %}
+                <li class="{% if item.children %} dropdown {% if item.active %} open{% endif %}{% endif %}{% if item.current%} current{% endif %}">
+                  <a href="{{ item.url }}" class="">{{ item.page_name }}</a>
+                  <ul class="nav-level-5 nav nav-stacked dropdown-menu">
+                    {% for item in item.children %}
+                    <li class="{% if item.current %} current{% endif %}">
+                      <a href="{{ item.url }}" class="">{{ item.page_name }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+{% endfor %}

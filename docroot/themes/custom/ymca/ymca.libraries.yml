@@ -7,6 +7,7 @@ global-styling:
       css/legacy/components.css: {}
       css/style.css: {}
   js:
+    /libraries/equalize/js/equalize.min.js: {}
     scripts/vendor/iframeSizer.min.js: {}
     scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js: {}
     scripts/legacy/jquery-clockwork.min.js: {}
