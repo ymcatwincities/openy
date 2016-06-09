@@ -2796,6 +2796,8 @@ function ymca_master_update_8120() {
       $path . 'field.field.mapping.groupex.field_timestamp_start.yml',
       $path . 'field.field.mapping.groupex.field_groupex_date.yml',
       $path . 'field.field.mapping.groupex.field_groupex_time.yml',
+      $path . 'field.field.mapping.groupex.field_gcal_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_title.yml',
       $path . 'field.storage.mapping.field_groupex_category.yml',
       $path . 'field.storage.mapping.field_groupex_class_id.yml',
       $path . 'field.storage.mapping.field_groupex_description.yml',
@@ -2808,6 +2810,8 @@ function ymca_master_update_8120() {
       $path . 'field.storage.mapping.field_timestamp_start.yml',
       $path . 'field.storage.mapping.field_groupex_date.yml',
       $path . 'field.storage.mapping.field_groupex_time.yml',
+      $path . 'field.storage.mapping.field_gcal_id.yml',
+      $path . 'field.storage.mapping.field_groupex_title.yml',
       $path . 'ymca_mappings.mapping_type.groupex.yml',
     ]
   );
@@ -2839,9 +2843,186 @@ function ymca_master_update_8122() {
 }
 
 /**
- * Add YMCA menu blocks.
+ * Add YMCA Sync module and update fields.
  */
 function ymca_master_update_8123() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.groupex.default.yml',
+      $path . 'core.entity_view_display.mapping.groupex.default.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_category.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_class_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_description.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_location.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_orig_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_studio.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_sub_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_end.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_start.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_date.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_time.yml',
+      $path . 'field.field.mapping.groupex.field_gcal_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_title.yml',
+      $path . 'field.field.mapping.groupex.field_time_frame_start.yml',
+      $path . 'field.field.mapping.groupex.field_time_frame_end.yml',
+      $path . 'field.storage.mapping.field_groupex_category.yml',
+      $path . 'field.storage.mapping.field_groupex_class_id.yml',
+      $path . 'field.storage.mapping.field_groupex_description.yml',
+      $path . 'field.storage.mapping.field_groupex_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_location.yml',
+      $path . 'field.storage.mapping.field_groupex_orig_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_studio.yml',
+      $path . 'field.storage.mapping.field_groupex_sub_instructor.yml',
+      $path . 'field.storage.mapping.field_timestamp_end.yml',
+      $path . 'field.storage.mapping.field_timestamp_start.yml',
+      $path . 'field.storage.mapping.field_groupex_date.yml',
+      $path . 'field.storage.mapping.field_groupex_time.yml',
+      $path . 'field.storage.mapping.field_gcal_id.yml',
+      $path . 'field.storage.mapping.field_groupex_title.yml',
+      $path . 'field.storage.mapping.field_time_frame_start.yml',
+      $path . 'field.storage.mapping.field_time_frame_end.yml',
+      $path . 'ymca_mappings.mapping_type.groupex.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['ymca_sync'], TRUE);
+}
+
+/**
+ * Import GCal credentials config.
+ */
+function ymca_master_update_8124() {
+  $path = drupal_get_path('module', 'ymca_google') . '/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_google.token.yml',
+      $path . 'ymca_google.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Import personify configs.
+ */
+function ymca_master_update_8125() {
+  $path = drupal_get_path('module', 'ymca_personify');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/install/ymca_personify.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add fields to location mapping entity.
+ */
+function ymca_master_update_8126() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.location.default.yml',
+      $path . 'core.entity_view_display.mapping.location.default.yml',
+      $path . 'field.field.mapping.location.field_location_address_1.yml',
+      $path . 'field.field.mapping.location.field_location_address_2.yml',
+      $path . 'field.field.mapping.location.field_location_city.yml',
+      $path . 'field.field.mapping.location.field_location_hrs_mon_fri.yml',
+      $path . 'field.field.mapping.location.field_location_hrs_sat_sun.yml',
+      $path . 'field.field.mapping.location.field_location_icon.yml',
+      $path . 'field.field.mapping.location.field_location_latitude.yml',
+      $path . 'field.field.mapping.location.field_location_longitude.yml',
+      $path . 'field.field.mapping.location.field_location_map_shadow.yml',
+      $path . 'field.field.mapping.location.field_location_name.yml',
+      $path . 'field.field.mapping.location.field_location_personify_brcode.yml',
+      $path . 'field.field.mapping.location.field_location_phone.yml',
+      $path . 'field.field.mapping.location.field_location_ref.yml',
+      $path . 'field.field.mapping.location.field_location_state.yml',
+      $path . 'field.field.mapping.location.field_location_tags.yml',
+      $path . 'field.field.mapping.location.field_location_zip.yml',
+      $path . 'field.field.mapping.location.field_location_url.yml',
+      $path . 'field.storage.mapping.field_location_address_1.yml',
+      $path . 'field.storage.mapping.field_location_address_2.yml',
+      $path . 'field.storage.mapping.field_location_city.yml',
+      $path . 'field.storage.mapping.field_location_hrs_mon_fri.yml',
+      $path . 'field.storage.mapping.field_location_hrs_sat_sun.yml',
+      $path . 'field.storage.mapping.field_location_icon.yml',
+      $path . 'field.storage.mapping.field_location_latitude.yml',
+      $path . 'field.storage.mapping.field_location_longitude.yml',
+      $path . 'field.storage.mapping.field_location_map_shadow.yml',
+      $path . 'field.storage.mapping.field_location_name.yml',
+      $path . 'field.storage.mapping.field_location_personify_brcode.yml',
+      $path . 'field.storage.mapping.field_location_phone.yml',
+      $path . 'field.storage.mapping.field_location_state.yml',
+      $path . 'field.storage.mapping.field_location_tags.yml',
+      $path . 'field.storage.mapping.field_location_zip.yml',
+      $path . 'field.storage.mapping.field_location_url.yml',
+    ]
+  );
+}
+
+/**
+ * Enrich location mapping entities with new data.
+ */
+function ymca_master_update_8127() {
+  $config = \Drupal::config('ymca_frontend.locations')->get();
+
+  $map = [
+    'name' => 'field_location_name',
+    'address1' => 'field_location_address_1',
+    'address2' => 'field_location_address_2',
+    'city' => 'field_location_city',
+    'state' => 'field_location_state',
+    'zip' => 'field_location_zip',
+    'phone' => 'field_location_phone',
+    'url' => 'field_location_url',
+    'tags' => 'field_location_tags',
+    'latitude' => 'field_location_latitude',
+    'longitude' => 'field_location_longitude',
+    'icon' => 'field_location_icon',
+    'geid' => 'field_groupex_id',
+    'personify_brcode' => 'field_location_personify_brcode',
+    'shadow' => 'field_location_map_shadow',
+    'HRS Mon-Fri' => 'field_location_hrs_mon_fri',
+    'HRS Sat-Sun' => 'field_location_hrs_sat_sun',
+  ];
+
+  foreach ($config as $config_item) {
+    $ids = \Drupal::entityQuery('mapping')
+      ->condition('type', 'location')
+      ->condition('name', $config_item['name'])
+      ->execute();
+
+    if (!empty($ids)) {
+      $op = 'updated';
+      $mapping = Mapping::load(reset($ids));
+    }
+    else {
+      $op = 'created';
+      $mapping = Mapping::create(['type' => 'location']);
+      $mapping->setName($config_item['name']);
+    }
+
+    // Set all available fields.
+    foreach ($config_item as $config_item_name => $config_item_value) {
+      if (!empty($config_item_value)) {
+        $mapping->set($map[$config_item_name], $config_item_value);
+      }
+    }
+
+    $mapping->save();
+    $msg = 'Mapping %op ID: %id.';
+    \Drupal::logger('ymca_master')->info($msg, [
+      '%op' => $op,
+      '%id' => $mapping->id()
+    ]);
+  }
+}
+
+/**
+ * Add YMCA menu blocks.
+ */
+function ymca_master_update_8128() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
