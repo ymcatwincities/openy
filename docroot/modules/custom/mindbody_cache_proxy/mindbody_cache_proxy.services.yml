@@ -1,4 +1,4 @@
 services:
   mindbody_cache_proxy.client:
     class: Drupal\mindbody_cache_proxy\MindbodyCacheProxy
-    arguments: ['@mindbody.client', '@entity.query']
+    arguments: ['@mindbody.client', '@entity.query', '@state']
