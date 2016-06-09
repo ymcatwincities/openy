@@ -1,0 +1,8 @@
+uuid: 53c3c3a7-7799-4a07-8738-94e774a90b9f
+langcode: en
+status: true
+dependencies: {  }
+id: location_schedule
+label: 'Location Schedule block'
+revision: 1
+description: ''
