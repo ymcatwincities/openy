@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Controller for "Mindbody results" page.
  */
 class MindbodyResultsController implements ContainerInjectionInterface {
-  
+
   /**
    * Mindbody Proxy.
    *
@@ -21,7 +21,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
 
   /**
    * MindbodyResultsController constructor.
-   * 
+   *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
    */

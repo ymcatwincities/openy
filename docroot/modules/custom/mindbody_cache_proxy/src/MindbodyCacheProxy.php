@@ -22,6 +22,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
    * MindbodyProxy constructor.
    *
    * @param MindbodyClientInterface $mindbody_client
+   *   MindBody client.
    */
   public function __construct(MindbodyClientInterface $mindbody_client) {
     $this->mindbodyClient = $mindbody_client;
