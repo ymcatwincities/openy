@@ -71,7 +71,7 @@ class DrupalProxy implements DrupalProxyInterface {
     $this->logger = $logger->get('gcal_groupex');
     $this->fetcher = $fetcher;
 
-    $this->timezone = new \DateTimeZone('UTC');
+    $this->timezone = new \DateTimeZone('America/Chicago');
   }
 
   /**
