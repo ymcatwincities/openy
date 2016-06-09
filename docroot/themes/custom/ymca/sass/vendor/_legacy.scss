@@ -107,6 +107,26 @@ sup {
   content: "\e902";
 }
 
+.icon-location2:before {
+  content: "\e948";
+}
+
+.icon-clock:before {
+  content: "\e94e";
+}
+
+.icon-calendar:before {
+  content: "\e953";
+}
+
+.icon-user:before {
+  content: "\e971";
+}
+
+.icon-cog:before {
+  content: "\e994";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
