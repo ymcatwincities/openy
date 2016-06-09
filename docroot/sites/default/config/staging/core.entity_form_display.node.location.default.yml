@@ -15,14 +15,13 @@ dependencies:
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_content
     - field.field.node.location.field_schedule_documents
-    - field.field.node.location.field_sitemap_exclude
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
-    - file
+    - file_browser
+    - inline_entity_form
     - path
-    - scheduler
     - telephone
     - text
 id: node.location.default
@@ -38,11 +37,15 @@ content:
   field_alert:
     weight: 6
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_content:
     weight: 14
     settings:
@@ -79,11 +82,15 @@ content:
   field_main_promos:
     weight: 8
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_membership_block:
     weight: 7
     settings:
@@ -99,11 +106,15 @@ content:
   field_promo_slideshow:
     weight: 5
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_schedule_content:
     weight: 16
     settings:
@@ -114,23 +125,27 @@ content:
   field_schedule_documents:
     weight: 17
     settings:
-      progress_indicator: throbber
+      entity_browser: browse_files_modal
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: file_generic
-  field_sitemap_exclude:
-    weight: 26
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
+    type: file_browser
   field_working_hours:
     weight: 15
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   langcode:
     type: language_select
     weight: 2

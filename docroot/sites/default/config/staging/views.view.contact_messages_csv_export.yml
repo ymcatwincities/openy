@@ -465,7 +465,7 @@ display:
       max-age: 0
       tags: {  }
   rest_export_1:
-    display_plugin: rest_export
+    display_plugin: ymca_rest_export
     id: rest_export_1
     display_title: 'REST export'
     position: 2

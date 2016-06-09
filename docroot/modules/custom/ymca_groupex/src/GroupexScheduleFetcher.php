@@ -163,13 +163,17 @@ class GroupexScheduleFetcher {
 
       case 'location':
         $schedule['locations'] = [];
-        $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
         $location_id = NULL;
+        $locations_ids = \Drupal::entityQuery('mapping')
+          ->condition('type', 'location')
+          ->execute();
+        $locations = \Drupal::entityManager()->getStorage('mapping')->loadMultiple($locations_ids);
         foreach ($items as $id => $class) {
           $short_location_name = trim($this->enrichedData[$id]->location);
           foreach ($locations as $location) {
-            if ($location['name'] == $short_location_name) {
-              $location_id = $location['geid'];
+            if ($location->get('name')->value == $short_location_name) {
+              $field_groupex_id = $location->field_groupex_id->getValue();
+              $location_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
             }
           }
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
@@ -290,7 +294,7 @@ class GroupexScheduleFetcher {
 
     // Filter out by time of the day.
     if (!empty($param['time_of_day'])) {
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if (in_array($item->time_of_day, $param['time_of_day'])) {
           return TRUE;
         }
@@ -301,7 +305,7 @@ class GroupexScheduleFetcher {
     // Groupex response have some redundant data. Filter it out.
     if ($param['filter_length'] == 'day') {
       // Filter out by the date. Cut off days before.
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if ($item->timestamp >= $param['filter_timestamp']) {
           return TRUE;
         }
@@ -309,7 +313,7 @@ class GroupexScheduleFetcher {
       });
 
       // Filter out by the date. Cut off days after.
-      $filtered = array_filter($filtered, function($item) use ($param) {
+      $filtered = array_filter($filtered, function ($item) use ($param) {
         if ($item->timestamp < ($param['filter_timestamp'] + 60 * 60 * 24)) {
           return TRUE;
         }

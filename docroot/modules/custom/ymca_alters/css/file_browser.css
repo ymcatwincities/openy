@@ -1,0 +1,38 @@
+.dropzone .dz-preview .dz-image {
+  border-radius: 0px;
+}
+.dropzone .dz-preview {
+  background: #eee;
+  border: 1px solid #CCC;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, .1), inset 0 0 0 1px rgba(0, 0, 0, .05);
+  padding: 5px;
+  position: relative;
+  margin: 2px;
+}
+.view-files-entity-browser .grid-item {
+  position: relative !important;
+  display: inline-block;
+  background: #eee;
+  border: 1px solid #CCC;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, .1), inset 0 0 0 1px rgba(0, 0, 0, .05);
+  padding: 5px;
+  margin: 2px;
+  width: 132px;
+  left: auto !important;
+  top: auto !important;
+}
+.view-files-entity-browser .grid-item.checked {
+  background: #F4ECC7;
+  border: 1px solid #058AC5;
+}
+.view-files-entity-browser .grid-item:hover {
+  border: 1px solid #37802f;
+}
+.view-files-entity-browser .grid-item-info {
+  margin: 0 -5px;
+  font-size: 10px;
+}
+.view-files-entity-browser .grid-item-info-left,
+.view-files-entity-browser .grid-item-info-right {
+  padding: 0 5px;
+}

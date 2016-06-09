@@ -1,0 +1,7 @@
+entity_browser.browser.widget.dummy:
+  type: mapping
+  label: 'Dummy widget configuration'
+  mapping:
+    text:
+      type: string
+      label: 'Text'

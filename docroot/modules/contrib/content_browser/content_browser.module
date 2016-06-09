@@ -1,0 +1,183 @@
+<?php
+/**
+ * @file Contains logic for content_browser.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function content_browser_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the content_browser module.
+    case 'help.page.content_browser':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides an Entity Browser for Content Entities.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function content_browser_form_alter(&$form, FormStateInterface &$form_state) {
+  if (isset($form['#form_id'])) {
+    if ($form['#form_id'] == 'entity_browser_browse_content_form' ||
+        $form['#form_id'] == 'entity_browser_browse_content_modal_form') {
+      // Attach our library.
+      $form['#attached']['library'][] = 'content_browser/view';
+
+      // Style the submit button.
+      $form['actions']['submit']['#value'] = t('Select Content');
+      $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+      $form['actions']['submit']['#attributes']['class'][] = 'entity-browser-modal-target';
+
+      // Wrap actions so we can float them at the bottom of the browser.
+      $form['actions_wrap'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => 'content-browser-actions',
+        ],
+        0 => $form['actions'],
+      ];
+      unset($form['actions']);
+
+      // Add a class for generic styling.
+      $form['#attributes']['class'][] = 'content-browser-form';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function content_browser_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // @todo Make this more generic for other Content Entities.
+  if ($form['#id'] == 'views-exposed-form-content-browser-node-entity-browser-1' ) {
+    // Add a custom exposed form filter which allows users to change the
+    // display mode without editing the View.
+    /** @var \Drupal\views\ViewExecutable $view */
+    $view = $form_state->getStorage()['view'];
+    /** @var \Drupal\content_browser\Plugin\views\field\ContentBrowserPreview $field */
+    $field = $view->field['content_browser_preview'];
+    if ($field->options['exposed_view_mode']) {
+      $view_mode_field = [
+        '#title' => t('View mode'),
+        '#options' => \Drupal::entityManager()
+          ->getViewModeOptions($field->options['entity_type']),
+        '#type' => 'select',
+        '#default_value' => $field->options['view_mode'],
+      ];
+    }
+
+    // Do some visual tweaks to the form.
+    unset($form['uid']['#description']);
+
+    // To reduce clutter, split the form into two rows.
+    $form['second_row'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['second-row']],
+      'sort_by' => $form['sort_by'],
+      'sort_order' => $form['sort_order'],
+      'view_mode' => isset($view_mode_field) ? $view_mode_field : []
+    ];
+
+    unset($form['sort_by']);
+    unset($form['sort_order']);
+
+    // Attempt to load our field definition based on a unique id, so that we
+    // can restrict the "Type" exposed filter to only allowed bundle types of
+    // this field.
+    if (isset($form_state->getUserInput()['field_definition_id'])) {
+      $field_definition_id = $form_state->getUserInput()['field_definition_id'];
+      if (is_string($field_definition_id) && $parts = explode(':', $field_definition_id, 3)) {
+        if (count($parts) == 3) {
+          /** @var \Drupal\Core\Entity\EntityFieldManager $field_manager */
+          $field_manager = \Drupal::service('entity_field.manager');
+          $field_definitions = $field_manager->getFieldDefinitions($parts[0], $parts[1]);
+          if ($field_definitions && isset($field_definitions[$parts[2]])) {
+            /** @var \Drupal\field\Entity\FieldConfig $field_definition */
+            $field_definition = $field_definitions[$parts[2]];
+            $settings = $field_definition->getSettings();
+
+            // Do not allow users to filter for unallowed bundles.
+            $bundles = $settings['handler_settings']['target_bundles'];
+
+            foreach ($form['type']['#options'] as $bundle => $label) {
+              if (!in_array($bundle, $bundles)) {
+                unset($form['type']['#options'][$bundle]);
+              }
+            }
+
+            // Ensure that a proper default #value is set, to prevent form
+            // errors.
+            $input = $form_state->getUserInput();
+            if ($input['type'] == 'All') {
+              $input['type'] = reset($bundles);
+              $form_state->setUserInput($input);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function content_browser_form_entity_embed_dialog_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($embed_button = $form_state->get('embed_button')) {
+    // Check that we're using content_browser.
+    if ($embed_button->getTypePlugin()
+        ->getConfigurationValue('entity_browser') == 'browse_content'
+    ) {
+      // Override the first step of the form, if we're using content_browser.
+      if ($form['actions']['save_modal']['#ajax']['callback'] == '::submitSelectStep') {
+        // Add a library which handles our special "Select Files" button.
+        $form['#attached']['library'][] = 'content_browser/entity_embed';
+
+        // Visually hide the "Next" button.
+        $form['actions']['save_modal']['#attributes']['class'][] = 'visually-hidden';
+        $form['actions']['save_modal']['#weight'] = 1;
+
+        // Add a button that matches our normal UX, which clicks the hidden button
+        // within the modal's iFrame.
+        $form['actions']['save_modal_alt'] = [
+          '#type' => 'submit',
+          '#value' => t('Select Content'),
+          '#attributes' => ['class' => ['entity-browser-modal-submit']],
+          '#button_type' => 'primary',
+          '#weight' => 0,
+        ];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_widget_PLUGIN_ID_form_alter().
+ */
+function content_browser_field_widget_entity_browser_entity_reference_form_alter(array &$element, FormStateInterface $form_state, array $context) {
+  /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $items */
+  $items = $context['items'];
+  $definition = $items->getFieldDefinition();
+
+  // Inform the display of the original field display, so that modules can
+  // provide better support for complex fields like Images.
+  $field_definition_id = $definition->getTargetEntityTypeId() . ':' . $definition->getTargetBundle() . ':' . $definition->getName();
+
+  if (isset($element['entity_browser']['link'])) {
+    foreach ($element['entity_browser']['link']['#attached']['drupalSettings']['entity_browser']['iframe'] as &$iframe) {
+      $iframe['src'] .= '&field_definition_id=' . $field_definition_id;
+    }
+  }
+  else if (isset($element['entity_browser']['path'])) {
+    $element['entity_browser']['path']['#value'] .= '&field_definition_id=' . $field_definition_id;
+  }
+}

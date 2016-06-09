@@ -13,6 +13,7 @@ dependencies:
   module:
     - block_content
     - entity_embed
+    - webforms
 label: Block
 id: block
 type_id: entity
@@ -26,8 +27,10 @@ type_settings:
     - image_block
     - promo_block
     - slide_show
+  style: block
   display_plugins:
     - 'entity_reference:entity_reference_entity_view'
-  entity_browser: ''
-  entity_browser_settings: null
+  entity_browser: block_browser_iframe
+  entity_browser_settings:
+    display_review: false
 icon_uuid: null

@@ -1,0 +1,13 @@
+# Action links for Workflow UI.
+
+### Workflow related actions.
+workflow_type_add_action:
+  route_name: entity.workflow_type.add_form
+  title: 'Add workflow'
+  weight: 1
+  appears_on:
+    - entity.workflow_type.collection
+
+### Workflow State related actions.
+
+### Workflow Transition related actions.

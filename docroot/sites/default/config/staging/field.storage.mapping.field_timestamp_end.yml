@@ -1,0 +1,20 @@
+uuid: e6406e66-8dcc-4687-a103-85170162dd99
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_timestamp_end
+field_name: field_timestamp_end
+entity_type: mapping
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

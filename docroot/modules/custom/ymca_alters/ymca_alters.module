@@ -13,6 +13,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Query\AlterableInterface;
+use Drupal\Core\Breadcrumb\Breadcrumb;
 
 /**
  * Implements hook_help().
@@ -89,6 +91,24 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
         '#parents' => array('attributes', 'data-button'),
       );
       $form_state->setRebuild();
+    }
+  }
+
+  // Hide field_locations on user account edit form.
+  if ($form_id == 'user_form') {
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('administer users')) {
+      $form['field_locations']['#access'] = FALSE;
+    }
+  }
+
+  // Hide extra fields when editing document file type.
+  if ($form_id == 'file_document_edit_form') {
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission('administer files')) {
+      $form['uid']['#access'] = FALSE;
+      $form['filename']['#access'] = FALSE;
+      $form['actions']['delete']['#access'] = FALSE;
     }
   }
 }
@@ -190,24 +210,30 @@ function ymca_alters_user_logout($account) {
  */
 function ymca_alters_preprocess_field(&$variables) {
   if ($variables['element']['#field_name'] == 'field_schedule_documents') {
-    $node = \Drupal::routeMatch()->getParameter('node');
+    $route = \Drupal::routeMatch()->getRouteName();
+    if ($route == 'ymca_frontend.location_schedules') {
+      $node = \Drupal::routeMatch()->getParameter('node');
 
-    $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
-    $location = FALSE;
-    foreach ($mappings as $item) {
-      if ($item['entity_id'] == $node->id()) {
-        $location = $item['geid'];
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_location_ref', $node->id())
+        ->execute();
+      $mapping_id = reset($mapping_id);
+      $location = FALSE;
+      if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+        $field_groupex_id = $mapping->field_groupex_id->getValue();
+        $location = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
       }
-    }
 
-    if (!$location) {
-      \Drupal::logger('ymca_alters')->warning(
-        'Location ID for node %node was not found',
-        ['%node' => $node->id()]
-      );
-    }
+      if (!$location) {
+        \Drupal::logger('ymca_alters')->warning(
+          'Location ID for node %node was not found',
+          ['%node' => $node->id()]
+        );
+      }
 
-    $variables['groupex_schedule'] = GroupexScheduleFetcher::getPdfLink($location);
+      $variables['groupex_schedule'] = GroupexScheduleFetcher::getPdfLink($location);
+    }
   }
 }
 
@@ -233,11 +259,7 @@ function ymca_alters_shield_config_alter(&$config_name) {
  *
  * @see https://github.com/enjoyiacm/unset_html_head_link/blob/master/unset_html_head_link.module
  */
-function ymca_alters_entity_view_alter(
-  array &$build,
-  EntityInterface $entity,
-  EntityViewDisplayInterface $display
-) {
+function ymca_alters_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
   // Checking view_mode for node.
   if ($build['#view_mode'] === 'full' && $entity instanceof NodeInterface) {
     // Checking html_head_link on attached tags in head.
@@ -251,16 +273,36 @@ function ymca_alters_entity_view_alter(
       'revision',
       'devel-render',
       'devel-load',
-      'token-devel'
+      'token-devel',
+      'clone-form',
     ];
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
-      if (isset($value[0]['rel']) && in_array(
-          $value[0]['rel'],
-          $unset_html_head_link
-        )
-      ) {
+      if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) {
         unset($build['#attached']['html_head_link'][$key]);
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function ymca_alters_page_attachments_alter(array &$attachments) {
+  // Array to unset.
+  $unset_html_head_link = [
+    'delete-form',
+    'edit-form',
+    'version-history',
+    'revision',
+    'devel-render',
+    'devel-load',
+    'token-devel',
+    'clone-form',
+  ];
+  // Unset loop.
+  foreach ($attachments['#attached']['html_head_link'] as $key => $value) {
+    if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) {
+      unset($attachments['#attached']['html_head_link'][$key]);
     }
   }
 }
@@ -269,6 +311,16 @@ function ymca_alters_entity_view_alter(
  * Implements hook_page_attachments().
  */
 function ymca_alters_page_attachments(array &$page) {
+  // Add original promo blocks decorator.
+  $page['#attached']['library'][] = 'ymca_alters/promo_blocks';
+
+  // Alter CSS for File Browser, Content Browser.
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $page['#attached']['library'][] = 'ymca_alters/blocks';
+    $page['#attached']['library'][] = 'ymca_alters/file_browser';
+    $page['#attached']['library'][] = 'ymca_alters/content_browser';
+  }
   // Add canonical tag for custom routes.
   $route = \Drupal::routeMatch();
   $name = $route->getRouteName();
@@ -294,14 +346,111 @@ function ymca_alters_page_attachments(array &$page) {
 }
 
 /**
- * Implements hook_simple_sitemap_links_alter().
+ * Implements hook_library_info_alter().
  */
-function ymca_alters_simple_sitemap_links_alter(&$links) {
-  $exclude = \Drupal::entityQuery('node')
-    ->condition('field_sitemap_exclude', 1)
-    ->execute();
+function ymca_alters_library_info_alter(&$libraries, $extension) {
+  $extensions = ['content_browser', 'file_browser'];
+  if (!in_array($extension, $extensions) || !isset($libraries['view'])) {
+    return;
+  }
 
-  $links = array_filter($links, function($item) use ($exclude) {
-    return !in_array(substr($item['path'], 5), $exclude);
-  });
+  $new_js = [];
+  $replacements = [
+    'js/content_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.content_browser.view.js',
+    'js/file_browser.view.js' => '/' . drupal_get_path('module', 'ymca_alters') . '/js/ymca_alters.file_browser.view.js',
+  ];
+
+  foreach ($libraries['view']['js'] as $source => $options) {
+    if (isset($replacements[$source])) {
+      $new_js[$replacements[$source]] = $options;
+    }
+    else {
+      $new_js[$source] = $options;
+    }
+  }
+  $libraries['view']['js'] = $new_js;
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function ymca_alters_query_needs_review_alter($query) {
+  // Select all revisions for field 'State'.
+  $language = Drupal::languageManager()->getCurrentLanguage();
+  $field_state_revisions = db_select('node_revision__field_state', 'n')
+    ->fields('n')
+    ->condition('n.deleted', 0)
+    ->condition('n.langcode', $language->getId())
+    ->execute()
+    ->fetchAllAssoc('entity_id');
+
+  // Filter rows only with 'workflow_needs_review'.
+  $nids_to_be_viewed = [];
+  foreach ($field_state_revisions as $vid => $revision) {
+    if ($revision->field_state_value == 'workflow_needs_review') {
+      $nids_to_be_viewed[] = $revision->entity_id;
+    }
+  }
+
+  // If there is no nids to view, return nothing.
+  if (empty($nids_to_be_viewed)) {
+    $query->condition('node_field_data.nid', 0);
+    return;
+  }
+
+  // Add conditions which we can't add through View UI.
+  $query->addJoin(
+    'LEFT',
+    'node_revision__field_state',
+    '',
+    'node_field_data_node_field_revision.nid = node_revision__field_state.entity_id AND (node_revision__field_state.deleted = :views_join_condition_0 AND node_revision__field_state.langcode = node_field_data_node_field_revision.langcode)',
+    array(':views_join_condition_0' => 0)
+  );
+  $query->condition(
+    'node_field_data.nid',
+    $nids_to_be_viewed,
+    'IN'
+  );
+
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  // Add breadcrumbs trailing title to all pages, except filtered.
+  $node = $route_match->getParameter('node');
+  $path_info = explode('/', \Drupal::request()->getPathInfo());
+
+  // Skip frontpage.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    return;
+  }
+
+  // Skip blog post.
+  if ($node && $node->bundle() == 'blog') {
+    return;
+  }
+
+  // Skip blog archive and blog type pages.
+  if (!$node && isset($path_info[1]) && $path_info[1] == 'blog' && isset($path_info[2])) {
+    return;
+  }
+
+  // Skip paths.
+  $paths = [
+    'news__events',
+    'blog',
+    'search_results'
+  ];
+
+  foreach ($paths as $item) {
+    if (end($path_info) == $item) {
+      return;
+    }
+  }
+
+  $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
+  $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
+  $breadcrumb->addCacheContexts(['url.path']);
 }

@@ -38,13 +38,7 @@ class YmcaMigrateNodeBlog extends SqlBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    $plugin_definition,
-    MigrationInterface $migration,
-    StateInterface $state
-  ) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state) {
     $this->migration = &$migration;
     parent::__construct(
       $configuration,

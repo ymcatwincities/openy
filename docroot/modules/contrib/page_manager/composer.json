@@ -1,0 +1,23 @@
+{
+  "name": "drupal/page_manager",
+  "description": "Provides a way to place blocks on a custom page.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/page_manager",
+  "authors": [
+    {
+      "name": "Tim Plunkett",
+      "homepage": "https://www.drupal.org/u/tim.plunkett",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/page_manager",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "https://git.drupal.org/project/page_manager.git"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/ctools": "~8.3.0-alpha21"
+  }
+}

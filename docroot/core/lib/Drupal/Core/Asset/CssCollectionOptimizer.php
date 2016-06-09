@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Asset\CssCollectionOptimizer.
- */
-
 namespace Drupal\Core\Asset;
 
 use Drupal\Core\State\StateInterface;
@@ -136,16 +131,6 @@ class CssCollectionOptimizer implements AssetCollectionOptimizerInterface {
             }
             $css_assets[$order]['preprocessed'] = TRUE;
           }
-          break;
-
-        case 'inline':
-          // We don't do any caching for inline CSS assets.
-          $data = '';
-          foreach ($css_group['items'] as $css_asset) {
-            $data .= $this->optimizer->optimize($css_asset);
-          }
-          unset($css_assets[$order]['data']['items']);
-          $css_assets[$order]['data'] = $data;
           break;
 
         case 'external':

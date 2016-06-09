@@ -18,8 +18,8 @@ class SearchController extends DrupalSearchController {
   /**
    * {@inheritdoc}
    */
-  public function __construct(SearchPageRepositoryInterface $search_page_repository, LoggerInterface $logger, RendererInterface $renderer) {
-    parent::__construct($search_page_repository, $logger, $renderer);
+  public function __construct(SearchPageRepositoryInterface $search_page_repository, RendererInterface $renderer) {
+    parent::__construct($search_page_repository, $renderer);
   }
 
   /**
@@ -34,6 +34,9 @@ class SearchController extends DrupalSearchController {
    *   The search form and search results build array.
    */
   public function view(Request $request, SearchPageInterface $entity) {
+    // Disable this page caching - https://www.drupal.org/node/2323571.
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     $build = array();
     $plugin = $entity->getPlugin();
 

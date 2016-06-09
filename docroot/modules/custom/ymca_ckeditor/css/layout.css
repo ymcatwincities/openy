@@ -40,7 +40,8 @@
   background-image: url("../img/ck_ico_menu.png") !important;
 }
 
-.cke_button__file_icon {
+.cke_button__file_icon,
+.cke_button__file_browser span:first-child {
   background-image: url("../img/ck_ico_file.png") !important;
 }
 

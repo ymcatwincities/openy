@@ -1,0 +1,21 @@
+name: Content Browser
+description: 'Provides a default Entity Browser for default Content Entity types, using Masonry.'
+type: module
+# core: 8.x
+dependencies:
+  - entity_browser
+  - entity_embed
+  - entity_reference
+  - field
+  - image
+  - menu_ui
+  - node
+  - path
+  - text
+  - views
+
+# Information added by Drupal.org packaging script on 2016-04-06
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'content_browser'
+datestamp: 1459971540

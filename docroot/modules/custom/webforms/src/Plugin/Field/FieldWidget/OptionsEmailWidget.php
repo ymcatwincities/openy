@@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_aliases\UrlCleaner;
 
 /**
  * Plugin implementation of the 'ymca_office_hours' widget.
@@ -27,13 +28,7 @@ class OptionsEmailWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function formElement(
-    FieldItemListInterface $items,
-    $delta,
-    array $element,
-    array &$form,
-    FormStateInterface $form_state
-  ) {
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
     /** @var \Drupal\field\Entity\FieldConfig $definition */
     $definition = $items->getFieldDefinition();
@@ -105,7 +100,11 @@ class OptionsEmailWidget extends WidgetBase {
     if (!$this->isDefaultValueWidget($form_state)) {
       // Display dropdown list of options.
       $def = $this->fieldDefinition->getDefaultValue($item->getEntity());
-      $mapping = \Drupal::config('ymca_groupex.mapping')->get('locations');
+
+      $mapping_ids = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->execute();
+      $mapping = \Drupal::entityManager()->getStorage('mapping')->loadMultiple($mapping_ids);
       $machine_name_mapping = [];
       $options = [];
       $options['undefined'] = t('Select one...');
@@ -113,8 +112,10 @@ class OptionsEmailWidget extends WidgetBase {
         $options[$id] = $item_data['option_name'];
         if (!empty($item_data['option_reference'])) {
           foreach ($mapping as $row) {
-            if ($row['entity_id'] == $item_data['option_reference']) {
-              $machine_name_mapping['#' . $row['machine_name']] = $id;
+            $field_location_ref = $row->field_location_ref->getValue();
+            if ($field_location_ref[0]['target_id'] == $item_data['option_reference']) {
+              $machine_name = UrlCleaner::clean($row->get('name')->value);
+              $machine_name_mapping['#' . $machine_name] = $id;
               break;
             }
           }
@@ -197,12 +198,7 @@ class OptionsEmailWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function form(
-    FieldItemListInterface $items,
-    array &$form,
-    FormStateInterface $form_state,
-    $get_delta = NULL
-  ) {
+  public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL) {
 
     // We should display only single value for non default settings form.
     if (!$this->isDefaultValueWidget($form_state)) {
@@ -263,11 +259,7 @@ class OptionsEmailWidget extends WidgetBase {
    * - AHAH-'add more' button
    * - table display and drag-n-drop value reordering.
    */
-  protected function formMultipleElements(
-    FieldItemListInterface $items,
-    array &$form,
-    FormStateInterface $form_state
-  ) {
+  protected function formMultipleElements(FieldItemListInterface $items, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
     $cardinality = $this->fieldDefinition->getFieldStorageDefinition()
       ->getCardinality();
@@ -446,13 +438,7 @@ class OptionsEmailWidget extends WidgetBase {
   /**
    * Generates the form element for a single copy of the widget.
    */
-  protected function formSingleElement(
-    FieldItemListInterface $items,
-    $delta,
-    array $element,
-    array &$form,
-    FormStateInterface $form_state
-  ) {
+  protected function formSingleElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
     $element += array(
       '#field_parents' => $form['#parents'],
@@ -489,11 +475,7 @@ class OptionsEmailWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function extractFormValues(
-    FieldItemListInterface $items,
-    array $form,
-    FormStateInterface $form_state
-  ) {
+  public function extractFormValues(FieldItemListInterface $items, array $form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
 
     // Extract the values from $form_state->getValues().
@@ -559,10 +541,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public static function addLocationsAjax(
-    array $form,
-    FormStateInterface $form_state
-  ) {
+  public static function addLocationsAjax(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
 
     // Go one level up in the form, to the widgets container.
@@ -591,10 +570,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public static function addLocationsSubmit(
-    array $form,
-    FormStateInterface $form_state
-  ) {
+  public static function addLocationsSubmit(array $form, FormStateInterface $form_state) {
     $location_ids = \Drupal::entityQuery('node')
       ->condition('type', 'location')
       ->execute();
@@ -649,10 +625,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public static function removeItemsAjax(
-    array $form,
-    FormStateInterface $form_state
-  ) {
+  public static function removeItemsAjax(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
 
     // Go one level up in the form, to the widgets container.
@@ -680,10 +653,7 @@ class OptionsEmailWidget extends WidgetBase {
    * This returns the new page content to replace the page content made obsolete
    * by the form submission.
    */
-  public static function removeItemsSubmit(
-    array $form,
-    FormStateInterface $form_state
-  ) {
+  public static function removeItemsSubmit(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
 
     // Go one level up in the form, to the widgets container.

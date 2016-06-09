@@ -84,7 +84,9 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
     } elseif (in_array($route_name, ['ymca_groupex.schedules_search_results', 'ymca_frontend.location_schedules'])) {
       array_push($suggestions, 'page__node__location_inner');
     } else {
-      array_unshift($suggestions, 'page__node__' . $node->bundle());
+      if (is_object($node)) {
+        array_unshift($suggestions, 'page__node__' . $node->bundle());
+      }
     }
     if (!\Drupal::service('path.matcher')->isFrontPage()) {
       if ($route_name == 'entity.node.preview') {
@@ -144,6 +146,33 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
         array_push($suggestions, 'node__article__camp__full');
         break;
     }
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ymca_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'form_element__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ymca_theme_suggestions_form_element_label_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'form_element_label__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ymca_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'input__' . $variables['element']['#name']);
   }
 }
 
@@ -438,7 +467,7 @@ function ymca_preprocess_page(&$variables) {
   }
   // Alerts on the page.
   if (isset($variables['node']) && !($block = \Drupal::service('alerts.service')->getCurrentAlertBlock())) {
-    if ($variables['node']->hasField('field_alert')) {
+    if (is_object($variables['node']) && $variables['node']->hasField('field_alert')) {
       if ($values = $variables['node']->field_alert->getValue()) {
         if (!empty($values[0]['target_id'])) {
           $id = $values[0]['target_id'];
@@ -554,12 +583,9 @@ function ymca_preprocess_views_view(&$vars) {
   if ($vars['view']->id() == 'ymca_twin_cities_blog' || $vars['view']->id() == 'ymca_twin_cities_blog_archive') {
     if ($vars['view']->current_display == 'blog_page') {
       $vars['base_path'] = base_path();
-      $vars['categories'] = [];
-      foreach ($vars['view']->filter['field_tags_target_id']->options['value'] as $id) {
-        $term = \Drupal::entityTypeManager()
-          ->getStorage('taxonomy_term')
-          ->load($id);
-        $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $id));
+      $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
+      foreach ($available_terms as $name => $tid) {
+        $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
         $vars['categories'][] = $link;
         // Pass Archive block data to the Search The Blog block.
         if ($archive_lists = ymca_get_archive_data('blog')) {
@@ -581,13 +607,10 @@ function ymca_preprocess_views_view(&$vars) {
 
   if ($vars['view']->id() == 'ymca_taxonomy_term' && $vars['view']->current_display == 'page_1') {
     $vars['base_path'] = base_path();
-    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
-    foreach ($tree as $term_object) {
-      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_object->tid);
-      if ($term->name == 'News') {
-        continue;
-      }
-      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $term_object->tid));
+
+    $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
+    foreach ($available_terms as $name => $tid) {
+      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
@@ -606,13 +629,10 @@ function ymca_preprocess_search_results_page(&$vars) {
   if ($current_path == '/search_results' && isset($_GET['f'][0]) && $_GET['f'][0] == 'type:blog') {
     $vars['base_path'] = base_path();
     $vars['search_blog'] = TRUE;
-    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('tags');
-    foreach ($tree as $term_object) {
-      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_object->tid);
-      if ($term->name == 'News') {
-        continue;
-      }
-      $link = new \Drupal\Core\Link($term->label(), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $term_object->tid));
+
+    $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
+    foreach ($available_terms as $name => $tid) {
+      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
@@ -717,7 +737,7 @@ function ymca_preprocess_input(&$variables) {
   $element = $variables['element'];
   $variables['children'] = $element['#children'];
 
-  $types = array('url', 'textfield', 'tel', 'password');
+  $types = array('url', 'textfield', 'tel', 'password', 'date');
   if (in_array($element['#type'], $types)) {
     $classes = array(
       'form-control',
@@ -848,6 +868,14 @@ function ymca_preprocess_form_element(&$variables) {
     $element['#options'][''] = t('Select State or Province');
     $element['#empty_option'] = t('Select State or Province');
   }
+  if (isset($element['#attributes']['checked']) && $element['#attributes']['checked'] == 'checked') {
+    $variables['attributes']['class'] = 'checked';
+  }
+  if ($element['#name'] == 'mb_program') {
+    $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/program' . $element['#return_value'] . '.jpg';
+    $variables['title'] = $element['#title'];
+    $variables['id'] = $element['#id'];
+  }
   $variables['element'] = $element;
 }
 
@@ -949,7 +977,6 @@ function ymca_form_groupex_form_full_alter(&$form, \Drupal\Core\Form\FormStateIn
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
@@ -966,7 +993,6 @@ function ymca_form_groupex_form_full_refine_alter(&$form, \Drupal\Core\Form\Form
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full_refine'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
@@ -981,7 +1007,6 @@ function ymca_form_groupex_form_location_alter(&$form, \Drupal\Core\Form\FormSta
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
 }
@@ -997,10 +1022,17 @@ function ymca_form_groupex_form_location_refine_alter(&$form, \Drupal\Core\Form\
   $form['filter_length']['#pre_render'][] = 'ymca_prerender_radios';
   $form['filter_length']['#theme'] = 'radios__groupex';
   $form['filter_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['filter_date']['#theme'] = 'datetime__groupex';
   $form['#theme'] = ['ymca_groupex_form_full_refine'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_form_mindbody_pt_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['mb_date']['mb_start_date']['#pre_render'][] = 'ymca_prerender_datetime';
+  $form['mb_date']['mb_end_date']['#pre_render'][] = 'ymca_prerender_datetime';
 }
 
 /**

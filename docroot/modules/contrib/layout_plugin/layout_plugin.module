@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Hook implementations for Layout Plugin module.
+ */
+
+use \Drupal\layout_plugin\Layout;
+
+/**
+ * Implements hook_theme().
+ */
+function layout_plugin_theme() {
+  return Layout::layoutPluginManager()->getThemeImplementations();
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function layout_plugin_theme_registry_alter(&$theme_registry) {
+  Layout::layoutPluginManager()->alterThemeImplementations($theme_registry);
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function layout_plugin_library_info_build() {
+  return Layout::layoutPluginManager()->getLibraryInfo();
+}
+
+/**
+ * Prepares variables for layout templates.
+ *
+ * We name it with an underscore so if there is ever a template called 'layout'
+ * that this preprocess function doesn't automatically get picked up.
+ *
+ * @param array &$variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #settings, #layout
+ */
+function _layout_plugin_preprocess_layout(&$variables) {
+  $content = $variables['content'];
+  $variables['settings'] = $content['#settings'] ?: [];
+  $variables['layout'] = $content['#layout'] ?: [];
+}

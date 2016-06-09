@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+id: node_view
+label: 'Node view'
+use_admin_theme: false
+path: '/node/{node}'
+access_logic: and
+access_conditions: {  }
+parameters:
+  node:
+    machine_name: node
+    type: 'entity:node'
+    label: Node
