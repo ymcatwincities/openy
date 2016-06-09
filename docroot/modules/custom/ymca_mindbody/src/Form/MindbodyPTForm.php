@@ -2,11 +2,11 @@
 
 namespace Drupal\ymca_mindbody\Form;
 
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
-use Drupal\ymca_mindbody\MindBodyAPI;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,6 +25,13 @@ class MindbodyPTForm extends FormBase {
   protected $proxy;
 
   /**
+   * Credentials.
+   *
+   * @var ImmutableConfig
+   */
+  protected $credentials;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -33,7 +40,7 @@ class MindbodyPTForm extends FormBase {
 
   public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
     $this->proxy = $cache_proxy;
-
+    $this->credentials = $this->config('mindbody.settings');
 
     $credentials = $this->config('ymca_mindbody.settings')->get();
     $this->sourcename = $credentials['sourcename'];
@@ -45,26 +52,6 @@ class MindbodyPTForm extends FormBase {
 
   public static function create(ContainerInterface $container) {
     return new static($container->get('mindbody_cache_proxy.client'));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbApp() {
-    $mb_app = new MindBodyAPI('AppointmentService', TRUE);
-    $mb_app->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_app;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbStaff() {
-    $mb_staff = new MindBodyAPI('StaffService', TRUE);
-    $mb_staff->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_staff;
   }
 
   /**
@@ -261,20 +248,17 @@ class MindbodyPTForm extends FormBase {
        */
       $booking_params = array(
         'UserCredentials' => array(
-          'Username' => $this->user_name,
-          'Password' => $this->user_password,
-          'SiteIDs' => array(
-            $this->site_id,
-          ),
+          'Username' => $this->credentials->get('user_name'),
+          'Password' => $this->credentials->get('user_password'),
+          'SiteIDs' => [$this->credentials->get('site_id')],
         ),
-        'SessionTypeIDs' => array($values['mb_session_type']),
-        'LocationIDs' => array($values['mb_location']),
+        'SessionTypeIDs' => [$values['mb_session_type']],
+        'LocationIDs' => [$values['mb_location']],
       );
-      $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
+      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
       $staff_list = array();
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-        $photo = $this->mbStaff()->call('GetStaffImgURL', array('StaffID' => $bookable_item->Staff->ID));
         $staff_list[$bookable_item->Staff->ID] = $bookable_item->Staff;
       }
       $trainer_options = array(
