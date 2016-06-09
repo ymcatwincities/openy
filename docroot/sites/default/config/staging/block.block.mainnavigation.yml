@@ -1,6 +1,6 @@
 uuid: d1414fbe-b2fd-46c0-b019-2515519c22e4
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.main
@@ -10,8 +10,8 @@ dependencies:
     - ymca
 id: mainnavigation
 theme: ymca
-region: primary_menu
-weight: -2
+region: '-1'
+weight: -8
 provider: null
 plugin: 'system_menu_block:main'
 settings:
