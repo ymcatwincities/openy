@@ -5,10 +5,10 @@ namespace Drupal\ymca_mindbody\Form;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\ymca_mindbody\MindBodyAPI;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\RemoveCommand;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the Personal Training Form.
@@ -18,16 +18,23 @@ use Drupal\Core\Ajax\RemoveCommand;
 class MindbodyPTForm extends FormBase {
 
   /**
+   * Mindbody Proxy.
+   *
+   * @var MindbodyCacheProxyInterface
+   */
+  protected $proxy;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'mindbody_pt';
   }
 
-  /**
-   * MindbodyPTForm constructor.
-   */
-  public function __construct() {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
+    $this->proxy = $cache_proxy;
+
+
     $credentials = $this->config('ymca_mindbody.settings')->get();
     $this->sourcename = $credentials['sourcename'];
     $this->password = $credentials['password'];
@@ -35,6 +42,11 @@ class MindbodyPTForm extends FormBase {
     $this->user_name = $credentials['user_name'];
     $this->user_password = $credentials['user_password'];
   }
+
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('mindbody_cache_proxy.client'));
+  }
+
 
   /**
    * {@inheritdoc}
@@ -156,7 +168,9 @@ class MindbodyPTForm extends FormBase {
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
-    $locations = $this->mbSite()->call('GetLocations', array());
+    //$locations = $this->mbSite()->call('GetLocations', array());
+    $locations = $this->proxy->call('SiteService', 'GetLocations');
+
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
       if ($location->HasClasses != TRUE) {
