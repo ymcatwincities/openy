@@ -1,0 +1,21 @@
+uuid: bf393fb7-df4d-4008-9482-d7ee3f5a4580
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_location_longitude
+field_name: field_location_longitude
+entity_type: mapping
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
