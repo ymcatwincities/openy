@@ -3017,7 +3017,21 @@ function ymca_master_update_8127() {
       '%id' => $mapping->id()
     ]);
   }
+}
 
+/**
+ * Add YMCA menu blocks.
+ */
+function ymca_master_update_8128() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block.block.mastheadnavigationblock.yml',
+      $path . 'block.block.sidebarnavigation.yml',
+      $path . 'block.block.subnavigationblock.yml',
+      $path . 'block.block.mainnavigation.yml',
+    ]
+  );
 }
 
 /**
