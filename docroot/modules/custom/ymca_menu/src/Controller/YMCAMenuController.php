@@ -3,10 +3,8 @@
 namespace Drupal\ymca_menu\Controller;
 
 use Drupal\Core\Url;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Responses for menu json object calls.
@@ -17,30 +15,6 @@ class YMCAMenuController extends ControllerBase {
    * Root page id.
    */
   const ROOT_ID = 1;
-
-  /**
-   * The database service.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $database;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('database'));
-  }
-
-  /**
-   * Constructs a YMCAMenuController object.
-   *
-   * @param \Drupal\Core\Database\Connection $database
-   *   A database connection.
-   */
-  public function __construct(Connection $database) {
-    $this->database = $database;
-  }
 
   /**
    * Outputs JSON-response.
@@ -65,7 +39,7 @@ class YMCAMenuController extends ControllerBase {
     $tree = $this->initTree();
     $menus = static::menuList();
     foreach ($menus as $menu_id) {
-      $query = $this->database->select('menu_tree', 'mt');
+      $query = db_select('menu_tree', 'mt');
       $query->leftJoin('menu_link_content', 'mlc', 'mt.id = CONCAT(mlc.bundle, :separator, mlc.uuid)', [':separator' => ':']);
       $query->leftJoin('menu_link_content_data', 'mlcd', 'mlcd.id = mlc.id');
       $query->condition('mt.menu_name', $menu_id);
