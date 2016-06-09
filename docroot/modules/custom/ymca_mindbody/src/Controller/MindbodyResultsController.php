@@ -2,12 +2,39 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\ymca_mindbody\Form\MindbodyPTForm;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Controller for "Mindbody results" page.
  */
-class MindbodyResultsController {
+class MindbodyResultsController implements ContainerInjectionInterface {
+
+  /**
+   * Mindbody Proxy.
+   *
+   * @var MindbodyCacheProxyInterface
+   */
+  protected $proxy;
+
+  /**
+   * MindbodyResultsController constructor.
+   *
+   * @param MindbodyCacheProxyInterface $cache_proxy
+   *   Mindbody cache proxy.
+   */
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
+    $this->proxy = $cache_proxy;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('mindbody_cache_proxy.client'));
+  }
 
   /**
    * Set page content.
@@ -25,7 +52,7 @@ class MindbodyResultsController {
       'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
     );
 
-    $form = new MindbodyPTForm();
+    $form = new MindbodyPTForm($this->proxy);
     $search_results = $form->getSearchResults($values);
 
     return [

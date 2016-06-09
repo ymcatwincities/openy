@@ -1,5 +1,0 @@
-ymca_mindbody.credentials.settings:
-  title: MindBody API
-  route_name: ymca_mindbody.credentials.settings
-  parent: system.admin_config_system
-  description: 'Stores MindBody API settings.'
