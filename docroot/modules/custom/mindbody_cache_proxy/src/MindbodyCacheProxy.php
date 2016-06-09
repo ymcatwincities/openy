@@ -52,7 +52,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
       return $result;
     }
 
-    // There is no cache. Make the call and create cache item
+    // There is no cache. Make the call and create cache item.
     $result = $this->mindbodyClient->call($service, $endpoint, $params);
     $cache = MindbodyCache::create([
       'field_mindbody_cache_service' => $service,
