@@ -6,7 +6,11 @@
         {% endblock %}
         <section class="content">
             <div class="container">
-                <section class="messages"></section>
+                {% if page.highlighted %}
+                    <div class="container alerts-wrapper">
+                        {{ page.highlighted }}
+                    </div>
+                {% endif %}
             </div>
             <div class="container-full-width">
                 <style id="main-styles">

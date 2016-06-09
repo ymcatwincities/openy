@@ -8,9 +8,8 @@ dependencies:
     - field.field.block_content.slide_show_item.field_button
     - field.field.block_content.slide_show_item.field_image
     - field.field.block_content.slide_show_item.field_title
-    - image.style.thumbnail
   module:
-    - image
+    - file_browser
     - text
 id: block_content.slide_show_item.default
 targetEntityType: block_content
@@ -34,10 +33,15 @@ content:
   field_image:
     weight: 4
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      entity_browser: browse_files
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: image_image
+    type: file_browser
   field_title:
     weight: 3
     settings:

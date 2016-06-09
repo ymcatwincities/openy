@@ -1,0 +1,14 @@
+name: Block Page (with Layout plugin)
+type: module
+description: 'Block Page (with Layout plugin integration)'
+# core: 8.x
+package:  Examples
+dependencies:
+  - page_manager
+  - layout_plugin
+
+# Information added by Drupal.org packaging script on 2016-01-11
+version: '8.x-1.0-alpha22'
+core: '8.x'
+project: 'layout_plugin'
+datestamp: 1452531565

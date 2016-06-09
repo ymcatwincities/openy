@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\path\Tests\PathTaxonomyTermTest.
- */
-
 namespace Drupal\path\Tests;
 
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -27,13 +22,13 @@ class PathTaxonomyTermTest extends PathTestBase {
     parent::setUp();
 
     // Create a Tags vocabulary for the Article node type.
-    $vocabulary = entity_create('taxonomy_vocabulary', array(
+    $vocabulary = Vocabulary::create([
       'name' => t('Tags'),
       'vid' => 'tags',
-    ));
+    ]);
     $vocabulary->save();
 
-    // Create and login user.
+    // Create and log in user.
     $web_user = $this->drupalCreateUser(array('administer url aliases', 'administer taxonomy', 'access administration pages'));
     $this->drupalLogin($web_user);
   }

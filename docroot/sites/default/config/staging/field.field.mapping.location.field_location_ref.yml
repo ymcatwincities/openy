@@ -1,0 +1,28 @@
+uuid: 54c63972-c87c-40a6-bf51-6ec14eed2199
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_ref
+    - node.type.location
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_ref
+field_name: field_location_ref
+entity_type: mapping
+bundle: location
+label: Location
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

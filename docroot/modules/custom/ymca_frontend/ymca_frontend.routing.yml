@@ -14,14 +14,6 @@ ymca_frontend.locations:
   requirements:
     _permission: 'access content'
 
-ymca_frontend.youth_sports:
-  path: 'youth_sports'
-  defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCAYouthSportsController::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCAYouthSportsController::setTitle'
-  requirements:
-    _permission: 'access content'
-
 ymca_frontend.march:
   path: 'march'
   defaults:

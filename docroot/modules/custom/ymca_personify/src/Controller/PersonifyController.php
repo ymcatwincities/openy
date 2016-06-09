@@ -125,4 +125,51 @@ class PersonifyController extends ControllerBase {
     exit();
   }
 
+  /**
+   * POC of customer orders.
+   */
+  public function customerOrders() {
+    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
+
+    $output = '<div class="container">';
+    $client = \Drupal::httpClient();
+    $options = [
+      'json' => [
+        'CL_MindBodyCustomerOrderInput' => [
+          'LastDataAccessDate' => '2000-01-01T11:20:00',
+        ],
+      ],
+      'headers' => [
+        'Content-Type' => 'application/json;charset=utf-8',
+      ],
+      'auth' => [
+        $this->config['customer_orders_username'],
+        $this->config['customer_orders_password'],
+      ],
+    ];
+
+    try {
+      $response = $client->request('POST', $this->config['customer_orders_endpoint'], $options);
+      if ($response->getStatusCode() == '200') {
+        $body = $response->getBody();
+        $data = json_decode($body->getContents());
+
+        foreach ($data->MindBodyCustomerOrderDetail as $order) {
+          $output .= '<div><pre>' . print_r($order, TRUE) . '</pre></div>';
+        }
+      }
+    }
+    catch (\Exception $e) {
+      watchdog_exception('ymca_personify', $e);
+    }
+    $output .= '</div>';
+
+    return [
+      '#markup' => $output,
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
+  }
+
 }

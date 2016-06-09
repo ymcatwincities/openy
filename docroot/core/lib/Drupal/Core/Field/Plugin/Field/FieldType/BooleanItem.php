@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Field\Plugin\Field\FieldType\BooleanItem.
- */
-
 namespace Drupal\Core\Field\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -125,4 +120,3 @@ class BooleanItem extends FieldItemBase implements OptionsProviderInterface {
     return $values;
   }
 }
-

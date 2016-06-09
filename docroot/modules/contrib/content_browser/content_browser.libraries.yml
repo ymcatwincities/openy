@@ -1,0 +1,18 @@
+view:
+  version: VERSION
+  js:
+    js/content_browser.view.js: {}
+  css:
+    theme:
+      css/content_browser.view.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+entity_embed:
+  version: VERSION
+  js:
+    js/content_browser.entity_embed.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Controller\ControllerResolver.
- */
-
 namespace Drupal\Core\Controller;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
@@ -73,7 +68,7 @@ class ControllerResolver extends BaseControllerResolver implements ControllerRes
         return $controller;
       }
       elseif (method_exists($controller, '__invoke')) {
-        return new $controller;
+        return new $controller();
       }
     }
 

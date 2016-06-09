@@ -1,0 +1,64 @@
+# All routes for Workflow maintenance are declared in Workflow UI.
+
+### Workflow Transition CRUD
+entity.workflow_transition.canonical:
+  path: '/workflow_transition/{workflow_transition}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the contact entity
+  #  _entity_view: 'workflow_transition'
+    _title: 'Workflow transition'
+  #requirements:
+  # Calls the access controller of the entity, $operation 'view'
+  #  _entity_access: 'workflow_transition.view'
+
+entity.workflow_transition.edit_form:
+  path: '/workflow_transition/{workflow_transition}/edit'
+  defaults:
+    _entity_form: 'workflow_transition.edit'
+    _title: 'Edit Workflow transition'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _entity_access: 'workflow_transition.update'
+
+entity.workflow_transition.delete_form:
+  path: '/workflow_transition/{workflow_transition}/delete'
+  defaults:
+    _entity_form: 'workflow_transition.delete'
+    _title: 'Delete Workflow transition'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _entity_access: 'workflow_transition.delete'
+
+### The Workflow Transition History List (Tab)
+# TODO D8-port: make Workflow History tab happen for every entity_type.
+# @see workflow.routing.yml, workflow.links.task.yml, WorkflowTransitionListController.
+# A route for showing the Workflow history tab.
+entity.node.workflow_history:
+  path: '/node/{node}/workflow/{field_name}'
+  defaults:
+    _title: 'Workflow history'
+    _controller: '\Drupal\workflow\Controller\WorkflowTransitionListController::historyOverview'
+    field_name: ~
+  requirements:
+    _custom_access: '\Drupal\workflow\Controller\WorkflowTransitionListController::historyAccess'
+    _module_dependencies: 'node'
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type}
+
+entity.taxonomy_term.workflow_history:
+  path: '/taxonomy/term/{taxonomy_term}/workflow/{field_name}'
+  defaults:
+    _title: 'Workflow history'
+    _controller: '\Drupal\workflow\Controller\WorkflowTransitionListController::historyOverview'
+    field_name: ~
+  requirements:
+    _custom_access: '\Drupal\workflow\Controller\WorkflowTransitionListController::historyAccess'
+    _module_dependencies: 'taxonomy'
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type}

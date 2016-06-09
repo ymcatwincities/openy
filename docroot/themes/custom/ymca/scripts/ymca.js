@@ -1,7 +1,8 @@
 (function ($) {
+  var ymca_theme_semaphore = false;
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
-
+      
       function getUrlVars() {
         var vars = {};
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -10,8 +11,8 @@
         return vars;
       }
 
-
-      $(function () {
+      if (!ymca_theme_semaphore) {
+        ymca_theme_semaphore = true;
         var url_vars = getUrlVars(),
           blog_archive_active = false,
           blog_archive_month,
@@ -49,85 +50,31 @@
             year_li.addClass("expanded");
           }
         });
-      });
 
-      // decorate promos
-      $('.home-template .main-promos > .richtext').addClass('col-md-4 col-sm-6');
-      var promos = $('.sidebar-promos > .richtext, .main-promos > .main-promo .richtext, .home-template .main-promos > .richtext');
-
-      promos.each(
-        function () {
-          var el = $(this),
-            links = $(this).find('a'),
-            link = links.eq(0),
-            title = link.text() !== '' ? link.text() : $(this).find('h2').text(),
-            href = link.attr('href'),
-            clickable = links.length == 1 || el.is('.video'),
-            wrapper = clickable ? $('<a class="wrapper"/>')
-              .attr('href', href)
-              .attr('title', title) : '<div class="text-promo"/>',
-            thumb = el
-              .find('img')
-              .addClass('img-responsive')
-              .removeAttr('height')
-              .removeAttr('width')
-              .wrap('<div class="img-crop img-crop-horizontal"/>')
-              .parent();
-          if (el.find('.promo-text p').length === 0) {
-            el.find('.promo-text').html('<p>' + el.find('.promo-text').text() + '</p>');
-          }
-          if (clickable) link.remove();
-          el
-            .wrapInner(wrapper)
-            .children()
-            .eq(0)
-            .prepend(thumb);
-
-          $('p', this).each(function (i) {
-            // Remove all comment nodes.
-            $(this)
-              .contents()
-              .filter(function(){
-                return this.nodeType == 8;
-              })
-              .remove();
-            var text = $(this).html();
-            if (text.replace(/\s/g, '') === '') {
-              $(this).addClass('hidden');
-            }
-          });
-          $(this).find('p:empty').remove();
-        }
-      );
-      $('.main-promos').removeClass('hidden');
-
-      // Youth Sports page
-      (function ($) {
-        $(document).ready(function () {
-          $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
-            e.preventDefault();
-            var top = $('.content-cards').offset().top;
-            $('html, body').animate({scrollTop: top}, 1000);
-            return false;
-          });
-
-          $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
-            e.preventDefault();
-            var top = $('.video-container').offset().top;
-            $('html, body').animate({scrollTop: top}, 1000);
-            return false;
-          });
+        // Youth Sports page
+        $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
+          e.preventDefault();
+          var top = $('.content-cards').offset().top;
+          $('html, body').animate({scrollTop: top}, 1000);
+          return false;
         });
-      })(jQuery);
 
-      // 2014 Annual Report pages
-      $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
-        if ($(this).text() == 'Read more') {
-          $(this).addClass('opened');
-        } else {
-          $(this).text('Read more');
-        }
-      });
+        $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
+          e.preventDefault();
+          var top = $('.video-container').offset().top;
+          $('html, body').animate({scrollTop: top}, 1000);
+          return false;
+        });
+
+        // 2014 Annual Report pages
+        $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
+          if ($(this).text() == 'Read more') {
+            $(this).addClass('opened');
+          } else {
+            $(this).text('Read more');
+          }
+        });
+      }
     }
   };
 
@@ -186,6 +133,19 @@
         if (!$(this).attr('pattern')) {
           $(this).attr('pattern', '[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.(?:[a-zA-Z0-9-\\.]+)*');
         }
+      });
+    }
+  };
+
+  /**
+   * MindBody theme behaviors.
+   */
+  Drupal.behaviors.ymca_mindbody = {
+    attach: function (context, settings) {
+      $('#mindbody-pt-form-wrapper a.change').on('click', function(e) {
+        e.preventDefault();
+        var id = $(this).attr('href');
+        $(id).slideDown();
       });
     }
   };

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\taxonomy\Tests\Views\TaxonomyTestBase.
- */
-
 namespace Drupal\taxonomy\Tests\Views;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -12,6 +7,8 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\field\Tests\EntityReference\EntityReferenceTestTrait;
 use Drupal\views\Tests\ViewTestBase;
 use Drupal\views\Tests\ViewTestData;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Base class for all taxonomy tests.
@@ -58,11 +55,13 @@ abstract class TaxonomyTestBase extends ViewTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
-    parent::setUp();
+  protected function setUp($import_test_views = TRUE) {
+    parent::setUp($import_test_views);
     $this->mockStandardInstall();
 
-    ViewTestData::createTestViews(get_class($this), array('taxonomy_test_views'));
+    if ($import_test_views) {
+      ViewTestData::createTestViews(get_class($this), array('taxonomy_test_views'));
+    }
 
     $this->term1 = $this->createTerm();
     $this->term2 = $this->createTerm();
@@ -85,10 +84,10 @@ abstract class TaxonomyTestBase extends ViewTestBase {
       'type' => 'article',
     ));
     // Create the vocabulary for the tag field.
-    $this->vocabulary = entity_create('taxonomy_vocabulary', array(
+    $this->vocabulary = Vocabulary::create([
       'name' => 'Views testing tags',
       'vid' => 'views_testing_tags',
-    ));
+    ]);
     $this->vocabulary->save();
     $field_name = 'field_' . $this->vocabulary->id();
 
@@ -148,7 +147,7 @@ abstract class TaxonomyTestBase extends ViewTestBase {
       'vid' => $this->vocabulary->id(),
       'langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
     ];
-    $term = entity_create('taxonomy_term', $settings);
+    $term = Term::create($settings);
     $term->save();
     return $term;
   }

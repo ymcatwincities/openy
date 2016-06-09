@@ -1,0 +1,37 @@
+uuid: f8e51c2f-2be7-47d6-a506-6b4a26afbb50
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.content_browser_preview
+    - field.field.node.blog.field_content
+    - field.field.node.blog.field_image
+    - field.field.node.blog.field_related_camps_locations
+    - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_summary
+    - field.field.node.blog.field_tags
+    - node.type.blog
+  module:
+    - text
+    - user
+id: node.blog.content_browser_preview
+targetEntityType: node
+bundle: blog
+mode: content_browser_preview
+content:
+  field_content:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    type: text_trimmed
+hidden:
+  field_image: true
+  field_related_camps_locations: true
+  field_site_section: true
+  field_sitemap_exclude: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  links: true

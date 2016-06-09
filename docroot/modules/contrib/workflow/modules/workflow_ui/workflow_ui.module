@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Provides administrative UI for workflow.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\workflow\Entity\Workflow;
+
+/**
+ * Implements hook_help().
+ */
+function workflow_ui_help($route_name, RouteMatchInterface $route_match) {
+
+  switch ($route_name) {
+    case 'entity.workflow_transition.field_ui_fields':
+      return t('This page allows you to add fields to the Workflow form.
+        Normally this is an advanced action, which is not needed in
+        regular use cases.');
+
+    case 'entity.workflow_type.collection':
+      return t('This page allows you to maintain Workflows. Once a workflow is
+        created, you can maintain your entity type and add a Field of type
+        \'Workflow\'.');
+
+    case 'entity.workflow_type.add_form':
+      return '';
+
+    case 'entity.workflow_state.collection':
+      return t("To create a new state, enter its name in the last row of the
+        'State' column. Check the 'Active' box to make it effective. You may
+        also drag it to the appropriate position.") . '<br />'
+      . t("A state must be marked as active, to be available in the
+        workflow's transitions.") . '<br />'
+      . t("If you wish to inactivate a state that has content (i.e. count is
+        not zero), then you need to select a state to which to reassign that
+        content.");
+
+    case 'entity.workflow_transition.collection':
+      $url = \Drupal\Core\Url::fromRoute('user.admin_permissions', [],
+        ['fragment' => 'module-workflow']);
+      return t('You are currently viewing the possible transitions to and from
+        workflow states. The state is shown in the left column; the state to be
+        moved to is to the right. For each transition, check the box next to
+        the role(s) that may initiate the transition. For example, if only the
+        "production editor" role may move content from Review state to the
+        Published state, check the box next to "production editor". The author
+        role is built in and refers to the user who authored the content.')
+      . '<br /><i>'
+      . t("If not all roles are in the list, please review which roles may
+        'participate in workflows' on <a href=':url'>the Permissions page</a>.",
+        array(':url' => $url->toString()))
+      . '</i>'
+        ;
+
+    case 'entity.workflow_label.collection':
+      return t('You can add labels to transitions if you don\'t like the
+        standard state labels. They will modify the Workflow form options, so
+        specific workflow transitions can have their own labels, relative to
+        the beginning and ending states. Rather than showing the user a
+        workflow box containing options like "review required" as a state in
+        the workflow, it could say "move to the editing department for grammar
+        review".');
+  }
+}
+
+/**
+ * Helper function to determine Workflow from Workflow UI URL.
+ */
+function workflow_ui_url_get_workflow($url = '' ) {
+  /* @var $workflows \Drupal\workflow\Entity\Workflow[] */
+  static $workflows = array();
+
+  // For some reason, $_SERVER is not allowed as default.
+  $url = ($url == '') ? $_SERVER['REQUEST_URI'] : $url;
+
+  // The URL may have prefixes: /
+  // ex.1: /en/admin/config/workflow/workflow/eerste/states
+  // ex.2: /admin/config/workflow/workflow/eerste/states
+  $base_url = '/config/workflow/workflow/';
+  $string = substr($url, strpos($url, $base_url) + strlen($base_url));
+  $wid = explode('/', $string)[0];
+  if (!isset($workflows[$wid])) {
+    $workflows[$wid] = Workflow::load($wid);
+  }
+
+  return $workflows[$wid];
+}
+
+
+/**
+ * Helper function to determine the title of the page.
+ *
+ * Used in file workflow_ui.routing.yml.
+ */
+function workflow_ui_url_get_title() {
+  $label = '';
+
+  // Get the Workflow from the page.
+  /* @var $workflow \Drupal\workflow\Entity\Workflow */
+  if ($workflow = workflow_ui_url_get_workflow()) {
+    $label = $workflow->label();
+  }
+
+  $title = t('Edit @entity %label', ['@entity' => 'Workflow', '%label' => $label]);
+  return $title;
+}
+
+/**
+ * Helper function to determine Workflow from Workflow UI URL.
+ */
+function workflow_ui_url_get_form_type($url = '' ) {
+  // For some reason, $_SERVER is not alowed as default.
+  $url = ($url == '') ? $_SERVER['REQUEST_URI'] : $url;
+
+  $base_url = '/config/workflow/workflow/';
+  $string = substr($url, strpos($url, $base_url) + strlen($base_url));
+  $type = explode('/', $string)[1];
+  return $type;
+}

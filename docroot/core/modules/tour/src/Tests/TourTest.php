@@ -1,13 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\tour\Tests\TourTest.
- */
-
 namespace Drupal\tour\Tests;
 
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\tour\Entity\Tour;
 
 /**
  * Tests the functionality of tour tips.
@@ -70,7 +66,7 @@ class TourTest extends TourTestBasic {
     $elements = $this->xpath('//li[@data-id=:data_id and @class=:classes and ./p//a[@href=:href and contains(., :text)]]', array(
       ':classes' => 'tip-module-tour-test tip-type-text tip-tour-test-1',
       ':data_id' => 'tour-test-1',
-      ':href' =>  \Drupal::url('<front>', [], ['absolute' => TRUE]),
+      ':href' => \Drupal::url('<front>', [], ['absolute' => TRUE]),
       ':text' => 'Drupal',
     ));
     $this->assertEqual(count($elements), 1, 'Found Token replacement.');
@@ -108,7 +104,7 @@ class TourTest extends TourTestBasic {
     $this->assertNotEqual(count($elements), 1, 'Did not find English variant of tip 1.');
 
     // Programmatically create a tour for use through the remainder of the test.
-    $tour = entity_create('tour', array(
+    $tour = Tour::create(array(
       'id' => 'tour-entity-create-test-en',
       'label' => 'Tour test english',
       'langcode' => 'en',

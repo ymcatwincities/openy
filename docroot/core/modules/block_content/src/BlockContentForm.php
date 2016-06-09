@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\block_content\BlockContentForm.
- */
-
 namespace Drupal\block_content;
 
 use Drupal\Component\Utility\Html;
@@ -16,7 +11,7 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Form controller for the custom block edit forms.
+ * Form handler for the custom block edit forms.
  */
 class BlockContentForm extends ContentEntityForm {
 

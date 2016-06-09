@@ -1,0 +1,21 @@
+uuid: 57eb8300-8474-4d7e-ae00-a620592f34bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: 2015_annual_report
+label: '2015 Annual Report'
+use_admin_theme: false
+path: /about/annual_reports/2015_annual_report
+access_logic: and
+access_conditions:
+  a2fe80ea-005c-4568-8900-ba724c872e58:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: a2fe80ea-005c-4568-8900-ba724c872e58
+parameters: {  }

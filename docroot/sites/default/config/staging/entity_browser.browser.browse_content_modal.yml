@@ -1,0 +1,32 @@
+uuid: db9c0d4e-d4fa-4722-8604-4cd942e5a836
+langcode: und
+status: true
+dependencies:
+  enforced:
+    module:
+      - content_browser
+_core:
+  default_config_hash: WGwnSPRCNGA47XCvOKZ8ekzdi0hIUEKvWbqZKubEfLc
+name: browse_content_modal
+label: 'Browser for Content (modal)'
+display: modal
+display_configuration:
+  widget_ids:
+    4c451234-3275-46b2-8861-97297999306b: 'Content Browser'
+  width: '1100'
+  height: '650'
+  link_text: 'Select content'
+  auto_open: true
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  4c451234-3275-46b2-8861-97297999306b:
+    settings:
+      view: content_browser_node
+      view_display: entity_browser_1
+    uuid: 4c451234-3275-46b2-8861-97297999306b
+    weight: 0
+    label: 'Content listing'
+    id: view

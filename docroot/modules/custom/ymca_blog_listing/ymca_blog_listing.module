@@ -37,7 +37,7 @@ function ymca_blog_listing_preprocess_node(&$variables) {
   }
 
   // Load & prepare posts.
-  $load_posts = function($ids) {
+  $load_posts = function ($ids) {
     $posts = [];
     $items = \Drupal::getContainer()->get('entity.manager')->getStorage('node')->loadMultiple($ids);
     foreach ($items as $node) {

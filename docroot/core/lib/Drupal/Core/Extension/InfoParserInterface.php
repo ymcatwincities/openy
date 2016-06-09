@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Extension\InfoParserInterface.
- */
-
 namespace Drupal\Core\Extension;
 
 /**
@@ -65,4 +60,3 @@ interface InfoParserInterface  {
   public function parse($filename);
 
 }
-

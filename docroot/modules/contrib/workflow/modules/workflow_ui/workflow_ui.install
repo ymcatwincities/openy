@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the workflow_ui module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function workflow_ui_install() {
+  $url = \Drupal\Core\Url::fromRoute('user.admin_permissions', [],
+    ['fragment' => 'module-workflow']);
+  $message = t("Please review which roles may 'participate in workflows'
+    <a href=':url'>on the Permissions page</a>.",
+    array(':url' => $url->toString()));
+  drupal_set_message($message);
+}
+
+/**
+ * Drupal 8 updates.
+ */
+function workflow_ui_update_8001(&$sandbox) {
+}

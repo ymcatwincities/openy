@@ -7,6 +7,8 @@
  * @see phpunit.xml.dist
  */
 
+use Drupal\Component\Assertion\Handle;
+
 /**
  * Finds all valid extension directories recursively within a given directory.
  *
@@ -104,6 +106,8 @@ function drupal_phpunit_populate_class_loader() {
   // Start with classes in known locations.
   $loader->add('Drupal\\Tests', __DIR__);
   $loader->add('Drupal\\KernelTests', __DIR__);
+  $loader->add('Drupal\\FunctionalTests', __DIR__);
+  $loader->add('Drupal\\FunctionalJavascriptTests', __DIR__);
 
   if (!isset($GLOBALS['namespaces'])) {
     // Scan for arbitrary extension namespaces from core and contrib.
@@ -139,5 +143,4 @@ date_default_timezone_set('Australia/Sydney');
 // runtime assertions. By default this setting is on. Here we make a call to
 // make PHP 5 and 7 handle assertion failures the same way, but this call does
 // not turn runtime assertions on if they weren't on already.
-\Drupal\Component\Assertion\Handle::register();
-
+Handle::register();

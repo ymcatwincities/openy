@@ -1,9 +1,4 @@
 services:
-  ymca_breadcrumb.breadcrumb.default:
-    class: Drupal\ymca_breadcrumb\YMCAPathBasedBreadcrumbBuilder
-    arguments: ['@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@config.factory',  '@title_resolver', '@current_user', '@path.current']
-    tags:
-      - { name: breadcrumb_builder, priority: 50 }
   ymca_breadcrumb.blog_node:
     class: Drupal\ymca_breadcrumb\YMCANewsBlogBreadcrumbBuilder
     tags:

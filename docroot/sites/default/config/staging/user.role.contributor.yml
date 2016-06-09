@@ -1,0 +1,30 @@
+uuid: 7dc020aa-2075-4d78-8000-b132411fac55
+langcode: en
+status: true
+dependencies: {  }
+id: contributor
+label: Contributor
+weight: 5
+is_admin: null
+permissions:
+  0: 'create workflow workflow_transition'
+  1: 'create article content'
+  5: 'access contextual links'
+  6: 'use text format full_html'
+  7: 'access toolbar'
+  8: 'view the administration theme'
+  9: 'schedule workflow workflow_transition'
+  10: 'administer nodes'
+  11: 'bypass node access'
+  12: 'view all revisions'
+  13: 'delete any article content'
+  14: 'edit any article content'
+  15: 'revert article revisions'
+  16: 'view article revisions'
+  17: 'access block_browser_iframe entity browser pages'
+  18: 'access browse_block_modal entity browser pages'
+  19: 'access browse_content entity browser pages'
+  20: 'access browse_content_modal entity browser pages'
+  21: 'access browse_files entity browser pages'
+  22: 'access browse_files_modal entity browser pages'
+  23: 'dropzone upload files'

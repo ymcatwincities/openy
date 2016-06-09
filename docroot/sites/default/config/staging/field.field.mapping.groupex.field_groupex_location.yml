@@ -1,0 +1,19 @@
+uuid: 3775caa5-262a-40fe-b821-86e1eff0c298
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_groupex_location
+    - ymca_mappings.mapping_type.groupex
+id: mapping.groupex.field_groupex_location
+field_name: field_groupex_location
+entity_type: mapping
+bundle: groupex
+label: 'Groupex Location'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

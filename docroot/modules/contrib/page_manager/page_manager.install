@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains update functions for Page Manager.
+ */
+
+/**
+ * Install the Page Manager UI for existing sites.
+ */
+function page_manager_update_8001() {
+  \Drupal::service('module_installer')->install(['page_manager_ui']);
+}

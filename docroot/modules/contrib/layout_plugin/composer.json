@@ -1,0 +1,21 @@
+{
+  "name": "drupal/layout_plugin",
+  "description": "An API module to hold the Drupal 8 plugin manager for layouts.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "keywords": ["php", "layout"],
+  "homepage": "https://www.drupal.org/project/layout_plugin",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "David Snopek"
+    },
+    {
+      "name": "Bram Goffings"
+    },
+    {
+      "name": "Fredrik Lassen"
+    }
+  ],
+  "require": { }
+}

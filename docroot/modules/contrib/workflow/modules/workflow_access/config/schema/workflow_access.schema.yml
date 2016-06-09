@@ -1,0 +1,6 @@
+workflow_access.settings:
+  type: mapping
+  label: Settings
+  mapping:
+    workflow_access_priority:
+      type: integer

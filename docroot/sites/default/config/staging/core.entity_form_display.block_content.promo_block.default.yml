@@ -8,9 +8,8 @@ dependencies:
     - field.field.block_content.promo_block.field_block_header
     - field.field.block_content.promo_block.field_image
     - field.field.block_content.promo_block.field_link
-    - image.style.thumbnail
   module:
-    - image
+    - file_browser
     - link
     - text
 id: block_content.promo_block.default
@@ -35,10 +34,15 @@ content:
   field_image:
     weight: 1
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      entity_browser: browse_files
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: image_image
+    type: file_browser
   field_link:
     weight: 4
     settings:
