@@ -47,17 +47,6 @@ class MindbodyPTForm extends FormBase {
     return new static($container->get('mindbody_cache_proxy.client'));
   }
 
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbSite() {
-    $mb_site = new MindBodyAPI('SiteService', TRUE);
-    $mb_site->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_site;
-  }
-
   /**
    * {@inheritdoc}
    */
@@ -168,7 +157,6 @@ class MindbodyPTForm extends FormBase {
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
-    //$locations = $this->mbSite()->call('GetLocations', array());
     $locations = $this->proxy->call('SiteService', 'GetLocations');
 
     $location_options = [];
@@ -204,7 +192,7 @@ class MindbodyPTForm extends FormBase {
         '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']]),
         '#weight' => 1,
       );
-      $programs = $this->mbSite()->call('GetPrograms', array('OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment'));
+      $programs = $this->proxy->call('SiteService', 'GetPrograms', ['OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment']);
       $program_options = [];
       foreach ($programs->GetProgramsResult->Programs->Program as $program) {
         $program_options[$program->ID] = $program->Name;
@@ -235,7 +223,7 @@ class MindbodyPTForm extends FormBase {
         '#markup' => $this->getElementHeaderMarkup('program', $program_options[$values['mb_program']]),
         '#weight' => 3,
       );
-      $session_types = $this->mbSite()->call('GetSessionTypes', array('OnlineOnly' => FALSE, 'ProgramIDs' => array($values['mb_program'])));
+      $session_types = $this->proxy->call('SiteService', 'GetSessionTypes', ['OnlineOnly' => FALSE, 'ProgramIDs' => [$values['mb_program']]]);
       $session_type_options = [];
       foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
         $session_type_options[$type->ID] = $type->Name;
@@ -443,7 +431,7 @@ class MindbodyPTForm extends FormBase {
         }
       }
 
-      $programs = $this->mbSite()->call('GetPrograms', array('OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment'));
+      $programs = $this->proxy->call('SiteService', 'GetPrograms', ['OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment']);
       foreach ($programs->GetProgramsResult->Programs->Program as $program) {
         if ($program->ID == $values['program']) {
           $program_name = $program->Name;
