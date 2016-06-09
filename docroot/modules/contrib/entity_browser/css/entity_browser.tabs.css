@@ -1,0 +1,28 @@
+/**
+ * @file
+ * Styles for Entity Browser.
+ *
+ * These styles are compatible with Bartik, Seven, and Classy themes.
+ */
+
+/**
+ * Form elements.
+ */
+.entity-browser-form input.edit-submit {
+  margin-top: 20px;
+}
+
+/**
+ * Tab navigation.
+ */
+.entity-browser-form nav.tabs {
+  margin-bottom: 20px;
+}
+
+.entity-browser-form input.tab {
+  display: none;
+}
+
+.entity-browser-form .entity-tabs a {
+  cursor: pointer;
+}

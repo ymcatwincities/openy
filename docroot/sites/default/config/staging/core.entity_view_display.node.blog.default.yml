@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
-    - field.field.node.blog.field_sitemap_exclude
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
     - node.type.blog

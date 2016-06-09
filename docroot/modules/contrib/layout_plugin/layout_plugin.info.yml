@@ -1,0 +1,11 @@
+name: Layout Plugin
+type: module
+description: 'A registry for layout plugins.'
+# core: 8.x
+package: Layout
+
+# Information added by Drupal.org packaging script on 2016-01-11
+version: '8.x-1.0-alpha22'
+core: '8.x'
+project: 'layout_plugin'
+datestamp: 1452531565

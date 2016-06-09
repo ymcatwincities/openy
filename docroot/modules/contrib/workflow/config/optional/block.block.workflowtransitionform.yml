@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - workflow
+  theme:
+    - bartik
+id: workflowtransitionform
+theme: bartik
+region: sidebar_second
+weight: -7
+provider: null
+plugin: workflow_transition_form_block
+settings:
+  id: workflow_transition_form_block
+  label: 'Workflow Transition form'
+  provider: workflow
+  label_display: visible
+visibility: {  }

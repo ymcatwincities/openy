@@ -105,20 +105,14 @@ function ymca_menu_page_attachments(array &$attachments) {
  */
 function ymca_menu_preprocess_node(&$variables) {
   $node = &$variables['node'];
-  if (($variables['view_mode'] == 'full' || $variables['view_mode'] == 'default') && $node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0]) {
-    /* var \Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
-    if ($link = \Drupal::service('menu.active_trail')->getActiveLink()) {
-      $menu_name = $link->getMenuName();
-      // We need custom template here to implement custom contextual links.
+  if (($variables['view_mode'] == 'full' || $variables['view_mode'] == 'default') && ($node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0] ||
+    $variables['node']->bundle() == 'blog')
+  ) {
+    $sidebar_navigation_block = \Drupal::entityTypeManager()->getStorage('block')->load('sidebarnavigation');
+    if (!is_null($sidebar_navigation_block)) {
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block');
       $variables['sidebar_navigation'] = [
-        '#theme' => 'sidebar_navigation',
-        '#content' => [
-          '#contextual_links' => [
-            'menu' => [
-              'route_parameters' => ['menu' => $menu_name],
-            ],
-          ],
-        ],
+        $view_builder->view($sidebar_navigation_block),
       ];
     }
   }
@@ -161,6 +155,12 @@ function ymca_menu_form_node_form_alter(&$form, FormStateInterface $form_state) 
   foreach (array_keys($form['actions']) as $action) {
     if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
       $form['actions'][$action]['#submit'][] = 'ymca_menu_form_node_form_submit';
+    }
+  }
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#validate'][] = 'ymca_menu_form_node_form_validate';
     }
   }
   // Generate a list of possible parents (not including this link or descendants).
@@ -245,6 +245,41 @@ function ymca_menu_form_node_form_submit($form, FormStateInterface $form_state) 
     $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
   }
+}
+
+/**
+ * Form validation handler for 'Exclude from nav' checkbox on the node form.
+ *
+ * @see ymca_menu_form_node_form_alter()
+ */
+function ymca_menu_form_node_form_validate($form, FormStateInterface $form_state) {
+
+  // Check node alias.
+  $path = $form_state->getValue('path');
+  $title = $form_state->getValue('title');
+
+  $bi = $form_state->getBuildInfo();
+  /** @var \Drupal\node\NodeForm $co */
+  $co = $bi['callback_object'];
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $co->getEntity();
+  $node->set('title', $title[0]['value']);
+  /** @var \Drupal\node\Entity\NodeType $node_type */
+  $node_type = $node->type->entity;
+  $node_type->setThirdPartySetting('menu_ui', 'parent', $form_state->getValue('menu')['menu_parent']);
+
+  if ($node->bundle() == 'article' && empty($path[0]['alias'])) {
+    // Check whether we need to update an alias.
+    $alias = Drupal::service('ymca_aliases.node_alias')->getAlias($node);
+    if (empty($alias)) {
+      return;
+    }
+    $existing = Drupal::service('path.alias_storage')->load(['alias' => $alias]);
+    if (!empty($existing['pid'])) {
+      $form_state->setErrorByName('alias', t('The alias %alias is already in use.', array('%alias' => $alias)));
+    }
+  }
+  $node->validate();
 }
 
 /**

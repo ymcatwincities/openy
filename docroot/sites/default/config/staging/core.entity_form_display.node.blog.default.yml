@@ -7,15 +7,13 @@ dependencies:
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
-    - field.field.node.blog.field_sitemap_exclude
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
-    - image.style.thumbnail
     - node.type.blog
   module:
-    - image
+    - entity_browser
+    - file_browser
     - path
-    - scheduler
     - text
 id: node.blog.default
 targetEntityType: node
@@ -37,32 +35,37 @@ content:
   field_image:
     weight: 7
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      entity_browser: browse_files_modal
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: image_image
+    type: file_browser
   field_related_camps_locations:
     weight: 6
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: entity_browser_entity_reference
   field_site_section:
     weight: 5
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-  field_sitemap_exclude:
-    weight: 26
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
+    type: entity_browser_entity_reference
   field_summary:
     weight: 8
     settings:

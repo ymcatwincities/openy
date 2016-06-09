@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\Core\Utility\LinkGeneratorTest.
- */
-
 namespace Drupal\Tests\Core\Utility {
 
 use Drupal\Component\Render\MarkupInterface;
@@ -524,7 +519,7 @@ class LinkGeneratorTest extends UnitTestCase {
     }
 
     // Execute the query.
-    $document = new \DOMDocument;
+    $document = new \DOMDocument();
     $document->loadHTML($html);
     $xpath = new \DOMXPath($document);
 
@@ -543,7 +538,7 @@ class LinkGeneratorTest extends UnitTestCase {
    *   The number of results that are found.
    */
   protected function assertNoXPathResults($query, $html) {
-    $document = new \DOMDocument;
+    $document = new \DOMDocument();
     $document->loadHTML($html);
     $xpath = new \DOMXPath($document);
 

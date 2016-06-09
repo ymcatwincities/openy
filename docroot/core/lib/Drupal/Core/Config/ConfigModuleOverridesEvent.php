@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Config\ConfigModuleOverridesEvent.
- */
-
 namespace Drupal\Core\Config;
 
 use Drupal\Component\Utility\NestedArray;
@@ -105,4 +100,3 @@ class ConfigModuleOverridesEvent extends Event {
     return $this;
   }
 }
-

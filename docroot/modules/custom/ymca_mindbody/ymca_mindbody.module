@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_mindbody.module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ymca_mindbody_menu() {
+  $items['admin/config/content/mindbody/settings'] = array(
+    'title' => 'Mindbody API credentials',
+    'route_name' => 'ymca_mindbody.credentials.settings',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_mindbody_theme($existing, $type, $theme, $path) {
+  return [
+    'mindbody_results_content' => [
+      'variables' => [
+        'location' => '',
+        'program' => '',
+        'session_type' => '',
+        'trainer' => '',
+        'datetime' => '',
+        'back_link' => '',
+        'base_path' => '',
+        'days' => [],
+      ],
+      'template' => 'mindbody-results-content',
+    ],
+  ];
+}

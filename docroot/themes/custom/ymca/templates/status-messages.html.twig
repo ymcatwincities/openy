@@ -23,6 +23,7 @@
  * @ingroup themeable
  */
 #}
+
 {% for type, messages in message_list %}
   {%
   set classes = ['alert', type == 'status' ? 'alert-success' : 'alert-' ~ type]

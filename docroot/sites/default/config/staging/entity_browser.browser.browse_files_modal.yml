@@ -1,0 +1,45 @@
+uuid: b0a17afa-a30b-4ed4-8b00-e3a293add901
+langcode: und
+status: true
+dependencies:
+  enforced:
+    module:
+      - file_browser
+  module:
+    - dropzonejs_eb_widget
+_core:
+  default_config_hash: GsSgt9CnFfs7KH2YlOteXtFWOiLaHX7tsbngSIp_7Ls
+name: browse_files_modal
+label: 'Browser for files (modal)'
+display: modal
+display_configuration:
+  widget_ids:
+    735d146c-a4b2-4327-a057-d109e0905e05: 'Upload files'
+    a4ad947c-9669-497c-9988-24351955a02f: 'Files listing'
+  width: '1100'
+  height: '650'
+  link_text: 'Select files'
+  auto_open: true
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  a4ad947c-9669-497c-9988-24351955a02f:
+    settings:
+      view: files_entity_browser
+      view_display: entity_browser_1
+    uuid: a4ad947c-9669-497c-9988-24351955a02f
+    weight: 1
+    label: 'Files listing'
+    id: view
+  735d146c-a4b2-4327-a057-d109e0905e05:
+    settings:
+      upload_location: 'public://'
+      dropzone_description: 'Click or drop files here to upload them'
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+      max_filesize: 50M
+    uuid: 735d146c-a4b2-4327-a057-d109e0905e05
+    weight: 0
+    label: 'Upload files'
+    id: dropzonejs

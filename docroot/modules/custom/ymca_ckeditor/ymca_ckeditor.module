@@ -28,7 +28,9 @@ function ymca_ckeditor_ckeditor_css_alter(array &$css, Editor $editor) {
  * Implements hook_ENTITY_TYPE_entity_embed().
  */
 function ymca_ckeditor_file_embed_alter(&$build, $entity, $context) {
-  $options = $build['#url']->getOptions();
-  $options['query'][$entity->getChangedTime()] = '';
-  $build['#url']->setOptions($options);
+  if (!empty($build['#url'])) {
+    $options = $build['#url']->getOptions();
+    $options['query'][$entity->getChangedTime()] = '';
+    $build['#url']->setOptions($options);
+  }
 }

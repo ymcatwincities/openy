@@ -18,8 +18,11 @@
   <section class="content">
     <div class="container">
 
-      <section class="messages">
-      </section>
+      {% if page.highlighted %}
+        <div class="container alerts-wrapper">
+          {{ page.highlighted }}
+        </div>
+      {% endif %}
 
       {{ page.content }}
 

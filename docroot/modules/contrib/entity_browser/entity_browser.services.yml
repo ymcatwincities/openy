@@ -1,0 +1,24 @@
+services:
+  plugin.manager.entity_browser.display:
+    class: Drupal\entity_browser\DisplayManager
+    parent: default_plugin_manager
+  plugin.manager.entity_browser.selection_display:
+    class: Drupal\entity_browser\SelectionDisplayManager
+    parent: default_plugin_manager
+  plugin.manager.entity_browser.widget:
+    class: Drupal\entity_browser\WidgetManager
+    parent: default_plugin_manager
+  plugin.manager.entity_browser.widget_selector:
+    class: Drupal\entity_browser\WidgetSelectorManager
+    parent: default_plugin_manager
+  plugin.manager.entity_browser.field_widget_display:
+    class: Drupal\entity_browser\FieldWidgetDisplayManager
+    parent: default_plugin_manager
+  entity_browser.route_subscriber:
+    class: Drupal\entity_browser\RouteSubscriber
+    arguments: ['@entity.manager', '@plugin.manager.entity_browser.display', '@entity.query']
+  entity_browser.ctools_fallback_route_enhancer:
+    class: Drupal\entity_browser\Routing\CtoolsFallbackRouteEnhancer
+    arguments: ['@module_handler']
+    tags:
+      - { name: route_enhancer }

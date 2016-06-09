@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\datetime\Plugin\Field\FieldWidget\DateTimeDatelistWidget.
- */
 
 namespace Drupal\datetime\Plugin\Field\FieldWidget;
 
@@ -80,7 +76,7 @@ class DateTimeDatelistWidget extends DateTimeWidgetBase {
     $element['value'] = array(
       '#type' => 'datelist',
       '#date_increment' => $increment,
-      '#date_part_order'=> $date_part_order,
+      '#date_part_order' => $date_part_order,
     ) + $element['value'];
 
     return $element;

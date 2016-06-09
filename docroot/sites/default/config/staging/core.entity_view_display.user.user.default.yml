@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_locations
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -15,6 +16,8 @@ mode: default
 content:
   member_for:
     weight: 5
+    settings: {  }
+    third_party_settings: {  }
   user_picture:
     type: image
     weight: 0
@@ -23,4 +26,5 @@ content:
       image_link: content
     third_party_settings: {  }
     label: hidden
-hidden: {  }
+hidden:
+  field_locations: true

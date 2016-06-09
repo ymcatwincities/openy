@@ -218,6 +218,29 @@ function ymca_membership_form_contact_message_form_alter(&$form, &$form_state, $
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for contact_form_edit_form().
+ */
+function ymca_membership_form_contact_form_edit_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['id']['#default_value']) && $form['id']['#default_value'] == 'membership_form') {
+    unset($form['submission_page']);
+    unset($form['contact_storage_uri']);
+    $special_offer_id = \Drupal::config('ymca_membership.config')->get('thank_you_special_offer_block_id');
+    $what_is_next_id = \Drupal::config('ymca_membership.config')->get('thank_you_what_is_next_block_id');
+    $special_offer_link = new Link(t('Special Offer'), Url::fromUri('internal:/block/' . $special_offer_id));
+    $what_is_next_link = new Link(t('What is next'), Url::fromUri('internal:/block/' . $what_is_next_id));
+    $form['email']['#suffix'] = t('
+      <strong>Edit blocks on Thank you page</strong><br/>
+      Edit "@special_offer_link" block.<br/>
+      Edit "@what_is_next_link" block.',
+      array(
+        '@special_offer_link' => render($special_offer_link->toRenderable()),
+        '@what_is_next_link' => render($what_is_next_link->toRenderable()),
+      )
+    );
+  }
+}
+
+/**
  * Implements a Submit Callback for Membership form.
  */
 function ymca_membership_contact_message_redirect_submit(&$form, &$form_state) {

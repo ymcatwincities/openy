@@ -143,6 +143,20 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
      */
     protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens, array $requiredSchemes = array())
     {
+        if (is_bool($referenceType) || is_string($referenceType)) {
+            @trigger_error('The hardcoded value you are using for the $referenceType argument of the '.__CLASS__.'::generate method is deprecated since version 2.8 and will not be supported anymore in 3.0. Use the constants defined in the UrlGeneratorInterface instead.', E_USER_DEPRECATED);
+
+            if (true === $referenceType) {
+                $referenceType = self::ABSOLUTE_URL;
+            } elseif (false === $referenceType) {
+                $referenceType = self::ABSOLUTE_PATH;
+            } elseif ('relative' === $referenceType) {
+                $referenceType = self::RELATIVE_PATH;
+            } elseif ('network' === $referenceType) {
+                $referenceType = self::NETWORK_PATH;
+            }
+        }
+
         $variables = array_flip($variables);
         $mergedParams = array_replace($defaults, $this->context->getParameters(), $parameters);
 
@@ -202,16 +216,7 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
             $scheme = $this->context->getScheme();
 
             if ($requiredSchemes) {
-                $schemeMatched = false;
-                foreach ($requiredSchemes as $requiredScheme) {
-                    if ($scheme === $requiredScheme) {
-                        $schemeMatched = true;
-
-                        break;
-                    }
-                }
-
-                if (!$schemeMatched) {
+                if (!in_array($scheme, $requiredSchemes, true)) {
                     $referenceType = self::ABSOLUTE_URL;
                     $scheme = current($requiredSchemes);
                 }
@@ -273,7 +278,10 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         }
 
         // add a query string if needed
-        $extra = array_diff_key($parameters, $variables, $defaults);
+        $extra = array_udiff_assoc(array_diff_key($parameters, $variables), $defaults, function ($a, $b) {
+            return $a == $b ? 0 : 1;
+        });
+
         if ($extra && $query = http_build_query($extra, '', '&')) {
             // "/" and "?" can be left decoded for better user experience, see
             // http://tools.ietf.org/html/rfc3986#section-3.4

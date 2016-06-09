@@ -22,10 +22,25 @@ class RouteSubscriber extends RouteSubscriberBase {
           $item->setDefault('_controller', 'Drupal\ymca_alters\Controller\NodeViewController::view');
           break;
 
+        case '/node/preview/{node_preview}/{view_mode_id}':
+          $item->setDefault('_controller', '\Drupal\ymca_alters\Controller\YmcaNodePreviewController::view');
+          break;
+
         case '/sitemap':
           $item->setPath('/sitemap_navigation');
           break;
       }
+    }
+
+    // Set Location schedules views page to use admin theme.
+    // view.[VIEW NAME].[DISPLAY NAME].
+    if ($route = $collection->get('view.location_schedules.location_schedules_page')) {
+      $route->setOption('_admin_route', TRUE);
+    }
+
+    // Replace page manager block edit form with our customization.
+    if ($route = $collection->get('page_manager.variant_edit_block')) {
+      $route->setDefault('_form', '\Drupal\ymca_alters\Form\YmcaVariantPluginEditBlockForm');
     }
   }
 

@@ -1,0 +1,7 @@
+field.widget.third_party.entity_browser:
+  type: mapping
+  label: 'IEF entity browser existing functionality'
+  mapping:
+    entity_browser_id:
+      type: string
+      label: ID of entity browser to be used as replacement for autocomplete field
