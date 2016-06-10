@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\State\StateInterface;
 
 /**
  * Provides the Personal Training Form.
@@ -32,21 +33,31 @@ class MindbodyPTForm extends FormBase {
   protected $credentials;
 
   /**
+   * State.
+   *
+   * @var StateInterface
+   */
+  protected $state;
+
+  /**
    * MindbodyPTForm constructor.
    *
+   * @param StateInterface $state
+   *   State.
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
+  public function __construct(StateInterface $state, MindbodyCacheProxyInterface $cache_proxy) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
+    $this->state = $state;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('mindbody_cache_proxy.client'));
+    return new static($container->get('state'), $container->get('mindbody_cache_proxy.client'));
   }
 
   /**
@@ -106,10 +117,14 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   protected function getDisabledMarkup() {
-    $branch_number = '<a href="tel:651-771-8881">651-771-8881</a>';
-    $markup = '<div class="container disabled-form">';
-    $markup .= $this->t('Please call branch !branch_number to book trainings.', array('!branch_number' => $branch_number));
-    $markup .= '</div>';
+    $markup = '';
+    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load(12956);
+    if (!is_null($block)) {
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+      $markup .= '<div class="container disabled-form">';
+      $markup .= $view_builder->view($block);
+      $markup .= '</div>';
+    }
     return $markup;
   }
 
@@ -158,7 +173,7 @@ class MindbodyPTForm extends FormBase {
     $form['#suffix'] = '</div>';
 
     // Disable form if we exceed 1000 calls to MindBody API.
-    $mindbody_proxy_state = \Drupal::state()->get('mindbody_cache_proxy');
+    $mindbody_proxy_state = $this->state->get('mindbody_cache_proxy');
     if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
       $form['disable'] = [
         "#markup" => $this->getDisabledMarkup(),
