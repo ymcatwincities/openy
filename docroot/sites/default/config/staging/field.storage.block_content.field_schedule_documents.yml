@@ -10,7 +10,7 @@ field_name: field_schedule_documents
 entity_type: block_content
 type: file
 settings:
-  display_field: true
+  display_field: false
   display_default: true
   uri_scheme: public
   target_type: file
