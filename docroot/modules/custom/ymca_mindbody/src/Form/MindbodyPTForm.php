@@ -122,7 +122,7 @@ class MindbodyPTForm extends FormBase {
     if (!is_null($block)) {
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
       $markup .= '<div class="container disabled-form">';
-      $markup .= $view_builder->view($block);
+      $markup .= render($view_builder->view($block));
       $markup .= '</div>';
     }
     return $markup;
@@ -174,7 +174,7 @@ class MindbodyPTForm extends FormBase {
 
     // Disable form if we exceed 1000 calls to MindBody API.
     $mindbody_proxy_state = $this->state->get('mindbody_cache_proxy');
-    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
+    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1) {
       $form['disable'] = [
         "#markup" => $this->getDisabledMarkup(),
       ];
