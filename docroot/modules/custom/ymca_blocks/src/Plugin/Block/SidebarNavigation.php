@@ -57,7 +57,9 @@ class SidebarNavigation extends BlockBase {
       ],
       '#attributes' => ['class' => ['panel', 'panel-default', 'panel-subnav']],
       '#cache' => [
-        'max-age' => 0,
+        'contexts' => [
+          'url'
+        ],
       ],
     ];
   }
