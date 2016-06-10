@@ -1,0 +1,27 @@
+uuid: 4fd35c56-e583-471d-b7c7-cdbb2a4bc007
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_schedule
+    - field.storage.block_content.field_schedule_documents
+  module:
+    - file
+id: block_content.location_schedule.field_schedule_documents
+field_name: field_schedule_documents
+entity_type: block_content
+bundle: location_schedule
+label: 'Schedule Documents'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file
