@@ -2,10 +2,10 @@
 
 namespace Drupal\mindbody_cache_proxy;
 
-use Drupal\Core\Entity\Query\QueryFactoryInterface;
-use Drupal\Core\State\StateInterface;
+use Drupal\Core\State\State;
 use Drupal\mindbody\MindbodyClientInterface;
 use Drupal\mindbody_cache_proxy\Entity\MindbodyCache;
+use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Class MindbodyProxy.
@@ -29,14 +29,14 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
   /**
    * Query factory.
    *
-   * @var QueryFactoryInterface
+   * @var QueryFactory
    */
   protected $queryFactory;
 
   /**
    * State.
    *
-   * @var StateInterface
+   * @var State
    */
   protected $state;
 
@@ -45,12 +45,12 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
    *
    * @param MindbodyClientInterface $mindbody_client
    *   MindBody client.
-   * @param QueryFactoryInterface $query_factory
+   * @param QueryFactory $query_factory
    *   Query factory.
-   * @param StateInterface $state
-   *   Query factory.
+   * @param State $state
+   *   State.
    */
-  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactoryInterface $query_factory, StateInterface $state) {
+  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state) {
     $this->mindbodyClient = $mindbody_client;
     $this->queryFactory = $query_factory;
     $this->state = $state;
