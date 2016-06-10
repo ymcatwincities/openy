@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
     - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
@@ -94,6 +95,13 @@ content:
     type: string
   field_promo_slideshow:
     weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_schedule_block:
+    weight: 14
     label: above
     settings:
       link: true
