@@ -247,14 +247,21 @@ function ymca_alters_user_logout($account) {
  * Implements hook_preprocess_HOOK().
  */
 function ymca_alters_preprocess_field(&$variables) {
-  if ($variables['element']['#field_name'] == 'field_schedule_documents') {
-    $route = \Drupal::routeMatch()->getRouteName();
-    if ($route == 'ymca_frontend.location_schedules') {
-      $node = \Drupal::routeMatch()->getParameter('node');
-
+  if (
+    $variables['element']['#field_name'] == 'field_schedule_documents'
+    && $variables['element']['#entity_type'] == 'block_content'
+    && $variables['element']['#bundle'] == 'location_schedule'
+  ) {
+    $block_id = $variables['element']['#object']->id();
+    $location_nids = \Drupal::entityQuery('node')
+      ->condition('type', 'location')
+      ->condition('field_schedule_block.target_id', $block_id)
+      ->execute();
+    if ($location_nids) {
+      $location_id = reset($location_nids);
       $mapping_id = \Drupal::entityQuery('mapping')
         ->condition('type', 'location')
-        ->condition('field_location_ref', $node->id())
+        ->condition('field_location_ref', $location_id)
         ->execute();
       $mapping_id = reset($mapping_id);
       $location = FALSE;
@@ -266,7 +273,7 @@ function ymca_alters_preprocess_field(&$variables) {
       if (!$location) {
         \Drupal::logger('ymca_alters')->warning(
           'Location ID for node %node was not found',
-          ['%node' => $node->id()]
+          ['%node' => $location_id]
         );
       }
 
@@ -491,4 +498,12 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
   $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
   $breadcrumb->addCacheContexts(['url.path']);
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function ymca_alters_entity_type_alter(array &$entity_types) {
+  // Override block_content access handler.
+  $entity_types['block_content']->setAccessClass('Drupal\ymca_alters\BlockContentAccessControlHandler');
 }
