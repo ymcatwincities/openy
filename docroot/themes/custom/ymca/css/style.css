@@ -3868,7 +3868,8 @@ a[href*=".pdf?"]:after,
 }
 
 a[href$=pdf]:hover,
-a[href*=".pdf?"]:hover {
+a[href*=".pdf?"]:hover,
+.pdf-link:hover {
   text-decoration: none;
 }
 
