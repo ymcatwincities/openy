@@ -109,7 +109,7 @@ class MindbodyPTForm extends FormBase {
     $branch_number = '<a href="tel:651-771-8881">651-771-8881</a>';
     $markup = '<div class="container disabled-form">';
     $markup .= $this->t('Please call branch !branch_number to book trainings.', array('!branch_number' => $branch_number));
-    $markup .= '</div></div>';
+    $markup .= '</div>';
     return $markup;
   }
 
