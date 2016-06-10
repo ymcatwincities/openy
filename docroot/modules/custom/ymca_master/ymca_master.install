@@ -3048,3 +3048,17 @@ function ymca_master_update_8129() {
     ]
   );
 }
+
+/**
+ * Add workflow to the blogs.
+ */
+function ymca_master_update_8130() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_state.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+    ]
+  );
+}
