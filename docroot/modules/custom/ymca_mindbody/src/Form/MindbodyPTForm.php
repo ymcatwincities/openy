@@ -105,6 +105,17 @@ class MindbodyPTForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  protected function getDisabledMarkup() {
+    $branch_number = '<a href="tel:651-771-8881">651-771-8881</a>';
+    $markup = '<div class="container disabled-form">';
+    $markup .= $this->t('Please call branch !branch_number to book trainings.', array('!branch_number' => $branch_number));
+    $markup .= '</div></div>';
+    return $markup;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
@@ -145,6 +156,15 @@ class MindbodyPTForm extends FormBase {
 
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
+
+    // Disable form if we exceed 1000 calls to MindBody API.
+    $mindbody_proxy_state = \Drupal::state()->get('mindbody_cache_proxy');
+    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
+      $form['disable'] = [
+        "#markup" => $this->getDisabledMarkup(),
+      ];
+      return $form;
+    }
 
     $locations = $this->proxy->call('SiteService', 'GetLocations');
 
