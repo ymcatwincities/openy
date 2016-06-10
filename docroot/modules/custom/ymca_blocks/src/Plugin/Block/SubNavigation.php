@@ -41,7 +41,9 @@ class SubNavigation extends BlockBase {
         ],
       ],
       '#cache' => [
-        'max-age' => 0,
+        'contexts' => [
+          'url'
+        ],
       ],
     ];
   }
