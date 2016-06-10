@@ -3073,6 +3073,7 @@ function ymca_master_update_8130() {
       $path . 'views.view.location_schedules.yml',
     ]
   );
+  drupal_flush_all_caches();
 
   // Migrate location schedule documents field to new blocks.
   $node_storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
