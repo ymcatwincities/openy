@@ -3127,12 +3127,13 @@ function ymca_master_update_8131() {
  * WH blocks workflow.
  */
 function ymca_master_update_8132() {
-  \Drupal::service('module_installer')->install('block_content_access', TRUE);
-
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'views.view.location_wh.yml',
+      $path . 'views.view.location_schedules.yml',
     ]
   );
+
+  \Drupal::service('module_installer')->install(['block_content_access'], TRUE);
 }

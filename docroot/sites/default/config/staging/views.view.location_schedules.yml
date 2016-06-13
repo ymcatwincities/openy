@@ -4,8 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_schedule_block
-    - user.role.administrator
-    - user.role.location_editor
+    - user.role.authenticated
   module:
     - block_content
     - node
@@ -29,8 +28,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
-            location_editor: location_editor
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
