@@ -118,7 +118,8 @@ class MindbodyPTForm extends FormBase {
    */
   protected function getDisabledMarkup() {
     $markup = '';
-    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load(12956);
+    $block_id = $this->config('ymca_mindbody.block.settings')->get('disabled_form_block_id');
+    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($block_id);
     if (!is_null($block)) {
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
       $markup .= '<div class="container disabled-form">';
