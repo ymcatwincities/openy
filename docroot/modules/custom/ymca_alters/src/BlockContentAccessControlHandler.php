@@ -18,7 +18,13 @@ class BlockContentAccessControlHandler extends BlockContentAccessControlHandlerC
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    if ($operation === 'update' && $entity->bundle() == 'location_schedule') {
+    // Bundles to check with reference field names.
+    $map = [
+      'location_schedule' => 'field_schedule_block',
+      'working_hours_block' => 'field_working_hours'
+    ];
+
+    if ($operation === 'update' && array_key_exists($entity->bundle(), $map)) {
       $user = \Drupal::currentUser();
       if ($user->hasPermission('administer blocks')) {
         return AccessResult::allowed();
@@ -29,7 +35,7 @@ class BlockContentAccessControlHandler extends BlockContentAccessControlHandlerC
       $block_id = $entity->id();
       $location_nids = \Drupal::entityQuery('node')
         ->condition('type', 'location')
-        ->condition('field_schedule_block.target_id', $block_id)
+        ->condition($map[$entity->bundle()] . '.target_id', $block_id)
         ->execute();
 
       // If block isn't referenced by locations, use default access check.
