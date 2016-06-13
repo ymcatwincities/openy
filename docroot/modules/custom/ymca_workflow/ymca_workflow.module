@@ -87,12 +87,13 @@ function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, 
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_BASE_ID_alter().
  */
-function ymca_workflow_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id != 'node_article_edit_form' && $form_id != 'node_article_form') {
+function ymca_workflow_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (!isset($form['field_state'])) {
     return;
   }
+
   // Set "Create new revision" enabled by default.
   $form['revision']['#default_value'] = TRUE;
   $form['revision']['#access'] = FALSE;
