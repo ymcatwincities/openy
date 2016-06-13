@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+a.tabledrag-handle .handle {
+  box-sizing: content-box;
+}
+
 .cke-columns.container:before,
 .cke-columns.container:after {
   display: table;

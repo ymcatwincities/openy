@@ -22,7 +22,7 @@
                 </li>
                 {% for item in item.children %}
                   {% if item.page_name != 'Join'|t and item.page_name != 'Register'|t %}
-                    <li class="{% if item.current %} current active {% endif %}">
+                    <li class="{% if item.active %} current active {% endif %}">
                       <a href="{{ item.url }}">{{ item.page_name }}</a>
                     </li>
                   {% endif %}
