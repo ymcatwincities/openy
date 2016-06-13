@@ -3105,3 +3105,16 @@ function ymca_master_update_8130() {
     ->getEditable('field.field.node.location.field_schedule_documents')
     ->delete();
 }
+
+/**
+ * Update MindBody settings.
+ */
+function ymca_master_update_8132() {
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
