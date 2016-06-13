@@ -2,9 +2,10 @@
 
 namespace Drupal\ymca_menu\Controller;
 
+use Drupal\Core\Cache\CacheableJsonResponse;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Url;
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Responses for menu json object calls.
@@ -28,7 +29,16 @@ class YMCAMenuController extends ControllerBase {
       \Drupal::cache()->set(YMCA_MENU_CACHE_CID, $data);
     }
 
-    return new JsonResponse($data);
+    // Add simple caching for json.
+    $cacheable = [
+      '#cache' => [
+        'max-age' => 60
+      ]
+    ];
+
+    $response = new CacheableJsonResponse($data, 200);
+    $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($cacheable));
+    return $response;
   }
 
   /**
