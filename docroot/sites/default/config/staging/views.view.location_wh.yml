@@ -1,16 +1,16 @@
-uuid: b7f9ca45-ae0c-476b-bf03-03a1058349c3
+uuid: c7447c36-19f1-4133-8850-1bd0c3c40f68
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_schedule_block
+    - field.storage.node.field_working_hours
     - user.role.authenticated
   module:
     - block_content
     - node
     - user
-id: location_schedules
-label: 'Location schedules'
+id: location_wh
+label: 'Location WH'
 module: views
 description: ''
 tag: ''
@@ -240,14 +240,14 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_schedule_block:
-          id: field_schedule_block
-          table: node__field_schedule_block
-          field: field_schedule_block
+        field_working_hours:
+          id: field_working_hours
+          table: node__field_working_hours
+          field: field_working_hours
           relationship: field_locations
           group_type: group
           admin_label: ''
-          label: 'Schedule block name'
+          label: 'WH block name'
           exclude: false
           alter:
             alter_text: false
@@ -307,10 +307,10 @@ display:
           id: edit_block_content
           table: block_content
           field: edit_block_content
-          relationship: field_schedule_block
+          relationship: field_working_hours
           group_type: group
           admin_label: ''
-          label: 'Edit schedule'
+          label: 'Link to edit Custom block'
           exclude: false
           alter:
             alter_text: false
@@ -380,13 +380,13 @@ display:
           admin_label: 'field_locations: Content'
           required: true
           plugin_id: standard
-        field_schedule_block:
-          id: field_schedule_block
-          table: node__field_schedule_block
-          field: field_schedule_block
+        field_working_hours:
+          id: field_working_hours
+          table: node__field_working_hours
+          field: field_working_hours
           relationship: field_locations
           group_type: group
-          admin_label: 'field_schedule_block: Custom block'
+          admin_label: 'field_working_hours: Custom block'
           required: true
           plugin_id: standard
       arguments:
@@ -438,18 +438,18 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.node.field_schedule_block'
-  location_schedules_page:
+        - 'config:field.storage.node.field_working_hours'
+  location_wh:
     display_plugin: page
-    id: location_schedules_page
+    id: location_wh
     display_title: Page
     position: 1
     display_options:
       display_extenders: {  }
-      path: user/%user/location_schedules
+      path: user/%user/location_wh
       menu:
         type: tab
-        title: 'Location schedules'
+        title: 'Location WH'
         description: ''
         expanded: false
         parent: user.page
@@ -466,4 +466,4 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.node.field_schedule_block'
+        - 'config:field.storage.node.field_working_hours'
