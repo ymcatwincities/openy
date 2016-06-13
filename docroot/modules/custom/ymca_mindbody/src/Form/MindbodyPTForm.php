@@ -68,7 +68,7 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Provides form's headers.
    */
   protected function getElementHeaderMarkup($type, $text) {
     switch ($type) {
@@ -102,7 +102,7 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Provides time options.
    */
   protected function getTimeOptions() {
     $time_options = [
@@ -114,7 +114,7 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Provides markup for disabled form.
    */
   protected function getDisabledMarkup() {
     $markup = '';
