@@ -3101,9 +3101,26 @@ function ymca_master_update_8130() {
   }
 
   // Delete field from location content type.
-  \Drupal::configFactory()
-    ->getEditable('field.field.node.location.field_schedule_documents')
-    ->delete();
+  $field_name = 'node.location.field_schedule_documents';
+  $storage = \Drupal::getContainer()->get('entity_type.manager')->getStorage('field_config');
+  $fields = $storage->loadByProperties(['entity_type' => 'node', 'bundle' => 'location']);
+  if (isset($fields[$field_name])) {
+    $fields[$field_name]->delete();
+  }
+}
+
+/**
+ * Add workflow to the blogs.
+ */
+function ymca_master_update_8131() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_state.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+    ]
+  );
 }
 
 /**
