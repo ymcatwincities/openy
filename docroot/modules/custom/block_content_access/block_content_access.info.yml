@@ -1,0 +1,5 @@
+name: Block Content Access
+type: module
+description: Grants access to Block Content via entity reference.
+core: 8.x
+package: YMCA
