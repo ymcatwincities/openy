@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ymca_alters;
+namespace Drupal\block_content_access;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityInterface;
@@ -18,24 +18,21 @@ class BlockContentAccessControlHandler extends BlockContentAccessControlHandlerC
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    // Bundles to check with reference field names.
-    $map = [
-      'location_schedule' => 'field_schedule_block',
-      'working_hours_block' => 'field_working_hours'
-    ];
+    // Allow if user has permission.
+    $user = \Drupal::currentUser();
+    if ($user->hasPermission('administer blocks')) {
+      return AccessResult::allowed();
+    }
 
+    $map = \Drupal::config('block_content_access.settings')->get('bundles');
     if ($operation === 'update' && array_key_exists($entity->bundle(), $map)) {
-      $user = \Drupal::currentUser();
-      if ($user->hasPermission('administer blocks')) {
-        return AccessResult::allowed();
-      }
 
       $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('user');
       $account = $storage->load($user->getAccount()->id());
-      $block_id = $entity->id();
+      $field_ref = $map[$entity->bundle()]['reference'];
       $location_nids = \Drupal::entityQuery('node')
         ->condition('type', 'location')
-        ->condition($map[$entity->bundle()] . '.target_id', $block_id)
+        ->condition($field_ref . '.target_id', $entity->id())
         ->execute();
 
       // If block isn't referenced by locations, use default access check.
@@ -53,6 +50,7 @@ class BlockContentAccessControlHandler extends BlockContentAccessControlHandlerC
         }
       }
       return AccessResult::allowedIf($can_edit);
+
     }
     return parent::checkAccess($entity, $operation, $account);
   }
