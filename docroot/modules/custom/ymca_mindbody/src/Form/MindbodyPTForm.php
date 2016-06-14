@@ -1,5 +1,7 @@
 <?php
+
 namespace Drupal\ymca_mindbody\Form;
+
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
@@ -7,30 +9,35 @@ use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Provides the Personal Training Form.
  *
  * @ingroup ymca_mindbody
  */
 class MindbodyPTForm extends FormBase {
+
   /**
    * Mindbody Proxy.
    *
    * @var MindbodyCacheProxyInterface
    */
   protected $proxy;
+
   /**
    * Credentials.
    *
    * @var ImmutableConfig
    */
   protected $credentials;
+
   /**
    * State.
    *
    * @var array
    */
   protected $state;
+
   /**
    * MindbodyPTForm constructor.
    *
@@ -42,6 +49,7 @@ class MindbodyPTForm extends FormBase {
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -60,6 +68,7 @@ class MindbodyPTForm extends FormBase {
     );
     return new static($container->get('mindbody_cache_proxy.client'), $state);
   }
+
   /**
    * Provides markup for disabled form.
    */
@@ -75,12 +84,14 @@ class MindbodyPTForm extends FormBase {
     }
     return $markup;
   }
+
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'mindbody_pt';
   }
+
   /**
    * {@inheritdoc}
    */
@@ -110,6 +121,7 @@ class MindbodyPTForm extends FormBase {
     $markup .= '</div></div>';
     return $markup;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -120,6 +132,7 @@ class MindbodyPTForm extends FormBase {
     ];
     return $time_options;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -380,12 +393,14 @@ class MindbodyPTForm extends FormBase {
     ];
     return $form;
   }
+
   /**
    * {@inheritdoc}
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     return $form;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -478,6 +493,7 @@ class MindbodyPTForm extends FormBase {
       return $search_results;
     }
   }
+
   /**
    * {@inheritdoc}
    */
@@ -487,6 +503,7 @@ class MindbodyPTForm extends FormBase {
       $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
     }
   }
+  
   /**
    * {@inheritdoc}
    */
