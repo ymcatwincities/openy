@@ -7951,6 +7951,10 @@ p.legend {
   margin: 0 0 7px;
 }
 
+.form-tel.error {
+  border-color: #a92b31;
+}
+
 #mindbody-pt-form-wrapper {
   padding: 0 0 100px;
 }
