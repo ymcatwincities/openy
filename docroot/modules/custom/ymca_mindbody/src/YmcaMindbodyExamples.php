@@ -91,6 +91,14 @@ class YmcaMindbodyExamples {
     // In order to save free MindBody calls let's hardcode some variables.
     // Make sure you've created the client using createTestClient() method.
 
+    //$response = $this->proxy->call('SaleService', 'GetCustomPaymentMethods', []);
+
+//    $params = [
+//      'SaleID' => 12368,
+//    ];
+//
+//    $response = $this->proxy->call('SaleService', 'GetSales', $params);
+
     $client_id = 69696969;
     // Ensure that the client exists...
     $params = [
@@ -122,9 +130,25 @@ class YmcaMindbodyExamples {
     $service = reset($services);
     $service_id = $service->ID;
 
+    $card_payment_info = new \SoapVar(
+      [
+        'CreditCardNumber' => '1234-4567-7458-4567',
+        'Amount' => $service->Price,
+        'BillingAddress' => '123 Happy Ln',
+        'BillingCity' => 'Santa Ynez',
+        'BillingState' => 'CA',
+        'BillingPostalCode' => '93455',
+        'ExpYear' => '2017',
+        'ExpMonth' => '7',
+        'BillingName' => 'John Berky',
+      ],
+      SOAP_ENC_ARRAY,
+      'CreditCardInfo',
+      'http://clients.mindbodyonline.com/api/0_5'
+    );
+
     // Let's place the order.
     $params = [
-      'Test' => TRUE,
       'ClientID' => (int) $client_id,
       'CartItems' => [
         'CartItem' => [
@@ -143,18 +167,11 @@ class YmcaMindbodyExamples {
       'Payments' => [
         'PaymentInfo' => new \SoapVar(
           [
-            'CreditCardNumber' => '1234-4567-7458-4567',
             'Amount' => $service->Price,
-            'BillingAddress' => '123 Happy Ln',
-            'BillingCity' => 'Santa Ynez',
-            'BillingState' => 'CA',
-            'BillingPostalCode' => '93455',
-            'ExpYear' => '2017',
-            'ExpMonth' => '7',
-            'BillingName' => 'John Berky',
+            'ID' => 18,
           ],
           SOAP_ENC_ARRAY,
-          'CreditCardInfo',
+          'CustomPaymentInfo',
           'http://clients.mindbodyonline.com/api/0_5'
         ),
       ],
