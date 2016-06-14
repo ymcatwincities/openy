@@ -29,7 +29,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('mindbody.settings');
-
+    
     $fields = [
       'sourcename' => 'Sourcename',
       'password' => 'Password',
