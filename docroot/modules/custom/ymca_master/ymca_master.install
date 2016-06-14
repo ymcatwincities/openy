@@ -3185,3 +3185,15 @@ function ymca_master_update_8135() {
     ]
   );
 }
+
+/**
+ * Add Mindbody blocks config.
+ */
+function ymca_master_update_8136() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.block.settings.yml',
+    ]
+  );
+}
