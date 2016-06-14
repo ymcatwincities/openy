@@ -61,6 +61,21 @@ class MindbodyPTForm extends FormBase {
     return new static($container->get('mindbody_cache_proxy.client'), $state);
   }
   /**
+   * Provides markup for disabled form.
+   */
+  protected function getDisabledMarkup() {
+    $markup = '';
+    $block_id = $this->config('ymca_mindbody.block.settings')->get('disabled_form_block_id');
+    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($block_id);
+    if (!is_null($block)) {
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+      $markup .= '<div class="container disabled-form">';
+      $markup .= render($view_builder->view($block));
+      $markup .= '</div>';
+    }
+    return $markup;
+  }
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -149,6 +164,14 @@ class MindbodyPTForm extends FormBase {
     ];
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
+    // Disable form if we exceed 1000 calls to MindBody API.
+    $mindbody_proxy_state = $this->state->get('mindbody_cache_proxy');
+    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
+      $form['disable'] = [
+          "#markup" => $this->getDisabledMarkup(),
+      ];
+      return $form;
+    }
     $locations = $this->proxy->call('SiteService', 'GetLocations');
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
