@@ -4,6 +4,7 @@ namespace Drupal\ymca_mindbody\Form;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
@@ -66,6 +67,18 @@ class MindbodyPTForm extends FormBase {
       'mb_start_time' => isset($query['mb_start_time']) && is_numeric($query['mb_start_time']) ? $query['mb_start_time'] : NULL,
       'mb_end_time' => isset($query['mb_end_time']) && is_numeric($query['mb_end_time']) ? $query['mb_end_time'] : NULL,
     );
+
+    // Prevent corrupted remote calls on corrupted page urls.
+    if (!isset($state['mb_location'])) {
+      $state['step'] = 1;
+    }
+    elseif (!isset($state['mb_program'])) {
+      $state['step'] = 2;
+    }
+    elseif (!isset($state['mb_session_type'])) {
+      $state['step'] = 3;
+    }
+
     return new static($container->get('mindbody_cache_proxy.client'), $state);
   }
 
@@ -379,106 +392,115 @@ class MindbodyPTForm extends FormBase {
    *   Renderable array of results.
    */
   public function getSearchResults(array $values) {
-    if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer']) && isset($values['start_date']) && isset($values['end_date'])) {
-      $booking_params = [
-        'UserCredentials' => [
-          'Username' => $this->credentials->get('user_name'),
-          'Password' => $this->credentials->get('user_password'),
-          'SiteIDs' => [$this->credentials->get('site_id')],
-        ],
-        'SessionTypeIDs' => [$values['session_type']],
-        'LocationIDs' => [$values['location']],
+    if (!isset($values['location'], $values['program'], $values['session_type'], $values['trainer'], $values['start_date'], $values['end_date'])) {
+      $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.pt');
+      return [
+        '#prefix' => '<div class="row mindbody-search-results-content">
+          <div class="container">
+            <div class="day col-sm-12">',
+        '#markup' => t('Page url is corrupted. !search_link', array('!search_link' => $link->toString())),
+        '#suffix' => '</div></div></div>',
       ];
-
-      if (!empty($values['trainer']) && $values['trainer'] != 'all') {
-        $booking_params['StaffIDs'] = array($values['trainer']);
-      }
-      $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
-      $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
-
-      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
-
-      $time_options = $this->getTimeOptions();
-      $start_time = $time_options[$values['start_time']];
-      $end_time = $time_options[$values['end_time']];
-
-      foreach ($time_options as $key => $option) {
-        if ($option == $start_time) {
-          $start_index = $key;
-        }
-        if ($option == $end_time) {
-          $end_index = $key;
-        }
-      }
-      $time_range = range($start_index, $end_index);
-
-      $days = [];
-      // Group results by date and trainer.
-      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-        // Additionally filter results by time.
-        $start_time = date('G', strtotime($bookable_item->StartDateTime));
-        $end_time = date('G', strtotime($bookable_item->EndDateTime));
-        if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
-          $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-            'is_available' => TRUE,
-            'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
-            // To Do: Add bookable link.
-            'href' => '#',
-          ];
-        }
-      }
-
-      if ($values['trainer'] == 'all') {
-        $trainer_name = $this->t('all trainers');
-      }
-      else {
-        $trainers = $this->getTrainers($values['session_type'], $values['location']);
-        $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
-      }
-
-      $time_options = $this->getTimeOptions();
-      $start_time = $time_options[$values['start_time']];
-      $end_time = $time_options[$values['end_time']];
-      $start_date = date('n/d/Y', strtotime($values['start_date']));
-      $end_date = date('n/d/Y', strtotime($values['end_date']));
-      $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
-
-      $locations = $this->getLocations();
-      $location_name = isset($locations[$values['location']]) ? $locations[$values['location']] : '';
-      $programs = $this->getPrograms();
-      $program_name = isset($programs[$values['program']]) ? $programs[$values['program']] : '';
-      $session_types = $this->getSessionTypes($values['program']);
-      $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
-
-      $options = [
-        'query' => [
-          'step' => 4,
-          'mb_location' => $values['location'],
-          'mb_program' => $values['program'],
-          'mb_session_type' => $values['session_type'],
-          'mb_trainer' => $values['trainer'],
-          'mb_start_date' => ['date' => $values['start_date']],
-          'mb_end_date' => ['date' => $values['end_date']],
-          'mb_start_time' => $values['start_time'],
-          'mb_end_time' => $values['end_time'],
-        ],
-      ];
-      $search_results = [
-        '#theme' => 'mindbody_results_content',
-        '#location' => $location_name,
-        '#program' => $program_name,
-        '#session_type' => $session_type_name,
-        '#trainer' => $trainer_name,
-        '#datetime' => $datetime,
-        '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
-        '#base_path' => base_path(),
-        '#days' => $days,
-      ];
-
-      return $search_results;
     }
+
+    $booking_params = [
+      'UserCredentials' => [
+        'Username' => $this->credentials->get('user_name'),
+        'Password' => $this->credentials->get('user_password'),
+        'SiteIDs' => [$this->credentials->get('site_id')],
+      ],
+      'SessionTypeIDs' => [$values['session_type']],
+      'LocationIDs' => [$values['location']],
+    ];
+
+    if (!empty($values['trainer']) && $values['trainer'] != 'all') {
+      $booking_params['StaffIDs'] = array($values['trainer']);
+    }
+    $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
+    $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
+
+    $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
+
+    $time_options = $this->getTimeOptions();
+    $start_time = $time_options[$values['start_time']];
+    $end_time = $time_options[$values['end_time']];
+
+    foreach ($time_options as $key => $option) {
+      if ($option == $start_time) {
+        $start_index = $key;
+      }
+      if ($option == $end_time) {
+        $end_index = $key;
+      }
+    }
+    $time_range = range($start_index, $end_index);
+
+    $days = [];
+    // Group results by date and trainer.
+    foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+      // Additionally filter results by time.
+      $start_time = date('G', strtotime($bookable_item->StartDateTime));
+      $end_time = date('G', strtotime($bookable_item->EndDateTime));
+      if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+        $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
+        $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
+        $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+          'is_available' => TRUE,
+          'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
+          // To Do: Add bookable link.
+          'href' => '#',
+        ];
+      }
+    }
+
+    if ($values['trainer'] == 'all') {
+      $trainer_name = $this->t('all trainers');
+    }
+    else {
+      $trainers = $this->getTrainers($values['session_type'], $values['location']);
+      $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
+    }
+
+    $time_options = $this->getTimeOptions();
+    $start_time = $time_options[$values['start_time']];
+    $end_time = $time_options[$values['end_time']];
+    $start_date = date('n/d/Y', strtotime($values['start_date']));
+    $end_date = date('n/d/Y', strtotime($values['end_date']));
+    $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
+
+    $locations = $this->getLocations();
+    $location_name = isset($locations[$values['location']]) ? $locations[$values['location']] : '';
+    $programs = $this->getPrograms();
+    $program_name = isset($programs[$values['program']]) ? $programs[$values['program']] : '';
+    $session_types = $this->getSessionTypes($values['program']);
+    $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
+
+    $options = [
+      'query' => [
+        'step' => 4,
+        'mb_location' => $values['location'],
+        'mb_program' => $values['program'],
+        'mb_session_type' => $values['session_type'],
+        'mb_trainer' => $values['trainer'],
+        'mb_start_date' => ['date' => $values['start_date']],
+        'mb_end_date' => ['date' => $values['end_date']],
+        'mb_start_time' => $values['start_time'],
+        'mb_end_time' => $values['end_time'],
+      ],
+    ];
+    $search_results = [
+      '#theme' => 'mindbody_results_content',
+      '#location' => $location_name,
+      '#program' => $program_name,
+      '#session_type' => $session_type_name,
+      '#trainer' => $trainer_name,
+      '#datetime' => $datetime,
+      '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
+      '#base_path' => base_path(),
+      '#days' => $days,
+    ];
+
+    return $search_results;
   }
 
   /**
