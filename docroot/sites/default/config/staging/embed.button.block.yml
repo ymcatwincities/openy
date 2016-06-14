@@ -8,6 +8,7 @@ dependencies:
     - block_content.type.date_block
     - block_content.type.expander_block
     - block_content.type.image_block
+    - block_content.type.location_schedule
     - block_content.type.promo_block
     - block_content.type.slide_show
   module:
@@ -25,6 +26,7 @@ type_settings:
     - date_block
     - expander_block
     - image_block
+    - location_schedule
     - promo_block
     - slide_show
   style: block
