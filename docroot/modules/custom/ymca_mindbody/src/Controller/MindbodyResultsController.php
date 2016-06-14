@@ -42,14 +42,14 @@ class MindbodyResultsController implements ContainerInjectionInterface {
   public function content() {
     $query = \Drupal::request()->query->all();
     $values = array(
-      'location' => is_numeric($query['location']) ? $query['location'] : '',
-      'program' => is_numeric($query['program']) ? $query['program'] : '',
-      'session_type' => is_numeric($query['session_type']) ? $query['session_type'] : '',
-      'trainer' => isset($query['trainer']) ? $query['trainer'] : '',
-      'start_time' => isset($query['start_time']) ? $query['start_time'] : '',
-      'end_time' => isset($query['end_time']) ? $query['end_time'] : '',
-      'start_date' => isset($query['start_date']) ? $query['start_date'] : '',
-      'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
+      'location' => !empty($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
+      'program' => !empty($query['program']) && is_numeric($query['program']) ? $query['program'] : NULL,
+      'session_type' => !empty($query['session_type']) && is_numeric($query['session_type']) ? $query['session_type'] : NULL,
+      'trainer' => !empty($query['trainer']) ? $query['trainer'] : NULL,
+      'start_time' => !empty($query['start_time']) ? $query['start_time'] : NULL,
+      'end_time' => !empty($query['end_time']) ? $query['end_time'] : NULL,
+      'start_date' => !empty($query['start_date']) ? $query['start_date'] : NULL,
+      'end_date' => !empty($query['end_date']) ? $query['end_date'] : NULL,
     );
 
     $form = new MindbodyPTForm($this->proxy);
