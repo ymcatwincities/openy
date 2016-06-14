@@ -375,10 +375,10 @@ class MindbodyPTForm extends FormBase {
    * @param array $values.
    *   Array of filters.
    *
-   * @return string
-   *   Rendered results.
+   * @return array
+   *   Renderable array of results.
    */
-  public function getSearchResults($values) {
+  public function getSearchResults(array $values) {
     if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer']) && isset($values['start_date']) && isset($values['end_date'])) {
       $booking_params = [
         'UserCredentials' => [
