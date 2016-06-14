@@ -3124,9 +3124,25 @@ function ymca_master_update_8131() {
 }
 
 /**
- * Enable Location Schedule blocks in entity browser dialog.
+ * WH blocks workflow.
  */
 function ymca_master_update_8132() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.location_wh.yml',
+      $path . 'views.view.location_schedules.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['block_content_access'], TRUE);
+}
+
+/**
+ * Enable Location Schedule blocks in entity browser dialog.
+ */
+function ymca_master_update_8133() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
