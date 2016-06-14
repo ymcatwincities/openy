@@ -122,6 +122,7 @@ class MindbodyPTForm extends FormBase {
     $markup .= '<span class="choice">' . $text . '</span>';
     $markup .= '<a href="#' . $id . '" class="change"><span class="icon icon-cog"></span>' . $this->t('Change') . '</a>';
     $markup .= '</div></div>';
+
     return $markup;
   }
 
@@ -133,6 +134,7 @@ class MindbodyPTForm extends FormBase {
       '12 am', '1 am', '2 am', '3 am', '4 am', '5 am', '6 am', '7 am', '8 am', '9 am', '10 am', '11 am',
       '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm', '9 pm', '10 pm', '11 pm', '12 am',
     ];
+
     return $time_options;
   }
 
@@ -148,6 +150,7 @@ class MindbodyPTForm extends FormBase {
         }
       }
     }
+
     $values = $form_state->getValues();
     if ($trigger_element = $form_state->getTriggeringElement()) {
       switch ($trigger_element['#name']) {
@@ -174,6 +177,7 @@ class MindbodyPTForm extends FormBase {
           break;
       }
     }
+
     if (!isset($values['step'])) {
       $values['step'] = 1;
     }
@@ -195,6 +199,7 @@ class MindbodyPTForm extends FormBase {
       return $form;
     }
     $locations = $this->proxy->call('SiteService', 'GetLocations');
+
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
       if ($location->HasClasses != TRUE) {
@@ -202,7 +207,6 @@ class MindbodyPTForm extends FormBase {
       }
       $location_options[$location->ID] = $location->Name;
     }
-
     $form['mb_location'] = array(
       '#type' => 'radios',
       '#title' => $this->t('Select Location'),
@@ -254,7 +258,7 @@ class MindbodyPTForm extends FormBase {
         ),
       );
     }
-    
+
     if ($values['step'] >= 3) {
       $form['mb_program_header'] = array(
         '#markup' => $this->getElementHeaderMarkup('program', $program_options[$values['mb_program']]),
