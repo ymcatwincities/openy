@@ -3161,5 +3161,7 @@ function ymca_master_update_8134() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'mindbody.settings.yml',
-    ];
+      $path . 'mindbody.env.settings.yml',
+    ]
+  );
 }
