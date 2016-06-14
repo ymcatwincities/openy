@@ -101,14 +101,17 @@ class MindbodyPTForm extends FormBase {
         $icon = 'location2';
         $id = 'location-wrapper';
         break;
+
       case 'program':
         $icon = 'training';
         $id = 'program-wrapper';
         break;
+
       case 'type':
         $icon = 'clock';
         $id = 'session-type-wrapper';
         break;
+
       case 'trainer':
         $icon = 'user';
         $id = 'trainer-wrapper';
@@ -154,15 +157,18 @@ class MindbodyPTForm extends FormBase {
           unset($values['mb_trainer']);
           $values['step'] = 2;
           break;
+
         case 'mb_program':
           unset($values['mb_session_type']);
           unset($values['mb_trainer']);
           $values['step'] = 3;
           break;
+
         case 'mb_session_type':
           unset($values['mb_trainer']);
           $values['step'] = 4;
           break;
+
         case 'ok':
           $values['step'] = 5;
           break;
@@ -171,12 +177,15 @@ class MindbodyPTForm extends FormBase {
     if (!isset($values['step'])) {
       $values['step'] = 1;
     }
+
     $form['step'] = [
       '#type' => 'hidden',
       '#value' => $values['step'],
     ];
+
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
+
     // Disable form if we exceed 1000 calls to MindBody API.
     $mindbody_proxy_state = $this->state->get('mindbody_cache_proxy');
     if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
@@ -193,6 +202,7 @@ class MindbodyPTForm extends FormBase {
       }
       $location_options[$location->ID] = $location->Name;
     }
+
     $form['mb_location'] = array(
       '#type' => 'radios',
       '#title' => $this->t('Select Location'),
@@ -213,6 +223,7 @@ class MindbodyPTForm extends FormBase {
         ),
       ),
     );
+
     if ($values['step'] >= 2) {
       $form['mb_location_header'] = array(
         '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']]),
@@ -243,6 +254,7 @@ class MindbodyPTForm extends FormBase {
         ),
       );
     }
+    
     if ($values['step'] >= 3) {
       $form['mb_program_header'] = array(
         '#markup' => $this->getElementHeaderMarkup('program', $program_options[$values['mb_program']]),
@@ -272,6 +284,7 @@ class MindbodyPTForm extends FormBase {
         ),
       );
     }
+
     if ($values['step'] >= 4) {
       $form['mb_session_type_header'] = array(
         '#markup' => $this->getElementHeaderMarkup('type', $session_type_options[$values['mb_session_type']]),
@@ -293,6 +306,7 @@ class MindbodyPTForm extends FormBase {
         'LocationIDs' => [$values['mb_location']],
       );
       $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
+
       $staff_list = array();
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
         $staff_list[$bookable_item->Staff->ID] = $bookable_item->Staff;
@@ -303,6 +317,7 @@ class MindbodyPTForm extends FormBase {
       foreach ($staff_list as $staff) {
         $trainer_options[$staff->ID] = $staff->Name;
       }
+
       $form['mb_trainer'] = array(
         '#type' => 'select',
         '#title' => $this->t('Trainer'),
@@ -312,9 +327,11 @@ class MindbodyPTForm extends FormBase {
         '#suffix' => '</div></div></div>',
         '#weight' => 8,
       );
+
       $form['actions']['#weight'] = 20;
       $form['actions']['#prefix'] = '<div id="actions-wrapper" class="row"><div class="container"><div class="col-sm-12">';
       $form['actions']['#suffix'] = '</div></div></div>';
+
       $timezone = drupal_get_user_timezone();
       // Initially srart date defined as today.
       $start_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
@@ -372,11 +389,13 @@ class MindbodyPTForm extends FormBase {
         '#date_date_element' => 'text',
         '#weight' => 9,
       ];
+
       $form['actions']['submit'] = array(
         '#type' => 'submit',
         '#value' => $this->t('Search'),
       );
     }
+
     // Vary on the listed query args.
     $form['#cache'] = [
       'contexts' => [
@@ -391,6 +410,7 @@ class MindbodyPTForm extends FormBase {
         'url.query_args:mb_end_time',
       ],
     ];
+
     return $form;
   }
 
@@ -415,15 +435,19 @@ class MindbodyPTForm extends FormBase {
         'SessionTypeIDs' => [$values['session_type']],
         'LocationIDs' => [$values['location']],
       ];
+
       if (!empty($values['trainer']) && $values['trainer'] != 'all') {
         $booking_params['StaffIDs'] = array($values['trainer']);
       }
       $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
       $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
+
       $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
+
       $time_options = $this->getTimeOptions();
       $start_time = $time_options[$values['start_time']];
       $end_time = $time_options[$values['end_time']];
+
       foreach ($time_options as $key => $option) {
         if ($option == $start_time) {
           $start_index = $key;
@@ -433,6 +457,7 @@ class MindbodyPTForm extends FormBase {
         }
       }
       $time_range = range($start_index, $end_index);
+
       $days = [];
       // Group results by date and trainer.
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
@@ -450,22 +475,26 @@ class MindbodyPTForm extends FormBase {
           ];
         }
       }
+
       $programs = $this->proxy->call('SiteService', 'GetPrograms', ['OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment']);
       foreach ($programs->GetProgramsResult->Programs->Program as $program) {
         if ($program->ID == $values['program']) {
           $program_name = $program->Name;
         }
       }
+
       $trainer = $bookable_item->Staff->Name;
       if ($values['trainer'] == 'all') {
         $trainer = $this->t('all trainers');
       }
+
       $time_options = $this->getTimeOptions();
       $start_time = $time_options[$values['start_time']];
       $end_time = $time_options[$values['end_time']];
       $start_date = date('n/d/Y', strtotime($values['start_date']));
       $end_date = date('n/d/Y', strtotime($values['end_date']));
       $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
+
       $options = [
         'query' => [
           'step' => 4,
@@ -490,6 +519,7 @@ class MindbodyPTForm extends FormBase {
         '#base_path' => base_path(),
         '#days' => $days,
       ];
+
       return $search_results;
     }
   }
@@ -503,7 +533,7 @@ class MindbodyPTForm extends FormBase {
       $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
     }
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -534,4 +564,5 @@ class MindbodyPTForm extends FormBase {
       );
     }
   }
+
 }
