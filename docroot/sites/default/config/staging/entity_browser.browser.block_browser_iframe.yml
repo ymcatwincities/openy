@@ -80,6 +80,14 @@ widgets:
       entity_type: block_content
       bundle: slide_show
     uuid: 4ad07e2d-946f-46e9-b0bb-161b85c33ba3
-    weight: 8
+    weight: 9
     label: 'New Slide Show'
+    id: entity_form
+  17103375-80bc-4130-9168-16e10047c066:
+    settings:
+      entity_type: block_content
+      bundle: location_schedule
+    uuid: 17103375-80bc-4130-9168-16e10047c066
+    weight: 8
+    label: 'New Location Schedule Block'
     id: entity_form
