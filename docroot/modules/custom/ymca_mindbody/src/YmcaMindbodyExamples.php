@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_mindbody;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Masterminds\HTML5\Exception;
 
 /**
  * Mindbody Examples.
@@ -80,6 +81,86 @@ class YmcaMindbodyExamples {
     ];
 
     $response = $this->proxy->call('ClientService', 'AddOrUpdateClients', $params, FALSE);
+    return $response;
+  }
+
+  /**
+   * Creates test order.
+   */
+  public function createTestOrder() {
+    // In order to save free MindBody calls let's hardcode some variables.
+    // Make sure you've created the client using createTestClient() method.
+
+    $client_id = 69696969;
+    // Ensure that the client exists...
+    $params = [
+      'ClientIDs' => [
+        $client_id
+      ],
+    ];
+    $response = $this->proxy->call('ClientService', 'GetClients', $params);
+
+    if ($response->GetClientsResult->Status != 'Success') {
+      throw new Exception('Failed to get client');
+    }
+
+    // Andover.
+    $location_id = 1;
+    // Promo PT Express.
+    $session_type_id = 55;
+
+    // Obtain Service ID.
+    $params = [
+      'LocationID' => $location_id,
+      'HideRelatedPrograms' => TRUE,
+    ];
+
+    $response = $this->proxy->call('SaleService', 'GetServices', $params);
+    $services = $response->GetServicesResult->Services->Service;
+
+    // Let's keep the first service.
+    $service = reset($services);
+    $service_id = $service->ID;
+
+    // Let's place the order.
+    $params = [
+      'Test' => TRUE,
+      'ClientID' => (int) $client_id,
+      'CartItems' => [
+        'CartItem' => [
+          'Quantity' => 1,
+          'Item' => new \SoapVar(
+            [
+              'ID' => $service_id
+            ],
+            SOAP_ENC_ARRAY,
+            'Service',
+            'http://clients.mindbodyonline.com/api/0_5'
+          ),
+          'DiscountAmount' => 0,
+        ],
+      ],
+      'Payments' => [
+        'PaymentInfo' => new \SoapVar(
+          [
+            'CreditCardNumber' => '1234-4567-7458-4567',
+            'Amount' => $service->Price,
+            'BillingAddress' => '123 Happy Ln',
+            'BillingCity' => 'Santa Ynez',
+            'BillingState' => 'CA',
+            'BillingPostalCode' => '93455',
+            'ExpYear' => '2017',
+            'ExpMonth' => '7',
+            'BillingName' => 'John Berky',
+          ],
+          SOAP_ENC_ARRAY,
+          'CreditCardInfo',
+          'http://clients.mindbodyonline.com/api/0_5'
+        ),
+      ],
+    ];
+
+    $response = $this->proxy->call('SaleService', 'CheckoutShoppingCart', $params, FALSE);
     return $response;
   }
 
