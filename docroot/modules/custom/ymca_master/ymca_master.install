@@ -3138,3 +3138,16 @@ function ymca_master_update_8132() {
 
   \Drupal::service('module_installer')->install(['block_content_access'], TRUE);
 }
+
+/**
+ * Enable Location Schedule blocks in entity browser dialog.
+ */
+function ymca_master_update_8133() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
