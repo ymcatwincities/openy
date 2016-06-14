@@ -21,7 +21,7 @@ class EnvSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['mindbody.env.settings'];
+    return ['mindbody.env.settings', 'mindbody.settings'];
   }
 
   /**
@@ -48,7 +48,7 @@ class EnvSettingsForm extends ConfigFormBase {
         '#description' => $this->t('Provide settings for the specified environment: %env', ['%env' => $id])
       ];
       foreach ($fields as $field => $title) {
-        $form[$id][$field] = array(
+        $form[$id][$id . ':' . $field] = array(
           '#type' => 'textfield',
           '#title' => $this->t($title),
           '#default_value' => !empty($configEnv->get($id)[$field]) ? $configEnv->get($id)[$field] : '',
@@ -57,11 +57,13 @@ class EnvSettingsForm extends ConfigFormBase {
     }
     $options = $configEnv->getRawData();
     unset($options['active']);
-    $options = array_keys($options);
+    $options = array_combine(array_keys($options), array_keys($options));
     $form['active'] = [
-      '#type' => 'options',
+      '#type' => 'select',
       '#options' => $options,
-      '#title' => $this->t('Select active environment.')
+      '#title' => $this->t('Select active environment.'),
+      '#weight' => -100,
+      '#default_value' => $configEnv->get('active'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -72,13 +74,30 @@ class EnvSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
+    $active = $values['active'];
+    // Set active values to current config.
     $this->config('mindbody.settings')
-      ->set('sourcename', $values['sourcename'])
-      ->set('password', $values['password'])
-      ->set('site_id', $values['site_id'])
-      ->set('user_name', $values['user_name'])
-      ->set('user_password', $values['user_password'])
+      ->set('sourcename', $values[$active . ':' . 'sourcename'])
+      ->set('password', $values[$active . ':' . 'password'])
+      ->set('site_id', $values[$active . ':' . 'site_id'])
+      ->set('user_name', $values[$active . ':' . 'user_name'])
+      ->set('user_password', $values[$active . ':' . 'user_password'])
       ->save();
+
+    foreach ($this->config('mindbody.env.settings')->getRawData() as $id => $data) {
+      if ($id == 'active') {
+        $this->config('mindbody.env.settings')->set($id, $values['active']);
+        continue;
+      }
+      $this->config('mindbody.env.settings')->set($id, [
+        'sourcename' => $values[$id . ':' . 'sourcename'],
+        'password' => $values[$id . ':' . 'password'],
+        'site_id' => $values[$id . ':' . 'site_id'],
+        'user_name' => $values[$id . ':' . 'user_name'],
+        'user_password' => $values[$id . ':' . 'user_password'],
+      ]);
+    }
+    $this->config('mindbody.env.settings')->save();
 
     parent::submitForm($form, $form_state);
   }
