@@ -1,0 +1,4 @@
+services:
+  ymca_mindbody.examples:
+    class: Drupal\ymca_mindbody\YmcaMindbodyExamples
+    arguments: ['@mindbody_cache_proxy.client']
