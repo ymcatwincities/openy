@@ -32,21 +32,41 @@ class MindbodyPTForm extends FormBase {
   protected $credentials;
 
   /**
+   * State.
+   *
+   * @var array
+   */
+  protected $state;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, array $state = []) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
+    $this->state = $state;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('mindbody_cache_proxy.client'));
+    $query = \Drupal::request()->query->all();
+    $state = array(
+      'step' => isset($query['step']) && is_numeric($query['step']) ? $query['step'] : NULL,
+      'mb_location' => isset($query['mb_location']) && is_numeric($query['mb_location']) ? $query['mb_location'] : NULL,
+      'mb_program' => isset($query['mb_program']) && is_numeric($query['mb_program']) ? $query['mb_program'] : NULL,
+      'mb_session_type' => isset($query['mb_session_type']) && is_numeric($query['mb_session_type']) ? $query['mb_session_type'] : NULL,
+      'mb_trainer' => isset($query['mb_trainer']) && is_numeric($query['mb_trainer']) ? $query['mb_trainer'] : NULL,
+      'mb_start_date' => isset($query['mb_start_date']) ? $query['mb_start_date'] : NULL,
+      'mb_end_date' => isset($query['mb_end_date']) ? $query['mb_end_date'] : NULL,
+      'mb_start_time' => isset($query['mb_start_time']) && is_numeric($query['mb_start_time']) ? $query['mb_start_time'] : NULL,
+      'mb_end_time' => isset($query['mb_end_time']) && is_numeric($query['mb_end_time']) ? $query['mb_end_time'] : NULL,
+    );
+    return new static($container->get('mindbody_cache_proxy.client'), $state);
   }
 
   /**
@@ -112,8 +132,16 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
+    // Populate form state with state data.
+    if ($this->state) {
+      foreach ($this->state as $key => $value) {
+        if (!$form_state->hasValue($key)) {
+          $form_state->setValue($key, $value);
+        }
+      }
+    }
 
+    $values = $form_state->getValues();
     if ($trigger_element = $form_state->getTriggeringElement()) {
       switch ($trigger_element['#name']) {
         case 'mb_location':
@@ -279,17 +307,15 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => $this->t('Time range'),
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : '',
+        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : 6,
         '#suffix' => '<span class="dash">—</span>',
-        '#default_value' => 6,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_end_time'] = [
         '#type' => 'select',
         '#title' => '',
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : '',
-        '#default_value' => 9,
+        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : 9,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_start_date'] = [
@@ -317,6 +343,21 @@ class MindbodyPTForm extends FormBase {
         '#value' => $this->t('Search'),
       );
     }
+
+    // Vary on the listed query args.
+    $form['#cache'] = [
+      'contexts' => [
+        'url.query_args:step',
+        'url.query_args:mb_location',
+        'url.query_args:mb_program',
+        'url.query_args:mb_session_type',
+        'url.query_args:mb_trainer',
+        'url.query_args:mb_start_date',
+        'url.query_args:mb_end_date',
+        'url.query_args:mb_start_time',
+        'url.query_args:mb_end_time',
+      ],
+    ];
 
     return $form;
   }
@@ -411,6 +452,19 @@ class MindbodyPTForm extends FormBase {
       $session_types = $this->getSessionTypes($values['program']);
       $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
 
+      $options = [
+        'query' => [
+          'step' => 4,
+          'mb_location' => $values['location'],
+          'mb_program' => $values['program'],
+          'mb_session_type' => $values['session_type'],
+          'mb_trainer' => $values['trainer'],
+          'mb_start_date' => ['date' => $values['start_date']],
+          'mb_end_date' => ['date' => $values['end_date']],
+          'mb_start_time' => $values['start_time'],
+          'mb_end_time' => $values['end_time'],
+        ],
+      ];
       $search_results = [
         '#theme' => 'mindbody_results_content',
         '#location' => $location_name,
@@ -418,7 +472,7 @@ class MindbodyPTForm extends FormBase {
         '#session_type' => $session_type_name,
         '#trainer' => $trainer_name,
         '#datetime' => $datetime,
-        '#back_link' => Url::fromRoute('ymca_mindbody.pt'),
+        '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
         '#base_path' => base_path(),
         '#days' => $days,
       ];
