@@ -91,13 +91,13 @@ class YmcaMindbodyExamples {
     // In order to save free MindBody calls let's hardcode some variables.
     // Make sure you've created the client using createTestClient() method.
 
-    //$response = $this->proxy->call('SaleService', 'GetCustomPaymentMethods', []);
+    $response = $this->proxy->call('SaleService', 'GetCustomPaymentMethods', []);
 
-//    $params = [
-//      'SaleID' => 12368,
-//    ];
-//
-//    $response = $this->proxy->call('SaleService', 'GetSales', $params);
+    $params = [
+      'SaleID' => 12368,
+    ];
+
+    $response = $this->proxy->call('SaleService', 'GetSales', $params);
 
     $client_id = 69696969;
     // Ensure that the client exists...
