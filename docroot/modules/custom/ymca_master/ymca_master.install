@@ -3171,3 +3171,17 @@ function ymca_master_update_8134() {
     ]
   );
 }
+
+/**
+ * Update MindBody settings.
+ */
+function ymca_master_update_8135() {
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+      $path . 'mindbody.env.settings.yml',
+    ]
+  );
+}
