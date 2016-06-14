@@ -376,6 +376,21 @@ class MindbodyPTForm extends FormBase {
       );
     }
 
+    // Vary on the listed query args.
+    $form['#cache'] = [
+      'contexts' => [
+        'url.query_args:step',
+        'url.query_args:mb_location',
+        'url.query_args:mb_program',
+        'url.query_args:mb_session_type',
+        'url.query_args:mb_trainer',
+        'url.query_args:mb_start_date',
+        'url.query_args:mb_end_date',
+        'url.query_args:mb_start_time',
+        'url.query_args:mb_end_time',
+      ],
+    ];
+
     return $form;
   }
 
