@@ -48,9 +48,9 @@ function ymca_fix_menu_link_content() {
  *
  * @param string $migration
  *   Migration ID.
- * @param bool|FALSE $update
+ * @param bool|false $update
  *   Run migration in 'update' mode.
- * @param bool|FALSE $force
+ * @param bool|false $force
  *   Run migration without dependencies.
  */
 function ymca_run_migration($migration, $update = FALSE, $force = FALSE) {
