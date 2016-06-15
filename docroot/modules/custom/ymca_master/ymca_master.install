@@ -3190,12 +3190,18 @@ function ymca_master_update_8135() {
  * Add Mindbody blocks config.
  */
 function ymca_master_update_8136() {
+  // Enable the module in order to import related config.
+  \Drupal::service('module_installer')->install(['ymca_mindbody'], TRUE);
+
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'ymca_mindbody.block.settings.yml',
     ]
   );
+
+  // Disable the module due to we don't want it to be enabled on prod.
+  \Drupal::service('module_installer')->uninstall(['ymca_mindbody']);
 }
 
 /**
