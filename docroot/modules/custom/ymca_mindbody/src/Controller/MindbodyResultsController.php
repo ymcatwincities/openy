@@ -163,7 +163,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
    * @param array $data
    *   Array of required item parameters.
    *
-   * @return boolean
+   * @return bool
    *   The state of booking.
    */
   private function bookItem(array $data) {
@@ -172,8 +172,8 @@ class MindbodyResultsController implements ContainerInjectionInterface {
   }
 
   /**
-   * Return redirect AJAX response
-
+   * Return redirect AJAX response.
+   *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   AJAX response object, that redirects to Personify login.
    */
