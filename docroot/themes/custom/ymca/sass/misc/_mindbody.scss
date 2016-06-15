@@ -670,6 +670,15 @@
             margin-bottom: 8px;
             padding: 0 12px;
             text-decoration: none;
+
+            &.highlight-item {
+              animation-name: example;
+              animation-duration: 2s;
+              animation-delay: 3s;
+              animation-iteration-count: 3;
+              background-color: $green2;
+              color: $grey7;
+            }
           }
         }
       }
@@ -752,4 +761,13 @@
       text-decoration: none;
     }
   }
+}
+
+@keyframes example {
+  0% { transform: rotate(0deg); }
+  5% { transform: rotate(10deg); }
+  10% { transform: rotate(-10deg); }
+  15% { transform: rotate(10deg); }
+  20% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
 }
