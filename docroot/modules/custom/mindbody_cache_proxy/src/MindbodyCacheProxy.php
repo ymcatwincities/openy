@@ -117,6 +117,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
 
     $current->{$type}++;
     $this->state->set(self::STORAGE, $current);
+    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_update_stats', [$current]);
   }
 
   /**
@@ -138,6 +139,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
     $data->{$type}++;
 
     $this->state->set(self::STORAGE, $data);
+    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_flush_stats', [$data]);
   }
 
   /**
