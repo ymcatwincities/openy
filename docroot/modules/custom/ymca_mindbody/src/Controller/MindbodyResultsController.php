@@ -2,7 +2,7 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Controller\ControllerBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\ymca_mindbody\Form\MindbodyPTForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Controller for "Mindbody results" page.
  */
-class MindbodyResultsController implements ContainerInjectionInterface {
+class MindbodyResultsController extends ControllerBase {
 
   /**
    * Mindbody Proxy.
@@ -84,7 +84,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
    * Set Title.
    */
   public function setTitle() {
-    return t('Personal Training Schedules');
+    return $this->t('Personal Training Schedules');
   }
 
   /**
@@ -123,7 +123,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
       'width' => '300',
       'height' => '300',
     );
-    $title = t('Booking');
+    $title = $this->t('Booking');
     $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
 
     return $response;
@@ -151,7 +151,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
       'width' => '300',
       'height' => '300',
     );
-    $title = t('Error');
+    $title = $this->t('Error');
     $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
 
     return $response;
