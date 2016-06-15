@@ -18,10 +18,12 @@ interface MindbodyCacheProxyInterface {
    *   Endpoint name. Example: 'GetLocations'.
    * @param array $params
    *   Array of parameters.
+   * @param bool $cache
+   *   Indicates whether to use cache or call API directly.
    *
    * @return \stdClass
    *   A result.
    */
-  public function call($service, $endpoint, array $params = []);
+  public function call($service, $endpoint, array $params = [], $cache = TRUE);
 
 }
