@@ -8572,6 +8572,14 @@ p.legend {
   padding: 0 12px;
   text-decoration: none;
 }
+.mindbody-search-results-content .day .group-by-date .slots .slot a.highlight-item {
+  animation-name: example;
+  animation-duration: 2s;
+  animation-delay: 3s;
+  animation-iteration-count: 3;
+  background-color: #bde6e6;
+  color: #424242;
+}
 .mindbody-search-results-content .day .group-by-date .col-sm-3 {
   margin-bottom: 40px;
   padding: 0 20px;
@@ -8649,6 +8657,27 @@ p.legend {
 .phone-call-wrapper .number a {
   color: #fff;
   text-decoration: none;
+}
+
+@keyframes example {
+  0% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(10deg);
+  }
+  10% {
+    transform: rotate(-10deg);
+  }
+  15% {
+    transform: rotate(10deg);
+  }
+  20% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
