@@ -1,11 +1,3 @@
-ymca_mindbody.credentials.settings:
-  path: '/admin/config/system/mindbody'
-  defaults:
-    _form: '\Drupal\ymca_mindbody\Form\MindbodyCredentialsSettingsForm'
-    _title: 'MindBody API settings'
-  requirements:
-    _permission: 'administer site configuration'
-
 ymca_mindbody.pt:
   path: '/health__fitness/personal_training/pt'
   defaults:
@@ -13,7 +5,6 @@ ymca_mindbody.pt:
     _title: 'Schedule Personal Training'
   requirements:
     _permission: 'access content'
-
 ymca_mindbody.pt.results:
   path: '/health__fitness/personal_training/pt/results'
   defaults:
@@ -21,3 +12,11 @@ ymca_mindbody.pt.results:
     _title_callback: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::setTitle'
   requirements:
     _permission: 'access content'
+ymca_mindbody.pt.settings:
+  path: '/admin/config/system/mindbody/block_settings'
+  defaults:
+    _form: '\Drupal\ymca_mindbody\Form\BlockSettingsForm'
+    _title: 'MindBody Block settings'
+  requirements:
+    _permission: 'administer site configuration'
+

@@ -3033,3 +3033,173 @@ function ymca_master_update_8128() {
     ]
   );
 }
+
+/**
+ * Install MindBody modules.
+ */
+function ymca_master_update_8129() {
+  $modules = ['mindbody', 'mindbody_cache_proxy', 'ymca_mindbody'];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Migrate location schedules to blocks.
+ */
+function ymca_master_update_8130() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      // New block type.
+      $path . 'block_content.type.location_schedule.yml',
+      $path . 'language.content_settings.block_content.location_schedule.yml',
+      $path . 'core.entity_form_display.block_content.location_schedule.default.yml',
+      $path . 'core.entity_view_display.block_content.location_schedule.default.yml',
+      $path . 'field.field.block_content.location_schedule.field_schedule_documents.yml',
+      $path . 'field.storage.block_content.field_schedule_documents.yml',
+      // New field for location content type.
+      $path . 'field.field.node.location.field_schedule_block.yml',
+      $path . 'field.storage.node.field_schedule_block.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      // Update user location schedules view.
+      $path . 'views.view.location_schedules.yml',
+    ]
+  );
+  drupal_flush_all_caches();
+
+  // Migrate location schedule documents field to new blocks.
+  $node_storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $location_nids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+  foreach ($location_nids as $nid) {
+    $node = $node_storage->load($nid);
+    $block_data = [
+      'type' => 'location_schedule',
+      'info' => $node->getTitle() . ' Schedule',
+      'langcode' => 'en',
+      'field_schedule_documents' => [],
+    ];
+    if ($node->hasField('field_schedule_documents')) {
+      foreach ($node->field_schedule_documents->getValue() as $delta => $value) {
+        $value['display'] = 1;
+        $block_data['field_schedule_documents'][$delta] = $value;
+      }
+    }
+    $block = BlockContent::create($block_data)->enforceIsNew();
+    $block->save();
+    $node->set('field_schedule_block', ['target_id' => $block->id()]);
+    $node->save();
+  }
+
+  // Delete field from location content type.
+  $field_name = 'node.location.field_schedule_documents';
+  $storage = \Drupal::getContainer()->get('entity_type.manager')->getStorage('field_config');
+  $fields = $storage->loadByProperties(['entity_type' => 'node', 'bundle' => 'location']);
+  if (isset($fields[$field_name])) {
+    $fields[$field_name]->delete();
+  }
+}
+
+/**
+ * Add workflow to the blogs.
+ */
+function ymca_master_update_8131() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_state.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+    ]
+  );
+}
+
+/**
+ * WH blocks workflow.
+ */
+function ymca_master_update_8132() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.location_wh.yml',
+      $path . 'views.view.location_schedules.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['block_content_access'], TRUE);
+}
+
+/**
+ * Enable Location Schedule blocks in entity browser dialog.
+ */
+function ymca_master_update_8133() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
+
+/**
+ * Enable phone validation on webforms' fields.
+ */
+function ymca_master_update_8134() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.contact_message.become_a_supplier.default.yml',
+      $path . 'core.entity_form_display.contact_message.cc_wellness_employee.default.yml',
+      $path . 'core.entity_form_display.contact_message.cc_wellness_employer.default.yml',
+      $path . 'core.entity_form_display.contact_message.contact_an_aquatics_manager.default.yml',
+      $path . 'core.entity_form_display.contact_message.contact_personal_training.default.yml',
+      $path . 'core.entity_form_display.contact_message.journey_to_freedom.default.yml',
+      $path . 'core.entity_form_display.contact_message.membership_form.default.yml',
+      $path . 'core.entity_form_display.contact_message.personal_trainers_individual.default.yml',
+      $path . 'core.entity_form_display.contact_message.wait_list.default.yml',
+    ]
+  );
+}
+
+/**
+ * Update MindBody settings.
+ */
+function ymca_master_update_8135() {
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+      $path . 'mindbody.env.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add Mindbody blocks config.
+ */
+function ymca_master_update_8136() {
+  // Enable the module in order to import related config.
+  \Drupal::service('module_installer')->install(['ymca_mindbody'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.block.settings.yml',
+    ]
+  );
+
+  // Disable the module due to we don't want it to be enabled on prod.
+  \Drupal::service('module_installer')->uninstall(['ymca_mindbody']);
+}

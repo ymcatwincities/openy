@@ -6,18 +6,6 @@
  */
 
 /**
- * Implements hook_menu().
- */
-function ymca_mindbody_menu() {
-  $items['admin/config/content/mindbody/settings'] = array(
-    'title' => 'Mindbody API credentials',
-    'route_name' => 'ymca_mindbody.credentials.settings',
-  );
-
-  return $items;
-}
-
-/**
  * Implements hook_theme().
  */
 function ymca_mindbody_theme($existing, $type, $theme, $path) {
@@ -36,4 +24,21 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
       'template' => 'mindbody-results-content',
     ],
   ];
+}
+
+/**
+ * Implements hook_mindbody_cache_proxy_update_stats().
+ */
+function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
+  // TODO: create a constant or something for free calls limit.
+  if ($data->miss == 1000) {
+    \Drupal::service('cache_tags.invalidator')->invalidateTags(['mindbody_state']);
+  }
+}
+
+/**
+ * Implements hook_mindbody_cache_proxy_flush_stats().
+ */
+function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
+  \Drupal::service('cache_tags.invalidator')->invalidateTags('mindbody_state');
 }
