@@ -2,3 +2,8 @@ services:
   ymca_mindbody.examples:
     class: Drupal\ymca_mindbody\YmcaMindbodyExamples
     arguments: ['@mindbody_cache_proxy.client']
+  cache_context.mindbody_state:
+    class: Drupal\ymca_mindbody\Cache\Context\MindbodyStateContext
+    arguments: ['@state']
+    tags:
+      - { name: cache.context }
