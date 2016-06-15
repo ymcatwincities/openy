@@ -77,11 +77,11 @@ class EnvSettingsForm extends ConfigFormBase {
     $active = $values['active'];
     // Set active values to current config.
     $this->config('mindbody.settings')
-      ->set('sourcename', $values[$active . ':' . 'sourcename'])
-      ->set('password', $values[$active . ':' . 'password'])
-      ->set('site_id', $values[$active . ':' . 'site_id'])
-      ->set('user_name', $values[$active . ':' . 'user_name'])
-      ->set('user_password', $values[$active . ':' . 'user_password'])
+      ->set('sourcename', $values[$active . ':sourcename'])
+      ->set('password', $values[$active . ':password'])
+      ->set('site_id', $values[$active . ':site_id'])
+      ->set('user_name', $values[$active . ':user_name'])
+      ->set('user_password', $values[$active . ':user_password'])
       ->save();
 
     foreach ($this->config('mindbody.env.settings')->getRawData() as $id => $data) {
@@ -90,11 +90,11 @@ class EnvSettingsForm extends ConfigFormBase {
         continue;
       }
       $this->config('mindbody.env.settings')->set($id, [
-        'sourcename' => $values[$id . ':' . 'sourcename'],
-        'password' => $values[$id . ':' . 'password'],
-        'site_id' => $values[$id . ':' . 'site_id'],
-        'user_name' => $values[$id . ':' . 'user_name'],
-        'user_password' => $values[$id . ':' . 'user_password'],
+        'sourcename' => $values[$id . ':sourcename'],
+        'password' => $values[$id . ':password'],
+        'site_id' => $values[$id . ':site_id'],
+        'user_name' => $values[$id . ':user_name'],
+        'user_password' => $values[$id . ':user_password'],
       ]);
     }
     $this->config('mindbody.env.settings')->save();

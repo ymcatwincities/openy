@@ -59,26 +59,33 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
   /**
    * {@inheritdoc}
    */
-  public function call($service, $endpoint, array $params = []) {
-    $params_str = serialize($params);
+  public function call($service, $endpoint, array $params = [], $cache = TRUE) {
+    $params_str = '';
 
-    // Check whether the cache exists. If so, return it.
-    $result = $this->checkCache($service, $endpoint, $params_str);
-    if ($result) {
-      $this->updateStats('hit');
-      return $result;
+    if ($cache) {
+      $params_str = serialize($params);
+
+      // Check whether the cache exists. If so, return it.
+      $result = $this->checkCache($service, $endpoint, $params_str);
+      if ($result) {
+        $this->updateStats('hit');
+        return $result;
+      }
     }
 
     // There is no cache. Make the call and create cache item.
     $result = $this->mindbodyClient->call($service, $endpoint, $params);
-    $cache = MindbodyCache::create([
-      'field_mindbody_cache_service' => $service,
-      'field_mindbody_cache_endpoint' => $endpoint,
-      'field_mindbody_cache_params' => $params_str,
-      'field_mindbody_cache_data' => serialize($result),
-    ]);
-    $cache->setName(sprintf('Cache item: %s, %s', $service, $endpoint));
-    $cache->save();
+
+    if ($cache) {
+      $cache = MindbodyCache::create([
+        'field_mindbody_cache_service' => $service,
+        'field_mindbody_cache_endpoint' => $endpoint,
+        'field_mindbody_cache_params' => $params_str,
+        'field_mindbody_cache_data' => serialize($result),
+      ]);
+      $cache->setName(sprintf('Cache item: %s, %s', $service, $endpoint));
+      $cache->save();
+    }
 
     $this->updateStats('miss');
 
@@ -110,6 +117,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
 
     $current->{$type}++;
     $this->state->set(self::STORAGE, $current);
+    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_update_stats', [$current]);
   }
 
   /**
@@ -131,6 +139,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
     $data->{$type}++;
 
     $this->state->set(self::STORAGE, $data);
+    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_flush_stats', [$data]);
   }
 
   /**
