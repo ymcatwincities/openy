@@ -464,7 +464,7 @@ class MindbodyPTForm extends FormBase {
             ],
             'html' => TRUE,
           ];
-          $query = [ 'bookable_item_id' => $bookable_item->ID ] + $values;
+          $query = ['bookable_item_id' => $bookable_item->ID] + $values;
           $query['token'] = $this::getToken($query);
           $options['query'] = $query;
 
@@ -729,7 +729,7 @@ class MindbodyPTForm extends FormBase {
    * @param array $query
    *   Query array usually taken from a request object.
    *
-   * @return boolean
+   * @return bool
    *   Returns token validity.
    */
   public static function validateToken(array $query) {
