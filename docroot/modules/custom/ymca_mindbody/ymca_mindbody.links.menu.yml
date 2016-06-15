@@ -1,5 +1,5 @@
-ymca_mindbody.credentials.settings:
-  title: MindBody API
-  route_name: ymca_mindbody.credentials.settings
+mindbody.settings:
+  title: MindBody Blocks Settings
+  route_name: ymca_mindbody.pt.settings
   parent: system.admin_config_system
-  description: 'Stores MindBody API settings.'
+  description: 'Stores block ids.'

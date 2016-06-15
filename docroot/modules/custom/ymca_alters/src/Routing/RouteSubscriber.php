@@ -32,10 +32,16 @@ class RouteSubscriber extends RouteSubscriberBase {
       }
     }
 
-    // Set Location schedules views page to use admin theme.
+    // Set Location views page to use admin theme.
     // view.[VIEW NAME].[DISPLAY NAME].
-    if ($route = $collection->get('view.location_schedules.location_schedules_page')) {
-      $route->setOption('_admin_route', TRUE);
+    $views = [
+      'view.location_schedules.location_schedules_page',
+      'view.location_wh.location_wh'
+    ];
+    foreach ($views as $view) {
+      if ($route = $collection->get($view)) {
+        $route->setOption('_admin_route', TRUE);
+      }
     }
 
     // Replace page manager block edit form with our customization.

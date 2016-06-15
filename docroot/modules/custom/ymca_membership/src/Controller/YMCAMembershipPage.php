@@ -28,12 +28,16 @@ class YMCAMembershipPage extends ControllerBase {
 
     $block_form_fee = $this->getBlock('Membership page: Form Enrollment Fee');
     $block_cost = $this->getBlock('Membership page: What Does It Cost?');
+    $block_become_a_member = $this->getBlock('Membership page: Become a member');
+    $block_ready_started = $this->getBlock('Membership page: Ready to get started?');
 
     return [
       '#assets' => $assets,
       '#assets_path' => $assets_path,
       '#block_form_fee' => $block_form_fee,
       '#block_cost' => $block_cost,
+      '#block_become_a_member' => $block_become_a_member,
+      '#block_ready_started' => $block_ready_started,
       '#form' => $form,
       '#theme' => 'membership_page',
       '#cache' => [

@@ -2,13 +2,13 @@
 
 namespace Drupal\ymca_mindbody\Form;
 
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
-use Drupal\ymca_mindbody\MindBodyAPI;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\RemoveCommand;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the Personal Training Form.
@@ -18,6 +18,74 @@ use Drupal\Core\Ajax\RemoveCommand;
 class MindbodyPTForm extends FormBase {
 
   /**
+   * Mindbody Proxy.
+   *
+   * @var MindbodyCacheProxyInterface
+   */
+  protected $proxy;
+
+  /**
+   * Credentials.
+   *
+   * @var ImmutableConfig
+   */
+  protected $credentials;
+
+  /**
+   * State.
+   *
+   * @var array
+   */
+  protected $state;
+
+  /**
+   * MindbodyPTForm constructor.
+   *
+   * @param MindbodyCacheProxyInterface $cache_proxy
+   *   Mindbody cache proxy.
+   */
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, array $state = []) {
+    $this->proxy = $cache_proxy;
+    $this->credentials = $this->config('mindbody.settings');
+    $this->state = $state;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    $query = \Drupal::request()->query->all();
+    $state = array(
+      'step' => isset($query['step']) && is_numeric($query['step']) ? $query['step'] : NULL,
+      'mb_location' => isset($query['mb_location']) && is_numeric($query['mb_location']) ? $query['mb_location'] : NULL,
+      'mb_program' => isset($query['mb_program']) && is_numeric($query['mb_program']) ? $query['mb_program'] : NULL,
+      'mb_session_type' => isset($query['mb_session_type']) && is_numeric($query['mb_session_type']) ? $query['mb_session_type'] : NULL,
+      'mb_trainer' => isset($query['mb_trainer']) && is_numeric($query['mb_trainer']) ? $query['mb_trainer'] : NULL,
+      'mb_start_date' => isset($query['mb_start_date']) ? $query['mb_start_date'] : NULL,
+      'mb_end_date' => isset($query['mb_end_date']) ? $query['mb_end_date'] : NULL,
+      'mb_start_time' => isset($query['mb_start_time']) && is_numeric($query['mb_start_time']) ? $query['mb_start_time'] : NULL,
+      'mb_end_time' => isset($query['mb_end_time']) && is_numeric($query['mb_end_time']) ? $query['mb_end_time'] : NULL,
+    );
+    return new static($container->get('mindbody_cache_proxy.client'), $state);
+  }
+
+  /**
+   * Provides markup for disabled form.
+   */
+  protected function getDisabledMarkup() {
+    $markup = '';
+    $block_id = $this->config('ymca_mindbody.block.settings')->get('disabled_form_block_id');
+    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($block_id);
+    if (!is_null($block)) {
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+      $markup .= '<div class="container disabled-form">';
+      $markup .= render($view_builder->view($block));
+      $markup .= '</div>';
+    }
+    return $markup;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -25,49 +93,10 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * MindbodyPTForm constructor.
-   */
-  public function __construct() {
-    $credentials = $this->config('ymca_mindbody.settings')->get();
-    $this->sourcename = $credentials['sourcename'];
-    $this->password = $credentials['password'];
-    $this->site_id = $credentials['site_id'];
-    $this->user_name = $credentials['user_name'];
-    $this->user_password = $credentials['user_password'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbSite() {
-    $mb_site = new MindBodyAPI('SiteService', TRUE);
-    $mb_site->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_site;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbApp() {
-    $mb_app = new MindBodyAPI('AppointmentService', TRUE);
-    $mb_app->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_app;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function mbStaff() {
-    $mb_staff = new MindBodyAPI('StaffService', TRUE);
-    $mb_staff->setCredentials($this->sourcename, $this->password, array($this->site_id));
-
-    return $mb_staff;
-  }
-
-  /**
-   * {@inheritdoc}
+   * Helper method rendering header markup.
+   *
+   * @return string
+   *   Header HTML-markup.
    */
   protected function getElementHeaderMarkup($type, $text) {
     switch ($type) {
@@ -101,7 +130,10 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Helper method retrieving time options.
+   *
+   * @return array
+   *   Array of time options to be used in form element.
    */
   protected function getTimeOptions() {
     $time_options = [
@@ -116,8 +148,16 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
+    // Populate form state with state data.
+    if ($this->state) {
+      foreach ($this->state as $key => $value) {
+        if (!$form_state->hasValue($key)) {
+          $form_state->setValue($key, $value);
+        }
+      }
+    }
 
+    $values = $form_state->getValues();
     if ($trigger_element = $form_state->getTriggeringElement()) {
       switch ($trigger_element['#name']) {
         case 'mb_location':
@@ -153,17 +193,35 @@ class MindbodyPTForm extends FormBase {
       '#value' => $values['step'],
     ];
 
+    // Vary on the listed query args.
+    $form['#cache'] = [
+      // Remove max-age when mindbody tags invalidation is done.
+      'max-age' => 0,
+      'contexts' => [
+        'mindbody_state',
+        'url.query_args:step',
+        'url.query_args:mb_location',
+        'url.query_args:mb_program',
+        'url.query_args:mb_session_type',
+        'url.query_args:mb_trainer',
+        'url.query_args:mb_start_date',
+        'url.query_args:mb_end_date',
+        'url.query_args:mb_start_time',
+        'url.query_args:mb_end_time',
+      ],
+    ];
+
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
-    $locations = $this->mbSite()->call('GetLocations', array());
-    $location_options = [];
-    foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      if ($location->HasClasses != TRUE) {
-        continue;
-      }
-      $location_options[$location->ID] = $location->Name;
+    // Disable form if we exceed 1000 calls to MindBody API.
+    $mindbody_proxy_state = \Drupal::state()->get('mindbody_cache_proxy');
+    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
+      $form['disable'] = ['#markup' => $this->getDisabledMarkup()];
+      return $form;
     }
+
+    $location_options = $this->getLocations();
     $form['mb_location'] = array(
       '#type' => 'radios',
       '#title' => $this->t('Select Location'),
@@ -190,11 +248,7 @@ class MindbodyPTForm extends FormBase {
         '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']]),
         '#weight' => 1,
       );
-      $programs = $this->mbSite()->call('GetPrograms', array('OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment'));
-      $program_options = [];
-      foreach ($programs->GetProgramsResult->Programs->Program as $program) {
-        $program_options[$program->ID] = $program->Name;
-      }
+      $program_options = $this->getPrograms();
       $form['mb_program'] = array(
         '#type' => 'radios',
         '#title' => $this->t('Appointment Type'),
@@ -221,11 +275,7 @@ class MindbodyPTForm extends FormBase {
         '#markup' => $this->getElementHeaderMarkup('program', $program_options[$values['mb_program']]),
         '#weight' => 3,
       );
-      $session_types = $this->mbSite()->call('GetSessionTypes', array('OnlineOnly' => FALSE, 'ProgramIDs' => array($values['mb_program'])));
-      $session_type_options = [];
-      foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
-        $session_type_options[$type->ID] = $type->Name;
-      }
+      $session_type_options = $this->getSessionTypes($values['mb_program']);
       $form['mb_session_type'] = array(
         '#type' => 'radios',
         '#title' => $this->t('Training type'),
@@ -251,36 +301,7 @@ class MindbodyPTForm extends FormBase {
         '#markup' => $this->getElementHeaderMarkup('type', $session_type_options[$values['mb_session_type']]),
         '#weight' => 5,
       );
-      /*
-       * NOTE: MINDBODY API doesn't support filtering staff by location without specific date and time.
-       * That's why we see all trainers, even courts.
-       * see screenshot https://goo.gl/I9uNY2
-       * see API Docs https://developers.mindbodyonline.com/Develop/StaffService
-       */
-      $booking_params = array(
-        'UserCredentials' => array(
-          'Username' => $this->user_name,
-          'Password' => $this->user_password,
-          'SiteIDs' => array(
-            $this->site_id,
-          ),
-        ),
-        'SessionTypeIDs' => array($values['mb_session_type']),
-        'LocationIDs' => array($values['mb_location']),
-      );
-      $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
-
-      $staff_list = array();
-      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-        $photo = $this->mbStaff()->call('GetStaffImgURL', array('StaffID' => $bookable_item->Staff->ID));
-        $staff_list[$bookable_item->Staff->ID] = $bookable_item->Staff;
-      }
-      $trainer_options = array(
-        'all' => $this->t('All'),
-      );
-      foreach ($staff_list as $staff) {
-        $trainer_options[$staff->ID] = $staff->Name;
-      }
+      $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
 
       $form['mb_trainer'] = array(
         '#type' => 'select',
@@ -297,22 +318,26 @@ class MindbodyPTForm extends FormBase {
       $form['actions']['#suffix'] = '</div></div></div>';
 
       $timezone = drupal_get_user_timezone();
-      // Initially srart date defined as today.
+      // Initially start date defined as today.
       $start_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      if (!empty($values['mb_start_date'])) {
+        $start_date = $values['mb_start_date'];
+        if (!$start_date instanceof DrupalDateTime) {
+          $start_date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_start_date']['date'], $timezone);
+        }
+      }
       $start_date->setTime(0, 0, 0);
+
       // Initially end date defined as +5 days after start date.
       $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 432000, $timezone);
+      if (!empty($values['mb_end_date'])) {
+        $end_date = $values['mb_end_date'];
+        if (!$values['mb_end_date'] instanceof DrupalDateTime) {
+          $end_date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_end_date']['date'], $timezone);
+        }
+      }
       $end_date->setTime(0, 0, 0);
-      if (!empty($values['mb_start_date']['date'])) {
-        $date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_start_date']['date'], $timezone);
-        $date->setTime(0, 0, 0);
-        $start_date = $date;
-      }
-      if (!empty($values['mb_end_date']['date'])) {
-        $date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_end_date']['date'], $timezone);
-        $date->setTime(0, 0, 0);
-        $end_date = $date;
-      }
+
       $form['mb_date'] = [
         '#type' => 'fieldset',
         '#prefix' => '<div id="when-wrapper" class="row"><div class="container"><div class="col-sm-12">',
@@ -323,17 +348,15 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => $this->t('Time range'),
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : '',
+        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : 6,
         '#suffix' => '<span class="dash">—</span>',
-        '#default_value' => 6,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_end_time'] = [
         '#type' => 'select',
         '#title' => '',
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : '',
-        '#default_value' => 9,
+        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : 9,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_start_date'] = [
@@ -366,28 +389,32 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Custom ajax callback.
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     return $form;
   }
 
   /**
-   * {@inheritdoc}
+   * Retrieves search results by given filters.
+   *
+   * @param array $values
+   *   Array of filters.
+   *
+   * @return mixed
+   *   Renderable array of results or NULL.
    */
-  public function getSearchResults($values) {
+  public function getSearchResults(array $values) {
     if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer']) && isset($values['start_date']) && isset($values['end_date'])) {
-      $booking_params = array(
-        'UserCredentials' => array(
-          'Username' => $this->user_name,
-          'Password' => $this->user_password,
-          'SiteIDs' => array(
-            $this->site_id,
-          ),
-        ),
-        'SessionTypeIDs' => array($values['session_type']),
-        'LocationIDs' => array($values['location']),
-      );
+      $booking_params = [
+        'UserCredentials' => [
+          'Username' => $this->credentials->get('user_name'),
+          'Password' => $this->credentials->get('user_password'),
+          'SiteIDs' => [$this->credentials->get('site_id')],
+        ],
+        'SessionTypeIDs' => [$values['session_type']],
+        'LocationIDs' => [$values['location']],
+      ];
 
       if (!empty($values['trainer']) && $values['trainer'] != 'all') {
         $booking_params['StaffIDs'] = array($values['trainer']);
@@ -395,7 +422,7 @@ class MindbodyPTForm extends FormBase {
       $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
       $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
 
-      $bookable = $this->mbApp()->call('GetBookableItems', $booking_params);
+      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
       $time_options = $this->getTimeOptions();
       $start_time = $time_options[$values['start_time']];
@@ -429,16 +456,12 @@ class MindbodyPTForm extends FormBase {
         }
       }
 
-      $programs = $this->mbSite()->call('GetPrograms', array('OnlineOnly' => FALSE, 'ScheduleType' => 'Appointment'));
-      foreach ($programs->GetProgramsResult->Programs->Program as $program) {
-        if ($program->ID == $values['program']) {
-          $program_name = $program->Name;
-        }
-      }
-
-      $trainer = $bookable_item->Staff->Name;
       if ($values['trainer'] == 'all') {
-        $trainer = $this->t('all trainers');
+        $trainer_name = $this->t('all trainers');
+      }
+      else {
+        $trainers = $this->getTrainers($values['session_type'], $values['location']);
+        $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
       }
 
       $time_options = $this->getTimeOptions();
@@ -448,14 +471,34 @@ class MindbodyPTForm extends FormBase {
       $end_date = date('n/d/Y', strtotime($values['end_date']));
       $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
 
+      $locations = $this->getLocations();
+      $location_name = isset($locations[$values['location']]) ? $locations[$values['location']] : '';
+      $programs = $this->getPrograms();
+      $program_name = isset($programs[$values['program']]) ? $programs[$values['program']] : '';
+      $session_types = $this->getSessionTypes($values['program']);
+      $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
+
+      $options = [
+        'query' => [
+          'step' => 4,
+          'mb_location' => $values['location'],
+          'mb_program' => $values['program'],
+          'mb_session_type' => $values['session_type'],
+          'mb_trainer' => $values['trainer'],
+          'mb_start_date' => ['date' => $values['start_date']],
+          'mb_end_date' => ['date' => $values['end_date']],
+          'mb_start_time' => $values['start_time'],
+          'mb_end_time' => $values['end_time'],
+        ],
+      ];
       $search_results = [
         '#theme' => 'mindbody_results_content',
-        '#location' => $bookable_item->Location->Name,
+        '#location' => $location_name,
         '#program' => $program_name,
-        '#session_type' => $bookable_item->SessionType->Name,
-        '#trainer' => $trainer,
+        '#session_type' => $session_type_name,
+        '#trainer' => $trainer_name,
         '#datetime' => $datetime,
-        '#back_link' => Url::fromRoute('ymca_mindbody.pt'),
+        '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
         '#base_path' => base_path(),
         '#days' => $days,
       ];
@@ -503,6 +546,106 @@ class MindbodyPTForm extends FormBase {
         ['query' => $params]
       );
     }
+  }
+
+  /**
+   * Helper method retrieving location options to be used in form element.
+   *
+   * @return array
+   *   Array of locations usable in #options attribute of form elements.
+   */
+  public function getLocations() {
+    $locations = $this->proxy->call('SiteService', 'GetLocations');
+
+    $location_options = [];
+    foreach ($locations->GetLocationsResult->Locations->Location as $location) {
+      if ($location->HasClasses != TRUE) {
+        continue;
+      }
+      $location_options[$location->ID] = $location->Name;
+    }
+
+    return $location_options;
+  }
+
+  /**
+   * Helper method retrieving program options to be used in form element.
+   *
+   * @return array
+   *   Array of programs usable in #options attribute of form elements.
+   */
+  public function getPrograms() {
+    $programs = $this->proxy->call('SiteService', 'GetPrograms', [
+      'OnlineOnly' => FALSE,
+      'ScheduleType' => 'Appointment',
+    ]);
+
+    $program_options = [];
+    foreach ($programs->GetProgramsResult->Programs->Program as $program) {
+      $program_options[$program->ID] = $program->Name;
+    }
+
+    return $program_options;
+  }
+
+  /**
+   * Helper method retrieving session types options to be used in form element.
+   *
+   * @param int $program_id
+   *   MindBody program id.
+   *
+   * @return array
+   *   Array of session types usable in #options attribute of form elements.
+   */
+  public function getSessionTypes($program_id) {
+    $session_types = $this->proxy->call('SiteService', 'GetSessionTypes', [
+      'OnlineOnly' => FALSE,
+      'ProgramIDs' => [$program_id],
+    ]);
+
+    $session_type_options = [];
+    foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
+      $session_type_options[$type->ID] = $type->Name;
+    }
+
+    return $session_type_options;
+  }
+
+  /**
+   * Helper method retrieving trainer options to be used in form element.
+   *
+   * @param int $session_type_id
+   *   MindBody session type id.
+   * @param int $location_id
+   *   MindBody location id.
+   *
+   * @return array
+   *   Array of trainers usable in #options attribute of form elements.
+   */
+  public function getTrainers($session_type_id, $location_id) {
+    /*
+     * NOTE: MINDBODY API doesn't support filtering staff by location without specific date and time.
+     * That's why we see all trainers, even courts.
+     * see screenshot https://goo.gl/I9uNY2
+     * see API Docs https://developers.mindbodyonline.com/Develop/StaffService
+     */
+    $booking_params = [
+      'UserCredentials' => [
+        'Username' => $this->credentials->get('user_name'),
+        'Password' => $this->credentials->get('user_password'),
+        'SiteIDs' => [$this->credentials->get('site_id')],
+      ],
+      'SessionTypeIDs' => [$session_type_id],
+      'LocationIDs' => [$location_id],
+    ];
+    $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
+
+    $trainer_options = ['all' => $this->t('All')];
+    foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+      $trainer_options[$bookable_item->Staff->ID] = $bookable_item->Staff->Name;
+    }
+
+    return $trainer_options;
   }
 
 }
