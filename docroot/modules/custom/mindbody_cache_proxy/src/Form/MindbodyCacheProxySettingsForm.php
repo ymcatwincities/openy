@@ -53,7 +53,7 @@ class MindbodyCacheProxySettingsForm extends FormBase implements ContainerAwareI
     ];
 
     $form['actions'] = [
-      '#title' => t('Actions'),
+      '#title' => $this->t('Actions'),
       '#type' => 'fieldset',
     ];
 
