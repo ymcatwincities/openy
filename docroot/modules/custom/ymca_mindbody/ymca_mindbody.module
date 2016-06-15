@@ -27,7 +27,7 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * Implements hook_mindbody_cache_proxy_update_stats();
+ * Implements hook_mindbody_cache_proxy_update_stats().
  */
 function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
   // TODO: create a constant or something for free calls limit.
@@ -37,7 +37,7 @@ function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
 }
 
 /**
- * Implements hook_mindbody_cache_proxy_flush_stats();
+ * Implements hook_mindbody_cache_proxy_flush_stats().
  */
 function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
   \Drupal::service('cache_tags.invalidator')->invalidateTags('mindbody_state');
