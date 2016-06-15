@@ -50,6 +50,9 @@ class PersonifyController extends ControllerBase {
     $this->initPersonifySso();
 
     $options = ['absolute' => TRUE];
+    if ($destination = \Drupal::request()->query->get('dest')) {
+      $options['query']['dest'] = urlencode($destination);
+    }
     $url = Url::fromRoute('ymca_personify.personify_auth', [], $options)->toString();
 
     $vendor_token = $this->sso->getVendorToken($url);
@@ -119,6 +122,9 @@ class PersonifyController extends ControllerBase {
     }
 
     $redirect_url = Url::fromUri($this->config['url_account'])->toString();
+    if (isset($query['dest'])) {
+      $redirect_url = urldecode($query['dest']);
+    }
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
