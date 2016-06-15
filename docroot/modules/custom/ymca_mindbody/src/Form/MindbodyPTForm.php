@@ -211,7 +211,6 @@ class MindbodyPTForm extends FormBase {
       ],
     ];
 
-
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
@@ -399,7 +398,7 @@ class MindbodyPTForm extends FormBase {
   /**
    * Retrieves search results by given filters.
    *
-   * @param array $values.
+   * @param array $values
    *   Array of filters.
    *
    * @return mixed
