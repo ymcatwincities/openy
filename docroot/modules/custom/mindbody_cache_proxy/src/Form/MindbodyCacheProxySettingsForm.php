@@ -87,7 +87,6 @@ class MindbodyCacheProxySettingsForm extends FormBase implements ContainerAwareI
   protected function resetCache() {
     $query = $this->container->get('entity.query');
     $storage = $this->container->get('entity_type.manager')->getStorage('mindbody_cache');
-    $logger = $this->container->get('logger.factory')->get('mindbody_cache_proxy');
 
     $result = $query->get('mindbody_cache')->execute();
     if (empty($result)) {
@@ -98,8 +97,10 @@ class MindbodyCacheProxySettingsForm extends FormBase implements ContainerAwareI
     foreach ($chunks as $chunk) {
       $entities = MindbodyCache::loadMultiple($chunk);
       $storage->delete($entities);
-      $logger->info('The cache was cleared.');
     }
+
+    $logger = $this->container->get('logger.factory')->get('mindbody_cache_proxy');
+    $logger->info('The cache was cleared.');
   }
 
 }
