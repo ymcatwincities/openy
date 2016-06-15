@@ -4,37 +4,16 @@ namespace Drupal\mindbody_cache_proxy\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\State\StateInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\mindbody_cache_proxy\Entity\MindbodyCache;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Settings form.
  */
-class MindbodyCacheProxySettingsForm extends FormBase {
+class MindbodyCacheProxySettingsForm extends FormBase implements ContainerAwareInterface {
 
-  /**
-   * State.
-   *
-   * @var StateInterface
-   */
-  protected $state;
-
-  /**
-   * MindbodyCacheProxySettingsForm constructor.
-   *
-   * @param StateInterface $state
-   *   State.
-   */
-  public function __construct(StateInterface $state) {
-    $this->state = $state;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('state'));
-  }
+  use ContainerAwareTrait;
 
   /**
    * {@inheritdoc}
@@ -47,13 +26,13 @@ class MindbodyCacheProxySettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $state = $this->container->get('state');
+    $stats = $state->get('mindbody_cache_proxy');
 
-    $stats = $this->state->get('mindbody_cache_proxy');
-
-    $form['stats'] = array(
+    $form['stats'] = [
       '#title' => t('Cache statistics'),
       '#type' => 'fieldset',
-    );
+    ];
 
     $message = 'Since %date (UTC) %calls API calls and %hits cache hits. Calls remaining: %remain.';
 
@@ -73,6 +52,17 @@ class MindbodyCacheProxySettingsForm extends FormBase {
       ),
     ];
 
+    $form['actions'] = [
+      '#title' => t('Actions'),
+      '#type' => 'fieldset',
+    ];
+
+    $form['actions']['reset'] = [
+      '#name' => 'reset',
+      '#type' => 'submit',
+      '#value' => $this->t('Clear the cache'),
+    ];
+
     return $form;
   }
 
@@ -80,6 +70,36 @@ class MindbodyCacheProxySettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Remove button and internal Form API values from submitted values.
+    $form_state->cleanValues();
+
+    $triggering_element = $form_state->getTriggeringElement();
+    switch ($triggering_element['#name']) {
+      case 'reset':
+        $this->resetCache();
+        break;
+    }
+  }
+
+  /**
+   * Remove all cached entities.
+   */
+  protected function resetCache() {
+    $query = $this->container->get('entity.query');
+    $storage = $this->container->get('entity_type.manager')->getStorage('mindbody_cache');
+    $logger = $this->container->get('logger.factory')->get('mindbody_cache_proxy');
+
+    $result = $query->get('mindbody_cache')->execute();
+    if (empty($result)) {
+      return;
+    }
+
+    $chunks = array_chunk($result, 10);
+    foreach ($chunks as $chunk) {
+      $entities = MindbodyCache::loadMultiple($chunk);
+      $storage->delete($entities);
+      $logger->info('The cache was cleared.');
+    }
   }
 
 }
