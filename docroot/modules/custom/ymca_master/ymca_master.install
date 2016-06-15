@@ -3151,3 +3151,49 @@ function ymca_master_update_8133() {
     ]
   );
 }
+
+/**
+ * Enable phone validation on webforms' fields.
+ */
+function ymca_master_update_8134() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.contact_message.become_a_supplier.default.yml',
+      $path . 'core.entity_form_display.contact_message.cc_wellness_employee.default.yml',
+      $path . 'core.entity_form_display.contact_message.cc_wellness_employer.default.yml',
+      $path . 'core.entity_form_display.contact_message.contact_an_aquatics_manager.default.yml',
+      $path . 'core.entity_form_display.contact_message.contact_personal_training.default.yml',
+      $path . 'core.entity_form_display.contact_message.journey_to_freedom.default.yml',
+      $path . 'core.entity_form_display.contact_message.membership_form.default.yml',
+      $path . 'core.entity_form_display.contact_message.personal_trainers_individual.default.yml',
+      $path . 'core.entity_form_display.contact_message.wait_list.default.yml',
+    ]
+  );
+}
+
+/**
+ * Update MindBody settings.
+ */
+function ymca_master_update_8135() {
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+      $path . 'mindbody.env.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add Mindbody blocks config.
+ */
+function ymca_master_update_8136() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.block.settings.yml',
+    ]
+  );
+}
