@@ -25,3 +25,20 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+/**
+ * Implements hook_mindbody_cache_proxy_update_stats();
+ */
+function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
+  // TODO: create a constant or something for free calls limit.
+  if ($data->miss == 1000) {
+    \Drupal::service('cache_tags.invalidator')->invalidateTags(['mindbody_state']);
+  }
+}
+
+/**
+ * Implements hook_mindbody_cache_proxy_flush_stats();
+ */
+function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
+  \Drupal::service('cache_tags.invalidator')->invalidateTags('mindbody_state');
+}
