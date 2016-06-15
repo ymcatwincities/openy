@@ -1532,7 +1532,7 @@ li.current.home > a:focus, li.current.home > a:hover {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   border: 0;
   border-left: 0;
@@ -3868,7 +3868,8 @@ a[href*=".pdf?"]:after,
 }
 
 a[href$=pdf]:hover,
-a[href*=".pdf?"]:hover {
+a[href*=".pdf?"]:hover,
+.pdf-link:hover {
   text-decoration: none;
 }
 
@@ -7950,6 +7951,10 @@ p.legend {
   margin: 0 0 7px;
 }
 
+.form-tel.error {
+  border-color: #a92b31;
+}
+
 #mindbody-pt-form-wrapper {
   padding: 0 0 100px;
 }
@@ -8366,6 +8371,11 @@ p.legend {
     clear: left;
     float: none;
   }
+}
+#mindbody-pt-form-wrapper .disabled-form {
+  font-size: 16px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .mindbody-search-results-header {
