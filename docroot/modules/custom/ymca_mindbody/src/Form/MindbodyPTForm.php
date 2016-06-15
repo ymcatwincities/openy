@@ -93,7 +93,7 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * Helper method rendering header markup
+   * Helper method rendering header markup.
    *
    * @return string
    *   Header HTML-markup.
@@ -193,15 +193,32 @@ class MindbodyPTForm extends FormBase {
       '#value' => $values['step'],
     ];
 
+    // Vary on the listed query args.
+    $form['#cache'] = [
+      // Remove max-age when mindbody tags invalidation is done.
+      'max-age' => 0,
+      'contexts' => [
+        'mindbody_state',
+        'url.query_args:step',
+        'url.query_args:mb_location',
+        'url.query_args:mb_program',
+        'url.query_args:mb_session_type',
+        'url.query_args:mb_trainer',
+        'url.query_args:mb_start_date',
+        'url.query_args:mb_end_date',
+        'url.query_args:mb_start_time',
+        'url.query_args:mb_end_time',
+      ],
+    ];
+
+
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
     // Disable form if we exceed 1000 calls to MindBody API.
-    $mindbody_proxy_state = $this->state->get('mindbody_cache_proxy');
+    $mindbody_proxy_state = \Drupal::state()->get('mindbody_cache_proxy');
     if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
-      $form['disable'] = [
-          "#markup" => $this->getDisabledMarkup(),
-      ];
+      $form['disable'] = ['#markup' => $this->getDisabledMarkup()];
       return $form;
     }
 
@@ -369,21 +386,6 @@ class MindbodyPTForm extends FormBase {
       );
     }
 
-    // Vary on the listed query args.
-    $form['#cache'] = [
-      'contexts' => [
-        'url.query_args:step',
-        'url.query_args:mb_location',
-        'url.query_args:mb_program',
-        'url.query_args:mb_session_type',
-        'url.query_args:mb_trainer',
-        'url.query_args:mb_start_date',
-        'url.query_args:mb_end_date',
-        'url.query_args:mb_start_time',
-        'url.query_args:mb_end_time',
-      ],
-    ];
-
     return $form;
   }
 
@@ -400,8 +402,8 @@ class MindbodyPTForm extends FormBase {
    * @param array $values.
    *   Array of filters.
    *
-   * @return array
-   *   Renderable array of results.
+   * @return mixed
+   *   Renderable array of results or NULL.
    */
   public function getSearchResults(array $values) {
     if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer']) && isset($values['start_date']) && isset($values['end_date'])) {
