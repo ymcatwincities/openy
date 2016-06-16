@@ -58,7 +58,7 @@ class SidebarNavigation extends BlockBase {
       '#attributes' => ['class' => ['panel', 'panel-default', 'panel-subnav']],
       '#cache' => [
         'contexts' => [
-          'url'
+          'url.path'
         ],
       ],
     ];
