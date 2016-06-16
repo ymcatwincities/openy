@@ -3203,3 +3203,18 @@ function ymca_master_update_8136() {
   // Disable the module due to we don't want it to be enabled on prod.
   \Drupal::service('module_installer')->uninstall(['ymca_mindbody']);
 }
+
+/**
+ * Enable token filter module.
+ */
+function ymca_master_update_8137() {
+  \Drupal::service('module_installer')->install(['token_filter'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'filter.format.code.yml',
+      $path . 'filter.format.full_html.yml',
+    ]
+  );
+}
