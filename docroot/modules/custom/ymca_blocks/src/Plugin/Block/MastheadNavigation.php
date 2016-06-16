@@ -20,7 +20,7 @@ class MastheadNavigation extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $builder = new YMCAMenuBuilder();
+    $builder = \Drupal::service('ymca.menu_builder');
     $active_menu_tree = $builder->getActiveMenuTree();
 
     return [
@@ -30,7 +30,7 @@ class MastheadNavigation extends BlockBase {
       ),
       '#cache' => [
         'contexts' => [
-          'url'
+          'user'
         ],
       ],
     ];
