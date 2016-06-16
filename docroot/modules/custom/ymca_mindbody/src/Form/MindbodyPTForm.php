@@ -383,7 +383,7 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => '',
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : 9,
+        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : 23,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_start_date'] = [
