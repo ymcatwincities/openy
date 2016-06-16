@@ -20,7 +20,7 @@ class SidebarNavigation extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $builder = new YMCAMenuBuilder();
+    $builder = \Drupal::service('ymca.menu_builder');
     $active_menu_tree = $builder->getActiveMenuTree();
 
     // Reduce page tree only for context for Location and Camps.
