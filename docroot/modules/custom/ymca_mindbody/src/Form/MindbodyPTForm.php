@@ -4,11 +4,13 @@ namespace Drupal\ymca_mindbody\Form;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Component\Render\FormattableMarkup;
 
 /**
  * Provides the Personal Training Form.
@@ -447,12 +449,32 @@ class MindbodyPTForm extends FormBase {
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
           $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
           $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-            'is_available' => TRUE,
-            'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
-            // To Do: Add bookable link.
-            'href' => '#',
+          // Add bookable item id if it isn't provided by Mindbody API.
+          if (!$bookable_item->ID) {
+            $bookable_item->ID = md5(serialize($bookable_item));
+          }
+          $options = [
+            'attributes' => [
+              'class' => [
+                'use-ajax',
+                $bookable_item->ID == $values['bookable_item_id'] ? 'highlight-item' : '',
+              ],
+              'data-dialog-type' => 'modal',
+              'id' => 'bookable-item-' . $bookable_item->ID,
+            ],
+            'html' => TRUE,
           ];
+          $query = ['bookable_item_id' => $bookable_item->ID] + $values;
+          $query['token'] = $this::getToken($query);
+          $options['query'] = $query;
+
+          $text = new FormattableMarkup('<span class="icon icon-clock"></span> !from - !to', [
+            '!from' => date('h:i a', strtotime($bookable_item->StartDateTime)),
+            '!to' => date('h:i a', strtotime($bookable_item->EndDateTime)),
+          ]);
+          $link = Link::createFromRoute($text, 'ymca_mindbody.pt.book', [], $options);
+
+          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $link;
         }
       }
 
@@ -501,6 +523,11 @@ class MindbodyPTForm extends FormBase {
         '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
         '#base_path' => base_path(),
         '#days' => $days,
+        '#attached' => [
+          'library' => [
+            'core/drupal.dialog.ajax',
+          ],
+        ],
       ];
 
       return $search_results;
@@ -646,6 +673,71 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_options;
+  }
+
+  /**
+   * Custom hash salt getter.
+   *
+   * @return string
+   *   String to be used as a hash salt.
+   */
+  public static function getHashSalt() {
+    return \Drupal::config('system.site')->get('uuid');
+  }
+
+  /**
+   * Custom token generator.
+   *
+   * @param array $query
+   *   Array of data usually taken form request object.
+   *
+   * @return string
+   *   Generated token.
+   */
+  public static function getToken(array $query) {
+    $data = [];
+    foreach (static::getTokenArgs() as $key) {
+      $data[$key] = (string) $query[$key];
+    }
+
+    return md5(serialize($data) . static::getHashSalt());
+  }
+
+  /**
+   * Returns token args.
+   *
+   * @return array
+   *   Array of strings.
+   */
+  public static function getTokenArgs() {
+    return [
+      'location',
+      'program',
+      'session_type',
+      'trainer',
+      'start_time',
+      'end_time',
+      'start_date',
+      'end_date',
+      'bookable_item_id',
+    ];
+  }
+
+  /**
+   * Custom token validator.
+   *
+   * @param array $query
+   *   Query array usually taken from a request object.
+   *
+   * @return bool
+   *   Returns token validity.
+   */
+  public static function validateToken(array $query) {
+    if (!isset($query['token'])) {
+      return FALSE;
+    }
+
+    return $query['token'] == static::getToken($query);
   }
 
 }
