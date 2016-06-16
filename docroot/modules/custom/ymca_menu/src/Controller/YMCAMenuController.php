@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_menu\Controller;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Url;
@@ -45,6 +46,11 @@ class YMCAMenuController extends ControllerBase {
    * Builds sitemap tree.
    */
   public function buildTree() {
+    // config:ymca_menu.menu_list tag.
+    if ($cache = \Drupal::cache()->get('ymca_menu_buildTree')) {
+      return $cache->data;
+    }
+
     // Lookup stores all menu-link items.
     $tree = $this->initTree();
     $menus = static::menuList();
@@ -152,6 +158,7 @@ class YMCAMenuController extends ControllerBase {
         $ctree[$row->mlid] = [];
       }
     }
+    \Drupal::cache()->set('ymca_menu_buildTree', $tree, Cache::PERMANENT, ['config:ymca_menu.menu_list']);
 
     return $tree;
   }
