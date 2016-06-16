@@ -41,8 +41,8 @@
                 <div class="available">{{ 'Is Available:'|t }}</div>
               {% endif %}
               <div class="slots">
-                {% for key, slots in trainer %}
-                <div class="slot"><a href="{{ slots.href }}"><span class="icon icon-clock"></span>{{ slots.slot }}</a></div>
+                {% for key, slot in trainer %}
+                <div class="slot">{{ slot }}</div>
                 {% endfor %}
               </div>
             </div>
