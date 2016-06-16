@@ -42,7 +42,7 @@ class SubNavigation extends BlockBase {
       ],
       '#cache' => [
         'contexts' => [
-          'url.path'
+          'url.path.parent'
         ],
       ],
     ];
