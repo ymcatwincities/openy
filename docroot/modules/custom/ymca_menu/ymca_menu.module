@@ -119,7 +119,8 @@ function ymca_menu_preprocess_node(&$variables) {
       '#lazy_builder' => [
         '\Drupal\block\BlockViewBuilder::lazyBuilder',
         ['sidebarnavigation']
-      ]
+      ],
+      '#create_placeholder' => TRUE,
     ];
   }
 }
