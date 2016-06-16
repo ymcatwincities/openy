@@ -98,16 +98,16 @@ class MindbodyResultsController extends ControllerBase {
       return $this->invalidTokenResponse();
     }
 
-    $output[] = 'Token is valid.';
+    $output[] = $this->t('Token is valid.');
     if ($personify_authenticated = \Drupal::request()->cookies->has('Drupal_visitor_personify_authorized')) {
       // Book item if user is authenticated in Personify.
       if ($this->bookItem($query)) {
         // Successfully booked.
-        $output[] = 'Successfully booked.';
+        $output[] = $this->t('Successfully booked.');
       }
       else {
         // Booking failed.
-        $output[] = 'The booking process failed.';
+        $output[] = $this->t('The booking process failed.');
       }
     }
     else {
@@ -139,9 +139,9 @@ class MindbodyResultsController extends ControllerBase {
     $query = $this->requestStack->getCurrentRequest()->query->all();
 
     $output = [];
-    $output[] = 'Token is invalid.';
-    $output[] = 'Not booked.';
-    $output[] = 'Refresh the page.';
+    $output[] = $this->t('Token is invalid.');
+    $output[] = $this->t('Not booked.');
+    $output[] = $this->t('Refresh the page.');
     $output[] = print_r($query, TRUE);
 
     $response = new AjaxResponse();
