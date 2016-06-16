@@ -158,7 +158,7 @@ class YMCAMenuController extends ControllerBase {
         $ctree[$row->mlid] = [];
       }
     }
-    \Drupal::cache()->set('ymca_menu_buildTree', $tree, Cache::PERMANENT, ['config:ymca_menu.menu_list']);
+    \Drupal::cache()->set('ymca_menu_buildTree', $tree, Cache::PERMANENT, ['config:ymca_menu.menu_list', 'node_list']);
 
     return $tree;
   }
