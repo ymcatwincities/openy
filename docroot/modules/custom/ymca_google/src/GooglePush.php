@@ -43,13 +43,6 @@ class GooglePush {
   protected $configFactory;
 
   /**
-   * ID for Google Calendar.
-   *
-   * @var string
-   */
-  protected $calendarId;
-
-  /**
    * Google Calendar Service.
    *
    * @var \Google_Service_Calendar
@@ -99,6 +92,13 @@ class GooglePush {
   protected $proxy;
 
   /**
+   * Google calendars list.
+   *
+   * @var array
+   */
+  protected $calendars = [];
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -119,9 +119,6 @@ class GooglePush {
     $this->loggerFactory = $logger;
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
-
-    $settings = $this->configFactory->get('ymca_google.settings');
-    $this->calendarId = $settings->get('calendar_id');
 
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
@@ -152,6 +149,12 @@ class GooglePush {
           $editable->save();
         }
 
+        $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
+        if (!$gcal_id) {
+          // Failed to get calendar ID.
+          continue;
+        }
+
         switch ($op) {
           case 'update':
             $event = $this->drupalEntityToGcalEvent($entity);
@@ -161,7 +164,7 @@ class GooglePush {
 
             try {
               $this->calEvents->update(
-                $this->calendarId,
+                $gcal_id,
                 $entity->field_gg_gcal_id->value,
                 $event
               );
@@ -214,7 +217,7 @@ class GooglePush {
           case 'delete':
             try {
               $this->calEvents->delete(
-                $this->calendarId,
+                $gcal_id,
                 $entity->field_gg_gcal_id->value
               );
 
@@ -270,7 +273,7 @@ class GooglePush {
             }
 
             try {
-              $event = $this->calEvents->insert($this->calendarId, $event);
+              $event = $this->calEvents->insert($gcal_id, $event);
 
               $entity->set('field_gg_gcal_id', $event->getId());
               $entity->save();
@@ -327,6 +330,40 @@ class GooglePush {
     // Mark this step as done in the schedule.
     $this->dataWrapper->next();
 
+  }
+
+  /**
+   * Get Gcal ID by it's name (summary).
+   *
+   * @param string $name
+   *   Calendar name (summary).
+   *
+   * @return bool|mixed
+   *   Calendar ID.
+   */
+  protected function getCalendarIdByName($name) {
+    // Return ID from cache if exists.
+    if (array_key_exists($name, $this->calendars)) {
+      return $this->calendars[$name];
+    }
+
+    // There is no calendar in the cache. Let's get data form the server.
+    foreach ($this->getRawCalendars() as $raw_calendar) {
+      $this->calendars[$raw_calendar->summary] = $raw_calendar->id;
+    }
+
+    // Check the cache again.
+    if (array_key_exists($name, $this->calendars)) {
+      return $this->calendars[$name];
+    }
+
+    // There is no calendar on the server. Let's create it.
+    if ($id = $this->createCalendar($name)) {
+      $this->calendars[$name] = $id;
+      return $id;
+    }
+
+    return FALSE;
   }
 
   /**
@@ -601,12 +638,17 @@ class GooglePush {
     $calendar = new \Google_Service_Calendar_Calendar();
     $calendar->setSummary($name);
     $calendar->setTimeZone(self::TZ);
-    $createdCalendar = $this->calService->calendars->insert($calendar);
-    $id = $createdCalendar->getId();
 
-    $this->logger->info('Calender %id was created', ['%id' => $id]);
-
-    return $id;
+    try {
+      $createdCalendar = $this->calService->calendars->insert($calendar);
+      $id = $createdCalendar->getId();
+      $this->logger->info('Calender %id was created', ['%id' => $id]);
+      return $id;
+    }
+    catch (\Exception $e) {
+      $this->logger->error('Failed to create calendar with name: %name', ['%name' => $name]);
+      return FALSE;
+    }
   }
 
 }
