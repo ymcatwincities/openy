@@ -3265,3 +3265,22 @@ function ymca_master_update_8138() {
     ]
   );
 }
+
+/**
+ * Remove old Groupex mapping entity.
+ */
+function ymca_master_update_8139() {
+  $entityTypeManager = \Drupal::entityTypeManager();
+
+  // Remove groupex entities.
+  $ids = Drupal::entityQuery('mapping')->condition('type', 'groupex')->execute();
+  $chunks = array_chunk($ids, 10);
+  $mapping = $entityTypeManager->getStorage('mapping');
+  foreach ($chunks as $chunk) {
+    $mappings = Mapping::loadMultiple($chunk);
+    $mapping->delete($mappings);
+  }
+
+  // Remove groupex mapping entity type.
+  $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
+}
