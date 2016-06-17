@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Timer;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
@@ -99,6 +100,13 @@ class GooglePush {
   protected $calendars = [];
 
   /**
+   * Query factory.
+   *
+   * @var QueryFactory
+   */
+  protected $query;
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -111,14 +119,17 @@ class GooglePush {
    *   Entity type manager.
    * @param DrupalProxy $proxy
    *   Proxy.
+   * @param QueryFactory $query
+   *   Query factory.
    */
-  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy) {
+  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy, QueryFactory $query) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
     $this->logger = $logger->get('gcal_groupex');
     $this->loggerFactory = $logger;
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
+    $this->query = $query;
 
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
@@ -688,6 +699,19 @@ class GooglePush {
     catch (\Exception $e) {
       $this->logger->error('Failed to create calendar with name: %name', ['%name' => $name]);
       return FALSE;
+    }
+  }
+
+  /**
+   * Remove all cached entities.
+   */
+  public function clearCache() {
+    $ids = $this->query->get('groupex_google_cache')->execute();
+    $chunks = array_chunk($ids, 10);
+    $storage = $this->entityTypeManager->getStorage('groupex_google_cache');
+    foreach ($chunks as $chunk) {
+      $cache = GroupexGoogleCache::loadMultiple($chunk);
+      $storage->delete($cache);
     }
   }
 
