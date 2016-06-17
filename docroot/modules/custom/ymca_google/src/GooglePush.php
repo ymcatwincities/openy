@@ -24,6 +24,11 @@ class GooglePush {
   const RRULE_DATE = 'Ymd\THis\Z';
 
   /**
+   * Default timezone for calendars.
+   */
+  const TZ = 'America/Chicago';
+
+  /**
    * Wrapper to be used.
    *
    * @var GcalGroupexWrapperInterface
@@ -122,16 +127,6 @@ class GooglePush {
     $this->googleClient = $this->getClient();
     $this->calService = new \Google_Service_Calendar($this->googleClient);
     $this->calEvents = $this->calService->events;
-  }
-
-  /**
-   * Clear calendar method. Only primary can be cleared here.
-   */
-  public function clear() {
-    if ($this->calendarId != 'primary') {
-      return;
-    }
-    $this->calService->calendars->clear($this->calendarId);
   }
 
   /**
@@ -534,6 +529,84 @@ class GooglePush {
     }
 
     return $client;
+  }
+
+  /**
+   * Return raw list of calendars (except primary).
+   *
+   * @return array
+   *   Array of Gcal list entries.
+   */
+  public function getRawCalendars() {
+    $data = [];
+
+    $list = $this->calService->calendarList->listCalendarList();
+    while (TRUE) {
+      foreach ($list->getItems() as $calendarListEntry) {
+        // Do not return primary calendar.
+        if (!$calendarListEntry->primary) {
+          $data[] = $calendarListEntry;
+        }
+      }
+      $pageToken = $list->getNextPageToken();
+      if ($pageToken) {
+        $optParams = array('pageToken' => $pageToken);
+        $list = $this->calService->calendarList->listCalendarList($optParams);
+      }
+      else {
+        break;
+      }
+    }
+
+    return $data;
+  }
+
+  /**
+   * Clear primary calendar.
+   */
+  public function clearPrimaryCalendar() {
+    $this->calService->calendars->clear('primary');
+  }
+
+  /**
+   * Clear all calendars (except primary).
+   */
+  public function clearAllCalendars() {
+    foreach ($this->getRawCalendars() as $item) {
+      $this->deleteCalendar($item->id);
+    }
+  }
+
+  /**
+   * Remove calendar.
+   *
+   * @param string $id
+   *   Calendar ID.
+   */
+  private function deleteCalendar($id) {
+    $this->calService->calendars->delete($id);
+    $this->logger->info('Calendar %id was deleted.', ['%id' => $id]);
+  }
+
+  /**
+   * Create google calendar.
+   *
+   * @param string $name
+   *   Calendar summary.
+   *
+   * @return mixed
+   *   Calendar ID.
+   */
+  private function createCalendar($name) {
+    $calendar = new \Google_Service_Calendar_Calendar();
+    $calendar->setSummary($name);
+    $calendar->setTimeZone(self::TZ);
+    $createdCalendar = $this->calService->calendars->insert($calendar);
+    $id = $createdCalendar->getId();
+
+    $this->logger->info('Calender %id was created', ['%id' => $id]);
+
+    return $id;
   }
 
 }
