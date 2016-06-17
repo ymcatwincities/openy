@@ -8003,6 +8003,9 @@ p.legend {
   margin-right: 5px;
   vertical-align: top;
 }
+#mindbody-pt-form-wrapper .header-row.disabled {
+  display: none;
+}
 #mindbody-pt-form-wrapper .ajax-progress-throbber {
   padding-top: 0;
   padding-bottom: 0;
