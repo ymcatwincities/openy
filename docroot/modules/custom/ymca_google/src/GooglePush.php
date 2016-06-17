@@ -627,7 +627,7 @@ class GooglePush {
    * Tries 3 times and then exit.
    */
   public function clearPrimaryCalendar() {
-    for ($i = 0; $i < 2; $i++) {
+    for ($i = 0; $i <= 2; $i++) {
       try {
         $this->calService->calendars->clear('primary');
         $this->logger->info('Primary calender was cleared.');
@@ -658,7 +658,7 @@ class GooglePush {
    *   Calendar ID.
    */
   private function deleteCalendar($id) {
-    for ($i = 0; $i < 2; $i++) {
+    for ($i = 0; $i <= 2; $i++) {
       try {
         $this->calService->calendars->delete($id);
         $this->logger->info('Calendar %id was deleted.', ['%id' => $id]);
