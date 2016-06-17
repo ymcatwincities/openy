@@ -1,0 +1,13 @@
+# Groupex Google Cache menu items definition
+entity.groupex_google_cache.collection:
+  title: 'Groupex Google Cache list'
+  route_name: entity.groupex_google_cache.collection
+  description: 'List Groupex Google Cache entities'
+  parent: ymca_alters.admin_config_entities
+  weight: 100
+
+groupex_google_cache.admin.structure.settings:
+  title: Groupex Google Cache settings
+  description: 'Configure Groupex Google Cache entities'
+  route_name: groupex_google_cache.settings
+  parent: ymca_alters.admin_config_entities
