@@ -1,0 +1,20 @@
+uuid: 62891e92-f578-4e55-bc59-43c081f0f286
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_studio
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_studio
+field_name: field_gg_studio
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Studio'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
