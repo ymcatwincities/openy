@@ -151,7 +151,7 @@ class GooglePush {
 
         $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
         if (!$gcal_id) {
-          // Failed to get calendar ID.
+          // Failed to get calendar ID. All errors are logged. Continue with next event.
           continue;
         }
 
@@ -577,22 +577,34 @@ class GooglePush {
   public function getRawCalendars() {
     $data = [];
 
-    $list = $this->calService->calendarList->listCalendarList();
-    while (TRUE) {
-      foreach ($list->getItems() as $calendarListEntry) {
-        // Do not return primary calendar.
-        if (!$calendarListEntry->primary) {
-          $data[] = $calendarListEntry;
+    try {
+      $list = $this->calService->calendarList->listCalendarList();
+      while (TRUE) {
+        foreach ($list->getItems() as $calendarListEntry) {
+          // Do not return primary calendar.
+          if (!$calendarListEntry->primary) {
+            $data[] = $calendarListEntry;
+          }
+        }
+        $pageToken = $list->getNextPageToken();
+        if ($pageToken) {
+          $optParams = array('pageToken' => $pageToken);
+          try {
+            $list = $this->calService->calendarList->listCalendarList($optParams);
+          }
+          catch (\Exception $e) {
+            $msg = 'Failed to get the list of calendars. Message: %msg';
+            $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+          }
+        }
+        else {
+          break;
         }
       }
-      $pageToken = $list->getNextPageToken();
-      if ($pageToken) {
-        $optParams = array('pageToken' => $pageToken);
-        $list = $this->calService->calendarList->listCalendarList($optParams);
-      }
-      else {
-        break;
-      }
+    }
+    catch (\Exception $e) {
+      $msg = 'Failed to get the list of calendars. Message: %msg';
+      $this->logger->error($msg, ['%msg' => $e->getMessage()]);
     }
 
     return $data;
@@ -600,9 +612,21 @@ class GooglePush {
 
   /**
    * Clear primary calendar.
+   *
+   * Tries 3 times and then exit.
    */
   public function clearPrimaryCalendar() {
-    $this->calService->calendars->clear('primary');
+    for ($i = 0; $i < 2; $i++) {
+      try {
+        $this->calService->calendars->clear('primary');
+        $this->logger->info('Primary calender was cleared.');
+        break;
+      }
+      catch (\Exception $e) {
+        $message = 'Failed to clear primary calendar. Message: %msg';
+        $this->logger->error($message, ['%msg' => $e->getMessage()]);
+      }
+    }
   }
 
   /**
@@ -617,12 +641,28 @@ class GooglePush {
   /**
    * Remove calendar.
    *
+   * Tries 3 times and then exit.
+   *
    * @param string $id
    *   Calendar ID.
    */
   private function deleteCalendar($id) {
-    $this->calService->calendars->delete($id);
-    $this->logger->info('Calendar %id was deleted.', ['%id' => $id]);
+    for ($i = 0; $i < 2; $i++) {
+      try {
+        $this->calService->calendars->delete($id);
+        $this->logger->info('Calendar %id was deleted.', ['%id' => $id]);
+        break;
+      }
+      catch (\Exception $e) {
+        $message = 'Failed to delete the calendar %id. Message: %msg';
+        $this->logger->error($message,
+          [
+            '%id' => $id,
+            '%msg' => $e->getMessage()
+          ]
+        );
+      }
+    }
   }
 
   /**
