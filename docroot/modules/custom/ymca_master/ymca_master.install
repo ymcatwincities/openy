@@ -3218,3 +3218,10 @@ function ymca_master_update_8137() {
     ]
   );
 }
+
+/**
+ * Split Google Calendars.
+ */
+function ymca_master_update_8138() {
+  \Drupal::service('module_installer')->install(['ymca_groupex_google_cache'], TRUE);
+}
