@@ -31,6 +31,8 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *
    * @param PersonifyMindbodySyncWrapper $wrapper
    *   Data wrapper.
+   * @param LoggerChannelFactory $logger_factory
+   *   Logger factory.
    */
   public function __construct(PersonifyMindbodySyncWrapper $wrapper, LoggerChannelFactory $logger_factory) {
     $this->wrapper = $wrapper;
