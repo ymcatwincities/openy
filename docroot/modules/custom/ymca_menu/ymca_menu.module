@@ -111,11 +111,11 @@ function ymca_menu_preprocess_node(&$variables) {
   }
   // Only blogs and content types with sidebar navigation field are supposed
   // to have sidebar.
-  if ($node->hasField('field_sidebar_navigation') || $variables['node']->bundle() == 'blog') {
-    // Skip nodes with unchecked 'sidebar navigation' checkbox field.
+  if ($node->hasField('field_sidebar_navigation') || $node->bundle() == 'blog') {
+    // Skip nodes with 'sidebar navigation' field set to 'No'.
     if ($node->hasField('field_sidebar_navigation')) {
-      $value = (int) $node->get('field_sidebar_navigation')->getValue()[0];
-      if (empty($value['value'])) {
+      $value = $node->field_sidebar_navigation->getValue();
+      if (empty($value[0]['value'])) {
         return;
       }
     }
