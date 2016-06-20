@@ -1,0 +1,21 @@
+uuid: c6193d9e-6cdd-4097-920c-6f804e4bfe86
+langcode: en
+status: true
+dependencies:
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.field_pmc_order_line_num
+field_name: field_pmc_order_line_num
+entity_type: personify_mindbody_cache
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
