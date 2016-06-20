@@ -16,6 +16,11 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   const CHANNEL = 'personify_mindbody_sync';
 
   /**
+   * Cache entity name.
+   */
+  const CACHE_ENTITY = 'personify_mindbody_cache';
+
+  /**
    * Source data fetched from Personify.
    *
    * @var array
