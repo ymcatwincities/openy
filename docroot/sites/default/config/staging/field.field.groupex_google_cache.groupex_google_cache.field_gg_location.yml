@@ -1,0 +1,20 @@
+uuid: dd4f1140-1298-46a0-8fb1-1a5be290e57f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_location
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_location
+field_name: field_gg_location
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Location'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

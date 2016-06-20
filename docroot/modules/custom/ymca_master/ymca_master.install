@@ -3218,3 +3218,69 @@ function ymca_master_update_8137() {
     ]
   );
 }
+
+/**
+ * Create Groupex Google Cache entity.
+ */
+function ymca_master_update_8138() {
+  \Drupal::service('module_installer')->install(['ymca_groupex_google_cache'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_category.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_class_id.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_date.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_description.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_location.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_studio.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_sub_instructor.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_time.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_end.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_start.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_title.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_category.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_class_id.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_date.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_description.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_gcal_id.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_instructor.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_orig_instructor.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_location.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_studio.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_sub_instructor.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_time.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_time_frame_end.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_time_frame_start.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_timestamp_end.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_timestamp_start.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_title.yml',
+    ]
+  );
+}
+
+/**
+ * Remove old Groupex mapping entity.
+ */
+function ymca_master_update_8139() {
+  $entityTypeManager = \Drupal::entityTypeManager();
+
+  // Remove groupex entities.
+  $ids = Drupal::entityQuery('mapping')->condition('type', 'groupex')->execute();
+  $chunks = array_chunk($ids, 10);
+  $mapping = $entityTypeManager->getStorage('mapping');
+  foreach ($chunks as $chunk) {
+    $mappings = Mapping::loadMultiple($chunk);
+    $mapping->delete($mappings);
+  }
+
+  // Remove groupex mapping entity type.
+  $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
+}
