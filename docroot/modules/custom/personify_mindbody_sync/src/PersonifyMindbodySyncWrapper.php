@@ -11,18 +11,23 @@ namespace Drupal\personify_mindbody_sync;
 class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterface {
 
   /**
+   * Logger channel name.
+   */
+  const CHANNEL = 'personify_mindbody_sync';
+
+  /**
    * Source data fetched from Personify.
    *
    * @var array
    */
-  private $sourceData;
+  private $sourceData = [];
 
   /**
    * Data fetched and saved to Drupal database.
    *
    * @var array
    */
-  private $proxyData;
+  private $proxyData = [];
 
   /**
    * Constructor.
