@@ -3290,5 +3290,5 @@ function ymca_master_update_8139() {
  */
 function ymca_master_update_8140() {
   \Drupal::service('module_installer')
-    ->install(['views_rest_feed, ymca_retention'], TRUE);
+    ->install(['views_rest_feed', 'ymca_retention'], TRUE);
 }
