@@ -3284,3 +3284,10 @@ function ymca_master_update_8139() {
   // Remove groupex mapping entity type.
   $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
 }
+
+/**
+ * Install personify_mindbody_sync module.
+ */
+function ymca_master_update_8140() {
+  \Drupal::service('module_installer')->install(['personify_mindbody_sync']);
+}
