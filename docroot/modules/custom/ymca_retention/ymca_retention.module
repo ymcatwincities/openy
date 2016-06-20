@@ -1,1 +1,6 @@
 <?php
+
+/**
+ * @file
+ * Contains specific features related to the functionality provided by module.
+ */
