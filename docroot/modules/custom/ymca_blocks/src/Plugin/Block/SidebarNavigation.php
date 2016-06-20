@@ -40,9 +40,12 @@ class SidebarNavigation extends BlockBase {
 
     $menu_name = '';
     if ($mlid = $builder->getActiveMlid()) {
-      if ($link = \Drupal::entityTypeManager()->getStorage('menu_link_content')->load($mlid)) {
-        $menu_name = $link->getMenuName();
-      }
+      $connection = \Drupal::database();
+      $query = $connection->select('menu_tree', 'mt')
+        ->fields('mt', ['menu_name'])
+        ->condition('mt.mlid', $mlid)
+        ->execute();
+      $menu_name = $query->fetchField();
     }
 
     return [
