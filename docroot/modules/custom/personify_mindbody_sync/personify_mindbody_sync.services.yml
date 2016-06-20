@@ -7,7 +7,7 @@ services:
     arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.factory']
   personify_mindbody_sync.proxy:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncProxy
-    arguments: ['@personify_mindbody_sync.wrapper', '@logger.factory']
+    arguments: ['@personify_mindbody_sync.wrapper', '@logger.factory', '@entity.query', '@entity_type.manager']
   personify_mindbody_sync.pusher:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncPusher
     arguments: ['@personify_mindbody_sync.wrapper', '@logger.factory']
