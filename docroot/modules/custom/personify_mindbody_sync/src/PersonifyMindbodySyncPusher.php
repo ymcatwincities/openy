@@ -43,6 +43,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * {@inheritdoc}
    */
   public function push() {
+    // Have a look at YmcaMindbodyExamples.php for the example.
     $a = 10;
   }
 
