@@ -43,26 +43,11 @@ class SettingsForm extends ConfigFormBase {
         '#type' => 'textfield',
         '#title' => $this->t($title),
         '#default_value' => !empty($config->get($field)) ? $config->get($field) : '',
+        '#disabled' => TRUE,
       );
     }
 
-    return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
-    $this->config('mindbody.settings')
-      ->set('sourcename', $values['sourcename'])
-      ->set('password', $values['password'])
-      ->set('site_id', $values['site_id'])
-      ->set('user_name', $values['user_name'])
-      ->set('user_password', $values['user_password'])
-      ->save();
-
-    parent::submitForm($form, $form_state);
+    return $form;
   }
 
 }

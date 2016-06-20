@@ -6,11 +6,11 @@
 
 define('YMCA_MENU_CACHE_CID', 'ymca_menu:menu');
 
-use Drupal\menu_link_content\Entity\MenuLinkContent;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Database\Database;
-use Drupal\ymca_menu\Controller\YMCAMenuController;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\ymca_menu\Controller\YMCAMenuController;
 
 /**
  * Implements hook_theme().
@@ -105,16 +105,23 @@ function ymca_menu_page_attachments(array &$attachments) {
  */
 function ymca_menu_preprocess_node(&$variables) {
   $node = &$variables['node'];
-  if (($variables['view_mode'] == 'full' || $variables['view_mode'] == 'default') && ($node->hasField('field_sidebar_navigation') && $node->get('field_sidebar_navigation')->getValue()[0] ||
-    $variables['node']->bundle() == 'blog')
+  if (($variables['view_mode'] == 'full' || $variables['view_mode'] == 'default') && ($node->hasField(
+        'field_sidebar_navigation'
+      ) && $node->get('field_sidebar_navigation')->getValue()[0] ||
+      $variables['node']->bundle() == 'blog')
   ) {
-    $sidebar_navigation_block = \Drupal::entityTypeManager()->getStorage('block')->load('sidebarnavigation');
-    if (!is_null($sidebar_navigation_block)) {
-      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-      $variables['sidebar_navigation'] = [
-        $view_builder->view($sidebar_navigation_block),
-      ];
+    $isNav = (int) $node->get('field_sidebar_navigation')->getValue(
+    )[0]['value'];
+    if ($isNav == 0) {
+      return;
     }
+    $variables['sidebar_navigation'] = [
+      '#lazy_builder' => [
+        '\Drupal\block\BlockViewBuilder::lazyBuilder',
+        ['sidebarnavigation']
+      ],
+      '#create_placeholder' => TRUE,
+    ];
   }
 }
 
@@ -123,6 +130,8 @@ function ymca_menu_preprocess_node(&$variables) {
  */
 function ymca_menu_menu_link_content_insert(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+  \Drupal::cache()->delete('ymca_menu_buildTree');
+
 }
 
 /**
@@ -130,6 +139,7 @@ function ymca_menu_menu_link_content_insert(EntityInterface $entity) {
  */
 function ymca_menu_menu_link_content_update(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+  \Drupal::cache()->delete('ymca_menu_buildTree');
 }
 
 /**
@@ -137,6 +147,7 @@ function ymca_menu_menu_link_content_update(EntityInterface $entity) {
  */
 function ymca_menu_menu_link_content_delete(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+  \Drupal::cache()->delete('ymca_menu_buildTree');
 }
 
 /**

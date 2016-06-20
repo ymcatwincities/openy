@@ -12,3 +12,11 @@ ymca_mindbody.pt.results:
     _title_callback: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::setTitle'
   requirements:
     _permission: 'access content'
+ymca_mindbody.pt.settings:
+  path: '/admin/config/system/mindbody/block_settings'
+  defaults:
+    _form: '\Drupal\ymca_mindbody\Form\BlockSettingsForm'
+    _title: 'MindBody Block settings'
+  requirements:
+    _permission: 'administer site configuration'
+

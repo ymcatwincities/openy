@@ -1,0 +1,20 @@
+uuid: 7be15162-9c0d-4eb2-90e0-76fef49c2ae1
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_google
+id: groupex_google_cache.field_gg_time_frame_start
+field_name: field_gg_time_frame_start
+entity_type: groupex_google_cache
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
