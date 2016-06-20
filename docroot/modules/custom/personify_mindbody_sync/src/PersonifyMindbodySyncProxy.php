@@ -2,6 +2,9 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\Core\Logger\LoggerChannel;
+use Drupal\Core\Logger\LoggerChannelFactory;
+
 /**
  * Class PersonifyMindbodySyncProxy.
  *
@@ -17,13 +20,23 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
   protected $wrapper;
 
   /**
+   * Logger channel.
+   *
+   * @var LoggerChannel
+   */
+  protected $logger;
+
+  /**
    * PersonifyMindbodySyncProxy constructor.
    *
    * @param PersonifyMindbodySyncWrapper $wrapper
    *   Wrapper.
+   * @param LoggerChannelFactory $logger_factory
+   *   Logger factory.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, LoggerChannelFactory $logger_factory) {
     $this->wrapper = $wrapper;
+    $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
   }
 
   /**
