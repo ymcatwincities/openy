@@ -3284,3 +3284,11 @@ function ymca_master_update_8139() {
   // Remove groupex mapping entity type.
   $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
 }
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8140() {
+  \Drupal::service('module_installer')
+    ->install(['views_rest_feed, ymca_retention'], TRUE);
+}
