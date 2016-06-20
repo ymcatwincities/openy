@@ -1,0 +1,34 @@
+uuid: ff996372-eb01-44e4-b1a4-73dd9b4be8d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
+  module:
+    - personify_mindbody_sync
+    - user
+id: personify_mindbody_cache.personify_mindbody_cache.default
+targetEntityType: personify_mindbody_cache
+bundle: personify_mindbody_cache
+mode: default
+content:
+  field_pmc_data:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
