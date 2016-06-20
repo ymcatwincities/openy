@@ -444,11 +444,17 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
     return;
   }
 
+  // Skip news archive.
+  if ($path_info[2] == 'ymca_news_archive') {
+    return;
+  }
+
   // Skip paths.
   $paths = [
     'news__events',
     'blog',
-    'search_results'
+    'search_results',
+    'news',
   ];
 
   foreach ($paths as $item) {

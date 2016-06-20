@@ -8003,6 +8003,9 @@ p.legend {
   margin-right: 5px;
   vertical-align: top;
 }
+#mindbody-pt-form-wrapper .header-row.disabled {
+  display: none;
+}
 #mindbody-pt-form-wrapper .ajax-progress-throbber {
   padding-top: 0;
   padding-bottom: 0;
@@ -8371,6 +8374,11 @@ p.legend {
     clear: left;
     float: none;
   }
+}
+#mindbody-pt-form-wrapper .disabled-form {
+  font-size: 16px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .mindbody-search-results-header {
