@@ -130,6 +130,8 @@ function ymca_menu_preprocess_node(&$variables) {
  */
 function ymca_menu_menu_link_content_insert(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+  \Drupal::cache()->delete('ymca_menu_buildTree');
+
 }
 
 /**
@@ -137,6 +139,7 @@ function ymca_menu_menu_link_content_insert(EntityInterface $entity) {
  */
 function ymca_menu_menu_link_content_update(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+  \Drupal::cache()->delete('ymca_menu_buildTree');
 }
 
 /**
@@ -144,6 +147,7 @@ function ymca_menu_menu_link_content_update(EntityInterface $entity) {
  */
 function ymca_menu_menu_link_content_delete(EntityInterface $entity) {
   \Drupal::cache()->delete(YMCA_MENU_CACHE_CID);
+  \Drupal::cache()->delete('ymca_menu_buildTree');
 }
 
 /**
