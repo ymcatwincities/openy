@@ -759,11 +759,7 @@ function ymca_preprocess_input(&$variables) {
       'email',
     );
   }
-  // HTML5 validation for telephone number.
-  if ($element['#type'] == 'tel') {
-    $variables['attributes']['pattern'] = '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$';
-    $variables['attributes']['title'] = t('Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890');
-  }
+
   if (isset($classes)) {
     $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
   }

@@ -1,0 +1,5 @@
+bundles:
+  location_schedule:
+    reference: field_schedule_block
+  working_hours_block:
+    reference: field_working_hours
