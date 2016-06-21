@@ -20,7 +20,7 @@ class SubNavigation extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $builder = new YMCAMenuBuilder();
+    $builder = \Drupal::service('ymca.menu_builder');
     $active_menu_tree = $builder->getActiveMenuTree();
 
     $menu_name = '';
@@ -42,7 +42,7 @@ class SubNavigation extends BlockBase {
       ],
       '#cache' => [
         'contexts' => [
-          'url'
+          'url.path'
         ],
       ],
     ];
