@@ -36,10 +36,10 @@ use Drupal\Core\Entity\Entity;
  *     "label" = "membership_id",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/ymca-retention-member/{ymca_retention_member}",
- *     "edit-form" = "/admin/structure/ymca-retention-member/{ymca_retention_member}/edit",
- *     "delete-form" = "/admin/structure/ymca-retention-member/{ymca_retention_member}/delete",
- *     "collection" = "/admin/structure/ymca-retention-member/list"
+ *     "canonical" = "/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}",
+ *     "edit-form" = "/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/edit",
+ *     "delete-form" = "/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/delete",
+ *     "collection" = "/admin/config/ymca-entities/ymca-retention-member/list"
  *   },
  * )
  */
