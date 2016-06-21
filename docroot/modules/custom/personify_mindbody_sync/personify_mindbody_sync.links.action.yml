@@ -1,0 +1,5 @@
+entity.personify_mindbody_cache.add_form:
+  route_name: entity.personify_mindbody_cache.add_form
+  title: 'Add Personify MindBody Cache'
+  appears_on:
+    - entity.personify_mindbody_cache.collection
