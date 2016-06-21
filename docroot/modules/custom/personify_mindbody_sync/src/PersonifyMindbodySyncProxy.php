@@ -72,10 +72,12 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
       $existing = $this->findOrder($item->OrderNo, $item->OrderLineNo);
 
       if (!$existing) {
+        $id = '$id';
         $cache_item = PersonifyMindbodyCache::create([
           'field_pmc_data' => serialize($item),
           'field_pmc_order_num' => $item->OrderNo,
           'field_pmc_order_line_num' => $item->OrderLineNo,
+          'field_user_id' => $item->{$id},
         ]);
         $cache_item->setName($item->OrderNo . ' (' . $item->OrderLineNo . ')');
         $cache_item->save();
