@@ -3286,22 +3286,9 @@ function ymca_master_update_8139() {
 }
 
 /**
- * Install personify_mindbody_sync module.
+ * Install yptf_master module.
  */
 function ymca_master_update_8140() {
-  \Drupal::service('module_installer')->install(['personify_mindbody_sync']);
-
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'core.entity_form_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
-      $path . 'core.entity_view_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
-      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data.yml',
-      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num.yml',
-      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num.yml',
-      $path . 'field.storage.personify_mindbody_cache.field_pmc_data.yml',
-      $path . 'field.storage.personify_mindbody_cache.field_pmc_order_line_num.yml',
-      $path . 'field.storage.personify_mindbody_cache.field_pmc_order_num.yml',
-    ]
-  );
+  \Drupal::service('module_installer')->install(['yptf_master']);
 }
+
