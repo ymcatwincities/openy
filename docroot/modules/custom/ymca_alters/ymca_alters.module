@@ -111,44 +111,6 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
       $form['actions']['delete']['#access'] = FALSE;
     }
   }
-
-  // Control access to location schedule blocks.
-  if ($form_id == 'block_content_location_schedule_edit_form') {
-    $user = \Drupal::currentUser();
-    if ($user->hasPermission('administer site configuration')) {
-      return;
-    }
-
-    $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('user');
-    $account = $storage->load($user->getAccount()->id());
-    $block_id = $form_state->getBuildInfo()['callback_object']->getEntity()->id();
-    $location_nids = \Drupal::entityQuery('node')
-      ->condition('type', 'location')
-      ->condition('field_schedule_block.target_id', $block_id)
-      ->execute();
-
-    // If block is not being referenced by locations, it can be edited.
-    if (!$location_nids) {
-      return;
-    }
-
-    $can_edit = FALSE;
-    if ($account->hasField('field_locations')) {
-      foreach ($account->field_locations->getValue() as $value) {
-        if (in_array($value['target_id'], $location_nids)) {
-          $can_edit = TRUE;
-          break;
-        }
-      }
-    }
-
-    if (!$can_edit) {
-      $form['actions']['delete']['#access'] = FALSE;
-      $form['actions']['submit']['#access'] = FALSE;
-      $form['info']['#disabled'] = TRUE;
-      $form['field_schedule_documents']['#disabled'] = TRUE;
-    }
-  }
 }
 
 /**
@@ -482,11 +444,17 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
     return;
   }
 
+  // Skip news archive.
+  if ($path_info[2] == 'ymca_news_archive') {
+    return;
+  }
+
   // Skip paths.
   $paths = [
     'news__events',
     'blog',
-    'search_results'
+    'search_results',
+    'news',
   ];
 
   foreach ($paths as $item) {
@@ -498,12 +466,4 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
   $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
   $breadcrumb->addCacheContexts(['url.path']);
-}
-
-/**
- * Implements hook_entity_type_alter().
- */
-function ymca_alters_entity_type_alter(array &$entity_types) {
-  // Override block_content access handler.
-  $entity_types['block_content']->setAccessClass('Drupal\ymca_alters\BlockContentAccessControlHandler');
 }

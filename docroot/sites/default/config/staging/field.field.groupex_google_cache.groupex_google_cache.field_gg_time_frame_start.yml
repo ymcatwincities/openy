@@ -1,0 +1,24 @@
+uuid: 300420f1-7964-466a-b508-f8fc32357e24
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_time_frame_start
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_time_frame_start
+field_name: field_gg_time_frame_start
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Time Frame Start'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
