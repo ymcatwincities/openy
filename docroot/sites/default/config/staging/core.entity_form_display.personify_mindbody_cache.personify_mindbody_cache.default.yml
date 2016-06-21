@@ -1,0 +1,57 @@
+uuid: c656668a-8478-4ced-ae36-c44442560cc2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.personify_mindbody_cache.default
+targetEntityType: personify_mindbody_cache
+bundle: personify_mindbody_cache
+mode: default
+content:
+  field_pmc_data:
+    weight: 11
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_pmc_order_line_num:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_pmc_order_num:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
