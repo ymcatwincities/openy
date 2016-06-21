@@ -29,7 +29,7 @@ display:
         options:
           perm: 'administer site configuration'
       cache:
-        type: tag
+        type: none
         options: {  }
       query:
         type: views_query
@@ -43,7 +43,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -593,7 +593,147 @@ display:
           entity_type: ymca_retention_member
           entity_field: created
           plugin_id: field
-      filters: {  }
+      filters:
+        mail:
+          id: mail
+          table: ymca_retention_member
+          field: mail
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: mail_op
+            label: Email
+            description: ''
+            use_operator: false
+            operator: mail_op
+            identifier: mail
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: ymca_retention_member
+          entity_field: mail
+          plugin_id: string
+        created:
+          id: created
+          table: ymca_retention_member
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: created_op
+            label: 'Created Date From'
+            description: ''
+            use_operator: false
+            operator: created_op
+            identifier: created_from
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: ymca_retention_member
+          entity_field: created
+          plugin_id: date
+        created_1:
+          id: created_1
+          table: ymca_retention_member
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: created_1_op
+            label: 'Created Date To'
+            description: ''
+            use_operator: false
+            operator: created_1_op
+            identifier: created_to
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: ymca_retention_member
+          entity_field: created
+          plugin_id: date
       sorts:
         points:
           id: points
@@ -621,6 +761,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
@@ -671,12 +812,15 @@ display:
       title: 'YMCA Retention Members Export'
       defaults:
         title: false
+        filters: true
+        filter_groups: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
+        - url
         - user.permissions
       tags: {  }
   ymca_members_list:
@@ -696,54 +840,9 @@ display:
         weight: 0
         context: '0'
         menu_name: admin
-      filters:
-        mail:
-          id: mail
-          table: ymca_retention_member
-          field: mail
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: mail_op
-            label: Email
-            description: ''
-            use_operator: false
-            operator: mail_op
-            identifier: mail
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: ymca_retention_member
-          entity_field: mail
-          plugin_id: string
       defaults:
-        filters: false
-        filter_groups: false
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
+        filters: true
+        filter_groups: true
       display_description: ''
     cache_metadata:
       max-age: 0
