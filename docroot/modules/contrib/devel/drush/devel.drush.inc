@@ -11,12 +11,6 @@ use Drupal\Component\Uuid\Php;
  * Implements hook_drush_command().
  */
 function devel_drush_command() {
-  $items['devel-download'] = array(
-    'description' => dt('Downloads the FirePHP library from http://firephp.org/.'),
-    'arguments' => array(
-      'path' => dt('Path to the download folder. This path is relative to the Drupal root folder. If omitted Drush will use the default location.'),
-    ),
-  );
   $items['devel-reinstall'] = array(
     'description' => dt('Uninstall, and Install a list of projects.'),
     'drush dependencies' => array('pm'),
@@ -58,11 +52,11 @@ function devel_drush_command() {
     ),
     'options' => array(
       'pipe' => 'Output just the filename of the function or method',
-      'format' => 'Specify how the filename should be printed. Available placeholders are !startline, !endline and !file',
+      'format' => 'Specify how the filename should be printed. Available placeholders are @startline, @endline and @file',
     ),
     'examples' => array(
       'fn-view drupal_set_breadcrumb' => 'View the source code for function "drupal_set_breadcrumb"',
-      'vi `drush --pipe fn-view user_access --format=\'+!startline !file\'`' => 'Edit the file that contains the function "user_access"',
+      'vi `drush --pipe fn-view user_access --format=\'+@startline @file\'`' => 'Edit the file that contains the function "user_access"',
       'fn-view NodeController::load' => 'View the source code for method load in the class NodeController'
     ),
     'aliases' => array('fnv'),
@@ -121,25 +115,6 @@ function drush_devel_reinstall() {
 
   $args = array_merge(array('pm-enable'), $projects);
   call_user_func_array('drush_invoke', $args);
-}
-
-/**
- * A command callback.
- */
-function drush_devel_download($path = 'libraries') {
-  $path = $path . '/FirePHPCore';
-  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
-    $path = libraries_get_path('FirePHPCore');
-  }
-  if (is_dir($path)) {
-    drush_log(dt('FirePHP already present at @path. No download required.', array('@path' => $path)), 'ok');
-  }
-  elseif (drush_shell_exec('svn export http://firephp.googlecode.com/svn/branches/Library-FirePHPCore-0.3 %s', $path)) {
-    drush_log(dt('FirePHP has been exported via svn to @path.', array('@path' => $path)), 'success');
-  }
-  else {
-    drush_log(dt('Drush was unable to export FirePHP to @path.', array('@path' => $path)), 'warning');
-  }
 }
 
 /**
@@ -206,10 +181,10 @@ function drush_devel_fn_view($function_name) {
     }
     $reflect = new ReflectionMethod($class, $method);
   }
-  $func_info = array('!file' => $reflect->getFileName(), '!startline' => $reflect->getStartLine(), '!endline' => $reflect->getEndLine());
-  $format = drush_get_option('format', '!file');
+  $func_info = array('@file' => $reflect->getFileName(), '@startline' => $reflect->getStartLine(), '@endline' => $reflect->getEndLine());
+  $format = drush_get_option('format', '@file');
   drush_print_pipe(dt($format, $func_info));
-  drush_print(dt("// file: !file, lines !startline-!endline", $func_info));
+  drush_print(dt("// file: @file, lines @startline-@endline", $func_info));
 
   _drush_devel_print_function($reflect->getFileName(), $reflect->getStartLine(), $reflect->getEndLine());
 }
