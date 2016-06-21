@@ -31,7 +31,7 @@
  *   The record from the {node_access} table, as object. The member fields are:
  *   nid, gid, realm, grant_view, grant_update, grant_delete.
  *
- * @return
+ * @return string|null
  *   A string with a (short!) explanation of the given {node_access} row,
  *   to be displayed in DNA's 'Devel Node Access' block. It will be displayed
  *   as HTML; any variable parts must already be sanitized.
@@ -44,13 +44,15 @@
 function hook_node_access_explain($row) {
   if ($row->realm == 'mymodule_myrealm') {
     if ($row->grant_view) {
-      $role = user_role_load($row->gid);
-      return t('Role %role may view this node.', array('%role' => $role->name)) ;
+      /** @var \Drupal\user\RoleInterface $role */
+      $role = \Drupal\user\Entity\Role::load($row->gid);
+      return t('Role %role may view this node.', array('%role' => $role->get('name')));
     }
     else {
       return 'No access.';
     }
   }
+  return null;
 }
 
 /**
@@ -71,6 +73,7 @@ function hook_node_access_acknowledge($grant) {
   if ($grant['realm'] == 'mymodule_all' && $grant['nid'] == 0) {
     return TRUE;
   }
+  return NULL;
 }
 
 /**
