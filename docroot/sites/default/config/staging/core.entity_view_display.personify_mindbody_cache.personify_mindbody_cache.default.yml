@@ -6,6 +6,7 @@ dependencies:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_user_id
   module:
     - personify_mindbody_sync
     - user
@@ -34,6 +35,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_user_id:
+    weight: 4
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   name:
     label: above
     type: string
