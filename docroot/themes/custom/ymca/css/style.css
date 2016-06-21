@@ -7951,6 +7951,10 @@ p.legend {
   margin: 0 0 7px;
 }
 
+.form-tel.error {
+  border-color: #a92b31;
+}
+
 #mindbody-pt-form-wrapper {
   padding: 0 0 100px;
 }
@@ -7998,6 +8002,9 @@ p.legend {
   font-size: 15px;
   margin-right: 5px;
   vertical-align: top;
+}
+#mindbody-pt-form-wrapper .header-row.disabled {
+  display: none;
 }
 #mindbody-pt-form-wrapper .ajax-progress-throbber {
   padding-top: 0;
@@ -8367,6 +8374,11 @@ p.legend {
     clear: left;
     float: none;
   }
+}
+#mindbody-pt-form-wrapper .disabled-form {
+  font-size: 16px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .mindbody-search-results-header {
