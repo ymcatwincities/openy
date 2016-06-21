@@ -45,3 +45,20 @@ entity.ymca_retention_member.delete_form:
     _title: 'Delete YMCA Member'
   requirements:
     _entity_access: 'ymca_retention_member.delete'
+
+ymca_retention.enroll_success_page:
+  path: '/membership/enroll-success'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\Membership::enrollSuccess'
+    _title: 'Thank you for participating in Get For The Gold!'
+  requirements:
+    _permission: 'access content'
+
+
+#ymca_retention.membership_setid:
+#  path: '/membership/registration'
+#  defaults:
+#    _controller: '\Drupal\ymca_retention\Controller\Membership::getRegistrationForm'
+#    _title: 'Registration'
+#  requirements:
+#    _permission: 'access content'
