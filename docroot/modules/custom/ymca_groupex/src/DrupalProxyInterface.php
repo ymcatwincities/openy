@@ -10,7 +10,7 @@ namespace Drupal\ymca_groupex;
 interface DrupalProxyInterface {
 
   /**
-   * Save source data to Drupal mapping entities.
+   * Save source data to cache entities.
    */
   public function saveEntities();
 

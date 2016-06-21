@@ -1,0 +1,21 @@
+uuid: acca6109-29ef-4816-8db4-45051b39f431
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_google
+id: groupex_google_cache.field_gg_date
+field_name: field_gg_date
+entity_type: groupex_google_cache
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

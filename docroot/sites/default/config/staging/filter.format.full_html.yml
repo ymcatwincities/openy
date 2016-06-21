@@ -6,6 +6,7 @@ dependencies:
     - editor
     - entity_embed
     - rel_to_abs
+    - token_filter
     - ymca_entity_embed
 name: 'Full HTML'
 format: full_html
@@ -27,13 +28,13 @@ filters:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -48
+    weight: -47
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: -47
+    weight: -46
     settings: {  }
   entity_embed:
     id: entity_embed
@@ -45,7 +46,7 @@ filters:
     id: filter_html
     provider: filter
     status: false
-    weight: -44
+    weight: -42
     settings:
       allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <s> <sup> <sub> <a href hreflang !href target> <img !data-entity-type !data-entity-uuid !src alt width height !data-align !data-caption data-entity-type data-entity-uuid src data-align data-caption class="align-left align-right"> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <hr> <p> <h1> <pre>'
       filter_html_help: true
@@ -54,36 +55,42 @@ filters:
     id: filter_autop
     provider: filter
     status: false
-    weight: -42
+    weight: -40
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -43
+    weight: -41
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -40
+    weight: -38
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: false
-    weight: -41
+    weight: -39
     settings:
       filter_url_length: 72
   ymca_entity_embed:
     id: ymca_entity_embed
     provider: ymca_entity_embed
     status: false
-    weight: -46
+    weight: -43
     settings: {  }
   rel_to_abs:
     id: rel_to_abs
     provider: rel_to_abs
     status: true
-    weight: 0
+    weight: -44
+    settings: {  }
+  token_filter:
+    id: token_filter
+    provider: token_filter
+    status: true
+    weight: -48
     settings: {  }
