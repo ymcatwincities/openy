@@ -10,7 +10,7 @@
  */
 function yptf_master_install() {
   for ($i = 8000; $i < 9000; $i++) {
-    $function = 'yptf_master_' . $i;
+    $function = 'yptf_master_update_' . $i;
     if (function_exists($function)) {
       \Drupal::logger('yptf_master_install')->info('running: ' . $function);
       $function();
@@ -21,7 +21,7 @@ function yptf_master_install() {
 /**
  * Enable personify_mindbody_sync module.
  */
-function yptf_update_8000() {
+function yptf_master_update_8000() {
   \Drupal::service('module_installer')->install(['personify_mindbody_sync']);
 
   $path = 'sites/default/config/staging/';
