@@ -1,6 +1,6 @@
 # Route name can be used in several place (links, redirects, local actions etc.)
 entity.ymca_retention_member.canonical:
-  path: '/admin/structure/ymca-retention-member/{ymca_retention_member}'
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}'
   defaults:
   # Calls the view controller, defined in the annotation of the member entity
     _entity_view: 'ymca_retention_member'
@@ -10,7 +10,7 @@ entity.ymca_retention_member.canonical:
     _entity_access: 'ymca_retention_member.view'
 
 entity.ymca_retention_member.collection:
-  path: '/admin/structure/ymca-retention-member/list'
+  path: '/admin/config/ymca-entities/ymca-retention-member/list'
   defaults:
   # Calls the list controller, defined in the annotation of the member entity.
     _entity_list: 'ymca_retention_member'
@@ -20,7 +20,7 @@ entity.ymca_retention_member.collection:
     _permission: 'view member entity'
 
 entity.ymca_retention_member.add:
-  path: '/admin/structure/ymca-retention-member/add'
+  path: '/admin/config/ymca-entities/ymca-retention-member/add'
   defaults:
   # Calls the form.add controller, defined in the member entity.
     _entity_form: ymca_retention_member.add
@@ -29,7 +29,7 @@ entity.ymca_retention_member.add:
     _entity_create_access: 'ymca_retention_member'
 
 entity.ymca_retention_member.edit_form:
-  path: '/admin/structure/ymca-retention-member/{ymca_retention_member}/edit'
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/edit'
   defaults:
   # Calls the form.edit controller, defined in the member entity.
     _entity_form: ymca_retention_member.edit
@@ -38,7 +38,7 @@ entity.ymca_retention_member.edit_form:
     _entity_access: 'ymca_retention_member.edit'
 
 entity.ymca_retention_member.delete_form:
-  path: '/admin/structure/ymca-retention-member/{ymca_retention_member}/delete'
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/delete'
   defaults:
     # Calls the form.delete controller, defined in the member entity.
     _entity_form: ymca_retention_member.delete
