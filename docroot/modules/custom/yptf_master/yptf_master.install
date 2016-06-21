@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Main module for YPTF updates.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function yptf_master_install() {
+  for ($i = 8000; $i < 9000; $i++) {
+    $function = 'yptf_master_update_' . $i;
+    if (function_exists($function)) {
+      \Drupal::logger('yptf_master_install')->info('running: ' . $function);
+      $function();
+    }
+  }
+}
+
+/**
+ * Enable personify_mindbody_sync module.
+ */
+function yptf_master_update_8000() {
+  \Drupal::service('module_installer')->install(['personify_mindbody_sync']);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
+      $path . 'core.entity_view_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_data.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_order_line_num.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_order_num.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_user_id.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_user_id.yml',
+    ]
+  );
+}

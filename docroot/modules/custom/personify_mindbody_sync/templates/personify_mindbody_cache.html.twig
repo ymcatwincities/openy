@@ -1,0 +1,22 @@
+{#
+/**
+ * @file personify_mindbody_cache.html.twig
+ * Default theme implementation to present Personify MindBody Cache data.
+ *
+ * This template is used when viewing Personify MindBody Cache pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_personify_mindbody_cache()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('personify_mindbody_cache') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

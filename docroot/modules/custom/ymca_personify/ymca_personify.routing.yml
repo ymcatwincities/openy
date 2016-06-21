@@ -26,10 +26,3 @@ ymca_personify.personify_signout:
     _title: Personify SignOut
   requirements:
     _permission: access content
-ymca_mindbody.personify_customer_orders:
-  path: /personify/customer_orders
-  defaults:
-    _controller: \Drupal\ymca_personify\Controller\PersonifyController::customerOrders
-    _title: Personify Customer Orders
-  requirements:
-    _permission: administer site configuration
