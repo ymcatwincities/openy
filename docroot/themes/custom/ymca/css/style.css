@@ -8654,4 +8654,25 @@ p.legend {
   text-decoration: none;
 }
 
+.groupex-results {
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.groupex-results table {
+  width: 100%;
+}
+.groupex-results table td {
+  padding: 4px;
+}
+.groupex-results table tr:nth-child(even) td {
+  background-color: #dbf5ff;
+}
+.groupex-results table tr td.caption {
+  background-color: #d8d8d8;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Cachet", Arial, sans-serif;
+}
+
 /*# sourceMappingURL=style.css.map */
