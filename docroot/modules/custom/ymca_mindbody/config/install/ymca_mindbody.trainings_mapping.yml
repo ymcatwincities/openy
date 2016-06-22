@@ -1,0 +1,38 @@
+programs:
+  2: { label: "Personal Trainings", active: true }
+  3: { label: "Internal Staff Appointments", active: false }
+  4: { label: "Buddy Training", active: true }
+  7: { label: "Small Group Training", active: false }
+  9: { label: "Member Engagments", active: false }
+  11: { label: "Metabolic Testing", active: false }
+  12: { label: "Private Swim", active: false }
+session_types:
+  # Custom PT children.
+  5: { label: "PT Express Session (30 minutes)", active: true }
+  7: { label: "PT Full Session (60 minutes)", active: true }
+  55: { label: "Promo PT Express", active: true }
+  # Internal Staff Appointments children.
+  8: { label: "Lunch", active: true }
+  9: { label: "Meeting", active: true }
+  32: { label: "Training (Professional Development)", active: true }
+  37: { label: "Client Management", active: true }
+  48: { label: "Reserved (Non Paid)", active: true }
+  # Internal Staff Appointments children.
+  17: { label: "Group Pilates Reformer", active: true }
+  # Metabolic Testing children.
+  49: { label: "Body Gem (Member)", active: true }
+  50: { label: "Body Gem (Non Member)", active: true }
+  # Buddy Training children.
+  11: { label: "Buddy Training | Full Session (60 min)", active: true }
+  12: { label: "Buddy Training | Express Session (30 min)", active: true }
+  # Member Engagments children.
+  21: { label: "Personal Consultation", active: true }
+  22: { label: "Aqua Consultation", active: true }
+  27: { label: "Fitness Assessment", active: true }
+  28: { label: "Personal Checkpoint", active: true }
+  29: { label: "Equipment Orientation", active: true }
+  30: { label: "Youth Orientation 7-9", active: true }
+  31: { label: "Youth Orientation 10-11", active: true }
+  46: { label: "Youth Orientation 12-14", active: true }
+  47: { label: "Youth Orientation 15-17", active: true }
+  74: { label: "AOA Orientation", active: true }
