@@ -94,7 +94,7 @@ class GroupexFormFull extends GroupexFormBase {
       '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
       '#title' => $this->t('Locations'),
       '#default_value' => !empty($values['location']) ? $values['location'] : '',
-      '#prefix' => '<div id="location-wrapper" class="' . $location_classes .'">',
+      '#prefix' => '<div id="location-wrapper" class="' . $location_classes . '">',
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -117,7 +117,6 @@ class GroupexFormFull extends GroupexFormBase {
     $form['results'] = [
       '#markup' => '<div class="groupex-results">' . render($formatted_results) . '</div>',
     ];
-
 
     $form['#attached']['library'][] = 'ymca_groupex/ymca_groupex';
 
@@ -179,18 +178,6 @@ class GroupexFormFull extends GroupexFormBase {
     // Format results as table view.
     $formatted_results = ymca_groupex_schedule_table_layout($schedule);
     return $formatted_results;
-  }
-
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect(
-      'ymca_groupex.all_schedules_search_results',
-      [],
-      ['query' => $this->getRedirectParams($form, $form_state)]
-    );
   }
 
 }
