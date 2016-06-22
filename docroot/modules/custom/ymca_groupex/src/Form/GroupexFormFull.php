@@ -180,4 +180,10 @@ class GroupexFormFull extends GroupexFormBase {
     return $formatted_results;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+  }
+
 }
