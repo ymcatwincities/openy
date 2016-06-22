@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Groupex week schedule template.
+ *
+ * Available variables:
+ * - days: array of days with arrays of classes;
+ * - pdf_href: string link to pdf file on groupex;
+ *
+ * @ingroup themeable
+ */
+#}
+<table>
+  <tbody>
+    {% for day, classes in days %}
+      <tr>
+        <td class="caption" colspan="3">
+          {{ day }}
+        </td>
+      </tr>
+      {% for class in classes %}
+        {{ class }}
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
