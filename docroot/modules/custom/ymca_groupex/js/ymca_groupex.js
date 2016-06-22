@@ -4,8 +4,18 @@
     window.location.reload();
   };
 
-  $.fn.groupExLocationAjaxAction = function(location_id) {
-    history.pushState(null, null, '/all_y_schedules?location=' + location_id);
+  $.fn.groupExLocationAjaxAction = function(parameters) {
+    var params = [];
+    for (key in parameters) {
+      if (key !== '_wrapper_format') {
+        params.push(key + '=' + parameters[key]);
+      }
+    }
+    history.pushState(null, null, drupalSettings.path.baseUrl + 'all_y_schedules?' + params.join('&'));
+    // Form widgets hide/show.
+    $('#location-select-wrapper').removeClass('hidden');
+    $('#date-select-wrapper').removeClass('hidden');
+    $('#location-wrapper').addClass('hidden');
   }
 
   Drupal.behaviors.ymca_groupex = {
