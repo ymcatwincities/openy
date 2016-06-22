@@ -79,9 +79,6 @@ class GroupexScheduleFetcher {
   /**
    * Get schedule.
    *
-   * @param array $parameters
-   *   Input parameters.
-   *
    * @return array
    *   A schedule. It could be of 2 types:
    *    - day: all classes within classes key
