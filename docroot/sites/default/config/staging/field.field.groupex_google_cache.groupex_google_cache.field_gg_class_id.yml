@@ -1,0 +1,20 @@
+uuid: f3e894c4-474f-40f4-b956-2751fd287691
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_class_id
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_class_id
+field_name: field_gg_class_id
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Class ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
