@@ -18,6 +18,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MindbodyPTForm extends FormBase {
 
   /**
+   * Default value for start time on PT form.
+   */
+  const DEFAULT_START_TIME = 6;
+
+  /**
+   * Default value for end time on PT form.
+   */
+  const DEFAULT_END_TIME = 23;
+
+  /**
    * Mindbody Proxy.
    *
    * @var MindbodyCacheProxyInterface
@@ -98,7 +108,10 @@ class MindbodyPTForm extends FormBase {
    * @return string
    *   Header HTML-markup.
    */
-  protected function getElementHeaderMarkup($type, $text) {
+  protected function getElementHeaderMarkup($type, $text, $disabled = FALSE) {
+    $classes = 'header-row';
+    $disabled ? $classes .= ' disabled' : '';
+
     switch ($type) {
       case 'location':
         $icon = 'location2';
@@ -120,7 +133,7 @@ class MindbodyPTForm extends FormBase {
         $id = 'trainer-wrapper';
         break;
     }
-    $markup = '<div class="header-row"><div class="container">';
+    $markup = '<div class="' . $classes . '"><div class="container">';
     $markup .= '<span class="icon icon-' . $icon . '"></span>';
     $markup .= '<span class="choice">' . $text . '</span>';
     $markup .= '<a href="#' . $id . '" class="change"><span class="icon icon-cog"></span>' . $this->t('Change') . '</a>';
@@ -181,6 +194,30 @@ class MindbodyPTForm extends FormBase {
         case 'ok':
           $values['step'] = 5;
           break;
+      }
+    }
+
+    // Pre-populate values if so.
+    $pre_populated_location = FALSE;
+    $query = \Drupal::request()->query->all();
+    if (is_numeric($query['location'])) {
+      // For security reasons check if provided value exists in the mapping.
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('field_mindbody_id', $query['location'])
+        ->execute();
+      if (!empty($mapping_id)) {
+        $values['mb_location'] = $query['location'];
+        $pre_populated_location = TRUE;
+        !isset($values['step']) ? $values['step'] = 2 : '';
+      }
+    }
+    if (isset($query['trainer'])) {
+      // For security reasons check if provided value exists in the mapping.
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('field_mindbody_trainer_id', $query['trainer'])
+        ->execute();
+      if (!empty($mapping_id)) {
+        $values['mb_trainer'] = $query['trainer'];
       }
     }
 
@@ -245,7 +282,7 @@ class MindbodyPTForm extends FormBase {
 
     if ($values['step'] >= 2) {
       $form['mb_location_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']]),
+        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']], $pre_populated_location),
         '#weight' => 1,
       );
       $program_options = $this->getPrograms();
@@ -348,7 +385,7 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => $this->t('Time range'),
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : 6,
+        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : $this::DEFAULT_START_TIME,
         '#suffix' => '<span class="dash">—</span>',
         '#weight' => 9,
       ];
@@ -356,7 +393,7 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => '',
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : 9,
+        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : $this::DEFAULT_END_TIME,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_start_date'] = [

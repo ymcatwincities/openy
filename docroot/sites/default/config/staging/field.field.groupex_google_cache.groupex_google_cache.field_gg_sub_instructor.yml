@@ -1,0 +1,20 @@
+uuid: 984fe51f-c091-4498-885f-eb0557fd8870
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_sub_instructor
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_sub_instructor
+field_name: field_gg_sub_instructor
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Sub Instructor'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
