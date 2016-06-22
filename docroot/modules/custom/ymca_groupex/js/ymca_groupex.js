@@ -6,7 +6,7 @@
 
   $.fn.groupExLocationAjaxAction = function(parameters) {
     var params = [];
-    for (key in parameters) {
+    for (var key in parameters) {
       if (key !== '_wrapper_format') {
         params.push(key + '=' + parameters[key]);
       }
@@ -16,7 +16,7 @@
     $('#location-select-wrapper').removeClass('hidden');
     $('#date-select-wrapper').removeClass('hidden');
     $('#location-wrapper').addClass('hidden');
-  }
+  };
 
   Drupal.behaviors.ymca_groupex = {
     attach: function (context, settings) {
