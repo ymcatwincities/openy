@@ -693,6 +693,7 @@ class MindbodyPTForm extends FormBase {
 
   /**
    * Indicates whether program is active or not.
+   *
    * Wrapper for MindbodyObjectIsActive().
    *
    * @param int $id
@@ -702,16 +703,16 @@ class MindbodyPTForm extends FormBase {
    *   Whether program is active or not.
    */
   public function programIsActive($id) {
-    return $this->MindbodyObjectIsActive($id, 'programs');
+    return $this->mindbodyObjectIsActive($id, 'programs');
   }
 
   /**
    * Returns label for program.
+   *
    * Wrapper for getMindbodyObjectLabel().
    *
    * @param int $id
    *   Program ID.
-   *
    * @param string $default_label
    *   Default label.
    *
@@ -724,6 +725,7 @@ class MindbodyPTForm extends FormBase {
 
   /**
    * Indicates whether session type is active or not.
+   *
    * Wrapper for MindbodyObjectIsActive().
    *
    * @param int $id
@@ -733,16 +735,16 @@ class MindbodyPTForm extends FormBase {
    *   Whether session type is active or not.
    */
   public function sessionTypeIsActive($id) {
-    return $this->MindbodyObjectIsActive($id, 'session_types');
+    return $this->mindbodyObjectIsActive($id, 'session_types');
   }
 
   /**
    * Returns label for session type.
+   *
    * Wrapper for getMindbodyObjectLabel().
    *
    * @param int $id
    *   Session Type ID.
-   *
    * @param string $default_label
    *   Default label.
    *
@@ -758,7 +760,6 @@ class MindbodyPTForm extends FormBase {
    *
    * @param int $id
    *   MindBody object ID.
-   *
    * @param string $default_label
    *   Default label.
    *
@@ -784,7 +785,7 @@ class MindbodyPTForm extends FormBase {
    * @return bool
    *   Whether MindBody object is active or not.
    */
-  public function MindbodyObjectIsActive($id, $key) {
+  public function mindbodyObjectIsActive($id, $key) {
     $mapping = \Drupal::config('ymca_mindbody.trainings_mapping')->get($key);
 
     // Display objects that are explicitly active, otherwise hide.
@@ -794,4 +795,5 @@ class MindbodyPTForm extends FormBase {
 
     return FALSE;
   }
+
 }
