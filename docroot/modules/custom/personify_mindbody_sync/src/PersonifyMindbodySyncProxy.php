@@ -67,12 +67,13 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
    * {@inheritdoc}
    */
   public function saveEntities() {
+    $proxy_data = [];
     foreach ($this->wrapper->getSourceData() as $item) {
       // Check whether the entity exists.
       $existing = $this->findOrder($item->OrderNo, $item->OrderLineNo);
 
       if (!$existing) {
-        $id = '$id';
+        $id = 'MasterCustomerId';
         $cache_item = PersonifyMindbodyCache::create([
           'field_pmc_data' => serialize($item),
           'field_pmc_order_num' => $item->OrderNo,
@@ -81,8 +82,13 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
         ]);
         $cache_item->setName($item->OrderNo . ' (' . $item->OrderLineNo . ')');
         $cache_item->save();
+        $proxy_data[$cache_item->id()] = $cache_item;
+      }
+      else {
+        $proxy_data[$existing->id()] = $existing;
       }
     }
+    $this->wrapper->setProxyData($proxy_data);
   }
 
   /**
