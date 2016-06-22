@@ -1,0 +1,437 @@
+.nav-global.navbar-default.navbar {
+  display: none;
+  top: 0 !important;
+}
+
+#page-head,
+.breadcrumb-container {
+  display: none !important;
+}
+
+#sidebar {
+  margin-top: 33px;
+  border-right: 0;
+}
+
+.viewport {
+  background: #fff;
+}
+
+#main {
+  margin-top: 0;
+}
+
+.page-middle .content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#top-nav {
+  background-color: #f47920;
+  height: 72px;
+  line-height: 72px;
+  padding: 0 30px;
+}
+#top-nav ul {
+  float: right;
+  list-style-image: none;
+  list-style-type: none;
+  margin: 0;
+}
+#top-nav ul li {
+  display: inline-block;
+}
+#top-nav ul li a {
+  color: #fff;
+  font-size: 18px;
+  display: inline-block;
+  padding: 0 29px;
+  font-family: "Cachet", Arial, sans-serif;
+}
+#top-nav ul li a:hover {
+  text-decoration: none;
+  background-color: #532881;
+  background-image: -webkit-linear-gradient(#532881, #5b2d8e);
+  background-image: -moz-linear-gradient(#532881, #5b2d8e);
+  background-image: -o-linear-gradient(#532881, #5b2d8e);
+  background-image: linear-gradient(#532881, #5b2d8e);
+}
+#top-nav .back-link {
+  background-color: #fcaf17;
+  color: #fff;
+  display: inline-block;
+  font-size: 16px;
+}
+#top-nav .back-link .glyphicon {
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+#hero-section {
+  background: url("../prototypes/ysr/img/hero-bg.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  padding: 107px 0 100px;
+}
+#hero-section img {
+  width: 100%;
+}
+#hero-section .logo {
+  background: url("../img/march/ymca-white-logo.png") no-repeat 0 0;
+  background-size: contain;
+  height: 111px;
+  margin: 0 auto 82px;
+  width: 145px;
+}
+#hero-section .container {
+  text-align: center;
+  width: 100%;
+}
+#hero-section h1 {
+  color: #fff;
+  font-size: 100px;
+  line-height: 100px;
+  font-family: "Cachet", Arial, sans-serif;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+#hero-section h1 .gold {
+  color: #fcaf17;
+}
+#hero-section .date {
+  color: #fff;
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 31px;
+  letter-spacing: -0.8px;
+  line-height: 31px;
+  text-transform: uppercase;
+}
+
+#main-description {
+  padding: 65px 0 65px;
+}
+#main-description .col-xs-12 {
+  text-align: center;
+  padding: 0 50px;
+}
+#main-description h2 {
+  color: #f47920;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: -0.8px;
+  margin: 40px 0 15px;
+  text-transform: uppercase;
+}
+#main-description p {
+  color: #777777;
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.8px;
+  line-height: 25px;
+  margin: 0;
+}
+
+#main-description .wrap,
+#main-description-individual .wrap {
+  height: 100px;
+  line-height: 100px;
+}
+#main-description .wrap img,
+#main-description-individual .wrap img {
+  height: 100%;
+}
+
+#main-description-individual {
+  padding: 80px 0 60px;
+}
+#main-description-individual .col-xs-12 {
+  text-align: center;
+  padding: 0 50px;
+}
+#main-description-individual h2 {
+  color: #f47920;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: -0.8px;
+  margin: 40px 0 15px;
+  text-transform: uppercase;
+}
+#main-description-individual p {
+  color: #777777;
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.8px;
+  line-height: 25px;
+  margin-bottom: 35px;
+}
+#main-description-individual p span {
+  color: #424242;
+}
+#main-description-individual p.other-winners {
+  color: #a7a7a7;
+}
+#main-description-individual .your-prize {
+  border: 2px solid #fbae1f;
+  border-radius: 2px;
+  max-width: 380px;
+  margin: 75px auto 25px;
+  font-weight: bold;
+  color: #f37823;
+  font-size: 20px;
+  line-height: 25px;
+  text-transform: uppercase;
+  padding: 50px 20px;
+  position: relative;
+}
+#main-description-individual .your-prize img {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  margin-left: -22px;
+}
+
+#register-and-report {
+  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
+  background-size: cover;
+  padding: 95px 0 30px;
+}
+
+#prizes {
+  background: url("../img/prizes_bg.png") no-repeat center 0;
+  background-size: cover;
+  padding: 95px 0 30px;
+}
+#prizes .grand-prize {
+  background: url("../img/winners_grand_prize_title.png") no-repeat center 0;
+  padding: 48px 0 0;
+  margin-bottom: 100px;
+}
+#prizes .grand-prize p {
+  color: #777;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  font-family: "Cachet", Arial, sans-serif;
+  margin-bottom: 0;
+}
+#prizes .grand-prize .col-sm-6 .inner {
+  background: #fff url("../img/winners_tickets.png") no-repeat 35px 26px;
+  padding: 25px 20px 25px 133px;
+  font-family: "Cachet", Arial, sans-serif;
+  margin-bottom: 30px;
+}
+#prizes .grand-prize .winner {
+  color: #c6188b;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#prizes .grand-prize .name {
+  color: #5c2d8f;
+  font-size: 20px;
+  line-height: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#prizes .grand-prize .id {
+  color: #424242;
+  font-size: 15px;
+  font-weight: bold;
+}
+#prizes .grand-prize .location-line {
+  color: #777;
+  font-size: 15px;
+}
+#prizes .grand-prize .location-line span {
+  color: #c6188b;
+  margin-right: 4px;
+}
+#prizes .first-prize {
+  background: url("../img/first_prize_title.png") no-repeat center 0;
+  padding: 40px 0 0;
+  font-family: "Cachet", Arial, sans-serif;
+}
+#prizes .first-prize p {
+  color: #777;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  margin-bottom: 0;
+}
+#prizes .first-prize p:first-child {
+  color: #000;
+}
+#prizes .first-prize .titles {
+  margin: 27px 0 15px;
+}
+#prizes .first-prize .card-1 .inner {
+  background: #fff url("../img/first_prize_1.png") no-repeat 35px 36px;
+  padding: 25px 20px 25px 133px;
+  margin-bottom: 30px;
+}
+#prizes .first-prize .card-2 .inner {
+  background: #fff url("../img/first_prize_2.png") no-repeat 34px 25px;
+  padding: 25px 20px 25px 133px;
+  margin-bottom: 30px;
+}
+#prizes .first-prize .winner {
+  color: #f47920;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#prizes .first-prize .name {
+  color: #ec1d24;
+  font-size: 20px;
+  line-height: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#prizes .first-prize .id {
+  color: #424242;
+  font-size: 15px;
+  font-weight: bold;
+}
+#prizes .first-prize .location-line {
+  color: #777;
+  font-size: 15px;
+}
+#prizes .first-prize .location-line span {
+  color: #f05923;
+  margin-right: 4px;
+}
+
+#more-prizes {
+  padding: 95px 0 30px;
+  background: #fff;
+}
+
+#prizes .container, #more-prizes .container {
+  padding: 0 15px;
+  max-width: 790px;
+}
+
+#second-prize {
+  background: url("../img/winners_2nd_prize_title.png") no-repeat center 0;
+  padding: 40px 0 0;
+  margin: 0;
+  font-family: "Cachet", Arial, sans-serif;
+}
+
+#third-prize {
+  background: url("../img/winners_3rd_prize_title.png") no-repeat center 0;
+  padding: 40px 0 0;
+  margin: 100px 0 100px;
+  font-family: "Cachet", Arial, sans-serif;
+}
+
+.second-third-prizes-wrapper .container {
+  padding: 0 15px;
+  max-width: 790px;
+}
+
+.second-third-prizes-wrapper .sub-title {
+  color: #777;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 20px 0;
+}
+
+.second-third-prizes-wrapper .form-select {
+  max-width: 380px;
+  margin: 60px auto;
+  font-size: 14px;
+  height: 50px;
+}
+
+.results-table {
+  margin-bottom: 30px;
+  width: 100%;
+}
+.results-table td {
+  color: #777;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 15px 5px;
+}
+.results-table td:first-child {
+  color: #424242;
+  width: 10%;
+}
+.results-table td.name {
+  color: #00aa95;
+  font-weight: bold;
+  font-size: 15px;
+  text-transform: uppercase;
+  width: 60%;
+}
+.results-table .even td {
+  background-color: #f9f9f9;
+}
+
+#second-prize .results-table td.name {
+  width: 55%;
+}
+#second-prize .results-table td:first-child {
+  width: 30%;
+  color: #777;
+  font-size: 15px;
+}
+
+#third-prize .results-table td.name {
+  color: #0889cd;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-global.navbar-default.navbar {
+    display: block;
+  }
+
+  #top-nav {
+    display: none;
+  }
+
+  #hero-section .date {
+    font-size: 30px;
+  }
+
+  #hero-section h1 {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+  #main-description {
+    padding: 30px 0;
+  }
+
+  #main-description p br {
+    display: none;
+  }
+
+  #main-description h2 {
+    margin: 10px 0 20px;
+  }
+
+  #prizes {
+    padding: 30px 0 0;
+  }
+
+  #prizes .grand-prize {
+    margin-bottom: 50px;
+  }
+
+  #second-prize,
+  #third-prize {
+    margin: 50px 0;
+  }
+
+  .results-table {
+    margin-bottom: 0;
+  }
+}
+
+/*# sourceMappingURL=ysr.css.map */

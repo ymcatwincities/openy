@@ -1,0 +1,496 @@
+.nav-global.navbar-default.navbar {
+  display: none;
+  top: 0 !important;
+}
+
+#page-head,
+.breadcrumb-container {
+  display: none !important;
+}
+
+#sidebar {
+  margin-top: 33px;
+  border-right: 0;
+}
+
+.viewport {
+  background: #fff;
+}
+
+#main {
+  margin-top: 0;
+}
+
+.page-middle .content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#top-nav {
+  background-color: $orange-medium;
+  height: 72px;
+  line-height: 72px;
+  padding: 0 30px;
+
+  ul {
+    float: right;
+    list-style-image: none;
+    list-style-type: none;
+    margin: 0;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: #fff;
+        font-size: 18px;
+        display: inline-block;
+        padding: 0 29px;
+        font-family: "Cachet", Arial, sans-serif;
+
+        &:hover {
+          text-decoration: none;
+          background-color: #532881;
+          background-image: -webkit-linear-gradient(#532881, #5b2d8e);
+          background-image: -moz-linear-gradient(#532881, #5b2d8e);
+          background-image: -o-linear-gradient(#532881, #5b2d8e);
+          background-image: linear-gradient(#532881, #5b2d8e);
+        }
+      }
+    }
+  }
+
+  .back-link {
+    background-color: $orange-light;
+    color: $white;
+    display: inline-block;
+    font-size: 16px;
+
+    .glyphicon {
+      font-size: 12px;
+      margin-right: 5px;
+    }
+  }
+
+
+}
+
+#hero-section {
+  background: url("../prototypes/ysr/img/hero-bg.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  padding: 107px 0 100px;
+
+  img {
+    width: 100%;
+  }
+
+  .logo {
+    background: url("../img/march/ymca-white-logo.png") no-repeat 0 0;
+    background-size: contain;
+    height: 111px;
+    margin: 0 auto 82px;
+    width: 145px;
+  }
+
+  .container {
+    text-align: center;
+    width: 100%;
+  }
+
+  h1 {
+    color: $white;
+    font-size: 100px;
+    line-height: 100px;
+    font-family: "Cachet", Arial, sans-serif;
+    font-weight: bold;
+    //text-shadow: 2px 2px 7px #000;
+    margin-bottom: 24px;
+
+    .gold {
+      color: $orange-light;
+    }
+  }
+
+  .date {
+    color: $white;
+    font-family: "Cachet", Arial, sans-serif;
+    font-size: 31px;
+    letter-spacing: -0.8px;
+    line-height: 31px;
+    text-transform: uppercase;
+    //font-weight: bold;
+    //text-shadow: 2px 2px 7px #000;
+  }
+}
+
+
+#main-description {
+  padding: 65px 0 65px;
+
+  .col-xs-12 {
+    text-align: center;
+    padding: 0 50px;
+  }
+
+  h2 {
+    color: $orange-medium;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: -0.8px;
+    margin: 40px 0 15px;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: $grey5;
+    font-family: "Cachet", Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.8px;
+    line-height: 25px;
+    margin: 0;
+  }
+}
+
+
+#main-description,
+#main-description-individual {
+  .wrap {
+    height: 100px;
+    line-height: 100px;
+
+    img {
+      height: 100%;
+    }
+  }
+}
+
+#main-description-individual {
+  padding: 80px 0 60px;
+
+  .col-xs-12 {
+    text-align: center;
+    padding: 0 50px;
+  }
+
+  h2 {
+    color: $orange-medium;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: -0.8px;
+    margin: 40px 0 15px;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: $grey5;
+    font-family: "Cachet", Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.8px;
+    line-height: 25px;
+    margin-bottom: 35px;
+
+    span {
+      color: #424242;
+    }
+
+    &.other-winners {
+      color: #a7a7a7;
+    }
+  }
+
+  .your-prize {
+    border: 2px solid #fbae1f;
+    border-radius: 2px;
+    max-width: 380px;
+    margin: 75px auto 25px;
+    font-weight: bold;
+    color: #f37823;
+    font-size: 20px;
+    line-height: 25px;
+    text-transform: uppercase;
+    padding: 50px 20px;
+    position: relative;
+
+    img {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      margin-left: -22px;
+    }
+  }
+}
+
+#register-and-report {
+  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
+  background-size: cover;
+  padding: 95px 0 30px;
+}
+
+#prizes {
+  background: url("../img/prizes_bg.png") no-repeat center 0;
+  background-size: cover;
+  padding: 95px 0 30px;
+
+  .grand-prize {
+    background: url("../img/winners_grand_prize_title.png") no-repeat center 0;
+    padding: 48px 0 0;
+    margin-bottom: 100px;
+
+    p {
+      color: #777;
+      font-size: 20px;
+      line-height: 25px;
+      text-align: center;
+      font-family: "Cachet", Arial, sans-serif;
+      margin-bottom: 0;
+    }
+
+    .col-sm-6 .inner {
+      background: #fff url("../img/winners_tickets.png") no-repeat 35px 26px;
+      padding: 25px 20px 25px 133px;
+      font-family: "Cachet", Arial, sans-serif;
+      margin-bottom: 30px;
+    }
+
+    .winner {
+      color: #c6188b;
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .name {
+      color: #5c2d8f;
+      font-size: 20px;
+      line-height: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .id {
+      color: #424242;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .location-line {
+      color: #777;
+      font-size: 15px;
+  
+      span {
+        color: #c6188b;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  .first-prize {
+    background: url("../img/first_prize_title.png") no-repeat center 0;
+    padding: 40px 0 0;
+    font-family: "Cachet", Arial, sans-serif;
+
+    p {
+      color: #777;
+      font-size: 20px;
+      line-height: 25px;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    p:first-child {
+      color: #000;
+    }
+
+    .titles {
+      margin: 27px 0 15px;
+    }
+
+    .card-1 .inner {
+      background: #fff url("../img/first_prize_1.png") no-repeat 35px 36px;
+      padding: 25px 20px 25px 133px;
+      margin-bottom: 30px;
+    }
+
+    .card-2 .inner {
+      background: #fff url("../img/first_prize_2.png") no-repeat 34px 25px;
+      padding: 25px 20px 25px 133px;
+      margin-bottom: 30px;
+    }
+
+    .winner {
+      color: #f47920;
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .name {
+      color: #ec1d24;
+      font-size: 20px;
+      line-height: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .id {
+      color: #424242;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .location-line {
+      color: #777;
+      font-size: 15px;
+
+      span {
+        color: #f05923;
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
+#more-prizes {
+  padding: 95px 0 30px;
+  background: #fff;
+}
+
+#prizes, #more-prizes {
+  .container {
+    padding: 0 15px;
+    max-width: 790px;
+  }
+}
+
+
+#second-prize {
+  background: url("../img/winners_2nd_prize_title.png") no-repeat center 0;
+  padding: 40px 0 0;
+  margin: 0;
+  font-family: "Cachet", Arial, sans-serif;
+}
+
+#third-prize {
+  background: url("../img/winners_3rd_prize_title.png") no-repeat center 0;
+  padding: 40px 0 0;
+  margin: 100px 0 100px;
+  font-family: "Cachet", Arial, sans-serif;
+}
+
+.second-third-prizes-wrapper .container {
+  padding: 0 15px;
+  max-width: 790px;
+}
+
+.second-third-prizes-wrapper .sub-title {
+  color: #777;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 20px 0;
+}
+
+.second-third-prizes-wrapper .form-select {
+  max-width: 380px;
+  margin: 60px auto;
+  font-size: 14px;
+  height: 50px;
+}
+
+.results-table {
+  margin-bottom: 30px;
+  width: 100%;
+
+  td {
+    color: #777;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 15px 5px;
+
+    &:first-child {
+      color: #424242;
+      width: 10%;
+    }
+
+    &.name {
+      color: #00aa95;
+      font-weight: bold;
+      font-size: 15px;
+      text-transform: uppercase;
+      width: 60%;
+    }
+  }
+
+  .even td {
+    background-color: #f9f9f9;
+  }
+}
+
+#second-prize .results-table td {
+
+  &.name {
+    width: 55%;
+  }
+
+  &:first-child {
+    width: 30%;
+    color: #777;
+    font-size: 15px;
+  }
+}
+
+#third-prize .results-table td.name {
+  color: #0889cd;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-global.navbar-default.navbar {
+    display: block;
+  }
+
+  #top-nav {
+    display: none;
+  }
+
+  #hero-section .date {
+    font-size: 30px;
+  }
+
+  #hero-section h1 {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+  #main-description {
+    padding: 30px 0;
+  }
+
+  #main-description p br {
+    display: none;
+  }
+
+  #main-description h2 {
+    margin: 10px 0 20px;
+  }
+
+  #prizes {
+    padding: 30px 0 0;
+  }
+
+  #prizes .grand-prize {
+    margin-bottom: 50px;
+  }
+
+  #second-prize,
+  #third-prize {
+    margin: 50px 0;
+  }
+
+  .results-table {
+    margin-bottom: 0;
+  }
+}
