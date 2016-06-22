@@ -3,13 +3,11 @@
 namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
 use Drupal\ymca_google\GcalGroupexWrapper;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\ymca_mappings\Entity\Mapping;
-use Drupal\ymca_mappings\MappingInterface;
 
 /**
  * Class DrupalProxy.
@@ -91,35 +89,34 @@ class DrupalProxy implements DrupalProxyInterface {
       $item->timestamp_start = $timestamps['start'];
       $item->timestamp_end = $timestamps['end'];
 
-      // Try to find existing mapping.
+      // Try to find existing cache item.
       $existing = $this->findByGroupexId($item->id);
 
       // Create entity, if ID doesn't exist.
       if (!$existing) {
-        $mapping = Mapping::create([
-          'type' => 'groupex',
-          'field_groupex_category' => $item->category,
-          'field_groupex_class_id' => $item->id,
-          'field_groupex_date' => [$item->date],
-          'field_groupex_description' => $item->desc,
-          'field_groupex_instructor' => $item->instructor,
-          'field_groupex_location' => $item->location,
-          'field_groupex_orig_instructor' => $item->original_instructor,
-          'field_groupex_studio' => $item->studio,
-          'field_groupex_sub_instructor' => $item->sub_instructor,
-          'field_groupex_time' => $item->time,
-          'field_groupex_title' => $item->title,
-          'field_timestamp_end' => $item->timestamp_end,
-          'field_timestamp_start' => $item->timestamp_start,
-          'field_time_frame_start' => $frame['start'],
-          'field_time_frame_end' => $frame['end'],
+        $cache_item = GroupexGoogleCache::create([
+          'field_gg_category' => $item->category,
+          'field_gg_class_id' => $item->id,
+          'field_gg_date' => [$item->date],
+          'field_gg_description' => $item->desc,
+          'field_gg_instructor' => $item->instructor,
+          'field_gg_location' => $item->location,
+          'field_gg_orig_instructor' => $item->original_instructor,
+          'field_gg_studio' => $item->studio,
+          'field_gg_sub_instructor' => $item->sub_instructor,
+          'field_gg_time' => $item->time,
+          'field_gg_title' => $item->title,
+          'field_gg_timestamp_end' => $item->timestamp_end,
+          'field_gg_timestamp_start' => $item->timestamp_start,
+          'field_gg_time_frame_start' => $frame['start'],
+          'field_gg_time_frame_end' => $frame['end'],
         ]);
-        $mapping->setName($item->title . ' [' . $item->id . ']');
-        $mapping->save();
-        $entities['insert'][] = $mapping;
+        $cache_item->setName($item->title . ' [' . $item->id . ']');
+        $cache_item->save();
+        $entities['insert'][] = $cache_item;
       }
       else {
-        if ($existing->get('field_gcal_id')->isEmpty()) {
+        if ($existing->get('field_gg_gcal_id')->isEmpty()) {
           $entities['insert'][] = $existing;
         }
         else {
@@ -133,9 +130,9 @@ class DrupalProxy implements DrupalProxyInterface {
 
             // The event is recurring. Append new date and extend time frame.
             if (!empty($diff['date'])) {
-              $field_date = $existing->get('field_groupex_date');
+              $field_date = $existing->get('field_gg_date');
               $field_date->appendItem($diff['date']);
-              $existing->set('field_time_frame_end', $frame['end']);
+              $existing->set('field_gg_time_frame_end', $frame['end']);
             }
 
             // Add entity to update list.
@@ -169,15 +166,15 @@ class DrupalProxy implements DrupalProxyInterface {
   /**
    * Diffs entity saved in DB and groupex class item.
    *
-   * @param MappingInterface $entity
-   *   Mapping entity.
+   * @param GroupexGoogleCache $entity
+   *   Entity.
    * @param \stdClass $class
    *   Class item.
    *
    * @return mixed
    *   Diff array.
    */
-  protected function diff(MappingInterface $entity, \stdClass $class) {
+  protected function diff(GroupexGoogleCache $entity, \stdClass $class) {
     /* The are two features we should compare:
     1. The fields. Some fields may be updated. For, example "title".
     2. A new date for recurring entity may be added. */
@@ -187,15 +184,15 @@ class DrupalProxy implements DrupalProxyInterface {
 
     // Simply compare field values (without date field and ID).
     $compare = [
-      'field_groupex_category' => 'category',
-      'field_groupex_description' => 'desc',
-      'field_groupex_instructor' => 'instructor',
-      'field_groupex_location' => 'location',
-      'field_groupex_orig_instructor' => 'original_instructor',
-      'field_groupex_studio' => 'studio',
-      'field_groupex_sub_instructor' => 'sub_instructor',
-      'field_groupex_title' => 'title',
-      'field_groupex_time' => 'time',
+      'field_gg_category' => 'category',
+      'field_gg_description' => 'desc',
+      'field_gg_instructor' => 'instructor',
+      'field_gg_location' => 'location',
+      'field_gg_orig_instructor' => 'original_instructor',
+      'field_gg_studio' => 'studio',
+      'field_gg_sub_instructor' => 'sub_instructor',
+      'field_gg_title' => 'title',
+      'field_gg_time' => 'time',
     ];
 
     foreach ($compare as $drupal_field => $groupex_field) {
@@ -206,12 +203,12 @@ class DrupalProxy implements DrupalProxyInterface {
       }
     }
 
-    /* Field 'field_groupex_date' is multiple, so, we need to compare each value
+    /* Field 'field_gg_date' is multiple, so, we need to compare each value
     with the new date. If we don't find it in the least we'll get new
     recurring date. */
 
     $found = FALSE;
-    $field_date = $entity->get('field_groupex_date');
+    $field_date = $entity->get('field_gg_date');
     $list = $field_date->getValue();
     foreach ($list as $list_item) {
       if (strcmp($list_item['value'], $class->date) == 0) {
@@ -228,7 +225,7 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
-   * Get mappings withing time frame.
+   * Get cache items withing time frame.
    *
    * @param int $start
    *   Timestamp of start.
@@ -241,15 +238,14 @@ class DrupalProxy implements DrupalProxyInterface {
   private function findByTimeFrame($start, $end) {
     $ids = [];
 
-    $result = $this->queryFactory->get('mapping')
-      ->condition('type', 'groupex')
-      ->condition('field_time_frame_start', $start, '>=')
-      ->condition('field_time_frame_start', $end, '<')
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_time_frame_start', $start, '>=')
+      ->condition('field_gg_time_frame_start', $end, '<')
       ->execute();
 
     foreach ($result as $id) {
-      $mapping = Mapping::load($id);
-      $id = $mapping->field_groupex_class_id->value;
+      $cache_item = GroupexGoogleCache::load($id);
+      $id = $cache_item->field_gg_class_id->value;
       $ids[$id] = $id;
     }
 
@@ -257,21 +253,20 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
-   * Find mapping by Groupex class ID.
+   * Find cache item by Groupex class ID.
    *
    * @param string $id
    *   Groupex class ID.
    *
-   * @return Mapping
-   *   Mapping entity.
+   * @return GroupexGoogleCache
+   *   Entity.
    */
   public function findByGroupexId($id) {
-    $result = $this->queryFactory->get('mapping')
-      ->condition('type', 'groupex')
-      ->condition('field_groupex_class_id', $id)
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_class_id', $id)
       ->execute();
     if (!empty($result)) {
-      return Mapping::load(reset($result));
+      return GroupexGoogleCache::load(reset($result));
     }
 
     return FALSE;
