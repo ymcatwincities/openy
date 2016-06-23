@@ -50,6 +50,15 @@ ymca_retention.enroll_success_page:
   path: '/membership/enroll-success'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\Membership::enrollSuccess'
-    _title: 'Thank you for participating in Get For The Gold!'
+    _title: 'Thank you for participating in Y Games 2016!'
+  requirements:
+    _permission: 'access content'
+
+# @todo this is a test url.
+ymca_retention.membership_setid:
+  path: '/membership/registration'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\Membership::getRegistrationForm'
+    _title: 'Registration'
   requirements:
     _permission: 'access content'
