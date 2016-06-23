@@ -59,17 +59,16 @@ class SubNavigation extends BlockBase {
       switch ($context->bundle()) {
         case 'camp':
           $cache_tags[] = 'config:system.menu.camps';
-        break;
+          break;
 
         case 'location':
           $cache_tags[] = 'config:system.menu.locations';
-        break;
+          break;
 
       }
     }
 
     return $cache_tags;
   }
-
 
 }
