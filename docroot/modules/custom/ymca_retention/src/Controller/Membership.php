@@ -33,7 +33,7 @@ class Membership extends ControllerBase {
    *   Render array.
    */
   public function enrollSuccess() {
-    $markup = '<div class="success">' . t('Thank you for participating in <br/><strong>Get For The Gold</strong>! <br/>We look forward to see you in the upcoming weeks.') . '</div>';
+    $markup = '<div class="success">' . t('Thank you for participating in <br/><strong>Y Games 2016</strong>! <br/>We look forward to see you in the upcoming weeks.') . '</div>';
     return [
       '#markup' => $markup,
     ];
