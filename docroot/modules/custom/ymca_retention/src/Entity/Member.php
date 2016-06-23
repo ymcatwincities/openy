@@ -99,17 +99,13 @@ class Member extends ContentEntityBase implements MemberInterface {
         'type' => 'string',
         'weight' => -6,
       ])
+      ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
       ->setDescription(t('The time that the record was created.'));
-
-    $fields['points'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Points'))
-      ->setDescription(t('Points of the Membership entity.'))
-      ->setDefaultValue(0);
 
     $fields['first_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('First name'))
@@ -147,10 +143,30 @@ class Member extends ContentEntityBase implements MemberInterface {
         'weight' => -3,
       ])
       ->setDisplayOptions('form', [
+        'label' => 'above',
         'type' => 'string',
         'weight' => -3,
       ])
       ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['is_employee'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('User is an employee'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'boolean',
+        'weight' => -1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'boolean',
+        'weight' => -1,
+      ])
+      ->setSettings([
+        'on_label' => t('Member is an employee.'),
+        'off_label' => t('Member is not an employee.'),
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -162,6 +178,27 @@ class Member extends ContentEntityBase implements MemberInterface {
         'max_length' => 255,
         'text_processing' => 0,
       ]);
+
+    $fields['visit_goal'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Visit Goal'))
+      ->setDescription(t('Member visit goal.'))
+      ->setSettings([
+        'default_value' => 0,
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -1,
+      ])
+      ->setDefaultValue(0)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['total_visits'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visits'))
@@ -198,21 +235,6 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function setMemberId($member_id) {
     $this->set('membership_id', $member_id);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPoints() {
-    return $this->get('points')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setPoints($value) {
-    $this->set('points', $value);
     return $this;
   }
 
@@ -284,6 +306,28 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function setVisits($value) {
     $this->set('total_visits', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isMemberEmployee() {
+    return $this->get('is_employee')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getVisitGoal() {
+    return $this->get('visit_goal')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setVisitGoal($value) {
+    $this->set('visit_goal', $value);
     return $this;
   }
 

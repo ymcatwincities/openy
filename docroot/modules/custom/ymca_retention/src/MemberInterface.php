@@ -50,25 +50,6 @@ interface MemberInterface extends ContentEntityInterface {
   public function setMemberId($member_id);
 
   /**
-   * Returns the points for the user.
-   *
-   * @return string
-   *   Points.
-   */
-  public function getPoints();
-
-  /**
-   * Sets the points for the user.
-   *
-   * @param int $value
-   *   Points.
-   *
-   * @return \Drupal\ymca_retention\MemberInterface
-   *   The called member entity.
-   */
-  public function setPoints($value);
-
-  /**
    * Returns user first name.
    *
    * @return string
@@ -152,4 +133,29 @@ interface MemberInterface extends ContentEntityInterface {
    */
   public function setVisits($value);
 
+  /**
+   * Return status, is user employee or not.
+   *
+   * @return bool
+   */
+  public function isMemberEmployee();
+
+  /**
+   * Returns user visit goal.
+   *
+   * @return int
+   *   Visit goal.
+   */
+  public function getVisitGoal();
+
+  /**
+   * Sets user visit goal.
+   *
+   * @param string $value
+   *   Value.
+   *
+   * @return \Drupal\ymca_retention\MemberInterface
+   *   The called member entity.
+   */
+  public function setVisitGoal($value);
 }

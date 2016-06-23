@@ -53,12 +53,3 @@ ymca_retention.enroll_success_page:
     _title: 'Thank you for participating in Get For The Gold!'
   requirements:
     _permission: 'access content'
-
-
-#ymca_retention.membership_setid:
-#  path: '/membership/registration'
-#  defaults:
-#    _controller: '\Drupal\ymca_retention\Controller\Membership::getRegistrationForm'
-#    _title: 'Registration'
-#  requirements:
-#    _permission: 'access content'
