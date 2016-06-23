@@ -112,12 +112,13 @@ class MemberRegisterForm extends FormBase {
         'first_name' => $personify_member['FirstName'],
         'last_name' => $personify_member['LastName'],
         'branch' => (int) $personify_member['BranchId'],
-        'is_employee' => false,
+        'is_employee' => FALSE,
         'visit_goal' => 0,
-        'total_visits' => 0
+        'total_visits' => 0,
       ]);
     $entity->save();
     drupal_set_message('Membership ID registered');
     $form_state->setRedirect('ymca_retention.enroll_success_page');
   }
+
 }
