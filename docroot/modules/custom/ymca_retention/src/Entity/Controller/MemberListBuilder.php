@@ -25,7 +25,9 @@ class MemberListBuilder extends EntityListBuilder {
     $header['name'] = $this->t('Name');
     $header['mail'] = $this->t('Email');
     $header['membership_id'] = $this->t('Membership ID');
-    $header['points'] = $this->t('Points');
+    $header['is_employee'] = $this->t('Employee');
+    $header['checkins'] = $this->t('Checkins');
+    $header['visit_goal'] = $this->t('Visit Goal');
     return $header + parent::buildHeader();
   }
 
@@ -38,7 +40,9 @@ class MemberListBuilder extends EntityListBuilder {
     $row['name'] = $entity->getFullName();
     $row['mail'] = $entity->getEmail();
     $row['membership_id'] = $entity->getMemberId();
-    $row['points'] = $entity->getPoints();
+    $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
+    $row['checkins'] = $entity->getVisits();
+    $row['visit_goal'] = $entity->getVisitGoal();
     return $row + parent::buildRow($entity);
   }
 
