@@ -48,4 +48,28 @@ class SubNavigation extends BlockBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $cache_tags = parent::getCacheTags();
+
+    // For sub-navigation block we simply define corresponding menu tags.
+    if ($context = \Drupal::service('pagecontext.service')->getContext()) {
+      switch ($context->bundle()) {
+        case 'camp':
+          $cache_tags[] = 'config:system.menu.camps';
+        break;
+
+        case 'location':
+          $cache_tags[] = 'config:system.menu.locations';
+        break;
+
+      }
+    }
+
+    return $cache_tags;
+  }
+
+
 }
