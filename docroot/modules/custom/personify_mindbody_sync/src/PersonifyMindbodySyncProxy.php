@@ -78,7 +78,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
           'field_pmc_data' => serialize($item),
           'field_pmc_order_num' => $item->OrderNo,
           'field_pmc_order_line_num' => $item->OrderLineNo,
-          'field_user_id' => $item->{$id},
+          'field_pmc_user_id' => $item->{$id},
         ]);
         $cache_item->setName($item->OrderNo . ' (' . $item->OrderLineNo . ')');
         $cache_item->save();
