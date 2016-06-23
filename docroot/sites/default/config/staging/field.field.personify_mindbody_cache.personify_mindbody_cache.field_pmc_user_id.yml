@@ -11,7 +11,7 @@ field_name: field_pmc_user_id
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
 label: 'Personify Mindbody User ID'
-description: 'User ID from Personify''s ID field'
+description: 'User ID from Personify''s ID field. The same ID been used for pushing to MindBody.'
 required: false
 translatable: false
 default_value: {  }
