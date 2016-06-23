@@ -137,6 +137,7 @@ interface MemberInterface extends ContentEntityInterface {
    * Return status, is user employee or not.
    *
    * @return bool
+   *   Status.
    */
   public function isMemberEmployee();
 
@@ -158,4 +159,5 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setVisitGoal($value);
+  
 }

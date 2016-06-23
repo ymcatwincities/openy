@@ -12,7 +12,7 @@ use Drupal\Core\Controller\ControllerBase;
 class Membership extends ControllerBase {
 
   /**
-   * Get registration form
+   * Get a registration form.
    *
    * @return array
    *   Render array.
