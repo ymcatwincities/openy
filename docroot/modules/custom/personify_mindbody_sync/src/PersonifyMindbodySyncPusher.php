@@ -76,10 +76,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *   Returns itself for chaining.
    */
   private function getClientIds() {
-    /**
-     * @var integer $id
-     * @var PersonifyMindbodyCache $entity
-     */
+    /** @var PersonifyMindbodyCache $entity */
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
       $personifyData = unserialize($entity->get('field_pmc_data')->getValue()[0]['value']);
       if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
@@ -89,12 +86,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           'FirstName' => $personifyData->FirstName,
           'LastName' => $personifyData->LastName,
           'Email' => $personifyData->PrimaryEmail,
-          //'AddressLine1' => '',
-          //'City' => '',
-          //'PostalCode' => '',
-          //'ReferredBy' => '',
           'BirthDate' => $personifyData->BirthDate,
-          //'State' => '',
           'MobilePhone' => $personifyData->PrimaryPhone,
         ],
           SOAP_ENC_OBJECT,
@@ -122,7 +114,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         // @todo I'm guessing ID is not unique within MindBody.
         unset($this->clientIds[$client->ID]);
         /** @var PersonifyMindbodyCache $cache_entity */
-        $cache_entity = $this->getEntityByClientID($client->ID);
+        $cache_entity = $this->getEntityByClientId($client->ID);
         // Updating local storage about MindBody client's data if first time.
         if ($cache_entity && $cache_entity->get('field_pmc_mindbody_data')->isEmpty()) {
           // @todo make it more smart via diff with old data for getting actual.
@@ -152,7 +144,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         }
         foreach ($clients_for_cache as $client) {
           /** @var PersonifyMindbodyCache $cache_entity */
-          $cache_entity = $this->getEntityByClientID($client->ID);
+          $cache_entity = $this->getEntityByClientId($client->ID);
           if ($cache_entity) {
             $cache_entity->set('field_pmc_mindbody_data', serialize($client));
             $cache_entity->save();
@@ -177,7 +169,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return PersonifyMindbodyCache|bool
    *   Entity of FALSE if not found.
    */
-  private function getEntityByClientID($id = '') {
+  private function getEntityByClientId($id = '') {
     if ($id == NULL) {
       return FALSE;
     }
