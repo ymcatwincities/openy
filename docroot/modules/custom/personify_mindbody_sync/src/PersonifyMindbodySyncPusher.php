@@ -45,9 +45,11 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   /**
    * PersonifyMindbodySyncPusher constructor.
    *
-   * @param PersonifyMindbodySyncWrapper $wrapper
+   * @param \Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper $wrapper
    *   Data wrapper.
-   * @param LoggerChannelFactory $logger_factory
+   * @param \Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface $client
+   *   MindBody caching client.
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
    */
   public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, LoggerChannelFactory $logger_factory) {
@@ -61,18 +63,17 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    */
   public function push() {
     // Have a look at YmcaMindbodyExamples.php for the example.
-    $a = 10;
     $this->getClientIds();
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
-
+      // @todo push orders.
     }
   }
 
   /**
    * Process new and existing clients from Personify to MindBody.
    *
-   * @return array|void
-   *
+   * @return $this
+   *   Returns itself for chaining.
    */
   private function getClientIds() {
     /**
