@@ -16,7 +16,9 @@
 <section class="messages">
   <div id="alerts" class="hidden alert-messages alert alert-block alert-info alert-dismissable ">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>{{ title }}:</strong>
+    {% if title %}
+      <strong>{{ title }}:</strong>
+    {% endif %}
     <span class="message"><span {{ inner_attributes }}>{{ message }}</span></span>
   </div>
 </section>
