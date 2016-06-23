@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_user_id
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
   module:
     - personify_mindbody_sync
 id: personify_mindbody_cache.personify_mindbody_cache.default
@@ -16,6 +17,13 @@ mode: default
 content:
   field_pmc_data:
     weight: 11
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_pmc_mindbody_data:
+    weight: 15
     settings:
       rows: 5
       placeholder: ''
@@ -35,12 +43,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_user_id:
-    weight: 14
+  field_pmc_user_id:
+    weight: 16
     settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: number
+    type: string_textfield
   langcode:
     type: language_select
     weight: 10

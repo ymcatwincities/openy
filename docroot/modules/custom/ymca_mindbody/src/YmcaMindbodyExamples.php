@@ -149,6 +149,7 @@ class YmcaMindbodyExamples {
 
     // Let's place the order.
     $params = [
+      // @todo Be carefull about (int). Mindbody stores string!!!
       'ClientID' => (int) $client_id,
       'CartItems' => [
         'CartItem' => [
