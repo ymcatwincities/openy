@@ -30,13 +30,14 @@
   background-color: #f47920;
   height: 72px;
   line-height: 72px;
-  padding: 0 30px;
+  padding: 0;
 }
 #top-nav ul {
   float: right;
   list-style-image: none;
   list-style-type: none;
   margin: 0;
+  padding-right: 30px;
 }
 #top-nav ul li {
   display: inline-block;
@@ -50,17 +51,14 @@
 }
 #top-nav ul li a:hover {
   text-decoration: none;
-  background-color: #532881;
-  background-image: -webkit-linear-gradient(#532881, #5b2d8e);
-  background-image: -moz-linear-gradient(#532881, #5b2d8e);
-  background-image: -o-linear-gradient(#532881, #5b2d8e);
-  background-image: linear-gradient(#532881, #5b2d8e);
+  background-color: #fcaf17;
 }
 #top-nav .back-link {
   background-color: #fcaf17;
   color: #fff;
   display: inline-block;
   font-size: 16px;
+  padding: 0 30px;
 }
 #top-nav .back-link .glyphicon {
   font-size: 12px;
@@ -108,7 +106,7 @@
 }
 
 #main-description {
-  padding: 65px 0 65px;
+  padding: 65px 0;
 }
 #main-description .col-xs-12 {
   text-align: center;
@@ -139,6 +137,245 @@
 #main-description .wrap img,
 #main-description-individual .wrap img {
   height: 100%;
+}
+
+#register-and-report {
+  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+#register-and-report .btn {
+  width: 100%;
+  background-image: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#register-and-report .btn.blue {
+  background-color: #0060af;
+}
+#register-and-report .btn.orange {
+  background-color: #f47920;
+}
+#register-and-report .btn.orange-light {
+  background-color: #fcaf17;
+}
+#register-and-report input {
+  width: 100%;
+}
+#register-and-report input[type="text"] {
+  border: none;
+  color: #424242;
+  font-size: 14px;
+  height: 47px;
+  line-height: 47px;
+  padding: 0 25px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+#register-and-report input[type="text"]:-moz-placeholder {
+  font-style: italic;
+  color: #a7a7a7;
+}
+#register-and-report input[type="text"]::-moz-placeholder {
+  font-style: italic;
+  color: #a7a7a7;
+}
+#register-and-report input[type="text"]:-ms-input-placeholder {
+  font-style: italic;
+  color: #a7a7a7;
+}
+#register-and-report input[type="text"]::-webkit-input-placeholder {
+  font-style: italic;
+  color: #a7a7a7;
+}
+#register-and-report input[type="submit"] {
+  min-width: 120px;
+}
+@media (max-width: 767px) {
+  #register-and-report input {
+    margin-bottom: 10px;
+  }
+  #register-and-report input[type="submit"] {
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+}
+#register-and-report .icon-back {
+  display: block;
+  height: 47px;
+  width: 47px;
+  background-image: url(../prototypes/ysr/img/arrow-back.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+@media (max-width: 767px) {
+  #register-and-report .icon-back {
+    height: 161px;
+  }
+}
+#register-and-report .registration .registration-form {
+  padding-bottom: 65px;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  #register-and-report .registration .registration-form {
+    padding-bottom: 35px;
+  }
+}
+#register-and-report .registration .access-help {
+  text-align: center;
+}
+#register-and-report .registration .access-help.open .access-question {
+  opacity: 0;
+  z-index: 0;
+}
+#register-and-report .registration .access-help.open .access-question a {
+  display: none;
+}
+#register-and-report .registration .access-help.open .access-answer {
+  display: block;
+  opacity: 1;
+  padding-bottom: 255px;
+  z-index: 2;
+}
+#register-and-report .registration .access-help.open .access-answer .hand {
+  height: 287px;
+  margin-left: -333px;
+}
+@media (max-width: 767px) {
+  #register-and-report .registration .access-help.open .access-answer .hand {
+    margin-left: -183px;
+  }
+}
+#register-and-report .registration .access-help .access-question {
+  left: 0;
+  opacity: 1;
+  padding-bottom: 35px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+#register-and-report .registration .access-help .access-question p {
+  text-align: center;
+}
+#register-and-report .registration .access-help .access-question .where-can-i-find {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+  color: #fff;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 20px;
+  padding-bottom: 7px;
+  text-decoration: none;
+}
+@media (max-width: 767px) {
+  #register-and-report .registration .access-help .access-question .where-can-i-find {
+    font-size: 18px;
+    line-height: 18px;
+    padding-bottom: 6px;
+  }
+}
+#register-and-report .registration .access-help .access-answer {
+  opacity: 0;
+  padding-bottom: 25px;
+  -moz-transition: padding-bottom 0.5s, opacity 0.3s;
+  -o-transition: padding-bottom 0.5s, opacity 0.3s;
+  -webkit-transition: padding-bottom 0.5s, opacity 0.3s;
+  transition: padding-bottom 0.5s, opacity 0.3s;
+  -moz-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+#register-and-report .registration .access-help .access-answer p {
+  color: #fff;
+  font-size: 18px;
+  margin: 0;
+}
+@media (max-width: 767px) {
+  #register-and-report .registration .access-help .access-answer p {
+    font-size: 16px;
+  }
+}
+#register-and-report .registration .access-help .access-answer p.note {
+  font-size: 15px;
+}
+@media (max-width: 767px) {
+  #register-and-report .registration .access-help .access-answer p.note {
+    font-size: 14px;
+  }
+}
+#register-and-report .registration .access-help .access-answer .hand {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 28.7px;
+  width: 666px;
+  margin-left: -33px;
+  background-image: url(../prototypes/ysr/img/hand.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  -moz-transition: height 0.5s, margin-left 0.5s;
+  -o-transition: height 0.5s, margin-left 0.5s;
+  -webkit-transition: height 0.5s, margin-left 0.5s;
+  transition: height 0.5s, margin-left 0.5s;
+  -moz-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+@media (max-width: 767px) {
+  #register-and-report .report .icon-back {
+    height: 101px;
+  }
+}
+#register-and-report.slides {
+  position: relative;
+  width: 200%;
+}
+#register-and-report.slides .slide {
+  float: left;
+  padding: 80px 0 70px;
+  position: relative;
+  width: 50%;
+}
+#register-and-report.slides .slide.slide-inactive {
+  display: none;
+}
+
+#leaderboard .col-xs-12 {
+  text-align: center;
+  padding: 100px 50px;
+}
+#leaderboard .wrap {
+  height: 52px;
+  line-height: 52px;
+}
+#leaderboard .wrap img {
+  height: 100%;
+}
+#leaderboard h2 {
+  color: #f47920;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: -0.8px;
+  margin: 22px 0 50px;
+  text-transform: uppercase;
+}
+#leaderboard .leaderboard-form {
+  text-align: center;
+}
+#leaderboard #leaderboard-location {
+  max-width: 380px;
+  margin: auto;
 }
 
 #main-description-individual {
@@ -188,12 +425,6 @@
   top: -22px;
   left: 50%;
   margin-left: -22px;
-}
-
-#register-and-report {
-  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
-  background-size: cover;
-  padding: 95px 0 30px;
 }
 
 #prizes {
@@ -432,6 +663,10 @@
   .results-table {
     margin-bottom: 0;
   }
+}
+select.form-control.default {
+  font-style: italic;
+  color: #a7a7a7;
 }
 
 /*# sourceMappingURL=ysr.css.map */

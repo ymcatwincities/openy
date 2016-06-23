@@ -30,13 +30,14 @@
   background-color: $orange-medium;
   height: 72px;
   line-height: 72px;
-  padding: 0 30px;
+  padding: 0;
 
   ul {
     float: right;
     list-style-image: none;
     list-style-type: none;
     margin: 0;
+    padding-right: 30px;
 
     li {
       display: inline-block;
@@ -49,12 +50,8 @@
         font-family: "Cachet", Arial, sans-serif;
 
         &:hover {
+          background-color: $orange-light;
           text-decoration: none;
-          background-color: #532881;
-          background-image: -webkit-linear-gradient(#532881, #5b2d8e);
-          background-image: -moz-linear-gradient(#532881, #5b2d8e);
-          background-image: -o-linear-gradient(#532881, #5b2d8e);
-          background-image: linear-gradient(#532881, #5b2d8e);
         }
       }
     }
@@ -65,6 +62,7 @@
     color: $white;
     display: inline-block;
     font-size: 16px;
+    padding: 0 30px;
 
     .glyphicon {
       font-size: 12px;
@@ -126,7 +124,7 @@
 
 
 #main-description {
-  padding: 65px 0 65px;
+  padding: 65px 0;
 
   .col-xs-12 {
     text-align: center;
@@ -162,6 +160,242 @@
     img {
       height: 100%;
     }
+  }
+}
+
+#register-and-report {
+  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+
+  .btn {
+    width: 100%;
+    background-image: none;
+    @include box-shadow(none);
+
+    &.blue { background-color: $blue-dark; }
+    &.orange { background-color: $orange-medium; }
+    &.orange-light { background-color: $orange-light; }
+  }
+
+  input {
+    width: 100%;
+
+    &[type="text"] {
+      border: none;
+      color: $grey7;
+      font-size: 14px;
+      height: 47px;
+      line-height: 47px;
+      padding: 0 25px;
+      @include border-radius(3px);
+
+      @include input-placeholder {
+        font-style: italic;
+        color: $grey4;
+      }
+    }
+
+    &[type="submit"] {
+      min-width: 120px;
+    }
+
+    @media(max-width: 767px) {
+      margin-bottom: 10px;
+
+      &[type="submit"] {
+        @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+      }
+    }
+  }
+
+  .icon-back {
+    display: block;
+    height: 47px;
+    width: 47px;
+    background-image: url(../prototypes/ysr/img/arrow-back.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @media(max-width: 767px) {
+      height: 161px;
+    }
+  }
+
+  .registration {
+
+    .registration-form {
+      padding-bottom: 65px;
+      overflow: hidden;
+
+      @media(max-width: 767px) {
+        padding-bottom: 35px;
+      }
+    }
+
+    .access-help {
+      text-align: center;
+
+      &.open {
+        .access-question {
+          opacity: 0;
+          z-index: 0;
+
+          a {
+            display: none;
+          }
+        }
+        .access-answer {
+          display: block;
+          opacity: 1;
+          padding-bottom: 255px;
+          z-index: 2;
+
+          .hand {
+            height: 287px;
+            margin-left: -333px;
+
+            @media(max-width: 767px) {
+              margin-left: -183px;
+            }
+          }
+        }
+      }
+
+      .access-question {
+        left: 0;
+        opacity: 1;
+        padding-bottom: 35px;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        @include transition(opacity 0.3s);
+
+        p {
+          text-align: center;
+        }
+
+        .where-can-i-find {
+          border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+          color: $white;
+          display: inline-block;
+          font-size: 20px;
+          line-height: 20px;
+          padding-bottom: 7px;
+          text-decoration: none;
+
+          @media(max-width: 767px) {
+            font-size: 18px;
+            line-height: 18px;
+            padding-bottom: 6px;
+          }
+        }
+      }
+
+      .access-answer {
+        opacity: 0;
+        padding-bottom: 25px;
+        @include transition(padding-bottom 0.5s, opacity 0.3s);
+        @include transition-delay(0.5s);
+
+        p {
+          color: $white;
+          font-size: 18px;
+          margin: 0;
+
+          @media(max-width: 767px) {
+            font-size: 16px;
+          }
+
+          &.note {
+            font-size: 15px;
+
+            @media(max-width: 767px) {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .hand {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          height: 28.7px;
+          width: 666px;
+          margin-left: -33px;
+          background-image: url(../prototypes/ysr/img/hand.png);
+          background-size: contain;
+          background-repeat: no-repeat;
+          @include transition(height 0.5s, margin-left 0.5s);
+          @include transition-delay(0.5s);
+        }
+      }
+    }
+  }
+
+  .report {
+    .icon-back {
+
+      @media(max-width: 767px) {
+        height: 101px;
+      }
+    }
+
+  }
+
+  &.slides {
+    position: relative;
+    width: 200%;
+
+    .slide {
+      float: left;
+      padding: 80px 0 70px;
+      position: relative;
+      width: 50%;
+
+      &.slide-inactive {
+        display: none;
+      }
+    }
+  }
+}
+
+
+#leaderboard {
+
+  .col-xs-12 {
+    text-align: center;
+    // TODO: figure out why these 50px are required.
+    padding: 100px 50px;
+  }
+
+  .wrap {
+    height: 52px;
+    line-height: 52px;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  h2 {
+    color: $orange-medium;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: -0.8px;
+    margin: 22px 0 50px;
+    text-transform: uppercase;
+  }
+
+  .leaderboard-form {
+    text-align: center;
+  }
+
+  #leaderboard-location {
+    max-width: 380px;
+    margin: auto;
   }
 }
 
@@ -221,11 +455,6 @@
   }
 }
 
-#register-and-report {
-  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
-  background-size: cover;
-  padding: 95px 0 30px;
-}
 
 #prizes {
   background: url("../img/prizes_bg.png") no-repeat center 0;
@@ -493,4 +722,12 @@
   .results-table {
     margin-bottom: 0;
   }
+}
+
+
+//
+
+select.form-control.default {
+  font-style: italic;
+  color: $grey4;
 }
