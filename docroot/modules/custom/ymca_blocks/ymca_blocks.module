@@ -225,7 +225,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         $is_global = $entity->get('field_global_alert');
         $global_val = $is_global->getValue()[0]['value'];
         if ($global_val == 1) {
-          $build['alert']['#title'] = t('Global Alert');
+          $build['alert']['#title'] = '';
         }
       }
 
