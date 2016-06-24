@@ -3,7 +3,7 @@
 To run the process use the next code:
 
   * With PHP:
-  `ymca_sync_run("personify_mindbody_sync.syncer", "proceed")`;
+  `ymca_sync_run("personify_mindbody_sync.syncer", "proceed");`
   
   * With Drush:
   `drush ev 'ymca_sync_run("personify_mindbody_sync.syncer", "proceed");'`
