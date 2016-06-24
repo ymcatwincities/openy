@@ -1,7 +1,7 @@
 programs:
-  2: { label: "Personal Training", active: true }
+  2: { label: "Personal Training", active: true, image: "personal_training.jpg" }
   3: { label: "Internal Staff Appointments", active: false }
-  4: { label: "Buddy Training", active: true }
+  4: { label: "Buddy Training", active: true, image: "buddy_training.jpg" }
   7: { label: "Small Group Training", active: false }
   9: { label: "Member Engagements", active: false }
   11: { label: "Metabolic Testing", active: false }
@@ -10,7 +10,7 @@ programs:
   # @TODO: Teamporary sandbox programs. Should be moved into separate array/file.
   1: { label: "Sandbox Personal Training", active: true }
   # 2: { label: "Sandbox Court Rentals", active: true }
-  14: { label: "Sandbox Membership Consultation", active: true }
+  14: { label: "Sandbox Membership Consultation", active: true, image: "buddy_training.jpg" }
 
 session_types:
   # Custom PT children.
