@@ -13,11 +13,17 @@ class AllSearchController extends ControllerBase {
    * Show the page.
    */
   public function pageView() {
-    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormFull');
     return [
-      'form' => $form,
+      'form' => [
+        '#lazy_builder' => [
+          'form_builder:getForm',
+          ['Drupal\ymca_groupex\Form\GroupexFormFull']
+        ],
+        '#create_placeholder' => TRUE,
+      ],
       '#cache' => [
-        'max-age' => 0,
+        'max-age' => 3600,
+        'contexts' => ['url.query_args'],
       ],
     ];
   }
