@@ -868,7 +868,8 @@ function ymca_preprocess_form_element(&$variables) {
     $variables['attributes']['class'] = 'checked';
   }
   if ($element['#name'] == 'mb_program') {
-    $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/program' . $element['#return_value'] . '.jpg';
+    $program_image_name = \Drupal::service('ymca_mindbody.trainings_mapping')->getProgramImageName($element['#return_value']);
+    $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/' . $program_image_name;
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
