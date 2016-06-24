@@ -7,6 +7,11 @@ programs:
   11: { label: "Metabolic Testing", active: false }
   12: { label: "Private Swim", active: false }
 
+  # @TODO: Teamporary sandbox programs. Should be moved into separate array/file.
+  1: { label: "Sandbox Personal Training", active: true }
+  # 2: { label: "Sandbox Court Rentals", active: true }
+  14: { label: "Sandbox Membership Consultation", active: true }
+
 session_types:
   # Custom PT children.
   5: { label: "Personal Training - Express - 30 Minutes", active: true }
@@ -37,3 +42,18 @@ session_types:
   46: { label: "Youth Orientation 12-14", active: false }
   47: { label: "Youth Orientation 15-17", active: false }
   74: { label: "Active Older Adult Orientation", active: false }
+
+  # @TODO: Teamporary sandbox session types. Should be moved into separate array/file.
+  # Sandbox Personal Training.
+  23: { label: "Sandbox Nutrition Consultation", active: true }
+  200: { label: "Sandbox 60 Min 1on1", active: true }
+  264: { label: "Sandbox Personal Training Consult", active: true }
+  267: { label: "Sandbox 60 min 2on1", active: true }
+  268: { label: "Sandbox 60 min 3on1", active: true }
+  # Sandbox Court Rentals children.
+  214: { label: "Sandbox 90 min Reservation", active: true }
+  265: { label: "Sandbox 60 min Reservation", active: true }
+  266: { label: "Sandbox 120 min Reservation", active: true }
+  # Sandbox Membership Consultation children.
+  203: { label: "Sandbox Facility Tour", active: true }
+  204: { label: "Sandbox Membership Consultation", active: true }
