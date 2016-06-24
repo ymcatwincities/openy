@@ -10,7 +10,7 @@ id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
 field_name: field_pmc_data
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
-label: 'Personify Mindbody Data'
+label: 'Personify Data'
 description: 'Serialized object of Personify order.'
 required: false
 translatable: false
