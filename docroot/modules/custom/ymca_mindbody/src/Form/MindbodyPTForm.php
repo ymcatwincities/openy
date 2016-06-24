@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 
 /**
  * Provides the Personal Training Form.
@@ -49,15 +50,25 @@ class MindbodyPTForm extends FormBase {
   protected $state;
 
   /**
+   * Training mapping service.
+   *
+   * @var YmcaMindbodyTrainingsMapping
+   */
+  protected $trainingsMapping;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
+   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
+   *   Mindbody cache proxy.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, array $state = []) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, array $state = []) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
+    $this->trainingsMapping = $trainings_mapping;
   }
 
   /**
@@ -76,7 +87,7 @@ class MindbodyPTForm extends FormBase {
       'mb_start_time' => isset($query['mb_start_time']) && is_numeric($query['mb_start_time']) ? $query['mb_start_time'] : NULL,
       'mb_end_time' => isset($query['mb_end_time']) && is_numeric($query['mb_end_time']) ? $query['mb_end_time'] : NULL,
     );
-    return new static($container->get('mindbody_cache_proxy.client'), $state);
+    return new static($container->get('mindbody_cache_proxy.client'), $container->get('ymca_mindbody.trainings_mapping'), $state);
   }
 
   /**
@@ -619,10 +630,10 @@ class MindbodyPTForm extends FormBase {
 
     $program_options = [];
     foreach ($programs->GetProgramsResult->Programs->Program as $program) {
-      if (!\Drupal::service('ymca_mindbody.trainings_mapping')->programIsActive($program->ID)) {
+      if (!$this->trainingsMapping->programIsActive($program->ID)) {
         continue;
       }
-      $program_options[$program->ID] = \Drupal::service('ymca_mindbody.trainings_mapping')->getProgramLabel($program->ID, $program->Name);
+      $program_options[$program->ID] = $this->trainingsMapping->getProgramLabel($program->ID, $program->Name);
     }
 
     return $program_options;
@@ -645,10 +656,10 @@ class MindbodyPTForm extends FormBase {
 
     $session_type_options = [];
     foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
-      if (!\Drupal::service('ymca_mindbody.trainings_mapping')->sessionTypeIsActive($type->ID)) {
+      if (!$this->trainingsMapping->sessionTypeIsActive($type->ID)) {
         continue;
       }
-      $session_type_options[$type->ID] = \Drupal::service('ymca_mindbody.trainings_mapping')->getSessionTypeLabel($type->ID, $type->Name);
+      $session_type_options[$type->ID] = $this->trainingsMapping->getSessionTypeLabel($type->ID, $type->Name);
     }
 
     return $session_type_options;
@@ -690,5 +701,5 @@ class MindbodyPTForm extends FormBase {
 
     return $trainer_options;
   }
-  
+
 }
