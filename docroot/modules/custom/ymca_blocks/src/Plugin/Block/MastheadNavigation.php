@@ -28,12 +28,20 @@ class MastheadNavigation extends BlockBase {
       '#content' => array(
         'active_menu_tree' => $active_menu_tree,
       ),
-      '#cache' => [
-        'contexts' => [
-          'user'
-        ],
-      ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $cache_tags = parent::getCacheTags();
+    // Include all menus cache tags.
+    $menus = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+    foreach ($menus as $menu) {
+      $cache_tags[] = 'config:system.menu.' . $menu;
+    }
+    return $cache_tags;
   }
 
 }
