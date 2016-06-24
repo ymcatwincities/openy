@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_user_id
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
   module:
     - personify_mindbody_sync
     - user
@@ -17,6 +18,12 @@ mode: default
 content:
   field_pmc_data:
     weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_pmc_mindbody_data:
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -35,14 +42,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_user_id:
-    weight: 4
+  field_pmc_user_id:
+    weight: 6
     label: above
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      link_to_entity: false
     third_party_settings: {  }
-    type: number_integer
+    type: string
   name:
     label: above
     type: string
