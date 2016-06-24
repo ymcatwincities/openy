@@ -1,38 +1,39 @@
 programs:
-  2: { label: "Personal Trainings", active: true }
+  2: { label: "Personal Training", active: true }
   3: { label: "Internal Staff Appointments", active: false }
   4: { label: "Buddy Training", active: true }
   7: { label: "Small Group Training", active: false }
-  9: { label: "Member Engagments", active: false }
+  9: { label: "Member Engagements", active: false }
   11: { label: "Metabolic Testing", active: false }
   12: { label: "Private Swim", active: false }
+
 session_types:
   # Custom PT children.
-  5: { label: "PT Express Session (30 minutes)", active: true }
-  7: { label: "PT Full Session (60 minutes)", active: true }
-  55: { label: "Promo PT Express", active: true }
+  5: { label: "Personal Training - Express - 30 Minutes", active: true }
+  7: { label: "Personal Training - Full - 60 Minutes", active: true }
+  55: { label: "Promo PT Express", active: false }
   # Internal Staff Appointments children.
-  8: { label: "Lunch", active: true }
-  9: { label: "Meeting", active: true }
-  32: { label: "Training (Professional Development)", active: true }
-  37: { label: "Client Management", active: true }
-  48: { label: "Reserved (Non Paid)", active: true }
+  8: { label: "Lunch", active: false }
+  9: { label: "Meeting", active: false }
+  32: { label: "Training (Professional Development)", active: false }
+  37: { label: "Client Management", active: false }
+  48: { label: "Reserved (Non Paid)", active: false }
   # Internal Staff Appointments children.
-  17: { label: "Group Pilates Reformer", active: true }
+  17: { label: "Group Pilates Reformer", active: false }
   # Metabolic Testing children.
-  49: { label: "Body Gem (Member)", active: true }
-  50: { label: "Body Gem (Non Member)", active: true }
+  49: { label: "Body Gem (Member)", active: false }
+  50: { label: "Body Gem (Non Member)", active: false }
   # Buddy Training children.
-  11: { label: "Buddy Training | Full Session (60 min)", active: true }
-  12: { label: "Buddy Training | Express Session (30 min)", active: true }
+  11: { label: "Buddy Session - Full - 60 Minutes", active: true }
+  12: { label: "Buddy Session - Express - 30 Minutes", active: true }
   # Member Engagments children.
-  21: { label: "Personal Consultation", active: true }
-  22: { label: "Aqua Consultation", active: true }
-  27: { label: "Fitness Assessment", active: true }
-  28: { label: "Personal Checkpoint", active: true }
-  29: { label: "Equipment Orientation", active: true }
-  30: { label: "Youth Orientation 7-9", active: true }
-  31: { label: "Youth Orientation 10-11", active: true }
-  46: { label: "Youth Orientation 12-14", active: true }
-  47: { label: "Youth Orientation 15-17", active: true }
-  74: { label: "AOA Orientation", active: true }
+  21: { label: "Personal Consultation", active: false }
+  22: { label: "Aqua Consultation", active: false }
+  27: { label: "Fitness Assessment", active: false }
+  28: { label: "Personal Checkpoint", active: false }
+  29: { label: "Equipment Orientation", active: false }
+  30: { label: "Youth Orientation 7-9", active: false }
+  31: { label: "Youth Orientation 10-11", active: false }
+  46: { label: "Youth Orientation 12-14", active: false }
+  47: { label: "Youth Orientation 15-17", active: false }
+  74: { label: "Active Older Adult Orientation", active: false }
