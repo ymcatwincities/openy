@@ -67,7 +67,7 @@ class RelToAbs extends FilterBase {
     foreach ($needles as $needle) {
       while ($pos = strpos($txt, $needle)) {
         $pos += strlen($needle);
-        if (substr($txt, $pos, 7) != 'http://' && substr($txt, $pos, 8) != 'https://' && substr($txt, $pos, 6) != 'ftp://' && substr($txt, $pos, 7) != 'mailto:' && substr($txt, $pos, 2) != '//' && substr($txt, $pos, 1) != '#') {
+        if (substr($txt, $pos, 7) != 'http://' && substr($txt, $pos, 8) != 'https://' && substr($txt, $pos, 6) != 'ftp://' && substr($txt, $pos, 7) != 'mailto:' && substr($txt, $pos, 2) != '//' && substr($txt, $pos, 1) != '#' && substr($txt, $pos, 4) != 'tel:') {
           $new_txt .= substr($txt, 0, $pos) . $new_base_url;
         }
         else {
