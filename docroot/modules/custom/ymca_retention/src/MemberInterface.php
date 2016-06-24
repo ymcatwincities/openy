@@ -159,5 +159,5 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setVisitGoal($value);
-  
+
 }
