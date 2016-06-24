@@ -619,7 +619,10 @@ class MindbodyPTForm extends FormBase {
 
     $program_options = [];
     foreach ($programs->GetProgramsResult->Programs->Program as $program) {
-      $program_options[$program->ID] = $program->Name;
+      if (!$this->programIsActive($program->ID)) {
+        continue;
+      }
+      $program_options[$program->ID] = $this->getProgramLabel($program->ID, $program->Name);
     }
 
     return $program_options;
@@ -642,7 +645,10 @@ class MindbodyPTForm extends FormBase {
 
     $session_type_options = [];
     foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
-      $session_type_options[$type->ID] = $type->Name;
+      if (!$this->sessionTypeIsActive($type->ID)) {
+        continue;
+      }
+      $session_type_options[$type->ID] = $this->getSessionTypeLabel($type->ID, $type->Name);
     }
 
     return $session_type_options;
@@ -683,6 +689,111 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_options;
+  }
+
+  /**
+   * Indicates whether program is active or not.
+   *
+   * Wrapper for MindbodyObjectIsActive().
+   *
+   * @param int $id
+   *   Program ID.
+   *
+   * @return bool
+   *   Whether program is active or not.
+   */
+  public function programIsActive($id) {
+    return $this->mindbodyObjectIsActive($id, 'programs');
+  }
+
+  /**
+   * Returns label for program.
+   *
+   * Wrapper for getMindbodyObjectLabel().
+   *
+   * @param int $id
+   *   Program ID.
+   * @param string $default_label
+   *   Default label.
+   *
+   * @return string
+   *   Return original or overridden label.
+   */
+  public function getProgramLabel($id, $default_label) {
+    return $this->getMindbodyObjectLabel($id, $default_label, 'programs');
+  }
+
+  /**
+   * Indicates whether session type is active or not.
+   *
+   * Wrapper for MindbodyObjectIsActive().
+   *
+   * @param int $id
+   *   Session Type ID.
+   *
+   * @return bool
+   *   Whether session type is active or not.
+   */
+  public function sessionTypeIsActive($id) {
+    return $this->mindbodyObjectIsActive($id, 'session_types');
+  }
+
+  /**
+   * Returns label for session type.
+   *
+   * Wrapper for getMindbodyObjectLabel().
+   *
+   * @param int $id
+   *   Session Type ID.
+   * @param string $default_label
+   *   Default label.
+   *
+   * @return string
+   *   Return original or overridden label.
+   */
+  public function getSessionTypeLabel($id, $default_label) {
+    return $this->getMindbodyObjectLabel($id, $default_label, 'session_types');
+  }
+
+  /**
+   * Returns label for MindBody object.
+   *
+   * @param int $id
+   *   MindBody object ID.
+   * @param string $default_label
+   *   Default label.
+   *
+   * @return string
+   *   Return original or overridden label.
+   */
+  public function getMindbodyObjectLabel($id, $default_label, $key) {
+    $mapping = \Drupal::config('ymca_mindbody.trainings_mapping')->get($key);
+
+    if (!empty($mapping[$id]['label'])) {
+      return $mapping[$id]['label'];
+    }
+
+    return $default_label;
+  }
+
+  /**
+   * Indicates whether MindBody object is active or not.
+   *
+   * @param int $id
+   *   MindBody object ID.
+   *
+   * @return bool
+   *   Whether MindBody object is active or not.
+   */
+  public function mindbodyObjectIsActive($id, $key) {
+    $mapping = \Drupal::config('ymca_mindbody.trainings_mapping')->get($key);
+
+    // Display objects that are explicitly active, otherwise hide.
+    if (!empty($mapping[$id]['active'])) {
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
 }
