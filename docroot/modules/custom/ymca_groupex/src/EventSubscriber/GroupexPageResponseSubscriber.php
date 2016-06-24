@@ -25,11 +25,10 @@ class GroupexPageResponseSubscriber implements EventSubscriberInterface {
     if ($url_object = \Drupal::service('path.validator')->getUrlIfValid($uri)) {
       $route_name = $url_object->getRouteName();
       if ($route_name == 'ymca_groupex.all_schedules_search' || $route_name == 'ymca_frontend.location_schedules') {
-        if (session_status() == PHP_SESSION_NONE) {
-          $session = \Drupal::service('session_configuration');
-          $options = $session->getOptions($request);
-          $request->cookies->add([$options['name'] => TRUE]);
-
+        $session = \Drupal::service('session_configuration');
+        $options = $session->getOptions($request);
+        if (isset($options['name']) && !$request->cookies->get($options['name'])) {
+          $request->cookies->add([$options['name']]);
           session_set_cookie_params(0, $request->getRequestUri());
           session_start();
         }
