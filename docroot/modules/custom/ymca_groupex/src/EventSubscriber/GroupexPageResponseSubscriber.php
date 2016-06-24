@@ -21,7 +21,8 @@ class GroupexPageResponseSubscriber implements EventSubscriberInterface {
    */
   public function groupexSessionStart(GetResponseEvent $event) {
     $request = $event->getRequest();
-    if ($url_object = \Drupal::service('path.validator')->getUrlIfValid($request->getRequestUri())) {
+    $uri = str_replace(base_path(), '/', $request->getRequestUri());
+    if ($url_object = \Drupal::service('path.validator')->getUrlIfValid($uri)) {
       $route_name = $url_object->getRouteName();
       if ($route_name == 'ymca_groupex.all_schedules_search' || $route_name == 'ymca_frontend.location_schedules') {
         if (session_status() == PHP_SESSION_NONE) {
