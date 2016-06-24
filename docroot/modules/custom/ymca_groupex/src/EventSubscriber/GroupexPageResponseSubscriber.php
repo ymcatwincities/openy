@@ -12,8 +12,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class GroupexPageResponseSubscriber implements EventSubscriberInterface {
 
   /**
-   * Disable Varnish and Page Cache. We are dealing with Dynamic Page Cache
-   * and BigPipe plus lazy loaders.
+   * Disable Varnish and Page Cache.
+   *
+   * We are dealing with Dynamic Page Cache and BigPipe plus lazy loaders.
    *
    * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    *   Passed event.
