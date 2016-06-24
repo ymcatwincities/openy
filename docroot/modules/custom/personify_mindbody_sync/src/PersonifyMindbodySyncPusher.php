@@ -2,6 +2,7 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
@@ -29,6 +30,13 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   protected $logger;
 
   /**
+   * Config factory.
+   *
+   * @var ConfigFactory
+   */
+  protected $config;
+
+  /**
    * Array of Client IDs for processing to Mindbody.
    *
    * @var array
@@ -52,10 +60,11 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, LoggerChannelFactory $logger_factory) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory) {
     $this->wrapper = $wrapper;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
     $this->client = $client;
+    $this->config = $config;
   }
 
   /**
@@ -63,7 +72,8 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    */
   public function push() {
     // Have a look at YmcaMindbodyExamples.php for the example.
-    $this->getClientIds();
+    $this->pushClients();
+    $this->pushOrders();
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
       // @todo push orders.
     }
@@ -75,7 +85,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return $this
    *   Returns itself for chaining.
    */
-  private function getClientIds() {
+  private function pushClients() {
     /** @var PersonifyMindbodyCache $entity */
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
       $personifyData = unserialize($entity->get('field_pmc_data')->getValue()[0]['value']);
@@ -143,6 +153,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           $clients_for_cache = $result->AddOrUpdateClientsResult->Clients->Client;
         }
         foreach ($clients_for_cache as $client) {
+          $this->clientIds[$client->ID] = $client;
           /** @var PersonifyMindbodyCache $cache_entity */
           $cache_entity = $this->getEntityByClientId($client->ID);
           if ($cache_entity) {
@@ -192,6 +203,84 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     $entity = $this->wrapper->getProxyData()[$cache_id];
 
     return $entity;
+  }
+
+  /**
+   * Push orders from proxy to MindBody.
+   */
+  private function pushOrders() {
+    $env = $this->config->get('mindbody.env.settings')->get('active');
+
+    $source = $this->wrapper->getSourceData();
+
+    if ($env == 'staging') {
+      // We are working with fake data here.
+
+      // Andover.
+      $location_id = 1;
+      // Promo PT Express.
+      $session_type_id = 55;
+
+      // Obtain Service ID.
+      $params = [
+        'LocationID' => $location_id,
+        'HideRelatedPrograms' => TRUE,
+      ];
+
+      $response = $this->client->call('SaleService', 'GetServices', $params, FALSE);
+      $services = $response->GetServicesResult->Services->Service;
+
+      foreach ($source as $order) {
+        $rand = rand(0, count($services) - 1);
+        $service_id = $services[$rand]->ID;
+        // Let's keep the first service.
+        // $service = reset($services);
+
+        $card_payment_info = new \SoapVar(
+          [
+            'CreditCardNumber' => '1234-4567-7458-4567',
+            'Amount' => $services[$rand]->Price,
+            'BillingAddress' => '123 Happy Ln',
+            'BillingCity' => 'Santa Ynez',
+            'BillingState' => 'CA',
+            'BillingPostalCode' => '93455',
+            'ExpYear' => '2017',
+            'ExpMonth' => '7',
+            'BillingName' => 'John Berky',
+          ],
+          SOAP_ENC_ARRAY,
+          'CreditCardInfo',
+          'http://clients.mindbodyonline.com/api/0_5'
+        );
+
+        // Let's place the order.
+        $params = [
+          // @todo Be careful about (int). MindBody stores string!!!
+          'ClientID' => $order->MasterCustomerId,
+          'CartItems' => [
+            'CartItem' => [
+              'Quantity' => 1,
+              'Item' => new \SoapVar(
+                [
+                  'ID' => $service_id
+                ],
+                SOAP_ENC_ARRAY,
+                'Service',
+                'http://clients.mindbodyonline.com/api/0_5'
+              ),
+              'DiscountAmount' => 0,
+            ],
+          ],
+          'Payments' => [
+            'PaymentInfo' => $card_payment_info
+          ],
+        ];
+
+        $response = $this->client->call('SaleService', 'CheckoutShoppingCart', $params, FALSE);
+      }
+
+    }
+
   }
 
 }

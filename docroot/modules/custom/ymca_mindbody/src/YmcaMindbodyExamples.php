@@ -130,22 +130,22 @@ class YmcaMindbodyExamples {
     $service = reset($services);
     $service_id = $service->ID;
 
-    $card_payment_info = new \SoapVar(
-      [
-        'CreditCardNumber' => '1234-4567-7458-4567',
-        'Amount' => $service->Price,
-        'BillingAddress' => '123 Happy Ln',
-        'BillingCity' => 'Santa Ynez',
-        'BillingState' => 'CA',
-        'BillingPostalCode' => '93455',
-        'ExpYear' => '2017',
-        'ExpMonth' => '7',
-        'BillingName' => 'John Berky',
-      ],
-      SOAP_ENC_ARRAY,
-      'CreditCardInfo',
-      'http://clients.mindbodyonline.com/api/0_5'
-    );
+//    $card_payment_info = new \SoapVar(
+//      [
+//        'CreditCardNumber' => '1234-4567-7458-4567',
+//        'Amount' => $service->Price,
+//        'BillingAddress' => '123 Happy Ln',
+//        'BillingCity' => 'Santa Ynez',
+//        'BillingState' => 'CA',
+//        'BillingPostalCode' => '93455',
+//        'ExpYear' => '2017',
+//        'ExpMonth' => '7',
+//        'BillingName' => 'John Berky',
+//      ],
+//      SOAP_ENC_ARRAY,
+//      'CreditCardInfo',
+//      'http://clients.mindbodyonline.com/api/0_5'
+//    );
 
     // Let's place the order.
     $params = [
