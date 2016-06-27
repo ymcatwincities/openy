@@ -7,7 +7,7 @@ use Drupal\Core\State\State;
 
 /**
  * Class YmcaMindbodyRequestGuard.
- * 
+ *
  * @package Drupal\ymca_mindbody
  */
 class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface {
@@ -18,14 +18,14 @@ class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface {
    * @var State
    */
   protected $state;
-  
+
   /**
    * Config Factory definition.
    *
    * @var ConfigFactory
    */
   protected $configFactory;
-  
+
   /**
    * Constructor.
    */
