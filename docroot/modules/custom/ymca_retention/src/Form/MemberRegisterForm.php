@@ -55,15 +55,17 @@ class MemberRegisterForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $mail = $form_state->getValue('mail');
+    $membership_id = $form_state->getValue('membership_id');
     $query = \Drupal::entityQuery('ymca_retention_member')
-      ->condition('mail', $mail);
+      ->condition('mail', $mail)
+      ->condition('membership_id', $membership_id);
     $result = $query->execute();
-    // @todo we have to verify email + id.
     if (!empty($result)) {
-      $form_state->setErrorByName('mail', $this->t('The email address %value is already registered.', ['%value' => $mail]));
+      $form_state->setErrorByName('mail', $this->t('The email address %value with this facility access ID is already registered.', [
+        '%value' => $mail,
+      ]));
     }
 
-    $membership_id = $form_state->getValue('membership_id');
     // Numeric validation.
     if (!is_numeric($membership_id)) {
       $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should be numeric'));
@@ -79,7 +81,6 @@ class MemberRegisterForm extends FormBase {
 
     $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
     // @todo Here we need to verify results. and check is there an alias, and then search user in db by alias ID.
-    //
     if (empty($personify_result) || !empty($personify_result->ErrorMessage)) {
       $form_state->setErrorByName('membership_id', $this->t('Member with this facility access ID did not found, please verify your facility access ID.'));
     }
