@@ -15,6 +15,13 @@ use Drupal\Core\Url;
 class GroupexFormFull extends GroupexFormBase {
 
   /**
+   * GroupexFormFull constructor.
+   */
+  public function __construct() {
+    $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -27,8 +34,33 @@ class GroupexFormFull extends GroupexFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $query = \Drupal::request()->query->all();
-
     $formatted_results = '';
+
+    // Check if form printed on specific Location Schedules page.
+    if (\Drupal::routeMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
+      if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+        $mapping_id = \Drupal::entityQuery('mapping')
+          ->condition('type', 'location')
+          ->condition('field_location_ref', $site_section->id())
+          ->execute();
+        $mapping_id = reset($mapping_id);
+        $groupex_id = FALSE;
+        if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+          $field_groupex_id = $mapping->field_groupex_id->getValue();
+          $groupex_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
+        }
+        if ($groupex_id) {
+          $values['location'] = $groupex_id;
+          $form_state->setValue('location', $groupex_id);
+          $form_state->setValue('location_select', $groupex_id);
+          $formatted_results = self::buildResults($form, $form_state);
+        }
+        else {
+          \Drupal::logger('ymca_groupex')->error('Failed to get location id.');
+        }
+      }
+    }
+
     if (isset($query['location']) && is_numeric($query['location'])) {
       $values['location'] = $query['location'];
       $formatted_results = self::buildResults($form, $form_state);
@@ -39,19 +71,22 @@ class GroupexFormFull extends GroupexFormBase {
 
     $form['#prefix'] = '<div id="groupex-full-form-wrapper">';
     $form['#suffix'] = '</div>';
-    $classes = 'hidden';
+    $location_select_classes = $classes = 'hidden';
     $location_classes = 'show';
     if (isset($values['location']) && is_numeric($values['location'])) {
-      $classes = 'show';
+      $location_select_classes = $classes = 'show';
       $location_classes = 'hidden';
+    }
+    if (isset($site_section)) {
+      $location_select_classes = 'hidden';
     }
 
     $form['location_select'] = [
       '#type' => 'select',
-      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
+      '#options' => $this->locationOptions,
       '#default_value' => !empty($values['location']) ? $values['location'] : '',
       '#title' => $this->t('Locations'),
-      '#prefix' => '<div id="location-select-wrapper" class="' . $classes . '">',
+      '#prefix' => '<div id="location-select-wrapper" class="' . $location_select_classes . '">',
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -91,7 +126,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     $form['location'] = [
       '#type' => 'radios',
-      '#options' => $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name'),
+      '#options' => $this->locationOptions,
       '#title' => $this->t('Locations'),
       '#default_value' => !empty($values['location']) ? $values['location'] : '',
       '#prefix' => '<div id="location-wrapper" class="' . $location_classes . '">',
@@ -123,7 +158,7 @@ class GroupexFormFull extends GroupexFormBase {
     $form['#cache'] = [
       'max-age' => 0,
     ];
-    
+
     return $form;
   }
 
