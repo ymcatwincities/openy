@@ -213,10 +213,6 @@ class GroupexScheduleFetcher {
         break;
 
       case 'instructor':
-        $schedule['instructor_location'] = t('Schedule for @name, @location', [
-          '@name' => reset($this->enrichedData)->original_instructor,
-          '@location' => reset($this->enrichedData)->location,
-        ]);
         // Filter classes by instructor.
         $schedule['days'] = [];
         foreach ($items as $id => $class) {
@@ -225,6 +221,10 @@ class GroupexScheduleFetcher {
             $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
           }
         }
+        $schedule['instructor_location'] = t('Schedule for @name, @location', [
+          '@name' => reset($schedule['days'])['classes'][0]['#class']['instructor'],
+          '@location' => reset($schedule['days'])['classes'][0]['#class']['address_2'],
+        ]);
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
           $location = $this->parameters['location'];
