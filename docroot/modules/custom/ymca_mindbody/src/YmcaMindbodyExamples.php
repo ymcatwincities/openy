@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\ymca_mindbody;
+
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Masterminds\HTML5\Exception;
 
