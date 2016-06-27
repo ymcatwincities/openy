@@ -1,0 +1,8 @@
+gardengnome_player.settings:
+  path: '/admin/config/media/gardengnome'
+  defaults:
+    _form: '\Drupal\gardengnome_player\Form\SettingsForm'
+    _title: 'Gardengnome Player settings form'
+#    _description: 'Configure settings for Gardengnome Pano2vr and Object2vr media embeds'
+  requirements:
+    _permission: 'access administration pages'
