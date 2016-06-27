@@ -61,6 +61,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
     'groupex_schedule_table_week' => [
       'variables' => [
         'days' => [],
+        'instructor_location' => '',
         'pdf_href' => '',
       ],
       'template' => 'groupex-schedule-table-week',
@@ -102,7 +103,10 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
  */
 function ymca_groupex_schedule_layout(array $schedule) {
   $results = [];
-  $cache = ['max-age' => 0];
+  $cache = [
+    'max-age' => 3600,
+    'contexts' => ['url.query_args'],
+  ];
 
   // Output schedule by type.
   switch ($schedule['type']) {
@@ -153,7 +157,7 @@ function ymca_groupex_schedule_layout(array $schedule) {
 function ymca_groupex_preprocess_node(&$variables) {
   // Pass the form to the schedules page.
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'schedules') {
-    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormLocation');
+    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormFull');
     $variables['form_find_classes'] = \Drupal::service('renderer')->render($form, FALSE);
 
     $mapping_id = \Drupal::entityQuery('mapping')
@@ -206,7 +210,10 @@ function ymca_groupex_preprocess_node(&$variables) {
  */
 function ymca_groupex_schedule_table_layout(array $schedule) {
   $results = [];
-  $cache = ['max-age' => 0];
+  $cache = [
+    'max-age' => 3600,
+    'contexts' => ['url.query_args'],
+  ];
 
   // Output schedule by type.
   switch ($schedule['type']) {
@@ -253,6 +260,7 @@ function ymca_groupex_schedule_table_layout(array $schedule) {
         $results = [
           '#theme' => 'groupex_schedule_table_week',
           '#days' => $schedule['days'],
+          '#instructor_location' => $schedule['instructor_location'],
           '#pdf_href' => !empty($schedule['pdf_href']) ? $schedule['pdf_href'] : NULL,
           '#cache' => $cache,
         ];
