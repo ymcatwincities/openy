@@ -563,6 +563,20 @@ class MindbodyPTForm extends FormBase {
       $session_types = $this->getSessionTypes($values['program']);
       $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
 
+      $telephone = '';
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_mindbody_id', $values['location'])
+        ->execute();
+      $mapping_id = reset($mapping_id);
+      if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+        $field_location_ref = $mapping->field_location_ref->getValue();
+        $location_id = isset($field_location_ref[0]['target_id']) ? $field_location_ref[0]['target_id'] : FALSE;
+        if ($location_node = \Drupal::entityManager()->getStorage('node')->load($location_id)) {
+          $field_phone = $location_node->field_phone->getValue();
+          $telephone = isset($field_phone[0]['value']) ? $field_phone[0]['value'] : FALSE;
+        }
+      }
       $options = [
         'query' => [
           'step' => 4,
@@ -584,6 +598,7 @@ class MindbodyPTForm extends FormBase {
         '#trainer' => $trainer_name,
         '#datetime' => $datetime,
         '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
+        '#telephone' => $telephone,
         '#base_path' => base_path(),
         '#days' => $days,
       ];
