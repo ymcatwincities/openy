@@ -15,7 +15,7 @@ ymca_mindbody.pt.results:
 ymca_mindbody.settings:
   path: '/admin/config/ymca-services/mindbody-settings'
   defaults:
-    _form: '\Drupal\ymca_mindbody\Form\BlockSettingsForm'
+    _form: '\Drupal\ymca_mindbody\Form\MindbodySettingsForm'
     _title: 'MindBody Settings'
   requirements:
     _permission: 'administer site configuration'
