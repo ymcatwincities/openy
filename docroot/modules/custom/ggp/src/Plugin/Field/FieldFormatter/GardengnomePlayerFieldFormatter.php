@@ -14,6 +14,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -219,7 +220,11 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
   protected function viewValue(FieldItemInterface $item) {
     $build = [];
 
-    if (!$extracted = $this->extract($item)) {
+    if (!$file = \Drupal::entityTypeManager()->getStorage('file')->load($item->target_id)) {
+      return $build;
+    }
+
+    if (!$extracted = $this->extract($file)) {
       return $build;
     }
 
@@ -263,6 +268,16 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
       }
     }
     else {
+      $build['content']['preview'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' => $this->t('Panorama block. Package %package. No preview available.', [
+          '%package' => $file->getFilename(),
+        ]),
+        '#attributes' => [
+          'style' => 'border:1px dashed grey;',
+        ],
+      ];
       $build['content']['#attributes']['data-autoplay'] = 'true';
     }
 
@@ -292,7 +307,7 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
    * Extracts a Gardengnome package if necessary and returns the path or false
    * if something went terribly wrong.
    */
-  public function extract(FieldItemInterface $item) {
+  public function extract(EntityInterface $file) {
     $extract_path = \Drupal::service('config.factory')
       ->get('gardengnome_player.settings')
       ->get('path');
@@ -304,9 +319,6 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
       return FALSE;
     }
 
-    if (!$file = \Drupal::entityTypeManager()->getStorage('file')->load($item->target_id)) {
-      return FALSE;
-    }
     $uri = $file->getFileUri();
     $directory = $extract_path . '/' . file_uri_target($uri);
     if (!file_exists($directory)) {
