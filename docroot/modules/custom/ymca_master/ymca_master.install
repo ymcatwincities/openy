@@ -3284,3 +3284,24 @@ function ymca_master_update_8139() {
   // Remove groupex mapping entity type.
   $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
 }
+
+/**
+ * Add Panorama block type and panorama field.
+ */
+function ymca_master_update_8140() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block_content.type.panorama_block.yml',
+      $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
+      $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
+      $path . 'field.field.block_content.panorama_block.body.yml',
+      $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
+      $path . 'field.storage.block_content.field_panorama_archive.yml',
+      $path . 'language.content_settings.block_content.panorama_block.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
