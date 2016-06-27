@@ -62,3 +62,11 @@ ymca_retention.membership_setid:
     _title: 'Registration'
   requirements:
     _permission: 'access content'
+
+ymca_retention.settings:
+  path: '/admin/config/system/ymca-retention'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsForm'
+    _title: 'YMCA Retention Settings'
+  requirements:
+    _permission: 'administer site configuration'
