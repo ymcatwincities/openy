@@ -20,17 +20,6 @@ function gardengnome_player_theme() {
         'popup_height' => 300,
       ],
     ],
-//    'gardengnome_popup' => [
-//      'base' => 'page',
-//      'variables' => [
-//        'title' => [],
-//        'content' => '',
-//        'scripts' => [],
-//        'styles' => [],
-//      ],
-//      'template' => 'gardengnome-popup',
-//      'path' => drupal_get_path('module', 'gardengnome_player') . '/templates',
-//    ],
   ];
 }
 
