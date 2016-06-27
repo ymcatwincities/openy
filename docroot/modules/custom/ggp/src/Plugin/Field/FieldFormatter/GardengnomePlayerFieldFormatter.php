@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -222,21 +223,23 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
       return $build;
     }
 
-    $assets = $this->getPackageInfo($extracted);
+    $package_info = $this->getPackageInfo($extracted);
     $attributes_array = [];
-    foreach ($assets as $key => $file) {
-      if ($file) {
-        $attributes_array['data-' . $key] = $file;
+    foreach ($package_info as $key => $value) {
+      if ($value) {
+        $attributes_array['data-' . $key] = $value;
       }
     }
 
-    $attributes_array['data-display'] = $this->getSetting('display_style');
-    $attributes_array['data-autoplay'] = $this->getSetting('autoplay');
-    $attributes_array['data-package'] = file_create_url($extracted);
     $attributes_array['class'] = ['gardengnome-player'];
-    $attributes = new \Drupal\Core\Template\Attribute($attributes_array);
+    $attributes_array['data-autoplay'] = $this->getSetting('autoplay');
+    $attributes_array['data-display'] = $this->getSetting('display_style');
+    $attributes_array['data-package'] = file_create_url($extracted);
+    $attributes_array['data-popup-height'] = $this->getSetting('popup_height');
+    $attributes_array['data-popup-width'] = $this->getSetting('popup_width');
+    $attributes = new Attribute($attributes_array);
 
-    if ($attributes_array['data-flash'] !== 'false') {
+    if ($package_info['flash'] !== 'false') {
       $build['#attached']['library'][] = 'gardengnome_player/swfobject.swfobjectjs';
     }
 
@@ -267,8 +270,7 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
   }
 
   /**
-   * Check package contents and provide information about player type, options
-   * and sizes.
+   * Provides information about player type, options.
    */
   public function getPackageInfo($uri) {
     $path = \Drupal::service('file_system')->realpath($uri);
@@ -279,8 +281,6 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
       'html5' => file_exists($path . '/' . $type . '_player.js') ? 'true' : 'false',
       'skin' => file_exists($path . '/skin.js') ? 'true' : 'false',
       'type' => $type,
-      'popup-height' => $this->getSetting('popup_height'),
-      'popup-width' => $this->getSetting('popup_width'),
     ];
 
     return $assets;
