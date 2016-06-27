@@ -247,8 +247,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
 
       // Andover.
       $location_id = 1;
-      // Promo PT Express.
-      $session_type_id = 55;
 
       // Obtain Service ID.
       $params = [
