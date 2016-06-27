@@ -107,7 +107,6 @@ class MindbodyPTForm extends FormBase {
     return new static(
       $container->get('mindbody_cache_proxy.client'),
       $container->get('ymca_mindbody.trainings_mapping'),
-      $container->get('state'),
       $container->get('ymca_mindbody.request_guard'),
       $state
     );
