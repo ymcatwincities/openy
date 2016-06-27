@@ -3,11 +3,13 @@
 namespace Drupal\ymca_mindbody\Form;
 
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\State\State;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 
@@ -43,11 +45,11 @@ class MindbodyPTForm extends FormBase {
   protected $credentials;
 
   /**
-   * State.
+   * State storage.
    *
    * @var array
    */
-  protected $state;
+  protected $state_storage;
 
   /**
    * Training mapping service.
@@ -57,18 +59,37 @@ class MindbodyPTForm extends FormBase {
   protected $trainingsMapping;
 
   /**
+   * Ymca Mindbody settings.
+   *
+   * @var ImmutableConfig
+   */
+  protected $settings;
+
+  /**
+   * Mindbody request guard.
+   *
+   * @var YmcaMindbodyRequestGuard
+   */
+  protected $requestGuard;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
    *   Mindbody cache proxy.
+   * @param State $state_storage
+   *   State storage.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, array $state = []) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, State $state_storage, YmcaMindbodyRequestGuard $request_guard ,array $state = []) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
     $this->trainingsMapping = $trainings_mapping;
+    $this->settings = $this->config('ymca_mindbody.settings');
+    $this->state_storage = $state_storage;
+    $this->requestGuard = $request_guard;
   }
 
   /**
@@ -87,7 +108,30 @@ class MindbodyPTForm extends FormBase {
       'mb_start_time' => isset($query['mb_start_time']) && is_numeric($query['mb_start_time']) ? $query['mb_start_time'] : NULL,
       'mb_end_time' => isset($query['mb_end_time']) && is_numeric($query['mb_end_time']) ? $query['mb_end_time'] : NULL,
     );
-    return new static($container->get('mindbody_cache_proxy.client'), $container->get('ymca_mindbody.trainings_mapping'), $state);
+    return new static(
+      $container->get('mindbody_cache_proxy.client'),
+      $container->get('ymca_mindbody.trainings_mapping'),
+      $container->get('state'),
+      $container->get('ymca_mindbody.request_guard'),
+      $state
+    );
+  }
+
+  /**
+   * Check if the form has to be disabled.
+   */
+  private function isDisabled() {
+    // Check whether the form was disabled by administrator.
+    if ($this->settings->get('pt_form_disabled')) {
+      return TRUE;
+    }
+
+    // Disable form if we exceed max requests to MindBody API.
+    if (!$this->requestGuard->status()) {
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
   /**
@@ -95,7 +139,7 @@ class MindbodyPTForm extends FormBase {
    */
   protected function getDisabledMarkup() {
     $markup = '';
-    $block_id = $this->config('ymca_mindbody.block.settings')->get('disabled_form_block_id');
+    $block_id = $this->config('ymca_mindbody.settings')->get('disabled_form_block_id');
     $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($block_id);
     if (!is_null($block)) {
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
@@ -262,9 +306,7 @@ class MindbodyPTForm extends FormBase {
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
 
-    // Disable form if we exceed 1000 calls to MindBody API.
-    $mindbody_proxy_state = \Drupal::state()->get('mindbody_cache_proxy');
-    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= 1000) {
+    if ($this->isDisabled()) {
       $form['disable'] = ['#markup' => $this->getDisabledMarkup()];
       return $form;
     }
