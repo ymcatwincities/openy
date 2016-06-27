@@ -3,7 +3,6 @@
 namespace Drupal\ymca_mindbody\Form;
 
 use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\State\State;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
@@ -49,7 +48,7 @@ class MindbodyPTForm extends FormBase {
    *
    * @var array
    */
-  protected $state_storage;
+  protected $stateStorage;
 
   /**
    * Training mapping service.
@@ -79,16 +78,13 @@ class MindbodyPTForm extends FormBase {
    *   Mindbody cache proxy.
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
    *   Mindbody cache proxy.
-   * @param State $state_storage
-   *   State storage.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, State $state_storage, YmcaMindbodyRequestGuard $request_guard ,array $state = []) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, array $state = []) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
     $this->trainingsMapping = $trainings_mapping;
     $this->settings = $this->config('ymca_mindbody.settings');
-    $this->state_storage = $state_storage;
     $this->requestGuard = $request_guard;
   }
 

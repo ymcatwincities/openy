@@ -11,7 +11,7 @@ interface YmcaMindbodyRequestGuardInterface {
 
   /**
    * Checks current status.
-   * 
+   *
    * @return bool
    *   TRUE if requests to MindBody are available. FALSE if there are no allowed calls.
    */
