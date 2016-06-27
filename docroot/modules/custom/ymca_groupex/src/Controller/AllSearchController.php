@@ -22,8 +22,7 @@ class AllSearchController extends ControllerBase {
         '#create_placeholder' => TRUE,
       ],
       '#cache' => [
-        'max-age' => 3600,
-        'contexts' => ['url.query_args'],
+        'max-age' => 0,
       ],
     ];
   }
