@@ -79,9 +79,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     // Have a look at YmcaMindbodyExamples.php for the example.
     $this->pushClients();
     $this->pushOrders();
-    foreach ($this->wrapper->getProxyData() as $id => $entity) {
-      // @todo push orders.
-    }
   }
 
   /**
