@@ -273,10 +273,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       foreach ($source as $order) {
         $rand = rand(0, count($services) - 1);
         $service_id = $services[$rand]->ID;
-        // 0 can't be a price. Making it at least 1 dollar.
-        if ($services[$rand]->Price == 0) {
-          $services[$rand]->Price = $services[$rand]->Price + 1;
-        }
 
         $card_payment_info = new \SoapVar(
           [
