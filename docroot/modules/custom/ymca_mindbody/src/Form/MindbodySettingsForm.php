@@ -36,6 +36,20 @@ class MindbodySettingsForm extends ConfigFormBase {
       '#default_value' => !empty($config->get('disabled_form_block_id')) ? $config->get('disabled_form_block_id') : '',
     );
 
+    $form['max_requests'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Max MindBody requests'),
+      '#default_value' => !empty($config->get('max_requests')) ? $config->get('max_requests') : '',
+      '#description' => $this->t('The maximum number of MindBody API requests allowed.'),
+    );
+
+    $form['pt_form_status'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Turn off all PT forms'),
+      '#default_value' => !empty($config->get('pt_form_status')) ? TRUE : FALSE,
+      '#description' => $this->t('Turn the checkbox on to disable all Personal Training forms'),
+    );
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -46,6 +60,8 @@ class MindbodySettingsForm extends ConfigFormBase {
     $values = $form_state->getValues();
     $this->config('ymca_mindbody.settings')
       ->set('disabled_form_block_id', $values['disabled_form_block_id'])
+      ->set('max_requests', $values['max_requests'])
+      ->set('pt_form_status', $values['pt_form_status'])
       ->save();
 
     parent::submitForm($form, $form_state);
