@@ -2,6 +2,7 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
@@ -29,6 +30,13 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   protected $logger;
 
   /**
+   * Config factory.
+   *
+   * @var ConfigFactory
+   */
+  protected $config;
+
+  /**
    * Array of Client IDs for processing to Mindbody.
    *
    * @var array
@@ -52,10 +60,16 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, LoggerChannelFactory $logger_factory) {
+  public function __construct(
+    PersonifyMindbodySyncWrapper $wrapper,
+    MindbodyCacheProxyInterface $client,
+    ConfigFactory $config,
+    LoggerChannelFactory $logger_factory
+  ) {
     $this->wrapper = $wrapper;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
     $this->client = $client;
+    $this->config = $config;
   }
 
   /**
@@ -63,10 +77,8 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    */
   public function push() {
     // Have a look at YmcaMindbodyExamples.php for the example.
-    $this->getClientIds();
-    foreach ($this->wrapper->getProxyData() as $id => $entity) {
-      // @todo push orders.
-    }
+    $this->pushClients();
+    $this->pushOrders();
   }
 
   /**
@@ -75,28 +87,42 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return $this
    *   Returns itself for chaining.
    */
-  private function getClientIds() {
+  private function pushClients() {
     /** @var PersonifyMindbodyCache $entity */
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
-      $personifyData = unserialize($entity->get('field_pmc_data')->getValue()[0]['value']);
+      $user_id = $entity->field_pmc_user_id->value;
+      $personifyData = unserialize($entity->field_pmc_data->value);
       if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
-        $this->clientIds[$entity->get('field_pmc_user_id')->getValue()[0]['value']] = new \SoapVar([
-          'NewID' => $entity->get('field_pmc_user_id')->getValue()[0]['value'],
-          'ID' => $entity->get('field_pmc_user_id')->getValue()[0]['value'],
-          'FirstName' => $personifyData->FirstName,
-          'LastName' => $personifyData->LastName,
-          'Email' => $personifyData->PrimaryEmail,
-          'BirthDate' => $personifyData->BirthDate,
-          'MobilePhone' => $personifyData->PrimaryPhone,
-        ],
+        $this->clientIds[$user_id] = new \SoapVar(
+          [
+            'NewID' => $user_id,
+            'ID' => $user_id,
+            'FirstName' => $personifyData->FirstName,
+            'LastName' => $personifyData->LastName,
+            'Email' => $personifyData->PrimaryEmail,
+            'BirthDate' => $personifyData->BirthDate,
+            'MobilePhone' => $personifyData->PrimaryPhone,
+            // @todo recheck on prod. Required field get mad.
+            'AddressLine1' => 'Non existent within Personify',
+            'City' => 'Non existent within Personify',
+            'State' => 'NA',
+            'PostalCode' => '00000',
+            'ReferredBy' => 'Non existent within Personify'
+          ],
           SOAP_ENC_OBJECT,
           'Client',
-          'http://clients.mindbodyonline.com/api/0_5');
+          'http://clients.mindbodyonline.com/api/0_5'
+        );
       }
     }
 
     // Locate already synced clients.
-    $result = $this->client->call('ClientService', 'GetClients', ['ClientIDs' => array_keys($this->clientIds)], FALSE);
+    $result = $this->client->call(
+      'ClientService',
+      'GetClients',
+      ['ClientIDs' => array_keys($this->clientIds)],
+      FALSE
+    );
 
     if ($result->GetClientsResult->ErrorCode == 200 && $result->GetClientsResult->ResultCount != 0) {
       // Got it, there are clients, pushed already.
@@ -116,7 +142,9 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         /** @var PersonifyMindbodyCache $cache_entity */
         $cache_entity = $this->getEntityByClientId($client->ID);
         // Updating local storage about MindBody client's data if first time.
-        if ($cache_entity && $cache_entity->get('field_pmc_mindbody_data')->isEmpty()) {
+        if ($cache_entity && $cache_entity->get('field_pmc_mindbody_data')
+            ->isEmpty()
+        ) {
           // @todo make it more smart via diff with old data for getting actual.
           $cache_entity->set('field_pmc_mindbody_data', serialize($client));
           $cache_entity->save();
@@ -125,7 +153,10 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     }
     elseif ($result->GetClientsResult->ErrorCode != 200) {
       // @todo consider throw Exception.
-      $this->logger->critical('[DEV] Error from MindBody: %error', ['%error' => print_r($result, TRUE)]);
+      $this->logger->critical(
+        '[DEV] Error from MindBody: %error',
+        ['%error' => print_r($result, TRUE)]
+      );
       return $this;
     }
 
@@ -133,7 +164,12 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     $push_clients = array_values($this->clientIds);
     if (!empty($push_clients)) {
       $clients_for_cache = [];
-      $result = $this->client->call('ClientService', 'AddOrUpdateClients', ['Clients' => $push_clients], FALSE);
+      $result = $this->client->call(
+        'ClientService',
+        'AddOrUpdateClients',
+        ['Clients' => $push_clients],
+        FALSE
+      );
       if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
         // Saving succeeded. Store cache data for later usage.
         if (count($push_clients) == 1) {
@@ -143,6 +179,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           $clients_for_cache = $result->AddOrUpdateClientsResult->Clients->Client;
         }
         foreach ($clients_for_cache as $client) {
+          $this->clientIds[$client->ID] = $client;
           /** @var PersonifyMindbodyCache $cache_entity */
           $cache_entity = $this->getEntityByClientId($client->ID);
           if ($cache_entity) {
@@ -153,7 +190,10 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       }
       else {
         // @todo consider throw Exception.
-        $this->logger->critical('[DEV] Error from MindBody: %error', ['%error' => print_r($result, TRUE)]);
+        $this->logger->critical(
+          '[DEV] Error from MindBody: %error',
+          ['%error' => print_r($result, TRUE)]
+        );
         return $this;
       }
     }
@@ -192,6 +232,116 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     $entity = $this->wrapper->getProxyData()[$cache_id];
 
     return $entity;
+  }
+
+  /**
+   * Push orders from proxy to MindBody.
+   */
+  private function pushOrders() {
+    $env = $this->config->get('mindbody.env.settings')->get('active');
+
+    $source = $this->wrapper->getSourceData();
+
+    if ($env == 'staging') {
+      // We are working with fake data here.
+
+      // Andover.
+      $location_id = 1;
+
+      // Obtain Service ID.
+      $params = [
+        'LocationID' => $location_id,
+        'HideRelatedPrograms' => TRUE,
+      ];
+
+      $response = $this->client->call(
+        'SaleService',
+        'GetServices',
+        $params,
+        FALSE
+      );
+      $services = $response->GetServicesResult->Services->Service;
+
+      foreach ($source as $order) {
+        $rand = rand(0, count($services) - 1);
+        $service_id = $services[$rand]->ID;
+
+        $card_payment_info = new \SoapVar(
+          [
+            'CreditCardNumber' => '1234-4567-7458-4567',
+            'Amount' => $services[$rand]->Price,
+            'BillingAddress' => '123 Happy Ln',
+            'BillingCity' => 'Santa Ynez',
+            'BillingState' => 'CA',
+            'BillingPostalCode' => '93455',
+            'ExpYear' => '2017',
+            'ExpMonth' => '7',
+            'BillingName' => 'John Berky',
+          ],
+          SOAP_ENC_ARRAY,
+          'CreditCardInfo',
+          'http://clients.mindbodyonline.com/api/0_5'
+        );
+
+        // Let's place the order.
+        $params = [
+          // @todo Be careful about (int). MindBody stores string!!!
+          'ClientID' => $order->MasterCustomerId,
+          // Without Test "Card Authorization Failed
+          // mb.Core.BLL.Transaction failed validation Could not determine
+          // the type of credit card.".
+          'Test' => TRUE,
+          'CartItems' => [
+            'CartItem' => [
+              'Quantity' => 1,
+              'Item' => new \SoapVar(
+                [
+                  'ID' => $service_id
+                ],
+                SOAP_ENC_ARRAY,
+                'Service',
+                'http://clients.mindbodyonline.com/api/0_5'
+              ),
+              'DiscountAmount' => 0,
+            ],
+          ],
+          'Payments' => [
+            'PaymentInfo' => $card_payment_info
+          ],
+        ];
+
+        $response = $this->client->call(
+          'SaleService',
+          'CheckoutShoppingCart',
+          $params,
+          FALSE
+        );
+        if ($response->CheckoutShoppingCartResult->Status == 'Success') {
+          $this->logger->info(
+            $env . ' : ShoppingCart succeeded ' . print_r(
+              $response->CheckoutShoppingCartResult->ShoppingCart,
+              TRUE
+            )
+          );
+        }
+        else {
+          $this->logger->info(
+            $env . ' : ShoppingCart failed with the result ' . print_r(
+              $response->CheckoutShoppingCartResult,
+              TRUE
+            )
+          );
+        }
+      }
+
+    }
+    else {
+      // @todo Add production push logic.
+      $this->logger->error(
+        $env . ' : Not implemented for this environment yet.'
+      );
+    }
+
   }
 
 }

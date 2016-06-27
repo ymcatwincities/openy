@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\ymca_groupex;
+
 use Drupal\ymca_google\GcalGroupexWrapperInterface;
 
 /**
