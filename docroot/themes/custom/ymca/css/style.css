@@ -8685,4 +8685,9 @@ p.legend {
   color: #1d1d1b;
 }
 
+body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
+  display: block !important;
+  visibility: visible !important;
+}
+
 /*# sourceMappingURL=style.css.map */
