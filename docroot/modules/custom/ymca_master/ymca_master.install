@@ -3302,6 +3302,7 @@ function ymca_master_update_8140() {
       $path . 'field.storage.block_content.field_panorama_archive.yml',
       $path . 'language.content_settings.block_content.panorama_block.yml',
       $path . 'embed.button.block.yml',
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
     ]
   );
 }
