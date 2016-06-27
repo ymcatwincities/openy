@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\gardengnome_player\Plugin\Field\FieldFormatter\GardengnomePlayerFieldFormatter.
- */
-
 namespace Drupal\gardengnome_player\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
@@ -130,7 +125,8 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
       $this->t('Configure Image Styles'),
       Url::fromRoute('entity.image_style.collection')
     );
-    $description = [[
+    $description = [
+      [
         '#markup' => t('Choose an image style for the preview image. Inline displays will inherit it\'s size. '),
       ],
       $description_link->toRenderable() + [
@@ -200,17 +196,12 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
-
     foreach ($items as $delta => $item) {
       $elements[$delta] = $this->viewValue($item);
     }
-
     $elements['#attached']['library'] = [
       'gardengnome_player/gardengnome_player'
     ];
-//    $elements['#cache'] = [
-//      'max-age' => 0,
-//    ];
 
     return $elements;
   }
@@ -286,7 +277,7 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
     $assets = [
       'flash' => file_exists($path . '/' . $type . '_player.swf') ? 'true' : 'false',
       'html5' => file_exists($path . '/' . $type . '_player.js') ? 'true' : 'false',
-      'skin' => file_exists($path . '/' . 'skin.js') ? 'true' : 'false',
+      'skin' => file_exists($path . '/skin.js') ? 'true' : 'false',
       'type' => $type,
       'popup-height' => $this->getSetting('popup_height'),
       'popup-width' => $this->getSetting('popup_width'),
@@ -308,8 +299,8 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
 
     if (!is_dir($extract_path) && !file_prepare_directory($extract_path, FILE_CREATE_DIRECTORY)) {
       drupal_set_message(t('Unable to create directory !dir for Gardengnome player files.', [
-          '!dir' => $extract_path,
-        ]), 'error');
+        '!dir' => $extract_path,
+      ]), 'error');
       return FALSE;
     }
 
@@ -325,9 +316,7 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
         ]), 'error');
         return FALSE;
       }
-      /**
-       * @var \Drupal\Core\Archiver\ArchiverInterface $archiver
-       */
+      /* @var \Drupal\Core\Archiver\ArchiverInterface $archiver */
       if (!$archiver = archiver_get_archiver($uri)) {
         drupal_set_message(t('The uploaded file %file is not an archive or not of supported archive type.', [
           '%file' => $file->name,
@@ -354,4 +343,5 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
 
     return $directory;
   }
+
 }

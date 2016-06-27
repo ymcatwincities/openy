@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\gardengnome_player\Form\SettingsForm.
- */
-
 namespace Drupal\gardengnome_player\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
