@@ -158,7 +158,7 @@ class GroupexScheduleFetcher {
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $location_id = reset($this->parameters['location']);
+          $location_id = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
           $schedule['pdf_href'] = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
         }
@@ -172,11 +172,13 @@ class GroupexScheduleFetcher {
       case 'week':
         $schedule['days'] = [];
         foreach ($items as $id => $class) {
-          $schedule['days'][$this->enrichedData[$id]->day][] = $class;
+          $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
+          $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
+
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $location = reset($this->parameters['location']);
+          $location = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
           $schedule['pdf_href'] = self::getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
@@ -215,12 +217,17 @@ class GroupexScheduleFetcher {
         $schedule['days'] = [];
         foreach ($items as $id => $class) {
           if ($class['#class']['instructor'] == $this->parameters['instructor']) {
-            $schedule['days'][$this->enrichedData[$id]->day][] = $class;
+            $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
+            $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
           }
         }
+        $schedule['instructor_location'] = t('Schedule for @name, @location', [
+          '@name' => reset($schedule['days'])['classes'][0]['#class']['instructor'],
+          '@location' => reset($schedule['days'])['classes'][0]['#class']['address_2'],
+        ]);
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $location = reset($this->parameters['location']);
+          $location = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
           $schedule['pdf_href'] = self::getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
@@ -287,7 +294,7 @@ class GroupexScheduleFetcher {
 
     // Location is optional.
     if (!empty($this->parameters['location'])) {
-      $options['query']['location'] = array_filter($this->parameters['location']);
+      $options['query']['location'] = array_filter(array($this->parameters['location']));
     }
 
     // Category is optional.
