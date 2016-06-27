@@ -111,7 +111,7 @@ class GroupexFormFull extends GroupexFormBase {
       '#title' => $this->t('Date'),
       '#prefix' => '<div id="date-select-wrapper" class="' . $classes . '">',
       '#suffix' => '</div>',
-      '#default_value' => !empty($values['date_select']) ? $values['date_select'] : '',
+      '#default_value' => !empty($values['date_select']) ? $values['date_select'] : reset($date_options),
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'groupex-full-form-wrapper',
@@ -166,6 +166,7 @@ class GroupexFormFull extends GroupexFormBase {
    * Custom ajax callback.
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
+    $form_state->setRebuild();
     $values = $form_state->getValues();
     $location = !empty($values['location_select']) ? $values['location_select'] : $values['location'];
     $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
@@ -197,6 +198,11 @@ class GroupexFormFull extends GroupexFormBase {
     $class = !empty($query['class']) ? $query['class'] : 'any';
     $filter_length = !empty($query['filter_length']) ? $query['filter_length'] : 'day';
     $groupex_class = !empty($query['groupex_class']) ? $query['groupex_class'] : 'groupex_table_class';
+    $triggering_element = $form_state->getTriggeringElement();
+    // Reset to day length in any case if date select has been changed.
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'date_select') {
+      $filter_length = 'day';
+    }
     $parameters = [
       'location' => $location,
       'class' => $class,
