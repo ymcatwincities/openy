@@ -1,5 +1,5 @@
-mindbody.settings:
-  title: MindBody Blocks Settings
-  route_name: ymca_mindbody.pt.settings
-  parent: system.admin_config_system
-  description: 'Stores block ids.'
+ymca_mindbody.settings:
+  title: MindBody Settings
+  route_name: ymca_mindbody.settings
+  parent: ymca_alters.admin_config_ymca_services
+  description: 'MindBody service configuration.'
