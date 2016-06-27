@@ -9,3 +9,6 @@ services:
     arguments: ['@state']
     tags:
       - { name: cache.context }
+  ymca_mindbody.request_guard:
+    class: Drupal\ymca_mindbody\YmcaMindbodyRequestGuard
+    arguments: ['@state', '@config.factory']
