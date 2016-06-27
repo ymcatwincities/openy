@@ -19,7 +19,8 @@ class SearchResultsController {
     return [
       '#markup' => $markup,
       '#cache' => [
-        'max-age' => 0,
+        'max-age' => 3600,
+        'contexts' => ['url.query_args'],
       ],
     ];
   }
