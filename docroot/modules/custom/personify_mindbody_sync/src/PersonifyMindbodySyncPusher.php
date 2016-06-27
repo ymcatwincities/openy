@@ -289,7 +289,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           'ClientID' => $order->MasterCustomerId,
           // Without Test "Card Authorization Failed
           // mb.Core.BLL.Transaction failed validation Could not determine
-          // the type of credit card."
+          // the type of credit card.".
           'Test' => TRUE,
           'CartItems' => [
             'CartItem' => [

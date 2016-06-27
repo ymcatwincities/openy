@@ -2,7 +2,6 @@
 
 namespace Drupal\personify_mindbody_sync;
 
-
 /**
  * Class PersonifyMindbodySyncWrapper.
  *

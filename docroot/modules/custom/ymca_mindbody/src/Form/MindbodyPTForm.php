@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 
-
 /**
  * Provides the Personal Training Form.
  *
