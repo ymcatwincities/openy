@@ -90,16 +90,13 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   private function pushClients() {
     /** @var PersonifyMindbodyCache $entity */
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
-      $personifyData = unserialize(
-        $entity->get('field_pmc_data')->getValue()[0]['value']
-      );
+      $user_id = $entity->field_pmc_user_id->value;
+      $personifyData = unserialize($entity->field_pmc_data->value);
       if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
-        $this->clientIds[$entity->get('field_pmc_user_id')->getValue(
-        )[0]['value']] = new \SoapVar(
+        $this->clientIds[$user_id] = new \SoapVar(
           [
-            'NewID' => $entity->get('field_pmc_user_id')->getValue(
-            )[0]['value'],
-            'ID' => $entity->get('field_pmc_user_id')->getValue()[0]['value'],
+            'NewID' => $user_id,
+            'ID' => $user_id,
             'FirstName' => $personifyData->FirstName,
             'LastName' => $personifyData->LastName,
             'Email' => $personifyData->PrimaryEmail,
