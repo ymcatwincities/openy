@@ -1,3 +1,12 @@
+.groupex-form-full {
+  .instructor-chosen {
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-family: "Cachet", Arial, sans-serif;
+    font-weight: bold;
+  }
+}
+
 .groupex-results {
   height: 500px;
   overflow-y: auto;
@@ -19,6 +28,9 @@
         text-align: center;
         font-weight: bold;
         font-family: "Cachet", Arial, sans-serif;
+        a {
+          color: $black2;
+        }
       }
     }
   }
