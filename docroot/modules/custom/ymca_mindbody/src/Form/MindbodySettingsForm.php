@@ -6,41 +6,35 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
 
 /**
- * Provides MindBody block settings form.
+ * Provides MindBody settings form.
  */
-class BlockSettingsForm extends ConfigFormBase {
+class MindbodySettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ymca_mindbody_block_settings';
+    return 'ymca_mindbody_settings';
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['ymca_mindbody.block.settings'];
+    return ['ymca_mindbody.settings'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('ymca_mindbody.block.settings');
+    $config = $this->config('ymca_mindbody.settings');
 
-    $fields = [
-      'disabled_form_block_id' => 'Disabled form Block ID',
-    ];
-
-    foreach ($fields as $field => $title) {
-      $form[$field] = array(
-        '#type' => 'textfield',
-        '#title' => $this->t($title),
-        '#default_value' => !empty($config->get($field)) ? $config->get($field) : '',
-      );
-    }
+    $form['disabled_form_block_id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Disabled form Block ID'),
+      '#default_value' => !empty($config->get('disabled_form_block_id')) ? $config->get('disabled_form_block_id') : '',
+    );
 
     return parent::buildForm($form, $form_state);
   }
@@ -50,7 +44,7 @@ class BlockSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    $this->config('ymca_mindbody.block.settings')
+    $this->config('ymca_mindbody.settings')
       ->set('disabled_form_block_id', $values['disabled_form_block_id'])
       ->save();
 
