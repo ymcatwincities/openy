@@ -27,7 +27,7 @@
 }
 
 #top-nav {
-  background-color: $orange-medium;
+  background-color: $purple-dark;
   height: 72px;
   line-height: 72px;
   padding: 0;
@@ -50,7 +50,7 @@
         font-family: "Cachet", Arial, sans-serif;
 
         &:hover {
-          background-color: $orange-light;
+          background-color: $purple-medium;
           text-decoration: none;
         }
       }
@@ -58,7 +58,7 @@
   }
 
   .back-link {
-    background-color: $orange-light;
+    background-color: $purple-medium;
     color: $white;
     display: inline-block;
     font-size: 16px;
@@ -74,10 +74,61 @@
 }
 
 #hero-section {
-  background: url("../prototypes/ysr/img/hero-bg.jpg") no-repeat center 0;
-  background-size: cover;
+  background-color: #2a193b;
   position: relative;
-  padding: 107px 0 100px;
+  padding: 107px 0 0 0;
+  overflow: hidden;
+  width: 100%;
+  z-index: 2;
+
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.47;
+    background: url("../prototypes/ysr/img/hero-bg.jpg") no-repeat center 0;
+    @include background-size(cover);
+  }
+
+  .shape-container {
+    height: 806px;
+    overflow: hidden;
+    position: absolute;
+    top: 181px;
+    width: 100%;
+    z-index: 2;
+
+    .shape {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-position: top center;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+      @include transition(opacity 0.5s);
+      opacity: 1;
+    }
+    .shape-1 {
+      background-image: url(../prototypes/ysr/img/shape-layer-1.png);
+    }
+    .shape-2 {
+      background-image: url(../prototypes/ysr/img/shape-layer-2.png);
+    }
+    .shape-3 {
+      background-image: url(../prototypes/ysr/img/shape-layer-3.png);
+    }
+  }
+
+  &.shifted-layers {
+    .shape-2 { opacity: 0.5; }
+    .shape-3 { opacity: 0.25; }
+  }
 
   img {
     width: 100%;
@@ -87,23 +138,26 @@
     background: url("../img/march/ymca-white-logo.png") no-repeat 0 0;
     background-size: contain;
     height: 111px;
-    margin: 0 auto 82px;
+    margin: 0 auto 67px;
     width: 145px;
   }
 
   .container {
+    position: relative;
     text-align: center;
     width: 100%;
+    z-index: 3;
   }
 
   h1 {
     color: $white;
-    font-size: 100px;
-    line-height: 100px;
     font-family: "Cachet", Arial, sans-serif;
+    font-size: 100px;
     font-weight: bold;
-    //text-shadow: 2px 2px 7px #000;
-    margin-bottom: 24px;
+    letter-spacing: -1px;
+    line-height: 100px;
+    margin-bottom: 16px;
+    margin-top: 18px;
 
     .gold {
       color: $orange-light;
@@ -123,35 +177,35 @@
 }
 
 
-#main-description {
-  padding: 65px 0;
+//#main-description {
+//  padding: 65px 0;
+//
+//  .col-xs-12 {
+//    text-align: center;
+//    padding: 0 50px;
+//  }
+//
+//  h2 {
+//    color: $orange-medium;
+//    font-size: 25px;
+//    font-weight: bold;
+//    letter-spacing: -0.8px;
+//    margin: 40px 0 15px;
+//    text-transform: uppercase;
+//  }
+//
+//  p {
+//    color: $grey5;
+//    font-family: "Cachet", Arial, sans-serif;
+//    font-size: 20px;
+//    letter-spacing: -0.8px;
+//    line-height: 25px;
+//    margin: 0;
+//  }
+//}
 
-  .col-xs-12 {
-    text-align: center;
-    padding: 0 50px;
-  }
 
-  h2 {
-    color: $orange-medium;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: -0.8px;
-    margin: 40px 0 15px;
-    text-transform: uppercase;
-  }
-
-  p {
-    color: $grey5;
-    font-family: "Cachet", Arial, sans-serif;
-    font-size: 20px;
-    letter-spacing: -0.8px;
-    line-height: 25px;
-    margin: 0;
-  }
-}
-
-
-#main-description,
+//#main-description,
 #main-description-individual {
   .wrap {
     height: 100px;
@@ -164,19 +218,30 @@
 }
 
 #register-and-report {
-  background: url("../prototypes/ysr/img/rainbow.jpg") no-repeat center 0;
-  background-size: cover;
   position: relative;
   overflow: hidden;
+  z-index: 3;
+
+  p {
+    color: $grey8;
+    font-family: "Cachet", Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    margin-top: 40px;
+  }
 
   .btn {
-    width: 100%;
     background-image: none;
+    font-size: 21px;
+    letter-spacing: -0.8px;
     @include box-shadow(none);
+    width: 100%;
 
     &.blue { background-color: $blue-dark; }
+    &.blue-medium { background-color: $blue-medium; }
     &.orange { background-color: $orange-medium; }
     &.orange-light { background-color: $orange-light; }
+    &.purple-medium { background-color: $purple-medium; }
   }
 
   input {
@@ -227,7 +292,7 @@
   .registration {
 
     .registration-form {
-      padding-bottom: 65px;
+      padding-bottom: 40px;
       overflow: hidden;
 
       @media(max-width: 767px) {
@@ -250,7 +315,7 @@
         .access-answer {
           display: block;
           opacity: 1;
-          padding-bottom: 255px;
+          padding-bottom: 310px;
           z-index: 2;
 
           .hand {
@@ -262,6 +327,10 @@
             }
           }
         }
+      }
+
+      p {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
       }
 
       .access-question {
@@ -351,7 +420,7 @@
 
     .slide {
       float: left;
-      padding: 80px 0 70px;
+      padding: 80px 0 0 0;
       position: relative;
       width: 50%;
 
