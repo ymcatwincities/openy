@@ -188,6 +188,27 @@ class DevelSwitchUserTest extends WebTestBase {
     $this->assertSwitchUserListCount(2);
     $this->assertSwitchUserListContainsUser($this->develUser->getUsername());
     $this->assertSwitchUserListContainsUser($anonymous);
+
+    // Ensure that the switch user block works properly even if no prioritized
+    // users are found (special handling for user 1).
+    $this->drupalLogout();
+    $this->develUser->delete();
+
+    $this->drupalLogin($this->rootUser);
+    $this->drupalGet('');
+    $this->assertSwitchUserListCount(2);
+    $this->assertSwitchUserListContainsUser($this->rootUser->getUsername());
+    $this->assertSwitchUserListContainsUser($anonymous);
+
+    // Ensure that the switch user block works properly even if no roles have
+    // the 'switch users' permission associated (special handling for user 1).
+    $roles = user_roles(TRUE, 'switch users');
+    \Drupal::entityTypeManager()->getStorage('user_role')->delete($roles);
+
+    $this->drupalGet('');
+    $this->assertSwitchUserListCount(2);
+    $this->assertSwitchUserListContainsUser($this->rootUser->getUsername());
+    $this->assertSwitchUserListContainsUser($anonymous);
   }
 
   /**
