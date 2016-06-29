@@ -3306,3 +3306,18 @@ function ymca_master_update_8140() {
     ]
   );
 }
+
+/**
+ * Fix permissions for editor and intern.
+ */
+function ymca_master_update_8141() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
