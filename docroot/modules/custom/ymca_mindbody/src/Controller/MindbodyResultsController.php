@@ -3,7 +3,6 @@
 namespace Drupal\ymca_mindbody\Controller;
 
 use Drupal\ymca_mindbody\Form\MindbodyPTForm;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 
 /**
