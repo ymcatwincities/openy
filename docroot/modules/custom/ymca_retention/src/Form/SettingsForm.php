@@ -11,21 +11,21 @@ use Drupal\Core\Form\FormStateInterface;
 class SettingsForm extends ConfigFormBase {
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'ymca_retention_general_settings';
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
     return ['ymca_retention.general_settings'];
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('ymca_retention.general_settings');
@@ -109,7 +109,7 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('dmaps.admin_settings')
