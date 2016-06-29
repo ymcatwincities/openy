@@ -5,9 +5,9 @@ namespace Drupal\ymca_mindbody\Controller;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\ymca_mindbody\Form\MindbodyPTForm;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Controller for "Mindbody results" page.
@@ -26,12 +26,9 @@ class MindbodyResultsController implements ContainerInjectionInterface {
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
-   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
-   *   Mindbody cache proxy.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, array $state = []) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard) {
     $this->proxy = $cache_proxy;
-    $this->state = $state;
     $this->trainingsMapping = $trainings_mapping;
     $this->requestGuard = $request_guard;
   }
