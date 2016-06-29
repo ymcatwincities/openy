@@ -868,7 +868,8 @@ function ymca_preprocess_form_element(&$variables) {
     $variables['attributes']['class'] = 'checked';
   }
   if ($element['#name'] == 'mb_program') {
-    $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/program' . $element['#return_value'] . '.jpg';
+    $program_image_name = \Drupal::service('ymca_mindbody.trainings_mapping')->getProgramImageName($element['#return_value']);
+    $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/' . $program_image_name;
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
@@ -934,15 +935,21 @@ function ymca_preprocess_search_result(&$vars) {
   $search_string = \Drupal\Component\Utility\SafeMarkup::checkPlain($_GET[$index]);
   /** @var \Drupal\node\Entity\Node $node */
   $node = &$vars['result']['node'];
-  /** @var \Drupal\file\Plugin\Field\FieldType\FileFieldItemList $docs */
-  $docs = $node->get('field_schedule_documents');
-  /** @var \Drupal\file\Plugin\Field\FieldType\FileItem $id */
-  foreach ($docs as $id) {
-    similar_text($id->getValue()['description'], $search_string, $p);
-    if ($p > 50) {
-      // Passing schedules sub uri with pdf in a query for covering CSS catch.
-      $vars['url'] = $vars['url'] . '/schedules?pdf';
-      return;
+  /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $docs */
+  $docs = $node->get('field_schedule_block');
+  if ($docs->get(0) !== NULL && !empty($docs->get(0)->getValue()) && $docs->get(0)->getValue()['target_id'] !== NULL) {
+    $files = $docs->get(0)->getValue()['target_id'];
+    /** @var \Drupal\block_content\Entity\BlockContent $schedules */
+    $schedules = \Drupal::entityManager()->getStorage('block_content')->load($files);
+    $docs = $schedules->get('field_schedule_documents');
+    /** @var \Drupal\file\Plugin\Field\FieldType\FileItem $id */
+    foreach ($docs as $id) {
+      similar_text($id->getValue()['description'], $search_string, $p);
+      if ($p > 50) {
+        // Passing schedules sub uri with pdf in a query for covering CSS catch.
+        $vars['url'] = $vars['url'] . '/schedules?pdf';
+        return;
+      }
     }
   }
 }

@@ -1,0 +1,5 @@
+ymca_mindbody.settings:
+  title: MindBody Settings
+  route_name: ymca_mindbody.settings
+  parent: ymca_alters.admin_config_ymca_services
+  description: 'MindBody service configuration.'

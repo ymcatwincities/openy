@@ -113,7 +113,7 @@ class MindbodyCacheHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
-          '_form' => 'Drupal\mindbody_cache_proxy\Form\MindbodyCacheSettingsForm',
+          '_form' => 'Drupal\mindbody_cache_proxy\Form\MindbodyCacheProxySettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
         ->setRequirement('_permission', $entity_type->getAdminPermission())

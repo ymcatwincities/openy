@@ -105,11 +105,31 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $config->get('active_toolbar_items'),
     ];
 
-    $form['ide_link'] = [
+    $form['ide_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('IDE settings'),
+      '#open' => FALSE,
+    ];
+
+    $form['ide_settings']['ide_link'] = [
       '#type' => 'textfield',
       '#title' => $this->t('IDE link'),
       '#description' => $this->t('IDE link for open files.'),
       '#default_value' => $config->get('ide_link'),
+    ];
+
+    $form['ide_settings']['ide_link_remote'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('IDE link remote path'),
+      '#description' => $this->t('The path of the remote docroot. Leave blank if the docroot is on the same machine of the IDE. No trailing slash.'),
+      '#default_value' => $config->get('ide_link_remote'),
+    ];
+
+    $form['ide_settings']['ide_link_local'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('IDE link local path'),
+      '#description' => $this->t('The path of the local docroot. Leave blank if the docroot is on the same machine of IDE. No trailing slash.'),
+      '#default_value' => $config->get('ide_link_local'),
     ];
 
     $form['database'] = [
@@ -177,6 +197,8 @@ class ConfigForm extends ConfigFormBase {
       ->set('exclude', $form_state->getValue('exclude'))
       ->set('active_toolbar_items', $form_state->getValue('active_toolbar_items'))
       ->set('ide_link', $form_state->getValue('ide_link'))
+      ->set('ide_link_remote', $form_state->getValue('ide_link_remote'))
+      ->set('ide_link_local', $form_state->getValue('ide_link_local'))
       ->set('query_sort', $form_state->getValue('query_sort'))
       ->set('query_highlight', $form_state->getValue('query_highlight'))
       ->save();

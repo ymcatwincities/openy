@@ -44,7 +44,6 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
     ],
     'alert_block' => [
       'variables' => [
-        'title' => t('Special Alert'),
         'message' => NULL,
         'inner_attributes' => NULL,
         'show' => FALSE,
@@ -220,14 +219,6 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
           'tags' => ['ymca_cron']
         ],
       );
-
-      if ($entity->hasField('field_global_alert')) {
-        $is_global = $entity->get('field_global_alert');
-        $global_val = $is_global->getValue()[0]['value'];
-        if ($global_val == 1) {
-          $build['alert']['#title'] = t('Global Alert');
-        }
-      }
 
       hide($build['field_block_content']);
       break;
