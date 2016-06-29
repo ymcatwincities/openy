@@ -3286,9 +3286,45 @@ function ymca_master_update_8139() {
 }
 
 /**
- * Install module YMCA retention and Views Rest Feed.
+ * Add Panorama block type and panorama field.
  */
 function ymca_master_update_8140() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block_content.type.panorama_block.yml',
+      $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
+      $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
+      $path . 'field.field.block_content.panorama_block.body.yml',
+      $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
+      $path . 'field.storage.block_content.field_panorama_archive.yml',
+      $path . 'language.content_settings.block_content.panorama_block.yml',
+      $path . 'embed.button.block.yml',
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+    ]
+  );
+}
+
+/**
+ * Fix permissions for editor and intern.
+ */
+function ymca_master_update_8141() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8142() {
   \Drupal::service('module_installer')
     ->install(['views_rest_feed', 'ymca_retention'], TRUE);
 }
