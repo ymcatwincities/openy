@@ -607,6 +607,7 @@ class MindbodyPTForm extends FormBase {
       '#trainer' => $trainer_name,
       '#datetime' => $datetime,
       '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
+      '#start_again_link' => Url::fromRoute('ymca_mindbody.pt'),
       '#base_path' => base_path(),
       '#days' => $days,
     ];
