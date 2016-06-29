@@ -341,6 +341,8 @@ class NodeForm extends ContentEntityForm {
     $store = $this->tempStoreFactory->get('node_preview');
     $this->entity->in_preview = TRUE;
     $store->set($this->entity->uuid(), $form_state);
+    // Avoid destination redirect.
+    \Drupal::request()->query->set('destination', '');
     $form_state->setRedirect('entity.node.preview', array(
       'node_preview' => $this->entity->uuid(),
       'view_mode_id' => 'default',

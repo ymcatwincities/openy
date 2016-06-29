@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Contains gardengnome_player.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function gardengnome_player_theme() {
+  return [
+    'gardengnome_player' => [
+      'variables' => [
+        'package' => FALSE,
+        'preview_style' => 'none',
+        'display_style' => 'inline',
+        'autoplay' => 0,
+        'popup_width' => 400,
+        'popup_height' => 300,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_archiver_info_alter().
+ *
+ * Add <em>*.ggpkg</em> to list of zip-enabled extensions.
+ */
+function gardengnome_player_archiver_info_alter(&$info) {
+  $info['zip']['extensions'][] = 'ggpkg';
+}
+
+/**
+ * Implements hook_file_delete().
+ *
+ * Clean up extracted files if the source file is deleted.
+ */
+function gardengnome_player_file_delete($file) {
+  $extract_path = \Drupal::service('config.factory')
+    ->get('gardengnome_player.settings')
+    ->get('path');
+  $directory = $extract_path . '/' . file_uri_target($file->getFileUri());
+  if (is_dir($directory)) {
+    file_unmanaged_delete_recursive($directory);
+  }
+}
