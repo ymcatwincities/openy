@@ -205,6 +205,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Number of visits.'))
       ->setDefaultValue(0);
 
+    $fields['created_by_staff'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Created by Staff'))
+      ->setDescription(t('Created by Staff'))
+      ->setDefaultValue(FALSE);
+
     return $fields;
   }
 
@@ -314,6 +319,13 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function isMemberEmployee() {
     return $this->get('is_employee')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCreatedByStaff() {
+    return $this->get('created_by_staff')->value;
   }
 
   /**

@@ -58,7 +58,7 @@ class PersonifyApi implements PersonifyApiInterface {
    * @param int $date_to
    *   Date To.
    *
-   * @return array
+   * @return array|\stdClass
    *   Information about Member visits for a period.
    */
   public static function getPersonifyVisitCountByDate($facility_id, $date_from, $date_to) {
