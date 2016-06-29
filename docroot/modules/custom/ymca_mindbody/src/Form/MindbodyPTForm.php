@@ -250,7 +250,7 @@ class MindbodyPTForm extends FormBase {
     // Pre-populate values if so.
     $pre_populated_location = FALSE;
     $query = \Drupal::request()->query->all();
-    if (is_numeric($query['location'])) {
+    if (isset($query['location']) && is_numeric($query['location'])) {
       // For security reasons check if provided value exists in the mapping.
       $mapping_id = \Drupal::entityQuery('mapping')
         ->condition('field_mindbody_id', $query['location'])
