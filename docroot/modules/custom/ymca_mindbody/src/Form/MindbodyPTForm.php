@@ -11,6 +11,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
+use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Provides the Personal Training Form.
@@ -79,13 +80,14 @@ class MindbodyPTForm extends FormBase {
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
    *   Mindbody cache proxy.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, array $state = []) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, QueryFactory $entityQuery, array $state = []) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
     $this->trainingsMapping = $trainings_mapping;
     $this->settings = $this->config('ymca_mindbody.settings');
     $this->requestGuard = $request_guard;
+    $this->entityQuery = $entityQuery;
   }
 
   /**
@@ -108,6 +110,7 @@ class MindbodyPTForm extends FormBase {
       $container->get('mindbody_cache_proxy.client'),
       $container->get('ymca_mindbody.trainings_mapping'),
       $container->get('ymca_mindbody.request_guard'),
+      $container->get('entity.query'),
       $state
     );
   }
@@ -564,7 +567,8 @@ class MindbodyPTForm extends FormBase {
       $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
 
       $telephone = '';
-      $mapping_id = \Drupal::entityQuery('mapping')
+      $mapping_id = $this->entityQuery
+        ->get('mapping')
         ->condition('type', 'location')
         ->condition('field_mindbody_id', $values['location'])
         ->execute();
