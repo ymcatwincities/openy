@@ -12,6 +12,8 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Provides the Personal Training Form.
@@ -78,15 +80,32 @@ class MindbodyPTForm extends FormBase {
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
-   *   Mindbody cache proxy.
+   *   Mindbody training mapping .
+   * @param YmcaMindbodyRequestGuard $request_guard
+   *   Mindbody request guard.
+   * @param QueryFactory $entityQuery
+   *   Query factory.
+   * @param EntityTypeManagerInterface $entityTypeManager
+   *   Entity Type Manager.
+   * @param array $state
+   *   State.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, array $state = []) {
+  public function __construct(
+      MindbodyCacheProxyInterface $cache_proxy,
+      YmcaMindbodyTrainingsMapping $trainings_mapping,
+      YmcaMindbodyRequestGuard $request_guard,
+      QueryFactory $entityQuery,
+      EntityTypeManagerInterface $entityTypeManager,
+      array $state = []
+    ) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
     $this->trainingsMapping = $trainings_mapping;
     $this->settings = $this->config('ymca_mindbody.settings');
     $this->requestGuard = $request_guard;
+    $this->entityQuery = $entityQuery;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -121,6 +140,8 @@ class MindbodyPTForm extends FormBase {
       $container->get('mindbody_cache_proxy.client'),
       $container->get('ymca_mindbody.trainings_mapping'),
       $container->get('ymca_mindbody.request_guard'),
+      $container->get('entity.query'),
+      $container->get('entity_type.manager'),
       $state
     );
   }
@@ -148,9 +169,9 @@ class MindbodyPTForm extends FormBase {
   protected function getDisabledMarkup() {
     $markup = '';
     $block_id = $this->config('ymca_mindbody.settings')->get('disabled_form_block_id');
-    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($block_id);
+    $block = $this->entityTypeManager->getStorage('block_content')->load($block_id);
     if (!is_null($block)) {
-      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+      $view_builder = $this->entityTypeManager->getViewBuilder('block_content');
       $markup .= '<div class="container disabled-form">';
       $markup .= render($view_builder->view($block));
       $markup .= '</div>';
@@ -265,7 +286,8 @@ class MindbodyPTForm extends FormBase {
     $query = \Drupal::request()->query->all();
     if (isset($query['location']) && is_numeric($query['location'])) {
       // For security reasons check if provided value exists in the mapping.
-      $mapping_id = \Drupal::entityQuery('mapping')
+      $mapping_id = $this->entityQuery
+        ->get('mapping')
         ->condition('field_mindbody_id', $query['location'])
         ->execute();
       if (!empty($mapping_id)) {
@@ -276,7 +298,8 @@ class MindbodyPTForm extends FormBase {
     }
     if (isset($query['trainer'])) {
       // For security reasons check if provided value exists in the mapping.
-      $mapping_id = \Drupal::entityQuery('mapping')
+      $mapping_id = $this->entityQuery
+        ->get('mapping')
         ->condition('field_mindbody_trainer_id', $query['trainer'])
         ->execute();
       if (!empty($mapping_id)) {
@@ -586,6 +609,21 @@ class MindbodyPTForm extends FormBase {
     $session_types = $this->getSessionTypes($values['program']);
     $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
 
+    $telephone = '';
+    $mapping_id = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'location')
+      ->condition('field_mindbody_id', $values['location'])
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+      $field_location_ref = $mapping->field_location_ref->getValue();
+      $location_id = isset($field_location_ref[0]['target_id']) ? $field_location_ref[0]['target_id'] : FALSE;
+      if ($location_node = $this->entityTypeManager->getStorage('node')->load($location_id)) {
+        $field_phone = $location_node->field_phone->getValue();
+        $telephone = isset($field_phone[0]['value']) ? $field_phone[0]['value'] : FALSE;
+      }
+    }
     $options = [
       'query' => [
         'step' => 4,
@@ -608,6 +646,7 @@ class MindbodyPTForm extends FormBase {
       '#datetime' => $datetime,
       '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
       '#start_again_link' => Url::fromRoute('ymca_mindbody.pt'),
+      '#telephone' => $telephone,
       '#base_path' => base_path(),
       '#days' => $days,
     ];
