@@ -3306,3 +3306,10 @@ function ymca_master_update_8140() {
     ]
   );
 }
+
+/**
+ * Install ymca_mindbody module.
+ */
+function ymca_master_update_8141() {
+  \Drupal::service('module_installer')->install(['ymca_mindbody'], TRUE);
+}
