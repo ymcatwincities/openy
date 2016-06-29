@@ -20,7 +20,7 @@ class SubNavigation extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $builder = new YMCAMenuBuilder();
+    $builder = \Drupal::service('ymca.menu_builder');
     $active_menu_tree = $builder->getActiveMenuTree();
 
     $menu_name = '';
@@ -42,10 +42,33 @@ class SubNavigation extends BlockBase {
       ],
       '#cache' => [
         'contexts' => [
-          'url'
+          'url.path'
         ],
       ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $cache_tags = parent::getCacheTags();
+
+    // For sub-navigation block we simply define corresponding menu tags.
+    if ($context = \Drupal::service('pagecontext.service')->getContext()) {
+      switch ($context->bundle()) {
+        case 'camp':
+          $cache_tags[] = 'config:system.menu.camps';
+          break;
+
+        case 'location':
+          $cache_tags[] = 'config:system.menu.locations';
+          break;
+
+      }
+    }
+
+    return $cache_tags;
   }
 
 }

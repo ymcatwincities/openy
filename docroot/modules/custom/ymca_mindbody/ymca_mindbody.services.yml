@@ -1,0 +1,14 @@
+services:
+  ymca_mindbody.examples:
+    class: Drupal\ymca_mindbody\YmcaMindbodyExamples
+    arguments: ['@mindbody_cache_proxy.client']
+  ymca_mindbody.trainings_mapping:
+    class: Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping
+  cache_context.mindbody_state:
+    class: Drupal\ymca_mindbody\Cache\Context\MindbodyStateContext
+    arguments: ['@state']
+    tags:
+      - { name: cache.context }
+  ymca_mindbody.request_guard:
+    class: Drupal\ymca_mindbody\YmcaMindbodyRequestGuard
+    arguments: ['@state', '@config.factory']
