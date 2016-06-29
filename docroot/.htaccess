@@ -68,7 +68,7 @@ AddEncoding gzip svgz
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
-  RedirectMatch 301 (.*)/locations/(.*)/schedules/group_exercise_search_results.* $1/locations/$2/schedules
+  RedirectMatch 301 (.*)/locations/(.*)/schedules/group_exercise_search_results.* $1/locations/$2/schedules?
 
   RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC,OR]
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
