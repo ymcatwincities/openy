@@ -91,3 +91,11 @@ widgets:
     weight: 8
     label: 'New Location Schedule Block'
     id: entity_form
+  c8996926-7ac8-45d8-82a7-ce2cca0fb72c:
+    settings:
+      entity_type: block_content
+      bundle: panorama_block
+    uuid: c8996926-7ac8-45d8-82a7-ce2cca0fb72c
+    weight: 8
+    label: 'New Panorama Block'
+    id: entity_form
