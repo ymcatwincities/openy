@@ -407,7 +407,7 @@ function ymca_preprocess_html(&$variables) {
           ];
         }
         // Location itself.
-        elseif ($node->getType()  == 'location') {
+        elseif (isset($node) && $node->getType()  == 'location') {
           $classes = [
             'locations-camps-template',
             'ancestor-locations',
