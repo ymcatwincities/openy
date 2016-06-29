@@ -9,6 +9,7 @@ use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Controller for "Mindbody results" page.
@@ -27,12 +28,27 @@ class MindbodyResultsController implements ContainerInjectionInterface {
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
+   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
+   *   Mindbody training mapping .
+   * @param YmcaMindbodyRequestGuard $request_guard
+   *   Mindbody request guard.
+   * @param QueryFactory $entityQuery
+   *   Query factory.
+   * @param EntityTypeManagerInterface $entityTypeManager
+   *   Entity Type Manager.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, QueryFactory $entityQuery) {
+  public function __construct(
+      MindbodyCacheProxyInterface $cache_proxy,
+      YmcaMindbodyTrainingsMapping $trainings_mapping,
+      YmcaMindbodyRequestGuard $request_guard,
+      QueryFactory $entityQuery,
+      EntityTypeManagerInterface $entityTypeManager
+    ) {
     $this->proxy = $cache_proxy;
     $this->trainingsMapping = $trainings_mapping;
     $this->requestGuard = $request_guard;
     $this->entityQuery = $entityQuery;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -43,7 +59,8 @@ class MindbodyResultsController implements ContainerInjectionInterface {
       $container->get('mindbody_cache_proxy.client'),
       $container->get('ymca_mindbody.trainings_mapping'),
       $container->get('ymca_mindbody.request_guard'),
-      $container->get('entity.query')
+      $container->get('entity.query'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -63,7 +80,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
       'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
     );
 
-    $form = new MindbodyPTForm($this->proxy, $this->trainingsMapping, $this->requestGuard, $this->entityQuery);
+    $form = new MindbodyPTForm($this->proxy, $this->trainingsMapping, $this->requestGuard, $this->entityQuery, $this->entityTypeManager);
     $search_results = $form->getSearchResults($values);
 
     return [
