@@ -25,9 +25,12 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function __construct() {
     $container = \Drupal::getContainer();
-    $this->proxy = $container->get('mindbody_cache_proxy.client');
-    $this->trainingsMapping = $container->get('ymca_mindbody.trainings_mapping');
-    $this->requestGuard = $container->get('ymca_mindbody.request_guard');
+    $this->moduleHandler = $container->get('module_handler');
+    if ($this->moduleHandler->moduleExists('ymca_mindbody')) {
+      $this->proxy = $container->get('mindbody_cache_proxy.client');
+      $this->trainingsMapping = $container->get('ymca_mindbody.trainings_mapping');
+      $this->requestGuard = $container->get('ymca_mindbody.request_guard');
+    }
     $this->entityQuery = $container->get('entity.query');
     $this->entityTypeManager = $container->get('entity_type.manager');
   }
