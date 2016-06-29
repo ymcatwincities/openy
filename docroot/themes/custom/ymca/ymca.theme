@@ -76,6 +76,7 @@ function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables
  * Implements hook_theme_HOOK_alter().
  */
 function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $query = \Drupal::request()->query->all();
   $route_name = \Drupal::routeMatch()->getRouteName();
   $node = \Drupal::routeMatch()->getParameter('node');
   if (!empty($node) || $node = \Drupal::routeMatch()->getParameter('node_preview')) {
@@ -111,6 +112,11 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
       } else {
         array_push($suggestions, 'page__node__camp');
       }
+    }
+  }
+  if (isset($query['location']) && is_numeric($query['location'])) {
+    if (in_array($route_name, ['ymca_mindbody.pt', 'ymca_mindbody.pt.results'])) {
+      array_push($suggestions, 'page__node__location_inner');
     }
   }
 }
@@ -392,7 +398,7 @@ function ymca_preprocess_html(&$variables) {
 
       case 'location':
         // Locations News & Events page.
-        if ($current_route_name == 'ymca_blog_listing.news_events_page_controller') {
+        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results'))) {
           $classes = [
             'internal-template',
             'ancestor-locations',
