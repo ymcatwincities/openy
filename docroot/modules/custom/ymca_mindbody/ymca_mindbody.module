@@ -24,6 +24,7 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
         'datetime' => '',
         'back_link' => '',
         'base_path' => '',
+        'telephone' => '',
         'days' => [],
       ],
       'template' => 'mindbody-results-content',

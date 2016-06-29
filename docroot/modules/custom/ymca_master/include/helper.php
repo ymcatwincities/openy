@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Include various helper functions.
