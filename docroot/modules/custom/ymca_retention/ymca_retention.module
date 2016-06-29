@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains specific features related to the functionality provided by module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form['#id'] == 'views-exposed-form-ymca-members-ymca-members-list') {
+    $form['mail']['#attributes']['placeholder'] = t('Email');
+    $date = new \DateTime();
+    $date->setTime(0, 0, 0);
+    $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+    $date->add(new \DateInterval('P1D'));
+    $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+  }
+}
