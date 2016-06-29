@@ -3308,8 +3308,23 @@ function ymca_master_update_8140() {
 }
 
 /**
- * Install ymca_mindbody module.
+ * Fix permissions for editor and intern.
  */
 function ymca_master_update_8141() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * Install ymca_mindbody module.
+ */
+function ymca_master_update_8142() {
   \Drupal::service('module_installer')->install(['ymca_mindbody'], TRUE);
 }
