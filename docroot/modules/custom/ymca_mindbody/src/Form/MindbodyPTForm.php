@@ -9,7 +9,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 
 /**
  * Provides the Personal Training Form.
@@ -17,6 +19,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ingroup ymca_mindbody
  */
 class MindbodyPTForm extends FormBase {
+
+  /**
+   * Default value for start time on PT form.
+   */
+  const DEFAULT_START_TIME = 6;
+
+  /**
+   * Default value for end time on PT form.
+   */
+  const DEFAULT_END_TIME = 23;
 
   /**
    * Mindbody Proxy.
@@ -33,22 +45,48 @@ class MindbodyPTForm extends FormBase {
   protected $credentials;
 
   /**
-   * State.
+   * State storage.
    *
    * @var array
    */
-  protected $state;
+  protected $stateStorage;
+
+  /**
+   * Training mapping service.
+   *
+   * @var YmcaMindbodyTrainingsMapping
+   */
+  protected $trainingsMapping;
+
+  /**
+   * Ymca Mindbody settings.
+   *
+   * @var ImmutableConfig
+   */
+  protected $settings;
+
+  /**
+   * Mindbody request guard.
+   *
+   * @var YmcaMindbodyRequestGuard
+   */
+  protected $requestGuard;
 
   /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
    *   Mindbody cache proxy.
+   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
+   *   Mindbody cache proxy.
    */
-  public function __construct(MindbodyCacheProxyInterface $cache_proxy, array $state = []) {
+  public function __construct(MindbodyCacheProxyInterface $cache_proxy, YmcaMindbodyTrainingsMapping $trainings_mapping, YmcaMindbodyRequestGuard $request_guard, array $state = []) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->state = $state;
+    $this->trainingsMapping = $trainings_mapping;
+    $this->settings = $this->config('ymca_mindbody.settings');
+    $this->requestGuard = $request_guard;
   }
 
   /**
@@ -79,7 +117,45 @@ class MindbodyPTForm extends FormBase {
       $state['step'] = 3;
     }
 
-    return new static($container->get('mindbody_cache_proxy.client'), $state);
+    return new static(
+      $container->get('mindbody_cache_proxy.client'),
+      $container->get('ymca_mindbody.trainings_mapping'),
+      $container->get('ymca_mindbody.request_guard'),
+      $state
+    );
+  }
+
+  /**
+   * Check if the form has to be disabled.
+   */
+  private function isDisabled() {
+    // Check whether the form was disabled by administrator.
+    if ($this->settings->get('pt_form_disabled')) {
+      return TRUE;
+    }
+
+    // Disable form if we exceed max requests to MindBody API.
+    if (!$this->requestGuard->status()) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Provides markup for disabled form.
+   */
+  protected function getDisabledMarkup() {
+    $markup = '';
+    $block_id = $this->config('ymca_mindbody.settings')->get('disabled_form_block_id');
+    $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($block_id);
+    if (!is_null($block)) {
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+      $markup .= '<div class="container disabled-form">';
+      $markup .= render($view_builder->view($block));
+      $markup .= '</div>';
+    }
+    return $markup;
   }
 
   /**
@@ -90,12 +166,15 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
-   * Helper method rendering header markup
+   * Helper method rendering header markup.
    *
    * @return string
    *   Header HTML-markup.
    */
-  protected function getElementHeaderMarkup($type, $text) {
+  protected function getElementHeaderMarkup($type, $text, $disabled = FALSE) {
+    $classes = 'header-row';
+    $disabled ? $classes .= ' disabled' : '';
+
     switch ($type) {
       case 'location':
         $icon = 'location2';
@@ -117,7 +196,7 @@ class MindbodyPTForm extends FormBase {
         $id = 'trainer-wrapper';
         break;
     }
-    $markup = '<div class="header-row"><div class="container">';
+    $markup = '<div class="' . $classes . '"><div class="container">';
     $markup .= '<span class="icon icon-' . $icon . '"></span>';
     $markup .= '<span class="choice">' . $text . '</span>';
     $markup .= '<a href="#' . $id . '" class="change"><span class="icon icon-cog"></span>' . $this->t('Change') . '</a>';
@@ -181,6 +260,30 @@ class MindbodyPTForm extends FormBase {
       }
     }
 
+    // Pre-populate values if so.
+    $pre_populated_location = FALSE;
+    $query = \Drupal::request()->query->all();
+    if (isset($query['location']) && is_numeric($query['location'])) {
+      // For security reasons check if provided value exists in the mapping.
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('field_mindbody_id', $query['location'])
+        ->execute();
+      if (!empty($mapping_id)) {
+        $values['mb_location'] = $query['location'];
+        $pre_populated_location = TRUE;
+        !isset($values['step']) ? $values['step'] = 2 : '';
+      }
+    }
+    if (isset($query['trainer'])) {
+      // For security reasons check if provided value exists in the mapping.
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('field_mindbody_trainer_id', $query['trainer'])
+        ->execute();
+      if (!empty($mapping_id)) {
+        $values['mb_trainer'] = $query['trainer'];
+      }
+    }
+
     if (!isset($values['step'])) {
       $values['step'] = 1;
     }
@@ -190,8 +293,31 @@ class MindbodyPTForm extends FormBase {
       '#value' => $values['step'],
     ];
 
+    // Vary on the listed query args.
+    $form['#cache'] = [
+      // Remove max-age when mindbody tags invalidation is done.
+      'max-age' => 0,
+      'contexts' => [
+        'mindbody_state',
+        'url.query_args:step',
+        'url.query_args:mb_location',
+        'url.query_args:mb_program',
+        'url.query_args:mb_session_type',
+        'url.query_args:mb_trainer',
+        'url.query_args:mb_start_date',
+        'url.query_args:mb_end_date',
+        'url.query_args:mb_start_time',
+        'url.query_args:mb_end_time',
+      ],
+    ];
+
     $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
     $form['#suffix'] = '</div>';
+
+    if ($this->isDisabled()) {
+      $form['disable'] = ['#markup' => $this->getDisabledMarkup()];
+      return $form;
+    }
 
     $location_options = $this->getLocations();
     $form['mb_location'] = array(
@@ -217,7 +343,7 @@ class MindbodyPTForm extends FormBase {
 
     if ($values['step'] >= 2) {
       $form['mb_location_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']]),
+        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']], $pre_populated_location),
         '#weight' => 1,
       );
       $program_options = $this->getPrograms();
@@ -320,7 +446,7 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => $this->t('Time range'),
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : 6,
+        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : $this::DEFAULT_START_TIME,
         '#suffix' => '<span class="dash">—</span>',
         '#weight' => 9,
       ];
@@ -328,7 +454,7 @@ class MindbodyPTForm extends FormBase {
         '#type' => 'select',
         '#title' => '',
         '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : 9,
+        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : $this::DEFAULT_END_TIME,
         '#weight' => 9,
       ];
       $form['mb_date']['mb_start_date'] = [
@@ -357,21 +483,6 @@ class MindbodyPTForm extends FormBase {
       );
     }
 
-    // Vary on the listed query args.
-    $form['#cache'] = [
-      'contexts' => [
-        'url.query_args:step',
-        'url.query_args:mb_location',
-        'url.query_args:mb_program',
-        'url.query_args:mb_session_type',
-        'url.query_args:mb_trainer',
-        'url.query_args:mb_start_date',
-        'url.query_args:mb_end_date',
-        'url.query_args:mb_start_time',
-        'url.query_args:mb_end_time',
-      ],
-    ];
-
     return $form;
   }
 
@@ -385,11 +496,11 @@ class MindbodyPTForm extends FormBase {
   /**
    * Retrieves search results by given filters.
    *
-   * @param array $values.
+   * @param array $values
    *   Array of filters.
    *
-   * @return array
-   *   Renderable array of results.
+   * @return mixed
+   *   Renderable array of results or NULL.
    */
   public function getSearchResults(array $values) {
     if (!isset($values['location'], $values['program'], $values['session_type'], $values['trainer'], $values['start_date'], $values['end_date'])) {
@@ -578,7 +689,10 @@ class MindbodyPTForm extends FormBase {
 
     $program_options = [];
     foreach ($programs->GetProgramsResult->Programs->Program as $program) {
-      $program_options[$program->ID] = $program->Name;
+      if (!$this->trainingsMapping->programIsActive($program->ID)) {
+        continue;
+      }
+      $program_options[$program->ID] = $this->trainingsMapping->getProgramLabel($program->ID, $program->Name);
     }
 
     return $program_options;
@@ -601,7 +715,10 @@ class MindbodyPTForm extends FormBase {
 
     $session_type_options = [];
     foreach ($session_types->GetSessionTypesResult->SessionTypes->SessionType as $type) {
-      $session_type_options[$type->ID] = $type->Name;
+      if (!$this->trainingsMapping->sessionTypeIsActive($type->ID)) {
+        continue;
+      }
+      $session_type_options[$type->ID] = $this->trainingsMapping->getSessionTypeLabel($type->ID, $type->Name);
     }
 
     return $session_type_options;
