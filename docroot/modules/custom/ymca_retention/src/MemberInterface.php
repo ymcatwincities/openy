@@ -142,6 +142,14 @@ interface MemberInterface extends ContentEntityInterface {
   public function isMemberEmployee();
 
   /**
+   * Return status, is user created by staff.
+   *
+   * @return bool
+   *   Status.
+   */
+  public function isCreatedByStaff();
+
+  /**
    * Returns user visit goal.
    *
    * @return int
