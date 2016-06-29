@@ -15,7 +15,6 @@ class PageContextService {
    */
   public function __construct() {
     $container = \Drupal::getContainer();
-    $this->proxy = $container->get('mindbody_cache_proxy.client');
     $this->entityQuery = $container->get('entity.query');
     $this->entityTypeManager = $container->get('entity_type.manager');
     $this->currentRouteMatch = $container->get('current_route_match');
