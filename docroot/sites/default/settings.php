@@ -703,23 +703,22 @@ $config_directories["staging"] = 'sites/default/config/staging';
 
 // Default DB credentials.
 if (file_exists('/var/www/site-php')) {
- require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
+  require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
 }
 
 // Legacy DB credentials.
 if (file_exists('/var/www/site-php')) {
- require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
+  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
 }
 $settings["install_profile"] = "pp";
 
-
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
- ini_set('memory_limit', '256M');
- if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
-  ini_set('memory_limit', '2048M');
- }
+  ini_set('memory_limit', '256M');
+  if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
+    ini_set('memory_limit', '2048M');
+  }
 }
 if (function_exists('drush_main')) {
- ini_set('memory_limit', '2048M');
+  ini_set('memory_limit', '2048M');
 }
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
