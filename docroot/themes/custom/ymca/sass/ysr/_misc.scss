@@ -60,6 +60,7 @@
         display: inline-block;
         padding: 0 25px;
         font-family: "Cachet", Arial, sans-serif;
+        @include transition(background-color 0.2s);
 
         &:hover {
           background-color: $purple-medium;
@@ -138,8 +139,14 @@
     color: $white;
     display: inline-block;
     font-size: 16px;
-    padding: 0 30px;
     margin-top: 0;
+    padding: 0 30px;
+    @include transition(background-color 0.5s);
+
+    &:hover {
+      background-color: $purple-medium-lighter;
+      text-decoration: none;
+    }
 
     .glyphicon {
       font-size: 12px;
@@ -275,36 +282,6 @@
   }
 }
 
-
-//#main-description {
-//  padding: 65px 0;
-//
-//  .col-xs-12 {
-//    text-align: center;
-//    padding: 0 50px;
-//  }
-//
-//  h2 {
-//    color: $orange-medium;
-//    font-size: 25px;
-//    font-weight: bold;
-//    letter-spacing: -0.8px;
-//    margin: 40px 0 15px;
-//    text-transform: uppercase;
-//  }
-//
-//  p {
-//    color: $grey5;
-//    font-family: "Cachet", Arial, sans-serif;
-//    font-size: 20px;
-//    letter-spacing: -0.8px;
-//    line-height: 25px;
-//    margin: 0;
-//  }
-//}
-
-
-//#main-description,
 #main-description-individual {
   .wrap {
     height: 100px;
@@ -334,14 +311,45 @@
     font-size: 21px;
     letter-spacing: -0.8px;
     line-height: 23px;
-    @include box-shadow(none);
     width: 100%;
+    @include box-shadow(none);
+    @include transition(background-color 0.5s);
 
-    &.blue { background-color: $blue-dark; }
-    &.blue-medium { background-color: $blue-medium; }
-    &.orange { background-color: $orange-medium; }
-    &.orange-light { background-color: $orange-light; }
-    &.purple-medium { background-color: $purple-medium; }
+    &.blue {
+      background-color: $blue-dark;
+
+      &:hover {
+        background-color: $blue-dark-lighter;
+      }
+    }
+    &.blue-medium {
+      background-color: $blue-medium;
+
+      &:hover {
+        background-color: $blue-medium-lighter;
+      }
+    }
+    &.orange {
+      background-color: $orange-medium;
+
+      &:hover {
+        background-color: $orange-medium-lighter;
+      }
+    }
+    &.orange-light {
+      background-color: $orange-light;
+
+      &:hover {
+        background-color: $orange-light-lighter;
+      }
+    }
+    &.purple-medium {
+      background-color: $purple-medium;
+
+      &:hover {
+        background-color: $purple-medium-lighter;
+      }
+    }
   }
 
   input {
@@ -392,6 +400,14 @@
   .register-or-report {
     height: 338px;
 
+    .buttons {
+      @media screen and (min-width: 768px) {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
     .track-activity-btn {
       justify-content: space-between;
       //text-align: justify;
@@ -414,11 +430,13 @@
   .registration {
 
     .registration-form {
-      padding-bottom: 40px;
+      padding-bottom: 35px;
       overflow: hidden;
 
-      @media(max-width: 767px) {
-        padding-bottom: 35px;
+      @media screen and (min-width: 768px) {
+        margin: auto;
+        max-width: 900px;
+        padding-bottom: 40px;
       }
     }
 
@@ -532,6 +550,15 @@
       @media(max-width: 767px) {
         height: 101px;
       }
+
+    }
+
+    .report-form {
+      @media screen and (min-width: 768px) {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 900px;
+      }
     }
 
   }
@@ -553,13 +580,15 @@
   }
 }
 
-
 #leaderboard {
+  padding-top: 50px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 100px;
+  }
 
   .col-xs-12 {
     text-align: center;
-    // TODO: figure out why these 50px are required.
-    padding: 100px 50px;
   }
 
   .wrap {
@@ -833,6 +862,12 @@
   height: 50px;
 }
 
+.results-table-wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+  position: relative;
+}
+
 .results-table {
   margin-bottom: 30px;
   margin-left: auto;
@@ -840,6 +875,21 @@
   margin-top: 60px;
   max-width: 850px;
   width: 100%;
+
+  @media screen and (max-width: 767px) {
+    //margin: 60px -15px 30px -15px;
+    //width: auto;
+  }
+
+  td, th {
+
+    &.member-id {
+
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
+    }
+  }
 
   thead {
     th {
@@ -850,18 +900,52 @@
       text-align: center;
       text-transform: uppercase;
       vertical-align: top;
-      padding-bottom: 30px;
+      padding-bottom: 20px;
+
+      @media screen and (min-width: 768px) {
+        padding-bottom: 30px;
+      }
 
       &:first-child {
         font-size: 20px;
         text-align: left;
         vertical-align: middle;
+        padding-left: 15px;
+
+        @media screen and (min-width: 768px) {
+          padding-left: 0;
+        }
       }
 
       a {
         color: inherit;
 
         &.sort-link {
+          display: block;
+          position: relative;
+
+          &.active, &:hover {
+            text-decoration: none;
+
+            &.swimming { color: $blue-light; }
+            &.fitness { color: $orange-light; }
+            &.group-exercise { color: $orange-medium; }
+            &.visits { color: $purple-light; }
+
+            &:after {
+              content: "⌄";
+              display: block;
+              font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+              font-size: 25px;
+              font-weight: bold;
+              left: 50%;
+              margin-left: -6.5px;
+              margin-top: 63px;
+              top: 0;
+              position: absolute;
+            }
+          }
+
           &:before {
             background-size: contain;
             content: " ";
@@ -891,38 +975,63 @@
   tbody {
 
     tr {
-      td:nth-child(1) {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
+
+      .member-id {
         font-size: 13px;
+        color: $grey5;
+        font-weight: normal;
       }
-      td:nth-child(3) {
-        font-size: 13px;
-      }
-      td:nth-child(1),
-      td:nth-child(2),
-      td:nth-child(3) {
-        padding-left: 30px;
-      }
-      td:nth-child(2),
-      td:nth-child(3) {
+      .name, .member-id {
         font-family: "Cachet", Arial, sans-serif;
       }
-      td:nth-child(4),
-      td:nth-child(5),
-      td:nth-child(6),
-      td:nth-child(7) {
-        color: $pale-purple-2;
-        font-weight: bold;
-        text-align: center;
-        width: 100px;
-      }
 
-      td:last-child {
-        color: $purple-light;
+      td {
+        vertical-align: top;
+
+        @media screen and (min-width: 768px) {
+          vertical-align: middle;
+        }
+
+        &.number {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 13px;
+        }
+
+        &.number, &.name, &.member-id {
+          padding-left: 15px;
+
+          @media screen and (min-width: 768px) {
+            padding-left: 30px;
+          }
+        }
+
+        &.name {
+          .member-id {
+            display: block;
+
+            @media screen and (min-width: 768px) {
+              display: none;
+            }
+          }
+        }
+
+        &.activity-count {
+          color: $pale-purple-2;
+          font-weight: bold;
+          text-align: center;
+          width: 100px;
+        }
+
+        &:last-child {
+          color: $purple-light;
+        }
       }
 
       &:first-child {
         border-top: solid 1px #f3f3f3;
+      }
+      &:last-child {
+        border-bottom: solid 1px #f3f3f3;
       }
 
       &:nth-child(1),
@@ -931,18 +1040,24 @@
         background-color: #fcfcfc;
 
         td {
-          &:nth-child(1) {
+          &.number {
             color: $orange-light;
             font-weight: bold;
           }
-          &:nth-child(2) {
+          &.name {
             color: $orange-medium;
-          }
-          &:nth-child(3) {
-            color: $grey5;
           }
         }
       }
+
+      &:nth-child(3), &:last-child {
+        td { padding-bottom: 38px;}
+      }
+      &:nth-child(1), &:nth-child(4) {
+        td { padding-top: 38px;}
+      }
+
+
     }
 
     td {
@@ -957,7 +1072,6 @@
 
       &:first-child {
         color: #424242;
-        //width: 10%;
       }
 
       &.name {
@@ -965,7 +1079,6 @@
         font-weight: bold;
         font-size: 15px;
         text-transform: uppercase;
-        //width: 60%;
       }
     }
 
