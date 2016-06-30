@@ -2,7 +2,6 @@
 
 namespace Drupal\ymca_breadcrumb;
 
-use Drupal\ymca_mindbody\Form\MindbodyPTForm;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
 use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -10,6 +9,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Class YMCAMindbodyBreadcrumbBuilder.
@@ -21,18 +22,25 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   use LinkGeneratorTrait;
 
   /**
+   * Query Factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
+   * Entity Type Manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * YMCAMindbodyBreadcrumbBuilder constructor.
    */
-  public function __construct() {
-    $container = \Drupal::getContainer();
-    $this->moduleHandler = $container->get('module_handler');
-    if ($this->moduleHandler->moduleExists('ymca_mindbody')) {
-      $this->proxy = $container->get('mindbody_cache_proxy.client');
-      $this->trainingsMapping = $container->get('ymca_mindbody.trainings_mapping');
-      $this->requestGuard = $container->get('ymca_mindbody.request_guard');
-    }
-    $this->entityQuery = $container->get('entity.query');
-    $this->entityTypeManager = $container->get('entity_type.manager');
+  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager) {
+    $this->entityQuery = $entityQuery;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -86,18 +94,6 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
               $trainer_name_safe = str_replace(' ', '_', $trainer_name_safe);
               $breadcrumb->addLink(Link::fromTextAndUrl($trainer_name, Url::fromUri('internal:' . $node_uri . '/health__fitness/personal_training/' . $trainer_name_safe)));
             }
-          }
-        }
-        if ($route_match->getRouteName() == 'ymca_mindbody.pt.results') {
-          if (isset($query['trainer']) && $query['trainer'] !== 'all') {
-            $form = new MindbodyPTForm($this->proxy, $this->trainingsMapping, $this->requestGuard, $this->entityQuery, $this->entityTypeManager);
-            $trainers = $form->getTrainers($query['session_type'], $query['location']);
-            $trainer_name = isset($trainers[$query['trainer']]) ? $trainers[$query['trainer']] : '';
-            $trainer_name_safe = strtolower($trainer_name);
-            $trainer_name_safe = str_replace(' ', '_', $trainer_name_safe);
-            $breadcrumb->addLink(Link::fromTextAndUrl($trainer_name, Url::fromUri('internal:' . $node_uri . '/health__fitness/personal_training/' . $trainer_name_safe)));
-            $url = Url::fromRoute('ymca_mindbody.pt')->toString();
-            $breadcrumb->addLink(Link::fromTextAndUrl($this->t('Book Personal Training'), Url::fromUri('internal:' . $url, ['query' => ['location' => $query['location']]])));
           }
         }
         $breadcrumb->addCacheContexts(['url.query_args']);
