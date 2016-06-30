@@ -1,0 +1,47 @@
+# Route name can be used in several place (links, redirects, local actions etc.)
+entity.ymca_retention_member.canonical:
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the member entity
+    _entity_view: 'ymca_retention_member'
+    _title: 'YMCA Retention: Member List'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'ymca_retention_member.view'
+
+entity.ymca_retention_member.collection:
+  path: '/admin/config/ymca-entities/ymca-retention-member/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the member entity.
+    _entity_list: 'ymca_retention_member'
+    _title: 'YMCA Retention: Member List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view member entity'
+
+entity.ymca_retention_member.add:
+  path: '/admin/config/ymca-entities/ymca-retention-member/add'
+  defaults:
+  # Calls the form.add controller, defined in the member entity.
+    _entity_form: ymca_retention_member.add
+    _title: 'Add YMCA Member'
+  requirements:
+    _entity_create_access: 'ymca_retention_member'
+
+entity.ymca_retention_member.edit_form:
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the member entity.
+    _entity_form: ymca_retention_member.edit
+    _title: 'Edit YMCA Member'
+  requirements:
+    _entity_access: 'ymca_retention_member.edit'
+
+entity.ymca_retention_member.delete_form:
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the member entity.
+    _entity_form: ymca_retention_member.delete
+    _title: 'Delete YMCA Member'
+  requirements:
+    _entity_access: 'ymca_retention_member.delete'
