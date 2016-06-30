@@ -11,6 +11,8 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\ymca_page_context\PageContextService;
 
 /**
  * Class YMCAMindbodyBreadcrumbBuilder.
@@ -36,11 +38,27 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   protected $entityTypeManager;
 
   /**
+   * Request.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * Page Context.
+   *
+   * @var \Drupal\ymca_page_context\PageContextService
+   */
+  protected $pagecontextService;
+
+  /**
    * YMCAMindbodyBreadcrumbBuilder constructor.
    */
-  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, PageContextService $pagecontextService) {
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
+    $this->request = $requestStack;
+    $this->pagecontextService = $pagecontextService;
   }
 
   /**
@@ -69,8 +87,8 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-    if ($site_context = \Drupal::service('pagecontext.service')->getContext()) {
-      $query = \Drupal::request()->query->all();
+    if ($site_context = $this->pagecontextService->getContext()) {
+      $query = $this->request->getCurrentRequest()->query->all();
       if (isset($query['location']) && is_numeric($query['location'])) {
         $node_uri = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $site_context->id());
         $breadcrumb->addLink(Link::createFromRoute($this->t('Home'), '<front>'));
