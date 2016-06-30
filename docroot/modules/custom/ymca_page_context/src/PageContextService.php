@@ -6,6 +6,8 @@ use Drupal\node\Entity\Node;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+
 
 /**
  * Controls in what context page header should be rendered.
@@ -35,12 +37,20 @@ class PageContextService {
   protected $currentRouteMatch;
 
   /**
+   * Request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a new PageContextService.
    */
-  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $currentRouteMatch) {
+  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $currentRouteMatch, RequestStack $requestStack) {
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
     $this->currentRouteMatch = $currentRouteMatch;
+    $this->request = $requestStack;
     $this->context = NULL;
   }
 
@@ -61,7 +71,7 @@ class PageContextService {
    *   An instance of \Drupal\node\Entity\Node or null.
    */
   public function getContext() {
-    $query = \Drupal::request()->query->all();
+    $query = $this->request->getCurrentRequest()->query->all();
     $node = $this->currentRouteMatch->getParameter('node');
     if ($this->currentRouteMatch->getRouteName() == 'entity.node.preview') {
       $node = $this->currentRouteMatch->getParameter('node_preview');
