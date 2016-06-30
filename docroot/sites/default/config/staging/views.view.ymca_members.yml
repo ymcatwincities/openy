@@ -8,7 +8,7 @@ dependencies:
     - views_rest_feed
     - ymca_retention
 _core:
-  default_config_hash: _vjNvqIc6hIBCD6XeQk-6NwE68tpaLADWHZD5qre9o4
+  default_config_hash: jxB-IV9xHRTMFAtaAhB1hKYgrHTgESZEytqDJZCVaO8
 id: ymca_members
 label: 'YMCA Retention Campaign Members'
 module: views
