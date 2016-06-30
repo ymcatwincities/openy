@@ -78,7 +78,11 @@ AddEncoding gzip svgz
 
   # 301 --- _asset/n3yx68/doc.pdf => sites/default/files/doc.pdf
   RewriteRule ^/?_asset/.*/(.*)\.pdf$ /sites/default/files/$1.pdf [L,R=301]
-  
+
+# 301 --- http://openymca.org/ => http://www.ymcamn.org/OpenY
+RewriteCond %{HTTP_HOST} ^openymca\.org$
+RewriteRule ^$ http://www.ymcamn.org/OpenY? [L,R=301]
+
 # 301 --- http://andoverymca.org => http://www.ymcamn.org/locations/andover_ymca_community_center
 RewriteCond %{HTTP_HOST} ^andoverymca\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/andover_ymca_community_center? [L,R=301]
@@ -420,6 +424,10 @@ RewriteCond %{HTTP_HOST} ^ysportssouthdale\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
 
 # ==============
+# 301 --- http://www.openymca.org/ => http://www.ymcamn.org/OpenY
+RewriteCond %{HTTP_HOST} ^www\.openymca\.org$
+RewriteRule ^$ http://www.ymcamn.org/OpenY? [L,R=301]
+
 # 301 --- http://www.andoverymca.org => http://www.ymcamn.org/locations/andover_ymca_community_center
 RewriteCond %{HTTP_HOST} ^www\.andoverymca\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/andover_ymca_community_center? [L,R=301]
