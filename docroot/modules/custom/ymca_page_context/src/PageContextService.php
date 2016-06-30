@@ -6,6 +6,7 @@ use Drupal\node\Entity\Node;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Controls in what context page header should be rendered.
  */
