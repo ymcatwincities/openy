@@ -3322,6 +3322,7 @@ function ymca_master_update_8141() {
  * Install module YMCA retention and Views Rest Feed.
  */
 function ymca_master_update_8142() {
+  drupal_flush_all_caches();
   \Drupal::service('module_installer')->install([
     'views_rest_feed',
     'ymca_retention',
