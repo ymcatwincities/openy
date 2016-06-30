@@ -15,12 +15,10 @@ dependencies:
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
-    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
-    - file
     - text
     - user
 id: node.location.default
@@ -113,12 +111,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_schedule_documents:
-    weight: 13
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: file_default
   field_working_hours:
     weight: 11
     label: above
