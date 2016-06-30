@@ -1,0 +1,11 @@
+uuid: 7e267126-05b8-4206-abb8-5f7a970fca1b
+langcode: en
+status: true
+dependencies: {  }
+id: open_yp
+label: 'Open Y'
+use_admin_theme: false
+path: /openy
+access_logic: and
+access_conditions: {  }
+parameters: {  }
