@@ -35,14 +35,14 @@
           <div class="group-by-date">
             <div class="row">
             {% for key, trainer in day.trainers %}
-            <div class="col-sm-3">
+            <div class="col-sm-6 col-md-3">
               <div class="name">{{ key }}</div>
               {% if trainer.0.is_available %}
                 <div class="available">{{ 'Is Available:'|t }}</div>
               {% endif %}
               <div class="slots">
                 {% for key, slots in trainer %}
-                <div class="slot"><a href="{{ slots.href }}"><span class="icon icon-clock"></span>{{ slots.slot }}</a></div>
+                <div class="slot"><span class="icon icon-clock"></span>{{ slots.slot }}</div>
                 {% endfor %}
               </div>
             </div>
