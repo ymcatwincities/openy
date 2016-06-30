@@ -712,8 +712,9 @@ if (file_exists('/var/www/site-php')) {
 }
 $settings["install_profile"] = "pp";
 
+
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  ini_set('memory_limit', '256M');
+ini_set('memory_limit', '256M');
   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
     ini_set('memory_limit', '2048M');
   }
