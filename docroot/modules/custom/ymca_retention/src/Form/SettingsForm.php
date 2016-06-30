@@ -112,7 +112,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('dmaps.admin_settings')
+    $this->config('ymca_retention.general_settings')
       ->set('date_registration_open', $form_state->getValue('date_registration_open'))
       ->set('date_registration_close', $form_state->getValue('date_registration_close'))
       ->set('date_reporting_open', $form_state->getValue('date_reporting_open'))

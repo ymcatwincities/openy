@@ -6,7 +6,7 @@ namespace Drupal\ymca_retention;
 /**
  * Helper for Personify API requests needed for retention campaign.
  */
-class PersonifyApi implements PersonifyApiInterface {
+class PersonifyApi {
 
   /**
    * Get information about member by its facility access ID.
