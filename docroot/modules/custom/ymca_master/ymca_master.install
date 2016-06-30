@@ -3320,6 +3320,7 @@ function ymca_master_update_8141() {
       $path . 'user.role.intern.yml',
     ]
   );
+}
 
 /**
  * Install module YMCA retention and Views Rest Feed.

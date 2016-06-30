@@ -154,9 +154,9 @@
           </button>
           <ul class="ysr-menu collapse">
             <li><a href="#register-and-report">Registration</a></li>
-            <li><a href="#register-and-report">Report my activities</a></li>
+            <li><a href="#register-and-report">Track My Activities</a></li>
             <li><a href="#leaderboard">Leaderboard</a></li>
-            <li><a href="#rules">Detailed Rules</a></li>
+            <li><a href="#rules">Prizes/Rules Details</a></li>
           </ul>
         </nav>
         <!-- HERO SECTION -->
@@ -176,11 +176,13 @@
             <div id="register-or-report" class="slide register-or-report">
               <div class="container">
                 <div class="row">
-                  <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-                    <a href="#registration" class="btn btn-lg btn-primary blue slide-controller">Register</a>
-                  </div>
-                  <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-                    <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">Track Activity</a>
+                  <div class="buttons">
+                    <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
+                      <a href="#registration" class="btn btn-lg btn-primary blue slide-controller">Register</a>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
+                      <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">Track Activity</a>
+                    </div>
                   </div>
                 </div>
                 <div class="row">
@@ -201,10 +203,10 @@
                       <a href="#register-or-report" class="icon-back slide-controller"></a>
                     </div>
                     <div class="col-xs-10 col-xs-push-1 col-sm-4 col-sm-push-1">
-                      <input type="text" name="email" placeholder="Your e-mail">
+                      <input type="text" name="email" placeholder="Your e-mail" class="email">
                     </div>
                     <div class="col-xs-10 col-xs-push-1 col-sm-3 col-sm-push-1">
-                      <input type="text" name="email" placeholder="Your facility access ID">
+                      <input type="text" name="facility-access-id" placeholder="Your facility access ID" class="facility-access-id">
                     </div>
                     <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-1">
                       <input type="submit" value="Register" class="btn btn-lg btn-primary blue-medium" />
@@ -238,7 +240,7 @@
                       <a href="#register-or-report" class="icon-back slide-controller"></a>
                     </div>
                     <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
-                      <input type="text" name="email" placeholder="Your e-mail">
+                      <input type="text" name="email" placeholder="Your e-mail" class="email">
                     </div>
                     <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
                       <input type="submit" value="OK" class="btn btn-lg btn-primary purple-medium" />
@@ -273,101 +275,127 @@
                   </select>
                 </form>
 
-                <table class="results-table">
+                <div class="results-table-wrapper">
+                  <table class="results-table">
                   <thead>
                     <tr>
-                      <th colspan="3">Sort by:</th>
+                      <th colspan="2">Sort by:</th>
+                      <th class="member-id"></th>
                       <th><a href="#" class="sort-link swimming">Swimming</a></th>
                       <th><a href="#" class="sort-link fitness">Fitness</a></th>
                       <th><a href="#" class="sort-link group-exercise">Group Exercises</a></th>
-                      <th><a href="#" class="sort-link visits">Visits</a></th>
+                      <th><a href="#" class="sort-link visits active">Visits</a></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1<small>st</small></td>
-                      <td class="name">Cristina V.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">1<small>st</small></td>
+                      <td class="name">
+                        Cristina V.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">16</td>
                     </tr>
                     <tr>
-                      <td>2<small>nd</small></td>
-                      <td class="name">Jaime F.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">2<small>nd</small></td>
+                      <td class="name">
+                        Jaime F.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">16</td>
                     </tr>
                     <tr>
-                      <td>3<small>rd</small></td>
-                      <td class="name">Richard R.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">3<small>rd</small></td>
+                      <td class="name">
+                        Richard R.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">16</td>
                     </tr>
 
                     <tr>
-                      <td>4.</td>
-                      <td class="name">Cristina V.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">4.</td>
+                      <td class="name">
+                        Cristina V.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">16</td>
                     </tr>
                     <tr>
-                      <td>5.</td>
-                      <td class="name">Jaime F.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">5.</td>
+                      <td class="name">Jaime F.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">15</td>
                     </tr>
                     <tr>
-                      <td>6.</td>
-                      <td class="name">Richard R.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">6.</td>
+                      <td class="name">Richard R.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">14</td>
                     </tr>
                     <tr>
-                      <td>7.</td>
-                      <td class="name">Cristina V.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">7.</td>
+                      <td class="name">
+                        Cristina V.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">13</td>
                     </tr>
                     <tr>
-                      <td>8.</td>
-                      <td class="name">Jaime F.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">8.</td>
+                      <td class="name">Jaime F.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">13</td>
                     </tr>
                     <tr>
-                      <td>9.</td>
-                      <td class="name">Richard R.</td>
-                      <td>ID: ******** 0902</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>14</td>
-                      <td>16</td>
+                      <td class="number">9.</td>
+                      <td class="name">Richard R.
+                        <span class="member-id">ID: ******** 0902</span>
+                      </td>
+                      <td class="member-id">ID: ******** 0902</td>
+                      <td class="activity-count">12</td>
+                      <td class="activity-count">13</td>
+                      <td class="activity-count">14</td>
+                      <td class="activity-count">12</td>
                     </tr>
                   </tbody>
                 </table>
+                </div>
 
                 <div class="pager">
                   <a href="#" class="load-more">+ Show 20 more</a>
@@ -589,6 +617,8 @@
   <script src="../../../../../core/assets/vendor/domready/ready.min.js?v=1.0.8"></script>
   <script src="../../../../../core/assets/vendor/jquery/jquery.min.js?v=2.1.4"></script>
   <script src="../../../../../core/assets/vendor/jquery-once/jquery.once.min.js?v=2.1.1"></script>
+  <!-- Move to module libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
   <script src="../../../../../core/misc/drupalSettingsLoader.js?v=8.1.2"></script>
   <script src="../../../../../core/misc/drupal.js?v=8.1.2"></script>
   <script src="../../../../../libraries/equalize/js/equalize.min.js?v=8.1.2"></script>
@@ -641,7 +671,6 @@
           jQuery('#register-and-report', context).once('register-reports-slides').each(function () {
             var self = jQuery(this);
             var hero = self.parent();
-            console.log(hero);
             var slides_container = jQuery(this);
             var slides = jQuery(this).find('.slide');
 
@@ -654,11 +683,11 @@
               target_slide.removeClass('slide-inactive');
               var animate_value = '-50%';
               if (id == '#register-or-report') {
-                animate_value = 0;
+                animate_value = '0%';
                 hero.removeClass('shifted-layers');
               }
               else {
-                target_slide.slideDown();
+                target_slide.css({height: 'auto', display: 'block'});
                 hero.addClass('shifted-layers');
               }
               var active_slide = jQuery('.slide-active', slides_container);
@@ -668,6 +697,7 @@
                   .removeClass('open');
               }
 
+              hero.scrollLeft(0);
               slides.animate({left: animate_value}, function () {
                 if (id == '#register-or-report') {
                   active_slide
@@ -676,7 +706,17 @@
                 }
                 else {
                   target_slide.addClass('slide-active');
+                  switch (id) {
+                    case '#report':
+                      jQuery('#report .email', self).focus();
+                      break;
+
+                    case '#registration':
+                      jQuery('#registration .facility-access-id', self).focus();
+                      break;
+                  }
                 }
+
               });
 
               return false;
@@ -695,6 +735,7 @@
           jQuery('.ysr-menu', context).once('mobile-menu').each(function () {
             var $menu = jQuery(this);
             jQuery('a', $menu).bind('click', function () {
+              jQuery.scrollTo(jQuery(this).attr('href'), 800);
               $menu.removeClass('in').addClass('collapsing');
               // WTF?
               setTimeout(function() {
@@ -703,6 +744,7 @@
               setTimeout(function() {
                 $menu.removeClass('collapsing').addClass('collapse');
               }, 500);
+              return false;
             });
           });
         }
