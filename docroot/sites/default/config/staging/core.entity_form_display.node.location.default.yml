@@ -15,13 +15,11 @@ dependencies:
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
-    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
     - entity_browser
-    - file_browser
     - inline_entity_form
     - path
     - telephone
@@ -135,18 +133,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_schedule_documents:
-    weight: 17
-    settings:
-      entity_browser: browse_files_modal
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      view_mode: default
-      field_widget_display: ''
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: file_browser
   field_working_hours:
     weight: 15
     settings:
