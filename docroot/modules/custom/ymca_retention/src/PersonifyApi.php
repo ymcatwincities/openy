@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention;
 
+// @todo This is a temporary class, which should be modified, when branch "yptf-mvp-2" will be merged.
 /**
  * Helper for Personify API requests needed for retention campaign.
  */
