@@ -13,6 +13,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\ymca_page_context\PageContextService;
+use Drupal\Core\Path\AliasManager;
 
 /**
  * Class YMCAMindbodyBreadcrumbBuilder.
@@ -38,7 +39,7 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   protected $entityTypeManager;
 
   /**
-   * Request.
+   * Request stack.
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
@@ -52,13 +53,21 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   protected $pagecontextService;
 
   /**
+   * Path Alias Manager.
+   *
+   * @var \Drupal\Core\Path\AliasManager
+   */
+  protected $aliasManager;
+
+  /**
    * YMCAMindbodyBreadcrumbBuilder constructor.
    */
-  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, PageContextService $pagecontextService) {
+  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, PageContextService $pagecontextService, AliasManager $aliasManager) {
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
     $this->request = $requestStack;
     $this->pagecontextService = $pagecontextService;
+    $this->aliasManager = $aliasManager;
   }
 
   /**
@@ -90,7 +99,7 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     if ($site_context = $this->pagecontextService->getContext()) {
       $query = $this->request->getCurrentRequest()->query->all();
       if (isset($query['location']) && is_numeric($query['location'])) {
-        $node_uri = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $site_context->id());
+        $node_uri = $this->aliasManager->getAliasByPath('/node/' . $site_context->id());
         $breadcrumb->addLink(Link::createFromRoute($this->t('Home'), '<front>'));
         $breadcrumb->addLink(Link::createFromRoute($this->t('Locations'), 'ymca_frontend.locations'));
         $breadcrumb->addLink(Link::fromTextAndUrl($site_context->getTitle(), Url::fromUri('internal:' . $node_uri)));

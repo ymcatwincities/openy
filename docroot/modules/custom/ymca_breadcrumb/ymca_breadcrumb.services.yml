@@ -18,6 +18,6 @@ services:
       - { name: breadcrumb_builder, priority: 5000 }
   ymca_breadcrumb.personal_training:
     class: Drupal\ymca_breadcrumb\YMCAMindbodyBreadcrumbBuilder
-    arguments: ['@entity.query', '@entity_type.manager', '@request_stack', '@pagecontext.service']
+    arguments: ['@entity.query', '@entity_type.manager', '@request_stack', '@pagecontext.service', '@path.alias_manager']
     tags:
       - { name: breadcrumb_builder, priority: 5000 }
