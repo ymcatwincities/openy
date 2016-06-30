@@ -879,6 +879,10 @@ function ymca_preprocess_form_element(&$variables) {
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
+  if ($element['#name'] == 'mb_session_type') {
+    $variables['title'] = $element['#title'];
+    $variables['id'] = $element['#id'];
+  }
   $variables['element'] = $element;
 }
 
