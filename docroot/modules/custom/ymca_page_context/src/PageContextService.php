@@ -3,7 +3,9 @@
 namespace Drupal\ymca_page_context;
 
 use Drupal\node\Entity\Node;
-
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Controls in what context page header should be rendered.
  */
@@ -11,13 +13,33 @@ class PageContextService {
   private $context;
 
   /**
+   * Query Factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
+   * Entity Type Manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $currentRouteMatch;
+
+  /**
    * Constructs a new PageContextService.
    */
-  public function __construct() {
-    $container = \Drupal::getContainer();
-    $this->entityQuery = $container->get('entity.query');
-    $this->entityTypeManager = $container->get('entity_type.manager');
-    $this->currentRouteMatch = $container->get('current_route_match');
+  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $currentRouteMatch) {
+    $this->entityQuery = $entityQuery;
+    $this->entityTypeManager = $entityTypeManager;
+    $this->currentRouteMatch = $currentRouteMatch;
     $this->context = NULL;
   }
 
