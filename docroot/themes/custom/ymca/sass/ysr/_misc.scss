@@ -9,12 +9,12 @@
 }
 
 #sidebar {
-  margin-top: 33px;
   border-right: 0;
 }
 
 .viewport {
   background: #fff;
+  padding-top: 0;
 }
 
 #main {
@@ -31,28 +31,104 @@
   height: 72px;
   line-height: 72px;
   padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 
   ul {
     float: right;
+    height: auto !important;
     list-style-image: none;
     list-style-type: none;
     margin: 0;
     padding-right: 30px;
 
+    &.collapse {
+      @media screen and (min-width: 768px) {
+        display: block;
+      }
+    }
+
     li {
       display: inline-block;
+      line-height: 71px;
 
       a {
         color: #fff;
         font-size: 18px;
         display: inline-block;
-        padding: 0 29px;
+        padding: 0 25px;
         font-family: "Cachet", Arial, sans-serif;
 
         &:hover {
           background-color: $purple-medium;
           text-decoration: none;
         }
+
+        @media screen and (max-width: 860px) and (min-width: 768px) {
+          font-size: 15px;
+          padding: 0 5px;
+        }
+        @media screen and (max-width: 1024px) and (min-width: 861px) {
+          font-size: 17px;
+          padding: 0 8px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      background-color: $purple-dark;
+      padding: 0;
+      position: absolute;
+      width: 80%;
+
+      li {
+        display: block;
+
+        a {
+          display: block;
+        }
+      }
+
+      &.open {
+        left: 20%;
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 767px) {
+    .navbar-toggle {
+      float: right;
+      margin-bottom: 18px;
+      margin-top: 18px;
+
+      .icon-bar {
+        height: 4px;
+        border-radius: 4px;
+        background: $pale-purple;
+      }
+
+      &:hover {
+        background: $pale-purple;
+
+        .icon-bar {
+          background: $purple-dark;
+        }
+      }
+    }
+
+    .ysr-menu {
+      left: 20%;
+      @include transition(left 0.5s);
+
+      &.collapsing {
+        left: 100%;
+      }
+
+      &.collapse {
+        //display: block;
       }
     }
   }
@@ -63,6 +139,7 @@
     display: inline-block;
     font-size: 16px;
     padding: 0 30px;
+    margin-top: 0;
 
     .glyphicon {
       font-size: 12px;
@@ -80,6 +157,7 @@
   overflow: hidden;
   width: 100%;
   z-index: 2;
+  margin-top: 72px;
 
   &:before {
     content: ' ';
@@ -93,6 +171,10 @@
     opacity: 0.47;
     background: url("../prototypes/ysr/img/hero-bg.jpg") no-repeat center 0;
     @include background-size(cover);
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-top: 57px;
   }
 
   .shape-container {
@@ -127,7 +209,7 @@
 
   &.shifted-layers {
     .shape-2 { opacity: 0.5; }
-    .shape-3 { opacity: 0.25; }
+    .shape-3 { opacity: 0.5; }
   }
 
   img {
@@ -135,11 +217,15 @@
   }
 
   .logo {
-    background: url("../img/march/ymca-white-logo.png") no-repeat 0 0;
+    background: url("../img/march/ymca-white-logo.png") no-repeat center top;
     background-size: contain;
     height: 111px;
     margin: 0 auto 67px;
-    width: 145px;
+
+    @media(max-width: 767px) {
+      height: 72px;
+      margin: 0 auto 40px;
+    }
   }
 
   .container {
@@ -162,6 +248,13 @@
     .gold {
       color: $orange-light;
     }
+
+    @media(max-width: 767px) {
+      font-size: 50px;
+      letter-spacing: -0.3px;
+      line-height: 50px;
+      margin-top: 12px;
+    }
   }
 
   .date {
@@ -173,6 +266,12 @@
     text-transform: uppercase;
     //font-weight: bold;
     //text-shadow: 2px 2px 7px #000;
+
+    @media(max-width: 767px) {
+      font-size: 25px;
+      line-height: 25px;
+      letter-spacing: -0.6px;
+    }
   }
 }
 
@@ -234,6 +333,7 @@
     background-image: none;
     font-size: 21px;
     letter-spacing: -0.8px;
+    line-height: 23px;
     @include box-shadow(none);
     width: 100%;
 
@@ -286,6 +386,28 @@
 
     @media(max-width: 767px) {
       height: 161px;
+    }
+  }
+
+  .register-or-report {
+    height: 338px;
+
+    .track-activity-btn {
+      justify-content: space-between;
+      //text-align: justify;
+
+      @media(max-width: 370px) {
+        letter-spacing: -2.5px;
+      }
+      @media(max-width: 440px) {
+        letter-spacing: -2px;
+      }
+      @media(min-width: 768px) and (max-width: 825px) {
+        letter-spacing: -2.5px;
+      }
+      @media(min-width: 826px) and (max-width: 880px) {
+        letter-spacing: -1.5px;
+      }
     }
   }
 
@@ -450,7 +572,7 @@
   }
 
   h2 {
-    color: $orange-medium;
+    color: $purple-light;
     font-size: 25px;
     font-weight: bold;
     letter-spacing: -0.8px;
@@ -465,6 +587,18 @@
   #leaderboard-location {
     max-width: 380px;
     margin: auto;
+  }
+
+  .pager {
+    .load-more {
+      color: $purple-light;
+      font-family: "Cachet", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: -0.8px;
+      margin: auto;
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -701,30 +835,143 @@
 
 .results-table {
   margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  max-width: 850px;
   width: 100%;
 
-  td {
-    color: #777;
-    font-size: 13px;
-    line-height: 20px;
-    padding: 15px 5px;
-
-    &:first-child {
-      color: #424242;
-      width: 10%;
-    }
-
-    &.name {
-      color: #00aa95;
-      font-weight: bold;
-      font-size: 15px;
+  thead {
+    th {
+      color: $grey4;
+      font-family: "Cachet", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: normal;
+      text-align: center;
       text-transform: uppercase;
-      width: 60%;
+      vertical-align: top;
+      padding-bottom: 30px;
+
+      &:first-child {
+        font-size: 20px;
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      a {
+        color: inherit;
+
+        &.sort-link {
+          &:before {
+            background-size: contain;
+            content: " ";
+            display: block;
+            height: 31px;
+            margin: auto;
+            position: relative;
+            width: 35px;
+          }
+          &.swimming:before {
+            background-image: url("../prototypes/ysr/img/l-swimming.png");
+          }
+          &.fitness:before {
+            background-image: url("../prototypes/ysr/img/l-fitness.png");
+          }
+          &.group-exercise:before {
+            background-image: url("../prototypes/ysr/img/l-group-exercise.png");
+          }
+          &.visits:before {
+            background-image: url("../prototypes/ysr/img/l-visits.png");
+          }
+        }
+      }
     }
   }
 
-  .even td {
-    background-color: #f9f9f9;
+  tbody {
+
+    tr {
+      td:nth-child(1) {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+      }
+      td:nth-child(3) {
+        font-size: 13px;
+      }
+      td:nth-child(1),
+      td:nth-child(2),
+      td:nth-child(3) {
+        padding-left: 30px;
+      }
+      td:nth-child(2),
+      td:nth-child(3) {
+        font-family: "Cachet", Arial, sans-serif;
+      }
+      td:nth-child(4),
+      td:nth-child(5),
+      td:nth-child(6),
+      td:nth-child(7) {
+        color: $pale-purple-2;
+        font-weight: bold;
+        text-align: center;
+        width: 100px;
+      }
+
+      td:last-child {
+        color: $purple-light;
+      }
+
+      &:first-child {
+        border-top: solid 1px #f3f3f3;
+      }
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        background-color: #fcfcfc;
+
+        td {
+          &:nth-child(1) {
+            color: $orange-light;
+            font-weight: bold;
+          }
+          &:nth-child(2) {
+            color: $orange-medium;
+          }
+          &:nth-child(3) {
+            color: $grey5;
+          }
+        }
+      }
+    }
+
+    td {
+      color: #777;
+      font-family: "Calibri", Tahoma;
+      font-size: 15px;
+      line-height: 20px;
+      padding: 15px 5px;
+      text-align: left;
+      white-space: nowrap;
+
+
+      &:first-child {
+        color: #424242;
+        //width: 10%;
+      }
+
+      &.name {
+        color: #00aa95;
+        font-weight: bold;
+        font-size: 15px;
+        text-transform: uppercase;
+        //width: 60%;
+      }
+    }
+
+    .even td {
+      background-color: #f9f9f9;
+    }
   }
 }
 
@@ -745,23 +992,7 @@
   color: #0889cd;
 }
 
-@media screen and (max-width: 768px) {
-  .nav-global.navbar-default.navbar {
-    display: block;
-  }
-
-  #top-nav {
-    display: none;
-  }
-
-  #hero-section .date {
-    font-size: 30px;
-  }
-
-  #hero-section h1 {
-    font-size: 40px;
-    margin-top: 20px;
-  }
+@media screen and (max-width: 767px) {
 
   #main-description {
     padding: 30px 0;
