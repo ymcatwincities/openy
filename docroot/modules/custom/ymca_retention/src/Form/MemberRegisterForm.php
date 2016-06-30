@@ -124,7 +124,7 @@ class MemberRegisterForm extends FormBase {
       $total_visits = $current_result->TotalVisits;
     }
     // Identify is user an employee or not.
-    $is_employee = !empty($current_result->ProductCode) && $current_result->ProductCode == 'Staff';
+    $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
     // Create a new entity.
     /** @var Member $entity */
