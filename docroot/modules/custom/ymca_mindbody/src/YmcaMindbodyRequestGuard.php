@@ -97,15 +97,15 @@ class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface, Con
       'mb_trainer' => 0,
     ];
 
-    if (!$this->validateLocation($criteria['mb_location'])) {
+    if ($criteria['mb_location'] && !$this->validateLocation($criteria['mb_location'])) {
       return FALSE;
     }
 
-    if (!$this->validateProgram($criteria['mb_program'])) {
+    if ($criteria['mb_program'] && !$this->validateProgram($criteria['mb_program'])) {
       return FALSE;
     }
 
-    if (!$this->validateSessionType($criteria['mb_session_type'], $criteria['mb_program'])) {
+    if ($criteria['mb_session_type'] && !$this->validateSessionType($criteria['mb_session_type'], $criteria['mb_program'])) {
       return FALSE;
     }
 
