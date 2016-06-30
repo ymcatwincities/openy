@@ -24,3 +24,4 @@ permissions:
   23: 'dropzone upload files'
   24: 'create blog content'
   25: 'edit any blog content'
+  26: 'administer pages'
