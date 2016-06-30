@@ -256,6 +256,13 @@
         right: 0;
         top: 0;
         padding: 0 25px 0 45px;
+        .label-wrapper {
+          span {
+            line-height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
       }
 
     }

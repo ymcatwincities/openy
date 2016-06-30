@@ -8187,6 +8187,11 @@ p.legend {
   top: 0;
   padding: 0 25px 0 45px;
 }
+#mindbody-pt-form-wrapper .form-item-mb-session-type .inner label .label-wrapper span {
+  line-height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
 #mindbody-pt-form-wrapper .form-item-mb-session-type.checked .inner {
   background-color: #c6188b;
   border-color: #c6188b;
