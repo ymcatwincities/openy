@@ -1,0 +1,21 @@
+uuid: 97845b55-2129-471a-b61b-47d0103b509a
+langcode: en
+status: true
+dependencies:
+  module:
+    - mindbody_cache_proxy
+_core:
+  default_config_hash: lTYDDRJHOb-UPPQoz1a-tL_bhYf8URfGyB8deUWVBTE
+id: mindbody_cache.field_mindbody_cache_data
+field_name: field_mindbody_cache_data
+entity_type: mindbody_cache
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

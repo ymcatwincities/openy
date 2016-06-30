@@ -16,11 +16,9 @@ dependencies:
     - field.field.node.location.field_promo_slideshow
     - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
-    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
-    - file
     - text
     - user
 id: node.location.schedules
@@ -42,12 +40,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_schedule_documents:
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: file_default
 hidden:
   field_alert: true
   field_content: true
