@@ -57,11 +57,10 @@ class MemberRegisterForm extends FormBase {
     $mail = $form_state->getValue('mail');
     $membership_id = $form_state->getValue('membership_id');
     $query = \Drupal::entityQuery('ymca_retention_member')
-      ->condition('mail', $mail)
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('mail', $this->t('The email address %value with this facility access ID is already registered. Please sign in.', [
+      $form_state->setErrorByName('mail', $this->t('The facility access ID is already registered. Please sign in.', [
         '%value' => $mail,
       ]));
       return;
@@ -72,7 +71,8 @@ class MemberRegisterForm extends FormBase {
       $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should be numeric'));
     }
     // Number of digits.
-    if (strlen($membership_id) != 10 && strlen($membership_id) != 12) {
+    $length = strlen($membership_id);
+    if ($length != 10 && $length != 12) {
       $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should contain either 10 or 12 digits'));
     }
     // If there are some error, then continue and do not do request to Personify.
@@ -111,7 +111,8 @@ class MemberRegisterForm extends FormBase {
     $goal = $settings->get('default_goal_number');
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $percent = $settings->get('goal_percentage');
-      $goal = ceil($past_result->TotalVisits + ($past_result->TotalVisits * $percent));
+      $calculated_goal = ceil($past_result->TotalVisits + ($past_result->TotalVisits * $percent));
+      $goal = $calculated_goal > $goal ? $goal : $calculated_goal;
     }
 
     // Get information about number of checkins in period of campaign.

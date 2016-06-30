@@ -54,7 +54,7 @@ ymca_retention.enroll_success_page:
   requirements:
     _permission: 'access content'
 
-# @todo this is a test url.
+# @todo remove this test url when registration form will be added to the page with URL.
 ymca_retention.membership_setid:
   path: '/membership/registration'
   defaults:
