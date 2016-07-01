@@ -206,9 +206,6 @@
         @media screen and (min-width: 87.5rem) {
           height: 83rem;
         }
-        @media screen and (min-width: 120rem) {
-          height: 110rem;
-        }
 
         &:before {
           content: ' ';
@@ -228,6 +225,11 @@
           max-width: none;
           position: relative;
           @include transform(translateX(-50%));
+
+          @media screen and (min-width: 120rem) {
+            height: auto;
+            width: 100%;
+          }
         }
       }
 
@@ -261,7 +263,7 @@
         line-height: 4rem;
         text-transform: uppercase;
 
-        @media screen and (min-width: 76.8rem) {
+        @media screen and (min-width: 48rem) {
           line-height: 6rem;
         }
       }
@@ -269,14 +271,14 @@
       .slider-item__title {
         font-size: 3rem;
 
-        @media screen and (min-width: 76.8rem) {
+        @media screen and (min-width: 48rem) {
           font-size: 3.5rem;
         }
       }
 
       .slider-item__highlight {
         font-size: 4rem;
-        @media screen and (min-width: 76.8rem) {
+        @media screen and (min-width: 48rem) {
           font-size: 5rem;
         }
       }
