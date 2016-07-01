@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides the Personal Training Form.
@@ -74,6 +75,13 @@ class MindbodyPTForm extends FormBase {
   protected $requestGuard;
 
   /**
+   * Request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
@@ -86,6 +94,8 @@ class MindbodyPTForm extends FormBase {
    *   Query factory.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity Type Manager.
+   * @param RequestStack $requestStack
+   *   Request Stack.
    * @param array $state
    *   State.
    */
@@ -95,6 +105,7 @@ class MindbodyPTForm extends FormBase {
       YmcaMindbodyRequestGuard $request_guard,
       QueryFactory $entityQuery,
       EntityTypeManagerInterface $entityTypeManager,
+      RequestStack $requestStack,
       array $state = []
     ) {
     $this->proxy = $cache_proxy;
@@ -105,6 +116,7 @@ class MindbodyPTForm extends FormBase {
     $this->requestGuard = $request_guard;
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
+    $this->request = $requestStack;
   }
 
   /**
@@ -129,6 +141,7 @@ class MindbodyPTForm extends FormBase {
       $container->get('ymca_mindbody.request_guard'),
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
+      $container->get('request_stack'),
       $state
     );
   }
@@ -270,7 +283,7 @@ class MindbodyPTForm extends FormBase {
 
     // Pre-populate values if so.
     $pre_populated_location = FALSE;
-    $query = \Drupal::request()->query->all();
+    $query = $this->request->getCurrentRequest()->query->all();
     if (isset($query['location']) && is_numeric($query['location'])) {
       // For security reasons check if provided value exists in the mapping.
       $mapping_id = $this->entityQuery
@@ -283,7 +296,9 @@ class MindbodyPTForm extends FormBase {
         !isset($values['step']) ? $values['step'] = 2 : '';
       }
     }
+    $mb_trainer_access = TRUE;
     if (isset($query['trainer'])) {
+      $mb_trainer_access = FALSE;
       // For security reasons check if provided value exists in the mapping.
       $mapping_id = $this->entityQuery
         ->get('mapping')
@@ -412,6 +427,7 @@ class MindbodyPTForm extends FormBase {
       $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
 
       $form['mb_trainer'] = array(
+        '#access' => $mb_trainer_access,
         '#type' => 'select',
         '#title' => $this->t('Trainer'),
         '#options' => $trainer_options,
@@ -548,19 +564,21 @@ class MindbodyPTForm extends FormBase {
 
       $days = [];
       // Group results by date and trainer.
-      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-        // Additionally filter results by time.
-        $start_time = date('G', strtotime($bookable_item->StartDateTime));
-        $end_time = date('G', strtotime($bookable_item->EndDateTime));
-        if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
-          $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-            'is_available' => TRUE,
-            'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
-            // To Do: Add bookable link.
-            'href' => '#',
-          ];
+      if (!empty($bookable->GetBookableItemsResult->ScheduleItems)) {
+        foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+          // Additionally filter results by time.
+          $start_time = date('G', strtotime($bookable_item->StartDateTime));
+          $end_time = date('G', strtotime($bookable_item->EndDateTime));
+          if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+            $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
+            $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+              'is_available' => TRUE,
+              'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
+              // To Do: Add bookable link.
+              'href' => '#',
+            ];
+          }
         }
       }
 
@@ -568,8 +586,18 @@ class MindbodyPTForm extends FormBase {
         $trainer_name = $this->t('all trainers');
       }
       else {
-        $trainers = $this->getTrainers($values['session_type'], $values['location']);
-        $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
+        $mapping_id = $this->entityQuery
+          ->get('mapping')
+          ->condition('type', 'trainer')
+          ->condition('field_mindbody_trainer_id', $values['trainer'])
+          ->execute();
+        $mapping_id = reset($mapping_id);
+        if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+          $name = explode(', ', $mapping->getName());
+          if (isset($name[0]) && isset($name[0])) {
+            $trainer_name = $name[1] . ' ' . $name[0];
+          }
+        }
       }
 
       $time_options = $this->getTimeOptions();
@@ -645,7 +673,11 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $query = $this->request->getCurrentRequest()->query->all();
     $values = $form_state->getUserInput();
+    if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
+      $values['mb_trainer'] = $query['trainer'];
+    }
     if (!empty($values['mb_location']) &&
       !empty($values['mb_program']) &&
       !empty($values['mb_session_type']) &&
