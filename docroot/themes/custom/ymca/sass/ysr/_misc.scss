@@ -381,42 +381,6 @@
     width: 100%;
     @include box-shadow(none);
     @include transition(background-color 0.5s);
-
-    //&.blue {
-    //  background-color: $blue-dark;
-    //
-    //  &:hover {
-    //    background-color: $blue-dark-lighter;
-    //  }
-    //}
-    //&.blue-medium {
-    //  background-color: $blue-medium;
-    //
-    //  &:hover {
-    //    background-color: $blue-medium-lighter;
-    //  }
-    //}
-    //&.orange {
-    //  background-color: $orange-medium;
-    //
-    //  &:hover {
-    //    background-color: $orange-medium-lighter;
-    //  }
-    //}
-    //&.orange-light {
-    //  background-color: $orange-light;
-    //
-    //  &:hover {
-    //    background-color: $orange-light-lighter;
-    //  }
-    //}
-    //&.purple-medium {
-    //  background-color: $purple-medium;
-    //
-    //  &:hover {
-    //    background-color: $purple-medium-lighter;
-    //  }
-    //}
   }
 
   input {
@@ -1203,9 +1167,6 @@
     margin-bottom: 0;
   }
 }
-
-
-//
 
 select.form-control.default {
   font-style: italic;
