@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides the Personal Training Form.
@@ -74,6 +75,13 @@ class MindbodyPTForm extends FormBase {
   protected $requestGuard;
 
   /**
+   * Request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
@@ -86,6 +94,8 @@ class MindbodyPTForm extends FormBase {
    *   Query factory.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity Type Manager.
+   * @param RequestStack $requestStack
+   *   Request Stack.
    * @param array $state
    *   State.
    */
@@ -95,6 +105,7 @@ class MindbodyPTForm extends FormBase {
       YmcaMindbodyRequestGuard $request_guard,
       QueryFactory $entityQuery,
       EntityTypeManagerInterface $entityTypeManager,
+      RequestStack $requestStack,
       array $state = []
     ) {
     $this->proxy = $cache_proxy;
@@ -105,6 +116,7 @@ class MindbodyPTForm extends FormBase {
     $this->requestGuard = $request_guard;
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
+    $this->request = $requestStack;
   }
 
   /**
@@ -129,6 +141,7 @@ class MindbodyPTForm extends FormBase {
       $container->get('ymca_mindbody.request_guard'),
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
+      $container->get('request_stack'),
       $state
     );
   }
@@ -270,7 +283,7 @@ class MindbodyPTForm extends FormBase {
 
     // Pre-populate values if so.
     $pre_populated_location = FALSE;
-    $query = \Drupal::request()->query->all();
+    $query = $this->request->getCurrentRequest()->query->all();
     if (isset($query['location']) && is_numeric($query['location'])) {
       // For security reasons check if provided value exists in the mapping.
       $mapping_id = $this->entityQuery
@@ -660,7 +673,7 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $query = \Drupal::request()->query->all();
+    $query = $this->request->getCurrentRequest()->query->all();
     $values = $form_state->getUserInput();
     if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
       $values['mb_trainer'] = $query['trainer'];
