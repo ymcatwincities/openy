@@ -162,6 +162,54 @@
 
 }
 
+.btn {
+  @include box-shadow(none);
+  @include transition(background-color 0.5s);
+
+  &.blue {
+    background-color: $blue-dark;
+
+    &:hover {
+      background-color: $blue-dark-lighter;
+    }
+  }
+  &.blue-medium {
+    background-color: $blue-medium;
+
+    &:hover {
+      background-color: $blue-medium-lighter;
+    }
+  }
+  &.orange {
+    background-color: $orange-medium;
+
+    &:hover {
+      background-color: $orange-medium-lighter;
+    }
+  }
+  &.orange-light {
+    background-color: $orange-light;
+
+    &:hover {
+      background-color: $orange-light-lighter;
+    }
+  }
+  &.purple-medium {
+    background-color: $purple-medium;
+
+    &:hover {
+      background-color: $purple-medium-lighter;
+    }
+  }
+  &.green {
+    background-color: $green1;
+
+    &:hover {
+      background-color: $green1-lighter;
+    }
+  }
+}
+
 #hero-section {
   background-color: #2a193b;
   position: relative;
@@ -204,7 +252,7 @@
   }
 
   .shape-container {
-    height: 806px;
+    height: 80.6rem;
     overflow: hidden;
     position: absolute;
     top: 181px;
@@ -334,41 +382,41 @@
     @include box-shadow(none);
     @include transition(background-color 0.5s);
 
-    &.blue {
-      background-color: $blue-dark;
-
-      &:hover {
-        background-color: $blue-dark-lighter;
-      }
-    }
-    &.blue-medium {
-      background-color: $blue-medium;
-
-      &:hover {
-        background-color: $blue-medium-lighter;
-      }
-    }
-    &.orange {
-      background-color: $orange-medium;
-
-      &:hover {
-        background-color: $orange-medium-lighter;
-      }
-    }
-    &.orange-light {
-      background-color: $orange-light;
-
-      &:hover {
-        background-color: $orange-light-lighter;
-      }
-    }
-    &.purple-medium {
-      background-color: $purple-medium;
-
-      &:hover {
-        background-color: $purple-medium-lighter;
-      }
-    }
+    //&.blue {
+    //  background-color: $blue-dark;
+    //
+    //  &:hover {
+    //    background-color: $blue-dark-lighter;
+    //  }
+    //}
+    //&.blue-medium {
+    //  background-color: $blue-medium;
+    //
+    //  &:hover {
+    //    background-color: $blue-medium-lighter;
+    //  }
+    //}
+    //&.orange {
+    //  background-color: $orange-medium;
+    //
+    //  &:hover {
+    //    background-color: $orange-medium-lighter;
+    //  }
+    //}
+    //&.orange-light {
+    //  background-color: $orange-light;
+    //
+    //  &:hover {
+    //    background-color: $orange-light-lighter;
+    //  }
+    //}
+    //&.purple-medium {
+    //  background-color: $purple-medium;
+    //
+    //  &:hover {
+    //    background-color: $purple-medium-lighter;
+    //  }
+    //}
   }
 
   input {
