@@ -95,7 +95,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
    * Set Title.
    */
   public function setTitle() {
-    return t('Personal Training Schedules');
+    return t('Results');
   }
 
 }
