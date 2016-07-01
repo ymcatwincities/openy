@@ -10,6 +10,7 @@ use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Controller for "Mindbody results" page.
@@ -36,19 +37,23 @@ class MindbodyResultsController implements ContainerInjectionInterface {
    *   Query factory.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity Type Manager.
+   * @param RequestStack $requestStack
+   *   Request Stack.
    */
   public function __construct(
       MindbodyCacheProxyInterface $cache_proxy,
       YmcaMindbodyTrainingsMapping $trainings_mapping,
       YmcaMindbodyRequestGuard $request_guard,
       QueryFactory $entityQuery,
-      EntityTypeManagerInterface $entityTypeManager
+      EntityTypeManagerInterface $entityTypeManager,
+      RequestStack $requestStack
     ) {
     $this->proxy = $cache_proxy;
     $this->trainingsMapping = $trainings_mapping;
     $this->requestGuard = $request_guard;
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
+    $this->request = $requestStack;
   }
 
   /**
@@ -60,7 +65,8 @@ class MindbodyResultsController implements ContainerInjectionInterface {
       $container->get('ymca_mindbody.trainings_mapping'),
       $container->get('ymca_mindbody.request_guard'),
       $container->get('entity.query'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('request_stack')
     );
   }
 
@@ -80,7 +86,7 @@ class MindbodyResultsController implements ContainerInjectionInterface {
       'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
     );
 
-    $form = new MindbodyPTForm($this->proxy, $this->trainingsMapping, $this->requestGuard, $this->entityQuery, $this->entityTypeManager);
+    $form = new MindbodyPTForm($this->proxy, $this->trainingsMapping, $this->requestGuard, $this->entityQuery, $this->entityTypeManager, $this->request);
     $search_results = $form->getSearchResults($values);
 
     return [
