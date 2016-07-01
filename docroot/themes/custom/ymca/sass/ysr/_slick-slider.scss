@@ -198,9 +198,19 @@
 
       .slider-item__image {
         position: relative;
+        height: 667px;
+
+        @media screen and (min-width: 48rem) {
+          height: 60rem;
+        }
+        @media screen and (min-width: 87.5rem) {
+          height: 83rem;
+        }
+        @media screen and (min-width: 120rem) {
+          height: 110rem;
+        }
 
         &:before {
-          //background: rgba(23, 67, 104, 0.7);
           content: ' ';
           height: 100%;
           left: 0;
@@ -212,9 +222,12 @@
 
         img {
           display: block;
-          min-width: 100%;
-          min-height: 100%;
+          //min-width: 100%;
+          height: 100%;
+          left: 50%;
           max-width: none;
+          position: relative;
+          @include transform(translateX(-50%));
         }
       }
 
@@ -231,7 +244,7 @@
         -ms-flex-pack: center;
         justify-content: center;
         left: 50%;
-        padding: 0 15px;
+        padding: 0 1.5rem;
         position: absolute;
         text-align: center;
         top: 0;
@@ -245,31 +258,31 @@
         color: $white;
         font-family: "Cachet", Arial, sans-serif;
         font-weight: bold;
-        line-height: 40px;
+        line-height: 4rem;
         text-transform: uppercase;
 
-        @media screen and (min-width: 768px) {
-          line-height: 60px;
+        @media screen and (min-width: 76.8rem) {
+          line-height: 6rem;
         }
       }
 
       .slider-item__title {
-        font-size: 30px;
+        font-size: 3rem;
 
-        @media screen and (min-width: 768px) {
-          font-size: 35px;
+        @media screen and (min-width: 76.8rem) {
+          font-size: 3.5rem;
         }
       }
 
       .slider-item__highlight {
-        font-size: 40px;
-        @media screen and (min-width: 768px) {
-          font-size: 50px;
+        font-size: 4rem;
+        @media screen and (min-width: 76.8rem) {
+          font-size: 5rem;
         }
       }
 
       .slider-item__button {
-        margin-top: 60px;
+        margin-top: 6rem;
 
         .btn {
           background-image: none;
@@ -299,6 +312,19 @@
 
         .slider-item__title {
           color: $pale-pink;
+        }
+      }
+
+
+      &.green-overlay {
+        .slider-item__image {
+          &:before {
+            background: rgba(8, 66, 66, 0.7);
+          }
+        }
+
+        .slider-item__title {
+          color: $pale-green;
         }
       }
     }
