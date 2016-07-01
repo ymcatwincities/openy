@@ -29,8 +29,8 @@
 
 #top-nav {
   background-color: #5c2e91;
-  height: 72px;
-  line-height: 72px;
+  height: 7.2rem;
+  line-height: 7.2rem;
   padding: 0;
   position: fixed;
   top: 0;
@@ -44,7 +44,7 @@
   list-style-type: none;
   margin: 0;
   padding-left: 0;
-  padding-right: 30px;
+  padding-right: 3rem;
 }
 @media screen and (min-width: 768px) {
   #top-nav ul.collapse {
@@ -53,13 +53,13 @@
 }
 #top-nav ul li {
   display: inline-block;
-  line-height: 71px;
+  line-height: 7.1rem;
 }
 #top-nav ul li a {
   color: #fff;
-  font-size: 18px;
+  font-size: 1.8rem;
   display: inline-block;
-  padding: 0 25px;
+  padding: 0 2.5rem;
   font-family: "Cachet", Arial, sans-serif;
   -moz-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
@@ -72,14 +72,14 @@
 }
 @media screen and (max-width: 860px) and (min-width: 768px) {
   #top-nav ul li a {
-    font-size: 15px;
-    padding: 0 5px;
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
   }
 }
 @media screen and (max-width: 1024px) and (min-width: 861px) {
   #top-nav ul li a {
-    font-size: 17px;
-    padding: 0 8px;
+    font-size: 1.7rem;
+    padding: 0 0.8rem;
   }
 }
 @media screen and (max-width: 767px) {
@@ -102,11 +102,11 @@
 @media screen and (max-width: 767px) {
   #top-nav .navbar-toggle {
     float: right;
-    margin-bottom: 18px;
-    margin-top: 18px;
+    margin-bottom: 1.8rem;
+    margin-top: 1.8rem;
   }
   #top-nav .navbar-toggle .icon-bar {
-    height: 4px;
+    height: 0.4rem;
     border-radius: 4px;
     background: #8b6ab0;
   }
@@ -131,9 +131,9 @@
   background-color: #92278f;
   color: #fff;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1.6rem;
   margin-top: 0;
-  padding: 0 30px;
+  padding: 0 3rem;
   -moz-transition: background-color 0.5s;
   -o-transition: background-color 0.5s;
   -webkit-transition: background-color 0.5s;
@@ -141,7 +141,7 @@
 }
 @media screen and (max-width: 860px) and (min-width: 768px) {
   #top-nav .back-link {
-    font-size: 15px;
+    font-size: 1.5rem;
   }
 }
 #top-nav .back-link:hover {
@@ -149,8 +149,8 @@
   text-decoration: none;
 }
 #top-nav .back-link .glyphicon {
-  font-size: 12px;
-  margin-right: 5px;
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
 }
 
 .btn {
@@ -202,11 +202,11 @@
 #hero-section {
   background-color: #2a193b;
   position: relative;
-  padding: 107px 0 0 0;
+  padding: 10.7rem 0 0 0;
   overflow: hidden;
   width: 100%;
   z-index: 2;
-  margin-top: 72px;
+  margin-top: 7.2rem;
 }
 #hero-section:before {
   content: ' ';
@@ -246,18 +246,23 @@
   height: 80.6rem;
   overflow: hidden;
   position: absolute;
-  top: 181px;
+  top: 18.1rem;
   width: 100%;
   z-index: 2;
 }
 #hero-section .shape-container .shape {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   background-position: top center;
   background-repeat: no-repeat;
+  background-size: 192rem 80.6rem;
   height: 100%;
-  width: 100%;
+  width: 120%;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
   -moz-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
   -webkit-transition: opacity 0.5s;
@@ -273,6 +278,12 @@
 #hero-section .shape-container .shape-3 {
   background-image: url(../prototypes/ysr/img/shape-layer-3.png);
 }
+@media screen and (min-width: 120.12rem) {
+  #hero-section .shape-container {
+    background-size: 214rem auto;
+    background-position: 20px center;
+  }
+}
 #hero-section.shifted-layers .shape-2 {
   opacity: 0.5;
 }
@@ -285,13 +296,13 @@
 #hero-section .logo {
   background: url("../img/march/ymca-white-logo.png") no-repeat center top;
   background-size: contain;
-  height: 111px;
-  margin: 0 auto 67px;
+  height: 11.1rem;
+  margin: 0 auto 6.7rem;
 }
 @media (max-width: 767px) {
   #hero-section .logo {
-    height: 72px;
-    margin: 0 auto 40px;
+    height: 7.2rem;
+    margin: 0 auto 4.0rem;
   }
 }
 #hero-section .container {
@@ -303,36 +314,36 @@
 #hero-section h1 {
   color: #fff;
   font-family: "Cachet", Arial, sans-serif;
-  font-size: 100px;
+  font-size: 10rem;
   font-weight: bold;
   letter-spacing: -1px;
-  line-height: 100px;
-  margin-bottom: 16px;
-  margin-top: 18px;
+  line-height: 10rem;
+  margin-bottom: 1.6rem;
+  margin-top: 1.8rem;
 }
 #hero-section h1 .gold {
   color: #fcaf17;
 }
 @media (max-width: 767px) {
   #hero-section h1 {
-    font-size: 50px;
+    font-size: 5rem;
     letter-spacing: -0.3px;
-    line-height: 50px;
-    margin-top: 12px;
+    line-height: 5rem;
+    margin-top: 1.2rem;
   }
 }
 #hero-section .date {
   color: #fff;
   font-family: "Cachet", Arial, sans-serif;
-  font-size: 31px;
+  font-size: 3.1rem;
   letter-spacing: -0.8px;
-  line-height: 31px;
+  line-height: 3.1rem;
   text-transform: uppercase;
 }
 @media (max-width: 767px) {
   #hero-section .date {
-    font-size: 25px;
-    line-height: 25px;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
     letter-spacing: -0.6px;
   }
 }
@@ -359,9 +370,9 @@
 }
 #register-and-report .btn {
   background-image: none;
-  font-size: 21px;
+  font-size: 2.1rem;
   letter-spacing: -0.8px;
-  line-height: 23px;
+  line-height: 2.3rem;
   width: 100%;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
@@ -377,10 +388,10 @@
 #register-and-report input[type="text"] {
   border: none;
   color: #424242;
-  font-size: 14px;
-  height: 47px;
-  line-height: 47px;
-  padding: 0 25px;
+  font-size: 1.4rem;
+  height: 4.7rem;
+  line-height: 4.7rem;
+  padding: 0 2.5rem;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -402,11 +413,11 @@
   color: #a7a7a7;
 }
 #register-and-report input[type="submit"] {
-  min-width: 120px;
+  min-width: 12rem;
 }
 @media (max-width: 767px) {
   #register-and-report input {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
   #register-and-report input[type="submit"] {
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
@@ -416,8 +427,8 @@
 }
 #register-and-report .icon-back {
   display: block;
-  height: 47px;
-  width: 47px;
+  height: 4.7rem;
+  width: 4.7rem;
   background-image: url(../prototypes/ysr/img/arrow-back.png);
   background-position: center center;
   background-repeat: no-repeat;
@@ -425,15 +436,15 @@
 }
 @media (max-width: 767px) {
   #register-and-report .icon-back {
-    height: 161px;
+    height: 16.1rem;
   }
 }
 #register-and-report .register-or-report {
-  height: 338px;
+  height: 33.8rem;
 }
 @media screen and (min-width: 768px) {
   #register-and-report .register-or-report .buttons {
-    max-width: 900px;
+    max-width: 90rem;
     margin-left: auto;
     margin-right: auto;
   }
@@ -1258,11 +1269,6 @@ select.form-control.default {
     height: 83rem;
   }
 }
-@media screen and (min-width: 120rem) {
-  #slider .slider .slick-slide .slider-item__image {
-    height: 110rem;
-  }
-}
 #slider .slider .slick-slide .slider-item__image:before {
   content: ' ';
   height: 100%;
@@ -1282,6 +1288,12 @@ select.form-control.default {
   -ms-transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
+}
+@media screen and (min-width: 120rem) {
+  #slider .slider .slick-slide .slider-item__image img {
+    height: auto;
+    width: 100%;
+  }
 }
 #slider .slider .slick-slide .slider-item__content {
   -ms-flex-line-pack: stretch;
@@ -1312,7 +1324,7 @@ select.form-control.default {
   line-height: 4rem;
   text-transform: uppercase;
 }
-@media screen and (min-width: 76.8rem) {
+@media screen and (min-width: 48rem) {
   #slider .slider .slick-slide .slider-item__highlight,
   #slider .slider .slick-slide .slider-item__title {
     line-height: 6rem;
@@ -1321,7 +1333,7 @@ select.form-control.default {
 #slider .slider .slick-slide .slider-item__title {
   font-size: 3rem;
 }
-@media screen and (min-width: 76.8rem) {
+@media screen and (min-width: 48rem) {
   #slider .slider .slick-slide .slider-item__title {
     font-size: 3.5rem;
   }
@@ -1329,7 +1341,7 @@ select.form-control.default {
 #slider .slider .slick-slide .slider-item__highlight {
   font-size: 4rem;
 }
-@media screen and (min-width: 76.8rem) {
+@media screen and (min-width: 48rem) {
   #slider .slider .slick-slide .slider-item__highlight {
     font-size: 5rem;
   }
