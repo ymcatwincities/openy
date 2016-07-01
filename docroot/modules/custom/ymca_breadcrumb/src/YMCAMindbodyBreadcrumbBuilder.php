@@ -113,7 +113,7 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
             ->condition('field_mindbody_trainer_id', $query['trainer'])
             ->execute();
           $mapping_id = reset($mapping_id);
-          if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+          if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
             $name = explode(', ', $mapping->getName());
             if (isset($name[0]) && isset($name[0])) {
               $trainer_name = $name[1] . ' ' . $name[0];
