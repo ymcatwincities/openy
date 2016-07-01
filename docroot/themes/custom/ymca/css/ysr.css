@@ -166,11 +166,24 @@
   height: 100%;
   z-index: 1;
   opacity: 0.47;
-  background: url("../prototypes/ysr/img/hero-bg.jpg") no-repeat center 0;
+  background-image: url("../prototypes/ysr/img/hero-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center 0;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
+}
+#hero-section.hero-1:before {
+  background-image: url("../prototypes/ysr/img/hero-bg.jpg");
+}
+#hero-section.hero-2:before {
+  background-image: url("../prototypes/ysr/img/ysr_hero2.png");
+  opacity: 1;
+}
+#hero-section.hero-3:before {
+  background-image: url("../prototypes/ysr/img/ysr_hero3.png");
+  opacity: 1;
 }
 @media screen and (max-width: 767px) {
   #hero-section {
@@ -984,8 +997,8 @@
 }
 .results-table tbody td {
   color: #777;
-  font-family: "Calibri", Tahoma;
-  font-size: 15px;
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 13px;
   line-height: 20px;
   padding: 15px 5px;
   text-align: left;
