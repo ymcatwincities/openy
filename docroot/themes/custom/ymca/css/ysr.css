@@ -918,7 +918,7 @@
   color: #c6168d;
 }
 .results-table thead th a.sort-link.active:after, .results-table thead th a.sort-link:hover:after {
-  content: "\xE2";
+  content: "⌄";
   display: block;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 25px;
