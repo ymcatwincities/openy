@@ -552,7 +552,14 @@
             <div><article class="richtext"><h5>© 2016 YMCA Twin Cities</h5>
 
               <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
-            </article></div>
+            </article>
+
+              <select name="hero-banner-selector" id="hero-banner-selector">
+                <option value="hero-1">Banner 1 (default)</option>
+                <option value="hero-2">Banner 2</option>
+                <option value="hero-3">Banner 3</option>
+              </select>
+            </div>
 
           </div>
 
@@ -746,6 +753,26 @@
               }, 500);
               return false;
             });
+          });
+        }
+      };
+
+      /**
+       * Changeable banner.
+       *
+       * @type {{attach: Drupal.behaviors.mobileMenu.attach}}
+       */
+      Drupal.behaviors.prototypeChangeBanner = {
+        attach: function (context, settings) {
+          jQuery('#hero-banner-selector', context).once('change-banner').each(function () {
+            var $self = jQuery(this);
+            $self.bind('change', function () {
+              console.log($self.val());
+              jQuery('#hero-section')
+                .removeClass('hero-1 hero-2 hero-3')
+                .addClass($self.val());
+            });
+
           });
         }
       };
