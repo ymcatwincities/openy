@@ -445,7 +445,7 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   }
 
   // Skip news archive.
-  if ($path_info[2] == 'ymca_news_archive') {
+  if (isset($path_info[2]) && $path_info[2] == 'ymca_news_archive') {
     return;
   }
 
