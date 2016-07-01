@@ -266,7 +266,6 @@ class MindbodyPTForm extends FormBase {
           unset($user_input['mb_session_type']);
           unset($user_input['mb_trainer']);
           $form_state->setUserInput($user_input);
-
           $values['step'] = 2;
           break;
 
