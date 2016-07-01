@@ -23,6 +23,37 @@ function ymca_page_manager_page_access(EntityInterface $entity, $operation, Acco
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function ymca_page_manager_block_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  /* Here we'll grant a user with block edit permission if he has access to
+  page manager administration page and the block is used by any page */
+  if ($operation == 'update') {
+    if ($account->hasPermission('administer pages')) {
+      $uuid = $entity->uuid();
+      $manager_page = \Drupal::entityTypeManager()->getStorage('page');
+      $pages = \Drupal::entityQuery('page')->execute();
+      foreach ($pages as $page) {
+        $variants = $manager_page->load($page)->getVariants();
+        foreach ($variants as $variant) {
+          $settings = $variant->get('variant_settings');
+          if (isset($settings['blocks'])) {
+            foreach ($settings['blocks'] as $block) {
+              $block_uuid = str_replace('block_content:', '', $block['id']);
+              if ($uuid == $block_uuid) {
+                return AccessResult::allowed();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
  * Implements hook_entity_operation_alter().
  */
 function ymca_page_manager_entity_operation_alter(array &$operations, EntityInterface $entity) {
