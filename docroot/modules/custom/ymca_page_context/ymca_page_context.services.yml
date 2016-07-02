@@ -1,3 +1,4 @@
 services:
   pagecontext.service:
     class: Drupal\ymca_page_context\PageContextService
+    arguments: ['@entity.query', '@entity_type.manager', '@current_route_match', '@request_stack']

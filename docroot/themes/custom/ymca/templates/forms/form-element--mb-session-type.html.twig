@@ -83,7 +83,11 @@
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
   {% if label_display == 'after' %}
-   {{ label }}
+    <label for="{{ id }}" class="option">
+      <div class="label-wrapper">
+        <span>{{ title }}</span>
+      </div>
+    </label>
   {% endif %}
   {% if errors %}
     <div class="form-item--error-message">
