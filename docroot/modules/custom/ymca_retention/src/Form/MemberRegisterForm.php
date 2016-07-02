@@ -112,7 +112,7 @@ class MemberRegisterForm extends FormBase {
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $percent = $settings->get('goal_percentage');
       $calculated_goal = ceil($past_result->TotalVisits + ($past_result->TotalVisits * $percent));
-      $goal = $calculated_goal > $goal ? $goal : $calculated_goal;
+      $goal = min($calculated_goal, $goal);
     }
 
     // Get information about number of checkins in period of campaign.
