@@ -76,31 +76,10 @@ class MindbodyCacheProxySettingsForm extends FormBase implements ContainerAwareI
     $triggering_element = $form_state->getTriggeringElement();
     switch ($triggering_element['#name']) {
       case 'reset':
-        $this->resetCache();
+        $manager = $this->container->get('mindbody_cache_proxy.manager');
+        $manager->resetCache();
         break;
     }
-  }
-
-  /**
-   * Remove all cached entities.
-   */
-  protected function resetCache() {
-    $query = $this->container->get('entity.query');
-    $storage = $this->container->get('entity_type.manager')->getStorage('mindbody_cache');
-
-    $result = $query->get('mindbody_cache')->execute();
-    if (empty($result)) {
-      return;
-    }
-
-    $chunks = array_chunk($result, 10);
-    foreach ($chunks as $chunk) {
-      $entities = MindbodyCache::loadMultiple($chunk);
-      $storage->delete($entities);
-    }
-
-    $logger = $this->container->get('logger.factory')->get('mindbody_cache_proxy');
-    $logger->info('The cache was cleared.');
   }
 
 }
