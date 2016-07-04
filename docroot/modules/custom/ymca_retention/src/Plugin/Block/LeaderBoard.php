@@ -8,7 +8,7 @@ use Drupal\Core\Block\BlockBase;
  * Provides a leader board block.
  *
  * @Block(
- *   id = "retention_leaderBoard_block",
+ *   id = "retention_leader_board_block",
  *   admin_label = @Translation("YMCA retention leader board block"),
  *   category = @Translation("YMCA Blocks")
  * )
@@ -20,7 +20,7 @@ class LeaderBoard extends BlockBase {
    */
   public function build() {
     return [
-      '#marckup' => 'listing here',
+      '#theme' => 'ymca_retention_leader_board',
     ];
   }
 

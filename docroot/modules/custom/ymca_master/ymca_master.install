@@ -3319,24 +3319,6 @@ function ymca_master_update_8141() {
 }
 
 /**
- * Install module YMCA retention and Views Rest Feed.
- */
-function ymca_master_update_8142() {
-  drupal_flush_all_caches();
-  \Drupal::service('module_installer')->install([
-    'views_rest_feed',
-    'ymca_retention',
-  ], TRUE);
-
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs([
-    $path . 'views.view.ymca_members.yml',
-    $path . 'ymca_retention.api.yml',
-    $path . 'ymca_retention.general_settings.yml',
-  ]);
-}
-
-/**
  * Enable YMCA Page Manager.
  */
 function ymca_master_update_8142() {
@@ -3349,4 +3331,14 @@ function ymca_master_update_8142() {
   );
 
   \Drupal::service('module_installer')->install(['ymca_page_manager'], TRUE);
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8143() {
+  \Drupal::service('module_installer')->install([
+    'views_rest_feed',
+    'ymca_retention',
+  ], TRUE);
 }
