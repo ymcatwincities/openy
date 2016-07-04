@@ -3,6 +3,8 @@
 namespace Drupal\mindbody;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 
 /**
  * Mindbody Service Manager.
@@ -47,13 +49,23 @@ class MindbodyClient implements MindbodyClientInterface {
   protected $client;
 
   /**
+   * Logger channel.
+   *
+   * @var LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
    * MindbodyServiceManager constructor.
    *
    * @param ConfigFactoryInterface $config_factory
    *   Config factory.
+   * @param LoggerChannelFactoryInterface $config_factory
+   *   Config factory.
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
+  public function __construct(ConfigFactoryInterface $config_factory, LoggerChannelFactoryInterface $logger_factory) {
     $this->configFactory = $config_factory;
+    $this->logger = $logger_factory->get('mindbody');
   }
 
   /**
@@ -66,7 +78,8 @@ class MindbodyClient implements MindbodyClientInterface {
     foreach ($settings->getRawData() as $item_name => $value) {
       if (empty($value)) {
         $message = "Mindbody API credentials are not configured. \"$item_name\" is empty.";
-        throw new \Exception($message);
+        $this->logger->error($message);
+        throw new MindbodyException($message);
       }
     }
 
@@ -104,7 +117,22 @@ class MindbodyClient implements MindbodyClientInterface {
   public function call($service, $endpoint, array $params = []) {
     $this->setCredentials();
     $this->setUpClient($service);
-    return $this->client->{$endpoint}($this->getMindbodyParams($params));
+
+    try {
+      $result = $this->client->{$endpoint}($this->getMindbodyParams($params));
+
+      // Check whether the results are OK.
+      $property = $endpoint . 'Result';
+      if (!$result->{$property}->ErrorCode != 200) {
+        $msg = 'Error while getting the results. Status: %status';
+        $this->logger->error($msg, ['%status' => $result->{$property}->Status]);
+      }
+
+      return $result;
+    }
+    catch (\Exception $e) {
+      throw new MindbodyException('Failed to get data from MindBody exception.');
+    }
   }
 
   /**
