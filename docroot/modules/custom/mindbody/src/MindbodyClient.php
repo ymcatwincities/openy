@@ -60,8 +60,8 @@ class MindbodyClient implements MindbodyClientInterface {
    *
    * @param ConfigFactoryInterface $config_factory
    *   Config factory.
-   * @param LoggerChannelFactoryInterface $config_factory
-   *   Config factory.
+   * @param LoggerChannelFactoryInterface $logger_factory
+   *   Logger factory.
    */
   public function __construct(ConfigFactoryInterface $config_factory, LoggerChannelFactoryInterface $logger_factory) {
     $this->configFactory = $config_factory;
