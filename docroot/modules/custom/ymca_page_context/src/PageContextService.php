@@ -94,7 +94,7 @@ class PageContextService {
         }
       }
     }
-    if (isset($query['location']) && is_numeric($query['location'])) {
+    if (isset($query['context']) && $query['context'] && isset($query['location']) && is_numeric($query['location'])) {
       $mapping_id = $this->entityQuery
         ->get('mapping')
         ->condition('type', 'location')
