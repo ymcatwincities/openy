@@ -105,13 +105,13 @@ class MindbodyPTForm extends FormBase {
    *   State.
    */
   public function __construct(
-      MindbodyCacheProxyInterface $cache_proxy,
-      YmcaMindbodyTrainingsMapping $trainings_mapping,
-      YmcaMindbodyRequestGuard $request_guard,
-      QueryFactory $entity_query,
-      EntityTypeManagerInterface $entity_type_manager,
-      array $state = []
-    ) {
+    MindbodyCacheProxyInterface $cache_proxy,
+    YmcaMindbodyTrainingsMapping $trainings_mapping,
+    YmcaMindbodyRequestGuard $request_guard,
+    QueryFactory $entity_query,
+    EntityTypeManagerInterface $entity_type_manager,
+    array $state = []
+  ) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->trainingsMapping = $trainings_mapping;
@@ -637,8 +637,8 @@ class MindbodyPTForm extends FormBase {
       $field_location_ref = $mapping->field_location_ref->getValue();
       $location_id = isset($field_location_ref[0]['target_id']) ? $field_location_ref[0]['target_id'] : FALSE;
       if ($location_node = $this->entityTypeManager->getStorage('node')->load($location_id)) {
-        $field_phone = $location_node->field_phone->getValue();
-        $telephone = isset($field_phone[0]['value']) ? $field_phone[0]['value'] : FALSE;
+        $field_fitness_phone = $location_node->field_fitness_phone->getValue();
+        $telephone = isset($field_fitness_phone[0]['value']) ? $field_fitness_phone[0]['value'] : FALSE;
       }
     }
     $options = [
