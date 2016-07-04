@@ -19,11 +19,26 @@ class CampaignIntro extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    // Get page title.
     $request = \Drupal::request();
     $route_match = \Drupal::routeMatch();
     $title = \Drupal::service('title_resolver')
       ->getTitle($request, $route_match->getRouteObject());
-    $dates = 'July 25 - August 16';
+
+    // Get retention settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+
+    // Get start and end date of retention campaign.
+    $date_start = new \DateTime($settings->get('date_registration_open'));
+    $date_end = new \DateTime($settings->get('date_registration_close'));
+
+    /** @var \Drupal\Core\Datetime\DateFormatter $date_formatter */
+    $date_formatter = \Drupal::service('date.formatter');
+
+    // Prepare campaign dates.
+    $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'F d');
+    $dates .= ' - ';
+    $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F d');
 
     return [
       '#theme' => 'ymca_retention_intro',
