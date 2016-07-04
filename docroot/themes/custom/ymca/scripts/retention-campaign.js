@@ -85,6 +85,24 @@
   };
 
   /**
+   * Default states for buttons Register and Track Activity.
+   */
+  Drupal.behaviors.registerAndReportDefaultStates = {
+    attach: function (context, settings) {
+      jQuery('#register-and-report', context).once('register-reports-default-states').each(function () {
+        // Display registration form if there is any field with error.
+        if ($('.registration-form input.error').length > 0) {
+          $('a.registration-btn').trigger('click');
+        }
+        // Display login form if there is any field with error or user should provide facility access id.
+        if ($('#report input.error').length > 0 || $('#report input[name="mail"]').prop('type') == 'hidden') {
+          $('a.track-activity-btn').trigger('click');
+        }
+      });
+    }
+  };
+
+  /**
    * Fixes mobile menu.
    *
    * @type {{attach: Drupal.behaviors.mobileMenu.attach}}
@@ -94,7 +112,11 @@
       jQuery('.ysr-menu', context).once('mobile-menu').each(function () {
         var $menu = jQuery(this);
         jQuery('a', $menu).bind('click', function () {
-          jQuery.scrollTo(jQuery(this).attr('href'), 800);
+          var hash = jQuery(this).prop('hash');
+          if (hash) {
+            jQuery.scrollTo($(hash), 800);
+          }
+
           $menu.removeClass('in').addClass('collapsing');
           // WTF?
           setTimeout(function () {
@@ -119,12 +141,10 @@
       jQuery('#hero-banner-selector', context).once('change-banner').each(function () {
         var $self = jQuery(this);
         $self.bind('change', function () {
-          console.log($self.val());
           jQuery('#hero-section')
             .removeClass('hero-1 hero-2 hero-3')
             .addClass($self.val());
         });
-
       });
     }
   };
@@ -150,6 +170,6 @@
         });
       });
     }
-  }
+  };
 
 })(jQuery);
