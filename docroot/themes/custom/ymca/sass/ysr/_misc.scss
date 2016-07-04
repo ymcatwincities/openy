@@ -390,6 +390,10 @@
     @include transition(background-color 0.5s);
   }
 
+  .form-tem {
+    margin-bottom: 0px;
+  }
+
   input {
     width: 100%;
 
@@ -777,7 +781,7 @@
     .location-line {
       color: #777;
       font-size: 15px;
-  
+
       span {
         color: #c6188b;
         margin-right: 4px;

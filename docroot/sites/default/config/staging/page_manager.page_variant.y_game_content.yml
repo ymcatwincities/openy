@@ -21,15 +21,6 @@ variant_settings:
       weight: 0
       uuid: a624da73-4e93-47ff-ab08-c51c3b2f8ded
       context_mapping: {  }
-    1c99c7ef-c626-4947-9bef-2d4acc538afb:
-      id: retention_track_activity_block
-      label: 'YMCA retention track activity block'
-      provider: ymca_retention
-      label_display: '0'
-      region: registration
-      weight: 0
-      uuid: 1c99c7ef-c626-4947-9bef-2d4acc538afb
-      context_mapping: {  }
     b55dc412-1735-4acc-b77e-c4625768f2e7:
       id: retention_leader_board_block
       label: 'YMCA retention leader board block'
@@ -47,6 +38,15 @@ variant_settings:
       region: intro
       weight: 0
       uuid: b641b5b5-1241-44f0-8d7c-797f87cfd8ae
+      context_mapping: {  }
+    6cd14778-f579-4105-923b-bcf8f81f9882:
+      id: retention_track_activity_login_block
+      label: 'YMCA retention track activity login block'
+      provider: ymca_retention
+      label_display: '0'
+      region: registration
+      weight: 0
+      uuid: 6cd14778-f579-4105-923b-bcf8f81f9882
       context_mapping: {  }
   id: panels_variant
   uuid: d0be25ba-a965-471b-9764-0353dee21f9e

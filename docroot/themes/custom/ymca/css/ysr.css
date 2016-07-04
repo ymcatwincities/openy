@@ -382,6 +382,9 @@
   -webkit-transition: background-color 0.5s;
   transition: background-color 0.5s;
 }
+#register-and-report .form-tem {
+  margin-bottom: 0px;
+}
 #register-and-report input {
   width: 100%;
 }

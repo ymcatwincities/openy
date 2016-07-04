@@ -35,6 +35,7 @@ retention-campaign:
     theme:
       css/ysr.css: {}
   js:
+    //cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js: { type: external, minified: true }
     scripts/retention-campaign.js: {}
   dependencies:
     - core/jquery
