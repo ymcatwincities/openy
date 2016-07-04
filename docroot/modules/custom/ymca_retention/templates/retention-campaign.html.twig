@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Template for a example 1 column layout.
+ */
+#}
+<!-- TOP BAR -->
+<nav id="top-nav">
+    <a href="/" class="back-link">
+        <span class="glyphicon glyphicon-arrow-left"></span>{{ "Back to YMCA Twin Cities"|t }}
+    </a>
+    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".ysr-menu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <ul class="ysr-menu collapse">
+        <li><a href="#register-and-report">{{ "Registration"|t }}</a></li>
+        <li><a href="#register-and-report">{{ "Track My Activities"|t }}</a></li>
+        <li><a href="#leaderboard">{{ "Leaderboard"|t }}</a></li>
+        <li><a href="#rules">{{ "Prizes/Rules Details"|t }}</a></li>
+    </ul>
+</nav>
+<!-- HERO SECTION -->
+<div id="hero-section">
+    {{ content.intro }}
+    <div id="register-and-report" class="slides">
+        <div id="register-or-report" class="slide register-or-report">
+            <div class="container">
+                <div class="row">
+                    <div class="buttons">
+                        <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
+                            <a href="#registration" class="btn btn-lg btn-primary blue slide-controller">
+                                {{ "Register"|t }}
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
+                            <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">
+                                {{ "Track Activity"|t }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>
+                        {{ "Enjoy your visits, report your activities,<br/>see the results and win cool prizes."|t }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{ content.registration }}
+    </div>
+</div>
+<div id="leaderboard">
+    {{ content.leaderboard }}
+</div>
+
+<div id="slider">
+    {{ content.slider }}
+</div>

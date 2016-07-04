@@ -29,5 +29,17 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_registration_form' => [
       'render element' => 'form',
     ],
+    'ymca_retention_intro' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'ymca-retention-intro',
+    ],
+    'ymca_retention_leader_board' => [
+      'variables' => [
+        'list' => [],
+      ],
+      'template' => 'ymca-retention-leader-board',
+    ],
   ];
 }
