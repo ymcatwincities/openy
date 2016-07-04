@@ -4,6 +4,7 @@ namespace Drupal\ymca_mindbody\Form;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
@@ -13,7 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides the Personal Training Form.
@@ -75,27 +75,32 @@ class MindbodyPTForm extends FormBase {
   protected $requestGuard;
 
   /**
-   * Request stack.
+   * The entity query factory.
    *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
+   * @var \Drupal\Core\Entity\Query\QueryFactory
    */
-  protected $requestStack;
+  protected $entityQuery;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
-   *   Mindbody cache proxy.
+   *   The Mindbody cache proxy.
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
-   *   Mindbody training mapping .
+   *   The Mindbody training mapping .
    * @param YmcaMindbodyRequestGuard $request_guard
-   *   Mindbody request guard.
-   * @param QueryFactory $entityQuery
-   *   Query factory.
-   * @param EntityTypeManagerInterface $entityTypeManager
-   *   Entity Type Manager.
-   * @param RequestStack $requestStack
-   *   Request Stack.
+   *   The Mindbody request guard.
+   * @param QueryFactory $entity_query
+   *   The entity query factory.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param array $state
    *   State.
    */
@@ -103,20 +108,23 @@ class MindbodyPTForm extends FormBase {
       MindbodyCacheProxyInterface $cache_proxy,
       YmcaMindbodyTrainingsMapping $trainings_mapping,
       YmcaMindbodyRequestGuard $request_guard,
-      QueryFactory $entityQuery,
-      EntityTypeManagerInterface $entityTypeManager,
-      RequestStack $requestStack,
+      QueryFactory $entity_query,
+      EntityTypeManagerInterface $entity_type_manager,
       array $state = []
     ) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
-    $this->state = $state;
     $this->trainingsMapping = $trainings_mapping;
     $this->settings = $this->config('ymca_mindbody.settings');
     $this->requestGuard = $request_guard;
-    $this->entityQuery = $entityQuery;
-    $this->entityTypeManager = $entityTypeManager;
-    $this->request = $requestStack;
+    $this->entityQuery = $entity_query;
+    $this->entityTypeManager = $entity_type_manager;
+
+    if (!$this->requestGuard->validateSearchCriteria($state)) {
+      $state = [];
+    }
+    $this->state = $state;
+
   }
 
   /**
@@ -134,14 +142,35 @@ class MindbodyPTForm extends FormBase {
       'mb_end_date' => isset($query['mb_end_date']) ? $query['mb_end_date'] : NULL,
       'mb_start_time' => isset($query['mb_start_time']) && is_numeric($query['mb_start_time']) ? $query['mb_start_time'] : NULL,
       'mb_end_time' => isset($query['mb_end_time']) && is_numeric($query['mb_end_time']) ? $query['mb_end_time'] : NULL,
+      'prepopulated_location' => FALSE,
     );
+
+    if (isset($query['location']) && is_numeric($query['location'])) {
+      $state['mb_location'] = $query['location'];
+      $state['step'] = 2;
+      $state['prepopulated_location'] = TRUE;
+    }
+    if (isset($query['trainer']) && is_numeric($query['trainer'])) {
+      $state['mb_trainer'] = $query['trainer'];
+    }
+
+    // Prevent corrupted remote calls on corrupted page urls.
+    if (!isset($state['mb_location'])) {
+      $state['step'] = 1;
+    }
+    elseif (!isset($state['mb_program'])) {
+      $state['step'] = 2;
+    }
+    elseif (!isset($state['mb_session_type'])) {
+      $state['step'] = 3;
+    }
+
     return new static(
       $container->get('mindbody_cache_proxy.client'),
       $container->get('ymca_mindbody.trainings_mapping'),
       $container->get('ymca_mindbody.request_guard'),
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
-      $container->get('request_stack'),
       $state
     );
   }
@@ -293,34 +322,6 @@ class MindbodyPTForm extends FormBase {
       }
     }
 
-    // Pre-populate values if so.
-    $pre_populated_location = FALSE;
-    $query = $this->request->getCurrentRequest()->query->all();
-    if (isset($query['location']) && is_numeric($query['location'])) {
-      // For security reasons check if provided value exists in the mapping.
-      $mapping_id = $this->entityQuery
-        ->get('mapping')
-        ->condition('field_mindbody_id', $query['location'])
-        ->execute();
-      if (!empty($mapping_id)) {
-        $values['mb_location'] = $query['location'];
-        $pre_populated_location = TRUE;
-        !isset($values['step']) ? $values['step'] = 2 : '';
-      }
-    }
-    $mb_trainer_access = TRUE;
-    if (isset($query['trainer'])) {
-      $mb_trainer_access = FALSE;
-      // For security reasons check if provided value exists in the mapping.
-      $mapping_id = $this->entityQuery
-        ->get('mapping')
-        ->condition('field_mindbody_trainer_id', $query['trainer'])
-        ->execute();
-      if (!empty($mapping_id)) {
-        $values['mb_trainer'] = $query['trainer'];
-      }
-    }
-
     if (!isset($values['step'])) {
       $values['step'] = 1;
     }
@@ -380,7 +381,7 @@ class MindbodyPTForm extends FormBase {
 
     if ($values['step'] >= 2) {
       $form['mb_location_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']], $pre_populated_location),
+        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']], $this->state['prepopulated_location']),
         '#weight' => 1,
       );
       $program_options = $this->getPrograms();
@@ -439,7 +440,6 @@ class MindbodyPTForm extends FormBase {
       $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
 
       $form['mb_trainer'] = array(
-        '#access' => $mb_trainer_access,
         '#type' => 'select',
         '#title' => $this->t('Trainer'),
         '#options' => $trainer_options,
@@ -541,134 +541,134 @@ class MindbodyPTForm extends FormBase {
    *   Renderable array of results or NULL.
    */
   public function getSearchResults(array $values) {
-    if (isset($values['location']) && isset($values['program']) && isset($values['session_type']) && isset($values['trainer']) && isset($values['start_date']) && isset($values['end_date'])) {
-      $booking_params = [
-        'UserCredentials' => [
-          'Username' => $this->credentials->get('user_name'),
-          'Password' => $this->credentials->get('user_password'),
-          'SiteIDs' => [$this->credentials->get('site_id')],
-        ],
-        'SessionTypeIDs' => [$values['session_type']],
-        'LocationIDs' => [$values['location']],
+    if (!isset($values['location'], $values['program'], $values['session_type'], $values['trainer'], $values['start_date'], $values['end_date'])) {
+      $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.pt');
+      return [
+        '#prefix' => '<div class="row mindbody-search-results-content">
+          <div class="container">
+            <div class="day col-sm-12">',
+        '#markup' => t('Page url is corrupted. !search_link', array('!search_link' => $link->toString())),
+        '#suffix' => '</div></div></div>',
       ];
-
-      if (!empty($values['trainer']) && $values['trainer'] != 'all') {
-        $booking_params['StaffIDs'] = array($values['trainer']);
-      }
-      $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
-      $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
-
-      $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
-
-      $time_options = $this->getTimeOptions();
-      $start_time = $time_options[$values['start_time']];
-      $end_time = $time_options[$values['end_time']];
-
-      foreach ($time_options as $key => $option) {
-        if ($option == $start_time) {
-          $start_index = $key;
-        }
-        if ($option == $end_time) {
-          $end_index = $key;
-        }
-      }
-      $time_range = range($start_index, $end_index);
-
-      $days = [];
-      // Group results by date and trainer.
-      if (!empty($bookable->GetBookableItemsResult->ScheduleItems)) {
-        foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-          // Additionally filter results by time.
-          $start_time = date('G', strtotime($bookable_item->StartDateTime));
-          $end_time = date('G', strtotime($bookable_item->EndDateTime));
-          if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
-            $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
-            $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-              'is_available' => TRUE,
-              'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
-              // To Do: Add bookable link.
-              'href' => '#',
-            ];
-          }
-        }
-      }
-
-      if ($values['trainer'] == 'all') {
-        $trainer_name = $this->t('all trainers');
-      }
-      else {
-        $mapping_id = $this->entityQuery
-          ->get('mapping')
-          ->condition('type', 'trainer')
-          ->condition('field_mindbody_trainer_id', $values['trainer'])
-          ->execute();
-        $mapping_id = reset($mapping_id);
-        if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
-          $name = explode(', ', $mapping->getName());
-          if (isset($name[0]) && isset($name[0])) {
-            $trainer_name = $name[1] . ' ' . $name[0];
-          }
-        }
-      }
-
-      $time_options = $this->getTimeOptions();
-      $start_time = $time_options[$values['start_time']];
-      $end_time = $time_options[$values['end_time']];
-      $start_date = date('n/d/Y', strtotime($values['start_date']));
-      $end_date = date('n/d/Y', strtotime($values['end_date']));
-      $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
-
-      $locations = $this->getLocations();
-      $location_name = isset($locations[$values['location']]) ? $locations[$values['location']] : '';
-      $programs = $this->getPrograms();
-      $program_name = isset($programs[$values['program']]) ? $programs[$values['program']] : '';
-      $session_types = $this->getSessionTypes($values['program']);
-      $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
-
-      $telephone = '';
-      $mapping_id = $this->entityQuery
-        ->get('mapping')
-        ->condition('type', 'location')
-        ->condition('field_mindbody_id', $values['location'])
-        ->execute();
-      $mapping_id = reset($mapping_id);
-      if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
-        $field_location_ref = $mapping->field_location_ref->getValue();
-        $location_id = isset($field_location_ref[0]['target_id']) ? $field_location_ref[0]['target_id'] : FALSE;
-        if ($location_node = $this->entityTypeManager->getStorage('node')->load($location_id)) {
-          $field_phone = $location_node->field_phone->getValue();
-          $telephone = isset($field_phone[0]['value']) ? $field_phone[0]['value'] : FALSE;
-        }
-      }
-      $options = [
-        'query' => [
-          'step' => 4,
-          'mb_location' => $values['location'],
-          'mb_program' => $values['program'],
-          'mb_session_type' => $values['session_type'],
-          'mb_trainer' => $values['trainer'],
-          'mb_start_date' => ['date' => $values['start_date']],
-          'mb_end_date' => ['date' => $values['end_date']],
-          'mb_start_time' => $values['start_time'],
-          'mb_end_time' => $values['end_time'],
-        ],
-      ];
-      $search_results = [
-        '#theme' => 'mindbody_results_content',
-        '#location' => $location_name,
-        '#program' => $program_name,
-        '#session_type' => $session_type_name,
-        '#trainer' => $trainer_name,
-        '#datetime' => $datetime,
-        '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
-        '#telephone' => $telephone,
-        '#base_path' => base_path(),
-        '#days' => $days,
-      ];
-
-      return $search_results;
     }
+
+    $booking_params = [
+      'UserCredentials' => [
+        'Username' => $this->credentials->get('user_name'),
+        'Password' => $this->credentials->get('user_password'),
+        'SiteIDs' => [$this->credentials->get('site_id')],
+      ],
+      'SessionTypeIDs' => [$values['session_type']],
+      'LocationIDs' => [$values['location']],
+    ];
+
+    if (!empty($values['trainer']) && $values['trainer'] != 'all') {
+      $booking_params['StaffIDs'] = array($values['trainer']);
+    }
+    $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
+    $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
+
+    $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
+
+    $time_options = $this->getTimeOptions();
+    $start_time = $time_options[$values['start_time']];
+    $end_time = $time_options[$values['end_time']];
+
+    foreach ($time_options as $key => $option) {
+      if ($option == $start_time) {
+        $start_index = $key;
+      }
+      if ($option == $end_time) {
+        $end_index = $key;
+      }
+    }
+    $time_range = range($start_index, $end_index);
+
+    $days = [];
+    // Group results by date and trainer.
+    if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
+      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+        // Additionally filter results by time.
+        $start_time = date('G', strtotime($bookable_item->StartDateTime));
+        $end_time = date('G', strtotime($bookable_item->EndDateTime));
+        if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+          $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
+          $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
+          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+            'is_available' => TRUE,
+            'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
+            // To Do: Add bookable link.
+            'href' => '#',
+          ];
+        }
+      }
+    }
+
+    if ($values['trainer'] == 'all') {
+      $trainer_name = $this->t('all trainers');
+    }
+    else {
+      $trainers = $this->getTrainers($values['session_type'], $values['location']);
+      $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
+    }
+
+    $time_options = $this->getTimeOptions();
+    $start_time = $time_options[$values['start_time']];
+    $end_time = $time_options[$values['end_time']];
+    $start_date = date('n/d/Y', strtotime($values['start_date']));
+    $end_date = date('n/d/Y', strtotime($values['end_date']));
+    $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
+
+    $locations = $this->getLocations();
+    $location_name = isset($locations[$values['location']]) ? $locations[$values['location']] : '';
+    $programs = $this->getPrograms();
+    $program_name = isset($programs[$values['program']]) ? $programs[$values['program']] : '';
+    $session_types = $this->getSessionTypes($values['program']);
+    $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
+
+    $telephone = '';
+    $mapping_id = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'location')
+      ->condition('field_mindbody_id', $values['location'])
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+      $field_location_ref = $mapping->field_location_ref->getValue();
+      $location_id = isset($field_location_ref[0]['target_id']) ? $field_location_ref[0]['target_id'] : FALSE;
+      if ($location_node = $this->entityTypeManager->getStorage('node')->load($location_id)) {
+        $field_phone = $location_node->field_phone->getValue();
+        $telephone = isset($field_phone[0]['value']) ? $field_phone[0]['value'] : FALSE;
+      }
+    }
+    $options = [
+      'query' => [
+        'step' => 4,
+        'mb_location' => $values['location'],
+        'mb_program' => $values['program'],
+        'mb_session_type' => $values['session_type'],
+        'mb_trainer' => $values['trainer'],
+        'mb_start_date' => ['date' => $values['start_date']],
+        'mb_end_date' => ['date' => $values['end_date']],
+        'mb_start_time' => $values['start_time'],
+        'mb_end_time' => $values['end_time'],
+      ],
+    ];
+    $search_results = [
+      '#theme' => 'mindbody_results_content',
+      '#location' => $location_name,
+      '#program' => $program_name,
+      '#session_type' => $session_type_name,
+      '#trainer' => $trainer_name,
+      '#datetime' => $datetime,
+      '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
+      '#start_again_link' => Url::fromRoute('ymca_mindbody.pt'),
+      '#telephone' => $telephone,
+      '#base_path' => base_path(),
+      '#days' => $days,
+    ];
+
+    return $search_results;
   }
 
   /**
@@ -685,11 +685,7 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $query = $this->request->getCurrentRequest()->query->all();
     $values = $form_state->getUserInput();
-    if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
-      $values['mb_trainer'] = $query['trainer'];
-    }
     if (!empty($values['mb_location']) &&
       !empty($values['mb_program']) &&
       !empty($values['mb_session_type']) &&
@@ -815,8 +811,10 @@ class MindbodyPTForm extends FormBase {
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
     $trainer_options = ['all' => $this->t('All')];
-    foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
-      $trainer_options[$bookable_item->Staff->ID] = $bookable_item->Staff->Name;
+    if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
+      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+        $trainer_options[$bookable_item->Staff->ID] = $bookable_item->Staff->Name;
+      }
     }
 
     return $trainer_options;
