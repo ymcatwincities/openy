@@ -11,8 +11,8 @@ id: node.location.field_phone
 field_name: field_phone
 entity_type: node
 bundle: location
-label: Phone
-description: 'Phone for Location'
+label: 'Front desk phone number'
+description: 'Number for general questions, which is displayed on location page.'
 required: false
 translatable: false
 default_value: {  }

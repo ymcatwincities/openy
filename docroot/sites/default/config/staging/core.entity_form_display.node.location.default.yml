@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.location.field_alert
     - field.field.node.location.field_content
     - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_fitness_phone
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
     - field.field.node.location.field_location
@@ -22,8 +23,8 @@ dependencies:
     - entity_browser
     - inline_entity_form
     - path
-    - telephone
     - text
+    - ymca_alters
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -60,6 +61,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_fitness_phone:
+    weight: 27
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
   field_include_general_blog_posts:
     weight: 10
     settings:
