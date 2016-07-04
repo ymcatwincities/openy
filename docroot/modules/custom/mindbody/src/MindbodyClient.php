@@ -40,13 +40,6 @@ class MindbodyClient implements MindbodyClientInterface {
   protected $credentials;
 
   /**
-   * User credentials.
-   *
-   * @var array
-   */
-  protected $userCredentials;
-
-  /**
    * Client.
    *
    * @var \SoapClient
@@ -85,29 +78,6 @@ class MindbodyClient implements MindbodyClientInterface {
   }
 
   /**
-   * Set user credentials.
-   */
-  protected function setUserCredentials() {
-    $settings = $this->configFactory->get('mindbody.settings');
-
-    // Check whether the module is configured.
-    foreach ($settings->getRawData() as $item_name => $value) {
-      if (empty($value)) {
-        $message = "Mindbody API credentials are not configured. \"$item_name\" is empty.";
-        throw new \Exception($message);
-      }
-    }
-
-    // According to documentation we can use credentials, but with underscore at the beginning of username.
-    // @see https://developers.mindbodyonline.com/Develop/Authentication.
-    $this->userCredentials = [
-      'Username' => '_' . $settings->get('sourcename'),
-      'Password' => $settings->get('password'),
-      'SiteIDs' => [$settings->get('site_id')],
-    ];
-  }
-
-  /**
    * Set up a client.
    *
    * @param string $service
@@ -134,9 +104,6 @@ class MindbodyClient implements MindbodyClientInterface {
   public function call($service, $endpoint, array $params = []) {
     $this->setCredentials();
     $this->setUpClient($service);
-    if ($params['_SetUserCredentials']) {
-      $this->setUserCredentials();
-    }
     return $this->client->{$endpoint}($this->getMindbodyParams($params));
   }
 
@@ -151,7 +118,6 @@ class MindbodyClient implements MindbodyClientInterface {
    */
   protected function getMindbodyParams(array $additions) {
     $params['SourceCredentials'] = $this->credentials;
-    $params['UserCredentials'] = $this->userCredentials;
     $params['XMLDetail'] = 'Full';
     $params['PageSize'] = NULL;
     $params['CurrentPageIndex'] = NULL;
