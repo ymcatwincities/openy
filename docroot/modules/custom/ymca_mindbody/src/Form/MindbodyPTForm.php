@@ -261,17 +261,29 @@ class MindbodyPTForm extends FormBase {
           unset($values['mb_program']);
           unset($values['mb_session_type']);
           unset($values['mb_trainer']);
+          $user_input = $form_state->getUserInput();
+          unset($user_input['mb_program']);
+          unset($user_input['mb_session_type']);
+          unset($user_input['mb_trainer']);
+          $form_state->setUserInput($user_input);
           $values['step'] = 2;
           break;
 
         case 'mb_program':
           unset($values['mb_session_type']);
           unset($values['mb_trainer']);
+          $user_input = $form_state->getUserInput();
+          unset($user_input['mb_session_type']);
+          unset($user_input['mb_trainer']);
+          $form_state->setUserInput($user_input);
           $values['step'] = 3;
           break;
 
         case 'mb_session_type':
           unset($values['mb_trainer']);
+          $user_input = $form_state->getUserInput();
+          unset($user_input['mb_trainer']);
+          $form_state->setUserInput($user_input);
           $values['step'] = 4;
           break;
 
