@@ -1,0 +1,13 @@
+retention-campaign:
+  label: YMCA Retention Campaign
+  category: YMCA layouts
+  template: templates/retention-campaign
+  regions:
+    intro:
+      label: Intro
+    registration:
+      label: Registration & Report
+    leaderboard:
+      label: Leaderboard
+    slider:
+      label: Slider
