@@ -147,11 +147,11 @@ class MindbodyPTForm extends FormBase {
 
     if (isset($query['location']) && is_numeric($query['location'])) {
       $state['mb_location'] = $query['location'];
-      $state['step'] = 2;
       $state['prepopulated_location'] = TRUE;
     }
     if (isset($query['trainer']) && is_numeric($query['trainer'])) {
       $state['mb_trainer'] = $query['trainer'];
+      $state['prepopulated_trainer'] = TRUE;
     }
 
     // Prevent corrupted remote calls on corrupted page urls.
@@ -438,8 +438,12 @@ class MindbodyPTForm extends FormBase {
         '#weight' => 5,
       );
       $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
-
+      $mb_trainer_access = TRUE;
+      if (isset($this->state['prepopulated_trainer']) && $this->state['prepopulated_trainer']) {
+        $mb_trainer_access = FALSE;
+      }
       $form['mb_trainer'] = array(
+        '#access' => $mb_trainer_access,
         '#type' => 'select',
         '#title' => $this->t('Trainer'),
         '#options' => $trainer_options,
@@ -608,8 +612,18 @@ class MindbodyPTForm extends FormBase {
       $trainer_name = $this->t('all trainers');
     }
     else {
-      $trainers = $this->getTrainers($values['session_type'], $values['location']);
-      $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
+      $mapping_id = $this->entityQuery
+        ->get('mapping')
+        ->condition('type', 'trainer')
+        ->condition('field_mindbody_trainer_id', $values['trainer'])
+        ->execute();
+      $mapping_id = reset($mapping_id);
+      if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+        $name = explode(', ', $mapping->getName());
+        if (isset($name[0]) && isset($name[0])) {
+          $trainer_name = $name[1] . ' ' . $name[0];
+        }
+      }
     }
 
     $time_options = $this->getTimeOptions();
@@ -654,6 +668,15 @@ class MindbodyPTForm extends FormBase {
         'mb_end_time' => $values['end_time'],
       ],
     ];
+    if (isset($values['context']) && $values['context']) {
+      $options['query']['context'] = TRUE;
+      if (isset($values['location'])) {
+        $options['query']['location'] = $values['location'];
+      }
+      if (isset($values['trainer']) && $values['trainer'] != 'all') {
+        $options['query']['trainer'] = $values['trainer'];
+      }
+    }
     $search_results = [
       '#theme' => 'mindbody_results_content',
       '#location' => $location_name,
@@ -685,7 +708,11 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $query = \Drupal::request()->query->all();
     $values = $form_state->getUserInput();
+    if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
+      $values['mb_trainer'] = $query['trainer'];
+    }
     if (!empty($values['mb_location']) &&
       !empty($values['mb_program']) &&
       !empty($values['mb_session_type']) &&
@@ -704,6 +731,9 @@ class MindbodyPTForm extends FormBase {
         'start_date'   => $values['mb_start_date']['date'],
         'end_date'     => $values['mb_end_date']['date'],
       ];
+      if (isset($query['context']) && $query['context']) {
+        $params['context'] = TRUE;
+      }
       $form_state->setRedirect(
         'ymca_mindbody.pt.results',
         [],

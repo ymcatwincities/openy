@@ -25,6 +25,9 @@ class MindbodyResultsController extends ControllerBase {
       'start_date' => !empty($query['start_date']) ? $query['start_date'] : NULL,
       'end_date' => !empty($query['end_date']) ? $query['end_date'] : NULL,
     );
+    if (isset($query['context']) && $query['context']) {
+      $values['context'] = TRUE;
+    }
 
     $form = MindbodyPTForm::create(\Drupal::getContainer());
     $search_results = $form->getSearchResults($values);
