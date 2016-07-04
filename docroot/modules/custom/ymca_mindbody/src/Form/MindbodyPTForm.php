@@ -668,8 +668,8 @@ class MindbodyPTForm extends FormBase {
         'mb_end_time' => $values['end_time'],
       ],
     ];
-    if (isset($values['context']) && $values['context']) {
-      $options['query']['context'] = TRUE;
+    if (isset($values['context'])) {
+      $options['query']['context'] = $values['context'];
       if (isset($values['location'])) {
         $options['query']['location'] = $values['location'];
       }
@@ -731,8 +731,8 @@ class MindbodyPTForm extends FormBase {
         'start_date'   => $values['mb_start_date']['date'],
         'end_date'     => $values['mb_end_date']['date'],
       ];
-      if (isset($query['context']) && $query['context']) {
-        $params['context'] = TRUE;
+      if (isset($query['context'])) {
+        $params['context'] = $query['context'];
       }
       $form_state->setRedirect(
         'ymca_mindbody.pt.results',

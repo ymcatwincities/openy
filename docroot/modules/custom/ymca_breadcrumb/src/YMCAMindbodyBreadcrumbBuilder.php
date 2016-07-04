@@ -98,7 +98,7 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $breadcrumb = new Breadcrumb();
     if ($site_context = $this->pagecontextService->getContext()) {
       $query = $this->request->getCurrentRequest()->query->all();
-      if (isset($query['context']) && $query['context'] && isset($query['location']) && is_numeric($query['location'])) {
+      if (isset($query['context']) && isset($query['location']) && is_numeric($query['location'])) {
         $node_uri = $this->aliasManager->getAliasByPath('/node/' . $site_context->id());
         $breadcrumb->addLink(Link::createFromRoute($this->t('Home'), '<front>'));
         $breadcrumb->addLink(Link::createFromRoute($this->t('Locations'), 'ymca_frontend.locations'));
@@ -106,7 +106,7 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         $breadcrumb->addLink(Link::fromTextAndUrl($this->t('Health & Fitness'), Url::fromUri('internal:' . $node_uri . '/health__fitness')));
         $breadcrumb->addLink(Link::fromTextAndUrl($this->t('Personal Training'), Url::fromUri('internal:' . $node_uri . '/health__fitness/personal_training')));
         // Try to get trainer from mapping.
-        if (isset($query['trainer']) && $query['trainer'] !== 'all') {
+        if (isset($query['trainer']) && $query['trainer'] !== 'all' && $query['context'] == 'trainer') {
           $mapping_id = $this->entityQuery
             ->get('mapping')
             ->condition('type', 'trainer')
