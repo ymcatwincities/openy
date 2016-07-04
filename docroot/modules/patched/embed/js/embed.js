@@ -38,7 +38,7 @@
    * CKEditor is in iframe or div area mode.
    */
   Drupal.AjaxCommands.prototype.embed_insert = function(ajax, response, status) {
-    var $target = ajax.element;
+    var $target = $(ajax.element);
     // No need to detach behaviors here, the widget is created fresh each time.
     $target.html(response.data);
     Drupal.runEmbedBehaviors('attach', $target.get(0), response.settings || ajax.settings);
