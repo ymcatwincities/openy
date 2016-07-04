@@ -740,7 +740,7 @@ class MindbodyPTForm extends FormBase {
    *   Array of locations usable in #options attribute of form elements.
    */
   public function getLocations() {
-    $locations = $this->proxy->call('SiteService', 'GetLocationss');
+    $locations = $this->proxy->call('SiteService', 'GetLocations');
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
