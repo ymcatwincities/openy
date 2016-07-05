@@ -61,6 +61,11 @@ class EnvironmentConfigService implements EnvironmentConfigServiceInterface {
     // Set active config.
     $editable = $this->configFactory->getEditable($config_name);
     $env_config = $this->getEnvironmentConfig($config_name, $env_name);
+
+    if (empty($env_config)) {
+      return;
+    }
+
     $editable
       ->setData($env_config)
       ->save(TRUE);
