@@ -1,19 +1,39 @@
 programs:
-  1: { label: "Sandbox Personal Training", active: true }
-  2: { label: "Sandbox Court Rentals", active: true }
-  14: { label: "Sandbox Membership Consultation", active: true, image: "buddy_training.jpg" }
+  2: { label: "Personal Training", active: true, image: "personal_training.jpg" }
+  3: { label: "Internal Staff Appointments", active: false }
+  4: { label: "Buddy Training", active: true, image: "buddy_training.jpg" }
+  7: { label: "Small Group Training", active: false }
+  9: { label: "Member Engagements", active: false }
+  11: { label: "Metabolic Testing", active: false }
+  12: { label: "Private Swim", active: false }
 
 session_types:
-  # Sandbox Personal Training.
-  23: { label: "Sandbox Nutrition Consultation", active: true }
-  200: { label: "Sandbox 60 Min 1on1", active: true }
-  264: { label: "Sandbox Personal Training Consult", active: true }
-  267: { label: "Sandbox 60 min 2on1", active: true }
-  268: { label: "Sandbox 60 min 3on1", active: true }
-  # Sandbox Court Rentals children.
-  214: { label: "Sandbox 90 min Reservation", active: true }
-  265: { label: "Sandbox 60 min Reservation", active: true }
-  266: { label: "Sandbox 120 min Reservation", active: true }
-  # Sandbox Membership Consultation children.
-  203: { label: "Sandbox Facility Tour", active: true }
-  204: { label: "Sandbox Membership Consultation", active: true }
+  # Custom PT children.
+  5: { label: "Personal Training - Express - 30 Minutes", active: true }
+  7: { label: "Personal Training - Full - 60 Minutes", active: true }
+  55: { label: "Promo PT Express", active: false }
+  # Internal Staff Appointments children.
+  8: { label: "Lunch", active: false }
+  9: { label: "Meeting", active: false }
+  32: { label: "Training (Professional Development)", active: false }
+  37: { label: "Client Management", active: false }
+  48: { label: "Reserved (Non Paid)", active: false }
+  # Internal Staff Appointments children.
+  17: { label: "Group Pilates Reformer", active: false }
+  # Metabolic Testing children.
+  49: { label: "Body Gem (Member)", active: false }
+  50: { label: "Body Gem (Non Member)", active: false }
+  # Buddy Training children.
+  11: { label: "Buddy Session - Full - 60 Minutes", active: true }
+  12: { label: "Buddy Session - Express - 30 Minutes", active: true }
+  # Member Engagments children.
+  21: { label: "Personal Consultation", active: false }
+  22: { label: "Aqua Consultation", active: false }
+  27: { label: "Fitness Assessment", active: false }
+  28: { label: "Personal Checkpoint", active: false }
+  29: { label: "Equipment Orientation", active: false }
+  30: { label: "Youth Orientation 7-9", active: false }
+  31: { label: "Youth Orientation 10-11", active: false }
+  46: { label: "Youth Orientation 12-14", active: false }
+  47: { label: "Youth Orientation 15-17", active: false }
+  74: { label: "Active Older Adult Orientation", active: false }
