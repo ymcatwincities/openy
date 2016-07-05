@@ -76,10 +76,9 @@ class EnvironmentConfigService implements EnvironmentConfigServiceInterface {
    * @inheritdoc
    */
   public function getEnvironmentConfig($config_name, $env_name) {
-    $var = $this->configFactory
+    return $this->configFactory
       ->get($this->getEnvironmentConfigFileName($config_name))
       ->get($env_name);
-    return $var;
   }
 
   /**
