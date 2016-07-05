@@ -213,11 +213,11 @@
 #hero-section {
   background-color: #2a193b;
   position: relative;
-  padding: 10.7rem 0 0 0;
+  @include rem(padding, 57px 0 0 0);
   overflow: hidden;
   width: 100%;
   z-index: 2;
-  margin-top: 7.2rem;
+  @include rem(margin-top, 72px);
 
   &:before {
     content: ' ';
@@ -247,8 +247,8 @@
     opacity: 1;
   }
 
-  @media screen and (max-width: 767px) {
-    padding-top: 57px;
+  @include breakpoint($tablet) {
+    @include rem(padding-top, 107px);
   }
 
   .shape-container {
@@ -282,7 +282,7 @@
       background-image: url(../prototypes/ysr/img/shape-layer-3.png);
     }
 
-    @media screen and (min-width: 120.12rem) {
+    @include breakpoint(1921px) {
       background-size: 214rem auto;
       background-position: 20px center;
     }
@@ -397,7 +397,8 @@
   input {
     width: 100%;
 
-    &[type="text"] {
+    &[type="text"],
+    &[type="email"] {
       border: none;
       color: $grey7;
       font-size: 1.4rem;
