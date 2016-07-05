@@ -1148,7 +1148,7 @@ function ymca_page_attachments_alter(array &$page) {
     }
   }
   if (in_array(\Drupal::service('current_route_match')->getRouteName(),
-    ['page_manager.page_view_ymca_retention_campaign', 'page_manager.page_view_ymca_retention_activity'])) {
+    ['page_manager.page_view_ymca_retention_campaign', 'page_manager.page_view_ymca_retention_pages'])) {
     $page['#attached']['library'][] = 'ymca/retention-campaign';
   }
 }

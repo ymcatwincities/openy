@@ -3,9 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - page_manager.page.ymca_retention_activity
+    - page_manager.page.ymca_retention_pages
   module:
     - panels
+    - system
     - ymca_retention
 id: y_games_activity
 label: 'Y Games Activity'
@@ -39,6 +40,15 @@ variant_settings:
       weight: 0
       uuid: 2ca831b1-d3c0-476e-8a20-cb1d35144faa
       context_mapping: {  }
+    f99a1c5b-ea31-4f96-ba63-1834f506c787:
+      id: retention_member_info_block
+      label: 'YMCA retention member info block'
+      provider: ymca_retention
+      label_display: '0'
+      region: member_info
+      weight: 0
+      uuid: f99a1c5b-ea31-4f96-ba63-1834f506c787
+      context_mapping: {  }
   id: panels_variant
   uuid: bad55d34-748c-4622-89ff-0f27cd86a1c2
   label: null
@@ -49,8 +59,14 @@ variant_settings:
   storage_type: page_manager
   storage_id: y_games_activity
   builder: standard
-page: ymca_retention_activity
+page: ymca_retention_pages
 weight: 0
-selection_criteria: {  }
+selection_criteria:
+  608ebf7a-dace-4ff6-9256-79d64b1a06d0:
+    id: request_path
+    pages: /ygames/activity
+    negate: false
+    context_mapping: {  }
+    uuid: 608ebf7a-dace-4ff6-9256-79d64b1a06d0
 selection_logic: and
 static_context: {  }
