@@ -6,7 +6,7 @@ services:
     class: Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping
   cache_context.mindbody_state:
     class: Drupal\ymca_mindbody\Cache\Context\MindbodyStateContext
-    arguments: ['@state']
+    arguments: ['@state', '@config.factory']
     tags:
       - { name: cache.context }
   ymca_mindbody.request_guard:
