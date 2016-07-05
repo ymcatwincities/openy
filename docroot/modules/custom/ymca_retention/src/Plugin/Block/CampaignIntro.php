@@ -42,10 +42,10 @@ class CampaignIntro extends BlockBase {
 
     return [
       '#theme' => 'ymca_retention_intro',
-      '#content' => array(
+      '#content' => [
         'title' => $title,
         'dates' => $dates,
-      ),
+      ],
       '#cache' => [
         'contexts' => [
           'url.path',
