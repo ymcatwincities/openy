@@ -3358,4 +3358,12 @@ function ymca_master_update_8143() {
  */
 function ymca_master_update_8144() {
   \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
 }
