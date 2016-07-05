@@ -388,7 +388,7 @@
 #register-and-report input {
   width: 100%;
 }
-#register-and-report input[type="text"] {
+#register-and-report input[type="text"], #register-and-report input[type="email"] {
   border: none;
   color: #424242;
   font-size: 1.4rem;
@@ -399,19 +399,19 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-#register-and-report input[type="text"]:-moz-placeholder {
+#register-and-report input[type="text"]:-moz-placeholder, #register-and-report input[type="email"]:-moz-placeholder {
   font-style: italic;
   color: #a7a7a7;
 }
-#register-and-report input[type="text"]::-moz-placeholder {
+#register-and-report input[type="text"]::-moz-placeholder, #register-and-report input[type="email"]::-moz-placeholder {
   font-style: italic;
   color: #a7a7a7;
 }
-#register-and-report input[type="text"]:-ms-input-placeholder {
+#register-and-report input[type="text"]:-ms-input-placeholder, #register-and-report input[type="email"]:-ms-input-placeholder {
   font-style: italic;
   color: #a7a7a7;
 }
-#register-and-report input[type="text"]::-webkit-input-placeholder {
+#register-and-report input[type="text"]::-webkit-input-placeholder, #register-and-report input[type="email"]::-webkit-input-placeholder {
   font-style: italic;
   color: #a7a7a7;
 }
@@ -1456,7 +1456,6 @@ select.form-control.default {
 @media (min-width: 48em) {
   .member-info--name-goal {
     display: block;
-    max-width: none;
     padding-bottom: 0;
     padding-left: 145px;
     padding-left: 14.5rem;

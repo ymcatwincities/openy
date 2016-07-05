@@ -393,7 +393,8 @@
   input {
     width: 100%;
 
-    &[type="text"] {
+    &[type="text"],
+    &[type="email"] {
       border: none;
       color: $grey7;
       font-size: 1.4rem;
