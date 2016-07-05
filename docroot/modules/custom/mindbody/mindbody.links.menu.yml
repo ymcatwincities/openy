@@ -3,8 +3,3 @@ mindbody.settings:
   route_name: mindbody.settings
   parent: system.admin_config_system
   description: 'MindBody API settings.'
-mindbody.env.settings:
-  title: MindBody API environments
-  route_name: mindbody.env.settings
-  parent: mindbody.settings
-  description: 'MindBody API environments settings.'

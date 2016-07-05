@@ -21,7 +21,7 @@ class EnvSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['mindbody.env.settings', 'mindbody.settings'];
+    return ['mindbody.settings.env', 'mindbody.settings'];
   }
 
   /**
@@ -29,7 +29,7 @@ class EnvSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('mindbody.settings');
-    $configEnv = $this->config('mindbody.env.settings');
+    $configEnv = $this->config('mindbody.settings.env');
 
     $fields = [
       'sourcename' => 'Sourcename',
@@ -84,12 +84,12 @@ class EnvSettingsForm extends ConfigFormBase {
       ->set('user_password', $values[$active . ':user_password'])
       ->save();
 
-    foreach ($this->config('mindbody.env.settings')->getRawData() as $id => $data) {
+    foreach ($this->config('mindbody.settings.env')->getRawData() as $id => $data) {
       if ($id == 'active') {
-        $this->config('mindbody.env.settings')->set($id, $values['active']);
+        $this->config('mindbody.settings.env')->set($id, $values['active']);
         continue;
       }
-      $this->config('mindbody.env.settings')->set($id, [
+      $this->config('mindbody.settings.env')->set($id, [
         'sourcename' => $values[$id . ':sourcename'],
         'password' => $values[$id . ':password'],
         'site_id' => $values[$id . ':site_id'],
@@ -97,7 +97,7 @@ class EnvSettingsForm extends ConfigFormBase {
         'user_password' => $values[$id . ':user_password'],
       ]);
     }
-    $this->config('mindbody.env.settings')->save();
+    $this->config('mindbody.settings.env')->save();
 
     parent::submitForm($form, $form_state);
   }
