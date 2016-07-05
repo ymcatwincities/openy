@@ -35,14 +35,14 @@ class Navigation extends BlockBase {
         'fragment' => 'rules',
       ]))->toString(),
     ];
-//    /** @var \Drupal\user\SharedTempStore $temp_store */
-//    $temp_store = \Drupal::service('user.shared_tempstore')
-//      ->get('ymca_retention');
-//    $member = $temp_store->get('member');
-//
-//    if (!empty($member)) {
-//      unset($links['registration']);
-//    }
+    /** @var \Drupal\user\SharedTempStore $temp_store */
+    $temp_store = \Drupal::service('user.shared_tempstore')
+      ->get('ymca_retention');
+    $member = $temp_store->getIfOwner('member');
+
+    //    if (!empty($member)) {
+    //      unset($links['registration']);
+    //    }
 
     return [
       '#theme' => 'ymca_retention_navigation',
@@ -53,6 +53,9 @@ class Navigation extends BlockBase {
         'links' => $links,
       ],
       '#cache' => [
+        'contexts' => [
+          'url.path',
+        ],
         'max-age' => 0,
       ],
     ];
