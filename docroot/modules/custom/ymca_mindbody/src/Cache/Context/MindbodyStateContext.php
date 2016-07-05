@@ -3,6 +3,7 @@
 namespace Drupal\ymca_mindbody\Cache\Context;
 
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Cache\Context\CacheContextInterface;
 
@@ -12,11 +13,6 @@ use Drupal\Core\Cache\Context\CacheContextInterface;
  * Cache context ID: 'mindbody_state'.
  */
 class MindbodyStateContext implements CacheContextInterface {
-
-  /**
-   * Amount of free daily API calls.
-   */
-  const FREE_API_CALLS_LIMIT = 1000;
 
   /**
    * Limit is exceeded value.
@@ -36,13 +32,23 @@ class MindbodyStateContext implements CacheContextInterface {
   protected $state;
 
   /**
+   * Config factory.
+   *
+   * @var ConfigFactory
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a new MindbodyCacheContext class.
    *
-   * @param \Drupal\Core\State\StateInterface $state
+   * @param StateInterface $state
    *   The state keyvalue store.
+   * @param ConfigFactory $config_factory
+   *   Config factory.
    */
-  public function __construct(StateInterface $state) {
+  public function __construct(StateInterface $state, ConfigFactory $config_factory) {
     $this->state = $state;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -56,8 +62,9 @@ class MindbodyStateContext implements CacheContextInterface {
    * {@inheritdoc}
    */
   public function getContext() {
+    $config = $this->configFactory->get('mindbody_cache_proxy');
     $mindbody_proxy_state = $this->state->get('mindbody_cache_proxy');
-    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= $this::FREE_API_CALLS_LIMIT) {
+    if (isset($mindbody_proxy_state->miss) && $mindbody_proxy_state->miss >= $config->get('calls')) {
       return $this::LIMIT_EXCEEDED;
     }
     return $this::LIMIT_NOT_EXCEEDED;

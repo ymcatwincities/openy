@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ymca_mindbody_install() {
+  $config = Drupal::configFactory()->getEditable('mindbody_cache_proxy.settings');
+  $config->set('calls', 22000);
+  $config->save();
+}
