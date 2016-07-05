@@ -18,8 +18,8 @@ retention-activity:
   regions:
     intro:
       label: Intro
-    progress:
-      label: Member progress
+    member_info:
+      label: Member info/progress
     report:
       label: Activity Tracker
     leaderboard:
