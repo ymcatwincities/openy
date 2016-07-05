@@ -381,13 +381,13 @@
   }
 
   .btn {
+    @include box-shadow(none);
+    @include transition(background-color 0.5s);
     background-image: none;
     font-size: 2.1rem;
     letter-spacing: -0.8px;
     line-height: 2.3rem;
     width: 100%;
-    @include box-shadow(none);
-    @include transition(background-color 0.5s);
   }
 
   .form-tem {
@@ -399,17 +399,17 @@
 
     &[type="text"],
     &[type="email"] {
+      @include border-radius(3px);
       border: none;
       color: $grey7;
       font-size: 1.4rem;
       height: 4.7rem;
       line-height: 4.7rem;
       padding: 0 2.5rem;
-      @include border-radius(3px);
 
       @include input-placeholder {
-        font-style: italic;
         color: $grey4;
+        font-style: italic;
       }
     }
 
@@ -427,13 +427,13 @@
   }
 
   .icon-back {
-    display: block;
-    height: 4.7rem;
-    width: 4.7rem;
     background-image: url(../prototypes/ysr/img/arrow-back.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
+    display: block;
+    height: 4.7rem;
+    width: 4.7rem;
 
     @media(max-width: 767px) {
       height: 16.1rem;
@@ -453,7 +453,6 @@
 
     .track-activity-btn {
       justify-content: space-between;
-      //text-align: justify;
 
       @media(max-width: 370px) {
         letter-spacing: -2.5px;
@@ -517,13 +516,13 @@
       }
 
       .access-question {
+        @include transition(opacity 0.3s);
         left: 0;
         opacity: 1;
         padding-bottom: 35px;
         position: absolute;
         width: 100%;
         z-index: 1;
-        @include transition(opacity 0.3s);
 
         p {
           text-align: center;
@@ -547,10 +546,10 @@
       }
 
       .access-answer {
-        opacity: 0;
-        padding-bottom: 25px;
         @include transition(padding-bottom 0.5s, opacity 0.3s);
         @include transition-delay(0.5s);
+        opacity: 0;
+        padding-bottom: 25px;
 
         p {
           color: $white;
@@ -571,17 +570,17 @@
         }
 
         .hand {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          height: 28.7px;
-          width: 666px;
-          margin-left: -33px;
-          background-image: url(../prototypes/ysr/img/hand.png);
-          background-size: contain;
-          background-repeat: no-repeat;
           @include transition(height 0.5s, margin-left 0.5s);
           @include transition-delay(0.5s);
+          background-image: url(../prototypes/ysr/img/hand.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+          bottom: 0;
+          height: 28.7px;
+          left: 50%;
+          margin-left: -33px;
+          position: absolute;
+          width: 666px;
         }
       }
     }
@@ -657,8 +656,8 @@
   }
 
   #leaderboard-location {
-    max-width: 380px;
     margin: auto;
+    max-width: 380px;
   }
 
   .pager {
@@ -678,8 +677,8 @@
   padding: 80px 0 60px;
 
   .col-xs-12 {
-    text-align: center;
     padding: 0 50px;
+    text-align: center;
   }
 
   h2 {
@@ -711,21 +710,21 @@
   .your-prize {
     border: 2px solid #fbae1f;
     border-radius: 2px;
-    max-width: 380px;
-    margin: 75px auto 25px;
-    font-weight: bold;
     color: #f37823;
     font-size: 20px;
+    font-weight: bold;
     line-height: 25px;
-    text-transform: uppercase;
+    margin: 75px auto 25px;
+    max-width: 380px;
     padding: 50px 20px;
     position: relative;
+    text-transform: uppercase;
 
     img {
-      position: absolute;
-      top: -22px;
       left: 50%;
       margin-left: -22px;
+      position: absolute;
+      top: -22px;
     }
   }
 }
@@ -738,15 +737,15 @@
 
   .grand-prize {
     background: url("../img/winners_grand_prize_title.png") no-repeat center 0;
-    padding: 48px 0 0;
     margin-bottom: 100px;
+    padding: 48px 0 0;
 
     p {
+      @include cachet();
       color: #777;
       font-size: 20px;
       line-height: 25px;
       text-align: center;
-      font-family: "Cachet", Arial, sans-serif;
       margin-bottom: 0;
     }
 
@@ -760,17 +759,17 @@
     .winner {
       color: #c6188b;
       font-size: 15px;
-      line-height: 20px;
       font-weight: bold;
+      line-height: 20px;
       text-transform: uppercase;
     }
 
     .name {
       color: #5c2d8f;
       font-size: 20px;
+      font-weight: bold;
       line-height: 25px;
       text-transform: uppercase;
-      font-weight: bold;
     }
 
     .id {
@@ -791,16 +790,16 @@
   }
 
   .first-prize {
+    @include cachet();
     background: url("../img/first_prize_title.png") no-repeat center 0;
     padding: 40px 0 0;
-    font-family: "Cachet", Arial, sans-serif;
 
     p {
       color: #777;
       font-size: 20px;
       line-height: 25px;
-      text-align: center;
       margin-bottom: 0;
+      text-align: center;
     }
 
     p:first-child {
@@ -826,17 +825,17 @@
     .winner {
       color: #f47920;
       font-size: 15px;
-      line-height: 20px;
       font-weight: bold;
+      line-height: 20px;
       text-transform: uppercase;
     }
 
     .name {
       color: #ec1d24;
       font-size: 20px;
+      font-weight: bold;
       line-height: 25px;
       text-transform: uppercase;
-      font-weight: bold;
     }
 
     .id {
@@ -858,8 +857,8 @@
 }
 
 #more-prizes {
-  padding: 95px 0 30px;
   background: #fff;
+  padding: 95px 0 30px;
 }
 
 #prizes, #more-prizes {
@@ -1183,4 +1182,20 @@
 select.form-control.default {
   font-style: italic;
   color: $grey4;
+}
+
+body {
+  &.toolbar-fixed.toolbar-vertical {
+    #top-nav {
+      margin-top: 39px;
+    }
+    #hero-section {
+      margin-top: 20px;
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal {
+    #top-nav {
+      margin-top: 79px;
+    }
+  }
 }
