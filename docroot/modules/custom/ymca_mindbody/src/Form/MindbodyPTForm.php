@@ -134,7 +134,13 @@ class MindbodyPTForm extends FormBase {
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_mindbody');
 
-    if (!$this->requestGuard->validateSearchCriteria($state)) {
+    try {
+      if (!$this->requestGuard->validateSearchCriteria($state)) {
+        $state = [];
+      }
+    }
+    catch (MindbodyException $e) {
+      $this->logger->error('Failed to validate search criteria: %msg', ['%msg' => $e->getMessage()]);
       $state = [];
     }
     $this->state = $state;
