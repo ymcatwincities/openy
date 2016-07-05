@@ -1486,18 +1486,17 @@ select.form-control.default {
   display: block;
   white-space: nowrap;
 }
-.member-info--goal-value {
-  font-weight: bold;
-}
 @media (min-width: 48em) {
   .member-info--goal {
     line-height: 32px;
     line-height: 3.2rem;
     padding-bottom: 11px;
     padding-bottom: 1.1rem;
-    padding-top: 0px;
-    padding-top: 0rem;
+    padding-top: 0;
   }
+}
+.member-info--goal-value {
+  font-weight: bold;
 }
 .member-info--progress-bar {
   border-radius: 13px;
@@ -1506,8 +1505,8 @@ select.form-control.default {
   height: 2.5rem;
   background-color: #fff;
   bottom: 0;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 @media (min-width: 48em) {
   .member-info--progress-bar {
@@ -1537,8 +1536,8 @@ select.form-control.default {
   padding: 22px 0 22px 0;
   padding: 2.2rem 0 2.2rem 0;
   color: #fff;
-  font-weight: bold;
   font-size: 16px;
+  font-weight: bold;
   line-height: 16px;
 }
 @media (min-width: 48em) {
@@ -1551,7 +1550,6 @@ select.form-control.default {
 }
 .member-info--stats .rank,
 .member-info--stats .total-activities {
-  white-space: nowrap;
   height: 16px;
   height: 1.6rem;
   line-height: 24px;
@@ -1560,6 +1558,7 @@ select.form-control.default {
   padding-left: 3rem;
   padding-right: 30px;
   padding-right: 3rem;
+  white-space: nowrap;
 }
 .member-info--stats .rank:before,
 .member-info--stats .total-activities:before {
@@ -1573,7 +1572,7 @@ select.form-control.default {
   width: 1.7rem;
   background: url("../prototypes/ysr/img/reporting/star-icon.png") no-repeat;
   background-size: contain;
-  content: "";
+  content: '';
   display: inline-block;
   position: absolute;
 }
@@ -1582,6 +1581,239 @@ select.form-control.default {
 }
 .member-info--stats .rank:before {
   background-image: url("../prototypes/ysr/img/reporting/cup-icon.png");
+}
+
+.campaign-dates .container {
+  max-width: 900px;
+  max-width: 90rem;
+}
+.campaign-dates .campaign-dates--slider-container {
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+  margin-top: 40px;
+  margin-top: 4rem;
+}
+.campaign-dates--date {
+  width: 100px;
+  width: 10rem;
+  position: relative;
+  text-align: center;
+}
+.campaign-dates--date .weekday {
+  font-family: "Cachet",Arial,sans-serif;
+  font-size: 15px;
+  font-size: 1.5rem;
+  color: #777;
+  display: block;
+  text-align: center;
+}
+.campaign-dates--date .month-day {
+  font-family: "Cachet",Arial,sans-serif;
+  border-radius: 31px;
+  border-radius: 3.1rem;
+  font-size: 18px;
+  font-size: 1.8rem;
+  height: 63px;
+  height: 6.3rem;
+  line-height: 18px;
+  line-height: 1.8rem;
+  margin: 7px;
+  margin: 0.7rem;
+  padding: 22px 0;
+  padding: 2.2rem 0;
+  width: 63px;
+  width: 6.3rem;
+  border-style: solid;
+  color: #424242;
+  display: inline-block;
+  font-weight: bold;
+}
+.campaign-dates--date .activities-count {
+  font-family: "Cachet",Arial,sans-serif;
+  border-radius: 15px;
+  border-radius: 1.5rem;
+  font-size: 15px;
+  font-size: 1.5rem;
+  height: 30px;
+  height: 3rem;
+  line-height: 30px;
+  line-height: 3rem;
+  margin: 3px 10px 0 0;
+  margin: 0.3rem 1rem 0 0;
+  width: 30px;
+  width: 3rem;
+  background-color: #ac99ca;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  display: block;
+  font-weight: bold;
+  position: absolute;
+}
+.campaign-dates--date-past .month-day {
+  border-color: #c6168d;
+  border-width: 2px;
+}
+.campaign-dates--date-current .month-day {
+  border-radius: 38px;
+  border-radius: 3.8rem;
+  height: 76px;
+  height: 7.6rem;
+  width: 76px;
+  width: 7.6rem;
+  border-color: #ac99ca;
+  border-width: 7px;
+  margin: 0;
+}
+.campaign-dates--date-future .month-day {
+  border-color: #c9c9c9;
+  border-width: 2px;
+  color: #c9c9c9;
+}
+.campaign-dates--date-future .activities-count {
+  display: none;
+}
+.campaign-dates--date-no-activity .activities-count {
+  display: none;
+}
+.campaign-dates .slick-prev,
+.campaign-dates .slick-next {
+  margin-top: 2px;
+  margin-top: 0.2rem;
+}
+.campaign-dates .slick-prev:before,
+.campaign-dates .slick-next:before {
+  height: 20px;
+  height: 2rem;
+  width: 12px;
+  width: 1.2rem;
+  background-size: 12px 20px;
+  content: "";
+  display: block;
+  position: relative;
+}
+.campaign-dates .slick-prev:before {
+  background-image: url("../prototypes/ysr/img/reporting/arrow-left.png");
+}
+.campaign-dates .slick-next:before {
+  background-image: url("../prototypes/ysr/img/reporting/arrow-right.png");
+}
+
+.activities {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzgzNmRhMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzY5NTc4OSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -moz-linear-gradient(270deg, #836da1, #695789);
+  background-image: -webkit-linear-gradient(270deg, #836da1, #695789);
+  background-image: linear-gradient(180deg, #836da1, #695789);
+  padding-top: 100px;
+  padding-top: 10rem;
+}
+.activities .activity-groups {
+  text-align: center;
+  padding-bottom: 100px;
+  padding-bottom: 10rem;
+}
+.activities .activity-groups .activity-group-item {
+  width: 212px;
+  width: 21.2rem;
+  display: inline-block;
+}
+.activities .activity-groups .activity-group-item-link {
+  font-family: "Cachet",Arial,sans-serif;
+  font-size: 20px;
+  font-size: 2rem;
+  padding-top: 80px;
+  padding-top: 8rem;
+  background-position: top center;
+  background-repeat: no-repeat;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  opacity: 0.3;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.activities .activity-groups .activity-group-item-link:hover {
+  opacity: 1;
+}
+.activities .activity-groups .activity-group-item-link--swimming {
+  background-image: url("../prototypes/ysr/img/reporting/icon-swimming.png");
+  background-size: 59px 32px;
+  background-position: center 10px;
+}
+.activities .activity-groups .activity-group-item-link--fitness {
+  background-image: url("../prototypes/ysr/img/reporting/icon-fitness.png");
+  background-size: 50px 52px;
+}
+.activities .activity-groups .activity-group-item-link--group-ex {
+  background-image: url("../prototypes/ysr/img/reporting/icon-group-ex.png");
+  background-size: 49px 39px;
+  background-position: center 7px;
+}
+.activities .activity-groups .activity-group-item-link--active {
+  opacity: 0.9;
+}
+.activities .activity-items {
+  max-width: 1000px;
+  max-width: 100rem;
+  margin: auto;
+}
+.activities .activity-items .form-item-checkbox input {
+  display: none;
+}
+.activities .activity-items .form-item-checkbox input + label {
+  font-family: "Cachet",Arial,sans-serif;
+  height: 66px;
+  height: 6.6rem;
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 16px;
+  line-height: 1.6rem;
+  padding: 25px 0 25px 76px;
+  padding: 2.5rem 0 2.5rem 7.6rem;
+  margin-bottom: 22px;
+  margin-bottom: 2.2rem;
+  line-height: 16px;
+  line-height: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 34px;
+  color: #f8f8f8;
+  cursor: pointer;
+  display: block;
+  letter-spacing: -0.5px;
+  position: relative;
+  text-transform: uppercase;
+}
+.activities .activity-items .form-item-checkbox input + label:hover {
+  background-color: #7e6c9b;
+}
+.activities .activity-items .form-item-checkbox input + label:before {
+  font-family: "Cachet",Arial,sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 21px;
+  content: "+";
+  font-size: 30px;
+  height: 42px;
+  line-height: 35px;
+  left: 11px;
+  position: absolute;
+  text-align: center;
+  top: 11px;
+  width: 42px;
+}
+.activities .activity-items .form-item-checkbox input:checked + label {
+  background-color: #229494;
+  border-color: #229494;
+}
+.activities .activity-items .form-item-checkbox input:checked + label:before {
+  content: '✓';
+  background-color: #26bcbd;
+  border-color: #26bcbd;
+}
+.activities .activity-items .form-item-checkbox input:checked + label:hover {
+  background-color: #31adad;
+  border-color: #31adad;
 }
 
 /*# sourceMappingURL=ysr.css.map */
