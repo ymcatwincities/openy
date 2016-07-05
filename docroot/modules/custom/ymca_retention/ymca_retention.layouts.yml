@@ -3,6 +3,8 @@ retention-campaign:
   category: YMCA layouts
   template: templates/retention-campaign
   regions:
+    navigation:
+      label: Navigation
     intro:
       label: Intro
     registration:
