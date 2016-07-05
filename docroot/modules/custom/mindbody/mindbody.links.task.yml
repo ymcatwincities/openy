@@ -1,0 +1,8 @@
+mindbody.settings:
+  title: MindBody API
+  route_name: mindbody.settings
+  base_route: mindbody.settings
+mindbody.env.settings:
+  title: MindBody API environments
+  route_name: mindbody.env.settings
+  base_route: mindbody.settings
