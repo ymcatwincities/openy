@@ -41,6 +41,13 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
   protected $state;
 
   /**
+   * Manager.
+   *
+   * @var MindbodyCacheProxyManagerInterface
+   */
+  protected $manager;
+
+  /**
    * MindbodyProxy constructor.
    *
    * @param MindbodyClientInterface $mindbody_client
@@ -49,11 +56,14 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
    *   Query factory.
    * @param State $state
    *   State.
+   * @param MindbodyCacheProxyManagerInterface $manager
+   *   Manager.
    */
-  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state) {
+  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state, MindbodyCacheProxyManagerInterface $manager) {
     $this->mindbodyClient = $mindbody_client;
     $this->queryFactory = $query_factory;
     $this->state = $state;
+    $this->manager = $manager;
   }
 
   /**
@@ -105,41 +115,13 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
 
     // Create new stats item.
     if (!$current) {
-      $this->flushStats($type);
-      return;
-    }
-
-    // If current stats timestamp older than 24 hours update it.
-    if ((REQUEST_TIME - $current->timestamp) > 86400) {
-      $this->flushStats($type);
+      $this->manager->flushStats();
       return;
     }
 
     $current->{$type}++;
     $this->state->set(self::STORAGE, $current);
     \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_update_stats', [$current]);
-  }
-
-  /**
-   * Flush stats object in the database.
-   *
-   * @param string $type
-   *   Either: 'hit' or 'miss' string.
-   */
-  private function flushStats($type) {
-    $date_time = new \DateTime();
-    $date_time->setTimezone(new \DateTimeZone('UTC'));
-    $date_time->setTime(0, 0, 0);
-
-    $data = new \stdClass();
-    $data->timestamp = $date_time->getTimestamp();
-    $data->hit = 0;
-    $data->miss = 0;
-
-    $data->{$type}++;
-
-    $this->state->set(self::STORAGE, $data);
-    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_flush_stats', [$data]);
   }
 
   /**
