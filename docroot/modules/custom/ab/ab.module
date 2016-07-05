@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Contains ab.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ab_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ab module.
+    case 'help.page.ab':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('AB Testing FrameWork') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ab_page_attachments(array &$attachments) {
+  $attachments['#attached'] = ['drupalSettings' => ['hehe' => 'render']];
+}

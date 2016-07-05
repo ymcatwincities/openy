@@ -1,0 +1,5 @@
+name: ab
+type: module
+description: AB Testing FrameWork
+core: 8.x
+package: YMCA
