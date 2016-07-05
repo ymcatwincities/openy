@@ -1816,4 +1816,95 @@ select.form-control.default {
   border-color: #31adad;
 }
 
+.detailed-rules {
+  max-width: 790px;
+  max-width: 79rem;
+  margin: auto;
+}
+.detailed-rules h3 {
+  font-size: 30px;
+  font-size: 3rem;
+  line-height: 35px;
+  line-height: 3.5rem;
+  margin-top: 120px;
+  margin-top: 12rem;
+  padding-bottom: 55px;
+  padding-bottom: 5.5rem;
+  border-bottom: 1px solid #f2f2f2;
+  color: #e49bbd;
+  letter-spacing: -0.8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.detailed-rules h4 {
+  margin-top: 70px;
+  margin-top: 7rem;
+  font-size: 25px;
+  font-size: 2.5rem;
+  color: #424242;
+  text-transform: uppercase;
+}
+.detailed-rules dl dt {
+  font-family: "Cachet",Arial,sans-serif;
+  font-size: 20px;
+  font-size: 2rem;
+  margin-top: 10px;
+  margin-top: 1rem;
+  color: #c6168d;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.detailed-rules dl dd {
+  font-size: 15px;
+  font-size: 1.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+  color: #a7a7a7;
+  padding-left: 20px;
+  padding-left: 2rem;
+}
+.detailed-rules ol, .detailed-rules ul {
+  padding-left: 20px;
+  padding-left: 2rem;
+}
+.detailed-rules ol li, .detailed-rules ul li {
+  font-size: 15px;
+  font-size: 1.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+  color: #a7a7a7;
+  padding-top: 10px;
+  padding-top: 1rem;
+  color: #424242;
+}
+.detailed-rules ol li p, .detailed-rules ul li p {
+  font-size: 15px;
+  font-size: 1.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+  color: #a7a7a7;
+  padding-top: 10px;
+  padding-top: 1rem;
+  margin-bottom: 20px;
+  margin-bottom: 2rem;
+}
+.detailed-rules ol ol, .detailed-rules ol ul, .detailed-rules ul ol, .detailed-rules ul ul {
+  padding-left: 0;
+}
+.detailed-rules ol ol li, .detailed-rules ol ul li, .detailed-rules ul ol li, .detailed-rules ul ul li {
+  list-style-position: inside;
+}
+.detailed-rules > ol > li, .detailed-rules > ul > li {
+  font-weight: bold;
+}
+.detailed-rules > ol > li > *, .detailed-rules > ul > li > * {
+  font-weight: normal;
+}
+
 /*# sourceMappingURL=ysr.css.map */
