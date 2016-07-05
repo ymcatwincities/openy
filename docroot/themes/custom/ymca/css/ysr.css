@@ -372,11 +372,6 @@
   margin-top: 40px;
 }
 #register-and-report .btn {
-  background-image: none;
-  font-size: 2.1rem;
-  letter-spacing: -0.8px;
-  line-height: 2.3rem;
-  width: 100%;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -384,36 +379,41 @@
   -o-transition: background-color 0.5s;
   -webkit-transition: background-color 0.5s;
   transition: background-color 0.5s;
+  background-image: none;
+  font-size: 2.1rem;
+  letter-spacing: -0.8px;
+  line-height: 2.3rem;
+  width: 100%;
 }
 #register-and-report input {
   width: 100%;
 }
 #register-and-report input[type="text"], #register-and-report input[type="email"] {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   border: none;
   color: #424242;
   font-size: 1.4rem;
   height: 4.7rem;
   line-height: 4.7rem;
   padding: 0 2.5rem;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
 }
 #register-and-report input[type="text"]:-moz-placeholder, #register-and-report input[type="email"]:-moz-placeholder {
-  font-style: italic;
   color: #a7a7a7;
+  font-style: italic;
 }
 #register-and-report input[type="text"]::-moz-placeholder, #register-and-report input[type="email"]::-moz-placeholder {
-  font-style: italic;
   color: #a7a7a7;
+  font-style: italic;
 }
 #register-and-report input[type="text"]:-ms-input-placeholder, #register-and-report input[type="email"]:-ms-input-placeholder {
-  font-style: italic;
   color: #a7a7a7;
+  font-style: italic;
 }
 #register-and-report input[type="text"]::-webkit-input-placeholder, #register-and-report input[type="email"]::-webkit-input-placeholder {
-  font-style: italic;
   color: #a7a7a7;
+  font-style: italic;
 }
 #register-and-report input[type="submit"] {
   min-width: 12rem;
@@ -429,13 +429,13 @@
   }
 }
 #register-and-report .icon-back {
-  display: block;
-  height: 4.7rem;
-  width: 4.7rem;
   background-image: url(../prototypes/ysr/img/arrow-back.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
+  display: block;
+  height: 4.7rem;
+  width: 4.7rem;
 }
 @media (max-width: 767px) {
   #register-and-report .icon-back {
@@ -515,16 +515,16 @@
   font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 #register-and-report .registration .access-help .access-question {
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
   left: 0;
   opacity: 1;
   padding-bottom: 35px;
   position: absolute;
   width: 100%;
   z-index: 1;
-  -moz-transition: opacity 0.3s;
-  -o-transition: opacity 0.3s;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
 }
 #register-and-report .registration .access-help .access-question p {
   text-align: center;
@@ -546,8 +546,6 @@
   }
 }
 #register-and-report .registration .access-help .access-answer {
-  opacity: 0;
-  padding-bottom: 25px;
   -moz-transition: padding-bottom 0.5s, opacity 0.3s;
   -o-transition: padding-bottom 0.5s, opacity 0.3s;
   -webkit-transition: padding-bottom 0.5s, opacity 0.3s;
@@ -556,6 +554,8 @@
   -o-transition-delay: 0.5s;
   -webkit-transition-delay: 0.5s;
   transition-delay: 0.5s;
+  opacity: 0;
+  padding-bottom: 25px;
 }
 #register-and-report .registration .access-help .access-answer p {
   color: #fff;
@@ -576,15 +576,6 @@
   }
 }
 #register-and-report .registration .access-help .access-answer .hand {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  height: 28.7px;
-  width: 666px;
-  margin-left: -33px;
-  background-image: url(../prototypes/ysr/img/hand.png);
-  background-size: contain;
-  background-repeat: no-repeat;
   -moz-transition: height 0.5s, margin-left 0.5s;
   -o-transition: height 0.5s, margin-left 0.5s;
   -webkit-transition: height 0.5s, margin-left 0.5s;
@@ -593,6 +584,15 @@
   -o-transition-delay: 0.5s;
   -webkit-transition-delay: 0.5s;
   transition-delay: 0.5s;
+  background-image: url(../prototypes/ysr/img/hand.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: 0;
+  height: 28.7px;
+  left: 50%;
+  margin-left: -33px;
+  position: absolute;
+  width: 666px;
 }
 @media (max-width: 767px) {
   #register-and-report .report .icon-back {
@@ -650,8 +650,8 @@
   text-align: center;
 }
 #leaderboard #leaderboard-location {
-  max-width: 380px;
   margin: auto;
+  max-width: 380px;
 }
 #leaderboard .pager .load-more {
   color: #c6168d;
@@ -667,8 +667,8 @@
   padding: 80px 0 60px;
 }
 #main-description-individual .col-xs-12 {
-  text-align: center;
   padding: 0 50px;
+  text-align: center;
 }
 #main-description-individual h2 {
   color: #f47920;
@@ -679,7 +679,7 @@
   text-transform: uppercase;
 }
 #main-description-individual p {
-  color: #777777;
+  color: #777;
   font-family: "Cachet", Arial, sans-serif;
   font-size: 20px;
   letter-spacing: -0.8px;
@@ -695,21 +695,21 @@
 #main-description-individual .your-prize {
   border: 2px solid #fbae1f;
   border-radius: 2px;
-  max-width: 380px;
-  margin: 75px auto 25px;
-  font-weight: bold;
   color: #f37823;
   font-size: 20px;
+  font-weight: bold;
   line-height: 25px;
-  text-transform: uppercase;
+  margin: 75px auto 25px;
+  max-width: 380px;
   padding: 50px 20px;
   position: relative;
+  text-transform: uppercase;
 }
 #main-description-individual .your-prize img {
-  position: absolute;
-  top: -22px;
   left: 50%;
   margin-left: -22px;
+  position: absolute;
+  top: -22px;
 }
 
 #prizes {
@@ -719,15 +719,15 @@
 }
 #prizes .grand-prize {
   background: url("../img/winners_grand_prize_title.png") no-repeat center 0;
-  padding: 48px 0 0;
   margin-bottom: 100px;
+  padding: 48px 0 0;
 }
 #prizes .grand-prize p {
+  font-family: "Cachet",Arial,sans-serif;
   color: #777;
   font-size: 20px;
   line-height: 25px;
   text-align: center;
-  font-family: "Cachet", Arial, sans-serif;
   margin-bottom: 0;
 }
 #prizes .grand-prize .col-sm-6 .inner {
@@ -739,16 +739,16 @@
 #prizes .grand-prize .winner {
   color: #c6188b;
   font-size: 15px;
-  line-height: 20px;
   font-weight: bold;
+  line-height: 20px;
   text-transform: uppercase;
 }
 #prizes .grand-prize .name {
   color: #5c2d8f;
   font-size: 20px;
+  font-weight: bold;
   line-height: 25px;
   text-transform: uppercase;
-  font-weight: bold;
 }
 #prizes .grand-prize .id {
   color: #424242;
@@ -764,16 +764,16 @@
   margin-right: 4px;
 }
 #prizes .first-prize {
+  font-family: "Cachet",Arial,sans-serif;
   background: url("../img/first_prize_title.png") no-repeat center 0;
   padding: 40px 0 0;
-  font-family: "Cachet", Arial, sans-serif;
 }
 #prizes .first-prize p {
   color: #777;
   font-size: 20px;
   line-height: 25px;
-  text-align: center;
   margin-bottom: 0;
+  text-align: center;
 }
 #prizes .first-prize p:first-child {
   color: #000;
@@ -794,16 +794,16 @@
 #prizes .first-prize .winner {
   color: #f47920;
   font-size: 15px;
-  line-height: 20px;
   font-weight: bold;
+  line-height: 20px;
   text-transform: uppercase;
 }
 #prizes .first-prize .name {
   color: #ec1d24;
   font-size: 20px;
+  font-weight: bold;
   line-height: 25px;
   text-transform: uppercase;
-  font-weight: bold;
 }
 #prizes .first-prize .id {
   color: #424242;
@@ -820,8 +820,8 @@
 }
 
 #more-prizes {
-  padding: 95px 0 30px;
   background: #fff;
+  padding: 95px 0 30px;
 }
 
 #prizes .container, #more-prizes .container {
@@ -966,7 +966,7 @@
 }
 .results-table tbody tr .member-id {
   font-size: 13px;
-  color: #777777;
+  color: #777;
   font-weight: normal;
 }
 .results-table tbody tr .name, .results-table tbody tr .member-id {
@@ -1389,11 +1389,11 @@ select.form-control.default {
 }
 
 .member-info {
-  background-image: url(../prototypes/ysr/img/reporting/background.png);
-  background-size: cover;
-  text-transform: uppercase;
   padding-top: 35px;
   padding-top: 3.5rem;
+  background-image: url("../prototypes/ysr/img/reporting/background.png");
+  background-size: cover;
+  text-transform: uppercase;
 }
 @media (min-width: 48em) {
   .member-info {
@@ -1408,27 +1408,27 @@ select.form-control.default {
   max-width: 128rem;
 }
 .member-info h3 {
-  color: #fff;
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 30px;
   font-size: 3rem;
   line-height: 30px;
   line-height: 3rem;
   padding-top: 14px;
   padding-top: 1.4rem;
+  color: #fff;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 @media (min-width: 48em) {
   .member-info h3 {
-    overflow: visible;
     padding-top: 2px;
     padding-top: 0.2rem;
     font-size: 30px;
     font-size: 3rem;
     line-height: 30px;
     line-height: 3rem;
+    overflow: visible;
   }
 }
 .member-info--general, .member-info--stats {
@@ -1437,36 +1437,36 @@ select.form-control.default {
 }
 @media (min-width: 48em) {
   .member-info--general, .member-info--stats {
-    text-align: left;
     height: 100px;
     height: 10rem;
+    text-align: left;
   }
 }
 .member-info--name-goal {
+  padding-bottom: 25px;
+  padding-bottom: 2.5rem;
+  padding-left: 90px;
+  padding-left: 9rem;
   display: inline-block;
   margin: auto;
   max-width: 100%;
   position: relative;
   text-align: left;
-  padding-bottom: 25px;
-  padding-bottom: 2.5rem;
-  padding-left: 90px;
-  padding-left: 9rem;
 }
 @media (min-width: 48em) {
   .member-info--name-goal {
-    display: block;
-    padding-bottom: 0;
     padding-left: 145px;
     padding-left: 14.5rem;
+    display: block;
+    padding-bottom: 0;
   }
 }
 .member-info--name-goal .person-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 65px;
   width: 6.5rem;
+  left: 0;
+  position: absolute;
+  top: 0;
 }
 @media (min-width: 48em) {
   .member-info--name-goal .person-icon {
@@ -1477,14 +1477,14 @@ select.form-control.default {
   }
 }
 .member-info--goal {
-  color: #554a5c;
-  display: block;
-  white-space: nowrap;
   font-family: "Cachet",Arial,sans-serif;
   line-height: 11px;
   line-height: 1.1rem;
   padding-top: 13px;
   padding-top: 1.3rem;
+  color: #554a5c;
+  display: block;
+  white-space: nowrap;
 }
 .member-info--goal-value {
   font-weight: bold;
@@ -1500,12 +1500,12 @@ select.form-control.default {
   }
 }
 .member-info--progress-bar {
-  background-color: #fff;
   border-radius: 13px;
   border-radius: 1.25rem;
-  bottom: 0;
   height: 25px;
   height: 2.5rem;
+  background-color: #fff;
+  bottom: 0;
   position: relative;
   overflow: hidden;
 }
@@ -1516,41 +1516,42 @@ select.form-control.default {
   }
 }
 .member-info--progress-bar--value {
-  background-color: #c6168d;
-  color: #fff;
   font-size: 13px;
   font-size: 1.3rem;
-  font-weight: bold;
   height: 25px;
   height: 2.5rem;
-  left: 0;
   line-height: 25px;
   line-height: 2.5rem;
-  position: absolute;
-  top: 0;
-  text-align: right;
   padding-right: 10px;
   padding-right: 1rem;
+  background-color: #c6168d;
+  color: #fff;
+  font-weight: bold;
+  left: 0;
+  position: absolute;
+  text-align: right;
+  top: 0;
 }
 .member-info--stats {
-  color: #fff;
   font-family: "Cachet",Arial,sans-serif;
+  padding: 22px 0 22px 0;
+  padding: 2.2rem 0 2.2rem 0;
+  color: #fff;
   font-weight: bold;
   font-size: 16px;
   line-height: 16px;
-  padding: 22px 0 22px 0;
-  padding: 2.2rem 0 2.2rem 0;
 }
 @media (min-width: 48em) {
   .member-info--stats--wrapper {
-    bottom: 0;
-    position: absolute;
     padding: 0 0 0 45px;
     padding: 0 0 0 4.5rem;
+    bottom: 0;
+    position: absolute;
   }
 }
 .member-info--stats .rank,
 .member-info--stats .total-activities {
+  white-space: nowrap;
   height: 16px;
   height: 1.6rem;
   line-height: 24px;
@@ -1559,16 +1560,9 @@ select.form-control.default {
   padding-left: 3rem;
   padding-right: 30px;
   padding-right: 3rem;
-  white-space: nowrap;
 }
 .member-info--stats .rank:before,
 .member-info--stats .total-activities:before {
-  content: "";
-  background-image: url(../prototypes/ysr/img/reporting/star-icon.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: inline-block;
-  position: absolute;
   height: 16px;
   height: 1.6rem;
   margin-left: -29px;
@@ -1577,12 +1571,17 @@ select.form-control.default {
   margin-top: 0.3rem;
   width: 17px;
   width: 1.7rem;
+  background: url("../prototypes/ysr/img/reporting/star-icon.png") no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  position: absolute;
 }
 .member-info--stats .rank {
   padding-right: 0;
 }
 .member-info--stats .rank:before {
-  background-image: url(../prototypes/ysr/img/reporting/cup-icon.png);
+  background-image: url("../prototypes/ysr/img/reporting/cup-icon.png");
 }
 
 /*# sourceMappingURL=ysr.css.map */

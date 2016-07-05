@@ -8451,7 +8451,7 @@ p.legend {
   color: #424242;
 }
 .mindbody-search-results-header .item.datetime {
-  color: #777777;
+  color: #777;
   line-height: 35px;
 }
 .mindbody-search-results-header .item.datetime div {
@@ -8519,7 +8519,7 @@ p.legend {
   margin-bottom: 35px;
 }
 .mindbody-search-results-content .day .date {
-  color: #777777;
+  color: #777;
   font-size: 13px;
   line-height: 21px;
 }
@@ -8531,7 +8531,7 @@ p.legend {
 .mindbody-search-results-content .day .weekday {
   font-family: "Cachet", Arial, sans-serif;
   font-size: 25px;
-  color: #777777;
+  color: #777;
   line-height: 28px;
   font-weight: bold;
   margin-bottom: 15px;
@@ -8571,7 +8571,7 @@ p.legend {
   background-color: #fafafa;
   border-radius: 3px;
   border: 1px solid #e9e9e9;
-  color: #777777;
+  color: #777;
   display: block;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -8582,7 +8582,7 @@ p.legend {
   text-decoration: none;
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot .icon {
-  color: #777777;
+  color: #777;
   font-size: 14px;
   margin-right: 12px;
 }
