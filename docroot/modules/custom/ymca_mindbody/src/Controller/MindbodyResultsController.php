@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
+use Drupal\mindbody\MindbodyException;
 use Drupal\ymca_mindbody\Form\MindbodyPTForm;
 use Drupal\Core\Controller\ControllerBase;
 
@@ -27,7 +28,20 @@ class MindbodyResultsController extends ControllerBase {
     );
 
     $form = MindbodyPTForm::create(\Drupal::getContainer());
-    $search_results = $form->getSearchResults($values);
+    try {
+      $search_results = $form->getSearchResults($values);
+    }
+    catch (MindbodyException $e) {
+      $logger = \Drupal::getContainer()->get('logger.factory')->get('ymca_mindbody');
+      $logger->error('Failed to get the results: %msg', ['%msg' => $e->getMessage()]);
+      return [
+        '#prefix' => '<div class="row mindbody-search-results-content">
+          <div class="container">
+            <div class="day col-sm-12">',
+        '#markup' => $form->getDisabledMarkup(),
+        '#suffix' => '</div></div></div>',
+      ];
+    }
 
     return [
       '#markup' => render($search_results),
