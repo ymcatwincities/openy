@@ -24,6 +24,9 @@
         addRemoveLinks: true
       };
       var instanceConfig = drupalSettings.dropzonejs.instances[selector.attr('id')];
+      if (instanceConfig.instance !== undefined) {
+        instanceConfig.instance.destroy();
+      }
       var dropzoneInstance = new Dropzone("#" + selector.attr("id"), $.extend({}, instanceConfig, config));
 
       // Other modules might need instances.
