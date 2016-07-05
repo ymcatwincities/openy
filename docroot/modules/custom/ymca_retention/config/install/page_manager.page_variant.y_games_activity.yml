@@ -1,0 +1,56 @@
+uuid: 028e4770-c8cb-4219-85bf-87e072bc2df0
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_activity
+  module:
+    - panels
+    - ymca_retention
+id: y_games_activity
+label: 'Y Games Activity'
+variant: panels_variant
+variant_settings:
+  blocks:
+    de599953-3c54-481c-af70-98d9f28c675b:
+      id: retention_campaign_intro_block
+      label: 'YMCA retention campaign intro block'
+      provider: ymca_retention
+      label_display: '0'
+      region: intro
+      weight: 0
+      uuid: de599953-3c54-481c-af70-98d9f28c675b
+      context_mapping: {  }
+    5d8ddc36-874d-44f6-a47b-12b22ee1fe30:
+      id: retention_leader_board_block
+      label: 'YMCA retention leader board block'
+      provider: ymca_retention
+      label_display: '0'
+      region: leaderboard
+      weight: 0
+      uuid: 5d8ddc36-874d-44f6-a47b-12b22ee1fe30
+      context_mapping: {  }
+    2ca831b1-d3c0-476e-8a20-cb1d35144faa:
+      id: retention_track_activity_block
+      label: 'YMCA retention track activity block'
+      provider: ymca_retention
+      label_display: '0'
+      region: report
+      weight: 0
+      uuid: 2ca831b1-d3c0-476e-8a20-cb1d35144faa
+      context_mapping: {  }
+  id: panels_variant
+  uuid: bad55d34-748c-4622-89ff-0f27cd86a1c2
+  label: null
+  weight: 0
+  layout: retention-activity
+  layout_settings: {  }
+  page_title: 'Y Games Activity'
+  storage_type: page_manager
+  storage_id: y_games_activity
+  builder: standard
+page: ymca_retention_activity
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }
