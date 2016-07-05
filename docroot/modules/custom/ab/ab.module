@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains ab.module..
+ * Contains ab.module.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
