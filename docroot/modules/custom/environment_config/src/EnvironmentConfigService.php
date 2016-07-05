@@ -39,7 +39,7 @@ class EnvironmentConfigService implements EnvironmentConfigServiceInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getEnvironmentIndicator($config_name) {
     return $this->configFactory
@@ -48,14 +48,14 @@ class EnvironmentConfigService implements EnvironmentConfigServiceInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getActiveConfig($config_name) {
     return $this->configFactory->get($config_name)->get();
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function setActiveConfig($config_name, $env_name) {
     // Set active config.
@@ -73,7 +73,7 @@ class EnvironmentConfigService implements EnvironmentConfigServiceInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getEnvironmentConfig($config_name, $env_name) {
     return $this->configFactory
