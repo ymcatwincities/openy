@@ -32,15 +32,14 @@ class MindbodyResultsController extends ControllerBase {
       $search_results = $form->getSearchResults($values);
     }
     catch (MindbodyException $e) {
-      $logger = $this->loggerFactory->get('ymca_mindbody');
+      $logger = \Drupal::getContainer()->get('logger.factory')->get('ymca_mindbody');
       $logger->error('Failed to get the results: %msg', ['%msg' => $e->getMessage()]);
       return [
-        'disabled' => [
-          '#markup' => $form->getDisabledMarkup(),
-        ],
-        '#cache' => [
-          'max-age' => 0,
-        ],
+        '#prefix' => '<div class="row mindbody-search-results-content">
+          <div class="container">
+            <div class="day col-sm-12">',
+        '#markup' => $form->getDisabledMarkup(),
+        '#suffix' => '</div></div></div>',
       ];
     }
 
