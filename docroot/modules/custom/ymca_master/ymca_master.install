@@ -3352,3 +3352,10 @@ function ymca_master_update_8143() {
     ]
   );
 }
+
+/**
+ * Enable 'environment_config' module.
+ */
+function ymca_master_update_8144() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+}
