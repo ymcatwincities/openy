@@ -9,11 +9,15 @@ use \Drupal\taxonomy\Entity\Term;
 /**
  * Helper function to create taxonomy term.
  */
-function _ymca_retention_term_create($values, $parent = NULL) {
+function _ymca_retention_term_create($values, $weight = NULL, $parent = NULL) {
   $term = Term::create([
     'vid' => 'ymca_retention_activities',
     'name' => $values['name'],
-    'weight' => isset($values['weight']) ? $values['weight'] : 0,
+    'description' => [
+      'value' => isset($values['description']) ? $values['description'] : '',
+      'format' => 'full_html',
+    ],
+    'weight' => $weight ? $weight : 0,
     'parent' => $parent ? [$parent->id()] : [],
   ]);
   $term->save();
@@ -21,8 +25,8 @@ function _ymca_retention_term_create($values, $parent = NULL) {
     return $term;
   }
 
-  foreach ($values['terms'] as $child) {
-    _ymca_retention_term_create($child, $term);
+  foreach ($values['terms'] as $weight => $child) {
+    _ymca_retention_term_create($child, $weight, $term);
   }
   return $term;
 }
@@ -33,77 +37,105 @@ function _ymca_retention_term_create($values, $parent = NULL) {
 function _ymca_retention_activity_tracker_terms() {
   return [
     [
-      'name' => 'Swimming',
-      'weight' => 0,
+      'name' => 'Swim',
+      'description' => 'Aquatics, Stream Room, Sauna',
       'terms' => [
         [
-          'name' => 'Swim laps',
+          'name' => 'Indoor Pool',
         ],
         [
-          'name' => 'Enjoy open swim (self)',
+          'name' => 'Outdoor Pool',
         ],
         [
-          'name' => 'Open swim (w/ family or friends)',
+          'name' => 'Lap Pool Swimming',
         ],
         [
-          'name' => 'Soak in hot tub',
+          'name' => 'Warm Water Leisure Pool',
+          'description' => 'Shallow',
         ],
         [
-          'name' => 'Indoor water features (e.g. slide)',
+          'name' => 'Splash Deck',
         ],
         [
-          'name' => 'Utilize outdoor splash pad',
+          'name' => 'Whirlpool',
+        ],
+        [
+          'name' => 'Water Slide Use',
+          'description' => 'You or Family Members',
+        ],
+        [
+          'name' => 'Sauna',
+        ],
+        [
+          'name' => 'Steam Room',
+        ],
+        [
+          'name' => 'Swim Lessons',
+          'description' => 'You or Family Members',
+        ],
+        [
+          'name' => 'Vortex Pool',
         ],
       ],
     ],
     [
       'name' => 'Fitness',
-      'weight' => 1,
+      'description' => 'Fitness Machines, Gym, PT & Paid Group X',
       'terms' => [
         [
-          'name' => 'Use one or more cardio equipment',
+          'name' => 'Cardio Machine',
+          'description' => 'ex: Bikes, Treadmill, Elliptical, Stair Mill...',
         ],
         [
-          'name' => 'Use one or more weight equipment',
+          'name' => 'Strengthening Machine',
         ],
         [
-          'name' => 'Stretching and mobility',
+          'name' => 'Stretching/Mobility Equipment',
         ],
         [
-          'name' => 'Work with a Personal Trainer',
+          'name' => 'Weight Lifting Equipment',
         ],
         [
-          'name' => 'Participate in paid Group Training Class',
+          'name' => 'Open Gym',
+        ],
+        [
+          'name' => 'Indoor Track',
+        ],
+        [
+          'name' => 'Fitness routine using the Youth/Family Fitness Cards',
+        ],
+        [
+          'name' => 'Racquet/Handball Courts',
+        ],
+        [
+          'name' => 'Climbing Wall',
+        ],
+        [
+          'name' => 'Outdoor Trail',
+        ],
+        [
+          'name' => 'Personal Training',
+        ],
+        [
+          'name' => 'Buddy Training',
+        ],
+        [
+          'name' => 'Paid Group Training',
         ],
       ],
     ],
     [
-      'name' => 'Group Exercises',
-      'weight' => 2,
+      'name' => 'Free Group X',
+      'description' => 'Group Fitness, Kids & Family, Water Classes',
       'terms' => [
         [
-          'name' => '55+',
+          'name' => 'Group X Class',
         ],
         [
-          'name' => 'Cardio',
+          'name' => 'Kids & Family Class',
         ],
         [
-          'name' => 'Cardio + Strength Combo',
-        ],
-        [
-          'name' => 'Dance',
-        ],
-        [
-          'name' => 'Kids and Family',
-        ],
-        [
-          'name' => 'Pilates & Yoga',
-        ],
-        [
-          'name' => 'Strength',
-        ],
-        [
-          'name' => 'Water Exercise',
+          'name' => 'Water Exercise Class',
         ],
       ],
     ],
