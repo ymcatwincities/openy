@@ -23,6 +23,7 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
         'trainer' => '',
         'datetime' => '',
         'back_link' => '',
+        'start_again_link' => '',
         'base_path' => '',
         'telephone' => '',
         'days' => [],
