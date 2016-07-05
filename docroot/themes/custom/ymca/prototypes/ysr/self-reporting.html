@@ -53,7 +53,7 @@
 
   <meta name="google-site-verification" content="QM8r9JXsgtjo6PO9xIixzLkbGqK1sXXddIi4CxOcvt4" />
 </head>
-<body class="internal-template theme_ymca_2016_summer_retention path-march">
+<body class="internal-template theme_ymca_2016_summer_retention ysr-self-reporting">
 
   <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5FV7H7"
@@ -173,88 +173,39 @@
             <div class="date">July 25 - August 16</div>
             <h1>Y Games 2016</h1>
           </div>
-          <div id="register-and-report" class="slides">
+        </div>
 
-            <div id="register-or-report" class="slide register-or-report">
-              <div class="container">
-                <div class="row">
-                  <div class="buttons">
-                    <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-                      <a href="#registration" class="btn btn-lg btn-primary blue slide-controller">Register</a>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-                      <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">Track Activity</a>
-                    </div>
-                  </div>
+        <div class="member-info">
+          <div class="row">
+            <div class="container">
+              <div class="col-xs-12 col-sm-7 member-info--general">
+                <div class="member-info--name-goal">
+                  <img src="img/reporting/person.png" alt="" class="person-icon">
+                  <h3>Hello, Carl Philipp Emanuel</h3>
+                  <span class="member-info--goal">
+                    Your goal is:
+                    <span class="member-info--goal-value">
+                      15 visits
+                    </span>
+                  </span>
                 </div>
-                <div class="row">
 
-                  <p>
-                    Enjoy your visits, report your activities,<br/>
-                    see the results and win cool prizes.
-                  </p>
+                <div class="member-info--progress-bar">
+                  <div class="member-info--progress-bar--value" style="width: 20%;">3</div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-5 member-info--stats">
+                <div class="member-info--stats--wrapper">
+                  <span class="total-activities">
+                    12 total activities
+                  </span>
+                  <span class="rank">
+                    18 rank
+                  </span>
                 </div>
               </div>
             </div>
-
-            <div id="registration" class="slide slide-inactive registration">
-              <div class="container">
-                <div class="row">
-                  <form action="#" class="registration-form">
-                    <div class="col-xs-1 col-sm-1 col-sm-push-1">
-                      <a href="#register-or-report" class="icon-back slide-controller"></a>
-                    </div>
-                    <div class="col-xs-10 col-xs-push-1 col-sm-4 col-sm-push-1">
-                      <input type="email" name="email" placeholder="Your e-mail" class="email">
-                    </div>
-                    <div class="col-xs-10 col-xs-push-1 col-sm-3 col-sm-push-1">
-                      <input type="text" name="facility-access-id" placeholder="Your facility access ID" class="facility-access-id">
-                    </div>
-                    <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-1">
-                      <input type="submit" value="Register" class="btn btn-lg btn-primary blue-medium" />
-                    </div>
-                  </form>
-                </div>
-
-                <div class="row access-help">
-                  <div class="access-question">
-                    <a href="#" class="where-can-i-find">Where can I find my Facility Access ID?</a>
-                  </div>
-
-                  <div class="access-answer">
-                    <p>Please find your facility access ID below the barcode.</p>
-                    <p class="note">
-                      (please note it might be on the front of the card on older membership cards)
-                    </p>
-                    <div class="hand">
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="report" class="slide slide-inactive report">
-              <div class="container">
-                <div class="row report-form">
-                  <form action="self-reporting.html" class="report-form">
-                    <div class="col-xs-1 col-sm-1 col-sm-push-2">
-                      <a href="#register-or-report" class="icon-back slide-controller"></a>
-                    </div>
-                    <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
-                      <input type="email" name="email" placeholder="Your e-mail" class="email">
-                    </div>
-                    <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
-                      <input type="submit" value="OK" class="btn btn-lg btn-primary purple-medium" />
-                    </div>
-                  </form>
-                </div>
-
-              </div>
-            </div>
-
           </div>
-
         </div>
 
         <div id="leaderboard">
@@ -896,6 +847,7 @@
           jQuery('#hero-banner-selector', context).once('change-banner').each(function () {
             var $self = jQuery(this);
             $self.bind('change', function () {
+              console.log($self.val());
               jQuery('#hero-section')
                 .removeClass('hero-1 hero-2 hero-3')
                 .addClass($self.val());
@@ -926,7 +878,7 @@
             });
           });
         }
-      };
+      }
 
     })(jQuery);
 
