@@ -3341,4 +3341,10 @@ function ymca_master_update_8143() {
     'views_rest_feed',
     'ymca_retention',
   ], TRUE);
+
+  // Create YMCA Retention activities terms.
+  module_load_include('inc', 'ymca_retention', 'ymca_retention.terms');
+  foreach (_ymca_retention_activity_tracker_terms() as $values) {
+    _ymca_retention_term_create($values);
+  }
 }
