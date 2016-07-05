@@ -108,7 +108,7 @@ class MemberTrackActivityLoginForm extends FormBase {
     /** @var \Drupal\user\SharedTempStore $temp_store */
     $temp_store = \Drupal::service('user.shared_tempstore')
       ->get('ymca_retention');
-    $temp_store->set('member', $member);
+    $temp_store->setIfOwner('member', $member);
 
     // Redirect to confirmation page.
     $form_state->setRedirect('ymca_retention.enroll_success_page');
