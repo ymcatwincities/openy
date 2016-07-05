@@ -390,6 +390,10 @@
     width: 100%;
   }
 
+  .form-tem {
+    margin-bottom: 0px;
+  }
+
   input {
     width: 100%;
 
@@ -777,7 +781,7 @@
     .location-line {
       color: #777;
       font-size: 15px;
-  
+
       span {
         color: #c6188b;
         margin-right: 4px;
@@ -1178,4 +1182,20 @@
 select.form-control.default {
   font-style: italic;
   color: $grey4;
+}
+
+body {
+  &.toolbar-fixed.toolbar-vertical {
+    #top-nav {
+      margin-top: 39px;
+    }
+    #hero-section {
+      margin-top: 20px;
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal {
+    #top-nav {
+      margin-top: 79px;
+    }
+  }
 }

@@ -896,7 +896,6 @@
           jQuery('#hero-banner-selector', context).once('change-banner').each(function () {
             var $self = jQuery(this);
             $self.bind('change', function () {
-              console.log($self.val());
               jQuery('#hero-section')
                 .removeClass('hero-1 hero-2 hero-3')
                 .addClass($self.val());
@@ -927,7 +926,7 @@
             });
           });
         }
-      }
+      };
 
     })(jQuery);
 
