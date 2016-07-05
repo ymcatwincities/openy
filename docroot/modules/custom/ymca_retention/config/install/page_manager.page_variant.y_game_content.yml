@@ -48,6 +48,15 @@ variant_settings:
       weight: 0
       uuid: 6cd14778-f579-4105-923b-bcf8f81f9882
       context_mapping: {  }
+    64ad387f-3573-41a1-8b62-ab4ec5346cd1:
+      id: retention_navigation_block
+      label: 'YMCA retention navigation block'
+      provider: ymca_retention
+      label_display: '0'
+      region: navigation
+      weight: 0
+      uuid: 64ad387f-3573-41a1-8b62-ab4ec5346cd1
+      context_mapping: {  }
   id: panels_variant
   uuid: d0be25ba-a965-471b-9764-0353dee21f9e
   label: null

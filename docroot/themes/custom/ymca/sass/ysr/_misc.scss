@@ -1183,3 +1183,19 @@ select.form-control.default {
   font-style: italic;
   color: $grey4;
 }
+
+body {
+  &.toolbar-fixed.toolbar-vertical {
+    #top-nav {
+      margin-top: 39px;
+    }
+    #hero-section {
+      margin-top: 20px;
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal {
+    #top-nav {
+      margin-top: 79px;
+    }
+  }
+}
