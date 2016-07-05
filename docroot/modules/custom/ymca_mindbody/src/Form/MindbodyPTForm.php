@@ -165,11 +165,14 @@ class MindbodyPTForm extends FormBase {
       'prepopulated_location' => FALSE,
     );
 
-    if (isset($query['context']) && isset($query['location']) && is_numeric($query['location'])) {
+    if (isset($query['context'], $query['location']) && is_numeric($query['location'])) {
+      $state['context'] = $query['context'];
+      $state['location'] = $query['location'];
       $state['mb_location'] = $query['location'];
       $state['prepopulated_location'] = TRUE;
     }
-    if (isset($query['context']) && $query['context'] == 'trainer' && isset($query['trainer']) && is_numeric($query['trainer'])) {
+    if (isset($query['context'], $query['trainer']) && $query['context'] == 'trainer' && is_numeric($query['trainer'])) {
+      $state['trainer'] = $query['trainer'];
       $state['mb_trainer'] = $query['trainer'];
       $state['prepopulated_trainer'] = TRUE;
     }
@@ -462,6 +465,7 @@ class MindbodyPTForm extends FormBase {
         $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
 
         $form['mb_trainer'] = array(
+          '#access' => !empty($this->state['prepopulated_trainer']) ? FALSE : TRUE,
           '#type' => 'select',
           '#title' => $this->t('Trainer'),
           '#options' => $trainer_options,
@@ -635,18 +639,7 @@ class MindbodyPTForm extends FormBase {
       $trainer_name = $this->t('all trainers');
     }
     else {
-      $mapping_id = $this->entityQuery
-        ->get('mapping')
-        ->condition('type', 'trainer')
-        ->condition('field_mindbody_trainer_id', $values['trainer'])
-        ->execute();
-      $mapping_id = reset($mapping_id);
-      if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
-        $name = explode(', ', $mapping->getName());
-        if (isset($name[0]) && isset($name[0])) {
-          $trainer_name = $name[1] . ' ' . $name[0];
-        }
-      }
+      $trainer_name = $this->getTrainerName($values['trainer']);
     }
 
     $time_options = $this->getTimeOptions();
@@ -731,7 +724,7 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $query = \Drupal::request()->query->all();
+    $query = $this->state;
     $values = $form_state->getUserInput();
     if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
       $values['mb_trainer'] = $query['trainer'];
@@ -871,6 +864,33 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_options;
+  }
+
+  /**
+   * Helper method retrieving trainer name form mapping.
+   *
+   * @param int $trainer
+   *   MindBody trainer id.
+   *
+   * @return string
+   *   Trainer's name.
+   */
+  public function getTrainerName($trainer) {
+    $trainer_name = '';
+    $mapping_id = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'trainer')
+      ->condition('field_mindbody_trainer_id', $trainer)
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+      $name = explode(', ', $mapping->getName());
+      if (isset($name[0]) && isset($name[0])) {
+        $trainer_name = $name[1] . ' ' . $name[0];
+      }
+    }
+
+    return $trainer_name;
   }
 
 }
