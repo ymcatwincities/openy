@@ -145,11 +145,11 @@ class MindbodyPTForm extends FormBase {
       'prepopulated_location' => FALSE,
     );
 
-    if (isset($query['location']) && is_numeric($query['location'])) {
+    if (isset($query['context']) && $query['context'] == 'location' && isset($query['location']) && is_numeric($query['location'])) {
       $state['mb_location'] = $query['location'];
       $state['prepopulated_location'] = TRUE;
     }
-    if (isset($query['trainer']) && is_numeric($query['trainer'])) {
+    if (isset($query['context']) && $query['context'] == 'trainer' && isset($query['trainer']) && is_numeric($query['trainer'])) {
       $state['mb_trainer'] = $query['trainer'];
       $state['prepopulated_trainer'] = TRUE;
     }
