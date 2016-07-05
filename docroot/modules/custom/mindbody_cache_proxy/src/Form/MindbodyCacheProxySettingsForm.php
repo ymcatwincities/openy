@@ -3,9 +3,7 @@
 namespace Drupal\mindbody_cache_proxy\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\mindbody_cache_proxy\Entity\MindbodyCache;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -30,6 +28,7 @@ class MindbodyCacheProxySettingsForm extends ConfigFormBase implements Container
     $state = $this->container->get('state');
     $stats = $state->get('mindbody_cache_proxy');
     $config = $this->config('mindbody_cache_proxy.settings');
+    $calls = !empty($config->get('calls')) ? $config->get('calls') : 1000;
 
     $form['settings'] = [
       '#title' => $this->t('Settings'),
@@ -40,7 +39,7 @@ class MindbodyCacheProxySettingsForm extends ConfigFormBase implements Container
       '#title' => $this->t('Calls available'),
       '#type' => 'textfield',
       '#description' => $this->t('Free calls available within MindBody agreement.'),
-      '#default_value' => !empty($config->get('calls')) ? $config->get('calls') : 1000,
+      '#default_value' => $calls,
     ];
 
     $form['settings']['submit'] = [
@@ -67,7 +66,7 @@ class MindbodyCacheProxySettingsForm extends ConfigFormBase implements Container
           '%date' => $date_time->format('Y-m-d'),
           '%calls' => $stats->miss,
           '%hits' => $stats->hit,
-          '%remain' => 1000 - $stats->miss,
+          '%remain' => $calls - $stats->miss,
         ]
       ),
     ];
