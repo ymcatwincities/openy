@@ -27,5 +27,21 @@ function ab_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_page_attachments().
  */
 function ab_page_attachments(array &$attachments) {
+  // Try to load block.
+  $block = \Drupal\block\Entity\Block::load('top_menu_2');
+  // If there is no block try to create it.
+  if (is_null($block)) {
+    $config_manager = Drupal::service('config.manager');
+    $entity_storage = $config_manager->getEntityManager()->getStorage('block');
+    $block = $entity_storage->create([
+      'id' => 'top_menu_2',
+      'theme' => 'ymca',
+      'plugin' => 'top_menu_2',
+    ]);
+
+    $block->save();
+  }
+  $build = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block')->view($block);
+
   $attachments['#attached'] = ['drupalSettings' => ['hehe' => 'render']];
 }
