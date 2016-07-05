@@ -28,3 +28,17 @@ add-this:
   version: 0
   js:
     //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924: { type: external, minified: true }
+
+retention-campaign:
+  version: VERSION
+  css:
+    theme:
+      css/ysr.css: {}
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js: { type: external, minified: true }
+    scripts/retention-campaign.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

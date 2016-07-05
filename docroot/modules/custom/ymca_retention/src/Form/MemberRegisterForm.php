@@ -4,12 +4,11 @@ namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\personify_sso\PersonifySso;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
 
 /**
- * Code Iframe form.
+ * Member registration form.
  */
 class MemberRegisterForm extends FormBase {
 
@@ -46,6 +45,11 @@ class MemberRegisterForm extends FormBase {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Register'),
+      '#attributes' => [
+        'class' => [
+          'blue-medium',
+        ],
+      ],
     ];
     return $form;
   }
@@ -54,15 +58,12 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $mail = $form_state->getValue('mail');
     $membership_id = $form_state->getValue('membership_id');
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('mail', $this->t('The facility access ID is already registered. Please sign in.', [
-        '%value' => $mail,
-      ]));
+      $form_state->setErrorByName('mail', $this->t('The facility access ID is already registered. Please sign in.'));
       return;
     }
 
@@ -112,7 +113,7 @@ class MemberRegisterForm extends FormBase {
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $percent = $settings->get('goal_percentage');
       $calculated_goal = ceil($past_result->TotalVisits + ($past_result->TotalVisits * $percent));
-      $goal = $calculated_goal > $goal ? $goal : $calculated_goal;
+      $goal = min($calculated_goal, $goal);
     }
 
     // Get information about number of checkins in period of campaign.
