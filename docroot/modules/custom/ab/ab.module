@@ -36,12 +36,15 @@ function ab_page_attachments(array &$attachments) {
     $block = $entity_storage->create([
       'id' => 'top_menu_2',
       'theme' => 'ymca',
-      'plugin' => 'top_menu_2',
+      'plugin' => 'system_menu_block:top_menu_2',
     ]);
 
     $block->save();
   }
   $build = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block')->view($block);
+
+  $renderer = \Drupal::service('renderer');
+  $result = $renderer->renderRoot($build);
 
   $attachments['#attached'] = ['drupalSettings' => ['hehe' => 'render']];
 }
