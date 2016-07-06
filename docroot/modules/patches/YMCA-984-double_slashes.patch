@@ -1,43 +1,74 @@
-diff --git a/src/Plugin/Filter/RelToAbs.php b/src/Plugin/Filter/RelToAbs.php
-index a8f56b6..6198bb6 100644
---- a/src/Plugin/Filter/RelToAbs.php
-+++ b/src/Plugin/Filter/RelToAbs.php
-@@ -4,6 +4,7 @@
+diff --git a/docroot/modules/contrib/rel_to_abs/src/Plugin/Filter/RelToAbs.php b/docroot/modules/contrib/rel_to_abs/src/Plugin/Filter/RelToAbs.php
+index 3cda625..e55a135 100644
+--- a/docroot/modules/contrib/rel_to_abs/src/Plugin/Filter/RelToAbs.php
++++ b/docroot/modules/contrib/rel_to_abs/src/Plugin/Filter/RelToAbs.php
+@@ -1,14 +1,13 @@
+ <?php
  
+-/**
+- * @file
+- * Contains \Drupal\rel_to_abs\Plugin\Filter\RelToAbs.
+- */
+-
+ namespace Drupal\rel_to_abs\Plugin\Filter;
+ 
++use Drupal\Core\Routing\UrlGeneratorInterface;
++use Drupal\Core\Url;
  use Drupal\filter\FilterProcessResult;
  use Drupal\filter\Plugin\FilterBase;
-+use Drupal\Core\Url;
++use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
++use Symfony\Component\DependencyInjection\ContainerInterface;
  
  /**
   * Provides a filter to convert relative paths to absolute URLs.
-@@ -20,66 +21,18 @@ class RelToAbs extends FilterBase {
-    * {@inheritdoc}
+@@ -19,72 +18,65 @@
+  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
+  * )
+  */
+-class RelToAbs extends FilterBase {
++class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
++//class RelToAbs extends FilterBase {
++
+ 
+   /**
+-   * {@inheritdoc}
++   * @var UrlGeneratorInterface $requestStack
     */
-   public function process($text, $langcode) {
+-  public function process($text, $langcode) {
 -
 -    $base_url = \Drupal::url('<front>', array(), array(
 -      'absolute' => TRUE,
 -      'language' => \Drupal::getContainer()
 -        ->get('language_manager')
--        ->getLanguage($langcode),
+-        ->getLanguage($langcode)
 -    ));
 -
 -    $text = $this->absoluteUrl($text, $base_url);
 -    return new FilterProcessResult($text);
 -
 -  }
--
--  /**
++  protected $urlGenerator;
+ 
+   /**
 -   * Absolute url callback.
 -   *
 -   * @param string $txt
 -   *   Text to be parsed.
 -   * @param string $base_url
 -   *   Base url of the site to prefix.
--   *
++   * Constructs a \Drupal\editor\Plugin\Filter\EditorFileReference object.
+    *
 -   * @return string
 -   *   Processed text.
--   */
++   * @param array $configuration
++   *   A configuration array containing information about the plugin instance.
++   * @param string $plugin_id
++   *   The plugin_id for the plugin instance.
++   * @param mixed $plugin_definition
++   *   The plugin implementation definition.
++   * @param \Drupal\Core\Routing\UrlGeneratorInterface $urlGenerator
++   *   An entity manager object.
+    */
 -  public function absoluteUrl($txt, $base_url) {
 -    $needles = array('href="', 'src="', 'background="');
 -    $new_txt = '';
@@ -45,14 +76,29 @@ index a8f56b6..6198bb6 100644
 -      $base_url .= '/';
 -    }
 -    $new_base_url = $base_url;
--
++  public function __construct(array $configuration, $plugin_id, $plugin_definition, UrlGeneratorInterface $urlGenerator) {
++    $this->urlGenerator = $urlGenerator;
++    parent::__construct($configuration, $plugin_id, $plugin_definition);
++  }
+ 
 -    // Check if Drupal installed in subdirectory.
 -    $sub_dir = FALSE;
 -    $parts = parse_url($new_base_url);
 -    if ($parts['path'] !== '/') {
 -      $sub_dir = $parts['path'];
 -    }
--
++  /**
++   * {@inheritdoc}
++   */
++  static public function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
++    return new static(
++      $configuration,
++      $plugin_id,
++      $plugin_definition,
++      $container->get('url_generator')
++    );
++  }
+ 
 -    foreach ($needles as $needle) {
 -      while ($pos = strpos($txt, $needle)) {
 -        $pos += strlen($needle);
@@ -69,10 +115,19 @@ index a8f56b6..6198bb6 100644
 -            $txt = substr($txt, strlen($sub_dir));
 -          }
 -        }
++  /**
++   * {@inheritdoc}
++   */
++  public function process($text, $langcode) {
 +    $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
-+      $url = preg_replace('/\/{2,}/', '/', $matches[2]);
++      $baseUrl = $this->urlGenerator->getContext()->getBaseUrl();
++      $relativeUrl = $rawUrl = $matches[2];
++      if (!empty($baseUrl) && strpos($rawUrl, $baseUrl) === 0) {
++        $relativeUrl = '/' . substr($rawUrl, strlen($baseUrl));
++      }
++      $relativeUrl = preg_replace('/\/{2,}/', '/', $relativeUrl);
 +      try {
-+        $url = Url::fromUserInput($url)->setAbsolute(true)->toString();
++        $url = Url::fromUserInput($relativeUrl)->setAbsolute(true)->toString();
        }
 -      $txt = $new_txt . $txt;
 -      $new_txt = '';
@@ -88,16 +143,3 @@ index a8f56b6..6198bb6 100644
    }
  
  }
-diff --git a/src/Tests/RelToAbsTest.php b/src/Tests/RelToAbsTest.php
-index c5ae0c7..65f66ba 100644
---- a/src/Tests/RelToAbsTest.php
-+++ b/src/Tests/RelToAbsTest.php
-@@ -41,7 +41,7 @@ public function testRelToAbsFilterUnitTestCase() {
-     $filter = new RelToAbs(array(), 'rel_to_abs', array('provider' => 'rel_to_abs'));
- 
-     $markup = '<div><a href="/node/1">link</a><img src="/files/test.jpg"/><span background="/files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
--    $check = '<div><a href="' . $front . '/node/1">link</a><img src="' . $front . '/files/test.jpg"/><span background="' . $front . '/files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
-+    $check = '<div><a href="' . $front . 'node/1">link</a><img src="' . $front . 'files/test.jpg"/><span background="' . $front . 'files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
- 
-     $result = $filter->process($markup, NULL);
- 
