@@ -1164,16 +1164,18 @@
           jQuery('.ysr-menu', context).once('mobile-menu').each(function () {
             var $menu = jQuery(this);
             jQuery('a', $menu).bind('click', function () {
-              jQuery.scrollTo(jQuery(this).attr('href'), 800);
-              $menu.removeClass('in').addClass('collapsing');
-              // WTF?
-              setTimeout(function() {
-                jQuery('#hero-section').scrollTop(0);
-              }, 0);
-              setTimeout(function() {
-                $menu.removeClass('collapsing').addClass('collapse');
-              }, 500);
-              return false;
+              if (jQuery(this).attr('href').size()) {
+                jQuery.scrollTo(jQuery(this).attr('href'), 800);
+                $menu.removeClass('in').addClass('collapsing');
+                // WTF?
+                setTimeout(function () {
+                  jQuery('#hero-section').scrollTop(0);
+                }, 0);
+                setTimeout(function () {
+                  $menu.removeClass('collapsing').addClass('collapse');
+                }, 500);
+                return false;
+              }
             });
           });
         }
