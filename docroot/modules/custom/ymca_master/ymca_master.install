@@ -3367,3 +3367,10 @@ function ymca_master_update_8144() {
     ]
   );
 }
+
+/**
+ * MindBody Phase 1 release.
+ */
+function ymca_master_update_8145() {
+  \Drupal::service('module_installer')->install(['ymca_mindbody'], TRUE);
+}
