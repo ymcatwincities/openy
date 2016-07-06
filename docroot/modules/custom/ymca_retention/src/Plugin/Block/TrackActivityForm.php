@@ -20,7 +20,7 @@ class TrackActivityForm extends BlockBase {
    */
   public function build() {
     return [
-      '#marckup' => 'form here',
+      '#markup' => 'form here',
     ];
   }
 

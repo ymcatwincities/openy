@@ -70,14 +70,6 @@ class MemberRegisterForm extends FormBase {
     // Numeric validation.
     if (!is_numeric($membership_id)) {
       $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should be numeric'));
-    }
-    // Number of digits.
-    $length = strlen($membership_id);
-    if ($length != 10 && $length != 12) {
-      $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should contain either 10 or 12 digits'));
-    }
-    // If there are some error, then continue and do not do request to Personify.
-    if ($form_state->hasAnyErrors()) {
       return;
     }
 

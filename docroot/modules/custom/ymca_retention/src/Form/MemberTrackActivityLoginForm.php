@@ -22,7 +22,7 @@ class MemberTrackActivityLoginForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
-    if (empty($verify_membership_id) || !$verify_membership_id) {
+    if (empty($verify_membership_id)) {
       $form['mail'] = [
         '#type' => 'email',
         '#required' => TRUE,
