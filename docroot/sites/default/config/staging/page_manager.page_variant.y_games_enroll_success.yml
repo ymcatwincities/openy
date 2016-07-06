@@ -7,11 +7,21 @@ dependencies:
   module:
     - panels
     - system
+    - ymca_retention
 id: y_games_enroll_success
 label: 'Y Games Enroll Success'
 variant: panels_variant
 variant_settings:
-  blocks: {  }
+  blocks:
+    62f3f1b5-1512-4f1f-8856-154243b4a3ca:
+      id: retention_navigation_block
+      label: 'YMCA retention navigation block'
+      provider: ymca_retention
+      label_display: '0'
+      region: navigation
+      weight: 0
+      uuid: 62f3f1b5-1512-4f1f-8856-154243b4a3ca
+      context_mapping: {  }
   id: panels_variant
   uuid: e24561da-6c61-4da2-88ca-0ddc5eb68b61
   label: null
