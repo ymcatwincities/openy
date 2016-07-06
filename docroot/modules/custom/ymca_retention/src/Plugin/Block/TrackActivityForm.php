@@ -19,8 +19,11 @@ class TrackActivityForm extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $form = \Drupal::formBuilder()
+      ->getForm('\Drupal\ymca_retention\Form\MemberTrackActivityForm');
     return [
-      '#markup' => 'form here',
+      '#theme' => 'ymca_retention_track_activity_form',
+      'form' => $form,
     ];
   }
 
