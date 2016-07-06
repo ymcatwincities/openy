@@ -14,7 +14,7 @@
   <meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta name="canonical" content="http://www.ymcamn.org/march" />
   <link rel="shortcut icon" href="../../../../../../themes/custom/ymca/img/favicon/favicon.ico" type="image/vnd.microsoft.icon" />
 
@@ -140,7 +140,7 @@
                 <li><a href="/">BACK TO YMCA TWIN CITIES</a></li>
                 <li><a href="/">Prizes</a></li>
                 <li><a href="/">YMCA Quiz</a></li>
-                <li><a href="http://ymcatwincities.org/march/rules">Detailed
+                <li><a href="rules.html">Detailed
                   Rules</a></li>
               </ul>
             </li>
@@ -158,7 +158,7 @@
             <li><a href="#register-and-report">Registration</a></li>
             <li><a href="#register-and-report">Track My Activities</a></li>
             <li><a href="#leaderboard">Leaderboard</a></li>
-            <li><a href="#rules">Prizes/Rules Details</a></li>
+            <li><a href="rules.html">Prizes/Rules Details</a></li>
           </ul>
         </nav>
         <!-- HERO SECTION -->
@@ -871,16 +871,18 @@
           jQuery('.ysr-menu', context).once('mobile-menu').each(function () {
             var $menu = jQuery(this);
             jQuery('a', $menu).bind('click', function () {
-              jQuery.scrollTo(jQuery(this).attr('href'), 800);
-              $menu.removeClass('in').addClass('collapsing');
-              // WTF?
-              setTimeout(function() {
-                jQuery('#hero-section').scrollTop(0);
-              }, 0);
-              setTimeout(function() {
-                $menu.removeClass('collapsing').addClass('collapse');
-              }, 500);
-              return false;
+              if (jQuery(this).attr('href').size()) {
+                jQuery.scrollTo(jQuery(this).attr('href'), 800);
+                $menu.removeClass('in').addClass('collapsing');
+                // WTF?
+                setTimeout(function () {
+                  jQuery('#hero-section').scrollTop(0);
+                }, 0);
+                setTimeout(function () {
+                  $menu.removeClass('collapsing').addClass('collapse');
+                }, 500);
+                return false;
+              }
             });
           });
         }
