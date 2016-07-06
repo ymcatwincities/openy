@@ -217,8 +217,8 @@
 #hero-section {
   margin-top: 72px;
   margin-top: 7.2rem;
-  padding: 57px 0 0 0;
-  padding: 5.7rem 0 0 0;
+  padding: 47px 0 0 0;
+  padding: 4.7rem 0 0 0;
   background-color: #2a193b;
   position: relative;
   overflow: hidden;
@@ -260,8 +260,8 @@
 #hero-section .shape-container {
   height: 806px;
   height: 80.6rem;
-  top: 181px;
-  top: 18.1rem;
+  top: 131px;
+  top: 13.1rem;
   overflow: hidden;
   position: absolute;
   width: 100%;
@@ -295,6 +295,12 @@
 }
 #hero-section .shape-container .shape-3 {
   background-image: url(../prototypes/ysr/img/shape-layer-3.png);
+}
+@media (min-width: 48em) {
+  #hero-section .shape-container {
+    top: 181px;
+    top: 18.1rem;
+  }
 }
 @media (min-width: 120.0625em) {
   #hero-section .shape-container {
@@ -336,29 +342,29 @@
 #hero-section h1 {
   font-family: "Cachet",Arial,sans-serif;
   font-weight: bold;
-  font-size: 100px;
-  font-size: 10rem;
-  line-height: 100px;
-  line-height: 10rem;
+  font-size: 50px;
+  font-size: 5rem;
+  line-height: 50px;
+  line-height: 5rem;
   margin-bottom: 16px;
   margin-bottom: 1.6rem;
-  margin-top: 18px;
-  margin-top: 1.8rem;
+  margin-top: 12px;
+  margin-top: 1.2rem;
   color: #fff;
-  letter-spacing: -1px;
+  letter-spacing: -0.3px;
 }
 #hero-section h1 .gold {
   color: #fcaf17;
 }
-@media (max-width: 767px) {
+@media (min-width: 48em) {
   #hero-section h1 {
-    font-size: 50px;
-    font-size: 5rem;
-    line-height: 5px;
-    line-height: 0.5rem;
-    margin-top: 12px;
-    margin-top: 1.2rem;
-    letter-spacing: -0.3px;
+    font-size: 100px;
+    font-size: 10rem;
+    line-height: 100px;
+    line-height: 10rem;
+    margin-top: 18px;
+    margin-top: 1.8rem;
+    letter-spacing: -1px;
   }
 }
 #hero-section .date {
@@ -660,10 +666,17 @@
   width: 200%;
 }
 #register-and-report.slides .slide {
+  padding: 40px 0 0 0;
+  padding: 4rem 0 0 0;
   float: left;
-  padding: 80px 0 0 0;
   position: relative;
   width: 50%;
+}
+@media (min-width: 48em) {
+  #register-and-report.slides .slide {
+    padding: 80px 0 0 0;
+    padding: 8rem 0 0 0;
+  }
 }
 #register-and-report.slides .slide.slide-inactive {
   display: none;

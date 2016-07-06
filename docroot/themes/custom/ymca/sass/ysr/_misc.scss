@@ -212,7 +212,7 @@
 
 #hero-section {
   @include rem(margin-top, 72px);
-  @include rem(padding, 57px 0 0 0);
+  @include rem(padding, 47px 0 0 0);
   background-color: #2a193b;
   position: relative;
   overflow: hidden;
@@ -253,7 +253,7 @@
 
   .shape-container {
     @include rem(height, 806px);
-    @include rem(top, 181px);
+    @include rem(top, 131px);
     overflow: hidden;
     position: absolute;
     width: 100%;
@@ -280,6 +280,10 @@
     }
     .shape-3 {
       background-image: url(../prototypes/ysr/img/shape-layer-3.png);
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(top, 181px);
     }
 
     @include breakpoint(1921px) {
@@ -321,22 +325,22 @@
 
   h1 {
     @include cachet-bold();
-    @include rem(font-size, 100px);
-    @include rem(line-height, 100px);
+    @include rem(font-size, 50px);
+    @include rem(line-height, 50px);
     @include rem(margin-bottom, 16px);
-    @include rem(margin-top, 18px);
+    @include rem(margin-top, 12px);
     color: $white;
-    letter-spacing: -1px;
+    letter-spacing: -0.3px;
 
     .gold {
       color: $orange-light;
     }
 
-    @media(max-width: 767px) {
-      @include rem(font-size, 50px);
-      @include rem(line-height, 5px);
-      @include rem(margin-top, 12px);
-      letter-spacing: -0.3px;
+    @include breakpoint($tablet) {
+      @include rem(font-size, 100px);
+      @include rem(line-height, 100px);
+      @include rem(margin-top, 18px);
+      letter-spacing: -1px;
     }
   }
 
@@ -610,10 +614,14 @@
     width: 200%;
 
     .slide {
+      @include rem(padding, 40px 0 0 0);
       float: left;
-      padding: 80px 0 0 0;
       position: relative;
       width: 50%;
+
+      @include breakpoint($tablet) {
+        @include rem(padding, 80px 0 0 0);
+      }
 
       &.slide-inactive {
         display: none;
