@@ -3367,3 +3367,18 @@ function ymca_master_update_8144() {
     ]
   );
 }
+
+/**
+ * Enable 'ab' module.
+ */
+function ymca_master_update_8145() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block.block.top_menu_2.yml',
+      $path . 'system.menu.top_menu_2.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['ab'], TRUE);
+}
