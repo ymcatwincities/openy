@@ -1825,10 +1825,10 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 .activities > .container {
-  padding-left: 50px;
-  padding-left: 5rem;
-  padding-right: 50px;
-  padding-right: 5rem;
+  padding-left: 30px;
+  padding-left: 3rem;
+  padding-right: 30px;
+  padding-right: 3rem;
 }
 .activities .activity-groups {
   padding-bottom: 40px;
