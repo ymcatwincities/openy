@@ -56,12 +56,12 @@
       line-height: 7.1rem;
 
       a {
-        color: #fff;
-        font-size: 1.8rem;
-        display: inline-block;
-        padding: 0 2.5rem;
-        font-family: "Cachet", Arial, sans-serif;
+        @include cachet();
+        @include rem(font-size, 18px);
+        @include rem(padding, 0 25px);
         @include transition(background-color 0.2s);
+        color: $white;
+        display: inline-block;
 
         &:hover {
           background-color: $purple-medium;
@@ -69,12 +69,12 @@
         }
 
         @media screen and (max-width: 860px) and (min-width: 768px) {
-          font-size: 1.5rem;
-          padding: 0 0.5rem;
+          @include rem(font-size, 15px);
+          @include rem(padding, 0 5px);
         }
         @media screen and (max-width: 1024px) and (min-width: 861px) {
-          font-size: 1.7rem;
-          padding: 0 0.8rem;
+          @include rem(font-size, 17px);
+          @include rem(padding, 0 8px);
         }
       }
     }
@@ -102,13 +102,13 @@
 
   @media screen and (max-width: 767px) {
     .navbar-toggle {
+      @include rem(margin-bottom, 18px);
+      @include rem(margin-top, 18px);
       float: right;
-      margin-bottom: 1.8rem;
-      margin-top: 1.8rem;
 
       .icon-bar {
-        height: 0.4rem;
-        border-radius: 4px;
+        @include rem(border-radius, 4px);
+        @include rem(height, 4px);
         background: $pale-purple;
       }
 
@@ -136,16 +136,16 @@
   }
 
   .back-link {
+    @include rem(font-size, 16px);
+    @include rem(padding, 0 30px);
+    @include transition(background-color 0.5s);
     background-color: $purple-medium;
     color: $white;
     display: inline-block;
-    font-size: 1.6rem;
     margin-top: 0;
-    padding: 0 3rem;
-    @include transition(background-color 0.5s);
 
     @media screen and (max-width: 860px) and (min-width: 768px) {
-      font-size: 1.5rem;
+      @include rem(font-size, 15px);
     }
 
     &:hover {
@@ -154,8 +154,8 @@
     }
 
     .glyphicon {
-      font-size: 1.2rem;
-      margin-right: 0.5rem;
+      @include rem(font-size, 12px);
+      @include rem(margin-right, 5px);
     }
   }
 
@@ -211,28 +211,28 @@
 }
 
 #hero-section {
+  @include rem(margin-top, 72px);
+  @include rem(padding, 57px 0 0 0);
   background-color: #2a193b;
   position: relative;
-  @include rem(padding, 57px 0 0 0);
   overflow: hidden;
   width: 100%;
   z-index: 2;
-  @include rem(margin-top, 72px);
 
   &:before {
     content: ' ';
     display: block;
-    position: absolute;
+    height: 100%;
     left: 0;
+    position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
     z-index: 1;
     opacity: 0.47;
     background-image: url("../prototypes/ysr/img/hero-bg.jpg");
     background-repeat: no-repeat;
     background-position: center 0;
-    @include background-size(cover);
+    background-size: cover;
   }
 
   &.hero-1:before {
@@ -252,25 +252,25 @@
   }
 
   .shape-container {
-    height: 80.6rem;
+    @include rem(height, 806px);
+    @include rem(top, 181px);
     overflow: hidden;
     position: absolute;
-    top: 18.1rem;
     width: 100%;
     z-index: 2;
 
     .shape {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      background-position: top center;
-      background-repeat: no-repeat;
-      background-size: 192rem 80.6rem;
-      height: 100%;
-      width: 120%;
+      @include rem(background-size, 1920px 806px);
       @include transform(translateX(-50%));
       @include transition(opacity 0.5s);
+      background-position: top center;
+      background-repeat: no-repeat;
+      height: 100%;
+      left: 50%;
       opacity: 1;
+      position: absolute;
+      top: 0;
+      width: 120%;
     }
     .shape-1 {
       background-image: url(../prototypes/ysr/img/shape-layer-1.png);
@@ -283,14 +283,17 @@
     }
 
     @include breakpoint(1921px) {
-      background-size: 214rem auto;
-      background-position: 20px center;
+      @include rem(background-size, 2140px auto);
+      @include rem(background-position, 20px center);
     }
   }
 
   &.shifted-layers {
-    .shape-2 { opacity: 0.5; }
-    .shape-3 { opacity: 0.5; }
+
+    .shape-2,
+    .shape-3 {
+      opacity: 0.5;
+    }
   }
 
   img {
@@ -298,14 +301,14 @@
   }
 
   .logo {
+    @include rem(height, 111px);
+    @include rem(margin, 0 auto 67px);
     background: url("../img/march/ymca-white-logo.png") no-repeat center top;
     background-size: contain;
-    height: 11.1rem;
-    margin: 0 auto 6.7rem;
 
     @media(max-width: 767px) {
-      height: 7.2rem;
-      margin: 0 auto 4.0rem;
+      @include rem(height, 72px);
+      @include rem(margin, 0 auto 40px);
     }
   }
 
@@ -317,40 +320,37 @@
   }
 
   h1 {
+    @include cachet-bold();
+    @include rem(font-size, 100px);
+    @include rem(line-height, 100px);
+    @include rem(margin-bottom, 16px);
+    @include rem(margin-top, 18px);
     color: $white;
-    font-family: "Cachet", Arial, sans-serif;
-    font-size: 10rem;
-    font-weight: bold;
     letter-spacing: -1px;
-    line-height: 10rem;
-    margin-bottom: 1.6rem;
-    margin-top: 1.8rem;
 
     .gold {
       color: $orange-light;
     }
 
     @media(max-width: 767px) {
-      font-size: 5rem;
+      @include rem(font-size, 50px);
+      @include rem(line-height, 5px);
+      @include rem(margin-top, 12px);
       letter-spacing: -0.3px;
-      line-height: 5rem;
-      margin-top: 1.2rem;
     }
   }
 
   .date {
+    @include cachet();
+    @include rem(font-size, 31px);
+    @include rem(line-height, 31px);
     color: $white;
-    font-family: "Cachet", Arial, sans-serif;
-    font-size: 3.1rem;
     letter-spacing: -0.8px;
-    line-height: 3.1rem;
     text-transform: uppercase;
-    //font-weight: bold;
-    //text-shadow: 2px 2px 7px #000;
 
     @media(max-width: 767px) {
-      font-size: 2.5rem;
-      line-height: 2.5rem;
+      @include rem(font-size, 25px);
+      @include rem(line-height, 25px);
       letter-spacing: -0.6px;
     }
   }
@@ -358,8 +358,8 @@
 
 #main-description-individual {
   .wrap {
-    height: 100px;
-    line-height: 100px;
+    @include rem(height, 100px);
+    @include rem(line-height, 100px);
 
     img {
       height: 100%;
@@ -373,25 +373,25 @@
   z-index: 3;
 
   p {
+    @include cachet();
     color: $grey8;
-    font-family: "Cachet", Arial, sans-serif;
-    font-size: 20px;
+    @include rem(font-size, 20px);
+    @include rem(margin-top, 40px);
     letter-spacing: -0.5px;
-    margin-top: 40px;
   }
 
   .btn {
     @include box-shadow(none);
+    @include rem(font-size, 21px);
+    @include rem(line-height, 23px);
     @include transition(background-color 0.5s);
     background-image: none;
-    font-size: 2.1rem;
     letter-spacing: -0.8px;
-    line-height: 2.3rem;
     width: 100%;
   }
 
   .form-tem {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   input {
@@ -400,12 +400,12 @@
     &[type="text"],
     &[type="email"] {
       @include border-radius(3px);
+      @include rem(font-size, 14px);
+      @include rem(height, 47px);
+      @include rem(line-height, 47px);
+      @include rem(padding, 0 25px);
       border: none;
       color: $grey7;
-      font-size: 1.4rem;
-      height: 4.7rem;
-      line-height: 4.7rem;
-      padding: 0 2.5rem;
 
       @include input-placeholder {
         color: $grey4;
@@ -414,7 +414,7 @@
     }
 
     &[type="submit"] {
-      min-width: 12rem;
+      @include rem(min-width, 120px);
     }
 
     @media(max-width: 767px) {
@@ -427,25 +427,25 @@
   }
 
   .icon-back {
+    @include rem(height, 47px);
+    @include rem(width, 47px);
     background-image: url(../prototypes/ysr/img/arrow-back.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
     display: block;
-    height: 4.7rem;
-    width: 4.7rem;
 
     @media(max-width: 767px) {
-      height: 16.1rem;
+      @include rem(height, 161px);
     }
   }
 
   .register-or-report {
-    height: 33.8rem;
+    @include rem(height, 338px);
 
     .buttons {
       @media screen and (min-width: 768px) {
-        max-width: 90rem;
+        @include rem(max-width, 900px);
         margin-left: auto;
         margin-right: auto;
       }
@@ -662,10 +662,9 @@
 
   .pager {
     .load-more {
+      @include cachet-bold();
       color: $purple-light;
-      font-family: "Cachet", Arial, sans-serif;
       font-size: 15px;
-      font-weight: bold;
       letter-spacing: -0.8px;
       margin: auto;
       text-transform: uppercase;
@@ -691,8 +690,8 @@
   }
 
   p {
+    @include cachet();
     color: $grey5;
-    font-family: "Cachet", Arial, sans-serif;
     font-size: 20px;
     letter-spacing: -0.8px;
     line-height: 25px;
@@ -750,9 +749,9 @@
     }
 
     .col-sm-6 .inner {
+      @include cachet();
       background: #fff url("../img/winners_tickets.png") no-repeat 35px 26px;
       padding: 25px 20px 25px 133px;
-      font-family: "Cachet", Arial, sans-serif;
       margin-bottom: 30px;
     }
 
@@ -870,17 +869,17 @@
 
 
 #second-prize {
+  @include cachet();
   background: url("../img/winners_2nd_prize_title.png") no-repeat center 0;
   padding: 40px 0 0;
   margin: 0;
-  font-family: "Cachet", Arial, sans-serif;
 }
 
 #third-prize {
+  @include cachet();
   background: url("../img/winners_3rd_prize_title.png") no-repeat center 0;
   padding: 40px 0 0;
   margin: 100px 0 100px;
-  font-family: "Cachet", Arial, sans-serif;
 }
 
 .second-third-prizes-wrapper .container {
@@ -935,10 +934,9 @@
 
   thead {
     th {
+      @include cachet-normal();
       color: $grey4;
-      font-family: "Cachet", Arial, sans-serif;
       font-size: 13px;
-      font-weight: normal;
       text-align: center;
       text-transform: uppercase;
       vertical-align: top;
@@ -1024,7 +1022,7 @@
         font-weight: normal;
       }
       .name, .member-id {
-        font-family: "Cachet", Arial, sans-serif;
+        @include cachet();
       }
 
       td {
@@ -1103,8 +1101,8 @@
     }
 
     td {
+      @include cachet();
       color: #777;
-      font-family: "Cachet", Arial, sans-serif;
       font-size: 13px;
       line-height: 20px;
       padding: 15px 5px;
