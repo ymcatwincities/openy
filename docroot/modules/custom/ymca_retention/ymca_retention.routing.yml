@@ -47,19 +47,10 @@ entity.ymca_retention_member.delete_form:
     _entity_access: 'ymca_retention_member.delete'
 
 ymca_retention.enroll_success_page:
-  path: '/membership/enroll-success'
+  path: '/ygames/enroll-success'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\Membership::enrollSuccess'
     _title: 'Thank you for participating in Y Games 2016!'
-  requirements:
-    _permission: 'access content'
-
-# @todo remove this test url when registration form will be added to the page with URL.
-ymca_retention.membership_setid:
-  path: '/membership/registration'
-  defaults:
-    _controller: '\Drupal\ymca_retention\Controller\Membership::getRegistrationForm'
-    _title: 'Registration'
   requirements:
     _permission: 'access content'
 
