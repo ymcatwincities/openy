@@ -8001,7 +8001,8 @@ p.legend {
   color: #0089d0;
   font-size: 15px;
   margin-right: 5px;
-  vertical-align: top;
+  top: -3px;
+  position: relative;
 }
 #mindbody-pt-form-wrapper .header-row.disabled {
   display: none;
@@ -8185,6 +8186,11 @@ p.legend {
   right: 0;
   top: 0;
   padding: 0 25px 0 45px;
+}
+#mindbody-pt-form-wrapper .form-item-mb-session-type .inner label .label-wrapper span {
+  line-height: 18px;
+  display: inline-block;
+  vertical-align: middle;
 }
 #mindbody-pt-form-wrapper .form-item-mb-session-type.checked .inner {
   background-color: #c6188b;
@@ -8553,15 +8559,15 @@ p.legend {
   font-size: 14px;
   margin: 5px 0 10px;
 }
+.mindbody-search-results-content .day .group-by-date .row > div {
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 992px) {
+  .mindbody-search-results-content .day .group-by-date .row > div:nth-child(4n+1) {
+    clear: both;
+  }
+}
 .mindbody-search-results-content .day .group-by-date .slots .slot {
-  margin-bottom: 10px;
-}
-.mindbody-search-results-content .day .group-by-date .slots .slot .icon {
-  color: #777777;
-  font-size: 14px;
-  margin-right: 12px;
-}
-.mindbody-search-results-content .day .group-by-date .slots .slot a {
   background-color: #fafafa;
   border-radius: 3px;
   border: 1px solid #e9e9e9;
@@ -8574,6 +8580,11 @@ p.legend {
   margin-bottom: 8px;
   padding: 0 12px;
   text-decoration: none;
+}
+.mindbody-search-results-content .day .group-by-date .slots .slot .icon {
+  color: #777777;
+  font-size: 14px;
+  margin-right: 12px;
 }
 .mindbody-search-results-content .day .group-by-date .col-sm-3 {
   margin-bottom: 40px;

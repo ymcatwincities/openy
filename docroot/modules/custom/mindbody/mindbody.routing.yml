@@ -6,7 +6,7 @@ mindbody.settings:
   requirements:
     _permission: 'administer site configuration'
 mindbody.env.settings:
-  path: '/admin/config/system/mindbody_env'
+  path: '/admin/config/system/mindbody/environments'
   defaults:
     _form: '\Drupal\mindbody\Form\EnvSettingsForm'
     _title: 'MindBody API environments'

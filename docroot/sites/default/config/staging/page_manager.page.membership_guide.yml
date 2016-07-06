@@ -1,0 +1,11 @@
+uuid: 5bb6e426-b2ca-4ddb-a763-24e3733744fb
+langcode: en
+status: true
+dependencies: {  }
+id: membership_guide
+label: 'Member Guide'
+use_admin_theme: false
+path: /membership/member_guide
+access_logic: and
+access_conditions: {  }
+parameters: {  }
