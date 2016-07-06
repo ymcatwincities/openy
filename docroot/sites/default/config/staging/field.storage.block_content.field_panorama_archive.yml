@@ -1,0 +1,23 @@
+uuid: 70d79c97-c0c1-4e61-be38-b4681abf32d6
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - file
+id: block_content.field_panorama_archive
+field_name: field_panorama_archive
+entity_type: block_content
+type: file
+settings:
+  display_field: false
+  display_default: false
+  uri_scheme: public
+  target_type: file
+module: file
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -35,14 +35,14 @@
           <div class="group-by-date">
             <div class="row">
             {% for key, trainer in day.trainers %}
-            <div class="col-sm-3">
+            <div class="col-sm-6 col-md-3">
               <div class="name">{{ key }}</div>
               {% if trainer.0.is_available %}
                 <div class="available">{{ 'Is Available:'|t }}</div>
               {% endif %}
               <div class="slots">
                 {% for key, slots in trainer %}
-                <div class="slot"><a href="{{ slots.href }}"><span class="icon icon-clock"></span>{{ slots.slot }}</a></div>
+                <div class="slot"><span class="icon icon-clock"></span>{{ slots.slot }}</div>
                 {% endfor %}
               </div>
             </div>
@@ -55,10 +55,10 @@
       <div class="day col-sm-12">{{ 'No results available for your search.'|t }}</div>
     {% endif %}
     <div class="start-again col-sm-12">
-      <a class="form_submit btn btn-lg btn-primary button" href="{{ back_link }}">{{ 'Start again'|t }}&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a>
+      <a class="form_submit btn btn-lg btn-primary button" href="{{ start_again_link }}">{{ 'Start again'|t }}&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a>
     </div>
   </div>
 </div>
 <div class="phone-call-wrapper">
-  <span class="description">{{ 'To book appointment please call:'|t }}</span><span class="number"><a href="tel:651-771-8881">651-771-8881</a></span>
+  <span class="description">{{ 'To book appointment please call:'|t }}</span><span class="number"><a href="tel:{{ telephone }}">{{ telephone }}</a></span>
 </div>

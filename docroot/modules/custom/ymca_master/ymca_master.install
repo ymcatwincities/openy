@@ -3284,3 +3284,109 @@ function ymca_master_update_8139() {
   // Remove groupex mapping entity type.
   $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
 }
+
+/**
+ * Add Panorama block type and panorama field.
+ */
+function ymca_master_update_8140() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block_content.type.panorama_block.yml',
+      $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
+      $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
+      $path . 'field.field.block_content.panorama_block.body.yml',
+      $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
+      $path . 'field.storage.block_content.field_panorama_archive.yml',
+      $path . 'language.content_settings.block_content.panorama_block.yml',
+      $path . 'embed.button.block.yml',
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+    ]
+  );
+}
+
+/**
+ * Fix permissions for editor and intern.
+ */
+function ymca_master_update_8141() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * Enable YMCA Page Manager.
+ */
+function ymca_master_update_8142() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['ymca_page_manager'], TRUE);
+}
+
+/**
+ * Add new phone filed for Location CT.
+ */
+function ymca_master_update_8143() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'field.field.node.location.field_fitness_phone.yml',
+      $path . 'field.field.node.location.field_phone.yml',
+      $path . 'field.storage.node.field_fitness_phone.yml',
+    ]
+  );
+}
+
+/**
+ * Enable 'environment_config' module.
+ */
+function ymca_master_update_8144() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Import config.
+ */
+function ymca_master_update_8145() {
+  // Remove old config.
+  $factory = \Drupal::configFactory();
+  $remove = [
+    'mindbody.env.settings',
+  ];
+
+  foreach ($remove as $name) {
+    $factory->getEditable($name)->delete();
+  }
+
+  // Import new one.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+    ]
+  );
+}
