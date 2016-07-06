@@ -2,6 +2,10 @@ uuid: 20b4ea61-3b80-462c-85f9-ea8e0b0bbf5e
 langcode: en
 status: false
 dependencies:
+  config:
+    - system.menu.top_menu_2
+  module:
+    - system
   theme:
     - ymca
 id: top_menu_2
@@ -15,4 +19,6 @@ settings:
   label: ''
   provider: core
   label_display: visible
+  level: 1
+  depth: 0
 visibility: {  }
