@@ -10,11 +10,11 @@
       <div class="col-xs-12 col-sm-7 member-info--general">
         <div class="member-info--name-goal">
           <img src="img/reporting/person.png" alt="" class="person-icon">
-          <h3>Hello, {{ member.name }}</h3>
+          <h3>{{ 'Hello'|t}}, {{ member.name }}</h3>
             <span class="member-info--goal">
-              Your goal is:
+              {{ 'Your goal is'|t }}:
               <span class="member-info--goal-value">
-                {{ member.goal }} visits
+                {{ member.goal }} {{ 'visits'|t }}
               </span>
             </span>
         </div>
@@ -26,10 +26,10 @@
       <div class="col-xs-12 col-sm-5 member-info--stats">
         <div class="member-info--stats--wrapper">
           <span class="total-activities">
-            {{ member.activities }} total activities
+            {{ member.activities }} {{ 'total activities'|t }}
           </span>
           <span class="rank">
-            {{ member.rank }} rank
+            {{ member.rank }} {{ 'rank'|t }}
           </span>
         </div>
       </div>

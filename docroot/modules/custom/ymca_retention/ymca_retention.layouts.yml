@@ -18,6 +18,8 @@ retention-activity:
   category: YMCA layouts
   template: templates/retention-activity
   regions:
+    navigation:
+      label: Navigation
     intro:
       label: Intro
     member_info:
