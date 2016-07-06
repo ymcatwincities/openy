@@ -1853,6 +1853,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
     width: 21.2rem;
   }
 }
+@media (max-width: 25em) {
+  .activities .activity-groups .activity-group-item {
+    width: 110px;
+    width: 11rem;
+  }
+}
 .activities .activity-groups .activity-group-item-link {
   font-family: "Cachet",Arial,sans-serif;
   font-weight: bold;
