@@ -385,6 +385,9 @@
   line-height: 2.3rem;
   width: 100%;
 }
+#register-and-report .form-tem {
+  margin-bottom: 0px;
+}
 #register-and-report input {
   width: 100%;
 }
@@ -1099,6 +1102,16 @@
 select.form-control.default {
   font-style: italic;
   color: #a7a7a7;
+}
+
+body.toolbar-fixed.toolbar-vertical #top-nav {
+  margin-top: 39px;
+}
+body.toolbar-fixed.toolbar-vertical #hero-section {
+  margin-top: 20px;
+}
+body.toolbar-fixed.toolbar-horizontal #top-nav {
+  margin-top: 79px;
 }
 
 /* Icons */

@@ -1,0 +1,57 @@
+<?php
+
+namespace Drupal\ymca_retention\Plugin\Block;
+
+use Drupal\Core\Block\BlockBase;
+
+/**
+ * Provides an intro block with logo and dates of campaign.
+ *
+ * @Block(
+ *   id = "retention_campaign_intro_block",
+ *   admin_label = @Translation("YMCA retention campaign intro block"),
+ *   category = @Translation("YMCA Blocks")
+ * )
+ */
+class CampaignIntro extends BlockBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function build() {
+    // Get page title.
+    $request = \Drupal::request();
+    $route_match = \Drupal::routeMatch();
+    $title = \Drupal::service('title_resolver')
+      ->getTitle($request, $route_match->getRouteObject());
+
+    // Get retention settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+
+    // Get start and end date of retention campaign.
+    $date_start = new \DateTime($settings->get('date_registration_open'));
+    $date_end = new \DateTime($settings->get('date_registration_close'));
+
+    /** @var \Drupal\Core\Datetime\DateFormatter $date_formatter */
+    $date_formatter = \Drupal::service('date.formatter');
+
+    // Prepare campaign dates.
+    $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'F d');
+    $dates .= ' - ';
+    $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F d');
+
+    return [
+      '#theme' => 'ymca_retention_intro',
+      '#content' => [
+        'title' => $title,
+        'dates' => $dates,
+      ],
+      '#cache' => [
+        'contexts' => [
+          'url.path',
+        ],
+      ],
+    ];
+  }
+
+}
