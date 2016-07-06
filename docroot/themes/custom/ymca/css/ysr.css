@@ -507,6 +507,16 @@
     margin-right: auto;
   }
 }
+@media screen and (max-width: 767px) {
+  #register-and-report .register-or-report .buttons .col-xs-6:first-of-type {
+    padding-right: 8px;
+    padding-right: 0.75rem;
+  }
+  #register-and-report .register-or-report .buttons .col-xs-6:last-of-type {
+    padding-left: 8px;
+    padding-left: 0.75rem;
+  }
+}
 #register-and-report .register-or-report .track-activity-btn {
   justify-content: space-between;
 }
@@ -1821,9 +1831,9 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   padding-right: 5rem;
 }
 .activities .activity-groups {
-  text-align: center;
   padding-bottom: 40px;
   padding-bottom: 4rem;
+  text-align: center;
 }
 @media (min-width: 48em) {
   .activities .activity-groups {
@@ -1859,7 +1869,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   color: #fff;
   cursor: pointer;
   display: block;
-  opacity: 0.3;
+  opacity: .3;
   text-decoration: none;
   text-transform: uppercase;
   vertical-align: top;
@@ -1909,7 +1919,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   background-image: url("../prototypes/ysr/img/reporting/icon-group-ex.png");
 }
 .activities .activity-groups .activity-group-item-link--active {
-  opacity: 0.9;
+  opacity: .9;
 }
 .activities .activity-items {
   max-width: 1000px;
@@ -1938,7 +1948,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   color: #f8f8f8;
   cursor: pointer;
   display: block;
-  letter-spacing: -0.5px;
+  letter-spacing: -.5px;
   overflow: hidden;
   position: relative;
   text-overflow: ellipsis;
@@ -1965,7 +1975,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   width: 42px;
   width: 4.2rem;
   border: inherit;
-  content: "+";
+  content: '+';
   position: absolute;
   text-align: center;
 }
@@ -1976,8 +1986,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   font-size: 1.4rem;
   line-height: 14px;
   line-height: 1.4rem;
-  display: block;
   color: #ac99ca;
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: none;
@@ -2035,7 +2045,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   background: none;
   border: none;
   color: #db65b5;
-  letter-spacing: -0.8px;
+  letter-spacing: -.8px;
   padding: 0;
   text-transform: uppercase;
 }
