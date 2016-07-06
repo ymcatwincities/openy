@@ -111,7 +111,7 @@ class MemberTrackActivityLoginForm extends FormBase {
     $temp_store->setIfOwner('member', $member);
 
     // Redirect to confirmation page.
-    $form_state->setRedirect('ymca_retention.enroll_success_page');
+    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
   }
 
 }
