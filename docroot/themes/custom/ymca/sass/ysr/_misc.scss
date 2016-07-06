@@ -453,6 +453,17 @@
         margin-left: auto;
         margin-right: auto;
       }
+
+      @media screen and (max-width: 767px) {
+        .col-xs-6 {
+          &:first-of-type {
+            @include rem(padding-right, 7.5px);
+          }
+          &:last-of-type {
+            @include rem(padding-left, 7.5px);
+          }
+        }
+      }
     }
 
     .track-activity-btn {
