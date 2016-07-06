@@ -976,6 +976,14 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-groupex-form-full-refine',
     ],
+    'ymca_retention_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form',
+    ],
+    'ymca_retention_track_activity_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-track-activity-login-form',
+    ],
   ];
 }
 
@@ -1121,9 +1129,8 @@ function ymca_page_attachments_alter(array &$page) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'location':
-        $url = URL::fromUri('internal:/blog/subscribe/index.xml');
+        $url = Url::fromUri('internal:/blog/subscribe/index.xml');
         $url->setAbsolute(TRUE);
-        // <link rel="alternate" type="application/rss+xml" title="Subscribe to Blog" href="{{ base_url }}/blog/subscribe/index.xml"/>
         $rss = [
           '#type' => 'html_tag',
           '#tag' => 'link',
@@ -1139,6 +1146,9 @@ function ymca_page_attachments_alter(array &$page) {
     if (isset($rss)) {
       $page['#attached']['html_head'][] = [$rss, 'rss'];
     }
+  }
+  if (\Drupal::service('current_route_match')->getRouteName() == 'page_manager.page_view_ymca_retention_campaign') {
+    $page['#attached']['library'][] = 'ymca/retention-campaign';
   }
 }
 
