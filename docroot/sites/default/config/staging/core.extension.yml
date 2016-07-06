@@ -38,6 +38,7 @@ module:
   entity_clone: 0
   entity_embed: 0
   entity_reference: 0
+  environment_config: 0
   field: 0
   field_ui: 0
   file: 0
@@ -137,6 +138,7 @@ module:
   ymca_migrate: 0
   ymca_migrate_status: 0
   ymca_page_context: 0
+  ymca_page_manager: 0
   ymca_personify: 0
   ymca_search_alter: 0
   ymca_styleguide: 0
