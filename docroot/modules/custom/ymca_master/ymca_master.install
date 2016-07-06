@@ -3395,6 +3395,7 @@ function ymca_master_update_8145() {
  * Enable 'ab' module.
  */
 function ymca_master_update_8146() {
+  // Import configs with blocks & menus.
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -3417,5 +3418,17 @@ function ymca_master_update_8146() {
     $menu_item->save();
   }
 
+  // Enable 'ab' module.
   \Drupal::service('module_installer')->install(['ab'], TRUE);
+
+  // Configure 'ab' module.
+  $config = Drupal::configFactory()->getEditable('ab.settings');
+  $replacements = [
+    [
+      'block_id' => 'top_menu_2',
+      'selector' => '#block-topmenu'
+    ]
+  ];
+  $config->set('replacements', $replacements);
+  $config->save();
 }
