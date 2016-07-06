@@ -343,8 +343,8 @@ $track-activity-button-hover: #e882c8;
   }
 
   & > .container {
-    @include rem(padding-left, 50px);
-    @include rem(padding-right, 50px);
+    @include rem(padding-left, 30px);
+    @include rem(padding-right, 30px);
   }
 
   .activity-groups {
