@@ -165,13 +165,16 @@ class MindbodyPTForm extends FormBase {
       'prepopulated_location' => FALSE,
     );
 
-    if (isset($query['location']) && is_numeric($query['location'])) {
+    if (isset($query['context'], $query['location']) && is_numeric($query['location'])) {
+      $state['context'] = $query['context'];
+      $state['location'] = $query['location'];
       $state['mb_location'] = $query['location'];
-      $state['step'] = 2;
       $state['prepopulated_location'] = TRUE;
     }
-    if (isset($query['trainer']) && is_numeric($query['trainer'])) {
+    if (isset($query['context'], $query['trainer']) && $query['context'] == 'trainer' && is_numeric($query['trainer'])) {
+      $state['trainer'] = $query['trainer'];
       $state['mb_trainer'] = $query['trainer'];
+      $state['prepopulated_trainer'] = TRUE;
     }
 
     // Prevent corrupted remote calls on corrupted page urls.
@@ -462,6 +465,7 @@ class MindbodyPTForm extends FormBase {
         $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
 
         $form['mb_trainer'] = array(
+          '#access' => !empty($this->state['prepopulated_trainer']) ? FALSE : TRUE,
           '#type' => 'select',
           '#title' => $this->t('Trainer'),
           '#options' => $trainer_options,
@@ -635,8 +639,7 @@ class MindbodyPTForm extends FormBase {
       $trainer_name = $this->t('all trainers');
     }
     else {
-      $trainers = $this->getTrainers($values['session_type'], $values['location']);
-      $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
+      $trainer_name = $this->getTrainerName($values['trainer']);
     }
 
     $time_options = $this->getTimeOptions();
@@ -681,6 +684,15 @@ class MindbodyPTForm extends FormBase {
         'mb_end_time' => $values['end_time'],
       ],
     ];
+    if (isset($values['context'])) {
+      $options['query']['context'] = $values['context'];
+      if (isset($values['location'])) {
+        $options['query']['location'] = $values['location'];
+      }
+      if (isset($values['trainer']) && $values['trainer'] != 'all') {
+        $options['query']['trainer'] = $values['trainer'];
+      }
+    }
     $search_results = [
       '#theme' => 'mindbody_results_content',
       '#location' => $location_name,
@@ -712,7 +724,11 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $query = $this->state;
     $values = $form_state->getUserInput();
+    if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
+      $values['mb_trainer'] = $query['trainer'];
+    }
     if (!empty($values['mb_location']) &&
       !empty($values['mb_program']) &&
       !empty($values['mb_session_type']) &&
@@ -731,6 +747,9 @@ class MindbodyPTForm extends FormBase {
         'start_date'   => $values['mb_start_date']['date'],
         'end_date'     => $values['mb_end_date']['date'],
       ];
+      if (isset($query['context'])) {
+        $params['context'] = $query['context'];
+      }
       $form_state->setRedirect(
         'ymca_mindbody.pt.results',
         [],
@@ -845,6 +864,33 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_options;
+  }
+
+  /**
+   * Helper method retrieving trainer name form mapping.
+   *
+   * @param int $trainer
+   *   MindBody trainer id.
+   *
+   * @return string
+   *   Trainer's name.
+   */
+  public function getTrainerName($trainer) {
+    $trainer_name = '';
+    $mapping_id = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'trainer')
+      ->condition('field_mindbody_trainer_id', $trainer)
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+      $name = explode(', ', $mapping->getName());
+      if (isset($name[0]) && isset($name[0])) {
+        $trainer_name = $name[1] . ' ' . $name[0];
+      }
+    }
+
+    return $trainer_name;
   }
 
 }
