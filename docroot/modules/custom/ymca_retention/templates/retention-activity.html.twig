@@ -6,20 +6,7 @@
 #}
 <!-- TOP BAR -->
 <nav id="top-nav">
-  <a href="/" class="back-link">
-    <span class="glyphicon glyphicon-arrow-left"></span>{{ "Back to YMCA Twin Cities"|t }}
-  </a>
-  <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".ysr-menu">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-  </button>
-  <ul class="ysr-menu collapse">
-    <li><a href="#register-and-report">{{ "Registration"|t }}</a></li>
-    <li><a href="#register-and-report">{{ "Track My Activities"|t }}</a></li>
-    <li><a href="#leaderboard">{{ "Leaderboard"|t }}</a></li>
-    <li><a href="#rules">{{ "Prizes/Rules Details"|t }}</a></li>
-  </ul>
+  {{ content.navigation }}
 </nav>
 <!-- HERO SECTION -->
 <div id="hero-section">
