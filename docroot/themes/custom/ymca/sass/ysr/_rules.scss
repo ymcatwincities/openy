@@ -1,3 +1,5 @@
+$detailed-rules-h3: #e49bbd;
+
 @mixin ysr-rules-text-block() {
   @include rem(font-size, 15px);
   @include rem(line-height, 25px);
@@ -14,8 +16,8 @@
     @include rem(line-height, 35px);
     @include rem(margin-top, 120px);
     @include rem(padding-bottom, 55px);
-    border-bottom: 1px solid #f2f2f2;
-    color: #e49bbd;
+    border-bottom: 1px solid $grey2;
+    color: $detailed-rules-h3;
     letter-spacing: -0.8px;
     text-align: center;
     text-transform: uppercase;
@@ -32,11 +34,10 @@
   dl {
 
     dt {
-      @include cachet();
+      @include cachet-normal();
       @include rem(font-size, 20px);
       @include rem(margin-top, 10px);
       color: $purple-light;
-      font-weight: normal;
       text-transform: uppercase;
     }
 
