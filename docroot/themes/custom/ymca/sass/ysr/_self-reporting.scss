@@ -348,8 +348,8 @@ $track-activity-button-hover: #e882c8;
   }
 
   .activity-groups {
-    text-align: center;
     @include rem(padding-bottom, 40px);
+    text-align: center;
 
     @include breakpoint($tablet) {
       @include rem(padding-bottom, 100px);
@@ -368,13 +368,13 @@ $track-activity-button-hover: #e882c8;
         @include cachet-bold();
         @include rem(font-size, 20px);
         @include rem(padding-top, 67px);
-        @include transition(opacity, 0.3s);
+        @include transition(opacity, .3s);
         background-position: top center;
         background-repeat: no-repeat;
         color: $white;
         cursor: pointer;
         display: block;
-        opacity: 0.3;
+        opacity: .3;
         text-decoration: none;
         text-transform: uppercase;
         vertical-align: top;
@@ -415,7 +415,7 @@ $track-activity-button-hover: #e882c8;
         }
 
         &--active {
-          opacity: 0.9;
+          opacity: .9;
         }
       }
     }
@@ -440,11 +440,11 @@ $track-activity-button-hover: #e882c8;
         @include rem(line-height, 16px);
         @include rem(margin-bottom, 22px);
         @include rem(padding, 25px 15px 25px 76px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 255, 255, .25);
         color: $grey1;
         cursor: pointer;
         display: block;
-        letter-spacing: -0.5px;
+        letter-spacing: -.5px;
         overflow: hidden;
         position: relative;
         text-overflow: ellipsis;
@@ -465,7 +465,7 @@ $track-activity-button-hover: #e882c8;
           @include rem(top, 11px);
           @include rem(width, 42px);
           border: inherit;
-          content: "+";
+          content: '+';
           position: absolute;
           text-align: center;
         }
@@ -474,8 +474,8 @@ $track-activity-button-hover: #e882c8;
           @include cachet-normal();
           @include rem(font-size, 14px);
           @include rem(line-height, 14px);
-          display: block;
           color: $pale-purple-2;
+          display: block;
           overflow: hidden;
           text-overflow: ellipsis;
           text-transform: none;
@@ -516,7 +516,7 @@ $track-activity-button-hover: #e882c8;
   .actions {
     @include rem(margin, 54px auto 54px auto);
     @include rem(max-width, 382px);
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, .25);
     clear: both;
     text-align: center;
 
@@ -526,11 +526,11 @@ $track-activity-button-hover: #e882c8;
       @include rem(line-height, 40px);
       @include rem(margin-bottom, 11px);
       @include rem(margin-top, 40px);
-      @include transition(color 0.5s);
+      @include transition(color .5s);
       background: none;
       border: none;
       color: $track-activity-button;
-      letter-spacing: -0.8px;
+      letter-spacing: -.8px;
       padding: 0;
       text-transform: uppercase;
 
