@@ -3,10 +3,13 @@
 namespace Drupal\ymca_mindbody\Form;
 
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
@@ -89,6 +92,13 @@ class MindbodyPTForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * Logger.
+   *
+   * @var LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
@@ -101,17 +111,20 @@ class MindbodyPTForm extends FormBase {
    *   The entity query factory.
    * @param EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param LoggerChannelFactoryInterface $logger_factory
+   *   The entity type manager.
    * @param array $state
    *   State.
    */
   public function __construct(
-    MindbodyCacheProxyInterface $cache_proxy,
-    YmcaMindbodyTrainingsMapping $trainings_mapping,
-    YmcaMindbodyRequestGuard $request_guard,
-    QueryFactory $entity_query,
-    EntityTypeManagerInterface $entity_type_manager,
-    array $state = []
-  ) {
+      MindbodyCacheProxyInterface $cache_proxy,
+      YmcaMindbodyTrainingsMapping $trainings_mapping,
+      YmcaMindbodyRequestGuard $request_guard,
+      QueryFactory $entity_query,
+      EntityTypeManagerInterface $entity_type_manager,
+      LoggerChannelFactoryInterface $logger_factory,
+      array $state = []
+    ) {
     $this->proxy = $cache_proxy;
     $this->credentials = $this->config('mindbody.settings');
     $this->trainingsMapping = $trainings_mapping;
@@ -119,8 +132,15 @@ class MindbodyPTForm extends FormBase {
     $this->requestGuard = $request_guard;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
+    $this->logger = $logger_factory->get('ymca_mindbody');
 
-    if (!$this->requestGuard->validateSearchCriteria($state)) {
+    try {
+      if (!$this->requestGuard->validateSearchCriteria($state)) {
+        $state = [];
+      }
+    }
+    catch (MindbodyException $e) {
+      $this->logger->error('Failed to validate search criteria: %msg', ['%msg' => $e->getMessage()]);
       $state = [];
     }
     $this->state = $state;
@@ -145,13 +165,16 @@ class MindbodyPTForm extends FormBase {
       'prepopulated_location' => FALSE,
     );
 
-    if (isset($query['location']) && is_numeric($query['location'])) {
+    if (isset($query['context'], $query['location']) && is_numeric($query['location'])) {
+      $state['context'] = $query['context'];
+      $state['location'] = $query['location'];
       $state['mb_location'] = $query['location'];
-      $state['step'] = 2;
       $state['prepopulated_location'] = TRUE;
     }
-    if (isset($query['trainer']) && is_numeric($query['trainer'])) {
+    if (isset($query['context'], $query['trainer']) && $query['context'] == 'trainer' && is_numeric($query['trainer'])) {
+      $state['trainer'] = $query['trainer'];
       $state['mb_trainer'] = $query['trainer'];
+      $state['prepopulated_trainer'] = TRUE;
     }
 
     // Prevent corrupted remote calls on corrupted page urls.
@@ -171,6 +194,7 @@ class MindbodyPTForm extends FormBase {
       $container->get('ymca_mindbody.request_guard'),
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
+      $container->get('logger.factory'),
       $state
     );
   }
@@ -195,7 +219,7 @@ class MindbodyPTForm extends FormBase {
   /**
    * Provides markup for disabled form.
    */
-  protected function getDisabledMarkup() {
+  public function getDisabledMarkup() {
     $markup = '';
     $block_id = $this->config('ymca_mindbody.settings')->get('disabled_form_block_id');
     $block = $this->entityTypeManager->getStorage('block_content')->load($block_id);
@@ -274,251 +298,258 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Populate form state with state data.
-    if ($this->state) {
-      foreach ($this->state as $key => $value) {
-        if (!$form_state->hasValue($key)) {
-          $form_state->setValue($key, $value);
+    try {
+      // Populate form state with state data.
+      if ($this->state) {
+        foreach ($this->state as $key => $value) {
+          if (!$form_state->hasValue($key)) {
+            $form_state->setValue($key, $value);
+          }
         }
       }
-    }
 
-    $values = $form_state->getValues();
-    if ($trigger_element = $form_state->getTriggeringElement()) {
-      switch ($trigger_element['#name']) {
-        case 'mb_location':
-          unset($values['mb_program']);
-          unset($values['mb_session_type']);
-          unset($values['mb_trainer']);
-          $user_input = $form_state->getUserInput();
-          unset($user_input['mb_program']);
-          unset($user_input['mb_session_type']);
-          unset($user_input['mb_trainer']);
-          $form_state->setUserInput($user_input);
-          $values['step'] = 2;
-          break;
+      $values = $form_state->getValues();
+      if ($trigger_element = $form_state->getTriggeringElement()) {
+        switch ($trigger_element['#name']) {
+          case 'mb_location':
+            unset($values['mb_program']);
+            unset($values['mb_session_type']);
+            unset($values['mb_trainer']);
+            $user_input = $form_state->getUserInput();
+            unset($user_input['mb_program']);
+            unset($user_input['mb_session_type']);
+            unset($user_input['mb_trainer']);
+            $form_state->setUserInput($user_input);
+            $values['step'] = 2;
+            break;
 
-        case 'mb_program':
-          unset($values['mb_session_type']);
-          unset($values['mb_trainer']);
-          $user_input = $form_state->getUserInput();
-          unset($user_input['mb_session_type']);
-          unset($user_input['mb_trainer']);
-          $form_state->setUserInput($user_input);
-          $values['step'] = 3;
-          break;
+          case 'mb_program':
+            unset($values['mb_session_type']);
+            unset($values['mb_trainer']);
+            $user_input = $form_state->getUserInput();
+            unset($user_input['mb_session_type']);
+            unset($user_input['mb_trainer']);
+            $form_state->setUserInput($user_input);
+            $values['step'] = 3;
+            break;
 
-        case 'mb_session_type':
-          unset($values['mb_trainer']);
-          $user_input = $form_state->getUserInput();
-          unset($user_input['mb_trainer']);
-          $form_state->setUserInput($user_input);
-          $values['step'] = 4;
-          break;
+          case 'mb_session_type':
+            unset($values['mb_trainer']);
+            $user_input = $form_state->getUserInput();
+            unset($user_input['mb_trainer']);
+            $form_state->setUserInput($user_input);
+            $values['step'] = 4;
+            break;
 
-        case 'ok':
-          $values['step'] = 5;
-          break;
+          case 'ok':
+            $values['step'] = 5;
+            break;
+        }
       }
-    }
 
-    if (!isset($values['step'])) {
-      $values['step'] = 1;
-    }
+      if (!isset($values['step'])) {
+        $values['step'] = 1;
+      }
 
-    $form['step'] = [
-      '#type' => 'hidden',
-      '#value' => $values['step'],
-    ];
+      $form['step'] = [
+        '#type' => 'hidden',
+        '#value' => $values['step'],
+      ];
 
-    // Vary on the listed query args.
-    $form['#cache'] = [
-      // Remove max-age when mindbody tags invalidation is done.
-      'max-age' => 0,
-      'contexts' => [
-        'mindbody_state',
-        'url.query_args:step',
-        'url.query_args:mb_location',
-        'url.query_args:mb_program',
-        'url.query_args:mb_session_type',
-        'url.query_args:mb_trainer',
-        'url.query_args:mb_start_date',
-        'url.query_args:mb_end_date',
-        'url.query_args:mb_start_time',
-        'url.query_args:mb_end_time',
-      ],
-    ];
+      // Vary on the listed query args.
+      $form['#cache'] = [
+        // Remove max-age when mindbody tags invalidation is done.
+        'max-age' => 0,
+        'contexts' => [
+          'mindbody_state',
+          'url.query_args:step',
+          'url.query_args:mb_location',
+          'url.query_args:mb_program',
+          'url.query_args:mb_session_type',
+          'url.query_args:mb_trainer',
+          'url.query_args:mb_start_date',
+          'url.query_args:mb_end_date',
+          'url.query_args:mb_start_time',
+          'url.query_args:mb_end_time',
+        ],
+      ];
 
-    $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
-    $form['#suffix'] = '</div>';
+      $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
+      $form['#suffix'] = '</div>';
 
-    if ($this->isDisabled()) {
-      $form['disable'] = ['#markup' => $this->getDisabledMarkup()];
-      return $form;
-    }
+      if ($this->isDisabled()) {
+        $form['disable'] = ['#markup' => $this->getDisabledMarkup()];
+        return $form;
+      }
 
-    $location_options = $this->getLocations();
-    $form['mb_location'] = array(
-      '#type' => 'radios',
-      '#title' => $this->t('Select Location'),
-      '#options' => $location_options,
-      '#default_value' => isset($values['mb_location']) ? $values['mb_location'] : '',
-      '#prefix' => '<div id="location-wrapper" class="row"><div class="container">',
-      '#suffix' => '</div></div>',
-      '#description' => $this->t('You can only select 1 branch per search'),
-      '#weight' => 2,
-      '#ajax' => array(
-        'callback' => array($this, 'rebuildAjaxCallback'),
-        'wrapper' => 'mindbody-pt-form-wrapper',
-        'event' => 'change',
-        'method' => 'replace',
-        'effect' => 'fade',
-        'progress' => array(
-          'type' => 'throbber',
-        ),
-      ),
-    );
-
-    if ($values['step'] >= 2) {
-      $form['mb_location_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']], $this->state['prepopulated_location']),
-        '#weight' => 1,
-      );
-      $program_options = $this->getPrograms();
-      $form['mb_program'] = array(
+      $location_options = $this->getLocations();
+      $form['mb_location'] = array(
         '#type' => 'radios',
-        '#title' => $this->t('Appointment Type'),
-        '#options' => $program_options,
-        '#default_value' => isset($values['mb_program']) ? $values['mb_program'] : '',
-        '#prefix' => '<div id="program-wrapper" class="row"><div class="container">',
+        '#title' => $this->t('Select Location'),
+        '#options' => $location_options,
+        '#default_value' => isset($values['mb_location']) ? $values['mb_location'] : '',
+        '#prefix' => '<div id="location-wrapper" class="row"><div class="container">',
         '#suffix' => '</div></div>',
-        '#weight' => 4,
+        '#description' => $this->t('You can only select 1 branch per search'),
+        '#weight' => 2,
         '#ajax' => array(
           'callback' => array($this, 'rebuildAjaxCallback'),
           'wrapper' => 'mindbody-pt-form-wrapper',
+          'event' => 'change',
           'method' => 'replace',
-          'event' => 'change',
           'effect' => 'fade',
           'progress' => array(
             'type' => 'throbber',
           ),
         ),
       );
-    }
 
-    if ($values['step'] >= 3) {
-      $form['mb_program_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('program', $program_options[$values['mb_program']]),
-        '#weight' => 3,
-      );
-      $session_type_options = $this->getSessionTypes($values['mb_program']);
-      $form['mb_session_type'] = array(
-        '#type' => 'radios',
-        '#title' => $this->t('Training type'),
-        '#options' => $session_type_options,
-        '#default_value' => isset($values['mb_session_type']) ? $values['mb_session_type'] : '',
-        '#prefix' => '<div id="session-type-wrapper" class="row"><div class="container">',
-        '#suffix' => '</div></div>',
-        '#weight' => 6,
-        '#ajax' => array(
-          'callback' => array($this, 'rebuildAjaxCallback'),
-          'wrapper' => 'mindbody-pt-form-wrapper',
-          'event' => 'change',
-          'effect' => 'fade',
-          'progress' => array(
-            'type' => 'throbber',
+      if ($values['step'] >= 2) {
+        $form['mb_location_header'] = array(
+          '#markup' => $this->getElementHeaderMarkup('location', $location_options[$values['mb_location']], $this->state['prepopulated_location']),
+          '#weight' => 1,
+        );
+        $program_options = $this->getPrograms();
+        $form['mb_program'] = array(
+          '#type' => 'radios',
+          '#title' => $this->t('Appointment Type'),
+          '#options' => $program_options,
+          '#default_value' => isset($values['mb_program']) ? $values['mb_program'] : '',
+          '#prefix' => '<div id="program-wrapper" class="row"><div class="container">',
+          '#suffix' => '</div></div>',
+          '#weight' => 4,
+          '#ajax' => array(
+            'callback' => array($this, 'rebuildAjaxCallback'),
+            'wrapper' => 'mindbody-pt-form-wrapper',
+            'method' => 'replace',
+            'event' => 'change',
+            'effect' => 'fade',
+            'progress' => array(
+              'type' => 'throbber',
+            ),
           ),
-        ),
-      );
+        );
+      }
+
+      if ($values['step'] >= 3) {
+        $form['mb_program_header'] = array(
+          '#markup' => $this->getElementHeaderMarkup('program', $program_options[$values['mb_program']]),
+          '#weight' => 3,
+        );
+        $session_type_options = $this->getSessionTypes($values['mb_program']);
+        $form['mb_session_type'] = array(
+          '#type' => 'radios',
+          '#title' => $this->t('Training type'),
+          '#options' => $session_type_options,
+          '#default_value' => isset($values['mb_session_type']) ? $values['mb_session_type'] : '',
+          '#prefix' => '<div id="session-type-wrapper" class="row"><div class="container">',
+          '#suffix' => '</div></div>',
+          '#weight' => 6,
+          '#ajax' => array(
+            'callback' => array($this, 'rebuildAjaxCallback'),
+            'wrapper' => 'mindbody-pt-form-wrapper',
+            'event' => 'change',
+            'effect' => 'fade',
+            'progress' => array(
+              'type' => 'throbber',
+            ),
+          ),
+        );
+      }
+
+      if ($values['step'] >= 4) {
+        $form['mb_session_type_header'] = array(
+          '#markup' => $this->getElementHeaderMarkup('type', $session_type_options[$values['mb_session_type']]),
+          '#weight' => 5,
+        );
+        $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
+
+        $form['mb_trainer'] = array(
+          '#access' => !empty($this->state['prepopulated_trainer']) ? FALSE : TRUE,
+          '#type' => 'select',
+          '#title' => $this->t('Trainer'),
+          '#options' => $trainer_options,
+          '#default_value' => isset($values['mb_trainer']) ? $values['mb_trainer'] : 'all',
+          '#prefix' => '<div id="trainer-wrapper" class="row"><div class="container"><div class="col-sm-4">',
+          '#suffix' => '</div></div></div>',
+          '#weight' => 8,
+        );
+
+        $form['actions']['#weight'] = 20;
+        $form['actions']['#prefix'] = '<div id="actions-wrapper" class="row"><div class="container"><div class="col-sm-12">';
+        $form['actions']['#suffix'] = '</div></div></div>';
+
+        $timezone = drupal_get_user_timezone();
+        // Initially start date defined as today.
+        $start_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+        if (!empty($values['mb_start_date'])) {
+          $start_date = $values['mb_start_date'];
+          if (!$start_date instanceof DrupalDateTime) {
+            $start_date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_start_date']['date'], $timezone);
+          }
+        }
+        $start_date->setTime(0, 0, 0);
+
+        // Initially end date defined as +5 days after start date.
+        $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 432000, $timezone);
+        if (!empty($values['mb_end_date'])) {
+          $end_date = $values['mb_end_date'];
+          if (!$values['mb_end_date'] instanceof DrupalDateTime) {
+            $end_date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_end_date']['date'], $timezone);
+          }
+        }
+        $end_date->setTime(0, 0, 0);
+
+        $form['mb_date'] = [
+          '#type' => 'fieldset',
+          '#prefix' => '<div id="when-wrapper" class="row"><div class="container"><div class="col-sm-12">',
+          '#suffix' => '</div></div></div>',
+          '#weight' => 9,
+        ];
+        $form['mb_date']['mb_start_time'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Time range'),
+          '#options' => $this->getTimeOptions(),
+          '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : $this::DEFAULT_START_TIME,
+          '#suffix' => '<span class="dash">—</span>',
+          '#weight' => 9,
+        ];
+        $form['mb_date']['mb_end_time'] = [
+          '#type' => 'select',
+          '#title' => '',
+          '#options' => $this->getTimeOptions(),
+          '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : $this::DEFAULT_END_TIME,
+          '#weight' => 9,
+        ];
+        $form['mb_date']['mb_start_date'] = [
+          '#type' => 'datetime',
+          '#date_date_format' => 'n/d/y',
+          '#title' => $this->t('Date range'),
+          '#suffix' => '<span class="dash">—</span>',
+          '#default_value' => $start_date,
+          '#date_time_element' => 'none',
+          '#date_date_element' => 'text',
+          '#weight' => 9,
+        ];
+        $form['mb_date']['mb_end_date'] = [
+          '#type' => 'datetime',
+          '#date_date_format' => 'n/d/y',
+          '#title' => '',
+          '#default_value' => $end_date,
+          '#date_time_element' => 'none',
+          '#date_date_element' => 'text',
+          '#weight' => 9,
+        ];
+
+        $form['actions']['submit'] = array(
+          '#type' => 'submit',
+          '#value' => $this->t('Search'),
+        );
+      }
     }
-
-    if ($values['step'] >= 4) {
-      $form['mb_session_type_header'] = array(
-        '#markup' => $this->getElementHeaderMarkup('type', $session_type_options[$values['mb_session_type']]),
-        '#weight' => 5,
-      );
-      $trainer_options = $this->getTrainers($values['mb_session_type'], $values['mb_location']);
-
-      $form['mb_trainer'] = array(
-        '#type' => 'select',
-        '#title' => $this->t('Trainer'),
-        '#options' => $trainer_options,
-        '#default_value' => isset($values['mb_trainer']) ? $values['mb_trainer'] : 'all',
-        '#prefix' => '<div id="trainer-wrapper" class="row"><div class="container"><div class="col-sm-4">',
-        '#suffix' => '</div></div></div>',
-        '#weight' => 8,
-      );
-
-      $form['actions']['#weight'] = 20;
-      $form['actions']['#prefix'] = '<div id="actions-wrapper" class="row"><div class="container"><div class="col-sm-12">';
-      $form['actions']['#suffix'] = '</div></div></div>';
-
-      $timezone = drupal_get_user_timezone();
-      // Initially start date defined as today.
-      $start_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
-      if (!empty($values['mb_start_date'])) {
-        $start_date = $values['mb_start_date'];
-        if (!$start_date instanceof DrupalDateTime) {
-          $start_date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_start_date']['date'], $timezone);
-        }
-      }
-      $start_date->setTime(0, 0, 0);
-
-      // Initially end date defined as +5 days after start date.
-      $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 432000, $timezone);
-      if (!empty($values['mb_end_date'])) {
-        $end_date = $values['mb_end_date'];
-        if (!$values['mb_end_date'] instanceof DrupalDateTime) {
-          $end_date = DrupalDateTime::createFromFormat('n/d/y', $values['mb_end_date']['date'], $timezone);
-        }
-      }
-      $end_date->setTime(0, 0, 0);
-
-      $form['mb_date'] = [
-        '#type' => 'fieldset',
-        '#prefix' => '<div id="when-wrapper" class="row"><div class="container"><div class="col-sm-12">',
-        '#suffix' => '</div></div></div>',
-        '#weight' => 9,
-      ];
-      $form['mb_date']['mb_start_time'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Time range'),
-        '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_start_time']) ? $values['mb_start_time'] : $this::DEFAULT_START_TIME,
-        '#suffix' => '<span class="dash">—</span>',
-        '#weight' => 9,
-      ];
-      $form['mb_date']['mb_end_time'] = [
-        '#type' => 'select',
-        '#title' => '',
-        '#options' => $this->getTimeOptions(),
-        '#default_value' => isset($values['mb_end_time']) ? $values['mb_end_time'] : $this::DEFAULT_END_TIME,
-        '#weight' => 9,
-      ];
-      $form['mb_date']['mb_start_date'] = [
-        '#type' => 'datetime',
-        '#date_date_format' => 'n/d/y',
-        '#title' => $this->t('Date range'),
-        '#suffix' => '<span class="dash">—</span>',
-        '#default_value' => $start_date,
-        '#date_time_element' => 'none',
-        '#date_date_element' => 'text',
-        '#weight' => 9,
-      ];
-      $form['mb_date']['mb_end_date'] = [
-        '#type' => 'datetime',
-        '#date_date_format' => 'n/d/y',
-        '#title' => '',
-        '#default_value' => $end_date,
-        '#date_time_element' => 'none',
-        '#date_date_element' => 'text',
-        '#weight' => 9,
-      ];
-
-      $form['actions']['submit'] = array(
-        '#type' => 'submit',
-        '#value' => $this->t('Search'),
-      );
+    catch (MindbodyException $e) {
+      $form['disabled']['#markup'] = $this->getDisabledMarkup();
+      $this->logger->error('Failed to build the form. Message: %msg', ['%msg' => $e->getMessage()]);
     }
 
     return $form;
@@ -587,7 +618,11 @@ class MindbodyPTForm extends FormBase {
     $days = [];
     // Group results by date and trainer.
     if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
-      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+      $schedule_item = $bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem;
+      if (count($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem) == 1) {
+        $schedule_item = $bookable->GetBookableItemsResult->ScheduleItems;
+      }
+      foreach ($schedule_item as $bookable_item) {
         // Additionally filter results by time.
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
@@ -608,8 +643,7 @@ class MindbodyPTForm extends FormBase {
       $trainer_name = $this->t('all trainers');
     }
     else {
-      $trainers = $this->getTrainers($values['session_type'], $values['location']);
-      $trainer_name = isset($trainers[$values['trainer']]) ? $trainers[$values['trainer']] : '';
+      $trainer_name = $this->getTrainerName($values['trainer']);
     }
 
     $time_options = $this->getTimeOptions();
@@ -654,6 +688,15 @@ class MindbodyPTForm extends FormBase {
         'mb_end_time' => $values['end_time'],
       ],
     ];
+    if (isset($values['context'])) {
+      $options['query']['context'] = $values['context'];
+      if (isset($values['location'])) {
+        $options['query']['location'] = $values['location'];
+      }
+      if (isset($values['trainer']) && $values['trainer'] != 'all') {
+        $options['query']['trainer'] = $values['trainer'];
+      }
+    }
     $search_results = [
       '#theme' => 'mindbody_results_content',
       '#location' => $location_name,
@@ -685,7 +728,11 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $query = $this->state;
     $values = $form_state->getUserInput();
+    if (!isset($values['mb_trainer']) && isset($query['trainer'])) {
+      $values['mb_trainer'] = $query['trainer'];
+    }
     if (!empty($values['mb_location']) &&
       !empty($values['mb_program']) &&
       !empty($values['mb_session_type']) &&
@@ -704,6 +751,9 @@ class MindbodyPTForm extends FormBase {
         'start_date'   => $values['mb_start_date']['date'],
         'end_date'     => $values['mb_end_date']['date'],
       ];
+      if (isset($query['context'])) {
+        $params['context'] = $query['context'];
+      }
       $form_state->setRedirect(
         'ymca_mindbody.pt.results',
         [],
@@ -818,6 +868,33 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_options;
+  }
+
+  /**
+   * Helper method retrieving trainer name form mapping.
+   *
+   * @param int $trainer
+   *   MindBody trainer id.
+   *
+   * @return string
+   *   Trainer's name.
+   */
+  public function getTrainerName($trainer) {
+    $trainer_name = '';
+    $mapping_id = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'trainer')
+      ->condition('field_mindbody_trainer_id', $trainer)
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+      $name = explode(', ', $mapping->getName());
+      if (isset($name[0]) && isset($name[0])) {
+        $trainer_name = $name[1] . ' ' . $name[0];
+      }
+    }
+
+    return $trainer_name;
   }
 
 }

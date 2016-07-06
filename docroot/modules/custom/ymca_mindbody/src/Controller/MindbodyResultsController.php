@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
+use Drupal\mindbody\MindbodyException;
 use Drupal\ymca_mindbody\Form\MindbodyPTForm;
 use Drupal\Core\Controller\ControllerBase;
 
@@ -25,9 +26,25 @@ class MindbodyResultsController extends ControllerBase {
       'start_date' => !empty($query['start_date']) ? $query['start_date'] : NULL,
       'end_date' => !empty($query['end_date']) ? $query['end_date'] : NULL,
     );
+    if (isset($query['context'])) {
+      $values['context'] = $query['context'];
+    }
 
     $form = MindbodyPTForm::create(\Drupal::getContainer());
-    $search_results = $form->getSearchResults($values);
+    try {
+      $search_results = $form->getSearchResults($values);
+    }
+    catch (MindbodyException $e) {
+      $logger = \Drupal::getContainer()->get('logger.factory')->get('ymca_mindbody');
+      $logger->error('Failed to get the results: %msg', ['%msg' => $e->getMessage()]);
+      return [
+        '#prefix' => '<div class="row mindbody-search-results-content">
+          <div class="container">
+            <div class="day col-sm-12">',
+        '#markup' => $form->getDisabledMarkup(),
+        '#suffix' => '</div></div></div>',
+      ];
+    }
 
     return [
       '#markup' => render($search_results),

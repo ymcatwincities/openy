@@ -78,6 +78,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 $url_options = [
                   'query' => [
                     'location' => $location,
+                    'context' => 'location',
                   ],
                   'attributes' => [
                     'target' => '_blank'
@@ -121,6 +122,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                       'query' => [
                         'location' => $location,
                         'trainer' => $trainer,
+                        'context' => 'trainer',
                       ],
                       'attributes' => [
                         'target' => '_blank',
@@ -144,8 +146,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
  * Implements hook_mindbody_cache_proxy_update_stats().
  */
 function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
-  // TODO: create a constant or something for free calls limit.
-  if ($data->miss == 1000) {
+  $config = Drupal::config('mindbody_cache_proxy.settings');
+  if ($data->miss == $config->get('calls')) {
     \Drupal::service('cache_tags.invalidator')->invalidateTags(['mindbody_state']);
   }
 }
