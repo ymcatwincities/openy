@@ -3372,6 +3372,17 @@ function ymca_master_update_8144() {
  * Import config.
  */
 function ymca_master_update_8145() {
+  // Remove old config.
+  $factory = \Drupal::configFactory();
+  $remove = [
+    'mindbody.env.settings',
+  ];
+
+  foreach ($remove as $name) {
+    $factory->getEditable($name)->delete();
+  }
+
+  // Import new one.
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
