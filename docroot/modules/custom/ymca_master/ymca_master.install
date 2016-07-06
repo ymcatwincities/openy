@@ -3367,3 +3367,15 @@ function ymca_master_update_8144() {
     ]
   );
 }
+
+/**
+ * Import config.
+ */
+function ymca_master_update_8145() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+    ]
+  );
+}
