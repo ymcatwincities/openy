@@ -28,7 +28,7 @@ function ab_help($route_name, RouteMatchInterface $route_match) {
  */
 function ab_page_attachments(array &$attachments) {
   $block_id = 'top_menu_2';
-  $build = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block')->lazyBuilder($block_id);
+  $build = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block')->lazyBuilder($block_id, 'full');
   $renderer = \Drupal::service('renderer');
   $result = $renderer->renderRoot($build);
 
