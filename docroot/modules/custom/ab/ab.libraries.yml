@@ -1,0 +1,8 @@
+ab_generic:
+  version: 1.x
+  js:
+    js/generic.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

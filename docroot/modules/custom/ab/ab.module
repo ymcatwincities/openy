@@ -32,5 +32,12 @@ function ab_page_attachments(array &$attachments) {
   $renderer = \Drupal::service('renderer');
   $result = $renderer->renderRoot($build);
 
-  $attachments['#attached'] = ['drupalSettings' => ['node_1' => [$block_id => $result]]];
+  $attachments['#attached']['library'][] = 'ab/ab_generic';
+  $attachments['#attached']['drupalSettings']['ab'] = [
+    [
+      'block_id' => $block_id,
+      'selector' => '#block-topmenu',
+      'html' => $result,
+    ]
+  ];
 }
