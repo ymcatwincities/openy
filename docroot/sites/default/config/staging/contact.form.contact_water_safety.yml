@@ -10,7 +10,7 @@ third_party_settings:
 id: contact_water_safety
 label: 'Contact Water Safety'
 recipients:
-  - Shannon.kinstler@ymcatwincities.org
+  - Shannon.kinstler@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''
