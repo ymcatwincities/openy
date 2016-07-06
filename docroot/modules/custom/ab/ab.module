@@ -27,24 +27,30 @@ function ab_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_page_attachments().
  */
 function ab_page_attachments(array &$attachments) {
+  $block_id = 'top_menu_2';
   // Try to load block.
-  $block = \Drupal\block\Entity\Block::load('top_menu_2');
-  // If there is no block try to create it.
-  if (is_null($block)) {
-    $config_manager = Drupal::service('config.manager');
-    $entity_storage = $config_manager->getEntityManager()->getStorage('block');
-    $block = $entity_storage->create([
-      'id' => 'top_menu_2',
-      'theme' => 'ymca',
-      'plugin' => 'system_menu_block:top_menu_2',
-    ]);
+//  $block = \Drupal\block\Entity\Block::load('top_menu_2');
+//  // If there is no block try to create it.
+//  if (is_null($block)) {
+//    $config_manager = Drupal::service('config.manager');
+//    /** @var \Drupal\Core\Config\Entity\ConfigEntityStorage $entity_storage */
+//    $entity_storage = $config_manager->getEntityManager()->getStorage('block');
+//    $block = $entity_storage->load($block_id);
+//    /*
+//    $block = $entity_storage->create([
+//      'id' => $block_id,
+//      'theme' => 'ymca',
+//      'plugin' => "system_menu_block:$block_id",
+//    ]);
+//
+//    $block->save();
+//    */
+//  }
+  $build = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block')->lazyBuilder($block_id);
 
-    $block->save();
-  }
-  $build = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block')->view($block);
-
+  /** @var  $renderer */
   $renderer = \Drupal::service('renderer');
   $result = $renderer->renderRoot($build);
 
-  $attachments['#attached'] = ['drupalSettings' => ['hehe' => 'render']];
+  $attachments['#attached'] = ['drupalSettings' => ['node_1' => [$block_id => $result]]];
 }
