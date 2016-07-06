@@ -3380,5 +3380,19 @@ function ymca_master_update_8145() {
     ]
   );
 
+  // Add initial menu links.
+  $items = [
+    [
+      'title' => 'Example Link',
+      'link' => ['uri' => 'internal:/node'],
+      'menu_name' => 'top_menu_2',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+
   \Drupal::service('module_installer')->install(['ab'], TRUE);
 }
