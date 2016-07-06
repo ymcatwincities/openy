@@ -46,14 +46,6 @@ entity.ymca_retention_member.delete_form:
   requirements:
     _entity_access: 'ymca_retention_member.delete'
 
-ymca_retention.enroll_success_page:
-  path: '/ygames/enroll-success'
-  defaults:
-    _controller: '\Drupal\ymca_retention\Controller\Membership::enrollSuccess'
-    _title: 'Thank you for participating in Y Games 2016!'
-  requirements:
-    _permission: 'access content'
-
 ymca_retention.settings:
   path: '/admin/config/system/ymca-retention'
   defaults:
