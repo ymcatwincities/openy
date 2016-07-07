@@ -693,11 +693,17 @@
 }
 
 #leaderboard {
+  margin-bottom: 60px;
+  margin-bottom: 6rem;
   padding-top: 50px;
+  padding-top: 5rem;
 }
-@media screen and (min-width: 768px) {
+@media (min-width: 48em) {
   #leaderboard {
+    margin-bottom: 160px;
+    margin-bottom: 16rem;
     padding-top: 100px;
+    padding-top: 10rem;
   }
 }
 #leaderboard .col-xs-12 {
@@ -1280,15 +1286,15 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 .registration-confirmation .person-icon {
-  width: 45px !important;
-  width: 4.5rem !important;
+  height: 45px;
+  height: 4.5rem;
+  background: url("../prototypes/ysr/img/person-pink.png") no-repeat center center;
+  background-size: contain;
 }
 @media (min-width: 48em) {
   .registration-confirmation .person-icon {
-    width: 56px !important;
-    width: 5.6rem !important;
-    height: 56px !important;
-    height: 5.6rem !important;
+    height: 56px;
+    height: 5.6rem;
   }
 }
 .registration-confirmation h3 {
@@ -1484,13 +1490,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 
 /* Dots */
 .slick-slider {
-  margin-bottom: 0;
-  margin-top: 60px;
-}
-@media screen and (min-width: 768px) {
-  .slick-slider {
-    margin-top: 160px;
-  }
+  margin: 0;
 }
 
 .slick-dots {

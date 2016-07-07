@@ -13,11 +13,12 @@
   }
 
   .person-icon {
-    @include rem(width, 45px !important);
+    @include rem(height, 45px);
+    background: url('../prototypes/ysr/img/person-pink.png') no-repeat center center;
+    background-size: contain;
 
     @include breakpoint($tablet) {
-      @include rem(width, 56px !important);
-      @include rem(height, 56px !important);
+      @include rem(height, 56px);
     }
   }
 
