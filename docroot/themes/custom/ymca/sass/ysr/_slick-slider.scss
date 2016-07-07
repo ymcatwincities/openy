@@ -95,12 +95,7 @@
 
 /* Dots */
 .slick-slider {
-  margin-bottom: 0;
-  margin-top: 60px;
-
-  @media screen and (min-width: 768px) {
-    margin-top: 160px;
-  }
+  margin: 0;
 }
 
 .slick-dots {

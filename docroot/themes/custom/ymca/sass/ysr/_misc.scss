@@ -643,10 +643,12 @@
 }
 
 #leaderboard {
-  padding-top: 50px;
+  @include rem(margin-bottom, 60px);
+  @include rem(padding-top, 50px);
 
-  @media screen and (min-width: 768px) {
-    padding-top: 100px;
+  @include breakpoint($tablet) {
+    @include rem(margin-bottom, 160px);
+    @include rem(padding-top, 100px);
   }
 
   .col-xs-12 {
