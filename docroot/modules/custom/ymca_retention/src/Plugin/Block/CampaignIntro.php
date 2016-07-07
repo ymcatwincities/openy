@@ -20,10 +20,8 @@ class CampaignIntro extends BlockBase {
    */
   public function build() {
     // Get page title.
-    $request = \Drupal::request();
-    $route_match = \Drupal::routeMatch();
-    $title = \Drupal::service('title_resolver')
-      ->getTitle($request, $route_match->getRouteObject());
+    // @todo Make title editable, create block settings.
+    $title = 'Y GAMES 2016';
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
