@@ -3375,7 +3375,9 @@ function ymca_master_update_8145() {
 
   // Create YMCA Retention activities terms.
   module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.terms');
-  foreach (_ymca_retention_activity_tracker_terms() as $weight => $values) {
-    _ymca_retention_term_create($values, $weight);
-  }
+  _ymca_retention_terms_create();
+
+  // Create fake members and activities.
+  module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.members');
+  _ymca_retention_members_create();
 }
