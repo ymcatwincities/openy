@@ -4,25 +4,30 @@
  * Template for retention campaign layout.
  */
 #}
-<!-- TOP BAR -->
-<nav id="top-nav">
-    {{ content.navigation }}
-</nav>
+<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}">
+    <!-- TOP BAR -->
+    <nav id="top-nav">
+        {{ content.navigation }}
+    </nav>
 
-<!-- HERO SECTION -->
-<div id="hero-section">
-    {{ content.intro }}
-    <div id="register-and-report" class="slides">
-        {{ content.registration }}
+    <!-- HERO SECTION -->
+    <div id="hero-section">
+        {{ content.intro }}
+        <div id="register-and-report" class="slides">
+            {{ content.registration }}
+        </div>
     </div>
-</div>
-<div id="main-content">
-    {{ content.main }}
-</div>
-<div id="leaderboard">
-    {{ content.leaderboard }}
-</div>
-
-<div id="slider">
-    {{ content.slider }}
+    <div id="main-content">
+        {{ content.main }}
+    </div>
+    {% if content.leaderboard is not empty %}
+        <div id="leaderboard">
+            {{ content.leaderboard }}
+        </div>
+    {% endif %}
+    {% if content.slider is not empty %}
+        <div id="slider">
+            {{ content.slider }}
+        </div>
+    {% endif %}
 </div>
