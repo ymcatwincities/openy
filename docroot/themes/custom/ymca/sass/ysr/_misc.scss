@@ -969,8 +969,8 @@
 
 #prizes, #more-prizes {
   .container {
-    padding: 0 15px;
-    max-width: 790px;
+    @include rem(max-width, 850px);
+    @include rem(padding, 0 15px);
   }
 }
 
@@ -1302,5 +1302,67 @@ body {
     #top-nav {
       margin-top: 79px;
     }
+  }
+}
+
+// Hero section compact variation.
+.ysr-compact-header {
+  #hero-section {
+    .logo {
+      @include rem(width, 140px);
+      display: inline-block;
+
+      @include breakpoint($tablet) {
+        @include rem(margin-left, -200px);
+        @include rem(width, 220px);
+      }
+
+      @include breakpoint(max-width 450px) {
+        @include rem(width, 90px);
+      }
+    }
+
+    h1 {
+      @include rem(font-size, 40px);
+      @include rem(line-height, 40px);
+      display: inline-block;
+      margin-top: 0;
+      vertical-align: top;
+
+      @include breakpoint($tablet) {
+        @include rem(font-size, 60px);
+        @include rem(line-height, 60px);
+      }
+
+      @include breakpoint(max-width 450px) {
+        @include rem(font-size, 30px);
+        @include rem(line-height, 30px);
+      }
+    }
+
+    .date {
+      @include rem(font-size, 21px);
+      @include rem(line-height, 21px);
+      margin-left: -2.45em;
+      margin-top: -3.2em;
+      position: absolute;
+      left: 50%;
+
+      @include breakpoint($tablet) {
+        @include rem(font-size, 31px);
+        @include rem(line-height, 31px);
+        //margin-left: -2.3em;
+        margin-left: -5.5em;
+        margin-top: -3.65em;
+      }
+
+      @include breakpoint(max-width 450px) {
+        @include rem(font-size, 18px);
+        @include rem(line-height, 18px);
+        margin-left: -2.5em;
+        margin-top: -4.3em;
+      }
+    }
+
   }
 }
