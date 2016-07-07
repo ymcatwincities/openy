@@ -10,7 +10,7 @@ third_party_settings:
 id: camp_share_your_story
 label: 'Camp - Share Your Story'
 recipients:
-  - missy.huppert@ymcatwincities.org
+  - missy.huppert@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''
