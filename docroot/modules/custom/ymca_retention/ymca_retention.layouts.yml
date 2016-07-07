@@ -28,5 +28,7 @@ retention-activity:
       label: Activity Tracker
     leaderboard:
       label: Leaderboard
+    main:
+      label: Main
     slider:
       label: Slider

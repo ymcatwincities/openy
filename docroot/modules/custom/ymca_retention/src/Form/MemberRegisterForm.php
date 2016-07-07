@@ -4,6 +4,7 @@ namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
 
@@ -137,10 +138,7 @@ class MemberRegisterForm extends FormBase {
       ]);
     $entity->save();
 
-    /** @var \Drupal\user\SharedTempStore $temp_store */
-    $temp_store = \Drupal::service('user.shared_tempstore')
-      ->get('ymca_retention');
-    $temp_store->setIfOwner('member', $entity->getId());
+    AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
 
     // Redirect to confirmation page.
     $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
