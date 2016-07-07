@@ -1,152 +1,53 @@
-<div class="row">
-    <div class="container">
-        <div class="col-xs-12">
-            <div class="wrap">
-                <img src="./img/cup.png" alt="Leaderboard">
-            </div>
-            <h2>Leaderboard</h2>
+<div id="leaderboard" class="row" data-ng-controller="LeaderboardController">
+  <div class="container">
+    <div class="col-xs-12">
+      <div class="wrap">
+        <img src="./img/cup.png" alt="Leaderboard">
+      </div>
+      <h2>Leaderboard</h2>
 
-            <form action="#" class="leaderboard-form">
-                <select name="location" id="leaderboard-location" class="form-select form-control text default">
-                    <option value="none">Select location...</option>
-                    <option value="option1">White Bear Area</option>
-                    <option value="option2">option 2</option>
-                    <option value="option3">option 3</option>
-                </select>
-            </form>
+      <form action="#" class="leaderboard-form">
+        <select name="location" id="leaderboard-location" class="form-select form-control text default" data-ng-model="location" data-ng-change="locationChange(location)" data-ng-options="location as location.name for location in locations track by location.branch_id">
+        </select>
+      </form>
 
-            <div class="results-table-wrapper">
-                <table class="results-table">
-                    <thead>
-                    <tr>
-                        <th colspan="2">Sort by:</th>
-                        <th class="member-id"></th>
-                        <th><a href="#" class="sort-link swimming">Swimming</a></th>
-                        <th><a href="#" class="sort-link fitness">Fitness</a></th>
-                        <th><a href="#" class="sort-link group-exercise">Group Exercises</a></th>
-                        <th><a href="#" class="sort-link visits active">Visits</a></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="number">1
-                            <small>st</small>
-                        </td>
-                        <td class="name">
-                            Cristina V.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">16</td>
-                    </tr>
-                    <tr>
-                        <td class="number">2
-                            <small>nd</small>
-                        </td>
-                        <td class="name">
-                            Jaime F.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">16</td>
-                    </tr>
-                    <tr>
-                        <td class="number">3
-                            <small>rd</small>
-                        </td>
-                        <td class="name">
-                            Richard R.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">16</td>
-                    </tr>
+      <div class="results-table-wrapper">
+        <table class="results-table">
+          <thead>
+          <tr>
+            <th colspan="2">Sort by:</th>
+            <th class="member-id"></th>
+            <th><a class="sort-link swimming" data-ng-click="sort('activities[0]')" data-ng-class="headerClass('activities[0]')">Swimming</a></th>
+            <th><a class="sort-link fitness" data-ng-click="sort('activities[1]')" data-ng-class="headerClass('activities[1]')">Fitness</a></th>
+            <th><a class="sort-link group-exercise" data-ng-click="sort('activities[2]')" data-ng-class="headerClass('activities[2]')">Group Exercises</a></th>
+            <th><a class="sort-link visits" data-ng-click="sort('visits')" data-ng-class="headerClass('visits')">Visits</a></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr data-ng-repeat="member in members | orderBy:order | limitTo:quantity">
+            <td class="number">{{ '{{$index + 1}}'  }}
+              <small data-ng-if="$index == 0">st</small>
+              <small data-ng-if="$index == 1">nd</small>
+              <small data-ng-if="$index == 2">rd</small>
+            </td>
+            <td class="name">
+              {{ '{{member.first_name}} {{member.last_name}}' }}
+              <span class="member-id">ID: {{ '{{member.membership_id}}' }}</span>
+            </td>
+            <td class="member-id">ID: ******** {{ '{{member.membership_id}}' }}</td>
+            <td class="activity-count">{{ '{{member.activities[0]}}' }}</td>
+            <td class="activity-count">{{ '{{member.activities[1]}}' }}</td>
+            <td class="activity-count">{{ '{{member.activities[2]}}' }}</td>
+            <td class="activity-count">{{ '{{member.visits}}' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-                    <tr>
-                        <td class="number">4.</td>
-                        <td class="name">
-                            Cristina V.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">16</td>
-                    </tr>
-                    <tr>
-                        <td class="number">5.</td>
-                        <td class="name">Jaime F.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">15</td>
-                    </tr>
-                    <tr>
-                        <td class="number">6.</td>
-                        <td class="name">Richard R.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">14</td>
-                    </tr>
-                    <tr>
-                        <td class="number">7.</td>
-                        <td class="name">
-                            Cristina V.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">13</td>
-                    </tr>
-                    <tr>
-                        <td class="number">8.</td>
-                        <td class="name">Jaime F.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">13</td>
-                    </tr>
-                    <tr>
-                        <td class="number">9.</td>
-                        <td class="name">Richard R.
-                            <span class="member-id">ID: ******** 0902</span>
-                        </td>
-                        <td class="member-id">ID: ******** 0902</td>
-                        <td class="activity-count">12</td>
-                        <td class="activity-count">13</td>
-                        <td class="activity-count">14</td>
-                        <td class="activity-count">12</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+      <div class="pager">
+        <a class="load-more" data-ng-click="loadMore()" data-ng-hide="quantity >= members.length">+ Show 20 more</a>
+      </div>
 
-            <div class="pager">
-                <a href="#" class="load-more">+ Show 20 more</a>
-            </div>
-
-        </div>
     </div>
+  </div>
 </div>
