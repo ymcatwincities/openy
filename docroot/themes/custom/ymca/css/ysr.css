@@ -1007,8 +1007,10 @@
 }
 
 #prizes .container, #more-prizes .container {
+  max-width: 850px;
+  max-width: 85rem;
   padding: 0 15px;
-  max-width: 790px;
+  padding: 0 1.5rem;
 }
 
 #second-prize {
@@ -1291,6 +1293,81 @@ body.toolbar-fixed.toolbar-vertical #hero-section {
 }
 body.toolbar-fixed.toolbar-horizontal #top-nav {
   margin-top: 79px;
+}
+
+.ysr-compact-header #hero-section .logo {
+  width: 140px;
+  width: 14rem;
+  display: inline-block;
+}
+@media (min-width: 48em) {
+  .ysr-compact-header #hero-section .logo {
+    margin-left: -200px;
+    margin-left: -20rem;
+    width: 220px;
+    width: 22rem;
+  }
+}
+@media (max-width: 28.125em) {
+  .ysr-compact-header #hero-section .logo {
+    width: 90px;
+    width: 9rem;
+  }
+}
+.ysr-compact-header #hero-section h1 {
+  font-size: 40px;
+  font-size: 4rem;
+  line-height: 40px;
+  line-height: 4rem;
+  display: inline-block;
+  margin-top: 0;
+  vertical-align: top;
+}
+@media (min-width: 48em) {
+  .ysr-compact-header #hero-section h1 {
+    font-size: 60px;
+    font-size: 6rem;
+    line-height: 60px;
+    line-height: 6rem;
+  }
+}
+@media (max-width: 28.125em) {
+  .ysr-compact-header #hero-section h1 {
+    font-size: 30px;
+    font-size: 3rem;
+    line-height: 30px;
+    line-height: 3rem;
+  }
+}
+.ysr-compact-header #hero-section .date {
+  font-size: 21px;
+  font-size: 2.1rem;
+  line-height: 21px;
+  line-height: 2.1rem;
+  margin-left: -2.45em;
+  margin-top: -3.2em;
+  position: absolute;
+  left: 50%;
+}
+@media (min-width: 48em) {
+  .ysr-compact-header #hero-section .date {
+    font-size: 31px;
+    font-size: 3.1rem;
+    line-height: 31px;
+    line-height: 3.1rem;
+    margin-left: -5.5em;
+    margin-top: -3.65em;
+  }
+}
+@media (max-width: 28.125em) {
+  .ysr-compact-header #hero-section .date {
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 18px;
+    line-height: 1.8rem;
+    margin-left: -2.5em;
+    margin-top: -4.3em;
+  }
 }
 
 /* Icons */
@@ -2170,17 +2247,17 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 }
 
 .detailed-rules {
-  max-width: 790px;
-  max-width: 79rem;
+  max-width: 850px;
+  max-width: 85rem;
   margin: auto;
 }
 .detailed-rules h3 {
+  margin-top: 60px;
+  margin-top: 6rem;
   font-size: 30px;
   font-size: 3rem;
   line-height: 35px;
   line-height: 3.5rem;
-  margin-top: 120px;
-  margin-top: 12rem;
   padding-bottom: 55px;
   padding-bottom: 5.5rem;
   border-bottom: 1px solid #e9e9e9;
@@ -2189,19 +2266,33 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   text-align: center;
   text-transform: uppercase;
 }
+@media (min-width: 48em) {
+  .detailed-rules h3 {
+    margin-top: 120px;
+    margin-top: 12rem;
+  }
+}
 .detailed-rules h4 {
-  margin-top: 70px;
-  margin-top: 7rem;
+  margin-top: 40px;
+  margin-top: 4rem;
   font-size: 25px;
   font-size: 2.5rem;
   color: #424242;
   text-transform: uppercase;
+}
+@media (min-width: 48em) {
+  .detailed-rules h4 {
+    margin-top: 70px;
+    margin-top: 7rem;
+  }
 }
 .detailed-rules dl dt {
   font-family: "Cachet",Arial,sans-serif;
   font-weight: normal;
   font-size: 20px;
   font-size: 2rem;
+  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
   margin-top: 10px;
   margin-top: 1rem;
   color: #c6168d;
@@ -2214,7 +2305,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   line-height: 2.5rem;
   margin-bottom: 40px;
   margin-bottom: 4rem;
-  color: #a7a7a7;
+  color: #777;
   padding-left: 20px;
   padding-left: 2rem;
 }
@@ -2229,7 +2320,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   line-height: 2.5rem;
   margin-bottom: 40px;
   margin-bottom: 4rem;
-  color: #a7a7a7;
+  color: #777;
   padding-top: 10px;
   padding-top: 1rem;
   color: #424242;
@@ -2241,7 +2332,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   line-height: 2.5rem;
   margin-bottom: 40px;
   margin-bottom: 4rem;
-  color: #a7a7a7;
+  color: #777;
   padding-top: 10px;
   padding-top: 1rem;
   margin-bottom: 20px;
@@ -2253,10 +2344,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .detailed-rules ol ol li, .detailed-rules ol ul li, .detailed-rules ul ol li, .detailed-rules ul ul li {
   list-style-position: inside;
 }
-.detailed-rules > ol > li, .detailed-rules > ul > li {
+.detailed-rules .container > ol > li,
+.detailed-rules .container > ul > li {
   font-weight: bold;
 }
-.detailed-rules > ol > li > *, .detailed-rules > ul > li > * {
+.detailed-rules .container > ol > li > *,
+.detailed-rules .container > ul > li > * {
   font-weight: normal;
 }
 
