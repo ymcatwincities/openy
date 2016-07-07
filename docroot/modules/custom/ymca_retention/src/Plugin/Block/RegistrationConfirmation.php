@@ -3,19 +3,20 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Url;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 
 /**
- * Provides a block with registration form.
+ * Provides a block with a message about successful registration.
  *
  * @Block(
- *   id = "retention_member_info_block",
- *   admin_label = @Translation("YMCA retention member info block"),
+ *   id = "retention_registration_confirmation_block",
+ *   admin_label = @Translation("YMCA retention registration confirmation block"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
-class MemberInfo extends BlockBase {
+class RegistrationConfirmation extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -28,14 +29,13 @@ class MemberInfo extends BlockBase {
     $member = Member::load($member_id);
 
     return [
-      '#theme' => 'ymca_retention_member_info',
+      '#theme' => 'ymca_retention_registration_confirmation',
       '#member' => [
-        'name' => $member->getFullName(),
+        'name' => $member->getFirstName(),
         'goal' => $member->getVisitGoal(),
-        'visits' => $member->getVisits(),
-        'percentage' => min(round((5 / 15) * 100), 100),
-        'activities' => 12,
-        'rank' => 123,
+        'activity_url' => Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+          'string' => 'activity',
+        ]),
       ],
     ];
   }
