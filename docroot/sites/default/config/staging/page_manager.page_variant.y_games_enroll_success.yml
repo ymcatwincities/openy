@@ -8,6 +8,8 @@ dependencies:
     - panels
     - system
     - ymca_retention
+_core:
+  default_config_hash: RwY63Ku_VoOgUxdJ-37-HjfVlHisy43YbD0QBaWQwkw
 id: y_games_enroll_success
 label: 'Y Games Enroll Success'
 variant: panels_variant
@@ -31,15 +33,6 @@ variant_settings:
       weight: 0
       uuid: 44b55ff9-b189-41f4-ae5e-48b6df24ca06
       context_mapping: {  }
-    a77c21bc-68a8-4959-9fd7-9d8789c8b723:
-      id: retention_slider
-      label: 'YMCA retention slider block'
-      provider: ymca_retention
-      label_display: '0'
-      region: slider
-      weight: 0
-      uuid: a77c21bc-68a8-4959-9fd7-9d8789c8b723
-      context_mapping: {  }
     ba70b314-bd0e-49ed-8f15-03af33aa47f1:
       id: retention_registration_confirmation_block
       label: 'YMCA retention registration confirmation block'
@@ -54,7 +47,8 @@ variant_settings:
   label: null
   weight: 0
   layout: retention-campaign
-  layout_settings: {  }
+  layout_settings:
+    extra_classes: ysr-compact-header
   page_title: 'Thank you for registering for Y Games 2016!'
   storage_type: page_manager
   storage_id: y_games_enroll_success
