@@ -62,7 +62,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_slider' => [
       'template' => 'ymca-retention-slider',
     ],
-    'ymca_retention_registration_confirmation'=> [
+    'ymca_retention_registration_confirmation' => [
       'variables' => [
         'member' => [],
       ],

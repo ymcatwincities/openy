@@ -46,4 +46,5 @@ class AnonymousCookieStorage {
   public static function delete($key) {
     user_cookie_delete($key);
   }
+
 }
