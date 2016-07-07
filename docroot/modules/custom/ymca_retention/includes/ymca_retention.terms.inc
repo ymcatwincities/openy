@@ -8,6 +8,15 @@
 use \Drupal\taxonomy\Entity\Term;
 
 /**
+ * Helper function to create tracker activity terms.
+ */
+function _ymca_retention_terms_create() {
+  foreach (_ymca_retention_activity_tracker_terms() as $weight => $values) {
+    _ymca_retention_term_create($values, $weight);
+  }
+}
+
+/**
  * Helper function to create taxonomy term.
  */
 function _ymca_retention_term_create($values, $weight = NULL, $parent = NULL) {
