@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Display registration form.
+ */
+#}
+<div id="registration" class="slide slide-inactive registration">
+    <div class="container">
+        <div class="row">
+            <div class="registration-form">
+                {{ form }}
+            </div>
+        </div>
+
+        <div class="row access-help">
+            <div class="access-question">
+                <a href="#" class="where-can-i-find">{{ "Where can I find my Facility Access ID?"|t }}</a>
+            </div>
+
+            <div class="access-answer">
+                <p>{{ "Please find your facility access ID below the barcode."|t }}</p>
+                <p class="note">
+                    {{ "(please note it might be on the front of the card on older membership cards)"|t }}
+                </p>
+                <div class="hand"></div>
+            </div>
+        </div>
+    </div>
+</div>

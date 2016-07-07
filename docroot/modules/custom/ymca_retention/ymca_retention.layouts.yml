@@ -1,0 +1,32 @@
+retention-campaign:
+  label: YMCA Retention Campaign
+  category: YMCA layouts
+  template: templates/retention-campaign
+  regions:
+    navigation:
+      label: Navigation
+    intro:
+      label: Intro
+    registration:
+      label: Registration & Report
+    leaderboard:
+      label: Leaderboard
+    slider:
+      label: Slider
+retention-activity:
+  label: YMCA Retention Activity
+  category: YMCA layouts
+  template: templates/retention-activity
+  regions:
+    navigation:
+      label: Navigation
+    intro:
+      label: Intro
+    member_info:
+      label: Member info/progress
+    report:
+      label: Activity Tracker
+    leaderboard:
+      label: Leaderboard
+    slider:
+      label: Slider
