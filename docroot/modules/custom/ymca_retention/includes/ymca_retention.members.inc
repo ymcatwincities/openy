@@ -9,7 +9,6 @@ use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\Entity\MemberActivity;
 use Drupal\ymca_retention\PersonifyApi;
 use Drupal\taxonomy\TermStorage;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Helper function to create fake members and activities.
@@ -78,14 +77,13 @@ function _ymca_retention_activities_create($member) {
   // Load activity terms.
   /** @var TermStorage $term_storage */
   $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-  $terms = $term_storage->loadTree('ymca_retention_activities', 0, NULL, TRUE);
+  $terms = $term_storage->loadTree('ymca_retention_activities');
   $term_count = count($terms);
 
   // Create activities.
   for ($i = 0; $i < $activities_number; $i++) {
-    /** @var Term $term */
     $term = $terms[rand(0, $term_count - 1)];
-    $parents = $term_storage->loadParents($term->id());
+    $parents = $term_storage->loadParents($term->tid);
     if (empty($parents)) {
       $i--;
       continue;
@@ -94,7 +92,7 @@ function _ymca_retention_activities_create($member) {
     $activity = MemberActivity::create([
       'timestamp' => REQUEST_TIME,
       'member' => $member->id(),
-      'activity_type' => $term->id(),
+      'activity_type' => $term->tid,
     ]);
     $activity->save();
   }
@@ -105,6 +103,10 @@ function _ymca_retention_activities_create($member) {
  */
 function _ymca_retention_fake_members() {
   return [
+    [
+      'membership_id' => '14044936700',
+      'mail' => 'bonoronh@aol.com',
+    ],
     [
       'membership_id' => '4000566878',
       'mail' => 'oboemuse@gmail.com',
@@ -120,6 +122,102 @@ function _ymca_retention_fake_members() {
     [
       'membership_id' => '4000405873',
       'mail' => 'deanna.demay@gmail.com',
+    ],
+    [
+      'membership_id' => '532392',
+      'mail' => 'aa0fg@yahoo.com',
+    ],
+    [
+      'membership_id' => '4000454010',
+      'mail' => 'mal3115@netzero.net',
+    ],
+    [
+      'membership_id' => '4000042681',
+      'mail' => 'Tim@Hodder.tv',
+    ],
+    [
+      'membership_id' => '814629',
+      'mail' => 'suejohnsonemail@gmail.com',
+    ],
+    [
+      'membership_id' => '4000387642',
+      'mail' => 'lisa.motz5@gmail.com',
+    ],
+    [
+      'membership_id' => '4000004674',
+      'mail' => 'GR8TZMICHAEL@yahoo.com',
+    ],
+    [
+      'membership_id' => '4000059604',
+      'mail' => 'carystegall@gmail.com',
+    ],
+    [
+      'membership_id' => '4000484464',
+      'mail' => 'sarah.linnesro@earthlink.net',
+    ],
+    [
+      'membership_id' => '4000466610',
+      'mail' => 'annaschiltz@gmail.com',
+    ],
+    [
+      'membership_id' => '4000568263',
+      'mail' => 'dunbar612@yahoo.com',
+    ],
+    [
+      'membership_id' => '4000341148',
+      'mail' => 'fries125@gmail.com',
+    ],
+    [
+      'membership_id' => '4000524837',
+      'mail' => 'paulafleming@comcast.net',
+    ],
+    [
+      'membership_id' => '4000003466',
+      'mail' => 'patandbill60@earthlink.net',
+    ],
+    [
+      'membership_id' => '4000399340',
+      'mail' => 'melkan@tcq.net',
+    ],
+    [
+      'membership_id' => '4000399126',
+      'mail' => 'harrug@gmail.com',
+    ],
+    [
+      'membership_id' => '4000268491',
+      'mail' => 'steveglove@yahoo.com',
+    ],
+    [
+      'membership_id' => '437248',
+      'mail' => 'kathleen.sapp@gmail.com',
+    ],
+    [
+      'membership_id' => '4000322513',
+      'mail' => 'sfreeman1951@yahoo.com',
+    ],
+    [
+      'membership_id' => '4000326060',
+      'mail' => 'rreng@hotmail.com',
+    ],
+    [
+      'membership_id' => '4000388061',
+      'mail' => 'harrug@gmail.com',
+    ],
+    [
+      'membership_id' => '4000399126',
+      'mail' => 'jaynekain59@gmail.com',
+    ],
+    [
+      'membership_id' => '4000428446',
+      'mail' => 'cassandraherold@yahoo.com',
+    ],
+    [
+      'membership_id' => '4000302774',
+      'mail' => 'PParnow@aol.com',
+    ],
+    [
+      'membership_id' => '4000441175',
+      'mail' => 'gregoryagonzalez1@yahoo.com',
     ],
   ];
 }
