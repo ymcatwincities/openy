@@ -62,7 +62,7 @@ class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
   public function process($text, $langcode) {
     $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
       $baseUrl = $this->urlGenerator->getContext()->getBaseUrl();
-      $relativeUrl = $rawUrl = $matches[2];
+      $relativeUrl = $rawUrl = urldecode($matches[2]);
       if (!empty($baseUrl) && strpos($rawUrl, $baseUrl) === 0) {
         $relativeUrl = '/' . substr($rawUrl, strlen($baseUrl));
       }
