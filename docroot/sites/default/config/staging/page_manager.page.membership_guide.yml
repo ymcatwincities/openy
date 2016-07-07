@@ -1,22 +1,11 @@
 uuid: 5bb6e426-b2ca-4ddb-a763-24e3733744fb
 langcode: en
 status: true
-dependencies:
-  module:
-    - user
+dependencies: {  }
 id: membership_guide
-label: 'Membership Guide'
+label: 'Member Guide'
 use_admin_theme: false
-path: /membership/membership_guide
+path: /membership/member_guide
 access_logic: and
-access_conditions:
-  4bd36390-d31a-41be-8f97-f679b6ac95e6:
-    id: user_role
-    roles:
-      administrator: administrator
-      contributor: contributor
-    negate: false
-    context_mapping:
-      user: current_user
-    uuid: 4bd36390-d31a-41be-8f97-f679b6ac95e6
+access_conditions: {  }
 parameters: {  }

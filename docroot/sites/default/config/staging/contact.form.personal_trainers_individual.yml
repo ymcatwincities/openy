@@ -10,7 +10,7 @@ third_party_settings:
 id: personal_trainers_individual
 label: 'Personal Trainers - individual'
 recipients:
-  - Chad.Baldwin@ymcatwincities.org
+  - Chad.Baldwin@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''
