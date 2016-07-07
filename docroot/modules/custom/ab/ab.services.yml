@@ -1,7 +1,0 @@
-services:
-  ab.50_50:
-    class: Drupal\ab\EventSubscriber\ABSubscriber
-    arguments: []
-    tags:
-      - { name: event_subscriber }
-
