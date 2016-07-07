@@ -59,7 +59,7 @@
     a {
       @include cachet-bold();
       @include rem(border-radius, 34px);
-      @include rem(padding, 24px 127px 24px 36px);
+      @include rem(padding, 22px 127px 22px 36px);
       @include transition(border-color 0.3s);
       background-color: $white;
       border: 1px solid $grey2;
