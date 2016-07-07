@@ -1,3 +1,7 @@
 services:
   ymca_retention.personify_api:
     class: Drupal\ymca_retention\PersonifyApi
+  ymca_retention_event_subscriber:
+    class: Drupal\ymca_retention\EventSubscriber\YmcaRetentionSubscriber
+    tags:
+      - {name: event_subscriber}

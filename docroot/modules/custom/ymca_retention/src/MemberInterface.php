@@ -12,6 +12,13 @@ use Drupal\Core\Entity\ContentEntityInterface;
 interface MemberInterface extends ContentEntityInterface {
 
   /**
+   * Get member id.
+   * @return int
+   *   Internal Id.
+   */
+  public function getId();
+
+  /**
    * Sets the email address of the user.
    *
    * @param string $mail
