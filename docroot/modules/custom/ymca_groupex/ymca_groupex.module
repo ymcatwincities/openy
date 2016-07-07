@@ -160,10 +160,10 @@ function ymca_groupex_preprocess_node(&$variables) {
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'schedules') {
     $variables['form_find_classes'] = [
       'form' => [
-      '#lazy_builder' => [
-        'form_builder:getForm',
-        ['Drupal\ymca_groupex\Form\GroupexFormFull']
-      ],
+        '#lazy_builder' => [
+          'form_builder:getForm',
+          ['Drupal\ymca_groupex\Form\GroupexFormFull']
+        ],
       '#create_placeholder' => TRUE,
       ],
     ];
