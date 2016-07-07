@@ -37,11 +37,12 @@ class RetentionCampaign extends LayoutBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     parent::submitConfigurationForm($form, $form_state);
 
     $this->configuration['extra_classes'] = $form_state->getValue('extra_classes');
   }
+
 }
