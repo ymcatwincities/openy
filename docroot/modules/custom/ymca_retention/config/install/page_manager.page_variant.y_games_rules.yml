@@ -36,7 +36,8 @@ variant_settings:
   label: null
   weight: 0
   layout: retention-campaign
-  layout_settings: {  }
+  layout_settings:
+    extra_classes: ysr-compact-header
   page_title: 'Prizes/Rules Details'
   storage_type: page_manager
   storage_id: y_games_rules

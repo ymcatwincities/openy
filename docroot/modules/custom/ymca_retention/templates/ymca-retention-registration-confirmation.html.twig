@@ -3,7 +3,7 @@
     <h3>{{ "Hello" }}, {{ member.name }}!</h3>
     <p class="complete-message">{{ "Your registration is complete."|t }}</p>
     <div class="goal">
-        <a href="{{ activity_url }}" class="self-reporting-link">
+        <a href="{{ member.activity_url }}" class="self-reporting-link">
             {{ "Your goal is"|t }}:
                 <span class="goal--value">
                   {{ member.goal }} {{ "visits"|t }}

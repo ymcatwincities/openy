@@ -2,6 +2,7 @@ retention-campaign:
   label: YMCA Retention Campaign
   category: YMCA layouts
   template: templates/retention-campaign
+  class: '\Drupal\ymca_retention\Plugin\Layout\RetentionCampaign'
   regions:
     navigation:
       label: Navigation
