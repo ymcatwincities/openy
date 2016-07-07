@@ -4,6 +4,7 @@ namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
  * Member Track activity login form.
@@ -104,14 +105,12 @@ class MemberTrackActivityLoginForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $member = $form_state->getTemporaryValue('member');
-    /** @var \Drupal\user\SharedTempStore $temp_store */
-    $temp_store = \Drupal::service('user.shared_tempstore')
-      ->get('ymca_retention');
-    $temp_store->setIfOwner('member', $member);
+    $member_id = $form_state->getTemporaryValue('member');
+
+    AnonymousCookieStorage::set('ymca_retention_member', $member_id);
 
     // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'activity']);
   }
 
 }

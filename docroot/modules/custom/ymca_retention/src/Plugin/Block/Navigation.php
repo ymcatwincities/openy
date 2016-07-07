@@ -5,6 +5,7 @@ namespace Drupal\ymca_retention\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
  * Provides a block with navigation menu on the page..
@@ -36,8 +37,6 @@ class Navigation extends BlockBase {
       ])),
       'rules' => Link::fromTextAndUrl(t('Prizes/Rules Details'), Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
         'string' => 'rules',
-      ], [
-        'fragment' => 'rules',
       ]))->toString(),
     ];
     return $links;
@@ -57,12 +56,8 @@ class Navigation extends BlockBase {
 
     // Display Registration link only on landing page and when member is not identified.
     if ($current_route != 'page_manager.page_view_ymca_retention_campaign') {
-      /** @var \Drupal\user\SharedTempStore $temp_store */
-      $temp_store = \Drupal::service('user.shared_tempstore')
-        ->get('ymca_retention');
-      $member = $temp_store->getIfOwner('member');
-      
-      if (!empty($member)) {
+      $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+      if (!empty($member_id)) {
         unset($links['registration']);
       }
     }

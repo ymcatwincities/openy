@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\EventSubscriber;
 
 use Drupal\Core\Url;
+use Drupal\ymca_retention\AnonymousCookieStorage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -36,15 +37,13 @@ class YmcaRetentionSubscriber implements EventSubscriberInterface {
     $route = \Drupal::service('current_route_match')->getRouteName();
     $redirect_routes = [
       'page_manager.page_view_ymca_retention_pages_y_games_enroll_success',
+      'page_manager.page_view_ymca_retention_pages_y_games_activity',
     ];
     if (!in_array($route, $redirect_routes)) {
       return;
     }
-    /** @var \Drupal\user\SharedTempStore $temp_store */
-    $temp_store = \Drupal::service('user.shared_tempstore')
-      ->get('ymca_retention');
-    $member = $temp_store->getIfOwner('member');
-    if (empty($member)) {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (empty($member_id)) {
       $url = Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
         'absolute' => TRUE,
       ])->toString();
