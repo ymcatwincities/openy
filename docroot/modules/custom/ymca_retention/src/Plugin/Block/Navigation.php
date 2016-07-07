@@ -61,6 +61,9 @@ class Navigation extends BlockBase {
         unset($links['registration']);
       }
     }
+    if ($current_route == 'page_manager.page_view_ymca_retention_pages_y_games_enroll_success') {
+      $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'activity']));
+    }
 
     return [
       '#theme' => 'ymca_retention_navigation',

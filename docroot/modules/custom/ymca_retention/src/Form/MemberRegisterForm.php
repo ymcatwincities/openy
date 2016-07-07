@@ -59,7 +59,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $membership_id = $form_state->getValue('membership_id');
+    $membership_id = trim($form_state->getValue('membership_id'));
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
@@ -91,22 +91,32 @@ class MemberRegisterForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Get form values.
     $personify_member = $form_state->getTemporaryValue('personify_member');
-    $membership_id = $form_state->getValue('membership_id');
+    $membership_id = trim($form_state->getValue('membership_id'));
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
 
     // Get information about number of checkins before campaign.
-    $from = $settings->get('date_checkins_start');
-    $to = $settings->get('date_checkins_end');
+    $current_date = new \DateTime();
+    $from_date = new \DateTime($settings->get('date_checkins_start'));
+    $to_date = new \DateTime($settings->get('date_checkins_end'));
+
+    $to = $to_date->format('m/d/Y g:i A');
+    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
+    if ($to_date > $current_date) {
+      $to = $current_date->format('m/d/Y g:i A');
+      $number_weeks = ceil($from_date->diff($current_date)->days / 7);
+    }
+    $from = $from_date->format('m/d/Y g:i A');
     $past_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     // Calculate a goal for a member.
-    $goal = $settings->get('default_goal_number');
+    $goal = 1;
+    // @todo This is now working in case when user registered after $from_date.
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
-      $percent = $settings->get('goal_percentage');
-      $calculated_goal = ceil($past_result->TotalVisits + ($past_result->TotalVisits * $percent));
-      $goal = min($calculated_goal, $goal);
+      $limit_goal = $settings->get('limit_goal_number');
+      $goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
+      $goal = min($goal, $limit_goal);
     }
 
     // Get information about number of checkins in period of campaign.
