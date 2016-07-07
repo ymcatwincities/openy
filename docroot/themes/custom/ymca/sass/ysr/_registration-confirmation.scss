@@ -1,0 +1,105 @@
+.registration-confirmation {
+  @include rem(padding-bottom, 40px);
+  @include rem(padding-top, 30px);
+  background-image: url(../prototypes/ysr/img/confirmation-block-bg.jpg);
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  text-transform: uppercase;
+
+  @include breakpoint($tablet) {
+    @include rem(padding-bottom, 87px);
+    @include rem(padding-top, 63px);
+  }
+
+  .person-icon {
+    @include rem(width, 45px !important);
+
+    @include breakpoint($tablet) {
+      @include rem(width, 56px !important);
+      @include rem(height, 56px !important);
+    }
+  }
+
+  h3 {
+    @include cachet-bold();
+    @include rem(font-size, 30px);
+    @include rem(line-height, 35px);
+    @include rem(margin-bottom, 8px);
+    @include rem(margin-top, 24px);
+    letter-spacing: -0.35px;
+    color: black;
+  }
+
+  .complete-message {
+    @include cachet();
+    @include rem(font-size, 18px);
+    @include rem(line-height, 18px);
+    @include rem(margin-bottom, 50px);
+    @include rem(margin-top, 12px);
+    color: $grey4;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+      @include rem(line-height, 20px);
+      @include rem(margin-bottom, 50px);
+      @include rem(margin-top, 12px);
+      letter-spacing: -0.55px;
+    }
+  }
+
+  .goal {
+    @include rem(font-size, 15px);
+    @include rem(height, 68px);
+    @include rem(line-height, 20px);
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+
+    a {
+      @include cachet-bold();
+      @include rem(border-radius, 34px);
+      @include rem(padding, 24px 127px 24px 36px);
+      @include transition(border-color 0.3s);
+      background-color: $white;
+      border: 1px solid $grey2;
+      color: $purple-light;
+      display: block;
+      letter-spacing: -0.3px;
+      position: relative;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      &:after {
+        @include rem(background-size, 14px 11.5px);
+        @include rem(border-radius, 25px);
+        @include rem(height, 50px);
+        @include rem(line-height, 0px);
+        @include rem(right, 7px);
+        @include rem(top, 7px);
+        @include rem(width, 50px);
+        @include rem(padding, 23px 0);
+        @include transition(opacity 0.3s);
+        border: 2px solid $pink;
+        content: '';
+        background-image: url(../prototypes/ysr/img/arrow.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        position: absolute;
+      }
+
+      &:hover {
+        border-color: rgba($purple-light, 0.2);
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &--value {
+      color: $grey7;
+    }
+  }
+}

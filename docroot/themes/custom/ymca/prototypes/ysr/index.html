@@ -941,8 +941,8 @@
             .once('registration-submit')
             .each(function () {
               $(this).submit(function () {
-                $('#registration').load('./registration-confirmation.html');
-                return false;
+                $('#registration').load('./registration-confirmation-block.html');
+//                return false;
               });
             });
         }
