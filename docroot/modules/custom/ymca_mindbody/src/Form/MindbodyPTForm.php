@@ -618,7 +618,11 @@ class MindbodyPTForm extends FormBase {
     $days = [];
     // Group results by date and trainer.
     if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
-      foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+      $schedule_item = $bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem;
+      if (count($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem) == 1) {
+        $schedule_item = $bookable->GetBookableItemsResult->ScheduleItems;
+      }
+      foreach ($schedule_item as $bookable_item) {
         // Additionally filter results by time.
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
