@@ -13,7 +13,7 @@ interface MemberInterface extends ContentEntityInterface {
 
   /**
    * Get member id.
-   * 
+   *
    * @return int
    *   Internal Id.
    */
