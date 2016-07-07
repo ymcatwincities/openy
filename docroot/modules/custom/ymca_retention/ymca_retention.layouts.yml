@@ -7,6 +7,8 @@ retention-campaign:
       label: Navigation
     intro:
       label: Intro
+    main:
+      label: Main
     registration:
       label: Registration & Report
     leaderboard:
