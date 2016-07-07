@@ -1,0 +1,9 @@
+uuid: 7989e20e-a81a-44de-bb49-9391104b6bfb
+langcode: en
+status: true
+dependencies: {  }
+name: 'Retention activities'
+vid: ymca_retention_activities
+description: 'Different activities for YMCA retention campaign'
+hierarchy: 0
+weight: 0
