@@ -930,6 +930,25 @@
         }
       };
 
+      /**
+       * Prototype registration submit handler.
+       *
+       * @type {{attach: Drupal.behaviors.prototypeSlickSlider.attach}}
+       */
+      Drupal.behaviors.prototypeRegisterSubmit = {
+        attach: function (context, settings) {
+          $('.registration-form', context)
+            .once('registration-submit')
+            .each(function () {
+              $(this).submit(function () {
+                $('#registration').load('./registration-confirmation.html');
+                return false;
+              });
+            });
+        }
+      };
+
+
     })(jQuery);
 
   </script>
