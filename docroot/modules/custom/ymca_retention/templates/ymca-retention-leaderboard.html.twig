@@ -1,8 +1,8 @@
-<div id="leaderboard" class="row" data-ng-controller="LeaderboardController">
+<div id="leaderboard-app" class="row" data-ng-controller="LeaderboardController">
   <div class="container">
     <div class="col-xs-12">
       <div class="wrap">
-        <img src="themes/custom/ymca/prototypes/ysr/img/cup.png" alt="Leaderboard">
+        <img src="/themes/custom/ymca/prototypes/ysr/img/cup.png" alt="Leaderboard">
       </div>
       <h2>Leaderboard</h2>
 
@@ -25,13 +25,10 @@
           </thead>
           <tbody>
           <tr data-ng-repeat="member in members | orderBy:order:reverse | limitTo:quantity">
-            <td class="number">{{ '{{$index + 1}}'  }}
-              <small data-ng-if="$index == 0">st</small>
-              <small data-ng-if="$index == 1">nd</small>
-              <small data-ng-if="$index == 2">rd</small>
+            <td class="number">{{ '{{$index + 1}}' }}<small data-ng-if="$index == 0">st</small><small data-ng-if="$index == 1">nd</small><small data-ng-if="$index == 2">rd</small>
             </td>
             <td class="name">
-              {{ '{{member.first_name}} {{member.last_name}}' }}
+              {{ '{{member.first_name}} {{member.last_name}}' }}.
               <span class="member-id">ID: {{ '{{member.membership_id}}' }}</span>
             </td>
             <td class="member-id">ID: ******** {{ '{{member.membership_id}}' }}</td>
