@@ -24,7 +24,7 @@ class Leaderboard extends BlockBase {
       ->condition('type', 'location')
       ->execute();
 
-    $branch_id = 26;
+    $branch_id = 14;
 
     /** @var \Drupal\ymca_retention\LeaderboardManager $service */
     $service = \Drupal::service('ymca_retention.leaderboard_manager');
