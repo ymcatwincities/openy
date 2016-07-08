@@ -3321,3 +3321,49 @@ function ymca_master_update_8141() {
     ]
   );
 }
+
+/**
+ * Enable YMCA Page Manager.
+ */
+function ymca_master_update_8142() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['ymca_page_manager'], TRUE);
+}
+
+/**
+ * Add new phone filed for Location CT.
+ */
+function ymca_master_update_8143() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'field.field.node.location.field_fitness_phone.yml',
+      $path . 'field.field.node.location.field_phone.yml',
+      $path . 'field.storage.node.field_fitness_phone.yml',
+    ]
+  );
+}
+
+/**
+ * Enable 'environment_config' module.
+ */
+function ymca_master_update_8144() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}

@@ -17,4 +17,15 @@ interface YmcaMindbodyRequestGuardInterface {
    */
   public function status();
 
+  /**
+   * Checks search criteria validity.
+   *
+   * @param array $criteria
+   *   Associative array of search criteria.
+   *
+   * @return bool
+   *   TRUE if the search criteria are valid, FALSE otherwise.
+   */
+  public function validateSearchCriteria(array $criteria);
+
 }
