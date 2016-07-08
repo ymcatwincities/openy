@@ -53,3 +53,12 @@ ymca_retention.settings:
     _title: 'YMCA Retention Settings'
   requirements:
     _permission: 'administer site configuration'
+
+ymca_retention.leaderboard_json:
+  path: '/ymca-retention/leaderboard/{branch_id}'
+  defaults:
+    _controller: \Drupal\ymca_retention\Controller\LeaderboardController::leaderboardJSON
+    _title: 'YMCA Retention Leaderboard JSON'
+  requirements:
+    _permission: 'access content'
+    branch_id: ^[0-9]+
