@@ -636,7 +636,7 @@ class GooglePush {
     for ($i = 0; $i <= 2; $i++) {
       try {
         $this->calService->calendars->clear('primary');
-        $this->logger->info('Primary calender was cleared.');
+        $this->logger->info('Primary calendar was cleared.');
         break;
       }
       catch (\Exception $e) {
@@ -699,7 +699,7 @@ class GooglePush {
     try {
       $createdCalendar = $this->calService->calendars->insert($calendar);
       $id = $createdCalendar->getId();
-      $this->logger->info('Calender %id was created', ['%id' => $id]);
+      $this->logger->info('Calendar was created: id: %id, name: %name', ['%id' => $id, '%name' => $name]);
       return $id;
     }
     catch (\Exception $e) {
