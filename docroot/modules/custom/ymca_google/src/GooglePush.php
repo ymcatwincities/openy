@@ -160,7 +160,7 @@ class GooglePush {
           $editable->save();
         }
 
-        $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
+        $gcal_id = $this->getCalendarIdByName(trim($entity->field_gg_location->value));
         if (!$gcal_id) {
           // Failed to get calendar ID. All errors are logged. Continue with next event.
           continue;
@@ -359,7 +359,12 @@ class GooglePush {
     }
 
     // There is no calendar in the cache. Let's get data form the server.
-    foreach ($this->getRawCalendars() as $raw_calendar) {
+    $raw_calendars = $this->getRawCalendars();
+    if (empty($raw_calendars)) {
+      return FALSE;
+    }
+
+    foreach ($raw_calendars as $raw_calendar) {
       $this->calendars[$raw_calendar->summary] = $raw_calendar->id;
     }
 
@@ -616,6 +621,7 @@ class GooglePush {
     catch (\Exception $e) {
       $msg = 'Failed to get the list of calendars. Message: %msg';
       $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+      return FALSE;
     }
 
     return $data;
