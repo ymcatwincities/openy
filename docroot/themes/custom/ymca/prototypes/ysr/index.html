@@ -200,7 +200,7 @@
             <div id="registration" class="slide slide-inactive registration">
               <div class="container">
                 <div class="row">
-                  <form action="#" class="registration-form">
+                  <form action="registration-confirmation.html" class="registration-form">
                     <div class="col-xs-1 col-sm-1 col-sm-push-1">
                       <a href="#register-or-report" class="icon-back slide-controller"></a>
                     </div>
@@ -929,6 +929,25 @@
           });
         }
       };
+
+      /**
+       * Prototype registration submit handler.
+       *
+       * @type {{attach: Drupal.behaviors.prototypeSlickSlider.attach}}
+       */
+      Drupal.behaviors.prototypeRegisterSubmit = {
+        attach: function (context, settings) {
+          $('.registration-form', context)
+            .once('registration-submit')
+            .each(function () {
+              $(this).submit(function () {
+                $('#registration').load('./registration-confirmation-block.html');
+//                return false;
+              });
+            });
+        }
+      };
+
 
     })(jQuery);
 
