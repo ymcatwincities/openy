@@ -11,6 +11,7 @@
     LeaderboardModule.controller('LeaderboardController', function($scope, $http, $interval) {
       $scope.locations = settings.ymca_retention.locations;
       $scope.location = $scope.locations[0];
+      $scope.cache = {};
 
       // Get the data.
       $scope.loadData = function() {
@@ -20,8 +21,14 @@
           $scope.members = [];
         }
         else {
+          if (typeof $scope.cache[$scope.location.branch_id] !== 'undefined') {
+            $scope.members = $scope.cache[$scope.location.branch_id];
+            return;
+          }
+
           $http.get(settings.ymca_retention.leaderboard.replace('0000', $scope.location.branch_id)).success(function(data) {
             $scope.members = data;
+            $scope.cache[$scope.location.branch_id] = data;
           });
         }
       };
