@@ -13,7 +13,7 @@ class LeaderboardController extends ControllerBase {
   /**
    * Return leaderboard for specified branch id.
    */
-  public function leaderboardJSON($branch_id) {
+  public function leaderboardJson($branch_id) {
     /** @var \Drupal\ymca_retention\LeaderboardManager $service */
     $service = \Drupal::service('ymca_retention.leaderboard_manager');
     $leaderboard = $service->getLeaderboard($branch_id);
