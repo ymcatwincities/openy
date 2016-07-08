@@ -17,27 +17,38 @@ function _ymca_retention_members_create() {
   foreach (_ymca_retention_fake_members() as $fake_member) {
     // Get information about member from Personify and validate entered membership ID.
     $personify_member = PersonifyApi::getPersonifyMemberInformation($fake_member['membership_id']);
+    $membership_id = $fake_member['membership_id'];
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
 
     // Get information about number of checkins before campaign.
-    $from = $settings->get('date_checkins_start');
-    $to = $settings->get('date_checkins_end');
-    $past_result = PersonifyApi::getPersonifyVisitCountByDate($fake_member['membership_id'], $from, $to);
+    $current_date = new \DateTime();
+    $from_date = new \DateTime($settings->get('date_checkins_start'));
+    $to_date = new \DateTime($settings->get('date_checkins_end'));
+
+    $to = $to_date->format('m/d/Y g:i A');
+    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
+    if ($to_date > $current_date) {
+      $to = $current_date->format('m/d/Y g:i A');
+      $number_weeks = ceil($from_date->diff($current_date)->days / 7);
+    }
+    $from = $from_date->format('m/d/Y g:i A');
+    $past_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     // Calculate a goal for a member.
-    $goal = $settings->get('default_goal_number');
+    $goal = 1;
+    // @todo This is now working in case when user registered after $from_date.
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
-      $percent = $settings->get('goal_percentage');
-      $calculated_goal = ceil($past_result->TotalVisits + ($past_result->TotalVisits * $percent));
-      $goal = min($calculated_goal, $goal);
+      $limit_goal = $settings->get('limit_goal_number');
+      $goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
+      $goal = min($goal, $limit_goal);
     }
 
     // Get information about number of checkins in period of campaign.
     $from = $settings->get('date_registration_open');
     $to = $settings->get('date_registration_close');
-    $current_result = PersonifyApi::getPersonifyVisitCountByDate($fake_member['membership_id'], $from, $to);
+    $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     $total_visits = 0;
     if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
