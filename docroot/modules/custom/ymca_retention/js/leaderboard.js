@@ -27,10 +27,10 @@
             $scope.members = data;
           });
         }
-
       };
       $scope.loadData();
 
+      // Sorting.
       $scope.order = 'visits';
       $scope.reverse = true;
       $scope.sort = function(order) {
@@ -41,10 +41,12 @@
         return $scope.order === order ? 'active' : '';
       };
 
+      // Location change.
       $scope.locationChange = function() {
         $scope.loadData();
       };
 
+      // Load more members.
       $scope.loadMore = function() {
         if ($scope.quantity < $scope.members.length) {
           $scope.quantity = $scope.quantity + 10;
