@@ -42,7 +42,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'ymca-retention-intro',
     ],
     'ymca_retention_leaderboard' => [
-      'variables' => [],
+      'variables' => [
+        'base_path' => base_path(),
+      ],
       'template' => 'ymca-retention-leaderboard',
     ],
     'ymca_retention_navigation' => [
