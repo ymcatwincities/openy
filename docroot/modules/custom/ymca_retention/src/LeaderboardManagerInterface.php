@@ -18,4 +18,12 @@ interface LeaderboardManagerInterface {
    */
   public function getLeaderboard($branch_id = 0);
 
+  /**
+   * Returns an array of locations with location branch id and name.
+   *
+   * @return array
+   *   An array of locations.
+   */
+  public function getLocations();
+
 }

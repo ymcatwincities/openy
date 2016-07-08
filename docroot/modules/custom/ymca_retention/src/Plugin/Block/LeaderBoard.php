@@ -20,25 +20,9 @@ class Leaderboard extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    // TODO: somehow build locations select.
-    $locations = \Drupal::entityQuery('mapping')
-      ->condition('type', 'location')
-      ->execute();
-
-    $locations = [
-      [
-        'branch_id' => 0,
-        'name' => 'Select location...',
-      ],
-      [
-        'branch_id' => 14,
-        'name' => 'Location 14',
-      ],
-      [
-        'branch_id' => 26,
-        'name' => 'Location 26',
-      ],
-    ];
+    /** @var \Drupal\ymca_retention\LeaderboardManager $service */
+    $service = \Drupal::service('ymca_retention.leaderboard_manager');
+    $locations = $service->getLocations();
 
     return [
       '#theme' => 'ymca_retention_leaderboard',
