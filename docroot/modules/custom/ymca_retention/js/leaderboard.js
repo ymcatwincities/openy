@@ -32,6 +32,7 @@
       $scope.loadData();
 
       $scope.order = 'visits';
+      $scope.reverse = true;
       $scope.sort = function(order) {
         $scope.order = order;
       };
