@@ -4,7 +4,7 @@
       <div class="wrap">
         <img src="/themes/custom/ymca/prototypes/ysr/img/cup.png" alt="Leaderboard">
       </div>
-      <h2>Leaderboard</h2>
+      <h2>{{ 'Leaderboard'|t }}</h2>
 
       <form action="#" class="leaderboard-form">
         <select name="location" id="leaderboard-location" class="form-select form-control text default" data-ng-model="location" data-ng-change="locationChange(location)" data-ng-options="location as location.name for location in locations track by location.branch_id">
@@ -41,7 +41,7 @@
         </table>
       </div>
 
-      <div class="pager ng-hide" data-ng-click="loadMore()" data-ng-show="quantity < members.length">
+      <div class="pager ng-hide" data-ng-show="quantity < members.length" data-ng-click="loadMore()">
         <a class="load-more">+ Show 20 more</a>
       </div>
 
