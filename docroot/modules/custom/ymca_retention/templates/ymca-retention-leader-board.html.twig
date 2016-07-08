@@ -24,7 +24,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr data-ng-repeat="member in members | orderBy:order | limitTo:quantity">
+          <tr data-ng-repeat="member in members | orderBy:order:reverse | limitTo:quantity">
             <td class="number">{{ '{{$index + 1}}'  }}
               <small data-ng-if="$index == 0">st</small>
               <small data-ng-if="$index == 1">nd</small>
