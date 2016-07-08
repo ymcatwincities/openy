@@ -4,6 +4,7 @@ namespace Drupal\ymca_retention;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\taxonomy\TermStorage;
+use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\ymca_retention\Entity\Member;
 
 /**
@@ -88,27 +89,41 @@ class LeaderboardManager implements LeaderboardManagerInterface {
    * @inheritdoc
    */
   public function getLocations() {
-    // TODO: somehow build locations select.
-    $locations = \Drupal::entityQuery('mapping')
+    // Find out unique branch ids among all the members.
+    $branches = \Drupal::entityQueryAggregate('ymca_retention_member')
+      ->groupBy('branch')
+      ->aggregate('id', 'COUNT')
+      ->execute();
+    $branch_ids = [];
+    foreach ($branches as $branch) {
+      $branch_ids[] = $branch['branch'];
+    }
+
+    // Find location names for found branch ids.
+    $location_ids = \Drupal::entityQuery('mapping')
       ->condition('type', 'location')
+      ->condition('field_groupex_id', $branch_ids, 'IN')
       ->execute();
 
-    $locations = [
+    $locations = \Drupal::entityTypeManager()
+      ->getStorage('mapping')
+      ->loadMultiple($location_ids);
+
+    $locations_list = [
       [
         'branch_id' => 0,
         'name' => 'Select location...',
       ],
-      [
-        'branch_id' => 14,
-        'name' => 'Location 14',
-      ],
-      [
-        'branch_id' => 26,
-        'name' => 'Location 26',
-      ],
     ];
+    /** @var Mapping $location */
+    foreach ($locations as $location) {
+      $locations_list[] = [
+        'branch_id' => $location->get('field_groupex_id')->value,
+        'name' => $location->getName(),
+      ];
+    }
 
-    return $locations;
+    return $locations_list;
   }
 
 }
