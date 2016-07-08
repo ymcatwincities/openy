@@ -984,6 +984,9 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-track-activity-login-form',
     ],
+    'ymca_retention_slider' => [
+      'template' => '/ymca-blocks/ymca-retention-slider',
+    ]
   ];
 }
 
@@ -1147,8 +1150,8 @@ function ymca_page_attachments_alter(array &$page) {
       $page['#attached']['html_head'][] = [$rss, 'rss'];
     }
   }
-  if (in_array(\Drupal::service('current_route_match')->getRouteName(),
-    ['page_manager.page_view_ymca_retention_campaign', 'page_manager.page_view_ymca_retention_pages'])) {
+  $route = \Drupal::service('current_route_match')->getRouteName();
+  if (is_int(stripos($route, 'page_manager.page_view_ymca_retention'))) {
     $page['#attached']['library'][] = 'ymca/retention-campaign';
   }
 }
@@ -1177,4 +1180,11 @@ function ymca_preprocess_file_link(&$variables) {
   }
 
   $variables['link'] = \Drupal::l($link_text, Url::fromUri($url, $options));
+}
+
+/**
+ * Implements hook_preprocess_ymca_retention_slider().
+ */
+function ymca_preprocess_ymca_retention_slider(&$variables) {
+  $variables['path_img'] = base_path() . drupal_get_path('theme', 'ymca');
 }

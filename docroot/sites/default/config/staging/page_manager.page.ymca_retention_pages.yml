@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: ymca_retention_pages
-label: 'Y Games 2016 Pages'
-use_admin_theme: null
+label: 'Y Games 2016'
+use_admin_theme: false
 path: '/ygames/{string}'
 access_logic: and
 access_conditions: {  }
