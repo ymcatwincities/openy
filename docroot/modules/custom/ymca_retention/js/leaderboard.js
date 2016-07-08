@@ -11,14 +11,15 @@
     LeaderboardModule.controller('LeaderboardController', function($scope, $http, $interval) {
       $scope.locations = [
         {branch_id: -1, name: 'Select location...'},
-        {branch_id: 0, name: 'Location 0'},
-        {branch_id: 14, name: 'Location 14'}
+        {branch_id: 14, name: 'Location 14'},
+        {branch_id: 26, name: 'Location 26'}
       ];
-      $scope.location = $scope.locations[1];
+      $scope.location = $scope.locations[0];
 
       // Get the data.
       $scope.loadData = function() {
-        $scope.quantity = 10;
+        $scope.quantity = 20;
+        $scope.order = 'visits';
         if ($scope.location.branch_id === -1) {
           $scope.members = [];
         }
@@ -49,13 +50,13 @@
       // Load more members.
       $scope.loadMore = function() {
         if ($scope.quantity < $scope.members.length) {
-          $scope.quantity = $scope.quantity + 10;
+          $scope.quantity = $scope.quantity + 20;
         }
       };
     });
 
     // Bootstrap AngularJS application.
-    angular.bootstrap(document.getElementById('leaderboard'), ['Leaderboard']);
+    angular.bootstrap(document.getElementById('leaderboard-app'), ['Leaderboard']);
   };
 
 })(jQuery);
