@@ -216,6 +216,13 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getId() {
+    return $this->get('id')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getEmail() {
     return $this->get('mail')->value;
   }
