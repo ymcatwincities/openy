@@ -41,11 +41,8 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-intro',
     ],
-    'ymca_retention_leader_board' => [
-      'variables' => [
-        'list' => [],
-      ],
-      'template' => 'ymca-retention-leader-board',
+    'ymca_retention_leaderboard' => [
+      'template' => 'ymca-retention-leaderboard',
     ],
     'ymca_retention_navigation' => [
       'variables' => [
