@@ -19,10 +19,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
-//class RelToAbs extends FilterBase {
-
 
   /**
+   * An Url generator.
+   *
    * @var UrlGeneratorInterface $requestStack
    */
   protected $urlGenerator;
