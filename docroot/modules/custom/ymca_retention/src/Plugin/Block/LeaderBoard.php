@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Url;
 
 /**
  * Provides a leader board block.
@@ -24,19 +25,6 @@ class Leaderboard extends BlockBase {
       ->condition('type', 'location')
       ->execute();
 
-    $branch_id = 14;
-
-    /** @var \Drupal\ymca_retention\LeaderboardManager $service */
-    $service = \Drupal::service('ymca_retention.leaderboard_manager');
-    $data = $service->getLeaderboard($branch_id);
-
-    $json = json_encode($data);
-    $directory = 'public://ymca_retention';
-    file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-    $filepath = $directory . '/leaderboard.' . $branch_id . '.js';
-    file_unmanaged_save_data($json, $filepath, FILE_EXISTS_REPLACE);
-
-    $file_pattern = $directory . '/leaderboard.branch_id.js';
     return [
       '#theme' => 'ymca_retention_leaderboard',
       '#attached' => [
@@ -46,7 +34,7 @@ class Leaderboard extends BlockBase {
         ],
         'drupalSettings' => [
           'ymca_retention' => [
-            'leaderboard' => file_create_url($file_pattern),
+            'leaderboard' => Url::fromRoute('ymca_retention.leaderboard_json', ['branch_id' => '0000'])->toString(),
           ],
         ],
       ],
