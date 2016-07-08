@@ -160,7 +160,7 @@ class GooglePush {
           $editable->save();
         }
 
-        $gcal_id = $this->getCalendarIdByName(trim($entity->field_gg_location->value));
+        $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
         if (!$gcal_id) {
           // Failed to get calendar ID. All errors are logged. Continue with next event.
           continue;
@@ -360,7 +360,7 @@ class GooglePush {
 
     // There is no calendar in the cache. Let's get data form the server.
     $raw_calendars = $this->getRawCalendars();
-    if (empty($raw_calendars)) {
+    if ($raw_calendars === FALSE) {
       return FALSE;
     }
 
