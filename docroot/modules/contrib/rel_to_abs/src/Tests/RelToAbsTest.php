@@ -35,7 +35,7 @@ class RelToAbsTest extends WebTestBase {
 
     $front = \Drupal::url('<front>', array(), array(
       'absolute' => TRUE,
-      'language' => $language,
+      'language' => $language
     ));
 
     $filter = new RelToAbs(array(), 'rel_to_abs', array('provider' => 'rel_to_abs'));
