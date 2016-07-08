@@ -112,6 +112,11 @@
       jQuery('.ysr-menu', context).once('mobile-menu').each(function () {
         var $menu = jQuery(this);
         jQuery('a', $menu).bind('click', function () {
+          var parser = document.createElement('a');
+          parser.href = jQuery(this).prop('href');
+          if (parser.pathname != location.pathname) {
+            return true;
+          }
           var hash = jQuery(this).prop('hash');
           if (hash) {
             jQuery.scrollTo($(hash), 800);

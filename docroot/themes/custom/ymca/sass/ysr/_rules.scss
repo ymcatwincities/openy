@@ -4,30 +4,38 @@ $detailed-rules-h3: #e49bbd;
   @include rem(font-size, 15px);
   @include rem(line-height, 25px);
   @include rem(margin-bottom, 40px);
-  color: $grey4;
+  color: $grey5;
 }
 
 .detailed-rules {
-  @include rem(max-width, 790px);
+  @include rem(max-width, 850px);
   margin: auto;
 
   h3 {
+    @include rem(margin-top, 60px);
     @include rem(font-size, 30px);
     @include rem(line-height, 35px);
-    @include rem(margin-top, 120px);
     @include rem(padding-bottom, 55px);
     border-bottom: 1px solid $grey2;
     color: $detailed-rules-h3;
     letter-spacing: -0.8px;
     text-align: center;
     text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 120px);
+    }
   }
 
   h4 {
-    @include rem(margin-top, 70px);
+    @include rem(margin-top, 40px);
     @include rem(font-size, 25px);
     color: $grey7;
     text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 70px);
+    }
   }
 
 
@@ -36,6 +44,7 @@ $detailed-rules-h3: #e49bbd;
     dt {
       @include cachet-normal();
       @include rem(font-size, 20px);
+      @include rem(margin-bottom, 5px);
       @include rem(margin-top, 10px);
       color: $purple-light;
       text-transform: uppercase;
@@ -71,13 +80,15 @@ $detailed-rules-h3: #e49bbd;
     }
   }
 
-  & > ol,
-  & > ul {
-    > li {
-      font-weight: bold;
+  .container {
+    > ol,
+    > ul {
+      > li {
+        font-weight: bold;
 
-      > * {
-        font-weight: normal;
+        > * {
+          font-weight: normal;
+        }
       }
     }
   }

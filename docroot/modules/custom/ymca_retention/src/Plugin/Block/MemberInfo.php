@@ -3,6 +3,8 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\ymca_retention\AnonymousCookieStorage;
+use Drupal\ymca_retention\Entity\Member;
 
 /**
  * Provides a block with registration form.
@@ -19,17 +21,18 @@ class MemberInfo extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    /** @var \Drupal\user\SharedTempStore $temp_store */
-    $temp_store = \Drupal::service('user.shared_tempstore')
-      ->get('ymca_retention');
-    $member = $temp_store->get('member');
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (empty($member_id)) {
+      return NULL;
+    }
+    $member = Member::load($member_id);
 
     return [
       '#theme' => 'ymca_retention_member_info',
       '#member' => [
-        'name' => 'Carl Philipp Emanuel',
-        'goal' => 15,
-        'visits' => 5,
+        'name' => $member->getFullName(),
+        'goal' => $member->getVisitGoal(),
+        'visits' => $member->getVisits(),
         'percentage' => min(round((5 / 15) * 100), 100),
         'activities' => 12,
         'rank' => 123,

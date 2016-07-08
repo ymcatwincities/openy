@@ -3365,9 +3365,32 @@ function ymca_master_update_8144() {
 }
 
 /**
- * Install module YMCA retention and Views Rest Feed.
+ * Import config.
  */
 function ymca_master_update_8145() {
+  // Remove old config.
+  $factory = \Drupal::configFactory();
+  $remove = [
+    'mindbody.env.settings',
+  ];
+
+  foreach ($remove as $name) {
+    $factory->getEditable($name)->delete();
+  }
+
+  // Import new one.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+    ]
+  );
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8146() {
   \Drupal::service('module_installer')->install([
     'views_rest_feed',
     'ymca_retention',
