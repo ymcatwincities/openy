@@ -32,6 +32,13 @@ class LeaderboardManager implements LeaderboardManagerInterface {
    * @inheritdoc
    */
   public function getLeaderboard($branch_id = 0) {
+    // Try first to load from cache.
+    if ($cache = $this->cache->get('leaderboard:' . $branch_id)) {
+      $leaderboard = $cache->data;
+
+      return $leaderboard;
+    }
+
     // Prepare taxonomy data.
     /** @var TermStorage $term_storage */
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
@@ -51,7 +58,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       ->getStorage('ymca_retention_member')
       ->loadMultiple($member_ids);
 
-    $data = [];
+    $leaderboard = [];
     /** @var Member $member */
     foreach ($members as $rank => $member) {
       $activities = [];
@@ -63,7 +70,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
         $activities[] = count($activities_ids);
       }
 
-      $data[] = [
+      $leaderboard[] = [
         'rank' => $rank,
         'first_name' => $member->getFirstName(),
         'last_name' => substr($member->getLastName(), 0, 1),
@@ -73,7 +80,8 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       ];
     }
 
-    return $data;
+    $this->cache->set('leaderboard:' . $branch_id, $leaderboard, REQUEST_TIME + 6 * 60 * 60);
+    return $leaderboard;
   }
-  
+
 }
