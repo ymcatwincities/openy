@@ -72,21 +72,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Date and time when campaign will be closed.'),
     ];
 
-    $form['default_goal_number'] = [
+    $form['limit_goal_number'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Default Goal'),
+      '#title' => $this->t('Limit goal of visits'),
       '#size' => 50,
       '#maxlength' => 500,
-      '#default_value' => $config->get('default_goal_number'),
-      '#description' => $this->t('Default goal of visits for new members'),
-    ];
-    $form['goal_percentage'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Goal Percentage'),
-      '#size' => 50,
-      '#maxlength' => 500,
-      '#default_value' => $config->get('goal_percentage'),
-      '#description' => $this->t('Goal for each user in percentage. By default 30%.'),
+      '#default_value' => $config->get('limit_goal_number'),
+      '#description' => $this->t('Limit goal of visits in this campaign.'),
     ];
     $form['date_checkins_start'] = [
       '#type' => 'textfield',
@@ -118,8 +110,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('date_reporting_open', $form_state->getValue('date_reporting_open'))
       ->set('date_reporting_close', $form_state->getValue('date_reporting_close'))
       ->set('date_campaign_close', $form_state->getValue('date_campaign_close'))
-      ->set('default_goal_number', $form_state->getValue('default_goal_number'))
-      ->set('goal_percentage', $form_state->getValue('goal_percentage'))
+      ->set('limit_goal_number', $form_state->getValue('limit_goal_number'))
       ->set('date_checkins_start', $form_state->getValue('date_checkins_start'))
       ->set('date_checkins_end', $form_state->getValue('date_checkins_end'))
       ->save();
