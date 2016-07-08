@@ -30,7 +30,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getLeaderboard($branch_id = 0) {
     // Try first to load from cache.
@@ -86,7 +86,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getLocations() {
     // Find out unique branch ids among all the members.
