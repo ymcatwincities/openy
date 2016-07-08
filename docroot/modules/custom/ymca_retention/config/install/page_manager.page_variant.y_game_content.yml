@@ -57,6 +57,15 @@ variant_settings:
       weight: 0
       uuid: 64ad387f-3573-41a1-8b62-ab4ec5346cd1
       context_mapping: {  }
+    2c597165-2df1-4375-b717-41c7b0712a59:
+      id: retention_slider
+      label: 'YMCA retention slider block'
+      provider: ymca_retention
+      label_display: '0'
+      region: slider
+      weight: 0
+      uuid: 2c597165-2df1-4375-b717-41c7b0712a59
+      context_mapping: {  }
   id: panels_variant
   uuid: d0be25ba-a965-471b-9764-0353dee21f9e
   label: null

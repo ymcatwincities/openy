@@ -4,45 +4,30 @@
  * Template for retention campaign layout.
  */
 #}
-<!-- TOP BAR -->
-<nav id="top-nav">
-    {{ content.navigation }}
-</nav>
+<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}">
+    <!-- TOP BAR -->
+    <nav id="top-nav">
+        {{ content.navigation }}
+    </nav>
 
-<!-- HERO SECTION -->
-<div id="hero-section">
-    {{ content.intro }}
-    <div id="register-and-report" class="slides">
-        <div id="register-or-report" class="slide register-or-report">
-            <div class="container">
-                <div class="row">
-                    <div class="buttons">
-                        <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-                            <a href="#registration" class="btn btn-lg btn-primary blue slide-controller registration-btn">
-                                {{ "Register"|t }}
-                            </a>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-                            <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">
-                                {{ "Track Activity"|t }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p>
-                        {{ "Enjoy your visits, report your activities,<br/>see the results and win cool prizes."|t }}
-                    </p>
-                </div>
-            </div>
+    <!-- HERO SECTION -->
+    <div id="hero-section">
+        {{ content.intro }}
+        <div id="register-and-report" class="slides">
+            {{ content.registration }}
         </div>
-        {{ content.registration }}
     </div>
-</div>
-<div id="leaderboard">
-    {{ content.leaderboard }}
-</div>
-
-<div id="slider">
-    {{ content.slider }}
+    <div id="main-content">
+        {{ content.main }}
+    </div>
+    {% if content.leaderboard is not empty %}
+        <div id="leaderboard">
+            {{ content.leaderboard }}
+        </div>
+    {% endif %}
+    {% if content.slider is not empty %}
+        <div id="slider">
+            {{ content.slider }}
+        </div>
+    {% endif %}
 </div>
