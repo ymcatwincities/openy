@@ -12,8 +12,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  */
 class RetentionCampaign extends LayoutBase {
 
-  use StringTranslationTrait;
-
   /**
    * {@inheritdoc}
    */

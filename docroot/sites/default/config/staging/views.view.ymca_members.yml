@@ -8,7 +8,7 @@ dependencies:
     - views_rest_feed
     - ymca_retention
 _core:
-  default_config_hash: _vjNvqIc6hIBCD6XeQk-6NwE68tpaLADWHZD5qre9o4
+  default_config_hash: jxB-IV9xHRTMFAtaAhB1hKYgrHTgESZEytqDJZCVaO8
 id: ymca_members
 label: 'YMCA Retention Campaign Members'
 module: views
@@ -84,6 +84,7 @@ display:
           columns:
             id: id
             created: created
+            branch: branch
             membership_id: membership_id
             first_name: first_name
             last_name: last_name
@@ -91,6 +92,7 @@ display:
             is_employee: is_employee
             total_visits: total_visits
             visit_goal: visit_goal
+            created_by_staff: created_by_staff
           info:
             id:
               sortable: true
@@ -102,6 +104,13 @@ display:
             created:
               sortable: true
               default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            branch:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -150,6 +159,13 @@ display:
               responsive: ''
             visit_goal:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            created_by_staff:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -292,6 +308,71 @@ display:
           field_api_classes: false
           entity_type: ymca_retention_member
           entity_field: created
+          plugin_id: field
+        branch:
+          id: branch
+          table: ymca_retention_member
+          field: branch
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Branch ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: ymca_retention_member
+          entity_field: branch
           plugin_id: field
         membership_id:
           table: ymca_retention_member
@@ -958,6 +1039,50 @@ display:
           entity_type: ymca_retention_member
           entity_field: created
           plugin_id: date
+        branch:
+          id: branch
+          table: ymca_retention_member
+          field: branch
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: branch_op
+            label: 'Branch ID'
+            description: ''
+            use_operator: false
+            operator: branch_op
+            identifier: branch_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: ymca_retention_member
+          entity_field: branch
+          plugin_id: string
       sorts:
         created:
           id: created
