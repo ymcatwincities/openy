@@ -24,7 +24,7 @@
           $scope.members = [];
         }
         else {
-          $http.get(settings.ymca_retention.leaderboard.replace('branch_id', $scope.location.branch_id)).success(function(data) {
+          $http.get(settings.ymca_retention.leaderboard.replace('0000', $scope.location.branch_id)).success(function(data) {
             $scope.members = data;
           });
         }
