@@ -11,7 +11,7 @@
         </select>
       </form>
 
-      <div class="results-table-wrapper">
+      <div class="results-table-wrapper ng-hide" data-ng-show="location.branch_id != 0">
         <table class="results-table">
           <thead>
           <tr>
@@ -41,8 +41,8 @@
         </table>
       </div>
 
-      <div class="pager">
-        <a class="load-more" data-ng-click="loadMore()" data-ng-hide="quantity >= members.length">+ Show 20 more</a>
+      <div class="pager ng-hide" data-ng-click="loadMore()" data-ng-show="quantity < members.length">
+        <a class="load-more">+ Show 20 more</a>
       </div>
 
     </div>
