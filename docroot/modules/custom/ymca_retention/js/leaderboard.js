@@ -9,18 +9,14 @@
 
     var LeaderboardModule = angular.module('Leaderboard', []);
     LeaderboardModule.controller('LeaderboardController', function($scope, $http, $interval) {
-      $scope.locations = [
-        {branch_id: -1, name: 'Select location...'},
-        {branch_id: 14, name: 'Location 14'},
-        {branch_id: 26, name: 'Location 26'}
-      ];
+      $scope.locations = settings.ymca_retention.locations;
       $scope.location = $scope.locations[0];
 
       // Get the data.
       $scope.loadData = function() {
         $scope.quantity = 20;
         $scope.order = 'visits';
-        if ($scope.location.branch_id === -1) {
+        if ($scope.location.branch_id === 0) {
           $scope.members = [];
         }
         else {
