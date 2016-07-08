@@ -170,6 +170,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    // @todo Make branch id as reference field to mapping entity, which has branch id from personify.
     $fields['branch'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Branch ID'))
       ->setDescription(t('Member branch ID.'))
