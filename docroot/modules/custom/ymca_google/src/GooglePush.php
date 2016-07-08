@@ -359,7 +359,12 @@ class GooglePush {
     }
 
     // There is no calendar in the cache. Let's get data form the server.
-    foreach ($this->getRawCalendars() as $raw_calendar) {
+    $raw_calendars = $this->getRawCalendars();
+    if ($raw_calendars === FALSE) {
+      return FALSE;
+    }
+
+    foreach ($raw_calendars as $raw_calendar) {
       $this->calendars[$raw_calendar->summary] = $raw_calendar->id;
     }
 
@@ -616,6 +621,7 @@ class GooglePush {
     catch (\Exception $e) {
       $msg = 'Failed to get the list of calendars. Message: %msg';
       $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+      return FALSE;
     }
 
     return $data;
@@ -630,7 +636,7 @@ class GooglePush {
     for ($i = 0; $i <= 2; $i++) {
       try {
         $this->calService->calendars->clear('primary');
-        $this->logger->info('Primary calender was cleared.');
+        $this->logger->info('Primary calendar was cleared.');
         break;
       }
       catch (\Exception $e) {
@@ -693,7 +699,7 @@ class GooglePush {
     try {
       $createdCalendar = $this->calService->calendars->insert($calendar);
       $id = $createdCalendar->getId();
-      $this->logger->info('Calender %id was created', ['%id' => $id]);
+      $this->logger->info('Calendar was created: id: %id, name: %name', ['%id' => $id, '%name' => $name]);
       return $id;
     }
     catch (\Exception $e) {
