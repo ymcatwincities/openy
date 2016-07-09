@@ -3371,7 +3371,7 @@ function ymca_master_update_8144() {
 /**
  * SPS-894 It adds recommended sizes for image fields in the description.
  */
-function ymca_master_update_8144() {
+function ymca_master_update_8145() {
   \Drupal::service('module_installer')->install(['environment_config'], TRUE);
 
   $path = 'sites/default/config/staging/';
