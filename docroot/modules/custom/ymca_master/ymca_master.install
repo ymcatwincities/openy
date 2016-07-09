@@ -3367,3 +3367,20 @@ function ymca_master_update_8144() {
     ]
   );
 }
+
+/**
+ * SPS-894 It adds recommended sizes for image fields in the description.
+ */
+function ymca_master_update_8144() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.block_content.promo_block.field_image.yml',
+      $path . 'field.field.block_content.slide_show_item.field_image.yml',
+      $path . 'field.field.node.article.field_header_image.yml',
+      $path . 'field.field.node.blog.field_image.yml'
+    ]
+  );
+}
