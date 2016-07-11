@@ -7,3 +7,12 @@ services:
       - {name: event_subscriber}
   ymca_retention.anonymous_cookie_storage:
     class: Drupal\ymca_retention\AnonymousCookieStorage
+  cache.ymca_retention:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: cache_factory:get
+    arguments: [ymca_retention]
+  ymca_retention.leaderboard_manager:
+    class: Drupal\ymca_retention\LeaderboardManager
+    arguments: ['@cache.ymca_retention']

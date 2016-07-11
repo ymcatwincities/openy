@@ -9,9 +9,9 @@ use Drupal\ymca_retention\MemberInterface;
 use Drupal\Core\Entity\Entity;
 
 /**
- * Defines the ContentEntityExample entity.
+ * Defines the Member entity.
  *
- * @ingroup content_entity_example
+ * @ingroup ymca_retention
  *
  * @ContentEntityType(
  *   id = "ymca_retention_member",

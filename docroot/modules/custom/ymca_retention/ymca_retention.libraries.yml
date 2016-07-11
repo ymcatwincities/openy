@@ -1,0 +1,14 @@
+angular:
+  version: VERSION
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
+
+leaderboard:
+  version: VERSION
+  js:
+    js/leaderboard.js: {}
+  dependencies:
+      - core/jquery
+      - core/jquery.once
+      - core/drupal
+      - core/drupalSettings
