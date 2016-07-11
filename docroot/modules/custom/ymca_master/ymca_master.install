@@ -3445,8 +3445,17 @@ function ymca_master_update_8148() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      // Top menu configs.
       $path . 'block.block.top_menu_2.yml',
       $path . 'system.menu.top_menu_2.yml',
+
+      // Meganav menu and block configs.
+      $path . 'block.block.mastheadnavigationblock.yml',
+      $path . 'block.block.mastheadnavigationblock_2.yml',
+      $path . 'ymca_menu.main_menu_b.yml',
+
+      // Footer menu block config.
+      $path . 'block.block.footer_b.yml',
     ]
   );
 
@@ -3473,7 +3482,15 @@ function ymca_master_update_8148() {
     [
       'block_id' => 'top_menu_2',
       'selector' => '#block-topmenu'
-    ]
+    ],
+    [
+      'block_id' => 'mastheadnavigationblock_2',
+      'selector' => '#masthead-menu'
+    ],
+    [
+      'block_id' => 'footer_b',
+      'selector' => '.nav-footer > div'
+    ],
   ];
   $config->set('replacements', $replacements);
   $config->save();
