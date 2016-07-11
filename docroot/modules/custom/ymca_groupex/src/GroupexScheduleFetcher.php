@@ -161,6 +161,9 @@ class GroupexScheduleFetcher {
     if (!empty($this->parameters['location']) && count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
     }
+    if (!empty($this->parameters['class']) && is_numeric($this->parameters['class'])) {
+      $schedule['type'] = 'week';
+    }
     if (!empty($this->parameters['instructor'])) {
       $schedule['type'] = 'instructor';
     }
@@ -524,6 +527,13 @@ class GroupexScheduleFetcher {
     // Add default filter_length.
     if (!isset($normalized['filter_length'])) {
       $normalized['filter_length'] = 'day';
+    }
+
+    // Apply 'week' logic if class is selected.
+    if (isset($parameters['class']) && is_numeric($parameters['class'])) {
+      $normalized['filter_length'] = 'week';
+      $normalized['view_mode'] = 'class';
+      $normalized['groupex_class'] = 'groupex_table_class_individual';
     }
 
     return $normalized;
