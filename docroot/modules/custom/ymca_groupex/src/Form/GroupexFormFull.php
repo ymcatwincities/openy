@@ -15,6 +15,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+
 /**
  * Implements Groupex Full Form.
  */
@@ -330,11 +331,6 @@ class GroupexFormFull extends GroupexFormBase {
     if ($class == 'any' && is_numeric($query['class'])) {
       $class = $query['class'];
     }
-    $triggering_element = $form_state->getTriggeringElement();
-    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'class_select' && $triggering_element['#value'] != 'all') {
-      $class = $triggering_element['#value'];
-      $view_mode = 'class';
-    }
 
     $filter_length = !empty($query['filter_length']) ? $query['filter_length'] : 'day';
     $groupex_class = !empty($query['groupex_class']) ? $query['groupex_class'] : 'groupex_table_class';
@@ -346,6 +342,11 @@ class GroupexFormFull extends GroupexFormBase {
     // Reset to day length in any case if date select has been changed.
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && is_numeric($class)) {
       $filter_length = 'week';
+      $groupex_class = 'groupex_table_class_individual';
+      $view_mode = 'class';
+    }
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'class_select' && $triggering_element['#value'] != 'any') {
+      $class = $triggering_element['#value'];
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
     }
