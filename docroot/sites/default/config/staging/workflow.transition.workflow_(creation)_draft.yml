@@ -11,6 +11,8 @@ roles:
   workflow_author: workflow_author
   administrator: administrator
   contributor: contributor
+  intern: intern
+  anonymous: 0
   authenticated: 0
   editor: 0
   location_editor: 0
