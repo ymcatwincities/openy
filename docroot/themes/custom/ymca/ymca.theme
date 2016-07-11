@@ -976,6 +976,17 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-groupex-form-full-refine',
     ],
+    'ymca_retention_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form',
+    ],
+    'ymca_retention_track_activity_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-track-activity-login-form',
+    ],
+    'ymca_retention_slider' => [
+      'template' => '/ymca-blocks/ymca-retention-slider',
+    ]
   ];
 }
 
@@ -1121,9 +1132,8 @@ function ymca_page_attachments_alter(array &$page) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'location':
-        $url = URL::fromUri('internal:/blog/subscribe/index.xml');
+        $url = Url::fromUri('internal:/blog/subscribe/index.xml');
         $url->setAbsolute(TRUE);
-        // <link rel="alternate" type="application/rss+xml" title="Subscribe to Blog" href="{{ base_url }}/blog/subscribe/index.xml"/>
         $rss = [
           '#type' => 'html_tag',
           '#tag' => 'link',
@@ -1139,6 +1149,10 @@ function ymca_page_attachments_alter(array &$page) {
     if (isset($rss)) {
       $page['#attached']['html_head'][] = [$rss, 'rss'];
     }
+  }
+  $route = \Drupal::service('current_route_match')->getRouteName();
+  if (is_int(stripos($route, 'page_manager.page_view_ymca_retention'))) {
+    $page['#attached']['library'][] = 'ymca/retention-campaign';
   }
 }
 
@@ -1166,4 +1180,11 @@ function ymca_preprocess_file_link(&$variables) {
   }
 
   $variables['link'] = \Drupal::l($link_text, Url::fromUri($url, $options));
+}
+
+/**
+ * Implements hook_preprocess_ymca_retention_slider().
+ */
+function ymca_preprocess_ymca_retention_slider(&$variables) {
+  $variables['path_img'] = base_path() . drupal_get_path('theme', 'ymca');
 }
