@@ -77,7 +77,7 @@ class MemberRegisterForm extends FormBase {
     // Get information about member from Personify and validate entered membership ID.
     $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
     // @todo Here we need to verify results. and check is there an alias, and then search user in db by alias ID.
-    if (empty($personify_result) || !empty($personify_result->ErrorMessage)) {
+    if (empty($personify_result) || !empty($personify_result->ErrorMessage) || (int) $personify_result->BranchId == 0) {
       $form_state->setErrorByName('membership_id', $this->t('Member with this facility access ID not found, please verify your facility access ID.'));
     }
     else {
