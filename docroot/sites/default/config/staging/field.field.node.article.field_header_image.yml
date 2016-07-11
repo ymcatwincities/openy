@@ -12,7 +12,7 @@ field_name: field_header_image
 entity_type: node
 bundle: article
 label: 'Header Image'
-description: ''
+description: 'The recommended size is 1200 x 600 pixels.'
 required: false
 translatable: false
 default_value: {  }

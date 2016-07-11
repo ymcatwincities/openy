@@ -1,0 +1,22 @@
+uuid: fb514d25-a1e9-41a5-b9bd-ee2c89ede385
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.panorama_block
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.panorama_block.body
+field_name: body
+entity_type: block_content
+bundle: panorama_block
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary
