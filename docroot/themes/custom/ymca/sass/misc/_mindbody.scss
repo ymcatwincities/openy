@@ -50,7 +50,8 @@
         color: $blue-medium;
         font-size: 15px;
         margin-right: 5px;
-        vertical-align: top;
+        top: -3px;
+        position: relative
       }
     }
 
@@ -255,6 +256,13 @@
         right: 0;
         top: 0;
         padding: 0 25px 0 45px;
+        .label-wrapper {
+          span {
+            line-height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
       }
 
     }
@@ -652,10 +660,18 @@
         margin: 5px 0 10px;
       }
 
+      .row > div {
+        margin-bottom: 20px;
+
+        @media screen and (min-width: 992px) {
+          &:nth-child(4n+1) {
+            clear: both;
+          }
+        }
+      }
+
       .slots {
         .slot {
-          margin-bottom: 10px;
-
           .icon {
             color: $grey5;
             font-size: 14px;
