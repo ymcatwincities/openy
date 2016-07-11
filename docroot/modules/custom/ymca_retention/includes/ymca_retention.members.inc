@@ -3,11 +3,12 @@
 /**
  * @file
  * Generate fake members and activities.
+ *
+ * TODO: remove this file when fake users are not needed anymore.
  */
 
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\Entity\MemberActivity;
-use Drupal\ymca_retention\PersonifyApi;
 use Drupal\taxonomy\TermStorage;
 
 /**

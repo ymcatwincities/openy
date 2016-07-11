@@ -15,12 +15,12 @@
         <table class="results-table">
           <thead>
           <tr>
-            <th colspan="2">Sort by:</th>
+            <th colspan="2">{{ 'Sort by'|t }}:</th>
             <th class="member-id"></th>
-            <th><a class="sort-link swimming" data-ng-click="sort('activities[0]')" data-ng-class="headerClass('activities[0]')">Swimming</a></th>
-            <th><a class="sort-link fitness" data-ng-click="sort('activities[1]')" data-ng-class="headerClass('activities[1]')">Fitness</a></th>
-            <th><a class="sort-link group-exercise" data-ng-click="sort('activities[2]')" data-ng-class="headerClass('activities[2]')">Group Exercises</a></th>
-            <th><a class="sort-link visits" data-ng-click="sort('visits')" data-ng-class="headerClass('visits')">Visits</a></th>
+            <th><a class="sort-link swimming" data-ng-click="sort('activities[0]')" data-ng-class="headerClass('activities[0]')">{{ 'Swimming'|t }}</a></th>
+            <th><a class="sort-link fitness" data-ng-click="sort('activities[1]')" data-ng-class="headerClass('activities[1]')">{{ 'Fitness'|t }}</a></th>
+            <th><a class="sort-link group-exercise" data-ng-click="sort('activities[2]')" data-ng-class="headerClass('activities[2]')">{{ 'Group Exercises'|t }}</a></th>
+            <th><a class="sort-link visits" data-ng-click="sort('visits')" data-ng-class="headerClass('visits')">{{ 'Visits'|t }}</a></th>
           </tr>
           </thead>
           <tbody>
@@ -29,9 +29,9 @@
             </td>
             <td class="name">
               {{ '{{member.first_name}} {{member.last_name}}' }}.
-              <span class="member-id">ID: {{ '{{member.membership_id}}' }}</span>
+              <span class="member-id">{{ 'ID'|t }}: {{ '{{member.membership_id}}' }}</span>
             </td>
-            <td class="member-id">ID: ******** {{ '{{member.membership_id}}' }}</td>
+            <td class="member-id">{{ 'ID'|t }}: ******** {{ '{{member.membership_id}}' }}</td>
             <td class="activity-count">{{ '{{member.activities[0]}}' }}</td>
             <td class="activity-count">{{ '{{member.activities[1]}}' }}</td>
             <td class="activity-count">{{ '{{member.activities[2]}}' }}</td>
@@ -42,7 +42,7 @@
       </div>
 
       <div class="pager ng-hide" data-ng-show="quantity < members.length" data-ng-click="loadMore()">
-        <a class="load-more">+ Show 20 more</a>
+        <a class="load-more">{{ '+ Show 20 more'|t }}</a>
       </div>
 
     </div>

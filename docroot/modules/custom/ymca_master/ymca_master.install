@@ -3401,6 +3401,7 @@ function ymca_master_update_8146() {
   _ymca_retention_terms_create();
 
   // Create fake members and activities.
+  // TODO: remove this block before production release.
   module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.members');
   _ymca_retention_members_create();
 }
