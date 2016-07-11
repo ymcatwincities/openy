@@ -91,27 +91,42 @@ class GroupexScheduleFetcher {
     }
 
     $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
+    // Define end date of shown items as 1 week.
+    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * 7, $this->timezone);
 
     // Prepare classes items.
     $items = [];
 
     foreach ($this->processedData as $item) {
+      // If item date more than 1 week in future skip it.
+      $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
+      if ($item_date > $end_date) {
+        continue;
+      }
       $class_url_options = $this->parameters;
       $class_url_options['class'] = $item->class_id;
+      $class_url_options['filter_date'] = date('m/d/y', strtotime($item->date));
       $class_url_options['filter_length'] = 'week';
       $class_url_options['groupex_class'] = 'groupex_table_class_individual';
+      $class_url_options['view_mode'] = 'class';
       unset($class_url_options['instructor']);
 
       $instructor_url_options = $this->parameters;
+      $instructor_filter_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
+      $instructor_url_options['filter_date'] = $instructor_filter_date;
       $instructor_url_options['filter_length'] = 'week';
       $instructor_url_options['instructor'] = $item->instructor;
+      $instructor_url_options['class'] = 'any';
       $instructor_url_options['groupex_class'] = 'groupex_table_instructor_individual';
+      unset($instructor_url_options['view_mode']);
 
       $date_url_options = $this->parameters;
+      $date_url_options['filter_date'] = date('m/d/y', strtotime($item->date));
       $date_url_options['filter_length'] = 'day';
       $date_url_options['class'] = 'any';
       $date_url_options['groupex_class'] = 'groupex_table_class';
       unset($date_url_options['instructor']);
+      unset($date_url_options['view_mode']);
 
       $items[$item->id] = [
         '#theme' => isset($this->parameters['groupex_class']) ? $this->parameters['groupex_class'] : 'groupex_class',
@@ -146,6 +161,9 @@ class GroupexScheduleFetcher {
     if (!empty($this->parameters['location']) && count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
     }
+    if (!empty($this->parameters['class']) && is_numeric($this->parameters['class'])) {
+      $schedule['type'] = 'week';
+    }
     if (!empty($this->parameters['instructor'])) {
       $schedule['type'] = 'instructor';
     }
@@ -173,8 +191,7 @@ class GroupexScheduleFetcher {
         $schedule['days'] = [];
         foreach ($items as $id => $class) {
           $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
-          $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
-
+          $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = $class['#class']['date_link'];
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
@@ -452,6 +469,12 @@ class GroupexScheduleFetcher {
       if (!empty($test)) {
         $item->address_1 = str_replace($test[0], ' ' . $test[1], $item->address_1);
       }
+      preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->instructor, $test1);
+      if (!empty($test1)) {
+        $test1[1] = str_replace('(sub for ', '', $test1[1]);
+        $test1[1] = str_replace(')', '', $test1[1]);
+        $item->instructor = str_replace($test1[0], '<br><span class="icon icon-loop2"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
+      }
     }
 
     $this->processedData = $data;
@@ -504,6 +527,13 @@ class GroupexScheduleFetcher {
     // Add default filter_length.
     if (!isset($normalized['filter_length'])) {
       $normalized['filter_length'] = 'day';
+    }
+
+    // Apply 'week' logic if class is selected.
+    if (isset($parameters['class']) && is_numeric($parameters['class'])) {
+      $normalized['filter_length'] = 'week';
+      $normalized['view_mode'] = 'class';
+      $normalized['groupex_class'] = 'groupex_table_class_individual';
     }
 
     return $normalized;
