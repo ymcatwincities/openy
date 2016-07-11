@@ -47,18 +47,18 @@ class MemberActivity extends ContentEntityBase implements MemberActivityInterfac
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Member ID'))
       ->setDescription(t('The member ID of the activity owner.'))
-      ->setSettings(array(
+      ->setSettings([
         'target_type' => 'ymca_retention_member',
         'default_value' => 0,
-      ));
+      ]);
 
     $fields['activity_type'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Activity type'))
       ->setDescription(t('The term ID of the activity type.'))
-      ->setSettings(array(
+      ->setSettings([
         'target_type' => 'taxonomy_term',
         'default_value' => 0,
-      ));
+      ]);
 
     return $fields;
   }
