@@ -9,34 +9,11 @@
  * @ingroup themeable
  */
 #}
-{#<a class="accordion-toggle panel collapsed panel-default panel-group-ex morning" data-toggle="collapse" data-parent="" href="#collapse_{{ class.id }}">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      {{ class.name }}
-      <small>{{ class.group }}</small>
-    </h4>
-  </div>
-  <div id="collapse_{{ class.id }}" class="panel-collapse collapse">
-    <div class="panel-body">
-      {{ class.description|raw }}
-    </div>
-  </div>
-  <div class="panel-footer">
-    <address class="pull-right"> <strong>{{ class.address_1|raw }}</strong>
-      <br/>
-      {{ class.address_2 }}
-    </address>
-    <span class="activity-day">{{ class.date }}</span>
-    {{ class.time }}
-    <br/>
-    ({{ class.duration }})
-  </div>
-</a>#}
-<td>
-  <span class="activity-day">{{ class.date }}</span>
-  {{ class.time }}
-  <br/>
-  ({{ class.duration }})
+<td class="time-duration">
+  <span class="icon icon-clock"></span>{{ class.time }} - <span class="duration">{{ class.duration }}</span>
 </td>
-<td><a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></td>
-<td><a class="use-ajax" href="{{ class.instructor_link }}"> {{ class.instructor|raw }}</a></td>
+<td>
+  <a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></td>
+<td class="instructor">
+  <span class="icon icon-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
+</td>
