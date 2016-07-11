@@ -160,17 +160,16 @@
 
       var el_parent = $("#group-ex-locations"),
           el_items = el_parent.find(".form-group"),
-          wrap_classes = "col-xs-12 col-sm-6 col-lg-4",
+          wrap_classes = "col-xs-12 col-md-6",
           el_count = el_items.length,
-          col_count = 3,
+          col_count = 2,
           break_count = Math.ceil(el_count / col_count),
           prev_key = 0,
           cur_key = 0,
           prev_count = 0,
           break_cols = {
             0: 1,
-            750: 2,
-            1170: 3
+            992: 2,
           };
 
       //add bootstrap row

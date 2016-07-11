@@ -13,9 +13,11 @@
  */
 #}
 <div class="form-group" data-toggle="buttons">
-  <label class="control-label btn-block btn btn-default {{ attribute(attributes, 'checked') ? 'active' }}" for="{{ attributes.id }}" title="{{ attribute(element, '#title') }}">
-    <input {{ attributes }} />
-    <span class="glyphicon glyphicon-{{ attribute(attributes, 'checked') ? 'check' : 'unchecked' }} hidden-xs"></span>
-    {{ attribute(element, '#title') }}
-  </label>
+  <div class="inner">
+    <span class="icon icon-location2"></span>
+    <label class="control-label btn btn-default {{ attribute(attributes, 'checked') ? 'active' }}" for="{{ attributes.id }}" title="{{ attribute(element, '#title') }}">
+      <input {{ attributes }} />
+      <div class="label-wrapper"><span>{{ attribute(element, '#title') }}</span></div>
+    </label>
+  </div>
 </div>
