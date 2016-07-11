@@ -12,5 +12,7 @@ roles:
   editor: editor
   location_editor: location_editor
   contributor: contributor
+  intern: intern
   workflow_author: 0
+  anonymous: 0
   authenticated: 0
