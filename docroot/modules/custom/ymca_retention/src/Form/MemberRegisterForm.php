@@ -131,6 +131,11 @@ class MemberRegisterForm extends FormBase {
     // Identify is user an employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
+    // This is a bad solution with this condition.
+    // But we do not have enough time to build better solution.
+    $path = \Drupal::request()->getPathInfo();
+    $created_by_staff = $path === YSR_POS_MICRO_SITE_URL;
+
     // Create a new entity.
     /** @var Member $entity */
     $entity = \Drupal::entityTypeManager()
@@ -144,7 +149,7 @@ class MemberRegisterForm extends FormBase {
         'is_employee' => $is_employee,
         'visit_goal' => $goal,
         'total_visits' => $total_visits,
-        'created_by_staff' => FALSE,
+        'created_by_staff' => $created_by_staff,
       ]);
     $entity->save();
 
