@@ -164,7 +164,7 @@ function ymca_groupex_preprocess_node(&$variables) {
           'form_builder:getForm',
           ['Drupal\ymca_groupex\Form\GroupexFormFull']
         ],
-      '#create_placeholder' => TRUE,
+        '#create_placeholder' => TRUE,
       ],
     ];
 
