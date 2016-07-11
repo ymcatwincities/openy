@@ -578,7 +578,7 @@ class MindbodyPTForm extends FormBase {
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
             <div class="day col-sm-12">',
-        '#markup' => t('Page url is corrupted. !search_link', array('!search_link' => $link->toString())),
+        '#markup' => t('We couldn\'t complete your search. !search_link.', array('!search_link' => $link->toString())),
         '#suffix' => '</div></div></div>',
       ];
     }
