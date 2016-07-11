@@ -578,7 +578,7 @@ class MindbodyPTForm extends FormBase {
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
             <div class="day col-sm-12">',
-        '#markup' => t('Page url is corrupted. !search_link', array('!search_link' => $link->toString())),
+        '#markup' => t('We couldn\'t complete your search. !search_link.', array('!search_link' => $link->toString())),
         '#suffix' => '</div></div></div>',
       ];
     }
@@ -721,6 +721,21 @@ class MindbodyPTForm extends FormBase {
     $values = $form_state->getValues();
     if (isset($values['mb_start_time']) && isset($values['mb_end_time'])  && $values['mb_start_time'] >= $values['mb_end_time']) {
       $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
+    }
+
+    // Validate date range.
+    if ($values['step'] == 4) {
+      if (!isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+      }
+
+      if (isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $start = $values['mb_start_date']->format('U');
+        $end = $values['mb_end_date']->format('U');
+        if ($start > $end) {
+          $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+        }
+      }
     }
   }
 
