@@ -575,7 +575,7 @@ class MimeMailFormatHelper {
     return $matches[1] . self::mimeMailUrl($matches[2]);
   }
 
-  public function replaceFiles($matches) {
+  public static function replaceFiles($matches) {
     return stripslashes($matches[1]) .self::mimeMailFile($matches[2]) . stripslashes($matches[3]);
   }
 
