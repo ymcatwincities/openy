@@ -250,3 +250,57 @@ body.node--type-location {
   }
 }
 
+#block-schedulesrightblocks {
+  article {
+    h2 {
+      margin: 0;
+      display: block;
+      color: $grey7;
+      text-transform: uppercase;
+      a {
+        color: $grey7;
+        padding-bottom: 0;
+      }
+    }
+
+    ul {
+      margin: 25px 0 30px;
+      padding: 0;
+
+      li {
+        list-style: none;
+        font-size: 15px;
+        margin-bottom: 15px;
+
+        &:before {
+          content: "\f105";
+          color: $grey5;
+          font-family: icomoon;
+          list-style: none;
+          margin-right: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  #component_153751 {
+
+    .richtext {
+      margin-top: 0;
+    }
+
+    .panel-body a {
+      border-radius: 5px;
+      border: 1px solid $light-purple;
+      color: $purple;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 15px;
+      padding: 15px 35px;
+      text-transform: uppercase;
+      font-family: Cachet;
+      font-weight: bold;
+    }
+  }
+}
