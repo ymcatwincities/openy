@@ -39,6 +39,7 @@ function yptf_master_update_8000() {
       $path . 'field.storage.personify_mindbody_cache.field_pmc_order_num.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_user_id.yml',
+      $path . 'ymca_personify.settings.yml',
     ]
   );
 }
