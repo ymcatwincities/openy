@@ -3452,5 +3452,5 @@ function ymca_master_update_8148() {
   _ymca_retention_members_create();
 
   // Add an alias for the retention page(POS Microsite).
-  \Drupal::service('path.alias_storage')->save('/ygames', '/ygames-team', 'en');
+  \Drupal::service('path.alias_storage')->save('/ygames', '/ygames/team', 'en');
 }
