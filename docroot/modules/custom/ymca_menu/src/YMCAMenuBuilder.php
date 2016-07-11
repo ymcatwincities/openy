@@ -28,8 +28,11 @@ class YMCAMenuBuilder {
 
   /**
    * Constructs a YMCAMenuBuilder object.
+   *
+   * @param string $ab
+   *   If equals to 'b', works with alternative menu tree.
    */
-  public function __construct() {
+  public function __construct($ab = '') {
     $this->pageId = $this->getActiveMlid();
 
     $ymca_menu = new YMCAMenuController();
@@ -52,7 +55,8 @@ class YMCAMenuBuilder {
     }
 
     // Load meganav menu link id parents.
-    $this->megaNav = \Drupal::config('ymca_menu.main_menu')->get('items');
+    $config_name = $ab == 'b' ? 'ymca_menu.main_menu_b' : 'ymca_menu.main_menu';
+    $this->megaNav = \Drupal::config($config_name)->get('items');
   }
 
   /**
@@ -67,7 +71,7 @@ class YMCAMenuBuilder {
    * @returns object
    *   Active menu tree.
    */
-  public function get() {
+  public function get($ab = 'a') {
     $level = 0;
 
     // Check for page existance.
@@ -78,11 +82,11 @@ class YMCAMenuBuilder {
     // So that we can make multiple requests for the same page node
     // without recalculating but calls to other nodes can also be made
     // without corrupting page tree data.
-    if (!isset($this->cache[$this->pageId])) {
-      $this->cache[$this->pageId] = $this->getBranch($this->rootId, $this->tree[$this->rootId], $level);
+    if (!isset($this->cache[$ab][$this->pageId])) {
+      $this->cache[$ab][$this->pageId] = $this->getBranch($this->rootId, $this->tree[$this->rootId], $level);
     }
 
-    return $this->cache[$this->pageId];
+    return $this->cache[$ab][$this->pageId];
   }
 
   /**
@@ -303,8 +307,16 @@ class YMCAMenuBuilder {
   /**
    * {@inheritdoc}
    */
-  public function getActiveMenuTree() {
-    $active_menu_tree = $this->get();
+  public function getActiveMenuTree($ab = '') {
+    // Load meganav menu link id parents.
+    $old_value = $this->megaNav;
+    // Set new megaNav value.
+    $config_name = $ab == 'b' ? 'ymca_menu.main_menu_b' : 'ymca_menu.main_menu';
+    $this->megaNav = \Drupal::config($config_name)->get('items');
+
+    $active_menu_tree = $this->get($ab == 'b' ? 'b' : 'a');
+    // Restore old megaNav value.
+    $this->megaNav = $old_value;
 
     return $active_menu_tree;
   }
