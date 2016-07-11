@@ -4,12 +4,10 @@ namespace Drupal\entity_clone\EntityClone\Config;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Component\Utility\Random;
-use Drupal\Core\Entity\EntityHandlerInterface;
+use Drupal\Component\Uuid\Php;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
-use Drupal\entity_clone\EntityClone\EntityCloneInterface;
 use Drupal\page_manager\Entity\PageVariant;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -33,6 +31,13 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
   protected $entityTypeId;
 
   /**
+   * Uuid generator.
+   *
+   * @var Php
+   */
+  protected $uuid;
+
+  /**
    * Constructs a new PageConfigEntityCloneBase.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -40,8 +45,9 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
    * @param string $entity_type_id
    *   The entity type ID.
    */
-  public function __construct(EntityTypeManager $entity_type_manager, $entity_type_id) {
+  public function __construct(EntityTypeManager $entity_type_manager, Php $uuid, $entity_type_id) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->uuid = $uuid;
     $this->entityTypeId = $entity_type_id;
   }
 
@@ -51,6 +57,7 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
   public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
     return new static(
       $container->get('entity_type.manager'),
+      $container->get('uuid'),
       $entity_type->id()
     );
   }
@@ -123,6 +130,26 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
     }
 
     $cloned_entity->set('variants', $new_variants);
+
+    // Add access conditions.
+    $a_uuid = $this->uuid->generate();
+    $access_conditions = [
+      $a_uuid = [
+        'id' => 'user_role',
+        'roles' => [
+          'authenticated' => 'authenticated',
+        ],
+        'negate' => FALSE,
+        'context_mapping' => [
+          'user' => 'current_user',
+        ],
+        'uuid' => $a_uuid,
+      ],
+    ];
+
+    $cloned_entity->set('access_conditions', $access_conditions);
+    $cloned_entity->set('access_logic', 'and');
+
     // Final save for cloned page.
     $cloned_entity->save();
     return $cloned_entity;

@@ -1,0 +1,8 @@
+uuid: 1a96fa96-c6b6-4722-93a6-24b58cb030a8
+langcode: en
+status: true
+dependencies: {  }
+id: panorama_block
+label: 'Panorama Block'
+revision: 0
+description: 'Contains panorama player'
