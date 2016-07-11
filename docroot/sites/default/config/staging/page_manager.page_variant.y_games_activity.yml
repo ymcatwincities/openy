@@ -22,15 +22,6 @@ variant_settings:
       weight: 0
       uuid: de599953-3c54-481c-af70-98d9f28c675b
       context_mapping: {  }
-    5d8ddc36-874d-44f6-a47b-12b22ee1fe30:
-      id: retention_leader_board_block
-      label: 'YMCA retention leader board block'
-      provider: ymca_retention
-      label_display: '0'
-      region: leaderboard
-      weight: 0
-      uuid: 5d8ddc36-874d-44f6-a47b-12b22ee1fe30
-      context_mapping: {  }
     2ca831b1-d3c0-476e-8a20-cb1d35144faa:
       id: retention_track_activity_block
       label: 'YMCA retention track activity block'
@@ -53,10 +44,28 @@ variant_settings:
       id: retention_navigation_block
       label: 'YMCA retention navigation block'
       provider: ymca_retention
-      label_display: visible
+      label_display: '0'
       region: navigation
       weight: 0
       uuid: 48d49cf9-67d2-4897-904a-069b49d62368
+      context_mapping: {  }
+    e89a5cbf-f6bd-4287-8473-cd2657de0acd:
+      id: retention_leaderboard_block
+      label: 'YMCA retention leaderboard block'
+      provider: ymca_retention
+      label_display: '0'
+      region: leaderboard
+      weight: 0
+      uuid: e89a5cbf-f6bd-4287-8473-cd2657de0acd
+      context_mapping: {  }
+    8d143d03-907f-4296-91b8-b935756f1154:
+      id: retention_slider
+      label: 'YMCA retention slider block'
+      provider: ymca_retention
+      label_display: '0'
+      region: slider
+      weight: 0
+      uuid: 8d143d03-907f-4296-91b8-b935756f1154
       context_mapping: {  }
   id: panels_variant
   uuid: bad55d34-748c-4622-89ff-0f27cd86a1c2

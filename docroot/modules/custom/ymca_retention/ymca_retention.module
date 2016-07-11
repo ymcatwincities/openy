@@ -42,11 +42,11 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-intro',
     ],
-    'ymca_retention_leader_board' => [
+    'ymca_retention_leaderboard' => [
       'variables' => [
-        'list' => [],
+        'base_path' => base_path(),
       ],
-      'template' => 'ymca-retention-leader-board',
+      'template' => 'ymca-retention-leaderboard',
     ],
     'ymca_retention_navigation' => [
       'variables' => [
@@ -61,6 +61,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'ymca-retention-member-info',
     ],
     'ymca_retention_slider' => [
+      'variables' => [],
       'template' => 'ymca-retention-slider',
     ],
     'ymca_retention_registration_confirmation' => [
