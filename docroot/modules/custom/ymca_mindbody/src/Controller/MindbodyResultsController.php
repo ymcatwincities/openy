@@ -67,7 +67,7 @@ class MindbodyResultsController extends ControllerBase {
       'end_time' => !empty($query['end_time']) ? $query['end_time'] : NULL,
       'start_date' => !empty($query['start_date']) ? $query['start_date'] : NULL,
       'end_date' => !empty($query['end_date']) ? $query['end_date'] : NULL,
-      'bookable_item_id' => isset($query['bookable_item_id']) && is_numeric($query['location']) ? $query['bookable_item_id'] : '',
+      'bookable_item_id' => isset($query['bookable_item_id']) ? $query['bookable_item_id'] : '',
     ];
     if (isset($query['context'])) {
       $values['context'] = $query['context'];
