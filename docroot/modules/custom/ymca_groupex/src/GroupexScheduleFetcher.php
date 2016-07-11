@@ -191,6 +191,7 @@ class GroupexScheduleFetcher {
         $schedule['days'] = [];
         foreach ($items as $id => $class) {
           $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
+          $schedule['days'][$this->enrichedData[$id]->day]['day_short'] = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $this->enrichedData[$id]->day, $this->timezone)->format('l, F j');
           $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = $class['#class']['date_link'];
         }
         // Pass 'View This Week’s PDF' href if some location selected.
@@ -235,12 +236,13 @@ class GroupexScheduleFetcher {
         foreach ($items as $id => $class) {
           if ($class['#class']['instructor'] == $this->parameters['instructor']) {
             $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
+            $schedule['days'][$this->enrichedData[$id]->day]['day_short'] = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $this->enrichedData[$id]->day, $this->timezone)->format('l, F j');
             $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
           }
         }
-        $schedule['instructor_location'] = t('Schedule for @name, @location', [
-          '@name' => reset($schedule['days'])['classes'][0]['#class']['instructor'],
-          '@location' => reset($schedule['days'])['classes'][0]['#class']['address_2'],
+        $schedule['instructor_location'] = t('Schedule for !name !location', [
+          '!name' => '<span class="name"><span class="icon icon-user"></span>' . reset($schedule['days'])['classes'][0]['#class']['instructor'] . '</span>',
+          '!location' => '<span class="location2"><span class="icon icon-location2"></span>' . reset($schedule['days'])['classes'][0]['#class']['address_2'] . '</span>',
         ]);
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
