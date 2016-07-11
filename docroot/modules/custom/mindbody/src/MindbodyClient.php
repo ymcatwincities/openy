@@ -133,7 +133,7 @@ class MindbodyClient implements MindbodyClientInterface {
     catch (\Exception $e) {
       $params_log = print_r($params, TRUE);
       $message = $e->getMessage();
-      throw new MindbodyException("Failed to get data from MindBody exception with a message: $message with parameters: $params_log");
+      throw new MindbodyException("Failed to communicate the data with MindBody exception with a message: $message for service: $service for the endpoint $endpoint with parameters: $params_log");
     }
   }
 
