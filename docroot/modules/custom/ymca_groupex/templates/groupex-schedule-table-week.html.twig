@@ -15,17 +15,25 @@
     {{ instructor_location }}
   </div>
 {% endif %}
-<table>
+<table{% if instructor_location %} class="instructor-display-mode"{% endif %}>
   <tbody>
     {% for day, classes in days %}
       <tr>
-        <td class="caption" colspan="3">
-          <a class="use-ajax" href="{{ classes.date_link }}">{{ day }}</a>
+        <td>
+          <table class="schedule-table">
+            <tbody>
+            <tr>
+              <td class="caption" colspan="3">
+                <a class="use-ajax" href="{{ classes.date_link }}">{{ classes.day_short }}</a>
+              </td>
+            </tr>
+            {% for class in classes.classes %}
+              {{ class }}
+            {% endfor %}
+            </tbody>
+          </table>
         </td>
       </tr>
-      {% for class in classes.classes %}
-        {{ class }}
-      {% endfor %}
     {% endfor %}
   </tbody>
 </table>
