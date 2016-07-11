@@ -299,8 +299,11 @@ class GroupexFormFull extends GroupexFormBase {
       $parameters['view_mode'] = 'class';
     }
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'class_select' && $triggering_element['#value'] != 'any') {
-      $parameters = $this->state;
       $parameters['class'] = $triggering_element['#value'];
+      $parameters['filter_length'] = 'week';
+      $parameters['category'] = 'any';
+      $parameters['groupex_class'] = 'groupex_table_class_individual';
+      $parameters['view_mode'] = 'class';
     }
     $formatted_results = self::buildResults($form, $form_state);
     $response = new AjaxResponse();
@@ -347,6 +350,7 @@ class GroupexFormFull extends GroupexFormBase {
     }
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'class_select' && $triggering_element['#value'] != 'any') {
       $class = $triggering_element['#value'];
+      $filter_length = 'week';
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
     }
