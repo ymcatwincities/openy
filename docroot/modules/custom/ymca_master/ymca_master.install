@@ -3452,7 +3452,7 @@ function ymca_master_update_8148() {
       // Meganav menu and block configs.
       $path . 'block.block.mastheadnavigationblock.yml',
       $path . 'block.block.mastheadnavigationblock_2.yml',
-      $path . 'ymca_menu.main_menu-b.yml',
+      $path . 'ymca_menu.main_menu_b.yml',
 
       // Footer menu block config.
       $path . 'block.block.footer_b.yml',
