@@ -315,7 +315,7 @@ class YMCAMenuBuilder {
     $this->megaNav = \Drupal::config($config_name)->get('items');
 
     $active_menu_tree = $this->get($ab == 'b' ? 'b' : 'a');
-    // Restore old megaNav value;
+    // Restore old megaNav value.
     $this->megaNav = $old_value;
 
     return $active_menu_tree;
