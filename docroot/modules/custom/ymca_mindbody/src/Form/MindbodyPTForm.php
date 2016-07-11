@@ -627,6 +627,11 @@ class MindbodyPTForm extends FormBase {
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+          // Do not process the items which are in the past.
+          if (REQUEST_TIME > strtotime($bookable_item->EndDateTime)) {
+            continue;
+          }
+
           $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
           $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
           $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
