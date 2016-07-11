@@ -12,7 +12,7 @@ field_name: field_image
 entity_type: block_content
 bundle: slide_show_item
 label: Image
-description: ''
+description: 'The recommended size is 1200 x 600 pixels.'
 required: true
 translatable: true
 default_value: {  }
