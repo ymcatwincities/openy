@@ -3,6 +3,7 @@
 namespace Drupal\ymca_blocks\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_menu\YMCAMenuBuilder;
 
 /**
@@ -21,7 +22,8 @@ class MastheadNavigation extends BlockBase {
    */
   public function build() {
     $builder = \Drupal::service('ymca.menu_builder');
-    $active_menu_tree = $builder->getActiveMenuTree();
+    $ab = $this->configuration['ab'] ? 'b' : 'a';
+    $active_menu_tree = $builder->getActiveMenuTree($ab);
 
     return [
       '#theme' => 'masthead_navigation_block',
@@ -42,6 +44,36 @@ class MastheadNavigation extends BlockBase {
       $cache_tags[] = 'config:system.menu.' . $menu;
     }
     return $cache_tags;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return ['ab' => 0];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockForm($form, FormStateInterface $form_state) {
+    $config = $this->configuration;
+
+    $form['ab'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show alternative variant of the block'),
+      '#description' => $this->t('Show alternative variant of the block'),
+      '#default_value' => $config['ab'],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, FormStateInterface $form_state) {
+    $this->configuration['ab'] = $form_state->getValue('ab');
   }
 
 }
