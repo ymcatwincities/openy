@@ -33,6 +33,12 @@ function ab_page_attachments(array &$attachments) {
 
   $replacements = $config->get('replacements');
   foreach ($replacements as &$item) {
+    // Remove elements matching the selector if block_id isn't specified.
+    if (!$item['block_id']) {
+      $item['html'] = '';
+      continue;
+    }
+    // Replace elements matching the selector if block_id is specified.
     $build = $block_builder->lazyBuilder($item['block_id'], 'full');
     $item['html'] = (string) $renderer->renderRoot($build);
   }
