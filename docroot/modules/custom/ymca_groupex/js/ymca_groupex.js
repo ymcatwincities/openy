@@ -1,9 +1,55 @@
 (function($) {
 
+  Drupal.ymca_groupex = Drupal.ymca_groupex || {};
+
+  /**
+   * Update "Date" select value to be equal with "filter_date" query param.
+   *
+   * @param parameters
+   */
+  Drupal.ymca_groupex.update_filter_date = function(parameters) {
+    if (typeof(parameters.filter_date) !== 'undefined') {
+      var date = parameters.filter_date.replace('0','');
+      if (date.charAt(0) === '0') {
+        date = date.slice(1);
+      }
+      var exists = 0 !== $('select[name="date_select"] option[value="' + date + '"]').length;
+      if (exists) {
+        $('select[name="date_select"]').val(date);
+      }
+    }
+  };
+
+  /**
+   * Update "Class" select value to be equal with "class" query param.
+   *
+   * @param parameters
+   */
+  Drupal.ymca_groupex.update_class_select = function(parameters) {
+    if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
+      $('#date-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#class-select-wrapper, #location-select-wrapper').removeClass('hidden');
+    }
+    if (typeof(parameters.class) !== 'undefined') {
+      var exists = 0 !== $('#class-select-wrapper select option[value="' + parameters.class + '"]').length;
+      if (exists) {
+        $('#class-select-wrapper select').val(parameters.class);
+      }
+    }
+  };
+
+  /**
+   * Reload page on browser's back or forward buttons.
+   */
   window.onpopstate = function(event) {
     window.location.reload();
   };
 
+  /**
+   * Triggered by AJAX action for updating browser URL query options and browser's history.
+   *
+   * @param parameters
+   */
   $.fn.groupExLocationAjaxAction = function(parameters) {
     var params = [];
     for (var key in parameters) {
@@ -14,20 +60,27 @@
     history.pushState(null, null, window.location.pathname + '?' + params.join('&'));
 
     if (typeof(parameters.instructor) !== 'undefined' && window.location.pathname.match(/all_y_schedules/g)) {
-      $('#location-select-wrapper, #date-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#location-select-wrapper, #date-select-wrapper, #location-wrapper, #class-select-wrapper').addClass('hidden');
+    }
+    else if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
+      $('#location-select-wrapper, #class-select-wrapper').removeClass('hidden');
+      $('#date-select-wrapper, #location-wrapper').addClass('hidden');
     }
     else if (window.location.href.match(/all_y_schedules/g)) {
-      // Form widgets hide/show.
       $('#location-select-wrapper, #date-select-wrapper').removeClass('hidden');
-      $('#location-wrapper').addClass('hidden');
+      $('#class-select-wrapper, #location-wrapper').addClass('hidden');
     }
+
+    Drupal.ymca_groupex.update_class_select(parameters);
+    Drupal.ymca_groupex.update_filter_date(parameters);
   };
 
+  /**
+   * General handlers.
+   *
+   */
   Drupal.behaviors.ymca_groupex = {
     attach: function (context, settings) {
-      if (window.location.search.match(/instructor/g)) {
-        $('#location-select-wrapper, #date-select-wrapper, #location-wrapper').removeClass('show').addClass('hidden');
-      }
       $('.groupex-form-full input[type="radio"]').change(function() {
         $(this).parents('form').find('label').addClass('disabled');
       });
