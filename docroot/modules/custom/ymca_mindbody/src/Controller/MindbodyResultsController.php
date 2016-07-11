@@ -12,6 +12,7 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\mindbody\MindbodyException;
 
 /**
  * Controller for "Mindbody results" page.
@@ -57,20 +58,36 @@ class MindbodyResultsController extends ControllerBase {
    */
   public function content() {
     $query = $this->requestStack->getCurrentRequest()->query->all();
-    $values = array(
-      'location' => is_numeric($query['location']) ? $query['location'] : '',
-      'program' => is_numeric($query['program']) ? $query['program'] : '',
-      'session_type' => is_numeric($query['session_type']) ? $query['session_type'] : '',
-      'trainer' => isset($query['trainer']) ? $query['trainer'] : '',
-      'start_time' => isset($query['start_time']) ? $query['start_time'] : '',
-      'end_time' => isset($query['end_time']) ? $query['end_time'] : '',
-      'start_date' => isset($query['start_date']) ? $query['start_date'] : '',
-      'end_date' => isset($query['end_date']) ? $query['end_date'] : '',
+    $values = [
+      'location' => !empty($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
+      'program' => !empty($query['program']) && is_numeric($query['program']) ? $query['program'] : NULL,
+      'session_type' => !empty($query['session_type']) && is_numeric($query['session_type']) ? $query['session_type'] : NULL,
+      'trainer' => !empty($query['trainer']) ? $query['trainer'] : NULL,
+      'start_time' => !empty($query['start_time']) ? $query['start_time'] : NULL,
+      'end_time' => !empty($query['end_time']) ? $query['end_time'] : NULL,
+      'start_date' => !empty($query['start_date']) ? $query['start_date'] : NULL,
+      'end_date' => !empty($query['end_date']) ? $query['end_date'] : NULL,
       'bookable_item_id' => isset($query['bookable_item_id']) ? $query['bookable_item_id'] : '',
-    );
+    ];
+    if (isset($query['context'])) {
+      $values['context'] = $query['context'];
+    }
 
-    $form = new MindbodyPTForm($this->proxy);
-    $search_results = $form->getSearchResults($values);
+    $form = MindbodyPTForm::create(\Drupal::getContainer());
+    try {
+      $search_results = $form->getSearchResults($values);
+    }
+    catch (MindbodyException $e) {
+      $logger = \Drupal::getContainer()->get('logger.factory')->get('ymca_mindbody');
+      $logger->error('Failed to get the results: %msg', ['%msg' => $e->getMessage()]);
+      return [
+        '#prefix' => '<div class="row mindbody-search-results-content">
+          <div class="container">
+            <div class="day col-sm-12">',
+        '#markup' => $form->getDisabledMarkup(),
+        '#suffix' => '</div></div></div>',
+      ];
+    }
 
     return [
       '#markup' => render($search_results),

@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Access\AccessResult;
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function ymca_page_manager_page_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($operation == 'delete') {
+    if (!$account->hasPermission('delete page_manager pages')) {
+      return AccessResult::forbidden();
+    }
+  }
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function ymca_page_manager_block_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  /* Here we'll grant a user with block edit permission if he has access to
+  page manager administration page and the block is used by any page */
+  if ($operation == 'update') {
+    if ($account->hasPermission('administer pages')) {
+      $uuid = $entity->uuid();
+      $manager_page = \Drupal::entityTypeManager()->getStorage('page');
+      $pages = \Drupal::entityQuery('page')->execute();
+      foreach ($pages as $page) {
+        $variants = $manager_page->load($page)->getVariants();
+        foreach ($variants as $variant) {
+          $settings = $variant->get('variant_settings');
+          if (isset($settings['blocks'])) {
+            foreach ($settings['blocks'] as $block) {
+              $block_uuid = str_replace('block_content:', '', $block['id']);
+              if ($uuid == $block_uuid) {
+                return AccessResult::allowed();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function ymca_page_manager_entity_operation_alter(array &$operations, EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'page') {
+    return;
+  }
+
+  // Remove "Disable" operation.
+  $account = Drupal::currentUser();
+  if (!$account->hasPermission('disable page_manager pages')) {
+    unset($operations['disable']);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_page_manager_form_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if user can access "access conditions".
+  $account = Drupal::currentUser();
+  if (!$account->hasPermission('use page_manager access conditions')) {
+    $form['access_section_section']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_entity_create_access().
+ */
+function ymca_page_manager_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
+  if ($context['entity_type_id'] != 'page') {
+    return AccessResult::neutral();
+  }
+
+  if (!$account->hasPermission('create page_manager pages')) {
+    return AccessResult::forbidden();
+  }
+}
