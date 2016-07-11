@@ -3292,19 +3292,17 @@ function ymca_master_update_8140() {
   \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
 
   $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'block_content.type.panorama_block.yml',
-      $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
-      $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
-      $path . 'field.field.block_content.panorama_block.body.yml',
-      $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
-      $path . 'field.storage.block_content.field_panorama_archive.yml',
-      $path . 'language.content_settings.block_content.panorama_block.yml',
-      $path . 'embed.button.block.yml',
-      $path . 'entity_browser.browser.block_browser_iframe.yml',
-    ]
-  );
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'block_content.type.panorama_block.yml',
+    $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
+    $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
+    $path . 'field.field.block_content.panorama_block.body.yml',
+    $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
+    $path . 'field.storage.block_content.field_panorama_archive.yml',
+    $path . 'language.content_settings.block_content.panorama_block.yml',
+    $path . 'embed.button.block.yml',
+    $path . 'entity_browser.browser.block_browser_iframe.yml',
+  ]);
 }
 
 /**
@@ -3314,12 +3312,10 @@ function ymca_master_update_8141() {
   \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
 
   $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'user.role.contributor.yml',
-      $path . 'user.role.intern.yml',
-    ]
-  );
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'user.role.contributor.yml',
+    $path . 'user.role.intern.yml',
+  ]);
 }
 
 /**
@@ -3435,4 +3431,23 @@ function ymca_master_update_8147() {
       $path . 'field.field.node.blog.field_image.yml'
     ]
   );
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8148() {
+  \Drupal::service('module_installer')->install([
+    'views_rest_feed',
+    'ymca_retention',
+  ], TRUE);
+
+  // Create YMCA Retention activities terms.
+  module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.terms');
+  _ymca_retention_terms_create();
+
+  // Create fake members and activities.
+  // TODO: remove this block before production release.
+  module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.members');
+  _ymca_retention_members_create();
 }
