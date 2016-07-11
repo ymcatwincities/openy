@@ -205,7 +205,7 @@ class YMCAMenuBuilder {
     }
 
     $dasherized_page_name = strtolower($page['page_name']);
-    $dasherized_page_name = str_replace('&', '', $dasherized_page_name);
+    $dasherized_page_name = str_replace(['&', '.', ','], '', $dasherized_page_name);
     $dasherized_page_name = str_replace(' ', '-', $dasherized_page_name);
     $page['dasherized'] = $dasherized_page_name;
 
