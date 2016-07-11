@@ -22,10 +22,10 @@ class AllSearchResultsController extends ControllerBase {
     // Get classes schedules.
     $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
 
-    // Are results empty?
-    $empty_results = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
-
-    $formatted_results = ymca_groupex_schedule_table_layout($schedule);
+    $formatted_results = $this->t('No results. Please try again.');
+    if (!$empty_results = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty()) {
+      $formatted_results = ymca_groupex_schedule_table_layout($schedule);
+    }
 
     $parameters = $query;
 
