@@ -13,7 +13,7 @@
       if (date.charAt(0) === '0') {
         date = date.slice(1);
       }
-      var exists = 0 != $('select[name="date_select"] option[value="' + date + '"]').length;
+      var exists = 0 !== $('select[name="date_select"] option[value="' + date + '"]').length;
       if (exists) {
         $('select[name="date_select"]').val(date);
       }
@@ -31,7 +31,7 @@
       $('#class-select-wrapper, #location-select-wrapper').removeClass('hidden');
     }
     if (typeof(parameters.class) !== 'undefined') {
-      var exists = 0 != $('#class-select-wrapper select option[value="' + parameters.class + '"]').length;
+      var exists = 0 !== $('#class-select-wrapper select option[value="' + parameters.class + '"]').length;
       if (exists) {
         $('#class-select-wrapper select').val(parameters.class);
       }
