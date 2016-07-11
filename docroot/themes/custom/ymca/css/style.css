@@ -8863,4 +8863,47 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   visibility: visible !important;
 }
 
+#block-schedulesrightblocks article h2 {
+  margin: 0;
+  display: block;
+  color: #424242;
+  text-transform: uppercase;
+}
+#block-schedulesrightblocks article h2 a {
+  color: #424242;
+  padding-bottom: 0;
+}
+#block-schedulesrightblocks article ul {
+  margin: 25px 0 30px;
+  padding: 0;
+}
+#block-schedulesrightblocks article ul li {
+  list-style: none;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+#block-schedulesrightblocks article ul li:before {
+  content: "\f105";
+  color: #777777;
+  font-family: icomoon;
+  list-style: none;
+  margin-right: 14px;
+  font-weight: bold;
+}
+#block-schedulesrightblocks #component_153751 .richtext {
+  margin-top: 0;
+}
+#block-schedulesrightblocks #component_153751 .panel-body a {
+  border-radius: 5px;
+  border: 1px solid #e3c7e1;
+  color: #92288d;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 15px;
+  padding: 15px 35px;
+  text-transform: uppercase;
+  font-family: Cachet;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=style.css.map */
