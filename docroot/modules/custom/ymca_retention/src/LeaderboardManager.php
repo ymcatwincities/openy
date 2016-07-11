@@ -112,7 +112,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
     $locations_list = [
       [
         'branch_id' => 0,
-        'name' => 'Select location...',
+        'name' => t('Select location...'),
       ],
     ];
     /** @var Mapping $location */
