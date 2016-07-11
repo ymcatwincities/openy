@@ -3450,4 +3450,7 @@ function ymca_master_update_8148() {
   // TODO: remove this block before production release.
   module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.members');
   _ymca_retention_members_create();
+
+  // Add an alias for the retention page(POS Microsite).
+  \Drupal::service('path.alias_storage')->save('/ygames', '/ygames-team', 'en');
 }
