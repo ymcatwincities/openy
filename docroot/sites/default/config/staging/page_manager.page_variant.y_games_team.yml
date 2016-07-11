@@ -8,6 +8,8 @@ dependencies:
     - panels
     - system
     - ymca_retention
+_core:
+  default_config_hash: Gq2rvKLCfbalMp77qWSMj0Lpjz9faTYCSGPVCQjl8Zg
 id: y_games_team
 label: 'Y Games Team'
 variant: panels_variant
@@ -49,24 +51,6 @@ variant_settings:
       weight: 0
       uuid: fdffb577-5e19-4159-92af-b8aaf818915d
       context_mapping: {  }
-    e35f75ef-2048-421e-be31-e94962e18a2b:
-      id: retention_leaderboard_block
-      label: 'YMCA retention leaderboard block'
-      provider: ymca_retention
-      label_display: '0'
-      region: leaderboard
-      weight: 0
-      uuid: e35f75ef-2048-421e-be31-e94962e18a2b
-      context_mapping: {  }
-    12f44461-e28e-48fe-b7ad-ddbc9715dc6a:
-      id: retention_slider
-      label: 'YMCA retention slider block'
-      provider: ymca_retention
-      label_display: '0'
-      region: slider
-      weight: 0
-      uuid: 12f44461-e28e-48fe-b7ad-ddbc9715dc6a
-      context_mapping: {  }
   id: panels_variant
   uuid: 251dcc01-3697-4759-8524-f87438aee7b4
   label: null
@@ -79,7 +63,7 @@ variant_settings:
   storage_id: y_games_team
   builder: standard
 page: ymca_retention_pages
-weight: -7
+weight: -9
 selection_criteria:
   0599fb3c-2a7a-4f8a-b18f-89fb09e3f977:
     id: request_path
