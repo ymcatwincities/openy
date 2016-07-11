@@ -1,0 +1,11 @@
+uuid: daddcddd-f808-4828-9687-cd1cd584c409
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.panorama_block
+id: block_content.panorama_block
+target_entity_type_id: block_content
+target_bundle: panorama_block
+default_langcode: site_default
+language_alterable: false

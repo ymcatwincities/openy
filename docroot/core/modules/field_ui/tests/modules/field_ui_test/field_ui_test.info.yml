@@ -5,8 +5,8 @@ description: 'Support module for Field UI tests.'
 package: Testing
 # version: VERSION
 
-# Information added by Drupal.org packaging script on 2016-06-01
-version: '8.1.2'
+# Information added by Drupal.org packaging script on 2016-06-15
+version: '8.1.3'
 core: '8.x'
 project: 'drupal'
-datestamp: 1464825151
+datestamp: 1466022367

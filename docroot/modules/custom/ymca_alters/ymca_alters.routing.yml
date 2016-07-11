@@ -5,3 +5,10 @@ ymca_alters.admin_config_entities:
     _title: 'YMCA Custom Entities'
   requirements:
     _permission: 'access administration pages'
+ymca_alters.admin_config_ymca_services:
+  path: '/admin/config/ymca-services'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'YMCA Services'
+  requirements:
+    _permission: 'access administration pages'
