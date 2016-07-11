@@ -722,6 +722,21 @@ class MindbodyPTForm extends FormBase {
     if (isset($values['mb_start_time']) && isset($values['mb_end_time'])  && $values['mb_start_time'] >= $values['mb_end_time']) {
       $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
     }
+
+    // Validate date range.
+    if ($values['step'] == 4) {
+      if (!isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+      }
+
+      if (isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $start = $values['mb_start_date']->format('U');
+        $end = $values['mb_end_date']->format('U');
+        if ($start > $end) {
+          $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+        }
+      }
+    }
   }
 
   /**
