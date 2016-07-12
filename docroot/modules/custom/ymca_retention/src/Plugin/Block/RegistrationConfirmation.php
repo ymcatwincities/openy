@@ -27,6 +27,9 @@ class RegistrationConfirmation extends BlockBase {
       return NULL;
     }
     $member = Member::load($member_id);
+    if (empty($member)) {
+      return NULL;
+    }
 
     return [
       '#theme' => 'ymca_retention_registration_confirmation',
