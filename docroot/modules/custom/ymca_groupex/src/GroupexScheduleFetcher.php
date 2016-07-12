@@ -548,7 +548,7 @@ class GroupexScheduleFetcher {
    *   True if schedule is empty, false otherwise.
    */
   public function isEmpty() {
-    return empty($this->rawData);
+    return empty($this->processedData);
   }
 
   /**

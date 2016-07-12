@@ -71,8 +71,6 @@ class GroupexFormFull extends GroupexFormBase {
       $id = str_replace('DESC--[', '', $key);
       $processed_classes_data[$id] = $class;
     }
-    $query = $this->getRequest()->query->all();
-    $request = $this->getRequest()->request->all();
     $this->classesOptions = $processed_classes_data;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
