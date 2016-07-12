@@ -570,7 +570,8 @@
 
   .info-2 {
     float: left;
-    margin-right: 30px;
+    margin-right: 90px;
+
     @media screen and (max-width: 767px) {
       border-bottom: 1px solid $grey2;
       float: none;
