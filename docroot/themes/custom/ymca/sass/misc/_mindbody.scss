@@ -151,6 +151,14 @@
           background-color: $grey2;
           border-color: $grey2;
         }
+
+        .label-wrapper {
+          span {
+            display: inline-block;
+            line-height: 18px;
+            vertical-align: middle;
+          }
+        }
       }
 
       input {
