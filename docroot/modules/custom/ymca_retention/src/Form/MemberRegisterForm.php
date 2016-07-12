@@ -77,7 +77,7 @@ class MemberRegisterForm extends FormBase {
     // Get information about member from Personify and validate entered membership ID.
     $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
     // @todo Here we need to verify results. and check is there an alias, and then search user in db by alias ID.
-    if (empty($personify_result) || !empty($personify_result->ErrorMessage)) {
+    if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
       $form_state->setErrorByName('membership_id', $this->t('Member with this facility access ID not found, please verify your facility access ID.'));
     }
     else {
@@ -131,6 +131,11 @@ class MemberRegisterForm extends FormBase {
     // Identify is user an employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
+    // This is a bad solution with this condition.
+    // But we do not have enough time to build better solution.
+    $route = \Drupal::service('current_route_match')->getRouteName();
+    $created_by_staff = $route === 'page_manager.page_view_ymca_retention_pages_y_games_team';
+
     // Create a new entity.
     /** @var Member $entity */
     $entity = \Drupal::entityTypeManager()
@@ -144,7 +149,7 @@ class MemberRegisterForm extends FormBase {
         'is_employee' => $is_employee,
         'visit_goal' => $goal,
         'total_visits' => $total_visits,
-        'created_by_staff' => FALSE,
+        'created_by_staff' => $created_by_staff,
       ]);
     $entity->save();
 
