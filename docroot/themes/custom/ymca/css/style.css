@@ -8058,9 +8058,8 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner {
   background-color: #f8f8f8;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid #e9e9e9;
-  color: #1d1d1b;
   position: relative;
   padding: 0px 10px 0px 40px;
   min-height: 58px;
@@ -8068,20 +8067,25 @@ p.legend {
 }
 @media screen and (max-width: 767px) {
   #mindbody-pt-form-wrapper .form-item-mb-location .inner {
-    min-height: 40px;
-    line-height: 40px;
+    min-height: 50px;
+    line-height: 50px;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner label {
-  display: inline-block;
-  line-height: 58px;
-  vertical-align: middle;
-  position: absolute;
-  left: 0;
   bottom: 0;
+  display: inline-block;
+  left: 0;
+  line-height: 58px;
   right: 0;
-  top: 0;
   padding: 0 25px 0 45px;
+  position: absolute;
+  top: 0;
+  vertical-align: middle;
+}
+@media screen and (max-width: 767px) {
+  #mindbody-pt-form-wrapper .form-item-mb-location .inner label {
+    line-height: 48px;
+  }
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner input {
   display: none;
@@ -8095,7 +8099,7 @@ p.legend {
 }
 @media screen and (max-width: 767px) {
   #mindbody-pt-form-wrapper .form-item-mb-location .icon {
-    top: 9px;
+    top: 13px;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-location.checked .inner {
