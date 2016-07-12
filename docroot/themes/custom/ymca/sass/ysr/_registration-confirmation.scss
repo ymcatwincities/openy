@@ -43,9 +43,29 @@
     @include breakpoint($tablet) {
       @include rem(font-size, 20px);
       @include rem(line-height, 20px);
+      @include rem(margin-bottom, 10px);
+      @include rem(margin-top, 12px);
+      letter-spacing: -0.55px;
+    }
+  }
+  ul.complete-message-items {
+    @include cachet();
+    @include rem(font-size, 18px);
+    @include rem(line-height, 18px);
+    @include rem(margin, 12px auto 50px);
+    @include rem(max-width, 420px);
+    color: $grey4;
+    text-align: left;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+      @include rem(line-height, 20px);
       @include rem(margin-bottom, 50px);
       @include rem(margin-top, 12px);
       letter-spacing: -0.55px;
+    }
+    li {
+      @include rem(padding, 5px 0);
     }
   }
 
