@@ -86,7 +86,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    */
   public function push() {
     // Have a look at YmcaMindbodyExamples.php for the example.
-    $this->pushClients();
+//    $this->pushClients();
     $this->pushOrders();
   }
 
@@ -255,7 +255,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * Push orders from proxy to MindBody.
    */
   private function pushOrders() {
-
     $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
     $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
 
@@ -359,7 +358,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       // Get all locations from sourceData.
       // Get all services per locations.
       $services = [];
-      foreach ($this->getAllLocationsFromOrders($source) as $location) {
+      foreach ($this->getAllLocationsFromOrders($source) as $location => $count) {
 
         // Obtain Service ID.
         $params = [
@@ -375,7 +374,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         );
         $services[$location] = $response->GetServicesResult->Services->Service;
       }
-      // Loop through events
+      // Loop through orders.
       $all_orders = [];
       foreach ($source as $id => $order) {
         $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
@@ -388,13 +387,13 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
               $config['site_id'],
             ],
           ],
-          'ClientID' => $order->MasterCustomerId,
+          'ClientID' => self::TEST_CLIENT_ID,
           'CartItems' => [
             'CartItem' => [
               'Quantity' => $order->OrderQuantity,
               'Item' => new \SoapVar(
                 [
-                  'ID' => $services[$this->getLocationForOrder($order)]->ID
+                  'ID' => 10101,
                 ],
                 SOAP_ENC_ARRAY,
                 'Service',
@@ -406,7 +405,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           'Payments' => [
             'PaymentInfo' => new \SoapVar(
               [
-                'Amount' => $services[$this->getLocationForOrder($order)]->Price,
+                'Amount' => 55,
                 // Custom payment ID?
                 'ID' => 18,
               ],
@@ -418,6 +417,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         ];
         // Push all orders.
         $response = $this->client->call('SaleService', 'CheckoutShoppingCart', $all_orders[$order->MasterCustomerId][$order->OrderLineNo], FALSE);
+        $a = 10;
       }
       $this->logger->error(
         $env . ' : Not implemented for this environment yet.'
@@ -425,6 +425,15 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     }
 
   }
+
+//  private function getServiceByProductCode($code) {
+//    $map = [
+//      'PT Express 30 min - 1 (NON MEMBER)' => '10101',
+//    ];
+//
+//    $id = $map[$code];
+//
+//  }
 
   /**
    * Get Location ID from Order object.
@@ -450,7 +459,13 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   private function getAllLocationsFromOrders(array $orders) {
     $locations = [];
     foreach ($orders as $id => $order) {
-      $locations[$this->getLocationForOrder($order)]++;
+      $loc_id = $this->getLocationForOrder($order);
+      if (!isset($locations[$loc_id])) {
+        $locations[$loc_id] = 0;
+      }
+      else {
+        $locations[$loc_id]++;
+      }
     }
     return $locations;
   }
