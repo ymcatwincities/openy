@@ -161,6 +161,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     if (isset($state['location']) && is_numeric($state['location'])) {
       $values['location'] = $state['location'];
+      $form_state->setValue('location_select', $values['location']);
       $formatted_results = self::buildResults($form, $form_state);
     }
     if (isset($state['filter_date'])) {
