@@ -97,17 +97,17 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           [
             'NewID' => $user_id,
             'ID' => $user_id,
-            'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify',
-            'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify',
-            'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify',
-            'BirthDate' => !empty($personifyData->BirthDate) ? $personifyData->BirthDate : 'Non existent within Personify',
-            'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : 'Non existent within Personify',
+            'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify: FirstName',
+            'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify: LastName',
+            'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify: Email',
+            'BirthDate' => !empty($personifyData->BirthDate) ? $personifyData->BirthDate : '1970-01-01T00:00:00',
+            'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : '0000000000',
             // @todo recheck on prod. Required field get mad.
-            'AddressLine1' => 'Non existent within Personify',
-            'City' => 'Non existent within Personify',
+            'AddressLine1' => 'Non existent within Personify: AddressLine1',
+            'City' => 'Non existent within Personify: City',
             'State' => 'NA',
             'PostalCode' => '00000',
-            'ReferredBy' => 'Non existent within Personify'
+            'ReferredBy' => 'Non existent within Personify: ReferredBy'
           ],
           SOAP_ENC_OBJECT,
           'Client',
