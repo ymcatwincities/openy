@@ -407,8 +407,10 @@
   color: #c9c9c9;
   font-size: 20px;
   font-size: 2rem;
-  margin-top: 40px;
-  margin-top: 4rem;
+  margin: 40px auto 0;
+  margin: 4rem auto 0;
+  max-width: 420px;
+  max-width: 42rem;
   letter-spacing: -0.5px;
 }
 #register-and-report .btn {
@@ -1329,12 +1331,42 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
     font-size: 2rem;
     line-height: 20px;
     line-height: 2rem;
+    margin-bottom: 10px;
+    margin-bottom: 1rem;
+    margin-top: 12px;
+    margin-top: 1.2rem;
+    letter-spacing: -0.55px;
+  }
+}
+.registration-confirmation ul.complete-message-items {
+  font-family: "Cachet",Arial,sans-serif;
+  font-size: 18px;
+  font-size: 1.8rem;
+  line-height: 18px;
+  line-height: 1.8rem;
+  margin: 12px auto 50px;
+  margin: 1.2rem auto 5rem;
+  max-width: 420px;
+  max-width: 42rem;
+  color: #a7a7a7;
+  text-align: left;
+}
+@media (min-width: 48em) {
+  .registration-confirmation ul.complete-message-items {
+    font-size: 20px;
+    font-size: 2rem;
+    line-height: 20px;
+    line-height: 2rem;
     margin-bottom: 50px;
     margin-bottom: 5rem;
     margin-top: 12px;
     margin-top: 1.2rem;
     letter-spacing: -0.55px;
   }
+}
+.registration-confirmation ul.complete-message-items li {
+  padding: 5px 0;
+  padding: 0.5rem 0;
 }
 .registration-confirmation .goal {
   font-size: 15px;
