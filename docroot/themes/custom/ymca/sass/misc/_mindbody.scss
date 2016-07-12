@@ -113,28 +113,30 @@
     }
     .inner {
       background-color: $grey1;
-      border-radius: 2px;
+      border-radius: 3px;
       border: 1px solid $grey2;
-      color: $black2;
       position: relative;
       padding: 0px 10px 0px 40px;
       min-height: 58px;
       line-height: 58px;
       @media screen and (max-width: 767px) {
-        min-height: 40px;
-        line-height: 40px;
+        min-height: 50px;
+        line-height: 50px;
       }
 
       label {
-        display: inline-block;
-        line-height: 58px;
-        vertical-align: middle;
-        position: absolute;
-        left: 0;
         bottom: 0;
+        display: inline-block;
+        left: 0;
+        line-height: 58px;
         right: 0;
-        top: 0;
         padding: 0 25px 0 45px;
+        position: absolute;
+        top: 0;
+        vertical-align: middle;
+        @media screen and (max-width: 767px) {
+          line-height: 48px;
+        }
       }
 
       input {
@@ -149,7 +151,7 @@
       top: 19px;
       font-size: 22px;
       @media screen and (max-width: 767px) {
-        top: 9px;
+        top: 13px;
       }
     }
 
