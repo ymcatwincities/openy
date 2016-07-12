@@ -97,11 +97,11 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           [
             'NewID' => $user_id,
             'ID' => $user_id,
-            'FirstName' => $personifyData->FirstName,
-            'LastName' => $personifyData->LastName,
-            'Email' => $personifyData->PrimaryEmail,
-            'BirthDate' => $personifyData->BirthDate,
-            'MobilePhone' => $personifyData->PrimaryPhone,
+            'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify',
+            'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify',
+            'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify',
+            'BirthDate' => !empty($personifyData->BirthDate) ? $personifyData->BirthDate : 'Non existent within Personify',
+            'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : 'Non existent within Personify',
             // @todo recheck on prod. Required field get mad.
             'AddressLine1' => 'Non existent within Personify',
             'City' => 'Non existent within Personify',
