@@ -48,7 +48,8 @@
 #}
 {%
   set classes = [
-    'col-sm-3',
+    'col-sm-4',
+    'col-md-3',
     'js-form-item',
     'form-item',
     'js-form-type-' ~ type|clean_class,
@@ -83,7 +84,12 @@
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
   {% if label_display == 'after' %}
-    <span class="icon icon-location2"></span>{{ label }}
+    <span class="icon icon-location2"></span>
+    <label for="{{ id }}" class="option">
+      <div class="label-wrapper">
+        <span>{{ title }} a;lsdkfja sdlfkjas d;flak</span>
+      </div>
+    </label>
   {% endif %}
   {% if errors %}
     <div class="form-item--error-message">
