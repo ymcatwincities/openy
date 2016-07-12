@@ -484,7 +484,19 @@
       }
     }
   }
+  .alert {
+    display: none;
+    clear: both;
+    &.alert-error {
+      display: block;
 
+      margin: auto;
+      text-align: left;
+      background-color: $red-dark2;
+      color: $white;
+      border: none;
+    }
+  }
   .registration {
 
     .registration-form {
