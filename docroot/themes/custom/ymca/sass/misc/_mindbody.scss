@@ -109,14 +109,18 @@
 
   .form-item-mb-location {
     padding: 15px;
+
     @media screen and (max-width: 767px) {
       padding: 0 15px 10px;
     }
+
     .ajax-progress-throbber {
       position: absolute;
       right: 5px;
       top: 0;
+      z-index: 1;
     }
+
     .inner {
       position: relative;
       padding: 0px 10px 0px 40px;
@@ -206,12 +210,12 @@
   .form-item-mb-program {
     padding: 0 15px 15px;
     .inner {
-      background-color: $grey1;
-      border-radius: 2px;
-      border: 1px solid $grey2;
       position: relative;
 
       label {
+        background-color: $grey1;
+        border-radius: 3px;
+        border: 1px solid $grey2;
         display: block;
       }
 
@@ -219,7 +223,6 @@
         text-align: center;
         height: 70px;
         line-height: 70px;
-        color: $black2;
         font-size: 18px;
         vertical-align: middle;
         span {
@@ -231,6 +234,11 @@
 
       input {
         display: none;
+      }
+
+      input:checked + label {
+        background-color: $purple-light;
+        color: $white;
       }
 
       img {
@@ -264,7 +272,7 @@
 
     .inner {
       background-color: $grey1;
-      border-radius: 2px;
+      border-radius: 3px;
       border: 1px solid $grey2;
       color: $black2;
       position: relative;
