@@ -8063,6 +8063,7 @@ p.legend {
   position: absolute;
   right: 5px;
   top: 0;
+  z-index: 1;
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner {
   position: relative;
@@ -8143,19 +8144,18 @@ p.legend {
   padding: 0 15px 15px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner {
-  background-color: #f8f8f8;
-  border-radius: 2px;
-  border: 1px solid #e9e9e9;
   position: relative;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner label {
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  border: 1px solid #e9e9e9;
   display: block;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner .label-wrapper {
   text-align: center;
   height: 70px;
   line-height: 70px;
-  color: #1d1d1b;
   font-size: 18px;
   vertical-align: middle;
 }
@@ -8166,6 +8166,10 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner input {
   display: none;
+}
+#mindbody-pt-form-wrapper .form-item-mb-program .inner input:checked + label {
+  background-color: #c6168d;
+  color: #fff;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner img {
   width: 100%;
@@ -8192,7 +8196,7 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-item-mb-session-type .inner {
   background-color: #f8f8f8;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid #e9e9e9;
   color: #1d1d1b;
   position: relative;
