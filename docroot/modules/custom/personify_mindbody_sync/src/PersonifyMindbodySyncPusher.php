@@ -52,7 +52,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
 
   /**
    * Client ID, used for the testing.
-   * 
+   *
    * @var integer
    */
   private $testClientId;
@@ -95,24 +95,24 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *   Returns itself for chaining.
    */
   private function pushClients() {
-    $env = $this->config->get('mindbody.settings.env')->get('active');
+    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
     $staging = FALSE;
     if ($env == 'staging') {
       $staging = TRUE;
     }
-    
+
     /** @var PersonifyMindbodyCache $entity */
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
       $user_id = $entity->field_pmc_user_id->value;
       $personifyData = unserialize($entity->field_pmc_data->value);
-      
+
 //      // Populate test client ID if ENV is staging.
 //      if (!$this->testClientId && $staging) {
 //        $this->testClientId = $user_id;
 //      }
-      
+
       $this->testClientId = 509996666;
-      
+
       // Push only items which were not pushed before.
       if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
         $this->clientIds[$user_id] = new \SoapVar(
@@ -260,7 +260,9 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * Push orders from proxy to MindBody.
    */
   private function pushOrders() {
-    $env = $this->config->get('mindbody.settings.env')->get('active');
+
+    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
+    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
 
     $source = $this->wrapper->getSourceData();
 
@@ -359,11 +361,103 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     }
     else {
       // @todo Add production push logic.
+      // Get all locations from sourceData.
+      // Get all services per locations.
+      $services = [];
+      foreach ($this->getAllLocationsFromOrders($source) as $location) {
+
+        // Obtain Service ID.
+        $params = [
+          'LocationID' => $location,
+          'HideRelatedPrograms' => TRUE,
+        ];
+
+        $response = $this->client->call(
+          'SaleService',
+          'GetServices',
+          $params,
+          FALSE
+        );
+        $services[$location] = $response->GetServicesResult->Services->Service;
+      }
+      // Loop through events
+      $all_orders = [];
+      foreach ($source as $id => $order) {
+        $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
+          'UserCredentials' => [
+            // According to documentation we can use credentials, but with underscore at the beginning of username.
+            // @see https://developers.mindbodyonline.com/Develop/Authentication.
+            'Username' => '_' . $config['sourcename'],
+            'Password' => $config['password'],
+            'SiteIDs' => [
+              $config['site_id'],
+            ],
+          ],
+          'ClientID' => $order->MasterCustomerId,
+          'CartItems' => [
+            'CartItem' => [
+              'Quantity' => $order->OrderQuantity,
+              'Item' => new \SoapVar(
+                [
+                  'ID' => $services[$this->getLocationForOrder($order)]->ID
+                ],
+                SOAP_ENC_ARRAY,
+                'Service',
+                'http://clients.mindbodyonline.com/api/0_5'
+              ),
+              'DiscountAmount' => 0,
+            ],
+          ],
+          'Payments' => [
+            'PaymentInfo' => new \SoapVar(
+              [
+                'Amount' => $services[$this->getLocationForOrder($order)]->Price,
+                // Custom payment ID?
+                'ID' => 18,
+              ],
+              SOAP_ENC_ARRAY,
+              'CustomPaymentInfo',
+              'http://clients.mindbodyonline.com/api/0_5'
+            ),
+          ],
+        ];
+        // Push all orders.
+        $response = $this->client->call('SaleService', 'CheckoutShoppingCart', $all_orders[$order->MasterCustomerId][$order->OrderLineNo], FALSE);
+      }
       $this->logger->error(
         $env . ' : Not implemented for this environment yet.'
       );
     }
 
+  }
+
+  /**
+   * Get Location ID from Order object.
+   *
+   * @param \stdClass $order
+   *   Order to be processed.
+   * @return string
+   *   String of LocationID.
+   */
+  private function getLocationForOrder(\stdClass $order) {
+    $data = explode('_', $order->ProductCode);
+    return $data[0];
+  }
+
+  /**
+   * Pre populate locations.
+   *
+   * @param array $orders
+   *   Assoc array with ID as keys and count of orders as value.
+   *
+   * @return array
+   */
+  private function getAllLocationsFromOrders(array $orders) {
+    $locations = [];
+    foreach ($orders as $id => $order) {
+      $locations[$this->getLocationForOrder($order)]++;
+    }
+    return $locations;
   }
 
 }
