@@ -15,6 +15,8 @@ use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
  */
 class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterface {
 
+  const TEST_CLIENT_ID = '69696969';
+
   /**
    * Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper definition.
    *
@@ -96,9 +98,9 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    */
   private function pushClients() {
     $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
-    $staging = FALSE;
-    if ($env == 'staging') {
-      $staging = TRUE;
+    $debug = TRUE;
+    if ($env == 'production') {
+      $debug = FALSE;
     }
 
     /** @var PersonifyMindbodyCache $entity */
@@ -106,19 +108,12 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       $user_id = $entity->field_pmc_user_id->value;
       $personifyData = unserialize($entity->field_pmc_data->value);
 
-//      // Populate test client ID if ENV is staging.
-//      if (!$this->testClientId && $staging) {
-//        $this->testClientId = $user_id;
-//      }
-
-      $this->testClientId = 509996666;
-
       // Push only items which were not pushed before.
       if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
         $this->clientIds[$user_id] = new \SoapVar(
           [
-            'NewID' => $staging ? $this->testClientId : $user_id,
-            'ID' => $staging ? $this->testClientId : $user_id,
+            'NewID' => $debug ? $user_id : self::TEST_CLIENT_ID,
+            'ID' => $debug ? $user_id : self::TEST_CLIENT_ID,
             'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify: FirstName',
             'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify: LastName',
             'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify: Email',
