@@ -187,9 +187,6 @@
 
   table {
     width: 100%;
-  }
-
-  .schedule-table {
     margin-bottom: 50px;
     td {
       padding: 20px 15px;
@@ -254,6 +251,10 @@
           color: $white;
         }
       }
+      td.whitebar {
+        background-color: $white;
+        padding: 25px;
+      }
     }
   }
 
@@ -271,9 +272,12 @@
 
 body.node--type-location {
   #groupex-full-form-wrapper {
+    #location-wrapper,
+    #location-select-wrapper {
+      display: none !important;
+    }
     #date-select-wrapper {
-      display: block !important;
-      visibility: visible !important;
+      padding-right: 30px;
     }
   }
 }

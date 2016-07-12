@@ -8819,71 +8819,73 @@ p.legend {
 }
 .groupex-results table {
   width: 100%;
-}
-.groupex-results .schedule-table {
   margin-bottom: 50px;
 }
-.groupex-results .schedule-table td {
+.groupex-results table td {
   padding: 20px 15px;
 }
 @media screen and (max-width: 767px) {
-  .groupex-results .schedule-table td {
+  .groupex-results table td {
     padding: 10px 5px;
   }
 }
-.groupex-results .schedule-table td.time-duration {
+.groupex-results table td.time-duration {
   color: #1d1d1b;
   max-width: 180px;
 }
-.groupex-results .schedule-table td.time-duration .icon-clock {
+.groupex-results table td.time-duration .icon-clock {
   color: #d8d8d8;
   margin-right: 10px;
 }
-.groupex-results .schedule-table td.time-duration .duration {
+.groupex-results table td.time-duration .duration {
   color: #afafae;
   font-style: italic;
 }
-.groupex-results .schedule-table td.instructor {
+.groupex-results table td.instructor {
   line-height: 14px;
 }
 @media screen and (max-width: 767px) {
-  .groupex-results .schedule-table td.instructor {
+  .groupex-results table td.instructor {
     min-width: 105px;
   }
 }
-.groupex-results .schedule-table td.instructor a {
+.groupex-results table td.instructor a {
   color: #92288d;
 }
-.groupex-results .schedule-table td.instructor .icon-user {
+.groupex-results table td.instructor .icon-user {
   color: #92288d;
   margin-right: 10px;
 }
-.groupex-results .schedule-table td.instructor .icon-loop2 {
+.groupex-results table td.instructor .icon-loop2 {
   font-size: 10px;
   color: #c6188b;
   margin-right: 5px;
   margin-left: 24px;
   font-weight: bold;
 }
-.groupex-results .schedule-table td.instructor .sub {
+.groupex-results table td.instructor .sub {
   font-size: 12px;
   color: #c6188b;
 }
-.groupex-results .schedule-table tr:nth-child(even) td {
+.groupex-results table tr:nth-child(even) td {
   background-color: #fefefe;
 }
-.groupex-results .schedule-table tr:nth-child(odd) td {
+.groupex-results table tr:nth-child(odd) td {
   background-color: #f8f8f8;
 }
-.groupex-results .schedule-table tr td.caption {
+.groupex-results table tr td.caption {
   background-color: #696969;
   text-align: left;
   font-size: 15px;
   font-weight: bold;
   font-family: "Cachet", Arial, sans-serif;
 }
-.groupex-results .schedule-table tr td.caption a {
+.groupex-results table tr td.caption a {
   color: #fff;
+}
+.groupex-results table tr td.whitebar {
+  background-color: #fff;
+  padding: 25px;
 }
 .groupex-results .instructor-display-mode td.instructor * {
   display: none;
@@ -8892,9 +8894,12 @@ p.legend {
   margin-bottom: 0;
 }
 
+body.node--type-location #groupex-full-form-wrapper #location-wrapper,
+body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
+  display: none !important;
+}
 body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
-  display: block !important;
-  visibility: visible !important;
+  padding-right: 30px;
 }
 
 #block-schedulesrightblocks article h2 {

@@ -19,20 +19,15 @@
   <tbody>
     {% for day, classes in days %}
       <tr>
-        <td>
-          <table class="schedule-table">
-            <tbody>
-            <tr>
-              <td class="caption" colspan="3">
-                <a class="use-ajax" href="{{ classes.date_link }}">{{ classes.day_short }}</a>
-              </td>
-            </tr>
-            {% for class in classes.classes %}
-              {{ class }}
-            {% endfor %}
-            </tbody>
-          </table>
+        <td class="caption" colspan="3">
+          <a class="use-ajax" href="{{ classes.date_link }}">{{ classes.day_short }}</a>
         </td>
+      </tr>
+      {% for class in classes.classes %}
+        {{ class }}
+      {% endfor %}
+      <tr>
+        <td class="whitebar" colspan="3"></td>
       </tr>
     {% endfor %}
   </tbody>
