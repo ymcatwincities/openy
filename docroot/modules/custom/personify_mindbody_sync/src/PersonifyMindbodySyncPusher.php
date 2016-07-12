@@ -88,7 +88,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *   Returns itself for chaining.
    */
   private function pushClients() {
-    $env = $this->config->get('mindbody.settings.env')->get('active');
+    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
     if ($env == 'staging') {
 
       /** @var PersonifyMindbodyCache $entity */
