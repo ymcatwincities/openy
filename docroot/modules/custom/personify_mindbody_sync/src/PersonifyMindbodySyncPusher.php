@@ -238,7 +238,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * Push orders from proxy to MindBody.
    */
   private function pushOrders() {
-    $env = $this->config->get('mindbody.env.settings')->get('active');
+    $env = $this->config->get('mindbody.settings.env')->get('active');
 
     $source = $this->wrapper->getSourceData();
 
