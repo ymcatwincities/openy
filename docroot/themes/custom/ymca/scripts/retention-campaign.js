@@ -40,6 +40,7 @@
           var target_slide = jQuery(id, slides_container);
 
           target_slide.removeClass('slide-inactive');
+          $('.alert', target_slide).remove();
           var animate_value = '-50%';
           if (id == '#register-or-report') {
             animate_value = '0%';
@@ -80,24 +81,6 @@
 
           return false;
         });
-      });
-    }
-  };
-
-  /**
-   * Default states for buttons Register and Track Activity.
-   */
-  Drupal.behaviors.registerAndReportDefaultStates = {
-    attach: function (context, settings) {
-      jQuery('#register-and-report', context).once('register-reports-default-states').each(function () {
-        // Display registration form if there is any field with error.
-        if ($('.registration-form input.error').length > 0) {
-          $('a.registration-btn').trigger('click');
-        }
-        // Display login form if there is any field with error or user should provide facility access id.
-        if ($('#report input.error').length > 0 || $('#report input[name="mail"]').prop('type') == 'hidden') {
-          $('a.track-activity-btn').trigger('click');
-        }
       });
     }
   };

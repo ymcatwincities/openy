@@ -35,7 +35,7 @@ class CampaignIntro extends BlockBase {
 
     // Prepare campaign dates.
     $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'F j');
-    $dates .= ' - ';
+    $dates .= ' – ';
     if ($date_start->format('F') == $date_end->format('F')) {
       $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'j');
     }
