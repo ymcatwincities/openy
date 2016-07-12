@@ -42,12 +42,18 @@
     }
 
     .change {
+      color: $blue-medium;
       float: right;
       font-size: 15px;
-      color: $blue-medium;
+      text-decoration: none;
+      @include transition(color 0.5s);
+
+      &:hover {
+        color: $blue-dark;
+      }
 
       .icon {
-        color: $blue-medium;
+        color: inherit;
         font-size: 15px;
         margin-right: 5px;
         top: -3px;
@@ -643,14 +649,18 @@
   }
 
   .change {
+    bottom: 24px;
     position: absolute;
     right: 15px;
-    bottom: 24px;
+    text-decoration: none;
+    @include transition(color 0.5s);
+
     @media screen and (max-width: 767px) {
-      position: static;
       display: block;
+      position: static;
       text-align: center;
     }
+
     .icon {
       margin-right: 7px;
     }
