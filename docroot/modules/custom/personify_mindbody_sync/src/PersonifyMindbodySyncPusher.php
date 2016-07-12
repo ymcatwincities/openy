@@ -238,7 +238,9 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * Push orders from proxy to MindBody.
    */
   private function pushOrders() {
-    $env = $this->config->get('mindbody.settings.env')->get('active');
+
+    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
+    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
 
     $source = $this->wrapper->getSourceData();
 
@@ -337,11 +339,75 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     }
     else {
       // @todo Add production push logic.
+      // Get all locations from sourceData.
+      // Get all services per locations.
+      $services = [];
+      foreach ($this->getAllLocationsFromOrders($source) as $location) {
+
+        // Obtain Service ID.
+        $params = [
+          'LocationID' => $location,
+          'HideRelatedPrograms' => TRUE,
+        ];
+
+        $response = $this->client->call(
+          'SaleService',
+          'GetServices',
+          $params,
+          FALSE
+        );
+        $services[$location] = $response->GetServicesResult->Services->Service;
+      }
+      // Loop through events
+      $all_orders = [];
+      foreach ($source as $id => $order) {
+        $all_orders[$order->MasterCustomerId] = [
+          'UserCredentials' => [
+            // According to documentation we can use credentials, but with underscore at the beginning of username.
+            // @see https://developers.mindbodyonline.com/Develop/Authentication.
+            'Username' => '_' . $settings->get('sourcename'),
+            'Password' => $settings->get('password'),
+            'SiteIDs' => [
+              $settings->get('site_id'),
+            ],
+          ],
+        ];
+        // $services[$this->getLocationForOrder($order)]->ID
+      }
       $this->logger->error(
         $env . ' : Not implemented for this environment yet.'
       );
     }
 
+  }
+
+  /**
+   * Get Location ID from Order object.
+   *
+   * @param \stdClass $order
+   *   Order to be processed.
+   * @return string
+   *   String of LocationID.
+   */
+  private function getLocationForOrder(\stdClass $order) {
+    $data = explode('_', $order->ProductCode);
+    return $data[0];
+  }
+
+  /**
+   * Pre populate locations.
+   *
+   * @param array $orders
+   *   Assoc array with ID as keys and count of orders as value.
+   *
+   * @return array
+   */
+  private function getAllLocationsFromOrders(array $orders) {
+    $locations = [];
+    foreach ($orders as $id => $order) {
+      $locations[$this->getLocationForOrder($order)]++;
+    }
+    return $locations;
   }
 
 }
