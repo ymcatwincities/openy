@@ -154,6 +154,23 @@
       }
     }
   }
+  @media screen and (max-width: 767px) {
+    .group-ex-time,
+    .group-ex-date,
+    .help-block {
+      margin: 0;
+      height: 0;
+      label {
+        display: inline;
+      }
+    }
+    #groupex-full-form-wrapper {
+      > .form-group {
+        margin: 0;
+        height: 0;
+      }
+    }
+  }
 }
 
 .groupex-results {
@@ -162,6 +179,11 @@
   overflow-x: hidden;
   clear: both;
   padding-top: 15px;
+  @media screen and (max-width: 767px) {
+    height: auto;
+    overflow: hidden;
+    margin: 0 -15px;
+  }
 
   table {
     width: 100%;
@@ -171,8 +193,11 @@
     margin-bottom: 50px;
     td {
       padding: 20px 15px;
+      @media screen and (max-width: 767px) {
+        padding: 10px 5px;
+      }
 
-      &.time-duration {
+        &.time-duration {
         color: $black2;
         max-width: 180px;
 
@@ -189,7 +214,10 @@
 
       &.instructor {
         line-height: 14px;
-        a {
+        @media screen and (max-width: 767px) {
+          min-width: 105px;
+        }
+          a {
           color: $purple;
         }
         .icon-user {
@@ -260,6 +288,9 @@ body.node--type-location {
       a {
         color: $grey7;
         padding-bottom: 0;
+        @media screen and (max-width: 767px) {
+          padding-bottom: 10px;
+        }
       }
     }
 

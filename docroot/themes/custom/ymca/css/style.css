@@ -8785,6 +8785,23 @@ p.legend {
 .groupex-form-full #location-wrapper .form-group.checked .icon {
   color: #f4d1e8;
 }
+@media screen and (max-width: 767px) {
+  .groupex-form-full .group-ex-time,
+  .groupex-form-full .group-ex-date,
+  .groupex-form-full .help-block {
+    margin: 0;
+    height: 0;
+  }
+  .groupex-form-full .group-ex-time label,
+  .groupex-form-full .group-ex-date label,
+  .groupex-form-full .help-block label {
+    display: inline;
+  }
+  .groupex-form-full #groupex-full-form-wrapper > .form-group {
+    margin: 0;
+    height: 0;
+  }
+}
 
 .groupex-results {
   height: 600px;
@@ -8792,6 +8809,13 @@ p.legend {
   overflow-x: hidden;
   clear: both;
   padding-top: 15px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-results {
+    height: auto;
+    overflow: hidden;
+    margin: 0 -15px;
+  }
 }
 .groupex-results table {
   width: 100%;
@@ -8801,6 +8825,11 @@ p.legend {
 }
 .groupex-results .schedule-table td {
   padding: 20px 15px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-results .schedule-table td {
+    padding: 10px 5px;
+  }
 }
 .groupex-results .schedule-table td.time-duration {
   color: #1d1d1b;
@@ -8816,6 +8845,11 @@ p.legend {
 }
 .groupex-results .schedule-table td.instructor {
   line-height: 14px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-results .schedule-table td.instructor {
+    min-width: 105px;
+  }
 }
 .groupex-results .schedule-table td.instructor a {
   color: #92288d;
@@ -8872,6 +8906,11 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 #block-schedulesrightblocks article h2 a {
   color: #424242;
   padding-bottom: 0;
+}
+@media screen and (max-width: 767px) {
+  #block-schedulesrightblocks article h2 a {
+    padding-bottom: 10px;
+  }
 }
 #block-schedulesrightblocks article ul {
   margin: 25px 0 30px;
