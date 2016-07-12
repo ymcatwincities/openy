@@ -1,0 +1,43 @@
+programs:
+  1:
+    label: 'Sandbox Personal Training'
+    active: true
+    image: personal_training.jpg
+  2:
+    label: 'Sandbox Court Rentals'
+    active: true
+  14:
+    label: 'Sandbox Membership Consultation'
+    active: true
+    image: buddy_training.jpg
+session_types:
+  23:
+    label: 'Sandbox Nutrition Consultation'
+    active: true
+  200:
+    label: 'Sandbox 60 Min 1on1'
+    active: true
+  264:
+    label: 'Sandbox Personal Training Consult'
+    active: true
+  267:
+    label: 'Sandbox 60 min 2on1'
+    active: true
+  268:
+    label: 'Sandbox 60 min 3on1'
+    active: true
+  214:
+    label: 'Sandbox 90 min Reservation'
+    active: true
+  265:
+    label: 'Sandbox 60 min Reservation'
+    active: true
+  266:
+    label: 'Sandbox 120 min Reservation'
+    active: true
+  203:
+    label: 'Sandbox Facility Tour'
+    active: true
+  204:
+    label: 'Sandbox Membership Consultation'
+    active: true
