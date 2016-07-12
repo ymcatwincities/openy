@@ -89,6 +89,34 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $personify_member = $form_state->getTemporaryValue('personify_member');
+
+    $query = \Drupal::entityQuery('ymca_retention_member')
+      ->condition('personify_id', $personify_member->MasterCustomerId);
+    $result = $query->execute();
+
+    if (empty($result)) {
+      $entity = $this->createEntity($form_state);
+    }
+    else {
+      $entity = $this->updateEntity(key($result), $form_state);
+    }
+    AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
+
+    // Redirect to confirmation page.
+    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+  }
+
+  /**
+   * Create member entity.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\ymca_retention\Entity\Member
+   *   Member entity.
+   */
+  protected function createEntity(FormStateInterface $form_state) {
     // Get form values.
     $personify_member = $form_state->getTemporaryValue('personify_member');
     $membership_id = trim($form_state->getValue('membership_id'));
@@ -111,7 +139,7 @@ class MemberRegisterForm extends FormBase {
     $past_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     // Calculate a goal for a member.
-    $goal = 1;
+    $goal = $settings->get('min_goal_number');
     // @todo This is now working in case when user registered after $from_date.
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $limit_goal = $settings->get('limit_goal_number');
@@ -142,6 +170,7 @@ class MemberRegisterForm extends FormBase {
       ->getStorage('ymca_retention_member')
       ->create([
         'membership_id' => $membership_id,
+        'personify_id' => $personify_member->MasterCustomerId,
         'mail' => $form_state->getValue('mail'),
         'first_name' => $personify_member->FirstName,
         'last_name' => $personify_member->LastName,
@@ -153,10 +182,28 @@ class MemberRegisterForm extends FormBase {
       ]);
     $entity->save();
 
-    AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
+    return $entity;
+  }
 
-    // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+  /**
+   * Update member entity.
+   *
+   * @param int $entity_id
+   *   Entity id.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\ymca_retention\Entity\Member
+   *   Member entity.
+   */
+  protected function updateEntity($entity_id, FormStateInterface $form_state) {
+    $entity = Member::load($entity_id);
+
+    // Update member email.
+    $entity->setEmail($form_state->getValue('mail'));
+    $entity->save();
+
+    return $entity;
   }
 
 }
