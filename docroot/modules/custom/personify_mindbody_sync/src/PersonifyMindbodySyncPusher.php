@@ -155,7 +155,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       // @todo consider throw Exception.
       $this->logger->critical(
         '[DEV] Error from MindBody: %error',
-        ['%error' => print_r($result, TRUE)]
+        ['%error' => serialize($result)]
       );
       return $this;
     }
@@ -192,7 +192,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         // @todo consider throw Exception.
         $this->logger->critical(
           '[DEV] Error from MindBody: %error',
-          ['%error' => print_r($result, TRUE)]
+          ['%error' => serialize($result)]
         );
         return $this;
       }
