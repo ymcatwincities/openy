@@ -370,18 +370,46 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       // Loop through events
       $all_orders = [];
       foreach ($source as $id => $order) {
-        $all_orders[$order->MasterCustomerId] = [
+        $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
           'UserCredentials' => [
             // According to documentation we can use credentials, but with underscore at the beginning of username.
             // @see https://developers.mindbodyonline.com/Develop/Authentication.
-            'Username' => '_' . $settings->get('sourcename'),
-            'Password' => $settings->get('password'),
+            'Username' => '_' . $config['sourcename'],
+            'Password' => $config['password'],
             'SiteIDs' => [
-              $settings->get('site_id'),
+              $config['site_id'],
             ],
           ],
+          'ClientID' => $order->MasterCustomerId,
+          'CartItems' => [
+            'CartItem' => [
+              'Quantity' => $order->OrderQuantity,
+              'Item' => new \SoapVar(
+                [
+                  'ID' => $services[$this->getLocationForOrder($order)]->ID
+                ],
+                SOAP_ENC_ARRAY,
+                'Service',
+                'http://clients.mindbodyonline.com/api/0_5'
+              ),
+              'DiscountAmount' => 0,
+            ],
+          ],
+          'Payments' => [
+            'PaymentInfo' => new \SoapVar(
+              [
+                'Amount' => $services[$this->getLocationForOrder($order)]->Price,
+                // Custom payment ID?
+                'ID' => 18,
+              ],
+              SOAP_ENC_ARRAY,
+              'CustomPaymentInfo',
+              'http://clients.mindbodyonline.com/api/0_5'
+            ),
+          ],
         ];
-        // $services[$this->getLocationForOrder($order)]->ID
+        // Push all orders.
+        $response = $this->client->call('SaleService', 'CheckoutShoppingCart', $all_orders[$order->MasterCustomerId][$order->OrderLineNo], FALSE);
       }
       $this->logger->error(
         $env . ' : Not implemented for this environment yet.'
