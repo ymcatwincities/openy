@@ -78,7 +78,7 @@
   }
 
   select:hover {
-    border-color: $green3;
+    border-color: $grey3;
   }
 
   #location-wrapper {
@@ -112,9 +112,6 @@
       top: 0;
     }
     .inner {
-      background-color: $grey1;
-      border-radius: 3px;
-      border: 1px solid $grey2;
       position: relative;
       padding: 0px 10px 0px 40px;
       min-height: 58px;
@@ -125,6 +122,9 @@
       }
 
       label {
+        background-color: $grey1;
+        border-radius: 3px;
+        border: 1px solid $grey2;
         bottom: 0;
         display: inline-block;
         left: 0;
@@ -134,8 +134,16 @@
         position: absolute;
         top: 0;
         vertical-align: middle;
+        @include transition(background-color 0.5s, border-color 0.5s);
+
         @media screen and (max-width: 767px) {
           line-height: 48px;
+        }
+
+        &:active,
+        &:hover {
+          background-color: $grey2;
+          border-color: $grey2;
         }
       }
 
@@ -146,20 +154,29 @@
 
     .icon {
       color: $grey3;
-      position: absolute;
-      left: 10px;
-      top: 19px;
       font-size: 22px;
+      left: 10px;
+      position: absolute;
+      top: 19px;
+      z-index: 1;
+
       @media screen and (max-width: 767px) {
         top: 13px;
       }
     }
 
     &.checked {
-      .inner {
-        background-color: $pink;
-        border-color: $pink;
+
+      label {
+        background-color: $purple-light;
+        border-color: $purple-light;
         color: $white;
+
+        &:active,
+        &:hover {
+          background-color: $purple-medium;
+          border-color: $purple-medium;
+        }
       }
 
       .icon {
@@ -283,7 +300,7 @@
   }
 
   .form-item-mb-trainer {
-    margin-bottom: 0;
+
     label {
       color: $grey4;
       font-size: 20px;
@@ -292,12 +309,19 @@
       font-weight: normal;
       text-transform: uppercase;
     }
+
     select {
+      border-color: $grey2;
       height: 62px;
       width: 382px;
       text-indent: 20px;
+
       @media screen and (max-width: 767px) {
         width: 100%;
+      }
+
+      &:hover {
+        border-color: $grey3;
       }
     }
   }
@@ -316,6 +340,7 @@
   .form-item-mb-start-time {
     float: left;
     position: relative;
+
     @media screen and (max-width: 767px) {
       margin-right: 20px;
     }
@@ -323,7 +348,7 @@
     label {
       color: $grey4;
       font-size: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-family: "Cachet", Arial, sans-serif;
       font-weight: normal;
       text-transform: uppercase;
@@ -332,12 +357,11 @@
     select {
       height: 62px;
       width: 140px;
-      color: $black2;
       font-size: 14px;
       border-color: $grey2;
       text-indent: 30px;
       &:hover {
-        color: $green3;
+        border-color: $grey3;
       }
       @media screen and (max-width: 767px) {
         width: 125px;
@@ -355,22 +379,28 @@
   .form-item-mb-end-time {
     float: left;
     position: relative;
-    margin: 48px 80px 0 0;
-    @media screen and (max-width: 767px) {
-      margin: 48px 0 0 0;
+    margin: 43px 0 0 0;
+
+    @media screen and (min-width: 768px) {
+      margin: 43px 80px 0 0;
     }
 
      select {
-       color: $black2;
        font-size: 14px;
        height: 62px;
-       width: 140px;
+       width: 125px;
        border-color: $grey2;
        text-indent: 30px;
-       @media screen and (max-width: 767px) {
-         width: 125px;
+
+       @media screen and (min-width: 768px) {
+         width: 140px;
+       }
+
+       &:hover {
+         border-color: $grey3;
        }
      }
+
     .icon {
       position: absolute;
       left: 12px;
@@ -403,7 +433,7 @@
       font-family: "Cachet", Arial, sans-serif;
       font-size: 20px;
       font-weight: normal;
-      margin: 0 0 20px;
+      margin: 0 0 15px;
       line-height: 28px;
       text-transform: uppercase;
     }
@@ -412,7 +442,6 @@
       width: 205px;
       input {
         border-color: $grey2;
-        color: $black2;
         font-size: 14px;
         height: 62px;
         line-height: 62px;
@@ -445,8 +474,16 @@
 
   #when-wrapper {
     fieldset {
-      padding: 50px 0 50px;
+      padding: 0 0 50px 0;
       margin: 0;
+
+      legend {
+        display: none;
+      }
+
+      @media screen and (min-width: 768px) {
+        padding: 50px 0 50px;
+      }
     }
   }
 
@@ -473,6 +510,12 @@
       @media screen and (max-width: 767px) {
         clear: left;
         float: none;
+
+        &:last-of-type {
+          label {
+            display: none;
+          }
+        }
       }
     }
   }
