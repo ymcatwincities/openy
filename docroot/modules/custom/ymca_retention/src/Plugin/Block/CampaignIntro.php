@@ -34,10 +34,14 @@ class CampaignIntro extends BlockBase {
     $date_formatter = \Drupal::service('date.formatter');
 
     // Prepare campaign dates.
-    $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'F d');
+    $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'F j');
     $dates .= ' - ';
-    $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F d');
-
+    if ($date_start->format('F') == $date_end->format('F')) {
+      $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'j');
+    }
+    else {
+      $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F j');
+    }
     return [
       '#theme' => 'ymca_retention_intro',
       '#content' => [

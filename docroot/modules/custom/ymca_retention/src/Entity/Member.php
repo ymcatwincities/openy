@@ -81,7 +81,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // MembershipID field for the contact.
+    // Membership ID field for the member.
     $fields['membership_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Membership ID'))
       ->setDescription(t('The id on the membership card.'))
@@ -102,6 +102,16 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
+
+    // Personify ID field for the member.
+    $fields['personify_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Personify ID'))
+      ->setDescription(t('The personify id of the member.'))
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
+      ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
