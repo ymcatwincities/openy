@@ -380,7 +380,8 @@
     @include cachet();
     color: $grey8;
     @include rem(font-size, 20px);
-    @include rem(margin-top, 40px);
+    @include rem(margin, 40px auto 0);
+    @include rem(max-width, 420px);
     letter-spacing: -0.5px;
   }
 
