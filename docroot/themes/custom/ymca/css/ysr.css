@@ -122,6 +122,15 @@
   padding-left: 2rem;
 }
 
+.ymca-retention-register-form .form-submit + .ajax-progress-throbber {
+  left: -20px;
+  left: -2rem;
+  margin-top: -16px;
+  margin-top: -1.6rem;
+  position: absolute;
+  top: 50%;
+}
+
 .nav-global.navbar-default.navbar {
   display: none;
   top: 0 !important;
@@ -234,6 +243,7 @@
     margin-bottom: 1.8rem;
     margin-top: 18px;
     margin-top: 1.8rem;
+    margin-left: 0;
     float: right;
   }
   #top-nav .navbar-toggle .icon-bar {
@@ -263,8 +273,8 @@
 #top-nav .back-link {
   font-size: 16px;
   font-size: 1.6rem;
-  padding: 0 30px;
-  padding: 0 3rem;
+  padding: 0 20px;
+  padding: 0 2rem;
   -moz-transition: background-color 0.5s;
   -o-transition: background-color 0.5s;
   -webkit-transition: background-color 0.5s;
@@ -278,6 +288,12 @@
   #top-nav .back-link {
     padding: 0 15px;
     padding: 0 1.5rem;
+  }
+}
+@media (min-width: 48em) {
+  #top-nav .back-link {
+    padding: 0 30px;
+    padding: 0 3rem;
   }
 }
 @media screen and (max-width: 860px) and (min-width: 768px) {
