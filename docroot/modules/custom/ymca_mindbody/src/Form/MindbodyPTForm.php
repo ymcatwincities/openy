@@ -579,7 +579,7 @@ class MindbodyPTForm extends FormBase {
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
             <div class="day col-sm-12">',
-        '#markup' => t('Page url is corrupted. !search_link', array('!search_link' => $link->toString())),
+        '#markup' => t('We couldn\'t complete your search. !search_link.', array('!search_link' => $link->toString())),
         '#suffix' => '</div></div></div>',
       ];
     }
@@ -628,6 +628,11 @@ class MindbodyPTForm extends FormBase {
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+          // Do not process the items which are in the past.
+          if (REQUEST_TIME > strtotime($bookable_item->EndDateTime)) {
+            continue;
+          }
+
           $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
           $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
           // Add bookable item id if it isn't provided by Mindbody API.
@@ -777,6 +782,21 @@ class MindbodyPTForm extends FormBase {
     if (isset($values['mb_start_time']) && isset($values['mb_end_time'])  && $values['mb_start_time'] >= $values['mb_end_time']) {
       $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
     }
+
+    // Validate date range.
+    if ($values['step'] == 4) {
+      if (!isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+      }
+
+      if (isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $start = $values['mb_start_date']->format('U');
+        $end = $values['mb_end_date']->format('U');
+        if ($start > $end) {
+          $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+        }
+      }
+    }
   }
 
   /**
@@ -828,10 +848,10 @@ class MindbodyPTForm extends FormBase {
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      if ($location->HasClasses != TRUE) {
+      if ($location->HasClasses != TRUE || !$this->trainingsMapping->locationIsActive($location->ID)) {
         continue;
       }
-      $location_options[$location->ID] = $location->Name;
+      $location_options[$location->ID] = $this->trainingsMapping->getLocationLabel($location->ID, $location->Name);
     }
 
     return $location_options;
