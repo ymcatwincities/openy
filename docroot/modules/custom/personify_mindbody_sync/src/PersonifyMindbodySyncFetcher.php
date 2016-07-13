@@ -65,9 +65,6 @@ class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterf
    * {@inheritdoc}
    */
   public function fetch() {
-    $params = $this->wrapper->getParams();
-    $quick = isset($params['quick']) && $params['quick'] === TRUE ? TRUE : FALSE;
-
     $orders = $this->getData('2000-01-01T11:20:00');
     $this->wrapper->setSourceData($orders);
   }
