@@ -43,3 +43,24 @@ function yptf_master_update_8000() {
     ]
   );
 }
+
+/**
+ * Remove redundant field.
+ */
+function yptf_master_update_8001() {
+  // Delete field.
+  $field_name = 'personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_data';
+  $storage = \Drupal::getContainer()->get('entity_type.manager')->getStorage('field_config');
+  $fields = $storage->loadByProperties(['entity_type' => 'personify_mindbody_cache']);
+  if (isset($fields[$field_name])) {
+    $fields[$field_name]->delete();
+  }
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
+      $path . 'core.entity_view_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
+    ]
+  );
+}
