@@ -104,6 +104,7 @@
     .navbar-toggle {
       @include rem(margin-bottom, 18px);
       @include rem(margin-top, 18px);
+      margin-left: 0;
       float: right;
 
       .icon-bar {
@@ -137,7 +138,7 @@
 
   .back-link {
     @include rem(font-size, 16px);
-    @include rem(padding, 0 30px);
+    @include rem(padding, 0 20px);
     @include transition(background-color 0.5s);
     background-color: $purple-medium;
     color: $white;
@@ -146,6 +147,9 @@
 
     @include breakpoint($mobile-narrow-only) {
       @include rem(padding, 0 15px);
+    }
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 30px);
     }
 
     @media screen and (max-width: 860px) and (min-width: 768px) {
