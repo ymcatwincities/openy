@@ -2,10 +2,9 @@
 
 namespace Drupal\ymca_retention\Form;
 
-use Drupal\Core\Ajax\AfterCommand;
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Ajax\RedirectCommand;
-use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -85,9 +84,12 @@ class MemberRegisterForm extends FormBase {
     // Instantiate an AjaxResponse Object to return.
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
-      $status_messages = ['#type' => 'status_messages'];
-      $ajax_response->addCommand(new RemoveCommand('#registration .alert'));
-      $ajax_response->addCommand(new AfterCommand('#ymca-retention-register-form', $status_messages));
+      $status_messages = [
+        '#prefix' => '<div class="ysr-form-messages ysr-register-form-messages col-sm-7 col-sm-push-2">',
+        '#type' => 'status_messages',
+        '#suffix' => '</div>',
+      ];
+      $ajax_response->addCommand(new ReplaceCommand('.ysr-register-form-messages', $status_messages));
     }
     else {
       $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success'])
