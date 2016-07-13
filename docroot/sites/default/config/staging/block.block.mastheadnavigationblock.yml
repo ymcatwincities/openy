@@ -17,4 +17,5 @@ settings:
   label: 'Masthead navigation block'
   provider: ymca_blocks
   label_display: '0'
+  ab: 0
 visibility: {  }

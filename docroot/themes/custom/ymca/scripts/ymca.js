@@ -142,11 +142,15 @@
    */
   Drupal.behaviors.ymca_mindbody = {
     attach: function (context, settings) {
-      $('#mindbody-pt-form-wrapper a.change').on('click', function(e) {
-        e.preventDefault();
-        var id = $(this).attr('href');
-        $(id).slideDown();
-      });
+      $('#mindbody-pt-form-wrapper .change')
+        .once('mindbody-change-toggler')
+        .each(function () {
+          $(this).bind('click', function (e) {
+            var id = $(this).attr('href');
+            $(id).slideToggle();
+            return false;
+          });
+        });
     }
   };
 
