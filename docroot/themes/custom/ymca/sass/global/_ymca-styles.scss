@@ -479,12 +479,19 @@ p.legend {
 }
 
 /* jQuery Modal Form */
+.ui-widget-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 1;
+}
 .ui-widget.ui-dialog {
+  border: 0;
   border-radius: 0;
   padding: 0;
   .ui-dialog-titlebar {
     background: #92288d;
+    border: 0;
     border-radius: 0;
+    font-family: 'Cachet';
     padding: 17px 50px 15px;
     .ui-dialog-title {
       color: white;

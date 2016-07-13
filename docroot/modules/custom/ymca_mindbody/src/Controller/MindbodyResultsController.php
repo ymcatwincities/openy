@@ -137,7 +137,7 @@ class MindbodyResultsController extends ControllerBase {
     $content = '<div class="popup-content">' . implode('<br>', $output) . '</div>';
     $options = array(
       'dialogClass' => 'popup-dialog-class',
-      'width' => '300',
+      'width' => '620',
       'height' => '300',
     );
     $title = $this->t('Booking');
