@@ -22,12 +22,12 @@ class YMCAMenuController extends ControllerBase {
    * Outputs JSON-response.
    */
   public function json() {
-    if ($cache = \Drupal::cache()->get(YMCA_MENU_CACHE_CID)) {
+    if ($cache = $this->cache()->get(YMCA_MENU_CACHE_CID)) {
       $data = $cache->data;
     }
     else {
       $data = $this->buildTree();
-      \Drupal::cache()->set(YMCA_MENU_CACHE_CID, $data);
+      $this->cache()->set(YMCA_MENU_CACHE_CID, $data);
     }
 
     // Add simple caching for json.
@@ -44,10 +44,17 @@ class YMCAMenuController extends ControllerBase {
 
   /**
    * Builds sitemap tree.
+   *
+   * @param string $config
+   *   Menu list config name.
+   *
+   * @return array
+   *   An array of the menu tree.
    */
-  public function buildTree() {
+  public function buildTree($config = 'ymca_menu.menu_list') {
     // config:ymca_menu.menu_list tag.
-    if ($cache = \Drupal::cache()->get('ymca_menu_buildTree')) {
+    $cache_id = 'ymca_menu_buildTree_' . $config;
+    if ($cache = $this->cache()->get($cache_id)) {
       return $cache->data;
     }
 
@@ -160,7 +167,7 @@ class YMCAMenuController extends ControllerBase {
         $ctree[$row->mlid] = [];
       }
     }
-    \Drupal::cache()->set('ymca_menu_buildTree', $tree, Cache::PERMANENT, array_merge(['config:ymca_menu.menu_list', 'node_list'], $menu_tags));
+    $this->cache()->set($cache_id, $tree, Cache::PERMANENT, array_merge(['config:' . $config, 'node_list'], $menu_tags));
 
     return $tree;
   }
@@ -215,19 +222,22 @@ class YMCAMenuController extends ControllerBase {
   /**
    * Return an ordered list of menus' machine names to be combined.
    *
+   * @param string $config
+   *   Optional config id that can override default settings. Useful in a/b.
+   *
    * @return array
    *   List of menu machine names.
    */
-  public static function menuList() {
-    $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+  public static function menuList($config = 'ymca_menu.menu_list') {
+    $menu_list = \Drupal::config($config)->get('menu_list');
     return $menu_list;
   }
 
   /**
    * Builds Main menu configuration page.
    */
-  public function configMainMenu() {
-    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_menu\Form\YmcaMainMenuConfigForm');
+  public function configMainMenu($variant) {
+    $form = $this->formBuilder()->getForm('Drupal\ymca_menu\Form\YmcaMainMenuConfigForm', $variant);
     return [
       'form' => $form,
       '#cache' => [
