@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
  *
  * @package Drupal\personify_mindbody_sync
  */
-class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterface {
+class PersonifyMindbodySyncFetcherBase {
 
   /**
    * PersonifyMindbodySyncWrapper definition.
@@ -59,14 +59,6 @@ class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterf
     $this->client = $client;
     $this->config = $config;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fetch() {
-    $orders = $this->getData('2000-01-01T11:20:00');
-    $this->wrapper->setSourceData($orders);
   }
 
   /**
@@ -122,6 +114,20 @@ class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterf
     }
 
     return $orders;
+  }
+
+  /**
+   * Convert timestamp to Personify date format.
+   * 
+   * @param int $timestamp
+   *   Timestamp.
+   * @return string
+   *   Date string.
+   */
+  protected function convertTime($timestamp) {
+    $timeZone = new \DateTimeZone(PersonifyMindbodySyncWrapper::TIMEZONE);
+    $dateTime = \DateTime::createFromFormat('U', $timestamp, $timeZone);
+    return $dateTime->format('Y-m-d\TH:i:s');
   }
 
 }

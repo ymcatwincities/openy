@@ -20,6 +20,16 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   const CACHE_ENTITY = 'personify_mindbody_cache';
 
   /**
+   * Overall timezone.
+   */
+  const TIMEZONE = 'UTC';
+
+  /**
+   * Initial sync date.
+   */
+  const INITIAL_DATE = '2000-01-01T11:20:00';
+
+  /**
    * Source data fetched from Personify.
    *
    * @var array
