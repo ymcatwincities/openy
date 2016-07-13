@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
@@ -18,12 +17,6 @@ mode: default
 content:
   field_pmc_data:
     weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_pmc_mindbody_data:
-    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
