@@ -3451,3 +3451,16 @@ function ymca_master_update_8148() {
     ]
   );
 }
+
+/**
+ * MindBody settings.
+ */
+function ymca_master_update_8149() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
