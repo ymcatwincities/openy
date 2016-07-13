@@ -1,4 +1,4 @@
-uuid: c4304773-4f7f-468d-9146-ac6aba37edc1
+uuid: 2a800d8a-e077-43ce-90e7-2dc9f934b51a
 langcode: en
 status: true
 dependencies:
@@ -10,8 +10,8 @@ id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
 field_name: field_pmc_order_line_num
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
-label: 'Personify Mindbody Order Line Number'
-description: 'Personify order line number.'
+label: 'Personify Order Line Number'
+description: 'Personify Order Line Number.'
 required: false
 translatable: false
 default_value: {  }

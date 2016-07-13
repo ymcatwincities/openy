@@ -1,11 +1,14 @@
-uuid: ff996372-eb01-44e4-b1a4-73dd9b4be8d9
+uuid: 37fc578f-bd0b-4c04-9617-019fbd310b9d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_client_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_order_date
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
   module:
     - personify_mindbody_sync
@@ -15,28 +18,48 @@ targetEntityType: personify_mindbody_cache
 bundle: personify_mindbody_cache
 mode: default
 content:
-  field_pmc_data:
+  field_pmc_mindbody_client_data:
     weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_pmc_mindbody_order_data:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_pmc_order_line_num:
-    weight: 3
+    weight: 9
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_pmc_order_num:
-    weight: 2
+    weight: 8
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_pmc_personify_data:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_pmc_personify_order_date:
+    weight: 3
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   field_pmc_user_id:
-    weight: 6
+    weight: 7
     label: above
     settings:
       link_to_entity: false
