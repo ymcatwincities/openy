@@ -70,4 +70,8 @@
       }
     }
   }
+
+  input.error {
+    border-color: $red-dark2 !important;
+  }
 }

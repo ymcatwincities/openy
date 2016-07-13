@@ -91,6 +91,7 @@ class MemberTrackActivityLoginForm extends FormBase {
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
       $status_messages = ['#type' => 'status_messages'];
+      // TODO: replace with correct ajax handling.
       $errors = $form_state->getErrors();
       foreach ($errors as $id => $error) {
         $_id = '#' . reset(explode('--', $form[$id]['#id']));

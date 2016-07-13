@@ -141,6 +141,10 @@
     left: auto;
   }
 }
+.ymca-retention-register-form input.error,
+.ymca-retention-track-activity-login-form input.error {
+  border-color: #a82c30 !important;
+}
 
 .nav-global.navbar-default.navbar {
   display: none;
