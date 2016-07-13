@@ -86,6 +86,8 @@ class MemberRegisterForm extends FormBase {
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
       $status_messages = ['#type' => 'status_messages'];
+      // Written in demo purposes to show erroneous field theming.
+      // Doesn't work correctly: error classes are not revoked after submit.
       $errors = $form_state->getErrors();
       foreach ($errors as $id => $error) {
         $_id = '#' . reset(explode('--', $form[$id]['#id']));
