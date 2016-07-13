@@ -9,7 +9,9 @@ from_sid: workflow_(creation)
 to_sid: workflow_needs_review
 roles:
   contributor: contributor
+  intern: intern
   workflow_author: 0
+  anonymous: 0
   authenticated: 0
   administrator: 0
   editor: 0
