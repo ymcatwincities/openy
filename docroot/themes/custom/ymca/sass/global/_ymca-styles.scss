@@ -478,6 +478,50 @@ p.legend {
   }
 }
 
+/* jQuery Modal Form */
+.ui-widget.ui-dialog {
+  border-radius: 0;
+  padding: 0;
+  .ui-dialog-titlebar {
+    background: #92288d;
+    border-radius: 0;
+    padding: 17px 50px 15px;
+    .ui-dialog-title {
+      color: white;
+      font-size: 30px;
+      text-transform: uppercase;
+      font-weight: normal;
+      margin: 0;
+      line-height: 30px;
+    }
+    .ui-dialog-titlebar-close {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      &::before {
+        content: "X";
+        color: #fff;
+        font-family: "Cachet", Arial, sans-serif;
+        font-weight: bold;
+        right: 10px;
+        text-decoration: none;
+        top: 11px;
+      }
+      .ui-icon-closethick {
+        display: none;
+      }
+      .ui-button-text {
+        display: none;
+      }
+    }
+    .ui-dialog-content {
+      background-color: green;
+    }
+  }
+}
+/* End of jQuery Modal Form */
+
 #block-subnavigationblock {
   position: static;
 }
