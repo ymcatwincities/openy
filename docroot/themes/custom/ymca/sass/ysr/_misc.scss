@@ -144,6 +144,10 @@
     display: inline-block;
     margin-top: 0;
 
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(padding, 0 15px);
+    }
+
     @media screen and (max-width: 860px) and (min-width: 768px) {
       @include rem(font-size, 15px);
     }
@@ -395,8 +399,8 @@
     width: 100%;
   }
 
-  .form-tem {
-    margin-bottom: 0;
+  .form-item {
+    @include rem(margin-bottom, 10px);
   }
 
   input {
@@ -423,7 +427,7 @@
     }
 
     @media(max-width: 767px) {
-      margin-bottom: 1rem;
+      @include rem(margin-bottom, 10px);
 
       &[type="submit"] {
         @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
@@ -449,21 +453,10 @@
     @include rem(height, 338px);
 
     .buttons {
-      @media screen and (min-width: 768px) {
+      @include breakpoint($tablet) {
         @include rem(max-width, 900px);
         margin-left: auto;
         margin-right: auto;
-      }
-
-      @media screen and (max-width: 767px) {
-        .col-xs-6 {
-          &:first-of-type {
-            @include rem(padding-right, 7.5px);
-          }
-          &:last-of-type {
-            @include rem(padding-left, 7.5px);
-          }
-        }
       }
     }
 
@@ -484,19 +477,25 @@
       }
     }
   }
+
   .alert {
     display: none;
     clear: both;
-    &.alert-error {
-      display: block;
 
+    &.alert-error {
+      background-color: $red-dark2;
+      border: none;
+      color: $white;
+      display: block;
       margin: auto;
       text-align: left;
-      background-color: $red-dark2;
-      color: $white;
-      border: none;
+
+      @include breakpoint($mobile-bp-only) {
+        @include border-radius(0);
+      }
     }
   }
+
   .registration {
 
     .registration-form {

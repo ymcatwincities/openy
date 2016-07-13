@@ -1,0 +1,35 @@
+.ysr-form-messages {
+  clear: both;
+  @include breakpoint($mobile-bp-only) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .alert-error {
+    @include rem(min-height, 50px);
+    @include rem(padding-left, 50px);
+    position: relative;
+
+    &:before {
+      @include rem(height, 19px);
+      @include rem(left, 15px);
+      @include rem(margin-top, -9.5px);
+      @include rem(top, 50%);
+      @include rem(width, 21px);
+      content: '';
+      background-image: url(../prototypes/ysr/img/icon-warning-sign.png);
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-size: contain;
+      position: absolute;
+    }
+
+    .close {
+      display: none;
+    }
+
+    ul {
+      @include rem(padding-left, 20px);
+    }
+  }
+}
