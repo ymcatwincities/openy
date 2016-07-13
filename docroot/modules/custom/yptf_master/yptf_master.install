@@ -22,6 +22,13 @@ function yptf_master_install() {
  * Enable personify_mindbody_sync module.
  */
 function yptf_master_update_8000() {
+  \Drupal::service('module_installer')->install(['personify_mindbody_sync'], TRUE);
+}
+
+/**
+ * Create fields.
+ */
+function yptf_master_update_8001() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
