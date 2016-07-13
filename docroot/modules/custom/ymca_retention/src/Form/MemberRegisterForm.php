@@ -85,7 +85,7 @@ class MemberRegisterForm extends FormBase {
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
       $status_messages = [
-        '#prefix' => '<div class="ysr-form-messages ysr-register-form-messages col-sm-7 col-sm-push-2">',
+        '#prefix' => '<div class="ysr-form-messages ysr-register-form-messages col-xs-10 col-xs-push-2 col-sm-7 col-sm-push-2">',
         '#type' => 'status_messages',
         '#suffix' => '</div>',
       ];

@@ -1,35 +1,53 @@
 .ysr-form-messages {
   clear: both;
-  @include breakpoint($mobile-bp-only) {
+
+  @include breakpoint($mobile-narrow-only) {
     padding-left: 0;
     padding-right: 0;
+    left: 0;
+    width: 100%;
   }
 
-  .alert-error {
-    @include rem(min-height, 50px);
-    @include rem(padding-left, 50px);
-    position: relative;
+  .alert {
+    clear: both;
+    display: none;
 
-    &:before {
-      @include rem(height, 19px);
-      @include rem(left, 15px);
-      @include rem(margin-top, -9.5px);
-      @include rem(top, 50%);
-      @include rem(width, 21px);
-      content: '';
-      background-image: url(../prototypes/ysr/img/icon-warning-sign.png);
-      background-repeat: no-repeat;
-      background-position: top left;
-      background-size: contain;
-      position: absolute;
-    }
+    &.alert-error {
+      @include rem(min-height, 50px);
+      @include rem(padding-left, 50px);
+      background-color: $red-dark2;
+      border: none;
+      color: $white;
+      display: block;
+      margin: auto;
+      position: relative;
+      text-align: left;
 
-    .close {
-      display: none;
-    }
+      @include breakpoint($mobile-narrow-only) {
+        @include border-radius(0);
+      }
 
-    ul {
-      @include rem(padding-left, 20px);
+      &:before {
+        @include rem(height, 19px);
+        @include rem(left, 15px);
+        @include rem(margin-top, -9.5px);
+        @include rem(top, 50%);
+        @include rem(width, 21px);
+        content: '';
+        background-image: url(../prototypes/ysr/img/icon-warning-sign.png);
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: contain;
+        position: absolute;
+      }
+
+      .close {
+        display: none;
+      }
+
+      ul {
+        @include rem(padding-left, 20px);
+      }
     }
   }
 }
