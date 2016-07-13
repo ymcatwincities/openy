@@ -65,20 +65,39 @@
 .ysr-form-messages {
   clear: both;
 }
-@media (min-width: 0) and (max-width: 29.9375em) {
+@media (min-width: 0) and (max-width: 20em) {
   .ysr-form-messages {
     padding-left: 0;
     padding-right: 0;
+    left: 0;
+    width: 100%;
   }
 }
-.ysr-form-messages .alert-error {
+.ysr-form-messages .alert {
+  clear: both;
+  display: none;
+}
+.ysr-form-messages .alert.alert-error {
   min-height: 50px;
   min-height: 5rem;
   padding-left: 50px;
   padding-left: 5rem;
+  background-color: #a82c30;
+  border: none;
+  color: #fff;
+  display: block;
+  margin: auto;
   position: relative;
+  text-align: left;
 }
-.ysr-form-messages .alert-error:before {
+@media (min-width: 0) and (max-width: 20em) {
+  .ysr-form-messages .alert.alert-error {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+  }
+}
+.ysr-form-messages .alert.alert-error:before {
   height: 19px;
   height: 1.9rem;
   left: 15px;
@@ -95,10 +114,10 @@
   background-size: contain;
   position: absolute;
 }
-.ysr-form-messages .alert-error .close {
+.ysr-form-messages .alert.alert-error .close {
   display: none;
 }
-.ysr-form-messages .alert-error ul {
+.ysr-form-messages .alert.alert-error ul {
   padding-left: 20px;
   padding-left: 2rem;
 }
@@ -642,25 +661,6 @@
 @media (min-width: 826px) and (max-width: 880px) {
   #register-and-report .register-or-report .track-activity-btn {
     letter-spacing: -1.5px;
-  }
-}
-#register-and-report .alert {
-  display: none;
-  clear: both;
-}
-#register-and-report .alert.alert-error {
-  background-color: #a82c30;
-  border: none;
-  color: #fff;
-  display: block;
-  margin: auto;
-  text-align: left;
-}
-@media (min-width: 0) and (max-width: 29.9375em) {
-  #register-and-report .alert.alert-error {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
   }
 }
 #register-and-report .registration .registration-form {
