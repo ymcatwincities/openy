@@ -3461,8 +3461,6 @@ function ymca_master_update_8149() {
     [
       $path . 'mindbody.settings.env.yml',
       $path . 'mindbody.settings.yml',
-      $path . 'ymca_mindbody.trainings_mapping.env.yml',
-      $path . 'ymca_mindbody.trainings_mapping.yml',
     ]
   );
 }
