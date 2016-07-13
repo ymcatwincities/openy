@@ -3390,3 +3390,136 @@ function ymca_master_update_8145() {
     ]
   );
 }
+
+/**
+ * Fix intern permissions.
+ */
+function ymca_master_update_8146() {
+  // Import new one.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_(creation)_draft.yml',
+      $path . 'workflow.transition.workflow_(creation)_needs_review.yml',
+      $path . 'workflow.transition.workflow_(creation)_published.yml',
+      $path . 'workflow.transition.workflow_(creation)_unpublished.yml',
+      $path . 'workflow.transition.workflow_draft_needs_review.yml',
+      $path . 'workflow.transition.workflow_draft_published.yml',
+      $path . 'workflow.transition.workflow_draft_unpublished.yml',
+      $path . 'workflow.transition.workflow_needs_review_draft.yml',
+      $path . 'workflow.transition.workflow_needs_review_published.yml',
+      $path . 'workflow.transition.workflow_needs_review_unpublished.yml',
+      $path . 'workflow.transition.workflow_published_draft.yml',
+      $path . 'workflow.transition.workflow_published_needs_review.yml',
+      $path . 'workflow.transition.workflow_published_unpublished.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
+      $path . 'workflow.transition.workflow_unpublished_published.yml'
+    ]
+  );
+}
+
+/**
+ * SPS-894 It adds recommended sizes for image fields in the description.
+ */
+function ymca_master_update_8147() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.block_content.promo_block.field_image.yml',
+      $path . 'field.field.block_content.slide_show_item.field_image.yml',
+      $path . 'field.field.node.article.field_header_image.yml',
+      $path . 'field.field.node.blog.field_image.yml'
+    ]
+  );
+}
+
+/**
+ * Enable 'ab' module.
+ */
+function ymca_master_update_8148() {
+  // Import configs with blocks & menus.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      // Top menu configs.
+      $path . 'block.block.top_menu_2.yml',
+      $path . 'system.menu.top_menu_2.yml',
+
+      // Meganav menu and block configs.
+      $path . 'block.block.mastheadnavigationblock.yml',
+      $path . 'block.block.mastheadnavigationblock_2.yml',
+      $path . 'ymca_menu.main_menu_b.yml',
+
+      // Footer menu block config.
+      $path . 'block.block.footer_b.yml',
+    ]
+  );
+
+  // Add initial menu links.
+  $items = [
+    [
+      'title' => 'Example Link',
+      'link' => ['uri' => 'internal:/node'],
+      'menu_name' => 'top_menu_2',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+
+  // Enable 'ab' module.
+  \Drupal::service('module_installer')->install(['ab'], TRUE);
+
+  // Configure 'ab' module.
+  $config = Drupal::configFactory()->getEditable('ab.settings');
+  $replacements = [
+    [
+      'block_id' => 'top_menu_2',
+      'selector' => '#block-topmenu'
+    ],
+    [
+      'block_id' => 'mastheadnavigationblock_2',
+      'selector' => '#masthead-menu'
+    ],
+    [
+      'block_id' => 'footer_b',
+      'selector' => '.nav-footer > div'
+    ],
+  ];
+  $config->set('replacements', $replacements);
+  $config->save();
+}
+
+/**
+ * YMCA-1027: Fix intern & contributor permissions.
+ */
+function ymca_master_update_8149() {
+  \Drupal::service('module_installer')->install(['ymca_perms'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * MindBody settings.
+ */
+function ymca_master_update_8150() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
