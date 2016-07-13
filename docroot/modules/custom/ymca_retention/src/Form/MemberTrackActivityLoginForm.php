@@ -2,10 +2,10 @@
 
 namespace Drupal\ymca_retention\Form;
 
-use Drupal\Core\Ajax\AfterCommand;
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RedirectCommand;
-use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -91,8 +91,13 @@ class MemberTrackActivityLoginForm extends FormBase {
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
       $status_messages = ['#type' => 'status_messages'];
-      $ajax_response->addCommand(new RemoveCommand('#report .alert'));
-      $ajax_response->addCommand(new AfterCommand('#ymca-retention-track-activity-login-form', $status_messages));
+      $errors = $form_state->getErrors();
+      foreach ($errors as $id => $error) {
+        $_id = '#' . reset(explode('--', $form[$id]['#id']));
+        $ajax_response->addCommand(new InvokeCommand($_id, 'addClass', ['error']));
+      }
+      $ajax_response->addCommand(new InvokeCommand('.ysr-track-activity-login-form-messages', 'empty'));
+      $ajax_response->addCommand(new PrependCommand('.ysr-track-activity-login-form-messages', $status_messages));
     }
     else {
       $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'activity'])

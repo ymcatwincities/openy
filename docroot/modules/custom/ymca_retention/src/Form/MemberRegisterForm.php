@@ -3,7 +3,8 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -84,12 +85,14 @@ class MemberRegisterForm extends FormBase {
     // Instantiate an AjaxResponse Object to return.
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
-      $status_messages = [
-        '#prefix' => '<div class="ysr-form-messages ysr-register-form-messages col-xs-10 col-xs-push-2 col-sm-7 col-sm-push-2">',
-        '#type' => 'status_messages',
-        '#suffix' => '</div>',
-      ];
-      $ajax_response->addCommand(new ReplaceCommand('.ysr-register-form-messages', $status_messages));
+      $status_messages = ['#type' => 'status_messages'];
+      $errors = $form_state->getErrors();
+      foreach ($errors as $id => $error) {
+        $_id = '#' . reset(explode('--', $form[$id]['#id']));
+        $ajax_response->addCommand(new InvokeCommand($_id, 'addClass', ['error']));
+      }
+      $ajax_response->addCommand(new InvokeCommand('.ysr-register-form-messages', 'empty'));
+      $ajax_response->addCommand(new PrependCommand('.ysr-register-form-messages', $status_messages));
     }
     else {
       $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success'])
