@@ -2,8 +2,13 @@
 
 namespace Drupal\ymca_retention\Form;
 
+use Drupal\Core\Ajax\AfterCommand;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
@@ -48,11 +53,47 @@ class MemberRegisterForm extends FormBase {
       '#value' => t('Register'),
       '#attributes' => [
         'class' => [
+          'btn',
+          'btn-lg',
+          'btn-primary',
           'blue-medium',
+        ],
+      ],
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormCallback'],
+        'progress' => [
+          'type' => 'throbber',
+          'message' => NULL,
         ],
       ],
     ];
     return $form;
+  }
+
+  /**
+   * Ajax form callback for displaying errors or redirecting.
+   *
+   * @param array $form
+   *   Form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response.
+   */
+  public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
+    // Instantiate an AjaxResponse Object to return.
+    $ajax_response = new AjaxResponse();
+    if ($form_state->hasAnyErrors()) {
+      $status_messages = ['#type' => 'status_messages'];
+      $ajax_response->addCommand(new RemoveCommand('#registration .alert'));
+      $ajax_response->addCommand(new AfterCommand('#ymca-retention-register-form', $status_messages));
+    }
+    else {
+      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success'])
+        ->toString()));
+    }
+    return $ajax_response;
   }
 
   /**
