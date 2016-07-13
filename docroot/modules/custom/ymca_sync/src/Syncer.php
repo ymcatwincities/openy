@@ -19,22 +19,9 @@ class Syncer implements SyncerInterface {
   protected $steps;
 
   /**
-   * Setup params.
-   *
-   * @var array
-   */
-  protected $setup;
-
-  /**
    * {@inheritdoc}
    */
-  public function proceed($params = []) {
-    if ($this->setup) {
-      $class = $this->setup['plugin'];
-      $method = $this->setup['method'];
-      $class->$method($params);
-    }
-
+  public function proceed() {
     foreach ($this->steps as $id => $step) {
       $step['plugin']->$step['method']($step['args']);
     }
@@ -45,21 +32,6 @@ class Syncer implements SyncerInterface {
    */
   public function addStep($plugin, $method = 'run', array $args = []) {
     $this->steps[] = ['plugin' => $plugin, 'method' => $method, 'args' => $args];
-  }
-
-  /**
-   * Setup method.
-   *
-   * @param object $plugin
-   *   Object.
-   * @param string $method
-   *   Method.
-   */
-  public function setUp($plugin, $method) {
-    $this->setup = [
-      'plugin' => $plugin,
-      'method' => $method
-    ];
   }
 
 }
