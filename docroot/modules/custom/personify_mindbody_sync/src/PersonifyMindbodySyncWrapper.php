@@ -34,6 +34,13 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   private $proxyData = [];
 
   /**
+   * Parameters.
+   *
+   * @var array
+   */
+  private $params = [];
+
+  /**
    * Constructor.
    */
   public function __construct() {
@@ -65,6 +72,26 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    */
   public function setProxyData(array $data) {
     $this->proxyData = $data;
+  }
+
+  /**
+   * Setup parameters.
+   *
+   * @param array $params
+   *   Parameters.
+   */
+  public function setUp($params) {
+    $this->params = $params;
+  }
+
+  /**
+   * Get parameters.
+   *
+   * @return array
+   *   Parameters.
+   */
+  public function getParams() {
+    return $this->params;
   }
 
 }

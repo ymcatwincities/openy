@@ -12,10 +12,12 @@
  *   Service name.
  * @param string $method
  *   Method name.
+ * @param array $params
+ *   Params.
  *
  * @throws \Exception
  */
-function ymca_sync_run($name, $method) {
+function ymca_sync_run($name, $method, $params = []) {
   $service = \Drupal::service($name);
   if (!$service) {
     throw new Exception('Failed to load specified service');
@@ -23,7 +25,7 @@ function ymca_sync_run($name, $method) {
 
   $lock = \Drupal::lock();
   if ($lock->acquire($name, 250.0)) {
-    $service->{$method}();
+    $service->{$method}($params);
     $lock->release($name);
   }
   else {
