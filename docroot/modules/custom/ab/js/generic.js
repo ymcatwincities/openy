@@ -15,7 +15,7 @@
         cookie = Math.round(Math.random()) == 1 ? 'b' : 'a';
         $.cookie('ab', cookie);
       }
-      if (cookie == 'b') {
+      if (cookie == 'b' && drupalSettings['ab_state'] == 1) {
         $.each(drupalSettings['ab'], function (index, value) {
           $(context).find(value.selector).once('ab').each(function () {
             $(this).replaceWith(value.html);

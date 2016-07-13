@@ -32,6 +32,7 @@ function ab_page_attachments(array &$attachments) {
   $renderer = \Drupal::service('renderer');
 
   $replacements = $config->get('replacements');
+  $ab_state = $config->get('ab');
   foreach ($replacements as &$item) {
     // Remove elements matching the selector if block_id isn't specified.
     if (!$item['block_id']) {
@@ -46,4 +47,11 @@ function ab_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'ab/ab_generic';
   $attachments['#attached']['drupalSettings']['ab'] = $replacements;
+  // Enable
+  if (\Drupal::currentUser()->hasPermission('access AB variants')) {
+    $attachments['#attached']['drupalSettings']['ab_state'] = $ab_state;
+  }
+  else {
+    $attachments['#attached']['drupalSettings']['ab_state'] = FALSE;
+  }
 }
