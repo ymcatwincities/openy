@@ -47,7 +47,6 @@ function ab_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'ab/ab_generic';
   $attachments['#attached']['drupalSettings']['ab'] = $replacements;
-  // Enable
   if (\Drupal::currentUser()->hasPermission('access AB variants')) {
     $attachments['#attached']['drupalSettings']['ab_state'] = $ab_state;
   }
