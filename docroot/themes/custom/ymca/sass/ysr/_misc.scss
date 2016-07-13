@@ -478,24 +478,6 @@
     }
   }
 
-  .alert {
-    display: none;
-    clear: both;
-
-    &.alert-error {
-      background-color: $red-dark2;
-      border: none;
-      color: $white;
-      display: block;
-      margin: auto;
-      text-align: left;
-
-      @include breakpoint($mobile-bp-only) {
-        @include border-radius(0);
-      }
-    }
-  }
-
   .registration {
 
     .registration-form {
