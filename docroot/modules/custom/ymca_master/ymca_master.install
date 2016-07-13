@@ -3438,6 +3438,7 @@ function ymca_master_update_8147() {
 }
 
 /**
+<<<<<<< HEAD
  * Enable 'ab' module.
  */
 function ymca_master_update_8148() {
@@ -3494,4 +3495,32 @@ function ymca_master_update_8148() {
   ];
   $config->set('replacements', $replacements);
   $config->save();
+}
+
+/**
+ * YMCA-1027: Fix intern & contributor permissions.
+ */
+function ymca_master_update_8149() {
+  \Drupal::service('module_installer')->install(['ymca_perms'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * MindBody settings.
+ */
+function ymca_master_update_8150() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
 }
