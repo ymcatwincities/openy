@@ -11,8 +11,11 @@ interface SyncerInterface {
 
   /**
    * Run the sync process.
+   *
+   * @param array $params
+   *   Params.
    */
-  public function proceed();
+  public function proceed($params = []);
 
   /**
    * Add task.
