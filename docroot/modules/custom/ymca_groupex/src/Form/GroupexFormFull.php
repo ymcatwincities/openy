@@ -43,6 +43,13 @@ class GroupexFormFull extends GroupexFormBase {
   protected $logger;
 
   /**
+   * The state of form.
+   *
+   * @var array
+   */
+  protected $state;
+
+  /**
    * GroupexFormFull constructor.
    *
    * @param QueryFactory $entity_query
@@ -51,14 +58,11 @@ class GroupexFormFull extends GroupexFormBase {
    *   The entity type manager.
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
-   * @param array $state
-   *   State.
    */
   public function __construct(
     QueryFactory $entity_query,
     EntityTypeManagerInterface $entity_type_manager,
-    LoggerChannelFactoryInterface $logger_factory,
-    array $state = []
+    LoggerChannelFactoryInterface $logger_factory
   ) {
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
@@ -71,15 +75,9 @@ class GroupexFormFull extends GroupexFormBase {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_mindbody');
-    $this->state = $state;
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    $query = \Drupal::request()->query->all();
-    $request = \Drupal::request()->request->all();
+    $query = $this->getRequest()->query->all();
+    $request = $this->getRequest()->request->all();
     $state = array(
       'location' => isset($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
       'class' => isset($query['class']) ? $query['class'] : NULL,
@@ -102,11 +100,22 @@ class GroupexFormFull extends GroupexFormBase {
       $state['class'] = NULL;
       $state['view_mode'] = NULL;
     }
+    // Try to fill location from request.
+    if (!empty($state['location']) && !empty($request['location']) == 'date_select') {
+      $state['location'] = $request['location'];
+    }
+
+    $this->state = $state;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
-      $container->get('logger.factory'),
-      $state
+      $container->get('logger.factory')
     );
   }
 
@@ -126,7 +135,7 @@ class GroupexFormFull extends GroupexFormBase {
     $formatted_results = '';
 
     // Check if form printed on specific Location Schedules page.
-    if (\Drupal::routeMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
+    if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
       if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
         $mapping_id = \Drupal::entityQuery('mapping')
           ->condition('type', 'location')
@@ -152,6 +161,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     if (isset($state['location']) && is_numeric($state['location'])) {
       $values['location'] = $state['location'];
+      $form_state->setValue('location_select', $values['location']);
       $formatted_results = self::buildResults($form, $form_state);
     }
     if (isset($state['filter_date'])) {
@@ -162,6 +172,9 @@ class GroupexFormFull extends GroupexFormBase {
     $form['#suffix'] = '</div>';
     $class_select_classes = $location_select_classes = $classes = 'hidden';
     $location_classes = 'show';
+    if (isset($groupex_id) && empty($state['class'])) {
+      $classes = 'show';
+    }
     if (isset($state['location']) && is_numeric($state['location'])) {
       $location_select_classes = $classes = 'show';
       $location_classes = 'hidden';
@@ -180,7 +193,7 @@ class GroupexFormFull extends GroupexFormBase {
     $form['location_select'] = [
       '#type' => 'select',
       '#options' => $this->locationOptions,
-      '#default_value' => !empty($values['location']) ? $values['location'] : '',
+      '#default_value' => !empty($state['location']) ? $state['location'] : reset($this->locationOptions),
       '#title' => $this->t('Locations'),
       '#prefix' => '<div id="location-select-wrapper" class="' . $location_select_classes . '">',
       '#suffix' => '</div>',
@@ -281,7 +294,6 @@ class GroupexFormFull extends GroupexFormBase {
    * Custom ajax callback.
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
-    $form_state->setRebuild();
     $values = $form_state->getValues();
     $state = $this->state;
     $location = !empty($values['location_select']) ? $values['location_select'] : $values['location'];
@@ -291,6 +303,10 @@ class GroupexFormFull extends GroupexFormBase {
       'filter_date' => $filter_date,
     ];
     $triggering_element = $form_state->getTriggeringElement();
+
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location') {
+      $parameters['location'] = $triggering_element['#value'];
+    }
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $state['class'] != 'any') {
       $parameters['class'] = $state['class'];
       $parameters['filter_length'] = 'week';
@@ -309,6 +325,7 @@ class GroupexFormFull extends GroupexFormBase {
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-results', $formatted_results));
     $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', array($parameters)));
+    $form_state->setRebuild();
     return $response;
   }
 

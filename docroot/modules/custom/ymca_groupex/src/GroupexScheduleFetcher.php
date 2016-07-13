@@ -91,6 +91,7 @@ class GroupexScheduleFetcher {
     }
 
     $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
+    $current_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
     // Define end date of shown items as 1 week.
     $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * 7, $this->timezone);
 
@@ -105,15 +106,14 @@ class GroupexScheduleFetcher {
       }
       $class_url_options = $this->parameters;
       $class_url_options['class'] = $item->class_id;
-      $class_url_options['filter_date'] = date('m/d/y', strtotime($item->date));
+      $class_url_options['filter_date'] = $current_date;
       $class_url_options['filter_length'] = 'week';
       $class_url_options['groupex_class'] = 'groupex_table_class_individual';
       $class_url_options['view_mode'] = 'class';
       unset($class_url_options['instructor']);
 
       $instructor_url_options = $this->parameters;
-      $instructor_filter_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
-      $instructor_url_options['filter_date'] = $instructor_filter_date;
+      $instructor_url_options['filter_date'] = $current_date;
       $instructor_url_options['filter_length'] = 'week';
       $instructor_url_options['instructor'] = $item->instructor;
       $instructor_url_options['class'] = 'any';
@@ -548,7 +548,7 @@ class GroupexScheduleFetcher {
    *   True if schedule is empty, false otherwise.
    */
   public function isEmpty() {
-    return empty($this->rawData);
+    return empty($this->processedData);
   }
 
   /**
