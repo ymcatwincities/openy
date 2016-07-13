@@ -51,3 +51,16 @@
     }
   }
 }
+
+.ymca-retention-register-form {
+
+  .form-submit {
+
+    & + .ajax-progress-throbber {
+      @include rem(left, -20px);
+      @include rem(margin-top, -16px);
+      position: absolute;
+      top: 50%;
+    }
+  }
+}
