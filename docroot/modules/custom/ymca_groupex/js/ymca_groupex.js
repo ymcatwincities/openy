@@ -39,6 +39,20 @@
   };
 
   /**
+   * Update "Location" select value to be equal with "location" query param.
+   *
+   * @param parameters
+   */
+  Drupal.ymca_groupex.update_location_select = function(parameters) {
+    if (typeof(parameters.location) !== 'undefined') {
+      var exists = 0 !== $('#location-select-wrapper select option[value="' + parameters.location + '"]').length;
+      if (exists) {
+        $('#location-select-wrapper select').val(parameters.location);
+      }
+    }
+  };
+
+  /**
    * Reload page on browser's back or forward buttons.
    */
   window.onpopstate = function(event) {
@@ -59,20 +73,21 @@
     }
     history.pushState(null, null, window.location.pathname + '?' + params.join('&'));
 
-    if (typeof(parameters.instructor) !== 'undefined' && window.location.pathname.match(/all_y_schedules/g)) {
+    if (typeof(parameters.instructor) !== 'undefined') {
       $('#location-select-wrapper, #date-select-wrapper, #location-wrapper, #class-select-wrapper').addClass('hidden');
     }
     else if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
       $('#location-select-wrapper, #class-select-wrapper').removeClass('hidden');
       $('#date-select-wrapper, #location-wrapper').addClass('hidden');
     }
-    else if (window.location.href.match(/all_y_schedules/g)) {
+    else {
       $('#location-select-wrapper, #date-select-wrapper').removeClass('hidden');
       $('#class-select-wrapper, #location-wrapper').addClass('hidden');
     }
 
     Drupal.ymca_groupex.update_class_select(parameters);
     Drupal.ymca_groupex.update_filter_date(parameters);
+    Drupal.ymca_groupex.update_location_select(parameters);
   };
 
   /**
@@ -86,9 +101,9 @@
       });
 
       $('.groupex-form-full select').change(function() {
-        $('.groupex-form-full select').attr('disabled', true);
+        $('.groupex-form-full select').attr('readonly', true);
         $(document).ajaxSuccess(function() {
-          $('.groupex-form-full select').removeAttr('disabled');
+          $('.groupex-form-full select').removeAttr('readonly');
         });
       });
     }

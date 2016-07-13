@@ -185,11 +185,6 @@ abstract class GroupexFormBase extends FormBase {
       $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
     }
 
-    // Set current date if user hasn't provide a value.
-    if (!$form_state->getValue('filter_date')) {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
-      $form_state->setValue('filter_date', $date);
-    }
   }
 
 }
