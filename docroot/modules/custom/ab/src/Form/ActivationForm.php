@@ -40,16 +40,16 @@ class ActivationForm extends ConfigFormBase {
     );
 
     $form['submit'] = array(
-        '#type' => 'submit',
-        '#value' => t('Submit'),
+      '#type' => 'submit',
+      '#value' => t('Submit'),
     );
 
     return $form;
   }
 
   /**
-    * {@inheritdoc}
-    */
+   * {@inheritdoc}
+   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
   }
@@ -58,7 +58,6 @@ class ActivationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    
     $values = $form_state->getValues();
     $this->config('ab.settings')
       ->set('ab', $values['activate_ab_testing_framework'])
