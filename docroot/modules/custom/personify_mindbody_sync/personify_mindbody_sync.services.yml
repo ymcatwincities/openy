@@ -2,8 +2,11 @@ services:
   personify_mindbody_sync.wrapper:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper
     arguments: []
-  personify_mindbody_sync.fetcher:
-    class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcher
+  personify_mindbody_sync.fetcher_fast:
+    class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcherFast
+    arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.factory']
+  personify_mindbody_sync.fetcher_slow:
+    class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcherSlow
     arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.factory']
   personify_mindbody_sync.proxy:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncProxy
@@ -11,10 +14,17 @@ services:
   personify_mindbody_sync.pusher:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncPusher
     arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory']
-  personify_mindbody_sync.syncer:
+  personify_mindbody_sync.syncer_fast:
     class: Drupal\ymca_sync\Syncer
     arguments: []
     calls:
-      - [addStep, ['@personify_mindbody_sync.fetcher', 'fetch']]
+      - [addStep, ['@personify_mindbody_sync.fetcher_fast', 'fetch']]
+      - [addStep, ['@personify_mindbody_sync.proxy', 'saveEntities']]
+      - [addStep, ['@personify_mindbody_sync.pusher', 'push']]
+  personify_mindbody_sync.syncer_slow:
+    class: Drupal\ymca_sync\Syncer
+    arguments: []
+    calls:
+      - [addStep, ['@personify_mindbody_sync.fetcher_slow', 'fetch']]
       - [addStep, ['@personify_mindbody_sync.proxy', 'saveEntities']]
       - [addStep, ['@personify_mindbody_sync.pusher', 'push']]
