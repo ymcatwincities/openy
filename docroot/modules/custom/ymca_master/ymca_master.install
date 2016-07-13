@@ -3438,7 +3438,6 @@ function ymca_master_update_8147() {
 }
 
 /**
-<<<<<<< HEAD
  * Enable 'ab' module.
  */
 function ymca_master_update_8148() {
