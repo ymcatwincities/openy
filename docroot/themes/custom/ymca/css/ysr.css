@@ -2479,7 +2479,17 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .detailed-rules {
   max-width: 850px;
   max-width: 85rem;
-  margin: auto;
+  margin: 0 auto 100px;
+  margin: 0 auto 10rem;
+}
+.detailed-rules p {
+  font-size: 15px;
+  font-size: 1.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
+  margin-bottom: 10px;
+  margin-bottom: 1rem;
+  color: #777;
 }
 .detailed-rules h3 {
   margin-top: 60px;
@@ -2538,6 +2548,13 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   color: #777;
   padding-left: 20px;
   padding-left: 2rem;
+}
+.detailed-rules dl dd ul li {
+  color: #777;
+  margin-bottom: 0px;
+  margin-bottom: 0rem;
+  padding-top: 0px;
+  padding-top: 0rem;
 }
 .detailed-rules ol, .detailed-rules ul {
   padding-left: 20px;
