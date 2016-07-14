@@ -7,13 +7,13 @@ namespace Drupal\personify_mindbody_sync;
  *
  * @package Drupal\personify_mindbody_sync
  */
-class PersonifyMindbodySyncFetcherFast extends PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface{
+class PersonifyMindbodySyncFetcherFast extends PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface {
 
   /**
    * {@inheritdoc}
    */
   public function fetch() {
-    $orders = $this->getData($this->convertTime(REQUEST_TIME));
+    $orders = $this->getData($this->convertTime(REQUEST_TIME - PersonifyMindbodySyncWrapper::DATE_OFFSET));
     $this->wrapper->setSourceData($orders);
   }
 
