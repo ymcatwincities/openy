@@ -1,13 +1,13 @@
 <div class="registration-confirmation">
-    <div class="person-icon"></div>
-    <h3>{{ "Hello"|t }}, {{ member.name }}!</h3>
-    <p class="complete-message">
-        {{ "Thanks for registering for the Y Games:"|t }}
-    </p>
-    <ul class="complete-message-items">
-        <li>{{ "Check your email for confirmation and upcoming details — you should receive an email confirmation on the next business day."|t }}</li>
-        <li>{{ "Add mail@ymcamn.org to your address book to ensure you receive all Y Games emails."|t }}</li>
-    </ul>
+    <div class="header">
+        <div class="person-icon"></div>
+        <h3>{{ "Hello"|t }}, {{ member.name }}!</h3>
+        <p>
+            {{ "Thanks for registering for the Y Games:"|t }}
+        </p>
+    </div>
+    <p class="complete-message">{{ "Check your email for confirmation and upcoming details — you should receive an email confirmation on the next business day."|t }}</p>
+    <p class="complete-message">{{ "Add mail@ymcamn.org to your address book to ensure you receive all Y Games emails."|t }}</p>
 
     <div class="goal">
         <a href="{{ member.activity_url }}" class="self-reporting-link">
