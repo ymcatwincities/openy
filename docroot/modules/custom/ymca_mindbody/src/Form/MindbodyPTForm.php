@@ -597,7 +597,8 @@ class MindbodyPTForm extends FormBase {
       $booking_params['StaffIDs'] = array($values['trainer']);
     }
     $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
-    $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
+    $valid_end_date = $this->getValidEndDate($values['start_date'], $values['end_date']);
+    $booking_params['EndDate'] = date('Y-m-d', strtotime($valid_end_date));
 
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
@@ -769,7 +770,7 @@ class MindbodyPTForm extends FormBase {
         'start_time'   => $values['mb_start_time'],
         'end_time'     => $values['mb_end_time'],
         'start_date'   => $values['mb_start_date']['date'],
-        'end_date'     => $values['mb_end_date']['date'],
+        'end_date'     => $this->getValidEndDate($values['mb_start_date']['date'], $values['mb_end_date']['date']),
       ];
       if (isset($query['context'])) {
         $params['context'] = $query['context'];
@@ -780,6 +781,29 @@ class MindbodyPTForm extends FormBase {
         ['query' => $params]
       );
     }
+  }
+
+  /**
+   * Helper method returning valid end date.
+   *
+   * End date can't be farther than 2 weeks from start date.
+   * The method returns the end date if it's closer than 2 weeks from the start
+   * date, otherwise the start date + 2 weeks.
+   *
+   * @param string $start_date
+   *   Start date in n/j/y format.
+   * @param string $end_date
+   *   End date in n/j/y format.
+   *
+   * @return string
+   *   Valid date in n/j/y format.
+   */
+  private function getValidEndDate($start_date, $end_date) {
+    $valid_end_date = $end_date;
+    if (strtotime($end_date) - strtotime($start_date) > 86400 * 14) {
+      $valid_end_date = date('n/j/y', strtotime($start_date . " +2 weeks") );
+    }
+    return $valid_end_date;
   }
 
   /**
