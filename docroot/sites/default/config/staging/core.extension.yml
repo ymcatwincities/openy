@@ -138,6 +138,7 @@ module:
   ymca_menu: 0
   ymca_migrate: 0
   ymca_migrate_status: 0
+  ymca_mindbody: 0
   ymca_page_context: 0
   ymca_page_manager: 0
   ymca_personify: 0
