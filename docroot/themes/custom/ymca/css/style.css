@@ -8864,6 +8864,7 @@ p.legend {
 @media screen and (max-width: 767px) {
   .groupex-results {
     height: auto;
+    max-height: none;
     overflow: hidden;
     margin: 0 -15px;
   }
