@@ -70,7 +70,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
     $proxy_data = [];
     foreach ($this->wrapper->getSourceData() as $item) {
       // Check whether the entity exists.
-      $existing = $this->findOrder($item->OrderNo, $item->OrderLineNo);
+      $existing = $this->wrapper->findOrder($item->OrderNo, $item->OrderLineNo);
 
       if (!$existing) {
         $id = 'MasterCustomerId';
@@ -103,33 +103,6 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
       $cache = PersonifyMindbodyCache::loadMultiple($chunk);
       $storage->delete($cache);
     }
-  }
-
-  /**
-   * Find Order by order number.
-   *
-   * The unique id of an order in Personify is the order number + the line number.
-   *
-   * @param string $order_num
-   *   Order number.
-   * @param string $order_line_num
-   *   Order line number.
-   *
-   * @return bool|EntityInterface
-   *   FALSE or order entity.
-   */
-  protected function findOrder($order_num, $order_line_num) {
-    $result = $this->query->get(PersonifyMindbodySyncWrapper::CACHE_ENTITY)
-      ->condition('field_pmc_order_num', $order_num)
-      ->condition('field_pmc_order_line_num', $order_line_num)
-      ->execute();
-
-    if (!empty($result)) {
-      $id = reset($result);
-      return PersonifyMindbodyCache::load($id);
-    }
-
-    return FALSE;
   }
 
 }
