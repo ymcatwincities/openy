@@ -8872,6 +8872,11 @@ p.legend {
 .groupex-results table {
   width: 100%;
 }
+@media screen and (max-width: 991px) {
+  .groupex-results table {
+    font-size: 12px;
+  }
+}
 .groupex-results table td {
   padding: 20px 15px;
 }
@@ -8903,6 +8908,7 @@ p.legend {
 }
 .groupex-results table td.instructor a {
   color: #92288d;
+  white-space: nowrap;
 }
 .groupex-results table td.instructor .icon-user {
   color: #92288d;
