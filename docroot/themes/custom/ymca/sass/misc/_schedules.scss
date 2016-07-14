@@ -181,6 +181,7 @@
   padding-top: 15px;
   @media screen and (max-width: 767px) {
     height: auto;
+    max-height: none;
     overflow: hidden;
     margin: 0 -15px;
   }
