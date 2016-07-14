@@ -801,7 +801,7 @@ class MindbodyPTForm extends FormBase {
   private function getValidEndDate($start_date, $end_date) {
     $valid_end_date = $end_date;
     if (strtotime($end_date) - strtotime($start_date) > 86400 * 14) {
-      $valid_end_date = date('n/j/y', strtotime($start_date . " +2 weeks") );
+      $valid_end_date = date('n/j/y', strtotime($start_date . " +2 weeks"));
     }
     return $valid_end_date;
   }
