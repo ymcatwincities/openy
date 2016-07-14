@@ -36,6 +36,11 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    * Offset in seconds for getting data from Personify.
    */
   const DATE_OFFSET = 86400;
+  
+  /**
+   * Personify date format.
+   */
+  const PERSONIFY_DATE_FORMAT = 'Y-m-d\TH:i:s';
 
   /**
    * Source data fetched from Personify.
@@ -111,6 +116,36 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
 
     $entity = PersonifyMindbodyCache::load(reset($result));
     return $entity->field_pmc_personify_order_date->value;
+  }
+
+  /**
+   * Convert timestamp to Personify date format.
+   *
+   * @param int $timestamp
+   *   Timestamp.
+   *
+   * @return string
+   *   Date string.
+   */
+  public function timestampToPersonifyDate($timestamp) {
+    $timeZone = new \DateTimeZone(PersonifyMindbodySyncWrapper::TIMEZONE);
+    $dateTime = \DateTime::createFromFormat('U', $timestamp, $timeZone);
+    return $dateTime->format(self::PERSONIFY_DATE_FORMAT);
+  }
+
+  /**
+   * Convert Personify date to timestamp.
+   *
+   * @param string $date
+   *   Date string.
+   *
+   * @return string
+   *   Timestamp.
+   */
+  public function personifyDateToTimestamp($date) {
+    $timeZone = new \DateTimeZone(PersonifyMindbodySyncWrapper::TIMEZONE);
+    $dateTime = \DateTime::createFromFormat(self::PERSONIFY_DATE_FORMAT, $date, $timeZone);
+    return $dateTime->format('U');
   }
 
 }

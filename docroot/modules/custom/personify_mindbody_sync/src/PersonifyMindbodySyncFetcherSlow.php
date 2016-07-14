@@ -15,14 +15,15 @@ class PersonifyMindbodySyncFetcherSlow extends PersonifyMindbodySyncFetcherBase 
   public function fetch() {
     // Try to find the date of the first push failure.
     if ($timestamp = $this->wrapper->findFirstFailTime()) {
-      $date = $this->convertTime($timestamp);
+      $date = $this->wrapper->timestampToPersonifyDate($timestamp);
     }
     else {
       // No failed orders - start from initial date.
       $date = PersonifyMindbodySyncWrapper::INITIAL_DATE;
     }
 
-    $this->wrapper->setSourceData($date);
+    $data = $this->getData($date);
+    $this->wrapper->setSourceData($data);
   }
 
 }
