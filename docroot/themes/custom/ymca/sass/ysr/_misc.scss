@@ -489,9 +489,9 @@
       overflow: hidden;
 
       @media screen and (min-width: 768px) {
+        @include rem(max-width, 900px);
+        @include rem(padding-bottom, 40px);
         margin: auto;
-        max-width: 900px;
-        padding-bottom: 40px;
       }
     }
 
@@ -508,17 +508,17 @@
           }
         }
         .access-answer {
+          @include rem(padding-bottom, 310px);
           display: block;
           opacity: 1;
-          padding-bottom: 310px;
           z-index: 2;
 
           .hand {
-            height: 287px;
-            margin-left: -333px;
+            @include rem(height, 287px);
+            @include rem(margin-left, -333px);
 
             @media(max-width: 767px) {
-              margin-left: -183px;
+              @include rem(margin-left, -183px);
             }
           }
         }
@@ -559,41 +559,41 @@
       }
 
       .access-answer {
+        @include rem(padding-bottom, 25px);
         @include transition(padding-bottom 0.5s, opacity 0.3s);
         @include transition-delay(0.5s);
         opacity: 0;
-        padding-bottom: 25px;
 
         p {
           color: $white;
-          font-size: 18px;
-          margin: 0;
+          @include rem(font-size, 18px);
+          margin: 0 auto;
 
           @media(max-width: 767px) {
-            font-size: 16px;
+            @include rem(font-size, 16px);
           }
 
           &.note {
-            font-size: 15px;
+            @include rem(font-size, 15px);
 
             @media(max-width: 767px) {
-              font-size: 14px;
+              @include rem(font-size, 14px);
             }
           }
         }
 
         .hand {
+          @include rem(height, 28.7px);
+          @include rem(margin-left, -33px);
+          @include rem(width, 666px);
           @include transition(height 0.5s, margin-left 0.5s);
           @include transition-delay(0.5s);
           background-image: url(../prototypes/ysr/img/hand.png);
           background-repeat: no-repeat;
           background-size: contain;
           bottom: 0;
-          height: 28.7px;
           left: 50%;
-          margin-left: -33px;
           position: absolute;
-          width: 666px;
         }
       }
     }
@@ -611,9 +611,9 @@
 
     .report-form {
       @media screen and (min-width: 768px) {
+        @include rem(max-width, 900px);
         margin-left: auto;
         margin-right: auto;
-        max-width: 900px;
       }
     }
 
