@@ -188,6 +188,9 @@
 
   table {
     width: 100%;
+    @media screen and (max-width: 991px) {
+      font-size: 12px;
+    }
     td {
       padding: 20px 15px;
       @media screen and (max-width: 767px) {
@@ -215,8 +218,9 @@
         @media screen and (max-width: 767px) {
           min-width: 105px;
         }
-          a {
+        a {
           color: $purple;
+          white-space: nowrap;
         }
         .icon-user {
           color: $purple;
