@@ -110,6 +110,9 @@ function ymca_menu_preprocess_node(&$variables) {
   if (!in_array($variables['view_mode'], ['full', 'default'])) {
     return;
   }
+  if ($node->hasField('field_template') && in_array($node->field_template->value, array('youth_sports_overview', 'youth_sports_inner'))) {
+    return;
+  }
   // Only blogs and content types with sidebar navigation field are supposed
   // to have sidebar.
   if ($node->hasField('field_sidebar_navigation') || $node->bundle() == 'blog') {
