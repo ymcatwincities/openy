@@ -7905,18 +7905,21 @@ p.legend {
 .ui-widget-overlay {
   background: rgba(0, 0, 0, 0.8);
   opacity: 1;
+  z-index: 1031;
 }
 
 .ui-widget.ui-dialog {
   border: 0;
   border-radius: 0;
   padding: 0;
+  z-index: 1032;
 }
 .ui-widget.ui-dialog .ui-dialog-titlebar {
   background: #92288d;
   border: 0;
   border-radius: 0;
   font-family: 'Cachet';
+  position: relative;
   padding: 17px 50px 15px;
 }
 .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-title {
@@ -7932,15 +7935,17 @@ p.legend {
   border-radius: 0;
   background: transparent;
   padding: 0;
+  right: 10px;
+  margin: 0;
+  top: 20px;
+  position: absolute;
 }
 .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close::before {
   content: "X";
   color: #fff;
   font-family: "Cachet", Arial, sans-serif;
   font-weight: bold;
-  right: 10px;
   text-decoration: none;
-  top: 11px;
 }
 .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon-closethick {
   display: none;
@@ -7948,8 +7953,8 @@ p.legend {
 .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-text {
   display: none;
 }
-.ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-content {
-  background-color: green;
+.ui-widget.ui-dialog .ui-dialog-content {
+  padding: 40px 60px 80px;
 }
 
 /* End of jQuery Modal Form */
