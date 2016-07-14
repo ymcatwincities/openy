@@ -118,9 +118,10 @@ class PersonifyMindbodySyncFetcherBase {
 
   /**
    * Convert timestamp to Personify date format.
-   * 
+   *
    * @param int $timestamp
    *   Timestamp.
+   *
    * @return string
    *   Date string.
    */

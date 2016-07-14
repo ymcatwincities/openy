@@ -1,7 +1,7 @@
 services:
   personify_mindbody_sync.wrapper:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper
-    arguments: []
+    arguments: ['@entity.query']
   personify_mindbody_sync.fetcher_fast:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcherFast
     arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.factory']

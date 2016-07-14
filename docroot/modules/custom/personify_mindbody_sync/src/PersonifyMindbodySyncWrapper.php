@@ -2,6 +2,9 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
+
 /**
  * Class PersonifyMindbodySyncWrapper.
  *
@@ -30,6 +33,11 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   const INITIAL_DATE = '2000-01-01T11:20:00';
 
   /**
+   * Offset in seconds for getting data from Personify.
+   */
+  const DATE_OFFSET = 86400;
+
+  /**
    * Source data fetched from Personify.
    *
    * @var array
@@ -44,9 +52,20 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   private $proxyData = [];
 
   /**
-   * Constructor.
+   * Query Factory.
+   *
+   * @var
    */
-  public function __construct() {
+  protected $query;
+
+  /**
+   * PersonifyMindbodySyncWrapper constructor.
+   *
+   * @param QueryFactory $query
+   *   Query factory.
+   */
+  public function __construct(QueryFactory $query) {
+    $this->query = $query;
   }
 
   /**
@@ -75,6 +94,23 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    */
   public function setProxyData(array $data) {
     $this->proxyData = $data;
+  }
+
+  /**
+   * Find the first failed push.
+   */
+  public function findFirstFailTime() {
+    $result = $this->query->get('personify_mindbody_cache')
+      ->notExists('field_pmc_mindbody_order_data')
+      ->sort('field_pmc_personify_order_date', 'ASC')
+      ->execute();
+
+    if (!$result) {
+      return FALSE;
+    }
+
+    $entity = PersonifyMindbodyCache::load(reset($result));
+    return $entity->field_pmc_personify_order_date->value;
   }
 
 }
