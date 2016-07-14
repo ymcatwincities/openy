@@ -1,21 +1,21 @@
-uuid: efc4ec08-6ebe-4239-924d-8cec5e7f0594
+uuid: 5bd52955-05a6-4a1b-8c6b-8233f429435f
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - ymca_blocks
   theme:
     - ymca
-id: mastheadnavigationblock
+id: mastheadnavigationblock_2
 theme: ymca
-region: primary_menu
-weight: -10
+region: '-1'
+weight: -12
 provider: null
 plugin: masthead_navigation_block
 settings:
   id: masthead_navigation_block
-  label: 'Masthead navigation block'
+  label: 'Masthead navigation block A/B (B)'
   provider: ymca_blocks
   label_display: '0'
-  ab: 0
+  ab: 1
 visibility: {  }
