@@ -36,6 +36,11 @@ class MindbodyPTForm extends FormBase {
   const DEFAULT_END_TIME = 23;
 
   /**
+   * Default timezone of incoming results.
+   */
+  const DEFAULT_TIMEZONE = 'America/Chicago';
+
+  /**
    * Mindbody Proxy.
    *
    * @var MindbodyCacheProxyInterface
@@ -629,7 +634,8 @@ class MindbodyPTForm extends FormBase {
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
           // Do not process the items which are in the past.
-          if (REQUEST_TIME > strtotime($bookable_item->EndDateTime)) {
+          // Temporary solution, should be removed once Drupal default timezone is changed.
+          if ($this->getTimestampInTimezone('now') >= $this->getTimestampInTimezone($bookable_item->StartDateTime)) {
             continue;
           }
 
@@ -939,6 +945,14 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_name;
+  }
+
+  /**
+   * Returns timestamp in appropriate timezone. See $this::DEFAULT_TIMEZONE.
+   */
+  protected function getTimestampInTimezone($data) {
+    $date = new DrupalDateTime($data, $this::DEFAULT_TIMEZONE);
+    return $date->getTimestamp();
   }
 
 }
