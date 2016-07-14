@@ -489,6 +489,9 @@ p.legend {
   border-radius: 0;
   padding: 0;
   z-index: 1032;
+  @media screen and (max-width: 620px) {
+    width: 100% !important;
+  }
   .ui-dialog-titlebar {
     background: #92288d;
     border: 0;

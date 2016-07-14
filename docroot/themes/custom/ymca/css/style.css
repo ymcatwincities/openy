@@ -7914,6 +7914,11 @@ p.legend {
   padding: 0;
   z-index: 1032;
 }
+@media screen and (max-width: 620px) {
+  .ui-widget.ui-dialog {
+    width: 100% !important;
+  }
+}
 .ui-widget.ui-dialog .ui-dialog-titlebar {
   background: #92288d;
   border: 0;
