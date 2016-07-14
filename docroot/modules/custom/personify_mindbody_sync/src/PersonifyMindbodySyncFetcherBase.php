@@ -116,19 +116,4 @@ class PersonifyMindbodySyncFetcherBase {
     return $orders;
   }
 
-  /**
-   * Convert timestamp to Personify date format.
-   *
-   * @param int $timestamp
-   *   Timestamp.
-   *
-   * @return string
-   *   Date string.
-   */
-  protected function convertTime($timestamp) {
-    $timeZone = new \DateTimeZone(PersonifyMindbodySyncWrapper::TIMEZONE);
-    $dateTime = \DateTime::createFromFormat('U', $timestamp, $timeZone);
-    return $dateTime->format('Y-m-d\TH:i:s');
-  }
-
 }
