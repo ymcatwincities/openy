@@ -1,0 +1,9 @@
+
+ab.ab_activation_form:
+  path: '/admin/config/development/ab'
+  defaults:
+    _form: '\Drupal\ab\Form\ActivationForm'
+    _title: 'AB Framework Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  
