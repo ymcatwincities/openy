@@ -6,9 +6,19 @@ ymca_menu.json_sitemap:
   requirements:
     _access: 'TRUE'
 ymca_menu.main_menu_config:
-  path: '/admin/structure/menu/main-menu-config'
+  path: '/admin/structure/menu/main-menu-config/{variant}'
   defaults:
     _controller: '\Drupal\ymca_menu\Controller\YMCAMenuController::configMainMenu'
     _title: 'Main menu configuration'
+    variant: ''
   requirements:
     _permission: 'administer menu'
+ymca_menu.main_menu_config_b:
+  path: '/admin/structure/menu/main-menu-config/b'
+  defaults:
+    _controller: '\Drupal\ymca_menu\Controller\YMCAMenuController::configMainMenu'
+    _title: 'Main menu configuration'
+    variant: b
+  requirements:
+    _permission: 'administer menu'
+
