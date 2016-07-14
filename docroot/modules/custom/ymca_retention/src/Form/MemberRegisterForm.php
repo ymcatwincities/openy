@@ -2,10 +2,10 @@
 
 namespace Drupal\ymca_retention\Form;
 
-use Drupal\Core\Ajax\AfterCommand;
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RedirectCommand;
-use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -86,8 +86,15 @@ class MemberRegisterForm extends FormBase {
     $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
       $status_messages = ['#type' => 'status_messages'];
-      $ajax_response->addCommand(new RemoveCommand('#registration .alert'));
-      $ajax_response->addCommand(new AfterCommand('#ymca-retention-register-form', $status_messages));
+      // Written in demo purposes to show erroneous field theming.
+      // Doesn't work correctly: error classes are not revoked after submit.
+      $errors = $form_state->getErrors();
+      foreach ($errors as $id => $error) {
+        $_id = '#' . reset(explode('--', $form[$id]['#id']));
+        $ajax_response->addCommand(new InvokeCommand($_id, 'addClass', ['error']));
+      }
+      $ajax_response->addCommand(new InvokeCommand('.ysr-register-form-messages', 'empty'));
+      $ajax_response->addCommand(new PrependCommand('.ysr-register-form-messages', $status_messages));
     }
     else {
       $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success'])
