@@ -99,30 +99,31 @@
 }
 
 .slick-dots {
-  position: absolute;
+  @include rem(margin-bottom, 60px);
   bottom: 0;
-
   display: block;
-
-  width: 100%;
-  padding: 0;
-  margin-bottom: 60px;
-
   list-style: none;
-
+  padding: 0;
+  position: absolute;
   text-align: center;
+  width: 100%;
+
+  @include breakpoint($mobile-bp-only) {
+    @include rem(margin-bottom, 30px);
+  }
 
   li {
+    @include rem(height, 23px);
+    @include rem(margin, 0 15px);
+    @include rem(width, 23px);
+    cursor: pointer;
+    display: inline-block;
+    padding: 0;
     position: relative;
 
-    display: inline-block;
-
-    width: 23px;
-    height: 23px;
-    margin: 0 15px;
-    padding: 0;
-
-    cursor: pointer;
+    @include breakpoint($mobile-bp-only) {
+      @include rem(margin, 0 10px);
+    }
 
     button {
       font-size: 0;
