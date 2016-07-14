@@ -1445,7 +1445,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   background-size: cover;
   text-align: center;
 }
-@media (min-width: 48em) {
+@media (min-width: 30em) {
   .registration-confirmation {
     padding-bottom: 87px;
     padding-bottom: 8.7rem;
@@ -1454,25 +1454,43 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 .registration-confirmation .header {
-  margin-bottom: 43px;
-  margin-bottom: 4.3rem;
-  display: inline-block;
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+  padding-left: 15px;
+  padding-left: 1.5rem;
+  padding-right: 15px;
+  padding-right: 1.5rem;
+  display: block;
   text-align: left;
   text-transform: uppercase;
   white-space: nowrap;
+}
+@media (min-width: 0) and (max-width: 20em) {
+  .registration-confirmation .header {
+    margin-bottom: 20px;
+    margin-bottom: 2rem;
+  }
+}
+@media (min-width: 30em) {
+  .registration-confirmation .header {
+    display: inline-block;
+    margin-bottom: 43px;
+    margin-bottom: 4.3rem;
+  }
 }
 .registration-confirmation .header .person-icon {
   height: 45px;
   height: 4.5rem;
   margin-right: 15px;
   margin-right: 1.5rem;
+  margin-bottom: 20px;
+  margin-bottom: 2rem;
   width: 45px;
   width: 4.5rem;
   background: url("../prototypes/ysr/img/person-pink.png") no-repeat center center;
   background-size: contain;
-  float: left;
 }
-@media (min-width: 48em) {
+@media (min-width: 30em) {
   .registration-confirmation .header .person-icon {
     height: 56px;
     height: 5.6rem;
@@ -1480,50 +1498,74 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
     margin-right: 1.5rem;
     width: 56px;
     width: 5.6rem;
+    position: absolute;
   }
 }
 .registration-confirmation .header h3 {
   font-family: "Cachet",Arial,sans-serif;
   font-weight: bold;
-  font-size: 30px;
-  font-size: 3rem;
-  line-height: 35px;
-  line-height: 3.5rem;
-  margin: 4px 0 0 0;
-  margin: 0.4rem 0 0 0;
-  padding-left: 60px;
-  padding-left: 6rem;
+  font-size: 25px;
+  font-size: 2.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
   color: black;
   letter-spacing: -0.35px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-overflow: ellipsis;
 }
-@media (min-width: 48em) {
+@media (min-width: 0) and (max-width: 20em) {
   .registration-confirmation .header h3 {
+    font-size: 20px;
+    font-size: 2rem;
+  }
+}
+@media (min-width: 30em) {
+  .registration-confirmation .header h3 {
+    font-size: 30px;
+    font-size: 3rem;
+    line-height: 35px;
+    line-height: 3.5rem;
+    margin: 4px 0 0 0;
+    margin: 0.4rem 0 0 0;
     padding-left: 71px;
     padding-left: 7.1rem;
   }
 }
 .registration-confirmation .header p {
   font-family: "Cachet",Arial,sans-serif;
-  font-size: 17px;
-  font-size: 1.7rem;
-  line-height: 17px;
-  line-height: 1.7rem;
-  padding-top: 4px;
-  padding-top: 0.4rem;
-  padding-left: 71px;
-  padding-left: 7.1rem;
+  line-height: 20px;
+  line-height: 2rem;
+  padding-top: 7px;
+  padding-top: 0.7rem;
+  color: #e49abd;
   letter-spacing: -0.35px;
   margin: 0;
-  color: #a7a7a7;
+  padding: 0;
+}
+@media (min-width: 30em) {
+  .registration-confirmation .header p {
+    font-size: 17px;
+    font-size: 1.7rem;
+    padding-left: 71px;
+    padding-left: 7.1rem;
+  }
 }
 .registration-confirmation .complete-message {
   font-size: 15px;
   font-size: 1.5rem;
   line-height: 20px;
   line-height: 2rem;
-  margin: 12px auto 50px;
-  margin: 1.2rem auto 5rem;
-  color: #a7a7a7;
+  margin: 12px auto 18px;
+  margin: 1.2rem auto 1.8rem;
+  max-width: 505px;
+  max-width: 50.5rem;
+  padding-left: 15px;
+  padding-left: 1.5rem;
+  padding-right: 15px;
+  padding-right: 1.5rem;
+  color: #231f20;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   text-align: left;
 }
@@ -1537,9 +1579,6 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
     margin-bottom: 1rem;
     margin-top: 12px;
     margin-top: 1.2rem;
-    max-width: 475px;
-    max-width: 47.5rem;
-    letter-spacing: -0.55px;
   }
 }
 .registration-confirmation ul.complete-message-items {
@@ -1579,11 +1618,17 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   height: 6.8rem;
   line-height: 20px;
   line-height: 2rem;
-  margin-top: 53px;
-  margin-top: 5.3rem;
+  margin-top: 40px;
+  margin-top: 4rem;
   display: inline-block;
   position: relative;
   white-space: nowrap;
+}
+@media (min-width: 48em) {
+  .registration-confirmation .goal {
+    margin-top: 53px;
+    margin-top: 5.3rem;
+  }
 }
 .registration-confirmation .goal a {
   font-family: "Cachet",Arial,sans-serif;
@@ -1604,6 +1649,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
+}
+@media (min-width: 0) and (max-width: 29.9375em) {
+  .registration-confirmation .goal a {
+    padding: 22px 87px 22px 36px;
+    padding: 2.2rem 8.7rem 2.2rem 3.6rem;
+  }
 }
 .registration-confirmation .goal a:after {
   background-size: 14px 12px;
