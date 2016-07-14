@@ -3,6 +3,7 @@
 namespace Drupal\personify_mindbody_sync;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
@@ -53,11 +54,11 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   private $client;
 
   /**
-   * Client ID, used for the testing.
+   * The list of services.
    *
-   * @var integer
+   * @var array
    */
-  private $testClientId;
+  private $services;
 
   /**
    * PersonifyMindbodySyncPusher constructor.
@@ -85,9 +86,8 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * {@inheritdoc}
    */
   public function push() {
-    // Have a look at YmcaMindbodyExamples.php for the example.
-    $this->pushClients();
-    $this->pushOrders();
+//    $this->pushClients();
+//    $this->pushOrders();
   }
 
   /**
@@ -251,10 +251,206 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     return $entity;
   }
 
+  private function pushOrders() {
+    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
+
+    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
+    $debug = TRUE;
+    if ($env == 'production') {
+      $debug = FALSE;
+    }
+
+    $source = $this->wrapper->getSourceData();
+
+    if (!$debug) {
+      // Limit count of orders for Production.
+      $source = array_slice($source, 0, 1);
+    }
+
+    $locations = $this->getAllLocationsFromOrders($source);
+    foreach ($locations as $location => $count) {
+      // Obtain Service ID.
+      $params = [
+        'LocationID' => $location,
+        'HideRelatedPrograms' => TRUE,
+      ];
+
+      $response = $this->client->call(
+        'SaleService',
+        'GetServices',
+        $params,
+        FALSE
+      );
+
+      $this->services[$location] = $response->GetServicesResult->Services->Service;
+    }
+
+    // Loop through orders.
+    $all_orders = [];
+
+    foreach ($source as $id => $order) {
+      // Do not push the order if it's already pushed.
+      $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
+      if ($cache_entity) {
+        $order_data = $cache_entity->get('field_pmc_mindbody_order_data');
+        if (!$order_data->isEmpty()) {
+          // Just skip this order.
+          continue;
+        }
+      }
+
+      $service = $this->getServiceByProductCode($order->ProductCode);
+      if (!$service) {
+        $this->logger->error('Failed to find a service with the code: %code', ['%code' => $order->ProductCode]);
+        continue;
+      }
+
+      $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
+        'UserCredentials' => [
+          // According to documentation we can use credentials, but with underscore at the beginning of username.
+          // @see https://developers.mindbodyonline.com/Develop/Authentication.
+          'Username' => '_' . $config['sourcename'],
+          'Password' => $config['password'],
+          'SiteIDs' => [
+            $config['site_id'],
+          ],
+        ],
+        'ClientID' => $debug ? $order->MasterCustomerId : self::TEST_CLIENT_ID,
+        'CartItems' => [
+          'CartItem' => [
+            'Quantity' => $order->OrderQuantity,
+            'Item' => new \SoapVar(
+              [
+                'ID' => $service->ID,
+              ],
+              SOAP_ENC_ARRAY,
+              'Service',
+              'http://clients.mindbodyonline.com/api/0_5'
+            ),
+            'DiscountAmount' => 0,
+          ],
+        ],
+        'Payments' => [
+          'PaymentInfo' => new \SoapVar(
+            [
+              'Amount' => $service->Price,
+              // Custom payment ID?
+              'ID' => 18,
+            ],
+            SOAP_ENC_ARRAY,
+            'CustomPaymentInfo',
+            'http://clients.mindbodyonline.com/api/0_5'
+          ),
+        ],
+      ];
+
+      // Push the order.
+      $response = $this->client->call(
+        'SaleService',
+        'CheckoutShoppingCart',
+        $all_orders[$order->MasterCustomerId][$order->OrderLineNo],
+        FALSE
+      );
+      if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
+        // @todo: make multivalue field for order response.
+        $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
+        if ($cache_entity) {
+          $cache_entity->set('field_pmc_mindbody_order_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
+          $cache_entity->save();
+        }
+      }
+      else {
+        // @todo consider throw Exception.
+        $this->logger->critical(
+          '[DEV] Error from MindBody: %error',
+          ['%error' => serialize($response)]
+        );
+        return $this;
+      }
+    }
+    return $this;
+
+  }
+
+  /**
+   * Get service ID by Product Code.
+   *
+   * @param $code string
+   *   Product code.
+   *
+   * @return mixed
+   *   Service ID.
+   */
+  private function getServiceByProductCode($code) {
+    $map = [
+      'PT_NMP_1_SESS_30_MIN' => '10101',
+      'PT_12_SESS_30_MIN' => '10110',
+      'PT_NMP_12_SESS_30_MIN' => '10106',
+      'PT_20_SESS_30_MIN' => '10111',
+      'PT_NMP_20_SESS_30_MIN' => '10107',
+      'PT_3_SESS_30_MIN' => '10108',
+      'PT_NMP_3_SESS_30_MIN' => '10103',
+      'PT_6_SESS_30_MIN' => '10109',
+      'PT_NMP_6_SESS_30_MIN' => '10104',
+      'PT_1_SESS_60_MIN' => '10112',
+      'PT_NMP_1_SESS_60_MIN' => '10105',
+      'PT_12_SESS_60_MIN' => '10119',
+      'PT_NMP_12_SESS_60_MIN' => '10115',
+      'PT_20_SESS_60_MIN' => '10120',
+      'PT_NMP_20_SESS_60_MIN' => '10116',
+      'PT_3_SESS_60_MIN' => '10117',
+      'PT_NMP_3_SESS_60_MIN' => '10113',
+      'PT_6_SESS_60_MIN' => '10118',
+      'PT_NMP_6_SESS_60_MIN' => '10114',
+      'PT_1_SESS_30_MIN' => '10101',
+      'PT_BY_NMP_1_SESS_30_M' => '10131',
+      'PT_BY_MP_1_SESS_30_MI' => '10172',
+      'PT_BY_MP_12_SESS_30_M' => '10174',
+      'PT_BY_NMP_12_SESS_30_' => '10138',
+      'PT_BY_MP_6_SESS_30_MI' => '10173',
+      'PT_BY_NMP_6_SESS_30_M' => '10137',
+      'PT_BY_NMP_1_SESS_60_M' => '10127',
+      'PT_BY_MP_12_SESS_60_M' => '10129',
+      'PT_BY_NMP_12_SESS_60M' => '10176',
+      'PT_BY_MP_20_SESS_60_M' => '10130',
+      'PT_BY_NMP_20_SESS_60M' => '10177',
+      'PT_BY_MP_6_SESS_60_MI' => '10136',
+      'PT_BY_NMP_6_SESS_60_M' => '10175',
+      'PT_BY_MP_1_SESS_60_MI' => '10126',
+      'PT_BY_MP_INTRO' => '10134',
+    ];
+
+    preg_match("/\d+_(PT_.*)/", $code, $test);
+    if (!$test[1]) {
+      return FALSE;
+    }
+
+    // Service ID.
+    if (!array_key_exists($test[1], $map)) {
+      return FALSE;
+    }
+    $id = $map[$test[1]];
+
+    // Location ID.
+    $location_id = explode('_', $code)[0];
+
+    foreach ($this->services as $location => $services) {
+      if ($location == $location_id) {
+        foreach ($services as $service) {
+          if ($service->ID == $id) {
+            return $service;
+          }
+        }
+      }
+    }
+
+    return FALSE;
+  }
+
   /**
    * Push orders from proxy to MindBody.
    */
-  private function pushOrders() {
+  private function _pushOrders() {
     $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
     $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
 

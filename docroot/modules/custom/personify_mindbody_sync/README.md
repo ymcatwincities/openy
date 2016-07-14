@@ -19,3 +19,9 @@ To run the process use the next code:
 ### Clear cached entities
 
   `drush ev '\Drupal::service("personify_mindbody_sync.proxy")->clearCache();'`
+
+## TODO
+
+1. Get rid of Pusher::getEntityByClientId, and use Wraper::FindOrder (We can get multiple orders by single Client)
+2. Add different payment method in the Pusher for stage/prod
+3. Combine Lite items into single requests. 
