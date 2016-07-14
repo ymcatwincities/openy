@@ -700,9 +700,11 @@
 }
 @media screen and (min-width: 768px) {
   #register-and-report .registration .registration-form {
-    margin: auto;
     max-width: 900px;
+    max-width: 90rem;
     padding-bottom: 40px;
+    padding-bottom: 4rem;
+    margin: auto;
   }
 }
 #register-and-report .registration .access-help {
@@ -716,18 +718,22 @@
   display: none;
 }
 #register-and-report .registration .access-help.open .access-answer {
+  padding-bottom: 310px;
+  padding-bottom: 31rem;
   display: block;
   opacity: 1;
-  padding-bottom: 310px;
   z-index: 2;
 }
 #register-and-report .registration .access-help.open .access-answer .hand {
   height: 287px;
+  height: 28.7rem;
   margin-left: -333px;
+  margin-left: -33.3rem;
 }
 @media (max-width: 767px) {
   #register-and-report .registration .access-help.open .access-answer .hand {
     margin-left: -183px;
+    margin-left: -18.3rem;
   }
 }
 #register-and-report .registration .access-help p {
@@ -765,6 +771,8 @@
   }
 }
 #register-and-report .registration .access-help .access-answer {
+  padding-bottom: 25px;
+  padding-bottom: 2.5rem;
   -moz-transition: padding-bottom 0.5s, opacity 0.3s;
   -o-transition: padding-bottom 0.5s, opacity 0.3s;
   -webkit-transition: padding-bottom 0.5s, opacity 0.3s;
@@ -774,27 +782,36 @@
   -webkit-transition-delay: 0.5s;
   transition-delay: 0.5s;
   opacity: 0;
-  padding-bottom: 25px;
 }
 #register-and-report .registration .access-help .access-answer p {
   color: #fff;
   font-size: 18px;
-  margin: 0;
+  font-size: 1.8rem;
+  margin: 0 auto;
 }
 @media (max-width: 767px) {
   #register-and-report .registration .access-help .access-answer p {
     font-size: 16px;
+    font-size: 1.6rem;
   }
 }
 #register-and-report .registration .access-help .access-answer p.note {
   font-size: 15px;
+  font-size: 1.5rem;
 }
 @media (max-width: 767px) {
   #register-and-report .registration .access-help .access-answer p.note {
     font-size: 14px;
+    font-size: 1.4rem;
   }
 }
 #register-and-report .registration .access-help .access-answer .hand {
+  height: 29px;
+  height: 2.87rem;
+  margin-left: -33px;
+  margin-left: -3.3rem;
+  width: 666px;
+  width: 66.6rem;
   -moz-transition: height 0.5s, margin-left 0.5s;
   -o-transition: height 0.5s, margin-left 0.5s;
   -webkit-transition: height 0.5s, margin-left 0.5s;
@@ -807,11 +824,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   bottom: 0;
-  height: 28.7px;
   left: 50%;
-  margin-left: -33px;
   position: absolute;
-  width: 666px;
 }
 @media (max-width: 767px) {
   #register-and-report .report .icon-back {
@@ -820,9 +834,10 @@
 }
 @media screen and (min-width: 768px) {
   #register-and-report .report .report-form {
+    max-width: 900px;
+    max-width: 90rem;
     margin-left: auto;
     margin-right: auto;
-    max-width: 900px;
   }
 }
 #register-and-report.slides {
@@ -1429,9 +1444,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   background-position: center center;
   background-size: cover;
   text-align: center;
-  text-transform: uppercase;
 }
-@media (min-width: 48em) {
+@media (min-width: 30em) {
   .registration-confirmation {
     padding-bottom: 87px;
     padding-bottom: 8.7rem;
@@ -1439,55 +1453,132 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
     padding-top: 6.3rem;
   }
 }
-.registration-confirmation .person-icon {
+.registration-confirmation .header {
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+  padding-left: 15px;
+  padding-left: 1.5rem;
+  padding-right: 15px;
+  padding-right: 1.5rem;
+  display: block;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@media (min-width: 0) and (max-width: 20em) {
+  .registration-confirmation .header {
+    margin-bottom: 20px;
+    margin-bottom: 2rem;
+  }
+}
+@media (min-width: 30em) {
+  .registration-confirmation .header {
+    display: inline-block;
+    margin-bottom: 43px;
+    margin-bottom: 4.3rem;
+  }
+}
+.registration-confirmation .header .person-icon {
   height: 45px;
   height: 4.5rem;
+  margin-right: 15px;
+  margin-right: 1.5rem;
+  margin-bottom: 20px;
+  margin-bottom: 2rem;
+  width: 45px;
+  width: 4.5rem;
   background: url("../prototypes/ysr/img/person-pink.png") no-repeat center center;
   background-size: contain;
 }
-@media (min-width: 48em) {
-  .registration-confirmation .person-icon {
+@media (min-width: 30em) {
+  .registration-confirmation .header .person-icon {
     height: 56px;
     height: 5.6rem;
+    margin-right: 15px;
+    margin-right: 1.5rem;
+    width: 56px;
+    width: 5.6rem;
+    position: absolute;
   }
 }
-.registration-confirmation h3 {
+.registration-confirmation .header h3 {
   font-family: "Cachet",Arial,sans-serif;
   font-weight: bold;
-  font-size: 30px;
-  font-size: 3rem;
-  line-height: 35px;
-  line-height: 3.5rem;
-  margin-bottom: 8px;
-  margin-bottom: 0.8rem;
-  margin-top: 24px;
-  margin-top: 2.4rem;
-  letter-spacing: -0.35px;
+  font-size: 25px;
+  font-size: 2.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
   color: black;
+  letter-spacing: -0.35px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-overflow: ellipsis;
+}
+@media (min-width: 0) and (max-width: 20em) {
+  .registration-confirmation .header h3 {
+    font-size: 20px;
+    font-size: 2rem;
+  }
+}
+@media (min-width: 30em) {
+  .registration-confirmation .header h3 {
+    font-size: 30px;
+    font-size: 3rem;
+    line-height: 35px;
+    line-height: 3.5rem;
+    margin: 4px 0 0 0;
+    margin: 0.4rem 0 0 0;
+    padding-left: 71px;
+    padding-left: 7.1rem;
+  }
+}
+.registration-confirmation .header p {
+  font-family: "Cachet",Arial,sans-serif;
+  line-height: 20px;
+  line-height: 2rem;
+  padding-top: 7px;
+  padding-top: 0.7rem;
+  color: #e49abd;
+  letter-spacing: -0.35px;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 30em) {
+  .registration-confirmation .header p {
+    font-size: 17px;
+    font-size: 1.7rem;
+    padding-left: 71px;
+    padding-left: 7.1rem;
+  }
 }
 .registration-confirmation .complete-message {
-  font-family: "Cachet",Arial,sans-serif;
-  font-size: 18px;
-  font-size: 1.8rem;
-  line-height: 18px;
-  line-height: 1.8rem;
-  margin-bottom: 50px;
-  margin-bottom: 5rem;
-  margin-top: 12px;
-  margin-top: 1.2rem;
-  color: #a7a7a7;
+  font-size: 15px;
+  font-size: 1.5rem;
+  line-height: 20px;
+  line-height: 2rem;
+  margin: 12px auto 18px;
+  margin: 1.2rem auto 1.8rem;
+  max-width: 505px;
+  max-width: 50.5rem;
+  padding-left: 15px;
+  padding-left: 1.5rem;
+  padding-right: 15px;
+  padding-right: 1.5rem;
+  color: #231f20;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  text-align: left;
 }
 @media (min-width: 48em) {
   .registration-confirmation .complete-message {
-    font-size: 20px;
-    font-size: 2rem;
+    font-size: 15px;
+    font-size: 1.5rem;
     line-height: 20px;
     line-height: 2rem;
     margin-bottom: 10px;
     margin-bottom: 1rem;
     margin-top: 12px;
     margin-top: 1.2rem;
-    letter-spacing: -0.55px;
   }
 }
 .registration-confirmation ul.complete-message-items {
@@ -1527,9 +1618,17 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   height: 6.8rem;
   line-height: 20px;
   line-height: 2rem;
+  margin-top: 40px;
+  margin-top: 4rem;
   display: inline-block;
   position: relative;
   white-space: nowrap;
+}
+@media (min-width: 48em) {
+  .registration-confirmation .goal {
+    margin-top: 53px;
+    margin-top: 5.3rem;
+  }
 }
 .registration-confirmation .goal a {
   font-family: "Cachet",Arial,sans-serif;
@@ -1550,6 +1649,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
+}
+@media (min-width: 0) and (max-width: 29.9375em) {
+  .registration-confirmation .goal a {
+    padding: 22px 87px 22px 36px;
+    padding: 2.2rem 8.7rem 2.2rem 3.6rem;
+  }
 }
 .registration-confirmation .goal a:after {
   background-size: 14px 12px;
@@ -1890,6 +1995,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .member-info {
   padding-top: 35px;
   padding-top: 3.5rem;
+  background-color: #20bdbe;
   background-image: url("../prototypes/ysr/img/reporting/background.png");
   background-size: cover;
   text-transform: uppercase;
