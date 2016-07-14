@@ -22,6 +22,7 @@ $track-activity-button-hover: #e882c8;
 
 .member-info {
   @include rem(padding-top, 35px);
+  background-color: $green-light;
   background-image: url('../prototypes/ysr/img/reporting/background.png');
   background-size: cover;
   text-transform: uppercase;
