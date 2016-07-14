@@ -48,6 +48,21 @@ class YmcaMindbodyTrainingsMapping {
   }
 
   /**
+   * Indicates whether location is active or not.
+   *
+   * Wrapper for MindbodyObjectIsActive().
+   *
+   * @param int $id
+   *   Location ID.
+   *
+   * @return bool
+   *   Whether location is active or not.
+   */
+  public function locationIsActive($id) {
+    return $this->mindbodyObjectIsActive($id, 'locations');
+  }
+
+  /**
    * Returns label for program.
    *
    * Wrapper for getMindbodyObjectLabel().
@@ -62,6 +77,23 @@ class YmcaMindbodyTrainingsMapping {
    */
   public function getProgramLabel($id, $default_label) {
     return $this->getMindbodyObjectLabel($id, $default_label, 'programs');
+  }
+
+  /**
+   * Returns label for location.
+   *
+   * Wrapper for getMindbodyObjectLabel().
+   *
+   * @param int $id
+   *   Location ID.
+   * @param string $default_label
+   *   Default label.
+   *
+   * @return string
+   *   Return original or overridden label.
+   */
+  public function getLocationLabel($id, $default_label) {
+    return $this->getMindbodyObjectLabel($id, $default_label, 'locations');
   }
 
   /**
