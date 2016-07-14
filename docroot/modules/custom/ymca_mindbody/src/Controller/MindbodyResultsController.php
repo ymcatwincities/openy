@@ -138,7 +138,7 @@ class MindbodyResultsController extends ControllerBase {
     $options = array(
       'dialogClass' => 'popup-dialog-class',
       'width' => '620',
-      'height' => '300',
+      'height' => '600',
     );
     $title = $this->t('Booking');
     $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
