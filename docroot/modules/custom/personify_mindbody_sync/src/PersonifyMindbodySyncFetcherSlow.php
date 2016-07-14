@@ -7,29 +7,22 @@ namespace Drupal\personify_mindbody_sync;
  *
  * @package Drupal\personify_mindbody_sync
  */
-class PersonifyMindbodySyncFetcherSlow extends PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface{
+class PersonifyMindbodySyncFetcherSlow extends PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface {
 
   /**
    * {@inheritdoc}
    */
   public function fetch() {
-    if ($timestamp = $this->findFirstFailDate()) {
+    // Try to find the date of the first push failure.
+    if ($timestamp = $this->wrapper->findFirstFailTime()) {
       $date = $this->convertTime($timestamp);
     }
     else {
+      // No failed orders - start from initial date.
       $date = PersonifyMindbodySyncWrapper::INITIAL_DATE;
     }
 
     $this->wrapper->setSourceData($date);
   }
 
-  /**
-   * Get the timestamp of the first failed item.
-   *
-   * @return mixed
-   *   First fail timestamp or bool.
-   */
-  private function findFirstFailDate() {
-    return FALSE;
-  }
 }

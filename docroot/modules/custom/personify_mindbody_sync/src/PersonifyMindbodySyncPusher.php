@@ -86,7 +86,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    */
   public function push() {
     // Have a look at YmcaMindbodyExamples.php for the example.
-//    $this->pushClients();
+    $this->pushClients();
     $this->pushOrders();
   }
 
@@ -440,6 +440,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *
    * @param \stdClass $order
    *   Order to be processed.
+   *
    * @return string
    *   String of LocationID.
    */
@@ -455,6 +456,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *   Assoc array with ID as keys and count of orders as value.
    *
    * @return array
+   *   Locations.
    */
   private function getAllLocationsFromOrders(array $orders) {
     $locations = [];
