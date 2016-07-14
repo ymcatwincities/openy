@@ -1,4 +1,151 @@
 @charset "UTF-8";
+.col-small-padding, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-left: 8px;
+  padding-left: 0.75rem;
+  padding-right: 8px;
+  padding-right: 0.75rem;
+}
+
+@media (min-width: 0) and (max-width: 20em) {
+  .col-xxs-1 {
+    width: 8.33333%;
+  }
+
+  .col-xxs-2 {
+    width: 16.66667%;
+  }
+
+  .col-xxs-3 {
+    width: 25%;
+  }
+
+  .col-xxs-4 {
+    width: 33.33333%;
+  }
+
+  .col-xxs-5 {
+    width: 41.66667%;
+  }
+
+  .col-xxs-6 {
+    width: 50%;
+  }
+
+  .col-xxs-7 {
+    width: 58.33333%;
+  }
+
+  .col-xxs-8 {
+    width: 66.66667%;
+  }
+
+  .col-xxs-9 {
+    width: 75%;
+  }
+
+  .col-xxs-10 {
+    width: 83.33333%;
+  }
+
+  .col-xxs-11 {
+    width: 91.66667%;
+  }
+
+  .col-xxs-12 {
+    width: 100%;
+  }
+
+  .col-xss-col, .col-xxs-1, .col-xxs-2, .col-xxs-3, .col-xxs-4, .col-xxs-5, .col-xxs-6, .col-xxs-7, .col-xxs-8, .col-xxs-9, .col-xxs-10, .col-xxs-11, .col-xxs-12 {
+    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
+    margin-top: 5px;
+    margin-top: 0.5rem;
+  }
+}
+.ysr-form-messages {
+  clear: both;
+}
+@media (min-width: 0) and (max-width: 20em) {
+  .ysr-form-messages {
+    padding-left: 0;
+    padding-right: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+.ysr-form-messages .alert {
+  clear: both;
+  display: none;
+}
+.ysr-form-messages .alert.alert-error {
+  min-height: 50px;
+  min-height: 5rem;
+  padding-left: 50px;
+  padding-left: 5rem;
+  background-color: #a82c30;
+  border: none;
+  color: #fff;
+  display: block;
+  margin: auto;
+  position: relative;
+  text-align: left;
+}
+@media (min-width: 0) and (max-width: 20em) {
+  .ysr-form-messages .alert.alert-error {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+  }
+}
+.ysr-form-messages .alert.alert-error:before {
+  height: 19px;
+  height: 1.9rem;
+  left: 15px;
+  left: 1.5rem;
+  margin-top: -10px;
+  margin-top: -0.95rem;
+  top: 50%;
+  width: 21px;
+  width: 2.1rem;
+  content: '';
+  background-image: url(../prototypes/ysr/img/icon-warning-sign.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: contain;
+  position: absolute;
+}
+.ysr-form-messages .alert.alert-error .close {
+  display: none;
+}
+.ysr-form-messages .alert.alert-error ul {
+  padding-left: 20px;
+  padding-left: 2rem;
+}
+
+.ymca-retention-register-form .form-submit + .ajax-progress-throbber,
+.ymca-retention-track-activity-login-form .form-submit + .ajax-progress-throbber {
+  left: -20px;
+  left: -2rem;
+  margin-top: -16px;
+  margin-top: -1.6rem;
+  position: absolute;
+  top: 50%;
+}
+@media (min-width: 48em) {
+  .ymca-retention-register-form .form-submit + .ajax-progress-throbber,
+  .ymca-retention-track-activity-login-form .form-submit + .ajax-progress-throbber {
+    margin-top: -11px;
+    margin-top: -1.1rem;
+    right: -20px;
+    right: -2rem;
+    left: auto;
+  }
+}
+.ymca-retention-register-form input.error,
+.ymca-retention-track-activity-login-form input.error {
+  border-color: #a82c30 !important;
+}
+
 .nav-global.navbar-default.navbar {
   display: none;
   top: 0 !important;
@@ -111,6 +258,7 @@
     margin-bottom: 1.8rem;
     margin-top: 18px;
     margin-top: 1.8rem;
+    margin-left: 0;
     float: right;
   }
   #top-nav .navbar-toggle .icon-bar {
@@ -140,8 +288,8 @@
 #top-nav .back-link {
   font-size: 16px;
   font-size: 1.6rem;
-  padding: 0 30px;
-  padding: 0 3rem;
+  padding: 0 20px;
+  padding: 0 2rem;
   -moz-transition: background-color 0.5s;
   -o-transition: background-color 0.5s;
   -webkit-transition: background-color 0.5s;
@@ -150,6 +298,18 @@
   color: #fff;
   display: inline-block;
   margin-top: 0;
+}
+@media (min-width: 0) and (max-width: 20em) {
+  #top-nav .back-link {
+    padding: 0 15px;
+    padding: 0 1.5rem;
+  }
+}
+@media (min-width: 48em) {
+  #top-nav .back-link {
+    padding: 0 30px;
+    padding: 0 3rem;
+  }
 }
 @media screen and (max-width: 860px) and (min-width: 768px) {
   #top-nav .back-link {
@@ -429,8 +589,9 @@
   letter-spacing: -0.8px;
   width: 100%;
 }
-#register-and-report .form-tem {
-  margin-bottom: 0;
+#register-and-report .form-item {
+  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 #register-and-report input {
   width: 100%;
@@ -472,6 +633,7 @@
 }
 @media (max-width: 767px) {
   #register-and-report input {
+    margin-bottom: 10px;
     margin-bottom: 1rem;
   }
   #register-and-report input[type="submit"] {
@@ -501,22 +663,12 @@
   height: 338px;
   height: 33.8rem;
 }
-@media screen and (min-width: 768px) {
+@media (min-width: 48em) {
   #register-and-report .register-or-report .buttons {
     max-width: 900px;
     max-width: 90rem;
     margin-left: auto;
     margin-right: auto;
-  }
-}
-@media screen and (max-width: 767px) {
-  #register-and-report .register-or-report .buttons .col-xs-6:first-of-type {
-    padding-right: 8px;
-    padding-right: 0.75rem;
-  }
-  #register-and-report .register-or-report .buttons .col-xs-6:last-of-type {
-    padding-left: 8px;
-    padding-left: 0.75rem;
   }
 }
 #register-and-report .register-or-report .track-activity-btn {
@@ -541,18 +693,6 @@
   #register-and-report .register-or-report .track-activity-btn {
     letter-spacing: -1.5px;
   }
-}
-#register-and-report .alert {
-  display: none;
-  clear: both;
-}
-#register-and-report .alert.alert-error {
-  display: block;
-  margin: auto;
-  text-align: left;
-  background-color: #a82c30;
-  color: #fff;
-  border: none;
 }
 #register-and-report .registration .registration-form {
   padding-bottom: 35px;
@@ -1538,23 +1678,39 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 }
 
 .slick-dots {
-  position: absolute;
+  margin-bottom: 60px;
+  margin-bottom: 6rem;
   bottom: 0;
   display: block;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 60px;
   list-style: none;
+  padding: 0;
+  position: absolute;
   text-align: center;
+  width: 100%;
+}
+@media (min-width: 0) and (max-width: 29.9375em) {
+  .slick-dots {
+    margin-bottom: 30px;
+    margin-bottom: 3rem;
+  }
 }
 .slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 23px;
   height: 23px;
+  height: 2.3rem;
   margin: 0 15px;
-  padding: 0;
+  margin: 0 1.5rem;
+  width: 23px;
+  width: 2.3rem;
   cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  position: relative;
+}
+@media (min-width: 0) and (max-width: 29.9375em) {
+  .slick-dots li {
+    margin: 0 10px;
+    margin: 0 1rem;
+  }
 }
 .slick-dots li button {
   font-size: 0;
