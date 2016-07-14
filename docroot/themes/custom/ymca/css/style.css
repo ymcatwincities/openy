@@ -8855,7 +8855,7 @@ p.legend {
 }
 
 .groupex-results {
-  height: 600px;
+  max-height: 600px;
   overflow-y: auto;
   overflow-x: hidden;
   clear: both;
@@ -8890,6 +8890,7 @@ p.legend {
 .groupex-results table td.time-duration .duration {
   color: #afafae;
   font-style: italic;
+  white-space: nowrap;
 }
 .groupex-results table td.instructor {
   line-height: 14px;
