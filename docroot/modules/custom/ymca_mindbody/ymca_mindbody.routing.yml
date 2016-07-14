@@ -1,12 +1,12 @@
 ymca_mindbody.pt:
-  path: '/health__fitness/personal_training/pt'
+  path: '/health__fitness/personal_training/personal-trainer-schedules'
   defaults:
     _form: '\Drupal\ymca_mindbody\Form\MindbodyPTForm'
     _title: 'Book Personal Training'
   requirements:
     _permission: 'access content'
 ymca_mindbody.pt.results:
-  path: '/health__fitness/personal_training/pt/results'
+  path: '/health__fitness/personal_training/personal-trainer-schedules/results'
   defaults:
     _controller: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::content'
     _title_callback: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::setTitle'

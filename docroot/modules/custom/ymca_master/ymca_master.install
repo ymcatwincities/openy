@@ -3292,17 +3292,19 @@ function ymca_master_update_8140() {
   \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
 
   $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs([
-    $path . 'block_content.type.panorama_block.yml',
-    $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
-    $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
-    $path . 'field.field.block_content.panorama_block.body.yml',
-    $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
-    $path . 'field.storage.block_content.field_panorama_archive.yml',
-    $path . 'language.content_settings.block_content.panorama_block.yml',
-    $path . 'embed.button.block.yml',
-    $path . 'entity_browser.browser.block_browser_iframe.yml',
-  ]);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block_content.type.panorama_block.yml',
+      $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
+      $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
+      $path . 'field.field.block_content.panorama_block.body.yml',
+      $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
+      $path . 'field.storage.block_content.field_panorama_archive.yml',
+      $path . 'language.content_settings.block_content.panorama_block.yml',
+      $path . 'embed.button.block.yml',
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+    ]
+  );
 }
 
 /**
@@ -3312,10 +3314,12 @@ function ymca_master_update_8141() {
   \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
 
   $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs([
-    $path . 'user.role.contributor.yml',
-    $path . 'user.role.intern.yml',
-  ]);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
 }
 
 /**
@@ -3434,9 +3438,96 @@ function ymca_master_update_8147() {
 }
 
 /**
- * Install module YMCA retention and Views Rest Feed.
+ * Enable 'ab' module.
  */
 function ymca_master_update_8148() {
+  // Import configs with blocks & menus.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      // Top menu configs.
+      $path . 'block.block.top_menu_2.yml',
+      $path . 'system.menu.top_menu_2.yml',
+
+      // Meganav menu and block configs.
+      $path . 'block.block.mastheadnavigationblock.yml',
+      $path . 'block.block.mastheadnavigationblock_2.yml',
+      $path . 'ymca_menu.main_menu_b.yml',
+
+      // Footer menu block config.
+      $path . 'block.block.footer_b.yml',
+    ]
+  );
+
+  // Add initial menu links.
+  $items = [
+    [
+      'title' => 'Example Link',
+      'link' => ['uri' => 'internal:/node'],
+      'menu_name' => 'top_menu_2',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+
+  // Enable 'ab' module.
+  \Drupal::service('module_installer')->install(['ab'], TRUE);
+
+  // Configure 'ab' module.
+  $config = Drupal::configFactory()->getEditable('ab.settings');
+  $replacements = [
+    [
+      'block_id' => 'top_menu_2',
+      'selector' => '#block-topmenu'
+    ],
+    [
+      'block_id' => 'mastheadnavigationblock_2',
+      'selector' => '#masthead-menu'
+    ],
+    [
+      'block_id' => 'footer_b',
+      'selector' => '.nav-footer > div'
+    ],
+  ];
+  $config->set('replacements', $replacements);
+  $config->save();
+}
+
+/**
+ * YMCA-1027: Fix intern & contributor permissions.
+ */
+function ymca_master_update_8149() {
+  \Drupal::service('module_installer')->install(['ymca_perms'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * MindBody settings.
+ */
+function ymca_master_update_8150() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8151() {
   \Drupal::service('module_installer')->install([
     'views_rest_feed',
     'ymca_retention',
