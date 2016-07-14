@@ -109,7 +109,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       $personifyData = unserialize($entity->field_pmc_personify_data->value);
 
       // Push only items which were not pushed before.
-      if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
+      if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
         $this->clientIds[$user_id] = new \SoapVar(
           [
             'NewID' => $debug ? $user_id : self::TEST_CLIENT_ID,
@@ -160,9 +160,9 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         /** @var PersonifyMindbodyCache $cache_entity */
         if ($cache_entity = $this->getEntityByClientId($client->ID)) {
           // Updating local storage about MindBody client's data if first time.
-          if ($cache_entity->get('field_pmc_mindbody_data')->isEmpty()) {
+          if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
             // @todo make it more smart via diff with old data for getting actual.
-            $cache_entity->set('field_pmc_mindbody_data', serialize($client));
+            $cache_entity->set('field_pmc_mindbody_client_data', serialize($client));
             $cache_entity->save();
           }
         }
@@ -200,7 +200,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
           /** @var PersonifyMindbodyCache $cache_entity */
           $cache_entity = $this->getEntityByClientId($client->ID);
           if ($cache_entity) {
-            $cache_entity->set('field_pmc_mindbody_data', serialize($client));
+            $cache_entity->set('field_pmc_mindbody_client_data', serialize($client));
             $cache_entity->save();
           }
         }
