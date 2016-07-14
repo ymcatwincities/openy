@@ -793,10 +793,10 @@ class MindbodyPTForm extends FormBase {
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      if ($location->HasClasses != TRUE) {
+      if ($location->HasClasses != TRUE || !$this->trainingsMapping->locationIsActive($location->ID)) {
         continue;
       }
-      $location_options[$location->ID] = $location->Name;
+      $location_options[$location->ID] = $this->trainingsMapping->getLocationLabel($location->ID, $location->Name);
     }
 
     return $location_options;
