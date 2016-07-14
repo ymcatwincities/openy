@@ -106,7 +106,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     /** @var PersonifyMindbodyCache $entity */
     foreach ($this->wrapper->getProxyData() as $id => $entity) {
       $user_id = $entity->field_pmc_user_id->value;
-      $personifyData = unserialize($entity->field_pmc_data->value);
+      $personifyData = unserialize($entity->field_pmc_personify_data->value);
 
       // Push only items which were not pushed before.
       if ($entity->get('field_pmc_mindbody_data')->isEmpty()) {
