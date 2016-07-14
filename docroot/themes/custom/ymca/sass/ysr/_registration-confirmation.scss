@@ -5,46 +5,75 @@
   background-position: center center;
   background-size: cover;
   text-align: center;
-  text-transform: uppercase;
 
   @include breakpoint($tablet) {
     @include rem(padding-bottom, 87px);
     @include rem(padding-top, 63px);
   }
 
-  .person-icon {
-    @include rem(height, 45px);
-    background: url('../prototypes/ysr/img/person-pink.png') no-repeat center center;
-    background-size: contain;
+  .header {
+    @include rem(margin-bottom, 43px);
+    display: inline-block;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
 
-    @include breakpoint($tablet) {
-      @include rem(height, 56px);
+    .person-icon {
+      @include rem(height, 45px);
+      @include rem(margin-right, 15px);
+      @include rem(width, 45px);
+      background: url('../prototypes/ysr/img/person-pink.png') no-repeat center center;
+      background-size: contain;
+      float:left;
+
+      @include breakpoint($tablet) {
+        @include rem(height, 56px);
+        @include rem(margin-right, 15px);
+        @include rem(width, 56px);
+      }
+    }
+
+    h3 {
+      @include cachet-bold();
+      @include rem(font-size, 30px);
+      @include rem(line-height, 35px);
+      @include rem(margin, 4px 0 0 0);
+      @include rem(padding-left, 60px);
+      color: black;
+      letter-spacing: -0.35px;
+
+      @include breakpoint($tablet) {
+        @include rem(padding-left, 71px);
+      }
+    }
+
+    p {
+      @include cachet();
+      @include rem(font-size, 17px);
+      @include rem(line-height, 17px);
+      @include rem(padding-top, 4px);
+      @include rem(padding-left, 71px);
+      letter-spacing: -0.35px;
+      margin: 0;
+      color: $grey4;
     }
   }
 
-  h3 {
-    @include cachet-bold();
-    @include rem(font-size, 30px);
-    @include rem(line-height, 35px);
-    @include rem(margin-bottom, 8px);
-    @include rem(margin-top, 24px);
-    letter-spacing: -0.35px;
-    color: black;
-  }
 
   .complete-message {
-    @include cachet();
-    @include rem(font-size, 18px);
-    @include rem(line-height, 18px);
-    @include rem(margin-bottom, 50px);
-    @include rem(margin-top, 12px);
+    @include rem(font-size, 15px);
+    @include rem(line-height, 20px);
+    @include rem(margin, 12px auto 50px);
     color: $grey4;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-align: left;
 
     @include breakpoint($tablet) {
-      @include rem(font-size, 20px);
+      @include rem(font-size, 15px);
       @include rem(line-height, 20px);
       @include rem(margin-bottom, 10px);
       @include rem(margin-top, 12px);
+      @include rem(max-width, 475px);
       letter-spacing: -0.55px;
     }
   }
@@ -74,6 +103,7 @@
     @include rem(font-size, 15px);
     @include rem(height, 68px);
     @include rem(line-height, 20px);
+    @include rem(margin-top, 53px);
     display: inline-block;
     position: relative;
     white-space: nowrap;
