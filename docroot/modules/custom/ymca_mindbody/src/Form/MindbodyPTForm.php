@@ -28,12 +28,22 @@ class MindbodyPTForm extends FormBase {
   /**
    * Default value for start time on PT form.
    */
-  const DEFAULT_START_TIME = 6;
+  const DEFAULT_START_TIME = 5;
 
   /**
    * Default value for end time on PT form.
    */
-  const DEFAULT_END_TIME = 23;
+  const DEFAULT_END_TIME = 22;
+
+  /**
+   * Min time value that should be available on form.
+   */
+  const MIN_TIME_RANGE = 5;
+
+  /**
+   * Max time value that should be available on form.
+   */
+  const MAX_TIME_RANGE = 22;
 
   /**
    * Default timezone of incoming results.
@@ -295,6 +305,12 @@ class MindbodyPTForm extends FormBase {
       '12 am', '1 am', '2 am', '3 am', '4 am', '5 am', '6 am', '7 am', '8 am', '9 am', '10 am', '11 am',
       '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm', '9 pm', '10 pm', '11 pm', '12 am',
     ];
+
+    foreach ($time_options as $key => $time) {
+      if ($key < $this::MIN_TIME_RANGE || $key > $this::MAX_TIME_RANGE) {
+        unset($time_options[$key]);
+      }
+    }
 
     return $time_options;
   }
