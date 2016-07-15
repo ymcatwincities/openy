@@ -22,23 +22,34 @@ function yptf_master_install() {
  * Enable personify_mindbody_sync module.
  */
 function yptf_master_update_8000() {
-  \Drupal::service('module_installer')->install(['personify_mindbody_sync']);
+  \Drupal::service('module_installer')->install(['personify_mindbody_sync'], TRUE);
+}
 
+/**
+ * Create fields.
+ */
+function yptf_master_update_8001() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'core.entity_form_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
       $path . 'core.entity_view_display.personify_mindbody_cache.personify_mindbody_cache.default.yml',
-      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_data.yml',
-      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_data.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_client_data.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num.yml',
-      $path . 'field.storage.personify_mindbody_cache.field_pmc_data.yml',
-      $path . 'field.storage.personify_mindbody_cache.field_pmc_mindbody_data.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_data.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_order_date.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status_message.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_mindbody_client_data.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_order_line_num.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_order_num.yml',
-      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_personify_data.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_personify_order_date.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_user_id.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_status_message.yml',
       $path . 'ymca_personify.settings.yml',
     ]
   );
