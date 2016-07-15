@@ -3525,9 +3525,24 @@ function ymca_master_update_8150() {
 }
 
 /**
- * Install module YMCA retention and Views Rest Feed.
+ * Add new field_template to article node.
  */
 function ymca_master_update_8151() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'field.field.node.article.field_template.yml',
+      $path . 'field.storage.node.field_template.yml',
+    ]
+  );
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8152() {
   \Drupal::service('module_installer')->install([
     'views_rest_feed',
     'ymca_retention',
