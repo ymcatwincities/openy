@@ -24,8 +24,7 @@ class TrackActivityForm extends BlockBase {
     $service = \Drupal::service('ymca_retention.activity_manager');
     $dates = $service->getDates();
     $activity_groups = $service->getActivityGroups();
-    $member_activities = $service->getMemberActivities();
-    
+
     return [
       '#theme' => 'ymca_retention_track_activity_form',
       '#attached' => [

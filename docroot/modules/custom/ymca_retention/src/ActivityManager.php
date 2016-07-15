@@ -49,7 +49,7 @@ class ActivityManager implements ActivityManagerInterface {
 
       $date = $date->add($day_interval);
     }
-    
+
     return $dates;
   }
 
@@ -82,7 +82,7 @@ class ActivityManager implements ActivityManagerInterface {
         'activities' => $activities,
       ];
     }
-    
+
     return $activity_groups;
   }
 
