@@ -60,6 +60,13 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   protected $services;
 
   /**
+   * Mode.
+   *
+   * @var bool
+   */
+  protected $debug = TRUE;
+
+  /**
    * PersonifyMindbodySyncPusher constructor.
    *
    * @param \Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper $wrapper
@@ -76,6 +83,10 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
     $this->client = $client;
     $this->config = $config;
+
+    // Check the mode.
+    $settings = $this->config->get('personify_mindbody_sync.settings');
+    $this->debug = $settings->get('debug');
   }
 
 
@@ -388,7 +399,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   Personify data.
    * @param bool $debug
    *   Mode.
-   * 
+   *
    * @return \SoapVar
    *   Object ready to push to MindBody.
    */
