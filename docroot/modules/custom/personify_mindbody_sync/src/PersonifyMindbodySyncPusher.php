@@ -86,7 +86,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * {@inheritdoc}
    */
   public function push() {
-//    $this->pushClients();
+    $this->pushClients();
 //    $this->pushOrders();
   }
 
@@ -157,23 +157,15 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         // Skip users already saved into cache.
         // @todo I'm guessing ID is not unique within MindBody.
         unset($this->clientIds[$client->ID]);
-        /** @var PersonifyMindbodyCache $cache_entity */
-        if ($cache_entity = $this->getEntityByClientId($client->ID)) {
-          // Updating local storage about MindBody client's data if first time.
-          if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-            // @todo make it more smart via diff with old data for getting actual.
-            $cache_entity->set('field_pmc_mindbody_client_data', serialize($client));
-            $cache_entity->save();
-          }
-        }
+
+        // Updating local storage about MindBody client's data if first time.
+        $this->updateClientData($client->ID, $client);
       }
     }
     elseif ($result->GetClientsResult->ErrorCode != 200) {
       // @todo consider throw Exception.
-      $this->logger->critical(
-        '[DEV] Error from MindBody: %error',
-        ['%error' => serialize($result)]
-      );
+      $msg = '[DEV] Error from MindBody: %error';
+      $this->logger->critical($msg, ['%error' => serialize($result)]);
       return $this;
     }
 
@@ -197,24 +189,41 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         }
         foreach ($clients_for_cache as $client) {
           $this->clientIds[$client->ID] = $client;
-          /** @var PersonifyMindbodyCache $cache_entity */
-          $cache_entity = $this->getEntityByClientId($client->ID);
-          if ($cache_entity) {
-            $cache_entity->set('field_pmc_mindbody_client_data', serialize($client));
-            $cache_entity->save();
-          }
+
+          /* Note, the data will not be pushed if the client ID was
+          overridden for the testing purposes. */
+          $this->updateClientData($client->ID, $client);
         }
       }
       else {
         // @todo consider throw Exception.
-        $this->logger->critical(
-          '[DEV] Error from MindBody: %error',
-          ['%error' => serialize($result)]
-        );
+        // @todo wite status message for all entities were not pushed.
+        $msg = '[DEV] Failed to push the clients: %error';
+        $this->logger->critical($msg, ['%error' => serialize($result)]);
         return $this;
       }
     }
     return $this;
+  }
+
+  /**
+   * Update appropriate cache entities with client response data.
+   *
+   * @param $client_id string
+   *   Client ID.
+   * @param $data mixed
+   *   Client data.
+   */
+  private function updateClientData($client_id, $data) {
+    $cache_entities = $this->getEntityByClientId($client_id);
+    if (!empty($cache_entities)) {
+      foreach ($cache_entities as $cache_entity) {
+        if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
+          $cache_entity->set('field_pmc_mindbody_client_data', serialize($data));
+          $cache_entity->save();
+        }
+      }
+    }
   }
 
   /**
@@ -224,31 +233,39 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *   ID been searched by.
    *
    * @return PersonifyMindbodyCache|bool
-   *   Entity of FALSE if not found.
+   *   List of entities or FALSE.
    */
   private function getEntityByClientId($id = '') {
+    $entities = [];
+
     if ($id == NULL) {
       return FALSE;
     }
+
     $entity = &drupal_static(__FUNCTION__ . $id);
     if (isset($entity)) {
       return $entity;
     }
 
-    $cache_id = \Drupal::entityQuery('personify_mindbody_cache')
+    $ids = \Drupal::entityQuery('personify_mindbody_cache')
       ->condition('field_pmc_user_id', $id)
       ->execute();
-    $cache_id = array_shift($cache_id);
-    if ($cache_id == NULL) {
-      return FALSE;
-    }
-    if (!isset($this->wrapper->getProxyData()[$cache_id])) {
-      return FALSE;
-    }
-    /** @var PersonifyMindbodyCache $entity */
-    $entity = $this->wrapper->getProxyData()[$cache_id];
 
-    return $entity;
+    if (!$ids) {
+      return FALSE;
+    }
+
+    foreach ($ids as $id) {
+      if (isset($this->wrapper->getProxyData()[$id])) {
+        $entities[] = $this->wrapper->getProxyData()[$id];
+      }
+    }
+
+    if (empty($entities)) {
+      return FALSE;
+    }
+
+    return $entities;
   }
 
   private function pushOrders() {
