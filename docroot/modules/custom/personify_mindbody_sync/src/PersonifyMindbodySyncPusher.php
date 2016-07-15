@@ -68,15 +68,12 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *   Data wrapper.
    * @param \Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface $client
    *   MindBody caching client.
+   * @param ConfigFactory $config
+   *   Config factory.
    * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
    */
-  public function __construct(
-    PersonifyMindbodySyncWrapper $wrapper,
-    MindbodyCacheProxyInterface $client,
-    ConfigFactory $config,
-    LoggerChannelFactory $logger_factory
-  ) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory) {
     $this->wrapper = $wrapper;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
     $this->client = $client;
@@ -93,14 +90,14 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     // @todo Remove. Force for now.
     $debug = TRUE;
 
-//    $this->pushClients($debug);
+    $this->pushClients($debug);
     $this->pushOrders($debug);
   }
 
   /**
    * Process new and existing clients from Personify to MindBody.
    *
-   * @param $debug bool
+   * @param bool $debug
    *   Mode.
    *
    * @return $this
@@ -208,6 +205,132 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
   }
 
   /**
+   * Push orders.
+   *
+   * @param bool $debug
+   *   Mode
+   *
+   * @return $this
+   *   Returns itself for chaining.
+   */
+  private function pushOrders($debug = TRUE) {
+    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
+    $source = $this->wrapper->getSourceData();
+
+    if ($debug) {
+      // Limit count of orders for while debugging.
+      $source = array_slice($source, 0, 1);
+    }
+
+    $locations = $this->getAllLocationsFromOrders($source);
+    foreach ($locations as $location => $count) {
+      // Obtain Service ID.
+      $params = [
+        'LocationID' => $location,
+        'HideRelatedPrograms' => TRUE,
+      ];
+
+      $response = $this->client->call(
+        'SaleService',
+        'GetServices',
+        $params,
+        FALSE
+      );
+
+      $this->services[$location] = $response->GetServicesResult->Services->Service;
+    }
+
+    // Loop through orders.
+    $all_orders = [];
+
+    foreach ($source as $id => $order) {
+      // Do not push the order if it's already pushed.
+      $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
+      if ($cache_entity) {
+        $order_data = $cache_entity->get('field_pmc_mindbody_order_data');
+        if (!$order_data->isEmpty()) {
+          // Just skip this order.
+          continue;
+        }
+      }
+
+      $service = $this->getServiceByProductCode($order->ProductCode);
+      if (!$service) {
+        $msg = 'Failed to find a service with the code: %code';
+        $this->logger->error($msg, ['%code' => $order->ProductCode]);
+        continue;
+      }
+
+      $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
+        'UserCredentials' => [
+          // According to documentation we can use credentials, but with underscore at the beginning of username.
+          // @see https://developers.mindbodyonline.com/Develop/Authentication.
+          'Username' => '_' . $config['sourcename'],
+          'Password' => $config['password'],
+          'SiteIDs' => [
+            $config['site_id'],
+          ],
+        ],
+        'ClientID' => $debug ? self::TEST_CLIENT_ID : $order->MasterCustomerId,
+        'CartItems' => [
+          'CartItem' => [
+            'Quantity' => $order->OrderQuantity,
+            'Item' => new \SoapVar(
+              [
+                'ID' => $service->ID,
+              ],
+              SOAP_ENC_ARRAY,
+              'Service',
+              'http://clients.mindbodyonline.com/api/0_5'
+            ),
+            'DiscountAmount' => 0,
+          ],
+        ],
+        'Payments' => [
+          'PaymentInfo' => new \SoapVar(
+            [
+              'Amount' => $service->Price,
+              // Custom payment ID?
+              'ID' => 18,
+            ],
+            SOAP_ENC_ARRAY,
+            'CustomPaymentInfo',
+            'http://clients.mindbodyonline.com/api/0_5'
+          ),
+        ],
+      ];
+
+      // Push the order.
+      $response = $this->client->call(
+        'SaleService',
+        'CheckoutShoppingCart',
+        $all_orders[$order->MasterCustomerId][$order->OrderLineNo],
+        FALSE
+      );
+      if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
+        if ($cache_entity) {
+          $cache_entity->set('field_pmc_mindbody_order_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
+          $cache_entity->save();
+        }
+      }
+      else {
+        // Write error to status message.
+        if ($cache_entity) {
+          $cache_entity->set('field_pmc_status_message', serialize($response));
+          $cache_entity->save();
+        }
+
+        // Log an error.
+        $msg = '[DEV] Failed to push order to MindBody: %error';
+        $this->logger->critical($msg, ['%error' => serialize($response)]);
+        return $this;
+      }
+    }
+    return $this;
+
+  }
+
+  /**
    * Update appropriate cache entities with client response data.
    *
    * @param $client_id string
@@ -267,136 +390,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     }
 
     return $entities;
-  }
-
-  /**
-   * Push orders.
-   *
-   * @param bool $debug
-   *   Mode
-   *
-   * @return $this
-   *   Returns itself for chaining.
-   */
-  private function pushOrders($debug = TRUE) {
-    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
-
-    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
-    $debug = TRUE;
-    if ($env == 'production') {
-      $debug = FALSE;
-    }
-
-    $source = $this->wrapper->getSourceData();
-
-    if (!$debug) {
-      // Limit count of orders for Production.
-      $source = array_slice($source, 0, 1);
-    }
-
-    $locations = $this->getAllLocationsFromOrders($source);
-    foreach ($locations as $location => $count) {
-      // Obtain Service ID.
-      $params = [
-        'LocationID' => $location,
-        'HideRelatedPrograms' => TRUE,
-      ];
-
-      $response = $this->client->call(
-        'SaleService',
-        'GetServices',
-        $params,
-        FALSE
-      );
-
-      $this->services[$location] = $response->GetServicesResult->Services->Service;
-    }
-
-    // Loop through orders.
-    $all_orders = [];
-
-    foreach ($source as $id => $order) {
-      // Do not push the order if it's already pushed.
-      $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
-      if ($cache_entity) {
-        $order_data = $cache_entity->get('field_pmc_mindbody_order_data');
-        if (!$order_data->isEmpty()) {
-          // Just skip this order.
-          continue;
-        }
-      }
-
-      $service = $this->getServiceByProductCode($order->ProductCode);
-      if (!$service) {
-        $this->logger->error('Failed to find a service with the code: %code', ['%code' => $order->ProductCode]);
-        continue;
-      }
-
-      $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
-        'UserCredentials' => [
-          // According to documentation we can use credentials, but with underscore at the beginning of username.
-          // @see https://developers.mindbodyonline.com/Develop/Authentication.
-          'Username' => '_' . $config['sourcename'],
-          'Password' => $config['password'],
-          'SiteIDs' => [
-            $config['site_id'],
-          ],
-        ],
-        'ClientID' => $debug ? $order->MasterCustomerId : self::TEST_CLIENT_ID,
-        'CartItems' => [
-          'CartItem' => [
-            'Quantity' => $order->OrderQuantity,
-            'Item' => new \SoapVar(
-              [
-                'ID' => $service->ID,
-              ],
-              SOAP_ENC_ARRAY,
-              'Service',
-              'http://clients.mindbodyonline.com/api/0_5'
-            ),
-            'DiscountAmount' => 0,
-          ],
-        ],
-        'Payments' => [
-          'PaymentInfo' => new \SoapVar(
-            [
-              'Amount' => $service->Price,
-              // Custom payment ID?
-              'ID' => 18,
-            ],
-            SOAP_ENC_ARRAY,
-            'CustomPaymentInfo',
-            'http://clients.mindbodyonline.com/api/0_5'
-          ),
-        ],
-      ];
-
-      // Push the order.
-      $response = $this->client->call(
-        'SaleService',
-        'CheckoutShoppingCart',
-        $all_orders[$order->MasterCustomerId][$order->OrderLineNo],
-        FALSE
-      );
-      if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
-        // @todo: make multivalue field for order response.
-        $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
-        if ($cache_entity) {
-          $cache_entity->set('field_pmc_mindbody_order_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
-          $cache_entity->save();
-        }
-      }
-      else {
-        // @todo consider throw Exception.
-        $this->logger->critical(
-          '[DEV] Error from MindBody: %error',
-          ['%error' => serialize($response)]
-        );
-        return $this;
-      }
-    }
-    return $this;
-
   }
 
   /**
