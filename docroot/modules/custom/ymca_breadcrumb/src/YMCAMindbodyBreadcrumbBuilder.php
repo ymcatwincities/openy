@@ -126,6 +126,12 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         $breadcrumb->addCacheContexts(['url.query_args']);
       }
     }
+    else {
+      // Default breadcrumbs.
+      $breadcrumb->addLink(Link::createFromRoute($this->t('Home'), '<front>'));
+      $breadcrumb->addLink(Link::fromTextAndUrl($this->t('Health & Fitness'), Url::fromUri('internal:/health__fitness/personal_training/personal-trainer-schedules')));
+      $breadcrumb->addCacheContexts(['url.query_args']);
+    }
     return $breadcrumb;
 
   }
