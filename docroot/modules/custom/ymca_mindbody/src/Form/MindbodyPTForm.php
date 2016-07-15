@@ -28,12 +28,27 @@ class MindbodyPTForm extends FormBase {
   /**
    * Default value for start time on PT form.
    */
-  const DEFAULT_START_TIME = 6;
+  const DEFAULT_START_TIME = 5;
 
   /**
    * Default value for end time on PT form.
    */
-  const DEFAULT_END_TIME = 23;
+  const DEFAULT_END_TIME = 22;
+
+  /**
+   * Min time value that should be available on form.
+   */
+  const MIN_TIME_RANGE = 5;
+
+  /**
+   * Max time value that should be available on form.
+   */
+  const MAX_TIME_RANGE = 22;
+
+  /**
+   * Default timezone of incoming results.
+   */
+  const DEFAULT_TIMEZONE = 'America/Chicago';
 
   /**
    * Mindbody Proxy.
@@ -290,6 +305,12 @@ class MindbodyPTForm extends FormBase {
       '12 am', '1 am', '2 am', '3 am', '4 am', '5 am', '6 am', '7 am', '8 am', '9 am', '10 am', '11 am',
       '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm', '9 pm', '10 pm', '11 pm', '12 am',
     ];
+
+    foreach ($time_options as $key => $time) {
+      if ($key < $this::MIN_TIME_RANGE || $key > $this::MAX_TIME_RANGE) {
+        unset($time_options[$key]);
+      }
+    }
 
     return $time_options;
   }
@@ -578,7 +599,7 @@ class MindbodyPTForm extends FormBase {
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
             <div class="day col-sm-12">',
-        '#markup' => t('Page url is corrupted. !search_link', array('!search_link' => $link->toString())),
+        '#markup' => t('We couldn\'t complete your search. !search_link.', array('!search_link' => $link->toString())),
         '#suffix' => '</div></div></div>',
       ];
     }
@@ -597,7 +618,8 @@ class MindbodyPTForm extends FormBase {
       $booking_params['StaffIDs'] = array($values['trainer']);
     }
     $booking_params['StartDate'] = date('Y-m-d', strtotime($values['start_date']));
-    $booking_params['EndDate'] = date('Y-m-d', strtotime($values['end_date']));
+    $valid_end_date = $this->getValidEndDate($values['start_date'], $values['end_date']);
+    $booking_params['EndDate'] = date('Y-m-d', strtotime($valid_end_date));
 
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
@@ -627,6 +649,12 @@ class MindbodyPTForm extends FormBase {
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
+          // Do not process the items which are in the past.
+          // Temporary solution, should be removed once Drupal default timezone is changed.
+          if ($this->getTimestampInTimezone('now') >= $this->getTimestampInTimezone($bookable_item->StartDateTime)) {
+            continue;
+          }
+
           $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
           $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
           $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
@@ -722,6 +750,21 @@ class MindbodyPTForm extends FormBase {
     if (isset($values['mb_start_time']) && isset($values['mb_end_time'])  && $values['mb_start_time'] >= $values['mb_end_time']) {
       $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
     }
+
+    // Validate date range.
+    if ($values['step'] == 4) {
+      if (!isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+      }
+
+      if (isset($values['mb_start_date'], $values['mb_end_date'])) {
+        $start = $values['mb_start_date']->format('U');
+        $end = $values['mb_end_date']->format('U');
+        if ($start > $end) {
+          $form_state->setErrorByName('mb_start_date', $this->t('Please provide valid date range.'));
+        }
+      }
+    }
   }
 
   /**
@@ -749,7 +792,7 @@ class MindbodyPTForm extends FormBase {
         'start_time'   => $values['mb_start_time'],
         'end_time'     => $values['mb_end_time'],
         'start_date'   => $values['mb_start_date']['date'],
-        'end_date'     => $values['mb_end_date']['date'],
+        'end_date'     => $this->getValidEndDate($values['mb_start_date']['date'], $values['mb_end_date']['date']),
       ];
       if (isset($query['context'])) {
         $params['context'] = $query['context'];
@@ -763,6 +806,29 @@ class MindbodyPTForm extends FormBase {
   }
 
   /**
+   * Helper method returning valid end date.
+   *
+   * End date can't be farther than 2 weeks from start date.
+   * The method returns the end date if it's closer than 2 weeks from the start
+   * date, otherwise the start date + 2 weeks.
+   *
+   * @param string $start_date
+   *   Start date in n/j/y format.
+   * @param string $end_date
+   *   End date in n/j/y format.
+   *
+   * @return string
+   *   Valid date in n/j/y format.
+   */
+  private function getValidEndDate($start_date, $end_date) {
+    $valid_end_date = $end_date;
+    if (strtotime($end_date) - strtotime($start_date) > 86400 * 14) {
+      $valid_end_date = date('n/j/y', strtotime($start_date . " +2 weeks"));
+    }
+    return $valid_end_date;
+  }
+
+  /**
    * Helper method retrieving location options to be used in form element.
    *
    * @return array
@@ -773,10 +839,10 @@ class MindbodyPTForm extends FormBase {
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      if ($location->HasClasses != TRUE) {
+      if ($location->HasClasses != TRUE || !$this->trainingsMapping->locationIsActive($location->ID)) {
         continue;
       }
-      $location_options[$location->ID] = $location->Name;
+      $location_options[$location->ID] = $this->trainingsMapping->getLocationLabel($location->ID, $location->Name);
     }
 
     return $location_options;
@@ -895,6 +961,14 @@ class MindbodyPTForm extends FormBase {
     }
 
     return $trainer_name;
+  }
+
+  /**
+   * Returns timestamp in appropriate timezone. See $this::DEFAULT_TIMEZONE.
+   */
+  protected function getTimestampInTimezone($data) {
+    $date = new DrupalDateTime($data, $this::DEFAULT_TIMEZONE);
+    return $date->getTimestamp();
   }
 
 }
