@@ -2,7 +2,7 @@ ymca_mindbody.pt:
   path: '/health__fitness/personal_training/personal-trainer-schedules'
   defaults:
     _form: '\Drupal\ymca_mindbody\Form\MindbodyPTForm'
-    _title: 'Book Personal Training'
+    _title: 'Personal Trainer Schedules'
   requirements:
     _permission: 'access content'
 ymca_mindbody.pt.results:
