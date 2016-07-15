@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_state
     - field.field.node.article.field_tags
+    - field.field.node.article.field_template
     - field.field.node.article.field_title_description
     - node.type.article
   module:
@@ -37,7 +38,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_alert:
-    weight: 17
+    weight: 18
     settings:
       form_mode: default
       label_singular: ''
@@ -49,21 +50,21 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
   field_content:
-    weight: 14
+    weight: 15
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_header_button:
-    weight: 10
+    weight: 11
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_header_image:
-    weight: 9
+    weight: 10
     settings:
       entity_browser: browse_files_modal
       field_widget_edit: '1'
@@ -75,19 +76,19 @@ content:
     third_party_settings: {  }
     type: file_browser
   field_header_variant:
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_lead_description:
-    weight: 11
+    weight: 12
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_promo_slideshow:
-    weight: 16
+    weight: 17
     settings:
       form_mode: default
       label_singular: ''
@@ -99,7 +100,7 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
   field_related:
-    weight: 18
+    weight: 19
     settings:
       entity_browser: browse_content_modal
       field_widget_display: label
@@ -110,29 +111,34 @@ content:
     third_party_settings: {  }
     type: entity_browser_entity_reference
   field_secondary_sidebar:
-    weight: 12
+    weight: 13
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_sidebar:
-    weight: 15
+    weight: 16
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_sidebar_navigation:
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_state:
-    weight: 19
+    weight: 20
     settings: {  }
     third_party_settings: {  }
     type: workflow_default
+  field_template:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_title_description:
     weight: 1
     settings:
