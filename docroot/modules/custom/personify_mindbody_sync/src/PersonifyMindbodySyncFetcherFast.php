@@ -3,11 +3,11 @@
 namespace Drupal\personify_mindbody_sync;
 
 /**
- * Class PersonifyMindbodySyncFetcher.
+ * Class PersonifyMindbodySyncFetcherFast.
  *
  * @package Drupal\personify_mindbody_sync
  */
-class PersonifyMindbodySyncFetcherFast extends PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface {
+class PersonifyMindbodySyncFetcherFast extends PersonifyMindbodySyncFetcherBase {
 
   /**
    * {@inheritdoc}
