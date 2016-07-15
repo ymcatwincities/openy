@@ -93,7 +93,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
           FALSE
         );
       }
-      catch (MindbodyException $e)  {
+      catch (MindbodyException $e) {
         $msg = 'Failed to push the clients: %error';
         $this->logger->critical($msg, ['%error' => $e->getMessage()]);
         return $this;
