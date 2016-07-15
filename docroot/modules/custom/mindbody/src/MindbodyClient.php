@@ -123,7 +123,7 @@ class MindbodyClient implements MindbodyClientInterface {
 
       // Check whether the results are OK.
       $property = $endpoint . 'Result';
-      if (!$result->{$property}->ErrorCode != 200) {
+      if ($result->{$property}->ErrorCode != 200) {
         $msg = 'Error while getting the results. Status: %status';
         $this->logger->error($msg, ['%status' => $result->{$property}->Status]);
       }
