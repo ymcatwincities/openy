@@ -3,6 +3,7 @@
 namespace Drupal\personify_mindbody_sync;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
@@ -86,25 +87,29 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * {@inheritdoc}
    */
   public function push() {
-    $this->pushClients();
-//    $this->pushOrders();
+    $config = $this->config->get('personify_mindbody_sync.settings');
+    $debug = $config->get('debug');
+
+    // @todo Remove. Force for now.
+    $debug = TRUE;
+
+//    $this->pushClients($debug);
+    $this->pushOrders($debug);
   }
 
   /**
    * Process new and existing clients from Personify to MindBody.
    *
+   * @param $debug bool
+   *   Mode.
+   *
    * @return $this
    *   Returns itself for chaining.
    */
-  private function pushClients() {
-    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
-    $debug = TRUE;
-    if ($env == 'production') {
-      $debug = FALSE;
-    }
+  private function pushClients($debug = TRUE) {
+    $data = $this->wrapper->getProxyData();
 
-    /** @var PersonifyMindbodyCache $entity */
-    foreach ($this->wrapper->getProxyData() as $id => $entity) {
+    foreach ($data as $id => $entity) {
       $user_id = $entity->field_pmc_user_id->value;
       $personifyData = unserialize($entity->field_pmc_personify_data->value);
 
@@ -112,8 +117,8 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
         $this->clientIds[$user_id] = new \SoapVar(
           [
-            'NewID' => $debug ? $user_id : self::TEST_CLIENT_ID,
-            'ID' => $debug ? $user_id : self::TEST_CLIENT_ID,
+            'NewID' => $debug ? self::TEST_CLIENT_ID : $user_id,
+            'ID' => $debug ? self::TEST_CLIENT_ID : $user_id,
             'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify: FirstName',
             'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify: LastName',
             'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify: Email',
@@ -155,15 +160,13 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
       // We've found a few clients already. Let's filter them out.
       foreach ($remote_clients as $client) {
         // Skip users already saved into cache.
-        // @todo I'm guessing ID is not unique within MindBody.
         unset($this->clientIds[$client->ID]);
 
-        // Updating local storage about MindBody client's data if first time.
+        // Update cached entity with client's data if first time.
         $this->updateClientData($client->ID, $client);
       }
     }
     elseif ($result->GetClientsResult->ErrorCode != 200) {
-      // @todo consider throw Exception.
       $msg = '[DEV] Error from MindBody: %error';
       $this->logger->critical($msg, ['%error' => serialize($result)]);
       return $this;
@@ -196,8 +199,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
         }
       }
       else {
-        // @todo consider throw Exception.
-        // @todo wite status message for all entities were not pushed.
         $msg = '[DEV] Failed to push the clients: %error';
         $this->logger->critical($msg, ['%error' => serialize($result)]);
         return $this;
@@ -268,7 +269,16 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     return $entities;
   }
 
-  private function pushOrders() {
+  /**
+   * Push orders.
+   *
+   * @param bool $debug
+   *   Mode
+   *
+   * @return $this
+   *   Returns itself for chaining.
+   */
+  private function pushOrders($debug = TRUE) {
     $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
 
     $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
@@ -463,190 +473,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
 
     return FALSE;
   }
-
-  /**
-   * Push orders from proxy to MindBody.
-   */
-  private function _pushOrders() {
-    $env = \Drupal::service('environment_config.handler')->getEnvironmentIndicator('mindbody.settings');
-    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
-
-    $source = $this->wrapper->getSourceData();
-
-    if ($env == 'staging') {
-      // We are working with fake data here.
-
-      // Andover.
-      $location_id = 1;
-
-      // Obtain Service ID.
-      $params = [
-        'LocationID' => $location_id,
-        'HideRelatedPrograms' => TRUE,
-      ];
-
-      $response = $this->client->call(
-        'SaleService',
-        'GetServices',
-        $params,
-        FALSE
-      );
-      $services = $response->GetServicesResult->Services->Service;
-
-      foreach ($source as $order) {
-        $rand = rand(0, count($services) - 1);
-        $service_id = $services[$rand]->ID;
-
-        $card_payment_info = new \SoapVar(
-          [
-            'CreditCardNumber' => '1234-4567-7458-4567',
-            'Amount' => $services[$rand]->Price,
-            'BillingAddress' => '123 Happy Ln',
-            'BillingCity' => 'Santa Ynez',
-            'BillingState' => 'CA',
-            'BillingPostalCode' => '93455',
-            'ExpYear' => '2017',
-            'ExpMonth' => '7',
-            'BillingName' => 'John Berky',
-          ],
-          SOAP_ENC_ARRAY,
-          'CreditCardInfo',
-          'http://clients.mindbodyonline.com/api/0_5'
-        );
-
-        // Let's place the order.
-        $params = [
-          // @todo Be careful about (int). MindBody stores string!!!
-          'ClientID' => $order->MasterCustomerId,
-          // Without Test "Card Authorization Failed
-          // mb.Core.BLL.Transaction failed validation Could not determine
-          // the type of credit card.".
-          'Test' => TRUE,
-          'CartItems' => [
-            'CartItem' => [
-              'Quantity' => 1,
-              'Item' => new \SoapVar(
-                [
-                  'ID' => $service_id
-                ],
-                SOAP_ENC_ARRAY,
-                'Service',
-                'http://clients.mindbodyonline.com/api/0_5'
-              ),
-              'DiscountAmount' => 0,
-            ],
-          ],
-          'Payments' => [
-            'PaymentInfo' => $card_payment_info
-          ],
-        ];
-
-        $response = $this->client->call(
-          'SaleService',
-          'CheckoutShoppingCart',
-          $params,
-          FALSE
-        );
-        if ($response->CheckoutShoppingCartResult->Status == 'Success') {
-          $this->logger->info(
-            $env . ' : ShoppingCart succeeded ' . print_r(
-              $response->CheckoutShoppingCartResult->ShoppingCart,
-              TRUE
-            )
-          );
-        }
-        else {
-          $this->logger->info(
-            $env . ' : ShoppingCart failed with the result ' . print_r(
-              $response->CheckoutShoppingCartResult,
-              TRUE
-            )
-          );
-        }
-      }
-
-    }
-    else {
-      // @todo Add production push logic.
-      // Get all locations from sourceData.
-      // Get all services per locations.
-      $services = [];
-      foreach ($this->getAllLocationsFromOrders($source) as $location => $count) {
-
-        // Obtain Service ID.
-        $params = [
-          'LocationID' => $location,
-          'HideRelatedPrograms' => TRUE,
-        ];
-
-        $response = $this->client->call(
-          'SaleService',
-          'GetServices',
-          $params,
-          FALSE
-        );
-        $services[$location] = $response->GetServicesResult->Services->Service;
-      }
-      // Loop through orders.
-      $all_orders = [];
-      foreach ($source as $id => $order) {
-        $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
-          'UserCredentials' => [
-            // According to documentation we can use credentials, but with underscore at the beginning of username.
-            // @see https://developers.mindbodyonline.com/Develop/Authentication.
-            'Username' => '_' . $config['sourcename'],
-            'Password' => $config['password'],
-            'SiteIDs' => [
-              $config['site_id'],
-            ],
-          ],
-          'ClientID' => self::TEST_CLIENT_ID,
-          'CartItems' => [
-            'CartItem' => [
-              'Quantity' => $order->OrderQuantity,
-              'Item' => new \SoapVar(
-                [
-                  'ID' => 10101,
-                ],
-                SOAP_ENC_ARRAY,
-                'Service',
-                'http://clients.mindbodyonline.com/api/0_5'
-              ),
-              'DiscountAmount' => 0,
-            ],
-          ],
-          'Payments' => [
-            'PaymentInfo' => new \SoapVar(
-              [
-                'Amount' => 55,
-                // Custom payment ID?
-                'ID' => 18,
-              ],
-              SOAP_ENC_ARRAY,
-              'CustomPaymentInfo',
-              'http://clients.mindbodyonline.com/api/0_5'
-            ),
-          ],
-        ];
-        // Push all orders.
-        $response = $this->client->call('SaleService', 'CheckoutShoppingCart', $all_orders[$order->MasterCustomerId][$order->OrderLineNo], FALSE);
-        $a = 10;
-      }
-      $this->logger->error(
-        $env . ' : Not implemented for this environment yet.'
-      );
-    }
-
-  }
-
-//  private function getServiceByProductCode($code) {
-//    $map = [
-//      'PT Express 30 min - 1 (NON MEMBER)' => '10101',
-//    ];
-//
-//    $id = $map[$code];
-//
-//  }
 
   /**
    * Get Location ID from Order object.
