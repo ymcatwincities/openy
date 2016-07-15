@@ -2,6 +2,8 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\mindbody\MindbodyException;
+
 /**
  * Class PersonifyMindbodySyncPusherFast.
  *
@@ -40,12 +42,19 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
     }
 
     // Locate already synced clients.
-    $result = $this->client->call(
-      'ClientService',
-      'GetClients',
-      ['ClientIDs' => array_keys($this->clientIds)],
-      FALSE
-    );
+    try {
+      $result = $this->client->call(
+        'ClientService',
+        'GetClients',
+        ['ClientIDs' => array_keys($this->clientIds)],
+        FALSE
+      );
+    }
+    catch (MindbodyException $e) {
+      $msg = 'Failed to get clients list: %error';
+      $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+      return $this;
+    }
 
     if ($result->GetClientsResult->ErrorCode == 200 && $result->GetClientsResult->ResultCount != 0) {
       // Got it, there are clients, pushed already.
@@ -67,7 +76,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
       }
     }
     elseif ($result->GetClientsResult->ErrorCode != 200) {
-      $msg = '[DEV] Error from MindBody: %error';
+      $msg = 'Error from MindBody: %error';
       $this->logger->critical($msg, ['%error' => serialize($result)]);
       return $this;
     }
@@ -76,12 +85,19 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
     $push_clients = array_values($this->clientIds);
     if (!empty($push_clients)) {
       $clients_for_cache = [];
-      $result = $this->client->call(
-        'ClientService',
-        'AddOrUpdateClients',
-        ['Clients' => $push_clients],
-        FALSE
-      );
+      try {
+        $result = $this->client->call(
+          'ClientService',
+          'AddOrUpdateClients',
+          ['Clients' => $push_clients],
+          FALSE
+        );
+      }
+      catch (MindbodyException $e)  {
+        $msg = 'Failed to push the clients: %error';
+        $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+        return $this;
+      }
       if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
         // Saving succeeded. Store cache data for later usage.
         if (count($push_clients) == 1) {
@@ -99,7 +115,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
         }
       }
       else {
-        $msg = '[DEV] Failed to push the clients: %error';
+        $msg = 'Failed to push the clients: %error';
         $this->logger->critical($msg, ['%error' => serialize($result)]);
         return $this;
       }

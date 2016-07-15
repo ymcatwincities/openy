@@ -2,6 +2,8 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\mindbody\MindbodyException;
+
 /**
  * Class PersonifyMindbodySyncPusherSlow.
  *
@@ -41,12 +43,19 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
     }
 
     // Locate already synced clients.
-    $result = $this->client->call(
-      'ClientService',
-      'GetClients',
-      ['ClientIDs' => array_keys($this->clientIds)],
-      FALSE
-    );
+    try {
+      $result = $this->client->call(
+        'ClientService',
+        'GetClients',
+        ['ClientIDs' => array_keys($this->clientIds)],
+        FALSE
+      );
+    }
+    catch (MindbodyException $e) {
+      $msg = 'Failed to get clients list: %error';
+      $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+      return;
+    }
 
     if ($result->GetClientsResult->ErrorCode == 200 && $result->GetClientsResult->ResultCount != 0) {
       // Got it, there are clients, pushed already.
@@ -74,19 +83,27 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
 
     // Let's push new clients to MindBody.
     foreach ($this->clientIds as $client_id => $client) {
-      $result = $this->client->call(
-        'ClientService',
-        'AddOrUpdateClients',
-        ['Clients' => [$client]],
-        FALSE
-      );
+      try {
+        $result = $this->client->call(
+          'ClientService',
+          'AddOrUpdateClients',
+          ['Clients' => [$client]],
+          FALSE
+        );
+      }
+      catch (MindbodyException $e) {
+        $msg = 'Failed to push (exception) single client: %error';
+        $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+        // Continue with the next client.
+        continue;
+      }
       if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
         $response = $result->AddOrUpdateClientsResult->Clients->Client;
         $this->updateClientData($client_id, $response);
       }
       else {
         // Something went wrong.
-        $msg = '[DEV] Failed to push single client: %error';
+        $msg = 'Failed to push single client: %error';
         $this->logger->critical($msg, ['%error' => serialize($result)]);
       }
     }
