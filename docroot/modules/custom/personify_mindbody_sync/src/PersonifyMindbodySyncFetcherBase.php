@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
  *
  * @package Drupal\personify_mindbody_sync
  */
-class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterface {
+abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface {
 
   /**
    * PersonifyMindbodySyncWrapper definition.
@@ -59,14 +59,6 @@ class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterf
     $this->client = $client;
     $this->config = $config;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fetch() {
-    $orders = $this->getData('2000-01-01T11:20:00');
-    $this->wrapper->setSourceData($orders);
   }
 
   /**
@@ -119,6 +111,7 @@ class PersonifyMindbodySyncFetcher implements PersonifyMindbodySyncFetcherInterf
     }
     catch (\Exception $e) {
       $this->logger->error('Failed to get Personify data: %msg', ['%msg' => $e->getMessage()]);
+      throw new \Exception('Personify is down.');
     }
 
     return $orders;

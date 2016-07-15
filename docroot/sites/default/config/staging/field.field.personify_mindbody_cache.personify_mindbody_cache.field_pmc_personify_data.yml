@@ -1,17 +1,17 @@
-uuid: a129827b-4806-4c26-9fa3-6c48bea3a86f
+uuid: f6e24931-7962-413c-a409-d19f75053d86
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.personify_mindbody_cache.field_pmc_data
+    - field.storage.personify_mindbody_cache.field_pmc_personify_data
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_data
-field_name: field_pmc_data
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_data
+field_name: field_pmc_personify_data
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
 label: 'Personify Data'
-description: 'Serialized object of Personify order.'
+description: 'Data fetched from Personify.'
 required: false
 translatable: false
 default_value: {  }

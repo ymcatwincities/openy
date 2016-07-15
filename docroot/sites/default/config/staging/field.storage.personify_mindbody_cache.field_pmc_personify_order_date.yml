@@ -1,15 +1,16 @@
-uuid: 1a2719ae-1f83-4885-b3be-76a68c1fdcda
+uuid: 68fb154e-dd93-4343-9f3e-c840cc95cda7
 langcode: en
 status: true
 dependencies:
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.field_pmc_mindbody_data
-field_name: field_pmc_mindbody_data
+id: personify_mindbody_cache.field_pmc_personify_order_date
+field_name: field_pmc_personify_order_date
 entity_type: personify_mindbody_cache
-type: string_long
+type: integer
 settings:
-  case_sensitive: false
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1
