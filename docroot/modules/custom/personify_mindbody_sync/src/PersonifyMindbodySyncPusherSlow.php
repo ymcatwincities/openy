@@ -30,6 +30,13 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
       return;
     }
 
+    if ($debug) {
+      $clients = [];
+      $key = key($this->clientIds);
+      $clients[$key] = $this->clientIds[$key];
+      $this->clientIds = $clients;
+    }
+
     // Let's push new clients to MindBody.
     foreach ($this->clientIds as $client_id => $client) {
       try {
