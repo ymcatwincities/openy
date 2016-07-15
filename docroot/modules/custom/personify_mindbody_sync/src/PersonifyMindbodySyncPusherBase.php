@@ -3,19 +3,17 @@
 namespace Drupal\personify_mindbody_sync;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
 
 /**
- * Class PersonifyMindbodySyncPusher.
+ * Class PersonifyMindbodySyncPusherBase.
  *
  * @package Drupal\personify_mindbody_sync
  */
-class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterface {
+abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncPusherInterface {
 
   const TEST_CLIENT_ID = '69696969';
 
@@ -45,21 +43,21 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    *
    * @var array
    */
-  private $clientIds = [];
+  protected $clientIds = [];
 
   /**
    * MindBody cache client.
    *
    * @var \Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface
    */
-  private $client;
+  protected $client;
 
   /**
    * The list of services.
    *
    * @var array
    */
-  private $services;
+  protected $services;
 
   /**
    * PersonifyMindbodySyncPusher constructor.
@@ -80,129 +78,6 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
     $this->config = $config;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function push() {
-    $config = $this->config->get('personify_mindbody_sync.settings');
-    $debug = $config->get('debug');
-
-    // @todo Remove. Force for now.
-    $debug = TRUE;
-
-    $this->pushClients($debug);
-    $this->pushOrders($debug);
-  }
-
-  /**
-   * Process new and existing clients from Personify to MindBody.
-   *
-   * @param bool $debug
-   *   Mode.
-   *
-   * @return $this
-   *   Returns itself for chaining.
-   */
-  private function pushClients($debug = TRUE) {
-    $data = $this->wrapper->getProxyData();
-
-    foreach ($data as $id => $entity) {
-      $user_id = $entity->field_pmc_user_id->value;
-      $personifyData = unserialize($entity->field_pmc_personify_data->value);
-
-      // Push only items which were not pushed before.
-      if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-        $this->clientIds[$user_id] = new \SoapVar(
-          [
-            'NewID' => $debug ? self::TEST_CLIENT_ID : $user_id,
-            'ID' => $debug ? self::TEST_CLIENT_ID : $user_id,
-            'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify: FirstName',
-            'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify: LastName',
-            'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify: Email',
-            'BirthDate' => !empty($personifyData->BirthDate) ? $personifyData->BirthDate : '1970-01-01T00:00:00',
-//              'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : '0000000000',
-            'MobilePhone' => '0000000000',
-            // @todo recheck on prod. Required field get mad.
-            'AddressLine1' => 'Non existent within Personify: AddressLine1',
-            'City' => 'Non existent within Personify: City',
-            'State' => 'NA',
-            'PostalCode' => '00000',
-            'ReferredBy' => 'Non existent within Personify: ReferredBy'
-          ],
-          SOAP_ENC_OBJECT,
-          'Client',
-          'http://clients.mindbodyonline.com/api/0_5'
-        );
-      }
-    }
-
-    // Locate already synced clients.
-    $result = $this->client->call(
-      'ClientService',
-      'GetClients',
-      ['ClientIDs' => array_keys($this->clientIds)],
-      FALSE
-    );
-
-    if ($result->GetClientsResult->ErrorCode == 200 && $result->GetClientsResult->ResultCount != 0) {
-      // Got it, there are clients, pushed already.
-      $remote_clients = [];
-      if ($result->GetClientsResult->ResultCount == 1) {
-        $remote_clients[] = $result->GetClientsResult->Clients->Client;
-      }
-      else {
-        $remote_clients = $result->GetClientsResult->Clients->Client;
-      }
-
-      // We've found a few clients already. Let's filter them out.
-      foreach ($remote_clients as $client) {
-        // Skip users already saved into cache.
-        unset($this->clientIds[$client->ID]);
-
-        // Update cached entity with client's data if first time.
-        $this->updateClientData($client->ID, $client);
-      }
-    }
-    elseif ($result->GetClientsResult->ErrorCode != 200) {
-      $msg = '[DEV] Error from MindBody: %error';
-      $this->logger->critical($msg, ['%error' => serialize($result)]);
-      return $this;
-    }
-
-    // Let's push new clients to MindBody.
-    $push_clients = array_values($this->clientIds);
-    if (!empty($push_clients)) {
-      $clients_for_cache = [];
-      $result = $this->client->call(
-        'ClientService',
-        'AddOrUpdateClients',
-        ['Clients' => $push_clients],
-        FALSE
-      );
-      if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
-        // Saving succeeded. Store cache data for later usage.
-        if (count($push_clients) == 1) {
-          $clients_for_cache[] = $result->AddOrUpdateClientsResult->Clients->Client;
-        }
-        else {
-          $clients_for_cache = $result->AddOrUpdateClientsResult->Clients->Client;
-        }
-        foreach ($clients_for_cache as $client) {
-          $this->clientIds[$client->ID] = $client;
-
-          /* Note, the data will not be pushed if the client ID was
-          overridden for the testing purposes. */
-          $this->updateClientData($client->ID, $client);
-        }
-      }
-      else {
-        $msg = '[DEV] Failed to push the clients: %error';
-        $this->logger->critical($msg, ['%error' => serialize($result)]);
-        return $this;
-      }
-    }
-    return $this;
-  }
 
   /**
    * Push orders.
@@ -213,7 +88,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return $this
    *   Returns itself for chaining.
    */
-  private function pushOrders($debug = TRUE) {
+  protected function pushOrders($debug = TRUE) {
     $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
     $source = $this->wrapper->getSourceData();
 
@@ -338,7 +213,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @param $data mixed
    *   Client data.
    */
-  private function updateClientData($client_id, $data) {
+  protected function updateClientData($client_id, $data) {
     $cache_entities = $this->getEntityByClientId($client_id);
     if (!empty($cache_entities)) {
       foreach ($cache_entities as $cache_entity) {
@@ -359,7 +234,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return PersonifyMindbodyCache|bool
    *   List of entities or FALSE.
    */
-  private function getEntityByClientId($id = '') {
+  protected function getEntityByClientId($id = '') {
     $entities = [];
 
     if ($id == NULL) {
@@ -401,7 +276,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return mixed
    *   Service ID.
    */
-  private function getServiceByProductCode($code) {
+  protected function getServiceByProductCode($code) {
     $map = [
       'PT_NMP_1_SESS_30_MIN' => '10101',
       'PT_12_SESS_30_MIN' => '10110',
@@ -476,7 +351,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return string
    *   String of LocationID.
    */
-  private function getLocationForOrder(\stdClass $order) {
+  protected function getLocationForOrder(\stdClass $order) {
     $data = explode('_', $order->ProductCode);
     return $data[0];
   }
@@ -490,7 +365,7 @@ class PersonifyMindbodySyncPusher implements PersonifyMindbodySyncPusherInterfac
    * @return array
    *   Locations.
    */
-  private function getAllLocationsFromOrders(array $orders) {
+  protected function getAllLocationsFromOrders(array $orders) {
     $locations = [];
     foreach ($orders as $id => $order) {
       $loc_id = $this->getLocationForOrder($order);
