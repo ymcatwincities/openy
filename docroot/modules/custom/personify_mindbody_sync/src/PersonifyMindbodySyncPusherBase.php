@@ -5,6 +5,7 @@ namespace Drupal\personify_mindbody_sync;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
 
@@ -115,12 +116,19 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'HideRelatedPrograms' => TRUE,
       ];
 
-      $response = $this->client->call(
-        'SaleService',
-        'GetServices',
-        $params,
-        FALSE
-      );
+      try {
+        $response = $this->client->call(
+          'SaleService',
+          'GetServices',
+          $params,
+          FALSE
+        );
+      }
+      catch (MindbodyException $e) {
+        $msg = 'Failed to get services form Mindbody: %error';
+        $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+        return $this;
+      }
 
       $this->services[$location] = $response->GetServicesResult->Services->Service;
     }
@@ -186,12 +194,20 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       ];
 
       // Push the order.
-      $response = $this->client->call(
-        'SaleService',
-        'CheckoutShoppingCart',
-        $all_orders[$order->MasterCustomerId][$order->OrderLineNo],
-        FALSE
-      );
+      try {
+        $response = $this->client->call(
+          'SaleService',
+          'CheckoutShoppingCart',
+          $all_orders[$order->MasterCustomerId][$order->OrderLineNo],
+          FALSE
+        );
+      }
+      catch (MindbodyException $e) {
+        $msg = 'Failed to push order to the MindBody: %msg';
+        $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+        // Skip this order. Continue with next.
+        continue;
+      }
       if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
         if ($cache_entity) {
           $cache_entity->set('field_pmc_mindbody_order_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
