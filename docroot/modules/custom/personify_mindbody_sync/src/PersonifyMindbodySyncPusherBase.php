@@ -89,12 +89,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $this->debug = $settings->get('debug');
   }
 
-
   /**
    * Push orders.
    *
    * @param bool $debug
-   *   Mode
+   *   Mode.
    *
    * @return $this
    *   Returns itself for chaining.
@@ -219,9 +218,9 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Update appropriate cache entities with client response data.
    *
-   * @param $client_id string
+   * @param string $client_id
    *   Client ID.
-   * @param $data mixed
+   * @param mixed $data
    *   Client data.
    */
   protected function updateClientData($client_id, $data) {
@@ -281,7 +280,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Get service ID by Product Code.
    *
-   * @param $code string
+   * @param string $code
    *   Product code.
    *
    * @return mixed
@@ -393,7 +392,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Prepare SoapVar object from Personify Data.
    *
-   * @param integer $user_id
+   * @param int $user_id
    *   User ID.
    * @param \stdClass $data
    *   Personify data.
@@ -403,7 +402,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @return \SoapVar
    *   Object ready to push to MindBody.
    */
-  protected function prepareClientObject($user_id, $data, $debug = TRUE) {
+  protected function prepareClientObject($user_id, \stdClass $data, $debug = TRUE) {
     $default_phone = '0000000000';
 
     // Fix AddressLine.
