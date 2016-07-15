@@ -4,6 +4,9 @@ The module have 2 syncers: fast and slow.
 
   * Fast proceeds withing last 24 hours.
   * Slow proceeds with all failed items.
+ 
+By default Syncer is in DEBUG mode. In order to run it in production
+you have to disable DEBUG mode.
 
 To run the process use the next code:
 
@@ -22,6 +25,5 @@ To run the process use the next code:
 
 ## TODO
 
-1. Get rid of Pusher::getEntityByClientId, and use Wraper::FindOrder (We can get multiple orders by single Client)
-2. Add different payment method in the Pusher for stage/prod
-3. Combine Lite items into single requests. 
+  * Phone validation, Birthday validation
+  * Slow & fast pushers (slow should push clients one by one). 
