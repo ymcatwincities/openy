@@ -241,12 +241,14 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   protected function updateClientData($client_id, $data) {
     $cache_entities = $this->getEntityByClientId($client_id);
-    if (!empty($cache_entities)) {
-      foreach ($cache_entities as $cache_entity) {
-        if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-          $cache_entity->set('field_pmc_mindbody_client_data', serialize($data));
-          $cache_entity->save();
-        }
+    if (empty($cache_entities)) {
+      return;
+    }
+
+    foreach ($cache_entities as $cache_entity) {
+      if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
+        $cache_entity->set('field_pmc_mindbody_client_data', serialize($data));
+        $cache_entity->save();
       }
     }
   }
