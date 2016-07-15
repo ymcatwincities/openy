@@ -111,6 +111,7 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
     }
     catch (\Exception $e) {
       $this->logger->error('Failed to get Personify data: %msg', ['%msg' => $e->getMessage()]);
+      return [];
     }
 
     return $orders;
