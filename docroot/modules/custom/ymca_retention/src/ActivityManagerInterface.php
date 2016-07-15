@@ -25,7 +25,7 @@ interface ActivityManagerInterface {
 
   /**
    * Returns an array of tracked member activities.
-   * 
+   *
    * @return array
    *   Tracked member activities.
    */
