@@ -3538,3 +3538,17 @@ function ymca_master_update_8151() {
     ]
   );
 }
+
+/**
+ * Adds the view my_content.
+ */
+function ymca_master_update_8152() {
+  // Import new one.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
