@@ -451,6 +451,12 @@ function ymca_preprocess_html(&$variables) {
             'theme_ymca_2013_location_home',
           ];
         }
+        // Apply specific class based on value chosen in "Template" field.
+        if ($node->hasField('field_template')) {
+          if ($template = $node->field_template->value) {
+            $classes[] = 'template_' . $template;
+          }
+        }
         break;
     }
   }
