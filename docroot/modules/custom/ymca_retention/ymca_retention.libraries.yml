@@ -3,12 +3,26 @@ angular:
   js:
     //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
 
+angular-slick:
+  version: VERSION
+  js:
+    js/angular-slick.min.js: { minified: true }
+
 leaderboard:
   version: VERSION
   js:
     js/leaderboard.js: {}
   dependencies:
-      - core/jquery
-      - core/jquery.once
-      - core/drupal
-      - core/drupalSettings
+    - ymca_retention/angular
+    - ymca_retention/angular-slick
+    - core/drupal
+    - core/drupalSettings
+
+activity:
+  version: VERSION
+  js:
+    js/activity.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - core/drupal
+    - core/drupalSettings

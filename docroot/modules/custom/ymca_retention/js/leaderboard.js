@@ -8,8 +8,8 @@
     $('body').addClass('ymca-retention-leaderboard-processed');
 
     var LeaderboardModule = angular.module('Leaderboard', []);
-    LeaderboardModule.controller('LeaderboardController', function($scope, $http, $interval) {
-      $scope.locations = settings.ymca_retention.locations;
+    LeaderboardModule.controller('LeaderboardController', function($scope, $http) {
+      $scope.locations = settings.ymca_retention.leaderboard.locations;
       $scope.location = $scope.locations[0];
       $scope.cache = {};
 
@@ -26,7 +26,7 @@
             return;
           }
 
-          $http.get(settings.ymca_retention.leaderboard.replace('0000', $scope.location.branch_id)).success(function(data) {
+          $http.get(settings.ymca_retention.leaderboard.leaderboard_url_pattern.replace('0000', $scope.location.branch_id)).success(function(data) {
             $scope.members = data;
             $scope.cache[$scope.location.branch_id] = data;
           });

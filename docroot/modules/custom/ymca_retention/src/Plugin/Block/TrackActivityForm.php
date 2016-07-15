@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Url;
 
 /**
  * Provides a block with form for tracking activity.
@@ -19,11 +20,28 @@ class TrackActivityForm extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $form = \Drupal::formBuilder()
-      ->getForm('\Drupal\ymca_retention\Form\MemberTrackActivityForm');
+    /** @var \Drupal\ymca_retention\ActivityManager $service */
+    $service = \Drupal::service('ymca_retention.activity_manager');
+    $dates = $service->getDates();
+    $activity_groups = $service->getActivityGroups();
+    $member_activities = $service->getMemberActivities();
+    
     return [
       '#theme' => 'ymca_retention_track_activity_form',
-      'form' => $form,
+      '#attached' => [
+        'library' => [
+          'ymca_retention/activity',
+        ],
+        'drupalSettings' => [
+          'ymca_retention' => [
+            'activity' => [
+              'dates' => $dates,
+              'activity_groups' => $activity_groups,
+              'member_activities' => Url::fromRoute('ymca_retention.member_activities_json')->toString(),
+            ],
+          ],
+        ],
+      ],
     ];
   }
 
