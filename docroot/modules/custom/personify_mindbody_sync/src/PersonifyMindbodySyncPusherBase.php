@@ -404,6 +404,25 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   Object ready to push to MindBody.
    */
   protected function prepareClientObject($user_id, $data, $debug = TRUE) {
+    $default_phone = '0000000000';
+
+    // Fix AddressLine.
+    $address = 'NA';
+
+    // Try automatically fix phone.
+    if (!$phone = $data->PrimaryPhone) {
+      $phone = $default_phone;
+    }
+    else {
+      // The phone should be like: 612-865-9139.
+      $result = preg_grep("/^\d{3}-\d{3}-\d{4}$/", [$phone]);
+      if (empty($result)) {
+        // Phone is invalid. Append it to AddressLine.
+        $address .= ' PrimaryPhone: ' . $phone;
+        $phone = $default_phone;
+      }
+    }
+
     return new \SoapVar(
       [
         'NewID' => $debug ? self::TEST_CLIENT_ID : $user_id,
@@ -412,10 +431,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'LastName' => !empty($data->LastName) ? $data->LastName : 'Non existent within Personify: LastName',
         'Email' => !empty($data->PrimaryEmail) ? $data->PrimaryEmail : 'Non existent within Personify: Email',
         'BirthDate' => !empty($data->BirthDate) ? $data->BirthDate : '1970-01-01T00:00:00',
-//              'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : '0000000000',
-        'MobilePhone' => '0000000000',
-        // @todo recheck on prod. Required field get mad.
-        'AddressLine1' => 'Non existent within Personify: AddressLine1',
+        'MobilePhone' => $phone,
+        'AddressLine1' => $address,
         'City' => 'Non existent within Personify: City',
         'State' => 'NA',
         'PostalCode' => '00000',
