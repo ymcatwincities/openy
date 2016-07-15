@@ -13,14 +13,8 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    * {@inheritdoc}
    */
   public function push() {
-    $config = $this->config->get('personify_mindbody_sync.settings');
-    $debug = $config->get('debug');
-
-    // @todo Remove. Force for now.
-    $debug = TRUE;
-
-    $this->pushClientsBatch($debug);
-    parent::pushOrders($debug);
+    $this->pushClientsBatch($this->debug);
+    parent::pushOrders($this->debug);
   }
 
   /**
