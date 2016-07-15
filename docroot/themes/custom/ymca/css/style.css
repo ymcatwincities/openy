@@ -5182,7 +5182,6 @@ a.wrapper:hover {
 
   .fb-like-box, .fb_iframe_widget {
     overflow: hidden;
-    height: 70px;
   }
 
   .masthead-menu .btn {
@@ -7993,12 +7992,20 @@ p.legend {
   vertical-align: middle;
 }
 #mindbody-pt-form-wrapper .header-row .change {
+  color: #0089d0;
   float: right;
   font-size: 15px;
-  color: #0089d0;
+  text-decoration: none;
+  -moz-transition: color 0.5s;
+  -o-transition: color 0.5s;
+  -webkit-transition: color 0.5s;
+  transition: color 0.5s;
+}
+#mindbody-pt-form-wrapper .header-row .change:hover {
+  color: #0060af;
 }
 #mindbody-pt-form-wrapper .header-row .change .icon {
-  color: #0089d0;
+  color: inherit;
   font-size: 15px;
   margin-right: 5px;
   top: -3px;
@@ -8021,7 +8028,7 @@ p.legend {
   margin-left: 15px;
 }
 #mindbody-pt-form-wrapper select:hover {
-  border-color: #26bcbd;
+  border-color: #d8d8d8;
 }
 #mindbody-pt-form-wrapper #location-wrapper {
   padding-top: 70px;
@@ -8055,12 +8062,9 @@ p.legend {
   position: absolute;
   right: 5px;
   top: 0;
+  z-index: 1;
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner {
-  background-color: #f8f8f8;
-  border-radius: 2px;
-  border: 1px solid #e9e9e9;
-  color: #1d1d1b;
   position: relative;
   padding: 0px 10px 0px 40px;
   min-height: 58px;
@@ -8068,40 +8072,66 @@ p.legend {
 }
 @media screen and (max-width: 767px) {
   #mindbody-pt-form-wrapper .form-item-mb-location .inner {
-    min-height: 40px;
-    line-height: 40px;
+    min-height: 50px;
+    line-height: 50px;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner label {
-  display: inline-block;
-  line-height: 58px;
-  vertical-align: middle;
-  position: absolute;
-  left: 0;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  border: 1px solid #e9e9e9;
   bottom: 0;
+  display: inline-block;
+  left: 0;
+  line-height: 58px;
   right: 0;
-  top: 0;
   padding: 0 25px 0 45px;
+  position: absolute;
+  top: 0;
+  vertical-align: middle;
+  -moz-transition: background-color 0.5s, border-color 0.5s;
+  -o-transition: background-color 0.5s, border-color 0.5s;
+  -webkit-transition: background-color 0.5s, border-color 0.5s;
+  transition: background-color 0.5s, border-color 0.5s;
+}
+@media screen and (max-width: 767px) {
+  #mindbody-pt-form-wrapper .form-item-mb-location .inner label {
+    line-height: 48px;
+  }
+}
+#mindbody-pt-form-wrapper .form-item-mb-location .inner label:active, #mindbody-pt-form-wrapper .form-item-mb-location .inner label:hover {
+  background-color: #e9e9e9;
+  border-color: #e9e9e9;
+}
+#mindbody-pt-form-wrapper .form-item-mb-location .inner label .label-wrapper span {
+  display: inline-block;
+  line-height: 18px;
+  vertical-align: middle;
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .inner input {
   display: none;
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .icon {
   color: #d8d8d8;
-  position: absolute;
-  left: 10px;
-  top: 19px;
   font-size: 22px;
+  left: 10px;
+  position: absolute;
+  top: 19px;
+  z-index: 1;
 }
 @media screen and (max-width: 767px) {
   #mindbody-pt-form-wrapper .form-item-mb-location .icon {
-    top: 9px;
+    top: 13px;
   }
 }
-#mindbody-pt-form-wrapper .form-item-mb-location.checked .inner {
-  background-color: #c6188b;
-  border-color: #c6188b;
+#mindbody-pt-form-wrapper .form-item-mb-location.checked label {
+  background-color: #c6168d;
+  border-color: #c6168d;
   color: #fff;
+}
+#mindbody-pt-form-wrapper .form-item-mb-location.checked label:active, #mindbody-pt-form-wrapper .form-item-mb-location.checked label:hover {
+  background-color: #92278f;
+  border-color: #92278f;
 }
 #mindbody-pt-form-wrapper .form-item-mb-location.checked .icon {
   color: #f4d1e8;
@@ -8113,19 +8143,18 @@ p.legend {
   padding: 0 15px 15px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner {
-  background-color: #f8f8f8;
-  border-radius: 2px;
-  border: 1px solid #e9e9e9;
   position: relative;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner label {
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  border: 1px solid #e9e9e9;
   display: block;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner .label-wrapper {
   text-align: center;
   height: 70px;
   line-height: 70px;
-  color: #1d1d1b;
   font-size: 18px;
   vertical-align: middle;
 }
@@ -8136,6 +8165,10 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner input {
   display: none;
+}
+#mindbody-pt-form-wrapper .form-item-mb-program .inner input:checked + label {
+  background-color: #c6168d;
+  color: #fff;
 }
 #mindbody-pt-form-wrapper .form-item-mb-program .inner img {
   width: 100%;
@@ -8162,7 +8195,7 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-item-mb-session-type .inner {
   background-color: #f8f8f8;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid #e9e9e9;
   color: #1d1d1b;
   position: relative;
@@ -8200,9 +8233,6 @@ p.legend {
 #mindbody-pt-form-wrapper #trainer-wrapper {
   padding-top: 70px;
 }
-#mindbody-pt-form-wrapper .form-item-mb-trainer {
-  margin-bottom: 0;
-}
 #mindbody-pt-form-wrapper .form-item-mb-trainer label {
   color: #a7a7a7;
   font-size: 20px;
@@ -8212,6 +8242,7 @@ p.legend {
   text-transform: uppercase;
 }
 #mindbody-pt-form-wrapper .form-item-mb-trainer select {
+  border-color: #e9e9e9;
   height: 62px;
   width: 382px;
   text-indent: 20px;
@@ -8220,6 +8251,9 @@ p.legend {
   #mindbody-pt-form-wrapper .form-item-mb-trainer select {
     width: 100%;
   }
+}
+#mindbody-pt-form-wrapper .form-item-mb-trainer select:hover {
+  border-color: #d8d8d8;
 }
 #mindbody-pt-form-wrapper #actions-wrapper .col-sm-12 {
   border-top: 1px solid #e9e9e9;
@@ -8240,7 +8274,7 @@ p.legend {
 #mindbody-pt-form-wrapper .form-item-mb-start-time label {
   color: #a7a7a7;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-family: "Cachet", Arial, sans-serif;
   font-weight: normal;
   text-transform: uppercase;
@@ -8248,13 +8282,12 @@ p.legend {
 #mindbody-pt-form-wrapper .form-item-mb-start-time select {
   height: 62px;
   width: 140px;
-  color: #1d1d1b;
   font-size: 14px;
   border-color: #e9e9e9;
   text-indent: 30px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-start-time select:hover {
-  color: #26bcbd;
+  border-color: #d8d8d8;
 }
 @media screen and (max-width: 767px) {
   #mindbody-pt-form-wrapper .form-item-mb-start-time select {
@@ -8271,25 +8304,27 @@ p.legend {
 #mindbody-pt-form-wrapper .form-item-mb-end-time {
   float: left;
   position: relative;
-  margin: 48px 80px 0 0;
+  margin: 43px 0 0 0;
 }
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 768px) {
   #mindbody-pt-form-wrapper .form-item-mb-end-time {
-    margin: 48px 0 0 0;
+    margin: 43px 80px 0 0;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-end-time select {
-  color: #1d1d1b;
   font-size: 14px;
   height: 62px;
-  width: 140px;
+  width: 125px;
   border-color: #e9e9e9;
   text-indent: 30px;
 }
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 768px) {
   #mindbody-pt-form-wrapper .form-item-mb-end-time select {
-    width: 125px;
+    width: 140px;
   }
+}
+#mindbody-pt-form-wrapper .form-item-mb-end-time select:hover {
+  border-color: #d8d8d8;
 }
 #mindbody-pt-form-wrapper .form-item-mb-end-time .icon {
   position: absolute;
@@ -8322,7 +8357,7 @@ p.legend {
   font-family: "Cachet", Arial, sans-serif;
   font-size: 20px;
   font-weight: normal;
-  margin: 0 0 20px;
+  margin: 0 0 15px;
   line-height: 28px;
   text-transform: uppercase;
 }
@@ -8331,7 +8366,6 @@ p.legend {
 }
 #mindbody-pt-form-wrapper .form-group .input-group input {
   border-color: #e9e9e9;
-  color: #1d1d1b;
   font-size: 14px;
   height: 62px;
   line-height: 62px;
@@ -8360,8 +8394,16 @@ p.legend {
   }
 }
 #mindbody-pt-form-wrapper #when-wrapper fieldset {
-  padding: 50px 0 50px;
+  padding: 0 0 50px 0;
   margin: 0;
+}
+#mindbody-pt-form-wrapper #when-wrapper fieldset legend {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  #mindbody-pt-form-wrapper #when-wrapper fieldset {
+    padding: 50px 0 50px;
+  }
 }
 #mindbody-pt-form-wrapper.step-2 #location-wrapper {
   display: none;
@@ -8379,6 +8421,9 @@ p.legend {
   #mindbody-pt-form-wrapper.step-4 .form-group {
     clear: left;
     float: none;
+  }
+  #mindbody-pt-form-wrapper.step-4 .form-group:last-of-type label {
+    display: none;
   }
 }
 #mindbody-pt-form-wrapper .disabled-form {
@@ -8423,7 +8468,7 @@ p.legend {
 }
 .mindbody-search-results-header .info-2 {
   float: left;
-  margin-right: 30px;
+  margin-right: 90px;
 }
 @media screen and (max-width: 767px) {
   .mindbody-search-results-header .info-2 {
@@ -8496,14 +8541,19 @@ p.legend {
   margin: 0 18px 0 7px;
 }
 .mindbody-search-results-header .change {
+  bottom: 24px;
   position: absolute;
   right: 15px;
-  bottom: 24px;
+  text-decoration: none;
+  -moz-transition: color 0.5s;
+  -o-transition: color 0.5s;
+  -webkit-transition: color 0.5s;
+  transition: color 0.5s;
 }
 @media screen and (max-width: 767px) {
   .mindbody-search-results-header .change {
-    position: static;
     display: block;
+    position: static;
     text-align: center;
   }
 }
@@ -8692,6 +8742,335 @@ p.legend {
   100% {
     transform: rotate(0deg);
   }
+}
+.template_youth_sports_overview .locations-lead-copy {
+  background: #f8f8f8;
+}
+.template_youth_sports_overview .locations-lead-copy:before {
+  position: absolute;
+  top: 58px;
+  left: 59%;
+  bottom: 0;
+  display: block;
+  width: 80%;
+  background-image: -webkit-linear-gradient(#e5e5e5, #f8f8f8);
+  background-image: -moz-linear-gradient(#e5e5e5, #f8f8f8);
+  background-image: -ms-linear-gradient(#e5e5e5, #f8f8f8);
+  background-image: linear-gradient(#e5e5e5, #f8f8f8);
+  content: '';
+  -webkit-transform: skew(-30deg);
+  -moz-transform: skew(-30deg);
+  -ms-transform: skew(-30deg);
+  transform: skew(-30deg);
+}
+@media (min-width: 768px) {
+  .template_youth_sports_overview .locations-lead-copy:before {
+    top: 51px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_overview .locations-lead-copy:before {
+    left: 45%;
+  }
+}
+.template_youth_sports_overview .locations-lead-copy .left {
+  padding-right: 100px;
+}
+.template_youth_sports_overview .locations-lead-copy .breadcrumb-container {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+.template_youth_sports_overview .locations-lead-copy .breadcrumb-container .breadcrumb > li + li:before {
+  content: "|";
+  color: #c6188b;
+}
+.template_youth_sports_overview .locations-lead-copy .breadcrumb-container .breadcrumb a {
+  color: #c6188b;
+}
+.template_youth_sports_overview .locations-lead-copy h1 {
+  color: #383838;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.template_youth_sports_overview .locations-lead-copy .richtext p {
+  color: #777777;
+  font-size: 14px;
+}
+.template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
+  color: #383838;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.template_youth_sports_overview .locations-lead-copy .call-to-action {
+  max-width: 335px;
+}
+.template_youth_sports_overview .locations-lead-copy .call-to-action .richtext .richtext {
+  background: url("../img/schedule.png") no-repeat 0 0;
+  padding-left: 105px;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_overview .locations-lead-copy .call-to-action .richtext .richtext {
+    background: none;
+    padding-left: 0;
+  }
+}
+.template_youth_sports_overview .locations-lead-copy .call-to-action h3 {
+  color: #5c2e91;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+.template_youth_sports_overview .locations-lead-copy .call-to-action p {
+  font-size: 20px;
+  line-height: 25px;
+  font-family: 'Cachet';
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_overview .locations-lead-copy .call-to-action p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+.template_youth_sports_overview .locations-lead-copy .call-to-action a {
+  background-color: #9c1f7b;
+  background-image: -moz-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -ms-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -webkit-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  border-radius: 3px;
+  border: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: inline-block;
+  font-family: 'Cachet';
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.428571429;
+  margin: 30px 0 0 -105px;
+  padding: 6px 12px;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_overview .locations-lead-copy .call-to-action a {
+    margin-left: 0;
+    margin-top: 20px;
+    white-space: normal;
+    font-size: 15px;
+    text-align: left;
+    line-height: 20px;
+  }
+}
+.template_youth_sports_overview section.node h2 {
+  color: #383838;
+  text-transform: uppercase;
+}
+.template_youth_sports_overview section.node h3 {
+  color: #383838;
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.template_youth_sports_overview section.node p {
+  color: #777777;
+}
+.template_youth_sports_overview section.node ul {
+  color: #777777;
+}
+.template_youth_sports_overview section.node .content_group section ul {
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+.template_youth_sports_overview section.node .content_group section ul li {
+  margin-bottom: 15px;
+  list-style: none;
+}
+.template_youth_sports_overview section.node .content_group section ul li a {
+  display: block;
+  border-radius: 3px;
+  border: 1px solid #e5e5e5;
+  padding: 20px 80px;
+  position: relative;
+}
+.template_youth_sports_overview section.node .content_group section ul li a:after {
+  content: ">";
+  position: absolute;
+  right: 15px;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_overview section.node .content_group section ul li a:after {
+    display: none;
+  }
+}
+.template_youth_sports_overview section.node .content_group section ul li a.baseball-softball-t-ball {
+  background: url("../img/icon-big-baseball.png") no-repeat 26px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.basketball {
+  background: url("../img/icon-big-basketball.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.flag-football {
+  background: url("../img/icon-big-flag-football.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.martial-arts {
+  background: url("../img/icon-big-martial-arts.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.olympic, .template_youth_sports_overview section.node .content_group section ul li a.special-olympics-young-athletes-program {
+  background: url("../img/icon-big-olympic.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.soccer {
+  background: url("../img/icon-big-soccer.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.track-and-field, .template_youth_sports_overview section.node .content_group section ul li a.running-club {
+  background: url("../img/icon-big-track.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.volleyball {
+  background: url("../img/icon-big-volleyball.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.lacrosse {
+  background: url("../img/icon-big-lacrosse.png") no-repeat 20px center;
+}
+.template_youth_sports_overview section.node .content_group section ul li a.tumbling {
+  background: url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_overview section.node .content_group section ul li a.sports-icon {
+    background-position: 10px center;
+    padding: 15px 10px 15px 60px;
+    position: relative;
+    font-size: 12px;
+    word-break: break-all;
+  }
+}
+.template_youth_sports_overview section.node .content_group section:nth-child(1) h3 {
+  color: #00aa95;
+}
+.template_youth_sports_overview section.node .content_group section:nth-child(1) ul li a {
+  color: #00aa95;
+}
+.template_youth_sports_overview section.node .content_group section:nth-child(2) h3 {
+  color: #0889cd;
+}
+.template_youth_sports_overview section.node .content_group section:nth-child(2) ul li a {
+  color: #0889cd;
+}
+.template_youth_sports_overview section.node .content_group section:nth-child(3) h3 {
+  color: #fbae1f;
+}
+.template_youth_sports_overview section.node .content_group section:nth-child(3) ul li a {
+  color: #fbae1f;
+}
+.template_youth_sports_overview .file--application-pdf a,
+.template_youth_sports_overview .pdf-link {
+  color: #c6188b;
+  font-size: 15px;
+}
+.template_youth_sports_overview .file--application-pdf a:after,
+.template_youth_sports_overview .pdf-link:after {
+  display: none;
+}
+.template_youth_sports_overview .file--application-pdf a:before,
+.template_youth_sports_overview .pdf-link:before {
+  margin: 0 8px 0 5px;
+  content: 'p';
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
+}
+
+.template_youth_sports_inner .locations-lead-copy {
+  background: #f8f8f8;
+}
+.template_youth_sports_inner .locations-lead-copy:before {
+  position: absolute;
+  top: 58px;
+  left: 59%;
+  bottom: 0;
+  display: block;
+  width: 80%;
+  background-image: -webkit-linear-gradient(#e5e5e5, #f8f8f8);
+  background-image: -moz-linear-gradient(#e5e5e5, #f8f8f8);
+  background-image: -ms-linear-gradient(#e5e5e5, #f8f8f8);
+  background-image: linear-gradient(#e5e5e5, #f8f8f8);
+  content: '';
+  -webkit-transform: skew(-30deg);
+  -moz-transform: skew(-30deg);
+  -ms-transform: skew(-30deg);
+  transform: skew(-30deg);
+}
+@media (min-width: 768px) {
+  .template_youth_sports_inner .locations-lead-copy:before {
+    top: 51px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .template_youth_sports_inner .locations-lead-copy:before {
+    left: 45%;
+  }
+}
+.template_youth_sports_inner .locations-lead-copy .left {
+  padding-right: 100px;
+}
+.template_youth_sports_inner .locations-lead-copy .breadcrumb-container {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+.template_youth_sports_inner .locations-lead-copy .breadcrumb-container .breadcrumb > li + li:before {
+  content: "|";
+  color: #c6188b;
+}
+.template_youth_sports_inner .locations-lead-copy .breadcrumb-container .breadcrumb a {
+  color: #c6188b;
+}
+.template_youth_sports_inner .locations-lead-copy h1 {
+  color: #383838;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.template_youth_sports_inner .locations-lead-copy .richtext p {
+  color: #777777;
+  font-size: 14px;
+}
+.template_youth_sports_inner .locations-lead-copy .richtext p:first-child {
+  color: #383838;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.template_youth_sports_inner .content-expander {
+  margin: 80px 0;
+}
+.template_youth_sports_inner .content-expander .accordion-toggle {
+  cursor: pointer;
+  padding-left: 0;
+  padding-bottom: 25px;
+}
+.template_youth_sports_inner .content-expander .accordion-toggle:focus {
+  border: none;
+  box-shadow: none;
+}
+.template_youth_sports_inner .content-expander .accordion-toggle h3 {
+  text-transform: uppercase;
+}
+.template_youth_sports_inner .content-expander .panel-body {
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 35px 60px;
+}
+.template_youth_sports_inner section.node .content-expander-1 .accordion-toggle {
+  color: #00aa95;
+}
+.template_youth_sports_inner section.node .content-expander-2 .accordion-toggle {
+  color: #0889cd;
+}
+.template_youth_sports_inner section.node .content-expander-3 .accordion-toggle {
+  color: #fbae1f;
+}
+.template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
+  color: #f37823;
 }
 
 /*# sourceMappingURL=style.css.map */
