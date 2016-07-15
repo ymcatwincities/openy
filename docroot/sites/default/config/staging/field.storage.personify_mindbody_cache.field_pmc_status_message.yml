@@ -1,16 +1,14 @@
-uuid: 7c5475b9-4b9c-463a-98c8-6c35dbbb5a9c
+uuid: c5b2d3f9-9324-4672-88be-03568a7356d9
 langcode: en
 status: true
 dependencies:
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.field_pmc_user_id
-field_name: field_pmc_user_id
+id: personify_mindbody_cache.field_pmc_status_message
+field_name: field_pmc_status_message
 entity_type: personify_mindbody_cache
-type: string
+type: string_long
 settings:
-  max_length: 255
-  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

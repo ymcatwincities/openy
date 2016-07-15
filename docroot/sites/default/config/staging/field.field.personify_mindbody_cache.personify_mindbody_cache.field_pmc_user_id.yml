@@ -1,4 +1,4 @@
-uuid: c5b9b28e-04ae-4fd8-972b-3a31f8dc1ee7
+uuid: fff78a41-fcd4-4c1a-bff0-6eb9e26a6472
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ field_name: field_pmc_user_id
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
 label: 'Personify Mindbody User ID'
-description: 'User ID from Personify''s ID field. The same ID been used for pushing to MindBody.'
+description: 'Personify MindBody User ID.'
 required: false
 translatable: false
 default_value: {  }

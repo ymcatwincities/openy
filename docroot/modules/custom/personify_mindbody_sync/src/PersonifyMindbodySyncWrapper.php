@@ -2,6 +2,10 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Class PersonifyMindbodySyncWrapper.
  *
@@ -20,6 +24,26 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   const CACHE_ENTITY = 'personify_mindbody_cache';
 
   /**
+   * Overall timezone.
+   */
+  const TIMEZONE = 'UTC';
+
+  /**
+   * Initial sync date.
+   */
+  const INITIAL_DATE = '2000-01-01T11:20:00';
+
+  /**
+   * Offset in seconds for getting data from Personify.
+   */
+  const DATE_OFFSET = 86400;
+
+  /**
+   * Personify date format.
+   */
+  const PERSONIFY_DATE_FORMAT = 'Y-m-d\TH:i:s';
+
+  /**
    * Source data fetched from Personify.
    *
    * @var array
@@ -34,9 +58,20 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   private $proxyData = [];
 
   /**
-   * Constructor.
+   * Query Factory.
+   *
+   * @var
    */
-  public function __construct() {
+  protected $query;
+
+  /**
+   * PersonifyMindbodySyncWrapper constructor.
+   *
+   * @param QueryFactory $query
+   *   Query factory.
+   */
+  public function __construct(QueryFactory $query) {
+    $this->query = $query;
   }
 
   /**
@@ -65,6 +100,80 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    */
   public function setProxyData(array $data) {
     $this->proxyData = $data;
+  }
+
+  /**
+   * Find the first failed push.
+   */
+  public function findFirstFailTime() {
+    $result = $this->query->get('personify_mindbody_cache')
+      ->notExists('field_pmc_mindbody_order_data')
+      ->sort('field_pmc_personify_order_date', 'ASC')
+      ->execute();
+
+    if (!$result) {
+      return FALSE;
+    }
+
+    $entity = PersonifyMindbodyCache::load(reset($result));
+    return $entity->field_pmc_personify_order_date->value;
+  }
+
+  /**
+   * Convert timestamp to Personify date format.
+   *
+   * @param int $timestamp
+   *   Timestamp.
+   *
+   * @return string
+   *   Date string.
+   */
+  public function timestampToPersonifyDate($timestamp) {
+    $timeZone = new \DateTimeZone(PersonifyMindbodySyncWrapper::TIMEZONE);
+    $dateTime = \DateTime::createFromFormat('U', $timestamp, $timeZone);
+    return $dateTime->format(self::PERSONIFY_DATE_FORMAT);
+  }
+
+  /**
+   * Convert Personify date to timestamp.
+   *
+   * @param string $date
+   *   Date string.
+   *
+   * @return string
+   *   Timestamp.
+   */
+  public function personifyDateToTimestamp($date) {
+    $timeZone = new \DateTimeZone(PersonifyMindbodySyncWrapper::TIMEZONE);
+    $dateTime = \DateTime::createFromFormat(self::PERSONIFY_DATE_FORMAT, $date, $timeZone);
+    return $dateTime->format('U');
+  }
+
+  /**
+   * Find Order by order number.
+   *
+   * The unique id of an order in Personify is the order number + the line number.
+   *
+   * @param string $order_num
+   *   Order number.
+   * @param string $order_line_num
+   *   Order line number.
+   *
+   * @return bool|EntityInterface
+   *   FALSE or order entity.
+   */
+  public function findOrder($order_num, $order_line_num) {
+    $result = $this->query->get(PersonifyMindbodySyncWrapper::CACHE_ENTITY)
+      ->condition('field_pmc_order_num', $order_num)
+      ->condition('field_pmc_order_line_num', $order_line_num)
+      ->execute();
+
+    if (!empty($result)) {
+      $id = reset($result);
+      return PersonifyMindbodyCache::load($id);
+    }
+
+    return FALSE;
   }
 
 }
