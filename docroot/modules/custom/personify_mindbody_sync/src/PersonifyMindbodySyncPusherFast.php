@@ -41,27 +41,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
 
       // Push only items which were not pushed before.
       if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-        $this->clientIds[$user_id] = new \SoapVar(
-          [
-            'NewID' => $debug ? self::TEST_CLIENT_ID : $user_id,
-            'ID' => $debug ? self::TEST_CLIENT_ID : $user_id,
-            'FirstName' => !empty($personifyData->FirstName) ? $personifyData->FirstName : 'Non existent within Personify: FirstName',
-            'LastName' => !empty($personifyData->LastName) ? $personifyData->LastName : 'Non existent within Personify: LastName',
-            'Email' => !empty($personifyData->PrimaryEmail) ? $personifyData->PrimaryEmail : 'Non existent within Personify: Email',
-            'BirthDate' => !empty($personifyData->BirthDate) ? $personifyData->BirthDate : '1970-01-01T00:00:00',
-//              'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : '0000000000',
-            'MobilePhone' => '0000000000',
-            // @todo recheck on prod. Required field get mad.
-            'AddressLine1' => 'Non existent within Personify: AddressLine1',
-            'City' => 'Non existent within Personify: City',
-            'State' => 'NA',
-            'PostalCode' => '00000',
-            'ReferredBy' => 'Non existent within Personify: ReferredBy'
-          ],
-          SOAP_ENC_OBJECT,
-          'Client',
-          'http://clients.mindbodyonline.com/api/0_5'
-        );
+        $this->clientIds[$user_id] = parent::prepareClientObject($user_id, $personifyData, $debug);
       }
     }
 
