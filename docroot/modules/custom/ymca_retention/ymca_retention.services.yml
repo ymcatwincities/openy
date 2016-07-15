@@ -16,3 +16,5 @@ services:
   ymca_retention.leaderboard_manager:
     class: Drupal\ymca_retention\LeaderboardManager
     arguments: ['@cache.ymca_retention']
+  ymca_retention.activity_manager:
+    class: Drupal\ymca_retention\ActivityManager
