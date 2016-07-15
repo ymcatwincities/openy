@@ -26,59 +26,8 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
    *   Mode.
    */
   private function pushClientsSingle($debug = TRUE) {
-    $data = $this->wrapper->getProxyData();
-
-    foreach ($data as $id => $entity) {
-      $user_id = $entity->field_pmc_user_id->value;
-      $personifyData = unserialize($entity->field_pmc_personify_data->value);
-
-      // Push only items which were not pushed before.
-      if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-        $this->clientIds[$user_id] = parent::prepareClientObject(
-          $user_id,
-          $personifyData,
-          $debug
-        );
-      }
-    }
-
-    // Locate already synced clients.
-    try {
-      $result = $this->client->call(
-        'ClientService',
-        'GetClients',
-        ['ClientIDs' => array_keys($this->clientIds)],
-        FALSE
-      );
-    }
-    catch (MindbodyException $e) {
-      $msg = 'Failed to get clients list: %error';
-      $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+    if (!parent::filerOutClients()) {
       return;
-    }
-
-    if ($result->GetClientsResult->ErrorCode == 200 && $result->GetClientsResult->ResultCount != 0) {
-      // Got it, there are clients, pushed already.
-      $remote_clients = [];
-      if ($result->GetClientsResult->ResultCount == 1) {
-        $remote_clients[] = $result->GetClientsResult->Clients->Client;
-      }
-      else {
-        $remote_clients = $result->GetClientsResult->Clients->Client;
-      }
-
-      // We've found a few clients already. Let's filter them out.
-      foreach ($remote_clients as $client) {
-        // Skip users already saved into cache.
-        unset($this->clientIds[$client->ID]);
-
-        // Update cached entity with client's data if first time.
-        $this->updateClientData($client->ID, $client);
-      }
-    }
-    elseif ($result->GetClientsResult->ErrorCode != 200) {
-      $msg = '[DEV] Error from MindBody: %error';
-      $this->logger->critical($msg, ['%error' => serialize($result)]);
     }
 
     // Let's push new clients to MindBody.
