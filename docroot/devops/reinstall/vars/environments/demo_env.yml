@@ -10,7 +10,7 @@ env:
     - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
   modules:
-    - { name: 'devel config_inspector config_devel stage_file_proxy ymca_mindbody yptf_master', status: false }
+    - { name: 'devel config_inspector config_devel dblog stage_file_proxy ymca_mindbody yptf_master personify_mindbody_sync', status: true }
 
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
