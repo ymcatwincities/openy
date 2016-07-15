@@ -379,4 +379,41 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     return $locations;
   }
 
+  /**
+   * Prepare SoapVar object from Personify Data.
+   *
+   * @param integer $user_id
+   *   User ID.
+   * @param \stdClass $data
+   *   Personify data.
+   * @param bool $debug
+   *   Mode.
+   * 
+   * @return \SoapVar
+   *   Object ready to push to MindBody.
+   */
+  protected function prepareClientObject($user_id, $data, $debug = TRUE) {
+    return new \SoapVar(
+      [
+        'NewID' => $debug ? self::TEST_CLIENT_ID : $user_id,
+        'ID' => $debug ? self::TEST_CLIENT_ID : $user_id,
+        'FirstName' => !empty($data->FirstName) ? $data->FirstName : 'Non existent within Personify: FirstName',
+        'LastName' => !empty($data->LastName) ? $data->LastName : 'Non existent within Personify: LastName',
+        'Email' => !empty($data->PrimaryEmail) ? $data->PrimaryEmail : 'Non existent within Personify: Email',
+        'BirthDate' => !empty($data->BirthDate) ? $data->BirthDate : '1970-01-01T00:00:00',
+//              'MobilePhone' => !empty($personifyData->PrimaryPhone) ? $personifyData->PrimaryPhone : '0000000000',
+        'MobilePhone' => '0000000000',
+        // @todo recheck on prod. Required field get mad.
+        'AddressLine1' => 'Non existent within Personify: AddressLine1',
+        'City' => 'Non existent within Personify: City',
+        'State' => 'NA',
+        'PostalCode' => '00000',
+        'ReferredBy' => 'Non existent within Personify: ReferredBy'
+      ],
+      SOAP_ENC_OBJECT,
+      'Client',
+      'http://clients.mindbodyonline.com/api/0_5'
+    );
+  }
+
 }
