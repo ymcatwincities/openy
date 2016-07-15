@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
  *
  * @package Drupal\personify_mindbody_sync
  */
-abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface{
+abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface {
 
   /**
    * PersonifyMindbodySyncWrapper definition.
