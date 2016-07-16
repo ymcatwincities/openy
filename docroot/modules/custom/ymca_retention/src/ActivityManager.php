@@ -91,14 +91,21 @@ class ActivityManager implements ActivityManagerInterface {
    */
   public function getMemberActivities() {
     $member_activities = [];
+    $activity_groups = $this->getActivityGroups();
+    $model = [];
+    foreach ($activity_groups as $activity_group) {
+      foreach ($activity_group['activities'] as $activity) {
+        $model[$activity['id']] = FALSE;
+      }
+    }
+    $dates = $this->getDates();
+    foreach ($dates as $date) {
+      $member_activities[$date['timestamp']] = $model;
+    }
+
     $member_id = AnonymousCookieStorage::get('ymca_retention_member');
     if (empty($member_id)) {
       return $member_activities;
-    }
-
-    $dates = $this->getDates();
-    foreach ($dates as $date) {
-      $member_activities[$date['timestamp']] = [];
     }
 
     $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
@@ -113,9 +120,7 @@ class ActivityManager implements ActivityManagerInterface {
     foreach ($activities as $activity) {
       $timestamp = $date->setTimestamp($activity->get('timestamp')->value)->setTime(0, 0, 0)->getTimestamp();
       $id = $activity->activity_type->target_id;
-      if (!in_array($id, $member_activities[$timestamp])) {
-        $member_activities[$timestamp][] = $id;
-      }
+      $member_activities[$timestamp][$id] = TRUE;
     }
 
     return $member_activities;
