@@ -7,8 +7,11 @@
     }
     $('body').addClass('ymca-retention-activity-processed');
 
-    var ActivityModule = angular.module('Activity', ['slickCarousel']);
-    ActivityModule.controller('ActivityController', function($scope, $http) {
+    var ActivityModule = angular.module('Activity', ['slickCarousel', 'ajoslin.promise-tracker']);
+    ActivityModule.controller('ActivityController', function($scope, $http, $log, promiseTracker, $timeout, $httpParamSerializerJQLike) {
+      // Inititate the promise tracker to track submissions.
+      $scope.progress = promiseTracker();
+
       $scope.dates = settings.ymca_retention.activity.dates;
       $scope.date_index = -1;
       $scope.dates.forEach(function(item, i, arr) {
@@ -20,9 +23,10 @@
       $scope.activity_groups = settings.ymca_retention.activity.activity_groups;
       $scope.activity_group_index = 0;
 
-      $http.get(settings.ymca_retention.activity.member_activities).success(function(data) {
-        $scope.member_activities = data;
-      });
+      $http.get(settings.ymca_retention.activity.member_activities)
+        .then(function(response) {
+          $scope.member_activities = response.data;
+        });
 
       $scope.dateClass = function(index) {
         var classes = [];
@@ -79,14 +83,39 @@
         if (typeof $scope.member_activities === 'undefined') {
           return 0;
         }
-        return $scope.member_activities[$scope.dates[index].timestamp].length;
+
+        var count = 0;
+        for (activity in $scope.member_activities[$scope.dates[index].timestamp]) {
+          if ($scope.member_activities[$scope.dates[index].timestamp][activity]) {
+            count++;
+          }
+        }
+        return count;
       };
 
-      $scope.activityItemChecked = function(id) {
-        if (typeof $scope.member_activities === 'undefined') {
-          return false;
-        }
-        return $scope.member_activities[$scope.dates[$scope.date_index].timestamp].indexOf(id) != -1;
+      $scope.activityItemChange = function(id) {
+        var timestamp = $scope.dates[$scope.date_index].timestamp;
+        var data = {
+          'timestamp': timestamp,
+          'id' : id,
+          'value': $scope.member_activities[timestamp][id]
+        };
+
+        var $promise = $http({
+          url: settings.ymca_retention.activity.member_activities,
+          method: 'POST',
+          data: $httpParamSerializerJQLike(data),
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+          .then(function(response) {
+            // $scope.member_activities = response.data;
+          });
+        // TODO: show some message that the values were saved?
+
+        // Track the request and show its progress to the user.
+        $scope.progress.addPromise($promise);
       };
 
       $scope.slickConfig = {
