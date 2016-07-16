@@ -18,3 +18,4 @@ services:
     arguments: ['@cache.ymca_retention']
   ymca_retention.activity_manager:
     class: Drupal\ymca_retention\ActivityManager
+    arguments: ['@session_manager', '@current_user']
