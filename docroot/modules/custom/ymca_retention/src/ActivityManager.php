@@ -5,6 +5,8 @@ namespace Drupal\ymca_retention;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\ymca_retention\Entity\MemberActivity;
+use Drupal\Core\Url;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Defines activities manager service.
@@ -124,6 +126,19 @@ class ActivityManager implements ActivityManagerInterface {
     }
 
     return $member_activities;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUrl() {
+    $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')->toString(TRUE);
+    $urlRender = array(
+      '#markup' => $urlBubbleable->getGeneratedUrl(),
+    );
+    BubbleableMetadata::createFromRenderArray($urlRender)->merge($urlBubbleable)->applyTo($urlRender);
+    $url = \Drupal::service('renderer')->renderPlain($urlRender);
+    return $url;
   }
 
 }

@@ -31,4 +31,12 @@ interface ActivityManagerInterface {
    */
   public function getMemberActivities();
 
+  /**
+   * Returns URL to the member activities callback.
+   *
+   * @return string
+   *   URL to the member activities callback.
+   */
+  public function getUrl();
+
 }
