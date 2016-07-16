@@ -23,7 +23,10 @@
       $scope.activity_groups = settings.ymca_retention.activity.activity_groups;
       $scope.activity_group_index = 0;
 
-      $http.get(settings.ymca_retention.activity.member_activities)
+      $http({
+        method: 'GET',
+        url: settings.ymca_retention.activity.member_activities
+      })
         .then(function(response) {
           $scope.member_activities = response.data;
         });
@@ -102,8 +105,8 @@
         };
 
         var $promise = $http({
-          url: settings.ymca_retention.activity.member_activities,
           method: 'POST',
+          url: settings.ymca_retention.activity.member_activities,
           data: $httpParamSerializerJQLike(data),
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -112,7 +115,7 @@
           .then(function(response) {
             // $scope.member_activities = response.data;
           });
-        // TODO: show some message that the values were saved?
+        // TODO: show some message that the values were saved? or use the disabled state?
 
         // Track the request and show its progress to the user.
         $scope.progress.addPromise($promise);

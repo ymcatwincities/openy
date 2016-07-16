@@ -26,7 +26,7 @@ class TrackActivityForm extends BlockBase {
     $activity_groups = $service->getActivityGroups();
 
     return [
-      '#theme' => 'ymca_retention_track_activity_form',
+      '#theme' => 'ymca_retention_track_activity',
       '#attached' => [
         'library' => [
           'ymca_retention/activity',
