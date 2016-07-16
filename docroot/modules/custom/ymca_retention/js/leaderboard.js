@@ -21,6 +21,7 @@
           $scope.members = [];
         }
         else {
+          // TODO: $http has some caching thing - change to use it.
           if (typeof $scope.cache[$scope.location.branch_id] !== 'undefined') {
             $scope.members = $scope.cache[$scope.location.branch_id];
             return;
