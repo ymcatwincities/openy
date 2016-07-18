@@ -221,6 +221,21 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Created by Staff'))
       ->setDefaultValue(FALSE);
 
+    $fields['activity_track_swimming'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Swimming'))
+      ->setDescription(t('Number of Swimming activities.'))
+      ->setDefaultValue(0);
+
+    $fields['activity_track_fitness'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Fitness'))
+      ->setDescription(t('Number of Fitness activities.'))
+      ->setDefaultValue(0);
+
+    $fields['activity_track_groupx'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Group X'))
+      ->setDescription(t('Number of Group X activities.'))
+      ->setDefaultValue(0);
+
     return $fields;
   }
 
