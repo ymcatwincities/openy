@@ -3540,14 +3540,16 @@ function ymca_master_update_8151() {
 }
 
 /**
- * Adds the view my_content.
+ * YMCA-1040 User's dashboard.
  */
 function ymca_master_update_8152() {
-  // Import new one.
+  \Drupal::service('module_installer')->install(array('views_advanced_routing'), TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      $path . 'views.settings.yml',
       $path . 'views.view.my_content.yml'
+
     ]
   );
 }
