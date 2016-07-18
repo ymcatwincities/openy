@@ -99,15 +99,18 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       $branch_ids[] = $branch['branch'];
     }
 
-    // Find location names for found branch ids.
-    $location_ids = \Drupal::entityQuery('mapping')
-      ->condition('type', 'location')
-      ->condition('field_groupex_id', $branch_ids, 'IN')
-      ->execute();
+    $locations = [];
+    if ($branch_ids) {
+      // Find location names for found branch ids.
+      $location_ids = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_groupex_id', $branch_ids, 'IN')
+        ->execute();
 
-    $locations = \Drupal::entityTypeManager()
-      ->getStorage('mapping')
-      ->loadMultiple($location_ids);
+      $locations = \Drupal::entityTypeManager()
+        ->getStorage('mapping')
+        ->loadMultiple($location_ids);
+    }
 
     $locations_list = [
       [
