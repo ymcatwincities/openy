@@ -54,6 +54,14 @@ ymca_retention.settings:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_cron:
+  path: '/admin/config/system/ymca-retention/cron'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsCronForm'
+    _title: 'YMCA Retention Cron'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.leaderboard_json:
   path: '/ymca-retention/leaderboard/{branch_id}'
   defaults:
