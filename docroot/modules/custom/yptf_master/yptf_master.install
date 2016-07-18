@@ -54,3 +54,15 @@ function yptf_master_update_8001() {
     ]
   );
 }
+
+/**
+ * Configure sync log.
+ */
+function yptf_master_update_8002() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.personify_mindbody_log.yml',
+    ]
+  );
+}
