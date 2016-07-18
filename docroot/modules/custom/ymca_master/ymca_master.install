@@ -3538,3 +3538,155 @@ function ymca_master_update_8151() {
     ]
   );
 }
+
+/**
+ * YPTF form menu links.
+ */
+function ymca_master_update_8152() {
+  $items = [
+    // Locations that DO NOT have Personal Training page:
+    // - Heritage Park YMCA.
+    // - Mounds View Community Center.
+    // - North Community YMCA.
+    // - University YMCA.
+    // - Youth in Government.
+    // Locations that DO have Personal Training page:
+    // Andover YMCA.
+    [
+      'location_id' => '1',
+      'parent' => '1721',
+    ],
+    // Blaisdell YMCA.
+    [
+      'location_id' => '10',
+      'parent' => '1728',
+    ],
+    // Burnsville YMCA.
+    [
+      'location_id' => '11',
+      'parent' => '1736',
+    ],
+    // Eagan YMCA.
+    [
+      'location_id' => '13',
+      'parent' => '1686',
+    ],
+    // Elk River YMCA.
+    [
+      'location_id' => '9',
+      'parent' => '1693',
+    ],
+    // Emma B. Howe YMCA.
+    [
+      'location_id' => '12',
+      'parent' => '1700',
+    ],
+    // Forest Lake YMCA.
+    [
+      'location_id' => '14',
+      'parent' => '3336',
+    ],
+    // Hastings YMCA.
+    [
+      'location_id' => '6',
+      'parent' => '1707',
+    ],
+    // Hudson YMCA.
+    [
+      'location_id' => '22',
+      'parent' => '1715',
+    ],
+    // Lino Lakes YMCA.
+    [
+      'location_id' => '3',
+      'parent' => '1719',
+    ],
+    // Minneapolis Downtown YMCA.
+    [
+      'location_id' => '5',
+      'parent' => '1724',
+    ],
+    // New Hope YMCA.
+    [
+      'location_id' => '20',
+      'parent' => '1726',
+    ],
+    // Ridgedale YMCA.
+    [
+      'location_id' => '7',
+      'parent' => '1729',
+    ],
+    // River Valley YMCA.
+    [
+      'location_id' => '8',
+      'parent' => '1733',
+    ],
+    // St. Paul Downtown YMCA.
+    [
+      'location_id' => '17',
+      'parent' => '1737',
+    ],
+    // St. Paul Eastside YMCA.
+    [
+      'location_id' => '24',
+      'parent' => '1685',
+    ],
+    // St. Paul Midway YMCA.
+    [
+      'location_id' => '2',
+      'parent' => '1692',
+    ],
+    // Shoreview YMCA.
+    [
+      'location_id' => '19',
+      'parent' => '1698',
+    ],
+    // Southdale YMCA.
+    [
+      'location_id' => '18',
+      'parent' => '1690',
+    ],
+    // West St. Paul YMCA.
+    [
+      'location_id' => '16',
+      'parent' => '1705',
+    ],
+    // White Bear Area YMCA.
+    [
+      'location_id' => '4',
+      'parent' => '1710',
+    ],
+    // Woodbury YMCA.
+    [
+      'location_id' => '15',
+      'parent' => '1714',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    // Add "Personal Trainer Schedules" menu item.
+    $parent_menu_item = MenuLinkContent::load($item['parent']);
+    $menu_item_definition = [
+      'title' => 'Personal Trainer Schedules',
+      'link' => ['uri' => 'internal:/health__fitness/personal_training/personal-trainer-schedules?location=' . $item['location_id'] . '&context=location'],
+      'menu_name' => 'locations',
+      'parent' => 'menu_link_content:' . $parent_menu_item->uuid(),
+      'enabled' => FALSE,
+      'weight' => -5,
+    ];
+    $menu_item = MenuLinkContent::create($menu_item_definition);
+    $menu_item->save();
+
+
+    // Add "Results" menu item.
+    $menu_subitem_definition = [
+      'title' => 'Results',
+      'link' => ['uri' => 'internal:/health__fitness/personal_training/personal-trainer-schedules/results?location=' . $item['location_id'] . '&context=location'],
+      'menu_name' => 'locations',
+      'parent' => 'menu_link_content:' . $menu_item->uuid(),
+      'enabled' => FALSE,
+    ];
+    $menu_item = MenuLinkContent::create($menu_subitem_definition);
+    $menu_item->save();
+  }
+}
