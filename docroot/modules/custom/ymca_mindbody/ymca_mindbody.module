@@ -80,9 +80,6 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                     'location' => $location,
                     'context' => 'location',
                   ],
-                  'attributes' => [
-                    'target' => '_blank'
-                  ],
                 ];
                 $link = new Link(t('Schedule Personal Training'), Url::fromRoute('ymca_mindbody.pt', array(), $url_options));
                 $replacements[$original] = $link->toString();
@@ -123,9 +120,6 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                         'location' => $location,
                         'trainer' => $trainer,
                         'context' => 'trainer',
-                      ],
-                      'attributes' => [
-                        'target' => '_blank',
                       ],
                     ];
                     $link = new Link(t('Schedule Appointment with @title', ['@title' => $node_title[0]]), Url::fromRoute('ymca_mindbody.pt', array(), $url_options));
