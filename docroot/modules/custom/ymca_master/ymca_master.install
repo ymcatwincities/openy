@@ -3542,7 +3542,7 @@ function ymca_master_update_8151() {
 /**
  * YPTF form menu links.
  */
-function ymca_master_update_8152() {
+function ymca_master_update_8153() {
   $items = [
     // Locations that DO NOT have Personal Training page:
     // - Heritage Park YMCA.
@@ -3727,7 +3727,8 @@ function ymca_master_update_8152() {
       'title' => 'Personal Trainer Schedules',
       'link' => ['uri' => $url],
       'menu_name' => 'locations',
-      'parent' => !empty($parent_menu_item) ? 'menu_link_content:' . $parent_menu_item->uuid() : '',
+      'parent' => !empty($parent_menu_item) ? 'menu_link_content:' . $parent_menu_item->uuid(
+        ) : '',
       'enabled' => FALSE,
       'weight' => -5,
     ];
@@ -3739,7 +3740,8 @@ function ymca_master_update_8152() {
       'title' => 'Personal Trainer Schedules Results',
       'link' => ['uri' => $results_url],
       'menu_name' => 'locations',
-      'parent' => !empty($menu_item) && !empty($parent_menu_item) ? 'menu_link_content:' . $menu_item->uuid() : '',
+      'parent' => !empty($menu_item) && !empty($parent_menu_item) ? 'menu_link_content:' . $menu_item->uuid(
+        ) : '',
       'enabled' => FALSE,
     ];
     $menu_item = MenuLinkContent::create($menu_subitem_definition);
@@ -3751,4 +3753,16 @@ function ymca_master_update_8152() {
     $alias = $item['path'] . $suffix;
     \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
   }
+}
+
+/**
+ * Add new templates to ckeditor.
+ */
+function ymca_master_update_8152() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
 }
