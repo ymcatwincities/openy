@@ -105,7 +105,6 @@ module:
   tour: 0
   update: 0
   user: 0
-  views_advanced_routing: 0
   views_ui: 0
   webforms: 0
   workflow: 0
