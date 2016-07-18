@@ -112,6 +112,10 @@ class LeaderboardManager implements LeaderboardManagerInterface {
         ->loadMultiple($location_ids);
     }
 
+    if (empty($locations)) {
+      return [];
+    }
+
     $locations_list = [
       [
         'branch_id' => 0,
