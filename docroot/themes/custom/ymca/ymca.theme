@@ -452,7 +452,7 @@ function ymca_preprocess_html(&$variables) {
           ];
         }
         // Apply specific class based on value chosen in "Template" field.
-        if ($node->hasField('field_template')) {
+        if (isset($node) && $node->hasField('field_template')) {
           if ($template = $node->field_template->value) {
             $classes[] = 'template_' . $template;
           }
