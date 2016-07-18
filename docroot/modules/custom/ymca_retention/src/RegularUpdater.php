@@ -100,4 +100,5 @@ class RegularUpdater implements RegularUpdaterInterface {
 
     $cron_config->set('last_run', time())->save();
   }
+
 }
