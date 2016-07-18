@@ -13,3 +13,21 @@ ymca_retention_member.delete_confirm:
   base_route:  entity.ymca_retention_member.canonical
   title: Delete
   weight: 10
+
+ymca_retention.settings:
+  title: 'YMCA Retention Settings'
+  description: 'YMCA Retention Settings'
+  route_name: ymca_retention.settings
+  base_route: system.admin_config_system
+
+ymca_retention.general_settings:
+  title: 'YMCA Retention Settings'
+  description: 'YMCA Retention Settings'
+  route_name: ymca_retention.settings
+  parent_id: ymca_retention.settings
+
+ymca_retention.cron_settings:
+  title: 'Cron'
+  description: 'Run cron manually.'
+  route_name: ymca_retention.settings_cron
+  parent_id: ymca_retention.settings
