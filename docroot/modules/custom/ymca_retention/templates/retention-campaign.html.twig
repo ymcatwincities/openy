@@ -17,9 +17,11 @@
             {{ content.registration }}
         </div>
     </div>
-    <div id="main-content">
-        {{ content.main }}
-    </div>
+    {% if content.main is not empty %}
+        <div id="main-content">
+            {{ content.main }}
+        </div>
+    {% endif %}
     {% if content.leaderboard is not empty %}
         <div id="leaderboard">
             {{ content.leaderboard }}

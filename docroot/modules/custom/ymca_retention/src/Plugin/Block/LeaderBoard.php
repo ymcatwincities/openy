@@ -26,6 +26,7 @@ class Leaderboard extends BlockBase {
 
     return [
       '#theme' => 'ymca_retention_leaderboard',
+      '#locations' => $locations,
       '#attached' => [
         'library' => [
           'ymca_retention/leaderboard',
