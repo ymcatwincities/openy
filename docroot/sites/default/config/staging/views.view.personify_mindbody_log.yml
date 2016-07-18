@@ -11,6 +11,7 @@ dependencies:
     - field.storage.personify_mindbody_cache.field_pmc_user_id
   module:
     - personify_mindbody_sync
+    - user
 id: personify_mindbody_log
 label: 'Personify MindBody log'
 module: views
@@ -27,8 +28,9 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access personify mindbody sync log'
       cache:
         type: tag
         options: {  }
@@ -465,6 +467,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
       tags:
         - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_client_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data'
@@ -486,6 +489,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
       tags:
         - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_client_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data'
