@@ -42,13 +42,32 @@ class YmcaRetentionSubscriber implements EventSubscriberInterface {
     if (!in_array($route, $redirect_routes)) {
       return;
     }
+    if ($route == 'page_manager.page_view_ymca_retention_pages_y_games_activity') {
+      $settings = \Drupal::config('ymca_retention.general_settings');
+      $from_date = new \DateTime($settings->get('date_reporting_open'));
+      $to_date = new \DateTime($settings->get('date_reporting_close'));
+      $current_date = new \DateTime();
+      if ($current_date < $from_date || $current_date > $to_date) {
+        $this->redirectResponse($event);
+      }
+    }
     $member_id = AnonymousCookieStorage::get('ymca_retention_member');
     if (empty($member_id)) {
-      $url = Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
-        'absolute' => TRUE,
-      ])->toString();
-      $event->setResponse(new RedirectResponse($url));
+      $this->redirectResponse($event);
     }
+  }
+
+  /**
+   * Set redirect response to event.
+   *
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   *   Event.
+   */
+  public function redirectResponse(GetResponseEvent $event) {
+    $url = Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
+      'absolute' => TRUE,
+    ])->toString();
+    $event->setResponse(new RedirectResponse($url));
   }
 
   /**
