@@ -605,6 +605,9 @@ class MindbodyPTForm extends FormBase {
   public function getSearchResults(array $values) {
     if (!isset($values['location'], $values['program'], $values['session_type'], $values['trainer'], $values['start_date'], $values['end_date'])) {
       $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.pt');
+      if (isset($this->node)) {
+        $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.location.pt', ['node' => $this->node->id()]);
+      }
       return [
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
