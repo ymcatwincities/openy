@@ -55,6 +55,8 @@ settings:
             - ShowBlocks
             - Source
   plugins:
+    language:
+      language_list: un
     stylescombo:
       styles: p.button|Button
 image_upload:
