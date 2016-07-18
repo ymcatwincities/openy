@@ -6,3 +6,5 @@ services:
       - [addStep, ['@ymca_groupex.data_fetcher', 'fetch']]
       - [addStep, ['@ymca_groupex.drupal_proxy', 'saveEntities']]
       - [addStep, ['@ymca_google.pusher', 'proceed']]
+    tags:
+      - { name: syncer }
