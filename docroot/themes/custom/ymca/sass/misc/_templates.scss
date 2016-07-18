@@ -156,66 +156,6 @@
           li {
             margin-bottom: 15px;
             list-style: none;
-
-            a {
-              display: block;
-              border-radius: 3px;
-              border: 1px solid $grey8;
-              padding: 20px 80px;
-              position: relative;
-
-              &:after {
-                content: ">";
-                position: absolute;
-                right: 15px;
-                @media screen and (min-width: 768px) and (max-width: 992px) {
-                  display: none;
-                }
-              }
-
-              &.baseball-softball-t-ball {
-                background: url("../img/icon-big-baseball.png") no-repeat 26px center;
-              }
-              &.basketball {
-                background: url("../img/icon-big-basketball.png") no-repeat 20px center;
-              }
-              &.flag-football {
-                background: url("../img/icon-big-flag-football.png") no-repeat 20px center;
-              }
-              &.martial-arts {
-                background: url("../img/icon-big-martial-arts.png") no-repeat 20px center;
-              }
-              &.olympic,
-              &.special-olympics-young-athletes-program {
-                background: url("../img/icon-big-olympic.png") no-repeat 20px center;
-              }
-              &.soccer {
-                background: url("../img/icon-big-soccer.png") no-repeat 20px center;
-              }
-              &.track-and-field,
-              &.running-club {
-                background: url("../img/icon-big-track.png") no-repeat 20px center;
-              }
-              &.volleyball {
-                background: url("../img/icon-big-volleyball.png") no-repeat 20px center;
-              }
-              &.lacrosse {
-                background: url("../img/icon-big-lacrosse.png") no-repeat 20px center;
-              }
-              &.tumbling {
-                background: url("../img/icon-big-tumbling.png") no-repeat 20px center;
-              }
-
-              &.sports-icon {
-                @media screen and (min-width: 768px) and (max-width: 992px) {
-                  background-position: 10px center;
-                  padding: 15px 10px 15px 60px;
-                  position: relative;
-                  font-size: 12px;
-                  word-break: break-all;
-                }
-              }
-            }
           }
         }
       }
@@ -273,6 +213,65 @@
       font-weight: normal;
       font-family: 'YMCA';
     }
+  }
+}
+
+a.sports-icon {
+  background-color: $white;
+  display: block;
+  border-radius: 3px;
+  border: 1px solid $grey8;
+  padding: 20px 80px;
+  position: relative;
+
+  &:after {
+    content: ">";
+    position: absolute;
+    right: 15px;
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  &.baseball-softball-t-ball {
+    background: $white url("../img/icon-big-baseball.png") no-repeat 26px center;
+  }
+  &.basketball {
+    background: $white url("../img/icon-big-basketball.png") no-repeat 20px center;
+  }
+  &.flag-football {
+    background: $white url("../img/icon-big-flag-football.png") no-repeat 20px center;
+  }
+  &.martial-arts {
+    background: $white url("../img/icon-big-martial-arts.png") no-repeat 20px center;
+  }
+  &.olympic,
+  &.special-olympics-young-athletes-program {
+    background: $white url("../img/icon-big-olympic.png") no-repeat 20px center;
+  }
+  &.soccer {
+    background: $white url("../img/icon-big-soccer.png") no-repeat 20px center;
+  }
+  &.track-and-field,
+  &.running-club {
+    background: $white url("../img/icon-big-track.png") no-repeat 20px center;
+  }
+  &.volleyball {
+    background: $white url("../img/icon-big-volleyball.png") no-repeat 20px center;
+  }
+  &.lacrosse {
+    background: $white url("../img/icon-big-lacrosse.png") no-repeat 20px center;
+  }
+  &.tumbling {
+    background: $white url("../img/icon-big-tumbling.png") no-repeat 20px center;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    background-position: 10px center;
+    padding: 15px 10px 15px 60px;
+    position: relative;
+    font-size: 12px;
+    word-break: break-all;
   }
 }
 
