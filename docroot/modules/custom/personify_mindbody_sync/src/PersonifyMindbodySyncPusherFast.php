@@ -30,7 +30,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    */
   private function pushClientsBatch($debug = TRUE) {
     if (!parent::filerOutClients()) {
-      return $this;  
+      return $this;
     }
 
     // Let's push new clients to MindBody.
