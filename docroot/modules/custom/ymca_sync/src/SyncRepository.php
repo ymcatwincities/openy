@@ -17,7 +17,7 @@ class SyncRepository {
   protected $syncers;
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function __construct(array $syncers) {
     $this->syncers = $syncers;
@@ -27,6 +27,7 @@ class SyncRepository {
    * Return syncers.
    *
    * @return array
+   *   List of syncers.
    */
   public function getSyncers() {
     return $this->syncers;

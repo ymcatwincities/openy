@@ -6,6 +6,11 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
+/**
+ * Class YmcaSyncPass.
+ *
+ * @package Drupal\ymca_sync\DependencyInjection\Compiler
+ */
 class YmcaSyncPass implements CompilerPassInterface {
 
   /**
