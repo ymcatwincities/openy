@@ -50,8 +50,8 @@ class ActivityManager implements ActivityManagerInterface {
     $settings = \Drupal::config('ymca_retention.general_settings');
 
     // Get start and end date of retention campaign.
-    $date_start = new \DateTime($settings->get('date_registration_open'));
-    $date_end = new \DateTime($settings->get('date_registration_close'));
+    $date_start = new \DateTime($settings->get('date_reporting_open'));
+    $date_end = new \DateTime($settings->get('date_reporting_close'));
     $date_now = new \DateTime();
     $date_now->setTime(0, 0, 0);
 

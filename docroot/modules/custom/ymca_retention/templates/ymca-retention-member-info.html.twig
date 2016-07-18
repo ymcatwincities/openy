@@ -28,9 +28,11 @@
           <span class="total-activities">
             {{ member.activities }} {{ 'total activities'|t }}
           </span>
-          <span class="rank">
-            {{ member.rank }} {{ 'rank'|t }}
-          </span>
+          {% if member.rank is not empty %}
+            <span class="rank">
+              {{ member.rank }} {{ 'rank'|t }}
+            </span>
+          {% endif %}
         </div>
       </div>
     </div>

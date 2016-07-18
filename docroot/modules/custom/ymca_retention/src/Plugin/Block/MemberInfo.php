@@ -40,7 +40,7 @@ class MemberInfo extends BlockBase {
         'visits' => $visits,
         'percentage' => min(round(($visits / $goal) * 100), 100),
         'activities' => 12,
-        'rank' => 123,
+        'rank' => 0,
       ],
     ];
   }
