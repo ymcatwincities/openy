@@ -111,7 +111,6 @@
   </header>
 
   <div id="main" role="main" class="page-middle">
-    {% include "@ymca/layout/node/node-location-header.html.twig" %}
     <section class="lead-copy locations-lead-copy">
       {% block camplocationmenu %}
         {{ page.location_menu }}
@@ -125,29 +124,6 @@
           </div>
         {% endif %}
       {% endblock %}
-      {% if not page_schedules %}
-        {% if lead_description or secondary_sidebar or node.label %}
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 lead left">
-              <h1>{{ node.label }}</h1>
-              <article class="richtext" id="component_165980">{{ lead_description }}</article>
-            </div>
-            <div class="col-sm-4 lead call-to-action right">
-              <article class="richtext">{{ secondary_sidebar }}</article>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-      {% else %}
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12 lead left">
-              <h1>{{ attribute(page, '#title') }}</h1>
-            </div>
-          </div>
-        </div>
-      {% endif %}
     </section>
 
     {% block content %}
