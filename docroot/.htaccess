@@ -859,6 +859,8 @@ RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activiti
   # Rules to correctly serve gzip compressed CSS and JS files.
   # Requires both mod_rewrite and mod_headers to be enabled.
   <IfModule mod_headers.c>
+    # Disable Proxy header, since it's an attack vector.
+    RequestHeader unset Proxy
     # Serve gzip compressed CSS files if they exist and the client accepts gzip.
     RewriteCond %{HTTP:Accept-encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -s
