@@ -186,13 +186,27 @@ class MemberRegisterForm extends FormBase {
     $from = $from_date->format('m/d/Y g:i A');
     $past_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
+    // Get first visit date.
+    try {
+      $first_visit = new \DateTime($past_result->FirstVisitDate);
+    }
+    catch (\Exception $e) {
+      $first_visit = $from;
+    }
+    // If user registered after From date, then recalculate number of weeks.
+    if ($first_visit > $from_date) {
+      $number_weeks = ceil($first_visit->diff($current_date)->days / 7);
+    }
+
     // Calculate a goal for a member.
-    $goal = $settings->get('min_goal_number');
     // @todo This is now working in case when user registered after $from_date.
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $limit_goal = $settings->get('limit_goal_number');
       $goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
       $goal = min($goal, $limit_goal);
+    }
+    else {
+      $goal = $settings->get('new_member_goal_number');
     }
 
     // Get information about number of checkins in period of campaign.
@@ -207,8 +221,7 @@ class MemberRegisterForm extends FormBase {
     // Identify is user an employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
-    // This is a bad solution with this condition.
-    // But we do not have enough time to build better solution.
+    // @todo This is a bad solution with this condition.
     $route = \Drupal::service('current_route_match')->getRouteName();
     $created_by_staff = $route === 'page_manager.page_view_ymca_retention_pages_y_games_team';
 

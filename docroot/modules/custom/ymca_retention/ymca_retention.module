@@ -33,8 +33,11 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_login_form' => [
       'render element' => 'form',
     ],
-    'ymca_retention_track_activity_form' => [
-      'render element' => 'form',
+    'ymca_retention_navigation' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'ymca-retention-navigation',
     ],
     'ymca_retention_intro' => [
       'variables' => [
@@ -42,20 +45,20 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-intro',
     ],
+    'ymca_retention_track_activity' => [
+      'variables' => [],
+      'template' => 'ymca-retention-track-activity',
+    ],
     'ymca_retention_leaderboard' => [
       'variables' => [
         'base_path' => base_path(),
+        'locations' => [],
       ],
       'template' => 'ymca-retention-leaderboard',
     ],
-    'ymca_retention_navigation' => [
-      'variables' => [
-        'content' => NULL,
-      ],
-      'template' => 'ymca-retention-navigation',
-    ],
     'ymca_retention_member_info' => [
       'variables' => [
+        'base_path' => base_path(),
         'member' => [],
       ],
       'template' => 'ymca-retention-member-info',
@@ -71,4 +74,18 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'ymca-retention-registration-confirmation',
     ],
   ];
+}
+
+/**
+ * Implements hook_cron().
+ */
+function ymca_retention_cron() {
+  $regular_updater = \Drupal::service('ymca_retention.regular_updater');
+
+  // Check if cron was run today.
+  if (!$regular_updater->isAllowed()) {
+    return;
+  }
+
+  $regular_updater->runUpdate();
 }
