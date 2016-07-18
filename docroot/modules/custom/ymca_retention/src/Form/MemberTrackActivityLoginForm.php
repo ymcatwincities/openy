@@ -111,6 +111,22 @@ class MemberTrackActivityLoginForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    // Get retention settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $from_date = new \DateTime($settings->get('date_reporting_open'));
+    $to_date = new \DateTime($settings->get('date_reporting_close'));
+    $current_date = new \DateTime();
+    if ($current_date < $from_date) {
+      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y Games open.', [
+        '%date' => $from_date->format('F j'),
+      ]));
+      return;
+    }
+    if ($current_date > $to_date) {
+      $form_state->setErrorByName('form', $this->t('The Y Games are now closed and activity is no longer able to be tracked.'));
+      return;
+    }
+
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
     if (empty($verify_membership_id) && !array_key_exists('membership_id', $form)) {
       $mail = $form_state->getValue('mail');
