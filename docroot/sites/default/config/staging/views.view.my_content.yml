@@ -634,7 +634,13 @@ display:
         description: 'Find and manage content'
         menu_name: admin
         weight: -10
-      display_extenders: {  }
+      display_extenders:
+        views_advanced_routing_route:
+          route:
+            defaults: {  }
+            requirements: {  }
+            options:
+              _admin_route: '1'
     display_plugin: page
     display_title: Page
     id: page_1
