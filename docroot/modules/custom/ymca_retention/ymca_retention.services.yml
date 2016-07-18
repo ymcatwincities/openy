@@ -16,3 +16,6 @@ services:
   ymca_retention.leaderboard_manager:
     class: Drupal\ymca_retention\LeaderboardManager
     arguments: ['@cache.ymca_retention']
+  ymca_retention.regular_updater:
+    class: Drupal\ymca_retention\RegularUpdater
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory']
