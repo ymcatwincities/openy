@@ -29,16 +29,18 @@ class MemberInfo extends BlockBase {
     if (empty($member)) {
       return NULL;
     }
+    $goal = $member->getVisitGoal();
+    $visits = $member->getVisits();
 
     return [
       '#theme' => 'ymca_retention_member_info',
       '#member' => [
         'name' => $member->getFullName(),
-        'goal' => $member->getVisitGoal(),
-        'visits' => $member->getVisits(),
-        'percentage' => min(round((5 / 15) * 100), 100),
+        'goal' => $goal,
+        'visits' => $visits,
+        'percentage' => min(round(($visits / $goal) * 100), 100),
         'activities' => 12,
-        'rank' => 123,
+        'rank' => 0,
       ],
     ];
   }
