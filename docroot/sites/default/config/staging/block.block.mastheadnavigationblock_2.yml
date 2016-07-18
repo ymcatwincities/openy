@@ -1,0 +1,21 @@
+uuid: 5bd52955-05a6-4a1b-8c6b-8233f429435f
+langcode: en
+status: false
+dependencies:
+  module:
+    - ymca_blocks
+  theme:
+    - ymca
+id: mastheadnavigationblock_2
+theme: ymca
+region: '-1'
+weight: -12
+provider: null
+plugin: masthead_navigation_block
+settings:
+  id: masthead_navigation_block
+  label: 'Masthead navigation block A/B (B)'
+  provider: ymca_blocks
+  label_display: '0'
+  ab: 1
+visibility: {  }
