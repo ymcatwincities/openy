@@ -67,8 +67,9 @@ class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
         $relativeUrl = '/' . substr($rawUrl, strlen($baseUrl));
       }
       $relativeUrl = preg_replace('/\/{2,}/', '/', $relativeUrl);
+      $query = parse_str(parse_url($relativeUrl, PHP_URL_QUERY));
       try {
-        $url = Url::fromUserInput($relativeUrl)->setAbsolute(true)->toString();
+        $url = Url::fromUserInput($relativeUrl, ['query' => $query])->setAbsolute(true)->toString();
       }
       catch(\InvalidArgumentException $e) {
         drupal_set_message($e->getMessage(), 'error');
