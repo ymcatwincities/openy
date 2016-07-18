@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\node\NodeInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
@@ -114,6 +115,13 @@ class MindbodyPTForm extends FormBase {
   protected $logger;
 
   /**
+   * Node object.
+   *
+   * @var NodeInterface
+   */
+  protected $node;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
@@ -160,6 +168,8 @@ class MindbodyPTForm extends FormBase {
     }
     $this->state = $state;
 
+    $request = \Drupal::request();
+    $this->node = $request->get('node');
   }
 
   /**
@@ -725,6 +735,7 @@ class MindbodyPTForm extends FormBase {
         $options['query']['trainer'] = $values['trainer'];
       }
     }
+
     $search_results = [
       '#theme' => 'mindbody_results_content',
       '#location' => $location_name,
@@ -732,8 +743,8 @@ class MindbodyPTForm extends FormBase {
       '#session_type' => $session_type_name,
       '#trainer' => $trainer_name,
       '#datetime' => $datetime,
-      '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
-      '#start_again_link' => Url::fromRoute('ymca_mindbody.pt'),
+      '#back_link' => $this->getSearchLink($options),
+      '#start_again_link' => $this->getSearchLink([]),
       '#telephone' => $telephone,
       '#base_path' => base_path(),
       '#days' => $days,
@@ -797,11 +808,8 @@ class MindbodyPTForm extends FormBase {
       if (isset($query['context'])) {
         $params['context'] = $query['context'];
       }
-      $form_state->setRedirect(
-        'ymca_mindbody.pt.results',
-        [],
-        ['query' => $params]
-      );
+
+      $form_state->setRedirectUrl($this->getResultsLink($params));
     }
   }
 
@@ -969,6 +977,38 @@ class MindbodyPTForm extends FormBase {
   protected function getTimestampInTimezone($data) {
     $date = new DrupalDateTime($data, $this::DEFAULT_TIMEZONE);
     return $date->getTimestamp();
+  }
+
+  /**
+   * Returns search link based on context.
+   *
+   * @param array $options
+   *   Array of options.
+   *
+   * @return \Drupal\Core\Url
+   *   Route object.
+   */
+  protected function getSearchLink($options) {
+    if (!isset($this->node)) {
+      return Url::fromRoute('ymca_mindbody.pt', [], $options);
+    }
+    return Url::fromRoute('ymca_mindbody.location.pt', ['node' => $this->node->id()], $options);
+  }
+
+  /**
+   * Returns results link based on context.
+   *
+   * @param array $options
+   *   Array of options.
+   *
+   * @return \Drupal\Core\Url
+   *   Route object.
+   */
+  protected function getResultsLink($options) {
+    if (!isset($this->node)) {
+      return Url::fromRoute('ymca_mindbody.pt.results', [], ['query' => $options]);
+    }
+    return Url::fromRoute('ymca_mindbody.location.pt.results', ['node' => $this->node->id()], ['query' => $options]);
   }
 
 }
