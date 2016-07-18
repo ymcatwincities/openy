@@ -3709,7 +3709,6 @@ function ymca_master_update_8153() {
 
   foreach ($items as $item) {
     // Add "Personal Trainer Schedules" menu item.
-    //$query = '?location=' . $item['location_id'] . '&context=location';
     $url = 'internal:/node/' . $item['nid'] . '/personal-trainer-schedules';
     $results_url = 'internal:/node/' . $item['nid'] . '/personal-trainer-schedules/results';
 
@@ -3727,8 +3726,7 @@ function ymca_master_update_8153() {
       'title' => 'Personal Trainer Schedules',
       'link' => ['uri' => $url],
       'menu_name' => 'locations',
-      'parent' => !empty($parent_menu_item) ? 'menu_link_content:' . $parent_menu_item->uuid(
-        ) : '',
+      'parent' => !empty($parent_menu_item) ? 'menu_link_content:' . $parent_menu_item->uuid() : '',
       'enabled' => FALSE,
       'weight' => -5,
     ];
@@ -3740,8 +3738,7 @@ function ymca_master_update_8153() {
       'title' => 'Personal Trainer Schedules Results',
       'link' => ['uri' => $results_url],
       'menu_name' => 'locations',
-      'parent' => !empty($menu_item) && !empty($parent_menu_item) ? 'menu_link_content:' . $menu_item->uuid(
-        ) : '',
+      'parent' => !empty($menu_item) && !empty($parent_menu_item) ? 'menu_link_content:' . $menu_item->uuid() : '',
       'enabled' => FALSE,
     ];
     $menu_item = MenuLinkContent::create($menu_subitem_definition);
