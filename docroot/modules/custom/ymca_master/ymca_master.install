@@ -3540,13 +3540,16 @@ function ymca_master_update_8151() {
 }
 
 /**
- * Add new templates to ckeditor.
+ * YMCA-1040 User's dashboard.
  */
 function ymca_master_update_8152() {
+  \Drupal::service('module_installer')->install(array('views_advanced_routing'), TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'editor.editor.full_html.yml',
+      $path . 'views.settings.yml',
+      $path . 'views.view.my_content.yml'
     ]
   );
 }
+
