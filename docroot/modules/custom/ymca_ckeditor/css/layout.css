@@ -16,6 +16,9 @@ a.tabledrag-handle .handle {
 
 .cke-columns.container {
   margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
+  padding: 30px 0;
   width: 100%;
 }
 
@@ -35,6 +38,13 @@ a.tabledrag-handle .handle {
   padding: 5px;
   width: 33.33333333333333%;
 }
+.cke-columns .col-xs-12 {
+   border: 1px dashed #ccc;
+   position: relative;
+   min-height: 1px;
+   padding: 5px;
+   width: 100%;
+ }
 
 .cke_button__block_icon {
   background-image: url("../img/ck_ico_block.png") !important;
@@ -51,4 +61,8 @@ a.tabledrag-handle .handle {
 
 .cke_button__webform_icon {
   background-image: url("../img/ck_ico_webform.png") !important;
+}
+
+.sports-promo {
+  text-align: center;
 }
