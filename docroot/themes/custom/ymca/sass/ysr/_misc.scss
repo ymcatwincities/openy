@@ -366,6 +366,24 @@
       letter-spacing: -0.6px;
     }
   }
+
+  .campaign-over {
+    @include cachet();
+    @include rem(font-size, 20px);
+    @include rem(line-height, 30px);
+    @include rem(margin-bottom, 90px);
+    @include rem(margin-top, 50px);
+    color: $pale-purple-2;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 2;
+
+    .thank-you {
+      @include rem(font-size, 25px);
+      color: $white;
+    }
+  }
 }
 
 #main-description-individual {
