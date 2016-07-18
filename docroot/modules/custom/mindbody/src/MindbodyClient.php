@@ -123,7 +123,7 @@ class MindbodyClient implements MindbodyClientInterface {
 
       // Check whether the results are OK.
       $property = $endpoint . 'Result';
-      if (!$result->{$property}->ErrorCode != 200) {
+      if ($result->{$property}->ErrorCode != 200) {
         $msg = 'Error while getting the results. Status: %status';
         $this->logger->error($msg, ['%status' => $result->{$property}->Status]);
       }
@@ -131,9 +131,10 @@ class MindbodyClient implements MindbodyClientInterface {
       return $result;
     }
     catch (\Exception $e) {
-      $params_log = print_r($params, TRUE);
+      $params_log = serialize($params);
       $message = $e->getMessage();
-      throw new MindbodyException("Failed to communicate the data with MindBody exception with a message: $message for service: $service for the endpoint $endpoint with parameters: $params_log");
+      $msg = "Failed to call MindBody with message: $message for service: $service for the endpoint $endpoint with parameters: $params_log";
+      throw new MindbodyException($msg);
     }
   }
 
