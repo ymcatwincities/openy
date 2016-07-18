@@ -88,7 +88,7 @@
         }
 
         var count = 0;
-        for (activity in $scope.member_activities[$scope.dates[index].timestamp]) {
+        for (var activity in $scope.member_activities[$scope.dates[index].timestamp]) {
           if ($scope.member_activities[$scope.dates[index].timestamp][activity]) {
             count++;
           }
