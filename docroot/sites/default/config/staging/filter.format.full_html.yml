@@ -15,7 +15,7 @@ filters:
   filter_align:
     id: filter_align
     provider: filter
-    status: true
+    status: false
     weight: -50
     settings: {  }
   filter_caption:
@@ -85,7 +85,7 @@ filters:
   rel_to_abs:
     id: rel_to_abs
     provider: rel_to_abs
-    status: true
+    status: false
     weight: -44
     settings: {  }
   token_filter:
