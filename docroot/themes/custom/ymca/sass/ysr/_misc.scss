@@ -344,6 +344,11 @@
       color: $orange-light;
     }
 
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(font-size, 35px);
+      @include rem(line-height, 35px);
+    }
+
     @include breakpoint($tablet) {
       @include rem(font-size, 100px);
       @include rem(line-height, 100px);
@@ -354,17 +359,22 @@
 
   .date {
     @include cachet();
-    @include rem(font-size, 31px);
-    @include rem(line-height, 31px);
+    @include rem(font-size, 25px);
+    @include rem(line-height, 25px);
     color: $white;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.6px;
     text-transform: uppercase;
 
-    @media(max-width: 767px) {
-      @include rem(font-size, 25px);
-      @include rem(line-height, 25px);
-      letter-spacing: -0.6px;
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(font-size, 20px);
     }
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 31px);
+      @include rem(line-height, 31px);
+      letter-spacing: -0.8px;
+    }
+
   }
 
   .campaign-over {
@@ -382,6 +392,14 @@
     .thank-you {
       @include rem(font-size, 25px);
       color: $white;
+    }
+
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(font-size, 16px);
+
+      .thank-you {
+        @include rem(font-size, 20px);
+      }
     }
   }
 }
