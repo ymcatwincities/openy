@@ -68,17 +68,17 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Campaign close date and time'),
       '#size' => 50,
       '#maxlength' => 500,
-      '#default_value' => $config->get('date_reporting_close'),
+      '#default_value' => $config->get('date_campaign_close'),
       '#description' => $this->t('Date and time when campaign will be closed.'),
     ];
 
-    $form['min_goal_number'] = [
+    $form['new_member_goal_number'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Minimum goal of visits'),
+      '#title' => $this->t('Goal of visits for new members'),
       '#size' => 50,
       '#maxlength' => 500,
-      '#default_value' => $config->get('min_goal_number'),
-      '#description' => $this->t('Minimum goal of visits in this campaign.'),
+      '#default_value' => $config->get('new_member_goal_number'),
+      '#description' => $this->t('Goal of visits in this campaign for new members.'),
     ];
 
     $form['limit_goal_number'] = [
@@ -121,7 +121,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('date_reporting_open', $form_state->getValue('date_reporting_open'))
       ->set('date_reporting_close', $form_state->getValue('date_reporting_close'))
       ->set('date_campaign_close', $form_state->getValue('date_campaign_close'))
-      ->set('min_goal_number', $form_state->getValue('min_goal_number'))
+      ->set('new_member_goal_number', $form_state->getValue('new_member_goal_number'))
       ->set('limit_goal_number', $form_state->getValue('limit_goal_number'))
       ->set('date_checkins_start', $form_state->getValue('date_checkins_start'))
       ->set('date_checkins_end', $form_state->getValue('date_checkins_end'))
