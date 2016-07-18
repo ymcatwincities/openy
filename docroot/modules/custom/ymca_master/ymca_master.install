@@ -3549,7 +3549,6 @@ function ymca_master_update_8152() {
     [
       $path . 'views.settings.yml',
       $path . 'views.view.my_content.yml'
-
     ]
   );
 }
