@@ -28,13 +28,14 @@ class Leaderboard extends BlockBase {
       '#theme' => 'ymca_retention_leaderboard',
       '#attached' => [
         'library' => [
-          'ymca_retention/angular',
           'ymca_retention/leaderboard',
         ],
         'drupalSettings' => [
           'ymca_retention' => [
-            'leaderboard' => Url::fromRoute('ymca_retention.leaderboard_json', ['branch_id' => '0000'])->toString(),
-            'locations' => $locations,
+            'leaderboard' => [
+              'leaderboard_url_pattern' => Url::fromRoute('ymca_retention.leaderboard_json', ['branch_id' => '0000'])->toString(),
+              'locations' => $locations,
+            ],
           ],
         ],
       ],
