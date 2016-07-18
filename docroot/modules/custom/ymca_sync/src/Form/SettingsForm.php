@@ -28,7 +28,12 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
-   * @inheritDoc
+   * SettingsForm constructor.
+   *
+   * @param ConfigFactoryInterface $config_factory
+   *   Config Factory.
+   * @param SyncRepository $syncers
+   *   Sync Repo.
    */
   public function __construct(ConfigFactoryInterface $config_factory, SyncRepository $syncers) {
     parent::__construct($config_factory);
@@ -36,7 +41,7 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -77,7 +82,7 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();

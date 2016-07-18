@@ -410,7 +410,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Filter out clients pushed to MindBody.
    *
-   * @return $this|bool
+   * @return mixed
    *   FALSE if there is an error.
    */
   protected function filerOutClients() {
@@ -465,7 +465,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $this->logger->critical($msg, ['%error' => serialize($result)]);
       return FALSE;
     }
-    
+
     return TRUE;
   }
 
