@@ -15,7 +15,7 @@
       editor.addCommand('sports_promo', {
         canUndo: true,
         exec: function (editor) {
-          editor.insertHtml( '<div class="cke-columns container"><div class="row"><div class="col-sm-4">{{ LEFT COLUMN CONTENT }}</div><div class="col-sm-4">{{ CENTER COLUMN CONTENT }}</div><div class="col-sm-4">{{ RIGHT COLUMN CONTENT }}</div></div></div>' );
+          editor.insertHtml('<div class="sports-promo cke-columns container"><div class="row"><div class="col-xs-12"><h3>{{ PLACEHOLDER <br> HEADER TITLE }}</h3><h4>{{ PLACEHOLDER SUBHEADER }}</h4><p>{{ PLACEHOLDER TEXT }}</p><a class="basketball sports-icon" href="/">{{ PLACEHOLDER LINK}}</a><div class="description">{{ PLACEHOLDER SUBLINK TEXT}}</div></div></div></div>');
         }
       });
 
