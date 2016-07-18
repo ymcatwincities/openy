@@ -35,7 +35,7 @@ class Navigation extends BlockBase {
       'leader_board' => Link::fromTextAndUrl(t('Leaderboard'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
         'fragment' => 'leaderboard',
       ])),
-      'rules' => Link::fromTextAndUrl(t('Prizes/Rules Details'), Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+      'rules' => Link::fromTextAndUrl(t('Prizes & Rules'), Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
         'string' => 'rules',
       ]))->toString(),
     ];
