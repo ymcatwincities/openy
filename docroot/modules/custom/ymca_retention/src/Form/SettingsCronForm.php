@@ -14,14 +14,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SettingsCronForm extends FormBase {
 
   /**
+   * The date formatter.
+   *
    * @var \Drupal\Core\Datetime\DateFormatter;
-   *   The date formatter.
    */
   protected $dateFormatter;
 
   /**
+   * The regular updater.
+   *
    * @var \Drupal\ymca_retention\RegularUpdater;
-   *   The regular updater.
    */
   protected $regularUpdater;
 
@@ -64,8 +66,8 @@ class SettingsCronForm extends FormBase {
     $form['last_run'] = [
       '#type' => '#markup',
       '#markup' => $this->t('Cron last run: %timestamp', [
-          '%timestamp' => $last_run,
-        ]),
+        '%timestamp' => $last_run,
+      ]),
     ];
 
     $form['actions']['#type'] = 'actions';
