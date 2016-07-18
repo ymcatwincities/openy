@@ -162,6 +162,7 @@ class ActivityManager implements ActivityManagerInterface {
    */
   public function getUrl() {
     // We need to start session for the CSRF token protection to work.
+    // TODO: replace this protection to smth custom?
     if ($this->currentUser->isAnonymous() && !isset($_SESSION['session_started'])) {
       $_SESSION['session_started'] = TRUE;
       $this->sessionManager->start();
