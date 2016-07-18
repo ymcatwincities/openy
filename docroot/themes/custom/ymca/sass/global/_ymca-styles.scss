@@ -493,3 +493,119 @@ p.legend {
   opacity: 0.4;
   width: 30px;
 }
+
+// CKEditor template plugins.
+.green-3-col.container {
+  background: $green3;
+  position: relative;
+  margin: 50px -100px 0;
+  padding: 50px 100px;
+
+  &:before {
+    position: absolute;
+    top: 0px;
+    left: -60%;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    background-image: -webkit-linear-gradient($green4, $green3);
+    background-image: -moz-linear-gradient($green4, $green3);
+    background-image: -ms-linear-gradient($green4, $green3);
+    background-image: linear-gradient($green4, $green3);
+    content: '';
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    -ms-transform: skew(30deg);
+    transform: skew(30deg);
+  }
+
+  .row {
+    h3 {
+      color: $white;
+    }
+    h4 {
+      color: $green5;
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+    p {
+      color: $white;
+      font-size: 15px;
+    }
+    ul, ol {
+      font-size: 15px;
+      padding-left: 18px;
+      margin: 20px 0;
+      li {
+        color: $white;
+      }
+    }
+    .button a {
+      box-shadow: none;
+      background-color: $green1;
+      background-image: -webkit-linear-gradient($green1, $green6);
+      background-image: -moz-linear-gradient($green1, $green6);
+      background-image: -ms-linear-gradient($green1, $green6);
+      background-image: linear-gradient($green1, $green6);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .col-md-3 {
+      @media screen and (min-width: 992px) {
+        padding: 0;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      .col-sm-4 {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+.sports-promo.container {
+  background: url("../img/march/ymca_member_retention_hero.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  margin: 50px -100px;
+  padding: 50px 100px;
+
+  .row {
+    h3 {
+      color: #fff;
+      font-size: 30px;
+      line-height: 40px;
+      text-shadow: 1px 1px 4px #000;
+      margin: 0 0 10px;
+    }
+
+    h4 {
+      color: #fff;
+      font-size: 18px;
+      margin: 0 0 20px;
+    }
+
+    p {
+      color: $grey11;
+      margin: 0 0 30px;
+    }
+
+    .sports-icon {
+      text-align: left;
+      color: $pink;
+    }
+
+    .description {
+      color: $pink;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  }
+  .col-xs-12 {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}

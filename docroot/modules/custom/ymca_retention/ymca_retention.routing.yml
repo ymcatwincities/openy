@@ -70,3 +70,12 @@ ymca_retention.leaderboard_json:
   requirements:
     _permission: 'access content'
     branch_id: ^[0-9]+
+
+ymca_retention.member_activities_json:
+  path: '/ymca-retention/member_activities'
+  defaults:
+    _controller: \Drupal\ymca_retention\Controller\ActivityController::memberActivitiesJson
+    _title: 'YMCA Retention Member Activities JSON'
+  requirements:
+    _permission: 'access content'
+    _csrf_token: 'TRUE'
