@@ -25,9 +25,6 @@
       </div>
       <div class="col-xs-12 col-sm-5 member-info--stats">
         <div class="member-info--stats--wrapper">
-          <span class="total-activities">
-            <span id="member-total-activities-number">{{ member.activities }}</span> {{ 'total activities'|t }}
-          </span>
           {% if member.rank is not empty %}
             <span class="rank">
               {{ member.rank }} {{ 'rank'|t }}

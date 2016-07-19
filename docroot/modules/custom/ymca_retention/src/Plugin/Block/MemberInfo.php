@@ -32,7 +32,6 @@ class MemberInfo extends BlockBase {
     $goal = $member->getVisitGoal();
     $visits = $member->getVisits();
 
-    $activities = $member->getMemberActivities();
     $rank = $member->getMemberRank();
 
     return [
@@ -42,7 +41,6 @@ class MemberInfo extends BlockBase {
         'goal' => $goal,
         'visits' => $visits,
         'percentage' => min(round(($visits / $goal) * 100), 100),
-        'activities' => $activities,
         'rank' => $rank,
       ],
     ];
