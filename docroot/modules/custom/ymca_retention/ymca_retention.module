@@ -94,21 +94,21 @@ function ymca_retention_cron() {
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
-function ymca_retention_ymca_retention_member_activity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
   _ymca_retention_activity_track_update($entity);
 }
 
 /**
  * Implements hook_ENTITY_TYPE_update().
  */
-function ymca_retention_ymca_retention_member_activity_update(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_retention_ymca_retention_member_activity_update(EntityInterface $entity) {
   _ymca_retention_activity_track_update($entity);
 }
 
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function ymca_retention_ymca_retention_member_activity_delete(Drupal\Core\Entity\EntityInterface $entity) {
+function ymca_retention_ymca_retention_member_activity_delete(EntityInterface $entity) {
   _ymca_retention_activity_track_update($entity);
 }
 
@@ -118,7 +118,7 @@ function ymca_retention_ymca_retention_member_activity_delete(Drupal\Core\Entity
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Created/updated/deleted activity.
  */
-function _ymca_retention_activity_track_update(Drupal\Core\Entity\EntityInterface $entity) {
+function _ymca_retention_activity_track_update(EntityInterface $entity) {
   $member_id = $entity->member->target_id;
   /** @var \Drupal\ymca_retention\ActivityManager $service */
   $service = \Drupal::service('ymca_retention.activity_manager');
