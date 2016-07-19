@@ -3063,7 +3063,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .prize__winners__category .category__winner .winner-name {
   font-size: 18px;
   font-size: 1.8rem;
-  color: #231f20;
+  color: #424242;
   float: left;
 }
 @media (min-width: 40em) {

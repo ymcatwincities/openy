@@ -270,7 +270,7 @@
 
         .winner-name {
           @include rem(font-size, 18px);
-          color: $black;
+          color: $grey7;
           float: left;
 
           @include breakpoint($tablet-portrait) {
