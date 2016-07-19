@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_form_alter().
@@ -111,6 +112,12 @@ function ymca_retention_ymca_retention_member_activity_delete(Drupal\Core\Entity
   _ymca_retention_activity_track_update($entity);
 }
 
+/**
+ * Helper function to update activity_track fields.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Created/updated/deleted activity.
+ */
 function _ymca_retention_activity_track_update(Drupal\Core\Entity\EntityInterface $entity) {
   $member_id = $entity->member->target_id;
   /** @var \Drupal\ymca_retention\ActivityManager $service */
