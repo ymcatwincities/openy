@@ -344,6 +344,11 @@
       color: $orange-light;
     }
 
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(font-size, 35px);
+      @include rem(line-height, 35px);
+    }
+
     @include breakpoint($tablet) {
       @include rem(font-size, 100px);
       @include rem(line-height, 100px);
@@ -354,16 +359,47 @@
 
   .date {
     @include cachet();
-    @include rem(font-size, 31px);
-    @include rem(line-height, 31px);
+    @include rem(font-size, 25px);
+    @include rem(line-height, 25px);
     color: $white;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.6px;
     text-transform: uppercase;
 
-    @media(max-width: 767px) {
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(font-size, 20px);
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 31px);
+      @include rem(line-height, 31px);
+      letter-spacing: -0.8px;
+    }
+
+  }
+
+  .campaign-over {
+    @include cachet();
+    @include rem(font-size, 20px);
+    @include rem(line-height, 30px);
+    @include rem(margin-bottom, 90px);
+    @include rem(margin-top, 50px);
+    color: $pale-purple-2;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 2;
+
+    .thank-you {
       @include rem(font-size, 25px);
-      @include rem(line-height, 25px);
-      letter-spacing: -0.6px;
+      color: $white;
+    }
+
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(font-size, 16px);
+
+      .thank-you {
+        @include rem(font-size, 20px);
+      }
     }
   }
 }
@@ -671,10 +707,6 @@
     text-transform: uppercase;
   }
 
-  .leaderboard-form {
-    text-align: center;
-  }
-
   #leaderboard-location {
     margin: auto;
     max-width: 380px;
@@ -688,6 +720,21 @@
       letter-spacing: -0.8px;
       margin: auto;
       text-transform: uppercase;
+    }
+  }
+}
+
+.leaderboard-form {
+  text-align: center;
+
+  select.form-control {
+    @include rem(height, 50px);
+    @include rem(line-height, 48px);
+    color: $grey7;
+
+    &.default {
+      color: $grey4;
+      font-style: italic;
     }
   }
 }
@@ -885,42 +932,6 @@
     @include rem(max-width, 850px);
     @include rem(padding, 0 15px);
   }
-}
-
-
-#second-prize {
-  @include cachet();
-  background: url("../img/winners_2nd_prize_title.png") no-repeat center 0;
-  padding: 40px 0 0;
-  margin: 0;
-}
-
-#third-prize {
-  @include cachet();
-  background: url("../img/winners_3rd_prize_title.png") no-repeat center 0;
-  padding: 40px 0 0;
-  margin: 100px 0 100px;
-}
-
-.second-third-prizes-wrapper .container {
-  padding: 0 15px;
-  max-width: 790px;
-}
-
-.second-third-prizes-wrapper .sub-title {
-  color: #777;
-  font-size: 20px;
-  line-height: 25px;
-  text-align: center;
-  margin-bottom: 0;
-  padding: 20px 0;
-}
-
-.second-third-prizes-wrapper .form-select {
-  max-width: 380px;
-  margin: 60px auto;
-  font-size: 14px;
-  height: 50px;
 }
 
 .results-table-wrapper {
@@ -1148,23 +1159,6 @@
   }
 }
 
-#second-prize .results-table td {
-
-  &.name {
-    width: 55%;
-  }
-
-  &:first-child {
-    width: 30%;
-    color: #777;
-    font-size: 15px;
-  }
-}
-
-#third-prize .results-table td.name {
-  color: #0889cd;
-}
-
 @media screen and (max-width: 767px) {
 
   #main-description {
@@ -1195,11 +1189,6 @@
   .results-table {
     margin-bottom: 0;
   }
-}
-
-select.form-control.default {
-  font-style: italic;
-  color: $grey4;
 }
 
 body {
