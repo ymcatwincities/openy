@@ -140,7 +140,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       // Do not push the order if it's already pushed.
       $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
       if ($cache_entity) {
-        $order_data = $cache_entity->get('field_pmc_mindbody_order_data');
+        $order_data = $cache_entity->get('field_pmc_ord_data');
         if (!$order_data->isEmpty()) {
           // Just skip this order.
           continue;
@@ -210,7 +210,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
       if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
         if ($cache_entity) {
-          $cache_entity->set('field_pmc_mindbody_order_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
+          $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
           $cache_entity->save();
         }
       }
