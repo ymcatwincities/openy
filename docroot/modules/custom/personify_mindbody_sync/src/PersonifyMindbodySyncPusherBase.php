@@ -203,6 +203,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         );
       }
       catch (MindbodyException $e) {
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $e->getMessage());
+
         $msg = 'Failed to push order to the MindBody: %msg';
         $this->logger->error($msg, ['%msg' => $e->getMessage()]);
         // Skip this order. Continue with next.
@@ -212,16 +214,17 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         if ($cache_entity) {
           $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
           $cache_entity->save();
+
+          // Reset status.
+          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, '');
         }
       }
       else {
-        // Write error to status message.
-        if ($cache_entity) {
-          // @todo wite to status message.
-        }
+        // To reproduce this just comment ID in the cart item.
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Message);
 
         // Log an error.
-        $msg = '[DEV] Failed to push order to MindBody: %error';
+        $msg = 'Failed to push order to MindBody: %error';
         $this->logger->critical($msg, ['%error' => serialize($response)]);
         return $this;
       }
@@ -538,10 +541,29 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
 
       foreach ($entities as $entity) {
-        $entity->set('field_pmc_status', $message);
+        $entity->set('field_pmc_status', 'Client: ' . $message);
         $entity->save();
       }
     }
+  }
+
+  /**
+   * Update status message by Order number & line number.
+   *
+   * @param string $order_num
+   *   Order number.
+   * @param string $order_line_num
+   *   Order line number.
+   * @param string $message
+   *   A message
+   */
+  protected function updateStatusByOrder($order_num, $order_line_num, $message) {
+    if (!$entity = $this->wrapper->findOrder($order_num, $order_line_num)) {
+      return;
+    }
+
+    $entity->set('field_pmc_status', 'Order: ' . $message);
+    $entity->save();
   }
 
 }
