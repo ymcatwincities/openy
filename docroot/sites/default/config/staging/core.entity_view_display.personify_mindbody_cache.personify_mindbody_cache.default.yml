@@ -7,7 +7,7 @@ dependencies:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_prs_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_order_date
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status_message
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
@@ -45,7 +45,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_pmc_personify_data:
+  field_pmc_prs_data:
     weight: 4
     label: above
     settings: {  }

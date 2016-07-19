@@ -418,7 +418,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
     foreach ($data as $id => $entity) {
       $user_id = $entity->field_pmc_user_id->value;
-      $personifyData = unserialize($entity->field_pmc_personify_data->value);
+      $personifyData = unserialize($entity->field_pmc_prs_data->value);
 
       // Push only items which were not pushed before.
       if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
