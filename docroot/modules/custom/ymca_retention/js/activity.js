@@ -115,7 +115,7 @@
           .then(function (response) {
             // $scope.member_activities = response.data;
           })
-          .finally(function(){
+          .finally(function () {
             var activities = [];
             for (var date in $scope.member_activities) {
               for (var activity in $scope.member_activities[date]) {
