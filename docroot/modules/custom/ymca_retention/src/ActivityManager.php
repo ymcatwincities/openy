@@ -149,7 +149,9 @@ class ActivityManager implements ActivityManagerInterface {
     $date = new \DateTime();
     /** @var MemberActivity $activity */
     foreach ($activities as $activity) {
-      $timestamp = $date->setTimestamp($activity->get('timestamp')->value)->setTime(0, 0, 0)->getTimestamp();
+      $timestamp = $date->setTimestamp($activity->get('timestamp')->value)
+        ->setTime(0, 0, 0)
+        ->getTimestamp();
       $id = $activity->activity_type->target_id;
       $member_activities[$timestamp][$id] = TRUE;
     }
@@ -168,13 +170,16 @@ class ActivityManager implements ActivityManagerInterface {
       $this->sessionManager->start();
     }
 
-    $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')->toString(TRUE);
+    $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')
+      ->toString(TRUE);
     $urlRender = array(
       '#markup' => $urlBubbleable->getGeneratedUrl(),
     );
-    BubbleableMetadata::createFromRenderArray($urlRender)->merge($urlBubbleable)->applyTo($urlRender);
-    $url = \Drupal::service('renderer')->renderPlain($urlRender);
-    return $url;
+    BubbleableMetadata::createFromRenderArray($urlRender)
+      ->merge($urlBubbleable)
+      ->applyTo($urlRender);
+
+    return \Drupal::service('renderer')->renderPlain($urlRender);
   }
 
 }
