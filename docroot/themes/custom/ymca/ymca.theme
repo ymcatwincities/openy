@@ -415,7 +415,7 @@ function ymca_preprocess_html(&$variables) {
 
       case 'location':
         // Locations News & Events page.
-        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results'))) {
+        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results', 'ymca_mindbody.location.pt', 'ymca_mindbody.location.pt.results'))) {
           $classes = [
             'internal-template',
             'ancestor-locations',
