@@ -393,6 +393,12 @@ class Member extends ContentEntityBase implements MemberInterface {
     return count($terms);
   }
 
+  /**
+   * Get member rank.
+   *
+   * @return int
+   *   Member rank.
+   */
   public function getMemberRank() {
     return 0;
   }
