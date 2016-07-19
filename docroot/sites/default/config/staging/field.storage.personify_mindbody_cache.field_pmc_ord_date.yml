@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.field_pmc_personify_order_date
-field_name: field_pmc_personify_order_date
+id: personify_mindbody_cache.field_pmc_ord_date
+field_name: field_pmc_ord_date
 entity_type: personify_mindbody_cache
 type: integer
 settings:
