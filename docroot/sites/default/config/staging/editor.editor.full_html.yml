@@ -38,8 +38,6 @@ settings:
             - Blockquote
             - Table
             - HorizontalRule
-            - ColumnButton2x
-            - ColumnButton3x
             - block
             - menu_link
             - file_browser
@@ -54,7 +52,16 @@ settings:
           items:
             - ShowBlocks
             - Source
+        -
+          name: Templates
+          items:
+            - ColumnButton2x
+            - ColumnButton3x
+            - SportsPromo
+            - Green3Columns
   plugins:
+    language:
+      language_list: un
     stylescombo:
       styles: p.button|Button
 image_upload:
