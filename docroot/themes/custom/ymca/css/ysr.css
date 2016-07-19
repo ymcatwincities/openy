@@ -938,9 +938,6 @@
   margin: 22px 0 50px;
   text-transform: uppercase;
 }
-#leaderboard .leaderboard-form {
-  text-align: center;
-}
 #leaderboard #leaderboard-location {
   margin: auto;
   max-width: 380px;
@@ -953,6 +950,21 @@
   letter-spacing: -0.8px;
   margin: auto;
   text-transform: uppercase;
+}
+
+.leaderboard-form {
+  text-align: center;
+}
+.leaderboard-form select.form-control {
+  height: 50px;
+  height: 5rem;
+  line-height: 48px;
+  line-height: 4.8rem;
+  color: #424242;
+}
+.leaderboard-form select.form-control.default {
+  color: #a7a7a7;
+  font-style: italic;
 }
 
 #main-description-individual {
@@ -1121,41 +1133,6 @@
   max-width: 85rem;
   padding: 0 15px;
   padding: 0 1.5rem;
-}
-
-#second-prize {
-  font-family: "Cachet",Arial,sans-serif;
-  background: url("../img/winners_2nd_prize_title.png") no-repeat center 0;
-  padding: 40px 0 0;
-  margin: 0;
-}
-
-#third-prize {
-  font-family: "Cachet",Arial,sans-serif;
-  background: url("../img/winners_3rd_prize_title.png") no-repeat center 0;
-  padding: 40px 0 0;
-  margin: 100px 0 100px;
-}
-
-.second-third-prizes-wrapper .container {
-  padding: 0 15px;
-  max-width: 790px;
-}
-
-.second-third-prizes-wrapper .sub-title {
-  color: #777;
-  font-size: 20px;
-  line-height: 25px;
-  text-align: center;
-  margin-bottom: 0;
-  padding: 20px 0;
-}
-
-.second-third-prizes-wrapper .form-select {
-  max-width: 380px;
-  margin: 60px auto;
-  font-size: 14px;
-  height: 50px;
 }
 
 .results-table-wrapper {
@@ -1347,19 +1324,6 @@
   background-color: #f9f9f9;
 }
 
-#second-prize .results-table td.name {
-  width: 55%;
-}
-#second-prize .results-table td:first-child {
-  width: 30%;
-  color: #777;
-  font-size: 15px;
-}
-
-#third-prize .results-table td.name {
-  color: #0889cd;
-}
-
 @media screen and (max-width: 767px) {
   #main-description {
     padding: 30px 0;
@@ -1390,11 +1354,6 @@
     margin-bottom: 0;
   }
 }
-select.form-control.default {
-  font-style: italic;
-  color: #a7a7a7;
-}
-
 body.toolbar-fixed.toolbar-vertical #top-nav {
   margin-top: 39px;
 }

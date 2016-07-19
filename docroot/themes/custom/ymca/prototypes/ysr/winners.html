@@ -798,6 +798,27 @@
         }
       };
 
+      /**
+       * Prototype registration submit handler.
+       *
+       * @type {{attach: Drupal.behaviors.prototypeSlickSlider.attach}}
+       */
+      Drupal.behaviors.prototypeLeaderboardSelectLocation = {
+        attach: function (context, settings) {
+          $('.leaderboard-form select', context)
+              .once('leaderboard-select-location')
+              .each(function () {
+                $(this).change(function () {
+                  if ($(this).val() == 'none') {
+                    $(this).addClass('default');
+                  }
+                  else {
+                    $(this).removeClass('default');
+                  }
+                }).trigger('change');
+              });
+        }
+      };
 
     })(jQuery);
 
