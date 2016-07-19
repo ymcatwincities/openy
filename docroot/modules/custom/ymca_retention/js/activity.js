@@ -114,17 +114,6 @@
         })
           .then(function (response) {
             // $scope.member_activities = response.data;
-          })
-          .finally(function () {
-            var activities = [];
-            for (var date in $scope.member_activities) {
-              for (var activity in $scope.member_activities[date]) {
-                if ($scope.member_activities[date][activity] && $.inArray(activity, activities) == -1) {
-                  activities.push(activity);
-                }
-              }
-            }
-            $('#member-total-activities-number').text(activities.length);
           });
         // TODO: show some message that the values were saved? or use the disabled state?
 
