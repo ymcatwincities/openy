@@ -120,7 +120,30 @@ class ActivityManager implements ActivityManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getMemberActivities() {
+  public function getMemberActivities($member_id = NULL) {
+    $activities = [];
+
+    if (empty($member_id)) {
+      $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    }
+    if (empty($member_id)) {
+      return $activities;
+    }
+
+    $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
+      ->condition('member', $member_id)
+      ->execute();
+    $activities = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_activity')
+      ->loadMultiple($activities_ids);
+
+    return $activities;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberActivitiesModel($member_id = NULL) {
     $member_activities = [];
     $activity_groups = $this->getActivityGroups();
     $model = [];
@@ -134,17 +157,7 @@ class ActivityManager implements ActivityManagerInterface {
       $member_activities[$date['timestamp']] = $model;
     }
 
-    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
-    if (empty($member_id)) {
-      return $member_activities;
-    }
-
-    $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
-      ->condition('member', $member_id)
-      ->execute();
-    $activities = \Drupal::entityTypeManager()
-      ->getStorage('ymca_retention_member_activity')
-      ->loadMultiple($activities_ids);
+    $activities = $this->getMemberActivities($member_id);
 
     $date = new \DateTime();
     /** @var MemberActivity $activity */
