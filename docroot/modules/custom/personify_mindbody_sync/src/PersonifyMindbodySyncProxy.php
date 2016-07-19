@@ -77,7 +77,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
         $cache_item = PersonifyMindbodyCache::create([
           'field_pmc_prs_data' => serialize($item),
           'field_pmc_order_num' => $item->OrderNo,
-          'field_pmc_order_line_num' => $item->OrderLineNo,
+          'field_pmc_ord_l_num' => $item->OrderLineNo,
           'field_pmc_user_id' => $item->{$id},
           'field_pmc_personify_order_date' => $this->wrapper->personifyDateToTimestamp(trim($item->OrderDate)),
         ]);

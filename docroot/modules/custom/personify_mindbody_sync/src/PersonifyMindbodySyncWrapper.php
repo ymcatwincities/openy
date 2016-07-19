@@ -165,7 +165,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   public function findOrder($order_num, $order_line_num) {
     $result = $this->query->get(PersonifyMindbodySyncWrapper::CACHE_ENTITY)
       ->condition('field_pmc_order_num', $order_num)
-      ->condition('field_pmc_order_line_num', $order_line_num)
+      ->condition('field_pmc_ord_l_num', $order_line_num)
       ->execute();
 
     if (!empty($result)) {
