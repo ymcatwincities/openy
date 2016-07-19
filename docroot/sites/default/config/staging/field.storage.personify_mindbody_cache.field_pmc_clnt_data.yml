@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.field_pmc_mindbody_client_data
-field_name: field_pmc_mindbody_client_data
+id: personify_mindbody_cache.field_pmc_clnt_data
+field_name: field_pmc_clnt_data
 entity_type: personify_mindbody_cache
 type: string_long
 settings:
