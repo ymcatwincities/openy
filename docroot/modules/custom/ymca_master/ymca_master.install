@@ -3540,6 +3540,219 @@ function ymca_master_update_8151() {
 }
 
 /**
+ * YPTF form menu links.
+ */
+function ymca_master_update_8155() {
+  $items = [
+    // Locations that DO NOT have Personal Training page:
+    // - Heritage Park YMCA.
+    // - Mounds View Community Center.
+    // - North Community YMCA.
+    // - University YMCA.
+    // - Youth in Government.
+    // Locations that DO have Personal Training page:
+    // Andover YMCA.
+    [
+      'location_id' => '1',
+      'parent' => '1721',
+      'nid' => 4,
+      'path' => '/locations/andover_ymca_community_center/',
+    ],
+    // Blaisdell YMCA.
+    [
+      'location_id' => '10',
+      'parent' => '1728',
+      'nid' => 5,
+      'path' => '/locations/blaisdell_ymca/',
+    ],
+    // Burnsville YMCA.
+    [
+      'location_id' => '11',
+      'parent' => '1736',
+      'nid' => 6,
+      'path' => '/locations/burnsville_ymca/',
+    ],
+    // Eagan YMCA.
+    [
+      'location_id' => '13',
+      'parent' => '1686',
+      'nid' => 7,
+      'path' => '/locations/eagan_ymca/',
+    ],
+    // Elk River YMCA.
+    [
+      'location_id' => '9',
+      'parent' => '1693',
+      'nid' => 8,
+      'path' => '/locations/elk_river_ymca/',
+    ],
+    // Emma B. Howe YMCA.
+    [
+      'location_id' => '12',
+      'parent' => '1700',
+      'nid' => 9,
+      'path' => '/locations/emma_b_howe_ymca/',
+    ],
+    // Forest Lake YMCA.
+    [
+      'location_id' => '14',
+      'parent' => '3336',
+      'nid' => 2746,
+      'path' => '/locations/forest_lake_ymca/',
+    ],
+    // Hastings YMCA.
+    [
+      'location_id' => '6',
+      'parent' => '1707',
+      'nid' => 10,
+      'path' => '/locations/hastings_ymca/',
+    ],
+    // Hudson YMCA.
+    [
+      'location_id' => '22',
+      'parent' => '1715',
+      'nid' => 12,
+      'path' => '/locations/hudson_ymca/',
+    ],
+    // Lino Lakes YMCA.
+    [
+      'location_id' => '3',
+      'parent' => '1719',
+      'nid' => 13,
+      'path' => '/locations/lino_lakes_ymca/',
+    ],
+    // Minneapolis Downtown YMCA.
+    [
+      'location_id' => '5',
+      'parent' => '1724',
+      'nid' => 14,
+      'path' => '/locations/minneapolis_downtown_ymca/',
+    ],
+    // New Hope YMCA.
+    [
+      'location_id' => '20',
+      'parent' => '1726',
+      'nid' => 16,
+      'path' => '/locations/new_hope_ymca/',
+    ],
+    // Ridgedale YMCA.
+    [
+      'location_id' => '7',
+      'parent' => '1729',
+      'nid' => 17,
+      'path' => '/locations/ridgedale_ymca/',
+    ],
+    // River Valley YMCA.
+    [
+      'location_id' => '8',
+      'parent' => '1733',
+      'nid' => 18,
+      'path' => '/locations/river_valley_ymca/',
+    ],
+    // St. Paul Downtown YMCA.
+    [
+      'location_id' => '17',
+      'parent' => '1737',
+      'nid' => 19,
+      'path' => '/locations/st_paul_downtown_ymca/',
+    ],
+    // St. Paul Eastside YMCA.
+    [
+      'location_id' => '24',
+      'parent' => '1685',
+      'nid' => 20,
+      'path' => '/locations/st_paul_eastside_ymca/',
+    ],
+    // St. Paul Midway YMCA.
+    [
+      'location_id' => '2',
+      'parent' => '1692',
+      'nid' => 21,
+      'path' => '/locations/st_paul_midway_ymca/',
+    ],
+    // Shoreview YMCA.
+    [
+      'location_id' => '19',
+      'parent' => '1698',
+      'nid' => 22,
+      'path' => '/locations/shoreview_ymca/',
+    ],
+    // Southdale YMCA.
+    [
+      'location_id' => '18',
+      'parent' => '1690',
+      'nid' => 23,
+      'path' => '/locations/southdale_ymca/',
+    ],
+    // West St. Paul YMCA.
+    [
+      'location_id' => '16',
+      'parent' => '1705',
+      'nid' => 24,
+      'path' => '/locations/west_st_paul_ymca/',
+    ],
+    // White Bear Area YMCA.
+    [
+      'location_id' => '4',
+      'parent' => '1710',
+      'nid' => 25,
+      'path' => '/locations/white_bear_area_ymca/',
+    ],
+    // Woodbury YMCA.
+    [
+      'location_id' => '15',
+      'parent' => '1714',
+      'nid' => 26,
+      'path' => '/locations/woodbury_ymca/',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    // Add "Personal Trainer Schedules" menu item.
+    $url = 'internal:/node/' . $item['nid'] . '/personal-trainer-schedules';
+    $results_url = 'internal:/node/' . $item['nid'] . '/personal-trainer-schedules/results';
+
+    if (!empty($item['parent'])) {
+      $parent_menu_item = MenuLinkContent::load($item['parent']);
+    }
+
+    // Create alias for PT form on location page.
+    $suffix = 'health__fitness/personal_training/personal-trainer-schedules';
+    $source = '/node/' . $item['nid'] . '/personal-trainer-schedules';
+    $alias = $item['path'] . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+
+    $menu_item_definition = [
+      'title' => 'Personal Trainer Schedules',
+      'link' => ['uri' => $url],
+      'menu_name' => 'locations',
+      'parent' => !empty($parent_menu_item) ? 'menu_link_content:' . $parent_menu_item->uuid() : '',
+      'enabled' => FALSE,
+      'weight' => -5,
+    ];
+    $menu_item = MenuLinkContent::create($menu_item_definition);
+    $menu_item->save();
+
+    // Add "Results" menu item.
+    $menu_subitem_definition = [
+      'title' => 'Personal Trainer Schedules Results',
+      'link' => ['uri' => $results_url],
+      'menu_name' => 'locations',
+      'parent' => !empty($menu_item) && !empty($parent_menu_item) ? 'menu_link_content:' . $menu_item->uuid() : '',
+      'enabled' => FALSE,
+    ];
+    $menu_item = MenuLinkContent::create($menu_subitem_definition);
+    $menu_item->save();
+
+    // Create alias for PT results on location page.
+    $suffix = 'health__fitness/personal_training/personal-trainer-schedules/results';
+    $source = '/node/' . $item['nid'] . '/personal-trainer-schedules/results';
+    $alias = $item['path'] . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+  }
+}
+
+/**
  * Add new templates to ckeditor.
  */
 function ymca_master_update_8152() {
@@ -3549,4 +3762,18 @@ function ymca_master_update_8152() {
       $path . 'editor.editor.full_html.yml',
     ]
   );
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8153() {
+  \Drupal::service('module_installer')->install([
+    'views_rest_feed',
+    'ymca_retention',
+  ], TRUE);
+
+  // Create YMCA Retention activities terms.
+  module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.terms');
+  _ymca_retention_terms_create();
 }
