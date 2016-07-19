@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\node\NodeInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Render\FormattableMarkup;
@@ -115,6 +116,13 @@ class MindbodyPTForm extends FormBase {
   protected $logger;
 
   /**
+   * Node object.
+   *
+   * @var NodeInterface
+   */
+  protected $node;
+
+  /**
    * MindbodyPTForm constructor.
    *
    * @param MindbodyCacheProxyInterface $cache_proxy
@@ -161,6 +169,8 @@ class MindbodyPTForm extends FormBase {
     }
     $this->state = $state;
 
+    $request = \Drupal::request();
+    $this->node = $request->get('node');
   }
 
   /**
@@ -596,6 +606,9 @@ class MindbodyPTForm extends FormBase {
   public function getSearchResults(array $values) {
     if (!isset($values['location'], $values['program'], $values['session_type'], $values['trainer'], $values['start_date'], $values['end_date'])) {
       $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.pt');
+      if (isset($this->node)) {
+        $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.location.pt', ['node' => $this->node->id()]);
+      }
       return [
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
@@ -747,34 +760,6 @@ class MindbodyPTForm extends FormBase {
       }
     }
 
-    $time_options = $this->getTimeOptions();
-    $start_time = $time_options[$values['start_time']];
-    $end_time = $time_options[$values['end_time']];
-    $start_date = date('n/d/Y', strtotime($values['start_date']));
-    $end_date = date('n/d/Y', strtotime($values['end_date']));
-    $datetime = '<div><span class="icon icon-calendar"></span><span>' . $this->t('Time:') . '</span> ' . $start_time . ' - ' . $end_time . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span>' . $this->t('Date:') . '</span> ' . $start_date . ' - ' . $end_date . '</div>';
-
-    $locations = $this->getLocations();
-    $location_name = isset($locations[$values['location']]) ? $locations[$values['location']] : '';
-    $programs = $this->getPrograms();
-    $program_name = isset($programs[$values['program']]) ? $programs[$values['program']] : '';
-    $session_types = $this->getSessionTypes($values['program']);
-    $session_type_name = isset($session_types[$values['session_type']]) ? $session_types[$values['session_type']] : '';
-
-    $options = [
-      'query' => [
-        'step' => 4,
-        'mb_location' => $values['location'],
-        'mb_program' => $values['program'],
-        'mb_session_type' => $values['session_type'],
-        'mb_trainer' => $values['trainer'],
-        'mb_start_date' => ['date' => $values['start_date']],
-        'mb_end_date' => ['date' => $values['end_date']],
-        'mb_start_time' => $values['start_time'],
-        'mb_end_time' => $values['end_time'],
-      ],
-    ];
-
     $search_results = [
       '#theme' => 'mindbody_results_content',
       '#location' => $location_name,
@@ -782,10 +767,10 @@ class MindbodyPTForm extends FormBase {
       '#session_type' => $session_type_name,
       '#trainer' => $trainer_name,
       '#datetime' => $datetime,
-      '#back_link' => Url::fromRoute('ymca_mindbody.pt', [], $options),
-      '#start_again_link' => Url::fromRoute('ymca_mindbody.pt'),
-      '#base_path' => base_path(),
+      '#back_link' => $this->getSearchLink($options),
+      '#start_again_link' => $this->getSearchLink([]),
       '#telephone' => $telephone,
+      '#base_path' => base_path(),
       '#days' => $days,
       '#attached' => [
         'library' => [
@@ -852,11 +837,8 @@ class MindbodyPTForm extends FormBase {
       if (isset($query['context'])) {
         $params['context'] = $query['context'];
       }
-      $form_state->setRedirect(
-        'ymca_mindbody.pt.results',
-        [],
-        ['query' => $params]
-      );
+
+      $form_state->setRedirectUrl($this->getResultsLink($params));
     }
   }
 
@@ -1089,6 +1071,38 @@ class MindbodyPTForm extends FormBase {
   protected function getTimestampInTimezone($data) {
     $date = new DrupalDateTime($data, $this::DEFAULT_TIMEZONE);
     return $date->getTimestamp();
+  }
+
+  /**
+   * Returns search link based on context.
+   *
+   * @param array $options
+   *   Array of options.
+   *
+   * @return \Drupal\Core\Url
+   *   Route object.
+   */
+  protected function getSearchLink($options) {
+    if (!isset($this->node)) {
+      return Url::fromRoute('ymca_mindbody.pt', [], $options);
+    }
+    return Url::fromRoute('ymca_mindbody.location.pt', ['node' => $this->node->id()], $options);
+  }
+
+  /**
+   * Returns results link based on context.
+   *
+   * @param array $options
+   *   Array of options.
+   *
+   * @return \Drupal\Core\Url
+   *   Route object.
+   */
+  protected function getResultsLink($options) {
+    if (!isset($this->node)) {
+      return Url::fromRoute('ymca_mindbody.pt.results', [], ['query' => $options]);
+    }
+    return Url::fromRoute('ymca_mindbody.location.pt.results', ['node' => $this->node->id()], ['query' => $options]);
   }
 
 }
