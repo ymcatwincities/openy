@@ -108,7 +108,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   public function findFirstFailTime() {
     $result = $this->query->get('personify_mindbody_cache')
       ->notExists('field_pmc_mindbody_order_data')
-      ->sort('field_pmc_personify_order_date', 'ASC')
+      ->sort('field_pmc_ord_date', 'ASC')
       ->execute();
 
     if (!$result) {
@@ -116,7 +116,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
     }
 
     $entity = PersonifyMindbodyCache::load(reset($result));
-    return $entity->field_pmc_personify_order_date->value;
+    return $entity->field_pmc_ord_date->value;
   }
 
   /**
