@@ -1,0 +1,14 @@
+name: 'Views REST Feed'
+type: module
+description: 'Provides "REST Export Feed" view display type.'
+package: Views
+# core: 8.x
+dependencies:
+  - rest
+  - views
+
+# Information added by Drupal.org packaging script on 2015-11-19
+version: '8.x-1.0-alpha1'
+core: '8.x'
+project: 'views_rest_feed'
+datestamp: 1447898353
