@@ -92,8 +92,8 @@ class GroupexScheduleFetcher {
 
     $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
     $current_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
-    // Define end date of shown items as 1 week.
-    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * 7, $this->timezone);
+    // Define end date of shown items as 2 weeks.
+    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * 14, $this->timezone);
 
     // Prepare classes items.
     $items = [];
