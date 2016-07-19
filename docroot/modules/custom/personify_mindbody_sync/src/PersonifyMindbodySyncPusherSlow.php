@@ -48,6 +48,7 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
         );
       }
       catch (MindbodyException $e) {
+        $this->updateStatusByClients([$client_id], $e->getMessage());
         $msg = 'Failed to push (exception) single client: %error';
         $this->logger->critical($msg, ['%error' => $e->getMessage()]);
         // Continue with the next client.
@@ -59,6 +60,9 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
       }
       else {
         // Something went wrong.
+        // To reproduce create set wrong phone number, for example.
+        $status = $result->AddOrUpdateClientsResult->Clients->Client->Messages->string;
+        $this->updateStatusByClients([$client_id], $status);
         $msg = 'Failed to push single client: %error';
         $this->logger->critical($msg, ['%error' => serialize($result)]);
       }
