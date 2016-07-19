@@ -104,7 +104,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       // Find location names for found branch ids.
       $location_ids = \Drupal::entityQuery('mapping')
         ->condition('type', 'location')
-        ->condition('field_groupex_id', $branch_ids, 'IN')
+        ->condition('field_location_personify_brcode', $branch_ids, 'IN')
         ->execute();
 
       $locations = \Drupal::entityTypeManager()
@@ -121,7 +121,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
     /** @var Mapping $location */
     foreach ($locations as $location) {
       $locations_list[] = [
-        'branch_id' => $location->get('field_groupex_id')->value,
+        'branch_id' => $location->get('field_location_personify_brcode')->value,
         'name' => $location->getName(),
       ];
     }
