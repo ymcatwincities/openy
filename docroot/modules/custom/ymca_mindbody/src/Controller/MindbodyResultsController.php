@@ -58,7 +58,7 @@ class MindbodyResultsController extends ControllerBase {
    * Set Title.
    */
   public function setTitle() {
-    return t('Personal Training Schedules');
+    return t('Personal Trainer Schedules');
   }
 
 }

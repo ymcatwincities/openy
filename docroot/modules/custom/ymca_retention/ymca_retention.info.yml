@@ -1,0 +1,9 @@
+name: YMCA Retention
+type: module
+description: 'Provides functionality for Retention campaigns.'
+package: YMCA
+core: 8.x
+dependencies:
+  - views_rest_feed
+  - csv_serialization
+  - ymca_mappings
