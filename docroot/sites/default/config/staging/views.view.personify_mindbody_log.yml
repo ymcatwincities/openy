@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.personify_mindbody_cache.field_pmc_mindbody_client_data
+    - field.storage.personify_mindbody_cache.field_pmc_clnt_data
     - field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data
     - field.storage.personify_mindbody_cache.field_pmc_ord_l_num
     - field.storage.personify_mindbody_cache.field_pmc_order_num
@@ -328,10 +328,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_pmc_mindbody_client_data:
-          id: field_pmc_mindbody_client_data
-          table: personify_mindbody_cache__field_pmc_mindbody_client_data
-          field: field_pmc_mindbody_client_data
+        field_pmc_clnt_data:
+          id: field_pmc_clnt_data
+          table: personify_mindbody_cache__field_pmc_clnt_data
+          field: field_pmc_clnt_data
           relationship: none
           group_type: group
           admin_label: ''
@@ -469,7 +469,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_client_data'
+        - 'config:field.storage.personify_mindbody_cache.field_pmc_clnt_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_l_num'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_order_num'
@@ -491,7 +491,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_client_data'
+        - 'config:field.storage.personify_mindbody_cache.field_pmc_clnt_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_l_num'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_order_num'

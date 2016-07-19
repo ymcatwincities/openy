@@ -246,8 +246,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     foreach ($cache_entities as $cache_entity) {
-      if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-        $cache_entity->set('field_pmc_mindbody_client_data', serialize($data));
+      if ($cache_entity->get('field_pmc_clnt_data')->isEmpty()) {
+        $cache_entity->set('field_pmc_clnt_data', serialize($data));
         $cache_entity->save();
       }
     }
@@ -421,7 +421,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $personifyData = unserialize($entity->field_pmc_prs_data->value);
 
       // Push only items which were not pushed before.
-      if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
+      if ($entity->get('field_pmc_clnt_data')->isEmpty()) {
         $this->clientIds[$user_id] = $this->prepareClientObject($user_id, $personifyData, $this->debug);
       }
     }
