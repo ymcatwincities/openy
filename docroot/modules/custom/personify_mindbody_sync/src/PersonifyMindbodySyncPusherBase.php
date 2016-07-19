@@ -217,8 +217,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       else {
         // Write error to status message.
         if ($cache_entity) {
-          $cache_entity->set('field_pmc_status_message', serialize($response));
-          $cache_entity->save();
+          // @todo wite to status message.
         }
 
         // Log an error.
