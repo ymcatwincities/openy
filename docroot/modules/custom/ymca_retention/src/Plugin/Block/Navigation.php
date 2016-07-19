@@ -61,8 +61,20 @@ class Navigation extends BlockBase {
         unset($links['registration']);
       }
     }
-    if ($current_route == 'page_manager.page_view_ymca_retention_pages_y_games_enroll_success') {
-      $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'activity']));
+    switch ($current_route) {
+      case 'page_manager.page_view_ymca_retention_pages_y_games_enroll_success':
+        $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+          'string' => 'activity',
+        ]));
+        break;
+
+      case 'page_manager.page_view_ymca_retention_pages_y_games_activity':
+        $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+          'string' => 'activity',
+        ], [
+          'fragment' => 'track-my-activities',
+        ]));
+        break;
     }
 
     return [
