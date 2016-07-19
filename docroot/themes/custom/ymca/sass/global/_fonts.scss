@@ -1,0 +1,13 @@
+@mixin cachet() {
+  font-family: "Cachet",Arial,sans-serif;
+}
+
+@mixin cachet-normal() {
+  @include cachet();
+  font-weight: normal;
+}
+
+@mixin cachet-bold() {
+  @include cachet();
+  font-weight: bold;
+}

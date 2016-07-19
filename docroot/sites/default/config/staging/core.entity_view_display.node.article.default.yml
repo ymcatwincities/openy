@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.article.field_sidebar_navigation
     - field.field.node.article.field_state
     - field.field.node.article.field_tags
+    - field.field.node.article.field_template
     - field.field.node.article.field_title_description
     - image.style.2013_masthead
     - node.type.article
@@ -107,6 +108,12 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
+  field_template:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
   field_title_description:
     type: text_default
     weight: 8
