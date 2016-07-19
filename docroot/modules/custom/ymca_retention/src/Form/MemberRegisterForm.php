@@ -29,7 +29,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $validate = ['::elementValidateRequired'];
+    $validate = [get_class($this), 'elementValidateRequired'];
     $form['mail'] = [
       '#type' => 'email',
       '#required' => TRUE,
@@ -39,7 +39,10 @@ class MemberRegisterForm extends FormBase {
         ],
       ],
       '#element_required_error' => $this->t('Email is required.'),
-      '#element_validate' => $validate,
+      '#element_validate' => [
+        ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+        $validate,
+      ],
     ];
     $form['membership_id'] = [
       '#type' => 'textfield',
@@ -50,7 +53,7 @@ class MemberRegisterForm extends FormBase {
         ],
       ],
       '#element_required_error' => $this->t('Facility access ID is required.'),
-      '#element_validate' => $validate,
+      '#element_validate' => [$validate],
     ];
 
     $form['submit'] = [
@@ -74,6 +77,7 @@ class MemberRegisterForm extends FormBase {
         ],
       ],
     ];
+
     return $form;
   }
 

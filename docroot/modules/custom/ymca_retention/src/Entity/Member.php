@@ -377,23 +377,6 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
-   * Get number of member activities.
-   *
-   * @return int
-   *   Number of activities.
-   */
-  public function getMemberActivities() {
-    $connection = \Drupal::database();
-    $query = $connection->select('ymca_retention_member_activity', 'yrma')
-      ->fields('yrma', ['activity_type'])
-      ->distinct()
-      ->condition('yrma.member', $this->getId())
-      ->execute();
-    $terms = $query->fetchAll();
-    return count($terms);
-  }
-
-  /**
    * Get member rank.
    *
    * @return int
