@@ -435,7 +435,7 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   }
 
   // Skip blog post.
-  if ($node && $node->bundle() == 'blog') {
+  if (is_object($node) && $node->bundle() == 'blog') {
     return;
   }
 

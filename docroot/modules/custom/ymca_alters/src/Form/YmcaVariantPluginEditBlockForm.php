@@ -18,7 +18,10 @@ class YmcaVariantPluginEditBlockForm extends VariantPluginEditBlockForm {
     $form = parent::buildForm($form, $form_state, $page_variant, $block_id);
 
     // Add link to edit block to Page Manager block edit modal.
-    $uuid = $this->block->getDerivativeId();
+    if ($this->block->getBaseId() != 'block_content' || !$uuid = $this->block->getDerivativeId()) {
+      return $form;
+    }
+
     $block_content = \Drupal::entityManager()->loadEntityByUuid('block_content', $uuid);
     $edit_link = $block_content->toLink(NULL, 'edit-form', ['attributes' => ['target' => '_blank']]);
     $link = $edit_link->toRenderable();

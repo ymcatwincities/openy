@@ -7978,6 +7978,119 @@ p.legend {
   width: 30px;
 }
 
+.green-3-col.container {
+  background: #26bcbd;
+  position: relative;
+  margin: 50px -100px 0;
+  padding: 50px 100px;
+}
+.green-3-col.container:before {
+  position: absolute;
+  top: 0px;
+  left: -60%;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  background-image: -webkit-linear-gradient(#22aaab, #26bcbd);
+  background-image: -moz-linear-gradient(#22aaab, #26bcbd);
+  background-image: -ms-linear-gradient(#22aaab, #26bcbd);
+  background-image: linear-gradient(#22aaab, #26bcbd);
+  content: '';
+  -webkit-transform: skew(30deg);
+  -moz-transform: skew(30deg);
+  -ms-transform: skew(30deg);
+  transform: skew(30deg);
+}
+.green-3-col.container .row h3 {
+  color: #fff;
+}
+.green-3-col.container .row h4 {
+  color: #006a6a;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+.green-3-col.container .row p {
+  color: #fff;
+  font-size: 15px;
+}
+.green-3-col.container .row ul, .green-3-col.container .row ol {
+  font-size: 15px;
+  padding-left: 18px;
+  margin: 20px 0;
+}
+.green-3-col.container .row ul li, .green-3-col.container .row ol li {
+  color: #fff;
+}
+.green-3-col.container .row .button a {
+  box-shadow: none;
+  background-color: #00aa95;
+  background-image: -webkit-linear-gradient(#00aa95, #008c7a);
+  background-image: -moz-linear-gradient(#00aa95, #008c7a);
+  background-image: -ms-linear-gradient(#00aa95, #008c7a);
+  background-image: linear-gradient(#00aa95, #008c7a);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+@media screen and (min-width: 992px) {
+  .green-3-col.container .row .col-md-3 {
+    padding: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .green-3-col.container .row .col-sm-4 {
+    margin-bottom: 30px;
+  }
+}
+
+.sports-promo.container {
+  background: url("../img/march/ymca_member_retention_hero.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  margin: 50px -100px;
+  padding: 50px 100px;
+}
+.sports-promo.container .row h3 {
+  color: #fff;
+  font-size: 30px;
+  line-height: 40px;
+  text-shadow: 1px 1px 4px #000;
+  margin: 0 0 10px;
+}
+.sports-promo.container .row h4 {
+  color: #fff;
+  font-size: 18px;
+  margin: 0 0 20px;
+}
+.sports-promo.container .row p {
+  color: #e2e2e2;
+  margin: 0 0 30px;
+}
+.sports-promo.container .row .sports-icon {
+  text-align: left;
+  color: #c6188b;
+}
+.sports-promo.container .row .description {
+  color: #c6188b;
+  font-size: 18px;
+  margin-top: 20px;
+}
+.sports-promo.container .col-xs-12 {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+body .ajax-progress-throbber {
+  padding: 2px 5px 2px 2px;
+}
+body .ajax-progress-throbber .throbber {
+  background: url(../img/ymca-throbber.gif) no-repeat 0px center;
+  background-size: cover;
+  padding: 2px 8px 2px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -8558,7 +8671,7 @@ p.legend {
   color: #424242;
 }
 .mindbody-search-results-header .item.datetime {
-  color: #777777;
+  color: #777;
   line-height: 35px;
 }
 .mindbody-search-results-header .item.datetime div {
@@ -8631,7 +8744,7 @@ p.legend {
   margin-bottom: 35px;
 }
 .mindbody-search-results-content .day .date {
-  color: #777777;
+  color: #777;
   font-size: 13px;
   line-height: 21px;
 }
@@ -8643,7 +8756,7 @@ p.legend {
 .mindbody-search-results-content .day .weekday {
   font-family: "Cachet", Arial, sans-serif;
   font-size: 25px;
-  color: #777777;
+  color: #777;
   line-height: 28px;
   font-weight: bold;
   margin-bottom: 15px;
@@ -8680,7 +8793,7 @@ p.legend {
   }
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot .icon {
-  color: #777777;
+  color: #777;
   font-size: 14px;
   margin-right: 12px;
 }
@@ -8688,7 +8801,7 @@ p.legend {
   background-color: #fafafa;
   border-radius: 3px;
   border: 1px solid #e9e9e9;
-  color: #777777;
+  color: #777;
   display: block;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -8856,7 +8969,7 @@ p.legend {
   margin-bottom: 10px;
 }
 .template_youth_sports_overview .locations-lead-copy .richtext p {
-  color: #777777;
+  color: #777;
   font-size: 14px;
 }
 .template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
@@ -8936,10 +9049,10 @@ p.legend {
   margin-bottom: 20px;
 }
 .template_youth_sports_overview section.node p {
-  color: #777777;
+  color: #777;
 }
 .template_youth_sports_overview section.node ul {
-  color: #777777;
+  color: #777;
 }
 .template_youth_sports_overview section.node .content_group section ul {
   padding: 0;
@@ -8949,62 +9062,6 @@ p.legend {
 .template_youth_sports_overview section.node .content_group section ul li {
   margin-bottom: 15px;
   list-style: none;
-}
-.template_youth_sports_overview section.node .content_group section ul li a {
-  display: block;
-  border-radius: 3px;
-  border: 1px solid #e5e5e5;
-  padding: 20px 80px;
-  position: relative;
-}
-.template_youth_sports_overview section.node .content_group section ul li a:after {
-  content: ">";
-  position: absolute;
-  right: 15px;
-}
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .template_youth_sports_overview section.node .content_group section ul li a:after {
-    display: none;
-  }
-}
-.template_youth_sports_overview section.node .content_group section ul li a.baseball-softball-t-ball {
-  background: url("../img/icon-big-baseball.png") no-repeat 26px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.basketball {
-  background: url("../img/icon-big-basketball.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.flag-football {
-  background: url("../img/icon-big-flag-football.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.martial-arts {
-  background: url("../img/icon-big-martial-arts.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.olympic, .template_youth_sports_overview section.node .content_group section ul li a.special-olympics-young-athletes-program {
-  background: url("../img/icon-big-olympic.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.soccer {
-  background: url("../img/icon-big-soccer.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.track-and-field, .template_youth_sports_overview section.node .content_group section ul li a.running-club {
-  background: url("../img/icon-big-track.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.volleyball {
-  background: url("../img/icon-big-volleyball.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.lacrosse {
-  background: url("../img/icon-big-lacrosse.png") no-repeat 20px center;
-}
-.template_youth_sports_overview section.node .content_group section ul li a.tumbling {
-  background: url("../img/icon-big-tumbling.png") no-repeat 20px center;
-}
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .template_youth_sports_overview section.node .content_group section ul li a.sports-icon {
-    background-position: 10px center;
-    padding: 15px 10px 15px 60px;
-    position: relative;
-    font-size: 12px;
-    word-break: break-all;
-  }
 }
 .template_youth_sports_overview section.node .content_group section:nth-child(1) h3 {
   color: #00aa95;
@@ -9040,6 +9097,64 @@ p.legend {
   text-transform: none;
   font-weight: normal;
   font-family: 'YMCA';
+}
+
+a.sports-icon {
+  background-color: #fff;
+  display: block;
+  border-radius: 3px;
+  border: 1px solid #e5e5e5;
+  padding: 20px 80px;
+  position: relative;
+}
+a.sports-icon:after {
+  content: ">";
+  position: absolute;
+  right: 15px;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  a.sports-icon:after {
+    display: none;
+  }
+}
+a.sports-icon.baseball-softball-t-ball {
+  background: #fff url("../img/icon-big-baseball.png") no-repeat 26px center;
+}
+a.sports-icon.basketball {
+  background: #fff url("../img/icon-big-basketball.png") no-repeat 20px center;
+}
+a.sports-icon.flag-football {
+  background: #fff url("../img/icon-big-flag-football.png") no-repeat 20px center;
+}
+a.sports-icon.martial-arts {
+  background: #fff url("../img/icon-big-martial-arts.png") no-repeat 20px center;
+}
+a.sports-icon.olympic, a.sports-icon.special-olympics-young-athletes-program {
+  background: #fff url("../img/icon-big-olympic.png") no-repeat 20px center;
+}
+a.sports-icon.soccer {
+  background: #fff url("../img/icon-big-soccer.png") no-repeat 20px center;
+}
+a.sports-icon.track-and-field, a.sports-icon.running-club {
+  background: #fff url("../img/icon-big-track.png") no-repeat 20px center;
+}
+a.sports-icon.volleyball {
+  background: #fff url("../img/icon-big-volleyball.png") no-repeat 20px center;
+}
+a.sports-icon.lacrosse {
+  background: #fff url("../img/icon-big-lacrosse.png") no-repeat 20px center;
+}
+a.sports-icon.tumbling {
+  background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  a.sports-icon {
+    background-position: 10px center;
+    padding: 15px 10px 15px 60px;
+    position: relative;
+    font-size: 12px;
+    word-break: break-all;
+  }
 }
 
 .template_youth_sports_inner .locations-lead-copy {
@@ -9093,7 +9208,7 @@ p.legend {
   margin-bottom: 10px;
 }
 .template_youth_sports_inner .locations-lead-copy .richtext p {
-  color: #777777;
+  color: #777;
   font-size: 14px;
 }
 .template_youth_sports_inner .locations-lead-copy .richtext p:first-child {
