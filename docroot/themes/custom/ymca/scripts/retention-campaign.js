@@ -27,15 +27,14 @@
    */
   Drupal.behaviors.registerAndReportSlides = {
     attach: function (context, settings) {
-      jQuery('#register-and-report', context).once('register-reports-slides').each(function () {
-        var self = jQuery(this);
-        var hero = self.parent();
-        var slides_container = jQuery(this);
-        var slides = jQuery(this).find('.slide');
-
-        slides.not(':first').slideUp();
-
-        jQuery('.slide-controller', slides_container).on('click', function () {
+      $('#register-and-report', context).once('register-reports-slides').each(function () {
+        $(this).find('.slide').not(':first').slideUp();
+      });
+      var slides_container = $('#register-and-report');
+      $('.slide-controller', slides_container).once('register-reports-slide').each(function () {
+        $(this).on('click', function () {
+          var hero = $('#hero-section');
+          var slides = slides_container.find('.slide');
           var id = jQuery(this, slides_container).attr('href');
           var target_slide = jQuery(id, slides_container);
 
@@ -76,7 +75,6 @@
                   break;
               }
             }
-
           });
 
           return false;
@@ -114,24 +112,6 @@
             $menu.removeClass('collapsing').addClass('collapse');
           }, 500);
           return false;
-        });
-      });
-    }
-  };
-
-  /**
-   * Changeable banner.
-   *
-   * @type {{attach: Drupal.behaviors.mobileMenu.attach}}
-   */
-  Drupal.behaviors.prototypeChangeBanner = {
-    attach: function (context, settings) {
-      jQuery('#hero-banner-selector', context).once('change-banner').each(function () {
-        var $self = jQuery(this);
-        $self.bind('change', function () {
-          jQuery('#hero-section')
-            .removeClass('hero-1 hero-2 hero-3')
-            .addClass($self.val());
         });
       });
     }
