@@ -28,7 +28,7 @@ class MemberTrackActivityLoginForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
-    $validate = ['::elementValidateRequired'];
+    $validate = [get_class($this), 'elementValidateRequired'];
     if (empty($verify_membership_id)) {
       $form['mail'] = [
         '#type' => 'email',
@@ -39,7 +39,10 @@ class MemberTrackActivityLoginForm extends FormBase {
           ],
         ],
         '#element_required_error' => $this->t('Email is required.'),
-        '#element_validate' => $validate,
+        '#element_validate' => [
+          ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+          $validate,
+        ],
       ];
     }
     else {
