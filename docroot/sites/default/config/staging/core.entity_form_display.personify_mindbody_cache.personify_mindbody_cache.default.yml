@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_client_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_l_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_prs_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_order_date
@@ -32,7 +32,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
-  field_pmc_order_line_num:
+  field_pmc_ord_l_num:
     weight: 19
     settings:
       size: 60
