@@ -522,4 +522,26 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     );
   }
 
+  /**
+   * Update status message by client IDs.
+   *
+   * @param array $ids
+   *   Client IDs.
+   * @param string $message
+   *   A message to log.
+   */
+  protected function updateStatusByClients(array $ids, $message) {
+    foreach ($ids as $id) {
+      $entities = $this->getEntityByClientId($id);
+      if (empty($entities)) {
+        continue;
+      }
+
+      foreach ($entities as $entity) {
+        $entity->set('field_pmc_status', $message);
+        $entity->save();
+      }
+    }
+  }
+
 }
