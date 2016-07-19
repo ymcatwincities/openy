@@ -107,7 +107,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    */
   public function findFirstFailTime() {
     $result = $this->query->get('personify_mindbody_cache')
-      ->notExists('field_pmc_mindbody_order_data')
+      ->notExists('field_pmc_ord_data')
       ->sort('field_pmc_ord_date', 'ASC')
       ->execute();
 
