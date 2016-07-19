@@ -48,7 +48,7 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
         );
       }
       catch (MindbodyException $e) {
-        $this->updateStatusByClients([$client_id], $e->getMessage());
+        $this->updateStatusByClients([$client_id], 'Client: ' . $e->getMessage());
         $msg = 'Failed to push (exception) single client: %error';
         $this->logger->critical($msg, ['%error' => $e->getMessage()]);
         // Continue with the next client.
