@@ -74,6 +74,11 @@ class Navigation extends BlockBase {
         ], [
           'fragment' => 'track-my-activities',
         ]));
+        $links['leader_board']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages_y_games_activity', [
+          'string' => 'activity',
+        ], [
+          'fragment' => 'leaderboard',
+        ]));
         break;
     }
 
