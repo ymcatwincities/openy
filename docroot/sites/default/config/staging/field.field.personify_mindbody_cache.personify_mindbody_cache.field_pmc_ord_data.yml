@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data
+    - field.storage.personify_mindbody_cache.field_pmc_ord_data
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data
-field_name: field_pmc_mindbody_order_data
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_data
+field_name: field_pmc_ord_data
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
 label: 'MindBody Order Data'

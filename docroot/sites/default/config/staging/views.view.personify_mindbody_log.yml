@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.personify_mindbody_cache.field_pmc_clnt_data
-    - field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data
+    - field.storage.personify_mindbody_cache.field_pmc_ord_data
     - field.storage.personify_mindbody_cache.field_pmc_ord_l_num
     - field.storage.personify_mindbody_cache.field_pmc_order_num
     - field.storage.personify_mindbody_cache.field_pmc_ord_date
@@ -390,10 +390,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_pmc_mindbody_order_data:
-          id: field_pmc_mindbody_order_data
-          table: personify_mindbody_cache__field_pmc_mindbody_order_data
-          field: field_pmc_mindbody_order_data
+        field_pmc_ord_data:
+          id: field_pmc_ord_data
+          table: personify_mindbody_cache__field_pmc_ord_data
+          field: field_pmc_ord_data
           relationship: none
           group_type: group
           admin_label: ''
@@ -470,7 +470,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.personify_mindbody_cache.field_pmc_clnt_data'
-        - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data'
+        - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_l_num'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_order_num'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_date'
@@ -492,7 +492,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.personify_mindbody_cache.field_pmc_clnt_data'
-        - 'config:field.storage.personify_mindbody_cache.field_pmc_mindbody_order_data'
+        - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_data'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_l_num'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_order_num'
         - 'config:field.storage.personify_mindbody_cache.field_pmc_ord_date'
