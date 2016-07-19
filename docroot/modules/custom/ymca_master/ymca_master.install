@@ -3777,3 +3777,17 @@ function ymca_master_update_8153() {
   module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.terms');
   _ymca_retention_terms_create();
 }
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8154() {
+  \Drupal::service('module_installer')->install(array('views_advanced_routing'), TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.settings.yml',
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
