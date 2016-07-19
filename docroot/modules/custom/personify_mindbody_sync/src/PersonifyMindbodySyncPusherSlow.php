@@ -57,6 +57,8 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
       if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
         $response = $result->AddOrUpdateClientsResult->Clients->Client;
         $this->updateClientData($client_id, $response);
+        // Reset the status message.
+        $this->updateStatusByClients([$client_id], '');
       }
       else {
         // Something went wrong.
