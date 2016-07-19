@@ -77,7 +77,9 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   static private $routes = [
     'ymca_mindbody.pt',
-    'ymca_mindbody.pt.results'
+    'ymca_mindbody.pt.results',
+    'ymca_mindbody.location.pt',
+    'ymca_mindbody.location.pt.results'
   ];
 
   /**
@@ -125,6 +127,13 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         }
         $breadcrumb->addCacheContexts(['url.query_args']);
       }
+    }
+    else {
+      // Default breadcrumbs.
+      $breadcrumb->addLink(Link::createFromRoute($this->t('Home'), '<front>'));
+      $breadcrumb->addLink(Link::fromTextAndUrl($this->t('Health & Fitness'), Url::fromUri('internal:/health__fitness')));
+      $breadcrumb->addLink(Link::fromTextAndUrl($this->t('Personal Training'), Url::fromUri('internal:/health__fitness/personal_training')));
+      $breadcrumb->addCacheContexts(['url.query_args']);
     }
     return $breadcrumb;
 
