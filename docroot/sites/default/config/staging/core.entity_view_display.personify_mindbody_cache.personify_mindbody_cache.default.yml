@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_client_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_clnt_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_l_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
@@ -19,7 +19,7 @@ targetEntityType: personify_mindbody_cache
 bundle: personify_mindbody_cache
 mode: default
 content:
-  field_pmc_mindbody_client_data:
+  field_pmc_clnt_data:
     weight: 1
     label: above
     settings: {  }
