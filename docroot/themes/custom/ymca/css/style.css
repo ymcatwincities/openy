@@ -8031,7 +8031,7 @@ body .ajax-progress-throbber .throbber {
 
 .session_schedules {
   background-color: #f8f8f8;
-  margin: 50px -100px;
+  margin: 0 -100px 50px;
   padding: 90px 65px;
 }
 @media screen and (max-width: 767px) {
@@ -8058,25 +8058,18 @@ body .ajax-progress-throbber .throbber {
 .session_schedules .columns {
   display: inline-block;
   padding: 30px;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
   margin-bottom: 20px;
-  width: 49%;
-  max-width: 240px;
+  width: 100%;
 }
 @media screen and (min-width: 768px) {
   .session_schedules .columns {
+    max-width: 240px;
     margin-bottom: 0;
+    text-align: left;
     width: 19%;
   }
-}
-@media screen and (min-width: 768px) {
-  .session_schedules .columns:nth-child(odd) {
-    border-right: 1px solid #e2e2e2;
-  }
-}
-.session_schedules .columns:nth-child(even) {
-  border-right: 1px solid #e2e2e2;
 }
 .session_schedules .columns:nth-last-child(1) {
   border: none;
@@ -8097,10 +8090,10 @@ body .ajax-progress-throbber .throbber {
   margin: 0;
 }
 .session_schedules .columns .register-label {
-  color: #777777;
+  color: #777;
 }
 .session_schedules .columns .register-label p {
-  color: #777777;
+  color: #777;
   margin: 0;
 }
 .session_schedules .columns .register-date {
