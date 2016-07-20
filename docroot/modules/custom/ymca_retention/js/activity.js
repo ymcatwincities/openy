@@ -124,10 +124,49 @@
       $scope.slickConfig = {
         speed: 300,
         infinite: false,
-        centerMode: false,
-        variableWidth: true,
+        //centerMode: false,
+        //variableWidth: true,
         swipeToSlide: true,
-        initialSlide: Math.max(0, $scope.date_index - 3)
+        initialSlide: Math.max(0, $scope.date_index - 3),
+        slidesToScroll: 11,
+        slidesToShow: 11,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 8,
+              slidesToScroll: 8
+            }
+          },
+          {
+            breakpoint: 900,
+            settings: {
+              slidesToShow: 6,
+              slidesToScroll: 6
+            }
+          },
+          {
+            breakpoint: 750,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4
+            }
+          },
+          {
+            breakpoint: 400,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3
+            }
+          }
+        ]
       };
     });
 
