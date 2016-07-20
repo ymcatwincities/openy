@@ -105,6 +105,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       $location_ids = \Drupal::entityQuery('mapping')
         ->condition('type', 'location')
         ->condition('field_location_personify_brcode', $branch_ids, 'IN')
+        ->sort('name', 'ASC')
         ->execute();
 
       $locations = \Drupal::entityTypeManager()
