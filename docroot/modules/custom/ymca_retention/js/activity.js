@@ -124,8 +124,6 @@
       $scope.slickConfig = {
         speed: 300,
         infinite: false,
-        //centerMode: false,
-        //variableWidth: true,
         swipeToSlide: true,
         initialSlide: Math.max(0, $scope.date_index - 3),
         slidesToScroll: 11,
