@@ -59,6 +59,8 @@ settings:
             - ColumnButton3x
             - SportsPromo
             - Green3Columns
+            - ClinicsSchedule
+            - SessionSchedules
   plugins:
     language:
       language_list: un
