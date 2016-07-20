@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
  * Provides a block with registration form.
@@ -19,6 +20,8 @@ class RegistrationForm extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    // Remove cookie in case when registration form is displayed on the page.
+    AnonymousCookieStorage::delete('ymca_retention_member');
     $form = \Drupal::formBuilder()
       ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm');
     return [
