@@ -621,7 +621,7 @@ body .ajax-progress-throbber {
 
 .session_schedules {
   background-color: $grey1;
-  margin: 50px -100px;
+  margin: 0 -100px 50px;
   padding: 90px 65px;
   @media screen and (max-width: 767px) {
     padding: 20px 0;
@@ -645,22 +645,15 @@ body .ajax-progress-throbber {
   .columns {
     display: inline-block;
     padding: 30px;
-    text-align: left;
+    text-align: center;
     font-size: 14px;
     margin-bottom: 20px;
-    width: 49%;
-    max-width: 240px;
+    width: 100%;
     @media screen and (min-width: 768px) {
+      max-width: 240px;
       margin-bottom: 0;
+      text-align: left;
       width: 19%;
-    }
-    &:nth-child(odd) {
-      @media screen and (min-width: 768px) {
-        border-right: 1px solid $grey11;
-      }
-    }
-    &:nth-child(even) {
-      border-right: 1px solid $grey11;
     }
     &:nth-last-child(1) {
       border: none;
