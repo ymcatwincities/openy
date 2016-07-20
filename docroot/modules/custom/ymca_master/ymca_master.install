@@ -3793,9 +3793,22 @@ function ymca_master_update_8154() {
 }
 
 /**
+ * Add new templates to ckeditor.
+ */
+function ymca_master_update_8156()
+{
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
  * Create top menu 2 links.
  */
-function ymca_master_update_8156() {
+function ymca_master_update_8157() {
   // Add top level items.
   $menu_item = MenuLinkContent::create([
     'title' => 'Sign In',
