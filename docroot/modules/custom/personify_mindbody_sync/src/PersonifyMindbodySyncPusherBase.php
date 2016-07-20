@@ -140,7 +140,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       // Do not push the order if it's already pushed.
       $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
       if ($cache_entity) {
-        $order_data = $cache_entity->get('field_pmc_mindbody_order_data');
+        $order_data = $cache_entity->get('field_pmc_ord_data');
         if (!$order_data->isEmpty()) {
           // Just skip this order.
           continue;
@@ -203,6 +203,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         );
       }
       catch (MindbodyException $e) {
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $e->getMessage());
+
         $msg = 'Failed to push order to the MindBody: %msg';
         $this->logger->error($msg, ['%msg' => $e->getMessage()]);
         // Skip this order. Continue with next.
@@ -210,19 +212,19 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
       if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
         if ($cache_entity) {
-          $cache_entity->set('field_pmc_mindbody_order_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
+          $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
           $cache_entity->save();
+
+          // Reset status.
+          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, '');
         }
       }
       else {
-        // Write error to status message.
-        if ($cache_entity) {
-          $cache_entity->set('field_pmc_status_message', serialize($response));
-          $cache_entity->save();
-        }
+        // To reproduce this just comment ID in the cart item.
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Message);
 
         // Log an error.
-        $msg = '[DEV] Failed to push order to MindBody: %error';
+        $msg = 'Failed to push order to MindBody: %error';
         $this->logger->critical($msg, ['%error' => serialize($response)]);
         return $this;
       }
@@ -246,8 +248,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     foreach ($cache_entities as $cache_entity) {
-      if ($cache_entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
-        $cache_entity->set('field_pmc_mindbody_client_data', serialize($data));
+      if ($cache_entity->get('field_pmc_clnt_data')->isEmpty()) {
+        $cache_entity->set('field_pmc_clnt_data', serialize($data));
         $cache_entity->save();
       }
     }
@@ -418,10 +420,10 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
     foreach ($data as $id => $entity) {
       $user_id = $entity->field_pmc_user_id->value;
-      $personifyData = unserialize($entity->field_pmc_personify_data->value);
+      $personifyData = unserialize($entity->field_pmc_prs_data->value);
 
       // Push only items which were not pushed before.
-      if ($entity->get('field_pmc_mindbody_client_data')->isEmpty()) {
+      if ($entity->get('field_pmc_clnt_data')->isEmpty()) {
         $this->clientIds[$user_id] = $this->prepareClientObject($user_id, $personifyData, $this->debug);
       }
     }
@@ -521,6 +523,47 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       'Client',
       'http://clients.mindbodyonline.com/api/0_5'
     );
+  }
+
+  /**
+   * Update status message by client IDs.
+   *
+   * @param array $ids
+   *   Client IDs.
+   * @param string $message
+   *   A message to log.
+   */
+  protected function updateStatusByClients(array $ids, $message) {
+    foreach ($ids as $id) {
+      $entities = $this->getEntityByClientId($id);
+      if (empty($entities)) {
+        continue;
+      }
+
+      foreach ($entities as $entity) {
+        $entity->set('field_pmc_status', 'Client: ' . $message);
+        $entity->save();
+      }
+    }
+  }
+
+  /**
+   * Update status message by Order number & line number.
+   *
+   * @param string $order_num
+   *   Order number.
+   * @param string $order_line_num
+   *   Order line number.
+   * @param string $message
+   *   A message.
+   */
+  protected function updateStatusByOrder($order_num, $order_line_num, $message) {
+    if (!$entity = $this->wrapper->findOrder($order_num, $order_line_num)) {
+      return;
+    }
+
+    $entity->set('field_pmc_status', 'Order: ' . $message);
+    $entity->save();
   }
 
 }

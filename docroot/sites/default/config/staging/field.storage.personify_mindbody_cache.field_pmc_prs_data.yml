@@ -1,11 +1,11 @@
-uuid: e76571df-b4ff-48de-9d19-a22da4e36938
+uuid: 981b52ee-ec7d-4cf1-aa2e-0d0c54c94a18
 langcode: en
 status: true
 dependencies:
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.field_pmc_mindbody_order_data
-field_name: field_pmc_mindbody_order_data
+id: personify_mindbody_cache.field_pmc_prs_data
+field_name: field_pmc_prs_data
 entity_type: personify_mindbody_cache
 type: string_long
 settings:

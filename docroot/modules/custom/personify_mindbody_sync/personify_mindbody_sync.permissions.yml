@@ -17,3 +17,6 @@ view published personify mindbody cache entities:
 
 view unpublished personify mindbody cache entities:
   title: 'View unpublished Personify MindBody Cache entities'
+
+access personify mindbody sync log:
+  title: 'View Personify Mindbody Sync log'

@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_client_data
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_mindbody_order_data
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_clnt_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_date
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_l_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_data
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_personify_order_date
-    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status_message
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_prs_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
   module:
     - personify_mindbody_sync
@@ -19,19 +19,27 @@ targetEntityType: personify_mindbody_cache
 bundle: personify_mindbody_cache
 mode: default
 content:
-  field_pmc_mindbody_client_data:
+  field_pmc_clnt_data:
     weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_pmc_mindbody_order_data:
+  field_pmc_ord_data:
     weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_pmc_order_line_num:
+  field_pmc_ord_date:
+    weight: 3
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_pmc_ord_l_num:
     weight: 9
     label: above
     settings:
@@ -45,26 +53,19 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_pmc_personify_data:
+  field_pmc_prs_data:
     weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_pmc_personify_order_date:
-    weight: 3
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
-  field_pmc_status_message:
+  field_pmc_status:
     weight: 10
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    type: basic_string
+    type: string
   field_pmc_user_id:
     weight: 7
     label: above

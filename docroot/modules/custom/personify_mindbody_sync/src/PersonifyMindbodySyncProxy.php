@@ -75,11 +75,12 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
       if (!$existing) {
         $id = 'MasterCustomerId';
         $cache_item = PersonifyMindbodyCache::create([
-          'field_pmc_personify_data' => serialize($item),
+          'field_pmc_prs_data' => serialize($item),
           'field_pmc_order_num' => $item->OrderNo,
-          'field_pmc_order_line_num' => $item->OrderLineNo,
+          'field_pmc_ord_l_num' => $item->OrderLineNo,
           'field_pmc_user_id' => $item->{$id},
-          'field_pmc_personify_order_date' => $this->wrapper->personifyDateToTimestamp(trim($item->OrderDate)),
+          'field_pmc_ord_date' => $this->wrapper->personifyDateToTimestamp(trim($item->OrderDate)),
+          'field_pmc_status' => 'No attempt. Please, look in the system log.',
         ]);
         $cache_item->setName($item->OrderNo . ' (' . $item->OrderLineNo . ')');
         $cache_item->save();
