@@ -2134,6 +2134,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   height: 2.5rem;
   line-height: 25px;
   line-height: 2.5rem;
+  padding-left: 10px;
+  padding-left: 1rem;
   padding-right: 10px;
   padding-right: 1rem;
   background-color: #c6168d;
