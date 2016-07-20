@@ -5243,19 +5243,12 @@ a.wrapper:hover {
   .schedules-template .panel-heading {
     position: relative;
     z-index: 1;
-    padding: 0;
+    padding: 0 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   .schedules-template .panel .panel .panel-heading {
     margin-bottom: 20px;
-  }
-  .schedules-template .panel-heading:after {
-    position: absolute;
-    top: 8px;
-    right: 15px;
-    content: '\e114';
-    font-family: 'Glyphicons Halflings';
   }
 
   .social-news .social-icon {
