@@ -33,7 +33,7 @@
                             ],
                             required: true,
                             setup: function(widget) {
-                                this.setValue(widget.data.colCount != undefined ? widget.data.colCount : 5);
+                                this.setValue(widget.data.colCount !== undefined ? widget.data.colCount : 5);
                             },
                             commit: function(widget) {
                                 widget.setData('colCount', this.getValue());
