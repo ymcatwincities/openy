@@ -16,3 +16,15 @@ function ymca_retention_update_8001() {
     ]
   );
 }
+
+/**
+ * Update YMCA Retention settings.
+ */
+function ymca_retention_update_8002() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.general_settings.yml',
+    ]
+  );
+}
