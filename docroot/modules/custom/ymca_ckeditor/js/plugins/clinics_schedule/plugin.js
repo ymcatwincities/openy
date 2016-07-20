@@ -33,7 +33,7 @@
                             ],
                             required: true,
                             setup: function(widget) {
-                                this.setValue(widget.data.colCount != undefined ? widget.data.colCount : 5);
+                                this.setValue(widget.data.colCount !== undefined ? widget.data.colCount : 5);
                             },
                             commit: function(widget) {
                                 widget.setData('colCount', this.getValue());
@@ -73,7 +73,7 @@
                 data: function() {
                     if (this.data.colCount && this.element.getChildCount() < 1) {
                         var colCount = this.data.colCount;
-                        var row = this.parts['clinics_schedule'];
+                        var row = this.parts.clinics_schedule;
                         this.createGrid(colCount, row);
                     }
                 },
