@@ -89,7 +89,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $settings = $this->config->get('personify_mindbody_sync.settings');
     $this->debug = $settings->get('debug');
   }
-  
+
   /**
    * Push orders.
    *
@@ -568,13 +568,13 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
   /**
    * Get MindBody Sale by ID.
-   * 
-   * @param $id
+   *
+   * @param int $id
    *   ID.
-   * 
+   *
    * @return mixed
    *   Sale object.
-   * 
+   *
    * @throws \Drupal\mindbody\MindbodyException
    */
   protected function getSaleById($id) {
@@ -584,14 +584,54 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       ['SaleID' => 15820],
       FALSE
     );
-   
+
     if (200 != $result->GetSalesResult->ErrorCode) {
       $code = $result->GetSalesResult->ErrorCode;
       $status = $result->GetSalesResult->Status;
       throw new MindbodyException('Got ' . $code . ' from MindBody with status ' . $status . '.');
     }
-    
-    return $result->GetSalesResult->Sales->Sale; 
+
+    return $result->GetSalesResult->Sales->Sale;
+  }
+
+  /**
+   * Get sales by date range.
+   *
+   * @param string $start
+   *   Start time: '2016-07-15T10:57:00'.
+   * @param string $end
+   *   End time: '2016-07-15T10:57:00'.
+   *
+   * @return array
+   *   Sales.
+   *
+   * @throws \Drupal\mindbody\MindbodyException
+   */
+  protected function getSalesByDate($start, $end) {
+    $result = $this->client->call(
+      'SaleService',
+      'GetSales',
+      [
+        'StartSaleDateTime' => $start,
+        'EndSaleDateTime' => $end
+      ],
+      FALSE
+    );
+
+    if (200 != $result->GetSalesResult->ErrorCode) {
+      $code = $result->GetSalesResult->ErrorCode;
+      $status = $result->GetSalesResult->Status;
+      throw new MindbodyException('Got ' . $code . ' from MindBody with status ' . $status . '.');
+    }
+
+    if ($result->GetSalesResult->ResultCount == 1) {
+      $sales = [$result->GetSalesResult->Sales->Sale];
+    }
+    else {
+      $sales = $result->GetSalesResult->Sales;
+    }
+
+    return $sales;
   }
 
 }
