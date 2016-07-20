@@ -32,6 +32,8 @@ class MemberInfo extends BlockBase {
     $goal = $member->getVisitGoal();
     $visits = $member->getVisits();
 
+    $rank = $member->getMemberRank();
+
     return [
       '#theme' => 'ymca_retention_member_info',
       '#member' => [
@@ -39,8 +41,7 @@ class MemberInfo extends BlockBase {
         'goal' => $goal,
         'visits' => $visits,
         'percentage' => min(round(($visits / $goal) * 100), 100),
-        'activities' => 12,
-        'rank' => 0,
+        'rank' => $rank,
       ],
     ];
   }

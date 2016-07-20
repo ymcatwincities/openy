@@ -376,4 +376,14 @@ class Member extends ContentEntityBase implements MemberInterface {
     return $this;
   }
 
+  /**
+   * Get member rank.
+   *
+   * @return int
+   *   Member rank.
+   */
+  public function getMemberRank() {
+    return 0;
+  }
+
 }
