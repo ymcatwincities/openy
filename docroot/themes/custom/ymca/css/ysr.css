@@ -889,6 +889,9 @@
     margin-right: auto;
   }
 }
+#register-and-report .report .report-form .btn-primary:disabled {
+  background-color: #9c1f7b;
+}
 #register-and-report.slides {
   position: relative;
   width: 200%;
@@ -2564,14 +2567,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   color: #f8f8f8;
 }
 .activities .activity-items .form-item-checkbox input:disabled + label:before {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-  opacity: 0.5;
   background-size: 34px 34px;
   background-size: 3.4rem 3.4rem;
-  background-color: #fff;
-  background-image: url("../img/ymca-throbber.gif");
+  background-image: url(../prototypes/ysr/img/throbber-white.svg);
   background-position: center center;
   background-repeat: no-repeat;
+  content: '';
 }
 .activities .actions {
   margin: 54px auto 54px auto;

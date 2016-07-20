@@ -651,6 +651,10 @@
         margin-left: auto;
         margin-right: auto;
       }
+
+      .btn-primary:disabled {
+        background-color: #9c1f7b;
+      }
     }
 
   }
