@@ -951,6 +951,10 @@
   margin: auto;
   text-transform: uppercase;
 }
+#leaderboard .description {
+  padding-top: 10px;
+  color: #777;
+}
 
 .leaderboard-form {
   text-align: center;
