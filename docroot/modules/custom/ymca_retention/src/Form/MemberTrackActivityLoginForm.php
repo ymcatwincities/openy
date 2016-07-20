@@ -202,7 +202,9 @@ class MemberTrackActivityLoginForm extends FormBase {
     AnonymousCookieStorage::set('ymca_retention_member', $member_id);
 
     // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'activity']);
+    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', [
+      'string' => 'activity',
+    ]);
   }
 
 }
