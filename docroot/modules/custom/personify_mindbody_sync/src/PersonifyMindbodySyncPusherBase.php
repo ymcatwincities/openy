@@ -89,7 +89,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $settings = $this->config->get('personify_mindbody_sync.settings');
     $this->debug = $settings->get('debug');
   }
-
+  
   /**
    * Push orders.
    *
@@ -564,6 +564,34 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
     $entity->set('field_pmc_status', 'Order: ' . $message);
     $entity->save();
+  }
+
+  /**
+   * Get MindBody Sale by ID.
+   * 
+   * @param $id
+   *   ID.
+   * 
+   * @return mixed
+   *   Sale object.
+   * 
+   * @throws \Drupal\mindbody\MindbodyException
+   */
+  protected function getSaleById($id) {
+    $result = $this->client->call(
+      'SaleService',
+      'GetSales',
+      ['SaleID' => 15820],
+      FALSE
+    );
+   
+    if (200 != $result->GetSalesResult->ErrorCode) {
+      $code = $result->GetSalesResult->ErrorCode;
+      $status = $result->GetSalesResult->Status;
+      throw new MindbodyException('Got ' . $code . ' from MindBody with status ' . $status . '.');
+    }
+    
+    return $result->GetSalesResult->Sales->Sale; 
   }
 
 }
