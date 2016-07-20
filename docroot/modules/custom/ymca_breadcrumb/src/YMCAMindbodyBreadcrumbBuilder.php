@@ -77,7 +77,9 @@ class YMCAMindbodyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   static private $routes = [
     'ymca_mindbody.pt',
-    'ymca_mindbody.pt.results'
+    'ymca_mindbody.pt.results',
+    'ymca_mindbody.location.pt',
+    'ymca_mindbody.location.pt.results'
   ];
 
   /**
