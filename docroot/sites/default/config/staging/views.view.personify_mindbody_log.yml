@@ -795,7 +795,7 @@ display:
             requirements: {  }
             options:
               _admin_route: '1'
-      path: tabs
+      path: admin/config/system/personify-mindbody-sync-log
       menu:
         type: 'default tab'
         title: Full
@@ -807,11 +807,11 @@ display:
         menu_name: admin
       tab_options:
         type: none
-        title: ssss
+        title: 'Personify MindBody Sync Log'
         description: ''
         weight: 0
       display_description: ''
-      title: 'Full Log'
+      title: 'Personify MindBody Sync (Full log)'
       defaults:
         title: false
     cache_metadata:
@@ -843,7 +843,7 @@ display:
             requirements: {  }
             options:
               _admin_route: '1'
-      path: tabs/fail
+      path: admin/config/system/personify-mindbody-sync-log/fail
       menu:
         type: tab
         title: Fail
@@ -859,7 +859,7 @@ display:
         description: ''
         weight: 0
       display_description: ''
-      title: 'Fail Log'
+      title: 'Personify MindBody Sync (Fail log)'
       defaults:
         title: false
         filters: false
@@ -1018,7 +1018,7 @@ display:
             requirements: {  }
             options:
               _admin_route: '1'
-      path: tabs/ok
+      path: admin/config/system/personify-mindbody-sync-log/ok
       menu:
         type: tab
         title: OK
@@ -1034,7 +1034,7 @@ display:
         description: ''
         weight: 0
       display_description: ''
-      title: 'OK Log'
+      title: 'Personify MindBody Sync (OK log)'
       defaults:
         title: false
         filters: false
