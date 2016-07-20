@@ -2557,6 +2557,16 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .activities .activity-items .form-item-checkbox input:checked + label small {
   color: #f8f8f8;
 }
+.activities .activity-items .form-item-checkbox input:disabled + label:before {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  background-size: 34px 34px;
+  background-size: 3.4rem 3.4rem;
+  background-color: #fff;
+  background-image: url("../img/ymca-throbber.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 .activities .actions {
   margin: 54px auto 54px auto;
   margin: 5.4rem auto 5.4rem auto;
