@@ -20,9 +20,18 @@ use Drupal\file\Entity\File;
  * Implements hook_preprocess_block() for block content.
  */
 function ymca_preprocess_block(&$variables) {
-  $footer_menu_blocks = ['footer-menu-left', 'footer-menu-center', 'footer-menu-right'];
+  $footer_menu_blocks = ['footer-menu-left', 'footer-menu-center', 'footer-menu-right', 'footer'];
   if (in_array($variables['derivative_plugin_id'], $footer_menu_blocks)) {
     $variables['attributes']['class'][] = 'col-xs-6 col-sm-4';
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ymca_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (in_array($variables['elements']['#plugin_id'], ['masthead_navigation_block'])) {
+    $suggestions[] = 'block__mastheadnavigationblock';
   }
 }
 
@@ -66,9 +75,17 @@ function ymca_detect_camp_pages() {
  * Implements hook_theme_HOOK_alter().
  */
 function ymca_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  $footer_menus = ['menu__footer_menu_left', 'menu__footer_menu_center', 'menu__footer_menu_right'];
+  $footer_menus = [
+    'menu__footer_menu_left',
+    'menu__footer_menu_center',
+    'menu__footer_menu_right',
+    'menu__footer',
+  ];
   if (in_array($variables['theme_hook_original'], $footer_menus)) {
     $suggestions[] = 'menu__footer_menus';
+  }
+  if (in_array($variables['theme_hook_original'], ['menu__top_menu_2'])) {
+    $suggestions[] = 'menu__top_menu';
   }
 }
 
@@ -398,7 +415,7 @@ function ymca_preprocess_html(&$variables) {
 
       case 'location':
         // Locations News & Events page.
-        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results'))) {
+        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results', 'ymca_mindbody.location.pt', 'ymca_mindbody.location.pt.results'))) {
           $classes = [
             'internal-template',
             'ancestor-locations',
@@ -433,6 +450,12 @@ function ymca_preprocess_html(&$variables) {
             'page_post_detail',
             'theme_ymca_2013_location_home',
           ];
+        }
+        // Apply specific class based on value chosen in "Template" field.
+        if (isset($node) && $node->hasField('field_template')) {
+          if ($template = $node->field_template->value) {
+            $classes[] = 'template_' . $template;
+          }
         }
         break;
     }
@@ -876,10 +899,8 @@ function ymca_preprocess_form_element(&$variables) {
   if ($element['#name'] == 'mb_program') {
     $program_image_name = \Drupal::service('ymca_mindbody.trainings_mapping')->getProgramImageName($element['#return_value']);
     $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/' . $program_image_name;
-    $variables['title'] = $element['#title'];
-    $variables['id'] = $element['#id'];
   }
-  if ($element['#name'] == 'mb_session_type') {
+  if (in_array($element['#name'], ['mb_session_type', 'mb_program', 'mb_location'])) {
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
@@ -976,6 +997,17 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-groupex-form-full-refine',
     ],
+    'ymca_retention_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form',
+    ],
+    'ymca_retention_track_activity_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-track-activity-login-form',
+    ],
+    'ymca_retention_slider' => [
+      'template' => '/ymca-blocks/ymca-retention-slider',
+    ]
   ];
 }
 
@@ -1121,9 +1153,8 @@ function ymca_page_attachments_alter(array &$page) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'location':
-        $url = URL::fromUri('internal:/blog/subscribe/index.xml');
+        $url = Url::fromUri('internal:/blog/subscribe/index.xml');
         $url->setAbsolute(TRUE);
-        // <link rel="alternate" type="application/rss+xml" title="Subscribe to Blog" href="{{ base_url }}/blog/subscribe/index.xml"/>
         $rss = [
           '#type' => 'html_tag',
           '#tag' => 'link',
@@ -1138,6 +1169,16 @@ function ymca_page_attachments_alter(array &$page) {
     }
     if (isset($rss)) {
       $page['#attached']['html_head'][] = [$rss, 'rss'];
+    }
+  }
+  $route = \Drupal::service('current_route_match')->getRouteName();
+  if (is_int(stripos($route, 'page_manager.page_view_ymca_retention'))) {
+    $page['#attached']['library'][] = 'ymca/retention-campaign';
+    // Disallow scaling on mobiles.
+    foreach ($page['#attached']['html_head'] as $key => &$value) {
+      if ($value[1] == 'viewport') {
+        $value[0]['#attributes']['content'] = 'width=device-width, initial-scale=1.0, user-scalable=no';
+      }
     }
   }
 }
@@ -1166,4 +1207,11 @@ function ymca_preprocess_file_link(&$variables) {
   }
 
   $variables['link'] = \Drupal::l($link_text, Url::fromUri($url, $options));
+}
+
+/**
+ * Implements hook_preprocess_ymca_retention_slider().
+ */
+function ymca_preprocess_ymca_retention_slider(&$variables) {
+  $variables['path_img'] = base_path() . drupal_get_path('theme', 'ymca');
 }
