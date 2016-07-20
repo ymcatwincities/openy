@@ -519,12 +519,11 @@ $track-activity-button-hover: #e882c8;
 
       input:disabled + label {
         &:before {
-          @include opacity(0.5);
           @include rem(background-size, 34px 34px);
-          background-color: $white;
-          background-image: url('../img/ymca-throbber.gif');
+          background-image: url(../prototypes/ysr/img/throbber-white.svg);
           background-position: center center;
           background-repeat: no-repeat;
+          content: '';
         }
       }
     }
