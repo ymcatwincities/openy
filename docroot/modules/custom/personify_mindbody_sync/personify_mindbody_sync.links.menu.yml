@@ -11,3 +11,9 @@ personify_mindbody_cache.admin.structure.settings:
   description: 'Configure Personify MindBody Cache entities'
   route_name: personify_mindbody_cache.settings
   parent: ymca_alters.admin_config_entities
+
+personify_mindbody_sync.log:
+  title: Personify Mindbody Sync Log
+  route_name: view.personify_mindbody_log.page_1_full
+  parent: system.admin_config_system
+  description: 'The full log for the syncer.'
