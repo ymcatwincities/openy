@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.personify_mindbody_cache.field_pmc_order_line_num
+    - field.storage.personify_mindbody_cache.field_pmc_ord_l_num
   module:
     - personify_mindbody_sync
-id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_line_num
-field_name: field_pmc_order_line_num
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_l_num
+field_name: field_pmc_ord_l_num
 entity_type: personify_mindbody_cache
 bundle: personify_mindbody_cache
 label: 'Personify Order Line Number'
