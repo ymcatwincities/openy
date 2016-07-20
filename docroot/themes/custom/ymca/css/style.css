@@ -8893,6 +8893,12 @@ body .ajax-progress-throbber .throbber {
   color: #afafae;
   font-style: italic;
   white-space: nowrap;
+  margin-left: 5px;
+}
+@media screen and (min-width: 768px) and (max-width: 1110px) {
+  .groupex-results table td.time-duration .duration {
+    margin-left: 20px;
+  }
 }
 .groupex-results table td.instructor {
   line-height: 14px;
