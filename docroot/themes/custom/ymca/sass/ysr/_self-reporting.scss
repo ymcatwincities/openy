@@ -516,6 +516,17 @@ $track-activity-button-hover: #e882c8;
           color: $grey1;
         }
       }
+
+      input:disabled + label {
+        &:before {
+          @include opacity(0.5);
+          @include rem(background-size, 34px 34px);
+          background-color: $white;
+          background-image: url('../img/ymca-throbber.gif');
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+      }
     }
   }
 
