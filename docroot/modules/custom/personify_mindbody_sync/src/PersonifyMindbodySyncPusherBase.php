@@ -555,7 +555,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param string $order_line_num
    *   Order line number.
    * @param string $message
-   *   A message
+   *   A message.
    */
   protected function updateStatusByOrder($order_num, $order_line_num, $message) {
     if (!$entity = $this->wrapper->findOrder($order_num, $order_line_num)) {
