@@ -10,7 +10,6 @@
 
     CKEDITOR.plugins.add('session_schedules', {
         requires: 'widget,dialog',
-        //icons: 'sports_promo',
         init: function(editor) {
             var maxGridColumns = 12;
 
@@ -74,7 +73,7 @@
                 data: function() {
                     if (this.data.colCount && this.element.getChildCount() < 1) {
                         var colCount = this.data.colCount;
-                        var row = this.parts['session_schedules'];
+                        var row = this.parts.session_schedules;
                         this.createGrid(colCount, row);
                     }
                 },
