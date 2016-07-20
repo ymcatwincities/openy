@@ -8770,7 +8770,7 @@ body .ajax-progress-throbber .throbber {
   color: #424242;
 }
 .mindbody-search-results-header .item.datetime {
-  color: #777777;
+  color: #777;
   line-height: 35px;
 }
 .mindbody-search-results-header .item.datetime div {
@@ -8843,7 +8843,7 @@ body .ajax-progress-throbber .throbber {
   margin-bottom: 35px;
 }
 .mindbody-search-results-content .day .date {
-  color: #777777;
+  color: #777;
   font-size: 13px;
   line-height: 21px;
 }
@@ -8855,7 +8855,7 @@ body .ajax-progress-throbber .throbber {
 .mindbody-search-results-content .day .weekday {
   font-family: "Cachet", Arial, sans-serif;
   font-size: 25px;
-  color: #777777;
+  color: #777;
   line-height: 28px;
   font-weight: bold;
   margin-bottom: 15px;
@@ -8895,7 +8895,7 @@ body .ajax-progress-throbber .throbber {
   background-color: #fafafa;
   border-radius: 3px;
   border: 1px solid #e9e9e9;
-  color: #777777;
+  color: #777;
   display: block;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -8906,7 +8906,7 @@ body .ajax-progress-throbber .throbber {
   text-decoration: none;
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot .icon {
-  color: #777777;
+  color: #777;
   font-size: 14px;
   margin-right: 12px;
 }
@@ -9040,7 +9040,7 @@ body .ajax-progress-throbber .throbber {
   margin-bottom: 10px;
 }
 .template_youth_sports_overview .locations-lead-copy .richtext p {
-  color: #777777;
+  color: #777;
   font-size: 14px;
 }
 .template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
@@ -9120,10 +9120,10 @@ body .ajax-progress-throbber .throbber {
   margin-bottom: 20px;
 }
 .template_youth_sports_overview section.node p {
-  color: #777777;
+  color: #777;
 }
 .template_youth_sports_overview section.node ul {
-  color: #777777;
+  color: #777;
 }
 .template_youth_sports_overview section.node .content_group section ul {
   padding: 0;
@@ -9279,7 +9279,7 @@ a.sports-icon.tumbling {
   margin-bottom: 10px;
 }
 .template_youth_sports_inner .locations-lead-copy .richtext p {
-  color: #777777;
+  color: #777;
   font-size: 14px;
 }
 .template_youth_sports_inner .locations-lead-copy .richtext p:first-child {
