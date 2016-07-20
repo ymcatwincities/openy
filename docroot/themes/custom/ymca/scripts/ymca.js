@@ -215,7 +215,6 @@
       $('#masthead-menu .open .dropdown-menu')
         .css('max-height', (windowHeight - offset) - 30);
     }
-
-  }
+  };
 
 })(jQuery);
