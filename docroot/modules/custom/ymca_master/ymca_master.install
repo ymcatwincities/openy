@@ -3795,11 +3795,57 @@ function ymca_master_update_8154() {
 /**
  * Add new templates to ckeditor.
  */
-function ymca_master_update_8156() {
+function ymca_master_update_8156()
+{
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'editor.editor.full_html.yml',
     ]
   );
+}
+
+/**
+ * Create top menu 2 links.
+ */
+function ymca_master_update_8157() {
+  // Add top level items.
+  $menu_item = MenuLinkContent::create([
+    'title' => 'Sign In',
+    'link' => ['uri' => 'internal:/personify/login'],
+    'menu_name' => 'top_menu_2',
+    'weight' => 1,
+  ]);
+  $menu_item->save();
+
+  $account_menu_link = MenuLinkContent::create([
+    'title' => 'Account',
+    'link' => ['uri' => 'internal:/personify/account'],
+    'menu_name' => 'top_menu_2',
+    'expanded' => TRUE,
+    'weight' => 2,
+  ]);
+  $account_menu_link->save();
+
+  $inner_items = [
+    [
+      'title' => 'My Account',
+      'link' => ['uri' => 'internal:/personify/account'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $account_menu_link->getPluginId(),
+      'weight' => 1,
+    ],
+    [
+      'title' => 'Sign Out',
+      'link' => ['uri' => 'internal:/personify/sign_out'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $account_menu_link->getPluginId(),
+      'weight' => 2,
+    ],
+  ];
+
+  foreach ($inner_items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
 }
