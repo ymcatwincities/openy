@@ -1,4 +1,5 @@
 module:
+  ab: 0
   acquia_connector: 0
   acquia_purge: 0
   action: 0
@@ -104,6 +105,7 @@ module:
   tour: 0
   update: 0
   user: 0
+  views_rest_feed: 0
   views_ui: 0
   webforms: 0
   workflow: 0
@@ -137,9 +139,12 @@ module:
   ymca_menu: 0
   ymca_migrate: 0
   ymca_migrate_status: 0
+  ymca_mindbody: 0
   ymca_page_context: 0
   ymca_page_manager: 0
+  ymca_perms: 0
   ymca_personify: 0
+  ymca_retention: 0
   ymca_search_alter: 0
   ymca_styleguide: 0
   ymca_sync: 0
