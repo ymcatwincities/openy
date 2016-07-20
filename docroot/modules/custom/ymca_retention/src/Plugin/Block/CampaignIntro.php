@@ -27,8 +27,8 @@ class CampaignIntro extends BlockBase {
     $settings = \Drupal::config('ymca_retention.general_settings');
 
     // Get start and end date of retention campaign.
-    $date_start = new \DateTime($settings->get('date_registration_open'));
-    $date_end = new \DateTime($settings->get('date_registration_close'));
+    $date_start = new \DateTime($settings->get('date_campaign_open'));
+    $date_end = new \DateTime($settings->get('date_campaign_close'));
 
     /** @var \Drupal\Core\Datetime\DateFormatter $date_formatter */
     $date_formatter = \Drupal::service('date.formatter');
