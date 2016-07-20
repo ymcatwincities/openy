@@ -142,10 +142,39 @@
    */
   Drupal.behaviors.ymca_mindbody = {
     attach: function (context, settings) {
-      $('#mindbody-pt-form-wrapper a.change').on('click', function(e) {
-        e.preventDefault();
-        var id = $(this).attr('href');
-        $(id).slideDown();
+      $('#mindbody-pt-form-wrapper .change')
+        .once('mindbody-change-toggler')
+        .each(function () {
+          $(this).bind('click', function (e) {
+            var id = $(this).attr('href');
+            $(id).slideToggle();
+            return false;
+          });
+        });
+    }
+  };
+
+  /**
+   * Youth sports behaviors.
+   */
+  Drupal.behaviors.ymca_youth_sports = {
+    attach: function (context, settings) {
+      $('.template_youth_sports_overview section.node .content_group section ul li a').each(function() {
+        // set css classes based on link title.
+        var title = $(this).text().toLowerCase().replace(/ /g, '-').replace(/\//g, '-'),
+            css_class = title + ' sports-icon';
+        $(this).attr('class', css_class);
+      });
+      $('.template_youth_sports_overview .copy a, .template_youth_sports_inner .copy a').each(function() {
+        var href = $(this).attr('href');
+        if (href.match(/\.pdf/g)) {
+          $(this).attr('class', 'pdf-link');
+        }
+      });
+      var index = 1;
+      $('.template_youth_sports_inner section.node .content-expander').each(function() {
+        $(this).addClass('content-expander-' + index);
+        index++;
       });
     }
   };
