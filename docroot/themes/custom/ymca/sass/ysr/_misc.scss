@@ -1268,3 +1268,10 @@ body {
 
   }
 }
+
+#register-and-report {
+  .ajax-progress-throbber .throbber {
+    @include rem(background-size, 22px 22px);
+    background-image: url(../prototypes/ysr/img/throbber-white.svg);
+  }
+}

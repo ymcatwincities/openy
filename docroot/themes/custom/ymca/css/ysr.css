@@ -1443,6 +1443,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 
+#register-and-report .ajax-progress-throbber .throbber {
+  background-size: 22px 22px;
+  background-size: 2.2rem 2.2rem;
+  background-image: url(../prototypes/ysr/img/throbber-white.svg);
+}
+
 .registration-confirmation {
   padding-bottom: 40px;
   padding-bottom: 4rem;
