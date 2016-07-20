@@ -8065,6 +8065,7 @@ body .ajax-progress-throbber .throbber {
 }
 @media screen and (min-width: 768px) {
   .session_schedules .columns {
+    border-right: 1px solid #e2e2e2;
     max-width: 240px;
     margin-bottom: 0;
     text-align: left;
