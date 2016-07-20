@@ -67,8 +67,8 @@ class RegularUpdater implements RegularUpdaterInterface {
 
     // Get campaign dates settings.
     $settings = $this->configFactory->get('ymca_retention.general_settings');
-    $from = $settings->get('date_registration_open');
-    $to = $settings->get('date_registration_close');
+    $from = $settings->get('date_campaign_open');
+    $to = $settings->get('date_campaign_close');
 
     // Load members.
     $members = $this->entityTypeManager
