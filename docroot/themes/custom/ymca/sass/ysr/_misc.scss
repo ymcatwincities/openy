@@ -1113,9 +1113,7 @@
         border-bottom: solid 1px #f3f3f3;
       }
 
-      &:nth-child(1),
-      &:nth-child(2),
-      &:nth-child(3) {
+      &.leader {
         background-color: #fcfcfc;
 
         td {
@@ -1129,14 +1127,12 @@
         }
       }
 
-      &:nth-child(3), &:last-child {
+      &.leader--last, &:last-child {
         td { padding-bottom: 38px;}
       }
-      &:nth-child(1), &:nth-child(4) {
+      &:first-child, &.chaser--first {
         td { padding-top: 38px;}
       }
-
-
     }
 
     td {
