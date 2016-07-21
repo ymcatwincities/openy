@@ -10,7 +10,6 @@ namespace Drupal\page_manager_ui\Form;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\page_manager\PageVariantInterface;
-use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,8 +31,7 @@ class VariantPluginAddBlockForm extends VariantPluginConfigureBlockFormBase {
    * @param \Drupal\Component\Plugin\PluginManagerInterface $block_manager
    *   The block manager.
    */
-  public function __construct(SharedTempStoreFactory $tempstore, PluginManagerInterface $block_manager) {
-    parent::__construct($tempstore);
+  public function __construct(PluginManagerInterface $block_manager) {
     $this->blockManager = $block_manager;
   }
 
@@ -42,7 +40,6 @@ class VariantPluginAddBlockForm extends VariantPluginConfigureBlockFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('user.shared_tempstore'),
       $container->get('plugin.manager.block')
     );
   }
@@ -66,8 +63,8 @@ class VariantPluginAddBlockForm extends VariantPluginConfigureBlockFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, Request $request = NULL, $block_display = NULL, $block_id = NULL) {
-    $form = parent::buildForm($form, $form_state, $block_display, $block_id);
+  public function buildForm(array $form, FormStateInterface $form_state, Request $request = NULL, PageVariantInterface $page_variant = NULL, $block_id = NULL) {
+    $form = parent::buildForm($form, $form_state, $page_variant, $block_id);
     $form['region']['#default_value'] = $request->query->get('region');
     return $form;
   }

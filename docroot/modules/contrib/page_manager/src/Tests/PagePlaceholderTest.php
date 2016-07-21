@@ -53,16 +53,12 @@ class PagePlaceholderTest extends WebTestBase {
     $page->save();
 
     // Create a new variant.
-    /* @var $http_status_variant \Drupal\page_manager\Entity\PageVariant */
     $http_status_variant = PageVariant::create([
+      'variant' => 'http_status_code',
       'label' => 'HTTP status code',
       'id' => 'http_status_code',
       'page' => 'placeholder',
     ]);
-
-    // Test setting variant post create works.
-    $http_status_variant->setVariantPluginId('http_status_code');
-
     $http_status_variant->getVariantPlugin()->setConfiguration(['status_code' => 200]);
     $http_status_variant->save();
     $this->triggerRouterRebuild();

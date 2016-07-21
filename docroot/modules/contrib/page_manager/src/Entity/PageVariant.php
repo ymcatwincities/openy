@@ -13,7 +13,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
-use Drupal\page_manager\PageInterface;
 use Drupal\page_manager\PageVariantInterface;
 
 /**
@@ -99,13 +98,6 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
    * @var string
    */
   protected $page;
-
-  /**
-   * The loaded page entity this page variant entity belongs to.
-   *
-   * @var \Drupal\page_manager\PageInterface
-   */
-  protected $pageEntity;
 
   /**
    * The plugin configuration for the selection criteria condition plugins.
@@ -220,9 +212,6 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
    */
   protected function getVariantPluginCollection() {
     if (!$this->variantPluginCollection) {
-      if (empty($this->variant_settings['uuid'])) {
-        $this->variant_settings['uuid'] = $this->uuidGenerator()->generate();
-      }
       $this->variantPluginCollection = new DefaultSingleLazyPluginCollection(\Drupal::service('plugin.manager.display_variant'), $this->variant, $this->variant_settings);
     }
     return $this->variantPluginCollection;
@@ -245,35 +234,11 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * {@inheritdoc}
    */
-  public function setVariantPluginId($variant) {
-    $this->variant = $variant;
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getPage() {
-    if (!$this->pageEntity) {
-      if (!$this->page) {
-        throw new \UnexpectedValueException('The page variant has no associated page');
-      }
-      $this->pageEntity = $this->getPageStorage()->load($this->page);
-      if (!$this->pageEntity) {
-        throw new \UnexpectedValueException(sprintf('The page %s could not be loaded', $this->page));
-      }
+    if (!$this->page) {
+      throw new \UnexpectedValueException('The page variant has no associated page');
     }
-
-    return $this->pageEntity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setPageEntity(PageInterface $page) {
-    $this->pageEntity = $page;
-    $this->page = $page->id();
-    return $this;
+    return $this->getPageStorage()->load($this->page);
   }
 
   /**
@@ -283,15 +248,17 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
     if (is_null($this->contexts)) {
       $static_contexts = $this->getContextMapper()->getContextValues($this->getStaticContexts());
       $page_contexts = $this->getPage()->getContexts();
-      $this->contexts = $page_contexts + $static_contexts;
+      $this->contexts = array_merge($static_contexts, $page_contexts);
     }
     return $this->contexts;
   }
 
   /**
-   * {@inheritdoc}
+   * Resets the collected contexts.
+   *
+   * @return $this
    */
-  public function resetCollectedContexts() {
+  protected function resetCollectedContexts() {
     $this->contexts = NULL;
     return $this;
   }
@@ -461,12 +428,8 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
    */
   public function __sleep() {
     $vars = parent::__sleep();
-
     // Gathered contexts objects should not be serialized.
-    if (($key = array_search('contexts', $vars)) !== FALSE) {
-      unset($vars[$key]);
-    }
-
+    unset($vars[array_search('contexts', $vars)]);
     return $vars;
   }
 

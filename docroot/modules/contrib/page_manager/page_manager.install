@@ -6,27 +6,6 @@
  */
 
 /**
- * Implements hook_requirements().
- *
- * @todo: Remove this when https://www.drupal.org/node/2641658 is fixed.
- */
-function page_manager_requirements($phase) {
-  $requirements = [];
-
-  // Check that core actually is >= 8.0.5.
-  if (!version_compare(\Drupal::VERSION, '8.0.5', '>=')) {
-    $requirements['page_manager_core_version'] = [
-      'title' => t('Page manager Drupal core version'),
-      'value' => \Drupal::VERSION,
-      'description' => t('Page manager requires at least Drupal core 8.0.5.'),
-      'severity' => REQUIREMENT_ERROR,
-    ];
-  }
-
-  return $requirements;
-}
-
-/**
  * Install the Page Manager UI for existing sites.
  */
 function page_manager_update_8001() {
