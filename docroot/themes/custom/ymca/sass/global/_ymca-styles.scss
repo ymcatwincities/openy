@@ -618,3 +618,159 @@ body .ajax-progress-throbber {
     padding: 2px 8px 2px;
   }
 }
+
+.session_schedules {
+  background-color: $grey1;
+  margin: 0 -100px 50px;
+  padding: 90px 65px;
+  @media screen and (max-width: 767px) {
+    padding: 20px 0;
+    margin: 25px -15px;
+  }
+
+  .container .row h2 {
+    text-align: center;
+    color: $pink;
+    margin: 0 0 80px;
+    @media screen and (max-width: 767px) {
+      margin: 0 0 20px;
+    }
+  }
+
+  .row {
+    @media screen and (min-width: 768px) {
+      text-align: center;
+    }
+  }
+  .columns {
+    display: inline-block;
+    padding: 30px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 100%;
+    @media screen and (min-width: 768px) {
+      border-right: 1px solid $grey11;
+      max-width: 240px;
+      margin-bottom: 0;
+      text-align: left;
+      width: 19%;
+    }
+    &:nth-last-child(1) {
+      border: none;
+    }
+
+    h4 {
+      color: $grey4;
+      text-transform: uppercase;
+      font-size: 14px;
+      margin: 0 0 5px;
+    }
+    .date {
+      color: $grey7;
+      font-weight: bold;
+      margin: 0 0 20px;
+      p {
+        color: $grey7;
+        margin: 0;
+      }
+    }
+    .register-label {
+      color: $grey5;
+      p {
+        color: $grey5;
+        margin: 0;
+      }
+    }
+    .register-date {
+      color: $pink;
+      p {
+        color: $pink;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.clinics_schedule {
+  margin: 0 -100px;
+  padding: 80px 65px;
+  @media screen and (max-width: 767px) {
+    padding: 20px 0;
+    margin: 0 -15px;
+  }
+
+  .container .row h2 {
+    text-align: center;
+    color: $blue1;
+    margin: 0 0 15px;
+  }
+
+  .container .row h3 {
+    text-align: center;
+    text-transform: none;
+    color: $grey7;
+    font-size: 18px;
+    margin: 0 0 15px;
+  }
+
+  .container .row h4 {
+    text-align: center;
+    text-transform: uppercase;
+    color: $grey7;
+    font-size: 18px;
+    margin: 0 0 40px;
+  }
+
+  .description {
+    text-align: center;
+    margin: 0 auto 30px;
+    font-size: 15px;
+    max-width: 500px;
+    padding: 0 10px;
+  }
+
+  .row {
+    @media screen and (min-width: 768px) {
+      text-align: center;
+    }
+  }
+  .container .row .columns {
+    display: inline-block;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 40px;
+    width: 100%;
+    @media screen and (min-width: 768px) {
+      border-right: 1px solid $grey11;
+      margin-bottom: 0;
+      width: 33%;
+      max-width: 235px;
+    }
+    &:nth-last-child(1) {
+      border: none;
+    }
+
+    h5 {
+      color: $blue1;
+      font-size: 18px;
+      font-weight: normal;
+      margin: 0;
+    }
+    .date {
+      color: $pink;
+      font-size: 18px;
+      p {
+        color: $pink;
+        margin: 0;
+      }
+    }
+    .img-wrapper {
+      img {
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
