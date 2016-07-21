@@ -307,7 +307,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       '#session_type' => $session_type_name,
       '#trainer' => $trainer_name,
       '#datetime' => $datetime,
-      '#back_link' => $this->getSearchLink($options),
+      '#back_link' => $this->getSearchLink($options, $node),
       '#start_again_link' => $this->getSearchLink([], $node),
       '#telephone' => $telephone,
       '#base_path' => base_path(),

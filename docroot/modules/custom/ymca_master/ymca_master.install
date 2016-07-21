@@ -3795,8 +3795,7 @@ function ymca_master_update_8154() {
 /**
  * Add new templates to ckeditor.
  */
-function ymca_master_update_8156()
-{
+function ymca_master_update_8156() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -3848,4 +3847,28 @@ function ymca_master_update_8157() {
     $menu_item = MenuLinkContent::create($item);
     $menu_item->save();
   }
+}
+
+/**
+ * Add trainers mapping view.
+ */
+function ymca_master_update_8158() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.trainers_mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Allow contributor administer files.
+ */
+function ymca_master_update_8159() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+    ]
+  );
 }
