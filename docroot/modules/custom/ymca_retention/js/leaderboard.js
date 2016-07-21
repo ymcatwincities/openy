@@ -30,7 +30,6 @@
           cache: true
         })
           .then(function(response) {
-            console.log(response);
             $scope.members = response.data;
           });
 
@@ -60,6 +59,40 @@
         if ($scope.quantity < $scope.members.length) {
           $scope.quantity = $scope.quantity + 20;
         }
+      };
+
+      $scope.byString = function(o, s) {
+        // Convert indexes to properties.
+        s = s.replace(/\[(\w+)\]/g, '.$1');
+        // Strip a leading dot.
+        s = s.replace(/^\./, '');
+        var a = s.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+          var k = a[i];
+          if (k in o) {
+            o = o[k];
+          }
+          else {
+            return;
+          }
+        }
+
+        return o;
+      };
+      $scope.memberClass = function(index, member) {
+        var classes = [];
+        if (index <= 2) {
+          classes.push('leader');
+        }
+        else {
+          var member_points = $scope.byString(member, $scope.order),
+            third_place_points = $scope.byString($scope.members_sorted[2], $scope.order);
+          if (member_points === third_place_points) {
+            classes.push('leader');
+          }
+        }
+
+        return classes.join(' ');
       };
     });
 
