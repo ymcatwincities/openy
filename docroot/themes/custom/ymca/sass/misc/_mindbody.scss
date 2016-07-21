@@ -684,9 +684,19 @@
   }
 }
 
+.mindbody-search-results-timezone-message {
+  background-color: $white;
+  padding-top: 30px;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    text-align: left;
+  }
+}
+
 .mindbody-search-results-content {
   background-color: $white;
-  padding-top: 60px;
+  padding-top: 30px;
 
   .day {
     margin-bottom: 35px;
