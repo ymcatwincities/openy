@@ -25,6 +25,15 @@
     </div>
   </div>
 </div>
+{% if days %}
+  <div class="row mindbody-search-results-timezone-message">
+    <div class="container">
+      <div class="col-sm-12">
+        <p>{{ "All Times Central Time Zone"|t }}</p>
+      </div>
+    </div>
+  </div>
+{% endif %}
 <div class="row mindbody-search-results-content">
   <div class="container">
     {% if days %}
