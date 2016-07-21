@@ -3872,3 +3872,22 @@ function ymca_master_update_8159() {
     ]
   );
 }
+
+/**
+ * Fix badly cloned pages.
+ */
+function ymca_master_update_8160() {
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $result = $storage->getQuery()->execute();
+  foreach ($result as $id => $name) {
+    /** @var \Drupal\page_manager\Entity\Page $page */
+    $page = $storage->load($id);
+    if ($page->getAccessConditions()->has(0)) {
+      $config = $page->getAccessCondition(0)->getConfiguration();
+      $page->removeAccessCondition(0);
+      $page->getAccessConditions()->addInstanceId($config['uuid'], $config);
+      $page->save();
+      \Drupal::logger(__FUNCTION__)->info("The page: $name has been fixed about access conditions.");
+    }
+  }
+}
