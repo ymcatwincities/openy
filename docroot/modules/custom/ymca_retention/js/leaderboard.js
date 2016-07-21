@@ -79,16 +79,27 @@
 
         return o;
       };
-      $scope.memberClass = function(index, member) {
+      $scope.memberClass = function(index) {
         var classes = [];
-        if (index <= 2) {
+        var member_points = $scope.byString($scope.members_sorted[index], $scope.order),
+          third_place_points = $scope.byString($scope.members_sorted[2], $scope.order);
+        if (index <= 2 || member_points === third_place_points) {
           classes.push('leader');
+          if (index + 1 < $scope.members_sorted.length) {
+            var next_member_points = $scope.byString($scope.members_sorted[index + 1], $scope.order);
+            if (next_member_points < member_points) {
+              classes.push('leader--last');
+            }
+          }
+          else {
+            classes.push('leader--last');
+          }
         }
         else {
-          var member_points = $scope.byString(member, $scope.order),
-            third_place_points = $scope.byString($scope.members_sorted[2], $scope.order);
-          if (member_points === third_place_points) {
-            classes.push('leader');
+          classes.push('chaser');
+          var previous_member_points = $scope.byString($scope.members_sorted[index - 1], $scope.order);
+          if (previous_member_points > member_points) {
+            classes.push('chaser--first');
           }
         }
 

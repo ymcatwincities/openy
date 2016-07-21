@@ -1297,20 +1297,20 @@
 .results-table tbody tr:last-child {
   border-bottom: solid 1px #f3f3f3;
 }
-.results-table tbody tr:nth-child(1), .results-table tbody tr:nth-child(2), .results-table tbody tr:nth-child(3) {
+.results-table tbody tr.leader {
   background-color: #fcfcfc;
 }
-.results-table tbody tr:nth-child(1) td.number, .results-table tbody tr:nth-child(2) td.number, .results-table tbody tr:nth-child(3) td.number {
+.results-table tbody tr.leader td.number {
   color: #fcaf17;
   font-weight: bold;
 }
-.results-table tbody tr:nth-child(1) td.name, .results-table tbody tr:nth-child(2) td.name, .results-table tbody tr:nth-child(3) td.name {
+.results-table tbody tr.leader td.name {
   color: #f47920;
 }
-.results-table tbody tr:nth-child(3) td, .results-table tbody tr:last-child td {
+.results-table tbody tr.leader--last td, .results-table tbody tr:last-child td {
   padding-bottom: 38px;
 }
-.results-table tbody tr:nth-child(1) td, .results-table tbody tr:nth-child(4) td {
+.results-table tbody tr:first-child td, .results-table tbody tr.chaser--first td {
   padding-top: 38px;
 }
 .results-table tbody td {
