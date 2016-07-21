@@ -120,7 +120,30 @@ class ActivityManager implements ActivityManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getMemberActivities() {
+  public function getMemberActivities($member_id = NULL) {
+    $activities = [];
+
+    if (empty($member_id)) {
+      $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    }
+    if (empty($member_id)) {
+      return $activities;
+    }
+
+    $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
+      ->condition('member', $member_id)
+      ->execute();
+    $activities = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_activity')
+      ->loadMultiple($activities_ids);
+
+    return $activities;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberActivitiesModel($member_id = NULL) {
     $member_activities = [];
     $activity_groups = $this->getActivityGroups();
     $model = [];
@@ -134,22 +157,14 @@ class ActivityManager implements ActivityManagerInterface {
       $member_activities[$date['timestamp']] = $model;
     }
 
-    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
-    if (empty($member_id)) {
-      return $member_activities;
-    }
-
-    $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
-      ->condition('member', $member_id)
-      ->execute();
-    $activities = \Drupal::entityTypeManager()
-      ->getStorage('ymca_retention_member_activity')
-      ->loadMultiple($activities_ids);
+    $activities = $this->getMemberActivities($member_id);
 
     $date = new \DateTime();
     /** @var MemberActivity $activity */
     foreach ($activities as $activity) {
-      $timestamp = $date->setTimestamp($activity->get('timestamp')->value)->setTime(0, 0, 0)->getTimestamp();
+      $timestamp = $date->setTimestamp($activity->get('timestamp')->value)
+        ->setTime(0, 0, 0)
+        ->getTimestamp();
       $id = $activity->activity_type->target_id;
       $member_activities[$timestamp][$id] = TRUE;
     }
@@ -168,13 +183,16 @@ class ActivityManager implements ActivityManagerInterface {
       $this->sessionManager->start();
     }
 
-    $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')->toString(TRUE);
+    $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')
+      ->toString(TRUE);
     $urlRender = array(
       '#markup' => $urlBubbleable->getGeneratedUrl(),
     );
-    BubbleableMetadata::createFromRenderArray($urlRender)->merge($urlBubbleable)->applyTo($urlRender);
-    $url = \Drupal::service('renderer')->renderPlain($urlRender);
-    return $url;
+    BubbleableMetadata::createFromRenderArray($urlRender)
+      ->merge($urlBubbleable)
+      ->applyTo($urlRender);
+
+    return \Drupal::service('renderer')->renderPlain($urlRender);
   }
 
 }
