@@ -3848,3 +3848,15 @@ function ymca_master_update_8157() {
     $menu_item->save();
   }
 }
+
+/**
+ * Add trainers mapping view.
+ */
+function ymca_master_update_8158() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.trainers_mapping.yml',
+    ]
+  );
+}
