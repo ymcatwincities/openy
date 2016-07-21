@@ -10,13 +10,11 @@ namespace Drupal\page_manager_ui\Controller;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Url;
 use Drupal\ctools\Form\AjaxFormTrait;
 use Drupal\page_manager\PageInterface;
 use Drupal\page_manager\PageVariantInterface;
-use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -56,13 +54,6 @@ class PageManagerController extends ControllerBase {
   protected $contextHandler;
 
   /**
-   * Tempstore factory.
-   *
-   * @var \Drupal\user\SharedTempStoreFactory
-   */
-  protected $tempstore;
-
-  /**
    * Constructs a new VariantPluginEditForm.
    *
    * @param \Drupal\Core\Block\BlockManagerInterface $block_manager
@@ -73,15 +64,12 @@ class PageManagerController extends ControllerBase {
    *   The variant manager.
    * @param \Drupal\Core\Plugin\Context\ContextHandlerInterface $context_handler
    *   The context handler.
-+   * @param \Drupal\user\SharedTempStoreFactory $tempstore
-+   *   The tempstore factory.
    */
-  public function __construct(BlockManagerInterface $block_manager, PluginManagerInterface $condition_manager, PluginManagerInterface $variant_manager, ContextHandlerInterface $context_handler, SharedTempStoreFactory $tempstore) {
+  public function __construct(BlockManagerInterface $block_manager, PluginManagerInterface $condition_manager, PluginManagerInterface $variant_manager, ContextHandlerInterface $context_handler) {
     $this->blockManager = $block_manager;
     $this->conditionManager = $condition_manager;
     $this->variantManager = $variant_manager;
     $this->contextHandler = $context_handler;
-    $this->tempstore = $tempstore;
   }
 
   /**
@@ -92,26 +80,20 @@ class PageManagerController extends ControllerBase {
       $container->get('plugin.manager.block'),
       $container->get('plugin.manager.condition'),
       $container->get('plugin.manager.display_variant'),
-      $container->get('context.handler'),
-      $container->get('user.shared_tempstore')
+      $container->get('context.handler')
     );
   }
 
   /**
    * Route title callback.
    *
-   * @param string $machine_name
-   *   The page's machine_name.
-   * @param string $tempstore_id
-   *   The temporary store identifier.
+   * @param \Drupal\page_manager\PageInterface $page
+   *   The page entity.
    *
    * @return string
    *   The title for the page edit form.
    */
-  public function editPageTitle($machine_name, $tempstore_id) {
-    $cached_values = $this->tempstore->get($tempstore_id)->get($machine_name);
-    /** @var \Drupal\page_manager\PageInterface $page */
-    $page = $cached_values['page'];
+  public function editPageTitle(PageInterface $page) {
     return $this->t('Edit %label page', ['%label' => $page->label()]);
   }
 
@@ -158,6 +140,22 @@ class PageManagerController extends ControllerBase {
   public function editSelectionConditionTitle(PageVariantInterface $page_variant, $condition_id) {
     $selection_condition = $page_variant->getSelectionCondition($condition_id);
     return $this->t('Edit %label selection condition', ['%label' => $selection_condition->getPluginDefinition()['label']]);
+  }
+
+  /**
+   * Route title callback.
+   *
+   * @param \Drupal\page_manager\PageVariantInterface $page_variant
+   *   The page variant entity.
+   * @param string $name
+   *   The static context name.
+   *
+   * @return string
+   *   The title for the static context edit form.
+   */
+  public function editStaticContextTitle(PageVariantInterface $page_variant, $name) {
+    $static_context = $page_variant->getStaticContext($name);
+    return $this->t('Edit @label static context', ['@label' => $static_context['label']]);
   }
 
   /**
@@ -296,30 +294,13 @@ class PageManagerController extends ControllerBase {
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
-   * @param string $block_display
-   *   The identifier of the block display variant.
-   * @param string $tempstore_id
-   *   The identifier of the temporary store.
+   * @param \Drupal\page_manager\PageVariantInterface $page_variant
+   *   The page entity.
    *
    * @return array
    *   The block selection page.
    */
-  public function selectBlock(Request $request, $block_display, $tempstore_id) {
-    $cached_values = $this->tempstore->get($tempstore_id)->get($block_display);
-    /** @var \Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant $variant_plugin */
-    $variant_plugin = $cached_values['plugin'];
-
-    // Rehydrate the contexts on this end.
-    $contexts = [];
-    /**
-     * @var string $context_name
-     * @var \Drupal\Core\Plugin\Context\ContextDefinitionInterface $context_definition
-     */
-    foreach ($cached_values['contexts'] as $context_name => $context_definition) {
-      $contexts[$context_name] = new Context($context_definition);
-    }
-    $variant_plugin->setContexts($contexts);
-
+  public function selectBlock(Request $request, PageVariantInterface $page_variant) {
     // Add a section containing the available blocks to be added to the variant.
     $build = [
       '#type' => 'container',
@@ -329,7 +310,7 @@ class PageManagerController extends ControllerBase {
         ],
       ],
     ];
-    $available_plugins = $this->blockManager->getDefinitionsForContexts($variant_plugin->getContexts());
+    $available_plugins = $this->blockManager->getDefinitionsForContexts($page_variant->getContexts());
     // Order by category, and then by admin label.
     $available_plugins = $this->blockManager->getSortedDefinitions($available_plugins);
     foreach ($available_plugins as $plugin_id => $plugin_definition) {
@@ -348,11 +329,11 @@ class PageManagerController extends ControllerBase {
       // Add a link for each available block within each region.
       $build[$category_key]['content']['#links'][$plugin_id] = [
         'title' => $plugin_definition['admin_label'],
-        'url' => Url::fromRoute('page_manager.block_display_add_block', [
-          'block_display' => $block_display,
+        'url' => Url::fromRoute('page_manager.variant_add_block', [
+          'page' => $page_variant->get('page'),
+          'page_variant' => $page_variant->id(),
           'block_id' => $plugin_id,
           'region' => $request->query->get('region'),
-          'destination' => $request->query->get('destination'),
         ]),
         'attributes' => $this->getAjaxAttributes(),
       ];

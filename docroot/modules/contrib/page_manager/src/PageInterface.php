@@ -25,14 +25,6 @@ interface PageInterface extends ConfigEntityInterface, EntityWithPluginCollectio
   public function status();
 
   /**
-   * Returns the description for the page entity.
-   *
-   * @return string
-   *   The description for the page entity.
-   */
-  public function getDescription();
-
-  /**
    * Returns the path for the page entity.
    *
    * @return string

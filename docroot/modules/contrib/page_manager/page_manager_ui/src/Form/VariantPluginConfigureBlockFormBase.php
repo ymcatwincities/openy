@@ -10,12 +10,9 @@ namespace Drupal\page_manager_ui\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Plugin\ContextAwarePluginAssignmentTrait;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
 use Drupal\page_manager\PageVariantInterface;
-use Drupal\user\SharedTempStoreFactory;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a base form for configuring a block as part of a variant.
@@ -25,18 +22,11 @@ abstract class VariantPluginConfigureBlockFormBase extends FormBase {
   use ContextAwarePluginAssignmentTrait;
 
   /**
-   * Tempstore factory.
+   * The page entity.
    *
-   * @var \Drupal\user\SharedTempStoreFactory
+   * @var \Drupal\page_manager\PageVariantInterface
    */
-  protected $tempstore;
-
-  /**
-   * The variant plugin.
-   *
-   * @var \Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant
-   */
-  protected $variantPlugin;
+  protected $pageVariant;
 
   /**
    * The plugin being configured.
@@ -44,43 +34,6 @@ abstract class VariantPluginConfigureBlockFormBase extends FormBase {
    * @var \Drupal\Core\Block\BlockPluginInterface
    */
   protected $block;
-
-  /**
-   * Constructs a new VariantPluginConfigureBlockFormBase.
-   *
-   * @param \Drupal\user\SharedTempStoreFactory $tempstore
-   *   The tempstore factory.
-   */
-  public function __construct(SharedTempStoreFactory $tempstore) {
-    $this->tempstore = $tempstore;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('user.shared_tempstore')
-    );
-  }
-
-  /**
-   * Get the tempstore id.
-   *
-   * @return string
-   */
-  protected function getTempstoreId() {
-    return 'page_manager.block_display';
-  }
-
-  /**
-   * Get the tempstore.
-   *
-   * @return \Drupal\user\SharedTempStore
-   */
-  protected function getTempstore() {
-    return $this->tempstore->get($this->getTempstoreId());
-  }
 
   /**
    * Prepares the block plugin based on the block ID.
@@ -104,24 +57,10 @@ abstract class VariantPluginConfigureBlockFormBase extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $block_display = NULL, $block_id = NULL) {
-    $cached_values = $this->tempstore->get('page_manager.block_display')->get($block_display);
-    /** @var \Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant $variant_plugin */
-    $this->variantPlugin = $cached_values['plugin'];
-
-    // Rehydrate the contexts on this end.
-    $contexts = [];
-    /**
-     * @var string $context_name
-     * @var \Drupal\Core\Plugin\Context\ContextDefinitionInterface $context_definition
-     */
-    foreach ($cached_values['contexts'] as $context_name => $context_definition) {
-      $contexts[$context_name] = new Context($context_definition);
-    }
-    $this->variantPlugin->setContexts($contexts);
-
+  public function buildForm(array $form, FormStateInterface $form_state, PageVariantInterface $page_variant = NULL, $block_id = NULL) {
+    $this->pageVariant = $page_variant;
     $this->block = $this->prepareBlock($block_id);
-    $form_state->set('variant_id', $this->getVariantPlugin()->id());
+    $form_state->set('page_variant_id', $page_variant->id());
     $form_state->set('block_id', $this->block->getConfiguration()['uuid']);
 
     $form['#tree'] = TRUE;
@@ -139,7 +78,7 @@ abstract class VariantPluginConfigureBlockFormBase extends FormBase {
     ];
 
     if ($this->block instanceof ContextAwarePluginInterface) {
-      $form['context_mapping'] = $this->addContextAssignmentElement($this->block, $this->getVariantPlugin()->getContexts());
+      $form['context_mapping'] = $this->addContextAssignmentElement($this->block, $this->pageVariant->getContexts());
     }
 
     $form['actions']['submit'] = [
@@ -181,10 +120,9 @@ abstract class VariantPluginConfigureBlockFormBase extends FormBase {
     }
 
     $this->getVariantPlugin()->updateBlock($this->block->getConfiguration()['uuid'], ['region' => $form_state->getValue('region')]);
+    $this->pageVariant->save();
 
-    $cached_values = $this->getTempstore()->get($form_state->get('variant_id'));
-    $cached_values['plugin'] = $this->getVariantPlugin();
-    $this->getTempstore()->set($form_state->get('variant_id'), $cached_values);
+    $form_state->setRedirectUrl($this->pageVariant->toUrl('edit-form'));
   }
 
   /**
@@ -193,7 +131,7 @@ abstract class VariantPluginConfigureBlockFormBase extends FormBase {
    * @return \Drupal\ctools\Plugin\BlockVariantInterface
    */
   protected function getVariantPlugin() {
-    return $this->variantPlugin;
+    return $this->pageVariant->getVariantPlugin();
   }
 
 }

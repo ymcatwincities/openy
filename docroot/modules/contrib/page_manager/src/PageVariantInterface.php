@@ -30,37 +30,11 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
   public function getVariantPluginId();
 
   /**
-   * Sets the plugin ID of the variant plugin without loading the Plugin
-   *   collections.
-   *
-   * @param string $variant
-   *   The plugin ID of the variant plugin.
-   *
-   * @return $this
-   *
-   * @see \Drupal\page_manager\Entity\PageVariant::getPluginCollections()
-   */
-  public function setVariantPluginId($variant);
-
-  /**
    * Gets the page this variant is on.
    *
    * @return \Drupal\page_manager\PageInterface
    */
   public function getPage();
-
-  /**
-   * Sets the page with a full entity object.
-   *
-   * This is mainly useful for setting an unsaved page on a page variant so you
-   * can continue to work with it prior to saving.
-   *
-   * @param \Drupal\page_manager\PageInterface $page
-   *   The page entity object this variant is associated with.
-   *
-   * @return $this
-   */
-  public function setPageEntity(PageInterface $page);
 
   /**
    * Gets the values for all defined contexts.
@@ -69,13 +43,6 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
    *   An array of set context values, keyed by context name.
    */
   public function getContexts();
-
-  /**
-   * Resets the collected contexts.
-   *
-   * @return $this
-   */
-  public function resetCollectedContexts();
 
   /**
    * Gets the weight of this variant (compared to other variants on the page).

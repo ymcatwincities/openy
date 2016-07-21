@@ -39,9 +39,6 @@ class PageConfigSchemaTest extends KernelTestBase {
    */
   public function testValidPageConfigSchema() {
     $id = 'node_view';
-    $label = 'Node view';
-    $description = 'When enabled, this overrides the default Drupal behavior for displaying nodes at <em>/node/{node}</em>. If you add variants, you may use selection criteria such as node type or language or user access to provide different views of nodes. If no variant is selected, the default Drupal node view will be used. This page only affects nodes viewed as pages, it will not affect nodes viewed in lists or at other locations.';
-
     /** @var \Drupal\page_manager\PageInterface $page */
     $page = Page::load($id);
 
@@ -94,9 +91,6 @@ class PageConfigSchemaTest extends KernelTestBase {
 
     $page_config = \Drupal::config("page_manager.page.$id");
     $this->assertSame($page_config->get('id'), $id);
-    $this->assertSame($page_config->get('label'), $label);
-    $this->assertSame($page_config->get('description'), $description);
-
     $variant_config = \Drupal::config("page_manager.page_variant.$page_variant_id");
     $this->assertSame($variant_config->get('id'), $page_variant_id);
 

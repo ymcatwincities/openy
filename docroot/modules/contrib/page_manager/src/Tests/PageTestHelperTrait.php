@@ -12,7 +12,12 @@ namespace Drupal\page_manager\Tests;
  */
 trait PageTestHelperTrait {
 
-  // @fixme: Remove this change when https://www.drupal.org/node/2684281 is fixed.
+  /**
+   * @see \Drupal\simpletest\TestBase::$container
+   *
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
+   */
+  protected $container;
 
   /**
    * Triggers a router rebuild.

@@ -17,9 +17,11 @@ use Drupal\page_manager\PageVariantInterface;
 class VariantPluginDeleteBlockForm extends ConfirmFormBase {
 
   /**
-   * @var \Drupal\ctools\Plugin\BlockVariantInterface
+   * The page variant.
+   *
+   * @var \Drupal\page_manager\PageVariantInterface
    */
-  protected $plugin;
+  protected $pageVariant;
 
   /**
    * The plugin being configured.
@@ -27,24 +29,6 @@ class VariantPluginDeleteBlockForm extends ConfirmFormBase {
    * @var \Drupal\Core\Block\BlockPluginInterface
    */
   protected $block;
-
-  /**
-   * Get the tempstore id.
-   *
-   * @return string
-   */
-  protected function getTempstoreId() {
-    return 'page_manager.block_display';
-  }
-
-  /**
-   * Get the tempstore.
-   *
-   * @return \Drupal\user\SharedTempStore
-   */
-  protected function getTempstore() {
-    return \Drupal::service('user.shared_tempstore')->get($this->getTempstoreId());
-  }
 
   /**
    * {@inheritdoc}
@@ -64,7 +48,7 @@ class VariantPluginDeleteBlockForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return \Drupal::request()->attributes->get('destination');
+    return $this->pageVariant->toUrl('edit-form');
   }
 
   /**
@@ -77,13 +61,9 @@ class VariantPluginDeleteBlockForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $block_display = NULL, $block_id = NULL) {
-    $this->plugin = $this->getTempstore()->get($block_display)['plugin'];
-    $this->block = $this->plugin->getBlock($block_id);
-    $form['block_display'] = [
-      '#type' => 'value',
-      '#value' => $block_display
-    ];
+  public function buildForm(array $form, FormStateInterface $form_state, PageVariantInterface $page_variant = NULL, $block_id = NULL) {
+    $this->pageVariant = $page_variant;
+    $this->block = $this->getVariantPlugin()->getBlock($block_id);
     return parent::buildForm($form, $form_state);
   }
 
@@ -91,11 +71,20 @@ class VariantPluginDeleteBlockForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->plugin->removeBlock($this->block->getConfiguration()['uuid']);
-    $cached_values = $this->getTempstore()->get($form_state->getValue('block_display'));
-    $cached_values['plugin'] = $this->plugin;
-    $this->getTempstore()->set($form_state->getValue('block_display'), $cached_values);
+    $this->getVariantPlugin()->removeBlock($this->block->getConfiguration()['uuid']);
+    $this->pageVariant->save();
     drupal_set_message($this->t('The block %label has been removed.', ['%label' => $this->block->label()]));
+
+    $form_state->setRedirectUrl($this->getCancelUrl());
+  }
+
+  /**
+   * Gets the variant plugin for this page variant entity.
+   *
+   * @return \Drupal\ctools\Plugin\BlockVariantInterface
+   */
+  protected function getVariantPlugin() {
+    return $this->pageVariant->getVariantPlugin();
   }
 
 }

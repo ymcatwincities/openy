@@ -40,16 +40,6 @@ class PageListBuilder extends ConfigEntityListBuilder {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function getDefaultOperations(EntityInterface $entity) {
-    $operations = parent::getDefaultOperations($entity);
-    $operations['edit']['url'] = new Url('entity.page.edit_form', ['machine_name' => $entity->id(), 'step' => 'general']);
-
-    return $operations;
-  }
-
-  /**
    * Gets the displayable path of a page entity.
    *
    * @param \Drupal\page_manager\PageInterface $entity
