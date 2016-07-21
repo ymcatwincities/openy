@@ -3795,8 +3795,7 @@ function ymca_master_update_8154() {
 /**
  * Add new templates to ckeditor.
  */
-function ymca_master_update_8156()
-{
+function ymca_master_update_8156() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
