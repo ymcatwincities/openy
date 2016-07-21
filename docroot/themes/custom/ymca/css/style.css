@@ -8917,9 +8917,20 @@ body .ajax-progress-throbber .throbber {
   margin-right: 7px;
 }
 
+.mindbody-search-results-timezone-message {
+  background-color: #fff;
+  padding-top: 30px;
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .mindbody-search-results-timezone-message {
+    text-align: left;
+  }
+}
+
 .mindbody-search-results-content {
   background-color: #fff;
-  padding-top: 60px;
+  padding-top: 30px;
 }
 .mindbody-search-results-content .day {
   margin-bottom: 35px;

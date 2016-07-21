@@ -5,19 +5,20 @@ namespace Drupal\ymca_mindbody\Form;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\Url;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\node\NodeInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
-use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides the Personal Training Form.
@@ -35,6 +36,11 @@ class MindbodyPTForm extends FormBase {
    * Default value for end time on PT form.
    */
   const DEFAULT_END_TIME = 22;
+
+  /**
+   * Default date range on PT form.
+   */
+  const DEFAULT_DATE_RANGE = '3days';
 
   /**
    * Mindbody Proxy.
@@ -146,6 +152,7 @@ class MindbodyPTForm extends FormBase {
       QueryFactory $entity_query,
       EntityTypeManagerInterface $entity_type_manager,
       LoggerChannelFactoryInterface $logger_factory,
+      RequestStack $request_stack,
       array $state = []
     ) {
     $this->resultsSearcher = $results_searcher;
@@ -157,6 +164,8 @@ class MindbodyPTForm extends FormBase {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_mindbody');
+    $this->requestStack = $request_stack;
+    $this->node = $this->requestStack->getCurrentRequest()->get('node');
 
     try {
       if (!$this->requestGuard->validateSearchCriteria($state)) {
@@ -168,10 +177,6 @@ class MindbodyPTForm extends FormBase {
       $state = [];
     }
     $this->state = $state;
-
-    // TODO: use DI.
-    $request = \Drupal::request();
-    $this->node = $request->get('node');
   }
 
   /**
@@ -222,6 +227,7 @@ class MindbodyPTForm extends FormBase {
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
       $container->get('logger.factory'),
+      $container->get('request_stack'),
       $state
     );
   }
@@ -526,7 +532,7 @@ class MindbodyPTForm extends FormBase {
             'week' => $this->t('Next week'),
             '3weeks' => $this->t('Next 3 weeks'),
           ],
-          '#default_value' => isset($values['mb_date_range']) ? $values['mb_date_range'] : '3days',
+          '#default_value' => isset($values['mb_date_range']) ? $values['mb_date_range'] : $this::DEFAULT_DATE_RANGE,
           '#weight' => 9,
         ];
 
@@ -537,8 +543,7 @@ class MindbodyPTForm extends FormBase {
       }
     }
     catch (MindbodyException $e) {
-      // TODO: refactor to use render arrays.
-      $form['disabled']['#markup'] = $this->resultsSearcher->getDisabledMarkup();
+      $form['disabled'] = $this->resultsSearcher->getDisabledMarkup();
       $this->logger->error('Failed to build the form. Message: %msg', ['%msg' => $e->getMessage()]);
     }
 
