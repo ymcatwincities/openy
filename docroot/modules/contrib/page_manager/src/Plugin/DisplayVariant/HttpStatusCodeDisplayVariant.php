@@ -41,7 +41,7 @@ class HttpStatusCodeDisplayVariant extends VariantBase {
     ] + $options;
 
     // Add the HTTP status code, so it's easier for people to find it.
-    array_walk($options, function($title, $code) {
+    array_walk($options, function($title, $code) use (&$options) {
       $options[$code] = $this->t('@code (@title)', ['@code' => $code, '@title' => $title]);
     });
 

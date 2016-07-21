@@ -12,12 +12,7 @@ namespace Drupal\page_manager\Tests;
  */
 trait PageTestHelperTrait {
 
-  /**
-   * @see \Drupal\simpletest\TestBase::$container
-   *
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-   */
-  protected $container;
+  // @fixme: Remove this change when https://www.drupal.org/node/2684281 is fixed.
 
   /**
    * Triggers a router rebuild.
