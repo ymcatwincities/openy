@@ -8091,6 +8091,161 @@ body .ajax-progress-throbber .throbber {
   padding: 2px 8px 2px;
 }
 
+.session_schedules {
+  background-color: #f8f8f8;
+  margin: 0 -100px 50px;
+  padding: 90px 65px;
+}
+@media screen and (max-width: 767px) {
+  .session_schedules {
+    padding: 20px 0;
+    margin: 25px -15px;
+  }
+}
+.session_schedules .container .row h2 {
+  text-align: center;
+  color: #c6188b;
+  margin: 0 0 80px;
+}
+@media screen and (max-width: 767px) {
+  .session_schedules .container .row h2 {
+    margin: 0 0 20px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .session_schedules .row {
+    text-align: center;
+  }
+}
+.session_schedules .columns {
+  display: inline-block;
+  padding: 30px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .session_schedules .columns {
+    border-right: 1px solid #e2e2e2;
+    max-width: 240px;
+    margin-bottom: 0;
+    text-align: left;
+    width: 19%;
+  }
+}
+.session_schedules .columns:nth-last-child(1) {
+  border: none;
+}
+.session_schedules .columns h4 {
+  color: #a7a7a7;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 0 0 5px;
+}
+.session_schedules .columns .date {
+  color: #424242;
+  font-weight: bold;
+  margin: 0 0 20px;
+}
+.session_schedules .columns .date p {
+  color: #424242;
+  margin: 0;
+}
+.session_schedules .columns .register-label {
+  color: #777;
+}
+.session_schedules .columns .register-label p {
+  color: #777;
+  margin: 0;
+}
+.session_schedules .columns .register-date {
+  color: #c6188b;
+}
+.session_schedules .columns .register-date p {
+  color: #c6188b;
+  margin: 0;
+}
+
+.clinics_schedule {
+  margin: 0 -100px;
+  padding: 80px 65px;
+}
+@media screen and (max-width: 767px) {
+  .clinics_schedule {
+    padding: 20px 0;
+    margin: 0 -15px;
+  }
+}
+.clinics_schedule .container .row h2 {
+  text-align: center;
+  color: #0889cd;
+  margin: 0 0 15px;
+}
+.clinics_schedule .container .row h3 {
+  text-align: center;
+  text-transform: none;
+  color: #424242;
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+.clinics_schedule .container .row h4 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #424242;
+  font-size: 18px;
+  margin: 0 0 40px;
+}
+.clinics_schedule .description {
+  text-align: center;
+  margin: 0 auto 30px;
+  font-size: 15px;
+  max-width: 500px;
+  padding: 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .clinics_schedule .row {
+    text-align: center;
+  }
+}
+.clinics_schedule .container .row .columns {
+  display: inline-block;
+  padding: 10px 30px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .clinics_schedule .container .row .columns {
+    border-right: 1px solid #e2e2e2;
+    margin-bottom: 0;
+    width: 33%;
+    max-width: 235px;
+  }
+}
+.clinics_schedule .container .row .columns:nth-last-child(1) {
+  border: none;
+}
+.clinics_schedule .container .row .columns h5 {
+  color: #0889cd;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 0;
+}
+.clinics_schedule .container .row .columns .date {
+  color: #c6188b;
+  font-size: 18px;
+}
+.clinics_schedule .container .row .columns .date p {
+  color: #c6188b;
+  margin: 0;
+}
+.clinics_schedule .container .row .columns .img-wrapper img {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -8736,9 +8891,20 @@ body .ajax-progress-throbber .throbber {
   margin-right: 7px;
 }
 
+.mindbody-search-results-timezone-message {
+  background-color: #fff;
+  padding-top: 30px;
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .mindbody-search-results-timezone-message {
+    text-align: left;
+  }
+}
+
 .mindbody-search-results-content {
   background-color: #fff;
-  padding-top: 60px;
+  padding-top: 30px;
 }
 .mindbody-search-results-content .day {
   margin-bottom: 35px;
@@ -9076,10 +9242,10 @@ body .ajax-progress-throbber .throbber {
   color: #0889cd;
 }
 .template_youth_sports_overview section.node .content_group section:nth-child(3) h3 {
-  color: #fbae1f;
+  color: #fcaf17;
 }
 .template_youth_sports_overview section.node .content_group section:nth-child(3) ul li a {
-  color: #fbae1f;
+  color: #fcaf17;
 }
 .template_youth_sports_overview .file--application-pdf a,
 .template_youth_sports_overview .pdf-link {
@@ -9244,7 +9410,7 @@ a.sports-icon.tumbling {
   color: #0889cd;
 }
 .template_youth_sports_inner section.node .content-expander-3 .accordion-toggle {
-  color: #fbae1f;
+  color: #fcaf17;
 }
 .template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
   color: #f37823;
