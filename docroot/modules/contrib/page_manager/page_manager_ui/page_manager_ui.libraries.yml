@@ -1,5 +1,0 @@
-admin:
-  version: VERSION
-  css:
-    layout:
-      css/page-manager-ui.admin.css: {}

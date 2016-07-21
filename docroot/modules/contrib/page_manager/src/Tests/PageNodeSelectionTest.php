@@ -84,11 +84,7 @@ class PageNodeSelectionTest extends WebTestBase {
       'page' => 'node_view',
     ]);
     $block_page_plugin = $block_page_variant->getVariantPlugin();
-    $this->assertTrue(!empty($block_page_plugin->getConfiguration()['uuid']));
-    $uuid = $block_page_plugin->getConfiguration()['uuid'];
     $block_page_plugin->setConfiguration(['page_title' => '[node:title]']);
-    $second_uuid = $block_page_plugin->getConfiguration()['uuid'];
-    $this->assertEqual($uuid, $second_uuid);
     /** @var \Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant $block_page_plugin */
     $block_page_plugin->addBlock([
       'id' => 'entity_view:node',
@@ -125,8 +121,6 @@ class PageNodeSelectionTest extends WebTestBase {
 
     // Test cacheability metadata.
     $this->drupalGet('node/' . $node3->id());
-    $this->assertTitle($node3->label() . ' | Drupal');
-    $this->assertText($node3->body->value);
     $this->assertNoText($node2->label());
 
     // Ensure this doesn't affect the /node/add page.

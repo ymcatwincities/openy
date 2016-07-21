@@ -84,7 +84,7 @@ class PageVariantTest extends UnitTestCase {
     $data['additive'] = [
       ['static' => 'static'],
       ['page' => 'page'],
-      ['page' => 'page', 'static' => 'static'],
+      ['static' => 'static', 'page' => 'page'],
     ];
     $data['conflicting'] = [
       ['foo' => 'static'],

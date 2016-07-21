@@ -13,7 +13,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\PrimitiveInterface;
 use Drupal\Core\TypedData\TypedDataManagerInterface;
 use Drupal\page_manager\PageInterface;
-use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -50,36 +49,16 @@ class ParameterEditForm extends FormBase {
   protected $typedDataManager;
 
   /**
-   * @var \Drupal\user\SharedTempStoreFactory
-   */
-  protected $tempstore;
-
-  /**
-   * @var string
-   */
-  protected $tempstore_id;
-
-  /**
-   * The machine name of the page being edited in tempstore.
-   *
-   * @var string
-   */
-  protected $machine_name;
-
-  /**
    * Constructs a new ParameterEditForm.
    *
    * @param \Drupal\Core\Entity\EntityTypeRepositoryInterface $entity_type_repository
    *   The entity type repository.
    * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
    *   The typed data manager.
-   * @param \Drupal\user\SharedTempStoreFactory $tempstore
-   *   The temporary store.
    */
-  public function __construct(EntityTypeRepositoryInterface $entity_type_repository, TypedDataManagerInterface $typed_data_manager, SharedTempStoreFactory $tempstore) {
+  public function __construct(EntityTypeRepositoryInterface $entity_type_repository, TypedDataManagerInterface $typed_data_manager) {
     $this->entityTypeRepository = $entity_type_repository;
     $this->typedDataManager = $typed_data_manager;
-    $this->tempstore = $tempstore;
   }
 
   /**
@@ -88,17 +67,8 @@ class ParameterEditForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.repository'),
-      $container->get('typed_data_manager'),
-      $container->get('user.shared_tempstore')
+      $container->get('typed_data_manager')
     );
-  }
-
-  protected function getTempstore() {
-    return $this->tempstore->get($this->tempstore_id)->get($this->machine_name);
-  }
-
-  protected function setTempstore($cached_values) {
-    $this->tempstore->get($this->tempstore_id)->set($this->machine_name, $cached_values);
   }
 
   /**
@@ -111,12 +81,9 @@ class ParameterEditForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $name = '', $tempstore_id = NULL, $machine_name = NULL) {
-    $this->tempstore_id = $tempstore_id;
-    $this->machine_name = $machine_name;
-    $cached_values = $this->getTempstore();
-    $page = $cached_values['page'];
-    $parameter = $page->getParameter($name);
+  public function buildForm(array $form, FormStateInterface $form_state, PageInterface $page = NULL, $name = '') {
+    $this->page = $page;
+    $parameter = $this->page->getParameter($name);
 
     $form['machine_name'] = [
       '#type' => 'value',
@@ -186,48 +153,23 @@ class ParameterEditForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $cache_values = $this->getTempstore();
-    /** @var \Drupal\page_manager\PageInterface $page */
-    $page = $cache_values['page'];
     $name = $form_state->getValue('machine_name');
     $type = $form_state->getValue('type');
+
     if ($type === static::NO_CONTEXT_KEY) {
-      $page->removeParameter($name);
+      $this->page->removeParameter($name);
       $label = NULL;
     }
     else {
       $label = $form_state->getValue('label');
-      $page->setParameter($name, $type, $label);
+      $this->page->setParameter($name, $type, $label);
     }
+    $this->page->save();
 
-    $this->setTempstore($cache_values);
+    // Set the submission message.
     drupal_set_message($this->t('The %label parameter has been updated.', ['%label' => $label ?: $name]));
-    list($route_name, $route_parameters) = $this->getParentRouteInfo($cache_values);
-    $form_state->setRedirect($route_name, $route_parameters);
-  }
 
-  /**
-   * Returns the parent route to redirect after form submission.
-   *
-   * @return array
-   *   Array containing the route name and its parameters.
-   */
-  protected function getParentRouteInfo($cached_values) {
-    /** @var $page \Drupal\page_manager\PageInterface */
-    $page = $cached_values['page'];
-
-    if ($page->isNew()) {
-      return ['entity.page.add_step_form', [
-        'machine_name' => $this->machine_name,
-        'step' => 'parameters',
-      ]];
-    }
-    else {
-      return ['entity.page.edit_form', [
-        'machine_name' => $this->machine_name,
-        'step' => 'parameters',
-      ]];
-    }
+    $form_state->setRedirectUrl($this->page->toUrl('edit-form'));
   }
 
 }
