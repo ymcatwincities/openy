@@ -3860,3 +3860,15 @@ function ymca_master_update_8158() {
     ]
   );
 }
+
+/**
+ * Allow contributor administer files.
+ */
+function ymca_master_update_8159() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+    ]
+  );
+}
