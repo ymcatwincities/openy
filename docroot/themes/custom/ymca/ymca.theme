@@ -1073,14 +1073,6 @@ function ymca_form_groupex_form_location_refine_alter(&$form, \Drupal\Core\Form\
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- */
-function ymca_form_mindbody_pt_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $form['mb_date']['mb_start_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['mb_date']['mb_end_date']['#pre_render'][] = 'ymca_prerender_datetime';
-}
-
-/**
  * Prerender callback from locations checkboxes.
  */
 function ymca_prerender_checkboxes($element) {
