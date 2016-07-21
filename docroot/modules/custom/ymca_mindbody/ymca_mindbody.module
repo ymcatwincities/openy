@@ -66,13 +66,9 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
             $node = $data['node'];
             /* @var $site_section \Drupal\node\NodeInterface */
             if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
-              $title = $site_section->getTitle();
-              $mapping_id = \Drupal::entityQuery('mapping')
-                ->condition('type', 'location')
-                ->condition('name', $title)
-                ->execute();
-              $mapping_id = reset($mapping_id);
-              if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+
+              $location_repo = \Drupal::service('ymca_mappings.location_repository');
+              if ($mapping = $location_repo->findByLocationId($site_section->id())) {
                 $field_mindbody_id = $mapping->field_mindbody_id->getValue();
                 $location = isset($field_mindbody_id[0]['value']) ? $field_mindbody_id[0]['value'] : FALSE;
                 $url_options = [
@@ -84,6 +80,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 $link = new Link(t('Schedule Personal Training'), Url::fromRoute('ymca_mindbody.location.pt', ['node' => $site_section->id()], $url_options));
                 $replacements[$original] = $link->toString();
               }
+
             }
           }
           break;
@@ -94,40 +91,31 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
             $node = $data['node'];
             /* @var $site_section \Drupal\node\NodeInterface */
             if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
-              $title = $site_section->getTitle();
-              $mapping_id = \Drupal::entityQuery('mapping')
-                ->condition('type', 'location')
-                ->condition('name', $title)
-                ->execute();
-              $mapping_id = reset($mapping_id);
-              if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+
+              $location_repo = \Drupal::service('ymca_mappings.location_repository');
+              if ($mapping = $location_repo->findByLocationId($site_section->id())) {
+
                 $field_mindbody_id = $mapping->field_mindbody_id->getValue();
                 $location = isset($field_mindbody_id[0]['value']) ? $field_mindbody_id[0]['value'] : FALSE;
                 $field_location_id = $mapping->field_location_ref->getValue();
                 $location_id = isset($field_location_id[0]['target_id']) ? $field_location_id[0]['target_id'] : FALSE;
-                // Modify Trainer's node title to be equal mapping name.
                 $node_title = explode(' ', $node->getTitle());
-                if (isset($node_title[0]) && isset($node_title[0]) && !empty($location_id)) {
-                  $name = $node_title[1] . ', ' . $node_title[0];
-                  $mapping_id = \Drupal::entityQuery('mapping')
-                    ->condition('type', 'trainer')
-                    ->condition('name', $name, 'LIKE')
-                    ->execute();
-                  $mapping_id = reset($mapping_id);
-                  if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
-                    $field_mindbody_trainer_id = $mapping->field_mindbody_trainer_id->getValue();
-                    $trainer = isset($field_mindbody_trainer_id[0]['value']) ? $field_mindbody_trainer_id[0]['value'] : FALSE;
-                    $url_options = [
-                      'query' => [
-                        'location' => $location,
-                        'trainer' => $trainer,
-                        'context' => 'trainer',
-                      ],
-                    ];
-                    $link = new Link(t('Schedule Appointment with @title', ['@title' => $node_title[0]]), Url::fromRoute('ymca_mindbody.location.pt', ['node' => $location_id], $url_options));
-                    $replacements[$original] = $link->toString();
-                  }
+
+                $trainer_repo = \Drupal::service('ymca_mappings.trainer_repository');
+                if ($mapping = $trainer_repo->findByPageId($node->id())) {
+                  $field_mindbody_trainer_id = $mapping->field_mindbody_trainer_id->getValue();
+                  $trainer = isset($field_mindbody_trainer_id[0]['value']) ? $field_mindbody_trainer_id[0]['value'] : FALSE;
+                  $url_options = [
+                    'query' => [
+                      'location' => $location,
+                      'trainer' => $trainer,
+                      'context' => 'trainer',
+                    ],
+                  ];
+                  $link = new Link(t('Schedule Appointment with @title', ['@title' => $node_title[0]]), Url::fromRoute('ymca_mindbody.location.pt', ['node' => $location_id], $url_options));
+                  $replacements[$original] = $link->toString();
                 }
+
               }
             }
           }
