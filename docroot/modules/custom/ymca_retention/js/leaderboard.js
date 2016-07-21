@@ -7,8 +7,11 @@
     }
     $('body').addClass('ymca-retention-leaderboard-processed');
 
-    var LeaderboardModule = angular.module('Leaderboard', []);
-    LeaderboardModule.controller('LeaderboardController', function($scope, $http) {
+    var LeaderboardModule = angular.module('Leaderboard', ['ajoslin.promise-tracker']);
+    LeaderboardModule.controller('LeaderboardController', function($scope, $http, promiseTracker) {
+      // Initiate the promise tracker to track requests.
+      $scope.progress = promiseTracker();
+
       $scope.locations = settings.ymca_retention.leaderboard.locations;
       $scope.location = $scope.locations[0];
 
@@ -18,17 +21,21 @@
         $scope.order = 'visits';
         if ($scope.location.branch_id === 0) {
           $scope.members = [];
+          return;
         }
-        else {
-          $http({
-            method: 'GET',
-            url: settings.ymca_retention.leaderboard.leaderboard_url_pattern.replace('0000', $scope.location.branch_id),
-            cache: true
-          })
-            .success(function(data) {
-              $scope.members = data;
-            });
-        }
+
+        var $promise = $http({
+          method: 'GET',
+          url: settings.ymca_retention.leaderboard.leaderboard_url_pattern.replace('0000', $scope.location.branch_id),
+          cache: true
+        })
+          .then(function(response) {
+            console.log(response);
+            $scope.members = response.data;
+          });
+
+        // Track the request and show its progress to the user.
+        $scope.progress.addPromise($promise);
       };
       $scope.loadData();
 
