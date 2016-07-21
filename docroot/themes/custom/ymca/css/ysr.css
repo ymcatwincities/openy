@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.ng-hide {
+  display: none !important;
+}
+
 .col-small-padding, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   padding-left: 8px;
   padding-left: 0.75rem;
@@ -885,6 +889,9 @@
     margin-right: auto;
   }
 }
+#register-and-report .report .report-form .btn-primary:disabled {
+  background-color: #9c1f7b;
+}
 #register-and-report.slides {
   position: relative;
   width: 200%;
@@ -1443,6 +1450,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 
+#register-and-report .ajax-progress-throbber .throbber {
+  background-size: 22px 22px;
+  background-size: 2.2rem 2.2rem;
+  background-image: url(../prototypes/ysr/img/throbber-white.svg);
+}
+
 .registration-confirmation {
   padding-bottom: 40px;
   padding-bottom: 4rem;
@@ -1719,9 +1732,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   position: absolute;
   top: 50%;
   display: block;
-  width: 20px;
   height: 20px;
+  height: 2rem;
   margin-top: -10px;
+  margin-top: -1rem;
+  width: 20px;
+  width: 2rem;
   padding: 0;
   cursor: pointer;
   color: transparent;
@@ -1758,9 +1774,11 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 
 .slick-prev {
   left: -25px;
+  left: -2.5rem;
 }
 [dir='rtl'] .slick-prev {
   right: -25px;
+  right: -2.5rem;
   left: auto;
 }
 
@@ -1773,10 +1791,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 
 .slick-next {
   right: -25px;
+  right: -2.5rem;
 }
 [dir='rtl'] .slick-next {
-  right: auto;
   left: -25px;
+  left: -2.5rem;
+  right: auto;
 }
 [dir='rtl'] .slick-next:before {
   content: '←';
@@ -1826,17 +1846,20 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 .slick-dots li button {
+  width: 23px;
+  width: 2.3rem;
+  height: 23px;
+  height: 2.3rem;
+  padding: 15px;
+  padding: 1.5rem;
+  background: transparent;
+  border: 0;
+  color: transparent;
+  cursor: pointer;
+  display: block;
   font-size: 0;
   line-height: 0;
-  display: block;
-  width: 23px;
-  height: 23px;
-  padding: 15px;
-  cursor: pointer;
-  color: transparent;
-  border: 0;
   outline: none;
-  background: transparent;
 }
 .slick-dots li button:hover, .slick-dots li button:focus {
   outline: none;
@@ -1845,14 +1868,18 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   opacity: 1;
 }
 .slick-dots li button:before {
-  font-family: 'slick';
   font-size: 23px;
+  font-size: 2.3rem;
   line-height: 23px;
+  line-height: 2.3rem;
+  width: 23px;
+  width: 2.3rem;
+  height: 23px;
+  height: 2.3rem;
+  font-family: 'slick';
   position: absolute;
   top: 0;
   left: 0;
-  width: 23px;
-  height: 23px;
   content: '•';
   text-align: center;
   opacity: .25;
@@ -2134,6 +2161,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   height: 2.5rem;
   line-height: 25px;
   line-height: 2.5rem;
+  padding-left: 10px;
+  padding-left: 1rem;
   padding-right: 10px;
   padding-right: 1rem;
   background-color: #c6168d;
@@ -2199,8 +2228,14 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .campaign-dates .container {
   max-width: 1200px;
   max-width: 120rem;
-  padding: 0 50px;
-  padding: 0 5rem;
+  padding: 0 30px;
+  padding: 0 3rem;
+}
+@media (min-width: 30em) {
+  .campaign-dates .container {
+    padding: 0 50px;
+    padding: 0 5rem;
+  }
 }
 .campaign-dates .campaign-dates--slider-container {
   margin-bottom: 40px;
@@ -2249,6 +2284,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   font-family: "Cachet",Arial,sans-serif;
   border-radius: 32px;
   border-radius: 3.2rem;
+  border-width: 2px;
+  border-width: 0.2rem;
   font-size: 18px;
   font-size: 1.8rem;
   height: 64px;
@@ -2262,7 +2299,6 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   width: 64px;
   width: 6.4rem;
   border-style: solid;
-  border-width: 2px;
   color: #424242;
   display: inline-block;
   font-weight: bold;
@@ -2295,12 +2331,13 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .campaign-dates--date-current .month-day {
   border-radius: 38px;
   border-radius: 3.8rem;
+  border-width: 7px;
+  border-width: 0.7rem;
   height: 76px;
   height: 7.6rem;
   width: 76px;
   width: 7.6rem;
   border-color: #ac99ca;
-  border-width: 7px;
   margin: 0;
 }
 .campaign-dates--date-future .month-day {
@@ -2320,11 +2357,13 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 }
 .campaign-dates .slick-prev:before,
 .campaign-dates .slick-next:before {
+  background-size: 12px 20px;
+  background-size: 1.2rem 2rem;
   height: 20px;
   height: 2rem;
   width: 12px;
   width: 1.2rem;
-  background-size: 12px 20px;
+  background-repeat: no-repeat;
   content: "";
   display: block;
   position: relative;
@@ -2554,6 +2593,14 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 }
 .activities .activity-items .form-item-checkbox input:checked + label small {
   color: #f8f8f8;
+}
+.activities .activity-items .form-item-checkbox input:disabled + label:before {
+  background-size: 34px 34px;
+  background-size: 3.4rem 3.4rem;
+  background-image: url(../prototypes/ysr/img/throbber-white.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  content: '';
 }
 .activities .actions {
   margin: 54px auto 54px auto;
