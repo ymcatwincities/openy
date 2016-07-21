@@ -556,7 +556,10 @@ class MindbodyPTForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Nothing.
+    $values = $form_state->getValues();
+    if (isset($values['mb_start_time']) && isset($values['mb_end_time']) && $values['mb_start_time'] >= $values['mb_end_time']) {
+      $form_state->setErrorByName('mb_start_time', $this->t('Please check time range.'));
+    }
   }
 
   /**
