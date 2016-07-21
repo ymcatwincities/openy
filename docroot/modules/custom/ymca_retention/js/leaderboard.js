@@ -61,6 +61,7 @@
         }
       };
 
+      // Helper function to get object properties by string.
       $scope.byString = function(o, s) {
         // Convert indexes to properties.
         s = s.replace(/\[(\w+)\]/g, '.$1');
@@ -81,24 +82,28 @@
       };
       $scope.memberClass = function(index) {
         var classes = [];
-        var member_points = $scope.byString($scope.members_sorted[index], $scope.order),
-          third_place_points = $scope.byString($scope.members_sorted[2], $scope.order);
-        if (index <= 2 || member_points === third_place_points) {
+        var member_points = $scope.byString($scope.members_sorted[index], $scope.order);
+
+        // Member is the leader if he is in the first 3 places or he has the same amount of points as 3rd place.
+        if (index <= 2 || member_points === $scope.byString($scope.members_sorted[2], $scope.order)) {
           classes.push('leader');
-          if (index + 1 < $scope.members_sorted.length) {
-            var next_member_points = $scope.byString($scope.members_sorted[index + 1], $scope.order);
-            if (next_member_points < member_points) {
+
+          // Check if there is next member.
+          if ($scope.members_sorted.length > index + 1) {
+            // Member is the last leader if he is under the 3rd place and he has more points than the next member.
+            if (index >= 2 && member_points > $scope.byString($scope.members_sorted[index + 1], $scope.order)) {
               classes.push('leader--last');
             }
           }
+          // Member is the last leader if there is no next member.
           else {
             classes.push('leader--last');
           }
         }
         else {
           classes.push('chaser');
-          var previous_member_points = $scope.byString($scope.members_sorted[index - 1], $scope.order);
-          if (previous_member_points > member_points) {
+          // Member is the first chaser if previous member has the same amount of points as the 3rd place.
+          if ($scope.byString($scope.members_sorted[index - 1], $scope.order) === $scope.byString($scope.members_sorted[2], $scope.order)) {
             classes.push('chaser--first');
           }
         }
