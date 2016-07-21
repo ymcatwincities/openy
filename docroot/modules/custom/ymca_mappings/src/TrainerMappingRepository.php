@@ -53,4 +53,24 @@ class TrainerMappingRepository {
     }
   }
 
+  /**
+   * Find trainer mapping by Page Id.
+   *
+   * @param int $id
+   *   ID of trainer's page.
+   *
+   * @return mixed
+   *   Trainer mapping entity.
+   */
+  public function findByPageId($id) {
+    $mapping_id = $this->query
+      ->condition('type', self::TYPE)
+      ->condition('field_trainer_page_ref.target_id', $id)
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if ($mapping_id) {
+      return Mapping::load($mapping_id);
+    }
+  }
+
 }
