@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention;
 
 use Drupal\Core\Session\SessionManagerInterface;
+use Drupal\Core\Session\SessionConfigurationInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
@@ -23,6 +24,13 @@ class ActivityManager implements ActivityManagerInterface {
   protected $sessionManager;
 
   /**
+   * The session configuration.
+   *
+   * @var \Drupal\Core\Session\SessionConfigurationInterface
+   */
+  protected $sessionConfiguration;
+
+  /**
    * The current user.
    *
    * @var \Drupal\Core\Session\AccountProxyInterface
@@ -37,8 +45,9 @@ class ActivityManager implements ActivityManagerInterface {
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The injected current user account.
    */
-  public function __construct(SessionManagerInterface $session_manager, AccountProxyInterface $current_user) {
+  public function __construct(SessionManagerInterface $session_manager, SessionConfigurationInterface $session_configuration, AccountProxyInterface $current_user) {
     $this->sessionManager = $session_manager;
+    $this->sessionConfiguration = $session_configuration;
     $this->currentUser = $current_user;
   }
 
@@ -181,6 +190,7 @@ class ActivityManager implements ActivityManagerInterface {
     if ($this->currentUser->isAnonymous() && !isset($_SESSION['session_started'])) {
       $_SESSION['session_started'] = TRUE;
       $this->sessionManager->start();
+      $this->sessionConfiguration;
     }
 
     $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')
