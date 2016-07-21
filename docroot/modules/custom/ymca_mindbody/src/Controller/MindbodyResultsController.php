@@ -30,22 +30,23 @@ class MindbodyResultsController extends ControllerBase {
       $values['context'] = $query['context'];
     }
 
-    // TODO: use service instead of form.
-    $form = MindbodyPTForm::create(\Drupal::getContainer());
+    /** @var \Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher $searcher */
+    $searcher = \Drupal::service('ymca_mindbody.results_searcher');
+    $node = \Drupal::request()->get('node');
     try {
-      $search_results = $form->getSearchResults($values);
+      $search_results = $searcher->getSearchResults($values, $node);
     }
     catch (MindbodyException $e) {
       // TODO: use DI.
       $logger = \Drupal::getContainer()->get('logger.factory')->get('ymca_mindbody');
       $logger->error('Failed to get the results: %msg', ['%msg' => $e->getMessage()]);
-      // TODO: refactor to use render arrays.
+
       return [
         '#prefix' => '<div class="row mindbody-search-results-content">
           <div class="container">
             <div class="day col-sm-12">',
         // TODO: use service instead of form.
-        '#markup' => $form->getDisabledMarkup(),
+        'markup' => $searcher->getDisabledMarkup(),
         '#suffix' => '</div></div></div>',
       ];
     }
