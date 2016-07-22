@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_mobile_checkin.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_mobile_checkin_theme($existing, $type, $theme, $path) {
+  return [
+    'ymca_mobile_checkin_block' => [
+      'variables' => [
+        'files' => [],
+      ],
+      'template' => 'ymca-mobile-checkin-block',
+    ],
+    'ymca_mobile_checkin_plist' => [
+      'variables' => [
+        'url' => '',
+      ],
+      'template' => 'ymca-mobile-checkin-plist',
+    ],
+  ];
+}
