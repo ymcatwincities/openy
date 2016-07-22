@@ -25,6 +25,7 @@ class MemberInfo extends BlockBase {
     if (empty($member_id)) {
       return NULL;
     }
+    /** @var Member $member */
     $member = Member::load($member_id);
     if (empty($member)) {
       return NULL;
