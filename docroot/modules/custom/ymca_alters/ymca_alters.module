@@ -393,8 +393,6 @@ function ymca_alters_query_my_content_alter($query) {
     $nids_query,
     'IN'
   );
-  //var_dump((string) $query);
-  //var_dump($query->arguments());
 }
 
 /**
