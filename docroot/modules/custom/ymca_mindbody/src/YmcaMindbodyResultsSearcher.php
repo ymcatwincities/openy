@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: savage
- * Date: 21.07.16
- * Time: 16:38
- */
 
 namespace Drupal\ymca_mindbody;
 
@@ -12,21 +6,16 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Link;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
-
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\Url;
-use Drupal\mindbody\MindbodyException;
-use Drupal\node\NodeInterface;
-use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
-use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
+use Drupal\node\NodeInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class YmcaMindbodyResultsSearcher.
@@ -88,14 +77,14 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   protected $entityTypeManager;
 
   /**
-   * Logger.
+   * The logger channel.
    *
    * @var LoggerChannelInterface
    */
   protected $logger;
 
   /**
-   * Ymca Mindbody settings.
+   * The YMCA Mindbody settings.
    *
    * @var ImmutableConfig
    */
@@ -158,6 +147,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
 
   /**
    * {@inheritdoc}
+   *
+   * @todo Split on several methods: fetch data, represent data.
    */
   public function getSearchResults(array $criteria, $node = NULL) {
     if (!isset(
@@ -264,6 +255,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $session_type_name = isset($session_types[$criteria['session_type']]) ? $session_types[$criteria['session_type']] : '';
 
     $telephone = '';
+    /** @todo Use a service instead of direct queries. */
     $mapping_id = $this->entityQuery
       ->get('mapping')
       ->condition('type', 'location')
@@ -444,6 +436,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
 
   /**
    * {@inheritdoc}
+   *
+   * @todo Use a service instead of direct queries.
    */
   public function getTrainerName($trainer) {
     $trainer_name = '';
