@@ -51,7 +51,7 @@ interface YmcaMindbodyResultsSearcherInterface {
    *
    * @param array $options
    *   Array of options.
-   * @param Mixed $node
+   * @param $node
    *   Location node object or NULL.
    *
    * @return \Drupal\Core\Url
