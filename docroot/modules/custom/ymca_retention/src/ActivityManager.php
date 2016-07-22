@@ -2,9 +2,6 @@
 
 namespace Drupal\ymca_retention;
 
-use Drupal\Core\Session\SessionManagerInterface;
-use Drupal\Core\Session\SessionConfigurationInterface;
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\ymca_retention\Entity\MemberActivity;
@@ -15,41 +12,6 @@ use Drupal\Core\Render\BubbleableMetadata;
  * Defines activities manager service.
  */
 class ActivityManager implements ActivityManagerInterface {
-
-  /**
-   * The session manager service.
-   *
-   * @var \Drupal\Core\Session\SessionManagerInterface
-   */
-  protected $sessionManager;
-
-  /**
-   * The session configuration.
-   *
-   * @var \Drupal\Core\Session\SessionConfigurationInterface
-   */
-  protected $sessionConfiguration;
-
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountProxyInterface
-   */
-  protected $currentUser;
-
-  /**
-   * Constructor.
-   *
-   * @param \Drupal\Core\Session\SessionManagerInterface $session_manager
-   *   The injected session manager.
-   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
-   *   The injected current user account.
-   */
-  public function __construct(SessionManagerInterface $session_manager, SessionConfigurationInterface $session_configuration, AccountProxyInterface $current_user) {
-    $this->sessionManager = $session_manager;
-    $this->sessionConfiguration = $session_configuration;
-    $this->currentUser = $current_user;
-  }
 
   /**
    * {@inheritdoc}
@@ -185,24 +147,10 @@ class ActivityManager implements ActivityManagerInterface {
    * {@inheritdoc}
    */
   public function getUrl() {
-    // We need to start session for the CSRF token protection to work.
-    // TODO: replace this protection to smth custom?
-    if ($this->currentUser->isAnonymous() && !isset($_SESSION['session_started'])) {
-      $_SESSION['session_started'] = TRUE;
-      $this->sessionManager->start();
-      $this->sessionConfiguration;
-    }
+    $url = Url::fromRoute('ymca_retention.member_activities_json')
+      ->toString();
 
-    $urlBubbleable = Url::fromRoute('ymca_retention.member_activities_json')
-      ->toString(TRUE);
-    $urlRender = array(
-      '#markup' => $urlBubbleable->getGeneratedUrl(),
-    );
-    BubbleableMetadata::createFromRenderArray($urlRender)
-      ->merge($urlBubbleable)
-      ->applyTo($urlRender);
-
-    return \Drupal::service('renderer')->renderPlain($urlRender);
+    return $url;
   }
 
 }
