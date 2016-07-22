@@ -102,16 +102,16 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    *
    * @param ConfigFactory $config_factory
    *   The Config Factory.
-   * @param MindbodyCacheProxyInterface $proxy
-   *   The Mindbody Cache Proxy.
-   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
-   *   The Mindbody Training Mapping.
    * @param QueryFactory $entity_query
    *   The entity query factory.
    * @param EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
+   * @param MindbodyCacheProxyInterface $proxy
+   *   The Mindbody Cache Proxy.
+   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
+   *   The Mindbody Training Mapping.
    */
   public function __construct(
     ConfigFactory $config_factory,
@@ -255,7 +255,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $session_type_name = isset($session_types[$criteria['session_type']]) ? $session_types[$criteria['session_type']] : '';
 
     $telephone = '';
-    /** @todo Use a service instead of direct queries. */
+    /* @todo Use a service instead of direct queries. */
     $mapping_id = $this->entityQuery
       ->get('mapping')
       ->condition('type', 'location')
@@ -344,7 +344,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
     return Url::fromRoute('ymca_mindbody.location.pt', ['node' => $node->id()], $options);
   }
-
 
   /**
    * {@inheritdoc}
@@ -447,9 +446,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       ->condition('field_mindbody_trainer_id', $trainer)
       ->execute();
     $mapping_id = reset($mapping_id);
-    /**
-     * @var \Drupal\ymca_mappings\MappingInterface $mapping
-     */
+    /* @var \Drupal\ymca_mappings\MappingInterface $mapping */
     if (is_numeric($mapping_id) && $mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
       $name = explode(', ', $mapping->getName());
       if (isset($name[0]) && isset($name[0])) {
