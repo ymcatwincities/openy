@@ -28,7 +28,7 @@ class ActivityManager implements ActivityManagerInterface {
 
     // Calculate number of days to show.
     $date_interval = $date_start->diff($date_end);
-    $days = $date_interval->d;
+    $days = $date_interval->days;
     if ($date_interval->h > 0 || $date_interval->i > 0) {
       $days++;
     }
