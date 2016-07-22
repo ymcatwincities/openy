@@ -134,7 +134,7 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
     // Add access conditions.
     $a_uuid = $this->uuid->generate();
     $access_conditions = [
-      $a_uuid = [
+      $a_uuid => [
         'id' => 'user_role',
         'roles' => [
           'authenticated' => 'authenticated',
