@@ -6,7 +6,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\mindbody\MindbodyException;
-use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,13 +15,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Controller for "Mindbody results" page.
  */
 class MindbodyResultsController extends ControllerBase {
-
-  /**
-   * The Mindbody Proxy.
-   *
-   * @var MindbodyCacheProxyInterface
-   */
-  protected $proxy;
 
   /**
    * The results searcher.
