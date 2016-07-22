@@ -57,7 +57,7 @@ interface YmcaMindbodyResultsSearcherInterface {
    * @return \Drupal\Core\Url
    *   Route object.
    */
-  public static function getSearchLink($options, NodeInterface $node);
+  public static function getSearchLink($options, $node);
 
   /**
    * Retrievs location options to be used in form element.
