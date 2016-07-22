@@ -61,15 +61,7 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
 
-    // Prevent serialization exception.
-    // TODO: is it a bug?
-    // $form_state->disableCache();
-
     $config = $this->getConfiguration();
-//    $settings = $form_state->getValue('settings');
-//    if ($settings) {
-//      $config = array_merge($config, $settings);
-//    }
 
     $form['ipa'] = [
       '#type' => 'managed_file',
@@ -79,7 +71,7 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['ipa'],
       ],
-      // '#required' => TRUE,
+      '#required' => TRUE,
       '#field_name' => '',
     ];
 
