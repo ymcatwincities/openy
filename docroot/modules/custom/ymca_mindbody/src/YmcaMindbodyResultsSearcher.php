@@ -338,7 +338,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   /**
    * {@inheritdoc}
    */
-  public static function getSearchLink($options, NodeInterface $node = NULL) {
+  public static function getSearchLink($options, $node = NULL) {
     if (!isset($node)) {
       return Url::fromRoute('ymca_mindbody.pt', [], $options);
     }
