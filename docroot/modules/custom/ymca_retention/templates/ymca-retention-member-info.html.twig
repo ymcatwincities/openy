@@ -25,7 +25,7 @@
       </div>
       <div class="col-xs-12 col-sm-5 member-info--stats">
         <div class="member-info--stats--wrapper">
-          {% if member.rank is not empty %}
+          {% if member.rank is not same as(0) %}
             <span class="rank">
               {{ member.rank }} {{ 'rank'|t }}
             </span>
