@@ -2,21 +2,18 @@
 
 namespace Drupal\ymca_mindbody\Form;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
-use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\node\NodeInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
-use Drupal\ymca_mindbody\YmcaMindbodyTrainingsMapping;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -43,129 +40,78 @@ class MindbodyPTForm extends FormBase {
   const DEFAULT_DATE_RANGE = '3days';
 
   /**
-   * Mindbody Proxy.
-   *
-   * @var MindbodyCacheProxyInterface
-   */
-  protected $proxy;
-
-  /**
-   * Credentials.
-   *
-   * @var ImmutableConfig
-   */
-  protected $credentials;
-
-  /**
-   * State storage.
-   *
-   * @var array
-   */
-  protected $stateStorage;
-
-  /**
-   * Training mapping service.
-   *
-   * @var YmcaMindbodyTrainingsMapping
-   */
-  protected $trainingsMapping;
-
-  /**
-   * Ymca Mindbody settings.
+   * The Ymca Mindbody settings.
    *
    * @var ImmutableConfig
    */
   protected $settings;
 
   /**
-   * Mindbody request guard.
+   * The YMCA Mindbody request guard.
    *
    * @var YmcaMindbodyRequestGuard
    */
   protected $requestGuard;
 
   /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * Logger.
+   * The logger channel.
    *
    * @var LoggerChannelInterface
    */
   protected $logger;
 
   /**
-   * Node object.
+   * The node object.
    *
    * @var NodeInterface
    */
   protected $node;
 
   /**
-   * State.
+   * The state.
    *
    * @var array
    */
   protected $state;
 
   /**
-   * The Results searcher.
+   * The YMCA Mindbody results searcher.
    *
    * @var YmcaMindbodyResultsSearcherInterface
    */
   protected $resultsSearcher;
 
   /**
-   * MindbodyPTForm constructor.
+   * Creates a new MindbodyPTForm.
    *
-   * @param MindbodyCacheProxyInterface $cache_proxy
-   *   The Mindbody cache proxy.
-   * @param YmcaMindbodyTrainingsMapping $trainings_mapping
-   *   The Mindbody training mapping .
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   *   The config factory.
+   * @param YmcaMindbodyResultsSearcherInterface $results_searcher
+   *   The YMCA Mindbody results search.
    * @param YmcaMindbodyRequestGuard $request_guard
    *   The Mindbody request guard.
-   * @param QueryFactory $entity_query
-   *   The entity query factory.
-   * @param EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
    * @param LoggerChannelFactoryInterface $logger_factory
-   *   The entity type manager.
+   *   The logger channel factory.
+   * @param RequestStack $request_stack
+   *   The request stack.
    * @param array $state
-   *   State.
+   *   The state.
    */
   public function __construct(
+      ConfigFactory $config_factory,
       YmcaMindbodyResultsSearcherInterface $results_searcher,
-      MindbodyCacheProxyInterface $cache_proxy,
-      YmcaMindbodyTrainingsMapping $trainings_mapping,
       YmcaMindbodyRequestGuard $request_guard,
-      QueryFactory $entity_query,
-      EntityTypeManagerInterface $entity_type_manager,
       LoggerChannelFactoryInterface $logger_factory,
       RequestStack $request_stack,
       array $state = []
     ) {
     $this->resultsSearcher = $results_searcher;
-    $this->proxy = $cache_proxy;
-    $this->credentials = $this->config('mindbody.settings');
-    $this->trainingsMapping = $trainings_mapping;
-    $this->settings = $this->config('ymca_mindbody.settings');
     $this->requestGuard = $request_guard;
-    $this->entityQuery = $entity_query;
-    $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_mindbody');
-    $this->requestStack = $request_stack;
-    $this->node = $this->requestStack->getCurrentRequest()->get('node');
+    $this->setConfigFactory($config_factory);
+    $this->settings = $this->config('ymca_mindbody.settings');
+    $this->setRequestStack($request_stack);
+    $this->node = $this->getRequest()->get('node');
 
     try {
       if (!$this->requestGuard->validateSearchCriteria($state)) {
@@ -220,12 +166,9 @@ class MindbodyPTForm extends FormBase {
     }
 
     return new static(
+      $container->get('config.factory'),
       $container->get('ymca_mindbody.results_searcher'),
-      $container->get('mindbody_cache_proxy.client'),
-      $container->get('ymca_mindbody.trainings_mapping'),
       $container->get('ymca_mindbody.request_guard'),
-      $container->get('entity.query'),
-      $container->get('entity_type.manager'),
       $container->get('logger.factory'),
       $container->get('request_stack'),
       $state
