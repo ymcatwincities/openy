@@ -115,7 +115,6 @@
           .then(function (response) {
             // $scope.member_activities = response.data;
           });
-        // TODO: show some message that the values were saved? or use the disabled state?
 
         // Track the request and show its progress to the user.
         $scope.progress.addPromise($promise);

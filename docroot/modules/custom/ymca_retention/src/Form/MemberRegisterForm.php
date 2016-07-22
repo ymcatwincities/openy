@@ -230,13 +230,11 @@ class MemberRegisterForm extends FormBase {
     }
 
     // Calculate a goal for a member.
+    $goal = $settings->get('new_member_goal_number');
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $limit_goal = $settings->get('limit_goal_number');
-      $goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
-      $goal = min($goal, $limit_goal);
-    }
-    else {
-      $goal = $settings->get('new_member_goal_number');
+      $calculated_goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
+      $goal = min(max($goal, $calculated_goal), $limit_goal);
     }
 
     // Get information about number of checkins in period of campaign.
