@@ -66,3 +66,10 @@ a.tabledrag-handle .handle {
 .sports-promo {
   text-align: center;
 }
+
+body select.cke_dialog_ui_input_select {
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 20px;
+  line-height: 20px;
+}
