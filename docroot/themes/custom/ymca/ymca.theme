@@ -415,7 +415,7 @@ function ymca_preprocess_html(&$variables) {
 
       case 'location':
         // Locations News & Events page.
-        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results'))) {
+        if (in_array($current_route_name, array('ymca_blog_listing.news_events_page_controller', 'ymca_mindbody.pt', 'ymca_mindbody.pt.results', 'ymca_mindbody.location.pt', 'ymca_mindbody.location.pt.results'))) {
           $classes = [
             'internal-template',
             'ancestor-locations',
@@ -1070,14 +1070,6 @@ function ymca_form_groupex_form_location_refine_alter(&$form, \Drupal\Core\Form\
   $form['#theme'] = ['ymca_groupex_form_full_refine'];
   $form['#attributes']['class'][] = 'group-ex';
   $form['#attributes']['class'][] = 'search';
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function ymca_form_mindbody_pt_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $form['mb_date']['mb_start_date']['#pre_render'][] = 'ymca_prerender_datetime';
-  $form['mb_date']['mb_end_date']['#pre_render'][] = 'ymca_prerender_datetime';
 }
 
 /**

@@ -92,6 +92,21 @@ function ymca_retention_cron() {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_delete().
+ *
+ * Remove member activities when deleting the member.
+ */
+function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
+  /** @var \Drupal\ymca_retention\ActivityManager $service */
+  $service = \Drupal::service('ymca_retention.activity_manager');
+  $member_activities = $service->getMemberActivities($entity->getId());
+
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_activity');
+  $storage->delete($member_activities);
+}
+
+/**
  * Implements hook_ENTITY_TYPE_insert().
  */
 function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
