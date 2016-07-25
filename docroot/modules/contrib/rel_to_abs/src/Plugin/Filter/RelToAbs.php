@@ -62,13 +62,21 @@ class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
   public function process($text, $langcode) {
     $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
       $baseUrl = $this->urlGenerator->getContext()->getBaseUrl();
-      $relativeUrl = $rawUrl = urldecode($matches[2]);
+      $relativeUrl = $rawUrl = $matches[2];
+
+      // CKEditor orceSimpleAmpersand bug fix.
+      $urlParts = explode('?', $relativeUrl);
+      if (count($urlParts) == 2) {
+        $urlParts[1] = str_replace('&amp;', '&', $urlParts[1]);
+        $relativeUrl = implode('?', $urlParts);
+      }
       if (!empty($baseUrl) && strpos($rawUrl, $baseUrl) === 0) {
         $relativeUrl = '/' . substr($rawUrl, strlen($baseUrl));
       }
       $relativeUrl = preg_replace('/\/{2,}/', '/', $relativeUrl);
+      $query = parse_str(parse_url($relativeUrl, PHP_URL_QUERY));
       try {
-        $url = Url::fromUserInput($relativeUrl)->setAbsolute(true)->toString();
+        $url = Url::fromUserInput(urldecode($relativeUrl), ['query' => $query])->setAbsolute(true)->toString();
       }
       catch(\InvalidArgumentException $e) {
         drupal_set_message($e->getMessage(), 'error');
