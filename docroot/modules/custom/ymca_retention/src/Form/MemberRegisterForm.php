@@ -238,8 +238,8 @@ class MemberRegisterForm extends FormBase {
     }
 
     // Get information about number of checkins in period of campaign.
-    $from = $settings->get('date_registration_open');
-    $to = $settings->get('date_registration_close');
+    $from = $settings->get('date_reporting_open');
+    $to = $settings->get('date_reporting_close');
     $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     $total_visits = 0;
