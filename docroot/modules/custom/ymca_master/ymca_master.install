@@ -3893,8 +3893,20 @@ function ymca_master_update_8160() {
 }
 
 /**
- * Enable YMCA Mobile Check-in module.
+ * User's dashboard.
  */
 function ymca_master_update_8161() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Enable YMCA Mobile Check-in module.
+ */
+function ymca_master_update_8162() {
   \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
 }
