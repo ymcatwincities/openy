@@ -134,6 +134,14 @@ function ymca_retention_ymca_retention_member_activity_delete(EntityInterface $e
  *   Created/updated/deleted activity.
  */
 function _ymca_retention_activity_track_update(EntityInterface $entity) {
+  /** @var \Drupal\ymca_retention\Entity\Member $member */
+  $member = $entity->member->entity;
+  // If member entity is NULL - the member was deleted and his activities are
+  // being deleted now, so we don't need to recalculate the numbers.
+  if (!$member) {
+    return;
+  }
+
   $member_id = $entity->member->target_id;
   /** @var \Drupal\ymca_retention\ActivityManager $service */
   $service = \Drupal::service('ymca_retention.activity_manager');
@@ -156,8 +164,6 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
     }
   }
 
-  /** @var \Drupal\ymca_retention\Entity\Member $member */
-  $member = $entity->member->entity;
   // TODO: below is hard coding; we are assuming that the activity groups are
   // in the specific order: swimming, fitness, groupx.
   $member->set('activity_track_swimming', $tracks[$activity_groups[0]['id']]);
