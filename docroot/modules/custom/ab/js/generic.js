@@ -55,7 +55,7 @@
             $(this).replaceWith(value.html);
           });
         });
-        // Adds dimention for A|B variants to be tracked by Google Analytics.
+        // Adds dimension for A|B variants to be tracked by Google Analytics.
         if (typeof ga != "undefined") {
           ga('send', 'pageview', {'dimention1': 'Variant B'});
         }
