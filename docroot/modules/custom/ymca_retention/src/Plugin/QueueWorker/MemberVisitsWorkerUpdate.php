@@ -18,19 +18,47 @@ use Drupal\ymca_retention\PersonifyApi;
 class MemberVisitsWorkerUpdate extends QueueWorkerBase {
 
   /**
+   * Campaign start date.
+   *
+   * @var string
+   */
+  protected $date_from;
+
+  /**
+   * Campaign end date.
+   *
+   * @var string
+   */
+  protected $date_end;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    // Get campaign dates settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $this->date_from = $settings->get('date_campaign_open');
+    $this->date_end = $settings->get('date_campaign_close');
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function processItem($data) {
+    // Load member.
+    $member = Member::load($data['id']);
+
     // Get information about number of checkins in period of the campaign.
-    $result = PersonifyApi::getPersonifyVisitCountByDate($data['membership_id'], $data['form'], $data['to']);
+    $result = PersonifyApi::getPersonifyVisitCountByDate($member->getMemberId(), $this->date_from, $this->date_end);
     if (!empty($result->ErrorMessage)) {
       $logger = \Drupal::logger('ymca_retention_queue');
       $logger->alert('Could not retrieve visits count for member %member_id', [
-        '%member_id' => $data['membership_id'],
+        '%member_id' => $member->getMemberId(),
       ]);
       return;
     }
-    $member = Member::load($data['id']);
+
     // Store updated visits counter.
     if ($result->TotalVisits != $member->getVisits()) {
       $member->setVisits($result->TotalVisits);
