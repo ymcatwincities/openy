@@ -42,17 +42,15 @@
             return false;
           });
         });
-      if (context == document) {
-        if (location.hash) {
-          switch (location.hash) {
-            case '#registration':
-            case '#report':
-              setTimeout(function () {
-                $('#hero-section').scrollTop(0);
-                Drupal.behaviors.registerAndReportSlides.slideTo(location.hash);
-              }, 1000);
-              break;
-          }
+      if (context == document && location.hash) {
+        switch (location.hash) {
+          case '#registration':
+          case '#report':
+            setTimeout(function () {
+              $('#hero-section').scrollTop(0);
+              Drupal.behaviors.registerAndReportSlides.slideTo(location.hash);
+            }, 1000);
+            break;
         }
       }
 
@@ -67,10 +65,8 @@
       var slides = Drupal.behaviors.registerAndReportSlides.slidesContainer.find('.slide');
       var target_slide = jQuery(id, Drupal.behaviors.registerAndReportSlides.slidesContainer);
       var next_id = id;
-      if (active_slide.attr('id') == 'registration' && id == '#report') {
-        next_id = '#register-or-report';
-      }
-      if (active_slide.attr('id') == 'report' && id == '#registration') {
+      if ((active_slide.attr('id') == 'registration' && id == '#report') ||
+          (active_slide.attr('id') == 'report' && id == '#registration')) {
         next_id = '#register-or-report';
       }
       target_slide.removeClass('slide-inactive');
