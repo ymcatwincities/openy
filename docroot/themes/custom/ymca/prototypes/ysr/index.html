@@ -875,7 +875,6 @@
             var $menu = jQuery(this);
             jQuery('a', $menu).bind('click', function () {
               var href = jQuery(this).attr('href');
-              console.log(href, 'href');
               if (href !== '') {
                 jQuery.scrollTo(jQuery(this).attr('href'), 800);
                 $menu.removeClass('in').addClass('collapsing');
