@@ -63,7 +63,7 @@ $custom_sites = array(
     'openy.ygtc.ffwagency.md',
     'openy.192.168.56.132.xip.io',
   ),
-  'ymca_redwign' => array(
+  'ymca_redwing' => array(
     'redwing.prod.ygtc.ffwagency.md',
     'redwing.stg.ygtc.ffwagency.md',
     'redwing.dev.ygtc.ffwagency.md',
