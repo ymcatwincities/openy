@@ -58,7 +58,7 @@
 
     },
     slideTo: function (id) {
-      if (Drupal.behaviors.registerAndReportSlides.isAnimating == true) {
+      if (Drupal.behaviors.registerAndReportSlides.isAnimating === true) {
         return;
       }
       Drupal.behaviors.registerAndReportSlides.isAnimating = true;
@@ -68,10 +68,10 @@
       var target_slide = jQuery(id, Drupal.behaviors.registerAndReportSlides.slidesContainer);
       var next_id = id;
       if (active_slide.attr('id') == 'registration' && id == '#report') {
-        var next_id = '#register-or-report';
+        next_id = '#register-or-report';
       }
       if (active_slide.attr('id') == 'report' && id == '#registration') {
-        var next_id = '#register-or-report';
+        next_id = '#register-or-report';
       }
       target_slide.removeClass('slide-inactive');
       $('.alert', target_slide).remove();
@@ -92,7 +92,7 @@
 
       hero.scrollLeft(0);
       slides.animate({left: animate_value}, Drupal.behaviors.registerAndReportSlides.animationSpeed, function () {
-        var delay = 0
+        var delay = 0;
         if (next_id == '#register-or-report') {
           delay = Drupal.behaviors.registerAndReportSlides.animationSpeed / 2;
           active_slide
