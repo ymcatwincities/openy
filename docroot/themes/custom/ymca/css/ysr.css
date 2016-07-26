@@ -2680,7 +2680,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 .activities .activity-items .form-item-checkbox input:checked + label small {
   color: #f8f8f8;
 }
-.activities .activity-items .form-item-checkbox input:disabled + label:before {
+.activities .activity-items .form-item-checkbox input.activity--click-last:disabled + label:before {
   background-size: 34px 34px;
   background-size: 3.4rem 3.4rem;
   background-image: url(../prototypes/ysr/img/throbber-white.svg);
