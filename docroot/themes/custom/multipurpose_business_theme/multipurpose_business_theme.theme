@@ -184,8 +184,10 @@ function multipurpose_business_theme_get_slider_content() {
     $fid = theme_get_setting('slide_image_path'.$i,'multipurpose_business_theme');
     if (!empty($fid)) {
       $file = file_load($fid[0]);
-      $uri = $file->getFileUri();
-      $path = file_create_url($uri);
+      if ($file) {
+        $uri = $file->getFileUri();
+        $path = file_create_url($uri);
+      }
     }
     else {
       $path = base_path() . drupal_get_path('theme', 'multipurpose_business_theme') . theme_get_setting('slide_image_path_' . $i, 'multipurpose_business_theme');
