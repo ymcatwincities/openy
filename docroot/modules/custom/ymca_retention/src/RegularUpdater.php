@@ -103,6 +103,14 @@ class RegularUpdater implements RegularUpdaterInterface {
    * Create Queue.
    */
   public function createQueue() {
+    // Get campaign dates settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $date_end = new \DateTime($settings->get('date_campaign_close'));
+    $current_date = new \DateTime();
+    if ($current_date > $date_end) {
+      return;
+    }
+
     $queue = \Drupal::queue('ymca_retention_updates_member_visits');
     $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple();
