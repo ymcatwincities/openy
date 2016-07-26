@@ -47,7 +47,8 @@
           case '#registration':
           case '#report':
             setTimeout(function () {
-              $('#hero-section').scrollTop(0);
+              $('#hero-section').scrollTop(0).scrollLeft(0);
+              $.scrollTo($('#hero-section'), 800);
               Drupal.behaviors.registerAndReportSlides.slideTo(location.hash);
             }, 1000);
             break;
