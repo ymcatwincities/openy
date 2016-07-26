@@ -701,7 +701,7 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
-$config_directories["staging"] = 'sites/default/config/staging';
+$config_directories["staging"] = 'sites/openy/config/staging';
 
 // OpenY DB credentials.
 if (file_exists('/var/www/site-php')) {
