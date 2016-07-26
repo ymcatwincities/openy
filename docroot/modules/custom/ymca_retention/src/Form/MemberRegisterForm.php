@@ -51,6 +51,9 @@ class MemberRegisterForm extends FormBase {
         'placeholder' => [
           $this->t('Your facility access ID'),
         ],
+        'class' => [
+          'facility-access-id',
+        ],
       ],
       '#element_required_error' => $this->t('Facility access ID is required.'),
       '#element_validate' => [$validate],
