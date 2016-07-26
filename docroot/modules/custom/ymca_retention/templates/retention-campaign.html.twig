@@ -13,7 +13,7 @@
     <!-- HERO SECTION -->
     <div id="hero-section">
         {{ content.intro }}
-        <div id="register-and-report" class="slides">
+        <div id="register-and-report" class="slides ysr-offset">
             {{ content.registration }}
         </div>
     </div>
@@ -23,7 +23,7 @@
         </div>
     {% endif %}
     {% if content.leaderboard is not empty %}
-        <div id="leaderboard">
+        <div id="leaderboard" class="ysr-offset">
             {{ content.leaderboard }}
         </div>
     {% endif %}
