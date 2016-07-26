@@ -3,7 +3,6 @@
 namespace Drupal\ymca_groupex\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Url;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\InvokeCommand;
@@ -17,7 +16,13 @@ class AllSearchResultsController extends ControllerBase {
    * Show the page.
    */
   public function pageView() {
-    $query = \Drupal::request()->query->all();
+    // It catches cases with old arguments and redirect to this page without arguments.
+    // @var  \Symfony\Component\HttpFoundation\Request $request
+    $request = \Drupal::request();
+    $query = $request->query->all();
+    if (array_key_exists('location', $query) && is_array($query['location'])) {
+      return $this->redirect('ymca_groupex.all_schedules_search');
+    }
 
     // Get classes schedules.
     $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
