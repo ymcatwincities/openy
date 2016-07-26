@@ -3903,3 +3903,10 @@ function ymca_master_update_8161() {
     ]
   );
 }
+
+/**
+ * Enable YMCA Mobile Check-in module.
+ */
+function ymca_master_update_8162() {
+  \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
+}
