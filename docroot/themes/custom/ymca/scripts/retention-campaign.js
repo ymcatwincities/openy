@@ -139,7 +139,7 @@
               case "#registration":
               case "#report":
                 Drupal.behaviors.registerAndReportSlides.slideTo(hash);
-                $.scrollTo($('#register-and-report'), 800);
+                $.scrollTo($('#hero-section'), 800);
                 break;
               default:
                 $.scrollTo($(hash), 800);
