@@ -10,13 +10,10 @@
  */
 #}
 {% if files is not empty %}
-  <ul>
-    {% for file in files %}
-      <li>
-        <a class="btn btn-primary btn-lg" href="{{ file.url }}">{{ file.label }}</a> {{ file.date }}
-      </li>
-    {% endfor %}
-  </ul>
+  {% for file in files %}
+    <a class="btn btn-primary btn-lg" href="{{ file.url }}">{{ file.label }}</a><br />
+    <strong>{{ file.date }}</strong><br />
+  {% endfor %}
 {% else %}
-  {{ 'There are no builds.'|t }}
+  {{ 'There is no build uploaded.'|t }}
 {% endif %}
