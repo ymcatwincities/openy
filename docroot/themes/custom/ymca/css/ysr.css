@@ -2513,8 +2513,8 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
   }
 }
 .activities .activity-groups .activity-group-item {
-  width: 135px;
-  width: 13.5rem;
+  width: 123px;
+  width: 12.3rem;
   display: inline-block;
   vertical-align: top;
 }
@@ -2526,8 +2526,8 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 @media (max-width: 25em) {
   .activities .activity-groups .activity-group-item {
-    width: 110px;
-    width: 11rem;
+    width: 95px;
+    width: 9.5rem;
   }
 }
 .activities .activity-groups .activity-group-item-link {
@@ -2535,8 +2535,8 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
   font-weight: bold;
   font-size: 20px;
   font-size: 2rem;
-  padding-top: 67px;
-  padding-top: 6.7rem;
+  padding-top: 81px;
+  padding-top: 8.1rem;
   -moz-transition: opacity, 0.3s;
   -o-transition: opacity, 0.3s;
   -webkit-transition: opacity, 0.3s;
@@ -2546,6 +2546,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
   color: #fff;
   cursor: pointer;
   display: block;
+  letter-spacing: -0.7px;
   opacity: .3;
   text-decoration: none;
   text-transform: uppercase;
@@ -2565,28 +2566,12 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
   background-size: 5.9rem 3.2rem;
   background-position: center 10px;
   background-position: center 1rem;
-  padding-top: 81px;
-  padding-top: 8.1rem;
   background-image: url("../prototypes/ysr/img/reporting/icon-swimming.png");
-}
-@media (min-width: 48em) {
-  .activities .activity-groups .activity-group-item-link--swimming {
-    padding-top: 80px;
-    padding-top: 8rem;
-  }
 }
 .activities .activity-groups .activity-group-item-link--fitness {
   background-size: 50px 52px;
   background-size: 5rem 5.2rem;
-  padding-top: 81px;
-  padding-top: 8.1rem;
   background-image: url("../prototypes/ysr/img/reporting/icon-fitness.png");
-}
-@media (min-width: 48em) {
-  .activities .activity-groups .activity-group-item-link--fitness {
-    padding-top: 80px;
-    padding-top: 8rem;
-  }
 }
 .activities .activity-groups .activity-group-item-link--group-ex {
   background-size: 49px 39px;
