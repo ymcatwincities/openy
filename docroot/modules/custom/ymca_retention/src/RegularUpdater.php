@@ -104,25 +104,18 @@ class RegularUpdater implements RegularUpdaterInterface {
    */
   public function createQueue() {
     $queue = \Drupal::queue('ymca_retention_updates_member_visits');
-
-    // Get campaign dates settings.
-    $settings = $this->configFactory->get('ymca_retention.general_settings');
-    $from = $settings->get('date_campaign_open');
-    $to = $settings->get('date_campaign_close');
-
     $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple();
 
     /** @var \Drupal\ymca_retention\Entity\Member $member */
     foreach ($members as $member) {
       $data = [
-        'from' => $from,
-        'to' => $to,
-        'id' => $member->getId(),
-        'membership_id' => $member->getMemberId(),
+        'id' => (int) $member->getId(),
       ];
       $queue->createItem($data);
     }
+    $cron_config = $this->configFactory->getEditable('ymca_retention.cron_settings');
+    $cron_config->set('last_run', time())->save();
   }
 
 }
