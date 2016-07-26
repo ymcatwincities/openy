@@ -71,8 +71,7 @@ class RegularUpdater implements RegularUpdaterInterface {
     $to = $settings->get('date_campaign_close');
 
     // Load members.
-    $members = $this->entityTypeManager
-      ->getStorage('ymca_retention_member')
+    $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple();
 
     /** @var \Drupal\ymca_retention\Entity\Member $member */
@@ -83,8 +82,7 @@ class RegularUpdater implements RegularUpdaterInterface {
       // Get information about number of checkins in period of the campaign.
       $result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
       if (!empty($result->ErrorMessage)) {
-        $this->loggerFactory
-          ->get('ymca_retention')
+        $this->loggerFactory->get('ymca_retention')
           ->error('Could not retrieve visits count for member %member_id', [
             '%member_id' => $membership_id,
           ]);
@@ -99,6 +97,32 @@ class RegularUpdater implements RegularUpdaterInterface {
     }
 
     $cron_config->set('last_run', time())->save();
+  }
+
+  /**
+   * Create Queue.
+   */
+  public function createQueue() {
+    $queue = \Drupal::queue('ymca_retention_updates_member_visits');
+
+    // Get campaign dates settings.
+    $settings = $this->configFactory->get('ymca_retention.general_settings');
+    $from = $settings->get('date_campaign_open');
+    $to = $settings->get('date_campaign_close');
+
+    $members = $this->entityTypeManager->getStorage('ymca_retention_member')
+      ->loadMultiple();
+
+    /** @var \Drupal\ymca_retention\Entity\Member $member */
+    foreach ($members as $member) {
+      $data = [
+        'from' => $from,
+        'to' => $to,
+        'id' => $member->getId(),
+        'membership_id' => $member->getMemberId(),
+      ];
+      $queue->createItem($data);
+    }
   }
 
 }
