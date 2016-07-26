@@ -15,7 +15,7 @@
 
     mysql_databases:
       - name: drupal
-      - name: drupal_redwign
+      - name: drupal_redwing
       - name: drupal_openy
     mysql_users:
       - name: drupal
