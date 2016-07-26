@@ -22,14 +22,14 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
    *
    * @var string
    */
-  protected $date_from;
+  protected $dateFrom;
 
   /**
    * Campaign end date.
    *
    * @var string
    */
-  protected $date_end;
+  protected $dateEnd;
 
   /**
    * {@inheritdoc}
@@ -38,8 +38,8 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     // Get campaign dates settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
-    $this->date_from = $settings->get('date_campaign_open');
-    $this->date_end = $settings->get('date_campaign_close');
+    $this->dateFrom = $settings->get('date_campaign_open');
+    $this->dateEnd = $settings->get('date_campaign_close');
   }
 
   /**
@@ -50,7 +50,7 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
     $member = Member::load($data['id']);
 
     // Get information about number of checkins in period of the campaign.
-    $result = PersonifyApi::getPersonifyVisitCountByDate($member->getMemberId(), $this->date_from, $this->date_end);
+    $result = PersonifyApi::getPersonifyVisitCountByDate($member->getMemberId(), $this->dateFrom, $this->dateEnd);
     if (!empty($result->ErrorMessage)) {
       $logger = \Drupal::logger('ymca_retention_queue');
       $logger->alert('Could not retrieve visits count for member %member_id', [
