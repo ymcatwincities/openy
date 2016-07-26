@@ -58,13 +58,13 @@
         // Adds dimension for A|B variants to be tracked by Google Analytics.
         if (typeof ga != "undefined") {
           console.log("Variant B");
-          ga('send', 'pageview', {'dimention1': 'Variant B'});
+          ga('send', 'pageview', {'dimension2': 'Variant B'});
         }
       }
       else {
         if (typeof ga != "undefined") {
           console.log("Variant A");
-          ga('send', 'pageview', {'dimention1': 'Variant A'});
+          ga('send', 'pageview', {'dimension2': 'Variant A'});
         }
       }
     }
