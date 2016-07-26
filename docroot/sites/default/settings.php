@@ -710,6 +710,17 @@ if (file_exists('/var/www/site-php')) {
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
 }
+
+// YMCA Redwing DB credentials.
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/ymcaredwing-settings.inc';
+}
+
+// OpenY DB credentials.
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/ymcatwincities/openy-settings.inc';
+}
+
 $settings["install_profile"] = "pp";
 
 
