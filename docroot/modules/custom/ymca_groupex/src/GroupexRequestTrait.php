@@ -75,18 +75,25 @@ trait GroupexRequestTrait {
    *   Data.
    */
   protected function request($options) {
-    $client = \Drupal::httpClient();
-    $data = [];
+    // Add default options.
     $options_defaults = [
       'query' => [
         'a' => GroupexRequestTrait::$account,
       ],
     ];
+    $all_options = array_merge_recursive($options_defaults, $options);
+
+    // Try to use cached data.
+    $manager = \Drupal::service('groupex_form_cache.manager');
+    if ($data = $manager->getCache($all_options)) {
+      return $data;
+    }
 
     try {
-      $response = $client->request('GET', GroupexRequestTrait::$uri, array_merge_recursive($options_defaults, $options));
+      $response = \Drupal::httpClient()->request('GET', GroupexRequestTrait::$uri, $all_options);
       $body = $response->getBody();
       $data = json_decode($body->getContents());
+      $manager->setCache($all_options, $data);
     }
     catch (\Exception $e) {
       watchdog_exception('ymca_groupex', $e);
