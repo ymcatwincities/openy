@@ -89,6 +89,7 @@
       hero.scrollLeft(0);
       slides.animate({left: animate_value}, Drupal.behaviors.registerAndReportSlides.animationSpeed, function () {
         var delay = 0;
+        hero.scrollLeft(0);
         if (next_id == '#register-or-report') {
           delay = Drupal.behaviors.registerAndReportSlides.animationSpeed / 2;
           active_slide
@@ -149,7 +150,7 @@
           $menu.removeClass('in').addClass('collapsing');
           // WTF?
           setTimeout(function () {
-            $('#hero-section').scrollTop(0);
+            $('#hero-section').scrollTop(0).scrollLeft(0);
           }, 0);
           setTimeout(function () {
             $menu.removeClass('collapsing').addClass('collapse');
@@ -160,7 +161,7 @@
 
       if (context == document) {
         setTimeout(function () {
-          jQuery('#hero-section').scrollTop(0);
+          $('#hero-section').scrollTop(0).scrollLeft(0);
         }, 0);
       }
     }
