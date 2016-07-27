@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - taxonomy.vocabulary.ymca_retention_activities
+_core:
+  default_config_hash: tR8h0EH43ZCFA75Qa4Ee9lrKLlTNBtXSQzqia7h-Kuo
 id: taxonomy_term.ymca_retention_activities
 target_entity_type_id: taxonomy_term
 target_bundle: ymca_retention_activities

@@ -1,0 +1,338 @@
+<?php
+
+/**
+ * @file
+ * Contains theme override functions and preprocess functions
+ */
+
+use Drupal\Core\Template\RenderWrapper;
+use Drupal\Core\Template\Attribute;
+use Drupal\search\Form\SearchBlockForm;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\system\Form\ThemeSettingsForm;
+use Drupal\file\Entity\File;
+use Drupal\Core\Url;
+use Drupal\file\Plugin\Core\Entity\FileInterface;
+
+/**
+ * Implements hook_preprocess_page() for block templates.
+ */
+
+function multipurpose_business_theme_preprocess_page(&$variables) {
+
+  // Add Responsive class for Top Widget.
+  if (!empty($variables['page']['topwidget_first']) && !empty($variables['page']['topwidget_second']) && !empty($variables['page']['topwidget_third'])) {
+    $variables['topwidget_class'] = 'col-sm-4';
+    $variables['topwidget_third_class'] = 'col-sm-4';
+  }
+  elseif((!empty($variables['page']['topwidget_first']) && !empty($variables['page']['topwidget_second'])) or (!empty($variables['page']['topwidget_first']) && !empty($variables['page']['topwidget_third'])) or (!empty($variables['page']['topwidget_third']) && !empty($variables['page']['topwidget_second']))) {
+    $variables['topwidget_class'] = 'col-sm-6';
+    $variables['topwidget_third_class'] = 'col-sm-6';
+  }
+  else {
+    $variables['topwidget_class'] = 'col-md-12';
+  }
+
+
+  // Add Responsive class for feature Widget.
+  if (!empty($variables['page']['skills_first']) && !empty($variables['page']['skills_second'])) {
+    $variables['skills_class'] = 'col-md-6';
+  }
+  else {
+    $variables['skills_class'] = 'col-md-12';
+  }
+
+
+  // Add Responsive class for feature Widget.
+  if (!empty($variables['page']['features_first']) && !empty($variables['page']['features_second'])) {
+    $variables['features_class'] = 'col-md-6';
+  }
+  else {
+    $variables['features_class'] = 'col-md-12';
+  }
+
+
+  // Add Responsive class for portfolio Widget.
+  if (!empty($variables['page']['portfolio_first']) && !empty($variables['page']['portfolio_second']) && !empty($variables['page']['portfolio_third'])) {
+    $variables['portfolio_class'] = 'col-sm-4';
+    $variables['portfolio_third_class'] = 'col-sm-4';
+  }
+  elseif((!empty($variables['page']['portfolio_first']) && !empty($variables['page']['portfolio_second'])) or (!empty($variables['page']['portfolio_first']) && !empty($variables['page']['portfolio_third'])) or (!empty($variables['page']['portfolio_third']) && !empty($variables['page']['portfolio_second']))) {
+    $variables['portfolio_class'] = 'col-sm-6';
+    $variables['portfolio_third_class'] = 'col-sm-6';
+  }
+  else {
+    $variables['portfolio_class'] = 'col-md-12';
+  }
+
+
+  // Add Responsive class for pricetable Widget.
+  if (!empty($variables['page']['pricetable_first']) && !empty($variables['page']['pricetable_second']) && !empty($variables['page']['pricetable_third']) && !empty($variables['page']['pricetable_forth'])) {
+    $variables['pricetable_class'] = 'col-sm-3';
+  }
+  else if (!empty($variables['page']['pricetable_first']) && !empty($variables['page']['pricetable_second']) && !empty($variables['page']['pricetable_third'])) {
+    $variables['pricetable_class'] = 'col-sm-4';
+  }
+  else if((!empty($variables['page']['pricetable_first']) && !empty($variables['page']['pricetable_second'])) or (!empty($variables['page']['pricetable_first']) && !empty($variables['page']['pricetable_third'])) or (!empty($variables['page']['pricetable_third']) && !empty($variables['page']['pricetable_second']))) {
+    $variables['pricetable_class'] = 'col-sm-6';
+  }
+  else {
+    $variables['pricetable_class'] = 'col-md-12';
+  }
+
+
+  // Add Responsive class for Bottom Widget.
+  if (!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_second']) && !empty($variables['page']['bottom_third']) && !empty($variables['page']['bottom_forth'])) {
+    $variables['bottom_class'] = 'col-md-3';
+  }
+  else if (!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_second']) && !empty($variables['page']['bottom_third'])) {
+    $variables['bottom_class'] = 'col-md-4';
+  }
+  else if((!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_second'])) or (!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_third'])) or (!empty($variables['page']['bottom_third']) && !empty($variables['page']['bottom_second']))) {
+    $variables['bottom_class'] = 'col-md-6';
+  }
+  else {
+    $variables['bottom_class'] = 'col-md-12';
+  }
+
+
+  // Add Responsive class for footer.
+  if (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second']) && !empty($variables['page']['footer_third'])) {
+    $variables['footer_class'] = 'col-md-3';
+    $variables['footer_third_class'] = 'col-md-6';
+  }
+  elseif((!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second'])) or (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_third'])) or (!empty($variables['page']['footer_third']) && !empty($variables['page']['footer_second']))) {
+    $variables['footer_class'] = 'col-md-6';
+    $variables['footer_third_class'] = 'col-md-6';
+  }
+  else {
+    $variables['footer_class'] = 'col-md-12';
+  }
+
+
+  // Add information about the number of sidebars.
+  if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+    $variables['contentlayout'] = 'col-md-6';
+    $variables['sidebarfirst'] = 'col-md-3';
+    $variables['sidebarsecond'] = 'col-md-3';
+  }
+  elseif (!empty($variables['page']['sidebar_first'])) {
+    $variables['contentlayout'] = 'col-md-9 ';
+    $variables['sidebarfirst'] = 'col-md-3';
+  }
+  elseif (!empty($variables['page']['sidebar_second'])) {
+    $variables['contentlayout'] = 'col-md-9';
+    $variables['sidebarsecond'] = 'col-md-3';
+  }
+  else {
+    $variables['contentlayout'] = 'col-md-12';
+  }
+
+
+  // Social media global variable.
+  $variables['show_social_icon'] = theme_get_setting('show_social_icon');
+  $variables['facebook_url'] = theme_get_setting('facebook_url');
+  $variables['google_plus_url'] = theme_get_setting('google_plus_url');
+  $variables['twitter_url'] = theme_get_setting('twitter_url');
+  $variables['linkedin_url'] = theme_get_setting('linkedin_url');
+  $variables['pinterest_url'] = theme_get_setting('pinterest_url');
+  $variables['rss_url'] = theme_get_setting('rss_url');
+  $variables['show_credit_link'] = theme_get_setting('show_credit_link');
+  $variables['no_of_slides'] = theme_get_setting('no_of_slides');
+
+  //To get the current url
+  $current_url  = \Drupal::request()->getRequestUri();
+  $current_path = explode("/", $current_url);
+  $variables['current_path'] = $current_path[2];
+  // Asign Variable for Slider
+  if ($variables['is_front']) {
+    if (theme_get_setting('slideshow_display','multipurpose_business_theme') == 1) {
+      $variables['slideshow_display'] = 1;
+      $variables['slider_content'] = multipurpose_business_theme_get_slider_content();
+    }
+  }
+
+}
+
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function multipurpose_business_theme_preprocess_menu(&$variables, $hook) {
+  if ($hook == 'menu__main') { // We're doing that for main menu.
+    // Get the current path.
+    $current_path = \Drupal::request()->getRequestUri();
+    $items = $variables['items'];
+    foreach ($items as $key => $item) {
+      // If path is current_path, set active to li.
+      if ($item['url']->toString() == $current_path) {
+      // Add active link.
+      $variables['items'][$key]['attributes']['class'] = 'active';
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements custom function for get slider content.
+ */
+function multipurpose_business_theme_get_slider_content() {
+  $slider_content = array();
+  for ($i = 1; $i <= theme_get_setting('no_of_slides'); $i++) {
+    $fid = theme_get_setting('slide_image_path'.$i,'multipurpose_business_theme');
+    if (!empty($fid)) {
+      $file = file_load($fid[0]);
+      if ($file) {
+        $uri = $file->getFileUri();
+        $path = file_create_url($uri);
+      }
+    }
+    else {
+      $path = base_path() . drupal_get_path('theme', 'multipurpose_business_theme') . theme_get_setting('slide_image_path_' . $i, 'multipurpose_business_theme');
+    }
+    $slider_content[$i] = '<li>
+      <img src="' . $path . '" alt="Slider Banner" />
+      <div class="flex-caption">
+        <h2>' . wordwrap(theme_get_setting('slide_title_' . $i, 'multipurpose_business_theme'), 20, "<br>").'</h2>
+        <p class="flex-description">' . wordwrap(theme_get_setting('slide_description_' . $i, 'multipurpose_business_theme'), 60, "<br>").'</p>
+        <a href=' . theme_get_setting('slide_url_' . $i, 'multipurpose_business_theme') . ' class="more-link">Read more</a>
+      </div>
+    </li>';
+  }
+  return $slider_content;
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function multipurpose_business_theme_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  
+  //Social Icon Link
+  $form['multipurpose_business_theme_settings']['social_icon'] = array(
+    '#type' => 'details',
+    '#title' => t('Social Media Link'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['show_social_icon'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show Social Icons'),
+    '#default_value' => theme_get_setting('show_social_icon'),
+    '#description'   => t("Show/Hide social media links"),
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['facebook_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Facebook Link'),
+    '#default_value' => theme_get_setting('facebook_url'),
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['google_plus_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google plus Link'),
+    '#default_value' => theme_get_setting('google_plus_url'),
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['twitter_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Twitter Link'),
+    '#default_value' => theme_get_setting('twitter_url'),
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['linkedin_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Linkedin Link'),
+    '#default_value' => theme_get_setting('linkedin_url'),
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['pinterest_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pinterest Link'),
+    '#default_value' => theme_get_setting('pinterest_url'),
+  );
+  $form['multipurpose_business_theme_settings']['social_icon']['rss_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('RSS Link'),
+    '#default_value' => theme_get_setting('rss_url'),
+  );
+
+  // Custom submit to save the file permenant.
+  $form['#submit'][] = 'multipurpose_business_theme_settings_form_submit';
+
+  //Show/Hide credit
+  $form['multipurpose_business_theme_settings']['credit_link'] = array(
+    '#type' => 'details',
+    '#title' => t('Footer Credit Link'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['multipurpose_business_theme_settings']['credit_link']['show_credit_link'] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Show 'Design by Zymphonies' text in footer"),
+    '#default_value' => theme_get_setting('show_credit_link'),
+    '#description'   => t("Recomend you to display 'Design by Zymphonies' in footer"),
+  );
+
+  $form['multipurpose_business_theme_settings']['slideshow'] = array(
+    '#type' => 'details',
+    '#title' => t('Front Page Slideshow'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['multipurpose_business_theme_settings']['slideshow']['no_of_slides'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of slides'),
+    '#default_value' => theme_get_setting('no_of_slides'),
+    '#description'  => t("Enter the number of slides required to display"),
+  );
+  $form['multipurpose_business_theme_settings']['slideshow']['slideshow_display'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show Slideshow'),
+    '#default_value' => theme_get_setting('slideshow_display'),
+    '#description'   => t("Show/Hide Slideshow in home page"),
+  );
+  $form['multipurpose_business_theme_settings']['slideshow']['slide'] = array(
+    '#markup' => t('Change the banner image, title, description and link using below fieldset'),
+  );
+
+  for ($i = 1; $i <= theme_get_setting('no_of_slides'); $i++) {
+    $form['multipurpose_business_theme_settings']['slideshow']['slide' . $i] = array(
+      '#type' => 'details',
+      '#title' => t('Slide '.$i),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['multipurpose_business_theme_settings']['slideshow']['slide' . $i]['slide_image_path' . $i] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Slide '.$i.' Image'),
+      '#default_value' => theme_get_setting('slide_image_path'.$i,'multipurpose_business_theme'),
+      '#upload_location' => 'public://',
+    );
+    $form['multipurpose_business_theme_settings']['slideshow']['slide' . $i]['slide_title_' . $i] = array(
+      '#type' => 'textfield',
+      '#title' => t('Slide '.$i.' Title'),
+      '#default_value' => theme_get_setting('slide_title_' . $i,'multipurpose_business_theme'),
+    );
+    $form['multipurpose_business_theme_settings']['slideshow']['slide' . $i]['slide_description_' . $i] = array(
+      '#type' => 'textarea',
+      '#title' => t('Slide '.$i.' Description'),
+      '#default_value' => theme_get_setting('slide_description_' . $i,'multipurpose_business_theme'),
+    );
+    $form['multipurpose_business_theme_settings']['slideshow']['slide' . $i]['slide_url_' . $i] = array(
+      '#type' => 'textfield',
+      '#title' => t('Slide '.$i.' URL'),
+      '#default_value' => theme_get_setting('slide_url_' . $i,'multipurpose_business_theme'),
+    );
+  }
+  
+}
+
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
+function multipurpose_business_theme_preprocess_breadcrumb(&$variables){
+  if(($node = \Drupal::routeMatch()->getParameter('node')) && $variables['breadcrumb']){
+    $variables['breadcrumb'][] = array(
+     'text' => $node->getTitle(),
+     'url' => $node->URL()
+   );
+  }
+}
