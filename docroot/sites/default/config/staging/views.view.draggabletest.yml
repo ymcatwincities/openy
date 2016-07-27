@@ -371,6 +371,9 @@ display:
     display_options:
       display_extenders: {  }
       path: draggabletest
+      menu:
+        enabled: true
+        expanded: false
     cache_metadata:
       max-age: 0
       contexts:
