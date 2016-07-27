@@ -8,6 +8,8 @@ dependencies:
     - panels
     - system
     - ymca_retention
+_core:
+  default_config_hash: omHHlWsmimFtBt4tzO-ca5YiK334JCy8DfrdxoHZPTk
 id: y_games_activity
 label: 'Y Games Activity'
 variant: panels_variant
