@@ -443,6 +443,7 @@ display:
         weight: 0
         context: '0'
         menu_name: main
+        enabled: true
       tab_options:
         type: none
         title: ''
