@@ -7,6 +7,8 @@ dependencies:
   module:
     - panels
     - ymca_mobile_checkin
+_core:
+  default_config_hash: eEC5XCZUKwiEGv8qRakCgViZJqr6U_NBHKsmQ0gXotM
 id: ymca_mobile_checkin
 label: 'YMCA Mobile Check-in'
 variant: panels_variant
