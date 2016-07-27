@@ -425,8 +425,8 @@
   }
 }
 #hero-section .shape-container {
-  height: 939px;
-  height: 93.9rem;
+  height: 1031px;
+  height: 103.1rem;
   padding-top: 131px;
   padding-top: 13.1rem;
   max-height: 100%;
@@ -442,8 +442,8 @@
   width: 100%;
 }
 #hero-section .shape-container .shape {
-  background-size: 1920px 806px;
-  background-size: 192rem 80.6rem;
+  background-size: 1920px 900px;
+  background-size: 192rem 90rem;
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
@@ -1526,17 +1526,20 @@ body .ysr-offset:before {
   display: block;
   visibility: hidden;
 }
+body.toolbar-fixed.toolbar-vertical {
+  margin-top: 0;
+}
 body.toolbar-fixed.toolbar-vertical #top-nav {
   margin-top: 39px;
-}
-body.toolbar-fixed.toolbar-vertical #hero-section {
-  margin-top: 20px;
 }
 body.toolbar-fixed.toolbar-vertical .ysr-offset:before {
   height: 111px;
   height: 11.1rem;
   margin-top: -111px;
   margin-top: -11.1rem;
+}
+body.toolbar-fixed.toolbar-horizontal {
+  margin-top: 0;
 }
 body.toolbar-fixed.toolbar-horizontal #top-nav {
   margin-top: 39px;
@@ -1546,6 +1549,9 @@ body.toolbar-fixed.toolbar-horizontal .ysr-offset:before {
   height: 11.1rem;
   margin-top: -111px;
   margin-top: -11.1rem;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open {
+  margin-top: 0;
 }
 body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open #top-nav {
   margin-top: 79px;
@@ -2680,7 +2686,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 .activities .activity-items .form-item-checkbox input:checked + label small {
   color: #f8f8f8;
 }
-.activities .activity-items .form-item-checkbox input:disabled + label:before {
+.activities .activity-items .form-item-checkbox input.activity--click-last:disabled + label:before {
   background-size: 34px 34px;
   background-size: 3.4rem 3.4rem;
   background-image: url(../prototypes/ysr/img/throbber-white.svg);

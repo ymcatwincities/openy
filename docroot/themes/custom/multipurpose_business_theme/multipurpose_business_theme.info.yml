@@ -1,0 +1,54 @@
+name: MultiPurpose Business Theme
+type: theme
+description: 'Zymphonies Drupal 8 responsive theme. Developed & Designed by <a href=http://www.zymphonies.com>Zymphonies</a><br/>Contact us for Drupal Design & Development <a href=mailto:info@zymphonies.com>info@zymphonies.com</a>'
+package: core
+core: 8.x
+#Libraries
+libraries:
+  - multipurpose_business_theme/bootstrap
+  - multipurpose_business_theme/owl
+  - multipurpose_business_theme/colorbox
+  - multipurpose_business_theme/quicksand
+  - multipurpose_business_theme/flexslider
+  - multipurpose_business_theme/global-components
+#Regions
+regions:
+  header: 'Header'
+  search: 'Search form'
+  user_menu: 'User menu'
+  primary_menu: 'Primary Menu'
+  banner: 'Banner'
+  welcome_banner_text: 'Welcome Banner Text'  
+  topwidget_first: 'Top First Widget'
+  topwidget_second: 'Top Second Widget'
+  topwidget_third: 'Top Third Widget'
+  showcase: 'Showcase Widget'
+  skills_first: 'Skills First Widget'
+  skills_second: 'Skills Second Widget'
+  features_first: 'Features First Widget'
+  features_second: 'Features Second Widget'
+  portfolio_first: 'Portfolio First Widget'
+  portfolio_second: 'Portfolio Second Widget'
+  portfolio_third: 'Portfolio Third Widget'
+  pricetable_first: 'Price Table First Widget'
+  pricetable_second: 'Price Table Second Widget'
+  pricetable_third: 'Price Table Third Widget'
+  pricetable_forth: 'Price Table Forth Widget'
+  testimonials: 'Testimonials'
+  highlighted: 'Highlighted' 
+  page_title: 'Page Title'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  sidebar_first: 'Left Sidebar'
+  sidebar_second: 'Right Sidebar'  
+  bottom_first: 'Bottom First Widget'
+  bottom_second: 'Bottom Second Widget'
+  bottom_third: 'Bottom Third Widget'
+  bottom_forth: 'Bottom Forth Widget'
+  footer_first: 'Footer First Widget'
+  footer_second: 'Footer Second Widget'
+  footer_third: 'Footer Third Widget'
+  footer_menu: 'Footer Menu'
+  google_map: 'Google Map'
+  contact_address: 'Contact Address'
+  auto_hidden_block: 'Auto hidden blocks'
