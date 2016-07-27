@@ -21,7 +21,8 @@ class AllSearchResultsController extends ControllerBase {
     $request = \Drupal::request();
     $query = $request->query->all();
     if (array_key_exists('location', $query) && is_array($query['location'])) {
-      return $this->redirect('ymca_groupex.all_schedules_search');
+      $query['location'] = array_values($query['location'])[0];
+      return $this->redirect('ymca_groupex.all_schedules_search', [], ['query' => $query]);
     }
 
     // Get classes schedules.

@@ -19,7 +19,8 @@ class SearchResultsController extends ControllerBase {
     $request = \Drupal::request();
     $query = $request->query->all();
     if (array_key_exists('location', $query)) {
-      return $this->redirect('ymca_frontend.location_schedules', ['node' => $node->id()]);
+      unset($query['location']);
+      return $this->redirect('ymca_frontend.location_schedules', ['node' => $node->id()], ['query' => $query]);
     }
     $view = node_view($node, 'groupex');
     $markup = render($view);
