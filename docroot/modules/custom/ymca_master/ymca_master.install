@@ -3932,7 +3932,9 @@ function ymca_master_update_8164() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'user.role.contributor.yml',
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
     ]
   );
 }
