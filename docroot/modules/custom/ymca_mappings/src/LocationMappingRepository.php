@@ -65,9 +65,8 @@ class LocationMappingRepository {
    *   An array of found location mapping objects sorted by name.
    */
   public function findByLocationPersonifyBranchCode($code) {
-    $locations = [];
     if (!$code) {
-      return $locations;
+      return [];
     }
     if (!is_array($code)) {
       $code = [$code];
@@ -79,12 +78,10 @@ class LocationMappingRepository {
       ->sort('name', 'ASC')
       ->execute();
     if (!$mapping_ids) {
-      return $locations;
+      return [];
     }
 
-    $locations = Mapping::loadMultiple($mapping_ids);
-
-    return $locations;
+    return Mapping::loadMultiple($mapping_ids);
   }
 
 }
