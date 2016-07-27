@@ -2,6 +2,8 @@
 
 namespace Drupal\groupex_form_cache;
 
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
 
@@ -23,13 +25,23 @@ class GroupexFormCacheManager {
   protected $queryFactory;
 
   /**
+   * Config.
+   *
+   * @var ImmutableConfig
+   */
+  protected $config;
+
+  /**
    * GroupexFormCacheManager constructor.
    *
    * @param QueryFactory $query_factory
    *   Query factory.
+   * @param ConfigFactory $config_factory
+   *   Config factory.
    */
-  public function __construct(QueryFactory $query_factory) {
+  public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory) {
     $this->queryFactory = $query_factory;
+    $this->config = $config_factory->get('groupex_form_cache.settings');
   }
 
   /**
@@ -49,6 +61,7 @@ class GroupexFormCacheManager {
     if (!isset($local_cache[$search])) {
       $result = $this->queryFactory->get(self::ENTITY_TYPE)
         ->condition('field_gfc_options', $search)
+        ->condition('field_gfc_created', REQUEST_TIME - $this->config->get('cache_max_age'), '>')
         ->execute();
 
       $local_cache[$search] = FALSE;
