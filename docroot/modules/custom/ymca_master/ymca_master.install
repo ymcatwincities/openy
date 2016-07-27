@@ -3940,5 +3940,5 @@ function ymca_master_update_8164() {
       $path . 'field.storage.groupex_form_cache.field_gfc_created.yml',
       $path . 'field.storage.groupex_form_cache.field_gfc_options.yml',
       $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
-    ];
+    ]);
 }
