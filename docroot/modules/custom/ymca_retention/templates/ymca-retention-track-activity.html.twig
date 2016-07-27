@@ -38,6 +38,7 @@
                 <input id="checkbox-{{ '{{activity.id}}' }}" type="checkbox"
                        data-ng-model="member_activities[dates[date_index].timestamp][activity.id]"
                        data-ng-change="activityItemChange(activity.id)"
+                       data-ng-class="activityItemClass(activity.id)"
                        data-ng-disabled="progress.active()">
                 <label for="checkbox-{{ '{{activity.id}}' }}">{{ '{{activity.name}}' }}
                   <small>{{ '{{activity.description}}' }}</small>

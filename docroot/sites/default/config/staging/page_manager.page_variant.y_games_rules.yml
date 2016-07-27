@@ -12,7 +12,7 @@ dependencies:
     - system
     - ymca_retention
 _core:
-  default_config_hash: gJ0vEGkjQU9kpn3WS7l0km93izsK4te9qLDgJBl8_j0
+  default_config_hash: A4vasCSU4kVRIx6YkViJe1zymisXwLfMSdtN7_LXzLQ
 id: y_games_rules
 label: 'Y Games Rules'
 variant: panels_variant

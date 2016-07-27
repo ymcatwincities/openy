@@ -513,7 +513,7 @@ $track-activity-button-hover: #e882c8;
         }
       }
 
-      input:disabled + label {
+      input.activity--click-last:disabled + label {
         &:before {
           @include rem(background-size, 34px 34px);
           background-image: url(../prototypes/ysr/img/throbber-white.svg);
