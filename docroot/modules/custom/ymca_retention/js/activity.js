@@ -20,6 +20,9 @@
         }
       });
 
+      // Track the last clicked activity id.
+      $scope.last_activity_id = -1;
+
       $scope.activity_groups = settings.ymca_retention.activity.activity_groups;
       $scope.activity_group_index = 0;
 
@@ -97,6 +100,7 @@
       };
 
       $scope.activityItemChange = function (id) {
+        $scope.last_activity_id = id;
         var timestamp = $scope.dates[$scope.date_index].timestamp;
         var data = {
           'timestamp': timestamp,
@@ -118,6 +122,15 @@
 
         // Track the request and show its progress to the user.
         $scope.progress.addPromise($promise);
+      };
+
+      $scope.activityItemClass = function (id) {
+        var classes = [];
+        if (id === $scope.last_activity_id) {
+          classes.push('activity--click-last');
+        }
+
+        return classes.join(' ');
       };
 
       $scope.slickConfig = {
