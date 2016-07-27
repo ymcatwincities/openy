@@ -105,9 +105,10 @@ class RegularUpdater implements RegularUpdaterInterface {
   public function createQueue() {
     // Get campaign dates settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
-    $date_end = new \DateTime($settings->get('date_campaign_close'));
+    $date_open = new \DateTime($settings->get('date_campaign_open'));
+    $date_close = new \DateTime($settings->get('date_campaign_close'));
     $current_date = new \DateTime();
-    if ($current_date > $date_end) {
+    if ($current_date < $date_open || $current_date > $date_close) {
       return;
     }
 
