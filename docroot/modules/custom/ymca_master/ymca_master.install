@@ -3905,9 +3905,29 @@ function ymca_master_update_8161() {
 }
 
 /**
- * Install Groupex From Cache.
+ * Enable YMCA Mobile Check-in module.
  */
 function ymca_master_update_8162() {
+  \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
+}
+
+/**
+ * YMCA-1025: Allow interns and contributors administer files.
+ */
+function ymca_master_update_8163() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Install Groupex From Cache.
+ */
+function ymca_master_update_8164() {
   \Drupal::service('module_installer')->install(['groupex_form_cache'], TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
@@ -3920,6 +3940,5 @@ function ymca_master_update_8162() {
       $path . 'field.storage.groupex_form_cache.field_gfc_created.yml',
       $path . 'field.storage.groupex_form_cache.field_gfc_options.yml',
       $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
-    ]
-  );
+    ];
 }
