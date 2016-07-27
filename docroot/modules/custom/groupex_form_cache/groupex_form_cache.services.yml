@@ -1,0 +1,4 @@
+services:
+  groupex_form_cache.manager:
+    class: Drupal\groupex_form_cache\GroupexFormCacheManager
+    arguments: ['@entity.query']
