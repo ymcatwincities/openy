@@ -154,12 +154,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   public function getSearchResults(array $criteria, $node = NULL) {
     if (!isset(
       $criteria['location'],
-      $criteria['program'],
-      $criteria['session_type'],
+      $criteria['p'],
+      $criteria['s'],
       $criteria['trainer'],
-      $criteria['date_range'],
-      $criteria['start_time'],
-      $criteria['end_time']
+      $criteria['dr'],
+      $criteria['st'],
+      $criteria['et']
     )) {
       $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.pt');
       if (isset($this->node)) {
@@ -184,7 +184,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         'Password' => $this->credentials->get('user_password'),
         'SiteIDs' => [$this->credentials->get('site_id')],
       ],
-      'SessionTypeIDs' => [$criteria['session_type']],
+      'SessionTypeIDs' => [$criteria['s']],
       'LocationIDs' => [$criteria['location']],
     ];
 
@@ -192,13 +192,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       $booking_params['StaffIDs'] = array($criteria['trainer']);
     }
 
-    $period = $this->getRangeStrtotime($criteria['date_range']);
+    $period = $this->getRangeStrtotime($criteria['dr']);
     $booking_params['StartDate'] = date('Y-m-d', strtotime('today'));
     $booking_params['EndDate'] = date('Y-m-d', strtotime("today $period"));
 
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
-    $time_range = range($criteria['start_time'], $criteria['end_time']);
+    $time_range = range($criteria['st'], $criteria['et']);
 
     $days = [];
     // Group results by date and trainer.
@@ -229,14 +229,14 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             'attributes' => [
               'class' => [
                 'use-ajax',
-                $bookable_item->ID == $criteria['bookable_item_id'] ? 'highlight-item' : '',
+                $bookable_item->ID == $criteria['bid'] ? 'highlight-item' : '',
               ],
               'data-dialog-type' => 'modal',
               'id' => 'bookable-item-' . $bookable_item->ID,
             ],
             'html' => TRUE,
           ];
-          $query = ['bookable_item_id' => $bookable_item->ID] + $criteria;
+          $query = ['bid' => $bookable_item->ID] + $criteria;
           $query['token'] = $this::getToken($query);
           $options['query'] = $query;
 
@@ -259,10 +259,10 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
 
     $time_options = $this->getTimeOptions();
-    $start_time = $time_options[$criteria['start_time']];
-    $end_time = $time_options[$criteria['end_time']];
+    $start_time = $time_options[$criteria['st']];
+    $end_time = $time_options[$criteria['et']];
 
-    $period = $this->getRangeStrtotime($criteria['date_range']);
+    $period = $this->getRangeStrtotime($criteria['dr']);
     $start_date = date('n/d/Y', strtotime("today"));
     $end_date = date('n/d/Y', strtotime("today $period"));
 
@@ -271,9 +271,9 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $locations = $this->getLocations();
     $location_name = isset($locations[$criteria['location']]) ? $locations[$criteria['location']] : '';
     $programs = $this->getPrograms();
-    $program_name = isset($programs[$criteria['program']]) ? $programs[$criteria['program']] : '';
-    $session_types = $this->getSessionTypes($criteria['program']);
-    $session_type_name = isset($session_types[$criteria['session_type']]) ? $session_types[$criteria['session_type']] : '';
+    $program_name = isset($programs[$criteria['p']]) ? $programs[$criteria['p']] : '';
+    $session_types = $this->getSessionTypes($criteria['p']);
+    $session_type_name = isset($session_types[$criteria['s']]) ? $session_types[$criteria['s']] : '';
 
     $telephone = '';
     /* @todo Use a service instead of direct queries. */
@@ -295,12 +295,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       'query' => [
         'step' => 4,
         'mb_location' => $criteria['location'],
-        'mb_program' => $criteria['program'],
-        'mb_session_type' => $criteria['session_type'],
+        'mb_program' => $criteria['p'],
+        'mb_session_type' => $criteria['s'],
         'mb_trainer' => $criteria['trainer'],
-        'mb_date_range' => $criteria['date_range'],
-        'mb_start_time' => $criteria['start_time'],
-        'mb_end_time' => $criteria['end_time'],
+        'mb_date_range' => $criteria['dr'],
+        'mb_start_time' => $criteria['st'],
+        'mb_end_time' => $criteria['et'],
       ],
     ];
     if (isset($criteria['context'])) {
@@ -557,13 +557,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     return [
       'context',
       'location',
-      'program',
-      'session_type',
+      'p',
+      's',
       'trainer',
-      'start_time',
-      'end_time',
-      'date_range',
-      'bookable_item_id',
+      'st',
+      'et',
+      'dr',
+      'bid',
     ];
   }
 

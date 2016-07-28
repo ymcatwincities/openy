@@ -86,14 +86,14 @@ class MindbodyResultsController extends ControllerBase {
     $query = $this->requestStack->getCurrentRequest()->query->all();
     $values = [
       'location' => !empty($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
-      'program' => !empty($query['program']) && is_numeric($query['program']) ? $query['program'] : NULL,
-      'session_type' => !empty($query['session_type']) && is_numeric($query['session_type']) ? $query['session_type'] : NULL,
+      'p' => !empty($query['p']) && is_numeric($query['p']) ? $query['p'] : NULL,
+      's' => !empty($query['s']) && is_numeric($query['s']) ? $query['s'] : NULL,
       'trainer' => !empty($query['trainer']) ? $query['trainer'] : NULL,
-      'start_time' => !empty($query['start_time']) ? $query['start_time'] : NULL,
-      'end_time' => !empty($query['end_time']) ? $query['end_time'] : NULL,
-      'date_range' => !empty($query['date_range']) ? $query['date_range'] : NULL,
+      'st' => !empty($query['st']) ? $query['st'] : NULL,
+      'et' => !empty($query['et']) ? $query['et'] : NULL,
+      'dr' => !empty($query['dr']) ? $query['dr'] : NULL,
       'context' => isset($query['context']) ? $query['context'] : '',
-      'bookable_item_id' => isset($query['bookable_item_id']) ? $query['bookable_item_id'] : '',
+      'bid' => isset($query['bid']) ? $query['bid'] : '',
     ];
 
     $node = $this->requestStack->getCurrentRequest()->get('node');
