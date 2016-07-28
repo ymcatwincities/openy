@@ -96,6 +96,7 @@ class MindbodyResultsController extends ControllerBase {
       'bookable_item_id' => isset($query['bookable_item_id']) ? $query['bookable_item_id'] : '',
     ];
 
+
     $node = $this->requestStack->getCurrentRequest()->get('node');
     try {
       $search_results = $this->resultsSearcher->getSearchResults($values, $node);
