@@ -4,4 +4,4 @@ services:
     arguments: ['@entity.query', '@config.factory', '@logger.factory', '@entity_type.manager']
   groupex_form_cache.warmer:
     class: Drupal\groupex_form_cache\GroupexFormCacheWarmer
-    arguments: ['@entity.query', '@config.factory']
+    arguments: ['@entity.query', '@config.factory', '@logger.factory']
