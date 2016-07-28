@@ -363,7 +363,7 @@ $track-activity-button-hover: #e882c8;
     }
 
     .activity-group-item {
-      @include rem(width, 135px);
+      @include rem(width, 123px);
       display: inline-block;
       vertical-align: top;
 
@@ -372,19 +372,20 @@ $track-activity-button-hover: #e882c8;
       }
 
       @include breakpoint(max-width 400px) {
-        @include rem(width, 110px);
+        @include rem(width, 95px);
       }
 
       &-link {
         @include cachet-bold();
         @include rem(font-size, 20px);
-        @include rem(padding-top, 67px);
+        @include rem(padding-top, 81px);
         @include transition(opacity, .3s);
         background-position: top center;
         background-repeat: no-repeat;
         color: $white;
         cursor: pointer;
         display: block;
+        letter-spacing: -0.7px;
         opacity: .3;
         text-decoration: none;
         text-transform: uppercase;
@@ -401,22 +402,12 @@ $track-activity-button-hover: #e882c8;
         &--swimming {
           @include rem(background-size, 59px 32px);
           @include rem(background-position, center 10px);
-          @include rem(padding-top, 81px);
           background-image: url('../prototypes/ysr/img/reporting/icon-swimming.png');
-
-          @include breakpoint($tablet) {
-            @include rem(padding-top, 80px);
-          }
         }
 
         &--fitness {
           @include rem(background-size, 50px 52px);
-          @include rem(padding-top, 81px);
           background-image: url('../prototypes/ysr/img/reporting/icon-fitness.png');
-
-          @include breakpoint($tablet) {
-            @include rem(padding-top, 80px);
-          }
         }
 
         &--group-ex {
@@ -522,7 +513,7 @@ $track-activity-button-hover: #e882c8;
         }
       }
 
-      input:disabled + label {
+      input.activity--click-last:disabled + label {
         &:before {
           @include rem(background-size, 34px 34px);
           background-image: url(../prototypes/ysr/img/throbber-white.svg);

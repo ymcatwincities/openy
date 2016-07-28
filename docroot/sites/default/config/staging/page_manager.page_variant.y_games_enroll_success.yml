@@ -9,7 +9,7 @@ dependencies:
     - system
     - ymca_retention
 _core:
-  default_config_hash: RwY63Ku_VoOgUxdJ-37-HjfVlHisy43YbD0QBaWQwkw
+  default_config_hash: P5fz6kjE-CTawjaNt-y4QOGb_BkAxn1g9JHQY7w8G-U
 id: y_games_enroll_success
 label: 'Y Games Enroll Success'
 variant: panels_variant
