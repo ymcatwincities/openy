@@ -527,13 +527,13 @@ class MindbodyPTForm extends FormBase {
       !empty($values['mb_end_time']) &&
       !empty($values['mb_date_range'])) {
       $params = [
-        'location'     => $values['mb_location'],
-        'program'      => $values['mb_program'],
-        'session_type' => $values['mb_session_type'],
-        'trainer'      => $values['mb_trainer'],
-        'start_time'   => $values['mb_start_time'],
-        'end_time'     => $values['mb_end_time'],
-        'date_range'   => $values['mb_date_range'],
+        'location' => $values['mb_location'],
+        'p'        => $values['mb_program'],
+        's'        => $values['mb_session_type'],
+        'trainer'  => $values['mb_trainer'],
+        'st'       => $values['mb_start_time'],
+        'et'       => $values['mb_end_time'],
+        'dr'       => $values['mb_date_range'],
       ];
       if (isset($query['context'])) {
         $params['context'] = $query['context'];
