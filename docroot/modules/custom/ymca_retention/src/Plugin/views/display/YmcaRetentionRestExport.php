@@ -9,6 +9,7 @@ use Drupal\views_rest_feed\Plugin\views\display\RestExportFeed;
 
 /**
  * The plugin that handles Data response callbacks for REST resources.
+ *
  * The plugin disable cache tags for this display.
  *
  * @ingroup views_display_plugins
