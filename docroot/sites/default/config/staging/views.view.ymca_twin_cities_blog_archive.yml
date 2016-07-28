@@ -336,6 +336,8 @@ display:
         type: normal
         title: Blog
         menu_name: top-menu
+        enabled: true
+        expanded: false
       style:
         type: html_list
         options:
