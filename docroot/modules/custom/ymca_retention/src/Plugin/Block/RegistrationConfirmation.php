@@ -37,7 +37,7 @@ class RegistrationConfirmation extends BlockBase {
         'name' => $member->getFirstName(),
         'goal' => $member->getVisitGoal(),
         'activity_url' => Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
-          'string' => 'activity',
+          'string' => $member->isCreatedByStaff() ? 'team' : 'activity',
         ]),
       ],
     ];
