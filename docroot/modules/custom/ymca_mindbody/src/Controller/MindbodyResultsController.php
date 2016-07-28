@@ -92,11 +92,10 @@ class MindbodyResultsController extends ControllerBase {
       'start_time' => !empty($query['start_time']) ? $query['start_time'] : NULL,
       'end_time' => !empty($query['end_time']) ? $query['end_time'] : NULL,
       'date_range' => !empty($query['date_range']) ? $query['date_range'] : NULL,
+      'context' => isset($query['context']) ? $query['context'] : '',
       'bookable_item_id' => isset($query['bookable_item_id']) ? $query['bookable_item_id'] : '',
     ];
-    if (isset($query['context'])) {
-      $values['context'] = $query['context'];
-    }
+
 
     $node = $this->requestStack->getCurrentRequest()->get('node');
     try {
@@ -231,9 +230,18 @@ class MindbodyResultsController extends ControllerBase {
       }
     }
     // Build return url.
-    $destination = Url::fromRoute('ymca_mindbody.pt.results', [], [
-      'query' => $query,
-    ]);
+    if (isset($query['context']) && in_array($query['context'], ['location', 'trainer'])) {
+      $destination = Url::fromRoute('ymca_mindbody.location.pt.results', [
+        'node' => $query['location'],
+      ], [
+        'query' => $query,
+      ]);
+    }
+    else {
+      $destination = Url::fromRoute('ymca_mindbody.pt.results', [], [
+        'query' => $query,
+      ]);
+    }
     // Build Personify login url.
     $redirect_url = Url::fromRoute('ymca_personify.personify_login', [], [
       'query' => [
