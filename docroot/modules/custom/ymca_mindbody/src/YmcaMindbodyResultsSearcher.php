@@ -555,6 +555,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    */
   public static function getTokenArgs() {
     return [
+      'context',
       'location',
       'program',
       'session_type',
