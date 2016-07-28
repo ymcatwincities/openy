@@ -5,6 +5,8 @@
  * YMCA Retention hook_update_N.
  */
 
+use Drupal\Core\Entity\EntityStorageException;
+
 /**
  * Update YMCA Retention Members view.
  */
@@ -39,4 +41,16 @@ function ymca_retention_update_8003() {
       $path . 'ymca_retention.general_settings.yml',
     ]
   );
+}
+
+/**
+ * Create Winner entity type.
+ */
+function ymca_retention_update_8004() {
+  try {
+    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('update', $e);
+  }
 }
