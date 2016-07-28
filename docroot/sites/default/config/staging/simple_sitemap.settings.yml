@@ -149,22 +149,7 @@ entity_types:
         499:
           index: 0
           priority: 0.5
-        988:
-          index: 0
-          priority: 0.5
-        1150:
-          index: 0
-          priority: 0.5
-        999:
-          index: 0
-          priority: 0.5
         1115:
-          index: 0
-          priority: 0.5
-        993:
-          index: 0
-          priority: 0.5
-        1130:
           index: 0
           priority: 0.5
         1083:
@@ -177,9 +162,6 @@ entity_types:
           index: 0
           priority: 0.5
         581:
-          index: 0
-          priority: 0.5
-        1054:
           index: 0
           priority: 0.5
         1075:
@@ -270,6 +252,9 @@ entity_types:
           index: 0
           priority: 0.5
         2604:
+          index: 0
+          priority: 0.5
+        1:
           index: 0
           priority: 0.5
 settings:
