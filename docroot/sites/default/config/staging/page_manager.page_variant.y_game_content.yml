@@ -7,6 +7,8 @@ dependencies:
   module:
     - panels
     - ymca_retention
+_core:
+  default_config_hash: V-xfEHCHpkF7d7VOI-OdsyKsLxQfeXZiFTwsxUr9Wn0
 id: y_game_content
 label: 'Y Game Content'
 variant: panels_variant
