@@ -46,9 +46,7 @@ function ymca_retention_update_8003() {
  */
 function ymca_retention_update_8004() {
   $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'views.view.ymca_members.yml',
-    ]
-  );
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'views.view.ymca_members.yml',
+  ]);
 }
