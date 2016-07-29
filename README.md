@@ -19,21 +19,21 @@ vagrant up && vagrant ssh
 
 Unix users
 ```sh
-sh reinstall.sh
+sudo sh reinstall.sh
 ```
 Windows users
 ```sh
-sh reinstall.sh --windows
+sudo sh reinstall.sh --windows
 ```
 
 ### Reinstall all sites: YGTC, OpenY, YMCA Redwing
 Unix users
 ```sh
-sh reinstall_all.sh
+sudo sh reinstall_all.sh
 ```
 Windows users
 ```sh
-sh reinstall_all.sh --windows
+sudo sh reinstall_all.sh --windows
 ```
 
 
