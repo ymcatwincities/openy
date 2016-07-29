@@ -310,7 +310,13 @@ class Page extends ConfigEntityBase implements PageInterface {
    * {@inheritdoc}
    */
   public function addVariant(PageVariantInterface $variant) {
+    // If variants hasn't been initialized, we initialize it before adding the
+    // new variant.
+    if ($this->variants === NULL) {
+      $this->getVariants();
+    }
     $this->variants[$variant->id()] = $variant;
+    $this->sortVariants();
     return $this;
   }
 
@@ -330,6 +336,7 @@ class Page extends ConfigEntityBase implements PageInterface {
    */
   public function removeVariant($variant_id) {
     $this->getVariant($variant_id)->delete();
+    unset($this->variants[$variant_id]);
     return $this;
   }
 
@@ -343,10 +350,19 @@ class Page extends ConfigEntityBase implements PageInterface {
       foreach ($this->variantStorage()->loadByProperties(['page' => $this->id()]) as $variant) {
         $this->variants[$variant->id()] = $variant;
       }
+      $this->sortVariants();
+    }
+    return $this->variants;
+  }
+
+  /**
+   * Sort variants.
+   */
+  protected function sortVariants() {
+    if (isset($this->variants)) {
       // Suppress errors because of https://bugs.php.net/bug.php?id=50688.
       @uasort($this->variants, [$this, 'variantSortHelper']);
     }
-    return $this->variants;
   }
 
   /**
