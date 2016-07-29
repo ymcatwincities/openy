@@ -749,6 +749,8 @@ display:
         weight: -10
         context: '0'
         menu_name: admin
+        enabled: true
+        expanded: false
       tab_options:
         type: normal
         title: Content
@@ -783,6 +785,8 @@ display:
         weight: -10
         context: '0'
         menu_name: admin
+        enabled: true
+        expanded: false
       tab_options:
         type: normal
         title: Content
