@@ -11,11 +11,12 @@
 #}
 <tr>
   <td class="time-duration">
-    <div><span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span></div>
-    <div>{{ class.address_2 }}</div>
+    <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
   </td>
   <td>
-    <a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></td>
+    <div><a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></div>
+    <div>{{ class.address_2 }}</div>
+  </td>
   <td class="instructor">
     <span class="icon icon-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
   </td>
