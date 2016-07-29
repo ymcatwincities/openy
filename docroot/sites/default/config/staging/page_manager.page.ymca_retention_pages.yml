@@ -2,6 +2,8 @@ uuid: 6c38eec5-e5a4-4dda-bd19-583d25bd06a6
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: 14dcs3lzVbRLNvBNRiRLI_furiJ5vKTwtyDRBT59dUY
 id: ymca_retention_pages
 label: 'Y Games 2016'
 use_admin_theme: false
