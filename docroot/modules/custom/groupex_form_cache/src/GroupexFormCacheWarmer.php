@@ -2,6 +2,7 @@
 
 namespace Drupal\groupex_form_cache;
 
+use Drupal\Component\Utility\Timer;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
@@ -57,8 +58,13 @@ class GroupexFormCacheWarmer {
    * Warms up the cache entities.
    */
   public function warm() {
+    Timer::start('warm');
+    
     $this->simpleWarmUp();
     $this->traverse();
+    
+    $this->logger->info('Cache warmer finish it\'s run in %sec sec.', ['%sec' => Timer::read('warm') / 1000]);
+    Timer::stop('warm');
   }
 
   /**
@@ -114,7 +120,12 @@ class GroupexFormCacheWarmer {
 
     // Make a new request with appropriate options to create new cache entity.
     if (FALSE !== $this->request($options, FALSE)) {
-      $entity->delete();
+      try {
+        $entity->delete();
+      }
+      catch (\Exception $e) {
+        $this->logger->notice('Possible race condition. Tried to delete an entity which does not exist');
+      }
     }
   }
 
