@@ -59,10 +59,10 @@ class GroupexFormCacheWarmer {
    */
   public function warm() {
     Timer::start('warm');
-    
+
     $this->simpleWarmUp();
     $this->traverse();
-    
+
     $this->logger->info('Cache warmer finish it\'s run in %sec sec.', ['%sec' => Timer::read('warm') / 1000]);
     Timer::stop('warm');
   }
