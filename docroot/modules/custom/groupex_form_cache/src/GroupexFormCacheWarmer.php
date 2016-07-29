@@ -57,7 +57,16 @@ class GroupexFormCacheWarmer {
    * Warms up the cache entities.
    */
   public function warm() {
+    $this->simpleWarmUp();
     $this->traverse();
+  }
+
+  /**
+   * Warm up simple elements.
+   */
+  private function simpleWarmUp() {
+    $this->request(['locations' => TRUE]);
+    $this->request(['classes' => TRUE]);
   }
 
   /**
@@ -90,7 +99,6 @@ class GroupexFormCacheWarmer {
    */
   private function warmUp(GroupexFormCacheInterface $entity) {
     $options = unserialize($entity->field_gfc_options->value);
-    // @todo Deal with deafault options in request. Options are corrupted.
 
     // If entity is not valid we should make it valid by providing dates.
     if (!$this->isValid($entity)) {
@@ -105,8 +113,8 @@ class GroupexFormCacheWarmer {
     }
 
     // Make a new request with appropriate options to create new cache entity.
-    if (FALSE !== $this->request($options)) {
-//      $entity->delete();
+    if (FALSE !== $this->request($options, FALSE)) {
+      $entity->delete();
     }
   }
 

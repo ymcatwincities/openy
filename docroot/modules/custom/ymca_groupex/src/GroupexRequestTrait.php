@@ -70,13 +70,17 @@ trait GroupexRequestTrait {
    *
    * @param array $options
    *   Request options.
+   * @param bool $defaults
+   *   TRUE includes default options. FALSE will not alter options.
    *
    * @return array
    *   Data.
    */
-  protected function request($options) {
-    // Add default options.
-    $all_options = array_merge_recursive($this->getDefaultOptions(), $options);
+  protected function request($options, $defaults = TRUE) {
+    $all_options = $options;
+    if ($defaults) {
+      $all_options = array_merge_recursive($this->getDefaultOptions(), $options);
+    }
 
     // Try to use cached data.
     $manager = \Drupal::service('groupex_form_cache.manager');
@@ -96,7 +100,13 @@ trait GroupexRequestTrait {
       return FALSE;
     }
   }
-  
+
+  /**
+   * Return required defaults parameters for the request.
+   * 
+   * @return array
+   *   Options.
+   */
   protected function getDefaultOptions() {
     return [
       'query' => [
