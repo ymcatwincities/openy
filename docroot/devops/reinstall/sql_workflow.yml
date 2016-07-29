@@ -55,7 +55,7 @@
 
 - name: Clear drush cache
   sudo: yes
-  shell: "{{ php_env_vars }} drush cc drush"
+  shell: "{{ php_env_vars }} drush cc drush -l {{ site_url }}"
   when: rebuild_registry and registry_rebuild_installed.stdout == "0"
 
 - name: Rebuilding drupal registry
