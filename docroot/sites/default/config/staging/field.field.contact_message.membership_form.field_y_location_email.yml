@@ -20,117 +20,117 @@ default_value:
     option_select: 0
     option_name: Andover
     option_reference: '4'
-    option_emails: 'an.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,an.sales@ymcatwincities.org,Nicole.Aurelius@ymcamn.org'
+    option_emails: andoversales@ymcamn.org
   -
     option_select: 0
     option_name: Blaisdell
     option_reference: '5'
-    option_emails: 'bl.sales@ymcampls.org,Nate.Rinehart@ymcatwincities.org,Jacob.Hawkins@ymcatwincities.org,bl.sales@ymcatwincities.org'
+    option_emails: blaisdellsales@ymcamn.org
   -
     option_select: 0
     option_name: Burnsville
     option_reference: '6'
-    option_emails: 'Nate.Rinehart@ymcatwincities.org,kurt.schardin@ymcatwincities.org'
+    option_emails: burnsvillesales@ymcamn.org
   -
     option_select: 0
     option_name: Eagan
     option_reference: '7'
-    option_emails: 'sw.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,sw.sales@ymcatwincities.org'
+    option_emails: eagansales@ymcamn.org
   -
     option_select: 0
     option_name: 'Elk River'
     option_reference: '8'
-    option_emails: 'er.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,er.sales@ymcatwincities.org'
+    option_emails: elkriversales@ymcamn.org
   -
     option_select: 0
     option_name: 'Emma B. Howe - Coon Rapids'
     option_reference: '9'
-    option_emails: 'en.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,en.sales@ymcatwincities.org,Casandra.Lokrantz@ymcamn.org'
+    option_emails: emmabhowesales@ymcamn.org
   -
     option_select: 0
     option_name: Hastings
     option_reference: '10'
-    option_emails: 'hs.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,hs.sales@ymcatwincities.org'
+    option_emails: hastingssales@ymcamn.org
   -
     option_select: 0
     option_name: 'Heritage Park'
     option_reference: '11'
-    option_emails: 'Andrew.Hoffman@YMCAtwincities.org,kimieshia.paul@ymcatwincities.org'
+    option_emails: heritageparksales@ymcamn.org
   -
     option_select: 0
     option_name: Hudson
     option_reference: '12'
-    option_emails: 'sv.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,sv.sales@ymcatwincities.org'
+    option_emails: hudsonsales@ymcamn.org
   -
     option_select: 0
     option_name: 'Lino Lakes'
     option_reference: '13'
-    option_emails: 'cl.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org,cl.sales@ymcatwincities.org'
+    option_emails: linolakessales@ymcamn.org
   -
     option_select: 0
     option_name: 'Minneapolis Downtown'
     option_reference: '14'
-    option_emails: 'dt.sales@ymcampls.org,Andrew.Hoffman@ymcatwincities.org,dt.sales@ymcatwincities.org'
+    option_emails: downtownsales@ymcamn.org
   -
     option_select: 0
     option_name: 'New Hope'
     option_reference: '16'
-    option_emails: 'nm.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,nm.sales@ymcatwincities.org'
+    option_emails: newhopesales@ymcamn.org
   -
     option_select: 0
     option_name: 'Ridgedale - Minnetonka'
     option_reference: '17'
-    option_emails: 're.sales@ymcampls.org,carolyn.ball@ymcatwincities.org,re.sales@ymcatwincities.org'
+    option_emails: ridgedalesales@ymcamn.org
   -
     option_select: 0
     option_name: 'River Valley - Prior Lake'
     option_reference: '18'
-    option_emails: 'Nate.Rinehart@ymcatwincities.org,Lindsay.Tasche@ymcatwincities.org'
+    option_emails: rivervalleysales@ymcamn.org
   -
     option_select: 0
     option_name: 'St. Paul Downtown'
     option_reference: '19'
-    option_emails: 'sk.sales@ymcastpaul.org,Andrew.Hoffman@YMCAtwincities.org,Carolyn.Selness@ymcamn.org'
+    option_emails: stpauldowntownsales@ymcamn.org
   -
     option_select: 0
     option_name: 'St. Paul Eastside'
     option_reference: '20'
-    option_emails: 'ea.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org'
+    option_emails: stpauleastsales@ymcamn.org
   -
     option_select: 0
     option_name: 'St. Paul Midway'
     option_reference: '21'
-    option_emails: 'my.sales@ymcastpaul.org,nate.rinehart@ymcatwincities.org'
+    option_emails: midwaysales@ymcamn.org
   -
     option_select: 0
     option_name: Shoreview
     option_reference: '22'
-    option_emails: 'nw.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org,nw.sales@ymcatwincities.org,Natalie.Anvary@ymcamn.org'
+    option_emails: shoreviewsales@ymcamn.org
   -
     option_select: 0
     option_name: 'Southdale - Edina'
     option_reference: '23'
-    option_emails: 'sd.sales@ymcampls.org,Nate.Rinehart@ymcatwincities.org'
+    option_emails: southdalesales@ymcamn.org
   -
     option_select: 0
     option_name: 'West St. Paul'
     option_reference: '24'
-    option_emails: 'so.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,Chris.Edwards@YMCAtwincities.org'
+    option_emails: weststpaulsales@ymcamn.org
   -
     option_select: 0
     option_name: 'White Bear Area'
     option_reference: '25'
-    option_emails: 'ne.sales@ymcastpaul.org,carolyn.ball@ymcatwincities.org'
+    option_emails: whitebearsales@ymcamn.org
   -
     option_select: 0
     option_name: Woodbury
     option_reference: '26'
-    option_emails: 'se.sales@ymcastpaul.org,Nate.Rinehart@ymcatwincities.org,Cassie.Schmuecker@ymcatwincities.org'
+    option_emails: woodburysales@ymcamn.org
   -
     option_select: 0
     option_name: 'Forest Lake'
     option_reference: '2746'
-    option_emails: 'Angela.Baldwin@ymcamn.org,carolyn.ball@ymcatwincities.org'
+    option_emails: forestlakesales@ymcamn.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

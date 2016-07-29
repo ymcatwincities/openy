@@ -3903,3 +3903,23 @@ function ymca_master_update_8161() {
     ]
   );
 }
+
+/**
+ * Enable YMCA Mobile Check-in module.
+ */
+function ymca_master_update_8162() {
+  \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
+}
+
+/**
+ * YMCA-1025: Allow interns and contributors administer files.
+ */
+function ymca_master_update_8163() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
