@@ -85,7 +85,7 @@ default_value:
     option_select: 0
     option_name: 'St. Paul Eastside'
     option_reference: '20'
-    option_emails: lacey.vansickle@ymcamn.org
+    option_emails: Lacey.Carlson@ymcamn.org
   -
     option_select: 0
     option_name: 'St. Paul Midway'
@@ -110,7 +110,7 @@ default_value:
     option_select: 0
     option_name: 'White Bear Area'
     option_reference: '25'
-    option_emails: Madeline.Hoe@ymcamn.org
+    option_emails: Ashley.Filipp@ymcamn.org
   -
     option_select: 0
     option_name: Woodbury
