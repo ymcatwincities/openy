@@ -1,0 +1,13 @@
+uuid: 157c3d9d-c8c2-486a-8529-90b43ee43e91
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 42I0apJDUgMCR1S4fgsYKrrWFzF5jgNQnvowRWCLkSY
+id: ymca_retention_campaign
+label: 'Y Games 2016'
+use_admin_theme: false
+path: /ygames
+access_logic: and
+access_conditions: {  }
+parameters: {  }

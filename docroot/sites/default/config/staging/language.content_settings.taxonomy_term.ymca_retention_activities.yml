@@ -1,0 +1,13 @@
+uuid: b3019916-a8de-4acd-8c7e-9657b1f7c5d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.ymca_retention_activities
+_core:
+  default_config_hash: tR8h0EH43ZCFA75Qa4Ee9lrKLlTNBtXSQzqia7h-Kuo
+id: taxonomy_term.ymca_retention_activities
+target_entity_type_id: taxonomy_term
+target_bundle: ymca_retention_activities
+default_langcode: site_default
+language_alterable: false

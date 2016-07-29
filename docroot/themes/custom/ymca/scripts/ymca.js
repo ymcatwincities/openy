@@ -224,4 +224,67 @@
     }
   };
 
+  /**
+   * Youth sports behaviors.
+   */
+  Drupal.behaviors.ymca_youth_sports = {
+    attach: function (context, settings) {
+      $('.template_youth_sports_overview section.node .content_group section ul li a').each(function() {
+        // set css classes based on link title.
+        var title = $(this).text().toLowerCase().replace(/ /g, '-').replace(/\//g, '-'),
+            css_class = title + ' sports-icon';
+        $(this).attr('class', css_class);
+      });
+      $('.template_youth_sports_overview .copy a, .template_youth_sports_inner .copy a').each(function() {
+        var href = $(this).attr('href');
+        if (href.match(/\.pdf/g)) {
+          $(this).attr('class', 'pdf-link');
+        }
+      });
+      var index = 1;
+      $('.template_youth_sports_inner section.node .content-expander').each(function() {
+        $(this).addClass('content-expander-' + index);
+        index++;
+      });
+    }
+  };
+
+  /**
+   * Masthead Menu Activation behavior.
+   */
+  Drupal.behaviors.ymcaMastheadMenuActive = {
+    attach: function (context, settings) {
+      if (!$('#masthead-menu').length) {
+        return;
+      }
+      $('#masthead-menu')
+        .once('ymca-masthead-menu-active')
+        .on('shown.bs.dropdown', function(){
+          $('body').addClass('masthead-menu-active');
+          Drupal.behaviors.ymcaMastheadMenuActive.setDropdownHeight();
+        })
+        .on('hide.bs.dropdown', function(){
+          jQuery('body').removeClass('masthead-menu-active');
+        });
+      $(window).on('resize', Drupal.behaviors.ymcaMastheadMenuActive.setDropdownHeight);
+
+    },
+    setDropdownHeight: function () {
+      var windowHeight = $(window).height(),
+        menu = $('#masthead-menu'),
+        isFixed = menu.hasClass('affix'),
+        offset = menu.length ?
+          isFixed ?
+          menu.position().top + menu.height() :
+          menu.position().top - jQuery(window).scrollTop() + menu.height() :
+          null;
+
+      if (!offset) {
+        return;
+      }
+      $('#masthead-menu .open .dropdown-menu')
+        .css('max-height', (windowHeight - offset) - 30);
+    }
+  };
+
 })(jQuery);
