@@ -1,0 +1,2 @@
+cache_max_age: '3600'
+cache_warmup_interval: '1800'
