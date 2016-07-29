@@ -15,7 +15,7 @@ Drupal Vagrant Dev box for CIBox support.
 vagrant up && vagrant ssh
 ```
 
-**Drupal reinstallation from scratch**
+### Reinstall only YGTC site
 
 Unix users
 ```sh
@@ -25,17 +25,32 @@ Windows users
 ```sh
 sh reinstall.sh --windows
 ```
+
+### Reinstall all sites: YGTC, OpenY, YMCA Redwing
+Unix users
+```sh
+sh reinstall_all.sh
+```
+Windows users
+```sh
+sh reinstall_all.sh --windows
+```
+
+
 By default your site will be accessible by using this url. 
 
 ```
-http://drupal.192.168.56.132.xip.io/
+YGTC - http://drupal.192.168.56.132.xip.io
+OpenY - http://openy.192.168.56.132.xip.io
+YMCA Redwing - http://redwing.192.168.56.132.xip.io
 ```
-
 
 If ```xip.io``` not working - create row with
 
 ```hosts
 192.168.56.132 drupal.192.168.56.132.xip.io
+192.168.56.132 openy.192.168.56.132.xip.io
+192.168.56.132 redwing.192.168.56.132.xip.io
 ```
 
 in ```/etc/hosts``` or just use another ServerName in apache.yml
