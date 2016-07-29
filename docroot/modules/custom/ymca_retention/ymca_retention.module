@@ -81,14 +81,15 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
  * Implements hook_cron().
  */
 function ymca_retention_cron() {
+  /** @var \Drupal\ymca_retention\RegularUpdater $regular_updater */
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
   // Check if cron was run today.
-  if (!$regular_updater->isAllowed()) {
+  if ($regular_updater->isAllowed()) {
     return;
   }
 
-  $regular_updater->runUpdate();
+  $regular_updater->createQueue();
 }
 
 /**
@@ -142,11 +143,10 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
     return;
   }
 
-  $member_id = $entity->member->target_id;
   /** @var \Drupal\ymca_retention\ActivityManager $service */
   $service = \Drupal::service('ymca_retention.activity_manager');
   $activity_groups = $service->getActivityGroups();
-  $member_activities = $service->getMemberActivities($member_id);
+  $member_activities = $service->getMemberActivities($member->getId());
 
   $tracks = [];
   foreach ($activity_groups as $activity_group) {
