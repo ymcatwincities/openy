@@ -103,7 +103,7 @@ trait GroupexRequestTrait {
 
   /**
    * Return required defaults parameters for the request.
-   * 
+   *
    * @return array
    *   Options.
    */
