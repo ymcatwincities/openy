@@ -3923,3 +3923,18 @@ function ymca_master_update_8163() {
     ]
   );
 }
+
+/**
+ * Allow interns and contributors access workflow_unpublished states.
+ */
+function ymca_master_update_8164() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
+    ]
+  );
+}
