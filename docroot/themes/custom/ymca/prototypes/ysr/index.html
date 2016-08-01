@@ -158,22 +158,24 @@
             <li><a href="#register-and-report">Registration</a></li>
             <li><a href="#register-and-report">Track My Activities</a></li>
             <li><a href="#leaderboard">Leaderboard</a></li>
-            <li><a href="rules.html">Prizes/Rules Details</a></li>
+            <li><a href="rules.html">Prizes & Rules</a></li>
           </ul>
         </nav>
         <!-- HERO SECTION -->
         <div id="hero-section">
           <div class="shape-container">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
+            <div class="shapes-wrapper">
+              <div class="shape shape-1"></div>
+              <div class="shape shape-2"></div>
+              <div class="shape shape-3"></div>
+            </div>
           </div>
           <div class="container">
             <div class="logo"></div>
-            <div class="date">July 25 - August 16</div>
+            <div class="date">August 3 - August 16</div>
             <h1>Y Games 2016</h1>
           </div>
-          <div id="register-and-report" class="slides">
+          <div id="register-and-report" class="slides ysr-offset">
 
             <div id="register-or-report" class="slide register-or-report">
               <div class="container">
@@ -257,9 +259,9 @@
 
         </div>
 
-        <div id="leaderboard">
+        <div id="leaderboard" class="ysr-offset">
 
-          <div class="row">
+          <div class="leaderboard-inner row">
             <div class="container">
               <div class="col-xs-12">
                 <div class="wrap">
@@ -401,6 +403,7 @@
                 <div class="pager">
                   <a href="#" class="load-more">+ Show 20 more</a>
                 </div>
+                <div class="description">Leaderboard updated approximately every six hours.</div>
 
               </div>
             </div>
@@ -871,13 +874,14 @@
           jQuery('.ysr-menu', context).once('mobile-menu').each(function () {
             var $menu = jQuery(this);
             jQuery('a', $menu).bind('click', function () {
-              if (jQuery(this).attr('href').size()) {
+              var href = jQuery(this).attr('href');
+              if (href !== '') {
                 jQuery.scrollTo(jQuery(this).attr('href'), 800);
                 $menu.removeClass('in').addClass('collapsing');
                 // WTF?
                 setTimeout(function () {
                   jQuery('#hero-section').scrollTop(0);
-                }, 0);
+                }, 500);
                 setTimeout(function () {
                   $menu.removeClass('collapsing').addClass('collapse');
                 }, 500);
@@ -885,6 +889,9 @@
               }
             });
           });
+          setTimeout(function () {
+            jQuery('#hero-section').scrollTop(0);
+          }, 0);
         }
       };
 

@@ -74,6 +74,103 @@ class PageTest extends UnitTestCase {
   }
 
   /**
+   * @covers ::addVariant
+   */
+  public function testAddVariant() {
+    $variant1 = $this->prophesize(PageVariantInterface::class);
+    $variant1->id()->willReturn('variant1');
+    $variant1->getWeight()->willReturn(0);
+
+    $variant2 = $this->prophesize(PageVariantInterface::class);
+    $variant2->id()->willReturn('variant2');
+    $variant2->getWeight()->willReturn(-10);
+
+    $variant3 = $this->prophesize(PageVariantInterface::class);
+    $variant3->id()->willReturn('variant3');
+    $variant3->getWeight()->willReturn(-5);
+
+    $entity_storage = $this->prophesize(EntityStorageInterface::class);
+    $entity_storage
+      ->loadByProperties(['page' => 'the_page'])
+      ->willReturn([
+        'variant1' => $variant1->reveal(),
+        'variant2' => $variant2->reveal(),
+      ])
+      ->shouldBeCalledTimes(1);
+
+    $entity_type_manager = $this->prophesize(EntityTypeManagerInterface::class);
+    $entity_type_manager->getStorage('page_variant')->willReturn($entity_storage);
+
+    $container = new ContainerBuilder();
+    $container->set('entity_type.manager', $entity_type_manager->reveal());
+    \Drupal::setContainer($container);
+
+    // Check that Variant 1 and 2 are in the right order.
+    $variants = $this->page->getVariants();
+    $this->assertSame([
+      'variant2' => $variant2->reveal(),
+      'variant1' => $variant1->reveal(),
+    ], $variants);
+
+    // Add Variant 3.
+    $this->page->addVariant($variant3->reveal());
+
+    // Check that Variant 1, 2 and 3 are in the right order.
+    $variants = $this->page->getVariants();
+    $this->assertSame([
+      'variant2' => $variant2->reveal(),
+      'variant3' => $variant3->reveal(),
+      'variant1' => $variant1->reveal(),
+    ], $variants);
+  }
+
+  /**
+   * @covers ::removeVariant
+   */
+  public function testRemoveVariant() {
+    $variant1 = $this->prophesize(PageVariantInterface::class);
+    $variant1->id()->willReturn('variant1');
+    $variant1->getWeight()->willReturn(0);
+    $variant1->delete()->shouldBeCalledTimes(1);
+
+    $variant2 = $this->prophesize(PageVariantInterface::class);
+    $variant2->id()->willReturn('variant2');
+    $variant2->getWeight()->willReturn(-10);
+
+    $entity_storage = $this->prophesize(EntityStorageInterface::class);
+    $entity_storage
+      ->loadByProperties(['page' => 'the_page'])
+      ->willReturn([
+        'variant1' => $variant1->reveal(),
+        'variant2' => $variant2->reveal(),
+      ])
+      ->shouldBeCalledTimes(1);
+
+    $entity_type_manager = $this->prophesize(EntityTypeManagerInterface::class);
+    $entity_type_manager->getStorage('page_variant')->willReturn($entity_storage);
+
+    $container = new ContainerBuilder();
+    $container->set('entity_type.manager', $entity_type_manager->reveal());
+    \Drupal::setContainer($container);
+
+    // Check that Variant 1 and 2 are returned.
+    $variants = $this->page->getVariants();
+    $this->assertSame([
+      'variant2' => $variant2->reveal(),
+      'variant1' => $variant1->reveal(),
+    ], $variants);
+
+    // Remove Variant 1.
+    $this->page->removeVariant($variant1->reveal()->id());
+
+    // Check that Variant 1 has been removed.
+    $variants = $this->page->getVariants();
+    $this->assertSame([
+      'variant2' => $variant2->reveal(),
+    ], $variants);
+  }
+
+  /**
    * @covers ::addContext
    */
   public function testAddContext() {

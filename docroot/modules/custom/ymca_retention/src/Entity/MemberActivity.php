@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ymca_retention\MemberActivityInterface;
-use Drupal\Core\Entity\Entity;
 
 /**
  * Defines the Member Activity entity.

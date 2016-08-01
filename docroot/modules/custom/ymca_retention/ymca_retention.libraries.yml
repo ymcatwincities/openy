@@ -23,6 +23,7 @@ leaderboard:
     js/leaderboard.js: {}
   dependencies:
     - ymca_retention/angular
+    - ymca_retention/angular-promise-tracker
     - core/drupal
     - core/drupalSettings
 

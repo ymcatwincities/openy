@@ -381,6 +381,23 @@ function ymca_alters_library_info_alter(&$libraries, $extension) {
 /**
  * Implements hook_query_TAG_alter().
  */
+function ymca_alters_query_my_content_alter($query) {
+  $uid = intval(\Drupal::request()->attributes->get('user'));
+  /* @var \Drupal\Core\Database\Query\Select */
+  $nids_query = db_select('node_revision ', 'nr')
+    ->distinct()
+    ->fields('nr', ['nid'])
+    ->condition('nr.revision_uid', $uid);
+  $query->condition(
+    'node_field_data.nid',
+    $nids_query,
+    'IN'
+  );
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
 function ymca_alters_query_needs_review_alter($query) {
   // Select all revisions for field 'State'.
   $language = Drupal::languageManager()->getCurrentLanguage();

@@ -19,9 +19,9 @@
 
   display: block;
 
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
+  @include rem(height, 20px);
+  @include rem(margin-top, -10px);
+  @include rem(width, 20px);
   padding: 0;
 
   cursor: pointer;
@@ -60,10 +60,10 @@
 }
 
 .slick-prev {
-  left: -25px;
+  @include rem(left, -25px);
 
   [dir='rtl'] & {
-    right: -25px;
+    @include rem(right, -25px);
     left: auto;
   }
 }
@@ -77,11 +77,11 @@
 }
 
 .slick-next {
-  right: -25px;
+  @include rem(right, -25px);
 
   [dir='rtl'] & {
+    @include rem(left, -25px);
     right: auto;
-    left: -25px;
 
     &:before{
       content: '←';
@@ -126,21 +126,17 @@
     }
 
     button {
+      @include rem(width, 23px);
+      @include rem(height, 23px);
+      @include rem(padding, 15px);
+      background: transparent;
+      border: 0;
+      color: transparent;
+      cursor: pointer;
+      display: block;
       font-size: 0;
       line-height: 0;
-
-      display: block;
-
-      width: 23px;
-      height: 23px;
-      padding: 15px;
-
-      cursor: pointer;
-
-      color: transparent;
-      border: 0;
       outline: none;
-      background: transparent;
 
       &:hover,
       &:focus {
@@ -152,16 +148,16 @@
       }
 
       &:before {
-        font-family: 'slick';
-        font-size: 23px;
-        line-height: 23px;
+        @include rem(font-size, 23px);
+        @include rem(line-height, 23px);
+        @include rem(width, 23px);
+        @include rem(height, 23px);
 
+        font-family: 'slick';
         position: absolute;
         top: 0;
         left: 0;
 
-        width: 23px;
-        height: 23px;
 
         content: '•';
         text-align: center;

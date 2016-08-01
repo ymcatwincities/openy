@@ -128,6 +128,7 @@ $track-activity-button-hover: #e882c8;
       @include rem(font-size, 13px);
       @include rem(height, 25px);
       @include rem(line-height, 25px);
+      @include rem(padding-left, 10px);
       @include rem(padding-right, 10px);
       background-color: $purple-light;
       color: $white;
@@ -190,7 +191,11 @@ $track-activity-button-hover: #e882c8;
 
   .container {
     @include rem(max-width, 1200px);
-    @include rem(padding, 0 50px);
+    @include rem(padding, 0 30px);
+
+    @include breakpoint($mobile-landscape) {
+      @include rem(padding, 0 50px);
+    }
   }
 
   & &--slider-container {
@@ -241,6 +246,7 @@ $track-activity-button-hover: #e882c8;
     .month-day {
       @include cachet();
       @include rem(border-radius, 32px);
+      @include rem(border-width, 2px);
       @include rem(font-size, 18px);
       @include rem(height, 64px);
       @include rem(line-height, 18px);
@@ -248,7 +254,6 @@ $track-activity-button-hover: #e882c8;
       @include rem(padding, 22px 0);
       @include rem(width, 64px);
       border-style: solid;
-      border-width: 2px;
       color: $grey7;
       display: inline-block;
       font-weight: bold;
@@ -280,10 +285,10 @@ $track-activity-button-hover: #e882c8;
     &-current {
       .month-day {
         @include rem(border-radius, 38px);
+        @include rem(border-width, 7px);
         @include rem(height, 76px);
         @include rem(width, 76px);
         border-color: $pale-purple-2;
-        border-width: 7px;
         margin: 0;
       }
     }
@@ -312,9 +317,10 @@ $track-activity-button-hover: #e882c8;
     @include rem(margin-top, 4px);
 
     &:before {
+      @include rem(background-size, 12px 20px);
       @include rem(height, 20px);
       @include rem(width, 12px);
-      background-size: 12px 20px;
+      background-repeat: no-repeat;
       content: "";
       display: block;
       position: relative;
@@ -357,7 +363,7 @@ $track-activity-button-hover: #e882c8;
     }
 
     .activity-group-item {
-      @include rem(width, 135px);
+      @include rem(width, 123px);
       display: inline-block;
       vertical-align: top;
 
@@ -366,19 +372,20 @@ $track-activity-button-hover: #e882c8;
       }
 
       @include breakpoint(max-width 400px) {
-        @include rem(width, 110px);
+        @include rem(width, 95px);
       }
 
       &-link {
         @include cachet-bold();
         @include rem(font-size, 20px);
-        @include rem(padding-top, 67px);
+        @include rem(padding-top, 81px);
         @include transition(opacity, .3s);
         background-position: top center;
         background-repeat: no-repeat;
         color: $white;
         cursor: pointer;
         display: block;
+        letter-spacing: -0.7px;
         opacity: .3;
         text-decoration: none;
         text-transform: uppercase;
@@ -395,22 +402,12 @@ $track-activity-button-hover: #e882c8;
         &--swimming {
           @include rem(background-size, 59px 32px);
           @include rem(background-position, center 10px);
-          @include rem(padding-top, 81px);
           background-image: url('../prototypes/ysr/img/reporting/icon-swimming.png');
-
-          @include breakpoint($tablet) {
-            @include rem(padding-top, 80px);
-          }
         }
 
         &--fitness {
           @include rem(background-size, 50px 52px);
-          @include rem(padding-top, 81px);
           background-image: url('../prototypes/ysr/img/reporting/icon-fitness.png');
-
-          @include breakpoint($tablet) {
-            @include rem(padding-top, 80px);
-          }
         }
 
         &--group-ex {
@@ -513,6 +510,16 @@ $track-activity-button-hover: #e882c8;
 
         small {
           color: $grey1;
+        }
+      }
+
+      input.activity--click-last:disabled + label {
+        &:before {
+          @include rem(background-size, 34px 34px);
+          background-image: url(../prototypes/ysr/img/throbber-white.svg);
+          background-position: center center;
+          background-repeat: no-repeat;
+          content: '';
         }
       }
     }

@@ -11,7 +11,7 @@
         <div class="member-info--name-goal">
           <img src="{{ base_path }}themes/custom/ymca/prototypes/ysr/img/reporting/person.png" alt="" class="person-icon">
           <h3>{{ 'Hello'|t }}, {{ member.name }}</h3>
-            <span class="member-info--goal">
+          <span class="member-info--goal">
               {{ 'Your goal is'|t }}:
               <span class="member-info--goal-value">
                 {{ member.goal }} {{ 'visits'|t }}
@@ -25,10 +25,7 @@
       </div>
       <div class="col-xs-12 col-sm-5 member-info--stats">
         <div class="member-info--stats--wrapper">
-          <span class="total-activities">
-            {{ member.activities }} {{ 'total activities'|t }}
-          </span>
-          {% if member.rank is not empty %}
+          {% if member.rank is not same as(0) %}
             <span class="rank">
               {{ member.rank }} {{ 'rank'|t }}
             </span>

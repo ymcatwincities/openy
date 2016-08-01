@@ -8029,6 +8029,161 @@ body .ajax-progress-throbber .throbber {
   padding: 2px 8px 2px;
 }
 
+.session_schedules {
+  background-color: #f8f8f8;
+  margin: 0 -100px 50px;
+  padding: 90px 65px;
+}
+@media screen and (max-width: 767px) {
+  .session_schedules {
+    padding: 20px 0;
+    margin: 25px -15px;
+  }
+}
+.session_schedules .container .row h2 {
+  text-align: center;
+  color: #c6188b;
+  margin: 0 0 80px;
+}
+@media screen and (max-width: 767px) {
+  .session_schedules .container .row h2 {
+    margin: 0 0 20px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .session_schedules .row {
+    text-align: center;
+  }
+}
+.session_schedules .columns {
+  display: inline-block;
+  padding: 30px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .session_schedules .columns {
+    border-right: 1px solid #e2e2e2;
+    max-width: 240px;
+    margin-bottom: 0;
+    text-align: left;
+    width: 19%;
+  }
+}
+.session_schedules .columns:nth-last-child(1) {
+  border: none;
+}
+.session_schedules .columns h4 {
+  color: #a7a7a7;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 0 0 5px;
+}
+.session_schedules .columns .date {
+  color: #424242;
+  font-weight: bold;
+  margin: 0 0 20px;
+}
+.session_schedules .columns .date p {
+  color: #424242;
+  margin: 0;
+}
+.session_schedules .columns .register-label {
+  color: #777;
+}
+.session_schedules .columns .register-label p {
+  color: #777;
+  margin: 0;
+}
+.session_schedules .columns .register-date {
+  color: #c6188b;
+}
+.session_schedules .columns .register-date p {
+  color: #c6188b;
+  margin: 0;
+}
+
+.clinics_schedule {
+  margin: 0 -100px;
+  padding: 80px 65px;
+}
+@media screen and (max-width: 767px) {
+  .clinics_schedule {
+    padding: 20px 0;
+    margin: 0 -15px;
+  }
+}
+.clinics_schedule .container .row h2 {
+  text-align: center;
+  color: #0889cd;
+  margin: 0 0 15px;
+}
+.clinics_schedule .container .row h3 {
+  text-align: center;
+  text-transform: none;
+  color: #424242;
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+.clinics_schedule .container .row h4 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #424242;
+  font-size: 18px;
+  margin: 0 0 40px;
+}
+.clinics_schedule .description {
+  text-align: center;
+  margin: 0 auto 30px;
+  font-size: 15px;
+  max-width: 500px;
+  padding: 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .clinics_schedule .row {
+    text-align: center;
+  }
+}
+.clinics_schedule .container .row .columns {
+  display: inline-block;
+  padding: 10px 30px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .clinics_schedule .container .row .columns {
+    border-right: 1px solid #e2e2e2;
+    margin-bottom: 0;
+    width: 33%;
+    max-width: 235px;
+  }
+}
+.clinics_schedule .container .row .columns:nth-last-child(1) {
+  border: none;
+}
+.clinics_schedule .container .row .columns h5 {
+  color: #0889cd;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 0;
+}
+.clinics_schedule .container .row .columns .date {
+  color: #c6188b;
+  font-size: 18px;
+}
+.clinics_schedule .container .row .columns .date p {
+  color: #c6188b;
+  margin: 0;
+}
+.clinics_schedule .container .row .columns .img-wrapper img {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -8069,59 +8224,77 @@ body .ajax-progress-throbber .throbber {
 
 #mindbody-pt-form-wrapper {
   padding: 0 0 100px;
+  padding: 0 0 10rem;
 }
 #mindbody-pt-form-wrapper .header-row {
+  line-height: 37px;
+  line-height: 3.7rem;
+  padding: 22px 0;
+  padding: 2.2rem 0;
   background: #f8f8f8;
   border-bottom: 1px solid #e9e9e9;
-  padding: 22px 0;
-  line-height: 37px;
 }
 #mindbody-pt-form-wrapper .header-row .icon {
-  color: #d8d8d8;
   font-size: 22px;
+  font-size: 2.2rem;
   margin-right: 20px;
+  margin-right: 2rem;
+  color: #d8d8d8;
   vertical-align: middle;
 }
 #mindbody-pt-form-wrapper .header-row .icon.icon-location2 {
   font-size: 25px;
+  font-size: 2.5rem;
   margin: 0 20px 0 5px;
+  margin: 0 2rem 0 0.5rem;
 }
 #mindbody-pt-form-wrapper .header-row .icon.icon-training {
   height: 37px;
-  opacity: 0.3;
+  height: 3.7rem;
   margin: 0 13px 0 0;
+  margin: 0 1.3rem 0 0;
   width: 37px;
+  width: 3.7rem;
+  opacity: 0.3;
 }
 #mindbody-pt-form-wrapper .header-row .icon.icon-clock {
   margin: 0 21px 0 7px;
+  margin: 0 2.1rem 0 0.7rem;
 }
 #mindbody-pt-form-wrapper .header-row .icon.icon-user {
   font-size: 25px;
+  font-size: 2.5rem;
   margin: 0 18px 0 7px;
+  margin: 0 1.8rem 0 0.7rem;
 }
 #mindbody-pt-form-wrapper .header-row .choice {
-  color: #c6188b;
   font-size: 15px;
+  font-size: 1.5rem;
+  color: #c6188b;
   vertical-align: middle;
 }
 #mindbody-pt-form-wrapper .header-row .change {
-  color: #0089d0;
-  float: right;
   font-size: 15px;
-  text-decoration: none;
+  font-size: 1.5rem;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
   -webkit-transition: color 0.5s;
   transition: color 0.5s;
+  color: #0089d0;
+  float: right;
+  text-decoration: none;
 }
 #mindbody-pt-form-wrapper .header-row .change:hover {
   color: #0060af;
 }
 #mindbody-pt-form-wrapper .header-row .change .icon {
-  color: inherit;
   font-size: 15px;
+  font-size: 1.5rem;
   margin-right: 5px;
+  margin-right: 0.5rem;
   top: -3px;
+  top: -0.3rem;
+  color: inherit;
   position: relative;
 }
 #mindbody-pt-form-wrapper .header-row.disabled {
@@ -8132,43 +8305,52 @@ body .ajax-progress-throbber .throbber {
   padding-bottom: 0;
 }
 #mindbody-pt-form-wrapper fieldset legend {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  margin-bottom: 2.5rem;
+  margin-left: 15px;
+  margin-left: 1.5rem;
   border: none;
   color: #a7a7a7;
-  font-family: "Cachet", Arial, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 25px;
-  margin-left: 15px;
 }
 #mindbody-pt-form-wrapper select:hover {
   border-color: #d8d8d8;
 }
 #mindbody-pt-form-wrapper #location-wrapper {
-  padding-top: 70px;
+  padding-top: 35px;
+  padding-top: 3.5rem;
 }
-@media screen and (max-width: 767px) {
+@media (min-width: 48em) {
   #mindbody-pt-form-wrapper #location-wrapper {
-    padding-top: 35px;
+    padding-top: 70px;
+    padding-top: 7rem;
   }
 }
 #mindbody-pt-form-wrapper #location-wrapper .fieldset-wrapper {
-  position: relative;
   padding-top: 25px;
+  padding-top: 2.5rem;
+  position: relative;
 }
 #mindbody-pt-form-wrapper #location-wrapper .fieldset-wrapper .description {
-  position: absolute;
+  font-family: "Cachet",Arial,sans-serif;
   left: 15px;
-  top: 0;
-  font-style: italic;
+  left: 1.5rem;
   color: #a7a7a7;
-  font-family: "Cachet", Arial, sans-serif;
+  font-style: italic;
+  position: absolute;
+  top: 0;
 }
 #mindbody-pt-form-wrapper .form-item-mb-location {
-  padding: 15px;
+  padding: 0 15px 10px;
+  padding: 0 1.5rem 1rem;
 }
-@media screen and (max-width: 767px) {
+@media (min-width: 48em) {
   #mindbody-pt-form-wrapper .form-item-mb-location {
-    padding: 0 15px 10px;
+    padding: 15px;
+    padding: 1.5rem;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-location .ajax-progress-throbber {
@@ -8347,26 +8529,79 @@ body .ajax-progress-throbber .throbber {
   padding-top: 70px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-trainer label {
-  color: #a7a7a7;
-  font-size: 20px;
-  margin-bottom: 12px;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet",Arial,sans-serif;
   font-weight: normal;
+  font-size: 20px;
+  font-size: 2rem;
+  margin-bottom: 12px;
+  margin-bottom: 1.2rem;
+  color: #a7a7a7;
   text-transform: uppercase;
 }
 #mindbody-pt-form-wrapper .form-item-mb-trainer select {
-  border-color: #e9e9e9;
   height: 62px;
-  width: 382px;
+  height: 6.2rem;
   text-indent: 20px;
+  text-indent: 2rem;
+  border-color: #e9e9e9;
+  width: 100%;
 }
-@media screen and (max-width: 767px) {
+@media (min-width: 40em) {
   #mindbody-pt-form-wrapper .form-item-mb-trainer select {
-    width: 100%;
+    width: 382px;
+    width: 38.2rem;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-trainer select:hover {
   border-color: #d8d8d8;
+}
+#mindbody-pt-form-wrapper .form-item-mb-date-range {
+  clear: left;
+  position: relative;
+}
+@media (min-width: 40em) {
+  #mindbody-pt-form-wrapper .form-item-mb-date-range {
+    margin-left: 20px;
+    margin-left: 2rem;
+    clear: none;
+    float: left;
+  }
+}
+#mindbody-pt-form-wrapper .form-item-mb-date-range label {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
+  color: #a7a7a7;
+  text-transform: uppercase;
+}
+#mindbody-pt-form-wrapper .form-item-mb-date-range select {
+  height: 62px;
+  height: 6.2rem;
+  text-indent: 30px;
+  text-indent: 3rem;
+  width: 270px;
+  width: 27rem;
+  border-color: #e9e9e9;
+}
+#mindbody-pt-form-wrapper .form-item-mb-date-range select:hover {
+  border-color: #d8d8d8;
+}
+#mindbody-pt-form-wrapper .form-item-mb-date-range .glyphicon {
+  bottom: 22px;
+  bottom: 2.2rem;
+  font-size: 16px;
+  font-size: 1.6rem;
+  left: 13px;
+  left: 1.3rem;
+  top: auto;
+  color: #a7a7a7;
+  position: absolute;
+}
+#mindbody-pt-form-wrapper .form-item-mb-date-range .glyphicon:before {
+  color: inherit;
 }
 #mindbody-pt-form-wrapper #actions-wrapper .col-sm-12 {
   border-top: 1px solid #e9e9e9;
@@ -8385,11 +8620,11 @@ body .ajax-progress-throbber .throbber {
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-start-time label {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: normal;
   color: #a7a7a7;
   font-size: 20px;
   margin-bottom: 15px;
-  font-family: "Cachet", Arial, sans-serif;
-  font-weight: normal;
   text-transform: uppercase;
 }
 #mindbody-pt-form-wrapper .form-item-mb-start-time select {
@@ -8415,13 +8650,21 @@ body .ajax-progress-throbber .throbber {
   font-size: 16px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-end-time {
+  margin: 43px 20px 0 0;
+  margin: 4.3rem 2rem 0 0;
   float: left;
   position: relative;
-  margin: 43px 0 0 0;
 }
-@media screen and (min-width: 768px) {
+@media (min-width: 30em) {
   #mindbody-pt-form-wrapper .form-item-mb-end-time {
-    margin: 43px 80px 0 0;
+    margin-right: 40px;
+    margin-right: 4rem;
+  }
+}
+@media (min-width: 48em) {
+  #mindbody-pt-form-wrapper .form-item-mb-end-time {
+    margin-right: 80px;
+    margin-right: 8rem;
   }
 }
 #mindbody-pt-form-wrapper .form-item-mb-end-time select {
@@ -8466,10 +8709,10 @@ body .ajax-progress-throbber .throbber {
   display: none;
 }
 #mindbody-pt-form-wrapper .form-group label {
-  color: #a7a7a7;
-  font-family: "Cachet", Arial, sans-serif;
-  font-size: 20px;
+  font-family: "Cachet",Arial,sans-serif;
   font-weight: normal;
+  color: #a7a7a7;
+  font-size: 20px;
   margin: 0 0 15px;
   line-height: 28px;
   text-transform: uppercase;
@@ -8674,9 +8917,20 @@ body .ajax-progress-throbber .throbber {
   margin-right: 7px;
 }
 
+.mindbody-search-results-timezone-message {
+  background-color: #fff;
+  padding-top: 30px;
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .mindbody-search-results-timezone-message {
+    text-align: left;
+  }
+}
+
 .mindbody-search-results-content {
   background-color: #fff;
-  padding-top: 60px;
+  padding-top: 30px;
 }
 .mindbody-search-results-content .day {
   margin-bottom: 35px;
@@ -8692,11 +8946,11 @@ body .ajax-progress-throbber .throbber {
   }
 }
 .mindbody-search-results-content .day .weekday {
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
   font-size: 25px;
   color: #777;
   line-height: 28px;
-  font-weight: bold;
   margin-bottom: 15px;
   text-transform: uppercase;
 }
@@ -8759,14 +9013,14 @@ body .ajax-progress-throbber .throbber {
   margin-bottom: 100px;
 }
 .mindbody-search-results-content .start-again a {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
   border: none;
   background-color: #0771a8;
   background-image: -webkit-linear-gradient(#0889cd, #0771a8);
   background-image: -moz-linear-gradient(#0889cd, #0771a8);
   background-image: -ms-linear-gradient(#0889cd, #0771a8);
   background-image: linear-gradient(#0889cd, #0771a8);
-  font-weight: bold;
-  font-family: "Cachet", Arial, sans-serif;
   text-transform: uppercase;
   height: 50px;
   line-height: 28px;
@@ -8792,12 +9046,12 @@ body .ajax-progress-throbber .throbber {
   }
 }
 .phone-call-wrapper .description {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
   color: #bde6e6;
   font-size: 20px;
-  font-family: "Cachet", Arial, sans-serif;
   text-transform: uppercase;
   vertical-align: middle;
-  font-weight: bold;
   margin-right: 40px;
 }
 @media screen and (max-width: 767px) {
@@ -8809,10 +9063,10 @@ body .ajax-progress-throbber .throbber {
   }
 }
 .phone-call-wrapper .number {
-  background: url("../img/phone-call-ico.png") no-repeat 0 center;
-  font-family: "Cachet", Arial, sans-serif;
-  font-size: 40px;
+  font-family: "Cachet",Arial,sans-serif;
   font-weight: bold;
+  background: url("../img/phone-call-ico.png") no-repeat 0 center;
+  font-size: 40px;
   padding: 0 0 0 45px;
   vertical-align: middle;
 }
@@ -8986,10 +9240,10 @@ body .ajax-progress-throbber .throbber {
   color: #0889cd;
 }
 .template_youth_sports_overview section.node .content_group section:nth-child(3) h3 {
-  color: #fbae1f;
+  color: #fcaf17;
 }
 .template_youth_sports_overview section.node .content_group section:nth-child(3) ul li a {
-  color: #fbae1f;
+  color: #fcaf17;
 }
 .template_youth_sports_overview .file--application-pdf a,
 .template_youth_sports_overview .pdf-link {
@@ -9154,7 +9408,7 @@ a.sports-icon.tumbling {
   color: #0889cd;
 }
 .template_youth_sports_inner section.node .content-expander-3 .accordion-toggle {
-  color: #fbae1f;
+  color: #fcaf17;
 }
 .template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
   color: #f37823;
