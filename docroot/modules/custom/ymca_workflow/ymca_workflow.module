@@ -8,6 +8,8 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Implements hook_entity_presave().
@@ -54,7 +56,7 @@ function ymca_workflow_entity_presave(EntityInterface $entity) {
   // Do not set default revision for states differ from published & unpublished.
   // Acceptable only for existing nodes.
   if (!$entity->isNew()) {
-    $exclude = ['workflow_published', 'workflow_unpublished'];
+    $exclude = ['workflow_published'];
     if (!in_array($entity->field_state->value, $exclude)) {
       $entity->isDefaultRevision(FALSE);
     }
@@ -107,6 +109,14 @@ function ymca_workflow_form_node_form_alter(&$form, FormStateInterface $form_sta
     unset($form['actions']['publish']['#dropbutton']);
   }
 
+  // Do not allow users to save unpublished nodes. Force transition.
+  if ($form['field_state']['widget'][0]['to_sid']['#default_value'] == 'workflow_unpublished') {
+    if (!in_array('administrator', \Drupal::currentUser()->getRoles())) {
+      unset($form['field_state']['widget'][0]['to_sid']['#options']['workflow_unpublished']);
+      $form['field_state']['widget'][0]['to_sid']['#default_value'] = 'workflow_draft';
+    }
+  }
+
   $form['actions']['submit']['#access'] = TRUE;
 }
 
@@ -123,4 +133,33 @@ function ymca_workflow_workflow_permitted_state_transitions_alter(&$transitions,
       unset($transitions['workflow_published_published']);
     }
   }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function ymca_workflow_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Proceed only with associated nodes.
+  if (!$node->hasField('field_state')) {
+    return AccessResult::neutral();
+  }
+
+  // Check permissions for workflow_unpublished state.
+  if ($node->field_state->value == 'workflow_unpublished') {
+    switch ($op) {
+      case 'view':
+        if ($account->hasPermission('view workflow_unpublished content')) {
+          return AccessResult::allowed();
+        }
+        break;
+
+      case 'update';
+        if ($account->hasPermission('update workflow_unpublished content')) {
+          return AccessResult::allowed();
+        }
+        break;
+    }
+  }
+
+  return AccessResult::neutral();
 }
