@@ -65,7 +65,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'ymca-retention-member-info',
     ],
     'ymca_retention_slider' => [
-      'variables' => [],
+      'variables' => [
+        'slides' => [],
+      ],
       'template' => 'ymca-retention-slider',
     ],
     'ymca_retention_registration_confirmation' => [
