@@ -3923,3 +3923,15 @@ function ymca_master_update_8163() {
     ]
   );
 }
+
+/**
+ * Import ymca theme settings.
+ */
+function ymca_master_update_8164() {
+  $path = 'themes/custom/ymca/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca.settings.yml'
+    ]
+  );
+}
