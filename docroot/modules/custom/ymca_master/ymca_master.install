@@ -3848,3 +3848,78 @@ function ymca_master_update_8157() {
     $menu_item->save();
   }
 }
+
+/**
+ * Add trainers mapping view.
+ */
+function ymca_master_update_8158() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.trainers_mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Allow contributor administer files.
+ */
+function ymca_master_update_8159() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+    ]
+  );
+}
+
+/**
+ * Fix badly cloned pages.
+ */
+function ymca_master_update_8160() {
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $result = $storage->getQuery()->execute();
+  foreach ($result as $id => $name) {
+    /** @var \Drupal\page_manager\Entity\Page $page */
+    $page = $storage->load($id);
+    if ($page->getAccessConditions()->has(0)) {
+      $config = $page->getAccessCondition(0)->getConfiguration();
+      $page->removeAccessCondition(0);
+      $page->getAccessConditions()->addInstanceId($config['uuid'], $config);
+      $page->save();
+      \Drupal::logger(__FUNCTION__)->info("The page: $name has been fixed about access conditions.");
+    }
+  }
+}
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8161() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Enable YMCA Mobile Check-in module.
+ */
+function ymca_master_update_8162() {
+  \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
+}
+
+/**
+ * YMCA-1025: Allow interns and contributors administer files.
+ */
+function ymca_master_update_8163() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
