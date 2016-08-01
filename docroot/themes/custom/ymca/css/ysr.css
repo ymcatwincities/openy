@@ -734,12 +734,12 @@
 }
 @media (max-width: 370px) {
   #register-and-report .register-or-report .track-activity-btn {
-    letter-spacing: -2.5px;
+    letter-spacing: -0.5px;
   }
 }
 @media (max-width: 440px) {
   #register-and-report .register-or-report .track-activity-btn {
-    letter-spacing: -2px;
+    letter-spacing: -1px;
   }
 }
 @media (min-width: 768px) and (max-width: 825px) {
