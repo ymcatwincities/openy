@@ -1,62 +1,62 @@
 #mindbody-pt-form-wrapper {
-  padding: 0 0 100px;
+  @include rem(padding, 0 0 100px);
 
   .header-row {
+    @include rem(line-height, 37px);
+    @include rem(padding, 22px 0);
     background: $grey1;
     border-bottom: 1px solid $grey2;
-    padding: 22px 0;
-    line-height: 37px;
 
     .icon {
+      @include rem(font-size, 22px);
+      @include rem(margin-right, 20px);
       color: $grey3;
-      font-size: 22px;
-      margin-right: 20px;
       vertical-align: middle;
 
       &.icon-location2 {
-        font-size: 25px;
-        margin: 0 20px 0 5px;
+        @include rem(font-size, 25px);
+        @include rem(margin, 0 20px 0 5px);
       }
 
       &.icon-training {
-        height: 37px;
+        @include rem(height, 37px);
+        @include rem(margin, 0 13px 0 0);
+        @include rem(width, 37px);
         opacity: 0.3;
-        margin: 0 13px 0 0;
-        width: 37px;
       }
 
       &.icon-clock {
-        margin: 0 21px 0 7px;
+        @include rem(margin, 0 21px 0 7px);
       }
 
       &.icon-user {
-        font-size: 25px;
-        margin: 0 18px 0 7px;
+        @include rem(font-size, 25px);
+        @include rem(margin, 0 18px 0 7px);
       }
     }
 
     .choice {
+      @include rem(font-size, 15px);
       color: $pink;
-      font-size: 15px;
       vertical-align: middle;
     }
 
     .change {
+      @include rem(font-size, 15px);
+      @include transition(color 0.5s);
       color: $blue-medium;
       float: right;
-      font-size: 15px;
       text-decoration: none;
-      @include transition(color 0.5s);
 
       &:hover {
         color: $blue-dark;
       }
 
       .icon {
+        @include rem(font-size, 15px);
+        @include rem(margin-right, 5px);
+        @include rem(top, -3px);
         color: inherit;
-        font-size: 15px;
-        margin-right: 5px;
-        top: -3px;
         position: relative
       }
     }
@@ -72,14 +72,14 @@
   }
 
   fieldset {
+
     legend {
+      @include cachet-bold();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 25px);
+      @include rem(margin-left, 15px);
       border: none;
       color: $grey4;
-      font-family: "Cachet", Arial, sans-serif;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 25px;
-      margin-left: 15px;
     }
   }
 
@@ -88,30 +88,32 @@
   }
 
   #location-wrapper {
-    padding-top: 70px;
-    @media screen and (max-width: 767px) {
-      padding-top: 35px;
+    @include rem(padding-top, 35px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 70px);
     }
 
     .fieldset-wrapper {
+      @include rem(padding-top, 25px);
       position: relative;
-      padding-top: 25px;
+
       .description {
-        position: absolute;
-        left: 15px;
-        top: 0;
-        font-style: italic;
+        @include cachet();
+        @include rem(left, 15px);
         color: $grey4;
-        font-family: "Cachet", Arial, sans-serif;
+        font-style: italic;
+        position: absolute;
+        top: 0;
       }
     }
   }
 
   .form-item-mb-location {
-    padding: 15px;
+    @include rem(padding, 0 15px 10px);
 
-    @media screen and (max-width: 767px) {
-      padding: 0 15px 10px;
+    @include breakpoint($tablet) {
+      @include rem(padding, 15px);
     }
 
     .ajax-progress-throbber {
@@ -324,26 +326,68 @@
   .form-item-mb-trainer {
 
     label {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 12px);
       color: $grey4;
-      font-size: 20px;
-      margin-bottom: 12px;
-      font-family: "Cachet", Arial, sans-serif;
-      font-weight: normal;
       text-transform: uppercase;
     }
 
     select {
+      @include rem(height, 62px);
+      @include rem(text-indent, 20px);
       border-color: $grey2;
-      height: 62px;
-      width: 382px;
-      text-indent: 20px;
+      width: 100%;
 
-      @media screen and (max-width: 767px) {
-        width: 100%;
+      @include breakpoint($tablet-portrait) {
+        @include rem(width, 382px);
       }
 
       &:hover {
         border-color: $grey3;
+      }
+    }
+  }
+
+  .form-item-mb-date-range {
+    clear: left;
+    position: relative;
+
+    @include breakpoint($tablet-portrait) {
+      @include rem(margin-left, 20px);
+      clear: none;
+      float: left;
+    }
+
+    label {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 15px);
+      color: $grey4;
+      text-transform: uppercase;
+    }
+
+    select {
+      @include rem(height, 62px);
+      @include rem(text-indent, 30px);
+      @include rem(width, 270px);
+      border-color: $grey2;
+
+      &:hover {
+        border-color: $grey3;
+      }
+    }
+
+    .glyphicon {
+      @include rem(bottom, 22px);
+      @include rem(font-size, 16px);
+      @include rem(left, 13px);
+      top: auto;
+      color: $grey4;
+      position: absolute;
+
+      &:before {
+        color: inherit;
       }
     }
   }
@@ -368,11 +412,10 @@
     }
 
     label {
+      @include cachet-normal();
       color: $grey4;
       font-size: 20px;
       margin-bottom: 15px;
-      font-family: "Cachet", Arial, sans-serif;
-      font-weight: normal;
       text-transform: uppercase;
     }
 
@@ -399,12 +442,16 @@
   }
 
   .form-item-mb-end-time {
+    @include rem(margin, 43px 20px 0 0);
     float: left;
     position: relative;
-    margin: 43px 0 0 0;
 
-    @media screen and (min-width: 768px) {
-      margin: 43px 80px 0 0;
+    @include breakpoint($mobile-landscape) {
+      @include rem(margin-right, 40px);
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(margin-right, 80px);
     }
 
      select {
@@ -451,10 +498,9 @@
     }
 
     label {
+      @include cachet-normal();
       color: $grey4;
-      font-family: "Cachet", Arial, sans-serif;
       font-size: 20px;
-      font-weight: normal;
       margin: 0 0 15px;
       line-height: 28px;
       text-transform: uppercase;
@@ -684,9 +730,19 @@
   }
 }
 
+.mindbody-search-results-timezone-message {
+  background-color: $white;
+  padding-top: 30px;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    text-align: left;
+  }
+}
+
 .mindbody-search-results-content {
   background-color: $white;
-  padding-top: 60px;
+  padding-top: 30px;
 
   .day {
     margin-bottom: 35px;
@@ -701,11 +757,10 @@
     }
 
     .weekday {
-      font-family: "Cachet", Arial, sans-serif;
+      @include cachet-bold();
       font-size: 25px;
       color: $grey5;
       line-height: 28px;
-      font-weight: bold;
       margin-bottom: 15px;
       text-transform: uppercase;
       @media screen and (max-width: 767px) {
@@ -781,14 +836,13 @@
     margin-bottom: 100px;
 
     a {
+      @include cachet-bold();
       border: none;
       background-color: #0771a8;
       background-image: -webkit-linear-gradient(#0889cd, #0771a8);
       background-image: -moz-linear-gradient(#0889cd, #0771a8);
       background-image: -ms-linear-gradient(#0889cd, #0771a8);
       background-image: linear-gradient(#0889cd, #0771a8);
-      font-weight: bold;
-      font-family: "Cachet", Arial, sans-serif;
       text-transform: uppercase;
       height: 50px;
       line-height: 28px;
@@ -814,12 +868,11 @@
   }
 
   .description {
+    @include cachet-bold();
     color: $green2;
     font-size: 20px;
-    font-family: "Cachet", Arial, sans-serif;
     text-transform: uppercase;
     vertical-align: middle;
-    font-weight: bold;
     margin-right: 40px;
     @media screen and (max-width: 767px) {
       margin-right: 0;
@@ -830,10 +883,9 @@
   }
 
   .number {
+    @include cachet-bold();
     background: url("../img/phone-call-ico.png") no-repeat 0 center;
-    font-family: "Cachet", Arial, sans-serif;
     font-size: 40px;
-    font-weight: bold;
     padding: 0 0 0 45px;
     vertical-align: middle;
     @media screen and (max-width: 767px) {

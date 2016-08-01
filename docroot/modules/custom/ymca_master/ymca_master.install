@@ -3791,3 +3791,162 @@ function ymca_master_update_8154() {
     ]
   );
 }
+
+/**
+ * Add new templates to ckeditor.
+ */
+function ymca_master_update_8156() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * Create top menu 2 links.
+ */
+function ymca_master_update_8157() {
+  // Add top level items.
+  $menu_item = MenuLinkContent::create([
+    'title' => 'Sign In',
+    'link' => ['uri' => 'internal:/personify/login'],
+    'menu_name' => 'top_menu_2',
+    'weight' => 1,
+  ]);
+  $menu_item->save();
+
+  $account_menu_link = MenuLinkContent::create([
+    'title' => 'Account',
+    'link' => ['uri' => 'internal:/personify/account'],
+    'menu_name' => 'top_menu_2',
+    'expanded' => TRUE,
+    'weight' => 2,
+  ]);
+  $account_menu_link->save();
+
+  $inner_items = [
+    [
+      'title' => 'My Account',
+      'link' => ['uri' => 'internal:/personify/account'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $account_menu_link->getPluginId(),
+      'weight' => 1,
+    ],
+    [
+      'title' => 'Sign Out',
+      'link' => ['uri' => 'internal:/personify/sign_out'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $account_menu_link->getPluginId(),
+      'weight' => 2,
+    ],
+  ];
+
+  foreach ($inner_items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+}
+
+/**
+ * Add trainers mapping view.
+ */
+function ymca_master_update_8158() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.trainers_mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Allow contributor administer files.
+ */
+function ymca_master_update_8159() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+    ]
+  );
+}
+
+/**
+ * Fix badly cloned pages.
+ */
+function ymca_master_update_8160() {
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $result = $storage->getQuery()->execute();
+  foreach ($result as $id => $name) {
+    /** @var \Drupal\page_manager\Entity\Page $page */
+    $page = $storage->load($id);
+    if ($page->getAccessConditions()->has(0)) {
+      $config = $page->getAccessCondition(0)->getConfiguration();
+      $page->removeAccessCondition(0);
+      $page->getAccessConditions()->addInstanceId($config['uuid'], $config);
+      $page->save();
+      \Drupal::logger(__FUNCTION__)->info("The page: $name has been fixed about access conditions.");
+    }
+  }
+}
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8161() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Enable YMCA Mobile Check-in module.
+ */
+function ymca_master_update_8162() {
+  \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
+}
+
+/**
+ * YMCA-1025: Allow interns and contributors administer files.
+ */
+function ymca_master_update_8163() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Allow interns and contributors access workflow_unpublished states.
+ */
+function ymca_master_update_8164() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
+    ]
+  );
+}
+
+/**
+ * YMCA-838: Allow Location Editors to edit only location files.
+ */
+function ymca_master_update_8165() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}

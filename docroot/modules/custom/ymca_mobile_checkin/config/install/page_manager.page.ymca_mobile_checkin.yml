@@ -1,0 +1,11 @@
+uuid: af5d2762-e39e-4f09-9c79-9188b8657811
+langcode: en
+status: true
+dependencies: {  }
+id: ymca_mobile_checkin
+label: 'YMCA Mobile Check-in Application'
+use_admin_theme: false
+path: /check-in
+access_logic: and
+access_conditions: {  }
+parameters: {  }

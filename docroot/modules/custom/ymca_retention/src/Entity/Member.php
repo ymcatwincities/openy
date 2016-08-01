@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ymca_retention\MemberInterface;
-use Drupal\Core\Entity\Entity;
 
 /**
  * Defines the Member entity.
@@ -374,6 +373,16 @@ class Member extends ContentEntityBase implements MemberInterface {
   public function setVisitGoal($value) {
     $this->set('visit_goal', $value);
     return $this;
+  }
+
+  /**
+   * Get member rank.
+   *
+   * @return int
+   *   Member rank.
+   */
+  public function getMemberRank() {
+    return 0;
   }
 
 }

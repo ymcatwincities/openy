@@ -67,12 +67,11 @@ class RegularUpdater implements RegularUpdaterInterface {
 
     // Get campaign dates settings.
     $settings = $this->configFactory->get('ymca_retention.general_settings');
-    $from = $settings->get('date_registration_open');
-    $to = $settings->get('date_registration_close');
+    $from = $settings->get('date_campaign_open');
+    $to = $settings->get('date_campaign_close');
 
     // Load members.
-    $members = $this->entityTypeManager
-      ->getStorage('ymca_retention_member')
+    $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple();
 
     /** @var \Drupal\ymca_retention\Entity\Member $member */
@@ -83,8 +82,7 @@ class RegularUpdater implements RegularUpdaterInterface {
       // Get information about number of checkins in period of the campaign.
       $result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
       if (!empty($result->ErrorMessage)) {
-        $this->loggerFactory
-          ->get('ymca_retention')
+        $this->loggerFactory->get('ymca_retention')
           ->error('Could not retrieve visits count for member %member_id', [
             '%member_id' => $membership_id,
           ]);
@@ -98,6 +96,36 @@ class RegularUpdater implements RegularUpdaterInterface {
       }
     }
 
+    $cron_config->set('last_run', time())->save();
+  }
+
+  /**
+   * Create Queue.
+   */
+  public function createQueue() {
+    // Get campaign dates settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $date_open = new \DateTime($settings->get('date_campaign_open'));
+    $date_close = new \DateTime($settings->get('date_campaign_close'));
+    // Add 1 day to closing date to get visits for the last day.
+    $date_close->add(new \DateInterval('P1D'));
+    $current_date = new \DateTime();
+    if ($current_date < $date_open || $current_date > $date_close) {
+      return;
+    }
+
+    $queue = \Drupal::queue('ymca_retention_updates_member_visits');
+    $members = $this->entityTypeManager->getStorage('ymca_retention_member')
+      ->loadMultiple();
+
+    /** @var \Drupal\ymca_retention\Entity\Member $member */
+    foreach ($members as $member) {
+      $data = [
+        'id' => (int) $member->getId(),
+      ];
+      $queue->createItem($data);
+    }
+    $cron_config = $this->configFactory->getEditable('ymca_retention.cron_settings');
     $cron_config->set('last_run', time())->save();
   }
 

@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Sub navigation template.
+ *
+ * Available variables:
+ * - files: Files to list.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if files is not empty %}
+  {% for file in files %}
+    <a class="btn btn-primary btn-lg" href="{{ file.url }}">{{ file.label }}</a><br />
+    <strong>{{ file.date }}</strong><br />
+  {% endfor %}
+{% else %}
+  {{ 'There is no build uploaded.'|t }}
+{% endif %}

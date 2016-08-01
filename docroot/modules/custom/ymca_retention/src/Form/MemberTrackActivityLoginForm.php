@@ -3,8 +3,6 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -28,6 +26,7 @@ class MemberTrackActivityLoginForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
+    $validate = [get_class($this), 'elementValidateRequired'];
     if (empty($verify_membership_id)) {
       $form['mail'] = [
         '#type' => 'email',
@@ -36,6 +35,11 @@ class MemberTrackActivityLoginForm extends FormBase {
           'placeholder' => [
             $this->t('Your e-mail'),
           ],
+        ],
+        '#element_required_error' => $this->t('Email is required.'),
+        '#element_validate' => [
+          ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+          $validate,
         ],
       ];
     }
@@ -51,6 +55,8 @@ class MemberTrackActivityLoginForm extends FormBase {
             $this->t('Your facility access ID'),
           ],
         ],
+        '#element_required_error' => $this->t('Facility access ID is required.'),
+        '#element_validate' => $validate,
       ];
     }
 
@@ -66,6 +72,8 @@ class MemberTrackActivityLoginForm extends FormBase {
       ],
       '#ajax' => [
         'callback' => [$this, 'ajaxFormCallback'],
+        'method' => 'replaceWith',
+        'wrapper' => 'report .report-form form',
         'progress' => [
           'type' => 'throbber',
           'message' => NULL,
@@ -76,6 +84,20 @@ class MemberTrackActivityLoginForm extends FormBase {
   }
 
   /**
+   * Set a custom validation error on the #required element.
+   *
+   * @param array $element
+   *   Form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   */
+  public function elementValidateRequired(array $element, FormStateInterface $form_state) {
+    if (!empty($element['#required_but_empty']) && isset($element['#element_required_error'])) {
+      $form_state->setError($element, $element['#element_required_error']);
+    }
+  }
+
+  /**
    * Ajax form callback for displaying errors or redirecting.
    *
    * @param array $form
@@ -83,28 +105,25 @@ class MemberTrackActivityLoginForm extends FormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form state.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
    *   Ajax response.
    */
   public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
-    // Instantiate an AjaxResponse Object to return.
-    $ajax_response = new AjaxResponse();
+    if ($form_state->isRebuilding()) {
+      return $form;
+    }
     if ($form_state->hasAnyErrors()) {
-      $status_messages = ['#type' => 'status_messages'];
-      // TODO: replace with correct ajax handling.
-      $errors = $form_state->getErrors();
-      foreach ($errors as $id => $error) {
-        $_id = '#' . reset(explode('--', $form[$id]['#id']));
-        $ajax_response->addCommand(new InvokeCommand($_id, 'addClass', ['error']));
-      }
-      $ajax_response->addCommand(new InvokeCommand('.ysr-track-activity-login-form-messages', 'empty'));
-      $ajax_response->addCommand(new PrependCommand('.ysr-track-activity-login-form-messages', $status_messages));
+      $form['messages'] = ['#type' => 'status_messages'];
+      return $form;
     }
     else {
-      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'activity'])
-        ->toString()));
+      // Instantiate an AjaxResponse Object to return.
+      $ajax_response = new AjaxResponse();
+      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+        'string' => 'activity',
+      ])->toString()));
+      return $ajax_response;
     }
-    return $ajax_response;
   }
 
   /**
@@ -116,12 +135,14 @@ class MemberTrackActivityLoginForm extends FormBase {
     $from_date = new \DateTime($settings->get('date_reporting_open'));
     $to_date = new \DateTime($settings->get('date_reporting_close'));
     $current_date = new \DateTime();
+    // Validate that current date is less, than date when tracking activity page will be opened.
     if ($current_date < $from_date) {
       $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y Games open.', [
         '%date' => $from_date->format('F j'),
       ]));
       return;
     }
+    // Validate that current date is higher, than date when tracking activity page was closed.
     if ($current_date > $to_date) {
       $form_state->setErrorByName('form', $this->t('The Y Games are now closed and activity is no longer able to be tracked.'));
       return;
@@ -148,6 +169,11 @@ class MemberTrackActivityLoginForm extends FormBase {
       }
     }
     else {
+      // If form element has errors, just return nothing.
+      if ($form_state->getError($form['membership_id'])) {
+        return;
+      }
+      // Get membership id and try find it in database.
       $membership_id = $form_state->getValue('membership_id');
       $mail = $form_state->getValue('mail');
       $query = \Drupal::entityQuery('ymca_retention_member')
@@ -161,9 +187,7 @@ class MemberTrackActivityLoginForm extends FormBase {
         ]));
         return;
       }
-      else {
-        $form_state->setTemporaryValue('member', reset($result));
-      }
+      $form_state->setTemporaryValue('member', reset($result));
     }
   }
 
@@ -176,7 +200,9 @@ class MemberTrackActivityLoginForm extends FormBase {
     AnonymousCookieStorage::set('ymca_retention_member', $member_id);
 
     // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'activity']);
+    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', [
+      'string' => 'activity',
+    ]);
   }
 
 }

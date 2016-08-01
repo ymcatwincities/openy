@@ -78,4 +78,3 @@ ymca_retention.member_activities_json:
     _title: 'YMCA Retention Member Activities JSON'
   requirements:
     _permission: 'access content'
-    _csrf_token: 'TRUE'

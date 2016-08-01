@@ -26,10 +26,24 @@ interface ActivityManagerInterface {
   /**
    * Returns an array of tracked member activities.
    *
+   * @param int $member_id
+   *   Member ID to load activities for.
+   *
    * @return array
    *   Tracked member activities.
    */
-  public function getMemberActivities();
+  public function getMemberActivities($member_id = NULL);
+
+  /**
+   * Returns an array of tracked member activities as Angular model.
+   *
+   * @param int $member_id
+   *   Member ID to load activities for.
+   *
+   * @return array
+   *   Tracked member activities.
+   */
+  public function getMemberActivitiesModel($member_id = NULL);
 
   /**
    * Returns URL to the member activities callback.

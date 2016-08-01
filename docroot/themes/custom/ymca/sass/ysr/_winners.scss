@@ -1,0 +1,374 @@
+.winners {
+  @include rem(margin-bottom, 60px);
+  @include rem(padding-top, 100px);
+  text-align: center;
+
+  .container {
+
+    .wrap {
+      @include rem(height, 52px);
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  h2 {
+    @include cachet-bold();
+    color: $purple-light;
+    text-transform: uppercase;
+  }
+
+  form {
+    @include rem(padding-bottom, 50px);
+    @include rem(padding-top, 50px);
+  }
+
+  .form-select {
+    @include rem(max-width, 380px);
+    margin: auto;
+  }
+}
+
+.prize {
+  @include rem(max-width, 850px);
+  margin: auto;
+
+  &__header {
+    @include cachet-bold();
+    @include rem(font-size, 30px);
+    letter-spacing: -0.7px;
+    position: relative;
+    text-transform: uppercase;
+
+    &__name {
+      @include rem(padding, 0 16px);
+      background-color: $white;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+    }
+
+    &:before {
+      border-top: 1px solid $black;
+      content: ' ';
+      left: 0;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+    }
+  }
+
+  &__prizes {
+    @include rem(padding, 30px 0 0 0);
+    @include rem(margin, 30px 0 0 0);
+    background-color: $grey1;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 45px 0);
+      @include rem(margin, 45px 0 0 0);
+    }
+  }
+
+  &__prize {
+    @include rem(padding-bottom, 30px);
+    @include rem(padding-top, 70px);
+    display: inline-block;
+    float: none;
+    text-align: center;
+    vertical-align: top;
+
+    &:before {
+      @include rem(top, 37px);
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      left: 50%;
+      position: absolute;
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 100px);
+      padding-bottom: 0;
+
+      &.hidden-xs {
+        display: inline-block !important;
+      }
+    }
+
+    &--separator {
+      &:before {
+        @include cachet-bold();
+        @include rem(font-size, 30px);
+        @include rem(margin-left, -7px);
+        @include rem(margin-top, -7px);
+        color: $grey8-ysr;
+        content: '+';
+        line-height: 0;
+      }
+    }
+
+    &--medallion {
+      &:before {
+        @include rem(height, 50px);
+        @include rem(margin-left, -22px);
+        @include rem(margin-top, -25px);
+        @include rem(width, 44px);
+
+        @include breakpoint($tablet) {
+          @include rem(height, 73px);
+          @include rem(margin-left, -31px);
+          @include rem(margin-top, -36px);
+          @include rem(width, 63px);
+        }
+      }
+
+      &-gold {
+        &:before {
+          background-image: url(../prototypes/ysr/img/prizes/medallion-gold.png);
+        }
+      }
+
+      &-silver {
+        &:before {
+          background-image: url(../prototypes/ysr/img/prizes/medallion-silver.png);
+        }
+      }
+
+      &-bronze {
+        &:before {
+          background-image: url(../prototypes/ysr/img/prizes/medallion-bronze.png);
+        }
+      }
+    }
+
+    &--membership {
+      &:before {
+        @include rem(height, 42px);
+        @include rem(margin-left, -21px);
+        @include rem(margin-top, -19px);
+        @include rem(width, 38px);
+        background-image: url(../prototypes/ysr/img/prizes/membership.png);
+
+        @include breakpoint($tablet) {
+          @include rem(height, 60px);
+          @include rem(margin-left, -27px);
+          @include rem(margin-top, -30px);
+          @include rem(width, 54px);
+        }
+      }
+    }
+
+    &--towel {
+      &:before {
+        @include rem(height, 46px);
+        @include rem(margin-left, -25px);
+        @include rem(margin-top, -23px);
+        @include rem(width, 51px);
+        background-image: url(../prototypes/ysr/img/prizes/towel.png);
+
+        @include breakpoint($tablet) {
+          @include rem(height, 60px);
+          @include rem(margin-left, -27px);
+          @include rem(margin-top, -30px);
+          @include rem(width, 54px);
+        }
+      }
+    }
+
+    &--bottle {
+      &:before {
+        @include rem(height, 53px);
+        @include rem(margin-left, -15px);
+        @include rem(margin-top, -26px);
+        @include rem(width, 31px);
+        background-image: url(../prototypes/ysr/img/prizes/bottle.png);
+
+        @include breakpoint($tablet) {
+          @include rem(height, 60px);
+          @include rem(margin-left, -27px);
+          @include rem(margin-top, -30px);
+          @include rem(width, 54px);
+        }
+      }
+    }
+
+    &__title {
+      @include cachet-bold();
+      @include rem(font-size, 13px);
+      color: $grey5;
+      letter-spacing: -0.3px;
+      text-transform: uppercase;
+
+      @include breakpoint($tablet) {
+        @include rem(font-size, 15px);
+        letter-spacing: -0.4px;
+      }
+    }
+  }
+
+
+  &__winners {
+    @include rem(margin-bottom, 70px);
+
+    @include breakpoint($tablet-portrait) {
+      @include rem(margin-bottom, 170px);
+    }
+
+    &__category {
+      @include rem(padding, 50px 15px 12px 15px);
+      border-bottom: 1px solid $grey2;
+      clear: both;
+
+      @include breakpoint($tablet-portrait) {
+        @include rem(height, 80px);
+        @include rem(line-height, 60px);
+        @include rem(padding, 20px 15px 0 15px);
+      }
+
+      .category__name {
+        @include cachet();
+        @include rem(font-size, 15px);
+        position: relative;
+        text-align: left;
+        text-transform: uppercase;
+
+        &:before {
+          @include rem(height, 31px);
+          @include rem(margin-top, -15px);
+          @include rem(top, -15px);
+          @include rem(width, 35px);
+          background-size: contain;
+          background-repeat: no-repeat;
+          content: "";
+          display: inline-block;
+          left: 0;
+          position: absolute;
+          vertical-align: sub;
+        }
+
+        @include breakpoint($tablet-portrait) {
+          @include rem(font-size, 20px);
+          @include rem(padding-left, 50px);
+          float: left;
+
+          &:before {
+            top: 50%;
+          }
+        }
+      }
+
+      .category__winner {
+        @include cachet-bold();
+        overflow: hidden;
+        text-transform: uppercase;
+
+        @include breakpoint($tablet-portrait) {
+          float: right;
+        }
+
+        .winner-name {
+          @include rem(font-size, 18px);
+          color: $grey7;
+          float: left;
+
+          @include breakpoint($tablet-portrait) {
+            @include rem(font-size, 20px);
+            float: right;
+          }
+        }
+
+        .winner-id {
+          @include rem(font-size, 13px);
+          @include rem(line-height, 25px);
+          color: $grey5;
+          float: right;
+
+          @include breakpoint($tablet-portrait) {
+            @include rem(font-size, 15px);
+            line-height: inherit;
+            padding-left: 5em;
+          }
+        }
+      }
+
+
+      &--swimming {
+
+        .category__name {
+          color: $blue-light;
+
+          &:before {
+            background-image: url("../prototypes/ysr/img/l-swimming.png");
+          }
+        }
+      }
+
+      &--fitness {
+        .category__name {
+          color: $orange-light;
+
+          &:before {
+            background-image: url("../prototypes/ysr/img/l-fitness.png");
+          }
+        }
+      }
+
+      &--groupex {
+        .category__name {
+          color: $orange-medium;
+
+          &:before {
+            background-image: url("../prototypes/ysr/img/l-group-exercise.png");
+          }
+        }
+      }
+
+      &--visits {
+        .category__name {
+          color: $purple-light;
+
+          &:before {
+            background-image: url("../prototypes/ysr/img/l-visits.png");
+          }
+        }
+      }
+    }
+  }
+
+  &--gold {
+
+    .prize__header {
+      color: $orange-light;
+
+      &:before {
+        border-color: $orange-light;
+      }
+    }
+  }
+
+  &--silver {
+
+    .prize__header {
+      color: $silver;
+
+      &:before {
+        border-color: $silver;
+      }
+    }
+  }
+
+  &--bronze {
+
+    .prize__header {
+      color: $bronze;
+
+      &:before {
+        border-color: $bronze;
+      }
+    }
+  }
+
+
+}

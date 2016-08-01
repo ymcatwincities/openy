@@ -1,0 +1,14 @@
+name: Contact Block
+type: module
+description: "Provides blocks for Contact module's forms."
+package: Other
+# core: 8.x
+dependencies:
+ - block
+ - contact
+
+# Information added by Drupal.org packaging script on 2016-05-30
+version: '8.x-1.2'
+core: '8.x'
+project: 'contact_block'
+datestamp: 1464603244

@@ -24,9 +24,23 @@ class Leaderboard extends BlockBase {
     $service = \Drupal::service('ymca_retention.leaderboard_manager');
     $locations = $service->getLocations();
 
+    // Get retention settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $date_open = new \DateTime($settings->get('date_reporting_open'));
+    $current_date = new \DateTime();
+
+    if ($current_date < $date_open) {
+      $description = $this->t('Leaderboard tracking will begin on August 3 once the games have begun. It will be updated approximately every six hours.');
+      $active = FALSE;
+    }
+    else {
+      $description = $this->t('Leaderboard updated approximately every six hours.');
+      $active = TRUE;
+    }
+
     return [
       '#theme' => 'ymca_retention_leaderboard',
-      '#locations' => $locations,
+      '#description' => $description,
       '#attached' => [
         'library' => [
           'ymca_retention/leaderboard',
@@ -36,6 +50,7 @@ class Leaderboard extends BlockBase {
             'leaderboard' => [
               'leaderboard_url_pattern' => Url::fromRoute('ymca_retention.leaderboard_json', ['branch_id' => '0000'])->toString(),
               'locations' => $locations,
+              'active' => $active,
             ],
           ],
         ],
