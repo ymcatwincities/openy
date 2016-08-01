@@ -105,6 +105,7 @@ module:
   tour: 0
   update: 0
   user: 0
+  views_advanced_routing: 0
   views_rest_feed: 0
   views_ui: 0
   webforms: 0
@@ -140,6 +141,7 @@ module:
   ymca_migrate: 0
   ymca_migrate_status: 0
   ymca_mindbody: 0
+  ymca_mobile_checkin: 0
   ymca_page_context: 0
   ymca_page_manager: 0
   ymca_perms: 0
