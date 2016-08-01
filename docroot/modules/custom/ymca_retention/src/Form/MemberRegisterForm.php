@@ -3,8 +3,6 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -50,6 +48,9 @@ class MemberRegisterForm extends FormBase {
       '#attributes' => [
         'placeholder' => [
           $this->t('Your facility access ID'),
+        ],
+        'class' => [
+          'facility-access-id',
         ],
       ],
       '#element_required_error' => $this->t('Facility access ID is required.'),
@@ -157,7 +158,7 @@ class MemberRegisterForm extends FormBase {
     // Get information about member from Personify and validate entered membership ID.
     $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
     if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
-      $form_state->setErrorByName('membership_id', $this->t('Member with this facility access ID not found, please verify your facility access ID.'));
+      $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
     }
     else {
       $form_state->setTemporaryValue('personify_member', $personify_result);
@@ -238,8 +239,8 @@ class MemberRegisterForm extends FormBase {
     }
 
     // Get information about number of checkins in period of campaign.
-    $from = $settings->get('date_registration_open');
-    $to = $settings->get('date_registration_close');
+    $from = $settings->get('date_reporting_open');
+    $to = $settings->get('date_reporting_close');
     $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     $total_visits = 0;
