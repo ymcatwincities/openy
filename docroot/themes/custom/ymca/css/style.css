@@ -9088,7 +9088,7 @@ body .ajax-progress-throbber .throbber {
 .groupex-form-full #date-select-wrapper:before {
   background-color: #f8f8f8;
   border-radius: 5px;
-  color: #777777;
+  color: #777;
   content: "\e953";
   font-family: icomoon;
   font-size: 20px;
@@ -9118,7 +9118,7 @@ body .ajax-progress-throbber .throbber {
   text-indent: 20px;
 }
 .groupex-form-full .instructor-chosen {
-  color: #777777;
+  color: #777;
   margin-bottom: 15px;
   font-size: 16px;
 }
@@ -9217,7 +9217,6 @@ body .ajax-progress-throbber .throbber {
 }
 
 .groupex-results {
-  max-height: 600px;
   overflow-y: auto;
   overflow-x: hidden;
   clear: both;
@@ -9354,7 +9353,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 #block-schedulesrightblocks article ul li:before {
   content: "\f105";
-  color: #777777;
+  color: #777;
   font-family: icomoon;
   list-style: none;
   margin-right: 14px;
