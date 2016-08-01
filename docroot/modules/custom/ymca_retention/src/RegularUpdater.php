@@ -107,6 +107,8 @@ class RegularUpdater implements RegularUpdaterInterface {
     $settings = \Drupal::config('ymca_retention.general_settings');
     $date_open = new \DateTime($settings->get('date_campaign_open'));
     $date_close = new \DateTime($settings->get('date_campaign_close'));
+    // Add 1 day to closing date to get visits for the last day.
+    $date_close->add(new \DateInterval('P1D'));
     $current_date = new \DateTime();
     if ($current_date < $date_open || $current_date > $date_close) {
       return;
