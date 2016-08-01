@@ -3,6 +3,10 @@
 # - Running registry rebuild (when modules have been moved to new directory)
 # - Running database updates
 
+# Run docker container.
+- name: Obtain unique container for a build
+  
+
 # Run registry rebuild.
 - name: Check if registry_rebuild is installed
   shell: "{{ php_env_vars }} drush | grep -c registry_rebuild"
