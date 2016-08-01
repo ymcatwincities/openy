@@ -14,6 +14,7 @@
 
       $scope.locations = settings.ymca_retention.leaderboard.locations;
       $scope.location = $scope.locations[0];
+      $scope.active = settings.ymca_retention.leaderboard.active;
 
       // Get the data.
       $scope.loadData = function() {
