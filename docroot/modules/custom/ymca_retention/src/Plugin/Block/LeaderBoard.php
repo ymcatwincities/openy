@@ -34,7 +34,9 @@ class Leaderboard extends BlockBase {
       $date_formatter = \Drupal::service('date.formatter');
 
       $description = $this->t('Leaderboard tracking will begin on @date_open once the games have begun. It will be updated approximately every six hours.',
-        ['@date_open' => $date_formatter->format($date_open->getTimestamp(), 'custom', 'F j')]);
+        [
+          '@date_open' => $date_formatter->format($date_open->getTimestamp(), 'custom', 'F j'),
+        ]);
       $active = FALSE;
     }
     else {
