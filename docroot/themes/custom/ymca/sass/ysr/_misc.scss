@@ -13,8 +13,8 @@
 }
 
 .viewport {
-  background: #fff;
-  padding-top: 0;
+  @include rem(padding-top, 72px);
+  background: $white;
 }
 
 #main {
@@ -27,9 +27,9 @@
 }
 
 #top-nav {
+  @include rem(height, 72px);
+  @include rem(line-height, 72px);
   background-color: $purple-dark;
-  height: 7.2rem;
-  line-height: 7.2rem;
   padding: 0;
   position: fixed;
   top: 0;
@@ -37,23 +37,23 @@
   z-index: 10;
 
   ul {
+    @include rem(padding-right, 30px);
     float: right;
     height: auto !important;
     list-style-image: none;
     list-style-type: none;
     margin: 0;
     padding-left: 0;
-    padding-right: 3rem;
 
     &.collapse {
-      @media screen and (min-width: 768px) {
+      @include breakpoint($tablet) {
         display: block;
       }
     }
 
     li {
+      @include rem(line-height, 71px);
       display: inline-block;
-      line-height: 7.1rem;
 
       a {
         @include cachet();
@@ -219,7 +219,6 @@
 }
 
 #hero-section {
-  @include rem(margin-top, 72px);
   @include rem(padding, 47px 0 0 0);
   background-color: #2a193b;
   position: relative;
@@ -260,15 +259,23 @@
   }
 
   .shape-container {
-    @include rem(height, 806px);
-    @include rem(top, 131px);
+    @include rem(height, 1031px);
+    @include rem(padding-top, 131px);
+    max-height: 100%;
     overflow: hidden;
     position: absolute;
+    top: 0;
     width: 100%;
     z-index: 2;
 
+    .shapes-wrapper {
+      height: 100%;
+      position: relative;
+      width: 100%;
+    }
+
     .shape {
-      @include rem(background-size, 1920px 806px);
+      @include rem(background-size, 1920px 900px);
       @include transform(translateX(-50%));
       @include transition(opacity 0.5s);
       background-position: top center;
@@ -417,7 +424,6 @@
 
 #register-and-report {
   position: relative;
-  overflow: hidden;
   z-index: 3;
 
   p {
@@ -682,11 +688,17 @@
 
 #leaderboard {
   @include rem(margin-bottom, 60px);
-  @include rem(padding-top, 50px);
 
   @include breakpoint($tablet) {
     @include rem(margin-bottom, 160px);
-    @include rem(padding-top, 100px);
+  }
+
+  .leaderboard-inner {
+    @include rem(padding-top, 50px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 100px);
+    }
   }
 
   .col-xs-12 {
@@ -943,9 +955,12 @@
 }
 
 .results-table-wrapper {
-  margin-left: -15px;
-  margin-right: -15px;
   position: relative;
+  margin: 0;
+
+  @include breakpoint($tablet) {
+    @include rem(margin, -15px 0);
+  }
 }
 
 .results-table {
@@ -974,26 +989,23 @@
   thead {
     th {
       @include cachet-normal();
+      @include rem(font-size, 11px);
+      @include rem(padding-bottom, 20px);
       color: $grey4;
-      font-size: 13px;
       text-align: center;
       text-transform: uppercase;
       vertical-align: top;
-      padding-bottom: 20px;
 
-      @media screen and (min-width: 768px) {
-        padding-bottom: 30px;
+      @include breakpoint($tablet) {
+        @include rem(font-size, 13px);
+        @include rem(padding-bottom, 30px);
       }
 
       &:first-child {
-        font-size: 20px;
+        @include rem(font-size, 20px);
+        padding-left: 0;
         text-align: left;
         vertical-align: middle;
-        padding-left: 15px;
-
-        @media screen and (min-width: 768px) {
-          padding-left: 0;
-        }
       }
 
       a {
@@ -1012,27 +1024,32 @@
             &.visits { color: $purple-light; }
 
             &:after {
+              @include rem(font-size, 25px);
+              @include rem(margin-left, -6.5px);
+              @include rem(margin-top, 63px);
               content: "⌄";
               display: block;
               font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-              font-size: 25px;
               font-weight: bold;
               left: 50%;
-              margin-left: -6.5px;
-              margin-top: 63px;
               top: 0;
               position: absolute;
             }
           }
 
           &:before {
+            @include rem(height, 26px);
+            @include rem(width, 30px);
             background-size: contain;
-            content: " ";
+            content: "";
             display: block;
-            height: 31px;
             margin: auto;
             position: relative;
-            width: 35px;
+
+            @include breakpoint($tablet) {
+              @include rem(height, 31px);
+              @include rem(width, 35px);
+            }
           }
           &.swimming:before {
             background-image: url("../prototypes/ysr/img/l-swimming.png");
@@ -1056,39 +1073,77 @@
     tr {
 
       .member-id {
-        font-size: 13px;
+        @include rem(font-size, 10px);
         color: $grey5;
         font-weight: normal;
+
+        @include breakpoint($tablet) {
+          @include rem(font-size, 13px);
+        }
       }
       .name, .member-id {
         @include cachet();
       }
 
       td {
+        @include cachet();
+        color: #777;
+        font-size: 13px;
+        line-height: 20px;
+        padding: 15px 5px;
+        text-align: left;
         vertical-align: top;
+        white-space: nowrap;
 
         @media screen and (min-width: 768px) {
           vertical-align: middle;
         }
 
-        &.number {
-          font-family: Verdana, Arial, Helvetica, sans-serif;
-          font-size: 13px;
+        &:first-child {
+          color: #424242;
         }
 
         &.number, &.name, &.member-id {
-          padding-left: 15px;
+          @include rem(padding-left, 5px);
+          padding-right: 0;
 
-          @media screen and (min-width: 768px) {
-            padding-left: 30px;
+          @include breakpoint($mobile-landscape) {
+            @include rem(padding-left, 15px);
+          }
+          @include breakpoint($tablet) {
+            @include rem(padding-left, 30px);
+            @include rem(padding-right, 5px);
+          }
+        }
+
+        &.number {
+          @include rem(font-size, 11px);
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          padding-left: 0;
+
+          @include breakpoint($mobile-landscape) {
+            @include rem(padding-left, 15px);
+          }
+
+          @include breakpoint($tablet) {
+            @include rem(font-size, 13px);
           }
         }
 
         &.name {
+          @include rem(font-size, 13px);
+          color: $green1;
+          font-weight: bold;
+          text-transform: uppercase;
+
+          @include breakpoint($tablet) {
+            @include rem(font-size, 15px);
+          }
+
           .member-id {
             display: block;
 
-            @media screen and (min-width: 768px) {
+            @include breakpoint($tablet) {
               display: none;
             }
           }
@@ -1113,9 +1168,7 @@
         border-bottom: solid 1px #f3f3f3;
       }
 
-      &:nth-child(1),
-      &:nth-child(2),
-      &:nth-child(3) {
+      &.leader {
         background-color: #fcfcfc;
 
         td {
@@ -1129,35 +1182,11 @@
         }
       }
 
-      &:nth-child(3), &:last-child {
+      &.leader--last, &:last-child {
         td { padding-bottom: 38px;}
       }
-      &:nth-child(1), &:nth-child(4) {
+      &:first-child, &.chaser--first {
         td { padding-top: 38px;}
-      }
-
-
-    }
-
-    td {
-      @include cachet();
-      color: #777;
-      font-size: 13px;
-      line-height: 20px;
-      padding: 15px 5px;
-      text-align: left;
-      white-space: nowrap;
-
-
-      &:first-child {
-        color: #424242;
-      }
-
-      &.name {
-        color: #00aa95;
-        font-weight: bold;
-        font-size: 15px;
-        text-transform: uppercase;
       }
     }
 
@@ -1196,22 +1225,6 @@
 
   .results-table {
     margin-bottom: 0;
-  }
-}
-
-body {
-  &.toolbar-fixed.toolbar-vertical {
-    #top-nav {
-      margin-top: 39px;
-    }
-    #hero-section {
-      margin-top: 20px;
-    }
-  }
-  &.toolbar-fixed.toolbar-horizontal {
-    #top-nav {
-      margin-top: 79px;
-    }
   }
 }
 
@@ -1283,3 +1296,49 @@ body {
     background-image: url(../prototypes/ysr/img/throbber-white.svg);
   }
 }
+
+
+body {
+  .ysr-offset:before {
+    @include rem(height, 72px);
+    @include rem(margin-top, -72px);
+    content: " ";
+    display: block;
+    visibility: hidden;
+  }
+
+  &.toolbar-fixed.toolbar-vertical {
+    margin-top: 0;
+
+    #top-nav {
+      margin-top: 39px;
+    }
+    .ysr-offset:before {
+      @include rem(height, 72px+39px);
+      @include rem(margin-top, -72px-39px);
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal {
+    margin-top: 0;
+
+    #top-nav {
+      margin-top: 39px;
+    }
+    .ysr-offset:before {
+      @include rem(height, 72px+39px);
+      @include rem(margin-top, -72px-39px);
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal.toolbar-tray-open {
+    margin-top: 0;
+
+    #top-nav {
+      margin-top: 79px;
+    }
+    .ysr-offset:before {
+      @include rem(height, 72px+79px);
+      @include rem(margin-top, -72px-79px);
+    }
+  }
+}
+
