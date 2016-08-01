@@ -1,0 +1,273 @@
+/* Mobile first layout SmartMenus Core CSS (it's not recommended editing these rules)
+   You need this once per page no matter how many menu trees or different themes you use.
+-------------------------------------------------------------------------------------------*/
+
+.sm,.sm ul,.sm li{display:block;list-style:none;margin:0;padding:0;line-height:normal;direction:ltr;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.sm-rtl,.sm-rtl ul,.sm-rtl li{direction:rtl;text-align:right;}
+.sm>li>h1,.sm>li>h2,.sm>li>h3,.sm>li>h4,.sm>li>h5,.sm>li>h6{margin:0;padding:0;}
+.sm ul{display:none;}
+.sm li,.sm a{position:relative;}
+.sm a{display:block;}
+.sm a.disabled{cursor:not-allowed;}
+.sm:after{content:"\00a0";display:block;height:0;font:0px/0 serif;clear:both;visibility:hidden;overflow:hidden;}
+.sm,.sm *,.sm *:before,.sm *:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+
+
+.menu-base-theme a, .menu-base-theme a:hover, .menu-base-theme a:focus, .menu-base-theme a:active {
+  padding: 10px 20px;
+  padding-right: 58px;
+  background: #3092c0
+  color: white;
+  line-height: 23px;
+  text-decoration: none;
+}
+.menu-base-theme a.current {
+  background: #006892
+  color: white;
+}
+.menu-base-theme a.disabled {
+  color: #a1d1e8;
+}
+.menu-base-theme a span.sub-arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -17px;
+  left: auto;
+  right: 4px;
+  width: 34px;
+  height: 34px;
+  overflow: hidden;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+}
+.menu-base-theme a.highlighted span.sub-arrow:before {
+  display: block;
+  content: '-';
+}
+.menu-base-theme ul {
+  background: white;
+}
+.menu-base-theme ul ul {
+  background: rgba(102, 102, 102, 0.1);
+}
+.menu-base-theme ul a, .menu-base-theme ul a:hover, .menu-base-theme ul a:focus, .menu-base-theme ul a:active {
+  background: transparent;
+  color: #2b82ac;
+  border-left: 8px solid transparent;
+}
+.menu-base-theme ul a.current {
+  background: #006892
+  color: white;
+}
+.menu-base-theme ul a.disabled {
+  color: #b3b3b3;
+}
+.menu-base-theme ul ul a,
+.menu-base-theme ul ul a:hover,
+.menu-base-theme ul ul a:focus,
+.menu-base-theme ul ul a:active {
+  border-left: 16px solid transparent;
+}
+.menu-base-theme ul ul ul a,
+.menu-base-theme ul ul ul a:hover,
+.menu-base-theme ul ul ul a:focus,
+.menu-base-theme ul ul ul a:active {
+  border-left: 24px solid transparent;
+}
+.menu-base-theme ul ul ul ul a,
+.menu-base-theme ul ul ul ul a:hover,
+.menu-base-theme ul ul ul ul a:focus,
+.menu-base-theme ul ul ul ul a:active {
+  border-left: 32px solid transparent;
+}
+.menu-base-theme ul ul ul ul ul a,
+.menu-base-theme ul ul ul ul ul a:hover,
+.menu-base-theme ul ul ul ul ul a:focus,
+.menu-base-theme ul ul ul ul ul a:active {
+  border-left: 40px solid transparent;
+}
+.menu-base-theme ul li {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+.menu-base-theme ul li:first-child {
+  border-top: 0;
+}
+
+@media (min-width: 768px) {
+	
+  .menu-base-theme ul {
+    position: absolute;
+  }
+
+  .menu-base-theme li {
+    float: left;
+  }
+
+  .menu-base-theme.sm-rtl li {
+    float: right;
+  }
+
+  .menu-base-theme ul li, .menu-base-theme.sm-rtl ul li, .menu-base-theme.sm-vertical li {
+    float: none;
+  }
+
+  .menu-base-theme a {
+    white-space: nowrap;
+  }
+
+  .menu-base-theme ul a, .menu-base-theme.sm-vertical a {
+    white-space: normal;
+  }
+
+  .menu-base-theme .sm-nowrap > li > a, .menu-base-theme .sm-nowrap > li > :not(ul) a {
+    white-space: nowrap;
+  }
+
+  /* ...end */
+  .menu-base-theme {
+    background: #3092c0;
+  }
+  .menu-base-theme a, .menu-base-theme a:hover, 
+  .menu-base-theme a:focus, .menu-base-theme a:active, 
+  .menu-base-theme a.highlighted {
+    padding: 13px 24px;
+    background: #3092c0;
+    color: white;
+  }
+  .menu-base-theme a:hover, .menu-base-theme a:focus, .menu-base-theme a:active, .menu-base-theme a.highlighted {
+    background: #2b82ac;
+  }
+  .menu-base-theme a.current {
+    background: #006892;
+    color: white;
+  }
+  .menu-base-theme a.disabled {
+    background: #3092c0;
+    color: #a1d1e8;
+  }
+  .menu-base-theme a span.sub-arrow {
+    top: auto;
+    margin-top: 0;
+    bottom: 2px;
+    left: 50%;
+    margin-left: -5px;
+    right: auto;
+    width: 0;
+    height: 0;
+    border-width: 5px;
+    border-style: solid dashed dashed dashed;
+    border-color: #a1d1e8 transparent transparent transparent;
+    background: transparent;
+  }
+  .menu-base-theme a.highlighted span.sub-arrow:before {
+    display: none;
+  }
+  .menu-base-theme > li {
+    border-left: 1px solid #2b82ac;
+  }
+  .menu-base-theme > li:first-child {
+    border-left: 0;
+  }
+  .menu-base-theme ul {
+    border: 1px solid #a8a8a8;
+    padding: 0;
+    background: white;
+  }
+  .menu-base-theme ul ul {
+    background: white;
+  }
+  .menu-base-theme ul a, .menu-base-theme ul a:hover, .menu-base-theme ul a:focus, .menu-base-theme ul a:active, .menu-base-theme ul a.highlighted {
+    border: 0 !important;
+    padding: 9px 23px;
+    background: transparent;
+    color: #2b82ac;
+  }
+  .menu-base-theme ul a:hover, .menu-base-theme ul a:focus, .menu-base-theme ul a:active, .menu-base-theme ul a.highlighted {
+    background: #3092c0;
+    color: white;
+  }
+  .menu-base-theme ul a.current {
+    background: #006892;
+    color: white;
+  }
+  .menu-base-theme ul a.disabled {
+    background: white;
+    color: #b3b3b3;
+  }
+  .menu-base-theme ul a span.sub-arrow {
+    top: 50%;
+    margin-top: -5px;
+    bottom: auto;
+    left: auto;
+    margin-left: 0;
+    right: 10px;
+    border-style: dashed dashed dashed solid;
+    border-color: transparent transparent transparent #a1d1e8;
+  }
+  .menu-base-theme ul li {
+    border: 0;
+  }
+  .menu-base-theme span.scroll-up,
+  .menu-base-theme span.scroll-down {
+    position: absolute;
+    display: none;
+    visibility: hidden;
+    overflow: hidden;
+    background: white;
+    height: 20px;
+  }
+  .menu-base-theme span.scroll-up-arrow, .menu-base-theme span.scroll-down-arrow {
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    margin-left: -8px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 8px;
+    border-style: dashed dashed solid dashed;
+    border-color: transparent transparent #2b82ac transparent;
+  }
+  .menu-base-theme span.scroll-down-arrow {
+    top: 6px;
+    border-style: solid dashed dashed dashed;
+    border-color: #2b82ac transparent transparent transparent;
+  }
+  .menu-base-theme.sm-rtl.sm-vertical a span.sub-arrow {
+    right: auto;
+    left: 10px;
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #a1d1e8 transparent transparent;
+  }
+  .menu-base-theme.sm-rtl > li:first-child {
+    border-left: 1px solid #2b82ac;
+  }
+  .menu-base-theme.sm-rtl > li:last-child {
+    border-left: 0;
+  }
+  .menu-base-theme.sm-rtl ul a span.sub-arrow {
+    right: auto;
+    left: 10px;
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #a1d1e8 transparent transparent;
+  }
+  .menu-base-theme.sm-vertical a {
+    padding: 9px 23px;
+  }
+  .menu-base-theme.sm-vertical a span.sub-arrow {
+    top: 50%;
+    margin-top: -5px;
+    bottom: auto;
+    left: auto;
+    margin-left: 0;
+    right: 10px;
+    border-style: dashed dashed dashed solid;
+    border-color: transparent transparent transparent #a1d1e8;
+  }
+  .menu-base-theme.sm-vertical > li {
+    border-left: 0 !important;
+  }
+  .menu-base-theme.sm-vertical ul a {
+    padding: 9px 23px;
+  }
+}

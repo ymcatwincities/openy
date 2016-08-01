@@ -3,8 +3,6 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -29,6 +27,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $validate = [get_class($this), 'elementValidateRequired'];
     $form['mail'] = [
       '#type' => 'email',
       '#required' => TRUE,
@@ -36,6 +35,11 @@ class MemberRegisterForm extends FormBase {
         'placeholder' => [
           $this->t('Your e-mail'),
         ],
+      ],
+      '#element_required_error' => $this->t('Email is required.'),
+      '#element_validate' => [
+        ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+        $validate,
       ],
     ];
     $form['membership_id'] = [
@@ -45,7 +49,12 @@ class MemberRegisterForm extends FormBase {
         'placeholder' => [
           $this->t('Your facility access ID'),
         ],
+        'class' => [
+          'facility-access-id',
+        ],
       ],
+      '#element_required_error' => $this->t('Facility access ID is required.'),
+      '#element_validate' => [$validate],
     ];
 
     $form['submit'] = [
@@ -61,13 +70,30 @@ class MemberRegisterForm extends FormBase {
       ],
       '#ajax' => [
         'callback' => [$this, 'ajaxFormCallback'],
+        'method' => 'replaceWith',
+        'wrapper' => 'registration .registration-form form',
         'progress' => [
           'type' => 'throbber',
           'message' => NULL,
         ],
       ],
     ];
+
     return $form;
+  }
+
+  /**
+   * Set a custom validation error on the #required element.
+   *
+   * @param array $element
+   *   Form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   */
+  public function elementValidateRequired(array $element, FormStateInterface $form_state) {
+    if (!empty($element['#required_but_empty']) && isset($element['#element_required_error'])) {
+      $form_state->setError($element, $element['#element_required_error']);
+    }
   }
 
   /**
@@ -78,35 +104,42 @@ class MemberRegisterForm extends FormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form state.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
    *   Ajax response.
    */
   public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
-    // Instantiate an AjaxResponse Object to return.
-    $ajax_response = new AjaxResponse();
     if ($form_state->hasAnyErrors()) {
-      $status_messages = ['#type' => 'status_messages'];
-      // Written in demo purposes to show erroneous field theming.
-      // Doesn't work correctly: error classes are not revoked after submit.
-      $errors = $form_state->getErrors();
-      foreach ($errors as $id => $error) {
-        $_id = '#' . reset(explode('--', $form[$id]['#id']));
-        $ajax_response->addCommand(new InvokeCommand($_id, 'addClass', ['error']));
-      }
-      $ajax_response->addCommand(new InvokeCommand('.ysr-register-form-messages', 'empty'));
-      $ajax_response->addCommand(new PrependCommand('.ysr-register-form-messages', $status_messages));
+      $form['messages'] = ['#type' => 'status_messages'];
+      return $form;
     }
     else {
+      // Instantiate an AjaxResponse Object to return.
+      $ajax_response = new AjaxResponse();
       $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success'])
         ->toString()));
+      return $ajax_response;
     }
-    return $ajax_response;
   }
 
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    // Get retention settings.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $from_date = new \DateTime($settings->get('date_registration_open'));
+    $to_date = new \DateTime($settings->get('date_registration_close'));
+    $current_date = new \DateTime();
+    if ($current_date < $from_date) {
+      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Games open.', [
+        '%date' => $from_date->format('F j'),
+      ]));
+      return;
+    }
+    if ($current_date > $to_date) {
+      $form_state->setErrorByName('form', $this->t('The Y Games are now closed and registration is no longer able to be tracked.'));
+      return;
+    }
     $membership_id = trim($form_state->getValue('membership_id'));
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
@@ -124,9 +157,8 @@ class MemberRegisterForm extends FormBase {
 
     // Get information about member from Personify and validate entered membership ID.
     $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
-    // @todo Here we need to verify results. and check is there an alias, and then search user in db by alias ID.
     if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
-      $form_state->setErrorByName('membership_id', $this->t('Member with this facility access ID not found, please verify your facility access ID.'));
+      $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
     }
     else {
       $form_state->setTemporaryValue('personify_member', $personify_result);
@@ -199,19 +231,16 @@ class MemberRegisterForm extends FormBase {
     }
 
     // Calculate a goal for a member.
-    // @todo This is now working in case when user registered after $from_date.
+    $goal = $settings->get('new_member_goal_number');
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $limit_goal = $settings->get('limit_goal_number');
-      $goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
-      $goal = min($goal, $limit_goal);
-    }
-    else {
-      $goal = $settings->get('new_member_goal_number');
+      $calculated_goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
+      $goal = min(max($goal, $calculated_goal), $limit_goal);
     }
 
     // Get information about number of checkins in period of campaign.
-    $from = $settings->get('date_registration_open');
-    $to = $settings->get('date_registration_close');
+    $from = $settings->get('date_reporting_open');
+    $to = $settings->get('date_reporting_close');
     $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
 
     $total_visits = 0;
@@ -221,7 +250,7 @@ class MemberRegisterForm extends FormBase {
     // Identify is user an employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
-    // @todo This is a bad solution with this condition.
+    // @todo This is a bad solution with this condition, if we will reuse this form in the future.
     $route = \Drupal::service('current_route_match')->getRouteName();
     $created_by_staff = $route === 'page_manager.page_view_ymca_retention_pages_y_games_team';
 

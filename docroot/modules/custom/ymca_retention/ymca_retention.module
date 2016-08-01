@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_form_alter().
@@ -52,7 +53,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_leaderboard' => [
       'variables' => [
         'base_path' => base_path(),
-        'locations' => [],
+        'description' => '',
       ],
       'template' => 'ymca-retention-leaderboard',
     ],
@@ -64,7 +65,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'ymca-retention-member-info',
     ],
     'ymca_retention_slider' => [
-      'variables' => [],
+      'variables' => [
+        'slides' => [],
+      ],
       'template' => 'ymca-retention-slider',
     ],
     'ymca_retention_registration_confirmation' => [
@@ -80,12 +83,93 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
  * Implements hook_cron().
  */
 function ymca_retention_cron() {
+  /** @var \Drupal\ymca_retention\RegularUpdater $regular_updater */
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
   // Check if cron was run today.
-  if (!$regular_updater->isAllowed()) {
+  if ($regular_updater->isAllowed()) {
     return;
   }
 
-  $regular_updater->runUpdate();
+  $regular_updater->createQueue();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ *
+ * Remove member activities when deleting the member.
+ */
+function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
+  /** @var \Drupal\ymca_retention\ActivityManager $service */
+  $service = \Drupal::service('ymca_retention.activity_manager');
+  $member_activities = $service->getMemberActivities($entity->getId());
+
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_activity');
+  $storage->delete($member_activities);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
+  _ymca_retention_activity_track_update($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function ymca_retention_ymca_retention_member_activity_update(EntityInterface $entity) {
+  _ymca_retention_activity_track_update($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function ymca_retention_ymca_retention_member_activity_delete(EntityInterface $entity) {
+  _ymca_retention_activity_track_update($entity);
+}
+
+/**
+ * Helper function to update activity_track fields.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Created/updated/deleted activity.
+ */
+function _ymca_retention_activity_track_update(EntityInterface $entity) {
+  /** @var \Drupal\ymca_retention\Entity\Member $member */
+  $member = $entity->member->entity;
+  // If member entity is NULL - the member was deleted and his activities are
+  // being deleted now, so we don't need to recalculate the numbers.
+  if (!$member) {
+    return;
+  }
+
+  /** @var \Drupal\ymca_retention\ActivityManager $service */
+  $service = \Drupal::service('ymca_retention.activity_manager');
+  $activity_groups = $service->getActivityGroups();
+  $member_activities = $service->getMemberActivities($member->getId());
+
+  $tracks = [];
+  foreach ($activity_groups as $activity_group) {
+    $tracks[$activity_group['id']] = 0;
+  }
+  foreach ($member_activities as $member_activity) {
+    $activity_id = $member_activity->activity_type->target_id;
+
+    foreach ($activity_groups as $activity_group) {
+      foreach ($activity_group['activities'] as $activity) {
+        if ($activity['id'] === $activity_id) {
+          $tracks[$activity_group['id']]++;
+        }
+      }
+    }
+  }
+
+  // TODO: below is hard coding; we are assuming that the activity groups are
+  // in the specific order: swimming, fitness, groupx.
+  $member->set('activity_track_swimming', $tracks[$activity_groups[0]['id']]);
+  $member->set('activity_track_fitness', $tracks[$activity_groups[1]['id']]);
+  $member->set('activity_track_groupx', $tracks[$activity_groups[2]['id']]);
+  $member->save();
 }

@@ -44,7 +44,7 @@ class ActivityController extends ControllerBase {
 
     /** @var \Drupal\ymca_retention\ActivityManager $service */
     $service = \Drupal::service('ymca_retention.activity_manager');
-    $member_activities = $service->getMemberActivities();
+    $member_activities = $service->getMemberActivitiesModel();
 
     $response = new JsonResponse($member_activities);
 

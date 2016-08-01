@@ -27,10 +27,10 @@ class Navigation extends BlockBase {
   public function getNavigationLinks() {
     $links = [
       'registration' => Link::fromTextAndUrl(t('Registration'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
-        'fragment' => 'register-and-report',
+        'fragment' => 'registration',
       ])),
       'track_my_activity' => Link::fromTextAndUrl(t('Track My Activities'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
-        'fragment' => 'register-and-report',
+        'fragment' => 'report',
       ])),
       'leader_board' => Link::fromTextAndUrl(t('Leaderboard'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
         'fragment' => 'leaderboard',
@@ -61,8 +61,25 @@ class Navigation extends BlockBase {
         unset($links['registration']);
       }
     }
-    if ($current_route == 'page_manager.page_view_ymca_retention_pages_y_games_enroll_success') {
-      $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'activity']));
+    switch ($current_route) {
+      case 'page_manager.page_view_ymca_retention_pages_y_games_enroll_success':
+        $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+          'string' => 'activity',
+        ]));
+        break;
+
+      case 'page_manager.page_view_ymca_retention_pages_y_games_activity':
+        $links['track_my_activity']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+          'string' => 'activity',
+        ], [
+          'fragment' => 'track-my-activities',
+        ]));
+        $links['leader_board']->setUrl(Url::fromRoute('page_manager.page_view_ymca_retention_pages_y_games_activity', [
+          'string' => 'activity',
+        ], [
+          'fragment' => 'leaderboard',
+        ]));
+        break;
     }
 
     return [

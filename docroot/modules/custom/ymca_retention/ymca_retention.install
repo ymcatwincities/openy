@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * YMCA Retention hook_update_N.
+ */
+
+/**
+ * Update YMCA Retention Members view.
+ */
+function ymca_retention_update_8001() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.ymca_members.yml',
+    ]
+  );
+}
+
+/**
+ * Update YMCA Retention settings.
+ */
+function ymca_retention_update_8002() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.general_settings.yml',
+    ]
+  );
+}
+
+/**
+ * Update YMCA Retention settings.
+ */
+function ymca_retention_update_8003() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.general_settings.yml',
+    ]
+  );
+}
+
+/**
+ * Change views display for members.
+ */
+function ymca_retention_update_8004() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'views.view.ymca_members.yml',
+  ]);
+}
+
+/**
+ * Import YMCA Retention slider config.
+ */
+function ymca_retention_update_8005() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.slider.yml',
+    ]
+  );
+}

@@ -5,6 +5,7 @@ namespace Drupal\ymca_retention;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\taxonomy\TermStorage;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\ymca_mappings\LocationMappingRepository;
 use Drupal\ymca_retention\Entity\Member;
 
 /**
@@ -99,18 +100,9 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       $branch_ids[] = $branch['branch'];
     }
 
-    $locations = [];
-    if ($branch_ids) {
-      // Find location names for found branch ids.
-      $location_ids = \Drupal::entityQuery('mapping')
-        ->condition('type', 'location')
-        ->condition('field_groupex_id', $branch_ids, 'IN')
-        ->execute();
-
-      $locations = \Drupal::entityTypeManager()
-        ->getStorage('mapping')
-        ->loadMultiple($location_ids);
-    }
+    /** @var LocationMappingRepository $repo */
+    $repo = \Drupal::service('ymca_mappings.location_repository');
+    $locations = $repo->findByLocationPersonifyBranchCode($branch_ids);
 
     $locations_list = [
       [
@@ -121,7 +113,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
     /** @var Mapping $location */
     foreach ($locations as $location) {
       $locations_list[] = [
-        'branch_id' => $location->get('field_groupex_id')->value,
+        'branch_id' => $location->get('field_location_personify_brcode')->value,
         'name' => $location->getName(),
       ];
     }
