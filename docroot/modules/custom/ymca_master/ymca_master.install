@@ -3938,3 +3938,15 @@ function ymca_master_update_8164() {
     ]
   );
 }
+
+/**
+ * YMCA-838: Allow Location Editors to edit only location files.
+ */
+function ymca_master_update_8165() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}
