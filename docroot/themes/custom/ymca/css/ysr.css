@@ -165,8 +165,9 @@
 }
 
 .viewport {
+  padding-top: 72px;
+  padding-top: 7.2rem;
   background: #fff;
-  padding-top: 0;
 }
 
 #main {
@@ -179,9 +180,11 @@
 }
 
 #top-nav {
-  background-color: #5c2e91;
+  height: 72px;
   height: 7.2rem;
+  line-height: 72px;
   line-height: 7.2rem;
+  background-color: #5c2e91;
   padding: 0;
   position: fixed;
   top: 0;
@@ -189,22 +192,24 @@
   z-index: 10;
 }
 #top-nav ul {
+  padding-right: 30px;
+  padding-right: 3rem;
   float: right;
   height: auto !important;
   list-style-image: none;
   list-style-type: none;
   margin: 0;
   padding-left: 0;
-  padding-right: 3rem;
 }
-@media screen and (min-width: 768px) {
+@media (min-width: 48em) {
   #top-nav ul.collapse {
     display: block;
   }
 }
 #top-nav ul li {
-  display: inline-block;
+  line-height: 71px;
   line-height: 7.1rem;
+  display: inline-block;
 }
 #top-nav ul li a {
   font-family: "Cachet",Arial,sans-serif;
@@ -379,8 +384,6 @@
 }
 
 #hero-section {
-  margin-top: 72px;
-  margin-top: 7.2rem;
   padding: 47px 0 0 0;
   padding: 4.7rem 0 0 0;
   background-color: #2a193b;
@@ -422,18 +425,25 @@
   }
 }
 #hero-section .shape-container {
-  height: 806px;
-  height: 80.6rem;
-  top: 131px;
-  top: 13.1rem;
+  height: 1031px;
+  height: 103.1rem;
+  padding-top: 131px;
+  padding-top: 13.1rem;
+  max-height: 100%;
   overflow: hidden;
   position: absolute;
+  top: 0;
   width: 100%;
   z-index: 2;
 }
+#hero-section .shape-container .shapes-wrapper {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
 #hero-section .shape-container .shape {
-  background-size: 1920px 806px;
-  background-size: 192rem 80.6rem;
+  background-size: 1920px 900px;
+  background-size: 192rem 90rem;
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
@@ -608,7 +618,6 @@
 
 #register-and-report {
   position: relative;
-  overflow: hidden;
   z-index: 3;
 }
 #register-and-report p {
@@ -916,13 +925,19 @@
 #leaderboard {
   margin-bottom: 60px;
   margin-bottom: 6rem;
-  padding-top: 50px;
-  padding-top: 5rem;
 }
 @media (min-width: 48em) {
   #leaderboard {
     margin-bottom: 160px;
     margin-bottom: 16rem;
+  }
+}
+#leaderboard .leaderboard-inner {
+  padding-top: 50px;
+  padding-top: 5rem;
+}
+@media (min-width: 48em) {
+  #leaderboard .leaderboard-inner {
     padding-top: 100px;
     padding-top: 10rem;
   }
@@ -1421,16 +1436,6 @@
     margin-bottom: 0;
   }
 }
-body.toolbar-fixed.toolbar-vertical #top-nav {
-  margin-top: 39px;
-}
-body.toolbar-fixed.toolbar-vertical #hero-section {
-  margin-top: 20px;
-}
-body.toolbar-fixed.toolbar-horizontal #top-nav {
-  margin-top: 79px;
-}
-
 .ysr-compact-header #hero-section .logo {
   width: 140px;
   width: 14rem;
@@ -1510,6 +1515,52 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   background-size: 22px 22px;
   background-size: 2.2rem 2.2rem;
   background-image: url(../prototypes/ysr/img/throbber-white.svg);
+}
+
+body .ysr-offset:before {
+  height: 72px;
+  height: 7.2rem;
+  margin-top: -72px;
+  margin-top: -7.2rem;
+  content: " ";
+  display: block;
+  visibility: hidden;
+}
+body.toolbar-fixed.toolbar-vertical {
+  margin-top: 0;
+}
+body.toolbar-fixed.toolbar-vertical #top-nav {
+  margin-top: 39px;
+}
+body.toolbar-fixed.toolbar-vertical .ysr-offset:before {
+  height: 111px;
+  height: 11.1rem;
+  margin-top: -111px;
+  margin-top: -11.1rem;
+}
+body.toolbar-fixed.toolbar-horizontal {
+  margin-top: 0;
+}
+body.toolbar-fixed.toolbar-horizontal #top-nav {
+  margin-top: 39px;
+}
+body.toolbar-fixed.toolbar-horizontal .ysr-offset:before {
+  height: 111px;
+  height: 11.1rem;
+  margin-top: -111px;
+  margin-top: -11.1rem;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open {
+  margin-top: 0;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open #top-nav {
+  margin-top: 79px;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
+  height: 151px;
+  height: 15.1rem;
+  margin-top: -151px;
+  margin-top: -15.1rem;
 }
 
 .registration-confirmation {
@@ -2468,8 +2519,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   }
 }
 .activities .activity-groups .activity-group-item {
-  width: 135px;
-  width: 13.5rem;
+  width: 123px;
+  width: 12.3rem;
   display: inline-block;
   vertical-align: top;
 }
@@ -2481,8 +2532,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 }
 @media (max-width: 25em) {
   .activities .activity-groups .activity-group-item {
-    width: 110px;
-    width: 11rem;
+    width: 95px;
+    width: 9.5rem;
   }
 }
 .activities .activity-groups .activity-group-item-link {
@@ -2490,8 +2541,8 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   font-weight: bold;
   font-size: 20px;
   font-size: 2rem;
-  padding-top: 67px;
-  padding-top: 6.7rem;
+  padding-top: 81px;
+  padding-top: 8.1rem;
   -moz-transition: opacity, 0.3s;
   -o-transition: opacity, 0.3s;
   -webkit-transition: opacity, 0.3s;
@@ -2501,6 +2552,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   color: #fff;
   cursor: pointer;
   display: block;
+  letter-spacing: -0.7px;
   opacity: .3;
   text-decoration: none;
   text-transform: uppercase;
@@ -2520,28 +2572,12 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
   background-size: 5.9rem 3.2rem;
   background-position: center 10px;
   background-position: center 1rem;
-  padding-top: 81px;
-  padding-top: 8.1rem;
   background-image: url("../prototypes/ysr/img/reporting/icon-swimming.png");
-}
-@media (min-width: 48em) {
-  .activities .activity-groups .activity-group-item-link--swimming {
-    padding-top: 80px;
-    padding-top: 8rem;
-  }
 }
 .activities .activity-groups .activity-group-item-link--fitness {
   background-size: 50px 52px;
   background-size: 5rem 5.2rem;
-  padding-top: 81px;
-  padding-top: 8.1rem;
   background-image: url("../prototypes/ysr/img/reporting/icon-fitness.png");
-}
-@media (min-width: 48em) {
-  .activities .activity-groups .activity-group-item-link--fitness {
-    padding-top: 80px;
-    padding-top: 8rem;
-  }
 }
 .activities .activity-groups .activity-group-item-link--group-ex {
   background-size: 49px 39px;
@@ -2650,7 +2686,7 @@ body.toolbar-fixed.toolbar-horizontal #top-nav {
 .activities .activity-items .form-item-checkbox input:checked + label small {
   color: #f8f8f8;
 }
-.activities .activity-items .form-item-checkbox input:disabled + label:before {
+.activities .activity-items .form-item-checkbox input.activity--click-last:disabled + label:before {
   background-size: 34px 34px;
   background-size: 3.4rem 3.4rem;
   background-image: url(../prototypes/ysr/img/throbber-white.svg);
