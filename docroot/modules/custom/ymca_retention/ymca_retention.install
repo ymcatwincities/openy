@@ -44,13 +44,34 @@ function ymca_retention_update_8003() {
 }
 
 /**
- * Create Winner entity type.
+ * Change views display for members.
  */
 function ymca_retention_update_8004() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . 'views.view.ymca_members.yml',
+  ]);
+}
+
+/**
+ * Import YMCA Retention slider config.
+ */
+function ymca_retention_update_8005() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.slider.yml',
+    ]
+  );
+}
+
+/**
+ * Create Winner entity type.
+ */
+function ymca_retention_update_8006() {
   try {
     \Drupal::entityDefinitionUpdateManager()->applyUpdates();
-  }
-  catch (EntityStorageException $e) {
+  } catch (EntityStorageException $e) {
     watchdog_exception('update', $e);
   }
 }
