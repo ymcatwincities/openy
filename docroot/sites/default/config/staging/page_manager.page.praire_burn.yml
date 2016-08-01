@@ -1,0 +1,22 @@
+uuid: f0d35612-384a-41ef-8292-58ba827f3b5e
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: praire_burn
+label: 'Prairie Burn'
+use_admin_theme: false
+path: /camps/camp_st_croix/schools_retreats__group_rentals/prairie_burn
+access_logic: and
+access_conditions:
+  2ead76e7-861a-4b2c-8745-b7fb6cbdf081:
+    id: user_role
+    roles:
+      anonymous: anonymous
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: 2ead76e7-861a-4b2c-8745-b7fb6cbdf081
+parameters: {  }
