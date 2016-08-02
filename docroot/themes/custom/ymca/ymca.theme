@@ -1376,8 +1376,6 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#default_value' => theme_get_setting('header_buttons_color2_camps'),
     '#description' => t('Add additional color for gradient support.'),
   );
-  // Custom submit to save the file permanent.
-  //$form['#submit'][] = 'ymca_settings_form_submit';
 }
 
 /**
