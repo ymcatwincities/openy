@@ -89,7 +89,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getLocations() {
+  public function getMemberBranches() {
     // Find out unique branch ids among all the members.
     $branches = \Drupal::entityQueryAggregate('ymca_retention_member')
       ->groupBy('branch')
@@ -100,9 +100,27 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       $branch_ids[] = $branch['branch'];
     }
 
+    return $branch_ids;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberLocations() {
+    $branch_ids = $this->getMemberBranches();
+
     /** @var LocationMappingRepository $repo */
     $repo = \Drupal::service('ymca_mappings.location_repository');
     $locations = $repo->findByLocationPersonifyBranchCode($branch_ids);
+
+    return $locations;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocationsList() {
+    $locations = $this->getMemberLocations();
 
     $locations_list = [
       [
