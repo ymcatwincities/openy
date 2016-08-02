@@ -50,3 +50,15 @@ function ymca_retention_update_8004() {
     $path . 'views.view.ymca_members.yml',
   ]);
 }
+
+/**
+ * Import YMCA Retention slider config.
+ */
+function ymca_retention_update_8005() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.slider.yml',
+    ]
+  );
+}
