@@ -78,3 +78,12 @@ ymca_retention.member_activities_json:
     _title: 'YMCA Retention Member Activities JSON'
   requirements:
     _permission: 'access content'
+
+ymca_retention.ymca_winners.draw_winners:
+  path: '/admin/content/ymca-retention-winners/draw-winners'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
+    _title: 'Draw winners'
+  requirements:
+    _permission: 'administer site configuration'
+    _csrf_token: 'TRUE'
