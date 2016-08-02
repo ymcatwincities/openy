@@ -1391,16 +1391,16 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#default_value' => theme_get_setting('header_buttons_color2_camps'),
     '#description' => t('Add additional color for gradient support.'),
   );
-  $form['ymca_settings']['styles']['links_color_camps'] = array(
+  $form['ymca_settings']['styles']['camps_links_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Camps links color'),
-    '#default_value' => theme_get_setting('links_color_camps'),
+    '#default_value' => theme_get_setting('camps_links_color'),
     '#description' => '',
   );
-  $form['ymca_settings']['styles']['links_color_hover_camps'] = array(
+  $form['ymca_settings']['styles']['camps_links_color_hover'] = array(
     '#type' => 'textfield',
     '#title' => t('Camps links color (mouseover)'),
-    '#default_value' => theme_get_setting('links_color_hover_camps'),
+    '#default_value' => theme_get_setting('camps_links_color_hover'),
     '#description' => '',
   );
   $form['ymca_settings']['styles']['logo_camps'] = array(
