@@ -14,14 +14,6 @@ ymca_frontend.locations:
   requirements:
     _permission: 'access content'
 
-ymca_frontend.march:
-  path: 'march'
-  defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
-  requirements:
-    _permission: 'access content'
-
 ymca_frontend.march_rules:
   path: 'march/rules'
   defaults:
