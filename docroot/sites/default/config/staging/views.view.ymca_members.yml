@@ -1314,7 +1314,7 @@ display:
         - user.permissions
       tags: {  }
   ymca_members_export:
-    display_plugin: rest_export_attachment
+    display_plugin: ymca_retention_rest_export
     id: ymca_members_export
     display_title: 'YMCA Retention Campaign Members Export'
     position: 2
@@ -1388,7 +1388,6 @@ display:
         weight: 0
         context: '0'
         menu_name: admin
-        enabled: true
       defaults:
         filters: true
         filter_groups: true
