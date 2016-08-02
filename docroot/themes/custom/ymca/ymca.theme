@@ -1255,10 +1255,10 @@ function ymca_get_theme_styles() {
     $styles .= 'body a:hover {color: ' . $links_color_hover . ';}';
   }
   if ($camps_links_color = theme_get_setting('camps_links_color')) {
-    $styles .= 'body.ancestor-camps a {color: ' . $camps_links_color . ';}';
+    $styles .= '.ancestor-camps a {color: ' . $camps_links_color . ';}';
   }
   if ($camps_links_color_hover = theme_get_setting('camps_links_color_hover')) {
-    $styles .= 'body.ancestor-camps a:hover {color: ' . $camps_links_color_hover . ';}';
+    $styles .= '.ancestor-camps a:hover {color: ' . $camps_links_color_hover . ';}';
   }
   if ($header_home_button_bg_color = theme_get_setting('header_home_button_bg_color')) {
     $styles .= 'body.page_home .masthead .btn-info {background-color: ' . $header_home_button_bg_color . ';}';
