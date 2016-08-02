@@ -1,0 +1,24 @@
+---
+env:
+  pre_settings:
+    - { name: '$settings["hash_salt"]', status: true, value: '1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ'}
+    - { name: '$config_directories["staging"]', status: true, value: 'sites/ymca_redwing/config/staging' }
+    - { name: '$settings["install_profile"]', status: true, value: 'pp' }
+  modules:
+    - { name: 'config_inspector dblog stage_file_proxy', status: true }
+  drush_commands:
+    - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
+    - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
+    - { name: 'config-set', status: true, arguments: "system.file path.temporary /tmp -y" }
+    - { name: 'config-set', status: true, arguments: "mailsystem.settings defaults.sender SMTPMailSystem" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_on 1" }
+    - { name: 'config-import', status: false, arguments: "staging -y --partial" }
+    - { name: 'cr', status: true, arguments: "" }
+    - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
+    - { name: 'search-api-reindex', status: false, arguments: "" }
+    - { name: 'search-api-index', status: false, arguments: "" }
+    - { name: 'search-index', status: false, arguments: "" }
+    - { name: 'config-set', status: true, arguments: "shield.config enabled 1" }
+  post_settings:
+    - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
+    - { name: '$config["stage_file_proxy.settings"]["origin"]', status: true, value: '{{ origin_site_url }}' }
