@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   module:
+    - rest
     - user
+    - views_rest_feed
     - ymca_retention
 id: ymca_retention_winners
 label: 'YMCA Retention Winners'
@@ -68,73 +70,134 @@ display:
           quantity: 9
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            branch: branch
+            membership_id: membership_id
+            first_name: first_name
+            last_name: last_name
+            mail: mail
+            track: track
+            place: place
+            total_visits: total_visits
+            visit_goal: visit_goal
+            activity_track_swimming: activity_track_swimming
+            activity_track_fitness: activity_track_fitness
+            activity_track_groupx: activity_track_groupx
+            is_employee: is_employee
+            created_by_staff: created_by_staff
+          info:
+            branch:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            membership_id:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            first_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            last_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            mail:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            track:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            place:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            total_visits:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            visit_goal:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            activity_track_swimming:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            activity_track_fitness:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            activity_track_groupx:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_employee:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            created_by_staff:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: branch
+          empty_table: false
       row:
         type: fields
       fields:
-        id:
-          table: ymca_retention_winner
-          field: id
-          id: id
-          entity_type: null
-          entity_field: id
-          plugin_id: field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ID
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         branch:
           id: branch
           table: ymca_retention_winner
@@ -1185,7 +1248,7 @@ display:
         description: ''
         expanded: false
         parent: system.admin_content
-        weight: 0
+        weight: 110
         context: '0'
         menu_name: admin
       display_description: ''
@@ -1196,5 +1259,87 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
+      tags: {  }
+  ymca_retention_winners_export:
+    display_plugin: rest_export_attachment
+    id: ymca_retention_winners_export
+    display_title: 'YMCA Retention Winners Export'
+    position: 2
+    display_options:
+      display_extenders:
+        views_advanced_routing_route:
+          route: ''
+      display_description: ''
+      title: 'YMCA Retention Winners Export'
+      defaults:
+        title: false
+      path: admin/content/ymca-retention-winners/export.csv
+      style:
+        type: serializer
+        options:
+          uses_fields: 0
+          formats:
+            csv: csv
+      row:
+        type: data_field
+        options:
+          field_options:
+            branch:
+              alias: ''
+              raw_output: 0
+            membership_id:
+              alias: ''
+              raw_output: 0
+            first_name:
+              alias: ''
+              raw_output: 0
+            last_name:
+              alias: ''
+              raw_output: 0
+            mail:
+              alias: ''
+              raw_output: 0
+            track:
+              alias: ''
+              raw_output: 0
+            place:
+              alias: ''
+              raw_output: 0
+            total_visits:
+              alias: ''
+              raw_output: 0
+            visit_goal:
+              alias: ''
+              raw_output: 0
+            activity_track_swimming:
+              alias: ''
+              raw_output: 0
+            activity_track_fitness:
+              alias: ''
+              raw_output: 0
+            activity_track_groupx:
+              alias: ''
+              raw_output: 0
+            is_employee:
+              alias: ''
+              raw_output: 0
+            created_by_staff:
+              alias: ''
+              raw_output: 0
+      displays:
+        ymca_retention_winners: ymca_retention_winners
+        default: 0
+      pager:
+        type: none
+        options:
+          offset: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - user.permissions
       tags: {  }
