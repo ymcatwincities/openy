@@ -3950,3 +3950,15 @@ function ymca_master_update_8165() {
     ]
   );
 }
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8166() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
