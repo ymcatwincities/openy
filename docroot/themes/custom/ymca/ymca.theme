@@ -1192,6 +1192,15 @@ function ymca_get_theme_styles() {
   if ($logo_path = theme_get_setting('logo.path')) {
     $styles .= 'body .navbar-default .navbar-brand, body .footer-brand {background-image: url(' . file_create_url($logo_path) . ');}';
   }
+  if ($logo_camps_fid = theme_get_setting('logo_camps')) {
+    if (!empty($logo_camps_fid)) {
+      $file = file_load($logo_camps_fid[0]);
+      if ($file) {
+        $uri = $file->getFileUri();
+      }
+    }
+    $styles .= 'body.ancestor-camps .navbar-default .navbar-brand, body.ancestor-camps .footer-brand {background-image: url(' . file_create_url($uri) . ');}';
+  }
   if ($header_background_color_base = theme_get_setting('header_background_color_base')) {
     $styles .= 'body .masthead {background: ' . $header_background_color_base . ';}';
   }
@@ -1244,6 +1253,12 @@ function ymca_get_theme_styles() {
   }
   if ($links_color_hover = theme_get_setting('links_color_hover')) {
     $styles .= 'body a:hover {color: ' . $links_color_hover . ';}';
+  }
+  if ($camps_links_color = theme_get_setting('camps_links_color')) {
+    $styles .= 'body.ancestor-camps a {color: ' . $camps_links_color . ';}';
+  }
+  if ($camps_links_color_hover = theme_get_setting('camps_links_color_hover')) {
+    $styles .= 'body.ancestor-camps a:hover {color: ' . $camps_links_color_hover . ';}';
   }
   if ($header_home_button_bg_color = theme_get_setting('header_home_button_bg_color')) {
     $styles .= 'body.page_home .masthead .btn-info {background-color: ' . $header_home_button_bg_color . ';}';
@@ -1375,6 +1390,24 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#title' => t('Header camps buttons color (optional)'),
     '#default_value' => theme_get_setting('header_buttons_color2_camps'),
     '#description' => t('Add additional color for gradient support.'),
+  );
+  $form['ymca_settings']['styles']['links_color_camps'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Camps links color'),
+    '#default_value' => theme_get_setting('links_color_camps'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['links_color_hover_camps'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Camps links color (mouseover)'),
+    '#default_value' => theme_get_setting('links_color_hover_camps'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['logo_camps'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camps logo'),
+    '#default_value' => theme_get_setting('logo_camps'),
+    '#upload_location' => 'public://',
   );
 }
 
