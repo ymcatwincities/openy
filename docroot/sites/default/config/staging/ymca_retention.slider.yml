@@ -1,0 +1,98 @@
+slides:
+  0:
+    class: 'purple-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/group-1.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/group-1.jpg'
+    title: 'Redefine your “happy hour”'
+    highlight: 'and try a group exercise class.'
+    button:
+      text: 'View schedules'
+      link:
+        class: 'purple-medium'
+        route: 'ymca_groupex.all_schedules_search'
+        options: {  }
+  1:
+    class: 'blue-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/swim-1.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/swim-1.jpg'
+    title: 'Slide into the final stretch of summer'
+    highlight: 'Down a YMCA waterslide'
+    button:
+      text: 'Read more'
+      link:
+        class: 'blue-medium'
+        route: 'entity.node.canonical'
+        options:
+          node: 509
+  2:
+    class: 'blue-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/swim-2.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/swim-2.jpg'
+    title: 'Looking for a great cardio exercise that’s easy on your joints?'
+    highlight: 'Take a lap in one of our indoor or outdoor pools.'
+    button:
+      text: 'View schedules'
+      link:
+        class: 'blue-medium'
+        route: 'entity.node.canonical'
+        options:
+          node: 509
+  3:
+    class: 'purple-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/group-2.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/group-2.jpg'
+    title: 'Bend, lift or dance your way through'
+    highlight: 'fun workouts with like-minded members'
+    button:
+      text: 'Read more'
+      link:
+        class: 'purple-medium'
+        route: 'entity.node.canonical'
+        options:
+          node: 2761
+  4:
+    class: 'purple-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/group-3.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/group-3.jpg'
+    title: 'Try a free group exercise class'
+    highlight: 'to mix up your workout and meet new people'
+    button:
+      text: 'View schedules'
+      link:
+        class: 'purple-medium'
+        route: 'entity.node.canonical'
+        options:
+          node: 2761
+  5:
+    class: 'green-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/fitness-1.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/fitness-1.jpg'
+    title: 'Log more smiles per mile'
+    highlight: 'with a wide variety of cardio machines'
+    button:
+      text: 'Read more'
+      link:
+        class: 'green'
+        route: 'entity.node.canonical'
+        options:
+          node: 509
+  6:
+    class: 'green-overlay'
+    image:
+      highres: '/prototypes/ysr/img/slides/fitness-2.jpg'
+      lowres: '/prototypes/ysr/img/slides/lowres/fitness-2.jpg'
+    title: 'Give your metabolism a boost by visiting'
+    highlight: 'the free weights area at your Y.'
+    button:
+      text: 'Read more'
+      link:
+        class: 'green'
+        route: 'entity.node.canonical'
+        options:
+          node: 509
