@@ -26,8 +26,8 @@ env:
     - { name: 'search-index', status: false, arguments: "" }
     - { name: 'config-set', status: true, arguments: "shield.config enabled 1" }
     # Set active configuration for specific environment.
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_mindbody.trainings_mapping', 'staging');\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('mindbody.settings', 'staging');\"" }
+    - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_mindbody.trainings_mapping', 'staging');\"" }
+    - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('mindbody.settings', 'staging');\"" }
     # To fix configuration problem let's install the module here.
     - { name: 'en', status: true, arguments: "yptf_master" }
   post_settings:
