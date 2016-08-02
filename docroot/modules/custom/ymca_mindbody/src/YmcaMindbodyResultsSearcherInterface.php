@@ -126,4 +126,15 @@ interface YmcaMindbodyResultsSearcherInterface {
    */
   public function getDisabledMarkup();
 
+  /**
+   * Retrieves duration for specific session type.
+   *
+   * @param int $session_type
+   *   Session type ID.
+   *
+   * @return int
+   *   Duration in minutes.
+   */
+  public function getDuration($session_type);
+
 }
