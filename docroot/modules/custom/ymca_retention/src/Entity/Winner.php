@@ -15,6 +15,9 @@ use Drupal\ymca_retention\WinnerInterface;
  * @ContentEntityType(
  *   id = "ymca_retention_winner",
  *   label = @Translation("Winner entity"),
+ *   handlers = {
+ *     "views_data" = "Drupal\views\EntityViewsData",
+ *   },
  *   base_table = "ymca_retention_winner",
  *   entity_keys = {
  *     "id" = "id",
