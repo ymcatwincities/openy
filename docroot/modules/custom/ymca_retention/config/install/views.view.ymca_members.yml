@@ -1328,7 +1328,7 @@ display:
         description: ''
         expanded: false
         parent: system.admin_content
-        weight: 0
+        weight: 100
         context: '0'
         menu_name: admin
       defaults:
@@ -1383,7 +1383,7 @@ display:
               raw_output: 0
       path: admin/content/ymca-retention-members/export.csv
       displays:
-        ymca_members_list: ymca_members_list
+        ymca_retention_members: ymca_retention_members
         default: 0
       pager:
         type: none
