@@ -8,11 +8,11 @@ module: null
 from_sid: workflow_unpublished
 to_sid: workflow_needs_review
 roles:
+  administrator: administrator
+  editor: editor
+  contributor: contributor
+  intern: intern
   workflow_author: 0
   anonymous: 0
   authenticated: 0
-  administrator: 0
-  editor: 0
   location_editor: 0
-  contributor: 0
-  intern: 0
