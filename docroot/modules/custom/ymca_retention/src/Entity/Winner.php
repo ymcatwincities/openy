@@ -35,7 +35,7 @@ class Winner extends ContentEntityBase implements WinnerInterface {
     // Standard field, used as unique if primary index.
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Member Activity entity.'))
+      ->setDescription(t('The ID of the Winner entity.'))
       ->setReadOnly(TRUE);
 
     $fields['branch'] = BaseFieldDefinition::create('string')
