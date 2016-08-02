@@ -66,10 +66,10 @@ class WinnersController extends ControllerBase {
     $members = Member::loadMultiple($member_ids);
 
     // Create winners from selected members.
+    $member = current($members);
     foreach (['visits', 'swimming', 'fitness', 'groupx'] as $track) {
       foreach ([1, 2, 3] as $place) {
         /** @var Member $member */
-        $member = next($members);
         if (!$member) {
           break 2;
         }
@@ -81,6 +81,8 @@ class WinnersController extends ControllerBase {
         ]);
         $winner->save();
         $context['results'][] = $member->getId();
+
+        $member = next($members);
       }
     }
 
