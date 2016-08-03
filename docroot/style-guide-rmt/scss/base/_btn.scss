@@ -1,0 +1,50 @@
+/* style button */
+.btn {
+  background: $blue-light;
+  border-radius: 3px;
+  border: medium none;
+  color: $white;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 11px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+
+  &:hover {
+    background: $blue;
+  }
+
+  &--blue {
+    background: $blue;
+
+    &:hover {
+      background: darken($blue, 5%);
+    }
+  }
+
+  &--purple {
+    background: $purple;
+
+    &:hover {
+      background: darken($purple, 5%);
+    }
+  }
+
+  &--green {
+    background: $green;
+
+    &:hover {
+      background: darken($green, 5%);
+    }
+  }
+
+  &--orange {
+    background: $orange;
+
+    &:hover {
+      background: darken($orange, 5%);
+    }
+  }
+}
