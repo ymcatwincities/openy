@@ -62,3 +62,15 @@ function ymca_retention_update_8005() {
     ]
   );
 }
+
+/**
+ * Import YMCA Retention branches settings.
+ */
+function ymca_retention_update_8006() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.branches_settings',
+    ]
+  );
+}
