@@ -20,13 +20,19 @@ ymca_retention.settings:
   route_name: ymca_retention.settings
   base_route: system.admin_config_system
 
-ymca_retention.general_settings:
+ymca_retention.settings_general:
   title: 'YMCA Retention Settings'
   description: 'YMCA Retention Settings'
   route_name: ymca_retention.settings
   parent_id: ymca_retention.settings
 
-ymca_retention.cron_settings:
+ymca_retention.settings_branches:
+  title: 'Branches'
+  description: 'Locations/branches settings'
+  route_name: ymca_retention.settings_branches
+  parent_id: ymca_retention.settings
+
+ymca_retention.settings_cron:
   title: 'Cron'
   description: 'Run cron manually.'
   route_name: ymca_retention.settings_cron
