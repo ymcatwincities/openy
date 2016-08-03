@@ -115,7 +115,14 @@ class GroupexScheduleFetcher {
       $instructor_url_options = $this->parameters;
       $instructor_url_options['filter_date'] = $current_date;
       $instructor_url_options['filter_length'] = 'week';
+
       $instructor_url_options['instructor'] = $item->instructor;
+      // Here we need to remove redundant HTML if exists.
+      $pos = strpos($item->instructor, '<br>');
+      if (FALSE !== $pos) {
+        $instructor_url_options['instructor'] = substr_replace($item->instructor, '', $pos);
+      }
+
       $instructor_url_options['class'] = 'any';
       $instructor_url_options['groupex_class'] = 'groupex_table_instructor_individual';
       unset($instructor_url_options['view_mode']);
