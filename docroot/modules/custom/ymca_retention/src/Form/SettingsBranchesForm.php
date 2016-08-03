@@ -60,7 +60,7 @@ class SettingsBranchesForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('ymca_retention.branches_settings')
-      ->set('excluded_branches', $form_state->getValue('excluded_branches'))
+      ->set('excluded_branches', array_filter($form_state->getValue('excluded_branches')))
       ->save();
 
     parent::submitForm($form, $form_state);
