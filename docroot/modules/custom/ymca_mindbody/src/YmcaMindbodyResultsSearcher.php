@@ -178,6 +178,9 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       ];
     }
 
+    // Get default timezone (in order to play good with strtotime()).
+    $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
+
     $booking_params = [
       'UserCredentials' => [
         'Username' => $this->credentials->get('user_name'),
@@ -219,34 +222,61 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             continue;
           }
 
-          $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-          // Add bookable item id if it isn't provided by Mindbody API.
-          if (!$bookable_item->ID) {
-            $bookable_item->ID = md5(serialize($bookable_item));
-          }
-          $options = [
-            'attributes' => [
-              'class' => [
-                'use-ajax',
-                $bookable_item->ID == $criteria['bid'] ? 'highlight-item' : '',
+          // Here we create date range to iterate.
+          $dateTime = new \DateTime();
+          $dateTime->setTimezone($defaultTimeZone);
+
+          $begin = clone $dateTime;
+          $begin->setTimestamp(strtotime($bookable_item->StartDateTime));
+
+          $end = clone $dateTime;
+          $end->setTimestamp(strtotime($bookable_item->EndDateTime));
+
+          $interval = new \DateInterval(sprintf('PT%dM', $bookable_item->SessionType->DefaultTimeLength));
+          $range = new \DatePeriod($begin, $interval, $end);
+
+          foreach ($range as $i => $item) {
+            // Skip if time between $item start and time slot length less than training length.
+            $remain = ($end->getTimestamp() - $item->getTimestamp()) / 60;
+            if ($remain < $bookable_item->SessionType->DefaultTimeLength) {
+              continue;
+            }
+
+            $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
+            $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
+
+            // Add bookable item id if it isn't provided by Mindbody API.
+            if (!$bookable_item->ID) {
+              $bookable_item->ID = md5(serialize($bookable_item));
+            }
+
+            // Unique ID for each time slice.
+            $id = $bookable_item->ID . '-' . $i;
+
+            $options = [
+              'attributes' => [
+                'class' => [
+                  'use-ajax',
+                  $id == $criteria['bid'] ? 'highlight-item' : '',
+                ],
+                'data-dialog-type' => 'modal',
+                'id' => 'bookable-item-' . $id,
               ],
-              'data-dialog-type' => 'modal',
-              'id' => 'bookable-item-' . $bookable_item->ID,
-            ],
-            'html' => TRUE,
-          ];
-          $query = ['bid' => $bookable_item->ID] + $criteria;
-          $query['token'] = $this::getToken($query);
-          $options['query'] = $query;
+              'html' => TRUE,
+            ];
 
-          $text = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
-            '@from' => date('h:i a', strtotime($bookable_item->StartDateTime)),
-            '@to' => date('h:i a', strtotime($bookable_item->EndDateTime)),
-          ]);
-          $link = Link::createFromRoute($text, 'ymca_mindbody.pt.book', [], $options);
+            $query = ['bid' => $id] + $criteria;
+            $query['token'] = $this::getToken($query);
+            $options['query'] = $query;
 
-          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $link;
+            $text = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
+              '@from' => date('h:i a', $item->getTimestamp()),
+              '@to' => date('h:i a', $item->add($interval)->getTimestamp()),
+            ]);
+            $link = Link::createFromRoute($text, 'ymca_mindbody.pt.book', [], $options);
+
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $link;
+          }
         }
       }
     }
@@ -582,6 +612,19 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
 
     return $query['token'] == static::getToken($query);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDuration($session_type) {
+    $all = $this->proxy->call('SiteService', 'GetSessionTypes', ['OnlineOnly' => FALSE]);
+    foreach ($all->GetSessionTypesResult->SessionTypes->SessionType as $type) {
+      if ($type->ID == $session_type) {
+        return $type->DefaultTimeLength;
+      }
+    }
+    return FALSE;
   }
 
 }
