@@ -83,6 +83,8 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     $config = $this->getConfiguration();
+    /* @var $file_usage DatabaseFileUsageBackend */
+    $file_usage = \Drupal::service('file.usage');
 
     $fids = $form_state->getValue('ipa');
     // Register newly uploaded files.
@@ -90,8 +92,6 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
       if (!$file = File::load($fid)) {
         continue;
       }
-      /* @var $file_usage DatabaseFileUsageBackend */
-      $file_usage = \Drupal::service('file.usage');
       $file_usage->add($file, 'ymca_mobile_checkin', 'block', $config['uuid']);
 
       // Create plist file.
@@ -117,8 +117,6 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
       if (!$file = File::load($fid)) {
         continue;
       }
-      /* @var $file_usage DatabaseFileUsageBackend */
-      $file_usage = \Drupal::service('file.usage');
       $file_usage->delete($file, 'ymca_mobile_checkin', 'block', $config['uuid']);
 
       // Remove plist file.
