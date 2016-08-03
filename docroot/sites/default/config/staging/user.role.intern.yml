@@ -29,5 +29,7 @@ permissions:
   28: 'insert menu links via entity embed'
   29: 'bypass file access'
   30: 'administer files'
-  21: 'update workflow_unpublished content'
   32: 'view workflow_unpublished content'
+  33: 'update workflow_unpublished content'
+  34: 'clone page entity'
+  35: 'administer pages'
