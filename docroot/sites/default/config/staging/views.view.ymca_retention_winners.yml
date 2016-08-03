@@ -1262,7 +1262,7 @@ display:
         - user.permissions
       tags: {  }
   ymca_retention_winners_export:
-    display_plugin: rest_export_attachment
+    display_plugin: ymca_retention_rest_export_feed
     id: ymca_retention_winners_export
     display_title: 'YMCA Retention Winners Export'
     position: 2
