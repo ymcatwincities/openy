@@ -1,0 +1,82 @@
+uuid: 38f74034-e3d4-4f9d-8af7-00c05d212e9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_pages
+  module:
+    - panels
+    - system
+    - ymca_retention
+id: y_games_winners
+label: 'Y Games Winners'
+variant: panels_variant
+variant_settings:
+  blocks:
+    ede00514-a825-48ea-bf71-94b251aa65e7:
+      id: retention_navigation_block
+      label: 'YMCA retention navigation block'
+      provider: ymca_retention
+      label_display: '0'
+      region: navigation
+      weight: 0
+      uuid: ede00514-a825-48ea-bf71-94b251aa65e7
+      context_mapping: {  }
+    47c18caa-6850-4842-bb0f-923ccd06a2af:
+      id: retention_campaign_intro_block
+      label: 'YMCA retention campaign intro block'
+      provider: ymca_retention
+      label_display: '0'
+      region: hero
+      weight: 0
+      uuid: 47c18caa-6850-4842-bb0f-923ccd06a2af
+      context_mapping: {  }
+    e6cd38c1-c997-43a7-b06b-38b528bc21d0:
+      id: retention_personal_result_block
+      label: 'YMCA retention personal result block'
+      provider: ymca_retention
+      label_display: '0'
+      region: main
+      weight: 0
+      uuid: e6cd38c1-c997-43a7-b06b-38b528bc21d0
+      context_mapping: {  }
+    5dd2d0bb-eaea-4eae-85e0-e2c143b0cf93:
+      id: retention_winners_block
+      label: 'YMCA retention winners block'
+      provider: ymca_retention
+      label_display: '0'
+      region: main
+      weight: 0
+      uuid: 5dd2d0bb-eaea-4eae-85e0-e2c143b0cf93
+      context_mapping: {  }
+    2a43adf3-43a0-4d59-b761-25ef59207651:
+      id: retention_games_ended_block
+      label: 'YMCA retention games ended block'
+      provider: ymca_retention
+      label_display: '0'
+      region: hero
+      weight: 0
+      uuid: 2a43adf3-43a0-4d59-b761-25ef59207651
+      context_mapping: {  }
+  id: panels_variant
+  uuid: de7061f6-a802-461a-aaae-c5d3f31a3954
+  label: null
+  weight: 0
+  layout: ymca-retention
+  layout_settings:
+    extra_classes: ''
+  page_title: 'Y Games Winners'
+  storage_type: page_manager
+  storage_id: y_games_winners
+  builder: standard
+page: ymca_retention_pages
+weight: -5
+selection_criteria:
+  f476e0f7-a3ad-4f84-8339-c31c9c67531e:
+    id: request_path
+    pages: /ygames/winners
+    negate: false
+    context_mapping: {  }
+    uuid: f476e0f7-a3ad-4f84-8339-c31c9c67531e
+selection_logic: and
+static_context: {  }
