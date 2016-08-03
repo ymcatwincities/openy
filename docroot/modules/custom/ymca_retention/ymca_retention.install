@@ -78,7 +78,7 @@ function ymca_retention_update_8006() {
 }
 
 /**
- * Create Winner entity type, update views.
+ * Create Winner entity type, update views, create winners page.
  */
 function ymca_retention_update_8007() {
   try {
@@ -92,6 +92,10 @@ function ymca_retention_update_8007() {
     [
       $path . 'views.view.ymca_members.yml',
       $path . 'views.view.ymca_retention_winners.yml',
+      $path . 'page_manager.page_variant.y_games_activity.yml',
+      $path . 'page_manager.page_variant.y_games_enroll_success.yml',
+      $path . 'page_manager.page_variant.y_games_rules.yml',
+      $path . 'page_manager.page_variant.y_games_winners.yml',
     ]
   );
 }
