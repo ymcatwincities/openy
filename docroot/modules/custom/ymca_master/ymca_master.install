@@ -3975,7 +3975,7 @@ function ymca_master_update_8167() {
   );
 }
 
-/*
+/**
  * User's dashboard.
  */
 function ymca_master_update_8168() {
