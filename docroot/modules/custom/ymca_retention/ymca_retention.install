@@ -71,7 +71,8 @@ function ymca_retention_update_8005() {
 function ymca_retention_update_8006() {
   try {
     \Drupal::entityDefinitionUpdateManager()->applyUpdates();
-  } catch (EntityStorageException $e) {
+  }
+  catch (EntityStorageException $e) {
     watchdog_exception('update', $e);
   }
   $path = 'sites/default/config/staging/';

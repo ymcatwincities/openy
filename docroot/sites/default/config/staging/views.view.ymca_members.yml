@@ -1345,7 +1345,7 @@ display:
         - user.permissions
       tags: {  }
   ymca_retention_members_export:
-    display_plugin: ymca_retention_rest_export
+    display_plugin: ymca_retention_rest_export_feed
     id: ymca_retention_members_export
     display_title: 'YMCA Retention Members Export'
     position: 2
