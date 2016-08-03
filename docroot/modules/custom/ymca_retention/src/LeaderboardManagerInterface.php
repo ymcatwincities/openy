@@ -27,8 +27,9 @@ interface LeaderboardManagerInterface {
   public function getMemberBranches();
 
   /**
-   * Returns the Mappings of location bundle containing all the locations of
-   * registered members.
+   * Returns an array of the Mappings of location bundle.
+   *
+   * The returned array contains all the locations of registered members.
    *
    * @return array
    *   An array of locations.
@@ -36,8 +37,9 @@ interface LeaderboardManagerInterface {
   public function getMemberLocations();
 
   /**
-   * Returns an array of locations branch ids and names for all the registered
-   * members.
+   * Returns an array of locations for all the registered members.
+   *
+   * The returned array contains locations branch id and name.
    *
    * @return array
    *   An array of locations.
