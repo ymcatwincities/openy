@@ -30,7 +30,13 @@ class Leaderboard extends BlockBase {
     $current_date = new \DateTime();
 
     if ($current_date < $date_open) {
-      $description = $this->t('Leaderboard tracking will begin on August 3 once the games have begun. It will be updated approximately every six hours.');
+      /** @var \Drupal\Core\Datetime\DateFormatter $date_formatter */
+      $date_formatter = \Drupal::service('date.formatter');
+
+      $description = $this->t('Leaderboard tracking will begin on @date_open once the games have begun. It will be updated approximately every six hours.',
+        [
+          '@date_open' => $date_formatter->format($date_open->getTimestamp(), 'custom', 'F j'),
+        ]);
       $active = FALSE;
     }
     else {
