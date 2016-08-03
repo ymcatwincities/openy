@@ -8,7 +8,7 @@ dependencies:
     - panels
     - system
 _core:
-  default_config_hash: Jko6mcJ6jnhX_Z1le40qRzj3bg8OHQFfMJnIK-Qoqi4
+  default_config_hash: zMEou3tlwPDzmR24AoM9aLGIi8ZcAhtOc7qPsSdTvZQ
 id: y_game_default
 label: 'Y Game Default'
 variant: panels_variant
