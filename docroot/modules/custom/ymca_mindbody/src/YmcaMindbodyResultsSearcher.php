@@ -233,16 +233,15 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $end->setTimestamp(strtotime($bookable_item->EndDateTime));
 
           $interval = new \DateInterval(sprintf('PT%dM', $bookable_item->SessionType->DefaultTimeLength));
-          $diff = $begin->diff($end);
-
-          // Skip times slots that are less then required training length.
-          if ($diff->format('%i') < $interval->format('%i')) {
-            continue;
-          }
-
           $range = new \DatePeriod($begin, $interval, $end);
 
           foreach ($range as $i => $item) {
+            // Skip if time between $item start and time slot length less than training length.
+            $remain = ($end->getTimestamp() - $item->getTimestamp()) / 60;
+            if ($remain < $bookable_item->SessionType->DefaultTimeLength) {
+              continue;
+            }
+
             $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
             $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
 
