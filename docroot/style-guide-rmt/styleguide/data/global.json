@@ -1,0 +1,38 @@
+{
+  "site_title": "FFWvn Styleguide",
+  "img_path": "images-demo/",
+  "project_path":"https://propeople-us.atlassian.net/browse/",
+  "list_groups": [
+    {
+      "name":"header_footer",
+      "title": "1. HEADERS, FOOTERS & COLORS"
+    },
+    {
+      "name":"hero_image",
+      "title":"2. HERO IMAGES"
+    },
+    {
+      "name":"Email_body",
+      "title":"3. E-MAIL BODY"
+    },
+    {
+      "name":"additional",
+      "title":"4. ADDITIONAL ELEMENTS"
+    },
+    {
+      "name":"active_element",
+      "title":"5. ACTIVE ELEMENTS"
+    },
+    {
+      "name":"icons",
+      "title":"6. ICONS"
+    }
+  ],
+  "list_components":[
+    {
+      "id":"YRMT-9",
+      "name":"button",
+      "group":"active_element"
+    }
+  ]
+}
