@@ -30,3 +30,6 @@ permissions:
   29: 'bypass file access'
   30: 'administer files'
   32: 'view workflow_unpublished content'
+  33: 'update workflow_unpublished content'
+  34: 'clone page entity'
+  35: 'administer pages'
