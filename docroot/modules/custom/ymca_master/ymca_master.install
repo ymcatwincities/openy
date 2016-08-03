@@ -3962,3 +3962,15 @@ function ymca_master_update_8166() {
     ]
   );
 }
+
+/**
+ * YMCA-1001: Allow interns to clone pages.
+ */
+function ymca_master_update_8167() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
