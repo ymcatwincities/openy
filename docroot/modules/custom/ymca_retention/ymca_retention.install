@@ -66,9 +66,21 @@ function ymca_retention_update_8005() {
 }
 
 /**
- * Create Winner entity type.
+ * Import YMCA Retention branches settings.
  */
 function ymca_retention_update_8006() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.branches_settings.yml',
+    ]
+  );
+}
+
+/**
+ * Create Winner entity type, update views.
+ */
+function ymca_retention_update_8007() {
   try {
     \Drupal::entityDefinitionUpdateManager()->applyUpdates();
   }

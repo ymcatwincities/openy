@@ -95,8 +95,14 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       ->groupBy('branch')
       ->aggregate('id', 'COUNT')
       ->execute();
+
+    $settings = \Drupal::config('ymca_retention.branches_settings');
+    $excluded_branches = $settings->get('excluded_branches');
     $branch_ids = [];
     foreach ($branches as $branch) {
+      if (in_array($branch['branch'], $excluded_branches)) {
+        continue;
+      }
       $branch_ids[] = $branch['branch'];
     }
 
