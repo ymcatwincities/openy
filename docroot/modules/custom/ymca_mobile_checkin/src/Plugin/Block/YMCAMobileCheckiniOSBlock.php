@@ -30,8 +30,10 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
     ];
 
     if (!empty($config['plist'])) {
+      $url = file_create_url($config['plist']);
+      $url = preg_replace('/^https?(.*)/', 'https$1', $url);
       $files[] = [
-        'url' => 'itms-services://?action=download-manifest&url=' . urlencode(file_create_url($config['plist'])),
+        'url' => 'itms-services://?action=download-manifest&url=' . urlencode($url),
         'label' => $labels['plist'],
       ];
     }
@@ -42,6 +44,7 @@ class YMCAMobileCheckiniOSBlock extends BlockBase {
       }
       $uri = $file->getFileUri();
       $url = file_create_url($uri);
+      $url = preg_replace('/^https?(.*)/', 'https$1', $url);
       $files[] = [
         'url' => $url,
         'label' => $labels['ipa'],
