@@ -1,15 +1,17 @@
 {#
 /**
  * @file
- * Template for retention activity layout.
+ * Template for  YMCA Retention layout.
  */
 #}
-<!-- TOP BAR -->
-<nav id="top-nav">
-  {{ content.navigation }}
-</nav>
-<!-- HERO SECTION -->
-<div id="hero-section">
-  {{ content.hero }}
+<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}">
+  <!-- TOP BAR -->
+  <nav id="top-nav">
+    {{ content.navigation }}
+  </nav>
+  <!-- HERO SECTION -->
+  <div id="hero-section">
+    {{ content.hero }}
+  </div>
+  {{ content.main }}
 </div>
-{{ content.main }}
