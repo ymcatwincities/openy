@@ -76,6 +76,20 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-registration-confirmation',
     ],
+    'ymca_retention_games_ended' => [
+      'variables' => [],
+      'template' => 'ymca-retention-games-ended',
+    ],
+    'ymca_retention_personal_result' => [
+      'variables' => [],
+      'template' => 'ymca-retention-personal-result',
+    ],
+    'ymca_retention_winners' => [
+      'variables' => [
+        'base_path' => base_path(),
+      ],
+      'template' => 'ymca-retention-winners',
+    ],
   ];
 }
 
