@@ -1,0 +1,52 @@
+
+{% extends '../layouts/layout.twig' %}
+
+{% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+  {% set pathComponent = "../components/" %}
+  {% set typeComponent = ".twig" %}
+  {% for component in list_components %}
+    {% set componentPath = pathComponent ~ component.name ~ typeComponent %}
+    {% set componentId =  component.id %}
+    {% set componentName =  component.name|replace({'--':' ','-':' ','__':' ','_':' '}) %}
+    {% if component.title %}
+      {% set componentName = component.title %}
+    {% endif %}
+
+    <div class="component--item" id="{{component.name}}">
+      <h2 class="component--title">{{ componentName }} <a href="{{project_path}}{{componentId}}" target="_blank" class="small-tag" title="Open task">{{ componentId }}<i class="fa fa-external-link"></i></a></h2>
+      <div class="component--demo">
+      {% include componentPath %}
+      </div>
+      {% if not component.hidecode %}
+        <div class="container">
+          <button class="show-code">Show/Hide Code</button>
+          <div class="component--source element-invisible">
+            <div class="component--html">
+              <h4 class="component--source--title">Markup</h4>
+              <pre class="brush: php">{% include componentPath %}</pre>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock %}
+
+{% block footer_scripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPhp.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.js"></script>
+  <script src="https://use.fontawesome.com/9fb736d1ce.js"></script>
+  <script src="script/styleguide.js"></script>
+{% endblock %}
+
+{% block content_sidebar %}{% endblock %}
