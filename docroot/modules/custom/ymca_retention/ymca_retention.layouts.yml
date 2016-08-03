@@ -38,11 +38,12 @@ retention-activity:
 ymca-retention:
   label: YMCA Retention
   category: YMCA layouts
-    template: templates/ymca-retention
-    regions:
-      navigation:
-        label: Navigation
-      hero:
-        label: Hero section
-      main:
-        label: Main section
+  template: templates/ymca-retention
+  class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetention'
+  regions:
+    navigation:
+      label: Navigation
+    hero:
+      label: Hero section
+    main:
+      label: Main section
