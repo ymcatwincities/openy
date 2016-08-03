@@ -35,3 +35,14 @@ retention-activity:
       label: Main
     slider:
       label: Slider
+ymca-retention:
+  label: YMCA Retention
+  category: YMCA layouts
+    template: templates/ymca-retention
+    regions:
+      navigation:
+        label: Navigation
+      hero:
+        label: Hero section
+      main:
+        label: Main section

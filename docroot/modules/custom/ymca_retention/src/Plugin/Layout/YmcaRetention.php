@@ -6,9 +6,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\layout_plugin\Plugin\Layout\LayoutBase;
 
 /**
- * Ymca Retention Campaign layout settings.
+ * YMCA Retention layout settings.
  */
-class RetentionCampaign extends LayoutBase {
+class YmcaRetention extends LayoutBase {
 
   /**
    * {@inheritdoc}
