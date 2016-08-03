@@ -233,6 +233,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $end->setTimestamp(strtotime($bookable_item->EndDateTime));
 
           $interval = new \DateInterval(sprintf('PT%dM', $bookable_item->SessionType->DefaultTimeLength));
+          $diff = $begin->diff($end);
+
+          // Skip times slots that are less then required training length.
+          if ($diff->format('%i') < $interval->format('%i')) {
+            continue;
+          }
+
           $range = new \DatePeriod($begin, $interval, $end);
 
           foreach ($range as $i => $item) {
