@@ -34,5 +34,7 @@ function ymca_mobile_checkin_shield_config_alter(&$config_name) {
   // Protect our route with our login/password.
   if ($route_name === 'page_manager.page_view_ymca_mobile_checkin') {
     $config_name = 'ymca_mobile_checkin.shield_config';
+    // Do not cache this page.
+    \Drupal::service('page_cache_kill_switch')->trigger();
   }
 }
