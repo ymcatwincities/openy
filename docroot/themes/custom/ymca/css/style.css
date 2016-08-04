@@ -7911,7 +7911,8 @@ p.legend {
 }
 @media screen and (max-width: 620px) {
   .ui-widget.ui-dialog {
-    width: 100% !important;
+    width: 92% !important;
+    margin: 8%;
   }
 }
 .ui-widget.ui-dialog .ui-dialog-titlebar {
