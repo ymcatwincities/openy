@@ -15,7 +15,6 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
-use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -266,6 +265,9 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             ];
 
             $query = ['bid' => $id] + $criteria;
+            $query['si'] = $bookable_item->Staff->ID;
+            $query['im'] = $bookable_item->Staff->isMale;
+            $query['tm'] = $item->getTimestamp();
             $query['token'] = $this::getToken($query);
             $options['query'] = $query;
 
