@@ -3950,3 +3950,39 @@ function ymca_master_update_8165() {
     ]
   );
 }
+
+/**
+ * Import ymca theme settings.
+ */
+function ymca_master_update_8166() {
+  $path = 'themes/custom/ymca/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca.settings.yml'
+    ]
+  );
+}
+
+/**
+ * YMCA-1001: Allow interns to clone pages.
+ */
+function ymca_master_update_8167() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8168() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
