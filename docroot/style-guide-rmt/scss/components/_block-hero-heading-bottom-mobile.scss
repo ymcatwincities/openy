@@ -1,0 +1,35 @@
+.block-hero-heading-bottom-mobile {
+  position: relative;
+  margin-bottom: 50px;
+
+  &__title {
+    align-items: center;
+    background-color: $blue;
+    bottom: 0;
+    box-sizing: border-box;
+    color: $white;
+    display: flex;
+    font-family: "Arial Black";
+    font-size: 20px;
+    font-weight: normal;
+    justify-content: center;
+    margin-bottom: 0;
+    margin-top: 0;
+    min-height: 90px;
+    opacity: 0.9;
+    padding: 3px 10px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  &__image {
+    width: 100%;
+    line-height: 0;
+    img {
+      width: 100%;
+    }
+  }
+}
+
