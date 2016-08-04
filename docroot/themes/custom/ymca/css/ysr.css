@@ -3234,4 +3234,102 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
   border-color: #dc915a;
 }
 
+.personal-result {
+  padding: 50px 8px 50px 8px;
+  padding: 5rem 0.75rem 5rem 0.75rem;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+@media (min-width: 48em) {
+  .personal-result {
+    padding: 84px 15px 100px 15px;
+    padding: 8.4rem 1.5rem 10rem 1.5rem;
+  }
+}
+.personal-result--winner {
+  background-image: url(../prototypes/ysr/img/winner-bg.jpg);
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+.personal-result__thumbup {
+  height: 59px;
+  height: 5.9rem;
+  margin: 0 auto 45px auto;
+  margin: 0 auto 4.5rem auto;
+  width: 65px;
+  width: 6.5rem;
+  background-image: url(../prototypes/ysr/img/thumbup.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  overflow: hidden;
+}
+.personal-result__title {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
+  line-height: 45px;
+  line-height: 4.5rem;
+  margin: 33px 0 23px 0;
+  margin: 3.3rem 0 2.3rem 0;
+  color: #c6168d;
+  font-size: 30px;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+.personal-result--winner .personal-result__title {
+  line-height: 33px;
+  line-height: 3.3rem;
+  margin: 20px 0 23px 0;
+  margin: 2rem 0 2.3rem 0;
+}
+.personal-result__description {
+  font-family: "Cachet",Arial,sans-serif;
+  color: #777;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+.personal-result__description__prize {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
+}
+.personal-result__description__prize--gold {
+  color: #fcaf17;
+}
+.personal-result__description__prize--silver {
+  color: #bfccd5;
+}
+.personal-result__description__prize--bronze {
+  color: #dc915a;
+}
+.personal-result__separator {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=10);
+  opacity: 0.1;
+  margin: 42px auto 0 auto;
+  margin: 4.2rem auto 0 auto;
+  max-width: 381px;
+  max-width: 38.1rem;
+  background-color: black;
+  height: 1px;
+  position: relative;
+}
+.personal-result__prizes {
+  margin: 0 0 30px 0;
+  margin: 0 0 3rem 0;
+  background: none;
+}
+@media (min-width: 48em) {
+  .personal-result__prizes {
+    margin: 0 0 20px 0;
+    margin: 0 0 2rem 0;
+  }
+}
+.personal-result__details {
+  font-family: "Cachet",Arial,sans-serif;
+  color: #777;
+  font-size: 18px;
+  letter-spacing: -0.7px;
+}
+
 /*# sourceMappingURL=ysr.css.map */
