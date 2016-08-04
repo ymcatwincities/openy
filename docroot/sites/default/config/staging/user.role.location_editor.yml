@@ -8,8 +8,6 @@ weight: 4
 is_admin: null
 permissions:
   0: 'use text format inline_html'
-  2: 'edit any document files'
-  3: 'bypass file access'
   4: 'view the administration theme'
   5: 'create workflow workflow_transition'
   6: 'access block_browser_iframe entity browser pages'
@@ -19,3 +17,5 @@ permissions:
   10: 'access browse_files entity browser pages'
   11: 'access browse_files_modal entity browser pages'
   12: 'dropzone upload files'
+  13: 'create files'
+  14: 'update location document files'
