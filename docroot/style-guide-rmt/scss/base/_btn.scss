@@ -5,12 +5,13 @@
   border: medium none;
   color: $white;
   cursor: pointer;
+  display: inline-block;
   font-size: 15px;
   line-height: 1;
+  margin-bottom: 10px;
   padding: 11px 20px;
   text-decoration: none;
   text-transform: uppercase;
-  display: inline-block;
 
   &:hover {
     background: $blue;
@@ -48,3 +49,109 @@
     }
   }
 }
+/* style button has icon */
+
+.btn--has-icon {
+  padding-left: 45px;
+  position: relative;
+
+  span {
+    border-radius: 3px 0 0 3px;
+    height: 37px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    vertical-align: middle;
+    width: 37px;
+    font-size: 16px;
+    opacity: .47;
+
+    &:before {
+      display: block;
+      padding-top: 10px;
+    }
+  }
+
+  .icon {
+
+    &--blue {
+      background-color: $blue-dark ;
+    }
+
+    &--purple {
+      background-color: $purple-dark ;
+    }
+
+    &--green {
+      background-color: $green-dark ;
+    }
+
+    &--orange {
+      background-color: $orange-dark ;
+    }
+
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: $blue-dark;
+  font-size: 16px;
+
+  &:hover {
+    color: darken($blue-dark, 10%);
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--has-icon {
+    text-decoration: none;
+
+    &--blue {
+      color: $blue-dark;
+
+      &:hover {
+        color: darken($blue-dark, 10%);
+      }
+    }
+    &--purple {
+      color: $purple;
+
+      &:hover {
+        color: darken($purple, 10%);
+      }
+    }
+    &--green {
+      color: $green;
+      &:hover {
+        color: darken($green, 10%);
+      }
+    }
+    &--orange {
+      color: $orange;
+
+      &:hover {
+        color: darken($orange, 10%);
+      }
+    }
+
+    > span {
+      margin-right: 8px;
+
+      &:last-child {
+        margin-right: 0;
+        margin-left: 2px;
+        vertical-align: middle;
+      }
+    }
+
+  }
+
+}
+
+
+
+
