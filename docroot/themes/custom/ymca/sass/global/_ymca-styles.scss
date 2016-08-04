@@ -490,7 +490,8 @@ p.legend {
   padding: 0;
   z-index: 1032;
   @media screen and (max-width: 620px) {
-    width: 100% !important;
+    width: 92% !important;
+    margin: 8%;
   }
   .ui-dialog-titlebar {
     background: #92288d;
