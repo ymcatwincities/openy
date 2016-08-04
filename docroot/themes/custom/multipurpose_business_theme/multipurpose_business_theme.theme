@@ -192,12 +192,11 @@ function multipurpose_business_theme_get_slider_content() {
     else {
       $path = base_path() . drupal_get_path('theme', 'multipurpose_business_theme') . theme_get_setting('slide_image_path_' . $i, 'multipurpose_business_theme');
     }
-    $slider_content[$i] = '<li>
-      <img src="' . $path . '" alt="Slider Banner" />
+    $slider_content[$i] = '<li style="background-image: url(' . $path . ')">
       <div class="flex-caption">
         <h2>' . wordwrap(theme_get_setting('slide_title_' . $i, 'multipurpose_business_theme'), 20, "<br>").'</h2>
-        <p class="flex-description">' . wordwrap(theme_get_setting('slide_description_' . $i, 'multipurpose_business_theme'), 60, "<br>").'</p>
-        <a href=' . theme_get_setting('slide_url_' . $i, 'multipurpose_business_theme') . ' class="more-link">Read more</a>
+        <div class="flex-description">' . theme_get_setting('slide_description_' . $i, 'multipurpose_business_theme').'</div>
+        <a href="' . theme_get_setting('slide_url_' . $i, 'multipurpose_business_theme') . '" class="more-link">' . t('Find Out More') .'</a>
       </div>
     </li>';
   }
