@@ -247,9 +247,8 @@ class GroupexScheduleFetcher {
             $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
           }
         }
-        $schedule['instructor_location'] = t('Schedule for !name !location', [
+        $schedule['instructor_location'] = t('Schedule for !name', [
           '!name' => '<span class="name"><span class="icon icon-user"></span>' . reset($schedule['days'])['classes'][0]['#class']['instructor'] . '</span>',
-          '!location' => '<span class="location2"><span class="icon icon-location2"></span>' . reset($schedule['days'])['classes'][0]['#class']['address_2'] . '</span>',
         ]);
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {

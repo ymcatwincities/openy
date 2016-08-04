@@ -74,7 +74,7 @@
     history.pushState(null, null, window.location.pathname + '?' + params.join('&'));
 
     if (typeof(parameters.instructor) !== 'undefined') {
-      $('#location-select-wrapper, #date-select-wrapper, #location-wrapper, #class-select-wrapper').addClass('hidden');
+      $('#date-select-wrapper, #location-wrapper, #class-select-wrapper').addClass('hidden');
     }
     else if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
       $('#location-select-wrapper, #class-select-wrapper').removeClass('hidden');
