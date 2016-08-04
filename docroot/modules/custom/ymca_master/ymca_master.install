@@ -3976,9 +3976,21 @@ function ymca_master_update_8167() {
 }
 
 /**
- * Install Groupex From Cache.
+ * User's dashboard.
  */
 function ymca_master_update_8168() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Install Groupex From Cache.
+ */
+function ymca_master_update_8169() {
   \Drupal::service('module_installer')->install(['groupex_form_cache'], TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
