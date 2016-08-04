@@ -91,9 +91,27 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'ymca-retention-games-ended',
     ],
-    'ymca_retention_personal_result' => [
+    'ymca_retention_personal_result_none' => [
       'variables' => [],
-      'template' => 'ymca-retention-personal-result',
+      'template' => 'ymca-retention-personal-result-none',
+    ],
+    'ymca_retention_personal_result_gold' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-gold',
+    ],
+    'ymca_retention_personal_result_silver' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-silver',
+    ],
+    'ymca_retention_personal_result_bronze' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-bronze',
     ],
     'ymca_retention_winners' => [
       'variables' => [
