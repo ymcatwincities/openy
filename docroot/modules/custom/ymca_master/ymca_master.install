@@ -3923,3 +3923,54 @@ function ymca_master_update_8163() {
     ]
   );
 }
+
+/**
+ * Allow interns and contributors access workflow_unpublished states.
+ */
+function ymca_master_update_8164() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
+    ]
+  );
+}
+
+/**
+ * YMCA-838: Allow Location Editors to edit only location files.
+ */
+function ymca_master_update_8165() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}
+
+/**
+ * Import ymca theme settings.
+ */
+function ymca_master_update_8166() {
+  $path = 'themes/custom/ymca/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca.settings.yml'
+    ]
+  );
+}
+
+/**
+ * YMCA-1001: Allow interns to clone pages.
+ */
+function ymca_master_update_8167() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
