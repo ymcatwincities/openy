@@ -1,0 +1,31 @@
+.block-hero-heading-bottom {
+  position: relative;
+  margin-bottom: 50px;
+
+  &__title {
+    background-color: $blue;
+    box-sizing: border-box;
+    color: $white;
+    font-family: 'Arial Black';
+    font-size: 25px;
+    font-weight: normal;
+    margin-top: 0;
+    opacity: 0.9;
+    padding: 20px 15px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  &__image {
+    width: 100%;
+    line-height: 0;
+    img {
+      width: 100%;
+    }
+  }
+}
+
