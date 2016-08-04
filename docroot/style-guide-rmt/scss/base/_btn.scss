@@ -90,7 +90,6 @@
     &--orange {
       background-color: $orange-dark ;
     }
-
   }
 }
 
@@ -117,6 +116,7 @@
         color: darken($blue-dark, 10%);
       }
     }
+
     &--purple {
       color: $purple;
 
@@ -124,12 +124,14 @@
         color: darken($purple, 10%);
       }
     }
+
     &--green {
       color: $green;
       &:hover {
         color: darken($green, 10%);
       }
     }
+
     &--orange {
       color: $orange;
 
@@ -147,9 +149,7 @@
         vertical-align: middle;
       }
     }
-
   }
-
 }
 
 
