@@ -130,7 +130,7 @@ function ymca_retention_cron() {
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
   // Check if cron was run today.
-  if ($regular_updater->isAllowed()) {
+  if (!$regular_updater->isAllowed()) {
     return;
   }
 
