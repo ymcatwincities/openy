@@ -12,14 +12,25 @@ use Drupal\Core\Entity\EntityInterface;
  * Implements hook_form_alter().
  */
 function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form['#id'] == 'views-exposed-form-ymca-members-ymca-members-list') {
-    $form['mail']['#attributes']['placeholder'] = t('Email');
-    $date = new \DateTime();
-    $date->setTime(0, 0, 0);
-    $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
-    $date->add(new \DateInterval('P1D'));
-    $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
-    $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+  if ($form_id != 'views_exposed_form') {
+    return;
+  }
+
+  switch ($form['#id']) {
+    case 'views-exposed-form-ymca-members-ymca-retention-members':
+      $form['mail']['#attributes']['placeholder'] = t('Email');
+      $date = new \DateTime();
+      $date->setTime(0, 0, 0);
+      $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $date->add(new \DateInterval('P1D'));
+      $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      break;
+
+    case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
+      $form['mail']['#attributes']['placeholder'] = t('Email');
+      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      break;
   }
 }
 
