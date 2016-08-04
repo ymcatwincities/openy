@@ -109,10 +109,12 @@ class PersonifyController extends ControllerBase {
       $this->initPersonifySso();
 
       $decrypted_token = $this->sso->decryptCustomerToken($query['ct']);
+      $id = $this->sso->getCustomerIdentifier($decrypted_token);
       if ($token = $this->sso->validateCustomerToken($decrypted_token)) {
         user_cookie_save([
           'personify_authorized' => $token,
           'personify_time' => REQUEST_TIME,
+          'personify_id' => $id
         ]);
         \Drupal::logger('ymca_personify')->info('A user logged in via Personify.');
       }

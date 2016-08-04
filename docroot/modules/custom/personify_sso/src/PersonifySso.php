@@ -208,4 +208,31 @@ class PersonifySso {
     return FALSE;
   }
 
+  /**
+   * Get customer identifier.
+   *
+   * @param string $token
+   *   Encrypted token.
+   *
+   * @return string|bool
+   *   Customer identifier.
+   */
+  public function getCustomerIdentifier($token) {
+    $params = [
+      'vendorUsername' => $this->vendorUsername,
+      'vendorPassword' => $this->vendorPassword,
+      'customerToken' => $token,
+    ];
+
+    try {
+      $response = $this->client->TIMSSCustomerIdentifierGet($params);
+      return $response->TIMSSCustomerIdentifierGetResult->CustomerIdentifier;
+    }
+    catch (\Exception $e) {
+      watchdog_exception('personify_sso', $e);
+    }
+
+    return FALSE;
+  }
+
 }
