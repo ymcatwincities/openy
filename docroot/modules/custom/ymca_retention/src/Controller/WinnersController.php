@@ -58,6 +58,7 @@ class WinnersController extends ControllerBase {
     $branch_id = $context['sandbox']['branches'][$context['sandbox']['progress']];
 
     // Select 12 members from the branch.
+    // TODO: implement selection logic.
     $member_ids = \Drupal::entityQuery('ymca_retention_member')
       ->condition('branch', $branch_id)
       ->condition('is_employee', FALSE)
@@ -67,7 +68,7 @@ class WinnersController extends ControllerBase {
 
     // Create winners from selected members.
     $member = current($members);
-    foreach (['visits', 'swimming', 'fitness', 'groupx'] as $track) {
+    foreach (['visits', 'swimming', 'fitness', 'groupex'] as $track) {
       foreach ([1, 2, 3] as $place) {
         /** @var Member $member */
         if (!$member) {
