@@ -19,8 +19,13 @@ class Slider extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    // Get YMCA Retention slider settings.
+    $settings = \Drupal::config('ymca_retention.slider');
+    $slides = $settings->get('slides');
+
     return [
       '#theme' => 'ymca_retention_slider',
+      '#slides' => $slides,
       '#cache' => [
         'contexts' => [
           'url.path',
