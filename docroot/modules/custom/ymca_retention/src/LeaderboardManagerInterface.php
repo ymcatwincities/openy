@@ -41,9 +41,12 @@ interface LeaderboardManagerInterface {
    *
    * The returned array contains locations branch id and name.
    *
+   * @param bool $none
+   *   Include "Select location..." option or not.
+   *
    * @return array
    *   An array of locations.
    */
-  public function getLocationsList();
+  public function getLocationsList($none = TRUE);
 
 }

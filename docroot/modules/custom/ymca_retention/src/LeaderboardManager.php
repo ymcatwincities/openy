@@ -125,15 +125,16 @@ class LeaderboardManager implements LeaderboardManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getLocationsList() {
+  public function getLocationsList($none = TRUE) {
     $locations = $this->getMemberLocations();
 
-    $locations_list = [
-      [
+    $locations_list = [];
+    if ($none) {
+      $locations_list[] = [
         'branch_id' => 0,
         'name' => t('Select location...'),
-      ],
-    ];
+      ];
+    }
     /** @var Mapping $location */
     foreach ($locations as $location) {
       $locations_list[] = [

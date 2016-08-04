@@ -23,7 +23,7 @@ class Winners extends BlockBase {
   public function build() {
     /** @var \Drupal\ymca_retention\LeaderboardManager $service */
     $service = \Drupal::service('ymca_retention.leaderboard_manager');
-    $locations = $service->getLocationsList();
+    $locations = $service->getLocationsList(FALSE);
 
     // Select all winners.
     $winner_ids = \Drupal::entityQuery('ymca_retention_winner')
