@@ -68,6 +68,22 @@
     {
       "name":"footer-programs-classes",
       "group":"header_footer"
+    },
+    {
+      "name":"block-hero-heading-top",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero-heading-bottom",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero-heading-top-mobile",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero-heading-bottom-mobile",
+      "group":"hero_image"
     }
   ]
 }
