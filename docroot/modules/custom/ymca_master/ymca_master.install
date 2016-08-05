@@ -3986,3 +3986,16 @@ function ymca_master_update_8168() {
     ]
   );
 }
+
+/**
+ * YMCA-1001: Add permission to edit own page manager pages only.
+ */
+function ymca_master_update_8169() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
