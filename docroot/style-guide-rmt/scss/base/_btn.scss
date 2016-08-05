@@ -92,31 +92,15 @@
   text-decoration: none;
   color: $blue-dark;
   font-size: 16px;
-
-  &:hover {
-    color: darken($blue-dark, 10%);
-  }
+  display: flex;
+  align-items: center;
 
   &__arrow {
-    margin-left: 5px;
-    vertical-align: bottom;
+    margin-left: 7px;
   }
 
   &__img {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: -4px;
-    margin-right: 5px;
-  }
-
-  &__text {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0;
-  }
-
-  &--underline {
-    text-decoration: underline;
+    margin-right: 10px;
   }
 
   &--blue {
