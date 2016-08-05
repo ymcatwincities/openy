@@ -16,6 +16,7 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\Core\File;
 
 /**
  * Protecting sites with a shield.
@@ -3985,4 +3986,22 @@ function ymca_master_update_8168() {
       $path . 'views.view.my_content.yml'
     ]
   );
+}
+
+/**
+ * Make favicons configurable.
+ */
+function ymca_master_update_8169() {
+  $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
+  $destDir = 'public://favicon/';
+  drupal_mkdir($destDir);
+  file_unmanaged_copy($srcDir . 'favicon.ico', $destDir . 'default.ico');
+  file_unmanaged_copy($srcDir . 'favicon-alt.ico', $destDir . 'camp.ico');
+  file_unmanaged_copy($srcDir . 'favicon-locations.ico', $destDir . 'location.ico');
+  $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
+  $config
+    ->set('ymca_favicon', 'public://favicon/default.ico')
+    ->set('ymca_favicon_camp', 'public://favicon/camp.ico')
+    ->set('ymca_favicon_location', 'public://favicon/location.ico')
+    ->save();
 }
