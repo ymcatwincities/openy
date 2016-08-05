@@ -9321,30 +9321,32 @@ a.sports-icon.tumbling {
   background: #f8f8f8;
 }
 .template_youth_sports_inner .locations-lead-copy:before {
+  background: url("../img/youth_sports_top_bg.jpg") no-repeat right top;
   position: absolute;
   top: 58px;
-  left: 59%;
+  right: 0;
   bottom: 0;
   display: block;
-  width: 80%;
-  background-image: -webkit-linear-gradient(#e5e5e5, #f8f8f8);
-  background-image: -moz-linear-gradient(#e5e5e5, #f8f8f8);
-  background-image: -ms-linear-gradient(#e5e5e5, #f8f8f8);
-  background-image: linear-gradient(#e5e5e5, #f8f8f8);
+  width: 40%;
   content: '';
-  -webkit-transform: skew(-30deg);
-  -moz-transform: skew(-30deg);
-  -ms-transform: skew(-30deg);
-  transform: skew(-30deg);
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  background-size: cover;
+  left: auto;
+  opacity: 0.5;
+  -webkit-clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+}
+@media (max-width: 767px) {
+  .template_youth_sports_inner .locations-lead-copy:before {
+    display: none;
+  }
 }
 @media (min-width: 768px) {
   .template_youth_sports_inner .locations-lead-copy:before {
     top: 51px;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .template_youth_sports_inner .locations-lead-copy:before {
-    left: 45%;
   }
 }
 .template_youth_sports_inner .locations-lead-copy .left {
@@ -9370,11 +9372,6 @@ a.sports-icon.tumbling {
 .template_youth_sports_inner .locations-lead-copy .richtext p {
   color: #777;
   font-size: 14px;
-}
-.template_youth_sports_inner .locations-lead-copy .richtext p:first-child {
-  color: #383838;
-  font-size: 18px;
-  margin-bottom: 20px;
 }
 .template_youth_sports_inner .content-expander {
   margin: 80px 0;
@@ -9408,6 +9405,86 @@ a.sports-icon.tumbling {
 }
 .template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
   color: #f37823;
+}
+
+.sports_top_subheader select {
+  display: block;
+  width: 60%;
+  height: 70px;
+  padding: 6px 12px;
+  font-size: 15px;
+  line-height: 1.428571429;
+  color: #0889cd;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  float: left;
+  margin-right: 15px;
+  text-indent: 80px;
+}
+.sports_top_subheader select.baseball-softball-t-ball {
+  background: #fff url("../img/icon-big-baseball.png") no-repeat 26px center;
+}
+.sports_top_subheader select.basketball {
+  background: #fff url("../img/icon-big-basketball.png") no-repeat 20px center;
+}
+.sports_top_subheader select.flag-football {
+  background: #fff url("../img/icon-big-flag-football.png") no-repeat 20px center;
+}
+.sports_top_subheader select.martial-arts {
+  background: #fff url("../img/icon-big-martial-arts.png") no-repeat 20px center;
+}
+.sports_top_subheader select.olympic, .sports_top_subheader select.special-olympics-young-athletes-program {
+  background: #fff url("../img/icon-big-olympic.png") no-repeat 20px center;
+}
+.sports_top_subheader select.soccer {
+  background: #fff url("../img/icon-big-soccer.png") no-repeat 20px center;
+}
+.sports_top_subheader select.track-and-field, .sports_top_subheader select.running-club {
+  background: #fff url("../img/icon-big-track.png") no-repeat 20px center;
+}
+.sports_top_subheader select.volleyball {
+  background: #fff url("../img/icon-big-volleyball.png") no-repeat 20px center;
+}
+.sports_top_subheader select.lacrosse {
+  background: #fff url("../img/icon-big-lacrosse.png") no-repeat 20px center;
+}
+.sports_top_subheader select.tumbling {
+  background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .sports_top_subheader select {
+    height: 52px;
+    text-indent: 60px;
+  }
+}
+.sports_top_subheader .selectbox {
+  margin: 30px 0;
+}
+.sports_top_subheader .selectbox .find-a-class {
+  background: url("../img/button_blue_arrow.png") no-repeat 0 0;
+  font-size: 18px;
+  line-height: 70px;
+  color: #fff;
+  width: 182px;
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: bold;
+  display: inline-block;
+  text-indent: 32px;
+  text-decoration: none;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .sports_top_subheader .selectbox .find-a-class {
+    text-indent: 15px;
+    background-size: contain;
+    line-height: 52px;
+    font-size: 16px;
+    width: 135px;
+  }
+}
+.sports_top_subheader .text {
+  clear: both;
 }
 
 /*# sourceMappingURL=style.css.map */
