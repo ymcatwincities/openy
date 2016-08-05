@@ -31,7 +31,7 @@ class PersonalResult extends BlockBase {
       ->execute();
     if (empty($member_ids)) {
       return [
-        '#theme' => 'ymca_retention_personal_result_none',
+        '#theme' => $theme,
       ];
     }
     $member_id = reset($member_ids);
