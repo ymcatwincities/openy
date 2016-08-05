@@ -15,7 +15,7 @@ services:
     arguments: [ymca_retention]
   ymca_retention.leaderboard_manager:
     class: Drupal\ymca_retention\LeaderboardManager
-    arguments: ['@cache.ymca_retention']
+    arguments: ['@config.factory', '@entity_type.manager', '@entity.query', '@cache.ymca_retention', '@ymca_mappings.location_repository']
   ymca_retention.activity_manager:
     class: Drupal\ymca_retention\ActivityManager
   ymca_retention.regular_updater:
