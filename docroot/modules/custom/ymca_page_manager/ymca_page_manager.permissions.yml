@@ -4,5 +4,7 @@ delete page_manager pages:
   title: 'Delete page manager pages'
 disable page_manager pages:
   title: 'Disable page manager pages'
+update own page_manager pages:
+  title: 'Edit own page manager pages'
 use page_manager access conditions  :
   title: 'Use page manager access conditions'
