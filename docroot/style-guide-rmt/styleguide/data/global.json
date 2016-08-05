@@ -40,6 +40,10 @@
     {
       "name":"links",
       "group":"active_element"
+    },
+    {
+      "name":"links-has-icon",
+      "group":"active_element"
     }
   ]
 }
