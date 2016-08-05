@@ -44,6 +44,18 @@
     {
       "name":"links-has-icon",
       "group":"active_element"
+    },
+    {
+      "name":"activity-icon",
+      "group":"icons"
+    },
+    {
+      "name":"marketing-icon",
+      "group":"icons"
+    },
+    {
+      "name":"service-icon",
+      "group":"icons"
     }
   ]
 }
