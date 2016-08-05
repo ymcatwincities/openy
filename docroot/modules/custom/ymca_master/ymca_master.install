@@ -3986,3 +3986,15 @@ function ymca_master_update_8168() {
     ]
   );
 }
+
+/**
+ * Add a new plugin to ckeditor.
+ */
+function ymca_master_update_8169() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
