@@ -70,19 +70,19 @@
       "group":"header_footer"
     },
     {
-      "name":"block-hero-heading-top",
+      "name":"block-hero--top",
       "group":"hero_image"
     },
     {
-      "name":"block-hero-heading-bottom",
+      "name":"block-hero--bottom",
       "group":"hero_image"
     },
     {
-      "name":"block-hero-heading-top-mobile",
+      "name":"block-hero--top--mobile",
       "group":"hero_image"
     },
     {
-      "name":"block-hero-heading-bottom-mobile",
+      "name":"block-hero--bottom--mobile",
       "group":"hero_image"
     }
   ]
