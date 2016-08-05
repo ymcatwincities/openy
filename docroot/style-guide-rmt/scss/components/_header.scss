@@ -1,51 +1,84 @@
 /* style component header */
 
-header.header {
-  display: inline-block;
+.header {
+  margin: 0 auto;
+  max-width: 600px;
   padding-bottom: 28px;
   padding-top: 33px;
-  width: 100%;
-}
+  justify-content: space-between;
+  display: flex;
 
-.site-logo {
-  float: left;
-  height: 55px;
-  width: 75px;
+  .main-nav {
+    margin-top: 25px;
+  }
 
-  &__image {
-    width: 100%;
+  .nav {
+    float: right;
+    padding: 0;
+    margin: 0;
+
+    &__item {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      a {
+        padding: 5px 18px;
+        color: $blue;
+        font-size: 13px;
+        text-decoration: none;
+        text-transform: uppercase;
+
+
+        &.active {
+          color: $purple-light;
+          display: inline-block;
+          font-weight: bold;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  &--programs-classes {
+    .main-nav {
+      margin-top: 7px;
+    }
+
+   .nav {
+      &__item {
+        a {
+          color: $green;
+
+          &.active {
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+
+  &--camps-summer {
+    .main-nav {
+      margin-top: 7px;
+    }
+
+    .nav {
+      &__item {
+        a {
+          color: $orange;
+
+          &.active {
+            color: $green;
+          }
+        }
+      }
+    }
   }
 }
-
-.main-nav {
-  float: right;
-  margin-top: 32px;
-}
-
-ul.nav {
-  float: right;
-  padding: 0;
-  margin: 0;
-}
-
-ul.nav li {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-ul.nav li a {
-  padding: 5px 18px;
-  color: $blue;
-  font-size: 13px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-ul.nav li a:hover {
-  color: $blue-dark;
-}
-
-ul.nav li a.active {
-  color: $purple-light;
+/* style site logo */
+.site-logo {
+  float: left;
+  width: 75px;
 }
