@@ -57,20 +57,15 @@
 
   span {
     border-radius: 3px 0 0 3px;
-    height: 37px;
+    font-size: 16px;
+    height: 29px;
     left: 0;
+    padding-top: 8px;
     position: absolute;
     text-align: center;
     top: 0;
     vertical-align: middle;
     width: 37px;
-    font-size: 16px;
-    opacity: .47;
-
-    &:before {
-      display: block;
-      padding-top: 10px;
-    }
   }
 
   .icon {
@@ -102,53 +97,61 @@
     color: darken($blue-dark, 10%);
   }
 
+  &__arrow {
+    margin-left: 5px;
+    vertical-align: bottom;
+  }
+
+  &__img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: -4px;
+    margin-right: 5px;
+  }
+
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
+
   &--underline {
     text-decoration: underline;
   }
 
+  &--blue {
+    color: $blue-dark;
+
+    &:hover {
+      color: darken($blue-dark, 10%);
+    }
+  }
+
+  &--purple {
+    color: $purple;
+
+    &:hover {
+      color: darken($purple, 10%);
+    }
+  }
+
+  &--green {
+    color: $green;
+    &:hover {
+      color: darken($green, 10%);
+    }
+  }
+
+  &--orange {
+    color: $orange;
+
+    &:hover {
+      color: darken($orange, 10%);
+    }
+  }
+
   &--has-icon {
     text-decoration: none;
-
-    &--blue {
-      color: $blue-dark;
-
-      &:hover {
-        color: darken($blue-dark, 10%);
-      }
-    }
-
-    &--purple {
-      color: $purple;
-
-      &:hover {
-        color: darken($purple, 10%);
-      }
-    }
-
-    &--green {
-      color: $green;
-      &:hover {
-        color: darken($green, 10%);
-      }
-    }
-
-    &--orange {
-      color: $orange;
-
-      &:hover {
-        color: darken($orange, 10%);
-      }
-    }
-
-    > span {
-      margin-right: 8px;
-
-      &:last-child {
-        margin-right: 0;
-        margin-left: 2px;
-        vertical-align: middle;
-      }
-    }
   }
 }
 
