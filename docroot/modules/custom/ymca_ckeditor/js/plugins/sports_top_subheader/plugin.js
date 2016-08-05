@@ -22,20 +22,15 @@
       editor.widgets.add('sports_top_subheader', {
         template: '<div class="sports_top_subheader">' +
         '<div class="selectbox"><ul><li>Item 1</li></ul></div>' +
-        '<div class="text"><p>Content...</p></div>' +
         '</div>',
 
         editables: {
-          title: {
-            selector: '.sports_top_subheader .selectbox',
-            allowedContent: 'ul li a'
-          },
           content: {
-            selector: '.sports_top_subheader .text'
+            selector: '.sports_top_subheader .selectbox'
           }
         },
 
-        allowedContent: 'div(!sports_top_subheader); div(!.sports_top_subheader .selectbox); div(!.sports_top_subheader .text);',
+        allowedContent: 'div(!sports_top_subheader); div(!.sports_top_subheader .selectbox);',
 
         requiredContent: 'div(sports_top_subheader)',
 
