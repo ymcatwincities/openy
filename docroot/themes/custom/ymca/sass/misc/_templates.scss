@@ -311,9 +311,10 @@ a.sports-icon {
 
       }
     }
-
-    .left {
-      padding-right: 100px;
+    @media (min-width: 768px) {
+      .left {
+        padding-right: 100px;
+      }
     }
 
     .breadcrumb-container {
@@ -416,8 +417,10 @@ a.sports-icon {
     margin-right: 15px;
     text-indent: 80px;
     @include sports_icons();
-    @media (min-width: 768px) {
-
+    @media (max-width: 767px) {
+      float: none;
+      margin-bottom: 30px;
+      width: 100%;
     }
     @media screen and (min-width: 768px) and (max-width: 992px) {
       height: 52px;

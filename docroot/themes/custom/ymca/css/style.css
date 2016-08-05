@@ -9349,8 +9349,10 @@ a.sports-icon.tumbling {
     top: 51px;
   }
 }
-.template_youth_sports_inner .locations-lead-copy .left {
-  padding-right: 100px;
+@media (min-width: 768px) {
+  .template_youth_sports_inner .locations-lead-copy .left {
+    padding-right: 100px;
+  }
 }
 .template_youth_sports_inner .locations-lead-copy .breadcrumb-container {
   background: transparent;
@@ -9452,6 +9454,13 @@ a.sports-icon.tumbling {
 }
 .sports_top_subheader select.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+@media (max-width: 767px) {
+  .sports_top_subheader select {
+    float: none;
+    margin-bottom: 30px;
+    width: 100%;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .sports_top_subheader select {
