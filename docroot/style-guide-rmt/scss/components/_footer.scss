@@ -6,25 +6,13 @@
   padding-top: 25px;
   text-align: center;
 
-  .block-social__list {
-    text-align: center;
-  }
-
   &__item {
     display: inline-block;
-    margin: 5px 12px;
-    height: 40px;
-    width: 40px;
-    img {
-      &:hover {
-        opacity: 0.6;
-      }
-    }
+    margin: 0 12px;
   }
 }
 
 /* style block contact */
-
 .block-contact {
   background-color: $purple-light;
   background-image: url('http://thuvienthongtin.net/sites/icons/bg-contact.png');
@@ -40,6 +28,10 @@
     max-width: 406px;
   }
 
+  &__icon {
+    float: left;
+    margin-right: 15px;
+  }
   p {
     font-size: 13px;
     overflow: hidden;
@@ -50,77 +42,64 @@
     margin-right: 35px;
   }
 
-  .icon- {
-    float: left;
-    font-size: 20px;
-    margin-right: 15px;
-    margin-top: 0;
-    opacity: 0.9;
-  }
-
   .opacity {
     opacity: 0.4;
+  }
+
+  &--programs-classes {
+    background-color: $blue;
+  }
+
+  &--camps-summer {
+    background-color: $green;
   }
 }
 
 /* style block unsubscribe */
 
 .block-unsubscribe {
-  display: inline-block;
   margin-bottom: 25px;
   text-align: center;
-  width: 100%;
-
-  .btn {
-    background-color: transparent;
-    border: 2px solid $gray-f3;
-    margin: 5px 8px;
-
-
-    &--purple-color {
-      color: $purple-light;
-
-      &:hover {
-        color: darken($purple-light, 10%)
-      }
-    }
-
-    &--blue-color {
-      color: $blue-dark ;
-
-      &:hover {
-        color : darken($blue-dark, 10%)
-      }
-    }
-
-    &--green-color {
-      color: $green;
-    }
-
-    &--orange-color {
-      color: $orange;
-    }
-  }
 }
 
 /* style block copyright */
 .block-copyright {
   font-family: Verdana;
+  font-size: 13px;
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: center;
+  line-height: 20px;
 
-  &__content {
-    font-size: 13px;
-    margin: 0 auto;
-    max-width: 400px;
-    text-align: center;
-    line-height: 20px;
+  &__top {
+    color: $gray-a7;
+    margin-bottom: 20px;
+  }
 
-    &-top {
-      color: $gray-a7;
-      margin-bottom: 20px;
-    }
+  &__bottom{
+    color: $gray-42;
+  }
+}
 
-    &-bottom{
-      color: $gray-42;
-    }
+
+.btn--border {
+  background-color: transparent;
+  border: 2px solid $gray-f3;
+  margin: 5px 8px;
+
+  &--green {
+    color: $green;
+  }
+
+  &--orange {
+    color: $orange;
+  }
+
+  &--purple {
+    color: $purple-light;
+  }
+
+  &--blue {
+    color: $blue-dark ;
   }
 }
