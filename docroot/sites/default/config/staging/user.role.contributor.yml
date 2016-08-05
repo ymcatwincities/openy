@@ -33,3 +33,5 @@ permissions:
   32: 'administer files'
   33: 'update workflow_unpublished content'
   34: 'view workflow_unpublished content'
+  35: 'update own page_manager pages'
+  36: 'create page_manager pages'

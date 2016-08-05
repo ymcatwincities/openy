@@ -9,16 +9,62 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\ymca_page_manager\Entity\Page;
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function ymca_page_manager_entity_type_build(array &$entity_types) {
+  if (array_key_exists('page', $entity_types)) {
+    $entity_types['page']->setClass('Drupal\ymca_page_manager\Entity\Page');
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function page_manager_author_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'page_add_form') {
+    $form['#entity_builders'][] = 'page_manager_author_builder';
+  }
+}
+
+/**
+ * Entity builder.
+ */
+function page_manager_author_builder($entity_type, Page $page, &$form, FormStateInterface $form_state) {
+  // Set current user as the page author.
+  $page->setThirdPartySetting('ymca_page_manager', 'author', Drupal::currentUser()->id());
+}
 
 /**
  * Implements hook_ENTITY_TYPE_access().
  */
 function ymca_page_manager_page_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  /** @var Page $entity */
+
   if ($operation == 'delete') {
     if (!$account->hasPermission('delete page_manager pages')) {
       return AccessResult::forbidden();
     }
   }
+
+  if ($operation == 'update') {
+    if (in_array('administrator', $account->getRoles())) {
+      return AccessResult::allowed();
+    }
+
+    // Check if user has update permission at all.
+    if ($account->hasPermission('update own page_manager pages')) {
+      // Check if user owns the page.
+      if ($account->id() == $entity->getThirdPartySetting('ymca_page_manager', 'author')) {
+        return AccessResult::allowed();
+      }
+      return AccessResult::forbidden();
+    }
+
+  }
+
   return AccessResult::neutral();
 }
 
@@ -26,14 +72,21 @@ function ymca_page_manager_page_access(EntityInterface $entity, $operation, Acco
  * Implements hook_ENTITY_TYPE_access().
  */
 function ymca_page_manager_block_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
-  /* Here we'll grant a user with block edit permission if he has access to
-  page manager administration page and the block is used by any page */
+  // User will get update access to the block if he has access to the page using the block.
   if ($operation == 'update') {
-    if ($account->hasPermission('administer pages')) {
+    if ($account->hasPermission('update own page_manager pages')) {
       $uuid = $entity->uuid();
       $manager_page = \Drupal::entityTypeManager()->getStorage('page');
       $pages = \Drupal::entityQuery('page')->execute();
       foreach ($pages as $page) {
+
+
+        /** @var Page $page_entity */
+        $page_entity = Page::load($page);
+        if ($page_entity->getThirdPartySetting('ymca_page_manager', 'author') != $account->id()) {
+          continue;
+        }
+
         $variants = $manager_page->load($page)->getVariants();
         foreach ($variants as $variant) {
           $settings = $variant->get('variant_settings');
