@@ -1,0 +1,28 @@
+.block-grid {
+  margin: 0 auto;
+  max-width: 596px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &__list {
+    display: flex;
+    margin-left: -30px;
+    margin-right: -30px;
+  }
+
+  &__item {
+    padding: 0 20px;
+    width: 50%;
+  }
+
+  &--mobile {
+    &__list {
+      margin-left: -10px;
+      margin-right: -10px;
+    }
+
+    &__item {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.block-cta {
+  margin: 0 auto;
+  max-width: 556px;
+  padding: 0 10px 49px;
+
+  &__content {
+    line-height: 25px;
+    margin-bottom: 24px
+  }
+
+  &__image {
+    margin-bottom: 30px;
+    line-height: 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &--image-left {
+    &__image {
+      float: left;
+      margin-right: 30px;
+      max-width: 123px;
+      overflow: hidden;
+    }
+
+    &__title {
+      margin-bottom: 8px;
+    }
+
+    &__content {
+      line-height: 24px;
+      min-height: 71px;
+    }
+  }
+}
