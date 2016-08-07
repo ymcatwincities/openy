@@ -21,4 +21,4 @@ services:
     arguments: ['@config.factory', '@entity_type.manager', '@entity.query']
   ymca_retention.regular_updater:
     class: Drupal\ymca_retention\RegularUpdater
-    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory']
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']
