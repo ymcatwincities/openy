@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Template for  YMCA Retention layout.
+ * Template for YMCA Retention layout.
  */
 #}
 <div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}">
@@ -12,6 +12,11 @@
   <!-- HERO SECTION -->
   <div id="hero-section">
     {{ content.hero }}
+    {% if content.registration is not empty %}
+      <div id="register-and-report" class="slides ysr-offset">
+        {{ content.registration }}
+      </div>
+    {% endif %}
   </div>
   {{ content.main }}
 </div>

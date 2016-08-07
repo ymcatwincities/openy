@@ -16,25 +16,6 @@ retention-campaign:
       label: Leaderboard
     slider:
       label: Slider
-retention-activity:
-  label: YMCA Retention Activity
-  category: YMCA layouts
-  template: templates/retention-activity
-  regions:
-    navigation:
-      label: Navigation
-    intro:
-      label: Intro
-    member_info:
-      label: Member info/progress
-    report:
-      label: Activity Tracker
-    leaderboard:
-      label: Leaderboard
-    main:
-      label: Main
-    slider:
-      label: Slider
 ymca-retention:
   label: YMCA Retention
   category: YMCA layouts
@@ -45,5 +26,7 @@ ymca-retention:
       label: Navigation
     hero:
       label: Hero section
+    registration:
+      label: Registration & Report
     main:
       label: Main section
