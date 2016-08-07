@@ -90,7 +90,7 @@ function ymca_retention_update_8007() {
 }
 
 /**
- * Update views, create winners page.
+ * Update views and YMCA Retention pages.
  */
 function ymca_retention_update_8008() {
   $path = 'sites/default/config/staging/';
@@ -101,6 +101,17 @@ function ymca_retention_update_8008() {
       $path . 'page_manager.page_variant.y_games_activity.yml',
       $path . 'page_manager.page_variant.y_games_enroll_success.yml',
       $path . 'page_manager.page_variant.y_games_rules.yml',
+    ]
+  );
+}
+
+/**
+ * Create winners page.
+ */
+function ymca_retention_update_8009() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
       $path . 'page_manager.page_variant.y_games_winners.yml',
     ]
   );
