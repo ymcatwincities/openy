@@ -1,4 +1,4 @@
-//Clearfix
+//Clearfix.
 
 %clearfix {
   &:before,
@@ -10,4 +10,60 @@
   &:after {
     clear: both;
   }
+}
+
+/* blue */
+.blue-dark {
+  color: $blue-dark;
+}
+
+.blue {
+  color: $blue;
+}
+
+.blue-light {
+ color: $blue-light;
+}
+
+/* Purple */
+.purple-dark {
+  color: $purple-dark;
+}
+
+.purple {
+  color: $purple;
+}
+
+.purple-light {
+  color: $purple-light;
+}
+
+/* Green */
+.green-dark {
+  color: $green-dark;
+}
+
+.green {
+  color: $green;
+}
+
+.green-light {
+  color: $green-light;
+}
+
+/* Orange */
+.orange-dark {
+  color: $green-light;
+}
+
+.orange {
+  color: $orange;
+}
+
+.orange-light {
+  color: $orange-light;
+}
+
+.highlight-purple-dark {
+  color: $highlight-purple-dark;
 }
