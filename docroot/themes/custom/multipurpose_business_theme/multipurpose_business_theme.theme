@@ -192,12 +192,16 @@ function multipurpose_business_theme_get_slider_content() {
     else {
       $path = base_path() . drupal_get_path('theme', 'multipurpose_business_theme') . theme_get_setting('slide_image_path_' . $i, 'multipurpose_business_theme');
     }
+    $link_more = '';
+    if (theme_get_setting('slide_url_' . $i, 'multipurpose_business_theme')) {
+      $link_more = '<a href="' . theme_get_setting('slide_url_' . $i, 'multipurpose_business_theme') . '" class="more-link">' . t('Find Out More') .'</a>';
+    }
     $slider_content[$i] = '<li style="background-image: url(' . $path . ')">
       <div class="flex-caption">
         <h2>' . wordwrap(theme_get_setting('slide_title_' . $i, 'multipurpose_business_theme'), 20, "<br>").'</h2>
-        <div class="flex-description">' . theme_get_setting('slide_description_' . $i, 'multipurpose_business_theme').'</div>
-        <a href="' . theme_get_setting('slide_url_' . $i, 'multipurpose_business_theme') . '" class="more-link">' . t('Find Out More') .'</a>
-      </div>
+        <div class="flex-description">' . theme_get_setting('slide_description_' . $i, 'multipurpose_business_theme').'</div>' .
+        $link_more
+      . '</div>
     </li>';
   }
   return $slider_content;
