@@ -1,0 +1,15 @@
+.block-sponsors-logo {
+  margin: 0 auto;
+  max-width: 556px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &__image {
+    border: 1px solid $gray-ed;
+    display: block;
+    line-height: 0;
+    padding: 34px 20px;
+    text-align: center;
+  }
+}
+

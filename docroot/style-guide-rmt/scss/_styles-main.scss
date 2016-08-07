@@ -10,7 +10,6 @@
 
 
 //Helpers
-@import 'helpers/extends';
 @import 'helpers/functions';
 @import 'helpers/mixins';
 
@@ -21,6 +20,7 @@
 @import 'base/grid';
 @import 'base/typography';
 @import 'base/btn';
+@import 'helpers/extends';
 
 // Helper classes
 @import 'helpers/helpers';
@@ -32,6 +32,11 @@
 @import 'components/block-body';
 @import 'components/block-cta';
 @import 'components/block-grid';
+@import 'components/text-icons';
+@import 'components/style-list';
+@import 'components/block-keyword';
+@import 'components/block-linked';
+@import 'components/block-sponsors-logo';
 
 // Layouts
 @import 'layouts/layout';
