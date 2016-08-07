@@ -120,6 +120,30 @@
     {
       "name":"block-grid",
       "group":"Email_body"
+    },
+    {
+      "name":"text-icons",
+      "group":"additional"
+    },
+    {
+      "name":"tables",
+      "group":"additional"
+    },
+    {
+      "name":"style-list",
+      "group":"additional"
+    },
+    {
+      "name":"block-linked",
+      "group":"additional"
+    },
+    {
+      "name":"block-keywords",
+      "group":"additional"
+    },
+    {
+      "name":"block-sponsors-logo",
+      "group":"additional"
     }
   ]
 }
