@@ -64,7 +64,7 @@ ul.links.inline li{
 
 .main-header{
   background: #0288d1;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Cachet', 'Roboto Slab', serif;
   padding-bottom: 5px;
   z-index: 999;
   position: relative;
@@ -134,7 +134,7 @@ header nav{
 }
 
 .site-name a{
-  font-size: 22px;
+  font-size: 34px;
   color: #fff;
   line-height: 100%;
 }
@@ -540,7 +540,7 @@ nav h2{
 }
 
 .menu-base-theme li ul li a{
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cachet', 'Roboto', sans-serif;
   color: #262626;
 }
 
@@ -870,7 +870,7 @@ ul.links.inline li{
   text-align: center;
   color: #fff;
   font-size: 14px;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Cachet', 'Roboto Slab', serif;
 }
 
 .testimonials-wrap h2{
@@ -956,7 +956,7 @@ ul.links.inline li{
   margin: 0 0 10px 0;
   font-size: 20px;
   font-weight: 300;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Cachet', 'Roboto Slab', serif;
 }
 
 .features-alt_intro {
