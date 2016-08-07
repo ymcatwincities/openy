@@ -32,7 +32,7 @@ variant_settings:
       label: 'YMCA retention campaign intro block'
       provider: ymca_retention
       label_display: '0'
-      region: intro
+      region: hero
       weight: 0
       uuid: 8ea11270-90a1-4149-ad47-3696e776c1fb
       context_mapping: {  }
@@ -52,7 +52,7 @@ variant_settings:
   uuid: bcb8080e-70e9-41cf-a0ea-1b1bca713b67
   label: null
   weight: 0
-  layout: retention-campaign
+  layout: ymca-retention
   layout_settings:
     extra_classes: ysr-compact-header
   page_title: 'Prizes/Rules Details'

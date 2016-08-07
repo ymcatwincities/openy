@@ -99,9 +99,11 @@ function ymca_retention_update_8008() {
       $path . 'views.view.ymca_members.yml',
       $path . 'views.view.ymca_retention_winners.yml',
       $path . 'page_manager.page_variant.y_game_content.yml',
-      $path . 'page_manager.page_variant.y_games_activity.yml',
-      $path . 'page_manager.page_variant.y_games_enroll_success.yml',
+      $path . 'page_manager.page_variant.y_game_default.yml',
+      $path . 'page_manager.page_variant.y_games_team.yml',
       $path . 'page_manager.page_variant.y_games_rules.yml',
+      $path . 'page_manager.page_variant.y_games_enroll_success.yml',
+      $path . 'page_manager.page_variant.y_games_activity.yml',
     ]
   );
 }
