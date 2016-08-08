@@ -17,3 +17,19 @@ function openy_master_install() {
     }
   }
 }
+
+/**
+ * YMCA-1087: Enable contact forms CSV export.
+ */
+function openy_master_update_8001() {
+  // Install dependencies.
+  $dependencies = [
+    'rest',
+    'contact_storage',
+    'csv_serialization'
+  ];
+  \Drupal::service('module_installer')->install($dependencies, TRUE);
+
+  // Install Webforms.
+  \Drupal::service('module_installer')->install(['webforms'], TRUE);
+}
