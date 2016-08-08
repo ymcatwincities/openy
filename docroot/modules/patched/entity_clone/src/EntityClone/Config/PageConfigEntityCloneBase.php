@@ -99,6 +99,10 @@ class PageConfigEntityCloneBase extends ConfigEntityCloneBase {
       $cloned_entity->set($key, $property);
     }
 
+    // Add current user as the author of the page.
+    $user = \Drupal::currentUser();
+    $cloned_entity->setThirdPartySetting('ymca_page_manager', 'author', $user->id());
+
     // Save for now for ability to use latest data.
     $cloned_entity->save();
 
