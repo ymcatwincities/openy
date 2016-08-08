@@ -10,6 +10,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\ymca_page_manager\Entity\Page;
+use Drupal\Core\Entity\Entity;
 
 /**
  * Implements hook_entity_type_build().
@@ -34,35 +35,20 @@ function page_manager_author_form_alter(&$form, FormStateInterface $form_state, 
  */
 function page_manager_author_builder($entity_type, Page $page, &$form, FormStateInterface $form_state) {
   // Set current user as the page author.
-  $page->setThirdPartySetting('ymca_page_manager', 'author', Drupal::currentUser()->id());
+  $page->setThirdPartySetting('ymca_page_manager', 'author', \Drupal::currentUser()->id());
 }
 
 /**
  * Implements hook_ENTITY_TYPE_access().
  */
 function ymca_page_manager_page_access(EntityInterface $entity, $operation, AccountInterface $account) {
-  /** @var Page $entity */
-
-  if ($operation == 'delete') {
-    if (!$account->hasPermission('delete page_manager pages')) {
-      return AccessResult::forbidden();
-    }
-  }
-
   if ($operation == 'update') {
-    if (in_array('administrator', $account->getRoles())) {
-      return AccessResult::allowed();
-    }
-
-    // Check if user has update permission at all.
     if ($account->hasPermission('update own page_manager pages')) {
-      // Check if user owns the page.
+      /** @var Page $entity */
       if ($account->id() == $entity->getThirdPartySetting('ymca_page_manager', 'author')) {
         return AccessResult::allowed();
       }
-      return AccessResult::forbidden();
     }
-
   }
 
   return AccessResult::neutral();
@@ -80,13 +66,14 @@ function ymca_page_manager_block_content_access(EntityInterface $entity, $operat
       $pages = \Drupal::entityQuery('page')->execute();
       foreach ($pages as $page) {
 
-
         /** @var Page $page_entity */
         $page_entity = Page::load($page);
         if ($page_entity->getThirdPartySetting('ymca_page_manager', 'author') != $account->id()) {
+          // User has no access to the current page, so continue to search.
           continue;
         }
 
+        // Check all variants.
         $variants = $manager_page->load($page)->getVariants();
         foreach ($variants as $variant) {
           $settings = $variant->get('variant_settings');
@@ -107,6 +94,17 @@ function ymca_page_manager_block_content_access(EntityInterface $entity, $operat
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ymca_page_manager_form_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if user can access "access conditions".
+  $account = \Drupal::currentUser();
+  if (!$account->hasPermission('use page_manager access conditions')) {
+    $form['access_section_section']['#access'] = FALSE;
+  }
+}
+
+/**
  * Implements hook_entity_operation_alter().
  */
 function ymca_page_manager_entity_operation_alter(array &$operations, EntityInterface $entity) {
@@ -115,32 +113,7 @@ function ymca_page_manager_entity_operation_alter(array &$operations, EntityInte
   }
 
   // Remove "Disable" operation.
-  $account = Drupal::currentUser();
-  if (!$account->hasPermission('disable page_manager pages')) {
+  if (!$entity->access('update')) {
     unset($operations['disable']);
-  }
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function ymca_page_manager_form_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check if user can access "access conditions".
-  $account = Drupal::currentUser();
-  if (!$account->hasPermission('use page_manager access conditions')) {
-    $form['access_section_section']['#access'] = FALSE;
-  }
-}
-
-/**
- * Implements hook_entity_create_access().
- */
-function ymca_page_manager_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
-  if ($context['entity_type_id'] != 'page') {
-    return AccessResult::neutral();
-  }
-
-  if (!$account->hasPermission('create page_manager pages')) {
-    return AccessResult::forbidden();
   }
 }
