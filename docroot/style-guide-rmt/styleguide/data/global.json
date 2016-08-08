@@ -78,11 +78,15 @@
       "group":"hero_image"
     },
     {
-      "name":"block-hero--top--mobile",
+      "name":"block-hero--orange",
       "group":"hero_image"
     },
     {
-      "name":"block-hero--bottom--mobile",
+      "name":"block-hero--green",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--small",
       "group":"hero_image"
     }
   ]
