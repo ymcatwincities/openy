@@ -120,10 +120,6 @@
     {
       "name":"block-grid",
       "group":"Email_body"
-    },
-    {
-      "name":"block-grid--mobile",
-      "group":"Email_body"
     }
   ]
 }
