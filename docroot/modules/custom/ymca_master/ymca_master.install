@@ -4002,9 +4002,22 @@ function ymca_master_update_8169() {
 }
 
 /**
- * Make favicons configurable.
+ * YMCA-1001: Add permission to edit own page manager pages only.
  */
 function ymca_master_update_8170() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Make favicons configurable.
+ */
+function ymca_master_update_8171() {
   $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
   $destDir = 'public://favicon/';
   drupal_mkdir($destDir, 0777);
@@ -4030,8 +4043,7 @@ function ymca_master_update_8170() {
     if (count($existing_files)) {
       $existing = reset($existing_files);
       $fid = $existing->id();
-    }
-    else {
+    } else {
       file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
       $file = EntityFile::create([
         'uid' => 1,
