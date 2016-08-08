@@ -463,7 +463,7 @@ function ymca_preprocess_html(&$variables) {
   }
   $variables['attributes']->addClass($classes);
 
-  $iconFid = theme_get_setting('ymca_favicon')[0];
+  $iconFid = theme_get_setting('ymca_favicon_default')[0];
   if (
     in_array('theme_ymca_2013_location_home', $classes) ||
     in_array('theme_ymca_2013_location_category_and_detail', $classes)) {
