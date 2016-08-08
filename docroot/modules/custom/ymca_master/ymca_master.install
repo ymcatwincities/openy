@@ -4043,7 +4043,8 @@ function ymca_master_update_8171() {
     if (count($existing_files)) {
       $existing = reset($existing_files);
       $fid = $existing->id();
-    } else {
+    }
+    else {
       file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
       $file = EntityFile::create([
         'uid' => 1,
