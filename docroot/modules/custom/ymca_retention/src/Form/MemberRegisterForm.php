@@ -127,16 +127,17 @@ class MemberRegisterForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
-    $from_date = new \DateTime($settings->get('date_registration_open'));
-    $to_date = new \DateTime($settings->get('date_registration_close'));
+    $open_date = new \DateTime($settings->get('date_registration_open'));
+    $close_date = new \DateTime($settings->get('date_registration_close'));
     $current_date = new \DateTime();
-    if ($current_date < $from_date) {
+    // Before be
+    if ($current_date < $open_date) {
       $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Games open.', [
-        '%date' => $from_date->format('F j'),
+        '%date' => $open_date->format('F j'),
       ]));
       return;
     }
-    if ($current_date > $to_date) {
+    if ($current_date > $close_date) {
       $form_state->setErrorByName('form', $this->t('The Y Games are now closed and registration is no longer able to be tracked.'));
       return;
     }
@@ -231,12 +232,18 @@ class MemberRegisterForm extends FormBase {
     }
 
     // Calculate a goal for a member.
-    $goal = $settings->get('new_member_goal_number');
+    $goal = (int) $settings->get('new_member_goal_number');
     if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
       $limit_goal = $settings->get('limit_goal_number');
       $calculated_goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
       $goal = min(max($goal, $calculated_goal), $limit_goal);
     }
+    // Visit goal for late members.
+    $close_date = new \DateTime($settings->get('date_campaign_close'));
+    $count_days = $current_date->diff($close_date)->days;
+    // Set 1 if current date is a date when campaign will be closed.
+    $count_days = max(1, $count_days);
+    $goal = min($goal, $count_days);
 
     // Get information about number of checkins in period of campaign.
     $from = $settings->get('date_reporting_open');
