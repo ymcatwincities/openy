@@ -75,6 +75,7 @@
       ul {
         list-style: none;
         overflow: hidden;
+        padding-left: 0;
         li {
           float: left;
           padding: 0 22px 0 40px;
@@ -91,6 +92,9 @@
             margin-bottom: 50px;
             padding: 0 22px;
             width: 50%;
+            &:nth-child(3) {
+              clear: both;
+            }
           }
           @media screen and (min-width: 992px) {
             font-size: 17px;
@@ -422,6 +426,42 @@
       @media screen and (max-width: 767px) {
         font-size: 14px;
         line-height: 18px;
+      }
+      .morecontent span {
+        display: none;
+      }
+    }
+  }
+  .row > div {
+    img {
+      margin: 0;
+    }
+    @media screen and (min-width: 992px) {
+      &:nth-child(1) img {
+        margin: 10px 0 16px;
+      }
+      &:nth-child(2) img {
+        margin-bottom: 10px;
+      }
+      &:nth-child(3) img {
+        margin: 10px 0 12px;
+      }
+      &:nth-child(4) img {
+        margin: 43px 0 40px;
+      }
+    }
+    @media screen and (min-width: 1200px) {
+      &:nth-child(1) img {
+        margin: 15px 0 20px;
+      }
+      &:nth-child(2) img {
+        margin-bottom: 0;
+      }
+      &:nth-child(3) img {
+        margin: 15px 0 12px;
+      }
+      &:nth-child(4) img {
+        margin: 58px 0 48px;
       }
     }
   }
