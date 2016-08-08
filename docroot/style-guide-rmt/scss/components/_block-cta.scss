@@ -4,7 +4,6 @@
   padding: 0 10px 49px;
 
   &__content {
-    line-height: 25px;
     margin-bottom: 24px
   }
 
@@ -14,24 +13,29 @@
 
     img {
       width: 100%;
+      height: auto;
     }
   }
 
-  &--image-left {
-    &__image {
+  &--image--left {
+    .block-cta__image {
       float: left;
       margin-right: 30px;
       max-width: 123px;
-      overflow: hidden;
     }
 
-    &__title {
+    .block-cta__title {
       margin-bottom: 8px;
     }
 
-    &__content {
-      line-height: 24px;
-      min-height: 71px;
+    .block-cta__wrap-btn {
+      clear: both;
+    }
+  }
+
+  &--grid {
+    .block-cta__title {
+      margin-bottom: 8px;
     }
   }
 }
