@@ -596,6 +596,14 @@ function ymca_preprocess_page(&$variables) {
   if ($brand_title = theme_get_setting('brand_title')) {
     $variables['brand_title'] = $brand_title;
   }
+  $variables['youth_sports_inner'] = FALSE;
+  if (isset($variables['node']) && $variables['node']->hasField('field_template')) {
+    if ($template = $variables['node']->field_template->value) {
+      if ($template == 'youth_sports_inner') {
+        $variables['youth_sports_inner'] = TRUE;
+      }
+    }
+  }
 }
 
 /**

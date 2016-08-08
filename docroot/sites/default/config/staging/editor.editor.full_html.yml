@@ -61,6 +61,7 @@ settings:
             - Green3Columns
             - ClinicsSchedule
             - SessionSchedules
+            - SportsTopSubheader
   plugins:
     language:
       language_list: un
