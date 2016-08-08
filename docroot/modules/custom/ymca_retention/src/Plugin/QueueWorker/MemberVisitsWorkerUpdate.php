@@ -58,10 +58,10 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       ]);
       return;
     }
-    $current_visits = (int) $member->getVisits();
+    $current_visits = $member->getVisits();
 
     // Store updated visits counter.
-    if (isset($result->TotalVisits) && ((int) $result->TotalVisits != $current_visits)) {
+    if (isset($result->TotalVisits) && ($result->TotalVisits != $current_visits)) {
       $member->setVisits($result->TotalVisits);
       $member->save();
     }
