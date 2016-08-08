@@ -14,9 +14,6 @@
 @import 'helpers/functions';
 @import 'helpers/mixins';
 
-// Reset
-@import 'base/reset';
-
 //Base
 @import 'base/variables';
 @import 'base/colors';
@@ -24,7 +21,6 @@
 @import 'base/grid';
 @import 'base/typography';
 @import 'base/btn';
-@import 'base/form';
 
 // Helper classes
 @import 'helpers/helpers';

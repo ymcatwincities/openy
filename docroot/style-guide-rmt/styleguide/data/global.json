@@ -30,8 +30,19 @@
   ],
   "list_components":[
     {
-      "id":"YRMT-9",
       "name":"button",
+      "group":"active_element"
+    },
+    {
+      "name":"button-has-icon",
+      "group":"active_element"
+    },
+    {
+      "name":"links",
+      "group":"active_element"
+    },
+    {
+      "name":"links-has-icon",
       "group":"active_element"
     }
   ]
