@@ -346,6 +346,7 @@ display:
         weight: 0
         context: '0'
         menu_name: top-menu
+        enabled: true
       style:
         type: html_list
         options:

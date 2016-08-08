@@ -6,6 +6,9 @@ dependencies:
     - page_manager.page.ymca_retention_pages
   module:
     - panels
+    - system
+_core:
+  default_config_hash: zMEou3tlwPDzmR24AoM9aLGIi8ZcAhtOc7qPsSdTvZQ
 id: y_game_default
 label: 'Y Game Default'
 variant: panels_variant
@@ -24,6 +27,12 @@ variant_settings:
   builder: standard
 page: ymca_retention_pages
 weight: -10
-selection_criteria: {  }
+selection_criteria:
+  e06cb8b8-41a3-41cf-8e8a-ea9cbd28de82:
+    id: request_path
+    pages: /ygames/default
+    negate: false
+    context_mapping: {  }
+    uuid: e06cb8b8-41a3-41cf-8e8a-ea9cbd28de82
 selection_logic: and
 static_context: {  }

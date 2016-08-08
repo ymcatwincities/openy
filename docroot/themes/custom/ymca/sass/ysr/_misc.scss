@@ -13,8 +13,8 @@
 }
 
 .viewport {
-  background: #fff;
-  padding-top: 0;
+  @include rem(padding-top, 72px);
+  background: $white;
 }
 
 #main {
@@ -27,9 +27,9 @@
 }
 
 #top-nav {
+  @include rem(height, 72px);
+  @include rem(line-height, 72px);
   background-color: $purple-dark;
-  height: 7.2rem;
-  line-height: 7.2rem;
   padding: 0;
   position: fixed;
   top: 0;
@@ -37,23 +37,23 @@
   z-index: 10;
 
   ul {
+    @include rem(padding-right, 30px);
     float: right;
     height: auto !important;
     list-style-image: none;
     list-style-type: none;
     margin: 0;
     padding-left: 0;
-    padding-right: 3rem;
 
     &.collapse {
-      @media screen and (min-width: 768px) {
+      @include breakpoint($tablet) {
         display: block;
       }
     }
 
     li {
+      @include rem(line-height, 71px);
       display: inline-block;
-      line-height: 7.1rem;
 
       a {
         @include cachet();
@@ -219,7 +219,6 @@
 }
 
 #hero-section {
-  @include rem(margin-top, 72px);
   @include rem(padding, 47px 0 0 0);
   background-color: #2a193b;
   position: relative;
@@ -260,15 +259,23 @@
   }
 
   .shape-container {
-    @include rem(height, 806px);
-    @include rem(top, 131px);
+    @include rem(height, 1031px);
+    @include rem(padding-top, 131px);
+    max-height: 100%;
     overflow: hidden;
     position: absolute;
+    top: 0;
     width: 100%;
     z-index: 2;
 
+    .shapes-wrapper {
+      height: 100%;
+      position: relative;
+      width: 100%;
+    }
+
     .shape {
-      @include rem(background-size, 1920px 806px);
+      @include rem(background-size, 1920px 900px);
       @include transform(translateX(-50%));
       @include transition(opacity 0.5s);
       background-position: top center;
@@ -417,7 +424,6 @@
 
 #register-and-report {
   position: relative;
-  overflow: hidden;
   z-index: 3;
 
   p {
@@ -504,10 +510,10 @@
       justify-content: space-between;
 
       @media(max-width: 370px) {
-        letter-spacing: -2.5px;
+        letter-spacing: -0.5px;
       }
       @media(max-width: 440px) {
-        letter-spacing: -2px;
+        letter-spacing: -1px;
       }
       @media(min-width: 768px) and (max-width: 825px) {
         letter-spacing: -2.5px;
@@ -682,11 +688,17 @@
 
 #leaderboard {
   @include rem(margin-bottom, 60px);
-  @include rem(padding-top, 50px);
 
   @include breakpoint($tablet) {
     @include rem(margin-bottom, 160px);
-    @include rem(padding-top, 100px);
+  }
+
+  .leaderboard-inner {
+    @include rem(padding-top, 50px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 100px);
+    }
   }
 
   .col-xs-12 {
@@ -1216,22 +1228,6 @@
   }
 }
 
-body {
-  &.toolbar-fixed.toolbar-vertical {
-    #top-nav {
-      margin-top: 39px;
-    }
-    #hero-section {
-      margin-top: 20px;
-    }
-  }
-  &.toolbar-fixed.toolbar-horizontal {
-    #top-nav {
-      margin-top: 79px;
-    }
-  }
-}
-
 // Hero section compact variation.
 .ysr-compact-header {
   #hero-section {
@@ -1300,3 +1296,49 @@ body {
     background-image: url(../prototypes/ysr/img/throbber-white.svg);
   }
 }
+
+
+body {
+  .ysr-offset:before {
+    @include rem(height, 72px);
+    @include rem(margin-top, -72px);
+    content: " ";
+    display: block;
+    visibility: hidden;
+  }
+
+  &.toolbar-fixed.toolbar-vertical {
+    margin-top: 0;
+
+    #top-nav {
+      margin-top: 39px;
+    }
+    .ysr-offset:before {
+      @include rem(height, 72px+39px);
+      @include rem(margin-top, -72px-39px);
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal {
+    margin-top: 0;
+
+    #top-nav {
+      margin-top: 39px;
+    }
+    .ysr-offset:before {
+      @include rem(height, 72px+39px);
+      @include rem(margin-top, -72px-39px);
+    }
+  }
+  &.toolbar-fixed.toolbar-horizontal.toolbar-tray-open {
+    margin-top: 0;
+
+    #top-nav {
+      margin-top: 79px;
+    }
+    .ysr-offset:before {
+      @include rem(height, 72px+79px);
+      @include rem(margin-top, -72px-79px);
+    }
+  }
+}
+

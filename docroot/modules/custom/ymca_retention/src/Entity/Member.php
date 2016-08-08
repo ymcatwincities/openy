@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ymca_retention\MemberInterface;
-use Drupal\Core\Entity\Entity;
 
 /**
  * Defines the Member entity.
@@ -67,7 +66,6 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setLabel(t('Email'))
       ->setDescription(t('The email of this user.'))
       ->setDefaultValue('')
-      ->addConstraint('UserMailUnique')
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',

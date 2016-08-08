@@ -942,6 +942,8 @@ display:
         description: ''
         weight: 0
         context: ''
+        enabled: true
+        expanded: false
       display_description: ''
       defaults:
         pager: true
@@ -1326,6 +1328,8 @@ display:
         description: 'Overview content that uses this file'
         weight: 5
         context: '0'
+        enabled: true
+        expanded: false
       tab_options:
         type: none
         title: ''

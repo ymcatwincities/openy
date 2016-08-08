@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333333;
+  background-color: #ffffff;
+  text-align: center;
+}
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+a {
+  color: #ffab40;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #ffab40;
+  text-decoration: underline;
+}
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.body-coming-soon {
+  margin-bottom: 0 !important;
+}
+.coming-soon_countdown {
+  margin-bottom: 36px;
+  padding: 90px 0;
+  background: url(../images/bg_coming-soon.jpg) no-repeat center bottom / cover;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
+}
+.coming-soon-logo,
+.coming-soon-title {
+  margin-top: 0;
+  margin-bottom: 36px;
+}
+.countdown-row {
+  display: block;
+}
+.countdown-section {
+  display: inline-block;
+}
+.countdown-amount {
+  display: block;
+  width: 100px;
+  margin: 0 5px 10px;
+  padding: 40px 10px;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.45) 100%);
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.45) 100%);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.45) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4d000000', endColorstr='#73000000', GradientType=0);
+  border-radius: 4px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.countdown-period {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+}
+.coming-soon_note {
+  text-align: center;
+}
+.coming-soon-note_caption {
+  margin-bottom: 18px;
+  font-size: 17px;
+  color: #777777;
+}
+footer{
+  color: #777777;
+  margin: 30px 15px;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .coming-soon_countdown {
+    padding: 36px 0;
+  }
+  .coming-soon-logo,
+  .coming-soon-title {
+    margin-bottom: 18px;
+  }
+  .coming-soon-logo {
+    font-size: 24px;
+  }
+  .coming-soon-title {
+    font-size: 17px;
+  }
+  .countdown-amount {
+    width: 50px;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 17px;
+  }
+}

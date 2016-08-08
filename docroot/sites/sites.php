@@ -57,6 +57,9 @@
 // Array of sites that keyed by site folder in sites/[folder_name].
 $custom_sites = array(
   'openy' => array(
+    'dev.getopeny.org',
+    'stg.getopeny.org',
+    'prod.getopeny.org',
     'openy.prod.ygtc.ffwagency.md',
     'openy.stg.ygtc.ffwagency.md',
     'openy.dev.ygtc.ffwagency.md',
@@ -64,6 +67,9 @@ $custom_sites = array(
     'openy.192.168.56.132.xip.io',
   ),
   'ymca_redwing' => array(
+    'dev.redwing.getopeny.org',
+    'stg.redwing.getopeny.org',
+    'prod.redwing.getopeny.org',
     'redwing.prod.ygtc.ffwagency.md',
     'redwing.stg.ygtc.ffwagency.md',
     'redwing.dev.ygtc.ffwagency.md',
