@@ -9254,7 +9254,7 @@ body .ajax-progress-throbber .throbber {
   color: #afafae;
   font-style: italic;
   white-space: nowrap;
-  margin-left: 5px;
+  margin-left: 22px;
 }
 @media screen and (min-width: 768px) and (max-width: 1110px) {
   .groupex-results table td.time-duration .duration {
