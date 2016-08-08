@@ -15,6 +15,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Path;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_preprocess_block() for block content.
@@ -590,6 +591,17 @@ function ymca_preprocess_page(&$variables) {
   if (\Drupal::service('current_route_match')->getRouteName() == 'ymca_frontend.location_schedules' ||
     \Drupal::service('current_route_match')->getRouteName() == 'ymca_groupex.schedules_search_results') {
     $variables['page_schedules'] = TRUE;
+  }
+  if ($brand_title = theme_get_setting('brand_title')) {
+    $variables['brand_title'] = $brand_title;
+  }
+  $variables['youth_sports_inner'] = FALSE;
+  if (isset($variables['node']) && $variables['node']->hasField('field_template')) {
+    if ($template = $variables['node']->field_template->value) {
+      if ($template == 'youth_sports_inner') {
+        $variables['youth_sports_inner'] = TRUE;
+      }
+    }
   }
 }
 
@@ -1173,6 +1185,238 @@ function ymca_page_attachments_alter(array &$page) {
       }
     }
   }
+  if ($styles = ymca_get_theme_styles()) {
+    $page['#attached']['html_head'][] = [[
+      '#tag' => 'style',
+      '#value' => $styles,
+    ]];
+  }
+}
+/**
+ * Returns styles based on theme settings.
+ */
+function ymca_get_theme_styles() {
+  $styles = '';
+  if ($logo_path = theme_get_setting('logo.path')) {
+    $styles .= 'body .navbar-default .navbar-brand, body .footer-brand {background-image: url(' . file_create_url($logo_path) . ');}';
+  }
+  if ($logo_camps_fid = theme_get_setting('logo_camps')) {
+    if (!empty($logo_camps_fid)) {
+      $file = file_load($logo_camps_fid[0]);
+      if ($file) {
+        $uri = $file->getFileUri();
+      }
+    }
+    $styles .= 'body.ancestor-camps .navbar-default .navbar-brand, body.ancestor-camps .footer-brand {background-image: url(' . file_create_url($uri) . ');}';
+  }
+  if ($header_background_color_base = theme_get_setting('header_background_color_base')) {
+    $styles .= 'body .masthead {background: ' . $header_background_color_base . ';}';
+  }
+  if ($header_sub_background_color = theme_get_setting('header_sub_background_color')) {
+    $styles .= 'body .masthead-menu {background: ' . $header_sub_background_color . ';}';
+  }
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $site_section_bundle = $site_section->bundle();
+    switch ($site_section_bundle) {
+      case 'location':
+        if ($header_background_color_locations = theme_get_setting('header_background_color_locations')) {
+          $styles .= 'body .location-masthead {background: ' . $header_background_color_locations . ';}';
+        }
+        if ($header_sub_background_color_locations = theme_get_setting('header_sub_background_color_locations')) {
+          $styles .= 'body .location-details.masthead-menu {background: ' . $header_sub_background_color_locations . ';}';
+        }
+        if ($header_buttons_color1_locations = theme_get_setting('header_buttons_color1_locations')) {
+          $styles .= 'body .masthead-button a {background-color: ' . $header_buttons_color1_locations . ';}';
+        }
+        if ($header_buttons_color2_locations = theme_get_setting('header_buttons_color2_locations')) {
+          $styles .= 'body .masthead-button a {
+            background-image: -webkit-linear-gradient(' . $header_buttons_color2_locations .', rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(' . $header_buttons_color2_locations .', rgba(0, 0, 0, 0));
+            background-image: -ms-linear-gradient(' . $header_buttons_color2_locations .', rgba(0, 0, 0, 0));
+            background-image: linear-gradient(' . $header_buttons_color2_locations .', rgba(0, 0, 0, 0));}';
+        }
+        break;
+      case 'camp':
+        if ($header_background_color_camps = theme_get_setting('header_background_color_camps')) {
+          $styles .= 'body.ancestor-camps .location-masthead {background: ' . $header_background_color_camps . ';}';
+        }
+        if ($header_sub_background_color_camps = theme_get_setting('header_sub_background_color_camps')) {
+          $styles .= 'body .location-details.masthead-menu {background: ' . $header_sub_background_color_camps . ';}';
+        }
+        if ($header_buttons_color1_camps = theme_get_setting('header_buttons_color1_camps')) {
+          $styles .= 'body.ancestor-camps .masthead .btn, body.ancestor-camps .btn-primary {background-color: ' . $header_buttons_color1_camps . ';}';
+        }
+        if ($header_buttons_color2_camps = theme_get_setting('header_buttons_color2_camps')) {
+          $styles .= 'body.ancestor-camps .masthead .btn, body.ancestor-camps .btn-primary {
+            background-image: -webkit-linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));
+            background-image: -ms-linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));
+            background-image: linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));}';
+        }
+        break;
+    }
+  }
+  if ($links_color = theme_get_setting('links_color')) {
+    $styles .= 'body a {color: ' . $links_color . ';}';
+  }
+  if ($links_color_hover = theme_get_setting('links_color_hover')) {
+    $styles .= 'body a:hover {color: ' . $links_color_hover . ';}';
+  }
+  if ($camps_links_color = theme_get_setting('camps_links_color')) {
+    $styles .= '.ancestor-camps a {color: ' . $camps_links_color . ';}';
+  }
+  if ($camps_links_color_hover = theme_get_setting('camps_links_color_hover')) {
+    $styles .= '.ancestor-camps a:hover {color: ' . $camps_links_color_hover . ';}';
+  }
+  if ($header_home_button_bg_color = theme_get_setting('header_home_button_bg_color')) {
+    $styles .= 'body.page_home .masthead .btn-info {background-color: ' . $header_home_button_bg_color . ';}';
+  }
+  if ($header_home_button_border_color = theme_get_setting('header_home_button_border_color')) {
+    $styles .= 'body.page_home .masthead .btn-info {border-color: ' . $header_home_button_border_color . ';}';
+  }
+  if ($header_buttons_color1_base = theme_get_setting('header_buttons_color1_base')) {
+    $styles .= 'body .carousel-caption .btn, body .btn-primary {background-color: ' . $header_buttons_color1_base . ';}';
+  }
+  if ($header_buttons_color2_base = theme_get_setting('header_buttons_color2_base')) {
+    $styles .= 'body .carousel-caption .btn, body .btn-primary {
+      background-image: -webkit-linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));
+      background-image: -moz-linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));
+      background-image: -ms-linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));
+      background-image: linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));}';
+  }
+  return $styles;
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['ymca_settings']['brand_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Brand title'),
+    '#default_value' => theme_get_setting('brand_title'),
+    '#description' => t('Displays on front page in header.'),
+  );
+  $form['ymca_settings']['styles'] = array(
+    '#type' => 'details',
+    '#title' => t('Styles'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+  $form['ymca_settings']['styles']['links_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Links color'),
+    '#default_value' => theme_get_setting('links_color'),
+    '#description' => t('Leave empty for basic styles.'),
+  );
+  $form['ymca_settings']['styles']['links_color_hover'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Links color (mouseover)'),
+    '#default_value' => theme_get_setting('links_color_hover'),
+    '#description' => t('Leave empty for basic styles.'),
+  );
+  $form['ymca_settings']['styles']['header_background_color_base'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header background color'),
+    '#default_value' => theme_get_setting('header_background_color_base'),
+    '#description' => t('Applies for entire headers on site except overridden.'),
+  );
+  $form['ymca_settings']['styles']['header_sub_background_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header sub-background color'),
+    '#default_value' => theme_get_setting('header_sub_background_color'),
+    '#description' => t('Applies for entire headers on site except overridden.'),
+  );
+  $form['ymca_settings']['styles']['header_background_color_locations'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header background color for locations'),
+    '#default_value' => theme_get_setting('header_background_color_locations'),
+    '#description' => t('Applies for locations headers.'),
+  );
+  $form['ymca_settings']['styles']['header_sub_background_color_locations'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header sub-background color for locations'),
+    '#default_value' => theme_get_setting('header_sub_background_color_locations'),
+    '#description' => t('Applies for locations headers.'),
+  );
+  $form['ymca_settings']['styles']['header_background_color_camps'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header background color for camps'),
+    '#default_value' => theme_get_setting('header_background_color_camps'),
+    '#description' => t('Applies for camps headers.'),
+  );
+  $form['ymca_settings']['styles']['header_sub_background_color_camps'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header sub-background color for camps'),
+    '#default_value' => theme_get_setting('header_sub_background_color_camps'),
+    '#description' => t('Applies for camps headers.'),
+  );
+  $form['ymca_settings']['styles']['header_home_button_bg_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header button background color'),
+    '#default_value' => theme_get_setting('header_home_button_bg_color'),
+    '#description' => t('Applies only for home page header button.'),
+  );
+  $form['ymca_settings']['styles']['header_home_button_border_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header button border color'),
+    '#default_value' => theme_get_setting('header_home_button_border_color'),
+    '#description' => t('Applies only for home page header button.'),
+  );
+  $form['ymca_settings']['styles']['header_buttons_color1_base'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basic buttons color'),
+    '#default_value' => theme_get_setting('header_buttons_color1_base'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['header_buttons_color2_base'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basic buttons color (optional)'),
+    '#default_value' => theme_get_setting('header_buttons_color2_base'),
+    '#description' => t('Add additional color for gradient support.'),
+  );
+  $form['ymca_settings']['styles']['header_buttons_color1_locations'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header locations buttons color'),
+    '#default_value' => theme_get_setting('header_buttons_color1_locations'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['header_buttons_color2_locations'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header locations buttons color (optional)'),
+    '#default_value' => theme_get_setting('header_buttons_color2_locations'),
+    '#description' => t('Add additional color for gradient support.'),
+  );
+  $form['ymca_settings']['styles']['header_buttons_color1_camps'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header camps buttons color'),
+    '#default_value' => theme_get_setting('header_buttons_color1_camps'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['header_buttons_color2_camps'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header camps buttons color (optional)'),
+    '#default_value' => theme_get_setting('header_buttons_color2_camps'),
+    '#description' => t('Add additional color for gradient support.'),
+  );
+  $form['ymca_settings']['styles']['camps_links_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Camps links color'),
+    '#default_value' => theme_get_setting('camps_links_color'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['camps_links_color_hover'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Camps links color (mouseover)'),
+    '#default_value' => theme_get_setting('camps_links_color_hover'),
+    '#description' => '',
+  );
+  $form['ymca_settings']['styles']['logo_camps'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camps logo'),
+    '#default_value' => theme_get_setting('logo_camps'),
+    '#upload_location' => 'public://',
+  );
 }
 
 /**

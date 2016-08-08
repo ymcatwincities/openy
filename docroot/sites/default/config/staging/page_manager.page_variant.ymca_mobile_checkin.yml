@@ -7,6 +7,8 @@ dependencies:
   module:
     - panels
     - ymca_mobile_checkin
+_core:
+  default_config_hash: eEC5XCZUKwiEGv8qRakCgViZJqr6U_NBHKsmQ0gXotM
 id: ymca_mobile_checkin
 label: 'YMCA Mobile Check-in'
 variant: panels_variant
@@ -21,7 +23,7 @@ variant_settings:
         - ''
       plist: ''
       region: middle
-      weight: 0
+      weight: -9
       uuid: 7cb1fa16-662d-4874-a125-150ffe65d819
       context_mapping: {  }
     0930b2ee-d85d-455e-8781-454f3cef06a3:
@@ -30,10 +32,10 @@ variant_settings:
       provider: ymca_mobile_checkin
       label_display: visible
       ipa:
-        - ''
-      plist: ''
+        - '16576'
+      plist: 'public://ymca_mobile_checkin/YGTC-Prod.ipa.plist'
       region: middle
-      weight: 0
+      weight: -10
       uuid: 0930b2ee-d85d-455e-8781-454f3cef06a3
       context_mapping: {  }
   id: panels_variant
