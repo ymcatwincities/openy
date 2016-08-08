@@ -130,7 +130,6 @@ class MemberRegisterForm extends FormBase {
     $open_date = new \DateTime($settings->get('date_registration_open'));
     $close_date = new \DateTime($settings->get('date_registration_close'));
     $current_date = new \DateTime();
-    // Before be
     if ($current_date < $open_date) {
       $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Games open.', [
         '%date' => $open_date->format('F j'),
