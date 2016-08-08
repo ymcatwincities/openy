@@ -193,20 +193,18 @@
 {% endif %}
 <!-- End Page Title ---- >
 
+    <!--Content top-->
+{% if page.content_top %}
+  <div class="row">
+    {{ page.content_top }}
+  </div>
+{% endif %}
+<!--End Content top-->
 
 <!-- layout -->
 <div id="wrapper">
   <!-- start: Container -->
   <div class="container">
-    
-    <!--Content top-->
-      {% if page.content_top %}
-        <div class="row">
-          {{ page.content_top }}
-        </div>
-      {% endif %}
-    <!--End Content top-->
-    
     <!--start:content -->
     <div class="row">
       <div class="col-md-12">{{ page.breadcrumb }}</div>
@@ -245,18 +243,15 @@
       
     </div>
     <!--End Content -->
-
-    <!--Start Content Bottom-->
-    {% if page.content_bottom %}
-      <div class="row">
-        {{ page.content_bottom }}
-      </div>
-    {% endif %}
-    <!--End Content Bottom-->
   </div>
 </div>
 <!-- End layout -->
 
+<!--Start Content Bottom-->
+{% if page.content_bottom %}
+    {{ page.content_bottom }}
+{% endif %}
+<!--End Content Bottom-->
 
 <!-- topwidget Widget -->
 {% if is_front %}  
