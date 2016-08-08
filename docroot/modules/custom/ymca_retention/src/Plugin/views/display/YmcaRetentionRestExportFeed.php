@@ -10,20 +10,20 @@ use Drupal\views_rest_feed\Plugin\views\display\RestExportFeed;
 /**
  * The plugin that handles Data response callbacks for REST resources.
  *
- * The plugin disable cache tags for this display.
+ * The plugin disables cache tags for this display.
  *
  * @ingroup views_display_plugins
  *
  * @ViewsDisplay(
- *   id = "ymca_retention_rest_export",
+ *   id = "ymca_retention_rest_export_feed",
  *   title = @Translation("YMCA Retention REST export feed"),
  *   help = @Translation("Create a REST export resource feed."),
  *   uses_route = TRUE,
- *   admin = @Translation("REST export feed"),
+ *   admin = @Translation("YMCA Retention REST export feed"),
  *   returns_response = TRUE
  * )
  */
-class YmcaRetentionRestExport extends RestExportFeed {
+class YmcaRetentionRestExportFeed extends RestExportFeed {
 
   /**
    * {@inheritdoc}
