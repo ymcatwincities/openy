@@ -7,6 +7,8 @@ dependencies:
   module:
     - panels
     - ymca_retention
+_core:
+  default_config_hash: V-xfEHCHpkF7d7VOI-OdsyKsLxQfeXZiFTwsxUr9Wn0
 id: y_game_content
 label: 'Y Game Content'
 variant: panels_variant
@@ -26,7 +28,7 @@ variant_settings:
       label: 'YMCA retention campaign intro block'
       provider: ymca_retention
       label_display: '0'
-      region: intro
+      region: hero
       weight: 0
       uuid: b641b5b5-1241-44f0-8d7c-797f87cfd8ae
       context_mapping: {  }
@@ -53,7 +55,7 @@ variant_settings:
       label: 'YMCA retention slider block'
       provider: ymca_retention
       label_display: '0'
-      region: slider
+      region: main
       weight: 0
       uuid: 2c597165-2df1-4375-b717-41c7b0712a59
       context_mapping: {  }
@@ -62,7 +64,7 @@ variant_settings:
       label: 'YMCA retention leaderboard block'
       provider: ymca_retention
       label_display: '0'
-      region: leaderboard
+      region: main
       weight: 0
       uuid: c7eeee4c-63df-49b8-b75d-4339a7494672
       context_mapping: {  }
@@ -70,7 +72,7 @@ variant_settings:
   uuid: d0be25ba-a965-471b-9764-0353dee21f9e
   label: null
   weight: 0
-  layout: retention-campaign
+  layout: ymca-retention
   layout_settings:
     extra_classes: ''
   page_title: 'Y GAMES 2016'

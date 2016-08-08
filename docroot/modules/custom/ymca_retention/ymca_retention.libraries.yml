@@ -37,3 +37,12 @@ activity:
     - ymca_retention/angular-promise-tracker
     - core/drupal
     - core/drupalSettings
+
+winners:
+  version: VERSION
+  js:
+    js/winners.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - core/drupal
+    - core/drupalSettings
