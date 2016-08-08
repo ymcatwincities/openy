@@ -54,6 +54,14 @@ ymca_retention.settings:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_branches:
+  path: '/admin/config/system/ymca-retention/branches'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsBranchesForm'
+    _title: 'YMCA Retention Branches'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.settings_cron:
   path: '/admin/config/system/ymca-retention/cron'
   defaults:

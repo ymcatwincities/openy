@@ -5,6 +5,7 @@ namespace Drupal\ymca_retention;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\taxonomy\TermStorage;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\ymca_mappings\LocationMappingRepository;
 use Drupal\ymca_retention\Entity\Member;
 
 /**
@@ -94,24 +95,20 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       ->groupBy('branch')
       ->aggregate('id', 'COUNT')
       ->execute();
+
+    $settings = \Drupal::config('ymca_retention.branches_settings');
+    $excluded_branches = $settings->get('excluded_branches');
     $branch_ids = [];
     foreach ($branches as $branch) {
+      if (in_array($branch['branch'], $excluded_branches)) {
+        continue;
+      }
       $branch_ids[] = $branch['branch'];
     }
 
-    $locations = [];
-    if ($branch_ids) {
-      // Find location names for found branch ids.
-      $location_ids = \Drupal::entityQuery('mapping')
-        ->condition('type', 'location')
-        ->condition('field_location_personify_brcode', $branch_ids, 'IN')
-        ->sort('name', 'ASC')
-        ->execute();
-
-      $locations = \Drupal::entityTypeManager()
-        ->getStorage('mapping')
-        ->loadMultiple($location_ids);
-    }
+    /** @var LocationMappingRepository $repo */
+    $repo = \Drupal::service('ymca_mappings.location_repository');
+    $locations = $repo->findByLocationPersonifyBranchCode($branch_ids);
 
     $locations_list = [
       [

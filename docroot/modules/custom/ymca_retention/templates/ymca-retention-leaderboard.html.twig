@@ -1,4 +1,4 @@
-<div id="leaderboard-app" class="row" data-ng-controller="LeaderboardController">
+<div id="leaderboard-app" class="leaderboard-inner row" data-ng-controller="LeaderboardController">
   <div class="container">
     <div class="col-xs-12">
       <div class="wrap">
@@ -6,7 +6,7 @@
       </div>
       <h2>{{ 'Leaderboard'|t }}</h2>
 
-      <form action="#" class="leaderboard-form">
+      <form action="#" class="leaderboard-form ng-hide" data-ng-show="active">
         <select name="location" id="leaderboard-location" class="form-select form-control text default"
                 data-ng-model="location"
                 data-ng-change="locationChange(location)"
@@ -45,7 +45,7 @@
       <div class="pager ng-hide" data-ng-show="quantity < members.length" data-ng-click="loadMore()">
         <a class="load-more">{{ '+ Show 20 more'|t }}</a>
       </div>
-      <div class="description">{{ 'Leaderboard updated approximately every six hours.'|t }}</div>
+      <div class="description">{{ description }}</div>
     </div>
   </div>
 </div>
