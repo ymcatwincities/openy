@@ -25,24 +25,17 @@
 
   &__item {
     border-bottom: 1px solid $gray-f0;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
 
     &__content {
-      border: 1px dotted $gray-f0;
-      color: $gray-cc;
-      margin: 40px auto 43px;
+      margin: 0 auto 15px;
       max-width: 456px;
-      padding: 10px;
-      text-align: center;
-    }
-
-    &:first-of-type {
-      .block-body__item__content {
-        margin-top: 31px;
-      }
     }
 
     &:last-child {
       border-bottom: none;
+      margin-bottom: 0;
     }
   }
 }
