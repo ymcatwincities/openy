@@ -3988,9 +3988,21 @@ function ymca_master_update_8168() {
 }
 
 /**
- * YMCA-1001: Add permission to edit own page manager pages only.
+ * Add a new plugin to ckeditor.
  */
 function ymca_master_update_8169() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1001: Add permission to edit own page manager pages only.
+ */
+function ymca_master_update_8170() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
