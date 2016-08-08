@@ -4,7 +4,7 @@
 
   &__title {
     align-items: center;
-    background-image: url("../images/bg-body-title.png");
+    background-image: url("http://thuvienthongtin.net/sites/icons/bg-body-title.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     color: $white;
@@ -20,6 +20,11 @@
     &__icon {
       display: flex;
       margin-right: 9px;
+
+      img {
+        height: auto;
+        width: 32px;
+      }
     }
   }
 
