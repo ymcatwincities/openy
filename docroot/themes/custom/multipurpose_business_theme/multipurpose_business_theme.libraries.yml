@@ -4,6 +4,7 @@ bootstrap:
     theme:
       includes/bootstrap/css/bootstrap.min.css: {}
       includes/bootstrap/css/docs.min.css: {}
+      css/style.css: {}
   js:
     includes/bootstrap/js/bootstrap.min.js: {}
   dependencies:
