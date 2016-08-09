@@ -5,6 +5,7 @@ namespace Drupal\ymca_retention;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Queue\QueueFactory;
 
 /**
  * Defines a regular updater service.
@@ -33,6 +34,13 @@ class RegularUpdater implements RegularUpdaterInterface {
   protected $loggerFactory;
 
   /**
+   * The queue factory.
+   *
+   * @var \Drupal\Core\Queue\QueueFactory
+   */
+  protected $queueFactory;
+
+  /**
    * Creates a new RegularUpdater.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -41,11 +49,19 @@ class RegularUpdater implements RegularUpdaterInterface {
    *   The entity type manager.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger channel factory.
+   * @param \Drupal\Core\Queue\QueueFactory $queue_factory
+   *   The queue factory.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    EntityTypeManagerInterface $entity_type_manager,
+    LoggerChannelFactoryInterface $logger_factory,
+    QueueFactory $queue_factory
+  ) {
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
     $this->loggerFactory = $logger_factory;
+    $this->queueFactory = $queue_factory;
   }
 
   /**
@@ -105,7 +121,7 @@ class RegularUpdater implements RegularUpdaterInterface {
   public function createQueue() {
     // @todo move this condition to the method isAllowed() in the future.
     // Get campaign dates settings.
-    $settings = \Drupal::config('ymca_retention.general_settings');
+    $settings = $this->configFactory->get('ymca_retention.general_settings');
     $date_open = new \DateTime($settings->get('date_campaign_open'));
     $date_close = new \DateTime($settings->get('date_campaign_close'));
     // Add 1 day to closing date to get visits for the last day.
@@ -115,7 +131,7 @@ class RegularUpdater implements RegularUpdaterInterface {
       return;
     }
 
-    $queue = \Drupal::queue('ymca_retention_updates_member_visits');
+    $queue = $this->queueFactory->get('ymca_retention_updates_member_visits');
     $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple();
 

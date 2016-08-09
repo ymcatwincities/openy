@@ -1,0 +1,199 @@
+<div id="winners" class="winners" data-ng-controller="WinnersController">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="wrap">
+          <img src="{{ base_path }}themes/custom/ymca/prototypes/ysr/img/cup.png" alt="{{ 'Winners'|t }}">
+        </div>
+        <h2>{{ 'Winners'|t }}</h2>
+
+        <form action="#" class="leaderboard-form">
+          <select name="location" id="leaderboard-location" class="form-select form-control text default"
+                  data-ng-model="location"
+                  data-ng-change="locationChange(location)"
+                  data-ng-options="location as location.name for location in locations track by location.branch_id">
+          </select>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="prize prize--gold ng-hide" data-ng-show="winners_show">
+      <div class="prize__header">
+        <span class="prize__header__name">{{ 'Gold Prize'|t }}</span>
+      </div>
+      <div class="prize__prizes">
+        <div class="row">
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--medallion prize__prize--medallion-gold">
+            <span class="prize__prize__title">{{ 'Gold Medallion'|t }}</span>
+          </div>
+          <div class="col-xs-2 col-sm-1 prize__prize prize__prize--separator"></div>
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--membership">
+            <span class="prize__prize__title">{{ '1&nbsp;Month of&nbsp;Membership'|t }}</span>
+          </div>
+          <div class="hidden-xs col-sm-1 prize__prize prize__prize--separator"></div>
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--towel">
+            <span class="prize__prize__title">{{ '3&nbsp;Months&nbsp;of Towel&nbsp;Service'|t }}</span>
+          </div>
+          <div class="col-xs-2 col-sm-1 prize__prize prize__prize--separator"></div>
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--bottle">
+            <span class="prize__prize__title">{{ 'Hydro&nbsp;Flask Water&nbsp;Bottle'|t }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="prize__winners">
+        <div class="prize__winners__category prize__winners__category--swimming">
+          <div class="category__name">
+            {{ 'Swimming'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[1].swimming.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[1].swimming.first_name}}' }} {{ '{{winners[1].swimming.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--fitness">
+          <div class="category__name">
+            {{ 'Fitness'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[1].fitness.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[1].fitness.first_name}}' }} {{ '{{winners[1].fitness.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--groupex">
+          <div class="category__name">
+            {{ 'Group Exercise'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[1].groupex.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[1].groupex.first_name}}' }} {{ '{{winners[1].groupex.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--visits">
+          <div class="category__name">
+            {{ 'Visit Goal'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[1].visits.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[1].visits.first_name}}' }} {{ '{{winners[1].visits.last_name}}' }}.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prize prize--silver ng-hide" data-ng-show="winners_show">
+      <div class="prize__header">
+        <span class="prize__header__name">{{ 'Silver Prize'|t }}</span>
+      </div>
+      <div class="prize__prizes">
+        <div class="row">
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--medallion prize__prize--medallion-silver">
+            <span class="prize__prize__title">{{ 'Silver Medallion'|t }}</span>
+          </div>
+          <div class="col-xs-2 col-sm-1 prize__prize prize__prize--separator"></div>
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--towel">
+            <span class="prize__prize__title">{{ '3 Months of Towel&nbsp;Service'|t }}</span>
+          </div>
+          <div class="col-xs-2 col-sm-1 prize__prize prize__prize--separator"></div>
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--bottle">
+            <span class="prize__prize__title">{{ 'Hydro&nbsp;Flask Water&nbsp;Bottle'|t }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="prize__winners">
+        <div class="prize__winners__category prize__winners__category--swimming">
+          <div class="category__name">
+            {{ 'Swimming'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[2].swimming.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[2].swimming.first_name}}' }} {{ '{{winners[2].swimming.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--fitness">
+          <div class="category__name">
+            {{ 'Fitness'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[2].fitness.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[2].fitness.first_name}}' }} {{ '{{winners[2].fitness.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--groupex">
+          <div class="category__name">
+            {{ 'Group Exercise'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[2].groupex.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[2].groupex.first_name}}' }} {{ '{{winners[2].groupex.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--visits">
+          <div class="category__name">
+            {{ 'Visit Goal'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[2].visits.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[2].visits.first_name}}' }} {{ '{{winners[2].visits.last_name}}' }}.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prize prize--bronze ng-hide" data-ng-show="winners_show">
+      <div class="prize__header">
+        <span class="prize__header__name">{{ 'Bronze Prize'|t }}</span>
+      </div>
+      <div class="prize__prizes">
+        <div class="row">
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--medallion prize__prize--medallion-bronze">
+            <span class="prize__prize__title">{{ 'Bronze Medallion'|t }}</span>
+          </div>
+          <div class="col-xs-2 col-sm-1 prize__prize prize__prize--separator"></div>
+          <div class="col-xs-4 col-sm-2 prize__prize prize__prize--bottle">
+            <span class="prize__prize__title">{{ 'Hydro&nbsp;Flask Water&nbsp;Bottle'|t }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="prize__winners">
+        <div class="prize__winners__category prize__winners__category--swimming">
+          <div class="category__name">
+            {{ 'Swimming'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[3].swimming.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[3].swimming.first_name}}' }} {{ '{{winners[3].swimming.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--fitness">
+          <div class="category__name">
+            {{ 'Fitness'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[3].fitness.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[3].fitness.first_name}}' }} {{ '{{winners[3].fitness.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--groupex">
+          <div class="category__name">
+            {{ 'Group Exercise'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[3].groupex.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[3].groupex.first_name}}' }} {{ '{{winners[3].groupex.last_name}}' }}.</div>
+          </div>
+        </div>
+        <div class="prize__winners__category prize__winners__category--visits">
+          <div class="category__name">
+            {{ 'Visit Goal'|t }}:
+          </div>
+          <div class="category__winner">
+            <div class="winner-id">{{ 'ID'|t }}: ******** {{ '{{winners[3].visits.membership_id}}' }}</div>
+            <div class="winner-name">{{ '{{winners[3].visits.first_name}}' }} {{ '{{winners[3].visits.last_name}}' }}.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
