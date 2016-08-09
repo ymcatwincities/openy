@@ -32,4 +32,5 @@ permissions:
   32: 'view workflow_unpublished content'
   33: 'update workflow_unpublished content'
   34: 'clone page entity'
-  35: 'administer pages'
+  35: 'view page_manager pages list'
+  36: 'update own page_manager pages'
