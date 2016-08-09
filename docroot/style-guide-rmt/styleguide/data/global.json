@@ -68,6 +68,26 @@
     {
       "name":"footer-programs-classes",
       "group":"header_footer"
+    },
+    {
+      "name":"block-hero--top",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--bottom",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--orange",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--green",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--small",
+      "group":"hero_image"
     }
   ]
 }
