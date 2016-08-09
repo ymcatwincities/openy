@@ -246,6 +246,30 @@
         $(this).addClass('content-expander-' + index);
         index++;
       });
+
+      // Sports Top Sub header.
+      if ($('.sports_top_subheader .selectbox ul').length > 0) {
+        var selectbox = '<select>';
+        $('.sports_top_subheader .selectbox a').each(function () {
+          // set css classes based on link title.
+          var title = $(this).text().toLowerCase().replace(/ /g, '-').replace(/\//g, '-'),
+              css_class = title + ' sports-icon';
+          $(this).attr('class', css_class);
+          selectbox += '<option class="' + css_class + '" value="' + $(this).attr('href') + '">' + $(this).text() + '</option>';
+        });
+        selectbox += '</select><a class="find-a-class">' + Drupal.t('FIND A CLASS') + '</a>';
+        $('.sports_top_subheader .selectbox').html(selectbox);
+        $('.sports_top_subheader .find-a-class').on('click', function(e) {
+          e.preventDefault();
+          var url = $(this).prev().find(':selected').val();
+          window.open(url, '_blank');
+        });
+        $('.sports_top_subheader select').attr('class', $('.sports_top_subheader select option:eq(0)').attr('class'));
+        $('.sports_top_subheader select').on('change', function() {
+          var css_class = $(this).find(':selected').attr('class');
+          $(this).attr('class', css_class);
+        });
+      }
     }
   };
 
