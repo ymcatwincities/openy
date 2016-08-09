@@ -88,6 +88,18 @@
     {
       "name":"block-hero--small",
       "group":"hero_image"
+    },
+    {
+      "name":"activity-icon",
+      "group":"icons"
+    },
+    {
+      "name":"marketing-icon",
+      "group":"icons"
+    },
+    {
+    "name":"service-icon",
+    "group":"icons"
     }
   ]
 }

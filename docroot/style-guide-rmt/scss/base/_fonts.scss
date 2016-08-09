@@ -6,7 +6,23 @@
 
 @include font-face(cachetstd-bold, fonts/cachetstd-bold);
 @include font-face(cachetstd-medium, fonts/cachetstd-medium);
+ .icon {
+  display: inline-block;
+  margin-bottom: 20px;
+  min-width: 100px;
+  text-align: center;
 
+  &__img {
+    margin-bottom: 7px;
+    display: inline-block;
+  }
+
+  &__title {
+    display: block;
+    font-size: 13px;
+    color: $gray-36;
+  }
+}
 @font-face {
   font-family: 'ymca';
   src:  url('../fonts/ymca.eot?bl1lw9');
