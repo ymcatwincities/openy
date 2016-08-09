@@ -44,6 +44,30 @@
     {
       "name":"links-has-icon",
       "group":"active_element"
+    },
+    {
+      "name":"header",
+      "group":"header_footer"
+    },
+    {
+      "name":"header-camps-summer",
+      "group":"header_footer"
+    },
+    {
+      "name":"header-programs-classes",
+      "group":"header_footer"
+    },
+    {
+      "name":"footer",
+      "group":"header_footer"
+    },
+    {
+      "name":"footer-camps-summer",
+      "group":"header_footer"
+    },
+    {
+      "name":"footer-programs-classes",
+      "group":"header_footer"
     }
   ]
 }
