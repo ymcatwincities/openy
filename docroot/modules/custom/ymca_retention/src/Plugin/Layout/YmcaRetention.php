@@ -3,14 +3,12 @@
 namespace Drupal\ymca_retention\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation;
 use Drupal\layout_plugin\Plugin\Layout\LayoutBase;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Ymca Retention Campaign layout settings.
+ * YMCA Retention layout settings.
  */
-class RetentionCampaign extends LayoutBase {
+class YmcaRetention extends LayoutBase {
 
   /**
    * {@inheritdoc}
