@@ -130,11 +130,15 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-8 lead left">
+              {% if not youth_sports_inner %}
               <h1>{{ node.label }}</h1>
+              {% endif %}
               <article class="richtext" id="component_165980">{{ lead_description }}</article>
             </div>
             <div class="col-sm-4 lead call-to-action right">
+            {% if not youth_sports_inner %}
               <article class="richtext">{{ secondary_sidebar }}</article>
+            {% endif %}
             </div>
           </div>
         </div>

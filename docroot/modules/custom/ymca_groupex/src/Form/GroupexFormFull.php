@@ -186,7 +186,8 @@ class GroupexFormFull extends GroupexFormBase {
       $location_select_classes = $class_select_classes = 'show';
     }
     if (isset($state['instructor'])) {
-      $classes = $location_select_classes = $class_select_classes = 'hidden';
+      $classes = $class_select_classes = 'hidden';
+      $location_select_classes = 'show';
     }
 
     $form['location_select'] = [
@@ -370,6 +371,12 @@ class GroupexFormFull extends GroupexFormBase {
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
     }
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
+      $location = $triggering_element['#value'];
+      $class = 'any';
+      $filter_length = 'day';
+      $groupex_class = 'groupex_table_class';
+    }
     $parameters = [
       'location' => $location,
       'class' => $class,
@@ -384,6 +391,10 @@ class GroupexFormFull extends GroupexFormBase {
     }
     if (isset($view_mode)) {
       $parameters['view_mode'] = $view_mode;
+    }
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
+      unset($parameters['instructor']);
+      unset($parameters['view_mode']);
     }
     \Drupal::service('ymca_groupex.schedule_fetcher')->__construct($parameters);
     // Get classes schedules.
