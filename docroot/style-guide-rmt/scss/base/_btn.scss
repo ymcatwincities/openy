@@ -10,7 +10,7 @@
   font-weight: bold;
   line-height: 1;
   margin-bottom: 10px;
-  padding: 11px 20px;
+  padding: 11px 15px;
   text-decoration: none;
   text-transform: uppercase;
 
@@ -26,8 +26,24 @@
     }
   }
 
+  &--blue--light {
+    background: $blue-light;
+
+    &:hover {
+      background: darken($blue, 5%);
+    }
+  }
+
   &--purple {
     background: $purple;
+
+    &:hover {
+      background: darken($purple, 5%);
+    }
+  }
+
+  &--purple--light {
+    background: $purple-light;
 
     &:hover {
       background: darken($purple, 5%);
@@ -75,8 +91,16 @@
       background-color: $blue-dark ;
     }
 
+    &--blue--light {
+      background-color: $blue ;
+    }
+
     &--purple {
       background-color: $purple-dark ;
+    }
+
+    &--purple--light {
+      background-color: $purple ;
     }
 
     &--green {
