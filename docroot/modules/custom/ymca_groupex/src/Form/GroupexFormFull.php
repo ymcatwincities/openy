@@ -211,8 +211,10 @@ class GroupexFormFull extends GroupexFormBase {
 
     $date_options = [];
     for ($i = 0; $i < 14; $i++) {
-      $date = date('D, d/m', REQUEST_TIME + $i * 86400);
-      $date_options[$date] = $date;
+      $time = REQUEST_TIME + $i * 86400;
+      $dateKey = date('n/d/y', $time);
+      $dateTitle = date('D, d/m', $time);
+      $date_options[$dateKey] = $dateTitle;
     }
     $form['date_select'] = [
       '#type' => 'select',
