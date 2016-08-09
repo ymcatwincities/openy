@@ -1,1 +1,26 @@
-dummy template
+<div id="slider">
+  <div class="slider single-item">
+    {% for slide in slides %}
+      <div class="{{ slide.class }}">
+        <div class="slider-item__image">
+          <picture>
+            <source srcset="{{ path_img }}{{ slide.image.lowres }} 1x, {{ path_img }}{{ slide.image.highres }} 2x" media="(min-width: 48em)">
+            <source srcset="{{ path_img }}{{ slide.image.lowres }}" media="(min-width: 0em)">
+            <img src="{{ path_img }}{{ slide.image.lowres }}" alt="">
+          </picture>
+        </div>
+        <div class="slider-item__content">
+          <div class="slider-item__title">
+            {{ slide.title|t }}
+          </div>
+          <div class="slider-item__highlight">
+            {{ slide.highlight|t }}
+          </div>
+          <div class="slider-item__button">
+            <a href="{{ path(slide.button.link.route, slide.button.link.options) }}" target="_blank" class="btn btn-lg btn-primary {{ slide.button.link.class }}">{{ slide.button.text|t }}</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

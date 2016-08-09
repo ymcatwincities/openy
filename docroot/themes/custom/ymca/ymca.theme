@@ -1017,9 +1017,6 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-track-activity-login-form',
     ],
-    'ymca_retention_slider' => [
-      'template' => '/ymca-blocks/ymca-retention-slider',
-    ]
   ];
 }
 
