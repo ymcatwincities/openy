@@ -349,6 +349,11 @@ function ymca_preprocess_html(&$variables) {
     }
   }
 
+  // Set front page title.
+  if ($variables['is_front']) {
+    $variables['front_page_title'] = Drupal::config('system.site')->get('name');
+  }
+
   if ($variables['is_front']) {
     $classes = [
       'home-template',
@@ -592,9 +597,11 @@ function ymca_preprocess_page(&$variables) {
     \Drupal::service('current_route_match')->getRouteName() == 'ymca_groupex.schedules_search_results') {
     $variables['page_schedules'] = TRUE;
   }
-  if ($brand_title = theme_get_setting('brand_title')) {
+
+  if ($brand_title = Drupal::config('system.site')->get('name')) {
     $variables['brand_title'] = $brand_title;
   }
+
   $variables['youth_sports_inner'] = FALSE;
   if (isset($variables['node']) && $variables['node']->hasField('field_template')) {
     if ($template = $variables['node']->field_template->value) {
@@ -1291,12 +1298,6 @@ function ymca_get_theme_styles() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  $form['ymca_settings']['brand_title'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Brand title'),
-    '#default_value' => theme_get_setting('brand_title'),
-    '#description' => t('Displays on front page in header.'),
-  );
   $form['ymca_settings']['styles'] = array(
     '#type' => 'details',
     '#title' => t('Styles'),
