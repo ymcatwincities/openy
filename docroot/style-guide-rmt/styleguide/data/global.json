@@ -46,6 +46,50 @@
       "group":"active_element"
     },
     {
+      "name":"header",
+      "group":"header_footer"
+    },
+    {
+      "name":"header-camps-summer",
+      "group":"header_footer"
+    },
+    {
+      "name":"header-programs-classes",
+      "group":"header_footer"
+    },
+    {
+      "name":"footer",
+      "group":"header_footer"
+    },
+    {
+      "name":"footer-camps-summer",
+      "group":"header_footer"
+    },
+    {
+      "name":"footer-programs-classes",
+      "group":"header_footer"
+    },
+    {
+      "name":"block-hero--top",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--bottom",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--orange",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--green",
+      "group":"hero_image"
+    },
+    {
+      "name":"block-hero--small",
+      "group":"hero_image"
+    },
+    {
       "name":"activity-icon",
       "group":"icons"
     },
@@ -54,8 +98,8 @@
       "group":"icons"
     },
     {
-      "name":"service-icon",
-      "group":"icons"
+    "name":"service-icon",
+    "group":"icons"
     }
   ]
 }

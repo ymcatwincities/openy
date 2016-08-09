@@ -1,0 +1,74 @@
+.block-hero {
+  position: relative;
+  margin-bottom: 50px;
+
+  &__title {
+    color: $white;
+    font-family: 'Arial Black';
+    font-size: 25px;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 0;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    opacity: 0.9;
+    box-sizing: border-box;
+    padding: 20px 15px;
+  }
+
+  &__image {
+    line-height: 0;
+
+    * {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &--small {
+    .block-hero__title {
+      padding: 15px 10px;
+      font-size: 20px;
+    }
+  }
+
+  &--bg {
+    &--blue {
+      .block-hero__title {
+        background-color: $blue;
+      }
+    }
+
+    &--purple {
+      .block-hero__title {
+        background-color: $purple-light;
+      }
+    }
+
+    &--orange {
+      .block-hero__title {
+        background-color: $orange;
+      }
+    }
+
+    &--green {
+      .block-hero__title {
+        background-color: $green;
+      }
+    }
+  }
+
+  &--top {
+    .block-hero__title {
+      top: 0;
+    }
+  }
+
+  &--bottom {
+    .block-hero__title {
+      bottom: 0;
+    }
+  }
+}
