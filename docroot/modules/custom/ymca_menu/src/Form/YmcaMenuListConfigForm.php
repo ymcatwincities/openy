@@ -66,11 +66,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $values = $form_state->getValue('menu_items');
-    $values = array_filter($values);
-    if (count($values) > 6) {
-      drupal_set_message($this->t('You have selected more than 6 items. It\'s recommended to show up to 6 items in meganav menu.'), 'warning');
-    }
+    parent::validateForm($form, $form_state);
   }
 
   /**
