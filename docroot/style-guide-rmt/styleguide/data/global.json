@@ -29,32 +29,9 @@
     }
   ],
   "list_components":[
-    {
-      "name":"button",
-      "group":"active_element"
-    },
-    {
-      "name":"button-has-icon",
-      "group":"active_element"
-    },
-    {
-      "name":"links",
-      "group":"active_element"
-    },
-    {
-      "name":"links-has-icon",
-      "group":"active_element"
-    },
+
     {
       "name":"header",
-      "group":"header_footer"
-    },
-    {
-      "name":"header-camps-summer",
-      "group":"header_footer"
-    },
-    {
-      "name":"header-programs-classes",
       "group":"header_footer"
     },
     {
@@ -62,7 +39,15 @@
       "group":"header_footer"
     },
     {
+      "name":"header-camps-summer",
+      "group":"header_footer"
+    },
+    {
       "name":"footer-camps-summer",
+      "group":"header_footer"
+    },
+    {
+      "name":"header-programs-classes",
       "group":"header_footer"
     },
     {
@@ -88,18 +73,6 @@
     {
       "name":"block-hero--small",
       "group":"hero_image"
-    },
-    {
-      "name":"activity-icon",
-      "group":"icons"
-    },
-    {
-      "name":"marketing-icon",
-      "group":"icons"
-    },
-    {
-    "name":"service-icon",
-    "group":"icons"
     },
     {
       "name":"block-body",
@@ -134,6 +107,10 @@
       "group":"additional"
     },
     {
+      "name":"style-list-has-links-customization",
+      "group":"additional"
+    },
+    {
       "name":"block-linked",
       "group":"additional"
     },
@@ -144,6 +121,34 @@
     {
       "name":"block-sponsors-logo",
       "group":"additional"
+    },
+    {
+      "name":"button",
+      "group":"active_element"
+    },
+    {
+      "name":"button-has-icon",
+      "group":"active_element"
+    },
+    {
+      "name":"links",
+      "group":"active_element"
+    },
+    {
+      "name":"links-has-icon",
+      "group":"active_element"
+    },
+    {
+      "name":"activity-icon",
+      "group":"icons"
+    },
+    {
+      "name":"marketing-icon",
+      "group":"icons"
+    },
+    {
+    "name":"service-icon",
+    "group":"icons"
     }
   ]
 }
