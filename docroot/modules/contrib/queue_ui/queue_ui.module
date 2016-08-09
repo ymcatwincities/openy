@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file queue_ui.module
+ */
+
+use Drupal\queue_ui\QueueUI;
+
+define('QUEUE_UI_BASE', 'admin/config/system/queue-ui');
+
+/**
+ * Implements hook_menu().
+ */
+function queue_ui_menu() {
+
+  $items[QUEUE_UI_BASE . '/inspect/%'] = array(
+    'title' => 'View Queue: @name',
+    'title arguments' => array('@name' => 5),
+    'page callback' => 'queue_ui_view_queue',
+    'page arguments' => array(5),
+    'access arguments' => array('admin queue_ui'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'queue_ui.forms.inc',
+  );
+
+  // View item callback for Queue UI.
+  $items[QUEUE_UI_BASE . '/%/view/%queue_ui_queue_item'] = array(
+    'title' => 'View Queue Item',
+    'description' => 'View the details of an individual queue item',
+    'page callback' => 'queue_ui_view_queue_item',
+    'page arguments' => array(4, 6),
+    'access arguments' => array('admin queue_ui'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'queue_ui.forms.inc',
+  );
+
+  // Release item callback for Queue UI.
+  $items[QUEUE_UI_BASE . '/%/release/%queue_ui_queue_item'] = array(
+    'title' => 'Release items',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('queue_ui_release_item_form', 4, 6),
+    'access arguments' => array('admin queue_ui'),
+    'file' => 'queue_ui.forms.inc',
+  );
+
+  // Delete item callback for Queue UI.
+  $items[QUEUE_UI_BASE . '/%/delete/%queue_ui_queue_item'] = array(
+    'title' => 'Release items',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('queue_ui_delete_item_form', 4, 6),
+    'access arguments' => array('admin queue_ui'),
+    'file' => 'queue_ui.forms.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Wildcard loader for queue item.
+ *
+ * @param $queue_item
+ *   The item id of the queue item to load.
+ */
+function queue_ui_queue_item_load($queue_item) {
+  // @TODO - add validation of queue_item.
+  return $queue_item;
+}
+
+
+// @todo remove before prod
+function queue_ui_test() {
+  $queue = Drupal::queue('queue ui test_me');
+  $queue->createQueue();
+  $num = mt_rand(0,99);
+  for ($i = 0; $i < $num; $i++) {
+    $queue->createItem(time());
+  }
+}
+
+/**
+ * Retrieve the QueueUI object for the class a particular queue is implemented as.
+ *
+ * @param $queue_name
+ *  The name of the queue to retrieve the QueueUI class for.
+ * @return mixed
+ *  The QueueUI object for the relevant queue class, or FALSE if not found.
+ */
+function _queue_ui_queueclass($queue_name){
+  $queue = Drupal::queue($queue_name);
+  $class = get_class($queue);
+
+  // Get the classname from the full namespace
+  $namespace = explode('\\', $class);
+  $class_name = array_pop($namespace);
+
+  return QueueUI::get('Drupal\queue_ui\QueueUI' . $class_name);
+}
+
+/**
+ * Get queues defined by QueueWorker plugins.
+ *
+ * @return Array of queues indexed by name and containing
+ */
+function queue_ui_defined_queues() {
+  return \Drupal::service('plugin.manager.queue_worker')->getDefinitions();
+}
+
+/**
+ * hook_queue_info_alter()
+ */
+function queue_ui_queue_info_alter(&$queues) {
+  foreach ($queues as $queue_name => $definition) {
+
+    // Check if a time limit override exists for this queue.
+    $time_limit = \Drupal::state()->get('queue_ui_cron_' . $queue_name);
+    if (!is_null($time_limit)) {
+      // Override the original definition.
+      $queues[$queue_name]['cron']['time'] = $time_limit;
+    }
+  }
+}
