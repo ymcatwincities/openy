@@ -100,6 +100,26 @@
     {
     "name":"service-icon",
     "group":"icons"
+    },
+    {
+      "name":"block-body",
+      "group":"Email_body"
+    },
+    {
+      "name":"block-cta",
+      "group":"Email_body"
+    },
+    {
+      "name":"block-cta-image",
+      "group":"Email_body"
+    },
+    {
+      "name":"block-cta-image-left",
+      "group":"Email_body"
+    },
+    {
+      "name":"block-grid",
+      "group":"Email_body"
     }
   ]
 }
