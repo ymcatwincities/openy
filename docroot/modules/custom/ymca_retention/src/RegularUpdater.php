@@ -103,6 +103,7 @@ class RegularUpdater implements RegularUpdaterInterface {
    * Create Queue.
    */
   public function createQueue() {
+    // @todo move this condition to the method isAllowed() in the future.
     // Get campaign dates settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
     $date_open = new \DateTime($settings->get('date_campaign_open'));
