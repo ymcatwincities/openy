@@ -119,3 +119,12 @@ function ymca_retention_update_8009() {
     ]
   );
 }
+
+/**
+ * Install module Queue User Interface.
+ */
+function ymca_retention_update_8010() {
+  \Drupal::service('module_installer')->install([
+    'queue_ui',
+  ], TRUE);
+}
