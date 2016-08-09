@@ -33,21 +33,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $all_menus = Menu::loadMultiple();
     $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
-    $options = [];
-    /**
-     * @var string $name
-     * @var Menu $object
-     */
-/*    foreach ($all_menus as $name => $object) {
-      $options[$name] = $object->label();
-    }
 
-    $form['menu_items'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Main menu items'),
-      '#options' => $options,
-      '#default_value' => array_combine($menu_list, $menu_list),
-    ];*/
     $form['menu_list_table'] = [
       '#type' => 'table',
       '#header' => [
@@ -71,16 +57,15 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
       ],
     ];
 
-    $all_menus_sorted = $menu_list + array_diff(array_keys($all_menus), $menu_list);
+    $all_menus_sorted = $menu_list + array_diff(
+        array_keys($all_menus),
+        $menu_list
+      );
     /**
      * @var string $name
      * @var Menu $object
      */
     foreach ($all_menus_sorted as $name) {
-
-      // @todo Get weight.
-      // $form['menu_list_table'][$name]['#weight'] = array_search($name, $menu_list) === FALSE ? -1 : array_search($name, $menu_list);
-
 
       $form['menu_list_table'][$name]['weight'] = [
         '#type' => 'checkbox',
@@ -89,7 +74,10 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
           array('@title' => $all_menus[$name]->label())
         ),
         '#title_display' => 'invisible',
-        '#weight' => array_search($name, $menu_list) === FALSE ? -1 : array_search($name, $menu_list),
+        '#weight' => array_search(
+          $name,
+          $menu_list
+        ) === FALSE ? -1 : array_search($name, $menu_list),
         '#attributes' => array('class' => array('thing-weight')),
       ];
 
@@ -150,7 +138,6 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
 
   /**
    * Returns appropriate config object.
-
    * @return object
    *   Config object.
    */
