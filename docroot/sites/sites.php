@@ -65,6 +65,7 @@ $custom_sites = array(
     'openy.dev.ygtc.ffwagency.md',
     'openy.ygtc.ffwagency.md',
     'openy.192.168.56.132.xip.io',
+    'openy.wearepropeople.md',
   ),
   'ymca_redwing' => array(
     'dev.redwing.getopeny.org',
@@ -75,6 +76,7 @@ $custom_sites = array(
     'redwing.dev.ygtc.ffwagency.md',
     'redwing.ygtc.ffwagency.md',
     'redwing.192.168.56.132.xip.io',
+    'redwing.wearepropeople.md',
   ),
 );
 
