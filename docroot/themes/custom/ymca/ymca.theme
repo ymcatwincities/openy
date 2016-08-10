@@ -1431,7 +1431,7 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#type' => 'managed_file',
     '#title' => t('Default favicon'),
     '#default_value' => theme_get_setting('ymca_favicon_default'),
-    '#upload_location' => 'public://',
+    '#upload_location' => 'public://favicon/',
     '#upload_validators'  => array(
       'file_validate_extensions' => array('ico png')
     )
