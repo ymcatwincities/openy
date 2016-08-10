@@ -4011,3 +4011,15 @@ function ymca_master_update_8170() {
     ]
   );
 }
+
+/**
+ * Updates format configs adding color buttons.
+ */
+function ymca_master_update_8171() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}

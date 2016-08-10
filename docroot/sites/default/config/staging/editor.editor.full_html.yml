@@ -62,11 +62,15 @@ settings:
             - ClinicsSchedule
             - SessionSchedules
             - SportsTopSubheader
+            - BGColor
+            - TextColor
   plugins:
     language:
       language_list: un
     stylescombo:
       styles: p.button|Button
+    colorbutton:
+      colors: 'ff0000,00ff00,0000ff'
 image_upload:
   status: true
   scheme: public
