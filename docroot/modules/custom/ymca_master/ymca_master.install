@@ -4036,25 +4036,19 @@ function ymca_master_update_8171() {
       'to' => 'location.ico'
     ]
   ];
+  $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
     $fileUri = $destDir . $fileItem['to'];
-    $existing_files = entity_load_multiple_by_properties('file', array('uri' => $fileUri));
-    $fid = 0;
-    if (count($existing_files)) {
-      $existing = reset($existing_files);
-      $fid = $existing->id();
-    }
-    else {
-      file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
-      $file = EntityFile::create([
-        'uid' => 1,
-        'filename' => $fileItem['to'],
-        'uri' => $fileUri,
-        'status' => 1,
-      ]);
-      $file->save();
-      $fid = $file->id();
-    }
+    file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    $file = EntityFile::create([
+      'uid' => 1,
+      'filename' => $fileItem['to'],
+      'uri' => $fileUri,
+      'status' => FILE_STATUS_PERMANENT,
+    ]);
+    $file->save();
+    $fid = $file->id();
+    $fileUsage->add($file, 'ymca_master', 'favicon', $fid);
     $config->set('ymca_favicon_' . $key, [$fid]);
   }
   $config->save();
