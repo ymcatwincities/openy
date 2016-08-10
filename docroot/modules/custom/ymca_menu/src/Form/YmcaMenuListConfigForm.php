@@ -74,10 +74,6 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
           array('@title' => $all_menus[$name]->label())
         ),
         '#title_display' => 'invisible',
-        '#weight' => array_search(
-          $name,
-          $menu_list
-        ) === FALSE ? -1 : array_search($name, $menu_list),
         '#attributes' => array('class' => array('thing-weight')),
       ];
 
@@ -112,17 +108,11 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $all_menus = Menu::loadMultiple();
     $all_menu_names = array_keys($all_menus);
     $values = $form_state->getUserInput()['menu_list_table'];
+    $config_values = [];
     foreach ($values as $name => $data) {
       if (!in_array($name, $all_menu_names) || $data['state'] == 0) {
         continue;
