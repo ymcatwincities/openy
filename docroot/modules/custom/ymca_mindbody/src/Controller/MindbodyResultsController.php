@@ -369,7 +369,8 @@ class MindbodyResultsController extends ControllerBase {
     catch (\Exception $e) {
       $this->logger->error('Failed to make a request to ClientService (GetClientServices). Message: %s', ['%s' => $e->getMessage()]);
       return [
-        'status' => FALSE
+        'status' => FALSE,
+        'message' => $e->getMessage()
       ];
     }
 
@@ -439,7 +440,8 @@ class MindbodyResultsController extends ControllerBase {
     catch (\Exception $e) {
       $this->logger->error('Failed to make a request to AppointmentService (AddOrUpdateAppointments). Message: %s', ['%s' => $e->getMessage()]);
       return [
-        'status' => FALSE
+        'status' => FALSE,
+        'message' => $e->getMessage()
       ];
     }
 
