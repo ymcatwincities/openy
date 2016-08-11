@@ -109,7 +109,7 @@ class WinnersController extends ControllerBase {
         // Select candidates for this place.
         $candidates_place = [];
         $cut_value = 0;
-        foreach($candidates[$track] as $id => $value) {
+        foreach ($candidates[$track] as $id => $value) {
           if ($value >= $cut_value) {
             $candidates_place[$id] = $value;
             $cut_value = $value;
@@ -162,7 +162,6 @@ class WinnersController extends ControllerBase {
         ]);
         $winner->save();
         $context['results'][] = $member_id;
-
 
         if ($place >= 3) {
           break;
