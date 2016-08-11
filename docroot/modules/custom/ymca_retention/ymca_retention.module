@@ -116,6 +116,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_winners' => [
       'variables' => [
         'base_path' => base_path(),
+        'description' => '',
       ],
       'template' => 'ymca-retention-winners',
     ],
