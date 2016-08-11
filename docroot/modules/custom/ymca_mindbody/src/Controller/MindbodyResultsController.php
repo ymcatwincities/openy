@@ -2,7 +2,6 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
-use Drupal\Core\Ajax;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
@@ -45,9 +44,24 @@ class MindbodyResultsController extends ControllerBase {
   const QUERY_PARAM__IS_MALE = 'im';
 
   /**
-   * Is Male.
+   * Start timestamp.
    */
   const QUERY_PARAM__START_TIMESTAMP = 'tm';
+
+  /**
+   * Test trainer. We may create appointments for him.
+   */
+  const TEST_API_TRAINER_ID = '100000323';
+
+  /**
+   * Test trainer is a male with a huge beard.
+   */
+  const TEST_API_TRAINER_IS_MALE = 1;
+
+  /**
+   * Test client ID.
+   */
+  const TEST_API_CLIENT_ID = 69696969;
 
   /**
    * The results searcher.
@@ -92,6 +106,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $credentials;
 
   /**
+   * Production flag.
+   *
+   * @var bool
+   */
+  protected $isProduction;
+
+  /**
    * MindbodyResultsController constructor.
    *
    * @param YmcaMindbodyResultsSearcherInterface $results_searcher
@@ -103,9 +124,9 @@ class MindbodyResultsController extends ControllerBase {
    * @param RequestStack $request_stack
    *   Request stack.
    * @param MindbodyCacheProxy $proxy
-   *   Mindbody Cache Proxy.
+   *   The Mindbody Cache Proxy.
    * @param ConfigFactory $config_factory
-   *   Config Factory.
+   *   The Config Factory.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -122,6 +143,7 @@ class MindbodyResultsController extends ControllerBase {
     $this->proxy = $proxy;
     $this->configFactory = $config_factory;
     $this->credentials = $this->configFactory->get('mindbody.settings');
+    $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
   }
 
   /**
@@ -277,16 +299,17 @@ class MindbodyResultsController extends ControllerBase {
    *     - message (optional): description.
    */
   private function bookItem(array $data) {
-    // Get client ID from cookies.
-    if (!$client_id = $this->requestStack->getCurrentRequest()->cookies->get('Drupal_visitor_personify_id')) {
-      $this->logger->error('There is no client ID in cookies.');
-      return [
-        'status' => FALSE
-      ];
-    }
+    $client_id = self::TEST_API_CLIENT_ID;
 
-    // @todo Use real client ID here.
-    $client_id = 69696969;
+    // Get client ID from cookies.
+    if ($this->isProduction) {
+      if (!$client_id = $this->requestStack->getCurrentRequest()->cookies->get('Drupal_visitor_personify_id')) {
+        $this->logger->error('There is no client ID in cookies.');
+        return [
+          'status' => FALSE
+        ];
+      }
+    }
 
     // Default credentials.
     $user_credentials = [
@@ -313,7 +336,14 @@ class MindbodyResultsController extends ControllerBase {
         ];
       }
 
-      // @todo Need to test with different conditions: no services, single service, expired service, remain 0, etc.
+      // Check if client has no services at all.
+      if(empty((array) $result->GetClientServicesResult->ClientServices)) {
+        return [
+          'status' => FALSE,
+          'message' => $this->t('You have no available trainings, please visit the front desk to purchase personal training.'),
+        ];
+      }
+
       $service = FALSE;
       foreach ($result->GetClientServicesResult->ClientServices->ClientService as $service) {
         $service = [
@@ -343,7 +373,15 @@ class MindbodyResultsController extends ControllerBase {
       ];
     }
 
-    // Book an appointment.
+    /*
+    Book an appointment.
+
+    First of all, we should check is_production flag. If it's FALSE we should
+    always crete appointments in 'test' mode (ie without creating a real appointment).
+
+    We have special test API trainer. For this trainer we could create real
+    appointments in test and development modules.
+    */
     try {
       $params = [
         'UserCredentials' => $user_credentials,
@@ -368,6 +406,18 @@ class MindbodyResultsController extends ControllerBase {
           ],
         ],
       ];
+
+      // If it's production - create real appointment.
+      if ($this->isProduction) {
+        unset($params['Test']);
+      }
+
+      // Allow creation of real appointments for test trainer.
+      if ($data[self::QUERY_PARAM__STAFF_ID] == self::TEST_API_TRAINER_ID) {
+        unset($params['Test']);
+        $params['Appointments']['Appointment']['Staff']['isMale'] = self::TEST_API_TRAINER_IS_MALE;
+      }
+
       $result = $this->proxy->call('AppointmentService', 'AddOrUpdateAppointments', $params, FALSE);
 
       if (200 != $result->AddOrUpdateAppointmentsResult->ErrorCode) {
