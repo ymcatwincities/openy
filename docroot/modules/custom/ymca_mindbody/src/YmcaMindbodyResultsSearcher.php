@@ -353,8 +353,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      // @TODO: investigate expression "$location->HasClasses != TRUE".
-      if (!$this->trainingsMapping->locationIsActive($location->ID)) {
+      // @TODO: get rid of hotfix for Blaisdell.
+      if ($location->ID == 10) {
+        $location->HasClasses = TRUE;
+      }
+      if ($location->HasClasses != TRUE || !$this->trainingsMapping->locationIsActive($location->ID)) {
         continue;
       }
       $location_options[$location->ID] = $this->trainingsMapping->getLocationLabel($location->ID, $location->Name);
