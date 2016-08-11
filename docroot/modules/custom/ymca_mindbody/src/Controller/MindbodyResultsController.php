@@ -12,6 +12,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Drupal\ymca_errors\ErrorManager;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
@@ -99,6 +100,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $configFactory;
 
   /**
+   * Error Manager.
+   *
+   * @var ErrorManager
+   */
+  protected $errorManager;
+
+  /**
    * Mindbody Credentials.
    *
    * @var array
@@ -127,6 +135,8 @@ class MindbodyResultsController extends ControllerBase {
    *   The Mindbody Cache Proxy.
    * @param ConfigFactory $config_factory
    *   The Config Factory.
+   * @param ErrorManager $error_manager
+   *   The Error manager.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -134,7 +144,8 @@ class MindbodyResultsController extends ControllerBase {
     LoggerChannelFactoryInterface $logger_factory,
     RequestStack $request_stack,
     MindbodyCacheProxy $proxy,
-    ConfigFactory $config_factory
+    ConfigFactory $config_factory,
+    ErrorManager $error_manager
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
@@ -142,6 +153,7 @@ class MindbodyResultsController extends ControllerBase {
     $this->requestStack = $request_stack;
     $this->proxy = $proxy;
     $this->configFactory = $config_factory;
+    $this->errorManager = $error_manager;
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
   }
@@ -156,7 +168,8 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('logger.factory'),
       $container->get('request_stack'),
       $container->get('mindbody_cache_proxy.client'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('ymca_errors.error_manager')
     );
   }
 
@@ -233,7 +246,7 @@ class MindbodyResultsController extends ControllerBase {
     }
 
     // Default message.
-    $message = $this->t('Unfortunately we can\'t schedule that appointment. Please call branch or try to select another time.');
+    $message = $this->t($this->errorManager->getError('err__mindbody__booking_failed'));
 
     // OK.
     if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
@@ -340,7 +353,7 @@ class MindbodyResultsController extends ControllerBase {
       if(empty((array) $result->GetClientServicesResult->ClientServices)) {
         return [
           'status' => FALSE,
-          'message' => $this->t('You have no available trainings, please visit the front desk to purchase personal training.'),
+          'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
         ];
       }
 
@@ -361,7 +374,7 @@ class MindbodyResultsController extends ControllerBase {
         $this->logger->error('Failed to find available services. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
         return [
           'status' => FALSE,
-          'message' => $this->t('You have no available trainings, please visit the front desk to purchase personal training.'),
+          'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
         ];
       }
 
@@ -370,7 +383,6 @@ class MindbodyResultsController extends ControllerBase {
       $this->logger->error('Failed to make a request to ClientService (GetClientServices). Message: %s', ['%s' => $e->getMessage()]);
       return [
         'status' => FALSE,
-        'message' => $e->getMessage()
       ];
     }
 
@@ -441,7 +453,6 @@ class MindbodyResultsController extends ControllerBase {
       $this->logger->error('Failed to make a request to AppointmentService (AddOrUpdateAppointments). Message: %s', ['%s' => $e->getMessage()]);
       return [
         'status' => FALSE,
-        'message' => $e->getMessage()
       ];
     }
 
