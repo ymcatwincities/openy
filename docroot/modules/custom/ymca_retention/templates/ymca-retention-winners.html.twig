@@ -8,7 +8,9 @@
         </div>
         <h2>{{ 'Winners'|t }}</h2>
 
-        <form action="#" class="leaderboard-form">
+        <div class="description ng-hide" data-ng-show="!winners_show">{{ description }}</div>
+
+        <form action="#" class="leaderboard-form ng-hide" data-ng-show="winners_show">
           <select name="location" id="leaderboard-location" class="form-select form-control text default"
                   data-ng-model="location"
                   data-ng-change="locationChange(location)"
