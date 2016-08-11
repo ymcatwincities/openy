@@ -36,24 +36,38 @@ class YmcaRetentionSubscriber implements EventSubscriberInterface {
   public function checkAccessRedirect(GetResponseEvent $event) {
     $route = \Drupal::service('current_route_match')->getRouteName();
     $redirect_routes = [
+      'page_manager.page_view_ymca_retention_campaign',
       'page_manager.page_view_ymca_retention_pages_y_games_enroll_success',
       'page_manager.page_view_ymca_retention_pages_y_games_activity',
+      'page_manager.page_view_ymca_retention_pages_y_games_team',
     ];
     if (!in_array($route, $redirect_routes)) {
       return;
     }
+
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $current_date = new \DateTime();
+
+    // Redirect to winners page if campaign is closed.
+    $date_campaign_close = new \DateTime($settings->get('date_campaign_close'));
+    if ($current_date > $date_campaign_close) {
+      $this->redirectWinnersPage($event);
+    }
+
     if ($route == 'page_manager.page_view_ymca_retention_pages_y_games_activity') {
-      $settings = \Drupal::config('ymca_retention.general_settings');
       $from_date = new \DateTime($settings->get('date_reporting_open'));
       $to_date = new \DateTime($settings->get('date_reporting_close'));
-      $current_date = new \DateTime();
       if ($current_date < $from_date || $current_date > $to_date) {
-        $this->redirectResponse($event);
+        $this->redirectMainPage($event);
       }
     }
-    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
-    if (empty($member_id)) {
-      $this->redirectResponse($event);
+
+    if ($route == 'page_manager.page_view_ymca_retention_pages_y_games_enroll_success'
+      || $route == 'page_manager.page_view_ymca_retention_pages_y_games_activity') {
+      $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+      if (empty($member_id)) {
+        $this->redirectMainPage($event);
+      }
     }
   }
 
@@ -63,8 +77,21 @@ class YmcaRetentionSubscriber implements EventSubscriberInterface {
    * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    *   Event.
    */
-  public function redirectResponse(GetResponseEvent $event) {
+  public function redirectMainPage(GetResponseEvent $event) {
     $url = Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
+      'absolute' => TRUE,
+    ])->toString();
+    $event->setResponse(new RedirectResponse($url));
+  }
+
+  /**
+   * Set redirect response to event.
+   *
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   *   Event.
+   */
+  public function redirectWinnersPage(GetResponseEvent $event) {
+    $url = Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'winners'], [
       'absolute' => TRUE,
     ])->toString();
     $event->setResponse(new RedirectResponse($url));
