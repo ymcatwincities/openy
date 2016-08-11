@@ -70,11 +70,11 @@ class PersonalResult extends BlockBase {
         break;
 
       case 'groupex':
-        $track = $this->t('group exercises');
+        $track = $this->t('group exercise');
         break;
 
       default:
-        $track = $this->t('visit goal');
+        $track = $this->t('the visit goal drawing');
         break;
     }
 
