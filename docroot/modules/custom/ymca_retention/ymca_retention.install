@@ -137,6 +137,7 @@ function ymca_retention_update_8011() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'page_manager.page_variant.y_games_winners.yml',
+      $path . 'ymca_retention.general_settings.yml',
     ]
   );
 }
