@@ -71,10 +71,6 @@
       "group":"hero_image"
     },
     {
-      "name":"block-hero--small",
-      "group":"hero_image"
-    },
-    {
       "name":"block-body",
       "group":"Email_body"
     },

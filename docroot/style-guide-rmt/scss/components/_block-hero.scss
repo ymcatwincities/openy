@@ -5,11 +5,10 @@
   &__title {
     color: $white;
     font-family: 'Arial Black';
-    font-size: 25px;
+    font-size: 20px;
     font-weight: normal;
     margin-top: 0;
     margin-bottom: 0;
-    position: absolute;
     text-align: center;
     text-transform: uppercase;
     width: 100%;
@@ -24,13 +23,6 @@
     * {
       width: 100%;
       height: auto;
-    }
-  }
-
-  &--small {
-    .block-hero__title {
-      padding: 15px 10px;
-      font-size: 20px;
     }
   }
 
@@ -57,18 +49,6 @@
       .block-hero__title {
         background-color: $green;
       }
-    }
-  }
-
-  &--top {
-    .block-hero__title {
-      top: 0;
-    }
-  }
-
-  &--bottom {
-    .block-hero__title {
-      bottom: 0;
     }
   }
 }

@@ -5,11 +5,17 @@
   max-width: 600px;
   padding-bottom: 28px;
   padding-top: 33px;
-  justify-content: space-between;
-  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  > div {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 10px;
+  }
 
   .main-nav {
-    margin-top: 25px;
+    margin-top: 0;
+    align-self: center;
   }
 
   .nav {
@@ -24,61 +30,65 @@
       list-style: none;
 
       a {
-        padding: 5px 18px;
+        padding: 5px 14px;
         color: $blue;
         font-size: 13px;
         text-decoration: none;
         text-transform: uppercase;
-
-
-        &.active {
-          color: $purple-light;
-          display: inline-block;
-          font-weight: bold;
-          text-align: left;
-        }
       }
     }
   }
 
   &--programs-classes {
-    .main-nav {
-      margin-top: 7px;
-    }
-
    .nav {
       &__item {
         a {
           color: $green;
-
-          &.active {
-            color: $blue;
-          }
         }
       }
+    }
+
+    .site-slogan a {
+      color: $blue;
     }
   }
 
   &--camps-summer {
-    .main-nav {
-      margin-top: 7px;
-    }
-
     .nav {
       &__item {
         a {
           color: $orange;
-
-          &.active {
-            color: $green;
-          }
         }
       }
     }
+
+    .site-slogan a {
+      color: $green;
+    }
   }
 }
+
 /* style site logo */
 .site-logo {
-  float: left;
   width: 75px;
+
+  img {
+    display: block;
+  }
+}
+
+.site-slogan {
+  align-self: center;
+  margin-left: 15px;
+  margin-right: 25px;
+
+  a {
+    color: $purple-light;
+    display: inline-block;
+    font-weight: bold;
+    text-align: left;
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
 }
