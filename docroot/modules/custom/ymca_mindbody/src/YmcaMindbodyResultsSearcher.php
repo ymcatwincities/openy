@@ -15,6 +15,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
+use Drupal\ymca_mindbody\Controller\MindbodyResultsController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -98,6 +99,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   protected $entityQuery;
 
   /**
+   * Production flag.
+   *
+   * @var bool
+   */
+  protected $isProduction;
+
+  /**
    * Constructor.
    *
    * @param ConfigFactory $config_factory
@@ -129,6 +137,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $this->logger = $logger_factory->get('ymca_mindbody');
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->settings = $this->configFactory->get('ymca_mindbody.settings');
+    $this->isProduction = $this->settings->get('is_production');
   }
 
   /**
@@ -210,6 +219,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         $schedule_item = $bookable->GetBookableItemsResult->ScheduleItems;
       }
       foreach ($schedule_item as $bookable_item) {
+
+        // Do not show Test API client on Production
+        if ($this->isProduction && $bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
+          continue;
+        }
+
         // Additionally filter results by time.
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
@@ -487,6 +502,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $trainer_options = ['all' => $this->t('All')];
     if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+
+        // Do not show Test API client on Production
+        if ($this->isProduction && $bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
+          continue;
+        }
+
         $trainer_options[$bookable_item->Staff->ID] = $bookable_item->Staff->Name;
       }
     }
