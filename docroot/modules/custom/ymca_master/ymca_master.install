@@ -4016,6 +4016,7 @@ function ymca_master_update_8170() {
  * Updates format configs adding color buttons.
  */
 function ymca_master_update_8171() {
+  \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
