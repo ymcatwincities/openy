@@ -7,6 +7,9 @@
 - name: Obtain unique container for a build
   shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di dbprod
 
+- name: Run mysql within docker container
+  shell: docker exec {{ mysql_db }} '/usr/sbin/service' mysql start
+
 # Run registry rebuild.
 - name: Check if registry_rebuild is installed
   shell: "{{ php_env_vars }} drush | grep -c registry_rebuild"
