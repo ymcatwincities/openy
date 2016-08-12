@@ -11,17 +11,11 @@
     WinnersModule.controller('WinnersController', function ($scope) {
       $scope.locations = settings.ymca_retention.winners.locations;
       $scope.location = $scope.locations[0];
+      $scope.winners_show = settings.ymca_retention.winners.winners_show;
 
       // Get the data.
       $scope.loadData = function () {
-        if ($scope.location.branch_id === 0) {
-          $scope.winners = {};
-          $scope.winners_show = false;
-          return;
-        }
-
         $scope.winners = settings.ymca_retention.winners.winners[$scope.location.branch_id];
-        $scope.winners_show = true;
       };
       $scope.loadData();
 

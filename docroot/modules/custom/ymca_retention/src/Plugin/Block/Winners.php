@@ -45,8 +45,19 @@ class Winners extends BlockBase {
       ];
     }
 
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $current_date = new \DateTime();
+    $date_winners_announcement = new \DateTime($settings->get('date_winners_announcement'));
+    /** @var \Drupal\Core\Datetime\DateFormatter $date_formatter */
+    $date_formatter = \Drupal::service('date.formatter');
+    $description = $this->t('Thank you for playing Y Games 2016. Winners will be announced by @date.',
+      [
+        '@date' => $date_formatter->format($date_winners_announcement->getTimestamp(), 'custom', 'F j'),
+      ]);
+
     return [
       '#theme' => 'ymca_retention_winners',
+      '#description' => $description,
       '#attached' => [
         'library' => [
           'ymca_retention/winners',
@@ -56,6 +67,7 @@ class Winners extends BlockBase {
             'winners' => [
               'locations' => $locations,
               'winners' => $winners_list,
+              'winners_show' => $current_date > $date_winners_announcement,
             ],
           ],
         ],
