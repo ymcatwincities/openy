@@ -1,0 +1,5 @@
+name: OpenY Master
+type: module
+description: OpenY master module.
+core: 8.x
+package: YMCA
