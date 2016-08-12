@@ -103,7 +103,7 @@
         @include rem(font-size, 30px);
         @include rem(margin-left, -7px);
         @include rem(margin-top, -7px);
-        color: $grey8-ysr;
+        color: $grey12-ysr;
         content: '+';
         line-height: 0;
       }
@@ -369,6 +369,96 @@
       }
     }
   }
+}
 
+.personal-result {
+  @include rem(padding, 50px 7.5px 50px 7.5px);
+  background-color: $grey1;
+  text-align: center;
 
+  @include breakpoint($tablet) {
+    @include rem(padding, 84px 15px 100px 15px);
+  }
+
+  &--winner {
+    background-image: url(../prototypes/ysr/img/winner-bg.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  &__thumbup {
+    @include rem(height, 59px);
+    @include rem(margin, 0 auto 45px auto);
+    @include rem(width, 65px);
+    background-image: url(../prototypes/ysr/img/thumbup.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__title {
+    @include cachet-bold();
+    @include rem(line-height, 45px);
+    @include rem(margin, 33px 0 23px 0);
+    color: $purple-light;
+    font-size: 30px;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+
+    .personal-result--winner & {
+      @include rem(line-height, 33px);
+      @include rem(margin, 20px 0 23px 0);
+    }
+  }
+
+  &__description {
+    @include cachet();
+    color: $grey5;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+
+    &__prize {
+      @include cachet-bold();
+
+      &--gold {
+        color: $orange-light;
+      }
+
+      &--silver {
+        color: $silver;
+      }
+
+      &--bronze {
+        color: $bronze;
+      }
+    }
+  }
+
+  &__separator {
+    @include opacity(0.1);
+    @include rem(margin, 42px auto 0 auto);
+    @include rem(max-width, 381px);
+    background-color: black;
+    height: 1px;
+    position: relative;
+  }
+
+  &__prizes {
+    @include rem(margin, 0 0 30px 0);
+    background: none;
+
+    @include breakpoint($tablet) {
+      @include rem(margin, 0 0 20px 0);
+    }
+  }
+
+  &__details {
+    @include cachet();
+    color: $grey5;
+    font-size: 18px;
+    letter-spacing: -0.7px;
+  }
 }
