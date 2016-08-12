@@ -3,7 +3,7 @@ drupal_user: Yadmin
 drupal_pass: propeople
 installation_profile_name: pp
 mysql_user: root
-mysql_pass: root
+mysql_pass: 
 mysql_db: drupal
 mysql_host: 127.0.0.1
 old_source_db_name: amm_source
