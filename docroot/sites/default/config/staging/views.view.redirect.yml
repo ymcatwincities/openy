@@ -533,6 +533,9 @@ display:
     display_options:
       display_extenders: {  }
       path: admin/config/search/redirect
+      menu:
+        enabled: true
+        expanded: false
     cache_metadata:
       contexts:
         - 'languages:language_content'

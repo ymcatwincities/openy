@@ -453,6 +453,7 @@ display:
         weight: 0
         context: '0'
         menu_name: admin
+        enabled: true
     cache_metadata:
       max-age: 0
       contexts:
