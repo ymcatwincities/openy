@@ -428,7 +428,7 @@
 
   p {
     @include cachet();
-    color: $grey8-ysr;
+    color: $grey12-ysr;
     @include rem(font-size, 20px);
     @include rem(margin, 40px auto 0);
     @include rem(max-width, 420px);
@@ -510,10 +510,10 @@
       justify-content: space-between;
 
       @media(max-width: 370px) {
-        letter-spacing: -2.5px;
+        letter-spacing: -0.5px;
       }
       @media(max-width: 440px) {
-        letter-spacing: -2px;
+        letter-spacing: -1px;
       }
       @media(min-width: 768px) and (max-width: 825px) {
         letter-spacing: -2.5px;

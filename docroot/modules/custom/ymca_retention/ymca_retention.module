@@ -65,7 +65,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'ymca-retention-member-info',
     ],
     'ymca_retention_slider' => [
-      'variables' => [],
+      'variables' => [
+        'slides' => [],
+      ],
       'template' => 'ymca-retention-slider',
     ],
     'ymca_retention_registration_confirmation' => [
@@ -85,7 +87,7 @@ function ymca_retention_cron() {
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
   // Check if cron was run today.
-  if ($regular_updater->isAllowed()) {
+  if (!$regular_updater->isAllowed()) {
     return;
   }
 

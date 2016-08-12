@@ -34,14 +34,14 @@
 - name: Copy latest old site backup to build folder
   sudo: yes
   copy: src={{ backup_folder }}/{{ old_source_backup_name }} dest=./{{ old_source_backup_name }} force=yes mode=0644
-  when: (pp_environment == "default" or pp_environment == "demo") and ((ansible_env.USER is defined and ansible_env.USER == "{{ ci_server_username }}") or (ansible_env.SUDO_USER is defined and ansible_env.SUDO_USER == "{{ ci_server_username }}"))
+  when: (old_site_db == true) and (pp_environment == "default" or pp_environment == "demo") and ((ansible_env.USER is defined and ansible_env.USER == "{{ ci_server_username }}") or (ansible_env.SUDO_USER is defined and ansible_env.SUDO_USER == "{{ ci_server_username }}"))
 
 - name: Importing from old site local backup
   mysql_db: name={{ old_source_db_name }} state=import target=./{{ old_source_backup_name }} login_user={{ mysql_user }} login_password={{ mysql_pass }}
   sudo: yes
-  when: (pp_environment == "default" or pp_environment == "demo") and ((ansible_env.USER is defined and ansible_env.USER == "{{ ci_server_username }}") or (ansible_env.SUDO_USER is defined and ansible_env.SUDO_USER == "{{ ci_server_username }}"))
+  when: (old_site_db == true) and (pp_environment == "default" or pp_environment == "demo") and ((ansible_env.USER is defined and ansible_env.USER == "{{ ci_server_username }}") or (ansible_env.SUDO_USER is defined and ansible_env.SUDO_USER == "{{ ci_server_username }}"))
 
 - name: Remove old site local backup from build folder
   sudo: yes
   file: name=./{{ old_source_backup_name }} state=absent
-  when: pp_environment == "default" or pp_environment == "demo"
+  when: (old_site_db == true) and pp_environment == "default" or pp_environment == "demo"

@@ -155,6 +155,76 @@
   };
 
   /**
+   * GroupEx locations responsive columns.
+   */
+  Drupal.behaviors.ymca_GroupEx_locations = {
+    attach: function (context, settings) {
+
+      var win = $(window);
+
+      var el_parent = $("#group-ex-locations"),
+          el_items = el_parent.find(".form-group"),
+          wrap_classes = "col-xs-12 col-md-6",
+          el_count = el_items.length,
+          col_count = 2,
+          break_count = Math.ceil(el_count / col_count),
+          prev_key = 0,
+          cur_key = 0,
+          prev_count = 0,
+          break_cols = {
+            0: 1,
+            992: 2,
+          };
+
+      //add bootstrap row
+      el_parent.addClass("row");
+
+      //wrap location elements in bootstrap columns based on break_cols
+      function wrap(item_count) {
+        var el_wrap = $(".el-wrap > div");
+        if (el_wrap.parent().is(".el-wrap")) {
+          el_wrap.unwrap();
+        }
+
+        for (var i = 0; i < el_items.length; i += item_count) {
+          el_items.slice(i, i + item_count).wrapAll("<div class='el-wrap " + wrap_classes + "'></div>");
+        }
+      }
+
+      var set_wrap = function () {
+        //determine column count per breakpoint
+        $.each(break_cols, function (key, value) {
+          var w = win.width();
+
+          if (key < w && key !== prev_key) {
+            cur_key = key;
+          }
+
+          key = prev_key;
+        });
+
+        //check if col count has change
+        col_count = break_cols[cur_key];
+        if (col_count != prev_count) {
+          break_count = Math.ceil(el_count / col_count);
+          wrap(break_count);
+        }
+
+        prev_count = col_count;
+
+      };
+
+      win.smartresize(function () {
+        set_wrap();
+      });
+
+      set_wrap();
+
+
+    }
+  };
+
+  /**
    * Youth sports behaviors.
    */
   Drupal.behaviors.ymca_youth_sports = {
@@ -176,6 +246,30 @@
         $(this).addClass('content-expander-' + index);
         index++;
       });
+
+      // Sports Top Sub header.
+      if ($('.sports_top_subheader .selectbox ul').length > 0) {
+        var selectbox = '<select>';
+        $('.sports_top_subheader .selectbox a').each(function () {
+          // set css classes based on link title.
+          var title = $(this).text().toLowerCase().replace(/ /g, '-').replace(/\//g, '-'),
+              css_class = title + ' sports-icon';
+          $(this).attr('class', css_class);
+          selectbox += '<option class="' + css_class + '" value="' + $(this).attr('href') + '">' + $(this).text() + '</option>';
+        });
+        selectbox += '</select><a class="find-a-class">' + Drupal.t('FIND A CLASS') + '</a>';
+        $('.sports_top_subheader .selectbox').html(selectbox);
+        $('.sports_top_subheader .find-a-class').on('click', function(e) {
+          e.preventDefault();
+          var url = $(this).prev().find(':selected').val();
+          window.open(url, '_blank');
+        });
+        $('.sports_top_subheader select').attr('class', $('.sports_top_subheader select option:eq(0)').attr('class'));
+        $('.sports_top_subheader select').on('change', function() {
+          var css_class = $(this).find(':selected').attr('class');
+          $(this).attr('class', css_class);
+        });
+      }
     }
   };
 
