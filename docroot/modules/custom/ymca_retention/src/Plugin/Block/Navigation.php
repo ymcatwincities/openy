@@ -27,10 +27,10 @@ class Navigation extends BlockBase {
   public function getNavigationLinks() {
     $links = [
       'registration' => Link::fromTextAndUrl(t('Registration'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
-        'fragment' => 'register-and-report',
+        'fragment' => 'registration',
       ])),
       'track_my_activity' => Link::fromTextAndUrl(t('Track My Activities'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
-        'fragment' => 'register-and-report',
+        'fragment' => 'report',
       ])),
       'leader_board' => Link::fromTextAndUrl(t('Leaderboard'), Url::fromRoute('page_manager.page_view_ymca_retention_campaign', [], [
         'fragment' => 'leaderboard',

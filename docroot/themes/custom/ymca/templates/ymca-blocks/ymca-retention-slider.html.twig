@@ -1,121 +1,24 @@
 <div class="slider single-item">
-
-    <div class="purple-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/group-1.jpg" alt="">
+  {% for slide in slides %}
+    <div class="{{ slide.class }}">
+      <div class="slider-item__image">
+        <picture>
+          <source srcset="{{ path_img }}{{ slide.image.lowres }} 1x, {{ path_img }}{{ slide.image.highres }} 2x" media="(min-width: 48em)">
+          <source srcset="{{ path_img }}{{ slide.image.lowres }}" media="(min-width: 0em)">
+          <img src="{{ path_img }}{{ slide.image.lowres }}" alt="">
+        </picture>
+      </div>
+      <div class="slider-item__content">
+        <div class="slider-item__title">
+          {{ slide.title|t }}
         </div>
-        <div class="slider-item__content">
-            <div class="slider-item__title">
-                {{ "Redefine your “happy hour”"|t }}
-            </div>
-            <div class="slider-item__highlight">
-                {{ "and try a group exercise class."|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary purple-medium">{{ "View schedules"|t }}</a>
-            </div>
+        <div class="slider-item__highlight">
+          {{ slide.highlight|t }}
         </div>
+        <div class="slider-item__button">
+          <a href="{{ path(slide.button.link.route, slide.button.link.options) }}" target="_blank" class="btn btn-lg btn-primary {{ slide.button.link.class }}">{{ slide.button.text|t }}</a>
+        </div>
+      </div>
     </div>
-
-    <div class="blue-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/swim-1.jpg" alt="">
-        </div>
-        <div class="slider-item__content">
-            <div class="slider-item__title">
-                {{ "Slide into the final stretch of summer"|t }}
-            </div>
-            <div class="slider-item__highlight">
-                {{ "Down a YMCA waterslide"|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary blue-medium">{{ "Read more"|t }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="blue-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/swim-2.jpg" alt="">
-        </div>
-        <div class="slider-item__content">
-            <div class="slider-item__title">
-                {{ "Looking for a great cardio exercise that’s easy on your joints?"|t }}
-            </div>
-            <div class="slider-item__highlight">
-                {{ "Take a lap in one of our indoor or outdoor pools."|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary blue-medium">{{ "View schedules"|t }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="purple-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/group-2.jpg" alt="">
-        </div>
-        <div class="slider-item__content">
-            <div class="slider-item__title">
-                {{ "Bend, lift or dance your way through"|t }}
-            </div>
-            <div class="slider-item__highlight">
-                {{ "fun workouts with like-minded members"|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary purple-medium">{{ "Read more"|t }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="purple-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/group-3.jpg" alt="">
-        </div>
-        <div class="slider-item__content">
-            <div class="slider-item__highlight">
-                {{ "Try a free group exercise class"|t }}
-            </div>
-            <div class="slider-item__title">
-                {{ "to mix up your workout and meet new people"|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary purple-medium">{{ "View schedules"|t }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="green-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/fitness-1.jpg" alt="">
-        </div>
-        <div class="slider-item__content">
-            <div class="slider-item__highlight">
-                {{ "Log more smiles per mile"|t }}
-            </div>
-            <div class="slider-item__title">
-                {{ "with a wide variety of cardio machines"|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary green">{{ "Read more"|t }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="green-overlay">
-        <div class="slider-item__image">
-            <img src="{{ path_img }}/prototypes/ysr/img/slides/fitness-2.jpg" alt="">
-        </div>
-        <div class="slider-item__content">
-            <div class="slider-item__title">
-                {{ "Give your metabolism a boost by visiting"|t }}
-            </div>
-            <div class="slider-item__highlight">
-                {{ "the free weights area at your Y."|t }}
-            </div>
-            <div class="slider-item__button">
-                <a href="{{ path('ymca_groupex.all_schedules_search') }}" target="_blank" class="btn btn-lg btn-primary green">{{ "Read more"|t }}</a>
-            </div>
-        </div>
-    </div>
+  {% endfor %}
 </div>
