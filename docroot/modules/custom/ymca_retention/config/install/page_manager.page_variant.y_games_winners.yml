@@ -37,7 +37,7 @@ variant_settings:
       provider: ymca_retention
       label_display: '0'
       region: main
-      weight: 0
+      weight: -10
       uuid: e6cd38c1-c997-43a7-b06b-38b528bc21d0
       context_mapping: {  }
     5dd2d0bb-eaea-4eae-85e0-e2c143b0cf93:
@@ -46,7 +46,7 @@ variant_settings:
       provider: ymca_retention
       label_display: '0'
       region: main
-      weight: 0
+      weight: -9
       uuid: 5dd2d0bb-eaea-4eae-85e0-e2c143b0cf93
       context_mapping: {  }
     2a43adf3-43a0-4d59-b761-25ef59207651:
@@ -57,6 +57,15 @@ variant_settings:
       region: hero
       weight: 0
       uuid: 2a43adf3-43a0-4d59-b761-25ef59207651
+      context_mapping: {  }
+    d51ad59c-2790-4ebc-b0ed-40ca6b806fea:
+      id: retention_slider
+      label: 'YMCA retention slider block'
+      provider: ymca_retention
+      label_display: '0'
+      region: main
+      weight: -8
+      uuid: d51ad59c-2790-4ebc-b0ed-40ca6b806fea
       context_mapping: {  }
   id: panels_variant
   uuid: de7061f6-a802-461a-aaae-c5d3f31a3954

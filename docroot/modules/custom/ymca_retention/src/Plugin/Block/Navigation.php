@@ -80,6 +80,11 @@ class Navigation extends BlockBase {
           'fragment' => 'leaderboard',
         ]));
         break;
+
+      case 'page_manager.page_view_ymca_retention_pages_y_games_winners':
+        unset($links['registration']);
+        unset($links['track_my_activity']);
+        unset($links['leader_board']);
     }
 
     return [
