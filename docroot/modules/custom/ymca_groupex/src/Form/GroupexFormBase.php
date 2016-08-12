@@ -104,7 +104,8 @@ abstract class GroupexFormBase extends FormBase {
     // Attach JS.
     $form['#attached']['library'][] = 'ymca_groupex/ymca_groupex';
     $form['#cache'] = [
-      'max-age' => 0,
+      'max-age' => 3600,
+      'contexts' => ['url.query_args'],
     ];
 
     return $form;
@@ -184,11 +185,6 @@ abstract class GroupexFormBase extends FormBase {
       $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
     }
 
-    // Set current date if user hasn't provide a value.
-    if (!$form_state->getValue('filter_date')) {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
-      $form_state->setValue('filter_date', $date);
-    }
   }
 
 }
