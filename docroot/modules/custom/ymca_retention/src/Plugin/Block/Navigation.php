@@ -51,9 +51,6 @@ class Navigation extends BlockBase {
     $current_route = $route = \Drupal::service('current_route_match')
       ->getRouteName();
 
-    // Build URL to the front page.
-    $back_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
-
     // Display Registration link only on landing page and when member is not identified.
     if ($current_route != 'page_manager.page_view_ymca_retention_campaign') {
       $member_id = AnonymousCookieStorage::get('ymca_retention_member');
@@ -81,11 +78,25 @@ class Navigation extends BlockBase {
         ]));
         break;
 
+      // Leave only rules page link on winners page.
       case 'page_manager.page_view_ymca_retention_pages_y_games_winners':
         unset($links['registration']);
         unset($links['track_my_activity']);
         unset($links['leader_board']);
     }
+
+    // Leave only rules page link if the campaign is closed.
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $current_date = new \DateTime();
+    $date_campaign_close = new \DateTime($settings->get('date_campaign_close'));
+    if ($current_date > $date_campaign_close) {
+      unset($links['registration']);
+      unset($links['track_my_activity']);
+      unset($links['leader_board']);
+    }
+
+    // Build URL to the front page.
+    $back_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
 
     return [
       '#theme' => 'ymca_retention_navigation',
