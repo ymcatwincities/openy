@@ -4059,6 +4059,7 @@ function ymca_master_update_8171() {
  */
 function ymca_master_update_8172() {
   \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
+  drupal_flush_all_caches();
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
