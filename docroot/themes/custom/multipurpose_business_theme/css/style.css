@@ -21,7 +21,7 @@
   src: url(../fonts/cachetstd-medium-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/cachetstd-medium-webfont.woff) format("woff"), url(../fonts/cachetstd-medium-webfont.ttf) format("truetype"), url(../fonts/cachetstd-medium-webfont.svg#CachetStdMedium) format("svg");
 }
 .menu-base-theme a.is-active {
-  background: #0084CC;
+  text-decoration: underline;
 }
 
 #page-title {
@@ -367,7 +367,7 @@
 }
 
 .fa.fa-round {
-  font-size: 40px;
+  font-size: 100px;
   width: 100px;
   height: 100px;
   line-height: 100px;
@@ -375,7 +375,6 @@
   margin-bottom: 10px;
 }
 .fa.fa-round.blue {
-  border: 1px solid #09aeed;
   color: #09aeed;
 }
 .fa.fa-round.pink {
@@ -634,6 +633,27 @@
 .features-wrapper .features-alt_title {
   font-weight: bold;
   color: black;
+}
+
+.open_y_container ul {
+    list-style: none;
+}
+
+.open_y_container ul li {
+    font-size: 23px;
+    padding-bottom: 20px;
+}
+
+.open_y_container ul li:before {
+    content: '';
+    display: block;
+    width: 20px;
+    border-top: 2px solid #09aeed;
+    margin: 0 auto 20px;
+    color: white;
+}
+.open_y_container ul li:first-child:before {
+    display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
