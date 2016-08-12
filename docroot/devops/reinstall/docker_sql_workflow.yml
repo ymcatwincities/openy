@@ -5,7 +5,7 @@
 
 # Run docker container.
 - name: Obtain unique container for a build
-  
+  shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di dbprod
 
 # Run registry rebuild.
 - name: Check if registry_rebuild is installed
