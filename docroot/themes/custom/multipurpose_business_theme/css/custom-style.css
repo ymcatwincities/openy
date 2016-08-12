@@ -11,17 +11,17 @@
 -----------------------------------------------*/
 
 body{
-  font-family: 'Roboto', sans-serif;
-  font-size: 13px;
+  font-family: 'Cachet', 'Roboto', sans-serif;
+  font-size: 14px;
   overflow-x: hidden;
-  color: #666;
+  color: #777;
 }
 
 p{ margin: 0 0 20px 0; }
 
 .h1, .h2, .h3, h1, h2, h3{
-  font-family: 'Roboto Slab', serif;
-  font-weight: normal;
+  font-family: 'Cachet', 'Roboto Slab', serif;
+  font-weight: bold;
 }
 
 h1, .h1{ font-size: 24px; color: #000; }
@@ -34,9 +34,9 @@ img{ max-width: 100%; }
 
 ol, ul{ padding-left: 20px; }
 
-a{ color: #078D92; }
+a{ color: #005cab; }
 
-a:hover{ color: #1bd3df; }
+a:hover{ color: #09aeed; }
 
 ul.links.inline{
   padding: 0;
@@ -64,7 +64,7 @@ ul.links.inline li{
 
 .main-header{
   background: #0288d1;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Cachet', 'Roboto Slab', serif;
   padding-bottom: 5px;
   z-index: 999;
   position: relative;
@@ -134,7 +134,7 @@ header nav{
 }
 
 .site-name a{
-  font-size: 22px;
+  font-size: 34px;
   color: #fff;
   line-height: 100%;
 }
@@ -468,7 +468,7 @@ input[type="submit"]:hover{
 
 .path-frontpage .node__content{
   font-size: 14px;
-  max-width: 850px;
+  max-width: 1170px;
   margin: 0 auto;
 }
 
@@ -540,7 +540,7 @@ nav h2{
 }
 
 .menu-base-theme li ul li a{
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cachet', 'Roboto', sans-serif;
   color: #262626;
 }
 
@@ -870,7 +870,7 @@ ul.links.inline li{
   text-align: center;
   color: #fff;
   font-size: 14px;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Cachet', 'Roboto Slab', serif;
 }
 
 .testimonials-wrap h2{
@@ -956,7 +956,7 @@ ul.links.inline li{
   margin: 0 0 10px 0;
   font-size: 20px;
   font-weight: 300;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Cachet', 'Roboto Slab', serif;
 }
 
 .features-alt_intro {
@@ -1082,19 +1082,8 @@ ul.ourHolder li.item img{
 .flexslider{
   z-index: 1;
   border: 0;
-  display: none;
   position: relative;
-}
-
-.flex-caption h2{
-  font-size: 34px;
-  background: rgba(0, 0, 0, 0.82);
-  padding: 10px;
-  color: #fff;
-  text-transform: uppercase;
-  text-shadow: none;
-  line-height: 100%;
-  display: inline-block;
+  margin: 0;
 }
 
 .flex-caption {
@@ -1106,24 +1095,6 @@ ul.ourHolder li.item img{
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.57);
   font-size: 16px;
 }
-
-.flex-description{
-  color: #ddd;
-  background: rgba(0, 0, 0, 0.32);
-  padding: 14px;
-  text-shadow: none;
-  font-weight: 300;
-  font-size: 13px;
-}
-
-.flex-caption .more-link{
-  padding: 8px 12px;
-  color: #FFF;
-  text-decoration: none;
-  background: rgb(2, 136, 209);
-  text-shadow: none;
-}
-
 /*Flex slider Nav*/
 
 .flex-direction-nav a{
@@ -1220,12 +1191,12 @@ li.css a {
 }
 
 #ui_accordion .panel-heading h4{
-  font-size: 13px;
+  font-size: 14px;
   font-weight: normal;
 }
 
 #ui_accordion .panel-heading a:hover,
 #ui_accordion .panel-heading a:focus{
   text-decoration: none;
-  color: #0ED00E;
+  color: #005cab;
 }

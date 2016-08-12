@@ -1,6 +1,6 @@
 .template_youth_sports_overview {
   .locations-lead-copy {
-    background: $grey9;
+    background: $grey13;
 
     &:before {
       position: absolute;
@@ -9,10 +9,10 @@
       bottom: 0;
       display: block;
       width: 80%;
-      background-image: -webkit-linear-gradient($grey8, $grey9);
-      background-image: -moz-linear-gradient($grey8, $grey9);
-      background-image: -ms-linear-gradient($grey8, $grey9);
-      background-image: linear-gradient($grey8, $grey9);
+      background-image: -webkit-linear-gradient($grey12, $grey13);
+      background-image: -moz-linear-gradient($grey12, $grey13);
+      background-image: -ms-linear-gradient($grey12, $grey13);
+      background-image: linear-gradient($grey12, $grey13);
       content: '';
       -webkit-transform: skew(-30deg);
       -moz-transform: skew(-30deg);
@@ -48,7 +48,7 @@
     }
 
     h1 {
-      color: $grey10;
+      color: $grey14;
       font-size: 30px;
       margin-bottom: 10px;
     }
@@ -59,7 +59,7 @@
         font-size: 14px;
       }
       p:first-child {
-        color: $grey10;
+        color: $grey14;
         font-size: 18px;
         margin-bottom: 20px;
       }
@@ -126,12 +126,12 @@
 
   section.node {
     h2 {
-      color: $grey10;
+      color: $grey14;
       text-transform: uppercase;
     }
 
     h3 {
-      color: $grey10;
+      color: $grey14;
       font-size: 30px;
       text-transform: uppercase;
       margin-bottom: 20px;
@@ -216,23 +216,7 @@
   }
 }
 
-a.sports-icon {
-  background-color: $white;
-  display: block;
-  border-radius: 3px;
-  border: 1px solid $grey8;
-  padding: 20px 80px;
-  position: relative;
-
-  &:after {
-    content: ">";
-    position: absolute;
-    right: 15px;
-    @media screen and (min-width: 768px) and (max-width: 992px) {
-      display: none;
-    }
-  }
-
+@mixin sports_icons() {
   &.baseball-softball-t-ball {
     background: $white url("../img/icon-big-baseball.png") no-repeat 26px center;
   }
@@ -265,6 +249,26 @@ a.sports-icon {
   &.tumbling {
     background: $white url("../img/icon-big-tumbling.png") no-repeat 20px center;
   }
+}
+
+a.sports-icon {
+  background-color: $white;
+  display: block;
+  border-radius: 3px;
+  border: 1px solid $grey8;
+  padding: 20px 80px;
+  position: relative;
+
+  &:after {
+    content: ">";
+    position: absolute;
+    right: 15px;
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  @include sports_icons();
 
   @media screen and (min-width: 768px) and (max-width: 992px) {
     background-position: 10px center;
@@ -277,35 +281,40 @@ a.sports-icon {
 
 .template_youth_sports_inner {
   .locations-lead-copy {
-    background: $grey9;
+    background: $grey13;
 
     &:before {
+      background: url('../img/youth_sports_top_bg.jpg') no-repeat right top;
       position: absolute;
       top: 58px;
-      left: 59%;
+      right: 0;
       bottom: 0;
       display: block;
-      width: 80%;
-      background-image: -webkit-linear-gradient($grey8, $grey9);
-      background-image: -moz-linear-gradient($grey8, $grey9);
-      background-image: -ms-linear-gradient($grey8, $grey9);
-      background-image: linear-gradient($grey8, $grey9);
+      width: 40%;
       content: '';
-      -webkit-transform: skew(-30deg);
-      -moz-transform: skew(-30deg);
-      -ms-transform: skew(-30deg);
-      transform: skew(-30deg);
-
+      -webkit-transform: none;
+      -moz-transform: none;
+      -ms-transform: none;
+      transform: none;
+      background-size: cover;
+      left: auto;
+      opacity: 0.5;
+      -webkit-clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+      clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+      @media (max-width: 767px) {
+        display: none;
+      }
       @media (min-width: 768px) {
         top: 51px;
       }
       @media screen and (min-width: 768px) and (max-width: 992px) {
-        left: 45%;
+
       }
     }
-
-    .left {
-      padding-right: 100px;
+    @media (min-width: 768px) {
+      .left {
+        padding-right: 100px;
+      }
     }
 
     .breadcrumb-container {
@@ -325,7 +334,7 @@ a.sports-icon {
     }
 
     h1 {
-      color: $grey10;
+      color: $grey14;
       font-size: 30px;
       margin-bottom: 10px;
     }
@@ -336,7 +345,7 @@ a.sports-icon {
         font-size: 14px;
       }
       p:first-child {
-        color: $grey10;
+        color: $grey14;
         font-size: 18px;
         margin-bottom: 20px;
       }
@@ -363,9 +372,9 @@ a.sports-icon {
       }
     }
     .panel-body {
-      border-left: 1px solid $grey8;
-      border-right: 1px solid $grey8;
-      border-bottom: 1px solid $grey8;
+      border-left: 1px solid $grey12;
+      border-right: 1px solid $grey12;
+      border-bottom: 1px solid $grey12;
       padding: 35px 60px;
     }
   }
@@ -390,5 +399,62 @@ a.sports-icon {
         color: $orange1;
       }
     }
+  }
+}
+
+.sports_top_subheader {
+  select {
+    display: block;
+    width: 60%;
+    height: 70px;
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1.428571429;
+    color: $blue1;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-right: 15px;
+    text-indent: 80px;
+    @include sports_icons();
+    @media (max-width: 767px) {
+      float: none;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+      height: 52px;
+      text-indent: 60px;
+    }
+  }
+  .selectbox {
+    margin: 30px 0;
+    .find-a-class {
+      background: url("../img/button_blue_arrow.png") no-repeat 0 0;
+      font-size: 18px;
+      line-height: 70px;
+      color: $white;
+      width: 182px;
+      @include cachet();
+      font-weight: bold;
+      display: inline-block;
+      text-indent: 32px;
+      text-decoration: none;
+      @media (min-width: 768px) {
+
+      }
+      @media screen and (min-width: 768px) and (max-width: 992px) {
+        text-indent: 15px;
+        background-size: contain;
+        line-height: 52px;
+        font-size: 16px;
+        width: 135px;
+      }
+    }
+  }
+  .text {
+    clear: both;
   }
 }
