@@ -16,6 +16,8 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\Core\File;
+use Drupal\file\Entity\File as EntityFile;
 
 /**
  * Protecting sites with a shield.
@@ -4008,6 +4010,66 @@ function ymca_master_update_8170() {
     [
       $path . 'user.role.contributor.yml',
       $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Make favicons configurable.
+ */
+function ymca_master_update_8171() {
+  $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
+  $destDir = 'public://favicon/';
+  drupal_mkdir($destDir, 0777);
+  $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
+  $fileMap = [
+    'default' => [
+      'from' => 'favicon.ico',
+      'to' => 'default.ico'
+    ],
+    'camp' => [
+      'from' => 'favicon-alt.ico',
+      'to' => 'camp.ico'
+    ],
+    'location' => [
+      'from' => 'favicon-locations.ico',
+      'to' => 'location.ico'
+    ]
+  ];
+  $fileUsage = \Drupal::service('file.usage');
+  foreach ($fileMap as $key => $fileItem) {
+    $fileUri = $destDir . $fileItem['to'];
+    file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    $file = EntityFile::create([
+      'uid' => 1,
+      'filename' => $fileItem['to'],
+      'uri' => $fileUri,
+      'status' => FILE_STATUS_PERMANENT,
+    ]);
+    $file->save();
+    $fid = $file->id();
+    $fileUsage->add($file, 'ymca_master', 'favicon', $fid);
+    $config->set('ymca_favicon_' . $key, [$fid]);
+  }
+  $config->save();
+}
+
+/**
+ * Install Groupex From Cache.
+ */
+function ymca_master_update_8172() {
+  \Drupal::service('module_installer')->install(['groupex_form_cache'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_response.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
     ]
   );
 }

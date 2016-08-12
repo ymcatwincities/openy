@@ -428,7 +428,7 @@
 
   p {
     @include cachet();
-    color: $grey8-ysr;
+    color: $grey12-ysr;
     @include rem(font-size, 20px);
     @include rem(margin, 40px auto 0);
     @include rem(max-width, 420px);

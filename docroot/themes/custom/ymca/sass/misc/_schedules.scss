@@ -1,0 +1,350 @@
+.groupex-form-full {
+  padding-top: 15px;
+
+  #location-select-wrapper {
+    padding-right: 30px;
+    float: left;
+    width: 50%;
+
+    label {
+      display: none;
+    }
+
+    select {
+      height: 50px;
+      line-height: 50px;
+      text-indent: 20px;
+    }
+  }
+
+  #date-select-wrapper {
+    float: left;
+    width: 50%;
+    position: relative;
+
+    &:before {
+      background-color: $grey1;
+      border-radius: 5px;
+      color: $grey5;
+      content: "\e953";
+      font-family: icomoon;
+      font-size: 20px;
+      left: 1px;
+      padding: 10px;
+      position: absolute;
+      top: 1px;
+    }
+
+    label {
+      display: none;
+    }
+
+    select {
+      height: 50px;
+      line-height: 50px;
+      text-indent: 50px;
+    }
+  }
+  #class-select-wrapper {
+    float: left;
+    width: 50%;
+
+    label {
+      display: none;
+    }
+
+    select {
+      height: 50px;
+      line-height: 50px;
+      text-indent: 20px;
+    }
+  }
+  .instructor-chosen {
+    color: $grey5;
+    margin-bottom: 15px;
+    font-size: 16px;
+
+    .name {
+      color: $purple;
+      margin: 0 10px;
+
+      .icon-user {
+        color: $purple;
+        margin-right: 5px;
+      }
+    }
+
+    .location {
+
+    }
+  }
+  #location-wrapper .form-group {
+    margin-bottom: 8px;
+
+    .ajax-progress-throbber {
+      position: absolute;
+      right: 6px;
+      top: 0;
+    }
+
+    .inner {
+      background-color: $grey1;
+      border-radius: 3px;
+      border: 1px solid $grey2;
+      color: $black2;
+      position: relative;
+      padding: 0px 25px 0px 40px;
+      min-height: 52px;
+      line-height: 52px;
+
+      input {
+        position: absolute;
+        left: 10px;
+        top: 17px;
+        margin-left: 0;
+      }
+
+      label {
+        background: none;
+        border: none;
+        text-align: left;
+        display: inline-block;
+        line-height: 52px;
+        vertical-align: middle;
+        position: absolute;
+        color: $black;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        padding: 0 25px 0 45px;
+        .label-wrapper {
+          span {
+            line-height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            white-space: normal;
+          }
+        }
+      }
+      input {
+        display: none;
+      }
+    }
+
+    .icon {
+      color: $grey3;
+      position: absolute;
+      left: 10px;
+      top: 13px;
+      font-size: 22px;
+      @media screen and (max-width: 767px) {
+        top: 9px;
+      }
+    }
+
+    &.checked {
+      .inner {
+        background-color: $pink;
+        border-color: $pink;
+        color: $white;
+      }
+
+      .icon {
+        color: $light_pink;
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .group-ex-time,
+    .group-ex-date,
+    .help-block {
+      margin: 0;
+      height: 0;
+      label {
+        display: inline;
+      }
+    }
+    #groupex-full-form-wrapper {
+      > .form-group {
+        margin: 0;
+        height: 0;
+      }
+    }
+  }
+}
+
+.groupex-results {
+  overflow-y: auto;
+  overflow-x: hidden;
+  clear: both;
+  padding-top: 15px;
+  @media screen and (max-width: 767px) {
+    height: auto;
+    max-height: none;
+    overflow: hidden;
+    margin: 0 -15px;
+  }
+
+  table {
+    width: 100%;
+    @media screen and (max-width: 991px) {
+      font-size: 12px;
+    }
+    td {
+      padding: 20px 15px;
+      @media screen and (max-width: 767px) {
+        padding: 10px 5px;
+      }
+
+      &.time-duration {
+        color: $black2;
+        max-width: 180px;
+
+        .icon-clock {
+          color: $grey3;
+          margin-right: 10px;
+        }
+
+        .duration {
+          color: $grey9;
+          font-style: italic;
+          white-space: nowrap;
+          margin-left: 22px;
+          @media screen and (min-width: 768px) and (max-width: 1110px) {
+            margin-left: 20px;
+          }
+        }
+      }
+
+      &.instructor {
+        line-height: 14px;
+        @media screen and (max-width: 767px) {
+          min-width: 105px;
+        }
+        a {
+          color: $purple;
+          white-space: nowrap;
+        }
+        .icon-user {
+          color: $purple;
+          margin-right: 10px;
+        }
+        .icon-loop2 {
+          font-size: 10px;
+          color: $pink;
+          margin-right: 5px;
+          margin-left: 24px;
+          font-weight: bold;
+        }
+        .sub {
+          font-size: 12px;
+          color: $pink;
+        }
+      }
+    }
+    tr {
+      &:nth-child(even) td {
+        background-color: $grey8;
+      }
+      &:nth-child(odd) td {
+        background-color: $grey1;
+      }
+      td.caption {
+        background-color: $grey10;
+        text-align: left;
+        font-size: 15px;
+        font-weight: bold;
+        font-family: "Cachet", Arial, sans-serif;
+        a {
+          color: $white;
+        }
+      }
+      td.whitebar {
+        background-color: $white;
+        padding: 25px;
+      }
+    }
+  }
+
+  .instructor-display-mode {
+    td.instructor * {
+      display: none;
+    }
+  }
+  .day-schedule {
+    table {
+      margin-bottom: 0;
+    }
+  }
+}
+
+body.node--type-location {
+  #groupex-full-form-wrapper {
+    #location-wrapper,
+    #location-select-wrapper {
+      display: none !important;
+    }
+    #date-select-wrapper {
+      padding-right: 30px;
+    }
+  }
+}
+
+#block-schedulesrightblocks {
+  article {
+    h2 {
+      margin: 0;
+      display: block;
+      color: $grey7;
+      text-transform: uppercase;
+      a {
+        color: $grey7;
+        padding-bottom: 0;
+        @media screen and (max-width: 767px) {
+          padding-bottom: 10px;
+        }
+      }
+    }
+
+    ul {
+      margin: 25px 0 30px;
+      padding: 0;
+
+      li {
+        list-style: none;
+        font-size: 15px;
+        margin-bottom: 15px;
+
+        &:before {
+          content: "\f105";
+          color: $grey5;
+          font-family: icomoon;
+          list-style: none;
+          margin-right: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  #component_153751 {
+
+    .richtext {
+      margin-top: 0;
+    }
+
+    .panel-body a {
+      border-radius: 5px;
+      border: 1px solid $light-purple;
+      color: $purple;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 15px;
+      padding: 15px 35px;
+      text-transform: uppercase;
+      font-family: Cachet;
+      font-weight: bold;
+    }
+  }
+}
