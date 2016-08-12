@@ -4055,9 +4055,30 @@ function ymca_master_update_8171() {
 }
 
 /**
- * Updates format configs adding color buttons.
+ * Install Groupex From Cache.
  */
 function ymca_master_update_8172() {
+  \Drupal::service('module_installer')->install(['groupex_form_cache'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_response.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
+    ]
+  );
+}
+
+/**
+ * Updates format configs adding color buttons.
+ */
+function ymca_master_update_8173()
+{
   \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
@@ -4066,3 +4087,4 @@ function ymca_master_update_8172() {
     ]
   );
 }
+

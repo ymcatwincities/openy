@@ -1,0 +1,7 @@
+ymca_groupex:
+  version: VERSION
+  js:
+    js/ymca_groupex.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
