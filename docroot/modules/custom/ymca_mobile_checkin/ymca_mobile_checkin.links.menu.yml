@@ -1,0 +1,5 @@
+ymca_mobile_checkin.settings:
+  title: YMCA Mobile Check-in
+  route_name: ymca_mobile_checkin.settings
+  parent: system.admin_config_system
+  description: 'Manage YMCA Mobile Check-in page settings.'
