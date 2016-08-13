@@ -4077,8 +4077,7 @@ function ymca_master_update_8172() {
 /**
  * Updates format configs adding color buttons.
  */
-function ymca_master_update_8173()
-{
+function ymca_master_update_8173() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
   drupal_flush_all_caches();
@@ -4089,4 +4088,3 @@ function ymca_master_update_8173()
     ]
   );
 }
-
