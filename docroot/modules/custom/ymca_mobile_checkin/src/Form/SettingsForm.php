@@ -36,22 +36,22 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['shield']['enabled'] = [
       '#type' => 'checkbox',
-      '#title' => 'enabled',
+      '#title' => $this->t('enabled'),
       '#default_value' => $config->get('enabled'),
     ];
     $form['shield']['login'] = [
       '#type' => 'textfield',
-      '#title' => 'login',
+      '#title' => $this->t('login'),
       '#default_value' => $config->get('login'),
     ];
     $form['shield']['password'] = [
       '#type' => 'textfield',
-      '#title' => 'password',
+      '#title' => $this->t('password'),
       '#default_value' => $config->get('password'),
     ];
     $form['shield']['message'] = [
       '#type' => 'textfield',
-      '#title' => 'message',
+      '#title' => $this->t('message'),
       '#default_value' => $config->get('message'),
     ];
 
