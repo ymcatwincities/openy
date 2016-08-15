@@ -1,51 +1,53 @@
-<div id="leaderboard-app" class="leaderboard-inner row" data-ng-controller="LeaderboardController">
-  <div class="container">
-    <div class="col-xs-12">
-      <div class="wrap">
-        <img src="{{ base_path }}themes/custom/ymca/prototypes/ysr/img/cup.png" alt="Leaderboard">
-      </div>
-      <h2>{{ 'Leaderboard'|t }}</h2>
+<div id="leaderboard" class="ysr-offset">
+  <div id="leaderboard-app" class="leaderboard-inner row" data-ng-controller="LeaderboardController">
+    <div class="container">
+      <div class="col-xs-12">
+        <div class="wrap">
+          <img src="{{ base_path }}themes/custom/ymca/prototypes/ysr/img/cup.png" alt="{{ 'Leaderboard'|t }}Leaderboard">
+        </div>
+        <h2>{{ 'Leaderboard'|t }}</h2>
 
-      <form action="#" class="leaderboard-form ng-hide" data-ng-show="active">
-        <select name="location" id="leaderboard-location" class="form-select form-control text default"
-                data-ng-model="location"
-                data-ng-change="locationChange(location)"
-                data-ng-options="location as location.name for location in locations track by location.branch_id">
-        </select>
-      </form>
+        <form action="#" class="leaderboard-form ng-hide" data-ng-show="active">
+          <select name="location" id="leaderboard-location" class="form-select form-control text default"
+                  data-ng-model="location"
+                  data-ng-change="locationChange(location)"
+                  data-ng-options="location as location.name for location in locations track by location.branch_id">
+          </select>
+        </form>
 
-      <div class="results-table-wrapper ng-hide" data-ng-show="members.length > 0">
-        <table class="results-table">
-          <thead>
-          <tr>
-            <th>{{ 'Sort by'|t }}:</th>
-            <th class="member-id"></th>
-            <th><a class="sort-link swimming" data-ng-click="sort('activities[0]')" data-ng-class="headerClass('activities[0]')">{{ 'Swimming'|t }}</a></th>
-            <th><a class="sort-link fitness" data-ng-click="sort('activities[1]')" data-ng-class="headerClass('activities[1]')">{{ 'Fitness'|t }}</a></th>
-            <th><a class="sort-link group-exercise" data-ng-click="sort('activities[2]')" data-ng-class="headerClass('activities[2]')">{{ 'Group Exercise'|t }}</a></th>
-            <th><a class="sort-link visits" data-ng-click="sort('visits')" data-ng-class="headerClass('visits')">{{ 'Visits'|t }}</a></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr data-ng-repeat="member in (members_sorted = (members | orderBy:order:reverse)) | limitTo:quantity" data-ng-class="memberClass($index, member)">
-            <td class="name">
-              {{ '{{member.first_name}} {{member.last_name}}' }}.
-              <span class="member-id">{{ 'ID'|t }}: {{ '{{member.membership_id}}' }}</span>
-            </td>
-            <td class="member-id">{{ 'ID'|t }}: ******** {{ '{{member.membership_id}}' }}</td>
-            <td class="activity-count">{{ '{{member.activities[0]}}' }}</td>
-            <td class="activity-count">{{ '{{member.activities[1]}}' }}</td>
-            <td class="activity-count">{{ '{{member.activities[2]}}' }}</td>
-            <td class="activity-count">{{ '{{member.visits}}' }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="results-table-wrapper ng-hide" data-ng-show="members.length > 0">
+          <table class="results-table">
+            <thead>
+            <tr>
+              <th>{{ 'Sort by'|t }}:</th>
+              <th class="member-id"></th>
+              <th><a class="sort-link swimming" data-ng-click="sort('activities[0]')" data-ng-class="headerClass('activities[0]')">{{ 'Swimming'|t }}</a></th>
+              <th><a class="sort-link fitness" data-ng-click="sort('activities[1]')" data-ng-class="headerClass('activities[1]')">{{ 'Fitness'|t }}</a></th>
+              <th><a class="sort-link group-exercise" data-ng-click="sort('activities[2]')" data-ng-class="headerClass('activities[2]')">{{ 'Group Exercise'|t }}</a></th>
+              <th><a class="sort-link visits" data-ng-click="sort('visits')" data-ng-class="headerClass('visits')">{{ 'Visits'|t }}</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="member in (members_sorted = (members | orderBy:order:reverse)) | limitTo:quantity" data-ng-class="memberClass($index, member)">
+              <td class="name">
+                {{ '{{member.first_name}} {{member.last_name}}' }}.
+                <span class="member-id">{{ 'ID'|t }}: {{ '{{member.membership_id}}' }}</span>
+              </td>
+              <td class="member-id">{{ 'ID'|t }}: ******** {{ '{{member.membership_id}}' }}</td>
+              <td class="activity-count">{{ '{{member.activities[0]}}' }}</td>
+              <td class="activity-count">{{ '{{member.activities[1]}}' }}</td>
+              <td class="activity-count">{{ '{{member.activities[2]}}' }}</td>
+              <td class="activity-count">{{ '{{member.visits}}' }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div class="pager ng-hide" data-ng-show="quantity < members.length" data-ng-click="loadMore()">
-        <a class="load-more">{{ '+ Show 20 more'|t }}</a>
+        <div class="pager ng-hide" data-ng-show="quantity < members.length" data-ng-click="loadMore()">
+          <a class="load-more">{{ '+ Show 20 more'|t }}</a>
+        </div>
+        <div class="description">{{ description }}</div>
       </div>
-      <div class="description">{{ description }}</div>
     </div>
   </div>
 </div>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>{{ site_title }} - {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body class="index-page">
+
+  <div class="component--list">
+    <div class="component--list--header">
+      <h2 class="component--title">Components List</h2>
+      <a title="Show List" class="show-list">+</a>
+      <a title="Hide List"   style="display:none" class="hide-list">-</a>
+    </div>
+    <div class="component--list--content">
+      <ul>
+        {% for group in list_groups %}
+          <li class="component--list--item">
+            <a class="show-subitem">{{ group.title }}</a>
+            <ul class="element-invisible">
+              {% for component in list_components %}
+                {% if component.group == group.name %}
+                  {% set componentId =  component.id %}
+                  {% set componentName =  component.name|replace({'--':' ','-':' ','__':' ','_':' '}) %}
+                  {% if component.title %}
+                    {% set componentName = component.title %}
+                  {% endif %}
+                  <li class="component--list--item sub"><a href="#{{component.name}}"><span class="small-tag">{{ componentId }}</span> {{ componentName }}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="top-pane">
+    <ul class="devices inline-list text-center">
+      <li class="device"><a href="#full" class="js-choose-device active" title="Full"><i class="fa fa-television"></i></a></li>
+      <li class="device"><a href="#desktop" class="js-choose-device" title="Desktop"><i class="fa fa-laptop"></i></a></li>
+      <li class="device"><a href="#tablet" class="js-choose-device" title="Tablet"><i class="fa fa-tablet"></i></a></li>
+      <li class="device"><a href="#mobile" class="js-choose-device" title="Mobile"><i class="fa fa-mobile"></i></a></li>
+    </ul>
+  </div>
+  <div class="text-center">
+    <iframe class="device-mode" name='styleguide' id="styleguide" src="sg.html" 
+        frameborder="0" border="0" cellspacing="0"
+        style="border-style: none;"></iframe>
+  </div>
+
+  <script src="script/jquery.min.js"></script>
+  <script src="https://use.fontawesome.com/9fb736d1ce.js"></script>
+  <script src="script/styleguide.js"></script>
+  </body>
+</html>
+
+

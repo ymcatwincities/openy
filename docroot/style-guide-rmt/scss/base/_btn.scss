@@ -1,0 +1,176 @@
+/* style button */
+.btn {
+  background: $blue-light;
+  border-radius: 3px;
+  border: medium none;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 10px;
+  padding: 11px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &:hover {
+    background: $blue;
+  }
+
+  &--blue {
+    background: $blue;
+
+    &:hover {
+      background: darken($blue, 5%);
+    }
+  }
+
+  &--blue--light {
+    background: $blue-light;
+
+    &:hover {
+      background: darken($blue, 5%);
+    }
+  }
+
+  &--purple {
+    background: $purple;
+
+    &:hover {
+      background: darken($purple, 5%);
+    }
+  }
+
+  &--purple--light {
+    background: $purple-light;
+
+    &:hover {
+      background: darken($purple, 5%);
+    }
+  }
+
+  &--green {
+    background: $green;
+
+    &:hover {
+      background: darken($green, 5%);
+    }
+  }
+
+  &--orange {
+    background: $orange;
+
+    &:hover {
+      background: darken($orange, 5%);
+    }
+  }
+}
+/* style button has icon */
+
+.btn--has-icon {
+  padding-left: 45px;
+  position: relative;
+
+  span {
+    border-radius: 3px 0 0 3px;
+    font-size: 16px;
+    height: 29px;
+    left: 0;
+    padding-top: 8px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    vertical-align: middle;
+    width: 38px;
+
+    img {
+      padding-left: 9px;
+      padding-right: 9px;
+      width: 20px !important;
+    }
+  }
+
+  .icon {
+
+    &--blue {
+      background-color: $blue-dark ;
+    }
+
+    &--blue--light {
+      background-color: $blue ;
+    }
+
+    &--purple {
+      background-color: $purple-dark ;
+    }
+
+    &--purple--light {
+      background-color: $purple ;
+    }
+
+    &--green {
+      background-color: $green-dark ;
+    }
+
+    &--orange {
+      background-color: $orange-dark ;
+    }
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: $blue-dark;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+
+  &__arrow {
+    margin-left: 7px;
+  }
+
+  &__img {
+    margin-right: 10px;
+  }
+
+  &--blue {
+    color: $blue-dark;
+
+    &:hover {
+      color: darken($blue-dark, 10%);
+    }
+  }
+
+  &--purple {
+    color: $purple;
+
+    &:hover {
+      color: darken($purple, 10%);
+    }
+  }
+
+  &--green {
+    color: $green;
+    &:hover {
+      color: darken($green, 10%);
+    }
+  }
+
+  &--orange {
+    color: $orange;
+
+    &:hover {
+      color: darken($orange, 10%);
+    }
+  }
+
+  &--has-icon {
+    text-decoration: none;
+  }
+}
+
+
+
+
