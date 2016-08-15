@@ -55,27 +55,6 @@
             $(this).replaceWith(value.html);
           });
         });
-        // Adds dimension for A|B variants to be tracked by Google Analytics.
-        if (typeof ga != "undefined") {
-          window.dataLayer.push([{'dimension2': 'Variant B'}]);
-          console.log("Variant B");
-          ga('send', 'pageview', {'dimension2': 'Variant B'});
-          //ga(ga.getAll()[0].get('name') + '.set', 'dimension2', 'Variant B');
-          //ga(ga.getAll()[0].get('name') + '.send', 'pageview', {'dimension2': 'Variant B'});
-          //ga(ga.getAll()[0].get('name') + '.set', 'dimension2', 'Variant B');
-        }
-      }
-      else {
-        if (typeof ga != "undefined") {
-          window.dataLayer.push([{'dimension2': 'Variant A'}]);
-          console.log("Variant A");
-          ga('send', 'pageview', {'dimension2': 'Variant A'});
-          //ga(ga.getAll()[0].get('name') + '.set', 'dimension2', 'Variant A');
-          //ga(ga.getAll()[0].get('name') + '.send', 'pageview', {'dimension2': 'Variant A'});
-          //ga(ga.getAll()[0].get('name') + '.set', 'dimension2', 'Variant A');
-
-          // Working command ga(ga.getAll()[0].get('name') + '.send', 'pageview', {'dimension2': 'Variant b'});
-        }
       }
     }
   };
