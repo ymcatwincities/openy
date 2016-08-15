@@ -1,6 +1,6 @@
 .template_youth_sports_overview {
   .locations-lead-copy {
-    background: $grey9;
+    background: $grey13;
 
     &:before {
       position: absolute;
@@ -9,10 +9,10 @@
       bottom: 0;
       display: block;
       width: 80%;
-      background-image: -webkit-linear-gradient($grey8, $grey9);
-      background-image: -moz-linear-gradient($grey8, $grey9);
-      background-image: -ms-linear-gradient($grey8, $grey9);
-      background-image: linear-gradient($grey8, $grey9);
+      background-image: -webkit-linear-gradient($grey12, $grey13);
+      background-image: -moz-linear-gradient($grey12, $grey13);
+      background-image: -ms-linear-gradient($grey12, $grey13);
+      background-image: linear-gradient($grey12, $grey13);
       content: '';
       -webkit-transform: skew(-30deg);
       -moz-transform: skew(-30deg);
@@ -48,7 +48,7 @@
     }
 
     h1 {
-      color: $grey10;
+      color: $grey14;
       font-size: 30px;
       margin-bottom: 10px;
     }
@@ -59,7 +59,7 @@
         font-size: 14px;
       }
       p:first-child {
-        color: $grey10;
+        color: $grey14;
         font-size: 18px;
         margin-bottom: 20px;
       }
@@ -126,12 +126,12 @@
 
   section.node {
     h2 {
-      color: $grey10;
+      color: $grey14;
       text-transform: uppercase;
     }
 
     h3 {
-      color: $grey10;
+      color: $grey14;
       font-size: 30px;
       text-transform: uppercase;
       margin-bottom: 20px;
@@ -281,7 +281,7 @@ a.sports-icon {
 
 .template_youth_sports_inner {
   .locations-lead-copy {
-    background: $grey9;
+    background: $grey13;
 
     &:before {
       background: url('../img/youth_sports_top_bg.jpg') no-repeat right top;
@@ -334,7 +334,7 @@ a.sports-icon {
     }
 
     h1 {
-      color: $grey10;
+      color: $grey14;
       font-size: 30px;
       margin-bottom: 10px;
     }
@@ -345,7 +345,9 @@ a.sports-icon {
         font-size: 14px;
       }
       p:first-child {
-
+        color: $grey14;
+        font-size: 18px;
+        margin-bottom: 20px;
       }
     }
   }
@@ -370,9 +372,9 @@ a.sports-icon {
       }
     }
     .panel-body {
-      border-left: 1px solid $grey8;
-      border-right: 1px solid $grey8;
-      border-bottom: 1px solid $grey8;
+      border-left: 1px solid $grey12;
+      border-right: 1px solid $grey12;
+      border-bottom: 1px solid $grey12;
       padding: 35px 60px;
     }
   }
