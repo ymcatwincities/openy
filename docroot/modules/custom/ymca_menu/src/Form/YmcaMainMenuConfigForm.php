@@ -59,19 +59,6 @@ class YmcaMainMenuConfigForm extends ConfigFormBase {
         continue;
       }
 
-      // Count enabled children.
-      $has_children = FALSE;
-      foreach ($item['o'] as $child) {
-        if (empty($menu_tree->lookup[$child]['x'])) {
-          $has_children = TRUE;
-          break;
-        }
-      }
-      // Don't show items without at least 1 enabled children.
-      if (!$has_children) {
-        continue;
-      }
-
       $options[$key] = sprintf('%s (%d)', $lookup['n'], $key);
     }
 
