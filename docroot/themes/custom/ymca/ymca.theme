@@ -468,25 +468,26 @@ function ymca_preprocess_html(&$variables) {
   }
   $variables['attributes']->addClass($classes);
 
-  $icon = 'favicon.ico';
+  $iconFid = theme_get_setting('ymca_favicon_default')[0];
   if (
     in_array('theme_ymca_2013_location_home', $classes) ||
     in_array('theme_ymca_2013_location_category_and_detail', $classes)) {
-    $icon = 'favicon-locations.ico';
+    $iconFid = theme_get_setting('ymca_favicon_location')[0];
   }
   elseif (
     in_array('theme_ymca_2013_camp_home', $classes) ||
     in_array('theme_ymca_2013_camp_category_and_detail', $classes) ||
     in_array('theme_ymca_2013_camp_primary_landing', $classes)) {
-    $icon = 'favicon-alt.ico';
+    $iconFid = theme_get_setting('ymca_favicon_camp')[0];
   }
 
+  $file = file_load($iconFid);
+  $fileUrl = file_create_url($file->getFileUri());
   $html_head_link = &$variables['page']['#attached']['html_head_link'];
   foreach ($html_head_link as $key1 => &$value1) {
     foreach ($value1 as $key2 => &$value2) {
       if ($value2['rel'] == 'shortcut icon') {
-        $path = drupal_get_path('theme', 'ymca') . '/img/favicon/' . $icon;
-        $value2['href'] = Drupal\Core\Url::fromUri('base:' . $path)->toString();
+        $value2['href'] = $fileUrl;
         break;
       }
     }
@@ -1024,9 +1025,6 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-track-activity-login-form',
     ],
-    'ymca_retention_slider' => [
-      'template' => '/ymca-blocks/ymca-retention-slider',
-    ]
   ];
 }
 
@@ -1417,6 +1415,41 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#title' => t('Camps logo'),
     '#default_value' => theme_get_setting('logo_camps'),
     '#upload_location' => 'public://',
+  );
+
+  // Favicons.
+  $form['ymca_settings']['favicon'] = array(
+    '#type' => 'details',
+    '#title' => t('Favicons'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+  $form['ymca_settings']['favicon']['ymca_favicon_default'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Default favicon'),
+    '#default_value' => theme_get_setting('ymca_favicon_default'),
+    '#upload_location' => 'public://favicon/',
+    '#upload_validators'  => array(
+      'file_validate_extensions' => array('ico png')
+    )
+  );
+  $form['ymca_settings']['favicon']['ymca_favicon_camp'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camp favicon'),
+    '#default_value' => theme_get_setting('ymca_favicon_camp'),
+    '#upload_location' => 'public://favicon/',
+    '#upload_validators'  => array(
+      'file_validate_extensions' => array('ico png')
+    )
+  );
+  $form['ymca_settings']['favicon']['ymca_favicon_location'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Location favicon'),
+    '#default_value' => theme_get_setting('ymca_favicon_location'),
+    '#upload_location' => 'public://favicon/',
+    '#upload_validators'  => array(
+      'file_validate_extensions' => array('ico png')
+    )
   );
 }
 
