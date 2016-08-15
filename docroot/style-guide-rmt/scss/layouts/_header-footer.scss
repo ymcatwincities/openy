@@ -1,0 +1,52 @@
+/* style component header */
+
+.header {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 33px 10px 28px;
+  width: 100%;
+}
+
+.site-logo {
+  float: left;
+  height: 55px;
+  width: 75px;
+
+  &__image {
+    width: 100%;
+  }
+}
+
+.main-nav {
+  float: right;
+  margin-top: 32px;
+}
+
+ul.nav {
+  float: right;
+  padding: 0;
+  margin: 0;
+}
+
+ul.nav li {
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.nav li a {
+  padding: 5px 18px;
+  color: $blue-light;
+  font-size: 13px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+ul.nav li a:hover {
+  color: $purple-light;
+}
+
+ul.nav li a.active {
+  color: $purple-light;
+}
