@@ -1,0 +1,12 @@
+name: Queue UI
+type: module
+description: 'Interface and manager for Drupal queues.'
+package: Queues
+# version: VERSION
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2016-04-06
+version: '8.x-2.x-dev'
+core: '8.x'
+project: 'queue_ui'
+datestamp: 1459956609
