@@ -3,11 +3,16 @@
 # - Running registry rebuild (when modules have been moved to new directory)
 # - Running database updates
 
-# Run docker container.
 - name: Exising container name is...
   debug: msg={{ existing_container_name }}
   when: existing_container_name is defined
 
+# Vagrant build.
+- name: Delete old container
+  shell: docker rm -f {{ mysql_db }}
+  when: existing_container_name is undefined and (pp_environment == "default" and ((ansible_env.USER is not defined or ansible_env.USER != "{{ ci_server_username }}") and (ansible_env.SUDO_USER is not defined or ansible_env.SUDO_USER != "{{ ci_server_username }}")))
+
+# Run docker container.
 - name: Obtain unique container for a build
   shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di dbprod
   when: existing_container_name is undefined
