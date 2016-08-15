@@ -16,14 +16,6 @@
   shell: docker exec {{ mysql_db }} '/usr/sbin/service' mysql start
   when: existing_container_name is undefined
 
-- name: Obtain unique container for a build
-  shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ existing_container_name }} -di dbprod
-  when: existing_container_name is defined
-
-- name: Run mysql within docker container
-  shell: docker exec {{ existing_container_name }} '/usr/sbin/service' mysql start
-  when: existing_container_name is defined
-
 # Run registry rebuild.
 - name: Check if registry_rebuild is installed
   shell: "{{ php_env_vars }} drush | grep -c registry_rebuild"
