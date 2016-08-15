@@ -3,3 +3,5 @@ type: module
 description: YMCA Mobile Check-in application download/install page.
 core: 8.x
 package: YMCA
+dependencies:
+  - shield
