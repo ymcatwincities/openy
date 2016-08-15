@@ -12,14 +12,25 @@ use Drupal\Core\Entity\EntityInterface;
  * Implements hook_form_alter().
  */
 function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form['#id'] == 'views-exposed-form-ymca-members-ymca-members-list') {
-    $form['mail']['#attributes']['placeholder'] = t('Email');
-    $date = new \DateTime();
-    $date->setTime(0, 0, 0);
-    $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
-    $date->add(new \DateInterval('P1D'));
-    $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
-    $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+  if ($form_id != 'views_exposed_form') {
+    return;
+  }
+
+  switch ($form['#id']) {
+    case 'views-exposed-form-ymca-members-ymca-retention-members':
+      $form['mail']['#attributes']['placeholder'] = t('Email');
+      $date = new \DateTime();
+      $date->setTime(0, 0, 0);
+      $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $date->add(new \DateInterval('P1D'));
+      $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      break;
+
+    case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
+      $form['mail']['#attributes']['placeholder'] = t('Email');
+      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      break;
   }
 }
 
@@ -75,6 +86,39 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
         'member' => [],
       ],
       'template' => 'ymca-retention-registration-confirmation',
+    ],
+    'ymca_retention_games_ended' => [
+      'variables' => [],
+      'template' => 'ymca-retention-games-ended',
+    ],
+    'ymca_retention_personal_result_none' => [
+      'variables' => [],
+      'template' => 'ymca-retention-personal-result-none',
+    ],
+    'ymca_retention_personal_result_gold' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-gold',
+    ],
+    'ymca_retention_personal_result_silver' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-silver',
+    ],
+    'ymca_retention_personal_result_bronze' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-bronze',
+    ],
+    'ymca_retention_winners' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'description' => '',
+      ],
+      'template' => 'ymca-retention-winners',
     ],
   ];
 }

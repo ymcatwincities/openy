@@ -29,7 +29,7 @@ variant_settings:
       label: 'YMCA retention campaign intro block'
       provider: ymca_retention
       label_display: '0'
-      region: intro
+      region: hero
       weight: 0
       uuid: e7e73158-02fa-48b8-b787-46336feb4dea
       context_mapping: {  }
@@ -55,7 +55,7 @@ variant_settings:
   uuid: 251dcc01-3697-4759-8524-f87438aee7b4
   label: null
   weight: 0
-  layout: retention-campaign
+  layout: ymca-retention
   layout_settings:
     extra_classes: ''
   page_title: 'Y GAMES 2016'
