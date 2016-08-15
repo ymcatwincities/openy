@@ -7,14 +7,14 @@
 - name: Exising container name is...
   debug: msg={{ existing_container_name }}
   when: existing_container_name is defined
-  
+
 - name: Obtain unique container for a build
   shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di dbprod
-  when: existing_container_name is not defined
+  when: existing_container_name is undefined
 
 - name: Run mysql within docker container
   shell: docker exec {{ mysql_db }} '/usr/sbin/service' mysql start
-  when: existing_container_name is not defined
+  when: existing_container_name is undefined
 
 - name: Obtain unique container for a build
   shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ existing_container_name }} -di dbprod
