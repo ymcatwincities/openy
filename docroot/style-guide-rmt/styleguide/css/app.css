@@ -1,0 +1,323 @@
+
+.element-invisible {
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+
+.index-page {
+  overflow: hidden;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #666;
+}
+
+.devices {
+  margin-top: 0;
+}
+
+.component--list--item .sub a {
+  padding-left: 20px;
+}
+
+.show-subitem {
+  color: #000000;
+  font-weight: bold;
+}
+
+.show-subitem:hover {
+  color: #666666;
+}
+
+.show-subitem:before {
+  content: "+";
+  margin-right: 5px;
+  line-height: 20px;
+}
+
+.show-subitem.active:before {
+  content: "-";
+  margin-right: 8px;
+}
+
+.component--list.active {
+  left: 0;
+}
+.syntaxhighlighter table {
+  table-layout: auto !important;
+}
+.component--list ul {
+  padding-left: 0;
+  margin: 0;
+}
+.component--list {
+  bottom: 48px;
+  left: -305px;
+  position: fixed;
+  top: 38px;
+  width: 300px;
+  background-color: #FFF;
+  -webkit-transition: left 0.5s ease;
+  -moz-transition: left 0.5s ease;
+  -ms-transition: left 0.5s ease;
+  -o-transition: left 0.5s ease;
+  transition: left 0.5s ease;
+  z-index: 9;
+  border: 1px solid #ddd;
+  box-shadow        : 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  text-transform: capitalize;
+  padding-left: 0;
+}
+.component--list .component--list--header{
+  position: relative;
+}
+.component--list .component--title{
+  background: #f5f5f5;
+  font-size: 25px;
+  line-height: 1;
+  text-align: left;
+  border-radius: 0;
+}
+.hide-list,
+.show-list {
+  position: absolute;
+  width: 44px;
+  height: 55px;
+  line-height: 45px;
+  border-radius: 0 8px 8px 0;
+  font-size: 30px;
+  top: 40px;
+  right: -44px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  text-align: center;
+  z-index: 2;
+  color: #FFF;
+  background: #000;
+}
+.hide-list {
+  line-height: 50px;
+  background: #f5f5f5;
+  color: #444444;
+}
+.hide-list.active:before {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  cursor: default;
+
+}
+.show-list:hover {
+  opacity: 0.8;
+}
+.hide-list:hover {
+  background-color: #e5e5e5;
+}
+.component--list--content {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+.component--list--item{
+  display: block;
+  margin-bottom: 0;
+}
+.component--list--item a{
+  display: block;
+  padding: 10px;
+  background-color: #fff;
+  border-bottom: 1px solid #d3d3d3;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+}
+.component--list--item a:hover,
+.component--list--item a.active{
+  background-color: #DDF0FF;
+}
+
+.component--list--item .sub a:hover,
+.component--list--item .sub a.active{
+  background-color: #F0F0F0;
+}
+
+.component--item {
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding-bottom: 10px;
+}
+
+.component--title {
+  border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  background-color: #f5f5f5;
+  background-repeat: repeat-x;
+  background: #f5f5f5; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f5f5f5 0%, #e8e8e8 100%); /* FF3.6+ */
+  background: -ms-linear-gradient(top,  #f5f5f5 0%,#e8e8e8 100%); /* IE10+ */
+  background: -o-linear-gradient(top,  #f5f5f5 0%,#e8e8e8 100%); /* Opera 11.10+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#e8e8e8)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #f5f5f5 0%,#e8e8e8 100%); /* Chrome10+,Safari5.1+ */
+  background: linear-gradient(to bottom,  #f5f5f5 0%,#e8e8e8 100%); /* W3C */
+  border-color: #ddd;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e8e8e8',GradientType=0 ); /* IE6-9 */
+  padding: 7px 15px;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 24px !important;
+}
+
+.component--demo {
+  padding: 15px 0;
+}
+
+.component--source--title {
+  background: #6CE26C none repeat scroll 0 0;
+  padding: 5px 20px;
+}
+
+.show-code,
+.hide-code {
+  cursor: pointer;
+  font-size: 14px !important;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  padding: 5px !important;
+}
+
+.menu-main a:active {
+  background: #007ea4 none repeat scroll 0 0;
+  color: white;
+}
+.styleguide-color {
+  color: white;
+  padding: 5px 10px;
+}
+
+/* Back top top */
+.cd-top {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  position: fixed;
+  bottom: 40px;
+  right: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  /* image replacement properties */
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  background:  #007EA4 url(../images/cd-top-arrow.svg) no-repeat center 50%;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+  -moz-transition: opacity .3s 0s, visibility 0s .3s;
+  transition: opacity .3s 0s, visibility 0s .3s;
+}
+.cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover {
+  -webkit-transition: opacity .3s 0s, visibility 0s 0s;
+  -moz-transition: opacity .3s 0s, visibility 0s 0s;
+  transition: opacity .3s 0s, visibility 0s 0s;
+}
+.cd-top.cd-is-visible {
+  /* the button becomes visible */
+  visibility: visible;
+  opacity: 0.8;
+}
+.cd-top.cd-is-visible:hover {
+  opacity: 1;
+}
+@media only screen and (min-width: 768px) {
+  .cd-top {
+    right: 20px;
+    bottom: 20px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .cd-top {
+    height: 60px;
+    width: 60px;
+    right: 30px;
+    bottom: 30px;
+  }
+}
+
+.device-mode {
+  transition: width 0.5s;
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  padding-bottom: 30px;
+  background-color: white;
+  max-width: 706px;
+}
+
+.device-desktop {
+  width: 1200px;
+}
+
+
+.device-tablet {
+  width: 706px;
+}
+
+.device-mobile {
+  width: 340px;
+}
+
+.device a {
+  display: block;
+  padding: 5px;
+}
+
+.device a.active {
+  color: #c4c2b9;
+}
+
+.inline-list li {
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.top-pane {
+  background-color: black;
+}
+
+.small-tag {
+  opacity: .7;
+  font-size: 90%;
+}
+
+.component--title .small-tag {
+  font-size: 50%;
+}
+
+.small-tag .fa {
+  font-size: 14px;
+  top: -5px;
+  position: relative;
+}
+
+.container {
+  max-width: 960px !important;
+  margin: 0 auto !important;
+}
