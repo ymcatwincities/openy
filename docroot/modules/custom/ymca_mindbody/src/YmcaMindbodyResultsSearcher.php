@@ -353,6 +353,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
+      // @TODO: investigate behavior of "$location->HasClasses != TRUE".
       if (!$this->trainingsMapping->locationIsActive($location->ID)) {
         continue;
       }
