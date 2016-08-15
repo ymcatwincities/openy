@@ -2,15 +2,17 @@
 
 namespace Drupal\ymca_mindbody\Controller;
 
-use Drupal\Core\Ajax;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Drupal\ymca_errors\ErrorManager;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
@@ -21,6 +23,46 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Controller for "Mindbody results" page.
  */
 class MindbodyResultsController extends ControllerBase {
+
+  /**
+   * Session type.
+   */
+  const QUERY_PARAM__SESSION_TYPE = 's';
+
+  /**
+   * Location.
+   */
+  const QUERY_PARAM__LOCATION = 'location';
+
+  /**
+   * Staff ID.
+   */
+  const QUERY_PARAM__STAFF_ID = 'si';
+
+  /**
+   * Is Male.
+   */
+  const QUERY_PARAM__IS_MALE = 'im';
+
+  /**
+   * Start timestamp.
+   */
+  const QUERY_PARAM__START_TIMESTAMP = 'tm';
+
+  /**
+   * Test trainer. We may create appointments for him.
+   */
+  const TEST_API_TRAINER_ID = '100000323';
+
+  /**
+   * Test trainer is a male with a huge beard.
+   */
+  const TEST_API_TRAINER_IS_MALE = 1;
+
+  /**
+   * Test client ID.
+   */
+  const TEST_API_CLIENT_ID = 69696969;
 
   /**
    * The results searcher.
@@ -44,6 +86,41 @@ class MindbodyResultsController extends ControllerBase {
   protected $requestStack;
 
   /**
+   * Cache proxy.
+   *
+   * @var MindbodyCacheProxy
+   */
+  protected $proxy;
+
+  /**
+   * Config factory.
+   *
+   * @var ConfigFactory
+   */
+  protected $configFactory;
+
+  /**
+   * Error Manager.
+   *
+   * @var ErrorManager
+   */
+  protected $errorManager;
+
+  /**
+   * Mindbody Credentials.
+   *
+   * @var array
+   */
+  protected $credentials;
+
+  /**
+   * Production flag.
+   *
+   * @var bool
+   */
+  protected $isProduction;
+
+  /**
    * MindbodyResultsController constructor.
    *
    * @param YmcaMindbodyResultsSearcherInterface $results_searcher
@@ -54,17 +131,31 @@ class MindbodyResultsController extends ControllerBase {
    *   Logger factory.
    * @param RequestStack $request_stack
    *   Request stack.
+   * @param MindbodyCacheProxy $proxy
+   *   The Mindbody Cache Proxy.
+   * @param ConfigFactory $config_factory
+   *   The Config Factory.
+   * @param ErrorManager $error_manager
+   *   The Error manager.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
     YmcaMindbodyRequestGuard $request_guard,
     LoggerChannelFactoryInterface $logger_factory,
-    RequestStack $request_stack
+    RequestStack $request_stack,
+    MindbodyCacheProxy $proxy,
+    ConfigFactory $config_factory,
+    ErrorManager $error_manager
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
     $this->logger = $logger_factory->get('ymca_mindbody');
     $this->requestStack = $request_stack;
+    $this->proxy = $proxy;
+    $this->configFactory = $config_factory;
+    $this->errorManager = $error_manager;
+    $this->credentials = $this->configFactory->get('mindbody.settings');
+    $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
   }
 
   /**
@@ -75,7 +166,10 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('ymca_mindbody.results_searcher'),
       $container->get('ymca_mindbody.request_guard'),
       $container->get('logger.factory'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('mindbody_cache_proxy.client'),
+      $container->get('config.factory'),
+      $container->get('ymca_errors.error_manager')
     );
   }
 
@@ -94,6 +188,9 @@ class MindbodyResultsController extends ControllerBase {
       'dr' => !empty($query['dr']) ? $query['dr'] : NULL,
       'context' => isset($query['context']) ? $query['context'] : '',
       'bid' => isset($query['bid']) ? $query['bid'] : '',
+      'si' => isset($query['si']) ? $query['si'] : '',
+      'im' => isset($query['im']) ? $query['im'] : '',
+      'tm' => isset($query['tm']) ? $query['tm'] : '',
     ];
 
     $node = $this->requestStack->getCurrentRequest()->get('node');
@@ -128,7 +225,7 @@ class MindbodyResultsController extends ControllerBase {
   }
 
   /**
-   * Minbody PT book callback.
+   * MindBody PT book callback.
    */
   public function book() {
     $response = new AjaxResponse();
@@ -141,23 +238,29 @@ class MindbodyResultsController extends ControllerBase {
     $output[] = $this->t('Token is valid.');
     if ($personify_authenticated = $this->requestStack->getCurrentRequest()->cookies->has('Drupal_visitor_personify_authorized')) {
       // Book item if user is authenticated in Personify.
-      if ($this->bookItem($query)) {
-        // Successfully booked.
-        $output[] = $this->t('Successfully booked.');
-      }
-      else {
-        // Booking failed.
-        $output[] = $this->t('The booking process failed.');
-      }
+      $book = $this->bookItem($query);
     }
     else {
       // Redirect to Personify login if user isn't authenticated there.
       return $this->redirectToPersonifyLogin();
     }
 
+    // Default message.
+    $message = $this->t($this->errorManager->getError('err__mindbody__booking_failed'));
+
+    // OK.
+    if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
+      $message = $this->t('Your appointment is confirmed.');
+    }
+
+    // Not OK, but there is a message.
+    if (is_array($book) && isset($book['status'], $book['message']) && $book['status'] === FALSE) {
+      $message = $book['message'];
+    }
+
     $output[] = print_r($query, TRUE);
 
-    $content = '<div class="popup-content">' . implode('<br>', $output) . '</div>';
+    $content = '<div class="popup-content">' . $message . '</div>';
     $options = array(
       'dialogClass' => 'popup-dialog-class',
       'width' => '620',
@@ -203,15 +306,159 @@ class MindbodyResultsController extends ControllerBase {
    * @param array $data
    *   Array of required item parameters.
    *
-   * @return bool
-   *   The state of booking.
-   *
-   * @todo
-   *   Implement method.
+   * @return array
+   *   The array should contain 2 keys:
+   *     - status: TRUE or FALSE
+   *     - message (optional): description.
    */
   private function bookItem(array $data) {
-    // TODO: implement method.
-    return mt_rand(0, 100) > 50;
+    $client_id = self::TEST_API_CLIENT_ID;
+
+    // Get client ID from cookies.
+    if ($this->isProduction) {
+      if (!$client_id = $this->requestStack->getCurrentRequest()->cookies->get('Drupal_visitor_personify_id')) {
+        $this->logger->error('There is no client ID in cookies.');
+        return [
+          'status' => FALSE
+        ];
+      }
+    }
+
+    // Default credentials.
+    $user_credentials = [
+      'Username' => $this->credentials->get('user_name'),
+      'Password' => $this->credentials->get('user_password'),
+      'SiteIDs' => [$this->credentials->get('site_id')],
+    ];
+
+    // Get client services.
+    try {
+      $params = [
+        'UserCredentials' => $user_credentials,
+        'SessionTypeIDs' => [$data['s']],
+        'ClientID' => $client_id,
+        'ClassID' => FALSE,
+      ];
+
+      $result = $this->proxy->call('ClientService', 'GetClientServices', $params, FALSE);
+
+      if (200 != $result->GetClientServicesResult->ErrorCode) {
+        $this->logger->error('Got non 200 error code with ClientService (GetClientServices). Result: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+        return [
+          'status' => FALSE
+        ];
+      }
+
+      // Check if client has no services at all.
+      if(empty((array) $result->GetClientServicesResult->ClientServices)) {
+        return [
+          'status' => FALSE,
+          'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
+        ];
+      }
+
+      $service = FALSE;
+      foreach ($result->GetClientServicesResult->ClientServices->ClientService as $service) {
+        $service = [
+          'Current' => $service->Current,
+          'Count' => $service->Count,
+          'ID' => $service->ID,
+          'Remaining' => $service->Remaining
+        ];
+
+        // We need just first one.
+        break;
+      }
+
+      if (FALSE == $service) {
+        $this->logger->error('Failed to find available services. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+        return [
+          'status' => FALSE,
+          'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
+        ];
+      }
+
+    }
+    catch (\Exception $e) {
+      $this->logger->error('Failed to make a request to ClientService (GetClientServices). Message: %s', ['%s' => $e->getMessage()]);
+      return [
+        'status' => FALSE,
+      ];
+    }
+
+    /*
+    Book an appointment.
+
+    First of all, we should check is_production flag. If it's FALSE we should
+    always crete appointments in 'test' mode (ie without creating a real appointment).
+
+    We have special test API trainer. For this trainer we could create real
+    appointments in test and development modules.
+    */
+    try {
+      $params = [
+        'UserCredentials' => $user_credentials,
+        'Test' => TRUE,
+        'Appointments' => [
+          'Appointment' => [
+            'StartDateTime' => date('Y-m-d\TH:i:s', $data[self::QUERY_PARAM__START_TIMESTAMP]),
+            'Location' => [
+              'ID' => $data[self::QUERY_PARAM__LOCATION],
+            ],
+            'Staff' => [
+              'isMale' => (bool) $data[self::QUERY_PARAM__IS_MALE],
+              'ID' => $data[self::QUERY_PARAM__STAFF_ID],
+            ],
+            'Client' => [
+              'ID' => $client_id,
+            ],
+            'SessionType' => [
+              'ID' => $data[self::QUERY_PARAM__SESSION_TYPE],
+            ],
+            'ClientService' => $service,
+          ],
+        ],
+      ];
+
+      // If it's production - create real appointment.
+      if ($this->isProduction) {
+        unset($params['Test']);
+      }
+
+      // Allow creation of real appointments for test trainer.
+      if ($data[self::QUERY_PARAM__STAFF_ID] == self::TEST_API_TRAINER_ID) {
+        unset($params['Test']);
+        $params['Appointments']['Appointment']['Staff']['isMale'] = self::TEST_API_TRAINER_IS_MALE;
+      }
+
+      $result = $this->proxy->call('AppointmentService', 'AddOrUpdateAppointments', $params, FALSE);
+
+      if (200 != $result->AddOrUpdateAppointmentsResult->ErrorCode) {
+        $this->logger->error('Got non 200 error code with AppointmentService (AddOrUpdateAppointments). Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
+        return [
+          'status' => FALSE
+        ];
+      }
+
+      // Check status.
+      if ('Booked' != $result->AddOrUpdateAppointmentsResult->Appointments->Appointment->Status) {
+        $this->logger->error('Failed to book an appointment. Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
+        return [
+          'status' => FALSE
+        ];
+      }
+
+    }
+    catch (\Exception $e) {
+      $this->logger->error('Failed to make a request to AppointmentService (AddOrUpdateAppointments). Message: %s', ['%s' => $e->getMessage()]);
+      return [
+        'status' => FALSE,
+      ];
+    }
+
+    return [
+      'status' => TRUE
+    ];
   }
 
   /**

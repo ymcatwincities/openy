@@ -4088,3 +4088,10 @@ function ymca_master_update_8173() {
     ]
   );
 }
+
+/**
+ * YPF-91: Add basic error handling module.
+ */
+function ymca_master_update_8174() {
+  \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
+}
