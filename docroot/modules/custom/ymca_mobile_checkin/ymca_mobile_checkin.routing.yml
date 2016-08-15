@@ -1,0 +1,7 @@
+ymca_mobile_checkin.settings:
+  path: '/admin/config/system/ymca-mobile-checkin'
+  defaults:
+    _form: '\Drupal\ymca_mobile_checkin\Form\SettingsForm'
+    _title: 'YMCA Mobile Check-in page settings'
+  requirements:
+    _permission: 'administer site configuration'

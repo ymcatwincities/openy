@@ -70,29 +70,49 @@ trait GroupexRequestTrait {
    *
    * @param array $options
    *   Request options.
+   * @param bool $defaults
+   *   TRUE includes default options. FALSE will not alter options.
    *
    * @return array
    *   Data.
    */
-  protected function request($options) {
-    $client = \Drupal::httpClient();
-    $data = [];
-    $options_defaults = [
+  protected function request($options, $defaults = TRUE) {
+    $all_options = $options;
+    if ($defaults) {
+      $all_options = array_merge_recursive($this->getDefaultOptions(), $options);
+    }
+
+    // Try to use cached data.
+    $manager = \Drupal::service('groupex_form_cache.manager');
+    if ($data = $manager->getCache($all_options)) {
+      return $data;
+    }
+
+    try {
+      $response = \Drupal::httpClient()->request('GET', GroupexRequestTrait::$uri, $all_options);
+      $body = $response->getBody();
+      $data = json_decode($body->getContents());
+      $manager->setCache($all_options, $data);
+      return $data;
+    }
+    catch (\Exception $e) {
+      watchdog_exception('ymca_groupex', $e);
+      return FALSE;
+    }
+  }
+
+  /**
+   * Return required defaults parameters for the request.
+   *
+   * @return array
+   *   Options.
+   */
+  protected function getDefaultOptions() {
+    return [
       'query' => [
         'a' => GroupexRequestTrait::$account,
       ],
     ];
-
-    try {
-      $response = $client->request('GET', GroupexRequestTrait::$uri, array_merge_recursive($options_defaults, $options));
-      $body = $response->getBody();
-      $data = json_decode($body->getContents());
-    }
-    catch (\Exception $e) {
-      watchdog_exception('ymca_groupex', $e);
-    }
-
-    return $data;
   }
 
 }

@@ -2,7 +2,9 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 
 /**
  * Class GcalGroupexWrapper.
@@ -15,6 +17,11 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    * The name of key to store schedule.
    */
   const SCHEDULE_KEY = 'ymca_google_syncer_schedule';
+
+  /**
+   * Logger channel name.
+   */
+  const LOGGER_CHANNEL = 'gcal_groupex';
 
   /**
    * Number steps.
@@ -59,13 +66,24 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   protected $state;
 
   /**
+   * Logger channel.
+   *
+   * @var LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
    * GcalGroupexWrapper constructor.
    *
    * @param StateInterface $state
    *   State.
+   * @param LoggerChannelFactoryInterface $logger_factory
+   *   The logger factory.
    */
-  public function __construct(StateInterface $state) {
+  public function __construct(StateInterface $state, LoggerChannelFactoryInterface $logger_factory) {
     $this->state = $state;
+    $this->logger = $logger_factory->get(self::LOGGER_CHANNEL);
+
   }
 
   /**
@@ -122,6 +140,17 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     if ($next >= $this->steps) {
       // We reached the end. Build new one.
       $new_schedule = $this->buildSchedule(REQUEST_TIME);
+
+      // Log the end of the loop.
+      $context = [
+        '%steps' => $this->steps,
+        '%length' => $this->length,
+        '%time' => 'unknown',
+      ];
+      if (array_key_exists('created', $schedule)) {
+        $context['%time'] = REQUEST_TIME - $schedule['created'];
+      }
+      $this->logger->info("Loop finished. Time: %time sec., steps num: %steps, step length: %length sec.", $context);
     }
     else {
       // Update current step pointer.
@@ -158,6 +187,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     $schedule = [
       'steps' => [],
       'current' => 0,
+      'created' => REQUEST_TIME,
     ];
     for ($i = 0; $i < $this->steps; $i++) {
       if ($i == 0) {

@@ -125,7 +125,7 @@ class GooglePush {
   public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy, QueryFactory $query) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
-    $this->logger = $logger->get('gcal_groupex');
+    $this->logger = $logger->get(GcalGroupexWrapper::LOGGER_CHANNEL);
     $this->loggerFactory = $logger;
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
