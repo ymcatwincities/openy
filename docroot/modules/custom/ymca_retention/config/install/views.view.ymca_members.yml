@@ -5,7 +5,6 @@ dependencies:
   module:
     - rest
     - user
-    - views_rest_feed
     - ymca_retention
 _core:
   default_config_hash: jxB-IV9xHRTMFAtaAhB1hKYgrHTgESZEytqDJZCVaO8
@@ -1313,13 +1312,47 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  ymca_members_export:
-    display_plugin: ymca_retention_rest_export
-    id: ymca_members_export
-    display_title: 'YMCA Retention Campaign Members Export'
+  ymca_retention_members:
+    display_plugin: page
+    id: ymca_retention_members
+    display_title: 'YMCA Retention Members'
+    position: 1
+    display_options:
+      display_extenders:
+        views_advanced_routing_route:
+          route: ''
+      path: admin/content/ymca-retention-members
+      menu:
+        type: tab
+        title: 'YMCA Retention Members'
+        description: ''
+        expanded: false
+        parent: system.admin_content
+        weight: 100
+        context: '0'
+        menu_name: admin
+      defaults:
+        filters: true
+        filter_groups: true
+      display_description: ''
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  ymca_retention_members_export:
+    display_plugin: ymca_retention_rest_export_feed
+    id: ymca_retention_members_export
+    display_title: 'YMCA Retention Members Export'
     position: 2
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        views_advanced_routing_route:
+          route: ''
       style:
         type: serializer
         options:
@@ -1350,7 +1383,7 @@ display:
               raw_output: 0
       path: admin/content/ymca-retention-members/export.csv
       displays:
-        ymca_members_list: ymca_members_list
+        ymca_retention_members: ymca_retention_members
         default: 0
       pager:
         type: none
@@ -1369,35 +1402,5 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
-        - user.permissions
-      tags: {  }
-  ymca_members_list:
-    display_plugin: page
-    id: ymca_members_list
-    display_title: 'YMCA Retention Campaign Members'
-    position: 1
-    display_options:
-      display_extenders: {  }
-      path: admin/content/ymca-retention-members
-      menu:
-        type: tab
-        title: 'YMCA Retention Members'
-        description: ''
-        expanded: false
-        parent: system.admin_content
-        weight: 0
-        context: '0'
-        menu_name: admin
-      defaults:
-        filters: true
-        filter_groups: true
-      display_description: ''
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - url.query_args
         - user.permissions
       tags: {  }

@@ -66,7 +66,6 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setLabel(t('Email'))
       ->setDescription(t('The email of this user.'))
       ->setDefaultValue('')
-      ->addConstraint('UserMailUnique')
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
