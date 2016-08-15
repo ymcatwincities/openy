@@ -11,6 +11,7 @@
 - name: Delete old container
   shell: docker rm -f {{ mysql_db }}
   when: existing_container_name is undefined and (pp_environment == "default" and ((ansible_env.USER is not defined or ansible_env.USER != "{{ ci_server_username }}") and (ansible_env.SUDO_USER is not defined or ansible_env.SUDO_USER != "{{ ci_server_username }}")))
+  ignore_errors: true
 
 # Run docker container.
 - name: Obtain unique container for a build
