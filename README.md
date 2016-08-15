@@ -15,6 +15,23 @@ Drupal Vagrant Dev box for CIBox support.
 vagrant up && vagrant ssh
 ```
 
+# Docker SQL flow
+How to reinstall local site from scratch
+- vagrant up && vagrant ssh
+- cd /var/www/docroot
+- sudo service docker restart
+- get_latest_db.sh # creates local docker image named `DBPROD` with all databases from production. **No need to run this every time for reinstalling local site. Only if you need latest db from production redownloaded or obtained initially (first run).**
+- reinstall.sh # reinstalls ymca project and re-creates docker container with name `drupal`
+- reinstall_all.sh # reinstalls all ymca, openy, redwing projects
+
+
+Helpful commands
+- docker images # list of available images
+- docker ps -s # list of running containers
+- docker rm -f <container_name_or_hash> # removes container
+- docker rmi -f <image_name_or_hash> # removes image (all dependant containers should be removed beforehand)
+- http://192.168.56.132/adminer.php?server=172.18.0.2&username=root access to local dev dbs
+
 ### Reinstall only YGTC site
 
 Unix users
