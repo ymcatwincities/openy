@@ -4,14 +4,12 @@ namespace Drupal\ymca_menu\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\system\Entity\Menu;
 
 /**
  * Implements Main menu configuration form.
  */
 class YmcaMenuListConfigForm extends ConfigFormBase {
-  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -37,62 +35,52 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
     $form['menu_list_table'] = [
       '#type' => 'table',
       '#header' => [
-        $this->t('Weight'),
+        $this->t('Menu name'),
         $this->t('State'),
-        $this->t('Menu name')
+        $this->t('Weight'),
       ],
-      '#tableselect' => TRUE,
-      '#js_select' => FALSE,
+      '#tableselect' => FALSE,
       '#tabledrag' => [
         [
           'action' => 'order',
           'relationship' => 'sibling',
           'group' => 'thing-weight',
-        ]
-      ],
-      '#attached' => [
-        'library' => [
-          'ymca_menu/draggable_table'
-        ]
+        ],
       ],
     ];
 
-    $all_menus_sorted = $menu_list + array_diff(
-        array_keys($all_menus),
-        $menu_list
-      );
+    $weight = 0;
     /**
      * @var string $name
      * @var Menu $object
      */
-    foreach ($all_menus_sorted as $name) {
+    foreach ($menu_list as $name) {
+      $form['menu_list_table'][$name]['#attributes']['class'][] = 'draggable';
+      $form['menu_list_table'][$name]['#weight'] = $weight;
 
-      $form['menu_list_table'][$name]['weight'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t(
-          'Weight for @title',
-          array('@title' => $all_menus[$name]->label())
-        ),
-        '#title_display' => 'invisible',
-        '#attributes' => array('class' => array('thing-weight')),
+      $form['menu_list_table'][$name]['title'] = [
+        '#plain_text' => $all_menus[$name]->label(),
       ];
 
       $form['menu_list_table'][$name]['state'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t(
-          'State for @title',
-          array('@title' => $all_menus[$name]->label())
-        ),
+        '#title' => $this->t('State for @title', ['@title' => $all_menus[$name]->label()]),
         '#title_display' => 'invisible',
         '#default_value' => in_array($name, $menu_list),
       ];
-      $form['menu_list_table'][$name]['#attributes']['class'][] = 'draggable';
-      $form['menu_list_table'][$name]['title'] = [
-        '#plain_text' => $all_menus[$name]->label(),
+
+      $form['menu_list_table'][$name]['weight'] = [
+        '#type' => 'weight',
+        '#title' => $this->t('Weight for @title', ['@title' => $all_menus[$name]->label()]),
+        '#title_display' => 'invisible',
+        '#default_value' => $weight++,
+        '#attributes' => ['class' => ['thing-weight']],
       ];
+
     }
 
-    $form['submit'] = [
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save'),
       '#tableselect' => TRUE,
@@ -111,7 +99,10 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $all_menus = Menu::loadMultiple();
     $all_menu_names = array_keys($all_menus);
-    $values = $form_state->getUserInput()['menu_list_table'];
+
+    $values = $form_state->getValue('menu_list_table');
+    // Sort values order based on weight.
+    uasort($values, array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
     $config_values = [];
     foreach ($values as $name => $data) {
       if (!in_array($name, $all_menu_names) || $data['state'] == 0) {
