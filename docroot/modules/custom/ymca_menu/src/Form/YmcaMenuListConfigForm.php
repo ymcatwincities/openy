@@ -50,10 +50,6 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
     ];
 
     $weight = 0;
-    /**
-     * @var string $name
-     * @var Menu $object
-     */
     foreach ($menu_list as $name) {
       $form['menu_list_table'][$name]['#attributes']['class'][] = 'draggable';
       $form['menu_list_table'][$name]['#weight'] = $weight;
@@ -76,7 +72,6 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
         '#default_value' => $weight++,
         '#attributes' => ['class' => ['thing-weight']],
       ];
-
     }
 
     $form['actions'] = ['#type' => 'actions'];
@@ -119,6 +114,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
 
   /**
    * Returns appropriate config object.
+   *
    * @return object
    *   Config object.
    */
