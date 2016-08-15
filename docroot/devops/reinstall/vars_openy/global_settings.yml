@@ -38,7 +38,7 @@ backup_user: propeople
 backup_pass: givemebackup
 # Source backup database that will be downloaded to build site.
 # In many cases this is production dump.
-old_site_db: true
+old_site_db: false
 source_backup_name: latest_openy_prod.sql.gz
 old_source_backup_name: ymca20160218.sql.gz
 # URL to the source database. Can be overridden by CI server.
