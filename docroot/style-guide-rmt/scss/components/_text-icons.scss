@@ -1,0 +1,31 @@
+.text-indent {
+  margin-left: 20px;
+}
+
+.text-icon {
+  display: flex;
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 0;
+
+  &__img {
+    margin-right: 9px;
+    margin-top: 1px;
+
+    img {
+      width: 17px;
+      height: auto;
+    }
+  }
+}
+
+.block-text-icon {
+  margin: 0 auto;
+  max-width: 556px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &__top {
+    margin-bottom: 22px;
+  }
+}
