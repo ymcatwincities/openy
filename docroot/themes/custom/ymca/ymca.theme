@@ -1299,6 +1299,8 @@ function ymca_get_theme_styles() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  hide($form['theme_settings']['toggle_favicon']);
+  hide($form['favicon']);
   $form['ymca_settings']['styles'] = array(
     '#type' => 'details',
     '#title' => t('Styles'),
