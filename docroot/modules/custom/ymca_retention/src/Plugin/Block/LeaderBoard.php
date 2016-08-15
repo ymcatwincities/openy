@@ -22,7 +22,7 @@ class Leaderboard extends BlockBase {
   public function build() {
     /** @var \Drupal\ymca_retention\LeaderboardManager $service */
     $service = \Drupal::service('ymca_retention.leaderboard_manager');
-    $locations = $service->getLocations();
+    $locations = $service->getLocationsList();
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
