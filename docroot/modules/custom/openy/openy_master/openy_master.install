@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Module for hook_update_N.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function openy_master_install() {
+  for ($i = 8000; $i < 9000; $i++) {
+    $function = 'openy_master_update_' . $i;
+    if (function_exists($function)) {
+      \Drupal::logger('openy_master_install')->info('running: ' . $function);
+      $function();
+    }
+  }
+}
+
+/**
+ * YMCA-1087: Enable contact forms CSV export.
+ */
+function openy_master_update_8001() {
+  // Install dependencies.
+  $dependencies = [
+    'rest',
+    'contact_storage',
+    'csv_serialization'
+  ];
+  \Drupal::service('module_installer')->install($dependencies, TRUE);
+
+  // Install Webforms.
+  \Drupal::service('module_installer')->install(['webforms'], TRUE);
+}
