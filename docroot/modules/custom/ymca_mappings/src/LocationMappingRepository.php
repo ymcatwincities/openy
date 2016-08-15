@@ -34,6 +34,24 @@ class LocationMappingRepository {
   }
 
   /**
+   * Load all location mappings.
+   *
+   * @return array
+   *   An array of found location mapping objects sorted by name.
+   */
+  public function loadAll() {
+    $mapping_ids = $this->query
+      ->condition('type', self::TYPE)
+      ->sort('name', 'ASC')
+      ->execute();
+    if (!$mapping_ids) {
+      return [];
+    }
+
+    return Mapping::loadMultiple($mapping_ids);
+  }
+
+  /**
    * Find mapping by Location Id.
    *
    * @param int $id

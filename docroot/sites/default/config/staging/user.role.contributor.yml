@@ -25,7 +25,6 @@ permissions:
   24: 'create blog content'
   25: 'edit any blog content'
   26: 'clone page entity'
-  27: 'administer pages'
   28: 'create custom blocks'
   29: 'insert menu links via entity embed'
   30: 'view own unpublished content'
@@ -33,3 +32,5 @@ permissions:
   32: 'administer files'
   33: 'update workflow_unpublished content'
   34: 'view workflow_unpublished content'
+  35: 'view page_manager pages list'
+  36: 'update own page_manager pages'
