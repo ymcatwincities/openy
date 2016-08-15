@@ -1,0 +1,7 @@
+# All action links for this module
+
+ymca_retention.ymca_winners.draw_winners:
+  route_name: ymca_retention.ymca_winners.draw_winners
+  title: 'Draw winners'
+  appears_on:
+    - view.ymca_retention_winners.ymca_retention_winners
