@@ -13,7 +13,7 @@
 .sm,.sm *,.sm *:before,.sm *:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 
 
-.menu-base-theme a, .menu-base-theme a:focus {
+.menu-base-theme a {
   padding: 10px 20px;
   padding-right: 58px;
   background: #3092c0;
