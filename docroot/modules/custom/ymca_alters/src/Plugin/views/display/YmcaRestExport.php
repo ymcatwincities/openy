@@ -20,7 +20,7 @@ use Drupal\Core\Render\RendererInterface;
  *   title = @Translation("YMCA REST export"),
  *   help = @Translation("Create a REST export resource."),
  *   uses_route = TRUE,
- *   admin = @Translation("REST export"),
+ *   admin = @Translation("YMCA REST export"),
  *   returns_response = TRUE
  * )
  */

@@ -1,0 +1,17 @@
+.block-linked {
+  margin: 0 auto;
+  max-width: 576px;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &__thumnail {
+    line-height: 0;
+    margin-bottom: 25px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
