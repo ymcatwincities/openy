@@ -1,0 +1,41 @@
+.block-cta {
+  margin: 0 auto;
+  max-width: 556px;
+  padding: 0 10px 49px;
+
+  &__content {
+    margin-bottom: 24px
+  }
+
+  &__image {
+    margin-bottom: 30px;
+    line-height: 0;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &--image--left {
+    .block-cta__image {
+      float: left;
+      margin-right: 30px;
+      max-width: 123px;
+    }
+
+    .block-cta__title {
+      margin-bottom: 8px;
+    }
+
+    .block-cta__wrap-btn {
+      clear: both;
+    }
+  }
+
+  &--grid {
+    .block-cta__title {
+      margin-bottom: 8px;
+    }
+  }
+}
