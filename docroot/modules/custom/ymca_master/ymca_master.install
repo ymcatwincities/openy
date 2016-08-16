@@ -4088,3 +4088,12 @@ function ymca_master_update_8173() {
     ]
   );
 }
+
+/**
+ * YMCA-1105: Refactor ymca_google.
+ */
+function ymca_master_update_8174() {
+  $config = \Drupal::service('config.factory')->getEditable('ymca_google.settings');
+  $config->set('is_production', 0);
+  $config->save();
+}
