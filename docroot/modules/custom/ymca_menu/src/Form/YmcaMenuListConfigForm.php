@@ -75,7 +75,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
         '#attributes' => ['class' => ['thing-weight']],
       ];
     }
-    uasort($form['menu_list_table'], function($a, $b) {
+    uasort($form['menu_list_table'], function ($a, $b) {
       if (!isset($a['#weight'], $b['#weight']) || $a['#weight'] == $b['#weight']) {
         return 0;
       }
