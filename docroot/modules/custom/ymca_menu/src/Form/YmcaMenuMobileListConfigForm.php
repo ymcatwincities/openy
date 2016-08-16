@@ -9,20 +9,20 @@ use Drupal\system\Entity\Menu;
 /**
  * Implements Main menu configuration form.
  */
-class YmcaMenuListConfigForm extends ConfigFormBase {
+class YmcaMenuMobileListConfigForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ymca_menu_main_menu_list';
+    return 'ymca_menu_mobile_menu_list';
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['ymca_menu.menu_list'];
+    return ['ymca_menu.mobile_menu_list'];
   }
 
   /**
@@ -30,7 +30,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $menus = Menu::loadMultiple();
-    $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+    $menu_list = $this->getConfig()->get('menu_list');
     $menu_order = array_flip($menu_list);
 
     $form['menu_list_table'] = [
@@ -46,7 +46,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
           'action' => 'order',
           'relationship' => 'sibling',
           'group' => 'thing-weight',
-        ],
+        ]
       ],
     ];
 
@@ -74,7 +74,9 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
         '#default_value' => $weight,
         '#attributes' => ['class' => ['thing-weight']],
       ];
+
     }
+
     uasort($form['menu_list_table'], function ($a, $b) {
       if (!isset($a['#weight'], $b['#weight']) || $a['#weight'] == $b['#weight']) {
         return 0;
@@ -127,7 +129,7 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
    *   Config object.
    */
   private function getConfig() {
-    $config_name = 'ymca_menu.menu_list';
+    $config_name = 'ymca_menu.mobile_menu_list';
     return $this->config($config_name);
   }
 
