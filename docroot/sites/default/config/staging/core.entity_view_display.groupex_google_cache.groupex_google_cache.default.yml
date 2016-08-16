@@ -8,6 +8,7 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_date
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_description
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
@@ -61,6 +62,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_google_event:
+    weight: 19
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_gg_instructor:
     weight: 17
     label: above
