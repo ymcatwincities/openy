@@ -4097,3 +4097,18 @@ function ymca_master_update_8174() {
   $config->set('is_production', 0);
   $config->save();
 }
+
+/**
+ * YMCA-1105: Add field for Google event.
+ */
+function ymca_master_update_8175() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_google_event.yml',
+    ]
+  );
+}
