@@ -1,0 +1,94 @@
+/* style component header */
+
+.header {
+  margin: 0 auto;
+  max-width: 600px;
+  padding-bottom: 28px;
+  padding-top: 33px;
+  padding-left: 10px;
+  padding-right: 10px;
+  > div {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 10px;
+  }
+
+  .main-nav {
+    margin-top: 0;
+    align-self: center;
+  }
+
+  .nav {
+    float: right;
+    padding: 0;
+    margin: 0;
+
+    &__item {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      a {
+        padding: 5px 14px;
+        color: $blue;
+        font-size: 13px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &--programs-classes {
+   .nav {
+      &__item {
+        a {
+          color: $green;
+        }
+      }
+    }
+
+    .site-slogan a {
+      color: $blue;
+    }
+  }
+
+  &--camps-summer {
+    .nav {
+      &__item {
+        a {
+          color: $orange;
+        }
+      }
+    }
+
+    .site-slogan a {
+      color: $green;
+    }
+  }
+}
+
+/* style site logo */
+.site-logo {
+  width: 75px;
+
+  img {
+    display: block;
+  }
+}
+
+.site-slogan {
+  align-self: center;
+  margin-left: 15px;
+  margin-right: 25px;
+
+  a {
+    color: $purple-light;
+    display: inline-block;
+    font-weight: bold;
+    text-align: left;
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+}
