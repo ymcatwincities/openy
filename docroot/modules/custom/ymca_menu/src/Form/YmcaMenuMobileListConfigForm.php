@@ -33,12 +33,6 @@ class YmcaMenuMobileListConfigForm extends ConfigFormBase {
     $menu_list = $this->getConfig()->get('menu_list');
     $menu_order = array_flip($menu_list);
 
-    if (!$menu_list) {
-      $config_name = 'ymca_menu.menu_list';
-      $this->config($config_name);
-      $menu_list = $this->config($config_name)->get('menu_list');
-    }
-
     $form['menu_list_table'] = [
       '#type' => 'table',
       '#header' => [
@@ -74,6 +68,7 @@ class YmcaMenuMobileListConfigForm extends ConfigFormBase {
 
       $form['menu_list_table'][$menu_id]['weight'] = [
         '#type' => 'weight',
+        '#delta' => count($menus),
         '#title' => $this->t('Weight for @title', ['@title' => $menu->label()]),
         '#title_display' => 'invisible',
         '#default_value' => $weight,
@@ -81,6 +76,13 @@ class YmcaMenuMobileListConfigForm extends ConfigFormBase {
       ];
 
     }
+
+    uasort($form['menu_list_table'], function($a, $b) {
+      if (!isset($a['#weight'], $b['#weight']) || $a['#weight'] == $b['#weight']) {
+        return 0;
+      }
+      return $a['#weight'] > $b['#weight'] ? 1 : -1;
+    });
 
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [

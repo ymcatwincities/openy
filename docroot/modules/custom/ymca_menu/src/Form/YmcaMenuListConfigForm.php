@@ -29,8 +29,9 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $all_menus = Menu::loadMultiple();
+    $menus = Menu::loadMultiple();
     $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+    $menu_order = array_flip($menu_list);
 
     $form['menu_list_table'] = [
       '#type' => 'table',
@@ -49,30 +50,37 @@ class YmcaMenuListConfigForm extends ConfigFormBase {
       ],
     ];
 
-    $weight = 0;
-    foreach ($menu_list as $name) {
-      $form['menu_list_table'][$name]['#attributes']['class'][] = 'draggable';
-      $form['menu_list_table'][$name]['#weight'] = $weight;
+    foreach ($menus as $menu_id => $menu) {
+      $weight = isset($menu_order[$menu_id]) ? $menu_order[$menu_id] : count($menus);
+      $form['menu_list_table'][$menu_id]['#attributes']['class'][] = 'draggable';
+      $form['menu_list_table'][$menu_id]['#weight'] = $weight;
 
-      $form['menu_list_table'][$name]['title'] = [
-        '#plain_text' => $all_menus[$name]->label(),
+      $form['menu_list_table'][$menu_id]['title'] = [
+        '#plain_text' => $menu->label(),
       ];
 
-      $form['menu_list_table'][$name]['state'] = [
+      $form['menu_list_table'][$menu_id]['state'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t('State for @title', ['@title' => $all_menus[$name]->label()]),
+        '#title' => $this->t('State for @title', ['@title' => $menu->label()]),
         '#title_display' => 'invisible',
-        '#default_value' => in_array($name, $menu_list),
+        '#default_value' => in_array($menu_id, $menu_list),
       ];
 
-      $form['menu_list_table'][$name]['weight'] = [
+      $form['menu_list_table'][$menu_id]['weight'] = [
         '#type' => 'weight',
-        '#title' => $this->t('Weight for @title', ['@title' => $all_menus[$name]->label()]),
+        '#delta' => count($menus),
+        '#title' => $this->t('Weight for @title', ['@title' => $menu->label()]),
         '#title_display' => 'invisible',
-        '#default_value' => $weight++,
+        '#default_value' => $weight,
         '#attributes' => ['class' => ['thing-weight']],
       ];
     }
+    uasort($form['menu_list_table'], function($a, $b) {
+      if (!isset($a['#weight'], $b['#weight']) || $a['#weight'] == $b['#weight']) {
+        return 0;
+      }
+      return $a['#weight'] > $b['#weight'] ? 1 : -1;
+    });
 
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
