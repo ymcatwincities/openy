@@ -31,13 +31,8 @@ class YmcaMainMenuConfigForm extends ConfigFormBase {
    * Retrieves menu tree.
    */
   private function getMenuTree() {
-    if ($cache = \Drupal::cache()->get(YMCA_MENU_CACHE_CID)) {
-      $data = $cache->data;
-    }
-    else {
-      $controller = new YMCAMenuController();
-      $data = $controller->buildTree();
-    }
+    $controller = new YMCAMenuController();
+    $data = $controller->buildTree();
     return $data;
   }
 
@@ -50,7 +45,7 @@ class YmcaMainMenuConfigForm extends ConfigFormBase {
     $top_level_items = &$menu_tree->tree[$root_id];
     $options = [];
     foreach ($top_level_items as $key => $item) {
-      if ($key === 'o' || !$item) {
+      if ($key === 'o') {
         continue;
       }
       $lookup = isset($menu_tree->lookup[$key]) ? $menu_tree->lookup[$key] : NULL;
