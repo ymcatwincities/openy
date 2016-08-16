@@ -176,7 +176,7 @@ class YMCAMenuController extends ControllerBase {
    *   Array of cache tags.
    */
   private function getMenuTags($config) {
-    $menu_tags = ['config:' . $config, 'node_list'];
+    $menu_tags = ['config:' . $config, 'node_list', YMCA_MENU_CACHE_CID];
     $menus = static::menuList($config);
     foreach ($menus as $menu_id) {
       $menu_tags[] = 'config:system.menu.' . $menu_id;
