@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\ymca_groupex;
+namespace Drupal\ymca_google;
 
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
-use Drupal\ymca_google\GcalGroupexWrapper;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\ymca_groupex\GroupexRequestTrait;
 
 /**
  * Class DrupalProxy.

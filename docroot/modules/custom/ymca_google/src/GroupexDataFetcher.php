@@ -1,8 +1,9 @@
 <?php
 
-namespace Drupal\ymca_groupex;
+namespace Drupal\ymca_google;
 
-use Drupal\ymca_google\GcalGroupexWrapperInterface;
+use Drupal\ymca_groupex\GroupexRequestTrait;
+
 
 /**
  * Class GroupexDataFetcher.
