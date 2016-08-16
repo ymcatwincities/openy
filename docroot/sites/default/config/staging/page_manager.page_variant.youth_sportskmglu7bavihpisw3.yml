@@ -1,0 +1,43 @@
+uuid: a11bdc04-14a8-4d2c-a5a7-a8114c16289c
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.mobile_app
+  content:
+    - 'block_content:basic:cbbb7080-6cdd-4871-8afb-5c247e5c985d'
+  module:
+    - block_content
+    - panels
+id: youth_sportskmglu7bavihpisw3
+label: 'Mobile App'
+variant: panels_variant
+variant_settings:
+  blocks:
+    16d060af-11ee-4707-b02c-4414d79e81e3:
+      id: 'block_content:cbbb7080-6cdd-4871-8afb-5c247e5c985d'
+      label: 'Mobile App Main Content'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: 0
+      uuid: 16d060af-11ee-4707-b02c-4414d79e81e3
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 7892728d-c220-49ba-9e00-a79860e58827
+  label: null
+  weight: 0
+  layout: onecol
+  layout_settings: {  }
+  page_title: ''
+  storage_type: page_manager
+  storage_id: youth_sportskmglu7bavihpisw3
+  builder: standard
+page: mobile_app
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }
