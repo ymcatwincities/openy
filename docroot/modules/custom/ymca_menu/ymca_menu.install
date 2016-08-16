@@ -22,5 +22,6 @@ function ymca_menu_update_8002() {
   $value = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
   \Drupal::configFactory()
     ->getEditable('ymca_menu.mobile_menu_list')
-    ->set('menu_list', $value);
+    ->set('menu_list', $value)
+    ->save();
 }
