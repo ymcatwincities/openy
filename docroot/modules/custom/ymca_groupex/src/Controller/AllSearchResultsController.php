@@ -3,7 +3,9 @@
 namespace Drupal\ymca_groupex\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Url;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 
 /**
  * Implements AllSearchResultsController.
@@ -14,31 +16,28 @@ class AllSearchResultsController extends ControllerBase {
    * Show the page.
    */
   public function pageView() {
-    $query = \Drupal::request()->query->all();
+    // It catches cases with old arguments and redirect to this page without arguments.
+    // @var  \Symfony\Component\HttpFoundation\Request $request
+    $request = \Drupal::request();
+    $query = $request->query->all();
+    if ($request->getMethod() == 'GET') {
+      return $this->redirect('ymca_groupex.all_schedules_search');
+    }
 
     // Get classes schedules.
     $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
 
-    // Are results empty?
-    $empty_results = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty();
+    $formatted_results = $this->t('No results. Please try again.');
+    if (!$empty_results = \Drupal::service('ymca_groupex.schedule_fetcher')->isEmpty()) {
+      $formatted_results = ymca_groupex_schedule_table_layout($schedule);
+    }
 
-    $formatted_results = ymca_groupex_schedule_layout($schedule);
-    $form = $this->formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormFullRefine', $query);
+    $parameters = $query;
 
-    $module_path = drupal_get_path('module', 'ymca_groupex');
-    $image = Url::fromUri('base:' . $module_path . '/assets/endorsed_by_silverfit_sm.png');
-
-    return [
-      '#form' => $form,
-      '#schedule' => $formatted_results,
-      '#empty_results' => $empty_results,
-      '#theme' => 'groupex_all_search_results',
-      '#image' => $image,
-      '#interval' => !empty($query['filter_length']) ? $query['filter_length'] : 'day',
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    $response = new AjaxResponse();
+    $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-results', $formatted_results));
+    $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', array($parameters)));
+    return $response;
   }
 
 }
