@@ -20,7 +20,7 @@
   src: url(../fonts/cachetstd-medium-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/cachetstd-medium-webfont.woff) format("woff"), url(../fonts/cachetstd-medium-webfont.ttf) format("truetype"), url(../fonts/cachetstd-medium-webfont.svg#CachetStdMedium) format("svg");
 }
 .menu-base-theme a.is-active {
-  background: #0084CC;
+  text-decoration: underline;
 }
 
 #page-title {
@@ -348,7 +348,7 @@
 }
 
 .fa.fa-round {
-  font-size: 40px;
+  font-size: 100px;
   width: 100px;
   height: 100px;
   line-height: 100px;
@@ -356,7 +356,6 @@
   margin-bottom: 10px;
 
   &.blue {
-    border: 1px solid $blue;
     color: $blue;
   }
   &.pink {
@@ -466,6 +465,32 @@
     }
   }
 }
+
+.open_y_container {
+  ul {
+    list-style: none;
+    li {
+      font-size: 23px;
+      padding-bottom: 20px;
+      &:before {
+        content: '';
+        display: block;
+        width: 20px;
+        border-top: 2px solid $blue;
+        margin: 0 auto 20px;
+        color: white;
+      }
+    }
+
+    li:first-child {
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+}
+
 
 .open_y_is {
   background: url("../images/open_y_is.png") no-repeat center 0;
