@@ -126,7 +126,7 @@ class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface, Con
 
     $locations = $this->proxy->call('SiteService', 'GetLocations');
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      if ($location->HasClasses == TRUE && $location->ID == $location_id) {
+      if ($location->ID == $location_id) {
         $valid = TRUE;
         break;
       };
