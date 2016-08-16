@@ -494,6 +494,16 @@ p.legend {
   width: 30px;
 }
 
+
+body .ajax-progress-throbber {
+  padding: 2px 5px 2px 2px;
+  .throbber {
+    background: url(../img/ymca-throbber.gif) no-repeat 0px center;
+    background-size: cover;
+    padding: 2px 8px 2px;
+  }
+}
+
 // CKEditor template plugins.
 .green-3-col.container {
   background: $green3;

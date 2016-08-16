@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>{{ site_title }} - {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head %}
+      <link rel="stylesheet" href="css/styles.css">
+    {% endblock %}
+  </head>
+  <body>
+    {% block header %}
+      {% include 'navigation.twig' %}
+      <h1>{% block title %}{% endblock %}</h1>
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+    {% endblock %}
+    {% block footer_scripts %}
+      <script src="js/lib/media.match.min.js"></script>
+      <script src="js/lib/enquire.min.js"></script>
+      <script src="script/jquery.min.js"></script>
+      <script src="js/script.js"></script>
+    {% endblock %}
+  </body>
+</html>
