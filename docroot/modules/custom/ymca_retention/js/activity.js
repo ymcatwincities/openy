@@ -138,7 +138,7 @@
         infinite: false,
         swipeToSlide: true,
         initialSlide: (function () {
-          current_index = Math.max(0, $scope.date_index - 3);
+          var current_index = Math.max(0, $scope.date_index - 3);
           var ww = jQuery(window).width();
           if (ww >= 1024) {
             current_index = Math.min(current_index, $scope.dates.length - 11);
