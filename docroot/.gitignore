@@ -4,3 +4,11 @@ sites/default/settings.php
 # Ignore sass cache files.
 *.sass-cache/
 *.css.map
+
+# Ignore sass cache
+style-guide-rmt/.npm/.sass-cache/
+style-guide-rmt/.npm/node_modules
+style-guide-rmt/.npm/bower_components/
+
+# Ignore SASS source maps
+*.css.map

@@ -8162,6 +8162,10 @@ body .ajax-progress-throbber .throbber {
   margin-bottom: 20px;
 }
 
+.nav-home .nav-level-1 > li {
+  background: none;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -9667,6 +9671,11 @@ a.sports-icon.tumbling {
 .template_youth_sports_inner .locations-lead-copy .richtext p {
   color: #777;
   font-size: 14px;
+}
+.template_youth_sports_inner .locations-lead-copy .richtext p:first-child {
+  color: #383838;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 .template_youth_sports_inner .content-expander {
   margin: 80px 0;
