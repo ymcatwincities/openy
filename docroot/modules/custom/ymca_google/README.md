@@ -2,10 +2,19 @@
 
 Syncs Groupex schedules with Google calendar.
 
+### How to deploy
+
+In order to prevent test data to be push to production `is_production` flag was implemented. By default is always FALSE.
+In order to switch production mode on the production server please use next command:
+
+```
+drush cset ymca_google.settings is_production 1
+```
+
 ### How to run
 
 ```
-ymca_sync_run("ymca_sync.groupex_gcal", "proceed");
+ymca_sync_run("ymca_google.syncer", "proceed");
 ```
 
 ### How to rebuild the schedule
