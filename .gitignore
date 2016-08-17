@@ -9,3 +9,5 @@ cache
 .vagrant
 vagrant*
 d20*
+build_reports
+commentinfo.md
