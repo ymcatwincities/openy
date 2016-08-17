@@ -67,20 +67,29 @@ class WinnersController extends ControllerBase {
     ];
     $candidates = [];
 
-    // Count registered members in the branch.
-    $count = \Drupal::entityQueryAggregate('ymca_retention_member')
-      ->condition('branch', $branch_id)
-      ->condition('is_employee', FALSE)
-      ->aggregate('id', 'COUNT')
-      ->execute();
-    $limit = min($count[0]['id_count'], 12);
-
     foreach ($tracks as $field => $track) {
-      // Determine limit-th member.
-      $member_ids = \Drupal::entityQuery('ymca_retention_member')
+      // Count registered members in the branch qualified to win the track.
+      $query = \Drupal::entityQueryAggregate('ymca_retention_member')
         ->condition('branch', $branch_id)
-        ->condition('is_employee', FALSE)
-        ->sort($field, 'DESC')
+        ->condition('is_employee', FALSE);
+      if ($track == 'visits') {
+        $query->addTag('ymca_retention_visit_goal');
+      }
+      $count = $query->aggregate('id', 'COUNT')
+        ->execute();
+      $limit = min($count[0]['id_count'], 12);
+      if ($limit == 0) {
+        continue;
+      }
+
+      // Determine the limit-th member.
+      $query = \Drupal::entityQuery('ymca_retention_member')
+        ->condition('branch', $branch_id)
+        ->condition('is_employee', FALSE);
+      if ($track == 'visits') {
+        $query->addTag('ymca_retention_visit_goal');
+      }
+      $member_ids = $query->sort($field, 'DESC')
         ->range($limit - 1, 1)
         ->execute();
       if (empty($member_ids)) {
@@ -88,10 +97,15 @@ class WinnersController extends ControllerBase {
       }
       $member_id = reset($member_ids);
       $member = Member::load($member_id);
-      $member_ids = \Drupal::entityQuery('ymca_retention_member')
+
+      // Select candidates.
+      $query = \Drupal::entityQuery('ymca_retention_member')
         ->condition('branch', $branch_id)
-        ->condition('is_employee', FALSE)
-        ->condition($field, $member->get($field)->value, '>=')
+        ->condition('is_employee', FALSE);
+      if ($track == 'visits') {
+        $query->addTag('ymca_retention_visit_goal');
+      }
+      $member_ids = $query->condition($field, $member->get($field)->value, '>=')
         ->sort($field, 'DESC')
         ->execute();
       $members = Member::loadMultiple($member_ids);
