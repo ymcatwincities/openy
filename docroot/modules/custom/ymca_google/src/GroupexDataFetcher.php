@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\ymca_groupex;
+namespace Drupal\ymca_google;
 
-use Drupal\ymca_google\GcalGroupexWrapperInterface;
+use Drupal\ymca_groupex\GroupexRequestTrait;
 
 /**
  * Class GroupexDataFetcher.
@@ -46,21 +46,50 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
     $start = $schedule['steps'][$schedule['current']]['start'];
     $end = $schedule['steps'][$schedule['current']]['end'];
 
+    // Get schedule items.
     $options = [
       'query' => [
         'schedule' => TRUE,
         'desc' => 'true',
         'start' => $start,
-        'end' => $end,
-      ],
+        'end' => $end
+      ]
     ];
-
     $data = $this->request($options);
     if ($data) {
       if ($this->debug) {
         // Limit data by 3 items for development.
         $data = array_slice($data, 0, 3);
       }
+    }
+
+    // Always add items from hot time frame.
+    $options['query']['start'] = REQUEST_TIME;
+    $options['query']['end'] = REQUEST_TIME + GcalGroupexWrapper::HOT_TIME_FRAME;
+    $hot = $this->request($options);
+    if ($hot) {
+      if ($this->debug) {
+        // Limit data by 3 items for development.
+        $hot = array_slice($hot, 0, 3);
+      }
+    }
+
+    /* We've made 2 requests. Possibly we've got 2 identical items.
+    Filter them before the merge */
+    foreach ($hot as $hot_item_id => $hot_item_value) {
+      $found = FALSE;
+      foreach ($data as $data_item_id => $data_item_value) {
+        if ($hot_item_value == $data_item_value) {
+          $found = TRUE;
+        }
+      }
+
+      if (!$found) {
+        $data[] = $hot_item_value;
+      }
+    }
+
+    if ($data) {
       $this->dataWrapper->setSourceData($data);
       $this->dataWrapper->setTimeFrame([
         'start' => $start,
