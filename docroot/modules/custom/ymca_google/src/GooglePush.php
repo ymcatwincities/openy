@@ -24,6 +24,11 @@ class GooglePush {
   const RRULE_DATE = 'Ymd\THis\Z';
 
   /**
+   * Test calendar name.
+   */
+  const TEST_CALENDAR_NAME = 'TESTING';
+
+  /**
    * Default timezone for calendars.
    */
   const TZ = 'America/Chicago';
@@ -151,9 +156,7 @@ class GooglePush {
   public function proceed() {
     $data = $this->dataWrapper->getProxyData();
 
-    // Push data only if it's production.
-    if ($this->isProduction) {
-      foreach ($data as $op => $entities) {
+    foreach ($data as $op => $entities) {
         Timer::start($op);
         $processed[$op] = 0;
 
@@ -184,14 +187,16 @@ class GooglePush {
               }
 
               try {
-                $this->calEvents->update(
+                $updated = $this->calEvents->update(
                   $gcal_id,
                   $entity->field_gg_gcal_id->value,
                   $event
                 );
 
                 $processed[$op]++;
+
                 // Saving updated entity only when it was pushed successfully.
+                $entity->set('field_gg_google_event', serialize($updated));
                 $entity->save();
               }
               catch (\Google_Service_Exception $e) {
@@ -297,6 +302,7 @@ class GooglePush {
                 $event = $this->calEvents->insert($gcal_id, $event);
 
                 $entity->set('field_gg_gcal_id', $event->getId());
+                $entity->set('field_gg_google_event', serialize($event));
                 $entity->save();
 
                 $processed[$op]++;
@@ -347,7 +353,6 @@ class GooglePush {
         $this->logStats($op, $processed);
 
       }
-    }
 
     // Mark this step as done in the schedule.
     $this->dataWrapper->next();
@@ -364,6 +369,10 @@ class GooglePush {
    *   Calendar ID.
    */
   protected function getCalendarIdByName($name) {
+    if (!$this->isProduction) {
+      $name = self::TEST_CALENDAR_NAME;
+    }
+
     // Return ID from cache if exists.
     if (array_key_exists($name, $this->calendars)) {
       return $this->calendars[$name];

@@ -31,3 +31,19 @@ $schedule = $state->get('ymca_google_syncer_schedule');
 $schedule['current'] = 179;
 $state->set('ymca_google_syncer_schedule', $schedule);
 ```
+
+### How to debug
+
+If `is_production` flag is set to 0 then all events are pushed to calendar named `TESTING`. You can delete this calendar any time.
+
+#### Remove all cached entities
+
+```
+\Drupal::service('ymca_google.pusher')->clearCache();
+```
+
+#### Remove schedule
+
+```
+\Drupal::service('ymca_google.groupex_wrapper')->removeSchedule();
+```

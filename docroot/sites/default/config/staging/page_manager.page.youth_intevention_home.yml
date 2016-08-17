@@ -1,0 +1,25 @@
+uuid: 457fe8f0-aec6-4242-9bbc-a088ddfd2ddd
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+    - ymca_page_manager
+third_party_settings:
+  ymca_page_manager:
+    author: '27056'
+id: youth_intevention_home
+label: 'Youth Intevention'
+use_admin_theme: false
+path: /youthintervention/home
+access_logic: and
+access_conditions:
+  27942d42-25d3-4b14-a080-d80ccc64f9e3:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: 27942d42-25d3-4b14-a080-d80ccc64f9e3
+parameters: {  }

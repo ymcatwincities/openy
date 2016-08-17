@@ -122,7 +122,10 @@ gulp.task('js-lint', function () {
 gulp.task('inline-css', function() {
   return gulp.src('../styleguide/sg-inline.html')
     .pipe(inlineCss({
-      url: 'file://' + __dirname + '/../styles.css'
+      url: 'file://' + __dirname + '/../styles.css',
+      applyLinkTags: true,
+      removeStyleTags: false,
+      removeLinkTags: false
     }))
     .pipe(rename('sg-inline-embed.html'))
     .pipe(gulp.dest('../styleguide/'));
