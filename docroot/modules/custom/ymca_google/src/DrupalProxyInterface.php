@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ymca_groupex;
+namespace Drupal\ymca_google;
 
 /**
  * Interface DrupalProxyInterface.

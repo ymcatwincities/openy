@@ -1,0 +1,49 @@
+---
+# This script contains commands to manage "Docker SQL workflow":
+# - Running registry rebuild (when modules have been moved to new directory)
+# - Running database updates
+
+- name: Exising container name is...
+  debug: msg={{ existing_container_name }}
+  when: existing_container_name is defined
+
+# Vagrant build.
+- name: Delete old container
+  shell: docker rm -f {{ mysql_db }}
+  when: existing_container_name is undefined and (pp_environment == "default" and ((ansible_env.USER is not defined or ansible_env.USER != "{{ ci_server_username }}") and (ansible_env.SUDO_USER is not defined or ansible_env.SUDO_USER != "{{ ci_server_username }}")))
+  ignore_errors: true
+
+# Run docker container.
+- name: Obtain unique container for a build
+  shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di dbprod
+  when: existing_container_name is undefined
+
+- name: Run mysql within docker container
+  shell: docker exec {{ mysql_db }} '/usr/sbin/service' mysql start
+  when: existing_container_name is undefined
+
+# Run registry rebuild.
+- name: Check if registry_rebuild is installed
+  shell: "{{ php_env_vars }} drush | grep -c registry_rebuild"
+  register: registry_rebuild_installed
+  ignore_errors: true
+
+- name: Downloading registry_rebuild
+  sudo: yes
+  shell: "{{ php_env_vars }} drush -y dl registry_rebuild"
+  when: rebuild_registry and registry_rebuild_installed.stdout == "0"
+
+- name: Clear drush cache
+  sudo: yes
+  shell: "{{ php_env_vars }} drush cc drush"
+  when: rebuild_registry and registry_rebuild_installed.stdout == "0"
+
+- name: Rebuilding drupal registry
+  sudo: yes
+  shell: "{{ php_env_vars }} drush -y rr -l {{ site_url }} || true"
+  when: rebuild_registry
+
+# Update database.
+- name: Updating database
+  sudo: yes
+  shell: "{{ php_env_vars }} drush -dvy updb -l {{ site_url }}"
