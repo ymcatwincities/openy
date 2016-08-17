@@ -135,16 +135,28 @@
       "group":"active_element"
     },
     {
-      "name":"activity-icon",
+      "name":"activity-images-icons",
       "group":"icons"
     },
     {
-      "name":"marketing-icon",
+      "name":"marketing-image-icons",
       "group":"icons"
     },
     {
-    "name":"service-icon",
+    "name":"service-image-icons",
     "group":"icons"
+    },
+    {
+      "name":"activity-font-icons",
+      "group":"icons"
+    },
+    {
+      "name":"marketing-font-icons",
+      "group":"icons"
+    },
+    {
+      "name":"service-font-icons",
+      "group":"icons"
     }
   ]
 }
