@@ -4099,9 +4099,24 @@ function ymca_master_update_8174() {
 }
 
 /**
- * Update locations schedule content field value.
+ * YMCA-1105: Add field for Google event.
  */
 function ymca_master_update_8175() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_google_event.yml',
+    ]
+  );
+}
+
+/**
+ * Update locations schedule content field value.
+ */
+function ymca_master_update_8176() {
   $renderer = \Drupal::service('renderer');
   $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
 
