@@ -4114,8 +4114,25 @@ function ymca_master_update_8175() {
 }
 
 /**
- * YPF-91: Add basic error handling module.
+ * YPTF-91: Add basic error handling module.
  */
 function ymca_master_update_8176() {
   \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
+}
+
+/**
+ * YPTF-133: Clear MindBody cache after booking.
+ */
+function ymca_master_update_8177() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mindbody_cache.mindbody_cache.default.yml',
+      $path . 'core.entity_view_display.mindbody_cache.mindbody_cache.default.yml',
+      $path . 'field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_location.yml',
+      $path . 'field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_trainer.yml',
+      $path . 'field.storage.mindbody_cache.field_mindbody_cache_location.yml',
+      $path . 'field.storage.mindbody_cache.field_mindbody_cache_trainer.yml',
+    ]
+  );
 }
