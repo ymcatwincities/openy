@@ -14,7 +14,6 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
-
 /**
  * Implements Groupex Full Form.
  */
