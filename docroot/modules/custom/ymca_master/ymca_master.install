@@ -4017,10 +4017,10 @@ function ymca_master_update_8170() {
 /**
  * Make favicons configurable.
  */
-function ymca_master_update_8171() {
+function _ymca_master_update_8171() {
   $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
   $destDir = 'public://favicon/';
-  drupal_mkdir($destDir, 0777);
+  drupal_mkdir($destDir, 0666);
   $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
   $fileMap = [
     'default' => [
@@ -4039,7 +4039,7 @@ function ymca_master_update_8171() {
   $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
     $fileUri = $destDir . $fileItem['to'];
-    file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    @file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
     $file = EntityFile::create([
       'uid' => 1,
       'filename' => $fileItem['to'],
