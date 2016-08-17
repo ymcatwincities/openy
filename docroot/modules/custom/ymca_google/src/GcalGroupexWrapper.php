@@ -24,6 +24,11 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   const LOGGER_CHANNEL = 'gcal_groupex';
 
   /**
+   * Amount of seconds to always fetch the nearest schedule.
+   */
+  const HOT_TIME_FRAME = 86400;
+
+  /**
    * Number steps.
    *
    * @var int
@@ -156,6 +161,13 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
       // Update current step pointer.
       $new_schedule = $schedule;
       $new_schedule['current'] = $next;
+
+      $context = [
+        '%steps' => $this->steps,
+        '%length' => $this->length,
+        '%current' => $new_schedule['current'],
+      ];
+      $this->logger->info("Step finished. Current step: %current, steps num: %steps, step length: %length sec.", $context);
     }
 
     // Save schedule.
