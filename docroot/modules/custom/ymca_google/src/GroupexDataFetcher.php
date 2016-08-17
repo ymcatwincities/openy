@@ -4,7 +4,6 @@ namespace Drupal\ymca_google;
 
 use Drupal\ymca_groupex\GroupexRequestTrait;
 
-
 /**
  * Class GroupexDataFetcher.
  *
@@ -48,7 +47,14 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
     $end = $schedule['steps'][$schedule['current']]['end'];
 
     // Get schedule items.
-    $options = ['query' => ['schedule' => TRUE, 'desc' => 'true', 'start' => $start, 'end' => $end]];
+    $options = [
+      'query' => [
+        'schedule' => TRUE,
+        'desc' => 'true',
+        'start' => $start,
+        'end' => $end
+      ]
+    ];
     $data = $this->request($options);
     if ($data) {
       if ($this->debug) {
