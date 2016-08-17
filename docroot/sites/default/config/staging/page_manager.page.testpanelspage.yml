@@ -1,0 +1,21 @@
+uuid: 96721468-0150-4ff2-88e7-82109a44ec2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: testpanelspage
+label: testpanelspage
+use_admin_theme: false
+path: /testpanelspage
+access_logic: and
+access_conditions:
+  6917d266-cbb0-4313-a626-f11340aa2751:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: 6917d266-cbb0-4313-a626-f11340aa2751
+parameters: {  }

@@ -1,0 +1,11 @@
+uuid: 59850902-d03d-4364-8e1f-45b3ca65926f
+langcode: en
+status: true
+dependencies: {  }
+id: mobile_app
+label: 'Mobile App'
+use_admin_theme: false
+path: /app
+access_logic: and
+access_conditions: {  }
+parameters: {  }
