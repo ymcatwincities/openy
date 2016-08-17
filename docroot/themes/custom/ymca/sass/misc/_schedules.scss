@@ -359,11 +359,15 @@ body.node--type-location {
 
 .groupex-pdf-link-container {
   @include rem(padding-bottom, 15px);
-  padding-left: 50%;
-  width: 50%;
 
   a {
     @include cachet-normal();
     text-transform: uppercase;
+
+    &:hover {
+      background-image: url(../img/rainbow-and-butterflies.png);
+      background-position: top right;
+      text-shadow: 0 0 3px $white;
+    }
   }
 }
