@@ -93,6 +93,16 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
         'field_mindbody_cache_params' => $params_str,
         'field_mindbody_cache_data' => serialize($result),
       ]);
+
+      // If params contain location ID save it.
+      $key = 'LocationIDs';
+      if (array_key_exists($key, $params)) {
+        // Location IDs may be multiple, but we need only single one.
+        if (count($params[$key]) == 1) {
+          $cache->set('field_mindbody_cache_location', reset($params[$key]));
+        }
+      }
+
       $cache->setName(sprintf('Cache item: %s, %s', $service, $endpoint));
       $cache->save();
     }
