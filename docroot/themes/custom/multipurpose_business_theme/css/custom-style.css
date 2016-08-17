@@ -12,7 +12,7 @@
 
 body{
   font-family: 'Cachet', 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   overflow-x: hidden;
   color: #777;
 }
@@ -1180,6 +1180,7 @@ li.css a {
 #ui_accordion .panel-default{
   box-shadow: none;
   border-radius: 0;
+  border:0;
 }
 
 #ui_accordion .panel-heading{
@@ -1191,12 +1192,18 @@ li.css a {
 }
 
 #ui_accordion .panel-heading h4{
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
+  text-transform: uppercase;
+  color:#0288d1;
 }
 
 #ui_accordion .panel-heading a:hover,
 #ui_accordion .panel-heading a:focus{
   text-decoration: none;
   color: #005cab;
+}
+
+.panel-group .panel-heading+.panel-collapse>.panel-body {
+    border:0;
 }
