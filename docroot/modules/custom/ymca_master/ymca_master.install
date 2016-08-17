@@ -4039,7 +4039,7 @@ function ymca_master_update_8171() {
   $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
     $fileUri = $destDir . $fileItem['to'];
-    file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    @file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
     $file = EntityFile::create([
       'uid' => 1,
       'filename' => $fileItem['to'],
