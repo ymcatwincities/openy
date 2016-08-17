@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Database\Query\AlterableInterface;
 
 /**
  * Implements hook_form_alter().
@@ -216,4 +217,12 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
   $member->set('activity_track_fitness', $tracks[$activity_groups[1]['id']]);
   $member->set('activity_track_groupx', $tracks[$activity_groups[2]['id']]);
   $member->save();
+}
+
+/**
+ * Implements hook_query_TAG_alter() for tag 'ymca_retention_visit_goal'.
+ */
+function ymca_retention_query_ymca_retention_visit_goal_alter(AlterableInterface $query) {
+  // Select only those who reached the visits goal.
+  $query->where('ymca_retention_member.total_visits >= ymca_retention_member.visit_goal');
 }

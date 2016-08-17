@@ -13,7 +13,10 @@
     select {
       height: 50px;
       line-height: 50px;
-      text-indent: 20px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding-top: 0px;
     }
   }
 
@@ -42,7 +45,11 @@
     select {
       height: 50px;
       line-height: 50px;
-      text-indent: 50px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding-left: 50px;
+      padding-top: 0px;
     }
   }
   #class-select-wrapper {

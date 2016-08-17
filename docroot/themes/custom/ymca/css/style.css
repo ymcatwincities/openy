@@ -8225,6 +8225,10 @@ body .ajax-progress-throbber .throbber {
   margin-bottom: 20px;
 }
 
+.nav-home .nav-level-1 > li {
+  background: none;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -9165,7 +9169,10 @@ body .ajax-progress-throbber .throbber {
 .groupex-form-full #location-select-wrapper select {
   height: 50px;
   line-height: 50px;
-  text-indent: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-top: 0px;
 }
 .groupex-form-full #date-select-wrapper {
   float: left;
@@ -9190,7 +9197,11 @@ body .ajax-progress-throbber .throbber {
 .groupex-form-full #date-select-wrapper select {
   height: 50px;
   line-height: 50px;
-  text-indent: 50px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-left: 50px;
+  padding-top: 0px;
 }
 .groupex-form-full #class-select-wrapper {
   float: left;
