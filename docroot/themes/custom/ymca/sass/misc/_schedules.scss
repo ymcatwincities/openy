@@ -298,6 +298,7 @@ body.node--type-location {
   }
 }
 
+.location-schedules-content,
 #block-schedulesrightblocks {
   article {
     h2 {
@@ -353,5 +354,16 @@ body.node--type-location {
       font-family: Cachet;
       font-weight: bold;
     }
+  }
+}
+
+.groupex-pdf-link-container {
+  @include rem(padding-bottom, 15px);
+  padding-left: 50%;
+  width: 50%;
+
+  a {
+    @include cachet-normal();
+    text-transform: uppercase;
   }
 }
