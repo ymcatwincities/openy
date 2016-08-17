@@ -81,21 +81,48 @@ class MindbodyCacheProxyManager implements MindbodyCacheProxyManagerInterface {
    * {@inheritdoc}
    */
   public function resetCache() {
-    $storage = $this->entityTypeManager->getStorage('mindbody_cache');
-
     $result = $this->entityQuery->get('mindbody_cache')->execute();
     if (empty($result)) {
       return;
     }
 
-    $chunks = array_chunk($result, 10);
+    $this->deleteCacheItems($result);
+
+    $this->logger->info('The cache was cleared.');
+    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_reset_cache');
+  }
+
+  /**
+   * Reset cache of Bookable items by Location ID.
+   *
+   * @param int $location
+   *   Location ID.
+   */
+  public function resetBookableItemsCacheByLocation($location) {
+    $result = $this->entityQuery->get('mindbody_cache')
+      ->condition('field_mindbody_cache_location', $location)
+      ->execute();
+
+    if (empty($result)) {
+      return;
+    }
+
+    $this->deleteCacheItems($result);
+  }
+
+  /**
+   * Delete cache items by IDs.
+   *
+   * @param array $IDs
+   *   Cache item IDs.
+   */
+  private function deleteCacheItems(array $IDs) {
+    $storage = $this->entityTypeManager->getStorage('mindbody_cache');
+    $chunks = array_chunk($IDs, 10);
     foreach ($chunks as $chunk) {
       $entities = MindbodyCache::loadMultiple($chunk);
       $storage->delete($entities);
     }
-
-    $this->logger->info('The cache was cleared.');
-    \Drupal::moduleHandler()->invokeAll('mindbody_cache_proxy_reset_cache');
   }
 
 }
