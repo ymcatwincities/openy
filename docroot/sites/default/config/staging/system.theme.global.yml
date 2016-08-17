@@ -12,3 +12,9 @@ logo:
   path: ''
   url: ''
   use_default: true
+ymca_favicon_default:
+  - '18021'
+ymca_favicon_camp:
+  - '18026'
+ymca_favicon_location:
+  - '18031'
