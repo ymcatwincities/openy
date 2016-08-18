@@ -18,7 +18,7 @@ class ErrorManager {
   protected $configFactory;
 
   /**
-   * Config
+   * Config.
    *
    * @var ImmutableConfig
    */
