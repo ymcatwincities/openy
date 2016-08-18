@@ -12,6 +12,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxyManager;
 use Drupal\ymca_errors\ErrorManager;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
@@ -107,6 +108,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $errorManager;
 
   /**
+   * The cache manager.
+   *
+   * @var MindbodyCacheProxyManager
+   */
+  protected $cacheManager;
+
+  /**
    * Mindbody Credentials.
    *
    * @var array
@@ -119,6 +127,13 @@ class MindbodyResultsController extends ControllerBase {
    * @var bool
    */
   protected $isProduction;
+
+  /**
+   * Request Guard.
+   *
+   * @var YmcaMindbodyRequestGuard
+   */
+  protected $requestGuard;
 
   /**
    * MindbodyResultsController constructor.
@@ -137,6 +152,8 @@ class MindbodyResultsController extends ControllerBase {
    *   The Config Factory.
    * @param ErrorManager $error_manager
    *   The Error manager.
+   * @param MindbodyCacheProxyManager $cache_manager
+   *   The cache manager.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -145,7 +162,8 @@ class MindbodyResultsController extends ControllerBase {
     RequestStack $request_stack,
     MindbodyCacheProxy $proxy,
     ConfigFactory $config_factory,
-    ErrorManager $error_manager
+    ErrorManager $error_manager,
+    MindbodyCacheProxyManager $cache_manager
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
@@ -154,6 +172,7 @@ class MindbodyResultsController extends ControllerBase {
     $this->proxy = $proxy;
     $this->configFactory = $config_factory;
     $this->errorManager = $error_manager;
+    $this->cacheManager = $cache_manager;
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
   }
@@ -169,7 +188,8 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('request_stack'),
       $container->get('mindbody_cache_proxy.client'),
       $container->get('config.factory'),
-      $container->get('ymca_errors.error_manager')
+      $container->get('ymca_errors.error_manager'),
+      $container->get('mindbody_cache_proxy.manager')
     );
   }
 
@@ -313,6 +333,7 @@ class MindbodyResultsController extends ControllerBase {
    */
   private function bookItem(array $data) {
     $client_id = self::TEST_API_CLIENT_ID;
+    $location_id = $data[self::QUERY_PARAM__LOCATION];
 
     // Get client ID from cookies.
     if ($this->isProduction) {
@@ -350,7 +371,7 @@ class MindbodyResultsController extends ControllerBase {
       }
 
       // Check if client has no services at all.
-      if(empty((array) $result->GetClientServicesResult->ClientServices)) {
+      if (empty((array) $result->GetClientServicesResult->ClientServices)) {
         return [
           'status' => FALSE,
           'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
@@ -386,15 +407,13 @@ class MindbodyResultsController extends ControllerBase {
       ];
     }
 
-    /*
-    Book an appointment.
+    /*Book an appointment.
 
     First of all, we should check is_production flag. If it's FALSE we should
     always crete appointments in 'test' mode (ie without creating a real appointment).
 
     We have special test API trainer. For this trainer we could create real
-    appointments in test and development modules.
-    */
+    appointments in test and development modules.*/
     try {
       $params = [
         'UserCredentials' => $user_credentials,
@@ -403,7 +422,7 @@ class MindbodyResultsController extends ControllerBase {
           'Appointment' => [
             'StartDateTime' => date('Y-m-d\TH:i:s', $data[self::QUERY_PARAM__START_TIMESTAMP]),
             'Location' => [
-              'ID' => $data[self::QUERY_PARAM__LOCATION],
+              'ID' => $location_id,
             ],
             'Staff' => [
               'isMale' => (bool) $data[self::QUERY_PARAM__IS_MALE],
@@ -455,6 +474,9 @@ class MindbodyResultsController extends ControllerBase {
         'status' => FALSE,
       ];
     }
+
+    // So, we've booked our item. Let's clear the cache.
+    $this->cacheManager->resetBookableItemsCacheByLocation($location_id);
 
     return [
       'status' => TRUE
