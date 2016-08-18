@@ -220,7 +220,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       }
       foreach ($schedule_item as $bookable_item) {
 
-        // Do not show Test API client on Production
+        // Do not show Test API client on Production.
         if ($this->isProduction && $bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
           continue;
         }
@@ -503,7 +503,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
 
-        // Do not show Test API client on Production
+        // Do not show Test API client on Production.
         if ($this->isProduction && $bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
           continue;
         }

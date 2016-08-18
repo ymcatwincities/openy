@@ -113,12 +113,12 @@ class MindbodyCacheProxyManager implements MindbodyCacheProxyManagerInterface {
   /**
    * Delete cache items by IDs.
    *
-   * @param array $IDs
+   * @param array $ids
    *   Cache item IDs.
    */
-  private function deleteCacheItems(array $IDs) {
+  private function deleteCacheItems(array $ids) {
     $storage = $this->entityTypeManager->getStorage('mindbody_cache');
-    $chunks = array_chunk($IDs, 10);
+    $chunks = array_chunk($ids, 10);
     foreach ($chunks as $chunk) {
       $entities = MindbodyCache::loadMultiple($chunk);
       $storage->delete($entities);
