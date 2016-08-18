@@ -371,7 +371,7 @@ class MindbodyResultsController extends ControllerBase {
       }
 
       // Check if client has no services at all.
-      if(empty((array) $result->GetClientServicesResult->ClientServices)) {
+      if (empty((array) $result->GetClientServicesResult->ClientServices)) {
         return [
           'status' => FALSE,
           'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
@@ -407,15 +407,13 @@ class MindbodyResultsController extends ControllerBase {
       ];
     }
 
-    /*
-    Book an appointment.
+    /*Book an appointment.
 
     First of all, we should check is_production flag. If it's FALSE we should
     always crete appointments in 'test' mode (ie without creating a real appointment).
 
     We have special test API trainer. For this trainer we could create real
-    appointments in test and development modules.
-    */
+    appointments in test and development modules.*/
     try {
       $params = [
         'UserCredentials' => $user_credentials,
