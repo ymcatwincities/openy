@@ -4114,16 +4114,54 @@ function ymca_master_update_8175() {
 }
 
 /**
- * YPTF-91: Add basic error handling module.
+ * Update locations schedule content field value.
  */
 function ymca_master_update_8176() {
+  $renderer = \Drupal::service('renderer');
+  $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $location_nids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+  foreach ($location_nids as $nid) {
+    $mapping = $mapping_repository->findByLocationId($nid);
+    if (!$mapping || !$mapping->hasField('field_location_personify_brcode') ||
+      !$brcode = $mapping->field_location_personify_brcode->getValue()[0]['value']
+    ) {
+      \Drupal::logger('ymca_master')
+        ->notice('Location with nid @nid has not been updated because it doesn\'t have associated Personify branch id', [
+          '@nid' => $nid,
+        ]);
+      continue;
+    }
+
+    $build = [
+      '#type' => 'inline_template',
+      '#template' => '{% include "@ymca_groupex/groupex-individual-location-links.html.twig" %}',
+      '#context' => ['branch_id' => $brcode],
+    ];
+
+    $node = $node_storage->load($nid);
+    $node->set('field_schedule_content', [
+      'value' => (string) $renderer->renderRoot($build),
+      'format' => 'full_html'
+    ]);
+    $node->save();
+  }
+}
+
+/**
+ * YPTF-91: Add basic error handling module.
+ */
+function ymca_master_update_8177() {
   \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
 }
 
 /**
  * YPTF-133: Clear MindBody cache after booking.
  */
-function ymca_master_update_8177() {
+function ymca_master_update_8178() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
