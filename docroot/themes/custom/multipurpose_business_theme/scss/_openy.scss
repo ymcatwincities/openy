@@ -372,6 +372,31 @@
   }
 }
 
+.fa.fa-round-small {
+  font-size: 48px;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+
+  &.blue {
+    color: $blue;
+  }
+  &.pink {
+    border: 1px solid $pink;
+    color: $pink;
+  }
+  &.yellow {
+    border: 1px solid $yellow;
+    color: $yellow;
+  }
+  &.green {
+    border: 1px solid $green;
+    color: $green;
+  }
+}
+
 .about-open-y {
   margin: 50px 0;
   .container {

@@ -482,11 +482,13 @@ function ymca_preprocess_html(&$variables) {
   }
 
   $file = file_load($iconFid);
-  $variables['page']['#attached']['html_head_link'] = [[[
-    'rel' => 'shortcut icon',
-    'href' => file_create_url($file->getFileUri()),
-    'type' => $file->getMimeType()
-  ]]];
+  if ($file) {
+    $variables['page']['#attached']['html_head_link'] = [[[
+      'rel' => 'shortcut icon',
+      'href' => file_create_url($file->getFileUri()),
+      'type' => $file->getMimeType()
+    ]]];
+  }
 }
 
 /**
