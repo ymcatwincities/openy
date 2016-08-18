@@ -298,6 +298,7 @@ body.node--type-location {
   }
 }
 
+.location-schedules-content,
 #block-schedulesrightblocks {
   article {
     h2 {
@@ -352,6 +353,21 @@ body.node--type-location {
       text-transform: uppercase;
       font-family: Cachet;
       font-weight: bold;
+    }
+  }
+}
+
+.groupex-pdf-link-container {
+  @include rem(padding-bottom, 15px);
+
+  a {
+    @include cachet-normal();
+    text-transform: uppercase;
+
+    &:hover {
+      background-image: url(../img/rainbow-and-butterflies.png);
+      background-position: top right;
+      text-shadow: 0 0 3px $white;
     }
   }
 }
