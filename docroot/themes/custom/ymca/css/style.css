@@ -7341,12 +7341,6 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-top: 51px;
 }
 
-.location-schedules-content .file {
-  display: list-item;
-  list-style-type: disc;
-  margin-left: 40px;
-}
-
 .locations-camps-template .locations-page-under-lead-copy {
   padding-top: 10px;
 }
@@ -9427,30 +9421,36 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   padding-right: 30px;
 }
 
+.location-schedules-content article h2,
 #block-schedulesrightblocks article h2 {
   margin: 0;
   display: block;
   color: #424242;
   text-transform: uppercase;
 }
+.location-schedules-content article h2 a,
 #block-schedulesrightblocks article h2 a {
   color: #424242;
   padding-bottom: 0;
 }
 @media screen and (max-width: 767px) {
+  .location-schedules-content article h2 a,
   #block-schedulesrightblocks article h2 a {
     padding-bottom: 10px;
   }
 }
+.location-schedules-content article ul,
 #block-schedulesrightblocks article ul {
   margin: 25px 0 30px;
   padding: 0;
 }
+.location-schedules-content article ul li,
 #block-schedulesrightblocks article ul li {
   list-style: none;
   font-size: 15px;
   margin-bottom: 15px;
 }
+.location-schedules-content article ul li:before,
 #block-schedulesrightblocks article ul li:before {
   content: "\f105";
   color: #777;
@@ -9459,9 +9459,11 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   margin-right: 14px;
   font-weight: bold;
 }
+.location-schedules-content #component_153751 .richtext,
 #block-schedulesrightblocks #component_153751 .richtext {
   margin-top: 0;
 }
+.location-schedules-content #component_153751 .panel-body a,
 #block-schedulesrightblocks #component_153751 .panel-body a {
   border-radius: 5px;
   border: 1px solid #e3c7e1;
@@ -9473,6 +9475,21 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   text-transform: uppercase;
   font-family: Cachet;
   font-weight: bold;
+}
+
+.groupex-pdf-link-container {
+  padding-bottom: 15px;
+  padding-bottom: 1.5rem;
+}
+.groupex-pdf-link-container a {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.groupex-pdf-link-container a:hover {
+  background-image: url(../img/rainbow-and-butterflies.png);
+  background-position: top right;
+  text-shadow: 0 0 3px #fff;
 }
 
 .template_youth_sports_overview .locations-lead-copy {
