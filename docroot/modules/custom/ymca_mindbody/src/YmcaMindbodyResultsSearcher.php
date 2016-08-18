@@ -230,9 +230,16 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
 
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
-          // Do not process the items which are in the past.
-          // Temporary solution, should be removed once Drupal default timezone is changed.
-          if ($this->getTimestampInTimezone('now') >= $this->getTimestampInTimezone($bookable_item->StartDateTime)) {
+
+          $timestamp_now = $this->getTimestampInTimezone('now');
+          $timestamp_item = $this->getTimestampInTimezone($bookable_item->StartDateTime);
+          $hide_time = (int) $this->settings->get('hide_time');
+          // Hide time are in minutes. Need seconds.
+          $hide_time = $hide_time > 0 ? $hide_time * 60 : $hide_time;
+
+          // Do not process items in the past.
+          // Do not show time slots withing the hidden time.
+          if ($timestamp_now + $hide_time >= $timestamp_item) {
             continue;
           }
 
