@@ -38,6 +38,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   const MAX_TIME_RANGE = 22;
 
   /**
+   * Excluded programs.
+   */
+  const PROGRAMS_EXCLUDED = [4];
+
+  /**
    * Default timezone of incoming results.
    */
   const DEFAULT_TIMEZONE = 'America/Chicago';
@@ -286,13 +291,17 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             $query['token'] = $this::getToken($query);
             $options['query'] = $query;
 
-            $text = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
+            $class = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
               '@from' => date('h:i a', $item->getTimestamp()),
               '@to' => date('h:i a', $item->add($interval)->getTimestamp()),
             ]);
-            $link = Link::createFromRoute($text, 'ymca_mindbody.pt.book', [], $options);
 
-            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $link;
+            // Add link only for not excluded items.
+            if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
+              $class = Link::createFromRoute($class, 'ymca_mindbody.pt.book', [], $options);
+            }
+
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $class;
           }
         }
       }
