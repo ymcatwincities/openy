@@ -41,6 +41,11 @@ class MindbodyResultsController extends ControllerBase {
   const QUERY_PARAM__STAFF_ID = 'si';
 
   /**
+   * Program ID.
+   */
+  const QUERY_PARAM__PROGRAM_ID = 'p';
+
+  /**
    * Is Male.
    */
   const QUERY_PARAM__IS_MALE = 'im';

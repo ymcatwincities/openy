@@ -5,6 +5,7 @@ namespace Drupal\ymca_mindbody;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -35,6 +36,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * Max time value that should be available on form.
    */
   const MAX_TIME_RANGE = 22;
+
+  /**
+   * Excluded programs.
+   */
+  const PROGRAMS_EXCLUDED = [4];
 
   /**
    * The Config Factory definition.
@@ -288,13 +294,17 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             $query['token'] = $this::getToken($query);
             $options['query'] = $query;
 
-            $text = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
+            $class = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
               '@from' => date('h:i a', $item->getTimestamp()),
               '@to' => date('h:i a', $item->add($interval)->getTimestamp()),
             ]);
-            $link = Link::createFromRoute($text, 'ymca_mindbody.pt.book', [], $options);
 
-            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $link;
+            // Add link only for not excluded items.
+            if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
+              $class = Link::createFromRoute($class, 'ymca_mindbody.pt.book', [], $options);
+            }
+
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $class;
           }
         }
       }
