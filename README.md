@@ -1,4 +1,4 @@
-Drupal Vagrant Dev box for CIBox support.
+YMCA Vagrant Dev box for CIBox support.
 ======
 
 #Installation
