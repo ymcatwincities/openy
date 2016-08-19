@@ -6,9 +6,12 @@
   padding-top: 25px;
   text-align: center;
 
-  &__item {
-    display: inline;
-    margin: 0 12px;
+  &__list {
+    a {
+      text-decoration: none;
+      outline: none;
+      padding: 0 10px;
+    }
   }
 }
 
@@ -24,23 +27,30 @@
   margin-bottom: 25px;
   padding: 30px 10px 25px;
 
+  td {
+    padding-bottom: 10px;
+  }
+
   &__content {
     margin: 0 auto;
     max-width: 406px;
   }
 
   &__icon {
-    float: left;
-    margin-right: 15px;
+    padding-right: 15px;
   }
 
   a {
     color: #fff;
+    outline: none;
     text-decoration: none;
   }
 
-  .phone {
-    margin-right: 35px;
+  &__phone-mail {
+    a {
+      padding-right: 35px;
+      white-space: nowrap;
+    }
   }
 
   .opacity {
