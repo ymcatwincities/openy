@@ -28,12 +28,16 @@ class YMCAMembershipPage extends ControllerBase {
 
     $block_form_fee = $this->getBlock('Membership page: Form Enrollment Fee');
     $block_cost = $this->getBlock('Membership page: What Does It Cost?');
+    $block_become_a_member = $this->getBlock('Membership page: Become a member');
+    $block_ready_started = $this->getBlock('Membership page: Ready to get started?');
 
     return [
       '#assets' => $assets,
       '#assets_path' => $assets_path,
       '#block_form_fee' => $block_form_fee,
       '#block_cost' => $block_cost,
+      '#block_become_a_member' => $block_become_a_member,
+      '#block_ready_started' => $block_ready_started,
       '#form' => $form,
       '#theme' => 'membership_page',
       '#cache' => [
@@ -151,13 +155,15 @@ class YMCAMembershipPage extends ControllerBase {
       ]));
 
       $location_name = '';
-      $mapping = \Drupal::config('ymca_groupex.mapping')->get('locations');
-      foreach ($mapping as $row) {
-        if ($row['entity_id'] == $location->id()) {
-          $location_name = $row['name'];
-          break;
-        }
+      $mapping_id = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_location_ref', $location->id())
+        ->execute();
+      $mapping_id = reset($mapping_id);
+      if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+        $location_name = $mapping->get('name')->value;
       }
+
       // Embed map.
       $map = $this->getBlock("[$location_name] Small map");
 

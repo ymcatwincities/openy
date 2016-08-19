@@ -14,18 +14,19 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_status
+    - field.field.node.article.field_state
     - field.field.node.article.field_tags
+    - field.field.node.article.field_template
     - field.field.node.article.field_title_description
-    - image.style.thumbnail
     - node.type.article
   module:
     - entity_browser
-    - image_widget_crop
+    - file_browser
+    - inline_entity_form
     - link
     - path
-    - scheduler
     - text
+    - workflowfield
 id: node.article.default
 targetEntityType: node
 bundle: article
@@ -37,95 +38,104 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_alert:
-    weight: 17
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-  field_content:
-    weight: 14
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-  field_header_button:
-    weight: 10
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-  field_header_image:
-    weight: 9
-    settings:
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - 2013_masthead
-        - 2013_promotion
-        - blog_thumb
-        - large_230_230
-        - medium_125_125
-        - small_75_75
-      crop_help_text: 'Select an image size to crop'
-      progress_indicator: throbber
-    third_party_settings: {  }
-    type: image_widget_crop
-  field_header_variant:
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-  field_lead_description:
-    weight: 11
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-  field_promo_slideshow:
-    weight: 16
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-  field_related:
     weight: 18
     settings:
-      entity_browser: browse_content_modal
-      field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      open: 0
-      field_widget_display_settings: {  }
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
     third_party_settings: {  }
-    type: entity_browser_entity_reference
-  field_secondary_sidebar:
-    weight: 12
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-  field_sidebar:
+    type: inline_entity_form_complex
+  field_content:
     weight: 15
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_sidebar_navigation:
-    weight: 13
+  field_header_button:
+    weight: 11
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_header_image:
+    weight: 10
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: file_browser
+  field_header_variant:
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_status:
-    weight: 21
+  field_lead_description:
+    weight: 12
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_promo_slideshow:
+    weight: 17
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_related:
+    weight: 19
+    settings:
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+  field_secondary_sidebar:
+    weight: 13
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_sidebar:
+    weight: 16
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_sidebar_navigation:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_state:
+    weight: 20
+    settings: {  }
+    third_party_settings: {  }
+    type: workflow_default
+  field_template:
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: options_select

@@ -1,0 +1,7 @@
+ymca_workflow.preview:
+  path: '/node/{node}/preview'
+  defaults:
+    _controller: '\Drupal\ymca_workflow\Controller\YmcaWorkflowController::preview'
+    _title: 'Preview'
+  requirements:
+    _custom_access:  '\Drupal\ymca_workflow\Controller\YmcaWorkflowController::access'

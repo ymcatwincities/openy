@@ -1,0 +1,7 @@
+mindbody_cache_proxy.settings:
+  path: '/admin/config/services/mindbody-cache-proxy'
+  defaults:
+    _form: '\Drupal\mindbody_cache_proxy\Form\MindbodyCacheProxySettingsForm'
+    _title: 'Mindbody Cache Proxy settings'
+  requirements:
+    _permission: 'administer site configuration'

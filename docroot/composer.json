@@ -12,7 +12,9 @@
         "drupal/address": "8.*",
         "drupal/csv_serialization": "8.*",
         "drupal/webprofiler": "8.*",
-        "drupal/search_api_solr": "8.*"
+        "drupal/page_manager": "8.*",
+        "drupal/search_api_solr": "8.*",
+        "ymca/google": "8.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -31,7 +33,9 @@
                 "modules/contrib/address/composer.json",
                 "modules/contrib/csv_serialization/composer.json",
                 "modules/contrib/devel/webprofiler/composer.json",
-                "modules/contrib/search_api_solr/composer.json"
+                "modules/contrib/page_manager/composer.json",
+                "modules/contrib/search_api_solr/composer.json",
+                "modules/custom/ymca_google/composer.json"
             ],
             "recurse": false,
             "replace": false,

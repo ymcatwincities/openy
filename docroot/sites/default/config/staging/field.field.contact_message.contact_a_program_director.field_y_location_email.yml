@@ -20,57 +20,57 @@ default_value:
     option_select: 0
     option_name: 'Birch Lake Elementary Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Samantha.Montanari@ymcatwincities.org,Stephanie.Shadick@YMCAtwincities.org,Lisa.Pearson@ymcatwincities.org'
+    option_emails: 'Samantha.Montanari@ymcamn.org,Stephanie.Shadick@ymcamn.org,Lisa.Pearson@ymcamn.org'
   -
     option_select: 0
     option_name: 'Eagan Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Kris.Gabel@ymcatwincities.org,Katherine.Jury@ymcatwincities.org,Lisa.Pearson@ymcatwincities.org'
+    option_emails: 'Kris.Gabel@ymcamn.org,Katherine.Jury@ymcamn.org,Lisa.Pearson@ymcamn.org'
   -
     option_select: 0
     option_name: 'Eagan Preschool Academy'
     option_reference: null
-    option_emails: 'Katherine.Jury@ymcatwincities.org, Kris.Gabel@ymcatwincities.org'
+    option_emails: 'Katherine.Jury@ymcamn.org, Kris.Gabel@ymcamn.org'
   -
     option_select: 0
     option_name: 'Minneapolis Downtown YMCA Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Blair.Schipper@YMCAtwincities.org,Stephanie.Shadick@YMCAtwincities.org'
+    option_emails: 'Blair.Schipper@ymcamn.org,Stephanie.Shadick@ymcamn.org'
   -
     option_select: 0
     option_name: 'New Hope YMCA Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Stephanie.Shadick@ymcatwincities.org,DeAnn.Schardin@YMCAtwincities.org,Shamra.Williams@ymcatwincities.org'
+    option_emails: 'Stephanie.Shadick@ymcamn.org,DeAnn.Schardin@ymcamn.org,Shamra.Williams@ymcamn.org'
   -
     option_select: 0
     option_name: 'River Valley Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Emily.Skahen@ymcatwincities.org,Jill.Gaertner@YMCAtwincities.org,Stephanie.Shadick@YMCAtwincities.org'
+    option_emails: 'Emily.Skahen@ymcamn.org,Jill.Gaertner@ymcamn.org,Stephanie.Shadick@ymcamn'
   -
     option_select: 0
     option_name: 'St. Paul Eastside Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Stephanie.Thomas@YMCAtwincities.org,Sarah.Werner@YMCAtwincities.org,Shareece.Gabriel@ymcatwincities.org'
+    option_emails: 'Stephanie.Shadick@ymcamn.org,Sarah.Werner@ymcamn.org,Shareece.Gabriel@ymcamn.org'
   -
     option_select: 0
     option_name: 'St. Paul Midway Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Judi.Schmidt@YMCAtwincities.org,Heather.Peterson@YMCAtwincities.org,Stephanie.Shadick@YMCAtwincities.org'
+    option_emails: 'Judi.Schmidt@ymcamn.org,Heather.Peterson@ymcamn.org,Stephanie.Shadick@ymcamn.org'
   -
     option_select: 0
     option_name: 'Shoreview Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Melinda.Myers@ymcatwincities.org,Stephanie.Shadick@ymcatwincities.org'
+    option_emails: 'Melinda.Myers@ymcamn.org,Stephanie.Shadick@ymcamn.org'
   -
     option_select: 0
     option_name: 'Woodbury Preschool Academy'
     option_reference: null
-    option_emails: 'Kathy.Bresnahan@YMCAtwincities.org,Lisa.Pearson@ymcatwincities.org'
+    option_emails: 'Stacey.Lape@ymcamn.org,Lisa.Pearson@ymcamn.org'
   -
     option_select: 0
     option_name: 'Hudson YMCA Preschool Academy'
     option_reference: null
-    option_emails: Jess.Keyes@YMCAtwincities.org
+    option_emails: Jess.Keyes@ymcamn.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

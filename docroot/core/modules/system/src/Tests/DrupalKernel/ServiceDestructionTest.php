@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\DrupalKernel\ServiceDestructionTest.
- */
-
 namespace Drupal\system\Tests\DrupalKernel;
 
 use Drupal\simpletest\KernelTestBase;
@@ -59,4 +54,5 @@ class ServiceDestructionTest extends KernelTestBase {
     $kernel->terminate($request, $response);
     $this->assertNull(\Drupal::state()->get('service_provider_test.destructed'));
   }
+
 }

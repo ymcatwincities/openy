@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_mobile_checkin.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_mobile_checkin_theme($existing, $type, $theme, $path) {
+  return [
+    'ymca_mobile_checkin_block' => [
+      'variables' => [
+        'files' => [],
+      ],
+      'template' => 'ymca-mobile-checkin-block',
+    ],
+    'ymca_mobile_checkin_plist' => [
+      'variables' => [
+        'url' => '',
+      ],
+      'template' => 'ymca-mobile-checkin-plist',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_shield_config_alter().
+ */
+function ymca_mobile_checkin_shield_config_alter(&$config_name) {
+  $route_name = \Drupal::service('current_route_match')->getRouteName();
+
+  // Protect our route with our login/password.
+  if ($route_name === 'page_manager.page_view_ymca_mobile_checkin') {
+    $config_name = 'ymca_mobile_checkin.shield_config';
+    // Do not cache this page.
+    \Drupal::service('page_cache_kill_switch')->trigger();
+  }
+}

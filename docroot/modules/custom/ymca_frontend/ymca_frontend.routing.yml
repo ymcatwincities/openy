@@ -14,21 +14,13 @@ ymca_frontend.locations:
   requirements:
     _permission: 'access content'
 
-ymca_frontend.march:
-  path: 'march'
-  defaults:
-    _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
-    _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
-  requirements:
-    _permission: 'access content'
-
 ymca_frontend.march_rules:
   path: 'march/rules'
   defaults:
     _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer site configuration'
 
 ymca_frontend.march_winners:
   path: 'march/winners'
@@ -36,7 +28,7 @@ ymca_frontend.march_winners:
     _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer site configuration'
 
 ymca_frontend.2014_annual_report:
   path: 'about/annual_reports/2014_annual_report'

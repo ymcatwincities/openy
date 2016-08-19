@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\System\IgnoreReplicaSubscriberTest.
- */
-
 namespace Drupal\system\Tests\System;
 
 use Drupal\Core\Database\Database;
@@ -44,4 +39,5 @@ class IgnoreReplicaSubscriberTest extends KernelTestBase {
 
     $this->assertIdentical($db1, $db2, 'System Init ignores secondaries when requested.');
   }
+
 }

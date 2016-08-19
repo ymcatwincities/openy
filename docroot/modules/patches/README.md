@@ -25,3 +25,18 @@ description: Fix invalid redirect_update_path() hook implementation
 patch: docroot/modules/patches/shield_config_aleter.patch
 drupal.org issue: https://www.drupal.org/node/2693023
 description: Add config alter
+
+patch: docroot/modules/patches/entity_embed-entity-browser.patch
+description: Fix to make Entity Browser work as widget for Entity Embed.
+
+patch: docroot/modules/patches/acquia_purge-2724253-fix.diff
+drupal.org issue: https://www.drupal.org/node/2724253
+description: Fix for latest dev and purge module interface
+
+patch: docroot/modules/patches/27000495.patch
+drupal.org issue: https://www.drupal.org/node/2700495
+description: Method removing expired drupalSettings.ajax tries to remove settings when there is no ajax defined
+
+patch: docroot/modules/patches/fix_add_remove-2692397-8.patch
+drupal.org issue: https://www.drupal.org/node/2692397
+description: Adding/removing variants leaves Page::$variants out of date

@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Mindbody results page content template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="row mindbody-search-results-header">
+  <div class="container">
+    <div class="col-sm-12">
+      <h2>{{ 'Showing results for:'|t }}</h2>
+      <div class="info-1">
+        <div class="item"><span class="icon icon-location2"></span>{{ location }}</div>
+        <div class="item"><span class="icon icon-training"></span>{{ program }}</div>
+      </div>
+      <div class="info-2">
+        <div class="item session-type"><span class="icon icon-user"></span>{{ session_type }} <span class="with">{{ 'with'|t }}</span> <span class="name">{{ trainer }}</span></div>
+        <div class="item datetime">{{ datetime|raw }}</div>
+      </div>
+      <a href="{{ back_link }}" class="change"><span class="icon icon-cog"></span>{{ 'Change'|t }}</a>
+    </div>
+  </div>
+</div>
+{% if days %}
+  <div class="row mindbody-search-results-timezone-message">
+    <div class="container">
+      <div class="col-sm-12">
+        <p>{{ "All Times Central Time Zone"|t }}</p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+<div class="row mindbody-search-results-content">
+  <div class="container">
+    {% if days %}
+      {% for key, day in days %}
+        <div class="day col-sm-12">
+          <div class="date">{{ key }}</div>
+          <div class="weekday">{{ day.weekday }}</div>
+          <div class="group-by-date">
+            <div class="row">
+            {% for key, trainer in day.trainers %}
+            <div class="col-sm-6 col-md-3">
+              <div class="name">{{ key }}</div>
+              {% if trainer.0.is_available %}
+                <div class="available">{{ 'Is Available:'|t }}</div>
+              {% endif %}
+              <div class="slots">
+                {% for key, slots in trainer %}
+                <div class="slot"><span class="icon icon-clock"></span>{{ slots.slot }}</div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="day col-sm-12">{{ 'No results available for your search.'|t }}</div>
+    {% endif %}
+    <div class="start-again col-sm-12">
+      <a class="form_submit btn btn-lg btn-primary button" href="{{ start_again_link }}">{{ 'Start again'|t }}&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a>
+    </div>
+  </div>
+</div>
+<div class="phone-call-wrapper">
+  <span class="description">{{ 'To book appointment please call:'|t }}</span><span class="number"><a href="tel:{{ telephone }}">{{ telephone }}</a></span>
+</div>

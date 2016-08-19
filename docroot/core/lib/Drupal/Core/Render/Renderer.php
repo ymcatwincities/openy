@@ -1,14 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Render\Renderer.
- */
-
 namespace Drupal\Core\Render;
 
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Cache\Cache;
@@ -343,7 +338,9 @@ class Renderer implements RendererInterface {
     // If instructed to create a placeholder, and a #lazy_builder callback is
     // present (without such a callback, it would be impossible to replace the
     // placeholder), replace the current element with a placeholder.
-    if (isset($elements['#create_placeholder']) && $elements['#create_placeholder'] === TRUE) {
+    // @todo remove the isMethodSafe() check when
+    //       https://www.drupal.org/node/2367555 lands.
+    if (isset($elements['#create_placeholder']) && $elements['#create_placeholder'] === TRUE && $this->requestStack->getCurrentRequest()->isMethodSafe()) {
       if (!isset($elements['#lazy_builder'])) {
         throw new \LogicException('When #create_placeholder is set, a #lazy_builder callback must be present as well.');
       }
@@ -675,11 +672,12 @@ class Renderer implements RendererInterface {
    *   A string.
    *
    * @return \Drupal\Core\Render\Markup
-   *   The escaped string wrapped in a Markup object. If
-   *   SafeMarkup::isSafe($string) returns TRUE, it won't be escaped again.
+   *   The escaped string wrapped in a Markup object. If the string is an
+   *   instance of \Drupal\Component\Render\MarkupInterface, it won't be escaped
+   *   again.
    */
   protected function xssFilterAdminIfUnsafe($string) {
-    if (!SafeMarkup::isSafe($string)) {
+    if (!($string instanceof MarkupInterface)) {
       $string = Xss::filterAdmin($string);
     }
     return Markup::create($string);
@@ -704,8 +702,8 @@ class Renderer implements RendererInterface {
    *   A render array with #markup set.
    *
    * @return \Drupal\Component\Render\MarkupInterface|string
-   *   The escaped markup wrapped in a Markup object. If
-   *   SafeMarkup::isSafe($elements['#markup']) returns TRUE, it won't be
+   *   The escaped markup wrapped in a Markup object. If $elements['#markup']
+   *   is an instance of \Drupal\Component\Render\MarkupInterface, it won't be
    *   escaped or filtered again.
    *
    * @see \Drupal\Component\Utility\Html::escape()
@@ -720,7 +718,7 @@ class Renderer implements RendererInterface {
     if (!empty($elements['#plain_text'])) {
       $elements['#markup'] = Markup::create(Html::escape($elements['#plain_text']));
     }
-    elseif (!SafeMarkup::isSafe($elements['#markup'])) {
+    elseif (!($elements['#markup'] instanceof MarkupInterface)) {
       // The default behaviour is to XSS filter using the admin tag list.
       $tags = isset($elements['#allowed_tags']) ? $elements['#allowed_tags'] : Xss::getAdminTagList();
       $elements['#markup'] = Markup::create(Xss::filter($elements['#markup'], $tags));

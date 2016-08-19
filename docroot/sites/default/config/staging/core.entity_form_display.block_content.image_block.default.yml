@@ -15,7 +15,7 @@ content:
   field_image:
     weight: 3
     settings:
-      entity_browser: browse_files_modal
+      entity_browser: browse_files
       field_widget_edit: '1'
       field_widget_remove: '1'
       view_mode: default

@@ -7,15 +7,18 @@
 
 namespace Drupal\webprofiler\Entity;
 
+use Drupal\Core\Entity\EntityHandlerInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class EntityViewBuilderDecorator
  */
-class EntityViewBuilderDecorator extends EntityDecorator implements EntityViewBuilderInterface {
+class EntityViewBuilderDecorator extends EntityDecorator implements EntityHandlerInterface, EntityViewBuilderInterface {
 
   /**
    * @param EntityViewBuilderInterface $controller
@@ -79,5 +82,16 @@ class EntityViewBuilderDecorator extends EntityDecorator implements EntityViewBu
    */
   public function getCacheTags() {
     return $this->getOriginalObject()->getCacheTag();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+    return new static(
+      $entity_type,
+      $container->get('entity.manager'),
+      $container->get('language_manager')
+    );
   }
 }

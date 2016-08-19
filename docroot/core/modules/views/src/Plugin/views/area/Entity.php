@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Plugin\views\area\Entity.
- */
-
 namespace Drupal\views\Plugin\views\area;
 
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -199,4 +194,5 @@ class Entity extends TokenizeAreaPluginBase {
 
     return $dependencies;
   }
+
 }

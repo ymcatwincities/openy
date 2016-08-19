@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\aggregator\Tests\UpdateFeedTest.
- */
-
 namespace Drupal\aggregator\Tests;
 
 /**
@@ -47,4 +42,5 @@ class UpdateFeedTest extends AggregatorTestBase {
       $this->deleteFeed($feed);
     }
   }
+
 }

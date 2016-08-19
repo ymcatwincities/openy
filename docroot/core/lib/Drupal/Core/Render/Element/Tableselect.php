@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Render\Element\Tableselect.
- */
-
 namespace Drupal\Core\Render\Element;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -31,8 +26,8 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Usage example:
  * @code
  * $header = [
- *   'first_name' => t('First Name'),
- *   'last_name' => t('Last Name'),
+ *   'first_name' => $this->t('First Name'),
+ *   'last_name' => $this->t('Last Name'),
  * ];
  *
  * $options = [
@@ -45,7 +40,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *   '#type' => 'tableselect',
  *   '#header' => $header,
  *   '#options' => $options,
- *   '#empty' => t('No users found'),
+ *   '#empty' => $this->t('No users found'),
  * );
  * @endcode
  *
@@ -123,28 +118,28 @@ class Tableselect extends Table {
    *   @code
    *     $options = array(
    *       array(
-   *         'title' => 'How to Learn Drupal',
-   *         'content_type' => 'Article',
+   *         'title' => $this->t('How to Learn Drupal'),
+   *         'content_type' => $this->t('Article'),
    *         'status' => 'published',
    *         '#attributes' => array('class' => array('article-row')),
    *       ),
    *       array(
-   *         'title' => 'Privacy Policy',
-   *         'content_type' => 'Page',
+   *         'title' => $this->t('Privacy Policy'),
+   *         'content_type' => $this->t('Page'),
    *         'status' => 'published',
    *         '#attributes' => array('class' => array('page-row')),
    *       ),
    *     );
    *     $header = array(
-   *       'title' => t('Title'),
-   *       'content_type' => t('Content type'),
-   *       'status' => t('Status'),
+   *       'title' => $this->t('Title'),
+   *       'content_type' => $this->t('Content type'),
+   *       'status' => $this->t('Status'),
    *     );
    *     $form['table'] = array(
    *       '#type' => 'tableselect',
    *       '#header' => $header,
    *       '#options' => $options,
-   *       '#empty' => t('No content available.'),
+   *       '#empty' => $this->t('No content available.'),
    *     );
    *   @endcode
    *
@@ -259,6 +254,7 @@ class Tableselect extends Table {
               '#return_value' => $key,
               '#default_value' => isset($value[$key]) ? $key : NULL,
               '#attributes' => $element['#attributes'],
+              '#ajax' => isset($element['#ajax']) ? $element['#ajax'] : NULL,
             );
           }
           else {

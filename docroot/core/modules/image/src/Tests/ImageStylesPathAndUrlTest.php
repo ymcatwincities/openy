@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\image\Tests\ImageStylesPathAndUrlTest.
- */
-
 namespace Drupal\image\Tests;
 
+use Drupal\image\Entity\ImageStyle;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -31,7 +27,7 @@ class ImageStylesPathAndUrlTest extends WebTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->style = entity_create('image_style', array('name' => 'style_foo', 'label' => $this->randomString()));
+    $this->style = ImageStyle::create(array('name' => 'style_foo', 'label' => $this->randomString()));
     $this->style->save();
   }
 
@@ -179,7 +175,7 @@ class ImageStylesPathAndUrlTest extends WebTestBase {
       // make sure that access is denied.
       $file_noaccess = array_shift($files);
       $original_uri_noaccess = file_unmanaged_copy($file_noaccess->uri, $scheme . '://', FILE_EXISTS_RENAME);
-      $generated_uri_noaccess = $scheme . '://styles/' . $this->style->id() . '/' . $scheme . '/'. drupal_basename($original_uri_noaccess);
+      $generated_uri_noaccess = $scheme . '://styles/' . $this->style->id() . '/' . $scheme . '/' . drupal_basename($original_uri_noaccess);
       $this->assertFalse(file_exists($generated_uri_noaccess), 'Generated file does not exist.');
       $generate_url_noaccess = $this->style->buildUrl($original_uri_noaccess);
 
@@ -237,7 +233,7 @@ class ImageStylesPathAndUrlTest extends WebTestBase {
     // image derivative using the first one as a source.
     $nested_url = $this->style->buildUrl($generated_uri, $clean_url);
     $matches_expected_url_format = (boolean) preg_match('/styles\/' . $this->style->id() . '\/' . $scheme . '\/styles\/' . $this->style->id() . '\/' . $scheme . '/', $nested_url);
-    $this->assertTrue($matches_expected_url_format, "Url for a derivative of an image style matches expected format.");
+    $this->assertTrue($matches_expected_url_format, "URL for a derivative of an image style matches expected format.");
     $nested_url_with_wrong_token = str_replace(IMAGE_DERIVATIVE_TOKEN . '=', 'wrongparam=', $nested_url);
     $this->drupalGet($nested_url_with_wrong_token);
     $this->assertResponse(403, 'Image generated from an earlier derivative was inaccessible at the URL with a missing token.');
@@ -253,7 +249,7 @@ class ImageStylesPathAndUrlTest extends WebTestBase {
 
     // Check that requesting a nonexistent image does not create any new
     // directories in the file system.
-    $directory = $scheme . '://styles/' .  $this->style->id() . '/' . $scheme . '/' . $this->randomMachineName();
+    $directory = $scheme . '://styles/' . $this->style->id() . '/' . $scheme . '/' . $this->randomMachineName();
     $this->drupalGet(file_create_url($directory . '/' . $this->randomString()));
     $this->assertFalse(file_exists($directory), 'New directory was not created in the filesystem when requesting an unauthorized image.');
   }

@@ -14,6 +14,11 @@ use Drupal\Core\Plugin\PluginFormInterface;
 
 /**
  * Defines the interface for entity browser widget selectors.
+ *
+ * This plugin type is responsible for providing ways for users to select the
+ * current widget used for selecting entities in an entity browser. For example,
+ * if the user wants to tab between widgets, the tab set will be created and
+ * managed by the widget selector.
  */
 interface WidgetSelectorInterface extends PluginInspectionInterface, ConfigurablePluginInterface, PluginFormInterface {
 

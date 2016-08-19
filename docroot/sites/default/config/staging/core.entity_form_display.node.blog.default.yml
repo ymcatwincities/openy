@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_state
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
     - node.type.blog
@@ -14,8 +15,8 @@ dependencies:
     - entity_browser
     - file_browser
     - path
-    - scheduler
     - text
+    - workflowfield
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -50,9 +51,9 @@ content:
     settings:
       entity_browser: browse_content_modal
       field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      open: 0
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
@@ -61,12 +62,17 @@ content:
     settings:
       entity_browser: browse_content_modal
       field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      open: 0
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
+  field_state:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: workflow_default
   field_summary:
     weight: 8
     settings:

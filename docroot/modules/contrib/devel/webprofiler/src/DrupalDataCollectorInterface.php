@@ -64,4 +64,9 @@ interface DrupalDataCollectorInterface {
    * @return array
    */
   public function getDrupalSettings();
+
+  /**
+   * @return mixed
+   */
+  public function getData();
 }

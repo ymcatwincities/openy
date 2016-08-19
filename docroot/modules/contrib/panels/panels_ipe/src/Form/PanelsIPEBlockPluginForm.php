@@ -15,9 +15,10 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\ContextAwarePluginAssignmentTrait;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
+use Drupal\panels_ipe\PanelsIPEBlockRendererTrait;
 use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -31,15 +32,12 @@ class PanelsIPEBlockPluginForm extends FormBase {
 
   use ContextAwarePluginAssignmentTrait;
 
+  use PanelsIPEBlockRendererTrait;
+
   /**
    * @var \Drupal\Component\Plugin\PluginManagerInterface $blockManager
    */
   protected $blockManager;
-
-  /**
-   * @var \Drupal\Core\Plugin\Context\ContextHandlerInterface $contextHandler
-   */
-  protected $contextHandler;
 
   /**
    * @var \Drupal\Core\Render\RendererInterface $renderer
@@ -263,16 +261,16 @@ class PanelsIPEBlockPluginForm extends FormBase {
       return $form;
     }
 
-    $block_instance = $this->getBlockInstance($form_state);
-
-    // Submit the block configuration form.
-    $this->submitBlock($block_instance, $form, $form_state);
-
     // If a temporary configuration for this variant exists, use it.
     $temp_store_key = $this->panelsDisplay->id();
     if ($variant_config = $this->tempStore->get($temp_store_key)) {
       $this->panelsDisplay->setConfiguration($variant_config);
     }
+
+    $block_instance = $this->getBlockInstance($form_state);
+
+    // Submit the block configuration form.
+    $this->submitBlock($block_instance, $form, $form_state);
 
     // Set the block region appropriately.
     $block_config = $block_instance->getConfiguration();
@@ -290,19 +288,28 @@ class PanelsIPEBlockPluginForm extends FormBase {
     $this->tempStore->set($this->panelsDisplay->id(), $this->panelsDisplay->getConfiguration());
 
     // Assemble data required for our App.
-    $build = $this->buildBlockInstance($block_instance);
-    $form['build'] = $build;
+    $build = $this->buildBlockInstance($block_instance, $this->panelsDisplay);
+
+    // Bubble Block attributes to fix bugs with the Quickedit and Contextual
+    // modules.
+    $this->bubbleBlockAttributes($build);
 
     // Add our data attribute for the Backbone app.
     $build['#attributes']['data-block-id'] = $uuid;
+
+    $plugin_definition = $block_instance->getPluginDefinition();
 
     $block_model = [
       'uuid' => $uuid,
       'label' => $block_instance->label(),
       'id' => $block_instance->getPluginId(),
       'region' => $block_config['region'],
-      'html' => $this->renderer->render($build)
+      'provider' => $block_config['provider'],
+      'plugin_id' => $plugin_definition['id'],
+      'html' => $this->renderer->render($build),
     ];
+
+    $form['build'] = $build;
 
     // Add Block metadata and HTML as a drupalSetting.
     $form['#attached']['drupalSettings']['panels_ipe']['updated_block'] = $block_model;
@@ -334,7 +341,10 @@ class PanelsIPEBlockPluginForm extends FormBase {
     $this->submitBlock($block_instance, $form, $form_state);
 
     // Gather a render array for the block.
-    $build = $this->buildBlockInstance($block_instance);
+    $build = $this->buildBlockInstance($block_instance, $this->panelsDisplay);
+
+    // Disable any nested forms from the render array.
+    $build['content'] = $this->removeFormWrapperRecursive($build['content']);
 
     // Add the preview to the backside of the card and inform JS that we need to
     // be flipped.
@@ -407,43 +417,6 @@ class PanelsIPEBlockPluginForm extends FormBase {
     }
 
     return $content;
-  }
-
-  /**
-   * Compiles a render array for the given Block instance based on the form.
-   *
-   * @param \Drupal\Core\Block\BlockBase $block_instance
-   *   The Block instance you want to render.
-   *
-   * @return array $build
-   *   The Block render array.
-   */
-  protected function buildBlockInstance($block_instance) {
-    // Get the new block configuration.
-    $configuration = $block_instance->getConfiguration();
-
-    // Add context to the block.
-    if ($block_instance instanceof ContextAwarePluginInterface) {
-      $this->contextHandler->applyContextMapping($block_instance, $this->panelsDisplay->getContexts());
-    }
-
-    // Build the block content.
-    $content = $block_instance->build();
-
-    // Disable any nested forms from the render array.
-    $content = $this->removeFormWrapperRecursive($content);
-
-    // Compile the render array.
-    $build = [
-      '#theme' => 'block',
-      '#configuration' => $configuration,
-      '#plugin_id' => $block_instance->getPluginId(),
-      '#base_plugin_id' => $block_instance->getBaseId(),
-      '#derivative_plugin_id' => $block_instance->getDerivativeId(),
-      'content' => $content,
-    ];
-
-    return $build;
   }
 
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Plugin\Condition\RequestPath.
- */
-
 namespace Drupal\system\Plugin\Condition;
 
 use Drupal\Component\Utility\Unicode;
@@ -152,7 +147,9 @@ class RequestPath extends ConditionPluginBase implements ContainerFactoryPluginI
 
     $request = $this->requestStack->getCurrentRequest();
     // Compare the lowercase path alias (if any) and internal path.
-    $path = rtrim($this->currentPath->getPath($request), '/');
+    $path = $this->currentPath->getPath($request);
+    // Do not trim a trailing slash if that is the complete path.
+    $path = $path === '/' ? $path : rtrim($path, '/');
     $path_alias = Unicode::strtolower($this->aliasManager->getAliasByPath($path));
 
     return $this->pathMatcher->matchPath($path_alias, $pages) || (($path != $path_alias) && $this->pathMatcher->matchPath($path, $pages));

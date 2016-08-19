@@ -1,0 +1,31 @@
+$breakpoints: xs sm md lg;
+$list: ".col-small-padding";
+
+@for $i from 1 through 12 {
+  @each $bp in $breakpoints {
+    $list: "#{$list}, .col-#{$bp}-#{$i}";
+  }
+}
+
+#{$list} {
+  @include rem(padding-left, 7.5px);
+  @include rem(padding-right, 7.5px);
+}
+
+@include breakpoint($mobile-narrow-only) {
+  $list: ".col-xss-col";
+  $grid-columns: 12;
+
+  @for $i from 1 through $grid-columns {
+    $list: "#{$list}, .col-xxs-#{$i}";
+
+    .col-xxs-#{$i} {
+      width: percentage(($i / $grid-columns));
+    }
+  }
+
+  #{$list} {
+    @include rem(margin-bottom, 5px);
+    @include rem(margin-top, 5px);
+  }
+}

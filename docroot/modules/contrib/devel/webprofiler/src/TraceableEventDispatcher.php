@@ -52,4 +52,19 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher {
         break;
     }
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getListenerPriority($eventName, $listener) {
+    if (!isset($this->listeners[$eventName])) {
+      return;
+    }
+    foreach ($this->listeners[$eventName] as $priority => $listeners) {
+      if (FALSE !== ($key = array_search($listener, $listeners, TRUE))) {
+        return $priority;
+      }
+    }
+  }
+
 }

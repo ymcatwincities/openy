@@ -115,8 +115,8 @@ function drupal_install_profile_distribution_name() {
  * Loads the installation profile, extracting its defined version.
  *
  * @return string Distribution version defined in the profile's .info.yml file.
- * Defaults to \Drupal::VERSION if no version is explicitly provided
- * by the installation profile.
+ *   Defaults to \Drupal::VERSION if no version is explicitly provided
+ *   by the installation profile.
  *
  * @see install_profile_info()
  */
@@ -139,7 +139,7 @@ function drupal_install_profile_distribution_version() {
  * Detects all supported databases that are compiled into PHP.
  *
  * @return
- *  An array of database types compiled into PHP.
+ *   An array of database types compiled into PHP.
  */
 function drupal_detect_database_types() {
   $databases = drupal_get_database_types();
@@ -227,7 +227,7 @@ function drupal_rewrite_settings($settings = array(), $settings_file = NULL) {
     else {
       _drupal_rewrite_settings_global($settings_settings, $data);
     }
-    $variable_names['$'. $setting] = $setting;
+    $variable_names['$' . $setting] = $setting;
   }
   $contents = file_get_contents($settings_file);
   if ($contents !== FALSE) {
@@ -362,13 +362,14 @@ function drupal_rewrite_settings($settings = array(), $settings_file = NULL) {
  * Checks whether this token represents a scalar or NULL.
  *
  * @param int $type
- *   The token type
- *   @see token_name().
+ *   The token type.
  * @param string $value
  *   The value of the token.
  *
  * @return bool
  *   TRUE if this token represents a scalar or NULL.
+ *
+ * @see token_name()
  */
 function _drupal_rewrite_settings_is_simple($type, $value) {
   $is_integer = $type == T_LNUMBER;
@@ -386,11 +387,12 @@ function _drupal_rewrite_settings_is_simple($type, $value) {
  * string.
  *
  * @param int $type
- *   The token type
- *   @see token_name().
+ *   The token type.
  *
  * @return bool
  *   TRUE if this token represents a number or a string.
+ *
+ * @see token_name()
  */
 function _drupal_rewrite_settings_is_array_index($type) {
   $is_integer = $type == T_LNUMBER;
@@ -515,7 +517,7 @@ function drupal_install_config_directories() {
   // they can later be added to git. Since this directory is auto-created, we
   // have to write out the README rather than just adding it to the drupal core
   // repo.
-  $text =  'This directory contains configuration to be imported into your Drupal site. To make this configuration active, visit admin/config/development/configuration/sync.'  .' For information about deploying configuration between servers, see https://www.drupal.org/documentation/administer/config';
+  $text = 'This directory contains configuration to be imported into your Drupal site. To make this configuration active, visit admin/config/development/configuration/sync.' . ' For information about deploying configuration between servers, see https://www.drupal.org/documentation/administer/config';
   file_put_contents(config_get_config_directory(CONFIG_SYNC_DIRECTORY) . '/README.txt', $text);
 }
 
@@ -715,14 +717,14 @@ function drupal_verify_install_file($file, $mask = NULL, $type = 'file') {
  * Creates a directory with the specified permissions.
  *
  * @param $file
- *  The name of the directory to create;
+ *   The name of the directory to create;
  * @param $mask
- *  The permissions of the directory to create.
+ *   The permissions of the directory to create.
  * @param $message
- *  (optional) Whether to output messages. Defaults to TRUE.
+ *   (optional) Whether to output messages. Defaults to TRUE.
  *
  * @return
- *  TRUE/FALSE whether or not the directory was successfully created.
+ *   TRUE/FALSE whether or not the directory was successfully created.
  */
 function drupal_install_mkdir($file, $mask, $message = TRUE) {
   $mod = 0;
@@ -764,14 +766,14 @@ function drupal_install_mkdir($file, $mask, $message = TRUE) {
  * 0700 and get the correct value of 0500.
  *
  * @param $file
- *  The name of the file with permissions to fix.
+ *   The name of the file with permissions to fix.
  * @param $mask
- *  The desired permissions for the file.
+ *   The desired permissions for the file.
  * @param $message
- *  (optional) Whether to output messages. Defaults to TRUE.
+ *   (optional) Whether to output messages. Defaults to TRUE.
  *
  * @return
- *  TRUE/FALSE whether or not we were able to fix the file's permissions.
+ *   TRUE/FALSE whether or not we were able to fix the file's permissions.
  */
 function drupal_install_fix_file($file, $mask, $message = TRUE) {
   // If $file does not exist, fileperms() issues a PHP warning.
@@ -921,13 +923,11 @@ function drupal_requirements_url($severity) {
  *
  * @param string $profile
  *   Name of installation profile to check.
- * @param array $install_state
- *   The current state in the install process.
  *
  * @return array
  *   Array of the installation profile's requirements.
  */
-function drupal_check_profile($profile, array $install_state) {
+function drupal_check_profile($profile) {
   $info = install_profile_info($profile);
 
   // Collect requirement testing results.

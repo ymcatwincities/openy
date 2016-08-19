@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Run sync service.
+ *
+ * @param string $name
+ *   Service name.
+ * @param string $method
+ *   Method name.
+ *
+ * @throws \Exception
+ */
+function ymca_sync_run($name, $method) {
+  $service = \Drupal::service($name);
+  if (!$service) {
+    throw new Exception('Failed to load specified service');
+  }
+
+  $lock = \Drupal::lock();
+  if ($lock->acquire($name, 250.0)) {
+    $service->{$method}();
+    $lock->release($name);
+  }
+  else {
+    Drupal::logger('ymca_sync')->info('Lock is still working');
+  }
+}

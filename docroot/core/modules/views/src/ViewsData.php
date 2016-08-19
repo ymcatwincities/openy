@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\ViewsData.
- */
-
 namespace Drupal\views;
 
 use Drupal\Component\Utility\NestedArray;
@@ -324,4 +319,5 @@ class ViewsData {
     $this->fullyLoaded = FALSE;
     Cache::invalidateTags(array('views_data'));
   }
+
 }

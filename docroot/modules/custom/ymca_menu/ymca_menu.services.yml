@@ -1,0 +1,3 @@
+services:
+  ymca.menu_builder:
+    class: Drupal\ymca_menu\YMCAMenuBuilder

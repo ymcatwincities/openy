@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\Plugin\rest\resource\EntityResource.
- */
-
 namespace Drupal\rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -18,6 +13,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * Represents entities as resources.
  *
+ * @see \Drupal\rest\Plugin\Deriver\EntityDeriver
+ *
  * @RestResource(
  *   id = "entity",
  *   label = @Translation("Entity"),
@@ -28,8 +25,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  *     "https://www.drupal.org/link-relations/create" = "/entity/{entity_type}"
  *   }
  * )
- *
- * @see \Drupal\rest\Plugin\Deriver\EntityDeriver
  */
 class EntityResource extends ResourceBase {
 
@@ -112,9 +107,10 @@ class EntityResource extends ResourceBase {
       $entity->save();
       $this->logger->notice('Created entity %type with ID %id.', array('%type' => $entity->getEntityTypeId(), '%id' => $entity->id()));
 
-      // 201 Created responses have an empty body.
+      // 201 Created responses return the newly created entity in the response
+      // body.
       $url = $entity->urlInfo('canonical', ['absolute' => TRUE])->toString(TRUE);
-      $response = new ResourceResponse(NULL, 201, ['Location' => $url->getGeneratedUrl()]);
+      $response = new ResourceResponse($entity, 201, ['Location' => $url->getGeneratedUrl()]);
       // Responses after creating an entity are not cacheable, so we add no
       // cacheability metadata here.
       return $response;
@@ -150,13 +146,24 @@ class EntityResource extends ResourceBase {
     }
 
     // Overwrite the received properties.
-    $langcode_key = $entity->getEntityType()->getKey('langcode');
+    $entity_keys = $entity->getEntityType()->getKeys();
     foreach ($entity->_restSubmittedFields as $field_name) {
       $field = $entity->get($field_name);
-      // It is not possible to set the language to NULL as it is automatically
-      // re-initialized. As it must not be empty, skip it if it is.
-      if ($field_name == $langcode_key && $field->isEmpty()) {
-        continue;
+
+      // Entity key fields need special treatment: together they uniquely
+      // identify the entity. Therefore it does not make sense to modify any of
+      // them. However, rather than throwing an error, we just ignore them as
+      // long as their specified values match their current values.
+      if (in_array($field_name, $entity_keys, TRUE)) {
+        // Unchanged values for entity keys don't need access checking.
+        if ($original_entity->get($field_name)->getValue() === $entity->get($field_name)->getValue()) {
+          continue;
+        }
+        // It is not possible to set the language to NULL as it is automatically
+        // re-initialized. As it must not be empty, skip it if it is.
+        elseif (isset($entity_keys['langcode']) && $field_name === $entity_keys['langcode'] && $field->isEmpty()) {
+          continue;
+        }
       }
 
       if (!$original_entity->get($field_name)->access('edit')) {
@@ -248,6 +255,5 @@ class EntityResource extends ResourceBase {
 
     return $route;
   }
-
 
 }

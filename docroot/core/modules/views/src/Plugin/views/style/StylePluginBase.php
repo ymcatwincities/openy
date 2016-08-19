@@ -1,16 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Plugin\views\style\StylePluginBase.
- */
-
 namespace Drupal\views\Plugin\views\style;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\PluginBase;
 use Drupal\views\Plugin\views\wizard\WizardInterface;
@@ -684,6 +678,7 @@ abstract class StylePluginBase extends PluginBase {
         $renderer = $this->getRenderer();
         /** @var \Drupal\views\Plugin\views\cache\CachePluginBase $cache_plugin */
         $cache_plugin = $this->view->display_handler->getPlugin('cache');
+        $max_age = $cache_plugin->getCacheMaxAge();
 
         /** @var \Drupal\views\ResultRow $row */
         foreach ($result as $index => $row) {
@@ -704,6 +699,7 @@ abstract class StylePluginBase extends PluginBase {
             '#cache' => [
               'keys' => $cache_plugin->getRowCacheKeys($row),
               'tags' => $cache_plugin->getRowCacheTags($row),
+              'max-age' => $max_age,
             ],
             '#cache_properties' => $field_ids,
           ];
@@ -724,7 +720,7 @@ abstract class StylePluginBase extends PluginBase {
           $fields = $this->view->field;
           $rendered_fields = &$this->rendered_fields[$index];
           $post_render_tokens = [];
-          foreach ($field_ids as $id)  {
+          foreach ($field_ids as $id) {
             $rendered_fields[$id] = $data[$id]['#markup'];
             $tokens = $fields[$id]->postRender($row, $rendered_fields[$id]);
             if ($tokens) {

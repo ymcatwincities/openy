@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Bootstrap\ResettableStaticUnitTest.
- */
-
 namespace Drupal\system\Tests\Bootstrap;
 
 use Drupal\simpletest\KernelTestBase;
@@ -42,4 +37,5 @@ class ResettableStaticUnitTest extends KernelTestBase {
     drupal_static_reset();
     $this->assertEqual($var, 'foo', 'Variable was reset after second invocation of global reset.');
   }
+
 }

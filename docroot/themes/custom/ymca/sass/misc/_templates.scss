@@ -1,0 +1,460 @@
+.template_youth_sports_overview {
+  .locations-lead-copy {
+    background: $grey13;
+
+    &:before {
+      position: absolute;
+      top: 58px;
+      left: 59%;
+      bottom: 0;
+      display: block;
+      width: 80%;
+      background-image: -webkit-linear-gradient($grey12, $grey13);
+      background-image: -moz-linear-gradient($grey12, $grey13);
+      background-image: -ms-linear-gradient($grey12, $grey13);
+      background-image: linear-gradient($grey12, $grey13);
+      content: '';
+      -webkit-transform: skew(-30deg);
+      -moz-transform: skew(-30deg);
+      -ms-transform: skew(-30deg);
+      transform: skew(-30deg);
+
+      @media (min-width: 768px) {
+        top: 51px;
+      }
+      @media screen and (min-width: 768px) and (max-width: 992px) {
+        left: 45%;
+      }
+    }
+
+    .left {
+      padding-right: 100px;
+    }
+
+    .breadcrumb-container {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+
+      .breadcrumb {
+        > li + li:before {
+          content: "|";
+          color: $pink;
+        }
+        a {
+          color: $pink;
+        }
+      }
+    }
+
+    h1 {
+      color: $grey14;
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .richtext {
+      p {
+        color: $grey5;
+        font-size: 14px;
+      }
+      p:first-child {
+        color: $grey14;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .call-to-action {
+      max-width: 335px;
+
+      .richtext .richtext {
+        background: url("../img/schedule.png") no-repeat 0 0;
+        padding-left: 105px;
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+          background: none;
+          padding-left: 0;
+        }
+      }
+
+      h3 {
+        color: $purple-dark;
+        font-size: 20px;
+        margin-bottom: 0;
+      }
+      p {
+        font-size: 20px;
+        line-height: 25px;
+        font-family: 'Cachet';
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+          font-size: 16px;
+          line-height: 20px;
+        }
+      }
+      a {
+        background-color: #9c1f7b;
+        background-image: -moz-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+        background-image: -ms-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+        background-image: -webkit-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+        background-image: linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+        border-radius: 3px;
+        border: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+        color: $white;
+        display: inline-block;
+        font-family: 'Cachet';
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1.428571429;
+        margin: 30px 0 0 -105px;
+        padding: 6px 12px;
+        text-align: center;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: nowrap;
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+          margin-left: 0;
+          margin-top: 20px;
+          white-space: normal;
+          font-size: 15px;
+          text-align: left;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  section.node {
+    h2 {
+      color: $grey14;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      color: $grey14;
+      font-size: 30px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: $grey5
+    }
+
+
+    ul {
+      color: $grey5
+    }
+
+    .content_group {
+      section {
+        ul {
+          padding: 0;
+          margin: 0;
+          display: block;
+
+          li {
+            margin-bottom: 15px;
+            list-style: none;
+          }
+        }
+      }
+      section:nth-child(1) {
+        h3 {
+          color: $green1;
+        }
+        ul {
+          li {
+            a {
+              color: $green1;
+            }
+          }
+        }
+      }
+      section:nth-child(2) {
+        h3 {
+          color: $blue1;
+        }
+        ul {
+          li {
+            a {
+              color: $blue1;
+            }
+          }
+        }
+      }
+      section:nth-child(3) {
+        h3 {
+          color: $orange-light;
+        }
+        ul {
+          li {
+            a {
+              color: $orange-light;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .file--application-pdf a,
+  .pdf-link {
+    color: $pink;
+    font-size: 15px;
+
+    &:after {
+      display: none;
+    }
+    &:before {
+      margin: 0 8px 0 5px;
+      content: 'p';
+      text-transform: none;
+      font-weight: normal;
+      font-family: 'YMCA';
+    }
+  }
+}
+
+@mixin sports_icons() {
+  &.baseball-softball-t-ball {
+    background: $white url("../img/icon-big-baseball.png") no-repeat 26px center;
+  }
+  &.basketball {
+    background: $white url("../img/icon-big-basketball.png") no-repeat 20px center;
+  }
+  &.flag-football {
+    background: $white url("../img/icon-big-flag-football.png") no-repeat 20px center;
+  }
+  &.martial-arts {
+    background: $white url("../img/icon-big-martial-arts.png") no-repeat 20px center;
+  }
+  &.olympic,
+  &.special-olympics-young-athletes-program {
+    background: $white url("../img/icon-big-olympic.png") no-repeat 20px center;
+  }
+  &.soccer {
+    background: $white url("../img/icon-big-soccer.png") no-repeat 20px center;
+  }
+  &.track-and-field,
+  &.running-club {
+    background: $white url("../img/icon-big-track.png") no-repeat 20px center;
+  }
+  &.volleyball {
+    background: $white url("../img/icon-big-volleyball.png") no-repeat 20px center;
+  }
+  &.lacrosse {
+    background: $white url("../img/icon-big-lacrosse.png") no-repeat 20px center;
+  }
+  &.tumbling {
+    background: $white url("../img/icon-big-tumbling.png") no-repeat 20px center;
+  }
+}
+
+a.sports-icon {
+  background-color: $white;
+  display: block;
+  border-radius: 3px;
+  border: 1px solid $grey12;
+  padding: 20px 80px;
+  position: relative;
+
+  &:after {
+    content: ">";
+    position: absolute;
+    right: 15px;
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  @include sports_icons();
+
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    background-position: 10px center;
+    padding: 15px 10px 15px 60px;
+    position: relative;
+    font-size: 12px;
+    word-break: break-all;
+  }
+}
+
+.template_youth_sports_inner {
+  .locations-lead-copy {
+    background: $grey13;
+
+    &:before {
+      background: url('../img/youth_sports_top_bg.jpg') no-repeat right top;
+      position: absolute;
+      top: 58px;
+      right: 0;
+      bottom: 0;
+      display: block;
+      width: 40%;
+      content: '';
+      -webkit-transform: none;
+      -moz-transform: none;
+      -ms-transform: none;
+      transform: none;
+      background-size: cover;
+      left: auto;
+      opacity: 0.5;
+      -webkit-clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+      clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+      @media (max-width: 767px) {
+        display: none;
+      }
+      @media (min-width: 768px) {
+        top: 51px;
+      }
+      @media screen and (min-width: 768px) and (max-width: 992px) {
+
+      }
+    }
+    @media (min-width: 768px) {
+      .left {
+        padding-right: 100px;
+      }
+    }
+
+    .breadcrumb-container {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+
+      .breadcrumb {
+        > li + li:before {
+          content: "|";
+          color: $pink;
+        }
+        a {
+          color: $pink;
+        }
+      }
+    }
+
+    h1 {
+      color: $grey14;
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .richtext {
+      p {
+        color: $grey5;
+        font-size: 14px;
+      }
+      p:first-child {
+        color: $grey14;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .content-expander {
+    margin: 80px 0;
+    .accordion-toggle {
+      cursor: pointer;
+      padding-left: 0;
+      padding-bottom: 25px;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+
+      h3 {
+        text-transform: uppercase;
+
+        &:before {
+
+        }
+      }
+    }
+    .panel-body {
+      border-left: 1px solid $grey12;
+      border-right: 1px solid $grey12;
+      border-bottom: 1px solid $grey12;
+      padding: 35px 60px;
+    }
+  }
+  section.node {
+    .content-expander-1 {
+      .accordion-toggle {
+        color: $green1;
+      }
+    }
+    .content-expander-2 {
+      .accordion-toggle {
+        color: $blue1;
+      }
+    }
+    .content-expander-3 {
+      .accordion-toggle {
+        color: $orange-light;
+      }
+    }
+    .content-expander-4 {
+      .accordion-toggle {
+        color: $orange1;
+      }
+    }
+  }
+}
+
+.sports_top_subheader {
+  select {
+    display: block;
+    width: 60%;
+    height: 70px;
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1.428571429;
+    color: $blue1;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-right: 15px;
+    text-indent: 80px;
+    @include sports_icons();
+    @media (max-width: 767px) {
+      float: none;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+      height: 52px;
+      text-indent: 60px;
+    }
+  }
+  .selectbox {
+    margin: 30px 0;
+    .find-a-class {
+      background: url("../img/button_blue_arrow.png") no-repeat 0 0;
+      font-size: 18px;
+      line-height: 70px;
+      color: $white;
+      width: 182px;
+      @include cachet();
+      font-weight: bold;
+      display: inline-block;
+      text-indent: 32px;
+      text-decoration: none;
+      @media (min-width: 768px) {
+
+      }
+      @media screen and (min-width: 768px) and (max-width: 992px) {
+        text-indent: 15px;
+        background-size: contain;
+        line-height: 52px;
+        font-size: 16px;
+        width: 135px;
+      }
+    }
+  }
+  .text {
+    clear: both;
+  }
+}

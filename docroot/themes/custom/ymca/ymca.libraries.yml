@@ -7,6 +7,7 @@ global-styling:
       css/legacy/components.css: {}
       css/style.css: {}
   js:
+    /libraries/equalize/js/equalize.min.js: {}
     scripts/vendor/iframeSizer.min.js: {}
     scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js: {}
     scripts/legacy/jquery-clockwork.min.js: {}
@@ -27,3 +28,19 @@ add-this:
   version: 0
   js:
     //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924: { type: external, minified: true }
+
+retention-campaign:
+  version: VERSION
+  css:
+    theme:
+      css/ysr.css: {}
+      //cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css: { type: external, minified: false }
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js: { type: external, minified: true }
+    //cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js: { type: external, minified: true }
+    scripts/retention-campaign.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

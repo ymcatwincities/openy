@@ -1,3 +1,15 @@
+1.6.4 (2016-07-18)
+------------------
+
+   * fixed #134 type safe directory names, reported and fixed by Sebastian Hopfe
+
+
+1.6.3 (2016-04-09)
+------------------
+
+   * fixed #131 recursive mkdir() fails if the last dirname is '0'
+
+
 1.6.2 (2016-01-13)
 ------------------
 

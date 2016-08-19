@@ -17,32 +17,8 @@
   <section class="become-a-member content_wrapper full-width-background-container"><div class="full-width-background-image">
     <img src="{{ assets.top_bg }}" class="img-responsive" alt="" title="" border="0" /><h2>BECOME A MEMBER</h2>
   </div>
-  <article class="container"><div class="row">
-      <div class="col-sm-12 lead centered">
-        <article class="richtext"><h2>BECOME A MEMBER</h2>
-          <p class="p1">Feel good, do good as a member of the Y community. Get access to 21<br /> locations in Minnesota, hundreds of free classes, and great savings.</p>
-        </article></div>
-      <div class="col-sm-5 col-sm-offset-1 buttons-wrap left centered">
-        <div class="panel-title">
-          <a href="https://ygtcprod2.personifycloud.com/personifyebusiness/Membership/Selection" class="join-online-now">Join Online Now</a>
-        </div>
-        <p>All you need is a debit/credit card and a few minutes.</p>
-      </div>
-      <div class="col-sm-5 buttons-wrap right centered">
-        <div class="panel-title">
-          <a class="try-the-y-toggle" href="/">
-            <span class="plaintext" id="component_391531">Try for Free</span>
-          </a>
-        </div>
-        <p>Try the Y with a free 5-day trial membership.</p>
-      </div>
-    </div>
-    <div class="row centered bottom">
-      <p style="font-size:16px;color:#fff;opacity:.5;">Youth, student or family plus member? Please
-        {{ link('visit your local Y', 'base:locations/') }}
-         to join.</p>
-    </div>
-  </article></section>
+  {{ block_become_a_member }}
+  </section>
 
   <div class="membership-form-wrapper container" style="display:none;">
   <div class="row">
@@ -142,30 +118,8 @@
   <section class="ready-to-get-started content_wrapper full-width-background-container"><div class="full-width-background-image">
       <img src="{{ assets.bottom_bg }}" class="img-responsive" alt="" title="" border="0" /><h2>READY TO GET STARTED?</h2>
     </div>
-    <article class="container"><div class="row">
-        <div class="col-sm-12 centered">
-          <h2>READY TO GET STARTED?</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6 centered">
-          <p>Enroll online for adult, dual or family memberships.<br />
-            You'll need just a few minutes and a credit or debit card.</p>
-          <div class="panel-title">
-            <a href="https://ygtcprod2.personifycloud.com/personifyebusiness/Membership/Selection" class="join-online-now">Join Online Now</a>
-          </div>
-        </div>
-        <hr style="display:none;" /><div class="col-sm-6 centered">
-          <p>Experience the benefits of the Y with a free<br />
-            five-day trial membership — there's no obligation.</p>
-          <div class="panel-title">
-            <a class="try-the-y-toggle" href="/">
-              <span class="plaintext" id="component_391531">Try for Free</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </article></section>
+    {{ block_ready_started }}
+    </section>
 
   <!-- Membership Bottom Area -->
   <div class="container membership-bottom-area">
@@ -176,6 +130,8 @@
           <p>Get details on {{ link('membership plans and rates', 'base:membership/membership_plans/') }}.</p>
           <br /><h3>Corporate Wellness</h3>
           <p>The Y partners with organizations around the Twin Cities to offer {{ link('corporate wellness programs', 'base:membership/corporate_wellness/') }} for employers and employees.</p>
+          <br /><h3>Member Guide</h3>
+          <p> {{ link('Find out', 'base:memberguide') }} what’s included, what to expect and how to successfully build healthy habits.</p>
         </article>
       </section>
       <section id="group_1_391439" class="col-md-4 col-sm-4">

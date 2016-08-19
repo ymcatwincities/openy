@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\UnmanagedMoveTest.
- */
-
 namespace Drupal\system\Tests\File;
 
 use Drupal\Core\Site\Settings;
@@ -74,4 +69,5 @@ class UnmanagedMoveTest extends FileTestBase {
     $this->assertFalse(file_exists($uri), 'Original file has been removed.');
     $this->assertTrue(file_exists($new_filepath), 'File exists after moving onto itself.');
   }
+
 }

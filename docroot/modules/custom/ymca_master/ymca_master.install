@@ -15,6 +15,9 @@ use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
+use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\Core\File;
+use Drupal\file\Entity\File as EntityFile;
 
 /**
  * Protecting sites with a shield.
@@ -2091,47 +2094,6 @@ function ymca_master_update_8082() {
 }
 
 /**
- * Remove exclude sitemap field.
- */
-function ymca_master_update_8083() {
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'core.entity_form_display.node.article.default.yml',
-      $path . 'core.entity_form_display.node.blog.default.yml',
-      $path . 'core.entity_form_display.node.camp.default.yml',
-      $path . 'core.entity_form_display.node.location.default.yml',
-      $path . 'core.entity_view_display.node.article.default.yml',
-      $path . 'core.entity_view_display.node.article.full.yml',
-      $path . 'core.entity_view_display.node.article.rss.yml',
-      $path . 'core.entity_view_display.node.article.teaser.yml',
-      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
-      $path . 'core.entity_view_display.node.blog.default.yml',
-      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
-      $path . 'core.entity_view_display.node.blog.teaser.yml',
-      $path . 'core.entity_view_display.node.camp.default.yml',
-      $path . 'core.entity_view_display.node.camp.teaser.yml',
-      $path . 'core.entity_view_display.node.location.default.yml',
-      $path . 'core.entity_view_display.node.location.groupex.yml',
-      $path . 'core.entity_view_display.node.location.schedules.yml',
-      $path . 'core.entity_view_display.node.location.teaser.yml',
-    ]
-  );
-
-  $factory = \Drupal::configFactory();
-  $delete = [
-    'field.field.node.article.field_sitemap_exclude',
-    'field.field.node.blog.field_sitemap_exclude',
-    'field.field.node.camp.field_sitemap_exclude',
-    'field.field.node.location.field_sitemap_exclude',
-    'field.storage.node.field_sitemap_exclude',
-  ];
-  foreach ($delete as $item) {
-    $factory->getEditable($item)->delete();
-  }
-}
-
-/**
  * Migrate exclude from sitemap option for native widget.
  */
 function ymca_master_update_8084() {
@@ -2245,33 +2207,6 @@ function ymca_master_update_8088() {
 }
 
 /**
- * Enable Content Browser module & import relative configs.
- */
-function ymca_master_update_8089() {
-  \Drupal::service('module_installer')->install(['content_browser'], TRUE);
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'core.entity_form_display.node.article.default.yml',
-      $path . 'core.entity_form_display.node.blog.default.yml',
-      $path . 'core.entity_form_display.node.camp.default.yml',
-      $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.article.default.yml',
-      $path . 'core.entity_view_display.node.blog.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.blog.default.yml',
-      $path . 'core.entity_view_display.node.camp.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.location.content_browser_preview.yml',
-      $path . 'core.entity_view_display.node.location.default.yml',
-      $path . 'core.entity_view_mode.node.content_browser_preview.yml',
-      $path . 'embed.button.content_browser.yml',
-      $path . 'entity_browser.browser.browse_content.yml',
-      $path . 'entity_browser.browser.browse_content_modal.yml',
-      $path . 'views.view.content_browser_node.yml',
-    ]
-  );
-}
-
-/**
  * Update content, menus and redirects to use new domain www.ymcamn.org.
  */
 function ymca_master_update_8090() {
@@ -2330,5 +2265,1888 @@ function ymca_master_update_8090() {
         ->condition($column, '%' . $db->escapeLike($find) . '%', 'LIKE')
         ->execute();
     }
+  }
+}
+
+/**
+ * Install workflow module.
+ */
+function ymca_master_update_8093() {
+  $install = [
+    'workflow',
+    'workflow_ui',
+    'workflowfield',
+    'workflow_operations',
+    'workflow_access',
+    'ymca_workflow',
+  ];
+  \Drupal::service('module_installer')->install($install, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.full.yml',
+      $path . 'core.entity_view_display.node.article.rss.yml',
+      $path . 'core.entity_view_display.node.article.teaser.yml',
+      $path . 'core.entity_view_display.node.blog.camp_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.location_blog_teaser.yml',
+      $path . 'core.entity_view_display.node.blog.teaser.yml',
+      $path . 'core.entity_view_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.camp.teaser.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.groupex.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      $path . 'core.entity_view_display.node.location.teaser.yml',
+
+      $path . 'field.field.node.article.field_state.yml',
+      $path . 'field.storage.node.field_state.yml',
+
+      $path . 'views.view.needs_review.yml',
+
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.editor.yml',
+
+      // Workflow related configs.
+      $path . 'workflow.settings.yml',
+      $path . 'workflow.state.workflow_(creation).yml',
+      $path . 'workflow.state.workflow_draft.yml',
+      $path . 'workflow.state.workflow_needs_review.yml',
+      $path . 'workflow.state.workflow_published.yml',
+      $path . 'workflow.state.workflow_unpublished.yml',
+      $path . 'workflow.transition.workflow_(creation)_draft.yml',
+      $path . 'workflow.transition.workflow_(creation)_needs_review.yml',
+      $path . 'workflow.transition.workflow_(creation)_published.yml',
+      $path . 'workflow.transition.workflow_draft_draft.yml',
+      $path . 'workflow.transition.workflow_draft_needs_review.yml',
+      $path . 'workflow.transition.workflow_draft_published.yml',
+      $path . 'workflow.transition.workflow_needs_review_draft.yml',
+      $path . 'workflow.transition.workflow_needs_review_needs_review.yml',
+      $path . 'workflow.transition.workflow_needs_review_published.yml',
+      $path . 'workflow.transition.workflow_published_draft.yml',
+      $path . 'workflow.transition.workflow_published_needs_review.yml',
+      $path . 'workflow.transition.workflow_published_published.yml',
+      $path . 'workflow.workflow.workflow.yml',
+      $path . 'workflow_access.settings.yml',
+      $path . 'workflow.transition.workflow_(creation)_unpublished.yml',
+      $path . 'workflow.transition.workflow_draft_unpublished.yml',
+      $path . 'workflow.transition.workflow_needs_review_unpublished.yml',
+      $path . 'workflow.transition.workflow_published_unpublished.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
+      $path . 'workflow.transition.workflow_unpublished_published.yml',
+      $path . 'workflow.transition.workflow_unpublished_unpublished.yml',
+    ]
+  );
+
+  $factory = \Drupal::configFactory();
+  $delete = [
+    'field.field.node.article.field_sitemap_exclude',
+    'field.field.node.blog.field_sitemap_exclude',
+    'field.field.node.camp.field_sitemap_exclude',
+    'field.field.node.location.field_sitemap_exclude',
+    'field.storage.node.field_sitemap_exclude',
+    // Remove Status field.
+    'field.field.node.article.field_status',
+    'field.storage.node.field_status',
+  ];
+  foreach ($delete as $item) {
+    $factory->getEditable($item)->delete();
+  }
+
+  // Disable Scheduler module.
+  // We should ensure the publish_on and unpublish_on fields are empty.
+  $db = Database::getConnection();
+  $db->update('node_field_data')
+    ->fields([
+      'publish_on' => NULL,
+      'unpublish_on' => NULL
+    ])
+    ->execute();
+  Drupal::service('module_installer')->uninstall(['scheduler']);
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable Content Browser module & import relative configs.
+ */
+function ymca_master_update_8094() {
+  \Drupal::service('module_installer')->install(['content_browser'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_view_display.node.article.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.blog.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.camp.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.content_browser_preview.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_mode.node.content_browser_preview.yml',
+      $path . 'embed.button.content_browser.yml',
+      $path . 'entity_browser.browser.browse_content.yml',
+      $path . 'entity_browser.browser.browse_content_modal.yml',
+      $path . 'views.view.content_browser_node.yml',
+    ]
+  );
+}
+
+/**
+ * Enabling inline_entity_form.
+ */
+function ymca_master_update_8091() {
+  \Drupal::service('module_installer')->install(array('inline_entity_form'), TRUE);
+}
+
+/**
+ * Enabling inline form for all block's references.
+ */
+function ymca_master_update_8095() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_form_display.node.camp.default.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+    ]
+  );
+}
+
+/**
+ * Add new theme specific config.
+ */
+function ymca_master_update_8096() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_frontend.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Update views "Needs review" config.
+ */
+function ymca_master_update_8097() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.needs_review.yml',
+    ]
+  );
+}
+
+/**
+ * Combine entity browser and inline entity form.
+ */
+function ymca_master_update_8098() {
+  $modules = [
+    'entity_browser_entity_form',
+    'ymca_ief_entity_browser',
+  ];
+
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.content_browser_block.yml',
+      $path . 'entity_browser.browser.browse_block_modal.yml',
+    ]
+  );
+}
+
+/**
+ * Combine entity embed and entity browser for blocks.
+ */
+function ymca_master_update_8099() {
+  $install = ['ymca_entity_browser'];
+  \Drupal::service('module_installer')->install($install, TRUE);
+
+  $uninstall = ['ymca_ief_entity_browser'];
+  \Drupal::service('module_installer')->uninstall($uninstall, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
+
+/**
+ * Enable Big Pipe core module.
+ */
+function ymca_master_update_8100() {
+  \Drupal::service('module_installer')->install(array('big_pipe'), TRUE);
+  \Drupal::service('module_installer')->uninstall(['image_widget_crop']);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml'
+    ]
+  );
+}
+
+/**
+ * Install acquia_purge module and respective configs.
+ */
+function ymca_master_update_8103() {
+  \Drupal::service('module_installer')->install(array('acquia_purge'), TRUE);
+  Drupal::configFactory()->getEditable('purge_purger_http.settings.ffd776af8e')->delete();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'purge.plugins.yml',
+    ]
+  );
+}
+
+/**
+ * Update configs. Add "New" prefix for all tabs. Fix file modal to inline.
+ */
+function ymca_master_update_8104() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'views.view.content_browser_block.yml',
+      $path . 'core.entity_form_display.block_content.image_block.default.yml',
+      $path . 'core.entity_form_display.block_content.promo_block.default.yml',
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml'
+    ]
+  );
+}
+
+/**
+ * Add Mapping entity.
+ */
+function ymca_master_update_8105() {
+  \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mappings.mapping_type.location.yml',
+      $path . 'ymca_mappings.mapping_type.trainer.yml',
+    ]
+  );
+}
+
+/**
+ * Initial fields for TrainerID.
+ */
+function ymca_master_update_8106() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.trainer.default.yml',
+      $path . 'core.entity_view_display.mapping.trainer.default.yml',
+      $path . 'field.field.mapping.trainer.field_mindbody_trainer_id.yml',
+      $path . 'field.field.mapping.trainer.field_trainer_page_ref.yml',
+      $path . 'field.storage.mapping.field_mindbody_trainer_id.yml',
+      $path . 'field.storage.mapping.field_trainer_page_ref.yml',
+    ]
+  );
+}
+
+/**
+ * Initial fields for Location mapping.
+ */
+function ymca_master_update_8107() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.location.default.yml',
+      $path . 'core.entity_view_display.mapping.location.default.yml',
+      $path . 'field.field.mapping.location.field_groupex_id.yml',
+      $path . 'field.field.mapping.location.field_location_ref.yml',
+      $path . 'field.field.mapping.location.field_mindbody_id.yml',
+      $path . 'field.storage.mapping.field_groupex_id.yml',
+      $path . 'field.storage.mapping.field_location_ref.yml',
+      $path . 'field.storage.mapping.field_mindbody_id.yml',
+    ]
+  );
+}
+
+/**
+ * Populate location mappings.
+ */
+function ymca_master_update_8108() {
+  $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+  foreach ($locations as $location) {
+    $mapping = Mapping::create([
+      'type' => 'location',
+      'field_location_ref' => $location['entity_id'],
+      'field_groupex_id' => $location['geid'],
+    ]);
+    $mapping->setName($location['name']);
+    $mapping->save();
+  }
+}
+
+/**
+ * Update Content Browser configs.
+ */
+function ymca_master_update_8109() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.content_browser_block.yml',
+    ]
+  );
+}
+
+/**
+ * Set ymca_rest_export plugin for the CSV export.
+ */
+function ymca_master_update_8110() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.contact_messages_csv_export.yml',
+    ]
+  );
+}
+
+/**
+ * Update location mappings.
+ */
+function ymca_master_update_8111() {
+  // Map: Mindbody ID => Location ID.
+  $map = [
+    1 => 4,
+    2 => 21,
+    3 => 13,
+    4 => 25,
+    5 => 14,
+    6 => 10,
+    7 => 17,
+    8 => 18,
+    9 => 8,
+    10 => 5,
+    11 => 6,
+    12 => 9,
+    13 => 7,
+    14 => 2746,
+    15 => 26,
+    16 => 24,
+    17 => 19,
+    18 => 23,
+    19 => 22,
+    20 => 16,
+    22 => 12,
+    23 => 11,
+    24 => 20,
+  ];
+
+  /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+  $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('mapping');
+
+  foreach ($map as $mindbody_id => $location_id) {
+    $query = \Drupal::entityQuery('mapping')
+      ->condition('type', 'location')
+      ->condition('field_location_ref', $location_id)
+      ->execute();
+
+    if ($query) {
+      /** @var Mapping $mapping */
+      $mapping = $storage->load(reset($query));
+      if ($mapping) {
+        $mapping->set('field_mindbody_id', $mindbody_id);
+        $mapping->save();
+        \Drupal::logger('ymca_master')->info(
+          'Add MindBody ID to mapping #%mapping.',
+          ['%mapping' => $mapping->id()]
+        );
+      }
+    }
+
+  }
+}
+
+/**
+ * Remove redundant groupex location.
+ */
+function ymca_master_update_8112() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_groupex.mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Re-import location mappings.
+ */
+function ymca_master_update_8113() {
+  // Delete all Location mappings.
+  $ids = \Drupal::entityQuery('mapping')
+    ->condition('type', 'location')
+    ->execute();
+
+  $storage = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getStorage('mapping');
+  $entities = $storage->loadMultiple($ids);
+  $storage->delete($entities);
+
+  // Populate entities.
+  ymca_master_update_8108();
+
+  // Update location mappings.
+  ymca_master_update_8111();
+}
+
+/**
+ * Import MindBody trainers IDs.
+ */
+function ymca_master_update_8114() {
+  // Read CSV file with map.
+  $path = drupal_get_path('module', 'ymca_master');
+  $csv_file = $path . '/misc/trainers_mindbody.csv';
+  $map = array_map('str_getcsv', file($csv_file));
+
+  foreach ($map as $trainer) {
+    $mapping = Mapping::create([
+      'type' => 'trainer',
+      'field_mindbody_trainer_id' => $trainer[0],
+    ]);
+    $mapping->setName($trainer[1]);
+    $mapping->save();
+  }
+}
+
+/**
+ * Update Content Browser configs.
+ */
+function ymca_master_update_8115() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.editor.yml',
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}
+
+/**
+ * Install flood control module.
+ */
+function ymca_master_update_8116() {
+  \Drupal::service('module_installer')->install(['flood_unblock'], TRUE);
+}
+
+/**
+ * Delete ymca_groupex.mapping config.
+ */
+function ymca_master_update_8117() {
+  Drupal::configFactory()->getEditable('ymca_groupex.mapping')->delete();
+}
+
+/**
+ * Add Gcal POC.
+ */
+function ymca_master_update_8118() {
+  \Drupal::service('module_installer')->install(['ymca_google'], TRUE);
+}
+
+/**
+ * Update file limit settings.
+ */
+function ymca_master_update_8119() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'file_entity.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Create Groupex mapping bundle.
+ */
+function ymca_master_update_8120() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.groupex.default.yml',
+      $path . 'core.entity_view_display.mapping.groupex.default.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_category.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_class_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_description.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_location.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_orig_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_studio.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_sub_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_end.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_start.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_date.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_time.yml',
+      $path . 'field.field.mapping.groupex.field_gcal_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_title.yml',
+      $path . 'field.storage.mapping.field_groupex_category.yml',
+      $path . 'field.storage.mapping.field_groupex_class_id.yml',
+      $path . 'field.storage.mapping.field_groupex_description.yml',
+      $path . 'field.storage.mapping.field_groupex_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_location.yml',
+      $path . 'field.storage.mapping.field_groupex_orig_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_studio.yml',
+      $path . 'field.storage.mapping.field_groupex_sub_instructor.yml',
+      $path . 'field.storage.mapping.field_timestamp_end.yml',
+      $path . 'field.storage.mapping.field_timestamp_start.yml',
+      $path . 'field.storage.mapping.field_groupex_date.yml',
+      $path . 'field.storage.mapping.field_groupex_time.yml',
+      $path . 'field.storage.mapping.field_gcal_id.yml',
+      $path . 'field.storage.mapping.field_groupex_title.yml',
+      $path . 'ymca_mappings.mapping_type.groupex.yml',
+    ]
+  );
+}
+
+/**
+ * Add flash mime types.
+ */
+function ymca_master_update_8121() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'file_entity.type.video.yml',
+    ]
+  );
+}
+
+/**
+ * Increase file upload max size for file_browsers.
+ */
+function ymca_master_update_8122() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.browse_files.yml',
+      $path . 'entity_browser.browser.browse_files_modal.yml'
+    ]
+  );
+}
+
+/**
+ * Add YMCA Sync module and update fields.
+ */
+function ymca_master_update_8123() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.groupex.default.yml',
+      $path . 'core.entity_view_display.mapping.groupex.default.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_category.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_class_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_description.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_location.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_orig_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_studio.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_sub_instructor.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_end.yml',
+      $path . 'field.field.mapping.groupex.field_timestamp_start.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_date.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_time.yml',
+      $path . 'field.field.mapping.groupex.field_gcal_id.yml',
+      $path . 'field.field.mapping.groupex.field_groupex_title.yml',
+      $path . 'field.field.mapping.groupex.field_time_frame_start.yml',
+      $path . 'field.field.mapping.groupex.field_time_frame_end.yml',
+      $path . 'field.storage.mapping.field_groupex_category.yml',
+      $path . 'field.storage.mapping.field_groupex_class_id.yml',
+      $path . 'field.storage.mapping.field_groupex_description.yml',
+      $path . 'field.storage.mapping.field_groupex_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_location.yml',
+      $path . 'field.storage.mapping.field_groupex_orig_instructor.yml',
+      $path . 'field.storage.mapping.field_groupex_studio.yml',
+      $path . 'field.storage.mapping.field_groupex_sub_instructor.yml',
+      $path . 'field.storage.mapping.field_timestamp_end.yml',
+      $path . 'field.storage.mapping.field_timestamp_start.yml',
+      $path . 'field.storage.mapping.field_groupex_date.yml',
+      $path . 'field.storage.mapping.field_groupex_time.yml',
+      $path . 'field.storage.mapping.field_gcal_id.yml',
+      $path . 'field.storage.mapping.field_groupex_title.yml',
+      $path . 'field.storage.mapping.field_time_frame_start.yml',
+      $path . 'field.storage.mapping.field_time_frame_end.yml',
+      $path . 'ymca_mappings.mapping_type.groupex.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['ymca_sync'], TRUE);
+}
+
+/**
+ * Import GCal credentials config.
+ */
+function ymca_master_update_8124() {
+  $path = drupal_get_path('module', 'ymca_google') . '/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_google.token.yml',
+      $path . 'ymca_google.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Import personify configs.
+ */
+function ymca_master_update_8125() {
+  $path = drupal_get_path('module', 'ymca_personify');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/install/ymca_personify.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add fields to location mapping entity.
+ */
+function ymca_master_update_8126() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.location.default.yml',
+      $path . 'core.entity_view_display.mapping.location.default.yml',
+      $path . 'field.field.mapping.location.field_location_address_1.yml',
+      $path . 'field.field.mapping.location.field_location_address_2.yml',
+      $path . 'field.field.mapping.location.field_location_city.yml',
+      $path . 'field.field.mapping.location.field_location_hrs_mon_fri.yml',
+      $path . 'field.field.mapping.location.field_location_hrs_sat_sun.yml',
+      $path . 'field.field.mapping.location.field_location_icon.yml',
+      $path . 'field.field.mapping.location.field_location_latitude.yml',
+      $path . 'field.field.mapping.location.field_location_longitude.yml',
+      $path . 'field.field.mapping.location.field_location_map_shadow.yml',
+      $path . 'field.field.mapping.location.field_location_name.yml',
+      $path . 'field.field.mapping.location.field_location_personify_brcode.yml',
+      $path . 'field.field.mapping.location.field_location_phone.yml',
+      $path . 'field.field.mapping.location.field_location_ref.yml',
+      $path . 'field.field.mapping.location.field_location_state.yml',
+      $path . 'field.field.mapping.location.field_location_tags.yml',
+      $path . 'field.field.mapping.location.field_location_zip.yml',
+      $path . 'field.field.mapping.location.field_location_url.yml',
+      $path . 'field.storage.mapping.field_location_address_1.yml',
+      $path . 'field.storage.mapping.field_location_address_2.yml',
+      $path . 'field.storage.mapping.field_location_city.yml',
+      $path . 'field.storage.mapping.field_location_hrs_mon_fri.yml',
+      $path . 'field.storage.mapping.field_location_hrs_sat_sun.yml',
+      $path . 'field.storage.mapping.field_location_icon.yml',
+      $path . 'field.storage.mapping.field_location_latitude.yml',
+      $path . 'field.storage.mapping.field_location_longitude.yml',
+      $path . 'field.storage.mapping.field_location_map_shadow.yml',
+      $path . 'field.storage.mapping.field_location_name.yml',
+      $path . 'field.storage.mapping.field_location_personify_brcode.yml',
+      $path . 'field.storage.mapping.field_location_phone.yml',
+      $path . 'field.storage.mapping.field_location_state.yml',
+      $path . 'field.storage.mapping.field_location_tags.yml',
+      $path . 'field.storage.mapping.field_location_zip.yml',
+      $path . 'field.storage.mapping.field_location_url.yml',
+    ]
+  );
+}
+
+/**
+ * Enrich location mapping entities with new data.
+ */
+function ymca_master_update_8127() {
+  $config = \Drupal::config('ymca_frontend.locations')->get();
+
+  $map = [
+    'name' => 'field_location_name',
+    'address1' => 'field_location_address_1',
+    'address2' => 'field_location_address_2',
+    'city' => 'field_location_city',
+    'state' => 'field_location_state',
+    'zip' => 'field_location_zip',
+    'phone' => 'field_location_phone',
+    'url' => 'field_location_url',
+    'tags' => 'field_location_tags',
+    'latitude' => 'field_location_latitude',
+    'longitude' => 'field_location_longitude',
+    'icon' => 'field_location_icon',
+    'geid' => 'field_groupex_id',
+    'personify_brcode' => 'field_location_personify_brcode',
+    'shadow' => 'field_location_map_shadow',
+    'HRS Mon-Fri' => 'field_location_hrs_mon_fri',
+    'HRS Sat-Sun' => 'field_location_hrs_sat_sun',
+  ];
+
+  foreach ($config as $config_item) {
+    $ids = \Drupal::entityQuery('mapping')
+      ->condition('type', 'location')
+      ->condition('name', $config_item['name'])
+      ->execute();
+
+    if (!empty($ids)) {
+      $op = 'updated';
+      $mapping = Mapping::load(reset($ids));
+    }
+    else {
+      $op = 'created';
+      $mapping = Mapping::create(['type' => 'location']);
+      $mapping->setName($config_item['name']);
+    }
+
+    // Set all available fields.
+    foreach ($config_item as $config_item_name => $config_item_value) {
+      if (!empty($config_item_value)) {
+        $mapping->set($map[$config_item_name], $config_item_value);
+      }
+    }
+
+    $mapping->save();
+    $msg = 'Mapping %op ID: %id.';
+    \Drupal::logger('ymca_master')->info($msg, [
+      '%op' => $op,
+      '%id' => $mapping->id()
+    ]);
+  }
+}
+
+/**
+ * Add YMCA menu blocks.
+ */
+function ymca_master_update_8128() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block.block.mastheadnavigationblock.yml',
+      $path . 'block.block.sidebarnavigation.yml',
+      $path . 'block.block.subnavigationblock.yml',
+      $path . 'block.block.mainnavigation.yml',
+    ]
+  );
+}
+
+/**
+ * Install MindBody modules.
+ */
+function ymca_master_update_8129() {
+  $modules = ['mindbody', 'mindbody_cache_proxy', 'ymca_mindbody'];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Migrate location schedules to blocks.
+ */
+function ymca_master_update_8130() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      // New block type.
+      $path . 'block_content.type.location_schedule.yml',
+      $path . 'language.content_settings.block_content.location_schedule.yml',
+      $path . 'core.entity_form_display.block_content.location_schedule.default.yml',
+      $path . 'core.entity_view_display.block_content.location_schedule.default.yml',
+      $path . 'field.field.block_content.location_schedule.field_schedule_documents.yml',
+      $path . 'field.storage.block_content.field_schedule_documents.yml',
+      // New field for location content type.
+      $path . 'field.field.node.location.field_schedule_block.yml',
+      $path . 'field.storage.node.field_schedule_block.yml',
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.schedules.yml',
+      // Update user location schedules view.
+      $path . 'views.view.location_schedules.yml',
+    ]
+  );
+  drupal_flush_all_caches();
+
+  // Migrate location schedule documents field to new blocks.
+  $node_storage = \Drupal::getContainer()->get('entity.manager')->getStorage('node');
+  $location_nids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+  foreach ($location_nids as $nid) {
+    $node = $node_storage->load($nid);
+    $block_data = [
+      'type' => 'location_schedule',
+      'info' => $node->getTitle() . ' Schedule',
+      'langcode' => 'en',
+      'field_schedule_documents' => [],
+    ];
+    if ($node->hasField('field_schedule_documents')) {
+      foreach ($node->field_schedule_documents->getValue() as $delta => $value) {
+        $value['display'] = 1;
+        $block_data['field_schedule_documents'][$delta] = $value;
+      }
+    }
+    $block = BlockContent::create($block_data)->enforceIsNew();
+    $block->save();
+    $node->set('field_schedule_block', ['target_id' => $block->id()]);
+    $node->save();
+  }
+
+  // Delete field from location content type.
+  $field_name = 'node.location.field_schedule_documents';
+  $storage = \Drupal::getContainer()->get('entity_type.manager')->getStorage('field_config');
+  $fields = $storage->loadByProperties(['entity_type' => 'node', 'bundle' => 'location']);
+  if (isset($fields[$field_name])) {
+    $fields[$field_name]->delete();
+  }
+}
+
+/**
+ * Add workflow to the blogs.
+ */
+function ymca_master_update_8131() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.node.blog.field_state.yml',
+      $path . 'core.entity_form_display.node.blog.default.yml',
+      $path . 'core.entity_view_display.node.blog.default.yml',
+    ]
+  );
+}
+
+/**
+ * WH blocks workflow.
+ */
+function ymca_master_update_8132() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.location_wh.yml',
+      $path . 'views.view.location_schedules.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['block_content_access'], TRUE);
+}
+
+/**
+ * Enable Location Schedule blocks in entity browser dialog.
+ */
+function ymca_master_update_8133() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+      $path . 'embed.button.block.yml',
+    ]
+  );
+}
+
+/**
+ * Enable phone validation on webforms' fields.
+ */
+function ymca_master_update_8134() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.contact_message.become_a_supplier.default.yml',
+      $path . 'core.entity_form_display.contact_message.cc_wellness_employee.default.yml',
+      $path . 'core.entity_form_display.contact_message.cc_wellness_employer.default.yml',
+      $path . 'core.entity_form_display.contact_message.contact_an_aquatics_manager.default.yml',
+      $path . 'core.entity_form_display.contact_message.contact_personal_training.default.yml',
+      $path . 'core.entity_form_display.contact_message.journey_to_freedom.default.yml',
+      $path . 'core.entity_form_display.contact_message.membership_form.default.yml',
+      $path . 'core.entity_form_display.contact_message.personal_trainers_individual.default.yml',
+      $path . 'core.entity_form_display.contact_message.wait_list.default.yml',
+    ]
+  );
+}
+
+/**
+ * Update MindBody settings.
+ */
+function ymca_master_update_8135() {
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.yml',
+      $path . 'mindbody.env.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add Mindbody blocks config.
+ */
+function ymca_master_update_8136() {
+  // Enable the module in order to import related config.
+  \Drupal::service('module_installer')->install(['ymca_mindbody'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.block.settings.yml',
+    ]
+  );
+
+  // Disable the module due to we don't want it to be enabled on prod.
+  \Drupal::service('module_installer')->uninstall(['ymca_mindbody']);
+}
+
+/**
+ * Enable token filter module.
+ */
+function ymca_master_update_8137() {
+  \Drupal::service('module_installer')->install(['token_filter'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'filter.format.code.yml',
+      $path . 'filter.format.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * Create Groupex Google Cache entity.
+ */
+function ymca_master_update_8138() {
+  \Drupal::service('module_installer')->install(['ymca_groupex_google_cache'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_category.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_class_id.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_date.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_description.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_location.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_studio.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_sub_instructor.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_time.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_end.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_start.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_title.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_category.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_class_id.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_date.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_description.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_gcal_id.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_instructor.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_orig_instructor.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_location.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_studio.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_sub_instructor.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_time.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_time_frame_end.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_time_frame_start.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_timestamp_end.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_timestamp_start.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_title.yml',
+    ]
+  );
+}
+
+/**
+ * Remove old Groupex mapping entity.
+ */
+function ymca_master_update_8139() {
+  $entityTypeManager = \Drupal::entityTypeManager();
+
+  // Remove groupex entities.
+  $ids = Drupal::entityQuery('mapping')->condition('type', 'groupex')->execute();
+  $chunks = array_chunk($ids, 10);
+  $mapping = $entityTypeManager->getStorage('mapping');
+  foreach ($chunks as $chunk) {
+    $mappings = Mapping::loadMultiple($chunk);
+    $mapping->delete($mappings);
+  }
+
+  // Remove groupex mapping entity type.
+  $entityTypeManager->getStorage('mapping_type')->load('groupex')->delete();
+}
+
+/**
+ * Add Panorama block type and panorama field.
+ */
+function ymca_master_update_8140() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'block_content.type.panorama_block.yml',
+      $path . 'core.entity_form_display.block_content.panorama_block.default.yml',
+      $path . 'core.entity_view_display.block_content.panorama_block.default.yml',
+      $path . 'field.field.block_content.panorama_block.body.yml',
+      $path . 'field.field.block_content.panorama_block.field_panorama_archive.yml',
+      $path . 'field.storage.block_content.field_panorama_archive.yml',
+      $path . 'language.content_settings.block_content.panorama_block.yml',
+      $path . 'embed.button.block.yml',
+      $path . 'entity_browser.browser.block_browser_iframe.yml',
+    ]
+  );
+}
+
+/**
+ * Fix permissions for editor and intern.
+ */
+function ymca_master_update_8141() {
+  \Drupal::service('module_installer')->install(['gardengnome_player'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * Enable YMCA Page Manager.
+ */
+function ymca_master_update_8142() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+
+  \Drupal::service('module_installer')->install(['ymca_page_manager'], TRUE);
+}
+
+/**
+ * Add new phone filed for Location CT.
+ */
+function ymca_master_update_8143() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.location.default.yml',
+      $path . 'core.entity_view_display.node.location.default.yml',
+      $path . 'field.field.node.location.field_fitness_phone.yml',
+      $path . 'field.field.node.location.field_phone.yml',
+      $path . 'field.storage.node.field_fitness_phone.yml',
+    ]
+  );
+}
+
+/**
+ * Enable 'environment_config' module.
+ */
+function ymca_master_update_8144() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Import config.
+ */
+function ymca_master_update_8145() {
+  // Remove old config.
+  $factory = \Drupal::configFactory();
+  $remove = [
+    'mindbody.env.settings',
+  ];
+
+  foreach ($remove as $name) {
+    $factory->getEditable($name)->delete();
+  }
+
+  // Import new one.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+    ]
+  );
+}
+
+/**
+ * Fix intern permissions.
+ */
+function ymca_master_update_8146() {
+  // Import new one.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_(creation)_draft.yml',
+      $path . 'workflow.transition.workflow_(creation)_needs_review.yml',
+      $path . 'workflow.transition.workflow_(creation)_published.yml',
+      $path . 'workflow.transition.workflow_(creation)_unpublished.yml',
+      $path . 'workflow.transition.workflow_draft_needs_review.yml',
+      $path . 'workflow.transition.workflow_draft_published.yml',
+      $path . 'workflow.transition.workflow_draft_unpublished.yml',
+      $path . 'workflow.transition.workflow_needs_review_draft.yml',
+      $path . 'workflow.transition.workflow_needs_review_published.yml',
+      $path . 'workflow.transition.workflow_needs_review_unpublished.yml',
+      $path . 'workflow.transition.workflow_published_draft.yml',
+      $path . 'workflow.transition.workflow_published_needs_review.yml',
+      $path . 'workflow.transition.workflow_published_unpublished.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
+      $path . 'workflow.transition.workflow_unpublished_published.yml'
+    ]
+  );
+}
+
+/**
+ * SPS-894 It adds recommended sizes for image fields in the description.
+ */
+function ymca_master_update_8147() {
+  \Drupal::service('module_installer')->install(['environment_config'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'field.field.block_content.promo_block.field_image.yml',
+      $path . 'field.field.block_content.slide_show_item.field_image.yml',
+      $path . 'field.field.node.article.field_header_image.yml',
+      $path . 'field.field.node.blog.field_image.yml'
+    ]
+  );
+}
+
+/**
+ * Enable 'ab' module.
+ */
+function ymca_master_update_8148() {
+  // Import configs with blocks & menus.
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      // Top menu configs.
+      $path . 'block.block.top_menu_2.yml',
+      $path . 'system.menu.top_menu_2.yml',
+
+      // Meganav menu and block configs.
+      $path . 'block.block.mastheadnavigationblock.yml',
+      $path . 'block.block.mastheadnavigationblock_2.yml',
+      $path . 'ymca_menu.main_menu_b.yml',
+
+      // Footer menu block config.
+      $path . 'block.block.footer_b.yml',
+    ]
+  );
+
+  // Add initial menu links.
+  $items = [
+    [
+      'title' => 'Example Link',
+      'link' => ['uri' => 'internal:/node'],
+      'menu_name' => 'top_menu_2',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+
+  // Enable 'ab' module.
+  \Drupal::service('module_installer')->install(['ab'], TRUE);
+
+  // Configure 'ab' module.
+  $config = Drupal::configFactory()->getEditable('ab.settings');
+  $replacements = [
+    [
+      'block_id' => 'top_menu_2',
+      'selector' => '#block-topmenu'
+    ],
+    [
+      'block_id' => 'mastheadnavigationblock_2',
+      'selector' => '#masthead-menu'
+    ],
+    [
+      'block_id' => 'footer_b',
+      'selector' => '.nav-footer > div'
+    ],
+  ];
+  $config->set('replacements', $replacements);
+  $config->save();
+}
+
+/**
+ * YMCA-1027: Fix intern & contributor permissions.
+ */
+function ymca_master_update_8149() {
+  \Drupal::service('module_installer')->install(['ymca_perms'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+    ]
+  );
+}
+
+/**
+ * MindBody settings.
+ */
+function ymca_master_update_8150() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'mindbody.settings.env.yml',
+      $path . 'mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add new field_template to article node.
+ */
+function ymca_master_update_8151() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.node.article.default.yml',
+      $path . 'core.entity_view_display.node.article.default.yml',
+      $path . 'field.field.node.article.field_template.yml',
+      $path . 'field.storage.node.field_template.yml',
+    ]
+  );
+}
+
+/**
+ * YPTF form menu links.
+ */
+function ymca_master_update_8155() {
+  $items = [
+    // Locations that DO NOT have Personal Training page:
+    // - Heritage Park YMCA.
+    // - Mounds View Community Center.
+    // - North Community YMCA.
+    // - University YMCA.
+    // - Youth in Government.
+    // Locations that DO have Personal Training page:
+    // Andover YMCA.
+    [
+      'location_id' => '1',
+      'parent' => '1721',
+      'nid' => 4,
+      'path' => '/locations/andover_ymca_community_center/',
+    ],
+    // Blaisdell YMCA.
+    [
+      'location_id' => '10',
+      'parent' => '1728',
+      'nid' => 5,
+      'path' => '/locations/blaisdell_ymca/',
+    ],
+    // Burnsville YMCA.
+    [
+      'location_id' => '11',
+      'parent' => '1736',
+      'nid' => 6,
+      'path' => '/locations/burnsville_ymca/',
+    ],
+    // Eagan YMCA.
+    [
+      'location_id' => '13',
+      'parent' => '1686',
+      'nid' => 7,
+      'path' => '/locations/eagan_ymca/',
+    ],
+    // Elk River YMCA.
+    [
+      'location_id' => '9',
+      'parent' => '1693',
+      'nid' => 8,
+      'path' => '/locations/elk_river_ymca/',
+    ],
+    // Emma B. Howe YMCA.
+    [
+      'location_id' => '12',
+      'parent' => '1700',
+      'nid' => 9,
+      'path' => '/locations/emma_b_howe_ymca/',
+    ],
+    // Forest Lake YMCA.
+    [
+      'location_id' => '14',
+      'parent' => '3336',
+      'nid' => 2746,
+      'path' => '/locations/forest_lake_ymca/',
+    ],
+    // Hastings YMCA.
+    [
+      'location_id' => '6',
+      'parent' => '1707',
+      'nid' => 10,
+      'path' => '/locations/hastings_ymca/',
+    ],
+    // Hudson YMCA.
+    [
+      'location_id' => '22',
+      'parent' => '1715',
+      'nid' => 12,
+      'path' => '/locations/hudson_ymca/',
+    ],
+    // Lino Lakes YMCA.
+    [
+      'location_id' => '3',
+      'parent' => '1719',
+      'nid' => 13,
+      'path' => '/locations/lino_lakes_ymca/',
+    ],
+    // Minneapolis Downtown YMCA.
+    [
+      'location_id' => '5',
+      'parent' => '1724',
+      'nid' => 14,
+      'path' => '/locations/minneapolis_downtown_ymca/',
+    ],
+    // New Hope YMCA.
+    [
+      'location_id' => '20',
+      'parent' => '1726',
+      'nid' => 16,
+      'path' => '/locations/new_hope_ymca/',
+    ],
+    // Ridgedale YMCA.
+    [
+      'location_id' => '7',
+      'parent' => '1729',
+      'nid' => 17,
+      'path' => '/locations/ridgedale_ymca/',
+    ],
+    // River Valley YMCA.
+    [
+      'location_id' => '8',
+      'parent' => '1733',
+      'nid' => 18,
+      'path' => '/locations/river_valley_ymca/',
+    ],
+    // St. Paul Downtown YMCA.
+    [
+      'location_id' => '17',
+      'parent' => '1737',
+      'nid' => 19,
+      'path' => '/locations/st_paul_downtown_ymca/',
+    ],
+    // St. Paul Eastside YMCA.
+    [
+      'location_id' => '24',
+      'parent' => '1685',
+      'nid' => 20,
+      'path' => '/locations/st_paul_eastside_ymca/',
+    ],
+    // St. Paul Midway YMCA.
+    [
+      'location_id' => '2',
+      'parent' => '1692',
+      'nid' => 21,
+      'path' => '/locations/st_paul_midway_ymca/',
+    ],
+    // Shoreview YMCA.
+    [
+      'location_id' => '19',
+      'parent' => '1698',
+      'nid' => 22,
+      'path' => '/locations/shoreview_ymca/',
+    ],
+    // Southdale YMCA.
+    [
+      'location_id' => '18',
+      'parent' => '1690',
+      'nid' => 23,
+      'path' => '/locations/southdale_ymca/',
+    ],
+    // West St. Paul YMCA.
+    [
+      'location_id' => '16',
+      'parent' => '1705',
+      'nid' => 24,
+      'path' => '/locations/west_st_paul_ymca/',
+    ],
+    // White Bear Area YMCA.
+    [
+      'location_id' => '4',
+      'parent' => '1710',
+      'nid' => 25,
+      'path' => '/locations/white_bear_area_ymca/',
+    ],
+    // Woodbury YMCA.
+    [
+      'location_id' => '15',
+      'parent' => '1714',
+      'nid' => 26,
+      'path' => '/locations/woodbury_ymca/',
+    ],
+  ];
+
+  foreach ($items as $item) {
+    // Add "Personal Trainer Schedules" menu item.
+    $url = 'internal:/node/' . $item['nid'] . '/personal-trainer-schedules';
+    $results_url = 'internal:/node/' . $item['nid'] . '/personal-trainer-schedules/results';
+
+    if (!empty($item['parent'])) {
+      $parent_menu_item = MenuLinkContent::load($item['parent']);
+    }
+
+    // Create alias for PT form on location page.
+    $suffix = 'health__fitness/personal_training/personal-trainer-schedules';
+    $source = '/node/' . $item['nid'] . '/personal-trainer-schedules';
+    $alias = $item['path'] . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+
+    $menu_item_definition = [
+      'title' => 'Personal Trainer Schedules',
+      'link' => ['uri' => $url],
+      'menu_name' => 'locations',
+      'parent' => !empty($parent_menu_item) ? 'menu_link_content:' . $parent_menu_item->uuid() : '',
+      'enabled' => FALSE,
+      'weight' => -5,
+    ];
+    $menu_item = MenuLinkContent::create($menu_item_definition);
+    $menu_item->save();
+
+    // Add "Results" menu item.
+    $menu_subitem_definition = [
+      'title' => 'Personal Trainer Schedules Results',
+      'link' => ['uri' => $results_url],
+      'menu_name' => 'locations',
+      'parent' => !empty($menu_item) && !empty($parent_menu_item) ? 'menu_link_content:' . $menu_item->uuid() : '',
+      'enabled' => FALSE,
+    ];
+    $menu_item = MenuLinkContent::create($menu_subitem_definition);
+    $menu_item->save();
+
+    // Create alias for PT results on location page.
+    $suffix = 'health__fitness/personal_training/personal-trainer-schedules/results';
+    $source = '/node/' . $item['nid'] . '/personal-trainer-schedules/results';
+    $alias = $item['path'] . $suffix;
+    \Drupal::service('path.alias_storage')->save($source, $alias, 'en');
+  }
+}
+
+/**
+ * Add new templates to ckeditor.
+ */
+function ymca_master_update_8152() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * Install module YMCA retention and Views Rest Feed.
+ */
+function ymca_master_update_8153() {
+  \Drupal::service('module_installer')->install([
+    'views_rest_feed',
+    'ymca_retention',
+  ], TRUE);
+
+  // Create YMCA Retention activities terms.
+  module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.terms');
+  _ymca_retention_terms_create();
+}
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8154() {
+  \Drupal::service('module_installer')->install(array('views_advanced_routing'), TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.settings.yml',
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Add new templates to ckeditor.
+ */
+function ymca_master_update_8156() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * Create top menu 2 links.
+ */
+function ymca_master_update_8157() {
+  // Add top level items.
+  $menu_item = MenuLinkContent::create([
+    'title' => 'Sign In',
+    'link' => ['uri' => 'internal:/personify/login'],
+    'menu_name' => 'top_menu_2',
+    'weight' => 1,
+  ]);
+  $menu_item->save();
+
+  $account_menu_link = MenuLinkContent::create([
+    'title' => 'Account',
+    'link' => ['uri' => 'internal:/personify/account'],
+    'menu_name' => 'top_menu_2',
+    'expanded' => TRUE,
+    'weight' => 2,
+  ]);
+  $account_menu_link->save();
+
+  $inner_items = [
+    [
+      'title' => 'My Account',
+      'link' => ['uri' => 'internal:/personify/account'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $account_menu_link->getPluginId(),
+      'weight' => 1,
+    ],
+    [
+      'title' => 'Sign Out',
+      'link' => ['uri' => 'internal:/personify/sign_out'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $account_menu_link->getPluginId(),
+      'weight' => 2,
+    ],
+  ];
+
+  foreach ($inner_items as $item) {
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+}
+
+/**
+ * Add trainers mapping view.
+ */
+function ymca_master_update_8158() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.trainers_mapping.yml',
+    ]
+  );
+}
+
+/**
+ * Allow contributor administer files.
+ */
+function ymca_master_update_8159() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+    ]
+  );
+}
+
+/**
+ * Fix badly cloned pages.
+ */
+function ymca_master_update_8160() {
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $result = $storage->getQuery()->execute();
+  foreach ($result as $id => $name) {
+    /** @var \Drupal\page_manager\Entity\Page $page */
+    $page = $storage->load($id);
+    if ($page->getAccessConditions()->has(0)) {
+      $config = $page->getAccessCondition(0)->getConfiguration();
+      $page->removeAccessCondition(0);
+      $page->getAccessConditions()->addInstanceId($config['uuid'], $config);
+      $page->save();
+      \Drupal::logger(__FUNCTION__)->info("The page: $name has been fixed about access conditions.");
+    }
+  }
+}
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8161() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Enable YMCA Mobile Check-in module.
+ */
+function ymca_master_update_8162() {
+  \Drupal::service('module_installer')->install(['ymca_mobile_checkin'], TRUE);
+}
+
+/**
+ * YMCA-1025: Allow interns and contributors administer files.
+ */
+function ymca_master_update_8163() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Allow interns and contributors access workflow_unpublished states.
+ */
+function ymca_master_update_8164() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml',
+      $path . 'workflow.transition.workflow_unpublished_draft.yml',
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
+    ]
+  );
+}
+
+/**
+ * YMCA-838: Allow Location Editors to edit only location files.
+ */
+function ymca_master_update_8165() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.location_editor.yml',
+    ]
+  );
+}
+
+/**
+ * Import ymca theme settings.
+ */
+function ymca_master_update_8166() {
+  $path = 'themes/custom/ymca/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca.settings.yml'
+    ]
+  );
+}
+
+/**
+ * YMCA-1001: Allow interns to clone pages.
+ */
+function ymca_master_update_8167() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * User's dashboard.
+ */
+function ymca_master_update_8168() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.my_content.yml'
+    ]
+  );
+}
+
+/**
+ * Add a new plugin to ckeditor.
+ */
+function ymca_master_update_8169() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1001: Add permission to edit own page manager pages only.
+ */
+function ymca_master_update_8170() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Make favicons configurable.
+ */
+function _ymca_master_update_8171() {
+  $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
+  $destDir = 'public://favicon/';
+  drupal_mkdir($destDir, 0666);
+  $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
+  $fileMap = [
+    'default' => [
+      'from' => 'favicon.ico',
+      'to' => 'default.ico'
+    ],
+    'camp' => [
+      'from' => 'favicon-alt.ico',
+      'to' => 'camp.ico'
+    ],
+    'location' => [
+      'from' => 'favicon-locations.ico',
+      'to' => 'location.ico'
+    ]
+  ];
+  $fileUsage = \Drupal::service('file.usage');
+  foreach ($fileMap as $key => $fileItem) {
+    $fileUri = $destDir . $fileItem['to'];
+    @file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    $file = EntityFile::create([
+      'uid' => 1,
+      'filename' => $fileItem['to'],
+      'uri' => $fileUri,
+      'status' => FILE_STATUS_PERMANENT,
+    ]);
+    $file->save();
+    $fid = $file->id();
+    $fileUsage->add($file, 'ymca_master', 'favicon', $fid);
+    $config->set('ymca_favicon_' . $key, [$fid]);
+  }
+  $config->save();
+}
+
+/**
+ * Install Groupex From Cache.
+ */
+function ymca_master_update_8172() {
+  \Drupal::service('module_installer')->install(['groupex_form_cache'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_response.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
+    ]
+  );
+}
+
+/**
+ * Updates format configs adding color buttons.
+ */
+function ymca_master_update_8173() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1105: Refactor ymca_google.
+ */
+function ymca_master_update_8174() {
+  $config = \Drupal::service('config.factory')->getEditable('ymca_google.settings');
+  $config->set('is_production', 0);
+  $config->save();
+}
+
+/**
+ * YMCA-1105: Add field for Google event.
+ */
+function ymca_master_update_8175() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_google_event.yml',
+    ]
+  );
+}
+
+/**
+ * Update locations schedule content field value.
+ */
+function ymca_master_update_8176() {
+  $renderer = \Drupal::service('renderer');
+  $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $location_nids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+  foreach ($location_nids as $nid) {
+    $mapping = $mapping_repository->findByLocationId($nid);
+    if (!$mapping || !$mapping->hasField('field_location_personify_brcode') ||
+      !$brcode = $mapping->field_location_personify_brcode->getValue()[0]['value']
+    ) {
+      \Drupal::logger('ymca_master')
+        ->notice('Location with nid @nid has not been updated because it doesn\'t have associated Personify branch id', [
+          '@nid' => $nid,
+        ]);
+      continue;
+    }
+
+    $build = [
+      '#type' => 'inline_template',
+      '#template' => '{% include "@ymca_groupex/groupex-individual-location-links.html.twig" %}',
+      '#context' => ['branch_id' => $brcode],
+    ];
+
+    $node = $node_storage->load($nid);
+    $node->set('field_schedule_content', [
+      'value' => (string) $renderer->renderRoot($build),
+      'format' => 'full_html'
+    ]);
+    $node->save();
   }
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Cache\GenericCacheBackendUnitTestBase.
- */
-
 namespace Drupal\system\Tests\Cache;
 
 use Drupal\Core\Cache\Cache;
@@ -94,7 +89,7 @@ abstract class GenericCacheBackendUnitTestBase extends KernelTestBase {
    * @return \Drupal\Core\Cache\CacheBackendInterface
    *   Cache backend to test.
    */
-  protected function getCacheBackend($bin = null) {
+  protected function getCacheBackend($bin = NULL) {
     if (!isset($bin)) {
       $bin = $this->getTestBin();
     }

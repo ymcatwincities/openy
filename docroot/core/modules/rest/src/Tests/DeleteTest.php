@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\Tests\DeleteTest.
- */
-
 namespace Drupal\rest\Tests;
 
 use Drupal\Core\Url;
@@ -77,4 +72,5 @@ class DeleteTest extends RESTTestBase {
     $this->assertEqual($account->id(), $user->id(), 'User still exists in the database.');
     $this->assertResponse(405);
   }
+
 }

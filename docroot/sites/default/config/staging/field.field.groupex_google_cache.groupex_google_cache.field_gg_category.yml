@@ -1,0 +1,20 @@
+uuid: 62d01f88-4605-41da-9880-ab6c970e35ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_category
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_category
+field_name: field_gg_category
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

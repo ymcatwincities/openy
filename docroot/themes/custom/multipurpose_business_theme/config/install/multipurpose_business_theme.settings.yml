@@ -1,0 +1,56 @@
+# Default settings are not located here. Theme settings in general are handled
+# strictly by this base theme via the @ThemeSetting annotation discovery
+# process. This is to help sub-theme's inherit its settings properly and
+# determine when a setting should be saved to config as "overridden".
+#
+# @see \Drupal\bootstrap\Plugin\SettingBase
+# @see \Drupal\bootstrap\Plugin\SettingInterface
+# @see \Drupal\bootstrap\Plugin\SettingManager
+# @see \Drupal\bootstrap\Plugin\Form\SystemThemeSettings
+
+# Default features.
+features:
+   comment_user_picture: true
+   comment_user_verification: true
+   favicon: true
+   logo: true
+   name: true
+   node_user_picture: true
+   slogan: true
+facebook_url: 'https://www.facebook.com/zymphonies'
+twitter_url: 'https://twitter.com/zymphonies'
+google_plus_url: 'https://plus.google.com/+ZymphoniesTechnologies'
+linkedin_url: 'http://www.linkedin.com/company/zymphonies'
+pinterest_url: 'https://www.pinterest.com/zymphonies/'
+rss_url: 'rss.xml'
+show_social_icon: 1
+show_credit_link: 1
+slideshow_display: 1
+
+#Slider Default Values
+no_of_slides: 5
+
+slide_title_1: 'Drupal 8 Theme'
+slide_description_1: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since' 
+slide_url_1: '/about'
+slide_image_path_1: '/images/parallax-slider/slide_one.png'
+
+slide_title_2: 'About Drupal 8 Theme'
+slide_description_2: 'long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution' 
+slide_url_2: '/about'
+slide_image_path_2: '/images/parallax-slider/slide_two.png'
+
+slide_title_3: 'Drupal Design'
+slide_description_3: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since' 
+slide_url_3: '/about'
+slide_image_path_3: '/images/parallax-slider/slide_three.png'
+
+slide_title_4: 'Drupal Development'
+slide_description_4: 'long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution' 
+slide_url_4: '/about'
+slide_image_path_4: '/images/parallax-slider/slide-four.png'
+
+slide_title_5: 'Drupal 7 to 8 Migration'
+slide_description_5: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since' 
+slide_url_5: '/about'
+slide_image_path_5: '/images/parallax-slider/slide_five.png'

@@ -10,6 +10,8 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 /**
  * Class DrupalDataCollector
@@ -43,7 +45,21 @@ class DrupalDataCollector extends DataCollector implements DrupalDataCollectorIn
   public function collect(Request $request, Response $response, \Exception $exception = NULL) {
     $this->data['version'] = Drupal::VERSION;
     $this->data['profile'] = drupal_get_profile();
-    $this->data['config_url'] = $this->urlGenerator->generateFromRoute('webprofiler.settings', [], ['query' => $this->redirectDestination->getAsArray()]);
+    $this->data['config_url'] = (new Drupal\Core\Url('webprofiler.settings', [], ['query' => $this->redirectDestination->getAsArray()]))->toString();
+
+    try {
+      $process = new Process("git log -1 --pretty=format:'%H - %s (%ci)' --abbrev-commit");
+      $process->setTimeout(3600);
+      $process->mustRun();
+      $this->data['git_commit'] = $process->getOutput();
+
+      $process = new Process("git log -1 --pretty=format:'%h' --abbrev-commit");
+      $process->setTimeout(3600);
+      $process->mustRun();
+      $this->data['abbr_git_commit'] = $process->getOutput();
+    } catch (ProcessFailedException $e) {
+      $this->data['git_commit'] = $this->data['git_commit_abbr'] = NULL;
+    }
   }
 
   /**
@@ -65,6 +81,20 @@ class DrupalDataCollector extends DataCollector implements DrupalDataCollectorIn
    */
   public function getConfigUrl() {
     return $this->data['config_url'];
+  }
+
+  /**
+   * @return string
+   */
+  public function getGitCommit() {
+    return $this->data['git_commit'];
+  }
+
+  /**
+   * @return string
+   */
+  public function getAbbrGitCommit() {
+    return $this->data['abbr_git_commit'];
   }
 
   /**

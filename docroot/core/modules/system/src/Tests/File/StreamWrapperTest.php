@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\StreamWrapperTest.
- */
-
 namespace Drupal\system\Tests\File;
 
 use Drupal\Core\DrupalKernel;
@@ -102,7 +97,6 @@ class StreamWrapperTest extends FileTestBase {
     // Test file_create_url()
     // TemporaryStream::getExternalUrl() uses Url::fromRoute(), which needs
     // route information to work.
-    $this->installSchema('system', 'router');
     $this->container->get('router.builder')->rebuild();
     $this->assertTrue(strpos(file_create_url('temporary://test.txt'), 'system/temporary?file=test.txt'), 'Temporary external URL correctly built.');
     $this->assertTrue(strpos(file_create_url('public://test.txt'), Settings::get('file_public_path') . '/test.txt'), 'Public external URL correctly built.');
@@ -113,7 +107,7 @@ class StreamWrapperTest extends FileTestBase {
    * Test some file handle functions.
    */
   function testFileFunctions() {
-    $filename = 'public://'. $this->randomMachineName();
+    $filename = 'public://' . $this->randomMachineName();
     file_put_contents($filename, str_repeat('d', 1000));
 
     // Open for rw and place pointer at beginning of file so select will return.
@@ -151,4 +145,5 @@ class StreamWrapperTest extends FileTestBase {
     $this->assertTrue(file_stream_wrapper_valid_scheme(file_uri_scheme('public://asdf')), 'Got a valid stream scheme from public://asdf');
     $this->assertFalse(file_stream_wrapper_valid_scheme(file_uri_scheme('foo://asdf')), 'Did not get a valid stream scheme from foo://asdf');
   }
+
 }

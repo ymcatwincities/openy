@@ -5,13 +5,16 @@
   connection: local
   gather_facts: yes
 
+  vars:
+    config_folder: 'vars'
+
   vars_files:
-    - devops/reinstall/vars/global_settings.yml
-    - devops/reinstall/vars/environments/global_env.yml
+    - devops/reinstall/{{ config_folder }}/global_settings.yml
+    - devops/reinstall/{{ config_folder }}/environments/global_env.yml
 
   tasks:
   - name: Include specific variables per environment
-    include_vars: "devops/reinstall/vars/environments/{{ pp_environment }}_env.yml"
+    include_vars: "devops/reinstall/{{ config_folder }}/environments/{{ pp_environment }}_env.yml"
     tags: [ 'settings', 'pre-settings', 'post-settings', 'modules-enable', 'drush-commands' ]
 
   - include: devops/reinstall/database_backup.yml
@@ -30,8 +33,13 @@
     tags: [ 'settings', 'pre-settings', 'sql-workflow' ]
 
   - include: devops/reinstall/sql_workflow.yml
-    when: workflow_type == "sql"
+    when: workflow_type == "sql" and not docker_sql
     tags: [ 'sql-workflow' ]
+
+  - include: devops/reinstall/docker_sql_workflow.yml
+    when: workflow_type == "sql" and docker_sql
+    tags: [ 'sql-workflow' ]
+
 
   - include: devops/reinstall/profile_workflow.yml
     when: workflow_type == "profile"

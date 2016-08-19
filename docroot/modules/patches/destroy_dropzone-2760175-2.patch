@@ -1,0 +1,14 @@
+diff --git a/js/dropzone.integration.js b/js/dropzone.integration.js
+index a8a4886..b0b718e 100644
+--- a/js/dropzone.integration.js
++++ b/js/dropzone.integration.js
+@@ -24,6 +24,9 @@
+         addRemoveLinks: true
+       };
+       var instanceConfig = drupalSettings.dropzonejs.instances[selector.attr('id')];
++      if (instanceConfig.instance !== undefined) {
++        instanceConfig.instance.destroy();
++      }
+       var dropzoneInstance = new Dropzone("#" + selector.attr("id"), $.extend({}, instanceConfig, config));
+ 
+       // Other modules might need instances.

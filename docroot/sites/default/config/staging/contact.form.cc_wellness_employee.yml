@@ -10,7 +10,7 @@ third_party_settings:
 id: cc_wellness_employee
 label: 'Contact Corporate Wellness'
 recipients:
-  - Jason.Busta@YMCAtwincities.org
+  - Jason.Busta@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''

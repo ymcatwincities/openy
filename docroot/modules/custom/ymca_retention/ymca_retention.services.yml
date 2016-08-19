@@ -1,0 +1,24 @@
+services:
+  ymca_retention.personify_api:
+    class: Drupal\ymca_retention\PersonifyApi
+  ymca_retention_event_subscriber:
+    class: Drupal\ymca_retention\EventSubscriber\YmcaRetentionSubscriber
+    tags:
+      - {name: event_subscriber}
+  ymca_retention.anonymous_cookie_storage:
+    class: Drupal\ymca_retention\AnonymousCookieStorage
+  cache.ymca_retention:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: cache_factory:get
+    arguments: [ymca_retention]
+  ymca_retention.leaderboard_manager:
+    class: Drupal\ymca_retention\LeaderboardManager
+    arguments: ['@config.factory', '@entity_type.manager', '@entity.query', '@cache.ymca_retention', '@ymca_mappings.location_repository']
+  ymca_retention.activity_manager:
+    class: Drupal\ymca_retention\ActivityManager
+    arguments: ['@config.factory', '@entity_type.manager', '@entity.query']
+  ymca_retention.regular_updater:
+    class: Drupal\ymca_retention\RegularUpdater
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']

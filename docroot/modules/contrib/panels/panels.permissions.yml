@@ -8,12 +8,6 @@ view pane admin links:
 administer pane access:
   title: 'Configure access settings on Panel panes'
   description: 'Access rules (often also called visibility rules) can be configured on a per-pane basis. This permission allows users to configure those settings.'
-use panels in place editing:
-  title: 'Use the Panels In-Place Editor'
-  description: 'Allows a user to utilize Panels'' In-Place Editor.'
-change layouts in place editing:
-  title: 'Change layouts with the Panels In-Place Editor'
-  description: 'Allows a user to change layouts with the IPE.'
 administer advanced pane settings:
   title: 'Configure advanced settings on Panel panes'
 administer panels layouts:

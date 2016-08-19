@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Entity\Plugin\DataType\Deriver\EntityDeriver.
- */
-
 namespace Drupal\Core\Entity\Plugin\DataType\Deriver;
 
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -87,7 +82,7 @@ class EntityDeriver implements ContainerDeriverInterface {
       ) + $base_plugin_definition;
 
       // Incorporate the bundles as entity:$entity_type:$bundle, if any.
-      foreach (\Drupal::entityManager()->getBundleInfo($entity_type_id) as $bundle => $bundle_info) {
+      foreach (entity_get_bundles($entity_type_id) as $bundle => $bundle_info) {
         if ($bundle !== $entity_type_id) {
           $this->derivatives[$entity_type_id . ':' . $bundle] = array(
             'label' => $bundle_info['label'],
@@ -98,4 +93,5 @@ class EntityDeriver implements ContainerDeriverInterface {
     }
     return $this->derivatives;
   }
+
 }

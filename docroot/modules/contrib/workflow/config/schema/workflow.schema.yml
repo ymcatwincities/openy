@@ -1,0 +1,16 @@
+# Schema for the configuration files of the Workflow module.
+
+### DONE D8-port: field.storage_settings.workflow
+field.storage_settings.workflow:
+  type: mapping
+  label: 'Workflow settings'
+  mapping:
+    workflow_type:
+      type: string
+      label: 'Workflow'
+
+
+field.field_settings.workflow:
+  type: mapping
+  label: 'Workflow settings'
+

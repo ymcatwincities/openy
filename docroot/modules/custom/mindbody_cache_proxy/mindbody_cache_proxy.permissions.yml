@@ -1,0 +1,19 @@
+add mindbody cache entities:
+  title: 'Create new MindBody Cache entities'
+
+administer mindbody cache entities:
+  title: 'Administer MindBody Cache entities'
+  description: 'Allow to access the administration form to configure MindBody Cache entities.'
+  restrict access: true
+
+delete mindbody cache entities:
+  title: 'Delete MindBody Cache entities'
+
+edit mindbody cache entities:
+  title: 'Edit MindBody Cache entities'
+
+view published mindbody cache entities:
+  title: 'View published MindBody Cache entities'
+
+view unpublished mindbody cache entities:
+  title: 'View unpublished MindBody Cache entities'

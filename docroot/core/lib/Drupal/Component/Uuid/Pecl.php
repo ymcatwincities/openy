@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\Uuid\Pecl.
- */
-
 namespace Drupal\Component\Uuid;
 
 /**
@@ -18,4 +13,5 @@ class Pecl implements UuidInterface {
   public function generate() {
     return uuid_create(UUID_TYPE_DEFAULT);
   }
+
 }

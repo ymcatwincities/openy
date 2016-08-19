@@ -10,7 +10,7 @@ third_party_settings:
 id: contact_a_program_director
 label: 'Contact a Program Director'
 recipients:
-  - stephanie.thomas@ymcatwincities.org
+  - stephanie.thomas@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''

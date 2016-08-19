@@ -1,0 +1,6 @@
+gardengnome_player.settings:
+  title: 'Gardengnome Player settings'
+  parent: system.admin_config_media
+  route_name: gardengnome_player.settings
+  description: 'Configure settings for Gardengnome Pano2vr and Object2vr media embeds.'
+  weight: 30

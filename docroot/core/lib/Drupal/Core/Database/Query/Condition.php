@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Database\Query\Condition.
- */
-
 namespace Drupal\Core\Database\Query;
 
 use Drupal\Core\Database\Connection;
@@ -356,4 +351,5 @@ class Condition implements ConditionInterface, \Countable {
   public function orConditionGroup() {
     return $this->conditionGroupFactory('OR');
   }
+
 }

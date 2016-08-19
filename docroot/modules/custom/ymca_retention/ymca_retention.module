@@ -1,0 +1,228 @@
+<?php
+
+/**
+ * @file
+ * Contains specific features related to the functionality provided by module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Database\Query\AlterableInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'views_exposed_form') {
+    return;
+  }
+
+  switch ($form['#id']) {
+    case 'views-exposed-form-ymca-members-ymca-retention-members':
+      $form['mail']['#attributes']['placeholder'] = t('Email');
+      $date = new \DateTime();
+      $date->setTime(0, 0, 0);
+      $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $date->add(new \DateInterval('P1D'));
+      $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      break;
+
+    case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
+      $form['mail']['#attributes']['placeholder'] = t('Email');
+      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_retention_theme($existing, $type, $theme, $path) {
+  return [
+    'ymca_retention_registration_form' => [
+      'render element' => 'form',
+    ],
+    'ymca_retention_login_form' => [
+      'render element' => 'form',
+    ],
+    'ymca_retention_navigation' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'ymca-retention-navigation',
+    ],
+    'ymca_retention_intro' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'ymca-retention-intro',
+    ],
+    'ymca_retention_track_activity' => [
+      'variables' => [],
+      'template' => 'ymca-retention-track-activity',
+    ],
+    'ymca_retention_leaderboard' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'description' => '',
+      ],
+      'template' => 'ymca-retention-leaderboard',
+    ],
+    'ymca_retention_member_info' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'member' => [],
+      ],
+      'template' => 'ymca-retention-member-info',
+    ],
+    'ymca_retention_slider' => [
+      'variables' => [
+        'slides' => [],
+      ],
+      'template' => 'ymca-retention-slider',
+    ],
+    'ymca_retention_registration_confirmation' => [
+      'variables' => [
+        'member' => [],
+      ],
+      'template' => 'ymca-retention-registration-confirmation',
+    ],
+    'ymca_retention_games_ended' => [
+      'variables' => [],
+      'template' => 'ymca-retention-games-ended',
+    ],
+    'ymca_retention_personal_result_none' => [
+      'variables' => [],
+      'template' => 'ymca-retention-personal-result-none',
+    ],
+    'ymca_retention_personal_result_gold' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-gold',
+    ],
+    'ymca_retention_personal_result_silver' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-silver',
+    ],
+    'ymca_retention_personal_result_bronze' => [
+      'variables' => [
+        'track' => '',
+      ],
+      'template' => 'ymca-retention-personal-result-bronze',
+    ],
+    'ymca_retention_winners' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'description' => '',
+      ],
+      'template' => 'ymca-retention-winners',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_cron().
+ */
+function ymca_retention_cron() {
+  /** @var \Drupal\ymca_retention\RegularUpdater $regular_updater */
+  $regular_updater = \Drupal::service('ymca_retention.regular_updater');
+
+  // Check if cron was run today.
+  if (!$regular_updater->isAllowed()) {
+    return;
+  }
+
+  $regular_updater->createQueue();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ *
+ * Remove member activities when deleting the member.
+ */
+function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
+  /** @var \Drupal\ymca_retention\ActivityManager $service */
+  $service = \Drupal::service('ymca_retention.activity_manager');
+  $member_activities = $service->getMemberActivities($entity->getId());
+
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_activity');
+  $storage->delete($member_activities);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
+  _ymca_retention_activity_track_update($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function ymca_retention_ymca_retention_member_activity_update(EntityInterface $entity) {
+  _ymca_retention_activity_track_update($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function ymca_retention_ymca_retention_member_activity_delete(EntityInterface $entity) {
+  _ymca_retention_activity_track_update($entity);
+}
+
+/**
+ * Helper function to update activity_track fields.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Created/updated/deleted activity.
+ */
+function _ymca_retention_activity_track_update(EntityInterface $entity) {
+  /** @var \Drupal\ymca_retention\Entity\Member $member */
+  $member = $entity->member->entity;
+  // If member entity is NULL - the member was deleted and his activities are
+  // being deleted now, so we don't need to recalculate the numbers.
+  if (!$member) {
+    return;
+  }
+
+  /** @var \Drupal\ymca_retention\ActivityManager $service */
+  $service = \Drupal::service('ymca_retention.activity_manager');
+  $activity_groups = $service->getActivityGroups();
+  $member_activities = $service->getMemberActivities($member->getId());
+
+  $tracks = [];
+  foreach ($activity_groups as $activity_group) {
+    $tracks[$activity_group['id']] = 0;
+  }
+  foreach ($member_activities as $member_activity) {
+    $activity_id = $member_activity->activity_type->target_id;
+
+    foreach ($activity_groups as $activity_group) {
+      foreach ($activity_group['activities'] as $activity) {
+        if ($activity['id'] === $activity_id) {
+          $tracks[$activity_group['id']]++;
+        }
+      }
+    }
+  }
+
+  // TODO: below is hard coding; we are assuming that the activity groups are
+  // in the specific order: swimming, fitness, groupx.
+  $member->set('activity_track_swimming', $tracks[$activity_groups[0]['id']]);
+  $member->set('activity_track_fitness', $tracks[$activity_groups[1]['id']]);
+  $member->set('activity_track_groupx', $tracks[$activity_groups[2]['id']]);
+  $member->save();
+}
+
+/**
+ * Implements hook_query_TAG_alter() for tag 'ymca_retention_visit_goal'.
+ */
+function ymca_retention_query_ymca_retention_visit_goal_alter(AlterableInterface $query) {
+  // Select only those who reached the visits goal.
+  $query->where('ymca_retention_member.total_visits >= ymca_retention_member.visit_goal');
+}

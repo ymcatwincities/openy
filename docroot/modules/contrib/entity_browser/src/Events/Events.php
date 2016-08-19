@@ -37,4 +37,12 @@ final class Events {
    */
   const REGISTER_JS_CALLBACKS = 'entity_browser.register_js_callbacks';
 
+  /**
+   * The ALTER_BROWSER_DISPLAY_DATA allows for entity browser display plugin data
+   * to be tweaked.
+   *
+   * @var string
+   */
+  const ALTER_BROWSER_DISPLAY_DATA = 'entity_browser.alter_browser_display_data';
+
 }

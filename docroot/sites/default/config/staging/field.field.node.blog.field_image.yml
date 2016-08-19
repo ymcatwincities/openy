@@ -12,7 +12,7 @@ field_name: field_image
 entity_type: node
 bundle: blog
 label: Image
-description: ''
+description: 'The recommended size is 185x140 pixels.'
 required: false
 translatable: true
 default_value: {  }

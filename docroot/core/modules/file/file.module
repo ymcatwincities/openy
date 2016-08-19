@@ -30,7 +30,7 @@ function file_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.file':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('The File module allows you to create fields that contain files. See the <a href=":field">Field module help</a> and the <a href=":field_ui">Field UI help</a> pages for general information on fields and how to create and manage them. For more information, see the <a href=":file_documentation">online documentation for the File module</a>.', array(':field' => \Drupal::url('help.page', array('name' => 'field')), ':field_ui' => (\Drupal::moduleHandler()->moduleExists('field_ui')) ? \Drupal::url('help.page', array('name' => 'field_ui')) :'#', ':file_documentation' => 'https://www.drupal.org/documentation/modules/file')) . '</p>';
+      $output .= '<p>' . t('The File module allows you to create fields that contain files. See the <a href=":field">Field module help</a> and the <a href=":field_ui">Field UI help</a> pages for general information on fields and how to create and manage them. For more information, see the <a href=":file_documentation">online documentation for the File module</a>.', array(':field' => \Drupal::url('help.page', array('name' => 'field')), ':field_ui' => (\Drupal::moduleHandler()->moduleExists('field_ui')) ? \Drupal::url('help.page', array('name' => 'field_ui')) : '#', ':file_documentation' => 'https://www.drupal.org/documentation/modules/file')) . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<dl>';
       $output .= '<dt>' . t('Managing and displaying file fields') . '</dt>';
@@ -185,8 +185,6 @@ function file_copy(FileInterface $source, $destination = NULL, $replace = FILE_E
 /**
  * Moves a file to a new location and update the file's database entry.
  *
- * Moving a file is performed by copying the file to the new location and then
- * deleting the original.
  * - Checks if $source and $destination are valid and readable/writable.
  * - Performs a file move if $source is not equal to $destination.
  * - If file already exists in $destination either the call will error out,
@@ -504,11 +502,11 @@ function file_save_data($data, $destination = NULL, $replace = FILE_EXISTS_RENAM
 
   if ($uri = file_unmanaged_save_data($data, $destination, $replace)) {
     // Create a file entity.
-    $file = entity_create('file', array(
+    $file = File::create([
       'uri' => $uri,
       'uid' => $user->id(),
       'status' => FILE_STATUS_PERMANENT,
-    ));
+    ]);
     // If we are replacing an existing file re-use its database record.
     // @todo Do not create a new entity in order to update it. See
     //   https://www.drupal.org/node/2241865.
@@ -709,11 +707,12 @@ function file_save_upload($form_field_name, $validators = array(), $destination 
   $user = \Drupal::currentUser();
   static $upload_cache;
 
-  $file_upload = \Drupal::request()->files->get("files[$form_field_name]", NULL, TRUE);
+  $all_files = \Drupal::request()->files->get('files', array());
   // Make sure there's an upload to process.
-  if (empty($file_upload)) {
+  if (empty($all_files[$form_field_name])) {
     return NULL;
   }
+  $file_upload = $all_files[$form_field_name];
 
   // Return cached objects without processing since the file will have
   // already been processed and the paths in $_FILES will be invalid.
@@ -772,7 +771,7 @@ function file_save_upload($form_field_name, $validators = array(), $destination 
       'filesize' => $file_info->getSize(),
     );
     $values['filemime'] = \Drupal::service('file.mime_type.guesser')->guess($values['filename']);
-    $file = entity_create('file', $values);
+    $file = File::create($values);
 
     $extensions = '';
     if (isset($validators['file_validate_extensions'])) {
@@ -1168,14 +1167,15 @@ function file_managed_file_submit($form, FormStateInterface $form_state) {
  */
 function file_managed_file_save_upload($element, FormStateInterface $form_state) {
   $upload_name = implode('_', $element['#parents']);
-  $file_upload = \Drupal::request()->files->get("files[$upload_name]", NULL, TRUE);
-  if (empty($file_upload)) {
+  $all_files = \Drupal::request()->files->get('files', array());
+  if (empty($all_files[$upload_name])) {
     return FALSE;
   }
+  $file_upload = $all_files[$upload_name];
 
   $destination = isset($element['#upload_location']) ? $element['#upload_location'] : NULL;
   if (isset($destination) && !file_prepare_directory($destination, FILE_CREATE_DIRECTORY)) {
-    \Drupal::logger('file')->notice('The upload directory %directory for the file field !name could not be created or is not accessible. A newly uploaded file could not be saved in this directory as a consequence, and the upload was canceled.', array('%directory' => $destination, '!name' => $element['#field_name']));
+    \Drupal::logger('file')->notice('The upload directory %directory for the file field %name could not be created or is not accessible. A newly uploaded file could not be saved in this directory as a consequence, and the upload was canceled.', array('%directory' => $destination, '%name' => $element['#field_name']));
     $form_state->setError($element, t('The file could not be uploaded.'));
     return FALSE;
   }
@@ -1266,7 +1266,7 @@ function template_preprocess_file_link(&$variables) {
     'file',
     // Add a specific class for each and every mime type.
     'file--mime-' . strtr($mime_type, array('/' => '-', '.' => '-')),
-    // Add a more general class for groups of well known mime types.
+    // Add a more general class for groups of well known MIME types.
     'file--' . file_icon_class($mime_type),
   );
 

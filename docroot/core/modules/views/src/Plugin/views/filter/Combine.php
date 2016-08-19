@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Plugin\views\filter\Combine.
- */
-
 namespace Drupal\views\Plugin\views\filter;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -21,7 +16,7 @@ class Combine extends StringFilter {
   /**
    * @var views_plugin_query_default
    */
-  var $query;
+  public $query;
 
   protected function defineOptions() {
     $options = parent::defineOptions();
@@ -85,7 +80,7 @@ class Combine extends StringFilter {
       $separated_fields = array();
       foreach ($fields as $key => $field) {
         $separated_fields[] = $field;
-        if ($key < $count-1) {
+        if ($key < $count - 1) {
           $separated_fields[] = "' '";
         }
       }
@@ -123,9 +118,10 @@ class Combine extends StringFilter {
     return $errors;
   }
 
-  // By default things like opEqual uses add_where, that doesn't support
-  // complex expressions, so override all operators.
-
+  /**
+   * By default things like opEqual uses add_where, that doesn't support
+   * complex expressions, so override opEqual (and all operators below).
+   */
   function opEqual($expression) {
     $placeholder = $this->placeholder();
     $operator = $this->operator();

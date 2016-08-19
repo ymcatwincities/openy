@@ -1,13 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Ajax\AjaxInGroupTest.
- */
-
 namespace Drupal\system\Tests\Ajax;
-
-use Drupal\Core\Ajax\DataCommand;
 
 /**
  * Tests that form elements in groups work correctly with AJAX.
@@ -35,4 +28,5 @@ class AjaxInGroupTest extends AjaxTestBase {
     $this->assertText('AJAX checkbox in a nested group');
     $this->assertText('Another AJAX checkbox in a nested group');
   }
+
 }

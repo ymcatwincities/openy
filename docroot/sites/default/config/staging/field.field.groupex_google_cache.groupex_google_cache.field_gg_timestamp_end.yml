@@ -1,0 +1,24 @@
+uuid: a6e01840-a500-4027-8911-ffc0f5809a84
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_timestamp_end
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
+field_name: field_gg_timestamp_end
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Timestamp End'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

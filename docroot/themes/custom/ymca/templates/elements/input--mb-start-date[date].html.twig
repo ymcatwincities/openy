@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div
+    class="input-group date"
+    data-date-autoclose="true"
+    data-date-today-highlight="true"
+    data-provide="datepicker"
+    data-date-format="m/dd/yy"
+    data-date-autoclose="true"
+    data-date-clear-btn="true"
+    >
+  <input {{ attributes }} >
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button" alt="Select start date">
+      <span class="glyphicon glyphicon-calendar"></span>
+    </button>
+  </span>
+</div>

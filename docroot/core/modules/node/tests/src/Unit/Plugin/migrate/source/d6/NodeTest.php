@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\node\Unit\Plugin\migrate\source\d6\NodeTest.
- */
-
 namespace Drupal\Tests\node\Unit\Plugin\migrate\source\d6;
 
 use Drupal\Tests\migrate\Unit\MigrateSqlSourceTestCase;
@@ -97,7 +92,10 @@ class NodeTest extends MigrateSqlSourceTestCase {
       'timestamp' => 1279308993,
       'format' => 1,
       'field_test_four' => array(
-        array('value' => '3.14159'),
+        array(
+          'value' => '3.14159',
+          'delta' => 0,
+        ),
       ),
     ),
   );

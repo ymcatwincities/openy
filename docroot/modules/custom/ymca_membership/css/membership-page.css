@@ -83,7 +83,7 @@ body { overflow-x: hidden; }
     font-size: 48px;
     margin-bottom: 27px;
 }
-.become-a-member > div h2 {
+.become-a-member .full-width-background-image h2 {
     display: none;
 }
 .become-a-member .p1 {
@@ -115,11 +115,11 @@ body { overflow-x: hidden; }
         margin-bottom: 0px;
         margin-top: 0px;
     }
-    .become-a-member > div {
+    .become-a-member .full-width-background-image {
         position: relative;
         margin-bottom: 20px;
     }
-    .become-a-member > div h2 {
+    .become-a-member .full-width-background-image h2 {
         font-size: 24px;
         display: block;
         position: absolute;
@@ -496,9 +496,12 @@ body { overflow-x: hidden; }
     line-height: 24px;
     /*font-family: Verdana, sans-serif;*/
 }
-.membership-bottom-area a {
+.membership-bottom-area a, .membership-bottom-area a:visited {
     color: #fff;
     text-decoration: underline;
+}
+.membership-bottom-area a:hover {
+    color: lightgrey;
 }
 .membership-bottom-area ul {
     margin: 15px 0 10px;
@@ -513,7 +516,7 @@ body { overflow-x: hidden; }
     background-color: #fff;
     padding: 80px 0 60px;
 }
-.ready-to-get-started > div h2 {
+.ready-to-get-started .full-width-background-image h2 {
     display: none;
 }
 .ready-to-get-started h2 {
@@ -535,14 +538,14 @@ body { overflow-x: hidden; }
     .ready-to-get-started {
         padding: 0 0 20px;
     }
-    .ready-to-get-started > div {
+    .ready-to-get-started .full-width-background-image {
         position: relative;
         margin-bottom: 20px;
     }
     .ready-to-get-started h2 {
         display: none;
     }
-    .ready-to-get-started > div h2 {
+    .ready-to-get-started .full-width-background-image h2 {
         font-size: 24px;
         display: block;
         position: absolute;

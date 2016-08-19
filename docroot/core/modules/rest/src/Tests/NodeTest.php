@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\Tests\NodeTest.
- */
-
 namespace Drupal\rest\Tests;
 
 use Drupal\Core\Url;
@@ -199,4 +194,5 @@ class NodeTest extends RESTTestBase {
     $this->assertResponse(400);
     $this->assertResponseBody('{"error":"A string must be provided as a bundle value."}');
   }
+
 }

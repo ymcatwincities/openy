@@ -2,7 +2,10 @@ purge_on_cache_clear: true
 storage: profiler.database_storage
 exclude: "/contextual/*\r\n/toolbar/*\r\n/edit/*\r\n*.js\r\n*.css"
 ide_link: "txmt://open?url=file://@file&line=@line"
+ide_link_remote: ""
+ide_link_local: ""
 active_toolbar_items:
+  devel: devel
   assets: assets
   blocks: blocks
   cache: cache
