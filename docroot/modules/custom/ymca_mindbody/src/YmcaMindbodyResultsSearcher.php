@@ -43,11 +43,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   const PROGRAMS_EXCLUDED = [4];
 
   /**
-   * Default timezone of incoming results.
-   */
-  const DEFAULT_TIMEZONE = 'America/Chicago';
-
-  /**
    * The Config Factory definition.
    *
    * @var ConfigFactory
@@ -235,12 +230,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
 
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
-          // Do not process the items which are in the past.
-          // Temporary solution, should be removed once Drupal default timezone is changed.
-          if ($this->getTimestampInTimezone('now') >= $this->getTimestampInTimezone($bookable_item->StartDateTime)) {
-            continue;
-          }
-
           // Here we create date range to iterate.
           $dateTime = new \DateTime();
           $dateTime->setTimezone($defaultTimeZone);
@@ -255,6 +244,20 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $range = new \DatePeriod($begin, $interval, $end);
 
           foreach ($range as $i => $item) {
+            // Do not process items in the past.
+            // Do not show time slots withing the hidden time.
+            /** @var \DateTime $item */
+            $date_time_now = new \DateTime('now', $defaultTimeZone);
+            $timestamp_now = $date_time_now->getTimestamp();
+            $timestamp_item = $item->getTimestamp();
+            $hide_time = (int) $this->settings->get('hide_time');
+
+            // Hide time are in minutes. Need seconds.
+            $hide_time = $hide_time > 0 ? $hide_time * 60 : $hide_time;
+            if ($timestamp_now + $hide_time >= $timestamp_item) {
+              continue;
+            }
+
             // Skip if time between $item start and time slot length less than training length.
             $remain = ($end->getTimestamp() - $item->getTimestamp()) / 60;
             if ($remain < $bookable_item->SessionType->DefaultTimeLength) {
@@ -407,14 +410,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
 
     return $options[$value];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getTimestampInTimezone($data) {
-    $date = new DrupalDateTime($data, static::DEFAULT_TIMEZONE);
-    return $date->getTimestamp();
   }
 
   /**
