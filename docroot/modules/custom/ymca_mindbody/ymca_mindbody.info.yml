@@ -1,0 +1,8 @@
+name: YMCA Mindbody
+type: module
+description: YMCA Mindbody integration.
+core: 8.x
+package: YMCA
+dependencies:
+  - mindbody
+  - mindbody_cache_proxy

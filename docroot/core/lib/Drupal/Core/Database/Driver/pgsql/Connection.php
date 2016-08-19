@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Database\Driver\pgsql\Connection.
- */
-
 namespace Drupal\Core\Database\Driver\pgsql;
 
 use Drupal\Core\Database\Database;
@@ -379,7 +374,7 @@ class Connection extends DatabaseConnection {
    *   A string representing the savepoint name. By default,
    *   "mimic_implicit_commit" is used.
    *
-   * @see Drupal\Core\Database\Connection::pushTransaction().
+   * @see Drupal\Core\Database\Connection::pushTransaction()
    */
   public function addSavepoint($savepoint_name = 'mimic_implicit_commit') {
     if ($this->inTransaction()) {
@@ -394,7 +389,7 @@ class Connection extends DatabaseConnection {
    *   A string representing the savepoint name. By default,
    *   "mimic_implicit_commit" is used.
    *
-   * @see Drupal\Core\Database\Connection::popTransaction().
+   * @see Drupal\Core\Database\Connection::popTransaction()
    */
   public function releaseSavepoint($savepoint_name = 'mimic_implicit_commit') {
     if (isset($this->transactionLayers[$savepoint_name])) {

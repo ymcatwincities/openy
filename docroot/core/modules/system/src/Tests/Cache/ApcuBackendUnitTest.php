@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Cache\ApcuBackendUnitTest.
- */
-
 namespace Drupal\system\Tests\Cache;
 
 use Drupal\Core\Cache\Apcu4Backend;
@@ -14,7 +9,7 @@ use Drupal\Core\Cache\ApcuBackend;
  * Tests the APCu cache backend.
  *
  * @group Cache
- * @requires extension apc
+ * @requires extension apcu
  */
 class ApcuBackendUnitTest extends GenericCacheBackendUnitTestBase {
 

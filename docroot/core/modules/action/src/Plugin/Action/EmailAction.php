@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\action\Plugin\Action\EmailAction.
- */
-
 namespace Drupal\action\Plugin\Action;
 
 use Drupal\Component\Render\PlainTextOutput;
@@ -60,7 +55,8 @@ class EmailAction extends ConfigurableActionBase implements ContainerFactoryPlug
    */
   protected $mailManager;
 
-  /** The language manager.
+  /**
+   * The language manager.
    *
    * @var \Drupal\Core\Language\LanguageManagerInterface
    */

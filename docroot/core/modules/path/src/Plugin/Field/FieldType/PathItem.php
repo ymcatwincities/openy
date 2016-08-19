@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\path\Plugin\Field\FieldType\PathItem.
- */
-
 namespace Drupal\path\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
@@ -93,6 +88,13 @@ class PathItem extends FieldItemBase {
     $random = new Random();
     $values['alias'] = str_replace(' ', '-', strtolower($random->sentences(3)));
     return $values;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function mainPropertyName() {
+    return 'alias';
   }
 
 }

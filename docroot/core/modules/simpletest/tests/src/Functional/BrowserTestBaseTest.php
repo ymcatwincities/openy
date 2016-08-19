@@ -1,13 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\simpletest\Functional\BrowserTestBaseTest.
- */
-
 namespace Drupal\Tests\simpletest\Functional;
 
-use Drupal\simpletest\BrowserTestBase;
+use Drupal\Core\Url;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests BrowserTestBase functionality.
@@ -36,6 +32,17 @@ class BrowserTestBaseTest extends BrowserTestBase {
 
     // Test page contains some text.
     $this->assertSession()->pageTextContains('Test page text.');
+
+    // Response includes cache tags that we can assert.
+    $this->assertSession()->responseHeaderEquals('X-Drupal-Cache-Tags', 'rendered');
+
+    // Test drupalGet with a url object.
+    $url = Url::fromRoute('test_page_test.render_title');
+    $this->drupalGet($url);
+    $this->assertSession()->statusCodeEquals(200);
+
+    // Test page contains some text.
+    $this->assertSession()->pageTextContains('Hello Drupal');
   }
 
   /**
@@ -56,6 +63,11 @@ class BrowserTestBaseTest extends BrowserTestBase {
     $config_factory = $this->container->get('config.factory');
     $value = $config_factory->get('form_test.object')->get('bananas');
     $this->assertSame('green', $value);
+  }
+
+  public function testError() {
+    $this->setExpectedException('\Exception', 'User notice: foo');
+    $this->drupalGet('test-error');
   }
 
 }

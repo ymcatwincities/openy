@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Render\Element\StatusMessages.
- */
-
 namespace Drupal\Core\Render\Element;
 
 /**
@@ -17,7 +12,7 @@ namespace Drupal\Core\Render\Element;
  * $build['status_messages'] = [
  *   '#type' => 'status_messages',
  * ];
- * @end
+ * @endcode
  *
  * @RenderElement("status_messages")
  */

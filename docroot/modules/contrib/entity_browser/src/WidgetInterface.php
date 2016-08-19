@@ -14,6 +14,10 @@ use Drupal\Core\Plugin\PluginFormInterface;
 
 /**
  * Defines the interface for entity browser widgets.
+ *
+ * Entity browser widgets present a form for actually selecting entities in an
+ * entity browser. Once entities have been selected, they are delivered upstream
+ * to the entity browser's selection display plugin.
  */
 interface WidgetInterface extends PluginInspectionInterface, ConfigurablePluginInterface, PluginFormInterface {
 
@@ -40,6 +44,17 @@ interface WidgetInterface extends PluginInspectionInterface, ConfigurablePluginI
    *   The widget label.
    */
   public function label();
+
+  /**
+   * Sets the widget's label.
+   *
+   * @param string $label
+   *   New plugin label.
+   *
+   * @return \Drupal\entity_browser\WidgetInterface
+   *   This object.
+   */
+  public function setLabel($label);
 
   /**
    * Returns the widget's weight.

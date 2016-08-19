@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Mail\MailInterface.
- */
-
 namespace Drupal\Core\Mail;
 
 /**
@@ -66,4 +61,5 @@ interface MailInterface {
    *   TRUE if the mail was successfully accepted for delivery, otherwise FALSE.
    */
    public function mail(array $message);
+
 }

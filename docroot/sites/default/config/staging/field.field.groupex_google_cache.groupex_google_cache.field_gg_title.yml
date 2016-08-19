@@ -1,0 +1,20 @@
+uuid: dfe54a5a-e0a1-45d7-ad96-2c463bb6a945
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_title
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_title
+field_name: field_gg_title
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

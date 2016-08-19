@@ -72,6 +72,8 @@ use Drupal\Core\Utility\UpdateException;
  * frequently called should be left in the main module file so that they are
  * always available.
  *
+ * See system_hook_info() for all hook groups defined by Drupal core.
+ *
  * @return
  *   An associative array whose keys are hook names and whose values are an
  *   associative array containing:
@@ -79,9 +81,7 @@ use Drupal\Core\Utility\UpdateException;
  *     system will determine whether a file with the name $module.$group.inc
  *     exists, and automatically load it when required.
  *
- * See system_hook_info() for all hook groups defined by Drupal core.
- *
- * @see hook_hook_info_alter().
+ * @see hook_hook_info_alter()
  */
 function hook_hook_info() {
   $hooks['token_info'] = array(
@@ -197,6 +197,12 @@ function hook_modules_installed($modules) {
  *
  * If the module implements hook_schema(), the database tables will
  * be created before this hook is fired.
+ *
+ * If the module provides a MODULE.routing.yml or alters routing information
+ * these changes will not be available when this hook is fired. If up-to-date
+ * router information is required, for example to use \Drupal\Core\Url, then
+ * (preferably) use hook_modules_installed() or rebuild the router in the
+ * hook_install() implementation.
  *
  * Implementations of this hook are by convention declared in the module's
  * .install file. The implementation can rely on the .module file being loaded.
@@ -887,6 +893,9 @@ function hook_updater_info_alter(&$updaters) {
  * Other severity levels have no effect on the installation.
  * Module dependencies do not belong to these installation requirements,
  * but should be defined in the module's .info.yml file.
+ *
+ * During installation (when $phase == 'install'), if you need to load a class
+ * from your module, you'll need to include the class file directly.
  *
  * The 'runtime' phase is not limited to pure installation requirements
  * but can also be used for more general status information like maintenance

@@ -1,0 +1,7 @@
+Changes since 8.x-1.x
+Issue #2351299 by johnv: Porting D7-version to D8 - numerous commits.
+
+Issue #2585093 by johnv: Fixed lost error message on Workflow UI - Transitions page.
+Issue #2587165 by johnv: Port Workflow to D8: dropped features, clone support.
+Issue #297898: Move "Workflow tab permissions" to permissions page'
+Issue #2587171: Make permission "schedule workflow transition" specific per Workflow type

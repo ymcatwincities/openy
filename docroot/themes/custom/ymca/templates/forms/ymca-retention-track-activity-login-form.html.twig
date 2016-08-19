@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<form{{ attributes }}>
+    <div class="col-xs-1 col-sm-1 col-sm-push-2">
+        <a href="#register-or-report" class="icon-back slide-controller"></a>
+    </div>
+    {% if form.membership_id is not defined %}
+        <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
+            {{ form.mail }}
+        </div>
+    {% endif %}
+    {% if form.membership_id is defined %}
+        <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
+            {{ form.mail }}
+            {{ form.membership_id }}
+        </div>
+    {% endif %}
+    <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
+        {{ form.submit }}
+    </div>
+  {% if form.messages is defined %}
+    <div class="ysr-form-messages ysr-track-activity-login-form-messages col-xs-10 col-xs-push-2 col-sm-5 col-sm-push-3">
+      {{ form.messages }}
+    </div>
+  {% endif %}
+    {{ form|without('mail', 'membership_id', 'submit', 'messages') }}
+</form>

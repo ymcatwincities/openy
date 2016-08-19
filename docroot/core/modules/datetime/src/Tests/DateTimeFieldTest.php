@@ -1,16 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\datetime\Tests\DateTimeFieldTest.
- */
-
 namespace Drupal\datetime\Tests;
 
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\Node;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -77,18 +75,18 @@ class DateTimeFieldTest extends WebTestBase {
 
     // Create a field with settings to validate.
     $field_name = Unicode::strtolower($this->randomMachineName());
-    $this->fieldStorage = entity_create('field_storage_config', array(
+    $this->fieldStorage = FieldStorageConfig::create(array(
       'field_name' => $field_name,
       'entity_type' => 'entity_test',
       'type' => 'datetime',
       'settings' => array('datetime_type' => 'date'),
     ));
     $this->fieldStorage->save();
-    $this->field = entity_create('field_config', array(
+    $this->field = FieldConfig::create([
       'field_storage' => $this->fieldStorage,
       'bundle' => 'entity_test',
       'required' => TRUE,
-    ));
+    ]);
     $this->field->save();
 
     entity_get_form_display($this->field->getTargetEntityTypeId(), $this->field->getTargetBundle(), 'default')
@@ -164,8 +162,9 @@ class DateTimeFieldTest extends WebTestBase {
           case 'format_type':
             // Verify that a date is displayed.
             $expected = format_date($date->getTimestamp(), $new_value);
+            $expected_iso = format_date($date->getTimestamp(), 'custom', 'Y-m-d\TH:i:s\Z', 'UTC');
             $this->renderTestEntity($id);
-            $this->assertText($expected, SafeMarkup::format('Formatted date field using %value format displayed as %expected.', array('%value' => $new_value, '%expected' => $expected)));
+            $this->assertFieldByXPath('//time[@datetime="' . $expected_iso . '"]', $expected, SafeMarkup::format('Formatted date field using %value format displayed as %expected with %expected_iso attribute.', array('%value' => $new_value, '%expected' => $expected, '%expected_iso' => $expected_iso)));
             break;
         }
       }
@@ -293,8 +292,9 @@ class DateTimeFieldTest extends WebTestBase {
           case 'format_type':
             // Verify that a date is displayed.
             $expected = format_date($date->getTimestamp(), $new_value);
+            $expected_iso = format_date($date->getTimestamp(), 'custom', 'Y-m-d\TH:i:s\Z', 'UTC');
             $this->renderTestEntity($id);
-            $this->assertText($expected, SafeMarkup::format('Formatted date field using %value format displayed as %expected.', array('%value' => $new_value, '%expected' => $expected)));
+            $this->assertFieldByXPath('//time[@datetime="' . $expected_iso . '"]', $expected, SafeMarkup::format('Formatted date field using %value format displayed as %expected with %expected_iso attribute.', array('%value' => $new_value, '%expected' => $expected, '%expected_iso' => $expected_iso)));
             break;
         }
       }
@@ -446,17 +446,23 @@ class DateTimeFieldTest extends WebTestBase {
 
     $this->assertFieldByXPath("//*[@id=\"edit-$field_name-0-value-year\"]", NULL, 'Year element found.');
     $this->assertOptionSelected("edit-$field_name-0-value-year", '', 'No year selected.');
+    $this->assertOptionByText("edit-$field_name-0-value-year", t('Year'));
     $this->assertFieldByXPath("//*[@id=\"edit-$field_name-0-value-month\"]", NULL, 'Month element found.');
     $this->assertOptionSelected("edit-$field_name-0-value-month", '', 'No month selected.');
+    $this->assertOptionByText("edit-$field_name-0-value-month", t('Month'));
     $this->assertFieldByXPath("//*[@id=\"edit-$field_name-0-value-day\"]", NULL, 'Day element found.');
     $this->assertOptionSelected("edit-$field_name-0-value-day", '', 'No day selected.');
+    $this->assertOptionByText("edit-$field_name-0-value-day", t('Day'));
     $this->assertFieldByXPath("//*[@id=\"edit-$field_name-0-value-hour\"]", NULL, 'Hour element found.');
     $this->assertOptionSelected("edit-$field_name-0-value-hour", '', 'No hour selected.');
+    $this->assertOptionByText("edit-$field_name-0-value-hour", t('Hour'));
     $this->assertFieldByXPath("//*[@id=\"edit-$field_name-0-value-minute\"]", NULL, 'Minute element found.');
     $this->assertOptionSelected("edit-$field_name-0-value-minute", '', 'No minute selected.');
+    $this->assertOptionByText("edit-$field_name-0-value-minute", t('Minute'));
     $this->assertNoFieldByXPath("//*[@id=\"edit-$field_name-0-value-second\"]", NULL, 'Second element not found.');
     $this->assertFieldByXPath("//*[@id=\"edit-$field_name-0-value-ampm\"]", NULL, 'AMPM element found.');
     $this->assertOptionSelected("edit-$field_name-0-value-ampm", '', 'No ampm selected.');
+    $this->assertOptionByText("edit-$field_name-0-value-ampm", t('AM/PM'));
 
     // Submit a valid date and ensure it is accepted.
     $date_value = array('year' => 2012, 'month' => 12, 'day' => 31, 'hour' => 5, 'minute' => 15);
@@ -624,7 +630,7 @@ class DateTimeFieldTest extends WebTestBase {
 
     // Create a field storage with settings to validate.
     $field_name = Unicode::strtolower($this->randomMachineName());
-    $field_storage = entity_create('field_storage_config', array(
+    $field_storage = FieldStorageConfig::create(array(
       'field_name' => $field_name,
       'entity_type' => 'node',
       'type' => 'datetime',
@@ -632,10 +638,10 @@ class DateTimeFieldTest extends WebTestBase {
     ));
     $field_storage->save();
 
-    $field = entity_create('field_config', array(
+    $field = FieldConfig::create([
       'field_storage' => $field_storage,
       'bundle' => 'date_content',
-    ));
+    ]);
     $field->save();
 
     // Set now as default_value.
@@ -657,7 +663,7 @@ class DateTimeFieldTest extends WebTestBase {
     \Drupal::entityManager()->clearCachedFieldDefinitions();
 
     // Create a new node to check that datetime field default value is today.
-    $new_node = entity_create('node', array('type' => 'date_content'));
+    $new_node = Node::create(['type' => 'date_content']);
     $expected_date = new DrupalDateTime('now', DATETIME_STORAGE_TIMEZONE);
     $this->assertEqual($new_node->get($field_name)->offsetGet(0)->value, $expected_date->format(DATETIME_DATE_STORAGE_FORMAT));
 
@@ -690,7 +696,7 @@ class DateTimeFieldTest extends WebTestBase {
     \Drupal::entityManager()->clearCachedFieldDefinitions();
 
     // Create a new node to check that datetime field default value is +90 days.
-    $new_node = entity_create('node', array('type' => 'date_content'));
+    $new_node = Node::create(['type' => 'date_content']);
     $expected_date = new DrupalDateTime('+90 days', DATETIME_STORAGE_TIMEZONE);
     $this->assertEqual($new_node->get($field_name)->offsetGet(0)->value, $expected_date->format(DATETIME_DATE_STORAGE_FORMAT));
 
@@ -713,7 +719,7 @@ class DateTimeFieldTest extends WebTestBase {
     \Drupal::entityManager()->clearCachedFieldDefinitions();
 
     // Create a new node to check that datetime field default value is not set.
-    $new_node = entity_create('node', array('type' => 'date_content'));
+    $new_node = Node::create(['type' => 'date_content']);
     $this->assertNull($new_node->get($field_name)->value, 'Default value is not set');
   }
 
@@ -799,6 +805,48 @@ class DateTimeFieldTest extends WebTestBase {
     );
     $this->drupalPostForm(NULL, $edit, t('Save'));
     $this->assertText('date is invalid', format_string('Invalid second value %time has been caught.', array('%time' => $time_value)));
+  }
+
+  /**
+   * Tests that 'Date' field storage setting form is disabled if field has data.
+   */
+  public function testDateStorageSettings() {
+    // Create a test content type.
+    $this->drupalCreateContentType(['type' => 'date_content']);
+
+    // Create a field storage with settings to validate.
+    $field_name = Unicode::strtolower($this->randomMachineName());
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => 'node',
+      'type' => 'datetime',
+      'settings' => [
+        'datetime_type' => 'date',
+      ],
+    ]);
+    $field_storage->save();
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'field_name' => $field_name,
+      'bundle' => 'date_content',
+    ]);
+    $field->save();
+
+    entity_get_form_display('node', 'date_content', 'default')
+      ->setComponent($field_name, [
+        'type' => 'datetime_default',
+      ])
+      ->save();
+    $edit = [
+      'title[0][value]' => $this->randomString(),
+      'body[0][value]' => $this->randomString(),
+      $field_name . '[0][value][date]' => '2016-04-01',
+    ];
+    $this->drupalPostForm('node/add/date_content', $edit, t('Save'));
+    $this->drupalGet('admin/structure/types/manage/date_content/fields/node.date_content.' . $field_name . '/storage');
+    $result = $this->xpath("//*[@id='edit-settings-datetime-type' and contains(@disabled, 'disabled')]");
+    $this->assertEqual(count($result), 1, "Changing datetime setting is disabled.");
+    $this->assertText('There is data for this field in the database. The field settings can no longer be changed.');
   }
 
   /**

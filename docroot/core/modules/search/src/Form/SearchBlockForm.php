@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search\Form\SearchBlockForm.
- */
-
 namespace Drupal\search\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -120,4 +115,5 @@ class SearchBlockForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // This form submits to the search page, so processing happens there.
   }
+
 }

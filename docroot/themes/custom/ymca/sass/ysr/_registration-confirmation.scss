@@ -1,0 +1,192 @@
+$registration-confirmation-pink: #e49abd;
+
+.registration-confirmation {
+  @include rem(padding-bottom, 40px);
+  @include rem(padding-top, 30px);
+  background-image: url(../prototypes/ysr/img/confirmation-block-bg.jpg);
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+
+  @include breakpoint($mobile-landscape) {
+    @include rem(padding-bottom, 87px);
+    @include rem(padding-top, 63px);
+  }
+
+  .header {
+    @include rem(margin-bottom, 40px);
+    @include rem(padding-left, 15px);
+    @include rem(padding-right, 15px);
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    @include breakpoint($mobile-narrow-only) {
+      @include rem(margin-bottom, 20px);
+    }
+
+    @include breakpoint($mobile-landscape) {
+      display: inline-block;
+      @include rem(margin-bottom, 43px);
+    }
+
+    .person-icon {
+      @include rem(height, 45px);
+      @include rem(margin-right, 15px);
+      @include rem(margin-bottom, 20px);
+      @include rem(width, 45px);
+      background: url('../prototypes/ysr/img/person-pink.png') no-repeat center center;
+      background-size: contain;
+
+      @include breakpoint($mobile-landscape) {
+        @include rem(height, 56px);
+        @include rem(margin-right, 15px);
+        @include rem(width, 56px);
+        position: absolute;
+      }
+    }
+
+    h3 {
+      @include cachet-bold();
+      @include rem(font-size, 25px);
+      @include rem(line-height, 25px);
+      color: black;
+      letter-spacing: -0.35px;
+      margin: 0;
+      overflow: hidden;
+      padding: 0;
+      text-overflow: ellipsis;
+
+      @include breakpoint($mobile-narrow-only) {
+        @include rem(font-size, 20px);
+      }
+
+      @include breakpoint($mobile-landscape) {
+        @include rem(font-size, 30px);
+        @include rem(line-height, 35px);
+        @include rem(margin, 4px 0 0 0);
+        @include rem(padding-left, 71px);
+      }
+    }
+
+    p {
+      @include cachet();
+      @include rem(line-height, 20px);
+      @include rem(padding-top, 7px);
+      color: $registration-confirmation-pink;
+      letter-spacing: -0.35px;
+      margin: 0;
+      padding: 0;
+
+      @include breakpoint($mobile-landscape) {
+        @include rem(font-size, 17px);
+        @include rem(padding-left, 71px);
+      }
+    }
+  }
+
+  .complete-message {
+    @include rem(font-size, 15px);
+    @include rem(line-height, 20px);
+    @include rem(margin, 12px auto 18px);
+    @include rem(max-width, 505px);
+    @include rem(padding-left, 15px);
+    @include rem(padding-right, 15px);
+    color: $black;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-align: left;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 15px);
+      @include rem(line-height, 20px);
+      @include rem(margin-bottom, 10px);
+      @include rem(margin-top, 12px);
+    }
+  }
+  ul.complete-message-items {
+    @include cachet();
+    @include rem(font-size, 18px);
+    @include rem(line-height, 18px);
+    @include rem(margin, 12px auto 50px);
+    @include rem(max-width, 420px);
+    color: $grey4;
+    text-align: left;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+      @include rem(line-height, 20px);
+      @include rem(margin-bottom, 50px);
+      @include rem(margin-top, 12px);
+      letter-spacing: -0.55px;
+    }
+
+    li {
+      @include rem(padding, 5px 0);
+    }
+  }
+
+  .goal {
+    @include rem(font-size, 15px);
+    @include rem(height, 68px);
+    @include rem(line-height, 20px);
+    @include rem(margin-top, 40px);
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 53px);
+    }
+
+    a {
+      @include cachet-bold();
+      @include rem(border-radius, 34px);
+      @include rem(padding, 22px 127px 22px 36px);
+      @include transition(border-color 0.3s);
+      background-color: $white;
+      border: 1px solid $grey2;
+      color: $purple-light;
+      display: block;
+      letter-spacing: -0.3px;
+      position: relative;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      @include breakpoint($mobile-bp-only) {
+        @include rem(padding, 22px 87px 22px 36px);
+      }
+
+      &:after {
+        @include rem(background-size, 14px 11.5px);
+        @include rem(border-radius, 25px);
+        @include rem(height, 50px);
+        @include rem(line-height, 0px);
+        @include rem(right, 7px);
+        @include rem(top, 7px);
+        @include rem(width, 50px);
+        @include rem(padding, 23px 0);
+        @include transition(opacity 0.3s);
+        border: 2px solid $pink;
+        content: '';
+        background-image: url(../prototypes/ysr/img/arrow.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        position: absolute;
+      }
+
+      &:hover {
+        border-color: rgba($purple-light, 0.2);
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &--value {
+      color: $grey7;
+    }
+  }
+}

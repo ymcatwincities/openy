@@ -7,15 +7,32 @@
  * - header: Block header.
  * - content: Block content.
  * - image: Image.
- * - link: Link.
+ * - link: Wrapper link url.
+ * - link_text: Wrapper link text.
  *
  * @ingroup themeable
  */
 #}
-<div class="promo-block">
-  <a href="{{ link }}">
-    {{ image }}
-    <h3>{{ header }}</h3>
-    <div class="content">{{ content }}</div>
-  </a>
+
+<div class="richtext">
+  {% if link %}
+    <div class="img-crop img-crop-horizontal">{{ image }}</div>
+    <h2>{{ header }}</h2>
+    <div class="promo-text">{{ content }}</div>
+    <a href="{{ link }}">{{ link_text }}</a>
+  {% else %}
+    <div class="text-promo">
+      {{ _self.block_content(image, header, content) }}
+    </div>
+  {% endif %}
 </div>
+
+{% macro block_content(image, header, content) %}
+  {% if image.0 %}
+    <div class="img-crop img-crop-horizontal">
+      {{ image }}
+    </div>
+  {% endif %}
+  <h3>{{ header }}</h3>
+  {{ content }}
+{% endmacro %}

@@ -20,36 +20,37 @@ default_value:
     option_select: 0
     option_name: 'Camp du Nord'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
   -
     option_select: 0
     option_name: 'Camp Icaghowan'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
   -
     option_select: 0
     option_name: 'Camp Menogyn'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
   -
     option_select: 0
     option_name: 'Camp St. Croix'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
   -
     option_select: 0
     option_name: 'Camp Warren'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
   -
     option_select: 0
     option_name: 'Camp Widjiwagan'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
   -
+    option_select: 0
     option_name: 'Camp Ihduhapi'
     option_reference: null
-    option_emails: missy.huppert@ymcatwincities.org
+    option_emails: missy.huppert@ymcamn.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

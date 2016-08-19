@@ -1,0 +1,19 @@
+add groupex google cache entities:
+  title: 'Create new Groupex Google Cache entities'
+
+administer groupex google cache entities:
+  title: 'Administer Groupex Google Cache entities'
+  description: 'Allow to access the administration form to configure Groupex Google Cache entities.'
+  restrict access: true
+
+delete groupex google cache entities:
+  title: 'Delete Groupex Google Cache entities'
+
+edit groupex google cache entities:
+  title: 'Edit Groupex Google Cache entities'
+
+view published groupex google cache entities:
+  title: 'View published Groupex Google Cache entities'
+
+view unpublished groupex google cache entities:
+  title: 'View unpublished Groupex Google Cache entities'

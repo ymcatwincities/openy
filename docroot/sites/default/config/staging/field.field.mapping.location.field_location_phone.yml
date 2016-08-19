@@ -1,0 +1,19 @@
+uuid: ea88c062-7bb9-434f-a6db-93fbf79e4214
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_phone
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_phone
+field_name: field_location_phone
+entity_type: mapping
+bundle: location
+label: 'Location Phone'
+description: 'Example: 763-230-9622'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

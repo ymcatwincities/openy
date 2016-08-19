@@ -1,0 +1,18 @@
+uuid: b204594e-a953-488d-8404-4bb58ae38578
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_unpublished_draft
+label: null
+module: null
+from_sid: workflow_unpublished
+to_sid: workflow_draft
+roles:
+  administrator: administrator
+  editor: editor
+  contributor: contributor
+  intern: intern
+  workflow_author: 0
+  anonymous: 0
+  authenticated: 0
+  location_editor: 0

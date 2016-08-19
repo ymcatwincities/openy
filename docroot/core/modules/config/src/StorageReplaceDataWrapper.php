@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\config\StorageReplaceDataWrapper.
- */
-
 namespace Drupal\config;
 
 use Drupal\Core\Config\StorageInterface;
@@ -201,4 +196,5 @@ class StorageReplaceDataWrapper implements StorageInterface {
     $this->replacementData[$this->collection][$name] = $data;
     return $this;
   }
+
 }

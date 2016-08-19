@@ -14,12 +14,11 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
-    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
-    - file
     - text
     - user
 id: node.location.groupex
@@ -30,12 +29,6 @@ content:
   field_schedule_content:
     type: text_default
     weight: 0
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-  field_schedule_documents:
-    type: file_default
-    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
@@ -50,6 +43,7 @@ hidden:
   field_membership_block: true
   field_phone: true
   field_promo_slideshow: true
+  field_schedule_block: true
   field_working_hours: true
   langcode: true
   links: true

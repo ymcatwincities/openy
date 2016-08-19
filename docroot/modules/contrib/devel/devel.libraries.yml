@@ -1,7 +1,3 @@
-krumo_path:
-  version: VERSION
-  js:
-    js/devel_krumo_path.js: {}
 devel:
   version: 0
   css:

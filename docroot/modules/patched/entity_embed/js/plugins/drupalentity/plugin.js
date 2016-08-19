@@ -109,13 +109,13 @@
 
         // Fetch the rendered entity.
         init: function () {
+          /** @type {CKEDITOR.dom.element} */
           var element = this.element;
-          var $element = $(element.$);
           // Use the Ajax framework to fetch the HTML, so that we can retrieve
           // out-of-band assets (JS, CSS...).
           var entityEmbedPreview = new Drupal.ajax({
-            base: $element.attr('id'),
-            element: $element,
+            base: element.getId(),
+            element: element.$,
             url: Drupal.url('embed/preview/' + editor.config.drupal.format + '?' + $.param({
               value: element.getOuterHtml()
             })),

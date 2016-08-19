@@ -1,0 +1,4 @@
+ymca_workflow.node.preview:
+  route_name: ymca_workflow.preview
+  base_route: entity.node.canonical
+  title: 'Preview'

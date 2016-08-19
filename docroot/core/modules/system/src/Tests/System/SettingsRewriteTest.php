@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\System\SettingsRewriteTest.
- */
-
 namespace Drupal\system\Tests\System;
 
 use Drupal\Core\Site\Settings;
@@ -127,4 +122,5 @@ EXPECTED
     // Check that the result is just the php opening tag and the settings.
     $this->assertEqual(file_get_contents(\Drupal::root() . '/' . $filename), "<?php\n" . $test['expected'] . "\n");
   }
+
 }

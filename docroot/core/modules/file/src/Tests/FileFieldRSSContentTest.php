@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file\Tests\FileFieldRSSContentTest.
- */
-
 namespace Drupal\file\Tests;
 
 use Drupal\file\Entity\File;
@@ -69,4 +64,5 @@ class FileFieldRSSContentTest extends FileFieldTestBase {
     );
     $this->assertRaw($test_element, 'File field RSS enclosure is displayed when viewing the RSS feed.');
   }
+
 }

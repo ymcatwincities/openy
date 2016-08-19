@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Plugin\Condition\RequestPathTest.
- */
-
 namespace Drupal\system\Tests\Plugin\Condition;
 
 use Drupal\Core\Path\CurrentPathStack;
@@ -62,7 +57,7 @@ class RequestPathTest extends KernelTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->installSchema('system', array('sequences', 'url_alias'));
+    $this->installSchema('system', array('sequences'));
 
     $this->pluginManager = $this->container->get('plugin.manager.condition');
 
@@ -132,5 +127,15 @@ class RequestPathTest extends KernelTestBase {
 
     $this->assertFalse($condition->evaluate(), 'The system_path /my/pass/page4 fails for a missing path.');
 
+    // Test a path of '/'.
+    $this->aliasManager->addAlias('/', '/my/pass/page3');
+    $this->currentPath->setPath('/', $request);
+    $this->requestStack->pop();
+    $this->requestStack->push($request);
+
+    $this->assertTrue($condition->evaluate(), 'The system_path my/pass/page3 passes for wildcard paths.');
+    $this->assertEqual($condition->summary(), 'Return true on the following pages: /my/pass/*', 'The condition summary matches for a wildcard path');
+
   }
+
 }

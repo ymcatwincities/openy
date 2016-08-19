@@ -14,3 +14,4 @@ permissions:
   - 'access site-wide contact form'
   - 'search content'
   - 'access sitemap'
+  - 'create workflow workflow_transition'

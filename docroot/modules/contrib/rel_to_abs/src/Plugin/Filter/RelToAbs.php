@@ -1,14 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rel_to_abs\Plugin\Filter\RelToAbs.
- */
-
 namespace Drupal\rel_to_abs\Plugin\Filter;
 
+use Drupal\Core\Routing\UrlGeneratorInterface;
+use Drupal\Core\Url;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a filter to convert relative paths to absolute URLs.
@@ -19,59 +18,73 @@ use Drupal\filter\Plugin\FilterBase;
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
  * )
  */
-class RelToAbs extends FilterBase {
+class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * An Url generator.
+   *
+   * @var UrlGeneratorInterface $requestStack
+   */
+  protected $urlGenerator;
+
+  /**
+   * Constructs a \Drupal\editor\Plugin\Filter\EditorFileReference object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Routing\UrlGeneratorInterface $urlGenerator
+   *   An entity manager object.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, UrlGeneratorInterface $urlGenerator) {
+    $this->urlGenerator = $urlGenerator;
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  static public function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('url_generator')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
+    $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
+      $baseUrl = $this->urlGenerator->getContext()->getBaseUrl();
+      $relativeUrl = $rawUrl = $matches[2];
 
-    $base_url = \Drupal::url('<front>', array(), array(
-      'absolute' => TRUE,
-      'language' => \Drupal::getContainer()
-        ->get('language_manager')
-        ->getLanguage($langcode)
-    ));
-
-    $text = $this->absoluteUrl($text, $base_url);
-    return new FilterProcessResult($text);
-
-  }
-
-  /**
-   * Absolute url callback.
-   *
-   * @param string $txt
-   *   Text to be parsed.
-   * @param string $base_url
-   *   Base url of the site to prefix.
-   *
-   * @return string
-   *   Processed text.
-   */
-  public function absoluteUrl($txt, $base_url) {
-    $needles = array('href="', 'src="', 'background="');
-    $new_txt = '';
-    if (substr($base_url, -1) != '/') {
-      $base_url .= '/';
-    }
-    $new_base_url = $base_url;
-
-    foreach ($needles as $needle) {
-      while ($pos = strpos($txt, $needle)) {
-        $pos += strlen($needle);
-        if (substr($txt, $pos, 7) != 'http://' && substr($txt, $pos, 8) != 'https://' && substr($txt, $pos, 6) != 'ftp://' && substr($txt, $pos, 7) != 'mailto:' && substr($txt, $pos, 2) != '//' && substr($txt, $pos, 1) != '#') {
-          $new_txt .= substr($txt, 0, $pos) . $new_base_url;
-        }
-        else {
-          $new_txt .= substr($txt, 0, $pos);
-        }
-        $txt = substr($txt, $pos);
+      // CKEditor orceSimpleAmpersand bug fix.
+      $urlParts = explode('?', $relativeUrl);
+      if (count($urlParts) == 2) {
+        $urlParts[1] = str_replace('&amp;', '&', $urlParts[1]);
+        $relativeUrl = implode('?', $urlParts);
       }
-      $txt = $new_txt . $txt;
-      $new_txt = '';
-    }
-    return $txt;
+      if (!empty($baseUrl) && strpos($rawUrl, $baseUrl) === 0) {
+        $relativeUrl = '/' . substr($rawUrl, strlen($baseUrl));
+      }
+      $relativeUrl = preg_replace('/\/{2,}/', '/', $relativeUrl);
+      $query = parse_str(parse_url($relativeUrl, PHP_URL_QUERY));
+      try {
+        $url = Url::fromUserInput(urldecode($relativeUrl), ['query' => $query])->setAbsolute(true)->toString();
+      }
+      catch(\InvalidArgumentException $e) {
+        drupal_set_message($e->getMessage(), 'error');
+      }
+      return $matches[1] . '="' . $url . '"';
+    }, $text);
+
+    return new FilterProcessResult($resultText);
   }
 
 }

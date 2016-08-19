@@ -1,0 +1,24 @@
+<div class="registration-confirmation">
+    <div class="header">
+        <div class="person-icon"></div>
+        <h3>{{ "Hello"|t }}, {{ member.name }}!</h3>
+        <p>
+            {{ "Thanks for registering for the Y Games:"|t }}
+        </p>
+    </div>
+    <p class="complete-message">{{ "<strong>Check your email</strong> for confirmation and upcoming details — you should receive an email confirmation on the next business day."|t }}</p>
+    <p class="complete-message">{{ "Add <a href=\"mailto:mail@ymcamn.org\">mail@ymcamn.org</a> to your address book to ensure you receive all Y Games emails."|t }}</p>
+
+    <div class="goal">
+        <a href="{{ member.activity_url }}" class="self-reporting-link">
+            {{ "Your goal is"|t }}:
+                <span class="goal--value">
+                    {% trans %}
+                    {{ member.goal }} visit
+                    {% plural member.goal %}
+                    {{ member.goal }} visits
+                    {% endtrans %}
+                </span>
+        </a>
+    </div>
+</div>

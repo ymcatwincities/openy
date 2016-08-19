@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\node\Tests\Views\BulkFormAccessTest.
- */
-
 namespace Drupal\node\Tests\Views;
 
 use Drupal\Component\Utility\SafeMarkup;
@@ -174,4 +169,5 @@ class BulkFormAccessTest extends NodeTestBase {
     $own_node = Node::load($own_node->id());
     $this->assertNull($own_node, 'The own node is deleted.');
   }
+
 }

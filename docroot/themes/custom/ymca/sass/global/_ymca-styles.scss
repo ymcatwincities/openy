@@ -81,10 +81,17 @@ nav#block-footermenuright {
     padding: 40px 0 60px;
   }
 
-  section.node--type-article img {
-    float: left;
-    margin: 0 15px 15px 0;
+  section.node--type-article {
+    img {
+      float: left;
+      margin: 0 15px 15px 0;
+    }
+    .sidebar-promos img {
+      float: none;
+      margin: 0;
+    }
   }
+
 }
 
 .print-group-link {
@@ -343,4 +350,447 @@ p.legend {
 
 .alerts-wrapper .alert {
   margin-top: 20px;
+}
+
+.modal-cover {
+  position: fixed;
+  z-index: 1040;
+}
+
+#modal.annual-report-modal {
+
+  .modal-header {
+    background: #92288d;
+    border-radius: 0;
+    padding: 17px 50px 15px;
+
+    @media screen and (max-width: 767px) {
+      padding: 17px 50px 15px 10px;
+    }
+
+    #modal-title {
+      overflow: hidden;
+      line-height: 30px;
+
+      h2 {
+        font-size: 30px;
+        text-transform: uppercase;
+        font-weight: normal;
+        margin: 0;
+        line-height: 30px;
+      }
+      .modal-close {
+        background: none;
+        color: #fff;
+        font-family: "Cachet", Arial, sans-serif;
+        font-weight: bold;
+        right: 10px;
+        text-decoration: none;
+        top: 11px;
+      }
+    }
+  }
+  .modal-content {
+    border-radius: 0;
+    border: none;
+  }
+  @media screen and (max-width: 767px) {
+    .modal-dialog {
+      padding: 9px 28px 9px 9px;
+    }
+  }
+}
+
+.modal-annual-report {
+  padding: 40px 60px 80px;
+
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
+
+  p {
+    color: #777;
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 25px;
+  }
+
+  .blue_quote,
+  .purple_quote {
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 20px;
+    line-height: 28px;
+    padding: 60px 0 40px 23px;
+    margin-bottom: 40px;
+
+    .sign {
+      color: #a7a7a7;
+      font-style: italic;
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      p:first-child {
+        color: #424242;
+        margin-top: 30px;
+      }
+    }
+  }
+  .blue_quote {
+    background: url('../img/quote_blue.png') no-repeat 0 0;
+    color: #0889cd;
+  }
+  .purple_quote {
+    background: url('../img/quote_purple.png') no-repeat 0 0;
+    color: #92288d;
+  }
+  iframe {
+    margin: 40px 0;
+  }
+  .fullwidth {
+    margin: 0 -60px;
+    @media screen and (max-width: 767px) {
+      margin: 0 -10px;
+    }
+  }
+  th,
+  .heading-row td {
+    background: #0889cd;
+    color: #fff;
+  }
+  tr.total td {
+    font-weight: bold;
+  }
+  @media screen and (max-width: 767px) {
+    .table-responsive {
+      th:first-child {
+        white-space: normal;
+        width: 150px;
+      }
+      td:first-child {
+        white-space: normal;
+        width: 150px;
+      }
+    }
+  }
+}
+
+#block-subnavigationblock {
+  position: static;
+}
+
+.icon-training {
+  background-image: url("../img/training.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  vertical-align: middle;
+  height: 30px;
+  opacity: 0.4;
+  width: 30px;
+}
+
+
+body .ajax-progress-throbber {
+  padding: 2px 5px 2px 2px;
+  .throbber {
+    background: url(../img/ymca-throbber.gif) no-repeat 0px center;
+    background-size: cover;
+    padding: 2px 8px 2px;
+  }
+}
+
+// CKEditor template plugins.
+.green-3-col.container {
+  background: $green3;
+  position: relative;
+  margin: 50px -100px 0;
+  padding: 50px 100px;
+
+  &:before {
+    position: absolute;
+    top: 0px;
+    left: -60%;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    background-image: -webkit-linear-gradient($green4, $green3);
+    background-image: -moz-linear-gradient($green4, $green3);
+    background-image: -ms-linear-gradient($green4, $green3);
+    background-image: linear-gradient($green4, $green3);
+    content: '';
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    -ms-transform: skew(30deg);
+    transform: skew(30deg);
+  }
+
+  .row {
+    h3 {
+      color: $white;
+    }
+    h4 {
+      color: $green5;
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+    p {
+      color: $white;
+      font-size: 15px;
+    }
+    ul, ol {
+      font-size: 15px;
+      padding-left: 18px;
+      margin: 20px 0;
+      li {
+        color: $white;
+      }
+    }
+    .button a {
+      box-shadow: none;
+      background-color: $green1;
+      background-image: -webkit-linear-gradient($green1, $green6);
+      background-image: -moz-linear-gradient($green1, $green6);
+      background-image: -ms-linear-gradient($green1, $green6);
+      background-image: linear-gradient($green1, $green6);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .col-md-3 {
+      @media screen and (min-width: 992px) {
+        padding: 0;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      .col-sm-4 {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+.sports-promo.container {
+  background: url("../img/march/ymca_member_retention_hero.jpg") no-repeat center 0;
+  background-size: cover;
+  position: relative;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  margin: 50px -100px;
+  padding: 50px 100px;
+
+  .row {
+    h3 {
+      color: #fff;
+      font-size: 30px;
+      line-height: 40px;
+      text-shadow: 1px 1px 4px #000;
+      margin: 0 0 10px;
+    }
+
+    h4 {
+      color: #fff;
+      font-size: 18px;
+      margin: 0 0 20px;
+    }
+
+    p {
+      color: $grey11;
+      margin: 0 0 30px;
+    }
+
+    .sports-icon {
+      text-align: left;
+      color: $pink;
+    }
+
+    .description {
+      color: $pink;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  }
+  .col-xs-12 {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+body .ajax-progress-throbber {
+  padding: 2px 5px 2px 2px;
+  .throbber {
+    background: url(../img/ymca-throbber.gif) no-repeat 0px center;
+    background-size: cover;
+    padding: 2px 8px 2px;
+  }
+}
+
+.session_schedules {
+  background-color: $grey1;
+  margin: 0 -100px 50px;
+  padding: 90px 65px;
+  @media screen and (max-width: 767px) {
+    padding: 20px 0;
+    margin: 25px -15px;
+  }
+
+  .container .row h2 {
+    text-align: center;
+    color: $pink;
+    margin: 0 0 80px;
+    @media screen and (max-width: 767px) {
+      margin: 0 0 20px;
+    }
+  }
+
+  .row {
+    @media screen and (min-width: 768px) {
+      text-align: center;
+    }
+  }
+  .columns {
+    display: inline-block;
+    padding: 30px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 100%;
+    @media screen and (min-width: 768px) {
+      border-right: 1px solid $grey11;
+      max-width: 240px;
+      margin-bottom: 0;
+      text-align: left;
+      width: 19%;
+    }
+    &:nth-last-child(1) {
+      border: none;
+    }
+
+    h4 {
+      color: $grey4;
+      text-transform: uppercase;
+      font-size: 14px;
+      margin: 0 0 5px;
+    }
+    .date {
+      color: $grey7;
+      font-weight: bold;
+      margin: 0 0 20px;
+      p {
+        color: $grey7;
+        margin: 0;
+      }
+    }
+    .register-label {
+      color: $grey5;
+      p {
+        color: $grey5;
+        margin: 0;
+      }
+    }
+    .register-date {
+      color: $pink;
+      p {
+        color: $pink;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.clinics_schedule {
+  margin: 0 -100px;
+  padding: 80px 65px;
+  @media screen and (max-width: 767px) {
+    padding: 20px 0;
+    margin: 0 -15px;
+  }
+
+  .container .row h2 {
+    text-align: center;
+    color: $blue1;
+    margin: 0 0 15px;
+  }
+
+  .container .row h3 {
+    text-align: center;
+    text-transform: none;
+    color: $grey7;
+    font-size: 18px;
+    margin: 0 0 15px;
+  }
+
+  .container .row h4 {
+    text-align: center;
+    text-transform: uppercase;
+    color: $grey7;
+    font-size: 18px;
+    margin: 0 0 40px;
+  }
+
+  .description {
+    text-align: center;
+    margin: 0 auto 30px;
+    font-size: 15px;
+    max-width: 500px;
+    padding: 0 10px;
+  }
+
+  .row {
+    @media screen and (min-width: 768px) {
+      text-align: center;
+    }
+  }
+  .container .row .columns {
+    display: inline-block;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 40px;
+    width: 100%;
+    @media screen and (min-width: 768px) {
+      border-right: 1px solid $grey11;
+      margin-bottom: 0;
+      width: 33%;
+      max-width: 235px;
+    }
+    &:nth-last-child(1) {
+      border: none;
+    }
+
+    h5 {
+      color: $blue1;
+      font-size: 18px;
+      font-weight: normal;
+      margin: 0;
+    }
+    .date {
+      color: $pink;
+      font-size: 18px;
+      p {
+        color: $pink;
+        margin: 0;
+      }
+    }
+    .img-wrapper {
+      img {
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.nav-home {
+
+  .nav-level-1 {
+
+    > li {
+      background: none;
+    }
+  }
 }

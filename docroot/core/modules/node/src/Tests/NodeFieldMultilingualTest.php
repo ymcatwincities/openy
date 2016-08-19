@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\node\Tests\NodeFieldMultilingualTest.
- */
-
 namespace Drupal\node\Tests;
 
 use Drupal\field\Entity\FieldStorageConfig;
@@ -102,7 +97,7 @@ class NodeFieldMultilingualTest extends WebTestBase {
     $this->assertRaw($body_value, 'Body correctly displayed using English as requested language');
   }
 
-  /*
+  /**
    * Tests multilingual field display settings.
    */
   function testMultilingualDisplaySettings() {

@@ -21,6 +21,12 @@ webprofiler.config:
     ide_link:
       type: string
       label: 'IDE link'
+    ide_link_remote:
+      type: string
+      label: 'IDE link remote path'
+    ide_link_local:
+      type: string
+      label: 'IDE link local path'
     query_sort:
       type: string
       label: 'Sort query log'

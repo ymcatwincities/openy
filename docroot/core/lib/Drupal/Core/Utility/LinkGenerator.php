@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Utility\LinkGenerator.
- */
-
 namespace Drupal\Core\Utility;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\GeneratedLink;
@@ -146,6 +140,7 @@ class LinkGenerator implements LinkGeneratorInterface {
 
     // Allow other modules to modify the structure of the link.
     $this->moduleHandler->alter('link', $variables);
+    $url = $variables['url'];
 
     // Move attributes out of options since generateFromRoute() doesn't need
     // them. Include a placeholder for the href.
@@ -166,7 +161,7 @@ class LinkGenerator implements LinkGeneratorInterface {
       $attributes['href'] = $generated_url->getGeneratedUrl();
     }
 
-    if (!SafeMarkup::isSafe($variables['text'])) {
+    if (!($variables['text'] instanceof MarkupInterface)) {
       $variables['text'] = Html::escape($variables['text']);
     }
     $attributes = new Attribute($attributes);

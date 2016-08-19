@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\language\Unit\LanguageNegotiationUrlTest.
- */
-
 namespace Drupal\Tests\language\Unit {
 
 use Drupal\Core\Cache\Cache;
@@ -254,6 +249,7 @@ class LanguageNegotiationUrlTest extends UnitTestCase {
     );
     return $domain_configuration;
   }
+
 }
 
 }

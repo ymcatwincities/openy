@@ -10,13 +10,13 @@
 
 <!-- Optimize.ly -->
 <script>
-(function(projectId) { 
-    var protocol = ('https:' == document.location.protocol ? 
+(function(projectId) {
+    var protocol = ('https:' == document.location.protocol ?
     'https://' : 'http://');
     var scriptTag = document.createElement('script');
     scriptTag.type = 'text/javascript';
     scriptTag.async = true;
-    scriptTag.src = protocol + 'cdn.optimizely.com/js/' + 
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
     projectId + '.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(scriptTag, s);
@@ -30,7 +30,7 @@
     <div class="post-thumbnail col-sm-3">
       {{#if image.src}}/>
       {{/if}}
-      <img class="img-responsive" src="{{ image.src }}"
+      <img class="img-responsive" src="{{ image.src }}" />
     </div>
     --}}
     <div class="col-sm-12">

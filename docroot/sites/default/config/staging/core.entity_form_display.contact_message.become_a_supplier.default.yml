@@ -31,8 +31,8 @@ dependencies:
   module:
     - address
     - link
-    - telephone
     - webforms
+    - ymca_alters
 id: contact_message.become_a_supplier.default
 targetEntityType: contact_message
 bundle: become_a_supplier
@@ -53,6 +53,8 @@ content:
     weight: 22
     settings:
       placeholder: '(###)###-####'
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
     third_party_settings: {  }
     type: telephone_default
   field_ceo_first_name:
@@ -94,6 +96,8 @@ content:
     weight: 15
     settings:
       placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
     third_party_settings: {  }
   field_fein:
     weight: 24
@@ -145,6 +149,8 @@ content:
     weight: 14
     settings:
       placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
     third_party_settings: {  }
     type: telephone_default
   field_product_catalog:

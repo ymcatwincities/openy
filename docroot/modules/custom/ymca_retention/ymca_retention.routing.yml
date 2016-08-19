@@ -1,0 +1,97 @@
+# Route name can be used in several place (links, redirects, local actions etc.)
+entity.ymca_retention_member.canonical:
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the member entity
+    _entity_view: 'ymca_retention_member'
+    _title: 'YMCA Retention: Member List'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'ymca_retention_member.view'
+
+entity.ymca_retention_member.collection:
+  path: '/admin/config/ymca-entities/ymca-retention-member/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the member entity.
+    _entity_list: 'ymca_retention_member'
+    _title: 'YMCA Retention: Member List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view member entity'
+
+entity.ymca_retention_member.add:
+  path: '/admin/config/ymca-entities/ymca-retention-member/add'
+  defaults:
+  # Calls the form.add controller, defined in the member entity.
+    _entity_form: ymca_retention_member.add
+    _title: 'Add YMCA Member'
+  requirements:
+    _entity_create_access: 'ymca_retention_member'
+
+entity.ymca_retention_member.edit_form:
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the member entity.
+    _entity_form: ymca_retention_member.edit
+    _title: 'Edit YMCA Member'
+  requirements:
+    _entity_access: 'ymca_retention_member.edit'
+
+entity.ymca_retention_member.delete_form:
+  path: '/admin/config/ymca-entities/ymca-retention-member/{ymca_retention_member}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the member entity.
+    _entity_form: ymca_retention_member.delete
+    _title: 'Delete YMCA Member'
+  requirements:
+    _entity_access: 'ymca_retention_member.delete'
+
+ymca_retention.settings:
+  path: '/admin/config/system/ymca-retention'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsForm'
+    _title: 'YMCA Retention Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+ymca_retention.settings_branches:
+  path: '/admin/config/system/ymca-retention/branches'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsBranchesForm'
+    _title: 'YMCA Retention Branches'
+  requirements:
+    _permission: 'administer site configuration'
+
+ymca_retention.settings_cron:
+  path: '/admin/config/system/ymca-retention/cron'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsCronForm'
+    _title: 'YMCA Retention Cron'
+  requirements:
+    _permission: 'administer site configuration'
+
+ymca_retention.leaderboard_json:
+  path: '/ymca-retention/leaderboard/{branch_id}'
+  defaults:
+    _controller: \Drupal\ymca_retention\Controller\LeaderboardController::leaderboardJson
+    _title: 'YMCA Retention Leaderboard JSON'
+  requirements:
+    _permission: 'access content'
+    branch_id: ^[0-9]+
+
+ymca_retention.member_activities_json:
+  path: '/ymca-retention/member_activities'
+  defaults:
+    _controller: \Drupal\ymca_retention\Controller\ActivityController::memberActivitiesJson
+    _title: 'YMCA Retention Member Activities JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.ymca_winners.draw_winners:
+  path: '/admin/content/ymca-retention-winners/draw-winners'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
+    _title: 'Draw winners'
+  requirements:
+    _permission: 'administer site configuration'
+    _csrf_token: 'TRUE'

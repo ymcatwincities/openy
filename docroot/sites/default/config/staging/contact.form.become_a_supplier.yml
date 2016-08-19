@@ -10,8 +10,8 @@ third_party_settings:
 id: become_a_supplier
 label: 'Become a supplier'
 recipients:
-  - Heidi.murphy@ymcatwincities.org
-  - Deanna.esaw@ymcatwincities.org
+  - Heidi.murphy@ymcamn.org
+  - Deanna.esaw@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''

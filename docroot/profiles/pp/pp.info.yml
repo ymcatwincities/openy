@@ -81,6 +81,8 @@ dependencies:
   - ymca_personify
   - ymca_search_alter
   - ymca_master
+  - views_rest_feed
+  - ymca_retention
 themes:
   - bartik
   - seven

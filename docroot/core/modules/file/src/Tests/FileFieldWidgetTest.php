@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file\Tests\FileFieldWidgetTest.
- */
-
 namespace Drupal\file\Tests;
 
 use Drupal\comment\Entity\Comment;
@@ -196,7 +191,7 @@ class FileFieldWidgetTest extends FileFieldTestBase {
               $check_field_name = $field_name;
             }
 
-            $this->assertIdentical((string) $button['name'], $check_field_name . '_' . $key. '_remove_button');
+            $this->assertIdentical((string) $button['name'], $check_field_name . '_' . $key . '_remove_button');
           }
 
           // "Click" the remove button (emulating either a nojs or js submission).

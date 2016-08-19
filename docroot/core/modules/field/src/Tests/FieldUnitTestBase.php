@@ -1,19 +1,19 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\field\Tests\FieldUnitTestBase.
- */
-
 namespace Drupal\field\Tests;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\simpletest\KernelTestBase;
 
 /**
  * Parent class for Field API unit tests.
+ *
+ * @deprecated in Drupal 8.1.x, will be removed before Drupal 8.2.x. Use
+ *   \Drupal\Tests\field\Kernel\FieldKernelTestBase instead.
  */
 abstract class FieldUnitTestBase extends KernelTestBase {
 
@@ -50,7 +50,7 @@ abstract class FieldUnitTestBase extends KernelTestBase {
 
     $this->installEntitySchema('entity_test');
     $this->installEntitySchema('user');
-    $this->installSchema('system', ['router', 'sequences', 'key_value']);
+    $this->installSchema('system', ['sequences', 'key_value']);
 
     // Set default storage backend and configure the theme system.
     $this->installConfig(array('field', 'system'));
@@ -91,7 +91,7 @@ abstract class FieldUnitTestBase extends KernelTestBase {
     $field_definition = 'field_definition' . $suffix;
 
     $this->fieldTestData->$field_name = Unicode::strtolower($this->randomMachineName() . '_field_name' . $suffix);
-    $this->fieldTestData->$field_storage = entity_create('field_storage_config', array(
+    $this->fieldTestData->$field_storage = FieldStorageConfig::create(array(
       'field_name' => $this->fieldTestData->$field_name,
       'entity_type' => $entity_type,
       'type' => 'test_field',
@@ -108,7 +108,7 @@ abstract class FieldUnitTestBase extends KernelTestBase {
         'test_field_setting' => $this->randomMachineName(),
       ),
     );
-    $this->fieldTestData->$field = entity_create('field_config', $this->fieldTestData->$field_definition);
+    $this->fieldTestData->$field = FieldConfig::create($this->fieldTestData->$field_definition);
     $this->fieldTestData->$field->save();
 
     entity_get_form_display($entity_type, $bundle, 'default')
@@ -142,8 +142,6 @@ abstract class FieldUnitTestBase extends KernelTestBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to save.
-   *
-   * @return void
    */
   protected function entityValidateAndSave(EntityInterface $entity) {
     $violations = $entity->validate();
@@ -161,7 +159,7 @@ abstract class FieldUnitTestBase extends KernelTestBase {
    * @param $cardinality
    *   Number of values to generate.
    * @return
-   *  An array of random values, in the format expected for field values.
+   *   An array of random values, in the format expected for field values.
    */
   protected function _generateTestFieldValues($cardinality) {
     $values = array();

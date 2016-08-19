@@ -11,8 +11,7 @@
  * @ingroup themeable
  */
 #}
-{% set panel_classes = ['panel', 'panel-default', 'panel-subnav'] %}
-<div{{ attributes.addClass(panel_classes) }}>
+<div{{ attributes }}>
   {{ title_suffix }}
   {{ content }}
 </div>

@@ -1,0 +1,19 @@
+uuid: 2a3cdb73-b150-4470-b7a9-3c4eae9e4ccb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_name
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_name
+field_name: field_location_name
+entity_type: mapping
+bundle: location
+label: 'Location name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

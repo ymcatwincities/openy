@@ -7,7 +7,6 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\FieldDefinition;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -39,7 +38,7 @@ function path_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_form_BASE_FORM_ID_alter() for node_form().
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
  */
 function path_form_node_form_alter(&$form, FormStateInterface $form_state) {
   $node = $form_state->getFormObject()->getEntity();

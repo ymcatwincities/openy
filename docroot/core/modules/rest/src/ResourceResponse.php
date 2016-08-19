@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\ResourceResponse.
- */
-
 namespace Drupal\rest;
 
 use Drupal\Core\Cache\CacheableResponseInterface;
@@ -54,4 +49,5 @@ class ResourceResponse extends Response implements CacheableResponseInterface {
   public function getResponseData() {
     return $this->responseData;
   }
+
 }

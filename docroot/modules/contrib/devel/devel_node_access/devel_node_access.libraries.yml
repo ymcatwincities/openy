@@ -1,4 +1,7 @@
-node_access:
-  version: VERSION
+devel_node_access:
+  version: 0
   js:
     devel_node_access.js: {}
+  css:
+    component:
+      css/devel_node_access.module.css: {}

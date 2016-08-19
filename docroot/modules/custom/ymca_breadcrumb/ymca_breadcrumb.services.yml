@@ -1,9 +1,4 @@
 services:
-  ymca_breadcrumb.breadcrumb.default:
-    class: Drupal\ymca_breadcrumb\YMCAPathBasedBreadcrumbBuilder
-    arguments: ['@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@config.factory',  '@title_resolver', '@current_user', '@path.current']
-    tags:
-      - { name: breadcrumb_builder, priority: 50 }
   ymca_breadcrumb.blog_node:
     class: Drupal\ymca_breadcrumb\YMCANewsBlogBreadcrumbBuilder
     tags:
@@ -19,5 +14,10 @@ services:
       - { name: breadcrumb_builder, priority: 5000 }
   ymca_breadcrumb.blog_category:
     class: Drupal\ymca_breadcrumb\YMCABlogCategoryBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 5000 }
+  ymca_breadcrumb.personal_training:
+    class: Drupal\ymca_breadcrumb\YMCAMindbodyBreadcrumbBuilder
+    arguments: ['@entity.query', '@entity_type.manager', '@request_stack', '@pagecontext.service', '@path.alias_manager']
     tags:
       - { name: breadcrumb_builder, priority: 5000 }

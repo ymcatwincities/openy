@@ -1,0 +1,165 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_workflow specific functions.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ymca_workflow_entity_presave(EntityInterface $entity) {
+  // Proceed only with nodes.
+  if (!($entity instanceof NodeInterface)) {
+    return;
+  }
+
+  // Proceed only with associated nodes.
+  if (!$entity->hasField('field_state')) {
+    return;
+  }
+
+  // All revisions to be unpublished unless published.
+  $entity->status->value = 0;
+
+  // When revision set to be published, set it to default.
+  if ($entity->field_state->value == 'workflow_published') {
+    $scheduling = $entity->field_state->workflow_scheduling;
+    if ($scheduling['scheduled']) {
+      $scheduled_string = $scheduling['date_time']['workflow_scheduled_date'] . ' ' . $scheduling['date_time']['workflow_scheduled_hour'] . ' ' . $scheduling['date_time']['workflow_scheduled_timezone'];
+      if (REQUEST_TIME < strtotime($scheduled_string)) {
+        return;
+      }
+    }
+    $entity->status->value = 1;
+    $entity->isDefaultRevision(TRUE);
+  }
+
+  // When revision set to be unpublished, set it to default and unpublished.
+  if ($entity->field_state->value == 'workflow_unpublished') {
+    $scheduling = $entity->field_state->workflow_scheduling;
+    if ($scheduling['scheduled']) {
+      $scheduled_string = $scheduling['date_time']['workflow_scheduled_date'] . ' ' . $scheduling['date_time']['workflow_scheduled_hour'] . ' ' . $scheduling['date_time']['workflow_scheduled_timezone'];
+      if (REQUEST_TIME < strtotime($scheduled_string)) {
+        return;
+      }
+    }
+    $entity->isDefaultRevision(TRUE);
+  }
+
+  // Do not set default revision for states differ from published & unpublished.
+  // Acceptable only for existing nodes.
+  if (!$entity->isNew()) {
+    $exclude = ['workflow_published', 'workflow_unpublished'];
+    if (!in_array($entity->field_state->value, $exclude)) {
+      $entity->isDefaultRevision(FALSE);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_prepare_form().
+ */
+function ymca_workflow_entity_prepare_form(EntityInterface $entity, $operation, FormStateInterface $form_state) {
+  // Proceed only with nodes and Edit operation.
+  if (!($entity instanceof NodeInterface) || $operation != 'edit') {
+    return;
+  }
+
+  // Proceed only with associated nodes.
+  if (!$entity->hasField('field_state')) {
+    return;
+  }
+
+  // Here we should always load the latest revision (with the greatest ID).
+  $storage = \Drupal::entityManager()->getStorage('node');
+  $greatestId = max($storage->revisionIds($entity));
+  $entity = $storage->loadRevision($greatestId);
+
+  // Inject latest revision into the form.
+  $build_info = $form_state->getBuildInfo();
+  $form_object = $build_info['callback_object'];
+  $form_object->setEntity($entity);
+}
+
+/**
+ * Implements hook_form_FORM_BASE_ID_alter().
+ */
+function ymca_workflow_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (!isset($form['field_state'])) {
+    return;
+  }
+
+  // Set "Create new revision" enabled by default.
+  $form['revision']['#default_value'] = TRUE;
+  $form['revision']['#access'] = FALSE;
+
+  if (isset($form['actions']['publish'])) {
+    $form['actions']['publish']['#access'] = FALSE;
+    unset($form['actions']['publish']['#dropbutton']);
+  }
+  if (isset($form['actions']['unpublish'])) {
+    $form['actions']['unpublish']['#access'] = FALSE;
+    unset($form['actions']['publish']['#dropbutton']);
+  }
+
+  // Do not allow users to save unpublished nodes. Force transition.
+  if ($form['field_state']['widget'][0]['to_sid']['#default_value'] == 'workflow_unpublished') {
+    if (!in_array('administrator', \Drupal::currentUser()->getRoles())) {
+      unset($form['field_state']['widget'][0]['to_sid']['#options']['workflow_unpublished']);
+      $form['field_state']['widget'][0]['to_sid']['#default_value'] = 'workflow_draft';
+    }
+  }
+
+  $form['actions']['submit']['#access'] = TRUE;
+}
+
+/**
+ * Implements hook_workflow_permitted_state_transitions_alter().
+ */
+function ymca_workflow_workflow_permitted_state_transitions_alter(&$transitions, $context) {
+  // Do not allow to keep published status. Every time any change is done
+  // it should go through Draft / Needs review statuses.
+  $current_state = $context['state']->id;
+  if ($current_state == 'workflow_published') {
+    // Allow admin to publish content any time.
+    if (!in_array('administrator', \Drupal::currentUser()->getRoles())) {
+      unset($transitions['workflow_published_published']);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function ymca_workflow_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Proceed only with associated nodes.
+  if (!$node->hasField('field_state')) {
+    return AccessResult::neutral();
+  }
+
+  // Check permissions for workflow_unpublished state.
+  if ($node->field_state->value == 'workflow_unpublished') {
+    switch ($op) {
+      case 'view':
+        if ($account->hasPermission('view workflow_unpublished content')) {
+          return AccessResult::allowed();
+        }
+        break;
+
+      case 'update';
+        if ($account->hasPermission('update workflow_unpublished content')) {
+          return AccessResult::allowed();
+        }
+        break;
+    }
+  }
+
+  return AccessResult::neutral();
+}

@@ -1,0 +1,13 @@
+.panel-3col-33-stacked {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.panel-3col-33-stacked > .panel-panel {
+  flex: 0 1 33%;
+}
+
+.panel-3col-33-stacked > .panel-full-width {
+  flex: 0 1 100%;
+}

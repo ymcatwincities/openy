@@ -13,8 +13,8 @@ dependencies:
     - field.field.contact_message.contact_personal_training.field_phone_number
     - field.field.contact_message.contact_personal_training.field_preferred_y_text
   module:
-    - telephone
     - webforms
+    - ymca_alters
 id: contact_message.contact_personal_training.default
 targetEntityType: contact_message
 bundle: contact_personal_training
@@ -63,6 +63,8 @@ content:
     weight: 5
     settings:
       placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
     third_party_settings: {  }
     type: telephone_default
   field_preferred_y_text:

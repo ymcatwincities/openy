@@ -2,7 +2,7 @@
 
 namespace Drupal\ymca_menu\Form;
 
-use Drupal\Core\Form\FormInterface;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ymca_menu\Controller\YMCAMenuController;
@@ -10,7 +10,7 @@ use Drupal\ymca_menu\Controller\YMCAMenuController;
 /**
  * Implements Main menu configuration form.
  */
-class YmcaMainMenuConfigForm implements FormInterface {
+class YmcaMainMenuConfigForm extends ConfigFormBase {
   use StringTranslationTrait;
 
   /**
@@ -21,16 +21,18 @@ class YmcaMainMenuConfigForm implements FormInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['ymca_menu.main_menu', 'ymca_menu.main_menu_b'];
+  }
+
+  /**
    * Retrieves menu tree.
    */
   private function getMenuTree() {
-    if ($cache = \Drupal::cache()->get(YMCA_MENU_CACHE_CID)) {
-      $data = $cache->data;
-    }
-    else {
-      $controller = new YMCAMenuController(\Drupal::database());
-      $data = $controller->buildTree();
-    }
+    $controller = new YMCAMenuController();
+    $data = $controller->buildTree();
     return $data;
   }
 
@@ -43,7 +45,7 @@ class YmcaMainMenuConfigForm implements FormInterface {
     $top_level_items = &$menu_tree->tree[$root_id];
     $options = [];
     foreach ($top_level_items as $key => $item) {
-      if ($key === 'o' || !$item) {
+      if ($key === 'o') {
         continue;
       }
       $lookup = isset($menu_tree->lookup[$key]) ? $menu_tree->lookup[$key] : NULL;
@@ -52,23 +54,12 @@ class YmcaMainMenuConfigForm implements FormInterface {
         continue;
       }
 
-      // Count enabled children.
-      $has_children = FALSE;
-      foreach ($item['o'] as $child) {
-        if (empty($menu_tree->lookup[$child]['x'])) {
-          $has_children = TRUE;
-          break;
-        }
-      }
-      // Don't show items without at least 1 enabled children.
-      if (!$has_children) {
-        continue;
-      }
-
       $options[$key] = sprintf('%s (%d)', $lookup['n'], $key);
     }
 
-    $default_value = \Drupal::config('ymca_menu.main_menu')->get('items');
+    $default_value = $this
+      ->getConfig($form_state->getBuildInfo()['args'][0])
+      ->get('items');
 
     $form['menu_items'] = [
       '#type' => 'checkboxes',
@@ -106,10 +97,25 @@ class YmcaMainMenuConfigForm implements FormInterface {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValue('menu_items');
     $values = array_filter($values);
-    $config = \Drupal::service('config.factory')->getEditable('ymca_menu.main_menu');
+    $config = $this->getConfig($form_state->getBuildInfo()['args'][0]);
     $config->set('items', $values);
     $config->save();
-    drupal_set_message($this->t('Main menu has been updated.'));
+
+    parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Returns appropriate config object.
+   *
+   * @param string $id
+   *   A/B variant id.
+   *
+   * @return object
+   *   Config object.
+   */
+  private function getConfig($id) {
+    $config_name = $id == 'b' ? 'ymca_menu.main_menu_b' : 'ymca_menu.main_menu';
+    return $this->config($config_name);
   }
 
 }

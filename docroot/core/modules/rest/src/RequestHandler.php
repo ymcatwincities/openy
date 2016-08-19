@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\RequestHandler.
- */
-
 namespace Drupal\rest;
 
 use Drupal\Core\Render\RenderContext;
@@ -136,4 +131,5 @@ class RequestHandler implements ContainerAwareInterface {
   public function csrfToken() {
     return new Response(\Drupal::csrfToken()->get('rest'), 200, array('Content-Type' => 'text/plain'));
   }
+
 }

@@ -1,0 +1,6 @@
+name: Adjustments related to Workflow
+type: module
+description: YMCA Workflow
+core: 8.x
+package: YMCA
+

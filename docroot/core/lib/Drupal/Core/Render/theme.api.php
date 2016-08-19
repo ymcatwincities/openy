@@ -324,8 +324,11 @@
  *   namespace Element, and generally extend the
  *   \Drupal\Core\Render\Element\FormElement base class.
  * See the @link plugin_api Plugin API topic @endlink for general information
- * on plugins, and look for classes with the RenderElement or FormElement
- * annotation to discover what render elements are available.
+ * on plugins. You can search for classes with the RenderElement or FormElement
+ * annotation to discover what render elements are available. API reference
+ * sites (such as https://api.drupal.org) generate lists of all existing
+ * elements from these classes. Look for the Elements link in the API Navigation
+ * block.
  *
  * Modules can define render elements by defining an element plugin.
  *
@@ -1107,7 +1110,8 @@ function hook_page_bottom(array &$page_bottom) {
  *     Template implementations receive each array key as a variable in the
  *     template file (so they must be legal PHP/Twig variable names). Function
  *     implementations are passed the variables in a single $variables function
- *     argument.
+ *     argument. If you are using these variables in a render array, prefix the
+ *     variable names defined here with a #.
  *   - render element: Used for render element items only: the name of the
  *     renderable element or element tree to pass to the theme function. This
  *     name is used as the name of the variable that holds the renderable

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\user\PrivateTempStore.
- */
-
 namespace Drupal\user;
 
 use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
@@ -208,4 +203,5 @@ class PrivateTempStore {
   protected function getOwner() {
     return $this->currentUser->id() ?: $this->requestStack->getCurrentRequest()->getSession()->getId();
   }
+
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\filter\Tests\FilterFormatAccessTest.
- */
-
 namespace Drupal\filter\Tests;
 
 use Drupal\Component\Utility\Unicode;
@@ -334,4 +329,5 @@ class FilterFormatAccessTest extends WebTestBase {
   protected function resetFilterCaches() {
     filter_formats_reset();
   }
+
 }

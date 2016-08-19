@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\Component\Utility\HtmlTest.
- */
-
 namespace Drupal\Tests\Component\Utility;
 
 use Drupal\Component\Utility\Html;
@@ -325,4 +320,5 @@ class HtmlTest extends UnitTestCase {
     $result = Html::serialize($document);
     $this->assertSame('', $result);
   }
+
 }

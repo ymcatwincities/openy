@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.location.field_alert
     - field.field.node.location.field_content
     - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_fitness_phone
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
     - field.field.node.location.field_location
@@ -13,13 +14,12 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
-    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
-    - file
     - text
     - user
 id: node.location.default
@@ -47,6 +47,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_fitness_phone:
+    weight: 15
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_include_general_blog_posts:
     weight: 8
     label: above
@@ -99,18 +105,19 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_schedule_block:
+    weight: 14
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_schedule_content:
     weight: 12
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_schedule_documents:
-    weight: 13
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: file_default
   field_working_hours:
     weight: 11
     label: above

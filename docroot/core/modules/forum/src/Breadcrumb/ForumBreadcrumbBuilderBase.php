@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\forum\Breadcrumb\ForumBreadcrumbBuilderBase.
- */
-
 namespace Drupal\forum\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
@@ -22,7 +17,7 @@ use Drupal\forum\ForumManagerInterface;
  * This just holds the dependency-injected config, entity manager, and forum
  * manager objects.
  */
-abstract class ForumBreadcrumbBuilderBase  implements BreadcrumbBuilderInterface {
+abstract class ForumBreadcrumbBuilderBase implements BreadcrumbBuilderInterface {
   use StringTranslationTrait;
 
   /**

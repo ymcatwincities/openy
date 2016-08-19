@@ -25,12 +25,15 @@ class GroupexFormLocation extends GroupexFormBase {
     // Get current node.
     $node = \Drupal::routeMatch()->getParameter('node');
 
-    $mappings = \Drupal::config('ymca_groupex.mapping')->get('locations');
+    $mapping_id = \Drupal::entityQuery('mapping')
+      ->condition('type', 'location')
+      ->condition('field_location_ref', $node->id())
+      ->execute();
+    $mapping_id = reset($mapping_id);
     $location_id = FALSE;
-    foreach ($mappings as $item) {
-      if ($item['entity_id'] == $node->id()) {
-        $location_id = $item['geid'];
-      }
+    if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+      $field_groupex_id = $mapping->field_groupex_id->getValue();
+      $location_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
     }
 
     // Form should not be shown if there is no Location.

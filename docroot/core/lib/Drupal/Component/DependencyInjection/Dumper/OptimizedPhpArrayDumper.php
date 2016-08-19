@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\DependencyInjection\Dumper\OptimizedPhpArrayDumper.
- */
-
 namespace Drupal\Component\DependencyInjection\Dumper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -65,6 +60,7 @@ class OptimizedPhpArrayDumper extends Dumper {
    */
   public function getArray() {
     $definition = array();
+    $this->aliases = $this->getAliases();
     $definition['aliases'] = $this->getAliases();
     $definition['parameters'] = $this->getParameters();
     $definition['services'] = $this->getServiceDefinitions();
@@ -250,6 +246,11 @@ class OptimizedPhpArrayDumper extends Dumper {
       else {
         throw new InvalidArgumentException("The 'scope' definition is deprecated in Symfony 3.0 and not supported by Drupal 8.");
       }
+    }
+
+    // By default services are shared, so just provide the flag, when needed.
+    if ($definition->isShared() === FALSE) {
+      $service['shared'] = $definition->isShared();
     }
 
     if (($decorated = $definition->getDecoratedService()) !== NULL) {
@@ -454,6 +455,9 @@ class OptimizedPhpArrayDumper extends Dumper {
     }
 
     // Private shared service.
+    if (isset($this->aliases[$id])) {
+      $id = $this->aliases[$id];
+    }
     $definition = $this->container->getDefinition($id);
     if (!$definition->isPublic()) {
       // The ContainerBuilder does not share a private service, but this means a

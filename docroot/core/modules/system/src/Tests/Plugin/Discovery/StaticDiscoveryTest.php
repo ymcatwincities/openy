@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Plugin\Discovery\StaticDiscoveryTest.
- */
-
 namespace Drupal\system\Tests\Plugin\Discovery;
 
 use Drupal\Component\Plugin\Discovery\StaticDiscovery;
@@ -47,5 +42,5 @@ class StaticDiscoveryTest extends DiscoveryTestBase {
     }
     $this->emptyDiscovery = $discovery;
   }
-}
 
+}

@@ -1,0 +1,901 @@
+#mindbody-pt-form-wrapper {
+  @include rem(padding, 0 0 100px);
+
+  .header-row {
+    @include rem(line-height, 37px);
+    @include rem(padding, 22px 0);
+    background: $grey1;
+    border-bottom: 1px solid $grey2;
+
+    .icon {
+      @include rem(font-size, 22px);
+      @include rem(margin-right, 20px);
+      color: $grey3;
+      vertical-align: middle;
+
+      &.icon-location2 {
+        @include rem(font-size, 25px);
+        @include rem(margin, 0 20px 0 5px);
+      }
+
+      &.icon-training {
+        @include rem(height, 37px);
+        @include rem(margin, 0 13px 0 0);
+        @include rem(width, 37px);
+        opacity: 0.3;
+      }
+
+      &.icon-clock {
+        @include rem(margin, 0 21px 0 7px);
+      }
+
+      &.icon-user {
+        @include rem(font-size, 25px);
+        @include rem(margin, 0 18px 0 7px);
+      }
+    }
+
+    .choice {
+      @include rem(font-size, 15px);
+      color: $pink;
+      vertical-align: middle;
+    }
+
+    .change {
+      @include rem(font-size, 15px);
+      @include transition(color 0.5s);
+      color: $blue-medium;
+      float: right;
+      text-decoration: none;
+
+      &:hover {
+        color: $blue-dark;
+      }
+
+      .icon {
+        @include rem(font-size, 15px);
+        @include rem(margin-right, 5px);
+        @include rem(top, -3px);
+        color: inherit;
+        position: relative
+      }
+    }
+
+    &.disabled {
+      display: none;
+    }
+  }
+
+  .ajax-progress-throbber {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  fieldset {
+
+    legend {
+      @include cachet-bold();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 25px);
+      @include rem(margin-left, 15px);
+      border: none;
+      color: $grey4;
+    }
+  }
+
+  select:hover {
+    border-color: $grey3;
+  }
+
+  #location-wrapper {
+    @include rem(padding-top, 35px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 70px);
+    }
+
+    .fieldset-wrapper {
+      @include rem(padding-top, 25px);
+      position: relative;
+
+      .description {
+        @include cachet();
+        @include rem(left, 15px);
+        color: $grey4;
+        font-style: italic;
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+
+  .form-item-mb-location {
+    @include rem(padding, 0 15px 10px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 15px);
+    }
+
+    .ajax-progress-throbber {
+      position: absolute;
+      right: 5px;
+      top: 0;
+      z-index: 1;
+    }
+
+    .inner {
+      position: relative;
+      padding: 0px 10px 0px 40px;
+      min-height: 58px;
+      line-height: 58px;
+      @media screen and (max-width: 767px) {
+        min-height: 50px;
+        line-height: 50px;
+      }
+
+      label {
+        background-color: $grey1;
+        border-radius: 3px;
+        border: 1px solid $grey2;
+        bottom: 0;
+        display: inline-block;
+        left: 0;
+        line-height: 58px;
+        right: 0;
+        padding: 0 25px 0 45px;
+        position: absolute;
+        top: 0;
+        vertical-align: middle;
+        @include transition(background-color 0.5s, border-color 0.5s);
+
+        @media screen and (max-width: 767px) {
+          line-height: 48px;
+        }
+
+        &:active,
+        &:hover {
+          background-color: $grey2;
+          border-color: $grey2;
+        }
+
+        .label-wrapper {
+          span {
+            display: inline-block;
+            line-height: 18px;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      input {
+        display: none;
+      }
+    }
+
+    .icon {
+      color: $grey3;
+      font-size: 22px;
+      left: 10px;
+      position: absolute;
+      top: 19px;
+      z-index: 1;
+
+      @media screen and (max-width: 767px) {
+        top: 13px;
+      }
+    }
+
+    &.checked {
+
+      label {
+        background-color: $purple-light;
+        border-color: $purple-light;
+        color: $white;
+
+        &:active,
+        &:hover {
+          background-color: $purple-medium;
+          border-color: $purple-medium;
+        }
+      }
+
+      .icon {
+        color: $light-pink;
+      }
+    }
+  }
+
+  #program-wrapper {
+    padding-top: 50px;
+  }
+
+  .form-item-mb-program {
+    padding: 0 15px 15px;
+    .inner {
+      position: relative;
+
+      label {
+        background-color: $grey1;
+        border-radius: 3px;
+        border: 1px solid $grey2;
+        display: block;
+      }
+
+      .label-wrapper {
+        text-align: center;
+        height: 70px;
+        line-height: 70px;
+        font-size: 18px;
+        vertical-align: middle;
+        span {
+          display: inline-block;
+          line-height: 20px;
+          vertical-align: middle;
+        }
+      }
+
+      input {
+        display: none;
+      }
+
+      input:checked + label {
+        background-color: $purple-light;
+        color: $white;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      .ajax-progress-throbber {
+        background: rgba(255,255,255, 0.8);
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+
+  #session-type-wrapper {
+     padding-top: 50px;
+  }
+
+  .form-item-mb-session-type {
+    padding: 0 15px 20px;
+
+    .ajax-progress-throbber {
+      position: absolute;
+      right: 5px;
+      top: 0;
+    }
+
+    .inner {
+      background-color: $grey1;
+      border-radius: 3px;
+      border: 1px solid $grey2;
+      color: $black2;
+      position: relative;
+      padding: 0px 25px 0px 40px;
+      min-height: 58px;
+      line-height: 58px;
+
+      input {
+        position: absolute;
+        left: 10px;
+        top: 17px;
+        margin-left: 0;
+      }
+
+      label {
+        display: inline-block;
+        line-height: 58px;
+        vertical-align: middle;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        padding: 0 25px 0 45px;
+        .label-wrapper {
+          span {
+            line-height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      }
+
+    }
+
+    &.checked {
+      .inner {
+        background-color: $pink;
+        border-color: $pink;
+        color: $white;
+      }
+    }
+  }
+
+  #trainer-wrapper {
+    padding-top: 70px;
+  }
+
+  .form-item-mb-trainer {
+
+    label {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 12px);
+      color: $grey4;
+      text-transform: uppercase;
+    }
+
+    select {
+      @include rem(height, 62px);
+      @include rem(text-indent, 20px);
+      border-color: $grey2;
+      width: 100%;
+
+      @include breakpoint($tablet-portrait) {
+        @include rem(width, 382px);
+      }
+
+      &:hover {
+        border-color: $grey3;
+      }
+    }
+  }
+
+  .form-item-mb-date-range {
+    clear: left;
+    position: relative;
+
+    @include breakpoint($tablet-portrait) {
+      @include rem(margin-left, 20px);
+      clear: none;
+      float: left;
+    }
+
+    label {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 15px);
+      color: $grey4;
+      text-transform: uppercase;
+    }
+
+    select {
+      @include rem(height, 62px);
+      @include rem(text-indent, 30px);
+      @include rem(width, 270px);
+      border-color: $grey2;
+
+      &:hover {
+        border-color: $grey3;
+      }
+    }
+
+    .glyphicon {
+      @include rem(bottom, 22px);
+      @include rem(font-size, 16px);
+      @include rem(left, 13px);
+      top: auto;
+      color: $grey4;
+      position: absolute;
+
+      &:before {
+        color: inherit;
+      }
+    }
+  }
+
+  #actions-wrapper {
+    .col-sm-12 {
+      border-top: 1px solid $grey2;
+      padding-top: 50px;
+    }
+  }
+
+  .ok-button {
+    padding: 15px 45px;
+  }
+
+  .form-item-mb-start-time {
+    float: left;
+    position: relative;
+
+    @media screen and (max-width: 767px) {
+      margin-right: 20px;
+    }
+
+    label {
+      @include cachet-normal();
+      color: $grey4;
+      font-size: 20px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    select {
+      height: 62px;
+      width: 140px;
+      font-size: 14px;
+      border-color: $grey2;
+      text-indent: 30px;
+      &:hover {
+        border-color: $grey3;
+      }
+      @media screen and (max-width: 767px) {
+        width: 125px;
+      }
+    }
+    .icon {
+      position: absolute;
+      left: 12px;
+      bottom: 24px;
+      color: $grey4;
+      font-size: 16px;
+    }
+  }
+
+  .form-item-mb-end-time {
+    @include rem(margin, 43px 20px 0 0);
+    float: left;
+    position: relative;
+
+    @include breakpoint($mobile-landscape) {
+      @include rem(margin-right, 40px);
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(margin-right, 80px);
+    }
+
+     select {
+       font-size: 14px;
+       height: 62px;
+       width: 125px;
+       border-color: $grey2;
+       text-indent: 30px;
+
+       @media screen and (min-width: 768px) {
+         width: 140px;
+       }
+
+       &:hover {
+         border-color: $grey3;
+       }
+     }
+
+    .icon {
+      position: absolute;
+      left: 12px;
+      bottom: 24px;
+      color: $grey4;
+      font-size: 16px;
+    }
+  }
+
+  .dash {
+    float: left;
+    text-align: center;
+    line-height: 62px;
+    margin-top: 48px;
+    font-size: 18px;
+    width: 50px;
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  .form-group {
+    float: left;
+    div .dash {
+      display: none;
+    }
+
+    label {
+      @include cachet-normal();
+      color: $grey4;
+      font-size: 20px;
+      margin: 0 0 15px;
+      line-height: 28px;
+      text-transform: uppercase;
+    }
+
+    .input-group {
+      width: 205px;
+      input {
+        border-color: $grey2;
+        font-size: 14px;
+        height: 62px;
+        line-height: 62px;
+        width: 158px;
+      }
+      button {
+        border-color: $grey2;
+        line-height: 48px;
+        background: $grey1;
+        border-left: none;
+        color: $grey4;
+        &:hover {
+          border-color: $grey2;
+        }
+
+        span {
+          font-size: 23px;
+          top: 6px;
+        }
+      }
+    }
+
+    div[id^="edit-mb-end-date"] {
+      margin-top: 23px;
+      @media screen and (max-width: 767px) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  #when-wrapper {
+    fieldset {
+      padding: 0 0 50px 0;
+      margin: 0;
+
+      legend {
+        display: none;
+      }
+
+      @media screen and (min-width: 768px) {
+        padding: 50px 0 50px;
+      }
+    }
+  }
+
+  &.step-2 {
+    #location-wrapper {
+      display: none;
+    }
+  }
+
+  &.step-3 {
+    #location-wrapper,
+    #program-wrapper {
+      display: none;
+    }
+  }
+
+  &.step-4 {
+    #location-wrapper,
+    #program-wrapper,
+    #session-type-wrapper {
+      display: none;
+    }
+    .form-group {
+      @media screen and (max-width: 767px) {
+        clear: left;
+        float: none;
+
+        &:last-of-type {
+          label {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .disabled-form {
+    font-size: 16px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+// MindBody Results page.
+.mindbody-search-results-header {
+  background: $grey1;
+  padding: 35px 0 10px;
+  overflow: hidden;
+  position: relative;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+
+  @media screen and (max-width: 767px) {
+    padding: 25px 0 30px;
+  }
+
+  h2 {
+    border-bottom: 1px solid $grey2;
+    color: $grey4;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 0 25px;
+    padding: 0 0 25px;
+    text-transform: uppercase;
+  }
+
+  .col-sm-12 {
+    overflow: hidden;
+  }
+
+  .info-1 {
+    float: left;
+    margin-right: 55px;
+    @media screen and (max-width: 767px) {
+      float: none;
+      margin-right: 0;
+    }
+  }
+
+  .info-2 {
+    float: left;
+    margin-right: 90px;
+
+    @media screen and (max-width: 767px) {
+      border-bottom: 1px solid $grey2;
+      float: none;
+      padding: 0 0 10px;
+      margin: 0 0 25px;
+    }
+  }
+
+  .item {
+    color: $pink;
+    font-size: 15px;
+    margin-bottom: 20px;
+    line-height: 25px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 15px;
+    }
+
+      &.session-type {
+      .with {
+        color: $grey4;
+      }
+
+      .name {
+        color: $grey7;
+      }
+    }
+
+    &.datetime {
+      color: $grey5;
+      line-height: 35px;
+      div {
+        display: inline-block;
+        @media screen and (max-width: 767px) {
+          display: block;
+          margin-left: 50px;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+      span {
+        color: $grey7;
+        &.icon {
+          color: $grey3;
+        }
+      }
+    }
+
+    .icon {
+      color: $grey3;
+      font-size: 22px;
+      margin-right: 20px;
+      vertical-align: middle;
+
+      &.icon-location2 {
+        font-size: 25px;
+        margin: 0 20px 0 5px;
+      }
+
+      &.icon-training {
+        height: 37px;
+        opacity: 0.3;
+        margin: 0 13px 0 0;
+        width: 37px;
+      }
+
+      &.icon-calendar {
+        margin: 0 21px 0 7px;
+      }
+
+      &.icon-user {
+        font-size: 25px;
+        margin: 0 18px 0 7px;
+      }
+    }
+  }
+
+  .change {
+    bottom: 24px;
+    position: absolute;
+    right: 15px;
+    text-decoration: none;
+    @include transition(color 0.5s);
+
+    @media screen and (max-width: 767px) {
+      display: block;
+      position: static;
+      text-align: center;
+    }
+
+    .icon {
+      margin-right: 7px;
+    }
+  }
+}
+
+.mindbody-search-results-timezone-message {
+  background-color: $white;
+  padding-top: 30px;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    text-align: left;
+  }
+}
+
+.mindbody-search-results-content {
+  background-color: $white;
+  padding-top: 30px;
+
+  .day {
+    margin-bottom: 35px;
+
+    .date {
+      color: $grey5;
+      font-size: 13px;
+      line-height: 21px;
+      @media screen and (max-width: 767px) {
+        text-align: center;
+      }
+    }
+
+    .weekday {
+      @include cachet-bold();
+      font-size: 25px;
+      color: $grey5;
+      line-height: 28px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      @media screen and (max-width: 767px) {
+          text-align: center;
+        }
+      }
+
+    .group-by-date {
+      border-top: 1px solid $grey2;
+      overflow: hidden;
+      padding-top: 38px;
+
+      .name {
+        color: $black2;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .available {
+        color: $green1;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        margin: 5px 0 10px;
+      }
+
+      .row > div {
+        margin-bottom: 20px;
+
+        @media screen and (min-width: 992px) {
+          &:nth-child(4n+1) {
+            clear: both;
+          }
+        }
+      }
+
+      .slots {
+        .slot {
+          background-color: $grey6;
+          border-radius: 3px;
+          border: 1px solid $grey2;
+          color: $grey5;
+          display: block;
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          height: 50px;
+          line-height: 50px;
+          margin-bottom: 8px;
+          padding: 0 12px;
+          text-decoration: none;
+
+          .icon {
+            color: $grey5;
+            font-size: 14px;
+            margin-right: 12px;
+          }
+          a {
+
+          }
+        }
+      }
+
+      .col-sm-3 {
+        margin-bottom: 40px;
+        padding: 0 20px;
+      }
+    }
+  }
+
+  .start-again {
+    border-top: 1px solid $grey2;
+    padding-top: 50px;
+    margin-bottom: 100px;
+
+    a {
+      @include cachet-bold();
+      border: none;
+      background-color: #0771a8;
+      background-image: -webkit-linear-gradient(#0889cd, #0771a8);
+      background-image: -moz-linear-gradient(#0889cd, #0771a8);
+      background-image: -ms-linear-gradient(#0889cd, #0771a8);
+      background-image: linear-gradient(#0889cd, #0771a8);
+      text-transform: uppercase;
+      height: 50px;
+      line-height: 28px;
+      font-size: 20px;
+      padding: 12px 20px;
+    }
+  }
+}
+
+.phone-call-wrapper {
+  background-color: $green3;
+  line-height: 92px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  @media screen and (max-width: 767px) {
+    line-height: 35px;
+    padding-bottom: 5px;
+    text-align: left;
+  }
+
+  .description {
+    @include cachet-bold();
+    color: $green2;
+    font-size: 20px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-right: 40px;
+    @media screen and (max-width: 767px) {
+      margin-right: 0;
+      padding: 0 15px;
+      display: block;
+      font-size: 18px;
+    }
+  }
+
+  .number {
+    @include cachet-bold();
+    background: url("../img/phone-call-ico.png") no-repeat 0 center;
+    font-size: 40px;
+    padding: 0 0 0 45px;
+    vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      margin: 0 15px;
+      display: block;
+      font-size: 35px;
+    }
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}

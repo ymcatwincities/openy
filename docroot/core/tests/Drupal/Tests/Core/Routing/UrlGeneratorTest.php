@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\Core\Routing\UrlGeneratorTest.
- */
-
 namespace Drupal\Tests\Core\Routing;
 
 use Drupal\Core\Cache\Cache;
@@ -183,7 +178,7 @@ class UrlGeneratorTest extends UnitTestCase {
    */
   public function aliasManagerCallback() {
     $args = func_get_args();
-    switch($args[0]) {
+    switch ($args[0]) {
       case '/test/one':
         return '/hello/world';
       case '/test/two/5':
@@ -200,6 +195,27 @@ class UrlGeneratorTest extends UnitTestCase {
    */
   public function testAliasGeneration() {
     $url = $this->generator->generate('test_1');
+    $this->assertEquals('/hello/world', $url);
+    // No cacheability to test; UrlGenerator::generate() doesn't support
+    // collecting cacheability metadata.
+
+    $this->routeProcessorManager->expects($this->exactly(3))
+      ->method('processOutbound')
+      ->with($this->anything());
+
+
+    // Check that the two generate methods return the same result.
+    $this->assertGenerateFromRoute('test_1', [], [], $url, (new BubbleableMetadata())->setCacheMaxAge(Cache::PERMANENT));
+
+    $path = $this->generator->getPathFromRoute('test_1');
+    $this->assertEquals('test/one', $path);
+  }
+
+  /**
+   * Confirms that generated routes will have aliased paths using interface constants.
+   */
+  public function testAliasGenerationUsingInterfaceConstants() {
+    $url = $this->generator->generate('test_1', array(), UrlGenerator::ABSOLUTE_PATH);
     $this->assertEquals('/hello/world', $url);
     // No cacheability to test; UrlGenerator::generate() doesn't support
     // collecting cacheability metadata.
@@ -284,7 +300,7 @@ class UrlGeneratorTest extends UnitTestCase {
     // No cacheability to test; UrlGenerator::generate() doesn't support
     // collecting cacheability metadata.
 
-    $this->routeProcessorManager->expects($this->exactly(7))
+    $this->routeProcessorManager->expects($this->any())
       ->method('processOutbound')
       ->with($this->anything());
 
@@ -300,6 +316,10 @@ class UrlGeneratorTest extends UnitTestCase {
 
     $path = $this->generator->getPathFromRoute('test_2', array('narf' => '5'));
     $this->assertEquals('test/two/5', $path);
+
+    // Specify a query parameter with NULL.
+    $options = ['query' => ['page' => NULL], 'fragment' => 'bottom'];
+    $this->assertGenerateFromRoute('test_2', ['narf' => 5], $options, '/goodbye/cruel/world?page#bottom', (new BubbleableMetadata())->setCacheMaxAge(Cache::PERMANENT));
   }
 
   /**
@@ -362,6 +382,24 @@ class UrlGeneratorTest extends UnitTestCase {
    */
   public function testAbsoluteURLGeneration() {
     $url = $this->generator->generate('test_1', array(), TRUE);
+    $this->assertEquals('http://localhost/hello/world', $url);
+    // No cacheability to test; UrlGenerator::generate() doesn't support
+    // collecting cacheability metadata.
+
+    $this->routeProcessorManager->expects($this->exactly(2))
+      ->method('processOutbound')
+      ->with($this->anything());
+
+    $options = array('absolute' => TRUE, 'fragment' => 'top');
+    // Extra parameters should appear in the query string.
+    $this->assertGenerateFromRoute('test_1', ['zoo' => 5], $options, 'http://localhost/hello/world?zoo=5#top', (new BubbleableMetadata())->setCacheMaxAge(Cache::PERMANENT)->setCacheContexts(['url.site']));
+  }
+
+  /**
+   * Confirms that absolute URLs work with generated routes using interface constants.
+   */
+  public function testAbsoluteURLGenerationUsingInterfaceConstants() {
+    $url = $this->generator->generate('test_1', array(), UrlGenerator::ABSOLUTE_URL);
     $this->assertEquals('http://localhost/hello/world', $url);
     // No cacheability to test; UrlGenerator::generate() doesn't support
     // collecting cacheability metadata.

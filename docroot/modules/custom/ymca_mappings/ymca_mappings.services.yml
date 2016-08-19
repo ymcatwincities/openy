@@ -1,0 +1,7 @@
+services:
+  ymca_mappings.location_repository:
+    class: Drupal\ymca_mappings\LocationMappingRepository
+    arguments: ['@entity.query']
+  ymca_mappings.trainer_repository:
+    class: Drupal\ymca_mappings\TrainerMappingRepository
+    arguments: ['@entity.query']

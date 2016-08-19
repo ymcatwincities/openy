@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Module file.
@@ -19,6 +20,8 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
         'assets_path' => '',
         'block_form_fee' => '',
         'block_cost' => '',
+        'block_become_a_member' => '',
+        'block_ready_started' => '',
         'form' => '',
       ],
       'template' => 'membership-page',
@@ -228,13 +231,15 @@ function ymca_membership_form_contact_form_edit_form_alter(&$form, &$form_state,
     $what_is_next_id = \Drupal::config('ymca_membership.config')->get('thank_you_what_is_next_block_id');
     $special_offer_link = new Link(t('Special Offer'), Url::fromUri('internal:/block/' . $special_offer_id));
     $what_is_next_link = new Link(t('What is next'), Url::fromUri('internal:/block/' . $what_is_next_id));
+    $special_offer_link_renderable = $special_offer_link->toRenderable();
+    $what_is_next_link_renderable = $what_is_next_link->toRenderable();
     $form['email']['#suffix'] = t('
       <strong>Edit blocks on Thank you page</strong><br/>
       Edit "@special_offer_link" block.<br/>
       Edit "@what_is_next_link" block.',
       array(
-        '@special_offer_link' => render($special_offer_link->toRenderable()),
-        '@what_is_next_link' => render($what_is_next_link->toRenderable()),
+        '@special_offer_link' => render($special_offer_link_renderable),
+        '@what_is_next_link' => render($what_is_next_link_renderable),
       )
     );
   }

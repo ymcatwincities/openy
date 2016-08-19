@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\user\Tests\UserBlocksTest.
- */
-
 namespace Drupal\user\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -135,4 +130,5 @@ class UserBlocksTest extends WebTestBase {
       ->fields(array('access' => $access))
       ->execute();
   }
+
 }

@@ -1,0 +1,10 @@
+services:
+  workflow.manager:
+    class: Drupal\workflow\Entity\WorkflowManager
+    arguments: ['@entity_type.manager', '@entity.query', '@config.factory', '@string_translation', '@url_generator', '@module_handler', '@current_user']
+
+#  workflow.route_subscriber:
+#    class: Drupal\workflow\Routing\RouteSubscriber
+#    arguments: ['@entity.manager']
+#    tags:
+#      - { name: event_subscriber }

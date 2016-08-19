@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function block_content_access_entity_type_alter(array &$entity_types) {
+  // Override block_content access handler.
+  $entity_types['block_content']->setAccessClass('Drupal\block_content_access\BlockContentAccessControlHandler');
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function block_content_access_form_block_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $user = \Drupal::currentUser();
+  if ($user->hasPermission('administer site configuration')) {
+    return;
+  }
+
+  $map = \Drupal::config('block_content_access.settings')->get('bundles');
+
+  // Check if current bundle is enabled.
+  $entity = $form_state->getBuildInfo()['callback_object']->getEntity();
+  if (array_key_exists($entity->bundle(), $map)) {
+    $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('user');
+    $account = $storage->load($user->getAccount()->id());
+    $field_ref = $map[$entity->bundle()]['reference'];
+    $location_nids = \Drupal::entityQuery('node')
+      ->condition('type', 'location')
+      ->condition($field_ref . '.target_id', $entity->id())
+      ->execute();
+
+    // If block is not being referenced by locations, it can be edited.
+    if (!$location_nids) {
+      return;
+    }
+
+    $can_edit = FALSE;
+    if ($account->hasField('field_locations')) {
+      foreach ($account->field_locations->getValue() as $value) {
+        if (in_array($value['target_id'], $location_nids)) {
+          $can_edit = TRUE;
+          break;
+        }
+      }
+    }
+
+    if (!$can_edit) {
+      $form['actions']['delete']['#access'] = FALSE;
+      $form['actions']['submit']['#access'] = FALSE;
+      $form['info']['#disabled'] = TRUE;
+      $form['field_schedule_documents']['#disabled'] = TRUE;
+    }
+  }
+}

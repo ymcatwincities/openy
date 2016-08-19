@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Module file.
@@ -17,6 +18,24 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'groupex-class',
     ],
+    'groupex_table_class' => [
+      'variables' => [
+        'class' => [],
+      ],
+      'template' => 'groupex-table-class',
+    ],
+    'groupex_table_class_individual' => [
+      'variables' => [
+        'class' => [],
+      ],
+      'template' => 'groupex-table-class-individual',
+    ],
+    'groupex_table_instructor_individual' => [
+      'variables' => [
+        'class' => [],
+      ],
+      'template' => 'groupex-table-instructor-individual',
+    ],
     'groupex_schedule_day' => [
       'variables' => [
         'classes' => [],
@@ -25,6 +44,14 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'groupex-schedule-day',
     ],
+    'groupex_schedule_table_day' => [
+      'variables' => [
+        'classes' => [],
+        'title' => '',
+        'pdf_href' => '',
+      ],
+      'template' => 'groupex-schedule-table-day',
+    ],
     'groupex_schedule_week' => [
       'variables' => [
         'days' => [],
@@ -32,12 +59,27 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'groupex-schedule-week',
     ],
+    'groupex_schedule_table_week' => [
+      'variables' => [
+        'days' => [],
+        'instructor_location' => '',
+        'pdf_href' => '',
+      ],
+      'template' => 'groupex-schedule-table-week',
+    ],
     'groupex_schedule_location' => [
       'variables' => [
         'locations' => [],
         'filter_date' => '',
       ],
       'template' => 'groupex-schedule-location',
+    ],
+    'groupex_schedule_table_location' => [
+      'variables' => [
+        'locations' => [],
+        'filter_date' => '',
+      ],
+      'template' => 'groupex-schedule-table-location',
     ],
     'groupex_all_search_results' => [
       'variables' => [
@@ -62,7 +104,10 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
  */
 function ymca_groupex_schedule_layout(array $schedule) {
   $results = [];
-  $cache = ['max-age' => 0];
+  $cache = [
+    'max-age' => 3600,
+    'contexts' => ['url.query_args'],
+  ];
 
   // Output schedule by type.
   switch ($schedule['type']) {
@@ -113,19 +158,29 @@ function ymca_groupex_schedule_layout(array $schedule) {
 function ymca_groupex_preprocess_node(&$variables) {
   // Pass the form to the schedules page.
   if ($variables['node']->bundle() == 'location' && $variables['view_mode'] == 'schedules') {
-    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_groupex\Form\GroupexFormLocation');
-    $variables['form_find_classes'] = \Drupal::service('renderer')->render($form, FALSE);
-    $locations = \Drupal::config('ymca_groupex.mapping')->get('locations');
+    $variables['form_find_classes'] = [
+      'form' => [
+        '#lazy_builder' => [
+          'form_builder:getForm',
+          ['Drupal\ymca_groupex\Form\GroupexFormFull']
+        ],
+        '#create_placeholder' => TRUE,
+      ],
+    ];
 
-    $location_id = FALSE;
-    foreach ($locations as $location) {
-      if ($location['entity_id'] == $variables['node']->id()) {
-        $location_id = $location['geid'];
-      }
+    $mapping_id = \Drupal::entityQuery('mapping')
+      ->condition('type', 'location')
+      ->condition('field_location_ref', $variables['node']->id())
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    $groupex_id = FALSE;
+    if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+      $field_groupex_id = $mapping->field_groupex_id->getValue();
+      $groupex_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
     }
 
-    if ($location_id) {
-      $variables['print_group_exercise_uri'] = GroupexScheduleFetcher::getPdfLink($location_id);
+    if ($groupex_id) {
+      $variables['print_group_exercise_uri'] = GroupexScheduleFetcher::getPdfLink($groupex_id);
     }
     else {
       \Drupal::logger('ymca_groupex')->error('Failed to get location id.');
@@ -150,4 +205,76 @@ function ymca_groupex_preprocess_node(&$variables) {
     $formatted_schedule = ymca_groupex_schedule_layout($schedule);
     $variables['groupex_search_results'] = \Drupal::service('renderer')->render($formatted_schedule, FALSE);
   }
+}
+
+/**
+ * Helper function to make schedules table layout.
+ *
+ * @param array $schedule
+ *   Fetched and process schedule.
+ *
+ * @return array
+ *   Results render array.
+ */
+function ymca_groupex_schedule_table_layout(array $schedule) {
+  $results = [];
+  $cache = [
+    'max-age' => 3600,
+    'contexts' => ['url.query_args'],
+  ];
+
+  // Output schedule by type.
+  switch ($schedule['type']) {
+    case 'day':
+      // Check if there is something.
+      if (!empty($schedule['classes'])) {
+        $results = [
+          '#theme' => 'groupex_schedule_table_day',
+          '#classes' => $schedule['classes'],
+          '#title' => $schedule['title'],
+          '#pdf_href' => !empty($schedule['pdf_href']) ? $schedule['pdf_href'] : NULL,
+          '#cache' => $cache,
+        ];
+      }
+      break;
+
+    case 'week':
+      // Check if there is something.
+      if (!empty($schedule['days'])) {
+        $results = [
+          '#theme' => 'groupex_schedule_table_week',
+          '#days' => $schedule['days'],
+          '#pdf_href' => !empty($schedule['pdf_href']) ? $schedule['pdf_href'] : NULL,
+          '#cache' => $cache,
+        ];
+      }
+      break;
+
+    case 'location':
+      // Check if there is something.
+      if (!empty($schedule['locations'])) {
+        $results = [
+          '#theme' => 'groupex_schedule_table_location',
+          '#locations' => $schedule['locations'],
+          '#filter_date' => $schedule['filter_date'],
+          '#cache' => $cache,
+        ];
+      }
+      break;
+
+    case 'instructor':
+      // Check if there is something.
+      if (!empty($schedule['days'])) {
+        $results = [
+          '#theme' => 'groupex_schedule_table_week',
+          '#days' => $schedule['days'],
+          '#instructor_location' => $schedule['instructor_location'],
+          '#pdf_href' => !empty($schedule['pdf_href']) ? $schedule['pdf_href'] : NULL,
+          '#cache' => $cache,
+        ];
+      }
+      break;
+  }
+
+  return $results;
 }

@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_state
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
     - node.type.blog
   module:
     - image
+    - options
     - text
     - user
 id: node.blog.default
@@ -33,6 +35,12 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_state:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
 hidden:
   field_related_camps_locations: true
   field_site_section: true

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\ReadOnlyStreamWrapperTest.
- */
-
 namespace Drupal\system\Tests\File;
 
 /**
@@ -90,4 +85,5 @@ class ReadOnlyStreamWrapperTest extends FileTestBase {
     // Remove the temporary directory.
     drupal_rmdir($dir);
   }
+
 }

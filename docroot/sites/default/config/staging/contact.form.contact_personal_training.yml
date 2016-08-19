@@ -10,7 +10,7 @@ third_party_settings:
 id: contact_personal_training
 label: 'Contact Personal Training'
 recipients:
-  - jennifer.menk@ymcatwincities.org
+  - jennifer.menk@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''

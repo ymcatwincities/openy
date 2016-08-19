@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\StackMiddleware\NegotiationMiddleware.
- */
-
 namespace Drupal\Core\StackMiddleware;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +39,7 @@ class NegotiationMiddleware implements HttpKernelInterface {
   /**
    * {@inheritdoc}
    */
-  public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true) {
+  public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
     // Register available mime types.
     foreach ($this->formats as $format => $mime_type) {
       $request->setFormat($format, $mime_type);

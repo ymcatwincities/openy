@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\node\Tests\NodeAccessRebuildTest.
- */
-
 namespace Drupal\node\Tests;
 
 /**
@@ -37,4 +32,5 @@ class NodeAccessRebuildTest extends NodeTestBase {
     $this->drupalPostForm(NULL, array(), t('Rebuild permissions'));
     $this->assertText(t('Content permissions have been rebuilt.'));
   }
+
 }

@@ -1,0 +1,4 @@
+name: MindBody Cache Proxy
+type: module
+description: Adds caching layer to MindBody API requests.
+core: 8.x

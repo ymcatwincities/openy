@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_mindbody.module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_mindbody_theme($existing, $type, $theme, $path) {
+  return [
+    'mindbody_results_content' => [
+      'variables' => [
+        'location' => '',
+        'program' => '',
+        'session_type' => '',
+        'trainer' => '',
+        'datetime' => '',
+        'back_link' => '',
+        'start_again_link' => '',
+        'base_path' => '',
+        'telephone' => '',
+        'days' => [],
+      ],
+      'template' => 'mindbody-results-content',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function ymca_mindbody_token_info() {
+  $info['tokens']['node']['schedule-pt-location-url'] = [
+    'name' => t('Schedule Personal Training'),
+    'description' => t('The URL to MindBody form with pre-populated location'),
+    'type' => 'url',
+  ];
+  $info['tokens']['node']['schedule-pt-trainer-url'] = [
+    'name' => t('Schedule Appointment with'),
+    'description' => t('The URL to MindBody form with pre-populated trainer'),
+    'type' => 'url',
+  ];
+
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function ymca_mindbody_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = array();
+
+  if ($type == 'node') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'schedule-pt-location-url':
+          if (isset($data['node']) && $data['node'] instanceof NodeInterface) {
+            /* @var $node \Drupal\node\NodeInterface */
+            $node = $data['node'];
+            /* @var $site_section \Drupal\node\NodeInterface */
+            if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+
+              $location_repo = \Drupal::service('ymca_mappings.location_repository');
+              if ($mapping = $location_repo->findByLocationId($site_section->id())) {
+                $field_mindbody_id = $mapping->field_mindbody_id->getValue();
+                $location = isset($field_mindbody_id[0]['value']) ? $field_mindbody_id[0]['value'] : FALSE;
+                $url_options = [
+                  'query' => [
+                    'location' => $location,
+                    'context' => 'location',
+                  ],
+                ];
+                $link = new Link(t('Schedule Personal Training'), Url::fromRoute('ymca_mindbody.location.pt', ['node' => $site_section->id()], $url_options));
+                $replacements[$original] = $link->toString();
+              }
+
+            }
+          }
+          break;
+
+        case 'schedule-pt-trainer-url':
+          if (isset($data['node']) && $data['node'] instanceof NodeInterface) {
+            /* @var $node \Drupal\node\NodeInterface */
+            $node = $data['node'];
+            /* @var $site_section \Drupal\node\NodeInterface */
+            if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+
+              $location_repo = \Drupal::service('ymca_mappings.location_repository');
+              if ($mapping = $location_repo->findByLocationId($site_section->id())) {
+
+                $field_mindbody_id = $mapping->field_mindbody_id->getValue();
+                $location = isset($field_mindbody_id[0]['value']) ? $field_mindbody_id[0]['value'] : FALSE;
+                $field_location_id = $mapping->field_location_ref->getValue();
+                $location_id = isset($field_location_id[0]['target_id']) ? $field_location_id[0]['target_id'] : FALSE;
+                $node_title = explode(' ', $node->getTitle());
+
+                $trainer_repo = \Drupal::service('ymca_mappings.trainer_repository');
+                if ($mapping = $trainer_repo->findByPageId($node->id())) {
+                  $field_mindbody_trainer_id = $mapping->field_mindbody_trainer_id->getValue();
+                  $trainer = isset($field_mindbody_trainer_id[0]['value']) ? $field_mindbody_trainer_id[0]['value'] : FALSE;
+                  $url_options = [
+                    'query' => [
+                      'location' => $location,
+                      'trainer' => $trainer,
+                      'context' => 'trainer',
+                    ],
+                  ];
+                  $link = new Link(t('Schedule Appointment with @title', ['@title' => $node_title[0]]), Url::fromRoute('ymca_mindbody.location.pt', ['node' => $location_id], $url_options));
+                  $replacements[$original] = $link->toString();
+                }
+
+              }
+            }
+          }
+          break;
+      }
+    }
+  }
+  return $replacements;
+}
+
+/**
+ * Implements hook_mindbody_cache_proxy_update_stats().
+ */
+function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
+  $config = Drupal::config('mindbody_cache_proxy.settings');
+  if ($data->miss == $config->get('calls')) {
+    \Drupal::service('cache_tags.invalidator')->invalidateTags(['mindbody_state']);
+  }
+}
+
+/**
+ * Implements hook_mindbody_cache_proxy_flush_stats().
+ */
+function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
+  \Drupal::service('cache_tags.invalidator')->invalidateTags(['mindbody_state']);
+}

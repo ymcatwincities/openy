@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\block_content\Plugin\Derivative\BlockContent.
- */
-
 namespace Drupal\block_content\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
@@ -59,4 +54,5 @@ class BlockContent extends DeriverBase implements ContainerDeriverInterface {
     }
     return parent::getDerivativeDefinitions($base_plugin_definition);
   }
+
 }

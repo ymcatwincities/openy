@@ -1,0 +1,165 @@
+uuid: 046488b7-2b91-41f1-bc75-19b15fe29316
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_category
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_class_id
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_date
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_description
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_studio
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_sub_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_time
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_end
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_start
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_title
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.default
+targetEntityType: groupex_google_cache
+bundle: groupex_google_cache
+mode: default
+content:
+  field_gg_category:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_class_id:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_date:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_description:
+    weight: 15
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_gg_gcal_id:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_google_event:
+    weight: 29
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_gg_instructor:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_location:
+    weight: 17
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_orig_instructor:
+    weight: 28
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_studio:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_sub_instructor:
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_time:
+    weight: 21
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_time_frame_end:
+    weight: 23
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_gg_time_frame_start:
+    weight: 24
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_gg_timestamp_end:
+    weight: 25
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_gg_timestamp_start:
+    weight: 26
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_gg_title:
+    weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

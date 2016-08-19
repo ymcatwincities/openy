@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Entity\EntityTranslationFormTest.
- */
-
 namespace Drupal\system\Tests\Entity;
 
 use Drupal\Core\Language\LanguageInterface;
@@ -115,4 +110,5 @@ class EntityTranslationFormTest extends WebTestBase {
     $form_langcode = \Drupal::state()->get('entity_test.form_langcode');
     $this->assertTrue($langcode2 == $form_langcode, "Node edit form language is $langcode2.");
   }
+
 }

@@ -1,0 +1,60 @@
+diff --git a/docroot/modules/contrib/entity_clone/entity_clone.module b/docroot/modules/contrib/entity_clone/entity_clone.module
+index 485839d..862079d 100644
+--- a/docroot/modules/contrib/entity_clone/entity_clone.module
++++ b/docroot/modules/contrib/entity_clone/entity_clone.module
+@@ -32,6 +32,7 @@ function entity_clone_help($route_name, RouteMatchInterface $route_match) {
+  * Implements hook_entity_info_alter().
+  */
+ function entity_clone_entity_type_build(array &$entity_types) {
++  $exclude_entity_types = entity_clone_exlude_entity_types();
+   $specific_handler = [
+     'page' => [
+       'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\PageConfigEntityCloneBase',
+@@ -71,6 +72,10 @@ function entity_clone_entity_type_build(array &$entity_types) {
+ 
+   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+   foreach ($entity_types as &$entity_type) {
++    if (in_array($entity_type->id(), $exclude_entity_types)) {
++      continue;
++    }
++
+     if (isset($specific_handler[$entity_type->id()])) {
+       $entity_type->setHandlerClass('entity_clone', $specific_handler[$entity_type->id()]['entity_clone']);
+       if (isset($specific_handler[$entity_type->id()]['entity_clone_form'])) {
+@@ -88,6 +93,23 @@ function entity_clone_entity_type_build(array &$entity_types) {
+ }
+ 
+ /**
++ * Get list of entity types that should be excluded form cloning feature.
++ */
++function entity_clone_exlude_entity_types() {
++  $exclude_entity_types = array(
++    'workflow_state',
++    'workflow_type',
++    'workflow_config_transition',
++    'workflow_scheduled_transition',
++    'workflow_transition'
++  );
++
++  \Drupal::moduleHandler()->alter('entity_clone_exlude_entity_types', $exclude_entity_types);
++
++  return $exclude_entity_types;
++}
++
++/**
+  * Declares entity operations.
+  *
+  * @param \Drupal\Core\Entity\EntityInterface $entity
+@@ -117,7 +139,11 @@ function entity_clone_entity_operation(EntityInterface $entity) {
+  * Implements hook_entity_type_alter().
+  */
+ function entity_clone_entity_type_alter(array &$entity_types) {
++  $exclude_entity_types = entity_clone_exlude_entity_types();
++
+   foreach ($entity_types as $entity_type_id => $entity_type) {
+-    $entity_type->setLinkTemplate('clone-form', "/entity_clone/$entity_type_id/{{$entity_type_id}}");
++    if (!in_array($entity_type_id, $exclude_entity_types)) {
++      $entity_type->setLinkTemplate('clone-form', "/entity_clone/$entity_type_id/{{$entity_type_id}}");
++    }
+   }
+ }

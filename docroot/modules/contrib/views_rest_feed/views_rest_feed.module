@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Views Rest Feed.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function views_rest_feed_theme() {
+  return array(
+    'rest_feed_icon' => array(
+      'variables' => array('url' => NULL, 'title' => NULL, 'attributes' => NULL),
+    ),
+  );
+}

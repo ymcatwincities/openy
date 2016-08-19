@@ -14,12 +14,18 @@
  */
 #}
 
-<div class="richtext">
+{% set classes = ['richtext'] %}
+{% if is_home %}
+  {% set classes = classes|merge(['col-md-4', 'col-sm-6']) %}
+{% endif %}
+
+<div{{ attributes.addClass(classes) }}>
   {% if link %}
-    <div class="img-crop img-crop-horizontal">{{ image }}</div>
-    <h2>{{ header }}</h2>
-    <div class="promo-text">{{ content }}</div>
-    <a href="{{ link }}">{{ link_text }}</a>
+    <a class="wrapper" href="{{ link }}" title="{{ link_text }}">
+      <div class="img-crop img-crop-horizontal">{{ image }}</div>
+      <h2>{{ header }}</h2>
+      <div class="promo-text">{{ content }}</div>
+    </a>
   {% else %}
     <div class="text-promo">
       {{ _self.block_content(image, header, content) }}

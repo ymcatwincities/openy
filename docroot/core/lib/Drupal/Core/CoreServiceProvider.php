@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\CoreServiceProvider.
- */
-
 namespace Drupal\Core;
 
 use Drupal\Core\Cache\Context\CacheContextsPass;
@@ -44,8 +39,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
  *
  * @ingroup container
  */
-class CoreServiceProvider implements ServiceProviderInterface  {
-
+class CoreServiceProvider implements ServiceProviderInterface {
   /**
    * {@inheritdoc}
    */
