@@ -804,19 +804,21 @@
             font-size: 14px;
             margin-right: 12px;
           }
+
+          background-color: $grey6;
+          border-radius: 3px;
+          border: 1px solid $grey2;
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          height: 50px;
+          line-height: 50px;
+          margin-bottom: 8px;
+          padding: 0 12px;
+
           a {
-            background-color: $grey6;
-            border-radius: 3px;
-            border: 1px solid $grey2;
             color: $grey5;
-            display: block;
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 14px;
-            height: 50px;
-            line-height: 50px;
-            margin-bottom: 8px;
-            padding: 0 12px;
             text-decoration: none;
+            display: block;
 
             &.highlight-item {
               animation-name: example;
