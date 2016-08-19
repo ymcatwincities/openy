@@ -36,17 +36,6 @@ interface YmcaMindbodyResultsSearcherInterface {
   public static function getRangeStrtotime($value);
 
   /**
-   * Returns timestamp in appropriate timezone.
-   *
-   * @param string $data
-   *   Date string.
-   *
-   * @return string
-   *   Timestamp.
-   */
-  public static function getTimestampInTimezone($data);
-
-  /**
    * Returns search link based on context.
    *
    * @param array $options
