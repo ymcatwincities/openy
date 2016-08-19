@@ -191,3 +191,37 @@ name: Restore settings.php
 sudo: yes
 shell: cp /tmp/reinstall_settings.php sites/default/settings.php
 ```
+
+### How to install & use Mailcatcher
+
+Install RVM on the VM.
+
+```
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+```
+
+Install Mailcatcher on the VM.
+
+```
+rvm default@mailcatcher --create do gem install mailcatcher
+rvm wrapper default@mailcatcher --no-prefix mailcatcher catchmail
+```
+
+Configure PHP (php.ini). Use `which catchmail` to get path to `catchmail` in the system
+
+```
+sendmail_path = /home/vagrant/.rvm/bin/catchmail -f your@mail.com
+```
+
+Start mailcatcher (every time after system restart).
+
+```
+mailcatcher --http-ip=0.0.0.0
+```
+
+Now you can access Mailcatcher by address `http://localhost:1080/` on your local machine.
+
+Go to `admin/config/system/mailsystem` and set `Select the default sender plugin` to `Default PHP mailer`
+
+**Congratulations!** Now you can send email and test them with mailcatcher.
