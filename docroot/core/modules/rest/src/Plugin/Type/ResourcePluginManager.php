@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\Plugin\Type\ResourcePluginManager.
- */
-
 namespace Drupal\rest\Plugin\Type;
 
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -47,4 +42,5 @@ class ResourcePluginManager extends DefaultPluginManager {
       return $this->createInstance($options['id']);
     }
   }
+
 }

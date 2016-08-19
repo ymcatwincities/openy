@@ -1,0 +1,7 @@
+stage_file_proxy.admin_form:
+  path: '/admin/config/system/stage_file_proxy'
+  defaults:
+    _form: '\Drupal\stage_file_proxy\Form\SettingsForm'
+    _title: Stage File Proxy Settings
+  requirements:
+    _permission: 'administer stage_file_proxy settings'

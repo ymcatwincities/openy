@@ -3,7 +3,6 @@ require 'compass'
 require 'breakpoint'
 require 'aurora'
 
-
 # Set this to the root of your project when deployed:
 http_path = "/themes/custom/ymca"
 css_dir = "css"

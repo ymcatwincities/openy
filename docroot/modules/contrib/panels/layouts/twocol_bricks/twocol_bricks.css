@@ -1,0 +1,13 @@
+.panel-2col-bricks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.panel-2col-bricks > .panel-panel {
+  flex: 0 1 50%;
+}
+
+.panel-2col-bricks > .panel-full-width {
+  flex: 0 1 100%;
+}

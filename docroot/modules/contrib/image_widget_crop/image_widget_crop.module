@@ -28,7 +28,7 @@ function image_widget_crop_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_field_widget_info_alter().
  */
-function image_widget_cropfield_widget_info_alter(array &$info) {
+function image_widget_crop_field_widget_info_alter(array &$info) {
   // Let a new field type re-use an existing widget.
   $info['image_image']['field_types'][] = 'image_widget_crop';
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\image\Tests\ImageFieldValidateTest.
- */
-
 namespace Drupal\image\Tests;
 
 /**
@@ -106,4 +101,5 @@ class ImageFieldValidateTest extends ImageFieldTestBase {
     $this->assertNoText(t('Alternative text field is required.'));
     $this->assertNoText(t('Title field is required.'));
   }
+
 }

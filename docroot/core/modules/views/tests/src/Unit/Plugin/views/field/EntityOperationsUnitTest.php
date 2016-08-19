@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\views\Unit\Plugin\views\field\EntityOperationsUnitTest.
- */
-
 namespace Drupal\Tests\views\Unit\Plugin\views\field {
 
 use Drupal\Tests\UnitTestCase;
@@ -168,6 +163,7 @@ class EntityOperationsUnitTest extends UnitTestCase {
     $build = $this->plugin->render($result);
     $this->assertSame($expected_build, $build);
   }
+
 }
 
 }

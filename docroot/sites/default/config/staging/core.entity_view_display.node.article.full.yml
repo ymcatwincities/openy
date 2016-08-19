@@ -15,7 +15,7 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_status
+    - field.field.node.article.field_state
     - field.field.node.article.field_tags
     - field.field.node.article.field_title_description
     - image.style.2013_masthead
@@ -92,6 +92,7 @@ hidden:
   field_header_variant: true
   field_promo_slideshow: true
   field_related: true
+  field_state: true
   field_status: true
   field_tags: true
   langcode: true

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\aggregator\Tests\UpdateFeedItemTest.
- */
-
 namespace Drupal\aggregator\Tests;
 use Drupal\aggregator\Entity\Feed;
 
@@ -71,4 +66,5 @@ class UpdateFeedItemTest extends AggregatorTestBase {
     $this->updateFeedItems($feed);
     $this->assertResponse(200);
   }
+
 }

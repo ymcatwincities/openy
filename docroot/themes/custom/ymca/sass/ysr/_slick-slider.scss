@@ -1,0 +1,326 @@
+/* Icons */
+@font-face {
+  font-family: 'slick';
+  font-weight: normal;
+  font-style: normal;
+
+  src: url('../prototypes/ysr/fonts/slick.eot');
+  src: url('../prototypes/ysr/fonts/slick.eot?#iefix') format('embedded-opentype'), url('../prototypes/ysr/fonts/slick.woff') format('woff'), url('../prototypes/ysr/fonts/slick.ttf') format('truetype'), url('../prototypes/ysr/fonts/slick.svg#slick') format('svg');
+}
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+  font-size: 0;
+  line-height: 0;
+
+  position: absolute;
+  top: 50%;
+
+  display: block;
+
+  @include rem(height, 20px);
+  @include rem(margin-top, -10px);
+  @include rem(width, 20px);
+  padding: 0;
+
+  cursor: pointer;
+
+  color: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  &:hover,
+  &:focus {
+    color: transparent;
+    outline: none;
+    background: transparent;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  &.slick-disabled:before {
+    opacity: .25;
+  }
+
+  &:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+
+    opacity: .75;
+    color: white;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.slick-prev {
+  @include rem(left, -25px);
+
+  [dir='rtl'] & {
+    @include rem(right, -25px);
+    left: auto;
+  }
+}
+
+.slick-prev:before {
+  content: '←';
+
+  [dir='rtl'] & {
+    content: '→';
+  }
+}
+
+.slick-next {
+  @include rem(right, -25px);
+
+  [dir='rtl'] & {
+    @include rem(left, -25px);
+    right: auto;
+
+    &:before{
+      content: '←';
+    }
+  }
+
+  &:before {
+    content: '→';
+  }
+}
+
+/* Dots */
+.slick-slider {
+  margin: 0;
+}
+
+.slick-dots {
+  @include rem(margin-bottom, 60px);
+  bottom: 0;
+  display: block;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+
+  @include breakpoint($mobile-bp-only) {
+    @include rem(margin-bottom, 30px);
+  }
+
+  li {
+    @include rem(height, 23px);
+    @include rem(margin, 0 15px);
+    @include rem(width, 23px);
+    cursor: pointer;
+    display: inline-block;
+    padding: 0;
+    position: relative;
+
+    @include breakpoint($mobile-bp-only) {
+      @include rem(margin, 0 10px);
+    }
+
+    button {
+      @include rem(width, 23px);
+      @include rem(height, 23px);
+      @include rem(padding, 15px);
+      background: transparent;
+      border: 0;
+      color: transparent;
+      cursor: pointer;
+      display: block;
+      font-size: 0;
+      line-height: 0;
+      outline: none;
+
+      &:hover,
+      &:focus {
+        outline: none;
+
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      &:before {
+        @include rem(font-size, 23px);
+        @include rem(line-height, 23px);
+        @include rem(width, 23px);
+        @include rem(height, 23px);
+
+        font-family: 'slick';
+        position: absolute;
+        top: 0;
+        left: 0;
+
+
+        content: '•';
+        text-align: center;
+
+        opacity: .25;
+        color: $white;
+
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        text-shadow: 0 0 1px $black;
+      }
+    }
+
+    &.slick-active {
+      button:before {
+        opacity: .75;
+        color: $white;
+      }
+    }
+  }
+}
+
+#slider {
+  .slider {
+
+    .slick-slide {
+      position: relative;
+      overflow: hidden;
+
+      .slider-item__image {
+        position: relative;
+        height: 667px;
+
+        @media screen and (min-width: 48rem) {
+          height: 60rem;
+        }
+        @media screen and (min-width: 87.5rem) {
+          height: 83rem;
+        }
+
+        &:before {
+          content: ' ';
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          z-index: 1;
+        }
+
+        img {
+          display: block;
+          //min-width: 100%;
+          height: 100%;
+          left: 50%;
+          max-width: none;
+          position: relative;
+          @include transform(translateX(-50%));
+
+          @media screen and (min-width: 120rem) {
+            height: auto;
+            width: 100%;
+          }
+        }
+      }
+
+      .slider-item__content {
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+        height: 100%;
+        -ms-flex-pack: center;
+        justify-content: center;
+        left: 50%;
+        padding: 0 1.5rem;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        transform: translateX(-50%);
+        width: 100%;
+        z-index: 2;
+      }
+
+      .slider-item__highlight,
+      .slider-item__title {
+        color: $white;
+        font-family: "Cachet", Arial, sans-serif;
+        font-weight: bold;
+        line-height: 4rem;
+        text-transform: uppercase;
+
+        @media screen and (min-width: 48rem) {
+          line-height: 6rem;
+        }
+      }
+
+      .slider-item__title {
+        font-size: 3rem;
+
+        @media screen and (min-width: 48rem) {
+          font-size: 3.5rem;
+        }
+      }
+
+      .slider-item__highlight {
+        font-size: 4rem;
+        @media screen and (min-width: 48rem) {
+          font-size: 5rem;
+        }
+      }
+
+      .slider-item__button {
+        margin-top: 6rem;
+
+        .btn {
+          background-image: none;
+          @include box-shadow(none);
+        }
+      }
+
+
+      &.blue-overlay {
+        .slider-item__image {
+          &:before {
+            background: rgba(23, 67, 104, 0.7);
+          }
+        }
+
+        .slider-item__title {
+          color: $pale-blue;
+        }
+      }
+
+      &.purple-overlay {
+        .slider-item__image {
+          &:before {
+            background: rgba(88, 19, 85, 0.7);
+          }
+        }
+
+        .slider-item__title {
+          color: $pale-pink;
+        }
+      }
+
+
+      &.green-overlay {
+        .slider-item__image {
+          &:before {
+            background: rgba(8, 66, 66, 0.7);
+          }
+        }
+
+        .slider-item__title {
+          color: $pale-green;
+        }
+      }
+    }
+  }
+}

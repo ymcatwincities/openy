@@ -1,0 +1,13 @@
+application_name: groupx-to-gcal-sync
+calendar_id: primary
+auth_config:
+  installed:
+    client_id: 998573300936-4j41694p09k82j20clovck0d7r79q2s1.apps.googleusercontent.com
+    project_id: groupx-to-gcal-sync
+    auth_uri: 'https://accounts.google.com/o/oauth2/auth'
+    token_uri: 'https://accounts.google.com/o/oauth2/token'
+    auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs'
+    client_secret: 2OMXGJf3RYNaihrjeeiAWEgG
+    redirect_uris:
+      - 'urn:ietf:wg:oauth:2.0:oob'
+      - 'http://localhost'

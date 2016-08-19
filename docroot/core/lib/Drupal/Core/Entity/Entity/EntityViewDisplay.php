@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Entity\Entity\EntityViewDisplay.
- */
-
 namespace Drupal\Core\Entity\Entity;
 
 use Drupal\Component\Utility\NestedArray;
@@ -306,4 +301,5 @@ class EntityViewDisplay extends EntityDisplayBase implements EntityViewDisplayIn
       'formatters' => new EntityDisplayPluginCollection($this->pluginManager, $configurations)
     );
   }
+
 }

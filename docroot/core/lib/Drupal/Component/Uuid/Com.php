@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\Uuid\Com.
- */
-
 namespace Drupal\Component\Uuid;
 
 /**
@@ -20,4 +15,5 @@ class Com implements UuidInterface {
     // Remove {} wrapper and make lower case to keep result consistent.
     return strtolower(trim(com_create_guid(), '{}'));
   }
+
 }

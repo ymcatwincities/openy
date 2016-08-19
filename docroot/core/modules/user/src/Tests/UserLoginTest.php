@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\user\Tests\UserLoginTest.
- */
-
 namespace Drupal\user\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -179,4 +174,5 @@ class UserLoginTest extends WebTestBase {
       $this->assertText(t('Unrecognized username or password. Have you forgotten your password?'));
     }
   }
+
 }

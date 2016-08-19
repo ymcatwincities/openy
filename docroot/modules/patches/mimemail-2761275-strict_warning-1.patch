@@ -1,0 +1,12 @@
+diff --git a/src/Utility/MimeMailFormatHelper.php b/src/Utility/MimeMailFormatHelper.php
+index 4279d4c..14ff6b8 100644
+--- a/src/Utility/MimeMailFormatHelper.php
++++ b/src/Utility/MimeMailFormatHelper.php
+@@ -575,7 +575,7 @@ public static function expandLinks($matches) {
+     return $matches[1] . self::mimeMailUrl($matches[2]);
+   }
+ 
+-  public function replaceFiles($matches) {
++  public static function replaceFiles($matches) {
+     return stripslashes($matches[1]) .self::mimeMailFile($matches[2]) . stripslashes($matches[3]);
+   }

@@ -26,6 +26,7 @@ use Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\NullDumper;
 use Symfony\Component\DependencyInjection\ExpressionLanguage;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * PhpDumper dumps a service container as a PHP class.
@@ -57,6 +58,7 @@ class PhpDumper extends Dumper
     private $expressionLanguage;
     private $targetDirRegex;
     private $targetDirMaxMatches;
+    private $docStar;
 
     /**
      * @var ExpressionFunctionProviderInterface[]
@@ -108,7 +110,9 @@ class PhpDumper extends Dumper
             'class' => 'ProjectServiceContainer',
             'base_class' => 'Container',
             'namespace' => '',
+            'debug' => true,
         ), $options);
+        $this->docStar = $options['debug'] ? '*' : '';
 
         if (!empty($options['file']) && is_dir($dir = dirname($options['file']))) {
             // Build a regexp where the first root dirs are mandatory,
@@ -233,9 +237,15 @@ class PhpDumper extends Dumper
             array($this->getProxyDumper(), 'isProxyCandidate')
         );
         $code = '';
+        $strip = '' === $this->docStar && method_exists('Symfony\Component\HttpKernel\Kernel', 'stripComments');
 
         foreach ($definitions as $definition) {
-            $code .= "\n".$this->getProxyDumper()->getProxyCode($definition);
+            $proxyCode = "\n".$this->getProxyDumper()->getProxyCode($definition);
+            if ($strip) {
+                $proxyCode = "<?php\n".$proxyCode;
+                $proxyCode = substr(Kernel::stripComments($proxyCode), 5);
+            }
+            $code .= $proxyCode;
         }
 
         return $code;
@@ -382,9 +392,9 @@ class PhpDumper extends Dumper
         $isProxyCandidate = $this->getProxyDumper()->isProxyCandidate($definition);
         $instantiation = '';
 
-        if (!$isProxyCandidate && ContainerInterface::SCOPE_CONTAINER === $definition->getScope()) {
+        if (!$isProxyCandidate && $definition->isShared() && ContainerInterface::SCOPE_CONTAINER === $definition->getScope(false)) {
             $instantiation = "\$this->services['$id'] = ".($simple ? '' : '$instance');
-        } elseif (!$isProxyCandidate && ContainerInterface::SCOPE_PROTOTYPE !== $scope = $definition->getScope()) {
+        } elseif (!$isProxyCandidate && $definition->isShared() && ContainerInterface::SCOPE_PROTOTYPE !== $scope = $definition->getScope(false)) {
             $instantiation = "\$this->services['$id'] = \$this->scopedServices['$scope']['$id'] = ".($simple ? '' : '$instance');
         } elseif (!$simple) {
             $instantiation = '$instance';
@@ -560,25 +570,25 @@ class PhpDumper extends Dumper
         if ($definition->isSynthetic()) {
             $return[] = '@throws RuntimeException always since this service is expected to be injected dynamically';
         } elseif ($class = $definition->getClass()) {
-            $return[] = sprintf('@return %s A %s instance.', 0 === strpos($class, '%') ? 'object' : '\\'.ltrim($class, '\\'), ltrim($class, '\\'));
+            $return[] = sprintf('@return %s A %s instance', 0 === strpos($class, '%') ? 'object' : '\\'.ltrim($class, '\\'), ltrim($class, '\\'));
         } elseif ($definition->getFactory()) {
             $factory = $definition->getFactory();
             if (is_string($factory)) {
-                $return[] = sprintf('@return object An instance returned by %s().', $factory);
+                $return[] = sprintf('@return object An instance returned by %s()', $factory);
             } elseif (is_array($factory) && (is_string($factory[0]) || $factory[0] instanceof Definition || $factory[0] instanceof Reference)) {
                 if (is_string($factory[0]) || $factory[0] instanceof Reference) {
-                    $return[] = sprintf('@return object An instance returned by %s::%s().', (string) $factory[0], $factory[1]);
+                    $return[] = sprintf('@return object An instance returned by %s::%s()', (string) $factory[0], $factory[1]);
                 } elseif ($factory[0] instanceof Definition) {
-                    $return[] = sprintf('@return object An instance returned by %s::%s().', $factory[0]->getClass(), $factory[1]);
+                    $return[] = sprintf('@return object An instance returned by %s::%s()', $factory[0]->getClass(), $factory[1]);
                 }
             }
         } elseif ($definition->getFactoryClass(false)) {
-            $return[] = sprintf('@return object An instance returned by %s::%s().', $definition->getFactoryClass(false), $definition->getFactoryMethod(false));
+            $return[] = sprintf('@return object An instance returned by %s::%s()', $definition->getFactoryClass(false), $definition->getFactoryMethod(false));
         } elseif ($definition->getFactoryService(false)) {
-            $return[] = sprintf('@return object An instance returned by %s::%s().', $definition->getFactoryService(false), $definition->getFactoryMethod(false));
+            $return[] = sprintf('@return object An instance returned by %s::%s()', $definition->getFactoryService(false), $definition->getFactoryMethod(false));
         }
 
-        $scope = $definition->getScope();
+        $scope = $definition->getScope(false);
         if (!in_array($scope, array(ContainerInterface::SCOPE_CONTAINER, ContainerInterface::SCOPE_PROTOTYPE))) {
             if ($return && 0 === strpos($return[count($return) - 1], '@return')) {
                 $return[] = '';
@@ -586,10 +596,18 @@ class PhpDumper extends Dumper
             $return[] = sprintf("@throws InactiveScopeException when the '%s' service is requested while the '%s' scope is not active", $id, $scope);
         }
 
-        $return = implode("\n     * ", $return);
+        if ($definition->isDeprecated()) {
+            if ($return && 0 === strpos($return[count($return) - 1], '@return')) {
+                $return[] = '';
+            }
+
+            $return[] = sprintf('@deprecated %s', $definition->getDeprecationMessage($id));
+        }
+
+        $return = str_replace("\n     * \n", "\n     *\n", implode("\n     * ", $return));
 
         $doc = '';
-        if (ContainerInterface::SCOPE_PROTOTYPE !== $scope) {
+        if ($definition->isShared() && ContainerInterface::SCOPE_PROTOTYPE !== $scope) {
             $doc .= <<<'EOF'
 
      *
@@ -608,6 +626,14 @@ EOF;
 EOF;
         }
 
+        if ($definition->isAutowired()) {
+            $doc = <<<EOF
+
+     *
+     * This service is autowired.
+EOF;
+        }
+
         if ($definition->isLazy()) {
             $lazyInitialization = '$lazyLoad = true';
             $lazyInitializationDoc = "\n     * @param bool    \$lazyLoad whether to try lazy-loading the service with a proxy\n     *";
@@ -621,7 +647,7 @@ EOF;
         $visibility = $isProxyCandidate ? 'public' : 'protected';
         $code = <<<EOF
 
-    /**
+    /*{$this->docStar}
      * Gets the '$id' service.$doc
      *$lazyInitializationDoc
      * $return
@@ -646,6 +672,10 @@ EOF;
         if ($definition->isSynthetic()) {
             $code .= sprintf("        throw new RuntimeException('You have requested a synthetic service (\"%s\"). The DIC does not know how to construct this service.');\n    }\n", $id);
         } else {
+            if ($definition->isDeprecated()) {
+                $code .= sprintf("        @trigger_error(%s, E_USER_DEPRECATED);\n\n", var_export($definition->getDeprecationMessage($id), true));
+            }
+
             $code .=
                 $this->addServiceInclude($id, $definition).
                 $this->addServiceLocalTempVariables($id, $definition).
@@ -737,7 +767,7 @@ EOF;
 
         return <<<EOF
 
-    /**
+    /*{$this->docStar}
      * Updates the '$id' service.
      */
     protected function synchronize{$this->camelize($id)}Service()
@@ -829,7 +859,7 @@ use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 $bagClass
 
-/**
+/*{$this->docStar}
  * $class.
  *
  * This class has been auto-generated
@@ -855,7 +885,7 @@ EOF;
 
         $code = <<<EOF
 
-    /**
+    /*{$this->docStar}
      * Constructor.
      */
     public function __construct()
@@ -864,10 +894,10 @@ EOF;
 
 EOF;
 
-        if (count($scopes = $this->container->getScopes()) > 0) {
+        if (count($scopes = $this->container->getScopes(false)) > 0) {
             $code .= "\n";
             $code .= '        $this->scopes = '.$this->dumpValue($scopes).";\n";
-            $code .= '        $this->scopeChildren = '.$this->dumpValue($this->container->getScopeChildren()).";\n";
+            $code .= '        $this->scopeChildren = '.$this->dumpValue($this->container->getScopeChildren(false)).";\n";
         }
 
         $code .= $this->addMethodMap();
@@ -892,7 +922,7 @@ EOF;
 
         $code = <<<EOF
 
-    /**
+    /*{$this->docStar}
      * Constructor.
      */
     public function __construct()
@@ -911,9 +941,9 @@ EOF;
 EOF;
 
         $code .= "\n";
-        if (count($scopes = $this->container->getScopes()) > 0) {
+        if (count($scopes = $this->container->getScopes(false)) > 0) {
             $code .= '        $this->scopes = '.$this->dumpValue($scopes).";\n";
-            $code .= '        $this->scopeChildren = '.$this->dumpValue($this->container->getScopeChildren()).";\n";
+            $code .= '        $this->scopeChildren = '.$this->dumpValue($this->container->getScopeChildren(false)).";\n";
         } else {
             $code .= "        \$this->scopes = array();\n";
             $code .= "        \$this->scopeChildren = array();\n";
@@ -939,7 +969,7 @@ EOF;
     {
         return <<<EOF
 
-    /**
+    /*{$this->docStar}
      * {@inheritdoc}
      */
     public function compile()
@@ -1060,11 +1090,14 @@ EOF;
     }
 
 EOF;
+            if ('' === $this->docStar) {
+                $code = str_replace('/**', '/*', $code);
+            }
         }
 
         $code .= <<<EOF
 
-    /**
+    /*{$this->docStar}
      * Gets the default parameters.
      *
      * @return array An array of the default parameters
@@ -1255,7 +1288,7 @@ EOF;
                     return true;
                 }
 
-                if ($deep && !isset($visited[$argumentId])) {
+                if ($deep && !isset($visited[$argumentId]) && 'service_container' !== $argumentId) {
                     $visited[$argumentId] = true;
 
                     $service = $this->container->getDefinition($argumentId);

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Bootstrap\GetFilenameUnitTest.
- */
-
 namespace Drupal\system\Tests\Bootstrap;
 
 use Drupal\simpletest\KernelTestBase;
@@ -62,4 +57,5 @@ class GetFilenameUnitTest extends KernelTestBase {
     // Restore the original error handler.
     restore_error_handler();
   }
+
 }

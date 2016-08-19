@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\dblog\Plugin\rest\resource\DBLogResource.
- */
-
 namespace Drupal\dblog\Plugin\rest\resource;
 
 use Drupal\rest\Plugin\ResourceBase;
@@ -54,4 +49,5 @@ class DBLogResource extends ResourceBase {
 
     throw new BadRequestHttpException(t('No log entry ID was provided'));
   }
+
 }

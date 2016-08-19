@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\user\Form\UserPasswordResetForm.
- */
-
 namespace Drupal\user\Form;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -120,4 +115,3 @@ class UserPasswordResetForm extends FormBase {
   }
 
 }
-

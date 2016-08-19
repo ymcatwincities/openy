@@ -1,0 +1,24 @@
+uuid: f8c0012c-1640-44e4-8343-b65a940896ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_timestamp_start
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
+field_name: field_gg_timestamp_start
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Timestamp Start'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

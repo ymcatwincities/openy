@@ -62,6 +62,13 @@ function webprofiler_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ],
+      'status_code' => [
+        'description' => 'Profile status code.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
     ],
     'indexes' => [
       'created_at' => ['created_at'],
@@ -163,4 +170,21 @@ function _webprofiler_verify_library($extension, $name) {
   }
 
   return $exist;
+}
+
+/**
+ * Add a status_code column to the webprofiler table.
+ */
+function webprofiler_update_8001() {
+  $database = \Drupal::database();
+  $schema = $database->schema();
+
+  $spec = array(
+    'description' => 'Profile status code.',
+    'type' => 'int',
+    'size' => 'small',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+  );
+  $schema->addField('webprofiler', 'status_code', $spec);
 }

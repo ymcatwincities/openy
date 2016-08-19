@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Config\ConfigCollectionInfo.
- */
-
 namespace Drupal\Core\Config;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -35,7 +30,7 @@ class ConfigCollectionInfo extends Event {
    *
    * @throws \InvalidArgumentException
    *   Exception thrown if $collection is equal to
-   *   \Drupal\Core\Config\StorageInterface::DEFAULT_COLLECTION
+   *   \Drupal\Core\Config\StorageInterface::DEFAULT_COLLECTION.
    */
   public function addCollection($collection, ConfigFactoryOverrideInterface $override_service = NULL) {
     if ($collection == StorageInterface::DEFAULT_COLLECTION) {

@@ -2,11 +2,11 @@
 
 namespace Drupal\ymca_menu\Controller;
 
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableJsonResponse;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Url;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Responses for menu json object calls.
@@ -18,54 +18,46 @@ class YMCAMenuController extends ControllerBase {
    */
   const ROOT_ID = 1;
 
-  /**
-   * The database service.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $database;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('database'));
-  }
-
-  /**
-   * Constructs a YMCAMenuController object.
-   *
-   * @param \Drupal\Core\Database\Connection $database
-   *   A database connection.
-   */
-  public function __construct(Connection $database) {
-    $this->database = $database;
-  }
+  const MOBILE_MENU_LIST_CONFIG_NAME = 'ymca_menu.mobile_menu_list';
 
   /**
    * Outputs JSON-response.
    */
   public function json() {
-    if ($cache = \Drupal::cache()->get(YMCA_MENU_CACHE_CID)) {
-      $data = $cache->data;
-    }
-    else {
-      $data = $this->buildTree();
-      \Drupal::cache()->set(YMCA_MENU_CACHE_CID, $data);
-    }
+    $data = $this->buildTree(self::MOBILE_MENU_LIST_CONFIG_NAME);
 
-    return new JsonResponse($data);
+    $cacheable = [
+      '#cache' => [
+        'tags' => $this->getMenuTags(self::MOBILE_MENU_LIST_CONFIG_NAME),
+      ],
+    ];
+
+    $response = new CacheableJsonResponse($data, 200);
+    $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($cacheable));
+    return $response;
   }
 
   /**
    * Builds sitemap tree.
+   *
+   * @param string $config
+   *   Menu list config name.
+   *
+   * @return array
+   *   An array of the menu tree.
    */
-  public function buildTree() {
+  public function buildTree($config = 'ymca_menu.menu_list') {
+    // config:ymca_menu.menu_list tag.
+    $cache_id = 'ymca_menu_buildTree_' . $config;
+    if ($cache = $this->cache()->get($cache_id)) {
+      return $cache->data;
+    }
+
     // Lookup stores all menu-link items.
     $tree = $this->initTree();
-    $menus = static::menuList();
+    $menus = static::menuList($config);
     foreach ($menus as $menu_id) {
-      $query = $this->database->select('menu_tree', 'mt');
+      $query = db_select('menu_tree', 'mt');
       $query->leftJoin('menu_link_content', 'mlc', 'mt.id = CONCAT(mlc.bundle, :separator, mlc.uuid)', [':separator' => ':']);
       $query->leftJoin('menu_link_content_data', 'mlcd', 'mlcd.id = mlc.id');
       $query->condition('mt.menu_name', $menu_id);
@@ -138,11 +130,11 @@ class YMCAMenuController extends ControllerBase {
         );
         if ($row->link__uri) {
           try {
-            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->link__uri)->toString();
+            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->link__uri)->toString(TRUE)->getGeneratedUrl();
           }
           catch (\InvalidArgumentException $e) {
             try {
-              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->link__uri)->toString();
+              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->link__uri)->toString(TRUE)->getGeneratedUrl();
             }
             catch (\InvalidArgumentException $e) {
               $menu_item_page_uri = Url::fromRoute(
@@ -153,7 +145,7 @@ class YMCAMenuController extends ControllerBase {
               \Drupal::logger('ymca_menu')
                 ->error('[DEV] Menu link path %path cannot be converted to URL. Check at <a href="@url">page</a>', [
                   '%path' => $row->link__uri,
-                  '@url' => $menu_item_page_uri->toString(),
+                  '@url' => $menu_item_page_uri->toString(TRUE)->getGeneratedUrl(),
                 ]);
             }
           }
@@ -169,7 +161,27 @@ class YMCAMenuController extends ControllerBase {
       }
     }
 
+    $this->cache()->set($cache_id, $tree, Cache::PERMANENT, $this->getMenuTags($config));
+
     return $tree;
+  }
+
+  /**
+   * Helper function; retrieve menu cache tags.
+   *
+   * @param string $config
+   *   Name of menu list config.
+   *
+   * @return array
+   *   Array of cache tags.
+   */
+  private function getMenuTags($config) {
+    $menu_tags = ['config:' . $config, 'node_list', YMCA_MENU_CACHE_CID];
+    $menus = static::menuList($config);
+    foreach ($menus as $menu_id) {
+      $menu_tags[] = 'config:system.menu.' . $menu_id;
+    }
+    return $menu_tags;
   }
 
   /**
@@ -222,19 +234,22 @@ class YMCAMenuController extends ControllerBase {
   /**
    * Return an ordered list of menus' machine names to be combined.
    *
+   * @param string $config
+   *   Optional config id that can override default settings. Useful in a/b.
+   *
    * @return array
    *   List of menu machine names.
    */
-  public static function menuList() {
-    $menu_list = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+  public static function menuList($config = 'ymca_menu.menu_list') {
+    $menu_list = \Drupal::config($config)->get('menu_list');
     return $menu_list;
   }
 
   /**
    * Builds Main menu configuration page.
    */
-  public function configMainMenu() {
-    $form = \Drupal::formBuilder()->getForm('Drupal\ymca_menu\Form\YmcaMainMenuConfigForm');
+  public function configMainMenu($variant) {
+    $form = $this->formBuilder()->getForm('Drupal\ymca_menu\Form\YmcaMainMenuConfigForm', $variant);
     return [
       'form' => $form,
       '#cache' => [

@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+a.tabledrag-handle .handle {
+  box-sizing: content-box;
+}
+
 .cke-columns.container:before,
 .cke-columns.container:after {
   display: table;
@@ -12,6 +16,9 @@
 
 .cke-columns.container {
   margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
+  padding: 30px 0;
   width: 100%;
 }
 
@@ -31,6 +38,13 @@
   padding: 5px;
   width: 33.33333333333333%;
 }
+.cke-columns .col-xs-12 {
+   border: 1px dashed #ccc;
+   position: relative;
+   min-height: 1px;
+   padding: 5px;
+   width: 100%;
+ }
 
 .cke_button__block_icon {
   background-image: url("../img/ck_ico_block.png") !important;
@@ -47,4 +61,15 @@
 
 .cke_button__webform_icon {
   background-image: url("../img/ck_ico_webform.png") !important;
+}
+
+.sports-promo {
+  text-align: center;
+}
+
+body select.cke_dialog_ui_input_select {
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 20px;
+  line-height: 20px;
 }

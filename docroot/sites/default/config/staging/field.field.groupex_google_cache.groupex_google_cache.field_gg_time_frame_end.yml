@@ -1,0 +1,24 @@
+uuid: f21b94a6-dd36-4ac5-9c61-2f5b5e26f55d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_time_frame_end
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_time_frame_end
+field_name: field_gg_time_frame_end
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Time Frame End'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

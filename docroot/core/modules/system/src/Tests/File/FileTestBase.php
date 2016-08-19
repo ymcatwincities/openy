@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\FileTestBase.
- */
-
 namespace Drupal\system\Tests\File;
 
 use Drupal\simpletest\KernelTestBase;
@@ -169,4 +164,5 @@ abstract class FileTestBase extends KernelTestBase {
     $this->assertTrue(is_file($filepath), t('The test file exists on the disk.'), 'Create test file');
     return $filepath;
   }
+
 }

@@ -5,7 +5,7 @@
  */
 (function ($, Drupal, drupalSettings) {
 
-  "use strict";
+  'use strict';
 
   /**
    * Registers behaviours related to view widget.
@@ -30,10 +30,10 @@
             form_values = form_values.splice(form_values.length - 3, 3);
             ajax.ajaxing = true;
             return ajax.beforeSubmit(form_values, element_settings, options);
-          }
+          };
         }
       }
     }
-  }
+  };
 
 }(jQuery, Drupal, drupalSettings));

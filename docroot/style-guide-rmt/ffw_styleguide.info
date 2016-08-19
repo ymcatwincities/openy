@@ -1,0 +1,7 @@
+name = FFW Styleguide Theme
+description = Based on FFW Responsive theme
+core = 7.x
+engine = phptemplate
+
+scripts[] = js/lib/enquire.min.js
+scripts[] = js/lib/media.match.min.js

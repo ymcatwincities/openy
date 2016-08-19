@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Menu\MenuTreeStorageInterface.
- */
-
 namespace Drupal\Core\Menu;
 
 /**
@@ -37,7 +32,6 @@ interface MenuTreeStorageInterface {
    *
    * @param array $definitions
    *   The new menu link definitions.
-   *
    */
   public function rebuild(array $definitions);
 

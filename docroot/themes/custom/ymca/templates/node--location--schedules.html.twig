@@ -87,14 +87,11 @@
           <h2>Group Exercise Classes</h2>
           {{ form_find_classes }}
         </article>
-        <article class="richtext print-group-link">
-          <p><a href="{{ print_group_exercise_uri }}">{{ 'Print a Group Exercise Schedule'|t }}</a></p>
-        </article>
       </div>
       <div class="right col-sm-6">
         <article class="richtext location-schedules-content">
           {{ content.field_schedule_content }}
-          {{ content.field_schedule_documents }}
+          {{ content.field_schedule_block }}
         </article>
       </div>
     </div>

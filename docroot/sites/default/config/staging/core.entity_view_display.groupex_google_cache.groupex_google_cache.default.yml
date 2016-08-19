@@ -1,0 +1,165 @@
+uuid: 4ab34580-7074-4f92-a605-59666dd4dc32
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_category
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_class_id
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_date
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_description
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_studio
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_sub_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_time
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_end
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_time_frame_start
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_title
+  module:
+    - user
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.default
+targetEntityType: groupex_google_cache
+bundle: groupex_google_cache
+mode: default
+content:
+  field_gg_category:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_class_id:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_date:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_description:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_gg_gcal_id:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_google_event:
+    weight: 19
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_gg_instructor:
+    weight: 17
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_location:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_orig_instructor:
+    weight: 18
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_studio:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_sub_instructor:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_time:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_time_frame_end:
+    weight: 13
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_gg_time_frame_start:
+    weight: 14
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_gg_timestamp_end:
+    weight: 15
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_gg_timestamp_start:
+    weight: 16
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_gg_title:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

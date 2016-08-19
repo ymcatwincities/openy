@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\RemoteFileUnmanagedMoveTest.
- */
-
 namespace Drupal\system\Tests\File;
 
 /**
@@ -39,4 +34,5 @@ class RemoteFileUnmanagedMoveTest extends UnmanagedMoveTest {
     parent::setUp();
     $this->config('system.file')->set('default_scheme', 'dummy-remote')->save();
   }
+
 }

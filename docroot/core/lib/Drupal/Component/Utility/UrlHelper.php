@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\Utility\UrlHelper.
- */
-
 namespace Drupal\Component\Utility;
 
 /**
@@ -23,7 +18,6 @@ class UrlHelper {
 
   /**
    * Parses an array into a valid, rawurlencoded query string.
-   *
    *
    * rawurlencode() is RFC3986 compliant, and as a consequence RFC3987
    * compliant. The latter defines the required format of "URLs" in HTML5.

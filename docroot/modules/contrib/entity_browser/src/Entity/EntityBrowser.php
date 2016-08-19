@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Entity\EntityBrowser.
- */
-
 namespace Drupal\entity_browser\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
@@ -463,12 +458,8 @@ class EntityBrowser extends ConfigEntityBase implements EntityBrowserInterface, 
   protected function urlRouteParameters($rel) {
     $uri_route_parameters = parent::urlRouteParameters($rel);
 
-    // Form wizard expects step argument and uses machine_name instead of
-    // entity_browser.
-    if ($rel == 'edit-form') {
+    if ($rel == 'config-translation-overview') {
       $uri_route_parameters['step'] = 'general';
-      $uri_route_parameters['machine_name'] = $uri_route_parameters['entity_browser'];
-      unset($uri_route_parameters['entity_browser']);
     }
 
     return $uri_route_parameters;

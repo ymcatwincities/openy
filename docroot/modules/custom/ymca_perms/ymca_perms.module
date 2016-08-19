@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_create_access().
+ */
+function ymca_perms_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
+  if ($context['entity_type_id'] == 'block_content') {
+    if ($account->hasPermission('create custom blocks')) {
+      return AccessResult::allowed();
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function ymca_perms_menu_link_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($operation == 'view') {
+    if ($account->hasPermission('insert menu links via entity embed')) {
+      return AccessResult::allowed();
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function ymca_perms_file_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($operation == 'update') {
+    if ($account->hasPermission('update location document files')) {
+
+      // Find Location Schedule block for the file entity.
+      $file_id = $entity->id();
+      $blocks = \Drupal::entityQuery('block_content')
+        ->condition('type', 'location_schedule')
+        ->condition('field_schedule_documents.target_id', $file_id)
+        ->execute();
+
+      if (empty($blocks)) {
+        return AccessResult::neutral();
+      }
+
+      // Find location which uses the block.
+      $block_id = reset($blocks);
+      $locations = \Drupal::entityQuery('node')
+        ->condition('type', 'location')
+        ->condition('field_schedule_block.target_id', $block_id)
+        ->execute();
+
+      if (empty($locations)) {
+        return AccessResult::neutral();
+      }
+
+      // Check if user has location access.
+      $location_id = reset($locations);
+      $storage = \Drupal::getContainer()->get('entity.manager')->getStorage('user');
+      $user = $storage->load($account->id());
+      if ($user->hasField('field_locations')) {
+        foreach ($user->field_locations->getValue() as $value) {
+          if ($value['target_id'] == $location_id) {
+            return AccessResult::allowed();
+          }
+        }
+      }
+
+    }
+  }
+
+  return AccessResult::neutral();
+}

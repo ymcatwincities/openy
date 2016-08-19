@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Mail\MailFormatHelper.
- */
-
 namespace Drupal\Core\Mail;
 
 use Drupal\Component\Utility\Html;
@@ -393,4 +388,5 @@ class MailFormatHelper {
     // Add prefix and padding, and restore linebreak.
     return $text . $prefix . str_repeat($pad, $n) . "\n";
   }
+
 }

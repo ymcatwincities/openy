@@ -207,7 +207,7 @@ class EntityEmbedDialog extends FormBase {
       $this->eventDispatcher->addListener(Events::REGISTER_JS_CALLBACKS, [$this, 'registerJSCallback']);
 
       $form['attributes']['entity_browser']['#theme_wrappers'] = ['container'];
-      $form['attributes']['entity_browser']['browser'] = $this->entityBrowser->getDisplay()->displayEntityBrowser();
+      $form['attributes']['entity_browser']['browser'] = $this->entityBrowser->getDisplay()->displayEntityBrowser($form_state);
       $form['attributes']['entity_browser']['entity-id'] = [
         '#type' => 'hidden',
         '#default_value' => $entity ? $entity->id() : '',

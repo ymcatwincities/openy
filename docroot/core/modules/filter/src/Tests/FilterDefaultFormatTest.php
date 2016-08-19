@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\filter\Tests\FilterDefaultFormatTest.
- */
-
 namespace Drupal\filter\Tests;
 
 use Drupal\Component\Utility\Unicode;
@@ -79,4 +74,5 @@ class FilterDefaultFormatTest extends WebTestBase {
   protected function resetFilterCaches() {
     filter_formats_reset();
   }
+
 }

@@ -1,0 +1,16 @@
+entity.mindbody_cache.collection:
+  title: 'MindBody Cache list'
+  route_name: entity.mindbody_cache.collection
+  description: 'List MindBody Cache entities'
+  parent: ymca_alters.admin_config_entities
+  weight: 100
+mindbody_cache.admin.structure.settings:
+  title: MindBody Cache settings
+  description: 'Configure MindBody Cache entities'
+  route_name: mindbody_cache.settings
+  parent: ymca_alters.admin_config_entities
+mindbody_cache_proxy.settings:
+  title: 'MindBody Cache Proxy settings'
+  description: 'Configure MindBody Cache Proxy.'
+  parent: system.admin_config_services
+  route_name: mindbody_cache_proxy.settings

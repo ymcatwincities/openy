@@ -1,0 +1,25 @@
+uuid: 862b492b-0730-4652-bf4c-3c95b25350cc
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+    - ymca_page_manager
+third_party_settings:
+  ymca_page_manager:
+    author: '61'
+id: summer_guide
+label: 'Summer Guide'
+use_admin_theme: false
+path: /summerguide
+access_logic: and
+access_conditions:
+  5ad3ec8c-3390-4132-8727-a49c483f8a80:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: 5ad3ec8c-3390-4132-8727-a49c483f8a80
+parameters: {  }

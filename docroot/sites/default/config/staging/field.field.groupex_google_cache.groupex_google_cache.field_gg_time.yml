@@ -1,0 +1,20 @@
+uuid: 92a214b4-ab3f-4084-93f3-3799cd0df22f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_time
+  module:
+    - ymca_google
+id: groupex_google_cache.groupex_google_cache.field_gg_time
+field_name: field_gg_time
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Time'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

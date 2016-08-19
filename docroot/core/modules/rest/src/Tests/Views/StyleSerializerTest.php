@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\rest\Tests\Views\StyleSerializerTest.
- */
-
 namespace Drupal\rest\Tests\Views;
 
 use Drupal\Core\Cache\Cache;
@@ -12,6 +7,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\system\Tests\Cache\AssertPageCacheContextsAndTagsTrait;
 use Drupal\views\Entity\View;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
@@ -43,14 +39,14 @@ class StyleSerializerTest extends PluginTestBase {
    *
    * @var array
    */
-  public static $modules = array('views_ui', 'entity_test', 'hal', 'rest_test_views', 'node', 'text', 'field');
+  public static $modules = array('views_ui', 'entity_test', 'hal', 'rest_test_views', 'node', 'text', 'field', 'language');
 
   /**
    * Views used by this test.
    *
    * @var array
    */
-  public static $testViews = array('test_serializer_display_field', 'test_serializer_display_entity', 'test_serializer_node_display_field', 'test_serializer_node_exposed_filter');
+  public static $testViews = array('test_serializer_display_field', 'test_serializer_display_entity', 'test_serializer_display_entity_translated', 'test_serializer_node_display_field', 'test_serializer_node_exposed_filter');
 
   /**
    * A user with administrative privileges to look at test entity and configure views.
@@ -66,7 +62,7 @@ class StyleSerializerTest extends PluginTestBase {
 
     // Save some entity_test entities.
     for ($i = 1; $i <= 10; $i++) {
-      entity_create('entity_test', array('name' => 'test_' . $i, 'user_id' => $this->adminUser->id()))->save();
+      EntityTest::create(array('name' => 'test_' . $i, 'user_id' => $this->adminUser->id()))->save();
     }
 
     $this->enableViewsTestModule();
@@ -184,6 +180,22 @@ class StyleSerializerTest extends PluginTestBase {
     $expected = $serializer->serialize($entities, 'xml');
     $actual_xml = $this->drupalGetWithFormat('test/serialize/entity', 'xml');
     $this->assertIdentical($actual_xml, $expected, 'The expected XML output was found.');
+  }
+
+  /**
+   * Verifies site maintenance mode functionality.
+   */
+  protected function testSiteMaintenance() {
+    $view = Views::getView('test_serializer_display_field');
+    $view->initDisplay();
+    $this->executeView($view);
+
+    // Set the site to maintenance mode.
+    $this->container->get('state')->set('system.maintenance_mode', TRUE);
+
+    $this->drupalGetWithFormat('test/serialize/entity', 'json');
+    // Verify that the endpoint is unavailable for anonymous users.
+    $this->assertResponse(503);
   }
 
   /**
@@ -755,4 +767,39 @@ class StyleSerializerTest extends PluginTestBase {
     $this->assertEqual($result, $expected, 'Querying a view with a starts with exposed filter on the title returns nodes whose title starts with value provided.');
     $this->assertCacheContexts($cache_contexts);
   }
+
+  /**
+   * Test multilingual entity rows.
+   */
+  public function testMulEntityRows() {
+    // Create some languages.
+    ConfigurableLanguage::createFromLangcode('l1')->save();
+    ConfigurableLanguage::createFromLangcode('l2')->save();
+
+    // Create an entity with no translations.
+    $storage = \Drupal::entityTypeManager()->getStorage('entity_test_mul');
+    $storage->create(['langcode' => 'l1', 'name' => 'mul-none'])->save();
+
+    // Create some entities with translations.
+    $entity = $storage->create(['langcode' => 'l1', 'name' => 'mul-l1-orig']);
+    $entity->save();
+    $entity->addTranslation('l2', ['name' => 'mul-l1-l2'])->save();
+    $entity = $storage->create(['langcode' => 'l2', 'name' => 'mul-l2-orig']);
+    $entity->save();
+    $entity->addTranslation('l1', ['name' => 'mul-l2-l1'])->save();
+
+    // Get the names of the output.
+    $json = $this->drupalGetWithFormat('test/serialize/translated_entity', 'json');
+    $decoded = $this->container->get('serializer')->decode($json, 'hal_json');
+    $names = [];
+    foreach ($decoded as $item) {
+      $names[] = $item['name'][0]['value'];
+    }
+    sort($names);
+
+    // Check that the names are correct.
+    $expected = ['mul-l1-l2', 'mul-l1-orig', 'mul-l2-l1', 'mul-l2-orig', 'mul-none'];
+    $this->assertIdentical($names, $expected, 'The translated content was found in the JSON.');
+  }
+
 }

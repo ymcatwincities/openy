@@ -3,12 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_schedule_documents
-    - user.role.administrator
-    - user.role.location_editor
+    - field.storage.node.field_schedule_block
+    - user.role.authenticated
   module:
-    - file
-    - file_entity
+    - block_content
     - node
     - user
 id: location_schedules
@@ -30,8 +28,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
-            location_editor: location_editor
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
@@ -243,14 +240,14 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_schedule_documents:
-          id: field_schedule_documents
-          table: node__field_schedule_documents
-          field: field_schedule_documents
+        field_schedule_block:
+          id: field_schedule_block
+          table: node__field_schedule_block
+          field: field_schedule_block
           relationship: field_locations
           group_type: group
           admin_label: ''
-          label: 'Schedule Documents'
+          label: 'Schedule block name'
           exclude: false
           alter:
             alter_text: false
@@ -291,12 +288,13 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: description
-          type: file_default
-          settings: {  }
-          group_column: ''
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
           group_columns: {  }
-          group_rows: false
+          group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
@@ -305,14 +303,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        filename:
-          id: filename
-          table: file_managed
-          field: filename
-          relationship: field_schedule_documents_target_id
+        edit_block_content:
+          id: edit_block_content
+          table: block_content
+          field: edit_block_content
+          relationship: field_schedule_block
           group_type: group
           admin_label: ''
-          label: Filename
+          label: 'Edit schedule'
           exclude: false
           alter:
             alter_text: false
@@ -353,59 +351,9 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          link_to_file: 0
-          entity_type: file
-          plugin_id: file_name
-        edit:
-          id: edit
-          table: file_managed
-          field: edit
-          relationship: field_schedule_documents_target_id
-          group_type: group
-          admin_label: ''
-          label: 'Edit link'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          entity_type: file
-          plugin_id: file_entity_link_edit
+          text: edit
+          entity_type: block_content
+          plugin_id: entity_link_edit
       filters:
         status:
           value: true
@@ -418,49 +366,6 @@ display:
           expose:
             operator: ''
           group: 1
-        combine:
-          id: combine
-          table: views
-          field: combine
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: combine_op
-            label: Search
-            description: ''
-            use_operator: false
-            operator: combine_op
-            identifier: combine
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              editor: '0'
-              location_editor: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          fields:
-            title: title
-            filename: filename
-          plugin_id: combine
       sorts: {  }
       header: {  }
       footer: {  }
@@ -475,13 +380,13 @@ display:
           admin_label: 'field_locations: Content'
           required: true
           plugin_id: standard
-        field_schedule_documents_target_id:
-          id: field_schedule_documents_target_id
-          table: node__field_schedule_documents
-          field: field_schedule_documents_target_id
+        field_schedule_block:
+          id: field_schedule_block
+          table: node__field_schedule_block
+          field: field_schedule_block
           relationship: field_locations
           group_type: group
-          admin_label: 'file from field_schedule_documents'
+          admin_label: 'field_schedule_block: Custom block'
           required: true
           plugin_id: standard
       arguments:
@@ -533,7 +438,7 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.node.field_schedule_documents'
+        - 'config:field.storage.node.field_schedule_block'
   location_schedules_page:
     display_plugin: page
     id: location_schedules_page
@@ -551,6 +456,7 @@ display:
         weight: 10
         context: '0'
         menu_name: account
+        enabled: true
     cache_metadata:
       max-age: 0
       contexts:
@@ -561,4 +467,4 @@ display:
         - user
         - user.roles
       tags:
-        - 'config:field.storage.node.field_schedule_documents'
+        - 'config:field.storage.node.field_schedule_block'

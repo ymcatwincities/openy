@@ -1,0 +1,15 @@
+diff --git a/docroot/core/misc/ajax.js b/docroot/core/misc/ajax.js
+index bb1b76f..3f338c0 100644
+--- a/docroot/core/misc/ajax.js
++++ b/docroot/core/misc/ajax.js
+@@ -272,7 +272,10 @@
+    */
+   Drupal.ajax.expired = function () {
+     return Drupal.ajax.instances.filter(function (instance) {
+-      return instance && instance.element !== false && !document.body.contains(instance.element);
++      if (instance && !(instance.element instanceof HTMLElement)) {
++        Drupal.throwError(new Error(Drupal.t('TypeError: instance.element is not a HTMLElement')));
++      }
++      return instance && instance.element !== false && instance.element instanceof HTMLElement && !document.body.contains(instance.element);
+     });
+   };

@@ -19,6 +19,9 @@ process:
         - module
         - delta
       delimiter: _
+    -
+      plugin: machine_name
+      field: id
   plugin:
     -
       plugin: static_map
@@ -75,7 +78,6 @@ process:
       help: help
       header: header
       footer: footer
-  label: title
   weight: weight
   settings:
     plugin: block_settings
@@ -83,6 +85,7 @@ process:
       - '@plugin'
       - delta
       - settings
+      - title
   visibility:
     plugin: block_visibility
     source:

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Config\ExtensionInstallStorage.
- */
-
 namespace Drupal\Core\Config;
 
 use Drupal\Core\Site\Settings;
@@ -136,5 +131,5 @@ class ExtensionInstallStorage extends InstallStorage {
     }
     return $this->folders;
   }
-}
 
+}

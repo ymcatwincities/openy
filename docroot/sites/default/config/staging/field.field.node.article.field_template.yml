@@ -1,0 +1,21 @@
+uuid: e0f5916e-1c22-435b-8424-12fde5e0f840
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_template
+    - node.type.article
+  module:
+    - options
+id: node.article.field_template
+field_name: field_template
+entity_type: node
+bundle: article
+label: Template
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

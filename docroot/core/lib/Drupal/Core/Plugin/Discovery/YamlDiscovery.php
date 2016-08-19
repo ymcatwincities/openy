@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Plugin\Discovery\YamlDiscovery.
- */
-
 namespace Drupal\Core\Plugin\Discovery;
 
 use Drupal\Component\Plugin\Discovery\DiscoveryInterface;
@@ -106,4 +101,5 @@ class YamlDiscovery implements DiscoveryInterface {
 
     return $definitions;
   }
+
 }

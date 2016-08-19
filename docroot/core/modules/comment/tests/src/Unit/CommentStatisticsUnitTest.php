@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\comment\Unit\CommentStatisticsUnitTest.
- */
-
 namespace Drupal\Tests\comment\Unit;
 
 use Drupal\comment\CommentStatistics;
@@ -125,4 +120,5 @@ class CommentStatisticsUnitTest extends UnitTestCase {
         break;
     }
   }
+
 }

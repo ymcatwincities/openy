@@ -56,8 +56,8 @@ class EmailValidator extends ConstraintValidator
         }
 
         if ($constraint->strict) {
-            if (!class_exists('\Egulias\EmailValidator\EmailValidator')) {
-                throw new RuntimeException('Strict email validation requires egulias/email-validator');
+            if (!class_exists('\Egulias\EmailValidator\EmailValidator') || interface_exists('\Egulias\EmailValidator\Validation\EmailValidation')) {
+                throw new RuntimeException('Strict email validation requires egulias/email-validator:~1.2');
             }
 
             $strictValidator = new \Egulias\EmailValidator\EmailValidator();
@@ -93,7 +93,7 @@ class EmailValidator extends ConstraintValidator
             return;
         }
 
-        $host = substr($value, strpos($value, '@') + 1);
+        $host = substr($value, strrpos($value, '@') + 1);
 
         // Check for host DNS resource records
         if ($constraint->checkMX) {

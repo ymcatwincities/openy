@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.location.field_alert
     - field.field.node.location.field_content
     - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_fitness_phone
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
     - field.field.node.location.field_location
@@ -13,17 +14,17 @@ dependencies:
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
     - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
     - field.field.node.location.field_schedule_content
-    - field.field.node.location.field_schedule_documents
     - field.field.node.location.field_working_hours
     - node.type.location
   module:
     - address
-    - file_browser
+    - entity_browser
+    - inline_entity_form
     - path
-    - scheduler
-    - telephone
     - text
+    - ymca_alters
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -31,33 +32,45 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 12
+    weight: 13
     settings: {  }
     third_party_settings: {  }
   field_alert:
-    weight: 6
+    weight: 7
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_content:
-    weight: 14
+    weight: 15
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_facebook_page_id:
-    weight: 9
+    weight: 10
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_fitness_phone:
+    weight: 4
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
   field_include_general_blog_posts:
-    weight: 10
+    weight: 11
     settings:
       display_label: true
     third_party_settings: {  }
@@ -70,21 +83,25 @@ content:
     third_party_settings: {  }
     type: text_textfield
   field_location:
-    weight: 4
+    weight: 5
     settings:
       default_country: null
     third_party_settings: {  }
     type: address_default
   field_main_promos:
-    weight: 8
+    weight: 9
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_membership_block:
-    weight: 7
+    weight: 8
     settings:
       display_label: true
     third_party_settings: {  }
@@ -93,43 +110,52 @@ content:
     weight: 3
     settings:
       placeholder: ''
+      validate_pattern: ''
+      validate_message: ''
     third_party_settings: {  }
     type: telephone_default
   field_promo_slideshow:
-    weight: 5
+    weight: 6
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
+  field_schedule_block:
+    weight: 18
+    settings:
+      entity_browser: browse_block_modal
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
   field_schedule_content:
-    weight: 16
+    weight: 17
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_schedule_documents:
-    weight: 17
-    settings:
-      entity_browser: browse_files_modal
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      view_mode: default
-      field_widget_display: ''
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: file_browser
   field_working_hours:
-    weight: 15
+    weight: 16
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   langcode:
     type: language_select
     weight: 2
@@ -137,7 +163,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
   publish_on:
@@ -154,7 +180,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60

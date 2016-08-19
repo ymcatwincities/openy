@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\Component\Utility\UrlHelperTest.
- */
-
 namespace Drupal\Tests\Component\Utility;
 
 use Drupal\Component\Utility\UrlHelper;
@@ -246,7 +241,7 @@ class UrlHelperTest extends UnitTestCase {
    */
   public function testParse($url, $expected) {
     $parsed = UrlHelper::parse($url);
-    $this->assertEquals($expected, $parsed, 'The url was not properly parsed.');
+    $this->assertEquals($expected, $parsed, 'The URL was not properly parsed.');
   }
 
   /**
@@ -375,7 +370,7 @@ class UrlHelperTest extends UnitTestCase {
       array(json_decode('"\u00AD"') . "//www.example.com", TRUE),
       array(json_decode('"\u200E"') . "//www.example.com", TRUE),
       array(json_decode('"\uE0020"') . "//www.example.com", TRUE),
-      array(json_decode('"\uE000"')  . "//www.example.com", TRUE),
+      array(json_decode('"\uE000"') . "//www.example.com", TRUE),
       // Backslashes should be normalized to forward.
       array('\\\\example.com', TRUE),
       // Local URLs.
@@ -589,4 +584,5 @@ class UrlHelperTest extends UnitTestCase {
       array('http://', 'http://example.com/foo'),
     );
   }
+
 }

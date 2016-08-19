@@ -1,14 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Form\PluginConfigFormBase.
- */
-
 namespace Drupal\entity_browser\Form;
 
+use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\Core\Render\Element;
 use Drupal\entity_browser\EntityBrowserInterface;
 
 /**
@@ -23,6 +21,16 @@ abstract class PluginConfigFormBase extends FormBase {
     /** @var \Drupal\entity_browser\EntityBrowserInterface $entity_browser */
     $entity_browser = $form_state->getTemporaryValue('wizard')['entity_browser'];
     $form = $this->getPlugin($entity_browser)->buildConfigurationForm($form, $form_state);
+
+    $fields = Element::children($form);
+    if (empty($fields)) {
+      $form['no_options'] = [
+        '#prefix' => '<p>',
+        '#suffix' => '</p>',
+        '#markup' => $this->t('This plugin has no configuration options.'),
+      ];
+    }
+
     return $form;
   }
 
@@ -47,7 +55,7 @@ abstract class PluginConfigFormBase extends FormBase {
   /**
    * Gets plugin that form operates with.
    *
-   * @return \Drupal\Core\Plugin\PluginFormInterface
+   * @return \Drupal\Core\Plugin\PluginFormInterface|\Drupal\Component\Plugin\PluginInspectionInterface
    *   Plugin instance.
    */
   abstract public function getPlugin(EntityBrowserInterface $entity_browser);

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\user\Tests\Views\BulkFormTest.
- */
-
 namespace Drupal\user\Tests\Views;
 
 use Drupal\user\RoleInterface;
@@ -36,7 +31,7 @@ class BulkFormTest extends UserTestBase {
    * Tests the user bulk form.
    */
   public function testBulkForm() {
-    // Login as a user without 'administer users'.
+    // Log in as a user without 'administer users'.
     $this->drupalLogin($this->drupalCreateUser(array('administer permissions')));
     $user_storage = $this->container->get('entity.manager')->getStorage('user');
 
@@ -140,4 +135,5 @@ class BulkFormTest extends UserTestBase {
     $errors = $view->validate();
     $this->assertEqual(reset($errors['default']), t('Field %field set in %filter is not usable for this filter type. Combined field filter only works for simple fields.', array('%field' => 'User: Bulk update', '%filter' => 'Global: Combine fields filter')));
   }
+
 }

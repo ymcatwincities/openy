@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\filter\Unit\Plugin\migrate\source\d6\FilterFormatTest.
- */
-
 namespace Drupal\Tests\filter\Unit\Plugin\migrate\source\d6;
 
 use Drupal\Tests\migrate\Unit\MigrateSqlSourceTestCase;
@@ -37,16 +32,19 @@ class FilterFormatTest extends MigrateSqlSourceTestCase {
           'module' => 'filter',
           'delta' => 2,
           'weight' => 0,
+          'settings' => array(),
         ),
         array(
           'module' => 'filter',
           'delta' => 0,
           'weight' => 1,
+          'settings' => array(),
         ),
         array(
           'module' => 'filter',
           'delta' => 1,
           'weight' => 2,
+          'settings' => array(),
         ),
       ),
     ),
@@ -60,16 +58,19 @@ class FilterFormatTest extends MigrateSqlSourceTestCase {
           'module' => 'filter',
           'delta' => 2,
           'weight' => 0,
+          'settings' => array(),
         ),
         array(
           'module' => 'filter',
           'delta' => 1,
           'weight' => 1,
+          'settings' => array(),
         ),
         array(
           'module' => 'filter',
           'delta' => 3,
           'weight' => 10,
+          'settings' => array(),
         ),
       ),
     ),
@@ -84,6 +85,7 @@ class FilterFormatTest extends MigrateSqlSourceTestCase {
           'module' => 'markdown',
           'delta' => 1,
           'weight' => 10,
+          'settings' => array(),
         ),
       ),
     ),
@@ -94,9 +96,11 @@ class FilterFormatTest extends MigrateSqlSourceTestCase {
    */
   protected function setUp() {
     $fid = 1;
+    $empty_array = serialize(array());
     foreach ($this->expectedResults as $k => $row) {
       $row['roles'] = ',' . implode(',', $row['roles']) . ',';
       foreach ($row['filters'] as $filter) {
+        $filter['settings'] = $empty_array;
         $this->databaseContents['filters'][$fid] = $filter;
         $this->databaseContents['filters'][$fid]['format'] = $row['format'];
         $this->databaseContents['filters'][$fid]['fid'] = $fid;
@@ -107,4 +111,5 @@ class FilterFormatTest extends MigrateSqlSourceTestCase {
     }
     parent::setUp();
   }
+
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\shortcut\Tests\ShortcutSetsTest.
- */
-
 namespace Drupal\shortcut\Tests;
 
 use Drupal\shortcut\Entity\ShortcutSet;
@@ -212,4 +207,5 @@ class ShortcutSetsTest extends ShortcutTestBase {
     $this->drupalGet('user/' . $this->adminUser->id() . '/shortcuts');
     $this->assertText($new_set->label(), 'Generated shortcut set was listed as a choice on the user account page.');
   }
+
 }

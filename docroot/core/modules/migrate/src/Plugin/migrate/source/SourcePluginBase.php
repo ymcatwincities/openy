@@ -1,14 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate\Plugin\migrate\source\SourcePluginBase.
- */
-
 namespace Drupal\migrate\Plugin\migrate\source;
 
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\migrate\Entity\MigrationInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\Plugin\MigrateIdMapInterface;
@@ -37,7 +32,7 @@ abstract class SourcePluginBase extends PluginBase implements MigrateSourceInter
   /**
    * The entity migration object.
    *
-   * @var \Drupal\migrate\Entity\MigrationInterface
+   * @var \Drupal\migrate\Plugin\MigrationInterface
    */
   protected $migration;
 
@@ -96,7 +91,7 @@ abstract class SourcePluginBase extends PluginBase implements MigrateSourceInter
   protected $skipCount = FALSE;
 
   /**
-   * Flags whether to track changes to incloming data.
+   * Flags whether to track changes to incoming data.
    *
    * If TRUE, we will maintain hashed source rows to determine whether incoming
    * data has changed.
@@ -148,12 +143,12 @@ abstract class SourcePluginBase extends PluginBase implements MigrateSourceInter
     // Set up some defaults based on the source configuration.
     $this->cacheCounts = !empty($configuration['cache_counts']);
     $this->skipCount = !empty($configuration['skip_count']);
-    $this->cacheKey = !empty($configuration['cache_key']) ? !empty($configuration['cache_key']) : NULL;
+    $this->cacheKey = !empty($configuration['cache_key']) ? $configuration['cache_key'] : NULL;
     $this->trackChanges = !empty($configuration['track_changes']) ? $configuration['track_changes'] : FALSE;
     $this->idMap = $this->migration->getIdMap();
 
     // Pull out the current highwater mark if we have a highwater property.
-    if ($this->highWaterProperty = $this->migration->get('highWaterProperty')) {
+    if ($this->highWaterProperty = $this->migration->getHighWaterProperty()) {
       $this->originalHighWater = $this->migration->getHighWater();
     }
 
@@ -300,7 +295,7 @@ abstract class SourcePluginBase extends PluginBase implements MigrateSourceInter
 
       $row_data = $this->getIterator()->current() + $this->configuration;
       $this->getIterator()->next();
-      $row = new Row($row_data, $this->migration->getSourcePlugin()->getIds(), $this->migration->get('destinationIds'));
+      $row = new Row($row_data, $this->migration->getSourcePlugin()->getIds(), $this->migration->getDestinationIds());
 
       // Populate the source key for this row.
       $this->currentSourceIds = $row->getSourceIdValues();

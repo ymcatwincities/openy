@@ -19,8 +19,8 @@ dependencies:
     - node.type.camp
   module:
     - address
+    - inline_entity_form
     - path
-    - scheduler
     - telephone
     - text
 id: node.camp.default
@@ -36,11 +36,15 @@ content:
   field_alert:
     weight: 14
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_alternate_location:
     weight: 12
     settings:
@@ -91,11 +95,15 @@ content:
   field_main_promos:
     weight: 17
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_phone:
     weight: 21
     settings:
@@ -105,19 +113,27 @@ content:
   field_promo_slideshow:
     weight: 13
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_registration_block:
     weight: 18
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
   field_subtitle:
     weight: 1
     settings:

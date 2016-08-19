@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Plugin\views\display\Page.
- */
-
 namespace Drupal\views\Plugin\views\display;
 
 use Drupal\Component\Utility\Xss;
@@ -129,6 +124,7 @@ class Page extends PathPluginBase {
         'title' => array('default' => ''),
         'description' => array('default' => ''),
         'weight' => array('default' => 0),
+        'enabled' => array('default' => TRUE),
         'menu_name' => array('default' => 'main'),
         'parent' => array('default' => ''),
         'context' => array('default' => ''),

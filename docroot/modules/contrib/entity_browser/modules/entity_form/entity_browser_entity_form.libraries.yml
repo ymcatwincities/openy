@@ -4,3 +4,4 @@ ief_autocomplete:
     js/entity_browser_entity_form.js: {}
   dependencies:
     - entity_browser/common
+    - core/jquery.once

@@ -86,8 +86,8 @@ abstract class DevelGenerateBase extends PluginBase implements DevelGenerateBase
   /**
    * Populate the fields on a given entity with sample values.
    *
-   * @param $entity
-   *  The entity to be enriched with sample field values.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to be enriched with sample field values.
    */
   public static function populateFields(EntityInterface $entity) {
     /** @var \Drupal\field\FieldConfigInterface[] $instances */
@@ -121,10 +121,11 @@ abstract class DevelGenerateBase extends PluginBase implements DevelGenerateBase
   /**
    * Set a message for either drush or the web interface.
    *
-   * @param $msg
-   *  The message to display.
-   * @param $type
-   *  The message type, as defined by drupal_set_message().
+   * @param string $msg
+   *   The message to display.
+   * @param string $type
+   *   (optional) The message type, as defined by drupal_set_message(). Defaults
+   *   to 'status'
    */
   protected function setMessage($msg, $type = 'status') {
     $function = 'drupal_set_message';
@@ -139,7 +140,7 @@ abstract class DevelGenerateBase extends PluginBase implements DevelGenerateBase
    * Check if a given param is a number.
    *
    * @param mixed $number
-   *  The parameter to check.
+   *   The parameter to check.
    *
    * @return bool
    *   TRUE if the parameter is a number, FALSE otherwise.

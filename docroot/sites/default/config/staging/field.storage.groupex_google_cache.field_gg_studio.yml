@@ -1,0 +1,21 @@
+uuid: 2be7f4db-ec35-4263-9770-63ebf9baa08c
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_google
+id: groupex_google_cache.field_gg_studio
+field_name: field_gg_studio
+entity_type: groupex_google_cache
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

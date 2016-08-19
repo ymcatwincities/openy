@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Common\TableSortExtenderUnitTest.
- */
-
 namespace Drupal\system\Tests\Common;
 
 use Drupal\Component\Utility\Html;
@@ -142,4 +137,5 @@ class TableSortExtenderUnitTest extends KernelTestBase {
     $this->verbose(strtr('$ts: <pre>!ts</pre>', array('!ts' => Html::escape(var_export($ts, TRUE)))));
     $this->assertEqual($ts, $expected_ts, 'Complex table headers plus $_GET parameters sorted correctly.');
   }
+
 }

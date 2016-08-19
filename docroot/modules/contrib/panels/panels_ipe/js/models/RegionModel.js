@@ -39,6 +39,52 @@
        * @see Drupal.panels_ipe.BlockCollection
        */
       blockCollection: null
+    },
+
+    /**
+     * Checks if our BlockCollection contains a given Block UUID.
+     *
+     * @param {string} block_uuid
+     *   The universally unique identifier of the block.
+     *
+     * @returns {boolean}
+     */
+    hasBlock: function(block_uuid) {
+      return this.get('blockCollection').get(block_uuid) ? true : false;
+    },
+
+    /**
+     * Gets a Block from our BlockCollection based on its UUID.
+     *
+     * @param {string} block_uuid
+     *   The universally unique identifier of the block.
+     *
+     * @returns {Drupal.panels_ipe.BlockModel|undefined}
+     *   The block if it is inside this region.
+     */
+    getBlock: function(block_uuid) {
+      return this.get('blockCollection').get(block_uuid);
+    },
+
+    /**
+     * Removes a Block from our BlockCollection based on its UUID.
+     *
+     * @param {Drupal.panels_ipe.BlockModel|string} block
+     *   The block or it's universally unique identifier.
+     * @param {object} options
+     */
+    removeBlock: function(block, options) {
+      this.get('blockCollection').remove(block, options);
+    },
+
+    /**
+     * Adds a new BlockModel to our BlockCollection.
+     *
+     * @param {Drupal.panels_ipe.BlockModel} block
+     * @param {object} options
+     */
+    addBlock: function (block, options) {
+      this.get('blockCollection').add(block, options);
     }
 
   });

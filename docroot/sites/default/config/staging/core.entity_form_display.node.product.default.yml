@@ -3,14 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.product.field_category
-    - field.field.node.product.field_content
-    - field.field.node.product.field_locations
     - node.type.product
   module:
+    - datetime
     - path
-    - scheduler
-    - text
 id: node.product.default
 targetEntityType: node
 bundle: product
@@ -21,23 +17,6 @@ content:
     weight: 3
     settings: {  }
     third_party_settings: {  }
-  field_category:
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-  field_content:
-    weight: 7
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-  field_locations:
-    weight: 9
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
   langcode:
     type: language_select
     weight: 1
@@ -55,10 +34,10 @@ content:
     weight: 4
     third_party_settings: {  }
   publish_on:
-    type: datetime_timestamp_no_default
-    weight: 10
+    weight: 26
     settings: {  }
     third_party_settings: {  }
+    type: datetime_default
   sticky:
     type: boolean_checkbox
     settings:
@@ -81,8 +60,8 @@ content:
       placeholder: ''
     third_party_settings: {  }
   unpublish_on:
-    type: datetime_timestamp_no_default
-    weight: 11
+    weight: 27
     settings: {  }
     third_party_settings: {  }
+    type: datetime_default
 hidden: {  }

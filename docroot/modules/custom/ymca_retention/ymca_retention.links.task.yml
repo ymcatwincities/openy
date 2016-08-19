@@ -1,0 +1,39 @@
+ymca_retention_member.view:
+  route_name: entity.ymca_retention_member.canonical
+  base_route: entity.ymca_retention_member.canonical
+  title: View
+
+ymca_retention_member.page_edit:
+  route_name: entity.ymca_retention_member.edit_form
+  base_route: entity.ymca_retention_member.canonical
+  title: Edit
+
+ymca_retention_member.delete_confirm:
+  route_name:  entity.ymca_retention_member.delete_form
+  base_route:  entity.ymca_retention_member.canonical
+  title: Delete
+  weight: 10
+
+ymca_retention.settings:
+  title: 'YMCA Retention Settings'
+  description: 'YMCA Retention Settings'
+  route_name: ymca_retention.settings
+  base_route: system.admin_config_system
+
+ymca_retention.settings_general:
+  title: 'YMCA Retention Settings'
+  description: 'YMCA Retention Settings'
+  route_name: ymca_retention.settings
+  parent_id: ymca_retention.settings
+
+ymca_retention.settings_branches:
+  title: 'Branches'
+  description: 'Locations/branches settings'
+  route_name: ymca_retention.settings_branches
+  parent_id: ymca_retention.settings
+
+ymca_retention.settings_cron:
+  title: 'Cron'
+  description: 'Run cron manually.'
+  route_name: ymca_retention.settings_cron
+  parent_id: ymca_retention.settings

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Entity\Plugin\DataType\EntityReference.
- */
-
 namespace Drupal\Core\Entity\Plugin\DataType;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -126,4 +121,5 @@ class EntityReference extends DataReferenceBase {
     }
     return '';
   }
+
 }

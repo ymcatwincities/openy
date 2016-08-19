@@ -1,0 +1,21 @@
+# Mapping menu items definition
+entity.mapping.collection:
+  title: 'Mapping list'
+  route_name: entity.mapping.collection
+  description: 'List Mapping entities'
+  parent: ymca_alters.admin_config_entities
+  weight: 100
+
+# Mapping type menu items definition
+entity.mapping_type.collection:
+  title: 'Mapping type'
+  route_name: entity.mapping_type.collection
+  description: 'List Mapping type (bundles)'
+  parent: ymca_alters.admin_config_entities
+  weight: 99
+
+view.trainers_mapping.page_1:
+  title: 'Trainers Mapping'
+  parent: system.admin_content
+  description: 'The list of trainers mappings.'
+  route_name: view.trainers_mapping.page_1

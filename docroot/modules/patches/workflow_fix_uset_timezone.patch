@@ -1,0 +1,13 @@
+diff --git a/docroot/modules/contrib/workflow/src/Element/WorkflowTransitionElement.php b/docroot/modules/contrib/workflow/src/Element/WorkflowTransitionElement.php
+index 9236c82..3bf7458 100644
+--- a/docroot/modules/contrib/workflow/src/Element/WorkflowTransitionElement.php
++++ b/docroot/modules/contrib/workflow/src/Element/WorkflowTransitionElement.php
+@@ -350,7 +350,7 @@ public static function transitionElement(&$element, FormStateInterface $form_sta
+ 
+     // Display scheduling form under certain conditions.
+     if ($settings_schedule == TRUE) {
+-      $timezone = $user->getTimeZone();
++      $timezone = drupal_get_user_timezone();
+ 
+       $timezone_options = array_combine(timezone_identifiers_list(), timezone_identifiers_list());
+       $timestamp = $transition ? $transition->getTimestamp() : REQUEST_TIME;

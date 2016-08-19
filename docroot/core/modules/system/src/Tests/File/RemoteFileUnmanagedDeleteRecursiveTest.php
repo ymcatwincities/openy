@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\RemoteFileUnmanagedDeleteRecursiveTest.
- */
-
 namespace Drupal\system\Tests\File;
 
 /**
@@ -39,4 +34,5 @@ class RemoteFileUnmanagedDeleteRecursiveTest extends UnmanagedDeleteRecursiveTes
     parent::setUp();
     $this->config('system.file')->set('default_scheme', 'dummy-remote')->save();
   }
+
 }

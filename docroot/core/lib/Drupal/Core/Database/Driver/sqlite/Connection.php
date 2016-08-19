@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Database\Driver\sqlite\Connection.
- */
-
 namespace Drupal\Core\Database\Driver\sqlite;
 
 use Drupal\Core\Database\Database;
@@ -46,7 +41,7 @@ class Connection extends DatabaseConnection {
    *
    * @var bool
    */
-  var $tableDropped = FALSE;
+  public $tableDropped = FALSE;
 
   /**
    * Constructs a \Drupal\Core\Database\Driver\sqlite\Connection object.

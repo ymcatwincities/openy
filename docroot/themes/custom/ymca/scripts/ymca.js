@@ -1,7 +1,8 @@
 (function ($) {
+  var ymca_theme_semaphore = false;
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
-
+      
       function getUrlVars() {
         var vars = {};
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -10,8 +11,8 @@
         return vars;
       }
 
-
-      $(function () {
+      if (!ymca_theme_semaphore) {
+        ymca_theme_semaphore = true;
         var url_vars = getUrlVars(),
           blog_archive_active = false,
           blog_archive_month,
@@ -49,85 +50,31 @@
             year_li.addClass("expanded");
           }
         });
-      });
 
-      // decorate promos
-      $('.home-template .main-promos > .richtext').addClass('col-md-4 col-sm-6');
-      var promos = $('.sidebar-promos > .richtext, .main-promos > .main-promo .richtext, .home-template .main-promos > .richtext');
-
-      promos.each(
-        function () {
-          var el = $(this),
-            links = $(this).find('a'),
-            link = links.eq(0),
-            title = link.text() !== '' ? link.text() : $(this).find('h2').text(),
-            href = link.attr('href'),
-            clickable = links.length == 1 || el.is('.video'),
-            wrapper = clickable ? $('<a class="wrapper"/>')
-              .attr('href', href)
-              .attr('title', title) : '<div class="text-promo"/>',
-            thumb = el
-              .find('img')
-              .addClass('img-responsive')
-              .removeAttr('height')
-              .removeAttr('width')
-              .wrap('<div class="img-crop img-crop-horizontal"/>')
-              .parent();
-          if (el.find('.promo-text p').length === 0) {
-            el.find('.promo-text').html('<p>' + el.find('.promo-text').text() + '</p>');
-          }
-          if (clickable) link.remove();
-          el
-            .wrapInner(wrapper)
-            .children()
-            .eq(0)
-            .prepend(thumb);
-
-          $('p', this).each(function (i) {
-            // Remove all comment nodes.
-            $(this)
-              .contents()
-              .filter(function(){
-                return this.nodeType == 8;
-              })
-              .remove();
-            var text = $(this).html();
-            if (text.replace(/\s/g, '') === '') {
-              $(this).addClass('hidden');
-            }
-          });
-          $(this).find('p:empty').remove();
-        }
-      );
-      $('.main-promos').removeClass('hidden');
-
-      // Youth Sports page
-      (function ($) {
-        $(document).ready(function () {
-          $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
-            e.preventDefault();
-            var top = $('.content-cards').offset().top;
-            $('html, body').animate({scrollTop: top}, 1000);
-            return false;
-          });
-
-          $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
-            e.preventDefault();
-            var top = $('.video-container').offset().top;
-            $('html, body').animate({scrollTop: top}, 1000);
-            return false;
-          });
+        // Youth Sports page
+        $('.path-youth-sports .join-the-y').on('click touchend', function (e) {
+          e.preventDefault();
+          var top = $('.content-cards').offset().top;
+          $('html, body').animate({scrollTop: top}, 1000);
+          return false;
         });
-      })(jQuery);
 
-      // 2014 Annual Report pages
-      $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
-        if ($(this).text() == 'Read more') {
-          $(this).addClass('opened');
-        } else {
-          $(this).text('Read more');
-        }
-      });
+        $('.path-youth-sports .scroll-to-the-video').on('click touchend', function (e) {
+          e.preventDefault();
+          var top = $('.video-container').offset().top;
+          $('html, body').animate({scrollTop: top}, 1000);
+          return false;
+        });
+
+        // 2014 Annual Report pages
+        $(".page_2014_annual_report a[data-toggle='collapse']").click(function () {
+          if ($(this).text() == 'Read more') {
+            $(this).addClass('opened');
+          } else {
+            $(this).text('Read more');
+          }
+        });
+      }
     }
   };
 
@@ -187,6 +134,180 @@
           $(this).attr('pattern', '[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.(?:[a-zA-Z0-9-\\.]+)*');
         }
       });
+    }
+  };
+
+  /**
+   * MindBody theme behaviors.
+   */
+  Drupal.behaviors.ymca_mindbody = {
+    attach: function (context, settings) {
+      $('#mindbody-pt-form-wrapper .change')
+        .once('mindbody-change-toggler')
+        .each(function () {
+          $(this).bind('click', function (e) {
+            var id = $(this).attr('href');
+            $(id).slideToggle();
+            return false;
+          });
+        });
+    }
+  };
+
+  /**
+   * GroupEx locations responsive columns.
+   */
+  Drupal.behaviors.ymca_GroupEx_locations = {
+    attach: function (context, settings) {
+
+      var win = $(window);
+
+      var el_parent = $("#group-ex-locations"),
+          el_items = el_parent.find(".form-group"),
+          wrap_classes = "col-xs-12 col-md-6",
+          el_count = el_items.length,
+          col_count = 2,
+          break_count = Math.ceil(el_count / col_count),
+          prev_key = 0,
+          cur_key = 0,
+          prev_count = 0,
+          break_cols = {
+            0: 1,
+            992: 2,
+          };
+
+      //add bootstrap row
+      el_parent.addClass("row");
+
+      //wrap location elements in bootstrap columns based on break_cols
+      function wrap(item_count) {
+        var el_wrap = $(".el-wrap > div");
+        if (el_wrap.parent().is(".el-wrap")) {
+          el_wrap.unwrap();
+        }
+
+        for (var i = 0; i < el_items.length; i += item_count) {
+          el_items.slice(i, i + item_count).wrapAll("<div class='el-wrap " + wrap_classes + "'></div>");
+        }
+      }
+
+      var set_wrap = function () {
+        //determine column count per breakpoint
+        $.each(break_cols, function (key, value) {
+          var w = win.width();
+
+          if (key < w && key !== prev_key) {
+            cur_key = key;
+          }
+
+          key = prev_key;
+        });
+
+        //check if col count has change
+        col_count = break_cols[cur_key];
+        if (col_count != prev_count) {
+          break_count = Math.ceil(el_count / col_count);
+          wrap(break_count);
+        }
+
+        prev_count = col_count;
+
+      };
+
+      win.smartresize(function () {
+        set_wrap();
+      });
+
+      set_wrap();
+
+
+    }
+  };
+
+  /**
+   * Youth sports behaviors.
+   */
+  Drupal.behaviors.ymca_youth_sports = {
+    attach: function (context, settings) {
+      $('.template_youth_sports_overview section.node .content_group section ul li a').each(function() {
+        // set css classes based on link title.
+        var title = $(this).text().toLowerCase().replace(/ /g, '-').replace(/\//g, '-'),
+            css_class = title + ' sports-icon';
+        $(this).attr('class', css_class);
+      });
+      $('.template_youth_sports_overview .copy a, .template_youth_sports_inner .copy a').each(function() {
+        var href = $(this).attr('href');
+        if (href.match(/\.pdf/g)) {
+          $(this).attr('class', 'pdf-link');
+        }
+      });
+      var index = 1;
+      $('.template_youth_sports_inner section.node .content-expander').each(function() {
+        $(this).addClass('content-expander-' + index);
+        index++;
+      });
+
+      // Sports Top Sub header.
+      if ($('.sports_top_subheader .selectbox ul').length > 0) {
+        var selectbox = '<select>';
+        $('.sports_top_subheader .selectbox a').each(function () {
+          // set css classes based on link title.
+          var title = $(this).text().toLowerCase().replace(/ /g, '-').replace(/\//g, '-'),
+              css_class = title + ' sports-icon';
+          $(this).attr('class', css_class);
+          selectbox += '<option class="' + css_class + '" value="' + $(this).attr('href') + '">' + $(this).text() + '</option>';
+        });
+        selectbox += '</select><a class="find-a-class">' + Drupal.t('FIND A CLASS') + '</a>';
+        $('.sports_top_subheader .selectbox').html(selectbox);
+        $('.sports_top_subheader .find-a-class').on('click', function(e) {
+          e.preventDefault();
+          var url = $(this).prev().find(':selected').val();
+          window.open(url, '_blank');
+        });
+        $('.sports_top_subheader select').attr('class', $('.sports_top_subheader select option:eq(0)').attr('class'));
+        $('.sports_top_subheader select').on('change', function() {
+          var css_class = $(this).find(':selected').attr('class');
+          $(this).attr('class', css_class);
+        });
+      }
+    }
+  };
+
+  /**
+   * Masthead Menu Activation behavior.
+   */
+  Drupal.behaviors.ymcaMastheadMenuActive = {
+    attach: function (context, settings) {
+      if (!$('#masthead-menu').length) {
+        return;
+      }
+      $('#masthead-menu')
+        .once('ymca-masthead-menu-active')
+        .on('shown.bs.dropdown', function(){
+          $('body').addClass('masthead-menu-active');
+          Drupal.behaviors.ymcaMastheadMenuActive.setDropdownHeight();
+        })
+        .on('hide.bs.dropdown', function(){
+          jQuery('body').removeClass('masthead-menu-active');
+        });
+      $(window).on('resize', Drupal.behaviors.ymcaMastheadMenuActive.setDropdownHeight);
+
+    },
+    setDropdownHeight: function () {
+      var windowHeight = $(window).height(),
+        menu = $('#masthead-menu'),
+        isFixed = menu.hasClass('affix'),
+        offset = menu.length ?
+          isFixed ?
+          menu.position().top + menu.height() :
+          menu.position().top - jQuery(window).scrollTop() + menu.height() :
+          null;
+
+      if (!offset) {
+        return;
+      }
+      $('#masthead-menu .open .dropdown-menu')
+        .css('max-height', (windowHeight - offset) - 30);
     }
   };
 

@@ -1,0 +1,48 @@
+angular:
+  version: VERSION
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
+
+angular-slick:
+  version: VERSION
+  js:
+    js/angular-slick.min.js: { minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-promise-tracker:
+  version: VERSION
+  js:
+    js/promise-tracker.js: {}
+  dependencies:
+    - ymca_retention/angular
+
+leaderboard:
+  version: VERSION
+  js:
+    js/leaderboard.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - ymca_retention/angular-promise-tracker
+    - core/drupal
+    - core/drupalSettings
+
+activity:
+  version: VERSION
+  js:
+    js/activity.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - ymca_retention/angular-slick
+    - ymca_retention/angular-promise-tracker
+    - core/drupal
+    - core/drupalSettings
+
+winners:
+  version: VERSION
+  js:
+    js/winners.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - core/drupal
+    - core/drupalSettings

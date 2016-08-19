@@ -1,0 +1,7 @@
+services:
+  mindbody_cache_proxy.manager:
+    class: Drupal\mindbody_cache_proxy\MindbodyCacheProxyManager
+    arguments: ["@entity.query", "@entity_type.manager", "@logger.factory", "@state"]
+  mindbody_cache_proxy.client:
+    class: Drupal\mindbody_cache_proxy\MindbodyCacheProxy
+    arguments: ['@mindbody.client', '@entity.query', '@state', '@mindbody_cache_proxy.manager']

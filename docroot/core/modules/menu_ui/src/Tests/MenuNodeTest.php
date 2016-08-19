@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\menu_ui\Tests\MenuNodeTest.
- */
-
 namespace Drupal\menu_ui\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -204,7 +199,7 @@ class MenuNodeTest extends WebTestBase {
     $this->assertNoLink($node_title);
 
     // Add a menu link to the Administration menu.
-    $item = entity_create('menu_link_content', array(
+    $item = MenuLinkContent::create(array(
       'link' => [['uri' => 'entity:node/' . $node->id()]],
       'title' => $this->randomMachineName(16),
       'menu_name' => 'admin',
@@ -226,7 +221,7 @@ class MenuNodeTest extends WebTestBase {
     // Create a second node.
     $child_node = $this->drupalCreateNode(array('type' => 'article'));
     // Assign a menu link to the second node, being a child of the first one.
-    $child_item = entity_create('menu_link_content', array(
+    $child_item = MenuLinkContent::create(array(
       'link' => [['uri' => 'entity:node/' . $child_node->id()]],
       'title' => $this->randomMachineName(16),
       'parent' => $item->getPluginId(),
@@ -234,10 +229,10 @@ class MenuNodeTest extends WebTestBase {
     ));
     $child_item->save();
     // Edit the first node.
-    $this->drupalGet('node/'. $node->id() .'/edit');
+    $this->drupalGet('node/' . $node->id() . '/edit');
     // Assert that it is not possible to set the parent of the first node to itself or the second node.
-    $this->assertNoOption('edit-menu-menu-parent', 'tools:'. $item->getPluginId());
-    $this->assertNoOption('edit-menu-menu-parent', 'tools:'. $child_item->getPluginId());
+    $this->assertNoOption('edit-menu-menu-parent', 'tools:' . $item->getPluginId());
+    $this->assertNoOption('edit-menu-menu-parent', 'tools:' . $child_item->getPluginId());
     // Assert that unallowed Administration menu is not available in options.
     $this->assertNoOption('edit-menu-menu-parent', 'admin:');
   }
@@ -342,4 +337,5 @@ class MenuNodeTest extends WebTestBase {
     $this->drupalGet($url);
     $this->assertFieldById('edit-menu-title', $translated_node_title);
   }
+
 }

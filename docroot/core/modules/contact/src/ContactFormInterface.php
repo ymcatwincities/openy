@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\contact\ContactFormInterface.
- */
-
 namespace Drupal\contact;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -26,7 +21,7 @@ interface ContactFormInterface extends ConfigEntityInterface {
    * Returns an auto-reply message to send to the message author.
    *
    * @return string
-   *  An auto-reply message
+   *   An auto-reply message
    */
   public function getReply();
 

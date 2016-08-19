@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Cache\MemoryBackendUnitTest.
- */
-
 namespace Drupal\system\Tests\Cache;
 
 use Drupal\Core\Cache\MemoryBackend;
@@ -27,4 +22,5 @@ class MemoryBackendUnitTest extends GenericCacheBackendUnitTestBase {
     \Drupal::service('cache_tags.invalidator')->addInvalidator($backend);
     return $backend;
   }
+
 }

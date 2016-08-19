@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\File\MimeTypeTest.
- */
-
 namespace Drupal\system\Tests\File;
 
 /**
@@ -91,4 +86,5 @@ class MimeTypeTest extends FileTestBase {
       $this->assertIdentical($output, $expected, format_string('Mimetype (using passed-in mappings) for %input is %output (expected: %expected).', array('%input' => $input, '%output' => $output, '%expected' => $expected)));
     }
   }
+
 }

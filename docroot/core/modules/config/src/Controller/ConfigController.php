@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\config\Controller\ConfigController.
- */
-
 namespace Drupal\config\Controller;
 
 use Drupal\Core\Archiver\ArchiveTar;
@@ -165,4 +160,5 @@ class ConfigController implements ContainerInjectionInterface {
 
     return $build;
   }
+
 }

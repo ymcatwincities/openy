@@ -18,6 +18,14 @@
             <b>{{ 'Installed profile'|t }}</b>
             <span>{{ collector.profile }}</span>
         </div>
+
+        {% if collector.getGitCommit %}
+        <div class="sf-toolbar-info-piece">
+            <b>{{ 'Git commit'|t }}</b>
+            <span><abbr title="{{ collector.getGitCommit }}">{{ collector.getAbbrGitCommit }}</abbr></span>
+        </div>
+        {% endif %}
+
         <div class="sf-toolbar-info-piece">
             <span><a href="{{ collector.getConfigUrl }}"
                      title="{{ 'Configure Webprofiler'|t }}">{{ 'Configure Webprofiler'|t }}</a></span>

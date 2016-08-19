@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Plugin\FactoryTest.
- */
-
 namespace Drupal\system\Tests\Plugin;
 
 use Drupal\Component\Plugin\Exception\ExceptionInterface;
@@ -76,4 +71,5 @@ class FactoryTest extends PluginTestBase {
       }
     }
   }
+
 }

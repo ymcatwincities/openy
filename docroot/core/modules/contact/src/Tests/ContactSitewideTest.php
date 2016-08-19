@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\contact\Tests\ContactSitewideTest.
- */
-
 namespace Drupal\contact\Tests;
 
 use Drupal\Component\Utility\Unicode;
@@ -47,7 +42,7 @@ class ContactSitewideTest extends WebTestBase {
    * Tests configuration options and the site-wide contact form.
    */
   function testSiteWideContact() {
-    // Create and login administrative user.
+    // Create and log in administrative user.
     $admin_user = $this->drupalCreateUser(array(
       'access site-wide contact form',
       'administer contact forms',
@@ -185,10 +180,6 @@ class ContactSitewideTest extends WebTestBase {
     $this->assertNoRaw(t('Contact form %label has been added.', array('%label' => $label)));
     $this->assertRaw(t('The machine-readable name is already in use. It must be unique.'));
 
-    // Clear flood table in preparation for flood test and allow other checks to complete.
-    db_delete('flood')->execute();
-    $num_records_after = db_query("SELECT COUNT(*) FROM {flood}")->fetchField();
-    $this->assertIdentical($num_records_after, '0', 'Flood table emptied.');
     $this->drupalLogout();
 
     // Check to see that anonymous user cannot see contact page without permission.
@@ -265,7 +256,7 @@ class ContactSitewideTest extends WebTestBase {
 
     // Find out in which row the form we want to add a field to is.
     $i = 0;
-    foreach($this->xpath('//table/tbody/tr') as $row) {
+    foreach ($this->xpath('//table/tbody/tr') as $row) {
       if (((string) $row->td[0]->a) == $label) {
         break;
       }
@@ -305,7 +296,7 @@ class ContactSitewideTest extends WebTestBase {
    * Tests auto-reply on the site-wide contact form.
    */
   function testAutoReply() {
-    // Create and login administrative user.
+    // Create and log in administrative user.
     $admin_user = $this->drupalCreateUser(array('access site-wide contact form', 'administer contact forms', 'administer permissions', 'administer users'));
     $this->drupalLogin($admin_user);
 

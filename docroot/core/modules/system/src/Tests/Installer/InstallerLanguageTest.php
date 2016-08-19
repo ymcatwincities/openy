@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Installer\InstallerLanguageTest.
- */
-
 namespace Drupal\system\Tests\Installer;
 
 use Drupal\simpletest\KernelTestBase;
@@ -60,4 +55,5 @@ class InstallerLanguageTest extends KernelTestBase {
     $this->assertFalse(in_array('locale', $info_en['dependencies']), 'Locale is not set when installing in English.');
     $this->assertTrue(in_array('locale', $info_nl['dependencies']), 'Locale is set when installing in Dutch.');
   }
+
 }

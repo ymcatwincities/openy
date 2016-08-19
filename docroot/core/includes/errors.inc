@@ -120,10 +120,10 @@ function error_displayable($error = NULL) {
  *   with the exception of @message, which needs to be an HTML string, and
  *   backtrace, which is a standard PHP backtrace.
  * @param bool $fatal
- *  TRUE for:
+ *   TRUE for:
  *   - An exception is thrown and not caught by something else.
  *   - A recoverable fatal error, which is a fatal error.
- *  Non-recoverable fatal errors cannot be logged by Drupal.
+ *   Non-recoverable fatal errors cannot be logged by Drupal.
  */
 function _drupal_log_error($error, $fatal = FALSE) {
   $is_installer = drupal_installation_attempted();
@@ -181,7 +181,7 @@ function _drupal_log_error($error, $fatal = FALSE) {
     if ($fatal) {
       // When called from CLI, simply output a plain text message.
       // Should not translate the string to avoid errors producing more errors.
-      $response->setContent(html_entity_decode(strip_tags(SafeMarkup::format('%type: @message in %function (line %line of %file).', $error))). "\n");
+      $response->setContent(html_entity_decode(strip_tags(SafeMarkup::format('%type: @message in %function (line %line of %file).', $error))) . "\n");
       $response->send();
       exit;
     }

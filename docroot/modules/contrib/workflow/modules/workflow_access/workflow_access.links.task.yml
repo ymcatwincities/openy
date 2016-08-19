@@ -1,0 +1,15 @@
+# Menu tasks for Workflow UI.
+
+workflow_access_settings:
+  route_name: workflow.access.settings
+  base_route: entity.workflow_type.collection
+  title: 'Access settings'
+  weight: 5
+  appears_on:
+    - entity.workflow_type.collection
+
+entity.workflow_type.access_form:
+  title: 'Access'
+  route_name: entity.workflow_type.access_form
+  base_route: entity.workflow_type.edit_form
+  weight: -1

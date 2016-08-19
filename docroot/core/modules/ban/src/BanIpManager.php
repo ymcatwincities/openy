@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ban\BanIpManager.
- */
-
 namespace Drupal\ban;
 
 use Drupal\Core\Database\Connection;
@@ -69,4 +64,5 @@ class BanIpManager implements BanIpManagerInterface {
   public function findById($ban_id) {
     return $this->connection->query("SELECT ip FROM {ban_ip} WHERE iid = :iid", array(':iid' => $ban_id))->fetchField();
   }
+
 }

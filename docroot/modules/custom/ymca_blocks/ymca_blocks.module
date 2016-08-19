@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\text\Plugin\Field\FieldType\TextLongItem;
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_theme().
@@ -30,6 +31,7 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
         'content' => NULL,
         'link' => NULL,
         'link_text' => NULL,
+        'is_home' => NULL,
       ],
       'template' => 'promo-block',
     ],
@@ -42,12 +44,23 @@ function ymca_blocks_theme($existing, $type, $theme, $path) {
     ],
     'alert_block' => [
       'variables' => [
-        'title' => t('Special Alert'),
         'message' => NULL,
         'inner_attributes' => NULL,
         'show' => FALSE,
       ],
       'template' => 'alert-block',
+    ],
+    'sub_navigation_block' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'sub-navigation-block',
+    ],
+    'masthead_navigation_block' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'masthead-navigation-block',
     ],
   ];
 }
@@ -105,13 +118,36 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         }
       }
 
+      // Get image, if exists.
+      if (isset($build['field_image'][0])) {
+        $image_item_values = $build['field_image'][0]['#item']->getValue();
+        $image_file = File::load($image_item_values['target_id']);
+        $image = \Drupal::service('image.factory')->get($image_file->getFileUri());
+        $image_build = [
+          '#theme' => 'image',
+          '#uri' => $image->getSource(),
+          '#alt' => isset($image_item_values['alt']) ? $image_item_values['alt'] : '',
+        ];
+      }
+
+      // Get content.
+      if (isset($build['field_block_content'][0])) {
+        $content_build = $build['field_block_content'][0];
+        $text = $content_build['#text'];
+        // Wrap content in <p> tag if needed.
+        if (substr($text, 0, 3) !== '<p>') {
+          $content_build['#text'] = '<p>' . $text . '</p>';
+        }
+      }
+
       $build['promo'] = array(
         '#theme' => 'promo_block',
         '#header' => html_entity_decode($entity->field_block_header->value),
-        '#content' => $build['field_block_content'],
-        '#image' => $build['field_image'],
+        '#content' => isset($content_build) ? $content_build : NULL,
+        '#image' => isset($image_build) ? $image_build : NULL,
         '#link' => isset($path) ? $path : '',
         '#link_text' => $entity->field_link->title,
+        '#is_home' => \Drupal::service('path.matcher')->isFrontPage() ? TRUE : FALSE,
       );
 
       hide($build['field_block_header']);
@@ -128,7 +164,9 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       $get_time = function ($field_name) use ($entity) {
         if ($entity->hasField($field_name)) {
           $field_start = $entity->get($field_name);
-          $data = $field_start->get(0)->getValue();
+          if ($field_start->get(0)) {
+            $data = $field_start->get(0)->getValue();
+          }
           if (!empty($data['value'])) {
             $timezone = &drupal_static('ymca_blocks_block_content_view_alter_timezone');
             if (!isset($timezone)) {
@@ -181,14 +219,6 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
           'tags' => ['ymca_cron']
         ],
       );
-
-      if ($entity->hasField('field_global_alert')) {
-        $is_global = $entity->get('field_global_alert');
-        $global_val = $is_global->getValue()[0]['value'];
-        if ($global_val == 1) {
-          $build['alert']['#title'] = t('Global Alert');
-        }
-      }
 
       hide($build['field_block_content']);
       break;

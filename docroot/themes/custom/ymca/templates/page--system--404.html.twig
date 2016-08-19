@@ -91,16 +91,7 @@
 
       {% block primary_menu %}
         {% if site_section_bundle not in ['location', 'camp'] %}
-          <nav id="masthead-menu" class="nav-home masthead-menu navbar hidden-xs">
-            <div class="container">
-              <div class="navbar-collapse collapse">
-                <div class="row">
-                  <ul class="nav-level-1 nav navbar-nav">
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </nav>
+          {{ page.primary_menu }}
         {% endif %}
       {% endblock %}
     </div>
@@ -136,7 +127,7 @@
             <h1>{{ 'Page Not Found'|t }}</h1>
             <article class="richtext">
               <p>{{ 'Sorry. The page you are looking for isn\'t here. You can click anywhere else on our navigation menu and begin once again.'|t }}</p>
-              <p>{{ 'If you want to talk to someone, give us a call at 612-230-YMCA (9622).'|t }}</p>
+              <p>{{ 'If you want to talk to someone, give us a call at 612-230-YMCA ( <a href="tel:(612) 230-9622">(612) 230-9622</a> ).'|t }}</p>
             </article>
             <script type="text/javascript">
               /*<![CDATA[*/

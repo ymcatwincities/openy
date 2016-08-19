@@ -1,0 +1,16 @@
+#workflow.entities:
+#  class: \Drupal\Core\Menu\LocalTaskDefault
+#  deriver: \Drupal\workflow\Plugin\Derivative\WorkflowLocalTask
+
+# TODO D8-port: make Workflow History tab happen for every entity_type.
+# @see workflow.routing.yml, workflow.links.task.yml, WorkflowTransitionListController.
+entity.node.workflow_history:
+  route_name: entity.node.workflow_history
+  base_route: entity.node.canonical
+  title: 'Workflow'
+  weight: 30
+entity.taxonomy_term.edit_form:
+  route_name: entity.taxonomy_term.workflow_history
+  base_route: entity.taxonomy_term.canonical
+  title: 'Workflow'
+  weight: 30

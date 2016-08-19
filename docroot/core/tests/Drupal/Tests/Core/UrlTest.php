@@ -336,6 +336,18 @@ class UrlTest extends UnitTestCase {
   }
 
   /**
+   * Tests the getUri() and isExternal() methods for protocol-relative URLs.
+   *
+   * @covers ::getUri
+   * @covers ::isExternal
+   */
+  public function testGetUriForProtocolRelativeUrl() {
+    $url = Url::fromUri('//example.com/test');
+    $this->assertEquals('//example.com/test', $url->getUri());
+    $this->assertTrue($url->isExternal());
+  }
+
+  /**
    * Tests the getInternalPath method().
    *
    * @param \Drupal\Core\Url[] $urls
@@ -512,7 +524,7 @@ class UrlTest extends UnitTestCase {
     $route_match = new RouteMatch('test_route', $route, ['foo' => (object) [1]], ['foo' => 1]);
     $url = Url::fromRouteMatch($route_match);
     $this->assertSame('test_route', $url->getRouteName());
-    $this->assertEquals(['foo' => '1'] , $url->getRouteParameters());
+    $this->assertEquals(['foo' => '1'], $url->getRouteParameters());
   }
 
   /**
@@ -834,6 +846,5 @@ class TestUrl extends Url {
   public function setAccessManager(AccessManagerInterface $access_manager) {
     $this->accessManager = $access_manager;
   }
-
 
 }

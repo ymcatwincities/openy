@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views_ui\Tests\ExposedFormUITest.
- */
-
 namespace Drupal\views_ui\Tests;
 
 use Drupal\views\Entity\View;
@@ -174,4 +169,5 @@ class ExposedFormUITest extends UITestBase {
     $this->assertEqual($display['display_options']['sorts']['created']['expose'], ['label' => $edit['options[expose][label]']]);
     $this->assertEqual($display['display_options']['sorts']['created']['order'], 'DESC');
   }
+
 }

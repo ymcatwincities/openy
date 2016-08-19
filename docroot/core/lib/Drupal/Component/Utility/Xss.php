@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Component\Utility\Xss.
- */
-
 namespace Drupal\Component\Utility;
 
 /**
@@ -121,7 +116,6 @@ class Xss {
    * @ingroup sanitization
    *
    * @see \Drupal\Component\Utility\Xss::getAdminTagList()
-   *
    */
   public static function filterAdmin($string) {
     return static::filter($string, static::$adminTags);
@@ -349,4 +343,5 @@ class Xss {
   public static function getHtmlTagList() {
     return static::$htmlTags;
   }
+
 }

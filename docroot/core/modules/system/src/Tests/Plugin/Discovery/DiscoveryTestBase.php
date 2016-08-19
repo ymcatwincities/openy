@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\Plugin\Discovery\DiscoveryTestBase.
- */
-
 namespace Drupal\system\Tests\Plugin\Discovery;
 
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -87,4 +82,3 @@ abstract class DiscoveryTestBase extends KernelTestBase {
   }
 
 }
-

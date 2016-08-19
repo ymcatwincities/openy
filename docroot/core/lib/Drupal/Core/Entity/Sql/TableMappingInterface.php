@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Entity\Sql\TableMappingInterface.
- */
-
 namespace Drupal\Core\Entity\Sql;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -23,6 +18,11 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * writing contributed code.
  */
 interface TableMappingInterface {
+
+  /**
+   * A property that represents delta used in entity query conditions.
+   */
+  const DELTA = '%delta';
 
   /**
    * Gets a list of table names for this mapping.

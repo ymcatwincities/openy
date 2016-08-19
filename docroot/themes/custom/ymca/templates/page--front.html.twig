@@ -4,16 +4,7 @@
 {% endblock %}
 
 {% block primary_menu_outside %}
-  <nav id="masthead-menu" class="nav-home masthead-menu navbar hidden-xs">
-    <div class="container">
-      <div class="navbar-collapse collapse">
-        <div class="row">
-          <ul class="nav-level-1 nav navbar-nav">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
+  {{ page.primary_menu }}
 {% endblock %}
 
 {% block separated_masthead %}
@@ -21,7 +12,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-sm-8">
-            <a class="masthead-brand" href="{{ base_path }}">YMCA Twin Cities</a>
+            <a class="masthead-brand" href="{{ base_path }}">{{ brand_title }}</a>
           </div>
           <div class="col-lg-4 col-sm-4 location-search-column">
             <form class="find-locations" action="{{ base_path }}locations">

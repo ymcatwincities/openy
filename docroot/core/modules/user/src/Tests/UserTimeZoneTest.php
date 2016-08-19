@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\user\Tests\UserTimeZoneTest.
- */
-
 namespace Drupal\user\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -88,4 +83,5 @@ class UserTimeZoneTest extends WebTestBase {
     $this->drupalGet('/system-test/date');
     $this->assertText('2016-01-13 08:29 PST', 'Date should be PST.');
   }
+
 }
