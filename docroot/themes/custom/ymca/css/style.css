@@ -7895,7 +7895,7 @@ body .ajax-progress-throbber .throbber {
 .green-3-col.container {
   background: #26bcbd;
   position: relative;
-  margin: 50px -100px 0;
+  margin: 50px -100px -30px;
   padding: 50px 100px;
 }
 .green-3-col.container:before {
@@ -9594,6 +9594,17 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   margin-right: 8px;
 }
 
+.icon-clock {
+  font-family: inherit;
+}
+.icon-clock * {
+  font-family: inherit;
+}
+.icon-clock:before {
+  margin-right: 5px;
+  font-family: 'icomoon';
+}
+
 a.sports-icon {
   background-color: #fff;
   display: block;
@@ -9735,6 +9746,22 @@ a.sports-icon.tumbling {
   border-right: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   padding: 35px 60px;
+}
+@media screen and (max-width: 767px) {
+  .template_youth_sports_inner .content-expander .panel-body {
+    padding: 10px 15px;
+  }
+}
+.template_youth_sports_inner .content-expander .white-area {
+  background: #fff;
+  padding: 35px 60px;
+  margin: -45px -60px 35px;
+}
+@media screen and (max-width: 767px) {
+  .template_youth_sports_inner .content-expander .white-area {
+    padding: 10px 15px;
+    margin: -20px -15px 15px;
+  }
 }
 .template_youth_sports_inner section.node .content-expander-1 .accordion-toggle {
   color: #00aa95;
