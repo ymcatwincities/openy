@@ -482,15 +482,12 @@ function ymca_preprocess_html(&$variables) {
   }
 
   $file = file_load($iconFid);
-  $fileUrl = file_create_url($file->getFileUri());
-  $html_head_link = &$variables['page']['#attached']['html_head_link'];
-  foreach ($html_head_link as $key1 => &$value1) {
-    foreach ($value1 as $key2 => &$value2) {
-      if ($value2['rel'] == 'shortcut icon') {
-        $value2['href'] = $fileUrl;
-        break;
-      }
-    }
+  if ($file) {
+    $variables['page']['#attached']['html_head_link'] = [[[
+      'rel' => 'shortcut icon',
+      'href' => file_create_url($file->getFileUri()),
+      'type' => $file->getMimeType()
+    ]]];
   }
 }
 
@@ -1025,9 +1022,6 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-track-activity-login-form',
     ],
-    'ymca_retention_slider' => [
-      'template' => '/ymca-blocks/ymca-retention-slider',
-    ]
   ];
 }
 
@@ -1299,6 +1293,8 @@ function ymca_get_theme_styles() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  hide($form['theme_settings']['toggle_favicon']);
+  hide($form['favicon']);
   $form['ymca_settings']['styles'] = array(
     '#type' => 'details',
     '#title' => t('Styles'),

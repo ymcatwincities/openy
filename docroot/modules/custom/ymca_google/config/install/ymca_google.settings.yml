@@ -1,3 +1,4 @@
+is_production: 0
 application_name: "groupx-to-gcal-sync"
 calendar_id: "primary"
 auth_config:
