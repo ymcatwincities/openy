@@ -226,6 +226,15 @@
   }
 }
 
+.icon-clock {
+  * {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  &:before {
+    margin-right: 5px;
+  }
+}
+
 @mixin sports_icons() {
   &.baseball-softball-t-ball {
     background: $white url("../img/icon-big-baseball.png") no-repeat 26px center;
