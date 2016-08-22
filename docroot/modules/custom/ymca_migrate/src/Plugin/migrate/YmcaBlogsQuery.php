@@ -24,7 +24,7 @@ class YmcaBlogsQuery extends AmmBlogsQuery {
   /**
    * Tree of pages.
    *
-   * $var array.
+   * @var array
    */
   protected $tree;
 
