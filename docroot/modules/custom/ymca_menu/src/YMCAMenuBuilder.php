@@ -204,9 +204,9 @@ class YMCAMenuBuilder {
       $page['active']  = TRUE;
     }
 
-    if (in_array($page_id, $this->megaNav)) {
-      $page['show_in_meganav'] = TRUE;
-    }
+    $page['show_in_meganav'] = !empty($this->megaNav[$page_id]['show']);
+    $page['show_overview_link'] = !empty($this->megaNav[$page_id]['overview']);
+
 
     $dasherized_page_name = strtolower($page['page_name']);
     $dasherized_page_name = str_replace(['&', '.', ','], '', $dasherized_page_name);
