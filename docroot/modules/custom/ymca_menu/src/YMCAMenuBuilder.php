@@ -17,16 +17,10 @@ class YMCAMenuBuilder {
   protected $rootId = '';
   protected $pageId = '';
 
-  /**
-   * These will be reverse looked up from the map.
-   */
   protected $ancestryKey = '';
   protected $excludeFromNavKey = '';
   protected $orderKey = '';
 
-  /**
-   * These get added to the new array as its built.
-   */
   protected $childrenKey = 'children';
   protected $pageIdKey = 'site_page_id';
 
