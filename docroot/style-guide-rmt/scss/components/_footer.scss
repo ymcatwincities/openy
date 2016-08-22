@@ -6,9 +6,17 @@
   padding-top: 25px;
   text-align: center;
 
-  &__item {
-    display: inline-block;
-    margin: 0 12px;
+  &__list {
+    a {
+      text-decoration: none;
+      outline: none;
+      padding: 0;
+      border: 0;
+
+      img {
+        border: 0;
+      }
+    }
   }
 }
 
@@ -20,8 +28,13 @@
   background-repeat: no-repeat;
   box-sizing: border-box;
   color: $white;
+  font-size: 13px;
   margin-bottom: 25px;
   padding: 30px 10px 25px;
+
+  td {
+    padding-bottom: 10px;
+  }
 
   &__content {
     margin: 0 auto;
@@ -29,17 +42,20 @@
   }
 
   &__icon {
-    float: left;
-    margin-right: 15px;
-  }
-  p {
-    font-size: 13px;
-    overflow: hidden;
-    text-transform: capitalize;
+    padding-right: 15px;
   }
 
-  .phone {
-    margin-right: 35px;
+  a {
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &__phone-mail {
+    a {
+      padding-right: 35px;
+      white-space: nowrap;
+    }
   }
 
   .opacity {
