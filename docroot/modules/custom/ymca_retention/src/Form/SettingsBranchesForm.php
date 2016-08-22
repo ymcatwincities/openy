@@ -17,7 +17,7 @@ class SettingsBranchesForm extends ConfigFormBase {
   /**
    * The location mapping repository.
    *
-   * @var \Drupal\ymca_mappings\LocationMappingRepository;
+   * @var \Drupal\ymca_mappings\LocationMappingRepository
    */
   protected $locationRepository;
 

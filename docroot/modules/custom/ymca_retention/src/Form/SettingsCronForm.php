@@ -16,14 +16,14 @@ class SettingsCronForm extends FormBase {
   /**
    * The regular updater.
    *
-   * @var \Drupal\ymca_retention\RegularUpdater;
+   * @var \Drupal\ymca_retention\RegularUpdater
    */
   protected $regularUpdater;
 
   /**
    * The date formatter.
    *
-   * @var \Drupal\Core\Datetime\DateFormatter;
+   * @var \Drupal\Core\Datetime\DateFormatter
    */
   protected $dateFormatter;
 
