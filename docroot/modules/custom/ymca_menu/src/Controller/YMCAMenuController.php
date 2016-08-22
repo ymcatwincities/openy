@@ -83,7 +83,7 @@ class YMCAMenuController extends ControllerBase {
       $query->addField('mlcd', 'id', 'mlcid');
       $query
         ->orderBy('mt.depth')
-        ->orderBy('mt.weight');
+          ->orderBy('mt.weight');
 
       $results = $query->execute();
       $rows = [];
