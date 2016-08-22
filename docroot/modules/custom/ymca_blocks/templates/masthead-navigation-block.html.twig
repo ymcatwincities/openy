@@ -23,9 +23,11 @@
                 {{ item.page_name }} <b class="caret"></b>
               </a>
               <ul class="nav dropdown-menu">
+                {% if item.show_overview_link %}
                 <li class="overview {% if item.active %} active{% endif %}{% if item.parent %} parent{% endif %} {{ item.dasherized }} nav-level-{{ item.nav_level + 2 }}">
                   <a class="{% if item.active %} active{% endif %}" href="{{ item.url }}">{{ item.page_name }}</a>
                 </li>
+                {% endif %}
                 <li>
                   <ul class="row-level-2">
                     {% for item in item.children %}
