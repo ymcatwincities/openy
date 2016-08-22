@@ -7895,7 +7895,7 @@ body .ajax-progress-throbber .throbber {
 .green-3-col.container {
   background: #26bcbd;
   position: relative;
-  margin: 50px -100px 0;
+  margin: 50px -100px -30px;
   padding: 50px 100px;
 }
 .green-3-col.container:before {
