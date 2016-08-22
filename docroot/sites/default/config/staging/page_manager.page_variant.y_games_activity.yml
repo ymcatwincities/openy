@@ -20,7 +20,7 @@ variant_settings:
       label: 'YMCA retention campaign intro block'
       provider: ymca_retention
       label_display: '0'
-      region: intro
+      region: hero
       weight: 0
       uuid: de599953-3c54-481c-af70-98d9f28c675b
       context_mapping: {  }
@@ -29,8 +29,8 @@ variant_settings:
       label: 'YMCA retention track activity block'
       provider: ymca_retention
       label_display: '0'
-      region: report
-      weight: 0
+      region: main
+      weight: -9
       uuid: 2ca831b1-d3c0-476e-8a20-cb1d35144faa
       context_mapping: {  }
     f99a1c5b-ea31-4f96-ba63-1834f506c787:
@@ -38,8 +38,8 @@ variant_settings:
       label: 'YMCA retention member info block'
       provider: ymca_retention
       label_display: '0'
-      region: member_info
-      weight: 0
+      region: main
+      weight: -10
       uuid: f99a1c5b-ea31-4f96-ba63-1834f506c787
       context_mapping: {  }
     48d49cf9-67d2-4897-904a-069b49d62368:
@@ -56,8 +56,8 @@ variant_settings:
       label: 'YMCA retention leaderboard block'
       provider: ymca_retention
       label_display: '0'
-      region: leaderboard
-      weight: 0
+      region: main
+      weight: -8
       uuid: e89a5cbf-f6bd-4287-8473-cd2657de0acd
       context_mapping: {  }
     8d143d03-907f-4296-91b8-b935756f1154:
@@ -65,22 +65,23 @@ variant_settings:
       label: 'YMCA retention slider block'
       provider: ymca_retention
       label_display: '0'
-      region: slider
-      weight: 0
+      region: main
+      weight: -7
       uuid: 8d143d03-907f-4296-91b8-b935756f1154
       context_mapping: {  }
   id: panels_variant
   uuid: bad55d34-748c-4622-89ff-0f27cd86a1c2
   label: null
   weight: 0
-  layout: retention-activity
-  layout_settings: {  }
+  layout: ymca-retention
+  layout_settings:
+    extra_classes: ''
   page_title: 'Y Games Activity'
   storage_type: page_manager
   storage_id: y_games_activity
   builder: standard
 page: ymca_retention_pages
-weight: 0
+weight: -6
 selection_criteria:
   608ebf7a-dace-4ff6-9256-79d64b1a06d0:
     id: request_path

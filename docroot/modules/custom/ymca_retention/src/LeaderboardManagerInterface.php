@@ -19,11 +19,34 @@ interface LeaderboardManagerInterface {
   public function getLeaderboard($branch_id = 0);
 
   /**
-   * Returns an array of locations with location branch id and name.
+   * Returns all branch IDs of registered members.
+   *
+   * @return array
+   *   An array of members branch IDs.
+   */
+  public function getMemberBranches();
+
+  /**
+   * Returns an array of the Mappings of location bundle.
+   *
+   * The returned array contains all the locations of registered members.
    *
    * @return array
    *   An array of locations.
    */
-  public function getLocations();
+  public function getMemberLocations();
+
+  /**
+   * Returns an array of locations for all the registered members.
+   *
+   * The returned array contains locations branch id and name.
+   *
+   * @param bool $none
+   *   Include "Select location..." option or not.
+   *
+   * @return array
+   *   An array of locations.
+   */
+  public function getLocationsList($none = TRUE);
 
 }

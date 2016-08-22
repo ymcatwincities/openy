@@ -1,5 +1,0 @@
-draggable_table:
-  version: 1.x
-  css:
-    theme:
-      css/draggable_table.css: {}
