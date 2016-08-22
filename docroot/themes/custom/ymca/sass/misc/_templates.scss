@@ -227,11 +227,13 @@
 }
 
 .icon-clock {
+  font-family: inherit;
   * {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: inherit;
   }
   &:before {
     margin-right: 5px;
+    font-family: 'icomoon';
   }
 }
 
@@ -395,6 +397,18 @@ a.sports-icon {
       border-right: 1px solid $grey12;
       border-bottom: 1px solid $grey12;
       padding: 35px 60px;
+      @media screen and (max-width: 767px) {
+        padding: 10px 15px;
+      }
+    }
+    .white-area {
+      background: $white;
+      padding: 35px 60px;
+      margin: -45px -60px 35px;
+      @media screen and (max-width: 767px) {
+        padding: 10px 15px;
+        margin: -20px -15px 15px;
+      }
     }
   }
   section.node {
