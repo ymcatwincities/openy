@@ -18,7 +18,7 @@ class YmcaReplaceTokens {
   /**
    * Processed string.
    *
-   * @var string.
+   * @var string
    */
   protected $string;
 
