@@ -95,7 +95,7 @@ class MappingHtmlRouteProvider extends AdminHtmlRouteProvider {
 
       $route
         ->setOption('parameters', $parameters)
-        ->setOption('_admin_route', TRUE);
+          ->setOption('_admin_route', TRUE);
 
       return $route;
     }
