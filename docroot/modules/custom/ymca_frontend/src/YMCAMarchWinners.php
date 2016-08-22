@@ -12,7 +12,7 @@ class YMCAMarchWinners implements YMCAMarchWinnersInterface {
   /**
    * Injected cache backend.
    *
-   * @var \Drupal\Core\Cache\CacheBackendInterface;
+   * @var \Drupal\Core\Cache\CacheBackendInterface
    */
   protected $cache;
 
