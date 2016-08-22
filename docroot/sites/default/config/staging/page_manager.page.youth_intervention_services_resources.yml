@@ -1,0 +1,25 @@
+uuid: 951806b8-a392-4dce-9eb6-9f5e2f1cae36
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+    - ymca_page_manager
+third_party_settings:
+  ymca_page_manager:
+    author: '27051'
+id: youth_intervention_services_resources
+label: 'Youth Intervention Services'
+use_admin_theme: false
+path: /resourcesyis
+access_logic: and
+access_conditions:
+  cec7e05c-297e-4444-86b8-a3bbe4ed4338:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: cec7e05c-297e-4444-86b8-a3bbe4ed4338
+parameters: {  }

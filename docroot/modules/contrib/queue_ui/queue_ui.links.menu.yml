@@ -1,0 +1,5 @@
+queue_ui.overview_form:
+  title: 'Queue manager'
+  description: 'View and manage queues'
+  route_name: queue_ui.overview_form
+  parent: system.admin_config_system

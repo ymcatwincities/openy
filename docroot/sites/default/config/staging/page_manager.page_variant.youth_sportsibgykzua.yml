@@ -1,0 +1,43 @@
+uuid: b312a477-b15f-4544-801f-041a7b0777b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.youth_intervention_
+  content:
+    - 'block_content:basic:47319366-fac9-4f99-82aa-7d465016bbc6'
+  module:
+    - block_content
+    - panels
+id: youth_sportsibgykzua
+label: 'Youth Sports'
+variant: panels_variant
+variant_settings:
+  blocks:
+    16d060af-11ee-4707-b02c-4414d79e81e3:
+      id: 'block_content:47319366-fac9-4f99-82aa-7d465016bbc6'
+      label: 'Youth Sports Main Content ibgykzua'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: 0
+      uuid: 16d060af-11ee-4707-b02c-4414d79e81e3
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 7892728d-c220-49ba-9e00-a79860e58827
+  label: null
+  weight: 0
+  layout: onecol
+  layout_settings: {  }
+  page_title: ''
+  storage_type: page_manager
+  storage_id: youth_sportsibgykzua
+  builder: standard
+page: youth_intervention_
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }
