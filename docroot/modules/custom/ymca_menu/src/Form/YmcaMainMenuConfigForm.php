@@ -11,7 +11,6 @@ use Drupal\ymca_menu\Controller\YMCAMenuController;
  * Implements Main menu configuration form.
  */
 class YmcaMainMenuConfigForm extends ConfigFormBase {
-  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -43,30 +42,67 @@ class YmcaMainMenuConfigForm extends ConfigFormBase {
     $menu_tree = $this->getMenuTree();
     $root_id = reset($menu_tree->tree['o']);
     $top_level_items = &$menu_tree->tree[$root_id];
-    $options = [];
+
+    $config_state = $this
+      ->getConfig($form_state->getBuildInfo()['args'][0])
+      ->get('items');
+
+    $form['menu_items_table'] = [
+      '#type' => 'table',
+      '#header' => [
+        $this->t('Menu name'),
+        $this->t('Show in meganav'),
+        $this->t('Enable overview link'),
+      ],
+      '#tableselect' => FALSE,
+    ];
+
     foreach ($top_level_items as $key => $item) {
       if ($key === 'o') {
         continue;
       }
       $lookup = isset($menu_tree->lookup[$key]) ? $menu_tree->lookup[$key] : NULL;
-      // Skip disabled menu items.
+      // Skip empty and disabled menu items.
       if (!$lookup || !empty($lookup['x'])) {
         continue;
       }
 
-      $options[$key] = sprintf('%s (%d)', $lookup['n'], $key);
+      if (!isset($config_state[$key])) {
+        $config_state[$key] = [
+          'show' => 0,
+          'overview' => 1,
+        ];
+      }
+
+      $title = $lookup['n'];
+      if (!empty($lookup['m'])) {
+        $title .= ' <small>(' . $lookup['m'] . ')</small>';
+      }
+
+      $form['menu_items_table'][$key]['title'] = [
+        '#markup' => $title,
+      ];
+
+      $form['menu_items_table'][$key]['show'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('State for @title', ['@title' => $title]),
+        '#title_display' => 'invisible',
+        '#default_value' => !empty($config_state[$key]['show']),
+        '#id' => 'menu-item-enabled-' . $key,
+      ];
+
+      $form['menu_items_table'][$key]['overview'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Overview link for @title', ['@title' => $title]),
+        '#title_display' => 'invisible',
+        '#default_value' => !empty($config_state[$key]['overview']),
+        '#states' => [
+          'enabled' => [
+            '#menu-item-enabled-' . $key => ['checked' => TRUE],
+          ]
+        ]
+      ];
     }
-
-    $default_value = $this
-      ->getConfig($form_state->getBuildInfo()['args'][0])
-      ->get('items');
-
-    $form['menu_items'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Main menu items'),
-      '#options' => $options,
-      '#default_value' => $default_value,
-    ];
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -95,7 +131,7 @@ class YmcaMainMenuConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $values = $form_state->getValue('menu_items');
+    $values = $form_state->getValue('menu_items_table');
     $values = array_filter($values);
     $config = $this->getConfig($form_state->getBuildInfo()['args'][0]);
     $config->set('items', $values);
