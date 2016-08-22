@@ -9594,6 +9594,13 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   margin-right: 8px;
 }
 
+.icon-clock * {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.icon-clock:before {
+  margin-right: 5px;
+}
+
 a.sports-icon {
   background-color: #fff;
   display: block;
