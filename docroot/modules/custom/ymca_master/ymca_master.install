@@ -4017,10 +4017,10 @@ function ymca_master_update_8170() {
 /**
  * Make favicons configurable.
  */
-function ymca_master_update_8171() {
+function _ymca_master_update_8171() {
   $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
   $destDir = 'public://favicon/';
-  drupal_mkdir($destDir, 0777);
+  drupal_mkdir($destDir, 0666);
   $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
   $fileMap = [
     'default' => [
@@ -4039,7 +4039,7 @@ function ymca_master_update_8171() {
   $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
     $fileUri = $destDir . $fileItem['to'];
-    file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    @file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
     $file = EntityFile::create([
       'uid' => 1,
       'filename' => $fileItem['to'],
@@ -4152,16 +4152,28 @@ function ymca_master_update_8176() {
 }
 
 /**
- * YPTF-91: Add basic error handling module.
+ * Update wysiwyg editor config.
  */
 function ymca_master_update_8177() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YPTF-91: Add basic error handling module.
+ */
+function ymca_master_update_8178() {
   \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
 }
 
 /**
  * YPTF-133: Clear MindBody cache after booking.
  */
-function ymca_master_update_8178() {
+function ymca_master_update_8179() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
