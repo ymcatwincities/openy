@@ -11,7 +11,6 @@
     margin-bottom: 0;
     text-align: center;
     text-transform: uppercase;
-    width: 100%;
     opacity: 0.9;
     box-sizing: border-box;
     padding: 20px 15px;
@@ -19,6 +18,7 @@
 
   &__image {
     line-height: 0;
+    width: 100%;
 
     * {
       width: 100%;
