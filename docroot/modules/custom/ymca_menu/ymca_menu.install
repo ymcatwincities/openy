@@ -14,3 +14,14 @@ function ymca_menu_update_8001() {
     $path . '/config/ymca_menu.menu_list.yml',
   ]);
 }
+
+/**
+ * Implements hook_update_N().
+ */
+function ymca_menu_update_8002() {
+  $value = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+  \Drupal::configFactory()
+    ->getEditable('ymca_menu.mobile_menu_list')
+    ->set('menu_list', $value)
+    ->save();
+}

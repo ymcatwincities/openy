@@ -17,11 +17,11 @@ class LocationMappingRepository {
   const TYPE = 'location';
 
   /**
-   * Query.
+   * The query factory.
    *
    * @var QueryInterface
    */
-  protected $query;
+  protected $queryFactory;
 
   /**
    * MappingRepository constructor.
@@ -30,7 +30,7 @@ class LocationMappingRepository {
    *   Query factory.
    */
   public function __construct(QueryFactory $query_factory) {
-    $this->query = $query_factory->get('mapping');
+    $this->queryFactory = $query_factory;
   }
 
   /**
@@ -40,7 +40,8 @@ class LocationMappingRepository {
    *   An array of found location mapping objects sorted by name.
    */
   public function loadAll() {
-    $mapping_ids = $this->query
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
       ->condition('type', self::TYPE)
       ->sort('name', 'ASC')
       ->execute();
@@ -61,7 +62,8 @@ class LocationMappingRepository {
    *   Location mapping object or FALSE if not found.
    */
   public function findByLocationId($id) {
-    $mapping_id = $this->query
+    $mapping_id = $this->queryFactory
+      ->get('mapping')
       ->condition('type', self::TYPE)
       ->condition('field_location_ref.target_id', $id)
       ->execute();
@@ -90,7 +92,8 @@ class LocationMappingRepository {
       $code = [$code];
     }
 
-    $mapping_ids = $this->query
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
       ->condition('type', self::TYPE)
       ->condition('field_location_personify_brcode', $code, 'IN')
       ->sort('name', 'ASC')
