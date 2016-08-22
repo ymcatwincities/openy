@@ -13,6 +13,9 @@ vagrantfile-local:
                 CocLsFE7aIwE:
                     host: '8083'
                     guest: '3306'
+                CocLsFE7aIwC:
+                    host: '1080'
+                    guest: '1080'
         provider:
             virtualbox:
                 modifyvm:
