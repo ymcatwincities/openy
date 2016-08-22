@@ -3,28 +3,24 @@
   padding-right: 10px;
 
   &__title {
-    align-items: center;
     background-image: url("https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     color: $white;
-    display: flex;
     font-family: "Arial Black";
     font-size: 18px;
     font-weight: normal;
-    justify-content: center;
     line-height: 25px;
     margin: 0 2px 31px -16px;
     min-height: 82px;
+    text-align: center;
+    padding: 24px 10px;
+    box-sizing: border-box;
 
-    &__icon {
-      display: flex;
-      margin-right: 9px;
-
-      img {
-        height: auto;
-        width: 32px;
-      }
+    img {
+      height: auto;
+      width: 32px;
+      vertical-align: middle;
     }
   }
 
