@@ -11,6 +11,11 @@
       text-decoration: none;
       outline: none;
       padding: 0 10px;
+      border: 0;
+
+      img {
+        border: 0;
+      }
     }
   }
 }
