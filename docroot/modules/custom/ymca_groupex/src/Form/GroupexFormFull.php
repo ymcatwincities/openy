@@ -2,19 +2,16 @@
 
 namespace Drupal\ymca_groupex\Form;
 
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\ymca_groupex\GroupexScheduleFetcher;
 
 /**
  * Implements Groupex Full Form.
@@ -169,6 +166,28 @@ class GroupexFormFull extends GroupexFormBase {
 
     $form['#prefix'] = '<div id="groupex-full-form-wrapper">';
     $form['#suffix'] = '</div>';
+
+    $form['groupex_pdf_link'] = [
+      '#prefix' => '<div class="groupex-pdf-link-container clearfix">',
+      '#suffix' => '</div>',
+    ];
+    if (!empty($values['location'])) {
+      $url = GroupexScheduleFetcher::getPdfLink($values['location']);
+      $form['groupex_pdf_link']['link'] = [
+        '#title' => $this->t('View This Week\'s PDF'),
+        '#type' => 'link',
+        '#url' => $url,
+        '#attributes' => [
+          'class' => [
+            'btn',
+            'btn-default',
+            'btn-xs',
+            'pdf-link',
+          ],
+        ],
+      ];
+    }
+
     $class_select_classes = $location_select_classes = $classes = 'hidden';
     $location_classes = 'show';
     if (isset($groupex_id) && empty($state['class'])) {
@@ -280,7 +299,9 @@ class GroupexFormFull extends GroupexFormBase {
     ];
 
     $form['results'] = [
-      '#markup' => '<div class="groupex-results">' . render($formatted_results) . '</div>',
+      '#prefix' => '<div class="groupex-results">',
+      'results' => $formatted_results,
+      '#suffix' => '</div>',
     ];
 
     $form['#attached']['library'][] = 'ymca_groupex/ymca_groupex';
@@ -327,6 +348,24 @@ class GroupexFormFull extends GroupexFormBase {
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-results', $formatted_results));
     $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', array($parameters)));
+
+    $link = [
+      '#title' => $this->t('View This Week\'s PDF'),
+      '#type' => 'link',
+      '#url' => GroupexScheduleFetcher::getPdfLink($location),
+      '#attributes' => [
+        'class' => [
+          'btn',
+          'btn-default',
+          'btn-xs',
+          'pdf-link',
+        ],
+      ],
+    ];
+    $groupex_pdf_link = $link;
+
+    $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-pdf-link-container', $groupex_pdf_link));
+
     $form_state->setRebuild();
     return $response;
   }

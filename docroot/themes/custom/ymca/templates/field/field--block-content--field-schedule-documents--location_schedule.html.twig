@@ -42,12 +42,23 @@
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes }}>
-      {% for item in items %}
-        <div{{ item.attributes }}>{{ item.content }}</div>
-      {% endfor %}
-      {% if groupex_schedule %}
-        <div><span class="file"><a href="{{ groupex_schedule }}" class="pdf-link">Group Exercise Schedule</a></span></div>
-      {% endif %}
+      <article class="richtext">
+        {% if multiple %}
+        <div>
+          {% endif %}
+          <ul>
+            {% for item in items %}
+              <li{{ item.attributes }}>{{ item.content }}</li>
+            {% endfor %}
+            {% if groupex_schedule %}
+              <li><span class="file"><a href="{{ groupex_schedule }}" type="application/pdf" class="pdf-link">Group Exercise Schedule</a></span></li>
+            {% endif %}
+          </ul>
+          {% if multiple %}
+        </div>
+        {% endif %}
+      </article>
+
     </div>
   {% else %}
     {% for item in items %}
@@ -58,14 +69,19 @@
 {% else %}
   <div{{ attributes }}>
     <div{{ title_attributes }}>{{ label }}</div>
-    {% if multiple %}
-    <div>
-      {% endif %}
-      {% for item in items %}
-        <div{{ item.attributes }}>{{ item.content }}</div>
-      {% endfor %}
-      {% if multiple %}
+      <article class="richtext">
+        {% if multiple %}
+        <div>
+        {% endif %}
+          <ul>
+            {% for item in items %}
+              <li{{ item.attributes }}>{{ item.content }}</li>
+            {% endfor %}
+          </ul>
+        {% if multiple %}
+        </div>
+        {% endif %}
+      </article>
     </div>
-    {% endif %}
   </div>
 {% endif %}
