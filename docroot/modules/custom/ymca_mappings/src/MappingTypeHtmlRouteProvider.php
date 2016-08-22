@@ -53,8 +53,8 @@ class MappingTypeHtmlRouteProvider extends AdminHtmlRouteProvider {
           // TitleResolver translates this string again.
           '_title' => (string) $entity_type->getLabel(),
         ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
+          ->setRequirement('_permission', $entity_type->getAdminPermission())
+          ->setOption('_admin_route', TRUE);
 
       return $route;
     }
@@ -83,11 +83,11 @@ class MappingTypeHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_form' => "{$entity_type_id}.{$operation}",
           '_title' => "Add {$entity_type->getLabel()}",
         ])
-        ->setRequirement('_entity_create_access', $entity_type_id)
-        ->setOption('parameters', [
-          $entity_type_id => ['type' => 'entity:' . $entity_type_id],
-        ])
-        ->setOption('_admin_route', TRUE);
+          ->setRequirement('_entity_create_access', $entity_type_id)
+          ->setOption('parameters', [
+            $entity_type_id => ['type' => 'entity:' . $entity_type_id],
+          ])
+          ->setOption('_admin_route', TRUE);
 
       return $route;
     }
