@@ -83,6 +83,7 @@ class LocationMappingRepository {
    *   MindBody ID.
    *
    * @return EntityInterface|bool
+   *   Mapping.
    */
   public function findByMindBodyId($id) {
     $mapping_id = $this->queryFactory

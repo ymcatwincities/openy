@@ -386,7 +386,6 @@ class MindbodyResultsController extends ControllerBase {
     return $result->GetClientsResult->Clients->Client;
   }
 
-
   /**
    * Custom response callback.
    *
