@@ -142,3 +142,29 @@ function ymca_mindbody_mindbody_cache_proxy_update_stats($data) {
 function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
   \Drupal::service('cache_tags.invalidator')->invalidateTags(['mindbody_state']);
 }
+
+/**
+ * Implements hook_mail().
+ */
+function ymca_mindbody_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'notify_trainer':
+
+      $body = <<<BODY
+<p>$params[trainer_name],<br /><br />
+$params[client_name] has scheduled an appointment with you at $params[start_date].</p>
+<p>If you need to change this appointment, please contact:</p>
+<p>Name: $params[client_name]<br />
+Email: $params[client_email]<br />
+Phone: $params[client_phone]<br /></p>
+<p>Thank you!<br />
+The $params[location] Team
+BODY;
+
+      $message['subject'] = "Online Booking Confirmation for $params[start_date]";
+      $message['body'][] = $body;
+
+      break;
+  }
+}
+
