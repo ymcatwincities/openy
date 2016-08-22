@@ -2,11 +2,13 @@
 
 namespace Drupal\ymca_retention;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Url;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\ymca_retention\Entity\MemberActivity;
-use Drupal\Core\Url;
-use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Defines activities manager service.
@@ -14,11 +16,52 @@ use Drupal\Core\Render\BubbleableMetadata;
 class ActivityManager implements ActivityManagerInterface {
 
   /**
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The entity query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $queryFactory;
+
+  /**
+   * Constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
+   *   The entity query factory.
+   */
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    EntityTypeManagerInterface $entity_type_manager,
+    QueryFactory $query_factory
+  ) {
+    $this->configFactory = $config_factory;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->queryFactory = $query_factory;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDates() {
     // Get retention settings.
-    $settings = \Drupal::config('ymca_retention.general_settings');
+    $settings = $this->configFactory->get('ymca_retention.general_settings');
 
     // Get start and end date of retention campaign.
     $date_start = new \DateTime($settings->get('date_reporting_open'));
@@ -62,7 +105,7 @@ class ActivityManager implements ActivityManagerInterface {
     // Prepare taxonomy data.
     $activity_groups = [];
     /** @var TermStorage $term_storage */
-    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $parents = $term_storage->loadTree('ymca_retention_activities', 0, 1, TRUE);
     /** @var Term $parent */
     foreach ($parents as $parent) {
@@ -101,10 +144,10 @@ class ActivityManager implements ActivityManagerInterface {
       return $activities;
     }
 
-    $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
+    $activities_ids = $this->queryFactory->get('ymca_retention_member_activity')
       ->condition('member', $member_id)
       ->execute();
-    $activities = \Drupal::entityTypeManager()
+    $activities = $this->entityTypeManager
       ->getStorage('ymca_retention_member_activity')
       ->loadMultiple($activities_ids);
 

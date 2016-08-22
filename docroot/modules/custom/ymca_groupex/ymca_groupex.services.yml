@@ -1,11 +1,3 @@
 services:
   ymca_groupex.schedule_fetcher:
     class: Drupal\ymca_groupex\GroupexScheduleFetcher
-  ymca_groupex.data_fetcher:
-    class: Drupal\ymca_groupex\GroupexDataFetcher
-    arguments: ['@ymca_google.groupex_wrapper']
-    properties:
-      debug: false
-  ymca_groupex.drupal_proxy:
-    class: Drupal\ymca_groupex\DrupalProxy
-    arguments: ['@ymca_google.groupex_wrapper', '@entity.query', '@logger.factory', '@ymca_groupex.data_fetcher']

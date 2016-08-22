@@ -1,0 +1,15 @@
+
+queue_ui.overview_form:
+  path: admin/config/system/queue-ui
+  defaults:
+    _form: '\Drupal\queue_ui\Form\QueueUIOverviewForm'
+    _title: 'Queue manager'
+  requirements:
+    _permission: 'admin queue_ui'
+
+queue_ui.confirm_delete_form:
+  path: admin/config/system/queue-ui/delete
+  defaults:
+    _form: '\Drupal\queue_ui\Form\QueueUIConfirmDeleteForm'
+  requirements:
+    _permission: 'admin queue_ui'
