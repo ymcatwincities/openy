@@ -7,13 +7,16 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyManager;
 use Drupal\ymca_errors\ErrorManager;
+use Drupal\ymca_mappings\LocationMappingRepository;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher;
 use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
@@ -36,34 +39,14 @@ class MindbodyResultsController extends ControllerBase {
   const QUERY_PARAM__LOCATION = 'location';
 
   /**
-   * Staff ID.
-   */
-  const QUERY_PARAM__STAFF_ID = 'si';
-
-  /**
    * Program ID.
    */
   const QUERY_PARAM__PROGRAM_ID = 'p';
 
   /**
-   * Is Male.
-   */
-  const QUERY_PARAM__IS_MALE = 'im';
-
-  /**
-   * Start timestamp.
-   */
-  const QUERY_PARAM__START_TIMESTAMP = 'tm';
-
-  /**
    * Test trainer. We may create appointments for him.
    */
   const TEST_API_TRAINER_ID = '100000323';
-
-  /**
-   * Test trainer is a male with a huge beard.
-   */
-  const TEST_API_TRAINER_IS_MALE = 1;
 
   /**
    * Test client ID.
@@ -120,6 +103,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $cacheManager;
 
   /**
+   * Mail manager.
+   *
+   * @var MailManagerInterface
+   */
+  protected $mailManager;
+
+  /**
    * Mindbody Credentials.
    *
    * @var array
@@ -141,6 +131,20 @@ class MindbodyResultsController extends ControllerBase {
   protected $requestGuard;
 
   /**
+   * Keyvalue expirable factory.
+   *
+   * @var KeyValueDatabaseExpirableFactory
+   */
+  protected $keyValueExpirable;
+
+  /**
+   * Location repository.
+   *
+   * @var LocationMappingRepository
+   */
+  protected $locationRepository;
+
+  /**
    * MindbodyResultsController constructor.
    *
    * @param YmcaMindbodyResultsSearcherInterface $results_searcher
@@ -159,6 +163,12 @@ class MindbodyResultsController extends ControllerBase {
    *   The Error manager.
    * @param MindbodyCacheProxyManager $cache_manager
    *   The cache manager.
+   * @param MailManagerInterface $mail_manager
+   *   Mail manager.
+   * @param KeyValueDatabaseExpirableFactory $key_value_expirable
+   *   The Keyvalue expirable factory.
+   * @param LocationMappingRepository $location_repository
+   *   The location repository.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -168,7 +178,10 @@ class MindbodyResultsController extends ControllerBase {
     MindbodyCacheProxy $proxy,
     ConfigFactory $config_factory,
     ErrorManager $error_manager,
-    MindbodyCacheProxyManager $cache_manager
+    MindbodyCacheProxyManager $cache_manager,
+    MailManagerInterface $mail_manager,
+    KeyValueDatabaseExpirableFactory $key_value_expirable,
+    LocationMappingRepository $location_repository
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
@@ -178,6 +191,10 @@ class MindbodyResultsController extends ControllerBase {
     $this->configFactory = $config_factory;
     $this->errorManager = $error_manager;
     $this->cacheManager = $cache_manager;
+    $this->mailManager = $mail_manager;
+    $this->keyValueExpirable = $key_value_expirable;
+    $this->locationRepository = $location_repository;
+
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
   }
@@ -194,7 +211,10 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('mindbody_cache_proxy.client'),
       $container->get('config.factory'),
       $container->get('ymca_errors.error_manager'),
-      $container->get('mindbody_cache_proxy.manager')
+      $container->get('mindbody_cache_proxy.manager'),
+      $container->get('plugin.manager.mail'),
+      $container->get('keyvalue.expirable.database'),
+      $container->get('ymca_mappings.location_repository')
     );
   }
 
@@ -213,9 +233,6 @@ class MindbodyResultsController extends ControllerBase {
       'dr' => !empty($query['dr']) ? $query['dr'] : NULL,
       'context' => isset($query['context']) ? $query['context'] : '',
       'bid' => isset($query['bid']) ? $query['bid'] : '',
-      'si' => isset($query['si']) ? $query['si'] : '',
-      'im' => isset($query['im']) ? $query['im'] : '',
-      'tm' => isset($query['tm']) ? $query['tm'] : '',
     ];
 
     $node = $this->requestStack->getCurrentRequest()->get('node');
@@ -276,6 +293,38 @@ class MindbodyResultsController extends ControllerBase {
     // OK.
     if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
       $message = $this->t('Your appointment is confirmed.');
+
+      // Send email notification if we have proper booking data.
+      $storage = $this->keyValueExpirable->get(YmcaMindbodyResultsSearcher::KEY_VALUE_COLLECTION);
+      if ($booking_data = $storage->get($query['token'])) {
+        $client_id = self::TEST_API_CLIENT_ID;
+        if ($this->isProduction) {
+          $client_id = $this->requestStack->getCurrentRequest()->cookies->get('Drupal_visitor_personify_id');
+        }
+
+        $location_id = $query[self::QUERY_PARAM__LOCATION];
+        $location = $this->locationRepository->findByMindBodyId($location_id);
+
+        // Default token for the notification.
+        $tokens = [
+          'trainer_name' => $booking_data['trainer_name'],
+          'start_date' => $booking_data['start_date'],
+          'location' => $location->label(),
+          'client_name' => 'unknown',
+          'client_email' => 'unknown',
+          'client_phone' => 'unknown',
+        ];
+
+        // Get client data.
+        if ($client_data = $this->getClientData($client_id)) {
+          $tokens['client_name'] = $client_data->FirstName . ' ' . $client_data->LastName;
+          $tokens['client_email'] = $client_data->Email;
+          $tokens['client_phone'] = $client_data->MobilePhone;
+        }
+
+        $this->mailManager->mail('ymca_mindbody', 'notify_trainer', $booking_data['trainer_email'], 'en', $tokens);
+      }
+
     }
 
     // Not OK, but there is a message.
@@ -296,6 +345,47 @@ class MindbodyResultsController extends ControllerBase {
 
     return $response;
   }
+
+  /**
+   * Get client data.
+   *
+   * @param int $id
+   *   Client ID.
+   *
+   * @return \stdClass|bool
+   *   Client data.
+   */
+  private function getClientData($id) {
+    try {
+      $params = [
+        'SourceCredentials' => [
+          'SourceName' => $this->credentials->get('sourcename'),
+          'Password' => $this->credentials->get('password'),
+          'SiteIDs' => [$this->credentials->get('site_id')],
+        ],
+        'ClientIDs' => [$id],
+      ];
+
+      $result = $this->proxy->call('ClientService', 'GetClients', $params);
+
+      if (200 != $result->GetClientsResult->ErrorCode) {
+        $this->logger->error('Got non 200 error code with ClientService (GetClients). Result: %s', ['%s' => serialize($result->GetClientsResult)]);
+        return FALSE;
+      }
+
+      if (!count((array) $result->GetClientsResult->Clients)) {
+        $this->logger->error('Client with ID: %id not found with ClientService (GetClients)', ['%id' => $id]);
+        return FALSE;
+      }
+    }
+    catch (\Exception $e) {
+      $this->logger->error('Failed to get client data for a notification. Message: %message', ['%message' => $e->getMessage()]);
+      return FALSE;
+    }
+
+    return $result->GetClientsResult->Clients->Client;
+  }
+
 
   /**
    * Custom response callback.
@@ -337,6 +427,13 @@ class MindbodyResultsController extends ControllerBase {
    *     - message (optional): description.
    */
   private function bookItem(array $data) {
+    $storage = $this->keyValueExpirable->get(YmcaMindbodyResultsSearcher::KEY_VALUE_COLLECTION);
+    if (!$booking_data = $storage->get($data['token'])) {
+      return [
+        'status' => FALSE
+      ];
+    }
+
     $client_id = self::TEST_API_CLIENT_ID;
     $location_id = $data[self::QUERY_PARAM__LOCATION];
 
@@ -361,7 +458,7 @@ class MindbodyResultsController extends ControllerBase {
     try {
       $params = [
         'UserCredentials' => $user_credentials,
-        'SessionTypeIDs' => [$data['s']],
+        'SessionTypeIDs' => [$data[self::QUERY_PARAM__SESSION_TYPE]],
         'ClientID' => $client_id,
         'ClassID' => FALSE,
       ];
@@ -425,13 +522,13 @@ class MindbodyResultsController extends ControllerBase {
         'Test' => TRUE,
         'Appointments' => [
           'Appointment' => [
-            'StartDateTime' => date('Y-m-d\TH:i:s', $data[self::QUERY_PARAM__START_TIMESTAMP]),
+            'StartDateTime' => date('Y-m-d\TH:i:s', $booking_data['start_time']),
             'Location' => [
               'ID' => $location_id,
             ],
             'Staff' => [
-              'isMale' => (bool) $data[self::QUERY_PARAM__IS_MALE],
-              'ID' => $data[self::QUERY_PARAM__STAFF_ID],
+              'isMale' => (bool) $booking_data['is_male'],
+              'ID' => $booking_data['stuff_id'],
             ],
             'Client' => [
               'ID' => $client_id,
@@ -450,9 +547,9 @@ class MindbodyResultsController extends ControllerBase {
       }
 
       // Allow creation of real appointments for test trainer.
-      if ($data[self::QUERY_PARAM__STAFF_ID] == self::TEST_API_TRAINER_ID) {
+      if ($booking_data['stuff_id'] == self::TEST_API_TRAINER_ID) {
         unset($params['Test']);
-        $params['Appointments']['Appointment']['Staff']['isMale'] = self::TEST_API_TRAINER_IS_MALE;
+        $params['Appointments']['Appointment']['Staff']['isMale'] = $booking_data['is_male'];
       }
 
       $result = $this->proxy->call('AppointmentService', 'AddOrUpdateAppointments', $params, FALSE);
