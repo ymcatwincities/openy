@@ -4017,10 +4017,10 @@ function ymca_master_update_8170() {
 /**
  * Make favicons configurable.
  */
-function ymca_master_update_8171() {
+function _ymca_master_update_8171() {
   $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
   $destDir = 'public://favicon/';
-  drupal_mkdir($destDir, 0777);
+  drupal_mkdir($destDir, 0666);
   $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
   $fileMap = [
     'default' => [
@@ -4039,7 +4039,7 @@ function ymca_master_update_8171() {
   $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
     $fileUri = $destDir . $fileItem['to'];
-    file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    @file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
     $file = EntityFile::create([
       'uid' => 1,
       'filename' => $fileItem['to'],
@@ -4072,4 +4072,81 @@ function ymca_master_update_8172() {
       $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
     ]
   );
+}
+
+/**
+ * Updates format configs adding color buttons.
+ */
+function ymca_master_update_8173() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1105: Refactor ymca_google.
+ */
+function ymca_master_update_8174() {
+  $config = \Drupal::service('config.factory')->getEditable('ymca_google.settings');
+  $config->set('is_production', 0);
+  $config->save();
+}
+
+/**
+ * YMCA-1105: Add field for Google event.
+ */
+function ymca_master_update_8175() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_google_event.yml',
+    ]
+  );
+}
+
+/**
+ * Update locations schedule content field value.
+ */
+function ymca_master_update_8176() {
+  $renderer = \Drupal::service('renderer');
+  $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $location_nids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+  foreach ($location_nids as $nid) {
+    $mapping = $mapping_repository->findByLocationId($nid);
+    if (!$mapping || !$mapping->hasField('field_location_personify_brcode') ||
+      !$brcode = $mapping->field_location_personify_brcode->getValue()[0]['value']
+    ) {
+      \Drupal::logger('ymca_master')
+        ->notice('Location with nid @nid has not been updated because it doesn\'t have associated Personify branch id', [
+          '@nid' => $nid,
+        ]);
+      continue;
+    }
+
+    $build = [
+      '#type' => 'inline_template',
+      '#template' => '{% include "@ymca_groupex/groupex-individual-location-links.html.twig" %}',
+      '#context' => ['branch_id' => $brcode],
+    ];
+
+    $node = $node_storage->load($nid);
+    $node->set('field_schedule_content', [
+      'value' => (string) $renderer->renderRoot($build),
+      'format' => 'full_html'
+    ]);
+    $node->save();
+  }
 }

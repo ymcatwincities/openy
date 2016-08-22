@@ -18,23 +18,18 @@ class YMCAMenuController extends ControllerBase {
    */
   const ROOT_ID = 1;
 
+  const MOBILE_MENU_LIST_CONFIG_NAME = 'ymca_menu.mobile_menu_list';
+
   /**
    * Outputs JSON-response.
    */
   public function json() {
-    if ($cache = $this->cache()->get(YMCA_MENU_CACHE_CID)) {
-      $data = $cache->data;
-    }
-    else {
-      $data = $this->buildTree();
-      $this->cache()->set(YMCA_MENU_CACHE_CID, $data);
-    }
+    $data = $this->buildTree(self::MOBILE_MENU_LIST_CONFIG_NAME);
 
-    // Add simple caching for json.
     $cacheable = [
       '#cache' => [
-        'max-age' => 60
-      ]
+        'tags' => $this->getMenuTags(self::MOBILE_MENU_LIST_CONFIG_NAME),
+      ],
     ];
 
     $response = new CacheableJsonResponse($data, 200);
@@ -60,10 +55,8 @@ class YMCAMenuController extends ControllerBase {
 
     // Lookup stores all menu-link items.
     $tree = $this->initTree();
-    $menus = static::menuList();
-    $menu_tags = [];
+    $menus = static::menuList($config);
     foreach ($menus as $menu_id) {
-      $menu_tags[] = 'config:system.menu.' . $menu_id;
       $query = db_select('menu_tree', 'mt');
       $query->leftJoin('menu_link_content', 'mlc', 'mt.id = CONCAT(mlc.bundle, :separator, mlc.uuid)', [':separator' => ':']);
       $query->leftJoin('menu_link_content_data', 'mlcd', 'mlcd.id = mlc.id');
@@ -137,11 +130,11 @@ class YMCAMenuController extends ControllerBase {
         );
         if ($row->link__uri) {
           try {
-            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->link__uri)->toString();
+            $tree->lookup[$row->mlid]['u'] = Url::fromUri($row->link__uri)->toString(TRUE)->getGeneratedUrl();
           }
           catch (\InvalidArgumentException $e) {
             try {
-              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->link__uri)->toString();
+              $tree->lookup[$row->mlid]['u'] = Url::fromUserInput($row->link__uri)->toString(TRUE)->getGeneratedUrl();
             }
             catch (\InvalidArgumentException $e) {
               $menu_item_page_uri = Url::fromRoute(
@@ -152,7 +145,7 @@ class YMCAMenuController extends ControllerBase {
               \Drupal::logger('ymca_menu')
                 ->error('[DEV] Menu link path %path cannot be converted to URL. Check at <a href="@url">page</a>', [
                   '%path' => $row->link__uri,
-                  '@url' => $menu_item_page_uri->toString(),
+                  '@url' => $menu_item_page_uri->toString(TRUE)->getGeneratedUrl(),
                 ]);
             }
           }
@@ -167,9 +160,28 @@ class YMCAMenuController extends ControllerBase {
         $ctree[$row->mlid] = [];
       }
     }
-    $this->cache()->set($cache_id, $tree, Cache::PERMANENT, array_merge(['config:' . $config, 'node_list'], $menu_tags));
+
+    $this->cache()->set($cache_id, $tree, Cache::PERMANENT, $this->getMenuTags($config));
 
     return $tree;
+  }
+
+  /**
+   * Helper function; retrieve menu cache tags.
+   *
+   * @param string $config
+   *   Name of menu list config.
+   *
+   * @return array
+   *   Array of cache tags.
+   */
+  private function getMenuTags($config) {
+    $menu_tags = ['config:' . $config, 'node_list', YMCA_MENU_CACHE_CID];
+    $menus = static::menuList($config);
+    foreach ($menus as $menu_id) {
+      $menu_tags[] = 'config:system.menu.' . $menu_id;
+    }
+    return $menu_tags;
   }
 
   /**

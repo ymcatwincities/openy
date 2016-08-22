@@ -1,4 +1,4 @@
-Drupal Vagrant Dev box for CIBox support.
+YMCA Vagrant Dev box for CIBox support.
 ======
 
 #Installation
@@ -14,6 +14,23 @@ Drupal Vagrant Dev box for CIBox support.
 ```sh
 vagrant up && vagrant ssh
 ```
+
+# Docker SQL flow
+How to reinstall local site from scratch
+- vagrant up && vagrant ssh
+- cd /var/www/docroot
+- sudo service docker restart
+- get_latest_db.sh # creates local docker image named `DBPROD` with all databases from production. **No need to run this every time for reinstalling local site. Only if you need latest db from production redownloaded or obtained initially (first run).**
+- reinstall.sh # reinstalls ymca project and re-creates docker container with name `drupal`
+- reinstall_all.sh # reinstalls all ymca, openy, redwing projects
+
+
+Helpful commands
+- docker images # list of available images
+- docker ps -s # list of running containers
+- docker rm -f <container_name_or_hash> # removes container
+- docker rmi -f <image_name_or_hash> # removes image (all dependant containers should be removed beforehand)
+- http://192.168.56.132/adminer.php?server=172.18.0.2&username=root access to local dev dbs
 
 ### Reinstall only YGTC site
 
@@ -174,3 +191,37 @@ name: Restore settings.php
 sudo: yes
 shell: cp /tmp/reinstall_settings.php sites/default/settings.php
 ```
+
+### How to install & use Mailcatcher
+
+Install RVM on the VM.
+
+```
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+```
+
+Install Mailcatcher on the VM.
+
+```
+rvm default@mailcatcher --create do gem install mailcatcher
+rvm wrapper default@mailcatcher --no-prefix mailcatcher catchmail
+```
+
+Configure PHP (php.ini). Use `which catchmail` to get path to `catchmail` in the system
+
+```
+sendmail_path = /home/vagrant/.rvm/bin/catchmail -f your@mail.com
+```
+
+Start mailcatcher (every time after system restart).
+
+```
+mailcatcher --http-ip=0.0.0.0
+```
+
+Now you can access Mailcatcher by address `http://localhost:1080/` on your local machine.
+
+Go to `admin/config/system/mailsystem` and set `Select the default sender plugin` to `Default PHP mailer`
+
+**Congratulations!** Now you can send email and test them with mailcatcher.
