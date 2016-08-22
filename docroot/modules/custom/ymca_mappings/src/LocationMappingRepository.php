@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_mappings;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\Entity\Query\QueryInterface;
@@ -66,6 +67,28 @@ class LocationMappingRepository {
       ->get('mapping')
       ->condition('type', self::TYPE)
       ->condition('field_location_ref.target_id', $id)
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if ($mapping_id) {
+      return Mapping::load($mapping_id);
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Find mapping by MindBody ID.
+   *
+   * @param int $id
+   *   MindBody ID.
+   *
+   * @return EntityInterface|bool
+   */
+  public function findByMindBodyId($id) {
+    $mapping_id = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->condition('field_mindbody_id', $id)
       ->execute();
     $mapping_id = reset($mapping_id);
     if ($mapping_id) {
