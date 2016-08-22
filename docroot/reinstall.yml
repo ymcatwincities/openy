@@ -33,8 +33,13 @@
     tags: [ 'settings', 'pre-settings', 'sql-workflow' ]
 
   - include: devops/reinstall/sql_workflow.yml
-    when: workflow_type == "sql"
+    when: workflow_type == "sql" and not docker_sql
     tags: [ 'sql-workflow' ]
+
+  - include: devops/reinstall/docker_sql_workflow.yml
+    when: workflow_type == "sql" and docker_sql
+    tags: [ 'sql-workflow' ]
+
 
   - include: devops/reinstall/profile_workflow.yml
     when: workflow_type == "profile"

@@ -127,7 +127,7 @@ function ymca_menu_page_attachments(array &$attachments) {
     'mlid' => !empty($mlid) ? $mlid : YMCAMenuController::ROOT_ID,
     'liveUrl' => \Drupal::service('path.alias_manager')->getAliasByPath(
         $current_path
-      ) . '/',
+    ) . '/',
     'meganav' => \Drupal::config('ymca_menu.main_menu')->get('items'),
   );
 }

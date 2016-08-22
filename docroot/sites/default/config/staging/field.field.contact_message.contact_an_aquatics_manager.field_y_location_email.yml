@@ -20,12 +20,12 @@ default_value:
     option_select: 0
     option_name: Blaisdell
     option_reference: '5'
-    option_emails: Darla.Hansen@ymcamn.org
+    option_emails: Jennifer.Myers@ymcamn.org
   -
     option_select: 0
     option_name: Burnsville
     option_reference: '6'
-    option_emails: lori.hokenson@ymcamn.org
+    option_emails: Barbara.Jacob@ymcamn.org
   -
     option_select: 0
     option_name: Eagan
