@@ -16,14 +16,10 @@
     padding: 20px 15px;
   }
 
-  &__image {
-    line-height: 0;
+  img {
     width: 100%;
-
-    * {
-      width: 100%;
-      height: auto;
-    }
+    height: auto;
+    display: block;
   }
 
   &--bg {
