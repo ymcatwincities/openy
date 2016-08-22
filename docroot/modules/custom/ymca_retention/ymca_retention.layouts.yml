@@ -1,37 +1,14 @@
-retention-campaign:
-  label: YMCA Retention Campaign
+ymca-retention:
+  label: YMCA Retention
   category: YMCA layouts
-  template: templates/retention-campaign
-  class: '\Drupal\ymca_retention\Plugin\Layout\RetentionCampaign'
+  template: templates/ymca-retention
+  class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetention'
   regions:
     navigation:
       label: Navigation
-    intro:
-      label: Intro
-    main:
-      label: Main
+    hero:
+      label: Hero section
     registration:
       label: Registration & Report
-    leaderboard:
-      label: Leaderboard
-    slider:
-      label: Slider
-retention-activity:
-  label: YMCA Retention Activity
-  category: YMCA layouts
-  template: templates/retention-activity
-  regions:
-    navigation:
-      label: Navigation
-    intro:
-      label: Intro
-    member_info:
-      label: Member info/progress
-    report:
-      label: Activity Tracker
-    leaderboard:
-      label: Leaderboard
     main:
-      label: Main
-    slider:
-      label: Slider
+      label: Main section

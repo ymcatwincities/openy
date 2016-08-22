@@ -1,0 +1,43 @@
+uuid: 3df74d5a-2316-44cf-b070-af57585bc21b
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.summer_guide
+  content:
+    - 'block_content:basic:f1192369-df11-4a53-9eb6-457e38c36a1f'
+  module:
+    - block_content
+    - panels
+id: youth_sportskmglu7bac7vtesns
+label: 'Summer Guide'
+variant: panels_variant
+variant_settings:
+  blocks:
+    16d060af-11ee-4707-b02c-4414d79e81e3:
+      id: 'block_content:f1192369-df11-4a53-9eb6-457e38c36a1f'
+      label: 'Summer Guide Main Content'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: 0
+      uuid: 16d060af-11ee-4707-b02c-4414d79e81e3
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 7892728d-c220-49ba-9e00-a79860e58827
+  label: null
+  weight: 0
+  layout: onecol
+  layout_settings: {  }
+  page_title: ''
+  storage_type: page_manager
+  storage_id: youth_sportskmglu7bac7vtesns
+  builder: standard
+page: summer_guide
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }

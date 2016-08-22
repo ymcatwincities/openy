@@ -25,6 +25,7 @@ env:
     - { name: 'search-api-index', status: false, arguments: "" }
     - { name: 'search-index', status: false, arguments: "" }
     - { name: 'config-set', status: true, arguments: "shield.config enabled 1" }
+    - { name: 'config-set', status: true, arguments: "ymca_google.settings is_production 0" }
     # Set active configuration for specific environment.
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_mindbody.trainings_mapping', 'staging');\"" }
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('mindbody.settings', 'staging');\"" }
