@@ -11,19 +11,24 @@
     font-size: 18px;
     vertical-align: middle;
     font-weight: normal;
-    -ms-flex-pack: center;
     height: 82px;
     margin: 0;
     padding-top: 0 !important;
     text-align: center;
     background-color: $gray-42;
     line-height: 1 !important;
+    margin: 0 2px 31px -16px;
+    min-height: 82px;
+    text-align: center;
+    padding: 24px 10px;
+    box-sizing: border-box;
 
     img {
       height: auto;
       width: 32px;
       vertical-align: sub;
       padding-right: 15px;
+      vertical-align: middle;
     }
   }
 
