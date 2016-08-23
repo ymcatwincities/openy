@@ -1,26 +1,29 @@
 .block-body {
   padding-left: 10px;
   padding-right: 10px;
+  &__image {
+    width: 69px;
+  }
 
   &__title {
-    background-image: url("https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
     color: $white;
     font-family: "Arial Black";
     font-size: 18px;
+    vertical-align: middle;
     font-weight: normal;
-    line-height: 25px;
-    margin: 0 2px 31px -16px;
-    min-height: 82px;
+    -ms-flex-pack: center;
+    height: 82px;
+    margin: 0;
+    padding-top: 0 !important;
     text-align: center;
-    padding: 24px 10px;
-    box-sizing: border-box;
+    background-color: $gray-42;
+    line-height: 1 !important;
 
     img {
       height: auto;
       width: 32px;
-      vertical-align: middle;
+      vertical-align: sub;
+      padding-right: 15px;
     }
   }
 
@@ -38,5 +41,18 @@
       border-bottom: none;
       margin-bottom: 0;
     }
+  }
+
+  table {
+    margin-bottom: 30px;
+  }
+
+  table tr {
+    background-color: transparent;
+  }
+
+  table tr td {
+    padding: 0;
+    line-height: 0;
   }
 }
