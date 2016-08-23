@@ -73,23 +73,37 @@
   padding: 0 !important;
   position: relative;
   overflow: hidden;
+  width: auto !important;
+  margin-bottom: 15px;
 
   .text-button {
     padding: 10px !important;
     background: transparent !important;
   }
 
-  &__image {
-    padding: 6px 10px !important;
-    border-radius: 3px 0 0 3px !important;
-
-    .btn__icon__img {
-      padding: 0 !important;
-      width: 20px !important;
-      margin: 0 !important;
-      background: transparent !important;
+  &__text {
+    border-radius: 0 3px 3px 0 ;
+    a {
+      border: 0;
+      color: $white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1;
+      padding: 11px 15px;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
   }
+
+  &__img {
+    padding: 8px 10px !important;
+    border-radius: 3px 0 0 3px !important;
+    width: 20px !important;
+    margin: 0 !important;
+  }
+
 
   .icon {
 
@@ -118,10 +132,10 @@
     }
   }
 
-  table {
-    width: auto !important;
-    tr {
-      background: transparent;
+
+  tr {
+    td {
+      padding: 0;
     }
   }
 }
