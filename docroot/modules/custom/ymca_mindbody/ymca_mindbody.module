@@ -150,16 +150,14 @@ function ymca_mindbody_mail($key, &$message, $params) {
   switch ($key) {
     case 'notify_trainer':
 
-      $body = <<<BODY
-<p>$params[trainer_name],<br /><br />
-$params[client_name] has scheduled an appointment with you at $params[start_date].</p>
-<p>If you need to change this appointment, please contact:</p>
-<p>Name: $params[client_name]<br />
-Email: $params[client_email]<br />
-Phone: $params[client_phone]<br /></p>
-<p>Thank you!<br />
-The $params[location] Team
-BODY;
+      $body = "<p>$params[trainer_name],<br /><br />";
+      $body .= "$params[client_name] has scheduled an appointment with you at $params[start_date].</p>";
+      $body .= "<p>If you need to change this appointment, please contact:</p>";
+      $body .= "<p>Name: $params[client_name]<br />";
+      $body .= "Email: $params[client_email]<br />";
+      $body .= "Phone: $params[client_phone]<br /></p>";
+      $body .= "<p>Thank you!<br />";
+      $body .= "The $params[location] Team";
 
       $message['subject'] = "Online Booking Confirmation for $params[start_date]";
       $message['body'][] = $body;
