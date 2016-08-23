@@ -3,6 +3,7 @@
 namespace Drupal\personify_mindbody_sync;
 
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\Query\QueryFactoryInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
 use Drupal\Core\Entity\EntityInterface;
 
@@ -60,7 +61,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   /**
    * Query Factory.
    *
-   * @var
+   * @var QueryFactoryInterface
    */
   protected $query;
 
