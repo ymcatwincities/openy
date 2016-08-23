@@ -70,25 +70,24 @@
 /* style button has icon */
 
 .btn--has-icon {
-  padding-left: 45px;
+  padding: 0 !important;
   position: relative;
+  overflow: hidden;
 
-  span {
-    border-radius: 3px 0 0 3px;
-    font-size: 16px;
-    height: 29px;
-    left: 0;
-    padding-top: 8px;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    vertical-align: middle;
-    width: 38px;
+  .text-button {
+    padding: 10px !important;
+    background: transparent !important;
+  }
 
-    img {
-      padding-left: 9px;
-      padding-right: 9px;
+  &__image {
+    padding: 6px 10px !important;
+    border-radius: 3px 0 0 3px !important;
+
+    .btn__icon__img {
+      padding: 0 !important;
       width: 20px !important;
+      margin: 0 !important;
+      background: transparent !important;
     }
   }
 
@@ -118,21 +117,25 @@
       background-color: $orange-dark ;
     }
   }
+
+  table {
+    width: auto !important;
+    tr {
+      background: transparent;
+    }
+  }
 }
 
 .link {
   text-decoration: none;
   color: $blue-dark;
   font-size: 16px;
-  display: flex;
   align-items: center;
-
-  &__arrow {
-    margin-left: 7px;
+  .img-left {
+    padding-right: 8px;
   }
-
-  &__img {
-    margin-right: 10px;
+  .img-right {
+    padding-left: 3px;
   }
 
   &--blue {
