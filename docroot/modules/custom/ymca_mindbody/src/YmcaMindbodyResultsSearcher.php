@@ -9,6 +9,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Link;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -41,6 +42,16 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * Excluded programs.
    */
   const PROGRAMS_EXCLUDED = [4];
+
+  /**
+   * Collection name for KeyValue storage.
+   */
+  const KEY_VALUE_COLLECTION = 'ymca_booking';
+
+  /**
+   * Keyvalue expiration period.
+   */
+  const KEY_VALUE_EXPIRE = 86400;
 
   /**
    * The Config Factory definition.
@@ -76,6 +87,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * Expirable keyvalue factory.
+   *
+   * @var KeyValueDatabaseExpirableFactory
+   */
+  protected $keyValueExpirable;
 
   /**
    * The logger channel.
@@ -120,6 +138,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    *   The Mindbody Cache Proxy.
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
    *   The Mindbody Training Mapping.
+   * @param KeyValueDatabaseExpirableFactory $key_value_expirable
+   *   The Keyvalue expirable factory.
    */
   public function __construct(
     ConfigFactory $config_factory,
@@ -127,13 +147,16 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     EntityTypeManagerInterface $entity_type_manager,
     LoggerChannelFactoryInterface $logger_factory,
     MindbodyCacheProxyInterface $proxy,
-    YmcaMindbodyTrainingsMapping $trainings_mapping
+    YmcaMindbodyTrainingsMapping $trainings_mapping,
+    KeyValueDatabaseExpirableFactory $key_value_expirable
   ) {
     $this->configFactory = $config_factory;
     $this->proxy = $proxy;
     $this->trainingsMapping = $trainings_mapping;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
+    $this->keyValueExpirable = $key_value_expirable;
+
     $this->logger = $logger_factory->get('ymca_mindbody');
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->settings = $this->configFactory->get('ymca_mindbody.settings');
@@ -150,7 +173,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       $container->get('entity_type.manager'),
       $container->get('logger.factory'),
       $container->get('mindbody_cache_proxy.client'),
-      $container->get('ymca_mindbody.trainings_mapping')
+      $container->get('ymca_mindbody.trainings_mapping'),
+      $container->get('keyvalue.expirable.database')
     );
   }
 
@@ -288,11 +312,21 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             ];
 
             $query = ['bid' => $id] + $criteria;
-            $query['si'] = $bookable_item->Staff->ID;
-            $query['im'] = $bookable_item->Staff->isMale;
-            $query['tm'] = $item->getTimestamp();
-            $query['token'] = $this::getToken($query);
+            $token = $this::getToken($query);
+            $query['token'] = $token;
             $options['query'] = $query;
+
+            // The next data will be hidden from user's eyes by saving to DB.
+            $data['stuff_id'] = $bookable_item->Staff->ID;
+            $data['is_male'] = $bookable_item->Staff->isMale;
+            $data['start_time'] = $item->getTimestamp();
+            $data['trainer_name'] = $bookable_item->Staff->Name;
+            $data['trainer_email'] = $bookable_item->Staff->Email;
+            $data['start_date'] = $item->format('D, d M Y H:i');
+
+            // Save data to expirable keyvalue storage.
+            $key_value = $this->keyValueExpirable->get(self::KEY_VALUE_COLLECTION);
+            $key_value->setWithExpire($token, $data, self::KEY_VALUE_EXPIRE);
 
             $class = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
               '@from' => date('h:i a', $item->getTimestamp()),

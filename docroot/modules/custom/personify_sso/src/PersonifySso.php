@@ -226,7 +226,14 @@ class PersonifySso {
 
     try {
       $response = $this->client->TIMSSCustomerIdentifierGet($params);
-      return $response->TIMSSCustomerIdentifierGetResult->CustomerIdentifier;
+
+      // Here we'll remove strange "|0" symbols at the end of ID.
+      $id = $response->TIMSSCustomerIdentifierGetResult->CustomerIdentifier;
+      $pos = strpos($id, '|');
+      if (FALSE !== $pos) {
+        $id = substr_replace($id, '', $pos);
+      }
+      return $id;
     }
     catch (\Exception $e) {
       watchdog_exception('personify_sso', $e);
