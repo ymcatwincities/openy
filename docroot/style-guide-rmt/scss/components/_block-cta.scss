@@ -7,7 +7,7 @@
     padding-bottom: 24px;
   }
 
-  img {
+  &__img {
     width: 100%;
     height: auto;
     padding-bottom: 30px;
@@ -15,9 +15,11 @@
   }
 
   &--image--left {
-    td {
-      vertical-align: top;
-    }
+     &__table {
+      td {
+        vertical-align: top;
+      }
+     }
 
     .block-cta__title {
       margin-bottom: 0;
@@ -36,13 +38,13 @@
       padding-bottom: 8px;
     }
   }
-  table {
+
+  &__table {
     tr {
       background: transparent !important;
       td {
         padding: 0;
       }
-
     }
   }
 }

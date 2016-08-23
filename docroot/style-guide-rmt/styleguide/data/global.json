@@ -145,18 +145,6 @@
     {
     "name":"service-image-icons",
     "group":"icons"
-    },
-    {
-      "name":"activity-font-icons",
-      "group":"icons"
-    },
-    {
-      "name":"marketing-font-icons",
-      "group":"icons"
-    },
-    {
-      "name":"service-font-icons",
-      "group":"icons"
     }
   ]
 }
