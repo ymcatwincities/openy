@@ -86,17 +86,19 @@ class LocationMappingRepository {
    *   Mapping.
    */
   public function findByMindBodyId($id) {
-    $mapping_id = $this->queryFactory
-      ->get('mapping')
-      ->condition('type', self::TYPE)
-      ->condition('field_mindbody_id', $id)
-      ->execute();
-    $mapping_id = reset($mapping_id);
-    if ($mapping_id) {
-      return Mapping::load($mapping_id);
+    $cache = &drupal_static(__FUNCTION__);
+
+    if (!isset($cache[$id])) {
+      $result = $this->queryFactory
+        ->get('mapping')
+        ->condition('type', self::TYPE)
+        ->condition('field_mindbody_id', $id)
+        ->execute();
+      $mapping_id = reset($result);
+      $cache[$id] = Mapping::load($mapping_id);
     }
 
-    return FALSE;
+    return $cache[$id];
   }
 
   /**
