@@ -19,49 +19,15 @@
     <h2 class="component--title">header <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
       <div class="header">
-        <table>
-          <tr>
-            <td>
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
-              <a href="#" class="site-slogan">YMCA Twin Cities</a>
-            </td>
-            <td class="main-menu">
-              <table>
-                <tr>
-                  <td><a href="#">Schedules</a>
-                  </td>
-                  <td><a href="#">Blog</a>
-                  </td>
-                  <td><a href="#">Locations</a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      Mobile
-
-      <div class="header">
-        <table>
-          <tr>
-            <td>
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
-              <a href="#" class="site-slogan">YMCA Twin Cities</a>
-            </td>
-          </tr>
-        </table>
-        <table>
-          <tr class="main-menu">
-            <td><a href="#">Schedules</a>
-            </td>
-            <td><a href="#">Blog</a>
-            </td>
-            <td><a href="#">Locations</a>
-            </td>
-          </tr>
-        </table>
+        <div class="header__item">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
+          <a href="#" class="site-slogan">YMCA Twin Cities</a>
+        </div>
+        <div class="header__item">
+          <a href="#">Schedules</a>
+          <a href="#">Blog</a>
+          <a href="#">Locations</a>
+        </div>
       </div>
     </div>
     <div class="show-hide-code">
@@ -70,43 +36,15 @@
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
           <pre class="brush: php"><div class="header">
-  <table>
-    <tr>
-      <td>
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
-        <a href="#" class="site-slogan">YMCA Twin Cities</a>
-      </td>
-      <td class="main-menu">
-        <table>
-          <tr>
-            <td><a href="#">Schedules</a></td>
-            <td><a href="#">Blog</a></td>
-            <td><a href="#">Locations</a></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</div>
-
-Mobile
-
-<div class="header">
-  <table>
-    <tr>
-      <td>
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
-        <a href="#" class="site-slogan">YMCA Twin Cities</a>
-      </td>
-    </tr>
-  </table>
-  <table>
-    <tr class="main-menu">
-      <td><a href="#">Schedules</a></td>
-      <td><a href="#">Blog</a></td>
-      <td><a href="#">Locations</a></td>
-    </tr>
-  </table>
+  <div class="header__item">
+    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
+    <a href="#" class="site-slogan">YMCA Twin Cities</a>
+  </div>
+  <div class="header__item">
+    <a href="#">Schedules</a>
+    <a href="#">Blog</a>
+    <a href="#">Locations</a>
+  </div>
 </div>
 </pre>
         </div>
