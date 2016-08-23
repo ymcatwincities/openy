@@ -8,38 +8,38 @@
   padding-left: 10px;
   padding-right: 10px;
 
-  table {
-    tr {
-      background-color: transparent;
-    }
-
-    td {
-      padding: 0;
-      min-height: auto;
-    }
-  }
-
   a {
-    padding: 0 14px;
+    padding-right: 25px;
     color: $blue;
     font-size: 13px;
     text-decoration: none;
     text-transform: uppercase;
-  }
 
-  .site-slogan {
-    color: $purple-light;
-    display: inline-block;
-    font-weight: bold;
-    text-align: left;
-    text-decoration: none;
-    font-size: 13px;
-    text-transform: uppercase;
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &.site-slogan {
+      color: $purple-light;
+      display: inline-block;
+      font-weight: bold;
+      text-align: left;
+      text-decoration: none;
+      font-size: 13px;
+      text-transform: uppercase;
+      padding-right: 30px;
+      padding-left: 14px;
+    }
   }
 
   .main-menu {
     vertical-align: bottom;
     text-align: right;
+  }
+
+  &__item {
+    display: inline-block;
+    padding: 10px 0;
   }
 
   &--programs-classes {
