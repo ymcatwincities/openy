@@ -123,6 +123,14 @@ sup {
   content: "\e942";
 }
 
+.icon-mail2:before {
+  content: "\ea84";
+}
+
+.icon-mail:before {
+  content: "\ea83";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -1874,6 +1882,14 @@ a.ms-brand:hover {
   font-family: 'YMCA';
 }
 .social-icon:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.social-icon:before {
   position: absolute;
   top: 0;
   left: 0;
