@@ -1891,11 +1891,13 @@ a.ms-brand:hover {
 }
 .social-icon:before {
   position: absolute;
-  top: 0;
+  top: 3px;
   left: 0;
   display: block;
   width: 100%;
   text-align: center;
+  font-size: 26px;
+  font-family: icomoon;
 }
 
 .icon-facebook:after {
