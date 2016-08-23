@@ -619,7 +619,7 @@
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">block body <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="block-body" style="font-family: Arial, sans-serif; padding-left: 10px; padding-right: 10px;">
-        <table style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 30px; width: 100%;">
+        <table class="block-body__table" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 30px; width: 100%;">
           <tr style="background-color: transparent; font-family: Arial, sans-serif;">
             <td class="block-body__image" style="border: none; font-family: Arial, sans-serif; line-height: 0; padding: 0; width: 69px;">
               <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
@@ -651,7 +651,7 @@
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-body" style="font-family: Arial, sans-serif; padding-left: 10px; padding-right: 10px;">
-  <table style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 30px; width: 100%;">
+  <table class="block-body__table" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 30px; width: 100%;">
     <tr style="background-color: transparent; font-family: Arial, sans-serif;">
       <td class="block-body__image" style="border: none; font-family: Arial, sans-serif; line-height: 0; padding: 0; width: 69px;">
         <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
@@ -692,16 +692,19 @@
           <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.
           </div>
 
-          <a class="btn btn--has-icon" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 15px; outline: none; overflow: hidden; padding: 0 !important; position: relative; text-decoration: none; text-transform: uppercase; white-space: nowrap; width: auto !important;">
-            <table class="btn--purple--light" style="background: #c6168d; border-collapse: collapse; font-family: Arial, sans-serif;">
-              <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-                <td class="btn--has-icon__image icon--purple--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #92278f; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding: 0; speak: none; text-transform: none;">
-                  <img class="btn__icon__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/lifebuoy-icon.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+
+          <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
+            <tbody style="font-family: Arial, sans-serif;">
+              <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
+                <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
                 </td>
-                <td class="text-button" style="background: transparent !important; font-family: Arial, sans-serif; padding: 10px !important;">SAFETY TIPS</td>
+                <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
+                  <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+                </td>
               </tr>
-            </table>
-          </a>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -716,16 +719,19 @@
     <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.
     </div>
 
-    <a class="btn btn--has-icon" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 15px; outline: none; overflow: hidden; padding: 0 !important; position: relative; text-decoration: none; text-transform: uppercase; white-space: nowrap; width: auto !important;">
-      <table class="btn--purple--light" style="background: #c6168d; border-collapse: collapse; font-family: Arial, sans-serif;">
-        <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-          <td class="btn--has-icon__image icon--purple--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #92278f; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding: 0; speak: none; text-transform: none;">
-            <img class="btn__icon__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/lifebuoy-icon.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+
+    <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
+      <tbody style="font-family: Arial, sans-serif;">
+        <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
+          <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
           </td>
-          <td class="text-button" style="background: transparent !important; font-family: Arial, sans-serif; padding: 10px !important;">SAFETY TIPS</td>
+          <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
+            <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+          </td>
         </tr>
-      </table>
-    </a>
+      </tbody>
+    </table>
   </div>
 </div>
 </pre>
@@ -739,20 +745,22 @@
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
         <div class="block-cta" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
-          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta-image1.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+          <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta-image1.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
           <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Register now for classes and lessons</h2>
           <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons.
           </div>
-          <a class="btn btn--has-icon" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 15px; outline: none; overflow: hidden; padding: 0 !important; position: relative; text-decoration: none; text-transform: uppercase; white-space: nowrap; width: auto !important;">
-            <table class="btn--blue--light" style="background: #00aeef; border-collapse: collapse; font-family: Arial, sans-serif;">
-              <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-                <td class="btn--has-icon__image icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding: 0; speak: none; text-transform: none;">
-                  <img class="btn__icon__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+          <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
+            <tbody style="font-family: Arial, sans-serif;">
+              <tr class="btn--purple--light" style="background: #c6168d; font-family: Arial, sans-serif;">
+                <td class="btn--has-icon__img icon--purple--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #92278f; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
                 </td>
-                <td class="text-button" style="background: transparent !important; font-family: Arial, sans-serif; padding: 10px !important;">VIEW SCHEDULES</td>
+                <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
+                  <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
+                </td>
               </tr>
-            </table>
-          </a>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -763,18 +771,22 @@
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
   <div class="block-cta" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
-    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta-image1.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+    <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta-image1.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
     <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Register now for classes and lessons</h2>
     <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons.
     </div>
-    <a class="btn btn--has-icon" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 15px; outline: none; overflow: hidden; padding: 0 !important; position: relative; text-decoration: none; text-transform: uppercase; white-space: nowrap; width: auto !important;">
-      <table class="btn--blue--light" style="background: #00aeef; border-collapse: collapse; font-family: Arial, sans-serif;">
-        <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-          <td class="btn--has-icon__image icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding: 0; speak: none; text-transform: none;"><img class="btn__icon__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;"></td>
-          <td class="text-button" style="background: transparent !important; font-family: Arial, sans-serif; padding: 10px !important;">VIEW SCHEDULES</td>
+    <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
+      <tbody style="font-family: Arial, sans-serif;">
+        <tr class="btn--purple--light" style="background: #c6168d; font-family: Arial, sans-serif;">
+          <td class="btn--has-icon__img icon--purple--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #92278f; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
+            <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
+          </td>
         </tr>
-      </table>
-    </a>
+      </tbody>
+    </table>
   </div>
 </div>
 </pre>
@@ -788,10 +800,10 @@
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
         <div class="block-cta block-cta--image--left" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
-          <table style="border-collapse: collapse; font-family: Arial, sans-serif;">
+          <table class="block-cta__table" style="border-collapse: collapse; font-family: Arial, sans-serif;">
             <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-              <td class="block-cta__image" style="font-family: Arial, sans-serif; padding: 0; vertical-align: top;">
-                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+              <td class="block-cta__image" style="font-family: Arial, sans-serif; padding: 0;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
               </td>
               <td class="block-cta__body" style="font-family: Arial, sans-serif; padding: 0; padding-left: 30px; vertical-align: top;">
                 <h2 class="block-title block-cta__title" style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 8px; text-transform: uppercase;">Helping kids develop a <br style="font-family: Arial, sans-serif;"> healthy lifestyle  </h2>
@@ -800,7 +812,7 @@
               </td>
             </tr>
             <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-              <td style="font-family: Arial, sans-serif; padding: 0; vertical-align: top;">
+              <td style="font-family: Arial, sans-serif; padding: 0;">
                 <div class="btn btn--purple--light block-cta__button" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</div>
               </td>
             </tr>
@@ -815,10 +827,10 @@
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
   <div class="block-cta block-cta--image--left" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
-    <table style="border-collapse: collapse; font-family: Arial, sans-serif;">
+    <table class="block-cta__table" style="border-collapse: collapse; font-family: Arial, sans-serif;">
       <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-        <td class="block-cta__image" style="font-family: Arial, sans-serif; padding: 0; vertical-align: top;">
-         <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+        <td class="block-cta__image" style="font-family: Arial, sans-serif; padding: 0;">
+         <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
         </td>
         <td class="block-cta__body" style="font-family: Arial, sans-serif; padding: 0; padding-left: 30px; vertical-align: top;">
           <h2 class="block-title block-cta__title" style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 8px; text-transform: uppercase;">Helping kids develop a <br style="font-family: Arial, sans-serif;"> healthy lifestyle  </h2>
@@ -827,7 +839,7 @@
         </td>
       </tr>
       <tr style="background: transparent !important; font-family: Arial, sans-serif;">
-        <td style="font-family: Arial, sans-serif; padding: 0; vertical-align: top;"><div class="btn btn--purple--light block-cta__button" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</div></td>
+        <td style="font-family: Arial, sans-serif; padding: 0;"><div class="btn btn--purple--light block-cta__button" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</div></td>
       </tr>
     </table>
   </div>
@@ -846,14 +858,14 @@
           <table class="block-cta" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
             <tr style="background: transparent; font-family: Arial, sans-serif;">
               <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta3.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta3.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
                 <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Y RUN: Saturday</h2>
                 <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Another Y run is coming! Here is everything you need to crush it...
                 </div>
                 <div class="btn btn--blue--light block-cta__button" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</div>
               </td>
               <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta4.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta4.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
                 <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Y Summer campaign</h2>
                 <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Enjoy your visits, report daily activities and win cool prizes.
                 </div>
@@ -874,14 +886,14 @@
     <table class="block-cta" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
       <tr style="background: transparent; font-family: Arial, sans-serif;">
         <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta3.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta3.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
           <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Y RUN: Saturday</h2>
           <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Another Y run is coming! Here is everything you need to crush it...
           </div>
           <div class="btn btn--blue--light block-cta__button" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</div>
         </td>
         <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta4.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 30px; width: 100%;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta4.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
           <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Y Summer campaign</h2>
           <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Enjoy your visits, report daily activities and win cool prizes.
           </div>
@@ -917,13 +929,8 @@
         </div>
         <div class="block-text-icon__bottom" style="font-family: Arial, sans-serif;">
           <a class="link link--has-icon link--green" href="#A3" style="-ms-flex-align: center; -ms-grid-row-align: center; align-items: center; border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 16px; outline: none; text-decoration: none;">
-            <span class="link__img" style="font-family: Arial, sans-serif;">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bulb-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-      </span>
-            View tips: preparing for lessons
-            <span class="link__arrow" style="font-family: Arial, sans-serif;">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/arrow-right-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-      </span>
+            <img class="img-left" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bulb-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none; padding-right: 8px;">View tips: preparing for lessons
+            <img class="img-right" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/arrow-right-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none; padding-left: 3px;">
           </a>
 
           <p class="text-indent" style="font-family: Arial, sans-serif; margin-left: 20px; margin-top: 0;">Administration and Training Center
@@ -954,13 +961,9 @@
   </div>
   <div class="block-text-icon__bottom" style="font-family: Arial, sans-serif;">
     <a class="link link--has-icon link--green" href="#A3" style="-ms-flex-align: center; -ms-grid-row-align: center; align-items: center; border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 16px; outline: none; text-decoration: none;">
-      <span class="link__img" style="font-family: Arial, sans-serif;">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bulb-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-      </span>
+        <img class="img-left" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bulb-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none; padding-right: 8px;">
       View tips: preparing for lessons
-      <span class="link__arrow" style="font-family: Arial, sans-serif;">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/arrow-right-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-      </span>
+        <img class="img-right" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/arrow-right-green.png" style="border: 0; font-family: Arial, sans-serif; outline: none; padding-left: 3px;">
     </a>
 
     <p class="text-indent" style="font-family: Arial, sans-serif; margin-left: 20px; margin-top: 0;">Administration and Training Center<br style="font-family: Arial, sans-serif;">2125 East Hennepin Avenue<br style="font-family: Arial, sans-serif;">Minneapolis, MN 55413 </p>
@@ -1823,1217 +1826,6 @@
     <div class="icon" style="display: inline-block; font-family: Arial, sans-serif; margin-bottom: 20px; min-width: 100px; text-align: center;">
       <span class="icon__img" style="display: inline-block; font-family: Arial, sans-serif; margin-bottom: 7px;"><img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/service/zoom.png" style="border: 0; font-family: Arial, sans-serif; outline: none;"></span>
       <span class="icon__title" style="color: #363636; display: block; font-family: Arial, sans-serif; font-size: 13px;">Zoom</span>
-    </div>
-  </div>
-</div>
-</pre>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="component--item" id="activity-font-icons" style="font-family: Arial, sans-serif;">
-    <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">activity font icons <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
-    <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <style type="text/css" style="font-family: Arial, sans-serif;">
-        @import "https://ymca.ffwua.com/fonts/style.css";
-      </style>
-
-      <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
-        <div class="box-font-icons box-font-icons__activity" style="font-family: Arial, sans-serif;">
-          <div class="box-font-icons__content" style="font-family: Arial, sans-serif; text-align: center;">
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-time" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">time</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-date" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">date</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-location" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">location</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-direction" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">direction</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-question" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">question</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-video" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">video</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-message" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">message</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-tip" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">tip</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-mail" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">mail</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-phone" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">phone</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-zoom" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">zoom</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-check" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">check</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-cardio" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">cardio</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-strength" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">strength</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-aquatics" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">aquatics</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-yoga" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">yoga</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-dance" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">dance</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-crunches" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">crunches</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-camp" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">camp</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-run" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">run</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-family" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">family</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-donate" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">donate</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-discount" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">discount</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-event" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">event</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-prize" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">prize</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-announcment" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">announcment</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-baseball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">baseball</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-flag_football" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">flag_football</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-floor_hockey" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">floor_hockey</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-lacrosse" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">lacrosse</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-martial" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">martial</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-running_club" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">running_club</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-soccer" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">soccer</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-olympic" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">olympic</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-track_and_field" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">track_and_field</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-tumbling" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">tumbling</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-volleyball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">volleyball</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="show-hide-code" style="font-family: Arial, sans-serif;">
-      <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
-      <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
-        <div class="component--html" style="font-family: Arial, sans-serif;">
-          <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><style type="text/css" style="font-family: Arial, sans-serif;">
-  @import "https://ymca.ffwua.com/fonts/style.css";
-</style>
-
-<div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
-  <div class="box-font-icons box-font-icons__activity" style="font-family: Arial, sans-serif;">
-    <div class="box-font-icons__content" style="font-family: Arial, sans-serif; text-align: center;">
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-time" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">time</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-date" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">date</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-location" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">location</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-direction" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">direction</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-question" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">question</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-video" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">video</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-message" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">message</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-tip" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">tip</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-mail" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">mail</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-phone" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">phone</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-zoom" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">zoom</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-check" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">check</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-cardio" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">cardio</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-strength" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">strength</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-aquatics" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">aquatics</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-yoga" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">yoga</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-dance" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">dance</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-crunches" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">crunches</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-camp" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">camp</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-run" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">run</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-family" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">family</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-donate" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">donate</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-discount" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">discount</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-event" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">event</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-prize" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">prize</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-announcment" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">announcment</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-baseball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">baseball</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-flag_football" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">flag_football</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-floor_hockey" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">floor_hockey</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-lacrosse" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">lacrosse</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-martial" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">martial</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-running_club" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">running_club</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-soccer" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">soccer</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-olympic" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">olympic</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-track_and_field" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">track_and_field</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-tumbling" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">tumbling</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-volleyball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border-radius: 100px; box-shadow: 0 2px 4px #cccccc; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">volleyball</div>
-      </div>
-    </div>
-  </div>
-</div>
-</pre>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="component--item" id="marketing-font-icons" style="font-family: Arial, sans-serif;">
-    <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">marketing font icons <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
-    <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <style type="text/css" style="font-family: Arial, sans-serif;">
-        @import "https://ymca.ffwua.com/fonts/style.css";
-      </style>
-
-      <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
-        <div class="box-font-icons box-font-icons__marketing" style="font-family: Arial, sans-serif;">
-          <div class="box-font-icons__content" style="font-family: Arial, sans-serif; text-align: center;">
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-time" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">time</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-date" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">date</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-location" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">location</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-direction" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">direction</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-question" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">question</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-video" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">video</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-message" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">message</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-tip" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">tip</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-mail" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">mail</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-phone" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">phone</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-zoom" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">zoom</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-check" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">check</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-cardio" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">cardio</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-strength" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">strength</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-aquatics" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">aquatics</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-yoga" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">yoga</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-dance" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">dance</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-crunches" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">crunches</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-camp" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">camp</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-run" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">run</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-family" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">family</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-donate" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">donate</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-discount" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">discount</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-event" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">event</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-prize" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">prize</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-announcment" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">announcment</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-baseball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">baseball</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-flag_football" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">flag_football</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-floor_hockey" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">floor_hockey</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-lacrosse" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">lacrosse</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-martial" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">martial</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-running_club" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">running_club</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-soccer" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">soccer</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-olympic" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">olympic</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-track_and_field" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">track_and_field</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-tumbling" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">tumbling</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-volleyball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">volleyball</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="show-hide-code" style="font-family: Arial, sans-serif;">
-      <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
-      <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
-        <div class="component--html" style="font-family: Arial, sans-serif;">
-          <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><style type="text/css" style="font-family: Arial, sans-serif;">
-  @import "https://ymca.ffwua.com/fonts/style.css";
-</style>
-
-<div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
- <div class="box-font-icons box-font-icons__marketing" style="font-family: Arial, sans-serif;">
-    <div class="box-font-icons__content" style="font-family: Arial, sans-serif; text-align: center;">
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-time" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">time</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-date" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">date</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-location" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">location</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-direction" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">direction</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-question" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">question</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-video" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">video</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-message" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">message</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-tip" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">tip</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-mail" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">mail</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-phone" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">phone</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-zoom" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">zoom</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-check" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">check</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-cardio" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">cardio</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-strength" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">strength</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-aquatics" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">aquatics</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-yoga" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">yoga</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-dance" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">dance</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-crunches" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">crunches</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-camp" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">camp</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-run" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">run</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-family" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">family</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-donate" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">donate</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-discount" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">discount</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-event" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">event</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-prize" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">prize</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-announcment" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">announcment</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-baseball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">baseball</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-flag_football" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">flag_football</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-floor_hockey" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">floor_hockey</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-lacrosse" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">lacrosse</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-martial" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">martial</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-running_club" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">running_club</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-soccer" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">soccer</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-olympic" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">olympic</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-track_and_field" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">track_and_field</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-tumbling" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">tumbling</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-volleyball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #ffffff; border: 2px solid #999999; border-radius: 100px; color: #999999; display: inline-block; font-family: 'ymca' !important; font-size: 60px; font-style: normal; font-variant: normal; font-weight: normal; height: 60px; line-height: 1; margin-right: 0; speak: none; text-transform: none; width: 60px;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">volleyball</div>
-      </div>
-    </div>
-  </div>
-</div>
-</pre>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="component--item" id="service-font-icons" style="font-family: Arial, sans-serif;">
-    <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">service font icons <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
-    <div class="component--demo" style="font-family: Arial, sans-serif;">
-
-      <style type="text/css" style="font-family: Arial, sans-serif;">
-        @import "https://ymca.ffwua.com/fonts/style.css";
-      </style>
-
-      <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
-        <div class="box-font-icons" style="font-family: Arial, sans-serif;">
-          <div class="box-font-icons__content" style="font-family: Arial, sans-serif; text-align: center;">
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-time" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">time</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-date" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">date</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-location" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">location</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-direction" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">direction</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-question" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">question</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-video" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">video</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-message" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">message</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-tip" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">tip</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-mail" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">mail</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-phone" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">phone</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-zoom" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">zoom</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-check" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">check</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-cardio" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">cardio</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-strength" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">strength</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-aquatics" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">aquatics</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-yoga" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">yoga</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-dance" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">dance</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-crunches" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">crunches</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-camp" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">camp</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-run" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">run</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-family" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">family</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-donate" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">donate</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-discount" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">discount</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-event" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">event</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-prize" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">prize</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-announcment" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">announcment</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-baseball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">baseball</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-flag_football" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">flag_football</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-floor_hockey" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">floor_hockey</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-lacrosse" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">lacrosse</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-martial" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">martial</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-running_club" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">running_club</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-soccer" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">soccer</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-olympic" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">olympic</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-track_and_field" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">track_and_field</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-tumbling" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">tumbling</div>
-            </div>
-
-            <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-              <div class="icon-volleyball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-              <div class="font-icon__text" style="font-family: Arial, sans-serif;">volleyball</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="show-hide-code" style="font-family: Arial, sans-serif;">
-      <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
-      <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
-        <div class="component--html" style="font-family: Arial, sans-serif;">
-          <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;">
-<style type="text/css" style="font-family: Arial, sans-serif;">
-  @import "https://ymca.ffwua.com/fonts/style.css";
-</style>
-
-<div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
-  <div class="box-font-icons" style="font-family: Arial, sans-serif;">
-    <div class="box-font-icons__content" style="font-family: Arial, sans-serif; text-align: center;">
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-time" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">time</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-date" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">date</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-location" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">location</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-direction" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">direction</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-question" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">question</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-video" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">video</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-message" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">message</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-tip" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">tip</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-mail" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">mail</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-phone" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">phone</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-zoom" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">zoom</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-check" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">check</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-cardio" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">cardio</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-strength" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">strength</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-aquatics" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">aquatics</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-yoga" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">yoga</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-dance" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">dance</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-crunches" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">crunches</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-camp" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">camp</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-run" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">run</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-family" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">family</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-donate" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">donate</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-discount" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">discount</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-event" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">event</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-prize" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">prize</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-announcment" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">announcment</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-baseball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">baseball</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-flag_football" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">flag_football</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-floor_hockey" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">floor_hockey</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-lacrosse" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">lacrosse</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-martial" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">martial</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-running_club" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">running_club</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-soccer" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">soccer</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-olympic" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">olympic</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-track_and_field" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">track_and_field</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-tumbling" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">tumbling</div>
-      </div>
-
-      <div class="font-icon" style="display: inline-block; font-family: Arial, sans-serif; margin: 0 10px 30px; min-width: 100px; text-align: center;">
-        <div class="icon-volleyball" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; color: #555555; font-family: 'ymca' !important; font-size: 40px; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin-right: -20px; speak: none; text-transform: none;"></div>
-        <div class="font-icon__text" style="font-family: Arial, sans-serif;">volleyball</div>
-      </div>
     </div>
   </div>
 </div>
