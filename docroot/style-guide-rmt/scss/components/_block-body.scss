@@ -46,18 +46,18 @@
     }
   }
 
-  table {
+  &__table {
     margin-bottom: 30px;
     width: 100%;
-  }
 
-  table tr {
-    background-color: transparent;
-  }
+    tr {
+      background-color: transparent;
 
-  table tr td {
-    padding: 0;
-    line-height: 0;
-    border: none;
+      td {
+        padding: 0;
+        line-height: 0;
+        border: none;
+      }
+    }
   }
 }
