@@ -2,16 +2,13 @@
   margin: 0 auto;
   max-width: 622px;
 
-  &__list {
-    display: flex;
-  }
-
-  &__item {
-    width: 50%;
-  }
-
-  .block-cta {
-    padding: 0 0 49px;
-    width: 82%;
+  table tr {
+    background: transparent;
+    td {
+      min-height: 50px;
+      padding: 0 20px;
+      vertical-align: top;
+      width: 50%;
+    }
   }
 }
