@@ -3,6 +3,7 @@
 namespace Drupal\ymca_mappings;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\Entity\Query\QueryInterface;
@@ -25,13 +26,23 @@ class LocationMappingRepository {
   protected $queryFactory;
 
   /**
+   * Mapping storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $storage;
+
+  /**
    * MappingRepository constructor.
    *
    * @param QueryFactory $query_factory
    *   Query factory.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory) {
+  public function __construct(QueryFactory $query_factory, EntityTypeManagerInterface $entity_type_manager) {
     $this->queryFactory = $query_factory;
+    $this->storage = $entity_type_manager->getStorage('mapping');
   }
 
   /**
@@ -50,7 +61,7 @@ class LocationMappingRepository {
       return [];
     }
 
-    return Mapping::loadMultiple($mapping_ids);
+    return $this->storage->loadMultiple($mapping_ids);
   }
 
   /**
@@ -70,7 +81,7 @@ class LocationMappingRepository {
       ->execute();
     $mapping_id = reset($mapping_id);
     if ($mapping_id) {
-      return Mapping::load($mapping_id);
+      return $this->storage->load($mapping_id);
     }
 
     return FALSE;
@@ -95,7 +106,7 @@ class LocationMappingRepository {
         ->condition('field_mindbody_id', $id)
         ->execute();
       $mapping_id = reset($result);
-      $cache[$id] = Mapping::load($mapping_id);
+      $cache[$id] = $this->storage->load($mapping_id);
     }
 
     return $cache[$id];
@@ -128,7 +139,7 @@ class LocationMappingRepository {
       return [];
     }
 
-    return Mapping::loadMultiple($mapping_ids);
+    return $this->storage->loadMultiple($mapping_ids);
   }
 
 }
