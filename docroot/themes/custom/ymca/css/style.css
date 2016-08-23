@@ -9457,10 +9457,15 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   color: #777;
   font-size: 14px;
 }
-.template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
+.template_youth_sports_overview .locations-lead-copy .richtext > div > p:first-child,
+.template_youth_sports_overview .locations-lead-copy .richtext > p:first-child {
   color: #383838;
   font-size: 18px;
   margin-bottom: 20px;
+}
+.template_youth_sports_overview .locations-lead-copy .richtext .col-sm-6 p:first-child {
+  color: #424242;
+  font-size: 15px;
 }
 .template_youth_sports_overview .locations-lead-copy .call-to-action {
   max-width: 335px;
@@ -9541,7 +9546,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .template_youth_sports_overview section.node .content_group section ul {
   padding: 0;
-  margin: 0;
+  margin: 45px 0;
   display: block;
 }
 .template_youth_sports_overview section.node .content_group section ul li {
@@ -9585,12 +9590,12 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   font-family: 'YMCA';
 }
 
-.tel-link {
+a.tel-link {
   color: #0889cd;
   font-size: 15px;
   font-weight: normal;
 }
-.tel-link .icon {
+a.tel-link .icon {
   margin-right: 8px;
 }
 

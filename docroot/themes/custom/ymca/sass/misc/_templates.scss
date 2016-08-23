@@ -58,10 +58,17 @@
         color: $grey5;
         font-size: 14px;
       }
-      p:first-child {
+      > div > p:first-child,
+      > p:first-child {
         color: $grey14;
         font-size: 18px;
         margin-bottom: 20px;
+      }
+      .col-sm-6 {
+        p:first-child {
+          color: $grey7;
+          font-size: 15px;
+        }
       }
     }
 
@@ -150,7 +157,7 @@
       section {
         ul {
           padding: 0;
-          margin: 0;
+          margin: 45px 0;
           display: block;
 
           li {
@@ -217,7 +224,7 @@
   }
 }
 
-.tel-link {
+a.tel-link {
   color: $blue1;
   font-size: 15px;
   font-weight: normal;
