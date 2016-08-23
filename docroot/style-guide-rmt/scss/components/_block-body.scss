@@ -1,34 +1,32 @@
 .block-body {
   padding-left: 10px;
   padding-right: 10px;
+
   &__image {
     width: 69px;
   }
 
   &__title {
+    background-color: $gray-42;
+    box-sizing: border-box;
     color: $white;
     font-family: "Arial Black";
     font-size: 18px;
-    vertical-align: middle;
     font-weight: normal;
     height: 82px;
-    margin: 0;
-    padding-top: 0 !important;
-    text-align: center;
-    background-color: $gray-42;
     line-height: 1 !important;
-    margin: 0 2px 31px -16px;
+    margin: 0;
     min-height: 82px;
-    text-align: center;
+    padding-top: 0 !important;
     padding: 24px 10px;
-    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
 
     img {
       height: auto;
-      width: 32px;
-      vertical-align: sub;
       padding-right: 15px;
-      vertical-align: middle;
+      vertical-align: sub;
+      width: 32px;
     }
   }
 
