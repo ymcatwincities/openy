@@ -11,4 +11,11 @@
       width: 50%;
     }
   }
+
+  .block-cta {
+    &__title {
+      margin-bottom: 0px;
+      padding-bottom: 11px;
+    }
+  }
 }
