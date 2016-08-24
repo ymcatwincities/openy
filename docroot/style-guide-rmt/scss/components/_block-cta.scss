@@ -15,6 +15,9 @@
   }
 
   &--image--left {
+    .block-cta__img {
+      padding-bottom: 29px;
+    }
      &__table {
       td {
         vertical-align: top;
