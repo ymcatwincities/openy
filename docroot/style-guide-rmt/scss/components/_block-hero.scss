@@ -1,6 +1,7 @@
 .block-hero {
   position: relative;
   margin-bottom: 50px;
+  max-width: 686px;
 
   &__title {
     color: $white;
