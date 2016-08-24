@@ -2,10 +2,6 @@
   padding-left: 10px;
   padding-right: 10px;
 
-  &__image {
-    width: 69px;
-  }
-
   &__title {
     background-color: $gray-42;
     box-sizing: border-box;
@@ -13,14 +9,8 @@
     font-family: "Arial Black";
     font-size: 18px;
     font-weight: normal;
-    height: 82px;
-    line-height: 1 !important;
-    margin: 0;
-    min-height: 82px;
-    padding-top: 0 !important;
-    padding: 24px 10px;
     text-align: center;
-    vertical-align: middle;
+    width: 100%;
 
     img {
       height: auto;
@@ -47,16 +37,25 @@
   }
 
   &__table {
+    border-spacing: 0;
+    border: 0;
     margin-bottom: 30px;
     width: 100%;
+    border-collapse: collapse;
+    line-height: 0;
+    padding: 0;
 
     tr {
       background-color: transparent;
+      border-collapse: collapse;
+      padding: 0;
 
       td {
+        vertical-align: middle;
+        border-spacing: 0;
+        border: 0;
+        border-collapse: collapse;
         padding: 0;
-        line-height: 0;
-        border: none;
       }
     }
   }
