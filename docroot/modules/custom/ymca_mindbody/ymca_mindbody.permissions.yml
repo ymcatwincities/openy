@@ -1,0 +1,3 @@
+view API Test trainer:
+  title: 'View API Test trainer'
+  description: 'Access API Test trainer to debug booking'
