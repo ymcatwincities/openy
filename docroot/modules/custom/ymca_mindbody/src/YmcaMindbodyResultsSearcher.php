@@ -13,6 +13,7 @@ use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Link;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
@@ -117,6 +118,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   protected $entityQuery;
 
   /**
+   * Current user.
+   *
+   * @var AccountProxyInterface
+   */
+  protected $accountProxy;
+
+  /**
    * Production flag.
    *
    * @var bool
@@ -140,6 +148,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    *   The Mindbody Training Mapping.
    * @param KeyValueDatabaseExpirableFactory $key_value_expirable
    *   The Keyvalue expirable factory.
+   * @param AccountProxyInterface $current_user
+   *   Current user.
    */
   public function __construct(
     ConfigFactory $config_factory,
@@ -148,7 +158,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     LoggerChannelFactoryInterface $logger_factory,
     MindbodyCacheProxyInterface $proxy,
     YmcaMindbodyTrainingsMapping $trainings_mapping,
-    KeyValueDatabaseExpirableFactory $key_value_expirable
+    KeyValueDatabaseExpirableFactory $key_value_expirable,
+    AccountProxyInterface $current_user
   ) {
     $this->configFactory = $config_factory;
     $this->proxy = $proxy;
@@ -156,6 +167,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->keyValueExpirable = $key_value_expirable;
+    $this->accountProxy = $current_user;
 
     $this->logger = $logger_factory->get('ymca_mindbody');
     $this->credentials = $this->configFactory->get('mindbody.settings');
@@ -174,7 +186,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       $container->get('logger.factory'),
       $container->get('mindbody_cache_proxy.client'),
       $container->get('ymca_mindbody.trainings_mapping'),
-      $container->get('keyvalue.expirable.database')
+      $container->get('keyvalue.expirable.database'),
+      $container->get('current_user')
     );
   }
 
@@ -244,9 +257,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       }
       foreach ($schedule_item as $bookable_item) {
 
-        // Do not show Test API client on Production.
-        if ($this->isProduction && $bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
-          continue;
+        // Show API test trainer only for those who has permission.
+        if ($bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
+          if (!$this->accountProxy->getAccount()->hasPermission('view API Test trainer')) {
+            continue;
+          }
         }
 
         // Additionally filter results by time.
@@ -541,9 +556,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
 
-        // Do not show Test API client on Production.
-        if ($this->isProduction && $bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
-          continue;
+        // Show API Test trainer only for those who has permissions.
+        if ($bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
+          if (!$this->accountProxy->getAccount()->hasPermission('view API Test trainer')) {
+            continue;
+          }
         }
 
         $trainer_options[$bookable_item->Staff->ID] = $bookable_item->Staff->Name;
