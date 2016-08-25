@@ -235,11 +235,12 @@
             css_class = title + ' sports-icon';
         $(this).attr('class', css_class);
       });
-      $('.template_youth_sports_overview .copy a, .template_youth_sports_inner .copy a').each(function() {
-        var href = $(this).attr('href');
-        if (href.match(/\.pdf/g)) {
-          $(this).attr('class', 'pdf-link');
-        }
+      $('.template_youth_sports_overview a[href*=".pdf"], .template_youth_sports_inner a[href*=".pdf"]').each(function() {
+        $(this).attr('class', 'pdf-link');
+      });
+      $('a[href^="tel:"]').each(function() {
+        $(this).attr('class', 'tel-link');
+        $(this).prepend('<span class="icon icon-phone"></span>');
       });
       var index = 1;
       $('.template_youth_sports_inner section.node .content-expander').each(function() {

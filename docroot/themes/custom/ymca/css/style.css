@@ -119,6 +119,18 @@ sup {
   content: "\ea2e";
 }
 
+.icon-phone:before {
+  content: "\e942";
+}
+
+.icon-mail2:before {
+  content: "\ea84";
+}
+
+.icon-mail:before {
+  content: "\ea83";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -1876,6 +1888,16 @@ a.ms-brand:hover {
   display: block;
   width: 100%;
   text-align: center;
+}
+.social-icon:before {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  font-family: icomoon;
 }
 
 .icon-facebook:after {
@@ -7891,7 +7913,7 @@ body .ajax-progress-throbber .throbber {
 .green-3-col.container {
   background: #26bcbd;
   position: relative;
-  margin: 50px -100px 0;
+  margin: 50px -100px -30px;
   padding: 50px 100px;
 }
 .green-3-col.container:before {
@@ -9453,10 +9475,15 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   color: #777;
   font-size: 14px;
 }
-.template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
+.template_youth_sports_overview .locations-lead-copy .richtext > div > p:first-child,
+.template_youth_sports_overview .locations-lead-copy .richtext > p:first-child {
   color: #383838;
   font-size: 18px;
   margin-bottom: 20px;
+}
+.template_youth_sports_overview .locations-lead-copy .richtext .col-sm-6 p:first-child {
+  color: #424242;
+  font-size: 15px;
 }
 .template_youth_sports_overview .locations-lead-copy .call-to-action {
   max-width: 335px;
@@ -9537,7 +9564,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .template_youth_sports_overview section.node .content_group section ul {
   padding: 0;
-  margin: 0;
+  margin: 45px 0;
   display: block;
 }
 .template_youth_sports_overview section.node .content_group section ul li {
@@ -9566,6 +9593,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 .template_youth_sports_overview .pdf-link {
   color: #c6188b;
   font-size: 15px;
+  font-weight: normal;
 }
 .template_youth_sports_overview .file--application-pdf a:after,
 .template_youth_sports_overview .pdf-link:after {
@@ -9573,11 +9601,31 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .template_youth_sports_overview .file--application-pdf a:before,
 .template_youth_sports_overview .pdf-link:before {
-  margin: 0 8px 0 5px;
+  margin: 0 8px 0 0;
   content: 'p';
   text-transform: none;
   font-weight: normal;
   font-family: 'YMCA';
+}
+
+a.tel-link {
+  color: #0889cd;
+  font-size: 15px;
+  font-weight: normal;
+}
+a.tel-link .icon {
+  margin-right: 8px;
+}
+
+.icon-clock {
+  font-family: inherit;
+}
+.icon-clock * {
+  font-family: inherit;
+}
+.icon-clock:before {
+  margin-right: 5px;
+  font-family: 'icomoon';
 }
 
 a.sports-icon {
@@ -9721,6 +9769,22 @@ a.sports-icon.tumbling {
   border-right: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   padding: 35px 60px;
+}
+@media screen and (max-width: 767px) {
+  .template_youth_sports_inner .content-expander .panel-body {
+    padding: 10px 15px;
+  }
+}
+.template_youth_sports_inner .content-expander .white-area {
+  background: #fff;
+  padding: 35px 60px;
+  margin: -45px -60px 35px;
+}
+@media screen and (max-width: 767px) {
+  .template_youth_sports_inner .content-expander .white-area {
+    padding: 10px 15px;
+    margin: -20px -15px 15px;
+  }
 }
 .template_youth_sports_inner section.node .content-expander-1 .accordion-toggle {
   color: #00aa95;

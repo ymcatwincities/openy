@@ -12,7 +12,7 @@ class YmcaComponentTreeBuilder {
   /**
    * Database connection.
    *
-   * @var \Drupal\Core\Database\Connection;
+   * @var \Drupal\Core\Database\Connection
    */
   protected $database;
 

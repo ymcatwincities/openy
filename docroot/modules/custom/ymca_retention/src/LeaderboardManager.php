@@ -40,14 +40,14 @@ class LeaderboardManager implements LeaderboardManagerInterface {
   /**
    * The cache backend.
    *
-   * @var \Drupal\Core\Cache\CacheBackendInterface;
+   * @var \Drupal\Core\Cache\CacheBackendInterface
    */
   protected $cache;
 
   /**
    * The location mapping repository.
    *
-   * @var \Drupal\ymca_mappings\LocationMappingRepository;
+   * @var \Drupal\ymca_mappings\LocationMappingRepository
    */
   protected $locationRepository;
 

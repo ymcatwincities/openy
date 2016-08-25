@@ -14,7 +14,7 @@ class YmcaTokensMap {
   /**
    * Array of migrations to search.
    *
-   * @var array.
+   * @var array
    */
   private $migrations;
 
