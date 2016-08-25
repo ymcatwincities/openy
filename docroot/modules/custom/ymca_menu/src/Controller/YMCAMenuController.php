@@ -83,7 +83,7 @@ class YMCAMenuController extends ControllerBase {
       $query->addField('mlcd', 'id', 'mlcid');
       $query
         ->orderBy('mt.depth')
-        ->orderBy('mt.weight');
+          ->orderBy('mt.weight');
 
       $results = $query->execute();
       $rows = [];
@@ -101,6 +101,7 @@ class YMCAMenuController extends ControllerBase {
           $locations_root = $row->mlid;
           continue;
         }
+        $row->menu_id = $menu_id;
 
         $rows[$row->id] = $row;
       }
@@ -127,6 +128,7 @@ class YMCAMenuController extends ControllerBase {
           'n' => unserialize($row->title),
           't' => unserialize($row->title),
           'u' => '',
+          'm' => $row->menu_id,
         );
         if ($row->link__uri) {
           try {

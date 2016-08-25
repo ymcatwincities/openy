@@ -58,10 +58,17 @@
         color: $grey5;
         font-size: 14px;
       }
-      p:first-child {
+      > div > p:first-child,
+      > p:first-child {
         color: $grey14;
         font-size: 18px;
         margin-bottom: 20px;
+      }
+      .col-sm-6 {
+        p:first-child {
+          color: $grey7;
+          font-size: 15px;
+        }
       }
     }
 
@@ -150,7 +157,7 @@
       section {
         ul {
           padding: 0;
-          margin: 0;
+          margin: 45px 0;
           display: block;
 
           li {
@@ -202,17 +209,38 @@
   .pdf-link {
     color: $pink;
     font-size: 15px;
+    font-weight: normal;
 
     &:after {
       display: none;
     }
     &:before {
-      margin: 0 8px 0 5px;
+      margin: 0 8px 0 0;
       content: 'p';
       text-transform: none;
       font-weight: normal;
       font-family: 'YMCA';
     }
+  }
+}
+
+a.tel-link {
+  color: $blue1;
+  font-size: 15px;
+  font-weight: normal;
+  .icon {
+    margin-right: 8px;
+  }
+}
+
+.icon-clock {
+  font-family: inherit;
+  * {
+    font-family: inherit;
+  }
+  &:before {
+    margin-right: 5px;
+    font-family: 'icomoon';
   }
 }
 
@@ -376,6 +404,18 @@ a.sports-icon {
       border-right: 1px solid $grey12;
       border-bottom: 1px solid $grey12;
       padding: 35px 60px;
+      @media screen and (max-width: 767px) {
+        padding: 10px 15px;
+      }
+    }
+    .white-area {
+      background: $white;
+      padding: 35px 60px;
+      margin: -45px -60px 35px;
+      @media screen and (max-width: 767px) {
+        padding: 10px 15px;
+        margin: -20px -15px 15px;
+      }
     }
   }
   section.node {

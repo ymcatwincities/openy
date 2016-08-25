@@ -17,12 +17,10 @@ class YMCAMenuBuilder {
   protected $rootId = '';
   protected $pageId = '';
 
-  // These will be reverse looked up from the map.
   protected $ancestryKey = '';
   protected $excludeFromNavKey = '';
   protected $orderKey = '';
 
-  // These get added to the new array as its built.
   protected $childrenKey = 'children';
   protected $pageIdKey = 'site_page_id';
 
@@ -204,9 +202,8 @@ class YMCAMenuBuilder {
       $page['active']  = TRUE;
     }
 
-    if (in_array($page_id, $this->megaNav)) {
-      $page['show_in_meganav'] = TRUE;
-    }
+    $page['show_in_meganav'] = !empty($this->megaNav[$page_id]['show']);
+    $page['show_overview_link'] = !empty($this->megaNav[$page_id]['overview']);
 
     $dasherized_page_name = strtolower($page['page_name']);
     $dasherized_page_name = str_replace(['&', '.', ','], '', $dasherized_page_name);
@@ -265,8 +262,8 @@ class YMCAMenuBuilder {
             $connection = Database::getConnection();
             $query = $connection
               ->select('menu_tree', 'mt')
-              ->fields('mt', array('mlid'))
-              ->condition('id', $found->getPluginId());
+                ->fields('mt', array('mlid'))
+                ->condition('id', $found->getPluginId());
             $mlid = (int) $query->execute()->fetchField();
           }
         }
@@ -289,13 +286,13 @@ class YMCAMenuBuilder {
       }
 
       foreach ($menus as $menu) {
-        /* @var Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
+        /* @var \Drupal\menu_link_content\Plugin\Menu\MenuLinkContent $link */
         if ($link = \Drupal::service('menu.active_trail')->getActiveLink($menu)) {
           $connection = Database::getConnection();
           $query = $connection
             ->select('menu_tree', 'mt')
-            ->fields('mt', array('mlid'))
-            ->condition('id', $link->getPluginId());
+              ->fields('mt', array('mlid'))
+              ->condition('id', $link->getPluginId());
           $mlid = (int) $query->execute()->fetchField();
           break;
         }
