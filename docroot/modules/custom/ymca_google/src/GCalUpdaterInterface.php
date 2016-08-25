@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\ymca_google;
+
 use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
