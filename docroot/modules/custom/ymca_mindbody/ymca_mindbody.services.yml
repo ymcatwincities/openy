@@ -14,4 +14,4 @@ services:
     arguments: ['@state', '@config.factory', '@mindbody_cache_proxy.client', '@ymca_mindbody.trainings_mapping']
   ymca_mindbody.results_searcher:
     class: Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher
-    arguments: [ '@config.factory', '@entity.query', '@entity_type.manager', '@logger.factory', '@mindbody_cache_proxy.client', '@ymca_mindbody.trainings_mapping', '@keyvalue.expirable.database']
+    arguments: [ '@config.factory', '@entity.query', '@entity_type.manager', '@logger.factory', '@mindbody_cache_proxy.client', '@ymca_mindbody.trainings_mapping', '@keyvalue.expirable.database', '@current_user']
