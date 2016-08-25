@@ -352,7 +352,7 @@ class GroupexFormFull extends GroupexFormBase {
     $link = [
       '#title' => $this->t('View This Week\'s PDF'),
       '#type' => 'link',
-      '#url' => GroupexScheduleFetcher::getPdfLink($location),
+      '#url' => GroupexScheduleFetcher::getPdfLink($parameters['location']),
       '#attributes' => [
         'class' => [
           'btn',
