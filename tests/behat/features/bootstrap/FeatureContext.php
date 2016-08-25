@@ -23,4 +23,39 @@ class FeatureContext extends RawTqContext {
    */
   public function __construct() {
   }
+
+  /**
+   * @param int $seconds
+   *   Amount of seconds when nothing to happens.
+   *
+   * @Given /^(?:|I )wait (\d+) seconds$/
+   */
+  public function waitSeconds($seconds)
+  {
+    sleep($seconds);
+  }
+
+  /**
+   * @Given I wait AJAX
+   */
+  public function waitAjax()
+  {
+    // @TODO: workaround should be replaced.
+    sleep(5);
+  }
+
+  /**
+   * @Then /^I click on "([^"]*)"$/
+   */
+  public function iClickOn($element)
+  {
+    $page = $this->getSession()->getPage();
+    $findName = $page->find("css", $element);
+    if (!$findName) {
+      throw new Exception($element . " could not be found");
+    } else {
+      $findName->click();
+    }
+  }
+
 }
