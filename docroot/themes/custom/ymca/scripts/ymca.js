@@ -240,7 +240,9 @@
       });
       $('.template_youth_sports_overview a[href^="tel:"], .template_youth_sports_inner a[href^="tel:"]').each(function() {
         $(this).attr('class', 'tel-link');
-        $(this).prepend('<span class="icon icon-phone"></span>');
+        if ($(this).find('.icon-phone').length === 0) {
+          $(this).prepend('<span class="icon icon-phone"></span>');
+        }
       });
       var index = 1;
       $('.template_youth_sports_inner section.node .content-expander').each(function() {
