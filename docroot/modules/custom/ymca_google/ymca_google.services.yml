@@ -12,7 +12,7 @@ services:
       debug: false
   ymca_google.drupal_proxy:
     class: Drupal\ymca_google\DrupalProxy
-    arguments: ['@ymca_google.groupex_wrapper', '@entity.query', '@logger.factory', '@ymca_google.data_fetcher']
+    arguments: ['@ymca_google.groupex_wrapper', '@entity.query', '@logger.factory', '@ymca_google.data_fetcher', '@plugin.manager.gcal_updater']
   ymca_google.syncer:
     class: Drupal\ymca_sync\Syncer
     arguments: ['@ymca_google.groupex_wrapper']
@@ -22,3 +22,6 @@ services:
       - [addStep, ['@ymca_google.pusher', 'proceed']]
     tags:
       - { name: syncer }
+  plugin.manager.gcal_updater:
+    class: Drupal\ymca_google\GCalUpdaterManager
+    arguments: ['@container.namespaces', '@cache.default', '@module_handler']
