@@ -9676,6 +9676,12 @@ a.sports-icon.lacrosse {
 a.sports-icon.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
 }
+a.sports-icon.dodgeball {
+  background: #fff url("../img/icon-big-dodgeball.png") no-repeat 20px center;
+}
+a.sports-icon.floor-hockey {
+  background: #fff url("../img/icon-big-floor-hockey.png") no-repeat 20px center;
+}
 @media screen and (min-width: 768px) and (max-width: 992px) {
   a.sports-icon {
     background-position: 10px center;
@@ -9844,6 +9850,12 @@ a.sports-icon.tumbling {
 }
 .sports_top_subheader select.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+.sports_top_subheader select.dodgeball {
+  background: #fff url("../img/icon-big-dodgeball.png") no-repeat 20px center;
+}
+.sports_top_subheader select.floor-hockey {
+  background: #fff url("../img/icon-big-floor-hockey.png") no-repeat 20px center;
 }
 @media (max-width: 767px) {
   .sports_top_subheader select {
