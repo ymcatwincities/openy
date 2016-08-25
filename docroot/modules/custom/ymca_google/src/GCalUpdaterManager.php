@@ -44,4 +44,5 @@ class GCalUpdaterManager extends DefaultPluginManager {
     $this->alterInfo('gcal_updater_info');
     $this->setCacheBackend($cache_backend, 'gcal_updater_info');
   }
+
 }
