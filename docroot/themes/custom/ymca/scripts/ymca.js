@@ -238,7 +238,7 @@
       $('.template_youth_sports_overview a[href*=".pdf"], .template_youth_sports_inner a[href*=".pdf"]').each(function() {
         $(this).attr('class', 'pdf-link');
       });
-      $('a[href^="tel:"]').each(function() {
+      $('.template_youth_sports_overview a[href^="tel:"], .template_youth_sports_inner a[href^="tel:"]').each(function() {
         $(this).attr('class', 'tel-link');
         $(this).prepend('<span class="icon icon-phone"></span>');
       });
