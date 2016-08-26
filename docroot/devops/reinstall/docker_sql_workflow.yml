@@ -22,8 +22,12 @@
   when: existing_container_name is undefined
 
 - name: Run mysql within docker container
-  shell: docker exec {{ mysql_db }} '/usr/sbin/service' mysql start
+  shell: docker exec {{ mysql_db }} service mysql start
   when: existing_container_name is undefined
+
+- name: Run mysql within docker container
+  shell: docker exec {{ existing_container_name }} service mysql start
+  when: existing_container_name is defined
 
 # Run registry rebuild.
 - name: Check if registry_rebuild is installed
