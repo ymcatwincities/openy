@@ -106,8 +106,7 @@ class BlockIFrame extends IFrame implements DisplayRouterInterface {
             'entity_browser' => [
               'iframe' => [
                 $uuid => [
-                  'src' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], $data['query_parameters'])
-                    ->toString(),
+                  'src' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], $data['query_parameters'])->toString(),
                   'width' => $this->configuration['width'],
                   'height' => $this->configuration['height'],
                   'js_callbacks' => $callback_event->getCallbacks(),
