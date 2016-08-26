@@ -18,21 +18,21 @@ class DateBlockService {
   /**
    * Start date.
    *
-   * @var \DateTime;
+   * @var \DateTime
    */
   protected $startDate;
 
   /**
    * End date.
    *
-   * @var \DateTime;
+   * @var \DateTime
    */
   protected $endDate;
 
   /**
    * Content been parsed.
    *
-   * @var string;
+   * @var string
    */
   protected $activeContent;
 

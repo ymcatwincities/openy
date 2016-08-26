@@ -52,6 +52,13 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $fetcher;
 
   /**
+   * The plugin manager.
+   *
+   * @var GCalUpdaterManager
+   */
+  protected $pluginManager;
+
+  /**
    * DrupalProxy constructor.
    *
    * @param GcalGroupexWrapper $data_wrapper
@@ -62,12 +69,15 @@ class DrupalProxy implements DrupalProxyInterface {
    *   Logger factory.
    * @param GroupexDataFetcher $fetcher
    *   Groupex data fetcher.
+   * @param GCalUpdaterManager $plugin_manager
+   *   The manager for updater plugins.
    */
-  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger, GroupexDataFetcher $fetcher) {
+  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager) {
     $this->dataWrapper = $data_wrapper;
     $this->queryFactory = $query_factory;
     $this->logger = $logger->get('gcal_groupex');
     $this->fetcher = $fetcher;
+    $this->pluginManager = $plugin_manager;
 
     $this->timezone = new \DateTimeZone('America/Chicago');
   }
@@ -122,7 +132,7 @@ class DrupalProxy implements DrupalProxyInterface {
         else {
           // Proceed only with changed entities.
           $diff = $this->diff($existing, $item);
-          if (!empty($diff['date']) || !empty($diff['fields'])) {
+          if (!empty($diff['date']) || !empty($diff['fields']) || !empty($diff['needs_update'])) {
             // Update fields if updates exist.
             foreach ($diff['fields'] as $field_name => $value) {
               $existing->set($field_name, $value);
@@ -219,6 +229,17 @@ class DrupalProxy implements DrupalProxyInterface {
     // The event is recurring and the date is new. Add it to the diff result.
     if (!$found) {
       $diff['date'] = $class->date;
+    }
+
+    // Loop over updaters to check whether entity needs to be updated.
+    $diff['needs_update'] = FALSE;
+    $definitions = $this->pluginManager->getDefinitions();
+    foreach ($definitions as $definition) {
+      /** @var \Drupal\ymca_google\GCalUpdaterInterface $instance */
+      $instance = $this->pluginManager->createInstance($definition['id']);
+      if ($diff['needs_update'] = $instance->check($entity, $class)) {
+        break;
+      }
     }
 
     return $diff;
