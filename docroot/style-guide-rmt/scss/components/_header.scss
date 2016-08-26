@@ -27,9 +27,13 @@
       text-decoration: none;
       font-size: 13px;
       text-transform: uppercase;
-      padding-right: 30px;
       padding-left: 14px;
+      padding-right: 0;
     }
+  }
+
+  .site-logo {
+    padding-right: 0;
   }
 
   .main-menu {
@@ -40,6 +44,10 @@
   &__item {
     display: inline-block;
     padding: 10px 0;
+  }
+
+  &__branch {
+    padding-right: 30px;
   }
 
   &--programs-classes {
