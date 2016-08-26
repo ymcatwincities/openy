@@ -608,6 +608,16 @@ function ymca_preprocess_page(&$variables) {
       }
     }
   }
+  $route_name = 'search.view_content';
+  $route_provider = \Drupal::service('router.route_provider');
+  $routes = $route_provider->getRoutesByNames(array($route_name));
+  if (!empty($routes)) {
+    $variables['search_view_content_path'] = Url::fromRoute('search.view_content');
+  }
+  else {
+    $variables['search_view_content_path'] = '';
+    \Drupal::logger('ymca')->error('Route "%route" does not exist.', array('%route' => $route_name));
+  }
 }
 
 /**
