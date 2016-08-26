@@ -68,7 +68,7 @@ class EnvironmentConfigService implements EnvironmentConfigServiceInterface {
 
     $editable
       ->setData($env_config)
-      ->save(TRUE);
+        ->save(TRUE);
 
     // Update environment indicator.
     $this->configFactory
