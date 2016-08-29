@@ -53,21 +53,20 @@
   &--programs-classes {
     a {
       color: $green;
-    }
 
-    .site-slogan {
-      color: $blue;
+      &.site-slogan {
+        color: $blue;
+      }
     }
-
   }
 
   &--camps-summer {
     a {
       color: $orange;
-    }
 
-    .site-slogan {
-      color: $green;
+      &.site-slogan {
+        color: $green;
+      }
     }
   }
 }
