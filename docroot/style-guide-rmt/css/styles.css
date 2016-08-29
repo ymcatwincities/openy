@@ -270,6 +270,9 @@ table {
 * {
   font-family: Arial, sans-serif; }
 
+a img {
+  border: 0; }
+
 /* style button */
 .btn {
   background: #00aeef;
@@ -450,22 +453,26 @@ table {
       text-decoration: none;
       font-size: 13px;
       text-transform: uppercase;
-      padding-right: 30px;
-      padding-left: 14px; }
+      padding-left: 14px;
+      padding-right: 0; }
+  .header .site-logo {
+    padding-right: 0; }
   .header .main-menu {
     vertical-align: bottom;
     text-align: right; }
   .header__item {
     display: inline-block;
     padding: 10px 0; }
+  .header__branch {
+    padding-right: 30px; }
   .header--programs-classes a {
     color: #01a490; }
-  .header--programs-classes .site-slogan {
-    color: #0089d0; }
+    .header--programs-classes a.site-slogan {
+      color: #0089d0; }
   .header--camps-summer a {
     color: #f47920; }
-  .header--camps-summer .site-slogan {
-    color: #01a490; }
+    .header--camps-summer a.site-slogan {
+      color: #01a490; }
 
 /* style component block social */
 .block-social {
