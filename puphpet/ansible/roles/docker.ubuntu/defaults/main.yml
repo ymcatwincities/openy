@@ -20,7 +20,7 @@ apt_repository: deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distrib
 #  -H unix://
 #  -H tcp://0.0.0.0:2375
 #  --log-level=debug
-docker_opts: ""
+docker_opts: "--dns 8.8.8.8 --dns 8.8.4.4 --insecure-registry ymca.ffwua.com:5000"
 # List of users to be added to 'docker' system group (disabled by default)
 # SECURITY WARNING: 
 # Be aware that granted users can easily get full root access on the docker host system!
