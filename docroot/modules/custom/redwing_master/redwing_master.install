@@ -4,3 +4,17 @@
  * @file
  * Installation file for the module
  */
+
+/**
+ * Remove Groupex.
+ */
+function redwing_master_update_8001() {
+  $installer = \Drupal::service('module_installer');
+
+  $installer->uninstall(['ymca_sync']);
+  $installer->uninstall(['ymca_groupex']);
+  $installer->uninstall(['ymca_groupex_google_cache']);
+  $installer->uninstall(['ymca_google']);
+  $installer->uninstall(['ymca_groupex_form_cache']);
+  $installer->uninstall(['ymca_master']);
+}
