@@ -790,10 +790,19 @@
       .row > div {
         margin-bottom: 20px;
 
-        @media screen and (min-width: 992px) {
+        @media screen and (min-width: 992px) and (max-width: 1299px) {
+          &:nth-child(3n+1) {
+            clear: both;
+          }
+        }
+        @media screen and (min-width: 1300px) {
           &:nth-child(4n+1) {
             clear: both;
           }
+        }
+
+        @media screen and (min-width: 1200px) and (max-width: 1300px) {
+          width: 33.33333333333333%;
         }
       }
 
@@ -802,7 +811,6 @@
           .icon {
             color: $grey5;
             font-size: 14px;
-            margin-right: 12px;
           }
 
           background-color: $grey6;
@@ -814,11 +822,12 @@
           line-height: 50px;
           margin-bottom: 8px;
           padding: 0 12px;
+          white-space: nowrap;
 
           a {
-            color: $grey5;
-            text-decoration: none;
-            display: block;
+            color: $green1;
+            font-weight: bold;
+            float: right;
 
             &.highlight-item {
               animation-name: example;
