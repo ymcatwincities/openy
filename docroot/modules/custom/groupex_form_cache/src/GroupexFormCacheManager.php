@@ -142,4 +142,29 @@ class GroupexFormCacheManager {
     $this->logger->info('The cache was cleared.');
   }
 
+  /**
+   * Remove stale cache.
+   *
+   * @param int $time
+   *   Time frame to calc stale cache.
+   */
+  public function resetStaleCache($time = 86400) {
+    $storage = $this->entityTypeManager->getStorage(self::ENTITY_TYPE);
+
+    $result = $this->queryFactory->get(self::ENTITY_TYPE)
+      ->condition('field_gfc_created', REQUEST_TIME - $time, '<')
+      ->execute();
+    if (empty($result)) {
+      return;
+    }
+
+    $chunks = array_chunk($result, 10);
+    foreach ($chunks as $chunk) {
+      $entities = GroupexFormCache::loadMultiple($chunk);
+      $storage->delete($entities);
+    }
+
+    $this->logger->info('The stale cache was cleared.');
+  }
+
 }
