@@ -420,6 +420,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       ],
       'SessionTypeIDs' => [$session_type_id],
       'LocationIDs' => [$location_id],
+      'StartDate' => date('Y-m-d', strtotime('today')),
+      'EndDate' => date('Y-m-d', strtotime("today +3 weeks")),
     ];
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
