@@ -4186,3 +4186,15 @@ function ymca_master_update_8179() {
     ]
   );
 }
+
+/**
+ * YPTF-133: Set slots hide time to 180 minutes.
+ */
+function ymca_master_update_8180() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.settings.yml',
+    ]
+  );
+}
