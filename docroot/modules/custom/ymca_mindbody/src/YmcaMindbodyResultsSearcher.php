@@ -349,11 +349,15 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             ]);
 
             // Add link only for not excluded items.
+            $book = '';
             if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
-              $class = Link::createFromRoute($class, 'ymca_mindbody.pt.book', [], $options);
+              $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
             }
 
-            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $class;
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+              'class' => $class,
+              'book' => $book,
+            ];
           }
         }
       }
