@@ -12,7 +12,7 @@ ymca_frontend.locations:
     _controller: '\Drupal\ymca_frontend\Controller\YMCALocationsController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationsController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'access YMCA locations'
 
 ymca_frontend.march_rules:
   path: 'march/rules'
