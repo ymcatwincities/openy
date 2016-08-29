@@ -15,3 +15,4 @@ permissions:
   - 'search content'
   - 'access sitemap'
   - 'create workflow workflow_transition'
+  - 'access YMCA locations'
