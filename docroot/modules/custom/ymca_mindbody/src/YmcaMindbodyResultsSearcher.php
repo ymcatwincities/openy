@@ -29,7 +29,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   /**
    * Min time value that should be available on form.
    */
-  const MIN_TIME_RANGE = 5;
+  const MIN_TIME_RANGE = 4;
 
   /**
    * Max time value that should be available on form.
