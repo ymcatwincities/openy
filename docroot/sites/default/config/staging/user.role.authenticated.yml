@@ -20,3 +20,4 @@ permissions:
   12: 'access sitemap'
   13: 'create workflow workflow_transition'
   14: 'view the administration theme'
+  15: 'access YMCA locations'
