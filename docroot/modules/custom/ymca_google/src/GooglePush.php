@@ -475,6 +475,14 @@ class GooglePush {
       $instructor = $default;
     }
 
+    // Check if instructor value contains subbed HTML and strip tags.
+    $regex = '/<span class=\"subbed\".*><br>(.*)<\/span>/';
+    preg_match($regex, $instructor, $match);
+    if (isset($match[1])) {
+      $instructor = str_replace($match[0], ' ', $instructor);
+      $instructor .= $match[1];
+    }
+
     if (!empty($instructor)) {
       $description = 'Instructor: ' . $instructor . "\n\n";
     }

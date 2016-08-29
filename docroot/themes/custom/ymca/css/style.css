@@ -123,6 +123,14 @@ sup {
   content: "\e942";
 }
 
+.icon-mail2:before {
+  content: "\ea84";
+}
+
+.icon-mail:before {
+  content: "\ea83";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -1880,6 +1888,16 @@ a.ms-brand:hover {
   display: block;
   width: 100%;
   text-align: center;
+}
+.social-icon:before {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  font-family: icomoon;
 }
 
 .icon-facebook:after {
@@ -9550,10 +9568,15 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   color: #777;
   font-size: 14px;
 }
-.template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
+.template_youth_sports_overview .locations-lead-copy .richtext > div > p:first-child,
+.template_youth_sports_overview .locations-lead-copy .richtext > p:first-child {
   color: #383838;
   font-size: 18px;
   margin-bottom: 20px;
+}
+.template_youth_sports_overview .locations-lead-copy .richtext .col-sm-6 p:first-child {
+  color: #424242;
+  font-size: 15px;
 }
 .template_youth_sports_overview .locations-lead-copy .call-to-action {
   max-width: 335px;
@@ -9634,7 +9657,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .template_youth_sports_overview section.node .content_group section ul {
   padding: 0;
-  margin: 0;
+  margin: 45px 0;
   display: block;
 }
 .template_youth_sports_overview section.node .content_group section ul li {
@@ -9678,12 +9701,12 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   font-family: 'YMCA';
 }
 
-.tel-link {
+a.tel-link {
   color: #0889cd;
   font-size: 15px;
   font-weight: normal;
 }
-.tel-link .icon {
+a.tel-link .icon {
   margin-right: 8px;
 }
 
@@ -9745,6 +9768,12 @@ a.sports-icon.lacrosse {
 }
 a.sports-icon.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+a.sports-icon.dodgeball {
+  background: #fff url("../img/icon-big-dodgeball.png") no-repeat 20px center;
+}
+a.sports-icon.floor-hockey {
+  background: #fff url("../img/icon-big-floor-hockey.png") no-repeat 20px center;
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   a.sports-icon {
@@ -9914,6 +9943,12 @@ a.sports-icon.tumbling {
 }
 .sports_top_subheader select.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+.sports_top_subheader select.dodgeball {
+  background: #fff url("../img/icon-big-dodgeball.png") no-repeat 20px center;
+}
+.sports_top_subheader select.floor-hockey {
+  background: #fff url("../img/icon-big-floor-hockey.png") no-repeat 20px center;
 }
 @media (max-width: 767px) {
   .sports_top_subheader select {
