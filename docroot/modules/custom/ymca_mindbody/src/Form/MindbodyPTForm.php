@@ -27,7 +27,7 @@ class MindbodyPTForm extends FormBase {
   /**
    * Default value for start time on PT form.
    */
-  const DEFAULT_START_TIME = 5;
+  const DEFAULT_START_TIME = 4;
 
   /**
    * Default value for end time on PT form.
