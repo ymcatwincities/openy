@@ -1,0 +1,3 @@
+access YMCA locations:
+  title: 'Access YMCA Locations'
+  description: 'Denote is you need to allow a role to be able to visit /locations route'
