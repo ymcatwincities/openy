@@ -1,0 +1,28 @@
+uuid: f78b8591-12da-4f7f-9600-a706639880cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - migrate.migration.ymca_migrate_node_page
+  module:
+    - path
+    - ymca_migrate
+id: ymca_migrate_url_alias_page
+migration_tags:
+  - node
+label: 'URL aliases'
+source:
+  plugin: ymca_migrate_url_alias_page
+process:
+  source: source
+  alias: alias
+  langcode:
+    plugin: default_value
+    default_value: en
+destination:
+  plugin: url_alias
+template: null
+migration_dependencies:
+  required:
+    - ymca_migrate_node_page
+migration_group: ymca

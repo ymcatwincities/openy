@@ -1,0 +1,85 @@
+uuid: 591386e1-840a-4ae6-ab03-032e0591297f
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.field.contact_message.contact_personal_training.field_comments
+    - field.field.contact_message.contact_personal_training.field_contact_method
+    - field.field.contact_message.contact_personal_training.field_email_address
+    - field.field.contact_message.contact_personal_training.field_first_name
+    - field.field.contact_message.contact_personal_training.field_form_divider
+    - field.field.contact_message.contact_personal_training.field_last_name
+    - field.field.contact_message.contact_personal_training.field_phone_number
+    - field.field.contact_message.contact_personal_training.field_preferred_y_text
+  module:
+    - webforms
+    - ymca_alters
+id: contact_message.contact_personal_training.default
+targetEntityType: contact_message
+bundle: contact_personal_training
+mode: default
+content:
+  field_comments:
+    weight: 8
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_contact_method:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_email_address:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_form_divider:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 5
+    settings:
+      placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+  field_preferred_y_text:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  langcode:
+    type: language_select
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  mail: true
+  message: true
+  name: true
+  subject: true

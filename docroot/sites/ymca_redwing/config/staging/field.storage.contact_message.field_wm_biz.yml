@@ -1,0 +1,18 @@
+uuid: 783d74d5-915f-483f-8d0e-14254aaa28aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_wm_biz
+field_name: field_wm_biz
+entity_type: contact_message
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

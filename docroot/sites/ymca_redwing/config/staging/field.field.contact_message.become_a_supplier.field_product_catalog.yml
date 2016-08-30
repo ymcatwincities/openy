@@ -1,0 +1,23 @@
+uuid: fff1d4a5-c2de-4ff7-8f00-b4d4c47e075d
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_product_catalog
+id: contact_message.become_a_supplier.field_product_catalog
+field_name: field_product_catalog
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Will you have a catalog of products to offer?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

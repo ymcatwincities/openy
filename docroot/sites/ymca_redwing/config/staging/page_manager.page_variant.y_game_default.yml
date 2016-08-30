@@ -1,0 +1,38 @@
+uuid: e3c2ae0b-2528-412d-8ade-36fd6f02010c
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_pages
+  module:
+    - panels
+    - system
+_core:
+  default_config_hash: zMEou3tlwPDzmR24AoM9aLGIi8ZcAhtOc7qPsSdTvZQ
+id: y_game_default
+label: 'Y Game Default'
+variant: panels_variant
+variant_settings:
+  blocks: {  }
+  id: panels_variant
+  uuid: e8986f5b-575f-4e5f-84ab-8891ce2528b3
+  label: null
+  weight: 0
+  layout: ymca-retention
+  layout_settings:
+    extra_classes: ''
+  page_title: ''
+  storage_type: page_manager
+  storage_id: y_game_default
+  builder: standard
+page: ymca_retention_pages
+weight: -10
+selection_criteria:
+  e06cb8b8-41a3-41cf-8e8a-ea9cbd28de82:
+    id: request_path
+    pages: /ygames/default
+    negate: false
+    context_mapping: {  }
+    uuid: e06cb8b8-41a3-41cf-8e8a-ea9cbd28de82
+selection_logic: and
+static_context: {  }

@@ -1,0 +1,21 @@
+uuid: 65a78ae8-b8f3-46a5-8708-8bd0c9b266c4
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ymca
+id: socialiconsfooter
+theme: ymca
+region: footer_social
+weight: -4
+provider: null
+plugin: 'block_content:563975cc-7a52-48fa-b30c-12c54d0cb863'
+settings:
+  id: 'block_content:563975cc-7a52-48fa-b30c-12c54d0cb863'
+  label: 'Social Icons Footer'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
