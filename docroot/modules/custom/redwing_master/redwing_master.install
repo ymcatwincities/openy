@@ -16,4 +16,5 @@ function redwing_master_update_8001() {
   $installer->uninstall(['ymca_groupex_google_cache']);
   $installer->uninstall(['ymca_google']);
   $installer->uninstall(['ymca_groupex_form_cache']);
+  $installer->uninstall(['ymca_master']);
 }
