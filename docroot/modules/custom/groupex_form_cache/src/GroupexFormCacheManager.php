@@ -123,34 +123,30 @@ class GroupexFormCacheManager {
   }
 
   /**
-   * Clear all caches.
+   * Remove all caches.
+   *
+   * @param int $count
+   *   Size of the chunk.
    */
-  public function resetCache() {
-    $storage = $this->entityTypeManager->getStorage(self::ENTITY_TYPE);
-
+  public function resetCache($count = 10) {
     $result = $this->queryFactory->get(self::ENTITY_TYPE)->execute();
     if (empty($result)) {
       return;
     }
 
-    $chunks = array_chunk($result, 10);
-    foreach ($chunks as $chunk) {
-      $entities = GroupexFormCache::loadMultiple($chunk);
-      $storage->delete($entities);
-    }
-
+    $this->removeByChunk($result, $count);
     $this->logger->info('The cache was cleared.');
   }
 
   /**
    * Remove stale cache.
    *
+   * @param int $count
+   *   Size of the chunk.
    * @param int $time
    *   Time frame to calc stale cache.
    */
-  public function resetStaleCache($time = 86400) {
-    $storage = $this->entityTypeManager->getStorage(self::ENTITY_TYPE);
-
+  public function resetStaleCache($count = 10, $time = 86400) {
     $result = $this->queryFactory->get(self::ENTITY_TYPE)
       ->condition('field_gfc_created', REQUEST_TIME - $time, '<')
       ->execute();
@@ -158,13 +154,25 @@ class GroupexFormCacheManager {
       return;
     }
 
-    $chunks = array_chunk($result, 10);
+    $this->removeByChunk($result, $count);
+    $this->logger->info('The stale cache was cleared.');
+  }
+
+  /**
+   * Remove list of entities by chunk.
+   *
+   * @param array $ids
+   *   Entity ids.
+   * @param int $count
+   *   Size of the chunk.
+   */
+  private function removeByChunk(array $ids, $count = 10) {
+    $storage = $this->entityTypeManager->getStorage(self::ENTITY_TYPE);
+    $chunks = array_chunk($ids, $count);
     foreach ($chunks as $chunk) {
       $entities = GroupexFormCache::loadMultiple($chunk);
       $storage->delete($entities);
     }
-
-    $this->logger->info('The stale cache was cleared.');
   }
 
 }
