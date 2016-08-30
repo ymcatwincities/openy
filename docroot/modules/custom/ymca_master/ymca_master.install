@@ -4253,3 +4253,10 @@ function ymca_master_update_8183() {
     ]
   );
 }
+
+/**
+ * Re-enable error handling module.
+ */
+function ymca_master_update_8184() {
+  \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
+}
