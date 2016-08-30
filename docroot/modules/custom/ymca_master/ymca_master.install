@@ -4211,3 +4211,52 @@ function ymca_master_update_8181() {
     ]
   );
 }
+
+
+/**
+ * Add Mapping entity "Personify Product".
+ */
+function ymca_master_update_8182() {
+  \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mappings.mapping_type.personify_product.yml',
+    ]
+  );
+}
+
+/**
+ * Initial fields for "Personify Product" entity.
+ */
+function ymca_master_update_8183() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.personify_product.default.yml',
+      $path . 'core.entity_view_display.mapping.personify_product.default.yml',
+      $path . 'field.field.mapping.personify_product.field_location_ref.yml',
+      $path . 'field.field.mapping.personify_product.field_member_price.yml',
+      $path . 'field.field.mapping.personify_product.field_nonmember_price.yml',
+      $path . 'field.field.mapping.personify_product.field_package.yml',
+      $path . 'field.field.mapping.personify_product.field_product_code.yml',
+      $path . 'field.field.mapping.personify_product.field_productid.yml',
+      $path . 'field.field.mapping.personify_product.field_session_length.yml',
+      $path . 'field.storage.mapping.field_member_price.yml',
+      $path . 'field.storage.mapping.field_nonmember_price.yml',
+      $path . 'field.storage.mapping.field_package.yml',
+      $path . 'field.storage.mapping.field_product_code.yml',
+      $path . 'field.storage.mapping.field_productid.yml',
+      $path . 'field.storage.mapping.field_session_length.yml',
+    ]
+  );
+}
+
+/**
+ * Re-enable error handling module.
+ */
+function ymca_master_update_8184() {
+  \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
+}
