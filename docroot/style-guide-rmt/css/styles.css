@@ -558,18 +558,20 @@ a img {
   max-width: 686px;
   margin-left: auto;
   margin-right: auto; }
-  .block-hero__title {
+  .block-hero td {
+    padding: 0; }
+  .block-hero .block-hero__title {
+    box-sizing: border-box;
     color: #ffffff;
     font-family: 'Arial Black';
     font-size: 20px;
     font-weight: normal;
-    margin-top: 0;
     margin-bottom: 0;
-    text-align: center;
-    text-transform: uppercase;
+    margin-top: 0;
     opacity: 0.9;
-    box-sizing: border-box;
-    padding: 20px 15px; }
+    padding: 20px 15px;
+    text-align: center;
+    text-transform: uppercase; }
   .block-hero img {
     width: 100%;
     height: auto;

@@ -5,18 +5,22 @@
   margin-left: auto;
   margin-right: auto;
 
-  &__title {
+  td {
+    padding: 0;
+  }
+
+  .block-hero__title {
+    box-sizing: border-box;
     color: $white;
     font-family: 'Arial Black';
     font-size: 20px;
     font-weight: normal;
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
+    opacity: 0.9;
+    padding: 20px 15px;
     text-align: center;
     text-transform: uppercase;
-    opacity: 0.9;
-    box-sizing: border-box;
-    padding: 20px 15px;
   }
 
   img {
