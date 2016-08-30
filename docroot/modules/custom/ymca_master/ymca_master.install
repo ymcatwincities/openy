@@ -4162,3 +4162,16 @@ function ymca_master_update_8177() {
     ]
   );
 }
+
+/**
+ * Update wysiwyg editor config.
+ */
+function ymca_master_update_8178() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.anonymous.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+}

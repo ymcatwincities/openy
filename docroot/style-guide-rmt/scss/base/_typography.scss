@@ -9,6 +9,12 @@ h6 {
   color: $gray-42;
 }
 
+a,
+img {
+  outline: none;
+  border: 0;
+}
+
 p {
   margin-top: 0;
 }
@@ -37,8 +43,9 @@ h6 {
   font-size: 16px;
   font-weight: bold;
   line-height: 25px;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   text-transform: uppercase;
+  padding-bottom: 15px;
 }
 
 .uppercase {
@@ -87,7 +94,14 @@ h6 {
   }
 }
 
+table {
+  border-collapse: collapse;
+}
 
 * {
   font-family: Arial, sans-serif;
+}
+
+a img {
+  border: 0;
 }
