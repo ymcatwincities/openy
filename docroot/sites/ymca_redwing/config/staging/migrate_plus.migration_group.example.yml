@@ -1,0 +1,12 @@
+uuid: 13ab62d5-ebf9-4f00-855c-92535eb0fcb5
+langcode: en
+status: true
+dependencies: {  }
+id: example
+label: 'Example imports'
+description: 'Example migrations for the YMCA project.'
+source_type: 'Custom database tables'
+module: null
+shared_configuration:
+  source:
+    key: default

@@ -1,0 +1,40 @@
+uuid: 29d5ede8-06e5-4948-a400-d0ea2f1b972e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - block_content.type.code_block
+    - block_content.type.date_block
+    - block_content.type.expander_block
+    - block_content.type.image_block
+    - block_content.type.location_schedule
+    - block_content.type.panorama_block
+    - block_content.type.promo_block
+    - block_content.type.slide_show
+  module:
+    - block_content
+    - entity_embed
+    - webforms
+label: Block
+id: block
+type_id: entity
+type_settings:
+  entity_type: block_content
+  bundles:
+    - basic
+    - code_block
+    - date_block
+    - expander_block
+    - image_block
+    - location_schedule
+    - panorama_block
+    - promo_block
+    - slide_show
+  style: block
+  display_plugins:
+    - 'entity_reference:entity_reference_entity_view'
+  entity_browser: block_browser_iframe
+  entity_browser_settings:
+    display_review: false
+icon_uuid: null
