@@ -9040,9 +9040,19 @@ body .ajax-progress-throbber .throbber {
 .mindbody-search-results-content .day .group-by-date .row > div {
   margin-bottom: 20px;
 }
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 992px) and (max-width: 1399px) {
+  .mindbody-search-results-content .day .group-by-date .row > div:nth-child(3n+1) {
+    clear: both;
+  }
+}
+@media screen and (min-width: 1400px) {
   .mindbody-search-results-content .day .group-by-date .row > div:nth-child(4n+1) {
     clear: both;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .mindbody-search-results-content .day .group-by-date .row > div {
+    width: 33.33333333333333%;
   }
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot {
@@ -9055,16 +9065,16 @@ body .ajax-progress-throbber .throbber {
   line-height: 50px;
   margin-bottom: 8px;
   padding: 0 12px;
+  white-space: nowrap;
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot .icon {
   color: #777;
   font-size: 14px;
-  margin-right: 12px;
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot a {
-  color: #777;
-  text-decoration: none;
-  display: block;
+  color: #00aa95;
+  font-weight: bold;
+  float: right;
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot a.highlight-item {
   animation-name: example;
@@ -9073,6 +9083,9 @@ body .ajax-progress-throbber .throbber {
   animation-iteration-count: 3;
   background-color: #bde6e6;
   color: #424242;
+  line-height: 24px;
+  margin: 12px 0;
+  padding: 0 3px;
 }
 .mindbody-search-results-content .day .group-by-date .col-sm-3 {
   margin-bottom: 40px;
