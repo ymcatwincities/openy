@@ -1,0 +1,26 @@
+uuid: 4e3a8091-33ea-470a-a503-3dbd35ceada3
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.working_hours_block
+    - field.storage.node.field_working_hours
+    - node.type.location
+id: node.location.field_working_hours
+field_name: field_working_hours
+entity_type: node
+bundle: location
+label: 'Working Hours'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      working_hours_block: working_hours_block
+    sort:
+      field: _none
+field_type: entity_reference

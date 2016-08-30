@@ -1,0 +1,19 @@
+uuid: 232496df-40a7-40e1-bf08-8b196c2850ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.storage.contact_message.field_comments
+id: contact_message.contact_personal_training.field_comments
+field_name: field_comments
+entity_type: contact_message
+bundle: contact_personal_training
+label: 'How can we help? (optional)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

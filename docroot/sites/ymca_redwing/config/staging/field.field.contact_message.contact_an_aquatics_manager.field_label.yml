@@ -1,0 +1,23 @@
+uuid: f46271ba-7e3d-464a-8404-04cc2ae7092a
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_an_aquatics_manager
+    - field.storage.contact_message.field_label
+  module:
+    - webforms
+id: contact_message.contact_an_aquatics_manager.field_label
+field_name: field_label
+entity_type: contact_message
+bundle: contact_an_aquatics_manager
+label: Label
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: "<p class=\"text-right\"><small>* All fields required unless otherwise noted</small></p>\r\n<p class=\"legend\">Enter Your Information </p>"
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item

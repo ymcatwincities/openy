@@ -1,0 +1,31 @@
+uuid: 46e4ec30-5355-42d9-851a-2644cf8268b3
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:243caab1-2a59-4f7c-a161-973bfebcefbd'
+  module:
+    - block_content
+    - system
+  theme:
+    - ymca
+id: footermicrosoft
+theme: ymca
+region: '-1'
+weight: -2
+provider: null
+plugin: 'block_content:243caab1-2a59-4f7c-a161-973bfebcefbd'
+settings:
+  id: 'block_content:243caab1-2a59-4f7c-a161-973bfebcefbd'
+  label: 'Footer Microsoft'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
