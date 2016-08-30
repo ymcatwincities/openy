@@ -47,6 +47,13 @@ class GroupexFormFull extends GroupexFormBase {
   protected $state;
 
   /**
+   * Groupex Schedule Fetcher.
+   *
+   * @var GroupexScheduleFetcher
+   */
+  protected $scheduleFetcher;
+
+  /**
    * GroupexFormFull constructor.
    *
    * @param QueryFactory $entity_query
@@ -56,11 +63,9 @@ class GroupexFormFull extends GroupexFormBase {
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
    */
-  public function __construct(
-    QueryFactory $entity_query,
-    EntityTypeManagerInterface $entity_type_manager,
-    LoggerChannelFactoryInterface $logger_factory
-  ) {
+  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexScheduleFetcher $schedule_fetcher) {
+    $this->scheduleFetcher = $schedule_fetcher;
+
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $processed_classes_data['any'] = $this->t('-All-');
@@ -112,7 +117,8 @@ class GroupexFormFull extends GroupexFormBase {
     return new static(
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('ymca_groupex.schedule_fetcher')
     );
   }
 
@@ -172,7 +178,7 @@ class GroupexFormFull extends GroupexFormBase {
       '#suffix' => '</div>',
     ];
     if (!empty($values['location'])) {
-      $url = GroupexScheduleFetcher::getPdfLink($values['location']);
+      $url = $this->scheduleFetcher->getPdfLink($values['location']);
       $form['groupex_pdf_link']['link'] = [
         '#title' => $this->t('View This Week\'s PDF'),
         '#type' => 'link',
@@ -352,7 +358,7 @@ class GroupexFormFull extends GroupexFormBase {
     $link = [
       '#title' => $this->t('View This Week\'s PDF'),
       '#type' => 'link',
-      '#url' => GroupexScheduleFetcher::getPdfLink($parameters['location']),
+      '#url' => $this->scheduleFetcher->getPdfLink($parameters['location']),
       '#attributes' => [
         'class' => [
           'btn',
