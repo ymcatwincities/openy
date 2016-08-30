@@ -1,8 +1,11 @@
 /* style button */
 .btn {
   background: $blue-light;
+  border-bottom: 11px solid $blue-light;
+  border-left: 15px solid $blue-light;
   border-radius: 3px;
-  border: medium none;
+  border-right: 15px solid $blue-light;
+  border-top: 11px solid $blue-light;
   color: $white;
   cursor: pointer;
   display: inline-block;
@@ -10,61 +13,65 @@
   font-weight: bold;
   line-height: 1;
   margin-bottom: 10px;
-  padding: 11px 15px;
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
 
-  &:hover {
-    background: $blue;
-  }
-
   &--blue {
     background: $blue;
-
-    &:hover {
-      background: darken($blue, 5%);
-    }
+    border-bottom: 11px solid $blue;
+    border-left: 15px solid $blue;
+    border-right: 15px solid $blue;
+    border-top: 11px solid $blue;
   }
 
-  &--blue--light {
+  &--blue-light {
     background: $blue-light;
-
-    &:hover {
-      background: darken($blue, 5%);
-    }
+    border-bottom: 11px solid $blue-light;
+    border-left: 15px solid $blue-light;
+    border-radius: 3px;
+    border-right: 15px solid $blue-light;
+    border-top: 11px solid $blue-light;
   }
 
   &--purple {
     background: $purple;
+    border-bottom: 11px solid $purple;
+    border-left: 15px solid $purple;
+    border-right: 15px solid $purple;
+    border-top: 11px solid $purple;
 
     &:hover {
       background: darken($purple, 5%);
+      border-bottom: 11px solid darken($purple, 5%);
+      border-left: 15px solid darken($purple, 5%);
+      border-right: 15px solid darken($purple, 5%);
+      border-top: 11px solid darken($purple, 5%);
     }
   }
 
-  &--purple--light {
+  &--purple-light {
     background: $purple-light;
-
-    &:hover {
-      background: darken($purple, 5%);
-    }
+    border-bottom: 11px solid $purple-light;
+    border-left: 15px solid $purple-light;
+    border-right: 15px solid $purple-light;
+    border-top: 11px solid $purple-light;
   }
 
   &--green {
     background: $green;
-
-    &:hover {
-      background: darken($green, 5%);
-    }
+    border-bottom: 11px solid $green;
+    border-left: 15px solid $green;
+    border-right: 15px solid $green;
+    border-top: 11px solid $green;
   }
 
   &--orange {
     background: $orange;
-
-    &:hover {
-      background: darken($orange, 5%);
-    }
+    border-bottom: 11px solid $orange;
+    border-left: 15px solid $orange;
+    border-right: 15px solid $orange;
+    border-top: 11px solid $orange;
   }
 }
 /* style button has icon */

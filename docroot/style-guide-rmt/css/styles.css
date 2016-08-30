@@ -276,8 +276,11 @@ a img {
 /* style button */
 .btn {
   background: #00aeef;
+  border-bottom: 11px solid #00aeef;
+  border-left: 15px solid #00aeef;
   border-radius: 3px;
-  border: medium none;
+  border-right: 15px solid #00aeef;
+  border-top: 11px solid #00aeef;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
@@ -285,36 +288,52 @@ a img {
   font-weight: bold;
   line-height: 1;
   margin-bottom: 10px;
-  padding: 11px 15px;
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap; }
-  .btn:hover {
-    background: #0089d0; }
   .btn--blue {
-    background: #0089d0; }
-    .btn--blue:hover {
-      background: #0078b7; }
-  .btn--blue--light {
-    background: #00aeef; }
-    .btn--blue--light:hover {
-      background: #0078b7; }
+    background: #0089d0;
+    border-bottom: 11px solid #0089d0;
+    border-left: 15px solid #0089d0;
+    border-right: 15px solid #0089d0;
+    border-top: 11px solid #0089d0; }
+  .btn--blue-light {
+    background: #00aeef;
+    border-bottom: 11px solid #00aeef;
+    border-left: 15px solid #00aeef;
+    border-radius: 3px;
+    border-right: 15px solid #00aeef;
+    border-top: 11px solid #00aeef; }
   .btn--purple {
-    background: #92278f; }
+    background: #92278f;
+    border-bottom: 11px solid #92278f;
+    border-left: 15px solid #92278f;
+    border-right: 15px solid #92278f;
+    border-top: 11px solid #92278f; }
     .btn--purple:hover {
-      background: #7e227b; }
-  .btn--purple--light {
-    background: #c6168d; }
-    .btn--purple--light:hover {
-      background: #7e227b; }
+      background: #7e227b;
+      border-bottom: 11px solid #7e227b;
+      border-left: 15px solid #7e227b;
+      border-right: 15px solid #7e227b;
+      border-top: 11px solid #7e227b; }
+  .btn--purple-light {
+    background: #c6168d;
+    border-bottom: 11px solid #c6168d;
+    border-left: 15px solid #c6168d;
+    border-right: 15px solid #c6168d;
+    border-top: 11px solid #c6168d; }
   .btn--green {
-    background: #01a490; }
-    .btn--green:hover {
-      background: #018b7a; }
+    background: #01a490;
+    border-bottom: 11px solid #01a490;
+    border-left: 15px solid #01a490;
+    border-right: 15px solid #01a490;
+    border-top: 11px solid #01a490; }
   .btn--orange {
-    background: #f47920; }
-    .btn--orange:hover {
-      background: #ef6b0c; }
+    background: #f47920;
+    border-bottom: 11px solid #f47920;
+    border-left: 15px solid #f47920;
+    border-right: 15px solid #f47920;
+    border-top: 11px solid #f47920; }
 
 /* style button has icon */
 .btn--has-icon {
