@@ -29,7 +29,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   /**
    * Min time value that should be available on form.
    */
-  const MIN_TIME_RANGE = 5;
+  const MIN_TIME_RANGE = 4;
 
   /**
    * Max time value that should be available on form.
@@ -421,6 +421,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       ],
       'SessionTypeIDs' => [$session_type_id],
       'LocationIDs' => [$location_id],
+      'StartDate' => date('Y-m-d', strtotime('today')),
+      'EndDate' => date('Y-m-d', strtotime("today +3 weeks")),
     ];
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
