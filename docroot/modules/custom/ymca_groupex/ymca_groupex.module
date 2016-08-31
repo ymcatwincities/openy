@@ -180,7 +180,7 @@ function ymca_groupex_preprocess_node(&$variables) {
     }
 
     if ($groupex_id) {
-      $variables['print_group_exercise_uri'] = \Drupal::service('ymca_groupex.schedule_fetcher')->getPdfLink($groupex_id);
+      $variables['print_group_exercise_uri'] = \Drupal::service('ymca_groupex.helper')->getPdfLink($groupex_id);
     }
     else {
       \Drupal::logger('ymca_groupex')->error('Failed to get location id.');
