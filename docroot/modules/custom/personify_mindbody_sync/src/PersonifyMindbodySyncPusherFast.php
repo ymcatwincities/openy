@@ -15,25 +15,22 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    * {@inheritdoc}
    */
   public function push() {
-    $this->pushClientsBatch($this->debug);
-    parent::pushOrders($this->debug);
+    $this->pushClientsBatch();
+    parent::pushOrders();
   }
 
   /**
    * Push clients in a batch to MindBody.
    *
-   * @param bool $debug
-   *   Mode.
-   *
    * @return $this
    *   Returns itself for chaining.
    */
-  private function pushClientsBatch($debug = TRUE) {
+  private function pushClientsBatch() {
     if (!parent::filerOutClients()) {
       return $this;
     }
 
-    if ($debug) {
+    if (!$this->isProduction) {
       // Let's check only 2 clients for debug.
       $clients = [];
       $i = 1;

@@ -42,6 +42,7 @@ function yptf_master_update_8001() {
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_date.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_sale_id.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_clnt_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_l_num.yml',
@@ -50,6 +51,7 @@ function yptf_master_update_8001() {
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_date.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_status.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_sale_id.yml',
       $path . 'ymca_personify.settings.yml',
     ]
   );

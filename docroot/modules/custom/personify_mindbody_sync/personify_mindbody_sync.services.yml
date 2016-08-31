@@ -13,10 +13,10 @@ services:
     arguments: ['@personify_mindbody_sync.wrapper', '@logger.factory', '@entity.query', '@entity_type.manager']
   personify_mindbody_sync.pusher_fast:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncPusherFast
-    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory']
+    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory', '@environment_config.handler']
   personify_mindbody_sync.pusher_slow:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncPusherSlow
-    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory']
+    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory', '@environment_config.handler']
   personify_mindbody_sync.syncer_fast:
     class: Drupal\ymca_sync\Syncer
     arguments: []
