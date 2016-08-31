@@ -143,13 +143,10 @@ EOS;
       $noscript = str_replace("\n", '', $noscript);
       $script = str_replace(array("\n", '  '), '', $script);
     }
-    $script = <<<EOS
 
-<!-- Google Tag Manager -->
-$noscript
-$script
-<!-- End Google Tag Manager -->
-EOS;
+    $open = '<!-- Google Tag Manager -->';
+    $close = '<!-- End Google Tag Manager -->';
+    $script = implode("\n", [$open, $noscript, $script, $close]);
 
     return $script;
 
