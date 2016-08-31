@@ -146,7 +146,7 @@ EOS;
 
     $open = '<!-- Google Tag Manager -->';
     $close = '<!-- End Google Tag Manager -->';
-    $script = implode("\n", [$open, $noscript, $script, $close]);
+    $script = implode("\n", [$open, $noscript, $script, $close, '']);
 
     return $script;
 
