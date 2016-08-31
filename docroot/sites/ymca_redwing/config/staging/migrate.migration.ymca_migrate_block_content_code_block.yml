@@ -1,0 +1,18 @@
+id: ymca_migrate_block_content_code_block
+label: 'Code block migration.'
+migration_group: ymca
+migration_tags:
+  - block_content
+source:
+  plugin: ymca_migrate_block_content_code_block
+process:
+  type:
+    plugin: default_value
+    default_value: code_block
+  info: name
+  field_code/value: content
+  field_code/format:
+    plugin: default_value
+    default_value: code
+destination:
+  plugin: 'entity:block_content'

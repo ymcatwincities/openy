@@ -1,0 +1,21 @@
+uuid: eaf48458-e1eb-4500-a55a-909aedb7651e
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.journey_to_freedom.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: journey_to_freedom
+label: 'Phone Number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

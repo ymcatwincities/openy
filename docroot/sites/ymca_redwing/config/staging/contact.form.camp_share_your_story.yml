@@ -1,0 +1,28 @@
+uuid: 2d97e67b-3cca-479c-ad00-0c52bf90e403
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: camp_share_your_story
+label: 'Camp - Share Your Story'
+recipients:
+  - missy.huppert@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 1
+submissionPageContent:
+  value: "<p>Thank you for your form submission</p>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Form submission - Share your camp story ([contact_message:field_camp_email_list])'
+  content:
+    value: "<p>A new submission was received from the \"Camp - Share your story\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Email Address:&nbsp;</strong>[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Camp Attended:&nbsp;</strong>[contact_message:field_camp_email_list]</p>\r\n\r\n<p><strong>Decade:&nbsp;</strong>&nbsp;[contact_message:field_decade]</p>\r\n\r\n<p><strong>Photo:&nbsp;</strong>[contact_message:field_image]</p>\r\n\r\n<p><strong>Video:</strong>&nbsp;[contact_message:field_video_url]</p>\r\n\r\n<p><b>Notes or comments</b></p>\r\n\r\n<p>[contact_message:field_comments]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html

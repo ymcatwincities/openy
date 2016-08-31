@@ -1,0 +1,15 @@
+uuid: 2fc8bc5d-5955-444d-9e00-0f02518a5179
+langcode: fr
+status: true
+dependencies: {  }
+name: crop_thumbnail
+label: 'Crop thumbnail'
+effects:
+  8fc26706-68dc-4eb7-8121-33e3936ed55f:
+    uuid: 8fc26706-68dc-4eb7-8121-33e3936ed55f
+    id: image_scale
+    weight: 1
+    data:
+      width: 400
+      height: null
+      upscale: false
