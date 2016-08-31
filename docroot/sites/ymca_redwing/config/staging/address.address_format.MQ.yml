@@ -1,0 +1,22 @@
+uuid: 8c21b148-ffad-4fc2-a202-2e3703a62f4f
+langcode: en
+status: true
+dependencies: {  }
+countryCode: MQ
+format: "%organization\n%recipient\n%addressLine1\n%addressLine2\n%postalCode %locality %sortingCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - addressLine1
+  - addressLine2
+  - locality
+  - sortingCode
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '9[78]2\d{2}'
+postalCodePrefix: null

@@ -1,0 +1,20 @@
+uuid: 1d53cdb9-6ea5-44c1-8e00-f4632524d4b5
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - webforms
+id: contact_message.field_label
+field_name: field_label
+entity_type: contact_message
+type: webform_markup_item
+settings:
+  case_sensitive: false
+module: webforms
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
