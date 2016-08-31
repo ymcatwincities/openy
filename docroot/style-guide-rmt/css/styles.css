@@ -265,7 +265,8 @@ h6 {
         padding: 12px 20px; }
 
 table {
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  border: 0; }
 
 * {
   font-family: Arial, sans-serif; }
@@ -383,16 +384,13 @@ a img {
   border: 2px solid #f3f3f3;
   margin: 5px 8px;
   font-size: 15px;
-  line-height: 36px;
   display: inline-block;
-  width: 215px;
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
   text-decoration: none;
-  border-radius: 3px; }
-  .btn-border.shorter {
-    width: 145px; }
+  border-radius: 3px;
+  padding: 10px 18px; }
   .btn-border--green {
     color: #01a490; }
   .btn-border--orange {
