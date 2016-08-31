@@ -5,6 +5,7 @@
  * Installation file for the module
  */
 
+define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
 /**
  * Remove Groupex.
  */
@@ -17,4 +18,15 @@ function redwing_master_update_8001() {
   $installer->uninstall(['ymca_groupex_form_cache'], TRUE);
   $installer->uninstall(['ymca_google'], TRUE);
   $installer->uninstall(['ymca_master']);
+}
+
+/**
+ * Disable title header search form for Redwing.
+ */
+function redwing_master_update_8002() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'ymca.settings.yml',
+    ]
+  );
 }
