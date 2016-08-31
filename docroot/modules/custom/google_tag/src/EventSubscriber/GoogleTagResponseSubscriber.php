@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains GoogleTagResponseSubscriber.
- */
-
 namespace Drupal\google_tag\EventSubscriber;
 
 use Drupal\Component\Utility\Unicode;
@@ -21,7 +16,8 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * Class GoogleTagResponseSubscriber
+ * Class GoogleTagResponseSubscriber.
+ *
  * @package Drupal\google_tag\EventSubscriber
  */
 class GoogleTagResponseSubscriber implements EventSubscriberInterface {
@@ -83,9 +79,11 @@ class GoogleTagResponseSubscriber implements EventSubscriberInterface {
     $this->currentUser = $current_user;
   }
 
-
   /**
+   * Adds tag right after opening body tag.
+   *
    * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
+   *   An event object.
    */
   public function addTag(FilterResponseEvent $event) {
     if (!$event->isMasterRequest()) {
@@ -141,7 +139,6 @@ EOS;
 </script>
 EOS;
 
-
     if ($compact) {
       $noscript = str_replace("\n", '', $noscript);
       $script = str_replace(array("\n", '  '), '', $script);
@@ -196,7 +193,9 @@ EOS;
   }
 
   /**
-   * HTTP status code check. This checks to see if status check is even used
+   * HTTP status code check.
+   *
+   * This checks to see if status check is even used
    * before checking the status.
    *
    * @param \Symfony\Component\HttpFoundation\Response $response
@@ -226,8 +225,9 @@ EOS;
   }
 
   /**
-   * Determines whether or not the tag should be included on a page based on
-   * the path settings.
+   * Determines whether or not the tag should be included on a page.
+   *
+   * Based on the path settings.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The request object.
@@ -259,8 +259,9 @@ EOS;
   }
 
   /**
-   * Determines whether or not the tag should be included on a page based on
-   * user roles.
+   * Determines whether or not the tag should be included on a page.
+   *
+   * Based on user roles.
    *
    * @return bool
    *   True is the check is enabled and the user roles match the settings.
@@ -292,4 +293,5 @@ EOS;
     $events[KernelEvents::RESPONSE][] = array('addTag', -500);
     return $events;
   }
+
 }
