@@ -480,7 +480,16 @@ class MindbodyResultsController extends ControllerBase {
       }
 
       $service = FALSE;
-      foreach ($result->GetClientServicesResult->ClientServices->ClientService as $service) {
+
+      $services = $result->GetClientServicesResult->ClientServices;
+      if (is_array($services->ClientService)) {
+        $list = $services->ClientService;
+      }
+      else {
+        $list = (array) $services;
+      }
+
+      foreach ($list as $service) {
         $service = [
           'Current' => $service->Current,
           'Count' => $service->Count,
