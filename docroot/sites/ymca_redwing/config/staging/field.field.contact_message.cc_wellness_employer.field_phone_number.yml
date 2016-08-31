@@ -1,0 +1,21 @@
+uuid: 72dc240f-ea51-466c-bd00-f205f6503fb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employer
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.cc_wellness_employer.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: cc_wellness_employer
+label: 'Phone number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

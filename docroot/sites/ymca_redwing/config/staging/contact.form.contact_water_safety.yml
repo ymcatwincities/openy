@@ -1,0 +1,28 @@
+uuid: 3aa63b22-13c4-401d-ae06-6f83a7e27e8f
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: 'entity:node/1077'
+id: contact_water_safety
+label: 'Contact Water Safety'
+recipients:
+  - Shannon.kinstler@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 0
+submissionPageContent:
+  value: ''
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'New submission for "Contact Water Safety" form'
+  content:
+    value: "<p>A new submission was received from the \"Contact Water Safety Form\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p><strong>First Name:</strong>&nbsp;[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:</strong>&nbsp;[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Email Address:</strong>&nbsp;[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Comment, Question or Suggestion:</strong></p>\r\n\r\n<p>[contact_message:field_comments]</p>\r\n\r\n<p><strong>Do you require a response:&nbsp;</strong>[contact_message:field_response_required]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html

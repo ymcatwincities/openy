@@ -1,0 +1,19 @@
+uuid: 2a9b4312-aedb-4b3e-b926-be3712fb1a20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_hrs_mon_fri
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_hrs_mon_fri
+field_name: field_location_hrs_mon_fri
+entity_type: mapping
+bundle: location
+label: 'Location HRS Mon-Fri'
+description: 'Example: 5:00 a.m. - 10:00 p.m.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

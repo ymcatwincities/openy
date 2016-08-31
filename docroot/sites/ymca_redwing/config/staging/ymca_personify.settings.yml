@@ -1,0 +1,12 @@
+wsdl: 'https://ygtcprod2.personifycloud.com/sso/webservice/service.asmx?WSDL'
+vendor_id: 8
+vendor_username: ClockWork
+vendor_password: FE37C379FAD80A38E231D668DA572A24
+vendor_block: 55AADFF5C5741E09FE39D7E319B1A0DA
+url_login: 'http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337'
+url_account: 'http://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/Default.aspx'
+url_sign_out: 'https://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/ctl/Logoff/Default.aspx'
+url_cart: 'http://ygtcprod2.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingCart.aspx'
+customer_orders_endpoint: 'http://ylayer.personifycloud.com/personifydataservices/personifydata.svc/CL_MindBodyCustomerOrder'
+customer_orders_username: FFWUSER
+customer_orders_password: ffwuser1
