@@ -117,12 +117,12 @@ class GoogleTagResponseSubscriber implements EventSubscriberInterface {
    */
   public function getTag($container_id, $compact = FALSE) {
     // Build script tags.
-    $noscript = <<<EOS
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=$container_id"
+    $noscript = '
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=' . $container_id .'"
  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-EOS;
-    $script = <<<EOS
-<script type="text/javascript">
+';
+    $script = "
+<script type=\"text/javascript\">
 (function(w,d,s,l,i){
 
   w[l]=w[l]||[];
@@ -137,7 +137,7 @@ EOS;
 
 })(window,document,'script','dataLayer','$container_id');
 </script>
-EOS;
+";
 
     if ($compact) {
       $noscript = str_replace("\n", '', $noscript);
@@ -146,7 +146,7 @@ EOS;
 
     $open = '<!-- Google Tag Manager -->';
     $close = '<!-- End Google Tag Manager -->';
-    $script = implode("\n", [$open, $noscript, $script, $close, '']);
+    $script = implode("\n", ['', $open, $noscript, $script, $close, '']);
 
     return $script;
 
