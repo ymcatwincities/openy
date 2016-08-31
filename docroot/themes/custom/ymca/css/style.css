@@ -9608,6 +9608,10 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   font-family: 'YMCA';
 }
 
+.file a {
+  color: inherit;
+}
+
 a.tel-link {
   color: #0889cd;
   font-size: 15px;
