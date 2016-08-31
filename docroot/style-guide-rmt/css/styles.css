@@ -310,12 +310,6 @@ a img {
     border-left: 15px solid #92278f;
     border-right: 15px solid #92278f;
     border-top: 11px solid #92278f; }
-    .btn--purple:hover {
-      background: #7e227b;
-      border-bottom: 11px solid #7e227b;
-      border-left: 15px solid #7e227b;
-      border-right: 15px solid #7e227b;
-      border-top: 11px solid #7e227b; }
   .btn--purple-light {
     background: #c6168d;
     border-bottom: 11px solid #c6168d;
@@ -336,47 +330,77 @@ a img {
     border-top: 11px solid #f47920; }
 
 /* style button has icon */
-.btn--has-icon {
-  padding: 0 !important;
-  position: relative;
-  overflow: hidden;
-  width: auto !important;
-  margin-bottom: 15px; }
-  .btn--has-icon .text-button {
-    padding: 10px !important;
-    background: transparent !important; }
-  .btn--has-icon__text {
-    border-radius: 0 3px 3px 0; }
-    .btn--has-icon__text a {
-      border: 0;
-      color: #ffffff;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: bold;
-      line-height: 1;
-      padding: 11px 15px;
-      text-decoration: none;
-      text-transform: uppercase;
-      white-space: nowrap; }
-  .btn--has-icon__img {
-    padding: 8px 10px !important;
-    border-radius: 3px 0 0 3px !important;
-    width: 20px !important;
-    margin: 0 !important; }
-  .btn--has-icon .icon--blue {
+.btn-icon__text {
+  border-radius: 0 3px 3px 0;
+  padding: 11px 15px; }
+  .btn-icon__text a {
+    border: 0;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap; }
+
+.btn-icon__img {
+  padding: 8px 10px;
+  border-radius: 3px 0 0 3px; }
+
+.icon--blue {
+  background: #0089d0; }
+  .icon--blue .btn-icon__img {
     background-color: #0060af; }
-  .btn--has-icon .icon--blue--light {
+
+.icon--blue-light {
+  background: #00aeef; }
+  .icon--blue-light .btn-icon__img {
     background-color: #0089d0; }
-  .btn--has-icon .icon--purple {
+
+.icon--purple {
+  background: #92278f; }
+  .icon--purple .btn-icon__img {
     background-color: #5c2e91; }
-  .btn--has-icon .icon--purple--light {
+
+.icon--purple-light {
+  background: #c6168d; }
+  .icon--purple-light .btn-icon__img {
     background-color: #92278f; }
-  .btn--has-icon .icon--green {
+
+.icon--green {
+  background: #01a490; }
+  .icon--green .btn-icon__img {
     background-color: #006b6b; }
-  .btn--has-icon .icon--orange {
+
+.icon--orange {
+  background: #f47920; }
+  .icon--orange .btn-icon__img {
     background-color: #dd5828; }
-  .btn--has-icon tr td {
-    padding: 0; }
+
+.btn-border {
+  background-color: transparent;
+  border: 2px solid #f3f3f3;
+  margin: 5px 8px;
+  font-size: 15px;
+  line-height: 36px;
+  display: inline-block;
+  width: 215px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 3px; }
+  .btn-border.shorter {
+    width: 145px; }
+  .btn-border--green {
+    color: #01a490; }
+  .btn-border--orange {
+    color: #f47920; }
+  .btn-border--purple {
+    color: #c6168d; }
+  .btn-border--blue {
+    color: #0060af; }
 
 .link {
   text-decoration: none;
@@ -557,19 +581,6 @@ a img {
     margin-bottom: 20px; }
   .block-copyright__bottom {
     color: #424242; }
-
-.btn--border {
-  background-color: transparent;
-  border: 2px solid #f3f3f3;
-  margin: 5px 8px; }
-  .btn--border--green {
-    color: #01a490; }
-  .btn--border--orange {
-    color: #f47920; }
-  .btn--border--purple {
-    color: #c6168d; }
-  .btn--border--blue {
-    color: #0060af; }
 
 .block-hero {
   position: relative;

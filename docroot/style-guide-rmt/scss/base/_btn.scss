@@ -1,4 +1,5 @@
 /* style button */
+
 .btn {
   background: $blue-light;
   border-bottom: 11px solid $blue-light;
@@ -40,14 +41,6 @@
     border-left: 15px solid $purple;
     border-right: 15px solid $purple;
     border-top: 11px solid $purple;
-
-    &:hover {
-      background: darken($purple, 5%);
-      border-bottom: 11px solid darken($purple, 5%);
-      border-left: 15px solid darken($purple, 5%);
-      border-right: 15px solid darken($purple, 5%);
-      border-top: 11px solid darken($purple, 5%);
-    }
   }
 
   &--purple-light {
@@ -76,20 +69,12 @@
 }
 /* style button has icon */
 
-.btn--has-icon {
-  padding: 0 !important;
-  position: relative;
-  overflow: hidden;
-  width: auto !important;
-  margin-bottom: 15px;
-
-  .text-button {
-    padding: 10px !important;
-    background: transparent !important;
-  }
+.btn-icon {
 
   &__text {
     border-radius: 0 3px 3px 0 ;
+    padding: 11px 15px;
+
     a {
       border: 0;
       color: $white;
@@ -97,7 +82,6 @@
       font-size: 15px;
       font-weight: bold;
       line-height: 1;
-      padding: 11px 15px;
       text-decoration: none;
       text-transform: uppercase;
       white-space: nowrap;
@@ -105,45 +89,94 @@
   }
 
   &__img {
-    padding: 8px 10px !important;
-    border-radius: 3px 0 0 3px !important;
-    width: 20px !important;
-    margin: 0 !important;
+    padding: 8px 10px;
+    border-radius: 3px 0 0 3px;
   }
+}
 
+.icon {
 
-  .icon {
+  &--blue {
+    background: $blue;
 
-    &--blue {
-      background-color: $blue-dark ;
-    }
-
-    &--blue--light {
-      background-color: $blue ;
-    }
-
-    &--purple {
-      background-color: $purple-dark ;
-    }
-
-    &--purple--light {
-      background-color: $purple ;
-    }
-
-    &--green {
-      background-color: $green-dark ;
-    }
-
-    &--orange {
-      background-color: $orange-dark ;
+    .btn-icon__img {
+      background-color: $blue-dark;
     }
   }
 
+  &--blue-light {
+    background: $blue-light;
 
-  tr {
-    td {
-      padding: 0;
+    .btn-icon__img {
+      background-color: $blue;
     }
+  }
+
+  &--purple {
+    background: $purple;
+
+    .btn-icon__img {
+      background-color: $purple-dark;
+    }
+  }
+
+  &--purple-light {
+    background: $purple-light;
+
+    .btn-icon__img {
+      background-color: $purple;
+    }
+  }
+
+  &--green {
+    background: $green;
+
+    .btn-icon__img {
+      background-color: $green-dark;
+    }
+  }
+
+  &--orange {
+    background: $orange;
+
+    .btn-icon__img {
+      background-color: $orange-dark;
+    }
+  }
+}
+
+.btn-border {
+  background-color: transparent;
+  border: 2px solid $gray-f3;
+  margin: 5px 8px;
+  font-size: 15px;
+  line-height: 36px;
+  display: inline-block;
+  width: 215px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 3px;
+
+  &.shorter {
+    width: 145px;
+  }
+
+  &--green {
+    color: $green;
+  }
+
+  &--orange {
+    color: $orange;
+  }
+
+  &--purple {
+    color: $purple-light;
+  }
+
+  &--blue {
+    color: $blue-dark ;
   }
 }
 
