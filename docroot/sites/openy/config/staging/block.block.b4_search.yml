@@ -1,0 +1,20 @@
+uuid: de2a3acc-4054-4109-9500-a48921531b40
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - b4
+id: b4_search
+theme: b4
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+visibility: {  }

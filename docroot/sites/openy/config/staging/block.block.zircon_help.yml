@@ -1,0 +1,20 @@
+uuid: 0e174af0-d570-48b2-9b01-01ae4eac8ab4
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - zircon
+id: zircon_help
+theme: zircon
+region: content
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

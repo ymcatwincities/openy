@@ -134,6 +134,7 @@ module:
   ymca_field_holiday_hours: 0
   ymca_field_office_hours: 0
   ymca_frontend: 0
+  ymca_groupex_google_cache: 0
   ymca_hours: 0
   ymca_link_formatter: 0
   ymca_mappings: 0
