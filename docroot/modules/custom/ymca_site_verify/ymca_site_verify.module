@@ -1,12 +1,11 @@
 <?php
 /**
  * @file
+ * Contains ymca_site_verify hooks.
  */
 
 /**
  * Implements hook_page_attachments().
- *
- * Add a meta tag to the HEAD.
  */
 function ymca_site_verify_page_attachments(array &$page) {
   if (\Drupal::service('path.matcher')->isFrontPage()) {
