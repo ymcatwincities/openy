@@ -1,0 +1,20 @@
+uuid: 6f83ace7-cae4-4dea-9100-da34fc6d37d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - b4
+id: b4_powered
+theme: b4
+region: main_menu
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }
