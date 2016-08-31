@@ -1,0 +1,20 @@
+uuid: 3498a309-bf28-4ef9-bb00-e4a778e0f24b
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - jethro
+id: jethro_search
+theme: jethro
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+visibility: {  }
