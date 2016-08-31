@@ -32,7 +32,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   /**
    * Min time value that should be available on form.
    */
-  const MIN_TIME_RANGE = 5;
+  const MIN_TIME_RANGE = 4;
 
   /**
    * Max time value that should be available on form.
@@ -349,11 +349,15 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             ]);
 
             // Add link only for not excluded items.
+            $book = '';
             if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
-              $class = Link::createFromRoute($class, 'ymca_mindbody.pt.book', [], $options);
+              $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
             }
 
-            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = $class;
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+              'class' => $class,
+              'book' => $book,
+            ];
           }
         }
       }

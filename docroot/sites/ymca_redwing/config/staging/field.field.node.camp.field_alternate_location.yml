@@ -1,0 +1,33 @@
+uuid: 22bf2c9b-74b3-4f54-9f00-00744471e2e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alternate_location
+    - node.type.camp
+  module:
+    - address
+id: node.camp.field_alternate_location
+field_name: field_alternate_location
+entity_type: node
+bundle: camp
+label: 'Alternate Office Location'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  fields:
+    postalCode: postalCode
+    addressLine1: addressLine1
+    administrativeArea: '0'
+    locality: '0'
+    dependentLocality: '0'
+    sortingCode: '0'
+    addressLine2: '0'
+    organization: '0'
+    recipient: '0'
+  langcode_override: ''
+field_type: address

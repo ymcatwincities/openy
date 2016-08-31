@@ -1,0 +1,182 @@
+uuid: 790ca8d8-6582-481d-9d00-bac4860e7e9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.camp.field_alert
+    - field.field.node.camp.field_alternate_location
+    - field.field.node.camp.field_body
+    - field.field.node.camp.field_camp_links
+    - field.field.node.camp.field_content
+    - field.field.node.camp.field_facebook_page_id
+    - field.field.node.camp.field_include_general_blog_posts
+    - field.field.node.camp.field_location
+    - field.field.node.camp.field_main_promos
+    - field.field.node.camp.field_phone
+    - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_registration_block
+    - field.field.node.camp.field_subtitle
+    - node.type.camp
+  module:
+    - address
+    - inline_entity_form
+    - path
+    - telephone
+    - text
+id: node.camp.default
+targetEntityType: node
+bundle: camp
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  field_alert:
+    weight: 14
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_alternate_location:
+    weight: 12
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_body:
+    weight: 15
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_camp_links:
+    weight: 16
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_content:
+    weight: 10
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_facebook_page_id:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_include_general_blog_posts:
+    weight: 20
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_location:
+    weight: 11
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_main_promos:
+    weight: 17
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_phone:
+    weight: 21
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_promo_slideshow:
+    weight: 13
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_registration_block:
+    weight: 18
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_subtitle:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_sitemap_exclude: true
+  promote: true
+  sticky: true

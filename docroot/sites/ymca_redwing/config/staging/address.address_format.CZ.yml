@@ -1,0 +1,19 @@
+uuid: 3456f101-93ca-4214-b500-d7f71d2aa7b7
+langcode: en
+status: true
+dependencies: {  }
+countryCode: CZ
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{3}[ ]?\d{2}'
+postalCodePrefix: null

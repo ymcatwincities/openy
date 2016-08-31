@@ -1,0 +1,10 @@
+uuid: dd1f6815-5b66-40a8-a71e-30273a23b677
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.camp_blog_teaser
+label: 'Camp blog teaser'
+targetEntityType: node
+cache: true
