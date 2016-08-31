@@ -588,7 +588,8 @@ a img {
   padding-right: 10px;
   max-width: 686px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  width: 100%; }
   .block-body__header {
     background-color: #424242;
     background-image: url("https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png"), url("https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png");
@@ -609,36 +610,16 @@ a img {
       vertical-align: sub;
       width: 32px; }
   .block-body__item {
-    border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 30px;
-    padding-bottom: 20px; }
+    border-bottom: 1px solid #f0f0f0; }
     .block-body__item__content {
-      margin: 0 auto 15px;
-      max-width: 456px; }
+      padding-top: 30px;
+      padding-bottom: 20px; }
+      .block-body__item__content p {
+        margin: 0 auto 15px;
+        max-width: 456px; }
     .block-body__item:last-child {
       border-bottom: none;
       margin-bottom: 0; }
-  .block-body__table {
-    border-spacing: 0;
-    border: 0;
-    margin-bottom: 30px;
-    width: 100%;
-    border-collapse: collapse;
-    line-height: 0;
-    padding: 0;
-    background-color: #424242; }
-    .block-body__table tr {
-      background-color: transparent;
-      border-collapse: collapse;
-      padding: 0; }
-      .block-body__table tr td {
-        vertical-align: middle;
-        border-spacing: 0;
-        border: 0;
-        border-collapse: collapse;
-        padding: 0; }
-  .block-body .last img {
-    margin-right: -1px; }
 
 .block-cta {
   margin: 0 auto;
