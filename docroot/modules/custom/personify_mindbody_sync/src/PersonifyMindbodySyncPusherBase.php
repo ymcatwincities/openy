@@ -5,6 +5,7 @@ namespace Drupal\personify_mindbody_sync;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\environment_config\EnvironmentConfigServiceInterface;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
@@ -16,6 +17,9 @@ use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
  */
 abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncPusherInterface {
 
+  /**
+   * Test client ID.
+   */
   const TEST_CLIENT_ID = '69696969';
 
   /**
@@ -61,50 +65,56 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   protected $services;
 
   /**
-   * Mode.
+   * Is production flag.
    *
    * @var bool
    */
-  protected $debug = TRUE;
+  protected $isProduction;
+
+  /**
+   * Mindbody config.
+   *
+   * @var array
+   */
+  protected $mindbodyConfig;
 
   /**
    * PersonifyMindbodySyncPusher constructor.
    *
-   * @param \Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper $wrapper
+   * @param PersonifyMindbodySyncWrapper $wrapper
    *   Data wrapper.
-   * @param \Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface $client
+   * @param MindbodyCacheProxyInterface $client
    *   MindBody caching client.
    * @param ConfigFactory $config
    *   Config factory.
-   * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
+   * @param LoggerChannelFactory $logger_factory
    *   Logger factory.
+   * @param EnvironmentConfigServiceInterface $env_config
+   *   Environment config.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory, EnvironmentConfigServiceInterface $env_config) {
     $this->wrapper = $wrapper;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
     $this->client = $client;
     $this->config = $config;
+    $this->mindbodyConfig = $env_config->getActiveConfig('mindbody.settings');
 
     // Check the mode.
     $settings = $this->config->get('personify_mindbody_sync.settings');
-    $this->debug = $settings->get('debug');
+    $this->isProduction = (bool) $settings->get('is_production');
   }
 
   /**
    * Push orders.
    *
-   * @param bool $debug
-   *   Mode.
-   *
    * @return $this
    *   Returns itself for chaining.
    */
-  protected function pushOrders($debug = TRUE) {
-    $config = \Drupal::service('environment_config.handler')->getActiveConfig('mindbody.settings');
+  protected function pushOrders() {
     $source = $this->wrapper->getSourceData();
 
-    if ($debug) {
-      // Limit count of orders for while debugging.
+    // Limit count of orders for while debugging.
+    if (!$this->isProduction) {
       $source = array_slice($source, 0, 1);
     }
 
@@ -137,14 +147,18 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $all_orders = [];
 
     foreach ($source as $id => $order) {
-      // Do not push the order if it's already pushed.
       $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
-      if ($cache_entity) {
-        $order_data = $cache_entity->get('field_pmc_ord_data');
-        if (!$order_data->isEmpty()) {
-          // Just skip this order.
-          continue;
-        }
+      if (!$cache_entity) {
+        $this->logger->error('Failed to find entity in the local cache.');
+        continue;
+      }
+
+      // Do not push the order if it's already pushed.
+      // @todo Need to check whether the order stats has been changed.
+      $order_data = $cache_entity->get('field_pmc_ord_data');
+      if (!$order_data->isEmpty()) {
+        // Just skip this order.
+        continue;
       }
 
       $service = $this->getServiceByProductCode($order->ProductCode);
@@ -154,17 +168,18 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         continue;
       }
 
+      $client_id = $this->isProduction ? $order->MasterCustomerId : self::TEST_CLIENT_ID;
       $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
         'UserCredentials' => [
           // According to documentation we can use credentials, but with underscore at the beginning of username.
           // @see https://developers.mindbodyonline.com/Develop/Authentication.
-          'Username' => '_' . $config['sourcename'],
-          'Password' => $config['password'],
+          'Username' => '_' . $this->mindbodyConfig['sourcename'],
+          'Password' => $this->mindbodyConfig['password'],
           'SiteIDs' => [
-            $config['site_id'],
+            $this->mindbodyConfig['site_id'],
           ],
         ],
-        'ClientID' => $debug ? self::TEST_CLIENT_ID : $order->MasterCustomerId,
+        'ClientID' => $client_id,
         'CartItems' => [
           'CartItem' => [
             'Quantity' => $order->OrderQuantity,
@@ -193,12 +208,21 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         ],
       ];
 
-      // Push the order.
+      // In order to obtain saleID for the order we'll use the next workaround.
+      // We'll get a list of orders before the push and after the push.
+      // Then we'll make a diff.
+      $sale_ids_before = $this->getClientPurchases($client_id);
+      if (FALSE === $sale_ids_before) {
+        continue;
+      }
+
+      $current_order = $all_orders[$order->MasterCustomerId][$order->OrderLineNo];
+
       try {
         $response = $this->client->call(
           'SaleService',
           'CheckoutShoppingCart',
-          $all_orders[$order->MasterCustomerId][$order->OrderLineNo],
+          $current_order,
           FALSE
         );
       }
@@ -211,13 +235,22 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         continue;
       }
       if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
-        if ($cache_entity) {
-          $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
-          $cache_entity->save();
+        // Get saleID.
+        $sale_ids_after = $this->getClientPurchases($client_id);
+        $diff = array_diff($sale_ids_after, $sale_ids_before);
 
-          // Reset status.
-          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, '');
+        if (1 !== count($diff)) {
+          $msg = 'Got more than 1 sale ID after the diff. Order item: %order';
+          $this->logger->critical($msg, ['%order' => serialize($current_order)]);
+          continue;
         }
+
+        $cache_entity->set('field_pmc_sale_id', reset($diff));
+        $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
+        $cache_entity->save();
+
+        // Reset status.
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, '');
       }
       else {
         // To reproduce this just comment ID in the cart item.
@@ -231,6 +264,61 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
     return $this;
 
+  }
+
+  /**
+   * Get client purchases.
+   *
+   * @param int $id
+   *   Client ID.
+   *
+   * @return array|bool
+   *   List of sale IDs.
+   */
+  private function getClientPurchases($id) {
+    $params = [
+      'SourceCredentials' => [
+        'SourceName' => $this->mindbodyConfig['sourcename'],
+        'Password' => $this->mindbodyConfig['password'],
+        'SiteIDs' => [$this->mindbodyConfig['site_id']],
+      ],
+      'ClientID' => $id
+    ];
+
+    try {
+      $result = $this->client->call('ClientService', 'GetClientPurchases', $params, FALSE);
+
+      if (200 !== $result->GetClientPurchasesResult->ErrorCode) {
+        $this->logger->error('Get non 200 code on ClientService with response', serialize($result->GetClientPurchasesResult));
+        return FALSE;
+      }
+
+      if (!count((array) $result->GetClientPurchasesResult->Purchases)) {
+        return [];
+      }
+
+      $items = [];
+
+      $purchases = $result->GetClientPurchasesResult->Purchases;
+      if (is_array($purchases->SaleItem)) {
+        $list = $purchases->SaleItem;
+      }
+      else {
+        $list = (array) $result->GetClientPurchasesResult->Purchases;
+      }
+
+      foreach ($list as $sale_item) {
+        $items[] = $sale_item->Sale->ID;
+      }
+
+      return $items;
+    }
+    catch (MindbodyException $e) {
+      $msg = 'Failed to get client purchases before the push: %msg';
+      $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+    }
+
+    return FALSE;
   }
 
   /**
@@ -424,7 +512,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       // Push only items which were not pushed before.
       if ($entity->get('field_pmc_clnt_data')->isEmpty()) {
-        $this->clientIds[$user_id] = $this->prepareClientObject($user_id, $personifyData, $this->debug);
+        $this->clientIds[$user_id] = $this->prepareClientObject($user_id, $personifyData);
       }
     }
 
@@ -478,13 +566,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   User ID.
    * @param \stdClass $data
    *   Personify data.
-   * @param bool $debug
-   *   Mode.
    *
    * @return \SoapVar
    *   Object ready to push to MindBody.
    */
-  protected function prepareClientObject($user_id, \stdClass $data, $debug = TRUE) {
+  protected function prepareClientObject($user_id, \stdClass $data) {
     $default_phone = '0000000000';
 
     // Fix AddressLine.
@@ -506,8 +592,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
     return new \SoapVar(
       [
-        'NewID' => $debug ? self::TEST_CLIENT_ID : $user_id,
-        'ID' => $debug ? self::TEST_CLIENT_ID : $user_id,
+        'NewID' => $this->isProduction ? $user_id : self::TEST_CLIENT_ID,
+        'ID' => $this->isProduction ? $user_id : self::TEST_CLIENT_ID,
         'FirstName' => !empty($data->FirstName) ? $data->FirstName : 'Non existent within Personify: FirstName',
         'LastName' => !empty($data->LastName) ? $data->LastName : 'Non existent within Personify: LastName',
         'Email' => !empty($data->PrimaryEmail) ? $data->PrimaryEmail : 'Non existent within Personify: Email',

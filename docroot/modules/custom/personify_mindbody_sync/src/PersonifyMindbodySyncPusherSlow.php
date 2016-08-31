@@ -15,22 +15,19 @@ class PersonifyMindbodySyncPusherSlow extends PersonifyMindbodySyncPusherBase {
    * {@inheritdoc}
    */
   public function push() {
-    $this->pushClientsSingle($this->debug);
-    parent::pushOrders($this->debug);
+    $this->pushClientsSingle();
+    parent::pushOrders();
   }
 
   /**
    * Push clients to MindBody one by one.
-   *
-   * @param bool $debug
-   *   Mode.
    */
-  private function pushClientsSingle($debug = TRUE) {
+  private function pushClientsSingle() {
     if (!parent::filerOutClients()) {
       return;
     }
 
-    if ($debug) {
+    if (!$this->isProduction) {
       $clients = [];
       $key = key($this->clientIds);
       $clients[$key] = $this->clientIds[$key];
