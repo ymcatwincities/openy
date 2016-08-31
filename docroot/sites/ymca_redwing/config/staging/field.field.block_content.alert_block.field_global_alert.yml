@@ -1,0 +1,23 @@
+uuid: 706bf185-30e3-47f1-ac00-dfec63a4a5b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.block_content.field_global_alert
+id: block_content.alert_block.field_global_alert
+field_name: field_global_alert
+entity_type: block_content
+bundle: alert_block
+label: 'Global Alert'
+description: 'Set this Alert block as global. <strong>Disables all others Global Alerts.</strong>'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Global Alert'
+  off_label: 'Set as not Global'
+field_type: boolean

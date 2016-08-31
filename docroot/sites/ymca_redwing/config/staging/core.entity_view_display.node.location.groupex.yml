@@ -1,0 +1,49 @@
+uuid: dcc54200-97a6-4a55-a83a-5858d653f47d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.groupex
+    - field.field.node.location.field_alert
+    - field.field.node.location.field_content
+    - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_include_general_blog_posts
+    - field.field.node.location.field_join_override
+    - field.field.node.location.field_location
+    - field.field.node.location.field_main_promos
+    - field.field.node.location.field_membership_block
+    - field.field.node.location.field_phone
+    - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
+    - field.field.node.location.field_schedule_content
+    - field.field.node.location.field_working_hours
+    - node.type.location
+  module:
+    - text
+    - user
+id: node.location.groupex
+targetEntityType: node
+bundle: location
+mode: groupex
+content:
+  field_schedule_content:
+    type: text_default
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_alert: true
+  field_content: true
+  field_facebook_page_id: true
+  field_include_general_blog_posts: true
+  field_join_override: true
+  field_location: true
+  field_main_promos: true
+  field_membership_block: true
+  field_phone: true
+  field_promo_slideshow: true
+  field_schedule_block: true
+  field_working_hours: true
+  langcode: true
+  links: true

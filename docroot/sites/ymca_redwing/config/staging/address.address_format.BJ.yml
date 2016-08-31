@@ -1,0 +1,20 @@
+uuid: bff23037-e573-4ec0-ab00-fe0ad3eee17d
+langcode: en
+status: true
+dependencies: {  }
+countryCode: BJ
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+uppercaseFields:
+  - addressLine1
+  - addressLine2
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: null
+postalCodePattern: null
+postalCodePrefix: null

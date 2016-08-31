@@ -9,6 +9,7 @@
   vars:
     profile: pp
     staging: sites/default/config/staging
+    site_url: http://wwww.ymcamn.org
     exclude:
     # We should manually take care about core.extension.yml. It shouldn't contain
     # config_devel, devel, stage_file_proxy
@@ -20,7 +21,7 @@
 
   tasks:
     - name: Export config
-      shell: drush config-export staging -y --skip-modules=devel,config_devel,stage_file_proxy
+      shell: drush config-export staging -y --skip-modules=devel,config_devel,stage_file_proxy -l {{ site_url }}
 
     - name: Remove excluded config files
       file:

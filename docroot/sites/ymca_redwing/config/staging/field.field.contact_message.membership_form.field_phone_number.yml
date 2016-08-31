@@ -1,0 +1,21 @@
+uuid: e67bb053-6e9c-4139-a104-4b7b88e79b95
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.membership_form
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.membership_form.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: membership_form
+label: 'Phone number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

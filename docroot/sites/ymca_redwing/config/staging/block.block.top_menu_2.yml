@@ -1,0 +1,24 @@
+uuid: 20b4ea61-3b80-462c-85f9-ea8e0b0bbf5e
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.top_menu_2
+  module:
+    - system
+  theme:
+    - ymca
+id: top_menu_2
+theme: ymca
+region: '-1'
+weight: -12
+provider: null
+plugin: 'system_menu_block:top_menu_2'
+settings:
+  id: broken
+  label: 'Top Menu 2'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }
