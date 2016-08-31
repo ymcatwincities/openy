@@ -1,0 +1,19 @@
+uuid: 30c53930-57b7-466e-9f00-e7e9d77cdb55
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.expander_block
+    - field.storage.block_content.field_block_header
+id: block_content.expander_block.field_block_header
+field_name: field_block_header
+entity_type: block_content
+bundle: expander_block
+label: 'Block Header'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

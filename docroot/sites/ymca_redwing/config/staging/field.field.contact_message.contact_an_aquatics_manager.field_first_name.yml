@@ -1,0 +1,19 @@
+uuid: 8fe51426-f523-46fd-9900-df14e9fa5a8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_an_aquatics_manager
+    - field.storage.contact_message.field_first_name
+id: contact_message.contact_an_aquatics_manager.field_first_name
+field_name: field_first_name
+entity_type: contact_message
+bundle: contact_an_aquatics_manager
+label: 'First Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
