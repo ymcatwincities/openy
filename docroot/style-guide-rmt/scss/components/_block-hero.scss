@@ -1,12 +1,27 @@
 .block-hero {
-  position: relative;
-  margin-bottom: 50px;
-  max-width: 686px;
   margin-left: auto;
   margin-right: auto;
+  max-width: 650px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  table {
+    max-width: 650px;
+    overflow: hidden;
+    width: 100%;
+  }
 
   td {
     padding: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  tr {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    width: 100%;
   }
 
   .block-hero__title {
@@ -21,12 +36,15 @@
     padding: 20px 15px;
     text-align: center;
     text-transform: uppercase;
+    max-width: 650px;
+    width: 100%;
   }
 
   img {
     width: 100%;
     height: auto;
     display: block;
+    max-width: 650px;
   }
 
   &--bg {
