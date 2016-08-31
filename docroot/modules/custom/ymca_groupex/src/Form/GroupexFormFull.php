@@ -447,6 +447,8 @@ class GroupexFormFull extends GroupexFormBase {
       unset($parameters['view_mode']);
     }
 
+    \Drupal::service('ymca_groupex.schedule_fetcher')->__construct($this->groupexHelper, $parameters);
+
     // Get classes schedules.
     $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
     // Are results empty?
