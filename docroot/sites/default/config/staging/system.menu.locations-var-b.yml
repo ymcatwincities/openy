@@ -1,0 +1,8 @@
+uuid: 00bbcc16-f431-4df5-957e-5379c2711627
+langcode: en
+status: true
+dependencies: {  }
+id: locations-var-b
+label: 'Locations Var B'
+description: ''
+locked: false

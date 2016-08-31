@@ -1,0 +1,25 @@
+uuid: be0b4115-2316-46a7-af00-f4ecebb11690
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:d24b0234-9fe4-4560-b252-821a90a19cbf'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: pricetableone_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -12
+provider: null
+plugin: 'block_content:d24b0234-9fe4-4560-b252-821a90a19cbf'
+settings:
+  id: 'block_content:d24b0234-9fe4-4560-b252-821a90a19cbf'
+  label: 'Price table one'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
