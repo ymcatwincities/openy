@@ -5,6 +5,8 @@
  * Main module for YPTF updates.
  */
 
+use Drupal\ymca_mappings\Entity\Mapping;
+
 /**
  * Initial hook_updates runner.
  */
@@ -65,4 +67,40 @@ function yptf_master_update_8002() {
       $path . 'views.view.personify_mindbody_log.yml',
     ]
   );
+}
+
+/**
+ * Populate "Personify Product" mappings.
+ */
+function yptf_master_update_8003() {
+  // Read CSV file with map.
+  $path = drupal_get_path('module', 'yptf_master');
+  $csv_file = $path . '/misc/personal_training_products_with_PID-78637_97_2003.csv';
+  $map = array_map('str_getcsv', file($csv_file));
+
+  foreach ($map as $product) {
+    $product_code = $product[3];
+    $product_code_array = explode('_', $product_code);
+
+    $data = [
+      'type' => 'personify_product',
+      'field_productid' => $product[0],
+      'field_member_price' => $product[11],
+      'field_nonmember_price' => $product[12],
+      'field_package' => $product_code_array[2],
+      'field_product_code' => $product[3],
+      'field_session_length' => $product_code_array[4],
+    ];
+    $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+    $mapping = $mapping_repository->findByLocationId($product[8]);
+    $mapping = is_array($mapping) ? reset($mapping) : $mapping;
+    if ($mapping && $mapping->hasField('field_location_ref')) {
+      $location_id = $mapping->field_location_ref->getValue()[0]['target_id'];
+      $data['field_location_ref'] = $location_id;
+    }
+
+    $mapping = Mapping::create($data);
+    $mapping->setName($product[4]);
+    $mapping->save();
+  }
 }
