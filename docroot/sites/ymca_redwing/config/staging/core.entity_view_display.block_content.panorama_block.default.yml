@@ -1,0 +1,35 @@
+uuid: 8ef63437-45ca-404d-8b51-b900a584708e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.panorama_block
+    - field.field.block_content.panorama_block.body
+    - field.field.block_content.panorama_block.field_panorama_archive
+  module:
+    - gardengnome_player
+    - text
+id: block_content.panorama_block.default
+targetEntityType: block_content
+bundle: panorama_block
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  field_panorama_archive:
+    weight: 1
+    label: hidden
+    settings:
+      display_style: inline
+      preview_style: large_230x230
+      popup_height: '300'
+      popup_width: '400'
+      autoplay: 0
+    third_party_settings: {  }
+    type: gardengnome_player_field_formatter
+hidden:
+  langcode: true

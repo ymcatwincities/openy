@@ -1,0 +1,19 @@
+uuid: f60e2f10-36fd-4669-8900-c1ef0a0923a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_ceo_last_name
+id: contact_message.become_a_supplier.field_ceo_last_name
+field_name: field_ceo_last_name
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Last Name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

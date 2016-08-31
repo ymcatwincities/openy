@@ -1,0 +1,24 @@
+uuid: 54ac2545-0d76-42b3-b634-52f14384ac5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.top-menu
+  module:
+    - system
+  theme:
+    - ymca
+id: topmenu
+theme: ymca
+region: secondary_menu
+weight: -6
+provider: null
+plugin: 'system_menu_block:top-menu'
+settings:
+  id: 'system_menu_block:top-menu'
+  label: 'Top menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

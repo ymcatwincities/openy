@@ -1,0 +1,11 @@
+uuid: 0ffadc4d-1f94-47b4-a606-068c172644cd
+langcode: en
+status: true
+dependencies: {  }
+id: video
+label: Video
+description: 'A <em>Video</em> file is a moving visual recording.'
+mimetypes:
+  - "video/*\r"
+  - "application/x-shockwave-flash\r"
+  - application/json

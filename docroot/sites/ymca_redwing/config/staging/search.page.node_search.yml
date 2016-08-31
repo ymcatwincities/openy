@@ -1,0 +1,13 @@
+uuid: 19cd7112-56c2-4a9d-a749-731f2a7cacda
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node_search
+label: Content
+path: node
+weight: -10
+plugin: node_search
+configuration:
+  rankings: {  }

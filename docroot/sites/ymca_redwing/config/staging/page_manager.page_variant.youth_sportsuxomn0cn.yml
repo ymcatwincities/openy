@@ -1,0 +1,92 @@
+uuid: d637589b-a764-4cd8-942b-43b1e4615f0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.2015_annual_report
+  content:
+    - 'block_content:basic:40225320-43ef-45bd-bb23-35921f6c3e14'
+    - 'block_content:basic:b04422af-27ad-41b9-b000-f18f8bce7da4'
+    - 'block_content:basic:bbd764bc-181b-41d4-9156-8698b4195446'
+    - 'block_content:basic:c3dab55d-8614-4445-8005-5cbfb464fe58'
+    - 'block_content:basic:dd01bce4-e54a-4743-8400-c32885618a10'
+  module:
+    - block_content
+    - panels
+id: youth_sportsuxomn0cn
+label: 'Annual Report'
+variant: panels_variant
+variant_settings:
+  blocks:
+    16d060af-11ee-4707-b02c-4414d79e81e3:
+      id: 'block_content:b04422af-27ad-41b9-b000-f18f8bce7da4'
+      label: 'Youth Sports Main Content uxomn0cn'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: -10
+      uuid: 16d060af-11ee-4707-b02c-4414d79e81e3
+      context_mapping: {  }
+    5386898c-de27-4033-be00-ac771721b8a8:
+      id: 'block_content:dd01bce4-e54a-4743-8400-c32885618a10'
+      label: 'Annual Report 2015 user modals'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: -9
+      uuid: 5386898c-de27-4033-be00-ac771721b8a8
+      context_mapping: {  }
+    94717ef3-4672-4045-a23e-622461f330b1:
+      id: 'block_content:c3dab55d-8614-4445-8005-5cbfb464fe58'
+      label: 'Annual Report 2015 Healthy Living Modal'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      uuid: 94717ef3-4672-4045-a23e-622461f330b1
+      context_mapping: {  }
+    62b99372-8280-4f48-9f02-2d39cbe52057:
+      id: 'block_content:bbd764bc-181b-41d4-9156-8698b4195446'
+      label: 'Annual Report 2015 Social Responsibility Modal'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      uuid: 62b99372-8280-4f48-9f02-2d39cbe52057
+      context_mapping: {  }
+    e6a34cf0-5deb-4370-ab00-d011e93455ff:
+      id: 'block_content:40225320-43ef-45bd-bb23-35921f6c3e14'
+      label: 'Annual Report 2015 Thank You Modal'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      uuid: e6a34cf0-5deb-4370-ab00-d011e93455ff
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 7892728d-c220-49ba-9e00-a79860e58827
+  label: null
+  weight: 0
+  layout: onecol
+  layout_settings: {  }
+  page_title: '2015 Annual Report'
+  storage_type: page_manager
+  storage_id: youth_sportsuxomn0cn
+  builder: standard
+page: 2015_annual_report
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }

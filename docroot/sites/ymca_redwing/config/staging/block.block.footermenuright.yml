@@ -1,0 +1,24 @@
+uuid: 3e35a16c-c553-4296-9c06-6a03915f4fc6
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.footer-menu-right
+  module:
+    - system
+  theme:
+    - ymca
+id: footermenuright
+theme: ymca
+region: '-1'
+weight: -1
+provider: null
+plugin: 'system_menu_block:footer-menu-right'
+settings:
+  id: 'system_menu_block:footer-menu-right'
+  label: 'Footer menu right'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

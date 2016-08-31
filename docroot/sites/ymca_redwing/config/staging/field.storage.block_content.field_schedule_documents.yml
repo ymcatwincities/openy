@@ -1,0 +1,23 @@
+uuid: 00b587e7-5fe6-4e4a-8e9c-f26d440c44c2
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - file
+id: block_content.field_schedule_documents
+field_name: field_schedule_documents
+entity_type: block_content
+type: file
+settings:
+  display_field: false
+  display_default: true
+  uri_scheme: public
+  target_type: file
+module: file
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

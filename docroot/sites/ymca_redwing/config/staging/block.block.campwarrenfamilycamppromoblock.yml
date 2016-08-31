@@ -1,0 +1,25 @@
+uuid: 8d0ef655-d520-455c-9e00-aed430026c67
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:promo_block:fabf749e-9fb0-4885-9d03-03268203abc7'
+  module:
+    - block_content
+  theme:
+    - ymca
+id: campwarrenfamilycamppromoblock
+theme: ymca
+region: '-1'
+weight: null
+provider: null
+plugin: 'block_content:fabf749e-9fb0-4885-9d03-03268203abc7'
+settings:
+  id: 'block_content:fabf749e-9fb0-4885-9d03-03268203abc7'
+  label: 'Camp warren: Family camp - Promo block'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
