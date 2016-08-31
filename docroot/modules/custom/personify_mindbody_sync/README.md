@@ -5,8 +5,12 @@ The module have 2 syncers: fast and slow.
   * Fast proceeds withing last 24 hours.
   * Slow proceeds with all failed items.
  
-By default Syncer is in DEBUG mode. In order to run it in production
-you have to disable DEBUG mode.
+By default the Syncer is not in production mode. In order to run it in production
+you have to enable production mode.
+
+To enable production mode:
+
+  `drush cset personify_mindbody_sync.settings is_production 1`
 
 To run the process use the next code:
 

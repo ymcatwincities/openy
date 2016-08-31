@@ -19,7 +19,7 @@ origin_site_url: 'https://www.ymcamn.org/'
 pp_environment: 'default'
 
 # If Docker used for sql flow
-docker_sql: false
+docker_sql: true
 docker_sql_db: drupal
 docker_sql_host: 172.18.0.2
 docker_prod_image: ymca.ffwua.com:5000/dbprod
