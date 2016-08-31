@@ -1,0 +1,8 @@
+uuid: 688fec90-745a-400d-9700-a136933b453c
+langcode: en
+status: true
+dependencies: {  }
+id: jobs-suppliers-news
+label: 'Jobs, Suppliers, News'
+description: 'List of links regarding the subject'
+locked: false

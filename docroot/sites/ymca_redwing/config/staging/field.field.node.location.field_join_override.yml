@@ -1,0 +1,21 @@
+uuid: f6796ab2-a3d3-4699-bf48-727e448da24e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_join_override
+    - node.type.location
+  module:
+    - text
+id: node.location.field_join_override
+field_name: field_join_override
+entity_type: node
+bundle: location
+label: 'Join override'
+description: "Use HTML for overriding default button behavior.<br />\r\nE.g. &lt;a href=&quot;https://give.ymcatwincities.org/northcommunity&quot;&gt;GIVE NOW&lt;/a&gt;"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

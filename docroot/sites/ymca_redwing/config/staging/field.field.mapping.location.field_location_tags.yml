@@ -1,0 +1,19 @@
+uuid: 6c090148-2f13-42f6-bccd-3359eda57621
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_tags
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_tags
+field_name: field_location_tags
+entity_type: mapping
+bundle: location
+label: 'Location Tags'
+description: 'Example: YMCA'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

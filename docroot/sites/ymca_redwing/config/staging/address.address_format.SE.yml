@@ -1,0 +1,19 @@
+uuid: e7554adf-acc6-47c6-853b-59ce22a7251a
+langcode: en
+status: true
+dependencies: {  }
+countryCode: SE
+format: "%organization\n%recipient\n%addressLine1\n%addressLine2\n%postalCode %locality"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '\d{3}[ ]?\d{2}'
+postalCodePrefix: SE-

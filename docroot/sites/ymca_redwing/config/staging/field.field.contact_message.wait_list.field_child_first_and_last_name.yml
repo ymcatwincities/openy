@@ -1,0 +1,19 @@
+uuid: 613bb6b0-a52c-453e-9a05-5f4ed0189619
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.storage.contact_message.field_child_first_and_last_name
+id: contact_message.wait_list.field_child_first_and_last_name
+field_name: field_child_first_and_last_name
+entity_type: contact_message
+bundle: wait_list
+label: 'Child''s first and last name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
