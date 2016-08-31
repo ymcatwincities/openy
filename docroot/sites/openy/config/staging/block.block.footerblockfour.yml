@@ -1,0 +1,25 @@
+uuid: 919faa43-2d30-42df-a317-23c66a1978ac
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:f7d3dfa8-96d9-4f40-af0a-1031aafc5138'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: footerblockfour
+theme: multipurpose_business_theme
+region: bottom_forth
+weight: -22
+provider: null
+plugin: 'block_content:f7d3dfa8-96d9-4f40-af0a-1031aafc5138'
+settings:
+  id: 'block_content:f7d3dfa8-96d9-4f40-af0a-1031aafc5138'
+  label: 'Footer block four'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
