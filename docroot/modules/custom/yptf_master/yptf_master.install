@@ -92,7 +92,7 @@ function yptf_master_update_8003() {
       'field_session_length' => $product_code_array[4],
     ];
     $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
-    $mapping = $mapping_repository->findByLocationId($product[8]);
+    $mapping = $mapping_repository->findByLocationPersonifyBranchCode($product[8]);
     $mapping = is_array($mapping) ? reset($mapping) : $mapping;
     if ($mapping && $mapping->hasField('field_location_ref')) {
       $location_id = $mapping->field_location_ref->getValue()[0]['target_id'];
