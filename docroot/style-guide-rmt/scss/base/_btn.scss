@@ -150,18 +150,13 @@
   border: 2px solid $gray-f3;
   margin: 5px 8px;
   font-size: 15px;
-  line-height: 36px;
   display: inline-block;
-  width: 215px;
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
   text-decoration: none;
   border-radius: 3px;
-
-  &.shorter {
-    width: 145px;
-  }
+  padding: 10px 18px;
 
   &--green {
     color: $green;
