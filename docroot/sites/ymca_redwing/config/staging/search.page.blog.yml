@@ -1,0 +1,14 @@
+uuid: 008f87a2-d1a4-4f8e-a238-5644751cad47
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: blog
+label: Content
+path: blog
+weight: 0
+plugin: node_search
+configuration:
+  rankings:
+    relevance: 8

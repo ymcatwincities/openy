@@ -1,0 +1,19 @@
+uuid: b4bc6e89-cd97-43d4-8d00-ac961bce5b87
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_an_aquatics_manager
+    - field.storage.contact_message.field_comments
+id: contact_message.contact_an_aquatics_manager.field_comments
+field_name: field_comments
+entity_type: contact_message
+bundle: contact_an_aquatics_manager
+label: 'How can we help?    (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

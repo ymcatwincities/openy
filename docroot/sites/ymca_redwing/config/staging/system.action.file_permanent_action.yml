@@ -1,0 +1,11 @@
+uuid: 2d0fb069-8715-42df-be08-8b9dd5f7fca2
+langcode: en
+status: true
+dependencies:
+  module:
+    - file_entity
+id: file_permanent_action
+label: 'Set file status to permanent'
+type: file
+plugin: file_permanent_action
+configuration: {  }

@@ -1,0 +1,28 @@
+cache_dir: /var/www/cache
+url_prefix: 'http://propeople:givemebackup@178.62.224.139/cache/'
+timezone: America/Chicago
+ignore:
+  block_content:
+    - 1136
+    - 8341
+    - 8331
+    - 8336
+    - 8346
+    - 8351
+    - 8356
+    - 8361
+    - 8366
+    - 8371
+    - 8376
+    - 8381
+    - 8396
+    - 8406
+    - 8411
+    - 8401
+    - 8391
+    - 8386
+    - 8391
+    - 8416
+    - 8431
+    - 8436
+    - 8426
