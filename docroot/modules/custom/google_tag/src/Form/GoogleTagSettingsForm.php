@@ -1,20 +1,17 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\google_tag\Form\GoogleTagSettingsform.
- */
-
 namespace Drupal\google_tag\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class GoogleTagSettingsForm
+ * Class GoogleTagSettingsForm.
+ *
  * @package Drupal\google_tag\Form
  */
 class GoogleTagSettingsForm extends ConfigFormBase {
+
   /**
    * {@inheritdoc}
    */
@@ -44,7 +41,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       ],
     ];
 
-    // General tab
+    // General tab.
     $form['general'] = [
       '#type' => 'details',
       '#title' => $this->t('General'),
@@ -62,7 +59,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
-    // Page paths tab
+    // Page paths tab.
     $description = $this->t('On this and the following tab, specify the conditions on which the GTM JavaScript snippet will either be included in or excluded from the page response, thereby enabling or disabling tracking and other analytics.');
     $description .= $this->t(' All conditions must be satisfied for the snippet to be included. The snippet will be excluded if any condition is not met.<br /><br />');
     $description .= $this->t(' On this tab, specify the path condition.');
@@ -86,12 +83,16 @@ class GoogleTagSettingsForm extends ConfigFormBase {
     $form['paths']['path_list'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Listed paths'),
-      '#description' => $this->t('Enter one relative path per line using the "*" character as a wildcard. Example paths are: "%blog" for the blog page, "%blog-wildcard" for each individual blog, and "%front" for the front page.', ['%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>']),
+      '#description' => $this->t('Enter one relative path per line using the "*" character as a wildcard. Example paths are: "%blog" for the blog page, "%blog-wildcard" for each individual blog, and "%front" for the front page.', [
+        '%blog' => 'blog',
+        '%blog-wildcard' => 'blog/*',
+        '%front' => '<front>',
+      ]),
       '#default_value' => $config->get('path_list'),
       '#rows' => 10,
     ];
 
-    // User roles tab
+    // User roles tab.
     $form['roles'] = [
       '#type' => 'details',
       '#title' => $this->t('User roles'),
@@ -109,7 +110,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('role_toggle'),
     ];
 
-    $user_roles = array_map(function($role) {
+    $user_roles = array_map(function ($role) {
       return $role->label();
     }, user_roles());
 
@@ -120,7 +121,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#options' => $user_roles,
     ];
 
-    // Status tab
+    // Status tab.
     $list_description = t('Enter one response status per line. For more information, refer to the <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">list of HTTP status codes</a>.');
 
     $form['statuses'] = [
@@ -129,7 +130,6 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#group' => 'settings',
       '#description' => t('On this tab, specify the page response status condition. If enabled, this condition overrides the page path condition. In other words, if the HTTP response status is one of the listed statuses, then the page path condition is ignored.'),
     ];
-
 
     $form['statuses']['status_toggle'] = [
       '#type' => 'checkbox',
@@ -146,7 +146,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#rows' => 5,
     ];
 
-    // Advanced tab
+    // Advanced tab.
     $form['advanced'] = [
       '#type' => 'details',
       '#title' => $this->t('Advanced'),
@@ -202,6 +202,5 @@ class GoogleTagSettingsForm extends ConfigFormBase {
 
     parent::submitForm($form, $form_state);
   }
-
 
 }
