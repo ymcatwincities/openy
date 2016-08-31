@@ -1,0 +1,10 @@
+uuid: cd681b7e-954e-4366-8700-ad3c80f87dd6
+langcode: en
+status: '1'
+dependencies: {  }
+id: workflow_published
+label: Published
+module: null
+wid: workflow
+weight: -6
+sysid: 0

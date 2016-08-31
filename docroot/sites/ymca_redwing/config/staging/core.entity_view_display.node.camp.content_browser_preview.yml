@@ -1,0 +1,62 @@
+uuid: 798d756a-a0bf-436e-b704-4aefa9e5e592
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.content_browser_preview
+    - field.field.node.camp.field_alert
+    - field.field.node.camp.field_alternate_location
+    - field.field.node.camp.field_body
+    - field.field.node.camp.field_camp_links
+    - field.field.node.camp.field_content
+    - field.field.node.camp.field_facebook_page_id
+    - field.field.node.camp.field_include_general_blog_posts
+    - field.field.node.camp.field_location
+    - field.field.node.camp.field_main_promos
+    - field.field.node.camp.field_phone
+    - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_registration_block
+    - field.field.node.camp.field_subtitle
+    - node.type.camp
+  module:
+    - address
+    - text
+    - user
+id: node.camp.content_browser_preview
+targetEntityType: node
+bundle: camp
+mode: content_browser_preview
+content:
+  field_alternate_location:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_content:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    type: text_trimmed
+  field_location:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+hidden:
+  field_alert: true
+  field_body: true
+  field_camp_links: true
+  field_facebook_page_id: true
+  field_include_general_blog_posts: true
+  field_main_promos: true
+  field_phone: true
+  field_promo_slideshow: true
+  field_registration_block: true
+  field_sitemap_exclude: true
+  field_subtitle: true
+  langcode: true
+  links: true

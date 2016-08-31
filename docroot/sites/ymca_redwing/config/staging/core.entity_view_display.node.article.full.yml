@@ -1,0 +1,99 @@
+uuid: 16bddfcc-4de1-491d-a900-acad7e4f877f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.article.field_alert
+    - field.field.node.article.field_content
+    - field.field.node.article.field_header_button
+    - field.field.node.article.field_header_image
+    - field.field.node.article.field_header_variant
+    - field.field.node.article.field_lead_description
+    - field.field.node.article.field_promo_slideshow
+    - field.field.node.article.field_related
+    - field.field.node.article.field_secondary_sidebar
+    - field.field.node.article.field_sidebar
+    - field.field.node.article.field_sidebar_navigation
+    - field.field.node.article.field_state
+    - field.field.node.article.field_tags
+    - field.field.node.article.field_title_description
+    - image.style.2013_masthead
+    - node.type.article
+  module:
+    - image
+    - options
+    - text
+    - user
+    - ymca_link_formatter
+id: node.article.full
+targetEntityType: node
+bundle: article
+mode: full
+content:
+  field_content:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_header_button:
+    type: link_advanced_formatter
+    weight: 5
+    label: hidden
+    settings:
+      trim_length: '80'
+      url_only: false
+      url_plain: false
+      rel: 0
+      target: 0
+      classes: link-component
+    third_party_settings: {  }
+  field_header_image:
+    type: image
+    weight: 4
+    label: hidden
+    settings:
+      image_style: 2013_masthead
+      image_link: ''
+    third_party_settings: {  }
+  field_lead_description:
+    type: text_default
+    weight: 6
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_secondary_sidebar:
+    type: text_default
+    weight: 7
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_sidebar:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_sidebar_navigation:
+    type: list_key
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_title_description:
+    type: text_default
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_alert: true
+  field_header_variant: true
+  field_promo_slideshow: true
+  field_related: true
+  field_state: true
+  field_status: true
+  field_tags: true
+  langcode: true
+  links: true

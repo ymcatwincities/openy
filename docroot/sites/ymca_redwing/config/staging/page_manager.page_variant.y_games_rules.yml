@@ -1,0 +1,72 @@
+uuid: 7b485127-53c6-4f0d-8ab5-e7175707765b
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_pages
+  content:
+    - 'block_content:basic:bbad4f73-e28a-423c-849a-5ba4f04710ce'
+  module:
+    - block_content
+    - panels
+    - system
+    - ymca_retention
+_core:
+  default_config_hash: A4vasCSU4kVRIx6YkViJe1zymisXwLfMSdtN7_LXzLQ
+id: y_games_rules
+label: 'Y Games Rules'
+variant: panels_variant
+variant_settings:
+  blocks:
+    bad0e487-1d2f-494c-a050-0d5bcc8afc80:
+      id: retention_navigation_block
+      label: 'YMCA retention navigation block'
+      provider: ymca_retention
+      label_display: '0'
+      region: navigation
+      weight: 0
+      uuid: bad0e487-1d2f-494c-a050-0d5bcc8afc80
+      context_mapping: {  }
+    8ea11270-90a1-4149-ad47-3696e776c1fb:
+      id: retention_campaign_intro_block
+      label: 'YMCA retention campaign intro block'
+      provider: ymca_retention
+      label_display: '0'
+      region: hero
+      weight: 0
+      uuid: 8ea11270-90a1-4149-ad47-3696e776c1fb
+      context_mapping: {  }
+    973ee9f6-1e94-4ed7-80e6-3e872f3f36bd:
+      id: 'block_content:bbad4f73-e28a-423c-849a-5ba4f04710ce'
+      label: '[Y Retention Campaign] Rules'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: main
+      weight: 0
+      uuid: 973ee9f6-1e94-4ed7-80e6-3e872f3f36bd
+      context_mapping: {  }
+  id: panels_variant
+  uuid: bcb8080e-70e9-41cf-a0ea-1b1bca713b67
+  label: null
+  weight: 0
+  layout: ymca-retention
+  layout_settings:
+    extra_classes: ysr-compact-header
+  page_title: 'Prizes/Rules Details'
+  storage_type: page_manager
+  storage_id: y_games_rules
+  builder: standard
+page: ymca_retention_pages
+weight: -8
+selection_criteria:
+  94af18e4-252e-47c9-b2c1-d5c990f52b04:
+    id: request_path
+    pages: /ygames/rules
+    negate: false
+    context_mapping: {  }
+    uuid: 94af18e4-252e-47c9-b2c1-d5c990f52b04
+selection_logic: and
+static_context: {  }
