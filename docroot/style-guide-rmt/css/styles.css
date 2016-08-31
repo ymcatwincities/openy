@@ -584,27 +584,43 @@ a img {
     color: #424242; }
 
 .block-hero {
-  position: relative;
-  margin-bottom: 50px;
-  max-width: 686px;
   margin-left: auto;
-  margin-right: auto; }
-  .block-hero__title {
+  margin-right: auto;
+  max-width: 650px;
+  overflow: hidden;
+  position: relative;
+  width: 100%; }
+  .block-hero table {
+    max-width: 650px;
+    overflow: hidden;
+    width: 100%; }
+  .block-hero td {
+    padding: 0;
+    width: 100%;
+    margin: 0; }
+  .block-hero tr {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    width: 100%; }
+  .block-hero .block-hero__title {
+    box-sizing: border-box;
     color: #ffffff;
     font-family: 'Arial Black';
     font-size: 20px;
     font-weight: normal;
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
+    opacity: 0.9;
+    padding: 20px 15px;
     text-align: center;
     text-transform: uppercase;
-    opacity: 0.9;
-    box-sizing: border-box;
-    padding: 20px 15px; }
+    max-width: 650px;
+    width: 100%; }
   .block-hero img {
     width: 100%;
     height: auto;
-    display: block; }
+    display: block;
+    max-width: 650px; }
   .block-hero--bg--blue .block-hero__title {
     background-color: #0089d0; }
   .block-hero--bg--purple .block-hero__title {
