@@ -4,6 +4,7 @@
   max-width: 686px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 
   &__header {
     background-color: $gray-42;
@@ -30,48 +31,20 @@
 
   &__item {
     border-bottom: 1px solid $gray-f0;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
 
     &__content {
-      margin: 0 auto 15px;
-      max-width: 456px;
+      padding-top: 30px;
+      padding-bottom: 20px;
+
+      p {
+        margin: 0 auto 15px;
+        max-width: 456px;
+      }
     }
 
     &:last-child {
       border-bottom: none;
       margin-bottom: 0;
-    }
-  }
-
-  &__table {
-    border-spacing: 0;
-    border: 0;
-    margin-bottom: 30px;
-    width: 100%;
-    border-collapse: collapse;
-    line-height: 0;
-    padding: 0;
-    background-color: #424242;
-
-    tr {
-      background-color: transparent;
-      border-collapse: collapse;
-      padding: 0;
-
-      td {
-        vertical-align: middle;
-        border-spacing: 0;
-        border: 0;
-        border-collapse: collapse;
-        padding: 0;
-      }
-    }
-  }
-
-  .last {
-    img {
-      margin-right: -1px;
     }
   }
 }
