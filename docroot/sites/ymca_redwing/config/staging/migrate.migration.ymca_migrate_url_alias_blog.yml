@@ -1,0 +1,18 @@
+id: ymca_migrate_url_alias_blog
+label: 'URL aliases'
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_url_alias_blog
+process:
+  source: source
+  alias: alias
+  langcode:
+    plugin: default_value
+    default_value: en
+destination:
+  plugin: url_alias
+migration_dependencies:
+  required:
+    - ymca_migrate_node_blog

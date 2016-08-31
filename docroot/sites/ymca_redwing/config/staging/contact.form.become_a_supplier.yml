@@ -1,0 +1,29 @@
+uuid: d408036d-15b6-442a-a845-69f7f5926357
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: become_a_supplier
+label: 'Become a supplier'
+recipients:
+  - Heidi.murphy@ymcamn.org
+  - Deanna.esaw@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 1
+submissionPageContent:
+  value: "<p>Thank you for the information!.&nbsp;You may be contacted by a member of the YMCA purchasing staff if a suitable opportunity opens.</p>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Form submission for "Registering as a potential supplier"'
+  content:
+    value: "<p>A new submission was received from the \"Registering as a potential supplier\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p><strong>Will you agree to supply a W9?&nbsp;</strong>[contact_message:field_w9]</p>\r\n\r\n<p><strong>Will you agree to receive Purchase Orders electronically?&nbsp;</strong>[contact_message:field_electronic_po]</p>\r\n\r\n<p><strong>Will you agree to deliver invoices electronically into a supplier portal?&nbsp;</strong>[contact_message:field_supplier_portal]</p>\r\n\r\n<p><strong>Will you have a catalog of products to offer?&nbsp;</strong>[contact_message:field_product_catalog]</p>\r\n\r\n<p><strong><label>If you have a catalog of products, will you agree to manage your catalog using the vendor portal or punch-out?:&nbsp;</label></strong><label>[contact_message:field_vendor_portal]</label></p>\r\n\r\n<p><strong><label>Are you a minority, women or veteran owned business (51% required ownership)?&nbsp;</label></strong>[contact_message:field_wm_biz]</p>\r\n\r\n<p><strong>Company:&nbsp;</strong>[contact_message:field_company_name]</p>\r\n\r\n<p><strong><label for=\"c_148205_question_530_3\">Address:&nbsp;</label></strong><br />\r\n[contact_message:field_address]</p>\r\n\r\n<p><strong><label for=\"c_148205_question_593\">Category Class:</label></strong><label for=\"c_148205_question_593\">[contact_message:field_category_class]</label></p>\r\n\r\n<p>CEO Or Owner Information</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_ceo_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_ceo_last_name]</p>\r\n\r\n<p><strong>Main Phone:&nbsp;</strong>[contact_message:field_phone_number]</p>\r\n\r\n<p><strong>Fax: &nbsp;</strong>[contact_message:field_fax]</p>\r\n\r\n<p><strong>Order Processing Email:&nbsp;</strong>[contact_message:field_order_email]</p>\r\n\r\n<p><strong>URL:&nbsp;</strong>[contact_message:field_website_url]</p>\r\n\r\n<p>Primary Contact</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:</strong>&nbsp;[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:</strong>&nbsp;[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Title:</strong>[contact_message:field_title]</p>\r\n\r\n<p><strong>Phone Number:</strong>&nbsp;[contact_message:field_cell_phone]</p>\r\n\r\n<p><strong>Email Address:</strong>&nbsp;[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Federal ID Number:</strong>&nbsp;[contact_message:field_fein]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html
