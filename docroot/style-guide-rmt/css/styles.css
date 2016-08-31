@@ -433,36 +433,39 @@ a img {
 .header {
   margin: 0 auto;
   max-width: 600px;
+  min-width: 65%;
   padding-bottom: 28px;
   padding-top: 33px;
   padding-left: 10px;
-  padding-right: 10px; }
+  padding-right: 10px;
+  table-layout: fixed; }
   .header a {
-    padding-right: 25px;
     color: #0089d0;
     font-size: 13px;
     text-decoration: none;
     text-transform: uppercase; }
-    .header a:last-child {
-      padding-right: 0; }
     .header a.site-slogan {
       color: #c6168d;
-      display: inline-block;
       font-weight: bold;
       text-align: left;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 16px;
       text-transform: uppercase;
-      padding-left: 14px;
-      padding-right: 0; }
+      padding: 0; }
+  .header .logo {
+    width: 80px;
+    padding: 0; }
   .header .site-logo {
     padding-right: 0; }
   .header .main-menu {
     vertical-align: bottom;
     text-align: right; }
   .header__item {
-    display: inline-block;
-    padding: 10px 0; }
+    padding: 10px 0;
+    white-space: nowrap; }
+    .header__item td {
+      padding: 0 15px;
+      text-align: center; }
   .header__branch {
     padding-right: 30px; }
   .header--programs-classes a {

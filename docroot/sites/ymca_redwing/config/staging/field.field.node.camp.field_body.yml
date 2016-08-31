@@ -1,0 +1,22 @@
+uuid: f33fd696-a528-45c4-901f-314ec8e7c419
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - node.type.camp
+  module:
+    - text
+id: node.camp.field_body
+field_name: field_body
+entity_type: node
+bundle: camp
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

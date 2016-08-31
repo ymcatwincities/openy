@@ -1,0 +1,10 @@
+uuid: 2b7caf41-3c74-4cf9-8205-5ac660bb885d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.groupex
+label: Groupex
+targetEntityType: node
+cache: true

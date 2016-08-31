@@ -1,0 +1,19 @@
+uuid: 644ef49b-6108-4730-960c-12a221e44801
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employee
+    - field.storage.contact_message.field_last_name
+id: contact_message.cc_wellness_employee.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: cc_wellness_employee
+label: 'Last Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

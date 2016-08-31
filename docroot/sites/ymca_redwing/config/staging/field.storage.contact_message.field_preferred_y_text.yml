@@ -1,0 +1,90 @@
+uuid: 80c17fef-c401-4f24-895d-93632256078f
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_preferred_y_text
+field_name: field_preferred_y_text
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Andover
+      label: Andover
+    -
+      value: Blaisdell
+      label: Blaisdell
+    -
+      value: Burnsville
+      label: Burnsville
+    -
+      value: Eagan
+      label: Eagan
+    -
+      value: 'Elk River'
+      label: 'Elk River'
+    -
+      value: 'Emma B. Howe - Coon Rapids'
+      label: 'Emma B. Howe - Coon Rapids'
+    -
+      value: 'Forest Lake'
+      label: 'Forest Lake'
+    -
+      value: Hastings
+      label: Hastings
+    -
+      value: 'Heritage Park'
+      label: 'Heritage Park'
+    -
+      value: Hudson
+      label: Hudson
+    -
+      value: 'Lino Lakes'
+      label: 'Lino Lakes'
+    -
+      value: 'Minneapolis Downtown'
+      label: 'Minneapolis Downtown'
+    -
+      value: 'New Hope'
+      label: 'New Hope'
+    -
+      value: 'Prior Lake'
+      label: 'Prior Lake'
+    -
+      value: Ridgedale
+      label: Ridgedale
+    -
+      value: Shoreview
+      label: Shoreview
+    -
+      value: Southdale
+      label: Southdale
+    -
+      value: 'St. Paul Downtown'
+      label: 'St. Paul Downtown'
+    -
+      value: 'St. Paul Eastside'
+      label: 'St. Paul Eastside'
+    -
+      value: 'St. Paul Midway'
+      label: 'St. Paul Midway'
+    -
+      value: 'West St. Paul'
+      label: 'West St. Paul'
+    -
+      value: 'White Bear Area'
+      label: 'White Bear Area'
+    -
+      value: Woodbury
+      label: Woodbury
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
