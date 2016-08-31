@@ -3,33 +3,37 @@
 .header {
   margin: 0 auto;
   max-width: 600px;
+  min-width: 65%;
   padding-bottom: 28px;
   padding-top: 33px;
   padding-left: 10px;
   padding-right: 10px;
+  table-layout: fixed;
 
   a {
-    padding-right: 25px;
     color: $blue;
     font-size: 13px;
     text-decoration: none;
     text-transform: uppercase;
 
-    &:last-child {
-      padding-right: 0;
-    }
-
     &.site-slogan {
       color: $purple-light;
-      display: inline-block;
       font-weight: bold;
       text-align: left;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 16px;
       text-transform: uppercase;
-      padding-right: 30px;
-      padding-left: 14px;
+      padding: 0;
     }
+  }
+
+  .logo {
+    width: 80px;
+    padding: 0;
+  }
+
+  .site-logo {
+    padding-right: 0;
   }
 
   .main-menu {
@@ -38,28 +42,36 @@
   }
 
   &__item {
-    display: inline-block;
     padding: 10px 0;
+    white-space: nowrap;
+
+    td {
+      padding: 0 15px;
+      text-align: center;
+    }
+  }
+
+  &__branch {
+    padding-right: 30px;
   }
 
   &--programs-classes {
     a {
       color: $green;
-    }
 
-    .site-slogan {
-      color: $blue;
+      &.site-slogan {
+        color: $blue;
+      }
     }
-
   }
 
   &--camps-summer {
     a {
       color: $orange;
-    }
 
-    .site-slogan {
-      color: $green;
+      &.site-slogan {
+        color: $green;
+      }
     }
   }
 }

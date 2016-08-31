@@ -1,0 +1,75 @@
+uuid: a4582a31-d99c-4102-9423-482efa8a2e58
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_pages
+  module:
+    - panels
+    - system
+    - ymca_retention
+_core:
+  default_config_hash: wIyOCFPOLItAI5kRjLJn62lIl9L8-yQYzDUuZFaLYmI
+id: y_games_team
+label: 'Y Games Team'
+variant: panels_variant
+variant_settings:
+  blocks:
+    93d38335-93f1-4b3d-8a9c-3ea5ef491e38:
+      id: retention_navigation_block
+      label: 'YMCA retention navigation block'
+      provider: ymca_retention
+      label_display: '0'
+      region: navigation
+      weight: 0
+      uuid: 93d38335-93f1-4b3d-8a9c-3ea5ef491e38
+      context_mapping: {  }
+    e7e73158-02fa-48b8-b787-46336feb4dea:
+      id: retention_campaign_intro_block
+      label: 'YMCA retention campaign intro block'
+      provider: ymca_retention
+      label_display: '0'
+      region: hero
+      weight: 0
+      uuid: e7e73158-02fa-48b8-b787-46336feb4dea
+      context_mapping: {  }
+    be013d73-046e-4f71-8f44-83ac49861846:
+      id: retention_registration_block
+      label: 'YMCA retention registration block'
+      provider: ymca_retention
+      label_display: '0'
+      region: registration
+      weight: 0
+      uuid: be013d73-046e-4f71-8f44-83ac49861846
+      context_mapping: {  }
+    fdffb577-5e19-4159-92af-b8aaf818915d:
+      id: retention_track_activity_login_block
+      label: 'YMCA retention track activity login block'
+      provider: ymca_retention
+      label_display: '0'
+      region: registration
+      weight: 0
+      uuid: fdffb577-5e19-4159-92af-b8aaf818915d
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 251dcc01-3697-4759-8524-f87438aee7b4
+  label: null
+  weight: 0
+  layout: ymca-retention
+  layout_settings:
+    extra_classes: ''
+  page_title: 'Y GAMES 2016'
+  storage_type: page_manager
+  storage_id: y_games_team
+  builder: standard
+page: ymca_retention_pages
+weight: -9
+selection_criteria:
+  0599fb3c-2a7a-4f8a-b18f-89fb09e3f977:
+    id: request_path
+    pages: /ygames/team
+    negate: false
+    context_mapping: {  }
+    uuid: 0599fb3c-2a7a-4f8a-b18f-89fb09e3f977
+selection_logic: and
+static_context: {  }

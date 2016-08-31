@@ -1,0 +1,21 @@
+uuid: 6ee235bc-c973-4bfd-bc2f-473f8c2ef2bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.working_hours_block
+    - field.storage.block_content.field_custom_hours
+  module:
+    - ymca_field_custom_hours
+id: block_content.working_hours_block.field_custom_hours
+field_name: field_custom_hours
+entity_type: block_content
+bundle: working_hours_block
+label: 'Custom Hours'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: ymca_custom_hours

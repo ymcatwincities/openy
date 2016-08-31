@@ -1,0 +1,26 @@
+uuid: f0622531-a201-49f6-a91e-3014aa3e20ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.node.field_alert
+    - node.type.camp
+id: node.camp.field_alert
+field_name: field_alert
+entity_type: node
+bundle: camp
+label: Alert
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert_block: alert_block
+    sort:
+      field: _none
+field_type: entity_reference
