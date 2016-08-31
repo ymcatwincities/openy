@@ -1,0 +1,21 @@
+uuid: 2cc55b7f-4cdb-4a37-b400-d5341467b1d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_fax
+  module:
+    - telephone
+id: contact_message.become_a_supplier.field_fax
+field_name: field_fax
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Company Fax Number'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

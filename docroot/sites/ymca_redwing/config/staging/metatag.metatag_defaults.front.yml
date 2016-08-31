@@ -1,0 +1,14 @@
+uuid: f6f9bc01-ade5-4768-b700-ccede476ecd4
+langcode: en
+status: true
+dependencies: {  }
+id: front
+label: 'Front page'
+tags:
+  canonical_url: '[site:url]'
+  title: '[site:name]'
+  content_language: en
+  shortlink: '[site:url]'
+  og_type: website
+  og_site_name: '[site:name]'
+  og_title: '[site:name]'

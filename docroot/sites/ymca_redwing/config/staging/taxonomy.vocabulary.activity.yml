@@ -1,0 +1,9 @@
+uuid: b6b958ac-3fa7-44c4-b34b-756d880df324
+langcode: en
+status: true
+dependencies: {  }
+name: Activity
+vid: activity
+description: 'The vocabulary with activities.'
+hierarchy: 0
+weight: 0
