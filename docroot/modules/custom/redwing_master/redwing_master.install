@@ -30,3 +30,15 @@ function redwing_master_update_8002() {
     ]
   );
 }
+
+/**
+ * Set proper permissions.
+ */
+function redwing_master_update_8003() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'user.role.anonymous.yml',
+      REDWING_CONFDIR . 'user.role.authenticated.yml',
+    ]
+  );
+}
