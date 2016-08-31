@@ -1,0 +1,46 @@
+name: OpenY
+type: profile
+description: 'Open Y Drupal distribution.'
+core: 8.x
+distribution:
+  name: OpenY
+
+# Required modules
+dependencies:
+  # Core modules.
+  - block_content
+  - breakpoint
+  - ckeditor
+  - config
+  - contextual
+  - contact
+  - menu_link_content
+  - datetime
+  - block_content
+  - quickedit
+  - editor
+  - entity_reference
+  - help
+  - history
+  - image
+  - menu_ui
+  - node
+  - options
+  - path
+  - page_cache
+  - taxonomy
+  - text
+  - dblog
+  - shortcut
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  # Contrib modules.
+  # OpenY modules.
+
+themes:
+  - bartik
+  - seven
