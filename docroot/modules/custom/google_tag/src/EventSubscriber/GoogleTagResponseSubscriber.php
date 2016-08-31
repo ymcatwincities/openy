@@ -118,7 +118,7 @@ class GoogleTagResponseSubscriber implements EventSubscriberInterface {
   public function getTag($container_id, $compact = FALSE) {
     // Build script tags.
     $noscript = '
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=' . $container_id .'"
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=' . $container_id . '"
  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ';
     $script = "
