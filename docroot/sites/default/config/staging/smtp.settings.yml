@@ -1,4 +1,4 @@
-smtp_on: false
+smtp_on: true
 smtp_host: 178.62.224.139
 smtp_hostbackup: ''
 smtp_port: '1025'

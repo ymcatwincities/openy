@@ -1,0 +1,8 @@
+uuid: d293c6f0-57e9-4a3e-a064-f583d5b55fc8
+langcode: en
+status: true
+dependencies: {  }
+id: programs-classes
+label: 'Programs & Classes Menu'
+description: ''
+locked: false

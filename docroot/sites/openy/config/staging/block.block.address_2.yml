@@ -1,0 +1,25 @@
+uuid: 44f4c280-9173-4ef7-9f00-cbc49376f346
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:4f154be6-a093-4edc-bc0f-15e2755eb46a'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: address_2
+theme: multipurpose_business_theme
+region: contact_address
+weight: -19
+provider: null
+plugin: 'block_content:4f154be6-a093-4edc-bc0f-15e2755eb46a'
+settings:
+  id: 'block_content:4f154be6-a093-4edc-bc0f-15e2755eb46a'
+  label: Address
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

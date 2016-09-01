@@ -1,0 +1,20 @@
+uuid: 3585d0bc-43fd-4308-af47-719964b58cb1
+langcode: en
+status: true
+dependencies:
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_local_tasks
+theme: multipurpose_business_theme
+region: content
+weight: -19
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }
