@@ -4173,9 +4173,25 @@ function ymca_master_update_8178() {
 }
 
 /**
- * Set proper permissions.
+ * Update wysiwyg editor config.
  */
 function ymca_master_update_8179() {
+  \Drupal::service('module_installer')->install(['google_tag', 'ymca_site_verify'], TRUE);
+
+  $path = 'modules/custom/ymca_master/config/optional/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'google_tag.settings.yml',
+      $path . 'google_tag.settings.env.yml',
+
+    ]
+  );
+}
+
+/**
+* Set proper permissions.
+ */
+function ymca_master_update_8180() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       YGTC_CONFDIR . 'user.role.anonymous.yml',
