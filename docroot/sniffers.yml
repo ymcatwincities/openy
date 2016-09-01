@@ -82,7 +82,6 @@
     sudo: yes
     stat: path={{ composer_dir }}
     register: is_composer_dir
-    when: update_tools
 
   - name: Install apt repos
     apt_repository: repo={{ item }}
