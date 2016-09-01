@@ -15,6 +15,11 @@ class GroupexScheduleFetcher {
   use GroupexRequestTrait;
 
   /**
+   * PDF print uri.
+   */
+  const PRINT_URI = 'http://www.groupexpro.com/ymcatwincities/print.php';
+
+  /**
    * Fetched raw data.
    *
    * @var array
@@ -571,6 +576,37 @@ class GroupexScheduleFetcher {
    */
   public function isEmpty() {
     return empty($this->processedData);
+  }
+
+  /**
+   * Get PDF link to location schedule.
+   *
+   * @param int $location
+   *   Location ID.
+   * @param int|bool $timestamp
+   *   Timestamp.
+   * @param int|bool $category
+   *   Category.
+   *
+   * @return \Drupal\Core\Url
+   *   Link.
+   */
+  public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
+    $query = [
+      'font' => 'larger',
+      'account' => GroupexRequestTrait::$account,
+      'l' => $location,
+    ];
+
+    if ($timestamp) {
+      $query['week'] = strtotime('Monday this week', $timestamp);
+    }
+
+    if ($category) {
+      $query['c'] = $category;
+    }
+
+    return Url::fromUri(self::PRINT_URI, ['query' => $query]);
   }
 
 }
