@@ -74,7 +74,7 @@ function yptf_master_update_8002() {
 /**
  * YPTF-133: Clear MindBody cache after booking.
  */
-function ymca_master_update_8003() {
+function yptf_master_update_8003() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -91,7 +91,7 @@ function ymca_master_update_8003() {
 /**
  * YPTF-133: Set slots hide time to 180 minutes.
  */
-function ymca_master_update_8004() {
+function yptf_master_update_8004() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -103,7 +103,7 @@ function ymca_master_update_8004() {
 /**
  * Update wysiwyg editor config.
  */
-function ymca_master_update_8005() {
+function yptf_master_update_8005() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -116,7 +116,7 @@ function ymca_master_update_8005() {
 /**
  * Add Mapping entity "Personify Product".
  */
-function ymca_master_update_8006() {
+function yptf_master_update_8006() {
   \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
 
   $path = 'sites/default/config/staging/';
@@ -130,7 +130,7 @@ function ymca_master_update_8006() {
 /**
  * Initial fields for "Personify Product" entity.
  */
-function ymca_master_update_8007() {
+function yptf_master_update_8007() {
 
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
@@ -157,7 +157,7 @@ function ymca_master_update_8007() {
 /**
  * Re-enable error handling module.
  */
-function ymca_master_update_8008() {
+function yptf_master_update_8008() {
   \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
 }
 
