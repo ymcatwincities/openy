@@ -1,0 +1,20 @@
+uuid: 69ab8422-61b1-4b76-8000-e089ecd48fd6
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - b3
+id: b3_search
+theme: b3
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+visibility: {  }

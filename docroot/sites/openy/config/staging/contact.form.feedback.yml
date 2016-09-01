@@ -1,0 +1,10 @@
+uuid: 6284b832-a689-4d2f-a804-042a7ebd3fe0
+langcode: en
+status: true
+dependencies: {  }
+id: feedback
+label: 'Website feedback'
+recipients:
+  - D8@D8.com
+reply: ''
+weight: 0
