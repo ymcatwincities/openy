@@ -9,6 +9,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Render\Markup;
 
 /**
  * Implements hook_theme().
@@ -30,6 +31,14 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'mindbody-results-content',
     ],
+    'mindbody_products_list' => [
+      'variables' => [
+        'products_to_display_member' => [],
+        'products_to_display_non_member' => [],
+        'modal_content' => '',
+      ],
+      'template' => 'mindbody-products-list',
+    ],
   ];
 }
 
@@ -46,6 +55,11 @@ function ymca_mindbody_token_info() {
     'name' => t('Schedule Appointment with'),
     'description' => t('The URL to MindBody form with pre-populated trainer'),
     'type' => 'url',
+  ];
+  $info['tokens']['node']['list-of-products-pt'] = [
+    'name' => t('List of Personify products'),
+    'description' => t('Provides an expander block with list of personify products'),
+    'type' => 'markup',
   ];
 
   return $info;
@@ -119,6 +133,56 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               }
             }
           }
+          break;
+        case 'list-of-products-pt':
+          $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
+          $mappings = $mapping_repository->loadAll();
+          $products_to_display_member = $products_to_display_non_member = [];
+          foreach ($mappings as $mapping) {
+            $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+            if (empty($mapping->field_location_ref->getValue())) {
+              $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
+              $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
+              $products_to_display_member[$product_code_array[4]][] = [
+                'price' => $product_member_price,
+                'session_length' => $product_code_array[4],
+                'package' => $product_code_array[2],
+              ];
+              $products_to_display_non_member[$product_code_array[4]][] = [
+                'price' => $product_non_member_price,
+                'session_length' => $product_code_array[4],
+                'package' => $product_code_array[2],
+              ];
+            }
+            else {
+              $settings['products_codes'][$mapping->field_product_code->getValue()[0]['value']] = [$mapping->field_productid->getValue()[0]['value']];
+              $product_location_ids[$product_code_array[0]] = $product_code_array[0];
+            }
+          }
+          $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
+          $mappings_location = $mapping_repository_location->findByLocationPersonifyBranchCode($product_location_ids);
+          $modal_content = [];
+          foreach ($mappings_location as $mapping) {
+            $modal_content[] = [
+              'name' => $mapping->getName(),
+              'id' => $mapping->field_location_personify_brcode->getValue()[0]['value'],
+            ];
+          }
+          $config = Drupal::config('ymca_mindbody.settings');
+          $settings['personify_product_url'] = $config->get('personify_product_url');
+          $variables = [
+            '#theme' => 'mindbody_products_list',
+            '#attached' => [
+              'library' => [
+                'ymca_mindbody/ymca_mindbody'
+              ],
+              'drupalSettings' => $settings,
+            ],
+            '#products_to_display_member' => $products_to_display_member,
+            '#products_to_display_non_member' => $products_to_display_non_member,
+            '#modal_content' => $modal_content,
+          ];
+          $replacements[$original] = render($variables);
           break;
       }
     }
