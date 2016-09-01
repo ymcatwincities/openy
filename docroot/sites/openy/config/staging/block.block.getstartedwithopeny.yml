@@ -1,0 +1,31 @@
+uuid: 8e61504c-b405-497e-b252-c9fdf392ec4c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:28d40849-cd85-4a14-8068-d2099f94f21b'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: getstartedwithopeny
+theme: multipurpose_business_theme
+region: content_bottom
+weight: -25
+provider: null
+plugin: 'block_content:28d40849-cd85-4a14-8068-d2099f94f21b'
+settings:
+  id: 'block_content:28d40849-cd85-4a14-8068-d2099f94f21b'
+  label: 'Get started with open y'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,63 @@
+uuid: 6c94e8e2-c39e-44a9-8d00-cc924062851c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.date_block
+    - field.field.block_content.date_block.field_content_date_before
+    - field.field.block_content.date_block.field_content_date_between
+    - field.field.block_content.date_block.field_content_date_end
+    - field.field.block_content.date_block.field_end_date
+    - field.field.block_content.date_block.field_start_date
+  module:
+    - datetime
+    - text
+id: block_content.date_block.default
+targetEntityType: block_content
+bundle: date_block
+mode: default
+content:
+  field_content_date_before:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_content_date_between:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_content_date_end:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_end_date:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_start_date:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  info:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,10 @@
+uuid: 323470c5-7f0d-4aea-b619-25e367f6b93e
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_draft_draft
+label: ''
+module: null
+from_sid: workflow_draft
+to_sid: workflow_draft
+roles: {  }

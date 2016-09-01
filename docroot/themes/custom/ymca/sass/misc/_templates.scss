@@ -222,7 +222,13 @@
       font-family: 'YMCA';
     }
   }
+
+  .file a {
+    color: inherit;
+  }
 }
+
+
 
 a.tel-link {
   color: $blue1;
@@ -445,6 +451,9 @@ a.sports-icon {
         color: $orange1;
       }
     }
+  }
+  .file a {
+    color: inherit;
   }
 }
 
