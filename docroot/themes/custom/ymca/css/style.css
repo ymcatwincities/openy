@@ -9727,8 +9727,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   font-weight: normal;
   font-family: 'YMCA';
 }
-
-.file a {
+.template_youth_sports_overview .file a {
   color: inherit;
 }
 
@@ -9927,6 +9926,9 @@ a.sports-icon.floor-hockey {
 }
 .template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
   color: #f37823;
+}
+.template_youth_sports_inner .file a {
+  color: inherit;
 }
 
 .sports_top_subheader select {
