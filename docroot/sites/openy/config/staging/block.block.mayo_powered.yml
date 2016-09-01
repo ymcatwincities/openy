@@ -1,0 +1,20 @@
+uuid: 7e197f87-a00b-4419-9f4c-76d9c7250212
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - mayo
+id: mayo_powered
+theme: mayo
+region: header
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }
