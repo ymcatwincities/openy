@@ -1,0 +1,24 @@
+uuid: ec777ca6-6a0d-49f7-8d34-5248e1339319
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-menu-left
+  module:
+    - system
+  theme:
+    - ymca
+id: footermenuleft
+theme: ymca
+region: footer_menu
+weight: -3
+provider: null
+plugin: 'system_menu_block:footer-menu-left'
+settings:
+  id: 'system_menu_block:footer-menu-left'
+  label: 'Footer menu left'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

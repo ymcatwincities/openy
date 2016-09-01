@@ -1,0 +1,22 @@
+uuid: 8c076774-e068-4976-8f96-1e34cc4f5eb1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mindbody_cache.field_mindbody_cache_params
+  module:
+    - mindbody_cache_proxy
+_core:
+  default_config_hash: oDTdrAUiN3Egr0ib6t4NmPSBkWvbX1dWfrQXxhe4i74
+id: mindbody_cache.mindbody_cache.field_mindbody_cache_params
+field_name: field_mindbody_cache_params
+entity_type: mindbody_cache
+bundle: mindbody_cache
+label: 'MindBody Cache Params'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

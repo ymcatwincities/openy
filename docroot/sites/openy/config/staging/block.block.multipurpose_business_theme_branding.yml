@@ -1,0 +1,23 @@
+uuid: fe34fde5-4fe7-415c-9141-655a40be53d1
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_branding
+theme: multipurpose_business_theme
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Open Y'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

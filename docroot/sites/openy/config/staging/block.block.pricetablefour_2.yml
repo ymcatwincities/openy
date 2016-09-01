@@ -1,0 +1,25 @@
+uuid: 3f3fc721-503c-4c1a-8c61-97883cb8799f
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:37ac6cc2-1096-424e-b507-7fcfe35d76b1'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: pricetablefour_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -13
+provider: null
+plugin: 'block_content:37ac6cc2-1096-424e-b507-7fcfe35d76b1'
+settings:
+  id: 'block_content:37ac6cc2-1096-424e-b507-7fcfe35d76b1'
+  label: 'Price table four'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

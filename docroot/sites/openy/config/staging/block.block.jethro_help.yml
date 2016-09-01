@@ -1,0 +1,20 @@
+uuid: 4b73dcd9-54eb-4001-b04e-78757fbadc66
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - jethro
+id: jethro_help
+theme: jethro
+region: content
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

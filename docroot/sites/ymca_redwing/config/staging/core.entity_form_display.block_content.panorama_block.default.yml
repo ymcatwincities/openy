@@ -1,0 +1,43 @@
+uuid: 9fdc636d-df9d-4c27-8669-57d44baf31b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.panorama_block
+    - field.field.block_content.panorama_block.body
+    - field.field.block_content.panorama_block.field_panorama_archive
+  module:
+    - file
+    - text
+id: block_content.panorama_block.default
+targetEntityType: block_content
+bundle: panorama_block
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 3
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  field_panorama_archive:
+    weight: 4
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+  info:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

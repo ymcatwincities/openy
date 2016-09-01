@@ -1,0 +1,31 @@
+uuid: bf1bccc8-d8bd-478d-ac00-eb1159b2a7d9
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:48cb58ac-c390-49fe-ac05-5e56c85a074f'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: leftsidebarblock
+theme: multipurpose_business_theme
+region: sidebar_first
+weight: -22
+provider: null
+plugin: 'block_content:48cb58ac-c390-49fe-ac05-5e56c85a074f'
+settings:
+  id: 'block_content:48cb58ac-c390-49fe-ac05-5e56c85a074f'
+  label: News
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/layout/two-sidebar\r\n/layout/left-sidebar"
+    negate: false
+    context_mapping: {  }
