@@ -539,15 +539,12 @@ a img {
 /* style block contact */
 .block-contact {
   color: #ffffff;
-  font-size: 13px;
-  margin-bottom: 25px; }
-  .block-contact__inner {
-    padding: 30px 10px 25px;
-    margin: 0 auto;
-    width: 406px; }
+  font-size: 13px; }
   .block-contact__content {
     margin: 0 auto;
     width: 406px; }
+  .block-contact .padding_top {
+    padding-top: 20px; }
   .block-contact__icon {
     padding-right: 15px; }
   .block-contact a {
@@ -558,7 +555,7 @@ a img {
     padding-right: 35px;
     white-space: nowrap; }
   .block-contact .opacity {
-    opacity: 0.4; }
+    color: #999999; }
   .block-contact--programs-classes {
     background-color: #0089d0; }
   .block-contact--camps-summer {
