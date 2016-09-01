@@ -1,0 +1,8 @@
+uuid: 2a97c0c7-f685-436f-b325-374787f012ff
+langcode: en
+status: true
+dependencies: {  }
+id: working_hours_block
+label: 'Working Hours Block'
+revision: 0
+description: 'Shows office and holiday hours.'

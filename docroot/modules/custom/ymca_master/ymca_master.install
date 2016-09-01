@@ -19,6 +19,8 @@ use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\File;
 use Drupal\file\Entity\File as EntityFile;
 
+define('YGTC_CONFDIR', 'sites/default/config/staging/');
+
 /**
  * Protecting sites with a shield.
  */
@@ -4187,6 +4189,19 @@ function ymca_master_update_8179() {
     [
       $path . 'google_tag.settings.yml',
       $path . 'google_tag.settings.env.yml',
+
+    ]
+  );
+}
+
+/**
+* Set proper permissions.
+ */
+function ymca_master_update_8180() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'user.role.anonymous.yml',
+      YGTC_CONFDIR . 'user.role.authenticated.yml',
     ]
   );
 }

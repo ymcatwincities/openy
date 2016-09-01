@@ -1,0 +1,20 @@
+uuid: d2fd5e62-76b9-46cb-8f23-351d9d65f367
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jethro
+id: jethro_content
+theme: jethro
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

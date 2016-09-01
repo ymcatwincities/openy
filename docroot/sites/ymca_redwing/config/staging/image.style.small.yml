@@ -1,0 +1,15 @@
+uuid: d5b1c6cd-2d6b-4b5f-9e4d-77edd000166d
+langcode: en
+status: true
+dependencies: {  }
+name: small
+label: 'Small (75×75)'
+effects:
+  d44c3396-5674-4ac0-ae5a-907f0362cd7c:
+    uuid: d44c3396-5674-4ac0-ae5a-907f0362cd7c
+    id: image_scale
+    weight: 1
+    data:
+      width: 75
+      height: 75
+      upscale: false

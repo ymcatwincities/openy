@@ -1,0 +1,38 @@
+uuid: 2303122d-33cd-4dbf-962c-44303dd8db9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.slide_show_item
+    - field.storage.block_content.field_image
+  module:
+    - image
+id: block_content.slide_show_item.field_image
+field_name: field_image
+entity_type: block_content
+bundle: slide_show_item
+label: Image
+description: 'The recommended size is 1200 x 600 pixels.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

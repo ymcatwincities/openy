@@ -1,0 +1,20 @@
+uuid: ae582182-fbc3-4881-805c-925f37307098
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fortytwo
+id: fortytwo_powered
+theme: fortytwo
+region: sidebar_first
+weight: -7
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }
