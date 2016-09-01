@@ -334,10 +334,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             // The next data will be hidden from user's eyes by saving to DB.
             $data['stuff_id'] = $bookable_item->Staff->ID;
             $data['is_male'] = $bookable_item->Staff->isMale;
-            $data['start_time'] = $item->getTimestamp();
             $data['trainer_name'] = $bookable_item->Staff->Name;
             $data['trainer_email'] = $bookable_item->Staff->Email;
+            $data['trainer_phone'] = $bookable_item->Staff->MobilePhone;
             $data['start_date'] = $item->format('D, d M Y H:i');
+            $data['start_time'] = $item->getTimestamp();
 
             // Save data to expirable keyvalue storage.
             $key_value = $this->keyValueExpirable->get(self::KEY_VALUE_COLLECTION);
