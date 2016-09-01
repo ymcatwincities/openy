@@ -1,0 +1,23 @@
+uuid: c3316b9a-d999-4dcc-ac00-bd1d4b5d5c0f
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_electronic_po
+id: contact_message.become_a_supplier.field_electronic_po
+field_name: field_electronic_po
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Will you agree to receive Purchase Orders electronically?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

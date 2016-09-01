@@ -1,0 +1,25 @@
+uuid: e12888ac-56b4-4d42-8936-5413c4b36ad5
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:a3a307e0-0d06-4002-9104-4b68e3f520d5'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: lightbox_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -21
+provider: null
+plugin: 'block_content:a3a307e0-0d06-4002-9104-4b68e3f520d5'
+settings:
+  id: 'block_content:a3a307e0-0d06-4002-9104-4b68e3f520d5'
+  label: Lightbox
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

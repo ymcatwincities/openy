@@ -1,0 +1,28 @@
+uuid: 76f076df-8a4f-4f42-8449-7381434d98b9
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: contact_a_program_director
+label: 'Contact a Program Director'
+recipients:
+  - stephanie.thomas@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 1
+submissionPageContent:
+  value: "<h2>Thanks for your interest in Y Child Care and Preschool.</h2>\r\n\r\n<article class=\"richtext\">\r\n<h3>Your Information:</h3>\r\n\r\n<p><strong>Name:&nbsp;</strong>[contact_message:field_first_name]&nbsp;[contact_message:field_last_name]<br />\r\n<strong>Email:</strong>&nbsp;[contact_message:field_email_address]<br />\r\n<strong>Phone:&nbsp;</strong>[contact_message:field_phone_number]<br />\r\n<strong>Preferred Contact Method:</strong>&nbsp;[contact_message:field_contact_method]<strong> </strong></p>\r\n</article>\r\n\r\n<p>You’ll hear from us soon to schedule a visit to your selected location. During the visit, you’ll see the facility, meet the staff, discuss your questions, and pick up any necessary paperwork.</p>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Childcare - Contact a Program Director'
+  content:
+    value: "<p>A new submission was received from the \"Childcare - Contact A Program Director Form\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Email Address:&nbsp;</strong>[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Phone Number:&nbsp;</strong>[contact_message:field_phone_number]</p>\r\n\r\n<p><strong>Location:&nbsp;</strong>[contact_message:field_y_location_email]</p>\r\n\r\n<p><strong>Preferred contact method:&nbsp;</strong>&nbsp;[contact_message:field_contact_method]</p>\r\n\r\n<p><b>Notes or comments</b></p>\r\n\r\n<p>[contact_message:field_comments]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html

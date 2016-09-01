@@ -1,0 +1,21 @@
+uuid: bf5caad2-2854-40cd-a300-e9bfc1cca77b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.slide_show_item
+    - field.storage.block_content.field_block_content
+  module:
+    - text
+id: block_content.slide_show_item.field_block_content
+field_name: field_block_content
+entity_type: block_content
+bundle: slide_show_item
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

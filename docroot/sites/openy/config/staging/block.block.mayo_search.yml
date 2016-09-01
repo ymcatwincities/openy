@@ -1,0 +1,20 @@
+uuid: f2dbcb09-6a53-4ff3-9101-017745caae6b
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - mayo
+id: mayo_search
+theme: mayo
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+visibility: {  }

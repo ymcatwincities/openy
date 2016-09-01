@@ -1,0 +1,18 @@
+uuid: 0238c200-93c5-410a-b000-b7bd4617a671
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_(creation)_draft
+label: Draft
+module: null
+from_sid: workflow_(creation)
+to_sid: workflow_draft
+roles:
+  workflow_author: workflow_author
+  administrator: administrator
+  contributor: contributor
+  intern: intern
+  anonymous: 0
+  authenticated: 0
+  editor: 0
+  location_editor: 0

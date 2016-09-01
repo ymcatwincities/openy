@@ -1,0 +1,21 @@
+uuid: 470daccc-e7fd-47c3-b663-997f463a620e
+langcode: en
+status: true
+dependencies: {  }
+id: personal
+label: 'Personal contact form'
+recipients:
+  - servicedesk@ymcatwincities.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: false
+submissionPageContent: {  }
+submissionPageTitle: 'Thank you'
+email:
+  custom: false
+  subject: ''
+  content:
+    value: ''
+    format: full_html
