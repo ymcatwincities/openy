@@ -2,9 +2,7 @@
 
 use Drupal\Core\DrupalKernel;
 use Drupal\Core\Site\Settings;
-use Drush\Log\LogLevel;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\Database\Database;
 
 /**
  * Implementation of hook_drush_command().
@@ -56,6 +54,6 @@ function drush_cibox_cache_rebuild() {
   set_error_handler('drush_error_handler');
 // drupal_rebuild() calls drupal_flush_all_caches() itself, so we don't do it manually.
   // drupal_rebuild($autoloader, $request);
-  drush_log(dt('Fast Cache rebuild complete. Cleared %t tables', ['%t' => count($cached)]), LogLevel::OK);
+  drush_log(dt('Fast Cache rebuild complete. Cleared %t tables', ['%t' => count($cached)]));
 
 }
