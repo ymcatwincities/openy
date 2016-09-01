@@ -44,6 +44,7 @@ function yptf_master_update_8001() {
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_date.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_sale_id.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_clnt_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_l_num.yml',
@@ -52,6 +53,7 @@ function yptf_master_update_8001() {
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_date.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_status.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_sale_id.yml',
       $path . 'ymca_personify.settings.yml',
     ]
   );
@@ -70,9 +72,99 @@ function yptf_master_update_8002() {
 }
 
 /**
- * Populate "Personify Product" mappings.
+ * YPTF-133: Clear MindBody cache after booking.
  */
 function yptf_master_update_8003() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mindbody_cache.mindbody_cache.default.yml',
+      $path . 'core.entity_view_display.mindbody_cache.mindbody_cache.default.yml',
+      $path . 'field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_location.yml',
+      $path . 'field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_trainer.yml',
+      $path . 'field.storage.mindbody_cache.field_mindbody_cache_location.yml',
+      $path . 'field.storage.mindbody_cache.field_mindbody_cache_trainer.yml',
+    ]
+  );
+}
+
+/**
+ * YPTF-133: Set slots hide time to 180 minutes.
+ */
+function yptf_master_update_8004() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Update wysiwyg editor config.
+ */
+function yptf_master_update_8005() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.anonymous.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+}
+
+/**
+ * Add Mapping entity "Personify Product".
+ */
+function yptf_master_update_8006() {
+  \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mappings.mapping_type.personify_product.yml',
+    ]
+  );
+}
+
+/**
+ * Initial fields for "Personify Product" entity.
+ */
+function yptf_master_update_8007() {
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.personify_product.default.yml',
+      $path . 'core.entity_view_display.mapping.personify_product.default.yml',
+      $path . 'field.field.mapping.personify_product.field_location_ref.yml',
+      $path . 'field.field.mapping.personify_product.field_member_price.yml',
+      $path . 'field.field.mapping.personify_product.field_nonmember_price.yml',
+      $path . 'field.field.mapping.personify_product.field_package.yml',
+      $path . 'field.field.mapping.personify_product.field_product_code.yml',
+      $path . 'field.field.mapping.personify_product.field_productid.yml',
+      $path . 'field.field.mapping.personify_product.field_session_length.yml',
+      $path . 'field.storage.mapping.field_member_price.yml',
+      $path . 'field.storage.mapping.field_nonmember_price.yml',
+      $path . 'field.storage.mapping.field_package.yml',
+      $path . 'field.storage.mapping.field_product_code.yml',
+      $path . 'field.storage.mapping.field_productid.yml',
+      $path . 'field.storage.mapping.field_session_length.yml',
+    ]
+  );
+}
+
+/**
+ * Re-enable error handling module.
+ */
+function yptf_master_update_8008() {
+  \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
+}
+
+/**
+ * Populate "Personify Product" mappings.
+ */
+function yptf_master_update_8009() {
   // Read CSV file with map.
   $path = drupal_get_path('module', 'yptf_master');
   $csv_file = $path . '/misc/personal_training_products_with_PID-78637_97_2003.csv';

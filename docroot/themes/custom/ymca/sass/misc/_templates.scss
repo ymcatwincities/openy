@@ -224,6 +224,10 @@
   }
 }
 
+.file a {
+  color: inherit;
+}
+
 a.tel-link {
   color: $blue1;
   font-size: 15px;

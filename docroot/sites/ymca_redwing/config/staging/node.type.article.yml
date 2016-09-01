@@ -1,0 +1,25 @@
+uuid: 0c6fa9f8-8272-45c6-9c00-a147acf67528
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - camps
+      - child-care-preschool
+      - community-programs
+      - health-and-fitness
+      - jobs-suppliers-news
+      - kids-teen-activities
+      - locations
+      - swimming
+    parent: 'camps:'
+name: Page
+type: article
+description: ''
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

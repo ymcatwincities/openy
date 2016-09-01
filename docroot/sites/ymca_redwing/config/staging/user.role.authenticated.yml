@@ -1,0 +1,22 @@
+uuid: 5cff7a62-ac59-469f-8800-ee0086dbc6e8
+langcode: en
+status: true
+dependencies: {  }
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  0: 'access content'
+  1: 'use text format basic_html'
+  3: 'view files'
+  4: 'access comments'
+  5: 'post comments'
+  6: 'skip comment approval'
+  7: 'access site-wide contact form'
+  8: 'access shortcuts'
+  9: 'search content'
+  11: 'use text format inline_html'
+  12: 'access sitemap'
+  13: 'create workflow workflow_transition'
+  14: 'view the administration theme'
