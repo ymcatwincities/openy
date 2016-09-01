@@ -28,17 +28,14 @@
 .block-contact {
   color: $white;
   font-size: 13px;
-  margin-bottom: 25px;
-
-  &__inner {
-    padding: 30px 10px 25px;
-    margin: 0 auto;
-    width: 406px;
-  }
 
   &__content {
     margin: 0 auto;
     width: 406px;
+  }
+
+  .padding_top {
+    padding-top: 20px;
   }
 
   &__icon {
@@ -59,7 +56,7 @@
   }
 
   .opacity {
-    opacity: 0.4;
+    color: #999999;
   }
 
   &--programs-classes {
