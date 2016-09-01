@@ -1,0 +1,67 @@
+uuid: 304a2a1d-98eb-4105-9303-3e34e1c7ea41
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.membership_form
+    - field.field.contact_message.membership_form.field_email_address
+    - field.field.contact_message.membership_form.field_first_name
+    - field.field.contact_message.membership_form.field_label
+    - field.field.contact_message.membership_form.field_last_name
+    - field.field.contact_message.membership_form.field_phone_number
+    - field.field.contact_message.membership_form.field_y_location_email
+  module:
+    - webforms
+    - ymca_alters
+id: contact_message.membership_form.default
+targetEntityType: contact_message
+bundle: membership_form
+mode: default
+content:
+  field_email_address:
+    weight: 3
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_label:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 4
+    settings:
+      placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+  field_y_location_email:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
+hidden:
+  copy: true
+  langcode: true
+  mail: true
+  message: true
+  name: true
+  subject: true

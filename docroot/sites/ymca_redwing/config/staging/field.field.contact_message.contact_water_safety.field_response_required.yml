@@ -1,0 +1,23 @@
+uuid: 785657a6-37ef-4140-9945-69a6151925f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.storage.contact_message.field_response_required
+  module:
+    - options
+id: contact_message.contact_water_safety.field_response_required
+field_name: field_response_required
+entity_type: contact_message
+bundle: contact_water_safety
+label: 'Do you require a response? <small>(optional)</small>'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'no'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

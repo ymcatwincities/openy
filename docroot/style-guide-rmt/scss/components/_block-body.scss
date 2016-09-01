@@ -4,38 +4,55 @@
   max-width: 686px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+
+  th {
+    margin: 0;
+    padding: 0;
+  }
 
   &__header {
     background-color: $gray-42;
-    background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png'), url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png');
+    //background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png'), url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png');
     background-position: center left, center right;
     background-repeat: no-repeat;
     color: $white;
     font-family: "Arial Black";
     font-size: 18px;
     font-weight: normal;
-    padding: 20px 0;
+    line-height: 82px;
     text-align: center;
     white-space: nowrap;
     width: 100%;
-    margin-bottom: 30px;
+    vertical-align: middle;
 
     img {
       height: auto;
-      padding-right: 15px;
+      margin-right: 15px;
       vertical-align: sub;
       width: 32px;
+    }
+
+    tr, td {
+      color: #fff;
+    }
+
+    td {
+      font-size: 18px;
+      vertical-align: middle;
+      line-height: 1.5;
     }
   }
 
   &__item {
-    border-bottom: 1px solid $gray-f0;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-
     &__content {
-      margin: 0 auto 15px;
-      max-width: 456px;
+      padding-top: 30px;
+      padding-bottom: 20px;
+
+      p {
+        margin: 0 auto 15px;
+        max-width: 456px;
+      }
     }
 
     &:last-child {
@@ -44,34 +61,11 @@
     }
   }
 
-  &__table {
-    border-spacing: 0;
-    border: 0;
-    margin-bottom: 30px;
-    width: 100%;
-    border-collapse: collapse;
-    line-height: 0;
-    padding: 0;
-    background-color: #424242;
-
-    tr {
-      background-color: transparent;
-      border-collapse: collapse;
-      padding: 0;
-
-      td {
-        vertical-align: middle;
-        border-spacing: 0;
-        border: 0;
-        border-collapse: collapse;
-        padding: 0;
-      }
-    }
+  .border-bottom {
+    border-bottom: 1px solid $gray-f0;
   }
 
-  .last {
-    img {
-      margin-right: -1px;
-    }
+  .height-img {
+    height: 82px;
   }
 }

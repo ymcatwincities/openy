@@ -1,0 +1,24 @@
+uuid: 48e5770d-842f-4a9b-af08-8fd2b6c524f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - file
+    - image
+_core:
+  default_config_hash: j3eXztYHBIIuS4JfywvIpoQKZ8lQkNMMIv6vjWRf5BY
+label: 'File Browser'
+id: file_browser
+type_id: entity
+type_settings:
+  entity_type: file
+  bundles: {  }
+  style: inline
+  display_plugins:
+    - 'file:file_default'
+    - 'image:image'
+  entity_browser: browse_files
+  entity_browser_settings:
+    display_review: false
+icon_uuid: null

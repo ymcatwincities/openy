@@ -1,0 +1,21 @@
+uuid: 9328362d-64b7-4ec9-8700-ee629fbd88a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.storage.contact_message.field_preferred_y_text
+  module:
+    - options
+id: contact_message.contact_personal_training.field_preferred_y_text
+field_name: field_preferred_y_text
+entity_type: contact_message
+bundle: contact_personal_training
+label: 'Y Location'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

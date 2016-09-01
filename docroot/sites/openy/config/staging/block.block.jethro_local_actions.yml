@@ -1,0 +1,18 @@
+uuid: 3ba957a7-74f5-49d6-8158-88054cf05b10
+langcode: en
+status: true
+dependencies:
+  theme:
+    - jethro
+id: jethro_local_actions
+theme: jethro
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: 29f799b6-2130-48b0-a242-66f0bdfeaf08
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:9994e42d-0bf5-4621-8e1b-278f3fd6c16a'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: footerblockthree
+theme: multipurpose_business_theme
+region: bottom_third
+weight: -22
+provider: null
+plugin: 'block_content:9994e42d-0bf5-4621-8e1b-278f3fd6c16a'
+settings:
+  id: 'block_content:9994e42d-0bf5-4621-8e1b-278f3fd6c16a'
+  label: 'Footer block three'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
