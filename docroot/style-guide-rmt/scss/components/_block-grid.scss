@@ -1,6 +1,7 @@
 .block-grid {
   margin: 0 auto;
-  max-width: 622px;
+  max-width: 620px;
+  width: 100%;
 
   table tr {
     background: transparent;
@@ -8,7 +9,7 @@
 
   .padding {
     min-height: 50px;
-    padding: 0 20px;
+    padding: 0 15px;
     vertical-align: top;
     width: 50%;
   }
