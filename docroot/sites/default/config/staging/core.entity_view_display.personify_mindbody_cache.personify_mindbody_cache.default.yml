@@ -9,6 +9,7 @@ dependencies:
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_l_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_prs_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_sale_id
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
   module:
@@ -59,6 +60,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_pmc_sale_id:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_pmc_status:
     weight: 10
     label: above

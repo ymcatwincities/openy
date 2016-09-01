@@ -1,0 +1,20 @@
+uuid: 9c2436dc-3be1-4629-a409-9c7bd5af88ea
+langcode: en
+status: true
+dependencies: {  }
+countryCode: SH
+format: "%recipient\n%organization\n%addressLine1\n%addressLine2\n%sortingCode\n%locality\n%postalCode"
+requiredFields:
+  - recipient
+  - addressLine1
+  - locality
+  - postalCode
+uppercaseFields:
+  - locality
+  - postalCode
+administrativeAreaType: null
+localityType: city
+dependentLocalityType: null
+postalCodeType: postal
+postalCodePattern: '(ASCN|STHL) 1ZZ'
+postalCodePrefix: null

@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\ymca_groupex\GroupexHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -47,6 +48,13 @@ class GroupexFormFull extends GroupexFormBase {
   protected $state;
 
   /**
+   * The Groupex Helper.
+   *
+   * @var GroupexHelper
+   */
+  protected $groupexHelper;
+
+  /**
    * GroupexFormFull constructor.
    *
    * @param QueryFactory $entity_query
@@ -55,12 +63,12 @@ class GroupexFormFull extends GroupexFormBase {
    *   The entity type manager.
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
+   * @param GroupexHelper $groupex_helper
+   *   The Groupex helper.
    */
-  public function __construct(
-    QueryFactory $entity_query,
-    EntityTypeManagerInterface $entity_type_manager,
-    LoggerChannelFactoryInterface $logger_factory
-  ) {
+  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper) {
+    $this->groupexHelper = $groupex_helper;
+
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $processed_classes_data['any'] = $this->t('-All-');
@@ -112,7 +120,8 @@ class GroupexFormFull extends GroupexFormBase {
     return new static(
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('ymca_groupex.helper')
     );
   }
 
@@ -172,7 +181,7 @@ class GroupexFormFull extends GroupexFormBase {
       '#suffix' => '</div>',
     ];
     if (!empty($values['location'])) {
-      $url = GroupexScheduleFetcher::getPdfLink($values['location']);
+      $url = $this->groupexHelper->getPdfLink($values['location']);
       $form['groupex_pdf_link']['link'] = [
         '#title' => $this->t('View This Week\'s PDF'),
         '#type' => 'link',
@@ -352,7 +361,7 @@ class GroupexFormFull extends GroupexFormBase {
     $link = [
       '#title' => $this->t('View This Week\'s PDF'),
       '#type' => 'link',
-      '#url' => GroupexScheduleFetcher::getPdfLink($parameters['location']),
+      '#url' => $this->groupexHelper->getPdfLink($parameters['location']),
       '#attributes' => [
         'class' => [
           'btn',
@@ -437,7 +446,9 @@ class GroupexFormFull extends GroupexFormBase {
       unset($parameters['instructor']);
       unset($parameters['view_mode']);
     }
-    \Drupal::service('ymca_groupex.schedule_fetcher')->__construct($parameters);
+
+    \Drupal::service('ymca_groupex.schedule_fetcher')->__construct($this->groupexHelper, $parameters);
+
     // Get classes schedules.
     $schedule = \Drupal::service('ymca_groupex.schedule_fetcher')->getSchedule();
     // Are results empty?

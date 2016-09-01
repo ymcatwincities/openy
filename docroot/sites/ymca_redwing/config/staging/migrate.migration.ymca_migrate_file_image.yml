@@ -1,0 +1,21 @@
+id: ymca_migrate_file_image
+label: 'Images migration'
+migration_group: ymca
+migration_tags:
+  - file
+source:
+  plugin: ymca_migrate_file_image
+process:
+  filename: filename
+  uri:
+    plugin: ymca_migrate_file_uri
+    source: filepath
+  filemime: filemime
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:file'

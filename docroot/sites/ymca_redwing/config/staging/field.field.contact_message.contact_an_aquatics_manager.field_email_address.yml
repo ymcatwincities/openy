@@ -1,0 +1,19 @@
+uuid: 36b0283c-0f50-442e-b749-73d6376818b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_an_aquatics_manager
+    - field.storage.contact_message.field_email_address
+id: contact_message.contact_an_aquatics_manager.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: contact_an_aquatics_manager
+label: 'Email Address'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

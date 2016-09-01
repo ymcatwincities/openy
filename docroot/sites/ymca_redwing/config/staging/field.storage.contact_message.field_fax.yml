@@ -1,0 +1,19 @@
+uuid: ea11df2f-f090-47f1-b308-08058c7e7589
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - telephone
+id: contact_message.field_fax
+field_name: field_fax
+entity_type: contact_message
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

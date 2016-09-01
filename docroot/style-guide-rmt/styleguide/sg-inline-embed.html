@@ -18,18 +18,30 @@
   <div class="component--item" id="header" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">header <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="header" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px;">
-        <div class="header__item header__branch" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px;">
-          <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-          </a>
-          <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #c6168d; display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; outline: none; padding-left: 14px; padding-right: 0; text-align: left; text-decoration: none; text-transform: uppercase;">YMCA Twin Cities</a>
-        </div>
-        <div class="header__item" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0;">
-          <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Schedules</a>
-          <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Blog</a>
-          <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">Locations</a>
-        </div>
+      <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
+        <table class="header" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; min-width: 65%; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px; table-layout: fixed;">
+          <tr class="header__item header__branch" style="font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px; white-space: nowrap;">
+            <td rowspan="2" class="logo" style="font-family: Arial, sans-serif; padding: 0; text-align: center; width: 80px;">
+              <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+              </a>
+            </td>
+            <td colspan="3" style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #c6168d; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; outline: none; padding: 0; text-align: left; text-decoration: none; text-transform: uppercase;">YMCA Twin Cities</a>
+            </td>
+          </tr>
+          <tr class="header__item" style="font-family: Arial, sans-serif; padding: 10px 0; white-space: nowrap;">
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Schedules</a>
+            </td>
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Blog</a>
+            </td>
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Locations</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
@@ -37,18 +49,30 @@
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="header" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px;">
-  <div class="header__item header__branch" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px;">
-    <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
-      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-    </a>
-    <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #c6168d; display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; outline: none; padding-left: 14px; padding-right: 0; text-align: left; text-decoration: none; text-transform: uppercase;">YMCA Twin Cities</a>
-  </div>
-  <div class="header__item" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0;">
-    <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Schedules</a>
-    <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Blog</a>
-    <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">Locations</a>
-  </div>
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
+  <table class="header" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; min-width: 65%; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px; table-layout: fixed;">
+    <tr class="header__item header__branch" style="font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px; white-space: nowrap;">
+      <td rowspan="2" class="logo" style="font-family: Arial, sans-serif; padding: 0; text-align: center; width: 80px;">
+        <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+        </a>
+      </td>
+      <td colspan="3" style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #c6168d; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; outline: none; padding: 0; text-align: left; text-decoration: none; text-transform: uppercase;">YMCA Twin Cities</a>
+      </td>
+    </tr>
+    <tr class="header__item" style="font-family: Arial, sans-serif; padding: 10px 0; white-space: nowrap;">
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Schedules</a>
+      </td>
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Blog</a>
+      </td>
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Locations</a>
+      </td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -82,7 +106,7 @@
           </div>
         </div>
         <div class="block-contact" style="background-color: #c6168d; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png'); background-position: right center; background-repeat: no-repeat; box-sizing: border-box; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; margin-bottom: 25px; padding: 30px 10px 25px;">
-          <table class="block-contact__content" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
+          <table class="block-contact__content" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
             <tr style="font-family: Arial, sans-serif;">
               <td class="block-contact__icon" style="font-family: Arial, sans-serif; padding-bottom: 10px; padding-right: 15px;">
                 <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/pin.png" alt="" style="border: 0; font-family: Arial, sans-serif; outline: none;">
@@ -104,8 +128,8 @@
         </div>
 
         <div class="block-unsubscribe" style="font-family: Arial, sans-serif; margin-bottom: 25px; text-align: center;">
-          <a class="btn btn--border btn--border--purple" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #c6168d; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">unsubscribe</a>
-          <a class="btn btn--border btn--border--blue" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MANAGE PREFERENCES</a>
+          <a class="btn-border btn-border--purple shorter" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #c6168d; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">unsubscribe</a>
+          <a class="btn-border btn-border--blue" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">MANAGE PREFERENCES</a>
         </div>
 
         <div class="block-copyright" style="font-family: Verdana; font-size: 13px; line-height: 20px; margin: 0 auto; max-width: 400px; text-align: center;">
@@ -137,7 +161,7 @@
     </div>
   </div>
   <div class="block-contact" style="background-color: #c6168d; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png'); background-position: right center; background-repeat: no-repeat; box-sizing: border-box; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; margin-bottom: 25px; padding: 30px 10px 25px;">
-    <table class="block-contact__content" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
+    <table class="block-contact__content" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
       <tr style="font-family: Arial, sans-serif;">
         <td class="block-contact__icon" style="font-family: Arial, sans-serif; padding-bottom: 10px; padding-right: 15px;"><img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/pin.png" alt="" style="border: 0; font-family: Arial, sans-serif; outline: none;"></td>
         <td style="font-family: Arial, sans-serif; padding-bottom: 10px;"><a href="#" style="border: 0; color: #fff; font-family: Arial, sans-serif; outline: none; text-decoration: none;">2125 E. Hennepin Ave.<br style="font-family: Arial, sans-serif;">Minneapolis, MN 55413</a></td>
@@ -154,8 +178,8 @@
   </div>
 
   <div class="block-unsubscribe" style="font-family: Arial, sans-serif; margin-bottom: 25px; text-align: center;">
-    <a class="btn btn--border btn--border--purple" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #c6168d; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">unsubscribe</a>
-    <a class="btn btn--border btn--border--blue" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MANAGE PREFERENCES</a>
+    <a class="btn-border btn-border--purple shorter" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #c6168d; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">unsubscribe</a>
+    <a class="btn-border btn-border--blue" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">MANAGE PREFERENCES</a>
   </div>
 
   <div class="block-copyright" style="font-family: Verdana; font-size: 13px; line-height: 20px; margin: 0 auto; max-width: 400px; text-align: center;">
@@ -174,18 +198,30 @@
   <div class="component--item" id="header-camps-summer" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">header camps summer <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="header header--camps-summer" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px;">
-        <div class="header__item header__branch" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px;">
-          <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-          </a>
-          <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #01a490; display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; outline: none; padding-left: 14px; padding-right: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Day Camp <br style="font-family: Arial, sans-serif;"> Guy Robinson</a>
-        </div>
-        <div class="header__item" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0;">
-          <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Schedules</a>
-          <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Blog</a>
-          <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">Locations</a>
-        </div>
+      <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
+        <table class="header header--camps-summer" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; min-width: 65%; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px; table-layout: fixed;">
+          <tr class="header__item header__branch" style="font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px; white-space: nowrap;">
+            <td rowspan="2" class="logo" style="font-family: Arial, sans-serif; padding: 0; text-align: center; width: 80px;">
+              <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+              </a>
+            </td>
+            <td colspan="3" style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; outline: none; padding: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Day Camp Guy Robinson</a>
+            </td>
+          </tr>
+          <tr class="header__item" style="font-family: Arial, sans-serif; padding: 10px 0; white-space: nowrap;">
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Schedules</a>
+            </td>
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Blog</a>
+            </td>
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Locations</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
@@ -193,18 +229,30 @@
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="header header--camps-summer" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px;">
-  <div class="header__item header__branch" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px;">
-    <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
-      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-    </a>
-    <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #01a490; display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; outline: none; padding-left: 14px; padding-right: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Day Camp <br style="font-family: Arial, sans-serif;"> Guy Robinson</a>
-  </div>
-  <div class="header__item" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0;">
-    <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Schedules</a>
-    <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Blog</a>
-    <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">Locations</a>
-  </div>
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
+  <table class="header header--camps-summer" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; min-width: 65%; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px; table-layout: fixed;">
+    <tr class="header__item header__branch" style="font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px; white-space: nowrap;">
+      <td rowspan="2" class="logo" style="font-family: Arial, sans-serif; padding: 0; text-align: center; width: 80px;">
+        <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+        </a>
+      </td>
+      <td colspan="3" style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; outline: none; padding: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Day Camp Guy Robinson</a>
+      </td>
+    </tr>
+    <tr class="header__item" style="font-family: Arial, sans-serif; padding: 10px 0; white-space: nowrap;">
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Schedules</a>
+      </td>
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Blog</a>
+      </td>
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #f47920; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Locations</a>
+      </td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -239,7 +287,7 @@
         </div>
 
         <div class="block-contact block-contact--camps-summer" style="background-color: #01a490; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png'); background-position: right center; background-repeat: no-repeat; box-sizing: border-box; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; margin-bottom: 25px; padding: 30px 10px 25px;">
-          <table class="block-contact__content" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
+          <table class="block-contact__content" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
             <tr style="font-family: Arial, sans-serif;">
               <td class="block-contact__icon" style="font-family: Arial, sans-serif; padding-bottom: 10px; padding-right: 15px;">
                 <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/pin.png" alt="" style="border: 0; font-family: Arial, sans-serif; outline: none;">
@@ -261,8 +309,8 @@
         </div>
 
         <div class="block-unsubscribe" style="font-family: Arial, sans-serif; margin-bottom: 25px; text-align: center;">
-          <a class="btn btn--border btn--border--green" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">unsubscribe</a>
-          <a class="btn btn--border btn--border--orange" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #f47920; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MANAGE PREFERENCES</a>
+          <a class="btn-border btn-border--green shorter" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">unsubscribe</a>
+          <a class="btn-border btn-border--orange" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #f47920; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">MANAGE PREFERENCES</a>
         </div>
 
         <div class="block-copyright" style="font-family: Verdana; font-size: 13px; line-height: 20px; margin: 0 auto; max-width: 400px; text-align: center;">
@@ -295,7 +343,7 @@
   </div>
 
   <div class="block-contact block-contact--camps-summer" style="background-color: #01a490; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png'); background-position: right center; background-repeat: no-repeat; box-sizing: border-box; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; margin-bottom: 25px; padding: 30px 10px 25px;">
-    <table class="block-contact__content" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
+    <table class="block-contact__content" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
       <tr style="font-family: Arial, sans-serif;">
         <td class="block-contact__icon" style="font-family: Arial, sans-serif; padding-bottom: 10px; padding-right: 15px;"><img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/pin.png" alt="" style="border: 0; font-family: Arial, sans-serif; outline: none;"></td>
         <td style="font-family: Arial, sans-serif; padding-bottom: 10px;"><a href="#" style="border: 0; color: #fff; font-family: Arial, sans-serif; outline: none; text-decoration: none;">2125 E. Hennepin Ave.<br style="font-family: Arial, sans-serif;">Minneapolis, MN 55413</a></td>
@@ -312,8 +360,8 @@
   </div>
 
   <div class="block-unsubscribe" style="font-family: Arial, sans-serif; margin-bottom: 25px; text-align: center;">
-    <a class="btn btn--border btn--border--green" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">unsubscribe</a>
-    <a class="btn btn--border btn--border--orange" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #f47920; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MANAGE PREFERENCES</a>
+    <a class="btn-border btn-border--green shorter" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">unsubscribe</a>
+    <a class="btn-border btn-border--orange" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #f47920; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">MANAGE PREFERENCES</a>
   </div>
 
   <div class="block-copyright" style="font-family: Verdana; font-size: 13px; line-height: 20px; margin: 0 auto; max-width: 400px; text-align: center;">
@@ -332,18 +380,30 @@
   <div class="component--item" id="header-programs-classes" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">header programs classes <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="header header--programs-classes" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px;">
-        <div class="header__item header__branch" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px;">
-          <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-          </a>
-          <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #0089d0; display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; outline: none; padding-left: 14px; padding-right: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Mounds View <br style="font-family: Arial, sans-serif;"> Community Center</a>
-        </div>
-        <div class="header__item" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0;">
-          <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Schedules</a>
-          <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Blog</a>
-          <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">Locations</a>
-        </div>
+      <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
+        <table class="header header--programs-classes" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; min-width: 65%; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px; table-layout: fixed;">
+          <tr class="header__item header__branch" style="font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px; white-space: nowrap;">
+            <td rowspan="2" class="logo" style="font-family: Arial, sans-serif; padding: 0; text-align: center; width: 80px;">
+              <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+              </a>
+            </td>
+            <td colspan="3" style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; outline: none; padding: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Mounds View Community Center</a>
+            </td>
+          </tr>
+          <tr class="header__item" style="font-family: Arial, sans-serif; padding: 10px 0; white-space: nowrap;">
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Schedules</a>
+            </td>
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Blog</a>
+            </td>
+            <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+              <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Locations</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
@@ -351,20 +411,31 @@
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="header header--programs-classes" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px;">
-  <div class="header__item header__branch" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px;">
-    <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
-      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-    </a>
-    <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #0089d0; display: inline-block; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; outline: none; padding-left: 14px; padding-right: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Mounds View <br style="font-family: Arial, sans-serif;"> Community Center</a>
-  </div>
-  <div class="header__item" style="display: inline-block; font-family: Arial, sans-serif; padding: 10px 0;">
-    <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Schedules</a>
-    <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 25px; text-decoration: none; text-transform: uppercase;">Blog</a>
-    <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">Locations</a>
-  </div>
-</div>
-</pre>
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
+  <table class="header header--programs-classes" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px; min-width: 65%; padding-bottom: 28px; padding-left: 10px; padding-right: 10px; padding-top: 33px; table-layout: fixed;">
+    <tr class="header__item header__branch" style="font-family: Arial, sans-serif; padding: 10px 0; padding-right: 30px; white-space: nowrap;">
+      <td rowspan="2" class="logo" style="font-family: Arial, sans-serif; padding: 0; text-align: center; width: 80px;">
+        <a href="http://ymcamn.org" target="_blank" class="site-logo" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; padding-right: 0; text-decoration: none; text-transform: uppercase;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+        </a>
+      </td>
+      <td colspan="3" style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org" target="_blank" class="site-slogan" style="border: 0; color: #0089d0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; outline: none; padding: 0; text-align: left; text-decoration: none; text-transform: uppercase;">Mounds View Community Center</a>
+      </td>
+    </tr>
+    <tr class="header__item" style="font-family: Arial, sans-serif; padding: 10px 0; white-space: nowrap;">
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/all_y_schedules" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Schedules</a>
+      </td>
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/blog" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Blog</a>
+      </td>
+      <td style="font-family: Arial, sans-serif; padding: 0 15px; text-align: center;">
+        <a href="http://ymcamn.org/locations" target="_blank" style="border: 0; color: #01a490; font-family: Arial, sans-serif; font-size: 13px; outline: none; text-decoration: none; text-transform: uppercase;">Locations</a>
+      </td>
+    </tr>
+  </table>
+</div></pre>
         </div>
       </div>
     </div>
@@ -397,7 +468,7 @@
         </div>
 
         <div class="block-contact block-contact--programs-classes" style="background-color: #0089d0; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png'); background-position: right center; background-repeat: no-repeat; box-sizing: border-box; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; margin-bottom: 25px; padding: 30px 10px 25px;">
-          <table class="block-contact__content" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
+          <table class="block-contact__content" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
             <tr style="font-family: Arial, sans-serif;">
               <td class="block-contact__icon" style="font-family: Arial, sans-serif; padding-bottom: 10px; padding-right: 15px;">
                 <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/pin.png" alt="" style="border: 0; font-family: Arial, sans-serif; outline: none;">
@@ -419,8 +490,8 @@
         </div>
 
         <div class="block-unsubscribe" style="font-family: Arial, sans-serif; margin-bottom: 25px; text-align: center;">
-          <a class="btn btn--border btn--border--blue" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">unsubscribe</a>
-          <a class="btn btn--border btn--border--green" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MANAGE PREFERENCES</a>
+          <a class="btn-border btn-border--blue shorter" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">unsubscribe</a>
+          <a class="btn-border btn-border--green" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">MANAGE PREFERENCES</a>
         </div>
 
         <div class="block-copyright" style="font-family: Verdana; font-size: 13px; line-height: 20px; margin: 0 auto; max-width: 400px; text-align: center;">
@@ -453,7 +524,7 @@
   </div>
 
   <div class="block-contact block-contact--programs-classes" style="background-color: #0089d0; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png'); background-position: right center; background-repeat: no-repeat; box-sizing: border-box; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; margin-bottom: 25px; padding: 30px 10px 25px;">
-    <table class="block-contact__content" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
+    <table class="block-contact__content" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 406px;">
       <tr style="font-family: Arial, sans-serif;">
         <td class="block-contact__icon" style="font-family: Arial, sans-serif; padding-bottom: 10px; padding-right: 15px;"><img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/pin.png" alt="" style="border: 0; font-family: Arial, sans-serif; outline: none;"></td>
         <td style="font-family: Arial, sans-serif; padding-bottom: 10px;"><a href="#" style="border: 0; color: #fff; font-family: Arial, sans-serif; outline: none; text-decoration: none;">2125 E. Hennepin Ave.<br style="font-family: Arial, sans-serif;">Minneapolis, MN 55413</a></td>
@@ -470,8 +541,8 @@
   </div>
 
   <div class="block-unsubscribe" style="font-family: Arial, sans-serif; margin-bottom: 25px; text-align: center;">
-    <a class="btn btn--border btn--border--blue" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">unsubscribe</a>
-    <a class="btn btn--border btn--border--green" href="#" target="_blank" style="background: #00aeef; background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin: 5px 8px; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MANAGE PREFERENCES</a>
+    <a class="btn-border btn-border--blue shorter" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #0060af; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">unsubscribe</a>
+    <a class="btn-border btn-border--green" href="http://ymcamn.org" target="_blank" style="background-color: transparent; border: 2px solid #f3f3f3; border-radius: 3px; color: #01a490; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin: 5px 8px; outline: none; padding: 10px 18px; text-align: center; text-decoration: none; text-transform: uppercase;">MANAGE PREFERENCES</a>
   </div>
 
   <div class="block-copyright" style="font-family: Verdana; font-size: 13px; line-height: 20px; margin: 0 auto; max-width: 400px; text-align: center;">
@@ -490,22 +561,42 @@
   <div class="component--item" id="block-hero--top" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">block hero  top <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="block-hero block-hero--top block-hero--bg--purple" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-        <h2 class="block-hero__title" style="background-color: #c6168d; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;"> May Member News </h2>
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
+      <div class="block-hero block-hero--top block-hero--bg--purple" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+        <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td class="block-hero__title" style="background-color: #c6168d; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">May Member News</td>
+          </tr>
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+            </td>
+          </tr>
+          <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+          </tr>
+        </table>
       </div>
-
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
       <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--top block-hero--bg--purple" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-  <h2 class="block-hero__title" style="background-color: #c6168d; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;"> May Member News </h2>
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--top block-hero--bg--purple" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+  <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td class="block-hero__title" style="background-color: #c6168d; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">May Member News</td>
+    </tr>
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+      </td>
+    </tr>
+    <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+    </tr>
+  </table>
 </div>
-
 </pre>
         </div>
       </div>
@@ -515,11 +606,20 @@
   <div class="component--item" id="block-hero--bottom" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">block hero  bottom <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="block-hero block-hero--bottom block-hero--bg--blue" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
-        <h2 class="block-hero__title" style="background-color: #0089d0; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;">
-    Spring swim skills = safe summer splashing
-  </h2>
+      <div class="block-hero block-hero--bottom block-hero--bg--blue" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+        <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+            </td>
+          </tr>
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td class="block-hero__title" style="background-color: #0089d0; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">Spring swim skills = safe summer splashing</td>
+          </tr>
+          <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
@@ -527,11 +627,20 @@
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--bottom block-hero--bg--blue" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
-  <h2 class="block-hero__title" style="background-color: #0089d0; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;">
-    Spring swim skills = safe summer splashing
-  </h2>
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--bottom block-hero--bg--blue" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+  <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+      </td>
+    </tr>
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td class="block-hero__title" style="background-color: #0089d0; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">Spring swim skills = safe summer splashing</td>
+    </tr>
+    <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -542,22 +651,42 @@
   <div class="component--item" id="block-hero--orange" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">block hero  orange <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="block-hero block-hero--top block-hero--bg--orange" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-        <h2 class="block-hero__title" style="background-color: #f47920; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;"> May Member News </h2>
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
+      <div class="block-hero block-hero--top block-hero--bg--orange" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+        <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td class="block-hero__title" style="background-color: #f47920; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">May Member News</td>
+          </tr>
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+            </td>
+          </tr>
+          <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+          </tr>
+        </table>
       </div>
-
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
       <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--top block-hero--bg--orange" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-  <h2 class="block-hero__title" style="background-color: #f47920; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;"> May Member News </h2>
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--top block-hero--bg--orange" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+  <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td class="block-hero__title" style="background-color: #f47920; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">May Member News</td>
+    </tr>
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+      </td>
+    </tr>
+    <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+    </tr>
+  </table>
 </div>
-
 </pre>
         </div>
       </div>
@@ -567,11 +696,20 @@
   <div class="component--item" id="block-hero--green" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">block hero  green <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="block-hero block-hero--bottom block-hero--bg--green" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
-        <h2 class="block-hero__title" style="background-color: #01a490; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;">
-    Spring swim skills = safe summer splashing
-  </h2>
+      <div class="block-hero block-hero--bottom block-hero--bg--green" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+        <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+            </td>
+          </tr>
+          <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td class="block-hero__title" style="background-color: #01a490; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">Spring swim skills = safe summer splashing</td>
+          </tr>
+          <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+            <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
@@ -579,11 +717,20 @@
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--bottom block-hero--bg--green" style="font-family: Arial, sans-serif; margin-bottom: 50px; margin-left: auto; margin-right: auto; max-width: 686px; position: relative;">
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; outline: none; width: 100%;">
-  <h2 class="block-hero__title" style="background-color: #01a490; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin-bottom: 0; margin-top: 0; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase;">
-    Spring swim skills = safe summer splashing
-  </h2>
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-hero block-hero--bottom block-hero--bg--green" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 650px; overflow: hidden; position: relative; width: 100%;">
+  <table border="0" cellspacing="0" width="650" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 650px; overflow: hidden; width: 100%;">
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1" style="border: 0; display: block; font-family: Arial, sans-serif; height: auto; max-width: 650px; outline: none; width: 100%;">
+      </td>
+    </tr>
+    <tr width="650" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td class="block-hero__title" style="background-color: #01a490; box-sizing: border-box; color: #ffffff; font-family: 'Arial Black'; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 0; margin-top: 0; max-width: 650px; opacity: 0.9; padding: 20px 15px; text-align: center; text-transform: uppercase; width: 100%;">Spring swim skills = safe summer splashing</td>
+    </tr>
+    <tr height="50" style="font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 0; width: 100%;">
+      <td width="100%" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;"></td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -594,47 +741,92 @@
   <div class="component--item" id="block-body" style="font-family: Arial, sans-serif;">
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">block body <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
-      <div class="block-body" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 686px; padding-left: 10px; padding-right: 10px;">
-        <div class="block-body__header" style="background-color: #424242; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png'), url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png'); background-position: center left, center right; background-repeat: no-repeat; color: #ffffff; font-family: 'Arial Black'; font-size: 18px; font-weight: normal; margin-bottom: 30px; padding: 20px 0; text-align: center; white-space: nowrap; width: 100%;">
-          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: auto; outline: none; padding-right: 15px; vertical-align: sub; width: 32px;">HEALTHY LIVING
-        </div>
+      <table class="block-body" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 686px; padding-left: 10px; padding-right: 10px; width: 100%;">
+        <thead style="font-family: Arial, sans-serif;">
+          <tr style="font-family: Arial, sans-serif;">
+            <th width="91" height="82" valign="top" style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+              <img width="91" height="82" class="height-img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: 82px; outline: none;">
+            </th>
+            <th width="490" height="82" valign="top" style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+              <table class="block-body__header" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #424242; background-position: center left, center right; background-repeat: no-repeat; border-collapse: collapse; color: #ffffff; font-family: 'Arial Black'; font-size: 18px; font-weight: normal; line-height: 82px; text-align: center; vertical-align: middle; white-space: nowrap; width: 100%;">
+                <tbody style="font-family: Arial, sans-serif;">
+                  <tr style="color: #fff; font-family: Arial, sans-serif;">
+                    <td height="82" align="right" width="30%" valign="middle" style="color: #fff; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; vertical-align: middle;">
+                      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: auto; margin-right: 15px; outline: none; vertical-align: sub; width: 32px;">
+                    </td>
+                    <td height="82" align="left" width="70%" valign="middle" style="color: #fff; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; vertical-align: middle;">HEALTHY LIVING</td>
+                  </tr>
+                </tbody>
+              </table>
+            </th>
+            <th width="69" height="82" valign="top" style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+              <img class="height-img" width="91" height="82" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: 82px; outline: none;">
+            </th>
+          </tr>
+        </thead>
+        <tbody style="font-family: Arial, sans-serif;">
+          <tr class="block-body__item" style="font-family: Arial, sans-serif;">
+            <td class="border-bottom" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif;">
+            </td>
+            <td class="block-body__item__content border-bottom" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif; padding-bottom: 20px; padding-top: 30px;">
+              <p style="font-family: Arial, sans-serif; margin: 0 auto 15px; margin-top: 0; max-width: 456px;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
+            </td>
+            <td class="border-bottom" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif;"></td>
+          </tr>
+          <tr class="block-body__item" style="border-bottom: none; font-family: Arial, sans-serif; margin-bottom: 0;">
+            <td style="font-family: Arial, sans-serif;">
+            </td>
+            <td colspan="" rowspan="" headers="" class="block-body__item__content" style="font-family: Arial, sans-serif; padding-bottom: 20px; padding-top: 30px;">
+              <p style="font-family: Arial, sans-serif; margin: 0 auto 15px; margin-top: 0; max-width: 456px;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
+            </td>
+            <td colspan="" rowspan="" headers="" style="font-family: Arial, sans-serif;"></td>
+          </tr>
+        </tbody>
+      </table>
 
-        <div class="block-body__item" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif; margin-bottom: 30px; padding-bottom: 20px;">
-          <div class="block-body__item__content" style="font-family: Arial, sans-serif; margin: 0 auto 15px; max-width: 456px;">
-            <p style="font-family: Arial, sans-serif; margin-top: 0;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
-          </div>
-        </div>
-
-        <div class="block-body__item" style="border-bottom: none; font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 20px;">
-          <div class="block-body__item__content" style="font-family: Arial, sans-serif; margin: 0 auto 15px; max-width: 456px;">
-            <p style="font-family: Arial, sans-serif; margin-top: 0;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
       <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
       <div class="component--source element-invisible" style="font-family: Arial, sans-serif;">
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
-          <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="block-body" style="font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 686px; padding-left: 10px; padding-right: 10px;">
-  <div class="block-body__header" style="background-color: #424242; background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png'), url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png'); background-position: center left, center right; background-repeat: no-repeat; color: #ffffff; font-family: 'Arial Black'; font-size: 18px; font-weight: normal; margin-bottom: 30px; padding: 20px 0; text-align: center; white-space: nowrap; width: 100%;">
-    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: auto; outline: none; padding-right: 15px; vertical-align: sub; width: 32px;">
-    HEALTHY LIVING
-  </div>
+          <pre class="brush: php" style="font-family: Arial, sans-serif;"><table class="block-body" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-left: auto; margin-right: auto; max-width: 686px; padding-left: 10px; padding-right: 10px; width: 100%;">
+  <thead style="font-family: Arial, sans-serif;">
+    <tr style="font-family: Arial, sans-serif;">
+      <th width="91" height="82" valign="top" style="font-family: Arial, sans-serif; margin: 0; padding: 0;"><img width="91" height="82" class="height-img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: 82px; outline: none;"></th>
+      <th width="490" height="82" valign="top" style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+        <table class="block-body__header" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #424242; background-position: center left, center right; background-repeat: no-repeat; border-collapse: collapse; color: #ffffff; font-family: 'Arial Black'; font-size: 18px; font-weight: normal; line-height: 82px; text-align: center; vertical-align: middle; white-space: nowrap; width: 100%;">
+          <tbody style="font-family: Arial, sans-serif;">
+            <tr style="color: #fff; font-family: Arial, sans-serif;">
+              <td height="82" align="right" width="30%" valign="middle" style="color: #fff; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; vertical-align: middle;"><img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: auto; margin-right: 15px; outline: none; vertical-align: sub; width: 32px;"></td>
+              <td height="82" align="left" width="70%" valign="middle" style="color: #fff; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.5; vertical-align: middle;">HEALTHY LIVING</td>
+            </tr>
+          </tbody>
+        </table>
+      </th>
+      <th width="69" height="82" valign="top" style="font-family: Arial, sans-serif; margin: 0; padding: 0;"><img class="height-img" width="91" height="82" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png" alt="" style="border: 0; font-family: Arial, sans-serif; height: 82px; outline: none;"></th>
+    </tr>
+  </thead>
+  <tbody style="font-family: Arial, sans-serif;">
+    <tr class="block-body__item" style="font-family: Arial, sans-serif;">
+      <td class="border-bottom" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif;">
+      </td>
+      <td class="block-body__item__content border-bottom" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif; padding-bottom: 20px; padding-top: 30px;">
+        <p style="font-family: Arial, sans-serif; margin: 0 auto 15px; margin-top: 0; max-width: 456px;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
+      </td>
+      <td class="border-bottom" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif;"></td>
+    </tr>
+    <tr class="block-body__item" style="border-bottom: none; font-family: Arial, sans-serif; margin-bottom: 0;">
+      <td style="font-family: Arial, sans-serif;">
+      </td>
+      <td colspan="" rowspan="" headers="" class="block-body__item__content" style="font-family: Arial, sans-serif; padding-bottom: 20px; padding-top: 30px;">
+        <p style="font-family: Arial, sans-serif; margin: 0 auto 15px; margin-top: 0; max-width: 456px;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
+      </td>
+      <td colspan="" rowspan="" headers="" style="font-family: Arial, sans-serif;"></td>
+    </tr>
+  </tbody>
+</table>
 
-  <div class="block-body__item" style="border-bottom: 1px solid #f0f0f0; font-family: Arial, sans-serif; margin-bottom: 30px; padding-bottom: 20px;">
-    <div class="block-body__item__content" style="font-family: Arial, sans-serif; margin: 0 auto 15px; max-width: 456px;">
-      <p style="font-family: Arial, sans-serif; margin-top: 0;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
-    </div>
-  </div>
-
-  <div class="block-body__item" style="border-bottom: none; font-family: Arial, sans-serif; margin-bottom: 0; padding-bottom: 20px;">
-    <div class="block-body__item__content" style="font-family: Arial, sans-serif; margin: 0 auto 15px; max-width: 456px;">
-      <p style="font-family: Arial, sans-serif; margin-top: 0;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
-    </div>
-  </div>
-</div>
 </pre>
         </div>
       </div>
@@ -649,17 +841,15 @@
           <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">May is Water Safety Month </h2>
           <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.
           </div>
-          <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-            <tbody style="font-family: Arial, sans-serif;">
-              <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
-                <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                </td>
-                <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                  <a href="#" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
-                </td>
-              </tr>
-            </tbody>
+          <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+            <tr class="btn-icon icon--blue-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #00aeef; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+              <td class="btn-icon__img" style="background-color: #0089d0; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+              </td>
+              <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -674,17 +864,15 @@
     <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">May is Water Safety Month </h2>
     <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.
     </div>
-    <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-      <tbody style="font-family: Arial, sans-serif;">
-        <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
-          <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-          </td>
-          <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-            <a href="#" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
-          </td>
-        </tr>
-      </tbody>
+    <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+      <tr class="btn-icon icon--blue-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #00aeef; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+        <td class="btn-icon__img" style="background-color: #0089d0; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+        </td>
+        <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+          <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
@@ -703,17 +891,15 @@
           <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Register now for classes and lessons</h2>
           <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons.
           </div>
-          <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-            <tbody style="font-family: Arial, sans-serif;">
-              <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
-                <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                </td>
-                <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                  <a href="#" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">VIEW SCHEDULES</a>
-                </td>
-              </tr>
-            </tbody>
+          <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+            <tr class="btn-icon icon--blue-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #00aeef; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+              <td class="btn-icon__img " style="background-color: #0089d0; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+              </td>
+              <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">VIEW SCHEDULES</a>
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -729,17 +915,15 @@
     <h2 class="block-title block-cta__title " style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 15px; text-transform: uppercase;">Register now for classes and lessons</h2>
     <div class="block-cta__content" style="font-family: Arial, sans-serif; padding-bottom: 24px;">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons.
     </div>
-    <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-      <tbody style="font-family: Arial, sans-serif;">
-        <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
-          <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-          </td>
-          <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-            <a href="#" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">VIEW SCHEDULES</a>
-          </td>
-        </tr>
-      </tbody>
+    <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+      <tr class="btn-icon icon--blue-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #00aeef; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+        <td class="btn-icon__img " style="background-color: #0089d0; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+        </td>
+        <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+          <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">VIEW SCHEDULES</a>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
@@ -754,11 +938,11 @@
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
         <div class="block-cta block-cta--image--left" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
-          <table class="block-cta__table" style="border-collapse: collapse; font-family: Arial, sans-serif;">
+          <table class="block-cta__table" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
             <tr style="background: transparent !important; font-family: Arial, sans-serif;">
               <td class="block-cta__image" style="font-family: Arial, sans-serif; padding: 0; vertical-align: top;">
                 <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 29px; width: 100%;">
-                <a class="btn btn--purple--light block-cta__button" href="#" target="_blank" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</a>
+                <a class="btn btn--purple-light block-cta__button" href="http://ymcamn.org" target="_blank" style="background: #c6168d; border: 0; border-bottom: 11px solid #c6168d; border-left: 15px solid #c6168d; border-radius: 3px; border-right: 15px solid #c6168d; border-top: 11px solid #c6168d; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</a>
               </td>
               <td class="block-cta__body" style="font-family: Arial, sans-serif; padding: 0; padding-left: 30px; vertical-align: top;">
                 <h2 class="block-title block-cta__title" style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 8px; text-transform: uppercase;">Helping kids develop a <br style="font-family: Arial, sans-serif;"> healthy lifestyle  </h2>
@@ -777,11 +961,11 @@
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
   <div class="block-cta block-cta--image--left" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
-    <table class="block-cta__table" style="border-collapse: collapse; font-family: Arial, sans-serif;">
+    <table class="block-cta__table" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
       <tr style="background: transparent !important; font-family: Arial, sans-serif;">
         <td class="block-cta__image" style="font-family: Arial, sans-serif; padding: 0; vertical-align: top;">
          <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 29px; width: 100%;">
-         <a class="btn btn--purple--light block-cta__button" href="#" target="_blank" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</a>
+         <a class="btn btn--purple-light block-cta__button" href="http://ymcamn.org" target="_blank" style="background: #c6168d; border: 0; border-bottom: 11px solid #c6168d; border-left: 15px solid #c6168d; border-radius: 3px; border-right: 15px solid #c6168d; border-top: 11px solid #c6168d; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">MORE DETAILS</a>
         </td>
         <td class="block-cta__body" style="font-family: Arial, sans-serif; padding: 0; padding-left: 30px; vertical-align: top;">
           <h2 class="block-title block-cta__title" style="color: #424242; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 25px; margin-bottom: 0; margin-top: 0; padding-bottom: 8px; text-transform: uppercase;">Helping kids develop a <br style="font-family: Arial, sans-serif;"> healthy lifestyle  </h2>
@@ -803,7 +987,7 @@
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
         <div class="block-grid" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 622px;">
-          <table class="block-cta" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
+          <table class="block-cta" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
             <tr style="background: transparent; font-family: Arial, sans-serif;">
               <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
                 <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta3.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 25px; width: 100%;">
@@ -820,10 +1004,10 @@
             </tr>
             <tr style="background: transparent; font-family: Arial, sans-serif;">
               <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-                <a class="btn btn--blue--light block-cta__button" href="#" target="_blank" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
+                <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
               </td>
               <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-                <a class="btn btn--blue--light block-cta__button" href="#" target="_blank" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
+                <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
               </td>
             </tr>
           </table>
@@ -837,7 +1021,7 @@
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
   <div class="block-grid" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 622px;">
-    <table class="block-cta" style="border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
+    <table class="block-cta" style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto; max-width: 556px; padding: 0 10px 49px;">
       <tr style="background: transparent; font-family: Arial, sans-serif;">
         <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
           <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cta3.png" style="border: 0; font-family: Arial, sans-serif; height: auto; line-height: 0; outline: none; padding-bottom: 25px; width: 100%;">
@@ -854,10 +1038,10 @@
       </tr>
       <tr style="background: transparent; font-family: Arial, sans-serif;">
         <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-          <a class="btn btn--blue--light block-cta__button" href="#" target="_blank" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
+          <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
         </td>
         <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 0 20px; vertical-align: top; width: 50%;">
-          <a class="btn btn--blue--light block-cta__button" href="#" target="_blank" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
+          <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">READ MORE</a>
         </td>
       </tr>
     </table>
@@ -939,7 +1123,7 @@
     <h2 class="component--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 30px; margin-bottom: 15px; margin-top: 0;">tables <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task" style="border: 0; font-family: Arial, sans-serif; outline: none;"></a></h2>
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="tables" style="font-family: Arial, sans-serif; margin: 0 auto 30px; max-width: 594px; padding-left: 10px; padding-right: 10px;">
-        <table style="border-collapse: collapse; font-family: arial,sans-serif; width: 100%;">
+        <table style="border: 0; border-collapse: collapse; font-family: arial,sans-serif; width: 100%;">
           <tr style="background: rgba(162,162,162,0.4); font-family: Arial, sans-serif;">
             <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 12px 20px;">7:00 am - On-site registration and packet pick-up</td>
           </tr>
@@ -961,7 +1145,7 @@
         <div class="component--html" style="font-family: Arial, sans-serif;">
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="tables" style="font-family: Arial, sans-serif; margin: 0 auto 30px; max-width: 594px; padding-left: 10px; padding-right: 10px;">
-  <table style="border-collapse: collapse; font-family: arial,sans-serif; width: 100%;">
+  <table style="border: 0; border-collapse: collapse; font-family: arial,sans-serif; width: 100%;">
     <tr style="background: rgba(162,162,162,0.4); font-family: Arial, sans-serif;">
       <td style="font-family: Arial, sans-serif; min-height: 50px; padding: 12px 20px;">7:00 am - On-site registration and packet pick-up</td>
     </tr>
@@ -1177,17 +1361,22 @@
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
         <div class="main-component" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 530px; padding: 10px;">
-          <p style="font-family: Arial, sans-serif; margin-top: 0;">
-            <a class="btn" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Default</a>
-            <a class="btn btn--orange" href="#" style="background: #f47920; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Orange</a>
-            <a class="btn btn--blue" href="#" style="background: #0089d0; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
-            <a class="btn btn--blue--light" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
-            <a class="btn btn--green" href="#" style="background: #01a490; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
-            <a class="btn btn--purple" href="#" style="background: #92278f; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
-            <a class="btn btn--purple--light" href="#" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
-          </p>
+          <a class="btn" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Default</a>
+          <br style="font-family: Arial, sans-serif;">
+          <a class="btn btn--orange" href="http://ymcamn.org" target="_blank" style="background: #f47920; border: 0; border-bottom: 11px solid #f47920; border-left: 15px solid #f47920; border-radius: 3px; border-right: 15px solid #f47920; border-top: 11px solid #f47920; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Orange</a>
+          <br style="font-family: Arial, sans-serif;">
+          <a class="btn btn--blue" href="http://ymcamn.org" target="_blank" style="background: #0089d0; border: 0; border-bottom: 11px solid #0089d0; border-left: 15px solid #0089d0; border-radius: 3px; border-right: 15px solid #0089d0; border-top: 11px solid #0089d0; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
+          <br style="font-family: Arial, sans-serif;">
+          <a class="btn btn--blue-light" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+          <br style="font-family: Arial, sans-serif;">
+          <a class="btn btn--green" href="http://ymcamn.org" target="_blank" style="background: #01a490; border: 0; border-bottom: 11px solid #01a490; border-left: 15px solid #01a490; border-radius: 3px; border-right: 15px solid #01a490; border-top: 11px solid #01a490; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
+          <br style="font-family: Arial, sans-serif;">
+          <a class="btn btn--purple" href="http://ymcamn.org" target="_blank" style="background: #92278f; border: 0; border-bottom: 11px solid #92278f; border-left: 15px solid #92278f; border-radius: 3px; border-right: 15px solid #92278f; border-top: 11px solid #92278f; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
+          <br style="font-family: Arial, sans-serif;">
+          <a class="btn btn--purple-light" href="http://ymcamn.org" target="_blank" style="background: #c6168d; border: 0; border-bottom: 11px solid #c6168d; border-left: 15px solid #c6168d; border-radius: 3px; border-right: 15px solid #c6168d; border-top: 11px solid #c6168d; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
         </div>
       </div>
+
     </div>
     <div class="show-hide-code" style="font-family: Arial, sans-serif;">
       <button class="show-code" style="font-family: Arial, sans-serif;">Show/Hide Code</button>
@@ -1196,17 +1385,22 @@
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
   <div class="main-component" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 530px; padding: 10px;">
-    <p style="font-family: Arial, sans-serif; margin-top: 0;">
-      <a class="btn" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Default</a>
-      <a class="btn btn--orange" href="#" style="background: #f47920; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Orange</a>
-      <a class="btn btn--blue" href="#" style="background: #0089d0; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
-      <a class="btn btn--blue--light" href="#" style="background: #00aeef; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
-      <a class="btn btn--green" href="#" style="background: #01a490; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
-      <a class="btn btn--purple" href="#" style="background: #92278f; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
-      <a class="btn btn--purple--light" href="#" style="background: #c6168d; border: medium none; border-radius: 3px; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
-    </p>
+    <a class="btn" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Default</a>
+    <br style="font-family: Arial, sans-serif;">
+    <a class="btn btn--orange" href="http://ymcamn.org" target="_blank" style="background: #f47920; border: 0; border-bottom: 11px solid #f47920; border-left: 15px solid #f47920; border-radius: 3px; border-right: 15px solid #f47920; border-top: 11px solid #f47920; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Orange</a>
+    <br style="font-family: Arial, sans-serif;">
+    <a class="btn btn--blue" href="http://ymcamn.org" target="_blank" style="background: #0089d0; border: 0; border-bottom: 11px solid #0089d0; border-left: 15px solid #0089d0; border-radius: 3px; border-right: 15px solid #0089d0; border-top: 11px solid #0089d0; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
+    <br style="font-family: Arial, sans-serif;">
+    <a class="btn btn--blue-light" href="http://ymcamn.org" target="_blank" style="background: #00aeef; border: 0; border-bottom: 11px solid #00aeef; border-left: 15px solid #00aeef; border-radius: 3px; border-right: 15px solid #00aeef; border-top: 11px solid #00aeef; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+    <br style="font-family: Arial, sans-serif;">
+    <a class="btn btn--green" href="http://ymcamn.org" target="_blank" style="background: #01a490; border: 0; border-bottom: 11px solid #01a490; border-left: 15px solid #01a490; border-radius: 3px; border-right: 15px solid #01a490; border-top: 11px solid #01a490; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
+    <br style="font-family: Arial, sans-serif;">
+    <a class="btn btn--purple" href="http://ymcamn.org" target="_blank" style="background: #92278f; border: 0; border-bottom: 11px solid #92278f; border-left: 15px solid #92278f; border-radius: 3px; border-right: 15px solid #92278f; border-top: 11px solid #92278f; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
+    <br style="font-family: Arial, sans-serif;">
+    <a class="btn btn--purple-light" href="http://ymcamn.org" target="_blank" style="background: #c6168d; border: 0; border-bottom: 11px solid #c6168d; border-left: 15px solid #c6168d; border-radius: 3px; border-right: 15px solid #c6168d; border-top: 11px solid #c6168d; color: #ffffff; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; margin-bottom: 10px; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
   </div>
 </div>
+
 </pre>
         </div>
       </div>
@@ -1218,84 +1412,72 @@
     <div class="component--demo" style="font-family: Arial, sans-serif;">
       <div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
         <div class="main-component" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 530px; padding: 10px;">
-          <div style="font-family: Arial, sans-serif;">
+          <div class="component-buttons" style="font-family: Arial, sans-serif;">
 
-            <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-              <tbody style="font-family: Arial, sans-serif;">
-                <tr class="btn--orange" style="background: #f47920; font-family: Arial, sans-serif;">
-                  <td class="btn--has-icon__img icon--orange" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #dd5828; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                  </td>
-                  <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                    <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background orange</a>
-                  </td>
-                </tr>
-              </tbody>
+            <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+              <tr class="btn-icon icon--orange" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #f47920; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+                <td class="btn-icon__img" style="background-color: #dd5828; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+                </td>
+                <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                  <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background orange</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-              <tbody style="font-family: Arial, sans-serif;">
-                <tr class="btn--blue" style="background: #0089d0; font-family: Arial, sans-serif;">
-                  <td class="btn--has-icon__img icon--blue" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0060af; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                  </td>
-                  <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                    <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
-                  </td>
-                </tr>
-              </tbody>
+            <br style="font-family: Arial, sans-serif;">
+            <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+              <tr class="btn-icon icon--blue" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #0089d0; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+                <td class="btn-icon__img" style="background-color: #0060af; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+                </td>
+                <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                  <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-              <tbody style="font-family: Arial, sans-serif;">
-                <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
-                  <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                  </td>
-                  <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                    <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
-                  </td>
-                </tr>
-              </tbody>
+            <br style="font-family: Arial, sans-serif;">
+            <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+              <tr class="btn-icon icon--blue-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #00aeef; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+                <td class="btn-icon__img" style="background-color: #0089d0; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+                </td>
+                <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                  <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-              <tbody style="font-family: Arial, sans-serif;">
-                <tr class="btn--green" style="background: #01a490; font-family: Arial, sans-serif;">
-                  <td class="btn--has-icon__img icon--green" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #006b6b; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                  </td>
-                  <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                    <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
-                  </td>
-                </tr>
-              </tbody>
+            <br style="font-family: Arial, sans-serif;">
+            <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+              <tr class="btn-icon icon--green" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #01a490; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+                <td class="btn-icon__img" style="background-color: #006b6b; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+                </td>
+                <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                  <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-              <tbody style="font-family: Arial, sans-serif;">
-                <tr class="btn--purple" style="background: #92278f; font-family: Arial, sans-serif;">
-                  <td class="btn--has-icon__img icon--purple" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #5c2e91; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                  </td>
-                  <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                    <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
-                  </td>
-                </tr>
-              </tbody>
+            <br style="font-family: Arial, sans-serif;">
+            <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+              <tr class="btn-icon icon--purple" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #92278f; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+                <td class="btn-icon__img" style="background-color: #5c2e91; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+                </td>
+                <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                  <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-              <tbody style="font-family: Arial, sans-serif;">
-                <tr class="btn--purple--light" style="background: #c6168d; font-family: Arial, sans-serif;">
-                  <td class="btn--has-icon__img icon--purple--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #92278f; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-                  </td>
-                  <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-                    <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
-                  </td>
-                </tr>
-              </tbody>
+            <br style="font-family: Arial, sans-serif;">
+            <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+              <tr class="btn-icon icon--purple-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #c6168d; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+                <td class="btn-icon__img" style="background-color: #92278f; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+                </td>
+                <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+                  <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
+                </td>
+              </tr>
             </table>
           </div>
         </div>
@@ -1308,84 +1490,72 @@
           <h4 class="component--source--title" style="color: #424242; font-family: Arial, sans-serif; font-size: 20px; margin-bottom: 15px; margin-top: 0;">Markup</h4>
           <pre class="brush: php" style="font-family: Arial, sans-serif;"><div class="container" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 686px;">
   <div class="main-component" style="font-family: Arial, sans-serif; margin: 0 auto; max-width: 530px; padding: 10px;">
-    <div style="font-family: Arial, sans-serif;">
+    <div class="component-buttons" style="font-family: Arial, sans-serif;">
 
-      <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-        <tbody style="font-family: Arial, sans-serif;">
-          <tr class="btn--orange" style="background: #f47920; font-family: Arial, sans-serif;">
-            <td class="btn--has-icon__img icon--orange" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #dd5828; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-            </td>
-            <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-              <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background orange</a>
-            </td>
-          </tr>
-        </tbody>
+      <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr class="btn-icon icon--orange" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #f47920; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+          <td class="btn-icon__img" style="background-color: #dd5828; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+            <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background orange</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-        <tbody style="font-family: Arial, sans-serif;">
-          <tr class="btn--blue" style="background: #0089d0; font-family: Arial, sans-serif;">
-            <td class="btn--has-icon__img icon--blue" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0060af; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-            </td>
-            <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-              <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
-            </td>
-          </tr>
-        </tbody>
+      <br style="font-family: Arial, sans-serif;">
+      <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr class="btn-icon icon--blue" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #0089d0; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+          <td class="btn-icon__img" style="background-color: #0060af; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+            <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-        <tbody style="font-family: Arial, sans-serif;">
-          <tr class="btn--blue--light" style="background: #00aeef; font-family: Arial, sans-serif;">
-            <td class="btn--has-icon__img icon--blue--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #0089d0; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-            </td>
-            <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-              <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
-            </td>
-          </tr>
-        </tbody>
+      <br style="font-family: Arial, sans-serif;">
+      <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr class="btn-icon icon--blue-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #00aeef; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+          <td class="btn-icon__img" style="background-color: #0089d0; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+            <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Blue light</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-        <tbody style="font-family: Arial, sans-serif;">
-          <tr class="btn--green" style="background: #01a490; font-family: Arial, sans-serif;">
-            <td class="btn--has-icon__img icon--green" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #006b6b; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-            </td>
-            <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-              <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
-            </td>
-          </tr>
-        </tbody>
+      <br style="font-family: Arial, sans-serif;">
+      <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr class="btn-icon icon--green" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #01a490; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+          <td class="btn-icon__img" style="background-color: #006b6b; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+            <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Green</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-        <tbody style="font-family: Arial, sans-serif;">
-          <tr class="btn--purple" style="background: #92278f; font-family: Arial, sans-serif;">
-            <td class="btn--has-icon__img icon--purple" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #5c2e91; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-            </td>
-            <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-              <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
-            </td>
-          </tr>
-        </tbody>
+      <br style="font-family: Arial, sans-serif;">
+      <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr class="btn-icon icon--purple" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #92278f; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+          <td class="btn-icon__img" style="background-color: #5c2e91; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+            <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon" style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 15px; overflow: hidden; padding: 0 !important; position: relative; width: auto !important;">
-        <tbody style="font-family: Arial, sans-serif;">
-          <tr class="btn--purple--light" style="background: #c6168d; font-family: Arial, sans-serif;">
-            <td class="btn--has-icon__img icon--purple--light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #92278f; border-radius: 3px 0 0 3px !important; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; margin: 0 !important; padding: 8px 10px !important; speak: none; text-transform: none; width: 20px !important;">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
-            </td>
-            <td class="btn--has-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 0;">
-              <a href="#" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; padding: 11px 15px; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
-            </td>
-          </tr>
-        </tbody>
+      <br style="font-family: Arial, sans-serif;">
+      <table style="border: 0; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr class="btn-icon icon--purple-light" style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background: #c6168d; font-family: 'ymca' !important; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; speak: none; text-transform: none;">
+          <td class="btn-icon__img" style="background-color: #92278f; border-radius: 3px 0 0 3px; font-family: Arial, sans-serif; padding: 8px 10px;">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png" style="border: 0; font-family: Arial, sans-serif; outline: none;">
+          </td>
+          <td class="btn-icon__text" style="border-radius: 0 3px 3px 0; font-family: Arial, sans-serif; padding: 11px 15px;">
+            <a href="http://ymcamn.org" target="_blank" style="border: 0; color: #ffffff; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1; outline: none; text-decoration: none; text-transform: uppercase; white-space: nowrap;">Background Purple light</a>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

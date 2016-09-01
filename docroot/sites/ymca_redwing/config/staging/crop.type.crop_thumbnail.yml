@@ -1,0 +1,8 @@
+uuid: d5325ac4-2c47-492a-ab00-dfb14ca03a61
+langcode: en
+status: true
+dependencies: {  }
+label: 'Crop thumbnail'
+id: crop_thumbnail
+description: ''
+aspect_ratio: ''

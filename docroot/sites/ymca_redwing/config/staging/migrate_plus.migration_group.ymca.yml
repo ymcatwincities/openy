@@ -1,0 +1,7 @@
+id: ymca
+label: 'YMCA Imports'
+description: 'Migrations for the YMCA project.'
+source_type: 'Legacy CMS database'
+shared_configuration:
+  source:
+    key: amm_source

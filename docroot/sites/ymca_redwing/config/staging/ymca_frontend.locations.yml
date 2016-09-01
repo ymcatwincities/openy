@@ -1,0 +1,810 @@
+-
+  name: Andover
+  address1: '15200 Hanson Blvd.'
+  address2: null
+  city: Andover
+  state: MN
+  zip: 55304
+  phone: 763-230-9622
+  url: locations/andover_ymca_community_center/
+  tags: YMCA
+  latitude: 45.2456
+  longitude: -93.309374
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 26
+  personify_brcode: 32
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: Blaisdell
+  address1: '3335 Blaisdell Avenue'
+  address2: null
+  city: Minneapolis
+  state: MN
+  zip: 55408
+  phone: 612-827-5401
+  url: locations/blaisdell_ymca/
+  tags: YMCA
+  latitude: 44.9423198
+  longitude: -93.2794866
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 33
+  personify_brcode: 14
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
+-
+  name: Burnsville
+  address1: '13850 Portland Avenue'
+  address2: null
+  city: Burnsville
+  state: MN
+  zip: 55337
+  phone: 952-898-9622
+  url: locations/burnsville_ymca/
+  tags: YMCA
+  latitude: 44.75288
+  longitude: -93.270104
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 30
+  personify_brcode: 30
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: Eagan
+  address1: '550 Opperman Drive'
+  address2: null
+  city: Eagan
+  state: MN
+  zip: 55123
+  phone: 651-456-9622
+  url: locations/eagan_ymca/
+  tags: YMCA
+  latitude: 44.825809
+  longitude: -93.107634
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 16
+  personify_brcode: 82
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Eagan Early Childhood Learning Center'
+  address1: '550 Opperman Drive'
+  address2: null
+  city: Eagan
+  state: MN
+  zip: 55123
+  phone: 651-456-9622
+  url: child_care__preschool/full-day_child_care/locations/eagan/
+  tags: Childcare
+  latitude: 44.825809
+  longitude: -93.107634
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Elk River'
+  address1: '13337 Business Center Drive NW'
+  address2: null
+  city: 'Elk River'
+  state: MN
+  zip: 55330
+  phone: 763-230-2800
+  url: locations/elk_river_ymca/
+  tags: YMCA
+  latitude: 45.3056838
+  longitude: -93.6077115
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 27
+  personify_brcode: 34
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Emma B. Howe - Coon Rapids'
+  address1: '8950 Springbrook Drive NW'
+  address2: null
+  city: 'Coon Rapids'
+  state: MN
+  zip: 55433
+  phone: 763-785-7882
+  url: locations/emma_b_howe_ymca/
+  tags: YMCA
+  latitude: 45.1333115
+  longitude: -93.2727042
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 34
+  personify_brcode: 27
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Forest Lake'
+  address1: '19845 Forest Rd N'
+  address2: null
+  city: 'Forest Lake'
+  state: MN
+  zip: 55025
+  phone: 651-259-2133
+  url: locations/forest_lake_ymca/
+  tags: YMCA
+  latitude: 45.2347415
+  longitude: -92.9858569
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: null
+  personify_brcode: '38'
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': 'Open summer 2016'
+  'HRS Sat-Sun': 'Open summer 2016'
+-
+  name: Hastings
+  address1: '85 Pleasant Drive'
+  address2: null
+  city: Hastings
+  state: MN
+  zip: 55033
+  phone: 651-480-8887
+  url: locations/hastings_ymca/
+  tags: YMCA
+  latitude: 44.746911
+  longitude: -92.8766459
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 19
+  personify_brcode: 85
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Heritage Park'
+  address1: '1015 4th Avenue North'
+  address2: null
+  city: Minneapolis
+  state: MN
+  zip: 55405
+  phone: 612-821-2193
+  url: locations/heritage_park_ymca/
+  tags: YMCA
+  latitude: 44.981475
+  longitude: -93.292336
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 27
+  personify_brcode: 18
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '6:00 a.m. - 7:30 p.m.'
+  'HRS Sat-Sun': 'SAT 9:00 a.m. - 5:00 p.m. SUN Closed'
+-
+  name: Hudson
+  address1: '2211 Vine Street'
+  address2: null
+  city: Hudson
+  state: WI
+  zip: 54016
+  phone: 715-386-1616
+  url: locations/hudson_ymca/
+  tags: YMCA
+  latitude: 44.978986
+  longitude: -92.7282819
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 17
+  personify_brcode: 84
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Lino Lakes'
+  address1: '7690 Village Drive'
+  address2: null
+  city: 'Lino Lakes'
+  state: MN
+  zip: 55014
+  phone: 651-795-9622
+  url: locations/lino_lakes_ymca/
+  tags: YMCA
+  latitude: 45.1788972
+  longitude: -93.1123411
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 18
+  personify_brcode: 81
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Minneapolis Downtown'
+  address1: '30 South 9th Street'
+  address2: null
+  city: Minneapolis
+  state: MN
+  zip: 55402
+  phone: 612-371-9622
+  url: locations/minneapolis_downtown_ymca/
+  tags: YMCA
+  latitude: 44.975865
+  longitude: -93.275515
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 28
+  personify_brcode: 17
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:30 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '7:00 a.m. - 8:00 p.m.'
+-
+  name: 'Mounds View Community Center'
+  address1: '5394 Edgewood Dr.'
+  address2: null
+  city: 'Mounds View'
+  state: MN
+  zip: 55112
+  phone: 763-717-4040
+  url: locations/mounds_view_community_center/
+  tags: YMCA
+  latitude: 45.103924
+  longitude: -93.202378
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 1677
+  personify_brcode: 79
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': 'M-TH: 8 a.m. - 7 p.m. F: 8 a.m. - 6 p.m.'
+  'HRS Sat-Sun': 'SAT 8:00 a.m. - 6:00 p.m. SUN Closed'
+-
+  name: 'New Hope'
+  address1: '7601 42nd Avenue North'
+  address2: null
+  city: 'New Hope'
+  state: MN
+  zip: 55427
+  phone: 763-535-4800
+  url: locations/new_hope_ymca/
+  tags: YMCA
+  latitude: 45.030905
+  longitude: -93.377205
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 31
+  personify_brcode: 24
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'North Community'
+  address1: '1711 West Broadway Ave'
+  address2: null
+  city: Minneapolis
+  state: MN
+  zip: 55411
+  phone: 612-588-9484
+  url: locations/north_community_ymca/
+  tags: YMCA
+  latitude: 44.999172
+  longitude: -93.302562
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 27
+  personify_brcode: 16
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '2:00 p.m. - 7:30 p.m.'
+  'HRS Sat-Sun': Closed
+-
+  name: Ridgedale
+  address1: '12301 Ridgedale Drive'
+  address2: null
+  city: Minnetonka
+  state: MN
+  zip: 55305
+  phone: 952-544-7708
+  url: locations/ridgedale_ymca/
+  tags: YMCA
+  latitude: 44.964819
+  longitude: -93.434734
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 32
+  personify_brcode: 22
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'River Valley'
+  address1: '3575 N. Berens Road NW'
+  address2: null
+  city: 'Prior Lake'
+  state: MN
+  zip: 55379
+  phone: 952-230-9622
+  url: locations/river_valley_ymca/
+  tags: YMCA
+  latitude: 44.752199
+  longitude: -93.445317
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 53
+  personify_brcode: 36
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: Shoreview
+  address1: '3760 Lexington Avenue North'
+  address2: null
+  city: Shoreview
+  state: MN
+  zip: 55126
+  phone: 651-483-2671
+  url: locations/shoreview_ymca/
+  tags: YMCA
+  latitude: 45.054702
+  longitude: -93.145024
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 20
+  personify_brcode: 89
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: Southdale
+  address1: '7355 York Avenue South'
+  address2: null
+  city: Edina
+  state: MN
+  zip: 55435
+  phone: 952-835-2567
+  url: locations/southdale_ymca/
+  tags: YMCA
+  latitude: 44.8697376
+  longitude: -93.3198893
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 29
+  personify_brcode: 20
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'St. Paul Downtown'
+  address1: '194 East 6th Street'
+  address2: null
+  city: 'Saint Paul'
+  state: MN
+  zip: 55101
+  phone: 651-292-4143
+  url: locations/st_paul_downtown_ymca/
+  tags: YMCA
+  latitude: 44.9492859
+  longitude: -93.0892172
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 14
+  personify_brcode: 75
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:30 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '7:00 a.m. - 8:00 p.m.'
+-
+  name: 'St. Paul Eastside'
+  address1: '875 Arcade Street'
+  address2: null
+  city: 'Saint Paul'
+  state: MN
+  zip: 55106
+  phone: 651-771-8881
+  url: locations/st_paul_eastside_ymca/
+  tags: YMCA
+  latitude: 44.9676634
+  longitude: -93.0660041
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 35
+  personify_brcode: 76
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
+-
+  name: 'St. Paul Midway'
+  address1: '1761 University Avenue West'
+  address2: null
+  city: 'Saint Paul'
+  state: MN
+  zip: 55104
+  phone: 651-646-4557
+  url: locations/st_paul_midway_ymca/
+  tags: YMCA
+  latitude: 44.9559647
+  longitude: -93.174921
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 12
+  personify_brcode: 77
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
+-
+  name: 'West St. Paul'
+  address1: '150 Thompson Avenue East'
+  address2: null
+  city: 'West Saint Paul'
+  state: MN
+  zip: 55118
+  phone: 651-457-0048
+  url: locations/west_st_paul_ymca/
+  tags: YMCA
+  latitude: 44.900533
+  longitude: -93.078065
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 25
+  personify_brcode: 70
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 8:00 p.m.'
+-
+  name: 'White Bear Area'
+  address1: '2100 Orchard Lane'
+  address2: null
+  city: 'White Bear Area'
+  state: MN
+  zip: 55110
+  phone: 651-777-8103
+  url: locations/white_bear_area_ymca/
+  tags: YMCA
+  latitude: 45.042615
+  longitude: -93.012719
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 21
+  personify_brcode: 88
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: Woodbury
+  address1: '2175 Radio Drive'
+  address2: null
+  city: Woodbury
+  state: MN
+  zip: 55125
+  phone: 651-731-9507
+  url: locations/woodbury_ymca/
+  tags: YMCA
+  latitude: 44.9163747
+  longitude: -92.9338318
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: 13
+  personify_brcode: 83
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': '5:00 a.m. - 10:00 p.m.'
+  'HRS Sat-Sun': '6:00 a.m. - 9:00 p.m.'
+-
+  name: 'Day Camp Christmas Tree'
+  address1: '6365 Game Farm Rd.'
+  address2: null
+  city: Minnetrista
+  state: MN
+  zip: 55364
+  phone: 952-544-7708
+  url: camps/ymca_day_camp/day_camp_christmas_tree/
+  tags: Camp
+  latitude: 44.94721
+  longitude: -93.68299
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp DayCroix'
+  address1: '532 County Rd. F'
+  address2: null
+  city: Hudson
+  state: WI
+  zip: 54016
+  phone: '(WI) 715-386-4380 (MN) 651-436-8428'
+  url: camps/ymca_day_camp/day_camp_daycroix/
+  tags: Camp
+  latitude: 44.93938
+  longitude: -92.73148
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Guy Robinson'
+  address1: '3100 217th Ave NW'
+  address2: null
+  city: 'Oak Grove'
+  state: MN
+  zip: 55303
+  phone: 763-785-7882
+  url: camps/ymca_day_camp/day_camp_guy_robinson/
+  tags: Camp
+  latitude: 45.36371
+  longitude: -93.34778
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Heritage'
+  address1: '7732 Main Street'
+  address2: null
+  city: 'Lino Lakes'
+  state: MN
+  zip: 55038
+  phone: 651-795-9622
+  url: camps/ymca_day_camp/day_camp_heritage/
+  tags: Camp
+  latitude: 45.18618
+  longitude: -93.07152
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Ihduhapi'
+  address1: '3425 Ihduhapi Rd.'
+  address2: null
+  city: Loretto
+  state: MN
+  zip: 55357
+  phone: 763-479-1146
+  url: camps/ymca_day_camp/day_camp_ihduhapi/
+  tags: Camp
+  latitude: 45.04151
+  longitude: -93.64716
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Kici Yapi'
+  address1: '13220 Pike Lake Trail NE'
+  address2: null
+  city: 'Prior Lake'
+  state: MN
+  zip: 55372
+  phone: 952-835-2567
+  url: camps/ymca_day_camp/day_camp_kici_yapi/
+  tags: Camp
+  latitude: 44.75824
+  longitude: -93.42928
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Kumalya'
+  address1: '1515 Keats Ave N'
+  address2: null
+  city: 'Lake Elmo'
+  state: MN
+  zip: 55042
+  phone: 651-731-9507
+  url: camps/ymca_day_camp/day_camp_kumalya/
+  tags: Camp
+  latitude: 44.97193
+  longitude: -92.90324
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Manitou'
+  address1: '9910 Briarwood Ave NE'
+  address2: null
+  city: Monticello
+  state: MN
+  zip: 55362
+  phone: 763-535-4800
+  url: camps/ymca_day_camp/day_camp_manitou/
+  tags: Camp
+  latitude: 45.29466
+  longitude: -93.85798
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Spring Lake'
+  address1: '13690 Pine Bend Trail'
+  address2: null
+  city: Rosemount
+  state: MN
+  zip: 55068
+  phone: 651-456-9622
+  url: camps/ymca_day_camp/day_camp_spring_lake/
+  tags: Camp
+  latitude: 44.75478
+  longitude: -92.98218
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Day Camp Streefland'
+  address1: '11490 Klamath Trail'
+  address2: null
+  city: Lakeville
+  state: MN
+  zip: 55044
+  phone: 952-898-9622
+  url: camps/ymca_day_camp/day_camp_streefland/
+  tags: Camp
+  latitude: 44.70658
+  longitude: -93.30341
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp du Nord'
+  address1: '3606 North Arm Road'
+  address2: null
+  city: Ely
+  state: MN
+  zip: 55731
+  phone: 651-645-6605
+  url: camps/ymca_family_camp/camp_du_nord/
+  tags: Camp
+  latitude: 47.9744397
+  longitude: -91.9904173
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp Icaghowan'
+  address1: '899 A 115th Street'
+  address2: null
+  city: Amery
+  state: WI
+  zip: 54011
+  phone: 612-822-2267
+  url: camps/ymca_overnight_camp/camp_icaghowan/
+  tags: Camp
+  latitude: 45.3391413
+  longitude: -92.4175484
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp Ihduhapi'
+  address1: '3425 Ihduhapi Road'
+  address2: null
+  city: Loretto
+  state: MN
+  zip: 55357
+  phone: 612-822-2267
+  url: camps/ymca_overnight_camp/camp_ihduhapi/
+  tags: Camp
+  latitude: 45.041156
+  longitude: -93.647167
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp Menogyn'
+  address1: '55 Menogyn Trail'
+  address2: null
+  city: 'Grand Marais'
+  state: MN
+  zip: 55604
+  phone: 612-822-2267
+  url: camps/ymca_teen_wilderness/camp_menogyn/
+  tags: Camp
+  latitude: 48.06293
+  longitude: -90.437897
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp St. Croix'
+  address1: '532 County Road F'
+  address2: null
+  city: Hudson
+  state: WI
+  zip: 54016
+  phone: '(WI) 715-386-4380 (MN) 651-436-8428'
+  url: camps/ymca_overnight_camp/camp_st_croix/
+  tags: Camp
+  latitude: 44.9389542
+  longitude: -92.7314464
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp Warren'
+  address1: '3726 Miller Trunk Road'
+  address2: null
+  city: Eveleth
+  state: MN
+  zip: 55734
+  phone: 612-822-2267
+  url: camps/ymca_overnight_camp/camp_warren/
+  tags: Camp
+  latitude: 47.3882649
+  longitude: -92.5080009
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Camp Widjiwagan'
+  address1: '3788 North Arm Road'
+  address2: null
+  city: Ely
+  state: MN
+  zip: 55731
+  phone: 651-645-6605
+  url: camps/ymca_teen_wilderness/camp_widjiwagan/
+  tags: Camp
+  latitude: 48.0000319
+  longitude: -91.952969
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Clockwork Active Media'
+  address1: '1501 E. Hennepin Ave'
+  address2: null
+  city: Minneapolis
+  state: MN
+  zip: 55414
+  phone: 123-456-3432
+  url: 'http://www.clockwork.net'
+  tags: Preschool
+  latitude: 44.9917583
+  longitude: -93.2306039
+  icon: themes/custom/ymca/img/map_icon_blue.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null
+-
+  name: 'Jessica''s Hizzy'
+  address1: '1833 Eagle Ridge Dr.'
+  address2: null
+  city: 'Mendota Heights'
+  state: MN
+  zip: 55118
+  phone: 123-456-3432
+  url: 'http://www.clockwork.net'
+  tags: Childcare
+  latitude: 44.8895243
+  longitude: -93.1343419
+  icon: themes/custom/ymca/img/map_icon_green.png
+  geid: null
+  personify_brcode: null
+  shadow: themes/custom/ymca/img/map_shadow.png
+  'HRS Mon-Fri': null
+  'HRS Sat-Sun': null

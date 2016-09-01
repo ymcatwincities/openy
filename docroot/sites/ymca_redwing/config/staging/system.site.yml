@@ -1,0 +1,12 @@
+uuid: 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c
+name: 'Redwing Family YMCA'
+mail: BHockett@redwingymca.org
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/4171
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
