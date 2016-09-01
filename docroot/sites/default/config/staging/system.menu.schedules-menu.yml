@@ -1,0 +1,8 @@
+uuid: 173ff504-a3f0-42ad-a7c7-1dfdbd6425a3
+langcode: en
+status: true
+dependencies: {  }
+id: schedules-menu
+label: 'Schedules Menu'
+description: ''
+locked: false

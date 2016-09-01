@@ -1,0 +1,80 @@
+uuid: a98adb62-b559-4609-ad00-b5e9beef4714
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - ckeditor
+format: full_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+            - Strike
+            - Superscript
+            - Subscript
+            - '-'
+            - RemoveFormat
+        -
+          name: Linking
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Media
+          items:
+            - Blockquote
+            - Table
+            - HorizontalRule
+            - block
+            - menu_link
+            - file_browser
+            - webform
+        -
+          name: 'Block Formatting'
+          items:
+            - Format
+            - Styles
+        -
+          name: Tools
+          items:
+            - ShowBlocks
+            - Source
+        -
+          name: Templates
+          items:
+            - ColumnButton2x
+            - ColumnButton3x
+            - SportsPromo
+            - Green3Columns
+            - ClinicsSchedule
+            - SessionSchedules
+            - SportsTopSubheader
+            - TextColor
+  plugins:
+    language:
+      language_list: un
+    stylescombo:
+      styles: "p.button|Button\r\nspan.icon-clock|Clock icon"
+    colorbutton:
+      colors: '20bdbe,01a490,006b6b,00aeef,0089d0,0060af,c6168d,92278f,5c2e91,f15922,ed1c24,a92b31,fcaf17,f47920,dd5828,ffffff,636466,231f20'
+image_upload:
+  status: true
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

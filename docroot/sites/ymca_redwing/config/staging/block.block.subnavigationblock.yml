@@ -1,0 +1,20 @@
+uuid: 266242de-b849-4cd2-8320-04547b201e5a
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_blocks
+  theme:
+    - ymca
+id: subnavigationblock
+theme: ymca
+region: location_menu
+weight: -10
+provider: null
+plugin: sub_navigation_block
+settings:
+  id: sub_navigation_block
+  label: 'Sub-navigation block'
+  provider: ymca_blocks
+  label_display: '0'
+visibility: {  }

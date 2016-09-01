@@ -1,0 +1,69 @@
+uuid: d46261f8-8686-4431-9226-38f419177c91
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.field.contact_message.journey_to_freedom.field_comments
+    - field.field.contact_message.journey_to_freedom.field_contact_method
+    - field.field.contact_message.journey_to_freedom.field_email_address
+    - field.field.contact_message.journey_to_freedom.field_first_name
+    - field.field.contact_message.journey_to_freedom.field_last_name
+    - field.field.contact_message.journey_to_freedom.field_phone_number
+    - field.field.contact_message.journey_to_freedom.field_preferred_y_text
+  module:
+    - options
+id: contact_message.journey_to_freedom.default
+targetEntityType: contact_message
+bundle: journey_to_freedom
+mode: default
+content:
+  field_comments:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_contact_method:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_email_address:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_first_name:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  field_last_name:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_phone_number:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_preferred_y_text:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }
