@@ -30,6 +30,16 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   use StringTranslationTrait;
 
   /**
+   * Timezone of the results coming from MindBody.
+   */
+  const MINDBODY_TIMEZONE = 'America/Chicago';
+
+  /**
+   * Mindbody date format.
+   */
+  const MINDBODY_DATE_FORMAT = 'Y-m-d\TH:i:s';
+
+  /**
    * Min time value that should be available on form.
    */
   const MIN_TIME_RANGE = 4;
@@ -223,9 +233,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       ];
     }
 
-    // Get default timezone (in order to play good with strtotime()).
-    $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
-
     $booking_params = [
       'UserCredentials' => [
         'Username' => $this->credentials->get('user_name'),
@@ -271,7 +278,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
           // Here we create date range to iterate.
           $dateTime = new \DateTime();
-          $dateTime->setTimezone($defaultTimeZone);
+          $dateTime->setTimezone($this->getDefaultTimezone());
 
           $begin = clone $dateTime;
           $begin->setTimestamp(strtotime($bookable_item->StartDateTime));
@@ -282,18 +289,24 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $interval = new \DateInterval(sprintf('PT%dM', $bookable_item->SessionType->DefaultTimeLength));
           $range = new \DatePeriod($begin, $interval, $end);
 
+          $central_date_time_now = new \DateTime('now', $this->getMindBodyTimezone());
+          $central_timestamp_now = $central_date_time_now->getTimestamp();
+
+          /**
+           * @var \DateTime $item
+           */
           foreach ($range as $i => $item) {
+            // Note, MindBody results in
+            $slot = \DateTime::createFromFormat(self::MINDBODY_DATE_FORMAT, $item->format(self::MINDBODY_DATE_FORMAT), $this->getMindBodyTimezone());
+
             // Do not process items in the past.
             // Do not show time slots withing the hidden time.
-            /** @var \DateTime $item */
-            $date_time_now = new \DateTime('now', $defaultTimeZone);
-            $timestamp_now = $date_time_now->getTimestamp();
-            $timestamp_item = $item->getTimestamp();
+            $timestamp_slot = $slot->getTimestamp();
             $hide_time = (int) $this->settings->get('hide_time');
 
             // Hide time are in minutes. Need seconds.
             $hide_time = $hide_time > 0 ? $hide_time * 60 : $hide_time;
-            if ($timestamp_now + $hide_time >= $timestamp_item) {
+            if ($central_timestamp_now + $hide_time >= $timestamp_slot) {
               continue;
             }
 
@@ -711,6 +724,24 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       }
     }
     return FALSE;
+  }
+
+  /**
+   * Get timezone for MindBody results.
+   *
+   * @return \DateTimeZone
+   */
+  protected function getMindBodyTimezone() {
+    return new \DateTimeZone(self::MINDBODY_TIMEZONE);
+  }
+
+  /**
+   * Get timezone for MindBody results.
+   *
+   * @return \DateTimeZone
+   */
+  protected function getDefaultTimezone() {
+    return new \DateTimeZone(date_default_timezone_get());
   }
 
 }
