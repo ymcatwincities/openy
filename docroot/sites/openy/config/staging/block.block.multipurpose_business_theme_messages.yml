@@ -1,0 +1,20 @@
+uuid: b83ceb73-8ba1-49af-9c00-c252a995fd91
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_messages
+theme: multipurpose_business_theme
+region: highlighted
+weight: -11
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

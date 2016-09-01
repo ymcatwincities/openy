@@ -1,0 +1,24 @@
+uuid: d4d82804-887a-44b3-880f-1527c04c658b
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.comments_recent
+  module:
+    - views
+  theme:
+    - multipurpose_business_theme
+id: views_block__comments_recent_block_1
+theme: multipurpose_business_theme
+region: '-1'
+weight: -7
+provider: null
+plugin: 'views_block:comments_recent-block_1'
+settings:
+  id: 'views_block:comments_recent-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: '5'
+visibility: {  }
