@@ -1,4 +1,0 @@
-name: CIBox tools
-type: module
-description: CI related routines.
-core: 8.x
