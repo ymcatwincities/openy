@@ -558,7 +558,7 @@ a img {
     padding-right: 35px;
     white-space: nowrap; }
   .block-contact .opacity {
-    color: #cccccc; }
+    opacity: 0.4; }
   .block-contact--programs-classes {
     background-color: #0089d0; }
   .block-contact--camps-summer {
