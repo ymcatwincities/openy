@@ -1,0 +1,8 @@
+uuid: 1fa26024-bf0c-4caf-9803-3cb768c3aec0
+langcode: en
+status: true
+dependencies: {  }
+id: community-programs
+label: 'Community Programs'
+description: 'Subtree of pages'
+locked: false

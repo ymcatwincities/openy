@@ -1,0 +1,26 @@
+uuid: ad3ed6ef-001a-46f7-9800-e069e732fda7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.date_block
+    - field.storage.node.field_promo_slideshow
+    - node.type.article
+id: node.article.field_promo_slideshow
+field_name: field_promo_slideshow
+entity_type: node
+bundle: article
+label: 'Promo Slideshow'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      date_block: date_block
+    sort:
+      field: _none
+field_type: entity_reference

@@ -1,0 +1,22 @@
+uuid: d44d052f-9f5d-42b4-ba0c-12ab330d2ad2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_state
+    - node.type.article
+  module:
+    - workflowfield
+id: node.article.field_state
+field_name: field_state
+entity_type: node
+bundle: article
+label: State
+description: ''
+required: true
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: workflow

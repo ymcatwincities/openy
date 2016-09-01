@@ -1,0 +1,47 @@
+uuid: 430926cb-7385-4090-9d28-40ab7d3949de
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.rss
+    - field.field.node.article.field_alert
+    - field.field.node.article.field_content
+    - field.field.node.article.field_header_button
+    - field.field.node.article.field_header_image
+    - field.field.node.article.field_header_variant
+    - field.field.node.article.field_lead_description
+    - field.field.node.article.field_promo_slideshow
+    - field.field.node.article.field_related
+    - field.field.node.article.field_secondary_sidebar
+    - field.field.node.article.field_sidebar
+    - field.field.node.article.field_sidebar_navigation
+    - field.field.node.article.field_state
+    - field.field.node.article.field_tags
+    - field.field.node.article.field_title_description
+    - node.type.article
+  module:
+    - user
+id: node.article.rss
+targetEntityType: node
+bundle: article
+mode: rss
+content:
+  links:
+    weight: 100
+hidden:
+  field_alert: true
+  field_content: true
+  field_header_button: true
+  field_header_image: true
+  field_header_variant: true
+  field_lead_description: true
+  field_promo_slideshow: true
+  field_related: true
+  field_secondary_sidebar: true
+  field_sidebar: true
+  field_sidebar_navigation: true
+  field_state: true
+  field_status: true
+  field_tags: true
+  field_title_description: true
+  langcode: true

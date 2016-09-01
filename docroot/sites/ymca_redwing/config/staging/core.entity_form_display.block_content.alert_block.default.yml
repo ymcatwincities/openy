@@ -1,0 +1,54 @@
+uuid: 2a1454c2-335a-4b44-9558-880e11528934
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.field.block_content.alert_block.field_block_content
+    - field.field.block_content.alert_block.field_end_date
+    - field.field.block_content.alert_block.field_global_alert
+    - field.field.block_content.alert_block.field_start_date
+  module:
+    - datetime
+    - text
+id: block_content.alert_block.default
+targetEntityType: block_content
+bundle: alert_block
+mode: default
+content:
+  field_block_content:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_end_date:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_global_alert:
+    weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_start_date:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  info:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

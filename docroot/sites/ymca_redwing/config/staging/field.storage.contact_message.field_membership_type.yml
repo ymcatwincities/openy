@@ -1,0 +1,39 @@
+uuid: d7973b5d-0b1a-42b9-8d00-f31f0913dc5b
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_membership_type
+field_name: field_membership_type
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Adult
+      label: Adult
+    -
+      value: Dual
+      label: Dual
+    -
+      value: Family
+      label: Family
+    -
+      value: Youth
+      label: Youth
+    -
+      value: Student
+      label: Student
+    -
+      value: 'I''m not sure'
+      label: 'I''m not sure'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

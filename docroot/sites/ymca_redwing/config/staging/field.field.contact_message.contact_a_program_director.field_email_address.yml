@@ -1,0 +1,19 @@
+uuid: 09ce641d-14ef-47e1-8100-b2884681ad0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_a_program_director
+    - field.storage.contact_message.field_email_address
+id: contact_message.contact_a_program_director.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: contact_a_program_director
+label: 'Email Address'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

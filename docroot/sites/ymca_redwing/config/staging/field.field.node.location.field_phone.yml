@@ -1,0 +1,21 @@
+uuid: 168da9b5-90c4-4c17-9654-84e1e0597150
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone
+    - node.type.location
+  module:
+    - telephone
+id: node.location.field_phone
+field_name: field_phone
+entity_type: node
+bundle: location
+label: 'Front desk phone number'
+description: 'Number for general questions, which is displayed on location page.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
