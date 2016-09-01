@@ -1,0 +1,31 @@
+uuid: 262baeb7-e3b3-4b7e-a047-711f5bf66a14
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:420c5cbc-7d8b-40be-b600-a4359189767d'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: uielements
+theme: multipurpose_business_theme
+region: sidebar_first
+weight: -21
+provider: null
+plugin: 'block_content:420c5cbc-7d8b-40be-b600-a4359189767d'
+settings:
+  id: 'block_content:420c5cbc-7d8b-40be-b600-a4359189767d'
+  label: 'UI Elements'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /ui-elements
+    negate: false
+    context_mapping: {  }

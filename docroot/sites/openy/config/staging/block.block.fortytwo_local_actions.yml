@@ -1,0 +1,18 @@
+uuid: 19e92eb3-ab06-446a-bc2d-4574c439f177
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fortytwo
+id: fortytwo_local_actions
+theme: fortytwo
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

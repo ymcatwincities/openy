@@ -1,0 +1,50 @@
+uuid: 4ab34580-7074-4f92-a605-59666dd4dc32
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
+  module:
+    - user
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.default
+targetEntityType: groupex_google_cache
+bundle: groupex_google_cache
+mode: default
+content:
+  field_gg_google_event:
+    weight: 19
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_gg_instructor:
+    weight: 17
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gg_orig_instructor:
+    weight: 18
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
