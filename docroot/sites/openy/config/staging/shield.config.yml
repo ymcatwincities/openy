@@ -1,0 +1,6 @@
+enabled: '1'
+login: admin
+password: propeople
+message: 'You have to authorise on this site'
+_core:
+  default_config_hash: qJgFsGn5n77qwCIZ0Qbim2qsPLxNimBWLVx6U6Ypb4A

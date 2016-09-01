@@ -418,7 +418,7 @@ display:
           value:
             min: ''
             max: ''
-            value: '3000'
+            value: '1'
           group: 1
           exposed: false
           expose:

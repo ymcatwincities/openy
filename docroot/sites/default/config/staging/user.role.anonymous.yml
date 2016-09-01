@@ -16,3 +16,4 @@ permissions:
   - 'access sitemap'
   - 'create workflow workflow_transition'
   - 'access YMCA locations'
+  - 'access YMCA location schedules'

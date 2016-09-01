@@ -1,0 +1,25 @@
+uuid: bac2c298-9b36-4649-915a-90e3ef1cff82
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:4c350b8e-2294-4fc2-ac06-06fcd9668b78'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: multilingualready_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -17
+provider: null
+plugin: 'block_content:4c350b8e-2294-4fc2-ac06-06fcd9668b78'
+settings:
+  id: 'block_content:4c350b8e-2294-4fc2-ac06-06fcd9668b78'
+  label: Multilingual-Ready
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
