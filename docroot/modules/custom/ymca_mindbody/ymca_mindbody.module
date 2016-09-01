@@ -134,6 +134,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
             }
           }
           break;
+
         case 'list-of-products-pt':
           $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
           $mappings = $mapping_repository->loadAll();
