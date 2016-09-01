@@ -1,0 +1,20 @@
+uuid: e3c095f9-1e74-4c26-9b1d-299d64647ead
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fortytwo
+id: fortytwo_content
+theme: fortytwo
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

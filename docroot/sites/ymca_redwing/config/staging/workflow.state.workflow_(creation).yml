@@ -1,0 +1,10 @@
+uuid: 82e7edd0-693c-4d8f-af00-bccb955ffad5
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_(creation)
+label: (creation)
+module: null
+wid: workflow
+weight: -11
+sysid: 1

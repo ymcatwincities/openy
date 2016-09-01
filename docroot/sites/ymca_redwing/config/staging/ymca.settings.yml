@@ -1,0 +1,37 @@
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: 0
+  logo: true
+  name: true
+  node_user_picture: 1
+  slogan: true
+brand_title: 'YMCA Twin Cities'
+links_color: '#822A92'
+links_color_hover: '#822A92'
+header_background_color_base: '#822A92'
+header_sub_background_color: '#822A92'
+header_background_color_locations: '#5a2b8b'
+header_sub_background_color_locations: 'rgba(90,43,139,0.93)'
+header_background_color_camps: '#f47920'
+header_sub_background_color_camps: 'rgba(244,121,32,0.93)'
+header_home_button_bg_color: '#FF0000'
+header_home_button_border_color: '#FF0000'
+header_buttons_color1_base: '#9c1f7b'
+header_buttons_color2_base: '#b92f9e'
+header_buttons_color1_locations: '#9c1f7b'
+header_buttons_color2_locations: '#b92f9e'
+header_buttons_color1_camps: '#019c86'
+header_buttons_color2_camps: '#2fb998'
+header_search: false
+camps_links_color: '#01a490'
+camps_links_color_hover: ''
+logo:
+  use_default: 1
+favicon:
+  use_default: 0
+  path: ''
+logo_camps: {  }
+ymca_favicon_default: {  }
+ymca_favicon_camp: {  }
+ymca_favicon_location: {  }

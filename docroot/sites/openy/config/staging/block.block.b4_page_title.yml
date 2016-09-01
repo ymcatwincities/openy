@@ -1,0 +1,18 @@
+uuid: beb72659-9d41-42ea-8e03-3bff5ef08906
+langcode: en
+status: true
+dependencies:
+  theme:
+    - b4
+id: b4_page_title
+theme: b4
+region: content
+weight: -50
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

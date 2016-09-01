@@ -1,0 +1,196 @@
+uuid: 6af2ffba-48f9-41eb-865c-92f028771708
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.location.field_alert
+    - field.field.node.location.field_content
+    - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_fitness_phone
+    - field.field.node.location.field_include_general_blog_posts
+    - field.field.node.location.field_join_override
+    - field.field.node.location.field_location
+    - field.field.node.location.field_main_promos
+    - field.field.node.location.field_membership_block
+    - field.field.node.location.field_phone
+    - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
+    - field.field.node.location.field_schedule_content
+    - field.field.node.location.field_working_hours
+    - node.type.location
+  module:
+    - address
+    - entity_browser
+    - inline_entity_form
+    - path
+    - text
+    - ymca_alters
+id: node.location.default
+targetEntityType: node
+bundle: location
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+  field_alert:
+    weight: 7
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_content:
+    weight: 15
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_facebook_page_id:
+    weight: 10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_fitness_phone:
+    weight: 4
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_include_general_blog_posts:
+    weight: 11
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_join_override:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: '<a href="path_to">BUTTON TITLE</a>'
+    third_party_settings: {  }
+    type: text_textfield
+  field_location:
+    weight: 5
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_main_promos:
+    weight: 9
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_membership_block:
+    weight: 8
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_phone:
+    weight: 3
+    settings:
+      placeholder: ''
+      validate_pattern: ''
+      validate_message: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_promo_slideshow:
+    weight: 6
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_schedule_block:
+    weight: 18
+    settings:
+      entity_browser: browse_block_modal
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+  field_schedule_content:
+    weight: 17
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_working_hours:
+    weight: 16
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 12
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 19
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

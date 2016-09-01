@@ -1,0 +1,7 @@
+bundles:
+  location_schedule:
+    reference: field_schedule_block
+  working_hours_block:
+    reference: field_working_hours
+_core:
+  default_config_hash: 5xvdRvo_WerWwNt5eH5EB67HKCGwCzIZOs60fthBCBQ

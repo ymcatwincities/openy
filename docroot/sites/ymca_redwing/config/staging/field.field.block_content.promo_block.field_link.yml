@@ -1,0 +1,23 @@
+uuid: daee9ef6-65eb-4040-9400-acc333d0dd2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo_block
+    - field.storage.block_content.field_link
+  module:
+    - link
+id: block_content.promo_block.field_link
+field_name: field_link
+entity_type: block_content
+bundle: promo_block
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

@@ -1,0 +1,23 @@
+uuid: 3c27e0a5-a995-42eb-bc00-ad2cb0bd363f
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_w9
+id: contact_message.become_a_supplier.field_w9
+field_name: field_w9
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Will you agree to supply a W9?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

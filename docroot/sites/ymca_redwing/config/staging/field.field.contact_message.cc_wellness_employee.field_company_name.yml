@@ -1,0 +1,19 @@
+uuid: fdc0f4d3-7cdf-4cbe-bc48-72f43c6a6ed2
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employee
+    - field.storage.contact_message.field_company_name
+id: contact_message.cc_wellness_employee.field_company_name
+field_name: field_company_name
+entity_type: contact_message
+bundle: cc_wellness_employee
+label: 'What''s the name of your company'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

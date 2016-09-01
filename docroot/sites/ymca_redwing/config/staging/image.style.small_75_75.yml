@@ -1,0 +1,23 @@
+uuid: 0214deac-fad7-4dfe-9d07-7def7caae4f2
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: small_75_75
+label: 'Small [75×75]'
+effects:
+  fef7db5d-c5f0-43e3-9700-0a73b57d7ef1:
+    uuid: fef7db5d-c5f0-43e3-9700-0a73b57d7ef1
+    id: image_scale
+    weight: -9
+    data:
+      width: 75
+      height: 75
+      upscale: true
+  dea27e6d-3bc4-4f7b-8948-7227dc38ea40:
+    uuid: dea27e6d-3bc4-4f7b-8948-7227dc38ea40
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: small_75_75
