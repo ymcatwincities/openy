@@ -1,0 +1,23 @@
+uuid: 448f9bcd-f9c6-48bc-8800-c58b7e49c5ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.wait_list.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: wait_list
+label: 'Phone Number'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: '(###)###-####'
+default_value_callback: ''
+settings: {  }
+field_type: telephone

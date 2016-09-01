@@ -1,0 +1,25 @@
+uuid: 30dc12a9-63d2-479a-be00-a33963652cb9
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:e3409405-8c50-4411-8500-e3ed77e87959'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: mobilefirst_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -18
+provider: null
+plugin: 'block_content:e3409405-8c50-4411-8500-e3ed77e87959'
+settings:
+  id: 'block_content:e3409405-8c50-4411-8500-e3ed77e87959'
+  label: 'Mobile First'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,11 @@
+uuid: fb48a443-4973-4306-9907-7b43d717e6fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+id: block_content.alert_block
+target_entity_type_id: block_content
+target_bundle: alert_block
+default_langcode: site_default
+language_alterable: false

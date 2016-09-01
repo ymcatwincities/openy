@@ -1,0 +1,25 @@
+definitions:
+  contact__site_page:
+    weight: -49
+    enabled: false
+    menu_name: footer
+    parent: ''
+    expanded: false
+  standard__front_page:
+    weight: -50
+    menu_name: main
+    parent: ''
+    expanded: false
+    enabled: true
+  user__page:
+    weight: -50
+    menu_name: account
+    parent: ''
+    enabled: true
+    expanded: false
+  user__logout:
+    weight: -49
+    menu_name: account
+    parent: ''
+    expanded: false
+    enabled: true
