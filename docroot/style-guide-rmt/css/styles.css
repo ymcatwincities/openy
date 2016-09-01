@@ -683,27 +683,29 @@ a img {
     height: 82px; }
 
 .block-cta {
+  max-width: 550px;
   margin: 0 auto;
-  max-width: 556px;
-  padding: 0 10px 49px; }
+  width: 100%; }
+  .block-cta .padding {
+    padding: 0 5px; }
+  .block-cta .border-bottom {
+    border-bottom: 15px solid transparent; }
   .block-cta__content {
     padding-bottom: 24px; }
-  .block-cta__img {
-    width: 100%;
-    height: auto;
-    padding-bottom: 25px;
-    line-height: 0; }
-  .block-cta--image--left .block-cta__img {
-    padding-bottom: 29px; }
-  .block-cta--image--left .block-cta__title {
+  .block-cta__title {
+    color: #424242;
+    font-family: Arial,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
     margin-bottom: 0;
-    padding-bottom: 8px; }
+    text-align: left;
+    text-transform: uppercase; }
+  .block-cta__img img {
+    width: 100%;
+    height: auto; }
   .block-cta--image--left .block-cta__body {
     vertical-align: top;
-    padding-left: 30px; }
-  .block-cta--grid .block-cta__title {
-    margin-bottom: 0;
-    padding-bottom: 8px; }
+    padding-left: 25px; }
   .block-cta__table tr {
     background: transparent !important; }
     .block-cta__table tr td {
@@ -712,17 +714,15 @@ a img {
 
 .block-grid {
   margin: 0 auto;
-  max-width: 622px; }
+  max-width: 620px;
+  width: 100%; }
   .block-grid table tr {
     background: transparent; }
-    .block-grid table tr td {
-      min-height: 50px;
-      padding: 0 20px;
-      vertical-align: top;
-      width: 50%; }
-  .block-grid .block-cta__title {
-    margin-bottom: 0px;
-    padding-bottom: 11px; }
+  .block-grid .padding {
+    min-height: 50px;
+    padding: 0 15px;
+    vertical-align: top;
+    width: 50%; }
 
 .text-indent {
   padding-left: 25px;
