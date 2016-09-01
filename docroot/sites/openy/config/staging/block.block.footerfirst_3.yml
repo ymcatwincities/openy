@@ -1,0 +1,31 @@
+uuid: dadbd4ae-8c3d-499f-8403-3e6ac0d845a1
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:72b2c59c-8ba3-4237-b402-023073b98801'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: footerfirst_3
+theme: multipurpose_business_theme
+region: sidebar_first
+weight: -19
+provider: null
+plugin: 'block_content:72b2c59c-8ba3-4237-b402-023073b98801'
+settings:
+  id: 'block_content:72b2c59c-8ba3-4237-b402-023073b98801'
+  label: 'Quick links'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/layout/two-sidebar\r\n/layout/left-sidebar"
+    negate: false
+    context_mapping: {  }
