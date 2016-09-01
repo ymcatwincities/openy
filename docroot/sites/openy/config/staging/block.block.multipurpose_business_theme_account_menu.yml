@@ -1,0 +1,24 @@
+uuid: 7323c1f8-b759-4e58-a201-1a18530c1e15
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_account_menu
+theme: multipurpose_business_theme
+region: '-1'
+weight: -3
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 2
+visibility: {  }
