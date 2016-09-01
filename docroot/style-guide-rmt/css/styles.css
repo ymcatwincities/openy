@@ -21,7 +21,6 @@
     margin-bottom: 7px;
     display: inline-block; }
   .icon__title {
-    display: block;
     font-size: 13px;
     color: #363636; }
 
@@ -724,8 +723,6 @@ a img {
   margin-left: 20px; }
 
 .text-icon {
-  display: -ms-flexbox;
-  display: flex;
   font-size: 18px;
   line-height: 30px;
   margin-bottom: 0; }
@@ -743,6 +740,11 @@ a img {
   padding-right: 10px; }
   .block-text-icon__top {
     margin-bottom: 22px; }
+
+.layout-icon {
+  margin-bottom: 30px !important; }
+  .layout-icon td {
+    padding: 0 10px; }
 
 .block-style-list {
   max-width: 556px;
