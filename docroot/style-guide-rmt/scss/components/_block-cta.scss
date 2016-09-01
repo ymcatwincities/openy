@@ -1,4 +1,8 @@
 .block-cta {
+  max-width: 550px;
+  margin: 0 auto;
+  width: 100%;
+
   .padding {
     padding: 0 5px;
   }
@@ -31,7 +35,7 @@
   &--image--left {
     .block-cta__body {
       vertical-align: top;
-      padding-left: 30px;
+      padding-left: 25px;
     }
   }
 
