@@ -1,3 +1,6 @@
 services:
+  ymca_groupex.helper:
+    class: Drupal\ymca_groupex\GroupexHelper
   ymca_groupex.schedule_fetcher:
     class: Drupal\ymca_groupex\GroupexScheduleFetcher
+    arguments: ['@ymca_groupex.helper']

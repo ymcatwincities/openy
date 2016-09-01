@@ -1,0 +1,8 @@
+uuid: ea87a75b-bf66-4b74-9d2b-fdc74d21cc76
+langcode: en
+status: true
+dependencies: {  }
+id: membership-var-b
+label: 'Membership Var B'
+description: ''
+locked: false
