@@ -196,3 +196,15 @@ function yptf_master_update_8009() {
     $mapping->save();
   }
 }
+
+/**
+ * YPTF-150: Add Personify Product URl to config.
+ */
+function yptf_master_update_8010() {
+  $path = drupal_get_path('module', 'ymca_mindbody') . '/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.settings.yml',
+    ]
+  );
+}
