@@ -6,7 +6,8 @@
 
 @include font-face(cachetstd-bold, fonts/cachetstd-bold);
 @include font-face(cachetstd-medium, fonts/cachetstd-medium);
- .icon {
+
+.icon {
   display: inline-block;
   margin-bottom: 20px;
   min-width: 100px;
@@ -18,7 +19,6 @@
   }
 
   &__title {
-    display: block;
     font-size: 13px;
     color: $gray-36;
   }
