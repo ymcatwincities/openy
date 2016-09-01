@@ -1,0 +1,31 @@
+uuid: 99778cc1-d1eb-4e02-b255-8533130064a5
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:87952f1b-5596-46e6-8009-9fc9cd6f245f'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: typography
+theme: multipurpose_business_theme
+region: sidebar_first
+weight: -20
+provider: null
+plugin: 'block_content:87952f1b-5596-46e6-8009-9fc9cd6f245f'
+settings:
+  id: 'block_content:87952f1b-5596-46e6-8009-9fc9cd6f245f'
+  label: Typography
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /typography
+    negate: false
+    context_mapping: {  }
