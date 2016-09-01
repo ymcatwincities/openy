@@ -1,0 +1,19 @@
+uuid: 2d340ac5-571a-4d6e-b106-06b65e244f34
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.storage.contact_message.field_last_name
+id: contact_message.wait_list.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: wait_list
+label: 'Last Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

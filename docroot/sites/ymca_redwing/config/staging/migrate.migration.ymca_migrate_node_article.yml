@@ -1,0 +1,49 @@
+id: ymca_migrate_node_page
+label: 'Page migration.'
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_node_page
+process:
+  type:
+    plugin: default_value
+    default_value: article
+  title: page_title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+  field_content: field_content
+  field_lead_description: field_lead_description
+  field_header_button: field_header_button
+  field_header_variant: field_header_variant
+  field_sidebar: field_sidebar
+  field_secondary_sidebar: field_secondary_sidebar
+  field_header_image: field_header_image
+  field_sidebar_navigation: field_sidebar_navigation
+  field_related: field_related
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - ymca_migrate_taxonomy_term_tags
+    - ymca_migrate_file_image
+    - ymca_migrate_menu_link_content_camps
+    - ymca_migrate_menu_link_content_child_care_preschool
+    - ymca_migrate_menu_link_content_community_programs
+    - ymca_migrate_menu_link_content_health_fitness
+    - ymca_migrate_menu_link_content_jobs_suppliers_news
+    - ymca_migrate_menu_link_content_kid_teen_activities
+    - ymca_migrate_menu_link_content_locations
+    - ymca_migrate_menu_link_content_main
+    - ymca_migrate_menu_link_content_swimming
+    - ymca_migrate_menu_link_content_redirect
+    - ymca_migreate_node_camp
+    - ymca_migreate_node_location

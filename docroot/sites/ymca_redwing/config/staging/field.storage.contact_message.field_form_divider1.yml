@@ -1,0 +1,20 @@
+uuid: 68d645d8-7cd2-41b1-8a39-576f0523111b
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - webforms
+id: contact_message.field_form_divider1
+field_name: field_form_divider1
+entity_type: contact_message
+type: webform_markup_item
+settings:
+  case_sensitive: false
+module: webforms
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

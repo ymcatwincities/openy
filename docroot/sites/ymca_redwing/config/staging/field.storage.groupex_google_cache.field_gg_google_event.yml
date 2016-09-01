@@ -1,0 +1,19 @@
+uuid: 567d3139-bcd5-45ad-9ad2-4c68eb2c5509
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.field_gg_google_event
+field_name: field_gg_google_event
+entity_type: groupex_google_cache
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

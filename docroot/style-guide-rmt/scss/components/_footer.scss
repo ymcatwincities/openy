@@ -96,26 +96,3 @@
     color: $gray-42;
   }
 }
-
-
-.btn--border {
-  background-color: transparent;
-  border: 2px solid $gray-f3;
-  margin: 5px 8px;
-
-  &--green {
-    color: $green;
-  }
-
-  &--orange {
-    color: $orange;
-  }
-
-  &--purple {
-    color: $purple-light;
-  }
-
-  &--blue {
-    color: $blue-dark ;
-  }
-}

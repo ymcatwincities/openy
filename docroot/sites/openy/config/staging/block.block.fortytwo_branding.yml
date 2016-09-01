@@ -1,0 +1,23 @@
+uuid: 3ed46b31-a420-4e9e-a948-72b2b6d0960f
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fortytwo
+id: fortytwo_branding
+theme: fortytwo
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

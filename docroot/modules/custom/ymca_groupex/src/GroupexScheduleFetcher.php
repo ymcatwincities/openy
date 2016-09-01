@@ -69,9 +69,24 @@ class GroupexScheduleFetcher {
   private $timezone = NULL;
 
   /**
-   * ScheduleFetcher constructor.
+   * The groupex helper.
+   *
+   * @var GroupexHelper
    */
-  public function __construct($parameters = NULL) {
+  protected $groupexHelper;
+
+  /**
+   * GroupexScheduleFetcher constructor.
+   *
+   * @param GroupexHelper $groupex_helper
+   *   The Groupex helper.
+   *
+   * @param null $parameters
+   *   Parameters.
+   */
+  public function __construct(GroupexHelper $groupex_helper, $parameters = NULL) {
+    $this->groupexHelper = $groupex_helper;
+
     empty($parameters) ? $parameters = \Drupal::request()->query->all() : '';
     $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
     $this->parameters = self::normalizeParameters($parameters);
@@ -191,7 +206,7 @@ class GroupexScheduleFetcher {
         if (!empty($this->parameters['location'])) {
           $location_id = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = $this->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = $this->groupexHelper->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -211,7 +226,7 @@ class GroupexScheduleFetcher {
         if (!empty($this->parameters['location'])) {
           $location = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = $this->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = $this->groupexHelper->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -236,7 +251,7 @@ class GroupexScheduleFetcher {
             }
           }
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $pdf_href = $this->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+          $pdf_href = $this->groupexHelper->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
@@ -260,7 +275,7 @@ class GroupexScheduleFetcher {
         if (!empty($this->parameters['location'])) {
           $location = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = $this->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = $this->groupexHelper->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -568,9 +583,9 @@ class GroupexScheduleFetcher {
    *
    * @param int $location
    *   Location ID.
-   * @param int $timestamp
+   * @param int|bool $timestamp
    *   Timestamp.
-   * @param int $category
+   * @param int|bool $category
    *   Category.
    *
    * @return \Drupal\Core\Url

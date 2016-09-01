@@ -19,18 +19,30 @@
   <div class="component--item" id="header">
     <h2 class="component--title">header <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
-      <div class="header">
-        <div class="header__item header__branch">
-          <a href="http://ymcamn.org" target="_blank" class="site-logo">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
-          </a>
-          <a href="http://ymcamn.org" target="_blank" class="site-slogan">YMCA Twin Cities</a>
-        </div>
-        <div class="header__item">
-          <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
-          <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
-          <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
-        </div>
+      <div class="container">
+        <table class="header">
+          <tr class="header__item header__branch">
+            <td rowspan="2" class="logo">
+              <a href="http://ymcamn.org" target="_blank" class="site-logo">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
+              </a>
+            </td>
+            <td colspan="3">
+              <a href="http://ymcamn.org" target="_blank" class="site-slogan">YMCA Twin Cities</a>
+            </td>
+          </tr>
+          <tr class="header__item">
+            <td>
+              <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
+            </td>
+            <td>
+              <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
+            </td>
+            <td>
+              <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="container">
@@ -38,18 +50,30 @@
       <div class="component--source element-invisible">
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
-          <pre class="brush: php"><div class="header">
-  <div class="header__item header__branch">
-    <a href="http://ymcamn.org" target="_blank" class="site-logo">
-      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
-    </a>
-    <a href="http://ymcamn.org" target="_blank" class="site-slogan">YMCA Twin Cities</a>
-  </div>
-  <div class="header__item">
-    <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
-    <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
-    <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
-  </div>
+          <pre class="brush: php"><div class="container">
+  <table class="header">
+    <tr class="header__item header__branch">
+      <td rowspan="2" class="logo">
+        <a href="http://ymcamn.org" target="_blank" class="site-logo">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-blue.png" alt="Logo ymca">
+        </a>
+      </td>
+      <td colspan="3">
+        <a href="http://ymcamn.org" target="_blank" class="site-slogan">YMCA Twin Cities</a>
+      </td>
+    </tr>
+    <tr class="header__item">
+      <td>
+        <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
+      </td>
+      <td>
+        <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
+      </td>
+      <td>
+        <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
+      </td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -110,8 +134,8 @@
         </div>
 
         <div class="block-unsubscribe">
-          <a class="btn btn--border btn--border--purple" href="#" target="_blank">unsubscribe</a>
-          <a class="btn btn--border btn--border--blue" href="#" target="_blank">MANAGE PREFERENCES</a>
+          <a class="btn-border btn-border--purple shorter" href="http://ymcamn.org" target="_blank">unsubscribe</a>
+          <a class="btn-border btn-border--blue" href="http://ymcamn.org" target="_blank">MANAGE PREFERENCES</a>
         </div>
 
         <div class="block-copyright">
@@ -165,8 +189,8 @@
   </div>
 
   <div class="block-unsubscribe">
-    <a class="btn btn--border btn--border--purple" href="#" target="_blank">unsubscribe</a>
-    <a class="btn btn--border btn--border--blue" href="#" target="_blank">MANAGE PREFERENCES</a>
+    <a class="btn-border btn-border--purple shorter" href="http://ymcamn.org" target="_blank">unsubscribe</a>
+    <a class="btn-border btn-border--blue" href="http://ymcamn.org" target="_blank">MANAGE PREFERENCES</a>
   </div>
 
   <div class="block-copyright">
@@ -185,18 +209,30 @@
   <div class="component--item" id="header-camps-summer">
     <h2 class="component--title">header camps summer <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
-      <div class="header header--camps-summer">
-        <div class="header__item header__branch">
-          <a href="http://ymcamn.org" target="_blank" class="site-logo">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca">
-          </a>
-          <a href="http://ymcamn.org" target="_blank" class="site-slogan">Day Camp </br> Guy Robinson</a>
-        </div>
-        <div class="header__item">
-          <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
-          <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
-          <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
-        </div>
+      <div class="container">
+        <table class="header header--camps-summer">
+          <tr class="header__item header__branch">
+            <td rowspan="2" class="logo">
+              <a href="http://ymcamn.org" target="_blank" class="site-logo">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca">
+              </a>
+            </td>
+            <td colspan="3">
+              <a href="http://ymcamn.org" target="_blank" class="site-slogan">Day Camp Guy Robinson</a>
+            </td>
+          </tr>
+          <tr class="header__item">
+            <td>
+              <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
+            </td>
+            <td>
+              <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
+            </td>
+            <td>
+              <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="container">
@@ -204,18 +240,30 @@
       <div class="component--source element-invisible">
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
-          <pre class="brush: php"><div class="header header--camps-summer">
-  <div class="header__item header__branch">
-    <a href="http://ymcamn.org" target="_blank" class="site-logo">
-      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca">
-    </a>
-    <a href="http://ymcamn.org" target="_blank" class="site-slogan">Day Camp </br> Guy Robinson</a>
-  </div>
-  <div class="header__item">
-    <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
-    <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
-    <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
-  </div>
+          <pre class="brush: php"><div class="container">
+  <table class="header header--camps-summer">
+    <tr class="header__item header__branch">
+      <td rowspan="2" class="logo">
+        <a href="http://ymcamn.org" target="_blank" class="site-logo">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-orange.png" alt="Logo ymca">
+        </a>
+      </td>
+      <td colspan="3">
+        <a href="http://ymcamn.org" target="_blank" class="site-slogan">Day Camp Guy Robinson</a>
+      </td>
+    </tr>
+    <tr class="header__item">
+      <td>
+        <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
+      </td>
+      <td>
+        <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
+      </td>
+      <td>
+        <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
+      </td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -277,8 +325,8 @@
         </div>
 
         <div class="block-unsubscribe">
-          <a class="btn btn--border btn--border--green" href="#" target="_blank">unsubscribe</a>
-          <a class="btn btn--border btn--border--orange" href="#" target="_blank">MANAGE PREFERENCES</a>
+          <a class="btn-border btn-border--green shorter" href="http://ymcamn.org" target="_blank">unsubscribe</a>
+          <a class="btn-border btn-border--orange" href="http://ymcamn.org" target="_blank">MANAGE PREFERENCES</a>
         </div>
 
         <div class="block-copyright">
@@ -333,8 +381,8 @@
   </div>
 
   <div class="block-unsubscribe">
-    <a class="btn btn--border btn--border--green" href="#" target="_blank">unsubscribe</a>
-    <a class="btn btn--border btn--border--orange" href="#" target="_blank">MANAGE PREFERENCES</a>
+    <a class="btn-border btn-border--green shorter" href="http://ymcamn.org" target="_blank">unsubscribe</a>
+    <a class="btn-border btn-border--orange" href="http://ymcamn.org" target="_blank">MANAGE PREFERENCES</a>
   </div>
 
   <div class="block-copyright">
@@ -353,18 +401,30 @@
   <div class="component--item" id="header-programs-classes">
     <h2 class="component--title">header programs classes <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
-      <div class="header header--programs-classes">
-        <div class="header__item header__branch">
-          <a href="http://ymcamn.org" target="_blank" class="site-logo">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca">
-          </a>
-          <a href="http://ymcamn.org" target="_blank" class="site-slogan">Mounds View </br> Community Center</a>
-        </div>
-        <div class="header__item">
-          <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
-          <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
-          <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
-        </div>
+      <div class="container">
+        <table class="header header--programs-classes">
+          <tr class="header__item header__branch">
+            <td rowspan="2" class="logo">
+              <a href="http://ymcamn.org" target="_blank" class="site-logo">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca">
+              </a>
+            </td>
+            <td colspan="3">
+              <a href="http://ymcamn.org" target="_blank" class="site-slogan">Mounds View Community Center</a>
+            </td>
+          </tr>
+          <tr class="header__item">
+            <td>
+              <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
+            </td>
+            <td>
+              <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
+            </td>
+            <td>
+              <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="container">
@@ -372,20 +432,31 @@
       <div class="component--source element-invisible">
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
-          <pre class="brush: php"><div class="header header--programs-classes">
-  <div class="header__item header__branch">
-    <a href="http://ymcamn.org" target="_blank" class="site-logo">
-      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca">
-    </a>
-    <a href="http://ymcamn.org" target="_blank" class="site-slogan">Mounds View </br> Community Center</a>
-  </div>
-  <div class="header__item">
-    <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
-    <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
-    <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
-  </div>
-</div>
-</pre>
+          <pre class="brush: php"><div class="container">
+  <table class="header header--programs-classes">
+    <tr class="header__item header__branch">
+      <td rowspan="2" class="logo">
+        <a href="http://ymcamn.org" target="_blank" class="site-logo">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/logo-green.png" alt="Logo ymca">
+        </a>
+      </td>
+      <td colspan="3">
+        <a href="http://ymcamn.org" target="_blank" class="site-slogan">Mounds View Community Center</a>
+      </td>
+    </tr>
+    <tr class="header__item">
+      <td>
+        <a href="http://ymcamn.org/all_y_schedules" target="_blank">Schedules</a>
+      </td>
+      <td>
+        <a href="http://ymcamn.org/blog" target="_blank">Blog</a>
+      </td>
+      <td>
+        <a href="http://ymcamn.org/locations" target="_blank">Locations</a>
+      </td>
+    </tr>
+  </table>
+</div></pre>
         </div>
       </div>
     </div>
@@ -445,8 +516,8 @@
         </div>
 
         <div class="block-unsubscribe">
-          <a class="btn btn--border btn--border--blue" href="#" target="_blank">unsubscribe</a>
-          <a class="btn btn--border btn--border--green" href="#" target="_blank">MANAGE PREFERENCES</a>
+          <a class="btn-border btn-border--blue shorter" href="http://ymcamn.org" target="_blank">unsubscribe</a>
+          <a class="btn-border btn-border--green" href="http://ymcamn.org" target="_blank">MANAGE PREFERENCES</a>
         </div>
 
         <div class="block-copyright">
@@ -501,8 +572,8 @@
   </div>
 
   <div class="block-unsubscribe">
-    <a class="btn btn--border btn--border--blue" href="#" target="_blank">unsubscribe</a>
-    <a class="btn btn--border btn--border--green" href="#" target="_blank">MANAGE PREFERENCES</a>
+    <a class="btn-border btn-border--blue shorter" href="http://ymcamn.org" target="_blank">unsubscribe</a>
+    <a class="btn-border btn-border--green" href="http://ymcamn.org" target="_blank">MANAGE PREFERENCES</a>
   </div>
 
   <div class="block-copyright">
@@ -522,10 +593,20 @@
     <h2 class="component--title">block hero  top <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
       <div class="block-hero block-hero--top block-hero--bg--purple">
-        <h2 class="block-hero__title"> May Member News </h2>
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+        <table border="0" cellspacing="0" width="650">
+          <tr width="650">
+            <td class="block-hero__title">May Member News</td>
+          </tr>
+          <tr width="650">
+            <td>
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+            </td>
+          </tr>
+          <tr height="50">
+            <td width="100%"></td>
+          </tr>
+        </table>
       </div>
-
     </div>
     <div class="container">
       <button class="show-code">Show/Hide Code</button>
@@ -533,10 +614,20 @@
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
           <pre class="brush: php"><div class="block-hero block-hero--top block-hero--bg--purple">
-  <h2 class="block-hero__title"> May Member News </h2>
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+  <table border="0" cellspacing="0" width="650">
+    <tr width="650">
+      <td class="block-hero__title">May Member News</td>
+    </tr>
+    <tr width="650">
+      <td>
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+      </td>
+    </tr>
+    <tr height="50">
+      <td width="100%"></td>
+    </tr>
+  </table>
 </div>
-
 </pre>
         </div>
       </div>
@@ -547,10 +638,19 @@
     <h2 class="component--title">block hero  bottom <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
       <div class="block-hero block-hero--bottom block-hero--bg--blue">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
-        <h2 class="block-hero__title">
-    Spring swim skills = safe summer splashing
-  </h2>
+        <table border="0" cellspacing="0" width="650">
+          <tr width="650">
+            <td>
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
+            </td>
+          </tr>
+          <tr width="650">
+            <td class="block-hero__title">Spring swim skills = safe summer splashing</td>
+          </tr>
+          <tr height="50">
+            <td width="100%"></td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="container">
@@ -559,10 +659,19 @@
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
           <pre class="brush: php"><div class="block-hero block-hero--bottom block-hero--bg--blue">
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
-  <h2 class="block-hero__title">
-    Spring swim skills = safe summer splashing
-  </h2>
+  <table border="0" cellspacing="0" width="650">
+    <tr width="650">
+      <td >
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
+      </td>
+    </tr>
+    <tr width="650">
+      <td class="block-hero__title">Spring swim skills = safe summer splashing</td>
+    </tr>
+    <tr height="50">
+      <td width="100%"></td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -574,10 +683,20 @@
     <h2 class="component--title">block hero  orange <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
       <div class="block-hero block-hero--top block-hero--bg--orange">
-        <h2 class="block-hero__title"> May Member News </h2>
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+        <table border="0" cellspacing="0" width="650">
+          <tr width="650">
+            <td class="block-hero__title">May Member News</td>
+          </tr>
+          <tr width="650">
+            <td>
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+            </td>
+          </tr>
+          <tr height="50">
+            <td width="100%"></td>
+          </tr>
+        </table>
       </div>
-
     </div>
     <div class="container">
       <button class="show-code">Show/Hide Code</button>
@@ -585,10 +704,20 @@
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
           <pre class="brush: php"><div class="block-hero block-hero--top block-hero--bg--orange">
-  <h2 class="block-hero__title"> May Member News </h2>
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+  <table border="0" cellspacing="0" width="650">
+    <tr width="650">
+      <td class="block-hero__title">May Member News</td>
+    </tr>
+    <tr width="650">
+      <td>
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero1.png" alt="hero1">
+      </td>
+    </tr>
+    <tr height="50">
+      <td width="100%"></td>
+    </tr>
+  </table>
 </div>
-
 </pre>
         </div>
       </div>
@@ -599,10 +728,19 @@
     <h2 class="component--title">block hero  green <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
       <div class="block-hero block-hero--bottom block-hero--bg--green">
-        <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
-        <h2 class="block-hero__title">
-    Spring swim skills = safe summer splashing
-  </h2>
+        <table border="0" cellspacing="0" width="650">
+          <tr width="650">
+            <td>
+              <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
+            </td>
+          </tr>
+          <tr width="650">
+            <td class="block-hero__title">Spring swim skills = safe summer splashing</td>
+          </tr>
+          <tr height="50">
+            <td width="100%"></td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="container">
@@ -610,11 +748,20 @@
       <div class="component--source element-invisible">
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
-          <pre class="brush: php"><div class="block-hero block-hero--bottom block-hero--bg--green">
-  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
-  <h2 class="block-hero__title">
-    Spring swim skills = safe summer splashing
-  </h2>
+          <pre class="brush: php"><div class="block-hero block-hero--bottom block-hero--bg--green" >
+  <table border="0" cellspacing="0" width="650">
+    <tr width="650">
+      <td >
+        <img width="650" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/hero2.png" alt="hero1">
+      </td>
+    </tr>
+    <tr width="650">
+      <td class="block-hero__title">Spring swim skills = safe summer splashing</td>
+    </tr>
+    <tr height="50">
+      <td width="100%"></td>
+    </tr>
+  </table>
 </div>
 </pre>
         </div>
@@ -625,47 +772,92 @@
   <div class="component--item" id="block-body">
     <h2 class="component--title">block body <a href="https://propeople-us.atlassian.net/browse/" target="_blank" class="small-tag" title="Open task"></a></h2>
     <div class="component--demo">
-      <div class="block-body">
-        <div class="block-body__header">
-          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="">HEALTHY LIVING
-        </div>
+      <table class="block-body" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <thead>
+          <tr>
+            <th width="91" height="82" valign="top">
+              <img width="91" height="82" class="height-img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png" alt="">
+            </th>
+            <th width="490" height="82" valign="top">
+              <table class="block-body__header" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td height="82" align="right" width="30%" valign="middle">
+                      <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="">
+                    </td>
+                    <td height="82" align="left" width="70%" valign="middle">HEALTHY LIVING</td>
+                  </tr>
+                </tbody>
+              </table>
+            </th>
+            <th width="69" height="82" valign="top">
+              <img class="height-img" width="91" height="82" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png" alt="">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="block-body__item">
+            <td class="border-bottom">
+            </td>
+            <td class="block-body__item__content border-bottom">
+              <p>Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
+            </td>
+            <td class="border-bottom"></td>
+          </tr>
+          <tr class="block-body__item">
+            <td>
+            </td>
+            <td colspan="" rowspan="" headers="" class="block-body__item__content">
+              <p>Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
+            </td>
+            <td colspan="" rowspan="" headers=""></td>
+          </tr>
+        </tbody>
+      </table>
 
-        <div class="block-body__item">
-          <div class="block-body__item__content">
-            <p>Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
-          </div>
-        </div>
-
-        <div class="block-body__item">
-          <div class="block-body__item__content">
-            <p>Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="container">
       <button class="show-code">Show/Hide Code</button>
       <div class="component--source element-invisible">
         <div class="component--html">
           <h4 class="component--source--title">Markup</h4>
-          <pre class="brush: php"><div class="block-body">
-  <div class="block-body__header">
-    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt="">
-    HEALTHY LIVING
-  </div>
+          <pre class="brush: php"><table class="block-body" cellspacing="0" cellpadding="0" border="0" width="100%">
+  <thead>
+    <tr>
+      <th width="91" height="82" valign="top"><img width="91" height="82" class="height-img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title1.png" alt=""></th>
+      <th width="490" height="82" valign="top">
+        <table class="block-body__header" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tbody>
+            <tr>
+              <td height="82" align="right" width="30%" valign="middle"><img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/cardio-icon.png" alt=""></td>
+              <td height="82" align="left" width="70%" valign="middle">HEALTHY LIVING</td>
+            </tr>
+          </tbody>
+        </table>
+      </th>
+      <th width="69" height="82" valign="top"><img class="height-img" width="91" height="82" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-body-title3.png" alt=""></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="block-body__item">
+      <td class="border-bottom">
+      </td>
+      <td class="block-body__item__content border-bottom">
+        <p>Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
+      </td>
+      <td class="border-bottom"></td>
+    </tr>
+    <tr class="block-body__item">
+      <td >
+      </td>
+      <td colspan="" rowspan="" headers="" class="block-body__item__content">
+        <p>Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
+      </td>
+      <td colspan="" rowspan="" headers=""></td>
+    </tr>
+  </tbody>
+</table>
 
-  <div class="block-body__item">
-    <div class="block-body__item__content">
-      <p>Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons</p>
-    </div>
-  </div>
-
-  <div class="block-body__item">
-    <div class="block-body__item__content">
-      <p>Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.</p>
-    </div>
-  </div>
-</div>
 </pre>
         </div>
       </div>
@@ -680,17 +872,15 @@
           <h2 class="block-title block-cta__title ">May is Water Safety Month </h2>
           <div class="block-cta__content">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.
           </div>
-          <table class="btn--has-icon">
-            <tbody>
-              <tr class="btn--blue--light">
-                <td class="btn--has-icon__img icon--blue--light">
-                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                </td>
-                <td class="btn--has-icon__text">
-                  <a href="#" target="_blank">Background Blue light</a>
-                </td>
-              </tr>
-            </tbody>
+          <table>
+            <tr class="btn-icon icon--blue-light">
+              <td class="btn-icon__img">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+              </td>
+              <td class="btn-icon__text">
+                <a href="http://ymcamn.org" target="_blank">Background Blue light</a>
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -705,17 +895,15 @@
     <h2 class="block-title block-cta__title ">May is Water Safety Month </h2>
     <div class="block-cta__content">Gear up for a safe summer of swimming with 10 tips for water safety. Plus, now is a great time to sign up for Y Swim Lessons, which provide a safe environment for swimmers of all ages and abilities.
     </div>
-    <table class="btn--has-icon">
-      <tbody>
-        <tr class="btn--blue--light">
-          <td class="btn--has-icon__img icon--blue--light">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-          </td>
-          <td class="btn--has-icon__text">
-            <a href="#" target="_blank">Background Blue light</a>
-          </td>
-        </tr>
-      </tbody>
+    <table>
+      <tr class="btn-icon icon--blue-light">
+        <td class="btn-icon__img">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+        </td>
+        <td class="btn-icon__text">
+          <a href="http://ymcamn.org" target="_blank">Background Blue light</a>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
@@ -734,17 +922,15 @@
           <h2 class="block-title block-cta__title ">Register now for classes and lessons</h2>
           <div class="block-cta__content">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons.
           </div>
-          <table class="btn--has-icon">
-            <tbody>
-              <tr class="btn--blue--light">
-                <td class="btn--has-icon__img icon--blue--light">
-                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                </td>
-                <td class="btn--has-icon__text">
-                  <a href="#" target="_blank">VIEW SCHEDULES</a>
-                </td>
-              </tr>
-            </tbody>
+          <table>
+            <tr class="btn-icon icon--blue-light">
+              <td class="btn-icon__img ">
+                <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+              </td>
+              <td class="btn-icon__text">
+                <a href="http://ymcamn.org" target="_blank">VIEW SCHEDULES</a>
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -760,17 +946,15 @@
     <h2 class="block-title block-cta__title ">Register now for classes and lessons</h2>
     <div class="block-cta__content">Y summer lessons and specialty classes begin June 20. Register by June 6 to take advantage of early-bird pricing. On the computer or on the go, it's easy to search all Y schedules for classes and lessons.
     </div>
-    <table class="btn--has-icon">
-      <tbody>
-        <tr class="btn--blue--light">
-          <td class="btn--has-icon__img icon--blue--light">
-            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-          </td>
-          <td class="btn--has-icon__text">
-            <a href="#" target="_blank">VIEW SCHEDULES</a>
-          </td>
-        </tr>
-      </tbody>
+    <table>
+      <tr class="btn-icon icon--blue-light">
+        <td class="btn-icon__img ">
+          <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+        </td>
+        <td class="btn-icon__text">
+          <a href="http://ymcamn.org" target="_blank">VIEW SCHEDULES</a>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
@@ -789,7 +973,7 @@
             <tr>
               <td class="block-cta__image">
                 <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png">
-                <a class="btn btn--purple--light block-cta__button" href="#" target="_blank">MORE DETAILS</a>
+                <a class="btn btn--purple-light block-cta__button" href="http://ymcamn.org" target="_blank">MORE DETAILS</a>
               </td>
               <td class="block-cta__body">
                 <h2 class="block-title block-cta__title">Helping kids develop a <br/> healthy lifestyle  </h2>
@@ -812,7 +996,7 @@
       <tr>
         <td class="block-cta__image">
          <img class="block-cta__img" src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/03body.png">
-         <a class="btn btn--purple--light block-cta__button" href="#"  target="_blank">MORE DETAILS</a>
+         <a class="btn btn--purple-light block-cta__button" href="http://ymcamn.org" target="_blank">MORE DETAILS</a>
         </td>
         <td class="block-cta__body">
           <h2 class="block-title block-cta__title">Helping kids develop a <br/> healthy lifestyle  </h2>
@@ -851,10 +1035,10 @@
             </tr>
             <tr>
               <td>
-                <a class="btn btn--blue--light block-cta__button" href="#" target="_blank">READ MORE</a>
+                <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank">READ MORE</a>
               </td>
               <td>
-                <a class="btn btn--blue--light block-cta__button" href="#" target="_blank">READ MORE</a>
+                <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank">READ MORE</a>
               </td>
             </tr>
           </table>
@@ -885,10 +1069,10 @@
       </tr>
       <tr>
         <td>
-          <a class="btn btn--blue--light block-cta__button" href="#" target="_blank">READ MORE</a>
+          <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank">READ MORE</a>
         </td>
         <td>
-          <a class="btn btn--blue--light block-cta__button" href="#" target="_blank">READ MORE</a>
+          <a class="btn btn--blue--light block-cta__button" href="http://ymcamn.org" target="_blank">READ MORE</a>
         </td>
       </tr>
     </table>
@@ -1208,17 +1392,22 @@
     <div class="component--demo">
       <div class="container">
         <div class="main-component">
-          <p>
-            <a class="btn" href="#">Default</a>
-            <a class="btn btn--orange" href="#">Background Orange</a>
-            <a class="btn btn--blue" href="#">Background Blue</a>
-            <a class="btn btn--blue--light" href="#">Background Blue light</a>
-            <a class="btn btn--green" href="#">Background Green</a>
-            <a class="btn btn--purple" href="#">Background Purple</a>
-            <a class="btn btn--purple--light" href="#">Background Purple light</a>
-          </p>
+          <a class="btn" href="http://ymcamn.org" target="_blank">Default</a>
+          </br>
+          <a class="btn btn--orange" href="http://ymcamn.org" target="_blank">Background Orange</a>
+          </br>
+          <a class="btn btn--blue" href="http://ymcamn.org" target="_blank">Background Blue</a>
+          </br>
+          <a class="btn btn--blue-light" href="http://ymcamn.org" target="_blank">Background Blue light</a>
+          </br>
+          <a class="btn btn--green" href="http://ymcamn.org" target="_blank">Background Green</a>
+          </br>
+          <a class="btn btn--purple" href="http://ymcamn.org" target="_blank">Background Purple</a>
+          </br>
+          <a class="btn btn--purple-light" href="http://ymcamn.org" target="_blank">Background Purple light</a>
         </div>
       </div>
+
     </div>
     <div class="container">
       <button class="show-code">Show/Hide Code</button>
@@ -1227,17 +1416,22 @@
           <h4 class="component--source--title">Markup</h4>
           <pre class="brush: php"><div class="container">
   <div class="main-component">
-    <p>
-      <a class="btn" href="#">Default</a>
-      <a class="btn btn--orange" href="#">Background Orange</a>
-      <a class="btn btn--blue" href="#">Background Blue</a>
-      <a class="btn btn--blue--light" href="#">Background Blue light</a>
-      <a class="btn btn--green" href="#">Background Green</a>
-      <a class="btn btn--purple" href="#">Background Purple</a>
-      <a class="btn btn--purple--light" href="#">Background Purple light</a>
-    </p>
+    <a class="btn"  href="http://ymcamn.org" target="_blank">Default</a>
+    </br>
+    <a class="btn btn--orange"  href="http://ymcamn.org" target="_blank">Background Orange</a>
+    </br>
+    <a class="btn btn--blue"  href="http://ymcamn.org" target="_blank">Background Blue</a>
+    </br>
+    <a class="btn btn--blue-light"  href="http://ymcamn.org" target="_blank">Background Blue light</a>
+    </br>
+    <a class="btn btn--green"  href="http://ymcamn.org" target="_blank">Background Green</a>
+    </br>
+    <a class="btn btn--purple"  href="http://ymcamn.org" target="_blank">Background Purple</a>
+    </br>
+    <a class="btn btn--purple-light"  href="http://ymcamn.org" target="_blank">Background Purple light</a>
   </div>
 </div>
+
 </pre>
         </div>
       </div>
@@ -1249,84 +1443,72 @@
     <div class="component--demo">
       <div class="container">
         <div class="main-component">
-          <div>
+          <div class="component-buttons">
 
-            <table class="btn--has-icon">
-              <tbody>
-                <tr class="btn--orange">
-                  <td class="btn--has-icon__img icon--orange">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                  </td>
-                  <td class="btn--has-icon__text">
-                    <a href="#">Background orange</a>
-                  </td>
-                </tr>
-              </tbody>
+            <table>
+              <tr class="btn-icon icon--orange">
+                <td class="btn-icon__img">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+                </td>
+                <td class="btn-icon__text">
+                  <a href="http://ymcamn.org" target="_blank">Background orange</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon">
-              <tbody>
-                <tr class="btn--blue">
-                  <td class="btn--has-icon__img icon--blue">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                  </td>
-                  <td class="btn--has-icon__text">
-                    <a href="#">Background Blue</a>
-                  </td>
-                </tr>
-              </tbody>
+            </br>
+            <table>
+              <tr class="btn-icon icon--blue">
+                <td class="btn-icon__img">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+                </td>
+                <td class="btn-icon__text">
+                  <a href="http://ymcamn.org" target="_blank">Background Blue</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon">
-              <tbody>
-                <tr class="btn--blue--light">
-                  <td class="btn--has-icon__img icon--blue--light">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                  </td>
-                  <td class="btn--has-icon__text">
-                    <a href="#">Background Blue light</a>
-                  </td>
-                </tr>
-              </tbody>
+            </br>
+            <table>
+              <tr class="btn-icon icon--blue-light">
+                <td class="btn-icon__img">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+                </td>
+                <td class="btn-icon__text">
+                  <a href="http://ymcamn.org" target="_blank">Background Blue light</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon">
-              <tbody>
-                <tr class="btn--green">
-                  <td class="btn--has-icon__img icon--green">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                  </td>
-                  <td class="btn--has-icon__text">
-                    <a href="#">Background Green</a>
-                  </td>
-                </tr>
-              </tbody>
+            </br>
+            <table>
+              <tr class="btn-icon icon--green">
+                <td class="btn-icon__img">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+                </td>
+                <td class="btn-icon__text">
+                  <a href="http://ymcamn.org" target="_blank">Background Green</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon">
-              <tbody>
-                <tr class="btn--purple">
-                  <td class="btn--has-icon__img icon--purple">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                  </td>
-                  <td class="btn--has-icon__text">
-                    <a href="#">Background Purple</a>
-                  </td>
-                </tr>
-              </tbody>
+            </br>
+            <table>
+              <tr class="btn-icon icon--purple">
+                <td class="btn-icon__img">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+                </td>
+                <td class="btn-icon__text">
+                  <a href="http://ymcamn.org" target="_blank">Background Purple</a>
+                </td>
+              </tr>
             </table>
-
-            <table class="btn--has-icon">
-              <tbody>
-                <tr class="btn--purple--light">
-                  <td class="btn--has-icon__img icon--purple--light">
-                    <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-                  </td>
-                  <td class="btn--has-icon__text">
-                    <a href="#">Background Purple light</a>
-                  </td>
-                </tr>
-              </tbody>
+            </br>
+            <table>
+              <tr class="btn-icon icon--purple-light">
+                <td class="btn-icon__img">
+                  <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+                </td>
+                <td class="btn-icon__text">
+                  <a href="http://ymcamn.org" target="_blank">Background Purple light</a>
+                </td>
+              </tr>
             </table>
           </div>
         </div>
@@ -1339,84 +1521,72 @@
           <h4 class="component--source--title">Markup</h4>
           <pre class="brush: php"><div class="container">
   <div class="main-component">
-    <div>
+    <div class="component-buttons">
 
-      <table class="btn--has-icon">
-        <tbody>
-          <tr class="btn--orange">
-            <td class="btn--has-icon__img icon--orange">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-            </td>
-            <td class="btn--has-icon__text">
-              <a href="#">Background orange</a>
-            </td>
-          </tr>
-        </tbody>
+      <table>
+        <tr class="btn-icon icon--orange">
+          <td class="btn-icon__img">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+          </td>
+          <td class="btn-icon__text">
+            <a href="http://ymcamn.org" target="_blank">Background orange</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon">
-        <tbody>
-          <tr class="btn--blue">
-            <td class="btn--has-icon__img icon--blue">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-            </td>
-            <td class="btn--has-icon__text">
-              <a href="#">Background Blue</a>
-            </td>
-          </tr>
-        </tbody>
+      </br>
+      <table>
+        <tr class="btn-icon icon--blue">
+          <td class="btn-icon__img">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+          </td>
+          <td class="btn-icon__text">
+            <a href="http://ymcamn.org" target="_blank">Background Blue</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon">
-        <tbody>
-          <tr class="btn--blue--light">
-            <td class="btn--has-icon__img icon--blue--light">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-            </td>
-            <td class="btn--has-icon__text">
-              <a href="#">Background Blue light</a>
-            </td>
-          </tr>
-        </tbody>
+      </br>
+      <table>
+        <tr class="btn-icon icon--blue-light">
+          <td class="btn-icon__img">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+          </td>
+          <td class="btn-icon__text">
+            <a href="http://ymcamn.org" target="_blank">Background Blue light</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon">
-        <tbody>
-          <tr class="btn--green">
-            <td class="btn--has-icon__img icon--green">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-            </td>
-            <td class="btn--has-icon__text">
-              <a href="#">Background Green</a>
-            </td>
-          </tr>
-        </tbody>
+      </br>
+      <table>
+        <tr class="btn-icon icon--green">
+          <td class="btn-icon__img">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+          </td>
+          <td class="btn-icon__text">
+            <a href="http://ymcamn.org" target="_blank">Background Green</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon">
-        <tbody>
-          <tr class="btn--purple">
-            <td class="btn--has-icon__img icon--purple">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-            </td>
-            <td class="btn--has-icon__text">
-              <a href="#">Background Purple</a>
-            </td>
-          </tr>
-        </tbody>
+      </br>
+      <table>
+        <tr class="btn-icon icon--purple">
+          <td class="btn-icon__img">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+          </td>
+          <td class="btn-icon__text">
+            <a href="http://ymcamn.org" target="_blank">Background Purple</a>
+          </td>
+        </tr>
       </table>
-
-      <table class="btn--has-icon">
-        <tbody>
-          <tr class="btn--purple--light">
-            <td class="btn--has-icon__img icon--purple--light">
-              <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
-            </td>
-            <td class="btn--has-icon__text">
-              <a href="#">Background Purple light</a>
-            </td>
-          </tr>
-        </tbody>
+      </br>
+      <table>
+        <tr class="btn-icon icon--purple-light">
+          <td class="btn-icon__img">
+            <img src="https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/calender-white.png">
+          </td>
+          <td class="btn-icon__text">
+            <a href="http://ymcamn.org" target="_blank">Background Purple light</a>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

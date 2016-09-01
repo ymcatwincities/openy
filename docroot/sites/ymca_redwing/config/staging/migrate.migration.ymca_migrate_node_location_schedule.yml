@@ -1,0 +1,15 @@
+id: ymca_migrate_node_location_schedule
+label: 'Location schedules migration.'
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_node_location_schedule
+process:
+  schedule_content: schedule_content
+  schedule_documents: schedule_documents
+destination:
+  plugin: ymca_location_schedule
+migration_dependencies:
+  required:
+    - ymca_migrate_node_location
