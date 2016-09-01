@@ -9186,6 +9186,20 @@ body .ajax-progress-throbber .throbber {
     transform: rotate(0deg);
   }
 }
+.personify_location_list ul {
+  list-style: none;
+  padding: 30px 30px 25px;
+}
+.personify_location_list ul li {
+  float: left;
+  margin-bottom: 5px;
+  width: 50%;
+}
+
+.mindbody-products-list ul {
+  padding-top: 15px;
+}
+
 .groupex-form-full {
   padding-top: 15px;
 }
