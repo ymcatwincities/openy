@@ -11,7 +11,7 @@ env:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["install_profile"]', status: true, value: 'pp' }
   modules:
-    - { name: 'dblog stage_file_proxy', status: true }
+    - { name: 'config_inspector dblog stage_file_proxy', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
@@ -29,6 +29,8 @@ env:
     # Set active configuration for specific environment.
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_mindbody.trainings_mapping', 'staging');\"" }
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('mindbody.settings', 'staging');\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_site_verify.settings', 'staging');\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('google_tag.settings', 'staging');\"" }
     # To fix configuration problem let's install the module here.
     - { name: 'en', status: true, arguments: "yptf_master" }
   post_settings:
