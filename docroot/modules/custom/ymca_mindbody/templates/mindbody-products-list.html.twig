@@ -27,7 +27,7 @@
             <strong>{{ key  }}-minute sessions</strong>
             <ul>
               {% for key, product in product_list %}
-              <li><a href="#modal_one-on-one_personal_training" data-price="{{ product.price }}" data-package="{{ product.package }}">${{ product.price }} for {{ product.package }}</a></li>
+              <li><a href="#modal_one-on-one_personal_training" data-session="{{ product.session }}" data-package="{{ product.package }}">${{ product.price }} for {{ product.package }}</a></li>
               {% endfor %}
             </ul>
             {% endfor %}
@@ -38,7 +38,7 @@
             <strong>{{ key  }}-minute sessions</strong>
             <ul>
               {% for key, product in product_list %}
-              <li><a href="#modal_one-on-one_personal_training" data-session_length="{{ product.session_length }}" data-package="{{ product.package }}">${{ product.price }} for {{ product.package }}</a></li>
+              <li><a href="#modal_one-on-one_personal_training" data-session="{{ product.session }}" data-package="{{ product.package }}">${{ product.price }} for {{ product.package }}</a></li>
               {% endfor %}
             </ul>
             {% endfor %}

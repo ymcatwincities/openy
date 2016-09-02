@@ -4,7 +4,7 @@
     attach: function (context, settings) {
       var data = {};
       $('.mindbody-products-list a').on('click', function() {
-        data.session_length = $(this).data('session_length');
+        data.session_length = $(this).data('session');
         data.package = $(this).data('package');
       });
       $('#modal').on('shown.bs.modal', function() {
