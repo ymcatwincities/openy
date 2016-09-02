@@ -5,7 +5,10 @@
  * Installation file for the module
  */
 
+use Drupal\Core\Database\DatabaseExceptionWrapper;
+
 define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
+
 /**
  * Remove Groupex.
  */
@@ -41,4 +44,54 @@ function redwing_master_update_8003() {
       REDWING_CONFDIR . 'user.role.authenticated.yml',
     ]
   );
+}
+
+/**
+ * Fix deleted fields problem.
+ */
+function redwing_master_update_8004() {
+  // Get all corrupted deleted fields.
+  $corrupted = [];
+
+  // We have some deleted fields in the queue, which are corrapted.
+  // 1. Without database table.
+  // 2. Without parent entity type.
+  // We are going to detect these fields and simply remove.
+  // That will give us ability to run field_cron() cleanly.
+  $fields = entity_load_multiple_by_properties(
+    'field_config',
+    [
+      'deleted' => TRUE,
+      'include_deleted' => TRUE,
+    ]
+  );
+  foreach ($fields as $field) {
+    $entity_type = $field->getTargetEntityTypeId();
+
+    try {
+      \Drupal::entityManager()->getStorage($entity_type)->purgeFieldData($field, 50);
+    }
+    catch (DatabaseExceptionWrapper $e) {
+      // The field without DB table.
+      $corrupted[] = $field->id();
+    }
+    catch (\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
+      // The field without entity type (example, comment).
+      $corrupted[] = $field->id();
+    }
+  }
+
+  $state = \Drupal::service('state');
+  $deleted = $state->get('field.field.deleted');
+
+  foreach ($deleted as $item) {
+    if (in_array($item['id'], $corrupted)) {
+      unset($deleted[$item['uuid']]);
+    }
+  }
+
+  $state->set('field.field.deleted', $deleted);
+
+  // Eventually purge deleted fields.
+  field_cron();
 }
