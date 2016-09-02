@@ -1,0 +1,8 @@
+locations:
+  14:
+    -
+      name: Test Trainer
+      email: test@email.com
+    -
+      name: Test Trainer2
+      email: test2@email.com
