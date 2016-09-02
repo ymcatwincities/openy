@@ -5,10 +5,12 @@ namespace Drupal\personify_mindbody_sync;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\environment_config\EnvironmentConfigServiceInterface;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
+use Drupal\ymca_mappings\LocationMappingRepository;
 
 /**
  * Class PersonifyMindbodySyncPusherBase.
@@ -79,6 +81,20 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   protected $mindbodyConfig;
 
   /**
+   * Mail manager.
+   *
+   * @var MailManagerInterface
+   */
+  protected $mailManager;
+
+  /**
+   * The location repo.
+   *
+   * @var LocationMappingRepository
+   */
+  protected $locationRepo;
+
+  /**
    * PersonifyMindbodySyncPusher constructor.
    *
    * @param PersonifyMindbodySyncWrapper $wrapper
@@ -91,12 +107,18 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   Logger factory.
    * @param EnvironmentConfigServiceInterface $env_config
    *   Environment config.
+   * @param MailManagerInterface $mail_manager
+   *   Mail manager.
+   * @param LocationMappingRepository $location_repo;
+   *   The Location repo.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory, EnvironmentConfigServiceInterface $env_config) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory, EnvironmentConfigServiceInterface $env_config, MailManagerInterface $mail_manager, LocationMappingRepository $location_repo) {
     $this->wrapper = $wrapper;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
     $this->client = $client;
     $this->config = $config;
+    $this->mailManager = $mail_manager;
+    $this->locationRepo = $location_repo;
     $this->mindbodyConfig = $env_config->getActiveConfig('mindbody.settings');
 
     // Check the mode.
@@ -251,6 +273,9 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
         // Reset status.
         $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, '');
+
+        // Send notification.
+        $this->sendNotification($order);
       }
       else {
         // To reproduce this just comment ID in the cart item.
@@ -264,6 +289,33 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
     return $this;
 
+  }
+
+  /**
+   * Send notifications.
+   *
+   * @param \stdClass $order
+   *   Order.
+   */
+  private function sendNotification(\stdClass $order) {
+    $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
+    $location = $this->getLocationForOrder($order);
+    $location_mapping = $this->locationRepo->findByMindBodyId($location);
+
+    if (!isset($mapping[$location])) {
+      // There is no mapping for this location.
+      return;
+    }
+
+    $tokens = [
+      'client_name' => $order->FirstName . ' ' . $order->LastName,
+      'item_name' => $order->ProductCode,
+      'location' => $location_mapping->label()
+    ];
+    foreach ($mapping[$location] as $trainer) {
+      $tokens['trainer_name'] = $trainer['name'];
+      $this->mailManager->mail('ymca_mindbody', 'notify_location_trainers', $trainer['email'], 'en', $tokens);
+    }
   }
 
   /**

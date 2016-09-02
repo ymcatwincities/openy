@@ -308,5 +308,17 @@ function ymca_mindbody_mail($key, &$message, $params) {
       $message['body'][] = implode('', $body);
 
       break;
+
+    case 'notify_location_trainers':
+      $body = [
+        "<p>$params[trainer_name],</p>",
+        "<p>$params[client_name] has purchased $params[item_name]. Please follow up with $params[client_name] to schedule sessions.</p>",
+        "<p>Thank you!<br />",
+        "The $params[location] Team</p>"
+      ];
+
+      $message['subject'] = "$params[client_name] has purchased $params[item_name].";
+      $message['body'][] = implode('', $body);
+      break;
   }
 }
