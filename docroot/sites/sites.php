@@ -68,6 +68,8 @@ $custom_sites = array(
     'openy.wearepropeople.md',
     'openy.ffwagency.md',
     'openy.ffwua.com',
+    'www.openymca.org',
+    'openymca.org',
   ),
   'ymca_redwing' => array(
     'dev.redwing.getopeny.org',
