@@ -296,7 +296,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
            * @var \DateTime $item
            */
           foreach ($range as $i => $item) {
-            // Note, MindBody results in
+            // Note, MindBody results in Central timezone.
             $slot = \DateTime::createFromFormat(self::MINDBODY_DATE_FORMAT, $item->format(self::MINDBODY_DATE_FORMAT), $this->getMindBodyTimezone());
 
             // Do not process items in the past.
