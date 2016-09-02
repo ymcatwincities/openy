@@ -1,0 +1,21 @@
+uuid: 63a2282b-76fc-4933-9072-e9cbdcc022e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fitness_phone
+    - node.type.location
+  module:
+    - telephone
+id: node.location.field_fitness_phone
+field_name: field_fitness_phone
+entity_type: node
+bundle: location
+label: 'Fitness desk phone number'
+description: 'Number for scheduling/booking and questions about personal trainings, which is displayed on “PT booking form”'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

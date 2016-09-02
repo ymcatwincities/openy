@@ -1,17 +1,16 @@
 .block-grid {
   margin: 0 auto;
-  max-width: 622px;
+  max-width: 620px;
+  width: 100%;
 
-  &__list {
-    display: flex;
+  table tr {
+    background: transparent;
   }
 
-  &__item {
+  .padding {
+    min-height: 50px;
+    padding: 0 15px;
+    vertical-align: top;
     width: 50%;
-  }
-
-  .block-cta {
-    padding: 0 0 49px;
-    width: 82%;
   }
 }

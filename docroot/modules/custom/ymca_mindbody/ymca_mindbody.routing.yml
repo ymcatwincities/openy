@@ -4,14 +4,14 @@ ymca_mindbody.pt:
     _form: '\Drupal\ymca_mindbody\Form\MindbodyPTForm'
     _title: 'Personal Trainer Schedules'
   requirements:
-    _permission: 'access content'
+    _permission: 'access Personal Training forms'
 ymca_mindbody.location.pt:
   path: '/node/{node}/personal-trainer-schedules'
   defaults:
     _form: '\Drupal\ymca_mindbody\Form\MindbodyPTForm'
     _title: 'Personal Trainer Schedules'
   requirements:
-    _permission: 'access content'
+    _permission: 'access Personal Training forms'
   options:
     parameters:
       node:
@@ -22,14 +22,14 @@ ymca_mindbody.pt.results:
     _controller: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::content'
     _title_callback: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'access Personal Training forms'
 ymca_mindbody.location.pt.results:
   path: '/node/{node}/personal-trainer-schedules/results'
   defaults:
     _controller: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::content'
     _title_callback: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'access Personal Training forms'
   options:
     parameters:
       node:

@@ -1,0 +1,26 @@
+uuid: 8a966f6a-dbf0-4ee5-b302-2d60b9274352
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_locations
+    - node.type.location
+    - node.type.product
+id: node.product.field_locations
+field_name: field_locations
+entity_type: node
+bundle: product
+label: Locations
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: _none
+field_type: entity_reference

@@ -1,0 +1,28 @@
+uuid: 37f206fa-490f-4af4-ad04-4d74d04cbff1
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: journey_to_freedom
+label: 'Journey to Freedom'
+recipients:
+  - elin.aldrich@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 1
+submissionPageContent:
+  value: "<p>Thank you for your interest! A Journey to Freedom facilitator will contact you soon.</p>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Form submission - Journey to Freedom'
+  content:
+    value: "<p>A new submission was received from the \"Journey to Freedom form\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Email Address:&nbsp;</strong>[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Phone Number:&nbsp;</strong>[contact_message:field_phone_number]</p>\r\n\r\n<p><strong>Location:&nbsp;</strong>[contact_message:field_preferred_y_text]</p>\r\n\r\n<p><strong>Preferred contact method:&nbsp;</strong>&nbsp;[contact_message:field_contact_method]</p>\r\n\r\n<p><b>Notes or comments</b></p>\r\n\r\n<p>[contact_message:field_comments]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html

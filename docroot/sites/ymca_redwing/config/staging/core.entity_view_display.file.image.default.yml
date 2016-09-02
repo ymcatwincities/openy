@@ -1,0 +1,43 @@
+uuid: f56ed18f-9a44-440f-b906-6fe6a06552e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.file.image.field_image_alt_text
+    - field.field.file.image.field_image_title_text
+    - file_entity.type.image
+  module:
+    - file_entity
+id: file.image.default
+targetEntityType: file
+bundle: image
+mode: default
+content:
+  field_image_alt_text:
+    type: string
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    label: above
+  field_image_title_text:
+    type: string
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    label: above
+  filename:
+    type: string
+    label: hidden
+    weight: -5
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  uri:
+    type: file_image
+    label: hidden
+    weight: -5
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+hidden: {  }

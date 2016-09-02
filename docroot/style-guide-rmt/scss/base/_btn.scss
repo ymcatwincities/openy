@@ -1,8 +1,12 @@
 /* style button */
+
 .btn {
   background: $blue-light;
+  border-bottom: 11px solid $blue-light;
+  border-left: 15px solid $blue-light;
   border-radius: 3px;
-  border: medium none;
+  border-right: 15px solid $blue-light;
+  border-top: 11px solid $blue-light;
   color: $white;
   cursor: pointer;
   display: inline-block;
@@ -10,113 +14,164 @@
   font-weight: bold;
   line-height: 1;
   margin-bottom: 10px;
-  padding: 11px 15px;
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
 
-  &:hover {
+  &--blue {
     background: $blue;
+    border-bottom: 11px solid $blue;
+    border-left: 15px solid $blue;
+    border-right: 15px solid $blue;
+    border-top: 11px solid $blue;
   }
+
+  &--blue-light {
+    background: $blue-light;
+    border-bottom: 11px solid $blue-light;
+    border-left: 15px solid $blue-light;
+    border-radius: 3px;
+    border-right: 15px solid $blue-light;
+    border-top: 11px solid $blue-light;
+  }
+
+  &--purple {
+    background: $purple;
+    border-bottom: 11px solid $purple;
+    border-left: 15px solid $purple;
+    border-right: 15px solid $purple;
+    border-top: 11px solid $purple;
+  }
+
+  &--purple-light {
+    background: $purple-light;
+    border-bottom: 11px solid $purple-light;
+    border-left: 15px solid $purple-light;
+    border-right: 15px solid $purple-light;
+    border-top: 11px solid $purple-light;
+  }
+
+  &--green {
+    background: $green;
+    border-bottom: 11px solid $green;
+    border-left: 15px solid $green;
+    border-right: 15px solid $green;
+    border-top: 11px solid $green;
+  }
+
+  &--orange {
+    background: $orange;
+    border-bottom: 11px solid $orange;
+    border-left: 15px solid $orange;
+    border-right: 15px solid $orange;
+    border-top: 11px solid $orange;
+  }
+}
+/* style button has icon */
+
+.btn-icon {
+
+  &__text {
+    border-radius: 0 3px 3px 0 ;
+    padding: 11px 15px;
+
+    a {
+      border: 0;
+      color: $white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+  }
+
+  &__img {
+    padding: 8px 10px;
+    border-radius: 3px 0 0 3px;
+  }
+}
+
+.icon {
 
   &--blue {
     background: $blue;
 
-    &:hover {
-      background: darken($blue, 5%);
+    .btn-icon__img {
+      background-color: $blue-dark;
     }
   }
 
-  &--blue--light {
+  &--blue-light {
     background: $blue-light;
 
-    &:hover {
-      background: darken($blue, 5%);
+    .btn-icon__img {
+      background-color: $blue;
     }
   }
 
   &--purple {
     background: $purple;
 
-    &:hover {
-      background: darken($purple, 5%);
+    .btn-icon__img {
+      background-color: $purple-dark;
     }
   }
 
-  &--purple--light {
+  &--purple-light {
     background: $purple-light;
 
-    &:hover {
-      background: darken($purple, 5%);
+    .btn-icon__img {
+      background-color: $purple;
     }
   }
 
   &--green {
     background: $green;
 
-    &:hover {
-      background: darken($green, 5%);
+    .btn-icon__img {
+      background-color: $green-dark;
     }
   }
 
   &--orange {
     background: $orange;
 
-    &:hover {
-      background: darken($orange, 5%);
+    .btn-icon__img {
+      background-color: $orange-dark;
     }
   }
 }
-/* style button has icon */
 
-.btn--has-icon {
-  padding-left: 45px;
-  position: relative;
+.btn-border {
+  background-color: transparent;
+  border: 2px solid $gray-f3;
+  margin: 5px 8px;
+  font-size: 15px;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 10px 18px;
 
-  span {
-    border-radius: 3px 0 0 3px;
-    font-size: 16px;
-    height: 29px;
-    left: 0;
-    padding-top: 8px;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    vertical-align: middle;
-    width: 38px;
-
-    img {
-      padding-left: 9px;
-      padding-right: 9px;
-      width: 20px !important;
-    }
+  &--green {
+    color: $green;
   }
 
-  .icon {
+  &--orange {
+    color: $orange;
+  }
 
-    &--blue {
-      background-color: $blue-dark ;
-    }
+  &--purple {
+    color: $purple-light;
+  }
 
-    &--blue--light {
-      background-color: $blue ;
-    }
-
-    &--purple {
-      background-color: $purple-dark ;
-    }
-
-    &--purple--light {
-      background-color: $purple ;
-    }
-
-    &--green {
-      background-color: $green-dark ;
-    }
-
-    &--orange {
-      background-color: $orange-dark ;
-    }
+  &--blue {
+    color: $blue-dark ;
   }
 }
 
@@ -124,15 +179,12 @@
   text-decoration: none;
   color: $blue-dark;
   font-size: 16px;
-  display: flex;
   align-items: center;
-
-  &__arrow {
-    margin-left: 7px;
+  .img-left {
+    padding-right: 8px;
   }
-
-  &__img {
-    margin-right: 10px;
+  .img-right {
+    padding-left: 3px;
   }
 
   &--blue {

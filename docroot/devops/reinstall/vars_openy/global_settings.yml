@@ -22,6 +22,7 @@ pp_environment: 'default'
 docker_sql: true
 docker_sql_db: drupal_openy
 docker_sql_host: 172.18.0.2
+docker_prod_image: ymca.ffwua.com:5000/dbprod
 # This variable allows select type of installation. Can be overridden by CI server.
 # From installation profile = 'profile', from sql dump = 'sql'.
 workflow_type: 'sql'

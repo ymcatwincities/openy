@@ -1,29 +1,50 @@
 .block-hero {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 650px;
+  overflow: hidden;
   position: relative;
-  margin-bottom: 50px;
+  width: 100%;
 
-  &__title {
+  table {
+    max-width: 650px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  td {
+    padding: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  tr {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    width: 100%;
+  }
+
+  .block-hero__title {
+    box-sizing: border-box;
     color: $white;
     font-family: 'Arial Black';
     font-size: 20px;
     font-weight: normal;
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
+    opacity: 0.9;
+    padding: 20px 15px;
     text-align: center;
     text-transform: uppercase;
+    max-width: 650px;
     width: 100%;
-    opacity: 0.9;
-    box-sizing: border-box;
-    padding: 20px 15px;
   }
 
-  &__image {
-    line-height: 0;
-
-    * {
-      width: 100%;
-      height: auto;
-    }
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 650px;
   }
 
   &--bg {

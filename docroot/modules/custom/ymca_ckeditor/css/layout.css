@@ -73,3 +73,7 @@ body select.cke_dialog_ui_input_select {
   padding-right: 20px;
   line-height: 20px;
 }
+
+.file a {
+  color: inherit;
+}

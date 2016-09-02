@@ -1,0 +1,26 @@
+uuid: 1404de53-fb16-4838-b300-e81ddb210399
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.node.field_alert
+    - node.type.article
+id: node.article.field_alert
+field_name: field_alert
+entity_type: node
+bundle: article
+label: Alert
+description: 'Select existing Alert block. OR <a href="block/add/alert_block" target="_blank">create new</a> and put its name here.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert_block: alert_block
+    sort:
+      field: _none
+field_type: entity_reference

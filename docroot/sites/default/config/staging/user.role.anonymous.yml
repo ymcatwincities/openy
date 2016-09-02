@@ -15,3 +15,6 @@ permissions:
   - 'search content'
   - 'access sitemap'
   - 'create workflow workflow_transition'
+  - 'access YMCA locations'
+  - 'access YMCA location schedules'
+  - 'access Personal Training forms'

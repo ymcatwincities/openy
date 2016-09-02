@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Installation file for the module
+ */
+
+define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
+/**
+ * Remove Groupex.
+ */
+function redwing_master_update_8001() {
+  $installer = \Drupal::service('module_installer');
+
+  $installer->uninstall(['ymca_sync']);
+  // $installer->uninstall(['ymca_groupex_google_cache'], TRUE);
+  $installer->uninstall(['ymca_groupex'], TRUE);
+  $installer->uninstall(['ymca_groupex_form_cache'], TRUE);
+  $installer->uninstall(['ymca_google'], TRUE);
+  $installer->uninstall(['ymca_master']);
+}
+
+/**
+ * Disable title header search form for Redwing.
+ */
+function redwing_master_update_8002() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'ymca.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Set proper permissions.
+ */
+function redwing_master_update_8003() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'user.role.anonymous.yml',
+      REDWING_CONFDIR . 'user.role.authenticated.yml',
+    ]
+  );
+}
