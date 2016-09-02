@@ -1,3 +1,6 @@
 view API Test trainer:
   title: 'View API Test trainer'
   description: 'Access API Test trainer to debug booking'
+access Personal Training forms:
+  title: View Personal Training forms content
+  description: Set this to allow users view Personal Training forms.

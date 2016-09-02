@@ -1,19 +1,43 @@
 items:
+  2150:
+    show: '1'
+    overview: '1'
   1302:
-    show: 1
-    overview: 1
+    show: '1'
+    overview: '1'
   2153:
-    show: 1
-    overview: 1
+    show: '1'
+    overview: '1'
   1035:
-    show: 1
-    overview: 1
+    show: '1'
+    overview: '1'
   1480:
-    show: 1
-    overview: 1
+    show: '1'
+    overview: '1'
   385:
-    show: 1
-    overview: 1
+    show: '1'
+    overview: '1'
+  2148:
+    show: 0
+    overview: 0
+  2149:
+    show: 0
+    overview: 0
+  2151:
+    show: 0
+    overview: 0
+  2152:
+    show: 0
+    overview: 0
   2715:
-    show: 1
-    overview: 1
+    show: 0
+    overview: 0
+  1460:
+    show: 0
+    overview: 0
+  1461:
+    show: 0
+    overview: 0
+  1462:
+    show: 0
+    overview: 0
