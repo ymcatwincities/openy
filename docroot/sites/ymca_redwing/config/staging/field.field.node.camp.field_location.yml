@@ -1,0 +1,33 @@
+uuid: 42d83115-109b-4a86-ab44-68788b7653b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.camp
+  module:
+    - address
+id: node.camp.field_location
+field_name: field_location
+entity_type: node
+bundle: camp
+label: Location
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  fields:
+    postalCode: postalCode
+    addressLine1: addressLine1
+    addressLine2: addressLine2
+    administrativeArea: '0'
+    locality: '0'
+    dependentLocality: '0'
+    sortingCode: '0'
+    organization: '0'
+    recipient: '0'
+  langcode_override: ''
+field_type: address

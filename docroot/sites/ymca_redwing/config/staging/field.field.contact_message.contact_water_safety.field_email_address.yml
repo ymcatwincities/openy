@@ -1,0 +1,19 @@
+uuid: ece14ed8-e0c4-4bd0-b234-5241ee794eb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.storage.contact_message.field_email_address
+id: contact_message.contact_water_safety.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: contact_water_safety
+label: 'Email Address'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

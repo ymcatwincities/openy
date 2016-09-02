@@ -1,0 +1,20 @@
+uuid: 511e8270-a73d-473f-b208-08dfc9544fbf
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - mayo
+id: mayo_help
+theme: mayo
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

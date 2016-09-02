@@ -1,0 +1,31 @@
+uuid: 7d43b963-2177-4a82-ab88-39f68c92ff9c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3b9f34ef-602a-498f-82f8-3683296fbb2a'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: aboutsection
+theme: multipurpose_business_theme
+region: content_bottom
+weight: -24
+provider: null
+plugin: 'block_content:3b9f34ef-602a-498f-82f8-3683296fbb2a'
+settings:
+  id: 'block_content:3b9f34ef-602a-498f-82f8-3683296fbb2a'
+  label: 'About Section'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

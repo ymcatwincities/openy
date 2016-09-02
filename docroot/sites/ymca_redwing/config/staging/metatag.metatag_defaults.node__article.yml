@@ -1,0 +1,9 @@
+uuid: 4a4d57c4-4071-4233-9f00-b0b004d8ddf4
+langcode: en
+status: true
+dependencies: {  }
+id: node__article
+label: 'Content: Page'
+tags:
+  title: '[current-page:title] | [site:name]'
+  og_title: '[current-page:title] | [site:name]'

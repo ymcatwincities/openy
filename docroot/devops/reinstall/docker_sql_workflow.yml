@@ -13,14 +13,25 @@
   when: existing_container_name is undefined and (pp_environment == "default" and ((ansible_env.USER is not defined or ansible_env.USER != "{{ ci_server_username }}") and (ansible_env.SUDO_USER is not defined or ansible_env.SUDO_USER != "{{ ci_server_username }}")))
   ignore_errors: true
 
+- name: Update source image
+  shell: docker pull {{ docker_prod_image }}
+
+- name: Run docker network
+  shell: docker network create --subnet=172.18.0.0/16 buildnet
+  ignore_errors: true
+
 # Run docker container.
 - name: Obtain unique container for a build
-  shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di dbprod
+  shell: docker run --net buildnet --ip {{ docker_sql_host }} --name {{ mysql_db }} -di {{ docker_prod_image }}
   when: existing_container_name is undefined
 
 - name: Run mysql within docker container
-  shell: docker exec {{ mysql_db }} '/usr/sbin/service' mysql start
+  shell: docker exec {{ mysql_db }} service mysql start
   when: existing_container_name is undefined
+
+- name: Run mysql within docker container
+  shell: docker exec {{ existing_container_name }} service mysql start
+  when: existing_container_name is defined
 
 # Run registry rebuild.
 - name: Check if registry_rebuild is installed
@@ -36,7 +47,6 @@
 - name: Clear drush cache
   sudo: yes
   shell: "{{ php_env_vars }} drush cc drush"
-  when: rebuild_registry and registry_rebuild_installed.stdout == "0"
 
 - name: Rebuilding drupal registry
   sudo: yes

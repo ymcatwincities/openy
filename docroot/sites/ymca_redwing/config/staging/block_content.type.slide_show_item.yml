@@ -1,0 +1,8 @@
+uuid: d2350df8-21d3-4460-be4e-78b1f490e6c9
+langcode: en
+status: true
+dependencies: {  }
+id: slide_show_item
+label: 'Slide Show Item'
+revision: 0
+description: 'Block with title + image + description + button fields for displaying single item within SlideShow blocks.'

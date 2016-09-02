@@ -1,0 +1,21 @@
+uuid: 382385b2-996a-4d28-9003-3d7d116a5340
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo_block
+    - field.storage.block_content.field_block_content
+  module:
+    - text
+id: block_content.promo_block.field_block_content
+field_name: field_block_content
+entity_type: block_content
+bundle: promo_block
+label: Text
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,4 +1,8 @@
 /* style component block social */
+.footer-wrapper {
+  margin: 0 auto;
+  max-width: 650px;
+}
 
 .block-social {
   background-color: $gray-fa;
@@ -22,23 +26,21 @@
 
 /* style block contact */
 .block-contact {
-  background-color: $purple-light;
-  background-image: url('https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png');
-  background-position: right center;
-  background-repeat: no-repeat;
-  box-sizing: border-box;
   color: $white;
   font-size: 13px;
-  margin-bottom: 25px;
-  padding: 30px 10px 25px;
-
-  td {
-    padding-bottom: 10px;
-  }
+  background-size: cover;
+  background-position: center center;
 
   &__content {
     margin: 0 auto;
-    max-width: 406px;
+  }
+
+  .padding_top {
+    padding-top: 20px;
+  }
+
+  &__inner {
+    padding: 0 30px;
   }
 
   &__icon {
@@ -74,6 +76,7 @@
 /* style block unsubscribe */
 
 .block-unsubscribe {
+  padding: 10px 0;
   margin-bottom: 25px;
   text-align: center;
 }
@@ -94,28 +97,5 @@
 
   &__bottom{
     color: $gray-42;
-  }
-}
-
-
-.btn--border {
-  background-color: transparent;
-  border: 2px solid $gray-f3;
-  margin: 5px 8px;
-
-  &--green {
-    color: $green;
-  }
-
-  &--orange {
-    color: $orange;
-  }
-
-  &--purple {
-    color: $purple-light;
-  }
-
-  &--blue {
-    color: $blue-dark ;
   }
 }

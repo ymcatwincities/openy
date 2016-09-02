@@ -1,0 +1,51 @@
+uuid: 6b5e3a75-e741-4c6f-b707-7c0f6deabc98
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_decade
+field_name: field_decade
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 1920s
+      label: 1920s
+    -
+      value: 1930s
+      label: 1930s
+    -
+      value: 1940s
+      label: 1940s
+    -
+      value: 1950s
+      label: 1950s
+    -
+      value: 1960s
+      label: 1960s
+    -
+      value: 1970s
+      label: 1970s
+    -
+      value: 1980s
+      label: 1980s
+    -
+      value: 1990s
+      label: 1990s
+    -
+      value: 2000s
+      label: 2000s
+    -
+      value: 2010s
+      label: 2010s
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+uuid: a4ef91e4-68f7-4538-bb04-4ab8b68c81f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.block_content.field_block_content
+  module:
+    - text
+id: block_content.alert_block.field_block_content
+field_name: field_block_content
+entity_type: block_content
+bundle: alert_block
+label: Content
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
