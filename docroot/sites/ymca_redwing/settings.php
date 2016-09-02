@@ -701,20 +701,22 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * example.org, with all subdomains included.
  */
 
-$config_directories["staging"] = 'sites/ymca_redwing/config/staging';
-
-// YMCA Redwing DB credentials.
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/ymcatwincities/ymcaredwing-settings.inc';
-}
-
-if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-ini_set('memory_limit', '256M');
-  if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
-    ini_set('memory_limit', '2048M');
-  }
-}
-if (function_exists('drush_main')) {
-  ini_set('memory_limit', '2048M');
-}
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use settings.local.php to override variables on secondary (staging,
+ * development, etc) installations of this site. Typically used to disable
+ * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
+ * other things that should not happen on development and testing sites.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
+# if (file_exists(__DIR__ . '/settings.local.php')) {
+#   include __DIR__ . '/settings.local.php';
+# }
+$databases = array("default" => array ("default" => array ("database" => "drupal_redwing", "username" => "root", "password" => "root", "host" => "172.18.0.2", "port" => "", "driver" => "mysql", "prefix" => "", ), ), );
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
+$config_directories["staging"] = "sites/ymca_redwing/config/staging";
+$settings["install_profile"] = "pp";
+$settings["pp_environment"] = "default";
+$config["stage_file_proxy.settings"]["origin"] = "http://prod.redwing.getopeny.org";
