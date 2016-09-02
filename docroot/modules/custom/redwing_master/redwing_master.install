@@ -95,3 +95,28 @@ function redwing_master_update_8004() {
   // Eventually purge deleted fields.
   field_cron();
 }
+
+/**
+ * Remove workflow.
+ */
+function redwing_master_update_8005() {
+  // Delete workflow state field.
+  $field_name = 'field_state';
+  $storage = \Drupal::getContainer()->get('entity_type.manager')->getStorage('field_config');
+
+  // Remove from blog.
+  $fields = $storage->loadByProperties(['entity_type' => 'node', 'bundle' => 'blog']);
+  foreach ($fields as $field) {
+    if ($field_name == $field->getName()) {
+      $field->delete();
+    }
+  }
+
+  // Remove from article.
+  $fields = $storage->loadByProperties(['entity_type' => 'node', 'bundle' => 'article']);
+  foreach ($fields as $field) {
+    if ($field_name == $field->getName()) {
+      $field->delete();
+    }
+  }
+}
