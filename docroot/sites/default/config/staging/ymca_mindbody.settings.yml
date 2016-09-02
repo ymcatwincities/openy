@@ -3,5 +3,6 @@ disabled_form_block_id: '12956'
 _core:
   default_config_hash: LoLZWK7QrKj0akLViCCp5aip2M7mn3E7y6khHxMTniI
 is_production: 0
+personify_product_url: 'https://ygtctrain2.personifycloud.com/PersonifyEbusiness/Default.aspx?TabID=471&pID='
 pt_form_disabled: 0
 hide_time: '180'

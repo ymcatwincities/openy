@@ -5,3 +5,6 @@ services:
   ymca_mappings.trainer_repository:
     class: Drupal\ymca_mappings\TrainerMappingRepository
     arguments: ['@entity.query']
+  ymca_mappings.personify_product_repository:
+    class: Drupal\ymca_mappings\PersonifyProductMappingRepository
+    arguments: ['@entity.query', '@entity_type.manager']
