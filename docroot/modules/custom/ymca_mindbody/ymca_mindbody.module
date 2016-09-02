@@ -39,6 +39,13 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'mindbody-products-list',
     ],
+    'mindbody_products_list_location' => [
+      'variables' => [
+        'products_to_display_member' => [],
+        'products_to_display_non_member' => [],
+      ],
+      'template' => 'mindbody-products-list-location',
+    ],
   ];
 }
 
@@ -56,8 +63,13 @@ function ymca_mindbody_token_info() {
     'description' => t('The URL to MindBody form with pre-populated trainer'),
     'type' => 'url',
   ];
-  $info['tokens']['node']['list-of-products-pt'] = [
-    'name' => t('List of Personify products'),
+  $info['tokens']['node']['list-of-products-pt-location'] = [
+    'name' => t('List of Personify products for location'),
+    'description' => t('Provides an expander block with list of personify products'),
+    'type' => 'markup',
+  ];
+  $info['tokens']['node']['list-of-products-pt-trainer'] = [
+    'name' => t('List of Personify products for trainer'),
     'description' => t('Provides an expander block with list of personify products'),
     'type' => 'markup',
   ];
@@ -184,6 +196,50 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
             '#modal_content' => $modal_content,
           ];
           $replacements[$original] = render($variables);
+          break;
+
+        case 'list-of-products-pt-location':
+          if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+            $location_repo = \Drupal::service('ymca_mappings.location_repository');
+            if ($mapping = $location_repo->findByLocationId($site_section->id())) {
+              $field_location_personify_brcode = $mapping->field_location_personify_brcode->getValue();
+              $location = isset($field_location_personify_brcode[0]['value']) ? $field_location_personify_brcode[0]['value'] : FALSE;
+              $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
+              $mappings = $mapping_repository->loadAll();
+              $products_to_display_member = $products_to_display_non_member = [];
+              $config = Drupal::config('ymca_mindbody.settings');
+              $personify_product_url = $config->get('personify_product_url');
+              foreach ($mappings as $mapping) {
+                $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+                if ($product_code_array[0] == $location) {
+                  $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
+                  $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
+                  $products_to_display_member[$product_code_array[4]][$product_code_array[2]] = [
+                    'price' => $product_member_price,
+                    'session_length' => $product_code_array[4],
+                    'package' => $product_code_array[2],
+                    'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
+                  ];
+                  $products_to_display_non_member[$product_code_array[4]][$product_code_array[2]] = [
+                    'price' => $product_non_member_price,
+                    'session_length' => $product_code_array[4],
+                    'package' => $product_code_array[2],
+                    'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
+                  ];
+                }
+              }
+              ksort($products_to_display_member[30]);
+              ksort($products_to_display_member[60]);
+              ksort($products_to_display_non_member[30]);
+              ksort($products_to_display_non_member[60]);
+              $variables = [
+                '#theme' => 'mindbody_products_list_location',
+                '#products_to_display_member' => $products_to_display_member,
+                '#products_to_display_non_member' => $products_to_display_non_member,
+              ];
+              $replacements[$original] = render($variables);
+            }
+          }
           break;
       }
     }

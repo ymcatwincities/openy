@@ -9196,7 +9196,8 @@ body .ajax-progress-throbber .throbber {
   width: 50%;
 }
 
-.mindbody-products-list ul {
+.mindbody-products-list ul,
+.mindbody-products-list-location ul {
   padding-top: 15px;
 }
 
