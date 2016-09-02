@@ -63,12 +63,12 @@ function ymca_mindbody_token_info() {
     'description' => t('The URL to MindBody form with pre-populated trainer'),
     'type' => 'url',
   ];
-  $info['tokens']['node']['list-of-products-pt-location'] = [
+  $info['tokens']['node']['list-of-products-pt'] = [
     'name' => t('List of Personify products for location'),
     'description' => t('Provides an expander block with list of personify products'),
     'type' => 'markup',
   ];
-  $info['tokens']['node']['list-of-products-pt-trainer'] = [
+  $info['tokens']['node']['list-of-products-pt-location'] = [
     'name' => t('List of Personify products for trainer'),
     'description' => t('Provides an expander block with list of personify products'),
     'type' => 'markup',
