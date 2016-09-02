@@ -148,19 +148,43 @@ function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
  */
 function ymca_mindbody_mail($key, &$message, $params) {
   switch ($key) {
+    
     case 'notify_trainer':
 
-      $body = "<p>$params[trainer_name],<br /><br />";
-      $body .= "$params[client_name] has scheduled an appointment with you at $params[start_date].</p>";
-      $body .= "<p>If you need to change this appointment, please contact:</p>";
-      $body .= "<p>Name: $params[client_name]<br />";
-      $body .= "Email: $params[client_email]<br />";
-      $body .= "Phone: $params[client_phone]<br /></p>";
-      $body .= "<p>Thank you!<br />";
-      $body .= "The $params[location] Team";
+      $body = [
+        "<p>$params[trainer_name],</p>",
+        "$params[client_name] has scheduled an appointment with you at $params[start_date].</p>",
+        "<p>If you need to change this appointment, please contact:</p>",
+        "<ul>",
+        "<li>Name: $params[client_name]</li>",
+        "<li>Email: $params[client_email]</li>",
+        "<li>Phone: $params[client_phone]</li>",
+        "</ul>",
+        "<p>Thank you!<br />",
+        "The $params[location] Team</p>",
+      ];
 
       $message['subject'] = "Online Booking Confirmation for $params[start_date]";
-      $message['body'][] = $body;
+      $message['body'][] = implode('', $body);
+
+      break;
+
+    case 'notify_customer':
+      $body = [
+        "<p>$params[client_name],</p>",
+        "<p>You have scheduled an appointment with $params[trainer_name] at $params[start_date].</p>",
+        "<p>If you need to change this appointment, please contact:</p>",
+        "<ul>",
+        "<li>Name: $params[trainer_name]</li>",
+        "<li>Email: $params[trainer_email]</li>",
+        "<li>Phone: $params[trainer_phone]</li>",
+        "</ul>",
+        "<p>Thank you!<br />",
+        "The $params[location] Team</p>",
+      ];
+
+      $message['subject'] = "Online Booking Confirmation for $params[start_date].";
+      $message['body'][] = implode('', $body);
 
       break;
   }
