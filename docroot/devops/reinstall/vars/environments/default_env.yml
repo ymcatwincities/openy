@@ -19,8 +19,7 @@ env:
     - { name: 'config-set', status: true, arguments: "mailsystem.settings defaults.sender SMTPMailSystem" }
     - { name: 'config-set', status: true, arguments: "smtp.settings smtp_on 1" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
-    - { name: 'cr', status: false, arguments: "" }
-    - { name: 'ciboxcr', status: true, arguments: "" }
+    - { name: 'cr', status: true, arguments: "" }
     - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
     - { name: 'search-api-reindex', status: false, arguments: "" }
     - { name: 'search-api-index', status: false, arguments: "" }

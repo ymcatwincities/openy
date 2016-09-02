@@ -310,9 +310,11 @@ class MindbodyResultsController extends ControllerBase {
           'trainer_name' => $booking_data['trainer_name'],
           'start_date' => $booking_data['start_date'],
           'location' => $location->label(),
-          'client_name' => 'unknown',
-          'client_email' => 'unknown',
-          'client_phone' => 'unknown',
+          'trainer_email' => $booking_data['trainer_email'],
+          'trainer_phone' => $booking_data['trainer_phone'],
+          'client_name' => 'N/A',
+          'client_email' => 'N/A',
+          'client_phone' => 'N/A',
         ];
 
         // Get client data.
@@ -322,7 +324,11 @@ class MindbodyResultsController extends ControllerBase {
           $tokens['client_phone'] = $client_data->MobilePhone;
         }
 
+        // Send notification to trainer.
         $this->mailManager->mail('ymca_mindbody', 'notify_trainer', $booking_data['trainer_email'], 'en', $tokens);
+
+        // Send notification to client.
+        $this->mailManager->mail('ymca_mindbody', 'notify_customer', $client_data->Email, 'en', $tokens);
       }
 
     }
