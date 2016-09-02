@@ -14,6 +14,7 @@
 # http://www.robotstxt.org/robotstxt.html
 
 User-agent: *
+Crawl-delay: 10
 # CSS, JS, Images
 Allow: /core/*.css$
 Allow: /core/*.css?
@@ -79,4 +80,4 @@ Disallow: *?filter_length
 Disallow: *?location
 Disallow: *catalog_search_panel
 
-Sitemap: http://www.ymcatwincities.org/sitemap.xml
+Sitemap: http://www.ymcamn.org/sitemap.xml
