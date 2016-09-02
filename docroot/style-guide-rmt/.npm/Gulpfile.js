@@ -54,7 +54,6 @@ gulp.task('sass-dev', function () {
       console.error('Error!', err.message);
     })
     .pipe(autoprefixer({browsers: ['last 2 versions']}))
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest(src.css))
     .pipe(filter("**/*.css"))
     .pipe(reload({
@@ -122,10 +121,7 @@ gulp.task('js-lint', function () {
 gulp.task('inline-css', function() {
   return gulp.src('../styleguide/sg-inline.html')
     .pipe(inlineCss({
-      url: 'file://' + __dirname + '/../styles.css',
-      applyLinkTags: true,
-      removeStyleTags: false,
-      removeLinkTags: false
+      url: 'file://' + __dirname + '/../styles.css'
     }))
     .pipe(rename('sg-inline-embed.html'))
     .pipe(gulp.dest('../styleguide/'));

@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_site_verify hooks.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ymca_site_verify_page_attachments(array &$page) {
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $verification_id = \Drupal::config('ymca_site_verify.settings')->get('google_site_verification_id');
+
+    $data = array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'google-site-verification',
+        'content' => $verification_id,
+      ),
+    );
+
+    $page['#attached']['html_head'][] = array($data, 'config:ymca_site_verify.settings');
+  }
+}

@@ -466,7 +466,9 @@ function ymca_preprocess_html(&$variables) {
         break;
     }
   }
-  $variables['attributes']->addClass($classes);
+  if (!is_array($variables['attributes'])) {
+    $variables['attributes']->addClass($classes);
+  }
 
   $iconFid = theme_get_setting('ymca_favicon_default')[0];
   if (
@@ -495,6 +497,15 @@ function ymca_preprocess_html(&$variables) {
  * Implements hook_preprocess_html().
  */
 function ymca_preprocess_page(&$variables) {
+  $header_search = theme_get_setting('header_search');
+  if ($header_search !== NULL) {
+    // Rely on config.
+    $variables['header_search'] = $header_search;
+  }
+  else {
+    // Display by default.
+    $variables['header_search'] = TRUE;
+  }
   if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
     $variables['node'] = \Drupal::routeMatch()->getParameter('node_preview');
   }
@@ -607,6 +618,16 @@ function ymca_preprocess_page(&$variables) {
         $variables['youth_sports_inner'] = TRUE;
       }
     }
+  }
+  $route_name = 'search.view_content';
+  $route_provider = \Drupal::service('router.route_provider');
+  $routes = $route_provider->getRoutesByNames(array($route_name));
+  if (!empty($routes)) {
+    $variables['search_view_content_path'] = Url::fromRoute('search.view_content');
+  }
+  else {
+    $variables['search_view_content_path'] = '';
+    \Drupal::logger('ymca')->error('Route "%route" does not exist.', array('%route' => $route_name));
   }
 }
 
@@ -1449,6 +1470,12 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#upload_validators'  => array(
       'file_validate_extensions' => array('ico png')
     )
+  );
+  $form['ymca_settings']['header_search'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Header Location Search form'),
+    '#default_value' => (theme_get_setting('header_search') === NULL) ? TRUE : theme_get_setting('header_search'),
+    '#description' => t('Denote if you need it enabled sitewide.'),
   );
 }
 

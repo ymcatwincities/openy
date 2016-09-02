@@ -1,0 +1,6 @@
+access YMCA locations:
+  title: 'Access YMCA Locations'
+  description: 'Denote is you need to allow a role to be able to visit /locations route'
+access YMCA location schedules:
+  title: 'Access YMCA Location schedules'
+  description: 'Denote is you need to allow a role to be able to visit node/schedules route'
