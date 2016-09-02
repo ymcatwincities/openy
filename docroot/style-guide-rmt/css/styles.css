@@ -21,7 +21,6 @@
     margin-bottom: 7px;
     display: inline-block; }
   .icon__title {
-    display: block;
     font-size: 13px;
     color: #363636; }
 
@@ -748,6 +747,11 @@ a img {
     padding-right: 8px; }
     .block-text-icon .padding-right img {
       padding: 0 !important; }
+
+.layout-icon {
+  margin-bottom: 30px !important; }
+  .layout-icon td {
+    padding: 0 10px; }
 
 .style-list {
   padding-left: 15px;
