@@ -171,16 +171,16 @@ function yptf_master_update_8009() {
   $map = array_map('str_getcsv', file($csv_file));
 
   foreach ($map as $product) {
-    $product_code = $product[3];
+    $product_code = $product[4];
     $product_code_array = explode('_', $product_code);
 
     $data = [
       'type' => 'personify_product',
-      'field_productid' => $product[0],
+      'field_productid' => $product[1],
       'field_member_price' => $product[11],
       'field_nonmember_price' => $product[12],
       'field_package' => $product_code_array[2],
-      'field_product_code' => $product[3],
+      'field_product_code' => $product[4],
       'field_session_length' => $product_code_array[4],
     ];
     $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
@@ -192,7 +192,7 @@ function yptf_master_update_8009() {
     }
 
     $mapping = Mapping::create($data);
-    $mapping->setName($product[4]);
+    $mapping->setName($product[5]);
     $mapping->save();
   }
 }
