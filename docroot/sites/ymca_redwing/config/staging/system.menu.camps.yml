@@ -3,6 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: camps
-label: 'YMCA Camp Pepin'
+label: 'Camp Pepin'
 description: 'Subtree of camp''s pages hierarchy'
 locked: false
