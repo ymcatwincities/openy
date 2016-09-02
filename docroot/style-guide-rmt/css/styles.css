@@ -522,6 +522,10 @@ a img {
       color: #01a490; }
 
 /* style component block social */
+.footer-wrapper {
+  margin: 0 auto;
+  max-width: 650px; }
+
 .block-social {
   background-color: #fafafa;
   padding-bottom: 25px;
@@ -537,20 +541,16 @@ a img {
 
 /* style block contact */
 .block-contact {
-  background-color: #c6168d;
-  background-image: url("https://images.magnetmail.net/images/clients/YMCA_TWIN/2016_redesign/bg-contact.png");
-  background-position: right center;
-  background-repeat: no-repeat;
-  box-sizing: border-box;
   color: #ffffff;
   font-size: 13px;
-  margin-bottom: 25px;
-  padding: 30px 10px 25px; }
-  .block-contact td {
-    padding-bottom: 10px; }
+  background-size: cover;
+  background-position: center center; }
   .block-contact__content {
-    margin: 0 auto;
-    max-width: 406px; }
+    margin: 0 auto; }
+  .block-contact .padding_top {
+    padding-top: 20px; }
+  .block-contact__inner {
+    padding: 0 30px; }
   .block-contact__icon {
     padding-right: 15px; }
   .block-contact a {
@@ -569,6 +569,7 @@ a img {
 
 /* style block unsubscribe */
 .block-unsubscribe {
+  padding: 10px 0;
   margin-bottom: 25px;
   text-align: center; }
 
@@ -636,7 +637,7 @@ a img {
 .block-body {
   padding-left: 10px;
   padding-right: 10px;
-  max-width: 686px;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
   width: 100%; }
@@ -682,27 +683,29 @@ a img {
     height: 82px; }
 
 .block-cta {
+  max-width: 550px;
   margin: 0 auto;
-  max-width: 556px;
-  padding: 0 10px 49px; }
+  width: 100%; }
+  .block-cta .padding {
+    padding: 0 5px; }
+  .block-cta .border-bottom {
+    border-bottom: 15px solid transparent; }
   .block-cta__content {
     padding-bottom: 24px; }
-  .block-cta__img {
-    width: 100%;
-    height: auto;
-    padding-bottom: 25px;
-    line-height: 0; }
-  .block-cta--image--left .block-cta__img {
-    padding-bottom: 29px; }
-  .block-cta--image--left .block-cta__title {
+  .block-cta__title {
+    color: #424242;
+    font-family: Arial,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
     margin-bottom: 0;
-    padding-bottom: 8px; }
+    text-align: left;
+    text-transform: uppercase; }
+  .block-cta__img img {
+    width: 100%;
+    height: auto; }
   .block-cta--image--left .block-cta__body {
     vertical-align: top;
-    padding-left: 30px; }
-  .block-cta--grid .block-cta__title {
-    margin-bottom: 0;
-    padding-bottom: 8px; }
+    padding-left: 25px; }
   .block-cta__table tr {
     background: transparent !important; }
     .block-cta__table tr td {
@@ -711,17 +714,15 @@ a img {
 
 .block-grid {
   margin: 0 auto;
-  max-width: 622px; }
+  max-width: 620px;
+  width: 100%; }
   .block-grid table tr {
     background: transparent; }
-    .block-grid table tr td {
-      min-height: 50px;
-      padding: 0 20px;
-      vertical-align: top;
-      width: 50%; }
-  .block-grid .block-cta__title {
-    margin-bottom: 0px;
-    padding-bottom: 11px; }
+  .block-grid .padding {
+    min-height: 50px;
+    padding: 0 15px;
+    vertical-align: top;
+    width: 50%; }
 
 .text-indent {
   padding-left: 25px;
