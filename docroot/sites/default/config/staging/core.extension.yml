@@ -49,6 +49,7 @@ module:
   filter: 0
   flood_unblock: 0
   gardengnome_player: 0
+  google_tag: 0
   groupex_form_cache: 0
   hal: 0
   help: 0
@@ -152,6 +153,7 @@ module:
   ymca_personify: 0
   ymca_retention: 0
   ymca_search_alter: 0
+  ymca_site_verify: 0
   ymca_styleguide: 0
   ymca_sync: 0
   ymca_workflow: 0
