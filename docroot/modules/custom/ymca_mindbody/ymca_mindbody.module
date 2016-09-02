@@ -64,12 +64,12 @@ function ymca_mindbody_token_info() {
     'type' => 'url',
   ];
   $info['tokens']['node']['list-of-products-pt'] = [
-    'name' => t('List of Personify products for location'),
+    'name' => t('List of Personify products'),
     'description' => t('Provides an expander block with list of personify products'),
     'type' => 'markup',
   ];
   $info['tokens']['node']['list-of-products-pt-location'] = [
-    'name' => t('List of Personify products for trainer'),
+    'name' => t('List of Personify products for location'),
     'description' => t('Provides an expander block with list of personify products'),
     'type' => 'markup',
   ];
@@ -158,12 +158,12 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
               $products_to_display_member[$product_code_array[4]][] = [
                 'price' => $product_member_price,
-                'session_length' => $product_code_array[4],
+                'session' => $product_code_array[4],
                 'package' => $product_code_array[2],
               ];
               $products_to_display_non_member[$product_code_array[4]][] = [
                 'price' => $product_non_member_price,
-                'session_length' => $product_code_array[4],
+                'session' => $product_code_array[4],
                 'package' => $product_code_array[2],
               ];
             }
@@ -216,13 +216,13 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                   $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
                   $products_to_display_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_member_price,
-                    'session_length' => $product_code_array[4],
+                    'session' => $product_code_array[4],
                     'package' => $product_code_array[2],
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
                   ];
                   $products_to_display_non_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_non_member_price,
-                    'session_length' => $product_code_array[4],
+                    'session' => $product_code_array[4],
                     'package' => $product_code_array[2],
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
                   ];
