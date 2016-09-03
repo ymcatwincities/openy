@@ -473,7 +473,7 @@ a img {
   color: #fcaf17; }
 
 /* style component header */
-.header {
+.header-wrapper {
   margin: 0 auto;
   max-width: 600px;
   min-width: 65%;
@@ -482,12 +482,12 @@ a img {
   padding-left: 10px;
   padding-right: 10px;
   table-layout: fixed; }
-  .header a {
+  .header-wrapper a {
     color: #0089d0;
     font-size: 13px;
     text-decoration: none;
     text-transform: uppercase; }
-    .header a.site-slogan {
+    .header-wrapper a.site-slogan {
       color: #c6168d;
       font-weight: bold;
       text-align: left;
@@ -495,30 +495,34 @@ a img {
       font-size: 16px;
       text-transform: uppercase;
       padding: 0; }
-  .header .logo {
+  .header-wrapper .logo {
     width: 80px;
     padding: 0; }
-  .header .site-logo {
+  .header-wrapper .site-logo {
     padding-right: 0; }
-  .header .main-menu {
+  .header-wrapper .main-menu {
     vertical-align: bottom;
     text-align: right; }
-  .header__item {
-    padding: 10px 0;
-    white-space: nowrap; }
-    .header__item td {
-      padding: 0 15px;
-      text-align: center; }
-  .header__branch {
-    padding-right: 30px; }
-  .header--programs-classes a {
+
+.header__item {
+  padding: 10px 0;
+  white-space: nowrap; }
+  .header__item td {
+    padding: 0 15px;
+    text-align: center; }
+
+.header__branch {
+  padding-right: 30px; }
+
+.header--programs-classes a {
+  color: #01a490; }
+  .header--programs-classes a.site-slogan {
+    color: #0089d0; }
+
+.header--camps-summer a {
+  color: #f47920; }
+  .header--camps-summer a.site-slogan {
     color: #01a490; }
-    .header--programs-classes a.site-slogan {
-      color: #0089d0; }
-  .header--camps-summer a {
-    color: #f47920; }
-    .header--camps-summer a.site-slogan {
-      color: #01a490; }
 
 /* style component block social */
 .footer-wrapper {
