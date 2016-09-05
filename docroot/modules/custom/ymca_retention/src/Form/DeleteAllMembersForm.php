@@ -12,6 +12,7 @@ use Drupal\Core\Url;
  * @ingroup ymca_retention_member
  */
 class DeleteAllMembersForm extends ConfirmFormBase {
+
   /**
    * {@inheritdoc}
    */
