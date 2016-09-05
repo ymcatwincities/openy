@@ -29,7 +29,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   /**
    * Min time value that should be available on form.
    */
-  const MIN_TIME_RANGE = 5;
+  const MIN_TIME_RANGE = 4;
 
   /**
    * Max time value that should be available on form.
@@ -353,7 +353,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
 
     $location_options = [];
     foreach ($locations->GetLocationsResult->Locations->Location as $location) {
-      if ($location->HasClasses != TRUE || !$this->trainingsMapping->locationIsActive($location->ID)) {
+      // @TODO: investigate behavior of "$location->HasClasses != TRUE".
+      if (!$this->trainingsMapping->locationIsActive($location->ID)) {
         continue;
       }
       $location_options[$location->ID] = $this->trainingsMapping->getLocationLabel($location->ID, $location->Name);
@@ -420,6 +421,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       ],
       'SessionTypeIDs' => [$session_type_id],
       'LocationIDs' => [$location_id],
+      'StartDate' => date('Y-m-d', strtotime('today')),
+      'EndDate' => date('Y-m-d', strtotime("today +3 weeks")),
     ];
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 

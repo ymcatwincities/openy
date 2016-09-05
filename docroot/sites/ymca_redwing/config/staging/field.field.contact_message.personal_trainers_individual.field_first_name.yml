@@ -1,0 +1,19 @@
+uuid: 13398829-f5c9-4748-a000-e30ac823ef98
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.storage.contact_message.field_first_name
+id: contact_message.personal_trainers_individual.field_first_name
+field_name: field_first_name
+entity_type: contact_message
+bundle: personal_trainers_individual
+label: 'First Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

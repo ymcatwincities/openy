@@ -25,7 +25,7 @@ class YmcaImageToBlocks {
    * @param int $asset_id
    *   Asset ID from AMM to be used as Image Block.
    *
-   * @return \Drupal\block_content\Entity\BlockContent $block
+   * @return \Drupal\block_content\Entity\BlockContent
    *   Returns block_content entity object.
    *
    * @throws \Drupal\migrate\MigrateException

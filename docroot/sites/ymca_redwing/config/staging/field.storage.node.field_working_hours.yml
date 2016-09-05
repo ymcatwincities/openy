@@ -1,0 +1,20 @@
+uuid: 7d2ca77d-2248-4e39-b700-dfa2f7176e04
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - node
+id: node.field_working_hours
+field_name: field_working_hours
+entity_type: node
+type: entity_reference
+settings:
+  target_type: block_content
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

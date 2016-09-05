@@ -1,0 +1,8 @@
+uuid: 8f1583f4-cf43-4607-9300-cb9546f92d91
+langcode: en
+status: true
+dependencies: {  }
+id: camps
+label: 'Camp Pepin'
+description: 'Subtree of camp''s pages hierarchy'
+locked: false

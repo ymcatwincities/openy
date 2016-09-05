@@ -1,0 +1,53 @@
+.block-cta {
+  max-width: 550px;
+  margin: 0 auto;
+  width: 100%;
+
+  .padding {
+    padding: 0 5px;
+  }
+
+  .border-bottom {
+    border-bottom: 15px solid transparent;
+  }
+
+  &__content {
+    padding-bottom: 24px;
+  }
+
+  &__title {
+    color: #424242;
+    font-family: Arial,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  &__img {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &--image--left {
+    .block-cta__body {
+      vertical-align: top;
+      padding-left: 25px;
+    }
+  }
+
+  &__table {
+    tr {
+      background: transparent !important;
+
+      td {
+        padding: 0;
+        vertical-align: top;
+      }
+    }
+  }
+}
+

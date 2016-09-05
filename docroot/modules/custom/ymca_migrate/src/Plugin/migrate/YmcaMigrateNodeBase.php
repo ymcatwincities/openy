@@ -41,7 +41,7 @@ abstract class YmcaMigrateNodeBase extends SqlBase {
   /**
    * Tokens replacement service.
    *
-   * @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens.
+   * @var \Drupal\ymca_migrate\Plugin\migrate\YmcaReplaceTokens
    */
   public $replaceTokens;
 

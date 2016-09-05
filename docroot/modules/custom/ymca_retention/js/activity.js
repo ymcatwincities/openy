@@ -137,7 +137,26 @@
         speed: 300,
         infinite: false,
         swipeToSlide: true,
-        initialSlide: Math.max(0, $scope.date_index - 3),
+        initialSlide: (function () {
+          var current_index = Math.max(0, $scope.date_index - 3);
+          var ww = jQuery(window).width();
+          if (ww >= 1024) {
+            current_index = Math.min(current_index, $scope.dates.length - 11);
+          }
+          else if (ww >= 900) {
+            current_index = Math.min(current_index, $scope.dates.length - 8);
+          }
+          else if (ww >= 750) {
+            current_index = Math.min(current_index, $scope.dates.length - 6);
+          }
+          else if (ww >= 600) {
+            current_index = Math.min(current_index, $scope.dates.length - 5);
+          }
+          else {
+            current_index = Math.min(current_index, $scope.dates.length - 4);
+          }
+          return current_index;
+        })(),
         slidesToScroll: 11,
         slidesToShow: 11,
         responsive: [

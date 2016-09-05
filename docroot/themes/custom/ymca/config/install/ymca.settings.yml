@@ -7,8 +7,6 @@ features:
    name: true
    node_user_picture: true
    slogan: true
-
-brand_title: 'YMCA Twin Cities'
 links_color: ''
 links_color_hover: ''
 header_background_color_base: '#0060af'

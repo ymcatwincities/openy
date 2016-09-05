@@ -1,0 +1,20 @@
+uuid: 74d8bd54-e0e5-45aa-bf21-33844e9741d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_join_override
+field_name: field_join_override
+entity_type: node
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

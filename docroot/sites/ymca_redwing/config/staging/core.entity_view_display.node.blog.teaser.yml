@@ -1,0 +1,50 @@
+uuid: 10b7990f-9a0a-4eaf-8304-4fee6e8e48cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.blog.field_content
+    - field.field.node.blog.field_image
+    - field.field.node.blog.field_related_camps_locations
+    - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_summary
+    - field.field.node.blog.field_tags
+    - image.style.blog
+    - node.type.blog
+  module:
+    - image
+    - text
+    - user
+id: node.blog.teaser
+targetEntityType: node
+bundle: blog
+mode: teaser
+content:
+  field_content:
+    type: text_trimmed
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  field_image:
+    type: image
+    weight: 0
+    label: hidden
+    settings:
+      image_style: blog
+      image_link: content
+    third_party_settings: {  }
+  field_summary:
+    type: text_default
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_related_camps_locations: true
+  field_site_section: true
+  field_tags: true
+  langcode: true
+  links: true

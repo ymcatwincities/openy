@@ -1,0 +1,101 @@
+uuid: 2c85af55-2847-4860-8222-febb756b64c8
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_browser_entity_form
+    - views
+    - ymca_entity_browser
+name: block_browser_iframe
+label: 'Block Browser (IFrame)'
+display: block_iframe
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  5454a94a-a9ef-49b6-8721-a26407431e11:
+    settings:
+      view: content_browser_block
+      view_display: entity_browser_1
+    uuid: 5454a94a-a9ef-49b6-8721-a26407431e11
+    weight: 1
+    label: view
+    id: view
+  1fee238e-c4e4-49cb-aae2-aab41be73c77:
+    settings:
+      entity_type: block_content
+      bundle: basic
+    uuid: 1fee238e-c4e4-49cb-aae2-aab41be73c77
+    weight: 2
+    label: 'New Basic Block'
+    id: entity_form
+  d22a8d66-fb5f-4127-8974-2c5750a056b4:
+    settings:
+      entity_type: block_content
+      bundle: promo_block
+    uuid: d22a8d66-fb5f-4127-8974-2c5750a056b4
+    weight: 3
+    label: 'New Promo Block'
+    id: entity_form
+  084db389-8dbe-434d-87b0-929b24f0bccb:
+    settings:
+      entity_type: block_content
+      bundle: code_block
+    uuid: 084db389-8dbe-434d-87b0-929b24f0bccb
+    weight: 4
+    label: 'New Code Block'
+    id: entity_form
+  9e0a9724-f965-4fbe-b3f1-367df99e5563:
+    settings:
+      entity_type: block_content
+      bundle: date_block
+    uuid: 9e0a9724-f965-4fbe-b3f1-367df99e5563
+    weight: 5
+    label: 'New Date Block'
+    id: entity_form
+  9f40a062-e73c-4e24-901e-e0e0dd7a68a2:
+    settings:
+      entity_type: block_content
+      bundle: expander_block
+    uuid: 9f40a062-e73c-4e24-901e-e0e0dd7a68a2
+    weight: 6
+    label: 'New Expander Block'
+    id: entity_form
+  97c53b5e-6880-457b-a4e8-b878e0196275:
+    settings:
+      entity_type: block_content
+      bundle: image_block
+    uuid: 97c53b5e-6880-457b-a4e8-b878e0196275
+    weight: 7
+    label: 'New Image Block'
+    id: entity_form
+  4ad07e2d-946f-46e9-b0bb-161b85c33ba3:
+    settings:
+      entity_type: block_content
+      bundle: slide_show
+    uuid: 4ad07e2d-946f-46e9-b0bb-161b85c33ba3
+    weight: 9
+    label: 'New Slide Show'
+    id: entity_form
+  17103375-80bc-4130-9168-16e10047c066:
+    settings:
+      entity_type: block_content
+      bundle: location_schedule
+    uuid: 17103375-80bc-4130-9168-16e10047c066
+    weight: 8
+    label: 'New Location Schedule Block'
+    id: entity_form
+  c8996926-7ac8-45d8-82a7-ce2cca0fb72c:
+    settings:
+      entity_type: block_content
+      bundle: panorama_block
+    uuid: c8996926-7ac8-45d8-82a7-ce2cca0fb72c
+    weight: 8
+    label: 'New Panorama Block'
+    id: entity_form

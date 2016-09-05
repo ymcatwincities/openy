@@ -10,7 +10,6 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
-use Drupal\ymca_groupex\DrupalProxy;
 
 /**
  * Class GooglePush.
@@ -23,6 +22,11 @@ class GooglePush {
    * Date format for RRULE.
    */
   const RRULE_DATE = 'Ymd\THis\Z';
+
+  /**
+   * Test calendar name.
+   */
+  const TEST_CALENDAR_NAME = 'TESTING';
 
   /**
    * Default timezone for calendars.
@@ -107,6 +111,13 @@ class GooglePush {
   protected $query;
 
   /**
+   * Production flag.
+   *
+   * @var bool
+   */
+  protected $isProduction;
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -125,11 +136,13 @@ class GooglePush {
   public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy, QueryFactory $query) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
-    $this->logger = $logger->get('gcal_groupex');
+    $this->logger = $logger->get(GcalGroupexWrapper::LOGGER_CHANNEL);
     $this->loggerFactory = $logger;
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
     $this->query = $query;
+
+    $this->isProduction = $this->configFactory->get('ymca_google.settings')->get('is_production');
 
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
@@ -174,14 +187,16 @@ class GooglePush {
             }
 
             try {
-              $this->calEvents->update(
+              $updated = $this->calEvents->update(
                 $gcal_id,
                 $entity->field_gg_gcal_id->value,
                 $event
               );
 
               $processed[$op]++;
+
               // Saving updated entity only when it was pushed successfully.
+              $entity->set('field_gg_google_event', serialize($updated));
               $entity->save();
             }
             catch (\Google_Service_Exception $e) {
@@ -287,6 +302,7 @@ class GooglePush {
               $event = $this->calEvents->insert($gcal_id, $event);
 
               $entity->set('field_gg_gcal_id', $event->getId());
+              $entity->set('field_gg_google_event', serialize($event));
               $entity->save();
 
               $processed[$op]++;
@@ -353,6 +369,10 @@ class GooglePush {
    *   Calendar ID.
    */
   protected function getCalendarIdByName($name) {
+    if (!$this->isProduction) {
+      $name = self::TEST_CALENDAR_NAME;
+    }
+
     // Return ID from cache if exists.
     if (array_key_exists($name, $this->calendars)) {
       return $this->calendars[$name];
@@ -453,6 +473,14 @@ class GooglePush {
     }
     else {
       $instructor = $default;
+    }
+
+    // Check if instructor value contains subbed HTML and strip tags.
+    $regex = '/<span class=\"subbed\".*><br>(.*)<\/span>/';
+    preg_match($regex, $instructor, $match);
+    if (isset($match[1])) {
+      $instructor = str_replace($match[0], ' ', $instructor);
+      $instructor .= $match[1];
     }
 
     if (!empty($instructor)) {

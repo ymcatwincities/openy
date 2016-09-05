@@ -1,0 +1,17 @@
+uuid: 03c11310-f421-4593-ae2e-467bb83993a1
+langcode: en
+status: true
+dependencies: {  }
+id: anonymous
+label: 'Anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access content'
+  - 'use text format restricted_html'
+  - 'view files'
+  - 'access comments'
+  - 'access site-wide contact form'
+  - 'search content'
+  - 'access sitemap'
+  - 'create workflow workflow_transition'

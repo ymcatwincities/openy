@@ -1,0 +1,45 @@
+.text-indent {
+  padding-left: 25px;
+  list-style: none;
+  margin: 0;
+}
+
+.text-icon {
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 0;
+
+  img {
+    width: 17px;
+    height: auto;
+    padding: 0;
+  }
+
+
+}
+
+.block-text-icon {
+  margin:0 auto;
+  max-width: 550px;
+  width: 100%;
+
+  .padding {
+    padding: 5px 0;
+  }
+
+  .padding-right {
+    padding-right: 8px;
+
+    img {
+      padding: 0!important;
+    }
+  }
+}
+
+.layout-icon {
+  margin-bottom: 30px !important;
+
+  td {
+    padding: 0 10px;
+  }
+}

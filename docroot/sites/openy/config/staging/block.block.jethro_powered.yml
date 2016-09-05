@@ -1,0 +1,20 @@
+uuid: 29c3f79f-0c2a-45a0-993a-58f7cfca84df
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jethro
+id: jethro_powered
+theme: jethro
+region: sidebar_first
+weight: -7
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }

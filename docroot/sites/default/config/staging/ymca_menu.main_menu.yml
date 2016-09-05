@@ -1,7 +1,64 @@
 items:
-  1302: '1302'
-  2153: '2153'
-  1035: '1035'
-  1480: '1480'
-  385: '385'
-  2715: '2715'
+  1302:
+    show: '1'
+    overview: '1'
+  2153:
+    show: '1'
+    overview: '1'
+  1035:
+    show: '1'
+    overview: '1'
+  1480:
+    show: '1'
+    overview: '1'
+  385:
+    show: '1'
+    overview: '1'
+  2715:
+    show: '1'
+    overview: '1'
+  5101:
+    show: 0
+    overview: 0
+  5221:
+    show: 0
+    overview: 0
+  2148:
+    show: 0
+    overview: 0
+  2149:
+    show: 0
+    overview: 0
+  2150:
+    show: 0
+    overview: 0
+  2411:
+    show: 0
+    overview: 0
+  2151:
+    show: 0
+    overview: 0
+  2152:
+    show: 0
+    overview: 0
+  1522:
+    show: 0
+    overview: 0
+  5156:
+    show: 0
+    overview: 0
+  5161:
+    show: 0
+    overview: 0
+  5136:
+    show: 0
+    overview: 0
+  1460:
+    show: 0
+    overview: 0
+  1461:
+    show: 0
+    overview: 0
+  1462:
+    show: 0
+    overview: 0

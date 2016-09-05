@@ -1,0 +1,20 @@
+uuid: 645887b3-36fb-4825-b800-c562c5843c7a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - jethro
+id: jethro_messages
+theme: jethro
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }
