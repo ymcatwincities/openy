@@ -16,6 +16,10 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\Core\File;
+use Drupal\file\Entity\File as EntityFile;
+
+define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
 /**
  * Protecting sites with a shield.
@@ -3995,6 +3999,221 @@ function ymca_master_update_8169() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1001: Add permission to edit own page manager pages only.
+ */
+function ymca_master_update_8170() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.contributor.yml',
+      $path . 'user.role.intern.yml'
+    ]
+  );
+}
+
+/**
+ * Make favicons configurable.
+ */
+function _ymca_master_update_8171() {
+  $srcDir = drupal_get_path('theme', 'ymca') . '/img/favicon/';
+  $destDir = 'public://favicon/';
+  drupal_mkdir($destDir, 0666);
+  $config = \Drupal::service('config.factory')->getEditable('system.theme.global');
+  $fileMap = [
+    'default' => [
+      'from' => 'favicon.ico',
+      'to' => 'default.ico'
+    ],
+    'camp' => [
+      'from' => 'favicon-alt.ico',
+      'to' => 'camp.ico'
+    ],
+    'location' => [
+      'from' => 'favicon-locations.ico',
+      'to' => 'location.ico'
+    ]
+  ];
+  $fileUsage = \Drupal::service('file.usage');
+  foreach ($fileMap as $key => $fileItem) {
+    $fileUri = $destDir . $fileItem['to'];
+    @file_unmanaged_copy($srcDir . $fileItem['from'], $destDir . $fileItem['to']);
+    $file = EntityFile::create([
+      'uid' => 1,
+      'filename' => $fileItem['to'],
+      'uri' => $fileUri,
+      'status' => FILE_STATUS_PERMANENT,
+    ]);
+    $file->save();
+    $fid = $file->id();
+    $fileUsage->add($file, 'ymca_master', 'favicon', $fid);
+    $config->set('ymca_favicon_' . $key, [$fid]);
+  }
+  $config->save();
+}
+
+/**
+ * Install Groupex From Cache.
+ */
+function ymca_master_update_8172() {
+  \Drupal::service('module_installer')->install(['groupex_form_cache'], TRUE);
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_form_cache.groupex_form_cache.default.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.field.groupex_form_cache.groupex_form_cache.field_gfc_response.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_created.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_options.yml',
+      $path . 'field.storage.groupex_form_cache.field_gfc_response.yml',
+    ]
+  );
+}
+
+/**
+ * Updates format configs adding color buttons.
+ */
+function ymca_master_update_8173() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(array('colorbutton'), TRUE);
+  drupal_flush_all_caches();
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1105: Refactor ymca_google.
+ */
+function ymca_master_update_8174() {
+  $config = \Drupal::service('config.factory')->getEditable('ymca_google.settings');
+  $config->set('is_production', 0);
+  $config->save();
+}
+
+/**
+ * YMCA-1105: Add field for Google event.
+ */
+function ymca_master_update_8175() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      $path . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event.yml',
+      $path . 'field.storage.groupex_google_cache.field_gg_google_event.yml',
+    ]
+  );
+}
+
+/**
+ * Update locations schedule content field value.
+ */
+function ymca_master_update_8176() {
+  $renderer = \Drupal::service('renderer');
+  $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $location_nids = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->execute();
+  foreach ($location_nids as $nid) {
+    $mapping = $mapping_repository->findByLocationId($nid);
+    if (!$mapping || !$mapping->hasField('field_location_personify_brcode') ||
+      !$brcode = $mapping->field_location_personify_brcode->getValue()[0]['value']
+    ) {
+      \Drupal::logger('ymca_master')
+        ->notice('Location with nid @nid has not been updated because it doesn\'t have associated Personify branch id', [
+          '@nid' => $nid,
+        ]);
+      continue;
+    }
+
+    $build = [
+      '#type' => 'inline_template',
+      '#template' => '{% include "@ymca_groupex/groupex-individual-location-links.html.twig" %}',
+      '#context' => ['branch_id' => $brcode],
+    ];
+
+    $node = $node_storage->load($nid);
+    $node->set('field_schedule_content', [
+      'value' => (string) $renderer->renderRoot($build),
+      'format' => 'full_html'
+    ]);
+    $node->save();
+  }
+}
+
+/**
+ * Update wysiwyg editor config.
+ */
+function ymca_master_update_8177() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'editor.editor.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * Update wysiwyg editor config.
+ */
+function ymca_master_update_8178() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'user.role.anonymous.yml',
+      $path . 'user.role.authenticated.yml',
+    ]
+  );
+}
+
+/**
+ * Update wysiwyg editor config.
+ */
+function ymca_master_update_8179() {
+  \Drupal::service('module_installer')->install(['google_tag', 'ymca_site_verify'], TRUE);
+
+  $path = 'modules/custom/ymca_master/config/optional/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'google_tag.settings.yml',
+      $path . 'google_tag.settings.env.yml',
+
+    ]
+  );
+}
+
+/**
+* Set proper permissions.
+ */
+function ymca_master_update_8180() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'user.role.anonymous.yml',
+      YGTC_CONFDIR . 'user.role.authenticated.yml',
+    ]
+  );
+}
+
+/**
+ * Set proper permissions for PT.
+ */
+function ymca_master_update_8181() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'user.role.anonymous.yml',
+      YGTC_CONFDIR . 'user.role.authenticated.yml',
     ]
   );
 }

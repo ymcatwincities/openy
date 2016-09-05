@@ -3,6 +3,9 @@
 namespace Drupal\ymca_retention;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\taxonomy\TermStorage;
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\ymca_mappings\LocationMappingRepository;
@@ -14,20 +17,66 @@ use Drupal\ymca_retention\Entity\Member;
 class LeaderboardManager implements LeaderboardManagerInterface {
 
   /**
-   * Injected cache backend.
+   * The config factory service.
    *
-   * @var \Drupal\Core\Cache\CacheBackendInterface;
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The entity query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $queryFactory;
+
+  /**
+   * The cache backend.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
    */
   protected $cache;
 
   /**
+   * The location mapping repository.
+   *
+   * @var \Drupal\ymca_mappings\LocationMappingRepository
+   */
+  protected $locationRepository;
+
+  /**
    * Constructor.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
+   *   The entity query factory.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
-   *   The injected cache backend for caching data.
+   *   The cache backend.
+   * @param \Drupal\ymca_mappings\LocationMappingRepository $location_repository
+   *   The location mapping repository.
    */
-  public function __construct(CacheBackendInterface $cache) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    EntityTypeManagerInterface $entity_type_manager,
+    QueryFactory $query_factory,
+    CacheBackendInterface $cache,
+    LocationMappingRepository $location_repository
+  ) {
+    $this->configFactory = $config_factory;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->queryFactory = $query_factory;
     $this->cache = $cache;
+    $this->locationRepository = $location_repository;
   }
 
   /**
@@ -43,7 +92,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
 
     // Prepare taxonomy data.
     /** @var TermStorage $term_storage */
-    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $parents = $term_storage->loadTree('ymca_retention_activities', 0, 1);
     foreach ($parents as $parent) {
       $parent->children_ids = [];
@@ -53,11 +102,10 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       }
     }
 
-    $member_ids = \Drupal::entityQuery('ymca_retention_member')
+    $member_ids = $this->queryFactory->get('ymca_retention_member')
       ->condition('branch', $branch_id)
       ->execute();
-    $members = \Drupal::entityTypeManager()
-      ->getStorage('ymca_retention_member')
+    $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple($member_ids);
 
     $leaderboard = [];
@@ -65,7 +113,7 @@ class LeaderboardManager implements LeaderboardManagerInterface {
     foreach ($members as $rank => $member) {
       $activities = [];
       foreach ($parents as $parent) {
-        $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
+        $activities_ids = $this->queryFactory->get('ymca_retention_member_activity')
           ->condition('member', $member->id())
           ->condition('activity_type', $parent->children_ids, 'IN')
           ->execute();
@@ -89,14 +137,14 @@ class LeaderboardManager implements LeaderboardManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getLocations() {
+  public function getMemberBranches() {
     // Find out unique branch ids among all the members.
-    $branches = \Drupal::entityQueryAggregate('ymca_retention_member')
+    $branches = $this->queryFactory->getAggregate('ymca_retention_member')
       ->groupBy('branch')
       ->aggregate('id', 'COUNT')
       ->execute();
 
-    $settings = \Drupal::config('ymca_retention.branches_settings');
+    $settings = $this->configFactory->get('ymca_retention.branches_settings');
     $excluded_branches = $settings->get('excluded_branches');
     $branch_ids = [];
     foreach ($branches as $branch) {
@@ -106,16 +154,33 @@ class LeaderboardManager implements LeaderboardManagerInterface {
       $branch_ids[] = $branch['branch'];
     }
 
-    /** @var LocationMappingRepository $repo */
-    $repo = \Drupal::service('ymca_mappings.location_repository');
-    $locations = $repo->findByLocationPersonifyBranchCode($branch_ids);
+    return $branch_ids;
+  }
 
-    $locations_list = [
-      [
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberLocations() {
+    $branch_ids = $this->getMemberBranches();
+
+    $locations = $this->locationRepository->findByLocationPersonifyBranchCode($branch_ids);
+
+    return $locations;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocationsList($none = TRUE) {
+    $locations = $this->getMemberLocations();
+
+    $locations_list = [];
+    if ($none) {
+      $locations_list[] = [
         'branch_id' => 0,
         'name' => t('Select location...'),
-      ],
-    ];
+      ];
+    }
     /** @var Mapping $location */
     foreach ($locations as $location) {
       $locations_list[] = [

@@ -1,0 +1,101 @@
+/* style component block social */
+.footer-wrapper {
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+.block-social {
+  background-color: $gray-fa;
+  padding-bottom: 25px;
+  padding-top: 25px;
+  text-align: center;
+
+  &__list {
+    a {
+      text-decoration: none;
+      outline: none;
+      padding: 0;
+      border: 0;
+
+      img {
+        border: 0;
+      }
+    }
+  }
+}
+
+/* style block contact */
+.block-contact {
+  color: $white;
+  font-size: 13px;
+  background-size: cover;
+  background-position: center center;
+
+  &__content {
+    margin: 0 auto;
+  }
+
+  .padding_top {
+    padding-top: 20px;
+  }
+
+  &__inner {
+    padding: 0 30px;
+  }
+
+  &__icon {
+    padding-right: 15px;
+  }
+
+  a {
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &__phone-mail {
+    a {
+      padding-right: 35px;
+      white-space: nowrap;
+    }
+  }
+
+  .opacity {
+    opacity: 0.4;
+  }
+
+  &--programs-classes {
+    background-color: $blue;
+  }
+
+  &--camps-summer {
+    background-color: $green;
+  }
+}
+
+/* style block unsubscribe */
+
+.block-unsubscribe {
+  padding: 10px 0;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* style block copyright */
+.block-copyright {
+  font-family: Verdana;
+  font-size: 13px;
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: center;
+  line-height: 20px;
+
+  &__top {
+    color: $gray-a7;
+    margin-bottom: 20px;
+  }
+
+  &__bottom{
+    color: $gray-42;
+  }
+}

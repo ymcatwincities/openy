@@ -1,0 +1,19 @@
+uuid: 266bec36-fa24-48f1-863b-59ae152b9b32
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.storage.contact_message.field_last_name
+id: contact_message.personal_trainers_individual.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: personal_trainers_individual
+label: 'Last Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

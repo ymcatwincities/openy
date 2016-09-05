@@ -1,0 +1,19 @@
+uuid: 2de01e1a-6d51-4b81-b81c-28afee0d0488
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facebook_page_id
+    - node.type.location
+id: node.location.field_facebook_page_id
+field_name: field_facebook_page_id
+entity_type: node
+bundle: location
+label: 'Facebook Page ID'
+description: 'Page ID from About Page tab within FaceBook.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

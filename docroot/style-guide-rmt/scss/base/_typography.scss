@@ -1,0 +1,113 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: $gray-42;
+}
+
+a,
+img {
+  outline: none;
+  border: 0;
+}
+
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 14px;
+}
+
+.block-title {
+  color: $gray-42;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 25px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  padding-bottom: 15px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize
+}
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* style tabel */
+.tables {
+  border-collapse: collapse;
+  font-family: arial,sans-serif;
+  margin:0 auto;
+  max-width: 550px;
+  width: 100%;
+
+  tr {
+    &.odd {
+      background: #DADADA;
+    }
+
+    &.even {
+      background: #ECECEC;
+    }
+
+    td {
+      padding: 12px 20px;
+    }
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border: 0;
+}
+
+* {
+  font-family: Arial, sans-serif;
+}
+
+a img {
+  border: 0;
+}
+
+.bold {
+  font-weight: 700;
+  color: #424242;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

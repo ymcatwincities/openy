@@ -1,0 +1,28 @@
+.style-list {
+  padding-left: 15px;
+  font-size: 16px;
+
+  li {
+    padding: 0 0 10px 0;
+
+    a {
+      display: block;
+      text-decoration: none;
+    }
+  }
+
+  &--sub {
+    list-style: outside none none;
+    margin-top: 2px;
+
+    li {
+      padding: 5px 0;
+    }
+  }
+}
+
+.block-style-list {
+  margin:0 auto;
+  max-width: 550px;
+  width: 100%;
+}

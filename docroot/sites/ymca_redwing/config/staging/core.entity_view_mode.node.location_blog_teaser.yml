@@ -1,0 +1,10 @@
+uuid: f5ed725f-1972-4c2a-8912-1821636a94ed
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.location_blog_teaser
+label: 'Location blog teaser'
+targetEntityType: node
+cache: true

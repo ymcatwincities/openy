@@ -1,0 +1,18 @@
+uuid: fb6e5c0c-b5f9-481b-9800-dfda293ca5b1
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_draft_needs_review
+label: 'Ready to be reviewed'
+module: null
+from_sid: workflow_draft
+to_sid: workflow_needs_review
+roles:
+  administrator: administrator
+  contributor: contributor
+  intern: intern
+  workflow_author: 0
+  anonymous: 0
+  authenticated: 0
+  editor: 0
+  location_editor: 0

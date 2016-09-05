@@ -21,4 +21,17 @@ ymca_menu.main_menu_config_b:
     variant: b
   requirements:
     _permission: 'administer menu'
-
+ymca_menu.menu_list_config:
+  path: '/admin/structure/menu/list'
+  defaults:
+    _form: '\Drupal\ymca_menu\Form\YmcaMenuListConfigForm'
+    _title: 'Allowed menus list'
+  requirements:
+    _permission: 'administer menu'
+ymca_menu.menu_mobile_list_config:
+  path: '/admin/structure/menu/mobile'
+  defaults:
+    _form: '\Drupal\ymca_menu\Form\YmcaMenuMobileListConfigForm'
+    _title: 'Mobile menu'
+  requirements:
+    _permission: 'administer menu'

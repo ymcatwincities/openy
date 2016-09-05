@@ -5,6 +5,8 @@
  * YMCA Retention hook_update_N.
  */
 
+use Drupal\Core\Entity\EntityStorageException;
+
 /**
  * Update YMCA Retention Members view.
  */
@@ -71,6 +73,71 @@ function ymca_retention_update_8006() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'ymca_retention.branches_settings.yml',
+    ]
+  );
+}
+
+/**
+ * Create Winner entity type.
+ */
+function ymca_retention_update_8007() {
+  try {
+    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('update', $e);
+  }
+}
+
+/**
+ * Update views and YMCA Retention pages.
+ */
+function ymca_retention_update_8008() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.ymca_members.yml',
+      $path . 'views.view.ymca_retention_winners.yml',
+      $path . 'page_manager.page_variant.y_game_content.yml',
+      $path . 'page_manager.page_variant.y_game_default.yml',
+      $path . 'page_manager.page_variant.y_games_team.yml',
+      $path . 'page_manager.page_variant.y_games_rules.yml',
+      $path . 'page_manager.page_variant.y_games_enroll_success.yml',
+      $path . 'page_manager.page_variant.y_games_activity.yml',
+    ]
+  );
+}
+
+/**
+ * Create winners page.
+ */
+function ymca_retention_update_8009() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page_variant.y_games_winners.yml',
+    ]
+  );
+}
+
+/**
+ * Install module Queue User Interface.
+ */
+function ymca_retention_update_8010() {
+  \Drupal::service('module_installer')->install([
+    'queue_ui',
+  ], TRUE);
+}
+
+/**
+ * Update winners page.
+ */
+function ymca_retention_update_8011() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'page_manager.page_variant.y_games_winners.yml',
+      $path . 'ymca_retention.general_settings.yml',
     ]
   );
 }

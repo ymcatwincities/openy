@@ -1,6 +1,9 @@
 #
 # Apache/PHP/Drupal settings:
-#
+# Ban them all
+Order Deny,Allow
+Deny from 68.168.104.106
+Deny from 69.64.95.89
 
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|install|make|module|profile|po|sh|.*sql|theme|twig|tpl(\.php)?|xtmpl|yml)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template|composer\.(json|lock))$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig|\.save)$">
@@ -68,13 +71,21 @@ AddEncoding gzip svgz
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
+
   RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^ymcamn.org [NC,OR]
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
+
+
   # 301 --- _asset/n3yx68/doc.pdf => sites/default/files/doc.pdf
   RewriteRule ^/?_asset/.*/(.*)\.pdf$ /sites/default/files/$1.pdf [L,R=301]
-  
+
+# 301 --- http://openymca.org/ => http://www.ymcamn.org/OpenY
+# RewriteCond %{HTTP_HOST} ^openymca\.org$
+# RewriteRule ^$ http://www.ymcamn.org/OpenY? [L,R=301]
+
 # 301 --- http://andoverymca.org => http://www.ymcamn.org/locations/andover_ymca_community_center
 RewriteCond %{HTTP_HOST} ^andoverymca\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/andover_ymca_community_center? [L,R=301]
@@ -416,6 +427,10 @@ RewriteCond %{HTTP_HOST} ^ysportssouthdale\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
 
 # ==============
+# 301 --- http://www.openymca.org/ => http://www.ymcamn.org/OpenY
+# RewriteCond %{HTTP_HOST} ^www\.openymca\.org$
+# RewriteRule ^$ http://www.ymcamn.org/OpenY? [L,R=301]
+
 # 301 --- http://www.andoverymca.org => http://www.ymcamn.org/locations/andover_ymca_community_center
 RewriteCond %{HTTP_HOST} ^www\.andoverymca\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/andover_ymca_community_center? [L,R=301]
@@ -847,6 +862,8 @@ RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activiti
   # Rules to correctly serve gzip compressed CSS and JS files.
   # Requires both mod_rewrite and mod_headers to be enabled.
   <IfModule mod_headers.c>
+    # Disable Proxy header, since it's an attack vector.
+    RequestHeader unset Proxy
     # Serve gzip compressed CSS files if they exist and the client accepts gzip.
     RewriteCond %{HTTP:Accept-encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -s

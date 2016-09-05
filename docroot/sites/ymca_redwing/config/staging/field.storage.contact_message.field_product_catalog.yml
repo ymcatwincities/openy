@@ -1,0 +1,18 @@
+uuid: 46f1882b-c629-4201-a900-0a0b51819143
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_product_catalog
+field_name: field_product_catalog
+entity_type: contact_message
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

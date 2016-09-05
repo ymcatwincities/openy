@@ -84,6 +84,15 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Date and time when reporting will be closed.'),
     ];
 
+    $form['date_winners_announcement'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Winners announcement date and time'),
+      '#size' => 50,
+      '#maxlength' => 500,
+      '#default_value' => $config->get('date_winners_announcement'),
+      '#description' => $this->t('Date and time when winners will be announced.'),
+    ];
+
     $form['new_member_goal_number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Goal of visits for new members'),
@@ -134,6 +143,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('date_registration_close', $form_state->getValue('date_registration_close'))
       ->set('date_reporting_open', $form_state->getValue('date_reporting_open'))
       ->set('date_reporting_close', $form_state->getValue('date_reporting_close'))
+      ->set('date_winners_announcement', $form_state->getValue('date_winners_announcement'))
       ->set('new_member_goal_number', $form_state->getValue('new_member_goal_number'))
       ->set('limit_goal_number', $form_state->getValue('limit_goal_number'))
       ->set('date_checkins_start', $form_state->getValue('date_checkins_start'))

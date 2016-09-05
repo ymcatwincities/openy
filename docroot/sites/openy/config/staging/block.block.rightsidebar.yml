@@ -1,0 +1,31 @@
+uuid: d9f40f0e-6c70-41fd-8b00-b6830e68273d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5df14cde-c6bf-4352-8700-eb7acdee5caa'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: rightsidebar
+theme: multipurpose_business_theme
+region: sidebar_second
+weight: -21
+provider: null
+plugin: 'block_content:5df14cde-c6bf-4352-8700-eb7acdee5caa'
+settings:
+  id: 'block_content:5df14cde-c6bf-4352-8700-eb7acdee5caa'
+  label: Updates
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/layout/right-sidebar\r\n/layout/two-sidebar\r\n"
+    negate: false
+    context_mapping: {  }

@@ -2,15 +2,47 @@
 
 namespace Drupal\ymca_retention\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\ymca_mappings\LocationMappingRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides form for managing module settings.
  */
 class SettingsBranchesForm extends ConfigFormBase {
+
+  /**
+   * The location mapping repository.
+   *
+   * @var \Drupal\ymca_mappings\LocationMappingRepository
+   */
+  protected $locationRepository;
+
+  /**
+   * SettingsBranchesForm constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\ymca_mappings\LocationMappingRepository $location_repository
+   *   The location mapping repository.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, LocationMappingRepository $location_repository) {
+    parent::__construct($config_factory);
+    $this->locationRepository = $location_repository;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('ymca_mappings.location_repository')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -32,9 +64,7 @@ class SettingsBranchesForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('ymca_retention.branches_settings');
 
-    /** @var LocationMappingRepository $repo */
-    $repo = \Drupal::service('ymca_mappings.location_repository');
-    $locations = $repo->loadAll();
+    $locations = $this->locationRepository->loadAll();
 
     $options = [];
     /** @var Mapping $location */

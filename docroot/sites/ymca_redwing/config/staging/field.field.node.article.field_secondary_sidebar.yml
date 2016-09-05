@@ -1,0 +1,21 @@
+uuid: 1d11c0e6-3d30-49f8-9202-02cfb70de534
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_secondary_sidebar
+    - node.type.article
+  module:
+    - text
+id: node.article.field_secondary_sidebar
+field_name: field_secondary_sidebar
+entity_type: node
+bundle: article
+label: 'Secondary Sidebar'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

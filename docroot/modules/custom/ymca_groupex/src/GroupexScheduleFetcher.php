@@ -15,6 +15,11 @@ class GroupexScheduleFetcher {
   use GroupexRequestTrait;
 
   /**
+   * PDF print uri.
+   */
+  const PRINT_URI = 'http://www.groupexpro.com/ymcatwincities/print.php';
+
+  /**
    * Fetched raw data.
    *
    * @var array
@@ -64,11 +69,27 @@ class GroupexScheduleFetcher {
   private $timezone = NULL;
 
   /**
-   * ScheduleFetcher constructor.
+   * The groupex helper.
+   *
+   * @var GroupexHelper
    */
-  public function __construct() {
+  protected $groupexHelper;
+
+  /**
+   * GroupexScheduleFetcher constructor.
+   *
+   * @param GroupexHelper $groupex_helper
+   *   The Groupex helper.
+   *
+   * @param null $parameters
+   *   Parameters.
+   */
+  public function __construct(GroupexHelper $groupex_helper, $parameters = NULL) {
+    $this->groupexHelper = $groupex_helper;
+
+    empty($parameters) ? $parameters = \Drupal::request()->query->all() : '';
     $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
-    $this->parameters = self::normalizeParameters(\Drupal::request()->query->all());
+    $this->parameters = self::normalizeParameters($parameters);
     $this->getData();
     $this->enrichData();
     $this->filterData();
@@ -90,13 +111,52 @@ class GroupexScheduleFetcher {
     }
 
     $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
+    $current_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
+    // Define end date of shown items as 2 weeks.
+    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * 14, $this->timezone);
 
     // Prepare classes items.
     $items = [];
 
     foreach ($this->processedData as $item) {
+      // If item date more than 1 week in future skip it.
+      $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
+      if ($item_date > $end_date) {
+        continue;
+      }
+      $class_url_options = $this->parameters;
+      $class_url_options['class'] = $item->class_id;
+      $class_url_options['filter_date'] = $current_date;
+      $class_url_options['filter_length'] = 'week';
+      $class_url_options['groupex_class'] = 'groupex_table_class_individual';
+      $class_url_options['view_mode'] = 'class';
+      unset($class_url_options['instructor']);
+
+      $instructor_url_options = $this->parameters;
+      $instructor_url_options['filter_date'] = $current_date;
+      $instructor_url_options['filter_length'] = 'week';
+
+      $instructor_url_options['instructor'] = $item->instructor;
+      // Here we need to remove redundant HTML if exists.
+      $pos = strpos($item->instructor, '<br>');
+      if (FALSE !== $pos) {
+        $instructor_url_options['instructor'] = substr_replace($item->instructor, '', $pos);
+      }
+
+      $instructor_url_options['class'] = 'any';
+      $instructor_url_options['groupex_class'] = 'groupex_table_instructor_individual';
+      unset($instructor_url_options['view_mode']);
+
+      $date_url_options = $this->parameters;
+      $date_url_options['filter_date'] = date('m/d/y', strtotime($item->date));
+      $date_url_options['filter_length'] = 'day';
+      $date_url_options['class'] = 'any';
+      $date_url_options['groupex_class'] = 'groupex_table_class';
+      unset($date_url_options['instructor']);
+      unset($date_url_options['view_mode']);
+
       $items[$item->id] = [
-        '#theme' => 'groupex_class',
+        '#theme' => isset($this->parameters['groupex_class']) ? $this->parameters['groupex_class'] : 'groupex_class',
         '#class' => [
           'id' => trim($item->id),
           'name' => trim($item->title),
@@ -105,8 +165,15 @@ class GroupexScheduleFetcher {
           'address_1' => $item->address_1,
           'address_2' => trim($item->location),
           'date' => $item->date,
+          'studio' => $item->studio,
+          'date_short' => date('F, d', strtotime($item->date)),
           'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
+          'instructor' => $item->instructor,
+          'class_id' => $item->class_id,
+          'class_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $class_url_options)),
+          'instructor_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $instructor_url_options)),
+          'date_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options)),
         ],
       ];
     }
@@ -122,7 +189,12 @@ class GroupexScheduleFetcher {
     if (!empty($this->parameters['location']) && count($this->parameters['location']) > 1) {
       $schedule['type'] = 'location';
     }
-
+    if (!empty($this->parameters['class']) && is_numeric($this->parameters['class'])) {
+      $schedule['type'] = 'week';
+    }
+    if (!empty($this->parameters['instructor'])) {
+      $schedule['type'] = 'instructor';
+    }
     switch ($schedule['type']) {
       case 'day':
         $schedule['classes'] = [];
@@ -132,9 +204,9 @@ class GroupexScheduleFetcher {
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $location_id = reset($this->parameters['location']);
+          $location_id = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = $this->groupexHelper->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -146,13 +218,15 @@ class GroupexScheduleFetcher {
       case 'week':
         $schedule['days'] = [];
         foreach ($items as $id => $class) {
-          $schedule['days'][$this->enrichedData[$id]->day][] = $class;
+          $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
+          $schedule['days'][$this->enrichedData[$id]->day]['day_short'] = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $this->enrichedData[$id]->day, $this->timezone)->format('l, F j');
+          $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = $class['#class']['date_link'];
         }
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
-          $location = reset($this->parameters['location']);
+          $location = $this->parameters['location'];
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $schedule['pdf_href'] = self::getPdfLink($location, $this->parameters['filter_timestamp'], $category);
+          $schedule['pdf_href'] = $this->groupexHelper->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
         }
 
         // If no location selected show date instead of title.
@@ -177,16 +251,64 @@ class GroupexScheduleFetcher {
             }
           }
           $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
-          $pdf_href = self::getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
+          $pdf_href = $this->groupexHelper->getPdfLink($location_id, $this->parameters['filter_timestamp'], $category);
           $schedule['locations'][$short_location_name]['classes'][] = $class;
           $schedule['locations'][$short_location_name]['pdf_href'] = $pdf_href;
         }
         $schedule['filter_date'] = date(GroupexRequestTrait::$dateFullFormat, $this->parameters['filter_timestamp']);
         break;
+
+      case 'instructor':
+        // Filter classes by instructor.
+        $schedule['days'] = [];
+        foreach ($items as $id => $class) {
+          if ($class['#class']['instructor'] == $this->parameters['instructor']) {
+            $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
+            $schedule['days'][$this->enrichedData[$id]->day]['day_short'] = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $this->enrichedData[$id]->day, $this->timezone)->format('l, F j');
+            $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
+          }
+        }
+        $schedule['instructor_location'] = t('Schedule for !name', [
+          '!name' => '<span class="name"><span class="icon icon-user"></span>' . reset($schedule['days'])['classes'][0]['#class']['instructor'] . '</span>',
+        ]);
+        // Pass 'View This Week’s PDF' href if some location selected.
+        if (!empty($this->parameters['location'])) {
+          $location = $this->parameters['location'];
+          $category = $this->parameters['category'] == 'any' ? NULL : $this->parameters['category'];
+          $schedule['pdf_href'] = $this->groupexHelper->getPdfLink($location, $this->parameters['filter_timestamp'], $category);
+        }
+
+        // If no location selected show date instead of title.
+        if (empty($this->parameters['location'])) {
+          $schedule['day'] = $filter_date->format(GroupexRequestTrait::$dateFullFormat);
+        }
+        break;
     }
 
     $this->schedule = $schedule;
     return $this->schedule;
+  }
+
+  /**
+   * Get form item options.
+   *
+   * @param array $data
+   *   Data to iterate.
+   * @param string $key
+   *   Key name.
+   * @param string $value
+   *   Value name.
+   *
+   * @return array
+   *   Array of options.
+   */
+  protected function getOptions($data, $key, $value) {
+    $options = [];
+    foreach ($data as $item) {
+      $options[$item->$key] = $item->$value;
+    }
+
+    return $options;
   }
 
   /**
@@ -218,7 +340,7 @@ class GroupexScheduleFetcher {
 
     // Location is optional.
     if (!empty($this->parameters['location'])) {
-      $options['query']['location'] = array_filter($this->parameters['location']);
+      $options['query']['location'] = array_filter(array($this->parameters['location']));
     }
 
     // Category is optional.
@@ -243,9 +365,20 @@ class GroupexScheduleFetcher {
 
     $data = $this->request($options);
 
+    // Classes IDs has some garbage withing the IDs.
+    $class_name_options = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
+    $dirty_keys = array_keys($class_name_options);
+    $refined_keys = array_map(function ($item) {
+      return str_replace(GroupexRequestTrait::$idStrip, '', $item);
+    }, $dirty_keys);
+    $refined_options = array_combine(array_values($class_name_options), $refined_keys);
+
     $raw_data = [];
     foreach ($data as $item) {
       $raw_data[$item->id] = $item;
+      if (isset($refined_options[$item->title])) {
+        $raw_data[$item->id]->class_id = $refined_options[$item->title];
+      }
     }
     $this->rawData = $raw_data;
   }
@@ -365,6 +498,12 @@ class GroupexScheduleFetcher {
       if (!empty($test)) {
         $item->address_1 = str_replace($test[0], ' ' . $test[1], $item->address_1);
       }
+      preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->instructor, $test1);
+      if (!empty($test1)) {
+        $test1[1] = str_replace('(sub for ', '', $test1[1]);
+        $test1[1] = str_replace(')', '', $test1[1]);
+        $item->instructor = str_replace($test1[0], '<br><span class="icon icon-loop2"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
+      }
     }
 
     $this->processedData = $data;
@@ -419,6 +558,13 @@ class GroupexScheduleFetcher {
       $normalized['filter_length'] = 'day';
     }
 
+    // Apply 'week' logic if class is selected.
+    if (isset($parameters['class']) && is_numeric($parameters['class'])) {
+      $normalized['filter_length'] = 'week';
+      $normalized['view_mode'] = 'class';
+      $normalized['groupex_class'] = 'groupex_table_class_individual';
+    }
+
     return $normalized;
   }
 
@@ -429,7 +575,7 @@ class GroupexScheduleFetcher {
    *   True if schedule is empty, false otherwise.
    */
   public function isEmpty() {
-    return empty($this->rawData);
+    return empty($this->processedData);
   }
 
   /**
@@ -437,17 +583,15 @@ class GroupexScheduleFetcher {
    *
    * @param int $location
    *   Location ID.
-   * @param int $timestamp
+   * @param int|bool $timestamp
    *   Timestamp.
-   * @param int $category
+   * @param int|bool $category
    *   Category.
    *
    * @return \Drupal\Core\Url
    *   Link.
    */
-  static public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
-    $uri = 'http://www.groupexpro.com/ymcatwincities/print.php';
-
+  public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
     $query = [
       'font' => 'larger',
       'account' => GroupexRequestTrait::$account,
@@ -462,7 +606,7 @@ class GroupexScheduleFetcher {
       $query['c'] = $category;
     }
 
-    return Url::fromUri($uri, ['query' => $query]);
+    return Url::fromUri(self::PRINT_URI, ['query' => $query]);
   }
 
 }

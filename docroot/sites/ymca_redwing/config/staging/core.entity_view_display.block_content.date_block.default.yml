@@ -1,0 +1,40 @@
+uuid: 3342e598-0b55-4f43-9600-e3faa7e9e64e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.date_block
+    - field.field.block_content.date_block.field_content_date_before
+    - field.field.block_content.date_block.field_content_date_between
+    - field.field.block_content.date_block.field_content_date_end
+    - field.field.block_content.date_block.field_end_date
+    - field.field.block_content.date_block.field_start_date
+  module:
+    - text
+id: block_content.date_block.default
+targetEntityType: block_content
+bundle: date_block
+mode: default
+content:
+  field_content_date_before:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content_date_between:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content_date_end:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+hidden:
+  field_end_date: true
+  field_start_date: true
+  langcode: true

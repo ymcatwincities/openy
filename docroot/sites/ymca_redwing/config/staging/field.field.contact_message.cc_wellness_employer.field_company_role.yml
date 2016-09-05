@@ -1,0 +1,19 @@
+uuid: cb41da14-6354-431a-aa4d-77e0da5bfb72
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employer
+    - field.storage.contact_message.field_company_role
+id: contact_message.cc_wellness_employer.field_company_role
+field_name: field_company_role
+entity_type: contact_message
+bundle: cc_wellness_employer
+label: 'Role in the company (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
