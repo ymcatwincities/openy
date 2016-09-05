@@ -149,10 +149,12 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   $service = \Drupal::service('ymca_retention.activity_manager');
   $member_activities = $service->getMemberActivities($entity->getId());
 
-  // Remove member activities.
-  $storage = \Drupal::entityTypeManager()
-    ->getStorage('ymca_retention_member_activity');
-  $storage->delete($member_activities);
+  if (!empty($member_activities)) {
+    // Remove member activities.
+    $storage = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_activity');
+    $storage->delete($member_activities);
+  }
 
   // Remove member from the winners list.
   $winners_storage = \Drupal::entityTypeManager()
