@@ -26,9 +26,19 @@ class MembersController extends ControllerBase {
       $context['sandbox']['members'] = array_values($member_ids);
       $context['sandbox']['max'] = count($member_ids);
     }
+    // Get member id.
     $member_id = $context['sandbox']['members'][$context['sandbox']['progress']];
-    $manager = \Drupal::entityManager()->getStorage('ymca_retention_member');
-    $manager->delete($manager->loadMultiple(array($member_id)));
+
+    // Get entity manager.
+    $storage = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member');
+
+    // Delete member entity.
+    $entities = $storage->loadMultiple(array($member_id));
+    $storage->delete($entities);
+
+    // Save results.
+    $context['results'][] = $member_id;
     $context['sandbox']['progress']++;
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
