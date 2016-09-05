@@ -54,7 +54,7 @@ function redwing_master_update_8004() {
   // Get all corrupted deleted fields.
   $corrupted = [];
 
-  // We have some deleted fields in the queue, which are corrapted.
+  // We have some deleted fields in the queue, which are corrupted.
   // 1. Without database table.
   // 2. Without parent entity type.
   // We are going to detect these fields and simply remove.
