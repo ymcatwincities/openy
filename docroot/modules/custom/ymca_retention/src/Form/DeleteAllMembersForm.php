@@ -44,11 +44,8 @@ class DeleteAllMembersForm extends ConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $operations = [
       [
-        [
-          '\Drupal\ymca_retention\Controller\MembersController',
-          'deleteAllMembersProcessBatch',
-        ],
-        [],
+        '\Drupal\ymca_retention\Controller\MembersController',
+        'deleteAllMembersProcessBatch',
       ],
     ];
     $batch = [
