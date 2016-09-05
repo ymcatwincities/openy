@@ -115,6 +115,22 @@ sup {
   content: "\e994";
 }
 
+.icon-loop2:before {
+  content: "\ea2e";
+}
+
+.icon-phone:before {
+  content: "\e942";
+}
+
+.icon-mail2:before {
+  content: "\ea84";
+}
+
+.icon-mail:before {
+  content: "\ea83";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -1873,6 +1889,16 @@ a.ms-brand:hover {
   width: 100%;
   text-align: center;
 }
+.social-icon:before {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  font-family: icomoon;
+}
 
 .icon-facebook:after {
   content: 'f';
@@ -2713,14 +2739,6 @@ h3 small {
   text-transform: none;
 }
 
-.group-ex .btn-default {
-  overflow: hidden;
-  padding-right: 10px;
-  padding-left: 10px;
-  text-align: left;
-  text-overflow: ellipsis;
-}
-
 .group-ex-time .btn {
   padding-left: 5px;
   text-overflow: clip;
@@ -2740,11 +2758,6 @@ h3 small {
 .group-ex-panel {
   margin-top: 0;
   background: white;
-}
-
-.group-ex-locations .form-group {
-  display: inline-block;
-  width: 100%;
 }
 
 .datepicker .today {
@@ -3260,13 +3273,6 @@ input.slider {
   left: 63%;
 }
 
-.group-ex-locations .btn:active, .group-ex-locations .btn.active {
-  background: #1881e0;
-}
-
-.group-ex .btn.active {
-  background: #2a70c9 !important;
-}
 .group-ex .panel-heading {
   position: relative;
   margin-bottom: 15px;
@@ -3751,10 +3757,6 @@ a.tel {
 .locations-camps-template .carousel-caption h1, .locations-camps-template .carousel-caption h2 {
   margin: 0;
   font-size: 36px;
-}
-
-.group-ex-locations .btn-default {
-  font-size: 12px;
 }
 
 .richtext .membership:before {
@@ -5258,19 +5260,12 @@ a.wrapper:hover {
   .schedules-template .panel-heading {
     position: relative;
     z-index: 1;
-    padding: 0;
+    padding: 0 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   .schedules-template .panel .panel .panel-heading {
     margin-bottom: 20px;
-  }
-  .schedules-template .panel-heading:after {
-    position: absolute;
-    top: 8px;
-    right: 15px;
-    content: '\e114';
-    font-family: 'Glyphicons Halflings';
   }
 
   .social-news .social-icon {
@@ -7368,12 +7363,6 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   margin-top: 51px;
 }
 
-.location-schedules-content .file {
-  display: list-item;
-  list-style-type: disc;
-  margin-left: 40px;
-}
-
 .locations-camps-template .locations-page-under-lead-copy {
   padding-top: 10px;
 }
@@ -7912,10 +7901,19 @@ p.legend {
   width: 30px;
 }
 
+body .ajax-progress-throbber {
+  padding: 2px 5px 2px 2px;
+}
+body .ajax-progress-throbber .throbber {
+  background: url(../img/ymca-throbber.gif) no-repeat 0px center;
+  background-size: cover;
+  padding: 2px 8px 2px;
+}
+
 .green-3-col.container {
   background: #26bcbd;
   position: relative;
-  margin: 50px -100px 0;
+  margin: 50px -100px -30px;
   padding: 50px 100px;
 }
 .green-3-col.container:before {
@@ -8178,6 +8176,10 @@ body .ajax-progress-throbber .throbber {
 .clinics_schedule .container .row .columns .img-wrapper img {
   display: inline-block;
   margin-bottom: 20px;
+}
+
+.nav-home .nav-level-1 > li {
+  background: none;
 }
 
 .form-item {
@@ -9078,6 +9080,347 @@ body .ajax-progress-throbber .throbber {
   text-decoration: none;
 }
 
+.groupex-form-full {
+  padding-top: 15px;
+}
+.groupex-form-full #location-select-wrapper {
+  padding-right: 30px;
+  float: left;
+  width: 50%;
+}
+.groupex-form-full #location-select-wrapper label {
+  display: none;
+}
+.groupex-form-full #location-select-wrapper select {
+  height: 50px;
+  line-height: 50px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-top: 0px;
+}
+.groupex-form-full #date-select-wrapper {
+  float: left;
+  width: 50%;
+  position: relative;
+}
+.groupex-form-full #date-select-wrapper:before {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  color: #777;
+  content: "\e953";
+  font-family: icomoon;
+  font-size: 20px;
+  left: 1px;
+  padding: 10px;
+  position: absolute;
+  top: 1px;
+}
+.groupex-form-full #date-select-wrapper label {
+  display: none;
+}
+.groupex-form-full #date-select-wrapper select {
+  height: 50px;
+  line-height: 50px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-left: 50px;
+  padding-top: 0px;
+}
+.groupex-form-full #class-select-wrapper {
+  float: left;
+  width: 50%;
+}
+.groupex-form-full #class-select-wrapper label {
+  display: none;
+}
+.groupex-form-full #class-select-wrapper select {
+  height: 50px;
+  line-height: 50px;
+  text-indent: 20px;
+}
+.groupex-form-full .instructor-chosen {
+  color: #777;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+.groupex-form-full .instructor-chosen .name {
+  color: #92288d;
+  margin: 0 10px;
+}
+.groupex-form-full .instructor-chosen .name .icon-user {
+  color: #92288d;
+  margin-right: 5px;
+}
+.groupex-form-full #location-wrapper .form-group {
+  margin-bottom: 8px;
+}
+.groupex-form-full #location-wrapper .form-group .ajax-progress-throbber {
+  position: absolute;
+  right: 6px;
+  top: 0;
+}
+.groupex-form-full #location-wrapper .form-group .inner {
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  border: 1px solid #e9e9e9;
+  color: #1d1d1b;
+  position: relative;
+  padding: 0px 25px 0px 40px;
+  min-height: 52px;
+  line-height: 52px;
+}
+.groupex-form-full #location-wrapper .form-group .inner input {
+  position: absolute;
+  left: 10px;
+  top: 17px;
+  margin-left: 0;
+}
+.groupex-form-full #location-wrapper .form-group .inner label {
+  background: none;
+  border: none;
+  text-align: left;
+  display: inline-block;
+  line-height: 52px;
+  vertical-align: middle;
+  position: absolute;
+  color: #231f20;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  padding: 0 25px 0 45px;
+}
+.groupex-form-full #location-wrapper .form-group .inner label .label-wrapper span {
+  line-height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+}
+.groupex-form-full #location-wrapper .form-group .inner input {
+  display: none;
+}
+.groupex-form-full #location-wrapper .form-group .icon {
+  color: #d8d8d8;
+  position: absolute;
+  left: 10px;
+  top: 13px;
+  font-size: 22px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-form-full #location-wrapper .form-group .icon {
+    top: 9px;
+  }
+}
+.groupex-form-full #location-wrapper .form-group.checked .inner {
+  background-color: #c6188b;
+  border-color: #c6188b;
+  color: #fff;
+}
+.groupex-form-full #location-wrapper .form-group.checked .icon {
+  color: #f4d1e8;
+}
+@media screen and (max-width: 767px) {
+  .groupex-form-full .group-ex-time,
+  .groupex-form-full .group-ex-date,
+  .groupex-form-full .help-block {
+    margin: 0;
+    height: 0;
+  }
+  .groupex-form-full .group-ex-time label,
+  .groupex-form-full .group-ex-date label,
+  .groupex-form-full .help-block label {
+    display: inline;
+  }
+  .groupex-form-full #groupex-full-form-wrapper > .form-group {
+    margin: 0;
+    height: 0;
+  }
+}
+
+.groupex-results {
+  overflow-y: auto;
+  overflow-x: hidden;
+  clear: both;
+  padding-top: 15px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-results {
+    height: auto;
+    max-height: none;
+    overflow: hidden;
+    margin: 0 -15px;
+  }
+}
+.groupex-results table {
+  width: 100%;
+}
+@media screen and (max-width: 991px) {
+  .groupex-results table {
+    font-size: 12px;
+  }
+}
+.groupex-results table td {
+  padding: 20px 15px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-results table td {
+    padding: 10px 5px;
+  }
+}
+.groupex-results table td.time-duration {
+  color: #1d1d1b;
+  max-width: 180px;
+}
+.groupex-results table td.time-duration .icon-clock {
+  color: #d8d8d8;
+  margin-right: 10px;
+}
+.groupex-results table td.time-duration .duration {
+  color: #afafae;
+  font-style: italic;
+  white-space: nowrap;
+  margin-left: 22px;
+}
+@media screen and (min-width: 768px) and (max-width: 1110px) {
+  .groupex-results table td.time-duration .duration {
+    margin-left: 20px;
+  }
+}
+.groupex-results table td.instructor {
+  line-height: 14px;
+}
+@media screen and (max-width: 767px) {
+  .groupex-results table td.instructor {
+    min-width: 105px;
+  }
+}
+.groupex-results table td.instructor a {
+  color: #92288d;
+  white-space: nowrap;
+}
+.groupex-results table td.instructor .icon-user {
+  color: #92288d;
+  margin-right: 10px;
+}
+.groupex-results table td.instructor .icon-loop2 {
+  font-size: 10px;
+  color: #c6188b;
+  margin-right: 5px;
+  margin-left: 24px;
+  font-weight: bold;
+}
+.groupex-results table td.instructor .sub {
+  font-size: 12px;
+  color: #c6188b;
+}
+.groupex-results table tr:nth-child(even) td {
+  background-color: #fefefe;
+}
+.groupex-results table tr:nth-child(odd) td {
+  background-color: #f8f8f8;
+}
+.groupex-results table tr td.caption {
+  background-color: #696969;
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Cachet", Arial, sans-serif;
+}
+.groupex-results table tr td.caption a {
+  color: #fff;
+}
+.groupex-results table tr td.whitebar {
+  background-color: #fff;
+  padding: 25px;
+}
+.groupex-results .instructor-display-mode td.instructor * {
+  display: none;
+}
+.groupex-results .day-schedule table {
+  margin-bottom: 0;
+}
+
+body.node--type-location #groupex-full-form-wrapper #location-wrapper,
+body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
+  display: none !important;
+}
+body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
+  padding-right: 30px;
+}
+
+.location-schedules-content article h2,
+#block-schedulesrightblocks article h2 {
+  margin: 0;
+  display: block;
+  color: #424242;
+  text-transform: uppercase;
+}
+.location-schedules-content article h2 a,
+#block-schedulesrightblocks article h2 a {
+  color: #424242;
+  padding-bottom: 0;
+}
+@media screen and (max-width: 767px) {
+  .location-schedules-content article h2 a,
+  #block-schedulesrightblocks article h2 a {
+    padding-bottom: 10px;
+  }
+}
+.location-schedules-content article ul,
+#block-schedulesrightblocks article ul {
+  margin: 25px 0 30px;
+  padding: 0;
+}
+.location-schedules-content article ul li,
+#block-schedulesrightblocks article ul li {
+  list-style: none;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+.location-schedules-content article ul li:before,
+#block-schedulesrightblocks article ul li:before {
+  content: "\f105";
+  color: #777;
+  font-family: icomoon;
+  list-style: none;
+  margin-right: 14px;
+  font-weight: bold;
+}
+.location-schedules-content #component_153751 .richtext,
+#block-schedulesrightblocks #component_153751 .richtext {
+  margin-top: 0;
+}
+.location-schedules-content #component_153751 .panel-body a,
+#block-schedulesrightblocks #component_153751 .panel-body a {
+  border-radius: 5px;
+  border: 1px solid #e3c7e1;
+  color: #92288d;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 15px;
+  padding: 15px 35px;
+  text-transform: uppercase;
+  font-family: Cachet;
+  font-weight: bold;
+}
+
+.groupex-pdf-link-container {
+  padding-bottom: 15px;
+  padding-bottom: 1.5rem;
+}
+.groupex-pdf-link-container a {
+  font-family: "Cachet",Arial,sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.groupex-pdf-link-container a:hover {
+  background-image: url(../img/rainbow-and-butterflies.png);
+  background-position: top right;
+  text-shadow: 0 0 3px #fff;
+}
+
 .template_youth_sports_overview .locations-lead-copy {
   background: #f8f8f8;
 }
@@ -9132,10 +9475,15 @@ body .ajax-progress-throbber .throbber {
   color: #777;
   font-size: 14px;
 }
-.template_youth_sports_overview .locations-lead-copy .richtext p:first-child {
+.template_youth_sports_overview .locations-lead-copy .richtext > div > p:first-child,
+.template_youth_sports_overview .locations-lead-copy .richtext > p:first-child {
   color: #383838;
   font-size: 18px;
   margin-bottom: 20px;
+}
+.template_youth_sports_overview .locations-lead-copy .richtext .col-sm-6 p:first-child {
+  color: #424242;
+  font-size: 15px;
 }
 .template_youth_sports_overview .locations-lead-copy .call-to-action {
   max-width: 335px;
@@ -9216,7 +9564,7 @@ body .ajax-progress-throbber .throbber {
 }
 .template_youth_sports_overview section.node .content_group section ul {
   padding: 0;
-  margin: 0;
+  margin: 45px 0;
   display: block;
 }
 .template_youth_sports_overview section.node .content_group section ul li {
@@ -9245,6 +9593,7 @@ body .ajax-progress-throbber .throbber {
 .template_youth_sports_overview .pdf-link {
   color: #c6188b;
   font-size: 15px;
+  font-weight: normal;
 }
 .template_youth_sports_overview .file--application-pdf a:after,
 .template_youth_sports_overview .pdf-link:after {
@@ -9252,11 +9601,34 @@ body .ajax-progress-throbber .throbber {
 }
 .template_youth_sports_overview .file--application-pdf a:before,
 .template_youth_sports_overview .pdf-link:before {
-  margin: 0 8px 0 5px;
+  margin: 0 8px 0 0;
   content: 'p';
   text-transform: none;
   font-weight: normal;
   font-family: 'YMCA';
+}
+.template_youth_sports_overview .file a {
+  color: inherit;
+}
+
+a.tel-link {
+  color: #0889cd;
+  font-size: 15px;
+  font-weight: normal;
+}
+a.tel-link .icon {
+  margin-right: 8px;
+}
+
+.icon-clock {
+  font-family: inherit;
+}
+.icon-clock * {
+  font-family: inherit;
+}
+.icon-clock:before {
+  margin-right: 5px;
+  font-family: 'icomoon';
 }
 
 a.sports-icon {
@@ -9306,6 +9678,12 @@ a.sports-icon.lacrosse {
 }
 a.sports-icon.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+a.sports-icon.dodgeball {
+  background: #fff url("../img/icon-big-dodgeball.png") no-repeat 20px center;
+}
+a.sports-icon.floor-hockey {
+  background: #fff url("../img/icon-big-floor-hockey.png") no-repeat 20px center;
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   a.sports-icon {
@@ -9375,6 +9753,11 @@ a.sports-icon.tumbling {
   color: #777;
   font-size: 14px;
 }
+.template_youth_sports_inner .locations-lead-copy .richtext p:first-child {
+  color: #383838;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
 .template_youth_sports_inner .content-expander {
   margin: 80px 0;
 }
@@ -9396,6 +9779,22 @@ a.sports-icon.tumbling {
   border-bottom: 1px solid #e5e5e5;
   padding: 35px 60px;
 }
+@media screen and (max-width: 767px) {
+  .template_youth_sports_inner .content-expander .panel-body {
+    padding: 10px 15px;
+  }
+}
+.template_youth_sports_inner .content-expander .white-area {
+  background: #fff;
+  padding: 35px 60px;
+  margin: -45px -60px 35px;
+}
+@media screen and (max-width: 767px) {
+  .template_youth_sports_inner .content-expander .white-area {
+    padding: 10px 15px;
+    margin: -20px -15px 15px;
+  }
+}
 .template_youth_sports_inner section.node .content-expander-1 .accordion-toggle {
   color: #00aa95;
 }
@@ -9407,6 +9806,9 @@ a.sports-icon.tumbling {
 }
 .template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
   color: #f37823;
+}
+.template_youth_sports_inner .file a {
+  color: inherit;
 }
 
 .sports_top_subheader select {
@@ -9454,6 +9856,12 @@ a.sports-icon.tumbling {
 }
 .sports_top_subheader select.tumbling {
   background: #fff url("../img/icon-big-tumbling.png") no-repeat 20px center;
+}
+.sports_top_subheader select.dodgeball {
+  background: #fff url("../img/icon-big-dodgeball.png") no-repeat 20px center;
+}
+.sports_top_subheader select.floor-hockey {
+  background: #fff url("../img/icon-big-floor-hockey.png") no-repeat 20px center;
 }
 @media (max-width: 767px) {
   .sports_top_subheader select {

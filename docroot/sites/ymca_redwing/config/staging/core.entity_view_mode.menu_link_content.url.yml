@@ -1,0 +1,10 @@
+uuid: e4e7b08d-4e3f-4472-a500-cb798ce5b3fe
+langcode: en
+status: false
+dependencies:
+  module:
+    - menu_link_content
+id: menu_link_content.url
+label: 'Menu link as url'
+targetEntityType: menu_link_content
+cache: true

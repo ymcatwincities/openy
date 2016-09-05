@@ -4,6 +4,18 @@ ymca_menu.main_menu_config:
   route_name: ymca_menu.main_menu_config
   base_route: entity.menu.collection
 
+ymca_menu.menu_list_config:
+  title: 'Allowed menus'
+  description: 'Configure main menu.'
+  route_name: ymca_menu.menu_list_config
+  base_route: entity.menu.collection
+
+ymca_menu.menu_mobile_list_config:
+  title: 'Mobile menu'
+  description: 'Configure mobile menu.'
+  route_name: ymca_menu.menu_mobile_list_config
+  base_route: entity.menu.collection
+
 ymca_menu.main_menu_config_a:
   title: 'Base variant'
   description: 'Configure main menu in A/B testing purposes.'

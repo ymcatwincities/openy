@@ -8,7 +8,7 @@ ymca_groupex.schedules_search_results:
 ymca_groupex.all_schedules_search:
   path: /all_y_schedules
   defaults:
-    _controller: \Drupal\ymca_groupex\Controller\AllSearchController::pageView
+    _form: \Drupal\ymca_groupex\Form\GroupexFormFull
     _title: All Y Schedules
   requirements:
     _permission: access content

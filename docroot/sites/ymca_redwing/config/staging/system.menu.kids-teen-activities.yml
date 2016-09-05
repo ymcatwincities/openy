@@ -1,0 +1,8 @@
+uuid: ebb78412-6cb7-4e1e-a523-35be1b9c241b
+langcode: en
+status: true
+dependencies: {  }
+id: kids-teen-activities
+label: 'Teen & Kids'
+description: 'Subtree of pages'
+locked: false

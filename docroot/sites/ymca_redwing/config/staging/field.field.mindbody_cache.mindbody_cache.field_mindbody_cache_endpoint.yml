@@ -1,0 +1,22 @@
+uuid: 3803bebe-3735-445c-9c6a-ded90e542db6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mindbody_cache.field_mindbody_cache_endpoint
+  module:
+    - mindbody_cache_proxy
+_core:
+  default_config_hash: ode1ByOAJA1Xo5yrrYJFe7EJGcWc3OlMQSIaAaUn9U4
+id: mindbody_cache.mindbody_cache.field_mindbody_cache_endpoint
+field_name: field_mindbody_cache_endpoint
+entity_type: mindbody_cache
+bundle: mindbody_cache
+label: 'MindBody Cache Endpoint'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

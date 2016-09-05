@@ -1,0 +1,228 @@
+/* style button */
+
+.btn {
+  background: $blue-light;
+  border-bottom: 11px solid $blue-light;
+  border-left: 15px solid $blue-light;
+  border-radius: 3px;
+  border-right: 15px solid $blue-light;
+  border-top: 11px solid $blue-light;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &--blue {
+    background: $blue;
+    border-bottom: 11px solid $blue;
+    border-left: 15px solid $blue;
+    border-right: 15px solid $blue;
+    border-top: 11px solid $blue;
+  }
+
+  &--blue-light {
+    background: $blue-light;
+    border-bottom: 11px solid $blue-light;
+    border-left: 15px solid $blue-light;
+    border-radius: 3px;
+    border-right: 15px solid $blue-light;
+    border-top: 11px solid $blue-light;
+  }
+
+  &--purple {
+    background: $purple;
+    border-bottom: 11px solid $purple;
+    border-left: 15px solid $purple;
+    border-right: 15px solid $purple;
+    border-top: 11px solid $purple;
+  }
+
+  &--purple-light {
+    background: $purple-light;
+    border-bottom: 11px solid $purple-light;
+    border-left: 15px solid $purple-light;
+    border-right: 15px solid $purple-light;
+    border-top: 11px solid $purple-light;
+  }
+
+  &--green {
+    background: $green;
+    border-bottom: 11px solid $green;
+    border-left: 15px solid $green;
+    border-right: 15px solid $green;
+    border-top: 11px solid $green;
+  }
+
+  &--orange {
+    background: $orange;
+    border-bottom: 11px solid $orange;
+    border-left: 15px solid $orange;
+    border-right: 15px solid $orange;
+    border-top: 11px solid $orange;
+  }
+}
+/* style button has icon */
+
+.btn-icon {
+
+  &__text {
+    border-radius: 0 3px 3px 0 ;
+    padding: 11px 15px;
+
+    a {
+      border: 0;
+      color: $white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+  }
+
+  &__img {
+    padding: 8px 10px;
+    border-radius: 3px 0 0 3px;
+  }
+}
+
+.icon {
+
+  &--blue {
+    background: $blue;
+
+    .btn-icon__img {
+      background-color: $blue-dark;
+    }
+  }
+
+  &--blue-light {
+    background: $blue-light;
+
+    .btn-icon__img {
+      background-color: $blue;
+    }
+  }
+
+  &--purple {
+    background: $purple;
+
+    .btn-icon__img {
+      background-color: $purple-dark;
+    }
+  }
+
+  &--purple-light {
+    background: $purple-light;
+
+    .btn-icon__img {
+      background-color: $purple;
+    }
+  }
+
+  &--green {
+    background: $green;
+
+    .btn-icon__img {
+      background-color: $green-dark;
+    }
+  }
+
+  &--orange {
+    background: $orange;
+
+    .btn-icon__img {
+      background-color: $orange-dark;
+    }
+  }
+}
+
+.btn-border {
+  background-color: transparent;
+  border: 2px solid $gray-f3;
+  margin: 5px 8px;
+  font-size: 15px;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 10px 18px;
+
+  &--green {
+    color: $green;
+  }
+
+  &--orange {
+    color: $orange;
+  }
+
+  &--purple {
+    color: $purple-light;
+  }
+
+  &--blue {
+    color: $blue-dark ;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: $blue-dark;
+  font-size: 16px;
+  align-items: center;
+  .img-left {
+    padding-right: 8px;
+  }
+  .img-right {
+    padding-left: 3px;
+  }
+
+  &--blue {
+    color: $blue-dark;
+
+    &:hover {
+      color: darken($blue-dark, 10%);
+    }
+  }
+
+  &--purple {
+    color: $purple;
+
+    &:hover {
+      color: darken($purple, 10%);
+    }
+  }
+
+  &--green {
+    color: $green;
+    &:hover {
+      color: darken($green, 10%);
+    }
+  }
+
+  &--orange {
+    color: $orange;
+
+    &:hover {
+      color: darken($orange, 10%);
+    }
+  }
+
+  &--has-icon {
+    text-decoration: none;
+  }
+}
+
+
+
+

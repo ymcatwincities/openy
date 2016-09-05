@@ -4,7 +4,7 @@ ymca_frontend.location_schedules:
     _controller: '\Drupal\ymca_frontend\Controller\YMCALocationSchedulesController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationSchedulesController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'access YMCA location schedules'
 
 ymca_frontend.locations:
   path: 'locations'
@@ -12,7 +12,7 @@ ymca_frontend.locations:
     _controller: '\Drupal\ymca_frontend\Controller\YMCALocationsController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationsController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'access YMCA locations'
 
 ymca_frontend.march_rules:
   path: 'march/rules'
@@ -20,7 +20,7 @@ ymca_frontend.march_rules:
     _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer site configuration'
 
 ymca_frontend.march_winners:
   path: 'march/winners'
@@ -28,7 +28,7 @@ ymca_frontend.march_winners:
     _controller: '\Drupal\ymca_frontend\Controller\YMCAMarchController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCAMarchController::setTitle'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer site configuration'
 
 ymca_frontend.2014_annual_report:
   path: 'about/annual_reports/2014_annual_report'

@@ -131,6 +131,22 @@ sup {
   content: "\e994";
 }
 
+.icon-loop2:before {
+  content: "\ea2e";
+}
+
+.icon-phone:before {
+  content: "\e942";
+}
+
+.icon-mail2:before {
+  content: "\ea84";
+}
+
+.icon-mail:before {
+  content: "\ea83";
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -2039,6 +2055,16 @@ a.ms-brand:hover {
     width: 100%;
     text-align: center;
   }
+  &:before {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 26px;
+    font-family: icomoon;
+  }
 }
 
 .icon-facebook:after {
@@ -2934,14 +2960,6 @@ h3 small {
   text-transform: none;
 }
 
-.group-ex .btn-default {
-  overflow: hidden;
-  padding-right: 10px;
-  padding-left: 10px;
-  text-align: left;
-  text-overflow: ellipsis;
-}
-
 .group-ex-time .btn {
   padding-left: 5px;
   text-overflow: clip;
@@ -2961,11 +2979,6 @@ h3 small {
 .group-ex-panel {
   margin-top: 0;
   background: white;
-}
-
-.group-ex-locations .form-group {
-  display: inline-block;
-  width: 100%;
 }
 
 .datepicker .today {
@@ -3521,16 +3534,7 @@ input.slider {
   left: 63%;
 }
 
-.group-ex-locations .btn {
-  &:active, &.active {
-    background: #1881e0;
-  }
-}
-
 .group-ex {
-  .btn.active {
-    background: #2a70c9 !important;
-  }
   .panel-heading {
     position: relative;
     margin-bottom: 15px;
@@ -4048,10 +4052,6 @@ a.tel {
     margin: 0;
     font-size: 36px;
   }
-}
-
-.group-ex-locations .btn-default {
-  font-size: 12px;
 }
 
 .richtext {
@@ -5550,19 +5550,12 @@ a.wrapper:hover {
     .panel-heading {
       position: relative;
       z-index: 1;
-      padding: 0;
+      padding: 0 5px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
     .panel .panel .panel-heading {
       margin-bottom: 20px;
-    }
-    .panel-heading:after {
-      position: absolute;
-      top: 8px;
-      right: 15px;
-      content: '\e114';
-      font-family: 'Glyphicons Halflings';
     }
   }
   .social-news .social-icon {

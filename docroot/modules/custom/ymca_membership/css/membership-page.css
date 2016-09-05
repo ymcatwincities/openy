@@ -496,9 +496,12 @@ body { overflow-x: hidden; }
     line-height: 24px;
     /*font-family: Verdana, sans-serif;*/
 }
-.membership-bottom-area a {
+.membership-bottom-area a, .membership-bottom-area a:visited {
     color: #fff;
     text-decoration: underline;
+}
+.membership-bottom-area a:hover {
+    color: lightgrey;
 }
 .membership-bottom-area ul {
     margin: 15px 0 10px;

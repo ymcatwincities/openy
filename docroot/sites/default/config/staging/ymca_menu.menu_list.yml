@@ -1,7 +1,12 @@
 menu_list:
+  - programs-classes
+  - schedules-menu
   - main-menu
   - locations
   - health-and-fitness
+  - membership-var-b
+  - locations-var-b
+  - more-menu
   - swimming
   - child-care-preschool
   - kids-teen-activities

@@ -155,6 +155,76 @@
   };
 
   /**
+   * GroupEx locations responsive columns.
+   */
+  Drupal.behaviors.ymca_GroupEx_locations = {
+    attach: function (context, settings) {
+
+      var win = $(window);
+
+      var el_parent = $("#group-ex-locations"),
+          el_items = el_parent.find(".form-group"),
+          wrap_classes = "col-xs-12 col-md-6",
+          el_count = el_items.length,
+          col_count = 2,
+          break_count = Math.ceil(el_count / col_count),
+          prev_key = 0,
+          cur_key = 0,
+          prev_count = 0,
+          break_cols = {
+            0: 1,
+            992: 2,
+          };
+
+      //add bootstrap row
+      el_parent.addClass("row");
+
+      //wrap location elements in bootstrap columns based on break_cols
+      function wrap(item_count) {
+        var el_wrap = $(".el-wrap > div");
+        if (el_wrap.parent().is(".el-wrap")) {
+          el_wrap.unwrap();
+        }
+
+        for (var i = 0; i < el_items.length; i += item_count) {
+          el_items.slice(i, i + item_count).wrapAll("<div class='el-wrap " + wrap_classes + "'></div>");
+        }
+      }
+
+      var set_wrap = function () {
+        //determine column count per breakpoint
+        $.each(break_cols, function (key, value) {
+          var w = win.width();
+
+          if (key < w && key !== prev_key) {
+            cur_key = key;
+          }
+
+          key = prev_key;
+        });
+
+        //check if col count has change
+        col_count = break_cols[cur_key];
+        if (col_count != prev_count) {
+          break_count = Math.ceil(el_count / col_count);
+          wrap(break_count);
+        }
+
+        prev_count = col_count;
+
+      };
+
+      win.smartresize(function () {
+        set_wrap();
+      });
+
+      set_wrap();
+
+
+    }
+  };
+
+  /**
    * Youth sports behaviors.
    */
   Drupal.behaviors.ymca_youth_sports = {
@@ -165,10 +235,13 @@
             css_class = title + ' sports-icon';
         $(this).attr('class', css_class);
       });
-      $('.template_youth_sports_overview .copy a, .template_youth_sports_inner .copy a').each(function() {
-        var href = $(this).attr('href');
-        if (href.match(/\.pdf/g)) {
-          $(this).attr('class', 'pdf-link');
+      $('.template_youth_sports_overview a[href*=".pdf"], .template_youth_sports_inner a[href*=".pdf"]').each(function() {
+        $(this).attr('class', 'pdf-link');
+      });
+      $('.template_youth_sports_overview a[href^="tel:"], .template_youth_sports_inner a[href^="tel:"]').each(function() {
+        $(this).attr('class', 'tel-link');
+        if ($(this).find('.icon-phone').length === 0) {
+          $(this).prepend('<span class="icon icon-phone"></span>');
         }
       });
       var index = 1;

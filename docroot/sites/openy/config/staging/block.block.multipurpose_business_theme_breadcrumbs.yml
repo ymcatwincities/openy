@@ -1,0 +1,20 @@
+uuid: cda44be1-72dc-47c0-a800-ab1a5c1e6239
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_breadcrumbs
+theme: multipurpose_business_theme
+region: breadcrumb
+weight: -11
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

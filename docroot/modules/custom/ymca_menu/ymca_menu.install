@@ -14,3 +14,35 @@ function ymca_menu_update_8001() {
     $path . '/config/ymca_menu.menu_list.yml',
   ]);
 }
+
+/**
+ * Implements hook_update_N().
+ */
+function ymca_menu_update_8002() {
+  $value = \Drupal::config('ymca_menu.menu_list')->get('menu_list');
+  \Drupal::configFactory()
+    ->getEditable('ymca_menu.mobile_menu_list')
+    ->set('menu_list', $value)
+    ->save();
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function ymca_menu_update_8003() {
+  $config_names = ['ymca_menu.main_menu', 'ymca_menu.main_menu_b'];
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $value = $config->get('items');
+
+    // Migrate lists to tables.
+    $new_value = array_map(function ($v) {
+      return [
+        'show' => $v ? 1 : 0,
+        'overview' => 1,
+      ];
+    }, $value);
+
+    $config->set('items', $new_value)->save();
+  }
+}

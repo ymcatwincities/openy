@@ -14,31 +14,26 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SettingsCronForm extends FormBase {
 
   /**
-   * The date formatter.
-   *
-   * @var \Drupal\Core\Datetime\DateFormatter;
-   */
-  protected $dateFormatter;
-
-  /**
    * The regular updater.
    *
-   * @var \Drupal\ymca_retention\RegularUpdater;
+   * @var \Drupal\ymca_retention\RegularUpdater
    */
   protected $regularUpdater;
 
   /**
-   * {@inheritdoc}
+   * The date formatter.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatter
    */
-  public function getFormId() {
-    return 'ymca_retention_cron_settings';
-  }
+  protected $dateFormatter;
 
   /**
    * SettingsCronForm constructor.
    *
    * @param \Drupal\ymca_retention\RegularUpdater $regular_updater
    *   The regular updater service.
+   * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
+   *   The date formatter.
    */
   public function __construct(RegularUpdater $regular_updater, DateFormatter $date_formatter) {
     $this->regularUpdater = $regular_updater;
@@ -53,6 +48,13 @@ class SettingsCronForm extends FormBase {
       $container->get('ymca_retention.regular_updater'),
       $container->get('date.formatter')
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'ymca_retention_cron_settings';
   }
 
   /**

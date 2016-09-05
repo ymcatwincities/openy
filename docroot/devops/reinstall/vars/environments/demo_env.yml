@@ -10,13 +10,14 @@ env:
     - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
   modules:
-    - { name: 'devel config_inspector config_devel stage_file_proxy ymca_mindbody', status: true }
+    - { name: 'devel stage_file_proxy ymca_mindbody', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-set', status: true, arguments: "system.file path.temporary /tmp -y" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
-    - { name: 'cr', status: true, arguments: "" }
+    - { name: 'cr', status: false, arguments: "" }
+    - { name: 'ciboxcr', status: true, arguments: "" }
     - { name: 'migrate-import', status: false, arguments: "--group=ymca --force" }
     - { name: 'search-api-reindex', status: false, arguments: "" }
     - { name: 'search-api-index', status: false, arguments: "" }

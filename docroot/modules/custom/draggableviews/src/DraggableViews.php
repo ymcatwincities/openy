@@ -13,7 +13,7 @@ class DraggableViews {
   /**
    * The view.
    *
-   * @var \Drupal\views\ViewExecutable $view
+   * @var \Drupal\views\ViewExecutable
    */
   public $view;
 

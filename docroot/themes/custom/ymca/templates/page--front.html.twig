@@ -11,29 +11,35 @@
     <section class="masthead">
       <div class="container">
         <div class="row">
+          {% if header_search == 1 %}
           <div class="col-lg-8 col-sm-8">
             <a class="masthead-brand" href="{{ base_path }}">{{ brand_title }}</a>
           </div>
-          <div class="col-lg-4 col-sm-4 location-search-column">
-            <form class="find-locations" action="{{ base_path }}locations">
-              <div class="form-group location-search">
-                <div class="col-xs-12 control-label text-center location-search-collapse in collapse">
-                  <a href="#" data-target=".location-search-collapse" class="btn btn-block btn-info" data-toggle="collapse">Find Y and Camp Locations</a>
-                </div>
-                <label class="sr-only" for="location-search">
-                  Find Y and Camp Locations
-                </label>
-                <div class="form-group collapse location-search-collapse">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="location-search" name="map_location" placeholder="Enter ZIP Code">
-                    <span class="input-group-btn">
+            <div class="col-lg-4 col-sm-4 location-search-column">
+              <form class="find-locations" action="{{ base_path }}locations">
+                <div class="form-group location-search">
+                  <div class="col-xs-12 control-label text-center location-search-collapse in collapse">
+                    <a href="#" data-target=".location-search-collapse" class="btn btn-block btn-info" data-toggle="collapse">Find Y and Camp Locations</a>
+                  </div>
+                  <label class="sr-only" for="location-search">
+                    Find Y and Camp Locations
+                  </label>
+                  <div class="form-group collapse location-search-collapse">
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="location-search" name="map_location" placeholder="Enter ZIP Code">
+                      <span class="input-group-btn">
                       <button type="submit" class="btn btn-primary">Go</button>
                     </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          {% else %}
+            <div class="col-lg-12 col-sm-12">
+              <a class="masthead-brand" href="{{ base_path }}">{{ brand_title }}</a>
+            </div>
+          {%  endif %}
         </div>
       </div>
     </section>
