@@ -32,12 +32,12 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   /**
    * Initial sync date.
    */
-  const INITIAL_DATE = '2000-01-01T11:20:00';
+  const INITIAL_DATE = '2016-12-12T11:20:00';
 
   /**
    * Offset in seconds for getting data from Personify.
    */
-  const DATE_OFFSET = 86400;
+  const DATE_OFFSET = 3600;
 
   /**
    * Personify date format.
