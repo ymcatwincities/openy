@@ -3,6 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: swimming
-label: Swimming
+label: Swim
 description: 'Subtree of pages'
 locked: false
