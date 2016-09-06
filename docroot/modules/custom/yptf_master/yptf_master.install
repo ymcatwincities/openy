@@ -220,3 +220,15 @@ function yptf_master_update_8011() {
     ]
   );
 }
+
+/**
+ * Set production URL for Personify endpoint.
+ */
+function yptf_master_update_8012() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_personify.settings.yml',
+    ]
+  );
+}

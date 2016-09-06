@@ -2,7 +2,7 @@
 
 The module have 2 syncers: fast and slow.
 
-  * Fast proceeds withing last 24 hours.
+  * Fast proceeds withing last hour.
   * Slow proceeds with all failed items.
  
 By default the Syncer is not in production mode. In order to run it in production
