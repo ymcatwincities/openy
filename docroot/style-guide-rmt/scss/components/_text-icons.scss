@@ -1,31 +1,45 @@
 .text-indent {
-  margin-left: 20px;
+  padding-left: 25px;
+  list-style: none;
+  margin: 0;
 }
 
 .text-icon {
-  display: flex;
   font-size: 18px;
   line-height: 30px;
   margin-bottom: 0;
 
-  &__img {
-    margin-right: 9px;
-    margin-top: 1px;
+  img {
+    width: 17px;
+    height: auto;
+    padding: 0;
+  }
+
+
+}
+
+.block-text-icon {
+  margin:0 auto;
+  max-width: 550px;
+  width: 100%;
+
+  .padding {
+    padding: 5px 0;
+  }
+
+  .padding-right {
+    padding-right: 8px;
 
     img {
-      width: 17px;
-      height: auto;
+      padding: 0!important;
     }
   }
 }
 
-.block-text-icon {
-  margin: 0 auto;
-  max-width: 556px;
-  padding-left: 10px;
-  padding-right: 10px;
+.layout-icon {
+  margin-bottom: 30px !important;
 
-  &__top {
-    margin-bottom: 22px;
+  td {
+    padding: 0 10px;
   }
 }

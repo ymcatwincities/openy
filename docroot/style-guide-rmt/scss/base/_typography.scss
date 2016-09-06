@@ -69,27 +69,23 @@ h6 {
 
 /* style tabel */
 .tables {
-  margin: 0 auto 30px;
-  max-width: 594px;
-  padding-left: 10px;
-  padding-right: 10px;
+  border-collapse: collapse;
+  font-family: arial,sans-serif;
+  margin:0 auto;
+  max-width: 550px;
+  width: 100%;
 
-  table {
-    border-collapse: collapse;
-    font-family: arial,sans-serif;
-    width: 100%;
+  tr {
+    &.odd {
+      background: #DADADA;
+    }
 
-    tr {
-      background: rgba(162, 162, 162, 0.4);
+    &.even {
+      background: #ECECEC;
+    }
 
-      &:nth-child(2n) {
-        background: rgba(162, 162, 162, 0.2);
-      }
-
-      td {
-        min-height: 50px;
-        padding: 12px 20px;
-      }
+    td {
+      padding: 12px 20px;
     }
   }
 }
@@ -105,4 +101,13 @@ table {
 
 a img {
   border: 0;
+}
+
+.bold {
+  font-weight: 700;
+  color: #424242;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
