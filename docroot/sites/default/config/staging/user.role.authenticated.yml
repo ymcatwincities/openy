@@ -22,3 +22,5 @@ permissions:
   14: 'view the administration theme'
   15: 'access YMCA locations'
   16: 'access YMCA location schedules'
+  17: 'access AB variants'
+  18: 'access Personal Training forms'
