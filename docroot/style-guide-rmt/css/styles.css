@@ -508,7 +508,7 @@ a img {
   padding: 10px 0;
   white-space: nowrap; }
   .header__item td {
-    padding: 0 15px;
+    padding: 0 5px;
     text-align: center; }
 
 .header__branch {
@@ -638,15 +638,26 @@ a img {
     background-color: #01a490; }
 
 .block-body {
-  padding-left: 10px;
-  padding-right: 10px;
   max-width: 650px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%; }
-  .block-body th {
-    margin: 0;
-    padding: 0; }
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden; }
+  .block-body .bg-gray {
+    background-color: #424242;
+    overflow: hidden; }
+  .block-body .line-height-none {
+    line-height: 1px; }
+    .block-body .line-height-none div {
+      line-height: 1.5; }
+  .block-body .block-body__content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 540px; }
+    .block-body .block-body__content table {
+      margin: 0 auto; }
+  .block-body tr, .block-body td {
+    border-collapse: collapse;
+    border-spacing: 0; }
   .block-body__header {
     background-color: #424242;
     background-position: center left, center right;
@@ -655,7 +666,6 @@ a img {
     font-family: "Arial Black";
     font-size: 18px;
     font-weight: normal;
-    line-height: 82px;
     text-align: center;
     white-space: nowrap;
     width: 100%;
@@ -665,25 +675,28 @@ a img {
       margin-right: 15px;
       vertical-align: sub;
       width: 32px; }
-    .block-body__header tr, .block-body__header td {
-      color: #fff; }
-    .block-body__header td {
+    .block-body__header td,
+    .block-body__header tr {
       font-size: 18px;
       vertical-align: middle;
-      line-height: 1.5; }
+      margin: 0;
+      border: 0;
+      padding: 0; }
   .block-body__item__content {
     padding-top: 30px;
-    padding-bottom: 20px; }
-    .block-body__item__content p {
-      margin: 0 auto 15px;
-      max-width: 456px; }
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    .block-body__item__content div {
+      margin: 0 auto 15px; }
   .block-body__item:last-child {
     border-bottom: none;
     margin-bottom: 0; }
   .block-body .border-bottom {
     border-bottom: 1px solid #f0f0f0; }
   .block-body .height-img {
-    height: 82px; }
+    height: 83px;
+    width: 65px; }
 
 .block-cta {
   max-width: 550px;
@@ -802,7 +815,6 @@ a img {
       width: 100%; }
     .block-sponsors-logo__image img {
       max-width: 220px;
-      width: 100%;
       height: auto; }
 
 .box-font-icons__content {
