@@ -27,7 +27,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   /**
    * Overall timezone.
    */
-  const TIMEZONE = 'UTC';
+  const TIMEZONE = 'America/Chicago';
 
   /**
    * Initial sync date.
@@ -37,12 +37,17 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   /**
    * Offset in seconds for getting data from Personify.
    */
-  const DATE_OFFSET = 3600;
+  const DATE_OFFSET = 'PT1H';
 
   /**
    * Personify date format.
    */
   const PERSONIFY_DATE_FORMAT = 'Y-m-d\TH:i:s';
+
+  /**
+   * Timezone of the results coming from MindBody.
+   */
+  const PERSONIFY_TIMEZONE = 'America/Chicago';
 
   /**
    * Source data fetched from Personify.
@@ -175,6 +180,25 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
     }
 
     return FALSE;
+  }
+
+  /**
+   * Returns current in appropriate timezone.
+   */
+  public function getCurrentTime() {
+    $current_time = new \DateTime('now', $this->getPersonifyTimezone());
+    $interval = new \DateInterval(self::DATE_OFFSET);
+    $current_time->sub($interval);
+    return $current_time->format(self::PERSONIFY_DATE_FORMAT);
+  }
+
+  /**
+   * Get timezone for Personify results.
+   *
+   * @return \DateTimeZone
+   */
+  protected function getPersonifyTimezone() {
+    return new \DateTimeZone(self::PERSONIFY_TIMEZONE);
   }
 
 }
