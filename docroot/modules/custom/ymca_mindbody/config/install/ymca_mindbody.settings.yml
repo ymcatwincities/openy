@@ -2,3 +2,5 @@ max_requests: 21500
 disabled_form_block_id: 12956
 is_production: 0
 personify_product_url: 'https://ygtcprod2.personifycloud.com/personifyebusiness/YMCA/PersonalTraining.aspx?pid='
+pt_form_disabled: 0
+hide_time: '180'
