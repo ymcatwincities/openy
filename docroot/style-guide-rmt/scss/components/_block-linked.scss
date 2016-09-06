@@ -1,17 +1,10 @@
 .block-linked {
-  margin: 0 auto;
-  max-width: 576px;
-  text-align: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin:0 auto;
+  max-width: 550px;
+  width: 100%;
 
-  &__thumnail {
-    line-height: 0;
-    margin-bottom: 25px;
-
-    img {
-      width: 100%;
-    }
+  img {
+    width: 100%;
   }
 }
 
