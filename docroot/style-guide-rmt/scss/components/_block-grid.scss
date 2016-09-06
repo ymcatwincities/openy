@@ -1,21 +1,16 @@
 .block-grid {
   margin: 0 auto;
-  max-width: 622px;
+  max-width: 620px;
+  width: 100%;
 
   table tr {
     background: transparent;
-    td {
-      min-height: 50px;
-      padding: 0 20px;
-      vertical-align: top;
-      width: 50%;
-    }
   }
 
-  .block-cta {
-    &__title {
-      margin-bottom: 0px;
-      padding-bottom: 11px;
-    }
+  .padding {
+    min-height: 50px;
+    padding: 0 15px;
+    vertical-align: top;
+    width: 50%;
   }
 }
