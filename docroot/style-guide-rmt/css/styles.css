@@ -548,6 +548,8 @@ a img {
   font-size: 13px;
   background-size: cover;
   background-position: center center; }
+  .block-contact * {
+    font-size: 13px; }
   .block-contact__content {
     margin: 0 auto; }
   .block-contact .padding_top {
@@ -564,7 +566,11 @@ a img {
     padding-right: 35px;
     white-space: nowrap; }
   .block-contact .opacity {
-    opacity: 0.4; }
+    color: #e08dc4; }
+    .block-contact .opacity-blue {
+      color: #7bbfe3; }
+    .block-contact .opacity-green {
+      color: #7cd7cb; }
   .block-contact--programs-classes {
     background-color: #0089d0; }
   .block-contact--camps-summer {
