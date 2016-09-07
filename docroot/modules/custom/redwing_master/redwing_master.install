@@ -7,6 +7,7 @@
 
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\node\Entity\Node;
 
 define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
 
@@ -141,4 +142,20 @@ function redwing_master_update_8005() {
     'ymca_workflow',
   ];
   $installer->uninstall($modules);
+}
+
+/**
+ * Fix 'unpublish' bug for blog posts.
+ */
+function redwing_master_update_8006() {
+  $items = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->execute();
+
+  foreach ($items as $item) {
+    $node = Node::load($item);
+    $node->isPublished();
+    $node->setPublished($node->isPublished());
+    $node->save();
+  }
 }
