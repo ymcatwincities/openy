@@ -334,47 +334,49 @@ class MindbodyResultsController extends ControllerBase {
     }
 
     // Not OK, but there is a message.
+    $products_list = '';
     if (is_array($book) && isset($book['status'], $book['message']) && $book['status'] === FALSE) {
       $message = $book['message'];
+      // Display list of products for chosen location and session length.
+      $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
+      $mapping = $mapping_repository_location->findByMindBodyId($query['location']);
+      $br_code = $mapping->field_location_personify_brcode->getValue()[0]['value'];
+
+      $session_types = \Drupal::service('ymca_mindbody.results_searcher')->getSessionTypes($query['p']);
+      $session_type_name = isset($session_types[$query['s']]) ? $session_types[$query['s']] : '';
+      $session_length = preg_replace("/[^0-9]/","",$session_type_name);
+
+      $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
+      $mappings = $mapping_repository->loadAll();
+      $products_to_display_member = $products_to_display_non_member = [];
+      foreach ($mappings as $mapping) {
+        $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+        $session_length_product = $mapping->field_session_length->getValue()[0]['value'];
+        if ($product_code_array[0] == $br_code && $session_length == $session_length_product) {
+          $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
+          $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
+          $products_to_display_member[$product_code_array[4]][] = [
+            'price' => $product_member_price,
+            'session' => $product_code_array[4],
+            'package' => $product_code_array[2],
+          ];
+          $products_to_display_non_member[$product_code_array[4]][] = [
+            'price' => $product_non_member_price,
+            'session' => $product_code_array[4],
+            'package' => $product_code_array[2],
+          ];
+        }
+      }
+      $products_list = [
+        '#theme' => 'mindbody_products_list_modal',
+        '#products_to_display_member' => $products_to_display_member,
+        '#products_to_display_non_member' => $products_to_display_non_member,
+      ];
+      $products_list = render($products_list);
     }
 
     $output[] = print_r($query, TRUE);
 
-    $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
-    $mapping = $mapping_repository_location->findByMindBodyId($query['location']);
-    $br_code = $mapping->field_location_personify_brcode->getValue()[0]['value'];
-
-    $session_types = \Drupal::service('ymca_mindbody.results_searcher')->getSessionTypes($query['p']);
-    $session_type_name = isset($session_types[$query['s']]) ? $session_types[$query['s']] : '';
-    $session_length = preg_replace("/[^0-9]/","",$session_type_name);
-
-    $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
-    $mappings = $mapping_repository->loadAll();
-    $products_to_display_member = $products_to_display_non_member = [];
-    foreach ($mappings as $mapping) {
-      $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
-      $session_length_product = $mapping->field_session_length->getValue()[0]['value'];
-      if ($product_code_array[0] == $br_code && $session_length == $session_length_product) {
-        $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
-        $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
-        $products_to_display_member[$product_code_array[4]][] = [
-          'price' => $product_member_price,
-          'session' => $product_code_array[4],
-          'package' => $product_code_array[2],
-        ];
-        $products_to_display_non_member[$product_code_array[4]][] = [
-          'price' => $product_non_member_price,
-          'session' => $product_code_array[4],
-          'package' => $product_code_array[2],
-        ];
-      }
-    }
-    $products_list = [
-      '#theme' => 'mindbody_products_list_modal',
-      '#products_to_display_member' => $products_to_display_member,
-      '#products_to_display_non_member' => $products_to_display_non_member,
-    ];
-    $products_list = render($products_list);
     $content = '<div class="popup-content">' . $message . $products_list . '</div>';
     $options = array(
       'dialogClass' => 'popup-dialog-class',
