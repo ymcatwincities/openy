@@ -207,7 +207,6 @@
 
   .file--application-pdf a,
   .pdf-link {
-    color: $pink;
     font-size: 15px;
     font-weight: normal;
 
@@ -452,6 +451,24 @@ a.sports-icon {
       }
     }
   }
+
+  .file--application-pdf a,
+  .pdf-link {
+    font-size: 15px;
+    font-weight: normal;
+
+    &:after {
+      display: none;
+    }
+    &:before {
+      margin: 0 8px 0 0;
+      content: 'p';
+      text-transform: none;
+      font-weight: normal;
+      font-family: 'YMCA';
+    }
+  }
+
   .file a {
     color: inherit;
   }
