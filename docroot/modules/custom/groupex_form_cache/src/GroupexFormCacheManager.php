@@ -129,7 +129,7 @@ class GroupexFormCacheManager {
    * @param int $count
    *   Size of the chunk.
    */
-  public function resetCache($count = 10) {
+  public function resetCache($count = 100) {
     $timer = 'reset_cache';
     Timer::start($timer);
 
@@ -149,7 +149,7 @@ class GroupexFormCacheManager {
         '%items' => count($result),
         '%time' => round(Timer::read($timer) / 100, 1)
       ]
-    );
+    )
 
     Timer::stop($timer);
   }
@@ -162,7 +162,7 @@ class GroupexFormCacheManager {
    * @param int $time
    *   Time frame to calc stale cache.
    */
-  public function resetStaleCache($count = 10, $time = 86400) {
+  public function resetStaleCache($count = 100, $time = 86400) {
     $timer = 'reset_stale_cache';
     Timer::start($timer);
 
