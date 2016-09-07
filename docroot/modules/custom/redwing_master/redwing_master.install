@@ -154,7 +154,6 @@ function redwing_master_update_8006() {
 
   foreach ($items as $item) {
     $node = Node::load($item);
-    $node->isPublished();
     $node->setPublished($node->isPublished());
     $node->save();
   }
