@@ -9201,6 +9201,16 @@ body .ajax-progress-throbber .throbber {
   padding-top: 15px;
 }
 
+.mindbody-products-list-modal ul {
+  padding: 15px 0 0 25px;
+}
+.mindbody-products-list-modal ul li {
+  margin-bottom: 10px;
+}
+.mindbody-products-list-modal ul li a {
+  color: #0889cd;
+}
+
 .groupex-form-full {
   padding-top: 15px;
 }
