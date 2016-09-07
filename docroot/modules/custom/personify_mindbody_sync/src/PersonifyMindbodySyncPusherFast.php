@@ -88,10 +88,8 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
 
         $msg = 'Failed to push the clients: %error';
         $this->logger->critical($msg, ['%error' => serialize($result)]);
-        return $this;
       }
     }
-    return $this;
   }
 
 }
