@@ -149,7 +149,7 @@ class GroupexFormCacheManager {
         '%items' => count($result),
         '%time' => round(Timer::read($timer) / 100, 1)
       ]
-    )
+    );
 
     Timer::stop($timer);
   }
