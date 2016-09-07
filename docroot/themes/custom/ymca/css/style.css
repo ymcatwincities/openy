@@ -9757,6 +9757,10 @@ a.sports-icon.floor-hockey {
   font-size: 18px;
   margin-bottom: 20px;
 }
+.template_youth_sports_inner .locations-lead-copy .richtext .col-sm-6 p:first-child {
+  color: #424242;
+  font-size: 15px;
+}
 .template_youth_sports_inner .content-expander {
   margin: 80px 0;
 }
