@@ -46,6 +46,13 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'mindbody-products-list-location',
     ],
+    'mindbody_products_list_modal' => [
+      'variables' => [
+        'products_to_display_member' => [],
+        'products_to_display_non_member' => [],
+      ],
+      'template' => 'mindbody-products-list-modal',
+    ],
   ];
 }
 

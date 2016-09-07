@@ -948,3 +948,15 @@
     padding-top: 15px;
   }
 }
+
+.mindbody-products-list-modal {
+  ul {
+    padding: 15px 0 0 25px;
+    li {
+      margin-bottom: 10px;
+      a {
+        color: $blue1;
+      }
+    }
+  }
+}
