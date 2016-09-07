@@ -179,6 +179,18 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               $product_location_ids[$product_code_array[0]] = $product_code_array[0];
             }
           }
+          if (isset($products_to_display_member[30])) {
+            asort($products_to_display_member[30]);
+          }
+          if (isset($products_to_display_member[60])) {
+            asort($products_to_display_member[60]);
+          }
+          if (isset($products_to_display_non_member[30])) {
+            asort($products_to_display_non_member[30]);
+          }
+          if (isset($products_to_display_non_member[60])) {
+            asort($products_to_display_non_member[60]);
+          }
           $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
           $mappings_location = $mapping_repository_location->findByLocationPersonifyBranchCode($product_location_ids);
           $modal_content = [];
@@ -214,7 +226,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
               $mappings = $mapping_repository->loadAll();
               $products_to_display_member = $products_to_display_non_member = [];
-              $config = Drupal::config('ymca_mindbody.settings');
+              $config = \Drupal::config('ymca_mindbody.settings');
               $personify_product_url = $config->get('personify_product_url');
               foreach ($mappings as $mapping) {
                 $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
@@ -235,10 +247,18 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                   ];
                 }
               }
-              ksort($products_to_display_member[30]);
-              ksort($products_to_display_member[60]);
-              ksort($products_to_display_non_member[30]);
-              ksort($products_to_display_non_member[60]);
+              if (isset($products_to_display_member[30])) {
+                asort($products_to_display_member[30]);
+              }
+              if (isset($products_to_display_member[60])) {
+                asort($products_to_display_member[60]);
+              }
+              if (isset($products_to_display_non_member[30])) {
+                asort($products_to_display_non_member[30]);
+              }
+              if (isset($products_to_display_non_member[60])) {
+                asort($products_to_display_non_member[60]);
+              }
               $variables = [
                 '#theme' => 'mindbody_products_list_location',
                 '#products_to_display_member' => $products_to_display_member,
