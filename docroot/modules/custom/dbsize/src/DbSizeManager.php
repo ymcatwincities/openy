@@ -5,7 +5,7 @@ namespace Drupal\dbsize;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\field\FieldStorageConfigInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 
 /**
  * Class DbSizeManager.
@@ -34,6 +34,13 @@ class DbSizeManager implements DbSizeManagerInterface {
   protected $entityFieldManager;
 
   /**
+   * Logger channel.
+   *
+   * @var LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
    * DbSizeTable constructor.
    *
    * @param Connection $connection
@@ -42,11 +49,14 @@ class DbSizeManager implements DbSizeManagerInterface {
    *   Entity type manager.
    * @param EntityFieldManagerInterface $entity_field_manager
    *   Entity field manager.
+   * @param LoggerChannelInterface $logger
+   *   The logger channel.
    */
-  public function __construct(Connection $connection, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager) {
+  public function __construct(Connection $connection, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, LoggerChannelInterface $logger) {
     $this->connection = $connection;
     $this->entityTypeManager = $entity_type_manager;
     $this->entityFieldManager = $entity_field_manager;
+    $this->logger = $logger;
   }
 
   /**
@@ -76,7 +86,21 @@ class DbSizeManager implements DbSizeManagerInterface {
    * {@inheritdoc}
    */
   public function getEntitySize($entity_type_id) {
-    $type = $this->entityTypeManager->getDefinition($entity_type_id);
+    try {
+      $type = $this->entityTypeManager->getDefinition($entity_type_id);
+    }
+    catch (\Exception $e) {
+      $msg = 'Failed to get definition for entity type id %id with message: %msg.';
+      $this->logger->warning(
+        $msg,
+        [
+          '%id' => $entity_type_id,
+          '%msg' => $e->getMessage(),
+        ]
+      );
+
+      return FALSE;
+    }
 
     // Currently we support only entities without bundles.
     if ($type->getBundleOf()) {
