@@ -4217,3 +4217,10 @@ function ymca_master_update_8181() {
     ]
   );
 }
+
+/**
+ * Install dbsize module.
+ */
+function ymca_master_update_8182() {
+  \Drupal::service('module_installer')->install(['dbsize'], TRUE);
+}
