@@ -1,4 +1,4 @@
 services:
   dbsize.manager:
     class: Drupal\dbsize\DbSizeManager
-    arguments: ['@database']
+    arguments: ['@database', '@entity_type.manager']
