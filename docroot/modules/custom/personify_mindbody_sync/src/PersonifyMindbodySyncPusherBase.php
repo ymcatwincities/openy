@@ -304,7 +304,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
 
     if (empty($location_mindbody)) {
-      // There is mindbody id for this personify location.
+      // There is no mindbody id for this personify location.
       return;
     }
 
