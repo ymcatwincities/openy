@@ -388,6 +388,12 @@ a.sports-icon {
         font-size: 18px;
         margin-bottom: 20px;
       }
+      .col-sm-6 {
+        p:first-child {
+          color: $grey7;
+          font-size: 15px;
+        }
+      }
     }
   }
   .content-expander {
