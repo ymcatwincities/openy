@@ -22,7 +22,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Test client ID.
    */
-  const TEST_CLIENT_ID = '69696969';
+  const TEST_CLIENT_ID = '2052596923';
 
   /**
    * Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper definition.
@@ -135,11 +135,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   protected function pushOrders() {
     $source = $this->wrapper->getSourceData();
 
-    // Limit count of orders for while debugging.
-    if (!$this->isProduction) {
-      $source = array_slice($source, 0, 1);
-    }
-
     $locations = $this->getAllLocationsFromOrders($source);
     foreach ($locations as $location => $count) {
       // Obtain Service ID.
@@ -187,6 +182,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       if (!$service) {
         $msg = 'Failed to find a service with the code: %code';
         $this->logger->error($msg, ['%code' => $order->ProductCode]);
+        continue;
+      }
+
+      // In test mode proceed orders only for test user.
+      if (!$this->isProduction && $order->MasterCustomerId != self::TEST_CLIENT_ID) {
         continue;
       }
 
