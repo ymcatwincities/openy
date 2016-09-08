@@ -4,6 +4,9 @@ namespace Drupal\dbsize;
 
 use Drupal\Core\Database\Connection;
 
+/**
+ * Class DbSizeManager.
+ */
 class DbSizeManager {
 
   /**
@@ -23,18 +26,27 @@ class DbSizeManager {
     $this->connection = $connection;
   }
 
-  public function getTableSize($table) {
-    // @todo Narrow results by selecting certain table.
+  /**
+   * {@inheritdoc}
+   */
+  public function getTablesSize(array $tables) {
+    if (empty($tables)) {
+      return FALSE;
+    }
+
     $options = $this->connection->getConnectionOptions();
-    $result = $this->connection->query('SELECT * FROM information_schema.TABLES;');
-    foreach ($result as $item) {
-      if ($item->TABLE_SCHEMA == $options['database'] && $item->TABLE_NAME == $table) {
-        // @todo Return results in bytes + use some formatting.
-        return round((($item->DATA_LENGTH + $item->INDEX_LENGTH) / 1024 / 1024), 2) . 'M';
+
+    $q = 'SELECT * FROM information_schema.TABLES t WHERE t.TABLE_SCHEMA = :db';
+    $result = $this->connection->query($q, [':db' => $options['database']]);
+
+    $length = 0;
+    foreach ($result as $table) {
+      if (in_array($table->TABLE_NAME, $tables)) {
+        $length += $table->DATA_LENGTH + $table->INDEX_LENGTH;
       }
     }
 
-    return FALSE;
+    return empty($length) ? FALSE : $length;
   }
 
 }

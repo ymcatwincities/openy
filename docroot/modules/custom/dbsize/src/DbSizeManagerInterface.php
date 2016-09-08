@@ -8,14 +8,14 @@ namespace Drupal\dbsize;
 interface DbSizeManagerInterface {
 
   /**
-   * Get table size.
+   * Get size of the table or tables.
    *
-   * @param string $table
+   * @param array $tables
    *   Table name
    *
    * @return mixed
-   *   Table size.
+   *   Table size in bytes.
    */
-  public function getTableSize($table);
+  public function getTablesSize(array $tables);
 
 }
