@@ -1,4 +1,5 @@
 locations:
+  # Please note that here we use MindBody location id.
   # Midway.
   2:
     -
