@@ -12,5 +12,5 @@ Helps to grasp database size.
 
 ```
 \Drupal::service('dbsize.manager')->getEntitySize('groupex_form_cache');
+dsm(round(\Drupal::service('dbsize.manager')->getEntitySize('groupex_form_cache') / 1024 / 1024, 2) . ' M');
 ```
-
