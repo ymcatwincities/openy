@@ -3,7 +3,8 @@
 namespace Drupal\dbsize;
 
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\Core\Entity\ContentEntityType;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Class DbSizeManager.
@@ -18,13 +19,23 @@ class DbSizeManager implements DbSizeManagerInterface {
   protected $connection;
 
   /**
+   * Entity type manager.
+   *
+   * @var EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * DbSizeTable constructor.
    *
    * @param Connection $connection
    *   The DB connection.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(Connection $connection) {
+  public function __construct(Connection $connection, EntityTypeManagerInterface $entity_type_manager) {
     $this->connection = $connection;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -53,8 +64,33 @@ class DbSizeManager implements DbSizeManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEntitySize(ContentEntityTypeInterface $entityType) {
-    // @todo
+  public function getEntitySize($entityType) {
+    /** @var ContentEntityType $type */
+    $type = $this->entityTypeManager->getDefinition('groupex_form_cache');
+    $tables = [];
+
+    // Add base table.
+    $tables[] = $type->getBaseTable();
+
+    // Add data table.
+    if ($type->getDataTable()) {
+      $tables[] = $type->getDataTable();
+    }
+
+    // Add revision tables.
+    if ($type->isRevisionable()) {
+      if ($type->getRevisionTable()) {
+        $tables[] = $type->getRevisionTable();
+      }
+
+      if ($type->getRevisionDataTable()) {
+        $tables[] = $type->getRevisionDataTable();
+      }
+    }
+
+    // @todo Add tables for fields.
+
+    return $this->getTablesSize($tables);
   }
 
 }

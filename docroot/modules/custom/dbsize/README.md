@@ -8,3 +8,9 @@ Helps to grasp database size.
 \Drupal::service('dbsize.manager')->getTablesSize(['node']);
 ```
 
+## How to get the size of the entity
+
+```
+\Drupal::service('dbsize.manager')->getEntitySize('groupex_form_cache');
+```
+
