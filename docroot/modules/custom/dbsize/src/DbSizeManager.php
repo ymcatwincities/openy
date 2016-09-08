@@ -3,11 +3,12 @@
 namespace Drupal\dbsize;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\ContentEntityTypeInterface;
 
 /**
  * Class DbSizeManager.
  */
-class DbSizeManager {
+class DbSizeManager implements DbSizeManagerInterface {
 
   /**
    * Connection.
@@ -47,6 +48,13 @@ class DbSizeManager {
     }
 
     return empty($length) ? FALSE : $length;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntitySize(ContentEntityTypeInterface $entityType) {
+    // @todo
   }
 
 }
