@@ -526,6 +526,8 @@ class MindbodyResultsController extends ControllerBase {
         'SessionTypeIDs' => [$data[self::QUERY_PARAM__SESSION_TYPE]],
         'ClientID' => $client_id,
         'ClassID' => FALSE,
+        // Retrieve only active trainings.
+        'ShowActiveOnly' => TRUE,
       ];
 
       $result = $this->proxy->call('ClientService', 'GetClientServices', $params, FALSE);
@@ -555,14 +557,17 @@ class MindbodyResultsController extends ControllerBase {
         $list = (array) $services;
       }
 
-      foreach ($list as $service) {
-        $service = [
-          'Current' => $service->Current,
-          'Count' => $service->Count,
-          'ID' => $service->ID,
-          'Remaining' => $service->Remaining
-        ];
-
+      foreach ($list as $service_value) {
+        // Select only packages that haven't been used.
+        // @TODO: check expiration date?
+        if ($service_value->Remaining > 0) {
+          $service = [
+            'Current' => $service_value->Current,
+            'Count' => $service_value->Count,
+            'ID' => $service_value->ID,
+            'Remaining' => $service_value->Remaining
+          ];
+        }
         // We need just first one.
         break;
       }
