@@ -3,8 +3,9 @@
 namespace Drupal\dbsize;
 
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\ContentEntityType;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\field\FieldStorageConfigInterface;
 
 /**
  * Class DbSizeManager.
@@ -26,16 +27,26 @@ class DbSizeManager implements DbSizeManagerInterface {
   protected $entityTypeManager;
 
   /**
+   * Entity field manager.
+   *
+   * @var EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
+
+  /**
    * DbSizeTable constructor.
    *
    * @param Connection $connection
    *   The DB connection.
    * @param EntityTypeManagerInterface $entity_type_manager
    *   Entity type manager.
+   * @param EntityFieldManagerInterface $entity_field_manager
+   *   Entity field manager.
    */
-  public function __construct(Connection $connection, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(Connection $connection, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager) {
     $this->connection = $connection;
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityFieldManager = $entity_field_manager;
   }
 
   /**
@@ -64,9 +75,15 @@ class DbSizeManager implements DbSizeManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEntitySize($entityType) {
-    /** @var ContentEntityType $type */
-    $type = $this->entityTypeManager->getDefinition('groupex_form_cache');
+  public function getEntitySize($entity_type_id) {
+    $type = $this->entityTypeManager->getDefinition($entity_type_id);
+
+    // Currently we support only entities without bundles.
+    if ($type->getBundleOf()) {
+      // @todo Add support for entities with bundles.
+      return FALSE;
+    }
+
     $tables = [];
 
     // Add base table.
@@ -88,7 +105,16 @@ class DbSizeManager implements DbSizeManagerInterface {
       }
     }
 
-    // @todo Add tables for fields.
+    // Get all fields.
+    $fields = $this->entityFieldManager->getFieldStorageDefinitions($entity_type_id);
+
+    foreach ($fields as $field) {
+      if (!$field->isBaseField()) {
+        // @todo Find proper way to get table names.
+        // @todo Find proper way to get tables with revisions.
+        $tables[] = $field->getTargetEntityTypeId() . '__' . $field->getName();
+      }
+    }
 
     return $this->getTablesSize($tables);
   }
