@@ -191,6 +191,30 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
 
       $client_id = $this->isProduction ? $order->MasterCustomerId : self::TEST_CLIENT_ID;
+
+      // Prepare cart items.
+      $cart_items = [];
+      $cart_items_object = new \ArrayObject();
+
+      for ($i = 0; $i < $order->OrderQuantity; $i++) {
+        $cart_items[] = [
+          'Quantity' => 1,
+          'Item' => new \SoapVar(
+            [
+              'ID' => $service->ID,
+            ],
+            SOAP_ENC_ARRAY,
+            'Service',
+            'http://clients.mindbodyonline.com/api/0_5'
+          ),
+          'DiscountAmount' => 0,
+        ];
+      }
+
+      foreach ($cart_items as $item) {
+        $cart_items_object->append($item);
+      }
+
       $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
         'UserCredentials' => [
           // According to documentation we can use credentials, but with underscore at the beginning of username.
@@ -203,18 +227,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         ],
         'ClientID' => $client_id,
         'CartItems' => [
-          'CartItem' => [
-            'Quantity' => $order->OrderQuantity,
-            'Item' => new \SoapVar(
-              [
-                'ID' => $service->ID,
-              ],
-              SOAP_ENC_ARRAY,
-              'Service',
-              'http://clients.mindbodyonline.com/api/0_5'
-            ),
-            'DiscountAmount' => 0,
-          ],
+          'CartItem' => $cart_items_object->getArrayCopy(),
         ],
         'Payments' => [
           'PaymentInfo' => new \SoapVar(
