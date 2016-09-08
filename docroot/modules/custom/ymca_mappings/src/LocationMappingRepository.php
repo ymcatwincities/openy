@@ -142,4 +142,26 @@ class LocationMappingRepository {
     return $this->storage->loadMultiple($mapping_ids);
   }
 
+  /**
+   * Find MindBody LocationID by Personify LocationID.
+   *
+   * @param int $id
+   *   Personify ID.
+   *
+   * @return int|bool
+   *   MindBody ID.
+   */
+  public function findMindBodyIdByPersonifyId($id) {
+    $location_mindbody = FALSE;
+    $location_mapping = $this->findByLocationPersonifyBranchCode($id);
+    if (is_array($location_mapping)) {
+      $location_mapping = reset($location_mapping);
+    }
+    if (!empty($location_mapping->field_mindbody_id->getValue())) {
+      return $location_mapping->field_mindbody_id->getValue()[0]['value'];
+    }
+
+    return $location_mindbody;
+  }
+
 }

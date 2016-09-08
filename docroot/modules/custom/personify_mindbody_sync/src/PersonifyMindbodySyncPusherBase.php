@@ -298,20 +298,28 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   private function sendNotification(\stdClass $order) {
     $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
-    $location = $this->getLocationForOrder($order);
-    $location_mapping = $this->locationRepo->findByMindBodyId($location);
 
-    if (!isset($mapping[$location])) {
+    // Build bridge Personify location -> Drupal location -> MindBody location.
+    $location_personify = $this->getLocationForOrder($order);
+    $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
+
+    if (empty($location_mindbody)) {
+      // There is mindbody id for this personify location.
+      return;
+    }
+
+    if (!isset($mapping[$location_mindbody])) {
       // There is no mapping for this location.
       return;
     }
 
+    $location_mapping = $this->locationRepo->findByMindBodyId($location_mindbody);
     $tokens = [
       'client_name' => $order->FirstName . ' ' . $order->LastName,
       'item_name' => $order->ProductCode,
       'location' => $location_mapping->label()
     ];
-    foreach ($mapping[$location] as $trainer) {
+    foreach ($mapping[$location_mindbody] as $trainer) {
       $tokens['trainer_name'] = $trainer['name'];
       $this->mailManager->mail('ymca_mindbody', 'notify_location_trainers', $trainer['email'], 'en', $tokens);
     }
