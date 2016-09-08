@@ -1,4 +1,7 @@
 services:
+  logger.channel.dbsize:
+    parent: logger.channel_base
+    arguments: ['dbsize']
   dbsize.manager:
     class: Drupal\dbsize\DbSizeManager
-    arguments: ['@database', '@entity_type.manager', '@entity_field.manager']
+    arguments: ['@database', '@entity_type.manager', '@entity_field.manager', '@logger.channel.dbsize']
