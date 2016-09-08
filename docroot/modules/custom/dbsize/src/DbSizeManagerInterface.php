@@ -23,12 +23,12 @@ interface DbSizeManagerInterface {
   /**
    * Get size of the content entity type.
    *
-   * @param ContentEntityTypeInterface $entityType
+   * @param string $entityType
    *   Entity type.
    *
    * @return mixed
    *   Entity size in bytes.
    */
-  public function getEntitySize(ContentEntityTypeInterface $entityType);
+  public function getEntitySize($entityType);
 
 }
