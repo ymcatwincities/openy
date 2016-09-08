@@ -183,7 +183,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         continue;
       }
 
-      $service = $this->getServiceByProductCode($order->ProductCode);
+      $service = $this->getServiceByProductCode($order->ProductCode, $order->RateStructure);
       if (!$service) {
         $msg = 'Failed to find a service with the code: %code';
         $this->logger->error($msg, ['%code' => $order->ProductCode]);
@@ -219,7 +219,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'Payments' => [
           'PaymentInfo' => new \SoapVar(
             [
-              'Amount' => $service->Price,
+              'Amount' => $service->Price * $order->OrderQuantity,
               // Custom payment ID?
               'ID' => 18,
             ],
@@ -272,7 +272,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $cache_entity->save();
 
         // Reset status.
-        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, '');
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Status);
 
         // Send notification.
         $this->sendNotification($order);
@@ -284,7 +284,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         // Log an error.
         $msg = 'Failed to push order to MindBody: %error';
         $this->logger->critical($msg, ['%error' => serialize($response)]);
-        return $this;
       }
     }
     return $this;
@@ -446,8 +445,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @return mixed
    *   Service ID.
    */
-  protected function getServiceByProductCode($code) {
-    $map = [
+  protected function getServiceByProductCode($code, $member_type) {
+    $map_legacy = [
       'PT_NMP_1_SESS_30_MIN' => '10101',
       'PT_12_SESS_30_MIN' => '10110',
       'PT_NMP_12_SESS_30_MIN' => '10106',
@@ -485,16 +484,43 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       'PT_BY_MP_INTRO' => '10134',
     ];
 
+    $map = [
+      'Member' => [
+        'PT_1_SESS_30_MIN' => '10241',
+        'PT_3_SESS_30_MIN' => '10108',
+        'PT_6_SESS_30_MIN' => '10109',
+        'PT_12_SESS_30_MIN' => '10110',
+        'PT_20_SESS_30_MIN' => '10111',
+        'PT_1_SESS_60_MIN' => '10112',
+        'PT_3_SESS_60_MIN' => '10117',
+        'PT_6_SESS_60_MIN' => '10118',
+        'PT_12_SESS_60_MIN' => '10119',
+        'PT_20_SESS_60_MIN' => '10120'
+      ],
+      'Regular' => [
+        'PT_1_SESS_30_MIN' => '10101',
+        'PT_3_SESS_30_MIN' => '10103',
+        'PT_6_SESS_30_MIN' => '10104',
+        'PT_12_SESS_30_MIN' => '10106',
+        'PT_20_SESS_30_MIN' => '10107',
+        'PT_1_SESS_60_MIN' => '10105',
+        'PT_3_SESS_60_MIN' => '10113',
+        'PT_6_SESS_60_MIN' => '10114',
+        'PT_12_SESS_60_MIN' => '10115',
+        'PT_20_SESS_60_MIN' => '10116'
+      ],
+    ];
+
     preg_match("/\d+_(PT_.*)/", $code, $test);
     if (!$test[1]) {
       return FALSE;
     }
 
     // Service ID.
-    if (!array_key_exists($test[1], $map)) {
+    if (!array_key_exists($test[1], $map[$member_type])) {
       return FALSE;
     }
-    $id = $map[$test[1]];
+    $id = $map[$member_type][$test[1]];
 
     // Location ID.
     $location_id = explode('_', $code)[0];
