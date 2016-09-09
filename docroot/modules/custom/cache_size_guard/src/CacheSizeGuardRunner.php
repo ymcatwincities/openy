@@ -92,16 +92,14 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
           $cleaner = $this->container->get($options['cleaners']['soft']['service']);
           // @todo Add arguments. Note, method has to have single argument (array).
           $cleaner->$options['cleaners']['soft']['method']();
-          $new_size = $this->dbSize->getEntitySize($options['entity_type_id']);
 
-          $msg = 'Soft cleaner for guard %guard has been invoked successfully. Old entity %entity size: %old, new size: %new.';
+          $msg = 'Soft cleaner for guard %guard has been invoked successfully. Old entity %entity size: %old.';
           $this->logger->info(
             $msg,
             [
               '%guard' => $name,
               '%entity' => $options['entity_type_id'],
-              '%old' => $this->format($size),
-              '%new' => $this->format($new_size)
+              '%old' => $this->format($size)
             ]
           );
         }
