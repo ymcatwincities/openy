@@ -102,12 +102,6 @@ class DbSizeManager implements DbSizeManagerInterface {
       return FALSE;
     }
 
-    // Currently we support only entities without bundles.
-    if ($type->getBundleOf()) {
-      // @todo Add support for entities with bundles.
-      return FALSE;
-    }
-
     $tables = [];
 
     // Add base table.
