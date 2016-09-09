@@ -73,8 +73,6 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
 
       // Check if actual size is bigger than threshold.
       $size = $this->dbSize->getEntitySize($options['entity_type_id']);
-      // Testing.
-      $size = 2.5 * 1024 * 1024 * 1024;
       // Note, threshold in megabits, but size in bites.
       if ($size > ($options['threshold'] * 1024 * 1024)) {
 
