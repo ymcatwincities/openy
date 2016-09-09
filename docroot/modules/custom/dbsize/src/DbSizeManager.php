@@ -103,6 +103,7 @@ class DbSizeManager implements DbSizeManagerInterface {
     }
 
     $tables = [];
+    $revisionable = FALSE;
 
     // Add base table.
     $tables[] = $type->getBaseTable();
@@ -114,6 +115,7 @@ class DbSizeManager implements DbSizeManagerInterface {
 
     // Add revision tables.
     if ($type->isRevisionable()) {
+      $revisionable = TRUE;
       if ($type->getRevisionTable()) {
         $tables[] = $type->getRevisionTable();
       }
@@ -128,9 +130,13 @@ class DbSizeManager implements DbSizeManagerInterface {
 
     foreach ($fields as $field) {
       if (!$field->isBaseField()) {
-        // @todo Find proper way to get table names.
-        // @todo Find proper way to get tables with revisions.
+        // @todo Find proper way to get table names?
+        // @todo Find proper way to get tables with revisions?
+        // @todo The table name will be invalid for very long names.
         $tables[] = $field->getTargetEntityTypeId() . '__' . $field->getName();
+        if ($revisionable) {
+          $tables[] = $field->getTargetEntityTypeId() . '_revision__' . $field->getName();
+        }
       }
     }
 
