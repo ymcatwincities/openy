@@ -1,0 +1,9 @@
+guards:
+  groupex_form_cache:
+    entity_type_id: groupex_form_cache
+    threshold: 2048
+    cleaners:
+      soft:
+        service: groupex_form_cache.manager
+        method: resetCache
+        arguments: {  }
