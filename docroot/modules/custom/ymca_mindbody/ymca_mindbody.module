@@ -340,11 +340,41 @@ function ymca_mindbody_mail($key, &$message, $params) {
       $body = [
         "<p>$params[trainer_name],</p>",
         "<p>$params[client_name] has purchased $params[item_name]. Please follow up with $params[client_name] to schedule sessions.</p>",
+        "<p>Order/Customer information:</p>",
+        "<ul>",
+        "<li>MindBody SaleID: $params[mb_sale_id]</li>",
+        "<li>Personify OrderNo: $params[personify_order_no]</li>",
+        "<li>Personify OrderLineNo: $params[personify_order_line_no]</li>",
+        "<li>Name: $params[client_name]</li>",
+        "<li>Email: $params[client_email]</li>",
+        "<li>Phone: $params[client_phone]</li>",
+        "</ul>",
         "<p>Thank you!<br />",
         "The $params[location] Team</p>"
       ];
 
       $message['subject'] = "$params[client_name] has purchased $params[item_name].";
+      $message['body'][] = implode('', $body);
+      break;
+
+    case 'notify_location_trainer_saleid':
+      $body = [
+        "<p>$params[trainer_name],</p>",
+        "<p>$params[client_name] has purchased $params[item_name], but we cannot automatically assign SaleID for that order.</p>",
+        "<p>Please contact site admin to resolve that issue.</p>",
+        "<p>Customer information:</p>",
+        "<ul>",
+        "<li>Personify OrderNo: $params[personify_order_no]</li>",
+        "<li>Personify OrderLineNo: $params[personify_order_line_no]</li>",
+        "<li>Name: $params[client_name]</li>",
+        "<li>Email: $params[client_email]</li>",
+        "<li>Phone: $params[client_phone]</li>",
+        "</ul>",
+        "<p>Thank you!<br />",
+        "The $params[location] Team</p>"
+      ];
+
+      $message['subject'] = "Cannot assign SaleID for purchase by $params[client_name], $params[item_name].";
       $message['body'][] = implode('', $body);
       break;
   }

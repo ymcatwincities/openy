@@ -15,6 +15,11 @@ use GuzzleHttp\Client;
 abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySyncFetcherInterface {
 
   /**
+   * Test client ID.
+   */
+  const TEST_CLIENT_ID = '2052596923';
+
+  /**
    * PersonifyMindbodySyncWrapper definition.
    *
    * @var PersonifyMindbodySyncWrapper
@@ -43,6 +48,13 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
   protected $logger;
 
   /**
+   * Is production flag.
+   *
+   * @var bool
+   */
+  protected $isProduction;
+
+  /**
    * PersonifyMindbodySyncFetcher constructor.
    *
    * @param PersonifyMindbodySyncWrapper $wrapper
@@ -59,6 +71,9 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
     $this->client = $client;
     $this->config = $config;
     $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
+
+    $settings = $this->config->get('personify_mindbody_sync.settings');
+    $this->isProduction = (bool) $settings->get('is_production');
   }
 
   /**
@@ -95,6 +110,10 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
         $body = $response->getBody();
         $data = json_decode($body->getContents());
         foreach ($data->MindBodyCustomerOrderDetail as $order) {
+          // In test mode proceed orders only for test user.
+          if (!$this->isProduction && $order->MasterCustomerId != self::TEST_CLIENT_ID) {
+            continue;
+          }
           $orders[] = $order;
         }
       }
