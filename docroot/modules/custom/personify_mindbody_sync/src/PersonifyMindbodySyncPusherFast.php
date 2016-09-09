@@ -30,15 +30,14 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
       return $this;
     }
 
+    // In test mode proceed orders only for test user.
     if (!$this->isProduction) {
-      // Let's check only 2 clients for debug.
       $clients = [];
-      $i = 1;
       foreach ($this->clientIds as $client_id => $client_data) {
-        if ($i < 3) {
-          $clients[$client_id] = $client_data;
-          $i++;
+        if ($client_id != self::TEST_CLIENT_ID) {
+          continue;
         }
+        $clients[$client_id] = $client_data;
       }
       $this->clientIds = $clients;
     }
