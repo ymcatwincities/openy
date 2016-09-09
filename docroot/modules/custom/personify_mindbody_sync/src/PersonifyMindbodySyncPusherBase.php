@@ -274,7 +274,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $sale_ids_after = $this->getClientPurchases($client_id);
 
         // When quantity more than 1, it returns duplicates. E.g. quantity 3, it will return 3 same ids.
-        //$sale_ids_after = array_unique($sale_ids_after);
+        $sale_ids_after = array_unique($sale_ids_after);
         $diff = array_diff($sale_ids_after, $sale_ids_before);
 
         // Exclude order from processing if we're not able to determined SaleID.
