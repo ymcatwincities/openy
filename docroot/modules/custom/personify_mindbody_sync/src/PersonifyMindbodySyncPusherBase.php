@@ -272,23 +272,28 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
         // Get saleID.
         $sale_ids_after = $this->getClientPurchases($client_id);
+
+        // When quantity more than 1, it returns duplicates. E.g. quantity 3, it will return 3 same ids.
+        //$sale_ids_after = array_unique($sale_ids_after);
         $diff = array_diff($sale_ids_after, $sale_ids_before);
 
+        // Exclude order from processing if we're not able to determined SaleID.
+        $sale_id = 0;
         if (1 !== count($diff)) {
           $msg = 'Got more than 1 sale ID after the diff. Order item: %order';
           $this->logger->critical($msg, ['%order' => serialize($current_order)]);
-          continue;
+          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, t("Can't determine SaleID."));
+          $this->sendNotification($order, $sale_id, 'notify_location_trainer_saleid');
+        }
+        else {
+          $sale_id = reset($diff);
+          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Status);
+          $this->sendNotification($order, $sale_id, 'notify_location_trainers');
         }
 
-        $cache_entity->set('field_pmc_sale_id', reset($diff));
+        $cache_entity->set('field_pmc_sale_id', $sale_id);
         $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
         $cache_entity->save();
-
-        // Reset status.
-        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Status);
-
-        // Send notification.
-        $this->sendNotification($order);
       }
       else {
         // To reproduce this just comment ID in the cart item.
@@ -308,8 +313,12 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *
    * @param \stdClass $order
    *   Order.
+   * @param string $mb_sale_id
+   *   MindBody SaleID.
+   * @param string $notification_type
+   *   Notification type.
    */
-  private function sendNotification(\stdClass $order) {
+  private function sendNotification(\stdClass $order, $mb_sale_id, $notification_type = 'notify_location_trainers') {
     $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
 
     // Build bridge Personify location -> Drupal location -> MindBody location.
@@ -330,11 +339,16 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $tokens = [
       'client_name' => $order->FirstName . ' ' . $order->LastName,
       'item_name' => $order->ProductCode,
+      'client_email' => $order->PrimaryEmail,
+      'client_phone' => $order->PrimaryPhone,
+      'mb_sale_id' => $mb_sale_id,
+      'personify_order_no' => $order->OrderNo,
+      'personify_order_line_no' => $order->OrderLineNo,
       'location' => $location_mapping->label()
     ];
     foreach ($mapping[$location_mindbody] as $trainer) {
       $tokens['trainer_name'] = $trainer['name'];
-      $this->mailManager->mail('ymca_mindbody', 'notify_location_trainers', $trainer['email'], 'en', $tokens);
+      $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
     }
   }
 
