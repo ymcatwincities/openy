@@ -21,7 +21,7 @@ view.trainers_mapping.page_1:
   route_name: view.trainers_mapping.page_1
 
 view.personify_product_mapping.page_1:
-  title: 'Trainers Mapping'
+  title: 'Personify Product Mapping'
   parent: system.admin_content
   description: 'The list of Personify Product mappings.'
   route_name: view.personify_product_mapping.page_1
