@@ -236,7 +236,7 @@ function yptf_master_update_8012() {
 /**
  * Add mapping views.
  */
-function ymca_master_update_8013() {
+function yptf_master_update_8013() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
