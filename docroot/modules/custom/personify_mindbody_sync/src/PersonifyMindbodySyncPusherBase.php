@@ -360,10 +360,25 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       'personify_order_line_no' => $order->OrderLineNo,
       'location' => $location_mapping->label()
     ];
+
+    $emails = [];
     foreach ($mapping[$location_mindbody] as $trainer) {
       $tokens['trainer_name'] = $trainer['name'];
       $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
+      $emails[] = $trainer['email'];
     }
+
+    $msg = 'Notification about order ID %id with line number %num and sale ID %sale was sent to emails: %emails';
+    $this->logger->info(
+      $msg,
+      [
+        '%id' => $order->OrderNo,
+        '%num' => $order->OrderLineNo,
+        '%sale' => $mb_sale_id,
+        '%emails' => implode(', ', $emails)
+      ]
+    );
+
   }
 
   /**
