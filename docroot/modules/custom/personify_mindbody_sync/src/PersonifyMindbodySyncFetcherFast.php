@@ -13,10 +13,14 @@ class PersonifyMindbodySyncFetcherFast extends PersonifyMindbodySyncFetcherBase 
    * {@inheritdoc}
    */
   public function fetch() {
-    // For testing use: "PersonifyMindbodySyncWrapper::INITIAL_DATE".
+    $this->logger->info('Fast fetcher started.');
+
     $date = $this->wrapper->getCurrentTime();
     $orders = $this->getData($date);
     $this->wrapper->setSourceData($orders);
+
+    $msg = 'Fast fetcher has fetched %num items.';
+    $this->logger->info($msg, ['%num' => count($orders)]);
   }
 
 }
