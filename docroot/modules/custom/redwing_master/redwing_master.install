@@ -160,7 +160,7 @@ function redwing_master_update_8006() {
 }
 
 /**
- * Add svg support to config.
+ * Add svg extension to config.
  */
 function redwing_master_update_8007() {
   \Drupal::service('config_import.importer')->importConfigs(
@@ -168,6 +168,23 @@ function redwing_master_update_8007() {
       REDWING_CONFDIR . 'file_entity.settings.yml',
       REDWING_CONFDIR . 'entity_browser.browser.browse_files_modal.yml',
       REDWING_CONFDIR . 'entity_browser.browser.browse_files.yml',
+    ]
+  );
+}
+
+/**
+ * Add svg extension to image fields config.
+ */
+function redwing_master_update_8008() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'field.field.block_content.image_block.field_image.yml',
+      REDWING_CONFDIR . 'field.field.block_content.promo_block.field_image.yml',
+      REDWING_CONFDIR . 'field.field.block_content.slide_show_item.field_image.yml',
+      REDWING_CONFDIR . 'field.field.contact_message.camp_share_your_story.field_image.yml',
+      REDWING_CONFDIR . 'field.field.node.article.field_header_image.yml',
+      REDWING_CONFDIR . 'field.field.node.blog.field_image.yml',
+      REDWING_CONFDIR . 'field.field.user.user.user_picture.yml',
     ]
   );
 }
