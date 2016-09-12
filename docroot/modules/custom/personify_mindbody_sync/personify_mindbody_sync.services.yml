@@ -1,22 +1,25 @@
 services:
+  logger.channel.personify_mindbody_sync:
+    parent: logger.channel_base
+    arguments: ['personify_mindbody_sync']
   personify_mindbody_sync.wrapper:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper
     arguments: ['@entity.query']
   personify_mindbody_sync.fetcher_fast:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcherFast
-    arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.factory']
+    arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.channel.personify_mindbody_sync']
   personify_mindbody_sync.fetcher_slow:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcherSlow
-    arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.factory']
+    arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.channel.personify_mindbody_sync']
   personify_mindbody_sync.proxy:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncProxy
-    arguments: ['@personify_mindbody_sync.wrapper', '@logger.factory', '@entity.query', '@entity_type.manager']
+    arguments: ['@personify_mindbody_sync.wrapper', '@logger.channel.personify_mindbody_sync', '@entity.query', '@entity_type.manager']
   personify_mindbody_sync.pusher_fast:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncPusherFast
-    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory', '@environment_config.handler', '@plugin.manager.mail', '@ymca_mappings.location_repository']
+    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.channel.personify_mindbody_sync', '@environment_config.handler', '@plugin.manager.mail', '@ymca_mappings.location_repository']
   personify_mindbody_sync.pusher_slow:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncPusherSlow
-    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.factory', '@environment_config.handler', '@plugin.manager.mail', '@ymca_mappings.location_repository']
+    arguments: ['@personify_mindbody_sync.wrapper', '@mindbody_cache_proxy.client', '@config.factory', '@logger.channel.personify_mindbody_sync', '@environment_config.handler', '@plugin.manager.mail', '@ymca_mappings.location_repository']
   personify_mindbody_sync.syncer_fast:
     class: Drupal\ymca_sync\Syncer
     arguments: []

@@ -5,6 +5,7 @@ namespace Drupal\personify_mindbody_sync;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\environment_config\EnvironmentConfigServiceInterface;
 use Drupal\mindbody\MindbodyException;
@@ -32,9 +33,9 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   protected $wrapper;
 
   /**
-   * Logger channel.
+   * The logger channel.
    *
-   * @var LoggerChannel
+   * @var LoggerChannelInterface
    */
   protected $logger;
 
@@ -103,8 +104,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   MindBody caching client.
    * @param ConfigFactory $config
    *   Config factory.
-   * @param LoggerChannelFactory $logger_factory
-   *   Logger factory.
+   * @param LoggerChannelInterface $logger
+   *   The logger channel.
    * @param EnvironmentConfigServiceInterface $env_config
    *   Environment config.
    * @param MailManagerInterface $mail_manager
@@ -112,9 +113,9 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param LocationMappingRepository $location_repo;
    *   The Location repo.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelFactory $logger_factory, EnvironmentConfigServiceInterface $env_config, MailManagerInterface $mail_manager, LocationMappingRepository $location_repo) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelInterface $logger, EnvironmentConfigServiceInterface $env_config, MailManagerInterface $mail_manager, LocationMappingRepository $location_repo) {
     $this->wrapper = $wrapper;
-    $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
+    $this->logger = $logger;
     $this->client = $client;
     $this->config = $config;
     $this->mailManager = $mail_manager;
@@ -128,9 +129,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
   /**
    * Push orders.
-   *
-   * @return $this
-   *   Returns itself for chaining.
    */
   protected function pushOrders() {
     $source = $this->wrapper->getSourceData();
@@ -154,7 +152,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       catch (MindbodyException $e) {
         $msg = 'Failed to get services form Mindbody: %error';
         $this->logger->critical($msg, ['%error' => $e->getMessage()]);
-        return $this;
+        return;
       }
 
       $this->services[$location] = $response->GetServicesResult->Services->Service;
@@ -163,6 +161,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     // Loop through orders.
     $all_orders = [];
 
+    $pushed = 0;
     foreach ($source as $id => $order) {
       $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
       if (!$cache_entity) {
@@ -294,6 +293,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $cache_entity->set('field_pmc_sale_id', $sale_id);
         $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
         $cache_entity->save();
+        $pushed++;
+
       }
       else {
         // To reproduce this just comment ID in the cart item.
@@ -304,7 +305,10 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $this->logger->critical($msg, ['%error' => serialize($response)]);
       }
     }
-    return $this;
+
+    $this->logger->info(
+      'Fast pusher has pushed %num orders. Finished.', ['%num' => $pushed ]
+    );
 
   }
 
@@ -655,13 +659,18 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
 
       // We've found a few clients already. Let's filter them out.
+      $skipped = 0;
       foreach ($remote_clients as $client) {
         // Skip users already saved into cache.
         unset($this->clientIds[$client->ID]);
+        $skipped++;
 
         // Update cached entity with client's data if first time.
         $this->updateClientData($client->ID, $client);
       }
+
+      $msg = 'Fast pusher skipped %num clients. They were already pushed.';
+      $this->logger->info($msg, ['%num' => $skipped]);
     }
     elseif ($result->GetClientsResult->ErrorCode != 200) {
       $msg = 'Error from MindBody: %error';
