@@ -19,7 +19,7 @@ dependencies:
 id: location_mapping
 label: 'Location Mapping'
 module: views
-description: 'Views for searching trainers mappings.'
+description: 'Views for searching locations mappings.'
 tag: ''
 base_table: mapping
 base_field: id
@@ -1024,7 +1024,7 @@ display:
       path: admin/content/locations-mapping
       menu:
         type: tab
-        title: 'Trainers Mapping'
+        title: 'Locations Mapping'
         description: ''
         expanded: false
         parent: ''

@@ -18,7 +18,7 @@ dependencies:
 id: personify_product_mapping
 label: 'Personify Product Mapping'
 module: views
-description: 'Views for searching trainers mappings.'
+description: 'Views for searching products mappings.'
 tag: ''
 base_table: mapping
 base_field: id
@@ -986,7 +986,7 @@ display:
       path: admin/content/products-mapping
       menu:
         type: tab
-        title: 'Trainers Mapping'
+        title: 'Products Mapping'
         description: ''
         expanded: false
         parent: ''
