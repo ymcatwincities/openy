@@ -4233,7 +4233,7 @@ function ymca_master_update_8182() {
 }
 
 /**
- * Add svg support to config.
+ * Add svg extension to config.
  */
 function ymca_master_update_8183() {
   \Drupal::service('config_import.importer')->importConfigs(
@@ -4244,3 +4244,21 @@ function ymca_master_update_8183() {
     ]
   );
 }
+
+/**
+ * Add svg extension to image fields config.
+ */
+function ymca_master_update_8184() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'field.field.block_content.image_block.field_image.yml',
+      YGTC_CONFDIR . 'field.field.block_content.promo_block.field_image.yml',
+      YGTC_CONFDIR . 'field.field.block_content.slide_show_item.field_image.yml',
+      YGTC_CONFDIR . 'field.field.contact_message.camp_share_your_story.field_image.yml',
+      YGTC_CONFDIR . 'field.field.node.article.field_header_image.yml',
+      YGTC_CONFDIR . 'field.field.node.blog.field_image.yml',
+      YGTC_CONFDIR . 'field.field.user.user.user_picture.yml',
+    ]
+  );
+}
+
