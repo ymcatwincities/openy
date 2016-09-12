@@ -105,7 +105,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param ConfigFactory $config
    *   Config factory.
    * @param LoggerChannelInterface $logger
-   *   The logger channel.
+   *   Logger factory.
    * @param EnvironmentConfigServiceInterface $env_config
    *   Environment config.
    * @param MailManagerInterface $mail_manager
@@ -152,7 +152,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       catch (MindbodyException $e) {
         $msg = 'Failed to get services form Mindbody: %error';
         $this->logger->critical($msg, ['%error' => $e->getMessage()]);
-        return;
       }
 
       $this->services[$location] = $response->GetServicesResult->Services->Service;
@@ -268,43 +267,53 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         // Skip this order. Continue with next.
         continue;
       }
+
       if ($response->CheckoutShoppingCartResult->ErrorCode == 200) {
-        // Get saleID.
-        $sale_ids_after = $this->getClientPurchases($client_id);
-
-        // When quantity more than 1, it returns duplicates. E.g. quantity 3, it will return 3 same ids.
-        $sale_ids_after = array_unique($sale_ids_after);
-        $diff = array_diff($sale_ids_after, $sale_ids_before);
-
         // Exclude order from processing if we're not able to determined SaleID.
         $sale_id = 0;
-        if (1 !== count($diff)) {
-          $msg = 'Got more than 1 sale ID after the diff. Order item: %order';
-          $this->logger->critical($msg, ['%order' => serialize($current_order)]);
-          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, t("Can't determine SaleID."));
-          $this->sendNotification($order, $sale_id, 'notify_location_trainer_saleid');
+        try {
+          // Get saleID.
+          $sale_ids_after = $this->getClientPurchases($client_id);
+
+          // When quantity more than 1, it returns duplicates. E.g. quantity 3, it will return 3 same ids.
+          $sale_ids_after = array_unique($sale_ids_after);
+          $diff = array_diff($sale_ids_after, $sale_ids_before);
+          if (1 !== count($diff)) {
+            $msg = 'Got more than 1 sale ID after the diff. Order item: %order';
+            $this->logger->critical($msg, ['%order' => serialize($current_order)]);
+            $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, t("Can't determine SaleID."));
+            $this->sendNotification($order, $sale_id, 'notify_location_trainer_saleid');
+          }
+          else {
+            $sale_id = reset($diff);
+            $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Status);
+            $this->sendNotification($order, $sale_id, 'notify_location_trainers');
+          }
+
+          $cache_entity->set('field_pmc_sale_id', $sale_id);
+          $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
+          $cache_entity->save();
+
+          $pushed++;
+          $msg = 'The order ID %id with line number %num and code %code has been pushed.';
+          $this->logger->info(
+            $msg,
+            [
+              '%id' => $order->OrderNo,
+              '%num' => $order->OrderLineNo,
+              '%code' => $order->ProductCode,
+            ]
+          );
         }
-        else {
-          $sale_id = reset($diff);
-          $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $response->CheckoutShoppingCartResult->Status);
-          $this->sendNotification($order, $sale_id, 'notify_location_trainers');
+        catch (\Exception $e) {
+          // Don't push again this order, just set SaleID even if it's 0.
+          $cache_entity->set('field_pmc_sale_id', $sale_id);
+          $cache_entity->save();
+
+          // Log an error.
+          $msg = 'Failed to push order to MindBody: %error';
+          $this->logger->critical($msg, ['%error' => $e->getMessage()]);
         }
-
-        $cache_entity->set('field_pmc_sale_id', $sale_id);
-        $cache_entity->set('field_pmc_ord_data', serialize($response->CheckoutShoppingCartResult->ShoppingCart));
-        $cache_entity->save();
-        $pushed++;
-
-        $msg = 'The order ID %id with line number %num and code %code has been pushed.';
-        $this->logger->info(
-          $msg,
-          [
-            '%id' => $order->OrderNo,
-            '%num' => $order->OrderLineNo,
-            '%code' => $order->ProductCode,
-          ]
-        );
-
       }
       else {
         // To reproduce this just comment ID in the cart item.
@@ -333,52 +342,59 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   Notification type.
    */
   private function sendNotification(\stdClass $order, $mb_sale_id, $notification_type = 'notify_location_trainers') {
-    $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
+    try {
+      $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
 
-    // Build bridge Personify location -> Drupal location -> MindBody location.
-    $location_personify = $this->getLocationForOrder($order);
-    $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
+      // Build bridge Personify location -> Drupal location -> MindBody location.
+      $location_personify = $this->getLocationForOrder($order);
+      $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
 
-    if (empty($location_mindbody)) {
-      // There is no mindbody id for this personify location.
-      return;
+      if (empty($location_mindbody)) {
+        // There is no mindbody id for this personify location.
+        return;
+      }
+
+      if (!isset($mapping[$location_mindbody])) {
+        // There is no mapping for this location.
+        return;
+      }
+
+      $location_mapping = $this->locationRepo->findByMindBodyId($location_mindbody);
+      $tokens = [
+        'client_name' => $order->FirstName . ' ' . $order->LastName,
+        'item_name' => $order->ProductCode,
+        'client_email' => $order->PrimaryEmail,
+        'client_phone' => $order->PrimaryPhone,
+        'mb_sale_id' => $mb_sale_id,
+        'personify_order_no' => $order->OrderNo,
+        'personify_order_line_no' => $order->OrderLineNo,
+        'location' => $location_mapping->label()
+      ];
+
+      $emails = [];
+      foreach ($mapping[$location_mindbody] as $trainer) {
+        $tokens['trainer_name'] = $trainer['name'];
+        $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
+        $emails[] = $trainer['email'];
+      }
+
+      $msg = 'Notification about order ID %id with line number %num and sale ID %sale was sent to emails: %emails';
+      $this->logger->info(
+        $msg,
+        [
+          '%id' => $order->OrderNo,
+          '%num' => $order->OrderLineNo,
+          '%sale' => $mb_sale_id,
+          '%emails' => implode(', ', $emails)
+        ]
+      );
+
     }
-
-    if (!isset($mapping[$location_mindbody])) {
-      // There is no mapping for this location.
-      return;
+    catch (\Exception $e) {
+      // Log an error.
+      $msg = 'Failed to send email notification: %error';
+      $this->logger->critical($msg, ['%error' => $e->getMessage()]);
     }
-
-    $location_mapping = $this->locationRepo->findByMindBodyId($location_mindbody);
-    $tokens = [
-      'client_name' => $order->FirstName . ' ' . $order->LastName,
-      'item_name' => $order->ProductCode,
-      'client_email' => $order->PrimaryEmail,
-      'client_phone' => $order->PrimaryPhone,
-      'mb_sale_id' => $mb_sale_id,
-      'personify_order_no' => $order->OrderNo,
-      'personify_order_line_no' => $order->OrderLineNo,
-      'location' => $location_mapping->label()
-    ];
-
-    $emails = [];
-    foreach ($mapping[$location_mindbody] as $trainer) {
-      $tokens['trainer_name'] = $trainer['name'];
-      $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
-      $emails[] = $trainer['email'];
-    }
-
-    $msg = 'Notification about order ID %id with line number %num and sale ID %sale was sent to emails: %emails';
-    $this->logger->info(
-      $msg,
-      [
-        '%id' => $order->OrderNo,
-        '%num' => $order->OrderLineNo,
-        '%sale' => $mb_sale_id,
-        '%emails' => implode(', ', $emails)
-      ]
-    );
-
   }
 
   /**
@@ -688,8 +704,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       foreach ($remote_clients as $client) {
         // Skip users already saved into cache.
         unset($this->clientIds[$client->ID]);
-        $skipped++;
 
+        $skipped++;
         $msg = 'The client with ID %id has been skipped by fast pusher. Already pushed.';
         $this->logger->info(
           $msg, ['%id' => $client->ID]
@@ -701,6 +717,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       $msg = 'Fast pusher skipped %num clients. They were already pushed.';
       $this->logger->info($msg, ['%num' => $skipped]);
+
     }
     elseif ($result->GetClientsResult->ErrorCode != 200) {
       $msg = 'Error from MindBody: %error';
