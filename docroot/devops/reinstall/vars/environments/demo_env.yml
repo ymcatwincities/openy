@@ -37,6 +37,8 @@ env:
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', '***REMOVED***')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', '***REMOVED***')->save(TRUE);\"" }
+    # Enable production mode for booking.
+    - { name: 'config-set', status: true, arguments: "ymca_mindbody.settings is_production 1" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: false, value: '{{ origin_site_url }}' }
