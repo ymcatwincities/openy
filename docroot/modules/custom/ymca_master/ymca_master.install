@@ -4195,7 +4195,7 @@ function ymca_master_update_8179() {
 }
 
 /**
-* Set proper permissions.
+ * Set proper permissions.
  */
 function ymca_master_update_8180() {
   \Drupal::service('config_import.importer')->importConfigs(
@@ -4228,6 +4228,19 @@ function ymca_master_update_8182() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       YGTC_CONFDIR . 'cache_size_guard.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add svg support to config.
+ */
+function ymca_master_update_8183() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'file_entity.settings.yml',
+      YGTC_CONFDIR . 'entity_browser.browser.browse_files_modal.yml',
+      YGTC_CONFDIR . 'entity_browser.browser.browse_files.yml',
     ]
   );
 }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation file for the module
+ * Installation file for the module.
  */
 
 use Drupal\Core\Database\DatabaseExceptionWrapper;
@@ -157,4 +157,17 @@ function redwing_master_update_8006() {
     $node->setPublished($node->isPublished());
     $node->save();
   }
+}
+
+/**
+ * Add svg support to config.
+ */
+function redwing_master_update_8007() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'file_entity.settings.yml',
+      REDWING_CONFDIR . 'entity_browser.browser.browse_files_modal.yml',
+      REDWING_CONFDIR . 'entity_browser.browser.browse_files.yml',
+    ]
+  );
 }
