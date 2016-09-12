@@ -162,7 +162,7 @@ function redwing_master_update_8006() {
 /**
  * Add svg support to config.
  */
-function ymca_master_update_8007() {
+function redwing_master_update_8007() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       REDWING_CONFDIR . 'file_entity.settings.yml',
