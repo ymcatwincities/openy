@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation file for the module
+ * Installation file for the module.
  */
 
 use Drupal\Core\Database\DatabaseExceptionWrapper;
