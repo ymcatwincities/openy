@@ -15,7 +15,7 @@ env:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-set', status: true, arguments: "system.file path.temporary /tmp -y" }
-    - { name: 'config-set', status: true, arguments: "mailsystem.settings defaults.sender SMTPMailSystem" }
+    - { name: 'config-set', status: true, arguments: "mailsystem.settings defaults.sender php_mail" }
     - { name: 'config-set', status: true, arguments: "smtp.settings smtp_on 1" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
     - { name: 'cr', status: false, arguments: "" }
