@@ -688,7 +688,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          operator: word
+          operator: contains
           value: ''
           group: 1
           exposed: true
@@ -825,7 +825,7 @@ display:
           exposed: true
           expose:
             operator_id: field_location_ref_target_id_op
-            label: Location
+            label: 'Location ID'
             description: ''
             use_operator: false
             operator: field_location_ref_target_id_op
