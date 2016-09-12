@@ -135,7 +135,7 @@ class GroupexFormCacheManager {
 
     $result = $this->queryFactory->get(self::ENTITY_TYPE)->execute();
     if (empty($result)) {
-      $this->logger->info('No stale cache was found. Nothing to clear.');
+      $this->logger->info('No cache was found. Nothing to clear.');
       Timer::stop($timer);
       return;
     }
@@ -147,7 +147,7 @@ class GroupexFormCacheManager {
       $msg,
       [
         '%items' => count($result),
-        '%time' => round(Timer::read($timer) / 100, 1)
+        '%time' => round(Timer::read($timer) / 1000, 1)
       ]
     );
 
@@ -182,7 +182,7 @@ class GroupexFormCacheManager {
       $msg,
       [
         '%items' => count($result),
-        '%time' => round(Timer::read($timer) / 100, 1)
+        '%time' => round(Timer::read($timer) / 1000, 1)
       ]
     );
 
