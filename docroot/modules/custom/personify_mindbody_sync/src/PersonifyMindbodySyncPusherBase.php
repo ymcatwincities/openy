@@ -295,6 +295,16 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $cache_entity->save();
         $pushed++;
 
+        $msg = 'The order ID %id with line number %num and code %code has been pushed.';
+        $this->logger->info(
+          $msg,
+          [
+            '%id' => $order->OrderNo,
+            '%num' => $order->OrderLineNo,
+            '%code' => $order->ProductCode,
+          ]
+        );
+
       }
       else {
         // To reproduce this just comment ID in the cart item.
@@ -664,6 +674,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         // Skip users already saved into cache.
         unset($this->clientIds[$client->ID]);
         $skipped++;
+
+        $msg = 'The client with ID %id has been skipped by fast pusher. Already pushed.';
+        $this->logger->info(
+          $msg, ['%id' => $client->ID]
+        );
 
         // Update cached entity with client's data if first time.
         $this->updateClientData($client->ID, $client);
