@@ -4211,3 +4211,17 @@ function ymca_master_update_8181() {
     ]
   );
 }
+
+/**
+ * Install dbsize, cache_size_guard modules.
+ */
+function ymca_master_update_8182() {
+  \Drupal::service('module_installer')->install(['dbsize', 'cache_size_guard'], TRUE);
+
+  // Import the first guard.
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'cache_size_guard.settings.yml',
+    ]
+  );
+}
