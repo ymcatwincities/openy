@@ -91,7 +91,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
       }
     }
 
-    $msg = 'Fast pusher has pushed %num clients.';
+    $msg = 'Fast pusher has pushed %num clients successfully.';
     $this->logger->info($msg, ['%num' => count($push_clients)]);
   }
 
