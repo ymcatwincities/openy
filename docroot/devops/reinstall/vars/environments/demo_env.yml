@@ -10,11 +10,13 @@ env:
     - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
   modules:
-    - { name: 'devel config_inspector config_devel dblog stage_file_proxy ymca_mindbody', status: true }
+    - { name: 'devel config_inspector dblog stage_file_proxy ymca_mindbody', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
     - { name: 'config-set', status: true, arguments: "system.file path.temporary /tmp -y" }
+    - { name: 'config-set', status: true, arguments: "mailsystem.settings defaults.sender php_mail" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_on 1" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
     - { name: 'cr', status: false, arguments: "" }
     - { name: 'ciboxcr', status: true, arguments: "" }
@@ -29,6 +31,14 @@ env:
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('mindbody.settings', 'staging');\"" }
     # To fix configuration problem let's install the module here.
     - { name: 'en', status: true, arguments: "yptf_master" }
+    # Configure synchroniation.
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_sync.settings')->set('active_syncers', ['personify_mindbody_sync.syncer_fast'])->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('personify_mindbody_sync.settings')->set('is_production', '0')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', '***REMOVED***')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', '***REMOVED***')->save(TRUE);\"" }
+    # Enable production mode for booking.
+    - { name: 'config-set', status: true, arguments: "ymca_mindbody.settings is_production 1" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: false, value: '{{ origin_site_url }}' }
