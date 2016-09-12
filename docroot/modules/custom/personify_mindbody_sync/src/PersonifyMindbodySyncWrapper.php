@@ -37,7 +37,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   /**
    * Offset in seconds for getting data from Personify.
    */
-  const DATE_OFFSET = 'PT100H';
+  const DATE_OFFSET = 'PT1H';
 
   /**
    * Personify date format.
