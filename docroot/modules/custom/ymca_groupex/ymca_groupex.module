@@ -278,3 +278,10 @@ function ymca_groupex_schedule_table_layout(array $schedule) {
 
   return $results;
 }
+
+/**
+ * Implements hook_ymca_sync_description_alter().
+ */
+function ymca_groupex_ymca_sync_description_alter(&$items) {
+  $items[] = 'ymca_google.syncer - Google Calendar syncer.';
+}

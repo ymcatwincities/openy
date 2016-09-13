@@ -13,3 +13,10 @@ function personify_mindbody_sync_field_formatter_info_alter(array &$info) {
   $info['timestamp']['field_types'][] = 'integer';
   $info['timestamp']['label'] = t('Timestamp (Default)');
 }
+
+/**
+ * Implements hook_ymca_sync_description_alter().
+ */
+function personify_mindbody_sync_ymca_sync_description_alter(&$items) {
+  $items[] = 'personify_mindbody_sync.syncer_fast - syncer for orders and clients between Personify and MindBody. Use it for regular synchronization.';
+}

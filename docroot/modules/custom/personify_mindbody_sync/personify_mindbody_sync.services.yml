@@ -26,6 +26,7 @@ services:
       - [addStep, ['@personify_mindbody_sync.pusher_fast', 'push']]
     tags:
       - { name: syncer }
+  # To enable the syncer just add "syncer" tag.
   personify_mindbody_sync.syncer_slow:
     class: Drupal\ymca_sync\Syncer
     arguments: []
@@ -33,5 +34,4 @@ services:
       - [addStep, ['@personify_mindbody_sync.fetcher_slow', 'fetch']]
       - [addStep, ['@personify_mindbody_sync.proxy', 'saveEntities']]
       - [addStep, ['@personify_mindbody_sync.pusher_slow', 'push']]
-    tags:
-      - { name: syncer }
+    tags: []
