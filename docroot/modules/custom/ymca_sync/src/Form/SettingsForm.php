@@ -3,6 +3,7 @@
 namespace Drupal\ymca_sync\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\ymca_sync\SyncRepository;
@@ -21,6 +22,13 @@ class SettingsForm extends ConfigFormBase {
   protected $syncers = [];
 
   /**
+   * Module handler.
+   *
+   * @var ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -34,10 +42,13 @@ class SettingsForm extends ConfigFormBase {
    *   Config Factory.
    * @param SyncRepository $syncers
    *   Sync Repo.
+   * @param ModuleHandlerInterface $module_handler
+   *   Sync Repo.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, SyncRepository $syncers) {
+  public function __construct(ConfigFactoryInterface $config_factory, SyncRepository $syncers, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
     $this->syncers = $syncers;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -46,7 +57,8 @@ class SettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('ymca_sync.sync_repository')
+      $container->get('ymca_sync.sync_repository'),
+      $container->get('module_handler')
     );
   }
 
@@ -70,13 +82,25 @@ class SettingsForm extends ConfigFormBase {
         $default_value[] = $syncer;
       }
     }
-    $form['syncers'] = array(
+    $form['syncers'] = [
       '#title' => $this->t('Active syncers'),
       '#type' => 'checkboxes',
       '#options' => array_combine($this->syncers->getSyncers(), $this->syncers->getSyncers()),
       '#description' => $this->t('If the syncer is selected it\'s ready to run. Remove selection to disable any syncer.'),
       '#default_value' => $default_value,
-    );
+    ];
+
+    // Allow modules to add descriptions of their syncers.
+    $description_items = [];
+    $this->moduleHandler->alter('ymca_sync_description', $description_items);
+
+    if (!empty($description_items)) {
+      $form['description'] = [
+        '#theme' => 'item_list',
+        '#items' => $description_items,
+        '#title' => $this->t('Syncers description:'),
+      ];
+    }
 
     return parent::buildForm($form, $form_state);
   }
