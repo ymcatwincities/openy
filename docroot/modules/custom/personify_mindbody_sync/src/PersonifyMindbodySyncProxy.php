@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
 
 /**
@@ -24,9 +25,9 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
   protected $wrapper;
 
   /**
-   * Logger channel.
+   * The logger channel.
    *
-   * @var LoggerChannel
+   * @var LoggerChannelInterface
    */
   protected $logger;
 
@@ -49,16 +50,16 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
    *
    * @param PersonifyMindbodySyncWrapper $wrapper
    *   Wrapper.
-   * @param LoggerChannelFactory $logger_factory
-   *   Logger factory.
+   * @param LoggerChannelInterface $logger
+   *   The logger channel.
    * @param QueryFactory $query_factory
    *   Query factory.
    * @param EntityTypeManager $entity_type_manager
    *   Entity type manager.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, LoggerChannelFactory $logger_factory, QueryFactory $query_factory, EntityTypeManager $entity_type_manager) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, LoggerChannelInterface $logger, QueryFactory $query_factory, EntityTypeManager $entity_type_manager) {
     $this->wrapper = $wrapper;
-    $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
+    $this->logger = $logger;
     $this->query = $query_factory;
     $this->entityTypeManager = $entity_type_manager;
   }
@@ -67,7 +68,11 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
    * {@inheritdoc}
    */
   public function saveEntities() {
+    $this->logger->info('Proxy started.');
+
     $proxy_data = [];
+    $new = 0;
+
     foreach ($this->wrapper->getSourceData() as $item) {
       // Check whether the entity exists.
       $existing = $this->wrapper->findOrder($item->OrderNo, $item->OrderLineNo);
@@ -85,12 +90,34 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
         $cache_item->setName($item->OrderNo . ' (' . $item->OrderLineNo . ')');
         $cache_item->save();
         $proxy_data[$cache_item->id()] = $cache_item;
+        $new++;
+
+        $msg = 'The order ID %id with line number %num and code %code has been save to cache.';
+        $this->logger->info(
+          $msg,
+          [
+            '%id' => $item->OrderNo,
+            '%num' => $item->OrderLineNo,
+            '%code' => $item->ProductCode,
+          ]
+        );
       }
       else {
         $proxy_data[$existing->id()] = $existing;
       }
     }
+
     $this->wrapper->setProxyData($proxy_data);
+
+    $msg = 'Proxy saved %num_saved items out of %num_fetched items for processing.';
+    $this->logger->info(
+      $msg,
+      [
+        '%num_saved' => $new,
+        '%num_fetched' => count($this->wrapper->getSourceData())
+      ]
+    );
+
   }
 
   /**

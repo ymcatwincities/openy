@@ -15,6 +15,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    * {@inheritdoc}
    */
   public function push() {
+    $this->logger->info('Pusher started.');
     $this->pushClientsBatch();
     parent::pushOrders();
   }
@@ -89,6 +90,9 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
         $this->logger->critical($msg, ['%error' => serialize($result)]);
       }
     }
+
+    $msg = 'Fast pusher has pushed %num clients successfully.';
+    $this->logger->info($msg, ['%num' => count($push_clients)]);
   }
 
 }
