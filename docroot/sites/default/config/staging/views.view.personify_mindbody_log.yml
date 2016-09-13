@@ -1391,7 +1391,7 @@ display:
   page_4_no_sale_id:
     display_plugin: page
     id: page_4_no_sale_id
-    display_title: 'No Sail ID'
+    display_title: 'No Sale ID'
     position: 1
     display_options:
       display_extenders:
