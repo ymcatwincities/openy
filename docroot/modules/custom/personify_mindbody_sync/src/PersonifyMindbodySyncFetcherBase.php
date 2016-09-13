@@ -5,6 +5,7 @@ namespace Drupal\personify_mindbody_sync;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use GuzzleHttp\Client;
 
 /**
@@ -41,7 +42,7 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
   protected $config;
 
   /**
-   * Logger channel.
+   * The logger channel.
    *
    * @var LoggerChannel
    */
@@ -63,14 +64,14 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
    *   Http client.
    * @param ConfigFactory $config
    *   Config factory.
-   * @param LoggerChannelFactory $logger_factory
-   *   Config factory.
+   * @param LoggerChannelInterface $logger
+   *   The logger channel.
    */
-  public function __construct(PersonifyMindbodySyncWrapper $wrapper, Client $client, ConfigFactory $config, LoggerChannelFactory $logger_factory) {
+  public function __construct(PersonifyMindbodySyncWrapper $wrapper, Client $client, ConfigFactory $config, LoggerChannelInterface $logger) {
     $this->wrapper = $wrapper;
     $this->client = $client;
     $this->config = $config;
-    $this->logger = $logger_factory->get(PersonifyMindbodySyncWrapper::CHANNEL);
+    $this->logger = $logger;
 
     $settings = $this->config->get('personify_mindbody_sync.settings');
     $this->isProduction = (bool) $settings->get('is_production');
