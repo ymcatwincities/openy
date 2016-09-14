@@ -288,7 +288,7 @@ class MindbodyResultsController extends ControllerBase {
     }
 
     // Default message.
-    $message = $this->t($this->errorManager->getError('err__mindbody__booking_failed'));
+    $message = $this->errorManager->getError('err__mindbody__booking_failed');
 
     // OK.
     if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
@@ -324,11 +324,15 @@ class MindbodyResultsController extends ControllerBase {
           $tokens['client_phone'] = $client_data->MobilePhone;
         }
 
-        // Send notification to trainer.
-        $this->mailManager->mail('ymca_mindbody', 'notify_trainer', $booking_data['trainer_email'], 'en', $tokens);
-
-        // Send notification to client.
-        $this->mailManager->mail('ymca_mindbody', 'notify_customer', $client_data->Email, 'en', $tokens);
+        try {
+          // Send notifications.
+          $this->mailManager->mail('ymca_mindbody', 'notify_trainer', $booking_data['trainer_email'], 'en', $tokens);
+          $this->mailManager->mail('ymca_mindbody', 'notify_customer', $client_data->Email, 'en', $tokens);
+        }
+        catch (\Exception $e) {
+          $msg = 'Failed to send email notification. Error: %error';
+          $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+        }
       }
 
     }
