@@ -157,7 +157,7 @@ function ymca_menu_preprocess_node(&$variables) {
     $variables['sidebar_navigation'] = [
       '#lazy_builder' => [
         '\Drupal\block\BlockViewBuilder::lazyBuilder',
-        ['sidebarnavigation']
+        ['sidebarnavigation', 'full']
       ],
       '#create_placeholder' => TRUE,
     ];
