@@ -14,7 +14,7 @@
                 out[1] = '0' + out[1].toString();
             }
 
-            // @todo check if this it still needed.
+            // @todo check if this is still needed.
             // $('#edit-filter-date-date').val(out.join('/'));
             // Set current date and reload a form.
             var date_element = $('#edit-date-select');
