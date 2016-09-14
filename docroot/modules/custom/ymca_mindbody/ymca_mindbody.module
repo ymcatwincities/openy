@@ -9,7 +9,6 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\node\NodeInterface;
-use Drupal\Core\Render\Markup;
 
 /**
  * Implements hook_theme().
@@ -95,8 +94,6 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
       switch ($name) {
         case 'schedule-pt-location-url':
           if (isset($data['node']) && $data['node'] instanceof NodeInterface) {
-            /* @var $node \Drupal\node\NodeInterface */
-            $node = $data['node'];
             /* @var $site_section \Drupal\node\NodeInterface */
             if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
 
@@ -206,7 +203,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
             '#theme' => 'mindbody_products_list',
             '#attached' => [
               'library' => [
-                'ymca_mindbody/ymca_mindbody'
+                'ymca_mindbody/ymca_mindbody',
               ],
               'drupalSettings' => $settings,
             ],
@@ -296,7 +293,6 @@ function ymca_mindbody_mindbody_cache_proxy_flush_stats($data) {
  */
 function ymca_mindbody_mail($key, &$message, $params) {
   switch ($key) {
-    
     case 'notify_trainer':
 
       $body = [
@@ -350,7 +346,7 @@ function ymca_mindbody_mail($key, &$message, $params) {
         "<li>Phone: $params[client_phone]</li>",
         "</ul>",
         "<p>Thank you!<br />",
-        "The $params[location] Team</p>"
+        "The $params[location] Team</p>",
       ];
 
       $message['subject'] = "$params[client_name] has purchased $params[item_name].";
@@ -371,10 +367,31 @@ function ymca_mindbody_mail($key, &$message, $params) {
         "<li>Phone: $params[client_phone]</li>",
         "</ul>",
         "<p>Thank you!<br />",
-        "The $params[location] Team</p>"
+        "The $params[location] Team</p>",
       ];
 
       $message['subject'] = "Cannot assign SaleID for purchase by $params[client_name], $params[item_name].";
+      $message['body'][] = implode('', $body);
+      break;
+
+    case 'notify_order_cancel':
+      $body = [
+        "<p>$params[trainer_name],</p>",
+        "<p>$params[client_name] has received a refund for $params[item_name]. Please remember to go into MINDBODY and delete this item from $params[client_name]'s account details.</p>",
+        "<ul>",
+        "<li>Personify Order #: $params[personify_order_no]</li>",
+        "<li>Personify Order Line #: $params[personify_order_line_no]</li>",
+        "<li>MINDBODY Sale ID: $params[mb_sale_id]</li>",
+        "<li>Client email: $params[client_email]</li>",
+        "<li>Client phone: $params[client_phone]</li>",
+        "</ul>",
+        "<p>Please follow up with <CLIENTNAME> if you believe this is inaccurate.</p>",
+        "<p>Thank you!<br />",
+        "The $params[location] Team<br />",
+        "Web: <a href=\"http://ymcamn.org\">http://ymcamn.org</a></p>",
+      ];
+
+      $message['subject'] = "MINDBODY refund for $params[client_name] for $params[item_name].";
       $message['body'][] = implode('', $body);
       break;
   }
