@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation file for the module
+ * Installation file for the module.
  */
 
 use Drupal\Core\Database\DatabaseExceptionWrapper;
@@ -157,4 +157,44 @@ function redwing_master_update_8006() {
     $node->setPublished($node->isPublished());
     $node->save();
   }
+}
+
+/**
+ * Add svg extension to config.
+ */
+function redwing_master_update_8007() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'file_entity.settings.yml',
+      REDWING_CONFDIR . 'entity_browser.browser.browse_files_modal.yml',
+      REDWING_CONFDIR . 'entity_browser.browser.browse_files.yml',
+    ]
+  );
+}
+
+/**
+ * Add svg extension to image fields config.
+ */
+function redwing_master_update_8008() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'field.field.block_content.image_block.field_image.yml',
+      REDWING_CONFDIR . 'field.field.block_content.promo_block.field_image.yml',
+      REDWING_CONFDIR . 'field.field.block_content.slide_show_item.field_image.yml',
+      REDWING_CONFDIR . 'field.field.contact_message.camp_share_your_story.field_image.yml',
+      REDWING_CONFDIR . 'field.field.node.article.field_header_image.yml',
+      REDWING_CONFDIR . 'field.field.node.blog.field_image.yml',
+      REDWING_CONFDIR . 'field.field.user.user.user_picture.yml',
+    ]
+  );
+}
+
+/**
+ * Sets the iframe height.
+ */
+function redwing_master_update_8009() {
+  $node = Node::load(4201);
+  $node->field_content->format = 'full_html';
+  $node->field_content->value = '<iframe frameborder="0" class="no-resize" src="http://www.activelifeadmin.com/redwing/websearch/public" style="width:100%; height:1900px"></iframe>';
+  $node->save();
 }

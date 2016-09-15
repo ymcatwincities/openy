@@ -262,6 +262,9 @@ class GroupexFormFull extends GroupexFormBase {
           'type' => 'throbber',
         ],
       ],
+      '#cache' => [
+        'max-age' => 3600,
+      ],
     ];
 
     $form['location'] = [
