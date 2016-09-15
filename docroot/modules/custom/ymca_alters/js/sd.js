@@ -19,12 +19,10 @@
             // Set current date and reload a form.
             var date_element = $('#edit-date-select');
             var old_d = new Date(date_element.val());
-            console.log(date_element.val());
-            if (date_element.val().length === 7 && old_d < new Date()) {
+            if (date_element.val().chartAt(2) === "/" && old_d < new Date()) {
                 date_element.val(out.join('/'));
                 date_element.change();
             }
-            console.log(date_element.val());
 
         }
     };
