@@ -26,12 +26,13 @@ env:
     - { name: 'search-api-index', status: false, arguments: "" }
     - { name: 'search-index', status: false, arguments: "" }
     - { name: 'config-set', status: true, arguments: "shield.config enabled 1" }
-    - { name: 'config-set', status: true, arguments: "ymca_google.settings is_production 0" }
     # Set active configuration for specific environment.
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_mindbody.trainings_mapping', 'staging');\"" }
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('mindbody.settings', 'staging');\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_site_verify.settings', 'staging');\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('google_tag.settings', 'staging');\"" }
+    # Set calendar syncer to test mode.
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('ymca_google.test_manager')->setTestMode();\"" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: true, value: '{{ origin_site_url }}' }
