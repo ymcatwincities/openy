@@ -3,8 +3,6 @@
 namespace Drupal\personify_mindbody_sync;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Logger\LoggerChannel;
-use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\environment_config\EnvironmentConfigServiceInterface;
@@ -110,7 +108,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   Environment config.
    * @param MailManagerInterface $mail_manager
    *   Mail manager.
-   * @param LocationMappingRepository $location_repo;
+   * @param LocationMappingRepository $location_repo
    *   The Location repo.
    */
   public function __construct(PersonifyMindbodySyncWrapper $wrapper, MindbodyCacheProxyInterface $client, ConfigFactory $config, LoggerChannelInterface $logger, EnvironmentConfigServiceInterface $env_config, MailManagerInterface $mail_manager, LocationMappingRepository $location_repo) {
@@ -169,10 +167,30 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
 
       // Do not push the order if it's already pushed.
-      // @todo Need to check whether the order stats has been changed.
       $order_data = $cache_entity->get('field_pmc_ord_data');
       if (!$order_data->isEmpty()) {
-        // Just skip this order.
+
+        // If the order is cancelled check whether we've sent a notification.
+        if ($order->LineStatusCode == 'C') {
+          $cancelled = $cache_entity->get('field_pmc_cancelled');
+          if (!$cancelled->get(0)->value) {
+            // Notify the guys about cancellation.
+            $this->sendNotification($order, $cache_entity->field_pmc_sale_id->value, 'notify_order_cancel');
+            $cache_entity->set('field_pmc_cancelled', TRUE);
+            $cache_entity->set('field_pmc_status', 'Cancel notification sent.');
+            $cache_entity->save();
+          }
+        }
+
+        // Done with this order.
+        continue;
+      }
+
+      // Do not push NEW cancelled orders at all.
+      if ($order->LineStatusCode == 'C') {
+        $cache_entity->set('field_pmc_ord_data', 'SKIPPED');
+        $cache_entity->set('field_pmc_status', 'Skipped (order is cancelled).');
+        $cache_entity->save();
         continue;
       }
 
@@ -215,7 +233,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
         'UserCredentials' => [
-          // According to documentation we can use credentials, but with underscore at the beginning of username.
+          // According to documentation.
+          // We can use credentials but with underscore before username.
           // @see https://developers.mindbodyonline.com/Develop/Authentication.
           'Username' => '_' . $this->mindbodyConfig['sourcename'],
           'Password' => $this->mindbodyConfig['password'],
@@ -275,7 +294,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
           // Get saleID.
           $sale_ids_after = $this->getClientPurchases($client_id);
 
-          // When quantity more than 1, it returns duplicates. E.g. quantity 3, it will return 3 same ids.
+          // When quantity more than 1, it returns duplicates.
+          // E.g. quantity 3, it will return 3 same ids.
           $sale_ids_after = array_unique($sale_ids_after);
           $diff = array_diff($sale_ids_after, $sale_ids_before);
           if (1 !== count($diff)) {
@@ -326,7 +346,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     $this->logger->info(
-      'Fast pusher has pushed %num orders. Finished.', ['%num' => $pushed ]
+      'Fast pusher has pushed %num orders. Finished.', ['%num' => $pushed]
     );
 
   }
@@ -345,7 +365,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     try {
       $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
 
-      // Build bridge Personify location -> Drupal location -> MindBody location.
+      // Bridge Personify location -> Drupal location -> MindBody location.
       $location_personify = $this->getLocationForOrder($order);
       $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
 
@@ -368,7 +388,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'mb_sale_id' => $mb_sale_id,
         'personify_order_no' => $order->OrderNo,
         'personify_order_line_no' => $order->OrderLineNo,
-        'location' => $location_mapping->label()
+        'location' => $location_mapping->label(),
       ];
 
       $emails = [];
@@ -385,15 +405,21 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
           '%id' => $order->OrderNo,
           '%num' => $order->OrderLineNo,
           '%sale' => $mb_sale_id,
-          '%emails' => implode(', ', $emails)
+          '%emails' => implode(', ', $emails),
         ]
       );
 
     }
     catch (\Exception $e) {
       // Log an error.
-      $msg = 'Failed to send email notification: %error';
-      $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+      $msg = 'Failed to send email notification. Type: %type, error: %error';
+      $this->logger->critical(
+        $msg,
+        [
+          '%type' => $notification_type,
+          '%error' => $e->getMessage(),
+        ]
+      );
     }
   }
 
@@ -413,7 +439,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'Password' => $this->mindbodyConfig['password'],
         'SiteIDs' => [$this->mindbodyConfig['site_id']],
       ],
-      'ClientID' => $id
+      'ClientID' => $id,
     ];
 
     try {
@@ -480,7 +506,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param string $id
    *   ID been searched by.
    *
-   * @return PersonifyMindbodyCache|bool
+   * @return PersonifyMindbodyCache|bool|array
    *   List of entities or FALSE.
    */
   protected function getEntityByClientId($id = '') {
@@ -575,7 +601,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_3_SESS_60_MIN' => '10117',
         'PT_6_SESS_60_MIN' => '10118',
         'PT_12_SESS_60_MIN' => '10119',
-        'PT_20_SESS_60_MIN' => '10120'
+        'PT_20_SESS_60_MIN' => '10120',
       ],
       'Regular' => [
         'PT_1_SESS_30_MIN' => '10101',
@@ -587,7 +613,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_3_SESS_60_MIN' => '10113',
         'PT_6_SESS_60_MIN' => '10114',
         'PT_12_SESS_60_MIN' => '10115',
-        'PT_20_SESS_60_MIN' => '10116'
+        'PT_20_SESS_60_MIN' => '10116',
       ],
     ];
 
@@ -772,7 +798,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'City' => 'Non existent within Personify: City',
         'State' => 'NA',
         'PostalCode' => '00000',
-        'ReferredBy' => 'Non existent within Personify: ReferredBy'
+        'ReferredBy' => 'Non existent within Personify: ReferredBy',
       ],
       SOAP_ENC_OBJECT,
       'Client',
@@ -868,7 +894,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       'GetSales',
       [
         'StartSaleDateTime' => $start,
-        'EndSaleDateTime' => $end
+        'EndSaleDateTime' => $end,
       ],
       FALSE
     );
