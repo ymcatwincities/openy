@@ -45,6 +45,7 @@ function yptf_master_update_8001() {
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status.yml',
       $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_sale_id.yml',
+      $path . 'field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_cancelled.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_clnt_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_data.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_ord_l_num.yml',
@@ -54,6 +55,7 @@ function yptf_master_update_8001() {
       $path . 'field.storage.personify_mindbody_cache.field_pmc_user_id.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_status.yml',
       $path . 'field.storage.personify_mindbody_cache.field_pmc_sale_id.yml',
+      $path . 'field.storage.personify_mindbody_cache.field_pmc_cancelled.yml',
       $path . 'ymca_personify.settings.yml',
     ]
   );
@@ -216,7 +218,7 @@ function yptf_master_update_8011() {
   $path = 'modules/custom/ymca_mindbody/config/install/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'ymca_mindbody.notifications.yml'
+      $path . 'ymca_mindbody.notifications.yml',
     ]
   );
 }

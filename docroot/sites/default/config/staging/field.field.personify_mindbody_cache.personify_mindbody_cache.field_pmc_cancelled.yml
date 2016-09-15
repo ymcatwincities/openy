@@ -1,0 +1,24 @@
+uuid: e6f8f31f-dc08-4f7f-a881-3b3f73f77a45
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.personify_mindbody_cache.field_pmc_cancelled
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_cancelled
+field_name: field_pmc_cancelled
+entity_type: personify_mindbody_cache
+bundle: personify_mindbody_cache
+label: 'MindBody Order Cancelled'
+description: 'Indicates that the order is cancelled.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Cancelled
+  off_label: Not cancelled
+field_type: boolean
