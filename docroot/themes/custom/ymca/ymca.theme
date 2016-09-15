@@ -470,21 +470,24 @@ function ymca_preprocess_html(&$variables) {
     $variables['attributes']->addClass($classes);
   }
 
-  $iconFid = theme_get_setting('ymca_favicon_default')[0];
+  $ymca_favicon_default_var = btheme_get_setting('ymca_favicon_default');
+  $iconFid = reset($ymca_favicon_default_var);
   if (
     in_array('theme_ymca_2013_location_home', $classes) ||
     in_array('theme_ymca_2013_location_category_and_detail', $classes)) {
-    $iconFid = theme_get_setting('ymca_favicon_location')[0];
+    $ymca_favicon_location_var = theme_get_setting('ymca_favicon_location');
+    $iconFid = reset($ymca_favicon_location_var);
   }
   elseif (
     in_array('theme_ymca_2013_camp_home', $classes) ||
     in_array('theme_ymca_2013_camp_category_and_detail', $classes) ||
     in_array('theme_ymca_2013_camp_primary_landing', $classes)) {
-    $iconFid = theme_get_setting('ymca_favicon_camp')[0];
+    $ymca_favicon_camp_var = theme_get_setting('ymca_favicon_camp');
+    $iconFid = reset($ymca_favicon_camp_var);
   }
 
-  $file = file_load($iconFid);
-  if ($file) {
+  if ($iconFid) {
+    $file = file_load($iconFid);
     $variables['page']['#attached']['html_head_link'] = [[[
       'rel' => 'shortcut icon',
       'href' => file_create_url($file->getFileUri()),
