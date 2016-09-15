@@ -158,7 +158,8 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   /**
    * Find Order by order number.
    *
-   * The unique id of an order in Personify is the order number + the line number.
+   * The unique id of an order in Personify is the order number + the line
+   * number.
    *
    * @param string $order_num
    *   Order number.
@@ -196,6 +197,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    * Get timezone for Personify results.
    *
    * @return \DateTimeZone
+   *   Time zone.
    */
   protected function getPersonifyTimezone() {
     return new \DateTimeZone(self::PERSONIFY_TIMEZONE);
