@@ -14,7 +14,6 @@
       $('.view-content').prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>').once();
       $('.view-content').imagesLoaded(function () {
         $('.view-content').masonry({
-          columnWidth: '.grid-sizer',
           gutter: '.gutter-sizer',
           itemSelector: '.grid-item',
           percentPosition: true,
