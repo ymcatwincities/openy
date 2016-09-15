@@ -470,7 +470,7 @@ function ymca_preprocess_html(&$variables) {
     $variables['attributes']->addClass($classes);
   }
 
-  $ymca_favicon_default_var = btheme_get_setting('ymca_favicon_default');
+  $ymca_favicon_default_var = theme_get_setting('ymca_favicon_default');
   $iconFid = reset($ymca_favicon_default_var);
   if (
     in_array('theme_ymca_2013_location_home', $classes) ||
