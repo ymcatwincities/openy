@@ -9,6 +9,15 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_description
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_category
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_desc
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_ed
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_inst
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_par
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_pd
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_rec
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_sd
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_title
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
@@ -69,6 +78,69 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+  field_gg_ics_category:
+    weight: 30
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_desc:
+    weight: 33
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_gg_ics_ed:
+    weight: 36
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_inst:
+    weight: 39
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_par:
+    weight: 38
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_pd:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_rec:
+    weight: 37
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_sd:
+    weight: 35
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gg_ics_title:
+    weight: 32
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_gg_instructor:
     weight: 27
     settings:
