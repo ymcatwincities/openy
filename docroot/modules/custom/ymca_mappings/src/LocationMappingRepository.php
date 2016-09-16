@@ -3,6 +3,7 @@
 namespace Drupal\ymca_mappings;
 
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Field\FieldItemList;
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\Entity\Query\QueryInterface;
 
@@ -50,6 +51,37 @@ class LocationMappingRepository {
     }
 
     return Mapping::loadMultiple($mapping_ids);
+  }
+
+  /**
+   * Return all Groupex location IDs.
+   *
+   * @return array
+   *   Groupex IDs.
+   */
+  public function loadAllGroupexIds() {
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->sort('name', 'ASC')
+      ->execute();
+    if (!$mapping_ids) {
+      return [];
+    }
+
+    $ids = [];
+    $entities = Mapping::loadMultiple($mapping_ids);
+    foreach ($entities as $entity) {
+      $field_id = $entity->get('field_groupex_id');
+      if ($field_id->isEmpty()) {
+        continue;
+      }
+      if ($id = $field_id->get(0)->value) {
+        $ids[] = $id;
+      }
+    }
+
+    return $ids;
   }
 
   /**
