@@ -2,8 +2,8 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -59,25 +59,35 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $pluginManager;
 
   /**
+   * Entity type manager.
+   *
+   * @var EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * DrupalProxy constructor.
    *
    * @param GcalGroupexWrapper $data_wrapper
    *   Data wrapper.
    * @param QueryFactory $query_factory
    *   Query factory.
-   * @param LoggerChannelFactory $logger
+   * @param LoggerChannelInterface $logger
    *   Logger factory.
    * @param GroupexDataFetcher $fetcher
    *   Groupex data fetcher.
    * @param GCalUpdaterManager $plugin_manager
    *   The manager for updater plugins.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager) {
+  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelInterface $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager, EntityTypeManagerInterface $entity_type_manager) {
     $this->dataWrapper = $data_wrapper;
     $this->queryFactory = $query_factory;
-    $this->logger = $logger->get('gcal_groupex');
+    $this->logger = $logger;
     $this->fetcher = $fetcher;
     $this->pluginManager = $plugin_manager;
+    $this->entityTypeManager = $entity_type_manager;
 
     $this->timezone = new \DateTimeZone('America/Chicago');
   }
@@ -86,6 +96,14 @@ class DrupalProxy implements DrupalProxyInterface {
    * {@inheritdoc}
    */
   public function saveEntities() {
+    $this->processIcsData();
+    $this->processSchedulesData();
+  }
+
+  /**
+   * Process schedules data.
+   */
+  protected function processSchedulesData() {
     $frame = $this->dataWrapper->getTimeFrame();
     $entities = [
       'insert' => [],
@@ -171,6 +189,67 @@ class DrupalProxy implements DrupalProxyInterface {
     }
 
     $this->dataWrapper->setProxyData($entities);
+  }
+
+  /**
+   * Process ICS data.
+   */
+  protected function processIcsData() {
+    foreach ($this->dataWrapper->getIcsData() as $item) {
+      // Map field names to class properties.
+      $map = [
+        'field_gg_ics_category' => 'category',
+        'field_gg_ics_desc' => 'description',
+        'field_gg_ics_ed' => 'end_date',
+        'field_gg_ics_inst' => 'instructor',
+        'field_gg_ics_loc_id' => 'location_id',
+        'field_gg_ics_par' => 'parent_id',
+        'field_gg_ics_pd' => 'post_date',
+        'field_gg_ics_rec' => 'recurring',
+        'field_gg_ics_sd' => 'start_date',
+        'field_gg_ics_title' => 'title',
+      ];
+
+      // Try to find existing item.
+      $existing = $this->findByGroupexId($item->id);
+      if (!$existing) {
+        // Create new entity.
+        $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
+        $values = [];
+        foreach ($map as $field_name => $property) {
+          $values[$field_name] = $item->$property;
+        }
+        $entity = $storage->create($values);
+        $entity->setName($item->title . ' [' . $item->id . ']');
+        $entity->save();
+
+        $msg = 'Entity %id has been created with ICS data';
+        $this->logger->info(
+          $msg,
+          [
+            '%id' => $entity->id(),
+          ]
+        );
+      }
+      else {
+        // Update existing entity.
+        foreach ($map as $field_name => $property) {
+          if (!empty($property)) {
+            $existing->set($field_name, $item->$property);
+          }
+        }
+
+        $existing->save();
+
+        $msg = 'Entity %id has been updated with ICS data';
+        $this->logger->info(
+          $msg,
+          [
+            '%id' => $existing->id(),
+          ]
+        );
+      }
+    }
   }
 
   /**
@@ -279,7 +358,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @param string $id
    *   Groupex class ID.
    *
-   * @return GroupexGoogleCache
+   * @return GroupexGoogleCache|bool
    *   Entity.
    */
   public function findByGroupexId($id) {

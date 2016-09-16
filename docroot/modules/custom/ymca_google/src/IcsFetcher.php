@@ -76,7 +76,13 @@ class IcsFetcher implements IcsFetcherInterface {
       try {
         $response = $this->client->request('GET', self::ICS_API_PATH . '/' . $id);
         $body = $response->getBody();
-        $classes[$id] = json_decode($body->getContents());
+        $data = json_decode($body->getContents());
+
+        // Add location ID to each class.
+        foreach ($data as $class) {
+          $class->location_id = $id;
+          $classes[] = $class;
+        }
       }
       catch (\Exception $e) {
         $msg = 'Failed to get response from Groupex ICS API for location %location.';
@@ -88,6 +94,8 @@ class IcsFetcher implements IcsFetcherInterface {
         );
       }
     }
+
+    $this->wrapper->setIcsData($classes);
   }
 
 }
