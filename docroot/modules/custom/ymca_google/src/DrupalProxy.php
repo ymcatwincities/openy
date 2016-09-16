@@ -196,27 +196,13 @@ class DrupalProxy implements DrupalProxyInterface {
    */
   protected function processIcsData() {
     foreach ($this->dataWrapper->getIcsData() as $item) {
-      // Map field names to class properties.
-      $map = [
-        'field_gg_ics_category' => 'category',
-        'field_gg_ics_desc' => 'description',
-        'field_gg_ics_ed' => 'end_date',
-        'field_gg_ics_inst' => 'instructor',
-        'field_gg_ics_loc_id' => 'location_id',
-        'field_gg_ics_par' => 'parent_id',
-        'field_gg_ics_pd' => 'post_date',
-        'field_gg_ics_rec' => 'recurring',
-        'field_gg_ics_sd' => 'start_date',
-        'field_gg_ics_title' => 'title',
-      ];
-
       // Try to find existing item.
       $existing = $this->findByGroupexId($item->id);
       if (!$existing) {
         // Create new entity.
         $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
         $values = [];
-        foreach ($map as $field_name => $property) {
+        foreach ($this->dataWrapper->getFieldMappingIcs() as $field_name => $property) {
           $values[$field_name] = $item->$property;
         }
         $entity = $storage->create($values);
@@ -233,7 +219,7 @@ class DrupalProxy implements DrupalProxyInterface {
       }
       else {
         // Update existing entity.
-        foreach ($map as $field_name => $property) {
+        foreach ($this->dataWrapper->getFieldMappingIcs() as $field_name => $property) {
           if (!empty($property)) {
             $existing->set($field_name, $item->$property);
           }
