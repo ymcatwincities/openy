@@ -87,6 +87,12 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
           'field_pmc_ord_date' => $this->wrapper->personifyDateToTimestamp(trim($item->OrderDate)),
           'field_pmc_status' => 'No attempt. Please, look in the system log.',
         ]);
+
+        // Save cancelled status if the order is cancelled.
+        if ($item->LineStatusCode == 'C') {
+          $cache_item->set('field_pmc_cancelled', TRUE);
+        }
+
         $cache_item->setName($item->OrderNo . ' (' . $item->OrderLineNo . ')');
         $cache_item->save();
         $proxy_data[$cache_item->id()] = $cache_item;
@@ -114,7 +120,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
       $msg,
       [
         '%num_saved' => $new,
-        '%num_fetched' => count($this->wrapper->getSourceData())
+        '%num_fetched' => count($this->wrapper->getSourceData()),
       ]
     );
 

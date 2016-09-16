@@ -8,6 +8,7 @@ use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Mail\MailManagerInterface;
@@ -145,6 +146,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $locationRepository;
 
   /**
+   * Language manager.
+   *
+   * @var LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * MindbodyResultsController constructor.
    *
    * @param YmcaMindbodyResultsSearcherInterface $results_searcher
@@ -169,6 +177,8 @@ class MindbodyResultsController extends ControllerBase {
    *   The Keyvalue expirable factory.
    * @param LocationMappingRepository $location_repository
    *   The location repository.
+   * @param LanguageManagerInterface $language_manager
+   *   Language manager.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -181,7 +191,8 @@ class MindbodyResultsController extends ControllerBase {
     MindbodyCacheProxyManager $cache_manager,
     MailManagerInterface $mail_manager,
     KeyValueDatabaseExpirableFactory $key_value_expirable,
-    LocationMappingRepository $location_repository
+    LocationMappingRepository $location_repository,
+    LanguageManagerInterface $language_manager
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
@@ -194,6 +205,7 @@ class MindbodyResultsController extends ControllerBase {
     $this->mailManager = $mail_manager;
     $this->keyValueExpirable = $key_value_expirable;
     $this->locationRepository = $location_repository;
+    $this->languageManager = $language_manager;
 
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
@@ -214,7 +226,8 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('mindbody_cache_proxy.manager'),
       $container->get('plugin.manager.mail'),
       $container->get('keyvalue.expirable.database'),
-      $container->get('ymca_mappings.location_repository')
+      $container->get('ymca_mappings.location_repository'),
+      $container->get('language_manager')
     );
   }
 
@@ -288,7 +301,7 @@ class MindbodyResultsController extends ControllerBase {
     }
 
     // Default message.
-    $message = $this->t($this->errorManager->getError('err__mindbody__booking_failed'));
+    $message = $this->errorManager->getError('err__mindbody__booking_failed');
 
     // OK.
     if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
@@ -324,11 +337,16 @@ class MindbodyResultsController extends ControllerBase {
           $tokens['client_phone'] = $client_data->MobilePhone;
         }
 
-        // Send notification to trainer.
-        $this->mailManager->mail('ymca_mindbody', 'notify_trainer', $booking_data['trainer_email'], 'en', $tokens);
-
-        // Send notification to client.
-        $this->mailManager->mail('ymca_mindbody', 'notify_customer', $client_data->Email, 'en', $tokens);
+        try {
+          // Send notifications.
+          $lang = $this->languageManager->getCurrentLanguage()->getId();
+          $this->mailManager->mail('ymca_mindbody', 'notify_trainer', $booking_data['trainer_email'], $lang, $tokens);
+          $this->mailManager->mail('ymca_mindbody', 'notify_customer', $client_data->Email, $lang, $tokens);
+        }
+        catch (\Exception $e) {
+          $msg = 'Failed to send email notification. Error: %error';
+          $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+        }
       }
 
     }

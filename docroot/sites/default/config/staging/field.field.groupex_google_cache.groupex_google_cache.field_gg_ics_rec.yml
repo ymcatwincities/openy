@@ -1,0 +1,20 @@
+uuid: c314d522-0de5-49fc-b1b6-cc3f3aa49ed5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_ics_rec
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_ics_rec
+field_name: field_gg_ics_rec
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'ICS Recurring'
+description: 'ICS Recurring field. Example: "weekly"'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
