@@ -4255,3 +4255,34 @@ function ymca_master_update_8184() {
     ]
   );
 }
+
+/**
+ * YMCA-1105: Add ICS fields to google groupex cache.
+ */
+function ymca_master_update_8185() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      YGTC_CONFDIR . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_category.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_desc.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_ed.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_inst.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_par.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_pd.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_rec.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_sd.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_title.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_category.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_desc.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_ed.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_inst.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_par.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_pd.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_rec.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_sd.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_title.yml',
+      YGTC_CONFDIR . 'views.view.ggcache.yml',
+    ]
+  );
+}

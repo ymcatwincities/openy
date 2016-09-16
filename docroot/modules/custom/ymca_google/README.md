@@ -2,6 +2,12 @@
 
 Syncs Groupex schedules with Google calendar.
 
+### How to test
+
+```
+\Drupal::service('ymca_google.test_manager')->setTestMode();
+```
+
 ### How to deploy
 
 In order to prevent test data to be push to production `is_production` flag was implemented. By default is always FALSE.

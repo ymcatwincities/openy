@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_cancelled
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_clnt_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_data
     - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_date
@@ -20,6 +21,15 @@ targetEntityType: personify_mindbody_cache
 bundle: personify_mindbody_cache
 mode: default
 content:
+  field_pmc_cancelled:
+    weight: 12
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_pmc_clnt_data:
     weight: 1
     label: above
