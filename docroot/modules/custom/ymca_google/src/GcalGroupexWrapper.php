@@ -14,6 +14,11 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
 
   /**
+   * Entity type ID.
+   */
+  const ENTITY_TYPE = 'groupex_google_cache';
+
+  /**
    * The name of key to store schedule.
    */
   const SCHEDULE_KEY = 'ymca_google_syncer_schedule';
@@ -48,6 +53,13 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    * @var array
    */
   protected $sourceData = [];
+
+  /**
+   * Raw ICS data.
+   *
+   * @var array
+   */
+  protected $icsData = [];
 
   /**
    * Prepared data for proxy system.
@@ -106,6 +118,20 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    */
   public function getSourceData() {
     return $this->sourceData;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIcsData(array $data) {
+    $this->icsData = $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIcsData() {
+    return $this->icsData;
   }
 
   /**
