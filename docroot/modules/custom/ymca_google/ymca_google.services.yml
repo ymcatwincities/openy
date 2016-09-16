@@ -18,7 +18,7 @@ services:
       debug: false
   ymca_google.drupal_proxy:
     class: Drupal\ymca_google\DrupalProxy
-    arguments: ['@ymca_google.groupex_wrapper', '@entity.query', '@logger.factory', '@ymca_google.data_fetcher', '@plugin.manager.gcal_updater']
+    arguments: ['@ymca_google.groupex_wrapper', '@entity.query', '@logger.channel.ymca_google', '@ymca_google.data_fetcher', '@plugin.manager.gcal_updater', '@entity_type.manager']
   ymca_google.syncer:
     class: Drupal\ymca_sync\Syncer
     arguments: ['@ymca_google.groupex_wrapper']

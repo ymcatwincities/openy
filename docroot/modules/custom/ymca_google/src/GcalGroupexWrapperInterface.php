@@ -42,6 +42,19 @@ interface GcalGroupexWrapperInterface {
   public function setSourceData(array $data);
 
   /**
+   * Set ICS data.
+   *
+   * @param array $data
+   *   ICS Data.
+   */
+  public function setIcsData(array $data);
+
+  /**
+   * Get ICS data.
+   */
+  public function getIcsData();
+
+  /**
    * Set time frame.
    *
    * @param array $frame
