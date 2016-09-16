@@ -176,6 +176,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               $product_location_ids[$product_code_array[0]] = $product_code_array[0];
             }
           }
+          ksort($products_to_display_member);
+          ksort($products_to_display_non_member);
           if (isset($products_to_display_member[30])) {
             asort($products_to_display_member[30]);
           }
@@ -244,6 +246,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                   ];
                 }
               }
+              ksort($products_to_display_member);
+              ksort($products_to_display_non_member);
               if (isset($products_to_display_member[30])) {
                 asort($products_to_display_member[30]);
               }
