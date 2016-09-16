@@ -23,6 +23,10 @@ drush cset ymca_google.settings is_production 1
 ymca_sync_run("ymca_google.syncer", "proceed");
 ```
 
+```
+drush php-eval "ymca_sync_run('ymca_google.syncer', 'proceed');"
+```
+
 ### How to rebuild the schedule
 
 ```
