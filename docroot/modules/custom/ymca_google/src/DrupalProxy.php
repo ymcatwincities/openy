@@ -8,6 +8,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
  * Class DrupalProxy.
@@ -195,6 +196,8 @@ class DrupalProxy implements DrupalProxyInterface {
    * Process ICS data.
    */
   protected function processIcsData() {
+    $field_map = $this->dataWrapper->getFieldMappingIcs();
+
     foreach ($this->dataWrapper->getIcsData() as $item) {
       // Try to find existing item.
       $existing = $this->findByGroupexId($item->id);
@@ -202,11 +205,12 @@ class DrupalProxy implements DrupalProxyInterface {
         // Create new entity.
         $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
         $values = [];
-        foreach ($this->dataWrapper->getFieldMappingIcs() as $field_name => $property) {
+        foreach ($field_map as $field_name => $property) {
           $values[$field_name] = $item->$property;
         }
         $entity = $storage->create($values);
         $entity->setName($item->title . ' [' . $item->id . ']');
+        $entity->set('field_gg_class_id', $item->id);
         $entity->save();
 
         $msg = 'Entity %id has been created with ICS data';
@@ -218,8 +222,12 @@ class DrupalProxy implements DrupalProxyInterface {
         );
       }
       else {
-        // Update existing entity.
-        foreach ($this->dataWrapper->getFieldMappingIcs() as $field_name => $property) {
+        // Update existing entity if it differs.
+        if (FALSE === $this->isDifferent($field_map, $existing, $item)) {
+          continue;
+        }
+
+        foreach ($field_map as $field_name => $property) {
           if (!empty($property)) {
             $existing->set($field_name, $item->$property);
           }
@@ -236,6 +244,30 @@ class DrupalProxy implements DrupalProxyInterface {
         );
       }
     }
+  }
+
+  /**
+   * Check whether saved entity differs from class object (by fields).
+   *
+   * @param array $map
+   *   The map of field names and properties to compare.
+   * @param GroupexGoogleCacheInterface $entity
+   *   Entity.
+   * @param \stdClass $class
+   *   Groupex class.
+   *
+   * @return bool
+   *   True if if the entity differs from class.
+   */
+  protected function isDifferent(array $map, GroupexGoogleCacheInterface $entity, \stdClass $class) {
+    foreach ($map as $field_name => $property) {
+      $entity_value = $entity->{$field_name}->value;
+      $groupex_value = $class->{$property};
+      if (strcmp($entity_value, $groupex_value) !== 0) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**
