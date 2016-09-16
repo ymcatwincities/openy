@@ -295,6 +295,10 @@ function ymca_alters_entity_view_alter(array &$build, EntityInterface $entity, E
  * Implements hook_page_attachments_alter().
  */
 function ymca_alters_page_attachments_alter(array &$attachments) {
+  if (!array_key_exists('html_head_link', $attachments['#attached'])) {
+    return;
+  }
+
   // Array to unset.
   $unset_html_head_link = [
     'delete-form',

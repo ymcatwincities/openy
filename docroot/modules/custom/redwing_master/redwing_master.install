@@ -188,3 +188,13 @@ function redwing_master_update_8008() {
     ]
   );
 }
+
+/**
+ * Sets the iframe height.
+ */
+function redwing_master_update_8009() {
+  $node = Node::load(4201);
+  $node->field_content->format = 'full_html';
+  $node->field_content->value = '<iframe frameborder="0" class="no-resize" src="http://www.activelifeadmin.com/redwing/websearch/public" style="width:100%; height:1900px"></iframe>';
+  $node->save();
+}
