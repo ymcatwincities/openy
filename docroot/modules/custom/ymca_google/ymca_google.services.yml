@@ -4,7 +4,7 @@ services:
     arguments: ['gcal_groupex']
   ymca_google.ics_fetcher:
     class: Drupal\ymca_google\IcsFetcher
-    arguments: ['@ymca_google.groupex_wrapper', '@logger.channel.ymca_google', '@http_client']
+    arguments: ['@ymca_google.groupex_wrapper', '@logger.channel.ymca_google', '@http_client', '@ymca_mappings.location_repository']
   ymca_google.pusher:
     class: Drupal\ymca_google\GooglePush
     arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.factory', '@entity_type.manager', '@ymca_google.drupal_proxy', '@entity.query']
