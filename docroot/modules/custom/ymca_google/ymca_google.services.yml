@@ -25,3 +25,6 @@ services:
   plugin.manager.gcal_updater:
     class: Drupal\ymca_google\GCalUpdaterManager
     arguments: ['@container.namespaces', '@cache.default', '@module_handler']
+  ymca_google.test_manager:
+    class: Drupal\ymca_google\YmcaGoogleTestManager
+    arguments: ['@config.factory']
