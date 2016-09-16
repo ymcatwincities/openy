@@ -44,3 +44,10 @@ retention-campaign:
     - core/jquery.once
     - core/drupal
     - core/drupalSettings
+
+admin-side:
+  version: VERSION
+  js:
+    scripts/admin-side.js: {}
+  dependencies:
+    - color/drupal.color
