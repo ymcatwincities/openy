@@ -1,4 +1,10 @@
 services:
+  logger.channel.ymca_google:
+    parent: logger.channel_base
+    arguments: ['gcal_groupex']
+  ymca_google.ics_fetcher:
+    class: Drupal\ymca_google\IcsFetcher
+    arguments: ['@ymca_google.groupex_wrapper', '@logger.channel.ymca_google', '@http_client']
   ymca_google.pusher:
     class: Drupal\ymca_google\GooglePush
     arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.factory', '@entity_type.manager', '@ymca_google.drupal_proxy', '@entity.query']
@@ -17,6 +23,7 @@ services:
     class: Drupal\ymca_sync\Syncer
     arguments: ['@ymca_google.groupex_wrapper']
     calls:
+      - [addStep, ['@ymca_google.ics_fetcher', 'fetch']]
       - [addStep, ['@ymca_google.data_fetcher', 'fetch']]
       - [addStep, ['@ymca_google.drupal_proxy', 'saveEntities']]
       - [addStep, ['@ymca_google.pusher', 'proceed']]
