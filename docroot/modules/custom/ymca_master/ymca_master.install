@@ -4279,6 +4279,8 @@ function ymca_master_update_8185() {
       YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_rec.yml',
       YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_sd.yml',
       YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_title.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_loc_id.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_parent_ref.yml',
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_category.yml',
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_desc.yml',
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_ed.yml',
@@ -4288,6 +4290,8 @@ function ymca_master_update_8185() {
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_rec.yml',
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_sd.yml',
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_title.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_loc_id.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_parent_ref.yml',
       YGTC_CONFDIR . 'views.view.ggcache.yml',
     ]
   );

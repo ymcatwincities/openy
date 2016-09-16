@@ -1,0 +1,26 @@
+uuid: 32305fb1-5521-45e8-b4bf-8f8ba6864e7e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_parent_ref
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_parent_ref
+field_name: field_gg_parent_ref
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Parent Entity'
+description: 'Parent entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:groupex_google_cache'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference
