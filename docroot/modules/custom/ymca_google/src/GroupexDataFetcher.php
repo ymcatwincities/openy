@@ -52,8 +52,8 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
         'schedule' => TRUE,
         'desc' => 'true',
         'start' => $start,
-        'end' => $end
-      ]
+        'end' => $end,
+      ],
     ];
     $data = $this->request($options);
     if ($data) {
@@ -114,7 +114,7 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
     $options = [
       'query' => [
         'description' => TRUE,
-        'id' => $id
+        'id' => $id,
       ],
     ];
 
