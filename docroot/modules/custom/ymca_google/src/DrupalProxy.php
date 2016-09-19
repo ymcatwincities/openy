@@ -2,12 +2,13 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
  * Class DrupalProxy.
@@ -15,6 +16,11 @@ use Drupal\ymca_groupex\GroupexRequestTrait;
  * @package Drupal\ymca_groupex
  */
 class DrupalProxy implements DrupalProxyInterface {
+
+  /**
+   * Max allowed updates per run.
+   */
+  const PROXY_UDATE_PER_RUN = 100;
 
   /**
    * Data wrapper.
@@ -59,25 +65,35 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $pluginManager;
 
   /**
+   * Entity type manager.
+   *
+   * @var EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * DrupalProxy constructor.
    *
    * @param GcalGroupexWrapper $data_wrapper
    *   Data wrapper.
    * @param QueryFactory $query_factory
    *   Query factory.
-   * @param LoggerChannelFactory $logger
+   * @param LoggerChannelInterface $logger
    *   Logger factory.
    * @param GroupexDataFetcher $fetcher
    *   Groupex data fetcher.
    * @param GCalUpdaterManager $plugin_manager
    *   The manager for updater plugins.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager) {
+  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelInterface $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager, EntityTypeManagerInterface $entity_type_manager) {
     $this->dataWrapper = $data_wrapper;
     $this->queryFactory = $query_factory;
-    $this->logger = $logger->get('gcal_groupex');
+    $this->logger = $logger;
     $this->fetcher = $fetcher;
     $this->pluginManager = $plugin_manager;
+    $this->entityTypeManager = $entity_type_manager;
 
     $this->timezone = new \DateTimeZone('America/Chicago');
   }
@@ -86,6 +102,14 @@ class DrupalProxy implements DrupalProxyInterface {
    * {@inheritdoc}
    */
   public function saveEntities() {
+    $this->processIcsData();
+    $this->processSchedulesData();
+  }
+
+  /**
+   * Process schedules data.
+   */
+  protected function processSchedulesData() {
     $frame = $this->dataWrapper->getTimeFrame();
     $entities = [
       'insert' => [],
@@ -171,6 +195,96 @@ class DrupalProxy implements DrupalProxyInterface {
     }
 
     $this->dataWrapper->setProxyData($entities);
+  }
+
+  /**
+   * Process ICS data.
+   */
+  protected function processIcsData() {
+    $field_map = $this->dataWrapper->getFieldMappingIcs();
+
+    $updated_items = 0;
+    $max_updated_items = $this->dataWrapper->settings->get('proxy_update_per_run') ?: self::PROXY_UDATE_PER_RUN;
+
+    $updated_items_ids = [];
+    $created_items_ids = [];
+
+    foreach ($this->dataWrapper->getIcsData() as $item) {
+      // Do not process huge amount of data.
+      if ($updated_items >= $max_updated_items) {
+        $this->logger->info('Proxy. Max number of updated items reached.');
+        break;
+      }
+
+      // Try to find existing item.
+      $existing = $this->findByGroupexId($item->id);
+      if (!$existing) {
+        $updated_items++;
+
+        // Create new entity.
+        $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
+        $values = [];
+        foreach ($field_map as $field_name => $property) {
+          $values[$field_name] = $item->$property;
+        }
+        $entity = $storage->create($values);
+        $entity->setName($item->title . ' [' . $item->id . ']');
+        $entity->set('field_gg_class_id', $item->id);
+        $entity->save();
+
+        $created_items_ids[] = $entity->id();
+      }
+      else {
+        // Update existing entity if it differs.
+        if (FALSE === $this->isDifferent($field_map, $existing, $item)) {
+          continue;
+        }
+
+        foreach ($field_map as $field_name => $property) {
+          if (!empty($property)) {
+            $existing->set($field_name, $item->$property);
+          }
+        }
+
+        $existing->save();
+
+        $updated_items_ids[] = $existing->id();
+        $updated_items++;
+      }
+    }
+
+    $msg = 'Proxy. Updated items: %updated, created: %created.';
+    $this->logger->info(
+      $msg,
+      [
+        '%updated' => implode(', ', $updated_items_ids),
+        '%created' => implode(', ', $created_items_ids),
+      ]
+    );
+  }
+
+  /**
+   * Check whether saved entity differs from class object (by fields).
+   *
+   * @param array $map
+   *   The map of field names and properties to compare.
+   * @param GroupexGoogleCacheInterface $entity
+   *   Entity.
+   * @param \stdClass $class
+   *   Groupex class.
+   *
+   * @return bool
+   *   True if if the entity differs from class.
+   */
+  protected function isDifferent(array $map, GroupexGoogleCacheInterface $entity, \stdClass $class) {
+    foreach ($map as $field_name => $property) {
+      $entity_value = $entity->{$field_name}->value;
+      $groupex_value = $class->{$property};
+      if (strcmp($entity_value, $groupex_value) !== 0) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**
@@ -279,7 +393,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @param string $id
    *   Groupex class ID.
    *
-   * @return GroupexGoogleCache
+   * @return GroupexGoogleCache|bool
    *   Entity.
    */
   public function findByGroupexId($id) {
