@@ -55,7 +55,7 @@ class YmcaGoogleTestManager {
     $credentials = [
       'access_token' => 'ya29.Ci9gAxqHAW93rkhgijkbl2WGyiPMkG0qkg9zdIKPUPs3-6xA6DNj_GGuGc3nRI6J_g',
       'token_type' => 'Bearer',
-      'expires_in' => 3600000000,
+      'expires_in' => 3600,
       'refresh_token' => '1\/aB0qDMS7jwSjatLHPkDp0cP22WyHhz7khuIGtErA85Q',
       'created' => 1474014070,
     ];
