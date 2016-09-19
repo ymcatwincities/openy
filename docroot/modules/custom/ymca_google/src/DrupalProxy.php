@@ -18,6 +18,11 @@ use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 class DrupalProxy implements DrupalProxyInterface {
 
   /**
+   * Max allowed updates per run.
+   */
+  const PROXY_UDATE_PER_RUN = 100;
+
+  /**
    * Data wrapper.
    *
    * @var GcalGroupexWrapper
@@ -198,10 +203,24 @@ class DrupalProxy implements DrupalProxyInterface {
   protected function processIcsData() {
     $field_map = $this->dataWrapper->getFieldMappingIcs();
 
+    $updated_items = 0;
+    $max_updated_items = $this->dataWrapper->settings->get('proxy_update_per_run') ?: self::PROXY_UDATE_PER_RUN;
+
+    $updated_items_ids = [];
+    $created_items_ids = [];
+
     foreach ($this->dataWrapper->getIcsData() as $item) {
+      // Do not process huge amount of data.
+      if ($updated_items >= $max_updated_items) {
+        $this->logger->info('Proxy. Max number of updated items reached.');
+        break;
+      }
+
       // Try to find existing item.
       $existing = $this->findByGroupexId($item->id);
       if (!$existing) {
+        $updated_items++;
+
         // Create new entity.
         $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
         $values = [];
@@ -213,13 +232,7 @@ class DrupalProxy implements DrupalProxyInterface {
         $entity->set('field_gg_class_id', $item->id);
         $entity->save();
 
-        $msg = 'Entity %id has been created with ICS data';
-        $this->logger->info(
-          $msg,
-          [
-            '%id' => $entity->id(),
-          ]
-        );
+        $created_items_ids[] = $entity->id();
       }
       else {
         // Update existing entity if it differs.
@@ -235,15 +248,19 @@ class DrupalProxy implements DrupalProxyInterface {
 
         $existing->save();
 
-        $msg = 'Entity %id has been updated with ICS data';
-        $this->logger->info(
-          $msg,
-          [
-            '%id' => $existing->id(),
-          ]
-        );
+        $updated_items_ids[] = $existing->id();
+        $updated_items++;
       }
     }
+
+    $msg = 'Proxy. Updated items: %updated, created: %created.';
+    $this->logger->info(
+      $msg,
+      [
+        '%updated' => implode(', ', $updated_items_ids),
+        '%created' => implode(', ', $created_items_ids),
+      ]
+    );
   }
 
   /**

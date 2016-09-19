@@ -70,14 +70,20 @@ class LocationMappingRepository {
     }
 
     $ids = [];
-    $entities = Mapping::loadMultiple($mapping_ids);
-    foreach ($entities as $entity) {
-      $field_id = $entity->get('field_groupex_id');
-      if ($field_id->isEmpty()) {
-        continue;
-      }
-      if ($id = $field_id->get(0)->value) {
-        $ids[] = $id;
+
+    // Let's save some memory.
+    $chunk_size = 100;
+    $chunks = array_chunk($mapping_ids, $chunk_size);
+    foreach ($chunks as $chunk) {
+      $entities = Mapping::loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $field_id = $entity->get('field_groupex_id');
+        if ($field_id->isEmpty()) {
+          continue;
+        }
+        if ($id = $field_id->get(0)->value) {
+          $ids[] = $id;
+        }
       }
     }
 
