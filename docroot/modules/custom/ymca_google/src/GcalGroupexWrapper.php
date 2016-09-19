@@ -2,9 +2,9 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
 
 /**
  * Class GcalGroupexWrapper.
@@ -85,9 +85,16 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * Logger channel.
    *
-   * @var LoggerChannelInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
+
+  /**
+   * The settings.
+   *
+   * @var ImmutableConfig
+   */
+  public $settings;
 
   /**
    * GcalGroupexWrapper constructor.
@@ -96,10 +103,13 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *   State.
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The logger factory.
+   * @param ImmutableConfig $settings
+   *   The settings.
    */
-  public function __construct(StateInterface $state, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(StateInterface $state, LoggerChannelFactoryInterface $logger_factory, ImmutableConfig $settings) {
     $this->state = $state;
     $this->logger = $logger_factory->get(self::LOGGER_CHANNEL);
+    $this->settings = $settings;
 
   }
 

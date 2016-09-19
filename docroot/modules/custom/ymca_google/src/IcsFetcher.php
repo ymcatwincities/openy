@@ -75,6 +75,12 @@ class IcsFetcher implements IcsFetcherInterface {
     foreach ($locations as $id) {
       try {
         $response = $this->client->request('GET', self::ICS_API_PATH . '/' . $id);
+        if (200 != $response->getStatusCode()) {
+          $msg = 'Got no 200 response from Groupex ICS API for location %location.';
+          $this->logger->critical($msg, ['%location' => $id]);
+          continue;
+        }
+
         $body = $response->getBody();
         $data = json_decode($body->getContents());
 
