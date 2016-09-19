@@ -23,11 +23,17 @@ use Drupal\ymca_mindbody\YmcaMindbodyResultsSearcherInterface;
 use Drupal\ymca_mindbody\YmcaMindbodyRequestGuard;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\ymca_alters\Utility\YmcaTimezone;
 
 /**
  * Controller for "Mindbody results" page.
  */
 class MindbodyResultsController extends ControllerBase {
+
+  /**
+   * Use YmcaTimezone trait to properly format date/time.
+   */
+  use YmcaTimezone;
 
   /**
    * Session type.
@@ -321,7 +327,7 @@ class MindbodyResultsController extends ControllerBase {
         // Default token for the notification.
         $tokens = [
           'trainer_name' => $booking_data['trainer_name'],
-          'start_date' => $booking_data['start_date'],
+          'start_date' => $this->formatDateTimeString($booking_data['start_date'], 'D, d M Y H:i', 'F d, Y, g:iA'),
           'location' => $location->label(),
           'trainer_email' => $booking_data['trainer_email'],
           'trainer_phone' => $booking_data['trainer_phone'],
