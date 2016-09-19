@@ -367,10 +367,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
             if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
               $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
             }
+            $booked = isset($criteria['bid']) && $id == $criteria['bid'] ? TRUE : FALSE;
 
             $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
               'class' => $class,
-              'book' => $book,
+              'book' => render($book),
+              'booked' => $booked,
             ];
           }
         }
