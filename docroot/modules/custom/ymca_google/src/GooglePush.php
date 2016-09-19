@@ -731,7 +731,14 @@ class GooglePush {
       return $id;
     }
     catch (\Exception $e) {
-      $this->logger->error('Failed to create calendar with name: %name', ['%name' => $name]);
+      $msg = 'Failed to create calendar with name: %name. Error: %error';
+      $this->logger->error(
+        $msg,
+        [
+          '%name' => $name,
+          '%error' => $e->getMessage(),
+        ]
+      );
       return FALSE;
     }
   }
