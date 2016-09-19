@@ -53,11 +53,11 @@ class YmcaGoogleTestManager {
     // Configure token.
     $editable = $this->configFactory->getEditable('ymca_google.token');
     $credentials = [
-      'access_token' => 'ya29.Ci9gAxqHAW93rkhgijkbl2WGyiPMkG0qkg9zdIKPUPs3-6xA6DNj_GGuGc3nRI6J_g',
+      'access_token' => 'ya29.Ci9jA5vt_9118JlGNb3sMqKB8B7170D_q60116RS6Ry9B7UmYJW2N97HxUQwX5rzDA',
       'token_type' => 'Bearer',
       'expires_in' => 3600,
-      'refresh_token' => '1\/aB0qDMS7jwSjatLHPkDp0cP22WyHhz7khuIGtErA85Q',
-      'created' => 1474014070,
+      'refresh_token' => '1\/lFJm_hgMRDvgXr0A8ti3Ji6XekuWliG_OkN3UjqovdA',
+      'created' => 1474275216,
     ];
     $editable->set('credentials', $credentials);
     $editable->save();

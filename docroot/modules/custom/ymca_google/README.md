@@ -7,6 +7,9 @@ Syncs Groupex schedules with Google calendar.
 ```
 \Drupal::service('ymca_google.test_manager')->setTestMode();
 ```
+```
+drush php-eval "\Drupal::service('ymca_google.test_manager')->setTestMode();"
+```
 
 ### How to deploy
 
