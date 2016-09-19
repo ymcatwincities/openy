@@ -1212,10 +1212,13 @@ function ymca_page_attachments_alter(array &$page) {
     }
   }
   if ($styles = ymca_get_theme_styles()) {
-    $page['#attached']['html_head'][] = [[
-      '#tag' => 'style',
-      '#value' => $styles,
-    ]];
+    $page['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => $styles,
+      ],
+      'ymca-styles'
+    ];
   }
 }
 /**
