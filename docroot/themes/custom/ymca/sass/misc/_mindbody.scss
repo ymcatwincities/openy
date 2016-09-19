@@ -828,18 +828,20 @@
             color: $green1;
             font-weight: bold;
             float: right;
+          }
 
-            &.highlight-item {
-              animation-name: example;
-              animation-duration: 2s;
-              animation-delay: 3s;
-              animation-iteration-count: 3;
-              background-color: $green2;
-              color: $grey7;
-              line-height: 24px;
-              margin: 12px 0;
-              padding: 0 3px;
-            }
+          .highlight-item {
+            animation-name: example;
+            animation-duration: 2s;
+            animation-delay: 3s;
+            animation-iteration-count: 3;
+            background-color: $green2;
+            color: $grey7;
+            font-weight: bold;
+            float: right;
+            line-height: 24px;
+            margin: 12px 0;
+            padding: 0 3px;
           }
         }
       }
