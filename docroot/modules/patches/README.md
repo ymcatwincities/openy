@@ -40,3 +40,7 @@ description: Method removing expired drupalSettings.ajax tries to remove setting
 patch: docroot/modules/patches/fix_add_remove-2692397-8.patch
 drupal.org issue: https://www.drupal.org/node/2692397
 description: Adding/removing variants leaves Page::$variants out of date
+
+patch: docroot/modules/patches/mimemail-render_drush-2801187-3.patch
+drupal.org issue: https://www.drupal.org/node/2801187
+description: The code invoked via Drush has no required context for `render()` method.
