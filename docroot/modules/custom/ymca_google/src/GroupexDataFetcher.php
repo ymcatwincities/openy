@@ -41,6 +41,28 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
    * {@inheritdoc}
    */
   public function fetch(array $args) {
+    // Debug.
+    if (FALSE) {
+      $data = [
+        (object) [
+          'date' => 'Monday, November 14, 2016',
+          'time' => '5:00am-6:00am',
+          'title' => 'Defend Together',
+          'studio' => 'AC',
+          'category' => 'Cardio',
+          'instructor' => 'Kala B',
+          'original_instructor' => 'Kala B',
+          'sub_instructor' => '',
+          'length' => '60',
+          'location' => 'Lino Lakes',
+          'id' => '145945',
+          'desc' => '<p>Here long description...</p>',
+        ],
+      ];
+      $this->dataWrapper->setSourceData($data);
+      return;
+    }
+
     $schedule = $this->dataWrapper->getSchedule();
 
     $start = $schedule['steps'][$schedule['current']]['start'];
