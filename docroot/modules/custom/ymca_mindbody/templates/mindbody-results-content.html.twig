@@ -49,11 +49,7 @@
               <div class="available">{{ 'Is Available:'|t }}</div>
               <div class="slots">
                 {% for key, slot in trainer %}
-                  {% if slot.booked %}
-                    <div class="slot">{{ slot.class }} <span class="highlight-item">{{ 'Book'|t }}</span></div>
-                  {% else %}
-                    <div class="slot">{{ slot.class }} {{ slot.book }}</div>
-                  {% endif %}
+                  <div class="slot">{{ slot.class }} {{ slot.book }}</div>
                 {% endfor %}
               </div>
             </div>
