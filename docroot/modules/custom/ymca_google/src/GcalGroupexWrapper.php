@@ -279,4 +279,43 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     ];
   }
 
+  /**
+   * Return field mappings for Schedules.
+   *
+   * @return array
+   *   Mappings.
+   */
+  public function getFieldMappingSchedules() {
+    return [
+      'field_gg_category' => 'category',
+      'field_gg_class_id' => 'id',
+      'field_gg_date_str' => 'date',
+      'field_gg_description' => 'desc',
+      'field_gg_instructor' => 'instructor',
+      'field_gg_location' => 'location',
+      'field_gg_orig_instructor' => 'original_instructor',
+      'field_gg_studio' => 'studio',
+      'field_gg_sub_instructor' => 'sub_instructor',
+      'field_gg_time' => 'time',
+      'field_gg_title' => 'title',
+      'field_gg_length' => 'length',
+    ];
+  }
+
+  /**
+   * Log cache guard warning.
+   *
+   * @param array $args
+   *   Array with arguments.
+   */
+  public function logCacheGuard($args) {
+    $msg = 'The size of the DB is larger than %sizeM.';
+    $this->logger->critical(
+      $msg,
+      [
+        '%size' => $args['threshold'],
+      ]
+    );
+  }
+
 }
