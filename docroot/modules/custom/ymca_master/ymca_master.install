@@ -4301,6 +4301,7 @@ function ymca_master_update_8185() {
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_date_str.yml',
       YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_hash_full.yml',
       YGTC_CONFDIR . 'views.view.ggcache.yml',
+      YGTC_CONFDIR . 'cache_size_guard.settings.yml',
       YGTC_CONFDIR . 'ymca_google.settings.yml',
     ]
   );
