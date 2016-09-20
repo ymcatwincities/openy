@@ -302,4 +302,20 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     ];
   }
 
+  /**
+   * Log cache guard warning.
+   *
+   * @param array $args
+   *   Array with arguments.
+   */
+  public function logCacheGuard($args) {
+    $msg = 'The size of the DB is larger than %sizeM.';
+    $this->logger->critical(
+      $msg,
+      [
+        '%size' => $args['threshold'],
+      ]
+    );
+  }
+
 }

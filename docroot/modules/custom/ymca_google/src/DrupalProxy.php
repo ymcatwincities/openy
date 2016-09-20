@@ -29,6 +29,11 @@ class DrupalProxy implements DrupalProxyInterface {
   const MAX_CHILD_WARNING = 100;
 
   /**
+   * Entity load chunk.
+   */
+  const ENTITY_LOAD_CHUNK = 100;
+
+  /**
    * Data wrapper.
    *
    * @var GcalGroupexWrapper
@@ -614,7 +619,7 @@ class DrupalProxy implements DrupalProxyInterface {
       $data = [];
 
       // Load entities in the safe way.
-      $chunks = array_chunk($result, 100);
+      $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
       foreach ($chunks as $chunk) {
         foreach ($this->cacheStorage->loadMultiple($chunk) as $entity) {
           $data[] = [
