@@ -4,3 +4,6 @@ view API Test trainer:
 access Personal Training forms:
   title: View Personal Training forms content
   description: Set this to allow users view Personal Training forms.
+book personal training time slots:
+  title: Book Personal Training Time Slots:
+  description: Set this to allow users to book personal training time slots.

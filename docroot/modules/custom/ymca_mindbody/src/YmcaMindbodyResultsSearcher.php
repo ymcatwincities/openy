@@ -362,16 +362,19 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
               '@to' => date('h:i a', $item->add($interval)->getTimestamp()),
             ]);
 
-            // Add link only for not excluded items.
-            $book = '';
-            if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
-              $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
-            }
+            // Adds the booking link if it is allowed.
+            if ($this->accountProxy->getAccount()->hasPermission('book personal training time slots')) {
+              // Add link only for not excluded items.
+              $book = '';
+              if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
+                $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
+              }
 
-            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-              'class' => $class,
-              'book' => $book,
-            ];
+              $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+                'class' => $class,
+                'book' => $book,
+              ];
+            }
           }
         }
       }
