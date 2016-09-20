@@ -65,6 +65,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   const KEY_VALUE_EXPIRE = 86400;
 
   /**
+   * Permission to Book Personal Training Time Slots.
+   */
+  const BOOK_PERMISSION = 'book personal training time slots';
+
+  /**
    * The Config Factory definition.
    *
    * @var ConfigFactory
@@ -364,7 +369,10 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
 
             // Add link only for not excluded items.
             $book = '';
-            if (!in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)) {
+            if (
+              $this->accountProxy->getAccount()->hasPermission(static::BOOK_PERMISSION)
+              && !in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)
+            ) {
               $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
             }
 
