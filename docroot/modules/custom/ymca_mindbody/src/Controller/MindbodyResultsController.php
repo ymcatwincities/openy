@@ -3,6 +3,7 @@
 namespace Drupal\ymca_mindbody\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Config\ConfigFactory;
@@ -312,7 +313,9 @@ class MindbodyResultsController extends ControllerBase {
     // OK.
     if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
       $message = $this->t('Your appointment is confirmed.');
-
+      // Disable link if booked.
+      $booked = '<span class="highlight-item">' . t('Book') . '</span>';
+      $response->addCommand(new ReplaceCommand('#bookable-item-' . $query['bid'], $booked));
       // Send email notification if we have proper booking data.
       $storage = $this->keyValueExpirable->get(YmcaMindbodyResultsSearcher::KEY_VALUE_COLLECTION);
       if ($booking_data = $storage->get($query['token'])) {
