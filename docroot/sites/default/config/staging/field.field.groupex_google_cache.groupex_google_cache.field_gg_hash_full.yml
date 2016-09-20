@@ -1,0 +1,20 @@
+uuid: f2649c04-d086-4ac8-9164-72cf25fd78d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_hash_full
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_hash_full
+field_name: field_gg_hash_full
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Class Object Hash (Full)'
+description: 'MD5 hash of full class object.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

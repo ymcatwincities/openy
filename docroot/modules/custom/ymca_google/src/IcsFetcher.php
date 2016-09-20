@@ -60,7 +60,7 @@ class IcsFetcher implements IcsFetcherInterface {
    */
   public function __construct(GcalGroupexWrapperInterface $wrapper, LoggerChannelInterface $logger, Client $client, LocationMappingRepository $location_repository) {
     $this->wrapper = $wrapper;
-    $this->looger = $logger;
+    $this->logger = $logger;
     $this->client = $client;
     $this->locationRepository = $location_repository;
   }
@@ -69,6 +69,29 @@ class IcsFetcher implements IcsFetcherInterface {
    * {@inheritdoc}
    */
   public function fetch(array $args) {
+    // Debug.
+    if (FALSE) {
+      $data = [
+        (object) [
+          'id' => '145945',
+          'category' => 'Strength',
+          'location' => 'Andover',
+          'title' => 'BodyPumpÂ®',
+          'description' => 'Here long description...',
+          'post_date' => '2012-09-05 09:41:09',
+          'start_date' => '2012-09-10 08:20:00',
+          'end_date' => '2012-09-10 09:20:00',
+          'recurring' => 'weekly',
+          'parent_id' => '',
+          'instructor' => 'Rick Santiago',
+          'location_id' => '26',
+        ],
+      ];
+
+      $this->wrapper->setIcsData($data);
+      return;
+    }
+
     $locations = $this->locationRepository->loadAllGroupexIds();
     $classes = [];
 
