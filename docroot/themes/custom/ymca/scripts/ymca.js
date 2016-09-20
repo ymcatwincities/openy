@@ -1,5 +1,28 @@
 (function ($) {
   var ymca_theme_semaphore = false;
+
+  /**
+   * Scroll to the hash anchor.
+   */
+  Drupal.behaviors.ymca_page_with_hash = {
+    attached: false,
+    attach: function (context, settings) {
+      var hash = $(window).attr('location').hash;
+      if (hash && !this.attached) {
+        window.setTimeout(function() {
+          var menuHeight = $('.top-navs').height();
+          if (menuHeight == 0) {
+            // For mobile state.
+            menuHeight = $('.nav-global').height();
+          }
+          var yOffset = $(hash).offset().top - menuHeight - 10;
+          $(document).scrollTop(yOffset);
+        }, 1000);
+        this.attached = true;
+      }
+    }
+  };
+
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
       
