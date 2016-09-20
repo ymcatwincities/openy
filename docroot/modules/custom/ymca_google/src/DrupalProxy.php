@@ -2,12 +2,14 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Component\Utility\SortArray;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
  * Class DrupalProxy.
@@ -15,6 +17,21 @@ use Drupal\ymca_groupex\GroupexRequestTrait;
  * @package Drupal\ymca_groupex
  */
 class DrupalProxy implements DrupalProxyInterface {
+
+  /**
+   * Max allowed updates per run.
+   */
+  const PROXY_UPDATE_PER_RUN = 100;
+
+  /**
+   * Max children for single parent entity.
+   */
+  const MAX_CHILD_WARNING = 100;
+
+  /**
+   * Entity load chunk.
+   */
+  const ENTITY_LOAD_CHUNK = 100;
 
   /**
    * Data wrapper.
@@ -59,33 +76,69 @@ class DrupalProxy implements DrupalProxyInterface {
   protected $pluginManager;
 
   /**
+   * Entity type manager.
+   *
+   * @var EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The cache storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $cacheStorage;
+
+  /**
    * DrupalProxy constructor.
    *
    * @param GcalGroupexWrapper $data_wrapper
    *   Data wrapper.
    * @param QueryFactory $query_factory
    *   Query factory.
-   * @param LoggerChannelFactory $logger
+   * @param LoggerChannelInterface $logger
    *   Logger factory.
    * @param GroupexDataFetcher $fetcher
    *   Groupex data fetcher.
    * @param GCalUpdaterManager $plugin_manager
    *   The manager for updater plugins.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelFactory $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager) {
+  public function __construct(GcalGroupexWrapper $data_wrapper, QueryFactory $query_factory, LoggerChannelInterface $logger, GroupexDataFetcher $fetcher, GCalUpdaterManager $plugin_manager, EntityTypeManagerInterface $entity_type_manager) {
     $this->dataWrapper = $data_wrapper;
     $this->queryFactory = $query_factory;
-    $this->logger = $logger->get('gcal_groupex');
+    $this->logger = $logger;
     $this->fetcher = $fetcher;
     $this->pluginManager = $plugin_manager;
+    $this->entityTypeManager = $entity_type_manager;
 
     $this->timezone = new \DateTimeZone('America/Chicago');
+    $this->cacheStorage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
   }
 
   /**
    * {@inheritdoc}
    */
   public function saveEntities() {
+    $this->processIcsData();
+    $this->processSchedulesData();
+  }
+
+  /**
+   * Process schedules data.
+   */
+  protected function processSchedulesData() {
+    $this->processSchedulesDataCurrent();
+    $this->processSchedulesDataLegacy();
+  }
+
+  /**
+   * Process schedules data.
+   *
+   * Currently is working on production.
+   */
+  protected function processSchedulesDataLegacy() {
     $frame = $this->dataWrapper->getTimeFrame();
     $entities = [
       'insert' => [],
@@ -100,7 +153,7 @@ class DrupalProxy implements DrupalProxyInterface {
       $item->timestamp_end = $timestamps['end'];
 
       // Try to find existing cache item.
-      $existing = $this->findByGroupexId($item->id);
+      $existing = $this->findParentEntityByClassId($item->id);
 
       // Create entity, if ID doesn't exist.
       if (!$existing) {
@@ -166,11 +219,262 @@ class DrupalProxy implements DrupalProxyInterface {
       // Make sure we deleting really deleted event.
       $result = $this->fetcher->getClassById($delete_id);
       if ($result && $result->description == 'No description available.') {
-        $entities['delete'][] = $this->findByGroupexId($delete_id);
+        $entities['delete'][] = $this->findParentEntityByClassId($delete_id);
       }
     }
 
     $this->dataWrapper->setProxyData($entities);
+  }
+
+  /**
+   * Process schedules data.
+   *
+   * Using child items.
+   */
+  protected function processSchedulesDataCurrent() {
+    $field_map_schedules = $this->dataWrapper->getFieldMappingSchedules();
+
+    foreach ($this->dataWrapper->getSourceData() as $class) {
+      // Skip entities which we have been already processed.
+      if ($this->isFullHashExists($this->getClassFullHash($class))) {
+        continue;
+      }
+
+      // Get base entity ID.
+      $parent = $this->findParentEntityByClassId($class->id);
+      if (!$parent) {
+        $this->logger->error(
+          'Parent entity for class ID %id was not found.',
+          [
+            '%id' => $class->id,
+          ]
+        );
+        continue;
+      }
+
+      $children = $this->findChildren($parent->id());
+      if (!$children) {
+        // No children found. Create one.
+        $this->createChildCacheItem($class);
+      }
+      else {
+        if (count($children) > self::MAX_CHILD_WARNING) {
+          $msg = 'Got more than %count of children for parent entity with ID %id.';
+          $this->logger->warning(
+            $msg,
+            [
+              '%count' => self::MAX_CHILD_WARNING,
+              '%id' => $parent->id(),
+            ]
+          );
+        }
+
+        // Compare our class with children.
+        // Note. We'll compare all properties except date.
+        $compare_map = $field_map_schedules;
+        unset($compare_map['field_gg_date_str']);
+
+        foreach ($children as $child_id) {
+          $child = $this->cacheStorage->load($child_id);
+          if (!$this->isDifferent($compare_map, $child, $class)) {
+            $this->updateWeight($child);
+            continue 2;
+          }
+        }
+
+        // No equal entities were found. Creating new one.
+        $this->createChildCacheItem($class);
+      }
+    }
+  }
+
+  /**
+   * Process ICS data.
+   */
+  protected function processIcsData() {
+    $field_map = $this->dataWrapper->getFieldMappingIcs();
+
+    $updated_items = 0;
+    $max_updated_items = $this->dataWrapper->settings->get('proxy_update_per_run') ?: self::PROXY_UPDATE_PER_RUN;
+
+    $updated_items_ids = [];
+    $created_items_ids = [];
+
+    foreach ($this->dataWrapper->getIcsData() as $item) {
+      // Do not process huge amount of data.
+      if ($updated_items >= $max_updated_items) {
+        $this->logger->info('Proxy. Max number of updated items reached.');
+        break;
+      }
+
+      // Try to find existing item.
+      $existing = $this->findParentEntityByClassId($item->id);
+      if (!$existing) {
+        $updated_items++;
+
+        // Create new entity.
+        $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
+        $values = [];
+        foreach ($field_map as $field_name => $property) {
+          $values[$field_name] = $item->$property;
+        }
+        $entity = $storage->create($values);
+        $entity->setName($item->title . ' [' . $item->id . ']');
+        $entity->set('field_gg_class_id', $item->id);
+        $entity->save();
+
+        $created_items_ids[] = $entity->id();
+      }
+      else {
+        // Update existing entity if it differs.
+        if (FALSE === $this->isDifferent($field_map, $existing, $item)) {
+          continue;
+        }
+
+        foreach ($field_map as $field_name => $property) {
+          if (!empty($property)) {
+            $existing->set($field_name, $item->$property);
+          }
+        }
+
+        $existing->save();
+
+        $updated_items_ids[] = $existing->id();
+        $updated_items++;
+      }
+    }
+
+    $msg = 'Proxy. Updated items: %updated, created: %created.';
+    $this->logger->info(
+      $msg,
+      [
+        '%updated' => implode(', ', $updated_items_ids),
+        '%created' => implode(', ', $created_items_ids),
+      ]
+    );
+  }
+
+  /**
+   * Increase weight of a cache entity.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Entity.
+   */
+  protected function updateWeight(GroupexGoogleCacheInterface $entity) {
+    $field = 'field_gg_weight';
+    $current = (int) $entity->$field->value;
+    $entity->set($field, $current + 1);
+    $entity->save();
+  }
+
+  /**
+   * Creates child cache entity.
+   *
+   * @param \stdClass $class
+   *   Groupex class object.
+   *
+   * @return int|bool
+   *   Cache entity ID.
+   */
+  protected function createChildCacheItem(\stdClass $class) {
+    $field_map = $this->dataWrapper->getFieldMappingSchedules();
+    $storage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
+
+    if (!$parent = $this->findParentEntityByClassId($class->id)) {
+      $msg = 'Parent entity was not found for class ID %id';
+      $this->logger->error(
+        $msg,
+        [
+          '%id' => $class->id,
+        ]
+      );
+      return FALSE;
+    }
+
+    $values = [
+      'field_gg_hash_full' => $this->getClassFullHash($class),
+      'field_gg_parent_ref' => $parent->id(),
+      'field_gg_weight' => 1,
+    ];
+
+    foreach ($field_map as $field_name => $property) {
+      $values[$field_name] = $class->$property;
+    }
+
+    try {
+      $entity = $storage->create($values);
+      $entity->setName($class->title . ' [' . $class->id . ']');
+      $entity->save();
+      return $entity->id();
+    }
+    catch (\Exception $e) {
+      $msg = 'Failed to create child cache item for class with ID %id. Error: %error';
+      $this->logger->error(
+        $msg,
+        [
+          '%id' => $class->id,
+          '%error' => $e->getMessage(),
+        ]
+      );
+      return FALSE;
+    }
+  }
+
+  /**
+   * Get class full hash.
+   *
+   * @param \stdClass $class
+   *   Class object.
+   *
+   * @return string
+   *   Hash.
+   */
+  protected function getClassFullHash(\stdClass $class) {
+    return md5(serialize($class));
+  }
+
+  /**
+   * Check whether full class hash exists.
+   *
+   * @param string $hash
+   *   Hash string.
+   *
+   * @return bool
+   *   True if the hash exists.
+   */
+  protected function isFullHashExists($hash) {
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_hash_full', $hash)
+      ->execute();
+    if (!empty($result)) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Check whether saved entity differs from class object (by fields).
+   *
+   * @param array $map
+   *   The map of field names and properties to compare.
+   * @param GroupexGoogleCacheInterface $entity
+   *   Entity.
+   * @param \stdClass $class
+   *   Groupex class.
+   *
+   * @return bool
+   *   True if if the entity differs from class.
+   */
+  protected function isDifferent(array $map, GroupexGoogleCacheInterface $entity, \stdClass $class) {
+    foreach ($map as $field_name => $property) {
+      $entity_value = $entity->{$field_name}->value;
+      $groupex_value = $class->{$property};
+      if (strcmp($entity_value, $groupex_value) !== 0) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**
@@ -274,23 +578,70 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
-   * Find cache item by Groupex class ID.
+   * Find base cache item by Groupex class ID.
    *
    * @param string $id
-   *   Groupex class ID.
+   *   Class ID.
    *
-   * @return GroupexGoogleCache
-   *   Entity.
+   * @return GroupexGoogleCacheInterface|bool
+   *   Cache entity or FALSE.
    */
-  public function findByGroupexId($id) {
+  protected function findParentEntityByClassId($id) {
     $result = $this->queryFactory->get('groupex_google_cache')
       ->condition('field_gg_class_id', $id)
+      ->notExists('field_gg_parent_ref')
       ->execute();
     if (!empty($result)) {
       return GroupexGoogleCache::load(reset($result));
     }
 
     return FALSE;
+  }
+
+  /**
+   * Find all children by parent entity ID & sort by weight in reverse order.
+   *
+   * @param string $id
+   *   Class ID.
+   *
+   * @return array
+   *   List of child IDs. The bigger weight is higher.
+   */
+  protected function findChildren($id) {
+    $ids = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_parent_ref.target_id', $id)
+      ->execute();
+
+    if (!empty($result)) {
+      // Get weights in order to sort.
+      $data = [];
+
+      // Load entities in the safe way.
+      $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+      foreach ($chunks as $chunk) {
+        foreach ($this->cacheStorage->loadMultiple($chunk) as $entity) {
+          $data[] = [
+            'id' => $entity->id(),
+            'weight' => $entity->field_gg_weight->value,
+          ];
+        }
+      }
+
+      // Sort by weight in reverse order.
+      usort(
+        $data,
+        function ($a, $b) {
+          return SortArray::sortByWeightElement($b, $a);
+        }
+      );
+
+      // Extract IDs only.
+      $ids = array_column($data, 'id');
+    }
+
+    return $ids;
   }
 
   /**

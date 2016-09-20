@@ -7,6 +7,9 @@ Syncs Groupex schedules with Google calendar.
 ```
 \Drupal::service('ymca_google.test_manager')->setTestMode();
 ```
+```
+drush php-eval "\Drupal::service('ymca_google.test_manager')->setTestMode();"
+```
 
 ### How to deploy
 
@@ -21,6 +24,10 @@ drush cset ymca_google.settings is_production 1
 
 ```
 ymca_sync_run("ymca_google.syncer", "proceed");
+```
+
+```
+drush php-eval "ymca_sync_run('ymca_google.syncer', 'proceed');"
 ```
 
 ### How to rebuild the schedule
