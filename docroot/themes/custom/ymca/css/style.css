@@ -9076,13 +9076,15 @@ body .ajax-progress-throbber .throbber {
   font-weight: bold;
   float: right;
 }
-.mindbody-search-results-content .day .group-by-date .slots .slot a.highlight-item {
+.mindbody-search-results-content .day .group-by-date .slots .slot .highlight-item {
   animation-name: example;
   animation-duration: 2s;
   animation-delay: 3s;
   animation-iteration-count: 3;
   background-color: #bde6e6;
   color: #424242;
+  font-weight: bold;
+  float: right;
   line-height: 24px;
   margin: 12px 0;
   padding: 0 3px;
