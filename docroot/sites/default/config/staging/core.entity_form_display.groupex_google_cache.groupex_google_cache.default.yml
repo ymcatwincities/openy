@@ -6,21 +6,26 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_category
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_class_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_date
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_date_str
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_description
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_hash_full
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_category
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_desc
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_ed
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_inst
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_loc_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_par
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_pd
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_rec
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_sd
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_title
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_length
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_parent_ref
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_studio
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_sub_instructor
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_time
@@ -29,6 +34,7 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_title
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_weight
   module:
     - ymca_groupex_google_cache
 id: groupex_google_cache.groupex_google_cache.default
@@ -57,6 +63,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_date_str:
+    weight: 44
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_gg_description:
     weight: 15
     settings:
@@ -78,6 +91,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+  field_gg_hash_full:
+    weight: 45
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_gg_ics_category:
     weight: 30
     settings:
@@ -106,6 +126,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_ics_loc_id:
+    weight: 40
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
   field_gg_ics_par:
     weight: 38
     settings:
@@ -148,6 +174,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_length:
+    weight: 43
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_gg_location:
     weight: 17
     settings:
@@ -162,6 +195,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_parent_ref:
+    weight: 41
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_gg_studio:
     weight: 19
     settings:
@@ -214,6 +255,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_weight:
+    weight: 42
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
   langcode:
     type: language_select
     weight: 10
