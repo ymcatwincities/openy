@@ -1,0 +1,20 @@
+uuid: 4bef3a88-92ea-4dcd-9a07-7295d822777a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_date_str
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_date_str
+field_name: field_gg_date_str
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Class Date (string)'
+description: 'Class date as string.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

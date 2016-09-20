@@ -6,21 +6,26 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_category
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_class_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_date
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_date_str
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_description
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_gcal_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_google_event
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_hash_full
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_category
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_desc
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_ed
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_inst
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_loc_id
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_par
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_pd
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_rec
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_sd
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_title
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_length
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_parent_ref
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_studio
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_sub_instructor
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_time
@@ -29,6 +34,7 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_title
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_weight
   module:
     - user
     - ymca_groupex_google_cache
@@ -58,6 +64,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_date_str:
+    weight: 34
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_gg_description:
     weight: 5
     label: above
@@ -77,6 +90,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_gg_hash_full:
+    weight: 35
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_gg_ics_category:
     weight: 20
     label: above
@@ -104,6 +124,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_ics_loc_id:
+    weight: 30
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   field_gg_ics_par:
     weight: 28
     label: above
@@ -146,6 +174,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_length:
+    weight: 33
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_gg_location:
     weight: 7
     label: above
@@ -160,6 +195,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_parent_ref:
+    weight: 31
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_gg_studio:
     weight: 9
     label: above
@@ -220,6 +262,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_weight:
+    weight: 32
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   name:
     label: above
     type: string
