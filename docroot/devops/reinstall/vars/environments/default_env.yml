@@ -32,7 +32,7 @@ env:
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('ymca_site_verify.settings', 'staging');\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('environment_config.handler')->setActiveConfig('google_tag.settings', 'staging');\"" }
     # Set calendar syncer to test mode.
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::service('ymca_google.test_manager')->setTestMode();\"" }
+    - { name: 'config-set', status: true, arguments: "ymca_google.settings is_production 0" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: true, value: '{{ origin_site_url }}' }

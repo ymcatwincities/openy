@@ -129,8 +129,17 @@ class DrupalProxy implements DrupalProxyInterface {
    * Process schedules data.
    */
   protected function processSchedulesData() {
-    $this->processSchedulesDataCurrent();
-    $this->processSchedulesDataLegacy();
+    $api_version = $this->dataWrapper->settings->get('api_version') ?: GcalGroupexWrapper::CURRENT_API_VERSION;
+    switch ($api_version) {
+      case 1:
+        $this->processSchedulesDataLegacy();
+        break;
+
+      case 2:
+        $this->processSchedulesDataCurrent();
+        break;
+
+    }
   }
 
   /**
