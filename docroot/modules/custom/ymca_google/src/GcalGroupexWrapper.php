@@ -14,11 +14,6 @@ use Drupal\Core\State\StateInterface;
 class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
 
   /**
-   * Current API version.
-   */
-  const CURRENT_API_VERSION = 2;
-
-  /**
    * Entity type ID.
    */
   const ENTITY_TYPE = 'groupex_google_cache';
