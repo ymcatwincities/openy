@@ -160,8 +160,9 @@ class GooglePush {
         $this->proceedLegacy();
         break;
 
-      default:
+      case 2:
         $this->proceedCurrent();
+        break;
 
     }
   }
