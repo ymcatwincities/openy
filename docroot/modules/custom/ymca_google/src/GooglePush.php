@@ -118,6 +118,13 @@ class GooglePush {
   protected $isProduction;
 
   /**
+   * The entity storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $cacheStorage;
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -129,7 +136,7 @@ class GooglePush {
    * @param EntityTypeManager $entity_type_manager
    *   Entity type manager.
    * @param DrupalProxy $proxy
-   *   Proxy.
+   *   The Proxy.
    * @param QueryFactory $query
    *   Query factory.
    */
@@ -143,6 +150,7 @@ class GooglePush {
     $this->query = $query;
 
     $this->isProduction = $this->configFactory->get('ymca_google.settings')->get('is_production');
+    $this->cacheStorage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
 
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
@@ -380,7 +388,86 @@ class GooglePush {
    * Current version of proceed().
    */
   protected function proceedCurrent() {
-    $this->logger->info('Yay! API 2 is here!');
+    $data = $this->dataWrapper->getProxyData();
+
+    // @todo Get all types of reccurencies from ICS data.
+
+    // Insert.
+    foreach ($data['insert'] as $item) {
+      // @todo Get the most weighted child for the item and get it's info.
+      // @todo Get recurrency from the item and create Google entity.
+      // @todo Push event to google and save it's GCAL and UTC timestamp to entity.
+
+      // The first one is the most weighted.
+      $children = $this->proxy->findChildren($item->id());
+      $weighted = $this->cacheStorage->load($children[0]);
+
+      $fields = (object) [
+        'summary' => 'Example summary',
+        'location' => 'Location',
+        'description' => 'Description...',
+      ];
+
+      $event_object = $this->prepareEvent($fields);
+
+      // @todo TEST ONLY ON TESTING CAL.
+      // Examples:
+//      $event = $this->calService->events->insert($cal_id, $event_object);
+//      $id = $event->getId();
+      //$events = $this->calService->events->instances($cal_id, $event_id);
+
+//      $timeMin = '2016-09-29T09:00:00.000-07:00';
+//      $timeMax = '2016-09-29T14:00:00.000-07:00';
+//
+//      $opts = [
+//        'timeMin' => $timeMin,
+//        'timeMax' => $timeMax,
+//      ];
+//      $events = $this->calService->events->instances($cal_id, $event_id, $opts);
+//      $instance = $events->getItems()[0];
+
+      //    $event_id = 'e3c5a0d8k6mkao6ns9p2mt3vkc_20160929T170000Z';
+//    $event = $this->calService->events->get($cal_id, $event_id);
+    }
+
+    // Update.
+    foreach ($data['update'] as $item) {
+      // @todo Get all children that were not pushed to Google.
+      // @todo. Make sure that recurency of Google event is the same with item recurrency.
+      // @todo. Foreach each child and get appropriate instance.
+      // @todo. Update each instance with new data and save gcal ids and timestamps to child items.
+    }
+
+    // Delete.
+    foreach ($data['delete'] as $item) {
+      // @todo If item has gcal_id delete the event from Google.
+      // @todo If deletion went well delete the parent item and all children.
+    }
+  }
+
+  /**
+   * Example mock.
+   *
+   * POC.
+   */
+  protected function prepareEvent(\stdClass $eventData) {
+    $event = new \Google_Service_Calendar_Event();
+
+    $event->setSummary($eventData->summary);
+    $event->setLocation($eventData->location);
+    $event->setDescription($eventData->description);
+
+    $start = new \Google_Service_Calendar_EventDateTime();
+    $start->setDateTime('2016-09-22T10:00:00.000-07:00');
+    $start->setTimeZone('America/Los_Angeles');
+    $event->setStart($start);
+
+    $end = new \Google_Service_Calendar_EventDateTime();
+    $end->setDateTime('2016-09-22T10:25:00.000-07:00');
+    $end->setTimeZone('America/Los_Angeles');
+    $event->setEnd($end);
+
+    $event->setRecurrence(['RRULE:FREQ=WEEKLY']);
   }
 
   /**

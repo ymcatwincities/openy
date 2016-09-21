@@ -742,7 +742,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @return array
    *   List of child IDs. The bigger weight is higher.
    */
-  protected function findChildren($id) {
+  public function findChildren($id) {
     $ids = [];
 
     $result = $this->queryFactory->get('groupex_google_cache')
