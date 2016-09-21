@@ -5,6 +5,7 @@ namespace Drupal\ymca_google;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
  * Class GcalGroupexWrapper.
@@ -161,6 +162,15 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * {@inheritdoc}
    */
+  public function appendProxyItem($op, GroupexGoogleCacheInterface $entity) {
+    $data = $this->getProxyData();
+    $data[$op][$entity->id()] = $entity;
+    $this->setProxyData($data);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setTimeFrame(array $frame) {
     $this->timeFrame = $frame;
   }
@@ -309,6 +319,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *   Array with arguments.
    */
   public function logCacheGuard($args) {
+    // @todo Remove stale entities.
     $msg = 'The size of the DB is larger than %sizeM.';
     $this->logger->critical(
       $msg,
