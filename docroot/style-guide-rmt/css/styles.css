@@ -475,8 +475,8 @@ a img {
 /* style component header */
 .header-wrapper {
   margin: 0 auto;
-  max-width: 600px;
   min-width: 65%;
+  max-width: 600px;
   padding-bottom: 28px;
   padding-top: 33px;
   padding-left: 10px;
@@ -501,8 +501,9 @@ a img {
   .header-wrapper .site-logo {
     padding-right: 0; }
   .header-wrapper .main-menu {
-    vertical-align: bottom;
-    text-align: right; }
+    vertical-align: bottom; }
+    .header-wrapper .main-menu td {
+      padding: 0 30px; }
 
 .header__item {
   padding: 10px 0;
