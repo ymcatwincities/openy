@@ -380,7 +380,7 @@ class GooglePush {
    * Current version of proceed().
    */
   protected function proceedCurrent() {
-
+    $this->logger->info('Yay! API 2 is here!');
   }
 
   /**
