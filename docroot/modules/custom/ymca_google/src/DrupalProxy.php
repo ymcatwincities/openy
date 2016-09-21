@@ -265,7 +265,6 @@ class DrupalProxy implements DrupalProxyInterface {
       if (!$children) {
         // No children found. Create one.
         $this->createChildCacheItem($class);
-        $this->dataWrapper->appendProxyItem('update', $parent);
       }
       else {
         if (count($children) > self::MAX_CHILD_WARNING) {
@@ -294,8 +293,14 @@ class DrupalProxy implements DrupalProxyInterface {
 
         // No equal entities were found. Creating new one.
         $this->createChildCacheItem($class);
-        $this->dataWrapper->appendProxyItem('update', $parent);
       }
+    }
+
+    // Find all child entities without GCal ID.
+    // Their parents should be passed to update.
+    $updated = $this->findUpdatedScheduleItems();
+    foreach ($updated as $entity) {
+      $this->dataWrapper->appendProxyItem('update', $entity);
     }
   }
 
@@ -335,7 +340,6 @@ class DrupalProxy implements DrupalProxyInterface {
         $entity->save();
 
         $created_items_ids[] = $entity->id();
-        $this->dataWrapper->appendProxyItem('insert', $entity);
       }
       else {
         // Update existing entity if it differs.
@@ -350,10 +354,8 @@ class DrupalProxy implements DrupalProxyInterface {
         }
 
         $existing->save();
-
         $updated_items_ids[] = $existing->id();
         $updated_items++;
-        $this->dataWrapper->appendProxyItem('update', $existing);
       }
     }
 
@@ -366,11 +368,79 @@ class DrupalProxy implements DrupalProxyInterface {
       ]
     );
 
+    // Process created items.
+    $created = $this->findCreatedIcsItems();
+    foreach ($created as $entity) {
+      $this->dataWrapper->appendProxyItem('insert', $entity);
+    }
+
     // Process deleted items.
     $deleted = $this->findDeletedIcsItems();
     foreach ($deleted as $entity) {
       $this->dataWrapper->appendProxyItem('delete', $entity);
     }
+
+  }
+
+  /**
+   * Find parents of not pushed children.
+   *
+   * @return array
+   *   List of parent entities.
+   */
+  protected function findUpdatedScheduleItems() {
+    $updated = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->exists('field_gg_parent_ref')
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $parent_id = $entity->field_gg_parent_ref->target_id;
+        if (!array_key_exists($parent_id, $updated)) {
+          $updated[$parent_id] = $this->cacheStorage->load($parent_id);
+        }
+      }
+    }
+
+    return $updated;
+  }
+
+  /**
+   * Find created ICS items.
+   *
+   * @return array
+   *   List of created entities.
+   */
+  protected function findCreatedIcsItems() {
+    $created = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->notExists('field_gg_parent_ref')
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $created[] = $entity;
+      }
+    }
+
+    return $created;
   }
 
   /**
@@ -389,7 +459,6 @@ class DrupalProxy implements DrupalProxyInterface {
       return [];
     }
 
-    // Find all parent entities.
     $result = $this->queryFactory->get('groupex_google_cache')
       ->notExists('field_gg_parent_ref')
       ->execute();
