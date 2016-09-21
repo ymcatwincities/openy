@@ -20,7 +20,7 @@
             // Destop mode.
             $(document).scrollTop(top - 113);
           }
-        }, 100);
+        }, 1000);
         this.attached = true;
       }
     }
