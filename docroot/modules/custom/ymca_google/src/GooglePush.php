@@ -154,15 +154,14 @@ class GooglePush {
    * Proceed all events collected by add methods.
    */
   public function proceed() {
-    $api_version = $this->dataWrapper->settings->get('api_version') ?: GcalGroupexWrapper::CURRENT_API_VERSION;
+    $api_version = $this->dataWrapper->settings->get('api_version');
     switch ($api_version) {
       case 1:
         $this->proceedLegacy();
         break;
 
-      case 2:
+      default:
         $this->proceedCurrent();
-        break;
 
     }
   }
