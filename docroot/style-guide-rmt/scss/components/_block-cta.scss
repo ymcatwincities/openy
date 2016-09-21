@@ -5,6 +5,14 @@
 
   .padding {
     padding: 0 5px;
+
+    &.first {
+      padding-left: 0;
+    }
+
+    &.last {
+      padding-right: 0;
+    }
   }
 
   .border-bottom {
@@ -13,6 +21,7 @@
 
   &__content {
     padding-bottom: 24px;
+    color: #777;
   }
 
   &__title {
