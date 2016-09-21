@@ -154,6 +154,23 @@ class GooglePush {
    * Proceed all events collected by add methods.
    */
   public function proceed() {
+    $api_version = $this->dataWrapper->settings->get('api_version');
+    switch ($api_version) {
+      case 1:
+        $this->proceedLegacy();
+        break;
+
+      case 2:
+        $this->proceedCurrent();
+        break;
+
+    }
+  }
+
+  /**
+   * Legacy version of proceed().
+   */
+  protected function proceedLegacy() {
     $data = $this->dataWrapper->getProxyData();
 
     foreach ($data as $op => $entities) {
@@ -175,7 +192,7 @@ class GooglePush {
 
         $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
         if (!$gcal_id) {
-          // Failed to get calendar ID. All errors are logged. Continue with next event.
+          // Failed to get calendar ID. Continue with next event.
           continue;
         }
 
@@ -222,7 +239,7 @@ class GooglePush {
                   [
                     '%op' => $op,
                     '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-                    '%message' => $e->getMessage()
+                    '%message' => $e->getMessage(),
                   ]
                 );
                 $this->logStats($op, $processed);
@@ -275,7 +292,7 @@ class GooglePush {
                   [
                     '%op' => $op,
                     '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-                    '%message' => $e->getMessage()
+                    '%message' => $e->getMessage(),
                   ]
                 );
                 $this->logStats($op, $processed);
@@ -330,7 +347,7 @@ class GooglePush {
                   [
                     '%op' => $op,
                     '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-                    '%message' => $e->getMessage()
+                    '%message' => $e->getMessage(),
                   ]
                 );
                 $this->logStats($op, $processed);
@@ -357,6 +374,13 @@ class GooglePush {
     // Mark this step as done in the schedule.
     $this->dataWrapper->next();
 
+  }
+
+  /**
+   * Current version of proceed().
+   */
+  protected function proceedCurrent() {
+    $this->logger->info('Yay! API 2 is here!');
   }
 
   /**
@@ -447,7 +471,7 @@ class GooglePush {
    * @param GroupexGoogleCache $entity
    *   Entity.
    *
-   * @return \Google_Service_Calendar_Event
+   * @return \Google_Service_Calendar_Event|bool
    *   Event.
    */
   private function drupalEntityToGcalEvent(GroupexGoogleCache $entity) {
@@ -555,7 +579,7 @@ class GooglePush {
         $dates[] = $date_time->setTimestamp($timestamp_item)->format(self::RRULE_DATE);
       }
 
-      // Loop over the each single week and check if the date exists in the event.
+      // Loop over the each single week and check if date exists in the event.
       $exclude = [];
       $current = $start_date_time->getTimestamp();
       while ($current <= $until_date_time->getTimestamp()) {
@@ -615,7 +639,7 @@ class GooglePush {
   /**
    * Return raw list of calendars (except primary).
    *
-   * @return array
+   * @return array|bool
    *   Array of Gcal list entries.
    */
   public function getRawCalendars() {
@@ -703,7 +727,7 @@ class GooglePush {
         $this->logger->error($message,
           [
             '%id' => $id,
-            '%msg' => $e->getMessage()
+            '%msg' => $e->getMessage(),
           ]
         );
       }

@@ -34,6 +34,7 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_title
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ts_utc
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_weight
   module:
     - user
@@ -262,6 +263,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gg_ts_utc:
+    weight: 36
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   field_gg_weight:
     weight: 32
     label: above

@@ -34,6 +34,7 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_end
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_timestamp_start
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_title
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_ts_utc
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_weight
   module:
     - ymca_groupex_google_cache
@@ -255,6 +256,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_ts_utc:
+    weight: 46
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
   field_gg_weight:
     weight: 42
     settings:
