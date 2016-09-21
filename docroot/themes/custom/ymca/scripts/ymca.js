@@ -11,13 +11,16 @@
       if (hash && !this.attached) {
         window.setTimeout(function() {
           var menuHeight = $('.top-navs').height();
-          if (menuHeight == 0) {
+          var top = $(hash).offset().top;
+          if ($('.top-navs').height() == 0) {
             // For mobile state.
-            menuHeight = $('.nav-global').height();
+            $(document).scrollTop(top - 52);
           }
-          var yOffset = $(hash).offset().top - menuHeight - 10;
-          $(document).scrollTop(yOffset);
-        }, 1000);
+          else {
+            // Destop mode.
+            $(document).scrollTop(top - 113);
+          }
+        }, 100);
         this.attached = true;
       }
     }
