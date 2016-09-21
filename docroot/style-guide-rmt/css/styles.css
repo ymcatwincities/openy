@@ -666,7 +666,7 @@ a img {
   .block-body .block-body__content {
     margin: 0 auto;
     width: 100%;
-    max-width: 570px; }
+    max-width: 610px; }
     .block-body .block-body__content table {
       margin: 0 auto; }
   .block-body tr, .block-body td {
@@ -719,6 +719,10 @@ a img {
   width: 100%; }
   .block-cta .padding {
     padding: 0 5px; }
+    .block-cta .padding.first {
+      padding-left: 0; }
+    .block-cta .padding.last {
+      padding-right: 0; }
   .block-cta .border-bottom {
     border-bottom: 15px solid transparent; }
   .block-cta__content {
