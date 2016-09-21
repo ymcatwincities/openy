@@ -2,6 +2,7 @@ is_production: 0
 application_name: "groupx-to-gcal-sync"
 calendar_id: "primary"
 proxy_update_per_run: 250
+api_version: 2
 auth_config:
   installed:
     client_id: "998573300936-4j41694p09k82j20clovck0d7r79q2s1.apps.googleusercontent.com"

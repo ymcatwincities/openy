@@ -1,6 +1,8 @@
 <?php
 
 namespace Drupal\ymca_google;
+use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
  * Interface GcalGroupexWrapperInterface.
@@ -24,6 +26,16 @@ interface GcalGroupexWrapperInterface {
    *   Proxy data.
    */
   public function setProxyData(array $data);
+
+  /**
+   * Append item to proxy data.
+   *
+   * @param string $op
+   *   Operation: insert, delete, update.
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Entity.
+   */
+  public function appendProxyItem($op, GroupexGoogleCacheInterface $entity);
 
   /**
    * Get array of source data.

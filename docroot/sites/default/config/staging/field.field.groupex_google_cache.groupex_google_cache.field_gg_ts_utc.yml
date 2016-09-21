@@ -1,0 +1,24 @@
+uuid: 8cc074c1-938f-47aa-a4b9-08b138bed7d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_ts_utc
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_ts_utc
+field_name: field_gg_ts_utc
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Timestamp Start (UTC)'
+description: 'Timestamp of event start in UTC.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

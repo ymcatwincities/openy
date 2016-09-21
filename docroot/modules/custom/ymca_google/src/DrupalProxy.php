@@ -129,8 +129,17 @@ class DrupalProxy implements DrupalProxyInterface {
    * Process schedules data.
    */
   protected function processSchedulesData() {
-    $this->processSchedulesDataCurrent();
-    $this->processSchedulesDataLegacy();
+    $api_version = $this->dataWrapper->settings->get('api_version');
+    switch ($api_version) {
+      case 1:
+        $this->processSchedulesDataLegacy();
+        break;
+
+      case 2:
+        $this->processSchedulesDataCurrent();
+        break;
+
+    }
   }
 
   /**
@@ -256,6 +265,7 @@ class DrupalProxy implements DrupalProxyInterface {
       if (!$children) {
         // No children found. Create one.
         $this->createChildCacheItem($class);
+        $this->dataWrapper->appendProxyItem('update', $parent);
       }
       else {
         if (count($children) > self::MAX_CHILD_WARNING) {
@@ -284,6 +294,7 @@ class DrupalProxy implements DrupalProxyInterface {
 
         // No equal entities were found. Creating new one.
         $this->createChildCacheItem($class);
+        $this->dataWrapper->appendProxyItem('update', $parent);
       }
     }
   }
@@ -324,6 +335,7 @@ class DrupalProxy implements DrupalProxyInterface {
         $entity->save();
 
         $created_items_ids[] = $entity->id();
+        $this->dataWrapper->appendProxyItem('insert', $entity);
       }
       else {
         // Update existing entity if it differs.
@@ -341,6 +353,7 @@ class DrupalProxy implements DrupalProxyInterface {
 
         $updated_items_ids[] = $existing->id();
         $updated_items++;
+        $this->dataWrapper->appendProxyItem('update', $existing);
       }
     }
 
@@ -352,6 +365,59 @@ class DrupalProxy implements DrupalProxyInterface {
         '%created' => implode(', ', $created_items_ids),
       ]
     );
+
+    // Process deleted items.
+    $deleted = $this->findDeletedIcsItems();
+    foreach ($deleted as $entity) {
+      $this->dataWrapper->appendProxyItem('delete', $entity);
+    }
+  }
+
+  /**
+   * Find items deleted from ICS.
+   *
+   * @return array
+   *   The list of parent entities which are not exist in ICS.
+   */
+  protected function findDeletedIcsItems() {
+    $deleted = [];
+
+    $ics_data = $this->dataWrapper->getIcsData();
+
+    // Do not process empty data. That means something with ICS API.
+    if (empty($ics_data)) {
+      return [];
+    }
+
+    // Find all parent entities.
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->notExists('field_gg_parent_ref')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    // Check if each local parent entity exists in the ICS data.
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $found = FALSE;
+        foreach ($ics_data as $ics_item) {
+          if ($ics_item->id == $entity->field_gg_class_id->value) {
+            $found = TRUE;
+            break;
+          }
+        }
+
+        if (FALSE === $found) {
+          $deleted[] = $entity;
+        }
+      }
+    }
+
+    return $deleted;
   }
 
   /**
