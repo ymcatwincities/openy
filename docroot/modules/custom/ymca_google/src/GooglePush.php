@@ -394,6 +394,10 @@ class GooglePush {
     // Insert.
     foreach ($data['insert'] as $entity) {
       $event = $this->createEvent($entity);
+      if ($event === FALSE) {
+        // No children, skip for now.
+        continue;
+      }
       $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
 
       try {
@@ -422,6 +426,7 @@ class GooglePush {
               '%op' => 'insert',
             ]
           );
+          // @todo fix logger arguments.
           $this->logStats($op, $processed);
           if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
             // Rate limit exceeded, retry. @todo limit number of retries.
@@ -443,11 +448,72 @@ class GooglePush {
     }
 
     // Update.
-    foreach ($data['update'] as $item) {
+    Timer::start('update');
+    $processed['update'] = 0;
+    foreach ($data['update'] as $entity) {
       // @todo Get all children that were not pushed to Google.
-      // @todo. Make sure that recurency of Google event is the same with item recurrency.
+      $i = 0;
+      $event = $this->createEvent($entity);
+      if ($event === FALSE) {
+        // No children, skip for now.
+        continue;
+      }
+      $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
+      // @todo. Make sure that recurrence of Google event is the same with item recurrence.
       // @todo. Foreach each child and get appropriate instance.
       // @todo. Update each instance with new data and save gcal ids and timestamps to child items.
+      try {
+        $updated = $this->calEvents->update(
+          $gcal_id,
+          $entity->field_gg_gcal_id->value,
+          $event
+        );
+
+        $processed['update']++;
+
+        // Saving updated entity only when it was pushed successfully.
+        $entity->set('field_gg_google_event', serialize($updated));
+        $entity->save();
+      }
+      catch (\Google_Service_Exception $e) {
+        if ($e->getCode() == 403) {
+          $message = 'Google_Service_Exception [%op]: %message';
+          $this->logger->error(
+            $message,
+            [
+              '%message' => $e->getMessage(),
+              '%op' => 'update',
+            ]
+          );
+          $this->logStats('update', $processed);
+          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+            // Rate limit exceeded, retry. @todo limit number of retries.
+            return;
+          }
+        }
+        else {
+          // @todo Probably we are trying to update deleted event. Should be marked to be inserted.
+          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+          $this->loggerFactory->get('GroupX_CM')->error(
+            $message,
+            [
+              '%op' => 'update',
+              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+              '%message' => $e->getMessage(),
+            ]
+          );
+          $this->logStats('update', $processed);
+        }
+
+      }
+      catch (\Exception $e) {
+        $msg = '%type : Error while updating event for entity [%id]: %msg';
+        $this->logger->error($msg, [
+          '%type' => get_class($e),
+          '%id' => $entity->id(),
+          '%msg' => $e->getMessage(),
+        ]);
+      }
     }
 
     // Delete.
