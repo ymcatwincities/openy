@@ -1,0 +1,18 @@
+uuid: 86109c07-4453-4f82-b08b-d65aacfe8fee
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.field_gg_need_up
+field_name: field_gg_need_up
+entity_type: groupex_google_cache
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
