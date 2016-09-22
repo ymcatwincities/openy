@@ -500,10 +500,9 @@ a img {
     padding: 0; }
   .header-wrapper .site-logo {
     padding-right: 0; }
-  .header-wrapper .main-menu {
-    vertical-align: bottom; }
-    .header-wrapper .main-menu td {
-      padding: 0 30px; }
+  .header-wrapper .main-menu td,
+  .header-wrapper .site-name {
+    padding: 0 30px; }
 
 .header__item {
   padding: 10px 0;
