@@ -376,8 +376,11 @@ class DrupalProxy implements DrupalProxyInterface {
 
     // Process deleted items.
     $deleted = $this->findDeletedIcsItems();
-    foreach ($deleted as $entity) {
-      $this->dataWrapper->appendProxyItem('delete', $entity);
+    // @todo Analyze the process of deleting.
+    if (count($deleted) < 10) {
+      foreach ($deleted as $entity) {
+        $this->dataWrapper->appendProxyItem('delete', $entity);
+      }
     }
 
   }
@@ -458,6 +461,8 @@ class DrupalProxy implements DrupalProxyInterface {
     if (empty($ics_data)) {
       return [];
     }
+
+    // @todo If ICS entity doesn't exist but exists within schedules do not delete it.
 
     $result = $this->queryFactory->get('groupex_google_cache')
       ->notExists('field_gg_parent_ref')
@@ -586,6 +591,34 @@ class DrupalProxy implements DrupalProxyInterface {
     }
 
     return FALSE;
+  }
+
+  /**
+   * Get all available types of recurrence.
+   *
+   * @return array
+   *   Types of recurrence.
+   */
+  public function getRecurrenceTypes() {
+    $types = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->notExists('field_gg_parent_ref')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      foreach ($this->cacheStorage->loadMultiple($chunk) as $entity) {
+        $value = $entity->field_gg_ics_rec->value ?: 'NONE';
+        $types[] = $value;
+      }
+    }
+
+    return array_count_values($types);
   }
 
   /**
