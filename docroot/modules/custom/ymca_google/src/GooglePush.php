@@ -494,6 +494,7 @@ class GooglePush {
         }
         else {
           // @todo Probably we are trying to update deleted event. Should be marked to be inserted.
+          // @todo 404 error needs to be catched.
           $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
           $this->loggerFactory->get('GroupX_CM')->error(
             $message,
