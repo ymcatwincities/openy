@@ -10,6 +10,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 
 /**
  * Class GooglePush.
@@ -118,6 +119,13 @@ class GooglePush {
   protected $isProduction;
 
   /**
+   * The entity storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $cacheStorage;
+
+  /**
    * GooglePush constructor.
    *
    * @param GcalGroupexWrapperInterface $data_wrapper
@@ -129,7 +137,7 @@ class GooglePush {
    * @param EntityTypeManager $entity_type_manager
    *   Entity type manager.
    * @param DrupalProxy $proxy
-   *   Proxy.
+   *   The Proxy.
    * @param QueryFactory $query
    *   Query factory.
    */
@@ -143,6 +151,7 @@ class GooglePush {
     $this->query = $query;
 
     $this->isProduction = $this->configFactory->get('ymca_google.settings')->get('is_production');
+    $this->cacheStorage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
 
     // Get the API client and construct the service object.
     $this->googleClient = $this->getClient();
@@ -380,7 +389,193 @@ class GooglePush {
    * Current version of proceed().
    */
   protected function proceedCurrent() {
-    $this->logger->info('Yay! API 2 is here!');
+    $data = $this->dataWrapper->getProxyData();
+
+    // Insert.
+    foreach ($data['insert'] as $entity) {
+      $event = $this->createEvent($entity);
+      $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
+
+      try {
+        $created = $this->calEvents->insert($gcal_id, $event);
+        $entity->set('field_gg_gcal_id', $created->getId());
+        $entity->set('field_gg_need_up', FALSE);
+        // @todo save event start timestamp to field_gg_ts_utc (in UTC).
+        $entity->save();
+
+        $msg = 'Gcal event %gcal_id created from parent entity %parent_id.';
+        $this->logger->info(
+          $msg,
+          [
+            '%gcal_id' => $created->getId(),
+            '%parent_id' => $entity->id(),
+          ]
+        );
+      }
+      catch (\Google_Service_Exception $e) {
+        if ($e->getCode() == 403) {
+          $message = 'Google_Service_Exception [%op]: %message';
+          $this->logger->error(
+            $message,
+            [
+              '%message' => $e->getMessage(),
+              '%op' => 'insert',
+            ]
+          );
+          $this->logStats($op, $processed);
+          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+            // Rate limit exceeded, retry. @todo limit number of retries.
+            return;
+          }
+        }
+        else {
+          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+          $this->loggerFactory->get('GroupX_CM')->error(
+            $message,
+            [
+              '%op' => 'insert',
+              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+              '%message' => $e->getMessage(),
+            ]
+          );
+        }
+      }
+    }
+
+    // Update.
+    foreach ($data['update'] as $item) {
+      // @todo Get all children that were not pushed to Google.
+      // @todo. Make sure that recurency of Google event is the same with item recurrency.
+      // @todo. Foreach each child and get appropriate instance.
+      // @todo. Update each instance with new data and save gcal ids and timestamps to child items.
+    }
+
+    // Delete.
+    foreach ($data['delete'] as $item) {
+      // @todo If item has gcal_id delete the event from Google.
+      // @todo If deletion went well delete the parent item and all children.
+    }
+  }
+
+  /**
+   * Example for getting all instances of the event.
+   *
+   * @todo Remove it.
+   */
+  private function getAllInstances() {
+    $cal_id = 'Calendar ID';
+    $event_id = 'Parent Event ID';
+    $events = $this->calService->events->instances($cal_id, $event_id);
+  }
+
+  /**
+   * Example for getting all instances of the event with opts.
+   *
+   * @todo Remove it.
+   */
+  private function getAllInstancesOpts() {
+    $cal_id = 'Calendar ID';
+    $event_id = 'Parent Event ID';
+
+    $timeMin = '2016-09-29T09:00:00.000-07:00';
+    $timeMax = '2016-09-29T14:00:00.000-07:00';
+
+    $opts = [
+      'timeMin' => $timeMin,
+      'timeMax' => $timeMax,
+    ];
+
+    $events = $this->calService->events->instances($cal_id, $event_id, $opts);
+  }
+
+  /**
+   * Example for getting instance by time.
+   *
+   * @todo Remove it.
+   */
+  private function getInstance() {
+    $cal_id = 'Calendar ID';
+
+    // Event ID is parent ID + start time of the event.
+    $event_id = 'e3c5a0d8k6mkao6ns9p2mt3vkc_20160929T170000Z';
+
+    $event = $this->calService->events->get($cal_id, $event_id);
+  }
+
+  /**
+   * Prepare event for insert.
+   *
+   * Make sure you use this function only for creating new events.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Parent cache entity.
+   *
+   * @return \Google_Service_Calendar_Event|bool
+   *   Prepared event for pushing.
+   */
+  protected function createEvent(GroupexGoogleCacheInterface $entity) {
+    // Find the most weighted child to use it's data.
+    $children = $this->proxy->findChildren($entity->id());
+
+    if (empty($children)) {
+      return FALSE;
+    }
+
+    $weighted = $this->cacheStorage->load($children[0]);
+
+    $event = new \Google_Service_Calendar_Event();
+
+    $event->setSummary(trim($weighted->field_gg_title->value));
+    $event->setLocation(trim($weighted->field_gg_location->value));
+    $event->setDescription($this->getDescription($weighted));
+
+    // @todo Create proper start time.
+    $start = new \Google_Service_Calendar_EventDateTime();
+    $start->setDateTime('2016-09-22T10:00:00.000-07:00');
+    $start->setTimeZone('America/Los_Angeles');
+    $event->setStart($start);
+
+    // @todo Create proper end time.
+    $end = new \Google_Service_Calendar_EventDateTime();
+    $end->setDateTime('2016-09-22T10:25:00.000-07:00');
+    $end->setTimeZone('America/Los_Angeles');
+    $event->setEnd($end);
+
+    // Available types: weekly, biweekly, NULL.
+    // @todo Check how to set biweekly events.
+    $event->setRecurrence(['RRULE:FREQ=WEEKLY']);
+
+    return $event;
+  }
+
+  /**
+   * Prepares description for the Google vvent.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Cache entity to get basic description.
+   *
+   * @return string
+   *   Description.
+   */
+  protected function getDescription(GroupexGoogleCacheInterface $entity) {
+    // We should prepend description with instructor.
+    $instructor = trim($entity->field_gg_instructor->value);
+
+    // Check whether we have subbed one.
+    $regex = '/<span class=\"subbed\".*><br>(.*)<\/span>/';
+    preg_match($regex, $instructor, $match);
+    if (isset($match[1])) {
+      $instructor = str_replace($match[0], ' ', $instructor);
+      $instructor .= $match[1];
+    }
+
+    // Add instructor to description.
+    $description = 'Instructor: ' . $instructor . "\n\n";
+
+    // Remove garbage.
+    $description .= strip_tags(trim(html_entity_decode($entity->field_gg_description->value)));
+
+    return $description;
   }
 
   /**
