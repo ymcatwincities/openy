@@ -453,7 +453,7 @@ class GooglePush {
     $processed['update'] = 0;
     foreach ($data['update'] as $entity) {
       // @todo Get all children that were not pushed to Google.
-      $i = 0;
+
       $event = $this->createEvent($entity);
       if ($event === FALSE) {
         // No children, skip for now.
