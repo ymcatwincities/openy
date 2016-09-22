@@ -405,7 +405,7 @@ class GooglePush {
       try {
         $created = $this->calEvents->insert($gcal_id, $event);
         $entity->set('field_gg_gcal_id', $created->getId());
-        $entity->set('field_gg_need_up', FALSE);
+        $entity->set('field_gg_need_up', 0);
         // @todo save event start timestamp to field_gg_ts_utc (in UTC).
         $entity->save();
 
