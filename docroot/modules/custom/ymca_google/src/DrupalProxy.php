@@ -265,7 +265,6 @@ class DrupalProxy implements DrupalProxyInterface {
       if (!$children) {
         // No children found. Create one.
         $this->createChildCacheItem($class);
-        $this->dataWrapper->appendProxyItem('update', $parent);
       }
       else {
         if (count($children) > self::MAX_CHILD_WARNING) {
@@ -294,8 +293,14 @@ class DrupalProxy implements DrupalProxyInterface {
 
         // No equal entities were found. Creating new one.
         $this->createChildCacheItem($class);
-        $this->dataWrapper->appendProxyItem('update', $parent);
       }
+    }
+
+    // Find all child entities without GCal ID.
+    // Their parents should be passed to update.
+    $updated = $this->findUpdatedScheduleItems();
+    foreach ($updated as $entity) {
+      $this->dataWrapper->appendProxyItem('update', $entity);
     }
   }
 
@@ -335,7 +340,6 @@ class DrupalProxy implements DrupalProxyInterface {
         $entity->save();
 
         $created_items_ids[] = $entity->id();
-        $this->dataWrapper->appendProxyItem('insert', $entity);
       }
       else {
         // Update existing entity if it differs.
@@ -349,11 +353,11 @@ class DrupalProxy implements DrupalProxyInterface {
           }
         }
 
-        $existing->save();
+        $existing->set('field_gg_need_up', TRUE);
 
+        $existing->save();
         $updated_items_ids[] = $existing->id();
         $updated_items++;
-        $this->dataWrapper->appendProxyItem('update', $existing);
       }
     }
 
@@ -366,11 +370,127 @@ class DrupalProxy implements DrupalProxyInterface {
       ]
     );
 
+    // Process created items.
+    $created = $this->findCreatedIcsItems();
+    foreach ($created as $entity) {
+      $this->dataWrapper->appendProxyItem('insert', $entity);
+    }
+
+    // Process updated items.
+    $updated = $this->findUpdatedIcsItems();
+    foreach ($updated as $entity) {
+      $this->dataWrapper->appendProxyItem('update', $entity);
+    }
+
     // Process deleted items.
     $deleted = $this->findDeletedIcsItems();
-    foreach ($deleted as $entity) {
-      $this->dataWrapper->appendProxyItem('delete', $entity);
+    // @todo Analyze the process of deleting.
+    $delete_count = count($deleted);
+    if ($delete_count < 10) {
+      foreach ($deleted as $entity) {
+        $this->dataWrapper->appendProxyItem('delete', $entity);
+      }
     }
+    else {
+      $msg = 'Too many items %count for deleting. Needs checking.';
+      $this->logger->critical(
+        $msg,
+        [
+          '%count' => $delete_count,
+        ]
+      );
+    }
+
+  }
+
+  /**
+   * Find parents of not pushed children.
+   *
+   * @return array
+   *   List of parent entities.
+   */
+  protected function findUpdatedScheduleItems() {
+    $updated = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->exists('field_gg_parent_ref')
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $parent_id = $entity->field_gg_parent_ref->target_id;
+        if (!array_key_exists($parent_id, $updated)) {
+          $updated[$parent_id] = $this->cacheStorage->load($parent_id);
+        }
+      }
+    }
+
+    return $updated;
+  }
+
+  /**
+   * Find items to be updated.
+   *
+   * @return array
+   *   List of items to be updated.
+   */
+  protected function findUpdatedIcsItems() {
+    $updated = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_need_up', TRUE)
+      ->notExists('field_gg_parent_ref')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $updated[] = $entity;
+      }
+    }
+
+    return $updated;
+  }
+
+  /**
+   * Find created ICS items.
+   *
+   * @return array
+   *   List of created entities.
+   */
+  protected function findCreatedIcsItems() {
+    $created = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->notExists('field_gg_parent_ref')
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $created[] = $entity;
+      }
+    }
+
+    return $created;
   }
 
   /**
@@ -389,7 +509,8 @@ class DrupalProxy implements DrupalProxyInterface {
       return [];
     }
 
-    // Find all parent entities.
+    // @todo If ICS entity doesn't exist but exists within schedules do not delete it.
+
     $result = $this->queryFactory->get('groupex_google_cache')
       ->notExists('field_gg_parent_ref')
       ->execute();
@@ -517,6 +638,34 @@ class DrupalProxy implements DrupalProxyInterface {
     }
 
     return FALSE;
+  }
+
+  /**
+   * Get all available types of recurrence.
+   *
+   * @return array
+   *   Types of recurrence.
+   */
+  public function getRecurrenceTypes() {
+    $types = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->notExists('field_gg_parent_ref')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      foreach ($this->cacheStorage->loadMultiple($chunk) as $entity) {
+        $value = $entity->field_gg_ics_rec->value ?: 'NONE';
+        $types[] = $value;
+      }
+    }
+
+    return array_count_values($types);
   }
 
   /**
@@ -673,7 +822,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @return array
    *   List of child IDs. The bigger weight is higher.
    */
-  protected function findChildren($id) {
+  public function findChildren($id) {
     $ids = [];
 
     $result = $this->queryFactory->get('groupex_google_cache')
