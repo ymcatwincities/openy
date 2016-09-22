@@ -353,6 +353,8 @@ class DrupalProxy implements DrupalProxyInterface {
           }
         }
 
+        $existing->set('field_gg_need_up', TRUE);
+
         $existing->save();
         $updated_items_ids[] = $existing->id();
         $updated_items++;
@@ -372,6 +374,12 @@ class DrupalProxy implements DrupalProxyInterface {
     $created = $this->findCreatedIcsItems();
     foreach ($created as $entity) {
       $this->dataWrapper->appendProxyItem('insert', $entity);
+    }
+
+    // Process updated items.
+    $updated = $this->findUpdatedIcsItems();
+    foreach ($updated as $entity) {
+      $this->dataWrapper->appendProxyItem('update', $entity);
     }
 
     // Process deleted items.
@@ -411,6 +419,35 @@ class DrupalProxy implements DrupalProxyInterface {
         if (!array_key_exists($parent_id, $updated)) {
           $updated[$parent_id] = $this->cacheStorage->load($parent_id);
         }
+      }
+    }
+
+    return $updated;
+  }
+
+  /**
+   * Find items to be updated.
+   *
+   * @return array
+   *   List of items to be updated.
+   */
+  protected function findUpdatedIcsItems() {
+    $updated = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_need_up', TRUE)
+      ->notExists('field_gg_parent_ref')
+      ->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        $updated[] = $entity;
       }
     }
 
