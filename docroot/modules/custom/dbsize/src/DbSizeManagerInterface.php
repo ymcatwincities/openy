@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\dbsize;
+
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 
@@ -13,7 +14,7 @@ interface DbSizeManagerInterface {
    * Get size of the table or tables.
    *
    * @param array $tables
-   *   Table name
+   *   Table name.
    *
    * @return mixed
    *   Table size in bytes.
