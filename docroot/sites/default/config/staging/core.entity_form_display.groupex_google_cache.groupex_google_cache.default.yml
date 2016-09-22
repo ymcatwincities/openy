@@ -24,6 +24,7 @@ dependencies:
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_instructor
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_length
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_location
+    - field.field.groupex_google_cache.groupex_google_cache.field_gg_need_up
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_parent_ref
     - field.field.groupex_google_cache.groupex_google_cache.field_gg_studio
@@ -189,6 +190,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_gg_need_up:
+    weight: 47
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
   field_gg_orig_instructor:
     weight: 28
     settings:
