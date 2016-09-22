@@ -385,10 +385,20 @@ class DrupalProxy implements DrupalProxyInterface {
     // Process deleted items.
     $deleted = $this->findDeletedIcsItems();
     // @todo Analyze the process of deleting.
-    if (count($deleted) < 10) {
+    $delete_count = count($deleted);
+    if ($delete_count < 10) {
       foreach ($deleted as $entity) {
         $this->dataWrapper->appendProxyItem('delete', $entity);
       }
+    }
+    else {
+      $msg = 'Too many items %count for deleting. Needs checking.';
+      $this->logger->critical(
+        $msg,
+        [
+          '%count' => $delete_count,
+        ]
+      );
     }
 
   }
