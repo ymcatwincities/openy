@@ -5,9 +5,11 @@
  * Installation file for the module.
  */
 
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\Entity\Node;
+use Drupal\views\Entity\View;
 
 define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
 
@@ -18,7 +20,6 @@ function redwing_master_update_8001() {
   $installer = \Drupal::service('module_installer');
 
   $installer->uninstall(['ymca_sync']);
-  // $installer->uninstall(['ymca_groupex_google_cache'], TRUE);
   $installer->uninstall(['ymca_groupex'], TRUE);
   $installer->uninstall(['ymca_groupex_form_cache'], TRUE);
   $installer->uninstall(['ymca_google'], TRUE);
@@ -77,7 +78,7 @@ function redwing_master_update_8004() {
       // The field without DB table.
       $corrupted[] = $field->id();
     }
-    catch (\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
+    catch (PluginNotFoundException $e) {
       // The field without entity type (example, comment).
       $corrupted[] = $field->id();
     }
@@ -130,7 +131,7 @@ function redwing_master_update_8005() {
   field_cron();
 
   // Remove needs review view.
-  $view = \Drupal\views\Entity\View::load('needs_review');
+  $view = View::load('needs_review');
   $view->delete();
 
   // Remove modules.

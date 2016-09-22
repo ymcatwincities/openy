@@ -58,8 +58,8 @@ class MappingHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
-          ->setRequirement('_permission', 'view mapping entities')
-          ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view mapping entities')
+        ->setOption('_admin_route', TRUE);
 
       return $route;
     }
@@ -89,13 +89,13 @@ class MappingHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_controller' => 'Drupal\ymca_mappings\Controller\MappingAddController::addForm',
           '_title_callback' => 'Drupal\ymca_mappings\Controller\MappingAddController::getAddFormTitle',
         ])
-          ->setRequirement('_entity_create_access', $entity_type_id . ':{' . $bundle_entity_type_id . '}');
+        ->setRequirement('_entity_create_access', $entity_type_id . ':{' . $bundle_entity_type_id . '}');
 
       $parameters[$bundle_entity_type_id] = ['type' => 'entity:' . $bundle_entity_type_id];
 
       $route
         ->setOption('parameters', $parameters)
-          ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', TRUE);
 
       return $route;
     }
@@ -117,8 +117,8 @@ class MappingHtmlRouteProvider extends AdminHtmlRouteProvider {
         '_controller' => 'Drupal\ymca_mappings\Controller\MappingAddController::add',
         '_title' => "Add {$entity_type->getLabel()}",
       ])
-        ->setRequirement('_entity_create_access', $entity_type->id())
-        ->setOption('_admin_route', TRUE);
+      ->setRequirement('_entity_create_access', $entity_type->id())
+      ->setOption('_admin_route', TRUE);
 
     return $route;
   }
@@ -140,8 +140,8 @@ class MappingHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\ymca_mappings\Form\MappingSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-          ->setRequirement('_permission', $entity_type->getAdminPermission())
-          ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission())
+        ->setOption('_admin_route', TRUE);
 
       return $route;
     }
