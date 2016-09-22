@@ -37,12 +37,9 @@
       padding-right: 0;
     }
 
-    .main-menu {
-      vertical-align: bottom;
-
-      td {
-        padding: 0 30px;
-      }
+    .main-menu td,
+    .site-name {
+      padding: 0 30px;
     }
   }
 
