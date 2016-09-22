@@ -45,7 +45,7 @@ class YmcaMainMenuConfigForm extends ConfigFormBase {
 
     $config_state = $this
       ->getConfig($form_state->getBuildInfo()['args'][0])
-        ->get('items');
+      ->get('items');
 
     $form['menu_items_table'] = [
       '#type' => 'table',
