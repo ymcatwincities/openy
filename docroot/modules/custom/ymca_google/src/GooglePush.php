@@ -392,6 +392,8 @@ class GooglePush {
     $data = $this->dataWrapper->getProxyData();
 
     // Insert.
+    Timer::start('insert');
+    $processed['insert'] = 0;
     foreach ($data['insert'] as $entity) {
       $event = $this->createEvent($entity);
       if ($event === FALSE) {
@@ -426,8 +428,7 @@ class GooglePush {
               '%op' => 'insert',
             ]
           );
-          // @todo fix logger arguments.
-          $this->logStats($op, $processed);
+          $this->logStats('insert', $processed);
           if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
             // Rate limit exceeded, retry. @todo limit number of retries.
             return;
