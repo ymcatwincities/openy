@@ -1,0 +1,20 @@
+uuid: 969faa78-9524-42e4-922d-2598e9ec25dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_ics_sd
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_ics_sd
+field_name: field_gg_ics_sd
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'ICS Start Date'
+description: 'ICS Start Date. Example: 2011-01-07 16:00:00'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

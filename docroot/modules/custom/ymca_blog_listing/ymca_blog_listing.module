@@ -100,14 +100,14 @@ function ymca_blog_listing_preprocess_node(&$variables) {
 
   $query_parent
     ->condition('type', 'blog')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition($condition_news);
+    ->condition('status', NODE_PUBLISHED)
+    ->condition($condition_news);
 
   // Retrieve and sort day posts.
   $query = clone $query_parent;
   $result = $query
     ->condition('field_related_camps_locations.target_id', $nid)
-      ->execute();
+    ->execute();
   $ids['day'] = $load_posts($result);
   usort($ids['day'], $sort_posts);
 
@@ -115,7 +115,7 @@ function ymca_blog_listing_preprocess_node(&$variables) {
   $query = clone $query_parent;
   $result = $query
     ->condition('field_site_section.target_id', $nid)
-      ->execute();
+    ->execute();
   $ids['related'] = $load_posts($result);
   usort($ids['related'], $sort_posts);
 
@@ -124,8 +124,8 @@ function ymca_blog_listing_preprocess_node(&$variables) {
   if ($available_general) {
     $result = $query
       ->notExists('field_site_section')
-        ->notExists('field_related_camps_locations')
-        ->execute();
+      ->notExists('field_related_camps_locations')
+      ->execute();
     $ids['general'] = $load_posts($result);
     usort($ids['general'], $sort_posts);
   }
