@@ -13,4 +13,4 @@ auth_config:
       - 'urn:ietf:wg:oauth:2.0:oob'
       - 'http://localhost'
 is_production: '0'
-api_version: 2
+api_version: 1
