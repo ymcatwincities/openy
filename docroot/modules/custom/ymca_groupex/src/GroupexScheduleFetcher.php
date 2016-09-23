@@ -80,8 +80,7 @@ class GroupexScheduleFetcher {
    *
    * @param GroupexHelper $groupex_helper
    *   The Groupex helper.
-   *
-   * @param null $parameters
+   * @param null|array $parameters
    *   Parameters.
    */
   public function __construct(GroupexHelper $groupex_helper, $parameters = NULL) {
