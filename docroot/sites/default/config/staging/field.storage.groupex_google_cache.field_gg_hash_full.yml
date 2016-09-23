@@ -1,0 +1,21 @@
+uuid: c70e5743-e3e0-49b4-bd38-4d8a56620977
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.field_gg_hash_full
+field_name: field_gg_hash_full
+entity_type: groupex_google_cache
+type: string
+settings:
+  max_length: 32
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

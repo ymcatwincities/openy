@@ -83,15 +83,14 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
             '%entity' => $options['entity_type_id'],
             '%size' => $this->format($size),
             '%threshold' => $options['threshold'] . 'M',
-            '%guard' => $name
+            '%guard' => $name,
           ]
         );
 
         try {
           // Run soft cleaner.
           $cleaner = $this->container->get($options['cleaners']['soft']['service']);
-          // @todo Add arguments. Note, method has to have single argument (array).
-          $cleaner->$options['cleaners']['soft']['method']();
+          $cleaner->$options['cleaners']['soft']['method']($options['cleaners']['soft']['arguments']);
 
           $msg = 'Soft cleaner for guard %guard has been invoked successfully. Old entity %entity size: %old.';
           $this->logger->info(
@@ -99,7 +98,7 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
             [
               '%guard' => $name,
               '%entity' => $options['entity_type_id'],
-              '%old' => $this->format($size)
+              '%old' => $this->format($size),
             ]
           );
         }
@@ -110,7 +109,7 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
             [
               '%entity' => $options['entity_type_id'],
               '%guard' => $name,
-              '%msg' => $e->getMessage()
+              '%msg' => $e->getMessage(),
             ]
           );
         }
@@ -127,7 +126,7 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
             '%size' => $this->format($size),
             '%entity' => $options['entity_type_id'],
             '%threshold' => $options['threshold'] . 'M',
-            '%guard' => $name
+            '%guard' => $name,
           ]
         );
       }
@@ -145,7 +144,7 @@ class CacheSizeGuardRunner implements CacheSizeGuardRunnerInterface, ContainerAw
    *   The size in M.
    */
   private function format($size) {
-    return round($size / 1024 / 1024, 2) .'M';
+    return round($size / 1024 / 1024, 2) . 'M';
   }
 
 }

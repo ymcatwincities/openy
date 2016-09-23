@@ -238,7 +238,7 @@ function ymca_alters_preprocess_field(&$variables) {
           ['%node' => $location_id]
         );
       }
-      
+
       $variables['groupex_schedule'] = \Drupal::service('ymca_groupex.helper')->getPdfLink($location);
     }
   }

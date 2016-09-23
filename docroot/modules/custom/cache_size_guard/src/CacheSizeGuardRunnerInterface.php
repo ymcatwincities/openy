@@ -11,7 +11,7 @@ interface CacheSizeGuardRunnerInterface {
    * Run all or specific guard.
    *
    * @param string $guard
-   *   Guard name
+   *   Guard name.
    */
   public function run($guard = 'all');
 
