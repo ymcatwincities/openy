@@ -200,6 +200,12 @@ class GooglePush {
         }
 
         $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
+
+        // All items should be inserted in TESTING calendar in testing mode.
+        if (!$this->isProduction) {
+          $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
+        }
+
         if (!$gcal_id) {
           // Failed to get calendar ID. Continue with next event.
           continue;
@@ -207,6 +213,11 @@ class GooglePush {
 
         switch ($op) {
           case 'update':
+            // Do not update entities in testing mode.
+            if (!$this->isProduction) {
+              break;
+            }
+
             $event = $this->drupalEntityToGcalEvent($entity);
             if (!$event) {
               break;
@@ -267,6 +278,10 @@ class GooglePush {
             break;
 
           case 'delete':
+            // Do not delete entities in testing mode.
+            if (!$this->isProduction) {
+              break;
+            }
             try {
               $this->calEvents->delete(
                 $gcal_id,
