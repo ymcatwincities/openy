@@ -3,8 +3,8 @@
 .header {
   &-wrapper {
     margin: 0 auto;
-    min-width: 65%;
     max-width: 600px;
+    min-width: 65%;
     padding-bottom: 28px;
     padding-top: 33px;
     padding-left: 10px;
@@ -37,9 +37,9 @@
       padding-right: 0;
     }
 
-    .main-menu td,
-    .site-name {
-      padding: 0 30px;
+    .main-menu {
+      vertical-align: bottom;
+      text-align: right;
     }
   }
 
