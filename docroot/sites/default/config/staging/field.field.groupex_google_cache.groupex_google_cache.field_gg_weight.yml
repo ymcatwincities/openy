@@ -1,0 +1,24 @@
+uuid: 24d866a4-271a-44b8-b67e-5b4487a12646
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_weight
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_weight
+field_name: field_gg_weight
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: Weight
+description: 'The weight of cache entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
