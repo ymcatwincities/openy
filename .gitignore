@@ -1,13 +1,12 @@
 # Ignore configuration files that may contain sensitive information.
-.idea
-backup
-index.html
-cache
 .DS_Store
-
-# Vagrant
+.idea
 .vagrant
-vagrant*
-d20*
+backup
 build_reports
+cache
 commentinfo.md
+d20*
+drush.phar
+index.html
+vagrant*

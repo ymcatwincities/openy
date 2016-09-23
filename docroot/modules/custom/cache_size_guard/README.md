@@ -11,3 +11,6 @@ Allows to clear the caches in the clever way if they are growing too fast.
 ```
 \Drupal::service('cache_size_guard.runner')->run();
 ```
+```
+drush php-eval "\Drupal::service('cache_size_guard.runner')->run();"
+```
