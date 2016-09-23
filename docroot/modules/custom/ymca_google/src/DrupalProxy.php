@@ -241,7 +241,10 @@ class DrupalProxy implements DrupalProxyInterface {
    * Using child items.
    */
   protected function processSchedulesDataCurrent() {
+    // Get compare map. Do not compare class date field.
     $field_map_schedules = $this->dataWrapper->getFieldMappingSchedules();
+    $compare_map = $field_map_schedules;
+    unset($compare_map['field_gg_date_str']);
 
     foreach ($this->dataWrapper->getSourceData() as $class) {
       // Skip entities which we have been already processed.
@@ -265,6 +268,13 @@ class DrupalProxy implements DrupalProxyInterface {
       if (!$children) {
         // No children found. Create one.
         $this->createChildCacheItem($class);
+
+        // Update base (parent) entity with child data.
+        foreach ($compare_map as $field => $property) {
+          $parent->set($field, $class->$property);
+        }
+        $parent->save();
+
       }
       else {
         if (count($children) > self::MAX_CHILD_WARNING) {
@@ -278,21 +288,10 @@ class DrupalProxy implements DrupalProxyInterface {
           );
         }
 
-        // Compare our class with children.
-        // Note. We'll compare all properties except date.
-        $compare_map = $field_map_schedules;
-        unset($compare_map['field_gg_date_str']);
-
-        foreach ($children as $child_id) {
-          $child = $this->cacheStorage->load($child_id);
-          if (!$this->isDifferent($compare_map, $child, $class)) {
-            $this->updateWeight($child);
-            continue 2;
-          }
+        if ($this->isDifferent($compare_map, $parent, $class)) {
+          // The class differs from base entity. Create new child.
+          $this->createChildCacheItem($class);
         }
-
-        // No equal entities were found. Creating new one.
-        $this->createChildCacheItem($class);
       }
     }
 
@@ -370,37 +369,42 @@ class DrupalProxy implements DrupalProxyInterface {
       ]
     );
 
-    // Process created items.
-    $created = $this->findCreatedIcsItems();
-    foreach ($created as $entity) {
-      $this->dataWrapper->appendProxyItem('insert', $entity);
-    }
+    $api_version = $this->dataWrapper->settings->get('api_version');
 
-    // Process updated items.
-    $updated = $this->findUpdatedIcsItems();
-    foreach ($updated as $entity) {
-      $this->dataWrapper->appendProxyItem('update', $entity);
-    }
+    // ICS introduced only in API 2.
+    // Pass ICS data to pusher if API >= 2.
+    if ($api_version >= 2) {
+      // Process created items.
+      $created = $this->findCreatedIcsItems();
+      foreach ($created as $entity) {
+        $this->dataWrapper->appendProxyItem('insert', $entity);
+      }
 
-    // Process deleted items.
-    $deleted = $this->findDeletedIcsItems();
-    // @todo Analyze the process of deleting.
-    $delete_count = count($deleted);
-    if ($delete_count < 10) {
-      foreach ($deleted as $entity) {
-        $this->dataWrapper->appendProxyItem('delete', $entity);
+      // Process updated items.
+      $updated = $this->findUpdatedIcsItems();
+      foreach ($updated as $entity) {
+        $this->dataWrapper->appendProxyItem('update', $entity);
+      }
+
+      // Process deleted items.
+      $deleted = $this->findDeletedIcsItems();
+      // @todo Analyze the process of deleting.
+      $delete_count = count($deleted);
+      if ($delete_count < 10) {
+        foreach ($deleted as $entity) {
+          $this->dataWrapper->appendProxyItem('delete', $entity);
+        }
+      }
+      else {
+        $msg = 'Too many items %count for deleting. Needs checking.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%count' => $delete_count,
+          ]
+        );
       }
     }
-    else {
-      $msg = 'Too many items %count for deleting. Needs checking.';
-      $this->logger->critical(
-        $msg,
-        [
-          '%count' => $delete_count,
-        ]
-      );
-    }
-
   }
 
   /**
@@ -592,6 +596,15 @@ class DrupalProxy implements DrupalProxyInterface {
       $entity = $storage->create($values);
       $entity->setName($class->title . ' [' . $class->id . ']');
       $entity->save();
+
+      $msg = 'New child item for parent entity %id was created.';
+      $this->logger->info(
+        $msg,
+        [
+          '%id' => $entity->id(),
+        ]
+      );
+
       return $entity->id();
     }
     catch (\Exception $e) {
