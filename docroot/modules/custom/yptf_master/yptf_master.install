@@ -11,7 +11,7 @@ use Drupal\ymca_mappings\Entity\Mapping;
  * Initial hook_updates runner.
  */
 function yptf_master_install() {
-  for ($i = 8000; $i < 9000; $i++) {
+  for ($i = 8001; $i < 9000; $i++) {
     $function = 'yptf_master_update_' . $i;
     if (function_exists($function)) {
       \Drupal::logger('yptf_master_install')->info('running: ' . $function);
@@ -23,14 +23,14 @@ function yptf_master_install() {
 /**
  * Enable personify_mindbody_sync module.
  */
-function yptf_master_update_8000() {
+function yptf_master_update_8001() {
   \Drupal::service('module_installer')->install(['personify_mindbody_sync'], TRUE);
 }
 
 /**
  * Create fields.
  */
-function yptf_master_update_8001() {
+function yptf_master_update_8002() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -64,7 +64,7 @@ function yptf_master_update_8001() {
 /**
  * Configure sync log.
  */
-function yptf_master_update_8002() {
+function yptf_master_update_8003() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -76,7 +76,7 @@ function yptf_master_update_8002() {
 /**
  * YPTF-133: Clear MindBody cache after booking.
  */
-function yptf_master_update_8003() {
+function yptf_master_update_8004() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -93,7 +93,7 @@ function yptf_master_update_8003() {
 /**
  * YPTF-133: Set slots hide time to 180 minutes.
  */
-function yptf_master_update_8004() {
+function yptf_master_update_8005() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -105,7 +105,7 @@ function yptf_master_update_8004() {
 /**
  * Update wysiwyg editor config.
  */
-function yptf_master_update_8005() {
+function yptf_master_update_8006() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -118,7 +118,7 @@ function yptf_master_update_8005() {
 /**
  * Add Mapping entity "Personify Product".
  */
-function yptf_master_update_8006() {
+function yptf_master_update_8007() {
   \Drupal::service('module_installer')->install(['ymca_mappings'], TRUE);
 
   $path = 'sites/default/config/staging/';
@@ -132,7 +132,7 @@ function yptf_master_update_8006() {
 /**
  * Initial fields for "Personify Product" entity.
  */
-function yptf_master_update_8007() {
+function yptf_master_update_8008() {
 
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
@@ -159,14 +159,14 @@ function yptf_master_update_8007() {
 /**
  * Re-enable error handling module.
  */
-function yptf_master_update_8008() {
+function yptf_master_update_8009() {
   \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
 }
 
 /**
  * Populate "Personify Product" mappings.
  */
-function yptf_master_update_8009() {
+function yptf_master_update_8010() {
   // Read CSV file with map.
   $path = drupal_get_path('module', 'yptf_master');
   $csv_file = $path . '/misc/personal_training_products_with_PID-78637_97_2003.csv';
@@ -202,7 +202,7 @@ function yptf_master_update_8009() {
 /**
  * YPTF-150: Add Personify Product URl to config.
  */
-function yptf_master_update_8010() {
+function yptf_master_update_8011() {
   $path = drupal_get_path('module', 'ymca_mindbody') . '/config/install/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -214,7 +214,7 @@ function yptf_master_update_8010() {
 /**
  * Import locations trainers mappings.
  */
-function yptf_master_update_8011() {
+function yptf_master_update_8012() {
   $path = 'modules/custom/ymca_mindbody/config/install/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -226,7 +226,7 @@ function yptf_master_update_8011() {
 /**
  * Set production URL for Personify endpoint.
  */
-function yptf_master_update_8012() {
+function yptf_master_update_8013() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
@@ -238,7 +238,7 @@ function yptf_master_update_8012() {
 /**
  * Add mapping views.
  */
-function yptf_master_update_8013() {
+function yptf_master_update_8014() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
