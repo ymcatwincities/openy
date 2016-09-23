@@ -476,7 +476,6 @@ a img {
 .header-wrapper {
   margin: 0 auto;
   max-width: 600px;
-  min-width: 65%;
   padding-bottom: 28px;
   padding-top: 33px;
   padding-left: 10px;
@@ -508,7 +507,7 @@ a img {
   padding: 10px 0;
   white-space: nowrap; }
   .header__item td {
-    padding: 0 5px;
+    padding: 0 2px;
     text-align: center; }
 
 .header__branch {
