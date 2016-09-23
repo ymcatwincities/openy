@@ -1,0 +1,20 @@
+uuid: eff57ec7-b02d-4a5d-9eae-e34ac12b4130
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.field_gg_ics_loc_id
+field_name: field_gg_ics_loc_id
+entity_type: groupex_google_cache
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
