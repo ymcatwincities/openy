@@ -1,0 +1,20 @@
+uuid: f9d0b2f5-01f9-48f8-9885-f287ed326bdf
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.field_gg_weight
+field_name: field_gg_weight
+entity_type: groupex_google_cache
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
