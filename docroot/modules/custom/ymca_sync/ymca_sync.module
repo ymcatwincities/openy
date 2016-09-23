@@ -27,6 +27,12 @@ function ymca_sync_run($name, $method) {
     $lock->release($name);
   }
   else {
-    Drupal::logger('ymca_sync')->info('Lock is still working');
+    $msg = 'Lock "%name" is still working. Exit.';
+    Drupal::logger('ymca_sync')->info(
+      $msg,
+      [
+        '%name' => $name,
+      ]
+    );
   }
 }
