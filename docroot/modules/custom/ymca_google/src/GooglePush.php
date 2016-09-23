@@ -200,6 +200,12 @@ class GooglePush {
         }
 
         $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
+
+        // All items should be inserted in TESTING calendar in testing mode.
+        if (!$this->isProduction) {
+          $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
+        }
+
         if (!$gcal_id) {
           // Failed to get calendar ID. Continue with next event.
           continue;
@@ -207,6 +213,11 @@ class GooglePush {
 
         switch ($op) {
           case 'update':
+            // Do not update entities in testing mode.
+            if (!$this->isProduction) {
+              break;
+            }
+
             $event = $this->drupalEntityToGcalEvent($entity);
             if (!$event) {
               break;
@@ -267,6 +278,10 @@ class GooglePush {
             break;
 
           case 'delete':
+            // Do not delete entities in testing mode.
+            if (!$this->isProduction) {
+              break;
+            }
             try {
               $this->calEvents->delete(
                 $gcal_id,
@@ -392,14 +407,20 @@ class GooglePush {
     $data = $this->dataWrapper->getProxyData();
 
     // Insert.
+    Timer::start('insert');
+    $processed['insert'] = 0;
     foreach ($data['insert'] as $entity) {
       $event = $this->createEvent($entity);
+      if ($event === FALSE) {
+        // No children, skip for now.
+        continue;
+      }
       $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
 
       try {
         $created = $this->calEvents->insert($gcal_id, $event);
         $entity->set('field_gg_gcal_id', $created->getId());
-        $entity->set('field_gg_need_up', FALSE);
+        $entity->set('field_gg_need_up', 0);
         // @todo save event start timestamp to field_gg_ts_utc (in UTC).
         $entity->save();
 
@@ -422,7 +443,7 @@ class GooglePush {
               '%op' => 'insert',
             ]
           );
-          $this->logStats($op, $processed);
+          $this->logStats('insert', $processed);
           if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
             // Rate limit exceeded, retry. @todo limit number of retries.
             return;
@@ -443,11 +464,73 @@ class GooglePush {
     }
 
     // Update.
-    foreach ($data['update'] as $item) {
+    Timer::start('update');
+    $processed['update'] = 0;
+    foreach ($data['update'] as $entity) {
       // @todo Get all children that were not pushed to Google.
-      // @todo. Make sure that recurency of Google event is the same with item recurrency.
+
+      $event = $this->createEvent($entity);
+      if ($event === FALSE) {
+        // No children, skip for now.
+        continue;
+      }
+      $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
+      // @todo. Make sure that recurrence of Google event is the same with item recurrence.
       // @todo. Foreach each child and get appropriate instance.
       // @todo. Update each instance with new data and save gcal ids and timestamps to child items.
+      try {
+        $updated = $this->calEvents->update(
+          $gcal_id,
+          $entity->field_gg_gcal_id->value,
+          $event
+        );
+
+        $processed['update']++;
+
+        // Saving updated entity only when it was pushed successfully.
+        $entity->set('field_gg_google_event', serialize($updated));
+        $entity->save();
+      }
+      catch (\Google_Service_Exception $e) {
+        if ($e->getCode() == 403) {
+          $message = 'Google_Service_Exception [%op]: %message';
+          $this->logger->error(
+            $message,
+            [
+              '%message' => $e->getMessage(),
+              '%op' => 'update',
+            ]
+          );
+          $this->logStats('update', $processed);
+          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+            // Rate limit exceeded, retry. @todo limit number of retries.
+            return;
+          }
+        }
+        else {
+          // @todo Probably we are trying to update deleted event. Should be marked to be inserted.
+          // @todo 404 error needs to be catched.
+          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+          $this->loggerFactory->get('GroupX_CM')->error(
+            $message,
+            [
+              '%op' => 'update',
+              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+              '%message' => $e->getMessage(),
+            ]
+          );
+          $this->logStats('update', $processed);
+        }
+
+      }
+      catch (\Exception $e) {
+        $msg = '%type : Error while updating event for entity [%id]: %msg';
+        $this->logger->error($msg, [
+          '%type' => get_class($e),
+          '%id' => $entity->id(),
+          '%msg' => $e->getMessage(),
+        ]);
+      }
     }
 
     // Delete.
