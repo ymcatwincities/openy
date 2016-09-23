@@ -1,0 +1,24 @@
+uuid: 96ba5a0a-83c3-44e7-95f9-14c3eb6fa109
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_ics_loc_id
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_ics_loc_id
+field_name: field_gg_ics_loc_id
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'ICS Location ID'
+description: 'Groupex Location ID.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,20 @@
+uuid: 40e9838a-8aed-49d8-925a-bdd1d95b7e3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_ics_ed
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_ics_ed
+field_name: field_gg_ics_ed
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'ICS End Date'
+description: 'ICS End Date. Example: 2011-01-07 17:00:00'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
