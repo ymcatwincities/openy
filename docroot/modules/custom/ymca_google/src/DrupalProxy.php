@@ -113,7 +113,7 @@ class DrupalProxy implements DrupalProxyInterface {
     $this->pluginManager = $plugin_manager;
     $this->entityTypeManager = $entity_type_manager;
 
-    $this->timezone = new \DateTimeZone('America/Chicago');
+    $this->timezone = new \DateTimeZone(GcalGroupexWrapper::TIMEZONE);
     $this->cacheStorage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
   }
 
