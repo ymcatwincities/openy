@@ -393,32 +393,8 @@ class GooglePush {
     $processed[$op] = 0;
 
     foreach ($data[$op] as $entity) {
-      $event = $this->createEvent($entity);
-      if ($event === FALSE) {
-        // No children, skip for now.
-        continue;
-      }
-
-      if (!$gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value)) {
-        // Failed to get Gcal ID skip this event.
-        continue;
-      }
-
       try {
-        $created = $this->calEvents->insert($gcal_id, $event);
-        $entity->set('field_gg_gcal_id', $created->getId());
-        $entity->set('field_gg_need_up', 0);
-        // @todo save event start timestamp to field_gg_ts_utc (in UTC).
-        $entity->save();
-
-        $msg = 'Gcal event %gcal_id created from parent entity %parent_id.';
-        $this->logger->info(
-          $msg,
-          [
-            '%gcal_id' => $created->getId(),
-            '%parent_id' => $entity->id(),
-          ]
-        );
+        $this->pushNewEvent($entity);
       }
       catch (\Google_Service_Exception $e) {
         if ($e->getCode() == 403) {
@@ -448,7 +424,19 @@ class GooglePush {
           );
         }
       }
+      catch (\Exception $e) {
+        $msg = 'Failed to push event for cache entity ID %id. Message: %msg';
+        $this->logger->error(
+          $msg,
+          [
+            '%id' => $entity->id(),
+            '%msg' => $e->getMessage(),
+          ]
+        );
+      }
     }
+
+    // Log insert.
     $this->logStats($op, $processed);
 
     // Update.
@@ -574,24 +562,34 @@ class GooglePush {
   }
 
   /**
-   * Prepare event for insert.
+   * Pushes new google event.
    *
    * Make sure you use this function only for creating new events.
    *
    * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
    *   Parent cache entity.
    *
-   * @return \Google_Service_Calendar_Event|bool
+   * @return \Google_Service_Calendar_Event
    *   Prepared event for pushing.
+   *
+   * @throws \Exception
    */
-  protected function createEvent(GroupexGoogleCacheInterface $entity) {
-    // Find the most weighted child to use it's data.
-    $children = $this->proxy->findChildren($entity->id());
-
-    if (empty($children)) {
-      return FALSE;
+  public function pushNewEvent(GroupexGoogleCacheInterface $entity) {
+    // Check whether the event was pushed.
+    if ($entity->field_gg_google_event->value || $entity->field_gg_gcal_id->value) {
+      throw new \Exception('The event has been already pushed.');
     }
 
+    if (!$gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value)) {
+      throw new \Exception('Failed to get Google calendar ID.');
+    }
+
+    $children = $this->proxy->findChildren($entity->id());
+    if (empty($children)) {
+      throw new \Exception('No children found.');
+    }
+
+    // Find the most weighted child to use it's data.
     $weighted = $this->cacheStorage->load($children[0]);
 
     $event = new \Google_Service_Calendar_Event();
@@ -600,23 +598,69 @@ class GooglePush {
     $event->setLocation(trim($weighted->field_gg_location->value));
     $event->setDescription($this->getDescription($weighted));
 
-    // @todo Create proper start time.
+    // Set start time.
+    if (!$startDateTime = $this->proxy->extractEventDateTime($entity, 'start', GcalGroupexWrapper::TIMEZONE)) {
+      throw new \Exception('Failed to extract start time from cache entity');
+    }
     $start = new \Google_Service_Calendar_EventDateTime();
-    $start->setDateTime('2016-09-22T10:00:00.000-07:00');
-    $start->setTimeZone('America/Los_Angeles');
+    $start->setDateTime($startDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT));
+    $start->setTimeZone(GcalGroupexWrapper::TIMEZONE);
     $event->setStart($start);
 
-    // @todo Create proper end time.
+    // Set end time.
+    if (!$endDateTime = $this->proxy->extractEventDateTime($entity, 'end', GcalGroupexWrapper::TIMEZONE)) {
+      throw new \Exception('Failed to extract end time from Cache Entity with ID');
+    }
     $end = new \Google_Service_Calendar_EventDateTime();
-    $end->setDateTime('2016-09-22T10:25:00.000-07:00');
-    $end->setTimeZone('America/Los_Angeles');
+    $end->setDateTime($endDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT));
+    $end->setTimeZone(GcalGroupexWrapper::TIMEZONE);
     $event->setEnd($end);
 
     // Available types: weekly, biweekly, NULL.
-    // @todo Check how to set biweekly events.
-    $event->setRecurrence(['RRULE:FREQ=WEEKLY']);
+    $recurrence_field = $entity->field_gg_ics_rec->value ?: NULL;
+    switch ($recurrence_field) {
+      case 'weekly';
+        $event->setRecurrence(['RRULE:FREQ=WEEKLY']);
+        break;
 
-    return $event;
+      case 'biweekly':
+        $event->setRecurrence(['RRULE:FREQ=WEEKLY;INTERVAL=2']);
+        break;
+
+      case NULL:
+        // No recurrence. Skip.
+        break;
+
+      default:
+        throw new \Exception('Invalid recurrence value detected.');
+
+    }
+
+    $created = $this->calEvents->insert($gcal_id, $event);
+
+    // Save Google response.
+    $entity->set('field_gg_gcal_id', $created->getId());
+    $entity->set('field_gg_google_event', serialize($created));
+
+    // Remove update flag.
+    $entity->set('field_gg_need_up', 0);
+
+    // Set UTC start timestamp.
+    $tsDateTime = $this->proxy->extractEventDateTime($entity, 'start', 'UTC');
+    $entity->set('field_gg_ts_utc', $tsDateTime->getTimestamp());
+
+    $entity->save();
+
+    $msg = 'Gcal event %gcal_id created from parent entity %parent_id.';
+    $this->logger->info(
+      $msg,
+      [
+        '%gcal_id' => $created->getId(),
+        '%parent_id' => $entity->id(),
+      ]
+    );
+
+    return $created;
   }
 
   /**
