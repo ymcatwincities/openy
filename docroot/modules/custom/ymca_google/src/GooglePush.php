@@ -29,11 +29,6 @@ class GooglePush {
   const TEST_CALENDAR_NAME = 'TESTING';
 
   /**
-   * Default timezone for calendars.
-   */
-  const TZ = 'America/Chicago';
-
-  /**
    * Wrapper to be used.
    *
    * @var GcalGroupexWrapperInterface
@@ -1017,7 +1012,7 @@ class GooglePush {
   private function createCalendar($name) {
     $calendar = new \Google_Service_Calendar_Calendar();
     $calendar->setSummary($name);
-    $calendar->setTimeZone(self::TZ);
+    $calendar->setTimeZone(GcalGroupexWrapper::TIMEZONE);
 
     try {
       $createdCalendar = $this->calService->calendars->insert($calendar);
