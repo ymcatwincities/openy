@@ -827,6 +827,30 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
+   * Return not pushed children.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
+   *   Parent cache entity.
+   *
+   * @return array
+   *   List of child IDs, which were not pushed.
+   */
+  public function findChildrenNotPushed(GroupexGoogleCache $entity) {
+    $ids = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_parent_ref.target_id', $entity->id())
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (!empty($result)) {
+      $ids = array_values($result);
+    }
+
+    return $ids;
+  }
+
+  /**
    * Find all children by parent entity ID & sort by weight in reverse order.
    *
    * @param string $id
