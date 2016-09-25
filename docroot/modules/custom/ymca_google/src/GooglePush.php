@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_google;
 
+use Behat\Mink\Exception\Exception;
 use Drupal\Component\Utility\Timer;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -441,82 +442,44 @@ class GooglePush {
     $this->logStats($op, $processed);
 
     // Update.
-    if (TRUE) {
-      die();
-    }
-    Timer::start('update');
-    $processed['update'] = 0;
-    foreach ($data['update'] as $entity) {
-      // @todo Get all children that were not pushed to Google.
-
-      $event = $this->createEvent($entity);
-      if ($event === FALSE) {
-        // No children, skip for now.
-        continue;
-      }
-      $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
-      // @todo. Make sure that recurrence of Google event is the same with item recurrence.
-      // @todo. Foreach each child and get appropriate instance.
-      // @todo. Update each instance with new data and save gcal ids and timestamps to child items.
+    $op = 'update';
+    Timer::start($op);
+    $processed[$op] = 0;
+    foreach ($data[$op] as $entity) {
       try {
-        $updated = $this->calEvents->update(
-          $gcal_id,
-          $entity->field_gg_gcal_id->value,
-          $event
-        );
-
-        $processed['update']++;
-
-        // Saving updated entity only when it was pushed successfully.
-        $entity->set('field_gg_google_event', serialize($updated));
-        $entity->save();
+        $this->pushUpdatedEvent($entity);
+        $processed[$op]++;
       }
-      catch (\Google_Service_Exception $e) {
-        if ($e->getCode() == 403) {
-          $message = 'Google_Service_Exception [%op]: %message';
-          $this->logger->error(
-            $message,
-            [
-              '%message' => $e->getMessage(),
-              '%op' => 'update',
-            ]
-          );
-          $this->logStats('update', $processed);
-          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
-            // Rate limit exceeded, retry. @todo limit number of retries.
-            return;
-          }
-        }
-        else {
-          // @todo Probably we are trying to update deleted event. Should be marked to be inserted.
-          // @todo 404 error needs to be catched.
-          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-          $this->logger->error(
-            $message,
-            [
-              '%op' => 'update',
-              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-              '%message' => $e->getMessage(),
-            ]
-          );
-          $this->logStats('update', $processed);
-        }
-
-      }
-      catch (\Exception $e) {
-        $msg = '%type : Error while updating event for entity [%id]: %msg';
-        $this->logger->error($msg, [
-          '%type' => get_class($e),
-          '%id' => $entity->id(),
-          '%msg' => $e->getMessage(),
-        ]);
+      catch (Exception $e) {
+        // @todo Do it.
       }
     }
+    $this->logStats($op, $processed);
 
     // Delete.
+    $op = 'delete';
+    Timer::start($op);
+    $processed[$op] = 0;
     foreach ($data['delete'] as $item) {
       // @todo If item has gcal_id delete the event from Google.
       // @todo If deletion went well delete the parent item and all children.
+    }
+    $this->logStats($op, $processed);
+  }
+
+  /**
+   * Update GCal event (instances).
+   *
+   * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
+   *   Parent cache entity.
+   */
+  public function pushUpdatedEvent(GroupexGoogleCache $entity) {
+    $children = $this->proxy->findChildrenNotPushed($entity);
+    foreach ($children as $child_id) {
+      $this->cacheStorage->load($child_id);
+      // @todo Get instance (need some smart method to get instance).
+      // @todo Update instance.
+      // @todo Save Gcal event id, timestamp to child.
     }
   }
 
@@ -572,9 +535,6 @@ class GooglePush {
    *
    * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
    *   Parent cache entity.
-   *
-   * @return \Google_Service_Calendar_Event
-   *   Prepared event for pushing.
    *
    * @throws \Exception
    */
@@ -663,8 +623,6 @@ class GooglePush {
         '%parent_id' => $entity->id(),
       ]
     );
-
-    return $created;
   }
 
   /**
