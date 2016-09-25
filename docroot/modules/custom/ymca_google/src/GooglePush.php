@@ -395,6 +395,7 @@ class GooglePush {
     foreach ($data[$op] as $entity) {
       try {
         $this->pushNewEvent($entity);
+        $processed[$op]++;
       }
       catch (\Google_Service_Exception $e) {
         if ($e->getCode() == 403) {
@@ -440,6 +441,9 @@ class GooglePush {
     $this->logStats($op, $processed);
 
     // Update.
+    if (TRUE) {
+      die();
+    }
     Timer::start('update');
     $processed['update'] = 0;
     foreach ($data['update'] as $entity) {
@@ -599,7 +603,7 @@ class GooglePush {
     $event->setDescription($this->getDescription($weighted));
 
     // Set start time.
-    if (!$startDateTime = $this->proxy->extractEventDateTime($entity, 'start', GcalGroupexWrapper::TIMEZONE)) {
+    if (!$startDateTime = $this->proxy->extractEventDateTime($weighted, 'start', GcalGroupexWrapper::TIMEZONE)) {
       throw new \Exception('Failed to extract start time from cache entity');
     }
     $start = new \Google_Service_Calendar_EventDateTime();
@@ -608,7 +612,7 @@ class GooglePush {
     $event->setStart($start);
 
     // Set end time.
-    if (!$endDateTime = $this->proxy->extractEventDateTime($entity, 'end', GcalGroupexWrapper::TIMEZONE)) {
+    if (!$endDateTime = $this->proxy->extractEventDateTime($weighted, 'end', GcalGroupexWrapper::TIMEZONE)) {
       throw new \Exception('Failed to extract end time from Cache Entity with ID');
     }
     $end = new \Google_Service_Calendar_EventDateTime();
@@ -646,7 +650,7 @@ class GooglePush {
     $entity->set('field_gg_need_up', 0);
 
     // Set UTC start timestamp.
-    $tsDateTime = $this->proxy->extractEventDateTime($entity, 'start', 'UTC');
+    $tsDateTime = $this->proxy->extractEventDateTime($weighted, 'start', 'UTC');
     $entity->set('field_gg_ts_utc', $tsDateTime->getTimestamp());
 
     $entity->save();
