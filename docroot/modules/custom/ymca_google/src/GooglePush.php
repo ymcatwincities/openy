@@ -7,7 +7,6 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
 use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
@@ -70,18 +69,11 @@ class GooglePush {
   protected $googleClient;
 
   /**
-   * Logger channel.
+   * The logger channel.
    *
    * @var LoggerChannelInterface
    */
   protected $logger;
-
-  /**
-   * Logger Factory.
-   *
-   * @var LoggerChannelFactoryInterface
-   */
-  protected $loggerFactory;
 
   /**
    * Entity type manager.
@@ -132,8 +124,8 @@ class GooglePush {
    *   Data wrapper.
    * @param ConfigFactory $config_factory
    *   Config Factory.
-   * @param LoggerChannelFactoryInterface $logger
-   *   Logger.
+   * @param LoggerChannelInterface $logger
+   *   The logger channel.
    * @param EntityTypeManager $entity_type_manager
    *   Entity type manager.
    * @param DrupalProxy $proxy
@@ -141,11 +133,10 @@ class GooglePush {
    * @param QueryFactory $query
    *   Query factory.
    */
-  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy, QueryFactory $query) {
+  public function __construct(GcalGroupexWrapperInterface $data_wrapper, ConfigFactory $config_factory, LoggerChannelInterface $logger, EntityTypeManager $entity_type_manager, DrupalProxy $proxy, QueryFactory $query) {
     $this->dataWrapper = $data_wrapper;
     $this->configFactory = $config_factory;
-    $this->logger = $logger->get(GcalGroupexWrapper::LOGGER_CHANNEL);
-    $this->loggerFactory = $logger;
+    $this->logger = $logger;
     $this->entityTypeManager = $entity_type_manager;
     $this->proxy = $proxy;
     $this->query = $query;
@@ -201,11 +192,6 @@ class GooglePush {
 
         $gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
 
-        // All items should be inserted in TESTING calendar in testing mode.
-        if (!$this->isProduction) {
-          $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
-        }
-
         if (!$gcal_id) {
           // Failed to get calendar ID. Continue with next event.
           continue;
@@ -254,7 +240,7 @@ class GooglePush {
               }
               else {
                 $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-                $this->loggerFactory->get('GroupX_CM')->error(
+                $this->logger->error(
                   $message,
                   [
                     '%op' => $op,
@@ -311,7 +297,7 @@ class GooglePush {
               }
               else {
                 $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-                $this->loggerFactory->get('GroupX_CM')->error(
+                $this->logger->error(
                   $message,
                   [
                     '%op' => $op,
@@ -366,7 +352,7 @@ class GooglePush {
               }
               else {
                 $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-                $this->loggerFactory->get('GroupX_CM')->error(
+                $this->logger->error(
                   $message,
                   [
                     '%op' => $op,
@@ -407,15 +393,21 @@ class GooglePush {
     $data = $this->dataWrapper->getProxyData();
 
     // Insert.
-    Timer::start('insert');
-    $processed['insert'] = 0;
-    foreach ($data['insert'] as $entity) {
+    $op = 'insert';
+    Timer::start($op);
+    $processed[$op] = 0;
+
+    foreach ($data[$op] as $entity) {
       $event = $this->createEvent($entity);
       if ($event === FALSE) {
         // No children, skip for now.
         continue;
       }
-      $gcal_id = $this->getCalendarIdByName(self::TEST_CALENDAR_NAME);
+
+      if (!$gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value)) {
+        // Failed to get Gcal ID skip this event.
+        continue;
+      }
 
       try {
         $created = $this->calEvents->insert($gcal_id, $event);
@@ -440,21 +432,21 @@ class GooglePush {
             $message,
             [
               '%message' => $e->getMessage(),
-              '%op' => 'insert',
+              '%op' => $op,
             ]
           );
-          $this->logStats('insert', $processed);
           if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
-            // Rate limit exceeded, retry. @todo limit number of retries.
+            // Rate limit exceeded, retry.
+            // @todo Limit number of retries.
             return;
           }
         }
         else {
           $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-          $this->loggerFactory->get('GroupX_CM')->error(
+          $this->logger->error(
             $message,
             [
-              '%op' => 'insert',
+              '%op' => $op,
               '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
               '%message' => $e->getMessage(),
             ]
@@ -462,6 +454,7 @@ class GooglePush {
         }
       }
     }
+    $this->logStats($op, $processed);
 
     // Update.
     Timer::start('update');
@@ -511,7 +504,7 @@ class GooglePush {
           // @todo Probably we are trying to update deleted event. Should be marked to be inserted.
           // @todo 404 error needs to be catched.
           $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
-          $this->loggerFactory->get('GroupX_CM')->error(
+          $this->logger->error(
             $message,
             [
               '%op' => 'update',
