@@ -27,6 +27,7 @@ function ymca_groupex_theme($existing, $type, $theme, $path) {
     'groupex_table_class_individual' => [
       'variables' => [
         'class' => [],
+        'used_filters' => []
       ],
       'template' => 'groupex-table-class-individual',
     ],
@@ -217,11 +218,36 @@ function ymca_groupex_preprocess_node(&$variables) {
  *   Results render array.
  */
 function ymca_groupex_schedule_table_layout(array $schedule) {
+  $prefix = [];
   $results = [];
   $cache = [
     'max-age' => 3600,
     'contexts' => ['url.query_args'],
   ];
+
+  // Mark filters these are used.
+  $schedule['used_filters'] = [];
+
+  // The filter `class` is used.
+  if (array_key_exists('class', $_GET)) {
+    $schedule['used_filters'][] = 'class';
+    $day = reset($schedule['days']);
+    if ($day) {
+      $class_item = reset($day['classes']);
+      if ($class_item) {
+        $class = $class_item['#class'];
+        $prefix = [
+          ['#markup' => '<div>' . $class['description'] . '</div>']
+        ];
+
+        foreach($schedule['days'] as &$day) {
+          foreach($day['classes'] as &$class_item) {
+            $class_item['#used_filters'] = $schedule['used_filters'];
+          }
+        }
+      }
+    }
+  }
 
   // Output schedule by type.
   switch ($schedule['type']) {
@@ -276,5 +302,8 @@ function ymca_groupex_schedule_table_layout(array $schedule) {
       break;
   }
 
-  return $results;
+  return [
+    $prefix,
+    $results
+  ];
 }

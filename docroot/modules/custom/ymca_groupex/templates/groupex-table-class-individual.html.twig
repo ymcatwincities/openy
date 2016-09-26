@@ -15,7 +15,13 @@
     <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
   </td>
   <td>
-    <div><a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></div>
+    <div>
+      {% if 'class' in used_filters %}
+        {{ class.name }}
+      {% else %}
+        <a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a>
+      {% endif %}
+    </div>
     <div>{{ class.studio }}</div>
   </td>
   <td class="instructor">
