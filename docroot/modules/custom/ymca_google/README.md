@@ -54,6 +54,9 @@ If `is_production` flag is set to 0 then all events are pushed to calendar named
 ```
 \Drupal::service('ymca_google.pusher')->clearCache();
 ```
+```
+drush php-eval "\Drupal::service('ymca_google.pusher')->clearCache();"
+```
 
 #### Remove schedule
 
