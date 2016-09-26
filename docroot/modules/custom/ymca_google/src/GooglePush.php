@@ -2,7 +2,6 @@
 
 namespace Drupal\ymca_google;
 
-use Behat\Mink\Exception\Exception;
 use Drupal\Component\Utility\Timer;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -460,9 +459,10 @@ class GooglePush {
     $op = 'delete';
     Timer::start($op);
     $processed[$op] = 0;
-    foreach ($data['delete'] as $item) {
+    foreach ($data[$op] as $item) {
       // @todo If item has gcal_id delete the event from Google.
       // @todo If deletion went well delete the parent item and all children.
+      // @todo We definitely can delete entities which have no recurrence
     }
     $this->logStats($op, $processed);
   }
@@ -472,60 +472,98 @@ class GooglePush {
    *
    * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
    *   Parent cache entity.
+   *
+   * @throws \Exception
    */
   public function pushUpdatedEvent(GroupexGoogleCache $entity) {
     $children = $this->proxy->findChildrenNotPushed($entity);
     foreach ($children as $child_id) {
-      $this->cacheStorage->load($child_id);
-      // @todo Get instance (need some smart method to get instance).
-      // @todo Update instance.
-      // @todo Save Gcal event id, timestamp to child.
+      $child_entity = $this->cacheStorage->load($child_id);
+
+      if (!$cal_id = $this->getCalIdByCacheEntity($child_entity)) {
+        throw new \Exception('Failed to get Google Calendar ID.');
+      }
+
+      $instance = $this->getEventInstance($child_entity);
+      $this->populateGenericEventData($instance, $child_entity);
+
+      $updated = $this->calService->events->update($cal_id, $instance->getId(), $instance);
+      // @todo Save updated event data to cache entity.
+      // @todo Write method to update cache entity with event data.
     }
   }
 
   /**
-   * Example for getting all instances of the event.
+   * Get Calendar ID by cache entity.
    *
-   * @todo Remove it.
+   * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
+   *   Cache item.
+   *
+   * @return string|bool
+   *   Calendar ID.
    */
-  private function getAllInstances() {
-    $cal_id = 'Calendar ID';
-    $event_id = 'Parent Event ID';
-    $events = $this->calService->events->instances($cal_id, $event_id);
+  public function getCalIdByCacheEntity(GroupexGoogleCache $entity) {
+    return $this->getCalendarIdByName($entity->field_gg_location->value);
   }
 
   /**
-   * Example for getting all instances of the event with opts.
+   * Get Google calendar event instance by cache entity.
    *
-   * @todo Remove it.
+   * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
+   *   Cache entity.
+   *
+   * @return \Google_Service_Calendar_Event
+   *   Google Calendar event.
+   *
+   * @throws \Exception
    */
-  private function getAllInstancesOpts() {
-    $cal_id = 'Calendar ID';
-    $event_id = 'Parent Event ID';
+  public function getEventInstance(GroupexGoogleCache $entity) {
+    // Get parent entity.
+    if (!$parent_id = $entity->field_gg_parent_ref->target_id) {
+      throw new \Exception('Parent entity reference not found.');
+    }
 
-    $timeMin = '2016-09-29T09:00:00.000-07:00';
-    $timeMax = '2016-09-29T14:00:00.000-07:00';
+    // Get event ID.
+    $parent = $this->cacheStorage->load($parent_id);
+    if (!$event_id = $parent->field_gg_gcal_id->value) {
+      throw new \Exception('Parent entity Event ID not found.');
+    }
+
+    // Get calendar ID.
+    if (!$cal_id = $this->getCalIdByCacheEntity($entity)) {
+      throw new \Exception('Failed to get Calendar ID from parent entity.');
+    }
+
+    // Get event start DateTime.
+    if (!$startDateTime = $this->proxy->extractEventDateTime($entity, 'start', GcalGroupexWrapper::TIMEZONE)) {
+      throw new \Exception('Failed to get start DateTime for the event');
+    }
+
+    $interval = new \DateInterval('PT1H');
+
+    $timeMin = clone $startDateTime;
+    $timeMin->sub($interval);
+
+    $timeMax = clone $startDateTime;
+    $timeMax->add($interval);
 
     $opts = [
-      'timeMin' => $timeMin,
-      'timeMax' => $timeMax,
+      'timeMin' => $timeMin->format('c'),
+      'timeMax' => $timeMax->format('c'),
     ];
 
     $events = $this->calService->events->instances($cal_id, $event_id, $opts);
-  }
 
-  /**
-   * Example for getting instance by time.
-   *
-   * @todo Remove it.
-   */
-  private function getInstance() {
-    $cal_id = 'Calendar ID';
+    if ($events->count() > 1) {
+      throw new \Exception('Found more than one instance for the child.');
+    }
 
-    // Event ID is parent ID + start time of the event.
-    $event_id = 'e3c5a0d8k6mkao6ns9p2mt3vkc_20160929T170000Z';
+    if (!$events->count()) {
+      throw new \Exception('Instance not found.');
+    }
 
-    $event = $this->calService->events->get($cal_id, $event_id);
+    $items = $events->getItems();
+    return $items[0];
   }
 
   /**
@@ -553,32 +591,11 @@ class GooglePush {
       throw new \Exception('No children found.');
     }
 
-    // Find the most weighted child to use it's data.
-    $weighted = $this->cacheStorage->load($children[0]);
-
     $event = new \Google_Service_Calendar_Event();
 
-    $event->setSummary(trim($weighted->field_gg_title->value));
-    $event->setLocation(trim($weighted->field_gg_location->value));
-    $event->setDescription($this->getDescription($weighted));
-
-    // Set start time.
-    if (!$startDateTime = $this->proxy->extractEventDateTime($weighted, 'start', GcalGroupexWrapper::TIMEZONE)) {
-      throw new \Exception('Failed to extract start time from cache entity');
-    }
-    $start = new \Google_Service_Calendar_EventDateTime();
-    $start->setDateTime($startDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT));
-    $start->setTimeZone(GcalGroupexWrapper::TIMEZONE);
-    $event->setStart($start);
-
-    // Set end time.
-    if (!$endDateTime = $this->proxy->extractEventDateTime($weighted, 'end', GcalGroupexWrapper::TIMEZONE)) {
-      throw new \Exception('Failed to extract end time from Cache Entity with ID');
-    }
-    $end = new \Google_Service_Calendar_EventDateTime();
-    $end->setDateTime($endDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT));
-    $end->setTimeZone(GcalGroupexWrapper::TIMEZONE);
-    $event->setEnd($end);
+    // Find the most weighted child to use it's data.
+    $weighted = $this->cacheStorage->load($children[0]);
+    $this->populateGenericEventData($event, $weighted);
 
     // Available types: weekly, biweekly, NULL.
     $recurrence_field = $entity->field_gg_ics_rec->value ?: NULL;
@@ -623,6 +640,47 @@ class GooglePush {
         '%parent_id' => $entity->id(),
       ]
     );
+  }
+
+  /**
+   * Populates generic event data for Google event.
+   *
+   * The next fields will be populated:
+   *   - Summary.
+   *   - Location.
+   *   - Description.
+   *   - Start time.
+   *   - End time.
+   *
+   * @param \Google_Service_Calendar_Event $event
+   *   Google calendar event.
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Cache entity.
+   *
+   * @throws \Exception
+   */
+  public function populateGenericEventData(\Google_Service_Calendar_Event &$event, GroupexGoogleCacheInterface $entity) {
+    $event->setSummary(trim($entity->field_gg_title->value));
+    $event->setLocation(trim($entity->field_gg_location->value));
+    $event->setDescription($this->getDescription($entity));
+
+    // Set start time.
+    if (!$startDateTime = $this->proxy->extractEventDateTime($entity, 'start', GcalGroupexWrapper::TIMEZONE)) {
+      throw new \Exception('Failed to extract start time from cache entity');
+    }
+    $start = new \Google_Service_Calendar_EventDateTime();
+    $start->setDateTime($startDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT));
+    $start->setTimeZone(GcalGroupexWrapper::TIMEZONE);
+    $event->setStart($start);
+
+    // Set end time.
+    if (!$endDateTime = $this->proxy->extractEventDateTime($entity, 'end', GcalGroupexWrapper::TIMEZONE)) {
+      throw new \Exception('Failed to extract end time from Cache Entity with ID');
+    }
+    $end = new \Google_Service_Calendar_EventDateTime();
+    $end->setDateTime($endDateTime->format(DATETIME_DATETIME_STORAGE_FORMAT));
+    $end->setTimeZone(GcalGroupexWrapper::TIMEZONE);
+    $event->setEnd($end);
   }
 
   /**
