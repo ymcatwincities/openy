@@ -449,8 +449,43 @@ class GooglePush {
         $this->pushUpdatedEvent($entity);
         $processed[$op]++;
       }
+      catch (\Google_Service_Exception $e) {
+        if ($e->getCode() == 403) {
+          $message = 'Google_Service_Exception [%op]: %message';
+          $this->logger->error(
+            $message,
+            [
+              '%message' => $e->getMessage(),
+              '%op' => $op,
+            ]
+          );
+          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+            // Rate limit exceeded, retry.
+            // @todo Limit number of retries.
+            return;
+          }
+        }
+        else {
+          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+          $this->logger->error(
+            $message,
+            [
+              '%op' => $op,
+              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+              '%message' => $e->getMessage(),
+            ]
+          );
+        }
+      }
       catch (\Exception $e) {
-        // @todo Do it.
+        $msg = 'Failed to update event for cache entity ID %id. Message: %msg';
+        $this->logger->error(
+          $msg,
+          [
+            '%id' => $entity->id(),
+            '%msg' => $e->getMessage(),
+          ]
+        );
       }
     }
     $this->logStats($op, $processed);
