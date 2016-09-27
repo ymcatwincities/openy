@@ -2,6 +2,7 @@
 .footer-wrapper {
   margin: 0 auto;
   max-width: 650px;
+  width: 100%;
 }
 
 .block-social {
@@ -63,6 +64,10 @@
     }
   }
 
+  .margin {
+    width: 70px;
+  }
+
   .opacity {
     color: #e08dc4;
 
@@ -105,6 +110,7 @@
   &__top {
     color: $gray-a7;
     margin-bottom: 20px;
+    padding: 0 10px;
   }
 
   &__bottom{
