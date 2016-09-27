@@ -561,6 +561,8 @@ a img {
     margin: 0 auto; }
   .block-contact .padding_top {
     padding-top: 20px; }
+  .block-contact .padding_bottom {
+    padding-bottom: 10px; }
   .block-contact__inner {
     padding: 0 30px; }
   .block-contact__icon {
