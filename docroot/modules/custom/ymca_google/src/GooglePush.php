@@ -449,7 +449,7 @@ class GooglePush {
         $this->pushUpdatedEvent($entity);
         $processed[$op]++;
       }
-      catch (Exception $e) {
+      catch (\Exception $e) {
         // @todo Do it.
       }
     }
@@ -479,7 +479,7 @@ class GooglePush {
     $children = $this->proxy->findChildrenNotPushed($entity);
     foreach ($children as $child_id) {
       $child_entity = $this->cacheStorage->load($child_id);
-
+      // @todo Reuse parent entity Gcal ID.
       if (!$cal_id = $this->getCalIdByCacheEntity($child_entity)) {
         throw new \Exception('Failed to get Google Calendar ID.');
       }
@@ -545,7 +545,7 @@ class GooglePush {
       throw new \Exception('Parent entity Event ID not found.');
     }
 
-    // Get calendar ID.
+    // Get calendar ID. @todo Reuse Gcal ID.
     if (!$cal_id = $this->getCalIdByCacheEntity($entity)) {
       throw new \Exception('Failed to get Calendar ID from parent entity.');
     }
@@ -641,6 +641,8 @@ class GooglePush {
 
     // Remove update flag.
     $entity->set('field_gg_need_up', 0);
+
+    $entity->save();
 
     $msg = 'Gcal event %gcal_id created from parent entity %parent_id.';
     $this->logger->info(
