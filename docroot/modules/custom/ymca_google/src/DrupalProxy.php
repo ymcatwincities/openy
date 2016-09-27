@@ -113,7 +113,7 @@ class DrupalProxy implements DrupalProxyInterface {
     $this->pluginManager = $plugin_manager;
     $this->entityTypeManager = $entity_type_manager;
 
-    $this->timezone = new \DateTimeZone('America/Chicago');
+    $this->timezone = new \DateTimeZone(GcalGroupexWrapper::TIMEZONE);
     $this->cacheStorage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
   }
 
@@ -827,6 +827,30 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
+   * Return not pushed children.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
+   *   Parent cache entity.
+   *
+   * @return array
+   *   List of child IDs, which were not pushed.
+   */
+  public function findChildrenNotPushed(GroupexGoogleCache $entity) {
+    $ids = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_parent_ref.target_id', $entity->id())
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (!empty($result)) {
+      $ids = array_values($result);
+    }
+
+    return $ids;
+  }
+
+  /**
    * Find all children by parent entity ID & sort by weight in reverse order.
    *
    * @param string $id
@@ -938,6 +962,62 @@ class DrupalProxy implements DrupalProxyInterface {
     );
 
     return $dateTime->getTimestamp();
+  }
+
+  /**
+   * Creates DateTime object from entity fields.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Cache entity.
+   * @param string $item
+   *   Start or End time. Example: 'start' or 'end'.
+   * @param string $timezone
+   *   Timezone. Example: 'UTC'.
+   *
+   * @return \DateTime|bool
+   *   DateTime object or FALSE in case of parsing error.
+   */
+  public function extractEventDateTime(GroupexGoogleCacheInterface $entity, $item = 'start', $timezone = 'UTC') {
+    if ($item != 'start' && $item != 'end') {
+      return FALSE;
+    }
+
+    if (!$field_time = $entity->field_gg_time->value) {
+      return FALSE;
+    }
+
+    if (!$field_date = $entity->field_gg_date_str->value) {
+      return FALSE;
+    }
+
+    preg_match("/(.*)-(.*)/i", $field_time, $output);
+
+    // Check if we've got start time.
+    if ($item == 'start' && !isset($output[1])) {
+      return FALSE;
+    }
+
+    // Check if we've got end time.
+    if ($item == 'end' && !isset($output[2])) {
+      return FALSE;
+    }
+
+    // Get time string. Example: 5:05am.
+    $time = $item == 'start' ? $output[1] : $output[2];
+
+    // Create DateTime object.
+    $timezone = new \DateTimeZone($timezone);
+    $dateObject = \DateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $field_date, $timezone);
+
+    // One more object just to grab time.
+    $timeObject = new \DateTime($time, $timezone);
+    $dateObject->setTime(
+      $timeObject->format('H'),
+      $timeObject->format('i'),
+      $timeObject->format('s')
+    );
+
+    return $dateObject;
   }
 
 }
