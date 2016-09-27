@@ -11,7 +11,7 @@ services:
     arguments: ['@ymca_google.groupex_wrapper', '@logger.channel.ymca_google', '@http_client', '@ymca_mappings.location_repository']
   ymca_google.pusher:
     class: Drupal\ymca_google\GooglePush
-    arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.factory', '@entity_type.manager', '@ymca_google.drupal_proxy', '@entity.query']
+    arguments: ['@ymca_google.groupex_wrapper', '@config.factory', '@logger.channel.ymca_google', '@entity_type.manager', '@ymca_google.drupal_proxy', '@entity.query']
   ymca_google.groupex_wrapper:
     class: Drupal\ymca_google\GcalGroupexWrapper
     arguments: ['@state', '@logger.factory', '@config.ymca_google.settings']
