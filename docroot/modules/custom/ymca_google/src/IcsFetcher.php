@@ -76,7 +76,7 @@ class IcsFetcher implements IcsFetcherInterface {
           'id' => '145945',
           'category' => 'Strength',
           'location' => 'Andover',
-          'title' => 'BodyPumpÂ®',
+          'title' => 'BodyPump',
           'description' => 'Here long description...',
           'post_date' => '2012-09-05 09:41:09',
           'start_date' => '2012-09-10 08:20:00',
