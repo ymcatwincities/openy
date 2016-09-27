@@ -488,8 +488,24 @@ class GooglePush {
       $this->populateGenericEventData($instance, $child_entity);
 
       $updated = $this->calService->events->update($cal_id, $instance->getId(), $instance);
-      // @todo Save updated event data to cache entity.
-      // @todo Write method to update cache entity with event data.
+
+      // Save Google response.
+      $child_entity->set('field_gg_gcal_id', $updated->getId());
+      $child_entity->set('field_gg_google_event', serialize($updated));
+
+      // Set UTC start timestamp.
+      $tsDateTime = $this->proxy->extractEventDateTime($child_entity, 'start', 'UTC');
+      $child_entity->set('field_gg_ts_utc', $tsDateTime->getTimestamp());
+      $child_entity->save();
+
+      $msg = 'Instance with ID %gcal_id was updated from child item with ID %child_id.';
+      $this->logger->info(
+        $msg,
+        [
+          '%gcal_id' => $updated->getId(),
+          '%child_id' => $child_entity->id(),
+        ]
+      );
     }
   }
 
@@ -625,12 +641,6 @@ class GooglePush {
 
     // Remove update flag.
     $entity->set('field_gg_need_up', 0);
-
-    // Set UTC start timestamp.
-    $tsDateTime = $this->proxy->extractEventDateTime($weighted, 'start', 'UTC');
-    $entity->set('field_gg_ts_utc', $tsDateTime->getTimestamp());
-
-    $entity->save();
 
     $msg = 'Gcal event %gcal_id created from parent entity %parent_id.';
     $this->logger->info(
