@@ -77,6 +77,10 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
+  # 301 --- give.ymcamn.org => give.ymcatwincities.org
+  RewriteCond %{HTTP_HOST} ^www.give.ymcamn.org [NC]
+  RewriteRule ^(.*)$ http://give.ymcatwincities.org/$1 [L,R=301,NC]
+
 
 
   # 301 --- _asset/n3yx68/doc.pdf => sites/default/files/doc.pdf
