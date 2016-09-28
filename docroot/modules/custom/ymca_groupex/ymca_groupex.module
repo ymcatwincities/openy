@@ -229,16 +229,20 @@ function ymca_groupex_schedule_table_layout(array $schedule) {
   $schedule['used_filters'] = [];
 
   // The filter `class` is used.
-  if (array_key_exists('class', $_GET)) {
+  if (array_key_exists('class', $_GET) && $_GET['class'] != 'any') {
     $schedule['used_filters'][] = 'class';
     $day = reset($schedule['days']);
     if ($day) {
       $class_item = reset($day['classes']);
       if ($class_item) {
         $class = $class_item['#class'];
-        $prefix = [
-          ['#markup' => '<div>' . $class['description'] . '</div>']
-        ];
+        $prefix = [[
+            '#type' => 'container',
+            '#markup' => $class['description'],
+            '#attributes' => [
+              'class' => ['class-description']
+            ]
+        ]];
 
         foreach($schedule['days'] as &$day) {
           foreach($day['classes'] as &$class_item) {
