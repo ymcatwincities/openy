@@ -9253,6 +9253,9 @@ body .ajax-progress-throbber .throbber {
     margin: 0 -15px;
   }
 }
+.groupex-results .class-description {
+  padding: 0 15px;
+}
 .groupex-results table {
   width: 100%;
 }
