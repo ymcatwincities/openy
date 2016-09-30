@@ -5,3 +5,8 @@ ymca_retention.ymca_winners.draw_winners:
   title: 'Draw winners'
   appears_on:
     - view.ymca_retention_winners.ymca_retention_winners
+entity.ymca_retention_member.delete_all:
+  route_name: 'ymca_retention.ymca_retention_member.delete_all'
+  title: 'Delete all members'
+  appears_on:
+    - entity.ymca_retention_member.collection

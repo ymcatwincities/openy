@@ -1,14 +1,36 @@
 .block-body {
-  padding-left: 10px;
-  padding-right: 10px;
   max-width: 650px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 100%;
+  overflow: hidden;
 
-  th {
-    margin: 0;
-    padding: 0;
+  .bg-gray {
+    background-color: $gray-42;
+    overflow: hidden;
+  }
+
+  .line-height-none {
+    line-height: 1px;
+
+    div {
+      line-height: 1.5;
+      font-weight: bold;
+    }
+  }
+
+  .block-body__content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 610px;
+
+    table {
+      margin: 0 auto;
+    }
+  }
+
+  tr, td {
+    border-collapse: collapse;
+    border-spacing: 0;
   }
 
   &__header {
@@ -20,7 +42,6 @@
     font-family: "Arial Black";
     font-size: 18px;
     font-weight: normal;
-    line-height: 82px;
     text-align: center;
     white-space: nowrap;
     width: 100%;
@@ -28,19 +49,21 @@
 
     img {
       height: auto;
-      margin-right: 15px;
       vertical-align: sub;
       width: 32px;
     }
 
-    tr, td {
-      color: #fff;
+    td,
+    tr {
+      font-size: 18px;
+      vertical-align: middle;
+      margin: 0;
+      border: 0;
+      padding: 0;
     }
 
     td {
-      font-size: 18px;
-      vertical-align: middle;
-      line-height: 1.5;
+      padding: 0 7px;
     }
   }
 
@@ -48,10 +71,11 @@
     &__content {
       padding-top: 30px;
       padding-bottom: 20px;
+      padding-left: 30px;
+      padding-right: 30px;
 
-      p {
+      div {
         margin: 0 auto 15px;
-        max-width: 456px;
       }
     }
 
@@ -66,6 +90,7 @@
   }
 
   .height-img {
-    height: 82px;
+    height: 83px;
+    width: 65px;
   }
 }

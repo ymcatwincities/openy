@@ -31,6 +31,10 @@
   background-size: cover;
   background-position: center center;
 
+  * {
+    font-size: 13px;
+  }
+
   &__content {
     margin: 0 auto;
   }
@@ -55,17 +59,25 @@
 
   &__phone-mail {
     a {
-      padding-right: 35px;
       white-space: nowrap;
     }
   }
 
   .opacity {
-    opacity: 0.4;
+    color: #e08dc4;
+
+    &-blue {
+      color: #7bbfe3;
+    }
+
+    &-green {
+      color: #7cd7cb;
+    }
   }
 
   &--programs-classes {
     background-color: $blue;
+
   }
 
   &--camps-summer {
