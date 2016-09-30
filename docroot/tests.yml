@@ -14,7 +14,9 @@
     config_file: behat.yml
     features_dir: features
     browser: 'chrome'
-    selenium_url: 127.0.0.1:4444/wd/hub
+    selenium_ip: 127.0.0.1
+    selenium_port: 4444
+    selenium_url: "{{ selenium_ip }}:{{ selenium_port }}/wd/hub"
     run_javascript_tests: 'yes'
     update_dependencies: 'yes'
     container_name: 'selenium'
@@ -46,10 +48,17 @@
         name: "{{ container_name }}"
         image: "{{ container_image }}"
         detach: true
-        ports: 4444:4444
+        ports: "{{ selenium_port }}:{{ selenium_port }}"
         state: started
       sudo: yes
       when: run_javascript_tests == 'yes'
+
+    - name: Wait for Selenium container
+      wait_for:
+        host: "{{ selenium_ip }}"
+        port: "{{ selenium_port }}"
+        delay: 10
+        state: drained
 
     - name: Create directory for build reports
       sudo: yes
