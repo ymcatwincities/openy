@@ -42,6 +42,13 @@
       sudo: yes
       shell: mv /tmp/behat.yml {{ behat_root }}/behat.yml
 
+    - name: Wait for Selenium container to be stopped
+      wait_for:
+        host: "{{ selenium_ip }}"
+        port: "{{ selenium_port }}"
+        delay: 0
+        state: stopped
+
   tasks:
     - name: Run Selenium container
       docker:
@@ -53,7 +60,7 @@
       sudo: yes
       when: run_javascript_tests == 'yes'
 
-    - name: Wait for Selenium container
+    - name: Wait for Selenium container to be ru§n
       wait_for:
         host: "{{ selenium_ip }}"
         port: "{{ selenium_port }}"
