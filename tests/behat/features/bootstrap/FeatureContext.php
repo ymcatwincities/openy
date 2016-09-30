@@ -36,12 +36,16 @@ class FeatureContext extends RawTqContext {
   }
 
   /**
-   * @Given I wait AJAX
+   * @When I wait for :cssSelector
+   * @param $cssSelector
+   * @throws \Exception
    */
-  public function waitAjax()
+  public function iWaitFor($cssSelector)
   {
-    // @TODO: workaround should be replaced.
-    sleep(5);
+    $this->spin(function($context) use ($cssSelector) {
+      /** @var $context FeatureContext */
+      return !is_null($context->getSession()->getPage()->find('css', $cssSelector));
+    });
   }
 
   /**
@@ -56,6 +60,33 @@ class FeatureContext extends RawTqContext {
     } else {
       $findName->click();
     }
+  }
+
+  /**
+   * Based on Behat's own example
+   * @see http://docs.behat.org/en/v2.5/cookbook/using_spin_functions.html#adding-a-timeout
+   * @param $lambda
+   * @param int $wait
+   * @throws \Exception
+   */
+  public function spin($lambda, $wait = 60)
+  {
+    $time = time();
+    $stopTime = $time + $wait;
+    while (time() < $stopTime)
+    {
+      try {
+        if ($lambda($this)) {
+          return;
+        }
+      } catch (\Exception $e) {
+        // do nothing
+      }
+
+      usleep(250000);
+    }
+
+    throw new \Exception("Spin function timed out after {$wait} seconds");
   }
 
 }
