@@ -1,0 +1,20 @@
+uuid: f153b1a5-848c-452d-afc3-3b2c2ffee4fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_ics_title
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_ics_title
+field_name: field_gg_ics_title
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'ICS Title'
+description: 'Example: "Pilates & Yoga"'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

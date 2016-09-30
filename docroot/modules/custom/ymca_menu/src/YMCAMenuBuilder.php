@@ -262,8 +262,8 @@ class YMCAMenuBuilder {
             $connection = Database::getConnection();
             $query = $connection
               ->select('menu_tree', 'mt')
-                ->fields('mt', array('mlid'))
-                ->condition('id', $found->getPluginId());
+              ->fields('mt', array('mlid'))
+              ->condition('id', $found->getPluginId());
             $mlid = (int) $query->execute()->fetchField();
           }
         }
@@ -291,8 +291,8 @@ class YMCAMenuBuilder {
           $connection = Database::getConnection();
           $query = $connection
             ->select('menu_tree', 'mt')
-              ->fields('mt', array('mlid'))
-              ->condition('id', $link->getPluginId());
+            ->fields('mt', array('mlid'))
+            ->condition('id', $link->getPluginId());
           $mlid = (int) $query->execute()->fetchField();
           break;
         }

@@ -66,7 +66,6 @@ class GroupexFormFull extends GroupexFormBase {
    * @param GroupexHelper $groupex_helper
    *   The Groupex helper.
    */
-
   public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper) {
     $this->groupexHelper = $groupex_helper;
 
@@ -261,6 +260,9 @@ class GroupexFormFull extends GroupexFormBase {
         'progress' => [
           'type' => 'throbber',
         ],
+      ],
+      '#cache' => [
+        'max-age' => 3600,
       ],
     ];
 

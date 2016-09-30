@@ -14,3 +14,7 @@
 ## How to clear the only stale cache
 
 ``\Drupal::service("groupex_form_cache.manager")->resetStaleCache(10, 86400);``
+
+## How to clear the stale cache with Drush
+
+``drush ev '\Drupal::service("groupex_form_cache.manager")->resetStaleCache();'``

@@ -9253,6 +9253,9 @@ body .ajax-progress-throbber .throbber {
     margin: 0 -15px;
   }
 }
+.groupex-results .class-description {
+  padding: 0 15px;
+}
 .groupex-results table {
   width: 100%;
 }
@@ -9591,7 +9594,6 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .template_youth_sports_overview .file--application-pdf a,
 .template_youth_sports_overview .pdf-link {
-  color: #c6188b;
   font-size: 15px;
   font-weight: normal;
 }
@@ -9758,6 +9760,10 @@ a.sports-icon.floor-hockey {
   font-size: 18px;
   margin-bottom: 20px;
 }
+.template_youth_sports_inner .locations-lead-copy .richtext .col-sm-6 p:first-child {
+  color: #424242;
+  font-size: 15px;
+}
 .template_youth_sports_inner .content-expander {
   margin: 80px 0;
 }
@@ -9806,6 +9812,23 @@ a.sports-icon.floor-hockey {
 }
 .template_youth_sports_inner section.node .content-expander-4 .accordion-toggle {
   color: #f37823;
+}
+.template_youth_sports_inner .file--application-pdf a,
+.template_youth_sports_inner .pdf-link {
+  font-size: 15px;
+  font-weight: normal;
+}
+.template_youth_sports_inner .file--application-pdf a:after,
+.template_youth_sports_inner .pdf-link:after {
+  display: none;
+}
+.template_youth_sports_inner .file--application-pdf a:before,
+.template_youth_sports_inner .pdf-link:before {
+  margin: 0 8px 0 0;
+  content: 'p';
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
 }
 .template_youth_sports_inner .file a {
   color: inherit;
