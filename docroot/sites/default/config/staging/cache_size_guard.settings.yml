@@ -1,0 +1,17 @@
+guards:
+  groupex_form_cache:
+    entity_type_id: groupex_form_cache
+    threshold: 2048
+    cleaners:
+      soft:
+        service: groupex_form_cache.manager
+        method: resetCache
+        arguments: {  }
+  groupex_google_cache:
+    entity_type_id: groupex_google_cache
+    threshold: 500
+    cleaners:
+      soft:
+        service: ymca_google.groupex_wrapper
+        method: logCacheGuard
+        arguments: { threshold: 500 }

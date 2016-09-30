@@ -2,10 +2,17 @@
 
 /**
  * @file
- * Installation file for the module
+ * Installation file for the module.
  */
 
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Database\DatabaseExceptionWrapper;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\node\Entity\Node;
+use Drupal\views\Entity\View;
+
 define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
+
 /**
  * Remove Groupex.
  */
@@ -13,7 +20,6 @@ function redwing_master_update_8001() {
   $installer = \Drupal::service('module_installer');
 
   $installer->uninstall(['ymca_sync']);
-  // $installer->uninstall(['ymca_groupex_google_cache'], TRUE);
   $installer->uninstall(['ymca_groupex'], TRUE);
   $installer->uninstall(['ymca_groupex_form_cache'], TRUE);
   $installer->uninstall(['ymca_google'], TRUE);
@@ -41,4 +47,155 @@ function redwing_master_update_8003() {
       REDWING_CONFDIR . 'user.role.authenticated.yml',
     ]
   );
+}
+
+/**
+ * Fix deleted fields problem.
+ */
+function redwing_master_update_8004() {
+  // Get all corrupted deleted fields.
+  $corrupted = [];
+
+  // We have some deleted fields in the queue, which are corrupted.
+  // 1. Without database table.
+  // 2. Without parent entity type.
+  // We are going to detect these fields and simply remove.
+  // That will give us ability to run field_cron() cleanly.
+  $fields = entity_load_multiple_by_properties(
+    'field_config',
+    [
+      'deleted' => TRUE,
+      'include_deleted' => TRUE,
+    ]
+  );
+  foreach ($fields as $field) {
+    $entity_type = $field->getTargetEntityTypeId();
+
+    try {
+      \Drupal::entityManager()->getStorage($entity_type)->purgeFieldData($field, 50);
+    }
+    catch (DatabaseExceptionWrapper $e) {
+      // The field without DB table.
+      $corrupted[] = $field->id();
+    }
+    catch (PluginNotFoundException $e) {
+      // The field without entity type (example, comment).
+      $corrupted[] = $field->id();
+    }
+  }
+
+  $state = \Drupal::service('state');
+  $deleted = $state->get('field.field.deleted');
+
+  foreach ($deleted as $item) {
+    if (in_array($item['id'], $corrupted)) {
+      unset($deleted[$item['uuid']]);
+    }
+  }
+
+  $state->set('field.field.deleted', $deleted);
+
+  // Eventually purge deleted fields.
+  field_cron();
+}
+
+/**
+ * Remove workflow.
+ */
+function redwing_master_update_8005() {
+  $field_name = 'field_state';
+  $bundles = ['blog', 'article'];
+
+  foreach ($bundles as $bundle) {
+    $field_config = FieldConfig::loadByName('node', $bundle, $field_name);
+    $field_storage = $field_config->getFieldStorageDefinition();
+
+    if ($field_storage && !$field_storage->isLocked()) {
+      $field_config->delete();
+      $msg = 'The field %field has been deleted from the %type content type.';
+      \Drupal::logger('redwing_master')->info(
+        $msg,
+        ['%field' => $field_name, '%type' => $bundle]
+      );
+    }
+    else {
+      $msg = 'There was a problem removing the %field from the %type content type.';
+      \Drupal::logger('ymca_master')->error(
+        $msg,
+        ['%field' => $field_name, '%type' => $bundle]
+      );
+    }
+  }
+
+  // Eventually purge deleted fields.
+  field_cron();
+
+  // Remove needs review view.
+  $view = View::load('needs_review');
+  $view->delete();
+
+  // Remove modules.
+  $installer = \Drupal::service('module_installer');
+  $modules = [
+    'workflow_access',
+    'workflow_operations',
+    'workflow_ui',
+    'ymca_workflow',
+  ];
+  $installer->uninstall($modules);
+}
+
+/**
+ * Fix 'unpublish' bug for blog posts.
+ */
+function redwing_master_update_8006() {
+  $items = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->execute();
+
+  foreach ($items as $item) {
+    $node = Node::load($item);
+    $node->setPublished($node->isPublished());
+    $node->save();
+  }
+}
+
+/**
+ * Add svg extension to config.
+ */
+function redwing_master_update_8007() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'file_entity.settings.yml',
+      REDWING_CONFDIR . 'entity_browser.browser.browse_files_modal.yml',
+      REDWING_CONFDIR . 'entity_browser.browser.browse_files.yml',
+    ]
+  );
+}
+
+/**
+ * Add svg extension to image fields config.
+ */
+function redwing_master_update_8008() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'field.field.block_content.image_block.field_image.yml',
+      REDWING_CONFDIR . 'field.field.block_content.promo_block.field_image.yml',
+      REDWING_CONFDIR . 'field.field.block_content.slide_show_item.field_image.yml',
+      REDWING_CONFDIR . 'field.field.contact_message.camp_share_your_story.field_image.yml',
+      REDWING_CONFDIR . 'field.field.node.article.field_header_image.yml',
+      REDWING_CONFDIR . 'field.field.node.blog.field_image.yml',
+      REDWING_CONFDIR . 'field.field.user.user.user_picture.yml',
+    ]
+  );
+}
+
+/**
+ * Sets the iframe height.
+ */
+function redwing_master_update_8009() {
+  $node = Node::load(4201);
+  $node->field_content->format = 'full_html';
+  $node->field_content->value = '<iframe frameborder="0" class="no-resize" src="http://www.activelifeadmin.com/redwing/websearch/public" style="width:100%; height:1900px"></iframe>';
+  $node->save();
 }

@@ -470,21 +470,24 @@ function ymca_preprocess_html(&$variables) {
     $variables['attributes']->addClass($classes);
   }
 
-  $iconFid = theme_get_setting('ymca_favicon_default')[0];
+  $ymca_favicon_default_var = theme_get_setting('ymca_favicon_default');
+  $iconFid = reset($ymca_favicon_default_var);
   if (
     in_array('theme_ymca_2013_location_home', $classes) ||
     in_array('theme_ymca_2013_location_category_and_detail', $classes)) {
-    $iconFid = theme_get_setting('ymca_favicon_location')[0];
+    $ymca_favicon_location_var = theme_get_setting('ymca_favicon_location');
+    $iconFid = reset($ymca_favicon_location_var);
   }
   elseif (
     in_array('theme_ymca_2013_camp_home', $classes) ||
     in_array('theme_ymca_2013_camp_category_and_detail', $classes) ||
     in_array('theme_ymca_2013_camp_primary_landing', $classes)) {
-    $iconFid = theme_get_setting('ymca_favicon_camp')[0];
+    $ymca_favicon_camp_var = theme_get_setting('ymca_favicon_camp');
+    $iconFid = reset($ymca_favicon_camp_var);
   }
 
-  $file = file_load($iconFid);
-  if ($file) {
+  if ($iconFid) {
+    $file = file_load($iconFid);
     $variables['page']['#attached']['html_head_link'] = [[[
       'rel' => 'shortcut icon',
       'href' => file_create_url($file->getFileUri()),
@@ -1209,10 +1212,13 @@ function ymca_page_attachments_alter(array &$page) {
     }
   }
   if ($styles = ymca_get_theme_styles()) {
-    $page['#attached']['html_head'][] = [[
-      '#tag' => 'style',
-      '#value' => $styles,
-    ]];
+    $page['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => $styles,
+      ],
+      'ymca-styles'
+    ];
   }
 }
 /**
@@ -1314,6 +1320,7 @@ function ymca_get_theme_styles() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['#attached']['library'][] = 'ymca/admin-side';
   hide($form['theme_settings']['toggle_favicon']);
   hide($form['favicon']);
   $form['ymca_settings']['styles'] = array(
@@ -1323,112 +1330,131 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
     '#collapsed' => FALSE,
   );
   $form['ymca_settings']['styles']['links_color'] = array(
+    '#prefix' => '<div id="color-picker-container"></div>',
     '#type' => 'textfield',
     '#title' => t('Links color'),
     '#default_value' => theme_get_setting('links_color'),
     '#description' => t('Leave empty for basic styles.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['links_color_hover'] = array(
     '#type' => 'textfield',
     '#title' => t('Links color (mouseover)'),
     '#default_value' => theme_get_setting('links_color_hover'),
     '#description' => t('Leave empty for basic styles.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_background_color_base'] = array(
     '#type' => 'textfield',
     '#title' => t('Header background color'),
     '#default_value' => theme_get_setting('header_background_color_base'),
     '#description' => t('Applies for entire headers on site except overridden.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_sub_background_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Header sub-background color'),
     '#default_value' => theme_get_setting('header_sub_background_color'),
     '#description' => t('Applies for entire headers on site except overridden.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_background_color_locations'] = array(
     '#type' => 'textfield',
     '#title' => t('Header background color for locations'),
     '#default_value' => theme_get_setting('header_background_color_locations'),
     '#description' => t('Applies for locations headers.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_sub_background_color_locations'] = array(
     '#type' => 'textfield',
     '#title' => t('Header sub-background color for locations'),
     '#default_value' => theme_get_setting('header_sub_background_color_locations'),
     '#description' => t('Applies for locations headers.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_background_color_camps'] = array(
     '#type' => 'textfield',
     '#title' => t('Header background color for camps'),
     '#default_value' => theme_get_setting('header_background_color_camps'),
     '#description' => t('Applies for camps headers.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_sub_background_color_camps'] = array(
     '#type' => 'textfield',
     '#title' => t('Header sub-background color for camps'),
     '#default_value' => theme_get_setting('header_sub_background_color_camps'),
     '#description' => t('Applies for camps headers.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_home_button_bg_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Header button background color'),
     '#default_value' => theme_get_setting('header_home_button_bg_color'),
     '#description' => t('Applies only for home page header button.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_home_button_border_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Header button border color'),
     '#default_value' => theme_get_setting('header_home_button_border_color'),
     '#description' => t('Applies only for home page header button.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_buttons_color1_base'] = array(
     '#type' => 'textfield',
     '#title' => t('Basic buttons color'),
     '#default_value' => theme_get_setting('header_buttons_color1_base'),
     '#description' => '',
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_buttons_color2_base'] = array(
     '#type' => 'textfield',
     '#title' => t('Basic buttons color (optional)'),
     '#default_value' => theme_get_setting('header_buttons_color2_base'),
     '#description' => t('Add additional color for gradient support.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_buttons_color1_locations'] = array(
     '#type' => 'textfield',
     '#title' => t('Header locations buttons color'),
     '#default_value' => theme_get_setting('header_buttons_color1_locations'),
     '#description' => '',
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_buttons_color2_locations'] = array(
     '#type' => 'textfield',
     '#title' => t('Header locations buttons color (optional)'),
     '#default_value' => theme_get_setting('header_buttons_color2_locations'),
     '#description' => t('Add additional color for gradient support.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_buttons_color1_camps'] = array(
     '#type' => 'textfield',
     '#title' => t('Header camps buttons color'),
     '#default_value' => theme_get_setting('header_buttons_color1_camps'),
     '#description' => '',
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['header_buttons_color2_camps'] = array(
     '#type' => 'textfield',
     '#title' => t('Header camps buttons color (optional)'),
     '#default_value' => theme_get_setting('header_buttons_color2_camps'),
     '#description' => t('Add additional color for gradient support.'),
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['camps_links_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Camps links color'),
     '#default_value' => theme_get_setting('camps_links_color'),
     '#description' => '',
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['camps_links_color_hover'] = array(
     '#type' => 'textfield',
     '#title' => t('Camps links color (mouseover)'),
     '#default_value' => theme_get_setting('camps_links_color_hover'),
     '#description' => '',
+    '#attributes' => ['class' => ['color-preview']],
   );
   $form['ymca_settings']['styles']['logo_camps'] = array(
     '#type' => 'managed_file',
