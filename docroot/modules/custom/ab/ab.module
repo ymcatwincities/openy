@@ -27,8 +27,11 @@ function ab_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_page_attachments().
  */
 function ab_page_attachments(array &$attachments) {
+
   $config = \Drupal::config('ab.settings');
-  $block_builder = \Drupal::getContainer()->get('entity.manager')->getViewBuilder('block');
+  $block_builder = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getViewBuilder('block');
   $renderer = \Drupal::service('renderer');
 
   $replacements = $config->get('replacements');
@@ -39,15 +42,17 @@ function ab_page_attachments(array &$attachments) {
       $item['html'] = '';
       continue;
     }
-    // Replace elements matching the selector if block_id is specified.
-    $build = $block_builder->lazyBuilder($item['block_id'], 'full');
-    $item['html'] = (string) $renderer->renderRoot($build);
+    $block = \Drupal\block\Entity\Block::load($item['block_id']);
+    if ($block) {
+      // Replace elements matching the selector if block_id is specified.
+      $build = $block_builder->lazyBuilder($item['block_id'], 'full');
+      $item['html'] = (string) $renderer->renderRoot($build);
+    }
   }
   unset($item);
-
-  $attachments['#attached']['library'][] = 'ab/ab_generic';
-  $attachments['#attached']['drupalSettings']['ab'] = $replacements;
   if (\Drupal::currentUser()->hasPermission('access AB variants')) {
+    $attachments['#attached']['library'][] = 'ab/ab_generic';
+    $attachments['#attached']['drupalSettings']['ab'] = $replacements;
     $attachments['#attached']['drupalSettings']['ab_state'] = $ab_state;
   }
   else {
