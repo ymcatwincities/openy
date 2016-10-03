@@ -60,7 +60,7 @@
       sudo: yes
       when: run_javascript_tests == 'yes'
 
-    - name: Wait for Selenium container to be ru§n
+    - name: Wait for Selenium container to be run
       wait_for:
         host: "{{ selenium_ip }}"
         port: "{{ selenium_port }}"
