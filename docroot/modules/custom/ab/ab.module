@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\block\Entity\Block;
 
 /**
  * Implements hook_help().
@@ -42,7 +43,7 @@ function ab_page_attachments(array &$attachments) {
       $item['html'] = '';
       continue;
     }
-    $block = \Drupal\block\Entity\Block::load($item['block_id']);
+    $block = Block::load($item['block_id']);
     if ($block) {
       // Replace elements matching the selector if block_id is specified.
       $build = $block_builder->lazyBuilder($item['block_id'], 'full');
@@ -50,9 +51,9 @@ function ab_page_attachments(array &$attachments) {
     }
   }
   unset($item);
+  $attachments['#attached']['library'][] = 'ab/ab_generic';
+  $attachments['#attached']['drupalSettings']['ab'] = $replacements;
   if (\Drupal::currentUser()->hasPermission('access AB variants')) {
-    $attachments['#attached']['library'][] = 'ab/ab_generic';
-    $attachments['#attached']['drupalSettings']['ab'] = $replacements;
     $attachments['#attached']['drupalSettings']['ab_state'] = $ab_state;
   }
   else {
