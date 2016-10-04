@@ -44,7 +44,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var int
    */
-  private $steps = 180;
+  private $steps = 60;
 
   /**
    * Step length.
