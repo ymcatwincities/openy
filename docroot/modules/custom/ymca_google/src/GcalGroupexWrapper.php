@@ -15,6 +15,11 @@ use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
 class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
 
   /**
+   * Default timezone.
+   */
+  const TIMEZONE = 'America/Chicago';
+
+  /**
    * Entity type ID.
    */
   const ENTITY_TYPE = 'groupex_google_cache';
@@ -39,7 +44,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var int
    */
-  private $steps = 180;
+  private $steps = 60;
 
   /**
    * Step length.

@@ -113,7 +113,7 @@ class DrupalProxy implements DrupalProxyInterface {
     $this->pluginManager = $plugin_manager;
     $this->entityTypeManager = $entity_type_manager;
 
-    $this->timezone = new \DateTimeZone('America/Chicago');
+    $this->timezone = new \DateTimeZone(GcalGroupexWrapper::TIMEZONE);
     $this->cacheStorage = $this->entityTypeManager->getStorage(GcalGroupexWrapper::ENTITY_TYPE);
   }
 
@@ -241,7 +241,10 @@ class DrupalProxy implements DrupalProxyInterface {
    * Using child items.
    */
   protected function processSchedulesDataCurrent() {
+    // Get compare map. Do not compare class date field.
     $field_map_schedules = $this->dataWrapper->getFieldMappingSchedules();
+    $compare_map = $field_map_schedules;
+    unset($compare_map['field_gg_date_str']);
 
     foreach ($this->dataWrapper->getSourceData() as $class) {
       // Skip entities which we have been already processed.
@@ -252,7 +255,9 @@ class DrupalProxy implements DrupalProxyInterface {
       // Get base entity ID.
       $parent = $this->findParentEntityByClassId($class->id);
       if (!$parent) {
-        $this->logger->error(
+        // Parent entity may not exists as entity yet.
+        // It may be created in next iterations. So, just logging and skipping.
+        $this->logger->notice(
           'Parent entity for class ID %id was not found.',
           [
             '%id' => $class->id,
@@ -265,6 +270,13 @@ class DrupalProxy implements DrupalProxyInterface {
       if (!$children) {
         // No children found. Create one.
         $this->createChildCacheItem($class);
+
+        // Update base (parent) entity with child data.
+        foreach ($compare_map as $field => $property) {
+          $parent->set($field, $class->$property);
+        }
+        $parent->save();
+
       }
       else {
         if (count($children) > self::MAX_CHILD_WARNING) {
@@ -278,21 +290,10 @@ class DrupalProxy implements DrupalProxyInterface {
           );
         }
 
-        // Compare our class with children.
-        // Note. We'll compare all properties except date.
-        $compare_map = $field_map_schedules;
-        unset($compare_map['field_gg_date_str']);
-
-        foreach ($children as $child_id) {
-          $child = $this->cacheStorage->load($child_id);
-          if (!$this->isDifferent($compare_map, $child, $class)) {
-            $this->updateWeight($child);
-            continue 2;
-          }
+        if ($this->isDifferent($compare_map, $parent, $class)) {
+          // The class differs from base entity. Create new child.
+          $this->createChildCacheItem($class);
         }
-
-        // No equal entities were found. Creating new one.
-        $this->createChildCacheItem($class);
       }
     }
 
@@ -370,37 +371,43 @@ class DrupalProxy implements DrupalProxyInterface {
       ]
     );
 
-    // Process created items.
-    $created = $this->findCreatedIcsItems();
-    foreach ($created as $entity) {
-      $this->dataWrapper->appendProxyItem('insert', $entity);
-    }
+    $api_version = $this->dataWrapper->settings->get('api_version');
 
-    // Process updated items.
-    $updated = $this->findUpdatedIcsItems();
-    foreach ($updated as $entity) {
-      $this->dataWrapper->appendProxyItem('update', $entity);
-    }
+    // ICS introduced only in API 2.
+    // Pass ICS data to pusher if API >= 2.
+    if ($api_version >= 2) {
+      // Process created items.
+      $created = $this->findCreatedIcsItems();
+      foreach ($created as $entity) {
+        $this->dataWrapper->appendProxyItem('insert', $entity);
+      }
 
-    // Process deleted items.
-    $deleted = $this->findDeletedIcsItems();
-    // @todo Analyze the process of deleting.
-    $delete_count = count($deleted);
-    if ($delete_count < 10) {
-      foreach ($deleted as $entity) {
-        $this->dataWrapper->appendProxyItem('delete', $entity);
+      // Process updated items.
+      $updated = $this->findUpdatedIcsItems();
+      foreach ($updated as $entity) {
+        $this->dataWrapper->appendProxyItem('update', $entity);
+      }
+
+      // Process deleted items.
+      $deleted = $this->findDeletedIcsItems();
+      // @todo Analyze the process of deleting.
+      $delete_count = count($deleted);
+      if ($delete_count < 10) {
+        foreach ($deleted as $entity) {
+          // @todo Implement deleting.
+          // $this->dataWrapper->appendProxyItem('delete', $entity);
+        }
+      }
+      else {
+        $msg = 'Too many items %count for deleting. Needs checking.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%count' => $delete_count,
+          ]
+        );
       }
     }
-    else {
-      $msg = 'Too many items %count for deleting. Needs checking.';
-      $this->logger->critical(
-        $msg,
-        [
-          '%count' => $delete_count,
-        ]
-      );
-    }
-
   }
 
   /**
@@ -592,6 +599,15 @@ class DrupalProxy implements DrupalProxyInterface {
       $entity = $storage->create($values);
       $entity->setName($class->title . ' [' . $class->id . ']');
       $entity->save();
+
+      $msg = 'New child item for parent entity %id was created.';
+      $this->logger->info(
+        $msg,
+        [
+          '%id' => $entity->id(),
+        ]
+      );
+
       return $entity->id();
     }
     catch (\Exception $e) {
@@ -814,6 +830,30 @@ class DrupalProxy implements DrupalProxyInterface {
   }
 
   /**
+   * Return not pushed children.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
+   *   Parent cache entity.
+   *
+   * @return array
+   *   List of child IDs, which were not pushed.
+   */
+  public function findChildrenNotPushed(GroupexGoogleCache $entity) {
+    $ids = [];
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_parent_ref.target_id', $entity->id())
+      ->notExists('field_gg_gcal_id')
+      ->execute();
+
+    if (!empty($result)) {
+      $ids = array_values($result);
+    }
+
+    return $ids;
+  }
+
+  /**
    * Find all children by parent entity ID & sort by weight in reverse order.
    *
    * @param string $id
@@ -925,6 +965,62 @@ class DrupalProxy implements DrupalProxyInterface {
     );
 
     return $dateTime->getTimestamp();
+  }
+
+  /**
+   * Creates DateTime object from entity fields.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Cache entity.
+   * @param string $item
+   *   Start or End time. Example: 'start' or 'end'.
+   * @param string $timezone
+   *   Timezone. Example: 'UTC'.
+   *
+   * @return \DateTime|bool
+   *   DateTime object or FALSE in case of parsing error.
+   */
+  public function extractEventDateTime(GroupexGoogleCacheInterface $entity, $item = 'start', $timezone = 'UTC') {
+    if ($item != 'start' && $item != 'end') {
+      return FALSE;
+    }
+
+    if (!$field_time = $entity->field_gg_time->value) {
+      return FALSE;
+    }
+
+    if (!$field_date = $entity->field_gg_date_str->value) {
+      return FALSE;
+    }
+
+    preg_match("/(.*)-(.*)/i", $field_time, $output);
+
+    // Check if we've got start time.
+    if ($item == 'start' && !isset($output[1])) {
+      return FALSE;
+    }
+
+    // Check if we've got end time.
+    if ($item == 'end' && !isset($output[2])) {
+      return FALSE;
+    }
+
+    // Get time string. Example: 5:05am.
+    $time = $item == 'start' ? $output[1] : $output[2];
+
+    // Create DateTime object.
+    $timezone = new \DateTimeZone($timezone);
+    $dateObject = \DateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $field_date, $timezone);
+
+    // One more object just to grab time.
+    $timeObject = new \DateTime($time, $timezone);
+    $dateObject->setTime(
+      $timeObject->format('H'),
+      $timeObject->format('i'),
+      $timeObject->format('s')
+    );
+
+    return $dateObject;
   }
 
 }
