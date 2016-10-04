@@ -688,6 +688,9 @@ function ymca_preprocess_views_view(&$vars) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
+
+  // Sets the search path.
+  $vars['search_view_content_path'] = Url::fromRoute('search.view_content');
 }
 
 /**
