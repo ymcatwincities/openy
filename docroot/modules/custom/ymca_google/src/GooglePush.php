@@ -679,10 +679,6 @@ class GooglePush {
       throw new \Exception('The event has been already pushed.');
     }
 
-    if (!$gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value)) {
-      throw new \Exception('Failed to get Google calendar ID.');
-    }
-
     $children = $this->proxy->findChildren($entity->id());
     if (empty($children)) {
       $this->logger->notice('Skip pushing event. No children found.');
@@ -693,6 +689,11 @@ class GooglePush {
 
     // Find the most weighted child to use it's data.
     $weighted = $this->cacheStorage->load($children[0]);
+
+    if (!$gcal_id = $this->getCalendarIdByName($weighted->field_gg_location->value)) {
+      throw new \Exception('Failed to get Google calendar ID.');
+    }
+
     $this->populateGenericEventData($event, $weighted);
 
     // Available types: weekly, biweekly, NULL.
