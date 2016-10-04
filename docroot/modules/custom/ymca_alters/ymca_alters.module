@@ -140,7 +140,7 @@ function ymca_alters_block_content_presave(EntityInterface $entity) {
     ->condition('field_global_alert', 1)
     ->execute();
 
-  $blocks = \Drupal::entityManager()->getStorage('block_content')->loadMultiple(array_keys($query));
+  $blocks = \Drupal::entityTypeManager()->getStorage('block_content')->loadMultiple($query);
   /** @var \Drupal\block_content\Entity\BlockContent $block */
   foreach ($blocks as $block) {
     if ($block->uuid() == $entity->uuid()) {
