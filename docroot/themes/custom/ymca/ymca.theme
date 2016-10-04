@@ -527,11 +527,11 @@ function ymca_preprocess_page(&$variables) {
     }
   }
   $blocks = [];
-  if ($block = \Drupal::service('alerts.service')->getCurrentAlertBlock()) {
-    $blocks[] = $block;
-  }
   if ($global_block = \Drupal::service('alerts.service')->getGlobalAlertBlock()) {
     $blocks[] = $global_block;
+  }
+  if ($block = \Drupal::service('alerts.service')->getCurrentAlertBlock()) {
+    $blocks[] = $block;
   }
   if (!empty($blocks)) {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
