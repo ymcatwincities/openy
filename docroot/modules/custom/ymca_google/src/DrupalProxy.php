@@ -255,7 +255,9 @@ class DrupalProxy implements DrupalProxyInterface {
       // Get base entity ID.
       $parent = $this->findParentEntityByClassId($class->id);
       if (!$parent) {
-        $this->logger->error(
+        // Parent entity may not exists as entity yet.
+        // It may be created in next iterations. So, just logging and skipping.
+        $this->logger->notice(
           'Parent entity for class ID %id was not found.',
           [
             '%id' => $class->id,
@@ -392,7 +394,8 @@ class DrupalProxy implements DrupalProxyInterface {
       $delete_count = count($deleted);
       if ($delete_count < 10) {
         foreach ($deleted as $entity) {
-          $this->dataWrapper->appendProxyItem('delete', $entity);
+          // @todo Implement deleting.
+          // $this->dataWrapper->appendProxyItem('delete', $entity);
         }
       }
       else {

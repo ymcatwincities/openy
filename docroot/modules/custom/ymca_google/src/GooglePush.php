@@ -392,48 +392,50 @@ class GooglePush {
     Timer::start($op);
     $processed[$op] = 0;
 
-    foreach ($data[$op] as $entity) {
-      try {
-        $this->pushNewEvent($entity);
-        $processed[$op]++;
-      }
-      catch (\Google_Service_Exception $e) {
-        if ($e->getCode() == 403) {
-          $message = 'Google_Service_Exception [%op]: %message';
-          $this->logger->error(
-            $message,
-            [
-              '%message' => $e->getMessage(),
-              '%op' => $op,
-            ]
-          );
-          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
-            // Rate limit exceeded, retry.
-            // @todo Limit number of retries.
-            return;
+    if (!empty($data[$op])) {
+      foreach ($data[$op] as $entity) {
+        try {
+          $this->pushNewEvent($entity);
+          $processed[$op]++;
+        }
+        catch (\Google_Service_Exception $e) {
+          if ($e->getCode() == 403) {
+            $message = 'Google_Service_Exception [%op]: %message';
+            $this->logger->error(
+              $message,
+              [
+                '%message' => $e->getMessage(),
+                '%op' => $op,
+              ]
+            );
+            if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+              // Rate limit exceeded, retry.
+              // @todo Limit number of retries.
+              return;
+            }
+          }
+          else {
+            $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+            $this->logger->error(
+              $message,
+              [
+                '%op' => $op,
+                '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+                '%message' => $e->getMessage(),
+              ]
+            );
           }
         }
-        else {
-          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+        catch (\Exception $e) {
+          $msg = 'Failed to push event for cache entity ID %id. Message: %msg';
           $this->logger->error(
-            $message,
+            $msg,
             [
-              '%op' => $op,
-              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-              '%message' => $e->getMessage(),
+              '%id' => $entity->id(),
+              '%msg' => $e->getMessage(),
             ]
           );
         }
-      }
-      catch (\Exception $e) {
-        $msg = 'Failed to push event for cache entity ID %id. Message: %msg';
-        $this->logger->error(
-          $msg,
-          [
-            '%id' => $entity->id(),
-            '%msg' => $e->getMessage(),
-          ]
-        );
       }
     }
 
@@ -444,48 +446,50 @@ class GooglePush {
     $op = 'update';
     Timer::start($op);
     $processed[$op] = 0;
-    foreach ($data[$op] as $entity) {
-      try {
-        $this->pushUpdatedEvent($entity);
-        $processed[$op]++;
-      }
-      catch (\Google_Service_Exception $e) {
-        if ($e->getCode() == 403) {
-          $message = 'Google_Service_Exception [%op]: %message';
-          $this->logger->error(
-            $message,
-            [
-              '%message' => $e->getMessage(),
-              '%op' => $op,
-            ]
-          );
-          if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
-            // Rate limit exceeded, retry.
-            // @todo Limit number of retries.
-            return;
+    if (!empty($data[$op])) {
+      foreach ($data[$op] as $entity) {
+        try {
+          $this->pushUpdatedEvent($entity);
+          $processed[$op]++;
+        }
+        catch (\Google_Service_Exception $e) {
+          if ($e->getCode() == 403) {
+            $message = 'Google_Service_Exception [%op]: %message';
+            $this->logger->error(
+              $message,
+              [
+                '%message' => $e->getMessage(),
+                '%op' => $op,
+              ]
+            );
+            if (strstr($e->getMessage(), 'Rate Limit Exceeded')) {
+              // Rate limit exceeded, retry.
+              // @todo Limit number of retries.
+              return;
+            }
+          }
+          else {
+            $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+            $this->logger->error(
+              $message,
+              [
+                '%op' => $op,
+                '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
+                '%message' => $e->getMessage(),
+              ]
+            );
           }
         }
-        else {
-          $message = 'Google Service Exception for operation %op for Entity: %uri : %message';
+        catch (\Exception $e) {
+          $msg = 'Failed to update event for cache entity ID %id. Message: %msg';
           $this->logger->error(
-            $message,
+            $msg,
             [
-              '%op' => $op,
-              '%uri' => $entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
-              '%message' => $e->getMessage(),
+              '%id' => $entity->id(),
+              '%msg' => $e->getMessage(),
             ]
           );
         }
-      }
-      catch (\Exception $e) {
-        $msg = 'Failed to update event for cache entity ID %id. Message: %msg';
-        $this->logger->error(
-          $msg,
-          [
-            '%id' => $entity->id(),
-            '%msg' => $e->getMessage(),
-          ]
-        );
       }
     }
     $this->logStats($op, $processed);
@@ -494,11 +498,15 @@ class GooglePush {
     $op = 'delete';
     Timer::start($op);
     $processed[$op] = 0;
-    foreach ($data[$op] as $item) {
-      // @todo If item has gcal_id delete the event from Google.
-      // @todo If deletion went well delete the parent item and all children.
-      // @todo We definitely can delete entities which have no recurrence
+
+    if (!empty($data[$op])) {
+      foreach ($data[$op] as $item) {
+        // @todo If item has gcal_id delete the event from Google.
+        // @todo If deletion went well delete the parent item and all children.
+        // @todo We definitely can delete entities which have no recurrence
+      }
     }
+
     $this->logStats($op, $processed);
   }
 
@@ -555,6 +563,44 @@ class GooglePush {
    */
   public function getCalIdByCacheEntity(GroupexGoogleCache $entity) {
     return $this->getCalendarIdByName($entity->field_gg_location->value);
+  }
+
+  /**
+   * Delete all events in the calendar.
+   *
+   * @param string $id
+   *   Calendar ID.
+   *
+   * @throws \Exception
+   */
+  public function clearCalendar($id) {
+    // Do not include feature events. For efficiency.
+    $date_time = new \DateTime('now');
+    $interval = new \DateInterval('P1Y');
+    $date_time->add($interval);
+    $defaults = ['timeMax' => $date_time->format('c')];
+
+    $events = $this->calEvents->listEvents($id, $defaults);
+
+    while (TRUE) {
+      foreach ($events->getItems() as $event) {
+        try {
+          $this->calEvents->delete($id, $event->getId());
+        }
+        catch (\Exception $e) {
+          $msg = 'Failed to delete event. Message: %msg';
+          $this->logger->notice($msg, ['%msg' => $e->getMessage()]);
+        }
+      }
+      $page_token = $events->getNextPageToken();
+      if ($page_token) {
+        $opt_params = ['pageToken' => $page_token];
+        $events = $this->calEvents->listEvents($id, $opt_params + $defaults);
+      }
+      else {
+        break;
+      }
+    }
   }
 
   /**
@@ -639,7 +685,8 @@ class GooglePush {
 
     $children = $this->proxy->findChildren($entity->id());
     if (empty($children)) {
-      throw new \Exception('No children found.');
+      $this->logger->notice('Skip pushing event. No children found.');
+      return;
     }
 
     $event = new \Google_Service_Calendar_Event();
@@ -769,7 +816,7 @@ class GooglePush {
    * @return bool|mixed
    *   Calendar ID.
    */
-  protected function getCalendarIdByName($name) {
+  public function getCalendarIdByName($name) {
     if (!$this->isProduction) {
       $name = self::TEST_CALENDAR_NAME;
     }
@@ -819,26 +866,21 @@ class GooglePush {
     $timeZone = new \DateTimeZone('UTC');
     $current = $schedule['current'];
 
-    $startDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['start'], $timeZone);
-    $startDate = $startDateTime->format('c');
-
     $endDateTime = DrupalDateTime::createFromTimestamp($schedule['steps'][$current]['end'], $timeZone);
     $endDate = $endDateTime->format('c');
 
-    $message = 'Stats: op - %op, items - %items, processed - %processed, success - %success%. Time - %time. Time frame: %start - %end. Source data: %source. ';
+    $message = 'Stats: op - %op, items - %items, processed - %processed, success - %success%. Time - %time.';
     $this->logger->info(
       $message,
       [
         '%op' => $op,
         '%items' => count($data[$op]),
-        '%time' => Timer::read($op),
-        '%start' => $startDate,
-        '%end' => $endDate,
-        '%source' => count($this->dataWrapper->getSourceData()),
+        '%time' => Timer::read($op) / 1000 . ' sec.',
         '%processed' => $processed[$op],
-        '%success' => count($data[$op]) == 0 ? '100%' : $processed[$op] * 100 / count($data[$op]),
+        '%success' => count($data[$op]) == 0 ? '100' : $processed[$op] * 100 / count($data[$op]),
       ]
     );
+
     Timer::stop($op);
   }
 
@@ -1078,7 +1120,7 @@ class GooglePush {
   /**
    * Clear all calendars (except primary).
    */
-  public function clearAllCalendars() {
+  public function deleteAllCalendars() {
     foreach ($this->getRawCalendars() as $item) {
       $this->deleteCalendar($item->id);
     }

@@ -527,11 +527,11 @@ function ymca_preprocess_page(&$variables) {
     }
   }
   $blocks = [];
-  if ($block = \Drupal::service('alerts.service')->getCurrentAlertBlock()) {
-    $blocks[] = $block;
-  }
   if ($global_block = \Drupal::service('alerts.service')->getGlobalAlertBlock()) {
     $blocks[] = $global_block;
+  }
+  if ($block = \Drupal::service('alerts.service')->getCurrentAlertBlock()) {
+    $blocks[] = $block;
   }
   if (!empty($blocks)) {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
@@ -688,6 +688,9 @@ function ymca_preprocess_views_view(&$vars) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
+
+  // Sets the search path.
+  $vars['search_view_content_path'] = Url::fromRoute('search.view_content');
 }
 
 /**
