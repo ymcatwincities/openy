@@ -20,7 +20,7 @@ Feature: Personal Training Form
     Then I should see "For appointment questions please call"
     And I should see "763-230-6537"
 
-  @pt-form @fast-test @headless @api
+  @pt-form @fast-tests @headless @api
   Scenario: Check Book link permissions
     Given I am logged in as a user with the "book personal training time slots" permission
     Then I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
