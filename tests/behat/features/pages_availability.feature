@@ -3,7 +3,6 @@ Feature: Check pages avilability
   Scenario Outline: Check all pages are OK
     When I go to "<page>"
     Then I should get a 200 HTTP response
-
     Examples:
       | page |
       | / |
