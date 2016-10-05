@@ -3,12 +3,11 @@
  * @file
  * Feature context.
  */
-// Contexts.
+
 use Drupal\TqExtension\Context\RawTqContext;
-// Helpers.
+use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Behat\Mink\Driver\Selenium2Driver;
 
 /**
  * Class FeatureContext.
@@ -26,13 +25,14 @@ class FeatureContext extends RawTqContext {
   }
 
   /**
+   * Wait some amount of seconds.
+   *
    * @param int $seconds
    *   Amount of seconds when nothing to happens.
    *
    * @Given /^(?:|I )wait (\d+) seconds$/
    */
-  public function waitSeconds($seconds)
-  {
+  public function waitSeconds($seconds) {
     sleep($seconds);
   }
 
@@ -41,8 +41,7 @@ class FeatureContext extends RawTqContext {
    * @param $cssSelector
    * @throws \Exception
    */
-  public function iWaitFor($cssSelector)
-  {
+  public function iWaitFor($cssSelector) {
     $this->spin(function($context) use ($cssSelector) {
       /** @var $context FeatureContext */
       return !is_null($context->getSession()->getPage()->find('css', $cssSelector));
@@ -52,8 +51,7 @@ class FeatureContext extends RawTqContext {
   /**
    * @Then /^I click on "([^"]*)"$/
    */
-  public function iClickOn($element)
-  {
+  public function iClickOn($element) {
     $page = $this->getSession()->getPage();
     $findName = $page->find("css", $element);
     if (!$findName) {
@@ -64,14 +62,14 @@ class FeatureContext extends RawTqContext {
   }
 
   /**
-   * Based on Behat's own example
+   * Based on Behat's own example.
    * @see http://docs.behat.org/en/v2.5/cookbook/using_spin_functions.html#adding-a-timeout
+   *
    * @param $lambda
    * @param int $wait
    * @throws \Exception
    */
-  public function spin($lambda, $wait = 60)
-  {
+  public function spin($lambda, $wait = 60) {
     $time = time();
     $stopTime = $time + $wait;
     while (time() < $stopTime)
@@ -101,7 +99,7 @@ class FeatureContext extends RawTqContext {
     if ($driver instanceof Selenium2Driver) {
       return;
     }
-    $this->getSession()->setBasicAuth('admin','propeople');
+    $this->getSession()->setBasicAuth('admin', 'propeople');
   }
 
 }
