@@ -2,11 +2,11 @@
 
 namespace CommerceGuys\Addressing\Tests\Formatter;
 
-use CommerceGuys\Addressing\Model\Address;
+use CommerceGuys\Addressing\Address;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
+use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Formatter\PostalLabelFormatter;
-use CommerceGuys\Addressing\Repository\AddressFormatRepository;
-use CommerceGuys\Addressing\Repository\CountryRepository;
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 
 /**
  * @coversDefaultClass \CommerceGuys\Addressing\Formatter\PostalLabelFormatter
@@ -55,13 +55,6 @@ class PostalLabelFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::format
      *
-     * @uses \CommerceGuys\Addressing\Formatter\PostalLabelFormatter::__construct
-     * @uses \CommerceGuys\Addressing\Formatter\PostalLabelFormatter::getDefaultOptions
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
      * @expectedException \RuntimeException
      */
     public function testMissingOriginCountryCode()
@@ -73,13 +66,6 @@ class PostalLabelFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::getOriginCountryCode
      * @covers ::setOriginCountryCode
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\PostalLabelFormatter::__construct
-     * @uses \CommerceGuys\Addressing\Formatter\PostalLabelFormatter::getDefaultOptions
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
      */
     public function testOriginCountryCode()
     {
@@ -89,16 +75,6 @@ class PostalLabelFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\PostalLabelFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testEmptyAddress()
     {
@@ -110,23 +86,13 @@ class PostalLabelFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\PostalLabelFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testUnitedStatesAddress()
     {
         $address = new Address();
         $address = $address
             ->withCountryCode('US')
-            ->withAdministrativeArea('US-CA')
+            ->withAdministrativeArea('CA')
             ->withLocality('Mt View')
             ->withPostalCode('94043')
             ->withAddressLine1('1098 Alta Ave');
@@ -154,23 +120,13 @@ class PostalLabelFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\PostalLabelFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testJapanAddressShippedFromFrance()
     {
         $address = new Address();
         $address = $address
             ->withCountryCode('JP')
-            ->withAdministrativeArea('JP-01')
+            ->withAdministrativeArea('Hokkaido')
             ->withLocality('Some City')
             ->withAddressLine1('Address Line 1')
             ->withAddressLine2('Address Line 2')
@@ -193,16 +149,6 @@ class PostalLabelFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\PostalLabelFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testAddressLeadingPostPrefix()
     {
