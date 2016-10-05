@@ -13,13 +13,11 @@
         "squizlabs/php_codesniffer": "~2.3"
     },
     "autoload": {
-        "classmap": [
-            "src/"
-        ]
+        "files": ["src/Google/autoload.php"]
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1.x-dev"
+            "dev-v1-master": "1.1.x-dev"
         }
     }
 }
