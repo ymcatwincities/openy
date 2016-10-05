@@ -508,6 +508,9 @@ class GooglePush {
     }
 
     $this->logStats($op, $processed);
+
+    // Mark this step as done in the schedule.
+    $this->dataWrapper->next();
   }
 
   /**
@@ -681,7 +684,13 @@ class GooglePush {
 
     $children = $this->proxy->findChildren($entity->id());
     if (empty($children)) {
-      $this->logger->notice('Skip pushing event. No children found.');
+      $msg = 'Skip pushing event. No children found. ID: %id.';
+      $this->logger->notice(
+        $msg,
+        [
+          '%id' => $entity->id(),
+        ]
+      );
       return;
     }
 
