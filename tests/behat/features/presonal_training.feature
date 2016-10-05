@@ -23,8 +23,6 @@ Feature: Personal Training Form
 
   @pt-form @fast-test @headless @api
   Scenario: Check Book link permissions
-    Given I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
-    Then I should not see "Book" in the ".mindbody-search-results-content" element
     Given I am logged in as a user with the "book personal training time slots" permission
     Then I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
     And I should see "Book" in the ".mindbody-search-results-content" element
