@@ -19,7 +19,6 @@ Feature: Personal Training Form
     Given I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
     Then I should see "For appointment questions please call"
     And I should see "763-230-6537"
-    And I should see "Book" in the ".mindbody-search-results-content"
 
   @pt-form @fast-test @headless @api
   Scenario: Check Book link permissions
