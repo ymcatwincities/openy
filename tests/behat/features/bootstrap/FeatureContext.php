@@ -8,6 +8,7 @@ use Drupal\TqExtension\Context\RawTqContext;
 // Helpers.
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Driver\Selenium2Driver;
 
 /**
  * Class FeatureContext.
@@ -87,6 +88,20 @@ class FeatureContext extends RawTqContext {
     }
 
     throw new \Exception("Spin function timed out after {$wait} seconds");
+  }
+
+  /**
+   * Set basic auth.
+   * Example: https://gist.github.com/jhedstrom/5bc5192d6dacbf8cc459
+   *
+   * @BeforeScenario
+   */
+  public function before($event) {
+    $driver = $this->getSession()->getDriver();
+    if ($driver instanceof Selenium2Driver) {
+      return;
+    }
+    $this->getSession()->setBasicAuth('admin','propeople');
   }
 
 }
