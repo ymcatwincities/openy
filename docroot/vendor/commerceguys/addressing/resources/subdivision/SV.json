@@ -1,76 +1,74 @@
 {
 	"country_code": "SV",
-	"parent_id": null,
-	"locale": "es",
 	"subdivisions": {
-		"SV-AH": {
-			"code": "AHUACHAPAN",
+		"Ahuachapan": {
 			"name": "Ahuachapán",
+			"iso_code": "SV-AH",
 			"postal_code_pattern": "CP 21"
 		},
-		"SV-CA": {
-			"code": "CABANAS",
+		"Cabanas": {
 			"name": "Cabañas",
+			"iso_code": "SV-CA",
 			"postal_code_pattern": "CP 12"
 		},
-		"SV-CH": {
-			"code": "CALATENANGO",
+		"Calatenango": {
 			"name": "Chalatenango",
+			"iso_code": "SV-CH",
 			"postal_code_pattern": "CP 13"
 		},
-		"SV-CU": {
-			"code": "CUSCATLAN",
+		"Cuscatlan": {
 			"name": "Cuscatlán",
+			"iso_code": "SV-CU",
 			"postal_code_pattern": "CP 14"
 		},
-		"SV-LI": {
-			"code": "LA LIBERTAD",
+		"La Libertad": {
 			"name": "La Libertad",
+			"iso_code": "SV-LI",
 			"postal_code_pattern": "CP 15"
 		},
-		"SV-PA": {
-			"code": "LA PAZ",
+		"La Paz": {
 			"name": "La Paz",
+			"iso_code": "SV-PA",
 			"postal_code_pattern": "CP 16"
 		},
-		"SV-UN": {
-			"code": "LA UNION",
+		"La Union": {
 			"name": "La Unión",
+			"iso_code": "SV-UN",
 			"postal_code_pattern": "CP 31"
 		},
-		"SV-MO": {
-			"code": "MORAZAN",
+		"Morazan": {
 			"name": "Morazán",
+			"iso_code": "SV-MO",
 			"postal_code_pattern": "CP 32"
 		},
-		"SV-SM": {
-			"code": "SAN MIGUEL",
+		"San Miguel": {
 			"name": "San Miguel",
+			"iso_code": "SV-SM",
 			"postal_code_pattern": "CP 33"
 		},
-		"SV-SS": {
-			"code": "SAN SALVADOR",
+		"San Salvador": {
 			"name": "San Salvador",
+			"iso_code": "SV-SS",
 			"postal_code_pattern": "CP 11"
 		},
-		"SV-SV": {
-			"code": "SAN VICENTE",
+		"San Vicente": {
 			"name": "San Vicente",
+			"iso_code": "SV-SV",
 			"postal_code_pattern": "CP 17"
 		},
-		"SV-SA": {
-			"code": "SANTA ANA",
+		"Santa Ana": {
 			"name": "Santa Ana",
+			"iso_code": "SV-SA",
 			"postal_code_pattern": "CP 22"
 		},
-		"SV-SO": {
-			"code": "SONSONATE",
+		"Sonsonate": {
 			"name": "Sonsonate",
+			"iso_code": "SV-SO",
 			"postal_code_pattern": "CP 23"
 		},
-		"SV-US": {
-			"code": "USULUTAN",
+		"Usulutan": {
 			"name": "Usulután",
+			"iso_code": "SV-US",
 			"postal_code_pattern": "CP 34"
 		}
 	}

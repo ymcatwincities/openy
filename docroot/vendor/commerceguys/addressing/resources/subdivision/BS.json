@@ -1,83 +1,75 @@
 {
 	"country_code": "BS",
-	"parent_id": null,
-	"locale": "en",
 	"subdivisions": {
-		"BS-06f3b3": {
-			"code": "ABACO",
-			"name": "Abaco"
+		"Abaco": {
+			"name": "Abaco Islands"
 		},
-		"BS-AK": {
-			"code": "ACKLINS",
-			"name": "Acklins"
+		"Acklins": {
+			"name": "Acklins",
+			"iso_code": "BS-AK"
 		},
-		"BS-7708d4": {
-			"code": "ANDROS",
-			"name": "Andros"
+		"Andros": {
+			"name": "Andros Island"
 		},
-		"BS-BY": {
-			"code": "BERRY ISLANDS",
-			"name": "Berry Islands"
+		"Berry Islands": {
+			"name": "Berry Islands",
+			"iso_code": "BS-BY"
 		},
-		"BS-BI": {
-			"code": "BIMINI",
-			"name": "Bimini"
+		"Bimini": {
+			"name": "Bimini",
+			"iso_code": "BS-BI"
 		},
-		"BS-CI": {
-			"code": "CAT ISLAND",
-			"name": "Cat Island"
+		"Cat Island": {
+			"name": "Cat Island",
+			"iso_code": "BS-CI"
 		},
-		"BS-0e4c9b": {
-			"code": "CROOKED ISLAND",
+		"Crooked Island": {
 			"name": "Crooked Island"
 		},
-		"BS-85e485": {
-			"code": "ELEUTHERA",
+		"Eleuthera": {
 			"name": "Eleuthera"
 		},
-		"BS-EX": {
-			"code": "EXUMA",
-			"name": "Exuma"
+		"Exuma": {
+			"name": "Exuma and Cays",
+			"iso_code": "BS-EX"
 		},
-		"BS-59d4c6": {
-			"code": "GRAND BAHAMA",
+		"Grand Bahama": {
 			"name": "Grand Bahama"
 		},
-		"BS-HI": {
-			"code": "HARBOUR ISLAND",
-			"name": "Harbour Island"
+		"Harbour Island": {
+			"name": "Harbour Island",
+			"iso_code": "BS-HI"
 		},
-		"BS-IN": {
-			"code": "INAGUA",
-			"name": "Inagua"
+		"Inagua": {
+			"name": "Inagua",
+			"iso_code": "BS-IN"
 		},
-		"BS-LI": {
-			"code": "LONG ISLAND",
-			"name": "Long Island"
+		"Long Island": {
+			"name": "Long Island",
+			"iso_code": "BS-LI"
 		},
-		"BS-MG": {
-			"code": "MAYAGUANA",
-			"name": "Mayaguana"
+		"Mayaguana": {
+			"name": "Mayaguana",
+			"iso_code": "BS-MG"
 		},
-		"BS-418c39": {
-			"code": "N.P.",
+		"N.P.": {
 			"name": "New Providence"
 		},
-		"BS-RI": {
-			"code": "RAGGED ISLAND",
-			"name": "Ragged Island"
+		"Ragged Island": {
+			"name": "Ragged Island",
+			"iso_code": "BS-RI"
 		},
-		"BS-RC": {
-			"code": "RUM CAY",
-			"name": "Rum Cay"
+		"Rum Cay": {
+			"name": "Rum Cay",
+			"iso_code": "BS-RC"
 		},
-		"BS-SS": {
-			"code": "SAN SALVADOR",
-			"name": "San Salvador"
+		"San Salvador": {
+			"name": "San Salvador",
+			"iso_code": "BS-SS"
 		},
-		"BS-SW": {
-			"code": "SPANISH WELLS",
-			"name": "Spanish Wells"
+		"Spanish Wells": {
+			"name": "Spanish Wells",
+			"iso_code": "BS-SW"
 		}
 	}
 }

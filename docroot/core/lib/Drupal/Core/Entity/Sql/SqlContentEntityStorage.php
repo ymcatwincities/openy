@@ -515,15 +515,29 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
         // Find revisioned fields that are not entity keys. Exclude the langcode
         // key as the base table holds only the default language.
         $base_fields = array_diff($table_mapping->getFieldNames($this->baseTable), array($this->langcodeKey));
-        $fields = array_diff($table_mapping->getFieldNames($this->revisionDataTable), $base_fields);
+        $revisioned_fields = array_diff($table_mapping->getFieldNames($this->revisionDataTable), $base_fields);
 
         // Find fields that are not revisioned or entity keys. Data fields have
         // the same value regardless of entity revision.
-        $data_fields = array_diff($table_mapping->getFieldNames($this->dataTable), $fields, $base_fields);
+        $data_fields = array_diff($table_mapping->getFieldNames($this->dataTable), $revisioned_fields, $base_fields);
+        // If there are no data fields then only revisioned fields are needed
+        // else both data fields and revisioned fields are needed to map the
+        // entity values.
+        $all_fields = $revisioned_fields;
         if ($data_fields) {
-          $fields = array_merge($fields, $data_fields);
+          $all_fields = array_merge($revisioned_fields, $data_fields);
           $query->leftJoin($this->dataTable, 'data', "(revision.$this->idKey = data.$this->idKey)");
-          $query->fields('data', $data_fields);
+          $column_names = [];
+          // Some fields can have more then one columns in the data table so
+          // column names are needed.
+          foreach ($data_fields as $data_field) {
+            // \Drupal\Core\Entity\Sql\TableMappingInterface:: getColumNames()
+            // returns an array keyed by property names so remove the keys
+            // before array_merge() to avoid losing data with fields having the
+            // same columns i.e. value.
+            $column_names = array_merge($column_names, array_values($table_mapping->getColumnNames($data_field)));
+          }
+          $query->fields('data', $column_names);
         }
 
         // Get the revision IDs.
@@ -534,7 +548,7 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
         $query->condition('revision.' . $this->revisionKey, $revision_ids, 'IN');
       }
       else {
-        $fields = $table_mapping->getFieldNames($this->dataTable);
+        $all_fields = $table_mapping->getFieldNames($this->dataTable);
       }
 
       $result = $query->execute();
@@ -547,7 +561,7 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
 
         $translations[$id][$langcode] = TRUE;
 
-        foreach ($fields as $field_name) {
+        foreach ($all_fields as $field_name) {
           $columns = $table_mapping->getColumnNames($field_name);
           // Do not key single-column fields by property name.
           if (count($columns) == 1) {
@@ -1529,6 +1543,7 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
       $item_query = $this->database->select($table_name, 't', array('fetch' => \PDO::FETCH_ASSOC))
         ->fields('t')
         ->condition('entity_id', $row['entity_id'])
+        ->condition('deleted', 1)
         ->orderBy('delta');
 
       foreach ($item_query->execute() as $item_row) {
@@ -1567,10 +1582,12 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
     $revision_id = $this->entityType->isRevisionable() ? $entity->getRevisionId() : $entity->id();
     $this->database->delete($table_name)
       ->condition('revision_id', $revision_id)
+      ->condition('deleted', 1)
       ->execute();
     if ($this->entityType->isRevisionable()) {
       $this->database->delete($revision_name)
         ->condition('revision_id', $revision_id)
+        ->condition('deleted', 1)
         ->execute();
     }
   }
@@ -1670,6 +1687,12 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
    *   Whether the field has been already deleted.
    */
   protected function storageDefinitionIsDeleted(FieldStorageDefinitionInterface $storage_definition) {
+    // Configurable fields are marked for deletion.
+    if ($storage_definition instanceOf FieldStorageConfigInterface) {
+      return $storage_definition->isDeleted();
+    }
+    // For non configurable fields check whether they are still in the last
+    // installed schema repository.
     return !array_key_exists($storage_definition->getName(), $this->entityManager->getLastInstalledFieldStorageDefinitions($this->entityTypeId));
   }
 

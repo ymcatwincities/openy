@@ -3,7 +3,7 @@ addressing
 
 [![Build Status](https://travis-ci.org/commerceguys/addressing.svg?branch=master)](https://travis-ci.org/commerceguys/addressing)
 
-A PHP 5.4+ addressing library, powered by Google's dataset.
+A PHP 5.5+ addressing library, powered by Google's dataset.
 
 Stores and manipulates postal addresses, meant to identify a precise recipient location for shipping or billing purposes.
 
@@ -12,7 +12,6 @@ Features:
 - Subdivisions (administrative areas, localities, dependent localities) for 40 countries
 - Subdivision translations for all of the parent country's (i.e Canada, Switzerland) official languages.
 - Validation via symfony/validator
-- Form generation via symfony/form (Experimental, unfinished)
 - Postal formatting
 - Zones via the [commerceguys/zone](https://github.com/commerceguys/zone) library.
 
@@ -24,7 +23,7 @@ Further backstory can be found in [this blog post](https://drupalcommerce.org/bl
 
 # Data model
 
-The [address interface](https://github.com/commerceguys/addressing/blob/master/src/Model/AddressInterface.php) represents a postal adddress, with getters for the following fields:
+The [address interface](https://github.com/commerceguys/addressing/blob/master/src/AddressInterface.php) represents a postal adddress, with getters for the following fields:
 
 - Country
 - Administrative area
@@ -35,15 +34,17 @@ The [address interface](https://github.com/commerceguys/addressing/blob/master/s
 - Address line 1
 - Address line 2
 - Organization
-- Recipient
+- Given name (First name)
+- Additional name (Middle name / Patronymic)
+- Family name (Last name)
 
 Field names follow the OASIS [eXtensible Address Language (xAL)](http://www.oasis-open.org/committees/ciq/download.shtml) standard.
 
 The interface makes no assumptions about mutability.
-The implementing application can extend the interface to provide setters, or implement a value object that uses either [PSR-7 style with* mutators](https://github.com/commerceguys/addressing/blob/master/src/Model/ImmutableAddressInterface) or relies on an AddressBuilder.
-A default [address value object](https://github.com/commerceguys/addressing/blob/master/src/Model/Address.php) is provided that can be used as an example, or mapped by Doctrine (preferably as an embeddable).
+The implementing application can extend the interface to provide setters, or implement a value object that uses either [PSR-7 style with* mutators](https://github.com/commerceguys/addressing/blob/master/src/ImmutableAddressInterface) or relies on an AddressBuilder.
+A default [address value object](https://github.com/commerceguys/addressing/blob/master/src/Address.php) is provided that can be used as an example, or mapped by Doctrine (preferably as an embeddable).
 
-The [address format interface](https://github.com/commerceguys/addressing/blob/master/src/Model/AddressFormatInterface.php) has getters for the following country-specific metadata:
+The [address format](https://github.com/commerceguys/addressing/blob/master/src/AddressFormat/AddressFormat.php) has getters for the following country-specific metadata:
 
 - Which fields are used, and in which order
 - Which fields are required
@@ -51,18 +52,19 @@ The [address format interface](https://github.com/commerceguys/addressing/blob/m
 - The labels for the administrative area (state, province, parish, etc.), locality (city/post town/district, etc.), dependent locality (neighborhood, suburb, district, etc) and the postal code (postal code or ZIP code)
 - The regular expression pattern for validating postal codes
 
-The [subdivision interface](https://github.com/commerceguys/addressing/blob/master/src/Model/SubdivisionInterface.php) has getters for the following data:
+The [subdivision](https://github.com/commerceguys/addressing/blob/master/src/Subdivision/Subdivision.php) has getters for the following data:
 
 - The subdivision code (used to represent the subdivison on a parcel/envelope, e.g. CA for California)
 - The subdivison name (shown to the user in a dropdown)
+- The local code and name, if the country uses a non-latin script (e.g. Cyrilic in Russia).
 - The postal code prefix (used to ensure that a postal code begins with the expected characters)
 
 Subdivisions are hierarchical and can have up to three levels:
 Administrative Area -> Locality -> Dependent Locality.
 
 ```php
-use CommerceGuys\Addressing\Repository\AddressFormatRepository;
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 
 $addressFormatRepository = new AddressFormatRepository();
 $subdivisionRepository = new SubdivisionRepository();
@@ -71,13 +73,13 @@ $subdivisionRepository = new SubdivisionRepository();
 $addressFormat = $addressFormatRepository->get('BR');
 
 // Get the subdivisions for Brazil.
-$states = $subdivisionRepository->getAll('BR');
+$states = $subdivisionRepository->getAll(['BR']);
 foreach ($states as $state) {
     $municipalities = $state->getChildren();
 }
 
-// Get the subdivisions for Canada, in French.
-$states = $subdivisionRepository->getAll('CA', 0, 'fr');
+// Get the subdivisions for Brazilian state Ceará.
+$municipalities = $subdivisionRepository->getAll(['BR', CA']);
 foreach ($states as $state) {
     echo $state->getName();
 }
@@ -92,10 +94,11 @@ Addresses are formatted according to the address format, in HTML or text.
 Formats an address for display, always adds the localized country name.
 
 ```php
+use CommerceGuys\Addressing\Address;
 use CommerceGuys\Addressing\Formatter\DefaultFormatter;
-use CommerceGuys\Addressing\Repository\AddressFormatRepository;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
 use CommerceGuys\Addressing\Repository\CountryRepository;
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 
 $addressFormatRepository = new AddressFormatRepository();
 $countryRepository = new CountryRepository();
@@ -107,7 +110,7 @@ $formatter = new DefaultFormatter($addressFormatRepository, $countryRepository, 
 $address = new Address();
 $address = $address
     ->withCountryCode('US')
-    ->withAdministrativeArea('US-CA')
+    ->withAdministrativeArea('CA')
     ->withLocality('Mountain View')
     ->withAddressLine1('1098 Alta Ave');
 
@@ -135,10 +138,11 @@ In case of international mail:
 This matches the recommandation given by the Universal Postal Union, to avoid difficulties in countries of transit.
 
 ```php
+use CommerceGuys\Addressing\Address;
 use CommerceGuys\Addressing\Formatter\PostalLabelFormatter;
-use CommerceGuys\Addressing\Repository\AddressFormatRepository;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
 use CommerceGuys\Addressing\Repository\CountryRepository;
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 
 $addressFormatRepository = new AddressFormatRepository();
 $countryRepository = new CountryRepository();
@@ -150,7 +154,7 @@ $formatter = new PostalLabelFormatter($addressFormatRepository, $countryReposito
 $address = new Address();
 $address = $address
     ->withCountryCode('US')
-    ->withAdministrativeArea('US-CA')
+    ->withAdministrativeArea('CA')
     ->withLocality('Mountain View')
     ->withAddressLine1('1098 Alta Ave');
 
@@ -174,18 +178,18 @@ Checks performed:
 - The postal code is valid (country and subdivision-level patterns).
 
 ```php
-use CommerceGuys\Addressing\Model\Address;
-use CommerceGuys\Addressing\Validator\Constraints\AddressFormat;
-use CommerceGuys\Addressing\Validator\Constraints\Country;
+use CommerceGuys\Addressing\Address;
+use CommerceGuys\Addressing\Validator\Constraints\AddressFormatConstraint;
+use CommerceGuys\Addressing\Validator\Constraints\CountryConstraint;
 use Symfony\Component\Validator\Validation;
 
 $address = new Address('FR');
 
 $validator = Validation::createValidator();
 // Validate the country code, then validate the rest of the address.
-$violations = $validator->validateValue($address->getCountryCode(), new Country());
+$violations = $validator->validate($address->getCountryCode(), new CountryConstraint());
 if (!$violations->count()) {
-  $violations = $validator->validateValue($address, new AddressFormat());
+  $violations = $validator->validate($address, new AddressFormatConstraint());
 }
 ```
 
