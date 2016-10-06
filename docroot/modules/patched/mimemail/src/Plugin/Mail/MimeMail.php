@@ -165,7 +165,7 @@ class MimeMail implements MailInterface {
       '#body' => $body
     ];
 
-    $body = \Drupal::service('renderer')->render($body);
+    $body = \Drupal::service('renderer')->renderRoot($body);
 
     /*foreach (module_implements('mail_post_process') as $module) {
       $function = $module . '_mail_post_process';
