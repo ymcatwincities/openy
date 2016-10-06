@@ -478,6 +478,66 @@ p.legend {
   }
 }
 
+/* jQuery Modal Form */
+.ui-widget-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 1;
+  z-index:1031;
+}
+.ui-widget.ui-dialog {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  z-index: 1032;
+  @media screen and (max-width: 620px) {
+    width: 92% !important;
+    margin: 8%;
+  }
+  .ui-dialog-titlebar {
+    background: #92288d;
+    border: 0;
+    border-radius: 0;
+    font-family: 'Cachet';
+    position: relative;
+    padding: 17px 50px 15px;
+    .ui-dialog-title {
+      color: white;
+      font-size: 30px;
+      text-transform: uppercase;
+      font-weight: normal;
+      margin: 0;
+      line-height: 30px;
+    }
+    .ui-dialog-titlebar-close {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      right: 10px;
+      margin: 0;
+      top: 20px;
+      position: absolute;
+      &::before {
+        content: "X";
+        color: #fff;
+        font-family: "Cachet", Arial, sans-serif;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .ui-icon-closethick {
+        display: none;
+      }
+      .ui-button-text {
+        display: none;
+      }
+    }
+  }
+  .ui-dialog-content {
+    padding: 40px 60px 80px;
+  }
+}
+/* End of jQuery Modal Form */
+
 #block-subnavigationblock {
   position: static;
 }

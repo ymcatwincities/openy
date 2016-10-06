@@ -1,0 +1,19 @@
+uuid: ee198e01-dc53-451c-82e0-0c61384fb110
+langcode: en
+status: true
+dependencies:
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.field_pmc_clnt_data
+field_name: field_pmc_clnt_data
+entity_type: personify_mindbody_cache
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_data
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_endpoint
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_location
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_params
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_service
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_trainer
   module:
     - mindbody_cache_proxy
 _core:
@@ -30,6 +32,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_mindbody_cache_location:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_mindbody_cache_params:
     weight: 15
     settings:
@@ -39,6 +48,13 @@ content:
     type: string_textfield
   field_mindbody_cache_service:
     weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_mindbody_cache_trainer:
+    weight: 17
     settings:
       size: 60
       placeholder: ''

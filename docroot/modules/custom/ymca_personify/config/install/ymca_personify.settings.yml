@@ -7,10 +7,15 @@ url_login: http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?T
 url_account: http://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/Default.aspx
 url_sign_out: https://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/ctl/Logoff/Default.aspx
 url_cart: http://ygtcprod2.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingCart.aspx
-customer_orders_endpoint: http://ylayer.personifycloud.com/personifydataservices/personifydata.svc/CL_MindBodyCustomerOrder
-customer_orders_username: FFWUSER
-customer_orders_password: ***REMOVED***
+# Sandbox.
+# customer_orders_endpoint: http://ylayer.personifycloud.com/personifydataservices/personifydata.svc/CL_MindBodyCustomerOrder
+# customer_orders_username: FFWUSER
+# customer_orders_password: ***REMOVED***
 # Train2 environment.
 # customer_orders_endpoint: http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder
 # customer_orders_username: ***REMOVED***
 # customer_orders_password: ***REMOVED***
+# Prod environment.
+customer_orders_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder
+customer_orders_username: ***REMOVED***
+customer_orders_password: ***REMOVED***
