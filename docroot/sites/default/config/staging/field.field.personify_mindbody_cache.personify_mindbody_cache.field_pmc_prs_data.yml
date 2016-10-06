@@ -1,0 +1,20 @@
+uuid: f6e24931-7962-413c-a409-d19f75053d86
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.personify_mindbody_cache.field_pmc_prs_data
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_prs_data
+field_name: field_pmc_prs_data
+entity_type: personify_mindbody_cache
+bundle: personify_mindbody_cache
+label: 'Personify Data'
+description: 'Data fetched from Personify.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,23 @@
+uuid: 5d48bc6a-333a-4879-9b04-0ebcde0011d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_nonmember_price
+    - ymca_mappings.mapping_type.personify_product
+id: mapping.personify_product.field_nonmember_price
+field_name: field_nonmember_price
+entity_type: mapping
+bundle: personify_product
+label: 'Non-member Price'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

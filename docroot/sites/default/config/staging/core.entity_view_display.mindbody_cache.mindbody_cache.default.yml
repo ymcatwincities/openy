@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_data
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_endpoint
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_location
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_params
     - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_service
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_trainer
   module:
     - mindbody_cache_proxy
     - user
@@ -30,6 +32,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_mindbody_cache_location:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_mindbody_cache_params:
     weight: 5
     label: above
@@ -39,6 +48,13 @@ content:
     type: string
   field_mindbody_cache_service:
     weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_mindbody_cache_trainer:
+    weight: 7
     label: above
     settings:
       link_to_entity: false

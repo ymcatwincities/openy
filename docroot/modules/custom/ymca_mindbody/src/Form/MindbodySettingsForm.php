@@ -43,6 +43,13 @@ class MindbodySettingsForm extends ConfigFormBase {
       '#description' => $this->t('The maximum number of MindBody API requests allowed.'),
     );
 
+    $form['hide_time'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Hide interval (minutes)'),
+      '#default_value' => !empty($config->get('hide_time')) ? $config->get('hide_time') : 0,
+      '#description' => $this->t('The amount of minutes when the nearest time slots will be hidden.'),
+    );
+
     $form['pt_form_disabled'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Disable all PT forms'),
@@ -62,6 +69,7 @@ class MindbodySettingsForm extends ConfigFormBase {
       ->set('disabled_form_block_id', $values['disabled_form_block_id'])
       ->set('max_requests', $values['max_requests'])
       ->set('pt_form_disabled', $values['pt_form_disabled'])
+      ->set('hide_time', $values['hide_time'])
       ->save();
 
     parent::submitForm($form, $form_state);
