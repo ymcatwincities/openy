@@ -33,19 +33,18 @@ patch: docroot/modules/patches/acquia_purge-2724253-fix.diff
 drupal.org issue: https://www.drupal.org/node/2724253
 description: Fix for latest dev and purge module interface
 
-patch: docroot/modules/patches/27000495.patch
-drupal.org issue: https://www.drupal.org/node/2700495
-description: Method removing expired drupalSettings.ajax tries to remove settings when there is no ajax defined
-
 patch: docroot/modules/patches/fix_add_remove-2692397-8.patch
 drupal.org issue: https://www.drupal.org/node/2692397
 description: Adding/removing variants leaves Page::$variants out of date
 
-patch: docroot/modules/patches/mimemail-render_drush-2801187-3.patch
-drupal.org issue: https://www.drupal.org/node/2801187
-description: The code invoked via Drush has no required context for `render()` method.
-
-
-patch: docroot/modules/patches/core_entity_empbed-invalid_tag-2802269-1.patch
+CORE patch: docroot/modules/patches/core_entity_empbed-invalid_tag-2802269-1.patch
 drupal.org issue: https://www.drupal.org/node/2802269, https://www.drupal.org/node/1333730
 description: Notice. drupal-entity-inline invalid in Entity
+
+CORE patch: docroot/modules/patches/drupal-node_preview_with_destination-2615282-2-D8.patch
+drupal.org issue: NONE (todo)
+description: Notice. Fix redirect.
+
+CORE patch: docroot/modules/patches/drupal_core_ajax_expired_fix.patch
+drupal.org issue: NONE (todo)
+description: Fix WYSIWYG
