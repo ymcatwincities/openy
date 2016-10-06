@@ -1,17 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\address\Plugin\Field\FieldWidget\AddressDefaultWidget.
- */
-
 namespace Drupal\address\Plugin\Field\FieldWidget;
 
-use CommerceGuys\Addressing\Enum\AddressField;
-use CommerceGuys\Addressing\Repository\AddressFormatRepositoryInterface;
-use CommerceGuys\Addressing\Repository\CountryRepositoryInterface;
-use CommerceGuys\Addressing\Repository\SubdivisionRepositoryInterface;
-use Drupal\address\Entity\AddressFormatInterface;
+use CommerceGuys\Addressing\AddressFormat\AddressField;
+use CommerceGuys\Addressing\AddressFormat\AddressFormat;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatHelper;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
+use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
+use CommerceGuys\Addressing\LocaleHelper;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Drupal\address\Event\AddressEvents;
 use Drupal\address\Event\InitialValuesEvent;
 use Drupal\address\FieldHelper;
@@ -23,6 +20,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -45,21 +43,21 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
   /**
    * The address format repository.
    *
-   * @var \CommerceGuys\Addressing\Repository\AddressFormatRepositoryInterface
+   * @var \CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface
    */
   protected $addressFormatRepository;
 
   /**
    * The country repository.
    *
-   * @var \CommerceGuys\Addressing\Repository\CountryRepositoryInterface
+   * @var \CommerceGuys\Addressing\Country\CountryRepositoryInterface
    */
   protected $countryRepository;
 
   /**
    * The subdivision repository.
    *
-   * @var \CommerceGuys\Addressing\Repository\SubdivisionRepositoryInterface
+   * @var \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface
    */
   protected $subdivisionRepository;
 
@@ -78,6 +76,13 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
   protected $configFactory;
 
   /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * The size attributes for fields likely to be inlined.
    *
    * @var array
@@ -88,6 +93,9 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
     AddressField::DEPENDENT_LOCALITY => 30,
     AddressField::POSTAL_CODE => 10,
     AddressField::SORTING_CODE => 10,
+    AddressField::GIVEN_NAME => 25,
+    AddressField::ADDITIONAL_NAME => 25,
+    AddressField::FAMILY_NAME => 25,
   ];
 
   /**
@@ -103,18 +111,20 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
    *   The widget settings.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \CommerceGuys\Addressing\Repository\AddressFormatRepositoryInterface $address_format_repository
+   * @param \CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface $address_format_repository
    *   The address format repository.
-   * @param \CommerceGuys\Addressing\Repository\CountryRepositoryInterface $country_repository
+   * @param \CommerceGuys\Addressing\Country\CountryRepositoryInterface $country_repository
    *   The country repository.
-   * @param \CommerceGuys\Addressing\Repository\SubdivisionRepositoryInterface $subdivision_repository
+   * @param \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface $subdivision_repository
    *   The subdivision repository.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, AddressFormatRepositoryInterface $address_format_repository, CountryRepositoryInterface $country_repository, SubdivisionRepositoryInterface $subdivision_repository, EventDispatcherInterface $event_dispatcher, ConfigFactoryInterface $config_factory) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, AddressFormatRepositoryInterface $address_format_repository, CountryRepositoryInterface $country_repository, SubdivisionRepositoryInterface $subdivision_repository, EventDispatcherInterface $event_dispatcher, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
     $this->addressFormatRepository = $address_format_repository;
@@ -122,6 +132,7 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
     $this->subdivisionRepository = $subdivision_repository;
     $this->eventDispatcher = $event_dispatcher;
     $this->configFactory = $config_factory;
+    $this->languageManager = $language_manager;
   }
 
   /**
@@ -139,7 +150,8 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
       $container->get('address.country_repository'),
       $container->get('address.subdivision_repository'),
       $container->get('event_dispatcher'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('language_manager')
     );
   }
 
@@ -167,6 +179,27 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
     ];
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsSummary() {
+    $default_country = $this->getSetting('default_country');
+    if (empty($default_country)) {
+      $default_country = $this->t('None');
+    }
+    elseif ($default_country == 'site_default') {
+      $default_country = $this->t('Site default');
+    }
+    else {
+      $country_list = $this->countryRepository->getList();
+      $default_country = $country_list[$default_country];
+    }
+    $summary = [];
+    $summary['default_country'] = $this->t('Default country: @country', ['@country' => $default_country]);
+
+    return $summary;
   }
 
   /**
@@ -206,7 +239,9 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
       'address_line1' => '',
       'address_line2' => '',
       'organization' => '',
-      'recipient' => '',
+      'given_name' => '',
+      'additional_name' => '',
+      'family_name' => '',
     ];
     // Allow other modules to alter the values.
     $event = new InitialValuesEvent($initial_values, $this->fieldDefinition);
@@ -294,7 +329,6 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
         '#options' => $country_list,
         '#default_value' => $country_code,
         '#required' => $element['#required'],
-        '#empty_value' => '',
         '#limit_validation_errors' => [],
         '#ajax' => [
           'callback' => [get_class($this), 'ajaxRefresh'],
@@ -306,6 +340,9 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
         ],
         '#weight' => -100,
       ];
+      if (!$element['#required']) {
+        $element['country_code']['#empty_value'] = '';
+      }
     }
     if (!empty($country_code)) {
       $element = $this->addressElements($element, $values);
@@ -336,7 +373,14 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
     $address_format = $this->addressFormatRepository->get($values['country_code']);
     $required_fields = $address_format->getRequiredFields();
     $labels = LabelHelper::getFieldLabels($address_format);
-    foreach ($address_format->getGroupedFields() as $line_index => $line_fields) {
+    $locale = $this->languageManager->getConfigOverrideLanguage()->getId();
+    if (LocaleHelper::match($address_format->getLocale(), $locale)) {
+      $format_string = $address_format->getLocalFormat();
+    } else {
+      $format_string = $address_format->getFormat();
+    }
+    $grouped_fields = AddressFormatHelper::getGroupedFields($format_string);
+    foreach ($grouped_fields as $line_index => $line_fields) {
       if (count($line_fields) > 1) {
         // Used by the #pre_render callback to group fields inline.
         $element['container' . $line_index] = [
@@ -391,14 +435,14 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
    *   The existing form element array.
    * @param array $values
    *   An array of address values, keyed by property name.
-   * @param \Drupal\address\Entity\AddressFormatInterface $address_format
+   * @param \CommerceGuys\Addressing\AddressFormat\AddressFormat $address_format
    *   The address format.
    *
    * @return array
    *   The processed form element array.
    */
-  protected function processSubdivisionElements(array $element, array $values, AddressFormatInterface $address_format) {
-    $depth = $this->subdivisionRepository->getDepth($values['country_code']);
+  protected function processSubdivisionElements(array $element, array $values, AddressFormat $address_format) {
+    $depth = $address_format->getSubdivisionDepth();
     if ($depth === 0) {
       // No predefined data found.
       return $element;
@@ -410,16 +454,17 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
     }
     // Load and insert the subdivisions for each parent id.
     $currentDepth = 1;
+    $parents = [];
     foreach ($subdivision_properties as $index => $property) {
       if (!isset($element[$property]) || !Element::isVisibleElement($element[$property])) {
         break;
       }
-      $parent_property = $index ? $subdivision_properties[$index - 1] : NULL;
+      $parent_property = $index ? $subdivision_properties[$index - 1] : 'country_code';
       if ($parent_property && empty($values[$parent_property])) {
         break;
       }
-      $parent_id = $parent_property ? $values[$parent_property] : NULL;
-      $subdivisions = $this->subdivisionRepository->getList($values['country_code'], $parent_id);
+      $parents[] = $values[$parent_property];
+      $subdivisions = $this->subdivisionRepository->getList($parents);
       if (empty($subdivisions)) {
         break;
       }
