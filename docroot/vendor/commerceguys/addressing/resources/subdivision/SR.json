@@ -1,37 +1,35 @@
 {
 	"country_code": "SR",
-	"parent_id": null,
-	"locale": "nl",
 	"subdivisions": {
-		"SR-BR": {
-			"name": "BROKOPONDO"
+		"Brokopondo": {
+			"iso_code": "SR-BR"
 		},
-		"SR-CM": {
-			"name": "COMMEWIJNE"
+		"Commewijne": {
+			"iso_code": "SR-CM"
 		},
-		"SR-CR": {
-			"name": "CORONIE"
+		"Coronie": {
+			"iso_code": "SR-CR"
 		},
-		"SR-MA": {
-			"name": "MAROWIJNE"
+		"Marowijne": {
+			"iso_code": "SR-MA"
 		},
-		"SR-NI": {
-			"name": "NICKERIE"
+		"Nickerie": {
+			"iso_code": "SR-NI"
 		},
-		"SR-PR": {
-			"name": "PARA"
+		"Para": {
+			"iso_code": "SR-PR"
 		},
-		"SR-PM": {
-			"name": "PARAMARIBO"
+		"Paramaribo": {
+			"iso_code": "SR-PM"
 		},
-		"SR-SA": {
-			"name": "SARAMACCA"
+		"Saramacca": {
+			"iso_code": "SR-SA"
 		},
-		"SR-SI": {
-			"name": "SIPALIWINI"
+		"Sipaliwini": {
+			"iso_code": "SR-SI"
 		},
-		"SR-WA": {
-			"name": "WANICA"
+		"Wanica": {
+			"iso_code": "SR-WA"
 		}
 	}
 }

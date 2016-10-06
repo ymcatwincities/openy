@@ -24,6 +24,7 @@ matrix:
 
 env:
   global:
+    - PHANTOMJS2_VERSION="2.0.0"
     # add composer's global bin directory to the path
     # see: https://github.com/drush-ops/drush#install---composer
     - PATH="$PATH:$HOME/.composer/vendor/bin"
@@ -52,30 +53,30 @@ env:
 
     # === Behat specific variables.
     # This is relative to $TRAVIS_BUILD_DIR
-    #- DRUPAL_TI_BEHAT_DIR="./tests/behat"
+    - DRUPAL_TI_BEHAT_DIR="./tests/behat"
     # These arguments are passed to the bin/behat command.
-    #- DRUPAL_TI_BEHAT_ARGS=""
+    - DRUPAL_TI_BEHAT_ARGS=""
     # Specify the filename of the behat.yml with the $DRUPAL_TI_DRUPAL_DIR variables.
-    #- DRUPAL_TI_BEHAT_YML="behat.yml.dist"
+    - DRUPAL_TI_BEHAT_YML="behat.yml.dist"
     # This is used to setup Xvfb.
-    #- DRUPAL_TI_BEHAT_SCREENSIZE_COLOR="1280x1024x16"
+    - DRUPAL_TI_BEHAT_SCREENSIZE_COLOR="1280x1024x16"
     # The version of selenium that should be used.
-    #- DRUPAL_TI_BEHAT_SELENIUM_VERSION="2.44"
+    - DRUPAL_TI_BEHAT_SELENIUM_VERSION="2.44"
     # Set DRUPAL_TI_BEHAT_DRIVER to "selenium" to use "firefox" or "chrome" here.
-    #- DRUPAL_TI_BEHAT_DRIVER="phantomjs"
-    #- DRUPAL_TI_BEHAT_BROWSER="firefox"
+    - DRUPAL_TI_BEHAT_DRIVER="phantomjs"
+    - DRUPAL_TI_BEHAT_BROWSER="firefox"
 
     # PHPUnit specific commandline arguments.
-    #- DRUPAL_TI_PHPUNIT_ARGS="-c core"
+    - DRUPAL_TI_PHPUNIT_ARGS=""
     # Specifying the phpunit-core src/ directory is useful when e.g. a vendor/
     # directory is present in the module directory, which phpunit would then
     # try to find tests in. This option is relative to $TRAVIS_BUILD_DIR.
     #- DRUPAL_TI_PHPUNIT_CORE_SRC_DIRECTORY="./tests/src"
 
     # Code coverage via coveralls.io
-    #- DRUPAL_TI_COVERAGE="satooshi/php-coveralls:0.6.*"
+    - DRUPAL_TI_COVERAGE="satooshi/php-coveralls:0.6.*"
     # This needs to match your .coveralls.yml file.
-    #- DRUPAL_TI_COVERAGE_FILE="build/logs/clover.xml"
+    - DRUPAL_TI_COVERAGE_FILE="build/logs/clover.xml"
 
     # Debug options
     #- DRUPAL_TI_DEBUG="-x -v"
@@ -86,7 +87,7 @@ env:
   matrix:
     # [[[ SELECT ANY OR MORE OPTIONS ]]]
     #- DRUPAL_TI_RUNNERS="phpunit"
-    - DRUPAL_TI_RUNNERS="simpletest"
+    - DRUPAL_TI_RUNNERS="phpunit-core simpletest"
     #- DRUPAL_TI_RUNNERS="behat"
     #- DRUPAL_TI_RUNNERS="phpunit simpletest behat"
 
@@ -96,12 +97,21 @@ mysql:
   encoding: utf8
 
 before_install:
+  # Remove xdebug. We aren't generating code coverage, and it slows down Composer.
+  - phpenv config-rm xdebug.ini || true
+  # Add the oauth token to prevent GitHub timeouts.
+  - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
   - composer self-update
   - composer global require "lionsad/drupal_ti:1.*"
   - drupal-ti before_install
 
 install:
   - drupal-ti install
+  - mkdir travis-phantomjs
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs:$PATH
+  - phantomjs --version
 
 before_script:
   - drupal-ti --include ".travis-before-script.sh"

@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\address\Plugin\Validation\Constraint\CountryConstraintValidator.
- */
-
 namespace Drupal\address\Plugin\Validation\Constraint;
 
-use CommerceGuys\Addressing\Repository\CountryRepositoryInterface;
+use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
 use Drupal\address\AddressInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,14 +18,14 @@ class CountryConstraintValidator extends ConstraintValidator implements Containe
   /**
    * The country repository.
    *
-   * @var \CommerceGuys\Addressing\Repository\CountryRepositoryInterface
+   * @var \CommerceGuys\Addressing\Country\CountryRepositoryInterface
    */
   protected $countryRepository;
 
   /**
    * Constructs a new CountryConstraintValidator object.
    *
-   * @param \CommerceGuys\Addressing\Repository\CountryRepositoryInterface $country_repository
+   * @param \CommerceGuys\Addressing\Country\CountryRepositoryInterface $country_repository
    *   The country repository.
    */
   public function __construct(CountryRepositoryInterface $country_repository) {
