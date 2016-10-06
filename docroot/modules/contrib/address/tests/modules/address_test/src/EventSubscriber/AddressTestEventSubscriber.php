@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\address_test\EventSubscriber\AddressTestEventSubscriber.
- */
-
 namespace Drupal\address_test\EventSubscriber;
 
 use Drupal\address\Event\AddressEvents;
@@ -24,12 +19,12 @@ class AddressTestEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Generate a set of available countries.
+   * Generates a set of available countries.
    *
-   * @return array Array of counries.
+   * @return array The countries.
    */
   public function getAvailableCountries() {
-    return ['AU' => 'AU', 'BR' => 'BR', 'CA' => 'CA', 'FR' => 'FR', 'JP' => 'JP'];
+    return ['AU' => 'AU', 'BR' => 'BR', 'CA' => 'CA', 'GB' => 'GB', 'JP' => 'JP'];
   }
 
   /**
@@ -40,7 +35,7 @@ class AddressTestEventSubscriber implements EventSubscriberInterface {
   public function getInitialValues() {
     return [
       'country_code' => 'AU',
-      'administrative_area' => 'AU-NSW',
+      'administrative_area' => 'NSW',
       'locality' => 'Sydney',
       'dependent_locality' => '',
       'postal_code' => '2000',
@@ -48,23 +43,26 @@ class AddressTestEventSubscriber implements EventSubscriberInterface {
       'address_line1' => 'Some address',
       'address_line2' => 'Some street',
       'organization' => 'Some Organization',
-      'recipient' => 'Some Recipient',
+      'given_name' => 'John',
+      'family_name' => 'Smith',
     ];
   }
 
   /**
-   * Set available countries in the available countries event.
+   * Alters the available countries.
    *
    * @param \Drupal\address\Event\AvailableCountriesEvent $event
+   *   The available countries event.
    */
   public function onAvailableCountries(AvailableCountriesEvent $event) {
     $event->setAvailableCountries($this->getAvailableCountries());
   }
 
   /**
-   * Set initial values in the initial values event.
+   * Alters the initial values.
    *
    * @param \Drupal\address\Event\InitialValuesEvent $event
+   *   The initial values event.
    */
   public function onInitialValues(InitialValuesEvent $event) {
     $event->setInitialValues($this->getInitialValues());
