@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\address\Plugin\Field\FieldType\AddressItem.
- */
-
 namespace Drupal\address\Plugin\Field\FieldType;
 
-use CommerceGuys\Addressing\Enum\AddressField;
+use CommerceGuys\Addressing\AddressFormat\AddressField;
 use Drupal\address\Event\AddressEvents;
 use Drupal\address\Event\AvailableCountriesEvent;
 use Drupal\address\AddressInterface;
@@ -84,7 +79,15 @@ class AddressItem extends FieldItemBase implements AddressInterface {
           'type' => 'varchar',
           'length' => 255,
         ],
-        'recipient' => [
+        'given_name' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'additional_name' => [
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'family_name' => [
           'type' => 'varchar',
           'length' => 255,
         ],
@@ -117,8 +120,12 @@ class AddressItem extends FieldItemBase implements AddressInterface {
       ->setLabel(t('The second line of the address block.'));
     $properties['organization'] = DataDefinition::create('string')
       ->setLabel(t('The organization'));
-    $properties['recipient'] = DataDefinition::create('string')
-      ->setLabel(t('The recipient.'));
+    $properties['given_name'] = DataDefinition::create('string')
+      ->setLabel(t('The given name.'));
+    $properties['additional_name'] = DataDefinition::create('string')
+      ->setLabel(t('The additional name.'));
+    $properties['family_name'] = DataDefinition::create('string')
+      ->setLabel(t('The family name.'));
 
     return $properties;
   }
@@ -235,7 +242,9 @@ class AddressItem extends FieldItemBase implements AddressInterface {
       $this->langcode = $override;
     }
     elseif (!$this->getEntity()->isTranslatable()) {
-      $this->langcode = $language_manager->getConfigOverrideLanguage()->getId();
+      // The getCurrentLanguage fallback is a workaround for core bug #2684873.
+      $language = $language_manager->getConfigOverrideLanguage() ?: $language_manager->getCurrentLanguage();
+      $this->langcode = $language->getId();
     }
 
     return $this->langcode;
@@ -343,8 +352,22 @@ class AddressItem extends FieldItemBase implements AddressInterface {
   /**
    * {@inheritdoc}
    */
-  public function getRecipient() {
-    return $this->recipient;
+  public function getGivenName() {
+    return $this->given_name;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAdditionalName() {
+    return $this->additional_name;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFamilyName() {
+    return $this->family_name;
   }
 
 }
