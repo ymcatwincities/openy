@@ -1,0 +1,107 @@
+uuid: 37fc578f-bd0b-4c04-9617-019fbd310b9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_cancelled
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_clnt_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_date
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_l_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_prs_data
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_sale_id
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_status
+    - field.field.personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
+  module:
+    - personify_mindbody_sync
+    - user
+id: personify_mindbody_cache.personify_mindbody_cache.default
+targetEntityType: personify_mindbody_cache
+bundle: personify_mindbody_cache
+mode: default
+content:
+  field_pmc_cancelled:
+    weight: 12
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_pmc_clnt_data:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_pmc_ord_data:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_pmc_ord_date:
+    weight: 3
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_pmc_ord_l_num:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_pmc_order_num:
+    weight: 8
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_pmc_prs_data:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_pmc_sale_id:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_pmc_status:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_pmc_user_id:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
