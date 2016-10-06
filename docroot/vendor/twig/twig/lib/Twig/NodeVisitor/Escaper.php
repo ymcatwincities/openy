@@ -34,10 +34,11 @@ class Twig_NodeVisitor_Escaper extends Twig_BaseNodeVisitor
     protected function doEnterNode(Twig_Node $node, Twig_Environment $env)
     {
         if ($node instanceof Twig_Node_Module) {
-            if ($env->hasExtension('escaper') && $defaultStrategy = $env->getExtension('escaper')->getDefaultStrategy($node->getAttribute('filename'))) {
+            if ($env->hasExtension('Twig_Extension_Escaper') && $defaultStrategy = $env->getExtension('Twig_Extension_Escaper')->getDefaultStrategy($node->getAttribute('filename'))) {
                 $this->defaultStrategy = $defaultStrategy;
             }
             $this->safeVars = array();
+            $this->blocks = array();
         } elseif ($node instanceof Twig_Node_AutoEscape) {
             $this->statusStack[] = $node->getAttribute('value');
         } elseif ($node instanceof Twig_Node_Block) {
@@ -57,6 +58,7 @@ class Twig_NodeVisitor_Escaper extends Twig_BaseNodeVisitor
         if ($node instanceof Twig_Node_Module) {
             $this->defaultStrategy = false;
             $this->safeVars = array();
+            $this->blocks = array();
         } elseif ($node instanceof Twig_Node_Expression_Filter) {
             return $this->preEscapeFilterNode($node, $env);
         } elseif ($node instanceof Twig_Node_Print) {

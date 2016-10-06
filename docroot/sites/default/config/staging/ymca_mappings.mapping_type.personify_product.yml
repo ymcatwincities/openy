@@ -1,0 +1,6 @@
+uuid: f9c48455-3611-4bb2-8c19-44ef4fc37a57
+langcode: en
+status: true
+dependencies: {  }
+id: personify_product
+label: 'Personify Product'

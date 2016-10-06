@@ -1,4 +1,11 @@
 (function ($) {
+  // It closes the ui dialog on an outside click.
+  drupalSettings.dialog.open = function(event) {
+    $('.ui-widget-overlay').on('click', function() {
+      $(event.target).dialog('close');
+    });
+  }
+
   var ymca_theme_semaphore = false;
 
   /**
