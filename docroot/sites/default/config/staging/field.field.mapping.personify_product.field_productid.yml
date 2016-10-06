@@ -1,0 +1,19 @@
+uuid: f76140cf-0132-469f-99a3-ccc58243be2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_productid
+    - ymca_mappings.mapping_type.personify_product
+id: mapping.personify_product.field_productid
+field_name: field_productid
+entity_type: mapping
+bundle: personify_product
+label: ProductId
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

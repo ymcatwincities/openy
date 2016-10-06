@@ -1,0 +1,36 @@
+uuid: ce356727-2f1d-46fb-abca-01cf3bdc5f0c
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - ymca_mappings
+id: mapping.field_package
+field_name: field_package
+entity_type: mapping
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '1'
+      label: '1'
+    -
+      value: '3'
+      label: '3'
+    -
+      value: '6'
+      label: '6'
+    -
+      value: '12'
+      label: '12'
+    -
+      value: '20'
+      label: '20'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
