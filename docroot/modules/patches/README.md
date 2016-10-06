@@ -41,6 +41,11 @@ patch: docroot/modules/patches/fix_add_remove-2692397-8.patch
 drupal.org issue: https://www.drupal.org/node/2692397
 description: Adding/removing variants leaves Page::$variants out of date
 
+patch: docroot/modules/patches/mimemail-render_drush-2801187-3.patch
+drupal.org issue: https://www.drupal.org/node/2801187
+description: The code invoked via Drush has no required context for `render()` method.
+
+
 patch: docroot/modules/patches/core_entity_empbed-invalid_tag-2802269-1.patch
 drupal.org issue: https://www.drupal.org/node/2802269, https://www.drupal.org/node/1333730
 description: Notice. drupal-entity-inline invalid in Entity

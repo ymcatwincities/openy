@@ -1,0 +1,83 @@
+uuid: 323092ea-0ae2-4d61-8637-c21642981e5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.personify_product.field_location_ref
+    - field.field.mapping.personify_product.field_member_price
+    - field.field.mapping.personify_product.field_nonmember_price
+    - field.field.mapping.personify_product.field_package
+    - field.field.mapping.personify_product.field_product_code
+    - field.field.mapping.personify_product.field_productid
+    - field.field.mapping.personify_product.field_session_length
+    - ymca_mappings.mapping_type.personify_product
+id: mapping.personify_product.default
+targetEntityType: mapping
+bundle: personify_product
+mode: default
+content:
+  field_location_ref:
+    weight: 15
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_member_price:
+    weight: 16
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_nonmember_price:
+    weight: 17
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_package:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_product_code:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_productid:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_session_length:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

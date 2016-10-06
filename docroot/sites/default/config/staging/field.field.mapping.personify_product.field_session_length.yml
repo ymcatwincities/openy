@@ -1,0 +1,23 @@
+uuid: 5e0dc38b-b9f5-4f9f-a2da-13fa267af10b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_session_length
+    - ymca_mappings.mapping_type.personify_product
+  module:
+    - options
+id: mapping.personify_product.field_session_length
+field_name: field_session_length
+entity_type: mapping
+bundle: personify_product
+label: 'Session length'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '30'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

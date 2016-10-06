@@ -1,0 +1,20 @@
+uuid: fff78a41-fcd4-4c1a-bff0-6eb9e26a6472
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.personify_mindbody_cache.field_pmc_user_id
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_user_id
+field_name: field_pmc_user_id
+entity_type: personify_mindbody_cache
+bundle: personify_mindbody_cache
+label: 'Personify Mindbody User ID'
+description: 'Personify MindBody User ID.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
