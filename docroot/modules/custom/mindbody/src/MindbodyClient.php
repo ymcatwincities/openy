@@ -131,7 +131,10 @@ class MindbodyClient implements MindbodyClientInterface {
       return $result;
     }
     catch (\Exception $e) {
-      throw new MindbodyException('Failed to get data from MindBody exception.');
+      $params_log = serialize($params);
+      $message = $e->getMessage();
+      $msg = "Failed to call MindBody with message: $message for service: $service for the endpoint $endpoint with parameters: $params_log";
+      throw new MindbodyException($msg);
     }
   }
 

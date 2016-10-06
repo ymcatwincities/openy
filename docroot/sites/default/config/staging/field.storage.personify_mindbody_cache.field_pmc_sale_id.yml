@@ -1,0 +1,21 @@
+uuid: dbfc9175-697a-4871-930c-e2b271e79811
+langcode: en
+status: true
+dependencies:
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.field_pmc_sale_id
+field_name: field_pmc_sale_id
+entity_type: personify_mindbody_cache
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

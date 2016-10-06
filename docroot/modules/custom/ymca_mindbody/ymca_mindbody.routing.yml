@@ -34,6 +34,13 @@ ymca_mindbody.location.pt.results:
     parameters:
       node:
         type: entity:node
+ymca_mindbody.pt.book:
+  path: '/health__fitness/personal_training/personal-trainer-schedules/book'
+  defaults:
+    _controller: '\Drupal\ymca_mindbody\Controller\MindbodyResultsController::book'
+    _title: 'Book Personal Training'
+  requirements:
+    _permission: 'access content'
 ymca_mindbody.settings:
   path: '/admin/config/ymca-services/mindbody-settings'
   defaults:

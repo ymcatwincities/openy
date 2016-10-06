@@ -50,7 +50,7 @@ class TokenChecker implements EventSubscriberInterface {
     // Skip checking for the next routes.
     $route_match = \Drupal::getContainer()->get('current_route_match');
     $disabled_routes = [
-      'mca_personify.personify_login',
+      'ymca_personify.personify_login',
       'ymca_personify.personify_auth',
       'ymca_personify.personify_signout',
     ];

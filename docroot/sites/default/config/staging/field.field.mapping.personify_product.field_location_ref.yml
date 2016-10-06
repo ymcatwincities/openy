@@ -1,0 +1,28 @@
+uuid: f5cbbe2e-5d5c-444b-bfc8-2f652711347e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_ref
+    - node.type.location
+    - ymca_mappings.mapping_type.personify_product
+id: mapping.personify_product.field_location_ref
+field_name: field_location_ref
+entity_type: mapping
+bundle: personify_product
+label: Location
+description: 'Leave empty to display production on Healthy Living Page.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

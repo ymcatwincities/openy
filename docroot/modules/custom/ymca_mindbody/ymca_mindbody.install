@@ -13,3 +13,12 @@ function ymca_mindbody_install() {
   $config->set('calls', 22000);
   $config->save();
 }
+
+/**
+ * Set `is_production` flag.
+ */
+function ymca_mindbody_update_8001() {
+  $config = Drupal::configFactory()->getEditable('ymca_mindbody.settings');
+  $config->set('is_production', 0);
+  $config->save();
+}
