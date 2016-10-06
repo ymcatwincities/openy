@@ -4304,3 +4304,14 @@ function ymca_master_update_8185() {
     ]
   );
 }
+
+/**
+ * YMCA-1180: Add Archive file type.
+ */
+function ymca_master_update_8186() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'file_entity.type.archive.yml',
+    ]
+  );
+}
