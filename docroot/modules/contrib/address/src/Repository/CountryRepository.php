@@ -1,14 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\address\Repository\CountryRepository.
- */
-
 namespace Drupal\address\Repository;
 
 use CommerceGuys\Intl\Country\CountryRepository as ExternalCountryRepository;
-use CommerceGuys\Addressing\Repository\CountryRepositoryInterface as ExternalCountryRepositoryInterface;
+use CommerceGuys\Addressing\Country\CountryRepositoryInterface as ExternalCountryRepositoryInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Locale\CountryManagerInterface;
@@ -101,7 +96,9 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
    * {@inheritdoc}
    */
   protected function getDefaultLocale() {
-    return $this->languageManager->getConfigOverrideLanguage()->getId();
+    // The getCurrentLanguage() fallback is a workaround for core bug #2684873.
+    $language = $this->languageManager->getConfigOverrideLanguage() ?: $this->languageManager->getCurrentLanguage();
+    return $language->getId();
   }
 
 }

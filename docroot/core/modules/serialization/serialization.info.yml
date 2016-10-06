@@ -5,8 +5,8 @@ package: Web services
 # version: VERSION
 # core: 8.x
 
-# Information added by Drupal.org packaging script on 2016-07-18
-version: '8.1.7'
+# Information added by Drupal.org packaging script on 2016-09-21
+version: '8.1.10'
 core: '8.x'
 project: 'drupal'
-datestamp: 1468855486
+datestamp: 1474479093
