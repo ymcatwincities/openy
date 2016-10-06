@@ -36,17 +36,6 @@ interface YmcaMindbodyResultsSearcherInterface {
   public static function getRangeStrtotime($value);
 
   /**
-   * Returns timestamp in appropriate timezone.
-   *
-   * @param string $data
-   *   Date string.
-   *
-   * @return string
-   *   Timestamp.
-   */
-  public static function getTimestampInTimezone($data);
-
-  /**
    * Returns search link based on context.
    *
    * @param array $options
@@ -125,5 +114,16 @@ interface YmcaMindbodyResultsSearcherInterface {
    *   Render array for disabled form.
    */
   public function getDisabledMarkup();
+
+  /**
+   * Retrieves duration for specific session type.
+   *
+   * @param int $session_type
+   *   Session type ID.
+   *
+   * @return int
+   *   Duration in minutes.
+   */
+  public function getDuration($session_type);
 
 }

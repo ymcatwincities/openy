@@ -1,0 +1,23 @@
+uuid: f0c88942-f23f-4a79-9a79-ed0f8df26f55
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_package
+    - ymca_mappings.mapping_type.personify_product
+  module:
+    - options
+id: mapping.personify_product.field_package
+field_name: field_package
+entity_type: mapping
+bundle: personify_product
+label: Package
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

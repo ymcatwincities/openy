@@ -1,0 +1,18 @@
+uuid: dffe1add-7b40-43c5-95ef-cb8ee0782047
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_nonmember_price
+field_name: field_nonmember_price
+entity_type: mapping
+type: float
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

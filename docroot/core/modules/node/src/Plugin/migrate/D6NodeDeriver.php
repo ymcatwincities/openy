@@ -3,11 +3,12 @@
 namespace Drupal\node\Plugin\migrate;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
-use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\MigrationDeriverTrait;
+use Drupal\migrate_drupal\Plugin\MigrateCckFieldPluginManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,30 +34,42 @@ class D6NodeDeriver extends DeriverBase implements ContainerDeriverInterface {
   /**
    * The CCK plugin manager.
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var \Drupal\migrate_drupal\Plugin\MigrateCckFieldPluginManagerInterface
    */
   protected $cckPluginManager;
+
+  /**
+   * Whether or not to include translations.
+   *
+   * @var bool
+   */
+  protected $includeTranslations;
 
   /**
    * D6NodeDeriver constructor.
    *
    * @param string $base_plugin_id
    *   The base plugin ID for the plugin ID.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $cck_manager
+   * @param \Drupal\migrate_drupal\Plugin\MigrateCckFieldPluginManagerInterface $cck_manager
    *   The CCK plugin manager.
+   * @param bool $translations
+   *   Whether or not to include translations.
    */
-  public function __construct($base_plugin_id, PluginManagerInterface $cck_manager) {
+  public function __construct($base_plugin_id, MigrateCckFieldPluginManagerInterface $cck_manager, $translations) {
     $this->basePluginId = $base_plugin_id;
     $this->cckPluginManager = $cck_manager;
+    $this->includeTranslations = $translations;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
+    // Translations don't make sense unless we have content_translation.
     return new static(
       $base_plugin_id,
-      $container->get('plugin.manager.migrate.cckfield')
+      $container->get('plugin.manager.migrate.cckfield'),
+      $container->get('module_handler')->moduleExists('content_translation')
     );
   }
 
@@ -72,6 +85,11 @@ class D6NodeDeriver extends DeriverBase implements ContainerDeriverInterface {
    * @see \Drupal\Component\Plugin\Derivative\DeriverBase::getDerivativeDefinition()
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
+    if ($base_plugin_definition['id'] == 'd6_node_translation' && !$this->includeTranslations) {
+      // Refuse to generate anything.
+      return $this->derivatives;
+    }
+
     // Read all CCK field instance definitions in the source database.
     $fields = array();
     try {
@@ -100,9 +118,10 @@ class D6NodeDeriver extends DeriverBase implements ContainerDeriverInterface {
         $values['source']['node_type'] = $node_type;
         $values['destination']['default_bundle'] = $node_type;
 
-        // If this migration is based on the d6_node_revision migration, it
-        // should explicitly depend on the corresponding d6_node variant.
-        if ($base_plugin_definition['id'] == 'd6_node_revision') {
+        // If this migration is based on the d6_node_revision migration or
+        // is for translations of nodes, it should explicitly depend on the
+        // corresponding d6_node variant.
+        if (in_array($base_plugin_definition['id'], ['d6_node_revision', 'd6_node_translation'])) {
           $values['migration_dependencies']['required'][] = 'd6_node:' . $node_type;
         }
 
@@ -110,14 +129,15 @@ class D6NodeDeriver extends DeriverBase implements ContainerDeriverInterface {
         if (isset($fields[$node_type])) {
           foreach ($fields[$node_type] as $field_name => $info) {
             $field_type = $info['type'];
-            if ($this->cckPluginManager->hasDefinition($info['type'])) {
+            try {
+              $plugin_id = $this->cckPluginManager->getPluginIdFromFieldType($field_type, ['core' => 6], $migration);
               if (!isset($this->cckPluginCache[$field_type])) {
-                $this->cckPluginCache[$field_type] = $this->cckPluginManager->createInstance($field_type, ['core' => 6], $migration);
+                $this->cckPluginCache[$field_type] = $this->cckPluginManager->createInstance($plugin_id, ['core' => 6], $migration);
               }
               $this->cckPluginCache[$field_type]
                 ->processCckFieldValues($migration, $field_name, $info);
             }
-            else {
+            catch (PluginNotFoundException $ex) {
               $migration->setProcessOfProperty($field_name, $field_name);
             }
           }

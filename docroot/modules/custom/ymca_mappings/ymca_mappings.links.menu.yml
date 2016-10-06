@@ -19,3 +19,15 @@ view.trainers_mapping.page_1:
   parent: system.admin_content
   description: 'The list of trainers mappings.'
   route_name: view.trainers_mapping.page_1
+
+view.personify_product_mapping.page_1:
+  title: 'Personify Product Mapping'
+  parent: system.admin_content
+  description: 'The list of Personify Product mappings.'
+  route_name: view.personify_product_mapping.page_1
+
+view.location_mapping.page_1:
+  title: 'Locations Mapping'
+  parent: system.admin_content
+  description: 'The list of location mappings.'
+  route_name: view.location_mapping.page_1

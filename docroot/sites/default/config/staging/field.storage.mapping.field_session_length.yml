@@ -1,0 +1,27 @@
+uuid: df1a088f-806d-479a-9294-2cbd65fb03c2
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - ymca_mappings
+id: mapping.field_session_length
+field_name: field_session_length
+entity_type: mapping
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '30'
+      label: '30'
+    -
+      value: '60'
+      label: '60'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
