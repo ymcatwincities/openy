@@ -15,7 +15,8 @@
     attached: false,
     attach: function (context, settings) {
       var hash = $(window).attr('location').hash;
-      if (hash && !this.attached) {
+      var ismembership = window.location.pathname.endsWith("membership");
+      if (hash && !this.attached && !ismembership) {
         window.setTimeout(function() {
           var menuHeight = $('.top-navs').height();
           var top = $(hash).offset().top;
