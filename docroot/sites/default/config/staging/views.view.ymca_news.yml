@@ -220,7 +220,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: "<div class=\"col-md-3 sidebar-promos promos hidden-sm visible-xs\">\n                    <article class=\"richtext\" id=\"component_504752\"><a class=\"wrapper\" href=\"mailto:joan.schimml@ymcatwincities.org\" title=\"joan.schimml@ymcatwincities.org\"><h3>Media Contact</h3>\n<p><strong style=\"font-size:1.2em;\">Joan Schimml<br /></strong>Senior Director of Communications and Marketing</p>\n<p><strong>Email Joan</strong></p>\n</a></article>\n\n                </div>"
+          content: "<div class=\"col-md-3 sidebar-promos promos hidden-sm visible-xs\">\n                    <article class=\"richtext\" id=\"component_504752\"><a class=\"wrapper\" href=\"mailto:joan.schimml@ymcamn.org\" title=\"joan.schimml@ymcamn.org\"><h3>Media Contact</h3>\n<p><strong style=\"font-size:1.2em;\">Joan Schimml<br /></strong>Senior Director of Communications and Marketing</p>\n<p><strong>Email Joan</strong></p>\n</a></article>\n\n                </div>"
           plugin_id: text_custom
       empty: {  }
       relationships: {  }
