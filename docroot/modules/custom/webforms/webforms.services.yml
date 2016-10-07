@@ -2,3 +2,6 @@ services:
   webforms.node_extractor:
     class: \Drupal\webforms\WebformsNodeExtractor
     arguments: ['@entity_type.manager']
+  webforms.submissions_archiver:
+    class: \Drupal\webforms\WebformsSubmissionsArchiver
+    arguments: ['@entity.query', '@entity_type.manager', '@csv_serialization.encoder.csv']
