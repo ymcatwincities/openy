@@ -6,6 +6,8 @@ use Drupal\contact\Entity\Message;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\csv_serialization\Encoder\CsvEncoder;
+use Drupal\serialization\Normalizer\ComplexDataNormalizer;
+use Drupal\serialization\Normalizer\EntityNormalizer;
 
 /**
  * Class WebformsSubmissionsArchiver
@@ -67,6 +69,9 @@ class WebformsSubmissionsArchiver {
 
     // @todo Archive a single month data, store to local Archive entity.
     $month_entities = $this->entityTypeManager->getStorage('contact_message')->loadMultiple($month_ids);
+    $normalizer = new EntityNormalizer(\Drupal::service('entity.manager'));
+    $normalizer->setSerializer($this->c)
+    $test = $normalizer->normalize($entity, 'csv');
     $csv = $this->csvEncoder->encode($month_entities, 'csv');
     // @todo Check if the file is greater than a zero, remove archived data.
     // @todo finish a loop.
