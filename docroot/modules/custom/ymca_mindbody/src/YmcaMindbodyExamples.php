@@ -94,6 +94,8 @@ class YmcaMindbodyExamples {
 
     $response = $this->proxy->call('SaleService', 'GetCustomPaymentMethods', []);
 
+    $settings = \Drupal::config('mindbody.settings');
+
     $params = [
       'SaleID' => 12368,
     ];
@@ -131,25 +133,35 @@ class YmcaMindbodyExamples {
     $service = reset($services);
     $service_id = $service->ID;
 
-    $card_payment_info = new \SoapVar(
-      [
-        'CreditCardNumber' => '1234-4567-7458-4567',
-        'Amount' => $service->Price,
-        'BillingAddress' => '123 Happy Ln',
-        'BillingCity' => 'Santa Ynez',
-        'BillingState' => 'CA',
-        'BillingPostalCode' => '93455',
-        'ExpYear' => '2017',
-        'ExpMonth' => '7',
-        'BillingName' => 'John Berky',
-      ],
-      SOAP_ENC_ARRAY,
-      'CreditCardInfo',
-      'http://clients.mindbodyonline.com/api/0_5'
-    );
+//    $card_payment_info = new \SoapVar(
+//      [
+//        'CreditCardNumber' => '1234-4567-7458-4567',
+//        'Amount' => $service->Price,
+//        'BillingAddress' => '123 Happy Ln',
+//        'BillingCity' => 'Santa Ynez',
+//        'BillingState' => 'CA',
+//        'BillingPostalCode' => '93455',
+//        'ExpYear' => '2017',
+//        'ExpMonth' => '7',
+//        'BillingName' => 'John Berky',
+//      ],
+//      SOAP_ENC_ARRAY,
+//      'CreditCardInfo',
+//      'http://clients.mindbodyonline.com/api/0_5'
+//    );
 
     // Let's place the order.
     $params = [
+      'UserCredentials' => [
+        // According to documentation we can use credentials, but with underscore at the beginning of username.
+        // @see https://developers.mindbodyonline.com/Develop/Authentication.
+        'Username' => '_' . $settings->get('sourcename'),
+        'Password' => $settings->get('password'),
+        'SiteIDs' => [
+          $settings->get('site_id'),
+        ],
+      ],
+      // @todo Be carefull about (int). Mindbody stores string!!!
       'ClientID' => (int) $client_id,
       'CartItems' => [
         'CartItem' => [

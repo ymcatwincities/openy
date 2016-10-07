@@ -1,0 +1,5 @@
+name: YMCA Errors
+type: module
+description: "YMCA errors handling"
+core: 8.x
+package: YMCA

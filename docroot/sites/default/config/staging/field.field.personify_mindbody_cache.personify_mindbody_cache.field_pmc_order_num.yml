@@ -1,0 +1,20 @@
+uuid: f7cce0bc-d834-4295-bc71-023203ef0bc5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.personify_mindbody_cache.field_pmc_order_num
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_order_num
+field_name: field_pmc_order_num
+entity_type: personify_mindbody_cache
+bundle: personify_mindbody_cache
+label: 'Personify Order Number'
+description: 'Personify Order Number'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

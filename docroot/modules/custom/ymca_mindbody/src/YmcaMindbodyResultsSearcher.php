@@ -2,19 +2,22 @@
 
 namespace Drupal\ymca_mindbody;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Link;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
-use Drupal\node\NodeInterface;
+use Drupal\ymca_mindbody\Controller\MindbodyResultsController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,6 +30,16 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   use StringTranslationTrait;
 
   /**
+   * Timezone of the results coming from MindBody.
+   */
+  const MINDBODY_TIMEZONE = 'America/Chicago';
+
+  /**
+   * Mindbody date format.
+   */
+  const MINDBODY_DATE_FORMAT = 'Y-m-d\TH:i:s';
+
+  /**
    * Min time value that should be available on form.
    */
   const MIN_TIME_RANGE = 4;
@@ -37,9 +50,24 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   const MAX_TIME_RANGE = 22;
 
   /**
-   * Default timezone of incoming results.
+   * Excluded programs.
    */
-  const DEFAULT_TIMEZONE = 'America/Chicago';
+  const PROGRAMS_EXCLUDED = [4];
+
+  /**
+   * Collection name for KeyValue storage.
+   */
+  const KEY_VALUE_COLLECTION = 'ymca_booking';
+
+  /**
+   * Keyvalue expiration period.
+   */
+  const KEY_VALUE_EXPIRE = 86400;
+
+  /**
+   * Permission to Book Personal Training Time Slots.
+   */
+  const BOOK_PERMISSION = 'book personal training time slots';
 
   /**
    * The Config Factory definition.
@@ -77,6 +105,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   protected $entityTypeManager;
 
   /**
+   * Expirable keyvalue factory.
+   *
+   * @var KeyValueDatabaseExpirableFactory
+   */
+  protected $keyValueExpirable;
+
+  /**
    * The logger channel.
    *
    * @var LoggerChannelInterface
@@ -98,6 +133,20 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   protected $entityQuery;
 
   /**
+   * Current user.
+   *
+   * @var AccountProxyInterface
+   */
+  protected $accountProxy;
+
+  /**
+   * Production flag.
+   *
+   * @var bool
+   */
+  protected $isProduction;
+
+  /**
    * Constructor.
    *
    * @param ConfigFactory $config_factory
@@ -112,6 +161,10 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    *   The Mindbody Cache Proxy.
    * @param YmcaMindbodyTrainingsMapping $trainings_mapping
    *   The Mindbody Training Mapping.
+   * @param KeyValueDatabaseExpirableFactory $key_value_expirable
+   *   The Keyvalue expirable factory.
+   * @param AccountProxyInterface $current_user
+   *   Current user.
    */
   public function __construct(
     ConfigFactory $config_factory,
@@ -119,16 +172,22 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     EntityTypeManagerInterface $entity_type_manager,
     LoggerChannelFactoryInterface $logger_factory,
     MindbodyCacheProxyInterface $proxy,
-    YmcaMindbodyTrainingsMapping $trainings_mapping
+    YmcaMindbodyTrainingsMapping $trainings_mapping,
+    KeyValueDatabaseExpirableFactory $key_value_expirable,
+    AccountProxyInterface $current_user
   ) {
     $this->configFactory = $config_factory;
     $this->proxy = $proxy;
     $this->trainingsMapping = $trainings_mapping;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
+    $this->keyValueExpirable = $key_value_expirable;
+    $this->accountProxy = $current_user;
+
     $this->logger = $logger_factory->get('ymca_mindbody');
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->settings = $this->configFactory->get('ymca_mindbody.settings');
+    $this->isProduction = $this->settings->get('is_production');
   }
 
   /**
@@ -141,7 +200,9 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       $container->get('entity_type.manager'),
       $container->get('logger.factory'),
       $container->get('mindbody_cache_proxy.client'),
-      $container->get('ymca_mindbody.trainings_mapping')
+      $container->get('ymca_mindbody.trainings_mapping'),
+      $container->get('keyvalue.expirable.database'),
+      $container->get('current_user')
     );
   }
 
@@ -153,12 +214,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   public function getSearchResults(array $criteria, $node = NULL) {
     if (!isset(
       $criteria['location'],
-      $criteria['program'],
-      $criteria['session_type'],
+      $criteria['p'],
+      $criteria['s'],
       $criteria['trainer'],
-      $criteria['date_range'],
-      $criteria['start_time'],
-      $criteria['end_time']
+      $criteria['dr'],
+      $criteria['st'],
+      $criteria['et']
     )) {
       $link = Link::createFromRoute($this->t('Start your search again'), 'ymca_mindbody.pt');
       if (isset($this->node)) {
@@ -183,7 +244,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         'Password' => $this->credentials->get('user_password'),
         'SiteIDs' => [$this->credentials->get('site_id')],
       ],
-      'SessionTypeIDs' => [$criteria['session_type']],
+      'SessionTypeIDs' => [$criteria['s']],
       'LocationIDs' => [$criteria['location']],
     ];
 
@@ -191,13 +252,13 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       $booking_params['StaffIDs'] = array($criteria['trainer']);
     }
 
-    $period = $this->getRangeStrtotime($criteria['date_range']);
+    $period = $this->getRangeStrtotime($criteria['dr']);
     $booking_params['StartDate'] = date('Y-m-d', strtotime('today'));
     $booking_params['EndDate'] = date('Y-m-d', strtotime("today $period"));
 
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
-    $time_range = range($criteria['start_time'], $criteria['end_time']);
+    $time_range = range($criteria['st'], $criteria['et']);
 
     $days = [];
     // Group results by date and trainer.
@@ -207,25 +268,119 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
         $schedule_item = $bookable->GetBookableItemsResult->ScheduleItems;
       }
       foreach ($schedule_item as $bookable_item) {
+
+        // Show API test trainer only for those who has permission.
+        if ($bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
+          if (!$this->accountProxy->getAccount()->hasPermission('view API Test trainer')) {
+            continue;
+          }
+        }
+
         // Additionally filter results by time.
         $start_time = date('G', strtotime($bookable_item->StartDateTime));
         $end_time = date('G', strtotime($bookable_item->EndDateTime));
 
         if (in_array($start_time, $time_range) && in_array($end_time, $time_range)) {
-          // Do not process the items which are in the past.
-          // Temporary solution, should be removed once Drupal default timezone is changed.
-          if ($this->getTimestampInTimezone('now') >= $this->getTimestampInTimezone($bookable_item->StartDateTime)) {
-            continue;
-          }
+          // Here we create date range to iterate.
+          $dateTime = new \DateTime();
+          $dateTime->setTimezone($this->getDefaultTimezone());
 
-          $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
-          $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
-            'is_available' => TRUE,
-            'slot' => date('h:i a', strtotime($bookable_item->StartDateTime)) . ' - ' . date('h:i a', strtotime($bookable_item->EndDateTime)),
-            // To Do: Add bookable link.
-            'href' => '#',
-          ];
+          $begin = clone $dateTime;
+          $begin->setTimestamp(strtotime($bookable_item->StartDateTime));
+
+          $end = clone $dateTime;
+          $end->setTimestamp(strtotime($bookable_item->EndDateTime));
+
+          $interval = new \DateInterval(sprintf('PT%dM', $bookable_item->SessionType->DefaultTimeLength));
+          $range = new \DatePeriod($begin, $interval, $end);
+
+          $central_date_time_now = new \DateTime('now', $this->getMindBodyTimezone());
+          $central_timestamp_now = $central_date_time_now->getTimestamp();
+
+          /**
+           * @var \DateTime $item
+           */
+          foreach ($range as $i => $item) {
+            // Note, MindBody results in Central timezone.
+            $slot = \DateTime::createFromFormat(self::MINDBODY_DATE_FORMAT, $item->format(self::MINDBODY_DATE_FORMAT), $this->getMindBodyTimezone());
+
+            // Do not process items in the past.
+            // Do not show time slots withing the hidden time.
+            $timestamp_slot = $slot->getTimestamp();
+            $hide_time = (int) $this->settings->get('hide_time');
+
+            // Hide time are in minutes. Need seconds.
+            $hide_time = $hide_time > 0 ? $hide_time * 60 : $hide_time;
+            if ($central_timestamp_now + $hide_time >= $timestamp_slot) {
+              continue;
+            }
+
+            // Skip if time between $item start and time slot length less than training length.
+            $remain = ($end->getTimestamp() - $item->getTimestamp()) / 60;
+            if ($remain < $bookable_item->SessionType->DefaultTimeLength) {
+              continue;
+            }
+
+            $group_date = date('F d, Y', strtotime($bookable_item->StartDateTime));
+            $days[$group_date]['weekday'] = date('l', strtotime($bookable_item->StartDateTime));
+
+            // Add bookable item id if it isn't provided by Mindbody API.
+            if (!$bookable_item->ID) {
+              $bookable_item->ID = md5(serialize($bookable_item));
+            }
+
+            // Unique ID for each time slice.
+            $id = $bookable_item->ID . '-' . $i;
+
+            $options = [
+              'attributes' => [
+                'class' => [
+                  'use-ajax',
+                  $id == $criteria['bid'] ? 'highlight-item' : '',
+                ],
+                'data-dialog-type' => 'modal',
+                'id' => 'bookable-item-' . $id,
+              ],
+              'html' => TRUE,
+            ];
+
+            $query = ['bid' => $id] + $criteria;
+            $token = $this::getToken($query);
+            $query['token'] = $token;
+            $options['query'] = $query;
+
+            // The next data will be hidden from user's eyes by saving to DB.
+            $data['stuff_id'] = $bookable_item->Staff->ID;
+            $data['is_male'] = $bookable_item->Staff->isMale;
+            $data['trainer_name'] = $bookable_item->Staff->Name;
+            $data['trainer_email'] = $bookable_item->Staff->Email;
+            $data['trainer_phone'] = $bookable_item->Staff->MobilePhone;
+            $data['start_date'] = $item->format('D, d M Y H:i');
+            $data['start_time'] = $item->getTimestamp();
+
+            // Save data to expirable keyvalue storage.
+            $key_value = $this->keyValueExpirable->get(self::KEY_VALUE_COLLECTION);
+            $key_value->setWithExpire($token, $data, self::KEY_VALUE_EXPIRE);
+
+            $class = new FormattableMarkup('<span class="icon icon-clock"></span> @from - @to', [
+              '@from' => date('h:i a', $item->getTimestamp()),
+              '@to' => date('h:i a', $item->add($interval)->getTimestamp()),
+            ]);
+
+            // Add link only for not excluded items.
+            $book = '';
+            if (
+              $this->accountProxy->getAccount()->hasPermission(static::BOOK_PERMISSION)
+              && !in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)
+            ) {
+              $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
+            }
+
+            $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
+              'class' => $class,
+              'book' => $book,
+            ];
+          }
         }
       }
     }
@@ -238,10 +393,10 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
 
     $time_options = $this->getTimeOptions();
-    $start_time = $time_options[$criteria['start_time']];
-    $end_time = $time_options[$criteria['end_time']];
+    $start_time = $time_options[$criteria['st']];
+    $end_time = $time_options[$criteria['et']];
 
-    $period = $this->getRangeStrtotime($criteria['date_range']);
+    $period = $this->getRangeStrtotime($criteria['dr']);
     $start_date = date('n/d/Y', strtotime("today"));
     $end_date = date('n/d/Y', strtotime("today $period"));
 
@@ -250,9 +405,9 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     $locations = $this->getLocations();
     $location_name = isset($locations[$criteria['location']]) ? $locations[$criteria['location']] : '';
     $programs = $this->getPrograms();
-    $program_name = isset($programs[$criteria['program']]) ? $programs[$criteria['program']] : '';
-    $session_types = $this->getSessionTypes($criteria['program']);
-    $session_type_name = isset($session_types[$criteria['session_type']]) ? $session_types[$criteria['session_type']] : '';
+    $program_name = isset($programs[$criteria['p']]) ? $programs[$criteria['p']] : '';
+    $session_types = $this->getSessionTypes($criteria['p']);
+    $session_type_name = isset($session_types[$criteria['s']]) ? $session_types[$criteria['s']] : '';
 
     $telephone = '';
     /* @todo Use a service instead of direct queries. */
@@ -274,12 +429,12 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       'query' => [
         'step' => 4,
         'mb_location' => $criteria['location'],
-        'mb_program' => $criteria['program'],
-        'mb_session_type' => $criteria['session_type'],
+        'mb_program' => $criteria['p'],
+        'mb_session_type' => $criteria['s'],
         'mb_trainer' => $criteria['trainer'],
-        'mb_date_range' => $criteria['date_range'],
-        'mb_start_time' => $criteria['start_time'],
-        'mb_end_time' => $criteria['end_time'],
+        'mb_date_range' => $criteria['dr'],
+        'mb_start_time' => $criteria['st'],
+        'mb_end_time' => $criteria['et'],
       ],
     ];
     if (isset($criteria['context'])) {
@@ -304,6 +459,11 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       '#telephone' => $telephone,
       '#base_path' => base_path(),
       '#days' => $days,
+      '#attached' => [
+        'library' => [
+          'core/drupal.dialog.ajax',
+        ],
+      ],
     ];
 
     return $search_results;
@@ -325,14 +485,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
 
     return $options[$value];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getTimestampInTimezone($data) {
-    $date = new DrupalDateTime($data, static::DEFAULT_TIMEZONE);
-    return $date->getTimestamp();
   }
 
   /**
@@ -424,11 +576,20 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
       'StartDate' => date('Y-m-d', strtotime('today')),
       'EndDate' => date('Y-m-d', strtotime("today +3 weeks")),
     ];
+
     $bookable = $this->proxy->call('AppointmentService', 'GetBookableItems', $booking_params);
 
     $trainer_options = ['all' => $this->t('All')];
     if (!empty($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem)) {
       foreach ($bookable->GetBookableItemsResult->ScheduleItems->ScheduleItem as $bookable_item) {
+
+        // Show API Test trainer only for those who has permissions.
+        if ($bookable_item->Staff->ID == MindbodyResultsController::TEST_API_TRAINER_ID) {
+          if (!$this->accountProxy->getAccount()->hasPermission('view API Test trainer')) {
+            continue;
+          }
+        }
+
         $trainer_options[$bookable_item->Staff->ID] = $bookable_item->Staff->Name;
       }
     }
@@ -494,6 +655,102 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
     }
 
     return $markup;
+  }
+
+  /**
+   * Custom hash salt getter.
+   *
+   * @return string
+   *   String to be used as a hash salt.
+   */
+  public static function getHashSalt() {
+    return \Drupal::config('system.site')->get('uuid');
+  }
+
+  /**
+   * Custom token generator.
+   *
+   * @param array $query
+   *   Array of data usually taken form request object.
+   *
+   * @return string
+   *   Generated token.
+   */
+  public static function getToken(array $query) {
+    $data = [];
+    foreach (static::getTokenArgs() as $key) {
+      $data[$key] = (string) $query[$key];
+    }
+
+    return md5(serialize($data) . static::getHashSalt());
+  }
+
+  /**
+   * Returns token args.
+   *
+   * @return array
+   *   Array of strings.
+   */
+  public static function getTokenArgs() {
+    return [
+      'context',
+      'location',
+      'p',
+      's',
+      'trainer',
+      'st',
+      'et',
+      'dr',
+      'bid',
+    ];
+  }
+
+  /**
+   * Custom token validator.
+   *
+   * @param array $query
+   *   Query array usually taken from a request object.
+   *
+   * @return bool
+   *   Returns token validity.
+   */
+  public static function validateToken(array $query) {
+    if (!isset($query['token'])) {
+      return FALSE;
+    }
+
+    return $query['token'] == static::getToken($query);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDuration($session_type) {
+    $all = $this->proxy->call('SiteService', 'GetSessionTypes', ['OnlineOnly' => FALSE]);
+    foreach ($all->GetSessionTypesResult->SessionTypes->SessionType as $type) {
+      if ($type->ID == $session_type) {
+        return $type->DefaultTimeLength;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Get timezone for MindBody results.
+   *
+   * @return \DateTimeZone
+   */
+  protected function getMindBodyTimezone() {
+    return new \DateTimeZone(self::MINDBODY_TIMEZONE);
+  }
+
+  /**
+   * Get timezone for MindBody results.
+   *
+   * @return \DateTimeZone
+   */
+  protected function getDefaultTimezone() {
+    return new \DateTimeZone(date_default_timezone_get());
   }
 
 }

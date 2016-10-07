@@ -138,7 +138,7 @@ class GroupexFormFull extends GroupexFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $state = $this->state;
-    $formatted_results = '';
+    $formatted_results = NULL;
 
     // Check if form printed on specific Location Schedules page.
     if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {

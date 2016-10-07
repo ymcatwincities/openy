@@ -44,14 +44,12 @@
           <div class="group-by-date">
             <div class="row">
             {% for key, trainer in day.trainers %}
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="name">{{ key }}</div>
-              {% if trainer.0.is_available %}
-                <div class="available">{{ 'Is Available:'|t }}</div>
-              {% endif %}
+              <div class="available">{{ 'Is Available:'|t }}</div>
               <div class="slots">
-                {% for key, slots in trainer %}
-                <div class="slot"><span class="icon icon-clock"></span>{{ slots.slot }}</div>
+                {% for key, slot in trainer %}
+                  <div class="slot">{{ slot.class }} {{ slot.book }}</div>
                 {% endfor %}
               </div>
             </div>
@@ -69,5 +67,5 @@
   </div>
 </div>
 <div class="phone-call-wrapper">
-  <span class="description">{{ 'To book appointment please call:'|t }}</span><span class="number"><a href="tel:{{ telephone }}">{{ telephone }}</a></span>
+  <span class="description">{{ 'For appointment questions please call:'|t }}</span><span class="number"><a href="tel:{{ telephone }}">{{ telephone }}</a></span>
 </div>

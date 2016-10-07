@@ -2,6 +2,7 @@
 .footer-wrapper {
   margin: 0 auto;
   max-width: 650px;
+  width: 100%;
 }
 
 .block-social {
@@ -42,6 +43,9 @@
   .padding_top {
     padding-top: 20px;
   }
+  .padding_bottom {
+    padding-bottom: 10px;
+  }
 
   &__inner {
     padding: 0 30px;
@@ -61,6 +65,10 @@
     a {
       white-space: nowrap;
     }
+  }
+
+  .margin {
+    width: 70px;
   }
 
   .opacity {
@@ -105,6 +113,7 @@
   &__top {
     color: $gray-a7;
     margin-bottom: 20px;
+    padding: 0 10px;
   }
 
   &__bottom{

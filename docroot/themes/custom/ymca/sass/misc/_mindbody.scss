@@ -790,35 +790,58 @@
       .row > div {
         margin-bottom: 20px;
 
-        @media screen and (min-width: 992px) {
+        @media screen and (min-width: 992px) and (max-width: 1399px) {
+          &:nth-child(3n+1) {
+            clear: both;
+          }
+        }
+        @media screen and (min-width: 1400px) {
           &:nth-child(4n+1) {
             clear: both;
           }
+        }
+
+        @media screen and (min-width: 1200px) and (max-width: 1400px) {
+          width: 33.33333333333333%;
         }
       }
 
       .slots {
         .slot {
+          .icon {
+            color: $grey5;
+            font-size: 14px;
+          }
+
           background-color: $grey6;
           border-radius: 3px;
           border: 1px solid $grey2;
-          color: $grey5;
-          display: block;
           font-family: Verdana, Arial, Helvetica, sans-serif;
           font-size: 14px;
           height: 50px;
           line-height: 50px;
           margin-bottom: 8px;
           padding: 0 12px;
-          text-decoration: none;
+          white-space: nowrap;
 
-          .icon {
-            color: $grey5;
-            font-size: 14px;
-            margin-right: 12px;
-          }
           a {
+            color: $green1;
+            font-weight: bold;
+            float: right;
+          }
 
+          .highlight-item {
+            animation-name: example;
+            animation-duration: 2s;
+            animation-delay: 3s;
+            animation-iteration-count: 3;
+            background-color: $green2;
+            color: $grey7;
+            font-weight: bold;
+            float: right;
+            line-height: 24px;
+            margin: 12px 0;
+            padding: 0 3px;
           }
         }
       }
@@ -896,6 +919,46 @@
     a {
       color: $white;
       text-decoration: none;
+    }
+  }
+}
+
+@keyframes example {
+  0% { transform: rotate(0deg); }
+  5% { transform: rotate(10deg); }
+  10% { transform: rotate(-10deg); }
+  15% { transform: rotate(10deg); }
+  20% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.personify_location_list {
+  ul {
+    list-style: none;
+    padding: 30px 30px 25px;
+    li {
+      float: left;
+      margin-bottom: 5px;
+      width: 50%;
+    }
+  }
+}
+
+.mindbody-products-list,
+.mindbody-products-list-location {
+  ul {
+    padding-top: 15px;
+  }
+}
+
+.mindbody-products-list-modal {
+  ul {
+    padding: 15px 0 0 25px;
+    li {
+      margin-bottom: 10px;
+      a {
+        color: $blue1;
+      }
     }
   }
 }
