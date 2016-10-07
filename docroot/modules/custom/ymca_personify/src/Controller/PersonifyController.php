@@ -50,6 +50,9 @@ class PersonifyController extends ControllerBase {
     $this->initPersonifySso();
 
     $options = ['absolute' => TRUE];
+    if ($destination = \Drupal::request()->query->get('dest')) {
+      $options['query']['dest'] = urlencode($destination);
+    }
     $url = Url::fromRoute('ymca_personify.personify_auth', [], $options)->toString();
 
     $vendor_token = $this->sso->getVendorToken($url);
@@ -106,10 +109,12 @@ class PersonifyController extends ControllerBase {
       $this->initPersonifySso();
 
       $decrypted_token = $this->sso->decryptCustomerToken($query['ct']);
+      $id = $this->sso->getCustomerIdentifier($decrypted_token);
       if ($token = $this->sso->validateCustomerToken($decrypted_token)) {
         user_cookie_save([
           'personify_authorized' => $token,
           'personify_time' => REQUEST_TIME,
+          'personify_id' => $id
         ]);
         \Drupal::logger('ymca_personify')->info('A user logged in via Personify.');
       }
@@ -119,57 +124,13 @@ class PersonifyController extends ControllerBase {
     }
 
     $redirect_url = Url::fromUri($this->config['url_account'])->toString();
+    if (isset($query['dest'])) {
+      $redirect_url = urldecode($query['dest']);
+    }
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
     exit();
-  }
-
-  /**
-   * POC of customer orders.
-   */
-  public function customerOrders() {
-    $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
-
-    $output = '<div class="container">';
-    $client = \Drupal::httpClient();
-    $options = [
-      'json' => [
-        'CL_MindBodyCustomerOrderInput' => [
-          'LastDataAccessDate' => '2000-01-01T11:20:00',
-        ],
-      ],
-      'headers' => [
-        'Content-Type' => 'application/json;charset=utf-8',
-      ],
-      'auth' => [
-        $this->config['customer_orders_username'],
-        $this->config['customer_orders_password'],
-      ],
-    ];
-
-    try {
-      $response = $client->request('POST', $this->config['customer_orders_endpoint'], $options);
-      if ($response->getStatusCode() == '200') {
-        $body = $response->getBody();
-        $data = json_decode($body->getContents());
-
-        foreach ($data->MindBodyCustomerOrderDetail as $order) {
-          $output .= '<div><pre>' . print_r($order, TRUE) . '</pre></div>';
-        }
-      }
-    }
-    catch (\Exception $e) {
-      watchdog_exception('ymca_personify', $e);
-    }
-    $output .= '</div>';
-
-    return [
-      '#markup' => $output,
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
   }
 
 }

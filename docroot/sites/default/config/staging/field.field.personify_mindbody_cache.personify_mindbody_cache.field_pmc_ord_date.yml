@@ -1,0 +1,24 @@
+uuid: e3d3482b-7708-4a62-991f-7cc24ddb7034
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.personify_mindbody_cache.field_pmc_ord_date
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.personify_mindbody_cache.field_pmc_ord_date
+field_name: field_pmc_ord_date
+entity_type: personify_mindbody_cache
+bundle: personify_mindbody_cache
+label: 'Personify Order Date'
+description: 'Timestamp of Personify order.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -16,6 +16,12 @@
  * @throws \Exception
  */
 function ymca_sync_run($name, $method) {
+  $active = \Drupal::config('ymca_sync.settings')->get('active_syncers');
+  // Run only active syncers.
+  if (!in_array($name, $active)) {
+    return;
+  }
+
   $service = \Drupal::service($name);
   if (!$service) {
     throw new Exception('Failed to load specified service');

@@ -1,4 +1,11 @@
 (function ($) {
+  // It closes the ui dialog on an outside click.
+  drupalSettings.dialog.open = function(event) {
+    $('.ui-widget-overlay').on('click', function() {
+      $(event.target).dialog('close');
+    });
+  }
+
   var ymca_theme_semaphore = false;
 
   /**
@@ -8,7 +15,8 @@
     attached: false,
     attach: function (context, settings) {
       var hash = $(window).attr('location').hash;
-      if (hash && !this.attached) {
+      var ismembership = window.location.pathname.endsWith("membership");
+      if (hash && !this.attached && !ismembership) {
         window.setTimeout(function() {
           var menuHeight = $('.top-navs').height();
           var top = $(hash).offset().top;

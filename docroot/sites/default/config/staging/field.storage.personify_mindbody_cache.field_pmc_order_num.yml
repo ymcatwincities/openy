@@ -1,0 +1,21 @@
+uuid: b0761a71-bcab-4ca4-9fd9-82dc2584f595
+langcode: en
+status: true
+dependencies:
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.field_pmc_order_num
+field_name: field_pmc_order_num
+entity_type: personify_mindbody_cache
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

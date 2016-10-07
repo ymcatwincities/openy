@@ -1,0 +1,4 @@
+services:
+  ymca_errors.error_manager:
+    class: Drupal\ymca_errors\ErrorManager
+    arguments: ['@config.factory']

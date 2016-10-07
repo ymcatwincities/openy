@@ -3,7 +3,7 @@ zone
 
 [![Build Status](https://travis-ci.org/commerceguys/zone.svg?branch=master)](https://travis-ci.org/commerceguys/zone)
 
-A PHP 5.4+ zone management library. Requires [commerceguys/addressing](https://github.com/commerceguys/addressing).
+A PHP 5.5+ zone management library. Requires [commerceguys/addressing](https://github.com/commerceguys/addressing).
 
 Zones are territorial groupings mostly used for shipping or tax purposes.
 For example, a set of shipping rates associated with a zone where the rates
@@ -33,7 +33,7 @@ The library contains two types of zone members:
 - [zone](https://github.com/commerceguys/zone/blob/master/src/Model/ZoneMemberZone.php) (matches a zone)
 
 ```php
-use CommerceGuys\Addressing\Model\Address;
+use CommerceGuys\Addressing\Address;
 use CommerceGuys\Zone\Model\Zone;
 use CommerceGuys\Zone\Model\ZoneMemberCountry;
 
@@ -66,7 +66,7 @@ A matcher class is provided for the use case where an address should be matched
 against all zones in the system, with the matched zones ordered by priority.
 
 ```php
-use CommerceGuys\Addressing\Model\Address;
+use CommerceGuys\Addressing\Address;
 use CommerceGuys\Zone\Matcher\ZoneMatcher;
 use CommerceGuys\Zone\Repository\ZoneRepository;
 

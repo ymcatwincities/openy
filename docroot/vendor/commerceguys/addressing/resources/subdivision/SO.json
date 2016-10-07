@@ -1,79 +1,77 @@
 {
 	"country_code": "SO",
-	"parent_id": null,
-	"locale": "so",
 	"subdivisions": {
-		"SO-AW": {
-			"code": "AD",
-			"name": "AWDAL"
+		"AD": {
+			"name": "Awdal",
+			"iso_code": "SO-AW"
 		},
-		"SO-BK": {
-			"code": "BK",
-			"name": "BAKOOL"
+		"BK": {
+			"name": "Bakool",
+			"iso_code": "SO-BK"
 		},
-		"SO-BN": {
-			"code": "BN",
-			"name": "BANAADIR"
+		"BN": {
+			"name": "Banaadir",
+			"iso_code": "SO-BN"
 		},
-		"SO-BR": {
-			"code": "BR",
-			"name": "BARI"
+		"BR": {
+			"name": "Bari",
+			"iso_code": "SO-BR"
 		},
-		"SO-BY": {
-			"code": "BY",
-			"name": "BAY"
+		"BY": {
+			"name": "Bay",
+			"iso_code": "SO-BY"
 		},
-		"SO-GA": {
-			"code": "GG",
-			"name": "GALGUDUUD"
+		"GG": {
+			"name": "Galguduud",
+			"iso_code": "SO-GA"
 		},
-		"SO-GE": {
-			"code": "GD",
-			"name": "GEDO"
+		"GD": {
+			"name": "Gedo",
+			"iso_code": "SO-GE"
 		},
-		"SO-HI": {
-			"code": "HR",
-			"name": "HIIRAAN"
+		"HR": {
+			"name": "Hiiraan",
+			"iso_code": "SO-HI"
 		},
-		"SO-JD": {
-			"code": "JD",
-			"name": "JUBBADA DHEXE"
+		"JD": {
+			"name": "Jubbada Dhexe",
+			"iso_code": "SO-JD"
 		},
-		"SO-JH": {
-			"code": "JH",
-			"name": "JUBBADA HOOSE"
+		"JH": {
+			"name": "Jubbada Hoose",
+			"iso_code": "SO-JH"
 		},
-		"SO-MU": {
-			"code": "MD",
-			"name": "MUDUG"
+		"MD": {
+			"name": "Mudug",
+			"iso_code": "SO-MU"
 		},
-		"SO-NU": {
-			"code": "NG",
-			"name": "NUGAAL"
+		"NG": {
+			"name": "Nugaal",
+			"iso_code": "SO-NU"
 		},
-		"SO-SA": {
-			"code": "SG",
-			"name": "SANAAG"
+		"SG": {
+			"name": "Sanaag",
+			"iso_code": "SO-SA"
 		},
-		"SO-SD": {
-			"code": "SD",
-			"name": "SHABEELLAHA DHEXE"
+		"SD": {
+			"name": "Shabeellaha Dhexe",
+			"iso_code": "SO-SD"
 		},
-		"SO-SH": {
-			"code": "SH",
-			"name": "SHABEELLAHA HOOSE"
+		"SH": {
+			"name": "Shabeellaha Hoose",
+			"iso_code": "SO-SH"
 		},
-		"SO-SO": {
-			"code": "SL",
-			"name": "SOOL"
+		"SL": {
+			"name": "Sool",
+			"iso_code": "SO-SO"
 		},
-		"SO-TO": {
-			"code": "TG",
-			"name": "TOGDHEER"
+		"TG": {
+			"name": "Togdheer",
+			"iso_code": "SO-TO"
 		},
-		"SO-WO": {
-			"code": "WG",
-			"name": "WOQOOYI GALBEED"
+		"WG": {
+			"name": "Woqooyi Galbeed",
+			"iso_code": "SO-WO"
 		}
 	}
 }

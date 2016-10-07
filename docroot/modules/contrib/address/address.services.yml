@@ -1,11 +1,7 @@
 services:
-  address.address_format_importer:
-    class: Drupal\address\AddressFormatImporter
-    arguments: ['@entity.manager', '@language_manager']
-
   address.address_format_repository:
     class: Drupal\address\Repository\AddressFormatRepository
-    arguments: ['@entity.manager', '@language_manager']
+    arguments: ['@event_dispatcher']
 
   address.country_repository:
     class: Drupal\address\Repository\CountryRepository
@@ -13,7 +9,7 @@ services:
 
   address.subdivision_repository:
     class: Drupal\address\Repository\SubdivisionRepository
-    arguments: ['@cache.data', '@language_manager']
+    arguments: ['@address.address_format_repository', '@event_dispatcher', '@cache.data']
 
   address.zone_repository:
     class: Drupal\address\Repository\ZoneRepository
