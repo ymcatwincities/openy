@@ -15,7 +15,6 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    * {@inheritdoc}
    */
   public function push() {
-    $this->logger->info('Pusher started.');
     $this->pushClientsBatch();
     parent::pushOrders();
   }
@@ -27,6 +26,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    *   Returns itself for chaining.
    */
   private function pushClientsBatch() {
+    $this->logger->info('The Push clients to MindBody has been started.');
     if (!parent::filerOutClients()) {
       return $this;
     }
@@ -91,7 +91,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
       }
     }
 
-    $msg = 'Fast pusher has pushed %num clients successfully.';
+    $msg = 'The Push clients to MindBody has been finished. %num clients have been pushed.';
     $this->logger->info($msg, ['%num' => count($push_clients)]);
   }
 
