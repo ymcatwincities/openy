@@ -1,0 +1,22 @@
+add personify mindbody cache entities:
+  title: 'Create new Personify MindBody Cache entities'
+
+administer personify mindbody cache entities:
+  title: 'Administer Personify MindBody Cache entities'
+  description: 'Allow to access the administration form to configure Personify MindBody Cache entities.'
+  restrict access: true
+
+delete personify mindbody cache entities:
+  title: 'Delete Personify MindBody Cache entities'
+
+edit personify mindbody cache entities:
+  title: 'Edit Personify MindBody Cache entities'
+
+view published personify mindbody cache entities:
+  title: 'View published Personify MindBody Cache entities'
+
+view unpublished personify mindbody cache entities:
+  title: 'View unpublished Personify MindBody Cache entities'
+
+access personify mindbody sync log:
+  title: 'View Personify Mindbody Sync log'

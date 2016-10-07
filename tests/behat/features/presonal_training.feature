@@ -1,5 +1,5 @@
 Feature: Personal Training Form
-  @javascript
+  @pt-form @javascript
   Scenario: Check Personal Training form requests and results
     Given I visit "/health__fitness/personal_training/personal-trainer-schedules"
     When I click on ".js-form-item-mb-location"
@@ -13,3 +13,15 @@ Feature: Personal Training Form
     Then I should see "Trainer" in the "#trainer-wrapper" element
     When I click on ".form_submit"
     Then I should see "Showing results for" in the ".mindbody-search-results-header" element
+
+  @pt-form @fast-tests @headless
+  Scenario: Check data on PT results page
+    Given I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
+    Then I should see "For appointment questions please call"
+    And I should see "763-230-6537"
+
+  @pt-form @fast-tests @headless @api
+  Scenario: Check Book link permissions
+    Given I am logged in as a user with the "book personal training time slots" permission
+    Then I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
+    And I should see "Book" in the ".mindbody-search-results-content" element

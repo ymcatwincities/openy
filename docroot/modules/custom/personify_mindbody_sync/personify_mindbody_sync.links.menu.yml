@@ -1,0 +1,19 @@
+# Personify MindBody Cache menu items definition
+entity.personify_mindbody_cache.collection:
+  title: 'Personify MindBody Cache list'
+  route_name: entity.personify_mindbody_cache.collection
+  description: 'List Personify MindBody Cache entities'
+  parent: ymca_alters.admin_config_entities
+  weight: 100
+
+personify_mindbody_cache.admin.structure.settings:
+  title: Personify MindBody Cache settings
+  description: 'Configure Personify MindBody Cache entities'
+  route_name: personify_mindbody_cache.settings
+  parent: ymca_alters.admin_config_entities
+
+personify_mindbody_sync.log:
+  title: Personify Mindbody Sync Log
+  route_name: view.personify_mindbody_log.page_1_full
+  parent: system.admin_config_system
+  description: 'The full log for the syncer.'

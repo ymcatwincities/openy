@@ -23,6 +23,7 @@ global-styling:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+    - core/drupal.dialog
 
 add-this:
   version: 0

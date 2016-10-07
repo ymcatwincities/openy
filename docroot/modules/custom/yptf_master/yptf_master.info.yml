@@ -1,0 +1,6 @@
+name: Master module for YPTF updates
+type: module
+description: YPTF Master
+core: 8.x
+package: YPTF
+
