@@ -83,7 +83,7 @@ class WebformsSubmissionsArchiver {
     $start = new \DateTime(date('Y-m-d', strtotime($created_year . '-' . $created_month)), new \DateTimeZone($tz));
     $start = $start->getTimeStamp();
 
-    \Drupal::logger('webforms')->debug(
+    $this->logger->debug(
       'Entity created: %created. Timeframe: %start, %end',
       [
         '%created' => date('Y/m/d', $created),
@@ -95,7 +95,7 @@ class WebformsSubmissionsArchiver {
       ->condition('contact_form', $form_name)
       ->execute();
 
-    \Drupal::logger('webforms')->debug('Processed: %count entities.', ['%count' => count($month_ids)]);
+    $this->logger->debug('Processed: %count entities.', ['%count' => count($month_ids)]);
     // @todo Archive a single month data, store to local Archive entity.
     // We have up to 200 entities per month. So skip slicing for now.
     $month_entities = $this->entityTypeManager->getStorage('contact_message')->loadMultiple($month_ids);
