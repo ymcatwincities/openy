@@ -5,19 +5,18 @@
  * Module for hook_update_N.
  */
 
-use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\file\Entity\File as EntityFile;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
-use Drupal\Core\StreamWrapper\PublicStream;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
-use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\ymca_mappings\Entity\Mapping;
-use Drupal\Core\File;
-use Drupal\file\Entity\File as EntityFile;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -4306,9 +4305,29 @@ function ymca_master_update_8185() {
 }
 
 /**
- * YMCA-1180: Add Archive file type.
+ * YMCA-1187: Fix phone pattern.
  */
 function ymca_master_update_8186() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.become_a_supplier.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.cc_wellness_employee.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.cc_wellness_employer.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.contact_an_aquatics_manager.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.contact_personal_training.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.journey_to_freedom.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.membership_form.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.personal_trainers_individual.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.wait_list.default.yml',
+
+    ]
+  );
+}
+
+/**
+ * YMCA-1180: Add Archive file type.
+ */
+function ymca_master_update_8187() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       YGTC_CONFDIR . 'file_entity.type.archive.yml',
