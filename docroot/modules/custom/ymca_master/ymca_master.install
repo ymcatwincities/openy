@@ -4304,3 +4304,22 @@ function ymca_master_update_8185() {
     ]
   );
 }
+
+/**
+ * YMCA-1187: Fix phone pattern.
+ */
+function ymca_master_update_8186() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.become_a_supplier.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.cc_wellness_employee.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.cc_wellness_employer.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.contact_an_aquatics_manager.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.contact_personal_training.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.journey_to_freedom.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.membership_form.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.personal_trainers_individual.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.wait_list.default.yml',
+    ]
+  );
+}
