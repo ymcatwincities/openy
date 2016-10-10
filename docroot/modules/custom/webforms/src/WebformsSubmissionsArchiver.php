@@ -103,16 +103,6 @@ class WebformsSubmissionsArchiver {
       ->condition('contact_form', $form_name)
       ->execute();
 
-    $this->logger->debug(
-      'Processed into archive: %count entities of type: %type. First entity created: %created. Timeframe: %start, %end',
-      [
-        '%created' => date('Y/m/d', $created),
-        '%start' => date('Y/m/d', $start),
-        '%end' => date('Y/m/d', $end),
-        '%count' => count($month_ids),
-        '%type' => $form_name
-      ]
-    );
     // Archive a single month data, store to local Archive entity.
     // We have up to 1000 entities per month.
     $month_entities = $this->entityTypeManager->getStorage('contact_message')
@@ -143,6 +133,16 @@ class WebformsSubmissionsArchiver {
 
       // Check if the file is greater than a zero, remove archived data.
       if ($file->getSize() != 0) {
+        $this->logger->debug(
+          'Processed into archive: %count entities of type: %type. First entity created: %created. Timeframe: %start, %end',
+          [
+            '%created' => date('Y/m/d', $created),
+            '%start' => date('Y/m/d', $start),
+            '%end' => date('Y/m/d', $end),
+            '%count' => count($month_ids),
+            '%type' => $form_name
+          ]
+        );
         $this->entityTypeManager->getStorage('contact_message')->delete(
           $month_entities
         );
