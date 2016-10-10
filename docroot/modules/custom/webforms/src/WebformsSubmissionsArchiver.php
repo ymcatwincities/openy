@@ -7,9 +7,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannel;
-use Drupal\csv_serialization\Encoder\CsvEncoder;
 use Drupal\file_entity\Entity\FileEntity;
-use Drupal\views\Entity\View;
 use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
@@ -36,7 +34,7 @@ class WebformsSubmissionsArchiver {
 
   /**
    * Logger.
-   * 
+   *
    * @var \Drupal\Core\Logger\LoggerChannel
    */
   private $logger;
@@ -48,7 +46,12 @@ class WebformsSubmissionsArchiver {
    */
   private $config;
 
-  public function __construct(QueryFactory $queryFactory, EntityTypeManager $entityTypeManager, LoggerChannel $logger, ConfigFactory $configFactory) {
+  public function __construct(
+    QueryFactory $queryFactory,
+    EntityTypeManager $entityTypeManager,
+    LoggerChannel $logger,
+    ConfigFactory $configFactory
+  ) {
     $this->queryFactory = $queryFactory;
     $this->entityTypeManager = $entityTypeManager;
     $this->logger = $logger;
@@ -61,16 +64,20 @@ class WebformsSubmissionsArchiver {
   public function archive() {
     $tz = $this->config->get('system.date')->get('timezone')['default'];
     // Get first from list of contact_storage entities.
-    $end_of_month = new \DateTime(date('Y-m-d', strtotime(date('Y-m'))), new \DateTimeZone($tz));
+    $end_of_month = new \DateTime(
+      date('Y-m-d', strtotime(date('Y-m'))),
+      new \DateTimeZone($tz)
+    );
     $end_time = $end_of_month->getTimeStamp() - 1;
 
     $message_ids = \Drupal::entityQuery('contact_message')
       ->condition('created', $end_time, '<=')
       ->sort('created', 'ASC')
-      ->range(0,1)
+      ->range(0, 1)
       ->execute();
     // Loop through all of them to find the data, older than a month.
-    $entities = $this->entityTypeManager->getStorage('contact_message')->loadMultiple($message_ids);
+    $entities = $this->entityTypeManager->getStorage('contact_message')
+      ->loadMultiple($message_ids);
     /** @var Message $entity */
     $entity = array_shift($entities);
     $form_name = $entity->bundle();
@@ -78,27 +85,38 @@ class WebformsSubmissionsArchiver {
     $created_month = date('m', $created);
     $created_year = date('Y', $created);
 
-    $end = new \DateTime(date('Y-m-d', strtotime($created_year . '-' . $created_month . ' +1 month')), new \DateTimeZone($tz));
+    $end = new \DateTime(
+      date(
+        'Y-m-d',
+        strtotime($created_year . '-' . $created_month . ' +1 month')
+      ), new \DateTimeZone($tz)
+    );
     $end = $end->getTimeStamp() - 1;
-    $start = new \DateTime(date('Y-m-d', strtotime($created_year . '-' . $created_month)), new \DateTimeZone($tz));
+    $start = new \DateTime(
+      date('Y-m-d', strtotime($created_year . '-' . $created_month)),
+      new \DateTimeZone($tz)
+    );
     $start = $start->getTimeStamp();
 
-    $this->logger->debug(
-      'Entity created: %created. Timeframe: %start, %end',
-      [
-        '%created' => date('Y/m/d', $created),
-        '%start' => date('Y/m/d', $start),
-        '%end' => date('Y/m/d', $end)]
-    );
     $month_ids = \Drupal::entityQuery('contact_message')
       ->condition('created', [$start, $end], 'BETWEEN')
       ->condition('contact_form', $form_name)
       ->execute();
 
-    $this->logger->debug('Processed: %count entities.', ['%count' => count($month_ids)]);
-    // @todo Archive a single month data, store to local Archive entity.
-    // We have up to 200 entities per month. So skip slicing for now.
-    $month_entities = $this->entityTypeManager->getStorage('contact_message')->loadMultiple($month_ids);
+    $this->logger->debug(
+      'Processed into archive: %count entities of type: %type. First entity created: %created. Timeframe: %start, %end',
+      [
+        '%created' => date('Y/m/d', $created),
+        '%start' => date('Y/m/d', $start),
+        '%end' => date('Y/m/d', $end),
+        '%count' => count($month_ids),
+        '%type' => $form_name
+      ]
+    );
+    // Archive a single month data, store to local Archive entity.
+    // We have up to 1000 entities per month.
+    $month_entities = $this->entityTypeManager->getStorage('contact_message')
+      ->loadMultiple($month_ids);
     if (count($month_entities) > 0) {
       /** @var ViewExecutable $get_views */
       $get_views = Views::getView('cm_archive_csv');
@@ -110,7 +128,10 @@ class WebformsSubmissionsArchiver {
       $markup = $out['#markup'];
       // $compressed = gzcompress($out['#markup']->__toString(), 3);
       $file = FileEntity::create(['bundle' => 'archive', 'type' => 'archive']);
-      $filename = $form_name . '_' . date('Y_m_d', $start) . '_to_' . date('Y_m_d', $end) . '.csv.gz';
+      $filename = $form_name . '_' . date('Y_m_d', $start) . '_to_' . date(
+          'Y_m_d',
+          $end
+        ) . '.csv.gz';
       $file->setFilename($filename);
       $file->setFileUri("public://$filename");
       $file->setMimeType('application/x-gzip');
@@ -120,12 +141,12 @@ class WebformsSubmissionsArchiver {
       gzclose($fp);
       $file->save();
 
-      // @todo Check if the file is greater than a zero, remove archived data.
+      // Check if the file is greater than a zero, remove archived data.
       if ($file->getSize() != 0) {
-        $this->entityTypeManager->getStorage('contact_message')->delete($month_entities);
+        $this->entityTypeManager->getStorage('contact_message')->delete(
+          $month_entities
+        );
       }
-      // @todo finish a loop.
-
     }
 
   }
