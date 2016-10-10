@@ -313,6 +313,7 @@ class MindbodyResultsController extends ControllerBase {
     // OK.
     if (is_array($book) && isset($book['status']) && $book['status'] === TRUE) {
       $message = $this->t('Your appointment is confirmed.');
+
       // Disable link if booked.
       $booked = '<span class="highlight-item">' . t('Book') . '</span>';
       $response->addCommand(new ReplaceCommand('#bookable-item-' . $query['bid'], $booked));
@@ -356,6 +357,15 @@ class MindbodyResultsController extends ControllerBase {
           $msg = 'Failed to send email notification. Error: %error';
           $this->logger->critical($msg, ['%error' => $e->getMessage()]);
         }
+
+        $msg = 'Successful booking: client data: %client, booking data: %booking)';
+        $this->logger->info(
+          $msg,
+          [
+            '%client' => serialize($client_data),
+            '%booking' => serialize($booking_data),
+          ]
+        );
       }
 
     }
