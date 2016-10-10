@@ -129,6 +129,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * Push orders.
    */
   protected function pushOrders() {
+    $this->logger->info('The Push orders to MindBody has been started.');
     $source = $this->wrapper->getSourceData();
 
     $locations = $this->getAllLocationsFromOrders($source);
@@ -315,15 +316,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
           $cache_entity->save();
 
           $pushed++;
-          $msg = 'The order ID %id with line number %num and code %code has been pushed.';
-          $this->logger->info(
-            $msg,
-            [
-              '%id' => $order->OrderNo,
-              '%num' => $order->OrderLineNo,
-              '%code' => $order->ProductCode,
-            ]
-          );
         }
         catch (\Exception $e) {
           // Don't push again this order, just set SaleID even if it's 0.
@@ -345,8 +337,12 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
     }
 
+    $msg = 'The Push orders to MindBody has been finished. %num orders have been pushed.';
     $this->logger->info(
-      'Fast pusher has pushed %num orders. Finished.', ['%num' => $pushed]
+      $msg,
+      [
+        '%num' => $pushed,
+      ]
     );
 
   }
@@ -397,18 +393,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
         $emails[] = $trainer['email'];
       }
-
-      $msg = 'Notification about order ID %id with line number %num and sale ID %sale was sent to emails: %emails';
-      $this->logger->info(
-        $msg,
-        [
-          '%id' => $order->OrderNo,
-          '%num' => $order->OrderLineNo,
-          '%sale' => $mb_sale_id,
-          '%emails' => implode(', ', $emails),
-        ]
-      );
-
     }
     catch (\Exception $e) {
       // Log an error.
@@ -732,16 +716,12 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         unset($this->clientIds[$client->ID]);
 
         $skipped++;
-        $msg = 'The client with ID %id has been skipped by fast pusher. Already pushed.';
-        $this->logger->info(
-          $msg, ['%id' => $client->ID]
-        );
 
         // Update cached entity with client's data if first time.
         $this->updateClientData($client->ID, $client);
       }
 
-      $msg = 'Fast pusher skipped %num clients. They were already pushed.';
+      $msg = 'The Fast pusher has skipped %num clients. Already pushed.';
       $this->logger->info($msg, ['%num' => $skipped]);
 
     }
