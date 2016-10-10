@@ -8,12 +8,12 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\file_entity\Entity\FileEntity;
-use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
 /**
- * Class WebformsSubmissionsArchiver
+ * Class WebformsSubmissionsArchiver.
+ *
  * @package Drupal\webforms
  */
 class WebformsSubmissionsArchiver {
@@ -46,6 +46,18 @@ class WebformsSubmissionsArchiver {
    */
   private $config;
 
+  /**
+   * WebformsSubmissionsArchiver constructor.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
+   *   QueryFactory.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
+   *   EntityTypeManager.
+   * @param \Drupal\Core\Logger\LoggerChannel $logger
+   *   LoggerChannel.
+   * @param \Drupal\Core\Config\ConfigFactory $configFactory
+   *   ConfigFactory.
+   */
   public function __construct(
     QueryFactory $queryFactory,
     EntityTypeManager $entityTypeManager,
@@ -114,9 +126,6 @@ class WebformsSubmissionsArchiver {
         [$form_name, implode(',', array_keys($month_ids))]
       );
       $out = $get_views->render('rest_export_1');
-      /** @var ViewsRenderPipelineMarkup $markup */
-      $markup = $out['#markup'];
-      // $compressed = gzcompress($out['#markup']->__toString(), 3);
       $file = FileEntity::create(['bundle' => 'archive', 'type' => 'archive']);
       $filename = $form_name . '_' . date('Y_m_d', $start) . '_to_' . date(
           'Y_m_d',
@@ -150,4 +159,5 @@ class WebformsSubmissionsArchiver {
     }
 
   }
+
 }
