@@ -137,4 +137,22 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
     return $orders;
   }
 
+  /**
+   * Check whether order is "personal training".
+   *
+   * @param \stdClass $order
+   *   Order.
+   *
+   * @return bool
+   *   TRUE if "personal training".
+   */
+  protected function isPersonalTrainingProductCode(\stdClass $order) {
+    $code = $order->ProductCode;
+    if (strpos($code, 'BY') !== FALSE) {
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
 }
