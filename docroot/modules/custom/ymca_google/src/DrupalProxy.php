@@ -1038,6 +1038,9 @@ class DrupalProxy implements DrupalProxyInterface {
     // All child cache entities should have timestamp (UTC) of the start.
     // We'll delete any entity which starts in the past.
     $dateTime = new \DateTime('now', new \DateTimeZone('UTC'));
+
+    // Let's delete items that older than 24 hours.
+    $dateTime->sub(new \DateInterval('P1D'));
     $timestamp = $dateTime->getTimestamp();
 
     $result = $this->queryFactory->get('groupex_google_cache')
