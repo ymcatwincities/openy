@@ -68,7 +68,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
    * {@inheritdoc}
    */
   public function saveEntities() {
-    $this->logger->info('Proxy started.');
+    $this->logger->info('The Proxy has been started.');
 
     $proxy_data = [];
     $new = 0;
@@ -97,16 +97,6 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
         $cache_item->save();
         $proxy_data[$cache_item->id()] = $cache_item;
         $new++;
-
-        $msg = 'The order ID %id with line number %num and code %code has been save to cache.';
-        $this->logger->info(
-          $msg,
-          [
-            '%id' => $item->OrderNo,
-            '%num' => $item->OrderLineNo,
-            '%code' => $item->ProductCode,
-          ]
-        );
       }
       else {
         $proxy_data[$existing->id()] = $existing;
@@ -115,12 +105,11 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
 
     $this->wrapper->setProxyData($proxy_data);
 
-    $msg = 'Proxy saved %num_saved items out of %num_fetched items for processing.';
+    $msg = 'The Proxy saved to database %num_saved cache items.';
     $this->logger->info(
       $msg,
       [
         '%num_saved' => $new,
-        '%num_fetched' => count($this->wrapper->getSourceData()),
       ]
     );
 

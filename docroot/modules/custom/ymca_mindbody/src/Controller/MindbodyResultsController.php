@@ -31,9 +31,6 @@ use Drupal\ymca_alters\Utility\YmcaTimezone;
  */
 class MindbodyResultsController extends ControllerBase {
 
-  /**
-   * Use YmcaTimezone trait to properly format date/time.
-   */
   use YmcaTimezone;
 
   /**
