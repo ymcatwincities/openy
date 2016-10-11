@@ -236,16 +236,18 @@ function ymca_groupex_schedule_table_layout(array $schedule) {
       $class_item = reset($day['classes']);
       if ($class_item) {
         $class = $class_item['#class'];
-        $prefix = [[
+        $prefix = [
+          [
             '#type' => 'container',
             '#markup' => $class['description'],
             '#attributes' => [
-              'class' => ['class-description']
-            ]
-        ]];
+              'class' => ['class-description'],
+            ],
+          ],
+        ];
 
-        foreach($schedule['days'] as &$day) {
-          foreach($day['classes'] as &$class_item) {
+        foreach ($schedule['days'] as &$day) {
+          foreach ($day['classes'] as &$class_item) {
             $class_item['#used_filters'] = $schedule['used_filters'];
           }
         }
