@@ -501,12 +501,22 @@ class GooglePush {
 
     if (!empty($data[$op])) {
       foreach ($data[$op] as $item) {
-        // @todo If item has gcal_id delete the event from Google.
-        // @todo If deletion went well delete the parent item and all children.
-        // @todo We definitely can delete entities which have no recurrence
+        try {
+          $this->deleteEvent($item);
+          $processed[$op]++;
+        }
+        catch (\Exception $e) {
+          $msg = 'Failed to delete event for cache entity ID %id. Message: %msg';
+          $this->logger->error(
+            $msg,
+            [
+              '%id' => $entity->id(),
+              '%msg' => $e->getMessage(),
+            ]
+          );
+        }
       }
     }
-
     $this->logStats($op, $processed);
 
     // Mark this step as done in the schedule.
@@ -553,6 +563,82 @@ class GooglePush {
         ]
       );
     }
+  }
+
+  /**
+   * Delete an event from Google calendar.
+   *
+   * There 2 cases for deleting the events from Google calendar.
+   *  - Deleting an event with it's children.
+   *    If we've got parent entity we should delete event with all it's
+   *    instances (including corresponding cache items in DB).
+   *
+   *  - Deleting only single instance of the event.
+   *    If we've got only an instance we should delete this instance only.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Cache entity.
+   *
+   * @return bool
+   *   TRUE if deleting was OK.
+   *
+   * @throws \Exception
+   */
+  public function deleteEvent(GroupexGoogleCacheInterface $entity) {
+    // If an entity doesn't have parent ref it's a parent entity.
+    $parent = FALSE;
+    $ref = $entity->get('field_gg_parent_ref');
+    if ($ref->isEmpty()) {
+      $parent = TRUE;
+    }
+
+    // Deal with parent entity.
+    if (TRUE == $parent) {
+      $event_field = $entity->get('field_gg_gcal_id');
+      if ($event_field->isEmpty()) {
+        throw new \Exception("Can't delete Google event without event ID.");
+      }
+
+      $event_id = $entity->field_gg_gcal_id->value;
+      $entity_id = $entity->id();
+
+      $cal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
+      if (!$cal_id) {
+        throw new \Exception('Failed to get calendar ID.');
+      }
+
+      try {
+        $this->calService->events->delete($cal_id, $event_id);
+
+        // Remove children.
+        $children = $this->proxy->findChildren($entity_id);
+        $chunks = array_chunk($children, DrupalProxy::ENTITY_LOAD_CHUNK);
+        foreach ($chunks as $chunk) {
+          $entities = $this->cacheStorage->loadMultiple($chunk);
+          $this->cacheStorage->delete($entities);
+        }
+
+        // Remove parent entity.
+        $entity->delete();
+      }
+      catch (\Exception $e) {
+        throw new \Exception('Failed to delete event. Message: ' . $e->getMessage());
+      }
+
+      $msg = 'The event was deleted. Cache ID: %cache_id, Gcal ID: %gcal_id';
+      $this->logger->info(
+        $msg,
+        [
+          '%cache_id' => $entity_id,
+          '%gcal_id' => $event_id,
+        ]
+      );
+
+    }
+
+    // @todo Implement instance deleting.
+
+    return TRUE;
   }
 
   /**

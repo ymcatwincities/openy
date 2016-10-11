@@ -288,6 +288,26 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $begin = clone $dateTime;
           $begin->setTimestamp(strtotime($bookable_item->StartDateTime));
 
+          // Classes can start only on *:00, *:15, *:30, *:45.
+          $quarters = [
+            '00' => [46, 59],
+            '15' => [1, 14],
+            '30' => [16, 29],
+            '45' => [31, 44],
+          ];
+          $minutes = $begin->format('i');
+
+          // Check whether a given the slot is valid.
+          foreach ($quarters as $next_quarter => $quarter_range) {
+            if ($minutes > $quarter_range[0] && $minutes < $quarter_range[1]) {
+              // Need to move further.
+              $begin->setTime($begin->format('H'), (int) $next_quarter);
+              if ($next_quarter == '00') {
+                $begin->setTime($begin->format('H') + 1, (int) $next_quarter);
+              }
+            }
+          }
+
           $end = clone $dateTime;
           $end->setTimestamp(strtotime($bookable_item->EndDateTime));
 
@@ -297,9 +317,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $central_date_time_now = new \DateTime('now', $this->getMindBodyTimezone());
           $central_timestamp_now = $central_date_time_now->getTimestamp();
 
-          /**
-           * @var \DateTime $item
-           */
           foreach ($range as $i => $item) {
             // Note, MindBody results in Central timezone.
             $slot = \DateTime::createFromFormat(self::MINDBODY_DATE_FORMAT, $item->format(self::MINDBODY_DATE_FORMAT), $this->getMindBodyTimezone());
@@ -315,7 +332,8 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
               continue;
             }
 
-            // Skip if time between $item start and time slot length less than training length.
+            // Check duration between $item start and slot length.
+            // If it less than training length skip.
             $remain = ($end->getTimestamp() - $item->getTimestamp()) / 60;
             if ($remain < $bookable_item->SessionType->DefaultTimeLength) {
               continue;
@@ -739,6 +757,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * Get timezone for MindBody results.
    *
    * @return \DateTimeZone
+   *   Timezone.
    */
   protected function getMindBodyTimezone() {
     return new \DateTimeZone(self::MINDBODY_TIMEZONE);
@@ -748,6 +767,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * Get timezone for MindBody results.
    *
    * @return \DateTimeZone
+   *   Timezone.
    */
   protected function getDefaultTimezone() {
     return new \DateTimeZone(date_default_timezone_get());
