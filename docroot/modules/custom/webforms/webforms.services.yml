@@ -2,3 +2,11 @@ services:
   webforms.node_extractor:
     class: \Drupal\webforms\WebformsNodeExtractor
     arguments: ['@entity_type.manager']
+  webforms.submissions_archiver:
+    class: \Drupal\webforms\WebformsSubmissionsArchiver
+    arguments: ['@entity.query', '@entity_type.manager', '@logger.channel.webforms', '@config.factory']
+  logger.channel.webforms:
+    parent: logger.channel_base
+    arguments: ['webforms']
+
+
