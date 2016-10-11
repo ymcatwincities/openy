@@ -1,3 +1,10 @@
+.block-table--current {
+  + .block-table--upcoming {
+    margin-top: 50px;
+  }
+}
+
+
 .block-table {
   font-family: $fontBold;
   font-weight: normal;
@@ -6,6 +13,19 @@
   color: #fff;
   padding: 0 50px;
   box-sizing: border-box;
+
+  .table-title {
+    font-family: $fontBold;
+    font-size: pxtorem(20px);
+    line-height: lh(30, 20);
+    text-transform: uppercase;
+    color: #654d81;
+    margin: 0 0 16px 0;
+
+    +.row:not(.row--active) {
+      border-top: 1px solid rgba(#6d4e92, 0.6);
+    }
+  }
 
   .section--shedules & {
     padding: 0;
@@ -48,9 +68,29 @@
     background: rgba(#fff, 0.05);
     border: 1px solid rgba(#6d4e92, 0.6);
     border-radius: 4px;
+
+    .period {
+
+    }
+
+    .duration {
+      font-size: pxtorem(18px);
+      line-height: lh(22, 18);
+    }
+
+    .period,
+    .info,
+    .user {
+      font-size: pxtorem(24px);
+      line-height: lh(40, 24);
+    }
+
+    .group {
+      font-size: pxtorem(20px);
+      line-height: lh(40, 20);
+    }
   }
 
-  .period,
   .info,
   .user {
     font-size: pxtorem(20px);
@@ -62,7 +102,10 @@
     text-transform: uppercase;
   }
 
-  .period {}
+  .period {
+    font-size: pxtorem(18px);
+    line-height: lh(30, 18);
+  }
 
   .info {}
 
@@ -101,7 +144,7 @@
   }
 
   .cell--group {
-    min-width: 80px;
+    min-width: 100px;
   }
 
   .cell--info {
