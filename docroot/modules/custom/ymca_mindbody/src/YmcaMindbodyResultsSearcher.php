@@ -317,9 +317,6 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
           $central_date_time_now = new \DateTime('now', $this->getMindBodyTimezone());
           $central_timestamp_now = $central_date_time_now->getTimestamp();
 
-          /**
-           * @var \DateTime $item
-           */
           foreach ($range as $i => $item) {
             // Note, MindBody results in Central timezone.
             $slot = \DateTime::createFromFormat(self::MINDBODY_DATE_FORMAT, $item->format(self::MINDBODY_DATE_FORMAT), $this->getMindBodyTimezone());
@@ -760,6 +757,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * Get timezone for MindBody results.
    *
    * @return \DateTimeZone
+   *   Timezone.
    */
   protected function getMindBodyTimezone() {
     return new \DateTimeZone(self::MINDBODY_TIMEZONE);
@@ -769,6 +767,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
    * Get timezone for MindBody results.
    *
    * @return \DateTimeZone
+   *   Timezone.
    */
   protected function getDefaultTimezone() {
     return new \DateTimeZone(date_default_timezone_get());
