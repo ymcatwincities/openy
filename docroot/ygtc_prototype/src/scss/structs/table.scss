@@ -105,6 +105,11 @@
   .period {
     font-size: pxtorem(18px);
     line-height: lh(30, 18);
+
+    .section--shedules & {
+      font-size: pxtorem(20px);
+      line-height: lh(30, 20);
+    }
   }
 
   .info {}
@@ -128,6 +133,11 @@
     font-size: pxtorem(15px);
     line-height: lh(30, 15);
     text-transform: uppercase;
+
+    .section--shedules & {
+      font-size: pxtorem(16px);
+      line-height: lh(30, 16);
+    }
   }
 
   .duration {
@@ -136,6 +146,10 @@
     font-size: pxtorem(13px);
     line-height: lh(20.1, 13);
     color: #bfa6dc;
+
+    .section--shedules & {
+      font-size: pxtorem(18px);
+    }
   }
 
   .cell--time {
