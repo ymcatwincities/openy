@@ -39,14 +39,14 @@ class TelephoneValidatedWidget extends TelephoneDefaultWidget {
       '#title' => t('Validation pattern'),
       '#default_value' => $this->getSetting('validate_pattern'),
       '#description' => t('The regexp pattern that field value should match. Example: %example', [
-        '%example' => '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$',
+        '%example' => '\d{10}|\(\d{3}\)\d{3}-\d{4}',
       ]),
     );
     $form['validate_message'] = array(
       '#type' => 'textfield',
       '#title' => t('Validation message'),
       '#default_value' => $this->getSetting('validate_message'),
-      '#description' => t('Text that will be shown if field value doesn\'t match the pattern. This hint is usually a sample value or a brief description of the expected format. Example: %example', [
+      '#description' => t("Text that will be shown if field value doesn't match the pattern. This hint is usually a sample value or a brief description of the expected format. Example: %example", [
         '%example' => t('Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'),
       ]),
     );
@@ -88,7 +88,7 @@ class TelephoneValidatedWidget extends TelephoneDefaultWidget {
     );
     if ($this->getSetting('validate_pattern')) {
       $element['value']['#attributes']['pattern'] = $this->getSetting('validate_pattern');
-      $element['value']['#attributes']['title'] = t($this->getSetting('validate_message'));
+      $element['value']['#attributes']['title'] = $this->getSetting('validate_message');
     }
     return $element;
   }
@@ -105,7 +105,7 @@ class TelephoneValidatedWidget extends TelephoneDefaultWidget {
         $form_state->setError($element, $title);
       }
       else {
-        $form_state->setError($element, t('@name doesn\'t match the pattern', array('@name' => $element['#title'])));
+        $form_state->setError($element, t("@name doesn't match the pattern", array('@name' => $element['#title'])));
       }
     }
   }

@@ -390,12 +390,10 @@ class DrupalProxy implements DrupalProxyInterface {
 
       // Process deleted items.
       $deleted = $this->findDeletedIcsItems();
-      // @todo Analyze the process of deleting.
       $delete_count = count($deleted);
-      if ($delete_count < 10) {
+      if ($delete_count < 100) {
         foreach ($deleted as $entity) {
-          // @todo Implement deleting.
-          // $this->dataWrapper->appendProxyItem('delete', $entity);
+          $this->dataWrapper->appendProxyItem('delete', $entity);
         }
       }
       else {
@@ -516,8 +514,6 @@ class DrupalProxy implements DrupalProxyInterface {
       return [];
     }
 
-    // @todo If ICS entity doesn't exist but exists within schedules do not delete it.
-
     $result = $this->queryFactory->get('groupex_google_cache')
       ->notExists('field_gg_parent_ref')
       ->execute();
@@ -545,7 +541,16 @@ class DrupalProxy implements DrupalProxyInterface {
       }
     }
 
-    return $deleted;
+    // Check API to be sure that class is really deleted.
+    $deleted_for_sure = [];
+    foreach ($deleted as $i => $entity) {
+      $result = $this->fetcher->getClassById($entity->field_gg_class_id->value);
+      if ($result && $result->description == 'No description available.') {
+        $deleted_for_sure[] = $entity;
+      }
+    }
+
+    return $deleted_for_sure;
   }
 
   /**

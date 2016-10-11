@@ -1,0 +1,30 @@
+uuid: 55ba93cf-998f-4acb-8890-0a6b8e98ecb1
+langcode: en
+status: true
+dependencies:
+  config:
+    - file_entity.type.archive
+  module:
+    - file
+    - file_entity
+id: file.archive.default
+targetEntityType: file
+bundle: archive
+mode: default
+content:
+  filename:
+    type: file_link
+    label: inline
+    weight: -5
+    settings:
+      link_to_file: true
+    third_party_settings: {  }
+  uri:
+    type: file_uri
+    label: inline
+    weight: -5
+    settings:
+      link_to_file: true
+      file_download_path: true
+    third_party_settings: {  }
+hidden: {  }
