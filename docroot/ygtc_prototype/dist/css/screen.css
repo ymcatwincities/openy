@@ -393,6 +393,9 @@ table {
   .block-table .period {
     font-size: 1.8rem;
     line-height: 1.66667; }
+    .section--shedules .block-table .period {
+      font-size: 2rem;
+      line-height: 1.5; }
   .block-table .user {
     color: #c6168d;
     position: relative;
@@ -414,12 +417,17 @@ table {
     font-size: 1.5rem;
     line-height: 2;
     text-transform: uppercase; }
+    .section--shedules .block-table .group {
+      font-size: 1.6rem;
+      line-height: 1.875; }
   .block-table .duration {
     font-family: "Cachet-Book";
     font-weight: normal;
     font-size: 1.3rem;
     line-height: 1.54615;
     color: #bfa6dc; }
+    .section--shedules .block-table .duration {
+      font-size: 1.8rem; }
   .block-table .cell--time {
     min-width: 84px;
     padding: 0 50px 0 0; }
@@ -552,7 +560,8 @@ table {
           box-sizing: border-box; }
   .section--entry .block-banner {
     padding: 84px;
-    background: #000 url("../images/bg-entry-small.jpg") 100% 0 no-repeat; }
+    background: #000 url("../images/bg-entry-small.jpg") 100% 0 no-repeat;
+    background-size: cover; }
   .block-banner .logo {
     display: block;
     max-width: 565px; }
