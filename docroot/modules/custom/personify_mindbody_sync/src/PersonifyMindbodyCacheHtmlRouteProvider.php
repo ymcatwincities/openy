@@ -55,8 +55,8 @@ class PersonifyMindbodyCacheHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
-          ->setRequirement('_permission', 'view personify mindbody cache entities')
-          ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', 'view personify mindbody cache entities')
+        ->setOption('_admin_route', TRUE);
 
       return $route;
     }
@@ -89,11 +89,11 @@ class PersonifyMindbodyCacheHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_form' => "{$entity_type_id}.{$operation}",
           '_title' => "Add {$entity_type->getLabel()}",
         ])
-          ->setRequirement('_entity_create_access', $entity_type_id);
+        ->setRequirement('_entity_create_access', $entity_type_id);
 
       $route
         ->setOption('parameters', $parameters)
-          ->setOption('_admin_route', TRUE);
+        ->setOption('_admin_route', TRUE);
 
       return $route;
     }
@@ -116,8 +116,8 @@ class PersonifyMindbodyCacheHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_form' => 'Drupal\personify_mindbody_sync\Form\PersonifyMindbodyCacheSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
-          ->setRequirement('_permission', $entity_type->getAdminPermission())
-            ->setOption('_admin_route', TRUE);
+        ->setRequirement('_permission', $entity_type->getAdminPermission())
+        ->setOption('_admin_route', TRUE);
 
       return $route;
     }
