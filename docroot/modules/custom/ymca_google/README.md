@@ -63,3 +63,12 @@ drush php-eval "\Drupal::service('ymca_google.pusher')->clearCache();"
 ```
 \Drupal::service('ymca_google.groupex_wrapper')->removeSchedule();
 ```
+
+#### Prune Cache
+
+```
+\Drupal::service('ymca_google.drupal_proxy')->pruneCache();
+```
+```
+drush php-eval "\Drupal::service('ymca_google.drupal_proxy')->pruneCache();"
+```
