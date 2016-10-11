@@ -303,9 +303,9 @@ table {
     font-family: "Cachet-Bold";
     font-weight: normal;
     font-size: 4rem;
-    line-height: 1.25; }
+    line-height: 1.25;
+    text-transform: uppercase; }
   .header--inner .title {
-    text-transform: uppercase;
     color: #c6168d; }
   .header--inner .time {
     color: #fff;
