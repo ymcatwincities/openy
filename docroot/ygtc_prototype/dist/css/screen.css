@@ -186,6 +186,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.hidden {
+  display: none !important; }
+
 .decor--flex, .header--inner, .block-table .row, .page-entry .page-content, .page-split .page-content, .content-coll, .section--small-banners, .block-banner, .block-event .content, .block-event .wrapper-info, .block-event .wrapper-time {
   display: -webkit-box;
   display: -webkit-flex;
@@ -325,6 +328,9 @@ table {
           -ms-transform: translateY(-50%);
               transform: translateY(-50%); }
 
+.block-table--current + .block-table--upcoming {
+  margin-top: 50px; }
+
 .block-table {
   font-family: "Cachet-Bold";
   font-weight: normal;
@@ -334,6 +340,15 @@ table {
   padding: 0 50px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
+  .block-table .table-title {
+    font-family: "Cachet-Bold";
+    font-size: 2rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: #654d81;
+    margin: 0 0 16px 0; }
+    .block-table .table-title + .row:not(.row--active) {
+      border-top: 1px solid rgba(109, 78, 146, 0.6); }
   .section--shedules .block-table {
     padding: 0; }
   .block-table span {
@@ -357,7 +372,17 @@ table {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(109, 78, 146, 0.6);
     border-radius: 4px; }
-  .block-table .period,
+    .block-table .row--active .duration {
+      font-size: 1.8rem;
+      line-height: 1.22222; }
+    .block-table .row--active .period,
+    .block-table .row--active .info,
+    .block-table .row--active .user {
+      font-size: 2.4rem;
+      line-height: 1.66667; }
+    .block-table .row--active .group {
+      font-size: 2rem;
+      line-height: 2; }
   .block-table .info,
   .block-table .user {
     font-size: 2rem;
@@ -365,6 +390,9 @@ table {
   .block-table .period,
   .block-table .info {
     text-transform: uppercase; }
+  .block-table .period {
+    font-size: 1.8rem;
+    line-height: 1.66667; }
   .block-table .user {
     color: #c6168d;
     position: relative;
@@ -396,7 +424,7 @@ table {
     min-width: 84px;
     padding: 0 50px 0 0; }
   .block-table .cell--group {
-    min-width: 80px; }
+    min-width: 100px; }
   .block-table .cell--info {
     width: 100%;
     padding: 0 16px 0 50px; }
