@@ -1284,6 +1284,8 @@ class GooglePush {
 
   /**
    * Remove all cached entities.
+   *
+   * WARNING! Do not run this method unless you a aware of the consequences.
    */
   public function clearCache() {
     $ids = $this->query->get('groupex_google_cache')->execute();
