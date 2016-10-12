@@ -6,6 +6,7 @@
  */
 
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Initial hook_updates runner.
@@ -246,4 +247,64 @@ function yptf_master_update_8014() {
       $path . 'views.view.location_mapping.yml',
     ]
   );
+}
+
+/**
+ * Add October Special offers for PT.
+ */
+function yptf_master_update_8015() {
+  $path = 'modules/custom/ymca_mindbody/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_mindbody.special_offer.yml',
+    ]
+  );
+}
+
+/**
+ * Add new field to the Personify Product Mapping.
+ */
+function yptf_master_update_8016() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.personify_product.default.yml',
+      $path . 'core.entity_view_display.mapping.personify_product.default.yml',
+      $path . 'field.field.mapping.personify_product.field_price_available_from.yml',
+      $path . 'field.field.mapping.personify_product.field_price_available_to.yml',
+      $path . 'field.field.mapping.personify_product.field_special_member_price.yml',
+      $path . 'field.field.mapping.personify_product.field_special_non_member_price.yml',
+      $path . 'field.storage.mapping.field_price_available_from.yml',
+      $path . 'field.storage.mapping.field_price_available_to.yml',
+      $path . 'field.storage.mapping.field_special_member_price.yml',
+      $path . 'field.storage.mapping.field_special_non_member_price.yml',
+    ]
+  );
+}
+
+/**
+ * Update Personify Products mapping by PT's October Special offers.
+ */
+function yptf_master_update_8017() {
+  $offers = \Drupal::config('ymca_mindbody.special_offer')->get();
+  $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
+  $mappings = $mapping_repository->loadAll();
+  $start_date = new DrupalDateTime('2016-10-17 00:00:00', 'America/Chicago');
+  $start_date = $start_date->format('Y-m-d');
+  $end_date = new DrupalDateTime('2016-10-31 00:00:00', 'America/Chicago');
+  $end_date = $end_date->format('Y-m-d');
+  foreach ($mappings as $mapping) {
+    if (isset($offers['member'][$mapping->field_package->value][$mapping->field_session_length->value])) {
+      $special_member_price = $offers['member'][$mapping->field_package->value][$mapping->field_session_length->value];
+      $mapping->field_special_member_price->setValue($special_member_price);
+      $mapping->field_price_available_from->setValue($start_date);
+      $mapping->field_price_available_to->setValue($end_date);
+    }
+    if (isset($offers['nonmember'][$mapping->field_package->value][$mapping->field_session_length->value])) {
+      $special_nonmember_price = $offers['nonmember'][$mapping->field_package->value][$mapping->field_session_length->value];
+      $mapping->field_special_non_member_price->setValue($special_nonmember_price);
+    }
+
+    $mapping->save();
+  }
 }
