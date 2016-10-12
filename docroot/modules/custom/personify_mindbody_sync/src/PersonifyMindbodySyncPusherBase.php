@@ -250,7 +250,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'Payments' => [
           'PaymentInfo' => new \SoapVar(
             [
-              'Amount' => $service->Price * $order->OrderQuantity,
+              'Amount' => $order->TotalAmount,
               // Custom payment ID?
               'ID' => 18,
             ],
