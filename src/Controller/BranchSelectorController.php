@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class BranchSelectorController extends ControllerBase {
 
+  const EXPIRE_TIME = '+ 365 day';
+
   /**
    * Set or unset cookie for current user.
    *
@@ -33,7 +35,7 @@ class BranchSelectorController extends ControllerBase {
 
     if ($action == 'flag') {
       // Set ygs_preferred_branch cookie.
-      setcookie('ygs_preferred_branch', $id, strtotime('+ 365 day'), '/');
+      setcookie('ygs_preferred_branch', $id, strtotime(self::EXPIRE_TIME), '/');
     }
     else {
       // Delete ygs_preferred_branch cookie.
