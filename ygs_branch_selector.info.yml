@@ -1,0 +1,5 @@
+name: YGS Bransh selector
+type: module
+description: Provides link to save location as My YMCA.
+core: 8.x
+package: YGS

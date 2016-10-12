@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Provides link to save location as My YMCA.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ygs_branch_selector_preprocess_node(&$variables) {
+  if (isset($variables['node']) && $variables['node']->getType() == 'branch' && $variables['view_mode'] == 'header_branch') {
+    // Add to branch node ygs_branch_selector.
+    $nid = $variables['node']->id();
+    // @see themes/custom/ymca_seattle/templates/node/node--branch--header-branch.html.twig
+    $variables['content']['ygs_branch_selector'] = ygs_branch_selector_get_link($nid);
+  }
+}
+
+/**
+ * Get renderable link to ygs_preferred_branch.
+ */
+function ygs_branch_selector_get_link($nid, $action = FALSE) {
+  $link = array(
+    '#lazy_builder' => array(
+      'ygs_branch_selector.link_generator:generateLink',
+      array($nid, $action),
+    ),
+    '#create_placeholder' => TRUE,
+  );
+  return $link;
+}

@@ -1,0 +1,4 @@
+services:
+  ygs_branch_selector.link_generator:
+    class: Drupal\ygs_branch_selector\BranchLinkGenerator
+    arguments: ['nid', 'action']
