@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function bulk_actions_views_data_alter(array &$data) {
+  $data['block_content']['block_content_bulk_form'] = [
+    'title' => t('Block content operations bulk form'),
+    'help' => t('Add a form element that lets you run operations on multiple blocks.'),
+    'field' => [
+      'id' => 'bulk_form',
+    ],
+  ];
+  $data['menu_link_content']['menu_link_content_bulk_form'] = [
+    'title' => t('Menu links operations bulk form'),
+    'help' => t('Add a form element that lets you run operations on multiple menu links.'),
+    'field' => [
+      'id' => 'bulk_form',
+    ],
+  ];
+
+  $data['menu_link_content_data']['table']['group']  = t('Content');
+
+  // Explain how this table joins to others.
+  $data['history']['table']['join'] = array(
+    // Directly links to node table.
+    'node_field_data' => array(
+      'table' => 'history',
+      'left_field' => 'nid',
+      'field' => 'nid',
+      'extra' => array(
+        array('field' => 'uid', 'value' => '***CURRENT_USER***', 'numeric' => TRUE),
+      ),
+    ),
+  );
+
+  $data['history']['timestamp'] = array(
+    'title' => t('Has new content'),
+    'field' => array(
+      'id' => 'history_user_timestamp',
+      'help' => t('Show a marker if the content is new or updated.'),
+    ),
+    'filter' => array(
+      'help' => t('Show only content that is new or updated.'),
+      'id' => 'history_user_timestamp',
+    ),
+  );
+
+  return $data;
+}
