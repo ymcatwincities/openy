@@ -258,9 +258,12 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                   $start_date = $mapping->field_price_available_from->getValue()[0]['value'];
                   $end_date = $mapping->field_price_available_to->getValue()[0]['value'];
                   if ($start_date && $end_date) {
-                    $start_date = strtotime($start_date);
-                    $end_date = strtotime($end_date);
-                    $now = time();
+                    $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
+                    $start_date = $start_date->format('Y-m-d');
+                    $end_date = new DrupalDateTime($end_date . ' 00:00:00', 'America/Chicago');
+                    $end_date = $end_date->format('Y-m-d');
+                    $now = new DrupalDateTime('now', 'America/Chicago');
+                    $now = $now->format('Y-m-d');
                     if ($now >= $start_date && $now <= $end_date) {
                       $show_special_prices = TRUE;
                     }
