@@ -4403,11 +4403,6 @@ a[href*=".pdf?"]:hover,
 }
 
 .alert-messages {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 5000;
   margin: 0;
   border-radius: 0;
   @include box-shadow(0px -1px 4px 0px rgba(0,0,0,0.75));
@@ -4415,6 +4410,15 @@ a[href*=".pdf?"]:hover,
   > * {
     vertical-align: top;
   }
+
+}
+
+.messages {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5000;
 }
 
 .alert-tests .test {
