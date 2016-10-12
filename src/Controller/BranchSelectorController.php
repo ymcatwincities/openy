@@ -52,7 +52,7 @@ class BranchSelectorController extends ControllerBase {
     }
     else {
       // Redirect to node page.
-      $node_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath("/node/$id");
+      $node_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath(base_path() . "node/$id");
       return new RedirectResponse($node_path_alias);
     }
   }
