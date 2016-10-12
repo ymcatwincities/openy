@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function bulk_actions_views_data_alter(array &$data) {
+  $data['block_content']['block_content_bulk_form'] = [
+    'title' => t('Block content operations bulk form'),
+    'help' => t('Add a form element that lets you run operations on multiple blocks.'),
+    'field' => [
+      'id' => 'bulk_form',
+    ],
+  ];
+}
