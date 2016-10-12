@@ -1,0 +1,20 @@
+uuid: 43018b20-93b2-4a59-9e78-c759275d08ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - ymca_mappings
+id: mapping.field_price_available_to
+field_name: field_price_available_to
+entity_type: mapping
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
