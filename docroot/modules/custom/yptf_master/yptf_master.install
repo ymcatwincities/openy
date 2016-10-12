@@ -262,9 +262,30 @@ function yptf_master_update_8015() {
 }
 
 /**
- * Update Personify Products mapping by PT's October Special offers.
+ * Add new field to the Personify Product Mapping.
  */
 function yptf_master_update_8016() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.mapping.personify_product.default.yml',
+      $path . 'core.entity_view_display.mapping.personify_product.default.yml',
+      $path . 'field.field.mapping.personify_product.field_price_available_from.yml',
+      $path . 'field.field.mapping.personify_product.field_price_available_to.yml',
+      $path . 'field.field.mapping.personify_product.field_special_member_price.yml',
+      $path . 'field.field.mapping.personify_product.field_special_non_member_price.yml',
+      $path . 'field.storage.mapping.field_price_available_from.yml',
+      $path . 'field.storage.mapping.field_price_available_to.yml',
+      $path . 'field.storage.mapping.field_special_member_price.yml',
+      $path . 'field.storage.mapping.field_special_non_member_price.yml',
+    ]
+  );
+}
+
+/**
+ * Update Personify Products mapping by PT's October Special offers.
+ */
+function yptf_master_update_8017() {
   $offers = \Drupal::config('ymca_mindbody.special_offer')->get();
   $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
   $mappings = $mapping_repository->loadAll();
