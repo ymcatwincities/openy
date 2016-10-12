@@ -121,9 +121,10 @@
       margin: 0 0 20px 0;
 
       .block-banner--footer & {
-        font-size: pxtorem(40px);
-        line-height: lh(40, 40);
+        font-size: pxtorem(30px);
+        line-height: lh(40, 30);
         margin: 0;
+        text-transform: uppercase;
       }
 
       .wrapper-coming & {
