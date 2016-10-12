@@ -1028,4 +1028,39 @@ class DrupalProxy implements DrupalProxyInterface {
     return $dateObject;
   }
 
+  /**
+   * Remove cache instances which are outdated.
+   *
+   * It's totally OK to run this method any time. Ideally, it should be run
+   * 2-4 times per day.
+   */
+  public function pruneCache() {
+    // All child cache entities should have timestamp (UTC) of the start.
+    // We'll delete any entity which starts in the past.
+    $dateTime = new \DateTime('now', new \DateTimeZone('UTC'));
+
+    // Let's delete items that older than 24 hours.
+    $dateTime->sub(new \DateInterval('P1D'));
+    $timestamp = $dateTime->getTimestamp();
+
+    $result = $this->queryFactory->get('groupex_google_cache')
+      ->exists('field_gg_parent_ref')
+      ->condition('field_gg_ts_utc', $timestamp, '<')
+      ->execute();
+
+    $msg = 'The Groupex Google Cache has been pruned. %items items have been deleted.';
+
+    if (empty($result)) {
+      $this->logger->debug($msg, ['%items' => 0]);
+    }
+
+    $chunks = array_chunk($result, self::ENTITY_LOAD_CHUNK);
+    foreach ($chunks as $chunk) {
+      $entities = $this->cacheStorage->loadMultiple($chunk);
+      $this->cacheStorage->delete($entities);
+    }
+
+    $this->logger->debug($msg, ['%items' => count($result)]);
+  }
+
 }
