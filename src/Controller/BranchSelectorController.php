@@ -35,7 +35,7 @@ class BranchSelectorController extends ControllerBase {
 
     if ($action == 'flag') {
       // Set ygs_preferred_branch cookie.
-      setcookie('ygs_preferred_branch', $id, strtotime(self::EXPIRE_TIME), '/');
+      setcookie('ygs_preferred_branch', $id, strtotime(self::EXPIRE_TIME), base_path());
     }
     else {
       // Delete ygs_preferred_branch cookie.

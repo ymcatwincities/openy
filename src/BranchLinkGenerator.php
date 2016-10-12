@@ -43,6 +43,7 @@ class BranchLinkGenerator {
     $link['#prefix'] = '<div class="ygs-branch-selector">';
     $link['#sufix'] = '</div>';
     $link['#attributes'] = array('class' => array('use-ajax'));
+    $link['#attached'] = array('library' => array('core/drupal.ajax'));
     if ($action == 'unflag') {
       // Add text before link if 'unflag' action.
       $link['#prefix'] .= t('This is your current YMCA.');
