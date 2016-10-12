@@ -4,6 +4,6 @@ ygs_branch_selector.location_set:
    _title: YGS Bransh selector
    _controller: '\Drupal\ygs_branch_selector\Controller\BranchSelectorController::ygs_preferred_branch'
  requirements:
-   _permission: 'access content'
+   _permission: 'access branch selector'
    js: 'nojs|ajax'
    action: 'flag|unflag'
