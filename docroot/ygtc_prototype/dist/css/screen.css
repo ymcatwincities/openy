@@ -677,8 +677,9 @@ table {
       color: #a7a7a7;
       margin: 0 0 20px 0; }
       .block-banner--footer .block-event .wrapper-time .label {
-        font-size: 4rem;
-        line-height: 1;
-        margin: 0; }
+        font-size: 3rem;
+        line-height: 1.33333;
+        margin: 0;
+        text-transform: uppercase; }
       .wrapper-coming .block-event .wrapper-time .label {
         font-size: 4.4rem; }
