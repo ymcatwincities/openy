@@ -11,7 +11,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyException;
@@ -68,7 +67,7 @@ class MindbodyResultsController extends ControllerBase {
   /**
    * Logger.
    *
-   * @var LoggerChannelInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface;
    */
   protected $logger;
 
@@ -529,7 +528,7 @@ class MindbodyResultsController extends ControllerBase {
     $storage = $this->keyValueExpirable->get(YmcaMindbodyResultsSearcher::KEY_VALUE_COLLECTION);
     if (!$booking_data = $storage->get($data['token'])) {
       return [
-        'status' => FALSE
+        'status' => FALSE,
       ];
     }
 
@@ -541,7 +540,7 @@ class MindbodyResultsController extends ControllerBase {
       if (!$client_id = $this->requestStack->getCurrentRequest()->cookies->get('Drupal_visitor_personify_id')) {
         $this->logger->error('There is no client ID in cookies.');
         return [
-          'status' => FALSE
+          'status' => FALSE,
         ];
       }
     }
@@ -566,10 +565,23 @@ class MindbodyResultsController extends ControllerBase {
 
       $result = $this->proxy->call('ClientService', 'GetClientServices', $params, FALSE);
 
+      // Check whether the client exists in MindBody.
+      if (301 == $result->GetClientServicesResult->ErrorCode) {
+        preg_match("/Client \d+ does not exist./", $result->GetClientServicesResult->Message, $test);
+        if (!empty($test)) {
+          // We've got the ID which does not exist.
+          $this->logger->notice('The client without MindBody ID was caught. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+          return [
+            'status' => FALSE,
+            'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
+          ];
+        }
+      }
+
       if (200 != $result->GetClientServicesResult->ErrorCode) {
         $this->logger->error('Got non 200 error code with ClientService (GetClientServices). Result: %s', ['%s' => serialize($result->GetClientServicesResult)]);
         return [
-          'status' => FALSE
+          'status' => FALSE,
         ];
       }
 
@@ -577,7 +589,7 @@ class MindbodyResultsController extends ControllerBase {
       if (empty((array) $result->GetClientServicesResult->ClientServices)) {
         return [
           'status' => FALSE,
-          'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
+          'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
         ];
       }
 
@@ -599,7 +611,7 @@ class MindbodyResultsController extends ControllerBase {
             'Current' => $service_value->Current,
             'Count' => $service_value->Count,
             'ID' => $service_value->ID,
-            'Remaining' => $service_value->Remaining
+            'Remaining' => $service_value->Remaining,
           ];
         }
         // We need just first one.
@@ -610,7 +622,7 @@ class MindbodyResultsController extends ControllerBase {
         $this->logger->error('Failed to find available services. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
         return [
           'status' => FALSE,
-          'message' => $this->t($this->errorManager->getError('err__mindbody__booking_no_services')),
+          'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
         ];
       }
 
@@ -625,7 +637,8 @@ class MindbodyResultsController extends ControllerBase {
     /*Book an appointment.
 
     First of all, we should check is_production flag. If it's FALSE we should
-    always crete appointments in 'test' mode (ie without creating a real appointment).
+    always crete appointments in 'test' mode (ie without creating a real
+    appointment).
 
     We have special test API trainer. For this trainer we could create real
     appointments in test and development modules.*/
@@ -670,7 +683,7 @@ class MindbodyResultsController extends ControllerBase {
       if (200 != $result->AddOrUpdateAppointmentsResult->ErrorCode) {
         $this->logger->error('Got non 200 error code with AppointmentService (AddOrUpdateAppointments). Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
         return [
-          'status' => FALSE
+          'status' => FALSE,
         ];
       }
 
@@ -678,7 +691,7 @@ class MindbodyResultsController extends ControllerBase {
       if ('Booked' != $result->AddOrUpdateAppointmentsResult->Appointments->Appointment->Status) {
         $this->logger->error('Failed to book an appointment. Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
         return [
-          'status' => FALSE
+          'status' => FALSE,
         ];
       }
 
@@ -694,7 +707,7 @@ class MindbodyResultsController extends ControllerBase {
     $this->cacheManager->resetBookableItemsCacheByLocation($location_id);
 
     return [
-      'status' => TRUE
+      'status' => TRUE,
     ];
   }
 
