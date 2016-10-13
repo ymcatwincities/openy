@@ -1,0 +1,4 @@
+name: Bulk Actions
+type: module
+description: Adds additional actions that can be used with views bulk form.
+core: 8.x
