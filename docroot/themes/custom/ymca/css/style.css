@@ -8619,6 +8619,11 @@ body .ajax-progress-throbber .throbber {
 #mindbody-pt-form-wrapper .form-item-mb-trainer select:hover {
   border-color: #d8d8d8;
 }
+@-moz-document url-prefix() {
+  #mindbody-pt-form-wrapper .form-item-mb-trainer select {
+    text-indent: 0;
+  }
+}
 #mindbody-pt-form-wrapper .form-item-mb-date-range {
   clear: left;
   position: relative;
@@ -8654,6 +8659,11 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-date-range select:hover {
   border-color: #d8d8d8;
+}
+@-moz-document url-prefix() {
+  #mindbody-pt-form-wrapper .form-item-mb-date-range select {
+    text-indent: 0;
+  }
 }
 #mindbody-pt-form-wrapper .form-item-mb-date-range .glyphicon {
   bottom: 22px;
@@ -8709,10 +8719,15 @@ body .ajax-progress-throbber .throbber {
     width: 125px;
   }
 }
+@-moz-document url-prefix() {
+  #mindbody-pt-form-wrapper .form-item-mb-start-time select {
+    text-indent: 0;
+  }
+}
 #mindbody-pt-form-wrapper .form-item-mb-start-time .icon {
   position: absolute;
   left: 12px;
-  bottom: 24px;
+  bottom: 22px;
   color: #a7a7a7;
   font-size: 16px;
 }
@@ -8750,10 +8765,15 @@ body .ajax-progress-throbber .throbber {
 #mindbody-pt-form-wrapper .form-item-mb-end-time select:hover {
   border-color: #d8d8d8;
 }
+@-moz-document url-prefix() {
+  #mindbody-pt-form-wrapper .form-item-mb-end-time select {
+    text-indent: 0;
+  }
+}
 #mindbody-pt-form-wrapper .form-item-mb-end-time .icon {
   position: absolute;
   left: 12px;
-  bottom: 24px;
+  bottom: 22px;
   color: #a7a7a7;
   font-size: 16px;
 }
