@@ -1,0 +1,135 @@
+.block-event {
+  font-family: $fontBold;
+  font-weight: normal;
+  border-radius: 20px;
+  background: #f0f0f0;
+  margin: 0 0 74px 0;
+  box-shadow: 0 8px 24px 0 rgba(#000, 0.3);
+
+  .block-banner--footer & {
+    margin: 0;
+  }
+
+  .wrapper-coming & {
+    margin-left: 72px;
+    margin-right: 72px;
+    opacity: 0.6;
+  }
+
+  .content {
+    @extend .decor--flex;
+    @extend .decor--justify-end;
+    @extend .decor--row-reverse;
+
+    .block-banner--footer & {
+      @extend .decor--justify-between;
+      @extend .decor--row-initial;
+
+    }
+  }
+
+  .wrapper-info {
+    padding: 50px;
+    @extend .decor--flex;
+    @extend .decor--direction-column;
+    @extend .decor--justify-center;
+
+    .label {
+      font-size: pxtorem(30px);
+      line-height: lh(40.1, 30);
+      text-transform: uppercase;
+      display: block;
+      color: #424242;
+    }
+
+    .info,
+    .user {
+      display: block;
+      text-transform: uppercase;
+
+      .block-banner--footer & {
+        display: inline-block;
+        vertical-align: baseline;
+        text-transform: uppercase;
+      }
+    }
+
+    .info {
+      font-size: pxtorem(100px);
+      line-height: lh(114, 100);
+      color: #0060af;
+
+      .block-banner--footer & {
+        font-size: pxtorem(60px);
+        line-height: lh(62.1, 60);
+      }
+
+      .wrapper-coming & {
+        font-size: pxtorem(80px);
+      }
+    }
+
+    .user {
+      font-size: pxtorem(50px);
+      line-height: lh(72, 50);
+      padding: 0;
+
+      .block-banner--footer & {
+        font-size: pxtorem(40px);
+        color: #c6168d;
+        padding: 0 0 0 20px;
+      }
+    }
+  }
+
+  .wrapper-time {
+    background: #fff;
+    padding: 50px;
+    border-radius: 20px 0 0 20px;
+    @extend .decor--flex;
+    @extend .decor--direction-column;
+    @extend .decor--justify-center;
+
+    .block-banner--footer & {
+      border-radius: 0;
+    }
+
+    span {
+      display: block;
+      text-align: center;
+    }
+
+    .time {
+      font-size: pxtorem(120px);
+      line-height: lh(140, 120);
+      color: #555;
+
+      .block-banner--footer & {
+        font-size: pxtorem(60px);
+        line-height: lh(60, 60);
+      }
+
+      .wrapper-coming & {
+        font-size: pxtorem(108px);
+      }
+    }
+
+    .label {
+      font-size: pxtorem(50px);
+      line-height: lh(72, 50);
+      color: #a7a7a7;
+      margin: 0 0 20px 0;
+
+      .block-banner--footer & {
+        font-size: pxtorem(30px);
+        line-height: lh(40, 30);
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      .wrapper-coming & {
+        font-size: pxtorem(44px);
+      }
+    }
+  }
+}

@@ -213,9 +213,45 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $cart_items = [];
       $cart_items_object = new \ArrayObject();
 
+      // Let's check that Personify price equals MindBody service price.
+      if ((int) $service->Price != $order->UnitPrice) {
+        $msg = 'The prices in Personify and MindBody are different. Order: %order, LineNo: %lino.';
+        $this->logger->error($msg,
+          [
+            '%order' => $order->OrderNo,
+            '%lino' => $order->OrderNo,
+          ]
+        );
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, 'The prices in Personify and MindBody are different.');
+        continue;
+      }
+
+      // Let's format payment amount & discount amount.
+      $single_discount_amount = 0;
+      $total_standard_amount = $order->UnitPrice * $order->OrderQuantity;
+
+      // Check that total order amount is not bigger then standard price.
+      if ($order->TotalAmount > $total_standard_amount) {
+        $msg = 'Total order amount is bigger than standard total amount. Order: %order, LineNo: %lino.';
+        $this->logger->error($msg,
+          [
+            '%order' => $order->OrderNo,
+            '%lino' => $order->OrderNo,
+          ]
+        );
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, 'Total order amount is bigger than standard total amount.');
+        continue;
+      }
+
+      if ($total_standard_amount != $order->TotalAmount) {
+        $amount_diff = $total_standard_amount - $order->TotalAmount;
+        $single_discount_amount = $amount_diff / $order->OrderQuantity;
+      }
+
       for ($i = 0; $i < $order->OrderQuantity; $i++) {
         $cart_items[] = [
           'Quantity' => 1,
+          'DiscountAmount' => $single_discount_amount,
           'Item' => new \SoapVar(
             [
               'ID' => $service->ID,
@@ -224,7 +260,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
             'Service',
             'http://clients.mindbodyonline.com/api/0_5'
           ),
-          'DiscountAmount' => 0,
         ];
       }
 
@@ -250,7 +285,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'Payments' => [
           'PaymentInfo' => new \SoapVar(
             [
-              'Amount' => $service->Price * $order->OrderQuantity,
+              'Amount' => $order->TotalAmount,
               // Custom payment ID?
               'ID' => 18,
             ],
