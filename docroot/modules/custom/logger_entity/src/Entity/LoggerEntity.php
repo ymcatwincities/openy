@@ -165,7 +165,7 @@ class LoggerEntity extends ContentEntityBase implements LoggerEntityInterface {
    * {@inheritdoc}
    */
   public function setData(array $data) {
-    $this->set('name', serialize($name));
+    $this->set('data', serialize($data));
     return $this;
   }
 

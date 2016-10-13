@@ -8,11 +8,13 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
+use Drupal\logger_entity\Entity\LoggerEntityInterface;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyManager;
@@ -156,6 +158,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $languageManager;
 
   /**
+   * Entity type manger.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * MindbodyResultsController constructor.
    *
    * @param YmcaMindbodyResultsSearcherInterface $results_searcher
@@ -182,6 +191,8 @@ class MindbodyResultsController extends ControllerBase {
    *   The location repository.
    * @param LanguageManagerInterface $language_manager
    *   Language manager.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -195,7 +206,8 @@ class MindbodyResultsController extends ControllerBase {
     MailManagerInterface $mail_manager,
     KeyValueDatabaseExpirableFactory $key_value_expirable,
     LocationMappingRepository $location_repository,
-    LanguageManagerInterface $language_manager
+    LanguageManagerInterface $language_manager,
+    EntityTypeManagerInterface $entity_type_manager
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
@@ -209,6 +221,8 @@ class MindbodyResultsController extends ControllerBase {
     $this->keyValueExpirable = $key_value_expirable;
     $this->locationRepository = $location_repository;
     $this->languageManager = $language_manager;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->loggerEntityStorage = $this->entityTypeManager->getStorage('logger_entity');
 
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
@@ -230,7 +244,8 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('plugin.manager.mail'),
       $container->get('keyvalue.expirable.database'),
       $container->get('ymca_mappings.location_repository'),
-      $container->get('language_manager')
+      $container->get('language_manager'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -511,6 +526,34 @@ class MindbodyResultsController extends ControllerBase {
     $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
 
     return $response;
+  }
+
+  /**
+   * Creates logger entity.
+   *
+   * @param string $name
+   *   Title.
+   * @param array $data
+   *   Data to save.
+   *
+   * @return int|bool
+   *   Entity ID in case of success.
+   */
+  private function saveLoggerEntity($name, array $data) {
+    try {
+      $logger_entity = $this->loggerEntityStorage->create([
+        'type' => 'mindbody_booking',
+      ]);
+      $logger_entity->setData($data);
+      $logger_entity->setName($name);
+      $logger_entity->save();
+      return $logger_entity->id();
+    }
+    catch (\Exception $e) {
+      $msg = 'Failed to save logger entity. Message: %msg';
+      $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+      return FALSE;
+    }
   }
 
   /**
