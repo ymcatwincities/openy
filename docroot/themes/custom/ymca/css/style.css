@@ -8646,6 +8646,8 @@ body .ajax-progress-throbber .throbber {
   height: 6.2rem;
   text-indent: 30px;
   text-indent: 3rem;
+  padding-left: 30px;
+  padding-left: 3rem;
   width: 270px;
   width: 27rem;
   border-color: #e9e9e9;
@@ -8697,6 +8699,7 @@ body .ajax-progress-throbber .throbber {
   font-size: 14px;
   border-color: #e9e9e9;
   text-indent: 30px;
+  padding-left: 30px;
 }
 #mindbody-pt-form-wrapper .form-item-mb-start-time select:hover {
   border-color: #d8d8d8;
@@ -8737,6 +8740,7 @@ body .ajax-progress-throbber .throbber {
   width: 125px;
   border-color: #e9e9e9;
   text-indent: 30px;
+  padding-left: 30px;
 }
 @media screen and (min-width: 768px) {
   #mindbody-pt-form-wrapper .form-item-mb-end-time select {
@@ -9149,6 +9153,9 @@ body .ajax-progress-throbber .throbber {
     padding: 0 15px;
     display: block;
     font-size: 18px;
+    line-height: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }
 .phone-call-wrapper .number {
@@ -9163,7 +9170,7 @@ body .ajax-progress-throbber .throbber {
   .phone-call-wrapper .number {
     margin: 0 15px;
     display: block;
-    font-size: 35px;
+    font-size: 25px;
   }
 }
 .phone-call-wrapper .number a {
