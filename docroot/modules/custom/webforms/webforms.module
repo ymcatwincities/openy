@@ -286,4 +286,3 @@ function webforms_file_access(EntityInterface $entity, $operation, AccountInterf
   }
   return AccessResult::neutral();
 }
-
