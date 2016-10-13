@@ -16,7 +16,14 @@
     <strong>{{ key  }}-minute sessions</strong>
     <ul>
       {% for key, product in product_list %}
-      <li><a href="{{ product.url }}" target="_blank">${{ product.price }} for {{ product.package }}</a></li>
+      <li><a href="{{ product.url }}" target="_blank">
+        {% if product.show_special_prices and product.special_price %}
+          <s>${{ product.price }}</s>&nbsp;${{ product.special_price }}
+        {% else %}
+          ${{ product.price }}
+        {% endif %}
+        for {{ product.package }}
+      </a></li>
       {% endfor %}
     </ul>
     {% endfor %}
@@ -27,7 +34,14 @@
     <strong>{{ key  }}-minute sessions</strong>
     <ul>
       {% for key, product in product_list %}
-      <li><a href="{{ product.url }}" target="_blank">${{ product.price }} for {{ product.package }}</a></li>
+      <li><a href="{{ product.url }}" target="_blank">
+        {% if product.show_special_prices and product.special_price %}
+          <s>${{ product.price }}</s>&nbsp;${{ product.special_price }}
+        {% else %}
+          ${{ product.price }}
+        {% endif %}
+        for {{ product.package }}
+      </a></li>
       {% endfor %}
     </ul>
     {% endfor %}
