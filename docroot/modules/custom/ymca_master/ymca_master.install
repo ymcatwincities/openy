@@ -4343,3 +4343,15 @@ function ymca_master_update_8187() {
 function ymca_master_update_8188() {
   \Drupal::service('module_installer')->install(['bulk_actions'], TRUE);
 }
+
+/**
+ * YPTF-198: Add MindBody booking logging.
+ */
+function ymca_master_update_8189() {
+  \Drupal::service('module_installer')->install(['logger_entity'], TRUE);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'logger_entity.logger_entity_type.mindbody_booking.yml',
+    ]
+  );
+}
