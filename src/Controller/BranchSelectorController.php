@@ -39,7 +39,7 @@ class BranchSelectorController extends ControllerBase {
     }
     else {
       // Delete ygs_preferred_branch cookie.
-      setcookie('ygs_preferred_branch', FALSE, time() - 3600, '/');
+      setcookie('ygs_preferred_branch', FALSE, time() - 3600, base_path());
     }
 
     if ($js == 'ajax') {
