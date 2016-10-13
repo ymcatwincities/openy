@@ -8712,7 +8712,7 @@ body .ajax-progress-throbber .throbber {
 #mindbody-pt-form-wrapper .form-item-mb-start-time .icon {
   position: absolute;
   left: 12px;
-  bottom: 24px;
+  bottom: 22px;
   color: #a7a7a7;
   font-size: 16px;
 }
@@ -8753,7 +8753,7 @@ body .ajax-progress-throbber .throbber {
 #mindbody-pt-form-wrapper .form-item-mb-end-time .icon {
   position: absolute;
   left: 12px;
-  bottom: 24px;
+  bottom: 22px;
   color: #a7a7a7;
   font-size: 16px;
 }
