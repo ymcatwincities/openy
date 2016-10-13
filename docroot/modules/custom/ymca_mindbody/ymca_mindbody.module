@@ -9,6 +9,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Implements hook_theme().
@@ -158,17 +159,37 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
           foreach ($mappings as $mapping) {
             $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
             if (empty($mapping->field_location_ref->getValue())) {
+              $show_special_prices = FALSE;
               $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
               $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
+              $product_member_special_price = $mapping->field_special_member_price->getValue()[0]['value'];
+              $product_non_member_special_price = $mapping->field_special_non_member_price->getValue()[0]['value'];
+              $start_date = $mapping->field_price_available_from->getValue()[0]['value'];
+              $end_date = $mapping->field_price_available_to->getValue()[0]['value'];
+              if ($start_date && $end_date) {
+                $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
+                $start_date = $start_date->format('Y-m-d');
+                $end_date = new DrupalDateTime($end_date . ' 00:00:00', 'America/Chicago');
+                $end_date = $end_date->format('Y-m-d');
+                $now = new DrupalDateTime('now', 'America/Chicago');
+                $now = $now->format('Y-m-d');
+                if ($now >= $start_date && $now <= $end_date) {
+                  $show_special_prices = TRUE;
+                }
+              }
               $products_to_display_member[$product_code_array[4]][] = [
                 'price' => $product_member_price,
+                'special_price' => $product_member_special_price,
                 'session' => $product_code_array[4],
                 'package' => $product_code_array[2],
+                'show_special_prices' => $show_special_prices,
               ];
               $products_to_display_non_member[$product_code_array[4]][] = [
                 'price' => $product_non_member_price,
+                'special_price' => $product_non_member_special_price,
                 'session' => $product_code_array[4],
                 'package' => $product_code_array[2],
+                'show_special_prices' => $show_special_prices,
               ];
             }
             else {
@@ -232,17 +253,36 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 if ($product_code_array[0] == $location) {
                   $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
                   $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
+                  $product_member_special_price = $mapping->field_special_member_price->getValue()[0]['value'];
+                  $product_non_member_special_price = $mapping->field_special_non_member_price->getValue()[0]['value'];
+                  $start_date = $mapping->field_price_available_from->getValue()[0]['value'];
+                  $end_date = $mapping->field_price_available_to->getValue()[0]['value'];
+                  if ($start_date && $end_date) {
+                    $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
+                    $start_date = $start_date->format('Y-m-d');
+                    $end_date = new DrupalDateTime($end_date . ' 00:00:00', 'America/Chicago');
+                    $end_date = $end_date->format('Y-m-d');
+                    $now = new DrupalDateTime('now', 'America/Chicago');
+                    $now = $now->format('Y-m-d');
+                    if ($now >= $start_date && $now <= $end_date) {
+                      $show_special_prices = TRUE;
+                    }
+                  }
                   $products_to_display_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_member_price,
+                    'special_price' => $product_member_special_price,
                     'session' => $product_code_array[4],
                     'package' => $product_code_array[2],
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
+                    'show_special_prices' => $show_special_prices,
                   ];
                   $products_to_display_non_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_non_member_price,
+                    'special_price' => $product_non_member_special_price,
                     'session' => $product_code_array[4],
                     'package' => $product_code_array[2],
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
+                    'show_special_prices' => $show_special_prices,
                   ];
                 }
               }
