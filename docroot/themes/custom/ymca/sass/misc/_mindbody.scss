@@ -370,6 +370,7 @@
     select {
       @include rem(height, 62px);
       @include rem(text-indent, 30px);
+      @include rem(padding-left, 30px);
       @include rem(width, 270px);
       border-color: $grey2;
 
@@ -425,6 +426,7 @@
       font-size: 14px;
       border-color: $grey2;
       text-indent: 30px;
+      padding-left: 30px;
       &:hover {
         border-color: $grey3;
       }
@@ -460,6 +462,7 @@
        width: 125px;
        border-color: $grey2;
        text-indent: 30px;
+       padding-left: 30px;
 
        @media screen and (min-width: 768px) {
          width: 140px;
@@ -902,6 +905,9 @@
       padding: 0 15px;
       display: block;
       font-size: 18px;
+      line-height: 20px;
+      margin-top: 5px;
+      margin-bottom: 5px;
     }
   }
 
@@ -914,7 +920,7 @@
     @media screen and (max-width: 767px) {
       margin: 0 15px;
       display: block;
-      font-size: 35px;
+      font-size: 25px;
     }
     a {
       color: $white;
