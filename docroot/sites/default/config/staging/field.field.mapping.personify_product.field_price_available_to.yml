@@ -1,0 +1,21 @@
+uuid: 87a82073-9a2b-44a3-ae22-4684e6898132
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_price_available_to
+    - ymca_mappings.mapping_type.personify_product
+  module:
+    - datetime
+id: mapping.personify_product.field_price_available_to
+field_name: field_price_available_to
+entity_type: mapping
+bundle: personify_product
+label: 'Available To'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
