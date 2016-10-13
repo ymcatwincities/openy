@@ -21,6 +21,13 @@ function ygs_branch_selector_preprocess_node(&$variables) {
  * Get renderable link to ygs_preferred_branch.
  */
 function ygs_branch_selector_get_link($nid, $action = FALSE) {
+  if (\Drupal::currentUser()->isAnonymous()&& !isset($_SESSION['session_started'])) {
+    // Fix lazy_builder for anonymous user.
+    $session_manager = \Drupal::service('session_manager');
+    $_SESSION['session_started'] = TRUE;
+    $session_manager->start();
+  }
+
   $link = array(
     '#lazy_builder' => array(
       'ygs_branch_selector.link_generator:generateLink',
