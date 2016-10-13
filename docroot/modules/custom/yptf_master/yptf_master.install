@@ -308,3 +308,15 @@ function yptf_master_update_8017() {
     $mapping->save();
   }
 }
+
+/**
+ * Update MB messages.
+ */
+function yptf_master_update_8018() {
+  $path = drupal_get_path('module', 'ymca_errors') . '/config/install/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_errors.errors.yml',
+    ]
+  );
+}
