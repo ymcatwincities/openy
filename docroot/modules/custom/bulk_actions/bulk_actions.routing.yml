@@ -1,0 +1,6 @@
+block_content.multiple_delete_confirm:
+  path: /admin/content/bulk_actions/block_content/delete
+  defaults:
+    _form: '\Drupal\bulk_actions\Form\BlockContentDeleteMultipleForm'
+  requirements:
+    _permission: 'administer files'
