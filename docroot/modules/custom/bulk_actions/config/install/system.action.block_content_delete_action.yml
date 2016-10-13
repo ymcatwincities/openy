@@ -1,0 +1,6 @@
+id: block_content_delete_action
+label: 'Delete custom block'
+status: true
+langcode: en
+type: block_content
+plugin: block_content_delete_action

@@ -4332,7 +4332,14 @@ function ymca_master_update_8187() {
     [
       YGTC_CONFDIR . 'file_entity.type.archive.yml',
       YGTC_CONFDIR . 'core.entity_view_display.file.archive.default.yml',
-      YGTC_CONFDIR . 'views.view.cm_archive_csv.yml'
+      YGTC_CONFDIR . 'views.view.cm_archive_csv.yml',
     ]
   );
+}
+
+/**
+ * YMCA-1194: Bulk block deletion.
+ */
+function ymca_master_update_8188() {
+  \Drupal::service('module_installer')->install(['bulk_actions'], TRUE);
 }
