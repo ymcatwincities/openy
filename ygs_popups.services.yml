@@ -1,0 +1,4 @@
+services:
+  ygs_popups.popup_link_generator:
+    class: Drupal\ygs_popups\PopupLinkGenerator
+    arguments: ['nid']

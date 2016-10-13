@@ -1,0 +1,17 @@
+ygs_popups.branch:
+ path: '/popup/branches/{js}'
+ defaults:
+   _title: Branches
+   _controller: '\Drupal\ygs_popups\Controller\PopupsController::branchPopup'
+ requirements:
+   _permission: 'access popups'
+   js: 'nojs|ajax'
+
+ygs_popups.class_branch:
+ path: '/popup/branches/{node}/{js}'
+ defaults:
+   _title: Class Branches
+   _controller: '\Drupal\ygs_popups\Controller\PopupsController::classBranchPopup'
+ requirements:
+   _permission: 'access popups'
+   js: 'nojs|ajax'

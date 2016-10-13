@@ -1,0 +1,6 @@
+ygs_popups.autoload:
+  version: 1.x
+  js:
+    js/ygs_popups_autoload.js: { scope: footer, minified: true }
+  dependencies:
+    - core/drupal.dialog.ajax

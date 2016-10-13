@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Provides hidden link to popup.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ygs_popups_preprocess_page(&$variables) {
+  $insert_link = FALSE;
+  $nid = 0;
+  if (isset($variables['node']) && $variables['node']->getType() == 'class') {
+    // Add link to class node type pages.
+    $insert_link = TRUE;
+    // Add class node ID.
+    $nid = $variables['node']->id();
+  }
+  // TODO: change check below to Subcategory page, Schedule pages.
+  elseif (isset($variables['node']) && $variables['node']->getType() == 'branch') {
+    // Add link to branch node type pages.
+    $insert_link = TRUE;
+  }
+
+  if ($insert_link && \Drupal::theme()->getActiveTheme()->getName() == 'ymca_seattle') {
+    if (\Drupal::currentUser()->isAnonymous()&& !isset($_SESSION['session_started'])) {
+      // Fix lazy_builder for anonymous user.
+      $session_manager = \Drupal::service('session_manager');
+      $_SESSION['session_started'] = TRUE;
+      $session_manager->start();
+    }
+    // Add popup link.
+    $variables['page']['content']['header']['popup_link'] = array(
+      '#lazy_builder' => array(
+        // @see \Drupal\ygs_popups\PopupLinkGenerator
+        'ygs_popups.popup_link_generator:generateLink',
+        array($nid),
+      ),
+      '#create_placeholder' => TRUE,
+    );
+  }
+
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ygs_popups_theme($existing, $type, $theme, $path) {
+  return array(
+    'ygs_popup_content' => array(
+      'variables' => array(
+        'image' => NULL,
+        'description' => NULL,
+        'form' => NULL,
+      ),
+    ),
+  );
+}
