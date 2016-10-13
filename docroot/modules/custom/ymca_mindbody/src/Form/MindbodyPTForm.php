@@ -341,6 +341,13 @@ class MindbodyPTForm extends FormBase {
         ],
       ];
 
+      $form['#attached'] = [
+        'library' => [
+          'ymca_mindbody/ymca_mindbody',
+        ],
+        'drupalSettings' => $settings,
+      ];
+
       $form['#prefix'] = '<div id="mindbody-pt-form-wrapper" class="content step-' . $values['step'] . '">';
       $form['#suffix'] = '</div>';
 
