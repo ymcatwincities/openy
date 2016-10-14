@@ -6,7 +6,7 @@
         var minute = now.minutes();
         var hour = now.hours();
 
-        $(".header .time").html(moment().tz("America/Chicago").format("H:mma"));
+        $(".header .time").html(moment().tz("America/Chicago").format("h:mma"));
     };
 
     function timedUpdate () {
