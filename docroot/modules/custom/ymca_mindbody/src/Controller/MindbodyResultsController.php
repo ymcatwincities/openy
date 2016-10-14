@@ -531,21 +531,19 @@ class MindbodyResultsController extends ControllerBase {
   /**
    * Creates logger entity.
    *
-   * @param string $name
-   *   Title.
    * @param array $data
    *   Data to save.
    *
    * @return int|bool
    *   Entity ID in case of success.
    */
-  private function saveLoggerEntity($name, array $data) {
+  private function saveLoggerEntity(array $data) {
     try {
       $logger_entity = $this->loggerEntityStorage->create([
         'type' => 'mindbody_booking',
       ]);
       $logger_entity->setData($data);
-      $logger_entity->setName($name);
+      $logger_entity->setName('MindBody Booking');
       $logger_entity->save();
       return $logger_entity->id();
     }
@@ -575,7 +573,6 @@ class MindbodyResultsController extends ControllerBase {
       ];
     }
 
-    $client_id = self::TEST_API_CLIENT_ID;
     $location_id = $data[self::QUERY_PARAM__LOCATION];
 
     // Get client ID from cookies.
@@ -587,6 +584,13 @@ class MindbodyResultsController extends ControllerBase {
         ];
       }
     }
+
+    // Add location & client to booking data.
+    $booking_data['location_id'] = $location_id;
+    $booking_data['client_id'] = $client_id;
+
+    // Set default status as 0. In case of success we'll set 1.
+    $booking_data['mindbody_booking_status'] = 0;
 
     // Default credentials.
     $user_credentials = [
@@ -606,6 +610,7 @@ class MindbodyResultsController extends ControllerBase {
         'ShowActiveOnly' => TRUE,
       ];
 
+      $booking_data['request_params'] = $params;
       $result = $this->proxy->call('ClientService', 'GetClientServices', $params, FALSE);
 
       // Check whether the client exists in MindBody.
@@ -614,6 +619,10 @@ class MindbodyResultsController extends ControllerBase {
         if (!empty($test)) {
           // We've got the ID which does not exist.
           $this->logger->notice('The client without MindBody ID was caught. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+
+          $booking_data['response_data'] = serialize($result);
+          $this->saveLoggerEntity($booking_data);
+
           return [
             'status' => FALSE,
             'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
@@ -623,6 +632,10 @@ class MindbodyResultsController extends ControllerBase {
 
       if (200 != $result->GetClientServicesResult->ErrorCode) {
         $this->logger->error('Got non 200 error code with ClientService (GetClientServices). Result: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
         ];
@@ -630,6 +643,10 @@ class MindbodyResultsController extends ControllerBase {
 
       // Check if client has no services at all.
       if (empty((array) $result->GetClientServicesResult->ClientServices)) {
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
           'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
@@ -663,6 +680,10 @@ class MindbodyResultsController extends ControllerBase {
 
       if (FALSE == $service) {
         $this->logger->error('Failed to find available services. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
           'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
@@ -672,6 +693,10 @@ class MindbodyResultsController extends ControllerBase {
     }
     catch (\Exception $e) {
       $this->logger->error('Failed to make a request to ClientService (GetClientServices). Message: %s', ['%s' => $e->getMessage()]);
+
+      $booking_data['response_data'] = serialize($e);
+      $this->saveLoggerEntity($booking_data);
+
       return [
         'status' => FALSE,
       ];
@@ -721,10 +746,15 @@ class MindbodyResultsController extends ControllerBase {
         $params['Appointments']['Appointment']['Staff']['isMale'] = $booking_data['is_male'];
       }
 
+      $booking_data['request_params'] = $params;
       $result = $this->proxy->call('AppointmentService', 'AddOrUpdateAppointments', $params, FALSE);
 
       if (200 != $result->AddOrUpdateAppointmentsResult->ErrorCode) {
         $this->logger->error('Got non 200 error code with AppointmentService (AddOrUpdateAppointments). Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
         ];
@@ -733,6 +763,10 @@ class MindbodyResultsController extends ControllerBase {
       // Check status.
       if ('Booked' != $result->AddOrUpdateAppointmentsResult->Appointments->Appointment->Status) {
         $this->logger->error('Failed to book an appointment. Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
         ];
@@ -741,12 +775,20 @@ class MindbodyResultsController extends ControllerBase {
     }
     catch (\Exception $e) {
       $this->logger->error('Failed to make a request to AppointmentService (AddOrUpdateAppointments). Message: %s', ['%s' => $e->getMessage()]);
+
+      $booking_data['response_data'] = serialize($e);
+      $this->saveLoggerEntity($booking_data);
+
       return [
         'status' => FALSE,
       ];
     }
 
-    // So, we've booked our item. Let's clear the cache.
+    // So, we've booked our item.
+    $booking_data['mindbody_booking_status'] = 1;
+    $this->saveLoggerEntity($booking_data);
+
+    // Let's clear the cache.
     $this->cacheManager->resetBookableItemsCacheByLocation($location_id);
 
     return [
