@@ -347,6 +347,11 @@
         border-color: $grey3;
       }
     }
+    @-moz-document url-prefix() {
+      select {
+        text-indent: 0;
+      }
+    }
   }
 
   .form-item-mb-date-range {
@@ -378,7 +383,11 @@
         border-color: $grey3;
       }
     }
-
+    @-moz-document url-prefix() {
+      select {
+        text-indent: 0;
+      }
+    }
     .glyphicon {
       @include rem(bottom, 22px);
       @include rem(font-size, 16px);
@@ -427,6 +436,7 @@
       border-color: $grey2;
       text-indent: 30px;
       padding-left: 30px;
+
       &:hover {
         border-color: $grey3;
       }
@@ -434,10 +444,15 @@
         width: 125px;
       }
     }
+    @-moz-document url-prefix() {
+      select {
+        text-indent: 0;
+      }
+    }
     .icon {
       position: absolute;
       left: 12px;
-      bottom: 24px;
+      bottom: 22px;
       color: $grey4;
       font-size: 16px;
     }
@@ -472,11 +487,15 @@
          border-color: $grey3;
        }
      }
-
+      @-moz-document url-prefix() {
+        select {
+          text-indent: 0;
+        }
+      }
     .icon {
       position: absolute;
       left: 12px;
-      bottom: 24px;
+      bottom: 22px;
       color: $grey4;
       font-size: 16px;
     }
