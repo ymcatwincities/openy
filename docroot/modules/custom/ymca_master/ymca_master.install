@@ -4352,6 +4352,7 @@ function ymca_master_update_8189() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       YGTC_CONFDIR . 'logger_entity.logger_entity_type.mindbody_booking.yml',
+      YGTC_CONFDIR . 'views.view.mindbody_booking_log.yml',
     ]
   );
 }
