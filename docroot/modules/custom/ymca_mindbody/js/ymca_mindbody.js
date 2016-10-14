@@ -14,6 +14,11 @@
           window.location.href = settings.personify_product_url + settings.products_codes[product_code];
         });
       });
+      $('#mindbody-pt-form-wrapper .form-item-mb-location input').each(function() {
+        if ($('#mindbody-pt-form-wrapper .form-item-mb-program').length === 0) {
+          $(this).attr('checked', false);
+        }
+      });
     }
   };
 

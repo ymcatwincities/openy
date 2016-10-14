@@ -214,7 +214,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $cart_items_object = new \ArrayObject();
 
       // Let's check that Personify price equals MindBody service price.
-      if ((int) $service->Price != $order->UnitPrice) {
+      // Skip intro orders.
+      if (!$this->isIntroPersonalTraining($order->ProductCode) && (int) $service->Price != $order->UnitPrice) {
         $msg = 'The prices in Personify and MindBody are different. Order: %order, LineNo: %lino.';
         $this->logger->error($msg,
           [
@@ -228,7 +229,9 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       // Let's format payment amount & discount amount.
       $single_discount_amount = 0;
-      $total_standard_amount = $order->UnitPrice * $order->OrderQuantity;
+      // Here we use service price, because UnitPrice may be different than service price.
+      // Everything that is in diff, should go to discount.
+      $total_standard_amount = $service->Price * $order->OrderQuantity;
 
       // Check that total order amount is not bigger then standard price.
       if ($order->TotalAmount > $total_standard_amount) {
@@ -621,6 +624,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_6_SESS_60_MIN' => '10118',
         'PT_12_SESS_60_MIN' => '10119',
         'PT_20_SESS_60_MIN' => '10120',
+        'PT_MP_INTRO' => '10117',
       ],
       'Regular' => [
         'PT_1_SESS_30_MIN' => '10101',
@@ -928,6 +932,19 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     return $sales;
+  }
+
+  /**
+   * Indicate whether order is intro PT.
+   *
+   * @param string $product_code
+   *   Product code.
+   *
+   * @return bool
+   *   Indicator.
+   */
+  protected function isIntroPersonalTraining($product_code) {
+    return strpos($product_code, 'INTRO') !== FALSE;
   }
 
 }
