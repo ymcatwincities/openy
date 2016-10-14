@@ -12,6 +12,8 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Prepares variables for individual form element templates.
@@ -271,4 +273,16 @@ function webforms_contact_form_embed_alter(&$build, $entity, $context) {
       $build[$field_name]['#attributes']['class'][] = 'hidden';
     }
   }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function webforms_file_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($operation == 'view') {
+    if (!$account->hasPermission('view archive file entities') && $entity->bundle() == 'archive') {
+      return AccessResult::forbidden();
+    }
+  }
+  return AccessResult::neutral();
 }

@@ -17,7 +17,7 @@ Feature: Personal Training Form
   @pt-form @fast-tests @headless
   Scenario: Check data on PT results page
     Given I visit "/health__fitness/personal_training/personal-trainer-schedules/results?location=1&p=2&s=5&trainer=all&st=4&et=22&dr=3days"
-    Then I should see "For appointment questions please call"
+    Then I should see "Appointment questions?"
     And I should see "763-230-6537"
 
   @pt-form @fast-tests @headless @api
