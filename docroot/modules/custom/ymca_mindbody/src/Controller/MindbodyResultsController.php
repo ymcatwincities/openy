@@ -8,11 +8,13 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
+use Drupal\logger_entity\Entity\LoggerEntityInterface;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyManager;
@@ -156,6 +158,13 @@ class MindbodyResultsController extends ControllerBase {
   protected $languageManager;
 
   /**
+   * Entity type manger.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * MindbodyResultsController constructor.
    *
    * @param YmcaMindbodyResultsSearcherInterface $results_searcher
@@ -182,6 +191,8 @@ class MindbodyResultsController extends ControllerBase {
    *   The location repository.
    * @param LanguageManagerInterface $language_manager
    *   Language manager.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
   public function __construct(
     YmcaMindbodyResultsSearcherInterface $results_searcher,
@@ -195,7 +206,8 @@ class MindbodyResultsController extends ControllerBase {
     MailManagerInterface $mail_manager,
     KeyValueDatabaseExpirableFactory $key_value_expirable,
     LocationMappingRepository $location_repository,
-    LanguageManagerInterface $language_manager
+    LanguageManagerInterface $language_manager,
+    EntityTypeManagerInterface $entity_type_manager
   ) {
     $this->requestGuard = $request_guard;
     $this->resultsSearcher = $results_searcher;
@@ -209,6 +221,8 @@ class MindbodyResultsController extends ControllerBase {
     $this->keyValueExpirable = $key_value_expirable;
     $this->locationRepository = $location_repository;
     $this->languageManager = $language_manager;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->loggerEntityStorage = $this->entityTypeManager->getStorage('logger_entity');
 
     $this->credentials = $this->configFactory->get('mindbody.settings');
     $this->isProduction = $this->configFactory->get('ymca_mindbody.settings')->get('is_production');
@@ -230,7 +244,8 @@ class MindbodyResultsController extends ControllerBase {
       $container->get('plugin.manager.mail'),
       $container->get('keyvalue.expirable.database'),
       $container->get('ymca_mappings.location_repository'),
-      $container->get('language_manager')
+      $container->get('language_manager'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -514,6 +529,32 @@ class MindbodyResultsController extends ControllerBase {
   }
 
   /**
+   * Creates logger entity.
+   *
+   * @param array $data
+   *   Data to save.
+   *
+   * @return int|bool
+   *   Entity ID in case of success.
+   */
+  private function saveLoggerEntity(array $data) {
+    try {
+      $logger_entity = $this->loggerEntityStorage->create([
+        'type' => 'mindbody_booking',
+      ]);
+      $logger_entity->setData($data);
+      $logger_entity->setName('MindBody Booking');
+      $logger_entity->save();
+      return $logger_entity->id();
+    }
+    catch (\Exception $e) {
+      $msg = 'Failed to save logger entity. Message: %msg';
+      $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+      return FALSE;
+    }
+  }
+
+  /**
    * Books Mindbody item.
    *
    * @param array $data
@@ -532,7 +573,6 @@ class MindbodyResultsController extends ControllerBase {
       ];
     }
 
-    $client_id = self::TEST_API_CLIENT_ID;
     $location_id = $data[self::QUERY_PARAM__LOCATION];
 
     // Get client ID from cookies.
@@ -544,6 +584,13 @@ class MindbodyResultsController extends ControllerBase {
         ];
       }
     }
+
+    // Add location & client to booking data.
+    $booking_data['location_id'] = $location_id;
+    $booking_data['client_id'] = $client_id;
+
+    // Set default status as 0. In case of success we'll set 1.
+    $booking_data['mindbody_booking_status'] = 0;
 
     // Default credentials.
     $user_credentials = [
@@ -563,6 +610,7 @@ class MindbodyResultsController extends ControllerBase {
         'ShowActiveOnly' => TRUE,
       ];
 
+      $booking_data['request_params'] = $params;
       $result = $this->proxy->call('ClientService', 'GetClientServices', $params, FALSE);
 
       // Check whether the client exists in MindBody.
@@ -571,6 +619,10 @@ class MindbodyResultsController extends ControllerBase {
         if (!empty($test)) {
           // We've got the ID which does not exist.
           $this->logger->notice('The client without MindBody ID was caught. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+
+          $booking_data['response_data'] = serialize($result);
+          $this->saveLoggerEntity($booking_data);
+
           return [
             'status' => FALSE,
             'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
@@ -580,6 +632,10 @@ class MindbodyResultsController extends ControllerBase {
 
       if (200 != $result->GetClientServicesResult->ErrorCode) {
         $this->logger->error('Got non 200 error code with ClientService (GetClientServices). Result: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
         ];
@@ -587,6 +643,10 @@ class MindbodyResultsController extends ControllerBase {
 
       // Check if client has no services at all.
       if (empty((array) $result->GetClientServicesResult->ClientServices)) {
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
           'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
@@ -620,6 +680,10 @@ class MindbodyResultsController extends ControllerBase {
 
       if (FALSE == $service) {
         $this->logger->error('Failed to find available services. Response: %s', ['%s' => serialize($result->GetClientServicesResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
           'message' => $this->errorManager->getError('err__mindbody__booking_no_services'),
@@ -629,6 +693,10 @@ class MindbodyResultsController extends ControllerBase {
     }
     catch (\Exception $e) {
       $this->logger->error('Failed to make a request to ClientService (GetClientServices). Message: %s', ['%s' => $e->getMessage()]);
+
+      $booking_data['response_data'] = serialize($e);
+      $this->saveLoggerEntity($booking_data);
+
       return [
         'status' => FALSE,
       ];
@@ -678,10 +746,15 @@ class MindbodyResultsController extends ControllerBase {
         $params['Appointments']['Appointment']['Staff']['isMale'] = $booking_data['is_male'];
       }
 
+      $booking_data['request_params'] = $params;
       $result = $this->proxy->call('AppointmentService', 'AddOrUpdateAppointments', $params, FALSE);
 
       if (200 != $result->AddOrUpdateAppointmentsResult->ErrorCode) {
         $this->logger->error('Got non 200 error code with AppointmentService (AddOrUpdateAppointments). Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
         ];
@@ -690,6 +763,10 @@ class MindbodyResultsController extends ControllerBase {
       // Check status.
       if ('Booked' != $result->AddOrUpdateAppointmentsResult->Appointments->Appointment->Status) {
         $this->logger->error('Failed to book an appointment. Result: %s', ['%s' => serialize($result->AddOrUpdateAppointmentsResult)]);
+
+        $booking_data['response_data'] = serialize($result);
+        $this->saveLoggerEntity($booking_data);
+
         return [
           'status' => FALSE,
         ];
@@ -698,12 +775,20 @@ class MindbodyResultsController extends ControllerBase {
     }
     catch (\Exception $e) {
       $this->logger->error('Failed to make a request to AppointmentService (AddOrUpdateAppointments). Message: %s', ['%s' => $e->getMessage()]);
+
+      $booking_data['response_data'] = serialize($e);
+      $this->saveLoggerEntity($booking_data);
+
       return [
         'status' => FALSE,
       ];
     }
 
-    // So, we've booked our item. Let's clear the cache.
+    // So, we've booked our item.
+    $booking_data['mindbody_booking_status'] = 1;
+    $this->saveLoggerEntity($booking_data);
+
+    // Let's clear the cache.
     $this->cacheManager->resetBookableItemsCacheByLocation($location_id);
 
     return [
