@@ -1,0 +1,681 @@
+uuid: ff520ace-00f7-444b-b40c-98a8c632fdc9
+langcode: en
+status: true
+dependencies:
+  config:
+    - logger_entity.logger_entity_type.mindbody_booking
+  module:
+    - logger_entity
+    - user
+id: mindbody_booking_log
+label: 'Mindbody Booking Log'
+module: views
+description: 'Logs all attempts of MindBody booking.'
+tag: ''
+base_table: logger_entity
+base_field: id
+core: 8.x
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+    position: 0
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'administer site configuration'
+      cache:
+        type: tag
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: full
+        options:
+          items_per_page: 50
+          offset: 0
+          id: 0
+          total_pages: null
+          tags:
+            previous: ‹‹
+            next: ››
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      style:
+        type: table
+      row:
+        type: fields
+      fields:
+        id:
+          id: id
+          table: logger_entity
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Item ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_unformatted
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: logger_entity
+          entity_field: id
+          plugin_id: field
+        data:
+          id: data
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Status
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          format: key
+          key: mindbody_booking_status
+          entity_type: logger_entity
+          plugin_id: serialized
+        data_1:
+          id: data_1
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Client ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          format: key
+          key: client_id
+          entity_type: logger_entity
+          plugin_id: serialized
+        data_2:
+          id: data_2
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Class Date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          format: key
+          key: start_date
+          entity_type: logger_entity
+          plugin_id: serialized
+        data_3:
+          id: data_3
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Location ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          format: key
+          key: location_id
+          entity_type: logger_entity
+          plugin_id: serialized
+        data_4:
+          id: data_4
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Trainer ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          format: key
+          key: stuff_id
+          entity_type: logger_entity
+          plugin_id: serialized
+      filters:
+        type:
+          id: type
+          table: logger_entity
+          field: type
+          value:
+            mindbody_booking: mindbody_booking
+          entity_type: logger_entity
+          entity_field: type
+          plugin_id: bundle
+      sorts:
+        id:
+          id: id
+          table: logger_entity
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: logger_entity
+          entity_field: id
+          plugin_id: standard
+      title: 'Mindbody Booking Log'
+      header: {  }
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  fail:
+    display_plugin: page
+    id: fail
+    display_title: Fail
+    position: 2
+    display_options:
+      display_extenders:
+        views_advanced_routing_route:
+          route:
+            defaults: {  }
+            requirements: {  }
+            options:
+              _admin_route: '1'
+      path: admin/config/system/mindbody-booking-log/fail
+      menu:
+        type: tab
+        title: Fail
+        description: 'Failed items.'
+        expanded: false
+        parent: ''
+        weight: 1
+        context: '0'
+        menu_name: main
+      tab_options:
+        type: none
+        title: ''
+        description: ''
+        weight: 0
+      title: 'Mindbody Booking Log (Fail)'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+      display_description: 'Failed items.'
+      filters:
+        type:
+          id: type
+          table: logger_entity
+          field: type
+          value:
+            mindbody_booking: mindbody_booking
+          entity_type: logger_entity
+          entity_field: type
+          plugin_id: bundle
+        data:
+          id: data
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: 'Status: FAIL'
+          operator: contains
+          value: 's:23:"mindbody_booking_status";i:0;'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: logger_entity
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  full:
+    display_plugin: page
+    id: full
+    display_title: Full
+    position: 1
+    display_options:
+      display_extenders:
+        views_advanced_routing_route:
+          route:
+            defaults: {  }
+            requirements: {  }
+            options:
+              _admin_route: '1'
+      path: admin/config/system/mindbody-booking-log
+      menu:
+        type: 'default tab'
+        title: Full
+        description: 'All items.'
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
+      tab_options:
+        type: none
+        title: ''
+        description: ''
+        weight: 0
+      title: 'Mindbody Booking Log (Full)'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+      display_description: 'All items.'
+      filters:
+        type:
+          id: type
+          table: logger_entity
+          field: type
+          value:
+            mindbody_booking: mindbody_booking
+          entity_type: logger_entity
+          entity_field: type
+          plugin_id: bundle
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  ok:
+    display_plugin: page
+    id: ok
+    display_title: OK
+    position: 3
+    display_options:
+      display_extenders:
+        views_advanced_routing_route:
+          route:
+            defaults: {  }
+            requirements: {  }
+            options:
+              _admin_route: '1'
+      path: admin/config/system/mindbody-booking-log/ok
+      menu:
+        type: tab
+        title: OK
+        description: 'OK items.'
+        expanded: false
+        parent: ''
+        weight: 2
+        context: '0'
+        menu_name: main
+      tab_options:
+        type: none
+        title: ''
+        description: ''
+        weight: 0
+      title: 'Mindbody Booking Log (OK)'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+      display_description: 'OK items.'
+      filters:
+        type:
+          id: type
+          table: logger_entity
+          field: type
+          value:
+            mindbody_booking: mindbody_booking
+          entity_type: logger_entity
+          entity_field: type
+          plugin_id: bundle
+        data:
+          id: data
+          table: logger_entity
+          field: data
+          relationship: none
+          group_type: group
+          admin_label: 'Status: OK'
+          operator: contains
+          value: 's:23:"mindbody_booking_status";i:1;'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: logger_entity
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.permissions
+      tags: {  }
