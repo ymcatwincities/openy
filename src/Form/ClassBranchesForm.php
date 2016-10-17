@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Contribute form.
  */
 class ClassBranchesForm extends FormBase {
+
+  const EXPIRE_TIME = '+ 365 day';
+
   /**
    * {@inheritdoc}
    */
@@ -28,16 +31,24 @@ class ClassBranchesForm extends FormBase {
     $form['destination'] = array('#type' => 'value', '#value' => $destination);
     $branches_list = array();
     if ($node) {
-      // TODO: Add branch filter by class.
-      $nid = $node->id();
+      // Get sessions for current class.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'session')
+        ->condition('status', 1)
+        ->condition('field_class.target_id', $node->id());
+      $class_sessions = $query->execute();
+      $sessions = \Drupal\node\Entity\Node::loadMultiple($class_sessions);
 
-      // Get Branches list.
-      $db = \Drupal::database();
-      $query = $db->select('node_field_data', 'n');
-      $query->fields('n', ['nid', 'title']);
-      $query->condition('type', 'branch');
-      $query->condition('status', 1);
-      $branches_list = $query->execute()->fetchAllKeyed();
+
+      foreach ($sessions as $session) {
+        // Get Branches list for sessions with current class.
+        $branches = $session->get('field_location')->referencedEntities();
+        foreach ($branches as $branch) {
+          if (!isset($branches_list[$branch->id()])) {
+            $branches_list[$branch->id()] = $branch->title->value;
+          }
+        }
+      }
     }
 
     $form['branch'] = array(
@@ -58,8 +69,10 @@ class ClassBranchesForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $destination = UrlHelper::parse($form_state->getValue('destination'));
-    $destination['query']['location'] = $form_state->getValue('branch');
+    $branch = $form_state->getValue('branch');
+    $destination['query']['location'] = $branch;
     $uri = \Drupal::request()->getUriForPath($destination['path']);
+    setcookie('ygs_preferred_branch', $branch, strtotime(self::EXPIRE_TIME), base_path());
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
     $response->send();
   }
