@@ -9092,7 +9092,6 @@ body .ajax-progress-throbber .throbber {
   line-height: 50px;
   margin-bottom: 8px;
   padding: 0 12px;
-  white-space: nowrap;
 }
 .mindbody-search-results-content .day .group-by-date .slots .slot .icon {
   color: #777;
