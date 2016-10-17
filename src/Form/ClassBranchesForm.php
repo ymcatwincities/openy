@@ -26,27 +26,7 @@ class ClassBranchesForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $node = NULL, $destination = '') {
     $form['destination'] = array('#type' => 'value', '#value' => $destination);
-    $branches_list = array();
-    if ($node) {
-      // Get sessions for current class.
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'session')
-        ->condition('status', 1)
-        ->condition('field_class.target_id', $node->id());
-      $class_sessions = $query->execute();
-      $sessions = \Drupal\node\Entity\Node::loadMultiple($class_sessions);
-
-
-      foreach ($sessions as $session) {
-        // Get Branches list for sessions with current class.
-        $branches = $session->get('field_location')->referencedEntities();
-        foreach ($branches as $branch) {
-          if (!isset($branches_list[$branch->id()])) {
-            $branches_list[$branch->id()] = $branch->title->value;
-          }
-        }
-      }
-    }
+    $branches_list = $this->getBranchesList($node);
 
     $form['branch'] = array(
       '#type' => 'radios',
@@ -71,6 +51,34 @@ class ClassBranchesForm extends FormBase {
     $uri = \Drupal::request()->getUriForPath($destination['path']);
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
     $response->send();
+  }
+
+  /**
+   * Get Branches list.
+   */
+  public function getBranchesList($node) {
+    $branches_list = array();
+    if ($node) {
+      // Get sessions for current class.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'session')
+        ->condition('status', 1)
+        ->condition('field_class.target_id', $node->id());
+      $class_sessions = $query->execute();
+      $sessions = \Drupal\node\Entity\Node::loadMultiple($class_sessions);
+
+
+      foreach ($sessions as $session) {
+        // Get Branches list for sessions with current class.
+        $branches = $session->get('field_location')->referencedEntities();
+        foreach ($branches as $branch) {
+          if (!isset($branches_list[$branch->id()])) {
+            $branches_list[$branch->id()] = $branch->title->value;
+          }
+        }
+      }
+    }
+    return $branches_list;
   }
 
 }
