@@ -67,11 +67,14 @@ class PopupLinkGenerator {
    * Check for required popup output.
    */
   private function checkRequestParams() {
+    $show_popup = FALSE;
     if (!isset($_REQUEST['location'])) {
-      // Show popup.
-      return TRUE;
+      $show_popup = TRUE;
+      if (!empty($_COOKIE["ygs_preferred_branch"])) {
+        $show_popup = FALSE;
+      }
     }
-    return FALSE;
+    return $show_popup;
   }
 
 }
