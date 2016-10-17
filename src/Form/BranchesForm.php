@@ -47,6 +47,7 @@ class BranchesForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $destination = UrlHelper::parse($form_state->getValue('destination'));
+    $destination['path'] = str_replace(base_path(), '/', $destination['path']);
     $branch = $form_state->getValue('branch');
     $destination['query']['location'] = $branch;
     $uri = \Drupal::request()->getUriForPath($destination['path']);
