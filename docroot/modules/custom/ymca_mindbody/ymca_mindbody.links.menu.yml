@@ -3,3 +3,8 @@ ymca_mindbody.settings:
   route_name: ymca_mindbody.settings
   parent: ymca_alters.admin_config_ymca_services
   description: 'MindBody service configuration.'
+ymca_mindbody.mindbody_booking_log:
+  title: MindBody Booking Log
+  route_name: view.mindbody_booking_log.full
+  parent: system.admin_config_system
+  description: 'The full log for the booking.'
