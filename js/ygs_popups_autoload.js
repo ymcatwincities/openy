@@ -5,9 +5,7 @@
   Drupal.behaviors.ygs_popups_autoload = {
     attach: function (context, settings) {
       // Open popup.
-      var $dialog_link = $('a.popup-autostart');
-      $dialog_link.click();
-      $dialog_link.remove();
+      $('a.popup-autostart').once().click();
     }
   };
 
