@@ -18,10 +18,10 @@ function ygs_popups_preprocess_page(&$variables) {
     $nid = $variables['node']->id();
   }
   // TODO: change check below to Subcategory page, Schedule pages.
-  elseif (isset($variables['node']) && $variables['node']->getType() == 'branch') {
-    // Add link to branch node type pages.
-    $insert_link = TRUE;
-  }
+//  elseif (isset($variables['node']) && $variables['node']->getType() == 'branch') {
+//    // Add link to branch node type pages.
+//    $insert_link = TRUE;
+//  }
 
   if ($insert_link && \Drupal::theme()->getActiveTheme()->getName() == 'ymca_seattle') {
     if (\Drupal::currentUser()->isAnonymous()&& !isset($_SESSION['session_started'])) {
