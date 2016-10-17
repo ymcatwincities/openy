@@ -637,6 +637,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_6_SESS_60_MIN' => '10114',
         'PT_12_SESS_60_MIN' => '10115',
         'PT_20_SESS_60_MIN' => '10116',
+        'PT_MP_INTRO' => '10117',
       ],
     ];
 
