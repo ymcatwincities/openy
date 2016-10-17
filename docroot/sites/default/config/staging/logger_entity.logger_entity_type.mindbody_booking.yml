@@ -1,0 +1,6 @@
+uuid: a8a03cb3-54ed-4a14-aed9-ea7a57bf937b
+langcode: en
+status: true
+dependencies: {  }
+id: mindbody_booking
+label: 'MindBody Booking'
