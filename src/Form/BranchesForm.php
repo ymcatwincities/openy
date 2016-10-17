@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Contribute form.
  */
 class BranchesForm extends FormBase {
+
+  const EXPIRE_TIME = '+ 365 day';
+
   /**
    * {@inheritdoc}
    */
@@ -52,8 +55,10 @@ class BranchesForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $destination = UrlHelper::parse($form_state->getValue('destination'));
-    $destination['query']['location'] = $form_state->getValue('branch');
+    $branch = $form_state->getValue('branch');
+    $destination['query']['location'] = $branch;
     $uri = \Drupal::request()->getUriForPath($destination['path']);
+    setcookie('ygs_preferred_branch', $branch, strtotime(self::EXPIRE_TIME), base_path());
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
     $response->send();
   }
