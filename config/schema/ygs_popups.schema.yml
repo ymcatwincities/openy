@@ -1,0 +1,10 @@
+ygs_popups.config:
+  type: config_object
+  label: 'YGS popups config'
+  mapping:
+    img:
+      type: text
+      label: 'Image'
+    description:
+      type: text
+      label: 'Description'
