@@ -26,9 +26,9 @@ class LocationPopupLink extends BlockBase {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return array(
+    return [
       'filter' => 'all',
-    );
+    ];
   }
 
   /**
@@ -38,7 +38,7 @@ class LocationPopupLink extends BlockBase {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
 
-    $form['filter'] = array(
+    $form['filter'] = [
       '#type' => 'select',
       '#title' => t('Locations filter'),
       '#options' => array(
@@ -46,7 +46,7 @@ class LocationPopupLink extends BlockBase {
         'by_class' => t('Show locations by class'),
       ),
       '#default_value' => $config['filter'],
-    );
+    ];
 
     return $form;
   }
