@@ -714,6 +714,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   protected function filerOutClients() {
     $data = $this->wrapper->getProxyData();
 
+    // Skip when we haven't received new orders.
+    if (empty($data)) {
+      return TRUE;
+    }
+
     foreach ($data as $id => $entity) {
       $user_id = $entity->field_pmc_user_id->value;
       $personifyData = unserialize($entity->field_pmc_prs_data->value);
