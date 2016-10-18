@@ -4,6 +4,7 @@ namespace Drupal\ymca_google;
 
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_mappings\LocationMappingRepository;
+use Drupal\ymca_sync\SyncerTerminateException;
 use GuzzleHttp\Client;
 
 /**
@@ -99,9 +100,8 @@ class IcsFetcher implements IcsFetcherInterface {
       try {
         $response = $this->client->request('GET', self::ICS_API_PATH . '/' . $id);
         if (200 != $response->getStatusCode()) {
-          $msg = 'Got no 200 response from Groupex ICS API for location %location.';
-          $this->logger->critical($msg, ['%location' => $id]);
-          continue;
+          $msg = sprintf('Got no 200 response from Groupex ICS API for location %s.', $id);
+          $this->wrapper->terminate($msg);
         }
 
         $body = $response->getBody();
@@ -114,13 +114,8 @@ class IcsFetcher implements IcsFetcherInterface {
         }
       }
       catch (\Exception $e) {
-        $msg = 'Failed to get response from Groupex ICS API for location %location.';
-        $this->logger->critical(
-          $msg,
-          [
-            '%location' => $id,
-          ]
-        );
+        $msg = sprintf('Failed to get response from Groupex ICS API for location %s.', $id);
+        $this->wrapper->terminate($msg);
       }
     }
 
