@@ -132,6 +132,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $this->logger->info('The Push orders to MindBody has been started.');
     $source = $this->wrapper->getSourceData();
 
+    // @TODO: we should move that and execute only if we have orders to push.
     $locations = $this->getAllLocationsFromOrders($source);
     foreach ($locations as $location => $count) {
       // Obtain Service ID.
@@ -145,7 +146,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
           'SaleService',
           'GetServices',
           $params,
-          FALSE
+          TRUE
         );
       }
       catch (MindbodyException $e) {
@@ -727,6 +728,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       if ($entity->get('field_pmc_clnt_data')->isEmpty()) {
         $this->clientIds[$user_id] = $this->prepareClientObject($user_id, $personifyData);
       }
+    }
+
+    // Skip when we already synced clients.
+    if (empty($this->clientIds)) {
+      return TRUE;
     }
 
     // Locate already synced clients.
