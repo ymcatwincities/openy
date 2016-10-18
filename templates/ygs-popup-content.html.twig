@@ -1,3 +1,5 @@
-<div><img src="{{ image }}" style="width: 600px; height: auto;"></div>
+{% if image %}
+  <div><img src="{{ image }}" style="width: 600px; height: auto;"></div>
+{% endif %}
 <div>{{ description }}</div>
 <div>{{ form }}</div>

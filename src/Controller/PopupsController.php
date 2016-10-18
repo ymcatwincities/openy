@@ -9,9 +9,11 @@ namespace Drupal\ygs_popups\Controller;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\image\Entity\ImageStyle;
 use Drupal\node\NodeInterface;
 use Drupal\ygs_popups\Form\BranchesForm;
 use Drupal\ygs_popups\Form\ClassBranchesForm;
+use Drupal\file\Entity\File;
 
 /**
  * {@inheritdoc}
@@ -82,6 +84,13 @@ class PopupsController extends ControllerBase {
    */
   public function buildPopupContent($node = FALSE) {
     $destination = isset($_REQUEST['destination']) ? $_REQUEST['destination'] : '';
+    $config = \Drupal::config('ygs_popups.settings');
+    $img_src = '';
+    if ($config->get('img')) {
+      $file = File::load($config->get('img'));
+      // TODO: Change ImageStyle.
+      $img_src = ImageStyle::load('blog_post_762_451')->buildUrl($file->getFileUri());
+    }
     if ($node) {
       $form = \Drupal::formBuilder()->getForm(ClassBranchesForm::class, $node, $destination);
     }
@@ -89,11 +98,10 @@ class PopupsController extends ControllerBase {
       $form = \Drupal::formBuilder()->getForm(BranchesForm::class, $destination);
     }
 
-    // TODO: Get image and description from settings.
     $content = array(
       '#theme' => 'ygs_popup_content',
-      '#image' => 'http://www.brandeis.edu/about/images/newformat/map2.jpg',
-      '#description' => '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>',
+      '#image' => $img_src,
+      '#description' => $config->get('description'),
       '#form' => $form,
     );
     return $content;
