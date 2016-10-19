@@ -4356,3 +4356,14 @@ function ymca_master_update_8189() {
     ]
   );
 }
+
+/**
+ * YPTF-206: Fix notifications config.
+ */
+function ymca_master_update_8190() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'ymca_mindbody.notifications.yml',
+    ]
+  );
+}

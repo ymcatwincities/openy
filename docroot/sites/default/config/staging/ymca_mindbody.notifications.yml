@@ -1,0 +1,88 @@
+locations:
+  2:
+    -
+      name: 'Andrew Dalton'
+      email: Andrew.Dalton@ymcamn.org
+  5:
+    -
+      name: 'Angie Suttles'
+      email: Angie.Suttles@ymcamn.org
+  7:
+    -
+      name: 'Beth Kanthak'
+      email: Beth.Kanthak@ymcamn.org
+  11:
+    -
+      name: 'Breanna Koch'
+      email: Breanna.Koch@ymcamn.org
+  20:
+    -
+      name: 'Damien Rochon-Washington'
+      email: Damien.Rochon-Washington@ymcamn.org
+  17:
+    -
+      name: 'Diana Bishop'
+      email: Diana.Bishop@ymcamn.org
+  9:
+    -
+      name: 'Eric Kraut'
+      email: Eric.Kraut@ymcamn.org
+  18:
+    -
+      name: 'Gary Sandin'
+      email: Gary.Sandin@ymcamn.org
+  19:
+    -
+      name: 'Heather Dayton'
+      email: Heather.Dayton@ymcamn.org
+  22:
+    -
+      name: 'Heidi Freitag'
+      email: Heidi.Freitag@ymcamn.org
+  1:
+    -
+      name: 'Jake Humnick'
+      email: Jake.Humnick@ymcamn.org
+  10:
+    -
+      name: 'Joe Augenstein'
+      email: Joe.Augenstein@ymcamn.org
+  3:
+    -
+      name: 'Justin Deblauw'
+      email: Justin.Deblauw@ymcamn.org
+  4:
+    -
+      name: 'Kyle Hall'
+      email: Kyle.Hall@ymcamn.org
+  6:
+    -
+      name: 'LeAnn Niebur'
+      email: LeAnn.Niebur@ymcamn.org
+  13:
+    -
+      name: 'Mark Smith'
+      email: Mark.Smith@ymcamn.org
+    -
+      name: 'Rebecca VanDyke'
+      email: Rebecca.VanDyke@ymcamn.org
+  14:
+    -
+      name: 'Rachel Humnick'
+      email: Rachel.Humnick@ymcamn.org
+  8:
+    -
+      name: 'Ronnie Cordova'
+      email: Ronnie.Cordova@ymcamn.org
+  15:
+    -
+      name: 'Tim Moore'
+      email: Tim.Moore@ymcamn.org
+  23:
+    -
+      name: 'Velma Harris'
+      email: Velma.Harris@ymcamn.org
+  12:
+    -
+      name: 'Tim May'
+      email: Tim.May@ymcamn.org
