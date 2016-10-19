@@ -75,6 +75,9 @@ class RelToAbs extends FilterBase implements ContainerFactoryPluginInterface {
       }
       $relativeUrl = preg_replace('/\/{2,}/', '/', $relativeUrl);
       $query = parse_str(parse_url($relativeUrl, PHP_URL_QUERY));
+      if (strpos($relativeUrl, "files/styles") !== FALSE && strpos($relativeUrl, "itok") !== FALSE) {
+        return $matches[0];
+      }
       try {
         $url = Url::fromUserInput(urldecode($relativeUrl), ['query' => $query])->setAbsolute(true)->toString();
       }
