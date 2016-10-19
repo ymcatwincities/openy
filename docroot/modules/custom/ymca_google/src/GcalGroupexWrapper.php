@@ -6,6 +6,7 @@ use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
+use Drupal\ymca_sync\SyncerTerminateException;
 
 /**
  * Class GcalGroupexWrapper.
@@ -116,7 +117,14 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
     $this->state = $state;
     $this->logger = $logger_factory->get(self::LOGGER_CHANNEL);
     $this->settings = $settings;
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function terminate($status) {
+    $this->logger->critical($status);
+    throw new SyncerTerminateException($status);
   }
 
   /**
