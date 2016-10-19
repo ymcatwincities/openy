@@ -271,6 +271,12 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         $cart_items_object->append($item);
       }
 
+      // Get Mindbody location ID.
+      $location_personify = $this->getLocationForOrder($order);
+      if (!$location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify)) {
+        $location_mindbody = NULL;
+      }
+
       $all_orders[$order->MasterCustomerId][$order->OrderLineNo] = [
         'UserCredentials' => [
           // According to documentation.
@@ -283,6 +289,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
           ],
         ],
         'ClientID' => $client_id,
+        'LocationID' => $location_mindbody,
         'CartItems' => [
           'CartItem' => $cart_items_object->getArrayCopy(),
         ],
