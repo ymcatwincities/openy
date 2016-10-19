@@ -14,6 +14,9 @@ use Drupal\file\Entity\File;
  * Settings Form for ygs_popups.
  */
 class SettingsForm extends ConfigFormBase {
+
+  const UPLOAD_LOCATION = 'public://ygs_popup/';
+
   /**
    * {@inheritdoc}
    */
@@ -44,7 +47,7 @@ class SettingsForm extends ConfigFormBase {
         'file_validate_extensions' => ['gif png jpg jpeg'],
         'file_validate_size' => [12800000],
       ],
-      '#upload_location' => 'public://ygs_popup/',
+      '#upload_location' => self::UPLOAD_LOCATION,
       '#default_value' => ($config->get('img')) ? [$config->get('img')] : NULL,
     ];
     $form['description'] = [
