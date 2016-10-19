@@ -48,6 +48,7 @@
         port: "{{ selenium_port }}"
         delay: 0
         state: stopped
+      when: run_javascript_tests == 'yes'
 
   tasks:
     - name: Run Selenium container
@@ -66,6 +67,7 @@
         port: "{{ selenium_port }}"
         delay: 10
         state: drained
+      when: run_javascript_tests == 'yes'
 
     - name: Create directory for build reports
       sudo: yes

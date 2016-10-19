@@ -96,4 +96,9 @@ interface GcalGroupexWrapperInterface {
    */
   public function next();
 
+  /**
+   * Terminates syncer execution.
+   */
+  public function terminate($status);
+
 }
