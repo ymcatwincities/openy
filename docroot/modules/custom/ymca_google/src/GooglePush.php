@@ -594,36 +594,37 @@ class GooglePush {
 
     // Deal with parent entity.
     if (TRUE == $parent) {
-      $event_field = $entity->get('field_gg_gcal_id');
-      if ($event_field->isEmpty()) {
-        throw new \Exception("Can't delete Google event without event ID.");
-      }
-
-      $event_id = $entity->field_gg_gcal_id->value;
       $entity_id = $entity->id();
 
-      $cal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
-      if (!$cal_id) {
-        throw new \Exception('Failed to get calendar ID.');
-      }
+      $event_field = $entity->get('field_gg_gcal_id');
+      if (!$event_field->isEmpty()) {
+        // If event has Gcal ID we should delete it in Google.
+        $event_id = $entity->field_gg_gcal_id->value;
 
-      try {
-        $this->calService->events->delete($cal_id, $event_id);
-
-        // Remove children.
-        $children = $this->proxy->findChildren($entity_id);
-        $chunks = array_chunk($children, DrupalProxy::ENTITY_LOAD_CHUNK);
-        foreach ($chunks as $chunk) {
-          $entities = $this->cacheStorage->loadMultiple($chunk);
-          $this->cacheStorage->delete($entities);
+        $cal_id = $this->getCalendarIdByName($entity->field_gg_location->value);
+        if (!$cal_id) {
+          throw new \Exception('Failed to get Google Calendar ID');
         }
 
-        // Remove parent entity.
-        $entity->delete();
+        try {
+          $this->calService->events->delete($cal_id, $event_id);
+        }
+        catch (\Exception $e) {
+          throw new \Exception('Failed to delete Google event. Message: ' . $e->getMessage());
+        }
       }
-      catch (\Exception $e) {
-        throw new \Exception('Failed to delete event. Message: ' . $e->getMessage());
+
+
+      // Remove children.
+      $children = $this->proxy->findChildren($entity_id);
+      $chunks = array_chunk($children, DrupalProxy::ENTITY_LOAD_CHUNK);
+      foreach ($chunks as $chunk) {
+        $entities = $this->cacheStorage->loadMultiple($chunk);
+        $this->cacheStorage->delete($entities);
       }
+
+      // Remove parent entity.
+      $entity->delete();
 
       $msg = 'The event was deleted. Cache ID: %cache_id, Gcal ID: %gcal_id';
       $this->logger->info(
