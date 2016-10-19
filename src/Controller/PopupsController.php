@@ -88,8 +88,7 @@ class PopupsController extends ControllerBase {
     $img_src = '';
     if ($config->get('img')) {
       $file = File::load($config->get('img'));
-      // TODO: Change ImageStyle.
-      $img_src = ImageStyle::load('blog_post_762_451')->buildUrl($file->getFileUri());
+      $img_src = ImageStyle::load('locations_popup')->buildUrl($file->getFileUri());
     }
     if ($node) {
       $form = \Drupal::formBuilder()->getForm(ClassBranchesForm::class, $node, $destination);
