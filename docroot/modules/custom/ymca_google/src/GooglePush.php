@@ -614,7 +614,6 @@ class GooglePush {
         }
       }
 
-
       // Remove children.
       $children = $this->proxy->findChildren($entity_id);
       $chunks = array_chunk($children, DrupalProxy::ENTITY_LOAD_CHUNK);
