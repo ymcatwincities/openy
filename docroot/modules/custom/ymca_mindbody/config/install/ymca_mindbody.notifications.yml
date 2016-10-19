@@ -65,9 +65,6 @@ locations:
     -
       name: Justin Deblauw
       email: Justin.Deblauw@ymcamn.org
-    -
-      name: Tim May
-      email: Tim.May@ymcamn.org
   # White Bear Lake.
   4:
     -
@@ -111,3 +108,8 @@ locations:
     -
       name: Velma Harris
       email: Velma.Harris@ymcamn.org
+  # Emma B
+  12:
+    -
+      name: Tim May
+      email: Tim.May@ymcamn.org
