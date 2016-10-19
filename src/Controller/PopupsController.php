@@ -98,12 +98,12 @@ class PopupsController extends ControllerBase {
       $form = \Drupal::formBuilder()->getForm(BranchesForm::class, $destination);
     }
 
-    $content = array(
+    $content = [
       '#theme' => 'ygs_popup_content',
       '#image' => $img_src,
       '#description' => $config->get('description'),
       '#form' => $form,
-    );
+    ];
     return $content;
   }
 
