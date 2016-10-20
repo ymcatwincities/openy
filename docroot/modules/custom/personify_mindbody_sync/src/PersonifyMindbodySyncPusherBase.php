@@ -8,7 +8,6 @@ use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\environment_config\EnvironmentConfigServiceInterface;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
-use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
 use Drupal\ymca_mappings\LocationMappingRepository;
 
 /**
@@ -127,12 +126,14 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
   /**
    * Push orders.
+   *
+   * @param array $orders
+   *   Array of orders to push.
    */
-  protected function pushOrders() {
+  protected function pushOrders(array $orders) {
     $this->logger->info('The Push orders to MindBody has been started.');
-    $source = $this->wrapper->getSourceData();
+    $source = $orders;
 
-    // @TODO: we should move that and execute only if we have orders to push.
     $locations = $this->getAllLocationsFromOrders($source);
     foreach ($locations as $location => $count) {
       // Obtain Service ID.
@@ -230,7 +231,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       // Let's format payment amount & discount amount.
       $single_discount_amount = 0;
-      // Here we use service price, because UnitPrice may be different than service price.
+      // Here we use service price.
+      // UnitPrice may be different than service price.
       // Everything that is in diff, should go to discount.
       $total_standard_amount = $service->Price * $order->OrderQuantity;
 
@@ -546,7 +548,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param string $id
    *   ID been searched by.
    *
-   * @return PersonifyMindbodyCache|bool|array
+   * @return array|bool
    *   List of entities or FALSE.
    */
   protected function getEntityByClientId($id = '') {
@@ -974,6 +976,46 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   protected function isIntroPersonalTraining($product_code) {
     return strpos($product_code, 'INTRO') !== FALSE;
+  }
+
+  /**
+   * Get not pushed orders.
+   *
+   * @return array
+   *   List of orders.
+   */
+  protected function getNotPushedOrders() {
+    $orders = [];
+    $source = $this->wrapper->getSourceData();
+
+    foreach ($source as $order) {
+      // Check whether we've got cached entity.
+      $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
+      if (!$cache_entity) {
+        $this->logger->error('Failed to find entity in the local cache.');
+        continue;
+      }
+
+      // Check order data field.
+      $order_data = $cache_entity->get('field_pmc_ord_data');
+      if ($order_data->isEmpty()) {
+        // The order definitely not pushed.
+        $orders[] = $order;
+        continue;
+      }
+
+      // The order can be pushed, but we can get it's cancellation.
+      if ($order->LineStatusCode == 'C') {
+        $cancelled = $cache_entity->get('field_pmc_cancelled');
+        if (!$cancelled->get(0)->value) {
+          // Need to notify guys about cancellation.
+          $orders[] = $order;
+          continue;
+        }
+      }
+    }
+
+    return $orders;
   }
 
 }
