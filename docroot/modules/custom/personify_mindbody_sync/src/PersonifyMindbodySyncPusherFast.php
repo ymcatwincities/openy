@@ -20,7 +20,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
       return;
     }
 
-    $this->pushClientsBatch();
+    $this->pushClientsSingle();
     $this->pushOrders($push);
   }
 
@@ -31,7 +31,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    *   Returns itself for chaining.
    */
   private function pushClientsBatch() {
-    $this->logger->info('The Push clients to MindBody has been started.');
+    $this->logger->debug('The Push clients to MindBody has been started.');
     if (!parent::filerOutClients()) {
       return $this;
     }
@@ -97,7 +97,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
     }
 
     $msg = 'The Push clients to MindBody has been finished. %num clients have been pushed.';
-    $this->logger->info($msg, ['%num' => count($push_clients)]);
+    $this->logger->debug($msg, ['%num' => count($push_clients)]);
   }
 
 }

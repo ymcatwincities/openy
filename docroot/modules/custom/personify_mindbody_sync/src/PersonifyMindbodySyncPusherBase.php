@@ -131,7 +131,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    *   Array of orders to push.
    */
   protected function pushOrders(array $orders) {
-    $this->logger->info('The Push orders to MindBody has been started.');
+    $this->logger->debug('The Push orders to MindBody has been started.');
     $source = $orders;
 
     $locations = $this->getAllLocationsFromOrders($source);
@@ -396,7 +396,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     $msg = 'The Push orders to MindBody has been finished. %num orders have been pushed.';
-    $this->logger->info(
+    $this->logger->debug(
       $msg,
       [
         '%num' => $pushed,
@@ -728,6 +728,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Filter out clients pushed to MindBody.
    *
+   * Iterates through the $this->clientIds and remove pushed clients.
+   *
    * @return mixed
    *   FALSE if there is an error.
    */
@@ -1016,6 +1018,95 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     return $orders;
+  }
+
+  /**
+   * Push clients to MindBody one by one.
+   */
+  protected function pushClientsSingle() {
+    $this->logger->debug('The Push clients to MindBody has been started.');
+    if (!$this->filerOutClients()) {
+      // Something went wrong. Exit.
+      return;
+    }
+
+    if (empty($this->clientIds)) {
+      // All clients already pushed. Exit.
+      $this->logger->debug('All clients already pushed. Exit.');
+      return;
+    }
+
+    if (!$this->isProduction) {
+      $clients = [];
+      $key = key($this->clientIds);
+      $clients[$key] = $this->clientIds[$key];
+      $this->clientIds = $clients;
+    }
+
+    // Let's push new clients to MindBody.
+    $pushed = [];
+    $failed = [];
+    foreach ($this->clientIds as $client_id => $client) {
+      try {
+        $result = $this->client->call(
+          'ClientService',
+          'AddOrUpdateClients',
+          ['Clients' => [$client]],
+          FALSE
+        );
+      }
+      catch (MindbodyException $e) {
+        $failed[$client_id] = TRUE;
+        $this->updateStatusByClients([$client_id], $e->getMessage());
+
+        $msg = 'Failed to push the client with ID %id: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%id' => $client_id,
+            '%error' => $e->getMessage(),
+          ]
+        );
+
+        // Continue with the next client.
+        continue;
+      }
+
+      if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
+        $response = $result->AddOrUpdateClientsResult->Clients->Client;
+        $this->updateClientData($client_id, $response);
+
+        // Reset the status message.
+        $this->updateStatusByClients([$client_id], '');
+        $pushed[$client_id] = TRUE;
+      }
+      else {
+        // Something went wrong.
+        // To reproduce create set wrong phone number, for example.
+        $status = $result->AddOrUpdateClientsResult->Clients->Client->Messages->string;
+        $this->updateStatusByClients([$client_id], $status);
+
+        $msg = 'Failed to push single client with ID %id: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%id' => $client_id,
+            '%error' => serialize($result),
+          ]
+        );
+
+        $failed[$client_id] = TRUE;
+      }
+    }
+
+    $msg = 'The Push clients to MindBody has been finished. Pushed: %pushed, Failed: %failed.';
+    $this->logger->debug(
+      $msg,
+      [
+        '%pushed' => count($pushed),
+        '%failed' => count($failed),
+      ]
+    );
   }
 
 }
