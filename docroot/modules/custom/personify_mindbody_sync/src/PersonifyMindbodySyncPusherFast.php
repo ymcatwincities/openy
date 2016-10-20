@@ -15,8 +15,13 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    * {@inheritdoc}
    */
   public function push() {
+    if (!$push = $this->getNotPushedOrders()) {
+      $this->logger->debug('All orders have been already pushed. Exit.');
+      return;
+    }
+
     $this->pushClientsBatch();
-    parent::pushOrders();
+    $this->pushOrders($push);
   }
 
   /**
