@@ -12,6 +12,10 @@
       if (typeof preferred_branch == 'undefined') {
         // Open popup.
         $('a.location-popup-link.popup-autostart').once().click();
+        $(document).on('click', 'body > .ui-widget-overlay', function() {
+          $(".ui-dialog-content").dialog("close");
+          return false;
+        });
       }
     }
   };
