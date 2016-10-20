@@ -55,7 +55,6 @@ class PopupLinkGenerator {
     if ($this->checkRequestParams()) {
       $link['#attributes']['class'][] = 'popup-autostart';
     }
-    $link['#attached'] = array('library' => array('ygs_popups/ygs_popups.autoload'));
     $link['#cache'] = [
       'contexts' => [
         'url.path',

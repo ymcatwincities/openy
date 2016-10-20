@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_popups\Plugin\Block\LocationPopupLink.
- */
 
 namespace Drupal\ygs_popups\Plugin\Block;
 
@@ -52,8 +48,6 @@ class LocationPopupLink extends BlockBase {
   }
 
   /**
-   * В субмите мы лишь сохраняем наши данные.
-   *
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
@@ -74,11 +68,11 @@ class LocationPopupLink extends BlockBase {
     }
 
     $block = [
-      '#lazy_builder' => array(
+      '#lazy_builder' => [
         // @see \Drupal\ygs_popups\PopupLinkGenerator
         'ygs_popups.popup_link_generator:generateLink',
-        array($nid),
-      ),
+        [$nid],
+      ],
       '#create_placeholder' => TRUE,
       '#cache' => [
         'contexts' => [
@@ -86,7 +80,13 @@ class LocationPopupLink extends BlockBase {
           'url.query_args:location',
         ],
       ],
+      '#attached' => [
+        'library' => [
+          'ygs_popups/ygs_popups.autoload',
+        ],
+      ],
     ];
+
     return $block;
   }
 
