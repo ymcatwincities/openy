@@ -65,7 +65,6 @@ class LocationPopupLink extends BlockBase {
    */
   public function build() {
     $config = $this->getConfiguration();
-    $this->anonymousSessionStart();
     $nid = 0;
     if ($config['filter'] == 'by_class') {
       $node = \Drupal::routeMatch()->getParameter('node');
@@ -81,6 +80,12 @@ class LocationPopupLink extends BlockBase {
         array($nid),
       ),
       '#create_placeholder' => TRUE,
+      '#cache' => [
+        'contexts' => [
+          'url.path',
+          'url.query_args:location',
+        ],
+      ],
     ];
     return $block;
   }

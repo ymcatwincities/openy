@@ -4,3 +4,4 @@ ygs_popups.autoload:
     js/ygs_popups_autoload.js: { scope: footer, minified: true }
   dependencies:
     - core/drupal.dialog.ajax
+    - core/jquery.cookie

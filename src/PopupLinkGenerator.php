@@ -24,10 +24,6 @@ class PopupLinkGenerator {
    *   Render array with link.
    */
   public function generateLink($nid = 0) {
-    if (!$this->checkRequestParams()) {
-      return array();
-    }
-
     // Get destination with query string.
     $destination = \Drupal::request()->getRequestUri();
 
@@ -50,14 +46,22 @@ class PopupLinkGenerator {
     $link = $link->toRenderable();
     $link['#attributes'] = array(
       'class' => array(
+        'location-popup-link',
         'use-ajax',
-        'popup-autostart',
         'js-hide',
       ),
       'data-dialog-type' => 'modal',
     );
+    if ($this->checkRequestParams()) {
+      $link['#attributes']['class'][] = 'popup-autostart';
+    }
     $link['#attached'] = array('library' => array('ygs_popups/ygs_popups.autoload'));
-
+    $link['#cache'] = [
+      'contexts' => [
+        'url.path',
+        'url.query_args:location',
+      ],
+    ];
     // Fix: lazy_builder can't render by only '#type' property.
     $element_info = \Drupal::service('plugin.manager.element_info');
     return $link + $element_info->getInfo('link');
@@ -67,12 +71,12 @@ class PopupLinkGenerator {
    * Check for required popup output.
    */
   private function checkRequestParams() {
-    $show_popup = FALSE;
-    if (!isset($_REQUEST['location'])) {
-      $show_popup = TRUE;
-      if (!empty($_COOKIE["ygs_preferred_branch"])) {
-        $show_popup = FALSE;
-      }
+    $show_popup = TRUE;
+    if (!empty($_REQUEST['location'])) {
+      $show_popup = FALSE;
+    }
+    if (!empty($_COOKIE['ygs_preferred_branch'])) {
+      $show_popup = FALSE;
     }
     return $show_popup;
   }
