@@ -312,6 +312,16 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       // Then we'll make a diff.
       $sale_ids_before = $this->getClientPurchases($client_id);
       if (FALSE === $sale_ids_before) {
+        $msg = 'Failed to get the purchases for the client ID %id. Skipping.';
+        $this->logger->error(
+          $msg,
+          [
+            '%id' => $client_id,
+          ]
+        );
+
+        $msg = 'Skipped. Failed to get MindBody purchases for the user.';
+        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, $msg);
         continue;
       }
 
