@@ -69,7 +69,7 @@ class MindbodyResultsController extends ControllerBase {
   /**
    * Logger.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface;
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
 
