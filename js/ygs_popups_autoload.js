@@ -2,13 +2,16 @@
 
   'use strict';
 
+  // Pops the location selec box up on page load.
   Drupal.behaviors.ygs_popups_autoload = {
     attach: function (context, settings) {
+      // How to set preferred branch:
+      // $.cookie('ygs_preferred_branch', 6, { expires: 7, path: '/' });
+
       var preferred_branch = $.cookie('ygs_preferred_branch');
-      if (typeof preferred_branch !== 'undefined') {
+      if (typeof preferred_branch == 'undefined') {
         // Open popup.
         $('a.location-popup-link.popup-autostart').once().click();
-        // $.cookie('ygs_preferred_branch', 6, { expires: 7, path: '/' });
       }
     }
   };
