@@ -822,7 +822,7 @@ class DrupalProxy implements DrupalProxyInterface {
    * @return GroupexGoogleCacheInterface|bool
    *   Cache entity or FALSE.
    */
-  protected function findParentEntityByClassId($id) {
+  public function findParentEntityByClassId($id) {
     $result = $this->queryFactory->get('groupex_google_cache')
       ->condition('field_gg_class_id', $id)
       ->notExists('field_gg_parent_ref')
