@@ -68,12 +68,14 @@ class LocationPopupLink extends BlockBase {
     }
 
     $block = [
-      '#lazy_builder' => [
-        // @see \Drupal\ygs_popups\PopupLinkGenerator
-        'ygs_popups.popup_link_generator:generateLink',
-        [$nid],
+      'location_popup_link' => [
+        '#lazy_builder' => [
+          // @see \Drupal\ygs_popups\PopupLinkGenerator
+          'ygs_popups.popup_link_generator:generateLink',
+          [$nid],
+        ],
+        '#create_placeholder' => TRUE,
       ],
-      '#create_placeholder' => TRUE,
       '#cache' => [
         'contexts' => [
           'url.path',
