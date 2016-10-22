@@ -7695,6 +7695,10 @@ body form .field--widget-boolean-checkbox label {
   cursor: pointer;
 }
 
+.field--name-field-position label {
+  padding-left: 10px;
+}
+
 .group-ex span.result-name {
   white-space: normal;
 }
