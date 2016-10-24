@@ -39,6 +39,25 @@ interface MemberInterface extends ContentEntityInterface {
   public function getEmail();
 
   /**
+   * Sets the email address of the user from Personify.
+   *
+   * @param string $email
+   *   The new email address of the user.
+   *
+   * @return \Drupal\ymca_retention\MemberInterface
+   *   The called member entity.
+   */
+  public function setPersonifyEmail($email);
+
+  /**
+   * Returns the email address of the user from Personify.
+   *
+   * @return string
+   *   The email address.
+   */
+  public function getPersonifyEmail();
+
+  /**
    * Returns the member id of the user.
    *
    * @return string

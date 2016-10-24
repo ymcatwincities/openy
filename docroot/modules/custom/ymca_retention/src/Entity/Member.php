@@ -79,6 +79,24 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    // Email address field to store email address from Personify.
+    $fields['personify_email'] = BaseFieldDefinition::create('email')
+      ->setLabel(t('Email from Personify'))
+      ->setDescription(t('The email of this user from Personify.'))
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     // Membership ID field for the member.
     $fields['membership_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Membership ID'))
@@ -256,6 +274,21 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function setEmail($mail) {
     $this->set('mail', $mail);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPersonifyEmail() {
+    return $this->get('personify_email')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPersonifyEmail($email) {
+    $this->set('personify_email', $email);
     return $this;
   }
 
