@@ -41,7 +41,7 @@ class BranchLinkGenerator {
     $link = $link->toRenderable();
     // Add wrapper to element for ajax replace.
     $link['#prefix'] = '<div class="ygs-branch-selector">';
-    $link['#sufix'] = '</div>';
+    $link['#suffix'] = '</div>';
     $link['#attributes'] = array('class' => array('use-ajax'));
     $link['#attached'] = array('library' => array('core/drupal.ajax'));
     if ($action == 'unflag') {
