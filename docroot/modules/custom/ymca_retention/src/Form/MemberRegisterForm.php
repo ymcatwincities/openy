@@ -249,7 +249,18 @@ class MemberRegisterForm extends FormBase {
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
 
-    list($visit_goal, $total_visits) = $this->calculateVisitGoal($membership_id, $settings);
+    // Calculate visit goal.
+    $visit_goal = $this->calculateVisitGoal($membership_id, $settings);
+
+    // Get information about number of checkins in period of campaign.
+    $from = $settings->get('date_reporting_open');
+    $to = $settings->get('date_reporting_close');
+    $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
+
+    $total_visits = 0;
+    if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
+      $total_visits = $current_result->TotalVisits;
+    }
 
     // Identify if user is employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
@@ -350,17 +361,7 @@ class MemberRegisterForm extends FormBase {
     $count_days = max(1, $count_days);
     $goal = min($goal, $count_days);
 
-    // Get information about number of checkins in period of campaign.
-    $from = $settings->get('date_reporting_open');
-    $to = $settings->get('date_reporting_close');
-    $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
-
-    $total_visits = 0;
-    if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
-      $total_visits = $current_result->TotalVisits;
-    }
-
-    return [$goal, $total_visits];
+    return $goal;
   }
 
   /**
