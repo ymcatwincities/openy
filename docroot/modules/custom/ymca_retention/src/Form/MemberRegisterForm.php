@@ -319,8 +319,9 @@ class MemberRegisterForm extends FormBase {
   /**
    * Calculate visit goals.
    *
-   * @param $membership_id
+   * @param string $membership_id
    *   Membership ID - Facility access ID.
+   *
    * @return array
    *   Visit goal and total visits.
    */
