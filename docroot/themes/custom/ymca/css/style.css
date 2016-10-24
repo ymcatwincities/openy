@@ -360,6 +360,20 @@ body {
   background-color: #0060af;
   background-color: rgba(0, 96, 175, 0.95);
 }
+.masthead-menu.nav-themes-b {
+  background-color: #0060af;
+}
+.masthead-menu.nav-themes-b a {
+  display: block;
+  padding: 10px 28px;
+}
+.masthead-menu.nav-themes-b .nav-stacked {
+  display: none;
+}
+.masthead-menu.nav-themes-b .collapse {
+  border-top-color: transparent;
+  box-shadow: none;
+}
 
 .lt-ie9 .masthead-menu {
   background: #0060af;
@@ -517,6 +531,9 @@ body {
   box-shadow: none;
   text-align: left;
   font-family: Arial,sans-serif;
+}
+.nav-home.nav-themes-b .dropdown-menu {
+  padding: 0;
 }
 .nav-home li.dropdown {
   position: static;
@@ -1112,6 +1129,9 @@ li.current.home > a:focus, li.current.home > a:hover {
   border-right: 0;
   font-size: 14px;
 }
+.nav-home.nav-themes-b li.nav-level-3 {
+  display: block;
+}
 
 .lt-ie8 .nav-home li.nav-level-3 {
   float: left;
@@ -1250,6 +1270,16 @@ li.current.home > a:focus, li.current.home > a:hover {
   float: none;
   padding: 0;
   width: 1%;
+}
+.nav-home.nav-themes-b .nav-level-1 > li {
+  display: block;
+  float: left;
+  width: initial;
+  position: relative;
+}
+.nav-home.nav-themes-b .nav-level-1 > li > a {
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .lt-ie8 .nav-home .nav-level-1 > li {
@@ -2379,6 +2409,11 @@ img.alignRight {
   padding: 0;
   width: 100%;
 }
+.nav-themes-b .row-level-2 {
+  display: block;
+  margin: 0;
+  padding-top: 14px;
+}
 
 .nav-home .level_4 {
   display: none;
@@ -2842,6 +2877,13 @@ legend small {
   font-weight: normal;
   font-size: 18px;
   font-family: 'Cachet';
+}
+.nav-home.nav-themes-b .nav-level-3 strong {
+  border-bottom: none;
+  margin: 0;
+}
+.nav-home.nav-themes-b .nav-level-3 strong a {
+  color: #7d7b7b;
 }
 .nav-home .nav-level-3 strong a {
   color: #333;
@@ -3616,6 +3658,9 @@ a.tel {
   bottom: auto;
   overflow: auto;
   -webkit-transform: translate3d(0, 0, 0);
+}
+.masthead-menu-active .nav-home.nav-themes-b .dropdown-menu {
+  max-width: 247px;
 }
 .masthead-menu-active .viewport {
   background-color: white;
