@@ -152,4 +152,11 @@ function ymca_retention_update_8012() {
       $path . 'ymca_retention.general_settings.yml',
     ]
   );
+
+  try {
+    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('update', $e);
+  }
 }
