@@ -93,7 +93,6 @@ class Member extends ContentEntityBase implements MemberInterface {
         'type' => 'string',
         'weight' => -6,
       ])
-      ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
