@@ -27,39 +27,52 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $validate = [get_class($this), 'elementValidateRequired'];
-    $form['mail'] = [
-      '#type' => 'email',
-      '#required' => TRUE,
-      '#attributes' => [
-        'placeholder' => [
-          $this->t('Your e-mail'),
+    $membership_id = $form_state->get('membership_id');
+    $personify_member = $form_state->get('personify_member');
+    $personify_email = $form_state->get('personify_email');
+
+    $obfuscated_email = $this->obfuscateEmail($personify_email);
+    $validate_required = [get_class($this), 'elementValidateRequired'];
+
+    if (empty($membership_id)) {
+      $form['membership_id'] = [
+        '#type' => 'textfield',
+        '#required' => TRUE,
+        '#attributes' => [
+          'placeholder' => [
+            $this->t('Your facility access ID'),
+          ],
+          'class' => [
+            'facility-access-id',
+          ],
         ],
-      ],
-      '#element_required_error' => $this->t('Email is required.'),
-      '#element_validate' => [
-        ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
-        $validate,
-      ],
-    ];
-    $form['membership_id'] = [
-      '#type' => 'textfield',
-      '#required' => TRUE,
-      '#attributes' => [
-        'placeholder' => [
-          $this->t('Your facility access ID'),
+        '#element_required_error' => $this->t('Facility access ID is required.'),
+        '#element_validate' => [
+          $validate_required,
         ],
-        'class' => [
-          'facility-access-id',
+      ];
+    }
+    else {
+      $form['email'] = [
+        '#type' => 'email',
+        '#default_value' => $obfuscated_email,
+        '#required' => TRUE,
+        '#attributes' => [
+          'placeholder' => [
+            $this->t('Your e-mail'),
+          ],
         ],
-      ],
-      '#element_required_error' => $this->t('Facility access ID is required.'),
-      '#element_validate' => [$validate],
-    ];
+        '#element_required_error' => $this->t('Email is required.'),
+        '#element_validate' => [
+          ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+          $validate_required,
+        ],
+      ];
+    }
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Register'),
+      '#value' => empty($membership_id) ? t('Join now') : t('Confirm'),
       '#attributes' => [
         'class' => [
           'btn',
@@ -108,6 +121,9 @@ class MemberRegisterForm extends FormBase {
    *   Ajax response.
    */
   public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
+    if ($form_state->isRebuilding()) {
+      return $form;
+    }
     if ($form_state->hasAnyErrors()) {
       $form['messages'] = ['#type' => 'status_messages'];
       return $form;
@@ -115,8 +131,9 @@ class MemberRegisterForm extends FormBase {
     else {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
-      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success'])
-        ->toString()));
+      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
+        'string' => 'enroll-success',
+      ])->toString()));
       return $ajax_response;
     }
   }
@@ -125,11 +142,17 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $membership_id = $form_state->get('membership_id');
+    $personify_member = $form_state->get('personify_member');
+    $personify_email = $form_state->get('personify_email');
+
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
     $open_date = new \DateTime($settings->get('date_registration_open'));
     $close_date = new \DateTime($settings->get('date_registration_close'));
     $current_date = new \DateTime();
+
+    // Validate dates.
     if ($current_date < $open_date) {
       $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Games open.', [
         '%date' => $open_date->format('F j'),
@@ -140,28 +163,48 @@ class MemberRegisterForm extends FormBase {
       $form_state->setErrorByName('form', $this->t('The Y Games are now closed and registration is no longer able to be tracked.'));
       return;
     }
-    $membership_id = trim($form_state->getValue('membership_id'));
+
+    if (empty($membership_id)) {
+      $membership_id = trim($form_state->getValue('membership_id'));
+      $form_state->set('membership_id', $membership_id);
+      // Numeric validation.
+      if (!is_numeric($membership_id)) {
+        $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should be numeric.'));
+        return;
+      }
+    }
+
+    // Check for already registered member.
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('mail', $this->t('The facility access ID is already registered. Please sign in.'));
+      $form_state->setErrorByName('membership_id', $this->t('The facility access ID is already registered. Please sign in.'));
       return;
     }
 
-    // Numeric validation.
-    if (!is_numeric($membership_id)) {
-      $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should be numeric'));
-      return;
+    if (empty($personify_member)) {
+      // Get information about member from Personify and validate entered membership ID.
+      $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
+      if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
+        $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
+        return;
+      }
+      else {
+        $form_state->set('personify_member', $personify_result);
+        // TODO: personify_member should already have email address from Personify.
+        $form_state->set('personify_email', 'fake_email_address@ymcamn.org');
+        $form_state->setRebuild();
+        return;
+      }
     }
 
-    // Get information about member from Personify and validate entered membership ID.
-    $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
-    if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
-      $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
+    $submitted_email = trim($form_state->getValue('mail'));
+    if ($submitted_email === $this->obfuscateEmail($personify_email)) {
+      $form_state->set('email', $personify_email);
     }
     else {
-      $form_state->setTemporaryValue('personify_member', $personify_result);
+      $form_state->set('email', $submitted_email);
     }
   }
 
@@ -169,7 +212,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $personify_member = $form_state->getTemporaryValue('personify_member');
+    $personify_member = $form_state->get('personify_member');
 
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('personify_id', $personify_member->MasterCustomerId);
@@ -198,8 +241,8 @@ class MemberRegisterForm extends FormBase {
    */
   protected function createEntity(FormStateInterface $form_state) {
     // Get form values.
-    $personify_member = $form_state->getTemporaryValue('personify_member');
-    $membership_id = trim($form_state->getValue('membership_id'));
+    $membership_id = $form_state->get('membership_id');
+    $personify_member = $form_state->get('personify_member');
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
@@ -267,7 +310,7 @@ class MemberRegisterForm extends FormBase {
       ->create([
         'membership_id' => $membership_id,
         'personify_id' => $personify_member->MasterCustomerId,
-        'mail' => $form_state->getValue('mail'),
+        'mail' => $form_state->get('email'),
         'first_name' => $personify_member->FirstName,
         'last_name' => $personify_member->LastName,
         'branch' => (int) $personify_member->BranchId,
@@ -296,10 +339,23 @@ class MemberRegisterForm extends FormBase {
     $entity = Member::load($entity_id);
 
     // Update member email.
-    $entity->setEmail($form_state->getValue('mail'));
+    $entity->setEmail($form_state->get('email'));
     $entity->save();
 
     return $entity;
+  }
+
+  /**
+   * Obfuscate email address.
+   *
+   * @param string $email
+   *   Email address to obfuscate.
+   *
+   * @return string
+   *   Obfuscated email address.
+   */
+  public function obfuscateEmail($email) {
+    return preg_replace('/(?<=.{2}).(?=.+@)/u', '*', $email);
   }
 
 }
