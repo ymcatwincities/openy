@@ -199,7 +199,7 @@ class MemberRegisterForm extends FormBase {
       }
     }
 
-    $submitted_email = trim($form_state->getValue('mail'));
+    $submitted_email = trim($form_state->getValue('email'));
     if ($submitted_email === $this->obfuscateEmail($personify_email)) {
       $form_state->set('email', $personify_email);
     }
