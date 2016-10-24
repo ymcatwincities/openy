@@ -1,6 +1,6 @@
-name: YMCA
+name: OpenY
 type: theme
-description: 'YMCA specific theme'
+description: 'OpenY - YMCA specific theme'
 package: YMCA
 core: 8.x
 base theme: false
