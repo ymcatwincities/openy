@@ -1855,6 +1855,63 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   padding-bottom: 60px;
   background: #eee;
 }
+.page-footer.footer-themes-b {
+  background: #fff;
+  padding-top: 40px;
+  padding-bottom: 14px;
+}
+.page-footer.footer-themes-b .ms-brand {
+  display: none;
+}
+.page-footer.footer-themes-b:before {
+  display: none;
+}
+.page-footer.footer-themes-b .text-center {
+  display: none;
+}
+.page-footer.footer-themes-b .richtext {
+  text-align: center;
+}
+.page-footer.footer-themes-b .richtext h5, .page-footer.footer-themes-b .richtext p {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: #a8a8a8;
+}
+.page-footer.footer-themes-b nav.col-sm-6 {
+  width: 100%;
+  margin: 0;
+  float: none;
+}
+.page-footer.footer-themes-b nav nav {
+  width: 100%;
+  padding: 0;
+}
+.page-footer.footer-themes-b nav .nav {
+  text-align: center;
+}
+.page-footer.footer-themes-b nav .nav li {
+  display: inline-block;
+  vertical-align: top;
+}
+.page-footer.footer-themes-b .col-sm-3.social-disclaimer {
+  width: 100%;
+  margin: 0;
+}
+.page-footer.footer-themes-b .list-inline {
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+.page-footer.footer-themes-b .list-inline > li {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 12px;
+  padding: 0;
+  width: auto;
+}
 
 .footer-brand {
   display: block;
@@ -1929,6 +1986,16 @@ a.ms-brand:hover {
   font-size: 26px;
   font-family: icomoon;
 }
+.footer-themes-b .social-icon {
+  border: 3px solid #428bca;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  box-sizing: border-box;
+  line-height: 40px;
+  margin: 0;
+  font-size: 26px;
+}
 
 .icon-facebook:after {
   content: 'f';
@@ -1964,6 +2031,9 @@ a.ms-brand:hover {
 
 .nav-footer {
   margin-bottom: 40px;
+}
+.footer-themes-b .nav-footer {
+  margin-bottom: 30px;
 }
 
 .nav-home .nav > li.level_3 > a:hover {
@@ -2283,6 +2353,14 @@ a.ms-brand:hover {
   -moz-transition-duration: 0s;
   -ms-transition-duration: 0s;
   transition-duration: 0s;
+}
+.footer-themes-b .nav-footer .nav > li > a:hover, .footer-themes-b .nav-footer .nav > li > a:focus {
+  text-decoration: underline;
+}
+.footer-themes-b .nav-footer .nav > li > a {
+  font-family: 'Cachet';
+  font-size: 20px;
+  color: #a8a8a8;
 }
 
 .panel-subnav {
