@@ -244,10 +244,72 @@ class MemberRegisterForm extends FormBase {
     // Get form values.
     $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
+    $personify_email = $form_state->get('personify_email');
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
 
+    list($visit_goal, $total_visits) = $this->calculateVisitGoal($membership_id, $settings);
+
+    // Identify if user is employee or not.
+    $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
+
+    // @todo This is a bad solution with this condition, if we will reuse this form in the future.
+    $route = \Drupal::service('current_route_match')->getRouteName();
+    $created_by_staff = $route === 'page_manager.page_view_ymca_retention_pages_y_games_team';
+
+    // Create a new entity.
+    /** @var Member $entity */
+    $entity = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member')
+      ->create([
+        'membership_id' => $membership_id,
+        'personify_id' => $personify_member->MasterCustomerId,
+        'mail' => $form_state->get('email'),
+        'personify_email' => $personify_email,
+        'first_name' => $personify_member->FirstName,
+        'last_name' => $personify_member->LastName,
+        'branch' => (int) $personify_member->BranchId,
+        'is_employee' => $is_employee,
+        'visit_goal' => $visit_goal,
+        'total_visits' => $total_visits,
+        'created_by_staff' => $created_by_staff,
+      ]);
+    $entity->save();
+
+    return $entity;
+  }
+
+  /**
+   * Update member entity.
+   *
+   * @param int $entity_id
+   *   Entity id.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\ymca_retention\Entity\Member
+   *   Member entity.
+   */
+  protected function updateEntity($entity_id, FormStateInterface $form_state) {
+    $entity = Member::load($entity_id);
+
+    // Update member email.
+    $entity->setEmail($form_state->get('email'));
+    $entity->save();
+
+    return $entity;
+  }
+
+  /**
+   * Calculate visit goals.
+   *
+   * @param $membership_id
+   *   Membership ID - Facility access ID.
+   * @return array
+   *   Visit goal and total visits.
+   */
+  protected function calculateVisitGoal($membership_id, $settings) {
     // Get information about number of checkins before campaign.
     $current_date = new \DateTime();
     $from_date = new \DateTime($settings->get('date_checkins_start'));
@@ -297,53 +359,8 @@ class MemberRegisterForm extends FormBase {
     if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
       $total_visits = $current_result->TotalVisits;
     }
-    // Identify is user an employee or not.
-    $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
-    // @todo This is a bad solution with this condition, if we will reuse this form in the future.
-    $route = \Drupal::service('current_route_match')->getRouteName();
-    $created_by_staff = $route === 'page_manager.page_view_ymca_retention_pages_y_games_team';
-
-    // Create a new entity.
-    /** @var Member $entity */
-    $entity = \Drupal::entityTypeManager()
-      ->getStorage('ymca_retention_member')
-      ->create([
-        'membership_id' => $membership_id,
-        'personify_id' => $personify_member->MasterCustomerId,
-        'mail' => $form_state->get('email'),
-        'first_name' => $personify_member->FirstName,
-        'last_name' => $personify_member->LastName,
-        'branch' => (int) $personify_member->BranchId,
-        'is_employee' => $is_employee,
-        'visit_goal' => $goal,
-        'total_visits' => $total_visits,
-        'created_by_staff' => $created_by_staff,
-      ]);
-    $entity->save();
-
-    return $entity;
-  }
-
-  /**
-   * Update member entity.
-   *
-   * @param int $entity_id
-   *   Entity id.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Form state.
-   *
-   * @return \Drupal\ymca_retention\Entity\Member
-   *   Member entity.
-   */
-  protected function updateEntity($entity_id, FormStateInterface $form_state) {
-    $entity = Member::load($entity_id);
-
-    // Update member email.
-    $entity->setEmail($form_state->get('email'));
-    $entity->save();
-
-    return $entity;
+    return [$goal, $total_visits];
   }
 
   /**
@@ -355,7 +372,7 @@ class MemberRegisterForm extends FormBase {
    * @return string
    *   Obfuscated email address.
    */
-  public function obfuscateEmail($email) {
+  protected function obfuscateEmail($email) {
     return preg_replace('/(?<=.{2}).(?=.+@)/u', '*', $email);
   }
 
