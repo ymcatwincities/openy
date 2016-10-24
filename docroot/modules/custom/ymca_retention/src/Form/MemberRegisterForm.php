@@ -55,6 +55,7 @@ class MemberRegisterForm extends FormBase {
     else {
       $form['email'] = [
         '#type' => 'email',
+        '#title' => $this->t('Please confirm your email address below:'),
         '#default_value' => $obfuscated_email,
         '#required' => TRUE,
         '#attributes' => [
