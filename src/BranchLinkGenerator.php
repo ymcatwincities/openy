@@ -23,10 +23,10 @@ class BranchLinkGenerator {
       // Only for ajax request (we have manual set $action).
       $force = TRUE;
     }
-    $link_title = t('Save this location as My YMCA');
+    $link_title = t('Save as preferred branch.');
     if (($action == 'unflag' && isset($_COOKIE["ygs_preferred_branch"]) && $_COOKIE["ygs_preferred_branch"] == $nid) || $force) {
       // If current branch was set as current YMCA.
-      $link_title = t('Remove as preferred branch.');
+      $link_title = t('This is your preferred branch, remove as preferred branch');
     }
     else {
       // For update current YMCA branch.
@@ -44,10 +44,6 @@ class BranchLinkGenerator {
     $link['#suffix'] = '</div>';
     $link['#attributes'] = array('class' => array('use-ajax'));
     $link['#attached'] = array('library' => array('core/drupal.ajax'));
-    if ($action == 'unflag') {
-      // Add text before link if 'unflag' action.
-      $link['#prefix'] .= t('This is your current YMCA.');
-    }
     // Fix: lazy_builder can't render by only '#type' property.
     $element_info = \Drupal::service('plugin.manager.element_info');
     return $link + $element_info->getInfo('link');
