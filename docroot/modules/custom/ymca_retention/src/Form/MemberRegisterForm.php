@@ -199,6 +199,7 @@ class MemberRegisterForm extends FormBase {
       }
     }
 
+    // Either use email address from Personify or manually entered email address.
     $submitted_email = trim($form_state->getValue('email'));
     if ($submitted_email === $this->obfuscateEmail($personify_email)) {
       $form_state->set('email', $personify_email);
