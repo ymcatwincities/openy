@@ -250,7 +250,10 @@ class MemberRegisterForm extends FormBase {
     $settings = \Drupal::config('ymca_retention.general_settings');
 
     // Calculate visit goal.
-    $visit_goal = $this->calculateVisitGoal($membership_id, $settings);
+    $visit_goal = 0;
+    if ($settings->get('calculate_visit_goal')) {
+      $visit_goal = $this->calculateVisitGoal($membership_id, $settings);
+    }
 
     // Get information about number of checkins in period of campaign.
     $from = $settings->get('date_reporting_open');
