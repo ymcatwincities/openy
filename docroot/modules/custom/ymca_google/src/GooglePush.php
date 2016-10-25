@@ -524,6 +524,27 @@ class GooglePush {
   }
 
   /**
+   * Checks whether the entity has been pushed as Gcal Event.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Entity.
+   *
+   * @return string|bool
+   *   FALSE or Gcal Event ID.
+   */
+  private function isPushed(GroupexGoogleCacheInterface $entity) {
+    $field = $entity->get('field_gg_gcal_id');
+    if (!$field->isEmpty()) {
+      $value = $field->getValue();
+      if (isset($value[0])) {
+        return $value[0]['value'];
+      }
+    }
+
+    return FALSE;
+  }
+
+  /**
    * Update GCal event (instances).
    *
    * @param \Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache $entity
@@ -535,12 +556,30 @@ class GooglePush {
     $children = $this->proxy->findChildrenNotPushed($entity);
     foreach ($children as $child_id) {
       $child_entity = $this->cacheStorage->load($child_id);
-      // @todo Reuse parent entity Gcal ID.
       if (!$cal_id = $this->getCalIdByCacheEntity($child_entity)) {
         throw new \Exception('Failed to get Google Calendar ID.');
       }
 
-      $instance = $this->getEventInstance($child_entity);
+      try {
+        $instance = $this->getEventInstance($child_entity);
+      }
+      catch (\Exception $e) {
+        // Failed to find instance of Google event.
+        // So, create new single event and log debug message.
+        $message = '%msg Child Entity ID: %id. Proceed with creating single event.';
+        $this->logger->debug(
+          $message,
+          [
+            '%msg' => $e->getMessage(),
+            '%id' => $child_entity->id(),
+          ]
+        );
+
+        // Create single event here.
+        $this->pushSingleEvent($child_entity);
+        return;
+      }
+
       $this->populateGenericEventData($instance, $child_entity);
 
       $updated = $this->calService->events->update($cal_id, $instance->getId(), $instance);
@@ -563,6 +602,50 @@ class GooglePush {
         ]
       );
     }
+  }
+
+  /**
+   * Pushes single event to Google (without recurrence).
+   *
+   * Use this method only for creating single instance events.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Child schedules item.
+   *
+   * @throws \Exception.
+   */
+  private function pushSingleEvent(GroupexGoogleCacheInterface $entity) {
+    // Check whether the event was pushed.
+    if ($entity->field_gg_google_event->value || $entity->field_gg_gcal_id->value) {
+      throw new \Exception('The event has been already pushed.');
+    }
+
+    if (!$gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value)) {
+      throw new \Exception('Failed to get Google calendar ID.');
+    }
+
+    $event = new \Google_Service_Calendar_Event();
+    $this->populateGenericEventData($event, $entity);
+
+    $created = $this->calEvents->insert($gcal_id, $event);
+
+    // Save Google response.
+    $entity->set('field_gg_gcal_id', $created->getId());
+    $entity->set('field_gg_google_event', serialize($created));
+
+    // Remove update flag.
+    $entity->set('field_gg_need_up', 0);
+
+    $entity->save();
+
+    $msg = 'Single Gcal event %gcal_id created from child entity %entity_id.';
+    $this->logger->info(
+      $msg,
+      [
+        '%gcal_id' => $created->getId(),
+        '%entity_id' => $entity->id(),
+      ]
+    );
   }
 
   /**
@@ -709,13 +792,23 @@ class GooglePush {
       throw new \Exception('Parent entity reference not found.');
     }
 
-    // Get event ID.
     $parent = $this->cacheStorage->load($parent_id);
-    if (!$event_id = $parent->field_gg_gcal_id->value) {
-      throw new \Exception('Parent entity Event ID not found.');
+
+    // Try to get recurrent from parent entity or from its ics parent.
+    if ($recurrence = $this->getRecurrence($parent)) {
+      $recurrence_parent = $parent;
+    }
+    else {
+      if (!$parent_ics = $this->proxy->findParentEntityByClassId($parent->field_gg_ics_par->value)) {
+        throw new \Exception('Failed to find Parent ICS entity.');
+      }
+      $recurrence_parent = $parent_ics;
     }
 
-    // Get calendar ID. @todo Reuse Gcal ID.
+    if (!$event_id = $this->isPushed($recurrence_parent)) {
+      throw new \Exception('Event is still not pushed.');
+    }
+
     if (!$cal_id = $this->getCalIdByCacheEntity($entity)) {
       throw new \Exception('Failed to get Calendar ID from parent entity.');
     }
@@ -725,7 +818,7 @@ class GooglePush {
       throw new \Exception('Failed to get start DateTime for the event');
     }
 
-    $interval = new \DateInterval('PT1H');
+    $interval = new \DateInterval('P6D');
 
     $timeMin = clone $startDateTime;
     $timeMin->sub($interval);
@@ -750,6 +843,39 @@ class GooglePush {
 
     $items = $events->getItems();
     return $items[0];
+  }
+
+  /**
+   * Gets recurrence from entity.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Entity.
+   *
+   * @return string|bool
+   *   FALSE means no recurrence.
+   *
+   * @throws \Exception
+   */
+  private function getRecurrence(GroupexGoogleCacheInterface $entity) {
+    // Available types: weekly, biweekly, NULL, none.
+    $recurrence_field = $entity->field_gg_ics_rec->value ?: NULL;
+    switch ($recurrence_field) {
+      case 'weekly';
+        return 'RRULE:FREQ=WEEKLY';
+
+      case 'biweekly':
+        return 'RRULE:FREQ=WEEKLY;INTERVAL=2';
+
+      case 'none';
+        return FALSE;
+
+      case NULL:
+        return FALSE;
+
+      default:
+        $msg = sprintf('Invalid recurrence value detected. Entity ID: %s', $entity->id());
+        throw new \Exception($msg);
+    }
   }
 
   /**
@@ -791,24 +917,9 @@ class GooglePush {
 
     $this->populateGenericEventData($event, $weighted);
 
-    // Available types: weekly, biweekly, NULL.
-    $recurrence_field = $entity->field_gg_ics_rec->value ?: NULL;
-    switch ($recurrence_field) {
-      case 'weekly';
-        $event->setRecurrence(['RRULE:FREQ=WEEKLY']);
-        break;
-
-      case 'biweekly':
-        $event->setRecurrence(['RRULE:FREQ=WEEKLY;INTERVAL=2']);
-        break;
-
-      case NULL:
-        // No recurrence. Skip.
-        break;
-
-      default:
-        throw new \Exception('Invalid recurrence value detected.');
-
+    // Set recurrence if available.
+    if ($recurrence = $this->getRecurrence($entity)) {
+      $event->setRecurrence([$recurrence]);
     }
 
     $created = $this->calEvents->insert($gcal_id, $event);
