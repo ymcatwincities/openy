@@ -8,7 +8,6 @@ use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\environment_config\EnvironmentConfigServiceInterface;
 use Drupal\mindbody\MindbodyException;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
-use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
 use Drupal\ymca_mappings\LocationMappingRepository;
 
 /**
@@ -127,12 +126,14 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
   /**
    * Push orders.
+   *
+   * @param array $orders
+   *   Array of orders to push.
    */
-  protected function pushOrders() {
-    $this->logger->info('The Push orders to MindBody has been started.');
-    $source = $this->wrapper->getSourceData();
+  protected function pushOrders(array $orders) {
+    $this->logger->debug('The Push orders to MindBody has been started.');
+    $source = $orders;
 
-    // @TODO: we should move that and execute only if we have orders to push.
     $locations = $this->getAllLocationsFromOrders($source);
     foreach ($locations as $location => $count) {
       // Obtain Service ID.
@@ -214,23 +215,10 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $cart_items = [];
       $cart_items_object = new \ArrayObject();
 
-      // Let's check that Personify price equals MindBody service price.
-      // Skip intro orders.
-      if (!$this->isIntroPersonalTraining($order->ProductCode) && (int) $service->Price != $order->UnitPrice) {
-        $msg = 'The prices in Personify and MindBody are different. Order: %order, LineNo: %lino.';
-        $this->logger->error($msg,
-          [
-            '%order' => $order->OrderNo,
-            '%lino' => $order->OrderNo,
-          ]
-        );
-        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, 'The prices in Personify and MindBody are different.');
-        continue;
-      }
-
       // Let's format payment amount & discount amount.
       $single_discount_amount = 0;
-      // Here we use service price, because UnitPrice may be different than service price.
+      // Here we use service price.
+      // UnitPrice may be different than service price.
       // Everything that is in diff, should go to discount.
       $total_standard_amount = $service->Price * $order->OrderQuantity;
 
@@ -394,7 +382,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     }
 
     $msg = 'The Push orders to MindBody has been finished. %num orders have been pushed.';
-    $this->logger->info(
+    $this->logger->debug(
       $msg,
       [
         '%num' => $pushed,
@@ -546,7 +534,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param string $id
    *   ID been searched by.
    *
-   * @return PersonifyMindbodyCache|bool|array
+   * @return array|bool
    *   List of entities or FALSE.
    */
   protected function getEntityByClientId($id = '') {
@@ -726,10 +714,12 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
   /**
    * Filter out clients pushed to MindBody.
    *
+   * Iterates through the $this->clientIds and remove pushed clients.
+   *
    * @return mixed
    *   FALSE if there is an error.
    */
-  protected function filerOutClients() {
+  protected function filterOutClients() {
     $data = $this->wrapper->getProxyData();
 
     // Skip when we haven't received new orders.
@@ -974,6 +964,135 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   protected function isIntroPersonalTraining($product_code) {
     return strpos($product_code, 'INTRO') !== FALSE;
+  }
+
+  /**
+   * Get not pushed orders.
+   *
+   * @return array
+   *   List of orders.
+   */
+  protected function getNotPushedOrders() {
+    $orders = [];
+    $source = $this->wrapper->getSourceData();
+
+    foreach ($source as $order) {
+      // Check whether we've got cached entity.
+      $cache_entity = $this->wrapper->findOrder($order->OrderNo, $order->OrderLineNo);
+      if (!$cache_entity) {
+        $this->logger->error('Failed to find entity in the local cache.');
+        continue;
+      }
+
+      // Check order data field.
+      $order_data = $cache_entity->get('field_pmc_ord_data');
+      if ($order_data->isEmpty()) {
+        // The order definitely not pushed.
+        $orders[] = $order;
+        continue;
+      }
+
+      // The order can be pushed, but we can get it's cancellation.
+      if ($order->LineStatusCode == 'C') {
+        $cancelled = $cache_entity->get('field_pmc_cancelled');
+        if (!$cancelled->get(0)->value) {
+          // Need to notify guys about cancellation.
+          $orders[] = $order;
+          continue;
+        }
+      }
+    }
+
+    return $orders;
+  }
+
+  /**
+   * Push clients to MindBody one by one.
+   */
+  protected function pushClientsSingle() {
+    $this->logger->debug('The Push clients to MindBody has been started.');
+    if (!$this->filterOutClients()) {
+      // Something went wrong. Exit.
+      return;
+    }
+
+    if (empty($this->clientIds)) {
+      // All clients already pushed. Exit.
+      $this->logger->debug('All clients already pushed. Exit.');
+      return;
+    }
+
+    if (!$this->isProduction) {
+      $clients = [];
+      $key = key($this->clientIds);
+      $clients[$key] = $this->clientIds[$key];
+      $this->clientIds = $clients;
+    }
+
+    // Let's push new clients to MindBody.
+    $pushed = [];
+    $failed = [];
+    foreach ($this->clientIds as $client_id => $client) {
+      try {
+        $result = $this->client->call(
+          'ClientService',
+          'AddOrUpdateClients',
+          ['Clients' => [$client]],
+          FALSE
+        );
+      }
+      catch (MindbodyException $e) {
+        $failed[$client_id] = TRUE;
+        $this->updateStatusByClients([$client_id], $e->getMessage());
+
+        $msg = 'Failed to push the client with ID %id: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%id' => $client_id,
+            '%error' => $e->getMessage(),
+          ]
+        );
+
+        // Continue with the next client.
+        continue;
+      }
+
+      if ($result->AddOrUpdateClientsResult->ErrorCode == 200) {
+        $response = $result->AddOrUpdateClientsResult->Clients->Client;
+        $this->updateClientData($client_id, $response);
+
+        // Reset the status message.
+        $this->updateStatusByClients([$client_id], '');
+        $pushed[$client_id] = TRUE;
+      }
+      else {
+        // Something went wrong.
+        // To reproduce create set wrong phone number, for example.
+        $status = $result->AddOrUpdateClientsResult->Clients->Client->Messages->string;
+        $this->updateStatusByClients([$client_id], $status);
+
+        $msg = 'Failed to push single client with ID %id: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%id' => $client_id,
+            '%error' => serialize($result),
+          ]
+        );
+
+        $failed[$client_id] = TRUE;
+      }
+    }
+
+    $msg = 'The Push clients to MindBody has been finished. Pushed: %pushed, Failed: %failed.';
+    $this->logger->debug(
+      $msg,
+      [
+        '%pushed' => count($pushed),
+        '%failed' => count($failed),
+      ]
+    );
   }
 
 }
