@@ -775,6 +775,13 @@ RewriteRule ^$ http://www.ymcamn.org/locations/eagan_ymca/kid__teen_activities/s
 RewriteCond %{HTTP_HOST} ^www\.ysportssouthdale\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
 
+  # 301 --- http://www.redwingymca.org/*.htm => pages without htm extension
+  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
+  RewriteRule ^/?(.*).(htm)$ /$1 [R=301,L]
+
+  # 301 --- New path of landing pages for http://www.redwingymca.org/
+  Redirect 301 /camppepin.htm /camps/camp_pepin
+  Redirect 301 /contact.htm /contact_us
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
