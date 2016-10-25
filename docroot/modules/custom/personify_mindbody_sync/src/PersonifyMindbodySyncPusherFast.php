@@ -32,7 +32,7 @@ class PersonifyMindbodySyncPusherFast extends PersonifyMindbodySyncPusherBase {
    */
   private function pushClientsBatch() {
     $this->logger->debug('The Push clients to MindBody has been started.');
-    if (!parent::filerOutClients()) {
+    if (!parent::filterOutClients()) {
       return $this;
     }
 

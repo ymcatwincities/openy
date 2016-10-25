@@ -733,7 +733,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @return mixed
    *   FALSE if there is an error.
    */
-  protected function filerOutClients() {
+  protected function filterOutClients() {
     $data = $this->wrapper->getProxyData();
 
     // Skip when we haven't received new orders.
@@ -1025,7 +1025,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   protected function pushClientsSingle() {
     $this->logger->debug('The Push clients to MindBody has been started.');
-    if (!$this->filerOutClients()) {
+    if (!$this->filterOutClients()) {
       // Something went wrong. Exit.
       return;
     }
