@@ -17,8 +17,11 @@
     </div>
   </form>
 
-  <div class="col-xs-12">
-    <a class="btn btn-block btn-default" href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">{{ "Sign In"|t }}</a>
-  </div>
+  {% if not hide_mobile_sign_button %}
+    <div class="col-xs-12">
+      <a class="btn btn-block btn-default" href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">{{ "Sign In"|t }}</a>
+    </div>
+  {% endif %}
+
   <ul id="sidebar-nav" class="nav-level-0 nav in"></ul>
 </div>
