@@ -215,20 +215,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $cart_items = [];
       $cart_items_object = new \ArrayObject();
 
-      // Let's check that Personify price equals MindBody service price.
-      // Skip intro orders.
-      if (!$this->isIntroPersonalTraining($order->ProductCode) && (int) $service->Price != $order->UnitPrice) {
-        $msg = 'The prices in Personify and MindBody are different. Order: %order, LineNo: %lino.';
-        $this->logger->error($msg,
-          [
-            '%order' => $order->OrderNo,
-            '%lino' => $order->OrderNo,
-          ]
-        );
-        $this->updateStatusByOrder($order->OrderNo, $order->OrderLineNo, 'The prices in Personify and MindBody are different.');
-        continue;
-      }
-
       // Let's format payment amount & discount amount.
       $single_discount_amount = 0;
       // Here we use service price.
