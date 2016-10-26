@@ -13,16 +13,20 @@
  */
 #}
 <form{{ attributes }}>
-  <div class="col-xs-1 col-sm-1 col-sm-push-1">
+  <div class="col-xs-1 col-sm-1 col-sm-push-2">
     <a href="#register-or-report" class="icon-back slide-controller"></a>
   </div>
-  <div class="col-xs-10 col-xs-push-1 col-sm-4 col-sm-push-1">
-    {{ form.mail }}
-  </div>
-  <div class="col-xs-10 col-xs-push-1 col-sm-3 col-sm-push-1">
-    {{ form.membership_id }}
-  </div>
-  <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-1">
+  {% if form.membership_id is defined %}
+    <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
+      {{ form.membership_id }}
+    </div>
+  {% endif %}
+  {% if form.email is defined %}
+    <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
+      {{ form.email }}
+    </div>
+  {% endif %}
+  <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
     {{ form.submit }}
   </div>
   {% if form.messages is defined %}
@@ -30,5 +34,5 @@
       {{ form.messages }}
     </div>
   {% endif %}
-  {{ form|without('mail', 'membership_id', 'submit', 'messages') }}
+  {{ form|without('email', 'membership_id', 'submit', 'messages') }}
 </form>
