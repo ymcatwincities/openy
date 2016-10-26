@@ -1,0 +1,21 @@
+uuid: e29fe044-b363-4f72-b0c4-386f4e2fdc48
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_color
+    - node.type.alert
+  module:
+    - options
+id: node.alert.field_alert_color
+field_name: field_alert_color
+entity_type: node
+bundle: alert
+label: 'Alert Color'
+description: 'Choose background color.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

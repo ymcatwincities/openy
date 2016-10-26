@@ -1,0 +1,21 @@
+uuid: a18f02c4-757d-43cc-980e-68e90de02aaf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_placement
+    - node.type.alert
+  module:
+    - options
+id: node.alert.field_alert_placement
+field_name: field_alert_placement
+entity_type: node
+bundle: alert
+label: 'Alert Placement'
+description: 'Choose alert placement.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

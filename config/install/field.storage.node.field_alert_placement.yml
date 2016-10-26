@@ -1,0 +1,30 @@
+uuid: 79d80fc9-e8fc-4261-93cb-f0078464f7a2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_alert_placement
+field_name: field_alert_placement
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: header
+      label: Header
+    -
+      value: body
+      label: Body
+    -
+      value: footer
+      label: Footer
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

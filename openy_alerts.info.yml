@@ -1,0 +1,11 @@
+name: OPENY Alerts
+type: module
+description: Provide alerts blocks for OPENY.
+dependencies:
+  - blazy
+  - slick
+  - slick_views
+  - inline_entity_form
+  - scheduled_updates
+package: OPENY
+core: 8.x

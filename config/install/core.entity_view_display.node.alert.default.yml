@@ -1,0 +1,53 @@
+uuid: 541bc84c-0730-42f3-aedd-3dcc75cae4f8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.alert.field_alert_color
+    - field.field.node.alert.field_alert_content
+    - field.field.node.alert.field_alert_link
+    - field.field.node.alert.field_alert_placement
+    - node.type.alert
+  module:
+    - link
+    - options
+    - text
+    - user
+id: node.alert.default
+targetEntityType: node
+bundle: alert
+mode: default
+content:
+  field_alert_color:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_alert_content:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_alert_link:
+    weight: 102
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_alert_placement:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  links:
+    weight: 100
+hidden:
+  langcode: true
