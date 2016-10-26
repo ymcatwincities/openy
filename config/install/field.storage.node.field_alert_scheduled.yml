@@ -1,0 +1,20 @@
+uuid: 56731ec4-2a56-4460-8f8a-e5d0df1f2ba8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - scheduled_updates
+id: node.field_alert_scheduled
+field_name: field_alert_scheduled
+entity_type: node
+type: entity_reference
+settings:
+  target_type: scheduled_update_type
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

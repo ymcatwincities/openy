@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - node.type.alert
+_core:
+  default_config_hash: null
 id: node.alert
 target_entity_type_id: node
 target_bundle: alert

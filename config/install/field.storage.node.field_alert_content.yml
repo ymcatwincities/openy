@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - text
+_core:
+  default_config_hash: null
 id: node.field_alert_content
 field_name: field_alert_content
 entity_type: node

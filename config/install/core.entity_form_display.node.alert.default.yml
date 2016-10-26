@@ -7,12 +7,15 @@ dependencies:
     - field.field.node.alert.field_alert_content
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_placement
+    - field.field.node.alert.field_alert_scheduled
     - node.type.alert
   module:
     - content_moderation
     - link
     - path
     - text
+_core:
+  default_config_hash: null
 id: node.alert.default
 targetEntityType: node
 bundle: alert
@@ -47,6 +50,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_alert_scheduled:
+    weight: 35
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   langcode:
     type: language_select
     weight: 2

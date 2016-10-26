@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - options
+_core:
+  default_config_hash: null
 id: node.field_alert_placement
 field_name: field_alert_placement
 entity_type: node

@@ -1,0 +1,24 @@
+uuid: 4a9e045e-d7e7-44d8-b15b-327f9f9037eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.scheduled_update.publishing.field_status
+    - scheduled_updates.scheduled_update_type.publishing
+id: scheduled_update.publishing.default
+targetEntityType: scheduled_update
+bundle: publishing
+mode: default
+content:
+  field_status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: -8
+    third_party_settings: {  }
+  update_timestamp:
+    type: datetime_timestamp
+    weight: -9
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

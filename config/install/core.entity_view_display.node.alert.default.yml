@@ -7,12 +7,15 @@ dependencies:
     - field.field.node.alert.field_alert_content
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_placement
+    - field.field.node.alert.field_alert_scheduled
     - node.type.alert
   module:
     - link
     - options
     - text
     - user
+_core:
+  default_config_hash: null
 id: node.alert.default
 targetEntityType: node
 bundle: alert
@@ -47,6 +50,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
+  field_alert_scheduled:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   links:
     weight: 100
 hidden:

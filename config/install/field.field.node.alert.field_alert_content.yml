@@ -7,6 +7,8 @@ dependencies:
     - node.type.alert
   module:
     - text
+_core:
+  default_config_hash: null
 id: node.alert.field_alert_content
 field_name: field_alert_content
 entity_type: node

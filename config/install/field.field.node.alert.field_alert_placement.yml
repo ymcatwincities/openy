@@ -7,6 +7,8 @@ dependencies:
     - node.type.alert
   module:
     - options
+_core:
+  default_config_hash: null
 id: node.alert.field_alert_placement
 field_name: field_alert_placement
 entity_type: node
