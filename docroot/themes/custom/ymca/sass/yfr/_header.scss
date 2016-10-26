@@ -1,0 +1,227 @@
+.top-nav {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+
+  .back-link {
+    @include cachet-bold();
+    @include rem(padding, 24px 20px 24px 37px);
+    @include rem(line-height, 21px);
+    color: $white;
+    display: inline-block;
+    font-size: 16px;
+    // todo: letter-spacing
+    margin: 0;
+    position: relative;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 15px);
+    }
+
+    &:before {
+      @include rem(height, 9px);
+      @include rem(margin-left, -17px);
+      @include rem(margin-top, -5px);
+      @include rem(width, 11px);
+      background-image: url(../prototypes/yfr/img/hero/back-arrow.png);
+      background-size: cover;
+      content: ' ';
+      position: absolute;
+      top: 50%;
+    }
+  }
+
+  .ysr-menu {
+    @include rem(padding, 24px 20px);
+    display: inline-block;
+    float: right;
+    list-style: none;
+    margin: 0;
+
+    @include breakpoint($tablet) {
+      float: none;
+      @include rem(margin-top, 15px);
+    }
+
+    li {
+
+      a {
+        @include cachet-normal();
+        @include rem(line-height, 21px);
+        color: $orange-light;
+        font-size: 18px;
+        // todo: letter-spacing
+
+      }
+    }
+  }
+}
+
+.hero-section {
+  @include rem(height, 270px);
+  background-color: #804114;
+  position: relative;
+
+  @include breakpoint($tablet) {
+    @include rem(height, 600px);
+  }
+
+  &:before {
+    background-image: linear-gradient(to bottom, #6d4446, rgba(109, 68, 70, 0));
+    content: " ";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+  }
+
+  &__background {
+    @include opacity(0.6);
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+    img {
+      bottom: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      width: auto;
+
+      @include breakpoint(550px) {
+        height: auto;
+        width: 100%;
+      }
+    }
+  }
+
+  &__content {
+    @include rem(padding-top, 84px);
+    position: relative;
+    z-index: 102;
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 120px);
+    }
+
+    @include breakpoint(992px) {
+      @include rem(padding-top, 300px);
+    }
+  }
+
+  &__logo {
+    @include rem(height, 103px);
+    @include rem(width, 178px);
+    background-image: url(../prototypes/yfr/img/hero/logo.png);
+    background-size: cover;
+    margin: auto;
+
+    @include breakpoint($tablet) {
+      @include rem(height, 190px);
+      @include rem(width, 390px);
+      background-image: url(../prototypes/yfr/img/hero/logo-large.png);
+    }
+
+    @include breakpoint(992px) {
+      //@include rem(margin, 0 100px 0 0);
+      float: right;
+      margin: 0;
+    }
+  }
+
+  &__slogan,
+  &__date {
+    @include cachet-bold();
+    @include rem(line-height, 25px);
+    font-size: 20px;
+    // todo: letter-spacing
+    text-align: center;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 45px);
+    }
+
+    @include breakpoint(992px) {
+      text-align: left;
+    }
+  }
+
+  &__slogan {
+    color: $white;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 75px);
+      font-size: 50px;
+      letter-spacing: -0.7px;
+    }
+  }
+
+  &__date {
+    color: $orange-light;
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 4px);
+      font-size: 40px;
+      letter-spacing: -0.8px;
+    }
+  }
+}
+
+.ysr-user-menu {
+  background-color: $red-dark-lighter;
+  @include rem(padding, 17px 20px);
+  @include rem(height, 55px);
+
+  &__greetings {
+    @include cachet-normal();
+    @include rem(line-height, 21px);
+    @include rem(padding-left, 30px);
+    color: $white;
+    display: inline-block;
+    font-size: 18px;
+    // todo: letter-spacing
+    position: relative;
+
+    &:before {
+      @include rem(height, 21px);
+      @include rem(width, 21px);
+      background-image: url(../prototypes/yfr/img/hero/user-icon.png);
+      background-size: cover;
+      content: ' ';
+      display: block;
+      left: 0;
+      position: absolute;
+    }
+  }
+
+  &__logout {
+    //@include rem(padding-right, 20px);
+    @include rem(padding-left, 20px);
+    display: inline-block;
+    float: right;
+
+    a {
+      @include cachet-normal();
+      @include rem(line-height, 21px);
+      color: $orange-light;
+      font-size: 18px;
+      // todo: letter-spacing
+    }
+  }
+
+  @include breakpoint($tablet) {
+    @include rem(top, 15px);
+    @include rem(padding, 24px 20px);
+    background: none;
+    position: absolute;
+    right: 0;
+    z-index: 101;
+  }
+}
