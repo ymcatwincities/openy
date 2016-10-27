@@ -213,6 +213,7 @@
 }
 #top-nav ul li a {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-size: 18px;
   font-size: 1.8rem;
   padding: 0 25px;
@@ -515,6 +516,7 @@
 }
 #hero-section h1 {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 50px;
   font-size: 5rem;
@@ -551,6 +553,7 @@
 }
 #hero-section .date {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-size: 25px;
   font-size: 2.5rem;
   line-height: 25px;
@@ -576,6 +579,7 @@
 }
 #hero-section .campaign-over {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-size: 20px;
   font-size: 2rem;
   line-height: 30px;
@@ -622,6 +626,7 @@
 }
 #register-and-report p {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   color: #c9c9c9;
   font-size: 20px;
   font-size: 2rem;
@@ -966,6 +971,7 @@
 }
 #leaderboard .pager .load-more {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   color: #c6168d;
   font-size: 15px;
@@ -1010,6 +1016,7 @@
 }
 #main-description-individual p {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   color: #777;
   font-size: 20px;
   letter-spacing: -0.8px;
@@ -1054,6 +1061,7 @@
 }
 #prizes .grand-prize p {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   color: #777;
   font-size: 20px;
   line-height: 25px;
@@ -1062,6 +1070,7 @@
 }
 #prizes .grand-prize .col-sm-6 .inner {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   background: #fff url("../img/winners_tickets.png") no-repeat 35px 26px;
   padding: 25px 20px 25px 133px;
   margin-bottom: 30px;
@@ -1095,6 +1104,7 @@
 }
 #prizes .first-prize {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   background: url("../img/first_prize_title.png") no-repeat center 0;
   padding: 40px 0 0;
 }
@@ -1187,6 +1197,7 @@
 }
 .results-table thead th {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 11px;
   font-size: 1.1rem;
@@ -1294,9 +1305,11 @@
 }
 .results-table tbody tr .name, .results-table tbody tr .member-id {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
 }
 .results-table tbody tr td {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   color: #777;
   font-size: 13px;
   line-height: 20px;
@@ -1631,6 +1644,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .registration-confirmation .header h3 {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 25px;
   font-size: 2.5rem;
@@ -1663,6 +1677,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .registration-confirmation .header p {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   line-height: 20px;
   line-height: 2rem;
   padding-top: 7px;
@@ -1711,6 +1726,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .registration-confirmation ul.complete-message-items {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-size: 18px;
   font-size: 1.8rem;
   line-height: 18px;
@@ -1760,6 +1776,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .registration-confirmation .goal a {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   border-radius: 34px;
   border-radius: 3.4rem;
@@ -2225,6 +2242,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .member-info--goal {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   line-height: 11px;
   line-height: 1.1rem;
   padding-top: 13px;
@@ -2282,6 +2300,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .member-info--stats {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   padding: 22px 0 22px 0;
   padding: 2.2rem 0 2.2rem 0;
   color: #fff;
@@ -2379,6 +2398,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .campaign-dates--date .weekday {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-size: 15px;
   font-size: 1.5rem;
   padding-bottom: 4px;
@@ -2389,6 +2409,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .campaign-dates--date .month-day {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   border-radius: 32px;
   border-radius: 3.2rem;
   border-width: 2px;
@@ -2412,6 +2433,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .campaign-dates--date .activities-count {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   border-radius: 15px;
   border-radius: 1.5rem;
   font-size: 15px;
@@ -2538,6 +2560,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .activities .activity-groups .activity-group-item-link {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 20px;
   font-size: 2rem;
@@ -2600,6 +2623,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .activities .activity-items .form-item-checkbox input + label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   border-radius: 34px;
   border-radius: 3.4rem;
   font-size: 16px;
@@ -2628,6 +2652,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .activities .activity-items .form-item-checkbox input + label:before {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   border-radius: 21px;
   border-radius: 2.1rem;
   font-size: 30px;
@@ -2649,6 +2674,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .activities .activity-items .form-item-checkbox input + label small {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 14px;
   font-size: 1.4rem;
@@ -2705,6 +2731,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .activities .actions input[type=submit] {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 40px;
   font-size: 4rem;
@@ -2781,6 +2808,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .detailed-rules dl dt {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 20px;
   font-size: 2rem;
@@ -2869,6 +2897,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .winners h2 {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   color: #c6168d;
   text-transform: uppercase;
@@ -2892,6 +2921,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .prize__header {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 30px;
   font-size: 3rem;
@@ -2961,6 +2991,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .prize__prize--separator:before {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 30px;
   font-size: 3rem;
@@ -3074,6 +3105,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .prize__prize__title {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 13px;
   font-size: 1.3rem;
@@ -3116,6 +3148,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .prize__winners__category .category__name {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-size: 15px;
   font-size: 1.5rem;
   position: relative;
@@ -3153,6 +3186,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .prize__winners__category .category__winner {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   overflow: hidden;
   text-transform: uppercase;
@@ -3267,6 +3301,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .personal-result__title {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   line-height: 45px;
   line-height: 4.5rem;
@@ -3285,6 +3320,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .personal-result__description {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   color: #777;
   font-size: 20px;
   letter-spacing: -0.5px;
@@ -3292,6 +3328,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .personal-result__description__prize {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
 }
 .personal-result__description__prize--gold {
@@ -3327,6 +3364,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
 }
 .personal-result__details {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   color: #777;
   font-size: 18px;
   letter-spacing: -0.7px;
