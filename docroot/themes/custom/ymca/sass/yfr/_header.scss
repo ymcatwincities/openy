@@ -1,7 +1,7 @@
 .top-nav {
   position: absolute;
   width: 100%;
-  z-index: 100;
+  z-index: 102;
 
   .back-link {
     @include cachet-bold();
@@ -104,7 +104,7 @@
   &__content {
     @include rem(padding-top, 84px);
     position: relative;
-    z-index: 102;
+    z-index: 101;
 
     @include breakpoint($tablet) {
       @include rem(padding-top, 120px);
