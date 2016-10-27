@@ -67,9 +67,9 @@
   }
 
   &:before {
+    @include rem(height, 200px);
     background-image: linear-gradient(to bottom, #6d4446, rgba(109, 68, 70, 0));
     content: " ";
-    height: 100%;
     left: 0;
     position: absolute;
     top: 0;
@@ -213,6 +213,10 @@
       color: $orange-light;
       font-size: 18px;
       // todo: letter-spacing
+
+      @include breakpoint($tablet) {
+        color: $orange-medium-lighter;
+      }
     }
   }
 
