@@ -17,7 +17,7 @@
 .top-nav {
   position: absolute;
   width: 100%;
-  z-index: 100;
+  z-index: 102;
 }
 .top-nav .back-link {
   font-family: "Cachet",Arial,sans-serif;
@@ -128,7 +128,7 @@
   padding-top: 84px;
   padding-top: 8.4rem;
   position: relative;
-  z-index: 102;
+  z-index: 101;
 }
 @media (min-width: 48em) {
   .hero-section__content {
