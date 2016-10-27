@@ -41,7 +41,11 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
 function ymca_retention_theme($existing, $type, $theme, $path) {
   return [
     'ymca_retention_registration_form' => [
-      'render element' => 'form',
+      'variables' => [
+        'team' => FALSE,
+        'form' => '',
+      ],
+      'template' => 'ymca-retention-registration-form',
     ],
     'ymca_retention_login_form' => [
       'render element' => 'form',
