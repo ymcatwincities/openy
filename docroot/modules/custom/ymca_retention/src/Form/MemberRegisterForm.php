@@ -27,6 +27,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $form_state->getBuildInfo()['args'][0];
     $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
@@ -34,13 +35,13 @@ class MemberRegisterForm extends FormBase {
     $obfuscated_email = $this->obfuscateEmail($personify_email);
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
-    if (empty($membership_id)) {
+    if (empty($membership_id) || $config['team']) {
       $form['membership_id'] = [
         '#type' => 'textfield',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $this->t('Your facility access ID'),
+            $config['team'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
           ],
           'class' => [
             'facility-access-id',
@@ -73,7 +74,8 @@ class MemberRegisterForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => empty($membership_id) ? t('Join now') : t('Confirm'),
+      '#value' => $config['team'] ? $this->t('Register') :
+        (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
       '#attributes' => [
         'class' => [
           'btn',
@@ -143,6 +145,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $config = $form_state->getBuildInfo()['args'][0];
     $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
@@ -195,7 +198,12 @@ class MemberRegisterForm extends FormBase {
         $form_state->set('personify_member', $personify_result);
         // TODO: personify_member should already have email address from Personify.
         $form_state->set('personify_email', 'fake_email_address@ymcamn.org');
-        $form_state->setRebuild();
+        if ($config['team']) {
+          $form_state->set('email', $form_state->get('personify_email'));
+        }
+        else {
+          $form_state->setRebuild();
+        }
         return;
       }
     }
@@ -214,6 +222,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $config = $form_state->getBuildInfo()['args'][0];
     $personify_member = $form_state->get('personify_member');
 
     $query = \Drupal::entityQuery('ymca_retention_member')
@@ -226,10 +235,26 @@ class MemberRegisterForm extends FormBase {
     else {
       $entity = $this->updateEntity(key($result), $form_state);
     }
-    AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
 
-    // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+    if ($config['team']) {
+      $user_input = $form_state->getUserInput();
+      unset($user_input['membership_id']);
+      $form_state->setUserInput($user_input);
+      $form_state->set('membership_id', NULL);
+      $form_state->set('personify_member', NULL);
+      $form_state->set('personify_email', NULL);
+      $form_state->setRebuild();
+      drupal_set_message($this->t('Registered @full_name with email address @email.', [
+        '@full_name' => $entity->getFullName(),
+        '@email' => $this->obfuscateEmail($entity->getEmail()),
+      ]));
+    }
+    else {
+      AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
+
+      // Redirect to confirmation page.
+      $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+    }
   }
 
   /**
@@ -242,6 +267,7 @@ class MemberRegisterForm extends FormBase {
    *   Member entity.
    */
   protected function createEntity(FormStateInterface $form_state) {
+    $config = $form_state->getBuildInfo()['args'][0];
     // Get form values.
     $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
@@ -269,10 +295,6 @@ class MemberRegisterForm extends FormBase {
     // Identify if user is employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
-    // @todo This is a bad solution with this condition, if we will reuse this form in the future.
-    $route = \Drupal::service('current_route_match')->getRouteName();
-    $created_by_staff = $route === 'page_manager.page_view_ymca_retention_pages_y_games_team';
-
     // Create a new entity.
     /** @var Member $entity */
     $entity = \Drupal::entityTypeManager()
@@ -288,7 +310,7 @@ class MemberRegisterForm extends FormBase {
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,
-        'created_by_staff' => $created_by_staff,
+        'created_by_staff' => $config['team'],
       ]);
     $entity->save();
 

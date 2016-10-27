@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
@@ -19,14 +20,53 @@ class RegistrationForm extends BlockBase {
   /**
    * {@inheritdoc}
    */
+  public function defaultConfiguration() {
+    return [
+      'team' => FALSE,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockForm($form, FormStateInterface $form_state) {
+    $form = parent::blockForm($form, $form_state);
+
+    $config = $this->getConfiguration();
+
+    $form['team'] = array (
+      '#type' => 'checkbox',
+      '#title' => $this->t('Y Team user registration'),
+      '#description' => $this->t('Select this checkbox if the registrations on this page will be done by Y Team.'),
+      '#default_value' => isset($config['team']) ? $config['team'] : '',
+    );
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, FormStateInterface $form_state) {
+    $this->setConfigurationValue('team', $form_state->getValue('team'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     // Remove cookie in case when registration form is displayed on the page.
     AnonymousCookieStorage::delete('ymca_retention_member');
+
+    $config = $this->getConfiguration();
+    $x = 1;
+
     $form = \Drupal::formBuilder()
-      ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm');
+      ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm', $config);
     return [
       '#theme' => 'ymca_retention_registration_form',
-      'form' => $form,
+      '#form' => $form,
+      '#team' => $config['team'],
     ];
   }
 
