@@ -29,7 +29,6 @@
       color: $grey7 !important;
       //color: $orange-medium-lighter;
       display: block;
-      // TODO: letter-spacing
       font-size: 16px;
       margin: 0;
       position: relative;
@@ -87,7 +86,6 @@
       display: block;
       position: relative;
       text-transform: uppercase;
-      // TODO: letter-spacing
       font-size: 16px;
 
       &.collapsed {
@@ -148,7 +146,6 @@
   background-size: cover;
   color: $white;
   display: inline-block;
-  // TODO: letter-spacing
   font-size: 14px;
   text-align: center;
 }

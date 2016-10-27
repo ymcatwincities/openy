@@ -10,7 +10,6 @@
     color: $white;
     display: inline-block;
     font-size: 16px;
-    // todo: letter-spacing
     margin: 0;
     position: relative;
 
@@ -50,8 +49,6 @@
         @include rem(line-height, 21px);
         color: $orange-light;
         font-size: 18px;
-        // todo: letter-spacing
-
       }
     }
   }
@@ -140,8 +137,8 @@
     @include cachet-bold();
     @include rem(line-height, 25px);
     font-size: 20px;
-    // todo: letter-spacing
     text-align: center;
+    text-shadow: 0 0 21px $black;
     text-transform: uppercase;
 
     @include breakpoint($tablet) {
@@ -159,7 +156,6 @@
     @include breakpoint($tablet) {
       @include rem(margin-top, 75px);
       font-size: 50px;
-      letter-spacing: -0.7px;
     }
   }
 
@@ -169,7 +165,6 @@
     @include breakpoint($tablet) {
       @include rem(padding-top, 4px);
       font-size: 40px;
-      letter-spacing: -0.8px;
     }
   }
 }
@@ -186,7 +181,6 @@
     color: $white;
     display: inline-block;
     font-size: 18px;
-    // todo: letter-spacing
     position: relative;
 
     &:before {
@@ -212,7 +206,6 @@
       @include rem(line-height, 21px);
       color: $orange-light;
       font-size: 18px;
-      // todo: letter-spacing
 
       @include breakpoint($tablet) {
         color: $orange-medium-lighter;

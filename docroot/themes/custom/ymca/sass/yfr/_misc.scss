@@ -10,7 +10,8 @@
 
   @include breakpoint($mobile-tablet-portrait-only) {
     .container {
-      padding: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }
