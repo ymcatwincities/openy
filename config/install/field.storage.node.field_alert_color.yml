@@ -1,12 +1,9 @@
-uuid: 06f0fa54-4b78-4ae6-b92d-8a072672c81b
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - options
-_core:
-  default_config_hash: null
 id: node.field_alert_color
 field_name: field_alert_color
 entity_type: node

@@ -1,19 +1,16 @@
-uuid: a18f02c4-757d-43cc-980e-68e90de02aaf
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_alert_placement
+    - field.storage.node.field_alert_place
     - node.type.alert
   module:
     - options
-_core:
-  default_config_hash: null
-id: node.alert.field_alert_placement
-field_name: field_alert_placement
+id: node.alert.field_alert_place
+field_name: field_alert_place
 entity_type: node
 bundle: alert
-label: 'Alert Placement'
+label: 'Alert Place'
 description: 'Choose alert placement.'
 required: true
 translatable: false

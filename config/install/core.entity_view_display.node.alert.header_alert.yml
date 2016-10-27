@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.header_alert
     - field.field.node.alert.field_alert_body
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_link
@@ -10,29 +11,22 @@ dependencies:
     - node.type.alert
   module:
     - link
-    - options
     - text
     - user
-id: node.alert.default
+id: node.alert.header_alert
 targetEntityType: node
 bundle: alert
-mode: default
+mode: header_alert
 content:
   field_alert_body:
-    weight: 103
-    label: above
+    weight: 1
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_alert_color:
-    weight: 101
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   field_alert_link:
-    weight: 102
-    label: above
+    weight: 0
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
@@ -41,16 +35,9 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
-  field_alert_place:
-    weight: 104
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  field_alert_color: true
+  field_alert_place: true
   langcode: true
+  links: true
   scheduled_status: true

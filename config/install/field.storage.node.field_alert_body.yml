@@ -1,14 +1,11 @@
-uuid: 56474060-2e73-43a9-8c8f-65a6a83d9de0
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - text
-_core:
-  default_config_hash: null
-id: node.field_alert_content
-field_name: field_alert_content
+id: node.field_alert_body
+field_name: field_alert_body
 entity_type: node
 type: text_long
 settings: {  }

@@ -1,12 +1,9 @@
-uuid: b8d48973-ed6d-42b1-a5b1-88f5fbe52dc7
 langcode: en
 status: true
 dependencies:
   module:
     - link
     - node
-_core:
-  default_config_hash: null
 id: node.field_alert_link
 field_name: field_alert_link
 entity_type: node

@@ -2,19 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_alert_color
+    - field.storage.node.field_alert_body
     - node.type.alert
   module:
-    - options
-id: node.alert.field_alert_color
-field_name: field_alert_color
+    - text
+id: node.alert.field_alert_body
+field_name: field_alert_body
 entity_type: node
 bundle: alert
-label: 'Alert Color'
-description: ''
+label: 'Alert Body'
+description: 'Alert content.'
 required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: list_string
+field_type: text_long

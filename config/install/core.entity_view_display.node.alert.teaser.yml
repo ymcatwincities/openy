@@ -1,18 +1,16 @@
-uuid: c95bb043-e9d4-4f67-982e-dad56ffb0046
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.alert.field_alert_body
     - field.field.node.alert.field_alert_color
-    - field.field.node.alert.field_alert_content
     - field.field.node.alert.field_alert_link
-    - field.field.node.alert.field_alert_placement
+    - field.field.node.alert.field_alert_place
+    - field.field.node.alert.scheduled_status
     - node.type.alert
   module:
     - user
-_core:
-  default_config_hash: null
 id: node.alert.teaser
 targetEntityType: node
 bundle: alert
@@ -21,8 +19,9 @@ content:
   links:
     weight: 100
 hidden:
+  field_alert_body: true
   field_alert_color: true
-  field_alert_content: true
   field_alert_link: true
-  field_alert_placement: true
+  field_alert_place: true
   langcode: true
+  scheduled_status: true
