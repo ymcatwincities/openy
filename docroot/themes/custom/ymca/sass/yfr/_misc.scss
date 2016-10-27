@@ -1,3 +1,16 @@
-.viewport {
-  padding-top: 0;
+.theme_ymca_2016_fall_retention {
+
+  .viewport {
+    padding-top: 0;
+  }
+
+  .content {
+    background-color: $white;
+  }
+
+  @include breakpoint($mobile-tablet-portrait-only) {
+    .container {
+      padding: 0;
+    }
+  }
 }
