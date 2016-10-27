@@ -1,0 +1,154 @@
+.yfr-tabs {
+  border-bottom: 1px solid $orange-medium-lighter;
+
+  > li {
+    border-bottom: 6px solid $white;
+    margin-bottom: 0;
+    transition: margin-right .5s, border-bottom .2s;
+
+    &.active {
+      border-bottom: 6px solid $orange-medium-lighter;
+
+      > a,
+      &:first-child > a {
+        background: none;
+        color: $grey7;
+
+        &:hover {
+          color: $orange-medium-lighter !important;
+        }
+      }
+    }
+
+    > a {
+      @include cachet-normal();
+      @include rem(line-height, 55px);
+      @include rem(padding, 6px 15px 0 15px);
+      background: none !important;
+      border: none;
+      color: $grey7 !important;
+      //color: $orange-medium-lighter;
+      display: block;
+      // TODO: letter-spacing
+      font-size: 16px;
+      margin: 0;
+      position: relative;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    &:hover {
+
+      > a {
+        background: none;
+        color: $orange-medium-lighter;
+
+        &:hover {
+          color: $orange-medium-lighter !important;
+        }
+      }
+    }
+
+    @include breakpoint($tablet-landscape) {
+      @include rem(margin-right, 60px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-right, 100px);
+    }
+  }
+
+  .yfr-tabs &__instant-win {
+    float: right;
+    margin-right: 0 !important;
+  }
+}
+
+.yfr-accordion {
+
+  // Reset.
+  .panel,
+  .panel-heading {
+    @include border-radius(0);
+    @include box-shadow(none);
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .panel-heading {
+    border-bottom: 1px solid rgba($orange-medium-lighter, .17);
+
+    a {
+      @include cachet-normal();
+      @include rem(line-height, 65px);
+      @include rem(padding, 0 10px);
+      color: $orange-medium-lighter;
+      display: block;
+      position: relative;
+      text-transform: uppercase;
+      // TODO: letter-spacing
+      font-size: 16px;
+
+      &.collapsed {
+        color: $grey7;
+      }
+
+      &:hover,
+      &:active {
+        color: $orange-medium-lighter;
+      }
+
+      &:after {
+        @include rem(height, 7px);
+        @include rem(margin-top, -4px);
+        @include rem(right, 23px);
+        @include rem(width, 12px);
+        content: ' ';
+        background-image: url(../prototypes/yfr/img/tabs/tab-arrow-up.png);
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+      }
+
+      &.collapsed {
+
+        &:after {
+          background-image: url(../prototypes/yfr/img/tabs/tab-arrow-down.png);
+        }
+      }
+    }
+  }
+
+  .panel {
+
+    > .panel-heading {
+
+      + {
+
+        .panel-collapse {
+
+          .panel-body {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.yfr-instant-win-star {
+  @include cachet-bold();
+  @include rem(height, 28px);
+  @include rem(line-height, 28px);
+  @include rem(margin-left, 10px);
+  @include rem(width, 28px);
+  background-image: url(../prototypes/yfr/img/tabs/icon-star.png);
+  background-size: cover;
+  color: $white;
+  display: inline-block;
+  // TODO: letter-spacing
+  font-size: 14px;
+  text-align: center;
+}

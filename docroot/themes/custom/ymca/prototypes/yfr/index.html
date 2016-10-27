@@ -53,7 +53,7 @@
 
   <meta name="google-site-verification" content="QM8r9JXsgtjo6PO9xIixzLkbGqK1sXXddIi4CxOcvt4" />
 </head>
-<body class="internal-template theme_ymca_2016_summer_retention path-march">
+<body class="internal-template theme_ymca_2016_fall_retention">
 
   <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5FV7H7"
@@ -223,6 +223,35 @@
           </div>
         </div>
 
+        <div class="container">
+          <ul id="yfr-tabs" class="nav nav-tabs yfr-tabs">
+            <li class="active"><a href="#about" data-toggle="tab">About the Campaign</a></li>
+            <li><a href="#track" data-toggle="tab">Report Activities</a></li>
+            <li><a href="#progress" data-toggle="tab">My Progress</a></li>
+            <li class="yfr-tabs__instant-win"><a href="#instant-win" data-toggle="tab">Instant Win <span class="yfr-instant-win-star">2</span></a></li>
+          </ul>
+
+          <div id="yfr-tabsContent" class="tab-content">
+
+            <div class="tab-pane fade in active" id="about">
+              <p>Raw denim you probably haven't...</p>
+            </div>
+
+            <div class="tab-pane fade" id="track">
+              <p>Report activities content</p>
+            </div>
+
+            <div class="tab-pane fade" id="progress">
+              <p>My progress content </p>
+            </div>
+
+            <div class="tab-pane fade" id="instant-win">
+              <p>Instant win content</p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
   </div>
@@ -370,11 +399,6 @@
               <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
             </article>
 
-              <select name="hero-banner-selector" id="hero-banner-selector">
-                <option value="hero-1">Banner 1 (default)</option>
-                <option value="hero-2">Banner 2</option>
-                <option value="hero-3">Banner 3</option>
-              </select>
             </div>
 
           </div>
@@ -462,10 +486,31 @@
   <script src="../../../../../modules/custom/ymca_alters/js/ymca_alters.promo_blocks.js?v=1.x"></script>
   <script src="../../../../../core/assets/vendor/jquery.cookie/jquery.cookie.min.js?v=1.4.1"></script>
   <script src="../../../../../modules/custom/ymca_personify/js/personify.js?v=1.x"></script>
+  <!-- YFR specific -->
+  <script src="../../../../../libraries/bootstrap-tabcollapse/bootstrap-tabcollapse.js?v=1.x"></script>
   <!-- TODO: convert to file, add to libraries.yml -->
   <script>
     (function ($) {
       "use strict";
+
+      /**
+       * Handles tabs to accordion conversion.
+       *
+       * @type {Drupal~behavior}
+       *
+       * @prop {Drupal~behaviorAttach} attach
+       *   Attaches the behavior.
+       */
+      Drupal.behaviors.tabCollapse = {
+        attach: function (context, settings) {
+          $('#yfr-tabs', context)
+            .once('tab-collapse')
+            .tabCollapse({
+              tabsClass: 'hidden-xs',
+              accordionClass: 'visible-xs yfr-accordion'
+            });
+        }
+      };
 
 //      /**
 //       * Controls registration slide elements.
