@@ -6,4 +6,5 @@ id: image
 label: Image
 description: 'An <em>Image</em> file is a still visual.'
 mimetypes:
-  - 'image/*'
+  - "image/*\r"
+  - image/svg+xml

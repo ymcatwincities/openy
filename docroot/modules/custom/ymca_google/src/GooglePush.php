@@ -564,8 +564,20 @@ class GooglePush {
         $instance = $this->getEventInstance($child_entity);
       }
       catch (\Exception $e) {
-        $message = sprintf('%s Child Entity ID: %s.', $e->getMessage(), $child_entity->id());
-        throw new \Exception($message);
+        // Failed to find instance of Google event.
+        // So, create new single event and log debug message.
+        $message = '%msg Child Entity ID: %id. Proceed with creating single event.';
+        $this->logger->debug(
+          $message,
+          [
+            '%msg' => $e->getMessage(),
+            '%id' => $child_entity->id(),
+          ]
+        );
+
+        // Create single event here.
+        $this->pushSingleEvent($child_entity);
+        return;
       }
 
       $this->populateGenericEventData($instance, $child_entity);
@@ -590,6 +602,50 @@ class GooglePush {
         ]
       );
     }
+  }
+
+  /**
+   * Pushes single event to Google (without recurrence).
+   *
+   * Use this method only for creating single instance events.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Child schedules item.
+   *
+   * @throws \Exception.
+   */
+  private function pushSingleEvent(GroupexGoogleCacheInterface $entity) {
+    // Check whether the event was pushed.
+    if ($entity->field_gg_google_event->value || $entity->field_gg_gcal_id->value) {
+      throw new \Exception('The event has been already pushed.');
+    }
+
+    if (!$gcal_id = $this->getCalendarIdByName($entity->field_gg_location->value)) {
+      throw new \Exception('Failed to get Google calendar ID.');
+    }
+
+    $event = new \Google_Service_Calendar_Event();
+    $this->populateGenericEventData($event, $entity);
+
+    $created = $this->calEvents->insert($gcal_id, $event);
+
+    // Save Google response.
+    $entity->set('field_gg_gcal_id', $created->getId());
+    $entity->set('field_gg_google_event', serialize($created));
+
+    // Remove update flag.
+    $entity->set('field_gg_need_up', 0);
+
+    $entity->save();
+
+    $msg = 'Single Gcal event %gcal_id created from child entity %entity_id.';
+    $this->logger->info(
+      $msg,
+      [
+        '%gcal_id' => $created->getId(),
+        '%entity_id' => $entity->id(),
+      ]
+    );
   }
 
   /**
