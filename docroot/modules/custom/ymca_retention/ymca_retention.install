@@ -150,7 +150,6 @@ function ymca_retention_update_8012() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'ymca_retention.general_settings.yml',
-      $path . 'views.settings.yml',
     ]
   );
 
@@ -160,4 +159,18 @@ function ymca_retention_update_8012() {
   catch (EntityStorageException $e) {
     watchdog_exception('update', $e);
   }
+}
+
+/**
+ * Update YMCA Retention Views.
+ */
+function ymca_retention_update_8013() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.settings.yml',
+      $path . 'views.view.ymca_members.yml',
+      $path . 'views.view.ymca_retention_winners.yml',
+    ]
+  );
 }
