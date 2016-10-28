@@ -76,7 +76,7 @@ display:
           row_class: ''
           default_row_class: true
           override: true
-          sticky: false
+          sticky: true
           caption: ''
           summary: ''
           description: ''
@@ -85,6 +85,7 @@ display:
             created: created
             branch: branch
             membership_id: membership_id
+            personify_id: personify_id
             first_name: first_name
             last_name: last_name
             mail: mail
@@ -92,6 +93,9 @@ display:
             total_visits: total_visits
             visit_goal: visit_goal
             created_by_staff: created_by_staff
+            activity_track_swimming: activity_track_swimming
+            activity_track_fitness: activity_track_fitness
+            activity_track_groupx: activity_track_groupx
           info:
             id:
               sortable: true
@@ -116,6 +120,13 @@ display:
               responsive: ''
             membership_id:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            personify_id:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -164,6 +175,27 @@ display:
               empty_column: false
               responsive: ''
             created_by_staff:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            activity_track_swimming:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            activity_track_fitness:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            activity_track_groupx:
               sortable: false
               default_sort_order: asc
               align: ''
