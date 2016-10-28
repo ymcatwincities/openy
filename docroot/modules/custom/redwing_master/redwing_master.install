@@ -217,3 +217,16 @@ function redwing_master_update_8011() {
     ]
   );
 }
+
+/**
+ * YMCA-1237: Setup google analytics.
+ */
+function redwing_master_update_8012() {
+  \Drupal::service('module_installer')->install(['google_analytics'], TRUE);
+
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'ymca.settings.yml',
+    ]
+  );
+}
