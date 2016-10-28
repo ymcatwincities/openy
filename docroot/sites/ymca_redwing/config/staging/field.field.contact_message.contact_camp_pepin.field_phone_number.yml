@@ -1,0 +1,21 @@
+uuid: 826f24cb-3d44-4fcf-98ab-53edfde899d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_camp_pepin
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.contact_camp_pepin.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: contact_camp_pepin
+label: 'Phone Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
