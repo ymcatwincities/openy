@@ -11,6 +11,7 @@ module:
   block_content: 0
   block_content_access: 0
   breakpoint: 0
+  bulk_actions: 0
   captcha: 0
   ckeditor: 0
   color: 0
@@ -49,6 +50,7 @@ module:
   filter: 0
   flood_unblock: 0
   gardengnome_player: 0
+  google_analytics: 0
   google_tag: 0
   groupex_form_cache: 0
   hal: 0
@@ -116,9 +118,6 @@ module:
   views_ui: 0
   webforms: 0
   workflow: 0
-  workflow_access: 0
-  workflow_operations: 0
-  workflow_ui: 0
   workflowfield: 0
   ymca_activity_finder: 0
   ymca_aliases: 0
@@ -143,17 +142,13 @@ module:
   ymca_menu: 0
   ymca_migrate: 0
   ymca_migrate_status: 0
-  ymca_mindbody: 0
-  ymca_mobile_checkin: 0
   ymca_page_context: 0
   ymca_page_manager: 0
   ymca_perms: 0
   ymca_personify: 0
-  ymca_retention: 0
   ymca_search_alter: 0
   ymca_site_verify: 0
   ymca_styleguide: 0
-  ymca_workflow: 0
   menu_link_content: 1
   views: 10
 theme:

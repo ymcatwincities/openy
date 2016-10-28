@@ -15,8 +15,8 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_state
     - field.field.node.article.field_tags
+    - field.field.node.article.field_template
     - field.field.node.article.field_title_description
     - node.type.article
   module:
@@ -40,8 +40,8 @@ hidden:
   field_secondary_sidebar: true
   field_sidebar: true
   field_sidebar_navigation: true
-  field_state: true
   field_status: true
   field_tags: true
+  field_template: true
   field_title_description: true
   langcode: true

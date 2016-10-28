@@ -1,0 +1,19 @@
+uuid: a70aa4df-a963-4e70-89a7-ab972e0b2413
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_date_entered_high_school
+id: contact_message.new_employment_application.field_date_entered_high_school
+field_name: field_date_entered_high_school
+entity_type: contact_message
+bundle: new_employment_application
+label: 'Date Entered High School'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
