@@ -223,10 +223,12 @@ function redwing_master_update_8011() {
  */
 function redwing_master_update_8012() {
   \Drupal::service('module_installer')->install(['google_analytics'], TRUE);
+  // Uninstall unused module for now.
+  \Drupal::service('module_installer')->uninstall(['google_tag']);
 
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      REDWING_CONFDIR . 'ymca.settings.yml',
+      REDWING_CONFDIR . 'google_analytics.settings.yml',
     ]
   );
 }
