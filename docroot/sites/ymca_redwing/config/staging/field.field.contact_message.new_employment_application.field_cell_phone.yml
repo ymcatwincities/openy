@@ -1,0 +1,21 @@
+uuid: cca0562c-372a-43cc-b4c5-65af32c36571
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_cell_phone
+  module:
+    - telephone
+id: contact_message.new_employment_application.field_cell_phone
+field_name: field_cell_phone
+entity_type: contact_message
+bundle: new_employment_application
+label: 'Cell Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

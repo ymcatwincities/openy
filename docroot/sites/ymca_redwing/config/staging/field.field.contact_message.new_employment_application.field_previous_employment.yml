@@ -1,0 +1,25 @@
+uuid: 49295b3d-a6ca-4ee3-8178-923234582cea
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_previous_employment
+id: contact_message.new_employment_application.field_previous_employment
+field_name: field_previous_employment
+entity_type: contact_message
+bundle: new_employment_application
+label: 'Previous Employment'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: "Employer\r\nSupervisor\r\nAddress\r\nPhone Number\r\nPosition\r\nReason for Leaving"
+  -
+    value: "Employer\r\nSupervisor\r\nAddress\r\nPhone Number\r\nPosition\r\nReason for Leaving"
+  -
+    value: "Employer\r\nSupervisor\r\nAddress\r\nPhone Number\r\nPosition\r\nReason for Leaving"
+default_value_callback: ''
+settings: {  }
+field_type: string_long
