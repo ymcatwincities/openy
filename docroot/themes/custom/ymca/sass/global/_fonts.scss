@@ -1,5 +1,6 @@
 @mixin cachet() {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
 }
 
 @mixin cachet-normal() {
