@@ -1,0 +1,141 @@
+.yfr-info-blocks {
+  @include rem(margin-bottom, 35px);
+  @include rem(margin-top, 15px);
+}
+
+.yfr-info-block {
+  @include rem(margin, 35px 0);
+
+  &__header {
+    @include cachet-bold();
+    @include rem(line-height, 40px);
+    @include rem(margin-bottom, 15px);
+    @include rem(padding-left, 50px);
+    color: $grey7;
+    font-size: 18px;
+    position: relative;
+    text-transform: uppercase;
+
+    &:before {
+      @include rem(background-size, 120px 40px);
+      @include rem(height, 40px);
+      @include rem(width, 40px);
+      background-image: url(../prototypes/yfr/img/tabs/tab1-icons.png);
+      content: ' ';
+      display: block;
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      .yfr-info-block--checkins & {
+        background-position: 0 0;
+      }
+      .yfr-info-block--daily-reports & {
+        background-position: -40px 0;
+      }
+      .yfr-info-block--instant-win & {
+        background-position: 40px 0;
+      }
+    }
+  }
+
+  &__content,
+  &__footer {
+    @include rem(line-height, 25px);
+    color: $grey7;
+    font-size: 16px;
+  }
+
+  &__footer {
+    @include rem(margin-top, 10px);
+    color: $orange-dark-lighter;
+    font-size: 14px;
+  }
+
+}
+
+.yfr-full-width-prize-block {
+  @include rem(height, 510px);
+  background-color: #261904;
+  background-image: url(../prototypes/yfr/img/tabs/prize-background.jpg);
+  background-position: center center;
+  background-size: cover;
+  transition: height .3s;
+
+  @include breakpoint($tablet) {
+    @include rem(height, 420px);
+
+    @include breakpoint($tablet-landscape) {
+      @include rem(height, 460px);
+    }
+  }
+
+  &__content {
+    @include rem(padding, 35px 15px 0 15px);
+    color: $white;
+    position: relative;
+    transition: padding-top .3s;
+    z-index: 10;
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 72px);
+    }
+    @include breakpoint($tablet-landscape) {
+      @include rem(padding-top, 112px);
+    }
+  }
+
+  &__header {
+    @include rem(line-height, 40px);
+    font-size: 25px;
+    margin-top: 0;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-bottom, 20px);
+      font-size: 40px;
+    }
+  }
+
+  &__body {
+    @include rem(line-height, 25px);
+    font-size: 16px;
+  }
+
+  &__card {
+
+    &:after,
+    &:before {
+      content: ' ';
+      background-image: url(../prototypes/yfr/img/tabs/cards.png);
+      background-size: cover;
+      background-position: center center;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &:after {
+      background-image: url(../prototypes/yfr/img/tabs/tango-card-mobile.png);
+
+      @include breakpoint($tablet) {
+        background-image: url(../prototypes/yfr/img/tabs/tango-card.png);
+      }
+    }
+
+    @include breakpoint($tablet) {
+      height: 100%;
+      left: 0;
+      position: relative;
+      top: 0;
+      width: 5 / 12 * 100%;
+    }
+  }
+
+  .container {
+    height: 100%;
+    position: relative;
+  }
+}
