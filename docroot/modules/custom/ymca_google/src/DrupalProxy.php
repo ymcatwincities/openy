@@ -320,7 +320,7 @@ class DrupalProxy implements DrupalProxyInterface {
     foreach ($this->dataWrapper->getIcsData() as $item) {
       // Do not process huge amount of data.
       if ($updated_items >= $max_updated_items) {
-        $this->logger->info('Proxy. Max number of updated items reached.');
+        $this->logger->debug('Proxy. Max number of updated items reached.');
         break;
       }
 
@@ -1061,6 +1061,41 @@ class DrupalProxy implements DrupalProxyInterface {
     }
 
     $this->logger->debug($msg, ['%items' => count($result)]);
+  }
+
+  /**
+   * Find single children entities.
+   *
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Cache entity.
+   *
+   * @return array
+   *   The list of single children entity IDs.
+   */
+  public function findSingleChildren(GroupexGoogleCacheInterface $entity) {
+    $singles = [];
+
+    // Singe event detection. Find ICS children.
+    $ics_children = $this->queryFactory->get('groupex_google_cache')
+      ->condition('field_gg_ics_par', $entity->field_gg_class_id->value)
+      ->execute();
+
+    if (empty($ics_children)) {
+      return $singles;
+    }
+
+    // Find pushed to google child entities of ICS child.
+    foreach ($ics_children as $ics_child) {
+      $ics_child_entity = $this->cacheStorage->load($ics_child);
+      $pushed_children = $this->queryFactory->get('groupex_google_cache')
+        ->condition('field_gg_class_id', $ics_child_entity->field_gg_class_id->value)
+        ->condition('field_gg_parent_ref.target_id', $ics_child)
+        ->execute();
+
+      $singles = array_merge($singles, $pushed_children);
+    }
+
+    return array_values(array_unique($singles));
   }
 
 }

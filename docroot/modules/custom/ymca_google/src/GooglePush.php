@@ -891,13 +891,16 @@ class GooglePush {
   public function pushNewEvent(GroupexGoogleCacheInterface $entity) {
     // Check whether the event was pushed.
     if ($entity->field_gg_google_event->value || $entity->field_gg_gcal_id->value) {
+      // @todo Never throw exception to skip item from loop.
       throw new \Exception('The event has been already pushed.');
     }
 
+    // Check whether there is at list one child.
     $children = $this->proxy->findChildren($entity->id());
     if (empty($children)) {
-      $msg = 'Skip pushing event. No children found. ID: %id.';
-      $this->logger->notice(
+      // No children. Let's wait for them.
+      $msg = 'No children found for Google Cache item %id. Waiting for the next step.';
+      $this->logger->debug(
         $msg,
         [
           '%id' => $entity->id(),
@@ -920,6 +923,41 @@ class GooglePush {
     // Set recurrence if available.
     if ($recurrence = $this->getRecurrence($entity)) {
       $event->setRecurrence([$recurrence]);
+
+      // Check whether there are single items.
+      $singles = $this->proxy->findSingleChildren($entity);
+      if (!empty($singles)) {
+        // Delete all singles to eliminate duplicates.
+        $singles_entities = $this->cacheStorage->loadMultiple($singles);
+        foreach ($singles_entities as $single_entity) {
+          // Remove single events from Google.
+          try {
+            $this->calEvents->delete(
+              $gcal_id,
+              $single_entity->field_gg_gcal_id->value
+            );
+
+            // Mark them updated to make instances of recurrent event.
+            // Update cache items and remove id to be updated on the next run.
+            $single_entity->set('field_gg_gcal_id', NULL);
+            $single_entity->set('field_gg_google_event', NULL);
+            $single_entity->set('field_gg_need_up', TRUE);
+            $single_entity->save();
+          }
+          catch (\Exception $e) {
+            $msg = 'Failed to delete google event with %gcal_id for entity %entity_id. Message: %msg.';
+            $this->logger->notice(
+              $msg,
+              [
+                '%gcal_id' => $gcal_id,
+                '%entity_id' => $single_entity->id(),
+                '%msg' => $e->getMessage(),
+              ]
+            );
+            return;
+          }
+        }
+      }
     }
 
     $created = $this->calEvents->insert($gcal_id, $event);
