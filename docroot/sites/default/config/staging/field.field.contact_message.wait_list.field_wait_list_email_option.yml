@@ -20,12 +20,37 @@ default_value:
     option_select: 0
     option_name: 'Highland Elementary '
     option_reference: null
-    option_emails: John.Bronson@YMCAtwincities.org
+    option_emails: 'robert.brewer@ymcamn.org,Kathleen.hajduk@ymcamn.org'
   -
     option_select: 0
     option_name: 'Deerwood Elementary '
     option_reference: null
-    option_emails: Casey.Christian@ymcatwincities.org
+    option_emails: 'Casey.Christian@ymcamn.org,Kathleen.hajduk@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Shannon Park Elementary'
+    option_reference: null
+    option_emails: 'paul.redmon@ymcamn.org,Kathleen.hajduk@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Diamond Path Elementary'
+    option_reference: null
+    option_emails: 'Peggy.LaCroix@ymcamn.org,Ryan.McGill@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Red Pine Elementary'
+    option_reference: null
+    option_emails: 'Peggy.LaCroix@ymcamn.org,Alana.Kniefel@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Parkview Elementary'
+    option_reference: null
+    option_emails: Lauren.Hibbing@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'River Crest Elementary'
+    option_reference: null
+    option_emails: Nicholas.Duchow@ymcamn.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

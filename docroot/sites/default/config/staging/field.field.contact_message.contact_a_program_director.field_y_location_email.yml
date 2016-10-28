@@ -20,7 +20,7 @@ default_value:
     option_select: 0
     option_name: 'Birch Lake Elementary Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Samantha.Montanari@ymcamn.org,Stephanie.Shadick@ymcamn.org,Lisa.Pearson@ymcamn.org'
+    option_emails: 'Heather.Ward@ymcamn.org,Stephanie.Shadick@ymcamn.org,Lisa.Pearson@ymcamn.org'
   -
     option_select: 0
     option_name: 'Eagan Early Childhood Learning Center'
@@ -55,12 +55,12 @@ default_value:
     option_select: 0
     option_name: 'St. Paul Midway Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Judi.Schmidt@ymcamn.org,Heather.Peterson@ymcamn.org,Stephanie.Shadick@ymcamn.org'
+    option_emails: 'Judi.Schmidt@ymcamn.org,Kia.Vue@ymcamn.org,Stephanie.Shadick@ymcamn.org'
   -
     option_select: 0
     option_name: 'Shoreview Early Childhood Learning Center'
     option_reference: null
-    option_emails: 'Melinda.Myers@ymcamn.org,Stephanie.Shadick@ymcamn.org'
+    option_emails: 'Carrie.Callison@ymcamn.org,Stephanie.Shadick@ymcamn.org,Lisa.Pearson@ymcamn.org'
   -
     option_select: 0
     option_name: 'Woodbury Preschool Academy'
