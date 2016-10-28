@@ -10,7 +10,7 @@ third_party_settings:
 id: wait_list
 label: 'Wait list'
 recipients:
-  - Kathleen.Hajduk@YMCAtwincities.org
+  - waitlist@ymcamn.org
 reply: ''
 weight: 0
 prefix: ''
@@ -24,5 +24,5 @@ email:
   custom: 1
   subject: 'Form submission - School-Age Care program at [contact_message:field_wait_list_email_option]'
   content:
-    value: "<p>A new submission was received from the \"School-Age care program wait list\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Location:&nbsp;</strong>[contact_message:field_wait_list_email_option]</p>\r\n\r\n<p><strong>Phone Number:&nbsp;</strong>[contact_message:field_phone_number]</p>\r\n\r\n<p><strong>Email Address:&nbsp;</strong>[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Child's first &amp; last name: </strong>&nbsp;[contact_message:field_child_first_and_last_name]</p>\r\n\r\n<p><b>Child's school:&nbsp;</b>[contact_message:field_school]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    value: "<p>A new submission was received from the \"School-Age care program wait list\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Location:&nbsp;</strong>[contact_message:field_wait_list_email_option]</p>\r\n\r\n<p><strong>Phone Number:&nbsp;</strong>[contact_message:field_phone_number]</p>\r\n\r\n<p><strong>Email Address:&nbsp;</strong>[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Child's first &amp; last name: </strong>&nbsp;[contact_message:field_child_first_and_last_name]</p>\r\n\r\n<p><b>Child's school:&nbsp;</b>[contact_message:field_school]</p>\r\n\r\n<p><b>Schedule Request:&nbsp;</b>[contact_message:field_schedule_request]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
     format: full_html

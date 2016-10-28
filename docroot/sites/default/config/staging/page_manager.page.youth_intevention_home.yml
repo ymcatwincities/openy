@@ -3,23 +3,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - user
     - ymca_page_manager
 third_party_settings:
   ymca_page_manager:
     author: '27056'
 id: youth_intevention_home
-label: 'Youth Intevention'
+label: 'Youth Intervention Services'
 use_admin_theme: false
-path: /youthintervention/home
+path: /our_cause/how_we_help/help_kids_thrive/youth_intervention_services
 access_logic: and
-access_conditions:
-  27942d42-25d3-4b14-a080-d80ccc64f9e3:
-    id: user_role
-    roles:
-      authenticated: authenticated
-    negate: false
-    context_mapping:
-      user: current_user
-    uuid: 27942d42-25d3-4b14-a080-d80ccc64f9e3
+access_conditions: {  }
 parameters: {  }

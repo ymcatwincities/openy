@@ -2040,6 +2040,80 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   padding-top: 50px;
   padding-bottom: 60px;
   background: #eee;
+
+  &.footer-themes-b {
+    background: #fff;
+    padding-top: 40px;
+    padding-bottom: 14px;
+
+    .ms-brand {
+      display: none;
+    }
+
+    &:before {
+      display: none;
+    }
+
+    .text-center {
+      display: none;
+    }
+
+    .richtext {
+      text-align: center;
+
+      h5, p {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+        font-size: 13px;
+        line-height: 20px;
+        color: #a8a8a8;
+      }
+    }
+
+    nav {
+      &.col-sm-6 {
+        width: 100%;
+        margin: 0;
+        float: none;
+      }
+
+      nav {
+        width: 100%;
+        padding: 0;
+      }
+
+      .nav {
+        text-align: center;
+
+        li {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+
+    .col-sm-3 {
+      &.social-disclaimer {
+        width: 100%;
+        margin: 0;
+      }
+    }
+
+    .list-inline {
+      text-align: center;
+      margin: 0 0 40px 0;
+
+      > li {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 12px;
+        padding: 0;
+        width: auto;
+      }
+    }
+  }
 }
 
 .footer-brand {
@@ -2096,6 +2170,7 @@ a.ms-brand:hover {
   text-decoration: none;
   font-size: 30px;
   font-family: 'YMCA';
+
   &:after {
     position: absolute;
     top: 0;
@@ -2113,6 +2188,18 @@ a.ms-brand:hover {
     text-align: center;
     font-size: 26px;
     font-family: icomoon;
+  }
+
+  .footer-themes-b & {
+    border: 3px solid #428bca;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    box-sizing: border-box;
+    line-height: 40px;
+    margin: 0;
+    font-size: 26px;
+
   }
 }
 
@@ -2150,6 +2237,10 @@ a.ms-brand:hover {
 
 .nav-footer {
   margin-bottom: 40px;
+
+  .footer-themes-b & {
+    margin-bottom: 30px;
+  }
 }
 
 .nav-home {
@@ -2475,13 +2566,24 @@ a.ms-brand:hover {
 }
 
 .nav-footer .nav > li > a {
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-radius: 2px;
     background: rgba(255, 255, 255, 0.69);
     -webkit-transition-duration: 0s;
     -moz-transition-duration: 0s;
     -ms-transition-duration: 0s;
     transition-duration: 0s;
+
+    .footer-themes-b & {
+      text-decoration: underline;
+    }
+  }
+
+  .footer-themes-b & {
+    font-family: 'Cachet';
+    font-size: 20px;
+    color: #a8a8a8;
   }
 }
 

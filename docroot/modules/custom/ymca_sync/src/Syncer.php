@@ -2,8 +2,6 @@
 
 namespace Drupal\ymca_sync;
 
-use Drupal\ymca_google\GcalGroupexWrapperInterface;
-
 /**
  * Class Syncer.
  *
