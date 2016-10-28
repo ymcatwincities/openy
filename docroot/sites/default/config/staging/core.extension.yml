@@ -11,6 +11,8 @@ module:
   block_content: 0
   block_content_access: 0
   breakpoint: 0
+  bulk_actions: 0
+  cache_size_guard: 0
   captcha: 0
   ckeditor: 0
   color: 0
@@ -28,6 +30,7 @@ module:
   ctools: 0
   datetime: 0
   dblog: 0
+  dbsize: 0
   default_content: 0
   draggableviews: 0
   dropzonejs: 0
@@ -61,6 +64,7 @@ module:
   layout_plugin: 0
   libraries: 0
   link: 0
+  logger_entity: 0
   mailsystem: 0
   menu_ui: 0
   metatag: 0
@@ -79,6 +83,7 @@ module:
   panels: 0
   parent_404: 0
   path: 0
+  personify_mindbody_sync: 0
   personify_sso: 0
   purge: 0
   purge_drush: 0
@@ -130,6 +135,7 @@ module:
   ymca_demo: 0
   ymca_entity_browser: 0
   ymca_entity_embed: 0
+  ymca_errors: 0
   ymca_field_custom_hours: 0
   ymca_field_holiday_hours: 0
   ymca_field_office_hours: 0
@@ -157,6 +163,7 @@ module:
   ymca_styleguide: 0
   ymca_sync: 0
   ymca_workflow: 0
+  yptf_master: 0
   menu_link_content: 1
   views: 10
 theme:

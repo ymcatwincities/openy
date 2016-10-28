@@ -68,7 +68,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
    * {@inheritdoc}
    */
   public function saveEntities() {
-    $this->logger->info('The Proxy has been started.');
+    $this->logger->debug('The Proxy has been started.');
 
     $proxy_data = [];
     $new = 0;
@@ -106,7 +106,7 @@ class PersonifyMindbodySyncProxy implements PersonifyMindbodySyncProxyInterface 
     $this->wrapper->setProxyData($proxy_data);
 
     $msg = 'The Proxy saved to database %num_saved cache items.';
-    $this->logger->info(
+    $this->logger->debug(
       $msg,
       [
         '%num_saved' => $new,
