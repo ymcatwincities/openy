@@ -150,6 +150,7 @@ function ymca_retention_update_8012() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'ymca_retention.general_settings.yml',
+      $path . 'views.settings.yml',
     ]
   );
 
