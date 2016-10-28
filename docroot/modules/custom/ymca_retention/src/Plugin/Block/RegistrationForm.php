@@ -34,12 +34,12 @@ class RegistrationForm extends BlockBase {
 
     $config = $this->getConfiguration();
 
-    $form['yteam'] = array (
+    $form['yteam'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Y Team user registration'),
       '#description' => $this->t('Select this checkbox if the registrations on this page will be done by Y Team.'),
       '#default_value' => isset($config['yteam']) ? $config['yteam'] : 0,
-    );
+    ];
 
     return $form;
   }
