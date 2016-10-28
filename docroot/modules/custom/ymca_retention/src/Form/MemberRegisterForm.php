@@ -35,13 +35,13 @@ class MemberRegisterForm extends FormBase {
     $obfuscated_email = $this->obfuscateEmail($personify_email);
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
-    if (empty($membership_id) || $config['team']) {
+    if (empty($membership_id) || $config['yteam']) {
       $form['membership_id'] = [
         '#type' => 'textfield',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $config['team'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+            $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
           ],
           'class' => [
             'facility-access-id',
@@ -74,7 +74,7 @@ class MemberRegisterForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $config['team'] ? $this->t('Register') :
+      '#value' => $config['yteam'] ? $this->t('Register') :
         (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
       '#attributes' => [
         'class' => [
@@ -198,7 +198,7 @@ class MemberRegisterForm extends FormBase {
         $form_state->set('personify_member', $personify_result);
         // TODO: personify_member should already have email address from Personify.
         $form_state->set('personify_email', 'fake_email_address@ymcamn.org');
-        if ($config['team']) {
+        if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
         }
         else {
@@ -236,7 +236,7 @@ class MemberRegisterForm extends FormBase {
       $entity = $this->updateEntity(key($result), $form_state);
     }
 
-    if ($config['team']) {
+    if ($config['yteam']) {
       $user_input = $form_state->getUserInput();
       unset($user_input['membership_id']);
       $form_state->setUserInput($user_input);
@@ -310,7 +310,7 @@ class MemberRegisterForm extends FormBase {
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,
-        'created_by_staff' => $config['team'],
+        'created_by_staff' => $config['yteam'],
       ]);
     $entity->save();
 
