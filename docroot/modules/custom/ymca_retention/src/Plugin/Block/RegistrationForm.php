@@ -22,7 +22,7 @@ class RegistrationForm extends BlockBase {
    */
   public function defaultConfiguration() {
     return [
-      'team' => FALSE,
+      'yteam' => 0,
     ];
   }
 
@@ -34,11 +34,11 @@ class RegistrationForm extends BlockBase {
 
     $config = $this->getConfiguration();
 
-    $form['team'] = array (
+    $form['yteam'] = array (
       '#type' => 'checkbox',
       '#title' => $this->t('Y Team user registration'),
       '#description' => $this->t('Select this checkbox if the registrations on this page will be done by Y Team.'),
-      '#default_value' => isset($config['team']) ? $config['team'] : '',
+      '#default_value' => isset($config['yteam']) ? $config['yteam'] : 0,
     );
 
     return $form;
@@ -48,7 +48,7 @@ class RegistrationForm extends BlockBase {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->setConfigurationValue('team', $form_state->getValue('team'));
+    $this->setConfigurationValue('yteam', $form_state->getValue('yteam'));
   }
 
   /**
@@ -59,14 +59,13 @@ class RegistrationForm extends BlockBase {
     AnonymousCookieStorage::delete('ymca_retention_member');
 
     $config = $this->getConfiguration();
-    $x = 1;
 
     $form = \Drupal::formBuilder()
       ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm', $config);
     return [
       '#theme' => 'ymca_retention_registration_form',
       '#form' => $form,
-      '#team' => $config['team'],
+      '#yteam' => $config['yteam'],
     ];
   }
 
