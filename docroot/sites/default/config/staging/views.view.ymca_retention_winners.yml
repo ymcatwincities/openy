@@ -74,13 +74,14 @@ display:
           row_class: ''
           default_row_class: true
           override: true
-          sticky: false
+          sticky: true
           caption: ''
           summary: ''
           description: ''
           columns:
             branch: branch
             membership_id: membership_id
+            personify_id: personify_id
             first_name: first_name
             last_name: last_name
             mail: mail
@@ -103,6 +104,13 @@ display:
               responsive: ''
             membership_id:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            personify_id:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
