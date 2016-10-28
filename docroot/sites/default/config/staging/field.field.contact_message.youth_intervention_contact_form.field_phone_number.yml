@@ -1,0 +1,21 @@
+uuid: eb63a1ae-8fb5-4f4c-85a6-0ef8a9b447d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.youth_intervention_contact_form
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.youth_intervention_contact_form.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: youth_intervention_contact_form
+label: 'Phone Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

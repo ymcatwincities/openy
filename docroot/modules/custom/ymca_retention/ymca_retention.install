@@ -146,17 +146,36 @@ function ymca_retention_update_8011() {
  * Update YMCA Retention settings.
  */
 function ymca_retention_update_8012() {
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'ymca_retention.general_settings.yml',
-    ]
-  );
-
   try {
     \Drupal::entityDefinitionUpdateManager()->applyUpdates();
   }
   catch (EntityStorageException $e) {
     watchdog_exception('update', $e);
   }
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'ymca_retention.general_settings.yml',
+      $path . 'page_manager.page.ymca_retention_challenge.yml',
+      $path . 'page_manager.page.ymca_retention_challenge_pages.yml',
+      $path . 'page_manager.page_variant.ymca_retention_challenge.yml',
+      $path . 'page_manager.page_variant.ymca_retention_challenge_default.yml',
+      $path . 'page_manager.page_variant.ymca_retention_challenge_team.yml',
+    ]
+  );
+}
+
+/**
+ * Update YMCA Retention Views.
+ */
+function ymca_retention_update_8013() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.settings.yml',
+      $path . 'views.view.ymca_members.yml',
+      $path . 'views.view.ymca_retention_winners.yml',
+    ]
+  );
 }
