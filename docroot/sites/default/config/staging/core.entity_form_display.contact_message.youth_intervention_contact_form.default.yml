@@ -1,0 +1,61 @@
+uuid: 61264fa4-6b55-4f6f-937d-aa471d5db4a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.youth_intervention_contact_form
+    - field.field.contact_message.youth_intervention_contact_form.field_comments
+    - field.field.contact_message.youth_intervention_contact_form.field_email_address
+    - field.field.contact_message.youth_intervention_contact_form.field_first_name
+    - field.field.contact_message.youth_intervention_contact_form.field_last_name
+    - field.field.contact_message.youth_intervention_contact_form.field_phone_number
+  module:
+    - ymca_alters
+id: contact_message.youth_intervention_contact_form.default
+targetEntityType: contact_message
+bundle: youth_intervention_contact_form
+mode: default
+content:
+  field_comments:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_email_address:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_last_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 3
+    settings:
+      placeholder: ''
+      validate_pattern: '\d{10}|\(\d{3}\)\d{3}-\d{4}'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+hidden:
+  copy: true
+  langcode: true
+  mail: true
+  message: true
+  name: true
+  subject: true

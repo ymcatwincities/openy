@@ -1,0 +1,19 @@
+uuid: dd45e319-f245-465e-82d5-ed5727e5f2d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.storage.contact_message.field_schedule_request
+id: contact_message.wait_list.field_schedule_request
+field_name: field_schedule_request
+entity_type: contact_message
+bundle: wait_list
+label: 'Schedule Request'
+description: '(ex: Monday – Friday AM, Tues/Thurs PM)'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
