@@ -1,6 +1,6 @@
 name: OpenY
 type: theme
-description: 'OpenY - YMCA specific theme'
+description: 'Default Open Y theme created from YMCA of Twin Cities' look and feel. YMCA brand compliant and customizable.'
 package: YMCA
 core: 8.x
 base theme: false
