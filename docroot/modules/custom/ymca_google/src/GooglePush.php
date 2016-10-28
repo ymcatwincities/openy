@@ -576,7 +576,7 @@ class GooglePush {
         );
 
         // Create single event here.
-        $this->pushSingleEvent($child_entity);
+        $this->pushChildEvent($child_entity);
         return;
       }
 
@@ -614,7 +614,7 @@ class GooglePush {
    *
    * @throws \Exception.
    */
-  private function pushSingleEvent(GroupexGoogleCacheInterface $entity) {
+  private function pushChildEvent(GroupexGoogleCacheInterface $entity) {
     // Check whether the event was pushed.
     if ($entity->field_gg_google_event->value || $entity->field_gg_gcal_id->value) {
       throw new \Exception('The event has been already pushed.');
