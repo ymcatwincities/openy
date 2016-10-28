@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
-    - field.field.node.blog.field_state
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
     - node.type.blog
@@ -16,7 +15,6 @@ dependencies:
     - file_browser
     - path
     - text
-    - workflowfield
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -68,11 +66,6 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
-  field_state:
-    weight: 26
-    settings: {  }
-    third_party_settings: {  }
-    type: workflow_default
   field_summary:
     weight: 8
     settings:
