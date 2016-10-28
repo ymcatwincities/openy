@@ -74,8 +74,7 @@ class MemberRegisterForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $config['yteam'] ? $this->t('Register') :
-        (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
+      '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
       '#attributes' => [
         'class' => [
           'btn',
