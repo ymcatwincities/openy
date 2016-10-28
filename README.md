@@ -35,7 +35,7 @@ If you want to reboot the VM
 vagrant halt
 vagrant up
 vagrant ssh
-docker drupal start
+docker start drupal
 docker exec drupal service mysql start
 ```
 

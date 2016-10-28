@@ -46,6 +46,7 @@
         attach: function (context) {
             var cookie = $.cookie('ab');
             var navigationHome = $(document).find('.nav-home');
+            var footerHome = $(document).find('.page-footer');
 
             if (cookie !== 'a' && cookie !== 'b') {
                 cookie = Math.round(Math.random()) == 1 ? 'b' : 'a';
@@ -54,9 +55,14 @@
                 if(navigationHome.hasClass('nav-themes-b')){
                     navigationHome.removeClass('nav-themes-b');
                 }
+
+                if (footerHome.hasClass('footer-themes-b')) {
+                    footerHome.removeClass('footer-themes-b');
+                }
             }
             if (cookie == 'b' && drupalSettings['ab_state'] == 1) {
                 navigationHome.addClass('nav-themes-b');
+                footerHome.addClass('footer-themes-b');
 
                 $.each(drupalSettings['ab'], function (index, value) {
                     $(context).find(value.selector).once('ab').each(function () {
