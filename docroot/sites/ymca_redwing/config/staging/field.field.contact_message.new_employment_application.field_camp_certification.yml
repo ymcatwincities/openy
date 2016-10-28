@@ -1,0 +1,23 @@
+uuid: f5008235-d5a0-4cb0-99ef-595482e46c71
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_camp_certification
+id: contact_message.new_employment_application.field_camp_certification
+field_name: field_camp_certification
+entity_type: contact_message
+bundle: new_employment_application
+label: 'I certify that all of the above information is true'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

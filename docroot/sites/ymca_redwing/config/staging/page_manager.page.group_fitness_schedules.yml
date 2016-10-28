@@ -1,0 +1,25 @@
+uuid: 72074869-e5b1-42db-b06d-a7edc9d6b255
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+    - ymca_page_manager
+third_party_settings:
+  ymca_page_manager:
+    author: '1'
+id: group_fitness_schedules
+label: 'Group Fitness Schedules'
+use_admin_theme: false
+path: /group_fitness
+access_logic: and
+access_conditions:
+  5a599682-0736-4eec-b0b9-5dcb9ff8ca27:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: current_user
+    uuid: 5a599682-0736-4eec-b0b9-5dcb9ff8ca27
+parameters: {  }
