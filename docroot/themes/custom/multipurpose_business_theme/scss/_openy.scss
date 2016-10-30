@@ -1,24 +1,36 @@
 @font-face {
   font-weight: normal;
   font-style: normal;
-  font-family: 'Cachet';
+  font-family: 'Cachet Bold';
   src: url(../fonts/cachetstd-bold-webfont.eot);
-  src: url(../fonts/cachetstd-bold-webfont.eot?#iefix) format("embedded-opentype"), url('../fonts/cachetstd-bold-webfont.woff') format("woff"), url(../fonts/cachetstd-bold-webfont.ttf) format("truetype"), url(../fonts/cachetstd-bold-webfont.svg#CachetStdnormal) format("svg");
+  src: url(../fonts/cachetstd-bold-webfont.eot?#iefix) format("embedded-opentype"),
+  url('../fonts/cachetstd-bold-webfont.woff') format("woff"),
+  url(../fonts/cachetstd-bold-webfont.ttf) format("truetype"),
+  url(../fonts/cachetstd-bold-webfont.svg#CachetStdnormal) format("svg");
 }
+
 @font-face {
   font-weight: normal;
   font-style: normal;
-  font-family: 'Cachet';
+  font-family: 'Cachet Book';
   src: url(../fonts/cachetstd-book-webfont.eot);
-  src: url(../fonts/cachetstd-book-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/cachetstd-book-webfont.woff) format("woff"), url(../fonts/cachetstd-book-webfont.ttf) format("truetype"), url(../fonts/cachetstd-book-webfont.svg#CachetStdBook) format("svg");
+  src: url(../fonts/cachetstd-book-webfont.eot?#iefix) format("embedded-opentype"),
+  url(../fonts/cachetstd-book-webfont.woff) format("woff"),
+  url(../fonts/cachetstd-book-webfont.ttf) format("truetype"),
+  url(../fonts/cachetstd-book-webfont.svg#CachetStdBook) format("svg");
 }
+
 @font-face {
   font-weight: 700;
   font-style: normal;
   font-family: 'Cachet';
   src: url(../fonts/cachetstd-medium-webfont.eot);
-  src: url(../fonts/cachetstd-medium-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/cachetstd-medium-webfont.woff) format("woff"), url(../fonts/cachetstd-medium-webfont.ttf) format("truetype"), url(../fonts/cachetstd-medium-webfont.svg#CachetStdMedium) format("svg");
+  src: url(../fonts/cachetstd-medium-webfont.eot?#iefix) format("embedded-opentype"),
+  url(../fonts/cachetstd-medium-webfont.woff) format("woff"),
+  url(../fonts/cachetstd-medium-webfont.ttf) format("truetype"),
+  url(../fonts/cachetstd-medium-webfont.svg#CachetStdMedium) format("svg");
 }
+
 .menu-base-theme a.is-active {
   text-decoration: underline;
 }
@@ -49,10 +61,11 @@
         display: none;
       }
     }
+
     .views-row:first-child {
       h2 {
         display: block;
-        font-size: 50px;
+        font-size: 40px;
         color: $pink;
         margin-bottom: 40px;
         @media screen and (max-width: 767px) {
@@ -62,16 +75,7 @@
           color: $pink;
         }
       }
-      p {
-        max-width: 715px;
-        font-size: 20px;
-        line-height: 25px;
-        text-align: center;
-        margin: 0 auto 100px;
-        @media screen and (max-width: 767px) {
-          margin: 0 30px 40px;
-        }
-      }
+
       ul {
         list-style: none;
         overflow: hidden;
@@ -245,34 +249,12 @@
 }
 
 .get-started-with-open-y {
-  background-color: $grey1;
-  padding: 25px 0 25px;
-  @media screen and (min-width: 768px) {
-    -webkit-clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
-    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
-    padding: 80px 0 25px;
-  }
-  .container {
-    @media screen and (max-width: 767px) {
-      padding: 0;
-    }
-  }
-  h2 {
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 40px;
-    margin-bottom: 50px;
-    @media screen and (max-width: 767px) {
-      font-size: 20px;
-      margin-bottom: 25px;
-    }
-  }
-
   p {
     text-align: center;
     font-size: 20px;
     line-height: 25px;
     margin-bottom: 40px;
+
     @media screen and (max-width: 767px) {
       font-size: 16px;
       line-height: 20px;
@@ -280,20 +262,6 @@
       br {
         display: none;
       }
-    }
-  }
-
-  .contact {
-    text-align: center;
-    margin-bottom: 50px;
-    p {
-      color: $blue-dark;
-    }
-    .btn {
-      background: $blue;
-      padding: 10px 20px;
-      border-radius: 2px;
-      font-size: 20px;
     }
   }
 
@@ -409,7 +377,7 @@
     margin-bottom: 50px;
   }
   h3 {
-    font-size: 30px;
+    font-size: 20px;
     margin-bottom: 20px;
     @media screen and (max-width: 767px) {
       font-size: 16px;
@@ -426,30 +394,17 @@
       line-height: 18px;
     }
   }
-  a {
-    font-size: 20px;
-    line-height: 25px;
-  }
 }
 
 .bottom-widgets {
-  h2 {
-    text-align: center;
-    font-size: 40px;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-  }
   .row .region {
     background: none;
     box-shadow: none;
 
     p {
-      font-size: 20px;
-      line-height: 25px;
-      text-align: center;
       @media screen and (max-width: 767px) {
-        font-size: 14px;
-        line-height: 18px;
+        /* font-size: 14px; */
+        /* line-height: 18px; */
       }
       .morecontent span {
         display: none;
@@ -460,50 +415,25 @@
     img {
       margin: 0;
     }
-    @media screen and (min-width: 992px) {
-      &:nth-child(1) img {
-        margin: 10px 0 16px;
-      }
-      &:nth-child(2) img {
-        margin-bottom: 10px;
-      }
-      &:nth-child(3) img {
-        margin: 10px 0 12px;
-      }
-      &:nth-child(4) img {
-        margin: 43px 0 40px;
-      }
-    }
-    @media screen and (min-width: 1200px) {
-      &:nth-child(1) img {
-        margin: 15px 0 20px;
-      }
-      &:nth-child(2) img {
-        margin-bottom: 0;
-      }
-      &:nth-child(3) img {
-        margin: 15px 0 12px;
-      }
-      &:nth-child(4) img {
-        margin: 58px 0 48px;
-      }
-    }
   }
 }
 
 .open_y_container {
   ul {
     list-style: none;
+    padding: 0;
+    clear: both;
+    overflow: hidden;
+
     li {
-      font-size: 23px;
-      padding-bottom: 20px;
-      &:before {
-        content: '';
-        display: block;
-        width: 20px;
-        border-top: 2px solid $blue;
-        margin: 0 auto 20px;
-        color: white;
+      font-size: 24px;
+      width: (100% / 3);
+      padding: 0 30px 20px;
+      box-sizing: border-box;
+      float: left;
+
+      @media screen and (max-width: 767px) {
+        width: 100%;
       }
     }
 
@@ -586,9 +516,14 @@
     padding: 2% 2% 10%;
 
     h2 {
-      font-size: 110px;
+      font-size: 50px;
       color: white;
-      margin-bottom: 20px;
+      margin: 0 auto 82px;
+      display: inline-block;
+      vertical-align: top;
+      line-height: 82px;
+      padding: 0 0 34px;
+      border-bottom: 2px solid #fff;
       @media screen and (min-width: 768px) and (max-width: 991px) {
         font-size: 50px;
       }
@@ -607,8 +542,7 @@
       }
     }
     .flex-description {
-      max-width: 600px;
-      margin: 0 auto 80px;
+      margin: 0 auto 0;
       @media screen and (min-width: 768px) and (max-width: 991px) {
         margin-bottom: 40px;
       }
