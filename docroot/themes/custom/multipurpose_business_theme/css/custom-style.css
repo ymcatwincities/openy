@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700);
 
-/* --------------------------------------------- 
+/* ---------------------------------------------
 * Filename:     custom-style.css
 * Version:      1.0.0 (2016-01-30)
 * Website:      http://www.zymphonies.com
@@ -14,7 +14,7 @@ body{
   font-family: 'Cachet', 'Roboto', sans-serif;
   font-size: 16px;
   overflow-x: hidden;
-  color: #777;
+  //color: #777;
 }
 
 p{ margin: 0 0 20px 0; }
@@ -65,7 +65,7 @@ ul.links.inline li{
 .main-header{
   background: #0288d1;
   font-family: 'Cachet', 'Roboto Slab', serif;
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   z-index: 999;
   position: relative;
   -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
@@ -85,7 +85,7 @@ ul.links.inline li{
 }
 
 .main-banner{
-  background: url(../images/welcome_banner_bg.jpg);  
+  background: url(../images/welcome_banner_bg.jpg);
   color: #fff;
   padding: 10px 0;
   margin-bottom: 20px;
@@ -118,20 +118,24 @@ header nav{
 
 /*Region Header*/
 
-.site-branding{
-  margin: 0;
-  padding: 5px 0;
-}
+//**new themes**//
+/* .site-branding{ */
+/*   margin: 0; */
+/*   padding: 5px 0; */
+/* } */
+//**new themes**//
 
 .brand.logo{
   margin-right: 5px;
 }
 
-.region-header .brand{
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 100%;
-}
+//**new themes**//
+/* .region-header .brand{ */
+/*   display: inline-block; */
+/*   vertical-align: middle; */
+/*   line-height: 100%; */
+/* } */
+//**new themes**//
 
 .site-name a{
   font-size: 34px;
@@ -274,22 +278,6 @@ ul.footer_links li:last-child,
   display: inline-block;
 }
 
-/* Bottom Widgets*/
-
-.bottom-widgets{
-  text-align: center;
-  background: #FDFDFD;
-  border-width: 1px 0;
-  border-style: solid;
-  border-color: #eee;
-}
-
-.bottom-widgets .region{
-  padding: 10px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
 /*Footer Menu*/
 
 .footer-menu{
@@ -405,7 +393,7 @@ input[type=file] {
   display: block;
 }
 
-.btn, 
+.btn,
 input[type="submit"]{
   border-color: rgba(0, 0, 0, 0.1);
   background: #ffab40;
@@ -419,7 +407,7 @@ input[type="submit"]{
   padding: 5px 10px;
 }
 
-.btn:hover, 
+.btn:hover,
 input[type="submit"]:hover{
   border-color: rgba(0, 0, 0, 0.1);
   background: #ffa431;
@@ -482,21 +470,21 @@ input[type="submit"]:hover{
   border: 0;
 }
 
-.navbar-toggle { 
-  cursor: pointer; 
-  padding: 10px 35px 16px 0px; 
+.navbar-toggle {
+  cursor: pointer;
+  padding: 10px 35px 16px 0px;
 }
 
-.navbar-toggle span, 
-.navbar-toggle span:before, 
-.navbar-toggle span:after {  
-  cursor: pointer;  
-  border-radius: 1px;  
-  height: 4px;  
-  width: 30px;  
-  background: white;  
-  position: absolute;  
-  display: block;  
+.navbar-toggle span,
+.navbar-toggle span:before,
+.navbar-toggle span:after {
+  cursor: pointer;
+  border-radius: 1px;
+  height: 4px;
+  width: 30px;
+  background: white;
+  position: absolute;
+  display: block;
   content: '';
 }
 
@@ -508,8 +496,8 @@ input[type="submit"]:hover{
   bottom: -10px;
 }
 
-.navbar-toggle span, 
-.navbar-toggle span:before, 
+.navbar-toggle span,
+.navbar-toggle span:before,
 .navbar-toggle span:after {
   transition: all 500ms ease-in-out;
 }
@@ -518,7 +506,7 @@ input[type="submit"]:hover{
   background-color: transparent;
 }
 
-.navbar-toggle.openMenu span:before, 
+.navbar-toggle.openMenu span:before,
 .navbar-toggle.openMenu span:after {
   top: 0;
 }
@@ -549,12 +537,14 @@ nav h2{
   z-index: 9999;
 }
 
-.region-primary-menu{
-  display: none;
-  background: #fff;
-  border-radius: 3px;
-  width: 100%;
-}
+//**new themes**//
+/* .region-primary-menu{ */
+/*   display: none; */
+/*   background: #fff; */
+/*   border-radius: 3px; */
+/*   width: 100%; */
+/* } */
+//**new themes**//
 
 .menu-base-theme a{
   border-bottom: 1px solid #EEF0F7;
@@ -567,7 +557,7 @@ nav h2{
   border-radius: 2px;
   border: 1px solid #DCDCDC;
   background: #EFEFEF;
-} 
+}
 
 .navbar-toggle{
   z-index: 999;
@@ -661,11 +651,11 @@ nav h2{
   border-top: 0;
 }
 
-.bd-example-type h1, 
-.bd-example-type h2, 
-.bd-example-type h3, 
-.bd-example-type h4, 
-.bd-example-type h5, 
+.bd-example-type h1,
+.bd-example-type h2,
+.bd-example-type h3,
+.bd-example-type h4,
+.bd-example-type h5,
 .bd-example-type h6 {
   margin: 0;
 }
@@ -735,7 +725,7 @@ nav h2{
   display: none;
 }
 
-.form-composite > .fieldset-wrapper > .description, 
+.form-composite > .fieldset-wrapper > .description,
 .form-item .description {
   font-size: 11px;
   color: #999;
@@ -960,7 +950,7 @@ ul.links.inline li{
 }
 
 .features-alt_intro {
-  color: #777777;
+  //color: #777777;
 }
 
 /*Gallery*/
@@ -979,7 +969,7 @@ ul.links.inline li{
 
 .gallery-image img{
   width: 100%;
-  height: 100%;  
+  height: 100%;
 }
 
 .gallery-overlay{
