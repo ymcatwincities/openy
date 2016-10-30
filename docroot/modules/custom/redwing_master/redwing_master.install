@@ -206,3 +206,29 @@ function redwing_master_update_8009() {
 function redwing_master_update_8010() {
   \Drupal::service('module_installer')->install(['bulk_actions'], TRUE);
 }
+
+/**
+ * YMCA-1175: Disable mobile menu sign in.
+ */
+function redwing_master_update_8011() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'ymca.settings.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1237: Setup google analytics.
+ */
+function redwing_master_update_8012() {
+  \Drupal::service('module_installer')->install(['google_analytics'], TRUE);
+  // Uninstall unused module for now.
+  \Drupal::service('module_installer')->uninstall(['google_tag']);
+
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'google_analytics.settings.yml',
+    ]
+  );
+}

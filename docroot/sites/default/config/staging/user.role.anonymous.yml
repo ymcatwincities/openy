@@ -18,3 +18,4 @@ permissions:
   - 'access YMCA locations'
   - 'access YMCA location schedules'
   - 'access Personal Training forms'
+  - 'book personal training time slots'

@@ -34,7 +34,7 @@ display:
         options:
           perm: 'access personify mindbody sync log'
       cache:
-        type: tag
+        type: none
         options: {  }
       query:
         type: views_query
@@ -814,7 +814,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          order: DESC
+          order: ASC
           exposed: false
           expose:
             label: ''
@@ -831,9 +831,19 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'The dates are presented in Personify Timezone (America/Chicago).'
+            value: 'The dates are presented in Personify Timezone (America/Chicago). <br />'
             format: full_html
           plugin_id: text
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
       footer: {  }
       empty: {  }
       relationships: {  }
@@ -1559,9 +1569,19 @@ display:
           empty: true
           tokenize: false
           content:
-            value: "The dates are presented in Personify Timezone (America/Chicago).\nThis page displays pushed orders without MindBody Sale ID."
+            value: "The dates are presented in Personify Timezone (America/Chicago).\nThis page displays pushed orders without MindBody Sale ID. <br />"
             format: full_html
           plugin_id: text
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
     cache_metadata:
       max-age: 0
       contexts:
