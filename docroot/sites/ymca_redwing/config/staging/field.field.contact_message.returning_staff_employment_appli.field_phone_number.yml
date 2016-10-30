@@ -1,0 +1,21 @@
+uuid: cd536ded-8d75-4ea0-a152-5887717bbd3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.returning_staff_employment_appli
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.returning_staff_employment_appli.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: returning_staff_employment_appli
+label: 'Phone Number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

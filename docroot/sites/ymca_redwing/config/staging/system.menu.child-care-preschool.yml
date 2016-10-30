@@ -3,6 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: child-care-preschool
-label: 'Child Care & Preschool'
+label: 'Child Watch '
 description: 'Subtree of pages'
 locked: false

@@ -10,6 +10,7 @@ dependencies:
     - field.field.contact_message.wait_list.field_label
     - field.field.contact_message.wait_list.field_last_name
     - field.field.contact_message.wait_list.field_phone_number
+    - field.field.contact_message.wait_list.field_schedule_request
     - field.field.contact_message.wait_list.field_school
     - field.field.contact_message.wait_list.field_wait_list_email_option
   module:
@@ -59,6 +60,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_schedule_request:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_school:
     weight: 7
     label: above

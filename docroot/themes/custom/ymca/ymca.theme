@@ -491,7 +491,7 @@ function ymca_preprocess_html(&$variables) {
     $variables['page']['#attached']['html_head_link'] = [[[
       'rel' => 'shortcut icon',
       'href' => file_create_url($file->getFileUri()),
-      'type' => $file->getMimeType()
+      'type' => $file->getMimeType(),
     ]]];
   }
 }
@@ -543,6 +543,9 @@ function ymca_preprocess_page(&$variables) {
     $site_section_bundle = $site_section->bundle();
     $variables['site_section'] = $site_section;
     $variables['working_hours'] = '';
+    $variables['bundle_count'] = count(\Drupal::entityQuery('node')
+      ->condition('type', $site_section_bundle)
+      ->execute());
     if ($site_section_bundle == 'location') {
       /* @var \Drupal\Core\Field\FieldItemListInterface $items */
       $items = $site_section->field_working_hours->getValue()[0]['target_id'];
@@ -632,6 +635,9 @@ function ymca_preprocess_page(&$variables) {
     $variables['search_view_content_path'] = '';
     \Drupal::logger('ymca')->error('Route "%route" does not exist.', array('%route' => $route_name));
   }
+
+  // Hide/Show mobile sign in button.
+  $variables['hide_mobile_sign_button'] = (bool) theme_get_setting('hide_mobile_sign_button');
 }
 
 /**
@@ -1500,12 +1506,22 @@ function ymca_form_system_theme_settings_alter(&$form, FormStateInterface $form_
       'file_validate_extensions' => array('ico png')
     )
   );
+
+  // Header search.
   $form['ymca_settings']['header_search'] = array(
     '#type' => 'checkbox',
     '#title' => t('Header Location Search form'),
     '#default_value' => (theme_get_setting('header_search') === NULL) ? TRUE : theme_get_setting('header_search'),
     '#description' => t('Denote if you need it enabled sitewide.'),
   );
+
+  // Mobile sign button
+  $form['ymca_settings']['hide_mobile_sign_button'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Hide mobile sign in button'),
+    '#default_value' => (theme_get_setting('hide_mobile_sign_button') === NULL) ? FALSE : theme_get_setting('hide_mobile_sign_button'),
+    '#description' => t('Do not show mobile sign in button.'),
+  ];
 }
 
 /**

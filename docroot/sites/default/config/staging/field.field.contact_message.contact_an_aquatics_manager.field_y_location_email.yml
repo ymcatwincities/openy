@@ -20,7 +20,7 @@ default_value:
     option_select: 0
     option_name: Blaisdell
     option_reference: '5'
-    option_emails: Jennifer.Myers@ymcamn.org
+    option_emails: Darla.Hansen@ymcamn.org
   -
     option_select: 0
     option_name: Burnsville
@@ -35,12 +35,12 @@ default_value:
     option_select: 0
     option_name: 'Elk River'
     option_reference: '8'
-    option_emails: darrin.christiansen@ymcamn.org
+    option_emails: Becky.Coons@ymcamn.org
   -
     option_select: 0
     option_name: 'Emma B. Howe - Coon Rapids'
     option_reference: '9'
-    option_emails: Allison.Sladek@ymcamn.org
+    option_emails: Julia.Ruohomaki@ymcamn.org
   -
     option_select: 0
     option_name: Hastings
@@ -70,12 +70,12 @@ default_value:
     option_select: 0
     option_name: 'Ridgedale - Minnetonka'
     option_reference: '17'
-    option_emails: Bruce.Nielsen@ymcamn.org
+    option_emails: Meagan.Matrejek@ymcamn.org
   -
     option_select: 0
     option_name: 'River Valley - Prior Lake'
     option_reference: '18'
-    option_emails: Jared.Cardarelle@ymcamn.org
+    option_emails: Lynn.Sainati@ymcamn.org
   -
     option_select: 0
     option_name: 'St. Paul Downtown'

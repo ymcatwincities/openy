@@ -23,7 +23,7 @@ header_buttons_color1_locations: '#9c1f7b'
 header_buttons_color2_locations: '#b92f9e'
 header_buttons_color1_camps: '#019c86'
 header_buttons_color2_camps: '#2fb998'
-header_search: false
+header_search: 0
 camps_links_color: '#01a490'
 camps_links_color_hover: ''
 logo:
@@ -35,3 +35,4 @@ logo_camps: {  }
 ymca_favicon_default: {  }
 ymca_favicon_camp: {  }
 ymca_favicon_location: {  }
+hide_mobile_sign_button: 1
