@@ -1,0 +1,3 @@
+active_syncers:
+  - personify_mindbody_sync.syncer_fast
+  - ymca_google.syncer

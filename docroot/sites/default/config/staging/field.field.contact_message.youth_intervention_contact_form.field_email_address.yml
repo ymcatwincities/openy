@@ -1,0 +1,21 @@
+uuid: 5c5b99b7-761d-4397-9275-cba161c2924c
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.youth_intervention_contact_form
+    - field.storage.contact_message.field_email_address
+id: contact_message.youth_intervention_contact_form.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: youth_intervention_contact_form
+label: 'E-mail Address'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: user@email.com
+default_value_callback: ''
+settings: {  }
+field_type: email
