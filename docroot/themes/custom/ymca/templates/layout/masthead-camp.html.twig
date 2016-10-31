@@ -20,7 +20,11 @@
 				</span>
 			</div>
 			<div class="col-sm-4 text-center masthead-button" id="masthead-button">
-				<a id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
+				{% if not node.field_register_button_link.0.uri %}
+					<a id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
+				{% else %}
+					<a href="{{ node.field_register_button_link.0.uri }}" id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
+        {% endif %}
 			</div>
 		</div>
 	</div>

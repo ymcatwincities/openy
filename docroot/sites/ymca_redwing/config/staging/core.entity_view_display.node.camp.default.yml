@@ -14,11 +14,13 @@ dependencies:
     - field.field.node.camp.field_main_promos
     - field.field.node.camp.field_phone
     - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_register_button_link
     - field.field.node.camp.field_registration_block
     - field.field.node.camp.field_subtitle
     - node.type.camp
   module:
     - address
+    - link
     - text
     - user
 id: node.camp.default
@@ -101,6 +103,17 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_register_button_link:
+    weight: 13
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
   field_registration_block:
     weight: 9
     label: above
