@@ -116,8 +116,26 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
             $metadata->mergeConstraints($this->getMetadataFor($parent->name));
         }
 
-        // Include constraints from all implemented interfaces
-        foreach ($metadata->getReflectionClass()->getInterfaces() as $interface) {
+        $interfaces = $metadata->getReflectionClass()->getInterfaces();
+
+        $interfaces = array_filter($interfaces, function ($interface) use ($parent, $interfaces) {
+            $interfaceName = $interface->getName();
+
+            if ($parent && $parent->implementsInterface($interfaceName)) {
+                return false;
+            }
+
+            foreach ($interfaces as $i) {
+                if ($i !== $interface && $i->implementsInterface($interfaceName)) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        // Include constraints from all directly implemented interfaces
+        foreach ($interfaces as $interface) {
             if ('Symfony\Component\Validator\GroupSequenceProviderInterface' === $interface->name) {
                 continue;
             }

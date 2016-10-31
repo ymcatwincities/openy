@@ -2,6 +2,7 @@
 .footer-wrapper {
   margin: 0 auto;
   max-width: 650px;
+  width: 100%;
 }
 
 .block-social {
@@ -31,12 +32,19 @@
   background-size: cover;
   background-position: center center;
 
+  * {
+    font-size: 13px;
+  }
+
   &__content {
     margin: 0 auto;
   }
 
   .padding_top {
     padding-top: 20px;
+  }
+  .padding_bottom {
+    padding-bottom: 10px;
   }
 
   &__inner {
@@ -55,17 +63,29 @@
 
   &__phone-mail {
     a {
-      padding-right: 35px;
       white-space: nowrap;
     }
   }
 
+  .margin {
+    width: 70px;
+  }
+
   .opacity {
-    opacity: 0.4;
+    color: #e08dc4;
+
+    &-blue {
+      color: #7bbfe3;
+    }
+
+    &-green {
+      color: #7cd7cb;
+    }
   }
 
   &--programs-classes {
     background-color: $blue;
+
   }
 
   &--camps-summer {
@@ -93,6 +113,7 @@
   &__top {
     color: $gray-a7;
     margin-bottom: 20px;
+    padding: 0 10px;
   }
 
   &__bottom{

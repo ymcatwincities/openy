@@ -1,5 +1,39 @@
 (function ($) {
+  // It closes the ui dialog on an outside click.
+  drupalSettings.dialog.open = function(event) {
+    $('.ui-widget-overlay').on('click', function() {
+      $(event.target).dialog('close');
+    });
+  }
+
   var ymca_theme_semaphore = false;
+
+  /**
+   * Scroll to the hash anchor.
+   */
+  Drupal.behaviors.ymca_page_with_hash = {
+    attached: false,
+    attach: function (context, settings) {
+      var hash = $(window).attr('location').hash;
+      var ismembership = window.location.pathname.endsWith("membership");
+      if (hash && !this.attached && !ismembership) {
+        window.setTimeout(function() {
+          var menuHeight = $('.top-navs').height();
+          var top = $(hash).offset().top;
+          if ($('.top-navs').height() == 0) {
+            // For mobile state.
+            $(document).scrollTop(top - 52);
+          }
+          else {
+            // Destop mode.
+            $(document).scrollTop(top - 113);
+          }
+        }, 1000);
+        this.attached = true;
+      }
+    }
+  };
+
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
       

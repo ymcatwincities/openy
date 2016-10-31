@@ -208,4 +208,38 @@ class PersonifySso {
     return FALSE;
   }
 
+  /**
+   * Get customer identifier.
+   *
+   * @param string $token
+   *   Encrypted token.
+   *
+   * @return string|bool
+   *   Customer identifier.
+   */
+  public function getCustomerIdentifier($token) {
+    $params = [
+      'vendorUsername' => $this->vendorUsername,
+      'vendorPassword' => $this->vendorPassword,
+      'customerToken' => $token,
+    ];
+
+    try {
+      $response = $this->client->TIMSSCustomerIdentifierGet($params);
+
+      // Here we'll remove strange "|0" symbols at the end of ID.
+      $id = $response->TIMSSCustomerIdentifierGetResult->CustomerIdentifier;
+      $pos = strpos($id, '|');
+      if (FALSE !== $pos) {
+        $id = substr_replace($id, '', $pos);
+      }
+      return $id;
+    }
+    catch (\Exception $e) {
+      watchdog_exception('personify_sso', $e);
+    }
+
+    return FALSE;
+  }
+
 }

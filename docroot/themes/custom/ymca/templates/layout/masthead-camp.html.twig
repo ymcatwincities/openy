@@ -1,9 +1,11 @@
 <section class="masthead location-masthead">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12 back-link">
-        {{ link('Back to All Camps'|t, 'base:camps') }}
-			</div>
+			{%  if bundle_count > 1 %}
+				<div class="col-lg-12 back-link">
+        			{{ link('Back to All Camps'|t, 'base:camps') }}
+				</div>
+			{% endif %}
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
@@ -33,7 +35,7 @@
 		</div>
 		<div class="row collapse directions-hours" id="directions-hours">
 			<div class="directions-hours-inner">
-				<div class="col-sm-3 col-md-2 phone clearfix">
+				<div class="col-sm-5 col-md-3 phone clearfix">
 					<span class="tel">
 						<span class="glyphicon glyphicon-earphone bullet"></span>
             {{ node.field_phone.0.value }}
@@ -65,7 +67,7 @@
 				</div>
 
 				<hr class="visible-xs">
-				<div class="hours col-lg-4 col-md-4 col-sm-4 clearfix">
+				<div class="hours col-lg-3 col-md-3 col-sm-2 clearfix">
 
           <a
 						data-toggle="collapse"

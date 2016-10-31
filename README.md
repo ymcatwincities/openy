@@ -30,6 +30,15 @@ Helpful commands
 - docker rmi -f <image_name_or_hash> # removes image (all dependant containers should be removed beforehand)
 - http://192.168.56.132/adminer.php?server=172.18.0.2&username=root access to local dev dbs
 
+If you want to reboot the VM
+```sh
+vagrant halt
+vagrant up
+vagrant ssh
+docker start drupal
+docker exec drupal service mysql start
+```
+
 ### Reinstall only YGTC site
 
 Unix users

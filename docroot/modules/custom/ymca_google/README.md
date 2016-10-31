@@ -2,6 +2,15 @@
 
 Syncs Groupex schedules with Google calendar.
 
+### How to test
+
+```
+\Drupal::service('ymca_google.test_manager')->setTestMode();
+```
+```
+drush php-eval "\Drupal::service('ymca_google.test_manager')->setTestMode();"
+```
+
 ### How to deploy
 
 In order to prevent test data to be push to production `is_production` flag was implemented. By default is always FALSE.
@@ -15,6 +24,10 @@ drush cset ymca_google.settings is_production 1
 
 ```
 ymca_sync_run("ymca_google.syncer", "proceed");
+```
+
+```
+drush php-eval "ymca_sync_run('ymca_google.syncer', 'proceed');"
 ```
 
 ### How to rebuild the schedule
@@ -41,9 +54,21 @@ If `is_production` flag is set to 0 then all events are pushed to calendar named
 ```
 \Drupal::service('ymca_google.pusher')->clearCache();
 ```
+```
+drush php-eval "\Drupal::service('ymca_google.pusher')->clearCache();"
+```
 
 #### Remove schedule
 
 ```
 \Drupal::service('ymca_google.groupex_wrapper')->removeSchedule();
+```
+
+#### Prune Cache
+
+```
+\Drupal::service('ymca_google.drupal_proxy')->pruneCache();
+```
+```
+drush php-eval "\Drupal::service('ymca_google.drupal_proxy')->pruneCache();"
 ```

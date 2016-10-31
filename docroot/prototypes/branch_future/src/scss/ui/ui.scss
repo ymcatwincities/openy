@@ -1,0 +1,27 @@
+.progress--small {
+  background: #6d4e92;
+  width: 100%;
+  border-radius: 2px;
+  margin: 8px 0;
+  overflow: hidden;
+  height: 4px;
+
+  .progress-bar {
+    background: #c6168d;
+    height: inherit;
+  }
+}
+
+.progress--medium {
+  background: #f7f7f7;
+  width: 100%;
+  border-radius: 4px;
+  margin: 8px 0;
+  overflow: hidden;
+  height: 8px;
+
+  .progress-bar {
+    background: #c6168d;
+    height: inherit;
+  }
+}

@@ -307,7 +307,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: "<div class=\"col-md-3 sidebar-promos promos hidden-sm visible-xs\">\n                    <article class=\"richtext\" id=\"component_504752\"><h3>Media Contact</h3>\n<p><strong style=\"font-size:1.2em;\">Joan Schimml<br /></strong>Senior Director of Communications and Marketing</p>\n<p><strong>Email Joan</strong></p>\n<p><a href=\"mailto:joan.schimml@ymcatwincities.org\">joan.schimml@ymcatwincities.org</a></p></article>\n\n                </div>"
+          content: "<div class=\"col-md-3 sidebar-promos promos hidden-sm visible-xs\">\n                    <article class=\"richtext\" id=\"component_504752\"><h3>Media Contact</h3>\n<p><strong style=\"font-size:1.2em;\">Joan Schimml<br /></strong>Senior Director of Communications and Marketing</p>\n<p><strong>Email Joan</strong></p>\n<p><a href=\"mailto:joan.schimml@ymcamn.org\">joan.schimml@ymcamn.org</a></p></article>\n\n                </div>"
           plugin_id: text_custom
     cache_metadata:
       max-age: -1
