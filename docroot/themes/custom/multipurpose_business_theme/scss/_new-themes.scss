@@ -36,9 +36,16 @@ body {
 }
 
 .main-header {
-  .col-md-9 {
-    width: 50%;
+  .col-navbar {
+    text-align: center;
 
+    .region-primary-menu {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  .col-md-6 {
     @media screen and (max-width: 767px) {
       width: 100%;
       padding: 0;
@@ -606,6 +613,77 @@ body {
 
     @media (max-width: 500px) {
       width: 100%;
+    }
+  }
+}
+
+.footer {
+  font-family: 'Cachet Book';
+  background: #0288d1;
+  color: #fff;
+
+  .region-footer-menu {
+    @media (max-width: 991px) {
+      text-align: center;
+    }
+  }
+
+  .menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    clear: both;
+    overflow: hidden;
+
+    @media (max-width: 991px) {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    li {
+      float: left;
+    }
+
+    a {
+      display: block;
+      padding: 34px 20px;
+      color: inherit;
+
+      @media (max-width: 991px) {
+        padding: 24px 16px;
+      }
+
+      @media (max-width: 767px) {
+        padding: 14px 10px;
+      }
+    }
+  }
+
+  .copyright {
+    text-align: right;
+    opacity: .4;
+    padding: 34px 20px;
+
+    @media (max-width: 991px) {
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    @media (max-width: 767px) {
+        padding: 14px 10px;
+    }
+  }
+
+  .col-md-6 {
+    &:empty {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
     }
   }
 }

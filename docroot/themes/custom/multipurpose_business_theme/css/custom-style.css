@@ -210,24 +210,6 @@ header nav{
   margin: 10px 10px 0 0;
 }
 
-.copyright{
-  background: #0288D1;
-  color: #fff;
-  position: relative;
-  z-index: 1;
-  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
-}
-
-.copyright p{
-  margin: 13px 0;
-}
-
-.copyright a{
-  color: #8CD1F7;
-}
-
 .footerwidget h2,
 .footerwidget .h2{
   color: #FFF;
@@ -276,31 +258,6 @@ ul.footer_links li:last-child,
   font-size: 9px;
   color: #fff;
   display: inline-block;
-}
-
-/*Footer Menu*/
-
-.footer-menu{
-  margin: 0;
-  border: 0;
-  background: #0288d1;
-  color: #fff;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer-menu ul{
-  margin: 10px 0;
-  padding: 0;
-}
-
-.footer-menu nav li{
-  display: inline-block;
-}
-
-.footer-menu nav li a{
-  display: block;
-  padding: 4px 20px 4px 0;
-  color: #fff;
 }
 
 .google-map-wrap{

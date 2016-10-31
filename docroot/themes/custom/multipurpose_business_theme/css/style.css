@@ -617,11 +617,15 @@ body {
   }
 }
 
-.main-header .col-md-9 {
-  width: 50%;
+.main-header .col-navbar {
+  text-align: center;
+}
+.main-header .col-navbar .region-primary-menu {
+  display: inline-block;
+  vertical-align: top;
 }
 @media screen and (max-width: 767px) {
-  .main-header .col-md-9 {
+  .main-header .col-md-6 {
     width: 100%;
     padding: 0;
   }
@@ -1132,6 +1136,70 @@ body {
   .bottom-widgets .col-md-3 {
     width: 100%;
   }
+}
+
+.footer {
+  font-family: 'Cachet Book';
+  background: #0288d1;
+  color: #fff;
+}
+@media (max-width: 991px) {
+  .footer .region-footer-menu {
+    text-align: center;
+  }
+}
+.footer .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  clear: both;
+  overflow: hidden;
+}
+@media (max-width: 991px) {
+  .footer .menu {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+.footer .menu li {
+  float: left;
+}
+.footer .menu a {
+  display: block;
+  padding: 34px 20px;
+  color: inherit;
+}
+@media (max-width: 991px) {
+  .footer .menu a {
+    padding: 24px 16px;
+  }
+}
+@media (max-width: 767px) {
+  .footer .menu a {
+    padding: 14px 10px;
+  }
+}
+.footer .copyright {
+  text-align: right;
+  opacity: .4;
+  padding: 34px 20px;
+}
+@media (max-width: 991px) {
+  .footer .copyright {
+    padding: 24px 16px;
+    text-align: center;
+  }
+}
+.footer .copyright p {
+  margin: 0;
+}
+@media (max-width: 767px) {
+  .footer .copyright {
+    padding: 14px 10px;
+  }
+}
+.footer .col-md-6:empty {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

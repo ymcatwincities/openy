@@ -25,9 +25,7 @@
     min-height: 290px;
   }
 
-  .region-primary-menu{
-    display: inline-block !important;
-    float: right;
+  .region-primary-menu {
     width: auto;
     margin: 0;
   }
