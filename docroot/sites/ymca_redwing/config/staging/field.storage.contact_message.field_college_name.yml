@@ -1,0 +1,21 @@
+uuid: 39a6a015-bfd3-429c-a6a9-6f120a9a801f
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_college_name
+field_name: field_college_name
+entity_type: contact_message
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

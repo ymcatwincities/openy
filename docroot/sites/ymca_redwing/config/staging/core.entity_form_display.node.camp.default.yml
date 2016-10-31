@@ -14,15 +14,17 @@ dependencies:
     - field.field.node.camp.field_main_promos
     - field.field.node.camp.field_phone
     - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_register_button_link
     - field.field.node.camp.field_registration_block
     - field.field.node.camp.field_subtitle
     - node.type.camp
   module:
     - address
     - inline_entity_form
+    - link
     - path
-    - telephone
     - text
+    - ymca_alters
 id: node.camp.default
 targetEntityType: node
 bundle: camp
@@ -122,6 +124,13 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+  field_register_button_link:
+    weight: 26
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
   field_registration_block:
     weight: 18
     settings:

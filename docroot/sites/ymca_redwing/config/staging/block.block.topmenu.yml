@@ -11,7 +11,7 @@ dependencies:
 id: topmenu
 theme: ymca
 region: secondary_menu
-weight: -6
+weight: -12
 provider: null
 plugin: 'system_menu_block:top-menu'
 settings:

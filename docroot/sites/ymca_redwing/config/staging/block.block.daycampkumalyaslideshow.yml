@@ -11,7 +11,7 @@ dependencies:
 id: daycampkumalyaslideshow
 theme: ymca
 region: '-1'
-weight: null
+weight: -13
 provider: null
 plugin: 'block_content:62341130-9c75-49ae-bc24-36eb580fb1c5'
 settings:
