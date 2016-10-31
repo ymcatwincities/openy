@@ -1,10 +1,15 @@
 .yfr-info-blocks {
   @include rem(margin-bottom, 35px);
   @include rem(margin-top, 15px);
+
+  @include breakpoint($tablet) {
+    align-items: stretch;
+    display: flex;
+  }
 }
 
 .yfr-info-block {
-  @include rem(margin, 35px 0);
+  @include rem(margin, 35px 15px);
 
   &__header {
     @include cachet-bold();
@@ -52,6 +57,24 @@
     font-size: 14px;
   }
 
+  @include breakpoint($tablet) {
+    @include rem(padding, 0 0 35px 0);
+    flex-basis: 0;
+    flex-grow: 1;
+    position: relative;
+
+    .yfr-info-block__content {
+      transition: padding-right .3s;
+      @include breakpoint($desktop-small) {
+        @include rem(padding-right, 85px);
+      }
+    }
+
+    .yfr-info-block__footer {
+      bottom: 0;
+      position: absolute;
+    }
+  }
 }
 
 .yfr-full-width-prize-block {
