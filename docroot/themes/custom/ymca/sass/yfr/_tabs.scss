@@ -67,6 +67,7 @@
 
   // Reset.
   .panel,
+  .panel-body,
   .panel-heading {
     @include border-radius(0);
     @include box-shadow(none);
@@ -133,7 +134,6 @@
       }
     }
   }
-
 }
 
 .yfr-instant-win-star {

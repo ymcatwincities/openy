@@ -1,4 +1,5 @@
 .theme_ymca_2016_fall_retention {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
 
   .viewport {
     padding-top: 0;
@@ -12,6 +13,30 @@
     .container {
       padding-left: 0;
       padding-right: 0;
+    }
+  }
+
+  .container {
+    transition: padding .3s;
+  }
+
+  .inner-container {
+    @include rem(padding, 0 15px);
+    transition: padding .3s;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 30px);
+    }
+
+    @include breakpoint($desktop) {
+      @include rem(padding, 0 100px);
+    }
+  }
+
+  .btn {
+    &.orange-medium {
+      background-image: none;
+      background-color: $orange-medium;
     }
   }
 }
