@@ -24,13 +24,13 @@ show_menus:
   footer-menu-right: '0'
   main: '0'
   main-menu: '0'
-  our-cause: '0'
   tools: '0'
   top-menu: '0'
 show_menus_hidden: false
 show_vocabularies:
   activity: '0'
   tags: '0'
+  ymca_retention_activities: '0'
 show_description: true
 show_count: true
 vocabulary_depth: -1
@@ -58,11 +58,11 @@ order:
   menus_locations: -50
   menus_main: -50
   menus_main-menu: -50
-  menus_our-cause: -50
   menus_swimming: -50
   menus_tools: -50
   menus_top-menu: -50
   vocabularies_activity: -50
   vocabularies_tags: -50
+  vocabularies_ymca_retention_activities: -50
 _core:
   default_config_hash: qZeaiLq06xBUfw-JNZtgetxUUMz-J8YCzw_LuhPrk2E

@@ -2,6 +2,7 @@
   margin: 0 auto;
   max-width: 550px;
   width: 100%;
+  color: #777;
 
   &__image {
     border: 1px solid $gray-ed;
@@ -16,7 +17,6 @@
 
     img {
       max-width: 220px;
-      width: 100%;
       height: auto;
     }
   }

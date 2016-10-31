@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.article.field_secondary_sidebar
     - field.field.node.article.field_sidebar
     - field.field.node.article.field_sidebar_navigation
-    - field.field.node.article.field_state
     - field.field.node.article.field_tags
     - field.field.node.article.field_template
     - field.field.node.article.field_title_description
@@ -26,7 +25,6 @@ dependencies:
     - link
     - path
     - text
-    - workflowfield
 id: node.article.default
 targetEntityType: node
 bundle: article
@@ -129,11 +127,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_state:
-    weight: 20
-    settings: {  }
-    third_party_settings: {  }
-    type: workflow_default
   field_template:
     weight: 8
     settings: {  }

@@ -1,0 +1,19 @@
+uuid: 981b52ee-ec7d-4cf1-aa2e-0d0c54c94a18
+langcode: en
+status: true
+dependencies:
+  module:
+    - personify_mindbody_sync
+id: personify_mindbody_cache.field_pmc_prs_data
+field_name: field_pmc_prs_data
+entity_type: personify_mindbody_cache
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
