@@ -276,3 +276,26 @@ function redwing_master_update_8016() {
   $installer->uninstall(['groupex_form_cache']);
   $logger->info('Groupex Form Cache has been uninstalled.');
 }
+
+/**
+ * YMCA-1264: Fix camp register button.
+ */
+function redwing_master_update_8017() {
+  // Create new field.
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'core.entity_form_display.node.camp.default.yml',
+      REDWING_CONFDIR . 'core.entity_view_display.node.camp.default.yml',
+      REDWING_CONFDIR . 'field.field.node.camp.field_register_button_link.yml',
+      REDWING_CONFDIR . 'field.storage.node.field_register_button_link.yml',
+    ]
+  );
+
+  // Set field value.
+  $camp = Node::load(34);
+  $value = [
+    'uri' => 'https://ops1.operations.daxko.com/Online/2061/Programs/search.mvc/programs?category_ids=9794',
+  ];
+  $camp->set('field_register_button_link', $value);
+  $camp->save();
+}
