@@ -95,6 +95,16 @@
         height: auto;
         width: 100%;
       }
+
+      @include breakpoint($tablet) {
+        height: 100%;
+        width: auto;
+      }
+
+      @include breakpoint($tablet-landscape) {
+        height: auto;
+        width: 100%;
+      }
     }
   }
 
