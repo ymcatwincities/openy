@@ -217,3 +217,85 @@ function redwing_master_update_8011() {
     ]
   );
 }
+
+/**
+ * YMCA-1237: Setup google analytics.
+ */
+function redwing_master_update_8012() {
+  \Drupal::service('module_installer')->install(['google_analytics'], TRUE);
+  // Uninstall unused module for now.
+  \Drupal::service('module_installer')->uninstall(['google_tag']);
+
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'google_analytics.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Remove MindBody Cache Proxy module.
+ */
+function redwing_master_update_8013() {
+  $installer = \Drupal::service('module_installer');
+  $logger = \Drupal::logger('redwing_master');
+
+  $installer->uninstall(['mindbody_cache_proxy']);
+  $logger->info('Mindbody Cache Proxy has been uninstalled.');
+}
+
+/**
+ * Remove MindBody API module.
+ */
+function redwing_master_update_8014() {
+  $installer = \Drupal::service('module_installer');
+  $logger = \Drupal::logger('redwing_master');
+
+  $installer->uninstall(['mindbody']);
+  $logger->info('Mindbody API has been uninstalled.');
+}
+
+/**
+ * Remove Ymca Groupex Google Cache module.
+ */
+function redwing_master_update_8015() {
+  $installer = \Drupal::service('module_installer');
+  $logger = \Drupal::logger('redwing_master');
+
+  $installer->uninstall(['ymca_groupex_google_cache']);
+  $logger->info('YMCA Groupex Google Cache has been uninstalled.');
+}
+
+/**
+ * Remove Groupex Form Cache module.
+ */
+function redwing_master_update_8016() {
+  $installer = \Drupal::service('module_installer');
+  $logger = \Drupal::logger('redwing_master');
+
+  $installer->uninstall(['groupex_form_cache']);
+  $logger->info('Groupex Form Cache has been uninstalled.');
+}
+
+/**
+ * YMCA-1264: Fix camp register button.
+ */
+function redwing_master_update_8017() {
+  // Create new field.
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      REDWING_CONFDIR . 'core.entity_form_display.node.camp.default.yml',
+      REDWING_CONFDIR . 'core.entity_view_display.node.camp.default.yml',
+      REDWING_CONFDIR . 'field.field.node.camp.field_register_button_link.yml',
+      REDWING_CONFDIR . 'field.storage.node.field_register_button_link.yml',
+    ]
+  );
+
+  // Set field value.
+  $camp = Node::load(34);
+  $value = [
+    'uri' => 'https://ops1.operations.daxko.com/Online/2061/Programs/search.mvc/programs?category_ids=9794',
+  ];
+  $camp->set('field_register_button_link', $value);
+  $camp->save();
+}

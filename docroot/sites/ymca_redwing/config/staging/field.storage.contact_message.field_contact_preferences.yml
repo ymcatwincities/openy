@@ -1,0 +1,33 @@
+uuid: 8a559721-0444-4be8-8e39-43a444b4fc7e
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_contact_preferences
+field_name: field_contact_preferences
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Email
+      label: Email
+    -
+      value: Phone
+      label: Phone
+    -
+      value: Newsletter
+      label: Newsletter
+    -
+      value: Mail
+      label: Mail
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 4
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

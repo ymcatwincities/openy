@@ -1,0 +1,78 @@
+uuid: ebb00588-bf83-4e55-8029-ac3c132381e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.returning_staff_employment_appli
+    - field.field.contact_message.returning_staff_employment_appli.field_address
+    - field.field.contact_message.returning_staff_employment_appli.field_camp_certification
+    - field.field.contact_message.returning_staff_employment_appli.field_cell_phone
+    - field.field.contact_message.returning_staff_employment_appli.field_personal_camp_goal_summer
+    - field.field.contact_message.returning_staff_employment_appli.field_phone_number
+    - field.field.contact_message.returning_staff_employment_appli.field_position
+    - field.field.contact_message.returning_staff_employment_appli.field_why_want_to_return_camp
+  module:
+    - address
+    - ymca_alters
+id: contact_message.returning_staff_employment_appli.default
+targetEntityType: contact_message
+bundle: returning_staff_employment_appli
+mode: default
+content:
+  field_address:
+    weight: 0
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_camp_certification:
+    weight: 7
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_cell_phone:
+    weight: 3
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_personal_camp_goal_summer:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_phone_number:
+    weight: 2
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_position:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_why_want_to_return_camp:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  mail:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  langcode: true
+  message: true
+  name: true
+  subject: true

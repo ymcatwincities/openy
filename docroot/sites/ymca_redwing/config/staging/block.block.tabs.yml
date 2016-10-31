@@ -2,6 +2,9 @@ uuid: cfc8adec-44b1-4a92-830d-13aa1e3bfccc
 langcode: en
 status: true
 dependencies:
+  module:
+    - ctools
+    - node
   theme:
     - ymca
 id: tabs
@@ -12,9 +15,36 @@ provider: null
 plugin: local_tasks_block
 settings:
   id: local_tasks_block
-  label: Tabs
+  label: 'Y Basketball'
   provider: core
   label_display: '0'
   primary: true
   secondary: true
-visibility: {  }
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    bundles:
+      basic: basic
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      article: article
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  'entity_bundle:taxonomy_term':
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      activity: activity
+      tags: tags
+    negate: false
+    context_mapping: {  }
+  node_type:
+    id: node_type
+    bundles:
+      article: article
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

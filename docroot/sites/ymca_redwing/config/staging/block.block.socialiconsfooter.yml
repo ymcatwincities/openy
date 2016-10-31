@@ -2,6 +2,10 @@ uuid: 65a78ae8-b8f3-46a5-8708-8bd0c9b266c4
 langcode: en
 status: true
 dependencies:
+  content:
+    - 'block_content:basic:563975cc-7a52-48fa-b30c-12c54d0cb863'
+  module:
+    - block_content
   theme:
     - ymca
 id: socialiconsfooter

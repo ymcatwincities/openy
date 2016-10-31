@@ -1,10 +1,6 @@
 menu_list:
-  - main-menu
-  - locations
+  - top-menu
   - health-and-fitness
   - swimming
-  - child-care-preschool
   - kids-teen-activities
-  - camps
-  - our-cause
-  - jobs-suppliers-news
+  - child-care-preschool
