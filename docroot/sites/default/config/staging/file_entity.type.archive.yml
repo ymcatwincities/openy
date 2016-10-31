@@ -1,0 +1,30 @@
+uuid: 80e0c33d-4688-4c33-9122-273810d59459
+langcode: en
+status: true
+dependencies: {  }
+id: archive
+label: Archive
+description: 'Archive type of files. Here you can find/edit/delete/add the stored data from different parts of the system.'
+mimetypes:
+  - "application/zip\r"
+  - "application/rar\r"
+  - "application/x-cpio\r"
+  - "application/x-shar\r"
+  - "application/x-tar\r"
+  - "application/x-bzip2\r"
+  - "application/gzip\r"
+  - "application/x-lzip\r"
+  - "application/x-lzma\r"
+  - "application/x-lzop\r"
+  - "application/x-snappy-framed\r"
+  - "application/x-xz\r"
+  - "application/x-compress\r"
+  - "application/x-7z-compressed\r"
+  - "application/x-ace-compressed\r"
+  - "application/x-astrotite-afa\r"
+  - "application/vnd.ms-cab-compressed\r"
+  - "application/x-apple-diskimage\r"
+  - "application/x-lzh\r"
+  - "application/x-rar-compressed\r"
+  - "application/x-stuffit\r"
+  - application/x-gtar

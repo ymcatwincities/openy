@@ -6,3 +6,4 @@ package: Webforms
 dependencies:
   - views
   - contact
+  - csv_serialization

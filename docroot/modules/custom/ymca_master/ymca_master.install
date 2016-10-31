@@ -5,19 +5,18 @@
  * Module for hook_update_N.
  */
 
-use Drupal\field\Entity\FieldConfig;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\file\Entity\File as EntityFile;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
-use Drupal\Core\StreamWrapper\PublicStream;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\ymca_aliases\UrlCleaner;
-use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\ymca_mappings\Entity\Mapping;
-use Drupal\Core\File;
-use Drupal\file\Entity\File as EntityFile;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -4166,16 +4165,10 @@ function ymca_master_update_8177() {
 }
 
 /**
- * Update wysiwyg editor config.
+ * YPTF-91: Add basic error handling module.
  */
 function ymca_master_update_8178() {
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'user.role.anonymous.yml',
-      $path . 'user.role.authenticated.yml',
-    ]
-  );
+  \Drupal::service('module_installer')->install(['ymca_errors'], TRUE);
 }
 
 /**
@@ -4195,7 +4188,7 @@ function ymca_master_update_8179() {
 }
 
 /**
-* Set proper permissions.
+ * Set proper permissions.
  */
 function ymca_master_update_8180() {
   \Drupal::service('config_import.importer')->importConfigs(
@@ -4214,6 +4207,163 @@ function ymca_master_update_8181() {
     [
       YGTC_CONFDIR . 'user.role.anonymous.yml',
       YGTC_CONFDIR . 'user.role.authenticated.yml',
+    ]
+  );
+}
+
+/**
+ * Install dbsize, cache_size_guard modules.
+ */
+function ymca_master_update_8182() {
+  \Drupal::service('module_installer')->install(['dbsize', 'cache_size_guard'], TRUE);
+
+  // Import the first guard.
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'cache_size_guard.settings.yml',
+    ]
+  );
+}
+
+/**
+ * Add svg extension to config.
+ */
+function ymca_master_update_8183() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'file_entity.settings.yml',
+      YGTC_CONFDIR . 'entity_browser.browser.browse_files_modal.yml',
+      YGTC_CONFDIR . 'entity_browser.browser.browse_files.yml',
+    ]
+  );
+}
+
+/**
+ * Add svg extension to image fields config.
+ */
+function ymca_master_update_8184() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'field.field.block_content.image_block.field_image.yml',
+      YGTC_CONFDIR . 'field.field.block_content.promo_block.field_image.yml',
+      YGTC_CONFDIR . 'field.field.block_content.slide_show_item.field_image.yml',
+      YGTC_CONFDIR . 'field.field.contact_message.camp_share_your_story.field_image.yml',
+      YGTC_CONFDIR . 'field.field.node.article.field_header_image.yml',
+      YGTC_CONFDIR . 'field.field.node.blog.field_image.yml',
+      YGTC_CONFDIR . 'field.field.user.user.user_picture.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1105: Add ICS fields to google groupex cache.
+ */
+function ymca_master_update_8185() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'core.entity_form_display.groupex_google_cache.groupex_google_cache.default.yml',
+      YGTC_CONFDIR . 'core.entity_view_display.groupex_google_cache.groupex_google_cache.default.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_category.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_desc.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_ed.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_inst.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_par.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_pd.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_rec.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_sd.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_title.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ics_loc_id.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_parent_ref.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_weight.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_length.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_date_str.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_hash_full.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_ts_utc.yml',
+      YGTC_CONFDIR . 'field.field.groupex_google_cache.groupex_google_cache.field_gg_need_up.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_category.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_desc.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_ed.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_inst.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_par.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_pd.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_rec.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_sd.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_title.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ics_loc_id.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_parent_ref.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_weight.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_length.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_date_str.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_hash_full.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_ts_utc.yml',
+      YGTC_CONFDIR . 'field.storage.groupex_google_cache.field_gg_need_up.yml',
+      YGTC_CONFDIR . 'views.view.ggcache.yml',
+      YGTC_CONFDIR . 'cache_size_guard.settings.yml',
+      YGTC_CONFDIR . 'ymca_google.settings.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1187: Fix phone pattern.
+ */
+function ymca_master_update_8186() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.become_a_supplier.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.cc_wellness_employee.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.cc_wellness_employer.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.contact_an_aquatics_manager.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.contact_personal_training.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.journey_to_freedom.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.membership_form.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.personal_trainers_individual.default.yml',
+      YGTC_CONFDIR . 'core.entity_form_display.contact_message.wait_list.default.yml',
+
+    ]
+  );
+}
+
+/**
+ * YMCA-1180: Add Archive file type.
+ */
+function ymca_master_update_8187() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'file_entity.type.archive.yml',
+      YGTC_CONFDIR . 'core.entity_view_display.file.archive.default.yml',
+      YGTC_CONFDIR . 'views.view.cm_archive_csv.yml',
+    ]
+  );
+}
+
+/**
+ * YMCA-1194: Bulk block deletion.
+ */
+function ymca_master_update_8188() {
+  \Drupal::service('module_installer')->install(['bulk_actions'], TRUE);
+}
+
+/**
+ * YPTF-198: Add MindBody booking logging.
+ */
+function ymca_master_update_8189() {
+  \Drupal::service('module_installer')->install(['logger_entity'], TRUE);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'logger_entity.logger_entity_type.mindbody_booking.yml',
+      YGTC_CONFDIR . 'views.view.mindbody_booking_log.yml',
+    ]
+  );
+}
+
+/**
+ * YPTF-206: Fix notifications config.
+ */
+function ymca_master_update_8190() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'ymca_mindbody.notifications.yml',
     ]
   );
 }

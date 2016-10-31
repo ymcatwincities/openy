@@ -9,6 +9,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
+use Drupal\Component\Utility\Timer;
 
 /**
  * Class GroupexFormCacheManager.
@@ -128,14 +129,29 @@ class GroupexFormCacheManager {
    * @param int $count
    *   Size of the chunk.
    */
-  public function resetCache($count = 10) {
+  public function resetCache($count = 100) {
+    $timer = 'reset_cache';
+    Timer::start($timer);
+
     $result = $this->queryFactory->get(self::ENTITY_TYPE)->execute();
     if (empty($result)) {
+      $this->logger->info('No cache was found. Nothing to clear.');
+      Timer::stop($timer);
       return;
     }
 
     $this->removeByChunk($result, $count);
-    $this->logger->info('The cache was cleared.');
+
+    $msg = 'All caches were cleared. [items removed: %items, elapsed time: %time sec.]';
+    $this->logger->info(
+      $msg,
+      [
+        '%items' => count($result),
+        '%time' => round(Timer::read($timer) / 1000, 1)
+      ]
+    );
+
+    Timer::stop($timer);
   }
 
   /**
@@ -146,16 +162,31 @@ class GroupexFormCacheManager {
    * @param int $time
    *   Time frame to calc stale cache.
    */
-  public function resetStaleCache($count = 10, $time = 86400) {
+  public function resetStaleCache($count = 100, $time = 86400) {
+    $timer = 'reset_stale_cache';
+    Timer::start($timer);
+
     $result = $this->queryFactory->get(self::ENTITY_TYPE)
       ->condition('field_gfc_created', REQUEST_TIME - $time, '<')
       ->execute();
     if (empty($result)) {
+      $this->logger->info('No stale cache was found. Nothing to clear.');
+      Timer::stop($timer);
       return;
     }
 
     $this->removeByChunk($result, $count);
-    $this->logger->info('The stale cache was cleared.');
+
+    $msg = 'The stale cache was cleared. [items removed: %items, elapsed time: %time sec.]';
+    $this->logger->info(
+      $msg,
+      [
+        '%items' => count($result),
+        '%time' => round(Timer::read($timer) / 1000, 1)
+      ]
+    );
+
+    Timer::stop($timer);
   }
 
   /**

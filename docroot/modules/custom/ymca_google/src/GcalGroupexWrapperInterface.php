@@ -2,6 +2,9 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\ymca_groupex_google_cache\Entity\GroupexGoogleCache;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
+
 /**
  * Interface GcalGroupexWrapperInterface.
  *
@@ -26,6 +29,16 @@ interface GcalGroupexWrapperInterface {
   public function setProxyData(array $data);
 
   /**
+   * Append item to proxy data.
+   *
+   * @param string $op
+   *   Operation: insert, delete, update.
+   * @param \Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface $entity
+   *   Entity.
+   */
+  public function appendProxyItem($op, GroupexGoogleCacheInterface $entity);
+
+  /**
    * Get array of source data.
    *
    * @return array
@@ -40,6 +53,19 @@ interface GcalGroupexWrapperInterface {
    *   Proxy data.
    */
   public function setSourceData(array $data);
+
+  /**
+   * Set ICS data.
+   *
+   * @param array $data
+   *   ICS Data.
+   */
+  public function setIcsData(array $data);
+
+  /**
+   * Get ICS data.
+   */
+  public function getIcsData();
 
   /**
    * Set time frame.
@@ -69,5 +95,10 @@ interface GcalGroupexWrapperInterface {
    * Update schedule and move pointer.
    */
   public function next();
+
+  /**
+   * Terminates syncer execution.
+   */
+  public function terminate($status);
 
 }

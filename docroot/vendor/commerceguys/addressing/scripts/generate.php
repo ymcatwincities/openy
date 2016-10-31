@@ -10,8 +10,12 @@ date_default_timezone_set('UTC');
 include '../vendor/autoload.php';
 include '../resources/library_customizations.php';
 
-use CommerceGuys\Addressing\Enum\AddressField;
-use CommerceGuys\Addressing\Repository\CountryRepository;
+use CommerceGuys\Addressing\AddressFormat\AddressField;
+use CommerceGuys\Addressing\AddressFormat\AdministrativeAreaType;
+use CommerceGuys\Addressing\AddressFormat\DependentLocalityType;
+use CommerceGuys\Addressing\AddressFormat\PostalCodeType;
+use CommerceGuys\Addressing\Country\CountryRepository;
+use CommerceGuys\Addressing\LocaleHelper;
 
 // Make sure aria2 is installed.
 exec('aria2c --version', $ariaVersion);
@@ -20,7 +24,7 @@ if (empty($ariaVersion) || strpos($ariaVersion[0], 'aria2 version') === false) {
 }
 
 // Prepare the filesystem.
-$neededDirectories = ['address_format', 'subdivision', 'raw'];
+$neededDirectories = ['subdivision', 'raw'];
 foreach ($neededDirectories as $neededDirectory) {
     if (!is_dir($neededDirectory)) {
         mkdir($neededDirectory);
@@ -29,6 +33,7 @@ foreach ($neededDirectories as $neededDirectory) {
 
 $countryRepository = new CountryRepository();
 $countries = $countryRepository->getList();
+ksort($countries);
 $serviceUrl = 'http://i18napis.appspot.com/address';
 
 echo "Generating the url list.\n";
@@ -70,15 +75,6 @@ foreach ($foundCountries as $countryCode) {
         // Fix for Macao, which has latin and non-latin formats, but no lang.
         $definition['lang'] = 'zh';
     }
-
-    if ($countryCode == 'ZZ') {
-        // Save the ZZ definitions so that they can be used later.
-        $genericDefinition = $definition;
-    } else {
-        // Merge-in the defaults from ZZ.
-        $definition += $genericDefinition;
-    }
-
     $addressFormat = create_address_format_definition($countryCode, $definition);
 
     // Create a list of available translations.
@@ -97,25 +93,25 @@ foreach ($foundCountries as $countryCode) {
             $subdivisionPaths[] = $countryCode . '_' . $subdivisionKey;
         }
 
-        $groupedSubdivisions += generate_subdivisions($countryCode, $countryCode, $subdivisionPaths, $languages);
+        $groupedSubdivisions += generate_subdivisions($countryCode, [$countryCode], $subdivisionPaths, $languages);
     }
 
     $addressFormats[$countryCode] = $addressFormat;
 }
+// Generate the subdivision depths for each country.
+$depths = generate_subdivision_depths($foundCountries);
+foreach ($depths as $countryCode => $depth) {
+    $addressFormats[$countryCode]['subdivision_depth'] = $depth;
+}
 
 echo "Writing the final definitions to disk.\n";
-
-// Write the new definitions to disk.
-foreach ($addressFormats as $countryCode => $addressFormat) {
-    file_put_json('address_format/' . $countryCode . '.json', $addressFormat);
-}
+// Address formats are stored in PHP, then manually transferred to
+// AddressFormatRepository.
+file_put_php('address_formats.php', $addressFormats);
+// Subdivisions are stored in JSON.
 foreach ($groupedSubdivisions as $parentId => $subdivisions) {
     file_put_json('subdivision/' . $parentId . '.json', $subdivisions);
 }
-
-// Generate the subdivision depths for each country.
-$depths = generate_subdivision_depths($foundCountries);
-file_put_json('subdivision/depths.json', $depths);
 
 echo "Done.\n";
 
@@ -127,6 +123,39 @@ function file_put_json($filename, $data)
     $data = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     // Indenting with tabs instead of 4 spaces gives us 20% smaller files.
     $data = str_replace('    ', "\t", $data);
+    file_put_contents($filename, $data);
+}
+
+/**
+ * Converts the provided data into php and writes it to the disk.
+ */
+function file_put_php($filename, $data)
+{
+    $data = var_export($data, true);
+    // The var_export output is terrible, so try to get it as close as possible
+    // to the final result.
+    $array_keys = [
+        '0 => ', '1 => ', '2 => ', '3 => ', '4 => ', '5 => ',
+        '6 => ', '7 => ', '8 => ', '9 => ', '10 => ', '11 => ',
+    ];
+    $data = str_replace(['array (', "),\n", "=> \n  "], ['[', "],\n", '=> '], $data);
+    $data = str_replace('=>   [', '=> [', $data);
+    $data = str_replace($array_keys, '', $data);
+    // Put fields into one row.
+    $find = [];
+    $replace = [];
+    foreach (AddressField::getAll() as $field) {
+        $find[] = "'$field',\n      '";
+        $replace[] = "'$field', '";
+    }
+    $data = str_replace($find, $replace, $data);
+    // Replace format single quotes with double quotes, to parse \n properly.
+    $data = str_replace(["format' => '", ";;;'"], ['format\' => "', '"'], $data);
+    // Reindent (from 2 to 4 spaces).
+    $data = str_replace('  ', '    ', $data);
+    // Unescape backslashes.
+    $data = str_replace('\\\\', '\\', $data);
+    $data = '<?php' . "\n\n" . '$data = ' . $data . ';';
     file_put_contents($filename, $data);
 }
 
@@ -161,70 +190,53 @@ function generate_url_list()
 /**
  * Recursively generates subdivision definitions.
  */
-function generate_subdivisions($countryCode, $parentId, $subdivisionPaths, $languages)
+function generate_subdivisions($countryCode, array $parents, $subdivisionPaths, $languages)
 {
+    $group = build_group($parents);
     $subdivisions = [];
-    // Start by retrieving all json definitions.
-    $definitions = [];
-    $definitionKeys = [];
     foreach ($subdivisionPaths as $subdivisionPath) {
         $definition = file_get_contents('raw/' . $subdivisionPath . '.json');
         $definition = json_decode($definition, true);
-
-        $definitions[$subdivisionPath] = $definition;
-        $definitionKeys[] = $definition['key'];
-    }
-
-    // Determine whether the definition keys are safe to be used as subdivision
-    // ids (by having the same length, and being ASCII).
-    $keySuitableAsId = true;
-    foreach ($definitionKeys as $index => $key) {
-        if (strlen($key) != strlen($definitionKeys[0]) || !ctype_print($key)) {
-            $keySuitableAsId = false;
-            break;
+        // The lname is usable as a latin code when the key is non-latin.
+        $code = $definition['key'];
+        if (isset($definition['lname'])) {
+            $code = $definition['lname'];
         }
-    }
-
-    foreach ($definitions as $subdivisionPath => $definition) {
-        // Construct a safe id for this subdivision. Google doesn't have one.
-        if (isset($definition['isoid'])) {
-            // Administrative areas often have a numeric isoid.
-            $subdivisionId = $parentId . '-' . $definition['isoid'];
-        } elseif (count($definitionKeys) > 1 && $keySuitableAsId) {
-            // Many administrative areas have no isoid, but use a safe
-            // two/three letter identifier as the key.
-            $subdivisionId = $parentId . '-' . $definition['key'];
-        } elseif (in_array($countryCode, ['AU'])) {
-            // Special case countries which have different key lengths,
-            // but which are known to be safe (for example, Australia).
-            $subdivisionId = $parentId . '-' . $definition['key'];
-        } else {
-            // Localities and dependent localities have keys that are
-            // not guaranteed to be in the local script, so we hash them.
-            $subdivisionId = $parentId . '-' . substr(sha1($parentId . $definition['key']), 0, 6);
-        }
-        if (!isset($subdivisions[$parentId])) {
-            $subdivisions[$parentId] = [
+        if (!isset($subdivisions[$group])) {
+            $subdivisions[$group] = [
                 'country_code' => $countryCode,
-                'parent_id' => ($countryCode == $parentId) ? null : $parentId,
-                'locale' => determine_locale($definition),
+                'parents' => $parents,
+                'locale' => '',
             ];
+            if (isset($definition['lang']) && isset($definition['lname'])) {
+                // Only add the locale if there's a local name.
+                $subdivisions[$group]['locale'] = process_locale($definition['lang']);
+            }
+            if (count($subdivisions[$group]['parents']) < 2) {
+              // A single parent is the same as the country code.
+              unset($subdivisions[$group]['parents']);
+            }
         }
-        $subdivisions[$parentId]['subdivisions'][$subdivisionId] = create_subdivision_definition($definition);
-
-        // If the subdivision has translations, retrieve them.
-        // Note: At the moment, only Canada and Switzerland have translations,
-        // and those translations are for administrative areas only.
-        // It is unknown whether the current way of assembling the url would
-        // work with several levels of translated subdivisions.
-        foreach ($languages as $language) {
-            $translation = file_get_contents('raw/' . $subdivisionPath . '--' . $language . '.json');
+        // (Ab)use the local_name field to hold latin translations. This allows
+        // us to support only a single translation, but since our only example
+        // here is Canada (with French), it will do.
+        $translationLanguage = reset($languages);
+        if ($translationLanguage) {
+            $translation = file_get_contents('raw/' . $subdivisionPath . '--' . $translationLanguage . '.json');
             $translation = json_decode($translation, true);
-            $subdivisions[$parentId]['subdivisions'][$subdivisionId]['translations'][$language]['name'] = $translation['name'];
+            $subdivisions[$group]['locale'] = LocaleHelper::canonicalize($translationLanguage);
+            $definition['lname'] = $definition['name'];
+            $definition['name'] = $translation['name'];
         }
+        // Remove the locale key if it wasn't filled.
+        if (empty($subdivisions[$group]['locale'])) {
+            unset($subdivisions[$group]['locale']);
+        }
+        // Generate the subdivision.
+        $subdivisions[$group]['subdivisions'][$code] = create_subdivision_definition($countryCode, $definition);
 
         if (isset($definition['sub_keys'])) {
-            $subdivisions[$parentId]['subdivisions'][$subdivisionId]['has_children'] = true;
+            $subdivisions[$group]['subdivisions'][$code]['has_children'] = true;
 
             $subdivisionChildrenPaths = [];
             $subdivisionChildrenKeys = explode('~', $definition['sub_keys']);
@@ -232,16 +244,17 @@ function generate_subdivisions($countryCode, $parentId, $subdivisionPaths, $lang
                 $subdivisionChildrenPaths[] = $subdivisionPath . '_' . $subdivisionChildrenKey;
             }
 
-            $subdivisions += generate_subdivisions($countryCode, $subdivisionId, $subdivisionChildrenPaths, $languages);
+            $childParents = array_merge($parents, [$code]);
+            $subdivisions += generate_subdivisions($countryCode, $childParents, $subdivisionChildrenPaths, $languages);
         }
     }
 
     // Apply any found customizations.
-    $customizations = get_subdivision_customizations($parentId);
-    $subdivisions[$parentId] = apply_subdivision_customizations($subdivisions[$parentId], $customizations);
+    $customizations = get_subdivision_customizations($group);
+    $subdivisions[$group] = apply_subdivision_customizations($subdivisions[$group], $customizations);
     // All subdivisions have been removed. Remove the rest of the data.
-    if (empty($subdivisions[$parentId]['subdivisions'])) {
-        unset($subdivisions[$parentId]);
+    if (empty($subdivisions[$group]['subdivisions'])) {
+        unset($subdivisions[$group]);
     }
 
     return $subdivisions;
@@ -257,7 +270,7 @@ function generate_subdivision_depths($countries)
         $patterns = [
             'subdivision/' . $countryCode . '.json',
             'subdivision/' . $countryCode . '-*.json',
-            'subdivision/' . $countryCode . '-*-*.json',
+            'subdivision/' . $countryCode . '--*.json',
         ];
         foreach ($patterns as $pattern) {
             if (glob($pattern)) {
@@ -277,67 +290,86 @@ function generate_subdivision_depths($countries)
  */
 function create_address_format_definition($countryCode, $rawDefinition)
 {
+    // Avoid notices.
+    $rawDefinition += [
+        'lang' => null,
+        'fmt' => null,
+        'require' => null,
+        'upper' => null,
+        'state_name_type' => null,
+        'locality_name_type' => null,
+        'sublocality_name_type' => null,
+        'zip_name_type' => null,
+    ];
+    // ZZ holds the defaults for all address formats, and these are missing.
+    if ($countryCode == 'ZZ') {
+        $rawDefinition['state_name_type'] = AdministrativeAreaType::getDefault();
+        $rawDefinition['sublocality_name_type'] = DependentLocalityType::getDefault();
+        $rawDefinition['zip_name_type'] = PostalCodeType::getDefault();
+    }
+
     $addressFormat = [
-        'locale' => determine_locale($rawDefinition),
+        'locale' => process_locale($rawDefinition['lang']),
         'format' => null,
+        'local_format' => null,
         'required_fields' => convert_fields($rawDefinition['require'], 'required'),
         'uppercase_fields' => convert_fields($rawDefinition['upper'], 'uppercase'),
     ];
-    // Make sure the recipient is always required by default.
-    if (!in_array(AddressField::RECIPIENT, $addressFormat['required_fields'])) {
-        $addressFormat['required_fields'] = array_merge([AddressField::RECIPIENT], $addressFormat['required_fields']);
-    }
 
-    $translations = [];
     if (isset($rawDefinition['lfmt']) && $rawDefinition['lfmt'] != $rawDefinition['fmt']) {
-        // Handle the China/Korea/Japan dual formats via translations.
-        $language = $rawDefinition['lang'];
-        $translations[$language]['format'] = convert_format($rawDefinition['fmt']);
-        $addressFormat['format'] = convert_format($rawDefinition['lfmt']);
+        $addressFormat['format'] = convert_format($countryCode, $rawDefinition['lfmt']);
+        $addressFormat['local_format'] = convert_format($countryCode, $rawDefinition['fmt']);
     } else {
-        $addressFormat['format'] = convert_format($rawDefinition['fmt']);
+        $addressFormat['format'] = convert_format($countryCode, $rawDefinition['fmt']);
+        // We don't need the locale if there's no local format.
+        unset($addressFormat['locale']);
     }
 
-    if (strpos($addressFormat['format'], '%' . AddressField::ADMINISTRATIVE_AREA) !== false) {
-        $addressFormat['administrative_area_type'] = $rawDefinition['state_name_type'];
+    $addressFormat['administrative_area_type'] = $rawDefinition['state_name_type'];
+    $addressFormat['locality_type'] = $rawDefinition['locality_name_type'];
+    $addressFormat['dependent_locality_type'] = $rawDefinition['sublocality_name_type'];
+    $addressFormat['postal_code_type'] = $rawDefinition['zip_name_type'];
+    if (isset($rawDefinition['zip'])) {
+        $addressFormat['postal_code_pattern'] = $rawDefinition['zip'];
     }
-    if (strpos($addressFormat['format'], '%' . AddressField::LOCALITY) !== false) {
-        $addressFormat['locality_type'] = $rawDefinition['locality_name_type'];
-    }
-    if (strpos($addressFormat['format'], '%' . AddressField::DEPENDENT_LOCALITY) !== false) {
-        $addressFormat['dependent_locality_type'] = $rawDefinition['sublocality_name_type'];
-    }
-    if (strpos($addressFormat['format'], '%' . AddressField::POSTAL_CODE) !== false) {
-        $addressFormat['postal_code_type'] = $rawDefinition['zip_name_type'];
-        if (isset($rawDefinition['zip'])) {
-            $addressFormat['postal_code_pattern'] = $rawDefinition['zip'];
+    if (isset($rawDefinition['postprefix'])) {
+        // Workaround for https://github.com/googlei18n/libaddressinput/issues/72.
+        if ($rawDefinition['postprefix'] == 'PR') {
+            $rawDefinition['postprefix'] = 'PR ';
+        } elseif ($rawDefinition['postprefix'] == 'SI-') {
+            $rawDefinition['postprefix'] = 'SI- ';
         }
-        if (isset($rawDefinition['postprefix'])) {
-            // Workaround for https://github.com/googlei18n/libaddressinput/issues/72.
-            if ($rawDefinition['postprefix'] == 'PR') {
-                $rawDefinition['postprefix'] = 'PR ';
-            } elseif ($rawDefinition['postprefix'] == 'SI-') {
-                $rawDefinition['postprefix'] = 'SI- ';
-            }
 
-            $addressFormat['postal_code_prefix'] = $rawDefinition['postprefix'];
-            // Remove the prefix from the format strings.
-            // Workaround for https://github.com/googlei18n/libaddressinput/issues/71.
-            $addressFormat['format'] = str_replace($addressFormat['postal_code_prefix'], '', $addressFormat['format']);
-            foreach ($translations as $language => $translation) {
-                $translations[$language]['format'] = str_replace($addressFormat['postal_code_prefix'], '', $translation['format']);
-            }
-        }
+        $addressFormat['postal_code_prefix'] = $rawDefinition['postprefix'];
+        // Remove the prefix from the format strings.
+        // Workaround for https://github.com/googlei18n/libaddressinput/issues/71.
+        $addressFormat['format'] = str_replace($addressFormat['postal_code_prefix'], '', $addressFormat['format']);
+        $addressFormat['local_format'] = str_replace($addressFormat['postal_code_prefix'], '', $addressFormat['local_format']);
+    }
+    // Add the subdivision_depth to the end of the ZZ definition.
+    if ($countryCode == 'ZZ') {
+        $addressFormat['subdivision_depth'] = 0;
     }
 
-    // Add translations as the last key.
-    if ($translations) {
-        $addressFormat['translations'] = $translations;
-    }
     // Apply any customizations.
     $customizations = get_address_format_customizations($countryCode);
     foreach ($customizations as $key => $values) {
         $addressFormat[$key] = $values;
+    }
+    // Denote the end of the format string for file_put_php().
+    if (!empty($addressFormat['format'])) {
+        $addressFormat['format'] .= ';;;';
+    }
+    if (!empty($addressFormat['local_format'])) {
+        $addressFormat['local_format'] .= ';;;';
+    }
+    // Remove NULL keys.
+    $addressFormat = array_filter($addressFormat, function ($value) {
+        return !is_null($value);
+    });
+    // Remove empty local formats.
+    if (empty($addressFormat['local_format'])) {
+      unset($addressFormat['local_format']);
     }
 
     return $addressFormat;
@@ -346,17 +378,23 @@ function create_address_format_definition($countryCode, $rawDefinition)
 /**
  * Creates a subdivision definition from Google's raw definition.
  */
-function create_subdivision_definition($rawDefinition)
+function create_subdivision_definition($countryCode, $rawDefinition)
 {
-    // The name property isn't set when it's the same as the key.
-    if (!isset($rawDefinition['name'])) {
-        $rawDefinition['name'] = $rawDefinition['key'];
+    $subdivision = [];
+    if (isset($rawDefinition['lname'])) {
+        // The lname was already chosen for the code in the parent function,
+        // don't need to store it as the name cause SubdivisionRepository
+        // optimizes for that.
+        $subdivision['local_code'] = $rawDefinition['key'];
+        if (isset($rawDefinition['name']) && $rawDefinition['key'] != $rawDefinition['name']) {
+            $subdivision['local_name'] = $rawDefinition['name'];
+        }
+    } elseif (isset($rawDefinition['name'])) {
+        $subdivision['name'] = $rawDefinition['name'];
     }
-
-    $subdivision = [
-        'code' => $rawDefinition['key'],
-        'name' => $rawDefinition['name'],
-    ];
+    if (isset($rawDefinition['isoid'])) {
+        $subdivision['iso_code'] = $countryCode . '-' . $rawDefinition['isoid'];
+    }
     if (isset($rawDefinition['xzip'])) {
         $subdivision['postal_code_pattern'] = $rawDefinition['xzip'];
         $subdivision['postal_code_pattern_type'] = 'full';
@@ -365,16 +403,6 @@ function create_subdivision_definition($rawDefinition)
         // There are more than 12 000 subdivisions, but only a few Chinese
         // ones specify a full pattern. Therefore, the postal_code_pattern_type
         // value is the same for most subdivisions, and omitted to save space.
-    }
-    if (isset($rawDefinition['lname'])) {
-        // Handle the China/Korea/Japan dual names via translation.
-        $language = $rawDefinition['lang'];
-        $subdivision['translations'][$language]['name'] = $rawDefinition['name'];
-        $subdivision['name'] = $rawDefinition['lname'];
-    }
-    if ($subdivision['code'] == $subdivision['name'] && empty($subdivision['translations'])) {
-        // Remove the code if it matches the name, to save space.
-        unset($subdivision['code']);
     }
 
     return $subdivision;
@@ -415,30 +443,36 @@ function apply_subdivision_customizations($subdivisions, $customizations) {
 }
 
 /**
- * Determines the correct locale of a definition.
+ * Processes the locale string.
  */
-function determine_locale($rawDefinition)
-{
-    $locale = 'und';
-    if (isset($rawDefinition['lang'])) {
-        $locale = $rawDefinition['lang'];
-        if (isset($rawDefinition['lfmt']) || isset($rawDefinition['lname'])) {
-            // When the definition has separate latin-script properties,
-            // they are taken as the default. The langcode needs to indicate
-            // this. So, zh-Latn gets set for China, ja-Latn for Japan, etc.
-            $localeParts = explode('-', $locale);
-            $locale = $localeParts[0] . '-Latn';
-        }
+function process_locale($locale) {
+    // Be more precise when it comes to Chinese Simplified.
+    if ($locale == 'zh') {
+        $locale = 'zh-hans';
     }
-
-    return $locale;
+    return LocaleHelper::canonicalize($locale);
 }
 
 /**
  * Converts the provided format string into one recognized by the library.
  */
-function convert_format($format)
+function convert_format($countryCode, $format)
 {
+    if (empty($format)) {
+        return null;
+    }
+    // Expand the recipient token into separate familyName/givenName tokens.
+    // The additionalName field is not used by default.
+    // Hardcode the list of countries that write the family name before the
+    // given name, since the API doesn't give us that info.
+    $reverseCountries = [
+        'KH', 'CN', 'HU', 'JP', 'KO', 'MG', 'TW', 'VN',
+    ];
+    if (in_array($countryCode, $reverseCountries)) {
+        $format = str_replace('%N', '%N3 %N1', $format);
+    } else {
+        $format = str_replace('%N', '%N1 %N3', $format);
+    }
     // Expand the address token into separate tokens for address lines 1 and 2.
     // Follow the direction of the fields.
     if (strpos($format, '%N') < strpos($format, '%A')) {
@@ -456,11 +490,16 @@ function convert_format($format)
         '%1' => '%' . AddressField::ADDRESS_LINE1,
         '%2' => '%' . AddressField::ADDRESS_LINE2,
         '%O' => '%' . AddressField::ORGANIZATION,
-        '%N' => '%' . AddressField::RECIPIENT,
+        '%N3' => '%' . AddressField::FAMILY_NAME,
+        '%N2' => '%' . AddressField::ADDITIONAL_NAME,
+        '%N1' => '%' . AddressField::GIVEN_NAME,
         '%n' => "\n",
     ];
+    $format = strtr($format, $replacements);
+    // Make sure the newlines don't get eaten by var_export().
+    $format = str_replace("\n", '\n', $format);
 
-    return strtr($format, $replacements);
+    return $format;
 }
 
 /**
@@ -468,10 +507,20 @@ function convert_format($format)
  */
 function convert_fields($fields, $type)
 {
+    if (is_null($fields)) {
+        return null;
+    }
     if (empty($fields)) {
         return [];
     }
 
+    // Expand the name token into separate tokens.
+    if ($type == 'required') {
+        // The additional name is never required.
+        $fields = str_replace('N', '79', $fields);
+    } else {
+        $fields = str_replace('N', '789', $fields);
+    }
     // Expand the address token into separate tokens for address lines 1 and 2.
     // For required fields it's enough to require the first line.
     if ($type == 'required') {
@@ -489,7 +538,9 @@ function convert_fields($fields, $type)
         '1' => AddressField::ADDRESS_LINE1,
         '2' => AddressField::ADDRESS_LINE2,
         'O' => AddressField::ORGANIZATION,
-        'N' => AddressField::RECIPIENT,
+        '7' => AddressField::FAMILY_NAME,
+        '8' => AddressField::ADDITIONAL_NAME,
+        '9' => AddressField::GIVEN_NAME,
     ];
 
     $fields = str_split($fields);
@@ -500,4 +551,27 @@ function convert_fields($fields, $type)
     }
 
     return $fields;
+}
+
+/**
+ * Copy of SubdivisionRepository::buildGroup().
+ */
+function build_group(array $parents)
+{
+    if (empty($parents)) {
+        throw new \InvalidArgumentException('The $parents argument must not be empty.');
+    }
+    $countryCode = array_shift($parents);
+    $group = $countryCode;
+    if ($parents) {
+        // A dash per key allows the depth to be guessed later.
+        $group .= str_repeat('-', count($parents));
+        // Hash the remaining keys to ensure that the group is ASCII safe.
+        // crc32b is the fastest but has collisions due to its short length.
+        // sha1 and md5 are forbidden by many projects and organizations.
+        // This is the next fastest option.
+        $group .= hash('tiger128,3', implode('-', $parents));
+    }
+
+    return $group;
 }

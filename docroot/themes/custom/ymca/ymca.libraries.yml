@@ -23,6 +23,7 @@ global-styling:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+    - core/drupal.dialog
 
 add-this:
   version: 0
@@ -44,3 +45,10 @@ retention-campaign:
     - core/jquery.once
     - core/drupal
     - core/drupalSettings
+
+admin-side:
+  version: VERSION
+  js:
+    scripts/admin-side.js: {}
+  dependencies:
+    - color/drupal.color

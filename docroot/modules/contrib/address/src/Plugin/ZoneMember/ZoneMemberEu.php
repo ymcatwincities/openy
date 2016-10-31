@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\address\Plugin\ZoneMember\ZoneMemberEu.
- */
-
 namespace Drupal\address\Plugin\ZoneMember;
 
-use CommerceGuys\Addressing\Model\AddressInterface;
+use CommerceGuys\Addressing\AddressInterface;
 
 /**
  * Matches EU addresses.

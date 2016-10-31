@@ -62,7 +62,7 @@
 <div id="top"></div>
 
 {% include "@ymca/sidebar-search-and-menu.html.twig" %}
-{{ attach_library('ymca_alters/schedules_date') }}
+{#{{ attach_library('ymca_alters/schedules_date') }}#}
 
 <div class="viewport">
     {{ page.header }}
@@ -217,7 +217,7 @@
 
     <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
 
-    {{ page.messages }}
+    <section class="messages"> {{ page.messages }} </section>
 
 <!--googleon: index-->
 </div>

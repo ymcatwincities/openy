@@ -46,6 +46,14 @@ entity.ymca_retention_member.delete_form:
   requirements:
     _entity_access: 'ymca_retention_member.delete'
 
+ymca_retention.ymca_retention_member.delete_all:
+  path: '/admin/config/ymca-entities/ymca-retention-member/delete-all'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\DeleteAllMembersForm'
+    _title: 'YMCA Retention Delete All Members'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.settings:
   path: '/admin/config/system/ymca-retention'
   defaults:

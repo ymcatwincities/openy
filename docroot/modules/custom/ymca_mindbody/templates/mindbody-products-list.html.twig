@@ -1,0 +1,85 @@
+{#
+/**
+ * @file
+ * Mindbody products list template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="panel panel-default content-expander">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h2>
+        <a class="accordion-toggle" data-parent=".panel-group" data-toggle="collapse" href="#collapse-mindbody-products-list">
+          {{ 'Purchase One-on-One Personal Training'|t }}
+        </a>
+      </h2>
+    </div>
+  </div>
+
+  <div class="panel-collapse in" id="collapse-mindbody-products-list">
+    <div class="panel-body">
+      <p>{{ 'Just you, the trainer, and your personalized program'|t }}</p>
+      <div class="row mindbody-products-list">
+        <div class="container">
+          <div class="col-sm-12 col-md-6">
+            <h3>{{ 'Members'|t }}</h3>
+            {% for key, product_list in products_to_display_member %}
+            <strong>{{ key  }}-minute sessions</strong>
+            <ul>
+              {% for key, product in product_list %}
+              <li><a href="#modal_choose_a_location" data-session="{{ product.session }}" data-package="{{ product.package }}">
+                {% if product.show_special_prices and product.special_price %}
+                  <s>${{ product.price }}</s>&nbsp;${{ product.special_price }}
+                {% else %}
+                  ${{ product.price }}
+                {% endif %}
+                  for {{ product.package }}
+              </a></li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <h3>{{ 'Non-members'|t }}</h3>
+            {% for key, product_list in products_to_display_non_member %}
+            <strong>{{ key  }}-minute sessions</strong>
+            <ul>
+              {% for key, product in product_list %}
+              <li><a href="#modal_choose_a_location" data-session="{{ product.session }}" data-package="{{ product.package }}">
+                {% if product.show_special_prices and product.special_price %}
+                  <s>${{ product.price }}</s>&nbsp;${{ product.special_price }}
+                {% else %}
+                  ${{ product.price }}
+                {% endif %}
+                for {{ product.package }}
+              </a></li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="user_modals">
+        <article class="content_wrapper modal-container">
+          <article class="content_wrapper modal-header">
+            <h2>{{ 'Choose a Location'|t }}</h2>
+          </article>
+          <div class="content_wrapper modal-body">
+            <article class="row content_group personify_location_list">
+              <ul>
+              {% for key, location in modal_content %}
+                <li><a href="#" data-id="{{ location.id }}">{{ location.name }}</a></li>
+              {% endfor %}
+              </ul>
+            </article>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</div>

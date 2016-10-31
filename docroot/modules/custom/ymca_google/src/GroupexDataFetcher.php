@@ -41,6 +41,42 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
    * {@inheritdoc}
    */
   public function fetch(array $args) {
+    // Debug.
+    if (FALSE) {
+      $data = [
+        (object) [
+          'date' => 'Monday, September 26, 2016',
+          'time' => '8:20am-9:20am',
+          'title' => 'BodyPump',
+          'studio' => 'AC',
+          'category' => 'Strength',
+          'instructor' => 'Petya S',
+          'original_instructor' => 'Rick S',
+          'sub_instructor' => '',
+          'length' => '60',
+          'location' => 'Andover',
+          'id' => '145945',
+          'desc' => '<p>Here long description...</p>',
+        ],
+        (object) [
+          'date' => 'Monday, October 3, 2016',
+          'time' => '8:20am-9:20am',
+          'title' => 'BodyPump',
+          'studio' => 'AC',
+          'category' => 'Strength',
+          'instructor' => 'Vasya S',
+          'original_instructor' => 'Rick S',
+          'sub_instructor' => '',
+          'length' => '60',
+          'location' => 'Andover',
+          'id' => '145945',
+          'desc' => '<p>Here long description...</p>',
+        ],
+      ];
+      $this->dataWrapper->setSourceData($data);
+      return;
+    }
+
     $schedule = $this->dataWrapper->getSchedule();
 
     $start = $schedule['steps'][$schedule['current']]['start'];
@@ -52,8 +88,8 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
         'schedule' => TRUE,
         'desc' => 'true',
         'start' => $start,
-        'end' => $end
-      ]
+        'end' => $end,
+      ],
     ];
     $data = $this->request($options);
     if ($data) {
@@ -114,7 +150,7 @@ class GroupexDataFetcher implements GroupexDataFetcherInterface {
     $options = [
       'query' => [
         'description' => TRUE,
-        'id' => $id
+        'id' => $id,
       ],
     ];
 

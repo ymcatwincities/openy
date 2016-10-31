@@ -2,9 +2,11 @@
 
 namespace Drupal\ymca_google;
 
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\ymca_groupex_google_cache\GroupexGoogleCacheInterface;
+use Drupal\ymca_sync\SyncerTerminateException;
 
 /**
  * Class GcalGroupexWrapper.
@@ -12,6 +14,16 @@ use Drupal\Core\Logger\LoggerChannelInterface;
  * @package Drupal\ymca_google
  */
 class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
+
+  /**
+   * Default timezone.
+   */
+  const TIMEZONE = 'America/Chicago';
+
+  /**
+   * Entity type ID.
+   */
+  const ENTITY_TYPE = 'groupex_google_cache';
 
   /**
    * The name of key to store schedule.
@@ -33,7 +45,7 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *
    * @var int
    */
-  private $steps = 180;
+  private $steps = 60;
 
   /**
    * Step length.
@@ -48,6 +60,13 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    * @var array
    */
   protected $sourceData = [];
+
+  /**
+   * Raw ICS data.
+   *
+   * @var array
+   */
+  protected $icsData = [];
 
   /**
    * Prepared data for proxy system.
@@ -73,9 +92,16 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * Logger channel.
    *
-   * @var LoggerChannelInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
+
+  /**
+   * The settings.
+   *
+   * @var ImmutableConfig
+   */
+  public $settings;
 
   /**
    * GcalGroupexWrapper constructor.
@@ -84,11 +110,21 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    *   State.
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The logger factory.
+   * @param ImmutableConfig $settings
+   *   The settings.
    */
-  public function __construct(StateInterface $state, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(StateInterface $state, LoggerChannelFactoryInterface $logger_factory, ImmutableConfig $settings) {
     $this->state = $state;
     $this->logger = $logger_factory->get(self::LOGGER_CHANNEL);
+    $this->settings = $settings;
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function terminate($status) {
+    $this->logger->critical($status);
+    throw new SyncerTerminateException($status);
   }
 
   /**
@@ -111,6 +147,20 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
   /**
    * {@inheritdoc}
    */
+  public function setIcsData(array $data) {
+    $this->icsData = $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIcsData() {
+    return $this->icsData;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getProxyData() {
     return $this->proxyData;
   }
@@ -120,6 +170,15 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    */
   public function setProxyData(array $data) {
     $this->proxyData = $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function appendProxyItem($op, GroupexGoogleCacheInterface $entity) {
+    $data = $this->getProxyData();
+    $data[$op][$entity->id()] = $entity;
+    $this->setProxyData($data);
   }
 
   /**
@@ -220,6 +279,67 @@ class GcalGroupexWrapper implements GcalGroupexWrapperInterface {
    */
   public function removeSchedule() {
     $this->state->delete(self::SCHEDULE_KEY);
+  }
+
+  /**
+   * Return field mappings for ICS.
+   *
+   * @return array
+   *   Mappings.
+   */
+  public function getFieldMappingIcs() {
+    return [
+      'field_gg_ics_category' => 'category',
+      'field_gg_ics_desc' => 'description',
+      'field_gg_ics_ed' => 'end_date',
+      'field_gg_ics_inst' => 'instructor',
+      'field_gg_ics_loc_id' => 'location_id',
+      'field_gg_ics_par' => 'parent_id',
+      'field_gg_ics_pd' => 'post_date',
+      'field_gg_ics_rec' => 'recurring',
+      'field_gg_ics_sd' => 'start_date',
+      'field_gg_ics_title' => 'title',
+    ];
+  }
+
+  /**
+   * Return field mappings for Schedules.
+   *
+   * @return array
+   *   Mappings.
+   */
+  public function getFieldMappingSchedules() {
+    return [
+      'field_gg_category' => 'category',
+      'field_gg_class_id' => 'id',
+      'field_gg_date_str' => 'date',
+      'field_gg_description' => 'desc',
+      'field_gg_instructor' => 'instructor',
+      'field_gg_location' => 'location',
+      'field_gg_orig_instructor' => 'original_instructor',
+      'field_gg_studio' => 'studio',
+      'field_gg_sub_instructor' => 'sub_instructor',
+      'field_gg_time' => 'time',
+      'field_gg_title' => 'title',
+      'field_gg_length' => 'length',
+    ];
+  }
+
+  /**
+   * Log cache guard warning.
+   *
+   * @param array $args
+   *   Array with arguments.
+   */
+  public function logCacheGuard($args) {
+    // @todo Remove stale entities.
+    $msg = 'The size of the DB is larger than %sizeM.';
+    $this->logger->critical(
+      $msg,
+      [
+        '%size' => $args['threshold'],
+      ]
+    );
   }
 
 }

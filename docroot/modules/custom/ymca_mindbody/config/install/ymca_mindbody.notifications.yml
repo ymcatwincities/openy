@@ -1,0 +1,115 @@
+locations:
+  # Please note that here we use MindBody location id.
+  # Midway.
+  2:
+    -
+      name: Andrew Dalton
+      email: Andrew.Dalton@ymcamn.org
+  # Minneapolis DT.
+  5:
+    -
+      name: Angie Suttles
+      email: Angie.Suttles@ymcamn.org
+  # Ridgedale.
+  7:
+    -
+      name: Beth Kanthak
+      email: Beth.Kanthak@ymcamn.org
+  # Burnsville.
+  11:
+    -
+      name: Breanna Koch
+      email: Breanna.Koch@ymcamn.org
+  # New Hope.
+  20:
+    -
+      name: Damien Rochon-Washington
+      email: Damien.Rochon-Washington@ymcamn.org
+  # St Paul Downtown.
+  17:
+    -
+      name: Diana Bishop
+      email: Diana.Bishop@ymcamn.org
+  # Elk River.
+  9:
+    -
+      name: Eric Kraut
+      email: Eric.Kraut@ymcamn.org
+  # Southdale.
+  18:
+    -
+      name: Gary Sandin
+      email: Gary.Sandin@ymcamn.org
+  # Shoreview.
+  19:
+    -
+      name: Heather Dayton
+      email: Heather.Dayton@ymcamn.org
+  # Hudson.
+  22:
+    -
+      name: Heidi Freitag
+      email: Heidi.Freitag@ymcamn.org
+  # Andover.
+  1:
+    -
+      name: Jake Humnick
+      email: Jake.Humnick@ymcamn.org
+  # Blaisdell.
+  10:
+    -
+      name: Joe Augenstein
+      email: Joe.Augenstein@ymcamn.org
+  # Lino Lakes.
+  3:
+    -
+      name: Justin Deblauw
+      email: Justin.Deblauw@ymcamn.org
+  # White Bear Lake.
+  4:
+    -
+      name: Kyle Hall
+      email: Kyle.Hall@ymcamn.org
+  # Hastings.
+  6:
+    -
+      name: LeAnn Niebur
+      email: LeAnn.Niebur@ymcamn.org
+  # Eagan.
+  13:
+    -
+      name: Mark Smith
+      email: Mark.Smith@ymcamn.org
+    -
+      name: Rebecca VanDyke
+      email: Rebecca.VanDyke@ymcamn.org
+  # Blaisdell.
+  10:
+    -
+      name: Melissa Moore
+      email: Melissa.Moore@ymcamn.org
+  # Forest Lake.
+  14:
+    -
+      name: Rachel Humnick
+      email: Rachel.Humnick@ymcamn.org
+  # River Valley.
+  8:
+    -
+      name: Ronnie Cordova
+      email: Ronnie.Cordova@ymcamn.org
+  # Woodbury.
+  15:
+    -
+      name: Tim Moore
+      email: Tim.Moore@ymcamn.org
+  # Heritage Park.
+  23:
+    -
+      name: Velma Harris
+      email: Velma.Harris@ymcamn.org
+  # Emma B
+  12:
+    -
+      name: Tim May
+      email: Tim.May@ymcamn.org

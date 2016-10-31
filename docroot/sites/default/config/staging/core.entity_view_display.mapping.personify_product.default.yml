@@ -1,0 +1,129 @@
+uuid: 4478cd99-ee08-4759-8dea-b9a50e5080d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.personify_product.field_location_ref
+    - field.field.mapping.personify_product.field_member_price
+    - field.field.mapping.personify_product.field_nonmember_price
+    - field.field.mapping.personify_product.field_package
+    - field.field.mapping.personify_product.field_price_available_from
+    - field.field.mapping.personify_product.field_price_available_to
+    - field.field.mapping.personify_product.field_product_code
+    - field.field.mapping.personify_product.field_productid
+    - field.field.mapping.personify_product.field_session_length
+    - field.field.mapping.personify_product.field_special_member_price
+    - field.field.mapping.personify_product.field_special_non_member_price
+    - ymca_mappings.mapping_type.personify_product
+  module:
+    - datetime
+    - options
+    - user
+id: mapping.personify_product.default
+targetEntityType: mapping
+bundle: personify_product
+mode: default
+content:
+  field_location_ref:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_member_price:
+    weight: 6
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  field_nonmember_price:
+    weight: 7
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  field_package:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_price_available_from:
+    weight: 8
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_price_available_to:
+    weight: 9
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_product_code:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_productid:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_session_length:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_special_member_price:
+    weight: 10
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  field_special_non_member_price:
+    weight: 11
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

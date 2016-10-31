@@ -66,7 +66,6 @@ class GroupexFormFull extends GroupexFormBase {
    * @param GroupexHelper $groupex_helper
    *   The Groupex helper.
    */
-
   public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper) {
     $this->groupexHelper = $groupex_helper;
 
@@ -139,7 +138,7 @@ class GroupexFormFull extends GroupexFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $state = $this->state;
-    $formatted_results = '';
+    $formatted_results = NULL;
 
     // Check if form printed on specific Location Schedules page.
     if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
@@ -261,6 +260,9 @@ class GroupexFormFull extends GroupexFormBase {
         'progress' => [
           'type' => 'throbber',
         ],
+      ],
+      '#cache' => [
+        'max-age' => 3600,
       ],
     ];
 

@@ -10,6 +10,7 @@ dependencies:
     - field.field.contact_message.wait_list.field_label
     - field.field.contact_message.wait_list.field_last_name
     - field.field.contact_message.wait_list.field_phone_number
+    - field.field.contact_message.wait_list.field_schedule_request
     - field.field.contact_message.wait_list.field_school
     - field.field.contact_message.wait_list.field_wait_list_email_option
   module:
@@ -58,7 +59,7 @@ content:
     weight: 5
     settings:
       placeholder: ''
-      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_pattern: '\d{10}|\(\d{3}\)\d{3}-\d{4}'
       validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
     third_party_settings: {  }
     type: telephone_default
@@ -81,6 +82,7 @@ content:
     third_party_settings: {  }
 hidden:
   copy: true
+  field_schedule_request: true
   mail: true
   message: true
   name: true

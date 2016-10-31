@@ -2,4 +2,10 @@
   margin:0 auto;
   max-width: 550px;
   width: 100%;
+  color: #777;
+
+  &__title,
+  &__content {
+  	padding: 0 10px;
+  }
 }

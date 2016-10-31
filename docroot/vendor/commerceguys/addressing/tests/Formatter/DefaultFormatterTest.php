@@ -2,11 +2,11 @@
 
 namespace CommerceGuys\Addressing\Tests\Formatter;
 
-use CommerceGuys\Addressing\Model\Address;
+use CommerceGuys\Addressing\Address;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
+use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Formatter\DefaultFormatter;
-use CommerceGuys\Addressing\Repository\AddressFormatRepository;
-use CommerceGuys\Addressing\Repository\CountryRepository;
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 
 /**
  * @coversDefaultClass \CommerceGuys\Addressing\Formatter\DefaultFormatter
@@ -54,12 +54,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ::__construct
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::setOptions
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::getDefaultOptions
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
      */
     public function testConstructor()
     {
@@ -72,13 +66,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::getLocale
      * @covers ::setLocale
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::__construct
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::setOptions
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::getDefaultOptions
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
      */
     public function testLocale()
     {
@@ -91,12 +78,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::setOption
      *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::__construct
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::setOptions
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::getDefaultOptions
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
      * @expectedException \InvalidArgumentException
      */
     public function testInvalidOption()
@@ -110,13 +91,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
      * @covers ::getOption
      * @covers ::setOption
      * @covers ::getDefaultOptions
-     *
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::__construct
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::setOptions
-     * @uses \CommerceGuys\Addressing\Formatter\DefaultFormatter::getDefaultOptions
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
      */
     public function testOptions()
     {
@@ -135,22 +109,13 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testAndorraAddress()
     {
         $address = new Address();
         $address = $address
             ->withCountryCode('AD')
-            ->withLocality('AD-07')
+            ->withLocality("Parròquia d'Andorra la Vella")
             ->withPostalCode('AD500')
             ->withAddressLine1('C. Prat de la Creu, 62-64');
 
@@ -168,15 +133,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testElSalvadorAddress()
     {
@@ -234,16 +190,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Collection\LazySubdivisionCollection
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testTaiwanAddress()
     {
@@ -252,16 +198,17 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
         $address = new Address();
         $address = $address
             ->withCountryCode('TW')
-            ->withAdministrativeArea('TW-TPE')  // Taipei city
-            ->withLocality('TW-TPE-e3cc33')  // Da-an district
+            ->withAdministrativeArea('Taipei City')
+            ->withLocality("Da'an District")
             ->withAddressLine1('Sec. 3 Hsin-yi Rd.')
             ->withPostalCode('106')
             // Any HTML in the fields is supposed to be removed when formatting
             // for text, and escaped when formatting for html.
             ->withOrganization('Giant <h2>Bike</h2> Store')
-            ->withRecipient('Mr. Liu')
-            ->withLocale('zh-hant');
-        $this->formatter->setLocale('zh-hant');
+            ->withGivenName('Te-Chiang')
+            ->withFamilyName('Liu')
+            ->withLocale('zh-Hant');
+        $this->formatter->setLocale('zh-Hant');
 
         // Test adding a new wrapper attribute, and passing a value as an array.
         $options = ['translate' => 'no', 'class' => ['address', 'postal-address']];
@@ -274,7 +221,7 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
             '<span class="administrative-area">台北市</span><span class="locality">大安區</span><br>',
             '<span class="address-line1">Sec. 3 Hsin-yi Rd.</span><br>',
             '<span class="organization">Giant &lt;h2&gt;Bike&lt;/h2&gt; Store</span><br>',
-            '<span class="recipient">Mr. Liu</span>',
+            '<span class="family-name">Liu</span> <span class="given-name">Te-Chiang</span>',
             '</p>',
         ];
         $htmlAddress = $this->formatter->format($address);
@@ -286,7 +233,7 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
             '台北市大安區',
             'Sec. 3 Hsin-yi Rd.',
             'Giant Bike Store',
-            'Mr. Liu',
+            'Liu Te-Chiang',
         ];
         $this->formatter->setOption('html', false);
         $textAddress = $this->formatter->format($address);
@@ -295,15 +242,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \CommerceGuys\Addressing\Formatter\DefaultFormatter
-     *
-     * @uses \CommerceGuys\Addressing\Model\Address
-     * @uses \CommerceGuys\Addressing\Model\AddressFormat
-     * @uses \CommerceGuys\Addressing\Model\FormatStringTrait
-     * @uses \CommerceGuys\Addressing\Model\Subdivision
-     * @uses \CommerceGuys\Addressing\Repository\AddressFormatRepository
-     * @uses \CommerceGuys\Addressing\Repository\CountryRepository
-     * @uses \CommerceGuys\Addressing\Repository\SubdivisionRepository
-     * @uses \CommerceGuys\Addressing\Repository\DefinitionTranslatorTrait
      */
     public function testUnitedStatesIncompleteAddress()
     {
@@ -311,7 +249,7 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
         $address = new Address();
         $address = $address
             ->withCountryCode('US')
-            ->withAdministrativeArea('US-CA')
+            ->withAdministrativeArea('CA')
             ->withPostalCode('94043')
             ->withAddressLine1('1098 Alta Ave');
 

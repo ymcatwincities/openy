@@ -7,14 +7,16 @@
     workspace_root: .
     artifacts_file: commentinfo.md
     build_reports_dir: build_reports
-    behat_base_url: http://drupal.192.168.56.132.xip.io # WITHOUT TRAILING SLASH
+    behat_base_url: http://admin:propeople@drupal.192.168.56.132.xip.io # WITHOUT TRAILING SLASH
     behat_drupal_root: /var/www/docroot
     resources_path: /var/www/tests/behat/resources
     behat_root: '../tests/behat'
     config_file: behat.yml
     features_dir: features
     browser: 'chrome'
-    selenium_url: 127.0.0.1:4444/wd/hub
+    selenium_ip: 127.0.0.1
+    selenium_port: 4444
+    selenium_url: "{{ selenium_ip }}:{{ selenium_port }}/wd/hub"
     run_javascript_tests: 'yes'
     update_dependencies: 'yes'
     container_name: 'selenium'
@@ -40,15 +42,31 @@
       sudo: yes
       shell: mv /tmp/behat.yml {{ behat_root }}/behat.yml
 
+    - name: Wait for Selenium container to be stopped
+      wait_for:
+        host: "{{ selenium_ip }}"
+        port: "{{ selenium_port }}"
+        delay: 0
+        state: stopped
+      when: run_javascript_tests == 'yes'
+
   tasks:
     - name: Run Selenium container
       docker:
         name: "{{ container_name }}"
         image: "{{ container_image }}"
         detach: true
-        ports: 4444:4444
+        ports: "{{ selenium_port }}:{{ selenium_port }}"
         state: started
       sudo: yes
+      when: run_javascript_tests == 'yes'
+
+    - name: Wait for Selenium container to be run
+      wait_for:
+        host: "{{ selenium_ip }}"
+        port: "{{ selenium_port }}"
+        delay: 10
+        state: drained
       when: run_javascript_tests == 'yes'
 
     - name: Create directory for build reports
