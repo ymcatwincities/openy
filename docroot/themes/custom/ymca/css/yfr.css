@@ -460,10 +460,16 @@
   margin-top: 15px;
   margin-top: 1.5rem;
 }
+@media (min-width: 48em) {
+  .yfr-info-blocks {
+    align-items: stretch;
+    display: flex;
+  }
+}
 
 .yfr-info-block {
-  margin: 35px 0;
-  margin: 3.5rem 0;
+  margin: 35px 15px;
+  margin: 3.5rem 1.5rem;
 }
 .yfr-info-block__header {
   font-family: "Cachet",Arial,sans-serif;
@@ -514,6 +520,30 @@
   margin-top: 1rem;
   color: #dd5828;
   font-size: 14px;
+}
+@media (min-width: 48em) {
+  .yfr-info-block {
+    padding: 0 0 35px 0;
+    padding: 0 0 3.5rem 0;
+    flex-basis: 0;
+    flex-grow: 1;
+    position: relative;
+  }
+  .yfr-info-block .yfr-info-block__content {
+    transition: padding-right .3s;
+  }
+}
+@media (min-width: 48em) and (min-width: 64em) {
+  .yfr-info-block .yfr-info-block__content {
+    padding-right: 85px;
+    padding-right: 8.5rem;
+  }
+}
+@media (min-width: 48em) {
+  .yfr-info-block .yfr-info-block__footer {
+    bottom: 0;
+    position: absolute;
+  }
 }
 
 .yfr-full-width-prize-block {
