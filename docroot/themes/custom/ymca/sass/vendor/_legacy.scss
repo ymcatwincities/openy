@@ -2111,6 +2111,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         margin: 0 12px;
         padding: 0;
         width: auto;
+
+        @media (max-width: 420px) {
+          margin: 0 8px;
+        }
       }
     }
   }
@@ -2200,6 +2204,15 @@ a.ms-brand:hover {
     margin: 0;
     font-size: 26px;
 
+    @media (max-width: 420px){
+      border-width: 2px;
+      width: 36px;
+      height: 36px;
+      line-height: 32px;
+      font-size: 20px;
+      padding-top: 0;
+      padding-top: 30px;
+    }
   }
 }
 
