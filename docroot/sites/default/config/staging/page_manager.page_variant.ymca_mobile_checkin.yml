@@ -20,8 +20,8 @@ variant_settings:
       provider: ymca_mobile_checkin
       label_display: visible
       ipa:
-        - ''
-      plist: ''
+        - '19851'
+      plist: 'public://ymca_mobile_checkin/YGTCDev.ipa.plist'
       region: middle
       weight: -9
       uuid: 7cb1fa16-662d-4874-a125-150ffe65d819
@@ -32,8 +32,8 @@ variant_settings:
       provider: ymca_mobile_checkin
       label_display: visible
       ipa:
-        - '16576'
-      plist: 'public://ymca_mobile_checkin/YGTC-Prod.ipa.plist'
+        - '19846'
+      plist: 'public://ymca_mobile_checkin/YGTCProd.ipa.plist'
       region: middle
       weight: -10
       uuid: 0930b2ee-d85d-455e-8781-454f3cef06a3

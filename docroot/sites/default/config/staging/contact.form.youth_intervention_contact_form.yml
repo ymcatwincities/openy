@@ -1,0 +1,28 @@
+uuid: cf72a7d2-ef28-4b42-8b6c-80116d3702e0
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: 'entity:node/4621'
+id: youth_intervention_contact_form
+label: 'Youth Intervention Contact Form'
+recipients:
+  - YouthIntervention.Services@ymcamn.org
+reply: ''
+weight: 0
+prefix: '<div class="row"><div class="col-md-8">'
+suffix: '</div></div>'
+provideSubmissionPage: 0
+submissionPageContent:
+  value: ''
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Message from YMCA Website - Youth Intervention Services Form'
+  content:
+    value: "<p>A new registration was received from the Youth Intervention Services Registration block.</p>\r\n\r\n<p>Here are the contents of the submission:</p>\r\n\r\n<p>Enter Your Information:<br />\r\nFirst Name:&nbsp;[contact_message:field_first_name]<br />\r\nLast Name:&nbsp;[contact_message:field_last_name]</p>\r\n\r\n<p>Email:&nbsp;[contact_message:field_email_address]<br />\r\nPhone Number:&nbsp;[contact_message:field_phone_number]<br />\r\nMessage:&nbsp;[contact_message:field_comments]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Thank you, and have a nice day.</p>\r\n\r\n<p>YMCA Twin Cities Registration System</p>\r\n\r\n<p>Note: Do not reply to this e-mail; it is sent from an automated system.</p>\r\n"
+    format: full_html
