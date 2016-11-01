@@ -3,7 +3,11 @@
     width: 1240px;
   }
 
-  @media (max-width: 991px) {
+  @media (min-width: 992px){
+    width: 100%;
+  }
+
+  @media (max-width: 992px) {
     width: 100%;
   }
 
@@ -85,6 +89,10 @@ body {
   }
 
   .col-md-3 {
+    @media screen and (max-width: 1066px) {
+      width: 20%;
+    }
+
     @media screen and (max-width: 991px) {
       width: 25%;
       float: left;
@@ -106,6 +114,10 @@ body {
   }
 
   .col-md-6 {
+    @media screen and (max-width: 1066px) {
+      width: 60%;
+    }
+
     @media screen and (max-width: 991px) {
       width: 50%;
       float: left;
@@ -134,12 +146,6 @@ body {
   }
 }
 
-//refactoring
-.nav-hr {
-  display: none !important;
-}
-//refactoring
-
 .menu-base-theme {
   @media (min-width: 768px){
     background-color: #fff;
@@ -150,9 +156,15 @@ body {
       padding: 48px 24px;
       line-height: 24px;
 
-      @media screen and (max-width: 900px) {
-        padding-left: 12px;
+      @media screen and (max-width: 992px) {
+        padding-left: 18px;
         padding-right: 12px;
+      }
+
+
+      @media screen and (max-width: 900px) {
+        padding-left: 6px;
+        padding-right: 6px;
       }
 
       @media screen and (max-width: 767px) {
@@ -496,14 +508,14 @@ body {
 
     &.fa-info-circle {
       &:before {
-        background: url("../images/icon-1.svg") no-repeat 50% 50%;
+        background: url('../images/icon-1.svg') no-repeat 50% 50%;
         @include background-size(cover);
       }
     }
 
     &.fa-rocket {
       &:before {
-        background: url("../images/icon-2.svg") no-repeat 50% 50%;
+        background: url('../images/icon-2.svg') no-repeat 50% 50%;
         @include background-size(cover);
       }
     }
@@ -512,7 +524,7 @@ body {
       &:before {
         width: 38px;
         height: 44px;
-        background: url("../images/icon-3.svg") no-repeat 50% 50%;
+        background: url('../images/icon-3.svg') no-repeat 50% 50%;
         @include background-size(cover);
       }
     }
@@ -521,7 +533,7 @@ body {
       &:before {
         width: 48px;
         height: 42px;
-        background: url("../images/icon-4.svg") no-repeat 50% 50%;
+        background: url('../images/icon-4.svg') no-repeat 50% 50%;
         @include background-size(cover);
       }
     }
