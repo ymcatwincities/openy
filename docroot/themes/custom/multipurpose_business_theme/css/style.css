@@ -589,9 +589,9 @@
   color: black;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
   .container {
-    width: 1240px;
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
@@ -599,9 +599,9 @@
     width: 100%;
   }
 }
-@media (max-width: 992px) {
+@media (min-width: 1200px) {
   .container {
-    width: 100%;
+    width: 1240px;
   }
 }
 
