@@ -2,9 +2,6 @@ items:
   5101:
     show: '1'
     overview: 0
-  5221:
-    show: '1'
-    overview: 0
   5156:
     show: '1'
     overview: '1'
@@ -13,6 +10,9 @@ items:
     overview: '1'
   5136:
     show: '1'
+    overview: 0
+  5221:
+    show: 0
     overview: 0
   2148:
     show: 0
@@ -38,9 +38,6 @@ items:
   1302:
     show: 0
     overview: 0
-  2715:
-    show: 0
-    overview: 0
   2153:
     show: 0
     overview: 0
@@ -51,6 +48,9 @@ items:
     show: 0
     overview: 0
   385:
+    show: 0
+    overview: 0
+  2715:
     show: 0
     overview: 0
   1460:

@@ -63,6 +63,12 @@ settings:
             - SessionSchedules
             - SportsTopSubheader
             - TextColor
+        -
+          name: Paste
+          items:
+            - Copy
+            - Paste
+            - PasteFromWord
   plugins:
     language:
       language_list: un
