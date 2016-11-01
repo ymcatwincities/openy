@@ -3,22 +3,22 @@
   font-weight: normal;
   font-style: normal;
   font-family: 'Cachet Bold';
-  src: url(../fonts/cachetstd-bold-webfont.eot);
-  src: url(../fonts/cachetstd-bold-webfont.eot?#iefix) format("embedded-opentype"), url("../fonts/cachetstd-bold-webfont.woff") format("woff"), url(../fonts/cachetstd-bold-webfont.ttf) format("truetype"), url(../fonts/cachetstd-bold-webfont.svg#CachetStdnormal) format("svg");
+  src: url("../fonts/cachetstd-bold-webfont.eot");
+  src: url("../fonts/cachetstd-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-bold-webfont.woff") format("woff"), url("../fonts/cachetstd-bold-webfont.ttf") format("truetype"), url("../fonts/cachetstd-bold-webfont.svg#CachetStdnormal") format("svg");
 }
 @font-face {
   font-weight: normal;
   font-style: normal;
   font-family: 'Cachet Book';
-  src: url(../fonts/cachetstd-book-webfont.eot);
-  src: url(../fonts/cachetstd-book-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/cachetstd-book-webfont.woff) format("woff"), url(../fonts/cachetstd-book-webfont.ttf) format("truetype"), url(../fonts/cachetstd-book-webfont.svg#CachetStdBook) format("svg");
+  src: url("../fonts/cachetstd-book-webfont.eot");
+  src: url("../fonts/cachetstd-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-book-webfont.woff") format("woff"), url("../fonts/cachetstd-book-webfont.ttf") format("truetype"), url("../fonts/cachetstd-book-webfont.svg#CachetStdBook") format("svg");
 }
 @font-face {
   font-weight: 700;
   font-style: normal;
   font-family: 'Cachet';
-  src: url(../fonts/cachetstd-medium-webfont.eot);
-  src: url(../fonts/cachetstd-medium-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/cachetstd-medium-webfont.woff) format("woff"), url(../fonts/cachetstd-medium-webfont.ttf) format("truetype"), url(../fonts/cachetstd-medium-webfont.svg#CachetStdMedium) format("svg");
+  src: url("../fonts/cachetstd-medium-webfont.eot");
+  src: url("../fonts/cachetstd-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-medium-webfont.woff") format("woff"), url("../fonts/cachetstd-medium-webfont.ttf") format("truetype"), url("../fonts/cachetstd-medium-webfont.svg#CachetStdMedium") format("svg");
 }
 .menu-base-theme a.is-active {
   text-decoration: underline;
@@ -299,13 +299,13 @@
 .get-started-with-open-y .form p {
   color: #fbae1f;
 }
-.get-started-with-open-y .form input[type="text"] {
+.get-started-with-open-y .form input[type='text'] {
   height: 49px;
   border-color: white;
   font-size: 14px;
   width: 200px;
 }
-.get-started-with-open-y .form input[type="submit"] {
+.get-started-with-open-y .form input[type='submit'] {
   padding: 9px 20px 10px;
   border-radius: 2px;
   font-size: 20px;
@@ -594,7 +594,12 @@
     width: 1240px;
   }
 }
-@media (max-width: 991px) {
+@media (min-width: 992px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (max-width: 992px) {
   .container {
     width: 100%;
   }
@@ -656,6 +661,11 @@ body .features-wrapper .features-alt_intro {
 .main-header .col-social {
   text-align: right;
 }
+@media screen and (max-width: 1066px) {
+  .main-header .col-md-3 {
+    width: 20%;
+  }
+}
 @media screen and (max-width: 991px) {
   .main-header .col-md-3 {
     width: 25%;
@@ -674,6 +684,11 @@ body .features-wrapper .features-alt_intro {
     top: 0;
     right: 0;
     width: auto;
+  }
+}
+@media screen and (max-width: 1066px) {
+  .main-header .col-md-6 {
+    width: 60%;
   }
 }
 @media screen and (max-width: 991px) {
@@ -702,10 +717,6 @@ body .features-wrapper .features-alt_intro {
   }
 }
 
-.nav-hr {
-  display: none !important;
-}
-
 @media (min-width: 768px) {
   .menu-base-theme {
     background-color: #fff;
@@ -715,10 +726,16 @@ body .features-wrapper .features-alt_intro {
   padding: 48px 24px;
   line-height: 24px;
 }
+@media screen and (max-width: 992px) {
+  .menu-base-theme li a {
+    padding-left: 18px;
+    padding-right: 12px;
+  }
+}
 @media screen and (max-width: 900px) {
   .menu-base-theme li a {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 }
 @media screen and (max-width: 767px) {
