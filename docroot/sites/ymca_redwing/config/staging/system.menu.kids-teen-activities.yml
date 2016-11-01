@@ -3,6 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: kids-teen-activities
-label: 'Teen & Kids'
+label: 'Kids & Teens'
 description: 'Subtree of pages'
 locked: false
