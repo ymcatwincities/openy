@@ -41,6 +41,10 @@
   background-image: none;
   background-color: #f47920;
 }
+.theme_ymca_2016_fall_retention .btn.orange-light-lighter {
+  background-image: none;
+  background-color: #fcaf17;
+}
 
 .top-nav {
   position: absolute;
@@ -727,6 +731,250 @@
     display: inline;
     line-height: 47px;
   }
+}
+
+.theme_ymca_2016_fall_retention .modal-dialog {
+  max-width: 600px;
+  max-width: 60rem;
+}
+.theme_ymca_2016_fall_retention .modal-header {
+  -moz-border-radius: 6px 6px 0 0;
+  -webkit-border-radius: 6px;
+  border-radius: 6px 6px 0 0;
+  height: 60px;
+  height: 6rem;
+  padding: 0 15px;
+  padding: 0 1.5rem;
+  background: #f47920;
+  border: none;
+  color: #fff;
+}
+@media (min-width: 48em) {
+  .theme_ymca_2016_fall_retention .modal-header {
+    height: 80px;
+    height: 8rem;
+    padding: 0 30px;
+    padding: 0 3rem;
+  }
+}
+.theme_ymca_2016_fall_retention .modal-title {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: bold;
+  line-height: 60px;
+  line-height: 6rem;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+@media (min-width: 48em) {
+  .theme_ymca_2016_fall_retention .modal-title {
+    line-height: 80px;
+    line-height: 8rem;
+    font-size: 25px;
+  }
+}
+.theme_ymca_2016_fall_retention .modal-close {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  height: 40px;
+  height: 4rem;
+  line-height: 40px;
+  line-height: 4rem;
+  margin: 10px;
+  margin: 1rem;
+  width: 40px;
+  width: 4rem;
+  background: none;
+  color: #fff;
+  display: block;
+  font-size: 18px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: center;
+}
+@media (min-width: 48em) {
+  .theme_ymca_2016_fall_retention .modal-close {
+    height: 60px;
+    height: 6rem;
+    line-height: 60px;
+    line-height: 6rem;
+    width: 60px;
+    width: 6rem;
+    font-size: 20px;
+  }
+}
+.theme_ymca_2016_fall_retention .modal-body {
+  -moz-border-radius: 0 0 6px 6px;
+  -webkit-border-radius: 0;
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+  padding: 0;
+}
+.theme_ymca_2016_fall_retention .yfr-modal .row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input {
+  width: 100%;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"], .theme_ymca_2016_fall_retention .yfr-modal input[type="email"] {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 47px;
+  height: 4.7rem;
+  line-height: 47px;
+  line-height: 4.7rem;
+  padding: 0 25px;
+  padding: 0 2.5rem;
+  font-size: 16px;
+  border: 1px solid #e5e5e5;
+  color: #424242;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-moz-placeholder {
+  color: #a7a7a7;
+  font-style: italic;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-moz-placeholder {
+  color: #a7a7a7;
+  font-style: italic;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-ms-input-placeholder {
+  color: #a7a7a7;
+  font-style: italic;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-webkit-input-placeholder {
+  color: #a7a7a7;
+  font-style: italic;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input.error {
+  border: 1px solid #a92b31;
+}
+
+.yfr-register-form,
+.yfr-login-form {
+  padding: 20px 15px 30px 25px;
+  padding: 2rem 1.5rem 3rem 2.5rem;
+  transition: padding .3s;
+}
+@media (min-width: 48em) {
+  .yfr-register-form,
+  .yfr-login-form {
+    padding: 50px 88px 40px;
+    padding: 5rem 8.8rem 4rem;
+  }
+}
+.yfr-register-form .form-item,
+.yfr-login-form .form-item {
+  padding-bottom: 20px;
+  padding-bottom: 2rem;
+}
+
+.yfr-facility-access-hint-link {
+  line-height: 20px;
+  line-height: 2rem;
+  height: 47px;
+  height: 4.7rem;
+  padding: 4px 0;
+  padding: 0.4rem 0;
+  font-size: 15px;
+  color: #dd5828;
+  display: block;
+}
+.yfr-facility-access-hint-link:focus, .yfr-facility-access-hint-link:hover {
+  color: #dd5828;
+  text-decoration: underline;
+  outline: none;
+}
+
+@media (min-width: 0) and (max-width: 29.9375em) {
+  .yfr-facility-access-hint-wrapper.collapse {
+    display: block;
+    height: auto !important;
+  }
+}
+
+.yfr-facility-access-hint {
+  background-position: 20px bottom;
+  background-position: 2rem bottom;
+  background-size: auto 190px;
+  background-size: auto 19rem;
+  padding: 20px 15px 190px 25px;
+  padding: 2rem 1.5rem 19rem 2.5rem;
+  background-color: #f2f2f2;
+  background-image: url(../prototypes/yfr/img/modals/hand.png);
+  background-repeat: no-repeat;
+  position: relative;
+  transition: background-position .3s, background-size .3s, padding .35s ease, opacity .35s ease;
+}
+@media (min-width: 40em) {
+  .yfr-facility-access-hint {
+    background-position: center bottom;
+  }
+}
+@media (min-width: 48em) {
+  .yfr-facility-access-hint {
+    padding: 30px 88px 200px;
+    padding: 3rem 8.8rem 20rem;
+    background-size: auto 200px;
+    background-size: auto 20rem;
+    background-position: 88px bottom;
+    background-position: 8.8rem bottom;
+  }
+}
+.yfr-facility-access-hint p {
+  line-height: 25px;
+  line-height: 2.5rem;
+  color: #777777;
+  font-size: 18px;
+}
+.yfr-facility-access-hint p.small {
+  line-height: 18px;
+  line-height: 1.8rem;
+  font-size: 13px;
+  max-width: 75%;
+}
+
+@media (min-width: 48em) {
+  .yfr-login-form__submit-wrapper {
+    padding-left: 0;
+  }
+}
+.yfr-login-form .remember-me-wrapper {
+  padding-right: 0;
+}
+@media (min-width: 48em) {
+  .yfr-login-form .remember-me-wrapper {
+    padding-right: 15px;
+  }
+}
+.yfr-login-form input[type="checkbox"], .yfr-login-form a, .yfr-login-form label {
+  display: inline-block;
+  width: auto;
+}
+.yfr-login-form a, .yfr-login-form label {
+  height: 47px;
+  height: 4.7rem;
+  line-height: 47px;
+  line-height: 4.7rem;
+  font-size: 13px;
+  font-weight: normal;
+  margin: 0;
+}
+@media (min-width: 48em) {
+  .yfr-login-form a, .yfr-login-form label {
+    font-size: 15px;
+  }
+}
+.yfr-login-form a {
+  color: #dd5828;
+}
+.yfr-login-form a:focus, .yfr-login-form a:hover {
+  color: #dd5828;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=yfr.css.map */
