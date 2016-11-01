@@ -1,0 +1,28 @@
+uuid: 0b66cb8e-93bf-449c-b6d9-9c54cb227c5c
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: /camps/camp_pepin/thank_you
+id: new_employment_application
+label: 'New Employment Application'
+recipients:
+  - stuart.broz@ffwagency.com
+reply: "Camp Pepin has received your submission.\r\n\r\nThank you."
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 0
+submissionPageContent:
+  value: ''
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 0
+  subject: ''
+  content:
+    value: ''
+    format: full_html
