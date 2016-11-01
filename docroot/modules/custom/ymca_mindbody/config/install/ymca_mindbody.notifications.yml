@@ -5,11 +5,6 @@ locations:
     -
       name: Andrew Dalton
       email: Andrew.Dalton@ymcamn.org
-  # Minneapolis DT.
-  5:
-    -
-      name: Angie Suttles
-      email: Angie.Suttles@ymcamn.org
   # Ridgedale.
   7:
     -
@@ -113,3 +108,8 @@ locations:
     -
       name: Tim May
       email: Tim.May@ymcamn.org
+  # St. Paul Eastside
+  24:
+    -
+      name: Angie Suttles
+      email: Angie.Suttles@ymcamn.org
