@@ -1,0 +1,21 @@
+uuid: a9d73e15-ca78-403a-a15d-9a1f57488f44
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_position
+  module:
+    - options
+id: contact_message.new_employment_application.field_position
+field_name: field_position
+entity_type: contact_message
+bundle: new_employment_application
+label: Position
+description: 'Choose THREE'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

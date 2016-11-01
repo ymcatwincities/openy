@@ -26,43 +26,7 @@ entity_types:
         802:
           index: 0
           priority: 0.5
-        1033:
-          index: 0
-          priority: 0.5
-        1228:
-          index: 0
-          priority: 0.5
-        1381:
-          index: 0
-          priority: 0.5
-        1509:
-          index: 0
-          priority: 0.5
-        1612:
-          index: 0
-          priority: 0.5
-        1681:
-          index: 0
-          priority: 0.5
         504:
-          index: 0
-          priority: 0.5
-        565:
-          index: 0
-          priority: 0.5
-        1060:
-          index: 0
-          priority: 0.5
-        1892:
-          index: 0
-          priority: 0.5
-        625:
-          index: 0
-          priority: 0.5
-        1066:
-          index: 0
-          priority: 0.5
-        692:
           index: 0
           priority: 0.5
         574:
@@ -155,9 +119,6 @@ entity_types:
         1083:
           index: 0
           priority: 0.5
-        541:
-          index: 0
-          priority: 0.5
         540:
           index: 0
           priority: 0.5
@@ -171,18 +132,6 @@ entity_types:
           index: 0
           priority: 0.5
         1370:
-          index: 0
-          priority: 0.5
-        2166:
-          index: 0
-          priority: 0.5
-        1876:
-          index: 0
-          priority: 0.5
-        2169:
-          index: 0
-          priority: 0.5
-        2183:
           index: 0
           priority: 0.5
         2216:
@@ -255,6 +204,12 @@ entity_types:
           index: 0
           priority: 0.5
         1:
+          index: 0
+          priority: 0.5
+        4566:
+          index: 0
+          priority: 0.5
+        4621:
           index: 0
           priority: 0.5
 settings:

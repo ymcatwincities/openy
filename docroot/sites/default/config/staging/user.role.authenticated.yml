@@ -24,3 +24,4 @@ permissions:
   16: 'access YMCA location schedules'
   17: 'access AB variants'
   18: 'access Personal Training forms'
+  19: 'book personal training time slots'

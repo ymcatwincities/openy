@@ -29,6 +29,8 @@ settings:
     dependentLocality: '0'
     sortingCode: '0'
     organization: '0'
-    recipient: '0'
+    givenName: ''
+    additionalName: ''
+    familyName: ''
   langcode_override: ''
 field_type: address

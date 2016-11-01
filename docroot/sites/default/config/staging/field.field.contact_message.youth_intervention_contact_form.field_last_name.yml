@@ -1,0 +1,19 @@
+uuid: ef541a71-e489-45ba-9af9-3c9509c28a0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.youth_intervention_contact_form
+    - field.storage.contact_message.field_last_name
+id: contact_message.youth_intervention_contact_form.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: youth_intervention_contact_form
+label: 'Last Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

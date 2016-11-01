@@ -20,5 +20,5 @@ default_value:
 default_value_callback: ''
 settings:
   on_label: Cancelled
-  off_label: Not cancelled
+  off_label: 'Not cancelled'
 field_type: boolean
