@@ -131,7 +131,8 @@ function multipurpose_business_theme_preprocess_page(&$variables) {
 
 
   // Social media global variable.
-  $variables['show_social_icon'] = theme_get_setting('show_social_icon');
+  $variables['show_social_icon'] = true;
+  // theme_get_setting('show_social_icon');
   $variables['facebook_url'] = theme_get_setting('facebook_url');
   $variables['google_plus_url'] = theme_get_setting('google_plus_url');
   $variables['twitter_url'] = theme_get_setting('twitter_url');
@@ -211,7 +212,7 @@ function multipurpose_business_theme_get_slider_content() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function multipurpose_business_theme_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  
+
   //Social Icon Link
   $form['multipurpose_business_theme_settings']['social_icon'] = array(
     '#type' => 'details',
@@ -324,7 +325,7 @@ function multipurpose_business_theme_form_system_theme_settings_alter(&$form, \D
       '#default_value' => theme_get_setting('slide_url_' . $i,'multipurpose_business_theme'),
     );
   }
-  
+
 }
 
 

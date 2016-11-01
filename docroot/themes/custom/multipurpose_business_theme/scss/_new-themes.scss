@@ -14,7 +14,22 @@
 
 body {
   color: #424242;
+
+  h1, h2 {
+    color: #424242;
+  }
+
+  .features-wrapper {
+    .features-alt_title {
+      color: #424242;
+    }
+
+    .features-alt_intro {
+      font-family: 'Cachet Book';
+    }
+  }
 }
+
 
 .region-header {
   .brand {
@@ -39,13 +54,63 @@ body {
   .col-navbar {
     text-align: center;
 
+    .menu-base-theme {
+      @media (min-width: 768px){
+        background-color: #0288d1;
+      }
+    }
+
     .region-primary-menu {
       display: inline-block;
       vertical-align: top;
+
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
+    }
+  }
+
+  .social-media {
+    display: inline-block;
+    vertical-align: top;
+    padding: 48px 0;
+
+    @media screen and (max-width: 767px) {
+      padding: 16px 50px 22px 0;
+    }
+  }
+
+  .col-social {
+    text-align: right;
+  }
+
+  .col-md-3 {
+    @media screen and (max-width: 991px) {
+      width: 25%;
+      float: left;
+    }
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      float: none;
+    }
+
+    &.col-social {
+      @media screen and (max-width: 767px) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+      }
     }
   }
 
   .col-md-6 {
+    @media screen and (max-width: 991px) {
+      width: 50%;
+      float: left;
+    }
+
     @media screen and (max-width: 767px) {
       width: 100%;
       padding: 0;
@@ -76,10 +141,19 @@ body {
 //refactoring
 
 .menu-base-theme {
+  @media (min-width: 768px){
+    background-color: #fff;
+  }
+
   li {
     a {
       padding: 48px 24px;
       line-height: 24px;
+
+      @media screen and (max-width: 900px) {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
 
       @media screen and (max-width: 767px) {
         padding: 12px 24px;
@@ -150,19 +224,27 @@ body {
     counter-reset: heading;
   }
 
+  h2 + .features-alt_item{
+    &:after {
+      width: 50%;
+      left: auto;
+    }
+  }
+
+
   .features-alt_item {
     position: relative;
     padding: 0 50px;
 
-    @media (max-width: 990px) {
+    @media screen and (max-width: 991px) {
       padding: 0 20px;
     }
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
 
     }
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
 
     }
 
@@ -186,7 +268,7 @@ body {
       background: #fff url('../images/icon-circle.svg') 50% 50% no-repeat;
       @include background-size(cover);
 
-      @media (max-width: 500px) {
+      @media screen and (max-width: 500px) {
         font-size: 20px;
         width: 54px;
         height: 54px;
@@ -205,7 +287,7 @@ body {
       right: 0;
       top: 37px;
 
-      @media (max-width: 500px) {
+      @media screen and (max-width: 500px) {
         top: 27px;
       }
     }
@@ -251,7 +333,7 @@ body {
     font-size: 20px;
     line-height: 28px;
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       font-size: 18px;
       line-height: 24px;
       max-width: initial;
@@ -279,11 +361,11 @@ body {
   background: #5c2e91;
   padding: 100px 0;
 
-  @media (max-width: 767px) {
+  @media screen and (max-width: 767px) {
     padding: 60px 0;
   }
 
-  @media (max-width: 500px) {
+  @media screen and (max-width: 500px) {
     padding: 30px 0;
   }
 
@@ -295,11 +377,11 @@ body {
     line-height: 54px;
     margin: 0 0 40px 0;
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
       font-size: 30px;
     }
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       font-size: 26px;
       line-height: 40px;
       margin-bottom: 20px;
@@ -326,7 +408,7 @@ body {
       color: #fff;
     }
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
       font-size: 18px;
       padding: 10px 20px;
     }
@@ -343,7 +425,7 @@ body {
 
 .about-open-y {
 
-  @media (max-width: 500px) {
+  @media screen and (max-width: 500px) {
     margin-bottom: 0;
   }
 
@@ -360,7 +442,7 @@ body {
       margin: 0;
     }
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       min-height: 0;
       margin-bottom: 20px;
     }
@@ -380,7 +462,7 @@ body {
       margin: 0;
     }
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       min-height: 0;
     }
   }
@@ -392,7 +474,7 @@ body {
     line-height: 60px;
     margin: 0;
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       margin-bottom: 20px;
     }
   }
@@ -470,15 +552,15 @@ body {
       border-left: 0;
     }
 
-    @media (max-width: 990px) {
+    @media screen and (max-width: 990px) {
       padding: 0 20px 26px;
     }
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
       width: 50%;
     }
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       width: 100%;
       border-left: none;
       min-height: 0;
@@ -534,7 +616,7 @@ body {
     opacity: 0.6;
     vertical-align: middle;
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       max-width: 50%;
     }
   }
@@ -568,10 +650,10 @@ body {
         margin: 0 auto;
       }
 
-      @media (max-width: 767px) {
+      @media screen and (max-width: 767px) {
       }
 
-      @media (max-width: 500px) {
+      @media screen and (max-width: 500px) {
         min-height: 0;
         line-height: initial;
         padding: 0 0 10px;
@@ -603,15 +685,15 @@ body {
     width: 25%;
     float: left;
 
-    @media (max-width: 990px) {
+    @media screen and (max-width: 990px) {
       padding: 0 20px;
     }
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
       width: 50%;
     }
 
-    @media (max-width: 500px) {
+    @media screen and (max-width: 500px) {
       width: 100%;
     }
   }
@@ -623,7 +705,7 @@ body {
   color: #fff;
 
   .region-footer-menu {
-    @media (max-width: 991px) {
+    @media screen and (max-width: 991px) {
       text-align: center;
     }
   }
@@ -635,7 +717,7 @@ body {
     clear: both;
     overflow: hidden;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: 991px) {
       display: inline-block;
       vertical-align: top;
     }
@@ -649,11 +731,11 @@ body {
       padding: 34px 20px;
       color: inherit;
 
-      @media (max-width: 991px) {
+      @media screen and (max-width: 991px) {
         padding: 24px 16px;
       }
 
-      @media (max-width: 767px) {
+      @media screen and (max-width: 767px) {
         padding: 14px 10px;
       }
     }
@@ -664,7 +746,7 @@ body {
     opacity: .4;
     padding: 34px 20px;
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: 991px) {
       padding: 24px 16px;
       text-align: center;
     }
@@ -673,7 +755,7 @@ body {
       margin: 0;
     }
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 767px) {
         padding: 14px 10px;
     }
   }
@@ -683,7 +765,7 @@ body {
       display: none;
     }
 
-    @media (max-width: 991px) {
+    @media screen and (max-width: 991px) {
     }
   }
 }
