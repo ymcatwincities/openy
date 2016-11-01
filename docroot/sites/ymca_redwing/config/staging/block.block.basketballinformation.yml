@@ -1,0 +1,45 @@
+uuid: 3538b62c-4289-4664-a4cc-96f251b31ea0
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:expander_block:8ad925ff-a13c-4edc-a32b-1473bb9e996d'
+  module:
+    - block_content
+    - ctools
+  theme:
+    - ymca
+id: basketballinformation
+theme: ymca
+region: secondary_menu
+weight: -11
+provider: null
+plugin: 'block_content:8ad925ff-a13c-4edc-a32b-1473bb9e996d'
+settings:
+  id: 'block_content:8ad925ff-a13c-4edc-a32b-1473bb9e996d'
+  label: 'Basketball Information'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    bundles:
+      basic: basic
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:contact_message':
+    id: 'entity_bundle:contact_message'
+    bundles:
+      contact_a_program_director: contact_a_program_director
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      article: article
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
