@@ -1,0 +1,40 @@
+uuid: 497480d6-980a-4054-b572-18d119d8d331
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_challenge
+  module:
+    - panels
+    - ymca_retention
+id: ymca_retention_challenge
+label: 'YMCA Retention Challenge'
+variant: panels_variant
+variant_settings:
+  blocks:
+    203e1179-f392-476a-ba07-4d84d76ffd9e:
+      id: retention_registration_block
+      label: 'YMCA retention registration block'
+      provider: ymca_retention
+      label_display: '0'
+      yteam: 0
+      region: main
+      weight: 0
+      uuid: 203e1179-f392-476a-ba07-4d84d76ffd9e
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
+  label: null
+  weight: 0
+  layout: ymca-retention
+  layout_settings:
+    extra_classes: ''
+  page_title: 'Y Spirit'
+  storage_type: page_manager
+  storage_id: ymca_retention_challenge
+  builder: standard
+page: ymca_retention_challenge
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }
