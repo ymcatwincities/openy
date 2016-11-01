@@ -1,0 +1,211 @@
+.theme_ymca_2016_fall_retention {
+
+  .modal-dialog {
+    @include rem(max-width, 600px);
+  }
+  .modal-header {
+    @include border-radius(6px 6px 0 0);
+    @include rem(height, 60px);
+    @include rem(padding, 0 15px);
+    background: $orange-medium-lighter;
+    border: none;
+    color: $white;
+
+    @include breakpoint($tablet) {
+      @include rem(height, 80px);
+      @include rem(padding, 0 30px);
+    }
+  }
+
+  .modal-title {
+    @include cachet-bold();
+    @include rem(line-height, 60px);
+    font-size: 20px;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 80px);
+      font-size: 25px;
+    }
+  }
+
+  .modal-close {
+    @include border-radius(0);
+    @include rem(height, 40px);
+    @include rem(line-height, 40px);
+    @include rem(margin, 10px);
+    @include rem(width, 40px);
+    background: none;
+    color: $white;
+    display: block;
+    font-size: 18px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+
+    @include breakpoint($tablet) {
+      @include rem(height, 60px);
+      @include rem(line-height, 60px);
+      @include rem(width, 60px);
+      font-size: 20px;
+    }
+  }
+
+  .modal-body {
+    @include border-radius(0 0 6px 6px);
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .yfr-modal {
+
+    .row {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+
+    input {
+      width: 100%;
+
+      &[type="text"],
+      &[type="email"] {
+        @include border-radius(3px);
+        @include rem(height, 47px);
+        @include rem(line-height, 47px);
+        @include rem(padding, 0 25px);
+        font-size: 16px;
+        border: 1px solid $grey12;
+        color: $grey7;
+
+        @include input-placeholder {
+          color: $grey4;
+          font-style: italic;
+        }
+      }
+
+      &.error {
+        border: 1px solid $red-dark;
+      }
+    }
+  }
+}
+
+.yfr-register-form,
+.yfr-login-form {
+  @include rem(padding, 20px 15px 30px 25px);
+  transition: padding .3s;
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 50px 88px 40px);
+  }
+
+  .form-item {
+    @include rem(padding-bottom, 20px);
+  }
+}
+
+.yfr-facility-access-hint-link {
+  @include rem(line-height, 20px);
+  @include rem(height, 47px);
+  @include rem(padding, 4px 0);
+  font-size: 15px;
+  color: $orange-dark-lighter;
+  display: block;
+
+  &:focus,
+  &:hover {
+    color: $orange-dark;
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+.yfr-facility-access-hint-wrapper {
+
+  @include breakpoint($mobile-bp-only) {
+    &.collapse {
+      display: block;
+      height: auto !important;
+    }
+  }
+}
+
+.yfr-facility-access-hint {
+  @include rem(background-position, 20px bottom);
+  @include rem(background-size, auto 190px);
+  @include rem(padding, 20px 15px 190px 25px);
+  background-color: #f2f2f2;
+  background-image: url(../prototypes/yfr/img/modals/hand.png);
+  background-repeat: no-repeat;
+  position: relative;
+  transition: background-position .3s, background-size .3s, padding .35s ease, opacity .35s ease;
+
+  @include breakpoint($tablet-portrait) {
+    @include rem(background-position, center bottom);
+  }
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 30px 88px 200px);
+    @include rem(background-size, auto 200px);
+    @include rem(background-position, 88px bottom);
+  }
+
+  p {
+    @include rem(line-height, 25px);
+    color: #777777;
+    font-size: 18px;
+  }
+
+  p.small {
+    @include rem(line-height, 18px);
+    font-size: 13px;
+    max-width: 75%;
+  }
+}
+
+.yfr-login-form {
+
+  &__submit-wrapper {
+
+    @include breakpoint($tablet) {
+      padding-left: 0;
+    }
+  }
+
+  .remember-me-wrapper {
+    padding-right: 0;
+
+    @include breakpoint($tablet) {
+      padding-right: 15px;
+    }
+  }
+
+  input[type="checkbox"], a, label {
+    display: inline-block;
+    width: auto;
+  }
+
+  a, label {
+    @include rem(height, 47px);
+    @include rem(line-height, 47px);
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+
+    @include breakpoint($tablet) {
+      font-size: 15px;
+    }
+  }
+
+  a {
+    color: $orange-dark-lighter;
+
+    &:focus,
+    &:hover {
+      color: $orange-dark;
+      text-decoration: underline;
+    }
+  }
+}

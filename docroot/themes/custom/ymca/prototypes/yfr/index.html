@@ -222,7 +222,7 @@
         <div class="ysr-user-menu">
           <div class="ysr-user-menu__greetings">Hi, Christopher Robin!</div>
           <div class="ysr-user-menu__logout">
-            <a href="#">Logout</a>
+            <a href="#" data-toggle="modal" data-target="#login-modal">Logout</a>
           </div>
         </div>
 
@@ -257,7 +257,7 @@
 
                 <div class="yfr-registration-form-section">
                   <div class="yfr-registration-form-button-container">
-                    <a href="#" class="btn btn-lg btn-primary orange-medium">Register now</a>
+                    <a href="#" class="btn btn-lg btn-primary orange-medium" data-toggle="modal" data-target="#register-modal">Register now</a>
                   </div>
                   <div class="yfr-registration-form-help-text-container">
                     <p>
@@ -511,7 +511,85 @@
   <!--googleon: index-->
 </div>
 
+
+
 <!-- viewport -->
+<div id="login-modal" class="modal fade yfr-modal">
+  <div class="modal-cover"></div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+        <div class="modal-title">Login</div>
+      </div>
+      <div class="modal-body">
+        <div class="yfr-login-form">
+          <form action="#">
+            <div class="row">
+              <div class="col-sm-9">
+                <input type="email" name="email" class="form-item" placeholder="Your e-mail">
+              </div>
+              <div class="col-sm-3 yfr-login-form__submit-wrapper">
+                <input type="submit" value="ok" class="btn btn-lg btn-primary orange-light-lighter">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-5 remember-me-wrapper">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Remember me</label>
+              </div>
+              <div class="col-xs-6 col-sm-6">
+                <a href="#" class="" data-toggle="modal" data-target="#register-modal">Registration</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="register-modal" class="modal fade yfr-modal">
+  <div class="modal-cover"></div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+        <div class="modal-title">Registration</div>
+      </div>
+      <div class="modal-body">
+        <div class="yfr-register-form">
+          <form action="#">
+            <input type="text" name="facility_id" class="form-item error" placeholder="Your facility access ID">
+            <div class="row">
+              <div class="col-sm-6">
+                <input type="submit" value="ok" class="btn btn-lg btn-primary orange-light-lighter">
+              </div>
+              <div class="col-sm-6 hidden-xs">
+                <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">Where can I find my Facility Access ID?</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="yfr-facility-access-hint-wrapper collapse">
+          <div class="yfr-facility-access-hint">
+            <p>
+              Please find your facility access ID below the barcode.
+            </p>
+            <p class="small">
+              Please note it might be on the
+              front of the card on older
+              membership cards.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="modal" class="modal fade">
   <div class="modal-cover"></div>
   <div class="modal-dialog">
