@@ -14,7 +14,6 @@ body{
   font-family: 'Cachet', 'Roboto', sans-serif;
   font-size: 16px;
   overflow-x: hidden;
-  //color: #777;
 }
 
 p{ margin: 0 0 20px 0; }
@@ -65,7 +64,6 @@ ul.links.inline li{
 .main-header{
   background: #0288d1;
   font-family: 'Cachet', 'Roboto Slab', serif;
-  /* padding-bottom: 5px; */
   z-index: 999;
   position: relative;
   -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
@@ -118,24 +116,9 @@ header nav{
 
 /*Region Header*/
 
-//**new themes**//
-/* .site-branding{ */
-/*   margin: 0; */
-/*   padding: 5px 0; */
-/* } */
-//**new themes**//
-
 .brand.logo{
   margin-right: 5px;
 }
-
-//**new themes**//
-/* .region-header .brand{ */
-/*   display: inline-block; */
-/*   vertical-align: middle; */
-/*   line-height: 100%; */
-/* } */
-//**new themes**//
 
 .site-name a{
   font-size: 34px;
@@ -493,15 +476,6 @@ nav h2{
   position: relative;
   z-index: 9999;
 }
-
-//**new themes**//
-/* .region-primary-menu{ */
-/*   display: none; */
-/*   background: #fff; */
-/*   border-radius: 3px; */
-/*   width: 100%; */
-/* } */
-//**new themes**//
 
 .menu-base-theme a{
   border-bottom: 1px solid #EEF0F7;
@@ -904,10 +878,6 @@ ul.links.inline li{
   font-size: 20px;
   font-weight: 300;
   font-family: 'Cachet', 'Roboto Slab', serif;
-}
-
-.features-alt_intro {
-  //color: #777777;
 }
 
 /*Gallery*/
