@@ -51,7 +51,10 @@
 .menu-base-theme ul ul {
   background: rgba(102, 102, 102, 0.1);
 }
-.menu-base-theme ul a, .menu-base-theme ul a:hover, .menu-base-theme ul a:focus, .menu-base-theme ul a:active {
+.menu-base-theme ul a,
+.menu-base-theme ul a:hover,
+.menu-base-theme ul a:focus,
+.menu-base-theme ul a:active {
   background: transparent;
   color: #2b82ac;
   border-left: 8px solid transparent;
@@ -95,7 +98,7 @@
 }
 
 @media (min-width: 768px) {
-	
+
   .menu-base-theme ul {
     position: absolute;
   }
@@ -128,10 +131,9 @@
   .menu-base-theme {
     background: #3092c0;
   }
-  .menu-base-theme a, .menu-base-theme a:hover, 
-  .menu-base-theme a:focus, .menu-base-theme a:active, 
+  .menu-base-theme a, .menu-base-theme a:hover,
+  .menu-base-theme a:focus, .menu-base-theme a:active,
   .menu-base-theme a.highlighted {
-    padding: 13px 24px;
     background: #3092c0;
     color: white;
   }

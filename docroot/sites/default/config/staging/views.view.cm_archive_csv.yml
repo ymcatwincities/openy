@@ -508,7 +508,9 @@ display:
     display_title: 'REST export'
     position: 2
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        views_advanced_routing_route:
+          route: ''
       style:
         type: serializer
         options:
@@ -518,7 +520,7 @@ display:
       row:
         type: data_entity
         options: {  }
-      path: admin/structure/contact/manage/%/export_csv
+      path: admin/structure/contact/manage/%/export_csv_backend
       pager:
         type: none
         options:
