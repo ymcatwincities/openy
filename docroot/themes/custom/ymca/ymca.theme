@@ -543,6 +543,9 @@ function ymca_preprocess_page(&$variables) {
     $site_section_bundle = $site_section->bundle();
     $variables['site_section'] = $site_section;
     $variables['working_hours'] = '';
+    $variables['bundle_count'] = count(\Drupal::entityQuery('node')
+      ->condition('type', $site_section_bundle)
+      ->execute());
     if ($site_section_bundle == 'location') {
       /* @var \Drupal\Core\Field\FieldItemListInterface $items */
       $items = $site_section->field_working_hours->getValue()[0]['target_id'];
