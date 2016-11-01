@@ -60,34 +60,10 @@
 
 <!-- Header and Navbar -->
 <header class="main-header">
-  {% if show_social_icon or page.search or page.user_menu %}
+  {% if page.search or page.user_menu %}
   <div class="row topnav-wrap">
     <div class="container">
       <div class="row">
-        {% if show_social_icon %}
-          <div class="col-sm-4 col-md-4">
-            <div class="social-media">
-              {% if facebook_url %}
-                <a href="{{ facebook_url }}"  class="facebook" target="_blank" ><i class="fa fa-facebook"></i></a>
-              {% endif %}
-              {% if google_plus_url %}
-                <a href="{{ google_plus_url }}"  class="google-plus" target="_blank" ><i class="fa fa-google-plus"></i></a>
-              {% endif %}
-              {% if twitter_url %}
-                <a href="{{ twitter_url }}" class="twitter" target="_blank" ><i class="fa fa-twitter"></i></a>
-              {% endif %}
-              {% if linkedin_url %}
-                <a href="{{ linkedin_url }}" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
-              {% endif %}
-              {% if pinterest_url %}
-                <a href="{{ pinterest_url }}" class="pinterest" target="_blank" ><i class="fa fa-pinterest"></i></a>
-              {% endif %}
-              {% if rss_url %}
-                <a href="{{ rss_url }}" class="rss" target="_blank" ><i class="fa fa-rss"></i></a>
-              {% endif %}
-            </div>
-          </div>
-        {% endif %}
         {% if page.search or page.user_menu %}
           <div class="col-sm-8 col-md-8 top-user-menu">
             <ul class="list-inline">
@@ -124,15 +100,36 @@
       </div>
 
       <!-- Navigation -->
+      {% if page.primary_menu %}
       <div class="col-md-6 col-navbar">
-        {% if page.primary_menu %}
-          {{ page.primary_menu }}
-        {% endif %}
+        {{ page.primary_menu }}
       </div>
+      {% endif %}
       <!--End Navigation -->
-      <div class="col-md-3">
-        <p>text</p>
+      {% if show_social_icon %}
+      <div class="col-md-3 col-social">
+        <div class="social-media">
+          {% if facebook_url %}
+          <a href="{{ facebook_url }}"  class="facebook" target="_blank" ><i class="fa fa-facebook"></i></a>
+          {% endif %}
+          {% if google_plus_url %}
+          <a href="{{ google_plus_url }}"  class="google-plus" target="_blank" ><i class="fa fa-google-plus"></i></a>
+          {% endif %}
+          {% if twitter_url %}
+          <a href="{{ twitter_url }}" class="twitter" target="_blank" ><i class="fa fa-twitter"></i></a>
+          {% endif %}
+          {% if linkedin_url %}
+          <a href="{{ linkedin_url }}" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if pinterest_url %}
+          <a href="{{ pinterest_url }}" class="pinterest" target="_blank" ><i class="fa fa-pinterest"></i></a>
+          {% endif %}
+          {% if rss_url %}
+          <a href="{{ rss_url }}" class="rss" target="_blank" ><i class="fa fa-rss"></i></a>
+          {% endif %}
+        </div>
       </div>
+      {% endif %}
       </div>
     </div>
   </nav>
