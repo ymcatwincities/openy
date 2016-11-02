@@ -83,6 +83,7 @@ $custom_sites = array(
     'redwing.wearepropeople.md',
     'redwing.ffwagency.md',
     'redwing.ffwua.com',
+    'redwingymca.org',
   ),
 );
 
