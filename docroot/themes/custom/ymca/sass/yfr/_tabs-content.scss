@@ -77,3 +77,128 @@
     }
   }
 }
+
+.yfr-table-progress {
+  @include cachet-normal();
+  width: 100%;
+
+  td {
+    border-bottom: 1px solid $grey16;
+  }
+
+  .info-date {
+    font-weight: bold;
+
+    .date,
+    .month {
+      display: inline-block;
+      vertical-align: baseline;
+    }
+
+    .date {
+      font-size: 30px;
+      line-height: 32px;
+    }
+
+    .month {
+      font-size: 20px;
+      line-height: 24px;
+      text-transform: uppercase;
+    }
+
+    .weekday {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      color: $grey5;
+    }
+  }
+
+  .date-wrapper {
+
+  }
+
+  .info-activity {
+    @include cachet-normal();
+    @include rem(line-height, 36px);
+    text-transform: uppercase;
+    color: $grey15;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+
+    &.check {
+      @include rem(padding-left, 34px);
+      color: $green-medium;
+
+      &:before {
+        @include rem(width, 26px);
+        @include rem(height, 26px);
+        @include translateY(-50%);
+        @include border-radius(50%);
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        background: url(../prototypes/yfr/img/tabs/icon-check.svg) no-repeat 50% 50%;
+        @include rem(background-size, 12px 9px);
+        border: 2px solid $green-medium;
+      }
+    }
+  }
+
+  .form-type-checkbox {
+    label {
+      @include rem(width, 52px);
+      @include rem(height, 52px);
+      @include border-radius(50%);
+      @include transition(all 0.3s ease);
+      background-color: $white;
+      display: block;
+      border: 2px solid $grey17;
+      position: relative;
+
+      &:before {
+        @include rem(width, 22px);
+        @include rem(height, 22px);
+        @include border-radius(50%);
+        @include transform(translate(-50%, -50%) scale(0));
+        @include transition(all 0.2s ease);
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+    }
+  }
+
+  .form-checkbox {
+    position: absolute;
+    opacity: 0;
+
+    &:checked {
+      + label {
+        &:before {
+          @include transform(translate(-50%, -50%) scale(1));
+          background-color: $orange-medium-lighter;
+        }
+      }
+    }
+
+    &:disabled {
+      + label {
+        border-color: $grey12;
+
+        &:before {
+          @include rem(width, 10px);
+          @include rem(height, 10px);
+          @include transform(translate(-50%, -50%) scale(1));
+          @include background-size(cover);
+          background-image: url(../prototypes/yfr/img/tabs/icon-cross.svg);
+        }
+      }
+    }
+  }
+}
