@@ -1,0 +1,79 @@
+.yfr-intro-block {
+  @include breakpoint($tablet) {
+    @include rem(margin-top, 65px);
+  }
+
+  &__title {
+    @include cachet-bold();
+    @include rem(line-height, 40px);
+    @include rem(margin, 23px 0 16px 0);
+    font-size: 25px;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      font-size: 40px;
+    }
+  }
+
+  &__content {
+    p {
+      @include rem(line-height, 25px);
+      @include rem(margin-bottom, 24px);
+      font-size: 16px;
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 10px 0);
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .dates {
+    color: $orange-dark-lighter;
+    white-space: nowrap;
+  }
+}
+
+
+.yfr-registration-form-section {
+  @include rem(margin-top, 35px);
+
+  @include breakpoint($tablet) {
+    @include rem(margin-top, 39px);
+  }
+
+  .yfr-registration-form-button-container {
+    @include rem(margin-bottom, 18px);
+
+    @include breakpoint($tablet) {
+      @include rem(width, 206px);
+      display: inline-block;
+    }
+
+    .btn {
+      font-size: 20px;
+      width: 100%;
+    }
+  }
+
+  .yfr-registration-form-help-text-container {
+    @include rem(line-height, 20px);
+    @include rem(padding, 0 50px);
+    color: $orange-dark;
+    font-size: 14px;
+    text-align: center;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 0 0 35px);
+      display: inline-block;
+
+      p {
+        display: inline;
+        line-height: 47px;
+      }
+    }
+  }
+}
