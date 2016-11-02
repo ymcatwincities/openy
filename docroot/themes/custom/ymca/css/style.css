@@ -8525,6 +8525,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper fieldset legend {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 20px;
   font-size: 2rem;
@@ -8555,6 +8556,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper #location-wrapper .fieldset-wrapper .description {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   left: 15px;
   left: 1.5rem;
   color: #a7a7a7;
@@ -8749,6 +8751,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-trainer label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 20px;
   font-size: 2rem;
@@ -8793,6 +8796,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-date-range label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 20px;
   font-size: 2rem;
@@ -8852,6 +8856,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-start-time label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   color: #a7a7a7;
   font-size: 20px;
@@ -8953,6 +8958,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-group label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   color: #a7a7a7;
   font-size: 20px;
@@ -9190,6 +9196,7 @@ body .ajax-progress-throbber .throbber {
 }
 .mindbody-search-results-content .day .weekday {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 25px;
   color: #777;
@@ -9281,6 +9288,7 @@ body .ajax-progress-throbber .throbber {
 }
 .mindbody-search-results-content .start-again a {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   border: none;
   background-color: #0771a8;
@@ -9314,6 +9322,7 @@ body .ajax-progress-throbber .throbber {
 }
 .phone-call-wrapper .description {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   color: #bde6e6;
   font-size: 20px;
@@ -9334,6 +9343,7 @@ body .ajax-progress-throbber .throbber {
 }
 .phone-call-wrapper .number {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   background: url("../img/phone-call-ico.png") no-repeat 0 center;
   font-size: 40px;
@@ -9732,6 +9742,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .groupex-pdf-link-container a {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -10226,6 +10237,7 @@ a.sports-icon.floor-hockey {
   color: #fff;
   width: 182px;
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   display: inline-block;
   text-indent: 32px;
