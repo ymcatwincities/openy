@@ -4,29 +4,31 @@
  * Display registration form.
  */
 #}
-<div id="register-or-report" class="slide register-or-report">
-  <div class="container">
-    <div class="row">
-      <div class="buttons">
-        <div class="col-xxs-12 col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-          <a href="#registration" class="btn btn-lg btn-primary blue slide-controller registration-btn">
-            {{ "Register"|t }}
-          </a>
-        </div>
-        <div class="col-xxs-12 col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
-          <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">
-            {{ "Track Activity"|t }}
-          </a>
+{% if not yteam %}
+  <div id="register-or-report" class="slide register-or-report">
+    <div class="container">
+      <div class="row">
+        <div class="buttons">
+          <div class="col-xxs-12 col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
+            <a href="#registration" class="btn btn-lg btn-primary blue slide-controller registration-btn">
+              {{ "Register now"|t }}
+            </a>
+          </div>
+          <div class="col-xxs-12 col-xs-6 col-sm-3 col-sm-push-3 col-md-3 col-md-push-3">
+            <a href="#report" class="btn btn-lg btn-primary purple-medium slide-controller track-activity-btn">
+              {{ "Track Activity"|t }}
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <p>
-        {{ "Reach your visit goal, track your activities and progress to win amazing prizes"|t }}
-      </p>
+      <div class="row">
+        <p>
+          {{ "Reach your visit goal, track your activities and progress to win amazing prizes"|t }}
+        </p>
+      </div>
     </div>
   </div>
-</div>
+{% endif %}
 <div id="registration" class="slide slide-inactive registration">
   <div class="container">
     <div class="row">
@@ -35,18 +37,20 @@
       </div>
     </div>
 
-    <div class="row access-help">
-      <div class="access-question">
-        <a href="#" class="where-can-i-find">{{ "Where can I find my Facility Access ID?"|t }}</a>
-      </div>
+    {% if not yteam %}
+      <div class="row access-help">
+        <div class="access-question">
+          <a href="#" class="where-can-i-find">{{ "Where can I find my Facility Access ID?"|t }}</a>
+        </div>
 
-      <div class="access-answer">
-        <p>{{ "Please find your facility access ID below the barcode."|t }}</p>
-        <p class="note">
-          {{ "(please note it might be on the front of the card on older membership cards)"|t }}
-        </p>
-        <div class="hand"></div>
+        <div class="access-answer">
+          <p>{{ "Please find your facility access ID below the barcode."|t }}</p>
+          <p class="note">
+            {{ "(please note it might be on the front of the card on older membership cards)"|t }}
+          </p>
+          <div class="hand"></div>
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 </div>
