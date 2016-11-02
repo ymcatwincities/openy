@@ -733,6 +733,146 @@
   }
 }
 
+.yfr-table-progress {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: normal;
+  width: 100%;
+}
+.yfr-table-progress td {
+  border-bottom: 1px solid #ebebeb;
+}
+.yfr-table-progress .info-date {
+  font-weight: bold;
+}
+.yfr-table-progress .info-date .date,
+.yfr-table-progress .info-date .month {
+  display: inline-block;
+  vertical-align: baseline;
+}
+.yfr-table-progress .info-date .date {
+  font-size: 30px;
+  line-height: 32px;
+}
+.yfr-table-progress .info-date .month {
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+.yfr-table-progress .info-date .weekday {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #777;
+}
+.yfr-table-progress .info-activity {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: normal;
+  line-height: 36px;
+  line-height: 3.6rem;
+  text-transform: uppercase;
+  color: #cfcfcf;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+.yfr-table-progress .info-activity.check {
+  padding-left: 34px;
+  padding-left: 3.4rem;
+  color: #01a490;
+}
+.yfr-table-progress .info-activity.check:before {
+  width: 26px;
+  width: 2.6rem;
+  height: 26px;
+  height: 2.6rem;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: url(../prototypes/yfr/img/tabs/icon-check.svg) no-repeat 50% 50%;
+  background-size: 12px 9px;
+  background-size: 1.2rem 0.9rem;
+  border: 2px solid #01a490;
+}
+.yfr-table-progress .form-type-checkbox label {
+  width: 52px;
+  width: 5.2rem;
+  height: 52px;
+  height: 5.2rem;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  display: block;
+  border: 2px solid #d3d3d3;
+  position: relative;
+}
+.yfr-table-progress .form-type-checkbox label:before {
+  width: 22px;
+  width: 2.2rem;
+  height: 22px;
+  height: 2.2rem;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.yfr-table-progress .form-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+.yfr-table-progress .form-checkbox:checked + label:before {
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  background-color: #f47920;
+}
+.yfr-table-progress .form-checkbox:disabled + label {
+  border-color: #e5e5e5;
+}
+.yfr-table-progress .form-checkbox:disabled + label:before {
+  width: 10px;
+  width: 1rem;
+  height: 10px;
+  height: 1rem;
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-image: url(../prototypes/yfr/img/tabs/icon-cross.svg);
+}
+
 .theme_ymca_2016_fall_retention .modal-dialog {
   max-width: 600px;
   max-width: 60rem;
