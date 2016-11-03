@@ -57,29 +57,61 @@
  */
 #}
 
-<a href="#main" id="skip-link">{{ "Skip to default content"|t }}</a>
-
+<a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
 <div id="top"></div>
-
 <div class="viewport">
-  {{ page.header }}
-  <header id="page-head" class="page-head">
-    <div class="top-navs navbar-fixed-top" data-spy="affix" data-offset-top="1">
-
-      <nav class="nav-global navbar-default navbar">
-        <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="{{ base_path }}">{{ "YMCA Twin Cities"|t }}</a>
-          </div>
-        </div>
-      </nav>
-
+    <div id="main" role="main">
+        <section class="content">
+            <div class="container-full-width">
+                {% block content %}
+                    {{ page.content }}
+                {% endblock %}
+            </div>
+        </section>
     </div>
-  </header>
 
-  <div id="main" role="main" class="page-middle container">
-    {% block content %}
-      {{ page.content }}
-    {% endblock %}
-  </div>
+    <!--googleoff: index-->
+    <footer id="page-footer" class="page-footer">
+        <div class="container">
+            {% if page.footer %}
+                {{ page.footer }}
+            {% endif %}
+            <div class="col-sm-3 text-center">
+                {% include "@ymca/brand-link.html.twig" %}
+            </div>
+            <nav class="col-sm-6">
+                <nav class="nav-footer row">
+                    {{ page.footer_menu }}
+                </nav>
+            </nav>
+            <div class="col-sm-3 social-disclaimer">
+                {{ page.footer_social }}
+                <p id="cw"></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center return-to-top" data-spy="affix" data-offset-top="39">
+        <a href="#top" class="btn btn-default">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+    </div>
+
+    <section class="messages"> {{ page.messages }} </section>
+
+    <!--googleon: index-->
+</div>
+
+<!-- viewport -->
+<div id="modal" class="modal fade">
+    <div class="modal-cover"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+                <div id="modal-title" class="modal-title"></div>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
 </div>
