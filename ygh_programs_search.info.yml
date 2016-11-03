@@ -1,0 +1,5 @@
+name: YGH Programs Search
+type: module
+description: Provide a Block to search programs.
+package: YGH
+core: 8.x
