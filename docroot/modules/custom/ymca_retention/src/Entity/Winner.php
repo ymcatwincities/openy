@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ymca_retention\WinnerInterface;
 
 /**
- * Defines the Member Activity entity.
+ * Defines the Winner entity.
  *
  * @ingroup ymca_retention
  *
