@@ -1,0 +1,69 @@
+body .branch-popup {
+  border-radius: 0px;
+  @include box-shadow(0 3px 9px rgba(0,0,0,.5));
+  font-family: inherit;
+  padding: 0;
+  max-width: 600px;
+  min-width: 300px;
+  .ui-dialog-titlebar {
+    display: none;
+  }
+  .ui-dialog-content {
+    padding: 0;
+    overflow-x: hidden ;
+  }
+  z-index: 1031!important;
+  & + .ui-widget-overlay {
+    z-index: 1030!important;
+    opacity: 0.5;
+  }
+}
+.modal-body {
+  overflow: hidden;
+  & + .modal-body {
+    padding-top: 0;
+    margin-top: -10px;
+  }
+  .fieldset-legend {
+    font-weight: bold;
+    @include breakpoint($screen-sm) {
+      font-size: 38px;
+    }
+  }
+  .button {
+    @extend .blue;
+    height: 40px;
+    float: right;
+    font-weight: bold;
+    padding: 10px 20px;
+    @include cachet();
+  }
+  legend {
+    border-bottom: 0;
+    margin-bottom: 0px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .fieldset-wrapper > div {
+    @extend .row-eq-height;
+  }
+  [class*='form-type-radio'] {
+    display: inline-block;
+    @include breakpoint($screen-sm) {
+      width: 50%;
+    }
+    @include breakpoint($screen-lg) {
+      width: 33.33%;
+    }
+    padding: 15px;
+    input {
+      margin: 4px 5px 0 0;
+      margin-top: 1px \9;
+    }
+    label {
+      display: inline;
+    }
+  }
+}

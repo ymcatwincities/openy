@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Theme file.
+ */
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function ygh_preprocess_node(&$variables) {
+  if (function_exists(__FUNCTION__ . '_' . $variables['node']->bundle())) {
+    $function = __FUNCTION__ . '_' . $variables['node']->bundle();
+    $function($variables);
+  }
+}

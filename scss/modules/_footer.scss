@@ -1,0 +1,135 @@
+.footer {
+  background-color: $dark-grey;
+  color: $white;
+  font-size: 12px;
+  padding: 30px 0;
+
+  @include breakpoint(768px) {
+    .container {
+      padding: 0 50px;
+    }
+  }
+  @include breakpoint(992px) {
+    .container {
+      padding: 0;
+    }
+  }
+
+  .footer__brand {
+    background: url("../logo_y.svg") no-repeat 0 0;
+    background-size: contain;
+    display: block;
+    height: 56px;
+    width: 72px;
+    @include breakpoint(768px) {
+      height: 75px;
+      width: 99px;
+    }
+  }
+
+  .footer__nav {
+    nav {
+      border-bottom: 1px solid $medium-grey;
+      margin-bottom: 20px;
+      margin-right: -15px;
+      @include breakpoint(768px) {
+        border-bottom: none;
+        display: inline-block;
+        float: left;
+        width: 33%;
+      }
+      ul {
+        padding: 0 30px 0 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+          margin: 0 0 18px;
+          padding: 0;
+
+          a {
+            color: $white;
+            @include cachet();
+            font-size: 20px;
+            text-transform: uppercase;
+            line-height: 22px;
+            text-decoration: none;
+          }
+
+          ul {
+            padding-top: 5px;
+            margin-bottom: -3px;
+            li {
+              margin: 0 0 14px;
+              @include breakpoint(768px) {
+                margin: 0;
+              }
+              a {
+                font-size: 14px;
+                text-transform: none;
+                @include breakpoint(768px) {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .footer__social {
+    border-top: 1px solid $medium-grey;
+    margin: -21px -15px 0;
+    padding: 25px 45px 10px 60px;
+    @include breakpoint(768px) {
+      border-top: none;
+      margin: 0 0 0;
+      padding: 0 0 10px;
+    }
+
+    .fa {
+      background-color: $white;
+      border-radius: 16px;
+      color: $dark-grey;
+      font-size: 0;
+      height: 32px;
+      margin-right: 20px;
+      line-height: 32px;
+      text-align: center;
+      text-decoration: none;
+      width: 32px;
+      &:before {
+        font-size: 22px;
+      }
+    }
+
+    form {
+      margin: 30px 0;
+      max-width: 400px;
+      label {
+        @include cachet();
+        color: $white;
+        font-size: 20px;
+        line-height: 25px;
+        margin-bottom: 10px;
+      }
+      .form-control {
+        border: solid 1px $light-grey;
+        float: left;
+        height: 40px;
+        width: 70%;
+        @include breakpoint(768px) {
+          margin-right: 20px;
+        }
+      }
+      .btn {
+        float: left;
+        height: 40px;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

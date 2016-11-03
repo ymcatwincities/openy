@@ -1,0 +1,121 @@
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;
+}
+::-moz-placeholder {
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  font-style: italic;
+}
+
+.form-control {
+  border: 1px solid $medium-grey;
+  border-radius: 0;
+  text-shadow: none;
+  padding: 6px 12px 6px 5px;
+}
+
+.btn {
+  @include cachet();
+  background-image: none;
+  border-radius: 0;
+  border: none;
+  text-shadow: none;
+  text-transform: uppercase;
+
+  &.blue {
+    background-color: $light-blue;
+    color: $white;
+
+    &:hover {
+      color: $dark-blue;
+    }
+
+    a {
+      color: $white;
+      text-decoration: none;
+
+      &:hover {
+        color: $dark-blue;
+      }
+    }
+  }
+
+  &.white-blue {
+    background-color: $white;
+    color: $light-blue;
+    border: 1px solid $light-blue;
+
+    &:hover {
+      color: $dark-blue;
+    }
+
+    a {
+      color: $light-blue;
+      text-decoration: none;
+
+      &:hover {
+        color: $dark-blue;
+      }
+    }
+  }
+
+  &.transparent-blue {
+    background-color: transparent;
+    color: $blue;
+    border: 1px solid $blue;
+
+    &:hover {
+      color: $dark-blue;
+    }
+
+    a {
+      color: $blue;
+      text-decoration: none;
+
+      &:hover {
+        color: $dark-blue;
+      }
+    }
+  }
+
+  &.btn-link {
+    text-decoration: none;
+  }
+}
+
+.form-select {
+  border: 1px solid $medium-grey;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  -ms-appearance:none;
+  appearance:none;
+  background: image-url('arrow_down.svg');
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  background-color: white;
+  padding-right: 25px;
+  ::-ms-expand {
+    display:none;
+  }
+}
+
+.pager li.load_more_button > a {
+  padding: 12px 35px;
+  border: none;
+  border-radius: 0;
+  background-color: #00aeef;
+  font-size: 20px;
+}
+
+/* Prevent iphone from zooming in when filling out a form. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select,
+  input,
+  textarea {
+    font-size: 16px!important;
+  }
+}

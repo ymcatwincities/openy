@@ -1,0 +1,22 @@
+global-styling:
+  version: VERSION
+  css:
+    base:
+      //fast.fonts.net/cssapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.css: {}
+      css/vendor/bootstrap/bootstrap.css: {}
+      css/vendor/bootstrap/bootstrap-theme.min.css: {}
+      css/vendor/font-awesome/font-awesome.min.css: {}
+    theme:
+      css/styles.css: {}
+  js:
+    //fast.fonts.net/jsapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.js: {}
+    scripts/vendor/bootstrap.min.js: {}
+    scripts/ygh.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.tabs
+    - core/jquery.ui.core
+    - core/jquery.ui.widget
+    - core/drupal
+    - core/drupalSettings

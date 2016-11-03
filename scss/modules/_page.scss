@@ -1,0 +1,11 @@
+body {
+  padding-top: 70px !important;
+
+  @include breakpoint($screen-desktop) {
+    padding-top: 132px !important;
+  }
+}
+
+.layout-container {
+  position: relative;
+}

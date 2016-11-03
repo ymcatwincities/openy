@@ -1,0 +1,18 @@
+name: YMCA Houston
+type: theme
+description: 'YMCA Houston specific theme'
+package: YMCA
+core: 8.x
+base theme: false
+libraries:
+  - ygh/global-styling
+regions:
+  header: Header
+  logo: Logo
+  primary_menu: Primary Menu
+  secondary_menu: Secondary Menu
+  search: Search Form
+  content: Content
+  pre_footer: Pre Footer
+  footer_menus: Footer Menus
+  footer_social: Footer Social
