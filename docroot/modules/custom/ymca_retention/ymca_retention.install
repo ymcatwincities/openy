@@ -221,6 +221,6 @@ function ymca_retention_update_8015() {
 /**
  * Enable Tango Card module.
  */
-function ymca_master_update_8016() {
+function ymca_retention_update_8016() {
   \Drupal::service('module_installer')->install(['tango_card'], TRUE);
 }
