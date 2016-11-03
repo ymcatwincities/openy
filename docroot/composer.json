@@ -14,6 +14,7 @@
         "drupal/webprofiler": "8.*",
         "drupal/page_manager": "8.*",
         "drupal/search_api_solr": "8.*",
+        "drupal/tango_card": "8.*",
         "ymca/google": "8.*"
     },
     "minimum-stability": "dev",
@@ -35,6 +36,7 @@
                 "modules/contrib/devel/webprofiler/composer.json",
                 "modules/contrib/page_manager/composer.json",
                 "modules/contrib/search_api_solr/composer.json",
+                "modules/custom/tango_card/composer.json",
                 "modules/custom/ymca_google/composer.json"
             ],
             "recurse": false,
