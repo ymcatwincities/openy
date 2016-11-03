@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention\Form;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
@@ -200,7 +201,7 @@ class MemberRegisterForm extends FormBase {
       else {
         $form_state->set('personify_member', $personify_result);
         // TODO: personify_member should already have email address from Personify.
-        $form_state->set('personify_email', $personify_result->PrimaryEmail);
+        $form_state->set('personify_email', Unicode::strtolower($personify_result->PrimaryEmail));
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
         }
