@@ -77,7 +77,11 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
+  # REDWING START
   RewriteCond %{HTTP_HOST} ^redwingymca\.org$
+  RewriteRule ^membership/.*$ /membership [R=301,NC,L]
+
+  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
   RewriteRule ^membership/.*$ /membership [R=301,NC,L]
 
   # @todo: Remove after finishing the content. YMCA-1278
@@ -85,8 +89,18 @@ AddEncoding gzip svgz
   RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
 
   # @todo: Remove after finishing the content. YMCA-1278
+  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
+  RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
+
+  # @todo: Remove after finishing the content. YMCA-1278
   RewriteCond %{HTTP_HOST} ^redwingymca\.org$
   RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
+
+  # @todo: Remove after finishing the content. YMCA-1278
+  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
+  RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
+
+  # REDWING END
 
   # 301 --- http://give.ymcamn.org => http://give.ymcatwincities.org
   RewriteCond %{HTTP_HOST} ^give\.ymcamn\.org$
@@ -789,10 +803,6 @@ RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activiti
   # 301 --- For all redwing containing hosts redirect to pages without .htm extension
   RewriteCond %{HTTP_HOST} redwing
   RewriteRule ^(.*)\.htm$ /$1 [R=301,L]
-
-  # 301 --- Redirect to new path of landing pages for http://www.redwingymca.org/
-  Redirect 301 /camppepin.htm /camps/camp_pepin
-  Redirect 301 /contact.htm /contact_us
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
