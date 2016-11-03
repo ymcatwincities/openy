@@ -1,5 +1,0 @@
-tango_card.settings:
-  title: Tango Card
-  description: 'Tango Card settings.'
-  route_name:  tango_card.settings
-  parent: system.admin_config_system
