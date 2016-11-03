@@ -182,8 +182,45 @@ function ymca_retention_update_8013() {
 }
 
 /**
- * YMCA-1198: Enable Tango Card module.
+ * Remove march campaign config.
  */
-function ymca_master_update_8014() {
+function ymca_retention_update_8014() {
+  Drupal::configFactory()->getEditable('ymca_frontend.retention')->delete();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/ymca_alters.config.yml',
+  ]);
+}
+
+/**
+ * Remove summer campaign configs.
+ */
+function ymca_retention_update_8015() {
+  // Remove pages activities.
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $storage->delete($storage->loadMultiple([
+    'ymca_retention_campaign',
+    'ymca_retention_pages',
+  ]));
+  $remove_configs = [
+    'page_manager.page_variant.y_games_winners',
+    'page_manager.page_variant.y_games_team',
+    'page_manager.page_variant.y_games_rules',
+    'page_manager.page_variant.y_games_enroll_success',
+    'page_manager.page_variant.y_games_activity',
+    'page_manager.page_variant.y_game_default',
+    'page_manager.page_variant.y_game_content',
+    'page_manager.page.ymca_retention_pages',
+    'page_manager.page.ymca_retention_campaign',
+  ];
+  $factory = Drupal::configFactory();
+  foreach ($remove_configs as $config) {
+    $factory->getEditable($config)->delete();
+  }
+}
+
+/**
+ * Enable Tango Card module.
+ */
+function ymca_master_update_8016() {
   \Drupal::service('module_installer')->install(['tango_card'], TRUE);
 }
