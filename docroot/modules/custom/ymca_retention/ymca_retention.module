@@ -125,6 +125,16 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-winners',
     ],
+
+    // Forms templates.
+    'ymca_retention_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form',
+    ],
+    'ymca_retention_track_activity_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-track-activity-login-form',
+    ],
   ];
 }
 
