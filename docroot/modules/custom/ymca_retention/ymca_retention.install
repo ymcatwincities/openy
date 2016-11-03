@@ -180,3 +180,10 @@ function ymca_retention_update_8013() {
     ]
   );
 }
+
+/**
+ * YMCA-1198: Enable Tango Card module.
+ */
+function ymca_master_update_8014() {
+  \Drupal::service('module_installer')->install(['tango_card'], TRUE);
+}
