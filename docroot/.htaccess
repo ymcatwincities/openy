@@ -77,6 +77,17 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
+  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
+  RewriteRule ^membership/.*$ /membership [R=301,NC,L]
+
+  # @todo: Remove after finishing the content. YMCA-1278
+  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
+  RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
+
+  # @todo: Remove after finishing the content. YMCA-1278
+  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
+  RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
+
   # 301 --- http://give.ymcamn.org => http://give.ymcatwincities.org
   RewriteCond %{HTTP_HOST} ^give\.ymcamn\.org$
   RewriteRule ^$ http://give.ymcatwincities.org? [L,R=301]
