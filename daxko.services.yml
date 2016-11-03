@@ -1,0 +1,6 @@
+services:
+  daxko.client:
+    class: Drupal\daxko\DaxkoClient
+    factory: daxko.client.factory:get
+  daxko.client.factory:
+    class: Drupal\daxko\DaxkoClientFactory
