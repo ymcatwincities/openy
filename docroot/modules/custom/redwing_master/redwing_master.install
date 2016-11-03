@@ -10,6 +10,7 @@ use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\Entity\Node;
 use Drupal\views\Entity\View;
+use Drupal\redirect\Entity\Redirect;
 
 define('REDWING_CONFDIR', 'sites/ymca_redwing/config/staging/');
 
@@ -298,4 +299,30 @@ function redwing_master_update_8017() {
   ];
   $camp->set('field_register_button_link', $value);
   $camp->save();
+}
+
+/**
+ * YMCA-1278: Disable ymca_membership page.
+ */
+function redwing_master_update_8018() {
+  $installer = \Drupal::service('module_installer');
+  $logger = \Drupal::logger('redwing_master');
+
+  $installer->uninstall(['ymca_membership']);
+  $logger->info('YMCA Membership has been uninstalled.');
+
+  // Update membership alias.
+  $query = \Drupal::database()->update('url_alias');
+  $query->fields([
+    'alias' => '/membership',
+  ]);
+  $query->condition('pid', '4836');
+  $query->execute();
+
+  // Create redirect from /membership1 to membership.
+  $redirect = Redirect::create();
+  $redirect->setSource('membership1');
+  $redirect->setRedirect('node/4211');
+  $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
+  $redirect->save();
 }
