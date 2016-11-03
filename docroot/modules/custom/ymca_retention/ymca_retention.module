@@ -139,6 +139,24 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function ymca_retention_preprocess_html(&$variables) {
+  $classes = ['theme_ymca_2016_fall_retention'];
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+
+  if (empty($variables['attributes'])) {
+    $variables['attributes'] = new \Drupal\Core\Template\Attribute();
+  }
+
+  if (is_int(stripos($current_route_name, 'page_manager.page_view_ymca_retention'))) {
+    if (!is_array($variables['attributes'])) {
+      $variables['attributes']->addClass($classes);
+    }
+  }
+}
+
+/**
  * Implements hook_cron().
  */
 function ymca_retention_cron() {
