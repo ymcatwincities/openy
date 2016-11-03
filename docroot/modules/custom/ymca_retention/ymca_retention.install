@@ -180,3 +180,13 @@ function ymca_retention_update_8013() {
     ]
   );
 }
+
+/**
+ * Remove march campaign config.
+ */
+function ymca_retention_update_8014() {
+  Drupal::configFactory()->getEditable('ymca_frontend.retention')->delete();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/ymca_alters.config',
+  ]);
+}
