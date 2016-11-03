@@ -156,6 +156,7 @@ function ymca_retention_update_8012() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      $path . 'ymca_retention.api.yml',
       $path . 'ymca_retention.general_settings.yml',
       $path . 'page_manager.page.ymca_retention_challenge.yml',
       $path . 'page_manager.page.ymca_retention_challenge_pages.yml',

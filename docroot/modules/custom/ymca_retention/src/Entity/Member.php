@@ -176,6 +176,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['birth_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Birthday'))
+      ->setDescription(t('The date of birth.'))
+      ->setSetting('datetime_type', 'date');
+
     $fields['is_employee'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('User is an employee'))
       ->setDefaultValue(FALSE)
