@@ -1047,14 +1047,6 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-groupex-form-full-refine',
     ],
-    'ymca_retention_register_form' => [
-      'render element' => 'form',
-      'template' => 'forms/ymca-retention-register-form',
-    ],
-    'ymca_retention_track_activity_login_form' => [
-      'render element' => 'form',
-      'template' => 'forms/ymca-retention-track-activity-login-form',
-    ],
   ];
 }
 
