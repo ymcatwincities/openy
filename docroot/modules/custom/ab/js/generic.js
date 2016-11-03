@@ -60,12 +60,13 @@
                     footerHome.removeClass('footer-themes-b');
                 }
             }
+
             if (cookie == 'b' && drupalSettings['ab_state'] == 1) {
-                navigationHome.addClass('nav-themes-b');
-                footerHome.addClass('footer-themes-b');
 
                 $.each(drupalSettings['ab'], function (index, value) {
                     $(context).find(value.selector).once('ab').each(function () {
+                        $(context).find('.nav-home').addClass('nav-themes-b');
+                        $(context).find('.page-footer').addClass('footer-themes-b');
                         $(this).replaceWith(value.html);
                     });
                 });
