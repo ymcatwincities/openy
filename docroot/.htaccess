@@ -804,10 +804,6 @@ RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activiti
   RewriteCond %{HTTP_HOST} redwing
   RewriteRule ^(.*)\.htm$ /$1 [R=301,L]
 
-  # 301 --- Redirect to new path of landing pages for http://www.redwingymca.org/
-  Redirect 301 /camppepin.htm /camps/camp_pepin
-  Redirect 301 /contact.htm /contact_us
-
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
   # you don't bounce between http and https.
