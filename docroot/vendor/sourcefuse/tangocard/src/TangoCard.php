@@ -1,4 +1,5 @@
 <?php
+
 namespace Sourcefuse;
 
 /**
@@ -317,11 +318,11 @@ class TangoCard extends TangoCardBase {
      * @param float $amount The desired amount (for variable-priced SKUs) of the reward. Must be present for variable-price SKUs, must not be present for static-price SKUs.
      * @param string $recipientName The name of the recipient.
      * @param string $recipientEmail The email address of the recipient.
-     * @param bool $sendReward Whether Tango Card should send the reward. If this is false the returned object
+     * @param bool $sendReward Whether Tango Card should send the reward. If this is false the returned object. by Default TRUE
      * 
      * @return array in response
      */
-    public function placeOrder($customer, $accountIdentifier, $campaign, $rewardFrom, $rewardSubject, $rewardMessage, $sku, $amount, $recipientName, $recipientEmail, $sendReward) {
+    public function placeOrder($customer, $accountIdentifier, $campaign, $rewardFrom, $rewardSubject, $rewardMessage, $sku, $recipientName, $recipientEmail, $sendReward = TRUE, $amount = NULL) {
         $data['customer'] = $customer;
         $data['account_identifier'] = $accountIdentifier;
         $data['campaign'] = $campaign;
@@ -330,8 +331,8 @@ class TangoCard extends TangoCardBase {
         $data['reward_message'] = $rewardMessage;
         $data['send_reward'] = ($sendReward) ? TRUE : FALSE;
         $data['sku'] = $sku;
-        if (is_numeric($amount) && $amount > 0) {
-          $data['amount'] = $amount;
+        if ($amount) {
+            $data['amount'] = $amount;
         }
         $data['recipient']['name'] = $recipientName;
         $data['recipient']['email'] = $recipientEmail;
