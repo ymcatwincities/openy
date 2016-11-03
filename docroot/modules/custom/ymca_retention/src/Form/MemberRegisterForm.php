@@ -193,10 +193,14 @@ class MemberRegisterForm extends FormBase {
         $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
         return;
       }
+      elseif ($config['yteam'] && empty($personify_result->PrimaryEmail)) {
+        $form_state->setErrorByName('membership_id', $this->t('Sorry, we don\'t have email address to register this user.'));
+        return;
+      }
       else {
         $form_state->set('personify_member', $personify_result);
         // TODO: personify_member should already have email address from Personify.
-        $form_state->set('personify_email', 'fake_email_address@ymcamn.org');
+        $form_state->set('personify_email', $personify_result->PrimaryEmail);
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
         }
@@ -305,6 +309,7 @@ class MemberRegisterForm extends FormBase {
         'personify_email' => $personify_email,
         'first_name' => $personify_member->FirstName,
         'last_name' => $personify_member->LastName,
+        'birth_date' => $personify_member->BirthDate,
         'branch' => (int) $personify_member->BranchId,
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
