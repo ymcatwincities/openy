@@ -27,7 +27,7 @@ class BranchSelectorController extends ControllerBase {
    * @return object
    *   Response
    */
-  public function ygs_preferred_branch($js = 'nojs', $id = NULL, $action = 'flag') {
+  public function preferredBranch($js = 'nojs', $id = NULL, $action = 'flag') {
 
     if ($action == 'flag') {
       // Set ygs_preferred_branch cookie.

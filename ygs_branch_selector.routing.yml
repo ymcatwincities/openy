@@ -2,7 +2,7 @@ ygs_branch_selector.location_set:
  path: '/ygs-branch-selector/{js}/{id}/{action}'
  defaults:
    _title: YGS Bransh selector
-   _controller: '\Drupal\ygs_branch_selector\Controller\BranchSelectorController::ygs_preferred_branch'
+   _controller: '\Drupal\ygs_branch_selector\Controller\BranchSelectorController::preferredBranch'
  requirements:
    _permission: 'access branch selector'
    js: 'nojs|ajax'
