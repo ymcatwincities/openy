@@ -1,10 +1,7 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_popups\PopupLinkGenerator.
- */
 
 namespace Drupal\ygs_popups;
+
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
@@ -14,6 +11,7 @@ use Drupal\Core\Url;
  * @package Drupal\ygs_branch_selector
  */
 class PopupLinkGenerator {
+
   /**
    * Generate link for My YMCA location.
    *

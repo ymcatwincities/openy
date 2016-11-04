@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_popups\Controller\PopupsController.
- */
 
 namespace Drupal\ygs_popups\Controller;
 
@@ -19,6 +15,7 @@ use Drupal\file\Entity\File;
  * {@inheritdoc}
  */
 class PopupsController extends ControllerBase {
+
   /**
    * Branch Popup.
    *

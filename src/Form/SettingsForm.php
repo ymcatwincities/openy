@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_popups\Form\SettingsForm.
- */
 
 namespace Drupal\ygs_popups\Form;
 

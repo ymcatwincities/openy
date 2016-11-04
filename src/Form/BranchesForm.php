@@ -1,10 +1,7 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_popups\Form\BranchesForm.
- */
 
 namespace Drupal\ygs_popups\Form;
+
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Contribute form.
  */
 class BranchesForm extends FormBase {
+
   /**
    * {@inheritdoc}
    */
