@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_branch_selector\Controller\BranchSelectorController.
- */
 
 namespace Drupal\ygs_branch_selector\Controller;
 
@@ -28,7 +24,7 @@ class BranchSelectorController extends ControllerBase {
    * @param string $action
    *   Flag|Unflag.
    *
-   * @return object $response
+   * @return object
    *   Response
    */
   public function ygs_preferred_branch($js = 'nojs', $id = NULL, $action = 'flag') {

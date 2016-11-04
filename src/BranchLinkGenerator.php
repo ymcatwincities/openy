@@ -1,16 +1,17 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ygs_branch_selector\BranchLinkGenerator.
- */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 namespace Drupal\ygs_branch_selector;
+
 /**
  * Class BranchLinkGenerator.
  *
  * @package Drupal\ygs_branch_selector
  */
 class BranchLinkGenerator {
+
   /**
    * Generate link for My YMCA location.
    */
@@ -32,12 +33,12 @@ class BranchLinkGenerator {
       // For update current YMCA branch.
       $action = 'flag';
     }
-    $url = \Drupal\Core\Url::fromRoute('ygs_branch_selector.location_set', array(
+    $url = Url::fromRoute('ygs_branch_selector.location_set', array(
       'js' => 'nojs',
       'id' => $nid,
       'action' => $action,
     ));
-    $link = \Drupal\Core\Link::fromTextAndUrl($link_title, $url);
+    $link = Link::fromTextAndUrl($link_title, $url);
     $link = $link->toRenderable();
     // Add wrapper to element for ajax replace.
     $link['#prefix'] = '<div class="ygs-branch-selector">';
