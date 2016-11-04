@@ -50,7 +50,7 @@ class AccountDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete account %name?', array('%name' => $this->entity->label()));
+    return $this->t('Are you sure you want to delete account %name?', ['%name' => $this->entity->label()]);
   }
 
   /**

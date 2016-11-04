@@ -59,7 +59,7 @@ class OrderPageController extends ControllerBase {
    *   A renderable array.
    */
   public function pageView(Request $request, Account $tango_card_account, $order_id) {
-    $build = array();
+    $build = [];
     $this->tangoCardWrapper->setAccount($tango_card_account);
 
     try {
@@ -77,7 +77,7 @@ class OrderPageController extends ControllerBase {
 
     $order = (array) $order + (array) $order->reward;
 
-    $fields = array(
+    $fields = [
       'order_id' => 'ID',
       'sku' => 'Name',
       'delivered_at' => 'Date',
@@ -88,14 +88,14 @@ class OrderPageController extends ControllerBase {
       'token' => 'Token',
       'number' => 'Number',
       'pin' => 'Pin',
-    );
+    ];
 
     foreach ($fields as $field => $title) {
-      $build[$field] = array(
+      $build[$field] = [
         '#type' => 'item',
         '#title' => $this->t($title),
         '#markup' => empty($order[$field]) ? '-' : $order[$field],
-      );
+      ];
     }
 
     $reward = $this->tangoCardWrapper->getRewardInfo($order['sku']);

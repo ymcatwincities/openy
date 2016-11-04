@@ -61,96 +61,96 @@ class CardCreateForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['recipient'] = array(
+    $form['recipient'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Recipient'),
-    );
+    ];
 
-    $form['recipient']['recipient_name'] = array(
+    $form['recipient']['recipient_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Name'),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['recipient']['recipient_email'] = array(
+    $form['recipient']['recipient_email'] = [
       '#type' => 'email',
       '#title' => $this->t('Email'),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['product'] = array(
+    $form['product'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Product'),
-    );
+    ];
 
-    $form['product']['product_type'] = array(
+    $form['product']['product_type'] = [
       '#type' => 'radios',
       '#title' => $this->t('Price type'),
       '#default_value' => 'fixed',
       '#required' => TRUE,
-      '#options' => array(
+      '#options' => [
         'fixed' => $this->t('Fixed'),
         'variable' => $this->t('Variable'),
-      ),
-    );
+      ],
+    ];
 
-    $states = array(
-      ':input[name="product_type"]' => array('value' => 'fixed'),
-    );
+    $states = [
+      ':input[name="product_type"]' => ['value' => 'fixed'],
+    ];
 
-    $form['product']['product_sku_fixed'] = array(
+    $form['product']['product_sku_fixed'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Product SKU'),
       '#autocomplete_route_name' => 'tango_card.product_autocomplete',
-      '#autocomplete_route_parameters' => array(
+      '#autocomplete_route_parameters' => [
         'product_type' => 'fixed',
-      ),
-      '#states' => array('visible' => $states, 'required' => $states),
-    );
+      ],
+      '#states' => ['visible' => $states, 'required' => $states],
+    ];
 
     $states[':input[name="product_type"]']['value'] = 'variable';
-    $form['product']['product_sku_variable'] = array(
+    $form['product']['product_sku_variable'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Product SKU'),
       '#autocomplete_route_name' => 'tango_card.product_autocomplete',
-      '#autocomplete_route_parameters' => array(
+      '#autocomplete_route_parameters' => [
         'product_type' => 'variable',
-      ),
-      '#states' => array('visible' => $states, 'required' => $states),
-    );
+      ],
+      '#states' => ['visible' => $states, 'required' => $states],
+    ];
 
-    $form['product']['product_value'] = array(
+    $form['product']['product_value'] = [
       '#type' => 'number',
       '#title' => $this->t('Product value'),
       '#min' => 0,
       '#step' => 0.01,
       '#field_prefix' => '$',
       '#description' => $this->t('Enter amount in dollars (USD).'),
-      '#states' => array('visible' => $states, 'required' => $states),
-    );
+      '#states' => ['visible' => $states, 'required' => $states],
+    ];
 
-    $form['account'] = array(
+    $form['account'] = [
       '#type' => 'entity_autocomplete',
       '#title' => $this->t('Account'),
       '#target_type' => 'tango_card_account',
       '#default_value' => $this->tangoCardWrapper->getAccount(),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['campaign'] = array(
+    $form['campaign'] = [
       '#type' => 'entity_autocomplete',
       '#title' => $this->t('Campaign'),
       '#target_type' => 'tango_card_campaign',
       '#default_value' => $this->tangoCardWrapper->getCampaign(),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['actions'] = array('#type' => 'actions');
-    $form['actions']['submit'] = array(
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
       '#button_type' => 'primary',
-    );
+    ];
 
     return $form;
   }
@@ -177,11 +177,10 @@ class CardCreateForm extends FormBase {
     $name = $form_state->getValue('recipient_name');
     $mail = $form_state->getValue('recipient_email');
 
-    if ($form_state->getValue('product_type') == 'fixed') {
-      $sku = $form_state->getValue('product_sku_fixed');
-      $amount = NULL;
-    }
-    else {
+    $sku = $form_state->getValue('product_sku_fixed');
+    $amount = NULL;
+
+    if ($form_state->getValue('product_type') == 'variable') {
       $sku = $form_state->getValue('product_sku_variable');
       $amount = (integer) ($form_state->getValue('product_value') * 100);
     }
@@ -194,7 +193,7 @@ class CardCreateForm extends FormBase {
     }
 
     if ($success) {
-      $form_state->setRedirect('tango_card.orders', array('tango_card_account' => $account->id()));
+      $form_state->setRedirect('tango_card.orders', ['tango_card_account' => $account->id()]);
 
       drupal_set_message($this->t('Your order has been processed successfully.'));
     }

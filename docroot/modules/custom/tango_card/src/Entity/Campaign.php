@@ -62,53 +62,53 @@ class Campaign extends ContentEntityBase implements CampaignInterface {
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setRequired(TRUE)
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 255,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     // Notification flag.
     $fields['notification_enabled'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Enable email notification'))
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
-        'settings' => array(
+        'settings' => [
           'display_label' => TRUE,
-        ),
-      ))
+        ],
+      ])
       ->setDefaultValue(FALSE);
 
     // Notification: From.
     $fields['notification_from'] = BaseFieldDefinition::create('string')
       ->setLabel(t('From email'))
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'email',
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     // Notification: subject.
     $fields['notification_subject'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Subject'))
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'email',
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     // Notification: message.
     $fields['notification_message'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Message'))
-      ->setSettings(array(
+      ->setSettings([
         'type' => 'string_textarea',
-        'settings' => array(
+        'settings' => [
           'rows' => 4,
-        ),
-      ))
-      ->setDisplayOptions('form', array(
+        ],
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     return $fields;

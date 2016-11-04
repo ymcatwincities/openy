@@ -59,36 +59,36 @@ class FundForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, Account $tango_card_account = NULL) {
     $this->tangoCardWrapper->setAccount($tango_card_account);
 
-    $form['actions'] = array('#type' => 'actions');
-    $form['actions']['submit'] = array(
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Fund'),
-    );
+    ];
 
     if ($this->step == 2) {
-      $args = array(
+      $args = [
         '@amount' => number_format($form_state->getValue('amount'), 2),
-      );
+      ];
 
-      $form['message'] = array(
+      $form['message'] = [
         '#markup' => $this->t('Are you sure you want to fund $@amount?', $args),
-      );
+      ];
 
       return $form;
     }
 
-    $form['balance'] = array(
+    $form['balance'] = [
       '#title' => $this->t('Current balance'),
       '#type' => 'item',
       '#markup' => '$' . number_format($this->tangoCardWrapper->getAccountBalance() / 100, 2),
-    );
+    ];
 
-    $form['fund'] = array(
+    $form['fund'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Fund account'),
-    );
+    ];
 
-    $form['fund']['amount'] = array(
+    $form['fund']['amount'] = [
       '#type' => 'number',
       '#title' => $this->t('Amount'),
       '#min' => 0,
@@ -96,16 +96,16 @@ class FundForm extends FormBase {
       '#required' => TRUE,
       '#field_prefix' => '$',
       '#description' => $this->t('Enter amount in dollars (USD).'),
-    );
+    ];
 
-    $form['fund']['cc_cvv'] = array(
+    $form['fund']['cc_cvv'] = [
       '#type' => 'creditfield_cardcode',
       '#title' => $this->t('Credit card CVV Code'),
       '#maxlength' => 4,
       '#size' => 8,
       '#description' => 'Your 3 or 4 digit security code on the back of your card.',
       '#required' => TRUE,
-    );
+    ];
 
     return $form;
   }
@@ -125,10 +125,10 @@ class FundForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($this->step == 1) {
       $form_state->setRebuild();
-      $form_state->setStorage(array(
+      $form_state->setStorage([
         'amount' => $form_state->getValue('amount') * 100,
         'cc_cvv' => $form_state->getValue('cc_cvv'),
-      ));
+      ]);
 
       $this->step++;
     }

@@ -1499,6 +1499,52 @@
             "time": "2015-06-14 17:22:39"
         },
         {
+            "name": "sourcefuse/tangocard",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sourcefuse/TangoCardPHPSDK.git",
+                "reference": "bf84288ab9306ff58c7f8e9abd190a99a1badf28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sourcefuse/TangoCardPHPSDK/zipball/bf84288ab9306ff58c7f8e9abd190a99a1badf28",
+                "reference": "bf84288ab9306ff58c7f8e9abd190a99a1badf28",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sourcefuse\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "SourceFuse",
+                    "homepage": "https://github.com/sourcefuse/tangocard-raas-php-sdk/contributors"
+                }
+            ],
+            "description": "TangoCard RAAS PHP SDK",
+            "homepage": "https://github.com/sourcefuse/tangocard-raas-php-sdk",
+            "keywords": [
+                "sdk",
+                "tangocard"
+            ],
+            "time": "2014-12-15 12:49:57"
+        },
+        {
             "name": "stack/builder",
             "version": "v1.0.4",
             "source": {
@@ -4713,7 +4759,8 @@
     "stability-flags": {
         "commerceguys/intl": 20,
         "commerceguys/addressing": 20,
-        "commerceguys/zone": 20
+        "commerceguys/zone": 20,
+        "sourcefuse/tangocard": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

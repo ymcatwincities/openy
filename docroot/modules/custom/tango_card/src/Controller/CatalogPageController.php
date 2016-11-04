@@ -56,28 +56,28 @@ class CatalogPageController extends ControllerBase {
 
     if (!$success) {
       $link = new Link($this->t('settings page'), Url::fromRoute('tango_card.settings'));
-      $args = array('!link' => $link->toString());
+      $args = ['!link' => $link->toString()];
 
-      return array(
+      return [
         '#theme' => 'status_messages',
-        '#message_list' => array(
-          'warning' => array(
+        '#message_list' => [
+          'warning' => [
             $this->t('The request could not be made. Make sure Tango Card credentials are properly registered on !link.', $args),
-          ),
-        ),
-      );
+          ],
+        ],
+      ];
     }
 
-    $rows = array();
+    $rows = [];
     foreach ($brands as $brand) {
-      $img = array('#theme' => 'image', '#uri' => $brand->image_url);
-      $rows[] = array(render($img), $brand->description);
+      $img = ['#theme' => 'image', '#uri' => $brand->image_url];
+      $rows[] = [render($img), $brand->description];
     }
 
-    $build = array(
+    $build = [
       '#theme' => 'table',
       '#rows' => $rows,
-    );
+    ];
 
     return $build;
   }

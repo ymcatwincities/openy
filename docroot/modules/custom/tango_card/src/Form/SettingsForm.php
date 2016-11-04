@@ -73,35 +73,35 @@ class SettingsForm extends ConfigFormBase {
     $form = parent::buildForm($form, $form_state);
     $config = $this->config('tango_card.settings');
 
-    $form['app_mode'] = array(
+    $form['app_mode'] = [
       '#title' => $this->t('Application mode'),
       '#type' => 'radios',
-      '#options' => array(
+      '#options' => [
         'sandbox' => $this->t('Sandbox'),
         'production' => $this->t('Production'),
-      ),
+      ],
       '#default_value' => $config->get('app_mode'),
       '#required' => TRUE,
-    );
+    ];
 
-    $fields = array(
+    $fields = [
       'platform_name' => 'Platform name',
       'platform_key' => 'Platform key',
-    );
+    ];
 
     foreach ($fields as $field => $title) {
-      $form[$field] = array(
+      $form[$field] = [
         '#type' => 'textfield',
         '#title' => $this->t($title),
         '#default_value' => $config->get($field),
         '#required' => TRUE,
-      );
+      ];
     }
 
-    $fields = array(
+    $fields = [
       'account' => 'Default account',
       'campaign' => 'Default campaign',
-    );
+    ];
 
     foreach ($fields as $field => $title) {
       $entity_type = 'tango_card_' . $field;
@@ -110,12 +110,12 @@ class SettingsForm extends ConfigFormBase {
         $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity);
       }
 
-      $form[$field] = array(
+      $form[$field] = [
         '#type' => 'entity_autocomplete',
         '#title' => $this->t($title),
         '#target_type' => $entity_type,
         '#default_value' => $entity,
-      );
+      ];
     }
 
     return $form;
@@ -125,15 +125,15 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->cacheTagsInvalidator->invalidateTags(array('tango_card'));
+    $this->cacheTagsInvalidator->invalidateTags(['tango_card']);
 
-    $fields = array(
+    $fields = [
       'campaign',
       'account',
       'app_mode',
       'platform_name',
       'platform_key',
-    );
+    ];
 
     $config = $this->configFactory()->getEditable('tango_card.settings');
     foreach ($fields as $field) {

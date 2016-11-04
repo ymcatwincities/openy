@@ -63,7 +63,7 @@ class OrdersListPageController extends ControllerBase {
    *   A renderable array.
    */
   public function pageView(Request $request, Account $tango_card_account) {
-    $build = array();
+    $build = [];
 
     $page = pager_find_page();
     $this->tangoCardWrapper->setAccount($tango_card_account);
@@ -83,25 +83,25 @@ class OrdersListPageController extends ControllerBase {
 
     pager_default_initialize($results->total_count, self::PAGE_SIZE);
 
-    $rows = array();
+    $rows = [];
     foreach ($results->orders as $order) {
-      $params = array(
+      $params = [
         'tango_card_account' => $tango_card_account->id(),
         'order_id' => $order->order_id,
-      );
+      ];
 
-      $rows[] = array(
+      $rows[] = [
         $order->order_id,
         $this->tangoCardWrapper->getRewardInfo($order->sku)->description,
         '$' . number_format($order->amount / 100, 2),
-        $this->dateFormatter->format(strtotime($order->delivered_at), 'custom', 'm/d/Y - H:i'),
+        $this->dateFormatter->format(strtotime($order->delivered_at), 'short'),
         $order->recipient->name,
         $order->recipient->email,
         new Link($this->t('see details'), Url::fromRoute('tango_card.order_info', $params)),
-      );
+      ];
     }
 
-    $header = array(
+    $header = [
       $this->t('ID'),
       $this->t('Name'),
       $this->t('Amount'),
@@ -109,16 +109,16 @@ class OrdersListPageController extends ControllerBase {
       $this->t('Recipient name'),
       $this->t('Recipient email'),
       '',
-    );
+    ];
 
-    $build['table'] = array(
+    $build['table'] = [
       '#theme' => 'table',
       '#header' => $header,
       '#empty' => $this->t('There are no orders yet.'),
       '#rows' => $rows,
-    );
+    ];
 
-    $build['pager'] = array('#type' => 'pager');
+    $build['pager'] = ['#type' => 'pager'];
 
     return $build;
   }
