@@ -22,7 +22,7 @@ class PopupsController extends ControllerBase {
    * @param string $js
    *   Nojs|ajax.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse|\Symfony\Component\HttpFoundation\RedirectResponse Response.
+   * @return AjaxResponse
    *   Response.
    */
   public function branchPopup($js = 'nojs') {
@@ -42,12 +42,12 @@ class PopupsController extends ControllerBase {
   /**
    * ClassBranch Popup.
    *
+   * @param NodeInterface $node
+   *   A node object.
    * @param string $js
    *   Nojs|ajax.
-   * @param \Drupal\node\NodeInterface $node
-   *   A node object.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse|\Symfony\Component\HttpFoundation\RedirectResponse Response.
+   * @return AjaxResponse
    *   Response.
    */
   public function classBranchPopup(NodeInterface $node, $js = 'nojs') {
