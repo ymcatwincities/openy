@@ -16,10 +16,10 @@ class CampaignListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header = array(
+    $header = [
       'id' => $this->t('Campaign ID'),
       'name' => $this->t('Name'),
-    );
+    ];
     return $header + parent::buildHeader();
   }
 
@@ -27,10 +27,10 @@ class CampaignListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    $row = array(
+    $row = [
       'id' => $entity->id(),
       'name' => $entity->label(),
-    );
+    ];
     return $row + parent::buildRow($entity);
   }
 

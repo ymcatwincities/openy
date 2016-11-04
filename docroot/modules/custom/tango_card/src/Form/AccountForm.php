@@ -5,6 +5,7 @@ namespace Drupal\tango_card\Form;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\tango_card\TangoCardWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,6 +14,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Form handler for the Tango Card account edit forms.
  */
 class AccountForm extends ContentEntityForm {
+
+  /**
+   * The entity query factory.
+   *
+   * @var Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
 
   /**
    * The Tango Card wrapper.
@@ -29,8 +37,9 @@ class AccountForm extends ContentEntityForm {
    * @param \Drupal\tango_card\TangoCardWrapper $tango_card_wrapper
    *   The Tango Card wrapper.
    */
-  public function __construct(EntityManagerInterface $entity_manager, TangoCardWrapper $tango_card_wrapper) {
+  public function __construct(EntityManagerInterface $entity_manager, QueryFactory $entity_query, TangoCardWrapper $tango_card_wrapper) {
     parent::__construct($entity_manager);
+    $this->queryFactory = $entity_query;
     $this->tangoCardWrapper = $tango_card_wrapper;
   }
 
@@ -40,6 +49,7 @@ class AccountForm extends ContentEntityForm {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity.manager'),
+      $container->get('entity.query'),
       $container->get('tango_card.tango_card_wrapper')
     );
   }
@@ -51,39 +61,39 @@ class AccountForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
 
     if (!$this->getEntity()->cc_token->value) {
-      $form['cc'] = array(
+      $form['cc'] = [
         '#title' => $this->t('Credit card information'),
         '#type' => 'fieldset',
-      );
+      ];
 
-      $form['cc']['cc_number'] = array(
+      $form['cc']['cc_number'] = [
         '#type' => 'creditfield_cardnumber',
         '#title' => $this->t('Number'),
         '#maxlength' => 16,
         '#required' => TRUE,
-      );
+      ];
 
-      $form['cc']['cc_date'] = array(
+      $form['cc']['cc_date'] = [
         '#type' => 'creditfield_expiration',
         '#title' => $this->t('Expiration Date'),
         '#required' => TRUE,
-      );
+      ];
 
-      $form['cc']['cc_cvv'] = array(
+      $form['cc']['cc_cvv'] = [
         '#type' => 'creditfield_cardcode',
         '#title' => $this->t('CVV Code'),
         '#maxlength' => 4,
-        '#description' => 'Your 3 or 4 digit security code on the back of your card.',
+        '#description' => $this->('Your 3 or 4 digit security code on the back of your card.'),
         '#required' => TRUE,
-      );
+      ];
 
-      $form['billing'] = array(
+      $form['billing'] = [
         '#type' => 'fieldset',
         '#title' => $this->t('Billing information'),
         '#tree' => TRUE,
-      );
+      ];
 
-      $fields = array(
+      $fields = [
         'f_name' => 'First name',
         'l_name' => 'Last name',
         'address' => 'Address',
@@ -91,15 +101,15 @@ class AccountForm extends ContentEntityForm {
         'state' => 'State',
         'zip' => 'Zip code',
         'country' => 'Country',
-      );
+      ];
 
       // TODO: improve address field.
       foreach ($fields as $field => $title) {
-        $form['billing'][$field] = array(
+        $form['billing'][$field] = [
           '#type' => 'textfield',
           '#title' => $this->t($title),
           '#required' => TRUE,
-        );
+        ];
       }
     }
 
@@ -119,8 +129,8 @@ class AccountForm extends ContentEntityForm {
       $form_state->setErrorByName('remote_id', $this->t('Invalid account ID. Must NOT contain characters invalid in a URI.'));
     }
 
-    if ($this->getEntity()->isNew() && $this->tangoCardWrapper->getRemoteAccount($account_id)) {
-      $form_state->setErrorByName('remote_id', $this->t('This account already exists.'));
+    if ($this->getEntity()->isNew() && $this->entityQuery->get('tango_card_account')->condition('remote_id', $account_id)->execute()) {
+      $form_state->setErrorByName('remote_id', $this->t('This Account ID already exists.'));
     }
   }
 
@@ -131,19 +141,22 @@ class AccountForm extends ContentEntityForm {
     $entity = $this->getEntity();
 
     try {
-      if (!$this->tangoCardWrapper->setRemoteAccount($entity->remote_id->value, $entity->mail->value)) {
+      if ($remote_account = $this->tangoCardWrapper->getRemoteAccount($entity->remote_id->value)) {
+        $entity->set('mail', $remote_account->email);
+      }
+      elseif (!$this->tangoCardWrapper->setRemoteAccount($entity->remote_id->value, $entity->mail->value)) {
         drupal_set_message($this->t('An error occurred while creating your account. Please try again later or contact support.'), 'error');
         return;
       }
 
       $this->tangoCardWrapper->setAccount($entity);
 
-      $billing_info = $form_state->getValue('billing') + array('email' => $entity->mail->value);
-      $cc_info = array(
+      $billing_info = $form_state->getValue('billing') + ['email' => $entity->mail->value];
+      $cc_info = [
         'number' => $form_state->getValue('cc_number'),
         'cvv' => $form_state->getValue('cc_cvv'),
         'date' => $form_state->getValue('cc_date'),
-      );
+      ];
 
       if (!$cc_token = $this->tangoCardWrapper->registerCreditCard($cc_info, $billing_info)) {
         drupal_set_message($this->t('An error occurred while processing your credit card. Please try again later or contact support.'), 'error');

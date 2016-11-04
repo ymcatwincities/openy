@@ -27,7 +27,7 @@ class ProductAutocompleteController extends ControllerBase {
    *
    * @var array
    */
-  protected $rewards = array();
+  protected $rewards = [];
 
   /**
    * Constructs the ProductAutocompleteController object.
@@ -55,9 +55,9 @@ class ProductAutocompleteController extends ControllerBase {
    *   A json object containing the matched requests.
    */
   public function handleAutocomplete(Request $request, $product_type) {
-    $results = array();
+    $results = [];
 
-    if (!in_array($product_type, array('all', 'fixed', 'variable'))) {
+    if (!in_array($product_type, ['all', 'fixed', 'variable'])) {
       return new JsonResponse($results);
     }
 
@@ -103,7 +103,7 @@ class ProductAutocompleteController extends ControllerBase {
 
       $matches = preg_grep('/' . $typed_string . '/', $this->rewards);
       foreach ($matches as $value => $label) {
-        $results[] = array('value' => $value, 'label' => $label);
+        $results[] = ['value' => $value, 'label' => $label];
       }
     }
 

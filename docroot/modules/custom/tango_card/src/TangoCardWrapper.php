@@ -80,8 +80,6 @@ class TangoCardWrapper {
    * Initialize wrapper values from settings.
    */
   public function init() {
-    libraries_load('tango_card');
-
     $tango_card = new TangoCard($this->config->get('platform_name'), $this->config->get('platform_key'));
     $this->setTangoCard($tango_card);
 
@@ -237,7 +235,7 @@ class TangoCardWrapper {
       return FALSE;
     }
 
-    foreach (array('from', 'subject', 'message') as $suffix) {
+    foreach (['from', 'subject', 'message'] as $suffix) {
       $property = 'notification_' . $suffix;
       $notification[$suffix] = $campaign->$property->value ? $campaign->$property->value : '';
     }
@@ -344,7 +342,7 @@ class TangoCardWrapper {
         }
 
         $brands = $response->brands;
-        $this->cache->set($cid, $brands, CacheBackendInterface::CACHE_PERMANENT, array('tango_card'));
+        $this->cache->set($cid, $brands, CacheBackendInterface::CACHE_PERMANENT, ['tango_card']);
       }
     }
 
@@ -375,14 +373,14 @@ class TangoCardWrapper {
           return FALSE;
         }
 
-        $rewards = array();
+        $rewards = [];
         foreach ($brands as $brand) {
           foreach ($brand->rewards as $reward) {
             $rewards[$reward->sku] = $reward;
           }
         }
 
-        $this->cache->set($cid, $rewards, CacheBackendInterface::CACHE_PERMANENT, array('tango_card'));
+        $this->cache->set($cid, $rewards, CacheBackendInterface::CACHE_PERMANENT, ['tango_card']);
       }
     }
 
