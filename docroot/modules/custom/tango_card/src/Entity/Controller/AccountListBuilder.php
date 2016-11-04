@@ -55,13 +55,13 @@ class AccountListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header = array(
+    $header = [
       'id' => $this->t('ID'),
       'remote_id' => $this->t('Remote ID'),
       'mail' => $this->t('Email'),
       'balance' => $this->t('Balance'),
       'cc_number' => $this->t('CC Number'),
-    );
+    ];
     $header += parent::buildHeader();
     $header['orders'] = '';
 
@@ -76,21 +76,21 @@ class AccountListBuilder extends EntityListBuilder {
 
     $balance = $this->tangoCardWrapper->getAccountBalance();
     if ($balance === FALSE) {
-      return array();
+      return [];
     }
 
-    $row = array(
+    $row = [
       'id' => $entity->id(),
       'remote_id' => $entity->label(),
       'mail' => $entity->mail->value,
       'balance' => '$' . number_format($balance / 100, 2),
       'cc_number' => '************' . $entity->cc_number->value,
-    );
+    ];
 
     $row += parent::buildRow($entity);
     unset($row['operations']['data']['#links']['clone']);
 
-    $row['orders'] = new Link($this->t('see orders'), Url::fromRoute('tango_card.orders', array('tango_card_account' => $entity->id())));
+    $row['orders'] = new Link($this->t('see orders'), Url::fromRoute('tango_card.orders', ['tango_card_account' => $entity->id()]));
 
     return $row;
   }

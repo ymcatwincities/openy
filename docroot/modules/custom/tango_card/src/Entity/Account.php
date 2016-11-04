@@ -62,18 +62,18 @@ class Account extends ContentEntityBase implements AccountInterface {
     $fields['remote_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Account ID'))
       ->setRequired(TRUE)
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     // Email.
     $fields['mail'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Email'))
       ->setRequired(TRUE)
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'email',
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     // Credit card token.
