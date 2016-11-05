@@ -8,7 +8,5 @@ ymca-retention:
       label: Navigation
     hero:
       label: Hero section
-    registration:
-      label: Registration & Report
     main:
       label: Main section
