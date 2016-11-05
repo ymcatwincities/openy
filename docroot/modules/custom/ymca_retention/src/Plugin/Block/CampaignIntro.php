@@ -86,7 +86,7 @@ class CampaignIntro extends BlockBase {
           'desktop' => file_create_url($hero_path . 'hero-1400.jpg'),
           'desktop2x' => file_create_url($hero_path . 'hero-1400x2.jpg'),
           'mobile' => file_create_url($hero_path . 'hero-mobile.jpg'),
-          'mobile2x' => file_create_url($hero_path . 'hero-mobilex2.jpg 2x'),
+          'mobile2x' => file_create_url($hero_path . 'hero-mobilex2.jpg'),
         ],
       ],
       '#cache' => [
