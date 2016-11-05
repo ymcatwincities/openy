@@ -367,6 +367,12 @@ body {
   display: block;
   padding: 10px 28px;
 }
+@media screen and (max-width: 1366px) and (max-height: 768px) {
+  .masthead-menu.nav-themes-b a {
+    padding: 2px 28px;
+    font-size: 16px;
+  }
+}
 .masthead-menu.nav-themes-b .nav-stacked {
   display: none;
 }
@@ -1912,6 +1918,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   padding: 0;
   width: auto;
 }
+@media (max-width: 420px) {
+  .page-footer.footer-themes-b .list-inline > li {
+    margin: 0 8px;
+  }
+}
 
 .footer-brand {
   display: block;
@@ -1995,6 +2006,17 @@ a.ms-brand:hover {
   line-height: 40px;
   margin: 0;
   font-size: 26px;
+}
+@media (max-width: 420px) {
+  .footer-themes-b .social-icon {
+    border-width: 2px;
+    width: 36px;
+    height: 36px;
+    line-height: 32px;
+    font-size: 20px;
+    padding-top: 0;
+    padding-top: 30px;
+  }
 }
 
 .icon-facebook:after {
@@ -2491,6 +2513,12 @@ img.alignRight {
   display: block;
   margin: 0;
   padding-top: 14px;
+}
+@media screen and (max-width: 1366px) and (max-height: 768px) {
+  .nav-themes-b .row-level-2 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
 }
 
 .nav-home .level_4 {

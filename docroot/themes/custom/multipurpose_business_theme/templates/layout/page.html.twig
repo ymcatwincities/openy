@@ -60,44 +60,20 @@
 
 <!-- Header and Navbar -->
 <header class="main-header">
-  {% if show_social_icon or page.search or page.user_menu %} 
+  {% if page.search or page.user_menu %}
   <div class="row topnav-wrap">
     <div class="container">
       <div class="row">
-        {% if show_social_icon %}
-          <div class="col-sm-4 col-md-4">
-            <div class="social-media">
-              {% if facebook_url %}
-                <a href="{{ facebook_url }}"  class="facebook" target="_blank" ><i class="fa fa-facebook"></i></a>
-              {% endif %}
-              {% if google_plus_url %}
-                <a href="{{ google_plus_url }}"  class="google-plus" target="_blank" ><i class="fa fa-google-plus"></i></a>
-              {% endif %}
-              {% if twitter_url %}
-                <a href="{{ twitter_url }}" class="twitter" target="_blank" ><i class="fa fa-twitter"></i></a>
-              {% endif %}
-              {% if linkedin_url %}
-                <a href="{{ linkedin_url }}" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
-              {% endif %}
-              {% if pinterest_url %}
-                <a href="{{ pinterest_url }}" class="pinterest" target="_blank" ><i class="fa fa-pinterest"></i></a>
-              {% endif %}
-              {% if rss_url %}
-                <a href="{{ rss_url }}" class="rss" target="_blank" ><i class="fa fa-rss"></i></a>
-              {% endif %}
-            </div>
-          </div>        
-        {% endif %}
         {% if page.search or page.user_menu %}
           <div class="col-sm-8 col-md-8 top-user-menu">
             <ul class="list-inline">
-              {% if page.user_menu %}        
+              {% if page.user_menu %}
                 <li>{{ page.user_menu }}</li>
               {% endif %}
-              {% if page.search %}        
+              {% if page.search %}
                 <li>{{ page.search }}</li>
               {% endif %}
-            </ul>            
+            </ul>
           </div>
         {% endif %}
       </div>
@@ -124,13 +100,36 @@
       </div>
 
       <!-- Navigation -->
-      <div class="col-md-9">
-        {% if page.primary_menu %}
-          {{ page.primary_menu }}
-        {% endif %}      
+      {% if page.primary_menu %}
+      <div class="col-md-6 col-navbar">
+        {{ page.primary_menu }}
       </div>
+      {% endif %}
       <!--End Navigation -->
-
+      {% if show_social_icon %}
+      <div class="col-md-3 col-social">
+        <div class="social-media">
+          {% if facebook_url %}
+          <a href="{{ facebook_url }}"  class="facebook" target="_blank" ><i class="fa fa-facebook"></i></a>
+          {% endif %}
+          {% if google_plus_url %}
+          <a href="{{ google_plus_url }}"  class="google-plus" target="_blank" ><i class="fa fa-google-plus"></i></a>
+          {% endif %}
+          {% if twitter_url %}
+          <a href="{{ twitter_url }}" class="twitter" target="_blank" ><i class="fa fa-twitter"></i></a>
+          {% endif %}
+          {% if linkedin_url %}
+          <a href="{{ linkedin_url }}" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if pinterest_url %}
+          <a href="{{ pinterest_url }}" class="pinterest" target="_blank" ><i class="fa fa-pinterest"></i></a>
+          {% endif %}
+          {% if rss_url %}
+          <a href="{{ rss_url }}" class="rss" target="_blank" ><i class="fa fa-rss"></i></a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
       </div>
     </div>
   </nav>
@@ -153,7 +152,7 @@
 
 
 <!-- Banner -->
-  {% if is_front and page.welcome_banner_text %} 
+  {% if is_front and page.welcome_banner_text %}
     <div class="main-banner">
       <div class="container welcome-banner-text">
         <div class="row">
@@ -191,7 +190,7 @@
     </div>
   </div>
 {% endif %}
-<!-- End Page Title ---- >
+<!-- End Page Title -- >
 
     <!--Content top-->
 {% if page.content_top %}
@@ -240,7 +239,7 @@
         </div>
       {% endif %}
       <!---End Right SideBar -->
-      
+
     </div>
     <!--End Content -->
   </div>
@@ -254,12 +253,12 @@
 <!--End Content Bottom-->
 
 <!-- topwidget Widget -->
-{% if is_front %}  
+{% if is_front %}
   {% if page.topwidget_first or page.topwidget_second or page.topwidget_third %}
     <div class="topwidget widget-group">
       <!-- start: Container -->
       <div class="container">
-        
+
         <div class="row">
           <!-- Top widget first region -->
           <div class = {{ topwidget_class }}>
@@ -291,12 +290,12 @@
 
 
 <!-- Portfolio Widget -->
-{% if is_front %}  
+{% if is_front %}
   {% if page.portfolio_first or page.portfolio_second or page.portfolio_third %}
     <div class="portfolio widget-group">
       <!-- start: Container -->
       <div class="container">
-        
+
         <div class="row">
           <!-- Top widget first region -->
           <div class = {{ portfolio_class }}>
@@ -328,12 +327,12 @@
 
 
 <!-- Start Skills -->
-{% if is_front %}  
+{% if is_front %}
   {% if page.features_first or page.features_second %}
     <div class="features-widgets widget-group">
       <!-- Start Container -->
       <div class="container">
-        
+
         <div class="row">
 
           <!-- Start skills First Region -->
@@ -362,7 +361,7 @@
 
 <!--showcase-->
 {% if is_front and page.showcase %}
-  <div class="showcase-wrap widget-group">  
+  <div class="showcase-wrap widget-group">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -376,12 +375,12 @@
 
 
 <!-- Start pricetable -->
-{% if is_front %}  
+{% if is_front %}
   {% if page.pricetable_first or page.pricetable_second or page.pricetable_third %}
     <div class="pricetable-widgets widget-group">
       <!-- Start Container -->
       <div class="container">
-        
+
         <div class="row">
 
           <!-- Start pricetable First Region -->
@@ -438,12 +437,12 @@
 
 
 <!-- Start features -->
-{% if is_front %}  
+{% if is_front %}
   {% if page.features_first or page.features_second %}
     <div class="features-widgets widget-group">
       <!-- Start Container -->
       <div class="container">
-        
+
         <div class="row">
 
           <!-- Start features First Region -->
@@ -471,13 +470,13 @@
 
 
 <!-- Start bottom -->
-{% if is_front %}  
+{% if is_front %}
   {% if page.bottom_first or page.bottom_second or page.bottom_third %}
     <div class="bottom-widgets widget-group">
       <!-- Start Container -->
       <div class="container">
       <h2>Partners</h2>
-        
+
         <div class="row">
 
           <!-- Start Bottom First Region -->
@@ -522,7 +521,7 @@
 {% if  is_front and (page.footer_first or page.footer_second or page.footer_third) %}
   <div class="footerwidget widget-group">
     <div class="container">
-      
+
       <div class="row">
 
         <!-- Start Footer First Region -->
@@ -554,38 +553,29 @@
 {% endif %}
 <!--End Footer -->
 
-<!-- Start Footer Menu -->
-{% if page.footer_menu %}
-  <div class="footer-menu">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          {{ page.footer_menu }}
-        </div>
-      </div>
-    </div>
-  </div>
-{% endif %}
-<!-- End Footer Menu -->
 
-<div class="nav-hr hidden-sm"></div>
 
-<div class="copyright">
+<div class="footer">
   <div class="container">
     <div class="row">
-
+      <!-- Start Footer Menu -->
+      {% if page.footer_menu %}
+      <div class="col-md-6 footer-menu">
+        {{ page.footer_menu }}
+      </div>
+      {% endif %}
+      <!-- End Footer Menu -->
       <!-- Copyright -->
-      <div class="col-sm-6 col-md-6">
+      <div class="col-md-6 copyright">
         <p>Copyright © {{ "now"|date("Y") }}. All rights reserved</p>
       </div>
       <!-- End Copyright -->
 
       <!-- Credit link -->
       {% if show_credit_link %}
-        <div class="col-sm-6 col-md-6"></div>
+      <div class="col-sm-6 col-md-6"></div>
       {% endif %}
       <!-- End Credit link -->
-      
     </div>
   </div>
 </div>
@@ -594,7 +584,7 @@
 {% if is_front and page.google_map %}
   <div class="google-map-wrap">
     <div class="contact-address">{{ page.contact_address }}</div>
-    <div class="google-map">{{ page.google_map }}</div> 
+    <div class="google-map">{{ page.google_map }}</div>
   </div>
 {% endif %}
 <!-- End Google map -->
