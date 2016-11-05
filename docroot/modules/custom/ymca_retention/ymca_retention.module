@@ -135,6 +135,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-track-activity-login-form',
     ],
+
+    // Pages templates.
+    'page__challenge' => [
+      'template' => 'pages/page--challenge',
+    ],
+    'page__challenge__team' => [
+      'template' => 'pages/page--challenge--team',
+    ],
   ];
 }
 
