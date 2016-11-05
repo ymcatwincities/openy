@@ -1,7 +1,7 @@
 ymca-retention:
   label: YMCA Retention
   category: YMCA layouts
-  template: templates/ymca-retention
+  template: templates/layouts/ymca-retention
   class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetention'
   regions:
     navigation:
