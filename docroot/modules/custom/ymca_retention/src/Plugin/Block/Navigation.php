@@ -12,7 +12,7 @@ use Drupal\ymca_retention\AnonymousCookieStorage;
  *
  * @Block(
  *   id = "retention_navigation_block",
- *   admin_label = @Translation("YMCA retention navigation block"),
+ *   admin_label = @Translation("[YMCA Retention] Navigation"),
  *   category = @Translation("YMCA Blocks")
  * )
  */

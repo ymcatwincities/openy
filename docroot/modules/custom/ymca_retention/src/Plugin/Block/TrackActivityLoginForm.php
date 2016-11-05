@@ -9,7 +9,7 @@ use Drupal\Core\Block\BlockBase;
  *
  * @Block(
  *   id = "retention_track_activity_login_block",
- *   admin_label = @Translation("YMCA retention track activity login block"),
+ *   admin_label = @Translation("[YMCA Retention] Track activity login"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
