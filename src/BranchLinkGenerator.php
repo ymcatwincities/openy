@@ -1,9 +1,9 @@
 <?php
 
+namespace Drupal\ygs_branch_selector;
+
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-
-namespace Drupal\ygs_branch_selector;
 
 /**
  * Class BranchLinkGenerator.
