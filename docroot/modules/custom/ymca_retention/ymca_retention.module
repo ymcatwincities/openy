@@ -127,6 +127,12 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'blocks/ymca-retention-intro',
     ],
+    'ymca_retention_user_menu' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-user-menu',
+    ],
 
     // Forms templates.
     'ymca_retention_register_form' => [
