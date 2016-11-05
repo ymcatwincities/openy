@@ -50,12 +50,6 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_login_form' => [
       'render element' => 'form',
     ],
-    'ymca_retention_navigation' => [
-      'variables' => [
-        'content' => NULL,
-      ],
-      'template' => 'ymca-retention-navigation',
-    ],
     'ymca_retention_track_activity' => [
       'variables' => [],
       'template' => 'ymca-retention-track-activity',
@@ -121,6 +115,12 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     ],
 
     // Blocks templates.
+    'ymca_retention_navigation' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-navigation',
+    ],
     'ymca_retention_intro' => [
       'variables' => [
         'content' => NULL,
