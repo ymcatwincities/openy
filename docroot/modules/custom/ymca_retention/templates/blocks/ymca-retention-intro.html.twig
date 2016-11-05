@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Display retention campaign intro information.
+ */
+#}
+<div class="hero-section__background">
+  <picture>
+    <!--[if IE 9]><video style="display: none;"><![endif]-->
+    <source srcset="{{ content.images.desktop2x }} 2x, {{ content.images.desktop }} 1x" media="all and (min-width: 768px)" type="image/jpeg">
+    <source srcset="{{ content.images.mobile2x }} 2x, {{ content.images.mobile }} 1x" type="image/jpeg">
+    <!--[if IE 9]></video><![endif]-->
+    <img src="{{ content.images.desktop }}" typeof="foaf:Image">
+  </picture>
+</div>
+
+<div class="container hero-section__content">
+  <div class="col-md-5">
+    <div class="hero-section__logo"></div>
+  </div>
+  <div class="col-md-7 hero-section__slogan_and_date">
+    <div class="hero-section__slogan">{{ content.slogan }}</div>
+    <div class="hero-section__date">{{ content.dates }}</div>
+  </div>
+</div>

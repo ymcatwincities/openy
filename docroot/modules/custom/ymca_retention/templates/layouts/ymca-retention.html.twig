@@ -5,12 +5,10 @@
  */
 #}
 <div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}">
-  <!-- TOP BAR -->
-  <nav id="top-nav">
+  <nav id="top-nav" class="top-nav">
     {{ content.navigation }}
   </nav>
-  <!-- HERO SECTION -->
-  <div id="hero-section">
+  <div id="hero-section" class="hero-section">
     {{ content.hero }}
     {% if content.registration is not empty %}
       <div id="register-and-report" class="slides ysr-offset">
@@ -18,5 +16,8 @@
       </div>
     {% endif %}
   </div>
+  <div class="ysr-user-menu"></div>
+  <div class="container"></div>
+  <div class="tab-content"></div>
   {{ content.main }}
 </div>
