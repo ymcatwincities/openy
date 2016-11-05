@@ -11,7 +11,7 @@ use Drupal\ymca_retention\AnonymousCookieStorage;
  *
  * @Block(
  *   id = "retention_registration_block",
- *   admin_label = @Translation("YMCA retention registration block"),
+ *   admin_label = @Translation("[YMCA Retention] Registration"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
