@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @Block(
  *   id = "retention_campaign_intro_block",
- *   admin_label = @Translation("YMCA retention campaign intro block"),
+ *   admin_label = @Translation("[YMCA Retention] Campaign intro"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
