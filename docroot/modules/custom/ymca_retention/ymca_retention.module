@@ -133,11 +133,11 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'blocks/ymca-retention-user-menu',
     ],
-    'ymca_retention_tabs' => [
+    'ymca_retention_tabs_selector' => [
       'variables' => [
         'content' => NULL,
       ],
-      'template' => 'blocks/ymca-retention-tabs',
+      'template' => 'blocks/ymca-retention-tabs-selector',
     ],
 
     // Forms templates.
