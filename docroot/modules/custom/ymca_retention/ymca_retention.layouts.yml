@@ -10,3 +10,11 @@ ymca-retention:
       label: Hero section
     main:
       label: Main section
+    tab_about:
+      label: About tab
+    tab_track:
+      label: Track tab
+    tab_progress:
+      label: Progress tab
+    tab_instant_win:
+      label: Instant win tab

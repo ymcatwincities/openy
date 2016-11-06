@@ -46,3 +46,22 @@ winners:
     - ymca_retention/angular
     - core/drupal
     - core/drupalSettings
+
+bootstrap-tabcollapse:
+  remote: https://github.com/flatlogic/bootstrap-tabcollapse
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/flatlogic/bootstrap-tabcollapse
+    gpl-compatible: true
+  js:
+    /libraries/bootstrap-tabcollapse/bootstrap-tabcollapse.js: {}
+  dependencies:
+    - core/jquery
+
+tabs-selector:
+  version: VERSION
+  js:
+    js/tabs-selector.js: {}
+  dependencies:
+    - ymca_retention/bootstrap-tabcollapse
