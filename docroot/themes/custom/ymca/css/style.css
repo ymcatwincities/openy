@@ -1968,6 +1968,10 @@ a.ms-brand:hover {
   transition: background-color .2s ease-out;
 }
 
+.nav-footer .nav-stacked > li {
+  margin-top: 2px;
+}
+
 .social-icon {
   position: relative;
   display: block;
