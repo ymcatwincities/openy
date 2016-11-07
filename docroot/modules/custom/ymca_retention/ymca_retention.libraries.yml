@@ -4,9 +4,14 @@ angular:
     //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
 
 angular-slick:
-  version: VERSION
+  remote: https://github.com/devmark/angular-slick-carousel
+  version: 3.1.7
+  license:
+    name: MIT
+    url: https://github.com/devmark/angular-slick-carousel
+    gpl-compatible: true
   js:
-    js/angular-slick.min.js: { minified: true }
+    /libraries/angular-slick-carousel/dist/angular-slick.min.js: { minified: true }
   dependencies:
     - ymca_retention/angular
 
