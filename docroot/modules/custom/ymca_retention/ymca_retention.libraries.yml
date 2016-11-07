@@ -1,5 +1,5 @@
 angular:
-  version: VERSION
+  version: 1.5.7
   js:
     //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
 
@@ -11,9 +11,10 @@ angular-slick:
     - ymca_retention/angular
 
 angular-promise-tracker:
-  version: VERSION
+  remote: https://github.com/ajoslin/angular-promise-tracker
+  version: 2.2.2
   js:
-    js/promise-tracker.js: {}
+    /libraries/angular-promise-tracker/promise-tracker.js: {}
   dependencies:
     - ymca_retention/angular
 
@@ -49,7 +50,7 @@ winners:
 
 bootstrap-tabcollapse:
   remote: https://github.com/flatlogic/bootstrap-tabcollapse
-  version: VERSION
+  version: 0.2.7
   license:
     name: MIT
     url: https://github.com/flatlogic/bootstrap-tabcollapse
