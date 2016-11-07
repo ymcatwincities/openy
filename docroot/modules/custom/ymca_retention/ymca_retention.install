@@ -217,3 +217,31 @@ function ymca_retention_update_8015() {
     $factory->getEditable($config)->delete();
   }
 }
+
+/**
+ * Remove old members.
+ */
+function ymca_retention_update_8016(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    $member_ids = \Drupal::entityQuery('ymca_retention_member')->execute();
+
+    $sandbox['progress'] = 0;
+
+    $sandbox['members'] = array_values($member_ids);
+    $sandbox['max'] = count($member_ids);
+  }
+  // Get member id.
+  $member_id = $sandbox['members'][$sandbox['progress']];
+
+  // Get entity manager.
+  $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member');
+
+  // Delete member entity.
+  $entities = $storage->loadMultiple(array($member_id));
+  $storage->delete($entities);
+
+  $sandbox['progress']++;
+  if ($sandbox['progress'] != $sandbox['max']) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
