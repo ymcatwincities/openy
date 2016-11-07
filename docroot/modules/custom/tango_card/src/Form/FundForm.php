@@ -4,8 +4,8 @@ namespace Drupal\tango_card\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\tango_card\AccountInterface;
 use Drupal\tango_card\TangoCardWrapper;
-use Drupal\tango_card\Entity\Account;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -56,7 +56,7 @@ class FundForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, Account $tango_card_account = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, AccountInterface $tango_card_account = NULL) {
     $this->tangoCardWrapper->setAccount($tango_card_account);
 
     $form['actions'] = ['#type' => 'actions'];
@@ -120,6 +120,7 @@ class FundForm extends FormBase {
       $form_state->setStorage([
         'amount' => $form_state->getValue('amount') * 100,
         'cc_cvv' => $form_state->getValue('cc_cvv'),
+        'account' => $this->tangoCardWrapper->getAccount(),
       ]);
 
       $this->step++;
@@ -127,6 +128,7 @@ class FundForm extends FormBase {
     else {
       try {
         $values = $form_state->getStorage();
+        $this->tangoCardWrapper->setAccount($values['account']);
         $success = $this->tangoCardWrapper->fundAccount($values['amount'], $values['cc_cvv']);
       }
       catch (Exception $e) {

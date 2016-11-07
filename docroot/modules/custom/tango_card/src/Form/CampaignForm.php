@@ -28,7 +28,7 @@ class CampaignForm extends ContentEntityForm {
       '#states' => ['visible' => $states],
     ];
 
-    foreach (['from', 'subject', 'message', 'template'] as $suffix) {
+    foreach (['template', 'from', 'subject', 'message'] as $suffix) {
       $field = 'email_' . $suffix;
 
       $form['email'][$field] = $form[$field];
@@ -36,7 +36,7 @@ class CampaignForm extends ContentEntityForm {
       unset($form[$field]);
     }
 
-    $form['email']['template']['widget'][0]['value']['#states'] = [];
+    $form['email']['email_template']['widget'][0]['value']['#states'] = [];
 
     return $form;
   }

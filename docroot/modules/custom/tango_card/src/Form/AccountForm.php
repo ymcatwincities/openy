@@ -148,15 +148,19 @@ class AccountForm extends ContentEntityForm {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
-    $account_id = reset($form_state->getValue('remote_id'));
-    $account_id = $account_id['value'];
+    foreach (['customer', 'remote_id'] as $field) {
+      $value = reset($form_state->getValue($field));
+      $value = $value['value'];
 
-    if (!UrlHelper::isValid($account_id)) {
-      $form_state->setErrorByName('remote_id', $this->t('Invalid account ID. Must NOT contain characters invalid in a URI.'));
+      if (!UrlHelper::isValid($value)) {
+        $form_state->setErrorByName($field, $this->t('Invalid %name. Must NOT contain characters invalid in a URI.', [
+          '%name' => $form[$field]['widget'][0]['value']['#title'],
+        ]));
+      }
     }
 
-    if ($this->getEntity()->isNew() && $this->entityQuery->get('tango_card_account')->condition('remote_id', $account_id)->execute()) {
-      $form_state->setErrorByName('remote_id', $this->t('The entered Account ID already exists.'));
+    if ($this->getEntity()->isNew() && $this->entityQuery->get('tango_card_account')->condition('remote_id', $value)->execute()) {
+      $form_state->setErrorByName($field, $this->t('The entered Account ID already exists.'));
     }
   }
 
@@ -167,9 +171,10 @@ class AccountForm extends ContentEntityForm {
     $entity = $this->getEntity();
 
     try {
-      if ($remote_account = $this->tangoCardWrapper->getAccountInfo($entity->remote_id->value)) {
-        $entity->set('mail', $remote_account->email);
-        $entity->set('customer', $remote_account->customer);
+      $response = $this->tangoCardWrapper->getTangoCard()->getAccountInfo($entity->customer->value, $entity->remote_id->value);
+
+      if (!empty($response->success)) {
+        $entity->set('mail', $response->account->email);
       }
       elseif (!$this->tangoCardWrapper->createAccount($entity->customer->value, $entity->remote_id->value, $entity->mail->value)) {
         drupal_set_message($this->t('An error occurred while creating your account. Please try again later or contact support.'), 'error');

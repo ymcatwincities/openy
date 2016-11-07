@@ -5,8 +5,8 @@ namespace Drupal\tango_card\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Url;
+use Drupal\tango_card\AccountInterface;
 use Drupal\tango_card\TangoCardWrapper;
-use Drupal\tango_card\Entity\Account;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -58,7 +58,7 @@ class OrderPageController extends ControllerBase {
    * @return array
    *   A renderable array.
    */
-  public function pageView(Request $request, Account $tango_card_account, $order_id) {
+  public function pageView(Request $request, AccountInterface $tango_card_account, $order_id) {
     $build = [];
     $this->tangoCardWrapper->setAccount($tango_card_account);
 

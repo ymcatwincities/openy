@@ -101,7 +101,7 @@ class CatalogPageController extends ControllerBase {
       else {
         if ($reward->currency_code != 'USD') {
           $args = ['!code' => $reward->currency_code];
-          $row['currency_code'] = $this->t('!code (amounts in USD)', $args);
+          $row['currency_code'] = $this->t('USD (delivered in !code)', $args);
         }
 
         $prices = [$reward->unit_price];
@@ -116,7 +116,7 @@ class CatalogPageController extends ControllerBase {
     }
 
     $build = [
-      '#theme' => 'table',
+      '#type' => 'table',
       '#header' => $header,
       '#empty' => $this->t('Your catalog is empty.'),
       '#rows' => $rows,

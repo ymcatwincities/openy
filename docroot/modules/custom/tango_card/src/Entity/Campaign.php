@@ -77,6 +77,13 @@ class Campaign extends ContentEntityBase implements CampaignInterface {
       ])
       ->setDefaultValue(FALSE);
 
+    // Email template.
+    $fields['email_template'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Email template'))
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+      ]);
+
     // Email: From name.
     $fields['email_from'] = BaseFieldDefinition::create('string')
       ->setLabel(t('From name'))
@@ -99,13 +106,6 @@ class Campaign extends ContentEntityBase implements CampaignInterface {
         'settings' => [
           'rows' => 4,
         ],
-      ]);
-
-    // Email template.
-    $fields['email_template'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Email template'))
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
       ]);
 
     return $fields;
