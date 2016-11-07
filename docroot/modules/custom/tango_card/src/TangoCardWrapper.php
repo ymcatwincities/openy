@@ -8,8 +8,8 @@ use Sourcefuse\TangoCard;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\tango_card\AccountInterface;
 use Drupal\tango_card\Entity\Campaign;
-use Drupal\tango_card\Entity\Account;
 
 /**
  * Wraps TangoCard SDK object with local configuration.
@@ -47,7 +47,7 @@ class TangoCardWrapper {
   /**
    * Tango Card account.
    *
-   * @var \Drupal\tango_card\Entity\Account
+   * @var \Drupal\tango_card\AccountInterface
    */
   protected $account;
 
@@ -114,17 +114,31 @@ class TangoCardWrapper {
   }
 
   /**
+   * Gets Tango Card object, if set.
+   *
+   * @return \Sourcefuse\TangoCard
+   *   The wrapped Tango Card object.
+   */
+  public function getTangoCard() {
+    if (!$this->tangoCard) {
+      return FALSE;
+    }
+
+    return $this->tangoCard;
+  }
+
+  /**
    * Sets account.
    *
-   * @param \Drupal\tango_card\Entity\Account $account
+   * @param \Drupal\tango_card\AccountInterface $account
    *   Tango Card account entity.
    */
-  public function setAccount(Account $account) {
+  public function setAccount(AccountInterface $account) {
     $this->account = $account;
   }
 
   /**
-   * Get current account object, if set.
+   * Gets current account object, if set.
    *
    * @return \Drupal\tango_card\Entity\Account|bool
    *   Tango Card account object, if exists. False otherwise.
@@ -186,8 +200,12 @@ class TangoCardWrapper {
    * @return object|bool
    *   Account object from Tango Card, if success. False otherwise.
    */
-  public function getAccountInfo($account_id) {
-    $response = $this->tangoCard->getAccountInfo($account_id, $account_id);
+  public function getAccountInfo() {
+    if (!$account = $this->getAccount()) {
+      return FALSE;
+    }
+
+    $response = $this->tangoCard->getAccountInfo($account->customer->value, $account->remote_id->value);
 
     if (empty($response->success)) {
       return FALSE;
@@ -203,11 +221,7 @@ class TangoCardWrapper {
    *   Acount balance, if success. False otherwise.
    */
   public function getAccountBalance() {
-    if (!$account = $this->getAccount()) {
-      return FALSE;
-    }
-
-    if (!$remote_account = $this->getAccountInfo($account->remote_id->value)) {
+    if (!$remote_account = $this->getAccountInfo()) {
       return FALSE;
     }
 
@@ -235,18 +249,19 @@ class TangoCardWrapper {
       return FALSE;
     }
 
-    foreach (['from', 'subject', 'message'] as $suffix) {
+    $email_settings = [];
+    foreach (['template', 'from', 'subject', 'message'] as $suffix) {
       $property = 'email_' . $suffix;
-      $notification[$suffix] = $campaign->$property->value ? $campaign->$property->value : '';
+      $email_settings[$suffix] = $campaign->$property->value ? $campaign->$property->value : '';
     }
 
     $response = $this->tangoCard->placeOrder(
       $account->customer->value,
       $account->remote_id->value,
-      $campaign->name->value,
-      $notification['from'],
-      $notification['subject'],
-      $notification['message'],
+      $email_settings['template'],
+      $email_settings['from'],
+      $email_settings['subject'],
+      $email_settings['message'],
       $sku,
       $recipient_name,
       $recipient_email,
