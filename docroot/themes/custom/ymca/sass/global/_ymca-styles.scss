@@ -860,3 +860,7 @@ body .ajax-progress-throbber {
     }
   }
 }
+
+.internal-template.node--type-article #carousel .even-heights .active.item {
+  height: 300px;
+}
