@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="yfr-login-form">
+  {% if form.messages is defined %}
+    <div class="row">
+      {{ form.messages }}
+    </div>
+  {% endif %}
+  <div class="row">
+    {% if form.membership_id is not defined %}
+      <div class="col-sm-9">
+        {{ form.mail }}
+      </div>
+    {% endif %}
+    {% if form.membership_id is defined %}
+      <div class="col-sm-9">
+        {{ form.mail }}
+        {{ form.membership_id }}
+      </div>
+    {% endif %}
+    <div class="col-sm-3 yfr-login-form__submit-wrapper">
+      {{ form.submit }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-5 remember-me-wrapper">
+      <input type="checkbox" id="remember-me">
+      <label for="remember-me">Remember me</label>
+    </div>
+    <div class="col-xs-6 col-sm-6">
+      <a href="#" class="" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Registration'|t }}</a>
+    </div>
+  </div>
+  {{ form|without('mail', 'membership_id', 'submit', 'messages') }}
+</div>
