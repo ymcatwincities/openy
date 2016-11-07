@@ -6,8 +6,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\tango_card\AccountInterface;
 use Drupal\tango_card\TangoCardWrapper;
-use Drupal\tango_card\Entity\Account;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -62,7 +62,7 @@ class OrdersListPageController extends ControllerBase {
    * @return array
    *   A renderable array.
    */
-  public function pageView(Request $request, Account $tango_card_account) {
+  public function pageView(Request $request, AccountInterface $tango_card_account) {
     $build = [];
 
     $page = pager_find_page();
@@ -112,7 +112,7 @@ class OrdersListPageController extends ControllerBase {
     ];
 
     $build['table'] = [
-      '#theme' => 'table',
+      '#type' => 'table',
       '#header' => $header,
       '#empty' => $this->t('There are no orders yet.'),
       '#rows' => $rows,
