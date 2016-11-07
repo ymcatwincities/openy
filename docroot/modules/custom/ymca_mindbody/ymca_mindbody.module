@@ -385,6 +385,7 @@ function ymca_mindbody_mail($key, &$message, $params) {
         "<li>MindBody SaleID: $params[mb_sale_id]</li>",
         "<li>Personify OrderNo: $params[personify_order_no]</li>",
         "<li>Personify OrderLineNo: $params[personify_order_line_no]</li>",
+        "<li>Price: $params[total_amount]</li>",
         "<li>Name: $params[client_name]</li>",
         "<li>Email: $params[client_email]</li>",
         "<li>Phone: $params[client_phone]</li>",
