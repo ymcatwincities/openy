@@ -87,15 +87,17 @@ class CatalogPageController extends ControllerBase {
 
     $rows = [];
     foreach ($brands as $brand) {
-      $img = ['#theme' => 'image', '#uri' => $brand->image_url];
-      $row = [render($img), $brand->description];
-
       $rewards = (array) $brand->rewards;
       $reward = array_shift($rewards);
 
-      $row['available'] = $reward->available ? $yes : $no;
-      $row['type'] = $types['fixed'];
-      $row['currency_code'] = $reward->currency_code;
+      $img = ['#theme' => 'image', '#uri' => $brand->image_url];
+      $row = [
+        'logo' => render($img),
+        'name' => $brand->description,
+        'available' => $reward->available ? $yes : $no,
+        'type' => $types['fixed'],
+        'currency_code' => $reward->currency_code,
+      ];
 
       if ($reward->unit_price == -1) {
         $args = ['!min' => $reward->min_price, '!max' => $reward->max_price];
