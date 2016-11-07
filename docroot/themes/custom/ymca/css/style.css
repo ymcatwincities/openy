@@ -8403,6 +8403,11 @@ body .ajax-progress-throbber .throbber {
   background: none;
 }
 
+.internal-template.node--type-article #carousel .even-heights .active.item {
+  min-height: 300px;
+  max-height: 500px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
