@@ -58,6 +58,7 @@ class AccountListBuilder extends EntityListBuilder {
     $header = [
       'id' => $this->t('ID'),
       'remote_id' => $this->t('Remote ID'),
+      'customer' => $this->t('Customer'),
       'mail' => $this->t('Email'),
       'balance' => $this->t('Balance'),
       'cc_number' => $this->t('CC Number'),
@@ -82,6 +83,7 @@ class AccountListBuilder extends EntityListBuilder {
     $row = [
       'id' => $entity->id(),
       'remote_id' => $entity->label(),
+      'customer' => $entity->customer->value,
       'mail' => $entity->mail->value,
       'balance' => '$' . number_format($balance / 100, 2),
       'cc_number' => '************' . $entity->cc_number->value,

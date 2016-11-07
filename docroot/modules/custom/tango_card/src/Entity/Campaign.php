@@ -62,17 +62,13 @@ class Campaign extends ContentEntityBase implements CampaignInterface {
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setRequired(TRUE)
-      ->setSettings([
-        'max_length' => 255,
-      ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+      ]);
 
-    // Notification flag.
-    $fields['notification_enabled'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Enable email notification'))
+    // Send email.
+    $fields['send_email'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Send email'))
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'settings' => [
@@ -81,35 +77,36 @@ class Campaign extends ContentEntityBase implements CampaignInterface {
       ])
       ->setDefaultValue(FALSE);
 
-    // Notification: From.
-    $fields['notification_from'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('From email'))
+    // Email: From name.
+    $fields['email_from'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('From name'))
       ->setDisplayOptions('form', [
-        'type' => 'email',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+        'type' => 'string_textfield',
+      ]);
 
-    // Notification: subject.
-    $fields['notification_subject'] = BaseFieldDefinition::create('string')
+    // Email: subject.
+    $fields['email_subject'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Subject'))
       ->setDisplayOptions('form', [
-        'type' => 'email',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+        'type' => 'string_textfield',
+      ]);
 
-    // Notification: message.
-    $fields['notification_message'] = BaseFieldDefinition::create('string_long')
+    // Email: message.
+    $fields['email_message'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Message'))
-      ->setSettings([
+      ->setDisplayOptions('form', [
         'type' => 'string_textarea',
         'settings' => [
           'rows' => 4,
         ],
-      ])
+      ]);
+
+    // Email template.
+    $fields['email_template'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Email template'))
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+      ]);
 
     return $fields;
   }

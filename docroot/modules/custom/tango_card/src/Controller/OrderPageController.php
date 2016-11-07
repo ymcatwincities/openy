@@ -81,7 +81,7 @@ class OrderPageController extends ControllerBase {
       'order_id' => 'ID',
       'sku' => 'Name',
       'delivered_at' => 'Date',
-      'amount' => 'amount',
+      'amount' => 'Amount',
       'reward_from' => 'From email',
       'reward_subject' => 'Email subject',
       'reward_message' => 'Email message',

@@ -62,20 +62,63 @@ class CatalogPageController extends ControllerBase {
         '#theme' => 'status_messages',
         '#message_list' => [
           'warning' => [
-            $this->t('The request could not be made. Make sure Tango Card credentials are properly registered on !link.', $args),
+            $this->t('The request could not be done. Make sure Tango Card credentials are properly registered on !link.', $args),
           ],
         ],
       ];
     }
 
+    $header = [
+      'logo' => $this->t('Logo'),
+      'name' => $this->t('Name'),
+      'type' => $this->t('Price type'),
+      'currency_code' => $this->t('Currency code'),
+      'prices' => $this->t('Available prices'),
+    ];
+
+    $types = [
+      'fixed' => $this->t('Fixed'),
+      'variable' => $this->t('Variable'),
+    ];
+
     $rows = [];
     foreach ($brands as $brand) {
       $img = ['#theme' => 'image', '#uri' => $brand->image_url];
-      $rows[] = [render($img), $brand->description];
+      $row = [render($img), $brand->description];
+
+      $rewards = (array) $brand->rewards;
+      $reward = array_shift($rewards);
+
+      $row['type'] = $types['fixed'];
+      $row['currency_code'] = $reward->currency_code;
+
+      if ($reward->unit_price == -1) {
+        $args = ['!min' => $reward->min_price, '!max' => $reward->max_price];
+
+        $row['prices'] = $this->t('!min to !max', $args);
+        $row['type'] = $types['variable'];
+      }
+      else {
+        if ($reward->currency_code != 'USD') {
+          $args = ['!code' => $reward->currency_code];
+          $row['currency_code'] = $this->t('!code (amounts in USD)', $args);
+        }
+
+        $prices = [$reward->unit_price];
+        foreach ($rewards as $reward) {
+          $prices[] = $reward->unit_price;
+        }
+
+        $row['prices'] = implode(', ', $prices);
+      }
+
+      $rows[] = $row;
     }
 
     $build = [
       '#theme' => 'table',
+      '#header' => $header,
+      '#empty' => $this->t('Your catalog is empty.'),
       '#rows' => $rows,
     ];
 

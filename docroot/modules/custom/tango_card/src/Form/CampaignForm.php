@@ -18,23 +18,25 @@ class CampaignForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
 
     $states = [
-      ':input[name="notification_enabled[value]"]' => ['checked' => TRUE],
+      ':input[name="send_email[value]"]' => ['checked' => TRUE],
     ];
 
-    $form['notification'] = [
+    $form['email'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Notification'),
+      '#title' => $this->t('Notification email'),
       '#weight' => 1,
       '#states' => ['visible' => $states],
     ];
 
-    foreach (['from', 'subject', 'message'] as $suffix) {
-      $field = 'notification_' . $suffix;
+    foreach (['from', 'subject', 'message', 'template'] as $suffix) {
+      $field = 'email_' . $suffix;
 
-      $form['notification'][$field] = $form[$field];
-      $form['notification'][$field]['widget'][0]['value']['#states'] = ['required' => $states];
+      $form['email'][$field] = $form[$field];
+      $form['email'][$field]['widget'][0]['value']['#states'] = ['required' => $states];
       unset($form[$field]);
     }
+
+    $form['email']['template']['widget'][0]['value']['#states'] = [];
 
     return $form;
   }
