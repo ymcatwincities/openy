@@ -40,14 +40,14 @@ variant_settings:
       weight: -10
       uuid: 43328ca5-84b7-450a-b1d4-6f2c20d387b9
       context_mapping: {  }
-    dd0324b3-d3ec-4c68-bf11-f75c60023ba7:
-      id: retention_tabs_block
-      label: '[YMCA Retention] Tabs'
+    a436a9d1-a8cd-4221-b697-137c5a7cbf22:
+      id: retention_tabs_selector_block
+      label: '[YMCA Retention] Tabs selector'
       provider: ymca_retention
       label_display: '0'
       region: main
       weight: -9
-      uuid: dd0324b3-d3ec-4c68-bf11-f75c60023ba7
+      uuid: a436a9d1-a8cd-4221-b697-137c5a7cbf22
       context_mapping: {  }
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
