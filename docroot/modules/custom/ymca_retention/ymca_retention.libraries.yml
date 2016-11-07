@@ -18,6 +18,10 @@ angular-slick:
 angular-promise-tracker:
   remote: https://github.com/ajoslin/angular-promise-tracker
   version: 2.2.2
+  license:
+    name: NONE
+    url: https://github.com/ajoslin/angular-promise-tracker
+    gpl-compatible: true
   js:
     /libraries/angular-promise-tracker/promise-tracker.js: {}
   dependencies:
@@ -80,3 +84,10 @@ app:
     - ymca_retention/angular
     - core/drupal
     - core/drupalSettings
+
+user-menu:
+  version: VERSION
+  js:
+    js/user-menu.js: {}
+  dependencies:
+    - ymca_retention/app

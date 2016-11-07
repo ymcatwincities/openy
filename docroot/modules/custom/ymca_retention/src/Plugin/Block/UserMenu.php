@@ -22,6 +22,11 @@ class UserMenu extends BlockBase {
     return [
       '#theme' => 'ymca_retention_user_menu',
       '#content' => [],
+      '#attached' => [
+        'library' => [
+          'ymca_retention/user-menu',
+        ],
+      ],
     ];
   }
 
