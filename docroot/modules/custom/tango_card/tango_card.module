@@ -11,14 +11,14 @@ use Drupal\Core\Entity\EntityInterface;
  * Implements hook_entity_operation().
  */
 function tango_card_entity_operation(EntityInterface $entity) {
-  $operations = array();
+  $operations = [];
 
   if ($entity->getEntityTypeId() == 'tango_card_account') {
-    $operations['fund'] = array(
+    $operations['fund'] = [
       'title' => t('Fund'),
       'weight' => 0,
       'url' => $entity->toUrl('fund-form'),
-    );
+    ];
   }
 
   return $operations;

@@ -2,6 +2,8 @@
 
 namespace Drupal\tango_card\Form;
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -34,12 +36,14 @@ class AccountForm extends ContentEntityForm {
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.
+   * @param Drupal\Core\Entity\Query\QueryFactory $entity_query
+   *   The entity query.
    * @param \Drupal\tango_card\TangoCardWrapper $tango_card_wrapper
    *   The Tango Card wrapper.
    */
   public function __construct(EntityManagerInterface $entity_manager, QueryFactory $entity_query, TangoCardWrapper $tango_card_wrapper) {
     parent::__construct($entity_manager);
-    $this->queryFactory = $entity_query;
+    $this->entityQuery = $entity_query;
     $this->tangoCardWrapper = $tango_card_wrapper;
   }
 
@@ -58,6 +62,27 @@ class AccountForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    try {
+      $success = !empty($this->tangoCardWrapper->listRewards(TRUE));
+    }
+    catch (Exception $e) {
+      $success = FALSE;
+    }
+
+    if (!$success) {
+      $link = new Link($this->t('settings page'), Url::fromRoute('tango_card.settings'));
+      $args = ['!link' => $link->toString()];
+
+      return [
+        '#theme' => 'status_messages',
+        '#message_list' => [
+          'warning' => [
+            $this->t('In order to create an account, make sure Tango Card credentials are properly registered on !link.', $args),
+          ],
+        ],
+      ];
+    }
+
     $form = parent::buildForm($form, $form_state);
 
     if (!$this->getEntity()->cc_token->value) {
@@ -83,7 +108,7 @@ class AccountForm extends ContentEntityForm {
         '#type' => 'creditfield_cardcode',
         '#title' => $this->t('CVV Code'),
         '#maxlength' => 4,
-        '#description' => $this->('Your 3 or 4 digit security code on the back of your card.'),
+        '#description' => $this->t('Your 3 or 4 digit security code on the back of your card.'),
         '#required' => TRUE,
       ];
 
@@ -103,7 +128,6 @@ class AccountForm extends ContentEntityForm {
         'country' => 'Country',
       ];
 
-      // TODO: improve address field.
       foreach ($fields as $field => $title) {
         $form['billing'][$field] = [
           '#type' => 'textfield',
@@ -111,6 +135,8 @@ class AccountForm extends ContentEntityForm {
           '#required' => TRUE,
         ];
       }
+
+      $form['billing']['state']['#maxlength'] = 40;
     }
 
     return $form;
@@ -130,7 +156,7 @@ class AccountForm extends ContentEntityForm {
     }
 
     if ($this->getEntity()->isNew() && $this->entityQuery->get('tango_card_account')->condition('remote_id', $account_id)->execute()) {
-      $form_state->setErrorByName('remote_id', $this->t('This Account ID already exists.'));
+      $form_state->setErrorByName('remote_id', $this->t('The entered Account ID already exists.'));
     }
   }
 
@@ -141,10 +167,11 @@ class AccountForm extends ContentEntityForm {
     $entity = $this->getEntity();
 
     try {
-      if ($remote_account = $this->tangoCardWrapper->getRemoteAccount($entity->remote_id->value)) {
+      if ($remote_account = $this->tangoCardWrapper->getAccountInfo($entity->remote_id->value)) {
         $entity->set('mail', $remote_account->email);
+        $entity->set('customer', $remote_account->customer);
       }
-      elseif (!$this->tangoCardWrapper->setRemoteAccount($entity->remote_id->value, $entity->mail->value)) {
+      elseif (!$this->tangoCardWrapper->createAccount($entity->customer->value, $entity->remote_id->value, $entity->mail->value)) {
         drupal_set_message($this->t('An error occurred while creating your account. Please try again later or contact support.'), 'error');
         return;
       }

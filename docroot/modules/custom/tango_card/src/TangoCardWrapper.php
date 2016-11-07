@@ -172,8 +172,8 @@ class TangoCardWrapper {
    * @return object|bool
    *   Account object from Tango Card, if success. False otherwise.
    */
-  public function setRemoteAccount($account_id, $mail) {
-    $response = $this->tangoCard->createAccount($account_id, $account_id, $mail);
+  public function createAccount($customer, $account_id, $mail) {
+    $response = $this->tangoCard->createAccount($customer, $account_id, $mail);
     return !empty($response->success);
   }
 
@@ -186,7 +186,7 @@ class TangoCardWrapper {
    * @return object|bool
    *   Account object from Tango Card, if success. False otherwise.
    */
-  public function getRemoteAccount($account_id) {
+  public function getAccountInfo($account_id) {
     $response = $this->tangoCard->getAccountInfo($account_id, $account_id);
 
     if (empty($response->success)) {
@@ -207,11 +207,11 @@ class TangoCardWrapper {
       return FALSE;
     }
 
-    if (!$account = $this->getRemoteAccount($account->remote_id->value)) {
+    if (!$remote_account = $this->getAccountInfo($account->remote_id->value)) {
       return FALSE;
     }
 
-    return $account->available_balance;
+    return $remote_account->available_balance;
   }
 
   /**
@@ -236,22 +236,22 @@ class TangoCardWrapper {
     }
 
     foreach (['from', 'subject', 'message'] as $suffix) {
-      $property = 'notification_' . $suffix;
+      $property = 'email_' . $suffix;
       $notification[$suffix] = $campaign->$property->value ? $campaign->$property->value : '';
     }
 
     $response = $this->tangoCard->placeOrder(
-      $account->remote_id->value,
+      $account->customer->value,
       $account->remote_id->value,
       $campaign->name->value,
       $notification['from'],
       $notification['subject'],
       $notification['message'],
       $sku,
-      $amount,
       $recipient_name,
       $recipient_email,
-      $campaign->notification_enabled->value
+      $campaign->send_email->value,
+      $amount
     );
 
     if (empty($response->success)) {
@@ -301,8 +301,14 @@ class TangoCardWrapper {
       return FALSE;
     }
 
-    $account_id = $account->remote_id->value;
-    $response = $this->tangoCard->getOrderHistory($account_id, $account_id, $offset, $limit, $start_date, $end_date);
+    $response = $this->tangoCard->getOrderHistory(
+      $account->customer->value,
+      $account->remote_id->value,
+      $offset,
+      $limit,
+      $start_date,
+      $end_date
+    );
 
     if (empty($response->success)) {
       return FALSE;
@@ -436,7 +442,7 @@ class TangoCardWrapper {
     }
 
     $response = $this->tangoCard->registerCreditCard(
-      $account->remote_id->value,
+      $account->customer->value,
       $account->remote_id->value,
       $cc_info['number'],
       $cc_info['cvv'],
@@ -478,8 +484,13 @@ class TangoCardWrapper {
       return FALSE;
     }
 
-    $account_id = $account->remote_id->value;
-    $response = $this->tangoCard->fundAccount($account_id, $account_id, $amount, $account->cc_token->value, $cc_cvv);
+    $response = $this->tangoCard->fundAccount(
+      $account->customer->value,
+      $account->remote_id->value,
+      $amount,
+      $account->cc_token->value,
+      $cc_cvv
+    );
     return !empty($response->success);
   }
 
@@ -497,8 +508,11 @@ class TangoCardWrapper {
       return FALSE;
     }
 
-    $account_id = $account->remote_id->value;
-    $response = $this->tangoCard->deleteCreditCard($account_id, $account_id, $account->cc_token->value);
+    $response = $this->tangoCard->deleteCreditCard(
+      $account->customer->value,
+      $account->remote_id->value,
+      $account->cc_token->value
+    );
 
     if (empty($response->success)) {
       return FALSE;

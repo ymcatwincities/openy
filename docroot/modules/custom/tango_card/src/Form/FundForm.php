@@ -91,10 +91,11 @@ class FundForm extends FormBase {
     $form['fund']['amount'] = [
       '#type' => 'number',
       '#title' => $this->t('Amount'),
-      '#min' => 0,
+      '#min' => 0.01,
+      '#max' => 5000,
       '#step' => 0.01,
-      '#required' => TRUE,
       '#field_prefix' => '$',
+      '#required' => TRUE,
       '#description' => $this->t('Enter amount in dollars (USD).'),
     ];
 
@@ -103,20 +104,11 @@ class FundForm extends FormBase {
       '#title' => $this->t('Credit card CVV Code'),
       '#maxlength' => 4,
       '#size' => 8,
-      '#description' => 'Your 3 or 4 digit security code on the back of your card.',
+      '#description' => $this->t('Your 3 or 4 digit security code on the back of your card.'),
       '#required' => TRUE,
     ];
 
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($this->step == 1 && !$form_state->getValue('amount')) {
-      $form_state->setErrorByName('amount', $this->t('Invalid amount value.'));
-    }
   }
 
   /**
@@ -135,15 +127,20 @@ class FundForm extends FormBase {
     else {
       try {
         $values = $form_state->getStorage();
-        $this->tangoCardWrapper->fundAccount($values['amount'], $values['cc_cvv']);
-
-        drupal_set_message($this->t('Your account has been funded successfully.'));
+        $success = $this->tangoCardWrapper->fundAccount($values['amount'], $values['cc_cvv']);
       }
       catch (Exception $e) {
+        $success = FALSE;
+      }
+
+      if (!$success) {
         drupal_set_message($this->t('An error occurred and processing did not complete. Please try again later or contact support.'), 'error');
+        return;
       }
 
       $form_state->setRedirect('entity.tango_card_account.collection');
+
+      drupal_set_message($this->t('Your account has been funded successfully.'));
     }
   }
 

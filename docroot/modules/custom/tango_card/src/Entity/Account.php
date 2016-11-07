@@ -18,6 +18,7 @@ use Drupal\user\UserInterface;
  *   id = "tango_card_account",
  *   label = @Translation("Tango Card account"),
  *   label_plural = @Translation("Tango Card accounts"),
+ *   bundle_label = @Translation("Campaign"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\tango_card\Entity\Controller\AccountListBuilder",
@@ -62,6 +63,16 @@ class Account extends ContentEntityBase implements AccountInterface {
     $fields['remote_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Account ID'))
       ->setRequired(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+      ])
+      ->setDisplayConfigurable('form', TRUE);
+
+    // Customer.
+    $fields['customer'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Customer'))
+      ->setRequired(TRUE)
+      ->setDescription(t('The platform’s customer. A customer is a mechanism for denoting a company, department, etc…, an account belongs to.'))
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
       ])

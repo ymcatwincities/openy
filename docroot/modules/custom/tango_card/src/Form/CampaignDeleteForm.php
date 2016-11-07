@@ -42,6 +42,8 @@ class CampaignDeleteForm extends ContentEntityConfirmFormBase {
     $entity->delete();
 
     $form_state->setRedirect('entity.tango_card_campaign.collection');
+
+    drupal_set_message($this->t('Your campaign has been deleted successfully.'));
   }
 
 }

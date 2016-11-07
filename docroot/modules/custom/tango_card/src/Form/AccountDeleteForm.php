@@ -88,6 +88,8 @@ class AccountDeleteForm extends ContentEntityConfirmFormBase {
 
     $entity->delete();
     $form_state->setRedirect('entity.tango_card_account.collection');
+
+    drupal_set_message($this->t('Your account has been deleted successfully.'));
   }
 
 }
