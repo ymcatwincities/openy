@@ -2,6 +2,7 @@
 
 namespace Drupal\tango_card\Form;
 
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Cache\CacheTagsInvalidator;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -98,24 +99,41 @@ class SettingsForm extends ConfigFormBase {
       ];
     }
 
+    $link_title = $this->t('here');
     $fields = [
-      'account' => 'Default account',
-      'campaign' => 'Default campaign',
+      'account' => [
+        'title' => 'Default Tango Card account',
+        'description' => 'The default Tango Account to use on requests. To create an account, click !here.',
+      ],
+      'campaign' => [
+        'title' => 'Default campaign',
+        'description' => 'The default campaign to use on requests. A campaign contains settings like email template and notification message. To create a campaign, click !here.',
+      ],
     ];
 
-    foreach ($fields as $field => $title) {
+    foreach ($fields as $field => $info) {
       $entity_type = 'tango_card_' . $field;
 
       if ($entity = $config->get($field)) {
         $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity);
       }
 
+      $link = new Link($link_title, Url::fromRoute('entity.' . $entity_type . '.add_form'));
+      $args = ['!here' => $link->toString()];
+
       $form[$field] = [
         '#type' => 'entity_autocomplete',
-        '#title' => $this->t($title),
+        '#title' => $this->t($info['title']),
         '#target_type' => $entity_type,
         '#default_value' => $entity,
+        '#description' => $this->t($info['description'], $args),
       ];
+    }
+
+    if (!$form['platform_key']['#default_value']) {
+      $form['account']['#disabled'] = TRUE;
+      $form['account']['#attributes'] = ['title' => $this->t('You must set platform credentials above before create an account.')];
+      $form['account']['#description'] = $this->t('The default Tango Account to use on requests.');
     }
 
     return $form;

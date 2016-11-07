@@ -2,7 +2,10 @@
 
 namespace Drupal\tango_card\Form;
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\tango_card\TangoCardWrapper;
@@ -21,6 +24,13 @@ class CardCreateForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * The entity query factory.
+   *
+   * @var Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
    * The Tango Card wrapper.
    *
    * @var \Drupal\tango_card\TangoCardWrapper
@@ -35,8 +45,9 @@ class CardCreateForm extends FormBase {
    * @param \Drupal\tango_card\TangoCardWrapper $tango_card_wrapper
    *   The Tango Card wrapper.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, TangoCardWrapper $tango_card_wrapper) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, TangoCardWrapper $tango_card_wrapper) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityQuery = $entity_query;
     $this->tangoCardWrapper = $tango_card_wrapper;
   }
 
@@ -46,6 +57,7 @@ class CardCreateForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
+      $container->get('entity.query'),
       $container->get('tango_card.tango_card_wrapper')
     );
   }
@@ -94,56 +106,62 @@ class CardCreateForm extends FormBase {
       ],
     ];
 
-    $states = [
-      ':input[name="product_type"]' => ['value' => 'fixed'],
-    ];
+    foreach (['fixed', 'variable'] as $prod_type) {
+      $states = [':input[name="product_type"]' => ['value' => $prod_type]];
+      $form['product']['product_sku_' . $prod_type] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Product SKU'),
+        '#autocomplete_route_name' => 'tango_card.product_autocomplete',
+        '#autocomplete_route_parameters' => [
+          'product_type' => $prod_type,
+        ],
+        '#states' => ['visible' => $states, 'required' => $states],
+      ];
+    }
 
-    $form['product']['product_sku_fixed'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Product SKU'),
-      '#autocomplete_route_name' => 'tango_card.product_autocomplete',
-      '#autocomplete_route_parameters' => [
-        'product_type' => 'fixed',
-      ],
-      '#states' => ['visible' => $states, 'required' => $states],
-    ];
-
-    $states[':input[name="product_type"]']['value'] = 'variable';
-    $form['product']['product_sku_variable'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Product SKU'),
-      '#autocomplete_route_name' => 'tango_card.product_autocomplete',
-      '#autocomplete_route_parameters' => [
-        'product_type' => 'variable',
-      ],
-      '#states' => ['visible' => $states, 'required' => $states],
-    ];
-
-    $form['product']['product_value'] = [
+    $form['product']['product_amount'] = [
       '#type' => 'number',
-      '#title' => $this->t('Product value'),
+      '#title' => $this->t('Amount'),
       '#min' => 0,
-      '#step' => 0.01,
-      '#field_prefix' => '$',
-      '#description' => $this->t('Enter amount in dollars (USD).'),
+      '#step' => 1,
+      '#description' => $this->t('Amounts must be given in the lowest fractional currency unit (i.e. cents, yen, etc…) in the SKUs currency. For example, a reward with denomination of 500 and currency code of USD represents $5.00 in USD, not $500.00.'),
       '#states' => ['visible' => $states, 'required' => $states],
     ];
 
-    $form['account'] = [
-      '#type' => 'entity_autocomplete',
-      '#title' => $this->t('Account'),
-      '#target_type' => 'tango_card_account',
-      '#default_value' => $this->tangoCardWrapper->getAccount(),
-      '#required' => TRUE,
+    $link_title = $this->t('here');
+    $fields = [
+      'account' => [
+        'title' => 'Tango Card account',
+        'description' => 'The Tango Account to make your request. To create an account, click !here.',
+      ],
+      'campaign' => [
+        'title' => 'Campaign',
+        'description' => 'The campaign to make your request. The campaign contains settings like email template and notification message. To create a campaign, click !here.',
+      ],
     ];
 
-    $form['campaign'] = [
-      '#type' => 'entity_autocomplete',
-      '#title' => $this->t('Campaign'),
-      '#target_type' => 'tango_card_campaign',
-      '#default_value' => $this->tangoCardWrapper->getCampaign(),
-      '#required' => TRUE,
-    ];
+    foreach ($fields as $field => $info) {
+      $entity_type = 'tango_card_' . $field;
+
+      $link = new Link($link_title, Url::fromRoute('entity.' . $entity_type . '.add_form'));
+      $args = ['!here' => $link->toString()];
+
+      $form[$field] = [
+        '#type' => 'entity_autocomplete',
+        '#title' => $this->t($info['title']),
+        '#target_type' => $entity_type,
+        '#required' => TRUE,
+        '#description' => $this->t($info['description'], $args),
+      ];
+
+      if (!$this->entityQuery->get($entity_type)->execute()) {
+        $args['!entity'] = $form[$field]['#title'];
+        drupal_set_message($this->t('There is no !entity registered yet. Create a new one !here before proceed.', $args), 'warning');
+      }
+    }
+
+    $form['account']['#default_value'] = $this->tangoCardWrapper->getAccount();
+    $form['campaign']['#default_value'] = $this->tangoCardWrapper->getCampaign();
 
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
@@ -161,17 +179,49 @@ class CardCreateForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
-    // TODO: Validate amount and sku.
+    $sku_element = 'product_sku_fixed';
+    if ($is_variable = $form_state->getValue('product_type') == 'variable') {
+      $sku_element = 'product_sku_variable';
+    }
+
+    $sku = $form_state->getValue($sku_element);
+    if (!$reward = $this->tangoCardWrapper->getRewardInfo($sku)) {
+      $form_state->setErrorByName($sku_element, $this->t('Invalid SKU.'));
+      return;
+    }
+
+    $amount_element = 'product_amount';
+    $amount = $form_state->getValue($amount_element);
+
+    if ($is_variable) {
+      if ($amount < $reward->min_price || $amount > $reward->max_price) {
+        $args = ['%min' => $reward->min_price, '%max' => $reward->max_price];
+        $form_state->setErrorByName($amount_element, $this->t('Amount should be between %min and %max.', $args));
+      }
+    }
+    else {
+      $amount_element = 'product_sku_fixed';
+      $amount = $reward->unit_price;
+    }
+
+    $account = $this->entityTypeManager->getStorage('tango_card_account')->load($form_state->getValue('account'));
+    $this->tangoCardWrapper->setAccount($account);
+
+    if ($this->tangoCardWrapper->getAccountBalance() < $amount) {
+      $link = new Link($this->t('here'), Url::fromRoute('entity.tango_card_account.fund_form', [
+        'tango_card_account' => $account->id(),
+      ]));
+
+      $args = ['!here' => $link->toString()];
+      $form_state->setErrorByName($amount_element, $this->t('Your account does not have sufficient funds to generate this card. Access !here to fund your account.', $args));
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $account = $this->entityTypeManager->getStorage('tango_card_account')->load($form_state->getValue('account'));
     $campaign = $this->entityTypeManager->getStorage('tango_card_campaign')->load($form_state->getValue('campaign'));
-
-    $this->tangoCardWrapper->setAccount($account);
     $this->tangoCardWrapper->setCampaign($campaign);
 
     $name = $form_state->getValue('recipient_name');
@@ -182,7 +232,7 @@ class CardCreateForm extends FormBase {
 
     if ($form_state->getValue('product_type') == 'variable') {
       $sku = $form_state->getValue('product_sku_variable');
-      $amount = (integer) ($form_state->getValue('product_value') * 100);
+      $amount = (int) $form_state->getValue('product_amount');
     }
 
     try {
@@ -193,7 +243,9 @@ class CardCreateForm extends FormBase {
     }
 
     if ($success) {
-      $form_state->setRedirect('tango_card.orders', ['tango_card_account' => $account->id()]);
+      $form_state->setRedirect('tango_card.orders', [
+        'tango_card_account' => $this->tangoCardWrapper->getAccount()->id(),
+      ]);
 
       drupal_set_message($this->t('Your order has been processed successfully.'));
     }
