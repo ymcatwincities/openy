@@ -71,3 +71,12 @@ tabs-selector:
     js/tabs-selector.js: {}
   dependencies:
     - ymca_retention/bootstrap-tabcollapse
+
+app:
+  version: VERSION
+  js:
+    js/app.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - core/drupal
+    - core/drupalSettings
