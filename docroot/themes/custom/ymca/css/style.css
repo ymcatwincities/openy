@@ -8404,7 +8404,8 @@ body .ajax-progress-throbber .throbber {
 }
 
 .internal-template.node--type-article #carousel .even-heights .active.item {
-  height: 300px;
+  min-height: 300px;
+  max-height: 500px;
 }
 
 .form-item {
