@@ -9,7 +9,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\tango_card\AccountInterface;
-use Drupal\tango_card\Entity\Campaign;
+use Drupal\tango_card\CampaignInterface;
 
 /**
  * Wraps TangoCard SDK object with local configuration.
@@ -31,7 +31,7 @@ class TangoCardWrapper {
   protected $config;
 
   /**
-   * A cache backend interface..
+   * A cache backend interface.
    *
    * @var Drupal\Core\Cache\CacheBackendInterface
    */
@@ -54,7 +54,7 @@ class TangoCardWrapper {
   /**
    * Tango Card campaign.
    *
-   * @var \Drupal\tango_card\Entity\Campaign
+   * @var \Drupal\tango_card\CampaignInterface
    */
   protected $campaign;
 
@@ -140,7 +140,7 @@ class TangoCardWrapper {
   /**
    * Gets current account object, if set.
    *
-   * @return \Drupal\tango_card\Entity\Account|bool
+   * @return \Drupal\tango_card\AccountInterface|bool
    *   Tango Card account object, if exists. False otherwise.
    */
   public function getAccount() {
@@ -154,17 +154,17 @@ class TangoCardWrapper {
   /**
    * Sets campaign.
    *
-   * @param \Drupal\tango_card\Entity\Campaign $campaign
+   * @param \Drupal\tango_card\CampaignInterface $campaign
    *   Tango Card campaign entity.
    */
-  public function setCampaign(Campaign $campaign) {
+  public function setCampaign(CampaignInterface $campaign) {
     $this->campaign = $campaign;
   }
 
   /**
    * Get current campaign object, if set.
    *
-   * @return \Drupal\tango_card\Entity\Campaign|bool
+   * @return \Drupal\tango_card\CampaignInterface|bool
    *   Tango Card campaign object, if exists. False otherwise.
    */
   public function getCampaign() {
@@ -193,9 +193,6 @@ class TangoCardWrapper {
 
   /**
    * Requests account information from Tango Card.
-   *
-   * @param string $account_id
-   *   The account ID.
    *
    * @return object|bool
    *   Account object from Tango Card, if success. False otherwise.

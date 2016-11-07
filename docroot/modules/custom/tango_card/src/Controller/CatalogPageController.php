@@ -71,15 +71,19 @@ class CatalogPageController extends ControllerBase {
     $header = [
       'logo' => $this->t('Logo'),
       'name' => $this->t('Name'),
+      'available' => $this->t('Available'),
       'type' => $this->t('Price type'),
       'currency_code' => $this->t('Currency code'),
-      'prices' => $this->t('Available prices'),
+      'prices' => $this->t('Price options'),
     ];
 
     $types = [
       'fixed' => $this->t('Fixed'),
       'variable' => $this->t('Variable'),
     ];
+
+    $yes = $this->t('Yes');
+    $no = $this->t('No');
 
     $rows = [];
     foreach ($brands as $brand) {
@@ -89,6 +93,7 @@ class CatalogPageController extends ControllerBase {
       $rewards = (array) $brand->rewards;
       $reward = array_shift($rewards);
 
+      $row['available'] = $reward->available ? $yes : $no;
       $row['type'] = $types['fixed'];
       $row['currency_code'] = $reward->currency_code;
 
