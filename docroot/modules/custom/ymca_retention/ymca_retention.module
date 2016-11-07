@@ -47,7 +47,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-registration-form',
     ],
-    'ymca_retention_login_form' => [
+    'ymca_retention_track_activity_login_form' => [
       'render element' => 'form',
     ],
     'ymca_retention_track_activity' => [
@@ -141,13 +141,21 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     ],
 
     // Forms templates.
+    'ymca_retention_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-login-form',
+    ],
+    'ymca_retention_login_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-login-form-modal',
+    ],
     'ymca_retention_register_form' => [
       'render element' => 'form',
       'template' => 'forms/ymca-retention-register-form',
     ],
-    'ymca_retention_track_activity_login_form' => [
+    'ymca_retention_register_form_modal' => [
       'render element' => 'form',
-      'template' => 'forms/ymca-retention-track-activity-login-form',
+      'template' => 'forms/ymca-retention-register-form-modal',
     ],
 
     // Pages templates.

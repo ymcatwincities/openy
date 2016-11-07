@@ -29,6 +29,10 @@ class MemberRegisterForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $form_state->getBuildInfo()['args'][0];
+    if (isset($config['theme'])) {
+      $form['#theme'] = $config['theme'];
+    }
+
     $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
@@ -81,13 +85,13 @@ class MemberRegisterForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'blue-medium',
+          'orange-light-lighter',
         ],
       ],
       '#ajax' => [
         'callback' => [$this, 'ajaxFormCallback'],
         'method' => 'replaceWith',
-        'wrapper' => 'registration .registration-form form',
+        'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
         'progress' => [
           'type' => 'throbber',
           'message' => NULL,

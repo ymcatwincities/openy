@@ -5,8 +5,29 @@
  */
 #}
 <div class="ysr-user-menu">
-  <div class="ysr-user-menu__greetings">Hi, Christopher!</div>
+  <div class="ysr-user-menu__greetings">Hi, Chris!</div>
   <div class="ysr-user-menu__logout">
-    <a href="#" data-toggle="modal" data-target="#login-modal">Logout</a>
+    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">{{ 'Login'|t }}</a>
+  </div>
+  <div class="ysr-user-menu__logout">
+    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register'|t }}</a>
+  </div>
+  <div class="ysr-user-menu__forms" style="display: none;">
+    <div id="ymca-retention-user-menu-login-form" class="ysr-user-menu__form" data-type="login">
+      {{ content.login_form }}
+    </div>
+    <div id="ymca-retention-user-menu-register-form" class="ysr-user-menu__form" data-type="register">
+      {{ content.register_form }}
+      <div class="yfr-facility-access-hint-wrapper collapse">
+        <div class="yfr-facility-access-hint">
+          <p>
+            Please find your facility access ID below the barcode.
+          </p>
+          <p class="small">
+            Please note it might be on the front of the card on older membership cards.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
