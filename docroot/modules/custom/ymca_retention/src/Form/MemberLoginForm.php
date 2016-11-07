@@ -12,19 +12,24 @@ use Drupal\ymca_retention\AnonymousCookieStorage;
 /**
  * Member Track activity login form.
  */
-class MemberTrackActivityLoginForm extends FormBase {
+class MemberLoginForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ymca_retention_track_activity_login_form';
+    return 'ymca_retention_login_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $form_state->getBuildInfo()['args'][0];
+    if (isset($config['theme'])) {
+      $form['#theme'] = $config['theme'];
+    }
+
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
     $validate = [get_class($this), 'elementValidateRequired'];
     if (empty($verify_membership_id)) {
@@ -68,12 +73,13 @@ class MemberTrackActivityLoginForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
+          'orange-light-lighter',
         ],
       ],
       '#ajax' => [
         'callback' => [$this, 'ajaxFormCallback'],
         'method' => 'replaceWith',
-        'wrapper' => 'report .report-form form',
+        'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'report .report-form form',
         'progress' => [
           'type' => 'throbber',
           'message' => NULL,

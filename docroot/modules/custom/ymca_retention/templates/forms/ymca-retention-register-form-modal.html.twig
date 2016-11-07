@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="yfr-register-form">
+  {% if form.messages is defined %}
+    <div class="row">
+      {{ form.messages }}
+    </div>
+  {% endif %}
+  {% if form.membership_id is defined %}
+    {{ form.membership_id }}
+  {% endif %}
+  {% if form.email is defined %}
+    {{ form.email }}
+  {% endif %}
+  <div class="row">
+    <div class="col-sm-6">
+      {{ form.submit }}
+    </div>
+    <div class="col-sm-6 hidden-xs">
+      <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">Where can I find my Facility Access ID?</a>
+    </div>
+  </div>
+  {{ form|without('email', 'membership_id', 'submit', 'messages') }}
+</div>

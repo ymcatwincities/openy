@@ -20,9 +20,9 @@ class TrackActivityLoginForm extends BlockBase {
    */
   public function build() {
     $form = \Drupal::formBuilder()
-      ->getForm('\Drupal\ymca_retention\Form\MemberTrackActivityLoginForm');
+      ->getForm('\Drupal\ymca_retention\Form\MemberLoginForm');
     return [
-      '#theme' => 'ymca_retention_login_form',
+      '#theme' => 'ymca_retention_track_activity_login_form',
       'form' => $form,
     ];
   }
