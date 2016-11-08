@@ -4,7 +4,7 @@ namespace Drupal\tango_card\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
-use Drupal\tango_card\AccountInterface;
+use Drupal\tango_card\TangoCardAccountInterface;
 use Drupal\tango_card\TangoCardWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -56,7 +56,7 @@ class FundForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, AccountInterface $tango_card_account = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, TangoCardAccountInterface $tango_card_account = NULL) {
     $this->tangoCardWrapper->setAccount($tango_card_account);
 
     $form['actions'] = ['#type' => 'actions'];

@@ -9,6 +9,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
  *
  * @ingroup tango_card_account
  */
-interface AccountInterface extends ContentEntityInterface {
+interface TangoCardAccountInterface extends ContentEntityInterface {
 
 }
