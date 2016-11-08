@@ -3,6 +3,11 @@ angular:
   js:
     //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
 
+angular-cookies:
+  version: 1.5.7
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js: { type: external, minified: true }
+
 angular-slick:
   remote: https://github.com/devmark/angular-slick-carousel
   version: 3.1.7
@@ -89,6 +94,7 @@ angular-app:
     js/angular-app.js: {}
   dependencies:
     - ymca_retention/angular
+    - ymca_retention/angular-cookies
     - core/drupal
     - core/drupalSettings
 
