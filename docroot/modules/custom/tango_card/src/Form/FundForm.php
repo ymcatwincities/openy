@@ -69,7 +69,7 @@ class FundForm extends FormBase {
       $form['message'] = [
         '#markup' => $this->t('Are you sure you want to fund $@amount?', [
           '@amount' => number_format($form_state->getValue('amount'), 2),
-        ],
+        ]),
       ];
 
       return $form;
