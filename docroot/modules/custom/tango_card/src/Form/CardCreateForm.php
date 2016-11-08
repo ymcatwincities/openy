@@ -212,9 +212,8 @@ class CardCreateForm extends FormBase {
         'tango_card_account' => $account->id(),
       ]);
 
-
       $form_state->setErrorByName($amount_element, $this->t('Your account does not have sufficient funds to generate this card. Access <a href=":url">here</a> to fund your account.', [
-        ':url'=> $url->toString(),
+        ':url' => $url->toString(),
       ]));
     }
   }
