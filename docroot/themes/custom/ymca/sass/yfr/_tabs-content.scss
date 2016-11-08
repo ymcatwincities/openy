@@ -772,15 +772,17 @@ $track-activity-button-hover: #e882c8;
         white-space: nowrap;
         width: 99.9%;
 
-        &:hover {
-          background-color: $orange-medium;
+        .no-touch & {
+          &:hover {
+            background-color: $orange-medium;
 
-          &:before {
-            background-color: rgba(247, 163, 118, .25);
-          }
+            &:before {
+              background-color: rgba(247, 163, 118, .25);
+            }
 
-          small {
-            color: rgba(255, 255, 255, 0.5);
+            small {
+              color: rgba(255, 255, 255, 0.5);
+            }
           }
         }
 
@@ -799,6 +801,13 @@ $track-activity-button-hover: #e882c8;
           position: absolute;
           text-align: center;
           top: 50%;
+        }
+        span {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 99.9%;
         }
 
         small {
