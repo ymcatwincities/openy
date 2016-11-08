@@ -85,10 +85,10 @@ class OrdersListPageController extends ControllerBase {
 
     $rows = [];
     foreach ($results->orders as $order) {
-      $params = [
+      $link = new Link($this->t('see details'), Url::fromRoute('tango_card.order_info', [
         'tango_card_account' => $tango_card_account->id(),
         'order_id' => $order->order_id,
-      ];
+      ]));
 
       $rows[] = [
         $order->order_id,
@@ -97,7 +97,7 @@ class OrdersListPageController extends ControllerBase {
         $this->dateFormatter->format(strtotime($order->delivered_at), 'short'),
         $order->recipient->name,
         $order->recipient->email,
-        new Link($this->t('see details'), Url::fromRoute('tango_card.order_info', $params)),
+        $link->toString(),
       ];
     }
 

@@ -92,7 +92,11 @@ class AccountListBuilder extends EntityListBuilder {
     $row += parent::buildRow($entity);
     unset($row['operations']['data']['#links']['clone']);
 
-    $row['orders'] = new Link($this->t('see orders'), Url::fromRoute('tango_card.orders', ['tango_card_account' => $entity->id()]));
+    $link = new Link($this->t('see orders'), Url::fromRoute('tango_card.orders', [
+      'tango_card_account' => $entity->id(),
+    ]));
+
+    $row['orders'] = $link->toString();
 
     return $row;
   }
