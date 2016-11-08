@@ -193,15 +193,30 @@
     font-size: 18px;
     position: relative;
 
-    &:before {
-      @include rem(height, 21px);
-      @include rem(width, 21px);
-      background-image: url(../prototypes/yfr/img/hero/user-icon.png);
-      background-size: cover;
-      content: ' ';
-      display: block;
-      left: 0;
-      position: absolute;
+    span, a {
+      &:before {
+        @include rem(height, 21px);
+        @include rem(width, 21px);
+        background-size: cover;
+        content: ' ';
+        display: block;
+        left: 0;
+        position: absolute;
+      }
+    }
+
+    span {
+      &:before {
+        background-image: inline-image('../prototypes/yfr/img/hero/icon-user.svg');
+      }
+    }
+
+    a {
+      color: inherit;
+
+      &:before {
+        background-image: inline-image('../prototypes/yfr/img/hero/icon-user-active.svg');
+      }
     }
   }
 
