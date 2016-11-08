@@ -245,3 +245,10 @@ function ymca_retention_update_8016(&$sandbox) {
     $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
   }
 }
+
+/**
+ * Enable Tango Card module.
+ */
+function ymca_retention_update_8017() {
+  \Drupal::service('module_installer')->install(['tango_card'], TRUE);
+}
