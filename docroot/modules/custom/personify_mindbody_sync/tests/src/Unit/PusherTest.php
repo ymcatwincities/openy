@@ -12,10 +12,10 @@ class PusherTest extends \PHPUnit_Framework_TestCase {
   /**
    * Backup globals.
    *
+   * @var bool
+   *
    * @see https://github.com/sebastianbergmann/phpunit/issues/451
    * @see https://github.com/silverstripe/silverstripe-behat-extension/commit/7ef575c961ef8a42646b9a30d5a37ad125290dce
-   *
-   * @var bool
    */
   protected $backupGlobals = FALSE;
 
