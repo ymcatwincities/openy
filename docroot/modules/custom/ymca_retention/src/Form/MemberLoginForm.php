@@ -7,24 +7,30 @@ use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\ymca_retention\Ajax\YmcaRetentionModalHideCommand;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
  * Member Track activity login form.
  */
-class MemberTrackActivityLoginForm extends FormBase {
+class MemberLoginForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ymca_retention_track_activity_login_form';
+    return 'ymca_retention_login_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $form_state->getBuildInfo()['args'][0];
+    if (isset($config['theme'])) {
+      $form['#theme'] = $config['theme'];
+    }
+
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
     $validate = [get_class($this), 'elementValidateRequired'];
     if (empty($verify_membership_id)) {
@@ -68,12 +74,13 @@ class MemberTrackActivityLoginForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
+          'orange-light-lighter',
         ],
       ],
       '#ajax' => [
         'callback' => [$this, 'ajaxFormCallback'],
         'method' => 'replaceWith',
-        'wrapper' => 'report .report-form form',
+        'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'report .report-form form',
         'progress' => [
           'type' => 'throbber',
           'message' => NULL,
@@ -119,9 +126,7 @@ class MemberTrackActivityLoginForm extends FormBase {
     else {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
-      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
-        'string' => 'activity',
-      ])->toString()));
+      $ajax_response->addCommand(new YmcaRetentionModalHideCommand());
       return $ajax_response;
     }
   }
@@ -198,11 +203,6 @@ class MemberTrackActivityLoginForm extends FormBase {
     $member_id = $form_state->getTemporaryValue('member');
 
     AnonymousCookieStorage::set('ymca_retention_member', $member_id);
-
-    // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', [
-      'string' => 'activity',
-    ]);
   }
 
 }
