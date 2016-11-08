@@ -5,8 +5,13 @@
  */
 #}
 <div class="ysr-user-menu">
-  <div class="ysr-user-menu__greetings ng-hide" data-ng-show="retentionController.user">Hi, {{ '{{retentionController.user.firstName}}' }}!</div>
-  <div class="ysr-user-menu__logout" data-ng-show="retentionController.user">
+  <div class="ysr-user-menu__greetings ng-hide"
+       data-ng-show="retentionController.user">
+    Hi, {{ '{{retentionController.user.firstName}}' }}!
+  </div>
+  <div class="ysr-user-menu__logout ng-hide"
+       data-ng-show="retentionController.user"
+       data-ng-click="retentionController.cookieRemove()">
     <a href="#">{{ 'Logout'|t }}</a>
   </div>
   <div class="ysr-user-menu__logout" data-ng-show="!retentionController.user">
