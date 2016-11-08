@@ -7,6 +7,7 @@ use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\ymca_retention\Ajax\YmcaRetentionModalHideCommand;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
@@ -125,9 +126,7 @@ class MemberLoginForm extends FormBase {
     else {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
-      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
-        'string' => 'activity',
-      ])->toString()));
+      $ajax_response->addCommand(new YmcaRetentionModalHideCommand());
       return $ajax_response;
     }
   }
@@ -204,11 +203,6 @@ class MemberLoginForm extends FormBase {
     $member_id = $form_state->getTemporaryValue('member');
 
     AnonymousCookieStorage::set('ymca_retention_member', $member_id);
-
-    // Redirect to confirmation page.
-    $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', [
-      'string' => 'activity',
-    ]);
   }
 
 }
