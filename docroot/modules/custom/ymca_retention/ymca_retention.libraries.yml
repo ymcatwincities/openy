@@ -76,10 +76,17 @@ tabs-selector:
   dependencies:
     - ymca_retention/bootstrap-tabcollapse
 
-app:
+ajax-commands:
   version: VERSION
   js:
-    js/app.js: {}
+    js/ajax-commands.js: {}
+  dependencies:
+    - core/drupal.ajax
+
+angular-app:
+  version: VERSION
+  js:
+    js/angular-app.js: {}
   dependencies:
     - ymca_retention/angular
     - core/drupal
@@ -90,4 +97,5 @@ user-menu:
   js:
     js/user-menu.js: {}
   dependencies:
-    - ymca_retention/app
+    - ymca_retention/angular-app
+    - ymca_retention/ajax-commands
