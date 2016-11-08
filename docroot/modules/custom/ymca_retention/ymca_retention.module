@@ -8,6 +8,7 @@
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
+use \Drupal\Core\Template\Attribute;
 
 /**
  * Implements hook_form_alter().
@@ -176,7 +177,7 @@ function ymca_retention_preprocess_html(&$variables) {
   $current_route_name = \Drupal::service('current_route_match')->getRouteName();
 
   if (empty($variables['attributes'])) {
-    $variables['attributes'] = new \Drupal\Core\Template\Attribute();
+    $variables['attributes'] = new Attribute();
   }
 
   if (is_int(stripos($current_route_name, 'page_manager.page_view_ymca_retention'))) {

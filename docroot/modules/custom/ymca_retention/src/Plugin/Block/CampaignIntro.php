@@ -75,7 +75,6 @@ class CampaignIntro extends BlockBase {
       $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'M j');
     }
 
-    // $hero_path = drupal_get_path('module', 'ymca_retention') . '/templates/img/hero/';
     $hero_path = drupal_get_path('theme', 'ymca') . '/prototypes/yfr/img/hero/';
     return [
       '#theme' => 'ymca_retention_intro',
