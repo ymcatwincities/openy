@@ -12,7 +12,7 @@ use Drupal\ymca_retention\Entity\Member;
  *
  * @Block(
  *   id = "retention_registration_confirmation_block",
- *   admin_label = @Translation("YMCA retention registration confirmation block"),
+ *   admin_label = @Translation("[YMCA Retention] Registration confirmation"),
  *   category = @Translation("YMCA Blocks")
  * )
  */

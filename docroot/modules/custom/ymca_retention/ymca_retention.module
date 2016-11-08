@@ -8,6 +8,7 @@
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
+use \Drupal\Core\Template\Attribute;
 
 /**
  * Implements hook_form_alter().
@@ -47,20 +48,8 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-registration-form',
     ],
-    'ymca_retention_login_form' => [
+    'ymca_retention_track_activity_login_form' => [
       'render element' => 'form',
-    ],
-    'ymca_retention_navigation' => [
-      'variables' => [
-        'content' => NULL,
-      ],
-      'template' => 'ymca-retention-navigation',
-    ],
-    'ymca_retention_intro' => [
-      'variables' => [
-        'content' => NULL,
-      ],
-      'template' => 'ymca-retention-intro',
     ],
     'ymca_retention_track_activity' => [
       'variables' => [],
@@ -125,7 +114,77 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-winners',
     ],
+
+    // Blocks templates.
+    'ymca_retention_navigation' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-navigation',
+    ],
+    'ymca_retention_intro' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-intro',
+    ],
+    'ymca_retention_user_menu' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-user-menu',
+    ],
+    'ymca_retention_tabs_selector' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-tabs-selector',
+    ],
+
+    // Forms templates.
+    'ymca_retention_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-login-form',
+    ],
+    'ymca_retention_login_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-login-form-modal',
+    ],
+    'ymca_retention_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form',
+    ],
+    'ymca_retention_register_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form-modal',
+    ],
+
+    // Pages templates.
+    'page__challenge' => [
+      'template' => 'pages/page--challenge',
+    ],
+    'page__challenge__team' => [
+      'template' => 'pages/page--challenge--team',
+    ],
   ];
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ymca_retention_preprocess_html(&$variables) {
+  $classes = ['theme_ymca_2016_fall_retention'];
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+
+  if (empty($variables['attributes'])) {
+    $variables['attributes'] = new Attribute();
+  }
+
+  if (is_int(stripos($current_route_name, 'page_manager.page_view_ymca_retention'))) {
+    if (!is_array($variables['attributes'])) {
+      $variables['attributes']->addClass($classes);
+    }
+  }
 }
 
 /**

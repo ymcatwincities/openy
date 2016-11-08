@@ -62,26 +62,9 @@
 <div id="top"></div>
 
 <div class="viewport">
-  {{ page.header }}
-  <header id="page-head" class="page-head">
-    <div class="top-navs navbar-fixed-top" data-spy="affix" data-offset-top="1">
-
-      <nav class="nav-global navbar-default navbar">
-        <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="{{ base_path }}">{{ "YMCA Twin Cities"|t }}</a>
-          </div>
-        </div>
-      </nav>
-
-    </div>
-  </header>
-
   <div id="main" role="main" class="page-middle container">
     {% block content %}
       {{ page.content }}
     {% endblock %}
   </div>
 </div>
-
-{{ source("@ymca/template-scripts.html") }}
