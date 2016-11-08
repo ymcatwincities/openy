@@ -5,13 +5,33 @@ namespace Drupal\ymca_retention\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\Entity\MemberActivity;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
- * Class ActivityController.
+ * Class MemberController.
  */
-class ActivityController extends ControllerBase {
+class MemberController extends ControllerBase {
+
+  /**
+   * Returns member data.
+   */
+  public function memberJson() {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (!$member_id) {
+      return new JsonResponse();
+    }
+
+    $member = Member::load($member_id);
+    $member_values = [
+      'firstName' => $member->getFirstName(),
+    ];
+
+    $response = new JsonResponse($member_values);
+
+    return $response;
+  }
 
   /**
    * Returns member activities.
