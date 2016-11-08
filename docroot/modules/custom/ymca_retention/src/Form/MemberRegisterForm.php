@@ -40,64 +40,73 @@ class MemberRegisterForm extends FormBase {
     $obfuscated_email = $this->obfuscateEmail($personify_email);
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
-    if (empty($membership_id) || $config['yteam']) {
-      $form['membership_id'] = [
-        '#type' => 'textfield',
-        '#required' => TRUE,
-        '#attributes' => [
-          'placeholder' => [
-            $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+    // If form was executed then we should show registration confirmation for the user.
+    if (!$form_state->isExecuted() || $config['yteam']) {
+      if (empty($membership_id) || $config['yteam']) {
+        $form['membership_id'] = [
+          '#type' => 'textfield',
+          '#required' => TRUE,
+          '#attributes' => [
+            'placeholder' => [
+              $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+            ],
+            'class' => [
+              'facility-access-id',
+            ],
           ],
+          '#element_required_error' => $this->t('Facility access ID is required.'),
+          '#element_validate' => [
+            $validate_required,
+          ],
+        ];
+      }
+      else {
+        $form['email'] = [
+          '#type' => 'email',
+          '#title' => $this->t('Please confirm your email address below:'),
+          '#default_value' => $obfuscated_email,
+          '#required' => TRUE,
+          '#attributes' => [
+            'placeholder' => [
+              $this->t('Your e-mail'),
+            ],
+          ],
+          '#element_required_error' => $this->t('Email is required.'),
+          '#element_validate' => [
+            ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+            $validate_required,
+          ],
+        ];
+      }
+
+      $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
+        '#attributes' => [
           'class' => [
-            'facility-access-id',
+            'btn',
+            'btn-lg',
+            'btn-primary',
+            'orange-light-lighter',
           ],
         ],
-        '#element_required_error' => $this->t('Facility access ID is required.'),
-        '#element_validate' => [
-          $validate_required,
+        '#ajax' => [
+          'callback' => [$this, 'ajaxFormCallback'],
+          'method' => 'replaceWith',
+          'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
+          'progress' => [
+            'type' => 'throbber',
+            'message' => NULL,
+          ],
         ],
       ];
     }
     else {
-      $form['email'] = [
-        '#type' => 'email',
-        '#title' => $this->t('Please confirm your email address below:'),
-        '#default_value' => $obfuscated_email,
-        '#required' => TRUE,
-        '#attributes' => [
-          'placeholder' => [
-            $this->t('Your e-mail'),
-          ],
-        ],
-        '#element_required_error' => $this->t('Email is required.'),
-        '#element_validate' => [
-          ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
-          $validate_required,
-        ],
+      $form['messages'] = [
+        '#type' => 'markup',
+        '#markup'=> $this->t('Your registration is successful!'),
       ];
     }
-
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
-      '#attributes' => [
-        'class' => [
-          'btn',
-          'btn-lg',
-          'btn-primary',
-          'orange-light-lighter',
-        ],
-      ],
-      '#ajax' => [
-        'callback' => [$this, 'ajaxFormCallback'],
-        'method' => 'replaceWith',
-        'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
-        'progress' => [
-          'type' => 'throbber',
-          'message' => NULL,
-        ],
-      ],
-    ];
 
     return $form;
   }
@@ -136,12 +145,7 @@ class MemberRegisterForm extends FormBase {
       return $form;
     }
     else {
-      // Instantiate an AjaxResponse Object to return.
-      $ajax_response = new AjaxResponse();
-      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
-        'string' => 'enroll-success',
-      ])->toString()));
-      return $ajax_response;
+      return $form;
     }
   }
 
@@ -194,7 +198,10 @@ class MemberRegisterForm extends FormBase {
     if (empty($personify_member)) {
       // Get information about member from Personify and validate entered membership ID.
       $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
-      if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
+      if (empty($personify_result)
+        || !empty($personify_result->ErrorMessage)
+        || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0
+      ) {
         $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
         return;
       }
@@ -259,9 +266,7 @@ class MemberRegisterForm extends FormBase {
     }
     else {
       AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
-
-      // Redirect to confirmation page.
-      $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+      $form_state->setRebuild();
     }
   }
 
