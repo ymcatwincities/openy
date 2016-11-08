@@ -55,14 +55,13 @@ class CatalogPageController extends ControllerBase {
     }
 
     if (!$success) {
-      $link = new Link($this->t('settings page'), Url::fromRoute('tango_card.settings'));
-      $args = ['!link' => $link->toString()];
-
       return [
         '#theme' => 'status_messages',
         '#message_list' => [
           'warning' => [
-            $this->t('The request could not be done. Make sure Tango Card credentials are properly registered on !link.', $args),
+            $this->t('The request could not be done. Make sure Tango Card credentials are properly registered on <a href=":url">settings page</a>.', [
+              ':url' => Url::fromRoute('tango_card.settings')->toString(),
+            ]),
           ],
         ],
       ];
@@ -100,15 +99,17 @@ class CatalogPageController extends ControllerBase {
       ];
 
       if ($reward->unit_price == -1) {
-        $args = ['!min' => $reward->min_price, '!max' => $reward->max_price];
-
-        $row['prices'] = $this->t('!min to !max', $args);
         $row['type'] = $types['variable'];
+        $row['prices'] = $this->t('@min to @max', [
+          '@min' => $reward->min_price,
+          '@max' => $reward->max_price,
+        ]);
       }
       else {
         if ($reward->currency_code != 'USD') {
-          $args = ['!code' => $reward->currency_code];
-          $row['currency_code'] = $this->t('USD (delivered in !code)', $args);
+          $row['currency_code'] = $this->t('USD (delivered in @code)', [
+            '@code' => $reward->currency_code,
+          ]);
         }
 
         $prices = [$reward->unit_price];

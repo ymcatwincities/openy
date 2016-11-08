@@ -36,9 +36,9 @@ use Drupal\user\UserInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "edit-form" = "/admin/config/system/tango-card/campaigns/{tango_card_campaign}/edit",
- *     "delete-form" = "/admin/config/system/tango-card/campaigns/{tango_card_campaign}/delete",
- *     "collection" = "/admin/config/system/tango-card/campaigns"
+ *     "edit-form" = "/admin/config/services/tango-card/campaigns/{tango_card_campaign}/edit",
+ *     "delete-form" = "/admin/config/services/tango-card/campaigns/{tango_card_campaign}/delete",
+ *     "collection" = "/admin/config/services/tango-card/campaigns"
  *   },
  * )
  */

@@ -85,13 +85,14 @@ class SettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
-    $fields = [
-      'platform_name' => 'Platform name',
-      'platform_key' => 'Platform key',
+    $form['platform'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Platform credentials'),
     ];
 
+    $fields = ['platform_name' => 'Name', 'platform_key' => 'Key'];
     foreach ($fields as $field => $title) {
-      $form[$field] = [
+      $form['platform'][$field] = [
         '#type' => 'textfield',
         '#title' => $this->t($title),
         '#default_value' => $config->get($field),
@@ -103,11 +104,11 @@ class SettingsForm extends ConfigFormBase {
     $fields = [
       'account' => [
         'title' => 'Default Tango Card account',
-        'description' => 'The default Tango Account to use on requests. To create an account, click !here.',
+        'description' => 'The default Tango Account to use on requests. To see available accounts, click <a href=":url">here</a>.',
       ],
       'campaign' => [
         'title' => 'Default campaign',
-        'description' => 'The default campaign to use on requests. A campaign contains settings like email template and notification message. To create a campaign, click !here.',
+        'description' => 'The default campaign to use on requests. A campaign contains settings like email template and notification message. To see available campaigns, click <a href=":url">here</a>.',
       ],
     ];
 
@@ -118,22 +119,20 @@ class SettingsForm extends ConfigFormBase {
         $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity);
       }
 
-      $link = new Link($link_title, Url::fromRoute('entity.' . $entity_type . '.add_form'));
-      $args = ['!here' => $link->toString()];
-
       $form[$field] = [
         '#type' => 'entity_autocomplete',
         '#title' => $this->t($info['title']),
         '#target_type' => $entity_type,
         '#default_value' => $entity,
-        '#description' => $this->t($info['description'], $args),
+        '#description' => $this->t($info['description'], [
+          ':url' => Url::fromRoute('entity.' . $entity_type . '.collection')->toString(),
+        ]),
       ];
     }
 
-    if (!$form['platform_key']['#default_value']) {
-      $form['account']['#disabled'] = TRUE;
-      $form['account']['#attributes'] = ['title' => $this->t('You must set platform credentials above before create an account.')];
-      $form['account']['#description'] = $this->t('The default Tango Account to use on requests.');
+    if (!$form['platform']['platform_key']['#default_value']) {
+      $form['account']['#access'] = FALSE;
+      $form['campaign']['#access'] = FALSE;
     }
 
     return $form;
