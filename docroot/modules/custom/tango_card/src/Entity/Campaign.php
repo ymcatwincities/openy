@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\tango_card\CampaignInterface;
+use Drupal\tango_card\TangoCardCampaignInterface;
 use Drupal\user\UserInterface;
 
 /**
@@ -42,7 +42,7 @@ use Drupal\user\UserInterface;
  *   },
  * )
  */
-class Campaign extends ContentEntityBase implements CampaignInterface {
+class Campaign extends ContentEntityBase implements TangoCardCampaignInterface {
 
   /**
    * {@inheritdoc}

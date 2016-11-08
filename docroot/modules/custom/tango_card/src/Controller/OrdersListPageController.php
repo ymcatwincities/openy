@@ -6,7 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\tango_card\AccountInterface;
+use Drupal\tango_card\TangoCardAccountInterface;
 use Drupal\tango_card\TangoCardWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,7 +62,7 @@ class OrdersListPageController extends ControllerBase {
    * @return array
    *   A renderable array.
    */
-  public function pageView(Request $request, AccountInterface $tango_card_account) {
+  public function pageView(Request $request, TangoCardAccountInterface $tango_card_account) {
     $build = [];
 
     $page = pager_find_page();
@@ -85,11 +85,6 @@ class OrdersListPageController extends ControllerBase {
 
     $rows = [];
     foreach ($results->orders as $order) {
-      $link = new Link($this->t('see details'), Url::fromRoute('tango_card.order_info', [
-        'tango_card_account' => $tango_card_account->id(),
-        'order_id' => $order->order_id,
-      ]));
-
       $rows[] = [
         $order->order_id,
         $this->tangoCardWrapper->getRewardInfo($order->sku)->description,
@@ -97,7 +92,10 @@ class OrdersListPageController extends ControllerBase {
         $this->dateFormatter->format(strtotime($order->delivered_at), 'short'),
         $order->recipient->name,
         $order->recipient->email,
-        $link->toString(),
+        new Link($this->t('see details'), Url::fromRoute('tango_card.order_info', [
+          'tango_card_account' => $tango_card_account->id(),
+          'order_id' => $order->order_id,
+        ])),
       ];
     }
 
