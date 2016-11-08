@@ -1,3 +1,13 @@
+$reporting-goal: #554a5c;
+$activities-gradient-top: #836da1;
+$activities-gradient-bottom: #695789;
+$activity-item-background-hover: #7e6c9b;
+$activity-item-background-active: #229494;
+$activity-item-icon-background-active: #26bcbd;
+$activity-item-background-active-hover: #31adad;
+$track-activity-button: #db65b5;
+$track-activity-button-hover: #e882c8;
+
 .yfr-intro-block {
   @include breakpoint($tablet) {
     @include rem(margin-top, 65px);
@@ -73,6 +83,788 @@
       p {
         display: inline;
         line-height: 47px;
+      }
+    }
+  }
+}
+
+.yfr-table-progress {
+  @include cachet-normal();
+  @include rem(margin, 8px 0 0 0);
+  width: 100%;
+
+  @include breakpoint($mobile-bp-only) {
+
+  }
+
+  @include breakpoint($tablet) {
+    table-layout: auto;
+  }
+
+  @include breakpoint($tablet-landscape) {
+    table-layout: fixed;
+  }
+
+  @include breakpoint($mobile-max) {
+    @include rem(margin, 0 -15px);
+    width: auto;
+    max-width: initial;
+    display: block;
+  }
+
+  .progress-row__disabled {
+    td {
+      color: $grey12;
+    }
+
+    .date-wrapper {
+      color: inherit;
+    }
+
+    .info-date {
+      .weekday {
+        color: inherit;
+      }
+    }
+  }
+
+  td {
+    @include rem(padding, 34px 0 34px 0);
+    border-bottom: 1px solid $grey16;
+    text-align: center;
+    color: $grey15;
+    vertical-align: middle;
+
+    &:first-child {
+      text-align: left;
+      white-space: nowrap;
+      word-spacing: -0.25em;
+
+      @include breakpoint($tablet) {
+        width: 214px;
+      }
+
+      @include breakpoint($mobile-max) {
+        padding: 0;
+      }
+    }
+
+    @include breakpoint($mobile-max) {
+      @include rem(padding, 0 0 8px 72px);
+      border-bottom: none;
+      display: block;
+      text-align: left;
+    }
+  }
+
+  tr {
+    @include breakpoint($mobile-max) {
+      @include rem(padding, 24px 15px);
+      border-bottom: 1px solid $grey16;
+      display: block;
+    }
+  }
+
+  tbody {
+    @include breakpoint($mobile-max) {
+      display: block;
+    }
+  }
+
+  .info-date {
+    @include rem(margin-left, 20px);
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+
+    .date,
+    .month {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .date {
+      font-size: 30px;
+      line-height: 30px;
+    }
+
+    .month {
+      font-size: 20px;
+      line-height: 22px;
+      text-transform: uppercase;
+    }
+
+    .weekday {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      color: $grey5;
+      display: block;
+    }
+  }
+
+  .date-wrapper {
+    color: $grey7;
+  }
+
+  .info-activity {
+    @include cachet-normal();
+    @include rem(line-height, 36px);
+    color: $grey15;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    text-transform: uppercase;
+
+    &.check {
+      @include rem(padding-left, 34px);
+      color: $green-medium;
+
+      @include breakpoint($mobile-max) {
+        padding: 0;
+      }
+
+      &:before {
+        @include rem(width, 26px);
+        @include rem(height, 26px);
+        @include translateY(-50%);
+        @include border-radius(50%);
+        background: inline-image('../prototypes/yfr/img/tabs/icon-check.svg') no-repeat 50% 50%;
+        border: 2px solid $green-medium;
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        content: '';
+        @include rem(background-size, 12px 9px);
+
+        @include breakpoint($mobile-max) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .item-activity {
+    line-height: 32px;
+    vertical-align: top;
+    word-spacing: -0.25em;
+
+    .counter {
+      color: $grey7;
+      display: inline-block;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 22px;
+      vertical-align: middle;
+    }
+
+    .separator {
+      @include rem(width, 10px);
+      @include rem(height, 10px);
+      @include rem(margin, 0 10px);
+      background: inline-image('../prototypes/yfr/img/tabs/icon-separator.svg') no-repeat 50% 50%;
+      display: inline-block;
+      line-height: 10px;
+      vertical-align: middle;
+      @include background-size(cover);
+    }
+
+    .activity {
+      @include background-size(cover);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &-type__a {
+      .activity {
+        @include rem(width, 36px);
+        @include rem(height, 20px);
+        background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming.svg');
+      }
+
+      &.active {
+        .activity {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-active.svg');
+        }
+      }
+    }
+
+    &-type__b {
+      .activity {
+        @include rem(width, 32px);
+        @include rem(height, 22px);
+        background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press.svg');
+      }
+
+      &.active {
+        .activity {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-active.svg');
+        }
+      }
+    }
+
+    &-type__c {
+      .activity {
+        @include rem(width, 32px);
+        @include rem(height, 26px);
+        background-image: inline-image('../prototypes/yfr/img/tabs/icon-group.svg');
+      }
+
+      &.active {
+        .activity {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-active.svg');
+        }
+      }
+    }
+
+    &-type__d {
+      .activity {
+        @include rem(width, 22px);
+        @include rem(height, 20px);
+        background-image: inline-image('../prototypes/yfr/img/tabs/icon-home.svg');
+      }
+
+      &.active {
+        .activity {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-active.svg');
+        }
+      }
+    }
+  }
+
+  .form-item {
+    margin: 0;
+  }
+
+  .form-type-checkbox {
+    display: inline-block;
+    vertical-align: top;
+
+    label {
+      @include rem(width, 52px);
+      @include rem(height, 52px);
+      @include border-radius(50%);
+      @include transition(all 0.3s ease);
+      border: 2px solid $grey17;
+      background-color: $white;
+      cursor: pointer;
+      display: block;
+      margin: 0;
+      position: relative;
+
+      &:before {
+        @include rem(width, 22px);
+        @include rem(height, 22px);
+        @include border-radius(50%);
+        @include transform(translate(-50%, -50%) scale(0));
+        @include transition(all 0.2s ease);
+        display: block;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        content: '';
+      }
+    }
+  }
+
+  .form-checkbox {
+    opacity: 0;
+    position: absolute;
+
+    &:checked {
+      + label {
+        &:before {
+          @include transform(translate(-50%, -50%) scale(1));
+          background-color: $orange-medium-lighter;
+        }
+      }
+    }
+
+    &:disabled {
+      + label {
+        border-color: $grey12;
+        cursor: default;
+
+        &:before {
+          @include rem(width, 10px);
+          @include rem(height, 10px);
+          @include transform(translate(-50%, -50%) scale(1));
+          @include background-size(cover);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-cross.svg');
+        }
+      }
+    }
+  }
+}
+
+.yfr-activities__header {
+  .form-select {
+    @include rem(height, 52px);
+    @include rem(padding, 13px 12px 13px 14px);
+    background-color: #fff;
+    background-image: none;
+    border: none;
+    color: inherit;
+    display: block;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+    outline: none;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  .form-type-select {
+    @include rem(padding, 0 0 0 50px);
+    @include rem(margin, 0 0 40px 0);
+    border: 1px solid $grey2;
+    border-radius: 3px;
+    background-color: $grey1;
+    width: 100%;
+    max-width: 314px;
+    position: relative;
+
+    &:before {
+      @include rem(width, 18px);
+      @include rem(height, 20px);
+      @include translateY(-50%);
+      @include rem(left, 14px);
+      background: inline-image('../prototypes/yfr/img/tabs/icon-datepicker.svg') no-repeat 50% 50%;
+      @include background-size(cover);
+      display: block;
+      position: absolute;
+      top: 50%;
+      content: '';
+    }
+
+    label {
+      display: none;
+    }
+
+    @include breakpoint($mobile-max) {
+      max-width: 100%;
+      @include rem(margin, 0 10px 20px);
+    }
+  }
+
+  .activity-tabs {
+    @include rem(padding-top, 98px);
+    text-align: center;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    @include breakpoint($mobile-max){
+      @include rem(padding-top, 20px);
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+      align-content: flex-start;
+      -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+
+      @include breakpoint($mobile-max) {
+        width: 100%;
+      }
+    }
+  }
+
+  .activity-tab {
+    @include rem(margin, 0 12px);
+
+    @include breakpoint($tablet) {
+      @include rem(margin, 0 22px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin, 0 44px);
+    }
+
+    &.active {
+      a {
+        color: $grey7;
+
+        &:after {
+          @include rem(border-width, 16px 16px 0 16px);
+          @include translate(-50%, 0);
+          border-style: solid;
+          border-color: $white transparent transparent transparent;
+          content: '';
+          display: block;
+          height: 0;
+          left: 50%;
+          position: absolute;
+          top: 100%;
+          width: 0;
+        }
+      }
+    }
+
+    a {
+      @include cachet-normal();
+      @include rem(padding, 50px 0 40px 0);
+      @include transition(color 0.2s ease);
+      -ms-flex-align: center;
+      -ms-flex-direction: row;
+      -ms-flex-line-pack: start;
+      -ms-flex-pack: center;
+      -ms-flex-wrap: wrap;
+      -webkit-align-content: flex-start;
+      -webkit-align-items: center;
+      -webkit-flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -webkit-justify-content: center;
+      align-content: flex-start;
+      align-items: center;
+      color: $grey4;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      font-weight: bold;
+      height: 100%;
+      justify-content: center;
+      line-height: 20px;
+      position: relative;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 14px;
+
+      @include breakpoint($mobile-max) {
+        @include rem(padding-top, 48px);
+        @include rem(padding-bottom, 20px);
+      }
+
+      @include breakpoint($tablet) {
+        line-height: 22px;
+        font-size: 18px;
+      }
+
+      @include breakpoint($desktop-small) {
+        line-height: 24px;
+        font-size: 20px;
+      }
+
+
+      &:hover {
+        color: $grey7;
+      }
+
+      &:before {
+        @include rem(height, 48px);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        content: '';
+      }
+    }
+
+    &__type-a {
+      a {
+        &:before {
+          @include rem(background-size, 46px 26px);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-tab.svg');
+        }
+      }
+
+      &.active a,
+      &:hover a {
+        &:before {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-active.svg');
+        }
+      }
+    }
+
+    &__type-b {
+      a {
+        &:before {
+          @include rem(background-size, 40px 28px);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-tab.svg');
+        }
+      }
+
+      &.active a,
+      &:hover a {
+        &:before {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-active.svg');
+        }
+      }
+    }
+
+    &__type-c {
+      a {
+        &:before {
+          @include rem(background-size, 40px 32px);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-tab.svg');
+        }
+      }
+
+      &.active a,
+      &:hover a {
+        &:before {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-active.svg');
+        }
+      }
+    }
+
+    &__type-d {
+      a {
+        &:before {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-tab.svg');
+          @include rem(background-size, 26px 28px);
+        }
+      }
+
+      &.active a,
+      &:hover a {
+        &:before {
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-active.svg');
+        }
+      }
+    }
+  }
+}
+
+.yfr-activities__content {
+  @include rem(padding, 88px 0 80px 0);
+  background: $mud;
+
+  @include breakpoint($mobile-max) {
+    @include rem(padding, 50px 10px);
+  }
+
+  .row {
+    @include rem(margin-left, -42px);
+    @include rem(margin-right, -42px);
+
+    @include breakpoint($mobile-max) {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(margin-left, -22px);
+      @include rem(margin-right, -22px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, -42px);
+      @include rem(margin-right, -42px);
+    }
+  }
+
+  .activity-items {
+    display: none;
+    overflow: hidden;
+    margin: auto;
+
+    .col-xs-12,
+    .col-sm-4 {
+
+      @include breakpoint($mobile-max){
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      @include breakpoint($tablet) {
+        @include rem(padding, 0 22px);
+      }
+
+      @include breakpoint($desktop-small) {
+        @include rem(padding, 0 42px);
+      }
+    }
+
+    &.active {
+      display: block;
+    }
+
+    .form-item-checkbox {
+
+      input {
+        display: none;
+      }
+
+      input + label {
+        @include cachet();
+        @include rem(border-radius, 34px);
+        @include rem(font-size, 16px);
+        @include rem(height, 66px);
+        @include rem(line-height, 22px);
+        @include rem(margin-bottom, 22px);
+        @include rem(padding, 12px 24px 12px 72px);
+        @include transition(background-color 0.3s ease);
+        -ms-flex-direction: row;
+        -ms-flex-line-pack: start;
+        -ms-flex-pack: start;
+        -ms-flex-wrap: wrap;
+        -ms-flex-align: center;
+        -webkit-align-content: flex-start;
+        -webkit-align-items: center;
+        -webkit-flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -webkit-justify-content: flex-start;
+        align-content: flex-start;
+        align-items: center;
+        border: 1px solid rgba(247, 163, 118, .25);
+        color: $grey1;
+        cursor: pointer;
+        display: -ms-flexbox;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -webkit-flex;
+        display: flex;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-weight: normal;
+        justify-content: flex-start;
+        letter-spacing: -.5px;
+        overflow: hidden;
+        position: relative;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+        width: 99.9%;
+
+        .no-touch & {
+          &:hover {
+            background-color: $orange-medium;
+
+            &:before {
+              background-color: rgba(247, 163, 118, .25);
+            }
+
+            small {
+              color: rgba(255, 255, 255, 0.5);
+            }
+          }
+        }
+
+        &:before {
+          @include cachet();
+          @include rem(height, 22px);
+          @include rem(width, 22px);
+          @include rem(left, 24px);
+          @include translateY(-50%);
+          @include border-radius(50%);
+          @include transition(all 0.3s ease);
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          border: inherit;
+          content: '';
+          position: absolute;
+          text-align: center;
+          top: 50%;
+        }
+        span {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 99.9%;
+        }
+
+        small {
+          @include cachet-normal();
+          @include rem(font-size, 14px);
+          @include rem(line-height, 20px);
+          color: $grey18;
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 99.9%;
+        }
+      }
+
+      input:checked + label {
+        background-color: $orange-medium;
+        border-color: $orange-medium;
+
+        &:before {
+          @include rem(background-size, 20px 15px);
+          @include border-radius(0);
+          background-color: transparent;
+          border-color: $orange-medium;
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-check-activiti.svg');
+        }
+
+        small {
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  .actions {
+    @include rem(margin, 40px auto 0);
+    @include rem(max-width, 382px);
+    clear: both;
+    text-align: center;
+
+    input[type=submit] {
+      @include cachet-bold();
+      @include transition(all .3s);
+      background: none;
+      border: none;
+      border-bottom: 1px solid $orange-light;
+      color: $orange-light;
+      letter-spacing: -.8px;
+      line-height: 62px;
+      outline: none;
+      padding: 0;
+      text-transform: uppercase;
+      font-size: 30px;
+
+      &:hover {
+        color: $orange-medium;
+        border-color: $orange-medium;
       }
     }
   }
