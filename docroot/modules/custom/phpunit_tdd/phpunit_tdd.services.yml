@@ -1,0 +1,4 @@
+services:
+  phpunit_tdd.runner:
+    class: Drupal\phpunit_tdd\PhpUnitTestRunner
+    arguments: []
