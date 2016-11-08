@@ -70,14 +70,13 @@ class AccountForm extends ContentEntityForm {
     }
 
     if (!$success) {
-      $link = new Link($this->t('settings page'), Url::fromRoute('tango_card.settings'));
-      $args = ['!link' => $link->toString()];
-
       return [
         '#theme' => 'status_messages',
         '#message_list' => [
           'warning' => [
-            $this->t('In order to create an account, make sure Tango Card credentials are properly registered on !link.', $args),
+            $this->t('In order to create an account, make sure Tango Card credentials are properly registered on <a href=":url">settings page</a>.', [
+              ':url' => Url::fromRoute('tango_card.settings')->toString(),
+            ]),
           ],
         ],
       ];
