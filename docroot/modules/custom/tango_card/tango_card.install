@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Install file.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function tango_card_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'install' && !class_exists('\Sourcefuse\TangoCard')) {
+    $requirements['addressing_library'] = [
+      'description' => t('Tango Card requires the Tango Card SDK library.'),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}
