@@ -104,7 +104,7 @@ class MemberRegisterForm extends FormBase {
     else {
       $form['messages'] = [
         '#type' => 'markup',
-        '#markup'=> $this->t('Your registration is successful!'),
+        '#markup' => $this->t('Your registration is successful!'),
       ];
     }
 
