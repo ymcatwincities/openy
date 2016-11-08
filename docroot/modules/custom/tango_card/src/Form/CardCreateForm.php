@@ -132,19 +132,19 @@ class CardCreateForm extends FormBase {
     $fields = [
       'account' => [
         'title' => 'Tango Card account',
-        'description' => 'The Tango Account to make your request. To create an account, click !here.',
+        'description' => 'The Tango Account to make your request. To see available accounts, click <a href=":url">here</a>.',
       ],
       'campaign' => [
         'title' => 'Campaign',
-        'description' => 'The campaign to make your request. The campaign contains settings like email template and notification message. To create a campaign, click !here.',
+        'description' => 'The campaign to make your request. The campaign contains settings like email template and notification message. To see available campaigns, click <a href=":url">here</a>.',
       ],
     ];
 
     foreach ($fields as $field => $info) {
       $entity_type = 'tango_card_' . $field;
-
-      $link = new Link($link_title, Url::fromRoute('entity.' . $entity_type . '.add_form'));
-      $args = ['!here' => $link->toString()];
+      $args = [
+        ':url' => Url::fromRoute('entity.' . $entity_type . '.collection')->toString(),
+      ];
 
       $form[$field] = [
         '#type' => 'entity_autocomplete',
@@ -155,8 +155,8 @@ class CardCreateForm extends FormBase {
       ];
 
       if (!$this->entityQuery->get($entity_type)->execute()) {
-        $args['!entity'] = $form[$field]['#title'];
-        drupal_set_message($this->t('There is no !entity registered yet. Create a new one !here before proceed.', $args), 'warning');
+        $args['@entity'] = $form[$field]['#title'];
+        drupal_set_message($this->t('There is no @entity registered yet. Create a new one <a href=":url">here</a> before proceed.', $args), 'warning');
       }
     }
 
@@ -193,27 +193,29 @@ class CardCreateForm extends FormBase {
     $amount_element = 'product_amount';
     $amount = $form_state->getValue($amount_element);
 
-    if ($is_variable) {
-      if ($amount < $reward->min_price || $amount > $reward->max_price) {
-        $args = ['%min' => $reward->min_price, '%max' => $reward->max_price];
-        $form_state->setErrorByName($amount_element, $this->t('Amount should be between %min and %max.', $args));
-      }
-    }
-    else {
+    if (!$is_variable) {
       $amount_element = 'product_sku_fixed';
       $amount = $reward->unit_price;
+    }
+    elseif ($amount < $reward->min_price || $amount > $reward->max_price) {
+      $form_state->setErrorByName($amount_element, $this->t('Amount should be between %min and %max.', [
+        '%min' => $reward->min_price,
+        '%max' => $reward->max_price,
+      ]));
     }
 
     $account = $this->entityTypeManager->getStorage('tango_card_account')->load($form_state->getValue('account'));
     $this->tangoCardWrapper->setAccount($account);
 
     if ($this->tangoCardWrapper->getAccountBalance() < $amount) {
-      $link = new Link($this->t('here'), Url::fromRoute('entity.tango_card_account.fund_form', [
+      $url = Url::fromRoute('entity.tango_card_account.fund_form', [
         'tango_card_account' => $account->id(),
-      ]));
+      ]);
 
-      $args = ['!here' => $link->toString()];
-      $form_state->setErrorByName($amount_element, $this->t('Your account does not have sufficient funds to generate this card. Access !here to fund your account.', $args));
+
+      $form_state->setErrorByName($amount_element, $this->t('Your account does not have sufficient funds to generate this card. Access <a href=":url">here</a> to fund your account.', [
+        ':url'=> $url->toString(),
+      ]));
     }
   }
 
