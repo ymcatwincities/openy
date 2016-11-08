@@ -9,16 +9,23 @@
       $scope.$watch(function () {
         return $cookies.get('Drupal.visitor.ymca_retention_member');
       }, angular.bind(this, function (newVal, oldVal) {
-        this.getUserData(newVal);
+        this.getMemberData(newVal);
       }));
       // Force to check cookie value.
       $interval(function() {
         $cookies.get('Drupal.visitor.ymca_retention_member');
       }, 500);
 
-      this.getUserData = function(id) {
-        this.user = fetcher.getUserData(id);
-      };
+      this.getMemberData = angular.bind(this, function(id) {
+        if (typeof id === 'undefined') {
+          this.member = '';
+          return;
+        }
+
+        fetcher.getMemberData(id).then(angular.bind(this, function(response) {
+          this.member = response.data;
+        }));
+      });
 
       this.cookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member');
@@ -27,17 +34,10 @@
     });
 
     // Service to communicate with backend.
-    Drupal.ymca_retention.angular_app.factory('fetcher', function() {
+    Drupal.ymca_retention.angular_app.factory('fetcher', function($http) {
       return {
-        getUserData: function(id) {
-          if (typeof id != 'undefined') {
-            return {
-              firstName: 'Andrew'
-            };
-          }
-          else {
-            return '';
-          }
+        getMemberData: function(id) {
+          return $http.get(settings.ymca_retention.user_menu.member_url);
         }
       };
     });
