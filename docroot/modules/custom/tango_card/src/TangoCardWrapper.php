@@ -8,8 +8,8 @@ use Sourcefuse\TangoCard;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\tango_card\AccountInterface;
-use Drupal\tango_card\CampaignInterface;
+use Drupal\tango_card\TangoCardAccountInterface;
+use Drupal\tango_card\TangoCardCampaignInterface;
 
 /**
  * Wraps TangoCard SDK object with local configuration.
@@ -47,14 +47,14 @@ class TangoCardWrapper {
   /**
    * Tango Card account.
    *
-   * @var \Drupal\tango_card\AccountInterface
+   * @var \Drupal\tango_card\TangoCardAccountInterface
    */
   protected $account;
 
   /**
    * Tango Card campaign.
    *
-   * @var \Drupal\tango_card\CampaignInterface
+   * @var \Drupal\tango_card\TangoCardCampaignInterface
    */
   protected $campaign;
 
@@ -130,17 +130,17 @@ class TangoCardWrapper {
   /**
    * Sets account.
    *
-   * @param \Drupal\tango_card\AccountInterface $account
+   * @param \Drupal\tango_card\TangoCardAccountInterface $account
    *   Tango Card account entity.
    */
-  public function setAccount(AccountInterface $account) {
+  public function setAccount(TangoCardAccountInterface $account) {
     $this->account = $account;
   }
 
   /**
    * Gets current account object, if set.
    *
-   * @return \Drupal\tango_card\AccountInterface|bool
+   * @return \Drupal\tango_card\TangoCardAccountInterface|bool
    *   Tango Card account object, if exists. False otherwise.
    */
   public function getAccount() {
@@ -154,17 +154,17 @@ class TangoCardWrapper {
   /**
    * Sets campaign.
    *
-   * @param \Drupal\tango_card\CampaignInterface $campaign
+   * @param \Drupal\tango_card\TangoCardCampaignInterface $campaign
    *   Tango Card campaign entity.
    */
-  public function setCampaign(CampaignInterface $campaign) {
+  public function setCampaign(TangoCardCampaignInterface $campaign) {
     $this->campaign = $campaign;
   }
 
   /**
    * Get current campaign object, if set.
    *
-   * @return \Drupal\tango_card\CampaignInterface|bool
+   * @return \Drupal\tango_card\TangoCardCampaignInterface|bool
    *   Tango Card campaign object, if exists. False otherwise.
    */
   public function getCampaign() {
