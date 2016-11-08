@@ -27,6 +27,16 @@ To run the process use the next code:
 
   `drush ev '\Drupal::service("personify_mindbody_sync.proxy")->clearCache();'`
 
+### How to run tester
+
+Just replace `testSendNotification()` with your method.
+
+  * With Drush:
+  `drush ev '\Drupal::service("personify_mindbody_sync.tester")->testSendNotification();'`
+
+  * With PHP:
+  `\Drupal::service("personify_mindbody_sync.tester")->testSendNotification();`
+
 ## TODO
 
   * Phone validation, Birthday validation
