@@ -211,11 +211,11 @@ $track-activity-button-hover: #e882c8;
   .info-activity {
     @include cachet-normal();
     @include rem(line-height, 36px);
-    text-transform: uppercase;
     color: $grey15;
     display: inline-block;
-    vertical-align: top;
     position: relative;
+    vertical-align: top;
+    text-transform: uppercase;
 
     &.check {
       @include rem(padding-left, 34px);
@@ -230,14 +230,14 @@ $track-activity-button-hover: #e882c8;
         @include rem(height, 26px);
         @include translateY(-50%);
         @include border-radius(50%);
-        content: '';
+        background: inline-image('../prototypes/yfr/img/tabs/icon-check.svg') no-repeat 50% 50%;
+        border: 2px solid $green-medium;
         display: block;
+        left: 0;
         position: absolute;
         top: 50%;
-        left: 0;
-        background: inline-image('../prototypes/yfr/img/tabs/icon-check.svg') no-repeat 50% 50%;
+        content: '';
         @include rem(background-size, 12px 9px);
-        border: 2px solid $green-medium;
 
         @include breakpoint($mobile-max) {
           display: none;
@@ -252,11 +252,11 @@ $track-activity-button-hover: #e882c8;
     word-spacing: -0.25em;
 
     .counter {
-      font-weight: bold;
-      font-size: 20px;
-      line-height: 22px;
       color: $grey7;
       display: inline-block;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 22px;
       vertical-align: middle;
     }
 
@@ -264,19 +264,19 @@ $track-activity-button-hover: #e882c8;
       @include rem(width, 10px);
       @include rem(height, 10px);
       @include rem(margin, 0 10px);
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 10px;
       background: inline-image('../prototypes/yfr/img/tabs/icon-separator.svg') no-repeat 50% 50%;
+      display: inline-block;
+      line-height: 10px;
+      vertical-align: middle;
       @include background-size(cover);
     }
 
     .activity {
+      @include background-size(cover);
       background-position: 50% 50%;
       background-repeat: no-repeat;
       display: inline-block;
       vertical-align: middle;
-      @include background-size(cover);
     }
 
     &-type__a {
@@ -349,12 +349,12 @@ $track-activity-button-hover: #e882c8;
       @include rem(height, 52px);
       @include border-radius(50%);
       @include transition(all 0.3s ease);
-      background-color: $white;
-      display: block;
       border: 2px solid $grey17;
-      position: relative;
-      margin: 0;
+      background-color: $white;
       cursor: pointer;
+      display: block;
+      margin: 0;
+      position: relative;
 
       &:before {
         @include rem(width, 22px);
@@ -362,18 +362,18 @@ $track-activity-button-hover: #e882c8;
         @include border-radius(50%);
         @include transform(translate(-50%, -50%) scale(0));
         @include transition(all 0.2s ease);
-        content: '';
         display: block;
+        left: 50%;
         position: absolute;
         top: 50%;
-        left: 50%;
+        content: '';
       }
     }
   }
 
   .form-checkbox {
-    position: absolute;
     opacity: 0;
+    position: absolute;
 
     &:checked {
       + label {
@@ -405,17 +405,17 @@ $track-activity-button-hover: #e882c8;
   .form-select {
     @include rem(height, 52px);
     @include rem(padding, 13px 12px 13px 14px);
-    display: block;
-    width: 100%;
-    font-size: 14px;
-    line-height: 22px;
-    color: inherit;
-    vertical-align: middle;
     background-color: #fff;
     background-image: none;
     border: none;
+    color: inherit;
+    display: block;
+    font-size: 14px;
+    line-height: 22px;
     margin: 0;
     outline: none;
+    vertical-align: middle;
+    width: 100%;
   }
 
   .form-type-select {
@@ -433,12 +433,12 @@ $track-activity-button-hover: #e882c8;
       @include rem(height, 20px);
       @include translateY(-50%);
       @include rem(left, 14px);
-      content: '';
+      background: inline-image('../prototypes/yfr/img/tabs/icon-datepicker.svg') no-repeat 50% 50%;
+      @include background-size(cover);
       display: block;
       position: absolute;
       top: 50%;
-      background: inline-image('../prototypes/yfr/img/tabs/icon-datepicker.svg') no-repeat 50% 50%;
-      @include background-size(cover);
+      content: '';
     }
 
     label {
@@ -525,17 +525,17 @@ $track-activity-button-hover: #e882c8;
         color: $grey7;
 
         &:after {
+          @include rem(border-width, 16px 16px 0 16px);
           @include translate(-50%, 0);
-          top: 100%;
-          left: 50%;
+          border-style: solid;
+          border-color: $white transparent transparent transparent;
           content: '';
           display: block;
-          position: absolute;
-          width: 0;
           height: 0;
-          border-style: solid;
-          @include rem(border-width, 16px 16px 0 16px);
-          border-color: $white transparent transparent transparent;
+          left: 50%;
+          position: absolute;
+          top: 100%;
+          width: 0;
         }
       }
     }
@@ -544,32 +544,32 @@ $track-activity-button-hover: #e882c8;
       @include cachet-normal();
       @include rem(padding, 50px 0 40px 0);
       @include transition(color 0.2s ease);
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: bold;
+      -ms-flex-align: center;
+      -ms-flex-direction: row;
+      -ms-flex-line-pack: start;
+      -ms-flex-pack: center;
+      -ms-flex-wrap: wrap;
+      -webkit-align-content: flex-start;
+      -webkit-align-items: center;
+      -webkit-flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -webkit-justify-content: center;
+      align-content: flex-start;
+      align-items: center;
       color: $grey4;
-      text-transform: uppercase;
-      text-decoration: none;
-      position: relative;
-      height: 100%;
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex;
-      -webkit-flex-direction: row;
-      -ms-flex-direction: row;
       flex-direction: row;
-      -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
+      font-weight: bold;
+      height: 100%;
       justify-content: center;
-      -webkit-align-content: flex-start;
-      -ms-flex-line-pack: start;
-      align-content: flex-start;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
-      align-items: center;
+      line-height: 20px;
+      position: relative;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 14px;
 
       @include breakpoint($mobile-max) {
         @include rem(padding-top, 48px);
@@ -577,13 +577,13 @@ $track-activity-button-hover: #e882c8;
       }
 
       @include breakpoint($tablet) {
-        font-size: 18px;
         line-height: 22px;
+        font-size: 18px;
       }
 
       @include breakpoint($desktop-small) {
-        font-size: 20px;
         line-height: 24px;
+        font-size: 20px;
       }
 
 
@@ -593,22 +593,22 @@ $track-activity-button-hover: #e882c8;
 
       &:before {
         @include rem(height, 48px);
-        content: '';
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
         display: block;
+        left: 0;
         position: absolute;
         top: 0;
-        left: 0;
         width: 100%;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
+        content: '';
       }
     }
 
     &__type-a {
       a {
         &:before {
-          background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-tab.svg');
           @include rem(background-size, 46px 26px);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-tab.svg');
         }
       }
 
@@ -623,8 +623,8 @@ $track-activity-button-hover: #e882c8;
     &__type-b {
       a {
         &:before {
-          background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-tab.svg');
           @include rem(background-size, 40px 28px);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-tab.svg');
         }
       }
 
@@ -639,8 +639,8 @@ $track-activity-button-hover: #e882c8;
     &__type-c {
       a {
         &:before {
-          background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-tab.svg');
           @include rem(background-size, 40px 32px);
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-tab.svg');
         }
       }
 
@@ -699,9 +699,9 @@ $track-activity-button-hover: #e882c8;
   }
 
   .activity-items {
-    margin: auto;
-    overflow: hidden;
     display: none;
+    overflow: hidden;
+    margin: auto;
 
     .col-xs-12,
     .col-sm-4 {
@@ -739,10 +739,31 @@ $track-activity-button-hover: #e882c8;
         @include rem(margin-bottom, 22px);
         @include rem(padding, 12px 24px 12px 72px);
         @include transition(background-color 0.3s ease);
+        -ms-flex-direction: row;
+        -ms-flex-line-pack: start;
+        -ms-flex-pack: start;
+        -ms-flex-wrap: wrap;
+        -ms-flex-align: center;
+        -webkit-align-content: flex-start;
+        -webkit-align-items: center;
+        -webkit-flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -webkit-justify-content: flex-start;
+        align-content: flex-start;
+        align-items: center;
         border: 1px solid rgba(247, 163, 118, .25);
-        font-weight: normal;
         color: $grey1;
         cursor: pointer;
+        display: -ms-flexbox;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -webkit-flex;
+        display: flex;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-weight: normal;
+        justify-content: flex-start;
         letter-spacing: -.5px;
         overflow: hidden;
         position: relative;
@@ -750,27 +771,6 @@ $track-activity-button-hover: #e882c8;
         text-transform: uppercase;
         white-space: nowrap;
         width: 99.9%;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row;
-        -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-        justify-content: flex-start;
-        -webkit-align-content: flex-start;
-        -ms-flex-line-pack: start;
-        align-content: flex-start;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
 
         &:hover {
           background-color: $orange-medium;
@@ -792,13 +792,13 @@ $track-activity-button-hover: #e882c8;
           @include translateY(-50%);
           @include border-radius(50%);
           @include transition(all 0.3s ease);
-          top: 50%;
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
           border: inherit;
           content: '';
           position: absolute;
           text-align: center;
-          background-repeat: no-repeat;
-          background-position: 50% 50%;
+          top: 50%;
         }
 
         small {
@@ -821,9 +821,9 @@ $track-activity-button-hover: #e882c8;
         &:before {
           @include rem(background-size, 20px 15px);
           @include border-radius(0);
-          background-image: inline-image('../prototypes/yfr/img/tabs/icon-check-activiti.svg');
-          border-color: $orange-medium;
           background-color: transparent;
+          border-color: $orange-medium;
+          background-image: inline-image('../prototypes/yfr/img/tabs/icon-check-activiti.svg');
         }
 
         small {
@@ -842,16 +842,16 @@ $track-activity-button-hover: #e882c8;
     input[type=submit] {
       @include cachet-bold();
       @include transition(all .3s);
-      font-size: 30px;
-      line-height: 62px;
       background: none;
       border: none;
+      border-bottom: 1px solid $orange-light;
       color: $orange-light;
       letter-spacing: -.8px;
+      line-height: 62px;
+      outline: none;
       padding: 0;
       text-transform: uppercase;
-      outline: none;
-      border-bottom: 1px solid $orange-light;
+      font-size: 30px;
 
       &:hover {
         color: $orange-medium;
