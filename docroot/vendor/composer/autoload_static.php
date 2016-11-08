@@ -63,6 +63,7 @@ class ComposerStaticInitDrupal8
             'Symfony\\Component\\BrowserKit\\' => 29,
             'Symfony\\Cmf\\Component\\Routing\\' => 30,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'Sourcefuse\\' => 11,
         ),
         'P' => 
         array (
@@ -236,6 +237,10 @@ class ComposerStaticInitDrupal8
         'Symfony\\Bridge\\PsrHttpMessage\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
+        ),
+        'Sourcefuse\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sourcefuse/tangocard/src',
         ),
         'Psr\\Log\\' => 
         array (
