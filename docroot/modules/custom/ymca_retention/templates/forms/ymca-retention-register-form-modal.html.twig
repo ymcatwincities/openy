@@ -28,9 +28,25 @@
     <div class="col-sm-6">
       {{ form.submit }}
     </div>
-    <div class="col-sm-6 hidden-xs">
-      <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">Where can I find my Facility Access ID?</a>
-    </div>
+    {% if form.membership_id is defined %}
+      <div class="col-sm-6 hidden-xs">
+        <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">
+          {{ 'Where can I find my Facility Access ID?'|t }}
+        </a>
+      </div>
+    {% endif %}
   </div>
   {{ form|without('email', 'membership_id', 'submit', 'messages') }}
 </div>
+{% if form.membership_id is defined %}
+  <div class="yfr-facility-access-hint-wrapper collapse">
+    <div class="yfr-facility-access-hint">
+      <p>
+        {{ 'Please find your facility access ID below the barcode.'|t }}
+      </p>
+      <p class="small">
+        {{ 'Please note it might be on the front of the card on older membership cards.'|t }}
+      </p>
+    </div>
+  </div>
+{% endif %}
