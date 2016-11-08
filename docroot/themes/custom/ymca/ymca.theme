@@ -1204,7 +1204,7 @@ function ymca_page_attachments_alter(array &$page) {
   }
   $route = \Drupal::service('current_route_match')->getRouteName();
   if (is_int(stripos($route, 'page_manager.page_view_ymca_retention'))) {
-    $page['#attached']['library'][] = 'ymca/retention-campaign';
+    $page['#attached']['library'][] = 'ymca/ymca-retention';
     // Disallow scaling on mobiles.
     foreach ($page['#attached']['html_head'] as $key => &$value) {
       if ($value[1] == 'viewport') {
