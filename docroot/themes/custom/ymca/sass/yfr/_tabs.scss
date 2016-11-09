@@ -12,10 +12,12 @@
       > a,
       &:first-child > a {
         background: none;
-        color: $grey7;
+        color: $orange-medium-lighter;
 
-        &:hover {
-          color: $orange-medium-lighter !important;
+        &:hover,
+        &:focus,
+        &:active {
+          color: $orange-medium-lighter;
         }
       }
     }
@@ -23,17 +25,32 @@
     > a {
       @include cachet-normal();
       @include rem(line-height, 55px);
-      @include rem(padding, 6px 15px 0 15px);
+      @include rem(padding, 6px 10px 0);
       background: none !important;
       border: none;
-      color: $grey7 !important;
-      //color: $orange-medium-lighter;
+      color: $grey7;
       display: block;
-      font-size: 16px;
+      font-size: 15px;
       margin: 0;
       position: relative;
       text-transform: uppercase;
       transition: color .2s;
+
+       @include breakpoint($desktop-small) {
+         font-size: 16px;
+       }
+    }
+
+    &.yfr-tabs__detailed {
+      margin: 0;
+      float: right;
+
+      a {
+        text-transform: capitalize;
+        color: $grey4;
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
 
     &:hover {
@@ -49,18 +66,15 @@
     }
 
     @include breakpoint($tablet-landscape) {
-      @include rem(margin-right, 60px);
+      @include rem(margin-right, 20px);
     }
 
     @include breakpoint($desktop-small) {
-      @include rem(margin-right, 100px);
+      @include rem(margin-right, 40px);
     }
   }
 
-  .yfr-tabs &__instant-win {
-    float: right;
-    margin-right: 0 !important;
-  }
+  &__instant-win {}
 }
 
 .yfr-accordion {
