@@ -258,22 +258,3 @@ function ymca_retention_update_8016(&$sandbox) {
 function ymca_retention_update_8017() {
   \Drupal::service('module_installer')->install(['tango_card'], TRUE);
 }
-
-/**
- * Add a new parameter to member entity, to store information about
- * registrations from mobile app.
- */
-function ymca_retention_update_8018() {
-  try {
-    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
-  }
-  catch (EntityStorageException $e) {
-    watchdog_exception('update', $e);
-  }
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
-    [
-      $path . 'views.view.ymca_members.yml',
-    ]
-  );
-}
