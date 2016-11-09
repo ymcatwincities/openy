@@ -209,3 +209,45 @@
     }
   }
 }
+
+.yfr-content-info {
+  @include rem(padding, 100px 20px 50px);
+  position: relative;
+  text-align: center;
+
+  &:before {
+    @include rem(width, 44px);
+    @include rem(height, 44px);
+    @include rem(top, 32px);
+    @include border-radius(50%);
+    @include translateX(-50%);
+    background: #fff inline-image('../prototypes/yfr/img/tabs/icon-check.svg')  50% 50% no-repeat;
+    border: 2px solid $green-medium;
+    display: block;
+    left: 50%;
+    position: absolute;
+    content: '';
+    @include rem(background-size, 22px 16px);
+  }
+
+  strong {
+    color: $grey7;
+  }
+
+  p {
+    color: $grey5;
+    line-height: 22px;
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .btn {
+    max-width: 140px;
+  }
+
+  .row {
+    + .row {
+      @include rem(margin-top, 38px);
+    }
+  }
+}
