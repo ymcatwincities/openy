@@ -28,7 +28,7 @@
       });
 
       this.cookieRemove = function() {
-        $cookies.remove('Drupal.visitor.ymca_retention_member');
+        $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
       };
 
     });
