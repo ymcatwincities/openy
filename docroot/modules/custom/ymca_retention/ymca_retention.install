@@ -230,6 +230,10 @@ function ymca_retention_update_8016(&$sandbox) {
     $sandbox['members'] = array_values($member_ids);
     $sandbox['max'] = count($member_ids);
   }
+  if (!$sandbox['max']) {
+    $sandbox['#finished'] = 0;
+    return;
+  }
   // Get member id.
   $member_id = $sandbox['members'][$sandbox['progress']];
 
