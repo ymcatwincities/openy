@@ -4,7 +4,9 @@
  * Template for YMCA Retention layout.
  */
 #}
-<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}" data-ng-app="Retention">
+<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}"
+     data-ng-app="Retention"
+     data-ng-controller="RetentionController as retentionController">
   <nav id="top-nav" class="top-nav">
     {{ content.navigation }}
   </nav>
@@ -31,9 +33,10 @@
           </div>
         </div>
 
-        <div class="yfr-registration-form-section">
+        <div class="yfr-registration-form-section" data-ng-show="!retentionController.member">
           <div class="yfr-registration-form-button-container">
-            <a href="#" class="btn btn-lg btn-primary orange-medium" data-toggle="modal" data-target="#register-modal">Register now</a>
+            <a href="#" class="btn btn-lg btn-primary orange-medium"
+               data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register now'|t }}</a>
           </div>
           <div class="yfr-registration-form-help-text-container">
             <p>
@@ -104,7 +107,7 @@
 
     <div class="tab-pane fade" id="progress">
       {{ content.tab_progress }}
-      <p>My progress content </p>
+      <p>My progress content</p>
     </div>
 
     <div class="tab-pane fade" id="instant-win">
