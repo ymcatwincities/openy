@@ -241,6 +241,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Created by Staff'))
       ->setDefaultValue(FALSE);
 
+    $fields['created_on_mobile'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Created using Mobile app'))
+      ->setDescription(t('Created using Mobile app'))
+      ->setDefaultValue(FALSE);
+
     $fields['activity_track_swimming'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Swimming'))
       ->setDescription(t('Number of Swimming activities.'))
@@ -394,6 +399,13 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function isCreatedByStaff() {
     return $this->get('created_by_staff')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCreatedOnMobile() {
+    return $this->get('created_on_mobile')->value;
   }
 
   /**
