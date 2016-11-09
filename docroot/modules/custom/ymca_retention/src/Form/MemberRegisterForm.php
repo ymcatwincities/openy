@@ -175,7 +175,7 @@ class MemberRegisterForm extends FormBase {
       return;
     }
     if ($current_date > $close_date) {
-      $form_state->setErrorByName('form', $this->t('The Y spirit challenge are now closed and registration is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
       return;
     }
 
