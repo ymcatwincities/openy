@@ -328,7 +328,7 @@ function redwing_master_update_8018() {
 }
 
 /**
- * Remove Groupex.
+ * Add Redwing Alters.
  */
 function redwing_master_update_8019() {
   $installer = \Drupal::service('module_installer');
