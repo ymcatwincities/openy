@@ -17,13 +17,8 @@
       }, 500);
 
       this.getMemberData = angular.bind(this, function(id) {
-        if (typeof id === 'undefined') {
-          this.member = '';
-          return;
-        }
-
-        fetcher.getMemberData(id).then(angular.bind(this, function(response) {
-          this.member = response.data;
+        fetcher.getMemberData(id).then(angular.bind(this, function(data) {
+          this.member = data;
         }));
       });
 
@@ -34,11 +29,28 @@
     });
 
     // Service to communicate with backend.
-    Drupal.ymca_retention.angular_app.factory('fetcher', function($http) {
-      return {
-        getMemberData: function(id) {
-          return $http.get(settings.ymca_retention.user_menu.member_url);
+    Drupal.ymca_retention.angular_app.factory('fetcher', function($http, $q) {
+      function getMemberData(id) {
+        var deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
         }
+        else {
+          $http.get(settings.ymca_retention.user_menu.member_url).then(function(response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
+      return {
+        getMemberData: getMemberData
       };
     });
   };
