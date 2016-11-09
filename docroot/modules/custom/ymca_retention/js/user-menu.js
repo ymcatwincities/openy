@@ -2,8 +2,7 @@
 
   Drupal.behaviors.ymca_retention_user_menu = {};
   Drupal.behaviors.ymca_retention_user_menu.attach = function (context, settings) {
-    // Drupal.ymca_retention.app;
-
+    // Populate modal content depending on the clicked link.
     $('#ymca-retention-modal', context).once('ymca-retention-user-menu')
       .on('show.bs.modal', function (event) {
         var $button = $(event.relatedTarget),
