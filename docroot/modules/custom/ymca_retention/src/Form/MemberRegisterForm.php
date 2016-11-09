@@ -41,72 +41,73 @@ class MemberRegisterForm extends FormBase {
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
     // If form was executed then we should show registration confirmation for the user.
-    if (!$form_state->isExecuted() || $config['yteam']) {
-      if (empty($membership_id) || $config['yteam']) {
-        $form['membership_id'] = [
-          '#type' => 'textfield',
-          '#required' => TRUE,
-          '#attributes' => [
-            'placeholder' => [
-              $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
-            ],
-            'class' => [
-              'facility-access-id',
-            ],
-          ],
-          '#element_required_error' => $this->t('Facility access ID is required.'),
-          '#element_validate' => [
-            $validate_required,
-          ],
-        ];
-      }
-      else {
-        $form['email'] = [
-          '#type' => 'email',
-          '#title' => $this->t('Please confirm your email address below:'),
-          '#default_value' => $obfuscated_email,
-          '#required' => TRUE,
-          '#attributes' => [
-            'placeholder' => [
-              $this->t('Your e-mail'),
-            ],
-          ],
-          '#element_required_error' => $this->t('Email is required.'),
-          '#element_validate' => [
-            ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
-            $validate_required,
-          ],
-        ];
-      }
+    if ($form_state->isExecuted() && !$config['yteam']) {
+      $form['confirmation'] = [
+        '#type' => 'markup',
+        '#markup' => $this->t('Your registration is successful!'),
+      ];
 
-      $form['submit'] = [
-        '#type' => 'submit',
-        '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
+      return $form;
+    }
+
+    if (empty($membership_id) || $config['yteam']) {
+      $form['membership_id'] = [
+        '#type' => 'textfield',
+        '#required' => TRUE,
         '#attributes' => [
+          'placeholder' => [
+            $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+          ],
           'class' => [
-            'btn',
-            'btn-lg',
-            'btn-primary',
-            'orange-light-lighter',
+            'facility-access-id',
           ],
         ],
-        '#ajax' => [
-          'callback' => [$this, 'ajaxFormCallback'],
-          'method' => 'replaceWith',
-          'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
-          'progress' => [
-            'type' => 'throbber',
-            'message' => NULL,
-          ],
+        '#element_required_error' => $this->t('Facility access ID is required.'),
+        '#element_validate' => [
+          $validate_required,
         ],
       ];
     }
     else {
-      $form['messages'] = [
-        '#type' => 'markup',
-        '#markup' => $this->t('Your registration is successful!'),
+      $form['email'] = [
+        '#type' => 'email',
+        '#title' => $this->t('Please confirm your email address below:'),
+        '#default_value' => $obfuscated_email,
+        '#required' => TRUE,
+        '#attributes' => [
+          'placeholder' => [
+            $this->t('Your e-mail'),
+          ],
+        ],
+        '#element_required_error' => $this->t('Email is required.'),
+        '#element_validate' => [
+          ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+          $validate_required,
+        ],
       ];
     }
+
+    $form['submit'] = [
+      '#type' => 'submit',
+      '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
+      '#attributes' => [
+        'class' => [
+          'btn',
+          'btn-lg',
+          'btn-primary',
+          'orange-light-lighter',
+        ],
+      ],
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormCallback'],
+        'method' => 'replaceWith',
+        'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
+        'progress' => [
+          'type' => 'throbber',
+          'message' => NULL,
+        ],
+      ],
+    ];
 
     return $form;
   }
