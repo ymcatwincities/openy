@@ -326,3 +326,11 @@ function redwing_master_update_8018() {
   $redirect->setStatusCode(\Drupal::config('redirect.settings')->get('default_status_code'));
   $redirect->save();
 }
+
+/**
+ * Remove Groupex.
+ */
+function redwing_master_update_8019() {
+  $installer = \Drupal::service('module_installer');
+  $installer->install(['redwing_alters']);
+}
