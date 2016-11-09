@@ -93,7 +93,7 @@ class ProgramsSearchBlockForm extends FormBase {
   private function getLocations() {
     $locations = [];
 
-    $branches = $this->client->makeRequest('get', 'branches?limit=100');
+    $branches = $this->client->getBranches(['limit' => 100]);
     foreach ($branches as $branch) {
       $locations[$branch->id] = $branch->name;
     }
