@@ -827,7 +827,7 @@ $track-activity-button-hover: #e882c8;
         background-color: $orange-medium;
         border-color: $orange-medium;
 
-        &:before {
+        &:before, .no-touch &:before {
           @include rem(background-size, 20px 15px);
           @include border-radius(0);
           background-color: transparent;
