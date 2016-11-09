@@ -8,13 +8,27 @@ use GuzzleHttp\Client;
  * Class DaxkoClient.
  *
  * @package Drupal\daxko
+ *
+ * @method mixed getBranches(array $args)
  */
 class DaxkoClient extends Client implements DaxkoClientInterface {
 
   /**
-   * {@inheritdoc}
+   * Wrapper for 'request' method.
+   *
+   * @param string $method
+   *   HTTP Method.
+   * @param string $uri
+   *   Daxko URI.
+   * @param array $parameters
+   *   Arguments.
+   *
+   * @return mixed
+   *   Data from Daxko.
+   *
+   * @throws \Drupal\daxko\DaxkoClientException
    */
-  public function makeRequest($method, $uri, array $parameters = []) {
+  private function makeRequest($method, $uri, array $parameters = []) {
     try {
       $response = $this->request($method, $uri, $parameters);
       if (200 != $response->getStatusCode()) {
@@ -38,6 +52,31 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
       throw new DaxkoClientException(sprintf('Failed to make a request for uri %s with message %s.', $uri, $e->getMessage()));
     }
 
+  }
+
+  /**
+   * Magic call method.
+   *
+   * @param string $name
+   *   Method.
+   * @param array $args
+   *   Arguments.
+   *
+   * @return mixed
+   *   Data.
+   *
+   * @throws DaxkoClientException.
+   */
+  public function __call($name, $args) {
+    switch ($name) {
+      case 'makeRequest':
+        throw new DaxkoClientException(sprintf('Please, extend Daxko client!', $name));
+
+      case 'getBranches':
+        return $this->makeRequest('get', 'branches?' . http_build_query($args[0], NULL, NULL, PHP_QUERY_RFC3986));
+    }
+
+    throw new DaxkoClientException(sprintf('Method %s not implemented yet.', $name));
   }
 
 }
