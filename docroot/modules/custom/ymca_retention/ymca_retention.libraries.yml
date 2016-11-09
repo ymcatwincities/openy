@@ -42,17 +42,6 @@ leaderboard:
     - core/drupal
     - core/drupalSettings
 
-activity:
-  version: VERSION
-  js:
-    js/activity.js: {}
-  dependencies:
-    - ymca_retention/angular
-    - ymca_retention/angular-slick
-    - ymca_retention/angular-promise-tracker
-    - core/drupal
-    - core/drupalSettings
-
 winners:
   version: VERSION
   js:
@@ -95,6 +84,7 @@ angular-app:
   dependencies:
     - ymca_retention/angular
     - ymca_retention/angular-cookies
+    - ymca_retention/angular-promise-tracker
     - core/drupal
     - core/drupalSettings
 
@@ -105,3 +95,10 @@ user-menu:
   dependencies:
     - ymca_retention/angular-app
     - ymca_retention/ajax-commands
+
+activity:
+  version: VERSION
+  js:
+    js/activity.js: {}
+  dependencies:
+    - ymca_retention/angular-app

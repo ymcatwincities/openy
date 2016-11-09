@@ -4,20 +4,20 @@
  * Display user menu on the page.
  */
 #}
-<div class="ysr-user-menu">
+<div class="ysr-user-menu" data-ng-controller="UserMenuController as userMenuController">
   <div class="ysr-user-menu__greetings ng-hide"
-       data-ng-show="retentionController.member">
-    {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionController.member.firstName}}' }) }}
+       data-ng-show="userMenuController.member">
+    {{ 'Hi, @first_name!'|t({ '@first_name': '{{userMenuController.member.firstName}}' }) }}
   </div>
   <div class="ysr-user-menu__logout ng-hide"
-       data-ng-show="retentionController.member"
-       data-ng-click="retentionController.cookieRemove()">
+       data-ng-show="userMenuController.member"
+       data-ng-click="retentionController.memberCookieRemove()">
     <a href="#">{{ 'Logout'|t }}</a>
   </div>
-  <div class="ysr-user-menu__logout" data-ng-show="!retentionController.member">
+  <div class="ysr-user-menu__logout" data-ng-show="!userMenuController.member">
     <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register'|t }}</a>
   </div>
-  <div class="ysr-user-menu__logout" data-ng-show="!retentionController.member">
+  <div class="ysr-user-menu__logout" data-ng-show="!userMenuController.member">
     <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">{{ 'Login'|t }}</a>
   </div>
   <div class="ysr-user-menu__forms" style="display: none;">
