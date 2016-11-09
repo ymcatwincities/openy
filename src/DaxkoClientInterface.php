@@ -2,8 +2,6 @@
 
 namespace Drupal\daxko;
 
-use GuzzleHttp\Client;
-
 /**
  * Interface DaxkoClientInterface.
  *
@@ -12,14 +10,18 @@ use GuzzleHttp\Client;
 interface DaxkoClientInterface {
 
   /**
-   * Returns data for the request.
+   * Wrapper for 'request' method.
    *
-   * @param string $path
-   *   Path.
+   * @param string $method
+   *   Method.
+   * @param string $uri
+   *   URI.
+   * @param array $parameters
+   *   Parameters.
    *
-   * @return array
+   * @return mixed
    *   Data.
    */
-  public function getData($path);
+  public function makeRequest($method, $uri, array $parameters);
 
 }
