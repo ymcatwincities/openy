@@ -328,7 +328,7 @@ class MemberRegisterForm extends FormBase {
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,
         'created_by_staff' => $config['yteam'],
-        'created_on_mobile' => $form_state->get('created_on_mobile'),
+        'created_on_mobile' => $form_state->getValue('created_on_mobile'),
       ]);
     $entity->save();
 
