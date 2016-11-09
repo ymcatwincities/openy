@@ -3,7 +3,7 @@
 namespace Drupal\Tests\personify_mindbody_sync\Unit;
 
 /**
- * Wrapper test.
+ * Personify to MindBody services tests.
  *
  * @group ymca
  */
