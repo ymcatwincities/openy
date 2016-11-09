@@ -1,13 +1,3 @@
-$reporting-goal: #554a5c;
-$activities-gradient-top: #836da1;
-$activities-gradient-bottom: #695789;
-$activity-item-background-hover: #7e6c9b;
-$activity-item-background-active: #229494;
-$activity-item-icon-background-active: #26bcbd;
-$activity-item-background-active-hover: #31adad;
-$track-activity-button: #db65b5;
-$track-activity-button-hover: #e882c8;
-
 .yfr-intro-block {
   @include breakpoint($tablet) {
     @include rem(margin-top, 65px);
@@ -867,5 +857,57 @@ $track-activity-button-hover: #e882c8;
         border-color: $orange-medium;
       }
     }
+  }
+}
+
+.yfr-detailed-content {
+  @include rem(padding, 20px 0 90px 0);
+  color: $grey7;
+
+  h2, h3 {
+    text-transform: uppercase;
+  }
+
+  h3, a {
+    color: $orange-medium;
+  }
+
+  h2 {
+    @include rem(margin-bottom, 30px);
+    font-size: 40px;
+    line-height: 52px;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  p, ul {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  ul {
+    @include rem(margin, 0 0 20px 0);
+    @include rem(padding-left, 30px);
+  }
+
+  p {
+    @include rem(margin, 0 0 8px 0);
+
+    + h3 {
+      @include rem(margin-top, 46px);
+    }
+
+    + p {
+      @include rem(margin-top, 24px);
+    }
+  }
+
+  small {
+    font-size: 13px;
+    line-height: 22px;
+    display: block;
   }
 }
