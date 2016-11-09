@@ -24,10 +24,13 @@ class MemberController extends ControllerBase {
     }
 
     $member = Member::load($member_id);
+    if (!$member) {
+      return new JsonResponse();
+    }
+
     $member_values = [
       'firstName' => $member->getFirstName(),
     ];
-
     $response = new JsonResponse($member_values);
 
     return $response;
