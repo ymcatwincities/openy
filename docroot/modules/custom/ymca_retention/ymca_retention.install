@@ -270,4 +270,10 @@ function ymca_retention_update_8018() {
   catch (EntityStorageException $e) {
     watchdog_exception('update', $e);
   }
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.ymca_members.yml',
+    ]
+  );
 }
