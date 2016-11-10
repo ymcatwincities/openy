@@ -141,6 +141,12 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'blocks/ymca-retention-track-activity',
     ],
+    'ymca_retention_instant_win' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-instant-win',
+    ],
 
     // Forms templates.
     'ymca_retention_login_form' => [
