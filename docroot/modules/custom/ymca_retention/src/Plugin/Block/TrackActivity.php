@@ -13,7 +13,7 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("YMCA Blocks")
  * )
  */
-class TrackActivityForm extends BlockBase {
+class TrackActivity extends BlockBase {
 
   /**
    * {@inheritdoc}
