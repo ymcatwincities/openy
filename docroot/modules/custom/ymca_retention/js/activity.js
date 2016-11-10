@@ -16,6 +16,7 @@
         return $cookies.get('Drupal.visitor.ymca_retention_member');
       }, function (newVal, oldVal) {
         $scope.getMemberActivities(newVal);
+        $scope.date_selected = $scope.dates[$scope.date_index];
       });
       $scope.getMemberActivities = function(id) {
         courier.getMemberActivities(id).then(function(data) {
