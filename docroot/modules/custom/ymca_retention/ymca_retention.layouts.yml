@@ -1,14 +1,20 @@
 ymca-retention:
   label: YMCA Retention
   category: YMCA layouts
-  template: templates/ymca-retention
+  template: templates/layouts/ymca-retention
   class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetention'
   regions:
     navigation:
       label: Navigation
     hero:
       label: Hero section
-    registration:
-      label: Registration & Report
     main:
       label: Main section
+    tab_about:
+      label: About tab
+    tab_track:
+      label: Track tab
+    tab_progress:
+      label: Progress tab
+    tab_instant_win:
+      label: Instant win tab

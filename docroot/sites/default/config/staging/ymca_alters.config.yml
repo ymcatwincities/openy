@@ -15,8 +15,5 @@ custom_routes_canonical:
   - ymca_frontend.location_schedules
   - ymca_frontend.locations
   - ymca_frontend.youth_sports
-  - ymca_frontend.march
-  - ymca_frontend.march_rules
-  - ymca_frontend.march_winners
   - ymca_frontend.2014_annual_report
   - ymca_frontend.2014_annual_report_leaders

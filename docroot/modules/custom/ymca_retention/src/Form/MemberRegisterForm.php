@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention\Form;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
@@ -28,71 +29,87 @@ class MemberRegisterForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $form_state->getBuildInfo()['args'][0];
+    if (isset($config['theme'])) {
+      $form['#theme'] = $config['theme'];
+    }
+
     $membership_id = $form_state->get('membership_id');
-    $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
     $obfuscated_email = $this->obfuscateEmail($personify_email);
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
-    if (empty($membership_id) || $config['yteam']) {
-      $form['membership_id'] = [
-        '#type' => 'textfield',
-        '#required' => TRUE,
-        '#attributes' => [
-          'placeholder' => [
-            $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+    // If form was executed then we should show registration confirmation for the user.
+    if (!$form_state->isExecuted() || $config['yteam']) {
+      if (empty($membership_id) || $config['yteam']) {
+        $form['membership_id'] = [
+          '#type' => 'textfield',
+          '#required' => TRUE,
+          '#attributes' => [
+            'placeholder' => [
+              $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+            ],
+            'class' => [
+              'facility-access-id',
+            ],
           ],
+          '#element_required_error' => $this->t('Facility access ID is required.'),
+          '#element_validate' => [
+            $validate_required,
+          ],
+        ];
+      }
+      else {
+        $form['email'] = [
+          '#type' => 'email',
+          '#title' => $this->t('Please confirm your email address below:'),
+          '#default_value' => $obfuscated_email,
+          '#required' => TRUE,
+          '#attributes' => [
+            'placeholder' => [
+              $this->t('Your e-mail'),
+            ],
+          ],
+          '#element_required_error' => $this->t('Email is required.'),
+          '#element_validate' => [
+            ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+            $validate_required,
+          ],
+        ];
+      }
+      $form['created_on_mobile'] = [
+        '#type' => 'hidden',
+        '#value' => array_key_exists('mobile', $_GET) && $_GET['mobile'] ? 1 : 0,
+      ];
+
+      $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
+        '#attributes' => [
           'class' => [
-            'facility-access-id',
+            'btn',
+            'btn-lg',
+            'btn-primary',
+            'orange-light-lighter',
           ],
         ],
-        '#element_required_error' => $this->t('Facility access ID is required.'),
-        '#element_validate' => [
-          $validate_required,
+        '#ajax' => [
+          'callback' => [$this, 'ajaxFormCallback'],
+          'method' => 'replaceWith',
+          'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
+          'progress' => [
+            'type' => 'throbber',
+            'message' => NULL,
+          ],
         ],
       ];
     }
     else {
-      $form['email'] = [
-        '#type' => 'email',
-        '#title' => $this->t('Please confirm your email address below:'),
-        '#default_value' => $obfuscated_email,
-        '#required' => TRUE,
-        '#attributes' => [
-          'placeholder' => [
-            $this->t('Your e-mail'),
-          ],
-        ],
-        '#element_required_error' => $this->t('Email is required.'),
-        '#element_validate' => [
-          ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
-          $validate_required,
-        ],
+      $form['messages'] = [
+        '#type' => 'markup',
+        '#markup' => $this->t('Your registration is successful!'),
       ];
     }
-
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
-      '#attributes' => [
-        'class' => [
-          'btn',
-          'btn-lg',
-          'btn-primary',
-          'blue-medium',
-        ],
-      ],
-      '#ajax' => [
-        'callback' => [$this, 'ajaxFormCallback'],
-        'method' => 'replaceWith',
-        'wrapper' => 'registration .registration-form form',
-        'progress' => [
-          'type' => 'throbber',
-          'message' => NULL,
-        ],
-      ],
-    ];
 
     return $form;
   }
@@ -131,12 +148,7 @@ class MemberRegisterForm extends FormBase {
       return $form;
     }
     else {
-      // Instantiate an AjaxResponse Object to return.
-      $ajax_response = new AjaxResponse();
-      $ajax_response->addCommand(new RedirectCommand(Url::fromRoute('page_manager.page_view_ymca_retention_pages', [
-        'string' => 'enroll-success',
-      ])->toString()));
-      return $ajax_response;
+      return $form;
     }
   }
 
@@ -157,13 +169,13 @@ class MemberRegisterForm extends FormBase {
 
     // Validate dates.
     if ($current_date < $open_date) {
-      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Games open.', [
+      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y spirit challenge open.', [
         '%date' => $open_date->format('F j'),
       ]));
       return;
     }
     if ($current_date > $close_date) {
-      $form_state->setErrorByName('form', $this->t('The Y Games are now closed and registration is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
       return;
     }
 
@@ -189,14 +201,21 @@ class MemberRegisterForm extends FormBase {
     if (empty($personify_member)) {
       // Get information about member from Personify and validate entered membership ID.
       $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
-      if (empty($personify_result) || !empty($personify_result->ErrorMessage) || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0) {
+      if (empty($personify_result)
+        || !empty($personify_result->ErrorMessage)
+        || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0
+      ) {
         $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
+        return;
+      }
+      elseif ($config['yteam'] && empty($personify_result->PrimaryEmail)) {
+        $form_state->setErrorByName('membership_id', $this->t('Sorry, we don\'t have email address to register this user.'));
         return;
       }
       else {
         $form_state->set('personify_member', $personify_result);
         // TODO: personify_member should already have email address from Personify.
-        $form_state->set('personify_email', 'fake_email_address@ymcamn.org');
+        $form_state->set('personify_email', Unicode::strtolower($personify_result->PrimaryEmail));
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
         }
@@ -250,9 +269,7 @@ class MemberRegisterForm extends FormBase {
     }
     else {
       AnonymousCookieStorage::set('ymca_retention_member', $entity->getId());
-
-      // Redirect to confirmation page.
-      $form_state->setRedirect('page_manager.page_view_ymca_retention_pages', ['string' => 'enroll-success']);
+      $form_state->setRebuild();
     }
   }
 
@@ -305,11 +322,13 @@ class MemberRegisterForm extends FormBase {
         'personify_email' => $personify_email,
         'first_name' => $personify_member->FirstName,
         'last_name' => $personify_member->LastName,
+        'birth_date' => $personify_member->BirthDate,
         'branch' => (int) $personify_member->BranchId,
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,
         'created_by_staff' => $config['yteam'],
+        'created_on_mobile' => $form_state->getValue('created_on_mobile'),
       ]);
     $entity->save();
 

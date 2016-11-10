@@ -176,6 +176,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['birth_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Birthday'))
+      ->setDescription(t('The date of birth.'))
+      ->setSetting('datetime_type', 'date');
+
     $fields['is_employee'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('User is an employee'))
       ->setDefaultValue(FALSE)
@@ -234,6 +239,11 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['created_by_staff'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Created by Staff'))
       ->setDescription(t('Created by Staff'))
+      ->setDefaultValue(FALSE);
+
+    $fields['created_on_mobile'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Created using Mobile app'))
+      ->setDescription(t('Created using Mobile app'))
       ->setDefaultValue(FALSE);
 
     $fields['activity_track_swimming'] = BaseFieldDefinition::create('integer')
@@ -389,6 +399,13 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function isCreatedByStaff() {
     return $this->get('created_by_staff')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCreatedOnMobile() {
+    return $this->get('created_on_mobile')->value;
   }
 
   /**

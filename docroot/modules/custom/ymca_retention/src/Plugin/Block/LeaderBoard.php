@@ -10,7 +10,7 @@ use Drupal\Core\Url;
  *
  * @Block(
  *   id = "retention_leaderboard_block",
- *   admin_label = @Translation("YMCA retention leaderboard block"),
+ *   admin_label = @Translation("[YMCA Retention] Leader board"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
