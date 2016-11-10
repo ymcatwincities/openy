@@ -12,32 +12,48 @@
  * @ingroup themeable
  */
 #}
-<div class="yfr-register-form">
-  {% if form.messages is defined %}
-    <div class="row">
-      {{ form.messages }}
-    </div>
-  {% endif %}
-  {% if form.membership_id is defined %}
-    {{ form.membership_id }}
-  {% endif %}
-  {% if form.email is defined %}
-    {{ form.email }}
-  {% endif %}
-  <div class="row">
-    <div class="col-sm-6">
-      {{ form.submit }}
-    </div>
-    {% if form.membership_id is defined %}
-      <div class="col-sm-6 hidden-xs">
-        <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">
-          {{ 'Where can I find my Facility Access ID?'|t }}
-        </a>
+{% if form.confirmation is not defined %}
+  <div class="yfr-register-form">
+    {% if form.messages is defined %}
+      <div class="row">
+        {{ form.messages }}
       </div>
     {% endif %}
+    {% if form.membership_id is defined %}
+      {{ form.membership_id }}
+    {% endif %}
+    {% if form.email is defined %}
+      {{ form.email }}
+    {% endif %}
+    <div class="row">
+      <div class="col-sm-6">
+        {{ form.submit }}
+      </div>
+      {% if form.membership_id is defined %}
+        <div class="col-sm-6 hidden-xs">
+          <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">
+            {{ 'Where can I find my Facility Access ID?'|t }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
   </div>
-  {{ form|without('email', 'membership_id', 'submit', 'messages') }}
-</div>
+{% else %}
+  <div class="yfr-content-info">
+    <div class="row">
+      <div class="col-sm-12">
+        <p><strong> {{ form.confirmation }}</strong></p>
+        <p>{{ 'Keep up the good work and share your Y Spirit.'|t }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <input type="submit" value="{{ 'OK'|t }}" class="btn btn-lg btn-primary orange-light-lighter" data-dismiss="modal">
+      </div>
+    </div>
+  </div>
+{% endif %}
+{{ form|without('email', 'membership_id', 'submit', 'messages', 'confirmation') }}
 {% if form.membership_id is defined %}
   <div class="yfr-facility-access-hint-wrapper collapse">
     <div class="yfr-facility-access-hint">
