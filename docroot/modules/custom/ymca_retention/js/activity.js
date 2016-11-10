@@ -7,11 +7,32 @@
     }
     $('body').addClass('ymca-retention-activity-processed');
 
-    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $http, promiseTracker, $httpParamSerializerJQLike, fetcher) {
+    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $cookies, promiseTracker, courier) {
       // Initiate the promise tracker to track submissions.
       $scope.progress = promiseTracker();
 
+      // Watch cookie value and update member activities data on change.
+      $scope.$watch(function () {
+        return $cookies.get('Drupal.visitor.ymca_retention_member');
+      }, function (newVal, oldVal) {
+        $scope.getMemberActivities(newVal);
+      });
+      $scope.getMemberActivities = function(id) {
+        courier.getMemberActivities(id).then(function(data) {
+          $scope.member_activities = data;
+        });
+      };
+      $scope.setMemberActivities = function(data) {
+        var $promise = courier.setMemberActivities(data).then(function(data) {
+          $scope.member_activities = data;
+        });
+
+        // Track the request and show its progress to the user.
+        $scope.progress.addPromise($promise);
+      };
+
       $scope.dates = settings.ymca_retention.activity.dates;
+      $scope.activity_groups = settings.ymca_retention.activity.activity_groups;
       $scope.date_index = -1;
       $scope.dates.forEach(function (item, i, arr) {
         if (item.past) {
@@ -19,16 +40,6 @@
         }
       });
       $scope.date_selected = $scope.dates[$scope.date_index];
-
-      $scope.activity_groups = settings.ymca_retention.activity.activity_groups;
-
-      $http({
-        method: 'GET',
-        url: settings.ymca_retention.activity.member_activities
-      })
-        .then(function (response) {
-          $scope.member_activities = response.data;
-        });
 
       $scope.dateClass = function (index) {
         var classes = [];
@@ -101,20 +112,7 @@
           'value': $scope.member_activities[timestamp][id]
         };
 
-        var $promise = $http({
-          method: 'POST',
-          url: settings.ymca_retention.activity.member_activities,
-          data: $httpParamSerializerJQLike(data),
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        })
-          .then(function (response) {
-            // $scope.member_activities = response.data;
-          });
-
-        // Track the request and show its progress to the user.
-        $scope.progress.addPromise($promise);
+        $scope.setMemberActivities(data);
       };
       $scope.activityItemClass = function (id) {
         var classes = [];
