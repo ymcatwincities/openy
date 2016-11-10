@@ -5,19 +5,19 @@
  */
 #}
 <div class="ysr-user-menu">
-  <div class="ysr-user-menu__greetings ng-hide"
+  <div class="ysr-user-menu__greetings login ng-hide"
        data-ng-show="retentionController.member">
-    {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionController.member.firstName}}' }) }}
+    <span>{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionController.member.firstName}}' }) }}</span>
   </div>
   <div class="ysr-user-menu__logout ng-hide"
        data-ng-show="retentionController.member"
-       data-ng-click="retentionController.cookieRemove()">
+       data-ng-click="retentionController.memberCookieRemove()">
     <a href="#">{{ 'Logout'|t }}</a>
   </div>
   <div class="ysr-user-menu__logout" data-ng-show="!retentionController.member">
     <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register'|t }}</a>
   </div>
-  <div class="ysr-user-menu__logout" data-ng-show="!retentionController.member">
+  <div class="ysr-user-menu__greetings" data-ng-show="!retentionController.member">
     <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">{{ 'Login'|t }}</a>
   </div>
   <div class="ysr-user-menu__forms" style="display: none;">
