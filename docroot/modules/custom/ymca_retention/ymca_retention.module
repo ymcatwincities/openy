@@ -227,6 +227,14 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   if (!empty($winners)) {
     $winners_storage->delete($winners);
   }
+
+  // Remove member chances.
+  $chances_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_chance');
+  $chances = $chances_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($chances)) {
+    $chances_storage->delete($chances);
+  }
 }
 
 /**
