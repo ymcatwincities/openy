@@ -177,6 +177,14 @@ interface MemberInterface extends ContentEntityInterface {
   public function isCreatedByStaff();
 
   /**
+   * Return status, is user created via mobile app.
+   *
+   * @return bool
+   *   Status.
+   */
+  public function isCreatedOnMobile();
+
+  /**
    * Returns user visit goal.
    *
    * @return int
