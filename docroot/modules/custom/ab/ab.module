@@ -34,7 +34,7 @@ function ab_page_attachments(array &$attachments) {
   // Create CSS from config.
   $css = '';
   foreach ($config->get('replacements') as $id => $replacement) {
-    $css .= $replacement['selector'] . " {\r\ndisplay:none !important;\r\n}\r\n";
+    $css .= $replacement['selector'] . " {\r\nvisibility: hidden;\r\n}\r\n";
   }
   // Save it as CSS file to public directory.
   file_unmanaged_save_data($css, 'public://ab.css', FILE_EXISTS_REPLACE);
