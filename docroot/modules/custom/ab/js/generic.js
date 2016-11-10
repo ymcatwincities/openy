@@ -48,6 +48,10 @@
             var navigationHome = $(document).find('.nav-home');
             var footerHome = $(document).find('.page-footer');
 
+            // Display previously hidden replacements.
+            $.each(drupalSettings['ab'], function (index, value) {
+                $(context).find(value.selector).attr("style", "display: inline !important");
+            });
             if (cookie !== 'a' && cookie !== 'b') {
                 cookie = Math.round(Math.random()) == 1 ? 'b' : 'a';
                 $.cookie('ab', cookie);
@@ -70,7 +74,12 @@
                         $(this).replaceWith(value.html);
                     });
                 });
+                // Set display back in case if we are using id selectors.
+                $.each(drupalSettings['ab'], function (index, value) {
+                    $(context).find(value.selector).attr("style", "display: inline !important");
+                });
             }
+
         }
     };
 
