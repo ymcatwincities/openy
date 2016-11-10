@@ -51,10 +51,6 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_track_activity_login_form' => [
       'render element' => 'form',
     ],
-    'ymca_retention_track_activity' => [
-      'variables' => [],
-      'template' => 'ymca-retention-track-activity',
-    ],
     'ymca_retention_leaderboard' => [
       'variables' => [
         'base_path' => base_path(),
@@ -139,6 +135,10 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
         'content' => NULL,
       ],
       'template' => 'blocks/ymca-retention-tabs-selector',
+    ],
+    'ymca_retention_track_activity' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-track-activity',
     ],
 
     // Forms templates.
