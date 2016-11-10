@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
-use Drupal\ymca_retention\Entity\MemberChance;
 use Drupal\ymca_retention\PersonifyApi;
 
 /**
@@ -247,15 +246,6 @@ class MemberRegisterForm extends FormBase {
 
     if (empty($result)) {
       $entity = $this->createEntity($form_state);
-
-      // Create chance to win.
-      if (empty($chances_ids)) {
-        $chance = MemberChance::create([
-          'type' => 'registration',
-          'member' => $entity->getId(),
-        ]);
-        $chance->save();
-      }
     }
     else {
       $entity = $this->updateEntity(key($result), $form_state);
