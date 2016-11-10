@@ -34,7 +34,6 @@ class MemberRegisterForm extends FormBase {
     }
 
     $membership_id = $form_state->get('membership_id');
-    $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
     $obfuscated_email = $this->obfuscateEmail($personify_email);
@@ -86,6 +85,10 @@ class MemberRegisterForm extends FormBase {
         ],
       ];
     }
+    $form['created_on_mobile'] = [
+      '#type' => 'hidden',
+      '#value' => array_key_exists('mobile', $_GET) && $_GET['mobile'] ? 1 : 0,
+    ];
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -167,13 +170,13 @@ class MemberRegisterForm extends FormBase {
 
     // Validate dates.
     if ($current_date < $open_date) {
-      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Games open.', [
+      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y spirit challenge open.', [
         '%date' => $open_date->format('F j'),
       ]));
       return;
     }
     if ($current_date > $close_date) {
-      $form_state->setErrorByName('form', $this->t('The Y Games are now closed and registration is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
       return;
     }
 
@@ -326,6 +329,7 @@ class MemberRegisterForm extends FormBase {
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,
         'created_by_staff' => $config['yteam'],
+        'created_on_mobile' => $form_state->getValue('created_on_mobile'),
       ]);
     $entity->save();
 

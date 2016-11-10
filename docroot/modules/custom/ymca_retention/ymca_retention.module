@@ -27,6 +27,7 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $date->add(new \DateInterval('P1D'));
       $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      $form['membership_id']['#attributes']['placeholder'] = t('Facility Access ID');
       break;
 
     case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
