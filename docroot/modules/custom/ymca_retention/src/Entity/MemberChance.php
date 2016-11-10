@@ -42,7 +42,7 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
       ->setLabel(t('Created'))
       ->setDescription(t('The time the record was created.'));
 
-    $fields['timestamp'] = BaseFieldDefinition::create('timestamp')
+    $fields['played'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Play time'))
       ->setDescription(t('The timestamp when the chance was played.'))
       ->setSettings([
@@ -51,7 +51,7 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
 
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Member ID'))
-      ->setDescription(t('The member ID of the winner.'))
+      ->setDescription(t('The member ID.'))
       ->setSettings([
         'target_type' => 'ymca_retention_member',
         'default_value' => 0,
@@ -61,8 +61,8 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
       ->setLabel(t('Indicate if this chance won or not.'))
       ->setDefaultValue(FALSE)
       ->setSettings([
-        'on_label' => t('Member is an employee.'),
-        'off_label' => t('Member is not an employee.'),
+        'on_label' => t('WON'),
+        'off_label' => t('LOST'),
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
