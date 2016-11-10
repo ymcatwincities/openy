@@ -13,7 +13,7 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("YMCA Blocks")
  * )
  */
-class TrackActivityForm extends BlockBase {
+class TrackActivity extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -36,7 +36,7 @@ class TrackActivityForm extends BlockBase {
             'activity' => [
               'dates' => $dates,
               'activity_groups' => $activity_groups,
-              'member_activities' => $member_activities_url,
+              'member_activities_url' => $member_activities_url,
             ],
           ],
         ],
