@@ -98,4 +98,18 @@ class MemberController extends ControllerBase {
     return $response;
   }
 
+  /**
+   * Returns member chances to win.
+   */
+  public function memberChancesJson() {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (!$member_id) {
+      return new JsonResponse();
+    }
+
+    $response = new JsonResponse();
+
+    return $response;
+  }
+
 }
