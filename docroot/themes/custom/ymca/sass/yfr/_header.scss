@@ -125,18 +125,16 @@
   &__logo {
     @include rem(height, 103px);
     @include rem(width, 178px);
-    background-image: url(../prototypes/yfr/img/hero/logo.png);
-    background-size: cover;
+    background: url(../prototypes/yfr/img/hero/logo-spirit.svg) no-repeat 50% 50%;
+    background-size: contain;
     margin: auto;
 
     @include breakpoint($tablet) {
       @include rem(height, 190px);
       @include rem(width, 390px);
-      background-image: url(../prototypes/yfr/img/hero/logo-large.png);
     }
 
     @include breakpoint(992px) {
-      //@include rem(margin, 0 100px 0 0);
       float: right;
       margin: 0;
     }
@@ -193,15 +191,30 @@
     font-size: 18px;
     position: relative;
 
-    &:before {
-      @include rem(height, 21px);
-      @include rem(width, 21px);
-      background-image: url(../prototypes/yfr/img/hero/user-icon.png);
-      background-size: cover;
-      content: ' ';
-      display: block;
-      left: 0;
-      position: absolute;
+    span, a {
+      &:before {
+        @include rem(height, 21px);
+        @include rem(width, 21px);
+        background-size: cover;
+        content: ' ';
+        display: block;
+        left: 0;
+        position: absolute;
+      }
+    }
+
+    span {
+      &:before {
+        background-image: inline-image('../prototypes/yfr/img/hero/icon-user.svg');
+      }
+    }
+
+    a {
+      color: inherit;
+
+      &:before {
+        background-image: inline-image('../prototypes/yfr/img/hero/icon-user-active.svg');
+      }
     }
   }
 

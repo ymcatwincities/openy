@@ -220,7 +220,8 @@
         </div>
 
         <div class="ysr-user-menu">
-          <div class="ysr-user-menu__greetings">Hi, Christopher Robin!</div>
+          <div class="ysr-user-menu__greetings login"><span>Hi, Christopher Robin!</span></div>
+          <!-- <div class="ysr-user-menu__greetings"><a href="#">Log In</a></div> -->
           <div class="ysr-user-menu__logout">
             <a href="#" data-toggle="modal" data-target="#login-modal">Logout</a>
           </div>
@@ -228,10 +229,26 @@
 
         <div class="container">
           <ul class="nav nav-tabs yfr-tabs">
-            <li class="active"><a href="#about" data-toggle="tab">About the Campaign</a></li>
-            <li><a href="#track" data-toggle="tab">Track Activities</a></li>
-            <li><a href="#progress" data-toggle="tab">My Progress</a></li>
-            <li class="yfr-tabs__instant-win"><a href="#instant-win" data-toggle="tab">Instant Win <span class="yfr-instant-win-star">2</span></a></li>
+            <li class="active">
+              <a href="#about" data-toggle="tab">About the Campaign</a>
+            </li>
+            <li>
+              <a href="#track" data-toggle="tab">Track Activities</a>
+            </li>
+            <li>
+              <a href="#progress" data-toggle="tab">My Progress</a>
+            </li>
+            <li class="yfr-tabs__instant-win">
+              <a href="#instant-win" data-toggle="tab">
+                Instant Win
+                <span class="yfr-instant-win-star">2</span>
+              </a>
+            </li>
+            <li class="yfr-tabs__detailed">
+              <a href="#detailed" data-toggle="tab">
+                Detailed Rules &amp; Prizes
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -251,6 +268,12 @@
                     <p>
                       Enjoy your visits, track your activities and instantly win.<br>
                       See detailed info below.
+                    </p>
+                    <p>
+                      <a href="#" data-toggle="modal"
+                         data-target="#info-modal">
+                        Special links: Registration complete popup
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -323,20 +346,648 @@
             </div>
 
             <div class="tab-pane fade" id="track">
-              <p>Track activities content</p>
+              <div class="yfr-activities">
+                <div class="yfr-activities__header">
+                  <div class="container">
+                    <div class="activity-tabs">
+                      <div class="form-item form-type-select">
+                        <label for=""></label>
+                        <select class="form-select"  id="" name="">
+                          <option value="1">Sunday 10/27</option>
+                          <option value="2">Sunday 10/27</option>
+                          <option value="3">Sunday 10/27</option>
+                          <option value="4">Sunday 10/27</option>
+                          <option value="5">Sunday 10/27</option>
+                        </select>
+                      </div>
+
+                      <ul>
+                        <li class="activity-tab activity-tab__type-a active">
+                          <a href="#swimming" data-toggle="tab"><span>swimming</span></a>
+                        </li>
+                        <li class="activity-tab activity-tab__type-b">
+                          <a href="#fitness" data-toggle="tab"><span>fitness</span></a>
+                        </li>
+                        <li class="activity-tab activity-tab__type-c">
+                          <a href="#group-ex" data-toggle="tab"><span>Group Exercises</span></a>
+                        </li>
+                        <li class="activity-tab activity-tab__type-d">
+                          <a href="#outside" data-toggle="tab"><span>outside y</span></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="yfr-activities__content">
+                  <div class="container">
+                    <div class="row">
+                      <div class="activity-items active" id="swimming">
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-1" type="checkbox">
+                            <label for="checkbox-1"><span>indoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-2" type="checkbox">
+                            <label for="checkbox-2"><span>splash deck</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-3"  type="checkbox">
+                            <label for="checkbox-3"><span>steam room</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-4" type="checkbox">
+                            <label for="checkbox-4"><span>outdoor pool</span></label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-11" type="checkbox">
+                            <label for="checkbox-11"><span>whirlpool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-12" type="checkbox">
+                            <label for="checkbox-12">
+                              <span>swim lessons</span>
+                              <small>(you or your family members)</small>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-13"  type="checkbox">
+                            <label for="checkbox-13"><span>lap pool swimming</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-14" type="checkbox">
+                            <label for="checkbox-14">
+                              <span>water slide use</span>
+                              <small>(you or your family members)</small>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-21" type="checkbox">
+                            <label for="checkbox-21"><span>vortex pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-22" type="checkbox" checked="checked">
+                            <label for="checkbox-22">
+                              <span>warm water leisure pool</span>
+                              <small>(shallow)</small>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-23"  type="checkbox">
+                            <label for="checkbox-23"><span>sauna</span></label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="activity-items" id="fitness">
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f1" type="checkbox">
+                            <label for="checkbox-f1"><span>Indoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f2" type="checkbox">
+                            <label for="checkbox-f2"><span>outdoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f3"  type="checkbox">
+                            <label for="checkbox-f3"><span>lap pool swimming</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f4" type="checkbox">
+                            <label for="checkbox-f4"><span>warm water leisure pool</span></label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f14" type="checkbox">
+                            <label for="checkbox-f14"><span>warm water leisure pool</span></label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f21" type="checkbox">
+                            <label for="checkbox-f21"><span>Indoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f22" type="checkbox" checked="checked">
+                            <label for="checkbox-f22"><span>outdoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f23"  type="checkbox">
+                            <label for="checkbox-f23"><span>lap pool swimming</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-f24" type="checkbox">
+                            <label for="checkbox-f24"><span>warm water leisure pool</span></label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="activity-items" id="group-ex">
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g1" type="checkbox">
+                            <label for="checkbox-g1"><span>Indoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g2" type="checkbox">
+                            <label for="checkbox-g2"><span>outdoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g12" type="checkbox">
+                            <label for="checkbox-g12"><span>outdoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g13"  type="checkbox">
+                            <label for="checkbox-g13"><span>lap pool swimming</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g14" type="checkbox">
+                            <label for="checkbox-g14"><span>warm water leisure pool</span></label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g21" type="checkbox">
+                            <label for="checkbox-g21"><span>Indoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g22" type="checkbox" checked="checked">
+                            <label for="checkbox-g22"><span>outdoor pool</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g23"  type="checkbox">
+                            <label for="checkbox-g23"><span>lap pool swimming</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-item-checkbox">
+                            <input id="checkbox-g24" type="checkbox">
+                            <label for="checkbox-g24"><span>warm water leisure pool</span></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="actions">
+                      <input type="submit" value="Track Activity" />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="tab-pane fade" id="progress">
-              <p>My progress content </p>
+              <div class="inner-container">
+                <table class="yfr-table-progress">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" class="form-checkbox" id="checkbox-1001"/>
+                          <label for="checkbox-1001"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">24</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Thursday</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="info-activity">no records</span>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" checked class="form-checkbox" id="checkbox-2"/>
+                          <label for="checkbox-2"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">25</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Friday</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="info-activity check">check-in</span>
+                      </td>
+                      <td>
+                        <div class="item-activity item-activity-type__a active">
+                          <span class="activity"></span>
+                          <span class="separator"></span>
+                          <span class="counter">2</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="item-activity item-activity-type__b active">
+                          <span class="activity"></span>
+                          <span class="separator"></span>
+                          <span class="counter">1</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__c">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__d">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" checked class="form-checkbox" id="checkbox-3"/>
+                          <label for="checkbox-3"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">26</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Saturday</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="info-activity check">check-in</span>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__a">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="item-activity item-activity-type__b active">
+                          <span class="activity"></span>
+                          <span class="separator"></span>
+                          <span class="counter">3</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__c">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__d">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" class="form-checkbox" id="checkbox-4"/>
+                          <label for="checkbox-4"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">27</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Sunday</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <span class="info-activity">no records</span>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td>
+                        <div class="item-activity item-activity-type__d active">
+                          <span class="activity"></span>
+                          <span class="separator"></span>
+                          <span class="counter">2</span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" checked class="form-checkbox" id="checkbox-4"/>
+                          <label for="checkbox-5"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">28</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Monday</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="info-activity check">check-in</span>
+                      </td>
+                      <td>
+                        <div class="item-activity item-activity-type__a">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__b">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="item-activity item-activity-type__c active">
+                          <span class="activity"></span>
+                          <span class="separator"></span>
+                          <span class="counter">1</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">
+                        <div class="item-activity item-activity-type__d">
+                          <span class="activity"></span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr class="progress-row__disabled">
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" disabled class="form-checkbox" id="checkbox-6"/>
+                          <label for="checkbox-6"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">29</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Tuesday</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                    </tr>
+
+                    <tr class="progress-row__disabled">
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" disabled class="form-checkbox" id="checkbox-7"/>
+                          <label for="checkbox-7"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">30</span>
+                            <span class="month">nov</span>
+                          </div>
+                          <span class="weekday">Wednesday</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                    </tr>
+
+                    <tr class="progress-row__disabled">
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" disabled class="form-checkbox" id="checkbox-8"/>
+                          <label for="checkbox-8"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">1</span>
+                            <span class="month">dec</span>
+                          </div>
+                          <span class="weekday">Thursday</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                    </tr>
+
+                    <tr class="progress-row__disabled">
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" disabled class="form-checkbox" id="checkbox-9"/>
+                          <label for="checkbox-9"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">2</span>
+                            <span class="month">dec</span>
+                          </div>
+                          <span class="weekday">Friday</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                    </tr>
+
+                    <tr class="progress-row__disabled">
+                      <td>
+                        <div class="form-item form-type-checkbox">
+                          <input type="checkbox" disabled class="form-checkbox" id="checkbox-10"/>
+                          <label for="checkbox-10"></label>
+                        </div>
+
+                        <div class="info-date">
+                          <div class="date-wrapper">
+                            <span class="date">3</span>
+                            <span class="month">dec</span>
+                          </div>
+                          <span class="weekday">Saturday</span>
+                        </div>
+                      </td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                      <td class="hidden-xs">—</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <div class="tab-pane fade" id="instant-win">
               <p>Instant win content</p>
             </div>
+
+            <div class="tab-pane fade" id="detailed">
+              <div class="inner-container">
+                <div class="yfr-detailed-content clearfix">
+                  <h2>Y Spirit rules</h2>
+
+                  <p>The Y Spirit Challenge is a game of chance where members of the YMCA of the <br/> Greater Twin Cities can complete pre-defined activities for a chance to win a prize. <br/> The Y Spirit Challenge runs from <b>midnight on December 1, 2016</b> until <b>11:59pm <br/> on December 14, 2016.</b></p>
+
+                  <p>Activities completed outside of the timeframe for the Y Spirit Challenge do not earn <br/> chances to win prizes.</p>
+
+                  <h3>Who can participate</h3>
+
+                  <p>All active members of the YMCA of the Greater Twin Cities ages 10 and up are <br/> eligible to participate—including all membership types and all payment types.</p>
+
+                  <p>Staff members of the YMCA of the Greater Twin Cities are eligible to participate, but <br/> are not eligible to win prizes during the promotion.</p>
+
+                  <h3>How to participate</h3>
+
+                  <p>You will need your facility access ID to sign up to participate:</p>
+
+                  <ul>
+                    <li>At <a href="#">www.ymcamn.org/challenge</a></li>
+                    <li>In the YMCA of the Greater Twin Cities <a href="#">mobile app</a></li>
+                    <li>In a YMCA of the Greater Twin Cities <a href="#">branch location</a></li>
+                  </ul>
+
+                  <p>When you complete any of the following activities, you will receive a code for a <br/> chance at an instant-win prize:</p>
+
+                  <ul>
+                    <li>Register for the Y Spirit Challenge (earn one code when you sign up)</li>
+                    <li>Check in at the YMCA (earn one code per day that you visit the Y)</li>
+                    <li>Complete select activities and track them online (earn one code per day that <br/>
+                      you complete and report activities, regardless of the number of activities <br/>
+                      tracked)</li>
+                  </ul>
+
+                  <p>Eligible activities include:</p>
+
+                  <ul>
+                    <li>Using the lap pool</li>
+                    <li>Using the warm-water leisure pool</li>
+                    <li>Using the splash deck</li>
+                    <li>Using the whirlpool</li>
+                    <li>Using the water slide</li>
+                    <li>Using the sauna</li>
+                    <li>Using the steam room</li>
+                    <li>Using the vortex pool</li>
+                    <li>Participating in, or taking kids to Swim Lessons</li>
+                    <li>Using a cardio machine</li>
+                    <li>Using a strength machine</li>
+                    <li>Using weights</li>
+                    <li>Using the indoor track</li>
+                    <li>Using the Youth/Family Fitness Cards</li>
+                    <li>Using the climbing wall</li>
+                    <li>Participating in Open Gym</li>
+                    <li>Playing racquetball or handball</li>
+                    <li>
+                      Participating in any Personal Training program, including:
+                      <small>(one-on-one personal training, buddy training, small-group training, flex training, personal <br/> consultation, fitness assessment, metabolic assessment or equipment orientation)</small>
+                    </li>
+                    <li>Taking kids to Youth Sports</li>
+                    <li>Participating in any Group Exercise, <small>(water Exercise, Kids &amp; Family or Active Older)</small></li>
+                    <li>Adults class</li>
+                    <li>Asking about volunteering at the Y</li>
+                    <li>Asking about birthday parties at the Y</li>
+                    <li>Attending a YMCA holiday party</li>
+                    <li>Attending an Active Older Adult event</li>
+                    <li>Dropping kids off at Kids Stuff</li>
+                    <li>Registering for Parents Night Out</li>
+                    <li>Visiting a Y Senior Center</li>
+                    <li>Visiting a Y Youth &amp; Teen Center</li>
+                  </ul>
+
+                  <p>Instant-win codes and instructions appear on the Instant Win tab of the <br/> <a href="#">www.ymcamn.org/challenge</a> site.</p>
+
+                  <h3>About the Prizes</h3>
+                  <p>Winning codes are delivered randomly—and are not impacted by the number or type <br/> of activities completed during the Y Spirit Challenge.</p>
+
+                  <p>Prizes include digital gift cards valued from <b>$5</b> to <b>$100</b> each. Gift cards are <br/> delivered through Tango Cards, where winners can redeem at retailers including:</p>
+
+                  <ul>
+                    <li>Amazon</li>
+                    <li>AMC</li>
+                    <li>Barnes &amp; Noble</li>
+                    <li>Best Buy</li>
+                    <li>CVS Pharmacy</li>
+                    <li>Dick’s Sporting Goods</li>
+                    <li>Google Play</li>
+                    <li>iTunes</li>
+                    <li>Target</li>
+                    <li>Whole Foods</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
-
     </section>
   </div>
 
@@ -544,6 +1195,36 @@
               </div>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="info-modal" class="modal fade yfr-modal">
+  <div class="modal-cover"></div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close">
+          <i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i>
+        </span>
+
+        <div class="modal-title">Login</div>
+      </div>
+      <div class="modal-body">
+        <div class="yfr-content-info">
+          <div class="row">
+            <div class="col-sm-12">
+              <p><strong>Your registration is successful!</strong></p>
+              <p>Keep up the good work and share your Y Spirit.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <input type="submit" value="ok" class="btn btn-lg btn-primary orange-light-lighter">
+            </div>
+          </div>
         </div>
       </div>
     </div>

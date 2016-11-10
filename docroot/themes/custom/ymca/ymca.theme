@@ -1047,14 +1047,6 @@ function ymca_theme() {
       'render element' => 'form',
       'template' => 'forms/ymca-groupex-form-full-refine',
     ],
-    'ymca_retention_register_form' => [
-      'render element' => 'form',
-      'template' => 'forms/ymca-retention-register-form',
-    ],
-    'ymca_retention_track_activity_login_form' => [
-      'render element' => 'form',
-      'template' => 'forms/ymca-retention-track-activity-login-form',
-    ],
   ];
 }
 
@@ -1212,7 +1204,7 @@ function ymca_page_attachments_alter(array &$page) {
   }
   $route = \Drupal::service('current_route_match')->getRouteName();
   if (is_int(stripos($route, 'page_manager.page_view_ymca_retention'))) {
-    $page['#attached']['library'][] = 'ymca/retention-campaign';
+    $page['#attached']['library'][] = 'ymca/ymca-retention';
     // Disallow scaling on mobiles.
     foreach ($page['#attached']['html_head'] as $key => &$value) {
       if ($value[1] == 'viewport') {

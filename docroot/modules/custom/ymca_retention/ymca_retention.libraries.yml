@@ -1,19 +1,34 @@
 angular:
-  version: VERSION
+  version: 1.5.7
   js:
     //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
 
-angular-slick:
-  version: VERSION
+angular-cookies:
+  version: 1.5.7
   js:
-    js/angular-slick.min.js: { minified: true }
+    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js: { type: external, minified: true }
+
+angular-slick:
+  remote: https://github.com/devmark/angular-slick-carousel
+  version: 3.1.7
+  license:
+    name: MIT
+    url: https://github.com/devmark/angular-slick-carousel
+    gpl-compatible: true
+  js:
+    /libraries/angular-slick-carousel/dist/angular-slick.min.js: { minified: true }
   dependencies:
     - ymca_retention/angular
 
 angular-promise-tracker:
-  version: VERSION
+  remote: https://github.com/ajoslin/angular-promise-tracker
+  version: 2.2.2
+  license:
+    name: NONE
+    url: https://github.com/ajoslin/angular-promise-tracker
+    gpl-compatible: true
   js:
-    js/promise-tracker.js: {}
+    /libraries/angular-promise-tracker/promise-tracker.js: {}
   dependencies:
     - ymca_retention/angular
 
@@ -46,3 +61,47 @@ winners:
     - ymca_retention/angular
     - core/drupal
     - core/drupalSettings
+
+bootstrap-tabcollapse:
+  remote: https://github.com/flatlogic/bootstrap-tabcollapse
+  version: 0.2.7
+  license:
+    name: MIT
+    url: https://github.com/flatlogic/bootstrap-tabcollapse
+    gpl-compatible: true
+  js:
+    /libraries/bootstrap-tabcollapse/bootstrap-tabcollapse.js: {}
+  dependencies:
+    - core/jquery
+
+tabs-selector:
+  version: VERSION
+  js:
+    js/tabs-selector.js: {}
+  dependencies:
+    - ymca_retention/bootstrap-tabcollapse
+
+ajax-commands:
+  version: VERSION
+  js:
+    js/ajax-commands.js: {}
+  dependencies:
+    - core/drupal.ajax
+
+angular-app:
+  version: VERSION
+  js:
+    js/angular-app.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - ymca_retention/angular-cookies
+    - core/drupal
+    - core/drupalSettings
+
+user-menu:
+  version: VERSION
+  js:
+    js/user-menu.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+    - ymca_retention/ajax-commands

@@ -156,6 +156,7 @@ function ymca_retention_update_8012() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      $path . 'ymca_retention.api.yml',
       $path . 'ymca_retention.general_settings.yml',
       $path . 'page_manager.page.ymca_retention_challenge.yml',
       $path . 'page_manager.page.ymca_retention_challenge_pages.yml',
@@ -178,4 +179,82 @@ function ymca_retention_update_8013() {
       $path . 'views.view.ymca_retention_winners.yml',
     ]
   );
+}
+
+/**
+ * Remove march campaign config.
+ */
+function ymca_retention_update_8014() {
+  Drupal::configFactory()->getEditable('ymca_frontend.retention')->delete();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/ymca_alters.config.yml',
+  ]);
+}
+
+/**
+ * Remove summer campaign configs.
+ */
+function ymca_retention_update_8015() {
+  // Remove pages activities.
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $storage->delete($storage->loadMultiple([
+    'ymca_retention_campaign',
+    'ymca_retention_pages',
+  ]));
+  $remove_configs = [
+    'page_manager.page_variant.y_games_winners',
+    'page_manager.page_variant.y_games_team',
+    'page_manager.page_variant.y_games_rules',
+    'page_manager.page_variant.y_games_enroll_success',
+    'page_manager.page_variant.y_games_activity',
+    'page_manager.page_variant.y_game_default',
+    'page_manager.page_variant.y_game_content',
+    'page_manager.page.ymca_retention_pages',
+    'page_manager.page.ymca_retention_campaign',
+  ];
+  $factory = Drupal::configFactory();
+  foreach ($remove_configs as $config) {
+    $factory->getEditable($config)->delete();
+  }
+}
+
+/**
+ * Remove old members.
+ */
+function ymca_retention_update_8016(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    $member_ids = \Drupal::entityQuery('ymca_retention_member')->execute();
+
+    $sandbox['progress'] = 0;
+
+    $sandbox['members'] = array_values($member_ids);
+    $sandbox['max'] = count($member_ids);
+  }
+
+  if (!$sandbox['max']) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  // Get member id.
+  $member_id = $sandbox['members'][$sandbox['progress']];
+
+  // Get entity manager.
+  $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member');
+
+  // Delete member entity.
+  $entities = $storage->loadMultiple(array($member_id));
+  $storage->delete($entities);
+
+  $sandbox['progress']++;
+  if ($sandbox['progress'] != $sandbox['max']) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
+
+/**
+ * Enable Tango Card module.
+ */
+function ymca_retention_update_8017() {
+  \Drupal::service('module_installer')->install(['tango_card'], TRUE);
 }

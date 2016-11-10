@@ -3,10 +3,6 @@ locations:
     -
       name: 'Andrew Dalton'
       email: Andrew.Dalton@ymcamn.org
-  5:
-    -
-      name: 'Angie Suttles'
-      email: Angie.Suttles@ymcamn.org
   7:
     -
       name: 'Beth Kanthak'
@@ -86,3 +82,7 @@ locations:
     -
       name: 'Tim May'
       email: Tim.May@ymcamn.org
+  24:
+    -
+      name: 'Angie Suttles'
+      email: Angie.Suttles@ymcamn.org

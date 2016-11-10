@@ -1,4 +1,1 @@
 services:
-  ymca_frontend.march_winners:
-    class: Drupal\ymca_frontend\YMCAMarchWinners
-    arguments: ['@cache.default']
