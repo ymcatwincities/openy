@@ -36,7 +36,7 @@ class TrackActivity extends BlockBase {
             'activity' => [
               'dates' => $dates,
               'activity_groups' => $activity_groups,
-              'member_activities' => $member_activities_url,
+              'member_activities_url' => $member_activities_url,
             ],
           ],
         ],
