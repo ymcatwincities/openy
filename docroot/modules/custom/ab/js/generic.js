@@ -50,7 +50,7 @@
 
             // Display previously hidden replacements.
             $.each(drupalSettings['ab'], function (index, value) {
-                $(context).find(value.selector).attr("style", "display: inline !important");
+                $(context).find(value.selector).attr("style", "visibility: visible;");
             });
             if (cookie !== 'a' && cookie !== 'b') {
                 cookie = Math.round(Math.random()) == 1 ? 'b' : 'a';
@@ -76,7 +76,7 @@
                 });
                 // Set display back in case if we are using id selectors.
                 $.each(drupalSettings['ab'], function (index, value) {
-                    $(context).find(value.selector).attr("style", "display: inline !important");
+                    $(context).find(value.selector).attr("style", "visibility: visible;");
                 });
             }
 
