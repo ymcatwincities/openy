@@ -38,12 +38,24 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
       ->setDescription(t('The ID of the Member Chance entity.'))
       ->setReadOnly(TRUE);
 
+    $fields['type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Chance type'))
+      ->setRequired(TRUE)
+      ->setReadOnly(TRUE);
+
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
       ->setDescription(t('The time the record was created.'));
 
+    $fields['timestamp'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Timestamp'))
+      ->setDescription(t('The timestamp with the date the chance is granted for.'))
+      ->setSettings([
+        'default_value' => 0,
+      ]);
+
     $fields['played'] = BaseFieldDefinition::create('timestamp')
-      ->setLabel(t('Play time'))
+      ->setLabel(t('Played'))
       ->setDescription(t('The timestamp when the chance was played.'))
       ->setSettings([
         'default_value' => 0,
