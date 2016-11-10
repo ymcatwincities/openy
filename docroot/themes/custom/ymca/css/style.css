@@ -1280,7 +1280,7 @@ li.current.home > a:focus, li.current.home > a:hover {
 .nav-home.nav-themes-b .nav-level-1 > li {
   display: block;
   float: left;
-  width: initial;
+  width: auto;
   position: relative;
 }
 .nav-home.nav-themes-b .nav-level-1 > li > a {
@@ -3607,7 +3607,6 @@ h2 a:not(.anchorjs-link):after {
 }
 
 .viewport {
-  overflow: hidden;
   background: #3a3a3a;
   -webkit-filter: none;
 }
@@ -7325,6 +7324,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 }
 .toolbar-fixed.toolbar-vertical {
   margin-top: 39px;
+  padding-top: 0 !important;
 }
 .toolbar-fixed.toolbar-vertical.toolbar-tray-open .navbar-fixed-top {
   left: 150px;

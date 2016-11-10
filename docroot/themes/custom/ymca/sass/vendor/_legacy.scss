@@ -1413,7 +1413,7 @@ li.current.home > a {
     .nav-level-1 > li {
       display: block;
       float: left;
-      width: initial;
+      width: auto;
       position: relative;
 
       > a {
@@ -3927,7 +3927,6 @@ h2 a:not(.anchorjs-link):after {
 }
 
 .viewport {
-  overflow: hidden;
   background: #3a3a3a;
   -webkit-filter: none;
 }
