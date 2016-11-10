@@ -1,0 +1,4 @@
+name: PHPUnit TDD
+type: module
+description: Drive yourself to PHPUnit world.
+core: 8.x
