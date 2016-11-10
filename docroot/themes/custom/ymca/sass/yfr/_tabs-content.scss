@@ -37,7 +37,6 @@
   }
 }
 
-
 .yfr-registration-form-section {
   @include rem(margin-top, 35px);
 
@@ -910,4 +909,8 @@
     line-height: 22px;
     display: block;
   }
+}
+
+.block-region-tab-rules-prizes {
+  @include rem(padding, 20px 0 90px 0);
 }
