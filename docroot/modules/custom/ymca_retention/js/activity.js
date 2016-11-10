@@ -7,7 +7,7 @@
     }
     $('body').addClass('ymca-retention-activity-processed');
 
-    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $http, $log, promiseTracker, $timeout, $httpParamSerializerJQLike) {
+    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $http, promiseTracker, $httpParamSerializerJQLike, fetcher) {
       // Initiate the promise tracker to track submissions.
       $scope.progress = promiseTracker();
 
@@ -20,11 +20,7 @@
       });
       $scope.date_selected = $scope.dates[$scope.date_index];
 
-      // Track the last clicked activity id.
-      $scope.last_activity_id = -1;
-
       $scope.activity_groups = settings.ymca_retention.activity.activity_groups;
-      $scope.activity_group_index = 0;
 
       $http({
         method: 'GET',
@@ -52,13 +48,21 @@
 
         return classes.join(' ');
       };
-
-      $scope.setDate = function (index) {
-        if ($scope.dates[index].past) {
-          $scope.date_index = index;
+      $scope.activitiesCount = function (index) {
+        if (typeof $scope.member_activities === 'undefined') {
+          return 0;
         }
+
+        var count = 0;
+        for (var activity in $scope.member_activities[$scope.dates[index].timestamp]) {
+          if ($scope.member_activities[$scope.dates[index].timestamp][activity]) {
+            count++;
+          }
+        }
+        return count;
       };
 
+      $scope.activity_group_index = 0;
       $scope.activityGroupClass = function (index) {
         var classes = [];
         if ($scope.activity_groups[index].name === 'Swim') {
@@ -79,32 +83,18 @@
 
         return classes.join(' ');
       };
-
-      $scope.setActivityGroup = function (index) {
+      $scope.activityGroupSet = function (index) {
         $scope.activity_group_index = index;
       };
-
-      $scope.activityItemsShow = function (index) {
+      $scope.activityGroupShow = function (index) {
         return $scope.activity_group_index === index;
       };
 
-      $scope.activitiesCount = function (index) {
-        if (typeof $scope.member_activities === 'undefined') {
-          return 0;
-        }
-
-        var count = 0;
-        for (var activity in $scope.member_activities[$scope.dates[index].timestamp]) {
-          if ($scope.member_activities[$scope.dates[index].timestamp][activity]) {
-            count++;
-          }
-        }
-        return count;
-      };
-
+      // Track the last clicked activity id.
+      $scope.last_activity_id = -1;
       $scope.activityItemChange = function (id) {
         $scope.last_activity_id = id;
-        var timestamp = $scope.dates[$scope.date_index].timestamp;
+        var timestamp = $scope.date_selected.timestamp;
         var data = {
           'timestamp': timestamp,
           'id': id,
@@ -126,7 +116,6 @@
         // Track the request and show its progress to the user.
         $scope.progress.addPromise($promise);
       };
-
       $scope.activityItemClass = function (id) {
         var classes = [];
         if (id === $scope.last_activity_id) {

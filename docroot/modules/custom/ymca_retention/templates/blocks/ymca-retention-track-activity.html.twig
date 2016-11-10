@@ -4,7 +4,13 @@
  * Display track activity block.
  */
 #}
-<div class="yfr-activities" data-ng-controller="ActivityController">
+<div class="yfr-activities"
+     data-ng-show="!retentionController.member">
+  {{ 'Please login or register.'|t }}
+</div>
+<div class="yfr-activities ng-hide"
+     data-ng-controller="ActivityController"
+     data-ng-show="retentionController.member">
   <div class="yfr-activities__header">
     <div class="container">
       <div class="activity-tabs">
@@ -19,7 +25,7 @@
         <ul>
           <li class="activity-tab" data-ng-repeat="activity_group in activity_groups"
               data-ng-class="activityGroupClass($index)"
-              data-ng-click="setActivityGroup($index)">
+              data-ng-click="activityGroupSet($index)">
             <a href="#{{ '{{activity_group.machine_name}}' }}" data-toggle="tab">{{ '{{activity_group.name}}' }}</a>
           </li>
         </ul>
@@ -33,11 +39,11 @@
              data-ng-repeat="activity_group in activity_groups"
              data-ng-attr-id="{{ '{{activity_group.machine_name}}' }}"
              data-ng-class="activityGroupClass($index)"
-             data-ng-show="activityItemsShow($index)">
+             data-ng-show="activityGroupShow($index)">
           <div class="col-xs-12 col-sm-4" data-ng-repeat="activity in activity_group.activities">
             <div class="form-item-checkbox">
               <input id="checkbox-{{ '{{activity.id}}' }}" type="checkbox"
-                     data-ng-model="member_activities[dates[date_index].timestamp][activity.id]"
+                     data-ng-model="member_activities[date_selected.timestamp][activity.id]"
                      data-ng-change="activityItemChange(activity.id)"
                      data-ng-class="activityItemClass(activity.id)"
                      data-ng-disabled="progress.active()">
