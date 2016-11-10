@@ -7,8 +7,7 @@
     }
     $('body').addClass('ymca-retention-activity-processed');
 
-    var ActivityModule = angular.module('Activity', ['slickCarousel', 'ajoslin.promise-tracker']);
-    ActivityModule.controller('ActivityController', function ($scope, $http, $log, promiseTracker, $timeout, $httpParamSerializerJQLike) {
+    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $http, $log, promiseTracker, $timeout, $httpParamSerializerJQLike) {
       // Initiate the promise tracker to track submissions.
       $scope.progress = promiseTracker();
 
@@ -19,6 +18,7 @@
           $scope.date_index = i;
         }
       });
+      $scope.date_selected = $scope.dates[$scope.date_index];
 
       // Track the last clicked activity id.
       $scope.last_activity_id = -1;
@@ -62,16 +62,19 @@
       $scope.activityGroupClass = function (index) {
         var classes = [];
         if ($scope.activity_groups[index].name === 'Swim') {
-          classes.push('activity-group-item-link--swimming');
+          classes.push('activity-tab__type-a');
         }
         if ($scope.activity_groups[index].name === 'Fitness') {
-          classes.push('activity-group-item-link--fitness');
+          classes.push('activity-tab__type-b');
         }
         if ($scope.activity_groups[index].name === 'Free Group X') {
-          classes.push('activity-group-item-link--group-ex');
+          classes.push('activity-tab__type-c');
+        }
+        if ($scope.activity_groups[index].name === 'Community') {
+          classes.push('activity-tab__type-d');
         }
         if ($scope.activity_group_index === index) {
-          classes.push('activity-group-item-link--active');
+          classes.push('active');
         }
 
         return classes.join(' ');
@@ -132,75 +135,7 @@
 
         return classes.join(' ');
       };
-
-      $scope.slickConfig = {
-        speed: 300,
-        infinite: false,
-        swipeToSlide: true,
-        initialSlide: (function () {
-          var current_index = Math.max(0, $scope.date_index - 3);
-          var ww = jQuery(window).width();
-          if (ww >= 1024) {
-            current_index = Math.min(current_index, $scope.dates.length - 11);
-          }
-          else if (ww >= 900) {
-            current_index = Math.min(current_index, $scope.dates.length - 8);
-          }
-          else if (ww >= 750) {
-            current_index = Math.min(current_index, $scope.dates.length - 6);
-          }
-          else if (ww >= 600) {
-            current_index = Math.min(current_index, $scope.dates.length - 5);
-          }
-          else {
-            current_index = Math.min(current_index, $scope.dates.length - 4);
-          }
-          return current_index;
-        })(),
-        slidesToScroll: 11,
-        slidesToShow: 11,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 8,
-              slidesToScroll: 8
-            }
-          },
-          {
-            breakpoint: 900,
-            settings: {
-              slidesToShow: 6,
-              slidesToScroll: 6
-            }
-          },
-          {
-            breakpoint: 750,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 5
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4
-            }
-          },
-          {
-            breakpoint: 400,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3
-            }
-          }
-        ]
-      };
     });
-
-    // Bootstrap AngularJS application.
-    angular.bootstrap(document.getElementById('activity-app'), ['Activity']);
   };
 
 })(jQuery);
