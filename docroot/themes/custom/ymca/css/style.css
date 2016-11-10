@@ -1968,6 +1968,10 @@ a.ms-brand:hover {
   transition: background-color .2s ease-out;
 }
 
+.nav-footer .nav-stacked > li {
+  margin-top: 2px;
+}
+
 .social-icon {
   position: relative;
   display: block;
@@ -2513,6 +2517,7 @@ img.alignRight {
   display: block;
   margin: 0;
   padding-top: 14px;
+  padding-bottom: 14px;
 }
 @media screen and (max-width: 1366px) and (max-height: 768px) {
   .nav-themes-b .row-level-2 {
