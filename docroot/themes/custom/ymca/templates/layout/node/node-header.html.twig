@@ -14,6 +14,8 @@
   {% set template = 'header-without-image.html.twig' %}
 {% elseif variant == 'front' %}
   {% set template = 'header-frontpage.html.twig' %}
+{% elseif variant == 'slideshow' %}
+  {% set template = 'header-page-header.html.twig' %}
 {% else %}
   {% set template = 'header-with-image.html.twig' %}
 {% endif %}

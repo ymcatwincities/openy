@@ -1,3 +1,11 @@
+html {
+  height: 100%;
+}
+
+html, body {
+  min-height: 100%;
+}
+
 .theme_ymca_2016_fall_retention {
   font-family: Verdana, Arial, Helvetica, sans-serif;
 
@@ -34,7 +42,6 @@
   }
 
   .btn {
-
     &.orange-medium {
       background-image: none;
       background-color: $orange-medium;

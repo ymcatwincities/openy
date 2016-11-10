@@ -1,0 +1,118 @@
+{#
+/**
+ * @file
+ * Template for YMCA Retention layout.
+ */
+#}
+<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}"
+     data-ng-app="Retention"
+     data-ng-controller="RetentionController as retentionController">
+  <nav id="top-nav" class="top-nav">
+    {{ content.navigation }}
+  </nav>
+  <div id="hero-section" class="hero-section">
+    {{ content.hero }}
+  </div>
+  {{ content.main }}
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="about">
+      {{ content.tab_about }}
+      <div class="inner-container">
+        <div class="yfr-intro-block">
+          <h2 class="yfr-intro-block__title">
+            Y Spirit Challenge
+          </h2>
+          <div class="yfr-intro-block__content">
+            <p>
+              Our new campaign has started! Registration is open <span class="dates">Nov 24–Nov 30</span>.
+            </p>
+            <p>
+              Enjoy your visits, track your activities and instantly win.<br>
+              See detailed info below.
+            </p>
+          </div>
+        </div>
+
+        <div class="yfr-registration-form-section" data-ng-show="!retentionController.member">
+          <div class="yfr-registration-form-button-container">
+            <a href="#" class="btn btn-lg btn-primary orange-medium"
+               data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register now'|t }}</a>
+          </div>
+          <div class="yfr-registration-form-help-text-container">
+            <p>
+              Registration will give&nbsp;you first&nbsp;bonus&nbsp;code!
+            </p>
+          </div>
+        </div>
+
+        <div class="row yfr-info-blocks">
+          <div class="yfr-info-block yfr-info-block--checkins">
+            <div class="yfr-info-block__header">1. Check-in's</div>
+            <div class="yfr-info-block__content">
+              Check-ins are tallied automatically any time you visit the Y. Each check-in will provide you a bonus code for our "Instant Win" game.
+            </div>
+            <div class="yfr-info-block__footer">
+              * Check-in = 1 code/day
+            </div>
+          </div>
+
+
+          <div class="yfr-info-block yfr-info-block--daily-reports">
+            <div class="yfr-info-block__header">2. Daily Reports</div>
+            <div class="yfr-info-block__content">
+              Had a nice day at Y? Tell us what you’ve done there. Keep your records daily and get more
+              bonus codes.
+            </div>
+            <div class="yfr-info-block__footer">
+              * Daily report = 1 code/day
+            </div>
+          </div>
+
+          <div class="yfr-info-block yfr-info-block--instant-win">
+            <div class="yfr-info-block__header">3. Instant win</div>
+            <div class="yfr-info-block__content">
+              Did you receive a bonus code? Click Instant Win and try
+              your luck.
+            </div>
+            <div class="yfr-info-block__footer">
+              Wheel of fortune awaits!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="yfr-full-width-prize-block">
+        <div class="container">
+
+          <div class="col-sm-5 col-sm-push-5 yfr-full-width-prize-block__content">
+            <h2 class="yfr-full-width-prize-block__header">
+              Prizes
+            </h2>
+            <p class="yfr-full-width-prize-block__body">
+              By playing “Instant Win” game you will recieve TANGO digital gift cards, with amount up to $100. You can use them for purchases at numerous e-commerce resources like Amazon, iTunes, AMC, Best Buy, Google Play and much more.
+            </p>
+          </div>
+          <div class="yfr-full-width-prize-block__card">
+            <span></span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="track">
+      {{ content.tab_track }}
+      <p>Track activities content</p>
+    </div>
+
+    <div class="tab-pane fade" id="progress">
+      {{ content.tab_progress }}
+      <p>My progress content</p>
+    </div>
+
+    <div class="tab-pane fade" id="instant-win">
+      {{ content.tab_instant_win }}
+      <p>Instant win content</p>
+    </div>
+  </div>
+</div>
