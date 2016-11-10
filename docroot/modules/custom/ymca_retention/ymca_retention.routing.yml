@@ -103,6 +103,14 @@ ymca_retention.member_activities_json:
   requirements:
     _permission: 'access content'
 
+ymca_retention.member_chances_json:
+  path: '/ymca-retention/member_chances'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberChancesJson'
+    _title: 'YMCA Retention Member Chances JSON'
+  requirements:
+    _permission: 'access content'
+
 ymca_retention.ymca_winners.draw_winners:
   path: '/admin/content/ymca-retention-winners/draw-winners'
   defaults:
