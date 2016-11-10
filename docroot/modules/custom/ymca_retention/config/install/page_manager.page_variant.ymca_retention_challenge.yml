@@ -49,6 +49,15 @@ variant_settings:
       weight: -9
       uuid: a436a9d1-a8cd-4221-b697-137c5a7cbf22
       context_mapping: {  }
+    405e7325-8906-47c9-bb6a-6b31c2b6755e:
+      id: retention_track_activity_block
+      label: '[YMCA Retention] Track activity'
+      provider: ymca_retention
+      label_display: '0'
+      region: tab_track
+      weight: 0
+      uuid: 405e7325-8906-47c9-bb6a-6b31c2b6755e
+      context_mapping: {  }
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
   label: null
