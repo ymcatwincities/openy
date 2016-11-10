@@ -7,48 +7,6 @@
     }
     $('body').addClass('ymca-retention-user-menu-processed');
 
-    Drupal.ymca_retention.angular_app.controller('UserMenuController', function ($scope, $cookies, member_data) {
-      // Watch cookie value and update user data on change.
-      $scope.$watch(function () {
-        return $cookies.get('Drupal.visitor.ymca_retention_member');
-      }, angular.bind(this, function (newVal, oldVal) {
-        this.getMemberData(newVal);
-      }));
-
-      this.getMemberData = angular.bind(this, function(id) {
-        member_data.get(id).then(angular.bind(this, function(data) {
-          this.member = data;
-        }));
-      });
-
-    });
-
-    // Service to communicate with backend.
-    Drupal.ymca_retention.angular_app.factory('member_data', function($http, $q) {
-      function get(id) {
-        var deferred = $q.defer();
-        if (typeof id === 'undefined') {
-          deferred.resolve(null);
-        }
-        else {
-          $http.get(settings.ymca_retention.user_menu.member_url).then(function(response) {
-            if ($.isEmptyObject(response.data)) {
-              deferred.resolve(null);
-              return;
-            }
-
-            deferred.resolve(response.data);
-          });
-        }
-
-        return deferred.promise;
-      }
-
-      return {
-        get: get
-      };
-    });
-
     // Populate modal content depending on the clicked link.
     $('#ymca-retention-modal', context)
       .on('show.bs.modal', function (event) {
