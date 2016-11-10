@@ -1620,6 +1620,11 @@ html, body {
   display: block;
 }
 
+.block-region-tab-rules-prizes {
+  padding: 20px 0 90px 0;
+  padding: 2rem 0 9rem 0;
+}
+
 .theme_ymca_2016_fall_retention .modal-dialog {
   max-width: 600px;
   max-width: 60rem;
