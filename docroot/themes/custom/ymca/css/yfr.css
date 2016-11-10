@@ -1620,6 +1620,54 @@ html, body {
   display: block;
 }
 
+.yfr-history {
+  max-width: 584px;
+  margin: 0 auto;
+}
+.yfr-history .history-info {
+  text-align: center;
+}
+.yfr-history h2 {
+  margin-bottom: 30px;
+  margin-bottom: 3rem;
+  font-size: 40px;
+  line-height: 52px;
+  text-transform: uppercase;
+}
+.yfr-history p {
+  margin: 0 0 0 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.yfr-table-win {
+  width: 100%;
+  table-layout: fixed;
+}
+.yfr-table-win td {
+  padding: 36px 0;
+  padding: 3.6rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.yfr-table-win .info {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #e5e5e5;
+}
+.yfr-table-win .info.active {
+  color: #fcaf17;
+}
+.yfr-table-win .info-date .date {
+  color: #dd5828;
+}
+.yfr-table-win .info-date .time {
+  color: #777;
+}
+
 .theme_ymca_2016_fall_retention .modal-dialog {
   max-width: 600px;
   max-width: 60rem;

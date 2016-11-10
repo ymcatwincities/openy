@@ -911,3 +911,57 @@
     display: block;
   }
 }
+
+.yfr-history {
+  max-width: 584px;
+  margin: 0 auto;
+
+  .history-info {
+    text-align: center;
+  }
+
+  h2 {
+    @include rem(margin-bottom, 30px);
+    font-size: 40px;
+    line-height: 52px;
+    text-transform: uppercase;
+  }
+
+  p {
+    @include rem(margin, 0 0 0 0);
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
+.yfr-table-win {
+  width: 100%;
+  table-layout: fixed;
+
+  td {
+    @include rem(padding, 36px 0);
+    border-bottom: 1px solid $grey12;
+  }
+
+  .info {
+    @include cachet-bold();
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: $grey12;
+
+    &.active {
+      color: $orange-light;
+    }
+  }
+
+  .info-date {
+    .date {
+      color: $orange-dark;
+    }
+
+    .time {
+      color: $grey5;
+    }
+  }
+}
