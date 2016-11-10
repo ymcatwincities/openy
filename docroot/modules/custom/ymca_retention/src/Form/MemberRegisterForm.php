@@ -3,13 +3,11 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
+use Drupal\ymca_retention\Entity\MemberChance;
 use Drupal\ymca_retention\PersonifyApi;
 
 /**
@@ -215,7 +213,6 @@ class MemberRegisterForm extends FormBase {
       }
       else {
         $form_state->set('personify_member', $personify_result);
-        // TODO: personify_member should already have email address from Personify.
         $form_state->set('personify_email', Unicode::strtolower($personify_result->PrimaryEmail));
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
@@ -250,6 +247,15 @@ class MemberRegisterForm extends FormBase {
 
     if (empty($result)) {
       $entity = $this->createEntity($form_state);
+
+      // Create chance to win.
+      if (empty($chances_ids)) {
+        $chance = MemberChance::create([
+          'type' => 'registration',
+          'member' => $entity->getId(),
+        ]);
+        $chance->save();
+      }
     }
     else {
       $entity = $this->updateEntity(key($result), $form_state);
