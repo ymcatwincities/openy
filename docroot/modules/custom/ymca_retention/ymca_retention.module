@@ -263,7 +263,7 @@ function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $e
   _ymca_retention_activity_track_update($entity);
 
   // Check if member already has chance to win for activity on this date.
-  $member_id = $entity->get('member')->entity->getId();
+  $member_id = $entity->member->target_id;
   $timestamp = $entity->get('timestamp')->value;
   $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
     ->condition('member', $member_id)
