@@ -44,6 +44,8 @@
         else {
           $http.get(settings.ymca_retention.user_menu.member_url).then(function(response) {
             if ($.isEmptyObject(response.data)) {
+              // We've got empty result - remove the member cookie.
+              $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
               deferred.resolve(null);
               return;
             }
