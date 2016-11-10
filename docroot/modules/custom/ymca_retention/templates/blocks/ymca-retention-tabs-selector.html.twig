@@ -16,7 +16,13 @@
       <a href="#progress" data-toggle="tab">{{ 'My Progress'|t }}</a>
     </li>
     <li class="yfr-tabs__instant-win">
-      <a href="#instant-win" data-toggle="tab">{{ 'Instant Win'|t }} <span class="yfr-instant-win-star">2</span></a>
+      <a href="#instant-win" data-toggle="tab">
+        {{ 'Instant Win'|t }}
+        <span class="yfr-instant-win-star ng-hide"
+              data-ng-show="retentionController.chances">
+          {{ '{{retentionController.chances}}' }}
+        </span>
+      </a>
     </li>
     <li class="yfr-tabs__detailed">
       <a href="#rules-prizes" data-toggle="tab">{{ 'Detailed Rules &amp; Prizes'|t }}</a>
