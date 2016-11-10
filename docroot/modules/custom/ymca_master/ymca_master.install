@@ -4378,3 +4378,12 @@ function ymca_master_update_8191() {
     ]
   );
 }
+
+/**
+ * Install PHPUnit TDD.
+ */
+function ymca_master_update_8192() {
+  \Drupal::service('module_installer')->install([
+    'phpunit_tdd',
+  ], TRUE);
+}
