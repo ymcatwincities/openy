@@ -18,3 +18,5 @@ ymca-retention:
       label: Progress tab
     tab_instant_win:
       label: Instant win tab
+    tab_rules_prizes:
+      label: Rules and Prizes tab

@@ -1,0 +1,15 @@
+uuid: b6bf3414-ab6c-4909-b1c0-fa7f9a481c43
+langcode: en
+status: true
+dependencies: {  }
+id: ymca_retention_challenge_pages
+label: 'YMCA Retention Challenge Pages'
+use_admin_theme: false
+path: '/challenge/{string}'
+access_logic: and
+access_conditions: {  }
+parameters:
+  string:
+    machine_name: string
+    type: string
+    label: String
