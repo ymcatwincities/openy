@@ -12,7 +12,7 @@ use Drupal\ygs_alters\AnonymousStartSession;
  * @Block(
  *   id = "location_popup_link_block",
  *   admin_label = @Translation("YGS location popup link"),
- *   category = @Translation("Custom")
+ *   category = @Translation("Paragraph Blocks")
  * )
  */
 class LocationPopupLink extends BlockBase {
