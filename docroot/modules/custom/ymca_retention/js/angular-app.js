@@ -10,8 +10,9 @@
     Drupal.ymca_retention = Drupal.ymca_retention || {};
     Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ajoslin.promise-tracker']);
 
-    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($scope, $cookies, $interval, courier) {
+    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($scope, $cookies, $interval, courier, storage) {
       var self = this;
+      this.storage = storage;
       // Force to check cookie value.
       $interval(function() {
         $cookies.get('Drupal.visitor.ymca_retention_member');
@@ -103,10 +104,53 @@
         return deferred.promise;
       }
 
+      function getMemberChances(id) {
+        var deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http.get(settings.ymca_retention.instant_win.member_chances_url).then(function(response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
       return {
         getMember: getMember,
         getMemberActivities: getMemberActivities,
-        setMemberActivities: setMemberActivities
+        setMemberActivities: setMemberActivities,
+        getMemberChances: getMemberChances
+      };
+    });
+
+    // Service to hold information shared between controllers.
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $cookies, courier) {
+      var self = this;
+
+      // Watch cookie value and update data on change.
+      $rootScope.$watch(function () {
+        return $cookies.get('Drupal.visitor.ymca_retention_member');
+      }, function (newVal, oldVal) {
+        self.getMemberChancesById(newVal);
+      });
+
+      this.getMemberChances = function() {
+        var id = $cookies.get('Drupal.visitor.ymca_retention_member');
+        self.getMemberChancesById(id);
+      };
+
+      this.getMemberChancesById = function(id) {
+        courier.getMemberChances(id).then(function(data) {
+          self.member_chances = data;
+        });
       };
     });
   };

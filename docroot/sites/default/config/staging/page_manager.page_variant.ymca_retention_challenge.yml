@@ -73,6 +73,14 @@ variant_settings:
       weight: 0
       uuid: 8ce3ee22-d5ce-4ae7-9220-f6d3e0ad9ef0
       context_mapping: {  }
+    67e28179-36ee-4233-a7ba-98134ea88527:
+      id: retention_instant_win_block
+      label: '[YMCA Retention] Instant win'
+      provider: ymca_retention
+      label_display: '0'
+      region: tab_instant_win
+      uuid: 67e28179-36ee-4233-a7ba-98134ea88527
+      context_mapping: {  }
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
   label: null
