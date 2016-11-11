@@ -20,15 +20,16 @@
       <div class="inner-container">
         <div class="yfr-intro-block">
           <h2 class="yfr-intro-block__title">
-            Y Spirit Challenge
+            {{ 'Y Spirit Challenge'|t }}
           </h2>
           <div class="yfr-intro-block__content">
             <p>
-              Our new campaign has started! Registration is open <span class="dates">Nov 24–Nov 30</span>.
+              {{ 'Sign up to participate, visit the Y and track your activities for chances at instant-win prizes.'|t }}
             </p>
             <p>
-              Enjoy your visits, track your activities and instantly win.<br>
-              See detailed info below.
+              {{ 'Enjoy your visits, track your activities and instantly win.'|t }}
+              <br>
+              {{ 'See detailed info below.'|t }}
             </p>
           </div>
         </div>
@@ -40,39 +41,37 @@
           </div>
           <div class="yfr-registration-form-help-text-container">
             <p>
-              Registration will give&nbsp;you first&nbsp;bonus&nbsp;code!
+              {{ 'Registration will give you first bonus code!'|t }}
             </p>
           </div>
         </div>
 
         <div class="row yfr-info-blocks">
           <div class="yfr-info-block yfr-info-block--checkins">
-            <div class="yfr-info-block__header">1. Check-in's</div>
+            <div class="yfr-info-block__header">1. {{ 'Check in at the Y'|t }}</div>
             <div class="yfr-info-block__content">
-              Check-ins are tallied automatically any time you visit the Y. Each check-in will provide you a bonus code for our "Instant Win" game.
+              {{ 'You automatically get an instant-win code each day you visit the YMCA.'|t }}
             </div>
             <div class="yfr-info-block__footer">
-              * Check-in = 1 code/day
+              * {{ 'Check-in = 1 code/day'|t }}
             </div>
           </div>
 
 
           <div class="yfr-info-block yfr-info-block--daily-reports">
-            <div class="yfr-info-block__header">2. Daily Reports</div>
+            <div class="yfr-info-block__header">2. {{ 'Track activity'|t }}</div>
             <div class="yfr-info-block__content">
-              Had a nice day at Y? Tell us what you’ve done there. Keep your records daily and get more
-              bonus codes.
+              {{ 'Report your fitness and community-focused activities each day to earn more instant-win codes.'|t }}
             </div>
             <div class="yfr-info-block__footer">
-              * Daily report = 1 code/day
+              * {{ 'Daily report = 1 code/day'|t }}
             </div>
           </div>
 
           <div class="yfr-info-block yfr-info-block--instant-win">
-            <div class="yfr-info-block__header">3. Instant win</div>
+            <div class="yfr-info-block__header">3. {{ 'Win prizes'|t }}</div>
             <div class="yfr-info-block__content">
-              Did you receive a bonus code? Click Instant Win and try
-              your luck.
+              {{ 'Enter your instant-win codes to see if you win a digital gift card to popular retailers.'|t }}
             </div>
             <div class="yfr-info-block__footer">
               Wheel of fortune awaits!
@@ -86,10 +85,10 @@
 
           <div class="col-sm-5 col-sm-push-5 yfr-full-width-prize-block__content">
             <h2 class="yfr-full-width-prize-block__header">
-              Prizes
+              {{ 'Instant-win Prizes'|t }}
             </h2>
             <p class="yfr-full-width-prize-block__body">
-              By playing “Instant Win” game you will recieve TANGO digital gift cards, with amount up to $100. You can use them for purchases at numerous e-commerce resources like Amazon, iTunes, AMC, Best Buy, Google Play and much more.
+              {{ 'The Y Spirit Challenge offers you chances to instantly win digital gift cards from TANGO—up to $100 each. Choose to spend your prize on movies, restaurants, retailers and more.'|t }}
             </p>
           </div>
           <div class="yfr-full-width-prize-block__card">
@@ -106,7 +105,7 @@
 
     <div class="tab-pane fade" id="progress">
       {{ content.tab_progress }}
-      <p>My progress content</p>
+      <p>{{ 'My progress content'|t }}</p>
     </div>
 
     <div class="tab-pane fade" id="instant-win">
