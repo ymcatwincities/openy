@@ -8,7 +8,8 @@
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
-use \Drupal\Core\Template\Attribute;
+use Drupal\Core\Template\Attribute;
+use Drupal\ymca_retention\Entity\MemberChance;
 
 /**
  * Implements hook_form_alter().
@@ -141,6 +142,12 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'blocks/ymca-retention-track-activity',
     ],
+    'ymca_retention_instant_win' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-instant-win',
+    ],
 
     // Forms templates.
     'ymca_retention_login_form' => [
@@ -227,6 +234,26 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   if (!empty($winners)) {
     $winners_storage->delete($winners);
   }
+
+  // Remove member chances.
+  $chances_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_chance');
+  $chances = $chances_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($chances)) {
+    $chances_storage->delete($chances);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
+  // Create chance to win.
+  $chance = MemberChance::create([
+    'type' => 'registration',
+    'member' => $entity->getId(),
+  ]);
+  $chance->save();
 }
 
 /**
@@ -234,6 +261,25 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
  */
 function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
   _ymca_retention_activity_track_update($entity);
+
+  // Check if member already has chance to win for activity on this date.
+  $member_id = $entity->member->target_id;
+  $timestamp = $entity->get('timestamp')->value;
+  $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+    ->condition('member', $member_id)
+    ->condition('type', 'activity')
+    ->condition('timestamp', [$timestamp, $timestamp + 24 * 60 * 60 - 1], 'BETWEEN')
+    ->execute();
+
+  // Create chance to win.
+  if (empty($chances_ids)) {
+    $chance = MemberChance::create([
+      'timestamp' => $timestamp,
+      'type' => 'activity',
+      'member' => $member_id,
+    ]);
+    $chance->save();
+  }
 }
 
 /**
