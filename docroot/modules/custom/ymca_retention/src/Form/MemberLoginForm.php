@@ -58,10 +58,10 @@ class MemberLoginForm extends FormBase {
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $this->t('Your facility access ID'),
+            $this->t('Your member ID'),
           ],
         ],
-        '#element_required_error' => $this->t('Facility access ID is required.'),
+        '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => $validate,
       ];
     }
