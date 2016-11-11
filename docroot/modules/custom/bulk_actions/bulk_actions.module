@@ -62,6 +62,40 @@ function bulk_actions_views_data_alter(array &$data) {
     ),
   ];
 
+  $data['menu_link_content_data']['menu_name'] = [
+    'title' => t('Menu name for the item'),
+    'help' => t('Machine name of the menu for the item.'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  ];
+
+  $data['menu_link_content_data']['enabled'] = [
+    'title' => t('Menu item status'),
+    'help' => t('Menu Link Content status'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'numeric',
+    ),
+    'filter' => array(
+      'id' => 'boolean',
+    ),
+    'argument' => array(
+      'id' => 'numeric',
+    ),
+  ];
+
   $data['menu_link_content_data']['menu_link_content_bulk_form'] = [
     'title' => t('Menu links operations bulk form'),
     'help' => t('Add a form element that lets you run operations on multiple menu links.'),
