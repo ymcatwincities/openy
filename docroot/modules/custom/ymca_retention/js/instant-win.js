@@ -8,21 +8,11 @@
     $('body').addClass('ymca-retention-instant-win-processed');
 
 
-    Drupal.ymca_retention.angular_app.controller('InstantWinController', function ($scope, $cookies, promiseTracker, courier) {
+    Drupal.ymca_retention.angular_app.controller('InstantWinController', function ($scope, promiseTracker, storage) {
       // Initiate the promise tracker to track submissions.
       $scope.progress = promiseTracker();
 
-      // Watch cookie value and update member chances data on change.
-      $scope.$watch(function () {
-        return $cookies.get('Drupal.visitor.ymca_retention_member');
-      }, function (newVal, oldVal) {
-        $scope.getMemberChances(newVal);
-      });
-      $scope.getMemberChances = function(id) {
-        courier.getMemberChances(id).then(function(data) {
-          $scope.member_chances = data;
-        });
-      };
+      $scope.storage = storage;
     });
   };
 
