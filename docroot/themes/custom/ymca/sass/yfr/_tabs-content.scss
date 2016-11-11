@@ -1064,6 +1064,8 @@
 
     &.active {
       @include animation(rotateGame 3s cubic-bezier(.62,0,.37,1));
+      background: transparent inline-image('../prototypes/yfr/img/tabs/circle-active.svg') 50% 50% no-repeat;
+      @include background-size(cover);
     }
   }
 
