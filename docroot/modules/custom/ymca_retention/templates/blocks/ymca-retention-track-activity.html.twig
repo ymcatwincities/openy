@@ -5,12 +5,12 @@
  */
 #}
 <div class="yfr-activities"
-     data-ng-show="!retentionC.member">
+     data-ng-show="!retentionC.storage.member">
   {{ 'Please login or register.'|t }}
 </div>
 <div class="yfr-activities ng-hide"
      data-ng-controller="ActivityController as activityC"
-     data-ng-show="retentionC.member">
+     data-ng-show="retentionC.storage.member">
   <div class="yfr-activities__header">
     <div class="container">
       <div class="activity-tabs">
@@ -43,10 +43,10 @@
           <div class="col-xs-12 col-sm-4" data-ng-repeat="activity in activity_group.activities">
             <div class="form-item-checkbox">
               <input id="checkbox-{{ '{{activity.id}}' }}" type="checkbox"
-                     data-ng-model="activityC.member_activities[activityC.date_selected.timestamp][activity.id]"
+                     data-ng-model="activityC.storage.member_activities[activityC.date_selected.timestamp][activity.id]"
                      data-ng-change="activityC.activityItemChange(activity.id)"
                      data-ng-class="activityC.activityItemClass(activity.id)"
-                     data-ng-disabled="activityC.progress.active()">
+                     data-ng-disabled="activityC.storage.progress.active()">
               <label for="checkbox-{{ '{{activity.id}}' }}"><span>{{ '{{activity.name}}' }}</span>
                 <small class="ng-hide" data-ng-show="activity.description">{{ '{{activity.description}}' }}</small>
               </label>
