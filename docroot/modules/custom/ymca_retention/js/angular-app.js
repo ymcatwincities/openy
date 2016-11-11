@@ -10,30 +10,10 @@
     Drupal.ymca_retention = Drupal.ymca_retention || {};
     Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ajoslin.promise-tracker']);
 
-    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($scope, $cookies, $interval, courier, storage) {
+    Drupal.ymca_retention.angular_app.controller('RetentionController', function (storage) {
       var self = this;
       // Shared information.
-      this.storage = storage;
-      // Force to check cookie value.
-      $interval(function() {
-        $cookies.get('Drupal.visitor.ymca_retention_member');
-      }, 500);
-
-      // Watch cookie value and update member data on change.
-      $scope.$watch(function () {
-        return $cookies.get('Drupal.visitor.ymca_retention_member');
-      }, function (newVal, oldVal) {
-        self.getMember(newVal);
-      });
-      this.getMember = function(id) {
-        courier.getMember(id).then(function(data) {
-          self.member = data;
-        });
-      };
-
-      this.memberCookieRemove = function() {
-        $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
-      };
+      self.storage = storage;
     });
 
     // Service to communicate with backend.
@@ -133,25 +113,60 @@
     });
 
     // Service to hold information shared between controllers.
-    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $cookies, courier) {
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $cookies, promiseTracker, courier) {
       var self = this;
+
+      // Initiate the promise tracker to track submissions.
+      self.progress = promiseTracker();
+
+      // Force to check cookie value.
+      $interval(function() {
+        $cookies.get('Drupal.visitor.ymca_retention_member');
+      }, 500);
 
       // Watch cookie value and update data on change.
       $rootScope.$watch(function () {
         return $cookies.get('Drupal.visitor.ymca_retention_member');
       }, function (newVal, oldVal) {
+        self.getMember(newVal);
         self.getMemberChancesById(newVal);
+        self.getMemberActivities(newVal);
+        // self.date_selected = self.dates[self.date_index];
       });
 
-      this.getMemberChances = function() {
+      self.getMember = function(id) {
+        courier.getMember(id).then(function(data) {
+          self.member = data;
+        });
+      };
+
+      self.getMemberChances = function() {
         var id = $cookies.get('Drupal.visitor.ymca_retention_member');
         self.getMemberChancesById(id);
       };
-
-      this.getMemberChancesById = function(id) {
+      self.getMemberChancesById = function(id) {
         courier.getMemberChances(id).then(function(data) {
           self.member_chances = data;
         });
+      };
+
+      self.getMemberActivities = function(id) {
+        courier.getMemberActivities(id).then(function(data) {
+          self.member_activities = data;
+        });
+      };
+      self.setMemberActivities = function(data) {
+        var $promise = courier.setMemberActivities(data).then(function(data) {
+          self.member_activities = data;
+          self.getMemberChances();
+        });
+
+        // Track the request and show its progress to the user.
+        self.progress.addPromise($promise);
+      };
+
+      self.memberCookieRemove = function() {
+        $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
       };
     });
   };

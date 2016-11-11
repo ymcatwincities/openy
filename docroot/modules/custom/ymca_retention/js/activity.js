@@ -7,46 +7,22 @@
     }
     $('body').addClass('ymca-retention-activity-processed');
 
-    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $cookies, promiseTracker, courier, storage) {
+    Drupal.ymca_retention.angular_app.controller('ActivityController', function (storage) {
       var self = this;
       // Shared information.
-      this.storage = storage;
-      // Initiate the promise tracker to track submissions.
-      this.progress = promiseTracker();
+      self.storage = storage;
 
-      // Watch cookie value and update member activities data on change.
-      $scope.$watch(function () {
-        return $cookies.get('Drupal.visitor.ymca_retention_member');
-      }, function (newVal, oldVal) {
-        self.getMemberActivities(newVal);
-        self.date_selected = self.dates[self.date_index];
-      });
-      this.getMemberActivities = function(id) {
-        courier.getMemberActivities(id).then(function(data) {
-          self.member_activities = data;
-        });
-      };
-      this.setMemberActivities = function(data) {
-        var $promise = courier.setMemberActivities(data).then(function(data) {
-          // self.member_activities = data;
-          storage.getMemberChances();
-        });
-
-        // Track the request and show its progress to the user.
-        self.progress.addPromise($promise);
-      };
-
-      this.dates = settings.ymca_retention.activity.dates;
-      this.activity_groups = settings.ymca_retention.activity.activity_groups;
-      this.date_index = -1;
-      this.dates.forEach(function (item, i, arr) {
+      self.dates = settings.ymca_retention.activity.dates;
+      self.activity_groups = settings.ymca_retention.activity.activity_groups;
+      self.date_index = -1;
+      self.dates.forEach(function (item, i, arr) {
         if (item.past) {
           self.date_index = i;
         }
       });
-      this.date_selected = this.dates[this.date_index];
+      self.date_selected = this.dates[this.date_index];
 
-      this.dateClass = function (index) {
+      self.dateClass = function (index) {
         var classes = [];
         if (self.dates[index].past) {
           classes.push('campaign-dates--date-past');
@@ -64,22 +40,22 @@
 
         return classes.join(' ');
       };
-      this.activitiesCount = function (index) {
-        if (typeof self.member_activities === 'undefined') {
+      self.activitiesCount = function (index) {
+        if (typeof self.storage.member_activities === 'undefined') {
           return 0;
         }
 
         var count = 0;
-        for (var activity in self.member_activities[self.dates[index].timestamp]) {
-          if (self.member_activities[self.dates[index].timestamp][activity]) {
+        for (var activity in self.storage.member_activities[self.dates[index].timestamp]) {
+          if (self.storage.member_activities[self.dates[index].timestamp][activity]) {
             count++;
           }
         }
         return count;
       };
 
-      this.activity_group_index = 0;
-      this.activityGroupClass = function (index) {
+      self.activity_group_index = 0;
+      self.activityGroupClass = function (index) {
         var classes = [];
         if (self.activity_groups[index].name === 'Swim') {
           classes.push('activity-tab__type-a');
@@ -99,27 +75,27 @@
 
         return classes.join(' ');
       };
-      this.activityGroupSet = function (index) {
+      self.activityGroupSet = function (index) {
         self.activity_group_index = index;
       };
-      this.activityGroupShow = function (index) {
+      self.activityGroupShow = function (index) {
         return self.activity_group_index === index;
       };
 
       // Track the last clicked activity id.
-      this.last_activity_id = -1;
-      this.activityItemChange = function (id) {
+      self.last_activity_id = -1;
+      self.activityItemChange = function (id) {
         self.last_activity_id = id;
         var timestamp = self.date_selected.timestamp;
         var data = {
           'timestamp': timestamp,
           'id': id,
-          'value': self.member_activities[timestamp][id]
+          'value': self.storage.member_activities[timestamp][id]
         };
 
-        self.setMemberActivities(data);
+        self.storage.setMemberActivities(data);
       };
-      this.activityItemClass = function (id) {
+      self.activityItemClass = function (id) {
         var classes = [];
         if (id === self.last_activity_id) {
           classes.push('activity--click-last');

@@ -8,12 +8,10 @@
     $('body').addClass('ymca-retention-instant-win-processed');
 
 
-    Drupal.ymca_retention.angular_app.controller('InstantWinController', function (promiseTracker, storage) {
+    Drupal.ymca_retention.angular_app.controller('InstantWinController', function (storage) {
       var self = this;
       // Shared information.
-      this.storage = storage;
-      // Initiate the promise tracker to track submissions.
-      this.progress = promiseTracker();
+      self.storage = storage;
     });
   };
 
