@@ -9,10 +9,11 @@
 
 
     Drupal.ymca_retention.angular_app.controller('InstantWinController', function (promiseTracker, storage) {
+      var self = this;
+      // Shared information.
+      this.storage = storage;
       // Initiate the promise tracker to track submissions.
       this.progress = promiseTracker();
-
-      this.storage = storage;
     });
   };
 
