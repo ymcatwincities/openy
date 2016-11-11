@@ -12,6 +12,7 @@
 
     Drupal.ymca_retention.angular_app.controller('RetentionController', function ($scope, $cookies, $interval, courier, storage) {
       var self = this;
+      // Shared information.
       this.storage = storage;
       // Force to check cookie value.
       $interval(function() {

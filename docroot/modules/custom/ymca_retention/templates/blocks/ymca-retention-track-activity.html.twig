@@ -5,27 +5,27 @@
  */
 #}
 <div class="yfr-activities"
-     data-ng-show="!retentionController.member">
+     data-ng-show="!retentionC.member">
   {{ 'Please login or register.'|t }}
 </div>
 <div class="yfr-activities ng-hide"
-     data-ng-controller="ActivityController"
-     data-ng-show="retentionController.member">
+     data-ng-controller="ActivityController as activityC"
+     data-ng-show="retentionC.member">
   <div class="yfr-activities__header">
     <div class="container">
       <div class="activity-tabs">
-        <div class="form-item form-type-select ng-hide" data-ng-show="dates.length > 0">
+        <div class="form-item form-type-select ng-hide" data-ng-show="activityC.dates.length > 0">
           <label for=""></label>
           <select class="form-select"
-                  data-ng-model="date_selected"
-                  data-ng-options="date.label for date in dates track by date.index">
+                  data-ng-model="activityC.date_selected"
+                  data-ng-options="date.label for date in activityC.dates track by date.index">
           </select>
         </div>
 
         <ul>
-          <li class="activity-tab" data-ng-repeat="activity_group in activity_groups"
-              data-ng-class="activityGroupClass($index)"
-              data-ng-click="activityGroupSet($index)">
+          <li class="activity-tab" data-ng-repeat="activity_group in activityC.activity_groups"
+              data-ng-class="activityC.activityGroupClass($index)"
+              data-ng-click="activityC.activityGroupSet($index)">
             <a href="#{{ '{{activity_group.machine_name}}' }}" data-toggle="tab">{{ '{{activity_group.name}}' }}</a>
           </li>
         </ul>
@@ -36,17 +36,17 @@
     <div class="container">
       <div class="row">
         <div class="activity-items ng-hide"
-             data-ng-repeat="activity_group in activity_groups"
+             data-ng-repeat="activity_group in activityC.activity_groups"
              data-ng-attr-id="{{ '{{activity_group.machine_name}}' }}"
-             data-ng-class="activityGroupClass($index)"
-             data-ng-show="activityGroupShow($index)">
+             data-ng-class="activityC.activityGroupClass($index)"
+             data-ng-show="activityC.activityGroupShow($index)">
           <div class="col-xs-12 col-sm-4" data-ng-repeat="activity in activity_group.activities">
             <div class="form-item-checkbox">
               <input id="checkbox-{{ '{{activity.id}}' }}" type="checkbox"
-                     data-ng-model="member_activities[date_selected.timestamp][activity.id]"
-                     data-ng-change="activityItemChange(activity.id)"
-                     data-ng-class="activityItemClass(activity.id)"
-                     data-ng-disabled="progress.active()">
+                     data-ng-model="activityC.member_activities[activityC.date_selected.timestamp][activity.id]"
+                     data-ng-change="activityC.activityItemChange(activity.id)"
+                     data-ng-class="activityC.activityItemClass(activity.id)"
+                     data-ng-disabled="activityC.progress.active()">
               <label for="checkbox-{{ '{{activity.id}}' }}"><span>{{ '{{activity.name}}' }}</span>
                 <small class="ng-hide" data-ng-show="activity.description">{{ '{{activity.description}}' }}</small>
               </label>
