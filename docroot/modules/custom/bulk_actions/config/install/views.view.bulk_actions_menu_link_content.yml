@@ -233,7 +233,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Menu Name'
+          label: 'Menu Name (machine name)'
           exclude: false
           alter:
             alter_text: false
@@ -283,7 +283,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Status
+          label: 'Enabled for display'
           exclude: false
           alter:
             alter_text: false
@@ -340,7 +340,7 @@ display:
           exposed: true
           expose:
             operator_id: menu_name_op
-            label: 'Menu name'
+            label: 'Menu Name (machine name)'
             description: ''
             use_operator: false
             operator: menu_name_op
@@ -383,7 +383,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: Status
+            label: 'Enabled for display'
             description: ''
             use_operator: false
             operator: enabled_op
