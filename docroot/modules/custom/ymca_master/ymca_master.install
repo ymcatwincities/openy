@@ -4387,3 +4387,14 @@ function ymca_master_update_8192() {
     'phpunit_tdd',
   ], TRUE);
 }
+
+/**
+ * Add a view to remove menu items in a bulk.
+ */
+function ymca_master_update_8193() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'modules/custom/bulk_actions/config/install/views.view.bulk_actions_menu_link_content.yml',
+    ]
+  );
+}
