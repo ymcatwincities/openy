@@ -7,7 +7,7 @@
     }
     $('body').addClass('ymca-retention-activity-processed');
 
-    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $cookies, promiseTracker, courier) {
+    Drupal.ymca_retention.angular_app.controller('ActivityController', function ($scope, $cookies, promiseTracker, courier, storage) {
       // Initiate the promise tracker to track submissions.
       $scope.progress = promiseTracker();
 
@@ -26,6 +26,7 @@
       $scope.setMemberActivities = function(data) {
         var $promise = courier.setMemberActivities(data).then(function(data) {
           $scope.member_activities = data;
+          storage.getMemberChances();
         });
 
         // Track the request and show its progress to the user.
