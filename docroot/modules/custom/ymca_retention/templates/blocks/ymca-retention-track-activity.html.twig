@@ -48,7 +48,7 @@
                      data-ng-class="activityItemClass(activity.id)"
                      data-ng-disabled="progress.active()">
               <label for="checkbox-{{ '{{activity.id}}' }}"><span>{{ '{{activity.name}}' }}</span>
-                <small>{{ '{{activity.description}}' }}</small>
+                <small class="ng-hide" data-ng-show="activity.description">{{ '{{activity.description}}' }}</small>
               </label>
             </div>
           </div>
