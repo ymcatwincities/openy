@@ -8,11 +8,11 @@
     $('body').addClass('ymca-retention-instant-win-processed');
 
 
-    Drupal.ymca_retention.angular_app.controller('InstantWinController', function ($scope, promiseTracker, storage) {
+    Drupal.ymca_retention.angular_app.controller('InstantWinController', function (promiseTracker, storage) {
       // Initiate the promise tracker to track submissions.
-      $scope.progress = promiseTracker();
+      this.progress = promiseTracker();
 
-      $scope.storage = storage;
+      this.storage = storage;
     });
   };
 
