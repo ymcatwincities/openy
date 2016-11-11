@@ -105,10 +105,30 @@
         return deferred.promise;
       }
 
+      function getMemberChances(id) {
+        var deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http.get(settings.ymca_retention.instant_win.member_chances_url).then(function(response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
       return {
         getMember: getMember,
         getMemberActivities: getMemberActivities,
-        setMemberActivities: setMemberActivities
+        setMemberActivities: setMemberActivities,
+        getMemberChances: getMemberChances
       };
     });
   };

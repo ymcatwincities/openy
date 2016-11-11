@@ -31,8 +31,8 @@ class MemberController extends ControllerBase {
     $member_values = [
       'firstName' => $member->getFirstName(),
     ];
-    $response = new JsonResponse($member_values);
 
+    $response = new JsonResponse($member_values);
     return $response;
   }
 
@@ -72,7 +72,6 @@ class MemberController extends ControllerBase {
     $member_activities = $service->getMemberActivitiesModel();
 
     $response = new JsonResponse($member_activities);
-
     return $response;
   }
 
@@ -85,8 +84,28 @@ class MemberController extends ControllerBase {
       return new JsonResponse();
     }
 
-    $response = new JsonResponse();
+    // Check that member exists.
+    $member = Member::load($member_id);
+    if (!$member) {
+      return new JsonResponse();
+    }
 
+    $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+      ->condition('member', $member_id)
+      ->execute();
+    $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_chance');
+    $chances = $storage->loadMultiple($chances_ids);
+
+    $chances_values = [];
+    foreach ($chances as $chance) {
+      $chances_values[] = [
+        'type' => $chance->get('type')->value,
+        'played' => $chance->get('played')->value,
+        'message' => $chance->get('message')->value,
+      ];
+    }
+
+    $response = new JsonResponse($chances_values);
     return $response;
   }
 

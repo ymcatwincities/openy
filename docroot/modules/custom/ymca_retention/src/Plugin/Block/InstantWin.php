@@ -33,7 +33,7 @@ class InstantWin extends BlockBase {
         'drupalSettings' => [
           'ymca_retention' => [
             'instant_win' => [
-              'member_url' => $chances_url,
+              'member_chances_url' => $chances_url,
             ],
           ],
         ],
