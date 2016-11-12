@@ -12,25 +12,23 @@
       // Shared information.
       self.storage = storage;
 
-      self.dates = settings.ymca_retention.activity.dates;
-      self.activity_groups = settings.ymca_retention.activity.activity_groups;
-      self.date_index = -1;
-      self.dates.forEach(function (item, i, arr) {
+      self.current_date_index = -1;
+      self.storage.dates.forEach(function (item, i, arr) {
         if (item.past) {
-          self.date_index = i;
+          self.current_date_index = i;
         }
       });
-      self.date_selected = this.dates[this.date_index];
+      self.date_selected = self.storage.dates[self.current_date_index];
 
       self.dateClass = function (index) {
         var classes = [];
-        if (self.dates[index].past) {
+        if (self.storage.dates[index].past) {
           classes.push('campaign-dates--date-past');
         }
-        if (self.date_index === index) {
+        if (self.date_selected.index === index) {
           classes.push('campaign-dates--date-current');
         }
-        if (self.dates[index].future) {
+        if (self.storage.dates[index].future) {
           classes.push('campaign-dates--date-future');
         }
 
@@ -46,8 +44,8 @@
         }
 
         var count = 0;
-        for (var activity in self.storage.member_activities[self.dates[index].timestamp]) {
-          if (self.storage.member_activities[self.dates[index].timestamp][activity]) {
+        for (var activity in self.storage.member_activities[self.storage.dates[index].timestamp]) {
+          if (self.storage.member_activities[self.storage.dates[index].timestamp][activity]) {
             count++;
           }
         }
@@ -57,16 +55,16 @@
       self.activity_group_index = 0;
       self.activityGroupClass = function (index) {
         var classes = [];
-        if (self.activity_groups[index].name === 'Swim') {
+        if (self.storage.activity_groups[index].name === 'Swim') {
           classes.push('activity-tab__type-a');
         }
-        if (self.activity_groups[index].name === 'Fitness') {
+        if (self.storage.activity_groups[index].name === 'Fitness') {
           classes.push('activity-tab__type-b');
         }
-        if (self.activity_groups[index].name === 'Free Group X') {
+        if (self.storage.activity_groups[index].name === 'Free Group X') {
           classes.push('activity-tab__type-c');
         }
-        if (self.activity_groups[index].name === 'Community') {
+        if (self.storage.activity_groups[index].name === 'Community') {
           classes.push('activity-tab__type-d');
         }
         if (self.activity_group_index === index) {
