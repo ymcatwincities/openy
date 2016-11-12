@@ -86,9 +86,10 @@ class ActivityManager implements ActivityManagerInterface {
       $date_diff_now = $date->diff($date_now);
       $dates[] = [
         'index' => $i,
-        'weekday' => $date->format('D'),
         'label' => $date->format('l n/j'),
+        'weekday' => $date->format('l'),
         'month_day' => $date->format('j'),
+        'month' => $date->format('M'),
         'timestamp' => $timestamp,
         'past' => !(bool) $date_diff_now->invert,
         'future' => (bool) $date_diff_now->invert,
