@@ -4,9 +4,46 @@
  * Display member progress report.
  */
 #}
-<div class="inner-container">
-  <table class="yfr-table-progress">
+<div class="inner-container"
+     data-ng-controller="ProgressController as progressC">
+  <div data-ng-show="!retentionC.storage.member">
+    <p>{{ 'Please login or register.'|t }}</p>
+  </div>
+  <table class="yfr-table-progress ng-hide"
+         data-ng-show="retentionC.storage.member">
     <tbody>
+
+    <tr data-ng-repeat="date in progressC.storage.dates">
+      <td>
+        <div class="form-item form-type-checkbox">
+          <input type="checkbox" checked class="form-checkbox"
+                 data-ng-attr-id="checkbox-{{ '{{date.index}}' }}"/>
+          <label data-ng-attr-for="checkbox-{{ '{{date.index}}' }}"></label>
+        </div>
+
+        <div class="info-date">
+          <div class="date-wrapper">
+            <span class="date">{{ '{{date.month_day}}' }}</span>
+            <span class="month">{{ '{{date.month}}' }}</span>
+          </div>
+          <span class="weekday">{{ '{{date.weekday}}' }}</span>
+        </div>
+      </td>
+      <td>
+        <span class="info-activity check">check-in</span>
+      </td>
+      <td data-ng-repeat="activity_group in progressC.storage.activity_groups">
+        <div class="item-activity"
+             data-ng-class="progressC.activityGroupClass($index)">
+          <span class="activity"></span>
+          <span class="separator"></span>
+          <span class="counter">{{ '{{progressC.storage.member_activities[date.timestamp].length}}' }}</span>
+        </div>
+      </td>
+    </tr>
+
+
+
     <tr>
       <td>
         <div class="form-item form-type-checkbox">
