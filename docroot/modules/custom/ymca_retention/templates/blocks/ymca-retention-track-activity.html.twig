@@ -14,16 +14,16 @@
   <div class="yfr-activities__header">
     <div class="container">
       <div class="activity-tabs">
-        <div class="form-item form-type-select ng-hide" data-ng-show="activityC.dates.length > 0">
+        <div class="form-item form-type-select ng-hide" data-ng-show="activityC.storage.dates.length > 0">
           <label for=""></label>
           <select class="form-select"
                   data-ng-model="activityC.date_selected"
-                  data-ng-options="date.label for date in activityC.dates track by date.index">
+                  data-ng-options="date.label for date in activityC.storage.dates track by date.index">
           </select>
         </div>
 
         <ul>
-          <li class="activity-tab" data-ng-repeat="activity_group in activityC.activity_groups"
+          <li class="activity-tab" data-ng-repeat="activity_group in activityC.storage.activity_groups"
               data-ng-class="activityC.activityGroupClass($index)"
               data-ng-click="activityC.activityGroupSet($index)">
             <a href="#{{ '{{activity_group.machine_name}}' }}" data-toggle="tab">{{ '{{activity_group.name}}' }}</a>
@@ -36,7 +36,7 @@
     <div class="container">
       <div class="row">
         <div class="activity-items ng-hide"
-             data-ng-repeat="activity_group in activityC.activity_groups"
+             data-ng-repeat="activity_group in activityC.storage.activity_groups"
              data-ng-attr-id="{{ '{{activity_group.machine_name}}' }}"
              data-ng-class="activityC.activityGroupClass($index)"
              data-ng-show="activityC.activityGroupShow($index)">
