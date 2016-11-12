@@ -119,6 +119,9 @@
       // Initiate the promise tracker to track submissions.
       self.progress = promiseTracker();
 
+      self.dates = settings.ymca_retention.activity.dates;
+      self.activity_groups = settings.ymca_retention.activity.activity_groups;
+
       // Force to check cookie value.
       $interval(function() {
         $cookies.get('Drupal.visitor.ymca_retention_member');
@@ -131,7 +134,6 @@
         self.getMember(newVal);
         self.getMemberChancesById(newVal);
         self.getMemberActivities(newVal);
-        // self.date_selected = self.dates[self.date_index];
       });
 
       self.getMember = function(id) {
