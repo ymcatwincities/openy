@@ -13,7 +13,8 @@
          data-ng-show="retentionC.storage.member">
     <tbody>
 
-    <tr data-ng-repeat="date in progressC.storage.dates">
+    <tr data-ng-repeat="date in progressC.storage.dates"
+        data-ng-class="progressC.dateClass(date)">
       <td>
         <div class="form-item form-type-checkbox">
           <input type="checkbox" checked class="form-checkbox"
@@ -34,10 +35,12 @@
       </td>
       <td data-ng-repeat="activity_group in progressC.storage.activity_groups">
         <div class="item-activity"
-             data-ng-class="progressC.activityGroupClass($index)">
+             data-ng-class="progressC.activityGroupClass(date.timestamp, activity_group)">
           <span class="activity"></span>
-          <span class="separator"></span>
-          <span class="counter">{{ '{{progressC.storage.member_activities[date.timestamp].length}}' }}</span>
+          <span class="separator ng-hide"
+                data-ng-show="progressC.activitiesCount(date.timestamp, activity_group)"></span>
+          <span class="counter ng-hide"
+                data-ng-show="progressC.activitiesCount(date.timestamp, activity_group)">{{ '{{progressC.activitiesCount(date.timestamp, activity_group)}}' }}</span>
         </div>
       </td>
     </tr>
