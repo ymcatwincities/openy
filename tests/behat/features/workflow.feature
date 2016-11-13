@@ -19,7 +19,7 @@ Feature: Editing workflow
     Given I am logged in as an administrator
     And I am on "/contributed_article"
     Then I click "Edit"
-    And I select "Published" from "Target state"
+    And I select "Publish" from "Target state"
     And I press "Save"
     And I go to "/user/logout"
     And I go to "/contributed_article"
