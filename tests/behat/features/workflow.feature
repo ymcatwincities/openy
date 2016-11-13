@@ -1,4 +1,4 @@
-@fast-tests @headless
+@fast-tests @headless @api
 Feature: Editing workflow
 
   Scenario: Workflow for contributor
