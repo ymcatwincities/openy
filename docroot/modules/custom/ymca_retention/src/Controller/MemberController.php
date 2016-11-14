@@ -138,4 +138,5 @@ class MemberController extends ControllerBase {
 
     return new JsonResponse($checkin_values);
   }
+
 }
