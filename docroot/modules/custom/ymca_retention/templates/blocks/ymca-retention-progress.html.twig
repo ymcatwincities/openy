@@ -17,8 +17,9 @@
         data-ng-class="progressC.dateClass(date)">
       <td>
         <div class="form-item form-type-checkbox">
-          <input type="checkbox" checked class="form-checkbox"
-                 data-ng-attr-id="checkbox-{{ '{{date.index}}' }}"/>
+          <input type="checkbox" class="form-checkbox"
+                 data-ng-attr-id="checkbox-{{ '{{date.index}}' }}"
+                 data-ng-disabled="date.future"/>
           <label data-ng-attr-for="checkbox-{{ '{{date.index}}' }}"></label>
         </div>
 
