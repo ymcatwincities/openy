@@ -311,6 +311,13 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getPersonifyId() {
+    return $this->get('personify_id')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setMemberId($member_id) {
     $this->set('membership_id', $member_id);
     return $this;

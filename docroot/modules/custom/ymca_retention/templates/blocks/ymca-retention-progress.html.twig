@@ -16,10 +16,8 @@
     <tr data-ng-repeat="date in progressC.storage.dates"
         data-ng-class="progressC.dateClass(date)">
       <td>
-        <div class="form-item form-type-checkbox">
-          <input type="checkbox" class="form-checkbox"
-                 data-ng-attr-id="checkbox-{{ '{{date.index}}' }}"
-                 data-ng-disabled="date.future"/>
+        <div class="item-check" data-ng-class="progressC.checkInClass(date.timestamp)">
+          <span></span>
           <label data-ng-attr-for="checkbox-{{ '{{date.index}}' }}"></label>
         </div>
 
@@ -32,7 +30,9 @@
         </div>
       </td>
       <td>
-        <span class="info-activity check">check-in</span>
+        <span class="info-activity"
+              data-ng-show="progressC.checkInStatus(date)"
+              data-ng-class="progressC.checkInClass(date.timestamp)">{{ '{{progressC.checkInStatus(date)}}' }}</span>
       </td>
       <td data-ng-repeat="activity_group in progressC.storage.activity_groups">
         <div class="item-activity"

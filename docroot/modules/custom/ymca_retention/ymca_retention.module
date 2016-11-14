@@ -206,7 +206,7 @@ function ymca_retention_cron() {
   /** @var \Drupal\ymca_retention\RegularUpdater $regular_updater */
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
-  // Check if cron was run today.
+  // Check if cron was run today and settings allow to create a queue.
   if (!$regular_updater->isAllowed()) {
     return;
   }
@@ -245,6 +245,14 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   $chances = $chances_storage->loadByProperties(['member' => $entity->getId()]);
   if (!empty($chances)) {
     $chances_storage->delete($chances);
+  }
+
+  // Remove member checkins.
+  $checkins_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_checkin');
+  $checkins = $checkins_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($checkins)) {
+    $checkins_storage->delete($checkins);
   }
 }
 

@@ -44,10 +44,7 @@ class SettingsCronForm extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('ymca_retention.regular_updater'),
-      $container->get('date.formatter')
-    );
+    return new static($container->get('ymca_retention.regular_updater'), $container->get('date.formatter'));
   }
 
   /**
@@ -67,7 +64,7 @@ class SettingsCronForm extends FormBase {
 
     $form['last_run'] = [
       '#type' => '#markup',
-      '#markup' => $this->t('Cron last run: %timestamp', [
+      '#markup' => $this->t('Queue last created: %timestamp', [
         '%timestamp' => $last_run,
       ]),
     ];
@@ -75,9 +72,16 @@ class SettingsCronForm extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Run cron'),
+      '#value' => $this->t('Create a queue'),
       '#button_type' => 'primary',
     );
+    if (\Drupal::moduleHandler()->moduleExists('queue_ui')) {
+      $form['actions']['run_queue'] = array(
+        '#type' => 'submit',
+        '#value' => $this->t('Run queue'),
+        '#button_type' => 'secondary',
+      );
+    }
 
     return $form;
   }
@@ -86,8 +90,31 @@ class SettingsCronForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->regularUpdater->runUpdate();
-    drupal_set_message($this->t('Cron run successfully.'));
+    $button = $form_state->getTriggeringElement();
+    if ($button['#button_type'] == 'primary') {
+      if ($this->regularUpdater->isAllowed()) {
+        $this->regularUpdater->createQueue();
+        drupal_set_message($this->t('Queue successfully created.'));
+      }
+      else {
+        drupal_set_message($this->t('Creating queue is not allowed now. Queue is already exist or campaign settings does not allow create queue.'), 'error');
+      }
+    }
+    else if (\Drupal::moduleHandler()->moduleExists('queue_ui')) {
+      // Process queue with batch.
+      $queue = \Drupal::queue('ymca_retention_updates_member_visits');
+      $batch = [
+        'operations' => [],
+      ];
+      foreach (range(1, $queue->numberOfItems()) as $index) {
+        $batch['operations'][] = [
+          '\Drupal\queue_ui\QueueUIBatch::step',
+          ['ymca_retention_updates_member_visits'],
+        ];
+      }
+      batch_set($batch);
+      drupal_set_message($this->t('Queue has been executed.'));
+    }
   }
 
 }
