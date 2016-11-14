@@ -67,7 +67,7 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
    *
    * @throws DaxkoClientException.
    */
-  public function __call($name, array $args = []) {
+  public function __call($name = '', array $args = []) {
     switch ($name) {
       case 'makeRequest':
         throw new DaxkoClientException(sprintf('Please, extend Daxko client!', $name));
