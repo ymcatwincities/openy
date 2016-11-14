@@ -32,6 +32,12 @@ class MemberLoginForm extends FormBase {
     }
 
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
+
+    if ($verify_membership_id === NULL) {
+      $verify_membership_id = $config['verify_membership_id'];
+      $form_state->setTemporaryValue('verify_membership_id', $verify_membership_id);
+    }
+
     $validate = [get_class($this), 'elementValidateRequired'];
     if (empty($verify_membership_id)) {
       $form['mail'] = [
@@ -58,10 +64,10 @@ class MemberLoginForm extends FormBase {
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $this->t('Your facility access ID'),
+            $this->t('Your member ID'),
           ],
         ],
-        '#element_required_error' => $this->t('Facility access ID is required.'),
+        '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => $validate,
       ];
     }
@@ -180,18 +186,26 @@ class MemberLoginForm extends FormBase {
       }
       // Get membership id and try find it in database.
       $membership_id = $form_state->getValue('membership_id');
-      $mail = $form_state->getValue('mail');
-      $query = \Drupal::entityQuery('ymca_retention_member')
-        ->condition('mail', $mail)
-        ->condition('membership_id', $membership_id);
+      $query = \Drupal::entityQuery('ymca_retention_member')->condition('membership_id', $membership_id);
+
+      if ($mail = $form_state->getValue('mail')) {
+        $query->condition('mail', $mail);
+      }
+
       $result = $query->execute();
       if (empty($result)) {
-        $form_state->setErrorByName('mail', $this->t('Member with email %mail and facility id %fai is not registered. Please register.', [
-          '%mail' => $mail,
-          '%fai' => $membership_id,
-        ]));
+        $args = ['%mid' => $membership_id];
+        $msg = 'Member with member ID %mid is not registered. Please register.';
+
+        if ($mail) {
+          $msg = 'Member with email %mail and member ID %mid is not registered. Please register.';
+          $args['%mail'] = $mail;
+        }
+
+        $form_state->setErrorByName('membership_id', $this->t($msg, $args));
         return;
       }
+
       $form_state->setTemporaryValue('member', reset($result));
     }
   }

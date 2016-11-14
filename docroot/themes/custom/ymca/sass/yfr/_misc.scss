@@ -51,5 +51,10 @@ html, body {
       background-image: none;
       background-color: $orange-light-lighter;
     }
+
+    &.red-medium {
+      background-image: none;
+      background-color: $red-disabled;
+    }
   }
 }
