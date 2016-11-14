@@ -53,20 +53,10 @@
       };
 
       self.activity_group_index = 0;
-      self.activityGroupClass = function (index) {
+      self.activityGroupClass = function (index, activity_group) {
         var classes = [];
-        if (self.storage.activity_groups[index].name === 'Swim') {
-          classes.push('activity-tab__type-a');
-        }
-        if (self.storage.activity_groups[index].name === 'Fitness') {
-          classes.push('activity-tab__type-b');
-        }
-        if (self.storage.activity_groups[index].name === 'Free Group X') {
-          classes.push('activity-tab__type-c');
-        }
-        if (self.storage.activity_groups[index].name === 'Community') {
-          classes.push('activity-tab__type-d');
-        }
+        classes.push('activity-tab__type-' + activity_group.retention_activity_id);
+
         if (self.activity_group_index === index) {
           classes.push('active');
         }
