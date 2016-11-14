@@ -132,28 +132,30 @@
 
     &:after,
     &:before {
-      content: ' ';
+      @include translateX(50%);
+      content: '';
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
-      height: 100%;
-      right: 0;
+      height: 80%;
+      right: 50%;
       position: absolute;
-      top: 0;
-      width: 100%;
+      bottom: -12%;
+      width: 80%;
     }
 
     &:after {
       background-image: url(../prototypes/yfr/img/tabs/gift.jpg);
       background-size: contain;
-    }
 
-    @include breakpoint($tablet) {
-      height: 100%;
-      right: 0;
-      position: relative;
-      top: 0;
-      width: 5 / 12 * 100%;
+      @include breakpoint($tablet) {
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 5 / 12 * 100%;
+        @include translateX(0);
+      }
     }
   }
 
