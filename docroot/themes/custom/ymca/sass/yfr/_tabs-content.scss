@@ -330,11 +330,11 @@
     margin: 0;
   }
 
-  .form-type-checkbox {
+  .item-check {
     display: inline-block;
     vertical-align: top;
 
-    label {
+    span {
       @include rem(width, 52px);
       @include rem(height, 52px);
       @include border-radius(50%);
@@ -359,14 +359,9 @@
         content: '';
       }
     }
-  }
 
-  .form-checkbox {
-    opacity: 0;
-    position: absolute;
-
-    &:checked {
-      + label {
+    &.active {
+      span {
         &:before {
           @include transform(translate(-50%, -50%) scale(1));
           background-color: $orange-medium-lighter;
@@ -374,8 +369,8 @@
       }
     }
 
-    &:disabled {
-      + label {
+    &.disabled {
+      span {
         border-color: $grey12;
         cursor: default;
 
