@@ -1819,6 +1819,86 @@ html, body {
 .yfr-game__widget .yfr-game-btn .btn.red-medium {
   color: #814044;
 }
+.yfr-game__widget .yfr-game__win {
+  text-align: center;
+  color: #fff;
+}
+.yfr-game__widget .yfr-game__win .win {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: bold;
+  padding: 10px;
+  padding: 1rem;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  margin: 0 auto 24px;
+  margin: 0 auto 2.4rem;
+  font-size: 60px;
+  line-height: 114px;
+  background: #dd5828;
+  max-width: 234px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.yfr-game__widget .yfr-game__win .win span {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  display: block;
+  background: #e46b24;
+  border: 1px solid #e97922;
+}
+.yfr-game__widget .yfr-game__win .win:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9Ii0wLjA2NTAxOCIgeTE9IjAuMDg5NDkiIHgyPSIxLjA2NTAxOCIgeTI9IjAuOTEwNTEiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PHN0b3Agb2Zmc2V0PSIzMSUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PHN0b3Agb2Zmc2V0PSIzOCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PHN0b3Agb2Zmc2V0PSIzOCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4wIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAuMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -moz-linear-gradient(324deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 31%, rgba(255, 255, 255, 0.1) 38%, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-linear-gradient(324deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 31%, rgba(255, 255, 255, 0.1) 38%, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(126deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 31%, rgba(255, 255, 255, 0.1) 38%, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0) 100%);
+  background-blend-mode: multiply;
+}
+.yfr-game__widget .yfr-game__win .description {
+  font-size: 15px;
+  line-height: 26px;
+  color: #897364;
+  max-width: 236px;
+  width: 100%;
+  margin: 0 auto;
+}
+.yfr-game__widget .yfr-game__win .description span {
+  color: #fff;
+}
+.yfr-game__widget .yfr-game__win .actions input[type=submit] {
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: bold;
+  padding: 0 28px;
+  padding: 0 2.8rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #fcaf17;
+  color: #fcaf17;
+  line-height: 62px;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 30px;
+}
+.yfr-game__widget .yfr-game__win .actions input[type=submit]:hover {
+  border-bottom: 1px solid #f47920;
+  color: #f47920;
+}
 
 @-moz-keyframes rotateGame {
   from {
