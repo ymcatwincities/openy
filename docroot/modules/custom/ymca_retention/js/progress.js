@@ -22,18 +22,7 @@
 
       self.activityGroupClass = function (timestamp, activity_group) {
         var classes = [];
-        if (activity_group.name === 'Swim') {
-          classes.push('item-activity-type__a');
-        }
-        if (activity_group.name === 'Fitness') {
-          classes.push('item-activity-type__b');
-        }
-        if (activity_group.name === 'Free Group X') {
-          classes.push('item-activity-type__c');
-        }
-        if (activity_group.name === 'Community') {
-          classes.push('item-activity-type__d');
-        }
+        classes.push('item-activity-type__' + activity_group.retention_activity_id);
 
         if (self.activitiesCount(timestamp, activity_group)) {
           classes.push('active');
