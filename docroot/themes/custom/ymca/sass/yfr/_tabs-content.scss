@@ -1097,7 +1097,7 @@
       @include rem(margin, 0 auto 24px);
       font-size: 60px;
       line-height: 114px;
-      background: #dd5828;
+      background: $orange-dark-lighter-4;
       max-width: 234px;
       width: 100%;
       position: relative;
@@ -1106,8 +1106,8 @@
       span {
         @include border-radius(4px);
         display: block;
-        background: #e46b24;
-        border: 1px solid #e97922;
+        background: $orange-dark-lighter-3;
+        border: 1px solid $orange-dark-lighter-2;
       }
 
       &:before {
@@ -1126,7 +1126,7 @@
     .description {
       font-size: 15px;
       line-height: 26px;
-      color: #897364;
+      color: $grey19;
       max-width: 236px;
       width: 100%;
       margin: 0 auto;
