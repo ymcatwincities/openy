@@ -23,6 +23,7 @@ class UserMenu extends BlockBase {
     $config = [
       'theme' => 'ymca_retention_login_form_modal',
       'wrapper' => 'ymca-retention-user-menu-login-form form',
+      'verify_membership_id' => TRUE,
     ];
     $login_form = \Drupal::formBuilder()
       ->getForm('\Drupal\ymca_retention\Form\MemberLoginForm', $config);

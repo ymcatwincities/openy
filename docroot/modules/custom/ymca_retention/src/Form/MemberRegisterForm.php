@@ -52,13 +52,13 @@ class MemberRegisterForm extends FormBase {
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your facility access ID'),
+            $config['yteam'] ? $this->t('Member ID') : $this->t('Your member ID'),
           ],
           'class' => [
             'facility-access-id',
           ],
         ],
-        '#element_required_error' => $this->t('Facility access ID is required.'),
+        '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => [
           $validate_required,
         ],
@@ -182,7 +182,7 @@ class MemberRegisterForm extends FormBase {
       $form_state->set('membership_id', $membership_id);
       // Numeric validation.
       if (!is_numeric($membership_id)) {
-        $form_state->setErrorByName('membership_id', $this->t('Facility Access ID should be numeric.'));
+        $form_state->setErrorByName('membership_id', $this->t('Member ID should be numeric.'));
         return;
       }
     }
@@ -192,7 +192,7 @@ class MemberRegisterForm extends FormBase {
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('membership_id', $this->t('The facility access ID is already registered. Please sign in.'));
+      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please sign in.'));
       return;
     }
 
@@ -203,7 +203,7 @@ class MemberRegisterForm extends FormBase {
         || !empty($personify_result->ErrorMessage)
         || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0
       ) {
-        $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this facility access ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
+        $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this member ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
         return;
       }
       elseif ($config['yteam'] && empty($personify_result->PrimaryEmail)) {
