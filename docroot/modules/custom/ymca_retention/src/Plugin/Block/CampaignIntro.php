@@ -66,13 +66,13 @@ class CampaignIntro extends BlockBase {
     $date_formatter = \Drupal::service('date.formatter');
 
     // Prepare campaign dates.
-    $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'M j');
+    $dates = $date_formatter->format($date_start->getTimestamp(), 'custom', 'F j');
     $dates .= ' – ';
     if ($date_start->format('F') == $date_end->format('F')) {
       $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'j');
     }
     else {
-      $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'M j');
+      $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F j');
     }
 
     $hero_path = drupal_get_path('theme', 'ymca') . '/prototypes/yfr/img/hero/';

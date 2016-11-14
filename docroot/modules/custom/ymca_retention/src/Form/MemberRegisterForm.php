@@ -72,7 +72,7 @@ class MemberRegisterForm extends FormBase {
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $this->t('Your e-mail'),
+            $this->t('Your email'),
           ],
         ],
         '#element_required_error' => $this->t('Email is required.'),
