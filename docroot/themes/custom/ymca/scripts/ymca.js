@@ -12,25 +12,40 @@
    * Scroll to the hash anchor.
    */
   Drupal.behaviors.ymca_page_with_hash = {
-    attached: false,
     attach: function (context, settings) {
-      var hash = $(window).attr('location').hash;
-      var ismembership = window.location.pathname.endsWith("membership");
-      if (hash && !this.attached && !ismembership) {
-        window.setTimeout(function() {
-          var menuHeight = $('.top-navs').height();
-          var top = $(hash).offset().top;
-          if ($('.top-navs').height() == 0) {
-            // For mobile state.
-            $(document).scrollTop(top - 52);
-          }
-          else {
-            // Destop mode.
-            $(document).scrollTop(top - 113);
-          }
-        }, 1000);
-        this.attached = true;
+
+      function scroll() {
+        var hash = $(window).attr('location').hash;
+        var isMembership = window.location.pathname.endsWith("membership");
+
+        if (!hash) {
+          return;
+        }
+
+        if (isMembership) {
+          return;
+        }
+
+        var menuHeight = $('.top-navs').height();
+        var top = $(hash).offset().top;
+        if (menuHeight == 0) {
+          // Mobile.
+          $(document).scrollTop(top - 52);
+        }
+        else {
+          // Desktop.
+          $(document).scrollTop(top - 113);
+        }
       }
+
+      // Scroll to anchor on page load.
+      window.setTimeout(scroll, 1000);
+
+      // Scroll to anchor after the click on the link with anchor.
+      $('a[href*="#"]').on('click', function (event) {
+        window.setTimeout(scroll, 0);
+      });
+
     }
   };
 
