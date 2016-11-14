@@ -155,16 +155,34 @@
       self.getMemberActivities = function(id) {
         courier.getMemberActivities(id).then(function(data) {
           self.member_activities = data;
+          self.memberActivitesCounts();
         });
       };
       self.setMemberActivities = function(data) {
         var $promise = courier.setMemberActivities(data).then(function(data) {
           self.member_activities = data;
+          self.memberActivitesCounts();
           self.getMemberChances();
         });
 
         // Track the request and show its progress to the user.
         self.progress.addPromise($promise);
+      };
+      self.memberActivitesCounts = function() {
+        var count;
+        self.member_activities_counts = {};
+        for (var timestamp in self.member_activities) {
+          self.member_activities_counts[timestamp] = {};
+          for (var activity_group in self.activity_groups) {
+            count = 0;
+            for (var activity in self.activity_groups[activity_group].activities) {
+              if (self.member_activities[timestamp][self.activity_groups[activity_group].activities[activity].id]) {
+                count++;
+              }
+            }
+            self.member_activities_counts[timestamp][self.activity_groups[activity_group].id] = count;
+          }
+        }
       };
 
       self.memberCookieRemove = function() {

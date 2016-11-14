@@ -32,18 +32,11 @@
       };
 
       self.activitiesCount = function(timestamp, activity_group) {
-        if (typeof self.storage.member_activities === 'undefined') {
+        if (typeof self.storage.member_activities_counts === 'undefined') {
           return 0;
         }
 
-        var count = 0;
-        for (var activity in activity_group.activities) {
-          if (self.storage.member_activities[timestamp][activity_group.activities[activity].id]) {
-            count++;
-          }
-        }
-
-        return count;
+        return self.storage.member_activities_counts[timestamp][activity_group.id];
       };
     });
   };
