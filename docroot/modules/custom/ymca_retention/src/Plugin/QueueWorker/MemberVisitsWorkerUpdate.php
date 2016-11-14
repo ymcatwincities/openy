@@ -72,10 +72,13 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       return;
     }
     foreach ($results->FacilityVisitCustomerRecord as $item) {
+      if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
+        continue;
+      }
       // Create check-in record.
       $checkin = MemberCheckIn::create([
         'created' => $date_from->getTimestamp(),
-        'checkin' => isset($item->TotalVisits) && $item->TotalVisits != 0,
+        'checkin' => TRUE,
         'member' => array_search($item->MasterCustomerId, $list_ids),
       ]);
       $checkin->save();

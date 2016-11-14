@@ -63,4 +63,11 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
     return $fields;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getMember() {
+    return $this->get('member')->target_id;
+  }
+
 }
