@@ -32,7 +32,8 @@
       };
 
       self.activitiesCount = function(timestamp, activity_group) {
-        if (typeof self.storage.member_activities_counts === 'undefined') {
+        if (typeof self.storage.member_activities_counts === 'undefined'
+          || !self.storage.member_activities_counts) {
           return 0;
         }
 

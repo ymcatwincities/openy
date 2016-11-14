@@ -169,6 +169,11 @@
         self.progress.addPromise($promise);
       };
       self.memberActivitesCounts = function() {
+        if (!self.member_activities) {
+          self.member_activities_counts = null;
+          return;
+        }
+
         var count;
         self.member_activities_counts = {};
         for (var timestamp in self.member_activities) {
