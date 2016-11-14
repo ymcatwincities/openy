@@ -130,6 +130,7 @@ class ActivityManager implements ActivityManagerInterface {
         'machine_name' => Html::getId($parent->getName()),
         'description' => $parent->getDescription(),
         'activities' => $activities,
+        'retention_activity_id' => $parent->get('field_retention_activity_id')->value,
       ];
     }
 

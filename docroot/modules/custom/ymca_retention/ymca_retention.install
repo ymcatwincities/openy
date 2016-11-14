@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\taxonomy\TermStorage;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Update YMCA Retention Members view.
@@ -156,6 +158,10 @@ function ymca_retention_update_8012() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
+      $path . 'core.entity_form_display.taxonomy_term.ymca_retention_activities.default.yml',
+      $path . 'core.entity_view_display.taxonomy_term.ymca_retention_activities.default.yml',
+      $path . 'field.field.taxonomy_term.ymca_retention_activities.field_retention_activity_id.yml',
+      $path . 'field.storage.taxonomy_term.field_retention_activity_id.yml',
       $path . 'ymca_retention.api.yml',
       $path . 'ymca_retention.general_settings.yml',
       $path . 'page_manager.page.ymca_retention_challenge.yml',
@@ -165,6 +171,32 @@ function ymca_retention_update_8012() {
       $path . 'page_manager.page_variant.ymca_retention_challenge_team.yml',
     ]
   );
+
+  /** @var TermStorage $term_storage */
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $parents = $term_storage->loadTree('ymca_retention_activities', 0, 1, TRUE);
+  /** @var Term $parent */
+  foreach ($parents as $parent) {
+    switch ($parent->id()) {
+      case 121:
+        $parent->set('field_retention_activity_id', 'a');
+        break;
+
+      case 181:
+        $parent->set('field_retention_activity_id', 'b');
+        break;
+
+      case 251:
+        $parent->set('field_retention_activity_id', 'c');
+        break;
+
+      case 296:
+        $parent->set('field_retention_activity_id', 'd');
+        break;
+    }
+
+    $parent->save();
+  }
 }
 
 /**

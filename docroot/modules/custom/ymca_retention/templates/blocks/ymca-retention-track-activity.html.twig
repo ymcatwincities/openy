@@ -23,7 +23,7 @@
 
         <ul>
           <li class="activity-tab" data-ng-repeat="activity_group in activityC.storage.activity_groups"
-              data-ng-class="activityC.activityGroupClass($index)"
+              data-ng-class="activityC.activityGroupClass($index, activity_group)"
               data-ng-click="activityC.activityGroupSet($index)">
             <a href="#{{ '{{activity_group.machine_name}}' }}" data-toggle="tab">{{ '{{activity_group.name}}' }}</a>
           </li>
@@ -37,7 +37,7 @@
         <div class="activity-items ng-hide"
              data-ng-repeat="activity_group in activityC.storage.activity_groups"
              data-ng-attr-id="{{ '{{activity_group.machine_name}}' }}"
-             data-ng-class="activityC.activityGroupClass($index)"
+             data-ng-class="activityC.activityGroupClass($index, activity_group)"
              data-ng-show="activityC.activityGroupShow($index)">
           <div class="col-xs-12 col-sm-4" data-ng-repeat="activity in activity_group.activities">
             <div class="form-item-checkbox">
