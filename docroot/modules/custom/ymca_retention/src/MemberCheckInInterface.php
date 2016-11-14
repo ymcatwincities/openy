@@ -11,4 +11,12 @@ use Drupal\Core\Entity\ContentEntityInterface;
  */
 interface MemberCheckInInterface extends ContentEntityInterface {
 
+  /**
+   * Returns the member id.
+   *
+   * @return int
+   *   Member id.
+   */
+  public function getMember();
+
 }
