@@ -83,6 +83,7 @@ interface MemberInterface extends ContentEntityInterface {
    *   The personify id.
    */
   public function getPersonifyId();
+
   /**
    * Returns user first name.
    *

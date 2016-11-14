@@ -103,7 +103,7 @@ class SettingsCronForm extends FormBase {
         drupal_set_message($this->t('Creating queue is not allowed now. Queue is already exist or campaign settings does not allow create queue.'), 'error');
       }
     }
-    else if (\Drupal::moduleHandler()->moduleExists('queue_ui')) {
+    elseif (\Drupal::moduleHandler()->moduleExists('queue_ui')) {
       // Process queue with batch.
       $queue = \Drupal::queue('ymca_retention_updates_member_visits');
       $batch = [
