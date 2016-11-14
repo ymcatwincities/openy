@@ -1552,6 +1552,20 @@ html, body {
 .yfr-activities__content .activity-items .form-item-checkbox input:checked + label small {
   color: rgba(255, 255, 255, 0.5);
 }
+.yfr-activities__content .activity-items .form-item-checkbox input.activity--click-last:disabled + label:before {
+  height: 34px;
+  height: 3.4rem;
+  width: 34px;
+  width: 3.4rem;
+  left: 18px;
+  left: 1.8rem;
+  background-size: 34px 34px;
+  background-size: 3.4rem 3.4rem;
+  background-image: url(../prototypes/yfr/img/tabs/throbber-white.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  content: '';
+}
 .yfr-activities__content .actions {
   margin: 40px auto 0;
   margin: 4rem auto 0;

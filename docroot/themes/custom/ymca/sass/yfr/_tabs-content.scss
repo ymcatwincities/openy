@@ -830,6 +830,19 @@
           color: rgba(255, 255, 255, 0.5);
         }
       }
+
+      input.activity--click-last:disabled + label {
+        &:before {
+          @include rem(height, 34px);
+          @include rem(width, 34px);
+          @include rem(left, 18px);
+          @include rem(background-size, 34px 34px);
+          background-image: url(../prototypes/yfr/img/tabs/throbber-white.svg);
+          background-position: center center;
+          background-repeat: no-repeat;
+          content: '';
+        }
+      }
     }
   }
 
