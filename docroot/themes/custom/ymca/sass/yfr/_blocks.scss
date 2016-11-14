@@ -79,9 +79,9 @@
 
 .yfr-full-width-prize-block {
   @include rem(height, 510px);
-  background-color: #261904;
+  background-color: #f5e6df;
   background-image: url(../prototypes/yfr/img/tabs/prize-background.jpg);
-  background-position: center center;
+  background-position: 100% 100%;
   background-size: cover;
   transition: height .3s;
 
@@ -113,6 +113,7 @@
     font-size: 25px;
     margin-top: 0;
     text-transform: uppercase;
+    color: $orange-dark-lighter;
 
     @include breakpoint($tablet) {
       @include rem(margin-bottom, 20px);
@@ -123,37 +124,38 @@
   &__body {
     @include rem(line-height, 25px);
     font-size: 16px;
+    color: $grey7;
   }
 
   &__card {
+    float: right;
 
     &:after,
     &:before {
-      content: ' ';
-      background-image: url(../prototypes/yfr/img/tabs/cards.png);
+      @include translateX(50%);
+      content: '';
       background-size: cover;
       background-position: center center;
-      height: 100%;
-      left: 0;
+      background-repeat: no-repeat;
+      height: 80%;
+      right: 50%;
       position: absolute;
-      top: 0;
-      width: 100%;
+      bottom: -12%;
+      width: 80%;
     }
 
     &:after {
-      background-image: url(../prototypes/yfr/img/tabs/tango-card-mobile.png);
+      background-image: url(../prototypes/yfr/img/tabs/gift.jpg);
+      background-size: contain;
 
       @include breakpoint($tablet) {
-        background-image: url(../prototypes/yfr/img/tabs/tango-card.png);
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 5 / 12 * 100%;
+        @include translateX(0);
       }
-    }
-
-    @include breakpoint($tablet) {
-      height: 100%;
-      left: 0;
-      position: relative;
-      top: 0;
-      width: 5 / 12 * 100%;
     }
   }
 
