@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Url;
 
 /**
  * Provides a block with personal progress.
@@ -24,6 +25,13 @@ class Progress extends BlockBase {
       '#attached' => [
         'library' => [
           'ymca_retention/progress',
+        ],
+        'drupalSettings' => [
+          'ymca_retention' => [
+            'checkins' => [
+              'checkins_history_url' => Url::fromRoute('ymca_retention.member_checkins_history_json')->toString(),
+            ],
+          ],
         ],
       ],
     ];
