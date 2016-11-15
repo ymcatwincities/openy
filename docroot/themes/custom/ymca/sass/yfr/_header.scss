@@ -245,3 +245,139 @@
     z-index: 103;
   }
 }
+
+.page-register__fall_retention {
+  background: #804114 url(../prototypes/yfr/img/hero/hero-1400-register-mobile.jpg) 50% 0 no-repeat;
+  @include background-size(cover);
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+
+  @include breakpoint($tablet){
+    background: #804114 url(../prototypes/yfr/img/hero/hero-1400-register.jpg) 50% 0 no-repeat;
+    @include background-size(cover);
+  }
+
+  .viewport {
+    background: transparent;
+    padding: 0 15px;
+  }
+
+  .hero-section__content {
+    @include rem(margin-bottom, 80px);
+    padding-top: 0;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 100%;
+    -ms-flex: 0 1 100%;
+    flex: 0 1 100%;
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+
+    @include breakpoint($tablet){
+      @include rem(margin-bottom, 140px);
+      @include rem(margin-top, 70px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-bottom, 180px);
+      @include rem(margin-top, 90px);
+    }
+  }
+
+  .hero-section__slogan {
+    @include breakpoint($tablet){
+      @include rem(margin-top, 34px);
+    }
+
+    @include breakpoint($desktop-small){
+      @include rem(margin-top, 75px);
+    }
+  }
+
+  .yfr-form-register {
+    @include rem(padding, 20px);
+    @include border-radius(6px);
+    background: rgba(57, 9, 11, 0.7);
+    margin: 0 auto 20px;
+    max-width: 644px;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+
+    .btn {
+      width: 100%;
+      line-height: 22px;
+    }
+
+    .container {
+      padding: 0;
+    }
+
+    .form-item {
+
+      @include breakpoint($tablet){
+        margin: 0;
+      }
+    }
+
+    .form-type-text {
+
+    }
+
+    .form-text {
+      @include border-radius(4px);
+      @include rem(padding, 10px 28px);
+      font-size: 14px;
+      width: 100%;
+      border: none;
+      color: $grey7;
+      line-height: 26px;
+
+      @include input-placeholder {
+        color: $grey4;
+        font-style: italic;
+      }
+    }
+  }
+
+  .yfr-form-register__alert {
+    max-width: 644px;
+    margin: 0 auto;
+
+    .alert-success {
+      background: rgba(0,107,107, 0.7);
+      border-color: rgba(0,107,107, 0.7);
+      color: #fff;
+    }
+
+    .alert-danger {
+      background: rgba(169,43,49, 0.7);
+      border-color: rgba(169,43,49, 0.7);
+      color: #fff;
+    }
+  }
+}
