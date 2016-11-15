@@ -80,9 +80,6 @@
 .yfr-full-width-prize-block {
   @include rem(height, 510px);
   background-color: #f5e6df;
-  background-image: url(../prototypes/yfr/img/tabs/prize-background.jpg);
-  background-position: 100% 100%;
-  background-size: cover;
   transition: height .3s;
 
   @include breakpoint($tablet) {
