@@ -17,14 +17,14 @@
 
       self.instantWinClass = function() {
         var classes = [];
-        if (typeof self.storage.member_chances === 'undefined' || !self.storage.member_chances.length) {
+        if (typeof self.storage.member_chances === 'undefined' || !self.storage.member_chances) {
           classes.push('empty');
         }
         return classes.join(' ');
       };
 
       self.instantWinCount = function() {
-        if (typeof self.storage.member_chances === 'undefined') {
+        if (typeof self.storage.member_chances === 'undefined' || !self.storage.member_chances) {
           return 0;
         }
         return self.storage.member_chances.length;
