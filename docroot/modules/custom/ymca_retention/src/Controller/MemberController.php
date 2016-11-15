@@ -109,4 +109,34 @@ class MemberController extends ControllerBase {
     return $response;
   }
 
+  /**
+   * Returns member checkins history.
+   */
+  public function memberCheckInsJson() {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (!$member_id) {
+      return new JsonResponse();
+    }
+
+    // Check that member exists.
+    $member = Member::load($member_id);
+    if (!$member) {
+      return new JsonResponse();
+    }
+
+    $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
+      ->condition('member', $member_id)
+      ->execute();
+    $storage = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_checkin');
+    $checkins = $storage->loadMultiple($checkin_ids);
+
+    $checkin_values = [];
+    foreach ($checkins as $checkin) {
+      $checkin_values[$checkin->get('date')->value] = (int) $checkin->get('checkin')->value;
+    }
+
+    return new JsonResponse($checkin_values);
+  }
+
 }

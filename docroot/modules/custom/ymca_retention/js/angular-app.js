@@ -58,6 +58,30 @@
         return deferred.promise;
       }
 
+      /**
+       * Get information about member check-in history.
+       * @param id Member Id.
+       * @returns {*}
+       */
+      function getMemberCheckIns(id) {
+        var deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http.get(settings.ymca_retention.checkins.checkins_history_url).then(function (response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
       function setMemberActivities(data) {
         var id = $cookies.get('Drupal.visitor.ymca_retention_member'),
           deferred = $q.defer();
@@ -107,6 +131,7 @@
       return {
         getMember: getMember,
         getMemberActivities: getMemberActivities,
+        getMemberCheckIns: getMemberCheckIns,
         setMemberActivities: setMemberActivities,
         getMemberChances: getMemberChances
       };
@@ -134,6 +159,7 @@
         self.getMember(newVal);
         self.getMemberChancesById(newVal);
         self.getMemberActivities(newVal);
+        self.getMemberCheckIns(newVal);
       });
 
       self.getMember = function(id) {
@@ -151,24 +177,29 @@
           self.member_chances = data;
         });
       };
+      self.getMemberCheckIns = function(id) {
+        courier.getMemberCheckIns(id).then(function(data) {
+          self.member_checkins = data;
+        });
+      };
 
       self.getMemberActivities = function(id) {
         courier.getMemberActivities(id).then(function(data) {
           self.member_activities = data;
-          self.memberActivitesCounts();
+          self.memberActivitiesCounts();
         });
       };
       self.setMemberActivities = function(data) {
         var $promise = courier.setMemberActivities(data).then(function(data) {
           self.member_activities = data;
-          self.memberActivitesCounts();
+          self.memberActivitiesCounts();
           self.getMemberChances();
         });
 
         // Track the request and show its progress to the user.
         self.progress.addPromise($promise);
       };
-      self.memberActivitesCounts = function() {
+      self.memberActivitiesCounts = function() {
         if (!self.member_activities) {
           self.member_activities_counts = null;
           return;
