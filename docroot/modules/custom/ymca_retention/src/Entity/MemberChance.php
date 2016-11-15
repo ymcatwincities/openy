@@ -50,16 +50,12 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
     $fields['timestamp'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Timestamp'))
       ->setDescription(t('The timestamp with the date the chance is granted for.'))
-      ->setSettings([
-        'default_value' => 0,
-      ]);
+      ->setDefaultValue(0);
 
     $fields['played'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Played'))
       ->setDescription(t('The timestamp when the chance was played.'))
-      ->setSettings([
-        'default_value' => 0,
-      ]);
+      ->setDefaultValue(0);
 
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Member ID'))
@@ -82,6 +78,7 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
     $fields['message'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Message'))
       ->setDescription(t('Message to show to the user.'))
+      ->setDefaultValue('')
       ->setSettings([
         'default_value' => '',
         'max_length' => 255,
