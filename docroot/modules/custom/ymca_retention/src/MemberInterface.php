@@ -58,7 +58,7 @@ interface MemberInterface extends ContentEntityInterface {
   public function getPersonifyEmail();
 
   /**
-   * Returns the member id of the user.
+   * Returns the member id(FacilityCardNumber) of the user.
    *
    * @return string
    *   The member id.
@@ -75,6 +75,14 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setMemberId($member_id);
+
+  /**
+   * Returns the personify id(MasterCustomerId) of the user.
+   *
+   * @return string
+   *   The personify id.
+   */
+  public function getPersonifyId();
 
   /**
    * Returns user first name.
