@@ -321,6 +321,16 @@ function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $en
   $member = Member::load($entity->getMember());
   $member->setVisits(count($checkins));
   $member->save();
+
+  // Create chance to win.
+  $today = new \DateTime();
+  $today->setTime(0, 0, 0);
+  $chance = MemberChance::create([
+    'timestamp' => $today->getTimestamp(),
+    'type' => 'activity',
+    'member' => $entity->getMember(),
+  ]);
+  $chance->save();
 }
 
 /**
@@ -345,7 +355,7 @@ function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $e
   if (empty($chances_ids)) {
     $chance = MemberChance::create([
       'timestamp' => $timestamp,
-      'type' => 'activity',
+      'type' => 'checkin',
       'member' => $member_id,
     ]);
     $chance->save();

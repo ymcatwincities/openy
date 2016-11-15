@@ -133,7 +133,7 @@ class MemberController extends ControllerBase {
 
     $checkin_values = [];
     foreach ($checkins as $checkin) {
-      $checkin_values[$checkin->get('created')->value] = (int) $checkin->get('checkin')->value;
+      $checkin_values[$checkin->get('date')->value] = (int) $checkin->get('checkin')->value;
     }
 
     return new JsonResponse($checkin_values);
