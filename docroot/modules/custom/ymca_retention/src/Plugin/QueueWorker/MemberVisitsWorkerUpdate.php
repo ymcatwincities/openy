@@ -77,7 +77,7 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       }
       // Create check-in record.
       $checkin = MemberCheckIn::create([
-        'created' => $date_from->getTimestamp(),
+        'date' => $date_from->getTimestamp(),
         'checkin' => TRUE,
         'member' => array_search($item->MasterCustomerId, $list_ids),
       ]);
