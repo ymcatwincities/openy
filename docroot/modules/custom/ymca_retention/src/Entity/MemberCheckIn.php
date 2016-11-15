@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ymca_retention\MemberCheckInInterface;
 
 /**
- * Defines the Member Chance entity.
+ * Defines the Member Check-in entity.
  *
  * @ingroup ymca_retention
  *
@@ -41,6 +41,10 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
+      ->setDescription(t('The time the record was created.'));
+
+    $fields['date'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Date'))
       ->setDescription(t('The time of the day when check-in was logged.'));
 
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
