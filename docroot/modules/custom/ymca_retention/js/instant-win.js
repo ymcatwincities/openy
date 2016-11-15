@@ -12,6 +12,9 @@
       var self = this;
       // Shared information.
       self.storage = storage;
+
+      self.state = 'game';
+      // self.state = 'result';
     });
   };
 

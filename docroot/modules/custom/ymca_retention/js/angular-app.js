@@ -17,17 +17,10 @@
 
       self.instantWinClass = function() {
         var classes = [];
-        if (typeof self.storage.member_chances === 'undefined' || !self.storage.member_chances) {
+        if (!self.storage.instantWinCount) {
           classes.push('empty');
         }
         return classes.join(' ');
-      };
-
-      self.instantWinCount = function() {
-        if (typeof self.storage.member_chances === 'undefined' || !self.storage.member_chances) {
-          return 0;
-        }
-        return self.storage.member_chances.length;
       };
     });
 
@@ -136,6 +129,7 @@
 
       self.dates = settings.ymca_retention.activity.dates;
       self.activity_groups = settings.ymca_retention.activity.activity_groups;
+      self.instantWinCount = 0;
 
       // Force to check cookie value.
       $interval(function() {
@@ -164,6 +158,13 @@
       self.getMemberChancesById = function(id) {
         courier.getMemberChances(id).then(function(data) {
           self.member_chances = data;
+          if (!self.member_chances) {
+            self.instantWinCount = 0;
+          }
+          else {
+            // TODO: implement logic to count only not used chances.
+            self.instantWinCount = data.length;
+          }
         });
       };
 
