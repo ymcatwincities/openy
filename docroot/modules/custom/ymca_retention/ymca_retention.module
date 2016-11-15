@@ -327,7 +327,7 @@ function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $en
   $today->setTime(0, 0, 0);
   $chance = MemberChance::create([
     'timestamp' => $today->getTimestamp(),
-    'type' => 'activity',
+    'type' => 'checkin',
     'member' => $entity->getMember(),
   ]);
   $chance->save();
@@ -355,7 +355,7 @@ function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $e
   if (empty($chances_ids)) {
     $chance = MemberChance::create([
       'timestamp' => $timestamp,
-      'type' => 'checkin',
+      'type' => 'activity',
       'member' => $member_id,
     ]);
     $chance->save();
