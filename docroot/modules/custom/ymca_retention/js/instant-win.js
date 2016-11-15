@@ -8,13 +8,38 @@
     $('body').addClass('ymca-retention-instant-win-processed');
 
 
-    Drupal.ymca_retention.angular_app.controller('InstantWinController', function (storage) {
+    Drupal.ymca_retention.angular_app.controller('InstantWinController', function ($timeout, storage) {
       var self = this;
       // Shared information.
       self.storage = storage;
 
+      // Game state.
       self.state = 'game';
-      // self.state = 'result';
+
+      self.gameWidgetClass = function() {
+        var classes = [];
+        if (!self.storage.instantWinCount) {
+          classes.push('disabled');
+        }
+        return classes.join(' ');
+      };
+
+      self.gameWheelClass = function() {
+        var classes = [];
+        if (self.state == 'process') {
+          classes.push('active');
+        }
+        return classes.join(' ');
+      };
+
+      self.testYourLuck = function() {
+        self.state = 'process';
+        self.storage.getMemberPrize().then(function(data) {
+          $timeout(function() {
+            self.state = 'result.win';
+          }, 3000);
+        });
+      }
     });
   };
 
