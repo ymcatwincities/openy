@@ -14,6 +14,21 @@
       var self = this;
       // Shared information.
       self.storage = storage;
+
+      self.instantWinClass = function() {
+        var classes = [];
+        if (typeof self.storage.member_chances === 'undefined' || !self.storage.member_chances.length) {
+          classes.push('empty');
+        }
+        return classes.join(' ');
+      };
+
+      self.instantWinCount = function() {
+        if (typeof self.storage.member_chances === 'undefined') {
+          return 0;
+        }
+        return self.storage.member_chances.length;
+      };
     });
 
     // Service to communicate with backend.
