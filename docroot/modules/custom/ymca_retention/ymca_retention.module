@@ -10,6 +10,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\ymca_retention\Entity\MemberChance;
+use Drupal\ymca_retention\PersonifyApi;
+use Drupal\ymca_retention\Entity\MemberCheckIn;
+use Drupal\ymca_retention\Entity\Member;
 
 /**
  * Implements hook_form_alter().
@@ -206,7 +209,7 @@ function ymca_retention_cron() {
   /** @var \Drupal\ymca_retention\RegularUpdater $regular_updater */
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
-  // Check if cron was run today.
+  // Check if cron was run today and settings allow to create a queue.
   if (!$regular_updater->isAllowed()) {
     return;
   }
@@ -246,16 +249,86 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   if (!empty($chances)) {
     $chances_storage->delete($chances);
   }
+
+  // Remove member checkins.
+  $checkins_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_checkin');
+  $checkins = $checkins_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($checkins)) {
+    $checkins_storage->delete($checkins);
+  }
 }
 
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
 function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
+  /** @var Member $entity */
   // Create chance to win.
   $chance = MemberChance::create([
     'type' => 'registration',
     'member' => $entity->getId(),
+  ]);
+  $chance->save();
+  // Get retention settings.
+  $settings = \Drupal::config('ymca_retention.general_settings');
+  // Get information about number of checkins in period of campaign.
+  $today = new \DateTime();
+  $from = new \DateTime($settings->get('date_reporting_open'));
+  $to = new \DateTime($settings->get('date_reporting_close'));
+  if ($today < $from || $today > $to) {
+    return;
+  }
+  $diff = $today->diff($from);
+  for ($i = 0; $i <= $diff->days; $i++) {
+    $date_from = clone $from;
+    $date_from->setTime(0, 0, 0);
+    $date_from->add(new \DateInterval('P' . $i . 'D'));
+
+    // Date To.
+    $date_to = clone $date_from;
+    $date_to->setTime(23, 59, 59);
+
+    // Get information about number of checkins in period of the campaign.
+    $results = PersonifyApi::getPersonifyVisitsBatch([$entity->getPersonifyId()], $date_from, $date_to);
+    if (!empty($results->ErrorMessage)) {
+      continue;
+    }
+    foreach ($results->FacilityVisitCustomerRecord as $item) {
+      if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
+        continue;
+      }
+      // Create check-in record.
+      $checkin = MemberCheckIn::create([
+        'date' => $date_from->getTimestamp(),
+        'checkin' => TRUE,
+        'member' => $entity->getId(),
+      ]);
+      $checkin->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $entity) {
+  /** @var MemberCheckIn $entity */
+  $checkins_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_checkin');
+  $checkins = $checkins_storage->loadByProperties(['member' => $entity->getMember()]);
+  // Update number of visits in member entity.
+  $member = Member::load($entity->getMember());
+  $member->setVisits(count($checkins));
+  $member->save();
+
+  // Create chance to win.
+  $today = new \DateTime();
+  $today->setTime(0, 0, 0);
+  $chance = MemberChance::create([
+    'timestamp' => $today->getTimestamp(),
+    'type' => 'checkin',
+    'member' => $entity->getMember(),
   ]);
   $chance->save();
 }
@@ -272,7 +345,10 @@ function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $e
   $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
     ->condition('member', $member_id)
     ->condition('type', 'activity')
-    ->condition('timestamp', [$timestamp, $timestamp + 24 * 60 * 60 - 1], 'BETWEEN')
+    ->condition('timestamp', [
+      $timestamp,
+      $timestamp + 24 * 60 * 60 - 1,
+    ], 'BETWEEN')
     ->execute();
 
   // Create chance to win.

@@ -85,7 +85,54 @@ class PersonifyApi {
       $endpoint = $config['endpoint'] . 'CL_GetFacilityVisitCountByDate';
       $response = $client->request('POST', $endpoint, $options);
       if ($response->getStatusCode() != '200') {
-        throw new \LogicException(t('API Method CL_GetFacilityVisitCountByDateInput is failed.'));
+        throw new \LogicException(t('API Method CL_GetFacilityVisitCountByDate is failed.'));
+      }
+      $body = $response->getBody();
+      return json_decode($body->getContents());
+    }
+    catch (\Exception $e) {
+      watchdog_exception('ymca_personify', $e);
+    }
+    return [];
+  }
+
+  /**
+   * Get information about member visits for a period.
+   *
+   * @param array $list_ids
+   *   Array with list of master customer ids.
+   * @param \DateTime $date_from
+   *   Date From.
+   * @param \DateTime $date_to
+   *   Date To.
+   *
+   * @return array|\stdClass
+   *   Information about Members visits for a period.
+   */
+  public static function getPersonifyVisitsBatch(array $list_ids, \DateTime $date_from, \DateTime $date_to) {
+    $config = \Drupal::config('ymca_retention.api')->getRawData();
+    $client = \Drupal::httpClient();
+    $options = [
+      'json' => [
+        'CL_GetFacilityVisitCountByDateInput' => [
+          'MasterCustomerId' => implode(',', $list_ids),
+          'DateFrom' => $date_from->format('Y-m-d H:i:s'),
+          'DateTo' => $date_to->format('Y-m-d H:i:s'),
+        ],
+      ],
+      'headers' => [
+        'Content-Type' => 'application/json;charset=utf-8',
+      ],
+      'auth' => [
+        $config['username'],
+        $config['password'],
+      ],
+    ];
+    try {
+      $endpoint = $config['endpoint'] . 'CL_GetFacilityVisitCountByDate';
+      $response = $client->request('POST', $endpoint, $options);
+      if ($response->getStatusCode() != '200') {
+        throw new \LogicException(t('API Method CL_GetFacilityVisitCountByDate is failed.'));
       }
       $body = $response->getBody();
       return json_decode($body->getContents());
