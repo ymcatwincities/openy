@@ -300,7 +300,7 @@ function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
       }
       // Create check-in record.
       $checkin = MemberCheckIn::create([
-        'created' => $date_from->getTimestamp(),
+        'date' => $date_from->getTimestamp(),
         'checkin' => TRUE,
         'member' => $entity->getId(),
       ]);
