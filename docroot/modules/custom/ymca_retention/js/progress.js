@@ -32,7 +32,7 @@
       };
 
       self.checkInClass = function (timestamp) {
-        if (typeof self.storage.member_checkins === 'undefined') {
+        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
           return '';
         }
         var classes = [];
@@ -45,7 +45,7 @@
       };
 
       self.checkInStatus = function (date) {
-        if (typeof self.storage.member_checkins === 'undefined' || date.future) {
+        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins || date.future) {
           return '—';
         }
         if (self.storage.member_checkins[date.timestamp] == 1) {
