@@ -34,6 +34,7 @@ class InstantWin extends BlockBase {
           'ymca_retention' => [
             'instant_win' => [
               'member_chances_url' => $chances_url,
+              'member_prize_url' => $chances_url,
             ],
           ],
         ],

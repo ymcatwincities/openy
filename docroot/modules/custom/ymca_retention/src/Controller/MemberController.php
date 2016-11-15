@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\Entity\MemberActivity;
+use Drupal\ymca_retention\Entity\MemberChance;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
@@ -78,7 +79,7 @@ class MemberController extends ControllerBase {
   /**
    * Returns member chances to win.
    */
-  public function memberChancesJson() {
+  public function memberChancesJson(Request $request) {
     $member_id = AnonymousCookieStorage::get('ymca_retention_member');
     if (!$member_id) {
       return new JsonResponse();
@@ -90,11 +91,23 @@ class MemberController extends ControllerBase {
       return new JsonResponse();
     }
 
-    $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
-      ->condition('member', $member_id)
-      ->execute();
+    // Use one chance to win.
+    if ($request->getMethod() == 'POST') {
+      $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+        ->condition('member', $member_id)
+        ->condition('played', 0)
+        ->execute();
+      $chance_id = array_shift($chances_ids);
+      $chance = MemberChance::load($chance_id);
+
+      $chance->set('played', time());
+      $chance->set('winner', 1);
+      $chance->set('message', 'Won a card');
+      $chance->save();
+    }
+
     $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_chance');
-    $chances = $storage->loadMultiple($chances_ids);
+    $chances = $storage->loadByProperties(['member' => $member_id]);
 
     $chances_values = [];
     foreach ($chances as $chance) {

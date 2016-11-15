@@ -2,40 +2,48 @@
      data-ng-controller="InstantWinController as instantWinC">
   <div class="yfr-game__title">
     <div class="ng-hide"
-         data-ng-show="instantWinC.state == 'game' && instantWinC.storage.instantWinCount">
+         data-ng-show="(instantWinC.state == 'game' || instantWinC.state == 'process') && instantWinC.storage.instantWinCount">
       <div class="title">You have <span class="title-highlight">{{ '{{instantWinC.storage.instantWinCount}}' }} chances to win</span></div>
     </div>
 
     <div class="hg-hide"
          data-ng-show="instantWinC.state == 'game' && !instantWinC.storage.instantWinCount">
-      <div class="title">You need to earn more</div>
-      <div class="title"><span class="title-highlight">instant win chances.</span></div>
+      <div class="title">{{ 'You need to earn more'|t }}</div>
+      <div class="title"><span class="title-highlight">{{ 'instant win chances.'|t }}</span></div>
     </div>
 
     <div class="hg-hide"
-         data-ng-show="instantWinC.state == 'result'">
-      <div class="title"><span class="title-highlight">Congratulations,</span></div>
-      <div class="title"><small>You have won</small></div>
+         data-ng-show="instantWinC.state == 'result.win'">
+      <div class="title"><span class="title-highlight">{{ 'Congratulations!'|t }}</span></div>
+      <div class="title"><small>{{ 'You have won'|t }}</small></div>
     </div>
   </div>
-  <div class="yfr-game__widget _disabled">
-    <!-- <div class="yfr-game"></div> -->
 
-    <!-- <div class="yfr-game-btn">
-         <button class="btn btn-lg btn-primary orange-medium">Spin the wheel</button>
-         <button class="btn btn-lg btn-primary red-medium">unavailable</button>
-         </div> -->
+  <div class="yfr-game__widget"
+       data-ng-class="instantWinC.gameWidgetClass()">
+    <div class="yfr-game ng-hide"
+         data-ng-show="instantWinC.state == 'game' || instantWinC.state == 'process'"
+         data-ng-class="instantWinC.gameWheelClass()"></div>
 
-    <div class="yfr-game__win">
+    <div class="yfr-game-btn"
+         data-ng-show="instantWinC.state == 'game'">
+      <button class="btn btn-lg btn-primary orange-medium ng-hide"
+              data-ng-show="instantWinC.storage.instantWinCount"
+              data-ng-click="instantWinC.testYourLuck()">{{ 'Spin the wheel'|t }}</button>
+      <button class="btn btn-lg btn-primary red-medium ng-hide"
+              data-ng-show="!instantWinC.storage.instantWinCount">{{ 'Unavailable'|t }}</button>
+    </div>
+
+    <div class="yfr-game__win ng-hide"
+         data-ng-show="instantWinC.state == 'result.win'">
       <div class="win">
         <span>$5</span>
       </div>
       <div class="description">
-        Check <span>your e-mail</span>
-        to retrive the Tango Card!
+        {{ 'Check <span>your e-mail</span> to retrieve the Tango Card!'|t }}
       </div>
       <div class="actions">
-        <input type="submit" value="OK">
+        <input type="submit" value="OK" data-ng-click="instantWinC.state = 'game'">
       </div>
     </div>
   </div>
