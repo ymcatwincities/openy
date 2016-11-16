@@ -4,9 +4,6 @@
  * Display track activity block.
  */
 #}
-<div data-ng-show="!retentionC.storage.member">
-  <p>{{ 'Please sign-in or register.'|t }}</p>
-</div>
 <div class="yfr-activities ng-hide"
      data-ng-controller="ActivityController as activityC"
      data-ng-show="retentionC.storage.member">
@@ -17,7 +14,7 @@
           <label for=""></label>
           <select class="form-select"
                   data-ng-model="activityC.date_selected"
-                  data-ng-options="date.label for date in activityC.storage.dates track by date.index">
+                  data-ng-options="date.label for date in (activityC.storage.dates | filter : {future: false}) track by date.index">
           </select>
         </div>
 
