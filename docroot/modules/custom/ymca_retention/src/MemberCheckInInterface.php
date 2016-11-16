@@ -19,4 +19,12 @@ interface MemberCheckInInterface extends ContentEntityInterface {
    */
   public function getMember();
 
+  /**
+   * Returns the timestamp when was check-in.
+   *
+   * @return int
+   *   Timestamp.
+   */
+  public function getDate();
+
 }
