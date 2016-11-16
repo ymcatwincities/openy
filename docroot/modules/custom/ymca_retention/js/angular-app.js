@@ -32,7 +32,7 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.user_menu.member_url).then(function(response) {
+          $http.get(settings.ymca_retention.resources.member).then(function(response) {
             if ($.isEmptyObject(response.data)) {
               // We've got empty result - remove the member cookie.
               $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
@@ -58,7 +58,7 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.checkins.checkins_history_url).then(function (response) {
+          $http.get(settings.ymca_retention.resources.member_checkins).then(function (response) {
             if ($.isEmptyObject(response.data)) {
               deferred.resolve(null);
               return;
@@ -77,7 +77,7 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.activity.member_activities_url).then(function(response) {
+          $http.get(settings.ymca_retention.resources.member_activities).then(function(response) {
             if ($.isEmptyObject(response.data)) {
               deferred.resolve(null);
               return;
@@ -99,7 +99,7 @@
         else {
           $http({
             method: 'POST',
-            url: settings.ymca_retention.activity.member_activities_url,
+            url: settings.ymca_retention.resources.member_activities,
             data: $httpParamSerializerJQLike(data),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -123,7 +123,7 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.instant_win.member_chances_url).then(function(response) {
+          $http.get(settings.ymca_retention.resources.member_chances).then(function(response) {
             if ($.isEmptyObject(response.data)) {
               deferred.resolve(null);
               return;
@@ -145,7 +145,7 @@
         else {
           $http({
             method: 'POST',
-            url: settings.ymca_retention.instant_win.member_prize_url,
+            url: settings.ymca_retention.resources.member_chances,
             // data: $httpParamSerializerJQLike(data),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
