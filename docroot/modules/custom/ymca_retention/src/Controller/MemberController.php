@@ -102,7 +102,8 @@ class MemberController extends ControllerBase {
 
       $chance->set('played', time());
       $chance->set('winner', 1);
-      $chance->set('message', 'Won a card');
+      $chance->set('value', 5);
+      $chance->set('message', 'Won $5 card!');
       $chance->save();
     }
 
@@ -114,6 +115,7 @@ class MemberController extends ControllerBase {
       $chances_values[] = [
         'type' => $chance->get('type')->value,
         'played' => $chance->get('played')->value,
+        'winner' => $chance->get('winner')->value,
         'message' => $chance->get('message')->value,
       ];
     }

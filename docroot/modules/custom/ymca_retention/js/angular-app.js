@@ -174,7 +174,7 @@
     });
 
     // Service to hold information shared between controllers.
-    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $cookies, $filter, promiseTracker, courier) {
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, courier) {
       var self = this;
 
       // Initiate the promise tracker to track submissions.
@@ -285,13 +285,11 @@
       };
 
       self.getMemberPrize = function() {
-        var $promise = courier.getMemberPrize().then(function(data) {
-          self.member_chances = data;
+        return courier.getMemberPrize().then(function(data) {
+          $timeout(function() {
+            self.member_chances = data;
+          }, 3000);
         });
-
-        // Track the request and show its progress to the user.
-        self.progress.addPromise($promise);
-        return $promise;
       };
 
       self.memberCookieRemove = function() {
