@@ -80,6 +80,16 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
       ->setDescription(t('The Tango Card value.'))
       ->setDefaultValue(0);
 
+    $fields['order_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Order ID'))
+      ->setDescription(t('The Tango Card order ID.'))
+      ->setDefaultValue('')
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
+      ]);
+
     $fields['message'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Message'))
       ->setDescription(t('Message to show to the user.'))
@@ -89,8 +99,6 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
         'max_length' => 255,
         'text_processing' => 0,
       ]);
-
-    // TODO: add some relation to tango card entity?
 
     return $fields;
   }
