@@ -19,6 +19,13 @@ ymca_personify.personify_account:
     _title: Personify Account
   requirements:
     _permission: access content
+ymca_personify.childcare_payment_history:
+  path: /personify/childcare_payment_history
+  defaults:
+    _form: \Drupal\ymca_personify\Form\ChildcarePaymentHistoryForm
+    _title: Childcare payment history
+  requirements:
+    _permission: access content
 ymca_personify.personify_signout:
   path: personify/sign_out
   defaults:
