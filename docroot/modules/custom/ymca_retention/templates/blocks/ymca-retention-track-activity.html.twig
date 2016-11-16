@@ -14,7 +14,7 @@
           <label for=""></label>
           <select class="form-select"
                   data-ng-model="activityC.date_selected"
-                  data-ng-options="date.label for date in activityC.storage.dates track by date.index">
+                  data-ng-options="date.label for date in (activityC.storage.dates | filter : {future: false}) track by date.index">
           </select>
         </div>
 
