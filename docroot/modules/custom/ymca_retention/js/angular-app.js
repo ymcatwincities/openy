@@ -188,6 +188,8 @@
       self.member_chances = null;
       self.instantWinCount = 0;
       self.member_checkins = null;
+      // Game state.
+      self.state = 'game';
 
       // Force to check cookie value.
       $interval(function() {
@@ -202,6 +204,7 @@
         self.getMemberChancesById(newVal);
         self.getMemberActivities(newVal);
         self.getMemberCheckIns(newVal);
+        self.state = 'game';
       });
 
       // Watch member activities and update counts.
