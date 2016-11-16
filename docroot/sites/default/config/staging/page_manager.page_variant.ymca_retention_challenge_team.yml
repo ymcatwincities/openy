@@ -20,9 +20,20 @@ variant_settings:
       label_display: '0'
       yteam: 1
       region: middle
-      weight: 0
+      weight: -9
       team: 1
       uuid: 416c4c9e-0a0e-4e45-9e2e-af2842fc34d9
+      context_mapping: {  }
+    3c731e01-c64d-4612-bbdb-a4d270b1c7e0:
+      id: retention_campaign_intro_block
+      label: '[YMCA Retention] Campaign intro'
+      provider: ymca_retention
+      label_display: '0'
+      slogan: 'Participate to win'
+      show_picture: true
+      region: middle
+      weight: -10
+      uuid: 3c731e01-c64d-4612-bbdb-a4d270b1c7e0
       context_mapping: {  }
   id: panels_variant
   uuid: e05d3e1f-c5bd-4701-8000-c63a596a25fc
