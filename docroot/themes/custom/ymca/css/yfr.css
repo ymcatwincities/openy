@@ -381,6 +381,9 @@ html, body {
   padding-top: 40px;
   padding-top: 4rem;
 }
+.page-register__fall_retention.toolbar-fixed.toolbar-vertical {
+  margin-top: 0;
+}
 .page-register__fall_retention picture {
   display: none;
 }
@@ -420,18 +423,23 @@ html, body {
 }
 @media (min-width: 48em) {
   .page-register__fall_retention .hero-section__content {
-    margin-bottom: 100px;
-    margin-bottom: 10rem;
-    margin-top: 70px;
-    margin-top: 7rem;
+    margin-bottom: 70px;
+    margin-bottom: 7rem;
+    margin-top: 50px;
+    margin-top: 5rem;
   }
 }
 @media (min-width: 64em) {
   .page-register__fall_retention .hero-section__content {
-    margin-bottom: 120px;
-    margin-bottom: 12rem;
-    margin-top: 80px;
-    margin-top: 8rem;
+    margin-bottom: 80px;
+    margin-bottom: 8rem;
+    margin-top: 60px;
+    margin-top: 6rem;
+  }
+}
+@media all and (max-height: 766px) {
+  .page-register__fall_retention .hero-section__content {
+    margin-top: 0;
   }
 }
 @media (min-width: 48em) {

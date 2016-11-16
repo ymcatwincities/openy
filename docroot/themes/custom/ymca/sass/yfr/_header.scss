@@ -282,6 +282,10 @@
     }
   }
 
+  &.toolbar-fixed.toolbar-vertical {
+    margin-top: 0;
+  }
+
   picture {
     display: none;
   }
@@ -319,13 +323,17 @@
     align-self: flex-start;
 
     @include breakpoint($tablet){
-      @include rem(margin-bottom, 100px);
-      @include rem(margin-top, 70px);
+      @include rem(margin-bottom, 70px);
+      @include rem(margin-top, 50px);
     }
 
     @include breakpoint($desktop-small) {
-      @include rem(margin-bottom, 120px);
-      @include rem(margin-top, 80px);
+      @include rem(margin-bottom, 80px);
+      @include rem(margin-top, 60px);
+    }
+
+    @media all and (max-height: 766px) {
+      margin-top: 0;
     }
   }
 
