@@ -12,12 +12,51 @@
       // Shared information.
       self.storage = storage;
 
+      self.statusClass = function (date) {
+        var classes = [];
+        if (date.future) {
+          classes.push('disabled');
+        }
+
+        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
+          return classes.join(' ');
+        }
+
+        if (self.storage.member_checkins[date.timestamp] == 1) {
+          classes.push('active');
+        }
+
+        return classes.join(' ');
+      };
+
       self.dateClass = function (date) {
         var classes = [];
         if (date.future) {
           classes.push('progress-row__disabled');
         }
         return classes.join(' ');
+      };
+
+      self.checkInClass = function (date) {
+        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
+          return '';
+        }
+        var classes = [];
+        if (self.storage.member_checkins[date.timestamp] == 1) {
+          classes.push('check');
+        }
+
+        return classes.join(' ');
+      };
+      self.checkInStatus = function (date) {
+        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins || date.future) {
+          return '—';
+        }
+        if (self.storage.member_checkins[date.timestamp] == 1) {
+          return Drupal.t('check-in');
+        }
+
+        return Drupal.t('no records');
       };
 
       self.activityGroupClass = function (timestamp, activity_group) {
@@ -30,31 +69,6 @@
 
         return classes.join(' ');
       };
-
-      self.checkInClass = function (timestamp) {
-        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
-          return '';
-        }
-        var classes = [];
-        if (self.storage.member_checkins[timestamp] == 1) {
-          classes.push('active');
-          classes.push('check');
-        }
-
-        return classes.join(' ');
-      };
-
-      self.checkInStatus = function (date) {
-        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins || date.future) {
-          return '—';
-        }
-        if (self.storage.member_checkins[date.timestamp] == 1) {
-          return Drupal.t('check-in');
-        }
-
-        return Drupal.t('no records');
-      };
-
       self.activitiesCount = function (timestamp, activity_group) {
         if (typeof self.storage.member_activities_counts === 'undefined'
           || !self.storage.member_activities_counts) {
