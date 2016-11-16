@@ -12,27 +12,25 @@
  * @ingroup themeable
  */
 #}
-<form{{ attributes }}>
-  <div class="col-xs-1 col-sm-1 col-sm-push-2">
-    <a href="#register-or-report" class="icon-back slide-controller"></a>
+<div class="col-xs-1 col-sm-1 col-sm-push-2">
+  <a href="#register-or-report" class="icon-back slide-controller"></a>
+</div>
+{% if form.membership_id is defined %}
+  <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
+    {{ form.membership_id }}
   </div>
-  {% if form.membership_id is defined %}
-    <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
-      {{ form.membership_id }}
-    </div>
-  {% endif %}
+{% endif %}
   {% if form.email is defined %}
     <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
       {{ form.email }}
     </div>
   {% endif %}
-  <div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
-    {{ form.submit }}
+<div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
+  {{ form.submit }}
+</div>
+{% if form.messages is defined %}
+  <div class="ysr-form-messages ysr-register-form-messages col-xs-10 col-xs-push-2 col-sm-7 col-sm-push-2">
+    {{ form.messages }}
   </div>
-  {% if form.messages is defined %}
-    <div class="ysr-form-messages ysr-register-form-messages col-xs-10 col-xs-push-2 col-sm-7 col-sm-push-2">
-      {{ form.messages }}
-    </div>
-  {% endif %}
-  {{ form|without('email', 'membership_id', 'submit', 'messages') }}
-</form>
+{% endif %}
+{{ form|without('email', 'membership_id', 'submit', 'messages') }}
