@@ -179,7 +179,7 @@
 
 .ysr-user-menu {
   background-color: $red-dark-lighter;
-  @include rem(padding, 17px 20px);
+  @include rem(padding, 17px 30px 17px 20px);
   @include rem(height, 55px);
 
   &__greetings {
@@ -268,6 +268,25 @@
   -ms-flex-align: start;
   align-items: flex-start;
 
+  &.user-logged-in {
+    .viewport {
+      @include rem(padding-top, 40px);
+    }
+  }
+
+  picture {
+    display: none;
+  }
+
+  .page-middle {
+    background: none;
+    margin-top: 0;
+  }
+
+  .hero-section__background {
+    display: none;
+  }
+
   @include breakpoint($tablet){
     background: #804114 url(../prototypes/yfr/img/hero/hero-1400-register.jpg) 50% 0 no-repeat;
     @include background-size(cover);
@@ -312,7 +331,8 @@
     }
   }
 
-  .yfr-form-register {
+  .yfr-form-register,
+  #registration {
     @include rem(padding, 20px);
     @include border-radius(6px);
     background: rgba(57, 9, 11, 0.7);
@@ -338,14 +358,15 @@
     }
 
     .form-item {
+      margin-bottom: 0;
 
       @include breakpoint($tablet){
         margin: 0;
       }
     }
 
-    .form-type-text {
-
+    .form-control {
+      height: auto;
     }
 
     .form-text {
@@ -360,6 +381,52 @@
       @include input-placeholder {
         color: $grey4;
         font-style: italic;
+      }
+    }
+
+    .col-sm-push-2 {
+      left: 0;
+    }
+
+    form {
+      clear: both;
+      overflow: hidden;
+    }
+
+    .col-xs-1 {
+      display: none;
+    }
+
+    .col-sm-2 {
+      width: 100%;
+      margin-bottom: 15px;
+
+      @include breakpoint($tablet){
+        width: 100% / 12 * 4;
+        margin-bottom: 0;
+      }
+    }
+
+    .col-sm-5 {
+      width: 100%;
+      margin-bottom: 15px;
+
+      @include breakpoint($tablet){
+        width: 100% / 12 * 8;
+        margin-bottom: 0;
+      }
+    }
+
+    .ysr-form-messages {
+      width: 100%;
+      margin-top: 15px;
+
+      .alert-error {
+        margin-bottom: 0;
+      }
+
+      .alert-success {
+
       }
     }
   }
