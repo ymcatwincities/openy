@@ -8,10 +8,18 @@
     $('body').addClass('ymca-retention-instant-win-processed');
 
 
-    Drupal.ymca_retention.angular_app.controller('InstantWinController', function ($timeout, storage) {
+    Drupal.ymca_retention.angular_app.controller('InstantWinController', function ($timeout, $sce, storage) {
       var self = this;
       // Shared information.
       self.storage = storage;
+
+      self.instantWinStatus = function() {
+        return  $sce.trustAsHtml(Drupal.formatPlural(
+          self.storage.instantWinCount,
+          'You have <span class="title-highlight">1 chance to win</span>',
+          'You have <span class="title-highlight">@count chances to win</span>'
+        ));
+      };
 
       self.gameWidgetClass = function() {
         var classes = [];
