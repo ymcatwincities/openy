@@ -75,6 +75,11 @@ class MemberChance extends ContentEntityBase implements MemberChanceInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['value'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Value'))
+      ->setDescription(t('The Tango Card value.'))
+      ->setDefaultValue(0);
+
     $fields['message'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Message'))
       ->setDescription(t('Message to show to the user.'))
