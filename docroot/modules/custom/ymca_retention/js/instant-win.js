@@ -13,12 +13,9 @@
       // Shared information.
       self.storage = storage;
 
-      // Game state.
-      self.state = 'game';
-
       self.gameWidgetClass = function() {
         var classes = [];
-        if (!self.storage.instantWinCount) {
+        if (!self.storage.instantWinCount && self.storage.state == 'game') {
           classes.push('disabled');
         }
         return classes.join(' ');
@@ -26,17 +23,17 @@
 
       self.gameWheelClass = function() {
         var classes = [];
-        if (self.state == 'process') {
+        if (self.storage.state == 'process') {
           classes.push('active');
         }
         return classes.join(' ');
       };
 
       self.testYourLuck = function() {
-        self.state = 'process';
+        self.storage.state = 'process';
         self.storage.getMemberPrize().then(function(data) {
           $timeout(function() {
-            self.state = 'result.win';
+            self.storage.state = 'result.win';
           }, 3000);
         });
       }
