@@ -14,7 +14,7 @@
       self.storage = storage;
 
       self.instantWinStatus = function() {
-        return  $sce.trustAsHtml(Drupal.formatPlural(
+        return $sce.trustAsHtml(Drupal.formatPlural(
           self.storage.instantWinCount,
           'You have <span class="title-highlight">1 chance to win</span>',
           'You have <span class="title-highlight">@count chances to win</span>'
