@@ -74,4 +74,11 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
     return $this->get('member')->target_id;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getDate() {
+    return $this->get('date')->value;
+  }
+
 }
