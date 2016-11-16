@@ -111,11 +111,11 @@ ymca_retention.member_chances_json:
   requirements:
     _permission: 'access content'
 
-ymca_retention.member_checkins_history_json:
-  path: '/ymca-retention/member_checkins_history'
+ymca_retention.member_checkins_json:
+  path: '/ymca-retention/member_checkins'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\MemberController::memberCheckInsJson'
-    _title: 'YMCA Retention Member Checkins History JSON'
+    _title: 'YMCA Retention Member Checkins JSON'
   requirements:
     _permission: 'access content'
 
