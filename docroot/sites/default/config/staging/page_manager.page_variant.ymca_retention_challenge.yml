@@ -21,6 +21,7 @@ variant_settings:
       provider: ymca_retention
       label_display: '0'
       slogan: 'Participate to win'
+      show_picture: true
       region: hero
       weight: 0
       uuid: ece2c4a9-f6b4-46cf-b1ed-631cbdcedd9a
