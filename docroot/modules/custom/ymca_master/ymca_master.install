@@ -4415,7 +4415,7 @@ function ymca_master_update_8194() {
     $menu_link->save();
 
     $item = [
-      'title' => 'Childcare Payment History',
+      'title' => 'Childcare payment history',
       'link' => ['uri' => 'internal:/personify/childcare_payment_history'],
       'menu_name' => 'top_menu_2',
       'parent' => $menu_link->get('parent'),
