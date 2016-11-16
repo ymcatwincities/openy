@@ -3,12 +3,7 @@
   <div class="yfr-game__title">
     <div class="ng-hide"
          data-ng-show="instantWinC.storage.state == 'game' && instantWinC.storage.instantWinCount">
-      <div class="title ng-hide" data-ng-show="instantWinC.storage.instantWinCount == 1">
-        {{ 'You have'|t }} <span class="title-highlight">{{ '1 chance to win'|t }}</span>
-      </div>
-      <div class="title ng-hide" data-ng-show="instantWinC.storage.instantWinCount > 1">
-        {{ 'You have'|t }} <span class="title-highlight">{{ '@count chances to win'|t({ '@count': '{{instantWinC.storage.instantWinCount}}' }) }}</span>
-      </div>
+      <div class="title" data-ng-bind-html="instantWinC.instantWinStatus()"></div>
     </div>
 
     <div class="hg-hide"
