@@ -36,7 +36,7 @@
             self.storage.state = 'result.win';
           }, 3000);
         });
-      }
+      };
     });
   };
 
