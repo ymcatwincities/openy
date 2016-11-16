@@ -81,6 +81,14 @@ html, body {
   .top-nav .back-link {
     margin-top: 15px;
     margin-top: 1.5rem;
+    padding-left: 50px;
+    padding-left: 5rem;
+  }
+}
+@media (min-width: 64em) {
+  .top-nav .back-link {
+    padding-left: 120px;
+    padding-left: 12rem;
   }
 }
 .top-nav .back-link:before {
@@ -131,8 +139,8 @@ html, body {
 }
 @media (min-width: 48em) {
   .hero-section {
-    height: 600px;
-    height: 60rem;
+    height: 450px;
+    height: 45rem;
   }
 }
 .hero-section:before {
@@ -172,7 +180,6 @@ html, body {
 }
 @media (min-width: 48em) {
   .hero-section__background img {
-    height: 100%;
     width: auto;
   }
 }
@@ -190,14 +197,14 @@ html, body {
 }
 @media (min-width: 48em) {
   .hero-section__content {
-    padding-top: 120px;
-    padding-top: 12rem;
+    padding-top: 80px;
+    padding-top: 8rem;
   }
 }
-@media (min-width: 62em) {
+@media (min-width: 64em) {
   .hero-section__content {
-    padding-top: 300px;
-    padding-top: 30rem;
+    padding-top: 160px;
+    padding-top: 16rem;
   }
 }
 .hero-section__logo {
@@ -330,12 +337,18 @@ html, body {
   .ysr-user-menu {
     top: 15px;
     top: 1.5rem;
-    padding: 24px 20px;
-    padding: 2.4rem 2rem;
+    padding: 24px 30px 24px 20px;
+    padding: 2.4rem 3rem 2.4rem 2rem;
     background: none;
     position: absolute;
     right: 0;
     z-index: 103;
+  }
+}
+@media (min-width: 64em) {
+  .ysr-user-menu {
+    padding-right: 100px;
+    padding-right: 10rem;
   }
 }
 
@@ -407,18 +420,18 @@ html, body {
 }
 @media (min-width: 48em) {
   .page-register__fall_retention .hero-section__content {
-    margin-bottom: 140px;
-    margin-bottom: 14rem;
+    margin-bottom: 100px;
+    margin-bottom: 10rem;
     margin-top: 70px;
     margin-top: 7rem;
   }
 }
 @media (min-width: 64em) {
   .page-register__fall_retention .hero-section__content {
-    margin-bottom: 180px;
-    margin-bottom: 18rem;
-    margin-top: 90px;
-    margin-top: 9rem;
+    margin-bottom: 120px;
+    margin-bottom: 12rem;
+    margin-top: 80px;
+    margin-top: 8rem;
   }
 }
 @media (min-width: 48em) {
