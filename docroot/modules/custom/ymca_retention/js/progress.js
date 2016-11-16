@@ -70,8 +70,7 @@
         return classes.join(' ');
       };
       self.activitiesCount = function (timestamp, activity_group) {
-        if (typeof self.storage.member_activities_counts === 'undefined'
-          || !self.storage.member_activities_counts) {
+        if (typeof self.storage.member_activities_counts === 'undefined' || !self.storage.member_activities_counts) {
           return 0;
         }
 
