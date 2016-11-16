@@ -1144,8 +1144,9 @@
         color: $white;
       }
     }
+  }
 
-    .actions input[type=submit] {
+  .actions input[type=submit] {
       @include transition(all 0.3s);
       @include cachet-bold();
       @include rem(padding, 0 28px);
@@ -1162,6 +1163,39 @@
         border-bottom: 1px solid $orange-medium-lighter;
         color: $orange-medium-lighter;
       }
+    }
+
+  .yfr-game__lose {
+    @include rem(padding, 128px 0 0 0);
+    text-align: center;
+    color: $white;
+    position: relative;
+
+    &:before {
+      @include rem(width, 102px);
+      @include rem(height, 102px);
+      @include translateX(-50%);
+      content: '';
+      display: block;
+      left: 50%;
+      top: 0;
+      position: absolute;
+      background: transparent inline-image('../prototypes/yfr/img/tabs/icon-sadface.svg') 50% 50% no-repeat;
+      @include background-size(cover);
+    }
+
+    h3 {
+      @include cachet-normal();
+      font-size: 30px;
+      line-height: 40px;
+      text-transform: uppercase;
+      color: $orange-light-lighter;
+      margin: 0;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 26px;
     }
   }
 }
