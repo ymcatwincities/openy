@@ -22,6 +22,7 @@ class CampaignIntro extends BlockBase {
   public function defaultConfiguration() {
     return [
       'slogan' => 'Participate to win',
+      'show_picture' => TRUE,
     ];
   }
 
@@ -32,6 +33,13 @@ class CampaignIntro extends BlockBase {
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
+
+    $form['show_picture'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show Picture'),
+      '#default_value' => isset($config['show_picture']) ? $config['show_picture'] : TRUE,
+      '#description' => $this->t('Display a background picture for the intro block'),
+    ];
 
     $form['slogan'] = [
       '#type' => 'textfield',
@@ -75,18 +83,12 @@ class CampaignIntro extends BlockBase {
       $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F j');
     }
 
-    $hero_path = drupal_get_path('theme', 'ymca') . '/prototypes/yfr/img/hero/';
-    return [
+    $build = [
       '#theme' => 'ymca_retention_intro',
       '#content' => [
         'slogan' => $config['slogan'],
+        'show_picture' => $config['show_picture'],
         'dates' => $dates,
-        'images' => [
-          'desktop' => file_create_url($hero_path . 'hero-1400.jpg'),
-          'desktop2x' => file_create_url($hero_path . 'hero-1400x2.jpg'),
-          'mobile' => file_create_url($hero_path . 'hero-mobile.jpg'),
-          'mobile2x' => file_create_url($hero_path . 'hero-mobilex2.jpg'),
-        ],
       ],
       '#cache' => [
         'contexts' => [
@@ -94,6 +96,17 @@ class CampaignIntro extends BlockBase {
         ],
       ],
     ];
+    if ($config['show_picture']) {
+      $hero_path = drupal_get_path('theme', 'ymca') . '/prototypes/yfr/img/hero/';
+      $images = [
+        'desktop' => file_create_url($hero_path . 'hero-1400.jpg'),
+        'desktop2x' => file_create_url($hero_path . 'hero-1400x2.jpg'),
+        'mobile' => file_create_url($hero_path . 'hero-mobile.jpg'),
+        'mobile2x' => file_create_url($hero_path . 'hero-mobilex2.jpg'),
+      ];
+      $build['#content'] = array_merge($build['#content'], ['images' => $images]);
+    }
+    return $build;
   }
 
 }
