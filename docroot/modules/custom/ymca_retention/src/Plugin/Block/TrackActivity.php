@@ -23,7 +23,6 @@ class TrackActivity extends BlockBase {
     $service = \Drupal::service('ymca_retention.activity_manager');
     $dates = $service->getDates();
     $activity_groups = $service->getActivityGroups();
-    $member_activities_url = $service->getUrl();
 
     return [
       '#theme' => 'ymca_retention_track_activity',
@@ -36,7 +35,6 @@ class TrackActivity extends BlockBase {
             'activity' => [
               'dates' => $dates,
               'activity_groups' => $activity_groups,
-              'member_activities_url' => $member_activities_url,
             ],
           ],
         ],

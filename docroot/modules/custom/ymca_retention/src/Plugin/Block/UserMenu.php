@@ -3,7 +3,6 @@
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
 
 /**
  * Provides a user menu block.
@@ -34,8 +33,6 @@ class UserMenu extends BlockBase {
     ];
     $register_form = \Drupal::formBuilder()
       ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm', $config);
-    $member_url = Url::fromRoute('ymca_retention.member_json')
-      ->toString();
 
     return [
       '#theme' => 'ymca_retention_user_menu',
@@ -46,13 +43,6 @@ class UserMenu extends BlockBase {
       '#attached' => [
         'library' => [
           'ymca_retention/user-menu',
-        ],
-        'drupalSettings' => [
-          'ymca_retention' => [
-            'user_menu' => [
-              'member_url' => $member_url,
-            ],
-          ],
         ],
       ],
     ];

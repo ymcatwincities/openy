@@ -14,6 +14,14 @@
       var self = this;
       // Shared information.
       self.storage = storage;
+
+      self.instantWinClass = function() {
+        var classes = [];
+        if (!self.storage.instantWinCount) {
+          classes.push('empty');
+        }
+        return classes.join(' ');
+      };
     });
 
     // Service to communicate with backend.
@@ -24,29 +32,10 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.user_menu.member_url).then(function(response) {
+          $http.get(settings.ymca_retention.resources.member).then(function(response) {
             if ($.isEmptyObject(response.data)) {
               // We've got empty result - remove the member cookie.
               $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
-              deferred.resolve(null);
-              return;
-            }
-
-            deferred.resolve(response.data);
-          });
-        }
-
-        return deferred.promise;
-      }
-
-      function getMemberActivities(id) {
-        var deferred = $q.defer();
-        if (typeof id === 'undefined') {
-          deferred.resolve(null);
-        }
-        else {
-          $http.get(settings.ymca_retention.activity.member_activities_url).then(function(response) {
-            if ($.isEmptyObject(response.data)) {
               deferred.resolve(null);
               return;
             }
@@ -69,7 +58,26 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.checkins.checkins_history_url).then(function (response) {
+          $http.get(settings.ymca_retention.resources.member_checkins).then(function (response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
+      function getMemberActivities(id) {
+        var deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http.get(settings.ymca_retention.resources.member_activities).then(function(response) {
             if ($.isEmptyObject(response.data)) {
               deferred.resolve(null);
               return;
@@ -91,7 +99,7 @@
         else {
           $http({
             method: 'POST',
-            url: settings.ymca_retention.activity.member_activities_url,
+            url: settings.ymca_retention.resources.member_activities,
             data: $httpParamSerializerJQLike(data),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -115,7 +123,34 @@
           deferred.resolve(null);
         }
         else {
-          $http.get(settings.ymca_retention.instant_win.member_chances_url).then(function(response) {
+          $http.get(settings.ymca_retention.resources.member_chances).then(function(response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
+      function getMemberPrize() {
+        var id = $cookies.get('Drupal.visitor.ymca_retention_member'),
+          deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http({
+            method: 'POST',
+            url: settings.ymca_retention.resources.member_chances,
+            // data: $httpParamSerializerJQLike(data),
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function(response) {
             if ($.isEmptyObject(response.data)) {
               deferred.resolve(null);
               return;
@@ -130,15 +165,16 @@
 
       return {
         getMember: getMember,
-        getMemberActivities: getMemberActivities,
         getMemberCheckIns: getMemberCheckIns,
+        getMemberActivities: getMemberActivities,
         setMemberActivities: setMemberActivities,
-        getMemberChances: getMemberChances
+        getMemberChances: getMemberChances,
+        getMemberPrize: getMemberPrize
       };
     });
 
     // Service to hold information shared between controllers.
-    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $cookies, promiseTracker, courier) {
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $cookies, $filter, promiseTracker, courier) {
       var self = this;
 
       // Initiate the promise tracker to track submissions.
@@ -146,6 +182,14 @@
 
       self.dates = settings.ymca_retention.activity.dates;
       self.activity_groups = settings.ymca_retention.activity.activity_groups;
+      self.member = null;
+      self.member_activities = null;
+      self.member_activities_counts = null;
+      self.member_chances = null;
+      self.instantWinCount = 0;
+      self.member_checkins = null;
+      // Game state.
+      self.state = 'game';
 
       // Force to check cookie value.
       $interval(function() {
@@ -153,13 +197,33 @@
       }, 500);
 
       // Watch cookie value and update data on change.
-      $rootScope.$watch(function () {
+      $rootScope.$watch(function() {
         return $cookies.get('Drupal.visitor.ymca_retention_member');
-      }, function (newVal, oldVal) {
+      }, function(newVal, oldVal) {
         self.getMember(newVal);
         self.getMemberChancesById(newVal);
         self.getMemberActivities(newVal);
         self.getMemberCheckIns(newVal);
+        self.state = 'game';
+      });
+
+      // Watch member activities and update counts.
+      $rootScope.$watch(function() {
+        return self.member_activities;
+      }, function(newVal, oldVal) {
+        self.memberActivitiesCounts();
+      });
+
+      // Watch member chances to update available instant win count.
+      $rootScope.$watch(function() {
+        return self.member_chances;
+      }, function(newVal, oldVal) {
+        if (!newVal) {
+          self.instantWinCount = 0;
+        }
+        else {
+          self.instantWinCount = $filter('filter')(newVal, {'played': '0'}, true).length;
+        }
       });
 
       self.getMember = function(id) {
@@ -177,6 +241,7 @@
           self.member_chances = data;
         });
       };
+
       self.getMemberCheckIns = function(id) {
         courier.getMemberCheckIns(id).then(function(data) {
           self.member_checkins = data;
@@ -186,13 +251,11 @@
       self.getMemberActivities = function(id) {
         courier.getMemberActivities(id).then(function(data) {
           self.member_activities = data;
-          self.memberActivitiesCounts();
         });
       };
       self.setMemberActivities = function(data) {
         var $promise = courier.setMemberActivities(data).then(function(data) {
           self.member_activities = data;
-          self.memberActivitiesCounts();
           self.getMemberChances();
         });
 
@@ -219,6 +282,16 @@
             self.member_activities_counts[timestamp][self.activity_groups[activity_group].id] = count;
           }
         }
+      };
+
+      self.getMemberPrize = function() {
+        var $promise = courier.getMemberPrize().then(function(data) {
+          self.member_chances = data;
+        });
+
+        // Track the request and show its progress to the user.
+        self.progress.addPromise($promise);
+        return $promise;
       };
 
       self.memberCookieRemove = function() {
