@@ -5,7 +5,7 @@
  */
 #}
 {{ 'Instant Win'|t }}
-<span class="yfr-instant-win-star ng-hide"
-      data-ng-show="retentionC.storage.member_chances.length">
-  {{ '{{retentionC.storage.member_chances.length}}' }}
+<span class="yfr-instant-win-star ng-cloak"
+      data-ng-class="retentionC.instantWinClass()">
+  {{ '{{retentionC.storage.instantWinCount}}' }}
 </span>

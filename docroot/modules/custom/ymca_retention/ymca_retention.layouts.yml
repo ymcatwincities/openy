@@ -20,3 +20,4 @@ ymca-retention:
       label: Instant win tab
     tab_rules_prizes:
       label: Rules and Prizes tab
+  library: ymca_retention/angular-app
