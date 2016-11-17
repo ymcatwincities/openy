@@ -164,6 +164,7 @@ function ymca_retention_update_8012() {
       $path . 'field.storage.taxonomy_term.field_retention_activity_id.yml',
       $path . 'ymca_retention.api.yml',
       $path . 'ymca_retention.general_settings.yml',
+      $path . 'ymca_retention.instant_win.yml',
       $path . 'page_manager.page.ymca_retention_challenge.yml',
       $path . 'page_manager.page.ymca_retention_challenge_pages.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge.yml',
