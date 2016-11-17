@@ -28,30 +28,19 @@ class InstantWin {
   protected $queryFactory;
 
   /**
-   * Tango card wrapper.
-   *
-   * @var \Drupal\tango_card\TangoCardWrapper
-   */
-  protected $tangoCardWrapper;
-
-  /**
    * Constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
    *   The entity query factory.
-   * @param \Drupal\tango_card\TangoCardWrapper $tango_card_wrapper
-   *   The tango card wrapper.
    */
   public function __construct(
     ConfigFactoryInterface $config_factory,
-    QueryFactory $query_factory,
-    TangoCardWrapper $tango_card_wrapper
+    QueryFactory $query_factory
   ) {
     $this->configFactory = $config_factory;
     $this->queryFactory = $query_factory;
-    $this->tangoCardWrapper = $tango_card_wrapper;
   }
 
   /**
