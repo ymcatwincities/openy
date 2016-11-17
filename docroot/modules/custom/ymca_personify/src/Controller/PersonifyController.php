@@ -7,6 +7,7 @@ use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\personify_sso\PersonifySso;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Class PersonifyController.
@@ -131,6 +132,26 @@ class PersonifyController extends ControllerBase {
     $redirect->send();
 
     exit();
+  }
+
+  /**
+   * Checks access.
+   */
+  public function isLoginedByPersonify() {
+    if (
+      isset($_COOKIE['Drupal_visitor_personify_authorized']) &&
+      isset($_COOKIE['Drupal_visitor_personify_time']) &&
+      isset($_COOKIE['Drupal_visitor_personify_id'])
+    ) {
+      return TRUE;
+    }
+  }
+
+  /**
+   * Checks access.
+   */
+  public function access() {
+    return AccessResult::allowedIf($this->isLoginedByPersonify());
   }
 
 }

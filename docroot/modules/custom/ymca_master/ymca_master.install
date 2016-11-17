@@ -4378,3 +4378,51 @@ function ymca_master_update_8191() {
     ]
   );
 }
+
+/**
+ * Install PHPUnit TDD.
+ */
+function ymca_master_update_8192() {
+  \Drupal::service('module_installer')->install([
+    'phpunit_tdd',
+  ], TRUE);
+}
+
+/**
+ * Add a view to remove menu items in a bulk.
+ */
+function ymca_master_update_8193() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'modules/custom/bulk_actions/config/install/views.view.bulk_actions_menu_link_content.yml',
+    ]
+  );
+}
+
+/**
+ * Create menu item for childcare.
+ */
+function ymca_master_update_8194() {
+  $query = Drupal::entityQuery('menu_link_content')
+    ->condition('link.uri', 'internal:/personify/sign_out')
+    ->condition('menu_name', 'top_menu_2')
+    ->range(0, 1);
+  $results = $query->execute();
+  if ($results) {
+    $menu_link_id = reset($results);
+    $menu_link = MenuLinkContent::load($menu_link_id);
+    $menu_link->set('weight', '3');
+    $menu_link->save();
+
+    $item = [
+      'title' => 'Childcare payment history',
+      'link' => ['uri' => 'internal:/personify/childcare_payment_history'],
+      'menu_name' => 'top_menu_2',
+      'parent' => $menu_link->get('parent'),
+      'weight' => '2',
+    ];
+
+    $menu_item = MenuLinkContent::create($item);
+    $menu_item->save();
+  }
+}

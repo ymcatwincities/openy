@@ -2,6 +2,9 @@ ab_generic:
   version: 1.x
   js:
     js/generic.js: {}
+  css:
+    theme:
+      'public://ab.css': {}
   dependencies:
     - core/jquery
     - core/drupal
