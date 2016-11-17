@@ -62,7 +62,7 @@ class RegularUpdater implements RegularUpdaterInterface {
   /**
    * {@inheritdoc}
    */
-  public function isAllowed() {return true;
+  public function isAllowed() {
     $config = $this->configFactory->getEditable('ymca_retention.cron_settings');
     $last_run = $config->get('last_run');
     // Check if cron was run today.
