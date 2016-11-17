@@ -57,12 +57,12 @@ class InstantWin {
   /**
    * Play the chance.
    *
-   * @param \Drupal\ymca_retention\Entity\Member $member
+   * @param Member $member
    *   Member entity.
-   * @param \Drupal\ymca_retention\Entity\MemberChance $chance
+   * @param MemberChance $chance
    *   Member chance entity.
    */
-  public function play($member, $chance) {
+  public function play(Member $member, MemberChance $chance) {
     // Staff is not eligible to win prizes.
     if ($member->isMemberEmployee()) {
       $this->chanceLost($chance);
@@ -81,12 +81,12 @@ class InstantWin {
   /**
    * Chance is won.
    *
-   * @param \Drupal\ymca_retention\Entity\MemberChance $chance
+   * @param MemberChance $chance
    *   Member chance entity.
    * @param int $value
    *   Prize value.
    */
-  public function chanceWon($chance, $value) {
+  public function chanceWon(MemberChance $chance, $value) {
     $chance->set('played', time());
     $chance->set('winner', 1);
     $chance->set('value', $value);
@@ -98,10 +98,10 @@ class InstantWin {
   /**
    * Chance is lost.
    *
-   * @param \Drupal\ymca_retention\Entity\MemberChance $chance
+   * @param MemberChance $chance
    *   Member chance entity.
    */
-  public function chanceLost($chance) {
+  public function chanceLost(MemberChance $chance) {
     $chance->set('played', time());
     $chance->set('winner', 0);
     $chance->set('message', $this->messageLost());
