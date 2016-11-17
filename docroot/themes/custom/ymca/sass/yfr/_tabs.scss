@@ -156,10 +156,14 @@
   @include rem(line-height, 28px);
   @include rem(margin-left, 10px);
   @include rem(width, 28px);
-  background-image: url(../prototypes/yfr/img/tabs/icon-star.png);
+  background-image: inline-image('../prototypes/yfr/img/tabs/icon-star.svg');
   background-size: cover;
   color: $white;
   display: inline-block;
   font-size: 14px;
   text-align: center;
+
+  &.empty {
+    background-image: inline-image('../prototypes/yfr/img/tabs/icon-star-empty.svg');
+  }
 }
