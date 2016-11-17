@@ -58,13 +58,22 @@ class InstantWin {
       return;
     }
 
+    // Get the lock.
+    $lock = \Drupal::lock();
+    while (!$lock->acquire('ymca_retention_instant_win')) {
+      $lock->wait('ymca_retention_instant_win');
+    }
+
     // Try to get the prize.
     if (!$prize = $this->getPrize()) {
       $this->chanceLost($chance);
-      return;
+    }
+    else {
+      $this->chanceWon($chance, $prize['value']);
     }
 
-    $this->chanceWon($chance, $prize['value']);
+    // Release the lock.
+    $lock->release('ymca_retention_instant_win');
   }
 
   /**
