@@ -68,7 +68,7 @@
 
       self.gameHistoryMessageClass = function(chance) {
         var classes = [];
-        if (chance.winner) {
+        if (chance.winner === '1') {
           classes.push('active');
         }
         return classes.join(' ');
