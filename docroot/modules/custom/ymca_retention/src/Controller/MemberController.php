@@ -33,8 +33,7 @@ class MemberController extends ControllerBase {
       'firstName' => $member->getFirstName(),
     ];
 
-    $response = new JsonResponse($member_values);
-    return $response;
+    return new JsonResponse($member_values);
   }
 
   /**
@@ -72,8 +71,7 @@ class MemberController extends ControllerBase {
     $activity_manager = \Drupal::service('ymca_retention.activity_manager');
     $member_activities = $activity_manager->getMemberActivitiesModel();
 
-    $response = new JsonResponse($member_activities);
-    return $response;
+    return new JsonResponse($member_activities);
   }
 
   /**
@@ -109,8 +107,9 @@ class MemberController extends ControllerBase {
       }
     }
 
-    $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_chance');
-    $chances = $storage->loadByProperties(['member' => $member_id]);
+    $chances = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_chance')
+      ->loadByProperties(['member' => $member_id]);
 
     $chances_values = [];
     /** @var MemberChance $chance */
@@ -124,8 +123,7 @@ class MemberController extends ControllerBase {
       ];
     }
 
-    $response = new JsonResponse($chances_values);
-    return $response;
+    return new JsonResponse($chances_values);
   }
 
   /**
@@ -146,9 +144,10 @@ class MemberController extends ControllerBase {
     $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
       ->condition('member', $member_id)
       ->execute();
-    $storage = \Drupal::entityTypeManager()
-      ->getStorage('ymca_retention_member_checkin');
-    $checkins = $storage->loadMultiple($checkin_ids);
+
+    $checkins = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_checkin')
+      ->loadMultiple($checkin_ids);
 
     $checkin_values = [];
     foreach ($checkins as $checkin) {

@@ -170,6 +170,7 @@ function ymca_retention_update_8012() {
       $path . 'page_manager.page_variant.ymca_retention_challenge.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge_default.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge_team.yml',
+      $path . 'views.view.ymca_retention_member_prizes.yml',
     ]
   );
 
@@ -252,6 +253,7 @@ function ymca_retention_update_8015() {
     'page_manager.page_variant.y_game_content',
     'page_manager.page.ymca_retention_pages',
     'page_manager.page.ymca_retention_campaign',
+    'views.view.ymca_retention_winners',
   ];
   $factory = Drupal::configFactory();
   foreach ($remove_configs as $config) {
