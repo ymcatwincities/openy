@@ -169,6 +169,7 @@ function ymca_retention_update_8012() {
       $path . 'page_manager.page_variant.ymca_retention_challenge.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge_default.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge_team.yml',
+      $path . 'views.view.ymca_retention_member_prizes',
     ]
   );
 
@@ -251,6 +252,7 @@ function ymca_retention_update_8015() {
     'page_manager.page_variant.y_game_content',
     'page_manager.page.ymca_retention_pages',
     'page_manager.page.ymca_retention_campaign',
+    'views.view.ymca_retention_winners',
   ];
   $factory = Drupal::configFactory();
   foreach ($remove_configs as $config) {
@@ -297,14 +299,4 @@ function ymca_retention_update_8016(&$sandbox) {
  */
 function ymca_retention_update_8017() {
   \Drupal::service('module_installer')->install(['tango_card'], TRUE);
-}
-
-/**
- * Remove YMCA Retention Winners config.
- */
-function ymca_retention_update_8018() {
-  Drupal::configFactory()->getEditable('views.view.ymca_retention_winners')->delete();
-  \Drupal::service('config_import.importer')->importConfigs([
-    'sites/default/config/staging/views.view.ymca_retention_member_prizes.yml',
-  ]);
 }
