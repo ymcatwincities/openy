@@ -1,0 +1,15 @@
+prize_pool:
+  -
+    value: 5
+    quantity: 2000
+  -
+    value: 20
+    quantity: 500
+  -
+    value: 50
+    quantity: 100
+  -
+    value: 100
+    quantity: 10
+
+percentage: 80
