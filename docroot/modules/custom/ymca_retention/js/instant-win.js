@@ -12,6 +12,8 @@
       var self = this;
       // Shared information.
       self.storage = storage;
+      // Prize value.
+      self.value = 0;
 
       self.instantWinStatus = function() {
         return $sce.trustAsHtml(Drupal.formatPlural(
@@ -41,7 +43,20 @@
         self.storage.state = 'process';
         self.storage.getMemberPrize().then(function(data) {
           $timeout(function() {
-            self.storage.state = 'result.win';
+            var last_played_chance;
+            $.each(data, function(index, value) {
+              if (value.played != '0') {
+                last_played_chance = value;
+              }
+            });
+
+            if (last_played_chance.winner === '1') {
+              self.storage.state = 'result.win';
+              self.value = last_played_chance.value;
+            }
+            else {
+              self.storage.state = 'result.loss';
+            }
           }, 3000);
         });
       };
