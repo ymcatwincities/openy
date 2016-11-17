@@ -43,11 +43,21 @@
       <div class="yfr-game__win ng-hide"
            data-ng-show="instantWinC.storage.state == 'result.win'">
         <div class="win">
-          <span>$5</span>
+          <span>${{ '{{instantWinC.value}}' }}</span>
         </div>
         <div class="description">
           {{ 'Check <span>your email</span> to retrieve the Tango Card!'|t }}
         </div>
+        <div class="actions">
+          <input type="submit" value="OK" data-ng-click="instantWinC.storage.state = 'game'">
+        </div>
+      </div>
+
+      <div class="yfr-game__lose ng-hide"
+           data-ng-show="instantWinC.storage.state == 'result.loss'">
+        <h3>{{ 'Gosh!'|t }}</h3>
+        <p>{{ 'Unfortunately, you didn\'t win this time.'|t }}<br/>
+          {{ 'Good luck with your next spin!'|t }}</p>
         <div class="actions">
           <input type="submit" value="OK" data-ng-click="instantWinC.storage.state = 'game'">
         </div>

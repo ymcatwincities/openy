@@ -96,6 +96,7 @@ class MemberController extends ControllerBase {
       $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
         ->condition('member', $member_id)
         ->condition('played', 0)
+        ->sort('id')
         ->execute();
       $chance_id = array_shift($chances_ids);
 
@@ -118,6 +119,7 @@ class MemberController extends ControllerBase {
         'type' => $chance->get('type')->value,
         'played' => $chance->get('played')->value,
         'winner' => $chance->get('winner')->value,
+        'value' => $chance->get('value')->value,
         'message' => $chance->get('message')->value,
       ];
     }
