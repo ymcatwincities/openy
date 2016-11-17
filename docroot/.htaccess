@@ -85,20 +85,20 @@ AddEncoding gzip svgz
   RewriteRule ^membership/.*$ /membership [R=301,NC,L]
 
   # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
-  RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
+  # RewriteCond %{HTTP_HOST} ^redwingymca\.org$
+  # RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
 
   # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
-  RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
+  # RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
+  # RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
 
   # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
-  RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
+  # RewriteCond %{HTTP_HOST} ^redwingymca\.org$
+  # RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
 
   # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
-  RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
+  # RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
+  # RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
 
   # REDWING END
 
