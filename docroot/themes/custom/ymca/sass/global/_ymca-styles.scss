@@ -860,3 +860,9 @@ body .ajax-progress-throbber {
     }
   }
 }
+
+.internal-template.node--type-article #carousel .even-heights .active.item {
+  min-height: 300px;
+  max-height: 500px;
+
+}
