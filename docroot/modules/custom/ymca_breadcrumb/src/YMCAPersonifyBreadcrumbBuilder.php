@@ -9,11 +9,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\ymca_page_context\PageContextService;
-use Drupal\Core\Path\AliasManager;
 
 /**
  * Class YMCAPersonifyBreadcrumbBuilder.
@@ -23,52 +18,6 @@ use Drupal\Core\Path\AliasManager;
 class YMCAPersonifyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   use StringTranslationTrait;
   use LinkGeneratorTrait;
-
-  /**
-   * Query Factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
-   * Entity Type Manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * Request stack.
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
-   */
-  protected $requestStack;
-
-  /**
-   * Page Context.
-   *
-   * @var \Drupal\ymca_page_context\PageContextService
-   */
-  protected $pagecontextService;
-
-  /**
-   * Path Alias Manager.
-   *
-   * @var \Drupal\Core\Path\AliasManager
-   */
-  protected $aliasManager;
-
-  /**
-   * YMCAMindbodyBreadcrumbBuilder constructor.
-   */
-  public function __construct(QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, PageContextService $pagecontextService, AliasManager $aliasManager) {
-    $this->entityQuery = $entityQuery;
-    $this->entityTypeManager = $entityTypeManager;
-    $this->request = $requestStack;
-    $this->pagecontextService = $pagecontextService;
-    $this->aliasManager = $aliasManager;
-  }
 
   /**
    * Handled routes.
