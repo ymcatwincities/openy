@@ -15,6 +15,11 @@
 
     @include breakpoint($tablet) {
       @include rem(margin-top, 15px);
+      @include rem(padding-left, 50px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding-left, 120px);
     }
 
     &:before {
@@ -60,7 +65,7 @@
   position: relative;
 
   @include breakpoint($tablet) {
-    @include rem(height, 600px);
+    @include rem(height, 450px);
   }
 
   &:before {
@@ -97,7 +102,7 @@
       }
 
       @include breakpoint($tablet) {
-        height: 100%;
+        //height: 100%;
         width: auto;
       }
 
@@ -114,11 +119,11 @@
     z-index: 101;
 
     @include breakpoint($tablet) {
-      @include rem(padding-top, 120px);
+      @include rem(padding-top, 80px);
     }
 
-    @include breakpoint(992px) {
-      @include rem(padding-top, 300px);
+    @include breakpoint($desktop-small) {
+      @include rem(padding-top, 160px);
     }
   }
 
@@ -219,7 +224,6 @@
   }
 
   &__logout {
-    //@include rem(padding-right, 20px);
     @include rem(padding-left, 20px);
     display: inline-block;
     float: right;
@@ -238,11 +242,15 @@
 
   @include breakpoint($tablet) {
     @include rem(top, 15px);
-    @include rem(padding, 24px 20px);
+    @include rem(padding, 24px 30px 24px 20px);
     background: none;
     position: absolute;
     right: 0;
     z-index: 103;
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding-right, 100px);
   }
 }
 
@@ -272,6 +280,10 @@
     .viewport {
       @include rem(padding-top, 40px);
     }
+  }
+
+  &.toolbar-fixed.toolbar-vertical {
+    margin-top: 0;
   }
 
   picture {
@@ -311,13 +323,17 @@
     align-self: flex-start;
 
     @include breakpoint($tablet){
-      @include rem(margin-bottom, 140px);
-      @include rem(margin-top, 70px);
+      @include rem(margin-bottom, 70px);
+      @include rem(margin-top, 50px);
     }
 
     @include breakpoint($desktop-small) {
-      @include rem(margin-bottom, 180px);
-      @include rem(margin-top, 90px);
+      @include rem(margin-bottom, 80px);
+      @include rem(margin-top, 60px);
+    }
+
+    @media all and (max-height: 766px) {
+      margin-top: 0;
     }
   }
 

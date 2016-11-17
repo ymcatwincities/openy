@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -110,7 +111,7 @@ class MenuLinkContentDeleteMultipleForm extends ConfirmFormBase {
 
     $form['items'] = array(
       '#theme' => 'item_list',
-      '#items' => array_map(function (BlockContentInterface $item) {
+      '#items' => array_map(function (MenuLinkContentInterface $item) {
         return SafeMarkup::checkPlain($item->label());
       }, $this->items),
     );

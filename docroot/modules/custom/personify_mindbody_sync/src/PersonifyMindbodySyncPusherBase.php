@@ -401,7 +401,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    * @param string $notification_type
    *   Notification type.
    */
-  private function sendNotification(\stdClass $order, $mb_sale_id, $notification_type = 'notify_location_trainers') {
+  public function sendNotification(\stdClass $order, $mb_sale_id, $notification_type = 'notify_location_trainers') {
     try {
       $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
 
@@ -429,6 +429,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'personify_order_no' => $order->OrderNo,
         'personify_order_line_no' => $order->OrderLineNo,
         'location' => $location_mapping->label(),
+        'total_amount' => $order->TotalAmount . ' USD',
       ];
 
       $emails = [];
