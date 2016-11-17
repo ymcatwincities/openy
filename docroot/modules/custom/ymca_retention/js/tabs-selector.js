@@ -22,7 +22,7 @@
       var $target = $(event.currentTarget);
 
       // Checking whether private content is available.
-      if ($target.find('.login-required.ng-hide').length == 0) {
+      if ($target.find('.login-required.ng-hide').length === 0) {
         return;
       }
 

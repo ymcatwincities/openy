@@ -18,13 +18,19 @@ class YmcaRetentionSetTab implements CommandInterface {
    */
   protected $tabId;
 
+  /**
+   * Construct YmcaRetentionSetTab object.
+   *
+   * @param string $tab_id
+   *   The tab/accordion item identifier.
+   */
   public function __construct($tab_id = NULL) {
     if (!$tab_id) {
       $tab_id = 'about';
     }
 
     $this->tabId = $tab_id;
-  } 
+  }
 
   /**
    * {@inheritdoc}
