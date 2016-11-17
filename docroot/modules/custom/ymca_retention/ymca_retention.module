@@ -305,6 +305,17 @@ function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
       if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
         continue;
       }
+
+      $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
+        ->condition('member', $entity->getId())
+        ->condition('date', $date_from->getTimestamp())
+        ->execute();
+
+      // Verify checkins for the day.
+      if (!empty($checkin_ids)) {
+        continue;
+      }
+
       // Create check-in record.
       $checkin = MemberCheckIn::create([
         'date' => $date_from->getTimestamp(),
@@ -333,7 +344,7 @@ function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $en
   $today = new \DateTime();
   $today->setTime(0, 0, 0);
   $chance = MemberChance::create([
-    'timestamp' => $today->getTimestamp(),
+    'timestamp' => $entity->getDate(),
     'type' => 'checkin',
     'member' => $entity->getMember(),
   ]);
