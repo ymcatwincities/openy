@@ -18,7 +18,7 @@
     else {
       // Expanding selected accordion item after login.
       $('.yfr-accordion a[href="#' + tab_id + '-collapse"]').removeClass('collapsed');
-      $('.yfr-accordion #' + tab_id + '-collapse').addClass('in');
+      $('.yfr-accordion #' + tab_id + '-collapse').addClass('in').css('height', 'auto');
     }
 
   };
