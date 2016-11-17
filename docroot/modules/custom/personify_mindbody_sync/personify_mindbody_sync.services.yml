@@ -38,3 +38,6 @@ services:
       - [addStep, ['@personify_mindbody_sync.proxy', 'saveEntities']]
       - [addStep, ['@personify_mindbody_sync.pusher_slow', 'push']]
     tags: []
+  personify_mindbody_sync.tester:
+    class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncTester
+    arguments: ['@personify_mindbody_sync.pusher_fast', '@personify_mindbody_sync.wrapper']
