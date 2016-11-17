@@ -298,3 +298,13 @@ function ymca_retention_update_8016(&$sandbox) {
 function ymca_retention_update_8017() {
   \Drupal::service('module_installer')->install(['tango_card'], TRUE);
 }
+
+/**
+ * Remove YMCA Retention Winners config.
+ */
+function ymca_retention_update_8018() {
+  Drupal::configFactory()->getEditable('views.view.ymca_retention_winners')->delete();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/views.view.ymca_retention_member_prizes.yml',
+  ]);
+}
