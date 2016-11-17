@@ -169,7 +169,7 @@ function ymca_retention_update_8012() {
       $path . 'page_manager.page_variant.ymca_retention_challenge.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge_default.yml',
       $path . 'page_manager.page_variant.ymca_retention_challenge_team.yml',
-      $path . 'views.view.ymca_retention_member_prizes',
+      $path . 'views.view.ymca_retention_member_prizes.yml',
     ]
   );
 
