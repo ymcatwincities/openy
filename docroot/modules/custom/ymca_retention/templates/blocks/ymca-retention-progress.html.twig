@@ -6,10 +6,7 @@
 #}
 <div class="inner-container"
      data-ng-controller="ProgressController as progressC">
-  <div data-ng-show="!retentionC.storage.member">
-    <p>{{ 'Please sign-in or register.'|t }}</p>
-  </div>
-  <table class="yfr-table-progress ng-hide"
+  <table class="yfr-table-progress ng-hide login-required"
          data-ng-show="retentionC.storage.member">
     <tbody>
 
