@@ -22,3 +22,6 @@ services:
   ymca_retention.regular_updater:
     class: Drupal\ymca_retention\RegularUpdater
     arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']
+  ymca_retention.instant_win:
+    class: Drupal\ymca_retention\InstantWin
+    arguments: ['@config.factory', '@entity.query']
