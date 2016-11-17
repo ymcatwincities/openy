@@ -7,6 +7,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_retention\Ajax\YmcaRetentionModalSetContent;
 use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
@@ -140,10 +141,16 @@ class MemberRegisterForm extends FormBase {
     if ($form_state->isExecuted()) {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
+
       $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
-      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-modal .modal-body', [
-        '#theme' => 'ymca_retention_register_confirmation_modal',
-      ]));
+      $ajax_response->addCommand(new YmcaRetentionModalSetContent('ymca-retention-user-menu-reg-confirmation-form'));
+
+      $this->refreshValues($form_state);
+      $new_form = \Drupal::formBuilder()
+        ->rebuildForm($this->getFormId(), $form_state, $form);
+
+      // Refreshing form.
+      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form', $new_form));
 
       return $ajax_response;
     }
@@ -258,13 +265,9 @@ class MemberRegisterForm extends FormBase {
     }
 
     if ($config['yteam']) {
-      $user_input = $form_state->getUserInput();
-      unset($user_input['membership_id']);
-      $form_state->setUserInput($user_input);
-      $form_state->set('membership_id', NULL);
-      $form_state->set('personify_member', NULL);
-      $form_state->set('personify_email', NULL);
+      $this->refreshValues($form_state);
       $form_state->setRebuild();
+
       drupal_set_message($this->t('Registered @full_name with email address @email.', [
         '@full_name' => $entity->getFullName(),
         '@email' => $this->obfuscateEmail($entity->getEmail()),
@@ -423,6 +426,18 @@ class MemberRegisterForm extends FormBase {
    */
   protected function obfuscateEmail($email) {
     return preg_replace('/(?<=.{2}).(?=.+@)/u', '*', $email);
+  }
+
+  /**
+   * Refresh values.
+   */
+  protected function refreshValues(FormStateInterface $form_state) {
+    $user_input = $form_state->getUserInput();
+    unset($user_input['membership_id']);
+    $form_state->setUserInput($user_input);
+    $form_state->set('membership_id', NULL);
+    $form_state->set('personify_member', NULL);
+    $form_state->set('personify_email', NULL);
   }
 
 }
