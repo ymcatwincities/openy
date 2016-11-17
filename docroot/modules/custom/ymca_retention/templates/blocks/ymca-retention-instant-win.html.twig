@@ -4,7 +4,9 @@
  * Display Instant Win game and history.
  */
 #}
-<div class="ng-hide login-required" data-ng-controller="InstantWinController as instantWinC">
+<div class="ng-hide login-required"
+     data-ng-controller="InstantWinController as instantWinC"
+     data-ng-show="retentionC.storage.member">
   <div class="yfr-game-section">
     <div class="yfr-game__title">
       <div class="ng-hide"
