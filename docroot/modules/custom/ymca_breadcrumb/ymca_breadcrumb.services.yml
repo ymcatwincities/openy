@@ -21,3 +21,8 @@ services:
     arguments: ['@entity.query', '@entity_type.manager', '@request_stack', '@pagecontext.service', '@path.alias_manager']
     tags:
       - { name: breadcrumb_builder, priority: 5000 }
+  ymca_breadcrumb.personify:
+    class: Drupal\ymca_breadcrumb\YMCAPersonifyBreadcrumbBuilder
+    arguments: ['@entity.query', '@entity_type.manager', '@request_stack', '@pagecontext.service', '@path.alias_manager']
+    tags:
+      - { name: breadcrumb_builder, priority: 5000 }
