@@ -68,9 +68,9 @@ class MemberController extends ControllerBase {
       }
     }
 
-    /** @var \Drupal\ymca_retention\ActivityManager $service */
-    $service = \Drupal::service('ymca_retention.activity_manager');
-    $member_activities = $service->getMemberActivitiesModel();
+    /** @var \Drupal\ymca_retention\ActivityManager $activity_manager */
+    $activity_manager = \Drupal::service('ymca_retention.activity_manager');
+    $member_activities = $activity_manager->getMemberActivitiesModel();
 
     $response = new JsonResponse($member_activities);
     return $response;
@@ -102,11 +102,9 @@ class MemberController extends ControllerBase {
       if ($chance_id) {
         $chance = MemberChance::load($chance_id);
 
-        $chance->set('played', time());
-        $chance->set('winner', 1);
-        $chance->set('value', 5);
-        $chance->set('message', 'Won $5 card!');
-        $chance->save();
+        /** @var \Drupal\ymca_retention\InstantWin $instant_win */
+        $instant_win = \Drupal::service('ymca_retention.instant_win');
+        $instant_win->play($member, $chance);
       }
     }
 
@@ -114,6 +112,7 @@ class MemberController extends ControllerBase {
     $chances = $storage->loadByProperties(['member' => $member_id]);
 
     $chances_values = [];
+    /** @var MemberChance $chance */
     foreach ($chances as $chance) {
       $chances_values[] = [
         'type' => $chance->get('type')->value,

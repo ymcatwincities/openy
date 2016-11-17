@@ -33,7 +33,7 @@ class TangoCardWrapper {
   /**
    * A cache backend interface.
    *
-   * @var Drupal\Core\Cache\CacheBackendInterface
+   * @var \Drupal\Core\Cache\CacheBackendInterface
    */
   protected $cache;
 
@@ -65,7 +65,7 @@ class TangoCardWrapper {
    *   The entity manager.
    * @param \Drupal\Core\Config\ImmutableConfig $config
    *   Tango Card configuration object.
-   * @param Drupal\Core\Cache\CacheBackendInterface $cache
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend interface.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, ImmutableConfig $config, CacheBackendInterface $cache) {
