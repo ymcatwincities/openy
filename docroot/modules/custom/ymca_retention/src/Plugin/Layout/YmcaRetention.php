@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\layout_plugin\Plugin\Layout\LayoutBase;
 
 /**
@@ -39,6 +40,25 @@ class YmcaRetention extends LayoutBase {
     parent::submitConfigurationForm($form, $form_state);
 
     $this->configuration['extra_classes'] = $form_state->getValue('extra_classes');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function build(array $regions) {
+    $build = parent::build($regions);
+
+    /** @var \Drupal\ymca_retention\ActivityManager $service */
+    $service = \Drupal::service('ymca_retention.activity_manager');
+
+    $build['#attached']['drupalSettings']['ymca_retention']['resources'] = [
+      'member' => Url::fromRoute('ymca_retention.member_json')->toString(),
+      'member_activities' => $service->getUrl(),
+      'member_chances' => Url::fromRoute('ymca_retention.member_chances_json')->toString(),
+      'member_checkins' => Url::fromRoute('ymca_retention.member_checkins_json')->toString(),
+    ];
+
+    return $build;
   }
 
 }

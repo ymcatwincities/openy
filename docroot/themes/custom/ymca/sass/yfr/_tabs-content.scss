@@ -330,11 +330,11 @@
     margin: 0;
   }
 
-  .form-type-checkbox {
+  .item-check {
     display: inline-block;
     vertical-align: top;
 
-    label {
+    span {
       @include rem(width, 52px);
       @include rem(height, 52px);
       @include border-radius(50%);
@@ -359,14 +359,9 @@
         content: '';
       }
     }
-  }
 
-  .form-checkbox {
-    opacity: 0;
-    position: absolute;
-
-    &:checked {
-      + label {
+    &.active {
+      span {
         &:before {
           @include transform(translate(-50%, -50%) scale(1));
           background-color: $orange-medium-lighter;
@@ -374,8 +369,8 @@
       }
     }
 
-    &:disabled {
-      + label {
+    &.disabled {
+      span {
         border-color: $grey12;
         cursor: default;
 
@@ -792,6 +787,7 @@
           text-align: center;
           top: 50%;
         }
+
         span {
           display: block;
           overflow: hidden;
@@ -963,7 +959,7 @@
     @include cachet-bold();
     font-size: 20px;
     text-transform: uppercase;
-    color: $grey12;
+    color: $grey5;
 
     &.active {
       color: $orange-light;
@@ -1076,7 +1072,7 @@
     @include background-size(cover);
 
     &.active {
-      @include animation(rotateGame 3s cubic-bezier(.62,0,.37,1));
+      @include animation(rotateGame 3s cubic-bezier(.62,0,.37,1) infinite);
       background: transparent inline-image('../prototypes/yfr/img/tabs/circle-active.svg') 50% 50% no-repeat;
       @include background-size(cover);
     }
@@ -1096,6 +1092,110 @@
       &.red-medium {
         color: #814044;
       }
+    }
+  }
+
+  .yfr-game__win {
+    text-align: center;
+    color: $white;
+
+    .win {
+      @include cachet-bold();
+      @include rem(padding, 10px);
+      @include border-radius(8px);
+      @include rem(margin, 0 auto 24px);
+      font-size: 60px;
+      line-height: 114px;
+      background: $orange-dark-lighter-4;
+      max-width: 234px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+
+      span {
+        @include border-radius(4px);
+        display: block;
+        background: $orange-dark-lighter-3;
+        border: 1px solid $orange-dark-lighter-2;
+      }
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        @include background-image(linear-gradient(126deg, rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 31%,rgba(255,255,255,0.1) 38%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 100%));
+        background-blend-mode: multiply;
+      }
+    }
+
+    .description {
+      font-size: 15px;
+      line-height: 26px;
+      color: $grey19;
+      max-width: 236px;
+      width: 100%;
+      margin: 0 auto;
+
+      span {
+        color: $white;
+      }
+    }
+  }
+
+  .actions input[type=submit] {
+      @include transition(all 0.3s);
+      @include cachet-bold();
+      @include rem(padding, 0 28px);
+      background: none;
+      border: none;
+      border-bottom: 1px solid $orange-light-lighter;
+      color: $orange-light-lighter;
+      line-height: 62px;
+      outline: none;
+      text-transform: uppercase;
+      font-size: 30px;
+
+      &:hover {
+        border-bottom: 1px solid $orange-medium-lighter;
+        color: $orange-medium-lighter;
+      }
+    }
+
+  .yfr-game__lose {
+    @include rem(padding, 128px 0 0 0);
+    text-align: center;
+    color: $white;
+    position: relative;
+
+    &:before {
+      @include rem(width, 102px);
+      @include rem(height, 102px);
+      @include translateX(-50%);
+      content: '';
+      display: block;
+      left: 50%;
+      top: 0;
+      position: absolute;
+      background: transparent inline-image('../prototypes/yfr/img/tabs/icon-sadface.svg') 50% 50% no-repeat;
+      @include background-size(cover);
+    }
+
+    h3 {
+      @include cachet-normal();
+      font-size: 30px;
+      line-height: 40px;
+      text-transform: uppercase;
+      color: $orange-light-lighter;
+      margin: 0;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 26px;
     }
   }
 }
