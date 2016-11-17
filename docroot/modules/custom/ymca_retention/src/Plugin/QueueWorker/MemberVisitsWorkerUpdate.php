@@ -75,11 +75,23 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
         continue;
       }
+      $member_id = array_search($item->MasterCustomerId, $list_ids);
+
+      $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
+        ->condition('member', $member_id)
+        ->condition('date', $date_from->getTimestamp())
+        ->execute();
+
+      // Verify checkins for the day.
+      if (!empty($checkin_ids)) {
+        continue;
+      }
+
       // Create check-in record.
       $checkin = MemberCheckIn::create([
         'date' => $date_from->getTimestamp(),
         'checkin' => TRUE,
-        'member' => array_search($item->MasterCustomerId, $list_ids),
+        'member' => $member_id,
       ]);
       $checkin->save();
     }

@@ -98,12 +98,16 @@ class MemberController extends ControllerBase {
         ->condition('played', 0)
         ->execute();
       $chance_id = array_shift($chances_ids);
-      $chance = MemberChance::load($chance_id);
 
-      $chance->set('played', time());
-      $chance->set('winner', 1);
-      $chance->set('message', 'Won a card');
-      $chance->save();
+      if ($chance_id) {
+        $chance = MemberChance::load($chance_id);
+
+        $chance->set('played', time());
+        $chance->set('winner', 1);
+        $chance->set('value', 5);
+        $chance->set('message', 'Won $5 card!');
+        $chance->save();
+      }
     }
 
     $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_chance');
@@ -114,6 +118,7 @@ class MemberController extends ControllerBase {
       $chances_values[] = [
         'type' => $chance->get('type')->value,
         'played' => $chance->get('played')->value,
+        'winner' => $chance->get('winner')->value,
         'message' => $chance->get('message')->value,
       ];
     }
