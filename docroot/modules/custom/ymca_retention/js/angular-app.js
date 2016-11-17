@@ -289,6 +289,7 @@
           $timeout(function() {
             self.member_chances = data;
           }, 3000);
+          return data;
         });
       };
 
