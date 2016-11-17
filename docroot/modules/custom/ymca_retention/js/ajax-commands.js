@@ -16,6 +16,10 @@
       $link.parent().addClass('active');
     }
     else {
+      // Reseting accordion.
+      $('.yfr-accordion .collapse.in').removeClass('in');
+      $('.yfr-accordion .panel-heading a').addClass('collapsed');
+
       // Expanding selected accordion item after login.
       $('.yfr-accordion a[href="#' + tab_id + '-collapse"]').removeClass('collapsed');
       $('.yfr-accordion #' + tab_id + '-collapse').addClass('in').css('height', 'auto');

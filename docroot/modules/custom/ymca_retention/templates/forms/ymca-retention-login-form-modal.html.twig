@@ -40,7 +40,11 @@
       <label for="remember-me">Remember me</label>
     </div>
     <div class="col-xs-6 col-sm-6">
-      <a href="#about" class="login-register-link" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">
+      <a href="#{{ form.tab_id['#value'] }}"
+         class="login-register-link"
+         data-toggle="modal"
+         data-target="#ymca-retention-modal"
+         data-type="register">
         {{ 'Register'|t }}
       </a>
     </div>

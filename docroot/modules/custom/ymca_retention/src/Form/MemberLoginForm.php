@@ -31,7 +31,11 @@ class MemberLoginForm extends FormBase {
       $form['#theme'] = $config['theme'];
     }
 
-    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => ''];
+    if (!$tab_id = $form_state->get('tab_id')) {
+      $tab_id = 'about';
+    }
+
+    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => $tab_id];
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
 
     if ($verify_membership_id === NULL) {
