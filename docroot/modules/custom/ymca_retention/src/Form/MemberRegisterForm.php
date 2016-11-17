@@ -4,7 +4,7 @@ namespace Drupal\ymca_retention\Form;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
@@ -33,23 +33,17 @@ class MemberRegisterForm extends FormBase {
       $form['#theme'] = $config['theme'];
     }
 
-    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => ''];
+    if (!$tab_id = $form_state->get('tab_id')) {
+      $tab_id = 'about';
+    }
+
+    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => $tab_id];
 
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->get('personify_email');
 
     $obfuscated_email = $this->obfuscateEmail($personify_email);
     $validate_required = [get_class($this), 'elementValidateRequired'];
-
-    // If form was executed then we should show registration confirmation for the user.
-    if ($form_state->isExecuted() && !$config['yteam']) {
-      $form['confirmation'] = [
-        '#type' => 'markup',
-        '#markup' => $this->t('Your registration is successful!'),
-      ];
-
-      return $form;
-    }
 
     if (empty($membership_id) || $config['yteam']) {
       $form['membership_id'] = [
@@ -147,7 +141,9 @@ class MemberRegisterForm extends FormBase {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
       $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
-      $ajax_response->addCommand(new ReplaceCommand('.ymca-retention-register-form', $form));
+      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-modal .modal-body', [
+        '#theme' => 'ymca_retention_register_confirmation_modal',
+      ]));
 
       return $ajax_response;
     }

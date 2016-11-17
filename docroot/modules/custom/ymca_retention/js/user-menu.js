@@ -14,9 +14,13 @@
         $('.yfr-tabs a[href="#about"]').tab('show');
       }
       else {
+        // Reseting accordion.
+        $('.yfr-accordion .collapse.in').removeClass('in');
+        $('.yfr-accordion .panel-heading a').addClass('collapsed');
+
         // Expanding about/intro item.
         $('.yfr-accordion a[href="#about-collapse"]').removeClass('collapsed');
-        $('.yfr-accordion #about-collapse').addClass('in');
+        $('.yfr-accordion #about-collapse').addClass('in').css('height', 'auto');
       }
     });
 
@@ -27,6 +31,9 @@
           type = $button.data('type'),
           $modal = $(this),
           $modal_body = $modal.find('.modal-body');
+
+        // Reseting Register button anchor on Log in form.
+        $('.login-register-link').attr('href', '#');
 
         if ($button.is('a')) {
           var hash = $button[0].hash;
@@ -56,7 +63,7 @@
         }
 
         // Assign modal title.
-        $modal.find('.modal-title').text(title);
+        $modal.find('.modal-title').text(Drupal.t(title));
       }).
       on('hidden.bs.modal', function (event) {
         // Save the form back.
