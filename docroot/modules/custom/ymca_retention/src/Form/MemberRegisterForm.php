@@ -3,8 +3,11 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
@@ -29,6 +32,8 @@ class MemberRegisterForm extends FormBase {
     if (isset($config['theme'])) {
       $form['#theme'] = $config['theme'];
     }
+
+    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => ''];
 
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->get('personify_email');
@@ -138,14 +143,19 @@ class MemberRegisterForm extends FormBase {
    *   Ajax response.
    */
   public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
+    if ($form_state->isExecuted()) {
+      // Instantiate an AjaxResponse Object to return.
+      $ajax_response = new AjaxResponse();
+      $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
+      $ajax_response->addCommand(new ReplaceCommand('.ymca-retention-register-form', $form));
+
+      return $ajax_response;
+    }
     if ($form_state->isRebuilding()) {
       return $form;
     }
     if ($form_state->hasAnyErrors()) {
       $form['messages'] = ['#type' => 'status_messages'];
-      return $form;
-    }
-    else {
       return $form;
     }
   }
