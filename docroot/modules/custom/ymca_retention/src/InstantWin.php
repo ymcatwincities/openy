@@ -57,9 +57,9 @@ class InstantWin {
   /**
    * Play the chance.
    *
-   * @param Member $member
+   * @param \Drupal\ymca_retention\Entity\Member $member
    *   Member entity.
-   * @param MemberChance $chance
+   * @param \Drupal\ymca_retention\Entity\MemberChance $chance
    *   Member chance entity.
    */
   public function play($member, $chance) {
@@ -81,7 +81,7 @@ class InstantWin {
   /**
    * Chance is won.
    *
-   * @param MemberChance $chance
+   * @param \Drupal\ymca_retention\Entity\MemberChance $chance
    *   Member chance entity.
    * @param int $value
    *   Prize value.
@@ -98,7 +98,7 @@ class InstantWin {
   /**
    * Chance is lost.
    *
-   * @param MemberChance $chance
+   * @param \Drupal\ymca_retention\Entity\MemberChance $chance
    *   Member chance entity.
    */
   public function chanceLost($chance) {
