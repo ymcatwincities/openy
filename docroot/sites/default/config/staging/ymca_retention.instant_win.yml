@@ -13,3 +13,9 @@ prize_pool:
     quantity: 10
 
 percentage: 20
+
+messages_loss:
+  - 'No luck'
+  - 'Keep trying'
+  - 'It was close'
+  - 'Another time'

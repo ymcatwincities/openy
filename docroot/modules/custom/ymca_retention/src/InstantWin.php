@@ -54,7 +54,7 @@ class InstantWin {
   public function play(Member $member, MemberChance $chance) {
     // Staff is not eligible to win prizes.
     if ($member->isMemberEmployee()) {
-      $this->chanceLost($chance);
+      $this->chanceLoss($chance);
       return;
     }
 
@@ -66,10 +66,10 @@ class InstantWin {
 
     // Try to get the prize.
     if (!$prize = $this->getPrize()) {
-      $this->chanceLost($chance);
+      $this->chanceLoss($chance);
     }
     else {
-      $this->chanceWon($chance, $prize['value']);
+      $this->chanceWin($chance, $prize['value']);
     }
 
     // Release the lock.
@@ -84,7 +84,7 @@ class InstantWin {
    * @param int $value
    *   Prize value.
    */
-  public function chanceWon(MemberChance $chance, $value) {
+  public function chanceWin(MemberChance $chance, $value) {
     $chance->set('played', time());
     $chance->set('winner', 1);
     $chance->set('value', $value);
@@ -99,23 +99,19 @@ class InstantWin {
    * @param MemberChance $chance
    *   Member chance entity.
    */
-  public function chanceLost(MemberChance $chance) {
+  public function chanceLoss(MemberChance $chance) {
     $chance->set('played', time());
     $chance->set('winner', 0);
-    $chance->set('message', $this->messageLost());
+    $chance->set('message', $this->messageLoss());
     $chance->save();
   }
 
   /**
    * Get random lost message.
    */
-  public function messageLost() {
-    $messages = [
-      'No luck',
-      'Keep trying',
-      'It was close',
-      'Another time',
-    ];
+  public function messageLoss() {
+    $settings = $this->configFactory->get('ymca_retention.instant_win');
+    $messages = $settings->get('messages_loss');
 
     return $messages[array_rand($messages)];
   }
@@ -145,8 +141,7 @@ class InstantWin {
       }
     }
 
-    $prize = ['value' => $value];
-    return $prize;
+    return ['value' => $value];
   }
 
   /**
