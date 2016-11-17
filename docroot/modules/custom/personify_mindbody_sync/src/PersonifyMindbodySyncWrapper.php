@@ -203,4 +203,59 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
     return new \DateTimeZone(self::PERSONIFY_TIMEZONE);
   }
 
+  /**
+   * Mocks Personify order.
+   *
+   * @param array $properties
+   *   A list of properties to set dynamically.
+   *   Example: ['TotalAmount' => 100].
+   *
+   * @return \stdClass
+   *   Order.
+   */
+  public function mockOrder($properties = []) {
+    $data = array(
+      '$id' => '2',
+      'InternalKey' => NULL,
+      'NavigationKey' => NULL,
+      'OrderNo' => '2009990288',
+      'OrderLineNo' => 1,
+      'OrderDate' => '2016-10-10T00:00:00',
+      'ProductId' => 143000233,
+      'ParentProduct' => '77_PT_1_SESS_30_MIN',
+      'ProductCode' => '77_PT_1_SESS_30_MIN',
+      'Subsystem' => 'MISC',
+      'RateStructure' => 'Member',
+      'RateCode' => 'STD',
+      'LineStatusCode' => 'A',
+      'LineStatusDate' => '2016-10-10T06:12:42.397',
+      'OrderQuantity' => 1,
+      'UnitPrice' => 45,
+      'TotalAmount' => 45,
+      'MasterCustomerId' => '2051165626',
+      'SubCustomerId' => 0,
+      'FirstName' => 'First',
+      'LastName' => 'Last',
+      'GenderCode' => 'MALE',
+      'BirthDate' => '1977-04-22T00:00:00',
+      'PrimaryPhone' => '612-386-6784',
+      'PrimaryPhoneLocationCode' => 'HOME',
+      'PrimaryPhoneDoNotCallFlag' => FALSE,
+      'PrimaryMobile' => '',
+      'PrimaryMobileLocationCode' => '',
+      'PrimaryMobileDoNotCallFlag' => FALSE,
+      'PrimaryEmail' => 'example@gmail.com',
+      'PrimaryEmailLocationCode' => 'HOME',
+      'PrimaryEmailDoNotContactFlag' => FALSE,
+      'MindBodyCustomerOrderDetail' => new \stdClass(),
+    );
+    $order = (object) $data;
+
+    foreach ($properties as $property => $value) {
+      $order->$property = $value;
+    }
+
+    return $order;
+  }
+
 }
