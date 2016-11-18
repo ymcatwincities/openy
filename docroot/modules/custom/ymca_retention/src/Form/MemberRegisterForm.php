@@ -3,8 +3,12 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ymca_retention\Ajax\YmcaRetentionModalSetContent;
+use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
@@ -30,21 +34,17 @@ class MemberRegisterForm extends FormBase {
       $form['#theme'] = $config['theme'];
     }
 
+    if (!$tab_id = $form_state->get('tab_id')) {
+      $tab_id = 'about';
+    }
+
+    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => $tab_id];
+
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->get('personify_email');
 
     $obfuscated_email = $this->obfuscateEmail($personify_email);
     $validate_required = [get_class($this), 'elementValidateRequired'];
-
-    // If form was executed then we should show registration confirmation for the user.
-    if ($form_state->isExecuted() && !$config['yteam']) {
-      $form['confirmation'] = [
-        '#type' => 'markup',
-        '#markup' => $this->t('Your registration is successful!'),
-      ];
-
-      return $form;
-    }
 
     if (empty($membership_id) || $config['yteam']) {
       $form['membership_id'] = [
@@ -138,14 +138,27 @@ class MemberRegisterForm extends FormBase {
    *   Ajax response.
    */
   public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
+    if ($form_state->isExecuted()) {
+      // Instantiate an AjaxResponse Object to return.
+      $ajax_response = new AjaxResponse();
+
+      $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
+      $ajax_response->addCommand(new YmcaRetentionModalSetContent('ymca-retention-user-menu-reg-confirmation-form'));
+
+      $this->refreshValues($form_state);
+      $new_form = \Drupal::formBuilder()
+        ->rebuildForm($this->getFormId(), $form_state, $form);
+
+      // Refreshing form.
+      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form', $new_form));
+
+      return $ajax_response;
+    }
     if ($form_state->isRebuilding()) {
       return $form;
     }
     if ($form_state->hasAnyErrors()) {
       $form['messages'] = ['#type' => 'status_messages'];
-      return $form;
-    }
-    else {
       return $form;
     }
   }
@@ -252,13 +265,9 @@ class MemberRegisterForm extends FormBase {
     }
 
     if ($config['yteam']) {
-      $user_input = $form_state->getUserInput();
-      unset($user_input['membership_id']);
-      $form_state->setUserInput($user_input);
-      $form_state->set('membership_id', NULL);
-      $form_state->set('personify_member', NULL);
-      $form_state->set('personify_email', NULL);
+      $this->refreshValues($form_state);
       $form_state->setRebuild();
+
       drupal_set_message($this->t('Registered @full_name with email address @email.', [
         '@full_name' => $entity->getFullName(),
         '@email' => $this->obfuscateEmail($entity->getEmail()),
@@ -417,6 +426,18 @@ class MemberRegisterForm extends FormBase {
    */
   protected function obfuscateEmail($email) {
     return preg_replace('/(?<=.{2}).(?=.+@)/u', '*', $email);
+  }
+
+  /**
+   * Refresh values.
+   */
+  protected function refreshValues(FormStateInterface $form_state) {
+    $user_input = $form_state->getUserInput();
+    unset($user_input['membership_id']);
+    $form_state->setUserInput($user_input);
+    $form_state->set('membership_id', NULL);
+    $form_state->set('personify_member', NULL);
+    $form_state->set('personify_email', NULL);
   }
 
 }

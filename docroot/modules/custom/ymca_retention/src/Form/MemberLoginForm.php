@@ -3,11 +3,11 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_retention\Ajax\YmcaRetentionModalHideCommand;
+use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 
 /**
@@ -31,6 +31,11 @@ class MemberLoginForm extends FormBase {
       $form['#theme'] = $config['theme'];
     }
 
+    if (!$tab_id = $form_state->get('tab_id')) {
+      $tab_id = 'about';
+    }
+
+    $form['tab_id'] = ['#type' => 'hidden', '#default_value' => $tab_id];
     $verify_membership_id = $form_state->getTemporaryValue('verify_membership_id');
 
     if ($verify_membership_id === NULL) {
@@ -133,6 +138,7 @@ class MemberLoginForm extends FormBase {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
       $ajax_response->addCommand(new YmcaRetentionModalHideCommand());
+      $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
       return $ajax_response;
     }
   }
