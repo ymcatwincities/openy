@@ -1,0 +1,8 @@
+header_replacements:
+  -
+    block_id: Mobile Section Lead Copy
+    selector: '.page-middle > section .lead-copy'
+footer_replacements:
+  -
+    block_id: Footer
+    selector: '#page-footer'
