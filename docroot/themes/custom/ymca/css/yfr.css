@@ -2534,6 +2534,7 @@ html, body {
   line-height: 22px;
   font-size: 16px;
   height: 54px;
+  display: none;
 }
 @media (min-width: 48em) {
   .yfr-ticker {
@@ -2636,6 +2637,10 @@ html, body {
 }
 .yfr-ticker .yfr-ticker__btn .btn-close:hover {
   background-color: #fcaf17;
+}
+
+.alert-active .yfr-ticker {
+  bottom: 52px;
 }
 
 /*# sourceMappingURL=yfr.css.map */
