@@ -2361,8 +2361,8 @@ html, body {
 
 .yfr-register-form,
 .yfr-login-form {
-  padding: 20px 15px 30px 25px;
-  padding: 2rem 1.5rem 3rem 2.5rem;
+  padding: 20px 15px 30px;
+  padding: 2rem 1.5rem 3rem;
   transition: padding .3s;
 }
 @media (min-width: 48em) {
