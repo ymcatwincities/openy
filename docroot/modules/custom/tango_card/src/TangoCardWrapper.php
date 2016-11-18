@@ -68,7 +68,11 @@ class TangoCardWrapper {
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend interface.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ImmutableConfig $config, CacheBackendInterface $cache) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    ImmutableConfig $config,
+    CacheBackendInterface $cache
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->config = $config;
     $this->cache = $cache;

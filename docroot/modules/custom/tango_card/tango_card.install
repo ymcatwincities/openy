@@ -11,7 +11,7 @@
 function tango_card_requirements($phase) {
   $requirements = [];
   if ($phase == 'install' && !class_exists('\Sourcefuse\TangoCard')) {
-    $requirements['addressing_library'] = [
+    $requirements['tango_card_sdk'] = [
       'description' => t('Tango Card requires the Tango Card SDK library.'),
       'severity' => REQUIREMENT_ERROR,
     ];

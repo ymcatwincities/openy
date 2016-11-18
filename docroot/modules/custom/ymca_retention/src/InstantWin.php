@@ -69,7 +69,7 @@ class InstantWin {
       $this->chanceLoss($chance);
     }
     else {
-      $this->chanceWin($chance, $prize['value']);
+      $this->chanceWin($member, $chance, $prize['value']);
     }
 
     // Release the lock.
@@ -79,17 +79,40 @@ class InstantWin {
   /**
    * Chance is won.
    *
+   * @param Member $member
+   *   Member entity.
    * @param MemberChance $chance
    *   Member chance entity.
    * @param int $value
    *   Prize value.
    */
-  public function chanceWin(MemberChance $chance, $value) {
+  public function chanceWin(Member $member, MemberChance $chance, $value) {
     $chance->set('played', time());
     $chance->set('winner', 1);
     $chance->set('value', $value);
     $chance->set('message', 'Won $' . $value . ' card!');
-    // TODO: generate Tango card and add order_id.
+
+    $settings = $this->configFactory->get('ymca_retention.instant_win');
+
+    // TODO: inject Tango Card wrapper service in this class.
+    $tango_card_wrapper = \Drupal::service('tango_card.tango_card_wrapper');
+
+    try {
+      $order = $tango_card_wrapper->placeOrder(
+        $member->getFullName(),
+        $member->getEmail(),
+        $settings->get('prize_sku'),
+        $value * 100
+      );
+
+      if ($order) {
+        $chance->set('order_id', $order->order_id);
+      }
+    }
+    catch (Exception $e) {
+      // Do nothing.
+    }
+
     $chance->save();
   }
 
