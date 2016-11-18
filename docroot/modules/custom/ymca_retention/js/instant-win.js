@@ -74,9 +74,9 @@
 
         message = $sce.trustAsHtml('<p>' + Drupal.formatPlural(
             count,
-            'You have already won 1 card so far.',
-            'You have already won @count cards so far.'
-          ) + '</p>' + '<p>Please check your emails for further instructions.</p>');
+            'You have won 1 card so far.',
+            'You have won @count cards so far.'
+          ) + '</p>' + '<p>Please check your email for further instructions.</p>');
 
         return message;
       };
