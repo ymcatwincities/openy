@@ -12,6 +12,7 @@
   line-height: 22px;
   font-size: 16px;
   height: 54px;
+  display: none;
 
   @include breakpoint($tablet){
     @include rem(padding, 30px 0);
@@ -96,5 +97,11 @@
         background-color: $orange-light;
       }
     }
+  }
+}
+
+.alert-active {
+  .yfr-ticker {
+    bottom: 52px;
   }
 }
