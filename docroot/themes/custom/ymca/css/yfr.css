@@ -994,8 +994,8 @@ html, body {
 }
 @media (min-width: 48em) {
   .yfr-registration-form-section .yfr-registration-form-button-container {
-    width: 206px;
-    width: 20.6rem;
+    min-width: 206px;
+    min-width: 20.6rem;
     display: inline-block;
   }
 }

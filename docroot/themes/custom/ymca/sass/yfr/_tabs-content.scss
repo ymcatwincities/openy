@@ -49,7 +49,7 @@
     @include rem(margin-bottom, 18px);
 
     @include breakpoint($tablet) {
-      @include rem(width, 206px);
+      @include rem(min-width, 206px);
       display: inline-block;
     }
 
