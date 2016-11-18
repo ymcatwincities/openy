@@ -2365,6 +2365,7 @@ html, body {
 .yfr-login-form .form-item {
   padding-bottom: 20px;
   padding-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .yfr-facility-access-hint-link {
