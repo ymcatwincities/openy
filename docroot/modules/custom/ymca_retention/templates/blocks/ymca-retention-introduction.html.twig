@@ -13,20 +13,18 @@
       <p>
         {{ 'Sign up to participate, visit the Y and track your activities for chances at instant-win prizes.'|t }}
       </p>
-      <p>
-        {{ 'Enjoy your visits, track your activities and instantly win.'|t }}
-      </p>
     </div>
   </div>
 
-  <div class="yfr-registration-form-section ng-hide" data-ng-show="!retentionC.storage.member">
+  <div class="yfr-registration-form-section ng-hide"
+       data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
     <div class="yfr-registration-form-button-container">
       <a href="#" class="btn btn-lg btn-primary orange-medium"
-         data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register now'|t }}</a>
+         data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Get your first instant-win chance'|t }}</a>
     </div>
     <div class="yfr-registration-form-help-text-container">
       <p>
-        {{ 'Registration will give you first bonus chance!'|t }}
+        {{ 'Registration will give you your first bonus chance!'|t }}
       </p>
     </div>
   </div>
@@ -48,7 +46,7 @@
         {{ 'Report your fitness and community-focused activities each day to earn more instant-win chances.'|t }}
       </div>
       <div class="yfr-info-block__footer">
-        * {{ 'Daily report = 1 chance/day'|t }}
+        * {{ 'Track Activity = 1 chance/day'|t }}
       </div>
     </div>
 
@@ -72,7 +70,7 @@
         {{ 'Instant-win Prizes'|t }}
       </h2>
       <p class="yfr-full-width-prize-block__body">
-        {{ 'The Y Spirit Challenge offers you chances to instantly win digital gift cards from TANGO—up to $100 each. Choose to spend your prize on movies, restaurants, retailers and more.'|t }}
+        {{ 'The Y Spirit Challenge offers you chances to instantly win digital gift cards from Tango—up to $100 each. Choose to spend your prize on movies, restaurants, retailers and more.'|t }}
       </p>
     </div>
     <div class="yfr-full-width-prize-block__card"></div>

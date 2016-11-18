@@ -229,6 +229,7 @@
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {
           self.member = data;
+          self.member_loaded = true;
         });
       };
 
