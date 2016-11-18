@@ -261,6 +261,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Number of Group X activities.'))
       ->setDefaultValue(0);
 
+    $fields['activity_track_community'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Community'))
+      ->setDescription(t('Number of Community activities.'))
+      ->setDefaultValue(0);
+
     return $fields;
   }
 
