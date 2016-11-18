@@ -159,6 +159,10 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'blocks/ymca-retention-instant-win',
     ],
+    'ymca_retention_register_confirmation_modal' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-register-confirmation-modal',
+    ],
 
     // Forms templates.
     'ymca_retention_login_form' => [
