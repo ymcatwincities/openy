@@ -80,7 +80,7 @@
   }
 
   &__background {
-    @include opacity(0.6);
+    opacity: .6;
     height: 100%;
     left: 0;
     overflow: hidden;
@@ -88,29 +88,41 @@
     top: 0;
     width: 100%;
     z-index: 10;
+    background: #fff url(../prototypes/yfr/img/hero/hero-mobile.jpg) 0 0 no-repeat;
+    @include background-size(cover);
 
-    img {
-      bottom: 0;
-      height: 100%;
-      left: 0;
-      position: absolute;
-      width: auto;
-
-      @include breakpoint(550px) {
-        height: auto;
-        width: 100%;
-      }
-
-      @include breakpoint($tablet) {
-        //height: 100%;
-        width: auto;
-      }
-
-      @include breakpoint($tablet-landscape) {
-        height: auto;
-        width: 100%;
-      }
+    @include breakpoint($tablet) {
+       background: #fff url(../prototypes/yfr/img/hero/hero-desktop-1400x2.jpg) 50% 0 no-repeat;
+       @include background-size(cover);
     }
+
+
+
+    /* img { */
+    /*   bottom: 0; */
+    /*   height: auto; */
+    /*   max-height: 100%; */
+    /*   left: 0; */
+    /*   right: 0; */
+    /*   position: absolute; */
+    /*   width: auto; */
+    /*   min-width: 100%; */
+
+    /*   @include breakpoint(550px) { */
+    /*     height: auto; */
+    /*     width: 100%; */
+    /*   } */
+
+    /*   @include breakpoint($tablet) { */
+    /*     //height: 100%; */
+    /*     width: auto; */
+    /*   } */
+
+    /*   @include breakpoint($tablet-landscape) { */
+    /*     height: auto; */
+    /*     width: 100%; */
+    /*   } */
+    /* } */
   }
 
   &__content {
