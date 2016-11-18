@@ -18,7 +18,8 @@
     <li class="yfr-tabs__instant-win">
       <a href="#instant-win" data-toggle="tab">
         {{ 'Instant Win'|t }}
-        <span class="yfr-instant-win-star ng-cloak"
+        <span class="yfr-instant-win-star ng-cloak ng-hide"
+              data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded"
               data-ng-class="retentionC.instantWinClass()">
           {{ '{{retentionC.storage.instantWinCount}}' }}
         </span>
