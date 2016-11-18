@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - content: contains all data.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      {% if content.children is empty %}
+        {{ 'No results found.'|t }}
+      {% else %}
+      {% for key, child in content.children %}
+        <table class="table-responsive child child-{{ child.id }}">
+          <caption>{{ key }}</caption>
+          <thead>
+            <tr>
+              <th class="order">{{ 'Order #'|t }}</th>
+              <th class="description">{{ 'Description'|t }}</th>
+              <th>{{ 'Date'|t }}</th>
+              <th>{{ 'Payment Amount'|t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for receipt in child.receipts %}
+            <tr>
+              <td class="order">{{ receipt.order }}</td>
+              <td class="description">{{ receipt.description }}</td>
+              <td>{{ receipt.date }}</td>
+              <td>${{ receipt.amount }}</td>
+            </tr>
+            {% endfor %}
+            <td colspan="3" class="total-for-child">{{ 'Total Paid for'|t }} {{ child.name }}</td>
+            <td class="total-for-child-amount">${{ child.total }}.00</td>
+          </tbody>
+        </table>
+      {% endfor %}
+      <div class="total">
+        <table>
+          <tbody>
+            <tr>
+              <td>{{ 'Grand Total'|t }}</td>
+              <td>${{ content.total }}.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

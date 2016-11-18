@@ -13,9 +13,12 @@ url_cart: http://ygtcprod2.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingCa
 # customer_orders_password: ***REMOVED***
 # Train2 environment.
 # customer_orders_endpoint: http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder
+# childcare_endpoint: http://ygtctrain2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
 # customer_orders_username: ***REMOVED***
 # customer_orders_password: ***REMOVED***
 # Prod environment.
 customer_orders_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder
 customer_orders_username: ***REMOVED***
 customer_orders_password: ***REMOVED***
+childcare_authorization: 'Basic ***REMOVED***'
+childcare_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
