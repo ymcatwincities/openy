@@ -9,20 +9,30 @@
     <li class="active">
       <a href="#about" data-toggle="tab">{{ 'Introduction'|t }}</a>
     </li>
-    <li>
+    <li data-ng-show="retentionC.storage.member">
       <a href="#track" data-toggle="tab">{{ 'Track Activities'|t }}</a>
     </li>
-    <li>
+    <li data-ng-show="!retentionC.storage.member">
+      <a href="#track" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
+        {{ 'Track Activities'|t }}
+      </a>
+    </li>
+    <li data-ng-show="retentionC.storage.member">
       <a href="#progress" data-toggle="tab">{{ 'My Progress'|t }}</a>
     </li>
-    <li class="yfr-tabs__instant-win">
+    <li data-ng-show="!retentionC.storage.member">
+      <a href="#progress" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
+        {{ 'My Progress'|t }}
+      </a>
+    </li>
+    <li class="yfr-tabs__instant-win" data-ng-show="retentionC.storage.member">
       <a href="#instant-win" data-toggle="tab">
-        {{ 'Instant Win'|t }}
-        <span class="yfr-instant-win-star ng-cloak ng-hide"
-              data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded"
-              data-ng-class="retentionC.instantWinClass()">
-          {{ '{{retentionC.storage.instantWinCount}}' }}
-        </span>
+        {% include '@ymca_retention/blocks/ymca-retention-instant-win-link-content.html.twig' %}
+      </a>
+    </li>
+    <li class="yfr-tabs__instant-win" data-ng-show="!retentionC.storage.member">
+      <a href="#instant-win" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
+        {% include '@ymca_retention/blocks/ymca-retention-instant-win-link-content.html.twig' %}
       </a>
     </li>
     <li class="yfr-tabs__detailed">
