@@ -180,7 +180,12 @@ class ChildcarePaymentHistoryForm extends FormBase {
    */
   public function getChildOptions() {
     $options = ['all' => $this->t('All')];
-    $data = self::personifyRequest($this->state);
+    // Temporary set start date as 2014-01-01 to get children options.
+    $parameters = [
+      'start_date' => '2014-01-01',
+      'end_date' => $this->state['end_date'],
+    ];
+    $data = self::personifyRequest($parameters);
     // Collect all children from available receipts.
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
       foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
