@@ -11,3 +11,16 @@
 function ymca_personify_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'ymca_personify/personify';
 }
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_personify_theme() {
+  return [
+    'ymca_childcare_payment_history' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+  ];
+}
