@@ -87,7 +87,7 @@ display:
             membership_id: membership_id
             personify_id: personify_id
             first_name: first_name
-            last_name: last_name
+            last_name: first_name
             mail: mail
             is_employee: is_employee
             total_visits: total_visits
@@ -136,7 +136,7 @@ display:
               sortable: false
               default_sort_order: asc
               align: ''
-              separator: ''
+              separator: ' '
               empty_column: false
               responsive: ''
             last_name:
@@ -406,16 +406,13 @@ display:
           entity_field: branch
           plugin_id: field
         membership_id:
+          id: membership_id
           table: ymca_retention_member
           field: membership_id
-          id: membership_id
-          entity_type: null
-          entity_field: membership_id
-          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Membership ID'
+          label: 'Member ID'
           exclude: false
           alter:
             alter_text: false
@@ -458,7 +455,8 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings: {  }
+          settings:
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -469,6 +467,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: null
+          entity_field: membership_id
+          plugin_id: field
         personify_id:
           id: personify_id
           table: ymca_retention_member
@@ -541,7 +542,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'First name'
+          label: Name
           exclude: false
           alter:
             alter_text: false
@@ -606,7 +607,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Last name'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -639,7 +640,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1192,6 +1193,72 @@ display:
           field_api_classes: false
           entity_type: ymca_retention_member
           entity_field: activity_track_groupx
+          plugin_id: field
+        activity_track_community:
+          id: activity_track_community
+          table: ymca_retention_member
+          field: activity_track_community
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Community
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: ymca_retention_member
+          entity_field: activity_track_community
           plugin_id: field
       filters:
         membership_id:

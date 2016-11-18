@@ -83,7 +83,7 @@ class CampaignIntro extends BlockBase {
       $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F j');
     }
 
-    $build = [
+    return [
       '#theme' => 'ymca_retention_intro',
       '#content' => [
         'slogan' => $config['slogan'],
@@ -96,17 +96,6 @@ class CampaignIntro extends BlockBase {
         ],
       ],
     ];
-    if ($config['show_picture']) {
-      $hero_path = drupal_get_path('theme', 'ymca') . '/prototypes/yfr/img/hero/';
-      $images = [
-        'desktop' => file_create_url($hero_path . 'hero-1400.jpg'),
-        'desktop2x' => file_create_url($hero_path . 'hero-1400x2.jpg'),
-        'mobile' => file_create_url($hero_path . 'hero-mobile.jpg'),
-        'mobile2x' => file_create_url($hero_path . 'hero-mobilex2.jpg'),
-      ];
-      $build['#content'] = array_merge($build['#content'], ['images' => $images]);
-    }
-    return $build;
   }
 
 }
