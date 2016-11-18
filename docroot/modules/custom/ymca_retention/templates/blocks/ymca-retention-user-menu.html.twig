@@ -14,10 +14,10 @@
        data-ng-click="retentionC.storage.memberCookieRemove()">
     <a href="#">{{ 'Sign-out'|t }}</a>
   </div>
-  <div class="ysr-user-menu__logout" data-ng-show="!retentionC.storage.member">
+  <div class="ysr-user-menu__logout ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
     <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register'|t }}</a>
   </div>
-  <div class="ysr-user-menu__greetings" data-ng-show="!retentionC.storage.member">
+  <div class="ysr-user-menu__greetings ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
     <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">{{ 'Sign-in'|t }}</a>
   </div>
   <div class="ysr-user-menu__forms" style="display: none;">
