@@ -94,7 +94,7 @@
 
 .yfr-register-form,
 .yfr-login-form {
-  @include rem(padding, 20px 15px 30px 25px);
+  @include rem(padding, 20px 15px 30px);
   transition: padding .3s;
 
   @include breakpoint($tablet) {
