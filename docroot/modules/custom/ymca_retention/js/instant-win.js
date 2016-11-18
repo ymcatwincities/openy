@@ -76,7 +76,7 @@
             count,
             'You have already won 1 card so far.',
             'You have already won @count cards so far.'
-          ) + '</p>' + '<p>Please, check your emails for further instructions.</p>');
+          ) + '</p>' + '<p>Please check your emails for further instructions.</p>');
 
         return message;
       };
