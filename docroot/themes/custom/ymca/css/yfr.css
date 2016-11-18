@@ -2510,7 +2510,7 @@ html, body {
   font-size: 15px;
 }
 .yfr-content-info .btn {
-  max-width: 140px;
+  width: 140px;
 }
 .yfr-content-info .row + .row {
   margin-top: 38px;
