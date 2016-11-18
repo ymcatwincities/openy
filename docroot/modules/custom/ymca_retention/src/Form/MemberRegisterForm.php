@@ -138,7 +138,8 @@ class MemberRegisterForm extends FormBase {
    *   Ajax response.
    */
   public function ajaxFormCallback(array &$form, FormStateInterface $form_state) {
-    if ($form_state->isExecuted()) {
+    $config = $form_state->getBuildInfo()['args'][0];
+    if (!$config['yteam'] && $form_state->isExecuted()) {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
 
@@ -154,13 +155,12 @@ class MemberRegisterForm extends FormBase {
 
       return $ajax_response;
     }
-    if ($form_state->isRebuilding()) {
-      return $form;
-    }
+
     if ($form_state->hasAnyErrors()) {
       $form['messages'] = ['#type' => 'status_messages'];
-      return $form;
     }
+
+    return $form;
   }
 
   /**
