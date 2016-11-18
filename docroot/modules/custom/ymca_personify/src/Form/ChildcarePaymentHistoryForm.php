@@ -88,12 +88,8 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $this->isProduction = (bool) $settings->get('is_production');
     $query = parent::getRequest();
     $parameters = $query->query->all();
-    // Set default start date as 1 Jan.
-    $start_date = DrupalDateTime::createFromArray([
-      'year' => date('Y'),
-      'month' => 1,
-      'day' => 1,
-    ])->format('m/d/Y');
+    // Set default start date as today -30 days.
+    $start_date = date('m/d/Y', strtotime('-30 days'));
     // Set default end date as today.
     $end_date = new DrupalDateTime('now');
     $end_date = $end_date->format('m/d/Y');
@@ -115,6 +111,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
       $container->get('logger.factory')
     );
   }
+
   /**
    * {@inheritdoc}
    */
@@ -129,9 +126,9 @@ class ChildcarePaymentHistoryForm extends FormBase {
     }
     $options = [
       'body' => '<CL_ChildcarePaymentInfoInput>
-        <BillMasterCustomerId>'. $client_id .'</BillMasterCustomerId>
-        <ReceiptStartDate>'. $start_date . '</ReceiptStartDate>
-        <ReceiptEndDate>'. $end_date . '</ReceiptEndDate>
+        <BillMasterCustomerId>' . $client_id . '</BillMasterCustomerId>
+        <ReceiptStartDate>' . $start_date . '</ReceiptStartDate>
+        <ReceiptEndDate>' . $end_date . '</ReceiptEndDate>
         <BillSubCustomerId>0</BillSubCustomerId>
         <ProductClassCodes>CC,LC,PS,RD,SC,DC</ProductClassCodes>
         <DescriptionLike>NOT LIKE</DescriptionLike>
