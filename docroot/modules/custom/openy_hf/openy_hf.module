@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ * OpenY HF routines
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function openy_hf_page_attachments(array &$attachments) {
+
+  $config = \Drupal::config('openy_hf.settings');
+
+  // Create CSS from config.
+  $css = '';
+  foreach ($config->get('header_replacements') as $id => $replacement) {
+    $css .= $replacement['selector'] . " {\r\nvisibility: hidden;\r\n}\r\n";
+  }
+  foreach ($config->get('footer_replacements') as $id => $replacement) {
+    $css .= $replacement['selector'] . " {\r\nvisibility: hidden;\r\n}\r\n";
+  }
+  // Save it as CSS file to public directory.
+  file_unmanaged_save_data($css, 'public://openy_hf.css', FILE_EXISTS_REPLACE);
+
+  $header_replacements = $config->get('header_replacements');
+  $footer_replacements = $config->get('footer_replacements');
+  $attachments['#attached']['drupalSettings']['openy_hf.header_replacements'] = $header_replacements;
+  $attachments['#attached']['drupalSettings']['openy_hf.footer_replacements'] = $footer_replacements;
+
+  $attachments['#attached']['library'][] = 'openy_hf/openy_hf_generic';
+}
