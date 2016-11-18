@@ -5,3 +5,16 @@ personify:
   dependencies:
     - core/drupal
     - core/jquery.cookie
+
+personify.childcare:
+  version: 1.x
+  js:
+    js/personify.childcare.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.ui.core
+    - core/jquery.ui.widget
+    - core/jquery.ui.datepicker
