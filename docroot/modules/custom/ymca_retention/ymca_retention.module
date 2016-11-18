@@ -442,12 +442,15 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
       case 'a':
         $member->set('activity_track_swimming', $tracks[$activity_group['id']]);
         break;
+
       case 'b':
         $member->set('activity_track_fitness', $tracks[$activity_group['id']]);
         break;
+
       case 'c':
         $member->set('activity_track_groupx', $tracks[$activity_group['id']]);
         break;
+
       case 'd':
         $member->set('activity_track_community', $tracks[$activity_group['id']]);
         break;
