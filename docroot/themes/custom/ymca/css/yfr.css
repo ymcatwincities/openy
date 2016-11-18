@@ -2361,8 +2361,8 @@ html, body {
     padding: 5rem 8.8rem 4rem;
   }
 }
-.yfr-register-form .form-item,
-.yfr-login-form .form-item {
+.yfr-register-form .form-item:not(input),
+.yfr-login-form .form-item:not(input) {
   padding-bottom: 20px;
   padding-bottom: 2rem;
   margin-bottom: 0;

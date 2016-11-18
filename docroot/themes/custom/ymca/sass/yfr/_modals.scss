@@ -101,7 +101,11 @@
     @include rem(padding, 50px 88px 40px);
   }
 
-  .form-item {
+  input.form-item {
+
+  }
+
+  .form-item:not(input) {
     @include rem(padding-bottom, 20px);
     margin-bottom: 0;
   }
