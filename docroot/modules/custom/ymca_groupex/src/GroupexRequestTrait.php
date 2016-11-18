@@ -77,22 +77,30 @@ trait GroupexRequestTrait {
    *   Data.
    */
   protected function request($options, $defaults = TRUE) {
+    $status = \Drupal::config('groupex_form_cache.settings')->get('status');
+
     $all_options = $options;
     if ($defaults) {
       $all_options = array_merge_recursive($this->getDefaultOptions(), $options);
     }
 
     // Try to use cached data.
-    $manager = \Drupal::service('groupex_form_cache.manager');
-    if ($data = $manager->getCache($all_options)) {
-      return $data;
+    if ($status == TRUE) {
+      $manager = \Drupal::service('groupex_form_cache.manager');
+      if ($data = $manager->getCache($all_options)) {
+        return $data;
+      }
     }
 
     try {
       $response = \Drupal::httpClient()->request('GET', GroupexRequestTrait::$uri, $all_options);
       $body = $response->getBody();
       $data = json_decode($body->getContents());
-      $manager->setCache($all_options, $data);
+
+      if ($status == TRUE) {
+        $manager->setCache($all_options, $data);
+      }
+
       return $data;
     }
     catch (\Exception $e) {
