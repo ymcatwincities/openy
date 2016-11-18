@@ -219,6 +219,11 @@
   @include rem(padding, 100px 20px 50px);
   position: relative;
   text-align: center;
+  margin: 0 auto;
+
+  @include breakpoint($tablet) {
+    max-width: 80%;
+  }
 
   &:before {
     @include rem(width, 44px);
@@ -240,19 +245,23 @@
   }
 
   p {
+    @include rem(margin, 0 0 14px 0);
     color: $grey5;
     line-height: 22px;
-    margin: 0;
     font-size: 15px;
   }
 
   .btn {
     width: 140px;
+
+    @include breakpoint($tablet){
+      max-width: 140px;
+    }
   }
 
   .row {
     + .row {
-      @include rem(margin-top, 38px);
+      @include rem(margin-top, 28px);
     }
   }
 }
