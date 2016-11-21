@@ -14,10 +14,10 @@ function openy_hf_page_attachments(array &$attachments) {
   // Create CSS from config.
   $css = '';
   foreach ($config->get('header_replacements') as $id => $replacement) {
-    $css .= $replacement['selector'] . " {\r\nvisibility: hidden;\r\n}\r\n";
+    $css .= $replacement['selector'] . " {\r\ndisplay: none;\r\n}\r\n";
   }
   foreach ($config->get('footer_replacements') as $id => $replacement) {
-    $css .= $replacement['selector'] . " {\r\nvisibility: hidden;\r\n}\r\n";
+    $css .= $replacement['selector'] . " {\r\ndisplay: none;\r\n}\r\n";
   }
   // Save it as CSS file to public directory.
   file_unmanaged_save_data($css, 'public://openy_hf.css', FILE_EXISTS_REPLACE);

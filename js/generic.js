@@ -20,14 +20,14 @@
             function renderHeader() {
                 console.log('header');
                 $.each(drupalSettings['openy_hf.header_replacements'], function (index, value) {
-                    $(context).find(value.selector).attr("style", "visibility: visible;");
+                    $(context).find(value.selector).attr("style", "visibility: visible;display:inherit;");
                 });
             }
 
             function renderFooter() {
                 console.log('footer');
                 $.each(drupalSettings['openy_hf.footer_replacements'], function (index, value) {
-                    $(context).find(value.selector).attr("style", "visibility: visible;");
+                    $(context).find(value.selector).attr("style", "visibility: visible;display:inherit;");
                 });
             }
 
