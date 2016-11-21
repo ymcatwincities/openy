@@ -130,13 +130,11 @@ class SettingsInstantWinForm extends ConfigFormBase {
         '#tree' => TRUE,
       ];
 
-      $subtitle = $title . ' %n';
       $messages = $config->get($field);
-
       foreach (range(0, 5) as $delta) {
         $form[$field][$delta] = [
           '#type' => 'textfield',
-          '#title' => $this->t($subtitle, ['%n' => $delta + 1]),
+          '#title' => $delta + 1,
           '#title_display' => 'invisible',
           '#default_value' => isset($messages[$delta]) ? $messages[$delta] : '',
         ];
