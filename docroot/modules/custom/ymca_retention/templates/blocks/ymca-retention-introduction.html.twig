@@ -10,8 +10,11 @@
       {{ 'Y Spirit Challenge'|t }}
     </h2>
     <div class="yfr-intro-block__content">
-      <p>
+      <p data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
         {{ 'Sign up to participate, visit the Y and track your activities for chances at instant-win prizes.'|t }}
+      </p>
+      <p data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
+        {{ 'Now that you\'re registered, visit the Y and track your activities for chances at instant-win prizes.'|t }}
       </p>
     </div>
   </div>
