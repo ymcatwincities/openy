@@ -56,9 +56,18 @@
             }
             else {
               self.storage.state = 'result.loss';
+              self.storage.loss_message = last_played_chance.message.replace(' — ', '<br/>');
             }
           }, 3000);
         });
+      };
+
+      self.lossMessage = function() {
+        if (!self.storage.loss_message) {
+          return '';
+        }
+
+        return $sce.trustAsHtml(Drupal.t(self.storage.loss_message));
       };
 
       self.cardsWonStatus = function() {

@@ -78,6 +78,14 @@ ymca_retention.settings_cron:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_instant_win:
+  path: '/admin/config/system/ymca-retention/instant-win'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsInstantWinForm'
+    _title: 'YMCA Retention Instant Win'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.leaderboard_json:
   path: '/ymca-retention/leaderboard/{branch_id}'
   defaults:
