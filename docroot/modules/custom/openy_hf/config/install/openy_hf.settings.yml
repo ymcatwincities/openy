@@ -1,8 +1,8 @@
 header_replacements:
   -
-    block_id: Mobile Section Lead Copy
-    selector: '.page-middle > section .lead-copy'
+    block_id: Disable Mobile Section Lead Copy
+    selector: '.page-middle .lead-copy'
 footer_replacements:
   -
-    block_id: Footer
+    block_id: Disable Footer
     selector: '#page-footer'
