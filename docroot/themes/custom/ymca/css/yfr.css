@@ -993,6 +993,9 @@ html, body {
   margin-top: 35px;
   margin-top: 3.5rem;
 }
+.yfr-registration-form-section .btn {
+  white-space: normal;
+}
 @media (min-width: 48em) {
   .yfr-registration-form-section {
     margin-top: 39px;
