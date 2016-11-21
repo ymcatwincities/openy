@@ -86,6 +86,17 @@ class SettingsInstantWinForm extends ConfigFormBase {
       '#tree' => TRUE,
     ];
 
+    $results = $this->entityQuery->getAggregate('ymca_retention_member_chance')
+      ->condition('winner', 1)
+      ->groupBy('value')
+      ->aggregate('id', 'COUNT')
+      ->execute();
+
+    $used_prizes = [];
+    foreach ($results as $result) {
+      $used_prizes[$result['value']] = $result['id_count'];
+    }
+
     $prize_pool = $config->get('prize_pool');
     foreach ([5, 20, 50, 100] as $delta => $value) {
       $form['prize_pool'][$delta] = ['#type' => 'container', '#tree' => TRUE];
@@ -93,12 +104,6 @@ class SettingsInstantWinForm extends ConfigFormBase {
         '#type' => 'value',
         '#value' => $value,
       ];
-
-      $count = $this->entityQuery->get('ymca_retention_member_chance')
-        ->condition('winner', 1)
-        ->condition('value', $value)
-        ->count()
-        ->execute();
 
       $form['prize_pool'][$delta]['quantity'] = [
         '#type' => 'number',
@@ -108,7 +113,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
         '#step' => 1,
         '#default_value' => isset($prize_pool[$delta]) ? $prize_pool[$delta]['quantity'] : 0,
         '#field_suffix' => '(' . $this->t('Used prizes: %count', [
-          '%count' => $count,
+          '%count' => isset($used_prizes[$value]) ? $used_prizes[$value] : 0,
         ]) . ')',
       ];
     }
