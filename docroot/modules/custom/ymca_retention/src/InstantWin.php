@@ -183,13 +183,20 @@ class InstantWin {
     $prize_pool = $settings->get('prize_pool');
     $available_prizes = [];
 
+    $results = $this->queryFactory->getAggregate('ymca_retention_member_chance')
+      ->condition('winner', 1)
+      ->groupBy('value')
+      ->aggregate('id', 'COUNT')
+      ->execute();
+
+    $used_prizes = [];
+    foreach ($results as $result) {
+      $used_prizes[$result['value']] = $result['id_count'];
+    }
+
     foreach ($prize_pool as $prize) {
-      // TODO: change to entityQueryAggregate.
-      $chances_ids = $this->queryFactory->get('ymca_retention_member_chance')
-        ->condition('winner', 1)
-        ->condition('value', $prize['value'])
-        ->execute();
-      $count = count($chances_ids);
+      $count = isset($used_prizes[$prize['value']]) ? $used_prizes[$prize['value']] : 0;
+
       if ($count < $prize['quantity']) {
         $available_prizes[$prize['value']] = $prize['quantity'] - $count;
       }
