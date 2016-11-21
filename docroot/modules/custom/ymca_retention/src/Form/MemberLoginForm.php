@@ -65,7 +65,7 @@ class MemberLoginForm extends FormBase {
         '#type' => 'hidden',
       ];
       $form['membership_id'] = [
-        '#type' => 'textfield',
+        '#type' => 'number',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
@@ -73,7 +73,7 @@ class MemberLoginForm extends FormBase {
           ],
         ],
         '#element_required_error' => $this->t('Member ID is required.'),
-        '#element_validate' => $validate,
+        '#element_validate' => [$validate],
       ];
     }
 
