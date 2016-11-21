@@ -37,6 +37,13 @@
 
       event.preventDefault();
     });
+    // Scroll to just opened tab.
+    $(document).on('shown.bs.collapse', function (event) {
+      $('body').animate({
+        scrollTop: $(this.activeElement).offset().top
+      });
+    });
+
 
   };
 

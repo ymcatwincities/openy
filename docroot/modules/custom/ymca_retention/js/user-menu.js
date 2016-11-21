@@ -74,7 +74,7 @@
   };
 
   Drupal.behaviors.ymca_retention_menu_forms.attach = function (context, settings) {
-    $('input[name=membership_id]', $('.ymca-retention-login-form, .ymca-retention-register-form', context)).on('keyup', function (event) {
+    $('input[name=membership_id], input[name=email]', $('.ymca-retention-login-form, .ymca-retention-register-form', context)).on('keyup', function (event) {
       if (event.keyCode != 13) {
         return true;
       }
