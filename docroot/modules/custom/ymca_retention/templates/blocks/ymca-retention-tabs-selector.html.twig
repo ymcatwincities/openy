@@ -25,12 +25,12 @@
         {{ 'My Progress'|t }}
       </a>
     </li>
-    <li class="ng-hide" class="yfr-tabs__instant-win" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
+    <li class="yfr-tabs__instant-win ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
       <a href="#instant-win" data-toggle="tab">
         {% include '@ymca_retention/blocks/ymca-retention-instant-win-link-content.html.twig' %}
       </a>
     </li>
-    <li class="ng-hide" class="yfr-tabs__instant-win" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <li class="yfr-tabs__instant-win ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
       <a href="#instant-win" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
         {% include '@ymca_retention/blocks/ymca-retention-instant-win-link-content.html.twig' %}
       </a>
