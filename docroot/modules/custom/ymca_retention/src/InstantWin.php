@@ -99,7 +99,7 @@ class InstantWin {
 
     try {
       $order = $tango_card_wrapper->placeOrder(
-        $member->getFullName(),
+        $member->getFirstName(),
         $member->getEmail(),
         $settings->get('prize_sku'),
         $value * 100
