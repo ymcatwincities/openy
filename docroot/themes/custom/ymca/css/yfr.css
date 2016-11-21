@@ -1297,7 +1297,6 @@ html, body {
   transition: all 0.3s ease;
   border: 2px solid #d3d3d3;
   background-color: #fff;
-  cursor: pointer;
   display: block;
   margin: 0;
   position: relative;
@@ -2325,7 +2324,7 @@ html, body {
 .theme_ymca_2016_fall_retention .yfr-modal input {
   width: 100%;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"], .theme_ymca_2016_fall_retention .yfr-modal input[type="email"] {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"], .theme_ymca_2016_fall_retention .yfr-modal input[type="number"], .theme_ymca_2016_fall_retention .yfr-modal input[type="email"] {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -2339,21 +2338,28 @@ html, body {
   border: 1px solid #e5e5e5;
   color: #424242;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-moz-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-moz-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-ms-input-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-ms-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-webkit-input-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-webkit-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="number"] {
+  -moz-appearance: textfield;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-webkit-outer-spin-button, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .theme_ymca_2016_fall_retention .yfr-modal input.error {
   border: 1px solid #a92b31;

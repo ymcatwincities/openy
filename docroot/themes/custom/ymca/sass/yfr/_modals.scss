@@ -70,6 +70,7 @@
       width: 100%;
 
       &[type="text"],
+      &[type="number"],
       &[type="email"] {
         @include border-radius(3px);
         @include rem(height, 47px);
@@ -82,6 +83,15 @@
         @include input-placeholder {
           color: $grey4;
           font-style: italic;
+        }
+      }
+      &[type="number"] {
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
         }
       }
 
