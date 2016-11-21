@@ -40,6 +40,9 @@
 
 .yfr-registration-form-section {
   @include rem(margin-top, 35px);
+  .btn {
+    white-space: normal;
+  }
 
   @include breakpoint($tablet) {
     @include rem(margin-top, 39px);
