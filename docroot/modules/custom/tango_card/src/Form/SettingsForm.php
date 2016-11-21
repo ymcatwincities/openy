@@ -3,7 +3,7 @@
 namespace Drupal\tango_card\Form;
 
 use Drupal\Core\Url;
-use Drupal\Core\Cache\CacheTagsInvalidator;
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -25,7 +25,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * The cache tags invalidator.
    *
-   * @var \Drupal\Core\Cache\CacheTagsInvalidator
+   * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
    */
   protected $cacheTagsInvalidator;
 
@@ -34,10 +34,13 @@ class SettingsForm extends ConfigFormBase {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
-   * @param \Drupal\Core\Cache\CacheTagsInvalidator $cache_tags_invalidator
+   * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cache_tags_invalidator
    *   The cache tags invalidator.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, CacheTagsInvalidator $cache_tags_invalidator) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    CacheTagsInvalidatorInterface $cache_tags_invalidator
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
   }
