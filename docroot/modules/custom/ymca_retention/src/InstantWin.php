@@ -134,9 +134,17 @@ class InstantWin {
    */
   public function messageLoss() {
     $settings = $this->configFactory->get('ymca_retention.instant_win');
-    $messages = $settings->get('messages_loss');
 
-    return $messages[array_rand($messages)];
+    $messages = [];
+    foreach (['messages_loss', 'messages_loss_ext'] as $key) {
+      if (!$values = $settings->get($key)) {
+        continue;
+      }
+
+      $messages[] = $values[array_rand($values)];
+    }
+
+    return implode(' — ', $messages);
   }
 
   /**
