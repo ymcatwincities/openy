@@ -16,7 +16,17 @@ prize_pool:
 percentage: 20
 
 messages_loss:
-  - 'No luck'
-  - 'Keep trying'
-  - 'It was close'
-  - 'Another time'
+  - "You didn't win this time"
+  - 'No prize this time'
+  - "That chance isn't a winner"
+  - "You didn't win"
+  - 'No luck this time'
+  - "That chance didn’t win you a prize"
+
+messages_loss_ext:
+  - 'Stay active for more chances to win.'
+  - 'Complete more challenge activities to try again.'
+  - 'Show your Y spirit for another shot at prizes.'
+  - 'Keep up the great work to give it another shot.'
+  - 'Keep coming back to check the chances you earn.'
+  - "But you're really showing your Y spirit!"
