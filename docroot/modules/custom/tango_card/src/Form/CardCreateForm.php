@@ -40,11 +40,17 @@ class CardCreateForm extends FormBase {
    * Constructs the CardCreateForm object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager.
+   *   The entity type manager.
+   * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
+   *   The entity query factory.
    * @param \Drupal\tango_card\TangoCardWrapper $tango_card_wrapper
    *   The Tango Card wrapper.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, TangoCardWrapper $tango_card_wrapper) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    QueryFactory $entity_query,
+    TangoCardWrapper $tango_card_wrapper
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->entityQuery = $entity_query;
     $this->tangoCardWrapper = $tango_card_wrapper;
