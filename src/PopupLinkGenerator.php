@@ -75,6 +75,9 @@ class PopupLinkGenerator {
     if (!empty($_COOKIE['ygs_preferred_branch'])) {
       $show_popup = FALSE;
     }
+    if (!empty($node = \Drupal::routeMatch()->getParameter('node')) && $node->bundle() == 'branch') {
+      $show_popup = FALSE;
+    }
     return $show_popup;
   }
 
