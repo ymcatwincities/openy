@@ -301,4 +301,37 @@ function ymca_retention_update_8016(&$sandbox) {
  */
 function ymca_retention_update_8017() {
   \Drupal::service('module_installer')->install(['tango_card'], TRUE);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'sites/default/config/staging/tango_card.settings.yml',
+    ]
+  );
+
+  $account = \Drupal::entityTypeManager()
+    ->getStorage('tango_card_account')
+    ->create([
+      'remote_id' => 'yfr_test',
+      'customer' => 'ffw',
+      'mail' => 'jose.pereira@ffwagency.com',
+      'cc_token' => '1802501684',
+      'cc_number' => '1111',
+    ]);
+  $account->save();
+
+  $campaign = \Drupal::entityTypeManager()
+    ->getStorage('tango_card_campaign')
+    ->create([
+      'name' => 'YFR',
+      'send_email' => 1,
+      'email_template' => 'yfr_2016',
+      'email_from' => 'YMCA',
+      'email_subject' => 'Congratulations!',
+      'email_message' => 'You won the prize!',
+    ]);
+  $campaign->save();
+
+  $config = \Drupal::service('config.factory')->getEditable('tango_card.settings');
+  $config->set('account', $account->id())
+    ->set('campaign', $campaign->id())
+    ->save();
 }
