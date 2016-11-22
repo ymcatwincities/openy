@@ -56,7 +56,9 @@
             }
             else {
               self.storage.state = 'result.loss';
-              self.storage.loss_message = last_played_chance.message.replace(' — ', '<br/>');
+              self.storage.getLossMessage().then(function(data) {
+                self.storage.loss_message = data;
+              });
             }
           }, 3000);
         });

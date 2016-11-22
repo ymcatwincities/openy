@@ -15,15 +15,21 @@ prize_pool:
 
 percentage: 20
 
-messages_loss:
-  - "You didn't win this time"
-  - 'No prize this time'
-  - "That chance isn't a winner"
-  - "You didn't win"
-  - 'No luck this time'
-  - "That chance didn’t win you a prize"
+loss_messages_short:
+  - 'Keep trying'
+  - 'No luck'
+  - 'It was close'
+  - 'Another time'
 
-messages_loss_ext:
+loss_messages_long_1:
+  - "You didn't win this time."
+  - 'No prize this time.'
+  - "That chance isn't a winner."
+  - "You didn't win."
+  - 'No luck this time.'
+  - "That chance didn’t win you a prize."
+
+loss_messages_long_2:
   - 'Stay active for more chances to win.'
   - 'Complete more challenge activities to try again.'
   - 'Show your Y spirit for another shot at prizes.'
