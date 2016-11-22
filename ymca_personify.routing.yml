@@ -27,6 +27,8 @@ ymca_personify.childcare_payment_history:
   requirements:
     _permission: access content
     _custom_access: \Drupal\ymca_personify\Controller\PersonifyController::access
+  options:
+     no_cache: TRUE
 ymca_personify.personify_signout:
   path: personify/sign_out
   defaults:
