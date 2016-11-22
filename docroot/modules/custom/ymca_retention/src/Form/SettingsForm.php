@@ -135,6 +135,15 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('End date and time, for getting data about check-ins in past months, before the campaign starts.'),
     ];
 
+    $form['recent_winners_limit'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Recent winners limit'),
+      '#size' => 50,
+      '#maxlength' => 500,
+      '#default_value' => $config->get('recent_winners_limit'),
+      '#description' => $this->t('How many winners to show in the recent winners block.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -155,6 +164,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('limit_goal_number', $form_state->getValue('limit_goal_number'))
       ->set('date_checkins_start', $form_state->getValue('date_checkins_start'))
       ->set('date_checkins_end', $form_state->getValue('date_checkins_end'))
+      ->set('recent_winners_limit', $form_state->getValue('recent_winners_limit'))
       ->save();
 
     parent::submitForm($form, $form_state);
