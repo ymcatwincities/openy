@@ -1,6 +1,7 @@
 (function($) {
 
   Drupal.behaviors.ymca_retention_user_menu = {};
+  Drupal.behaviors.ymca_retention_menu_forms = {};
   Drupal.behaviors.ymca_retention_user_menu.attach = function (context, settings) {
     if ($('body').hasClass('ymca-retention-user-menu-processed')) {
       return;
@@ -70,6 +71,15 @@
         var $modal = $(this);
         $modal.find('.modal-body .ysr-user-menu__form').appendTo($('.ysr-user-menu__forms'));
       });
+  };
+
+  Drupal.behaviors.ymca_retention_menu_forms.attach = function (context, settings) {
+    $('input[name=membership_id], input[name=email]', $('.ymca-retention-login-form, .ymca-retention-register-form', context)).on('keyup', function (event) {
+      if (event.keyCode != 13) {
+        return true;
+      }
+      $(this).parents('form').find('input.form-submit').trigger('mousedown');
+    });
   };
 
 })(jQuery);

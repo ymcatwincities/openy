@@ -5,16 +5,7 @@
  */
 #}
 {% if content.show_picture %}
-  <div class="hero-section__background">
-    <picture>
-      <!--[if IE 9]>
-      <video style="display: none;"><![endif]-->
-      <source srcset="{{ content.images.desktop2x }} 2x, {{ content.images.desktop }} 1x" media="all and (min-width: 768px)" type="image/jpeg">
-      <source srcset="{{ content.images.mobile2x }} 2x, {{ content.images.mobile }} 1x" type="image/jpeg">
-      <!--[if IE 9]></video><![endif]-->
-      <img src="{{ content.images.desktop }}" typeof="foaf:Image">
-    </picture>
-  </div>
+  <div class="hero-section__background"></div>
 {% endif %}
 
 <div class="container hero-section__content">

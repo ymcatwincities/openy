@@ -163,6 +163,20 @@
         return deferred.promise;
       }
 
+      function getRecentWinners() {
+        var deferred = $q.defer();
+        $http.get(settings.ymca_retention.resources.recent_winners).then(function(response) {
+          if ($.isEmptyObject(response.data)) {
+            deferred.resolve(null);
+            return;
+          }
+
+          deferred.resolve(response.data);
+        });
+
+        return deferred.promise;
+      }
+
       function getLossMessage() {
         var deferred = $q.defer();
 
@@ -185,6 +199,7 @@
         setMemberActivities: setMemberActivities,
         getMemberChances: getMemberChances,
         getMemberPrize: getMemberPrize,
+        getRecentWinners: getRecentWinners,
         getLossMessage: getLossMessage
       };
     });
@@ -195,18 +210,6 @@
 
       // Initiate the promise tracker to track submissions.
       self.progress = promiseTracker();
-
-      self.dates = settings.ymca_retention.activity.dates;
-      self.activity_groups = settings.ymca_retention.activity.activity_groups;
-      self.member = null;
-      self.member_activities = null;
-      self.member_activities_counts = null;
-      self.member_chances = null;
-      self.instantWinCount = 0;
-      self.member_checkins = null;
-      self.loss_message = '';
-      // Game state.
-      self.state = 'game';
 
       // Force to check cookie value.
       $interval(function() {
@@ -243,9 +246,24 @@
         }
       });
 
+      self.setInitialValues = function() {
+        self.dates = settings.ymca_retention.activity.dates;
+        self.activity_groups = settings.ymca_retention.activity.activity_groups;
+        self.member = null;
+        self.member_activities = null;
+        self.member_activities_counts = null;
+        self.member_chances = null;
+        self.instantWinCount = 0;
+        self.member_checkins = null;
+        self.recent_winners = null;
+        // Game state.
+        self.state = 'game';
+      }();
+
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {
           self.member = data;
+          self.member_loaded = true;
         });
       };
 
@@ -307,6 +325,12 @@
             self.member_chances = data;
           }, 3000);
           return data;
+        });
+      };
+
+      self.getRecentWinners = function() {
+        courier.getRecentWinners().then(function(data) {
+          self.recent_winners = data;
         });
       };
 

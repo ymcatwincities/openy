@@ -104,7 +104,7 @@ ymca_retention.member_json:
     _permission: 'access content'
 
 ymca_retention.member_activities_json:
-  path: '/ymca-retention/member_activities'
+  path: '/ymca-retention/member-activities'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\MemberController::memberActivitiesJson'
     _title: 'YMCA Retention Member Activities JSON'
@@ -112,7 +112,7 @@ ymca_retention.member_activities_json:
     _permission: 'access content'
 
 ymca_retention.member_chances_json:
-  path: '/ymca-retention/member_chances'
+  path: '/ymca-retention/member-chances'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\MemberController::memberChancesJson'
     _title: 'YMCA Retention Member Chances JSON'
@@ -120,10 +120,18 @@ ymca_retention.member_chances_json:
     _permission: 'access content'
 
 ymca_retention.member_checkins_json:
-  path: '/ymca-retention/member_checkins'
+  path: '/ymca-retention/member-checkins'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\MemberController::memberCheckInsJson'
     _title: 'YMCA Retention Member Checkins JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.recent_winners_json:
+  path: '/ymca-retention/recent-winners'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::recentWinnersJson'
+    _title: 'YMCA Retention Recent Winners JSON'
   requirements:
     _permission: 'access content'
 

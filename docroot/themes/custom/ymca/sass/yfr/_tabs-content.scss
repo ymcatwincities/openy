@@ -40,6 +40,9 @@
 
 .yfr-registration-form-section {
   @include rem(margin-top, 35px);
+  .btn {
+    white-space: normal;
+  }
 
   @include breakpoint($tablet) {
     @include rem(margin-top, 39px);
@@ -49,7 +52,7 @@
     @include rem(margin-bottom, 18px);
 
     @include breakpoint($tablet) {
-      @include rem(width, 206px);
+      @include rem(min-width, 206px);
       display: inline-block;
     }
 
@@ -341,7 +344,6 @@
       @include transition(all 0.3s ease);
       border: 2px solid $grey17;
       background-color: $white;
-      cursor: pointer;
       display: block;
       margin: 0;
       position: relative;
