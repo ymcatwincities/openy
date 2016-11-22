@@ -151,7 +151,7 @@
 
 .yfr-facility-access-hint-wrapper {
 
-  @include breakpoint($mobile-bp-only) {
+  @include breakpoint($mobile-max) {
     &.collapse {
       display: block;
       height: auto !important;
