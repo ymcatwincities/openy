@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention\Controller;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,6 +156,34 @@ class MemberController extends ControllerBase {
     }
 
     return new JsonResponse($checkin_values);
+  }
+
+  /**
+   * Returns recent winners.
+   */
+  public function recentWinnersJson() {
+    $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+      ->condition('winner', 1)
+      ->condition('played', 0, '<>')
+      ->sort('played', 'DESC')
+      ->range(0, 30)
+      ->execute();
+
+    $chances = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_chance')
+      ->loadMultiple($chances_ids);
+
+    $winners_values = [];
+    /** @var MemberChance $chance */
+    foreach ($chances as $chance) {
+      $winners_values[] = [
+        'name' => $chance->member->entity->getFirstName() . ' '
+          . Unicode::substr($chance->member->entity->getLastName(), 0, 1) . '.',
+        'played' => $chance->get('played')->value,
+      ];
+    }
+
+    return new JsonResponse($winners_values);
   }
 
 }
