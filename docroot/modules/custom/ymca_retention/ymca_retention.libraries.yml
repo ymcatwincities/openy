@@ -131,9 +131,33 @@ cookie-bar:
   dependencies:
     - core/jquery.cookie
 
+momentjs:
+  remote: https://github.com/moment/moment/
+  version: 2.17.0
+  license:
+    name: NONE
+    url: https://github.com/moment/moment/
+    gpl-compatible: true
+  js:
+    /libraries/momentjs/min/moment.min.js: { minified: true }
+
+livestampjs:
+  remote: https://github.com/mattbradley/livestampjs
+  version: 1.1.2
+  license:
+    name: NONE
+    url: https://github.com/mattbradley/livestampjs
+    gpl-compatible: true
+  js:
+    /libraries/livestampjs/livestamp.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - ymca_retention/momentjs
+
 recent-winners:
   version: VERSION
   js:
     js/recent-winners.js: {}
   dependencies:
     - ymca_retention/cookie-bar
+    - ymca_retention/livestampjs
