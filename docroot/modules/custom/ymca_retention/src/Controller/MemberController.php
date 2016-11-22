@@ -162,11 +162,13 @@ class MemberController extends ControllerBase {
    * Returns recent winners.
    */
   public function recentWinnersJson() {
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    $limit = $settings->get('recent_winners_limit');
     $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
       ->condition('winner', 1)
       ->condition('played', 0, '<>')
       ->sort('played', 'DESC')
-      ->range(0, 30)
+      ->range(0, $limit)
       ->execute();
 
     $chances = \Drupal::entityTypeManager()
