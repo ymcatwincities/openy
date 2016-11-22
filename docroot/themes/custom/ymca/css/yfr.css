@@ -509,7 +509,9 @@ html, body {
   height: auto;
 }
 .page-register__fall_retention .yfr-form-register .form-text,
-.page-register__fall_retention #registration .form-text {
+.page-register__fall_retention .yfr-form-register .form-number,
+.page-register__fall_retention #registration .form-text,
+.page-register__fall_retention #registration .form-number {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -520,26 +522,56 @@ html, body {
   border: none;
   color: #424242;
   line-height: 26px;
+  -webkit-appearance: textfield;
+  outline: none;
+}
+.page-register__fall_retention .yfr-form-register .form-text::-webkit-outer-spin-button, .page-register__fall_retention .yfr-form-register .form-text::-webkit-inner-spin-button,
+.page-register__fall_retention .yfr-form-register .form-number::-webkit-outer-spin-button,
+.page-register__fall_retention .yfr-form-register .form-number::-webkit-inner-spin-button,
+.page-register__fall_retention #registration .form-text::-webkit-outer-spin-button,
+.page-register__fall_retention #registration .form-text::-webkit-inner-spin-button,
+.page-register__fall_retention #registration .form-number::-webkit-outer-spin-button,
+.page-register__fall_retention #registration .form-number::-webkit-inner-spin-button {
+  display: none;
+  margin: 0;
+}
+.page-register__fall_retention .yfr-form-register .form-text input[type=number],
+.page-register__fall_retention .yfr-form-register .form-number input[type=number],
+.page-register__fall_retention #registration .form-text input[type=number],
+.page-register__fall_retention #registration .form-number input[type=number] {
+  -moz-appearance: textfield;
 }
 .page-register__fall_retention .yfr-form-register .form-text:-moz-placeholder,
-.page-register__fall_retention #registration .form-text:-moz-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number:-moz-placeholder,
+.page-register__fall_retention #registration .form-text:-moz-placeholder,
+.page-register__fall_retention #registration .form-number:-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .form-text::-moz-placeholder,
-.page-register__fall_retention #registration .form-text::-moz-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number::-moz-placeholder,
+.page-register__fall_retention #registration .form-text::-moz-placeholder,
+.page-register__fall_retention #registration .form-number::-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .form-text:-ms-input-placeholder,
-.page-register__fall_retention #registration .form-text:-ms-input-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number:-ms-input-placeholder,
+.page-register__fall_retention #registration .form-text:-ms-input-placeholder,
+.page-register__fall_retention #registration .form-number:-ms-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .form-text::-webkit-input-placeholder,
-.page-register__fall_retention #registration .form-text::-webkit-input-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number::-webkit-input-placeholder,
+.page-register__fall_retention #registration .form-text::-webkit-input-placeholder,
+.page-register__fall_retention #registration .form-number::-webkit-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .col-sm-push-2,
 .page-register__fall_retention #registration .col-sm-push-2 {
@@ -558,6 +590,17 @@ html, body {
 .page-register__fall_retention #registration .col-sm-2 {
   width: 100%;
   margin-bottom: 15px;
+  position: relative;
+}
+.page-register__fall_retention .yfr-form-register .col-sm-2 .ajax-progress,
+.page-register__fall_retention #registration .col-sm-2 .ajax-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 @media (min-width: 48em) {
   .page-register__fall_retention .yfr-form-register .col-sm-2,
@@ -818,8 +861,15 @@ html, body {
 .yfr-info-block__footer {
   margin-top: 10px;
   margin-top: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
   color: #dd5828;
   font-size: 14px;
+  white-space: nowrap;
+  width: 99.9%;
 }
 @media (min-width: 48em) {
   .yfr-info-block {
@@ -2244,6 +2294,15 @@ html, body {
   max-width: 600px;
   max-width: 60rem;
 }
+.theme_ymca_2016_fall_retention .modal-dialog .ajax-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .theme_ymca_2016_fall_retention .modal-header {
   -moz-border-radius: 6px 6px 0 0;
   -webkit-border-radius: 6px;
@@ -2389,13 +2448,10 @@ html, body {
 }
 
 .yfr-facility-access-hint-link {
-  line-height: 20px;
-  line-height: 2rem;
-  height: 47px;
-  height: 4.7rem;
   padding: 4px 0;
   padding: 0.4rem 0;
-  font-size: 15px;
+  font-size: 13px;
+  line-height: 30px;
   color: #dd5828;
   display: block;
 }
@@ -2403,6 +2459,14 @@ html, body {
   color: #dd5828;
   text-decoration: underline;
   outline: none;
+}
+@media (min-width: 48em) {
+  .yfr-facility-access-hint-link {
+    height: 47px;
+    height: 4.7rem;
+    font-size: 15px;
+    line-height: 20px;
+  }
 }
 
 @media (min-width: 0) and (max-width: 29.9375em) {
