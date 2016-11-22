@@ -48,7 +48,7 @@ class MemberRegisterForm extends FormBase {
 
     if (empty($membership_id) || $config['yteam']) {
       $form['membership_id'] = [
-        '#type' => 'textfield',
+        '#type' => 'number',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [

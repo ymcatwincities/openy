@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention\Controller;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,38 +41,63 @@ class MemberController extends ControllerBase {
    * Returns member activities.
    */
   public function memberActivitiesJson(Request $request) {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (empty($member_id)) {
+      return new JsonResponse();
+    }
+
     $post = $request->request->all();
     if ($request->getMethod() == 'POST' && !empty($post)) {
-      $member_id = AnonymousCookieStorage::get('ymca_retention_member');
-      if (!empty($member_id)) {
-        if ($post['value'] === 'true') {
-          // Register activity.
-          $activity = MemberActivity::create([
-            'timestamp' => $post['timestamp'],
-            'member' => $member_id,
-            'activity_type' => $post['id'],
-          ]);
-          $activity->save();
-        }
-        elseif ($post['value'] === 'false') {
-          // Remove activity.
-          $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
-            ->condition('member', $member_id)
-            ->condition('activity_type', (int) $post['id'])
-            ->condition('timestamp', [$post['timestamp'], $post['timestamp'] + 24 * 60 * 60 - 1], 'BETWEEN')
-            ->execute();
-          $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_activity');
-          $activities = $storage->loadMultiple($activities_ids);
-          $storage->delete($activities);
-        }
+      if ($post['value'] === 'true') {
+        $this->registerActivity($member_id, $post);
+      }
+      elseif ($post['value'] === 'false') {
+        $this->removeActivity($member_id, $post);
       }
     }
 
     /** @var \Drupal\ymca_retention\ActivityManager $activity_manager */
     $activity_manager = \Drupal::service('ymca_retention.activity_manager');
-    $member_activities = $activity_manager->getMemberActivitiesModel();
+    $member_activities = $activity_manager->getMemberActivitiesModel($member_id);
 
     return new JsonResponse($member_activities);
+  }
+
+  /**
+   * Register member activity.
+   */
+  public function registerActivity($member_id, $post) {
+    // Check the timestamp is within campaign dates.
+    $settings = $this->config('ymca_retention.general_settings');
+    $date_open = new \DateTime($settings->get('date_reporting_open'));
+    $date_close = new \DateTime($settings->get('date_reporting_close'));
+
+    if ($post['timestamp'] < $date_open->getTimestamp() || $post['timestamp'] > $date_close->getTimestamp()) {
+      return;
+    }
+
+    // Register activity.
+    $activity = MemberActivity::create([
+      'timestamp' => $post['timestamp'],
+      'member' => $member_id,
+      'activity_type' => $post['id'],
+    ]);
+    $activity->save();
+  }
+
+  /**
+   * Remove member activity.
+   */
+  public function removeActivity($member_id, $post) {
+    // Remove activity.
+    $activities_ids = \Drupal::entityQuery('ymca_retention_member_activity')
+      ->condition('member', $member_id)
+      ->condition('activity_type', (int) $post['id'])
+      ->condition('timestamp', [$post['timestamp'], $post['timestamp'] + 24 * 60 * 60 - 1], 'BETWEEN')
+      ->execute();
+    $storage = $this->entityTypeManager()->getStorage('ymca_retention_member_activity');
+    $activities = $storage->loadMultiple($activities_ids);
+    $storage->delete($activities);
   }
 
   /**
@@ -107,7 +133,7 @@ class MemberController extends ControllerBase {
       }
     }
 
-    $chances = \Drupal::entityTypeManager()
+    $chances = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_chance')
       ->loadByProperties(['member' => $member_id]);
 
@@ -145,7 +171,7 @@ class MemberController extends ControllerBase {
       ->condition('member', $member_id)
       ->execute();
 
-    $checkins = \Drupal::entityTypeManager()
+    $checkins = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_checkin')
       ->loadMultiple($checkin_ids);
 
@@ -155,6 +181,39 @@ class MemberController extends ControllerBase {
     }
 
     return new JsonResponse($checkin_values);
+  }
+
+  /**
+   * Returns recent winners.
+   */
+  public function recentWinnersJson() {
+    $settings = $this->config('ymca_retention.general_settings');
+    $limit = $settings->get('recent_winners_limit');
+    $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+      ->condition('winner', 1)
+      ->condition('played', 0, '<>')
+      ->sort('played', 'DESC')
+      ->range(0, $limit)
+      ->execute();
+
+    if (!$chances_ids) {
+      return new JsonResponse();
+    }
+
+    $chances = $this->entityTypeManager()
+      ->getStorage('ymca_retention_member_chance')
+      ->loadMultiple($chances_ids);
+
+    $winners_values = [];
+    /** @var MemberChance $chance */
+    foreach ($chances as $chance) {
+      $winners_values[] = [
+        'name' => $chance->member->entity->getFirstName() . ' ' . Unicode::substr($chance->member->entity->getLastName(), 0, 1) . '.',
+        'played' => $chance->get('played')->value,
+      ];
+    }
+
+    return new JsonResponse($winners_values);
   }
 
 }

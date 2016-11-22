@@ -155,8 +155,7 @@ html, body {
   z-index: 20;
 }
 .hero-section__background {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
+  opacity: .6;
   height: 100%;
   left: 0;
   overflow: hidden;
@@ -164,29 +163,41 @@ html, body {
   top: 0;
   width: 100%;
   z-index: 10;
-}
-.hero-section__background img {
-  bottom: 0;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  width: auto;
-}
-@media (min-width: 34.375em) {
-  .hero-section__background img {
-    height: auto;
-    width: 100%;
-  }
+  background: #fff url(../prototypes/yfr/img/hero/hero-mobile.jpg) 0 0 no-repeat;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  /* img { */
+  /*   bottom: 0; */
+  /*   height: auto; */
+  /*   max-height: 100%; */
+  /*   left: 0; */
+  /*   right: 0; */
+  /*   position: absolute; */
+  /*   width: auto; */
+  /*   min-width: 100%; */
+  /*   @include breakpoint(550px) { */
+  /*     height: auto; */
+  /*     width: 100%; */
+  /*   } */
+  /*   @include breakpoint($tablet) { */
+  /*     //height: 100%; */
+  /*     width: auto; */
+  /*   } */
+  /*   @include breakpoint($tablet-landscape) { */
+  /*     height: auto; */
+  /*     width: 100%; */
+  /*   } */
+  /* } */
 }
 @media (min-width: 48em) {
-  .hero-section__background img {
-    width: auto;
-  }
-}
-@media (min-width: 60em) {
-  .hero-section__background img {
-    height: auto;
-    width: 100%;
+  .hero-section__background {
+    background: #fff url(../prototypes/yfr/img/hero/hero-desktop-1400x2.jpg) 50% 0 no-repeat;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
   }
 }
 .hero-section__content {
@@ -498,7 +509,9 @@ html, body {
   height: auto;
 }
 .page-register__fall_retention .yfr-form-register .form-text,
-.page-register__fall_retention #registration .form-text {
+.page-register__fall_retention .yfr-form-register .form-number,
+.page-register__fall_retention #registration .form-text,
+.page-register__fall_retention #registration .form-number {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -509,26 +522,56 @@ html, body {
   border: none;
   color: #424242;
   line-height: 26px;
+  -webkit-appearance: textfield;
+  outline: none;
+}
+.page-register__fall_retention .yfr-form-register .form-text::-webkit-outer-spin-button, .page-register__fall_retention .yfr-form-register .form-text::-webkit-inner-spin-button,
+.page-register__fall_retention .yfr-form-register .form-number::-webkit-outer-spin-button,
+.page-register__fall_retention .yfr-form-register .form-number::-webkit-inner-spin-button,
+.page-register__fall_retention #registration .form-text::-webkit-outer-spin-button,
+.page-register__fall_retention #registration .form-text::-webkit-inner-spin-button,
+.page-register__fall_retention #registration .form-number::-webkit-outer-spin-button,
+.page-register__fall_retention #registration .form-number::-webkit-inner-spin-button {
+  display: none;
+  margin: 0;
+}
+.page-register__fall_retention .yfr-form-register .form-text input[type=number],
+.page-register__fall_retention .yfr-form-register .form-number input[type=number],
+.page-register__fall_retention #registration .form-text input[type=number],
+.page-register__fall_retention #registration .form-number input[type=number] {
+  -moz-appearance: textfield;
 }
 .page-register__fall_retention .yfr-form-register .form-text:-moz-placeholder,
-.page-register__fall_retention #registration .form-text:-moz-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number:-moz-placeholder,
+.page-register__fall_retention #registration .form-text:-moz-placeholder,
+.page-register__fall_retention #registration .form-number:-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .form-text::-moz-placeholder,
-.page-register__fall_retention #registration .form-text::-moz-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number::-moz-placeholder,
+.page-register__fall_retention #registration .form-text::-moz-placeholder,
+.page-register__fall_retention #registration .form-number::-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .form-text:-ms-input-placeholder,
-.page-register__fall_retention #registration .form-text:-ms-input-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number:-ms-input-placeholder,
+.page-register__fall_retention #registration .form-text:-ms-input-placeholder,
+.page-register__fall_retention #registration .form-number:-ms-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .form-text::-webkit-input-placeholder,
-.page-register__fall_retention #registration .form-text::-webkit-input-placeholder {
+.page-register__fall_retention .yfr-form-register .form-number::-webkit-input-placeholder,
+.page-register__fall_retention #registration .form-text::-webkit-input-placeholder,
+.page-register__fall_retention #registration .form-number::-webkit-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
+  line-height: 26px;
 }
 .page-register__fall_retention .yfr-form-register .col-sm-push-2,
 .page-register__fall_retention #registration .col-sm-push-2 {
@@ -547,6 +590,17 @@ html, body {
 .page-register__fall_retention #registration .col-sm-2 {
   width: 100%;
   margin-bottom: 15px;
+  position: relative;
+}
+.page-register__fall_retention .yfr-form-register .col-sm-2 .ajax-progress,
+.page-register__fall_retention #registration .col-sm-2 .ajax-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 @media (min-width: 48em) {
   .page-register__fall_retention .yfr-form-register .col-sm-2,
@@ -807,8 +861,15 @@ html, body {
 .yfr-info-block__footer {
   margin-top: 10px;
   margin-top: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
   color: #dd5828;
   font-size: 14px;
+  white-space: nowrap;
+  width: 99.9%;
 }
 @media (min-width: 48em) {
   .yfr-info-block {
@@ -982,6 +1043,9 @@ html, body {
   margin-top: 35px;
   margin-top: 3.5rem;
 }
+.yfr-registration-form-section .btn {
+  white-space: normal;
+}
 @media (min-width: 48em) {
   .yfr-registration-form-section {
     margin-top: 39px;
@@ -994,8 +1058,8 @@ html, body {
 }
 @media (min-width: 48em) {
   .yfr-registration-form-section .yfr-registration-form-button-container {
-    width: 206px;
-    width: 20.6rem;
+    min-width: 206px;
+    min-width: 20.6rem;
     display: inline-block;
   }
 }
@@ -1286,7 +1350,6 @@ html, body {
   transition: all 0.3s ease;
   border: 2px solid #d3d3d3;
   background-color: #fff;
-  cursor: pointer;
   display: block;
   margin: 0;
   position: relative;
@@ -2231,6 +2294,15 @@ html, body {
   max-width: 600px;
   max-width: 60rem;
 }
+.theme_ymca_2016_fall_retention .modal-dialog .ajax-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .theme_ymca_2016_fall_retention .modal-header {
   -moz-border-radius: 6px 6px 0 0;
   -webkit-border-radius: 6px;
@@ -2314,7 +2386,7 @@ html, body {
 .theme_ymca_2016_fall_retention .yfr-modal input {
   width: 100%;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"], .theme_ymca_2016_fall_retention .yfr-modal input[type="email"] {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"], .theme_ymca_2016_fall_retention .yfr-modal input[type="number"], .theme_ymca_2016_fall_retention .yfr-modal input[type="email"] {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -2328,21 +2400,28 @@ html, body {
   border: 1px solid #e5e5e5;
   color: #424242;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-moz-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]:-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-moz-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-moz-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-ms-input-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]:-ms-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]:-ms-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
 }
-.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-webkit-input-placeholder {
+.theme_ymca_2016_fall_retention .yfr-modal input[type="text"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-webkit-input-placeholder, .theme_ymca_2016_fall_retention .yfr-modal input[type="email"]::-webkit-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="number"] {
+  -moz-appearance: textfield;
+}
+.theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-webkit-outer-spin-button, .theme_ymca_2016_fall_retention .yfr-modal input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .theme_ymca_2016_fall_retention .yfr-modal input.error {
   border: 1px solid #a92b31;
@@ -2350,8 +2429,8 @@ html, body {
 
 .yfr-register-form,
 .yfr-login-form {
-  padding: 20px 15px 30px 25px;
-  padding: 2rem 1.5rem 3rem 2.5rem;
+  padding: 20px 15px 30px;
+  padding: 2rem 1.5rem 3rem;
   transition: padding .3s;
 }
 @media (min-width: 48em) {
@@ -2361,20 +2440,18 @@ html, body {
     padding: 5rem 8.8rem 4rem;
   }
 }
-.yfr-register-form .form-item,
-.yfr-login-form .form-item {
+.yfr-register-form .form-item:not(input),
+.yfr-login-form .form-item:not(input) {
   padding-bottom: 20px;
   padding-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .yfr-facility-access-hint-link {
-  line-height: 20px;
-  line-height: 2rem;
-  height: 47px;
-  height: 4.7rem;
   padding: 4px 0;
   padding: 0.4rem 0;
-  font-size: 15px;
+  font-size: 13px;
+  line-height: 30px;
   color: #dd5828;
   display: block;
 }
@@ -2383,8 +2460,16 @@ html, body {
   text-decoration: underline;
   outline: none;
 }
+@media (min-width: 48em) {
+  .yfr-facility-access-hint-link {
+    height: 47px;
+    height: 4.7rem;
+    font-size: 15px;
+    line-height: 20px;
+  }
+}
 
-@media (min-width: 0) and (max-width: 29.9375em) {
+@media (max-width: 47.9375em) {
   .yfr-facility-access-hint-wrapper.collapse {
     display: block;
     height: auto !important;
@@ -2476,6 +2561,12 @@ html, body {
   padding: 10rem 2rem 5rem;
   position: relative;
   text-align: center;
+  margin: 0 auto;
+}
+@media (min-width: 48em) {
+  .yfr-content-info {
+    max-width: 80%;
+  }
 }
 .yfr-content-info:before {
   width: 44px;
@@ -2504,17 +2595,23 @@ html, body {
   color: #424242;
 }
 .yfr-content-info p {
+  margin: 0 0 14px 0;
+  margin: 0 0 1.4rem 0;
   color: #777;
   line-height: 22px;
-  margin: 0;
   font-size: 15px;
 }
 .yfr-content-info .btn {
   width: 140px;
 }
+@media (min-width: 48em) {
+  .yfr-content-info .btn {
+    max-width: 140px;
+  }
+}
 .yfr-content-info .row + .row {
-  margin-top: 38px;
-  margin-top: 3.8rem;
+  margin-top: 28px;
+  margin-top: 2.8rem;
 }
 
 .yfr-ticker {
@@ -2533,6 +2630,7 @@ html, body {
   line-height: 22px;
   font-size: 16px;
   height: 54px;
+  display: none;
 }
 @media (min-width: 48em) {
   .yfr-ticker {
@@ -2635,6 +2733,10 @@ html, body {
 }
 .yfr-ticker .yfr-ticker__btn .btn-close:hover {
   background-color: #fcaf17;
+}
+
+.alert-active .yfr-ticker {
+  bottom: 52px;
 }
 
 /*# sourceMappingURL=yfr.css.map */
