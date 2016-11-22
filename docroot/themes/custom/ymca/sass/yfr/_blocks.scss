@@ -53,8 +53,11 @@
 
   &__footer {
     @include rem(margin-top, 10px);
+    @include ellipsis(ellipsis);
     color: $orange-dark-lighter;
     font-size: 14px;
+    white-space: nowrap;
+    width: 99.9%;
   }
 
   @include breakpoint($tablet) {
