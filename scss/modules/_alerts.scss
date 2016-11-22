@@ -74,7 +74,7 @@ $module: 'site-alert';
         font-size: 26px;
         color: $red;
         position: absolute;
-        top: 22px;
+        top: 15px;
         left: 10px;
 
         &:before {
@@ -120,6 +120,13 @@ $module: 'site-alert';
 
     &--yellow {
       background-color: $yellow;
+
+      .#{$module}__icon {
+        &:before {
+          border-left: 10px solid $yellow;
+          border-right: 10px solid $yellow;
+        }
+      }
     }
 
     &--transparent {

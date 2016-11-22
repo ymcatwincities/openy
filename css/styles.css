@@ -1270,7 +1270,7 @@ body .branch-popup + .ui-widget-overlay {
   font-size: 26px;
   color: #ed1c24;
   position: absolute;
-  top: 22px;
+  top: 15px;
   left: 10px;
 }
 .site-alert--header .site-alert__icon:before {
@@ -1305,6 +1305,10 @@ body .branch-popup + .ui-widget-overlay {
 }
 .site-alert--header--yellow {
   background-color: #fcaf17;
+}
+.site-alert--header--yellow .site-alert__icon:before {
+  border-left: 10px solid #fcaf17;
+  border-right: 10px solid #fcaf17;
 }
 .site-alert--header--transparent {
   background: none;
