@@ -182,7 +182,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $options = ['all' => $this->t('All')];
     // Temporary set start date as 2014-01-01 to get children options.
     $parameters = [
-      'start_date' => '2014-01-01',
+      'start_date' => '2006-01-01',
       'end_date' => $this->state['end_date'],
     ];
     $data = self::personifyRequest($parameters);
