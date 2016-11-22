@@ -183,8 +183,7 @@ class MemberController extends ControllerBase {
     /** @var MemberChance $chance */
     foreach ($chances as $chance) {
       $winners_values[] = [
-        'name' => $chance->member->entity->getFirstName() . ' '
-          . Unicode::substr($chance->member->entity->getLastName(), 0, 1) . '.',
+        'name' => $chance->member->entity->getFirstName() . ' ' . Unicode::substr($chance->member->entity->getLastName(), 0, 1) . '.',
         'played' => $chance->get('played')->value,
       ];
     }
