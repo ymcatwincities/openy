@@ -7,7 +7,7 @@
     }
     $('body').addClass('ymca-retention-recent-winners-processed');
 
-    Drupal.ymca_retention.angular_app.controller('RecentWinnersController', function ($filter, $timeout, $sce, storage) {
+    Drupal.ymca_retention.angular_app.controller('RecentWinnersController', function (storage) {
       var self = this;
       // Shared information.
       self.storage = storage;
