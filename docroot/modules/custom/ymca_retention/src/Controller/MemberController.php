@@ -171,6 +171,10 @@ class MemberController extends ControllerBase {
       ->range(0, $limit)
       ->execute();
 
+    if (!$chances_ids) {
+      return new JsonResponse();
+    }
+
     $chances = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_chance')
       ->loadMultiple($chances_ids);
