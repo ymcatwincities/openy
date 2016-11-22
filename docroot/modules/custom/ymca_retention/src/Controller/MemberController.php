@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention\Controller;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +61,7 @@ class MemberController extends ControllerBase {
             ->condition('activity_type', (int) $post['id'])
             ->condition('timestamp', [$post['timestamp'], $post['timestamp'] + 24 * 60 * 60 - 1], 'BETWEEN')
             ->execute();
-          $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_activity');
+          $storage = $this->entityTypeManager()->getStorage('ymca_retention_member_activity');
           $activities = $storage->loadMultiple($activities_ids);
           $storage->delete($activities);
         }
@@ -107,7 +108,7 @@ class MemberController extends ControllerBase {
       }
     }
 
-    $chances = \Drupal::entityTypeManager()
+    $chances = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_chance')
       ->loadByProperties(['member' => $member_id]);
 
@@ -145,7 +146,7 @@ class MemberController extends ControllerBase {
       ->condition('member', $member_id)
       ->execute();
 
-    $checkins = \Drupal::entityTypeManager()
+    $checkins = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_checkin')
       ->loadMultiple($checkin_ids);
 
@@ -155,6 +156,39 @@ class MemberController extends ControllerBase {
     }
 
     return new JsonResponse($checkin_values);
+  }
+
+  /**
+   * Returns recent winners.
+   */
+  public function recentWinnersJson() {
+    $settings = $this->config('ymca_retention.general_settings');
+    $limit = $settings->get('recent_winners_limit');
+    $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+      ->condition('winner', 1)
+      ->condition('played', 0, '<>')
+      ->sort('played', 'DESC')
+      ->range(0, $limit)
+      ->execute();
+
+    if (!$chances_ids) {
+      return new JsonResponse();
+    }
+
+    $chances = $this->entityTypeManager()
+      ->getStorage('ymca_retention_member_chance')
+      ->loadMultiple($chances_ids);
+
+    $winners_values = [];
+    /** @var MemberChance $chance */
+    foreach ($chances as $chance) {
+      $winners_values[] = [
+        'name' => $chance->member->entity->getFirstName() . ' ' . Unicode::substr($chance->member->entity->getLastName(), 0, 1) . '.',
+        'played' => $chance->get('played')->value,
+      ];
+    }
+
+    return new JsonResponse($winners_values);
   }
 
 }
