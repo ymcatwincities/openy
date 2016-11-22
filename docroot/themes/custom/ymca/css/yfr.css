@@ -2469,7 +2469,7 @@ html, body {
   }
 }
 
-@media (min-width: 0) and (max-width: 29.9375em) {
+@media (max-width: 47.9375em) {
   .yfr-facility-access-hint-wrapper.collapse {
     display: block;
     height: auto !important;
