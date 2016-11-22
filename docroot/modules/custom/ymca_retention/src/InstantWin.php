@@ -125,26 +125,36 @@ class InstantWin {
   public function chanceLoss(MemberChance $chance) {
     $chance->set('played', time());
     $chance->set('winner', 0);
-    $chance->set('message', $this->messageLoss());
+    $chance->set('message', $this->lossMessageShort());
     $chance->save();
   }
 
   /**
-   * Get random lost message.
+   * Get random short lost message.
    */
-  public function messageLoss() {
+  public function lossMessageShort() {
+    $settings = $this->configFactory->get('ymca_retention.instant_win');
+    $messages = $settings->get('loss_messages_short');
+
+    return $messages[array_rand($messages)];
+  }
+
+  /**
+   * Get random long lost message.
+   */
+  public function lossMessageLong() {
     $settings = $this->configFactory->get('ymca_retention.instant_win');
 
     $messages = [];
-    foreach (['messages_loss', 'messages_loss_ext'] as $key) {
-      if (!$values = $settings->get($key)) {
+    foreach (range(1, 2) as $i) {
+      if (!$values = $settings->get('loss_messages_long_' . $i)) {
         continue;
       }
 
       $messages[] = $values[array_rand($values)];
     }
 
-    return implode(' — ', $messages);
+    return implode(' ', $messages);
   }
 
   /**

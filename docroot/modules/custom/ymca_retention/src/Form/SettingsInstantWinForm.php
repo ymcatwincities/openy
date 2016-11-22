@@ -97,30 +97,30 @@ class SettingsInstantWinForm extends ConfigFormBase {
       $used_prizes[$result['value']] = $result['id_count'];
     }
 
-    $prize_pool = $config->get('prize_pool');
-    foreach ([5, 20, 50, 100] as $delta => $value) {
+    foreach ($config->get('prize_pool') as $delta => $prize) {
       $form['prize_pool'][$delta] = ['#type' => 'container', '#tree' => TRUE];
       $form['prize_pool'][$delta]['value'] = [
         '#type' => 'value',
-        '#value' => $value,
+        '#value' => $prize['value'],
       ];
 
       $form['prize_pool'][$delta]['quantity'] = [
         '#type' => 'number',
-        '#title' => '$ ' . $value,
+        '#title' => '$ ' . $prize['value'],
         '#required' => TRUE,
         '#min' => 0,
         '#step' => 1,
-        '#default_value' => isset($prize_pool[$delta]) ? $prize_pool[$delta]['quantity'] : 0,
+        '#default_value' => $prize['quantity'],
         '#field_suffix' => '(' . $this->t('Used prizes: %count', [
-          '%count' => isset($used_prizes[$value]) ? $used_prizes[$value] : 0,
+          '%count' => isset($used_prizes[$prize['value']]) ? $used_prizes[$prize['value']] : 0,
         ]) . ')',
       ];
     }
 
     $fields = [
-      'messages_loss' => 'Loss messages',
-      'messages_loss_ext' => 'Loss messages - Extension',
+      'loss_messages_short' => 'Loss messages - Short',
+      'loss_messages_long_1' => 'Loss messages - Long (#1)',
+      'loss_messages_long_2' => 'Loss messages - Long (#2)',
     ];
 
     foreach ($fields as $field => $title) {
@@ -134,14 +134,12 @@ class SettingsInstantWinForm extends ConfigFormBase {
       foreach (range(0, 5) as $delta) {
         $form[$field][$delta] = [
           '#type' => 'textfield',
-          '#title' => $delta + 1,
+          '#title' => $this->t('Message %n', ['%n' => $delta + 1]),
           '#title_display' => 'invisible',
           '#default_value' => isset($messages[$delta]) ? $messages[$delta] : '',
         ];
       }
     }
-
-    $form['messages_loss_ext']['#description'] = $this->t('A loss message extension is randomly selected to take place in the complete loss message string: <em>[message_loss] — [message_loss_ext]</em>.');
 
     return parent::buildForm($form, $form_state);
   }
@@ -150,8 +148,15 @@ class SettingsInstantWinForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    foreach (['messages_loss', 'messages_loss_ext'] as $field) {
+    $fields = [
+      'loss_messages_short',
+      'loss_messages_long_1',
+      'loss_messages_long_2',
+    ];
+
+    foreach ($fields as $field) {
       $values = array_filter($form_state->getValue($field));
+
       if (!$values) {
         $form_state->setErrorByName($field, $this->t('You must set at least one message.'));
         continue;
@@ -166,8 +171,15 @@ class SettingsInstantWinForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('ymca_retention.instant_win');
+    $fields = [
+      'prize_sku',
+      'percentage',
+      'prize_pool',
+      'loss_messages_short',
+      'loss_messages_long_1',
+      'loss_messages_long_2',
+    ];
 
-    $fields = ['prize_sku', 'percentage', 'prize_pool', 'messages_loss'];
     foreach ($fields as $field) {
       $config->set($field, $form_state->getValue($field));
     }
