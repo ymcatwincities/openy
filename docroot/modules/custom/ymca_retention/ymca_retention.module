@@ -13,6 +13,7 @@ use Drupal\ymca_retention\Entity\MemberChance;
 use Drupal\ymca_retention\PersonifyApi;
 use Drupal\ymca_retention\Entity\MemberCheckIn;
 use Drupal\ymca_retention\Entity\Member;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_form_alter().
@@ -70,7 +71,7 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
  *
  * @see \Drupal\views\ViewExecutable
  */
-function ymca_retention_views_pre_build(\Drupal\views\ViewExecutable $view) {
+function ymca_retention_views_pre_build(ViewExecutable $view) {
   $displays = ['ymca_retention_members', 'ymca_retention_prizes'];
   if (in_array($view->current_display, $displays)) {
     // Change filter options to Yes/No instead of default options True/False.
