@@ -2,6 +2,13 @@
 
   .modal-dialog {
     @include rem(max-width, 600px);
+
+    .ajax-progress {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      @include translate(-50%, -50%);
+    }
   }
   .modal-header {
     @include border-radius(6px 6px 0 0);
@@ -70,6 +77,7 @@
       width: 100%;
 
       &[type="text"],
+      &[type="number"],
       &[type="email"] {
         @include border-radius(3px);
         @include rem(height, 47px);
@@ -84,6 +92,15 @@
           font-style: italic;
         }
       }
+      &[type="number"] {
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
 
       &.error {
         border: 1px solid $red-dark;
@@ -94,23 +111,27 @@
 
 .yfr-register-form,
 .yfr-login-form {
-  @include rem(padding, 20px 15px 30px 25px);
+  @include rem(padding, 20px 15px 30px);
   transition: padding .3s;
 
   @include breakpoint($tablet) {
     @include rem(padding, 50px 88px 40px);
   }
 
-  .form-item {
+  input.form-item {
+
+  }
+
+  .form-item:not(input) {
     @include rem(padding-bottom, 20px);
+    margin-bottom: 0;
   }
 }
 
 .yfr-facility-access-hint-link {
-  @include rem(line-height, 20px);
-  @include rem(height, 47px);
   @include rem(padding, 4px 0);
-  font-size: 15px;
+  font-size: 13px;
+  line-height: 30px;
   color: $orange-dark-lighter;
   display: block;
 
@@ -120,11 +141,17 @@
     text-decoration: underline;
     outline: none;
   }
+
+  @include breakpoint($tablet){
+    @include rem(height, 47px);
+    font-size: 15px;
+    line-height: 20px;
+  }
 }
 
 .yfr-facility-access-hint-wrapper {
 
-  @include breakpoint($mobile-bp-only) {
+  @include breakpoint($mobile-max) {
     &.collapse {
       display: block;
       height: auto !important;
@@ -214,6 +241,11 @@
   @include rem(padding, 100px 20px 50px);
   position: relative;
   text-align: center;
+  margin: 0 auto;
+
+  @include breakpoint($tablet) {
+    max-width: 80%;
+  }
 
   &:before {
     @include rem(width, 44px);
@@ -235,19 +267,23 @@
   }
 
   p {
+    @include rem(margin, 0 0 14px 0);
     color: $grey5;
     line-height: 22px;
-    margin: 0;
     font-size: 15px;
   }
 
   .btn {
     width: 140px;
+
+    @include breakpoint($tablet){
+      max-width: 140px;
+    }
   }
 
   .row {
     + .row {
-      @include rem(margin-top, 38px);
+      @include rem(margin-top, 28px);
     }
   }
 }

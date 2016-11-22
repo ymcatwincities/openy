@@ -10,3 +10,4 @@ date_checkins_start: '10/30/2016 12:00 AM'
 date_checkins_end: '12/01/2016 11:59 PM'
 date_winners_announcement: '12/30/2016 12:00 AM'
 calculate_visit_goal: 0
+recent_winners_limit: '30'

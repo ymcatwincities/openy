@@ -32,6 +32,10 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
       $form['membership_id']['#attributes']['placeholder'] = t('Member ID');
+      if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
+        $form['created_by_staff']['#value'] = 'All';
+        $form['created_on_mobile']['#value'] = 'All';
+      }
       break;
 
     case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
@@ -162,6 +166,10 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_register_confirmation_modal' => [
       'variables' => [],
       'template' => 'blocks/ymca-retention-register-confirmation-modal',
+    ],
+    'ymca_retention_recent_winners' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-recent-winners',
     ],
 
     // Forms templates.
@@ -433,12 +441,25 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
       }
     }
   }
+  foreach ($activity_groups as $activity_group) {
+    switch ($activity_group['retention_activity_id']) {
+      case 'a':
+        $member->set('activity_track_swimming', $tracks[$activity_group['id']]);
+        break;
 
-  // TODO: below is hard coding; we are assuming that the activity groups are
-  // in the specific order: swimming, fitness, groupx.
-  $member->set('activity_track_swimming', $tracks[$activity_groups[0]['id']]);
-  $member->set('activity_track_fitness', $tracks[$activity_groups[1]['id']]);
-  $member->set('activity_track_groupx', $tracks[$activity_groups[2]['id']]);
+      case 'b':
+        $member->set('activity_track_fitness', $tracks[$activity_group['id']]);
+        break;
+
+      case 'c':
+        $member->set('activity_track_groupx', $tracks[$activity_group['id']]);
+        break;
+
+      case 'd':
+        $member->set('activity_track_community', $tracks[$activity_group['id']]);
+        break;
+    }
+  }
   $member->save();
 }
 

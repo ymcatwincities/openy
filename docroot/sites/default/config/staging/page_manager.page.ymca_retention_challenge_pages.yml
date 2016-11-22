@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: ymca_retention_challenge_pages
-label: 'YMCA Retention Challenge Pages'
+label: 'YMCA Y Spirit'
 use_admin_theme: false
 path: '/challenge/{string}'
 access_logic: and
