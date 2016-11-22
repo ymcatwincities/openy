@@ -61,7 +61,7 @@ class MemberController extends ControllerBase {
             ->condition('activity_type', (int) $post['id'])
             ->condition('timestamp', [$post['timestamp'], $post['timestamp'] + 24 * 60 * 60 - 1], 'BETWEEN')
             ->execute();
-          $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member_activity');
+          $storage = $this->entityTypeManager()->getStorage('ymca_retention_member_activity');
           $activities = $storage->loadMultiple($activities_ids);
           $storage->delete($activities);
         }
@@ -108,7 +108,7 @@ class MemberController extends ControllerBase {
       }
     }
 
-    $chances = \Drupal::entityTypeManager()
+    $chances = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_chance')
       ->loadByProperties(['member' => $member_id]);
 
@@ -146,7 +146,7 @@ class MemberController extends ControllerBase {
       ->condition('member', $member_id)
       ->execute();
 
-    $checkins = \Drupal::entityTypeManager()
+    $checkins = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_checkin')
       ->loadMultiple($checkin_ids);
 
@@ -162,7 +162,7 @@ class MemberController extends ControllerBase {
    * Returns recent winners.
    */
   public function recentWinnersJson() {
-    $settings = \Drupal::config('ymca_retention.general_settings');
+    $settings = $this->config('ymca_retention.general_settings');
     $limit = $settings->get('recent_winners_limit');
     $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
       ->condition('winner', 1)
@@ -171,7 +171,7 @@ class MemberController extends ControllerBase {
       ->range(0, $limit)
       ->execute();
 
-    $chances = \Drupal::entityTypeManager()
+    $chances = $this->entityTypeManager()
       ->getStorage('ymca_retention_member_chance')
       ->loadMultiple($chances_ids);
 
