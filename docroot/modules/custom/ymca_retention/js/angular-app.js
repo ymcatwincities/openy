@@ -256,6 +256,7 @@
         self.instantWinCount = 0;
         self.member_checkins = null;
         self.recent_winners = null;
+        self.loss_message = '';
         // Game state.
         self.state = 'game';
       }();
