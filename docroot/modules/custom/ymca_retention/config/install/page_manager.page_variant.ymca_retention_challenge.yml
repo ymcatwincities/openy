@@ -101,6 +101,15 @@ variant_settings:
       weight: 0
       uuid: 729d18e6-e7d4-485c-8e2d-39e6ceb6a432
       context_mapping: {  }
+    b35c5401-a7c7-4abf-8993-a7084cd8ea60:
+      id: retention_recent_winners_block
+      label: '[YMCA Retention] Recent winners'
+      provider: ymca_retention
+      label_display: '0'
+      region: main
+      weight: 0
+      uuid: b35c5401-a7c7-4abf-8993-a7084cd8ea60
+      context_mapping: {  }
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
   label: null
