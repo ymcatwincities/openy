@@ -1310,6 +1310,13 @@ body .branch-popup + .ui-widget-overlay {
   border-left: 10px solid #fcaf17;
   border-right: 10px solid #fcaf17;
 }
+.site-alert--header--dark_blue {
+  background-color: #0060af;
+}
+.site-alert--header--dark_blue .site-alert__icon:before {
+  border-left: 10px solid #0060af;
+  border-right: 10px solid #0060af;
+}
 .site-alert--header--transparent {
   background: none;
 }
@@ -1318,6 +1325,10 @@ body .branch-popup + .ui-widget-overlay {
 }
 .site-alert--header--transparent .site-alert__cta .btn-outline-inverse:hover {
   color: #0089d0;
+}
+.site-alert--header--transparent .site-alert__icon:before {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
 }
 .site-alert--footer {
   background-color: #0060af;

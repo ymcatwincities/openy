@@ -129,6 +129,17 @@ $module: 'site-alert';
       }
     }
 
+    &--dark_blue {
+      background-color: $dark-blue;
+
+      .#{$module}__icon {
+        &:before {
+          border-left: 10px solid $dark-blue;
+          border-right: 10px solid $dark-blue;
+        }
+      }
+    }
+
     &--transparent {
       background: none;
 
@@ -141,6 +152,13 @@ $module: 'site-alert';
           &:hover {
             color: $blue;
           }
+        }
+      }
+
+      .#{$module}__icon {
+        &:before {
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
         }
       }
     }
