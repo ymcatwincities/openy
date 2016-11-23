@@ -177,21 +177,6 @@
         return deferred.promise;
       }
 
-      function getLossMessage() {
-        var deferred = $q.defer();
-
-        $http.get(settings.ymca_retention.resources.loss_message).then(function(response) {
-          if ($.isEmptyObject(response.data)) {
-            deferred.resolve(null);
-            return;
-          }
-
-          deferred.resolve(response.data);
-        });
-
-        return deferred.promise;
-      }
-
       return {
         getMember: getMember,
         getMemberCheckIns: getMemberCheckIns,
@@ -199,8 +184,7 @@
         setMemberActivities: setMemberActivities,
         getMemberChances: getMemberChances,
         getMemberPrize: getMemberPrize,
-        getRecentWinners: getRecentWinners,
-        getLossMessage: getLossMessage
+        getRecentWinners: getRecentWinners
       };
     });
 
@@ -334,12 +318,6 @@
           self.recent_winners = data;
         });
       };
-
-      self.getLossMessage = function() {
-        return courier.getLossMessage().then(function(data) {
-          return data;
-        });
-      }
 
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
