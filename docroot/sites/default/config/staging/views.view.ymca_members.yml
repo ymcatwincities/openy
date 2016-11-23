@@ -1274,7 +1274,7 @@ display:
           exposed: true
           expose:
             operator_id: membership_id_op
-            label: FAI
+            label: 'Member ID'
             description: ''
             use_operator: false
             operator: membership_id_op
@@ -1667,19 +1667,49 @@ display:
             id:
               alias: ''
               raw_output: 0
+            created:
+              alias: ''
+              raw_output: 0
+            branch:
+              alias: ''
+              raw_output: 0
             membership_id:
+              alias: member_id
+              raw_output: 0
+            personify_id:
+              alias: master_customer_id
+              raw_output: 0
+            first_name:
+              alias: ''
+              raw_output: 0
+            last_name:
               alias: ''
               raw_output: 0
             mail:
               alias: ''
               raw_output: 0
-            created:
+            is_employee:
               alias: ''
               raw_output: 0
-            quiz:
+            total_visits:
               alias: ''
-              raw_output: '1'
-            points:
+              raw_output: 0
+            created_by_staff:
+              alias: ''
+              raw_output: 0
+            created_on_mobile:
+              alias: ''
+              raw_output: 0
+            activity_track_swimming:
+              alias: ''
+              raw_output: 0
+            activity_track_fitness:
+              alias: ''
+              raw_output: 0
+            activity_track_groupx:
+              alias: ''
+              raw_output: 0
+            activity_track_community:
               alias: ''
               raw_output: 0
       path: admin/content/ymca-retention-members/export.csv
