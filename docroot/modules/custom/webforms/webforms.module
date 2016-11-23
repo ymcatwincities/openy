@@ -245,7 +245,7 @@ function webforms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       // 2) Field type is 'boolean'.
       if (strstr($key, 'field_') && isset($form[$key]['widget']['value']['#type']) && $form[$key]['widget']['value']['#type'] == 'checkbox') {
         $field_config = FieldConfig::loadByName('contact_message', $bundle, $key);
-        if ($field_config->getType() == 'boolean') {
+        if (method_exists($field_config, 'getType') && $field_config->getType() == 'boolean') {
           $form[$key]['#prefix'] = '<div class="checkbox-custom-label control-label text">' . $field_config->getLabel() . '</div>';
         }
       }
