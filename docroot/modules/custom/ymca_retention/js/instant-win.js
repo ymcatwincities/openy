@@ -56,9 +56,20 @@
             }
             else {
               self.storage.state = 'result.loss';
+
+              var part_1 = self.storage.loss_messages.part_1;
+              var part_2 = self.storage.loss_messages.part_2;
+
+              self.storage.loss_message =
+                Drupal.t(part_1[Math.floor(Math.random() * part_1.length)]) + ' ' +
+                Drupal.t(part_2[Math.floor(Math.random() * part_2.length)]);
             }
           }, 3000);
         });
+      };
+
+      self.lossMessage = function() {
+        return $sce.trustAsHtml(self.storage.loss_message);
       };
 
       self.cardsWonStatus = function() {
