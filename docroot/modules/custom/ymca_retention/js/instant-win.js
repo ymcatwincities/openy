@@ -56,20 +56,20 @@
             }
             else {
               self.storage.state = 'result.loss';
-              self.storage.getLossMessage().then(function(data) {
-                self.storage.loss_message = data;
-              });
+
+              var part_1 = self.loss_messages.part_1;
+              var part_2 = self.loss_messages.part_2;
+
+              self.storage.loss_message =
+                Drupal.t(part_1[Math.floor(Math.random() * part_1.length)]) + ' ' +
+                Drupal.t(part_2[Math.floor(Math.random() * part_2.length)]);
             }
           }, 3000);
         });
       };
 
       self.lossMessage = function() {
-        if (!self.storage.loss_message) {
-          return '';
-        }
-
-        return $sce.trustAsHtml(Drupal.t(self.storage.loss_message));
+        return $sce.trustAsHtml(self.storage.loss_message);
       };
 
       self.cardsWonStatus = function() {
