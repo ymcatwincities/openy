@@ -13,6 +13,7 @@ use Drupal\ymca_retention\Entity\MemberChance;
 use Drupal\ymca_retention\PersonifyApi;
 use Drupal\ymca_retention\Entity\MemberCheckIn;
 use Drupal\ymca_retention\Entity\Member;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_form_alter().
@@ -32,6 +33,20 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
       $form['membership_id']['#attributes']['placeholder'] = t('Member ID');
+      // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
+      if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
+        $form['created_by_staff']['#value'] = 'All';
+        $form['created_on_mobile']['#value'] = 'All';
+      }
+      break;
+
+    case 'views-exposed-form-ymca-retention-member-prizes-ymca-retention-prizes':
+      $date = new \DateTime();
+      $date->setTime(0, 0, 0);
+      $form['date_win']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['member_id']['#attributes']['placeholder'] = t('Member ID');
+      $form['amount']['#attributes']['placeholder'] = t('Amount');
+      // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
       if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
         $form['created_by_staff']['#value'] = 'All';
         $form['created_on_mobile']['#value'] = 'All';
@@ -42,6 +57,30 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $form['mail']['#attributes']['placeholder'] = t('Email');
       $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
       break;
+  }
+}
+
+/**
+ * Act on the view before the query is built, but after displays are attached.
+ *
+ * Output can be added to the view by setting $view->attachment_before
+ * and $view->attachment_after.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *   The view object about to be processed.
+ *
+ * @see \Drupal\views\ViewExecutable
+ */
+function ymca_retention_views_pre_build(ViewExecutable $view) {
+  $displays = ['ymca_retention_members', 'ymca_retention_prizes'];
+  if (in_array($view->current_display, $displays)) {
+    // Change filter options to Yes/No instead of default options True/False.
+    if (!isset($view->display_handler->handlers['filter']['created_by_staff']->definition['type'])) {
+      $view->display_handler->handlers['filter']['created_by_staff']->definition['type'] = 'yes-no';
+    }
+    if (!isset($view->display_handler->handlers['filter']['created_on_mobile']->definition['type'])) {
+      $view->display_handler->handlers['filter']['created_on_mobile']->definition['type'] = 'yes-no';
+    }
   }
 }
 
