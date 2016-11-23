@@ -233,6 +233,7 @@
       self.setInitialValues = function() {
         self.dates = settings.ymca_retention.activity.dates;
         self.activity_groups = settings.ymca_retention.activity.activity_groups;
+        self.loss_messages = settings.ymca_retention.loss_messages;
         self.member = null;
         self.member_activities = null;
         self.member_activities_counts = null;
@@ -240,7 +241,6 @@
         self.instantWinCount = 0;
         self.member_checkins = null;
         self.recent_winners = null;
-        self.loss_message = '';
         // Game state.
         self.state = 'game';
       }();

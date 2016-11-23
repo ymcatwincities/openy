@@ -2,7 +2,6 @@
 
 namespace Drupal\ymca_retention\Plugin\Layout;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\layout_plugin\Plugin\Layout\LayoutBase;
@@ -54,8 +53,8 @@ class YmcaRetention extends LayoutBase {
 
     $settings = \Drupal::configFactory()->get('ymca_retention.instant_win');
     $build['#attached']['drupalSettings']['ymca_retention']['loss_messages'] = [
-      'part_1' => Json::encode($settings->get('loss_messages_long_1')),
-      'part_2' => Json::encode($settings->get('loss_messages_long_2')),
+      'part_1' => $settings->get('loss_messages_long_1'),
+      'part_2' => $settings->get('loss_messages_long_2'),
     ];
 
     $build['#attached']['drupalSettings']['ymca_retention']['resources'] = [

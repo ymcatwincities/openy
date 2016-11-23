@@ -57,8 +57,8 @@
             else {
               self.storage.state = 'result.loss';
 
-              var part_1 = self.loss_messages.part_1;
-              var part_2 = self.loss_messages.part_2;
+              var part_1 = self.storage.loss_messages.part_1;
+              var part_2 = self.storage.loss_messages.part_2;
 
               self.storage.loss_message =
                 Drupal.t(part_1[Math.floor(Math.random() * part_1.length)]) + ' ' +
