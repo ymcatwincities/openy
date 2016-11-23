@@ -51,6 +51,12 @@ class YmcaRetention extends LayoutBase {
     /** @var \Drupal\ymca_retention\ActivityManager $service */
     $service = \Drupal::service('ymca_retention.activity_manager');
 
+    $settings = \Drupal::configFactory()->get('ymca_retention.instant_win');
+    $build['#attached']['drupalSettings']['ymca_retention']['loss_messages'] = [
+      'part_1' => $settings->get('loss_messages_long_1'),
+      'part_2' => $settings->get('loss_messages_long_2'),
+    ];
+
     $build['#attached']['drupalSettings']['ymca_retention']['resources'] = [
       'member' => Url::fromRoute('ymca_retention.member_json')->toString(),
       'member_activities' => $service->getUrl(),
