@@ -32,4 +32,15 @@ interface DbSizeManagerInterface {
    */
   public function getEntitySize($entity_type_id);
 
+  /**
+   * Get a list of tables for entity type.
+   *
+   * @param string $entity_type_id
+   *   Entity type.
+   *
+   * @return mixed
+   *   Entity size in bytes.
+   */
+  public function getEntityTables($entity_type_id);
+
 }
