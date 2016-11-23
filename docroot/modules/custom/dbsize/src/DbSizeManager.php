@@ -85,7 +85,9 @@ class DbSizeManager implements DbSizeManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEntitySize($entity_type_id) {
+  public function getEntityTables($entity_type_id) {
+    $tables = [];
+
     try {
       $type = $this->entityTypeManager->getDefinition($entity_type_id);
     }
@@ -102,7 +104,6 @@ class DbSizeManager implements DbSizeManagerInterface {
       return FALSE;
     }
 
-    $tables = [];
     $revisionable = FALSE;
 
     // Add base table.
@@ -140,6 +141,14 @@ class DbSizeManager implements DbSizeManagerInterface {
       }
     }
 
+    return $tables;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntitySize($entity_type_id) {
+    $tables = $this->getEntityTables($entity_type_id);
     return $this->getTablesSize($tables);
   }
 
