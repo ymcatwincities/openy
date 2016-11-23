@@ -43,4 +43,28 @@ interface DbSizeManagerInterface {
    */
   public function getEntityTables($entity_type_id);
 
+  /**
+   * Covert entity tables to specific engine.
+   *
+   * @param string $entity_type_id
+   *   Entity type.
+   * @param string $engine
+   *   Engine name. Example: MyISAM.
+   *
+   * @return mixed
+   *   Entity size in bytes.
+   */
+  public function convertEntityTablesEngine($entity_type_id, $engine);
+
+  /**
+   * Repair tables for specific entity type.
+   *
+   * @param string $entity_type_id
+   *   Entity type.
+   *
+   * @return mixed
+   *   Entity size in bytes.
+   */
+  public function repairEntityTables($entity_type_id);
+
 }
