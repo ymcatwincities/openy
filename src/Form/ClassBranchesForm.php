@@ -29,8 +29,10 @@ class ClassBranchesForm extends FormBase {
     $form['branch'] = array(
       '#type' => 'radios',
       '#title' => t('Please select a location'),
-      '#default_value' => key($branches_list),
-      '#options' => $branches_list,
+      '#default_value' => key($branches_list['branch']),
+      '#options' => $branches_list['branch'] + $branches_list['camp'],
+      '#branches' => $branches_list['branch'],
+      '#camps' => $branches_list['camp'],
     );
     $form['submit'] = array(
       '#type' => 'submit',
@@ -60,9 +62,9 @@ class ClassBranchesForm extends FormBase {
     if ($node) {
       $locations = \Drupal::service('ygs_class_page.data_provider')
         ->getAvailableLocations($node->id());
-      foreach ($locations as $branch) {
-        if (!isset($branches_list[$branch->id()])) {
-          $branches_list[$branch->id()] = $branch->title->value;
+      foreach ($locations as $location) {
+        if (!isset($branches_list[$location->bundle()][$location->id()])) {
+          $branches_list[$location->bundle()][$location->id()] = $location->title->value;
         }
       }
     }
