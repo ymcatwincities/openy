@@ -134,7 +134,8 @@ class DbSizeManager implements DbSizeManagerInterface {
         // @todo Find proper way to get table names?
         // @todo Find proper way to get tables with revisions?
         // @todo The table name will be invalid for very long names.
-        $tables[] = $field->getTargetEntityTypeId() . '__' . $field->getName();
+        $tables[] =
+          $field->getTargetEntityTypeId() . '__' . $field->getName();
         if ($revisionable) {
           $tables[] = $field->getTargetEntityTypeId() . '_revision__' . $field->getName();
         }
@@ -150,6 +151,33 @@ class DbSizeManager implements DbSizeManagerInterface {
   public function getEntitySize($entity_type_id) {
     $tables = $this->getEntityTables($entity_type_id);
     return $this->getTablesSize($tables);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function convertEntityTablesEngine($entity_type_id, $engine) {
+    $tables = $this->getEntityTables($entity_type_id);
+    foreach ($tables as $table) {
+      $q = "ALTER TABLE {$table} ENGINE = :engine";
+      $result = $this->connection->query(
+        $q,
+        [
+          ':engine' => $engine,
+        ]
+      );
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function repairEntityTables($entity_type_id) {
+    $tables = $this->getEntityTables($entity_type_id);
+    foreach ($tables as $table) {
+      $q = "REPAIR TABLE {$table}";
+      $result = $this->connection->query($q);
+    }
   }
 
 }
