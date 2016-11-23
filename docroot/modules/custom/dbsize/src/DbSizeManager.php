@@ -85,7 +85,9 @@ class DbSizeManager implements DbSizeManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEntitySize($entity_type_id) {
+  public function getEntityTables($entity_type_id) {
+    $tables = [];
+
     try {
       $type = $this->entityTypeManager->getDefinition($entity_type_id);
     }
@@ -102,7 +104,6 @@ class DbSizeManager implements DbSizeManagerInterface {
       return FALSE;
     }
 
-    $tables = [];
     $revisionable = FALSE;
 
     // Add base table.
@@ -133,14 +134,50 @@ class DbSizeManager implements DbSizeManagerInterface {
         // @todo Find proper way to get table names?
         // @todo Find proper way to get tables with revisions?
         // @todo The table name will be invalid for very long names.
-        $tables[] = $field->getTargetEntityTypeId() . '__' . $field->getName();
+        $tables[] =
+          $field->getTargetEntityTypeId() . '__' . $field->getName();
         if ($revisionable) {
           $tables[] = $field->getTargetEntityTypeId() . '_revision__' . $field->getName();
         }
       }
     }
 
+    return $tables;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntitySize($entity_type_id) {
+    $tables = $this->getEntityTables($entity_type_id);
     return $this->getTablesSize($tables);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function convertEntityTablesEngine($entity_type_id, $engine) {
+    $tables = $this->getEntityTables($entity_type_id);
+    foreach ($tables as $table) {
+      $q = "ALTER TABLE {$table} ENGINE = :engine";
+      $result = $this->connection->query(
+        $q,
+        [
+          ':engine' => $engine,
+        ]
+      );
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function repairEntityTables($entity_type_id) {
+    $tables = $this->getEntityTables($entity_type_id);
+    foreach ($tables as $table) {
+      $q = "REPAIR TABLE {$table}";
+      $result = $this->connection->query($q);
+    }
   }
 
 }
