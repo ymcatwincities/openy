@@ -58,7 +58,10 @@ class ClassBranchesForm extends FormBase {
    * Get Branches list.
    */
   public function getBranchesList($node) {
-    $branches_list = array();
+    $branches_list = [
+      'branch' => [],
+      'camp' => [],
+    ];
     if ($node) {
       $locations = \Drupal::service('ygs_class_page.data_provider')
         ->getAvailableLocations($node->id());
