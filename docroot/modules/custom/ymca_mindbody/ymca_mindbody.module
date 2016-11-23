@@ -153,12 +153,18 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
           break;
 
         case 'list-of-products-pt':
+          // Get mapping repository to access all mappings.
           $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
           $mappings = $mapping_repository->loadAll();
+
           $products_to_display_member = $products_to_display_non_member = [];
+
           foreach ($mappings as $mapping) {
             $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+
+            // Proceed only for mapping without location (for general prices).
             if (empty($mapping->field_location_ref->getValue())) {
+
               $show_special_prices = FALSE;
               $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
               $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
@@ -166,6 +172,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               $product_non_member_special_price = $mapping->field_special_non_member_price->getValue()[0]['value'];
               $start_date = $mapping->field_price_available_from->getValue()[0]['value'];
               $end_date = $mapping->field_price_available_to->getValue()[0]['value'];
+
+              // Check special prices should be applied.
               if ($start_date && $end_date) {
                 $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
                 $start_date = $start_date->format('Y-m-d');
@@ -177,6 +185,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                   $show_special_prices = TRUE;
                 }
               }
+
+              // Fill in products for members.
               $products_to_display_member[$product_code_array[4]][] = [
                 'price' => $product_member_price,
                 'special_price' => $product_member_special_price,
@@ -184,6 +194,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 'package' => $product_code_array[2],
                 'show_special_prices' => $show_special_prices,
               ];
+
+              // Fill in products for non-members.
               $products_to_display_non_member[$product_code_array[4]][] = [
                 'price' => $product_non_member_price,
                 'special_price' => $product_non_member_special_price,
@@ -192,11 +204,13 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 'show_special_prices' => $show_special_prices,
               ];
             }
+            // If location is not entered changed data for Drupal settings.
             else {
               $settings['products_codes'][$mapping->field_product_code->getValue()[0]['value']] = [$mapping->field_productid->getValue()[0]['value']];
               $product_location_ids[$product_code_array[0]] = $product_code_array[0];
             }
           }
+
           ksort($products_to_display_member);
           ksort($products_to_display_non_member);
           if (isset($products_to_display_member[30])) {
@@ -211,15 +225,20 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
           if (isset($products_to_display_non_member[60])) {
             asort($products_to_display_non_member[60]);
           }
+
+          // Get access to location mappings.
           $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
           $mappings_location = $mapping_repository_location->findByLocationPersonifyBranchCode($product_location_ids);
+
           $modal_content = [];
+          // Fill a list of locations for modal popup.
           foreach ($mappings_location as $mapping) {
             $modal_content[] = [
               'name' => $mapping->getName(),
               'id' => $mapping->field_location_personify_brcode->getValue()[0]['value'],
             ];
           }
+
           $config = Drupal::config('ymca_mindbody.settings');
           $settings['personify_product_url'] = $config->get('personify_product_url');
           $variables = [
@@ -234,13 +253,17 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
             '#products_to_display_non_member' => $products_to_display_non_member,
             '#modal_content' => $modal_content,
           ];
+
           $replacements[$original] = render($variables);
           break;
 
         case 'list-of-products-pt-location':
           if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
             $location_repo = \Drupal::service('ymca_mappings.location_repository');
-            if ($mapping = $location_repo->findByLocationId($site_section->id())) {
+            $mapping = $location_repo->findByLocationId($site_section->id());
+
+            // Proceed only if this is location page.
+            if ($mapping) {
               $field_location_personify_brcode = $mapping->field_location_personify_brcode->getValue();
               $location = isset($field_location_personify_brcode[0]['value']) ? $field_location_personify_brcode[0]['value'] : FALSE;
               $mapping_repository = \Drupal::service('ymca_mappings.personify_product_repository');
@@ -248,8 +271,11 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               $products_to_display_member = $products_to_display_non_member = [];
               $config = \Drupal::config('ymca_mindbody.settings');
               $personify_product_url = $config->get('personify_product_url');
+
+              // Filter only detected locations (by product code).
               foreach ($mappings as $mapping) {
                 $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+                // Proceed only with detected location.
                 if ($product_code_array[0] == $location) {
                   $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
                   $product_non_member_price = $mapping->field_nonmember_price->getValue()[0]['value'];
@@ -257,6 +283,8 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                   $product_non_member_special_price = $mapping->field_special_non_member_price->getValue()[0]['value'];
                   $start_date = $mapping->field_price_available_from->getValue()[0]['value'];
                   $end_date = $mapping->field_price_available_to->getValue()[0]['value'];
+
+                  $show_special_prices = FALSE;
                   if ($start_date && $end_date) {
                     $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
                     $start_date = $start_date->format('Y-m-d');
@@ -268,6 +296,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                       $show_special_prices = TRUE;
                     }
                   }
+
                   $products_to_display_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_member_price,
                     'special_price' => $product_member_special_price,
@@ -276,6 +305,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
                     'show_special_prices' => $show_special_prices,
                   ];
+
                   $products_to_display_non_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_non_member_price,
                     'special_price' => $product_non_member_special_price,
@@ -284,8 +314,10 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
                     'show_special_prices' => $show_special_prices,
                   ];
+
                 }
               }
+
               ksort($products_to_display_member);
               ksort($products_to_display_non_member);
               if (isset($products_to_display_member[30])) {
@@ -300,11 +332,13 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
               if (isset($products_to_display_non_member[60])) {
                 asort($products_to_display_non_member[60]);
               }
+
               $variables = [
                 '#theme' => 'mindbody_products_list_location',
                 '#products_to_display_member' => $products_to_display_member,
                 '#products_to_display_non_member' => $products_to_display_non_member,
               ];
+
               $replacements[$original] = render($variables);
             }
           }
