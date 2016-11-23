@@ -3,12 +3,12 @@
  */
 
 .header-alerts-list {
-    position: relative;
-    overflow: hidden;
-    height: 0;
+  position: relative;
+  overflow: hidden;
+  height: 0;
 }
 
 .header-alerts-list-processed {
-    overflow: visible;
-    height: auto;
+  overflow: visible;
+  height: auto;
 }
