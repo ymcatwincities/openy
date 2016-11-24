@@ -58,6 +58,14 @@ class InstantWin {
       return;
     }
 
+    // Check the excluded branches.
+    $branches_settings = $this->configFactory->get('ymca_retention.branches_settings');
+    $excluded_branches = $branches_settings->get('excluded_branches');
+    if (in_array($member->getBranchId(), $excluded_branches)) {
+      $this->chanceLoss($chance);
+      return;
+    }
+
     // Get the lock.
     $lock = \Drupal::lock();
     while (!$lock->acquire('ymca_retention_instant_win')) {
