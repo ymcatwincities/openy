@@ -15,7 +15,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
   /**
    * The entity query factory.
    *
-   * @var Drupal\Core\Entity\Query\QueryFactory
+   * @var \Drupal\Core\Entity\Query\QueryFactory
    */
   protected $entityQuery;
 
@@ -58,6 +58,53 @@ class SettingsInstantWinForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('ymca_retention.instant_win');
 
+    $form['statistics'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Statistics'),
+      '#open' => TRUE,
+    ];
+    $members_count = $this->entityQuery->getAggregate('ymca_retention_member')
+      ->aggregate('id', 'COUNT')
+      ->execute()[0]['id_count'];
+    $chances_count = $this->entityQuery->getAggregate('ymca_retention_member_chance')
+      ->aggregate('id', 'COUNT')
+      ->execute()[0]['id_count'];
+    $chances_played = $this->entityQuery->getAggregate('ymca_retention_member_chance')
+      ->condition('played', 0, '<>')
+      ->aggregate('id', 'COUNT')
+      ->execute()[0]['id_count'];
+
+    $chances_won = $this->entityQuery->getAggregate('ymca_retention_member_chance')
+      ->condition('winner', 1)
+      ->groupBy('value')
+      ->aggregate('id', 'COUNT')
+      ->execute();
+
+    $used_prizes = [];
+    $budget_spent = 0;
+    foreach ($chances_won as $chance) {
+      $used_prizes[$chance['value']] = $chance['id_count'];
+      $budget_spent += $chance['value'] * $chance['id_count'];
+    }
+
+    $form['statistics']['members'] = [
+      '#type' => 'inline_template',
+      '#template' => file_get_contents(drupal_get_path('module', 'ymca_retention') . '/templates/inline/ymca-retention-statistics.html.twig'),
+      '#context' => [
+        'members' => [
+          'count' => $members_count,
+        ],
+        'chances' => [
+          'count' => $chances_count,
+          'played' => $chances_played,
+          'won' => array_sum($used_prizes),
+        ],
+        'budget' => [
+          'spent' => $budget_spent,
+        ],
+      ],
+    ];
+
     $form['prize_sku'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Prize SKU'),
@@ -86,17 +133,6 @@ class SettingsInstantWinForm extends ConfigFormBase {
       '#tree' => TRUE,
     ];
 
-    $results = $this->entityQuery->getAggregate('ymca_retention_member_chance')
-      ->condition('winner', 1)
-      ->groupBy('value')
-      ->aggregate('id', 'COUNT')
-      ->execute();
-
-    $used_prizes = [];
-    foreach ($results as $result) {
-      $used_prizes[$result['value']] = $result['id_count'];
-    }
-
     foreach ($config->get('prize_pool') as $delta => $prize) {
       $form['prize_pool'][$delta] = ['#type' => 'container', '#tree' => TRUE];
       $form['prize_pool'][$delta]['value'] = [
@@ -106,7 +142,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
 
       $form['prize_pool'][$delta]['quantity'] = [
         '#type' => 'number',
-        '#title' => '$ ' . $prize['value'],
+        '#title' => '$' . $prize['value'],
         '#required' => TRUE,
         '#min' => 0,
         '#step' => 1,
@@ -118,15 +154,15 @@ class SettingsInstantWinForm extends ConfigFormBase {
     }
 
     $fields = [
-      'loss_messages_short' => 'Loss messages - Short',
-      'loss_messages_long_1' => 'Loss messages - Long (#1)',
-      'loss_messages_long_2' => 'Loss messages - Long (#2)',
+      'loss_messages_short' => $this->t('Loss messages - Short'),
+      'loss_messages_long_1' => $this->t('Loss messages - Long (#1)'),
+      'loss_messages_long_2' => $this->t('Loss messages - Long (#2)'),
     ];
 
     foreach ($fields as $field => $title) {
       $form[$field] = [
         '#type' => 'fieldset',
-        '#title' => $this->t($title),
+        '#title' => $title,
         '#tree' => TRUE,
       ];
 
