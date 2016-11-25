@@ -47,6 +47,12 @@
           $('.total').show();
         }
       });
+
+      $('#childcare-payment-history-form-wrapper .download_pdf', context).on('click', function(e) {
+        var val = $('.childcare-payment-history-form .js-form-item-child select').val(),
+            href = $(this).attr('href').replace(/child=(.*)/g, 'child=' + val);
+        $(this).attr('href', href);
+      });
     }
   };
 

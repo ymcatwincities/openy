@@ -22,3 +22,6 @@ customer_orders_username: ***REMOVED***
 customer_orders_password: ***REMOVED***
 childcare_authorization: 'Basic ***REMOVED***'
 childcare_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
+childcare_pdf_address_line1: 2125 E. Hennepin Avenue, Suite 100
+childcare_pdf_address_line2: Minneapolis, MN 55413-2720
+childcare_pdf_tax_id: 45-2563299
