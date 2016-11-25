@@ -144,7 +144,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
 
     $form['product_pool'] = [
       '#type' => 'details',
-      '#title' => $this->t('Tango Card poduct pool'),
+      '#title' => $this->t('Tango Card product pool'),
       '#tree' => TRUE,
     ];
 
