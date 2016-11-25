@@ -15,7 +15,7 @@ class PDFGenerator {
    * @param array $settings
    *   An array which contains content for pdf's body and footer.
    */
-  public function generatePDF($settings) {
+  public function generatePdf($settings) {
     if (empty($settings)) {
       return;
     }
@@ -32,4 +32,5 @@ class PDFGenerator {
     $mpdf->Output('childcare_payment_history.pdf', 'I');
     exit();
   }
+
 }

@@ -218,11 +218,13 @@ class ChildcarePaymentHistoryForm extends FormBase {
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
         $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
         $content['total'] += $receipt['ActualPostedPaidAmount'];
-        $content['pdf_link'] = Url::fromRoute('ymca_personify.childcare_payment_history_pdf', [], ['query' => [
-          'start_date' => $parameters['start_date'],
-          'end_date' => $parameters['end_date'],
-          'child' => 'all',
-        ]])->toString();
+        $content['pdf_link'] = Url::fromRoute('ymca_personify.childcare_payment_history_pdf', [], [
+          'query' => [
+            'start_date' => $parameters['start_date'],
+            'end_date' => $parameters['end_date'],
+            'child' => 'all',
+          ],
+        ])->toString();
         $content['children'][$key]['name'] = $name;
         $content['children'][$key]['id'] = $receipt['ShipMasterCustomerId'];
         $content['children'][$key]['total'] += $receipt['ActualPostedPaidAmount'];
