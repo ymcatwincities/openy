@@ -51,63 +51,89 @@ class ProductAutocompleteController extends ControllerBase {
   /**
    * Handles Tango Card rewards autocomplete.
    *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request object.
+   * @param string $product_type
+   *   Filter by product type. Can be 'fixed', 'variable', 'brand' or 'all'.
+   *
    * @return string
    *   A json object containing the matched requests.
    */
   public function handleAutocomplete(Request $request, $product_type) {
     $results = [];
 
-    if (!in_array($product_type, ['all', 'fixed', 'variable'])) {
+    $types = ['all', 'fixed', 'variable', 'brand'];
+    if (!in_array($product_type, $types) || !($input = $request->query->get('q'))) {
       return new JsonResponse($results);
     }
 
-    if ($input = $request->query->get('q')) {
-      $typed_string = Tags::explode($input);
-      $typed_string = Unicode::strtoupper(array_pop($typed_string));
+    $typed_string = Tags::explode($input);
+    $typed_string = Unicode::strtoupper(array_pop($typed_string));
 
-      try {
-        $rewards = $this->tangoCardWrapper->listRewardsKeyed();
-        $success = $rewards !== FALSE;
-      }
-      catch (Exception $e) {
-        $success = FALSE;
-      }
+    if ($product_type == 'brand') {
+      $this->populateBrandRewards();
+    }
+    else {
+      $this->populateSkuRewards($product_type);
+    }
 
-      if (!$success) {
-        return new JsonResponse($results);
-      }
-
-      switch ($product_type) {
-        case 'all':
-          foreach ($rewards as $reward) {
-            $this->addReward($reward);
-          }
-          break;
-
-        case 'fixed':
-          foreach ($rewards as $reward) {
-            if ($reward->unit_price != -1) {
-              $this->addReward($reward);
-            }
-          }
-          break;
-
-        case 'variable':
-          foreach ($rewards as $reward) {
-            if ($reward->unit_price == -1) {
-              $this->addReward($reward);
-            }
-          }
-          break;
-      }
-
-      $matches = preg_grep('/' . $typed_string . '/', $this->rewards);
-      foreach ($matches as $value => $label) {
-        $results[] = ['value' => $value, 'label' => $label];
-      }
+    $matches = preg_grep('/' . $typed_string . '/', $this->rewards);
+    foreach ($matches as $value => $label) {
+      $results[] = ['value' => $value, 'label' => $label];
     }
 
     return new JsonResponse($results);
+  }
+
+  /**
+   * Populates rewards list, keying by SKU.
+   *
+   * @param string $product_type
+   *   Filter by product type. Can be 'fixed', 'variable' or 'all'.
+   */
+  protected function populateSkuRewards($product_type) {
+    try {
+      if (!$rewards = $this->tangoCardWrapper->listRewardsKeyed()) {
+        return;
+      }
+    }
+    catch (Exception $e) {
+      return;
+    }
+
+    if ($product_type == 'all') {
+      foreach ($rewards as $reward) {
+        $this->addReward($reward);
+      }
+    }
+    else {
+      $i = $product_type == 'fixed' ? 1 : -1;
+
+      foreach ($rewards as $reward) {
+        if ($i * $reward->unit_price > 0) {
+          $this->addReward($reward);
+        }
+      }
+    }
+  }
+
+  /**
+   * Populates rewards list, keying by brand.
+   */
+  protected function populateBrandRewards() {
+    try {
+      if (!$rewards = $this->tangoCardWrapper->listRewards()) {
+        return;
+      }
+    }
+    catch (Exception $e) {
+      return;
+    }
+
+    foreach ($rewards as $key => $reward) {
+      $reward->sku = $key;
+      $this->addReward($reward);
+    }
   }
 
   /**

@@ -4,7 +4,6 @@ namespace Drupal\tango_card\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\UrlHelper;
 
 /**
  * Form handler for the Tango Card campaign edit forms.
