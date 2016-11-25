@@ -4428,9 +4428,18 @@ function ymca_master_update_8194() {
 }
 
 /**
- * Import personify configs.
+ * Install OpenY HF module.
  */
 function ymca_master_update_8195() {
+  \Drupal::service('module_installer')->install([
+    'openy_hf',
+  ], TRUE);
+}
+
+/**
+ * Import personify configs.
+ */
+function ymca_master_update_8196() {
   $path = drupal_get_path('module', 'ymca_personify');
   \Drupal::service('config_import.importer')->importConfigs(
     [
