@@ -8,6 +8,7 @@ use Drupal\personify_sso\PersonifySso;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Class PersonifyController.
@@ -154,4 +155,68 @@ class PersonifyController extends ControllerBase {
     return AccessResult::allowedIf($this->isLoginedByPersonify());
   }
 
+  /**
+   * Returns PDF for specific personify user and parameters.
+   */
+  public function GetChildcarePaymentPDF() {
+    $content = self::GetChildcarePaymentPDFContent();
+    $settings = [
+      'body' => [
+        '#theme' => 'ymca_childcare_payment_history__pdf__body',
+        '#content' => $content,
+      ],
+      'footer' => [
+        '#theme' => 'ymca_childcare_payment_history__pdf__footer',
+      ],
+    ];
+    \Drupal::service('ymca_personify_pdf_generator')->generatePDF($settings);
+  }
+
+  /**
+   * Returns content for Childcare Payment History PDF.
+   */
+  public function GetChildcarePaymentPDFContent() {
+    $request = \Drupal::service('request_stack')->getCurrentRequest();
+    $parameters = $request->query->all();
+    $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
+    $content = [
+      'total' => 0,
+      'logo_url' => drupal_get_path('theme', 'ymca') . '/img/ymca-logo-social.png',
+      'childcare_pdf_address_line1' => parent::config('ymca_personify.settings')->get('childcare_pdf_address_line1'),
+      'childcare_pdf_address_line2' => parent::config('ymca_personify.settings')->get('childcare_pdf_address_line2'),
+      'childcare_pdf_tax_id' => parent::config('ymca_personify.settings')->get('childcare_pdf_tax_id'),
+    ];
+    if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+      $content['start_date'] = $parameters['start_date'];
+      $content['end_date'] = $parameters['end_date'];
+      $content['child'] = $parameters['child'];
+      foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+        // Skip not chosen children.
+        if ($parameters['child'] !== 'all' && $parameters['child'] !== $receipt['ShipMasterCustomerId']) {
+          continue;
+        }
+        $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
+        $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
+        $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
+        $content['today_date'] = date('F d, Y');
+        $content['customer_info'] = [
+          'name' => $receipt['BillCustomerFirstName'] . ' ' . $receipt['BillCustomerLastName'],
+          'address_line' => $receipt['AddressLine'],
+          'city' => $receipt['City'] . ', ' . $receipt['State'] . ' ' . $receipt['PostalCode'],
+          'bill_customer_id' => $receipt['BillMasterCustomerId'],
+        ];
+        $content['total'] += $receipt['ActualPostedPaidAmount'];
+        $content['children'][$key]['name'] = $name;
+        $content['children'][$key]['id'] = $receipt['ShipMasterCustomerId'];
+        $content['children'][$key]['total'] += $receipt['ActualPostedPaidAmount'];
+        $content['children'][$key]['receipts'][] = [
+          'order' => $receipt['OrderAndLineNumber'],
+          'description' => $receipt['Description'],
+          'date' => $date,
+          'amount' => $receipt['ActualPostedPaidAmount'],
+        ];
+      }
+    }
+    return $content;
+  }
 }
