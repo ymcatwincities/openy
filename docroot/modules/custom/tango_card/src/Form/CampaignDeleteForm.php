@@ -4,7 +4,6 @@ namespace Drupal\tango_card\Form;
 
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 
 /**
  * Provides a form for deleting a Tango Card campaign entity.
@@ -17,14 +16,16 @@ class CampaignDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete campaign %name?', ['%name' => $this->entity->label()]);
+    return $this->t('Are you sure you want to delete campaign %name?', [
+      '%name' => $this->getEntity()->label(),
+    ]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.tango_card_campaign.collection');
+    return new $this->getEntity()->toUrl('collection');
   }
 
   /**
@@ -43,7 +44,7 @@ class CampaignDeleteForm extends ContentEntityConfirmFormBase {
 
     $form_state->setRedirect('entity.tango_card_campaign.collection');
 
-    drupal_set_message($this->t('Your campaign has been deleted successfully.'));
+    drupal_set_message($this->t('The campaign has been deleted successfully.'));
   }
 
 }
