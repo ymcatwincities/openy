@@ -2,15 +2,13 @@
 
 namespace Drupal\tango_card\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\tango_card\TangoCardCampaignInterface;
-use Drupal\user\UserInterface;
 
 /**
- * Defines the TangoCardCampaign entity.
+ * Defines the Tango Card campaign entity.
  *
  * @ingroup tango_card_campaign
  *

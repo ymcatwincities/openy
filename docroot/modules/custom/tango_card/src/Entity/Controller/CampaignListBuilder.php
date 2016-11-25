@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
 /**
- * Provides a list controller for tango_card_campaign entity.
+ * Provides a list controller for Tango Card campaign entity.
  *
  * @ingroup tango_card_campaign
  */

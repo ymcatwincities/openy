@@ -12,7 +12,7 @@ use Drupal\tango_card\TangoCardWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a list controller for tango_card_campaign entity.
+ * Provides a list controller for Tango Card account entity.
  *
  * @ingroup tango_card_account
  */

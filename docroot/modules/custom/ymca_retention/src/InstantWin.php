@@ -92,7 +92,7 @@ class InstantWin {
    * @param MemberChance $chance
    *   Member chance entity.
    * @param int $value
-   *   Prize value.
+   *   Prize value in dollars.
    */
   public function chanceWin(Member $member, MemberChance $chance, $value) {
     $chance->set('played', time());
@@ -100,28 +100,52 @@ class InstantWin {
     $chance->set('value', $value);
     $chance->set('message', 'Won $' . $value . ' card!');
 
-    $settings = $this->configFactory->get('ymca_retention.instant_win');
+    if ($order = $this->generateTangoCardPrize($member, $value)) {
+      $chance->set('order_id', $order->order_id);
+    }
+
+    $chance->save();
+  }
+
+  /**
+   * Generate Tango Card Prize for a given value.
+   *
+   * @param Member $member
+   *   Member entity.
+   * @param int $value
+   *   Prize value in dollars.
+   */
+  public function generateTangoCardPrize(Member $member, $value) {
+    $product_pool = $this->configFactory->get('ymca_retention.instant_win')->get('product_pool_keyed');
+
+    if (!isset($product_pool[$value])) {
+      return FALSE;
+    }
+
+    // Get random product.
+    $sku = $product_pool[$value][array_rand($product_pool[$value])];
 
     // TODO: inject Tango Card wrapper service in this class.
     $tango_card_wrapper = \Drupal::service('tango_card.tango_card_wrapper');
 
     try {
+      if (!$product = $tango_card_wrapper->getRewardInfo($sku)) {
+        return FALSE;
+      }
+
+      // Request an order to Tango Card.
       $order = $tango_card_wrapper->placeOrder(
         $member->getFirstName(),
         $member->getEmail(),
-        $settings->get('prize_sku'),
-        $value * 100
+        $sku,
+        $product->unit_price == -1 ? $value * 100 : NULL
       );
-
-      if ($order) {
-        $chance->set('order_id', $order->order_id);
-      }
     }
     catch (Exception $e) {
-      // Do nothing.
+      return FALSE;
     }
 
-    $chance->save();
+    return $order;
   }
 
   /**
@@ -141,9 +165,7 @@ class InstantWin {
    * Get random lost message.
    */
   public function lossMessage() {
-    $settings = $this->configFactory->get('ymca_retention.instant_win');
-    $messages = $settings->get('loss_messages_short');
-
+    $messages = $this->configFactory->get('ymca_retention.instant_win')->get('loss_messages_short');
     return $messages[array_rand($messages)];
   }
 
