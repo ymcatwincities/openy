@@ -29,6 +29,16 @@ ymca_personify.childcare_payment_history:
     _custom_access: \Drupal\ymca_personify\Controller\PersonifyController::access
   options:
      no_cache: TRUE
+ymca_personify.childcare_payment_history_pdf:
+  path: /personify/childcare_payment_history/pdf
+  defaults:
+    _controller: \Drupal\ymca_personify\Controller\PersonifyController::GetChildcarePaymentPDF
+    _title: Childcare payment history
+  requirements:
+    _permission: access content
+    _custom_access: \Drupal\ymca_personify\Controller\PersonifyController::access
+  options:
+     no_cache: TRUE
 ymca_personify.personify_signout:
   path: personify/sign_out
   defaults:

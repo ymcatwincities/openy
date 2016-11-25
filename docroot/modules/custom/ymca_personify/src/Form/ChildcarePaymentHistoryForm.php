@@ -5,16 +5,13 @@ namespace Drupal\ymca_personify\Form;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
-use Drupal\serialization\Encoder\XmlEncoder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use GuzzleHttp\Client;
-use Drupal\Core\Config\ImmutableConfig;
-use Symfony\Component\Serializer\Encoder;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Url;
 
 /**
  * Provides the Childcare Payment History Form.
@@ -22,18 +19,6 @@ use Drupal\Core\Ajax\HtmlCommand;
  * @ingroup ymca_personify
  */
 class ChildcarePaymentHistoryForm extends FormBase {
-
-  /**
-   * Test childcare user ID.
-   */
-  const TEST_USER_ID = '1023827800';
-
-  /**
-   * Http client.
-   *
-   * @var Client
-   */
-  protected $client;
 
   /**
    * Config factory.
@@ -48,13 +33,6 @@ class ChildcarePaymentHistoryForm extends FormBase {
    * @var LoggerChannelInterface
    */
   protected $logger;
-
-  /**
-   * Is production flag.
-   *
-   * @var bool
-   */
-  protected $isProduction;
 
   /**
    * The state.
@@ -73,19 +51,14 @@ class ChildcarePaymentHistoryForm extends FormBase {
   /**
    * Creates a new ChildcarePaymentHistoryForm.
    *
-   * @param Client $client
-   *   Http client.
    * @param ConfigFactory $config
    *   Config factory.
    * @param LoggerChannelFactoryInterface $logger_factory
    *   The logger channel.
    */
-  public function __construct(Client $client, ConfigFactory $config, LoggerChannelFactoryInterface $logger_factory) {
-    $this->client = $client;
+  public function __construct(ConfigFactory $config, LoggerChannelFactoryInterface $logger_factory) {
     $this->config = $config;
     $this->logger = $logger_factory->get('ymca_personify');
-    $settings = $this->config->get('personify_mindbody_sync.settings');
-    $this->isProduction = (bool) $settings->get('is_production');
     $query = parent::getRequest();
     $parameters = $query->query->all();
     // Set default start date as today -30 days.
@@ -97,7 +70,6 @@ class ChildcarePaymentHistoryForm extends FormBase {
       'start_date' => isset($parameters['start_date']) ? $parameters['start_date'] : $start_date,
       'end_date' => isset($parameters['end_date']) ? $parameters['end_date'] : $end_date,
     ];
-    $this->logger = $logger_factory->get('ygs_schedules');
     $this->state = $state;
   }
 
@@ -113,66 +85,6 @@ class ChildcarePaymentHistoryForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function personifyRequest($parameters) {
-    $data = [];
-    $settings = $this->config->get('ymca_personify.settings');
-    $start_date = !empty($parameters['start_date']) ? DrupalDateTime::createFromTimestamp(strtotime($parameters['start_date']))->format('Y-m-d') . 'T12:00:00' : '';
-    $end_date = !empty($parameters['end_date']) ? DrupalDateTime::createFromTimestamp(strtotime($parameters['end_date']))->format('Y-m-d') . 'T12:00:00' : '';
-    $client_id = isset($_COOKIE['Drupal_visitor_personify_id']) ? $_COOKIE['Drupal_visitor_personify_id'] : '';
-    if (!$this->isProduction) {
-      $client_id = self::TEST_USER_ID;
-    }
-    $options = [
-      'body' => '<CL_ChildcarePaymentInfoInput>
-        <BillMasterCustomerId>' . $client_id . '</BillMasterCustomerId>
-        <ReceiptStartDate>' . $start_date . '</ReceiptStartDate>
-        <ReceiptEndDate>' . $end_date . '</ReceiptEndDate>
-        <BillSubCustomerId>0</BillSubCustomerId>
-        <ProductClassCodes>CC,LC,PS,RD,SC,DC</ProductClassCodes>
-        <DescriptionLike>NOT LIKE</DescriptionLike>
-        <Descriptions>%Change%,%late%fee%,%late%pick%,%lunch%</Descriptions>
-        <ProductCodeLike>NOT LIKE</ProductCodeLike>
-        <ProductCodes>%_DC_9%%%</ProductCodes>
-        </CL_ChildcarePaymentInfoInput>',
-      'headers' => [
-        'Authorization' => $settings->get('childcare_authorization'),
-        'Content-Type' => 'text/xml',
-      ],
-      'auth' => [
-        $settings->get('customer_orders_username'),
-        $settings->get('customer_orders_password'),
-      ],
-    ];
-
-    try {
-      $response = $this->client->request('POST', $settings->get('childcare_endpoint'), $options);
-      if ($response->getStatusCode() == '200') {
-        $body = $response->getBody();
-        $xml = $body->getContents();
-        $xml = preg_replace('/(<\?xml[^?]+?)utf-16/i', '$1utf-8', $xml);
-        $encoder = new XmlEncoder();
-        $data = $encoder->decode($xml, 'xml');
-      }
-      else {
-        $msg = 'Got %code response from Personify: %msg';
-        $this->logger->error(
-          $msg,
-          [
-            '%code' => $response->getStatusCode(),
-            '%msg' => $response->getReasonPhrase(),
-          ]
-        );
-      }
-    }
-    catch (\Exception $e) {
-      $this->logger->error('Failed to get Personify data: %msg', ['%msg' => $e->getMessage()]);
-    }
-    return $data;
-  }
-
-  /**
    * Helper method retrieving child options.
    *
    * @return array
@@ -180,12 +92,12 @@ class ChildcarePaymentHistoryForm extends FormBase {
    */
   public function getChildOptions() {
     $options = ['all' => $this->t('All')];
-    // Temporary set start date as 2014-01-01 to get children options.
+    // Set start date as 2006-01-01 to get children options.
     $parameters = [
       'start_date' => '2006-01-01',
       'end_date' => $this->state['end_date'],
     ];
-    $data = self::personifyRequest($parameters);
+    $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
     // Collect all children from available receipts.
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
       foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
@@ -297,7 +209,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
    * Build results.
    */
   public function buildResults($parameters) {
-    $data = self::personifyRequest($parameters);
+    $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
     $content = [];
     $content['total'] = 0;
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
@@ -306,6 +218,11 @@ class ChildcarePaymentHistoryForm extends FormBase {
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
         $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
         $content['total'] += $receipt['ActualPostedPaidAmount'];
+        $content['pdf_link'] = Url::fromRoute('ymca_personify.childcare_payment_history_pdf', [], ['query' => [
+          'start_date' => $parameters['start_date'],
+          'end_date' => $parameters['end_date'],
+          'child' => 'all',
+        ]])->toString();
         $content['children'][$key]['name'] = $name;
         $content['children'][$key]['id'] = $receipt['ShipMasterCustomerId'];
         $content['children'][$key]['total'] += $receipt['ActualPostedPaidAmount'];

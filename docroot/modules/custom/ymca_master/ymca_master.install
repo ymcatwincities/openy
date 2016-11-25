@@ -4426,3 +4426,15 @@ function ymca_master_update_8194() {
     $menu_item->save();
   }
 }
+
+/**
+ * Import personify configs.
+ */
+function ymca_master_update_8195() {
+  $path = drupal_get_path('module', 'ymca_personify');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/install/ymca_personify.settings.yml',
+    ]
+  );
+}

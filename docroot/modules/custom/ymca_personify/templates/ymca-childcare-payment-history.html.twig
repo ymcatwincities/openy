@@ -14,6 +14,9 @@
       {% if content.children is empty %}
         {{ 'No results found.'|t }}
       {% else %}
+      <div class="col-xs-12">
+        <a href="{{ content.pdf_link }}" class="download_pdf">{{ 'Download PDF'|t }}</a>
+      </div>
       {% for key, child in content.children %}
         <table class="table-responsive child child-{{ child.id }}">
           <caption>{{ key }}</caption>
