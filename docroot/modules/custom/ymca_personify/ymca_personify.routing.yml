@@ -32,7 +32,7 @@ ymca_personify.childcare_payment_history:
 ymca_personify.childcare_payment_history_pdf:
   path: /personify/childcare_payment_history/pdf
   defaults:
-    _controller: \Drupal\ymca_personify\Controller\PersonifyController::GetChildcarePaymentPDF
+    _controller: \Drupal\ymca_personify\Controller\PersonifyController::GetChildcarePaymentPdf
     _title: Childcare payment history
   requirements:
     _permission: access content
