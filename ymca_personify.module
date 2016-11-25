@@ -22,5 +22,13 @@ function ymca_personify_theme() {
         'content' => [],
       ],
     ],
+    'ymca_childcare_payment_history__pdf__body' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+    'ymca_childcare_payment_history__pdf__footer' => [
+      'variables' => [],
+    ],
   ];
 }
