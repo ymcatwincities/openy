@@ -158,8 +158,8 @@ class PersonifyController extends ControllerBase {
   /**
    * Returns PDF for specific personify user and parameters.
    */
-  public function GetChildcarePaymentPdf() {
-    $content = self::GetChildcarePaymentPdfContent();
+  public function getChildcarePaymentPdf() {
+    $content = self::getChildcarePaymentPdfContent();
     $settings = [
       'body' => [
         '#theme' => 'ymca_childcare_payment_history__pdf__body',
@@ -175,7 +175,7 @@ class PersonifyController extends ControllerBase {
   /**
    * Returns content for Childcare Payment History PDF.
    */
-  public function GetChildcarePaymentPdfContent() {
+  public function getChildcarePaymentPdfContent() {
     $request = \Drupal::service('request_stack')->getCurrentRequest();
     $parameters = $request->query->all();
     $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
