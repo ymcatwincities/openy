@@ -57,7 +57,7 @@ class ClassBranchesForm extends FormBase {
   /**
    * Get Branches list.
    */
-  public function getBranchesList($node) {
+  public static function getBranchesList($node) {
     $branches_list = [
       'branch' => [],
       'camp' => [],
