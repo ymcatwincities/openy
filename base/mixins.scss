@@ -1,0 +1,128 @@
+@mixin hide-text($img: false, $position: false) {
+  white-space: nowrap;
+  overflow: hidden;
+  @if $img == true {
+    line-height: 0;
+  }
+  @if $position == true {
+    text-indent: -9999px;
+  }
+  @if $position == false {
+    text-indent: 100%;
+  }
+}
+
+@mixin clearfix(){
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin pseudo-block($top: false, $right: false, $bottom: false, $left: false, $relative: false) {
+  content: "";
+
+  @if ($relative == false) {
+    display: block;
+    position: absolute;
+  } @else {
+    position: relative;
+    display: block;
+  }
+  @if ($top) {
+    top: $top;
+  }
+  @if ($right) {
+    right: $right;
+  }
+  @if ($bottom) {
+    bottom: $bottom;
+  }
+  @if ($left) {
+    left: $left;
+  }
+}
+
+@mixin form-placeholder ($color: inherit, $fontf: 0) {
+  &::-webkit-input-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color;
+  }
+
+  &::-moz-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color;
+  }
+
+  &:-moz-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color
+  }
+
+  &:-ms-input-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color;
+  }
+}
+
+@mixin text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 99.9%;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin breakpoint($point) {
+   @if $point == desktop {
+     @media (min-width: $screen-lg-desktop) {
+       @content ;
+     }
+  }
+   @else if $point == laptop {
+     @media (min-width: $screen-desktop) {
+       @content ;
+     }
+  }
+    @else if $point == tablet {
+      @media (min-width: $screen-tablet) {
+        @content ;
+      }
+  }
+  @else if $point == mobileonly {
+    @media (max-width: $screen-phone)  {
+      @content ;
+    }
+  }
+}
+
+
+@function pxtorem($px){
+  @return ($px / $fontSizeRoot) + rem;
+}
+
+@function lh($lh, $fontSizeDefault: $fontSizeRoot) {
+  @return $lh / $fontSizeDefault;
+}
