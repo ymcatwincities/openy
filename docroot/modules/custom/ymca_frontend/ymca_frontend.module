@@ -47,39 +47,5 @@ function ymca_frontend_preprocess_page__about__annual_reports__2014_annual_repor
  */
 function ymca_frontend_add_paths(&$variables) {
   $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
-  $variables['path_to_img_march'] = base_path() . drupal_get_path('theme', 'ymca') . '/img/march/';
   $variables['path_to_theme_img'] = base_path() . drupal_get_path('theme', 'ymca') . '/img/';
-}
-
-/**
- * Implements hook_preprocess().
- */
-function ymca_frontend_preprocess_page__march(&$variables) {
-  ymca_frontend_add_paths($variables);
-  $variables['display_winners'] = FALSE;
-  if (\Drupal::config('ymca_frontend.retention')->get('display_winners')) {
-    /** @var \Drupal\ymca_frontend\YMCAMarchWinners $service */
-    $service = \Drupal::service('ymca_frontend.march_winners');
-    $variables['winners'] = $service->getWinners();
-    $variables['display_winners'] = TRUE;
-    $variables['winner_message'] = $service->identifyIndividualPrize();
-  }
-}
-
-/**
- * Implements hook_preprocess().
- */
-function ymca_frontend_preprocess_page__march__winners(&$variables) {
-  ymca_frontend_add_paths($variables);
-  /** @var \Drupal\ymca_frontend\YMCAMarchWinners $service */
-  $service = \Drupal::service('ymca_frontend.march_winners');
-  $variables['winners'] = $service->getWinners();
-  $variables['winner_message'] = $service->identifyIndividualPrize();
-}
-
-/**
- * Implements hook_preprocess().
- */
-function ymca_frontend_preprocess_page__march__rules(&$variables) {
-  ymca_frontend_add_paths($variables);
 }

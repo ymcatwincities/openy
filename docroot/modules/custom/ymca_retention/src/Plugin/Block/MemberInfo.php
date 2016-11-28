@@ -11,7 +11,7 @@ use Drupal\ymca_retention\Entity\Member;
  *
  * @Block(
  *   id = "retention_member_info_block",
- *   admin_label = @Translation("YMCA retention member info block"),
+ *   admin_label = @Translation("[YMCA Retention] Member info"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
