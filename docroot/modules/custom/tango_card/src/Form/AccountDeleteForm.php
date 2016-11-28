@@ -5,7 +5,6 @@ namespace Drupal\tango_card\Form;
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\tango_card\TangoCardWrapper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -50,14 +49,16 @@ class AccountDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete account %name?', ['%name' => $this->entity->label()]);
+    return $this->t('Are you sure you want to delete account %name?', [
+      '%name' => $this->getEntity()->label(),
+    ]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.tango_card_account.collection');
+    return new $this->getEntity()->toUrl('collection');
   }
 
   /**
@@ -89,7 +90,7 @@ class AccountDeleteForm extends ContentEntityConfirmFormBase {
     $entity->delete();
     $form_state->setRedirect('entity.tango_card_account.collection');
 
-    drupal_set_message($this->t('Your account has been deleted successfully.'));
+    drupal_set_message($this->t('The account has been deleted successfully.'));
   }
 
 }

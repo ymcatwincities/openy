@@ -85,7 +85,7 @@ class CatalogPageController extends ControllerBase {
 
     $rows = [];
     foreach ($brands as $brand) {
-      $rewards = (array) $brand->rewards;
+      $rewards = $brand->rewards;
       $reward = array_shift($rewards);
 
       $img = ['#theme' => 'image', '#uri' => $brand->image_url];
