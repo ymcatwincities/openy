@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Template for YMCA Retention layout.
+ */
+#}
+<div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}"
+     data-ng-app="Retention"
+     data-ng-controller="RetentionController as retentionC">
+  <nav id="top-nav" class="top-nav">
+    {{ content.navigation }}
+  </nav>
+  <div id="hero-section" class="hero-section">
+    {{ content.hero }}
+  </div>
+  {{ content.main }}
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="about">
+      {{ content.tab_about }}
+    </div>
+
+    <div class="tab-pane fade" id="track">
+      {{ content.tab_track }}
+    </div>
+
+    <div class="tab-pane fade" id="progress">
+      {{ content.tab_progress }}
+    </div>
+
+    <div class="tab-pane fade" id="instant-win">
+      {{ content.tab_instant_win }}
+    </div>
+
+    <div class="tab-pane fade" id="rules-prizes">
+      <div class="inner-container">
+        <div class="yfr-detailed-content clearfix">
+          {{ content.tab_rules_prizes }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
