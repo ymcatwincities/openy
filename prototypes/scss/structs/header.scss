@@ -7,14 +7,19 @@
   }
 
   .logo {
-    max-width: 50px;
-
-    @include breakpoint(tablet) {
-      max-width: 104px;
-    }
+    width: 30%;
 
     a {
       display: block;
+      max-width: 50px;
+
+      @include breakpoint(tablet) {
+        max-width: 104px;
+      }
+
+      @include breakpoint(laptop) {
+        max-width: 136px;
+      }
     }
 
     img {
@@ -34,6 +39,54 @@
 
       @include breakpoint(tablet) {
         margin-bottom: -14px;
+      }
+    }
+
+    .navigation-top {
+      padding: 0 15px;
+
+      .text {
+        font-family: $font-cachet-medium;
+        font-size: 14px;
+        line-height: lh(22.1, 14);
+        padding: 0 10px;
+        text-transform: uppercase;
+      }
+    }
+
+    .navigation {
+      width: 100%;
+      position: absolute;
+      background: $color-blue;
+      top: 100%;
+      left: 0;
+      right: 0;
+
+      .item-nav--search {
+        max-width: 46px;
+
+        a {
+          position: relative;
+          display: block;
+          @include hide-text($position: true);
+
+          &:after {
+            @include pseudo-block($top: 12px, $right: 12px);
+            @include sprite(icon-search);
+          }
+        }
+      }
+
+      a {
+        font-family: $font-cachet-medium;
+
+        @include breakpoint(laptop){
+          padding-bottom: 20px;
+        }
+      }
+
+      @include breakpoint(tablet) {
+        position: static;
       }
 
       .dropdown-menu {
@@ -62,6 +115,15 @@
           text-transform: capitalize;
           display: inline-block;
           vertical-align: top;
+
+          @include breakpoint(tablet) {
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+
+          @include breakpoint(laptop) {
+            padding-bottom: 0;
+          }
         }
 
         h3 {
@@ -79,25 +141,16 @@
             text-transform: inherit;
             line-height: inherit;
             display: block;
+
+            @include breakpoint(laptop) {
+              margin-top: 80px;
+            }
+
+            @include breakpoint(tablet) {
+              min-height: 66px;
+            }
           }
         }
-      }
-    }
-
-    .navigation {
-      width: 100%;
-      position: absolute;
-      background: $color-blue;
-      top: 100%;
-      left: 0;
-      right: 0;
-
-      a {
-        font-family: $font-cachet-medium;
-      }
-
-      @include breakpoint(tablet) {
-        position: static;
       }
     }
 
@@ -123,19 +176,25 @@
   }
 
   .navbar-nav {
+    @extend %decor--flex;
+    @extend %decor--justify-between;
+    width: 100%;
 
     > li {
+      width: 100%;
+
       > a {
+        display: inline-block;
+        vertical-align: top;
+
         @include breakpoint(tablet){
           padding-left: 10px;
           padding-right: 10px;
         }
 
-        @include breakpoint(laptop) {
-        }
+        @include breakpoint(laptop) {}
       }
     }
-
 
     a {
       font-size: 18px;
@@ -146,10 +205,8 @@
       padding-bottom: 12px;
 
       &.dropdown-toggle {
-
+        white-space: nowrap;
       }
-
-
 
       &:hover {
         background: transparent;
