@@ -65,6 +65,9 @@
 <div {{ attributes }}>
   <div class="container">
     <div class="row site-alert__wrapper">
+      <div class="site-alert__icon">
+        <i class="fa fa-exclamation-triangle"></i>
+      </div>
       <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
         <div class="site-alert__title">{{ label }}</div>
         <div class="site-alert__content">
@@ -75,6 +78,7 @@
         <div class="site-alert__cta">
           {{ content.field_link }}
         </div>
+        <a href="#" class="site-alert__dismiss"><i class="fa fa-times"></i></a>
       </div>
     </div>
   </div>
