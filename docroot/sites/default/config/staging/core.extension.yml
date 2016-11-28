@@ -25,6 +25,7 @@ module:
   contact_storage: 0
   content_browser: 0
   contextual: 0
+  creditfield: 0
   crop: 0
   csv_serialization: 0
   ctools: 0
@@ -106,6 +107,7 @@ module:
   smtp: 0
   syslog: 0
   system: 0
+  tango_card: 0
   taxonomy: 0
   telephone: 0
   text: 0
