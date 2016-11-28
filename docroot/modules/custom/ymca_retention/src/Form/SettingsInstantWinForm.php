@@ -105,17 +105,6 @@ class SettingsInstantWinForm extends ConfigFormBase {
       ],
     ];
 
-    $form['prize_sku'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Prize SKU'),
-      '#required' => TRUE,
-      '#default_value' => $config->get('prize_sku'),
-      '#autocomplete_route_name' => 'tango_card.product_autocomplete',
-      '#autocomplete_route_parameters' => [
-        'product_type' => 'variable',
-      ],
-    ];
-
     $form['percentage'] = [
       '#type' => 'number',
       '#title' => $this->t('Probability to win'),
@@ -128,7 +117,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
     ];
 
     $form['prize_pool'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Prize pool'),
       '#tree' => TRUE,
     ];
@@ -153,6 +142,26 @@ class SettingsInstantWinForm extends ConfigFormBase {
       ];
     }
 
+    $form['product_pool'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Tango Card product pool'),
+      '#tree' => TRUE,
+    ];
+
+    $products = $config->get('product_pool');
+    foreach (range(0, 14) as $delta) {
+      $form['product_pool'][$delta] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Product %n', ['%n' => $delta + 1]),
+        '#title_display' => 'invisible',
+        '#default_value' => isset($products[$delta]) ? $products[$delta] : '',
+        '#autocomplete_route_name' => 'tango_card.product_autocomplete',
+        '#autocomplete_route_parameters' => [
+          'product_type' => 'brand',
+        ],
+      ];
+    }
+
     $fields = [
       'loss_messages_short' => $this->t('Loss messages - Short'),
       'loss_messages_long_1' => $this->t('Loss messages - Long (#1)'),
@@ -161,7 +170,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
 
     foreach ($fields as $field => $title) {
       $form[$field] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
         '#title' => $title,
         '#tree' => TRUE,
       ];
@@ -185,6 +194,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $fields = [
+      'product_pool',
       'loss_messages_short',
       'loss_messages_long_1',
       'loss_messages_long_2',
@@ -194,7 +204,7 @@ class SettingsInstantWinForm extends ConfigFormBase {
       $values = array_filter($form_state->getValue($field));
 
       if (!$values) {
-        $form_state->setErrorByName($field, $this->t('You must set at least one message.'));
+        $form_state->setErrorByName($field, $this->t('You must set at least one item.'));
         continue;
       }
 
@@ -208,9 +218,9 @@ class SettingsInstantWinForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('ymca_retention.instant_win');
     $fields = [
-      'prize_sku',
       'percentage',
       'prize_pool',
+      'product_pool',
       'loss_messages_short',
       'loss_messages_long_1',
       'loss_messages_long_2',
@@ -220,7 +230,35 @@ class SettingsInstantWinForm extends ConfigFormBase {
       $config->set($field, $form_state->getValue($field));
     }
 
+    $pool_keyed = [];
+    $selected_brands = $config->get('product_pool');
+
+    try {
+      // TODO: inject Tango Card wrapper service in this class.
+      $brands = \Drupal::service('tango_card.tango_card_wrapper')->listRewards();
+
+      foreach ($config->get('prize_pool') as $prize) {
+        $value = $prize['value'];
+        $amount = $value * 100;
+
+        $pool_keyed[$value] = [];
+        foreach ($selected_brands as $brand) {
+          foreach ($brands[$brand]->rewards as $reward) {
+            if ($reward->unit_price == -1 || $reward->unit_price == $amount) {
+              $pool_keyed[$value][] = $reward->sku;
+              break;
+            }
+          }
+        }
+      }
+    }
+    catch (Exception $e) {
+      // Do nothing.
+    }
+
+    $config->set('product_pool_keyed', $pool_keyed);
     $config->save();
+
     parent::submitForm($form, $form_state);
   }
 

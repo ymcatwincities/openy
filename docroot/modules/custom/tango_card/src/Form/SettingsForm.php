@@ -106,11 +106,11 @@ class SettingsForm extends ConfigFormBase {
     $fields = [
       'account' => [
         'title' => 'Default Tango Card account',
-        'description' => 'The default Tango Account to use on requests. To see available accounts, click <a href=":url">here</a>.',
+        'description' => 'The default Tango Account to use on requests. To manage accounts, click <a href=":url">here</a>.',
       ],
       'campaign' => [
         'title' => 'Default campaign',
-        'description' => 'The default campaign to use on requests. A campaign contains settings like email template and notification message. To see available campaigns, click <a href=":url">here</a>.',
+        'description' => 'The default campaign to use on requests. A campaign contains settings like email template and notification message. To manage campaigns, click <a href=":url">here</a>.',
       ],
     ];
 
@@ -154,7 +154,7 @@ class SettingsForm extends ConfigFormBase {
       'platform_key',
     ];
 
-    $config = $this->configFactory()->getEditable('tango_card.settings');
+    $config = $this->config('tango_card.settings');
     foreach ($fields as $field) {
       $config->set($field, $form_state->getValue($field));
     }
