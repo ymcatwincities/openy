@@ -358,12 +358,17 @@ class TangoCardWrapper {
         }
 
         $response = $this->tangoCard->listRewards();
-
         if (empty($response->success)) {
           return FALSE;
         }
 
-        $brands = $response->brands;
+        // Keying brands.
+        $brands = [];
+        foreach ($response->brands as $brand) {
+          $parts = explode('-', $brand->rewards[0]->sku);
+          $brands[$parts[0]] = $brand;
+        }
+
         $this->cache->set($cid, $brands, CacheBackendInterface::CACHE_PERMANENT, ['tango_card']);
       }
     }

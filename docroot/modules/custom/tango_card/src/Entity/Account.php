@@ -2,12 +2,10 @@
 
 namespace Drupal\tango_card\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\tango_card\TangoCardAccountInterface;
-use Drupal\user\UserInterface;
 
 /**
  * Defines the Tango Card account entity.
