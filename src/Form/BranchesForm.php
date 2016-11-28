@@ -26,12 +26,18 @@ class BranchesForm extends FormBase {
     $form['destination'] = array('#type' => 'value', '#value' => $destination);
 
     $branches_list = $this->getBranchesList();
+    $default = !empty($branches_list['branch']) ? key($branches_list['branch']) : 0;
+    if (!$default) {
+      $default = !empty($branches_list['camp']) ? key($branches_list['camp']) : 0;
+    }
 
     $form['branch'] = array(
       '#type' => 'radios',
       '#title' => t('Please select a location'),
-      '#default_value' => key($branches_list),
-      '#options' => $branches_list,
+      '#default_value' => $default,
+      '#options' => $branches_list['branch'] + $branches_list['camp'],
+      '#branches' => $branches_list['branch'],
+      '#camps' => $branches_list['camp'],
     );
     $form['submit'] = array(
       '#type' => 'submit',
@@ -57,12 +63,21 @@ class BranchesForm extends FormBase {
    * Get Branches list.
    */
   public function getBranchesList() {
+    $branches_list = [
+      'branch' => [],
+      'camp' => [],
+    ];
+
     $db = \Drupal::database();
     $query = $db->select('node_field_data', 'n');
-    $query->fields('n', ['nid', 'title']);
-    $query->condition('type', 'branch');
+    $query->fields('n', ['nid', 'title', 'type']);
+    $query->condition('type', ['branch', 'camp'], 'IN');
     $query->condition('status', 1);
-    $branches_list = $query->execute()->fetchAllKeyed();
+    $items = $query->execute()->fetchAll();
+    foreach ($items as $item) {
+      $branches_list[$item->type][$item->nid] = $item->title;
+    }
+
     return $branches_list;
   }
 

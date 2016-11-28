@@ -25,11 +25,15 @@ class ClassBranchesForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, $node = NULL, $destination = '') {
     $form['destination'] = array('#type' => 'value', '#value' => $destination);
     $branches_list = $this->getBranchesList($node);
+    $default = !empty($branches_list['branch']) ? key($branches_list['branch']) : 0;
+    if (!$default) {
+      $default = !empty($branches_list['camp']) ? key($branches_list['camp']) : 0;
+    }
 
     $form['branch'] = array(
       '#type' => 'radios',
       '#title' => t('Please select a location'),
-      '#default_value' => key($branches_list['branch']),
+      '#default_value' => $default,
       '#options' => $branches_list['branch'] + $branches_list['camp'],
       '#branches' => $branches_list['branch'],
       '#camps' => $branches_list['camp'],
