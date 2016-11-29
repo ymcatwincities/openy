@@ -39,7 +39,26 @@ interface MemberInterface extends ContentEntityInterface {
   public function getEmail();
 
   /**
-   * Returns the member id of the user.
+   * Sets the email address of the user from Personify.
+   *
+   * @param string $email
+   *   The new email address of the user.
+   *
+   * @return \Drupal\ymca_retention\MemberInterface
+   *   The called member entity.
+   */
+  public function setPersonifyEmail($email);
+
+  /**
+   * Returns the email address of the user from Personify.
+   *
+   * @return string
+   *   The email address.
+   */
+  public function getPersonifyEmail();
+
+  /**
+   * Returns the member id(FacilityCardNumber) of the user.
    *
    * @return string
    *   The member id.
@@ -56,6 +75,14 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setMemberId($member_id);
+
+  /**
+   * Returns the personify id(MasterCustomerId) of the user.
+   *
+   * @return string
+   *   The personify id.
+   */
+  public function getPersonifyId();
 
   /**
    * Returns user first name.
@@ -156,6 +183,14 @@ interface MemberInterface extends ContentEntityInterface {
    *   Status.
    */
   public function isCreatedByStaff();
+
+  /**
+   * Return status, is user created via mobile app.
+   *
+   * @return bool
+   *   Status.
+   */
+  public function isCreatedOnMobile();
 
   /**
    * Returns user visit goal.

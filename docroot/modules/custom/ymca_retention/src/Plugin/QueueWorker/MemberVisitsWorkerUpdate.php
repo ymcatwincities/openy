@@ -4,6 +4,7 @@ namespace Drupal\ymca_retention\Plugin\QueueWorker;
 
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\ymca_retention\Entity\Member;
+use Drupal\ymca_retention\Entity\MemberCheckIn;
 use Drupal\ymca_retention\PersonifyApi;
 
 /**
@@ -20,16 +21,9 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
   /**
    * Campaign start date.
    *
-   * @var string
+   * @var \DateTime
    */
-  protected $dateFrom;
-
-  /**
-   * Campaign end date.
-   *
-   * @var string
-   */
-  protected $dateEnd;
+  protected $dateOpen;
 
   /**
    * {@inheritdoc}
@@ -38,37 +32,68 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     // Get campaign dates settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
-    $this->dateFrom = $settings->get('date_campaign_open');
-    $this->dateTo = $settings->get('date_campaign_close');
+    try {
+      $this->dateOpen = new \DateTime($settings->get('date_campaign_open'));
+    }
+    catch (\Exception $e) {
+      $this->dateOpen = new \DateTime();
+      $this->dateOpen->setTime(0, 0, 0);
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function processItem($data) {
-    // Load member.
-    $member = Member::load($data['id']);
+    $list_ids = [];
+    foreach ($data['items'] as $item) {
+      // Load member.
+      $member = Member::load($item['id']);
+      $list_ids[$item['id']] = $member->getPersonifyId();
+    }
+    // Date from.
+    $date_from = new \DateTime();
+    $date_from->setTimestamp($data['date']);
+    $date_from->setTime(0, 0, 0);
+    $date_from->sub(new \DateInterval('P1D'));
+    if ($date_from < $this->dateOpen) {
+      $date_from = $this->dateOpen;
+    }
+
+    // Date To.
+    $date_to = clone $date_from;
+    $date_to->setTime(23, 59, 59);
 
     // Get information about number of checkins in period of the campaign.
-    $result = PersonifyApi::getPersonifyVisitCountByDate($member->getMemberId(), $this->dateFrom, $this->dateTo);
-    if (!empty($result->ErrorMessage)) {
+    $results = PersonifyApi::getPersonifyVisitsBatch($list_ids, $date_from, $date_to);
+    if (!empty($results->ErrorMessage)) {
       $logger = \Drupal::logger('ymca_retention_queue');
-      $logger->alert('Could not retrieve visits count for member %member_id', [
-        '%member_id' => $member->getMemberId(),
-      ]);
+      $logger->alert('Could not retrieve visits information for members for batch operation');
       return;
     }
-    $current_visits = $member->getVisits();
+    foreach ($results->FacilityVisitCustomerRecord as $item) {
+      if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
+        continue;
+      }
+      $member_id = array_search($item->MasterCustomerId, $list_ids);
 
-    // Store updated visits counter.
-    if (isset($result->TotalVisits) && ($result->TotalVisits != $current_visits)) {
-      $member->setVisits($result->TotalVisits);
-      $member->save();
-    }
-    elseif (!is_numeric($current_visits)) {
-      // Some users does not have a value, we have to set 0 as default for them.
-      $member->setVisits(0);
-      $member->save();
+      $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
+        ->condition('member', $member_id)
+        ->condition('date', $date_from->getTimestamp())
+        ->execute();
+
+      // Verify checkins for the day.
+      if (!empty($checkin_ids)) {
+        continue;
+      }
+
+      // Create check-in record.
+      $checkin = MemberCheckIn::create([
+        'date' => $date_from->getTimestamp(),
+        'checkin' => TRUE,
+        'member' => $member_id,
+      ]);
+      $checkin->save();
     }
   }
 

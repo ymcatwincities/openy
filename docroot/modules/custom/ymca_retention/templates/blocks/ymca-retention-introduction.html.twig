@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Display retention campaign introduction information.
+ */
+#}
+<div class="inner-container">
+  <div class="yfr-intro-block">
+    <h2 class="yfr-intro-block__title">
+      {{ 'Y Spirit Challenge'|t }}
+    </h2>
+    <div class="yfr-intro-block__content">
+      <p data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+        {{ 'Sign up to participate, visit the Y and track your activities for chances at instant-win prizes.'|t }}
+      </p>
+      <p data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
+        {{ 'Now that you\'re registered, visit the Y and track your activities for chances at instant-win prizes.'|t }}
+      </p>
+    </div>
+  </div>
+
+  <div class="yfr-registration-form-section ng-hide"
+       data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <div class="yfr-registration-form-button-container">
+      <a href="#" class="btn btn-lg btn-primary orange-medium"
+         data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Get your first instant-win chance'|t }}</a>
+    </div>
+    <div class="yfr-registration-form-help-text-container">
+      <p>
+        {{ 'Registration will give you your first bonus chance!'|t }}
+      </p>
+    </div>
+  </div>
+
+  <div class="row yfr-info-blocks">
+    <div class="yfr-info-block yfr-info-block--checkins">
+      <div class="yfr-info-block__header">1. {{ 'Check in at the Y'|t }}</div>
+      <div class="yfr-info-block__content">
+        {{ 'You automatically get an instant-win chance each day you visit the YMCA.'|t }}
+      </div>
+      <div class="yfr-info-block__footer">
+        {{ 'Check-in = 1 chance/day'|t }}
+      </div>
+    </div>
+
+    <div class="yfr-info-block yfr-info-block--daily-reports">
+      <div class="yfr-info-block__header">2. {{ 'Track activity'|t }}</div>
+      <div class="yfr-info-block__content">
+        {{ 'Report your fitness and community-focused activities each day to earn more instant-win chances.'|t }}
+      </div>
+      <div class="yfr-info-block__footer">
+        {{ 'Track Activity = 1 chance/day'|t }}
+      </div>
+    </div>
+
+    <div class="yfr-info-block yfr-info-block--instant-win">
+      <div class="yfr-info-block__header">3. {{ 'Win prizes'|t }}</div>
+      <div class="yfr-info-block__content">
+        {{ 'Use your instant-win chances to see if you win a digital gift card to popular retailers.'|t }}
+      </div>
+      <div class="yfr-info-block__footer">
+        {{ 'Wheel of fortune awaits!'|t }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="yfr-full-width-prize-block">
+  <div class="container">
+
+    <div class="col-sm-5 col-sm-push-1 yfr-full-width-prize-block__content">
+      <h2 class="yfr-full-width-prize-block__header">
+        {{ 'Instant-win Prizes'|t }}
+      </h2>
+      <p class="yfr-full-width-prize-block__body">
+        {{ 'The Y Spirit Challenge offers you chances to instantly win digital gift cards from Tango—up to $100 each. Choose to spend your prize on movies, restaurants, retailers and more.'|t }}
+      </p>
+    </div>
+    <div class="yfr-full-width-prize-block__card"></div>
+  </div>
+</div>

@@ -79,6 +79,23 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    // Email address field to store email address from Personify.
+    $fields['personify_email'] = BaseFieldDefinition::create('email')
+      ->setLabel(t('Email from Personify'))
+      ->setDescription(t('The email of this user from Personify.'))
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     // Membership ID field for the member.
     $fields['membership_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Membership ID'))
@@ -159,6 +176,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['birth_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Birthday'))
+      ->setDescription(t('The date of birth.'))
+      ->setSetting('datetime_type', 'date');
+
     $fields['is_employee'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('User is an employee'))
       ->setDefaultValue(FALSE)
@@ -219,6 +241,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Created by Staff'))
       ->setDefaultValue(FALSE);
 
+    $fields['created_on_mobile'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Created using Mobile app'))
+      ->setDescription(t('Created using Mobile app'))
+      ->setDefaultValue(FALSE);
+
     $fields['activity_track_swimming'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Swimming'))
       ->setDescription(t('Number of Swimming activities.'))
@@ -232,6 +259,11 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['activity_track_groupx'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Group X'))
       ->setDescription(t('Number of Group X activities.'))
+      ->setDefaultValue(0);
+
+    $fields['activity_track_community'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Community'))
+      ->setDescription(t('Number of Community activities.'))
       ->setDefaultValue(0);
 
     return $fields;
@@ -262,8 +294,30 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getPersonifyEmail() {
+    return $this->get('personify_email')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPersonifyEmail($email) {
+    $this->set('personify_email', $email);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getMemberId() {
     return $this->get('membership_id')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPersonifyId() {
+    return $this->get('personify_id')->value;
   }
 
   /**
@@ -357,6 +411,13 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function isCreatedByStaff() {
     return $this->get('created_by_staff')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCreatedOnMobile() {
+    return $this->get('created_on_mobile')->value;
   }
 
   /**
