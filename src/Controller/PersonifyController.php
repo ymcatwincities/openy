@@ -159,7 +159,7 @@ class PersonifyController extends ControllerBase {
    * Returns PDF for specific personify user and parameters.
    */
   public function getChildcarePaymentPdf() {
-    $content = self::getChildcarePaymentPdfContent();
+    $content = $this->getChildcarePaymentPdfContent();
     $settings = [
       'body' => [
         '#theme' => 'ymca_childcare_payment_history__pdf__body',
