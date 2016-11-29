@@ -341,6 +341,6 @@ function ymca_retention_update_8017() {
  */
 function ymca_retention_update_8018() {
   \Drupal::service('config_import.importer')->importConfigs([
-      'sites/default/config/staging/views.view.ymca_retention_member_prizes.yml',
-    ]);
+    'sites/default/config/staging/views.view.ymca_retention_member_prizes.yml',
+  ]);
 }
