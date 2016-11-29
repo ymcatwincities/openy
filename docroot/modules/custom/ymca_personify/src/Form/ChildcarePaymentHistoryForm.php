@@ -134,8 +134,8 @@ class ChildcarePaymentHistoryForm extends FormBase {
         'ymca_personify/personify.childcare',
       ];
 
-      $results = self::buildResults($values);
-      $formatted_results = self::formatResults($results);
+      $results = $this->buildResults($values);
+      $formatted_results = $this->formatResults($results);
 
       $form['#prefix'] = '<div id="childcare-payment-history-form-wrapper"><div class="container"><div class="row"><div class="col-xs-12">';
       $form['#suffix'] = '</div></div></div><div class="results clearfix">' . $formatted_results . '</div></div>';
@@ -255,8 +255,8 @@ class ChildcarePaymentHistoryForm extends FormBase {
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     $parameters = $form_state->getUserInput();
-    $results = self::buildResults($parameters);
-    $formatted_results = self::formatResults($results);
+    $results = $this->buildResults($parameters);
+    $formatted_results = $this->formatResults($results);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#childcare-payment-history-form-wrapper .results', $formatted_results));
     $form_state->setRebuild();
