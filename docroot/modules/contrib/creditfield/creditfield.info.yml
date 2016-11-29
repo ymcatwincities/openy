@@ -1,0 +1,9 @@
+name: Credit Field
+type: module
+description: Defines credit card form field elements for use in the Drupal FormAPI.
+# core: 8.x
+# Information added by Drupal.org packaging script on 2015-11-19
+version: '8.x-1.0'
+core: '8.x'
+project: 'creditfield'
+datestamp: 1447948447

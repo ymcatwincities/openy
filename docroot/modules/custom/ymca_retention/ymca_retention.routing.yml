@@ -78,28 +78,69 @@ ymca_retention.settings_cron:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_instant_win:
+  path: '/admin/config/system/ymca-retention/instant-win'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsInstantWinForm'
+    _title: 'YMCA Retention Instant Win'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.leaderboard_json:
   path: '/ymca-retention/leaderboard/{branch_id}'
   defaults:
-    _controller: \Drupal\ymca_retention\Controller\LeaderboardController::leaderboardJson
+    _controller: '\Drupal\ymca_retention\Controller\LeaderboardController::leaderboardJson'
     _title: 'YMCA Retention Leaderboard JSON'
   requirements:
     _permission: 'access content'
     branch_id: ^[0-9]+
 
-ymca_retention.member_activities_json:
-  path: '/ymca-retention/member_activities'
+ymca_retention.member_json:
+  path: '/ymca_retention/member'
   defaults:
-    _controller: \Drupal\ymca_retention\Controller\ActivityController::memberActivitiesJson
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberJson'
+    _title: 'YMCA Retention Member JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.member_activities_json:
+  path: '/ymca-retention/member-activities'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberActivitiesJson'
     _title: 'YMCA Retention Member Activities JSON'
   requirements:
     _permission: 'access content'
 
-ymca_retention.ymca_winners.draw_winners:
-  path: '/admin/content/ymca-retention-winners/draw-winners'
+ymca_retention.member_chances_json:
+  path: '/ymca-retention/member-chances'
   defaults:
-    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
-    _title: 'Draw winners'
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberChancesJson'
+    _title: 'YMCA Retention Member Chances JSON'
   requirements:
-    _permission: 'administer site configuration'
-    _csrf_token: 'TRUE'
+    _permission: 'access content'
+
+ymca_retention.member_checkins_json:
+  path: '/ymca-retention/member-checkins'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberCheckInsJson'
+    _title: 'YMCA Retention Member Checkins JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.recent_winners_json:
+  path: '/ymca-retention/recent-winners'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::recentWinnersJson'
+    _title: 'YMCA Retention Recent Winners JSON'
+  requirements:
+    _permission: 'access content'
+
+# TODO Hide menu item for now, as not used.
+#ymca_retention.ymca_winners.draw_winners:
+#  path: '/admin/content/ymca-retention-winners/draw-winners'
+#  defaults:
+#    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
+#    _title: 'Draw winners'
+#  requirements:
+#    _permission: 'administer site configuration'
+#    _csrf_token: 'TRUE'
