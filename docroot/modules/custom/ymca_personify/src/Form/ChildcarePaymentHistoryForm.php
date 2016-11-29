@@ -62,7 +62,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $query = parent::getRequest();
     $parameters = $query->query->all();
     // Set default start date as today -30 days.
-    $start_date = date('m/d/Y', strtotime('-300 days'));
+    $start_date = date('m/d/Y', strtotime('-30 days'));
     // Set default end date as today.
     $end_date = new DrupalDateTime('now');
     $end_date = $end_date->format('m/d/Y');
