@@ -1,0 +1,123 @@
+tango_card.settings:
+  path: 'admin/config/services/tango-card'
+  defaults:
+    _form: '\Drupal\tango_card\Form\SettingsForm'
+    _title: 'Tango Card Settings'
+  requirements:
+    _permission: 'administer tango card'
+
+tango_card.orders:
+  path: 'admin/config/services/tango-card/accounts/{tango_card_account}/orders'
+  defaults:
+    _controller: '\Drupal\tango_card\Controller\OrdersListPageController::pageView'
+    _title: 'Tango Card Orders History'
+  options:
+    parameters:
+      tango_card_account:
+        type: entity:tango_card_account
+  requirements:
+    _permission: 'administer tango card'
+
+tango_card.order_info:
+  path: 'admin/config/services/tango-card/accounts/{tango_card_account}/orders/{order_id}'
+  defaults:
+    _controller: '\Drupal\tango_card\Controller\OrderPageController::pageView'
+    _title: 'Tango Card Order Details'
+  options:
+    parameters:
+      tango_card_account:
+        type: entity:tango_card_account
+  requirements:
+    _permission: 'administer tango card'
+
+tango_card.create_card:
+  path: 'admin/config/services/tango-card/create-card'
+  defaults:
+    _form: '\Drupal\tango_card\Form\CardCreateForm'
+    _title: 'Create Tango Card'
+  requirements:
+    _permission: 'administer tango card'
+
+tango_card.product_autocomplete:
+  path: 'tango-card/product-autocomplete/{product_type}'
+  defaults:
+    _controller: '\Drupal\tango_card\Controller\ProductAutocompleteController::handleAutocomplete'
+    product_type: 'all'
+  requirements:
+    _permission: 'administer tango card'
+
+tango_card.catalog:
+  path: 'admin/config/services/tango-card/catalog'
+  defaults:
+    _controller: '\Drupal\tango_card\Controller\CatalogPageController::pageView'
+    _title: 'Tango Card Catalog'
+  requirements:
+    _permission: 'administer tango card'
+
+entity.tango_card_campaign.collection:
+  path: '/admin/config/services/tango-card/campaigns'
+  defaults:
+    _entity_list: 'tango_card_campaign'
+    _title: 'Tango Card Campaigns'
+  requirements:
+    _permission: 'administer tango card'
+
+entity.tango_card_campaign.add_form:
+  path: '/admin/config/services/tango-card/campaigns/add'
+  defaults:
+    _entity_form: tango_card_campaign.add
+    _title: 'Add Campaign'
+  requirements:
+    _entity_create_access: 'tango_card_campaign'
+
+entity.tango_card_campaign.edit_form:
+  path: '/admin/config/services/tango-card/campaigns/{tango_card_campaign}/edit'
+  defaults:
+    _entity_form: tango_card_campaign.edit
+    _title: 'Edit Campaign'
+  requirements:
+    _entity_access: 'tango_card_campaign.edit'
+
+entity.tango_card_campaign.delete_form:
+  path: '/admin/config/services/tango-card/campaigns/{tango_card_campaign}/delete'
+  defaults:
+    _entity_form: tango_card_campaign.delete
+    _title: 'Delete Campaign'
+  requirements:
+    _entity_access: 'tango_card_campaign.delete'
+
+entity.tango_card_account.collection:
+  path: '/admin/config/services/tango-card/accounts'
+  defaults:
+    _entity_list: 'tango_card_account'
+    _title: 'Tango Card Accounts'
+  requirements:
+    _permission: 'administer tango card'
+
+entity.tango_card_account.add_form:
+  path: '/admin/config/services/tango-card/accounts/add'
+  defaults:
+    _entity_form: tango_card_account.add
+    _title: 'Create Account'
+  requirements:
+    _entity_create_access: 'tango_card_account'
+
+entity.tango_card_account.delete_form:
+  path: '/admin/config/services/tango-card/accounts/{tango_card_account}/delete'
+  defaults:
+    _entity_form: tango_card_account.delete
+    _title: 'Delete Account'
+  requirements:
+    _entity_access: 'tango_card_account.delete'
+
+entity.tango_card_account.fund_form:
+  path: '/admin/config/services/tango-card/accounts/{tango_card_account}/fund'
+  defaults:
+    _form: '\Drupal\tango_card\Form\FundForm'
+    _title: 'Fund Tango Card Account'
+  options:
+    parameters:
+      tango_card_account:
+        type: entity:tango_card_account
+  requirements:
+    _permission: 'administer tango card'

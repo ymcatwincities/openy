@@ -9,7 +9,7 @@ use Drupal\Core\Block\BlockBase;
  *
  * @Block(
  *   id = "retention_slider",
- *   admin_label = @Translation("YMCA retention slider block"),
+ *   admin_label = @Translation("[YMCA Retention] Slider"),
  *   category = @Translation("YMCA Blocks")
  * )
  */

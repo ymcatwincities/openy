@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Display retention campaign intro information.
+ */
+#}
+{% if content.show_picture %}
+  <div class="hero-section__background"></div>
+{% endif %}
+
+<div class="container hero-section__content">
+  <div class="col-md-5">
+    <div class="hero-section__logo"></div>
+  </div>
+  <div class="col-md-7 hero-section__slogan_and_date">
+    <div class="hero-section__slogan">{{ content.slogan }}</div>
+    <div class="hero-section__date">{{ content.dates }}</div>
+  </div>
+</div>

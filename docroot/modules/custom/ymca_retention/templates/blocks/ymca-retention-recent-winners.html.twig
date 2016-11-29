@@ -1,0 +1,15 @@
+<div class="yfr-ticker ymca-retention-recent-winners ng-hide"
+     data-ng-controller="RecentWinnersController as recentWinnersC"
+     data-ng-show="recentWinnersC.storage.recent_winners">
+  <marquee class="yfr-ticker__marquee clearfix">
+    <div class="item-ticker" data-ng-repeat="winner in recentWinnersC.storage.recent_winners">
+      <div class="content-ticker">
+        {{ 'Lucky Winner'|t }}: <span class="user">{{ '{{winner.name}}' }}</span>
+      </div>
+      <div class="time" data-livestamp="{{ '{{winner.played}}' }}"></div>
+    </div>
+  </marquee>
+  <div class="yfr-ticker__btn">
+    <button class="btn-close">{{ 'Close'|t }}</button>
+  </div>
+</div>
