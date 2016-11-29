@@ -4435,3 +4435,15 @@ function ymca_master_update_8195() {
     'openy_hf',
   ], TRUE);
 }
+
+/**
+ * Import personify configs.
+ */
+function ymca_master_update_8196() {
+  $path = drupal_get_path('module', 'ymca_personify');
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . '/config/install/ymca_personify.settings.yml',
+    ]
+  );
+}
