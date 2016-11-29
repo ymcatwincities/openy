@@ -10257,6 +10257,19 @@ a.sports-icon.floor-hockey {
 #childcare-payment-history-form-wrapper {
   padding-top: 50px;
 }
+#childcare-payment-history-form-wrapper .download-pdf-wrapper {
+  margin: -30px 0 40px;
+  text-align: center;
+}
+@media (min-width: 992px) {
+  #childcare-payment-history-form-wrapper .download-pdf-wrapper {
+    text-align: right;
+    margin: 0;
+    position: absolute;
+    top: -115px;
+    right: 15px;
+  }
+}
 #childcare-payment-history-form-wrapper .results {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -10268,11 +10281,17 @@ a.sports-icon.floor-hockey {
 @media screen and (max-width: 767px) {
   #childcare-payment-history-form-wrapper .form-item-child {
     float: none;
+    margin-right: 0;
   }
 }
 #childcare-payment-history-form-wrapper .form-item-child select {
   height: 50px;
   max-width: 200px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper .form-item-child select {
+    max-width: none;
+  }
 }
 #childcare-payment-history-form-wrapper .form-item-start-date,
 #childcare-payment-history-form-wrapper .form-item-end-date {
@@ -10284,6 +10303,7 @@ a.sports-icon.floor-hockey {
   #childcare-payment-history-form-wrapper .form-item-start-date,
   #childcare-payment-history-form-wrapper .form-item-end-date {
     float: none;
+    margin-right: 0;
   }
 }
 #childcare-payment-history-form-wrapper .form-item-start-date input,
@@ -10291,6 +10311,12 @@ a.sports-icon.floor-hockey {
   padding-left: 50px;
   height: 50px;
   max-width: 200px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper .form-item-start-date input,
+  #childcare-payment-history-form-wrapper .form-item-end-date input {
+    max-width: none;
+  }
 }
 #childcare-payment-history-form-wrapper .form-item-start-date:before,
 #childcare-payment-history-form-wrapper .form-item-end-date:before {
