@@ -37,3 +37,9 @@ ymca_retention.settings_cron:
   description: 'Run cron manually.'
   route_name: ymca_retention.settings_cron
   parent_id: ymca_retention.settings
+
+ymca_retention.instant_win:
+  title: 'Instant Win'
+  description: 'Instant win settings.'
+  route_name: ymca_retention.settings_instant_win
+  parent_id: ymca_retention.settings
