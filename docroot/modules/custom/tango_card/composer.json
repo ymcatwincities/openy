@@ -1,0 +1,10 @@
+{
+  "name": "drupal/tango_card",
+  "type": "drupal-module",
+  "description": "Provides Tango Card SDK integration.",
+  "license": "GPL-2.0+",
+  "require": {
+    "sourcefuse/tangocard": "dev-master"
+  },
+  "minimum-stability": "dev"
+}
