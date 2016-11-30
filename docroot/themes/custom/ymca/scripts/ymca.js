@@ -1,9 +1,11 @@
 (function ($) {
   // It closes the ui dialog on an outside click.
-  drupalSettings.dialog.open = function(event) {
-    $('.ui-widget-overlay').on('click', function() {
-      $(event.target).dialog('close');
-    });
+  if (typeof drupalSettings.dialog != 'undefined') {
+    drupalSettings.dialog.open = function (event) {
+      $('.ui-widget-overlay').on('click', function () {
+        $(event.target).dialog('close');
+      });
+    }
   }
 
   var ymca_theme_semaphore = false;
@@ -12,31 +14,46 @@
    * Scroll to the hash anchor.
    */
   Drupal.behaviors.ymca_page_with_hash = {
-    attached: false,
     attach: function (context, settings) {
-      var hash = $(window).attr('location').hash;
-      var ismembership = window.location.pathname.endsWith("membership");
-      if (hash && !this.attached && !ismembership) {
-        window.setTimeout(function() {
-          var menuHeight = $('.top-navs').height();
-          var top = $(hash).offset().top;
-          if ($('.top-navs').height() == 0) {
-            // For mobile state.
-            $(document).scrollTop(top - 52);
-          }
-          else {
-            // Destop mode.
-            $(document).scrollTop(top - 113);
-          }
-        }, 1000);
-        this.attached = true;
+
+      function scroll() {
+        var hash = $(window).attr('location').hash;
+        var isMembership = window.location.pathname.endsWith("membership");
+
+        if (!hash) {
+          return;
+        }
+
+        if (isMembership) {
+          return;
+        }
+
+        var menuHeight = $('.top-navs').height();
+        var top = $(hash).offset().top;
+        if (menuHeight == 0) {
+          // Mobile.
+          $(document).scrollTop(top - 52);
+        }
+        else {
+          // Desktop.
+          $(document).scrollTop(top - 113);
+        }
       }
+
+      // Scroll to anchor on page load.
+      window.setTimeout(scroll, 1000);
+
+      // Scroll to anchor after the click on the link with anchor.
+      $('a[href*="#"]').on('click', function (event) {
+        window.setTimeout(scroll, 0);
+      });
+
     }
   };
 
   Drupal.behaviors.ymca_theme = {
     attach: function (context, settings) {
-      
+
       function getUrlVars() {
         var vars = {};
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -109,52 +126,6 @@
           }
         });
       }
-    }
-  };
-
-  /**
-   * March winners.
-   */
-  Drupal.behaviors.ymca_march = {
-    attach: function (context, settings) {
-      if ($('#quiz').length > 0 || $('#march-rules').length > 0) {
-        $('#sidebar:eq(0)').remove();
-        $('.navbar-toggle').click(function () {
-          var menu = '<li><li><a href="'+ drupalSettings.path.baseUrl + 'march#prizes">Prizes</a></li><li><a href="'+ drupalSettings.path.baseUrl + 'march#quiz">YMCA Quiz</a></li><li><a href="'+ drupalSettings.path.baseUrl + 'march/rules">Detailed Rules</a></li>';
-          $('#sidebar-nav .nav.dropdown-menu').html(menu);
-        });
-
-        // QUIZ show.
-        $('#quiz .button').click(function (e) {
-          e.preventDefault();
-          $('#quiz').hide();
-          $('#quiz-questions').show();
-        });
-        $('#quiz-questions').hide();
-
-        $('#quiz-frame').load(function () {
-          $('#quiz-frame').iFrameResize({checkOrigin: false, heightCalculationMethod: 'lowestElement'});
-        });
-      }
-    }
-  };
-
-  /**
-   * March winners.
-   */
-  Drupal.behaviors.ymca_march_winners = {
-    attach: function (context, settings) {
-      var $wrap = $('#more-prizes', context);
-      if ($wrap.length === 0) {
-        return false;
-      }
-      $('select', $wrap).on('change', function () {
-        var val = $(this).val();
-        var $parent = $(this).parents('.container');
-        $('.table-location', $parent).addClass('hide');
-        $('.table-location-' + val, $parent).removeClass('hide');
-      });
-      $('select', $wrap).trigger('change');
     }
   };
 

@@ -8535,6 +8535,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper fieldset legend {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 20px;
   font-size: 2rem;
@@ -8565,6 +8566,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper #location-wrapper .fieldset-wrapper .description {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   left: 15px;
   left: 1.5rem;
   color: #a7a7a7;
@@ -8759,6 +8761,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-trainer label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 20px;
   font-size: 2rem;
@@ -8803,6 +8806,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-date-range label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   font-size: 20px;
   font-size: 2rem;
@@ -8862,6 +8866,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-item-mb-start-time label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   color: #a7a7a7;
   font-size: 20px;
@@ -8963,6 +8968,7 @@ body .ajax-progress-throbber .throbber {
 }
 #mindbody-pt-form-wrapper .form-group label {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   color: #a7a7a7;
   font-size: 20px;
@@ -9200,6 +9206,7 @@ body .ajax-progress-throbber .throbber {
 }
 .mindbody-search-results-content .day .weekday {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   font-size: 25px;
   color: #777;
@@ -9291,6 +9298,7 @@ body .ajax-progress-throbber .throbber {
 }
 .mindbody-search-results-content .start-again a {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   border: none;
   background-color: #0771a8;
@@ -9324,6 +9332,7 @@ body .ajax-progress-throbber .throbber {
 }
 .phone-call-wrapper .description {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   color: #bde6e6;
   font-size: 20px;
@@ -9344,6 +9353,7 @@ body .ajax-progress-throbber .throbber {
 }
 .phone-call-wrapper .number {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   background: url("../img/phone-call-ico.png") no-repeat 0 center;
   font-size: 40px;
@@ -9742,6 +9752,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
 }
 .groupex-pdf-link-container a {
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -10236,6 +10247,7 @@ a.sports-icon.floor-hockey {
   color: #fff;
   width: 182px;
   font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
   font-weight: bold;
   display: inline-block;
   text-indent: 32px;
@@ -10252,6 +10264,144 @@ a.sports-icon.floor-hockey {
 }
 .sports_top_subheader .text {
   clear: both;
+}
+
+#childcare-payment-history-form-wrapper {
+  padding-top: 50px;
+}
+#childcare-payment-history-form-wrapper .download-pdf-wrapper {
+  margin: -30px 0 40px;
+  text-align: center;
+}
+@media (min-width: 992px) {
+  #childcare-payment-history-form-wrapper .download-pdf-wrapper {
+    text-align: right;
+    margin: 0;
+    position: absolute;
+    top: -115px;
+    right: 15px;
+  }
+}
+#childcare-payment-history-form-wrapper .results {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+#childcare-payment-history-form-wrapper .form-item-child {
+  float: left;
+  margin-right: 25px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper .form-item-child {
+    float: none;
+    margin-right: 0;
+  }
+}
+#childcare-payment-history-form-wrapper .form-item-child select {
+  height: 50px;
+  max-width: 200px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper .form-item-child select {
+    max-width: none;
+  }
+}
+#childcare-payment-history-form-wrapper .form-item-start-date,
+#childcare-payment-history-form-wrapper .form-item-end-date {
+  position: relative;
+  float: left;
+  margin-right: 25px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper .form-item-start-date,
+  #childcare-payment-history-form-wrapper .form-item-end-date {
+    float: none;
+    margin-right: 0;
+  }
+}
+#childcare-payment-history-form-wrapper .form-item-start-date input,
+#childcare-payment-history-form-wrapper .form-item-end-date input {
+  padding-left: 50px;
+  height: 50px;
+  max-width: 200px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper .form-item-start-date input,
+  #childcare-payment-history-form-wrapper .form-item-end-date input {
+    max-width: none;
+  }
+}
+#childcare-payment-history-form-wrapper .form-item-start-date:before,
+#childcare-payment-history-form-wrapper .form-item-end-date:before {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  color: #777;
+  content: "\e953";
+  font-family: icomoon;
+  font-size: 20px;
+  left: 1px;
+  padding: 10px;
+  position: absolute;
+  top: 26px;
+}
+#childcare-payment-history-form-wrapper table {
+  margin-bottom: 50px;
+  width: 100%;
+}
+@media screen and (max-width: 991px) {
+  #childcare-payment-history-form-wrapper table {
+    font-size: 12px;
+    margin-bottom: 25px;
+  }
+}
+#childcare-payment-history-form-wrapper table caption {
+  text-align: left;
+  padding: 20px 15px;
+  background-color: #696969;
+  font-size: 15px;
+  color: #fff;
+  font-weight: bold;
+  font-family: "Cachet", Arial, sans-serif;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper table caption {
+    padding: 10px 5px;
+  }
+}
+#childcare-payment-history-form-wrapper table th {
+  background-color: #f8f8f8;
+}
+#childcare-payment-history-form-wrapper table td, #childcare-payment-history-form-wrapper table th {
+  padding: 20px 15px;
+}
+@media screen and (max-width: 767px) {
+  #childcare-payment-history-form-wrapper table td, #childcare-payment-history-form-wrapper table th {
+    padding: 10px 5px;
+  }
+}
+#childcare-payment-history-form-wrapper table tr:nth-child(even) td {
+  background-color: #f8f8f8;
+}
+#childcare-payment-history-form-wrapper table tr:nth-child(odd) td {
+  background-color: #fefefe;
+}
+#childcare-payment-history-form-wrapper table .description {
+  max-width: 200px;
+}
+#childcare-payment-history-form-wrapper table .order {
+  white-space: nowrap;
+}
+#childcare-payment-history-form-wrapper table .total-for-child {
+  font-weight: bold;
+  text-align: right;
+}
+#childcare-payment-history-form-wrapper table .total-for-child-amount {
+  font-weight: bold;
+}
+#childcare-payment-history-form-wrapper .total {
+  font-size: 16px;
+  float: right;
+  font-weight: bold;
+  font-family: "Cachet", Arial, sans-serif;
 }
 
 /*# sourceMappingURL=style.css.map */
