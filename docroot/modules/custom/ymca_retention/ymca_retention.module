@@ -8,6 +8,12 @@
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\ymca_retention\Entity\MemberChance;
+use Drupal\ymca_retention\PersonifyApi;
+use Drupal\ymca_retention\Entity\MemberCheckIn;
+use Drupal\ymca_retention\Entity\Member;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_form_alter().
@@ -26,6 +32,25 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $date->add(new \DateInterval('P1D'));
       $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      $form['membership_id']['#attributes']['placeholder'] = t('Member ID');
+      // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
+      if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
+        $form['created_by_staff']['#value'] = 'All';
+        $form['created_on_mobile']['#value'] = 'All';
+      }
+      break;
+
+    case 'views-exposed-form-ymca-retention-member-prizes-ymca-retention-prizes':
+      $date = new \DateTime();
+      $date->setTime(0, 0, 0);
+      $form['date_win']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['member_id']['#attributes']['placeholder'] = t('Member ID');
+      $form['amount']['#attributes']['placeholder'] = t('Amount');
+      // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
+      if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
+        $form['created_by_staff']['#value'] = 'All';
+        $form['created_on_mobile']['#value'] = 'All';
+      }
       break;
 
     case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
@@ -36,31 +61,43 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
+ * Act on the view before the query is built, but after displays are attached.
+ *
+ * Output can be added to the view by setting $view->attachment_before
+ * and $view->attachment_after.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *   The view object about to be processed.
+ *
+ * @see \Drupal\views\ViewExecutable
+ */
+function ymca_retention_views_pre_build(ViewExecutable $view) {
+  $displays = ['ymca_retention_members', 'ymca_retention_prizes'];
+  if (in_array($view->current_display, $displays)) {
+    // Change filter options to Yes/No instead of default options True/False.
+    if (!isset($view->display_handler->handlers['filter']['created_by_staff']->definition['type'])) {
+      $view->display_handler->handlers['filter']['created_by_staff']->definition['type'] = 'yes-no';
+    }
+    if (!isset($view->display_handler->handlers['filter']['created_on_mobile']->definition['type'])) {
+      $view->display_handler->handlers['filter']['created_on_mobile']->definition['type'] = 'yes-no';
+    }
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function ymca_retention_theme($existing, $type, $theme, $path) {
   return [
     'ymca_retention_registration_form' => [
-      'render element' => 'form',
-    ],
-    'ymca_retention_login_form' => [
-      'render element' => 'form',
-    ],
-    'ymca_retention_navigation' => [
       'variables' => [
-        'content' => NULL,
+        'form' => '',
+        'yteam' => 0,
       ],
-      'template' => 'ymca-retention-navigation',
+      'template' => 'ymca-retention-registration-form',
     ],
-    'ymca_retention_intro' => [
-      'variables' => [
-        'content' => NULL,
-      ],
-      'template' => 'ymca-retention-intro',
-    ],
-    'ymca_retention_track_activity' => [
-      'variables' => [],
-      'template' => 'ymca-retention-track-activity',
+    'ymca_retention_track_activity_login_form' => [
+      'render element' => 'form',
     ],
     'ymca_retention_leaderboard' => [
       'variables' => [
@@ -121,7 +158,106 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'ymca-retention-winners',
     ],
+
+    // Blocks templates.
+    'ymca_retention_navigation' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-navigation',
+    ],
+    'ymca_retention_intro' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-intro',
+    ],
+    'ymca_retention_user_menu' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-user-menu',
+    ],
+    'ymca_retention_tabs_selector' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-tabs-selector',
+    ],
+    'ymca_retention_introduction' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-introduction',
+    ],
+    'ymca_retention_track_activity' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-track-activity',
+    ],
+    'ymca_retention_progress' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-progress',
+    ],
+    'ymca_retention_instant_win' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-instant-win',
+    ],
+    'ymca_retention_register_confirmation_modal' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-register-confirmation-modal',
+    ],
+    'ymca_retention_recent_winners' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-recent-winners',
+    ],
+
+    // Forms templates.
+    'ymca_retention_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-login-form',
+    ],
+    'ymca_retention_login_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-login-form-modal',
+    ],
+    'ymca_retention_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form',
+    ],
+    'ymca_retention_register_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-register-form-modal',
+    ],
+
+    // Pages templates.
+    'page__challenge' => [
+      'template' => 'pages/page--challenge',
+    ],
+    'page__challenge__team' => [
+      'template' => 'pages/page--challenge--team',
+    ],
   ];
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ymca_retention_preprocess_html(&$variables) {
+  $classes = ['theme_ymca_2016_fall_retention'];
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+
+  if (empty($variables['attributes'])) {
+    $variables['attributes'] = new Attribute();
+  }
+
+  if (is_int(stripos($current_route_name, 'page_manager.page_view_ymca_retention'))) {
+    if (!is_array($variables['attributes'])) {
+      $variables['attributes']->addClass($classes);
+    }
+  }
+  if ($current_route_name == 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_team') {
+    $variables['attributes']->addClass(['page-register__fall_retention']);
+  }
 }
 
 /**
@@ -131,7 +267,7 @@ function ymca_retention_cron() {
   /** @var \Drupal\ymca_retention\RegularUpdater $regular_updater */
   $regular_updater = \Drupal::service('ymca_retention.regular_updater');
 
-  // Check if cron was run today.
+  // Check if cron was run today and settings allow to create a queue.
   if (!$regular_updater->isAllowed()) {
     return;
   }
@@ -163,6 +299,107 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   if (!empty($winners)) {
     $winners_storage->delete($winners);
   }
+
+  // Remove member chances.
+  $chances_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_chance');
+  $chances = $chances_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($chances)) {
+    $chances_storage->delete($chances);
+  }
+
+  // Remove member checkins.
+  $checkins_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_checkin');
+  $checkins = $checkins_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($checkins)) {
+    $checkins_storage->delete($checkins);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
+  /** @var Member $entity */
+  // Create chance to win.
+  $chance = MemberChance::create([
+    'type' => 'registration',
+    'member' => $entity->getId(),
+  ]);
+  $chance->save();
+  // Get retention settings.
+  $settings = \Drupal::config('ymca_retention.general_settings');
+  // Get information about number of checkins in period of campaign.
+  $today = new \DateTime();
+  $from = new \DateTime($settings->get('date_reporting_open'));
+  $to = new \DateTime($settings->get('date_reporting_close'));
+  if ($today < $from || $today > $to) {
+    return;
+  }
+  $diff = $today->diff($from);
+  for ($i = 0; $i <= $diff->days; $i++) {
+    $date_from = clone $from;
+    $date_from->setTime(0, 0, 0);
+    $date_from->add(new \DateInterval('P' . $i . 'D'));
+
+    // Date To.
+    $date_to = clone $date_from;
+    $date_to->setTime(23, 59, 59);
+
+    // Get information about number of checkins in period of the campaign.
+    $results = PersonifyApi::getPersonifyVisitsBatch([$entity->getPersonifyId()], $date_from, $date_to);
+    if (!empty($results->ErrorMessage)) {
+      continue;
+    }
+    foreach ($results->FacilityVisitCustomerRecord as $item) {
+      if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
+        continue;
+      }
+
+      $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
+        ->condition('member', $entity->getId())
+        ->condition('date', $date_from->getTimestamp())
+        ->execute();
+
+      // Verify checkins for the day.
+      if (!empty($checkin_ids)) {
+        continue;
+      }
+
+      // Create check-in record.
+      $checkin = MemberCheckIn::create([
+        'date' => $date_from->getTimestamp(),
+        'checkin' => TRUE,
+        'member' => $entity->getId(),
+      ]);
+      $checkin->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $entity) {
+  /** @var MemberCheckIn $entity */
+  $checkins_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_checkin');
+  $checkins = $checkins_storage->loadByProperties(['member' => $entity->getMember()]);
+  // Update number of visits in member entity.
+  $member = Member::load($entity->getMember());
+  $member->setVisits(count($checkins));
+  $member->save();
+
+  // Create chance to win.
+  $today = new \DateTime();
+  $today->setTime(0, 0, 0);
+  $chance = MemberChance::create([
+    'timestamp' => $entity->getDate(),
+    'type' => 'checkin',
+    'member' => $entity->getMember(),
+  ]);
+  $chance->save();
 }
 
 /**
@@ -170,6 +407,28 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
  */
 function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
   _ymca_retention_activity_track_update($entity);
+
+  // Check if member already has chance to win for activity on this date.
+  $member_id = $entity->member->target_id;
+  $timestamp = $entity->get('timestamp')->value;
+  $chances_ids = \Drupal::entityQuery('ymca_retention_member_chance')
+    ->condition('member', $member_id)
+    ->condition('type', 'activity')
+    ->condition('timestamp', [
+      $timestamp,
+      $timestamp + 24 * 60 * 60 - 1,
+    ], 'BETWEEN')
+    ->execute();
+
+  // Create chance to win.
+  if (empty($chances_ids)) {
+    $chance = MemberChance::create([
+      'timestamp' => $timestamp,
+      'type' => 'activity',
+      'member' => $member_id,
+    ]);
+    $chance->save();
+  }
 }
 
 /**
@@ -221,12 +480,25 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
       }
     }
   }
+  foreach ($activity_groups as $activity_group) {
+    switch ($activity_group['retention_activity_id']) {
+      case 'a':
+        $member->set('activity_track_swimming', $tracks[$activity_group['id']]);
+        break;
 
-  // TODO: below is hard coding; we are assuming that the activity groups are
-  // in the specific order: swimming, fitness, groupx.
-  $member->set('activity_track_swimming', $tracks[$activity_groups[0]['id']]);
-  $member->set('activity_track_fitness', $tracks[$activity_groups[1]['id']]);
-  $member->set('activity_track_groupx', $tracks[$activity_groups[2]['id']]);
+      case 'b':
+        $member->set('activity_track_fitness', $tracks[$activity_group['id']]);
+        break;
+
+      case 'c':
+        $member->set('activity_track_groupx', $tracks[$activity_group['id']]);
+        break;
+
+      case 'd':
+        $member->set('activity_track_community', $tracks[$activity_group['id']]);
+        break;
+    }
+  }
   $member->save();
 }
 

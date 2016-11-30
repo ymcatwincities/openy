@@ -1,5 +1,3 @@
-endpoint: 'http://ygtcprod2.personifycloud.com/PersonifyDataServices/Personifydata.svc/'
+endpoint: 'http://ygtctrain2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
 username: dmitry.drozdik
 password: ***REMOVED***
-_core:
-  default_config_hash: TyAGp6tSkQhv8MYuJvaH7BF1qr7toXeZ0NiU7I3TAcg

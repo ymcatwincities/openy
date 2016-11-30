@@ -17,3 +17,12 @@ services:
       class: Drupal\ymca_personify\EventSubscriber\TokenChecker
       tags:
         - { name: event_subscriber }
+  ymca_personify_childcare_request:
+      class: Drupal\ymca_personify\ChildcarePaymentHistoryRequest
+      arguments: ['@http_client', '@config.factory', '@logger.factory']
+      tags:
+        - { name: childcare_payment_history }
+  ymca_personify_pdf_generator:
+      class: Drupal\ymca_personify\PDFGenerator
+      tags:
+        - { name: pdf_generator }

@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\taxonomy\TermStorage;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Update YMCA Retention Members view.
@@ -140,4 +142,196 @@ function ymca_retention_update_8011() {
       $path . 'ymca_retention.general_settings.yml',
     ]
   );
+}
+
+/**
+ * Update YMCA Retention settings.
+ */
+function ymca_retention_update_8012() {
+  try {
+    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('update', $e);
+  }
+
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'core.entity_form_display.taxonomy_term.ymca_retention_activities.default.yml',
+      $path . 'core.entity_view_display.taxonomy_term.ymca_retention_activities.default.yml',
+      $path . 'field.field.taxonomy_term.ymca_retention_activities.field_retention_activity_id.yml',
+      $path . 'field.storage.taxonomy_term.field_retention_activity_id.yml',
+      $path . 'ymca_retention.api.yml',
+      $path . 'ymca_retention.general_settings.yml',
+      $path . 'ymca_retention.instant_win.yml',
+      $path . 'page_manager.page.ymca_retention_challenge.yml',
+      $path . 'page_manager.page.ymca_retention_challenge_pages.yml',
+      $path . 'page_manager.page_variant.ymca_retention_challenge.yml',
+      $path . 'page_manager.page_variant.ymca_retention_challenge_default.yml',
+      $path . 'page_manager.page_variant.ymca_retention_challenge_team.yml',
+      $path . 'views.view.ymca_retention_member_prizes.yml',
+      $path . 'views.view.ymca_members.yml',
+    ]
+  );
+
+  /** @var TermStorage $term_storage */
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $parents = $term_storage->loadTree('ymca_retention_activities', 0, 1, TRUE);
+  /** @var Term $parent */
+  foreach ($parents as $parent) {
+    switch ($parent->id()) {
+      case 121:
+        $parent->set('field_retention_activity_id', 'a');
+        break;
+
+      case 181:
+        $parent->set('field_retention_activity_id', 'b');
+        break;
+
+      case 251:
+        $parent->set('field_retention_activity_id', 'c');
+        break;
+
+      case 296:
+        $parent->set('field_retention_activity_id', 'd');
+        break;
+    }
+
+    $parent->save();
+  }
+
+  // Update rules.
+  $content = file_get_contents(drupal_get_path('module', 'ymca_retention') . '/includes/ymca-retention-rules.html');
+  $uuid = 'bbad4f73-e28a-423c-849a-5ba4f04710ce';
+  /** @var Drupal\block_content\Entity\BlockContent $block_content */
+  $block_content = \Drupal::entityManager()->loadEntityByUuid('block_content', $uuid);
+  $block_content->set('body', ['value' => $content, 'format' => 'full_html']);
+  $block_content->save();
+}
+
+/**
+ * Update YMCA Retention Views.
+ */
+function ymca_retention_update_8013() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.settings.yml',
+      $path . 'views.view.ymca_members.yml',
+      $path . 'views.view.ymca_retention_winners.yml',
+    ]
+  );
+}
+
+/**
+ * Remove march campaign config.
+ */
+function ymca_retention_update_8014() {
+  Drupal::configFactory()->getEditable('ymca_frontend.retention')->delete();
+  \Drupal::service('config_import.importer')->importConfigs([
+    'sites/default/config/staging/ymca_alters.config.yml',
+  ]);
+}
+
+/**
+ * Remove summer campaign configs.
+ */
+function ymca_retention_update_8015() {
+  // Remove pages activities.
+  $storage = \Drupal::entityTypeManager()->getStorage('page');
+  $storage->delete($storage->loadMultiple([
+    'ymca_retention_campaign',
+    'ymca_retention_pages',
+  ]));
+  $remove_configs = [
+    'page_manager.page_variant.y_games_winners',
+    'page_manager.page_variant.y_games_team',
+    'page_manager.page_variant.y_games_rules',
+    'page_manager.page_variant.y_games_enroll_success',
+    'page_manager.page_variant.y_games_activity',
+    'page_manager.page_variant.y_game_default',
+    'page_manager.page_variant.y_game_content',
+    'page_manager.page.ymca_retention_pages',
+    'page_manager.page.ymca_retention_campaign',
+    'views.view.ymca_retention_winners',
+  ];
+  $factory = Drupal::configFactory();
+  foreach ($remove_configs as $config) {
+    $factory->getEditable($config)->delete();
+  }
+}
+
+/**
+ * Remove old members.
+ */
+function ymca_retention_update_8016(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    $member_ids = \Drupal::entityQuery('ymca_retention_member')->execute();
+
+    $sandbox['progress'] = 0;
+
+    $sandbox['members'] = array_values($member_ids);
+    $sandbox['max'] = count($member_ids);
+  }
+
+  if (!$sandbox['max']) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  // Get member id.
+  $member_id = $sandbox['members'][$sandbox['progress']];
+
+  // Get entity manager.
+  $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_member');
+
+  // Delete member entity.
+  $entities = $storage->loadMultiple(array($member_id));
+  $storage->delete($entities);
+
+  $sandbox['progress']++;
+  if ($sandbox['progress'] != $sandbox['max']) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
+
+/**
+ * Enable Tango Card module.
+ */
+function ymca_retention_update_8017() {
+  \Drupal::service('module_installer')->install(['tango_card'], TRUE);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'sites/default/config/staging/tango_card.settings.yml',
+    ]
+  );
+
+  $account = \Drupal::entityTypeManager()
+    ->getStorage('tango_card_account')
+    ->create([
+      'remote_id' => 'yfr_test',
+      'customer' => 'ffw',
+      'mail' => 'jose.pereira@ffwagency.com',
+      'cc_token' => '1802501684',
+      'cc_number' => '1111',
+    ]);
+  $account->save();
+
+  $campaign = \Drupal::entityTypeManager()
+    ->getStorage('tango_card_campaign')
+    ->create([
+      'name' => 'YFR',
+      'send_email' => 1,
+      'email_template' => 'yfr_2016',
+      'email_from' => 'YMCA',
+      'email_subject' => 'Congratulations!',
+      'email_message' => 'You won the prize!',
+    ]);
+  $campaign->save();
+
+  $config = \Drupal::service('config.factory')->getEditable('tango_card.settings');
+  $config->set('account', $account->id())
+    ->set('campaign', $campaign->id())
+    ->save();
 }

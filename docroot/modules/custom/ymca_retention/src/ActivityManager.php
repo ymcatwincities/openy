@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
@@ -84,8 +85,11 @@ class ActivityManager implements ActivityManagerInterface {
       $timestamp = $date->getTimestamp();
       $date_diff_now = $date->diff($date_now);
       $dates[] = [
-        'weekday' => $date->format('D'),
+        'index' => $i,
+        'label' => $date->format('l n/j'),
+        'weekday' => $date->format('l'),
         'month_day' => $date->format('j'),
+        'month' => $date->format('M'),
         'timestamp' => $timestamp,
         'past' => !(bool) $date_diff_now->invert,
         'future' => (bool) $date_diff_now->invert,
@@ -123,8 +127,10 @@ class ActivityManager implements ActivityManagerInterface {
       $activity_groups[] = [
         'id' => $parent->id(),
         'name' => $parent->getName(),
+        'machine_name' => Html::getId($parent->getName()),
         'description' => $parent->getDescription(),
         'activities' => $activities,
+        'retention_activity_id' => $parent->get('field_retention_activity_id')->value,
       ];
     }
 
