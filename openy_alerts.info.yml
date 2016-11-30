@@ -13,6 +13,7 @@ dependencies:
   - node
   - openy_node_blog_feature
   - openy_node_branch_feature
+  - openy_node_camp_feature
   - openy_node_landing_feature
   - options
   - path

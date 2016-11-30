@@ -3,6 +3,7 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_body
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_link
@@ -19,6 +20,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_alert_belongs: true
   field_alert_body: true
   field_alert_color: true
   field_alert_link: true

@@ -20,26 +20,26 @@ bundle: alert
 mode: default
 content:
   field_alert_belongs:
-    weight: 105
-    label: inline
+    type: entity_reference_label
+    weight: 5
+    label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
   field_alert_body:
-    weight: 103
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_alert_color:
-    weight: 101
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
   field_alert_link:
-    weight: 102
+    weight: 2
     label: above
     settings:
       trim_length: 80
@@ -50,13 +50,13 @@ content:
     third_party_settings: {  }
     type: link
   field_alert_place:
-    weight: 104
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
   links:
-    weight: 100
+    weight: 0
     settings: {  }
     third_party_settings: {  }
 hidden:

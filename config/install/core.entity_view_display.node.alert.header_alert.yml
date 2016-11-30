@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.header_alert
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_body
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_link
@@ -36,6 +37,7 @@ content:
     third_party_settings: {  }
     type: link
 hidden:
+  field_alert_belongs: true
   field_alert_color: true
   field_alert_place: true
   langcode: true

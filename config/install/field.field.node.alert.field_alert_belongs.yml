@@ -6,6 +6,7 @@ dependencies:
     - node.type.alert
     - node.type.blog
     - node.type.branch
+    - node.type.camp
     - node.type.landing
     - node.type.page
     - node.type.testimonial
@@ -26,11 +27,13 @@ settings:
       alert: alert
       blog: blog
       branch: branch
+      camp: camp
       landing: landing
       page: page
       testimonial: testimonial
     sort:
-      field: _none
+      field: nid
+      direction: ASC
     auto_create: false
-    auto_create_bundle: alert
+    auto_create_bundle: page
 field_type: entity_reference
