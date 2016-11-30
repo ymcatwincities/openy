@@ -84,22 +84,6 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
   RewriteRule ^membership/.*$ /membership [R=301,NC,L]
 
-  # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
-  RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
-
-  # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
-  RewriteRule ^camps$ http://camppepin.org/ [R=301,NC,L]
-
-  # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^redwingymca\.org$
-  RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
-
-  # @todo: Remove after finishing the content. YMCA-1278
-  RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
-  RewriteRule ^camps/.*$ http://camppepin.org/ [R=301,NC,L]
-
   # REDWING END
 
   # 301 --- http://give.ymcamn.org => http://give.ymcatwincities.org
@@ -800,6 +784,10 @@ RewriteRule ^$ http://www.ymcamn.org/locations/eagan_ymca/kid__teen_activities/s
 RewriteCond %{HTTP_HOST} ^www\.ysportssouthdale\.org$
 RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
 
+# Redirect for old retention campaigns.
+RewriteCond %{REQUEST_URI} ^/(march|ygames)
+RewriteRule ^(.*)$ /challenge [L,R=301]
+
   # 301 --- For all redwing containing hosts redirect to pages without .htm extension
   RewriteCond %{HTTP_HOST} redwing
   RewriteRule ^(.*)\.htm$ /$1 [R=301,L]
@@ -829,7 +817,7 @@ RewriteRule ^$ http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activiti
   # directories from your webroot or otherwise protect them from being
   # downloaded.
   RewriteRule "(^|/)\." - [F]
-  
+
   # Custom redirect rules.
 
   # If your site can be accessed both with and without the 'www.' prefix, you

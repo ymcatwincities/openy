@@ -11,7 +11,7 @@ use Drupal\ymca_retention\Entity\Winner;
  *
  * @Block(
  *   id = "retention_winners_block",
- *   admin_label = @Translation("YMCA retention winners block"),
+ *   admin_label = @Translation("[YMCA Retention] Winners"),
  *   category = @Translation("YMCA Blocks")
  * )
  */
