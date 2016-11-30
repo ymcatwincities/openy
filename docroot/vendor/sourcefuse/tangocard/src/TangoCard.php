@@ -84,7 +84,7 @@ class TangoCard extends TangoCardBase {
      */
     public static $appModes = array(
         'sandbox' => 'https://sandbox.tangocard.com/raas',
-        'production' => 'https://integration-api.tangocard.com/raas'
+        'production' => 'https://api.tangocard.com/raas'
     );
 
     /**

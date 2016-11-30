@@ -31,7 +31,7 @@ class AccountForm extends ContentEntityForm {
   protected $tangoCardWrapper;
 
   /**
-   * Constructs the SettingsForm object.
+   * Constructs the AccountForm object.
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.
