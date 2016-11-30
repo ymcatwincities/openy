@@ -58,7 +58,7 @@ class AccountDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new $this->getEntity()->toUrl('collection');
+    return $this->getEntity()->toUrl('collection');
   }
 
   /**
