@@ -1,10 +1,16 @@
 {
-  "name": "drupal/tango_card",
-  "type": "drupal-module",
-  "description": "Provides Tango Card SDK integration.",
-  "license": "GPL-2.0+",
-  "require": {
-    "sourcefuse/tangocard": "dev-master"
-  },
-  "minimum-stability": "dev"
+    "name": "drupal/tango_card",
+    "type": "drupal-module",
+    "description": "Provides Tango Card SDK integration.",
+    "license": "GPL-2.0+",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bember/TangoCardPHPSD"
+        }
+    ],
+    "require": {
+        "sourcefuse/tangocard": "dev-endpoint-fix"
+    },
+    "minimum-stability": "dev"
 }
