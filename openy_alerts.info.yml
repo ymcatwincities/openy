@@ -11,10 +11,14 @@ dependencies:
   - link
   - menu_ui
   - node
+  - openy_node_blog_feature
+  - openy_node_branch_feature
+  - openy_node_landing_feature
   - options
   - path
   - scheduled_updates
   - slick_views
+  - testimonial
   - text
   - user
   - views

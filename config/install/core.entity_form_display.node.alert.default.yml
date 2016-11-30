@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_body
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_link
@@ -24,6 +25,14 @@ content:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+  field_alert_belongs:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_alert_body:
     weight: 9
     settings:
@@ -66,7 +75,7 @@ content:
     third_party_settings: {  }
   scheduled_status:
     type: inline_entity_form_complex
-    weight: 11
+    weight: 12
     settings:
       override_labels: true
       label_singular: Status

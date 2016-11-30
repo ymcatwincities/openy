@@ -205,6 +205,11 @@ display:
             group_items: {  }
           reduce_duplicates: false
           plugin_id: list_field
+        field_alert_belongs_target_id:
+          id: field_alert_belongs_target_id
+          table: node__field_alert_belongs
+          field: field_alert_belongs_target_id
+          plugin_id: numeric
       sorts:
         created:
           id: created
@@ -223,8 +228,18 @@ display:
           granularity: second
       header: {  }
       footer: {  }
-      empty: {  }
-      relationships: {  }
+      empty:
+        view:
+          id: view
+          table: views
+          field: view
+          plugin_id: view
+      relationships:
+        field_alert_belongs:
+          id: field_alert_belongs
+          table: node__field_alert_belongs
+          field: field_alert_belongs
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
       css_class: footer-alerts-list
@@ -381,6 +396,11 @@ display:
         css_class: false
         style: false
         row: false
+        relationships: false
+        arguments: false
+        filters: false
+        filter_groups: false
+        empty: false
       style:
         type: slick
         options:
@@ -424,11 +444,306 @@ display:
         options:
           relationship: none
           view_mode: header_alert
+      relationships: {  }
+      arguments: {  }
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            alert: alert
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          group: 1
+        field_alert_place_value:
+          id: field_alert_place_value
+          table: node__field_alert_place
+          field: field_alert_place_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            header: header
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          plugin_id: list_field
+        field_alert_belongs_target_id:
+          id: field_alert_belongs_target_id
+          table: node__field_alert_belongs
+          field: field_alert_belongs_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: empty
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: numeric
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      empty:
+        view:
+          id: view
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          view_to_insert: 'alerts:default'
+          inherit_arguments: false
+          plugin_id: view
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  alerts_header_local:
+    display_plugin: block
+    id: alerts_header_local
+    display_title: 'Header Local Alerts'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      block_hide_empty: true
+      css_class: header-alerts-list
+      defaults:
+        css_class: false
+        style: false
+        row: false
+        relationships: false
+        arguments: false
+        filters: false
+        filter_groups: false
+        empty: false
+      style:
+        type: slick
+        options:
+          vanilla: true
+          optionset: default
+          skin: ''
+          layout: ''
+          caption:
+            title: '0'
+          optionset_thumbnail: ''
+          skin_thumbnail: ''
+          thumbnail_position: ''
+          thumbnail_caption: ''
+          grid_header: ''
+          grid: null
+          grid_medium: null
+          grid_small: null
+          visible_items: null
+          preserve_keys: false
+          image: ''
+          thumbnail: ''
+          overlay: ''
+          title: ''
+          link: ''
+          class: ''
+          id: ''
+          override: true
+          overridables:
+            arrows: arrows
+            dots: dots
+            draggable: draggable
+            autoplay: '0'
+            infinite: '0'
+            mouseWheel: '0'
+            randomize: '0'
+            variableWidth: '0'
+          cache: 0
+          current_view_mode: block_1
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: header_alert
+      relationships: {  }
+      arguments:
+        field_alert_belongs_target_id:
+          id: field_alert_belongs_target_id
+          table: node__field_alert_belongs
+          field: field_alert_belongs_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: node
+          default_argument_options: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: true
+          validate:
+            type: 'entity:node'
+            fail: ignore
+          validate_options:
+            operation: view
+            multiple: 0
+            bundles: {  }
+            access: false
+          break_phrase: false
+          not: false
+          plugin_id: numeric
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            alert: alert
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          group: 1
+        field_alert_place_value:
+          id: field_alert_place_value
+          table: node__field_alert_place
+          field: field_alert_place_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            header: header
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          plugin_id: list_field
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      empty: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }

@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_body
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_link
@@ -18,6 +19,13 @@ targetEntityType: node
 bundle: alert
 mode: default
 content:
+  field_alert_belongs:
+    weight: 105
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_alert_body:
     weight: 103
     label: above
