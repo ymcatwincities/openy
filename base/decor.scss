@@ -34,6 +34,10 @@
   align-items: center;
 }
 
+%decor--content-between {
+  align-content: space-between;
+}
+
 %decor--direction-column {
   flex-direction: column;
 }
