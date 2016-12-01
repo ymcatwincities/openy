@@ -8,7 +8,6 @@ dependencies:
     - node.type.branch
     - node.type.camp
     - node.type.landing
-    - node.type.page
     - node.type.testimonial
 id: node.alert.field_alert_belongs
 field_name: field_alert_belongs
@@ -29,7 +28,6 @@ settings:
       branch: branch
       camp: camp
       landing: landing
-      page: page
       testimonial: testimonial
     sort:
       field: nid
