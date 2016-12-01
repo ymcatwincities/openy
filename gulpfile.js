@@ -34,7 +34,8 @@ var path = {
         js              : 'prototypes/js/**/*.js',
         style           : [
             'prototypes/scss/screen.scss',
-            'prototypes/scss/bootstrap.scss'
+            'prototypes/scss/bootstrap.scss',
+            'prototypes/scss/docs.scss'
         ],
         img             : 'prototypes/images/**/*.*',
         fonts           : [

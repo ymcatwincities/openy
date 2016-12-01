@@ -1,6 +1,7 @@
 .header {
   background: $color-blue;
   color: $color-white;
+  width: 100%;
 
   @include breakpoint(tablet){
 
@@ -32,10 +33,12 @@
     padding: 14px;
     @extend .container;
     @extend %decor--flex;
-    @extend %decor--align-end;
 
     &--nav {
       width: 100%;
+      @extend %decor--flex;
+      @extend %decor--flex-wrap;
+      @extend %decor--content-between;
 
       @include breakpoint(tablet) {
         margin-bottom: -14px;
@@ -43,7 +46,10 @@
     }
 
     .navigation-top {
+      @extend %decor--flex;
+      @extend %decor--justify-between;
       padding: 0 15px;
+      width: 100%;
 
       .text {
         font-family: $font-cachet-medium;
@@ -51,6 +57,42 @@
         line-height: lh(22.1, 14);
         padding: 0 10px;
         text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .navigation {
+        width: auto;
+
+        ul {
+          a {
+            font-size: 14px;
+            white-space: nowrap;
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: lh(22.1, 14);
+          }
+        }
+
+        .dropdown-menu {
+          padding: 10px;
+          min-width: auto;
+
+          a {
+            padding: 0;
+            text-align: center;
+            display: block;
+          }
+        }
+
+        .dropdown {
+          position: relative;
+
+          &.open {
+            .dropdown-toggle {
+              box-shadow: inset 0 0 0 0 $color-white, 0 0 0 1px $color-white;
+            }
+          }
+        }
       }
     }
 
@@ -63,6 +105,7 @@
       right: 0;
 
       .item-nav--search {
+        min-width: 46px;
         max-width: 46px;
 
         a {
