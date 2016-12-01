@@ -43,7 +43,9 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
     case 'views-exposed-form-ymca-retention-member-prizes-ymca-retention-prizes':
       $date = new \DateTime();
       $date->setTime(0, 0, 0);
-      $form['date_win']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['date_win_start']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $date->setTime(23, 59, 59);
+      $form['date_win_end']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['member_id']['#attributes']['placeholder'] = t('Member ID');
       $form['amount']['#attributes']['placeholder'] = t('Amount');
       // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
