@@ -48,7 +48,7 @@ class MemberRegisterForm extends FormBase {
 
     if (empty($membership_id) || $config['yteam']) {
       $form['membership_id'] = [
-        '#type' => 'number',
+        '#type' => 'textfield',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
@@ -188,16 +188,6 @@ class MemberRegisterForm extends FormBase {
     if ($current_date > $close_date) {
       $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
       return;
-    }
-
-    if (empty($membership_id)) {
-      $membership_id = trim($form_state->getValue('membership_id'));
-      $form_state->set('membership_id', $membership_id);
-      // Numeric validation.
-      if (!is_numeric($membership_id)) {
-        $form_state->setErrorByName('membership_id', $this->t('Member ID should be numeric.'));
-        return;
-      }
     }
 
     // Check for already registered member.
