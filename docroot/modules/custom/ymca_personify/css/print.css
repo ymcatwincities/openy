@@ -98,6 +98,9 @@
   font-weight: bold;
   width: 150px;
 }
+.childcare-payment-history--pdf .filters {
+  text-align: right;
+}
 
 .childcare-payment-history--pdf--footer {
   border-top: 1px solid #000;
