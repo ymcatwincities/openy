@@ -9,7 +9,7 @@ dependencies:
 id: mastheadnavigationblock_2
 theme: ymca
 region: '-1'
-weight: -12
+weight: -9
 provider: null
 plugin: masthead_navigation_block
 settings:
