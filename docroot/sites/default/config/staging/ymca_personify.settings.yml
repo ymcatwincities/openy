@@ -10,3 +10,5 @@ url_cart: 'http://ygtcprod2.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingC
 customer_orders_endpoint: 'http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder'
 customer_orders_username: Alex.Schedrov
 customer_orders_password: A!ex!23
+childcare_authorization: 'Basic QWxleC5TY2hlZHJvdjpIZWxwZGVzazAx'
+childcare_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
