@@ -41,7 +41,10 @@
       });
 
       $('.childcare-payment-history-form .js-form-item-child select', context).on('change', function() {
-        var val = $(this).val();
+        var val = $(this).val(),
+            pdf_link = $("#childcare-payment-history-form-wrapper .download_pdf"),
+            href = pdf_link.attr('href').replace(/child=(.*)/g, 'child=' + val);
+        pdf_link.attr('href', href);
         if (val !== 'all') {
           $('table.child').hide();
           $('table.child-' + val).show();
@@ -51,13 +54,9 @@
           $('table.child').show();
           $('.total').show();
         }
-      });
-
-      $('#childcare-payment-history-form-wrapper .download_pdf', context).on('click', function(e) {
-        var val = $('.childcare-payment-history-form .js-form-item-child select').val(),
-            href = $(this).attr('href').replace(/child=(.*)/g, 'child=' + val);
         $(this).attr('href', href);
       });
+
     }
   };
 
