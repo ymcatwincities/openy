@@ -941,7 +941,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
+          operator: '>='
           value:
             min: ''
             max: ''
@@ -951,11 +951,59 @@ display:
           exposed: true
           expose:
             operator_id: played_op
-            label: 'Date win'
+            label: 'Date win start'
             description: ''
             use_operator: false
             operator: played_op
-            identifier: date_win
+            identifier: date_win_start
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: ymca_retention_member_chance
+          entity_field: played
+          plugin_id: date
+        played_1:
+          id: played_1
+          table: ymca_retention_member_chance
+          field: played
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: played_1_op
+            label: 'Date win end'
+            description: ''
+            use_operator: false
+            operator: played_1_op
+            identifier: date_win_end
             required: false
             remember: false
             multiple: false
