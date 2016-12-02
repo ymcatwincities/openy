@@ -17,6 +17,9 @@
   Drupal.behaviors.personify_childcare = {
     attach: function(context, settings) {
       $('.childcare-payment-history-form .js-form-item-start-date input').datepicker({
+        changeYear: true,
+        minDate: '-2Y',
+        maxDate: '+0D',
         onSelect: function(dateText, ins) {
           $('.childcare-payment-history-form', context)
             .each(function() {
@@ -26,6 +29,8 @@
         }
       });
       $('.childcare-payment-history-form .js-form-item-end-date input').datepicker({
+        minDate: '-2Y',
+        maxDate: '+0D',
         onSelect: function(dateText, ins) {
           $('.childcare-payment-history-form', context)
             .each(function() {
