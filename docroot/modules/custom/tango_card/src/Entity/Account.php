@@ -16,7 +16,6 @@ use Drupal\tango_card\TangoCardAccountInterface;
  *   id = "tango_card_account",
  *   label = @Translation("Tango Card account"),
  *   label_plural = @Translation("Tango Card accounts"),
- *   bundle_label = @Translation("Campaign"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\tango_card\Entity\Controller\AccountListBuilder",
@@ -63,8 +62,7 @@ class Account extends ContentEntityBase implements TangoCardAccountInterface {
       ->setRequired(TRUE)
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+      ]);
 
     // Customer.
     $fields['customer'] = BaseFieldDefinition::create('string')
@@ -73,8 +71,7 @@ class Account extends ContentEntityBase implements TangoCardAccountInterface {
       ->setDescription(t('The platform’s customer. A customer is a mechanism for denoting a company, department, etc…, an account belongs to.'))
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+      ]);
 
     // Email.
     $fields['mail'] = BaseFieldDefinition::create('string')
@@ -82,8 +79,7 @@ class Account extends ContentEntityBase implements TangoCardAccountInterface {
       ->setRequired(TRUE)
       ->setDisplayOptions('form', [
         'type' => 'email',
-      ])
-      ->setDisplayConfigurable('form', TRUE);
+      ]);
 
     // Credit card token.
     $fields['cc_token'] = BaseFieldDefinition::create('string')

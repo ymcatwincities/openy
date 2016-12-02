@@ -15,6 +15,7 @@ use Drupal\ymca_groupex\GroupexScheduleFetcher;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Block\BlockPluginInterface;
 
 /**
  * Implements hook_help().
@@ -487,4 +488,13 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
   $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
   $breadcrumb->addCacheContexts(['url.path']);
+}
+
+/**
+ * Implements hook_block_build_alter().
+ */
+function ymca_alters_block_build_alter(array &$build, BlockPluginInterface $block) {
+  if (preg_match('/childcare_payment_history/', \Drupal::request()->getPathInfo()) && $block->getPluginId() == 'system_breadcrumb_block') {
+    $build['#cache']['max-age'] = 0;
+  }
 }
