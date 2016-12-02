@@ -65,7 +65,7 @@ class MemberLoginForm extends FormBase {
         '#type' => 'hidden',
       ];
       $form['membership_id'] = [
-        '#type' => 'number',
+        '#type' => 'textfield',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
@@ -154,14 +154,14 @@ class MemberLoginForm extends FormBase {
     $current_date = new \DateTime();
     // Validate that current date is less, than date when tracking activity page will be opened.
     if ($current_date < $from_date) {
-      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y Games open.', [
+      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y spirit challenge open.', [
         '%date' => $from_date->format('F j'),
       ]));
       return;
     }
     // Validate that current date is higher, than date when tracking activity page was closed.
     if ($current_date > $to_date) {
-      $form_state->setErrorByName('form', $this->t('The Y Games are now closed and activity is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and activity is no longer able to be tracked.'));
       return;
     }
 
