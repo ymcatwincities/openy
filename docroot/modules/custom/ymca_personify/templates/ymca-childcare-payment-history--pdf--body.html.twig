@@ -55,7 +55,7 @@
       {% endfor %}
       <tr>
         <td colspan="2" class="total-for-child">{{ 'Total Paid for'|t }} '{{ child.name }}' {{ 'is:'|t }}</td>
-        <td class="total-for-child-amount">${{ child.total }}.00</td>
+        <td class="total-for-child-amount">${{ child.total }}</td>
       </tr>
       </tbody>
     </table>
@@ -65,7 +65,7 @@
       <tbody>
       <tr>
         <td class="left">{{ 'Grand Total'|t }}</td>
-        <td class="right">${{ content.total }}.00</td>
+        <td class="right">${{ content.total }}</td>
       </tr>
       </tbody>
     </table>

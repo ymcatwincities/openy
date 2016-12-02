@@ -213,6 +213,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $content['total'] = 0;
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
       foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+        //$receipt['ActualPostedPaidAmount'] = 50.33;
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
         $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
@@ -227,13 +228,15 @@ class ChildcarePaymentHistoryForm extends FormBase {
         $content['children'][$key]['name'] = $name;
         $content['children'][$key]['id'] = $receipt['ShipMasterCustomerId'];
         $content['children'][$key]['total'] += $receipt['ActualPostedPaidAmount'];
+        $content['children'][$key]['total'] = number_format($content['children'][$key]['total'], 2, '.', '');
         $content['children'][$key]['receipts'][] = [
           'order' => $receipt['OrderAndLineNumber'],
           'description' => $receipt['Description'],
           'date' => $date,
-          'amount' => $receipt['ActualPostedPaidAmount'],
+          'amount' => number_format($receipt['ActualPostedPaidAmount'], 2, '.', ''),
         ];
       }
+      $content['total'] = number_format($content['total'], 2, '.', '');
     }
     return $content;
   }
