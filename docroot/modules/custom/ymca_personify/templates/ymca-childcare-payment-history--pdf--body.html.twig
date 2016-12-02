@@ -15,24 +15,22 @@
       {{ content.today_date }}
     </div>
     <div class="document_info">
-      <p class="first">YMCA Payment History Report</p>
-      <p>YMCA Customer Service Center</p>
+      <p class="first">YMCA Child Care Payment Report</p>
+      <p>YMCA of the Greater Twin Cities</p>
       <p>{{ content.childcare_pdf_address_line1 }}</p>
       <p>{{ content.childcare_pdf_address_line2 }}</p>
     </div>
-    <div class="tax_id">YMCA of Greater Twin Cities Tax ID: {{ content.childcare_pdf_tax_id }}</div>
+    <div class="tax_id">YMCA Tax ID: {{ content.childcare_pdf_tax_id }}</div>
     <div class="customer_info">
       <p>{{ content.customer_info.name }}</p>
       <p>{{ content.customer_info.address_line }}</p>
       <p>{{ content.customer_info.city }}</p>
     </div>
     <div class="bill_customer_id">
-      {{ 'Bill Customer ID:'|t }} {{ content.customer_info.bill_customer_id }}
+      {{ 'Customer ID:'|t }} {{ content.customer_info.bill_customer_id }}
     </div>
     <div class="filters">
-      <strong>{{ 'From:'|t }}</strong> {{ content.start_date }}&nbsp;&nbsp;
-      <strong>{{ 'To:'|t }}</strong> {{ content.end_date }}&nbsp;&nbsp;
-      <strong>{{ 'Child:'|t }}</strong> {{ content.child }}
+      <strong>{{ 'Receipt Date Range:'|t }}</strong> {{ content.start_date }}&nbsp;- {{ content.end_date }}&nbsp;
     </div>
   </div>
   {% for key, child in content.children %}
@@ -41,7 +39,7 @@
       <thead>
         <tr>
           <th class="order">{{ 'Order #'|t }}</th>
-          <th class="description">{{ 'Description'|t }}</th>
+          <th class="description">{{ 'Program Description and Dates'|t }}</th>
           <th class="amount">{{ 'Payment Amount'|t }}</th>
         </tr>
       </thead>
