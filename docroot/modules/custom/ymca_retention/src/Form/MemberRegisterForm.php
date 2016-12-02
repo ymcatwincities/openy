@@ -168,7 +168,7 @@ class MemberRegisterForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $config = $form_state->getBuildInfo()['args'][0];
-    $membership_id = $form_state->get('membership_id');
+    $membership_id = $form_state->getValue('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
@@ -281,7 +281,7 @@ class MemberRegisterForm extends FormBase {
   protected function createEntity(FormStateInterface $form_state) {
     $config = $form_state->getBuildInfo()['args'][0];
     // Get form values.
-    $membership_id = $form_state->get('membership_id');
+    $membership_id = $form_state->getValue('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
