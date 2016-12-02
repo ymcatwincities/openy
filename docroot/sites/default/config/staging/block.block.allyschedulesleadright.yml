@@ -12,7 +12,7 @@ dependencies:
 id: allyschedulesleadright
 theme: ymca
 region: schedule_lead_right
-weight: null
+weight: -13
 provider: null
 plugin: 'block_content:d5f95c9b-9891-483a-bb00-0d8904b8d005'
 settings:
