@@ -1,6 +1,6 @@
 uuid: aa66694f-7842-4986-a026-38030549f7d8
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.footer-menu-center
@@ -10,8 +10,8 @@ dependencies:
     - ymca
 id: footermenucenter
 theme: ymca
-region: footer_menu
-weight: -2
+region: '-1'
+weight: -5
 provider: null
 plugin: 'system_menu_block:footer-menu-center'
 settings:
