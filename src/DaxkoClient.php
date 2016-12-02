@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
  * @package Drupal\daxko
  *
  * @method mixed getBranches(array $args)
+ * @method mixed getSessions(array $args)
  */
 class DaxkoClient extends Client implements DaxkoClientInterface {
 
@@ -74,6 +75,9 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
 
       case 'getBranches':
         return $this->makeRequest('get', 'branches?' . http_build_query($args[0], NULL, NULL, PHP_QUERY_RFC3986));
+
+      case 'getSessions':
+        return $this->makeRequest('get', 'sessions?' . http_build_query($args[0], NULL, NULL, PHP_QUERY_RFC3986));
     }
 
     throw new DaxkoClientException(sprintf('Method %s not implemented yet.', $name));
