@@ -4447,3 +4447,37 @@ function ymca_master_update_8196() {
     ]
   );
 }
+
+/**
+ * Remove AB module.
+ */
+function ymca_master_update_8197() {
+  \Drupal::service('module_installer')->uninstall(array('ab'));
+}
+
+/**
+ * Set variant B blocks.
+ */
+function ymca_master_update_8198() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'block.block.allyschedulesformtitle.yml',
+      YGTC_CONFDIR . 'block.block.allyschedulesleadright.yml',
+      YGTC_CONFDIR . 'block.block.campwarrenfamilycamppromoblock.yml',
+      YGTC_CONFDIR . 'block.block.daycampkumalyaslideshow.yml',
+      YGTC_CONFDIR . 'block.block.footer_b.yml',
+      YGTC_CONFDIR . 'block.block.footercopyright.yml',
+      YGTC_CONFDIR . 'block.block.footermenucenter.yml',
+      YGTC_CONFDIR . 'block.block.footermenuleft.yml',
+      YGTC_CONFDIR . 'block.block.footermenuright.yml',
+      YGTC_CONFDIR . 'block.block.footermicrosoft.yml',
+      YGTC_CONFDIR . 'block.block.mainnavigation.yml',
+      YGTC_CONFDIR . 'block.block.mastheadnavigationblock_2.yml',
+      YGTC_CONFDIR . 'block.block.socialiconsfooter.yml',
+      YGTC_CONFDIR . 'block.block.top_menu_2.yml',
+      YGTC_CONFDIR . 'block.block.topmenu.yml',
+      YGTC_CONFDIR . 'block.block.workatwarren.yml',
+      YGTC_CONFDIR . 'core.menu.static_menu_link_overrides.yml',
+    ]
+  );
+}

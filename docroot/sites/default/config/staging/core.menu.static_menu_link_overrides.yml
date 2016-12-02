@@ -1,7 +1,7 @@
 definitions:
   contact__site_page:
-    weight: -47
+    weight: -46
     menu_name: footer
     parent: ''
-    enabled: true
+    enabled: false
     expanded: false
