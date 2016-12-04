@@ -224,6 +224,9 @@ class MemberRegisterForm extends FormBase {
         if (Unicode::substr($email, -1, 1) == '.') {
           $email = Unicode::substr($email, 0, (Unicode::strlen($email) - 1));
         }
+        if (Unicode::substr($email, 0, 1) == '/') {
+          $email = Unicode::substr($email, 1, Unicode::strlen($email));
+        }
         $form_state->set('personify_email', $email);
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
