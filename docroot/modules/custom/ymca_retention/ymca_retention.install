@@ -8,6 +8,8 @@
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Component\Utility\Unicode;
+use Drupal\ymca_retention\Entity\Member;
 
 /**
  * Update YMCA Retention Members view.
@@ -343,4 +345,50 @@ function ymca_retention_update_8018() {
   \Drupal::service('config_import.importer')->importConfigs([
     'sites/default/config/staging/views.view.ymca_retention_member_prizes.yml',
   ]);
+}
+
+/**
+ * Fix members which have *** in their emails
+ */
+function ymca_retention_update_8019() {
+  $query = \Drupal::entityQuery('ymca_retention_member')
+    ->condition('mail', '**', 'CONTAINS');
+  $result = $query->execute();
+  $members = Member::loadMultiple($result);
+  /** @var Member $member */
+  foreach($members as $member) {
+    $email = $member->getPersonifyEmail();
+    if (Unicode::substr($email, -1, 1) == '.') {
+      $email = Unicode::substr($email, 0, (Unicode::strlen($email) - 1));
+    }
+    if (Unicode::substr($email, 0, 1) == '/') {
+      $email = Unicode::substr($email, 1, Unicode::strlen($email));
+    }
+    $member->setEmail($email);
+    $member->setPersonifyEmail($email);
+    $member->save();
+  }
+}
+
+/**
+ * Fix members with empty email.
+ */
+function ymca_retention_update_8020() {
+  $query = \Drupal::entityQuery('ymca_retention_member')
+    ->notExists('mail');
+  $result = $query->execute();
+  $members = Member::loadMultiple($result);
+  /** @var Member $member */
+  foreach($members as $member) {
+    $email = $member->getPersonifyEmail();
+    if (Unicode::substr($email, -1, 1) == '.') {
+      $email = Unicode::substr($email, 0, (Unicode::strlen($email) - 1));
+    }
+    if (Unicode::substr($email, 0, 1) == '/') {
+      $email = Unicode::substr($email, 1, Unicode::strlen($email));
+    }
+    $member->setEmail($email);
+    $member->setPersonifyEmail($email);
+    $member->save();
+  }
 }
