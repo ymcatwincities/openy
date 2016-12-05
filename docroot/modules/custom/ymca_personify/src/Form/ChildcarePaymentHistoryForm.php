@@ -91,9 +91,9 @@ class ChildcarePaymentHistoryForm extends FormBase {
    */
   public function getChildOptions() {
     $options = ['all' => $this->t('All')];
-    // Set start date as 2006-01-01 to get children options.
+    // Set start date as 2014-01-01 to get children options.
     $parameters = [
-      'start_date' => '2006-01-01',
+      'start_date' => '2014-01-01',
       'end_date' => $this->state['end_date'],
     ];
     $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
@@ -213,7 +213,6 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $content['total'] = 0;
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
       foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
-        //$receipt['ActualPostedPaidAmount'] = 50.33;
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
         $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
