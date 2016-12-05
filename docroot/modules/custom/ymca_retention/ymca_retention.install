@@ -8,7 +8,6 @@
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\Component\Utility\Unicode;
 use Drupal\ymca_retention\Entity\Member;
 
 /**
@@ -353,6 +352,22 @@ function ymca_retention_update_8018() {
 function ymca_retention_update_8019() {
   $query = \Drupal::entityQuery('ymca_retention_member')
     ->condition('mail', '**', 'CONTAINS');
+  $result = $query->execute();
+  $members = Member::loadMultiple($result);
+  /* @var Member $member */
+  foreach ($members as $member) {
+    $email = ymca_retention_clean_personify_email($member->getPersonifyEmail());
+    $member->setEmail($email);
+    $member->setPersonifyEmail($email);
+    $member->save();
+  }
+}
+
+/**
+ * Fix members with empty email.
+ */
+function ymca_retention_update_8020() {
+  $query = \Drupal::entityQuery('ymca_retention_member')->notExists('mail');
   $result = $query->execute();
   $members = Member::loadMultiple($result);
   /* @var Member $member */
