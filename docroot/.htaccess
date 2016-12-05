@@ -72,6 +72,11 @@ AddEncoding gzip svgz
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
+  # https redirect
+  RewriteCond %{HTTP_HOST} ^ymcamn\.org [NC]
+  RewriteCond %{SERVER_PORT} 80
+  RewriteRule ^(.*)$ https://www.ymcamn.org/$1 [R,L]
+
   RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC,OR]
   RewriteCond %{HTTP_HOST} ^ymcamn.org [NC,OR]
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
