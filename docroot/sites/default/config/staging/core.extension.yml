@@ -1,5 +1,4 @@
 module:
-  ab: 0
   acquia_connector: 0
   acquia_purge: 0
   action: 0
@@ -76,6 +75,7 @@ module:
   mindbody: 0
   mindbody_cache_proxy: 0
   node: 0
+  openy_hf: 0
   options: 0
   page_cache: 0
   page_manager: 0
@@ -86,6 +86,7 @@ module:
   path: 0
   personify_mindbody_sync: 0
   personify_sso: 0
+  phpunit_tdd: 0
   purge: 0
   purge_drush: 0
   purge_processor_cron: 0
