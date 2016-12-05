@@ -114,6 +114,7 @@ class InstantWin {
    *   Member entity.
    * @param int $value
    *   Prize value in dollars.
+   *
    * @return bool|string
    *   False or order id.
    */
