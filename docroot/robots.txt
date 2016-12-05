@@ -80,5 +80,5 @@ Disallow: *?filter_length
 Disallow: *?location
 Disallow: *catalog_search_panel
 
-Sitemap: http://www.ymcamn.org/sitemap.xml
+Sitemap: https://www.ymcamn.org/sitemap.xml
 Sitemap: http://redwingymca.org/sitemap.xml
