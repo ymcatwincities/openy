@@ -21,7 +21,7 @@ class FixMembersForm extends FormBase {
    *
    * @var \Drupal\ymca_retention\InstantWin
    */
-  protected $instant_win;
+  protected $instantWin;
 
   /**
    * FixMembersForm constructor.
@@ -30,7 +30,7 @@ class FixMembersForm extends FormBase {
    *   Instant win service.
    */
   public function __construct(InstantWin $instant_win) {
-    $this->instant_win = $instant_win;
+    $this->instantWin = $instant_win;
   }
 
   /**
@@ -130,9 +130,6 @@ class FixMembersForm extends FormBase {
         $result = $query->execute();
         $chances = MemberChance::loadMultiple($result);
 
-        /* @var \Drupal\ymca_retention\InstantWin $instant_win */
-        $instant_win = \Drupal::service('ymca_retention.instant_win');
-
         $count = 0;
         /* @var \Drupal\ymca_retention\Entity\MemberChance $chance */
         foreach ($chances as $chance) {
@@ -147,7 +144,7 @@ class FixMembersForm extends FormBase {
             $count++;
           }
           else {
-            $order = $instant_win->generateTangoCardPrize($member, $chance->get('value')->value);
+            $order = $this->instantWin->generateTangoCardPrize($member, $chance->get('value')->value);
             if ($order) {
               $chance->set('order_id', $order->order_id);
               $count++;
