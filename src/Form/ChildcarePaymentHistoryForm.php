@@ -11,6 +11,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Url;
 
 /**
@@ -261,6 +262,10 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $formatted_results = $this->formatResults($results);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#childcare-payment-history-form-wrapper .results', $formatted_results));
+    if ($parameters['child'] !== 'all') {
+      $response->addCommand(new CssCommand('#childcare-payment-history-form-wrapper .child', ['display' => 'none']));
+      $response->addCommand(new CssCommand('#childcare-payment-history-form-wrapper .child-' . $parameters['child'], ['display' => 'table']));
+    }
     $form_state->setRebuild();
     return $response;
   }
