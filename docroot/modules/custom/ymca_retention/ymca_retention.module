@@ -14,6 +14,7 @@ use Drupal\ymca_retention\PersonifyApi;
 use Drupal\ymca_retention\Entity\MemberCheckIn;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\views\ViewExecutable;
+use Drupal\Component\Utility\Unicode;
 
 /**
  * Implements hook_form_alter().
@@ -43,7 +44,9 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
     case 'views-exposed-form-ymca-retention-member-prizes-ymca-retention-prizes':
       $date = new \DateTime();
       $date->setTime(0, 0, 0);
-      $form['date_win']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $form['date_win_start']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
+      $date->setTime(23, 59, 59);
+      $form['date_win_end']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['member_id']['#attributes']['placeholder'] = t('Member ID');
       $form['amount']['#attributes']['placeholder'] = t('Amount');
       // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
@@ -508,4 +511,24 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
 function ymca_retention_query_ymca_retention_visit_goal_alter(AlterableInterface $query) {
   // Select only those who reached the visits goal.
   $query->where('ymca_retention_member.total_visits >= ymca_retention_member.visit_goal');
+}
+
+/**
+ * Clean email from Personify.
+ *
+ * @param string $email
+ *   Email.
+ *
+ * @return string
+ *   Email.
+ */
+function ymca_retention_clean_personify_email($email) {
+  if (Unicode::substr($email, -1, 1) == '.') {
+    $email = Unicode::substr($email, 0, Unicode::strlen($email) - 1);
+  }
+  if (Unicode::substr($email, 0, 1) == '/') {
+    $email = Unicode::substr($email, 1, Unicode::strlen($email));
+  }
+
+  return $email;
 }

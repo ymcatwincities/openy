@@ -478,7 +478,7 @@ body {
   padding-top: 9px;
   padding-right: inherit;
   width: 80% !important;
-  height: auto;
+  height: 100vh;
   border-right: 5px solid #272727;
   background: #414141;
   -webkit-overflow-scrolling: touch;
