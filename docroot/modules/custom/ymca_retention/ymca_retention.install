@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\ymca_retention\Entity\Member;
 
 /**
  * Update YMCA Retention Members view.
@@ -343,4 +344,21 @@ function ymca_retention_update_8018() {
   \Drupal::service('config_import.importer')->importConfigs([
     'sites/default/config/staging/views.view.ymca_retention_member_prizes.yml',
   ]);
+}
+
+/**
+ * Fix members which have *** in their emails.
+ */
+function ymca_retention_update_8019() {
+  $query = \Drupal::entityQuery('ymca_retention_member')
+    ->condition('mail', '**', 'CONTAINS');
+  $result = $query->execute();
+  $members = Member::loadMultiple($result);
+  /* @var Member $member */
+  foreach ($members as $member) {
+    $email = ymca_retention_clean_personify_email($member->getPersonifyEmail());
+    $member->setEmail($email);
+    $member->setPersonifyEmail($email);
+    $member->save();
+  }
 }
