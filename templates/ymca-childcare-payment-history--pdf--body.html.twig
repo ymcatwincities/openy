@@ -15,12 +15,12 @@
       {{ content.today_date }}
     </div>
     <div class="document_info">
-      <p class="first">YMCA Child Care Payment Report</p>
-      <p>YMCA of the Greater Twin Cities</p>
+      <p class="first">{{ 'YMCA Child Care Payment Report'|t }}</p>
+      <p>{{ 'YMCA of the Greater Twin Cities'|t }}</p>
       <p>{{ content.childcare_pdf_address_line1 }}</p>
       <p>{{ content.childcare_pdf_address_line2 }}</p>
     </div>
-    <div class="tax_id">YMCA Tax ID: {{ content.childcare_pdf_tax_id }}</div>
+    <div class="tax_id">{{ 'YMCA Tax ID:'|t }} {{ content.childcare_pdf_tax_id }}</div>
     <div class="customer_info">
       <p>{{ content.customer_info.name }}</p>
       <p>{{ content.customer_info.address_line }}</p>
