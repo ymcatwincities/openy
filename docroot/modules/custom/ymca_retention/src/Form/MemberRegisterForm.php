@@ -203,7 +203,6 @@ class MemberRegisterForm extends FormBase {
       $form_state->set('membership_id', $membership_id);
     }
 
-
     if (empty($personify_member)) {
       // Get information about member from Personify and validate entered membership ID.
       $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
