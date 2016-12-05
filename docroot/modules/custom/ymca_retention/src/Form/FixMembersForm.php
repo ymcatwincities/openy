@@ -65,6 +65,15 @@ class FixMembersForm extends FormBase {
         '@count' => empty($members_count) ? 0 : count($members_count),
       ]),
     ];
+    $query = \Drupal::entityQuery('ymca_retention_member')
+      ->notExists('personify_email')
+      ->notExists('mail');
+    $members_count = $query->execute();
+    $form['statistics']['members_no_email'] = [
+      '#markup' => $this->t('<p>@count members without both emails</p>', [
+        '@count' => empty($members_count) ? 0 : count($members_count),
+      ]),
+    ];
 
     $query = \Drupal::entityQuery('ymca_retention_member_chance')
       ->condition('winner', 1)
@@ -92,7 +101,7 @@ class FixMembersForm extends FormBase {
     );
     $form['actions']['send_prizes'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Send prizes to just fixed users.'),
+      '#value' => $this->t('Send prizes to winners'),
       '#button_type' => 'secondary',
     );
 
