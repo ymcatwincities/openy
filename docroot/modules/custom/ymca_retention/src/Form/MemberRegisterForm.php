@@ -168,7 +168,7 @@ class MemberRegisterForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $config = $form_state->getBuildInfo()['args'][0];
-    $membership_id = $form_state->getValue('membership_id');
+    $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
@@ -198,6 +198,10 @@ class MemberRegisterForm extends FormBase {
       $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please sign in.'));
       return;
     }
+    if (empty($membership_id)) {
+      $membership_id = trim($form_state->getValue('membership_id'));
+      $form_state->set('membership_id', $membership_id);
+    }
 
     if (empty($personify_member)) {
       // Get information about member from Personify and validate entered membership ID.
@@ -215,7 +219,9 @@ class MemberRegisterForm extends FormBase {
       }
       else {
         $form_state->set('personify_member', $personify_result);
-        $form_state->set('personify_email', Unicode::strtolower($personify_result->PrimaryEmail));
+        $email = Unicode::strtolower($personify_result->PrimaryEmail);
+        $email = ymca_retention_clean_personify_email($email);
+        $form_state->set('personify_email', $email);
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
         }
@@ -281,7 +287,7 @@ class MemberRegisterForm extends FormBase {
   protected function createEntity(FormStateInterface $form_state) {
     $config = $form_state->getBuildInfo()['args'][0];
     // Get form values.
-    $membership_id = $form_state->getValue('membership_id');
+    $membership_id = $form_state->get('membership_id');
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
