@@ -348,7 +348,7 @@ function ymca_retention_update_8018() {
 }
 
 /**
- * Fix members which have *** in their emails
+ * Fix members which have *** in their emails.
  */
 function ymca_retention_update_8019() {
   $query = \Drupal::entityQuery('ymca_retention_member')
