@@ -1,4 +1,4 @@
-YMCA Vagrant Dev box for CIBox support.
+YGTC Vagrant Dev box for CIBox support.
 ======
 
 #Installation
