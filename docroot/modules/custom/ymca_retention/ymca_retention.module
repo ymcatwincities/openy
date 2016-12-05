@@ -14,6 +14,7 @@ use Drupal\ymca_retention\PersonifyApi;
 use Drupal\ymca_retention\Entity\MemberCheckIn;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\views\ViewExecutable;
+use Drupal\Component\Utility\Unicode;
 
 /**
  * Implements hook_form_alter().
@@ -510,4 +511,24 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
 function ymca_retention_query_ymca_retention_visit_goal_alter(AlterableInterface $query) {
   // Select only those who reached the visits goal.
   $query->where('ymca_retention_member.total_visits >= ymca_retention_member.visit_goal');
+}
+
+/**
+ * Clean email from Personify.
+ *
+ * @param string $email
+ *   Email.
+ *
+ * @return string
+ *   Email.
+ */
+function ymca_retention_clean_personify_email($email) {
+  if (Unicode::substr($email, -1, 1) == '.') {
+    $email = Unicode::substr($email, 0, Unicode::strlen($email) - 1);
+  }
+  if (Unicode::substr($email, 0, 1) == '/') {
+    $email = Unicode::substr($email, 1, Unicode::strlen($email));
+  }
+
+  return $email;
 }
