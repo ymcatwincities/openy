@@ -224,7 +224,8 @@ class MemberLoginForm extends FormBase {
       }
       // Get membership id and try find it in database.
       $membership_id = $form_state->getValue('membership_id');
-      $query = \Drupal::entityQuery('ymca_retention_member')->condition('membership_id', $membership_id);
+      $query = \Drupal::entityQuery('ymca_retention_member')
+        ->condition('membership_id', $membership_id);
 
       if ($mail = $form_state->getValue('mail')) {
         $query->condition('mail', $mail);
