@@ -369,4 +369,3 @@ function ymca_retention_update_8019() {
     $member->save();
   }
 }
-
