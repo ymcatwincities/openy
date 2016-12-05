@@ -28,10 +28,11 @@ settings:
       branch: branch
       camp: camp
       landing: landing
+      page: page
       testimonial: testimonial
     sort:
       field: nid
       direction: ASC
     auto_create: false
-    auto_create_bundle: page
+    auto_create_bundle: alert
 field_type: entity_reference
