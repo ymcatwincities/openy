@@ -48,7 +48,7 @@ class MemberRegisterForm extends FormBase {
 
     if (empty($membership_id) || $config['yteam']) {
       $form['membership_id'] = [
-        '#type' => 'number',
+        '#type' => 'textfield',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
@@ -190,16 +190,6 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
-    if (empty($membership_id)) {
-      $membership_id = trim($form_state->getValue('membership_id'));
-      $form_state->set('membership_id', $membership_id);
-      // Numeric validation.
-      if (!is_numeric($membership_id)) {
-        $form_state->setErrorByName('membership_id', $this->t('Member ID should be numeric.'));
-        return;
-      }
-    }
-
     // Check for already registered member.
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
@@ -207,6 +197,10 @@ class MemberRegisterForm extends FormBase {
     if (!empty($result)) {
       $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please sign in.'));
       return;
+    }
+    if (empty($membership_id)) {
+      $membership_id = trim($form_state->getValue('membership_id'));
+      $form_state->set('membership_id', $membership_id);
     }
 
     if (empty($personify_member)) {
@@ -225,7 +219,9 @@ class MemberRegisterForm extends FormBase {
       }
       else {
         $form_state->set('personify_member', $personify_result);
-        $form_state->set('personify_email', Unicode::strtolower($personify_result->PrimaryEmail));
+        $email = Unicode::strtolower($personify_result->PrimaryEmail);
+        $email = ymca_retention_clean_personify_email($email);
+        $form_state->set('personify_email', $email);
         if ($config['yteam']) {
           $form_state->set('email', $form_state->get('personify_email'));
         }
