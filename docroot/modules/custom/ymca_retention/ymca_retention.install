@@ -355,8 +355,8 @@ function ymca_retention_update_8019() {
     ->condition('mail', '**', 'CONTAINS');
   $result = $query->execute();
   $members = Member::loadMultiple($result);
-  /** @var Member $member */
-  foreach($members as $member) {
+  /* @var Member $member */
+  foreach ($members as $member) {
     $email = $member->getPersonifyEmail();
     if (Unicode::substr($email, -1, 1) == '.') {
       $email = Unicode::substr($email, 0, (Unicode::strlen($email) - 1));
@@ -374,12 +374,11 @@ function ymca_retention_update_8019() {
  * Fix members with empty email.
  */
 function ymca_retention_update_8020() {
-  $query = \Drupal::entityQuery('ymca_retention_member')
-    ->notExists('mail');
+  $query = \Drupal::entityQuery('ymca_retention_member')->notExists('mail');
   $result = $query->execute();
   $members = Member::loadMultiple($result);
-  /** @var Member $member */
-  foreach($members as $member) {
+  /* @var Member $member */
+  foreach ($members as $member) {
     $email = $member->getPersonifyEmail();
     if (Unicode::substr($email, -1, 1) == '.') {
       $email = Unicode::substr($email, 0, (Unicode::strlen($email) - 1));
