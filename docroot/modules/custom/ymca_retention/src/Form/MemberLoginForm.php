@@ -9,6 +9,7 @@ use Drupal\Core\Url;
 use Drupal\ymca_retention\Ajax\YmcaRetentionModalHideCommand;
 use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
+use Drupal\ymca_retention\Entity\Member;
 
 /**
  * Member Track activity login form.
@@ -98,6 +99,37 @@ class MemberLoginForm extends FormBase {
         ],
       ],
     ];
+
+    // @todo Fix for members, which already registered and does not have email.
+    $lost_mail = $form_state->getTemporaryValue('lost_mail');
+    if (!empty($lost_mail)) {
+      $membership_id = $form_state->getTemporaryValue('membership_id');
+      $query = \Drupal::entityQuery('ymca_retention_member')
+        ->condition('membership_id', $membership_id)
+        ->notExists('mail')
+        ->notExists('personify_email');
+      $result = $query->execute();
+      if ($result) {
+        $form['lost_mail'] = [
+          '#type' => 'email',
+          '#required' => TRUE,
+          '#attributes' => [
+            'placeholder' => [
+              $this->t('Your email'),
+            ],
+          ],
+          '#element_required_error' => $this->t('Email is required.'),
+          '#element_validate' => [
+            ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
+            $validate,
+          ],
+        ];
+        $form['membership_id'] = [
+          '#type' => 'hidden',
+          '#value' => $membership_id,
+        ];
+      }
+    }
     return $form;
   }
 
@@ -192,7 +224,8 @@ class MemberLoginForm extends FormBase {
       }
       // Get membership id and try find it in database.
       $membership_id = $form_state->getValue('membership_id');
-      $query = \Drupal::entityQuery('ymca_retention_member')->condition('membership_id', $membership_id);
+      $query = \Drupal::entityQuery('ymca_retention_member')
+        ->condition('membership_id', $membership_id);
 
       if ($mail = $form_state->getValue('mail')) {
         $query->condition('mail', $mail);
@@ -213,6 +246,16 @@ class MemberLoginForm extends FormBase {
       }
 
       $form_state->setTemporaryValue('member', reset($result));
+
+      // @todo Fix for members, which already registered and does not have email.
+      $member = Member::load(reset($result));
+      $email = $member->getEmail();
+      $lost_mail = $form_state->getValue('lost_mail');
+      if (empty($email) && empty($lost_mail)) {
+        $form_state->setTemporaryValue('lost_mail', TRUE);
+        $form_state->setTemporaryValue('membership_id', $membership_id);
+        $form_state->setRebuild();
+      }
     }
   }
 
@@ -223,6 +266,16 @@ class MemberLoginForm extends FormBase {
     $member_id = $form_state->getTemporaryValue('member');
 
     AnonymousCookieStorage::set('ymca_retention_member', $member_id);
+
+    // @todo Fix for members, which already registered and does not have email.
+    $lost_mail = $form_state->getValue('lost_mail');
+    if (!empty($lost_mail)) {
+      /* @var Member $member */
+      $member = Member::load($member_id);
+      $member->setEmail($lost_mail);
+      $member->setPersonifyEmail($lost_mail);
+      $member->save();
+    }
   }
 
 }
