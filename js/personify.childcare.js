@@ -40,7 +40,7 @@
         }
       });
 
-      $('.childcare-payment-history-form .js-form-item-child select', context).on('change', function() {
+      $('.childcare-payment-history-form .js-form-item-child select', context).on('change ajaxSuccess', function() {
         var val = $(this).val(),
             pdf_link = $("#childcare-payment-history-form-wrapper .download_pdf"),
             href = pdf_link.attr('href').replace(/child=(.*)/g, 'child=' + val);
