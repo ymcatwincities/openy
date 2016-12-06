@@ -209,13 +209,15 @@ class PersonifyController extends ControllerBase {
         $content['children'][$key]['name'] = $name;
         $content['children'][$key]['id'] = $receipt['ShipMasterCustomerId'];
         $content['children'][$key]['total'] += $receipt['ActualPostedPaidAmount'];
+        $content['children'][$key]['total'] = number_format($content['children'][$key]['total'], 2, '.', '');
         $content['children'][$key]['receipts'][] = [
           'order' => $receipt['OrderAndLineNumber'],
           'description' => $receipt['Description'],
           'date' => $date,
-          'amount' => $receipt['ActualPostedPaidAmount'],
+          'amount' => number_format($receipt['ActualPostedPaidAmount'], 2, '.', ''),
         ];
       }
+      $content['total'] = number_format($content['total'], 2, '.', '');
     }
     return $content;
   }
