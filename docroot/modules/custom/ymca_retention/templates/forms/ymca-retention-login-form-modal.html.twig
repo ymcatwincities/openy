@@ -26,7 +26,12 @@
     {% endif %}
     {% if form.membership_id is defined %}
       <div class="col-sm-9">
-        {{ form.mail }}
+        {% if form.mail is defined %}
+          {{ form.mail }}
+        {% endif %}
+        {% if form.lost_mail is defined %}
+          {{ form.lost_mail }}
+        {% endif %}
         {{ form.membership_id }}
       </div>
     {% endif %}
@@ -49,5 +54,5 @@
       </a>
     </div>
   </div>
-  {{ form|without('mail', 'membership_id', 'submit', 'messages') }}
+  {{ form|without('mail', 'lost_mail', 'membership_id', 'submit', 'messages') }}
 </div>
