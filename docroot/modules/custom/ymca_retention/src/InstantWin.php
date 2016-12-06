@@ -114,6 +114,9 @@ class InstantWin {
    *   Member entity.
    * @param int $value
    *   Prize value in dollars.
+   *
+   * @return bool|string
+   *   False or order id.
    */
   public function generateTangoCardPrize(Member $member, $value) {
     $product_pool = $this->configFactory->get('ymca_retention.instant_win')->get('product_pool_keyed');
@@ -141,7 +144,7 @@ class InstantWin {
         $product->unit_price == -1 ? $value * 100 : NULL
       );
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       return FALSE;
     }
 
