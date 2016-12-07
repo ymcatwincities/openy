@@ -1243,7 +1243,7 @@ function ymca_get_theme_styles() {
     $styles .= 'body .masthead {background: ' . $header_background_color_base . ';}';
   }
   if ($header_sub_background_color = theme_get_setting('header_sub_background_color')) {
-    $styles .= 'body .masthead-menu {background: ' . $header_sub_background_color . ';}';
+    $styles .= 'body .masthead-menu {background: ' . $header_sub_background_color . ' !important;}';
   }
   if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
     $site_section_bundle = $site_section->bundle();

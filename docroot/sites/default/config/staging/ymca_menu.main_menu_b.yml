@@ -2,17 +2,17 @@ items:
   5101:
     show: '1'
     overview: 0
-  5156:
+  5221:
+    show: '1'
+    overview: 0
+  5161:
     show: '1'
     overview: '1'
-  5161:
+  5156:
     show: '1'
     overview: '1'
   5136:
     show: '1'
-    overview: 0
-  5221:
-    show: 0
     overview: 0
   2148:
     show: 0

@@ -13,9 +13,16 @@ url_cart: http://ygtcprod2.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingCa
 # customer_orders_password: ffwuser1
 # Train2 environment.
 # customer_orders_endpoint: http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder
+# childcare_endpoint: http://ygtctrain2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
 # customer_orders_username: Alex.Schedrov
 # customer_orders_password: A!ex!23
 # Prod environment.
 customer_orders_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder
 customer_orders_username: ALEX.SCHEDROV
 customer_orders_password: Helpdesk01
+childcare_authorization: 'Basic QWxleC5TY2hlZHJvdjpIZWxwZGVzazAx'
+childcare_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
+childcare_pdf_address_line1: 2125 E. Hennepin Avenue, Suite 100
+childcare_pdf_address_line2: Minneapolis, MN 55413-2720
+childcare_pdf_tax_id: 45-2563299
+is_enabled_childcare_test_user: 0
