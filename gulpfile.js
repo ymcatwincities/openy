@@ -34,7 +34,6 @@ var path = {
         js              : 'prototypes/js/**/*.js',
         style           : [
             'prototypes/scss/screen.scss',
-            'prototypes/scss/bootstrap.scss',
             'prototypes/scss/docs.scss'
         ],
         img             : 'prototypes/images/**/*.*',
@@ -96,7 +95,9 @@ gulp.task('js:build', function(){
 
 gulp.task('style:build', function(){
     gulp.src(path.src.style)
+        .pipe(sourcemaps.init())
         .pipe(sass.sync().on('error', sass.logError))
+        .pipe(sourcemaps.write())
         .pipe(autoprefixer({
             browsers : ['last 9 versions', 'ie 9', '> 1%']
         }))

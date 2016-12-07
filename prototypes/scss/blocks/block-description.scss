@@ -1,0 +1,56 @@
+.block-description {
+  &--wrapper {
+    @extend %decor--flex;
+    @extend %decor--flex-wrap;
+  }
+
+  &--text {
+    border-top: 2px solid $color-gray-d;
+    padding: 12px 0;
+    margin: 0 10px;
+
+    @include breakpoint(tablet){
+      margin: 0 20px;
+      padding: 24px 0;
+      width: calc(50% - 40px);
+
+      &:first-child,
+      &:last-child {
+        width: calc(50% - 20px);
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    h4 {
+      font-family: $font-cachet-book;
+      font-weight: normal;
+      font-size: 26px;
+      line-height: lh(30, 26);
+      color: $color-violet;
+      margin: 0 0 10px;
+
+      @include breakpoint(tablet){
+        font-size: 36px;
+        line-height: lh(40, 36);
+      }
+    }
+
+    p {
+      font-size: 13px;
+      line-height: lh(20, 13);
+      margin: 0 0 10px 0;
+
+      @include breakpoint(tablet){
+        font-size: 15px;
+        line-height: lh(22, 15);
+      }
+    }
+  }
+}
