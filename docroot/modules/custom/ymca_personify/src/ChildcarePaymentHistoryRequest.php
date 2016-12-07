@@ -63,8 +63,8 @@ class ChildcarePaymentHistoryRequest {
     $this->client = $client;
     $this->config = $config;
     $this->logger = $logger_factory->get('ymca_personify');
-    $settings = $this->config->get('personify_mindbody_sync.settings');
-    $this->isProduction = (bool) $settings->get('is_production');
+    $settings = $this->config->get('ymca_personify.settings');
+    $this->isEnabledTestUser = (bool) $settings->get('is_enabled_childcare_test_user');
   }
 
   /**
@@ -82,7 +82,7 @@ class ChildcarePaymentHistoryRequest {
     $start_date = !empty($parameters['start_date']) ? DrupalDateTime::createFromTimestamp(strtotime($parameters['start_date']))->format('Y-m-d') . 'T12:00:00' : '';
     $end_date = !empty($parameters['end_date']) ? DrupalDateTime::createFromTimestamp(strtotime($parameters['end_date']))->format('Y-m-d') . 'T12:00:00' : '';
     $client_id = isset($_COOKIE['Drupal_visitor_personify_id']) ? $_COOKIE['Drupal_visitor_personify_id'] : '';
-    if (!$this->isProduction) {
+    if ($this->isEnabledTestUser) {
       $client_id = self::TEST_USER_ID;
     }
     $options = [
