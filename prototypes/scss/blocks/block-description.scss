@@ -12,12 +12,6 @@
     @include breakpoint(tablet){
       margin: 0 20px;
       padding: 24px 0;
-      width: calc(50% - 40px);
-
-      &:first-child,
-      &:last-child {
-        width: calc(50% - 20px);
-      }
 
       &:first-child {
         margin-left: 0;
@@ -27,6 +21,7 @@
         margin-right: 0;
       }
     }
+
 
     h4 {
       font-family: $font-cachet-book;
@@ -50,6 +45,32 @@
       @include breakpoint(tablet){
         font-size: 15px;
         line-height: lh(22, 15);
+      }
+    }
+  }
+
+  &--2 {
+    .block-description--text {
+      @include breakpoint(tablet){
+        width: calc(100% / 2 - 40px);
+
+        &:first-child,
+        &:last-child {
+          width: calc(100% / 2 - 20px);
+        }
+      }
+    }
+  }
+
+  &--3 {
+    .block-description--text {
+      @include breakpoint(tablet){
+        width: calc(100% / 3 - 40px);
+
+        &:first-child,
+        &:last-child {
+          width: calc(100% / 3 - 20px);
+        }
       }
     }
   }
