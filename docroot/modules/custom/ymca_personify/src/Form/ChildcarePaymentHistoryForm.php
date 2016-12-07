@@ -11,6 +11,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Url;
 
 /**
@@ -91,9 +92,9 @@ class ChildcarePaymentHistoryForm extends FormBase {
    */
   public function getChildOptions() {
     $options = ['all' => $this->t('All')];
-    // Set start date as 2006-01-01 to get children options.
+    // Set start date as 2014-01-01 to get children options.
     $parameters = [
-      'start_date' => '2006-01-01',
+      'start_date' => '2014-01-01',
       'end_date' => $this->state['end_date'],
     ];
     $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
@@ -227,13 +228,15 @@ class ChildcarePaymentHistoryForm extends FormBase {
         $content['children'][$key]['name'] = $name;
         $content['children'][$key]['id'] = $receipt['ShipMasterCustomerId'];
         $content['children'][$key]['total'] += $receipt['ActualPostedPaidAmount'];
+        $content['children'][$key]['total'] = number_format($content['children'][$key]['total'], 2, '.', '');
         $content['children'][$key]['receipts'][] = [
           'order' => $receipt['OrderAndLineNumber'],
           'description' => $receipt['Description'],
           'date' => $date,
-          'amount' => $receipt['ActualPostedPaidAmount'],
+          'amount' => number_format($receipt['ActualPostedPaidAmount'], 2, '.', ''),
         ];
       }
+      $content['total'] = number_format($content['total'], 2, '.', '');
     }
     return $content;
   }
@@ -259,6 +262,10 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $formatted_results = $this->formatResults($results);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#childcare-payment-history-form-wrapper .results', $formatted_results));
+    if ($parameters['child'] !== 'all') {
+      $response->addCommand(new CssCommand('#childcare-payment-history-form-wrapper .child', ['display' => 'none']));
+      $response->addCommand(new CssCommand('#childcare-payment-history-form-wrapper .child-' . $parameters['child'], ['display' => 'table']));
+    }
     $form_state->setRebuild();
     return $response;
   }

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Memcache module file.
+ */
+
+
+/**
+ * Log error.
+ *
+ * @param string $context
+ *   Context (class and function name).
+ * @param string $message
+ *   Message to log.
+ * @param int $level
+ *   Error level.
+ */
+function memcache_log_warning($level, $message, $context) {
+  \Drupal::logger('memcache')->log($level, $message, $context);
+}
