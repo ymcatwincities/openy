@@ -1,0 +1,13 @@
+header_replacements:
+  -
+    block_id: 'Disable Mobile Section Lead Copy'
+    selector: '.page-middle .lead-copy'
+  -
+    block_id: 'Disable header'
+    selector: .nav-global
+footer_replacements:
+  -
+    block_id: 'Disable Footer'
+    selector: '#page-footer'
+_core:
+  default_config_hash: YQujmiHzDkcPOFQcexA9cT0yY9p2UdYh3RKZDIS672g
