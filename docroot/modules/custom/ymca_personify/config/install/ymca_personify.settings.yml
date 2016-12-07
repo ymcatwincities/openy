@@ -25,3 +25,4 @@ childcare_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/Pe
 childcare_pdf_address_line1: 2125 E. Hennepin Avenue, Suite 100
 childcare_pdf_address_line2: Minneapolis, MN 55413-2720
 childcare_pdf_tax_id: 45-2563299
+is_enabled_childcare_test_user: 0
