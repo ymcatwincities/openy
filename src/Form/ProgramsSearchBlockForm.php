@@ -77,6 +77,10 @@ class ProgramsSearchBlockForm extends FormBase {
         case 'program':
           $values['step'] = 4;
           break;
+
+        case 'session':
+          $values['step'] = 5;
+          break;
       }
     }
 
@@ -129,27 +133,41 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($values['step'] >= 3) {
+      $items = $this->storage->getProgramsByLocation($values['location']);
+      $programs = [];
+      foreach ($items as $item) {
+        $programs[$item->id] = $item->name;
+      }
+
       $form['program'] = [
         '#type' => 'radios',
-        '#title' => $this->t('Location'),
-        '#options' => $this->storage->getProgramsByLocation($values['location']),
+        '#title' => $this->t('Program'),
+        '#options' => $programs,
         '#ajax' => $ajax,
       ];
     }
 
     if ($values['step'] >= 4) {
-      $link = $this->storage->getRegistrationLinkByProgram($values['program']);
+      $items = $this->storage->getSessionsByProgramAndLocation($values['program'], $values['location']);
+      $sessions = [];
+      foreach ($items as $item) {
+        $sessions[$item->id] = $item->name;
+      }
+
+      $form['session'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Session'),
+        '#options' => $sessions,
+        '#ajax' => $ajax,
+      ];
+    }
+
+    if ($values['step'] >= 5) {
+      $link = $this->storage->getRegistrationLink($values['program'], $values['session']);
       $form['sorry'] = [
         '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link]),
       ];
     }
-
-//    $form['actions'] = ['#type' => 'actions'];
-//
-//    $form['actions']['search'] = [
-//      '#type' => 'submit',
-//      '#value' => $this->t('Search'),
-//    ];
 
     return $form;
   }
