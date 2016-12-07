@@ -4495,3 +4495,10 @@ function ymca_master_update_8199() {
     ]
   );
 }
+
+/**
+ * Enable memcache module.
+ */
+function ymca_master_update_8200() {
+  \Drupal::service('module_installer')->install(['memcache'], TRUE);
+}
