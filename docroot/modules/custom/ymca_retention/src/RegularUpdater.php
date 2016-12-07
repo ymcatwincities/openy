@@ -69,7 +69,7 @@ class RegularUpdater implements RegularUpdaterInterface {
     $diff = $last_run->diff(new \DateTime());
     $diff_hrs = $diff->d * 24 + $diff->h;
     // Check if cron was run less then 12 hrs ago.
-    if ($diff_hrs < 12 || !$allow_often) {
+    if ($diff_hrs < 12 && !$allow_often) {
       return FALSE;
     }
 
