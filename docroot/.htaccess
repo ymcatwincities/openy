@@ -78,7 +78,6 @@ AddEncoding gzip svgz
   RewriteRule ^(.*)$ https://www.ymcamn.org/$1 [R,L]
 
   RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC,OR]
-  RewriteCond %{HTTP_HOST} ^ymcamn.org [NC,OR]
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://www.ymcamn.org/$1 [L,R=301,NC]
