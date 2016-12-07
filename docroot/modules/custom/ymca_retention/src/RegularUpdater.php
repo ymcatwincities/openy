@@ -62,11 +62,14 @@ class RegularUpdater implements RegularUpdaterInterface {
   /**
    * {@inheritdoc}
    */
-  public function isAllowed() {
+  public function isAllowed($allow_often = FALSE) {
     $config = $this->configFactory->getEditable('ymca_retention.cron_settings');
-    $last_run = $config->get('last_run');
-    // Check if cron was run today.
-    if (date('D/M/Y') == date('D/M/Y', $last_run)) {
+    $last_run = new \DateTime();
+    $last_run->setTimestamp($config->get('last_run'));
+    $diff = $last_run->diff(new \DateTime());
+    $diff_hrs = $diff->d * 24 + $diff->h;
+    // Check if cron was run less then 12 hrs ago.
+    if ($diff_hrs < 12 || !$allow_often) {
       return FALSE;
     }
 
