@@ -14,3 +14,16 @@
 @import "./structs/footer";
 
 @import "./blocks/block-description";
+
+
+//refactorig
+
+.toolbar-horizontal {
+  .navbar-fixed-top {
+    top: 79px;
+  }
+
+  header {
+    padding-bottom: 40px;
+  }
+}
