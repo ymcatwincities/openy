@@ -15,8 +15,7 @@
 
 @import "./blocks/block-description";
 
-
-//refactorig
+/// @todo Below is a list of temporary elements to be removed after the theming header
 
 .toolbar-horizontal {
   .navbar-fixed-top {
@@ -25,5 +24,11 @@
 
   header {
     padding-bottom: 40px;
+  }
+}
+
+.toolbar-vertical {
+  .navbar-fixed-top {
+    position: static;
   }
 }
