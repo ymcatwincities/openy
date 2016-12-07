@@ -95,7 +95,7 @@ class SettingsCronForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
     if ($button['#button_type'] == 'primary') {
-      if ($this->regularUpdater->isAllowed()) {
+      if ($this->regularUpdater->isAllowed(TRUE)) {
         $this->regularUpdater->createQueue();
         drupal_set_message($this->t('Queue successfully created.'));
       }
