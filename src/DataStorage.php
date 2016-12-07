@@ -3,6 +3,7 @@
 namespace Drupal\ygh_programs_search;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Url;
 use Drupal\daxko\DaxkoClientInterface;
 
 /**
@@ -71,35 +72,81 @@ class DataStorage implements DataStorageInterface {
    *   List of programs.
    */
   public function getProgramsByLocation($location_id) {
-    $programs = [];
+    $data = [];
 
     $cid = 'ygh_programs_search_get_programs_by_location_' . $location_id;
     if ($cache = $this->cache->get($cid)) {
-      $programs = $cache->data;
+      $data = $cache->data;
     }
     else {
-      $items = $this->client->getSessions(['branch' => $location_id]);
-      foreach ($items as $program) {
-        $programs[$program->id] = $program->programName;
-      }
-      $this->cache->set($cid, $programs);
+      $data = $this->client->getPrograms(['branch' => $location_id]);
+      $this->cache->set($cid, $data);
     }
 
-    return $programs;
+    return $data;
   }
 
   /**
-   * Get registration link By Program.
+   * Get sessions by Program ID & Location ID.
    *
    * @param int $program_id
    *   Program ID.
+   * @param int $location_id
+   *   Location ID.
+   *
+   * @return array
+   *   List of sessions.
+   */
+  public function getSessionsByProgramAndLocation($program_id, $location_id) {
+    $data = [];
+
+    $cid = 'ygh_programs_search_get_sessions_by_program_and_location_' . $program_id . '_' . $location_id;
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $data = $this->client->getSessions(
+        [
+          'program' => $program_id,
+          'branch' => $location_id,
+        ]
+      );
+      $this->cache->set($cid, $data);
+    }
+
+    return $data;
+  }
+
+  /**
+   * Get registration link.
+   *
+   * @param int $program_id
+   *   Program ID.
+   * @param int $session_id
+   *   Session ID.
    *
    * @return string
    *   Registration link.
    */
-  public function getRegistrationLinkByProgram($program_id) {
-    // @todo Implement this.
-    return 'LINK';
+  public function getRegistrationLink($program_id, $session_id) {
+    $uri = 'https://operations.daxko.com/Online/4003/Programs/Search.mvc/details';
+
+    $query = [
+      'program_id' => $program_id,
+      'session_ids' => $session_id,
+    ];
+
+    $path = Url::fromUri(
+      $uri,
+      [
+        'query' => $query,
+        'absolute' => TRUE,
+        'https' => TRUE,
+      ]
+    );
+
+    $link = \Drupal::l('link', $path);
+    return $link;
   }
 
 }
