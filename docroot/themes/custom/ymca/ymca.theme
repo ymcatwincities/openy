@@ -1250,10 +1250,10 @@ function ymca_get_theme_styles() {
     switch ($site_section_bundle) {
       case 'location':
         if ($header_background_color_locations = theme_get_setting('header_background_color_locations')) {
-          $styles .= 'body .location-masthead {background: ' . $header_background_color_locations . ';}';
+          $styles .= 'body .location-masthead {background: ' . $header_background_color_locations . ' !important;}';
         }
         if ($header_sub_background_color_locations = theme_get_setting('header_sub_background_color_locations')) {
-          $styles .= 'body .location-details.masthead-menu {background: ' . $header_sub_background_color_locations . ';}';
+          $styles .= 'body .location-details.masthead-menu {background: ' . $header_sub_background_color_locations . ' !important;}';
         }
         if ($header_buttons_color1_locations = theme_get_setting('header_buttons_color1_locations')) {
           $styles .= 'body .masthead-button a {background-color: ' . $header_buttons_color1_locations . ';}';
@@ -1268,10 +1268,10 @@ function ymca_get_theme_styles() {
         break;
       case 'camp':
         if ($header_background_color_camps = theme_get_setting('header_background_color_camps')) {
-          $styles .= 'body.ancestor-camps .location-masthead {background: ' . $header_background_color_camps . ';}';
+          $styles .= 'body.ancestor-camps .location-masthead {background: ' . $header_background_color_camps . ' !important;}';
         }
         if ($header_sub_background_color_camps = theme_get_setting('header_sub_background_color_camps')) {
-          $styles .= 'body .location-details.masthead-menu {background: ' . $header_sub_background_color_camps . ';}';
+          $styles .= 'body .location-details.masthead-menu {background: ' . $header_sub_background_color_camps . ' !important;}';
         }
         if ($header_buttons_color1_camps = theme_get_setting('header_buttons_color1_camps')) {
           $styles .= 'body.ancestor-camps .masthead .btn, body.ancestor-camps .btn-primary {background-color: ' . $header_buttons_color1_camps . ';}';
