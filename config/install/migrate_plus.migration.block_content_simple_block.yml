@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_block_content_simple_block
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Create simple blocks'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      description: 'Bock #1 description'
+      title: 'Block #1'
+      body: 'Body for block #1...'
+    -
+      id: 2
+      description: 'Bock #2 description'
+      title: 'Block #2'
+      body: 'Body for block #2...'
+    -
+      id: 3
+      description: 'Footer Social Block'
+      title: ''
+      body: |
+        <ul>
+                      <li>
+                        <a class="item-share--facebook" href="#">facebook</a>
+                      </li>
+                      <li>
+                        <a class="item-share--twitter" href="#">twitter</a>
+                      </li>
+                      <li>
+                        <a class="item-share--youtube" href="#">youtube</a>
+                      </li>
+                    </ul>
+
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    -
+      plugin: default_value
+      default_value: simple_block
+  info:
+    -
+      plugin: get
+      source: description
+  field_sb_title:
+    -
+      plugin: get
+      source: title
+  field_sb_body/value:
+    -
+      plugin: get
+      source: body
+  field_sb_body/format:
+    -
+      plugin: default_value
+      default_value: html
+destination:
+  plugin: entity:block_content
