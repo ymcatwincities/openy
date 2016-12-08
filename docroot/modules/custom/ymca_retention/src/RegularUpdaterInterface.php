@@ -10,10 +10,13 @@ interface RegularUpdaterInterface {
   /**
    * Checks if update is allowed.
    *
+   * @param bool $allow_often
+   *   Allow execute more often.
+   *
    * @return bool
    *   TRUE if the update is allowed, FALSE otherwise.
    */
-  public function isAllowed();
+  public function isAllowed($allow_often = FALSE);
 
   /**
    * Runs update.
