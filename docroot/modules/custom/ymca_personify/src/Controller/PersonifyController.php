@@ -86,6 +86,17 @@ class PersonifyController extends ControllerBase {
   }
 
   /**
+   * Account page.
+   */
+  public function childcareHistoryPage() {
+    $redirect_url = Url::fromRoute('ymca_personify.childcare_payment_history_form')->toString();
+    $redirect = new TrustedRedirectResponse($redirect_url);
+    $redirect->send();
+
+    exit();
+  }
+
+  /**
    * SignOut page.
    */
   public function signOutPage() {
