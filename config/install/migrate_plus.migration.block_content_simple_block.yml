@@ -11,16 +11,19 @@ source:
   data_rows:
     -
       id: 1
+      code:
       description: 'Bock #1 description'
       title: 'Block #1'
       body: 'Body for block #1...'
     -
       id: 2
+      code:
       description: 'Bock #2 description'
       title: 'Block #2'
       body: 'Body for block #2...'
     -
       id: 3
+      code: 'e350fe26-bc73-4c69-af18-a51a052dbcd3'
       description: 'Footer Social Block'
       title: ''
       body: |
@@ -35,7 +38,6 @@ source:
                         <a class="item-share--youtube" href="#">youtube</a>
                       </li>
                     </ul>
-
   ids:
     id:
       type: integer
@@ -44,6 +46,11 @@ process:
     -
       plugin: default_value
       default_value: simple_block
+
+  uuid:
+    -
+      plugin: get
+      source: code
   info:
     -
       plugin: get
