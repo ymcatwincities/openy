@@ -39,6 +39,44 @@ class DataStorage implements DataStorageInterface {
   }
 
   /**
+   * Get schools by location.
+   *
+   * @param int $id
+   *   Location ID.
+   *
+   * @return array
+   *   A list of schools.
+   */
+  public function getSchoolsByLocation($id) {
+    $items = [
+      '1' => 'School #1',
+      '2' => 'School #2',
+      '3' => 'School #3',
+    ];
+
+    return $items;
+  }
+
+  /**
+   * Get programs by school.
+   *
+   * @param int $id
+   *   School ID.
+   *
+   * @return array
+   *   A list of programs.
+   */
+  public function getProgramsBySchool($id) {
+    $items = [
+      '1' => 'Program #1',
+      '2' => 'Program #2',
+      '3' => 'Program #3',
+    ];
+
+    return $items;
+  }
+
+  /**
    * Get locations.
    *
    * @return array
@@ -147,6 +185,21 @@ class DataStorage implements DataStorageInterface {
 
     $link = \Drupal::l('link', $path);
     return $link;
+  }
+
+  /**
+   * Get child registration link.
+   *
+   * @param int $school_id
+   *   School ID.
+   * @param int $program_id
+   *   Program ID.
+   *
+   * @return string
+   *   Registration link.
+   */
+  public function getChildRegistrationLink($school_id, $program_id) {
+    return 'link';
   }
 
 }
