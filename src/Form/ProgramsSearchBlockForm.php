@@ -58,39 +58,13 @@ class ProgramsSearchBlockForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Return ajax default properties.
+   *
+   * @return array
+   *   List of properties.
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
-
-    // Check triggering element to get current step.
-    if ($trigger_element = $form_state->getTriggeringElement()) {
-      switch ($trigger_element['#name']) {
-        case 'type':
-          $values['step'] = 2;
-          break;
-
-        case 'location':
-          $values['step'] = 3;
-          break;
-
-        case 'program':
-          $values['step'] = 4;
-          break;
-
-        case 'session':
-          $values['step'] = 5;
-          break;
-      }
-    }
-
-    // Set default step value.
-    if (!isset($values['step'])) {
-      $values['step'] = 1;
-    }
-
-    // Set default #ajax properties.
-    $ajax = [
+  private function getAjaxDefaults() {
+    return [
       'callback' => [$this, 'rebuildAjaxCallback'],
       'wrapper' => 'programs-search-form-wrapper',
       'event' => 'change',
@@ -98,42 +72,162 @@ class ProgramsSearchBlockForm extends FormBase {
       'effect' => 'fade',
       'progress' => ['type' => 'throbber'],
     ];
+  }
 
-    $form['#prefix'] = '<div id="programs-search-form-wrapper" class="content step-' . $values['step'] . '">';
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    // Set step.
+    $form_state->setValue('step', 1);
+    if ($trigger = $form_state->getTriggeringElement()) {
+      if ('type' == $trigger['#name']) {
+        $form_state->setValue('step', 2);
+      }
+    }
+
+    $form['#prefix'] = '<div id="programs-search-form-wrapper">';
     $form['#suffix'] = '</div>';
-
-    $form['step'] = [
-      '#type' => 'hidden',
-      '#value' => $values['step'],
-    ];
 
     $form['type'] = [
       '#type' => 'radios',
       '#title' => $this->t('Select type'),
-      '#options' => [1 => 'Child Care', 2 => 'Adult'],
-      '#ajax' => $ajax,
+      '#options' => [
+        'child' => $this->t('Child Care'),
+        'adult' => $this->t('Adult'),
+      ],
+      '#ajax' => $this->getAjaxDefaults(),
     ];
 
-    if ($values['step'] >= 2) {
-      // Stop here if user selected not Adult type.
-      if ($values['type'] != 2) {
-        $form['sorry'] = [
-          '#markup' => $this->t('Sorry, this type is not supported yet.'),
-        ];
+    // The form will have 2 separate branches depending on the type.
+    switch ($form_state->getValue('type')) {
+      case 'child':
+        $form = $this->getChildForm($form, $form_state);
+        break;
 
-        return $form;
+      case 'adult':
+        $form = $this->getAdultForm($form, $form_state);
+        break;
+    }
+
+    return $form;
+  }
+
+  /**
+   * Returns $form for child care programs.
+   *
+   * @param array $form
+   *   Form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return array
+   *   Array with form elements.
+   */
+  private function getChildForm($form, FormStateInterface $form_state) {
+    // Get steps for the form.
+    $step = $form_state->getValue('step');
+    if ($trigger = $form_state->getTriggeringElement()) {
+      switch ($trigger['#name']) {
+        case 'location':
+          $step = 3;
+          break;
+
+        case 'school':
+          $step = 4;
+          break;
+
+        case 'program':
+          $step = 5;
+          break;
+
       }
+      $form_state->setValue('step', $step);
+    }
 
+    if ($form_state->getValue('step') >= 2) {
       $form['location'] = [
         '#type' => 'radios',
         '#title' => $this->t('Location'),
         '#options' => $this->storage->getLocations(),
-        '#ajax' => $ajax,
+        '#ajax' => $this->getAjaxDefaults(),
       ];
     }
 
-    if ($values['step'] >= 3) {
-      $items = $this->storage->getProgramsByLocation($values['location']);
+    if ($form_state->getValue('step') >= 3) {
+      $schools = $this->storage->getSchoolsByLocation($form_state->getValue('location'));
+
+      $form['school'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('School'),
+        '#options' => $schools,
+        '#ajax' => $this->getAjaxDefaults(),
+      ];
+    }
+
+    if ($form_state->getValue('step') >= 4) {
+      $programs = $this->storage->getProgramsBySchool($form_state->getValue('school'));
+
+      $form['program'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Programs'),
+        '#options' => $programs,
+        '#ajax' => $this->getAjaxDefaults(),
+      ];
+    }
+
+    if ($form_state->getValue('step') >= 5) {
+      $link = $this->storage->getChildRegistrationLink($form_state->getValue('school'), $form_state->getValue('program'));
+      $form['link'] = [
+        '#markup' => $this->t('Congrats! Here is your program registration link!', ['%link' => $link]),
+      ];
+    }
+
+    return $form;
+  }
+
+  /**
+   * Returns $form for adult programs.
+   *
+   * @param array $form
+   *   Form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return array
+   *   Array with form elements.
+   */
+  private function getAdultForm($form, FormStateInterface $form_state) {
+    // Get steps for the form.
+    $step = $form_state->getValue('step');
+    if ($trigger = $form_state->getTriggeringElement()) {
+      switch ($trigger['#name']) {
+        case 'location':
+          $step = 3;
+          break;
+
+        case 'program':
+          $step = 4;
+          break;
+
+        case 'session':
+          $step = 5;
+          break;
+      }
+      $form_state->setValue('step', $step);
+    }
+
+    if ($form_state->getValue('step') >= 2) {
+      $form['location'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Location'),
+        '#options' => $this->storage->getLocations(),
+        '#ajax' => $this->getAjaxDefaults(),
+      ];
+    }
+
+    if ($form_state->getValue('step') >= 3) {
+      $items = $this->storage->getProgramsByLocation($form_state->getValue('location'));
       $programs = [];
       foreach ($items as $item) {
         $programs[$item->id] = $item->name;
@@ -143,12 +237,13 @@ class ProgramsSearchBlockForm extends FormBase {
         '#type' => 'radios',
         '#title' => $this->t('Program'),
         '#options' => $programs,
-        '#ajax' => $ajax,
+        '#ajax' => $this->getAjaxDefaults(),
       ];
+
     }
 
-    if ($values['step'] >= 4) {
-      $items = $this->storage->getSessionsByProgramAndLocation($values['program'], $values['location']);
+    if ($form_state->getValue('step') >= 4) {
+      $items = $this->storage->getSessionsByProgramAndLocation($form_state->getValue('program'), $form_state->getValue('location'));
       $sessions = [];
       foreach ($items as $item) {
         $sessions[$item->id] = $item->name;
@@ -158,13 +253,13 @@ class ProgramsSearchBlockForm extends FormBase {
         '#type' => 'radios',
         '#title' => $this->t('Session'),
         '#options' => $sessions,
-        '#ajax' => $ajax,
+        '#ajax' => $this->getAjaxDefaults(),
       ];
     }
 
-    if ($values['step'] >= 5) {
-      $link = $this->storage->getRegistrationLink($values['program'], $values['session']);
-      $form['sorry'] = [
+    if ($form_state->getValue('step') >= 5) {
+      $link = $this->storage->getRegistrationLink($form_state->getValue('program'), $form_state->getValue('session'));
+      $form['link'] = [
         '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link]),
       ];
     }
