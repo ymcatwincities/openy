@@ -128,9 +128,9 @@ class RegularUpdater implements RegularUpdaterInterface {
   /**
    * Create Queue.
    *
-   * @param NULL|int $from
+   * @param null|int $from
    *   Timestamp or null.
-   * @param NULL|int $to
+   * @param null|int $to
    *   Timestamp or null.
    */
   public function createQueue($from = NULL, $to = NULL) {
