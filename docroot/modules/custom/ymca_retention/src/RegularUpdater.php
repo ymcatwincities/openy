@@ -127,18 +127,38 @@ class RegularUpdater implements RegularUpdaterInterface {
 
   /**
    * Create Queue.
+   *
+   * @param NULL|int $from
+   *   Timestamp or null.
+   * @param NULL|int $to
+   *   Timestamp or null.
    */
-  public function createQueue() {
+  public function createQueue($from = NULL, $to = NULL) {
     $queue = $this->queueFactory->get('ymca_retention_updates_member_visits');
     $members = $this->entityTypeManager->getStorage('ymca_retention_member')
       ->loadMultiple();
 
+    // Date from.
+    if (empty($from)) {
+      $date_from = new \DateTime();
+      $date_from->setTime(0, 0, 0);
+      $from = $date_from->getTimestamp();
+    }
+
+    // Date To.
+    if (empty($to)) {
+      $date_to = new \DateTime();
+      $date_to->setTime(23, 59, 59);
+      $to = $date_to->getTimestamp();
+    }
+
     /** @var \Drupal\ymca_retention\Entity\Member $member */
     $chunks = array_chunk($members, 100);
+    $data = [
+      'date_from' => $from,
+      'date_to' => $to,
+    ];
     foreach ($chunks as $chunk) {
-      $data = [
-        'date' => time(),
-      ];
       foreach ($chunk as $member) {
         $data['items'][] = [
           'id' => (int) $member->getId(),
