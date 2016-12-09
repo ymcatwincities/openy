@@ -67,7 +67,20 @@ class OrdersListPageController extends ControllerBase {
 
     $page = pager_find_page();
     $this->tangoCardWrapper->setAccount($tango_card_account);
-
+//    $print = '';
+//    for($i=1; $i<=11;  $i++) {
+//      try {
+//
+//        $results = $this->tangoCardWrapper->getOrderHistory($i * 100, 100);
+//        foreach ($results->orders as $order) {
+//          $print .= 'INSERT INTO test_orders VALUES("' . $order->order_id . '","' . $order->recipient->email . '", ' . $order->amount / 100 . ');</br>';
+//        }
+//      }
+//      catch (Exception $e) {
+//
+//      }
+//    }
+//    print $print;die;
     try {
       $results = $this->tangoCardWrapper->getOrderHistory($page * self::PAGE_SIZE, self::PAGE_SIZE);
       $success = $results !== FALSE;
