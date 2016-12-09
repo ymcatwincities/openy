@@ -45,7 +45,10 @@ class SettingsCronForm extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('ymca_retention.regular_updater'), $container->get('date.formatter'));
+    return new static(
+      $container->get('ymca_retention.regular_updater'),
+      $container->get('date.formatter')
+    );
   }
 
   /**
