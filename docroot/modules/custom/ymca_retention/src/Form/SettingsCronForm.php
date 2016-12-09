@@ -174,7 +174,7 @@ class SettingsCronForm extends FormBase {
       ];
     }
     batch_set($batch);
-    drupal_set_message($this->t('Queue has been executed.'));
+    drupal_set_message($this->t('Queue has been processed.'));
   }
 
   /**
