@@ -61,13 +61,13 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       $member = Member::load($item['id']);
       $list_ids[$item['id']] = $member->getPersonifyId();
     }
-    // Date To.
+    // Date From.
     $date_from = new \DateTime();
     $date_from->setTimestamp($data['date_from']);
     if ($date_from < $this->dateOpen) {
       $date_from = $this->dateOpen;
     }
-    // Date from.
+    // Date to.
     $date_to = new \DateTime();
     $date_to->setTimestamp($data['date_to']);
     if ($date_to > $this->dateClose) {
