@@ -26,6 +26,13 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
   protected $dateOpen;
 
   /**
+   * Campaign end date.
+   *
+   * @var \DateTime
+   */
+  protected $dateClose;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
@@ -34,10 +41,13 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
     $settings = \Drupal::config('ymca_retention.general_settings');
     try {
       $this->dateOpen = new \DateTime($settings->get('date_campaign_open'));
+      $this->dateClose = new \DateTime($settings->get('date_campaign_close'));
     }
     catch (\Exception $e) {
       $this->dateOpen = new \DateTime();
       $this->dateOpen->setTime(0, 0, 0);
+      $this->dateClose = new \DateTime();
+      $this->dateClose->setTime(23, 59, 59);
     }
   }
 
@@ -51,18 +61,18 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       $member = Member::load($item['id']);
       $list_ids[$item['id']] = $member->getPersonifyId();
     }
-    // Date from.
+    // Date To.
     $date_from = new \DateTime();
-    $date_from->setTimestamp($data['date']);
-    $date_from->setTime(0, 0, 0);
-    $date_from->sub(new \DateInterval('P1D'));
+    $date_from->setTimestamp($data['date_from']);
     if ($date_from < $this->dateOpen) {
       $date_from = $this->dateOpen;
     }
-
-    // Date To.
-    $date_to = clone $date_from;
-    $date_to->setTime(23, 59, 59);
+    // Date from.
+    $date_to = new \DateTime();
+    $date_to->setTimestamp($data['date_to']);
+    if ($date_to > $this->dateClose) {
+      $date_to = $this->dateClose;
+    }
 
     // Get information about number of checkins in period of the campaign.
     $results = PersonifyApi::getPersonifyVisitsBatch($list_ids, $date_from, $date_to);
