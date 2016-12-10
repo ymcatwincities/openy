@@ -3,6 +3,8 @@
 namespace Drupal\ygs_popups\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\CommandInterface;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\image\Entity\ImageStyle;
@@ -55,8 +57,14 @@ class PopupsController extends ControllerBase {
       $response = new AjaxResponse();
       $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
       $response->setAttachments($form['#attached']);
-      $modal = new OpenModalDialogCommand(t('Select location'), $this->buildPopupContent($node), $this->popupOptions());
-      $response->addCommand($modal);
+      $content = $this->buildPopupContent($node);
+      if ($content instanceof CommandInterface) {
+        $response->addCommand($content);
+      }
+      else {
+        $modal = new OpenModalDialogCommand(t('Select location'), $content, $this->popupOptions());
+        $response->addCommand($modal);
+      }
       return $response;
     }
     else {
@@ -85,17 +93,38 @@ class PopupsController extends ControllerBase {
    */
   public function buildPopupContent($node = FALSE) {
     $destination = isset($_REQUEST['destination']) ? $_REQUEST['destination'] : '';
+
+    if ($node) {
+      // Check special cases (0 or 1 available location).
+      $locations = ClassBranchesForm::getBranchesList($node);
+      $locations = $locations['branch'] + $locations['camp'];
+      switch (count($locations)) {
+        case 0:
+          // Show 'Class unavailable' popup.
+          return new InvokeCommand('#class-unavailable-modal', 'modal', ['show']);
+          break;
+
+        case 1:
+          // Automatically select the only available location.
+          $nid = array_keys($locations)[0];
+          $params = ['location-changed', [[
+            'location' => $nid,
+            'only' => TRUE,
+          ]]];
+          return new InvokeCommand('body', 'trigger', $params);
+        break;
+      }
+      $form = \Drupal::formBuilder()->getForm(ClassBranchesForm::class, $node, $destination);
+    }
+    else {
+      $form = \Drupal::formBuilder()->getForm(BranchesForm::class, $destination);
+    }
+
     $config = \Drupal::config('ygs_popups.settings');
     $img_src = '';
     if ($config->get('img')) {
       $file = File::load($config->get('img'));
       $img_src = ImageStyle::load('locations_popup')->buildUrl($file->getFileUri());
-    }
-    if ($node) {
-      $form = \Drupal::formBuilder()->getForm(ClassBranchesForm::class, $node, $destination);
-    }
-    else {
-      $form = \Drupal::formBuilder()->getForm(BranchesForm::class, $destination);
     }
 
     $content = [
