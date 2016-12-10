@@ -102,7 +102,7 @@ class PopupsController extends ControllerBase {
         case 0:
           // Show 'Class unavailable' popup.
           return new InvokeCommand('#class-unavailable-modal', 'modal', ['show']);
-        break;
+          break;
 
         case 1:
           // Automatically select the only available location.
@@ -113,8 +113,7 @@ class PopupsController extends ControllerBase {
           ];
           $params = ['location-changed', [$event_params]];
           return new InvokeCommand('body', 'trigger', $params);
-        break;
-
+          break;
       }
       $form = \Drupal::formBuilder()->getForm(ClassBranchesForm::class, $node, $destination);
     }
