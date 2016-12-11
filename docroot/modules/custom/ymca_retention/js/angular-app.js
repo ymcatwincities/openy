@@ -241,9 +241,27 @@
         self.instantWinCount = 0;
         self.member_checkins = null;
         self.recent_winners = null;
+        self.last_played_chance = null;
         // Game state.
         self.state = 'game';
       }();
+
+      self.calculateLastPlayedChance = function(data = null) {
+        if (typeof data === 'undefined') {
+          data = self.member_chances;
+        }
+
+        var timestamp = 0;
+        var last_played_chance;
+
+        $.each(data, function(index, value) {
+          if (value.played > timestamp) {
+            last_played_chance = value;
+          }
+        });
+
+        return last_played_chance;
+      };
 
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {
@@ -258,6 +276,7 @@
       };
       self.getMemberChancesById = function(id) {
         return courier.getMemberChances(id).then(function(data) {
+          self.last_played_chance = self.calculateLastPlayedChance(data);
           self.member_chances = data;
         });
       };

@@ -49,17 +49,22 @@
         self.storage.state = 'process';
         self.storage.getMemberPrize().then(function(data) {
           $timeout(function() {
-            var last_played_chance;
-            $.each(data, function(index, value) {
-              if (value.played != '0') {
-                last_played_chance = value;
-              }
-            });
+            var last_played_chance = self.storage.calculateLastPlayedChance(data);
 
-            if (typeof last_played_chance === 'undefined') {
+            if (
+              typeof last_played_chance === 'undefined' ||
+              (
+                typeof self.storage.last_played_chance !== 'undefined' &&
+                self.storage.last_played_chance.id === last_played_chance.id
+              )
+            ) {
+              // It seems this is not an actual play. Let's reset game
+              // without any messages.
               self.resetGame();
+              return;
             }
-            else if (last_played_chance.winner === '1') {
+
+            if (last_played_chance.winner === '1') {
               self.storage.state = 'result.win';
               self.value = last_played_chance.value;
             }
