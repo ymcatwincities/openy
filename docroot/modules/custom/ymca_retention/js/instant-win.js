@@ -39,6 +39,12 @@
         return classes.join(' ');
       };
 
+      self.resetGame = function() {
+        self.storage.getMemberChances().then(function() {
+          self.storage.state = 'game';
+        });
+      };
+
       self.testYourLuck = function() {
         self.storage.state = 'process';
         self.storage.getMemberPrize().then(function(data) {
@@ -50,7 +56,10 @@
               }
             });
 
-            if (last_played_chance.winner === '1') {
+            if (typeof last_played_chance === 'undefined') {
+              self.resetGame();
+            }
+            else if (last_played_chance.winner === '1') {
               self.storage.state = 'result.win';
               self.value = last_played_chance.value;
             }
