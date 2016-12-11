@@ -51,7 +51,7 @@
           {{ 'Check <span>your email</span> to retrieve the Tango Card!'|t }}
         </div>
         <div class="actions">
-          <input type="submit" value="OK" data-ng-click="instantWinC.storage.state = 'game'">
+          <input type="submit" value="OK" data-ng-click="instantWinC.resetGame()">
         </div>
       </div>
 
@@ -60,7 +60,7 @@
         <h3>{{ 'Gosh!'|t }}</h3>
         <p data-ng-bind-html="instantWinC.lossMessage()"></p>
         <div class="actions">
-          <input type="submit" value="OK" data-ng-click="instantWinC.storage.state = 'game'">
+          <input type="submit" value="OK" data-ng-click="instantWinC.resetGame()">
         </div>
       </div>
     </div>

@@ -254,10 +254,10 @@
 
       self.getMemberChances = function() {
         var id = $cookies.get('Drupal.visitor.ymca_retention_member');
-        self.getMemberChancesById(id);
+        return self.getMemberChancesById(id);
       };
       self.getMemberChancesById = function(id) {
-        courier.getMemberChances(id).then(function(data) {
+        return courier.getMemberChances(id).then(function(data) {
           self.member_chances = data;
         });
       };

@@ -52,6 +52,32 @@ class InstantWin {
    *   Member chance entity.
    */
   public function play(Member $member, MemberChance $chance) {
+    // Get the lock.
+    $lock = \Drupal::lock();
+    $lock_id = 'ymca_retention_instant_win:' . $chance->id();
+
+    // Let's avoid concurrent plays on the same chance.
+    if (!$lock->acquire($lock_id)) {
+      // It seems we've got a concurrent play over here.
+      while (!$lock->lockMayBeAvailable($lock_id)) {
+        // Let's wait for the concurrent play to finish.
+        $lock->wait($lock_id);
+      }
+
+      return;
+    }
+
+    $result = $this->queryFactory->get('ymca_retention_member_chance')
+      ->condition('id', $chance->id())
+      ->condition('played', 0)
+      ->execute();
+
+    // Making sure chance has not been played during the current request.
+    if (empty($result)) {
+      $this->lockRelease($chance);
+      return;
+    }
+
     // Staff is not eligible to win prizes.
     if ($member->isMemberEmployee()) {
       $this->chanceLoss($chance);
@@ -66,12 +92,6 @@ class InstantWin {
       return;
     }
 
-    // Get the lock.
-    $lock = \Drupal::lock();
-    while (!$lock->acquire('ymca_retention_instant_win')) {
-      $lock->wait('ymca_retention_instant_win');
-    }
-
     // Try to get the prize.
     if (!$prize = $this->getPrize()) {
       $this->chanceLoss($chance);
@@ -79,9 +99,6 @@ class InstantWin {
     else {
       $this->chanceWin($member, $chance, $prize['value']);
     }
-
-    // Release the lock.
-    $lock->release('ymca_retention_instant_win');
   }
 
   /**
@@ -93,8 +110,10 @@ class InstantWin {
    *   Member chance entity.
    * @param int $value
    *   Prize value in dollars.
+   * @param bool $release_lock
+   *   If TRUE, releases chance playing lock.
    */
-  public function chanceWin(Member $member, MemberChance $chance, $value) {
+  public function chanceWin(Member $member, MemberChance $chance, $value, $release_lock = TRUE) {
     $chance->set('played', time());
     $chance->set('winner', 1);
     $chance->set('value', $value);
@@ -105,6 +124,10 @@ class InstantWin {
     }
 
     $chance->save();
+
+    if ($release_lock) {
+      $this->lockRelease($chance);
+    }
   }
 
   /**
@@ -156,12 +179,19 @@ class InstantWin {
    *
    * @param MemberChance $chance
    *   Member chance entity.
+   * @param bool $release_lock
+   *   If TRUE, releases member playing lock.
    */
-  public function chanceLoss(MemberChance $chance) {
+  public function chanceLoss(MemberChance $chance, $release_lock = TRUE) {
     $chance->set('played', time());
     $chance->set('winner', 0);
     $chance->set('message', $this->lossMessage());
+
     $chance->save();
+
+    if ($release_lock) {
+      $this->lockRelease($chance);
+    }
   }
 
   /**
@@ -228,6 +258,17 @@ class InstantWin {
     }
 
     return $available_prizes;
+  }
+
+  /**
+   * Releases chance playing lock.
+   *
+   * @param MemberChance $chance
+   *   Member chance entity.
+   */
+  protected function lockRelease(MemberChance $chance) {
+    $lock = \Drupal::lock();
+    $lock->release('ymca_retention_instant_win:' . $chance->id());
   }
 
 }
