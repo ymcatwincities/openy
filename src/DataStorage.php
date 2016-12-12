@@ -202,4 +202,157 @@ class DataStorage implements DataStorageInterface {
     return 'link';
   }
 
+  /**
+   * Get custom location stem mapping.
+   *
+   * The function was used by legacy code.
+   *
+   * @param array $locations
+   *   Array of location IDs.
+   *
+   * @return array
+   *   Mapping.
+   */
+  protected function customLocationStem(array $locations) {
+    $locexp = array();
+
+    foreach ($locations as $k => $location) {
+      $locexp[$k] = explode(' ', trim($location));
+      if (count($locexp[$k]) == 1) {
+        $locexp[$k] = explode('-', trim($location));
+      }
+      $initial = array();
+      foreach ($locexp[$k] as $exp) {
+        $initial[] = substr($exp, 0, 1);
+      }
+      if (count($initial) > 1) {
+        $locexp[$k][] = implode('', $initial);
+      }
+      if (count($initial) > 2) {
+        array_pop($initial);
+        $locexp[$k][] = implode('', $initial);
+      }
+    }
+
+    return $locexp;
+  }
+
+  /**
+   * Return array of location names (stripped).
+   *
+   * The function was used by legacy code.
+   *
+   * @return array
+   *   List of locations.
+   */
+  protected function getDaxkoLocationMap() {
+    $cid = 'ygh_programs_search_get_daxko_location_map';
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $locations_data = $branches = $this->client->getBranches(['limit' => 100]);;
+      $data = [];
+      $skip_branches = [
+        107,
+        93,
+        117,
+        129,
+        169,
+        330,
+        333,
+        329,
+        332,
+        331,
+        335,
+        362,
+      ];
+
+      foreach ($locations_data as $location) {
+        if (in_array($location->id, $skip_branches)) {
+          continue;
+        }
+        $name = str_replace('Family YMCA', '', $location->name);
+        $name = str_replace('YMCA', '', $name);
+        $name = str_replace('@6800', '', $name);
+        $name = trim($name);
+        $data[$location->id] = $name;
+      }
+
+      asort($data);
+      $this->cache->set($cid, $data);
+    }
+
+    return $data;
+  }
+
+  /**
+   * Get Location IDs by Childcare Program ID.
+   *
+   * @param int $program_id
+   *   Program ID.
+   *
+   * @return array
+   *   List of location IDs.
+   */
+  public function getLocationsByChildCareProgramId($program_id) {
+    $programMap = [];
+
+    $cid = 'ygh_programs_search_get_locations_by_childcare_program_id';
+    if ($cache = $this->cache->get($cid)) {
+      $programMap = $cache->data;
+    }
+    else {
+      $locations = $this->getDaxkoLocationMap();
+      $locsr = array_flip($locations);
+      $locexp = $this->customLocationStem($locations);
+
+      $programs = $this->client->getChildCarePrograms();
+      foreach ($programs as $program) {
+        $loc = strstr($program->name, ' ', TRUE);
+
+        if (isset($locsr[$loc])) {
+          $programMap[$program->id][$locsr[$loc]] = $locsr[$loc];
+        }
+        else {
+          $ranking = array();
+          foreach ($locexp as $k => $exps) {
+
+            $ranking[$k] = 0;
+            if (substr($program->name, 0, 1) == substr($exps[0], 0, 1)) {
+              if ((strpos($program->name, "South Lake Houston") !== FALSE)) {
+                $ranking[$k] += -10;
+              }
+              $ranking[$k] += .25;
+            }
+
+            foreach ($exps as $exp) {
+              if (!empty($exp)) {
+                $smatch = strpos($program->name, $exp);
+                if ($smatch !== FALSE) {
+                  $ranking[$k] += 2 / ($smatch + 1);
+                }
+              }
+            }
+          }
+
+          asort($ranking);
+          $ranking = array_reverse($ranking, TRUE);
+          $top_rank = -1;
+
+          foreach ($ranking as $lid => $rank) {
+            if ($top_rank == -1 || $top_rank == $rank) {
+              $top_rank = $rank;
+              $programMap[$program->id][$lid] = $lid;
+            }
+          }
+        }
+      }
+
+      $this->cache->set($cid, $programMap);
+    }
+
+    return $programMap[$program_id];
+  }
+
 }
