@@ -13,7 +13,6 @@
    * Registers behaviors related to headerless-footerless architecture.
    */
   Drupal.behaviors.openy_hf = {
-    // console.log(drupalSettings['openy_hf.cookieLifeTime']);
     attach: function (context) {
       var cookie_name = 'openy_fh_dnr';
       var cookie = $.cookie(cookie_name);
