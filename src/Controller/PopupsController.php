@@ -98,22 +98,19 @@ class PopupsController extends ControllerBase {
       // Check special cases (0 or 1 available location).
       $locations = ClassBranchesForm::getBranchesList($node);
       $locations = $locations['branch'] + $locations['camp'];
-      switch (count($locations)) {
-        case 0:
-          // Show 'Class unavailable' popup.
-          return new InvokeCommand('#class-unavailable-modal', 'modal', ['show']);
-          break;
-
-        case 1:
-          // Automatically select the only available location.
-          $nid = array_keys($locations)[0];
-          $event_params = [
-            'location' => $nid,
-            'only' => TRUE,
-          ];
-          $params = ['location-changed', [$event_params]];
-          return new InvokeCommand('body', 'trigger', $params);
-          break;
+      if (!$locations) {
+        // Show 'Class unavailable' popup.
+        return new InvokeCommand('#class-unavailable-modal', 'modal', ['show']);
+      }
+      elseif (count($locations) == 1) {
+        // Automatically select the only available location.
+        $nid = array_keys($locations)[0];
+        $event_params = [
+          'location' => $nid,
+          'only' => TRUE,
+        ];
+        $params = ['location-changed', [$event_params]];
+        return new InvokeCommand('body', 'trigger', $params);
       }
       $form = \Drupal::formBuilder()->getForm(ClassBranchesForm::class, $node, $destination);
     }
