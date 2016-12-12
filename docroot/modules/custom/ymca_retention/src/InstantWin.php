@@ -212,7 +212,7 @@ class InstantWin {
     $lock_id = 'ymca_retention_instant_win:prize_pool';
 
     // Ensuring prize pool consistency by avoiding concurrent prizing.
-    while (!$lock->aquire($lock_id)) {
+    while (!$lock->acquire($lock_id)) {
       // Let's wait for the concurrent prize to finish.
       $lock->wait($lock_id);
     }
