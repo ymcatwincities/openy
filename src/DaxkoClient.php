@@ -82,6 +82,9 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
 
       case 'getPrograms':
         return $this->makeRequest('get', 'programs?' . http_build_query($args[0], '', '&'));
+
+      case 'getChildCarePrograms':
+        return $this->makeRequest('get', 'childcare/programs?' . http_build_query($args[0], '', '&'));
     }
 
     throw new DaxkoClientException(sprintf('Method %s not implemented yet.', $name));
