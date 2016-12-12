@@ -123,7 +123,7 @@ class InstantWin {
 
     $chance->save();
 
-    // Releasing locks
+    // Releasing locks.
     \Drupal::lock()->release('ymca_retention_instant_win:prize_pool');
     $this->releaseChanceLock($chance);
   }
@@ -211,7 +211,9 @@ class InstantWin {
     $lock = \Drupal::lock();
     $lock_id = 'ymca_retention_instant_win:prize_pool';
 
+    // Ensuring prize pool consistency by avoiding concurrent prizing.
     while (!$lock->aquire($lock_id)) {
+      // Let's wait for the concurrent prize to finish.
       $lock->wait($lock_id);
     }
 
