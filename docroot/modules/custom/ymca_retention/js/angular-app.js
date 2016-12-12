@@ -246,16 +246,12 @@
         self.state = 'game';
       }();
 
-      self.calculateLastPlayedChance = function(data = null) {
-        if (typeof data === 'undefined') {
-          data = self.member_chances;
-        }
-
+      self.calculateLastPlayedChance = function(data) {
         var timestamp = 0;
         var last_played_chance;
 
         $.each(data, function(index, value) {
-          if (value.played > timestamp) {
+          if (value.played != '0' && value.played >= timestamp) {
             last_played_chance = value;
           }
         });
