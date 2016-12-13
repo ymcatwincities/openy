@@ -166,7 +166,7 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($form_state->getValue('step') >= 4) {
-      $programs = $this->storage->getProgramsBySchool($form_state->getValue('school'));
+      $programs = $this->storage->getChildCareProgramsBySchool($form_state->getValue('school'));
 
       $form['program'] = [
         '#type' => 'radios',

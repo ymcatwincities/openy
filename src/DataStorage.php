@@ -100,14 +100,42 @@ class DataStorage implements DataStorageInterface {
    * @return array
    *   A list of programs.
    */
-  public function getProgramsBySchool($id) {
-    $items = [
-      '1' => 'Program #1',
-      '2' => 'Program #2',
-      '3' => 'Program #3',
-    ];
+  public function getChildCareProgramsBySchool($id) {
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      $map = $cache->data;
+    }
+    else {
+      $programs_all = $this->getAllChildCarePrograms();
+      foreach ($programs_all as $program) {
+        $school_data = $this->getSchoolsByChildCareProgramId($program->id);
+        foreach ($school_data as $school) {
+          $map[$school['id']][] = $program->name;
+        }
+      }
 
-    return $items;
+      $this->cache->set($cid, $map);
+    }
+
+    return $map[$id];
+  }
+
+  /**
+   * Get all available ChildCare programs.
+   *
+   * @return array
+   *   A list of programs.
+   */
+  protected function getAllChildCarePrograms() {
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $programs = $this->client->getChildCarePrograms();
+    $this->cache->set($cid, $programs);
+
+    return $programs;
   }
 
   /**
@@ -343,7 +371,7 @@ class DataStorage implements DataStorageInterface {
       $locsr = array_flip($locations);
       $locexp = $this->customLocationStem($locations);
 
-      $programs = $this->client->getChildCarePrograms();
+      $programs = $this->getAllChildCarePrograms();
       foreach ($programs as $program) {
         $loc = strstr($program->name, ' ', TRUE);
 
@@ -500,7 +528,7 @@ class DataStorage implements DataStorageInterface {
       $map = $cache->data;
     }
     else {
-      $programs = $this->client->getChildCarePrograms();
+      $programs = $this->getAllChildCarePrograms();
       foreach ($programs as $program) {
         $locations = $this->getLocationsByChildCareProgramId($program->id);
         foreach ($locations as $lid) {
