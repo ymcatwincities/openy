@@ -5,11 +5,12 @@
  * OpenY HF routines.
  */
 
+const OPENY_HF_DEFAULT_LIFETIME = 28800;
+
 /**
  * Implements hook_page_attachments().
  */
 function openy_hf_page_attachments(array &$attachments) {
-
   $config = \Drupal::config('openy_hf.settings');
 
   // Create CSS from config.
@@ -27,6 +28,13 @@ function openy_hf_page_attachments(array &$attachments) {
   $footer_replacements = $config->get('footer_replacements');
   $attachments['#attached']['drupalSettings']['openy_hf.header_replacements'] = $header_replacements;
   $attachments['#attached']['drupalSettings']['openy_hf.footer_replacements'] = $footer_replacements;
+
+  // Add cookie lifetime settings.
+  $cookie_lifetime = $config->get('cookie_lifetime');
+  if (!is_numeric($cookie_lifetime) || !$cookie_lifetime) {
+    $cookie_lifetime = OPENY_HF_DEFAULT_LIFETIME;
+  }
+  $attachments['#attached']['drupalSettings']['openy_hf.cookieLifeTime'] = $cookie_lifetime;
 
   $attachments['#attached']['library'][] = 'openy_hf/openy_hf_generic';
 }
