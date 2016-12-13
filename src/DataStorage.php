@@ -5,6 +5,10 @@ namespace Drupal\ygh_programs_search;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Url;
 use Drupal\daxko\DaxkoClientInterface;
+use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Cookie\SetCookie;
+use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Class DataStorage.
@@ -26,16 +30,36 @@ class DataStorage implements DataStorageInterface {
   protected $cache;
 
   /**
+   * The http client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected $http;
+
+  /**
+   * The crawler.
+   *
+   * @var \Symfony\Component\DomCrawler\Crawler
+   */
+  protected $crawler;
+
+  /**
    * DataStorage constructor.
    *
    * @param \Drupal\daxko\DaxkoClientInterface $client
    *   Daxko client.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   Cache backend.
+   * @param \GuzzleHttp\Client $http
+   *   The http client.
+   * @param \Symfony\Component\DomCrawler\Crawler $crawler
+   *   The crawler.
    */
-  public function __construct(DaxkoClientInterface $client, CacheBackendInterface $cache) {
+  public function __construct(DaxkoClientInterface $client, CacheBackendInterface $cache, Client $http, Crawler $crawler) {
     $this->client = $client;
     $this->cache = $cache;
+    $this->http = $http;
+    $this->crawler = $crawler;
   }
 
   /**
@@ -253,6 +277,8 @@ class DataStorage implements DataStorageInterface {
     else {
       $locations_data = $branches = $this->client->getBranches(['limit' => 100]);;
       $data = [];
+      // @todo Make this configurable.
+      // @todo Should we really skip that?
       $skip_branches = [
         107,
         93,
@@ -298,7 +324,7 @@ class DataStorage implements DataStorageInterface {
   public function getLocationsByChildCareProgramId($program_id) {
     $programMap = [];
 
-    $cid = 'ygh_programs_search_get_locations_by_childcare_program_id';
+    $cid = 'ygh_' . __METHOD__;
     if ($cache = $this->cache->get($cid)) {
       $programMap = $cache->data;
     }
@@ -353,6 +379,96 @@ class DataStorage implements DataStorageInterface {
     }
 
     return $programMap[$program_id];
+  }
+
+  /**
+   * Get schools by ChildCare program ID.
+   *
+   * @param int $program_id
+   *   Program ID.
+   *
+   * @return array
+   *   Array of schools and IDs.
+   */
+  public function getSchoolsByChildCareProgramId($program_id) {
+    $cid = 'ygh_' . __METHOD__ . $program_id;
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
+      $source = $this->getDaxkoPageSource($link);
+
+      $crawler = clone $this->crawler;
+      $crawler->addHtmlContent($source);
+      $items = $crawler->filter('div.two-column-container ul li a');
+      $data = $items->each(function ($item) {
+        // Get Location ID from href.
+        $keys = [];
+        $parse = parse_url($item->attr('href'));
+        parse_str($parse['query'], $keys);
+
+        return [
+          'name' => $item->text(),
+          'id' => $keys['location_id'],
+        ];
+      });
+
+      $this->cache->set($cid, $data);
+    }
+
+    return $data;
+  }
+
+  /**
+   * Get page source for Daxko html page.
+   *
+   * @param string $url
+   *   Url of the page.
+   *
+   * @return string
+   *   Page source.
+   */
+  protected function getDaxkoPageSource($url) {
+    $contents = '';
+
+    // @todo Add try/catch.
+    $options = ['allow_redirects' => FALSE];
+    $res = $this->http->request('GET', $url, $options);
+    $cookies = $res->getHeader('Set-Cookie');
+
+    $final = [];
+    $domain = '.daxko.com';
+    foreach ($cookies as $cookie) {
+      $parts = explode(';', $cookie);
+      foreach ($parts as $part) {
+        $parts2 = explode('=', $part);
+        if (!empty($parts2[1])) {
+          $final[trim($parts2[0])] = trim($parts2[1]);
+          if (strtolower($parts2[0]) == 'domain') {
+            $domain = $parts2[1];
+          }
+        }
+      }
+    }
+
+    $jar = new CookieJar();
+    foreach ($final as $key => $value) {
+      if (strtolower($key) != 'domain') {
+        $setcookie = new SetCookie();
+        $setcookie->setName($key);
+        $setcookie->setValue($value);
+        $setcookie->setDomain($domain);
+        $jar->setCookie($setcookie);
+      }
+    }
+
+    // @todo Add try/catch.
+    $options = ['allow_redirects' => FALSE, 'cookies' => $jar];
+    $res2 = $this->http->request('GET', $url, $options);
+    $contents = $res2->getBody()->getContents();
+
+    return $contents;
   }
 
 }
