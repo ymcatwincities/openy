@@ -141,6 +141,7 @@ class MemberController extends ControllerBase {
     /** @var MemberChance $chance */
     foreach ($chances as $chance) {
       $chances_values[] = [
+        'id' => $chance->id(),
         'type' => $chance->get('type')->value,
         'played' => $chance->get('played')->value,
         'winner' => $chance->get('winner')->value,
