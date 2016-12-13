@@ -726,3 +726,23 @@ $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_t
 // According to https://insight.acquia.com/support/tickets/293389?s=3041521
 // Changed to APC according to https://insight.acquia.com/support/tickets/322330#comment-182141690227
 // $settings['cache']['default'] = 'cache.backend.database';
+
+// @see https://docs.acquia.com/article/drupal-8-cache-backend
+if (file_exists('/var/www/site-php')) { 
+
+  // Put the following AFTER the Acquia Require Line: 
+
+  // Acquia is in the process of upgrading their platform-provided memcache 
+  // In the meantime rely on the old $conf vars 
+
+  if (empty($settings['memcache']['servers'])) {
+    $settings['memcache']['servers'] = $conf['memcache_servers'];
+    $settings['memcache']['key_prefix'] = $conf['memcache_key_prefix'];
+    $settings['memcache']['bins'] = ['default' => 'default'];
+  } 
+
+  // Use memcache for cache_discovery 
+  $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
+  // Use memcache as the default bin 
+  $settings['cache']['default'] = 'cache.backend.memcache';
+}

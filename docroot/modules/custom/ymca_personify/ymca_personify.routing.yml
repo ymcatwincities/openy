@@ -22,6 +22,15 @@ ymca_personify.personify_account:
 ymca_personify.childcare_payment_history:
   path: /personify/childcare_payment_history
   defaults:
+    _controller: \Drupal\ymca_personify\Controller\PersonifyController::ChildcareHistoryPage
+    _title: Childcare payment history
+  requirements:
+    _permission: access content
+  options:
+     no_cache: TRUE
+ymca_personify.childcare_payment_history_form:
+  path: /personify/childcare_payment_history/form
+  defaults:
     _form: \Drupal\ymca_personify\Form\ChildcarePaymentHistoryForm
     _title: Childcare payment history
   requirements:
