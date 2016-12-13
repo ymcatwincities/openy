@@ -399,9 +399,9 @@ class DataStorage implements DataStorageInterface {
       $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
       $source = $this->getDaxkoPageSource($link);
 
-      $crawler = clone $this->crawler;
-      $crawler->addHtmlContent($source);
-      $items = $crawler->filter('div.two-column-container ul li a');
+      $this->crawler->clear();
+      $this->crawler->addHtmlContent($source);
+      $items = $this->crawler->filter('div.two-column-container ul li a');
       $data = $items->each(function ($item) {
         // Get Location ID from href.
         $keys = [];
@@ -413,6 +413,7 @@ class DataStorage implements DataStorageInterface {
           'id' => $keys['location_id'],
         ];
       });
+
 
       $this->cache->set($cid, $data);
     }
