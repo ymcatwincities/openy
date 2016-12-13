@@ -473,4 +473,35 @@ class DataStorage implements DataStorageInterface {
     return $contents;
   }
 
+  /**
+   * Return childcare program IDs by Location.
+   *
+   * @param int $location_id
+   *   Location ID.
+   *
+   * @return array
+   *   List of program IDs.
+   */
+  public function getChildCareProgramsByLocation($location_id) {
+    $map = [];
+
+    $cid = __METHOD__ . $location_id;
+    if ($cache = $this->cache->get(NULL)) {
+      $map = $cache->data;
+    }
+    else {
+      $programs = $this->client->getChildCarePrograms();
+      foreach ($programs as $program) {
+        $locations = $this->getLocationsByChildCareProgramId($program->id);
+        foreach ($locations as $lid) {
+          $map[$lid][] = $program->id;
+        }
+      }
+
+      $this->cache->set($cid, $map);
+    }
+
+    return $map[$location_id];
+  }
+
 }
