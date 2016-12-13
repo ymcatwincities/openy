@@ -109,7 +109,7 @@ class DataStorage implements DataStorageInterface {
   public function getLocations() {
     $locations = [];
 
-    $cid = 'ygh_programs_search_get_locations';
+    $cid = __METHOD__;
     if ($cache = $this->cache->get($cid)) {
       $locations = $cache->data;
     }
@@ -136,7 +136,7 @@ class DataStorage implements DataStorageInterface {
   public function getProgramsByLocation($location_id) {
     $data = [];
 
-    $cid = 'ygh_programs_search_get_programs_by_location_' . $location_id;
+    $cid = __METHOD__ . $location_id;
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
@@ -162,7 +162,7 @@ class DataStorage implements DataStorageInterface {
   public function getSessionsByProgramAndLocation($program_id, $location_id) {
     $data = [];
 
-    $cid = 'ygh_programs_search_get_sessions_by_program_and_location_' . $program_id . '_' . $location_id;
+    $cid = __METHOD__ . $program_id . $location_id;
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
@@ -270,7 +270,7 @@ class DataStorage implements DataStorageInterface {
    *   List of locations.
    */
   protected function getDaxkoLocationMap() {
-    $cid = 'ygh_programs_search_get_daxko_location_map';
+    $cid = __METHOD__;
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
@@ -324,7 +324,7 @@ class DataStorage implements DataStorageInterface {
   public function getLocationsByChildCareProgramId($program_id) {
     $programMap = [];
 
-    $cid = 'ygh_' . __METHOD__;
+    $cid = __METHOD__ . $program_id;
     if ($cache = $this->cache->get($cid)) {
       $programMap = $cache->data;
     }
@@ -391,11 +391,12 @@ class DataStorage implements DataStorageInterface {
    *   Array of schools and IDs.
    */
   public function getSchoolsByChildCareProgramId($program_id) {
-    $cid = 'ygh_' . __METHOD__ . $program_id;
+    $cid = __METHOD__ . $program_id;
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
     else {
+      // @todo Move to the config.
       $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
       $source = $this->getDaxkoPageSource($link);
 
