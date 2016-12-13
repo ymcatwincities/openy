@@ -72,13 +72,23 @@ class DataStorage implements DataStorageInterface {
    *   A list of schools.
    */
   public function getSchoolsByLocation($id) {
-    $items = [
-      '1' => 'School #1',
-      '2' => 'School #2',
-      '3' => 'School #3',
-    ];
+    $schools = [];
 
-    return $items;
+    $cid = __METHOD__ . $id;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $programs = $this->getChildCareProgramsByLocation($id);
+    foreach ($programs as $program) {
+      $schools_data = $this->getSchoolsByChildCareProgramId($program);
+      foreach ($schools_data as $school) {
+        $schools[$school['id']] = $school['name'];
+      }
+    }
+
+    $this->cache->set($cid, $schools);
+    return $schools;
   }
 
   /**
