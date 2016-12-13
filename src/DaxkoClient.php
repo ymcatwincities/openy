@@ -70,21 +70,29 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
    * @throws DaxkoClientException.
    */
   public function __call($name = '', array $args = []) {
+    // @todo Fix 'should be compatible with GuzzleHttp\Client::__call()'.
     switch ($name) {
       case 'makeRequest':
         throw new DaxkoClientException(sprintf('Please, extend Daxko client!', $name));
 
       case 'getBranches':
+        // @todo Fix optional arguments.
         return $this->makeRequest('get', 'branches?' . http_build_query($args[0], '', '&'));
 
       case 'getSessions':
+        // @todo Fix optional arguments.
         return $this->makeRequest('get', 'sessions?' . http_build_query($args[0], '', '&'));
 
       case 'getPrograms':
+        // @todo Fix optional arguments.
         return $this->makeRequest('get', 'programs?' . http_build_query($args[0], '', '&'));
 
       case 'getChildCarePrograms':
-        return $this->makeRequest('get', 'childcare/programs?' . http_build_query($args[0], '', '&'));
+        $url = 'childcare/programs';
+        if (!empty($args[0])) {
+          $url .= '?' . http_build_query($args[0], '', '&');
+        }
+        return $this->makeRequest('get', $url);
     }
 
     throw new DaxkoClientException(sprintf('Method %s not implemented yet.', $name));
