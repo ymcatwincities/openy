@@ -434,30 +434,39 @@ class DataStorage implements DataStorageInterface {
       $data = $cache->data;
     }
     else {
-      // @todo Move to the config.
-      $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
-      $source = $this->getDaxkoPageSource($link);
+      $schools = $this->scrapeDaxkoSchoolsByProgram($program_id);
 
-      $this->crawler->clear();
-      $this->crawler->addHtmlContent($source);
-      $items = $this->crawler->filter('div.two-column-container ul li a');
-      $data = $items->each(function ($item) {
-        // Get Location ID from href.
-        $keys = [];
-        $parse = parse_url($item->attr('href'));
-        parse_str($parse['query'], $keys);
-
+      // @todo Check whether we were scraping correct page (with schools).
+      $data = $schools->each(function ($item) {
         return [
           'name' => $item->text(),
-          'id' => $keys['location_id'],
+          'id' => $this->getQueryParam('location_id', $item->attr('href')),
         ];
       });
-
 
       $this->cache->set($cid, $data);
     }
 
     return $data;
+  }
+
+  /**
+   * Get scraped schools object by program ID.
+   *
+   * @param int $program_id
+   *   Program ID.
+   *
+   * @return \Symfony\Component\DomCrawler\Crawler
+   *   Scraped schools.
+   */
+  private function scrapeDaxkoSchoolsByProgram($program_id) {
+    // @todo Move to the config.
+    $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
+    $source = $this->getDaxkoPageSource($link);
+
+    $this->crawler->clear();
+    $this->crawler->addHtmlContent($source);
+    return $this->crawler->filter('div.two-column-container ul li a');
   }
 
   /**
@@ -540,6 +549,94 @@ class DataStorage implements DataStorageInterface {
     }
 
     return $map[$location_id];
+  }
+
+  /**
+   * Get rate options by location ID and program ID.
+   *
+   * @param int $location_id
+   *   Location ID.
+   * @param int $program_id
+   *   Program ID.
+   */
+  public function getChildProgramRateOption($location_id, $program_id) {
+    // @todo Get it from config.
+    $domain = 'https://operations.daxko.com';
+
+    // Here we'll iterate over each program and scrape data for each school.
+    // We should be careful in order not to make a high load on Daxko.
+    $programs = $this->getAllChildCarePrograms();
+    foreach ($programs as $program) {
+      // Get a list of schools for particular program.
+      $schools = $this->scrapeDaxkoSchoolsByProgram($program->id);
+
+      // @todo Check whether we were scraping correct page (with schools).
+      $school_pages = $schools->each(function ($school) {
+        $href = $school->attr('href');
+        return [
+          'url' => $href,
+          'id' => $this->getQueryParam('location_id', $href),
+        ];
+      });
+
+      // Scrape each school page to get the rates url.
+      foreach ($school_pages as $school_page) {
+        // @todo Deal with cancelled programs.
+        // Example: https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=9532
+        // It seems we need to get all the cache to check for cancelled programs and then rebuild the form.
+        // @todo Discuss with @podarok.
+
+//        $url = $domain . $school_page['url'];
+//        $source = $this->getDaxkoPageSource($url);
+//        $this->crawler->clear();
+//        $this->crawler->addHtmlContent($source);
+//
+      }
+
+
+//      // Scrape each rate page to get rate options.
+//      foreach ($rates as $rate) {
+//        $url = $domain . $rate['url'];
+//        $source = $this->getDaxkoPageSource($url);
+//        $this->crawler->clear();
+//        $this->crawler->addHtmlContent($source);
+//        $rate_list = $this->crawler->filter('#session-list-table tr.childcare-rate');
+//
+//        // @todo Check whether we were scraping correct page (with rates).
+//        $rate_data = $rate_list->each(function ($rate_data_item) {
+//          // Get context ID && session name.
+//          $link = $rate_data_item->filter('a.session-name');
+//          return [
+//            'context_id' => $this->getQueryParam('context_id', $link->attr('href')),
+//            'name' => $link->text(),
+//          ];
+//        });
+//      }
+
+    }
+  }
+
+  /**
+   * Get specified query param from url.
+   *
+   * @param string $param
+   *   Param name.
+   * @param string $url
+   *   Param name.
+   *
+   * @return mixed
+   *   Param value or FALSE.
+   */
+  private function getQueryParam($param, $url) {
+    $keys = [];
+    $parse = parse_url($url);
+    parse_str($parse['query'], $keys);
+
+    if (isset($keys[$param])) {
+      return $keys[$param];
+    }
+
+    return FALSE;
   }
 
 }

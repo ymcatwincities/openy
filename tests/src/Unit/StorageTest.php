@@ -18,6 +18,14 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
   protected $backupGlobals = FALSE;
 
   /**
+   * Test getChildProgramRateOption().
+   */
+  public function testGetChildProgramRateOption() {
+    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage->getChildProgramRateOption(422, 8595);
+  }
+
+  /**
    * Test getChildCareProgramsBySchool().
    */
   public function testGetChildCareProgramsBySchool() {
