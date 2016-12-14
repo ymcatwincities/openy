@@ -70,6 +70,8 @@ class DataStorage implements DataStorageInterface {
   public function warmCache() {
     $this->getAllChildCarePrograms();
     $this->getMapRateOptions();
+    $this->getMapSchoolsProgramIds();
+    $this->getMapLocationsPrograms();
   }
 
   /**
@@ -137,22 +139,23 @@ class DataStorage implements DataStorageInterface {
    *
    * @return array
    *   Locations.
+   *
+   * @todo Filter out some branches.
    */
   public function getLocations() {
     $locations = [];
 
     $cid = __METHOD__;
     if ($cache = $this->cache->get($cid)) {
-      $locations = $cache->data;
-    }
-    else {
-      $branches = $this->client->getBranches(['limit' => 100]);
-      foreach ($branches as $branch) {
-        $locations[$branch->id] = $branch->name;
-      }
-      $this->cache->set($cid, $locations);
+      return $cache->data;
     }
 
+    $branches = $this->client->getBranches(['limit' => 100]);
+    foreach ($branches as $branch) {
+      $locations[$branch->id] = $branch->name;
+    }
+
+    $this->cache->set($cid, $locations);
     return $locations;
   }
 
@@ -166,17 +169,14 @@ class DataStorage implements DataStorageInterface {
    *   List of programs.
    */
   public function getProgramsByLocation($location_id) {
-    $data = [];
-
     $cid = __METHOD__ . $location_id;
     if ($cache = $this->cache->get($cid)) {
-      $data = $cache->data;
-    }
-    else {
-      $data = $this->client->getPrograms(['branch' => $location_id]);
-      $this->cache->set($cid, $data);
+      return $cache->data;
     }
 
+    $data = $this->client->getPrograms(['branch' => $location_id]);
+
+    $this->cache->set($cid, $data);
     return $data;
   }
 
@@ -192,22 +192,19 @@ class DataStorage implements DataStorageInterface {
    *   List of sessions.
    */
   public function getSessionsByProgramAndLocation($program_id, $location_id) {
-    $data = [];
-
     $cid = __METHOD__ . $program_id . $location_id;
     if ($cache = $this->cache->get($cid)) {
-      $data = $cache->data;
-    }
-    else {
-      $data = $this->client->getSessions(
-        [
-          'program' => $program_id,
-          'branch' => $location_id,
-        ]
-      );
-      $this->cache->set($cid, $data);
+      return $cache->data;
     }
 
+    $params = [
+      'program' => $program_id,
+      'branch' => $location_id,
+    ];
+
+    $data = $this->client->getSessions($params);
+
+    $this->cache->set($cid, $data);
     return $data;
   }
 
@@ -265,41 +262,6 @@ class DataStorage implements DataStorageInterface {
   }
 
   /**
-   * Get custom location stem mapping.
-   *
-   * @param array $locations
-   *   Array of location IDs.
-   *
-   * @return array
-   *   Mapping.
-   *
-   * @ingroup legacy
-   */
-  protected function customLocationStem(array $locations) {
-    $locexp = array();
-
-    foreach ($locations as $k => $location) {
-      $locexp[$k] = explode(' ', trim($location));
-      if (count($locexp[$k]) == 1) {
-        $locexp[$k] = explode('-', trim($location));
-      }
-      $initial = array();
-      foreach ($locexp[$k] as $exp) {
-        $initial[] = substr($exp, 0, 1);
-      }
-      if (count($initial) > 1) {
-        $locexp[$k][] = implode('', $initial);
-      }
-      if (count($initial) > 2) {
-        array_pop($initial);
-        $locexp[$k][] = implode('', $initial);
-      }
-    }
-
-    return $locexp;
-  }
-
-  /**
    * Get Location IDs by Childcare Program ID.
    *
    * @param int $program_id
@@ -307,6 +269,8 @@ class DataStorage implements DataStorageInterface {
    *
    * @return array
    *   List of location IDs.
+   *
+   * @ingroup legacy
    */
   public function getLocationsByChildCareProgramId($program_id) {
     $programMap = [];
@@ -380,26 +344,9 @@ class DataStorage implements DataStorageInterface {
   public function getSchoolsByChildCareProgramId($program_id) {
     $data = [];
 
-    $cid = __METHOD__ . $program_id;
-    if ($cache = $this->cache->get($cid)) {
-      $data = $cache->data;
-    }
-    else {
-      $schools = $this->scrapeDaxkoSchoolsByProgram($program_id);
-
-      // @todo Check whether we were scraping correct page (with schools).
-      $schools_data = $schools->each(function ($item) {
-        return [
-          'name' => $item->text(),
-          'id' => $this->getQueryParam('location_id', $item->attr('href')),
-        ];
-      });
-
-      foreach ($schools_data as $school) {
-        $data[$school['id']] = $school;
-      }
-
-      $this->cache->set($cid, $data);
+    $map = $this->getMapSchoolsProgramIds();
+    if (isset($map[$program_id])) {
+      $data = $map[$program_id];
     }
 
     return $data;
@@ -415,25 +362,14 @@ class DataStorage implements DataStorageInterface {
    *   List of program IDs.
    */
   public function getChildCareProgramsByLocation($location_id) {
-    $map = [];
+    $data = [];
 
-    $cid = __METHOD__ . $location_id;
-    if ($cache = $this->cache->get($cid)) {
-      $map = $cache->data;
-    }
-    else {
-      $programs = $this->getAllChildCarePrograms();
-      foreach ($programs as $program) {
-        $locations = $this->getLocationsByChildCareProgramId($program->id);
-        foreach ($locations as $lid) {
-          $map[$lid][$program->id] = $program->id;
-        }
-      }
-
-      $this->cache->set($cid, $map);
+    $map = $this->getMapLocationsPrograms();
+    if (isset($map[$location_id])) {
+      $data = $map[$location_id];
     }
 
-    return $map[$location_id];
+    return $data;
   }
 
   /**
@@ -637,10 +573,10 @@ class DataStorage implements DataStorageInterface {
   /**
    * Return array of location names (stripped).
    *
-   * The function was used by legacy code.
-   *
    * @return array
    *   List of locations.
+   *
+   * @ingroup legacy
    */
   protected function getDaxkoLocationMap() {
     $cid = __METHOD__;
@@ -683,6 +619,104 @@ class DataStorage implements DataStorageInterface {
     }
 
     return $data;
+  }
+
+  /**
+   * Return map for program IDs and schools.
+   *
+   * @return array
+   *   The list of mappings.
+   *
+   * @ingroup cache
+   */
+  protected function getMapSchoolsProgramIds() {
+    $map = [];
+
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $programs = $this->getAllChildCarePrograms();
+    foreach ($programs as $program) {
+      $schools = $this->scrapeDaxkoSchoolsByProgram($program->id);
+      $schools_data = $schools->each(function ($item) {
+        return [
+          'name' => $item->text(),
+          'id' => $this->getQueryParam('location_id', $item->attr('href')),
+        ];
+      });
+
+      foreach ($schools_data as $school) {
+        $map[$program->id][$school['id']] = $school;
+      }
+    }
+
+    $this->cache->set($cid, $map);
+    return $map;
+  }
+
+  /**
+   * Get custom location stem mapping.
+   *
+   * @param array $locations
+   *   Array of location IDs.
+   *
+   * @return array
+   *   Mapping.
+   *
+   * @ingroup legacy
+   */
+  protected function customLocationStem(array $locations) {
+    $locexp = array();
+
+    foreach ($locations as $k => $location) {
+      $locexp[$k] = explode(' ', trim($location));
+      if (count($locexp[$k]) == 1) {
+        $locexp[$k] = explode('-', trim($location));
+      }
+      $initial = array();
+      foreach ($locexp[$k] as $exp) {
+        $initial[] = substr($exp, 0, 1);
+      }
+      if (count($initial) > 1) {
+        $locexp[$k][] = implode('', $initial);
+      }
+      if (count($initial) > 2) {
+        array_pop($initial);
+        $locexp[$k][] = implode('', $initial);
+      }
+    }
+
+    return $locexp;
+  }
+
+  /**
+   * Return map for locations and programs.
+   *
+   * @return array
+   *   The list of mappings.
+   *
+   * @ingroup cache
+   */
+  protected function getMapLocationsPrograms() {
+    $map = [];
+
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $programs = $this->getAllChildCarePrograms();
+    foreach ($programs as $program) {
+      $locations = $this->getLocationsByChildCareProgramId($program->id);
+      foreach ($locations as $lid) {
+        $map[$lid][$program->id] = $program->id;
+      }
+    }
+
+    $this->cache->set($cid, $map);
+    return $map;
   }
 
 }
