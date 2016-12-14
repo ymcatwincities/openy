@@ -18,11 +18,22 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
   protected $backupGlobals = FALSE;
 
   /**
+   * Test getChildCareRegistrationLink().
+   */
+  public function testGetChildCareRegistrationLink() {
+    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $link = $storage->getChildCareRegistrationLink(426, 8595, 14196);
+    $expected = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/details?program_id=8595&location_id=426&location_type_id=2&context_id=14196';
+    $this->assertEquals(md5($expected), md5($link));
+  }
+
+  /**
    * Test getChildProgramRateOption().
    */
-  public function testGetChildProgramRateOption() {
+  public function testGetChildCareProgramRateOptions() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getChildProgramRateOption(422, 8595);
+    $rates = $storage->getChildCareProgramRateOptions(422, 8595);
+    $this->assertArrayHasKey(14196, $rates);
   }
 
   /**
@@ -30,7 +41,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetChildCareProgramsBySchool() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getChildCareProgramsBySchool(426);
+    $programs = $storage->getChildCareProgramsBySchool(426);
+    $this->assertArrayHasKey(8595, $programs);
   }
 
   /**
@@ -38,7 +50,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetSchoolsByLocation() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getSchoolsByLocation(106);
+    $schools = $storage->getSchoolsByLocation(106);
+    $this->assertArrayHasKey(641, $schools);
   }
 
   /**
@@ -46,7 +59,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetChildCareProgramsByLocation() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getChildCareProgramsByLocation(106);
+    $programs = $storage->getChildCareProgramsByLocation(106);
+    $this->assertArrayHasKey(4111, $programs);
   }
 
   /**
@@ -54,7 +68,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetSchoolsByChildCareProgramId() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getSchoolsByChildCareProgramId(8595);
+    $schools = $storage->getSchoolsByChildCareProgramId(8595);
+    $this->assertArrayHasKey(426, $schools);
   }
 
   /**
@@ -71,7 +86,14 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetSessionsByProgramAndLocation() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getSessionsByProgramAndLocation(8415, 106);
+    $sessions = $storage->getSessionsByProgramAndLocation(8415, 106);
+
+    $ids = [];
+    foreach ($sessions as $session) {
+      $ids[$session->id] = $session->id;
+    }
+
+    $this->assertArrayHasKey(300690, $ids);
   }
 
   /**
@@ -79,7 +101,14 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetProgramsByLocation() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getProgramsByLocation(106);
+    $programs = $storage->getProgramsByLocation(106);
+
+    $ids = [];
+    foreach ($programs as $program) {
+      $ids[$program->id] = $program->id;
+    }
+
+    $this->assertArrayHasKey(8385, $ids);
   }
 
   /**
@@ -87,7 +116,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    */
   public function testGetRegistrationLink() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $storage->getRegistrationLink(16, 34);
+    $link = $storage->getRegistrationLink(9880, 328097);
+    $expected = 'https://operations.daxko.com/Online/4003/Programs/Search.mvc/details?program_id=9880&session_ids=328097';
+    $this->assertEquals(md5($expected), md5($link));
   }
 
 }

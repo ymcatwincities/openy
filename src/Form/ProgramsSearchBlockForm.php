@@ -141,6 +141,10 @@ class ProgramsSearchBlockForm extends FormBase {
           $step = 5;
           break;
 
+        case 'rates':
+          $step = 6;
+          break;
+
       }
       $form_state->setValue('step', $step);
     }
@@ -177,6 +181,21 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($form_state->getValue('step') >= 5) {
+      $rates_data = $this->storage->getChildCareProgramRateOptions($form_state->getValue('school'), $form_state->getValue('program'));
+      $rates_options = [];
+      foreach ($rates_data as $rate) {
+        $rates_options[$rate['context_id']] = "$rate[name] ($rate[context_id])";
+      }
+
+      $form['rate'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Rate options'),
+        '#options' => $rates_options,
+        '#ajax' => $this->getAjaxDefaults(),
+      ];
+    }
+
+    if ($form_state->getValue('step') >= 6) {
       $link = $this->storage->getChildRegistrationLink($form_state->getValue('school'), $form_state->getValue('program'));
       $form['link'] = [
         '#markup' => $this->t('Congrats! Here is your program registration link!', ['%link' => $link]),

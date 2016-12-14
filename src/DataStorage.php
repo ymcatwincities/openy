@@ -63,6 +63,16 @@ class DataStorage implements DataStorageInterface {
   }
 
   /**
+   * Warm up all cache.
+   *
+   * @ingroup cache
+   */
+  public function warmCache() {
+    $this->getAllChildCarePrograms();
+    $this->getMapRateOptions();
+  }
+
+  /**
    * Get schools by location.
    *
    * @param int $id
@@ -101,6 +111,8 @@ class DataStorage implements DataStorageInterface {
    *   A list of programs.
    */
   public function getChildCareProgramsBySchool($id) {
+    $map = [];
+
     $cid = __METHOD__;
     if ($cache = $this->cache->get($cid)) {
       $map = $cache->data;
@@ -110,7 +122,7 @@ class DataStorage implements DataStorageInterface {
       foreach ($programs_all as $program) {
         $school_data = $this->getSchoolsByChildCareProgramId($program->id);
         foreach ($school_data as $school) {
-          $map[$school['id']][] = $program->name;
+          $map[$school['id']][$program->id] = $program->name;
         }
       }
 
@@ -118,24 +130,6 @@ class DataStorage implements DataStorageInterface {
     }
 
     return $map[$id];
-  }
-
-  /**
-   * Get all available ChildCare programs.
-   *
-   * @return array
-   *   A list of programs.
-   */
-  protected function getAllChildCarePrograms() {
-    $cid = __METHOD__;
-    if ($cache = $this->cache->get($cid)) {
-      return $cache->data;
-    }
-
-    $programs = $this->client->getChildCarePrograms();
-    $this->cache->set($cid, $programs);
-
-    return $programs;
   }
 
   /**
@@ -245,8 +239,7 @@ class DataStorage implements DataStorageInterface {
       ]
     );
 
-    $link = \Drupal::l('link', $path);
-    return $link;
+    return $path->toString();
   }
 
   /**
@@ -256,24 +249,31 @@ class DataStorage implements DataStorageInterface {
    *   School ID.
    * @param int $program_id
    *   Program ID.
+   * @param int $context_id
+   *   Rate option ID.
    *
    * @return string
    *   Registration link.
    */
-  public function getChildRegistrationLink($school_id, $program_id) {
-    return 'link';
+  public function getChildCareRegistrationLink($school_id, $program_id, $context_id) {
+    // @todo Get it from config.
+    $domain = 'https://operations.daxko.com';
+
+    $map = $this->getMapRateOptions();
+    $item = $map[$school_id][$program_id][$context_id];
+    return $domain . $item['registration_url'];
   }
 
   /**
    * Get custom location stem mapping.
-   *
-   * The function was used by legacy code.
    *
    * @param array $locations
    *   Array of location IDs.
    *
    * @return array
    *   Mapping.
+   *
+   * @ingroup legacy
    */
   protected function customLocationStem(array $locations) {
     $locexp = array();
@@ -297,57 +297,6 @@ class DataStorage implements DataStorageInterface {
     }
 
     return $locexp;
-  }
-
-  /**
-   * Return array of location names (stripped).
-   *
-   * The function was used by legacy code.
-   *
-   * @return array
-   *   List of locations.
-   */
-  protected function getDaxkoLocationMap() {
-    $cid = __METHOD__;
-    if ($cache = $this->cache->get($cid)) {
-      $data = $cache->data;
-    }
-    else {
-      $locations_data = $branches = $this->client->getBranches(['limit' => 100]);;
-      $data = [];
-      // @todo Make this configurable.
-      // @todo Should we really skip that?
-      $skip_branches = [
-        107,
-        93,
-        117,
-        129,
-        169,
-        330,
-        333,
-        329,
-        332,
-        331,
-        335,
-        362,
-      ];
-
-      foreach ($locations_data as $location) {
-        if (in_array($location->id, $skip_branches)) {
-          continue;
-        }
-        $name = str_replace('Family YMCA', '', $location->name);
-        $name = str_replace('YMCA', '', $name);
-        $name = str_replace('@6800', '', $name);
-        $name = trim($name);
-        $data[$location->id] = $name;
-      }
-
-      asort($data);
-      $this->cache->set($cid, $data);
-    }
-
-    return $data;
   }
 
   /**
@@ -429,6 +378,8 @@ class DataStorage implements DataStorageInterface {
    *   Array of schools and IDs.
    */
   public function getSchoolsByChildCareProgramId($program_id) {
+    $data = [];
+
     $cid = __METHOD__ . $program_id;
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
@@ -437,12 +388,16 @@ class DataStorage implements DataStorageInterface {
       $schools = $this->scrapeDaxkoSchoolsByProgram($program_id);
 
       // @todo Check whether we were scraping correct page (with schools).
-      $data = $schools->each(function ($item) {
+      $schools_data = $schools->each(function ($item) {
         return [
           'name' => $item->text(),
           'id' => $this->getQueryParam('location_id', $item->attr('href')),
         ];
       });
+
+      foreach ($schools_data as $school) {
+        $data[$school['id']] = $school;
+      }
 
       $this->cache->set($cid, $data);
     }
@@ -451,22 +406,70 @@ class DataStorage implements DataStorageInterface {
   }
 
   /**
-   * Get scraped schools object by program ID.
+   * Return childcare program IDs by Location.
    *
+   * @param int $location_id
+   *   Location ID.
+   *
+   * @return array
+   *   List of program IDs.
+   */
+  public function getChildCareProgramsByLocation($location_id) {
+    $map = [];
+
+    $cid = __METHOD__ . $location_id;
+    if ($cache = $this->cache->get($cid)) {
+      $map = $cache->data;
+    }
+    else {
+      $programs = $this->getAllChildCarePrograms();
+      foreach ($programs as $program) {
+        $locations = $this->getLocationsByChildCareProgramId($program->id);
+        foreach ($locations as $lid) {
+          $map[$lid][$program->id] = $program->id;
+        }
+      }
+
+      $this->cache->set($cid, $map);
+    }
+
+    return $map[$location_id];
+  }
+
+  /**
+   * Get rate options by location ID and program ID.
+   *
+   * @param int $school_id
+   *   Location ID.
    * @param int $program_id
    *   Program ID.
    *
-   * @return \Symfony\Component\DomCrawler\Crawler
-   *   Scraped schools.
+   * @return array
+   *   List of rates for the program.
    */
-  private function scrapeDaxkoSchoolsByProgram($program_id) {
-    // @todo Move to the config.
-    $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
-    $source = $this->getDaxkoPageSource($link);
+  public function getChildCareProgramRateOptions($school_id, $program_id) {
+    $map = $this->getMapRateOptions();
+    return $map[$school_id][$program_id];
+  }
 
-    $this->crawler->clear();
-    $this->crawler->addHtmlContent($source);
-    return $this->crawler->filter('div.two-column-container ul li a');
+  /**
+   * Get all available ChildCare programs.
+   *
+   * @return array
+   *   A list of programs.
+   *
+   * @ingroup cache
+   */
+  protected function getAllChildCarePrograms() {
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $programs = $this->client->getChildCarePrograms();
+    $this->cache->set($cid, $programs);
+
+    return $programs;
   }
 
   /**
@@ -521,45 +524,21 @@ class DataStorage implements DataStorageInterface {
   }
 
   /**
-   * Return childcare program IDs by Location.
-   *
-   * @param int $location_id
-   *   Location ID.
+   * Return the map of rate options by school and program.
    *
    * @return array
-   *   List of program IDs.
+   *   Map. [school_id][program_id][[rate_option]]
+   *
+   * @ingroup cache
    */
-  public function getChildCareProgramsByLocation($location_id) {
+  protected function getMapRateOptions() {
     $map = [];
 
-    $cid = __METHOD__ . $location_id;
-    if ($cache = $this->cache->get(NULL)) {
-      $map = $cache->data;
-    }
-    else {
-      $programs = $this->getAllChildCarePrograms();
-      foreach ($programs as $program) {
-        $locations = $this->getLocationsByChildCareProgramId($program->id);
-        foreach ($locations as $lid) {
-          $map[$lid][] = $program->id;
-        }
-      }
-
-      $this->cache->set($cid, $map);
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
     }
 
-    return $map[$location_id];
-  }
-
-  /**
-   * Get rate options by location ID and program ID.
-   *
-   * @param int $location_id
-   *   Location ID.
-   * @param int $program_id
-   *   Program ID.
-   */
-  public function getChildProgramRateOption($location_id, $program_id) {
     // @todo Get it from config.
     $domain = 'https://operations.daxko.com';
 
@@ -581,39 +560,36 @@ class DataStorage implements DataStorageInterface {
 
       // Scrape each school page to get the rates url.
       foreach ($school_pages as $school_page) {
-        // @todo Deal with cancelled programs.
-        // Example: https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=9532
-        // It seems we need to get all the cache to check for cancelled programs and then rebuild the form.
-        // @todo Discuss with @podarok.
+        $url = $domain . $school_page['url'];
+        $source = $this->getDaxkoPageSource($url);
+        $this->crawler->clear();
+        $this->crawler->addHtmlContent($source);
+        $rate_list = $this->crawler->filter('#session-list-table tr.childcare-rate');
 
-//        $url = $domain . $school_page['url'];
-//        $source = $this->getDaxkoPageSource($url);
-//        $this->crawler->clear();
-//        $this->crawler->addHtmlContent($source);
-//
+        // Scrape each rate item.
+        $rate_data = $rate_list->each(function ($rate_data_item) {
+          // Get context ID && session name.
+          $link = $rate_data_item->filter('a.session-name');
+          return [
+            'context_id' => $this->getQueryParam('context_id', $link->attr('href')),
+            'name' => $link->text(),
+            'registration_url' => $link->attr('href'),
+          ];
+        });
+
+        // Fill in map dada.
+        if (!isset($map[$school_page['id']][$program->id])) {
+          $map[$school_page['id']][$program->id] = [];
+        }
+
+        foreach ($rate_data as $rate_data_item) {
+          $map[$school_page['id']][$program->id][$rate_data_item['context_id']] = $rate_data_item;
+        }
       }
-
-
-//      // Scrape each rate page to get rate options.
-//      foreach ($rates as $rate) {
-//        $url = $domain . $rate['url'];
-//        $source = $this->getDaxkoPageSource($url);
-//        $this->crawler->clear();
-//        $this->crawler->addHtmlContent($source);
-//        $rate_list = $this->crawler->filter('#session-list-table tr.childcare-rate');
-//
-//        // @todo Check whether we were scraping correct page (with rates).
-//        $rate_data = $rate_list->each(function ($rate_data_item) {
-//          // Get context ID && session name.
-//          $link = $rate_data_item->filter('a.session-name');
-//          return [
-//            'context_id' => $this->getQueryParam('context_id', $link->attr('href')),
-//            'name' => $link->text(),
-//          ];
-//        });
-//      }
-
     }
+
+    $this->cache->set($cid, $map);
+    return $map;
   }
 
   /**
@@ -627,7 +603,7 @@ class DataStorage implements DataStorageInterface {
    * @return mixed
    *   Param value or FALSE.
    */
-  private function getQueryParam($param, $url) {
+  protected function getQueryParam($param, $url) {
     $keys = [];
     $parse = parse_url($url);
     parse_str($parse['query'], $keys);
@@ -637,6 +613,76 @@ class DataStorage implements DataStorageInterface {
     }
 
     return FALSE;
+  }
+
+  /**
+   * Get scraped schools object by program ID.
+   *
+   * @param int $program_id
+   *   Program ID.
+   *
+   * @return \Symfony\Component\DomCrawler\Crawler
+   *   Scraped schools.
+   */
+  protected function scrapeDaxkoSchoolsByProgram($program_id) {
+    // @todo Move to the config.
+    $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
+    $source = $this->getDaxkoPageSource($link);
+
+    $this->crawler->clear();
+    $this->crawler->addHtmlContent($source);
+    return $this->crawler->filter('div.two-column-container ul li a');
+  }
+
+  /**
+   * Return array of location names (stripped).
+   *
+   * The function was used by legacy code.
+   *
+   * @return array
+   *   List of locations.
+   */
+  protected function getDaxkoLocationMap() {
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $locations_data = $branches = $this->client->getBranches(['limit' => 100]);;
+      $data = [];
+      // @todo Make this configurable.
+      // @todo Should we really skip that?
+      $skip_branches = [
+        107,
+        93,
+        117,
+        129,
+        169,
+        330,
+        333,
+        329,
+        332,
+        331,
+        335,
+        362,
+      ];
+
+      foreach ($locations_data as $location) {
+        if (in_array($location->id, $skip_branches)) {
+          continue;
+        }
+        $name = str_replace('Family YMCA', '', $location->name);
+        $name = str_replace('YMCA', '', $name);
+        $name = str_replace('@6800', '', $name);
+        $name = trim($name);
+        $data[$location->id] = $name;
+      }
+
+      asort($data);
+      $this->cache->set($cid, $data);
+    }
+
+    return $data;
   }
 
 }
