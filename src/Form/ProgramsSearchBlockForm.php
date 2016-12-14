@@ -4,7 +4,9 @@ namespace Drupal\ygh_programs_search\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Url;
 use Drupal\ygh_programs_search\DataStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -277,9 +279,11 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($form_state->getValue('step') >= 5) {
-      $link = $this->storage->getRegistrationLink($form_state->getValue('program'), $form_state->getValue('session'));
+      $uri = $this->storage->getRegistrationLink($form_state->getValue('program'), $form_state->getValue('session'));
+      $url = Url::fromUri($uri);
+      $link = Link::fromTextAndUrl($this->t('link'), $url);
       $form['link'] = [
-        '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link]),
+        '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
       ];
     }
 
