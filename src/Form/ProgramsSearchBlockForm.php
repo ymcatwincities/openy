@@ -143,7 +143,7 @@ class ProgramsSearchBlockForm extends FormBase {
           $step = 5;
           break;
 
-        case 'rates':
+        case 'rate':
           $step = 6;
           break;
 
@@ -189,6 +189,14 @@ class ProgramsSearchBlockForm extends FormBase {
         $rates_options[$rate['context_id']] = "$rate[name] ($rate[context_id])";
       }
 
+      if (empty($rates_options)) {
+        $form['rate'] = [
+          '#markup' => $this->t('Sorry, all sessions for this program have been cancelled.'),
+        ];
+
+        return $form;
+      }
+
       $form['rate'] = [
         '#type' => 'radios',
         '#title' => $this->t('Rate options'),
@@ -198,9 +206,17 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($form_state->getValue('step') >= 6) {
-      $link = $this->storage->getChildRegistrationLink($form_state->getValue('school'), $form_state->getValue('program'));
+      $uri = $this->storage->getChildCareRegistrationLink(
+        $form_state->getValue('school'),
+        $form_state->getValue('program'),
+        $form_state->getValue('rate')
+      );
+
+      $url = Url::fromUri($uri);
+      $link = Link::fromTextAndUrl($this->t('link'), $url);
+
       $form['link'] = [
-        '#markup' => $this->t('Congrats! Here is your program registration link!', ['%link' => $link]),
+        '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
       ];
     }
 
