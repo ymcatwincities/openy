@@ -61,7 +61,7 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
    *
    * @param string $method
    *   Method.
-   * @param array $args
+   * @param mixed $args
    *   Arguments.
    *
    * @return mixed
