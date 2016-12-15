@@ -151,6 +151,50 @@ nav#block-footermenuright {
     &.sidebar-in #sidebar {
       margin-top: 39px;
       height: calc(100vh - 39px);
+
+      @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+		    height: calc(768px - 39px);
+      }
+
+      @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+		    height: calc(1024px - 39px);
+      }
+
+      /* iphone6+ */
+      @media only screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation : landscape) {
+		    height: calc(414px - 39px);
+      }
+
+      @media only screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation : portrait) {
+		    height: calc(736px - 39px);
+      }
+
+      /* iphone6 */
+      @media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation : landscape) {
+		    height: calc(375px - 39px);
+      }
+
+      @media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation : portrait) {
+		    height: calc(667px - 39px);
+      }
+
+      /* iphone5 */
+      @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+		    height: calc(320px - 39px);
+      }
+
+      @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
+		    height: calc(568px - 39px);
+      }
+
+      /* iPhone 4 */
+      @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+		    height: calc(320px - 39px);
+      }
+
+      @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+		    height: calc(480px - 39px);
+      }
     }
   }
   .toolbar-vertical.toolbar-fixed {
