@@ -18,6 +18,12 @@ class MailsystemTestController {
    * @return \Symfony\Component\HttpFoundation\RedirectResponse
    */
   public function sendMail() {
+
+    // Explicitly render something to initialize the theme registry to make
+    // sure that an initialized theme registry is properly switched.
+    $render = ['#theme' => 'item_list'];
+    \Drupal::service('renderer')->render($render);
+
     $module = 'mailsystem_test';
     $key = 'theme_test';
     $to = 'theme_test@example.com';
