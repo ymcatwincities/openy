@@ -126,7 +126,7 @@ class ProgramsSearchBlockForm extends FormBase {
    * @return array
    *   Array with form elements.
    */
-  private function getChildForm($form, FormStateInterface $form_state) {
+  private function getChildForm(array $form, FormStateInterface $form_state) {
     // Get steps for the form.
     $step = $form_state->getValue('step');
     if ($trigger = $form_state->getTriggeringElement()) {
@@ -234,7 +234,7 @@ class ProgramsSearchBlockForm extends FormBase {
    * @return array
    *   Array with form elements.
    */
-  private function getAdultForm($form, FormStateInterface $form_state) {
+  private function getAdultForm(array $form, FormStateInterface $form_state) {
     // Get steps for the form.
     $step = $form_state->getValue('step');
     if ($trigger = $form_state->getTriggeringElement()) {
