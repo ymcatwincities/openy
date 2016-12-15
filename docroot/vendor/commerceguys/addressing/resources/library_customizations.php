@@ -100,29 +100,6 @@ function get_subdivision_customizations($group) {
             'postal_code_pattern' => '5[0-7]',
         ],
     ];
-    // ISO codes for Telangana, Uttarakhand.
-    // https://github.com/googlei18n/libaddressinput/issues/54
-    // https://github.com/googlei18n/libaddressinput/issues/59
-    $subdivisionCustomizations['IN'] = [
-        '_replace' => ['Telangana', 'Uttarakhand'],
-        'Telangana' => [
-            'iso_code' => 'IN-TG',
-            'postal_code_pattern' => '5[0-3]',
-        ],
-        'Uttarakhand' => [
-            'iso_code' => 'IN-UT',
-            'postal_code_pattern' => '24[46-9]|254|26[23]',
-        ],
-    ];
-    // Remove Swiss administrative areas, they're not used for addressing.
-    // https://github.com/googlei18n/libaddressinput/issues/89
-    $subdivisionCustomizations['CH'] = [
-        '_remove' => [
-            'AG', 'AR', 'AI', 'BE', 'BL', 'BS', 'FR', 'GE', 'GL', 'GR', 'JU',
-            'LU', 'NE', 'NW', 'OW', 'SH', 'SZ', 'SO', 'SG', 'TI', 'TG', 'UR',
-            'VD', 'VS', 'ZG', 'ZH',
-        ],
-    ];
 
     return isset($subdivisionCustomizations[$group]) ? $subdivisionCustomizations[$group] : [];
 }
