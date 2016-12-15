@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Invalidation\RegularExpressionInvalidation.
- */
-
 namespace Drupal\purge\Plugin\Purge\Invalidation;
 
 use Drupal\purge\Plugin\Purge\Invalidation\InvalidationInterface;

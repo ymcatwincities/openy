@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\Exception\InvalidPropertyException.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue\Exception;
 
 /**

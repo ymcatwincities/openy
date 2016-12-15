@@ -6,11 +6,20 @@
  */
 
 /**
- * Implementation of hook_requirements().
+ * Implements hook_requirements().
  */
 function purge_requirements($phase) {
   if ($phase !== 'runtime') {
     return [];
   }
   return \Drupal::service('purge.diagnostics')->getHookRequirementsArray();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function purge_uninstall() {
+  if (\Drupal::database()->schema()->tableExists('purge_queue')) {
+    \Drupal::database()->schema()->dropTable('purge_queue');
+  }
 }

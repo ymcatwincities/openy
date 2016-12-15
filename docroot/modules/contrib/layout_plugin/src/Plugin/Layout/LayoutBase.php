@@ -1,41 +1,58 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\layout_plugin\Plugin\Layout\LayoutBase.
- */
-
 namespace Drupal\layout_plugin\Plugin\Layout;
 
+use Drupal\Component\Plugin\ConfigurablePluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\layout_plugin\Layout;
+use Drupal\Core\Plugin\PluginFormInterface;
 
 /**
  * Provides a base class for Layout plugins.
  */
-abstract class LayoutBase extends PluginBase implements LayoutInterface {
+abstract class LayoutBase extends PluginBase implements LayoutInterface, ConfigurablePluginInterface, PluginFormInterface {
 
   /**
-   * @var array
    * The layout configuration.
+   *
+   * @var array
    */
   protected $configuration = [];
 
   /**
-   * Get the plugin's description.
+   * Gets the human-readable name.
    *
-   * @return string
-   *   The layout description
+   * @return \Drupal\Core\Annotation\Translation|NULL
+   *   The human-readable name.
    */
-  public function getDescription() {
-    return $this->pluginDefinition['description'];
+  public function getLabel() {
+    return $this->pluginDefinition['label'];
   }
 
   /**
-   * Get human-readable list of regions keyed by machine name.
+   * Gets the optional description for advanced layouts.
    *
-   * @return array
+   * @return \Drupal\Core\Annotation\Translation|NULL
+   *   The layout description.
+   */
+  public function getDescription() {
+    return isset($this->pluginDefinition['description']) ? $this->pluginDefinition['description'] : NULL;
+  }
+
+  /**
+   * Gets the human-readable category.
+   *
+   * @return \Drupal\Core\Annotation\Translation
+   *   The human-readable category.
+   */
+  public function getCategory() {
+    return $this->pluginDefinition['category'];
+  }
+
+  /**
+   * Gets human-readable list of regions keyed by machine name.
+   *
+   * @return \Drupal\Core\Annotation\Translation[]
    *   An array of human-readable region names keyed by machine name.
    */
   public function getRegionNames() {
@@ -43,7 +60,7 @@ abstract class LayoutBase extends PluginBase implements LayoutInterface {
   }
 
   /**
-   * Get information on regions keyed by machine name.
+   * Gets information on regions keyed by machine name.
    *
    * @return array
    *   An array of information on regions keyed by machine name.
@@ -53,56 +70,56 @@ abstract class LayoutBase extends PluginBase implements LayoutInterface {
   }
 
   /**
-   * Get the base path for all resources.
+   * Gets the path to resources like icon or template.
    *
-   * @return string
-   *   The full base to all resources.
+   * @return string|NULL
+   *   The path relative to the Drupal root.
    */
   public function getBasePath() {
-    return isset($this->pluginDefinition['path']) && $this->pluginDefinition['path'] ? $this->pluginDefinition['path'] : FALSE;
+    return isset($this->pluginDefinition['path']) ? $this->pluginDefinition['path'] : NULL;
   }
 
   /**
-   * Get the full path to the icon image.
+   * Gets the path to the preview image.
    *
    * This can optionally be used in the user interface to show the layout of
    * regions visually.
    *
-   * @return string
-   *   The full path to preview image file.
+   * @return string|NULL
+   *   The path to preview image file.
    */
   public function getIconFilename() {
-    return isset($this->pluginDefinition['icon']) && $this->pluginDefinition['icon'] ? $this->pluginDefinition['icon'] : FALSE;
+    return isset($this->pluginDefinition['icon']) ? $this->pluginDefinition['icon'] : NULL;
   }
 
   /**
-   * Get the asset library name.
+   * Get the asset library.
    *
-   * @return string
+   * @return string|NULL
    *   The asset library.
    */
   public function getLibrary() {
-    return isset($this->pluginDefinition['library']) && $this->pluginDefinition['library'] ? $this->pluginDefinition['library'] : FALSE;
+    return isset($this->pluginDefinition['library']) ? $this->pluginDefinition['library'] : NULL;
   }
 
   /**
-   * Get the theme function for rendering this layout.
+   * Gets the theme hook used to render this layout.
    *
-   * @return string
-   *   Theme function name.
+   * @return string|NULL
+   *   Theme hook.
    */
-  public function getTheme() {
-    return isset($this->pluginDefinition['theme']) && $this->pluginDefinition['theme'] ? $this->pluginDefinition['theme'] : FALSE;
+  public function getThemeHook() {
+    return isset($this->pluginDefinition['theme']) ? $this->pluginDefinition['theme'] : NULL;
   }
 
   /**
    * {@inheritdoc}
    */
   public function build(array $regions) {
-    $build = $regions;
+    $build = array_intersect_key($regions, $this->getRegionDefinitions());
     $build['#layout'] = $this->getPluginDefinition();
     $build['#settings'] = $this->getConfiguration();
-    if ($theme = $this->getTheme()) {
+    if ($theme = $this->getThemeHook()) {
       $build['#theme'] = $theme;
     }
     if ($library = $this->getLibrary()) {
@@ -153,9 +170,10 @@ abstract class LayoutBase extends PluginBase implements LayoutInterface {
   }
 
   /**
-   * @{inheritdoc}
+   * {@inheritdoc}
    */
   public function calculateDependencies() {
-    return [];
+    return isset($this->configuration['dependencies']) ? $this->configuration['dependencies'] : [];
   }
+
 }

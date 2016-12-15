@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Counter\PersistentCounter.
- */
-
 namespace Drupal\purge\Counter;
 
 use Drupal\purge\Counter\PersistentCounterInterface;

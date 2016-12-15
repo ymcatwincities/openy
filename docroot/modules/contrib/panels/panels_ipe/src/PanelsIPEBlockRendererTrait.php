@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\PanelsIPEBlockRendererTrait.
- */
-
 namespace Drupal\panels_ipe;
 
 use Drupal\Core\Plugin\ContextAwarePluginInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\FileQueue.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue;
 
 use Drupal\Core\DestructableInterface;
@@ -62,9 +57,9 @@ class FileQueue extends MemoryQueue implements QueueInterface, DestructableInter
       if (file_exists($this->file)) {
         foreach (file($this->file) as $line) {
           $line = explode(self::SEPARATOR, str_replace("\n", '', $line));
-          $item_id = (int)array_shift($line);
-          $line[self::EXPIRE] = (int)$line[self::EXPIRE];
-          $line[self::CREATED] = (int)$line[self::CREATED];
+          $item_id = (int) array_shift($line);
+          $line[self::EXPIRE] = (int) $line[self::EXPIRE];
+          $line[self::CREATED] = (int) $line[self::CREATED];
           $this->buffer[$item_id] = $line;
         }
       }
@@ -87,7 +82,7 @@ class FileQueue extends MemoryQueue implements QueueInterface, DestructableInter
     if (!$fh = fopen($this->file, 'w')) {
       throw new \Exception('Unable to open file resource to ' . $this->file);
     }
-    foreach($this->buffer as $item_id => $line) {
+    foreach ($this->buffer as $item_id => $line) {
       $ob .= $item_id . SELF::SEPARATOR . $line[SELF::DATA] . SELF::SEPARATOR
         . $line[SELF::EXPIRE] . SELF::SEPARATOR . $line[SELF::CREATED] . "\n";
     }
@@ -119,7 +114,7 @@ class FileQueue extends MemoryQueue implements QueueInterface, DestructableInter
   /**
    * Trigger a disk commit when the object is destructed.
    */
-  function __destruct() {
+  public function __destruct() {
     if ($this->bufferInitialized) {
       $this->bufferCommit();
     }

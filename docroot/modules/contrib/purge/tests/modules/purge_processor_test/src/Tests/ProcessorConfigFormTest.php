@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_processor_test\Tests\ProcessorConfigFormTest.
- */
-
 namespace Drupal\purge_processor_test\Tests;
 
 use Drupal\purge_ui\Tests\ProcessorConfigFormTestBase;
@@ -12,7 +7,7 @@ use Drupal\purge_ui\Tests\ProcessorConfigFormTestBase;
 /**
  * Tests \Drupal\purge_processor_test\Form\ProcessorConfigForm.
  *
- * @group purge_ui
+ * @group purge_processor_test
  */
 class ProcessorConfigFormTest extends ProcessorConfigFormTestBase {
 
@@ -55,7 +50,8 @@ class ProcessorConfigFormTest extends ProcessorConfigFormTestBase {
     $form_state = $this->getFormStateInstance();
     $form_state->addBuildInfo('args', [$this->formArgs]);
     $form_state->setValues([
-        'textfield' => "The moose in the noose ate the goose who was loose."]);
+      'textfield' => "The moose in the noose ate the goose who was loose.",
+    ]);
     $form = $this->getFormInstance();
     $this->formBuilder->submitForm($form, $form_state);
     $errors = $form_state->getErrors();
@@ -68,7 +64,8 @@ class ProcessorConfigFormTest extends ProcessorConfigFormTestBase {
   public function testFormSubmit() {
     $this->drupalLogin($this->admin_user);
     $edit = [
-        'textfield' => "The moose in the noose ate the goose who was loose."];
+      'textfield' => "The moose in the noose ate the goose who was loose.",
+    ];
     $this->drupalPostForm($this->route, $edit, t('Save configuration'));
   }
 

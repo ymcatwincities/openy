@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\QueueBrowserForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -36,7 +31,7 @@ class QueueBrowserForm extends FormBase {
   /**
    * Constructs a QueueBrowserForm object.
    *
-   * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface
+   * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface $purge_queue
    *   The purge queue service.
    *
    * @return void
@@ -75,14 +70,14 @@ class QueueBrowserForm extends FormBase {
     $page = $form_state->get('page');
 
     // Define a anonymous function with which we can easily add buttons.
-    $button = function($overrides = []) {
+    $button = function ($overrides = []) {
       return $overrides + [
         '#type' => 'submit',
         '#name' => 'page',
         '#submit' => [[$this, 'submitForm']],
         '#ajax' => [
           'callback' => '::submitForm',
-          'wrapper' => 'browserwrapper'
+          'wrapper' => 'browserwrapper',
         ],
       ];
     };
@@ -91,12 +86,12 @@ class QueueBrowserForm extends FormBase {
     $header = [
       ['data' => $this->t('Type')],
       ['data' => $this->t('State')],
-      ['data' => $this->t('Expression')]
+      ['data' => $this->t('Expression')],
     ];
     $form['wrapper']['table'] = [
       '#theme' => 'table',
       '#header' => $header,
-      '#rows' => []
+      '#rows' => [],
     ];
     $this->purgeQueue->selectPageLimit($this->number_of_items);
     foreach ($this->purgeQueue->selectPage($page) as $immutable) {
@@ -104,13 +99,13 @@ class QueueBrowserForm extends FormBase {
         'data' => [
           $immutable->getPluginDefinition()['label'],
           $immutable->getStateStringTranslated(),
-          $immutable->getExpression()
-        ]
+          $immutable->getExpression(),
+        ],
       ];
     }
     if (empty($form['wrapper']['table']['#rows'])) {
       $form['wrapper']['table'] = [
-        '#markup' => $this->t("Your queue is empty.")
+        '#markup' => $this->t("Your queue is empty."),
       ];
     }
 
@@ -118,20 +113,20 @@ class QueueBrowserForm extends FormBase {
     $form['pager'] = [];
     $form['pager']['page']['first'] = $button([
       '#value' => '<<',
-      '#access' => $page > 4
+      '#access' => $page > 4,
     ]);
     $links = 2;
     $start = (($page - $links) > 0) ? $page - $links : 1;
     $end = (($page + $links) < $pages) ? $page + $links : $pages;
     for ($i = $start; $i <= $end; $i++) {
-        $form['pager']['page'][$i] = $button([
-          '#value' => $i,
-          '#button_type' => $page == $i ? 'primary' : '',
-        ]);
+      $form['pager']['page'][$i] = $button([
+        '#value' => $i,
+        '#button_type' => $page == $i ? 'primary' : '',
+      ]);
     }
     $form['pager']['page']['last'] = $button([
       '#value' => ">> $pages",
-      '#access' => $page < ($pages-4)
+      '#access' => $page < ($pages-4),
     ]);
     if (count($form['pager']['page']) === 3) {
       unset($form['pager']);

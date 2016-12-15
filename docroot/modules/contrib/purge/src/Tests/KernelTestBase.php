@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\KernelTestBase.
- */
-
 namespace Drupal\purge\Tests;
 
 use Drupal\purge\Tests\TestTrait;
@@ -33,7 +28,7 @@ abstract class KernelTestBase extends RealKernelTestBase {
    *   Whether to switch the default queue to the memory backend or not.
    *
    */
-  function setUp($switch_to_memory_queue = TRUE) {
+  public function setUp($switch_to_memory_queue = TRUE) {
     parent::setUp();
     $this->installConfig(['purge']);
 

@@ -1,16 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\DatabaseQueue.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Queue\QueueDatabaseFactory;
+use Drupal\Core\Queue\DatabaseQueue as CoreDatabaseQueue;
 use Drupal\purge\Plugin\Purge\Queue\QueueInterface;
+use Drupal\purge\Plugin\Purge\Queue\QueueBasePageTrait;
 use Drupal\purge\Plugin\Purge\Queue\QueueBase;
 
 /**
@@ -22,75 +18,50 @@ use Drupal\purge\Plugin\Purge\Queue\QueueBase;
  *   description = @Translation("A scalable database backed queue."),
  * )
  */
-class DatabaseQueue extends QueueBase implements QueueInterface {
+class DatabaseQueue extends CoreDatabaseQueue implements QueueInterface {
+  use QueueBasePageTrait;
 
   /**
-   * @var \Drupal\Core\Database\Connection
+   * The active Drupal database connection object.
    */
-  protected $connection;
+  const TABLE_NAME = 'purge_queue';
 
   /**
-   * @var \Drupal\Core\Queue\QueueDatabaseFactory
-   */
-  protected $queueDatabase;
-
-  /**
-   * Holds the 'queue.database' queue retrieved from Drupal.
-   */
-  protected $dbqueue;
-
-  /**
-   * The name of the queue this instance is working with.
+   * Static boolean to determine if we've checked for table installation.
    *
-   * @var string
+   * @var bool
    */
-  protected $name;
+  protected $table_exists = FALSE;
 
   /**
    * Constructs a \Drupal\purge\Plugin\Purge\Queue\Database object.
    *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
    * @param \Drupal\Core\Database\Connection $connection
-   *   The active database connection.
-   * @param \Drupal\Core\Queue\QueueDatabaseFactory $queue_database
-   *   The 'queue.database' service creating database queue objects.
+   *   The Connection object containing the key-value tables.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $connection, QueueDatabaseFactory $queue_database) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->connection = $connection;
-    $this->queueDatabase = $queue_database;
-
-    // The name of the database queue we are storing items in.
-    $this->name = 'purge';
-
-    // Instantiate the database queue using the factory.
-    $this->dbqueue = $this->queueDatabase->get($this->name);
+  public function __construct(Connection $connection) {
+    parent::__construct('purge', $connection);
+    $this->ensureTableExists();
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('database'),
-      $container->get('queue.database')
-    );
+    return new static($container->get('database'));
   }
 
   /**
    * {@inheritdoc}
    */
   public function createItem($data) {
-    if ($item_id = $this->dbqueue->createItem($data)) {
-      return (int) $item_id;
+    $query = $this->connection->insert(static::TABLE_NAME)
+      ->fields(array(
+        'data' => serialize($data),
+        'created' => time(),
+      ));
+    if ($id = $query->execute()) {
+      return (int) $id;
     }
     return FALSE;
   }
@@ -105,21 +76,20 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
     $time = time();
     foreach ($items as $data) {
       $records[] = [
-        'name' => $this->name,
         'data' => serialize($data),
         'created' => $time,
       ];
     }
 
     // Insert all of them using just one multi-row query.
-    $query = db_insert('queue')->fields(['name', 'data', 'created']);
+    $query = db_insert(static::TABLE_NAME)->fields(['data', 'created']);
     foreach ($records as $record) {
       $query->values($record);
     }
 
     // Execute the query and finish the call.
     if ($id = $query->execute()) {
-      $id = (int)$id;
+      $id = (int) $id;
 
       // A multiple row-insert doesn't give back all the individual IDs, so
       // calculate them back by applying subtraction.
@@ -138,7 +108,8 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
    * {@inheritdoc}
    */
   public function numberOfItems() {
-    return (int)$this->dbqueue->numberOfItems();
+    return (int) $this->connection->query('SELECT COUNT(item_id) FROM {' . static::TABLE_NAME . '}')
+      ->fetchField();
   }
 
   /**
@@ -157,11 +128,11 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
     // until an item is successfully claimed or we are reasonably sure there
     // are no unclaimed items left.
     while (TRUE) {
-      $conditions = [':name' => $this->name, ':now' => time()];
-      $item = $this->connection->queryRange('SELECT * FROM {queue} q WHERE name = :name AND ((expire = 0) OR (:now > expire)) ORDER BY created, item_id ASC', 0, 1, $conditions)->fetchObject();
+      $conditions = [':now' => time()];
+      $item = $this->connection->queryRange('SELECT * FROM {' . static::TABLE_NAME . '} q WHERE ((expire = 0) OR (:now > expire)) ORDER BY created, item_id ASC', 0, 1, $conditions)->fetchObject();
       if ($item) {
-        $item->item_id = (int)$item->item_id;
-        $item->expire = (int)$item->expire;
+        $item->item_id = (int) $item->item_id;
+        $item->expire = (int) $item->expire;
 
         // Try to update the item. Only one thread can succeed in UPDATEing the
         // same row. We cannot rely on REQUEST_TIME because items might be
@@ -169,7 +140,7 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
         // continue to use REQUEST_TIME instead of the current time(), we steal
         // time from the lease, and will tend to reset items before the lease
         // should really expire.
-        $update = $this->connection->update('queue')
+        $update = $this->connection->update(static::TABLE_NAME)
           ->fields([
             'expire' => time() + $lease_time,
           ])
@@ -195,22 +166,22 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
     $returned_items = $item_ids = [];
 
     // Retrieve all items in one query.
-    $conditions = [':name' => $this->name, ':now' => time()];
-    $items = $this->connection->queryRange('SELECT * FROM {queue} q WHERE name = :name AND ((expire = 0) OR (:now > expire)) ORDER BY created, item_id ASC', 0, $claims, $conditions);
+    $conditions = [':now' => time()];
+    $items = $this->connection->queryRange('SELECT * FROM {' . static::TABLE_NAME . '} q WHERE ((expire = 0) OR (:now > expire)) ORDER BY created, item_id ASC', 0, $claims, $conditions);
 
     // Iterate all returned items and unpack them.
     foreach ($items as $item) {
       if (!$item) continue;
       $item_ids[] = $item->item_id;
-      $item->item_id = (int)$item->item_id;
-      $item->expire = (int)$item->expire;
+      $item->item_id = (int) $item->item_id;
+      $item->expire = (int) $item->expire;
       $item->data = unserialize($item->data);
       $returned_items[] = $item;
     }
 
     // Update the items (marking them claimed) in one query.
     if (count($returned_items)) {
-      $this->connection->update('queue')
+      $this->connection->update(static::TABLE_NAME)
         ->fields([
           'expire' => time() + $lease_time,
         ])
@@ -226,7 +197,7 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
    * Implements \Drupal\Core\Queue\QueueInterface::releaseItem().
    */
   public function releaseItem($item) {
-    return $this->connection->update('queue')
+    return $this->connection->update(static::TABLE_NAME)
       ->fields([
         'expire' => 0,
         'data' => serialize($item->data),
@@ -247,14 +218,14 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
 
     // Figure out which items have changed their data and update just those.
     $originals = $this->connection
-      ->select('queue', 'q')
+      ->select(static::TABLE_NAME, 'q')
       ->fields('q', ['item_id', 'data'])
       ->condition('item_id', array_keys($items_data), 'IN')
       ->execute();
     foreach ($originals as $original) {
       $item_id = intval($original->item_id);
       if ($original->data !== $items_data[$item_id]) {
-        $this->connection->update('queue')
+        $this->connection->update(static::TABLE_NAME)
           ->fields(['data' => $items_data[$item_id]])
           ->condition('item_id', $item_id)
           ->execute();
@@ -262,7 +233,7 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
     }
 
     // Update the lease time in one single query and resolve what to return.
-    $update = $this->connection->update('queue')
+    $update = $this->connection->update(static::TABLE_NAME)
       ->fields(['expire' => 0])
       ->condition('item_id', array_keys($items_data), 'IN')
       ->execute();
@@ -278,7 +249,7 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
    * {@inheritdoc}
    */
   public function deleteItem($item) {
-    return $this->dbqueue->deleteItem($item);
+    return parent::deleteItem($item);
   }
 
   /**
@@ -290,7 +261,7 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
       $item_ids[] = $item->item_id;
     }
     $this->connection
-      ->delete('queue')
+      ->delete(static::TABLE_NAME)
       ->condition('item_id', $item_ids, 'IN')
       ->execute();
   }
@@ -300,16 +271,45 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
    */
   public function createQueue() {
     // All tasks are stored in a single database table (which is created when
-    // Drupal is first installed) so there is nothing we need to do to create
+    // this class instantiates) so there is nothing we need to do to create
     // a new queue.
-    return $this->dbqueue->createQueue();
   }
 
   /**
    * {@inheritdoc}
    */
   public function deleteQueue() {
-    return $this->dbqueue->deleteQueue();
+    $this->connection->delete(static::TABLE_NAME)
+      ->execute();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function ensureTableExists() {
+    // Wrap ::ensureTableExists() to prevent expensive duplicate code paths.
+    if (!$this->table_exists) {
+      if (parent::ensureTableExists()) {
+        $this->table_exists = TRUE;
+        return TRUE;
+      }
+    }
+    return $this->table_exists;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function schemaDefinition() {
+    // Reuse core's schema as was around Drupal 8.1.7. However, we are in no way
+    // fully depending on core and can - when required - hardcode the full
+    // schema if core decided to change it significantly.
+    $schema = parent::schemaDefinition();
+    unset($schema['fields']['name']);
+    unset($schema['indexes']['name_created']);
+    $schema['description'] = "Queue items for the purge database queue plugin.";
+    $schema['indexes']['created'] = ['created'];
+    return $schema;
   }
 
   /**
@@ -323,16 +323,15 @@ class DatabaseQueue extends QueueBase implements QueueInterface {
     $items = [];
     $limit = $this->selectPageLimit();
     $resultset = $this->connection
-      ->select('queue', 'q')
+      ->select(static::TABLE_NAME, 'q')
       ->fields('q', ['item_id', 'expire', 'data'])
       ->orderBy('q.created', 'DESC')
-      ->condition('name', $this->name)
       ->range((($page - 1) * $limit), $limit)
       ->execute();
     foreach ($resultset as $item) {
       if (!$item) continue;
-      $item->item_id = (int)$item->item_id;
-      $item->expire = (int)$item->expire;
+      $item->item_id = (int) $item->item_id;
+      $item->expire = (int) $item->expire;
       $item->data = unserialize($item->data);
       $items[] = $item;
     }
