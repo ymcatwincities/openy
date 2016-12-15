@@ -1,19 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_http\Plugin\Purge\Purger\HttpPurgerBase.
- */
-
 namespace Drupal\purge_purger_http\Plugin\Purge\Purger;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Utility\Token;
 use Drupal\purge\Plugin\Purge\Purger\PurgerBase;
 use Drupal\purge\Plugin\Purge\Purger\PurgerInterface;
-use Drupal\purge\Plugin\Purge\Invalidation\InvalidationInterface;
 use Drupal\purge_purger_http\Entity\HttpPurgerSettings;
 
 /**
@@ -22,6 +15,8 @@ use Drupal\purge_purger_http\Entity\HttpPurgerSettings;
 abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
 
   /**
+   * The Guzzle HTTP client.
+   *
    * @var \GuzzleHttp\Client
    */
   protected $client;
@@ -36,7 +31,7 @@ abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
   /**
    * The token service.
    *
-   * @var \Drupal\Core\Utility\Token.
+   * @var \Drupal\Core\Utility\Token
    */
   protected $token;
 
@@ -54,7 +49,7 @@ abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
    * @param \Drupal\Core\Utility\Token $token
    *   The token service.
    */
-  function __construct(array $configuration, $plugin_id, $plugin_definition, ClientInterface $http_client, Token $token) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ClientInterface $http_client, Token $token) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->settings = HttpPurgerSettings::load($this->getId());
     $this->client = $http_client;
@@ -79,53 +74,6 @@ abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
    */
   public function delete() {
     HttpPurgerSettings::load($this->getId())->delete();
-  }
-
-  /**
-   * Turn a PHP variable into a string with data type information for debugging.
-   *
-   * @param mixed $symbols
-   *   Arbitrary PHP variable, preferably a associative array.
-   *
-   * @return string
-   *   A one-line comma separated string with data types as var_dump() generates.
-   */
-  function exportDebuggingSymbols($symbols) {
-
-    // Capture a string using PHPs very own var_dump() using output buffering.
-    ob_start();
-    var_dump($symbols);
-    $symbols = ob_get_clean();
-
-    // Clean up and reduce the output footprint for both normal and xdebug output.
-    if (extension_loaded('xdebug')) {
-      $symbols = trim(html_entity_decode(strip_tags($symbols)));
-      $symbols = substr($symbols, strpos($symbols, "\n") + 1);
-      $symbols = str_replace("  '", '', $symbols);
-      $symbols = str_replace("' =>", ':', $symbols);
-      $symbols = implode(', ', explode("\n", $symbols));
-    }
-    else {
-      $symbols = strip_tags($symbols);
-      $symbols = substr($symbols, strpos($symbols, "\n") + 1);
-      $symbols = str_replace('  ["', '', $symbols);
-      $symbols = str_replace("\"]=>\n ", ':', $symbols);
-      $symbols = rtrim($symbols, "}\n");
-      $symbols = implode(', ', explode("\n", $symbols));
-    }
-
-    // To reduce bandwidth and storage needs we shorten data type indicators.
-    $symbols = str_replace(' string', 'S', $symbols);
-    $symbols = str_replace(' int', 'I', $symbols);
-    $symbols = str_replace(' float', 'F', $symbols);
-    $symbols = str_replace(' boolean', 'B', $symbols);
-    $symbols = str_replace(' bool', 'B', $symbols);
-    $symbols = str_replace(' null', 'NLL', $symbols);
-    $symbols = str_replace(' NULL', 'NLL', $symbols);
-    $symbols = str_replace('length=', 'l=', $symbols);
-
-    // Return the resulting string.
-    return $symbols;
   }
 
   /**
@@ -187,7 +135,6 @@ abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
    * @param array $token_data
    *   An array of keyed objects, to pass on to the token service.
    *
-   *
    * @return mixed[]
    *   Associative array with option/value pairs.
    */
@@ -211,6 +158,12 @@ abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
    * {@inheritdoc}
    */
   public function getTimeHint() {
+
+    // When runtime measurement is enabled, we just use the base implementation.
+    if ($this->settings->runtime_measurement) {
+      return parent::getTimeHint();
+    }
+
     // Theoretically connection timeouts and general timeouts can add up, so
     // we add up our assumption of the worst possible time it takes as well.
     return $this->settings->connect_timeout + $this->settings->timeout;
@@ -234,11 +187,19 @@ abstract class HttpPurgerBase extends PurgerBase implements PurgerInterface {
    */
   protected function getUri($token_data) {
     return sprintf(
-      '%s://%s%s',
+      '%s://%s:%s%s',
       $this->settings->scheme,
       $this->settings->hostname,
+      $this->settings->port,
       $this->token->replace($this->settings->path, $token_data)
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasRuntimeMeasurement() {
+    return (bool) $this->settings->runtime_measurement;
   }
 
 }

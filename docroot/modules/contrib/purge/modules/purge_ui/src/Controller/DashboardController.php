@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\purge_ui\Controller\DashboardController.
- */
 
 namespace Drupal\purge_ui\Controller;
 
@@ -55,11 +51,11 @@ class DashboardController extends ControllerBase {
   protected $purgeQueuers;
 
   /**
-   * The request stack.
+   * The current request from the request stack.
    *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
+   * @var \Symfony\Component\HttpFoundation\Request
    */
-  protected $requestStack;
+  protected $request;
 
   /**
    * Central listing of code-used aliases and the routes we open modals for.
@@ -67,6 +63,7 @@ class DashboardController extends ControllerBase {
    * @var string[]
    */
   protected $routes = [
+    'logging'           => 'purge_ui.logging_config_form',
     'purger_add'        => 'purge_ui.purger_add_form',
     'purger_detail'     => 'purge_ui.purger_detail_form',
     'purger_config'     => 'purge_ui.purger_config_form',
@@ -147,6 +144,7 @@ class DashboardController extends ControllerBase {
       '#type' => 'item',
       '#markup' => $this->t('When content on your website changes, your purge setup will take care of refreshing external caching systems and CDNs.'),
     ];
+    $build['logging']     = $this->buildLoggingSection();
     $build['diagnostics'] = $this->buildDiagnosticReport();
     $build['purgers']     = $this->buildPurgers();
     $build['queue']       = $this->buildQueuersQueueProcessors();
@@ -154,17 +152,30 @@ class DashboardController extends ControllerBase {
   }
 
   /**
+   * Add a section devoted to log configuration.
+   *
+   * @return array
+   */
+  protected function buildLoggingSection() {
+    extract($this->getRenderLocals());
+    $build = $details($this->t('Logging'));
+    $build['#open'] = $this->request->get('edit-logging', FALSE);
+    $build['configure'] = $buttonlink(
+      $this->t("Configure logging behavior"), 'logging', '90%');
+    return $build;
+  }
+
+  /**
    * Add a visual report on the current state of the purge module.
    *
    * @return array
-   *   The elements inside the queue fieldset.
    */
   protected function buildDiagnosticReport() {
     extract($this->getRenderLocals());
     $build = $fieldset($this->t('Status'));
     $build['report'] = [
       '#theme' => 'status_report',
-      '#requirements' => $this->purgeDiagnostics->getRequirementsArray()
+      '#requirements' => $this->purgeDiagnostics->getRequirementsArray(),
     ];
     return $build;
   }
@@ -366,14 +377,14 @@ class DashboardController extends ControllerBase {
    * @return array
    */
   protected function getRenderLocals() {
-    $details = function($title) {
+    $details = function ($title) {
       return [
         '#type' => 'details',
         '#title' => $title,
         '#open' => TRUE,
       ];
     };
-    $fieldset = function($title) {
+    $fieldset = function ($title) {
       return [
         '#type' => 'fieldset',
         '#title' => $title,
@@ -381,7 +392,7 @@ class DashboardController extends ControllerBase {
       ];
     };
     // Buttons and operation links.
-    $url = function($route) {
+    $url = function ($route) {
       if (is_array($route)) {
         $args = $route;
         $route = array_shift($args);
@@ -391,7 +402,7 @@ class DashboardController extends ControllerBase {
         return Url::fromRoute($this->routes[$route]);
       }
     };
-    $button = function($title, $route, $width = '60%') use ($url) {
+    $button = function ($title, $route, $width = '60%') use ($url) {
       return [
         'title' => $title,
         'url' => $url($route),
@@ -402,7 +413,7 @@ class DashboardController extends ControllerBase {
         ],
       ];
     };
-    $buttonlink = function($title, $route, $width = '60%') use($url) {
+    $buttonlink = function ($title, $route, $width = '60%') use ($url) {
       return [
         '#type' => 'link',
         '#title' => $title,
@@ -415,17 +426,17 @@ class DashboardController extends ControllerBase {
       ];
     };
     // Table management.
-    $table = function($header = []) {
+    $table = function ($header = []) {
       return [
         '#type' => 'table',
         '#responsive' => TRUE,
         '#header' => $header,
       ];
     };
-    $cell = function($cell = []) {
+    $cell = function ($cell = []) {
       return ['data' => $cell];
     };
-    $cell_checked = function($title = '') use($cell) {
+    $cell_checked = function ($title = '') use ($cell) {
       return $cell([
         '#theme' => 'image',
         '#width' => 18,
@@ -435,14 +446,14 @@ class DashboardController extends ControllerBase {
         '#title' => $title,
       ]);
     };
-    $cell_markup = function($markup) use($cell) {
+    $cell_markup = function ($markup) use ($cell) {
       return $cell(['#markup' => $markup]);
     };
     $cell_spacer = $cell_markup('&nbsp;');
-    $cell_ops = function($links) use($cell) {
+    $cell_ops = function ($links) use ($cell) {
       return $cell(['#type' => 'operations', '#links' => $links]);
     };
-    $col_equalize = function(&$cols, $extrarows = 0) use($cell_spacer) {
+    $col_equalize = function (&$cols, $extrarows = 0) use ($cell_spacer) {
       $rowstotal = 1;
       foreach ($cols as $col => $rows) {
         if (($rowcount = count($rows)) > $rowstotal) {
@@ -458,24 +469,24 @@ class DashboardController extends ControllerBase {
         }
       }
     };
-    $row_isset = function($table, $row) {
+    $row_isset = function ($table, $row) {
       return isset($table['#rows'][$row]);
     };
-    $row_set = function(&$table, $row, $col, $value) {
+    $row_set = function (&$table, $row, $col, $value) {
       $table['#rows'][$row]['data'][$col] = $value;
     };
-    $row_new = function(&$table, $row) use($cell_spacer, $row_set) {
+    $row_new = function (&$table, $row) use ($cell_spacer, $row_set) {
       foreach ($table['#header'] as $col => $definition) {
         $row_set($table, $row, $col, $cell_spacer);
       }
     };
     // Simple shorthand tag wrapping closures.
-    $tag = function($tag, $content) {
+    $tag = function ($tag, $content) {
       return '<' . $tag . '>' . $content . '</' . $tag . '>';
     };
-    $b = function($content) use ($tag) {return $tag('b', $content);};
-    $i = function($content) use ($tag) {return $tag('i', $content);};
-    $p = function($content) use ($tag) {return $tag('p', $content);};
+    $b = function ($content) use ($tag) {return $tag('b', $content);};
+    $i = function ($content) use ($tag) {return $tag('i', $content);};
+    $p = function ($content) use ($tag) {return $tag('p', $content);};
     // Return locally defined variables so extract() can easily unpack.
     return get_defined_vars();
   }

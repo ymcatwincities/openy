@@ -77,9 +77,9 @@ function purge_drush_p_queue_browse($format, QueueServiceInterface $purgeQueue, 
     else {
       $output[] = [
         'type' => $immutable->getType(),
-        'typetr' => (string)$immutable->getPluginDefinition()['label'],
+        'typetr' => (string) $immutable->getPluginDefinition()['label'],
         'state' => $immutable->getStateString(),
-        'statetr' => (string)$immutable->getStateStringTranslated(),
+        'statetr' => (string) $immutable->getStateStringTranslated(),
         'expression' => $immutable->getExpression(),
       ];
     }

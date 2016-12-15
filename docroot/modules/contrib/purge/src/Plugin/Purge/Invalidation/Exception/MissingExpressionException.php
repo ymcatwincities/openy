@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Invalidation\Exception\MissingExpressionException.
- */
-
 namespace Drupal\purge\Plugin\Purge\Invalidation\Exception;
 
 /**

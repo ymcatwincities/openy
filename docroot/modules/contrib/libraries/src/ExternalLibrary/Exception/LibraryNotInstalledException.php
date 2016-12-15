@@ -1,18 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\ExternalLibrary\Exception\LibraryDefinitionNotFoundException.
- */
-
 namespace Drupal\libraries\ExternalLibrary\Exception;
 
-use Drupal\libraries\ExternalLibrary\LocalLibraryInterface;
+use Drupal\libraries\ExternalLibrary\Local\LocalLibraryInterface;
 use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorTrait;
-use Exception;
 
 /**
- * Provides an exception for a library definition that cannot be found.
+ * Provides an exception for a library that is not installed.
  */
 class LibraryNotInstalledException extends \RuntimeException {
 
@@ -21,7 +15,7 @@ class LibraryNotInstalledException extends \RuntimeException {
   /**
    * Constructs a library exception.
    *
-   * @param \Drupal\libraries\ExternalLibrary\LocalLibraryInterface $library
+   * @param \Drupal\libraries\ExternalLibrary\Local\LocalLibraryInterface $library
    *   The library that is not installed.
    * @param string $message
    *   (optional) The exception message.

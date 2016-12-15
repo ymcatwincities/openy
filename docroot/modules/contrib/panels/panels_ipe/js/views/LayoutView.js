@@ -270,9 +270,9 @@
     /**
      * Moves an existing Block to a new region.
      *
-     * @param block_uuid
+     * @param {string} block_uuid
      *   The universally unique identifier of the block.
-     * @param target_region_id
+     * @param {string} target_region_id
      *   The id of the target region.
      */
     moveBlockToRegion: function (block_uuid, target_region_id) {
@@ -285,10 +285,10 @@
     /**
      * Determines what region a Block resides in.
      *
-     * @param block_uuid
+     * @param {string} block_uuid
      *   The universally unique identifier of the block.
      *
-     * @returns {Drupal.panels_ipe.RegionModel|undefined}
+     * @return {Drupal.panels_ipe.RegionModel|undefined}
      *   The region containing the block if it was found.
      */
     getRegionContainingBlock: function (block_uuid) {
@@ -365,7 +365,7 @@
         url: Drupal.panels_ipe.urlRoot(drupalSettings) + '/remove_block',
         method: 'DELETE',
         data: JSON.stringify(block_uuid),
-        contentType: "application/json; charset=UTF-8"
+        contentType: 'application/json; charset=UTF-8'
       });
 
       this.markUnsaved();
@@ -455,7 +455,7 @@
       // Split plugin id.
       var plugin_split = plugin_id.split(':');
 
-      if (plugin_split[0] == 'block_content') {
+      if (plugin_split[0] === 'block_content') {
         // Grab the model for this region.
         var region_name = $(e.currentTarget).closest('[data-region-name]').data('region-name');
         var region = this.model.get('regionCollection').get(region_name);

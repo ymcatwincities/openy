@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\PurgerConfigFormBase.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Drupal\purge_ui\Form\PluginConfigFormBase;

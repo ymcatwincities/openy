@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\QueueChangeForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,7 +25,7 @@ class QueueChangeForm extends FormBase {
   /**
    * Constructs a QueueChangeForm object.
    *
-   * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface
+   * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface $purge_queue
    *   The purge queue service.
    *
    * @return void
@@ -86,13 +81,13 @@ class QueueChangeForm extends FormBase {
       '#value' => $this->t('Cancel'),
       '#weight' => -10,
       '#button_type' => 'primary',
-      '#ajax' => ['callback' => '::closeDialog']
+      '#ajax' => ['callback' => '::closeDialog'],
     ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t("Change"),
       '#button_type' => 'danger',
-      '#ajax' => ['callback' => '::changeQueue']
+      '#ajax' => ['callback' => '::changeQueue'],
     ];
     return $form;
   }

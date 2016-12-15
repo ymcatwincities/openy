@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\composer_manager\ExtensionDiscovery.
- */
-
 namespace Drupal\composer_manager;
 
 use Drupal\Core\Extension\ExtensionDiscovery as BaseExtensionDiscovery;

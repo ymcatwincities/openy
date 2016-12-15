@@ -38,7 +38,7 @@ class SitemapBookTest extends WebTestBase {
 
     // Create user then login.
     $this->user = $this->drupalCreateUser(array(
-      'administer site configuration',
+      'administer sitemap',
       'access sitemap',
       'create book content',
       'create new books',

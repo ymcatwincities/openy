@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Tests\TokenURLTest.
- */
-
 namespace Drupal\token\Tests;
 
 use Drupal\Core\Url;

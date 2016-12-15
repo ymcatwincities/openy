@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\composer_manager\JsonFile.
- */
-
 namespace Drupal\composer_manager;
 
 /**
@@ -33,7 +28,7 @@ final class JsonFile {
 
     $data = json_decode($json, TRUE);
     if (JSON_ERROR_NONE !== json_last_error()) {
-      throw new \UnexpectedValueException('Could not decode JSON: ' . json_last_error_msg());
+      throw new \UnexpectedValueException(sprintf('Could not decode JSON file "%s". Error message: %s', $filename, json_last_error_msg()));
     }
 
     return $data;

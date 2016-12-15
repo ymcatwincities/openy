@@ -23,9 +23,9 @@ function purge_drush_p_processors($format, ProcessorsServiceInterface $purgeProc
   if (in_array($format, ['table', 'yaml', 'json'])) {
     foreach ($purgeProcessors as $processor) {
       $output[] = [
-        'id' => (string)$processor->getPluginId(),
-        'label' => (string)$processor->getLabel(),
-        'description' => (string)$processor->getDescription(),
+        'id' => (string) $processor->getPluginId(),
+        'label' => (string) $processor->getLabel(),
+        'description' => (string) $processor->getDescription(),
       ];
     }
   }

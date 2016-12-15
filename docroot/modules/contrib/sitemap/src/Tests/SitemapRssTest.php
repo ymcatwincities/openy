@@ -63,7 +63,7 @@ class SitemapRssTest extends SitemapTestBase {
 
     // Assert that RSS links are included in the sitemap.
     foreach ($terms as $term) {
-      $this->assertLinkByHref(format_string($feed, array('@term' => $term->id())));
+      $this->assertLinkByHref('/taxonomy/term/' . $term->id() . '/feed');
     }
 
     // Change the settings to place RSS links on the left.
@@ -88,7 +88,7 @@ class SitemapRssTest extends SitemapTestBase {
 
     // Assert that RSS links are not included in the sitemap.
     foreach ($terms as $term) {
-      $this->assertNoLinkByHref(format_string($feed, array('@term' => $term->id())));
+      $this->assertNoLinkByHref('/taxonomy/term/' . $term->id() . '/feed');
     }
   }
 
@@ -97,7 +97,6 @@ class SitemapRssTest extends SitemapTestBase {
    */
   public function testRssFeedDepth() {
     $terms = $this->createTerms($this->vocabulary);
-    $feed = '/taxonomy/term/@term/feed';
     $tags = array();
 
     // Get tags from terms.
@@ -108,7 +107,7 @@ class SitemapRssTest extends SitemapTestBase {
     // Assert that all RSS links are not included in the sitemap.
     $this->drupalGet('sitemap');
     foreach ($terms as $term) {
-      $this->assertNoLinkByHref(format_string($feed, array('@term' => $term->id())));
+      $this->assertNoLinkByHref('/taxonomy/term/' . $term->id() . '/feed');
     }
 
     // Create dummy node.
@@ -128,7 +127,7 @@ class SitemapRssTest extends SitemapTestBase {
     // Assert that all RSS links are included in the sitemap.
     $this->drupalGet('sitemap');
     foreach ($terms as $term) {
-      $this->assertLinkByHref(format_string($feed, array('@term' => $term->id())));
+      $this->assertLinkByHref('/taxonomy/term/' . $term->id() . '/feed');
     }
 
     // Change RSS feed depth to 0.
@@ -140,7 +139,7 @@ class SitemapRssTest extends SitemapTestBase {
     // Assert that RSS links are not included in the sitemap.
     $this->drupalGet('sitemap');
     foreach ($terms as $term) {
-      $this->assertNoLinkByHref(format_string($feed, array('@term' => $term->id())));
+      $this->assertNoLinkByHref('/taxonomy/term/' . $term->id() . '/feed');
     }
 
     // Change RSS feed depth to 1.
@@ -151,9 +150,9 @@ class SitemapRssTest extends SitemapTestBase {
 
     // Assert that only RSS feed link for term 1 is included in the sitemap.
     $this->drupalGet('sitemap');
-    $this->assertLinkByHref(format_string($feed, array('@term' => $terms[0]->id())));
-    $this->assertNoLinkByHref(format_string($feed, array('@term' => $terms[1]->id())));
-    $this->assertNoLinkByHref(format_string($feed, array('@term' => $terms[2]->id())));
+    $this->assertLinkByHref('/taxonomy/term/' . $terms[0]->id() . '/feed');
+    $this->assertNoLinkByHref('/taxonomy/term/' . $terms[1]->id() . '/feed');
+    $this->assertNoLinkByHref('/taxonomy/term/' . $terms[2]->id() . '/feed');
 
     // Change RSS feed depth to 2.
     $edit = array(
@@ -164,9 +163,9 @@ class SitemapRssTest extends SitemapTestBase {
     // Assert that RSS feed link for term 1 and term 2 is included in the site
     // map.
     $this->drupalGet('sitemap');
-    $this->assertLinkByHref(format_string($feed, array('@term' => $terms[0]->id())));
-    $this->assertLinkByHref(format_string($feed, array('@term' => $terms[1]->id())));
-    $this->assertNoLinkByHref(format_string($feed, array('@term' => $terms[2]->id())));
+    $this->assertLinkByHref('/taxonomy/term/' . $terms[0]->id() . '/feed');
+    $this->assertLinkByHref('/taxonomy/term/' . $terms[1]->id() . '/feed');
+    $this->assertNoLinkByHref('/taxonomy/term/' . $terms[2]->id() . '/feed');
 
     // Change RSS feed depth to 3.
     $edit = array(
@@ -177,7 +176,7 @@ class SitemapRssTest extends SitemapTestBase {
     // Assert that all RSS links are included in the sitemap.
     $this->drupalGet('sitemap');
     foreach ($terms as $term) {
-      $this->assertLinkByHref(format_string($feed, array('@term' => $term->id())));
+      $this->assertLinkByHref('/taxonomy/term/' . $term->id() . '/feed');
     }
   }
 

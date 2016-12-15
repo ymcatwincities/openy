@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\TokenEntityMapper.
- */
-
 namespace Drupal\token;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
