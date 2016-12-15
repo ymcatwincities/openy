@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\layout_plugin_example\Plugin\Layout\LayoutExampleTest.
- */
-
 namespace Drupal\layout_plugin_example\Plugin\Layout;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\layout_plugin\Plugin\Layout\LayoutBase;

@@ -1,17 +1,13 @@
 <?php
-/**
- * @file
- * Contains \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface.
- */
 
 namespace Drupal\layout_plugin\Plugin\Layout;
 
-use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\Component\Plugin\CategorizingPluginManagerInterface;
 
 /**
  * Provides an interface for the discovery and instantiation of layout plugins.
  */
-interface LayoutPluginManagerInterface extends PluginManagerInterface {
+interface LayoutPluginManagerInterface extends CategorizingPluginManagerInterface {
 
   /**
    * Get all available layouts as an options array.
@@ -58,6 +54,8 @@ interface LayoutPluginManagerInterface extends PluginManagerInterface {
    *   hook_library_info_build().
    *
    * @see hook_library_info_build()
+   *
+   * @deprecated when moving layout plugin to core
    */
   public function getLibraryInfo();
 

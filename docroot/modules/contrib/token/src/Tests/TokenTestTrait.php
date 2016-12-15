@@ -1,13 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Tests\TokenTestTrait.
- */
-
 namespace Drupal\token\Tests;
 
-use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Render\BubbleableMetadata;
@@ -73,7 +67,7 @@ trait TokenTestTrait {
   }
 
   function saveEntityAlias($entity_type, EntityInterface $entity, $alias, $language = Language::LANGCODE_NOT_SPECIFIED) {
-    $uri = $entity->urlInfo()->toArray();
+    $uri = $entity->toUrl()->toArray();
     return $this->saveAlias($uri['path'], $alias, $language);
   }
 

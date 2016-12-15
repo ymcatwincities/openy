@@ -1,10 +1,5 @@
 <?php
 
- /**
-  * @file
-  * Contains \Drupal\purge_queuer_test\Plugin\Purge\Queuer\WithFormQueuer.
-  */
-
 namespace Drupal\purge_queuer_test\Plugin\Purge\Queuer;
 
 use Drupal\purge\Plugin\Purge\Queuer\QueuerInterface;

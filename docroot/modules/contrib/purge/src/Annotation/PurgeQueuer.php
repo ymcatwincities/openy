@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Annotation\PurgeQueuer.
- */
-
 namespace Drupal\purge\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

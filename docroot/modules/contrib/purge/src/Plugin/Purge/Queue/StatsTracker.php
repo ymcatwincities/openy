@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\StatsTracker.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue;
 
 use Drupal\Core\State\StateInterface;
@@ -93,7 +88,7 @@ class StatsTracker implements StatsTrackerInterface {
       // write callback. The closure writes changed values to $this->buffer.
       $this->$counter = new PersistentCounter($values[$key]);
       $this->$counter->disableSet();
-      $this->$counter->setWriteCallback($key, function($id, $value) {
+      $this->$counter->setWriteCallback($key, function ($id, $value) {
         $this->buffer[$id] = $value;
       });
     }
@@ -132,6 +127,7 @@ class StatsTracker implements StatsTrackerInterface {
     // When the buffer contains changes, write them to the state API in one go.
     if (count($this->buffer)) {
       $this->state->setMultiple($this->buffer);
+      $this->buffer = [];
     }
   }
 
@@ -142,13 +138,6 @@ class StatsTracker implements StatsTrackerInterface {
     $this->buffer = [];
     $this->state->deleteMultiple($this->stateKeys);
     $this->initializeCounters();
-  }
-
-  /**
-   * In case PHP's destructor gets called, call our own destruct.
-   */
-  function __destruct() {
-    $this->destruct();
   }
 
 }

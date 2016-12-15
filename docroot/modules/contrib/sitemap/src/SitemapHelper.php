@@ -8,8 +8,8 @@
 namespace Drupal\sitemap;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Link;
 use Drupal\Component\Utility\Xss;
-use Drupal\Core\StringTranslation;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 
@@ -97,7 +97,7 @@ class SitemapHelper {
     $config = \Drupal::config('sitemap.settings');
 
     if (\Drupal::service('module_handler')->moduleExists('forum') && $vid == \Drupal::config('forum.settings')->get('vocabulary')) {
-      $title = \Drupal::l($name, Url::fromRoute('forum.index'));
+      $title = Link::fromTextAndUrl($name, Url::fromRoute('forum.index'))->toString();
       $threshold = $config->get('forum_threshold');
       $forum_link = TRUE;
     }
@@ -142,10 +142,16 @@ class SitemapHelper {
       $output .= "\n<li>";
       $term_item = '';
       if ($forum_link) {
-        $term_item .= \Drupal::l($term->name, Url::fromRoute('forum.page', array('taxonomy_term' => $term->tid), array('attributes' => array('title' => $term->description__value))));
+        $link_options = [
+          array('attributes' => array('title' => $term->description__value))
+        ];
+        $term_item .= Link::fromTextAndUrl($term->name, Url::fromRoute('forum.page', array('taxonomy_term' => $term->tid), $link_options))->toString();
       }
       elseif ($term->count) {
-        $term_item .= \Drupal::l($term->name, Url::fromRoute('entity.taxonomy_term.canonical', array('taxonomy_term' => $term->tid), array('attributes' => array('title' => $term->description__value))));
+        $link_options = [
+          array('attributes' => array('title' => $term->description__value))
+        ];
+        $term_item .= Link::fromTextAndUrl($term->name, Url::fromRoute('entity.taxonomy_term.canonical', array('taxonomy_term' => $term->tid), $link_options))->toString();
       }
       else {
         $term_item .= $term->name;
@@ -163,7 +169,7 @@ class SitemapHelper {
           '#url' => 'taxonomy/term/' . $term->tid . '/feed',
           '#name' => $term->name,
         );
-        $rss_link = drupal_render($feed_icon);
+        $rss_link = \Drupal::service('renderer')->render($feed_icon);
 
         if ($config->get('show_rss_links') == 1) {
           $term_item .= ' ' . $rss_link;

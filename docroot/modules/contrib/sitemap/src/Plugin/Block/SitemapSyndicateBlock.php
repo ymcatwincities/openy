@@ -67,14 +67,14 @@ class SitemapSyndicateBlock extends BlockBase {
       '#url' => $feedurl,
       '#title' => t('Syndicate'),
     );
-    $output = drupal_render($feed_icon);
+    $output = \Drupal::service('renderer')->render($feed_icon);
     // Re-use drupal core's render element.
     $more_link = array(
       '#type' => 'more_link',
       '#url' => Url::fromRoute('sitemap.page'),
       '#attributes' => array('title' => t('View the sitemap to see more RSS feeds.')),
     );
-    $output .= drupal_render($more_link);
+    $output .= \Drupal::service('renderer')->render($more_link);
 
     return array(
       '#type' => 'markup',

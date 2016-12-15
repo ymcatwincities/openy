@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticsService.
- */
-
 namespace Drupal\purge\Plugin\Purge\DiagnosticCheck;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\purge\ServiceBase;
 use Drupal\purge\IteratingServiceBaseTrait;
 use Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticsServiceInterface;
@@ -20,6 +16,13 @@ use Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticCheckInterface;
 class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterface {
   use ContainerAwareTrait;
   use IteratingServiceBaseTrait;
+
+  /**
+   * Logger channel specific to the diagnostics service.
+   *
+   * @var \Drupal\purge\Logger\LoggerChannelPartInterface
+   */
+  protected $logger;
 
   /**
    * The plugin manager for checks.
@@ -52,7 +55,7 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
    * @param \Drupal\Component\Plugin\PluginManagerInterface $pluginManager
    *   The plugin manager for this service.
    */
-  function __construct(PluginManagerInterface $pluginManager) {
+  public function __construct(PluginManagerInterface $pluginManager) {
     $this->pluginManager = $pluginManager;
   }
 
@@ -78,6 +81,27 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
   }
 
   /**
+   * Initialize and retrieve the logger via lazy loading.
+   *
+   * @return \Drupal\purge\Logger\LoggerChannelPartInterface
+   */
+  protected function getLogger() {
+    if (is_null($this->logger)) {
+      $purge_logger = $this->container->get('purge.logger');
+      $channel_name = 'diagnostics';
+
+      // By default ::get() would autocreate the channel with grants that are
+      // too broad. Therefore precreate it with only the ERROR grant.
+      if (!$purge_logger->hasChannel($channel_name)) {
+        $purge_logger->setChannel($channel_name, [RfcLogLevel::ERROR]);
+      }
+
+      $this->logger = $purge_logger->get($channel_name);
+    }
+    return $this->logger;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getPluginsEnabled() {
@@ -89,7 +113,7 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
     // when plugins put dependencies on either a queue or purger plugin. When
     // plugins do depend, we load 'purge.purgers' and/or 'purge.queue' and
     // carefully check if we should load them or not.
-    $load = function($needles, $haystack) {
+    $load = function ($needles, $haystack) {
       if (empty($needles)) return TRUE;
       foreach ($needles as $needle) {
         if (in_array($needle, $haystack)) {
@@ -111,6 +135,7 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
         }
       }
       $this->plugins_enabled[] = $plugin['id'];
+      $this->getLogger()->debug('loaded diagnostic check plugin @id', ['@id' => $plugin['id']]);
     }
     return $this->plugins_enabled;
   }
@@ -122,6 +147,7 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
    */
   protected function getPurgers() {
     if (is_null($this->purgePurgers)) {
+      $this->getLogger()->debug("lazy loading 'purge.purgers' service.");
       $this->purgePurgers = $this->container->get('purge.purgers');
     }
     return $this->purgePurgers;
@@ -146,6 +172,7 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
    */
   protected function getQueue() {
     if (is_null($this->purgeQueue)) {
+      $this->getLogger()->debug("lazy loading 'purge.queue' service.");
       $this->purgeQueue = $this->container->get('purge.queue');
     }
     return $this->purgeQueue;
@@ -175,6 +202,35 @@ class DiagnosticsService extends ServiceBase implements DiagnosticsServiceInterf
       }
     }
     return FALSE;
+  }
+
+  /**
+   * @ingroup iterator
+   *
+   * Override to log messages when enabled.
+   */
+  public function next() {
+    // The following two lines are copied from parent::next(), since we cannot
+    // call protected IteratingServiceBaseTrait::initializePluginInstances().
+    $this->initializePluginInstances();
+    ++$this->position;
+
+    // When the diagnostics logger has been granted a single or more grants,
+    // prerun the tests (results are cached) and log at permitted levels. No
+    // worries, the tests don't run when logging is disabled (default).
+    if ($this->valid() && $this->getLogger()->getGrants()) {
+      $sevmethods = [
+        DiagnosticCheckInterface::SEVERITY_WARNING => 'warning',
+        DiagnosticCheckInterface::SEVERITY_ERROR => 'error',
+        DiagnosticCheckInterface::SEVERITY_INFO => 'info',
+        DiagnosticCheckInterface::SEVERITY_OK => 'notice'];
+      $context = [
+        '@sev' => $this->instances[$this->position]->getSeverityString(),
+        '@msg' => $this->instances[$this->position]->getRecommendation(),
+        '@title' => $this->instances[$this->position]->getTitle()];
+      $method = $sevmethods[$this->instances[$this->position]->getSeverity()];
+      $this->getLogger()->$method('@sev: @title: @msg', $context);
+    }
   }
 
   /**

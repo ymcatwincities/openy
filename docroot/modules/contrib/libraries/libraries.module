@@ -7,22 +7,25 @@
 
 use Drupal\Core\DrupalKernel;
 use Drupal\Core\Extension\ModuleHandler;
-use Drupal\libraries\ExternalLibrary\Asset\AssetLibraryInterface;
+use Drupal\libraries\ExternalLibrary\Asset\AttachableAssetLibraryRegistrationInterface;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Implements hook_library_info_build().
  */
 function libraries_library_info_build() {
-  /** @var \Drupal\libraries\ExternalLibrary\ExternalLibraryManagerInterface $library_manager */
+  /** @var \Drupal\libraries\ExternalLibrary\LibraryManagerInterface $library_manager */
   $library_manager = \Drupal::service('libraries.manager');
 
-  $core_libraries = [];
-  foreach ($library_manager->getRequiredLibraries() as $external_library) {
-    if ($external_library instanceof AssetLibraryInterface) {
-      $core_libraries += $external_library->getAttachableAssetLibraries();
+  $attachable_libraries = [];
+  foreach ($library_manager->getRequiredLibraryIds() as $external_library_id) {
+    $external_library = $library_manager->getLibrary($external_library_id);
+    $library_type = $external_library->getType();
+    if ($library_type instanceof AttachableAssetLibraryRegistrationInterface) {
+      $attachable_libraries += $library_type->getAttachableAssetLibraries($external_library, $library_manager);
     }
   }
-  return $core_libraries;
+  return $attachable_libraries;
 }
 
 /**
@@ -37,6 +40,8 @@ function libraries_library_info_build() {
  *   The path to the specified library or FALSE if the library wasn't found.
  *
  * @ingroup libraries
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_get_path($name, $base_path = FALSE) {
   $libraries = &drupal_static(__FUNCTION__);
@@ -71,6 +76,8 @@ function libraries_get_path($name, $base_path = FALSE) {
  *   A list of library directories.
  *
  * @ingroup libraries
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_get_libraries() {
   $searchdir = array();
@@ -127,6 +134,8 @@ function libraries_get_libraries() {
  * @return
  *   An array of info files, keyed by library name. The values are the paths of
  *   the files.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_scan_info_files() {
   $profile = drupal_get_path('profile', drupal_get_profile());
@@ -166,6 +175,8 @@ function libraries_scan_info_files() {
  *   either 'info', 'pre-detect', 'post-detect', or 'load'.
  * @param $library
  *   An array of library information, passed by reference.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_invoke($group, &$library) {
   foreach ($library['callbacks'][$group] as $callback) {
@@ -185,6 +196,8 @@ function libraries_invoke($group, &$library) {
  *   An array of library information, passed by reference.
  * @param $callback
  *   A string containing the callback to apply to all parts of a library.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_traverse_library(&$library, $callback) {
   // Always apply the callback to the top-level library.
@@ -239,6 +252,8 @@ function libraries_traverse_library(&$library, $callback) {
  *
  * @see libraries_info()
  * @see libraries_invoke()
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_prepare_files(&$library, $version = NULL, $variant = NULL) {
   // Both the 'files' property and the 'integration files' property contain file
@@ -287,6 +302,8 @@ function libraries_prepare_files(&$library, $version = NULL, $variant = NULL) {
  *
  * @see libraries_info()
  * @see libraries_invoke()
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_detect_dependencies(&$library, $version = NULL, $variant = NULL) {
   if (isset($library['dependencies'])) {
@@ -336,6 +353,8 @@ function libraries_detect_dependencies(&$library, $version = NULL, $variant = NU
  *
  * @todo Re-introduce support for include file plugin system - either by copying
  *   Wysiwyg's code, or directly switching to CTools.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function &libraries_info($name = NULL) {
   // This static cache is re-used by libraries_detect() to save memory.
@@ -382,7 +401,7 @@ function &libraries_info($name = NULL) {
     // directly.
     // @todo Consider creating a dedicating InfoParser for library info files
     //   similar to \Drupal\Core\Extension\InfoParser
-    $parser = new \Symfony\Component\Yaml\Parser();
+    $parser = new Parser();
     foreach (libraries_scan_info_files() as $machine_name => $file) {
       $properties = $parser->parse(file_get_contents($file->uri));
       $properties['info file'] = $file->uri;
@@ -422,6 +441,8 @@ function &libraries_info($name = NULL) {
  *   An array of library information, passed by reference.
  * @name
  *   The machine name of the passed-in library.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_info_defaults(&$library, $name) {
   $library += array(
@@ -476,6 +497,8 @@ function libraries_info_defaults(&$library, $name) {
  *     error message.
  *
  * @see libraries_info()
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_detect($name) {
   // Re-use the statically cached value of libraries_info() to save memory.
@@ -606,6 +629,8 @@ function libraries_detect($name) {
  *   - loaded: Either the amount of library files that have been loaded, or
  *     FALSE if the library could not be loaded.
  *   See hook_libraries_info() for more information.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_load($name, $variant = NULL) {
   $loaded = &drupal_static(__FUNCTION__, array());
@@ -665,6 +690,8 @@ function libraries_load($name, $variant = NULL) {
  *
  * @return
  *   The number of loaded files.
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_load_files($library) {
 
@@ -760,6 +787,8 @@ function libraries_load_files($library) {
  *   A string containing the version of the library.
  *
  * @see libraries_get_path()
+ *
+ * @deprecated Will be removed before a stable Drupal 8 release.
  */
 function libraries_get_version($library, $options) {
   // Provide defaults.

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\ServiceBase.
- */
-
 namespace Drupal\purge;
 
 use Drupal\Core\DependencyInjection\ServiceProviderBase;

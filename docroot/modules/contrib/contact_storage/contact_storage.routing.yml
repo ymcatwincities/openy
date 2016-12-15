@@ -1,0 +1,30 @@
+contact_storage.settings:
+  path: '/admin/structure/contact/settings'
+  defaults:
+    _form: '\Drupal\contact_storage\Form\ContactStorageSettingsForm'
+    _title: 'Contact settings'
+  requirements:
+    _permission: 'administer contact forms'
+
+entity.contact_form.disable:
+  path: '/admin/structure/contact/manage/{contact_form}/disable'
+  defaults:
+    _entity_form: 'contact_form.disable'
+    _title: 'Disable contact form'
+  requirements:
+    _entity_access: 'contact_form.disable'
+
+entity.contact_form.enable:
+  path: '/admin/structure/contact/manage/{contact_form}/enable'
+  defaults:
+    _entity_form: 'contact_form.enable'
+    _title: 'Enable contact form'
+  requirements:
+    _entity_access: 'contact_form.enable'
+
+entity.contact.multiple_delete_confirm:
+  path: '/admin/structure/contact/messages/delete'
+  defaults:
+    _form: '\Drupal\contact_storage\Form\DeleteMultiple'
+  requirements:
+    _permission: 'administer contact forms'

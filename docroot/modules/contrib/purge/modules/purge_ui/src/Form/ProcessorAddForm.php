@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\ProcessorAddForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -74,13 +69,13 @@ class ProcessorAddForm extends ConfigFormBase {
     foreach ($this->purgeProcessors->getPluginsAvailable() as $plugin_id) {
       $options[$plugin_id] = t("@label: @description", [
         '@label' => $definitions[$plugin_id]['label'],
-        '@description' => $definitions[$plugin_id]['description']
+        '@description' => $definitions[$plugin_id]['description'],
       ]);
     }
     $form['id'] = [
       '#default_value' => count($options) ? key($options) : NULL,
       '#type' => 'radios',
-      '#options' => $options
+      '#options' => $options,
     ];
 
     // Update the buttons and bind callbacks.
@@ -89,13 +84,13 @@ class ProcessorAddForm extends ConfigFormBase {
       '#type' => 'submit',
       '#button_type' => 'primary',
       '#value' => $this->t("Add"),
-      '#ajax' => ['callback' => '::addProcessor']
+      '#ajax' => ['callback' => '::addProcessor'],
     ];
     $form['actions']['cancel'] = [
       '#type' => 'submit',
       '#value' => $this->t('Cancel'),
       '#weight' => -10,
-      '#ajax' => ['callback' => '::closeDialog']
+      '#ajax' => ['callback' => '::closeDialog'],
     ];
     return $form;
   }

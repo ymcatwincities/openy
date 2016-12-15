@@ -1,29 +1,28 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant.
- */
-
 namespace Drupal\panels\Plugin\DisplayVariant;
 
-use Drupal\Component\Utility\NestedArray;
+use Drupal\Component\Render\HtmlEscapedText;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Condition\ConditionManager;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\Token;
-use Drupal\ctools\Plugin\BlockPluginCollection;
 use Drupal\ctools\Plugin\DisplayVariant\BlockDisplayVariant;
-use Drupal\layout_plugin\Layout;
+use Drupal\ctools\Plugin\PluginWizardInterface;
 use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
 use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
+use Drupal\panels\Form\LayoutChangeRegions;
+use Drupal\panels\Form\LayoutChangeSettings;
+use Drupal\panels\Form\LayoutPluginSelector;
 use Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderInterface;
 use Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderManagerInterface;
+use Drupal\panels\Plugin\PanelsPattern\PanelsPatternInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,7 +33,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   admin_label = @Translation("Panels")
  * )
  */
-class PanelsDisplayVariant extends BlockDisplayVariant {
+class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardInterface {
 
   /**
    * The module handler.
@@ -135,7 +134,12 @@ class PanelsDisplayVariant extends BlockDisplayVariant {
    */
   public function getBuilder() {
     if (!isset($this->builder)) {
-      $this->builder = $this->builderManager->createInstance($this->configuration['builder'], []);
+      if (empty($this->configuration['builder'])) {
+        $this->builder = $this->builderManager->createInstance('standard', []);
+      }
+      else {
+        $this->builder = $this->builderManager->createInstance($this->configuration['builder'], []);
+      }
     }
     return $this->builder;
   }
@@ -206,6 +210,49 @@ class PanelsDisplayVariant extends BlockDisplayVariant {
     }
     else {
       throw new \Exception("Layout must be a string or LayoutInterface object");
+    }
+
+    return $this;
+  }
+
+  /**
+   * Gets the assigned PanelsPattern or falls back to the default pattern.
+   *
+   * @return \Drupal\panels\Plugin\PanelsPattern\PanelsPatternInterface
+   */
+  public function getPattern() {
+    if (!isset($this->pattern)) {
+      if (empty($this->configuration['pattern'])) {
+        $this->pattern = \Drupal::service('plugin.manager.panels.pattern')->createInstance('default');
+      }
+      else {
+        $this->pattern = \Drupal::service('plugin.manager.panels.pattern')->createInstance($this->configuration['pattern']);
+      }
+    }
+    return $this->pattern;
+  }
+
+  /**
+   * Assign the pattern for panels content operations and default contexts.
+   *
+   * @param mixed string|\Drupal\panels\Plugin\PanelsPattern\PanelsPatternInterface $pattern
+   *
+   * @return $this
+   *
+   * @throws \Exception
+   *   If $pattern isn't a string or PanelsPatternInterface object.
+   */
+  public function setPattern($pattern) {
+    if ($pattern instanceof PanelsPatternInterface) {
+      $this->pattern = $pattern;
+      $this->configuration['pattern'] = $pattern->getPluginId();
+    }
+    elseif (is_string($pattern)) {
+      $this->pattern = NULL;
+      $this->configuration['pattern'] = $pattern;
+    }
+    else {
+      throw new \Exception("Pattern must be a string or PanelsPatternInterface object");
     }
 
     return $this;
@@ -296,139 +343,23 @@ class PanelsDisplayVariant extends BlockDisplayVariant {
     // label on the page variant entity.
     //$form = parent::buildConfigurationForm($form, $form_state);
 
-    // Allow to configure the page title, even when adding a new display.
-    // Default to the page label in that case.
-    $form['page_title'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Page title'),
-      '#description' => $this->t('Configure the page title that will be used for this display.'),
-      '#default_value' => $this->configuration['page_title'] ?: '',
-    ];
-
-    if (empty($this->configuration['builder'])) {
-      $plugins = $this->builderManager->getDefinitions();
-      $options = array();
-      foreach ($plugins as $id => $plugin) {
-        $options[$id] = $plugin['label'];
-      }
-      // Only allow the IPE if the storage information is set.
-      if (!$this->getStorageType()) {
-        unset($options['ipe']);
-      }
-      $form['builder'] = [
-        '#title' => $this->t('Builder'),
-        '#type' => 'select',
-        '#options' => $options,
-        '#default_value' => 'standard',
-      ];
+    $plugins = $this->builderManager->getDefinitions();
+    $options = array();
+    foreach ($plugins as $id => $plugin) {
+      $options[$id] = $plugin['label'];
     }
-
-    $form['layout'] = [
-      '#title' => $this->t('Layout'),
+    // Only allow the IPE if the storage information is set.
+    if (!$this->getStorageType()) {
+      unset($options['ipe']);
+    }
+    $form['builder'] = [
+      '#title' => $this->t('Builder'),
       '#type' => 'select',
-      '#options' => Layout::getLayoutOptions(['group_by_category' => TRUE]),
-      '#default_value' => $this->configuration['layout'] ?: NULL,
+      '#options' => $options,
+      '#default_value' => !empty($this->configuration['builder']) ? $this->configuration['builder'] : 'standard',
     ];
-
-    if (!empty($this->configuration['layout'])) {
-      $form['layout']['#ajax'] = [
-        'callback' => [$this, 'layoutSettingsAjaxCallback'],
-        'wrapper' => 'layout-settings-wrapper',
-        'effect' => 'fade',
-      ];
-
-      // If a layout is already selected, show the layout settings.
-      $form['layout_settings_wrapper'] = [
-        '#type' => 'fieldset',
-        '#title' => $this->t('Layout settings'),
-        '#prefix' => '<div id="layout-settings-wrapper">',
-        '#suffix' => '</div>',
-      ];
-      $form['layout_settings_wrapper']['layout_settings'] = [];
-
-      // Process callback to configure #parents correctly on settings, since
-      // we don't know where in the form hierarchy our settings appear.
-      $form['#process'][] = [$this, 'layoutSettingsProcessCallback'];
-    }
 
     return $form;
-  }
-
-  /**
-   * Render API callback: builds the layout settings elements.
-   */
-  public function layoutSettingsProcessCallback(array &$element, FormStateInterface $form_state, array &$complete_form) {
-    $parents_base = $element['#parents'];
-    $layout_parent = array_merge($parents_base, ['layout']);
-    $layout_settings_parent = array_merge($parents_base, ['layout_settings']);
-
-    $settings_element =& $element['layout_settings_wrapper']['layout_settings'];
-
-    // Set the #parents on the layout_settings so they end up as a sibling of
-    // layout.
-    $layout_settings_parents = array_merge($element['#parents'], ['layout_settings']);
-    $settings_element['#parents'] = $layout_settings_parents;
-    $settings_element['#tree'] = TRUE;
-
-    // Get the layout name in a way that works regardless of whether we're
-    // getting the value via AJAX or not.
-    $layout_name = NestedArray::getValue($form_state->getUserInput(), $layout_parent) ?: $element['layout']['#default_value'];
-
-    // Place the layout settings on the form if a layout is selected.
-    if ($layout_name) {
-      $layout = Layout::layoutPluginManager()->createInstance($layout_name, $form_state->getValue($layout_settings_parent, $this->configuration['layout_settings'] ?: []));
-      $settings_element = $layout->buildConfigurationForm($settings_element, $form_state);
-    }
-
-    // Store the array parents for our element so that we can use it to pull out
-    // the layout settings in the validate and submit functions.
-    $complete_form['#variant_array_parents'] = $element['#array_parents'];
-
-    return $element;
-  }
-
-  /**
-   * Render API callback: gets the layout settings elements.
-   */
-  public function layoutSettingsAjaxCallback(array $form, FormStateInterface $form_state) {
-    $variant_array_parents = $form['#variant_array_parents'];
-    return NestedArray::getValue($form, array_merge($variant_array_parents, ['layout_settings_wrapper']));
-  }
-
-  /**
-   * Extracts the layout settings form and form state from the full form.
-   *
-   * @param array $form
-   *   Full form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Full form state.
-   *
-   * @return array
-   *   An array with two values: the new form array and form state object.
-   */
-  protected function getLayoutSettingsForm(array &$form, FormStateInterface $form_state) {
-    $layout_settings_form = NestedArray::getValue($form, array_merge($form['#variant_array_parents'], ['layout_settings_wrapper', 'layout_settings']));
-    $layout_settings_form_state = (new FormState())->setValues($form_state->getValue('layout_settings'));
-    return [$layout_settings_form, $layout_settings_form_state];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    parent::validateConfigurationForm($form, $form_state);
-
-    // Validate layout settings.
-    if ($form_state->hasValue('layout_settings')) {
-      $layout_settings = $this->configuration['layout'] == $form_state->getValue('layout') ? $this->configuration['layout_settings'] : [];
-      $layout = $this->layoutManager->createInstance($form_state->getValue('layout'), $layout_settings);
-      list ($layout_settings_form, $layout_settings_form_state) = $this->getLayoutSettingsForm($form, $form_state);
-      $layout->validateConfigurationForm($layout_settings_form, $layout_settings_form_state);
-
-      // Save the layout plugin for later (so we don't have to instantiate again
-      // on submit.
-      $form_state->set('layout_plugin', $layout);
-    }
   }
 
   /**
@@ -437,26 +368,10 @@ class PanelsDisplayVariant extends BlockDisplayVariant {
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     parent::submitConfigurationForm($form, $form_state);
 
-    if ($form_state->hasValue('layout')) {
-      $this->configuration['layout'] = $form_state->getValue('layout');
-    }
-
-    // Submit layout settings.
-    if ($form_state->hasValue('layout_settings')) {
-      $layout_settings = $this->configuration['layout'] == $form_state->getValue('layout') ? $this->configuration['layout_settings'] : [];
-      $layout = $form_state->has('layout_plugin') ? $form_state->get('layout_plugin') : $this->layoutManager->createInstance($form_state->getValue('layout'), $layout_settings);
-      list ($layout_settings_form, $layout_settings_form_state) = $this->getLayoutSettingsForm($form, $form_state);
-      $layout->submitConfigurationForm($layout_settings_form, $layout_settings_form_state);
-      $this->configuration['layout_settings'] = $layout->getConfiguration();
-    }
-
     if ($form_state->hasValue('builder')) {
       $this->configuration['builder'] = $form_state->getValue('builder');
     }
-
-    if ($form_state->hasValue('page_title')) {
-      $this->configuration['page_title'] = $form_state->getValue('page_title');
-    }
+    $this->configuration['page_title'] = $form_state->getValue('page_title');
   }
 
   /**
@@ -483,6 +398,51 @@ class PanelsDisplayVariant extends BlockDisplayVariant {
       'storage_type' => '',
       'storage_id' => '',
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWizardOperations($cached_values) {
+    $operations = [];
+    $operations['layout'] = [
+      'title' => $this->t('Layout'),
+      'form' => LayoutPluginSelector::class
+    ];
+    if (!empty($this->getConfiguration()['layout']) && $cached_values['plugin']->getLayout() instanceof PluginFormInterface) {
+      /** @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout */
+      if (empty($cached_values['layout_change']['new_layout'])) {
+        $layout = $cached_values['plugin']->getLayout();
+        $r = new \ReflectionClass(get_class($layout));
+      }
+      else {
+        $layout_definition = \Drupal::service('plugin.manager.layout_plugin')->getDefinition($cached_values['layout_change']['new_layout']);
+        $r = new \ReflectionClass($layout_definition['class']);
+      }
+      // If the layout uses the LayoutBase::buildConfigurationForm() method we
+      // know it is not truly UI configurable, so there's no reason to include
+      // the wizard step for displaying that UI.
+      $method = $r->getMethod('buildConfigurationForm');
+      if ($method->class != 'Drupal\layout_plugin\Plugin\Layout\LayoutBase') {
+        $operations['settings'] = [
+          'title' => $this->t('Layout Settings'),
+          'form' => LayoutChangeSettings::class,
+        ];
+      }
+    }
+    if (!empty($cached_values['layout_change']['old_layout'])) {
+      $operations['regions'] = [
+        'title' => $this->t('Layout Regions'),
+        'form' => LayoutChangeRegions::class,
+      ];
+    }
+    /** @var \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $plugin */
+    $plugin = $cached_values['plugin'];
+    $builder = $plugin->getBuilder();
+    if ($builder instanceof PluginWizardInterface) {
+      $operations = array_merge($operations, $builder->getWizardOperations($cached_values));
+    }
+    return $operations;
   }
 
   /**
@@ -522,7 +482,13 @@ class PanelsDisplayVariant extends BlockDisplayVariant {
    */
   protected function renderPageTitle($page_title) {
     $data = $this->getContextAsTokenData();
-    return $this->token->replace($page_title, $data);
+    // Token replace only escapes replacement values, ensure a consistent
+    // behavior by also escaping the input and then returning it as a Markup
+    // object to avoid double escaping.
+    // @todo: Simplify this when core provides an API for this in
+    //   https://www.drupal.org/node/2580723.
+    $title = (string) $this->token->replace(new HtmlEscapedText($page_title), $data);
+    return Markup::create($title);
   }
 
   /**

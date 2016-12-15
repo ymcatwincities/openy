@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * Implements hook_mailengine().
+ *
+ * @param string $op
+ *   The operation to perform on the message.
+ * @param array $message
+ *   The message to perform the operation on.
+ *
+ * @return boolean
+ *   Returns TRUE if the operation was successful or FALSE if it was not.
+ */
+function mimemail_mailengine($op, $message = array()) {
+  //module_load_include('inc', 'mimemail');
+  /*switch ($op) {
+    case 'list':
+      $engine = array(
+        'name' => t('Mime Mail'),
+        'description' => t("Default mailing engine."),
+      );
+      return $engine;
+    case 'settings':
+      // Not implemented.
+      break;
+    case 'multiple':
+    case 'single':
+    case 'send':
+      // Default values.
+      $default = array(
+        'to' => '',
+        'subject' => '',
+        'body' => '',
+        'from' => '',
+        'headers' => ''
+      );
+      $message = array_merge($default, $message);
+
+      // If 'Return-Path' isn't already set in php.ini, we pass it separately
+      // as an additional parameter instead of in the header.
+      // However, if PHP's 'safe_mode' is on, this is not allowed.
+      if (isset($message['headers']['Return-Path']) && !ini_get('safe_mode')) {
+        $return_path_set = strpos(ini_get('sendmail_path'), ' -f');
+        if (!$return_path_set) {
+          $return_path = trim($message['headers']['Return-Path'], '<>');
+          unset($message['headers']['Return-Path']);
+        }
+      }
+
+      $crlf = variable_get('mimemail_crlf', MAIL_LINE_ENDINGS);
+
+      $recipients = (!is_array($message['to'])) ? array($message['to']) : $message['to'];
+      $subject = mime_header_encode($message['subject']);
+      $body = preg_replace('@\r?\n@', $crlf, $message['body']);
+      $headers = mimemail_rfc_headers($message['headers']);
+
+      $result = TRUE;
+      foreach ($recipients as $to) {
+        if (isset($return_path) && !empty($return_path)) {
+          if (isset($_SERVER['WINDIR']) || strpos($_SERVER['SERVER_SOFTWARE'], 'Win32') !== FALSE) {
+            // On Windows, PHP will use the value of sendmail_from for the
+            // Return-Path header.
+            $old_from = ini_get('sendmail_from');
+            ini_set('sendmail_from', $return_path);
+            $result = @mail($to, $subject, $body, $headers) && $result;
+            ini_set('sendmail_from', $old_from);
+          }
+          else {
+            // On most non-Windows systems, the "-f" option to the sendmail command
+            // is used to set the Return-Path.
+            $result = @mail($to, $subject, $body, $headers, '-f' . $return_path) && $result;
+          }
+        }
+        else {
+          // The optional $additional_parameters argument to mail() is not allowed
+          // if safe_mode is enabled. Passing any value throws a PHP warning and
+          // makes mail() return FALSE.
+          $result = @mail($to, $subject, $body, $headers) && $result;
+        }
+      }
+
+      return $result;
+  }
+
+  return FALSE;*/
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mimemail_theme() {
+  return[
+    'mimemail_messages' => [
+      'variables' => [
+        'module' => '',
+        'key' => '',
+        'recipient' => '',
+        'subject' => '',
+        'body' => '',
+      ],
+    ],
+  ];
+}

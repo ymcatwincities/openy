@@ -1,0 +1,24 @@
+/**
+ * @file file_browser.dropzone.css
+ */
+
+.dropzone .dz-preview .dropzonejs-remove-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 500;
+  background-image: url("../icons/remove.svg");
+  background-size: cover;
+}
+
+.dropzone .dz-preview .dropzonejs-remove-icon:hover {
+  background-image: url("../icons/remove-hover.svg");
+  background-size: cover;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image, .dropzone .dz-preview .dz-image {
+  border-radius: 0;
+}

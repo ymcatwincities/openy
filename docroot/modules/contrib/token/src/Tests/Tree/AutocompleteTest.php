@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Tests\Tree\AutocompleteTest.
- */
-
 namespace Drupal\token\Tests\Tree;
 
 use Drupal\token\Tests\TokenTestBase;

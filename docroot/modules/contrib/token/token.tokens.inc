@@ -5,20 +5,24 @@
  * Token callbacks for the token module.
  */
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Entity\TypedData\EntityDataDefinitionInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\Element;
 use Drupal\Component\Utility\Crypt;
-use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\Xss;
+use Drupal\Core\TypedData\DataReferenceDefinitionInterface;
 use Drupal\Core\Url;
-use Drupal\field\FieldConfigInterface;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\system\Entity\Menu;
 use Drupal\user\UserInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Drupal\Core\TypedData\PrimitiveInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Implements hook_token_info_alter().
@@ -60,16 +64,22 @@ function token_token_info_alter(&$info) {
   $info['tokens']['user']['url']['type'] = 'url';
 
   // Add [token:url] tokens for any URI-able entities.
-  $entities = \Drupal::entityManager()->getDefinitions();
+  $entities = \Drupal::entityTypeManager()->getDefinitions();
   foreach ($entities as $entity => $entity_info) {
-    /* @var \Drupal\Core\Entity\EntityType $entity_info */
-    if (!$entity_info->get('token_type')) {
+    // Do not generate tokens if the entity doesn't define a token type or is
+    // not a content entity.
+    if (!$entity_info->get('token_type') || (!$entity_info instanceof ContentEntityTypeInterface)) {
       continue;
     }
 
     $token_type = $entity_info->get('token_type');
     if (!isset($info['types'][$token_type]) || !isset($info['tokens'][$token_type])) {
-      continue;
+      // Define tokens for entity type's without their own integration.
+      $info['types'][$entity_info->id()] = [
+        'name' => $entity_info->getLabel(),
+        'needs-data' => $entity_info->id(),
+        'module' => 'token',
+      ];
     }
 
     // Add [entity:url] tokens if they do not already exist.
@@ -96,12 +106,12 @@ function token_token_info_alter(&$info) {
 
   // Add support for custom date formats.
   // @todo Remove when http://drupal.org/node/1173706 is fixed.
-  $date_format_types = \Drupal::entityManager()->getStorage('date_format')->loadMultiple();
+  $date_format_types = \Drupal::entityTypeManager()->getStorage('date_format')->loadMultiple();
   foreach ($date_format_types as $date_format_type => $date_format_type_info) {
     /* @var \Drupal\system\Entity\DateFormat $date_format_type_info */
     if (!isset($info['tokens']['date'][$date_format_type])) {
       $info['tokens']['date'][$date_format_type] = array(
-        'name' => SafeMarkup::checkPlain($date_format_type_info->label()),
+        'name' => Html::escape($date_format_type_info->label()),
         'description' => t("A date in '@type' format. (%date)", array('@type' => $date_format_type, '%date' => format_date(REQUEST_TIME, $date_format_type))),
         'module' => 'token',
       );
@@ -323,6 +333,7 @@ function token_token_info() {
     'name' => t('Array'),
     'description' => t('Tokens related to arrays of strings.'),
     'needs-data' => 'array',
+    'nested' => TRUE,
   );
   $info['tokens']['array']['first'] = array(
     'name' => t('First'),
@@ -372,6 +383,42 @@ function token_token_info() {
     'dynamic' => TRUE,
   );
 
+  // Define image_with_image_style token type.
+  if (\Drupal::moduleHandler()->moduleExists('image')) {
+    $info['types']['image_with_image_style'] = [
+      'name' => t('Image with image style'),
+      'needs-data' => 'image_with_image_style',
+      'module' => 'token',
+      'nested' => TRUE,
+    ];
+
+    // Provide tokens for the ImageStyle attributes.
+    $info['tokens']['image_with_image_style']['mimetype'] = [
+      'name' => t('MIME type'),
+      'description' => t('The MIME type (image/png, image/bmp, etc.) of the image.'),
+    ];
+    $info['tokens']['image_with_image_style']['filesize'] = [
+      'name' => t('File size'),
+      'description' => t('The file size of the image.'),
+    ];
+    $info['tokens']['image_with_image_style']['height'] = [
+      'name' => t('Height'),
+      'description' => t('The height the image, in pixels.'),
+    ];
+    $info['tokens']['image_with_image_style']['width'] = [
+      'name' => t('Width'),
+      'description' => t('The width of the image, in pixels.'),
+    ];
+    $info['tokens']['image_with_image_style']['uri'] = [
+      'name' => t('URI'),
+      'description' => t('The URI to the image.'),
+    ];
+    $info['tokens']['image_with_image_style']['url'] = [
+      'name' => t('URL'),
+      'description' => t('The URL to the image.'),
+    ];
+  }
+
   return $info;
 }
 
@@ -380,14 +427,14 @@ function token_token_info() {
  */
 function token_tokens($type, array $tokens, array $data = array(), array $options = array(), BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
-
+  $language_manager = \Drupal::languageManager();
   $url_options = array('absolute' => TRUE);
   if (isset($options['langcode'])) {
-    $url_options['language'] = \Drupal::languageManager()->getLanguage($options['langcode']);
+    $url_options['language'] = $language_manager->getLanguage($options['langcode']);
     $langcode = $options['langcode'];
   }
   else {
-    $langcode = NULL;
+    $langcode = $language_manager->getCurrentLanguage()->getId();
   }
 
   // Date tokens.
@@ -395,7 +442,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     $date = !empty($data['date']) ? $data['date'] : REQUEST_TIME;
 
     // @todo Remove when http://drupal.org/node/1173706 is fixed.
-    $date_format_types = \Drupal::entityManager()->getStorage('date_format')->loadMultiple();
+    $date_format_types = \Drupal::entityTypeManager()->getStorage('date_format')->loadMultiple();
     foreach ($tokens as $name => $original) {
       if (isset($date_format_types[$name]) && _token_module('date', $name) == 'token') {
         $replacements[$original] = format_date($date, $name, '', NULL, $langcode);
@@ -432,14 +479,14 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $replacements[$original] = (string) $node->revision_log->value;
           break;
         case 'content-type':
-          $type_name = \Drupal::entityManager()->getStorage('node_type')->load($node->getType())->label();
+          $type_name = \Drupal::entityTypeManager()->getStorage('node_type')->load($node->getType())->label();
           $replacements[$original] = $type_name;
           break;
       }
     }
 
     // Chained token relationships.
-    if (!empty($node->tnid) && ($parent_tokens = \Drupal::token()->findWithPrefix($tokens, 'source')) && $source_node = node_load($node->tnid)) {
+    if (($parent_tokens = \Drupal::token()->findWithPrefix($tokens, 'source')) && $source_node = $node->getUntranslated()) {
       $replacements += \Drupal::token()->generate('node', $parent_tokens, array('node' => $source_node), $options, $bubbleable_metadata);
     }
     if (($node_type_tokens = \Drupal::token()->findWithPrefix($tokens, 'content-type')) && $node_type = node_type_load($node->bundle())) {
@@ -486,16 +533,16 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     $term = $data['term'];
 
     /** @var \Drupal\taxonomy\TermStorageInterface $term_storage */
-    $term_storage = \Drupal::entityManager()->getStorage('taxonomy_term');
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'edit-url':
-          $replacements[$original] = \Drupal::url('entity.taxonomy_term.edit_form', ['taxonomy_term' => $term->id()], $url_options);
+          $replacements[$original] = Url::fromRoute('entity.taxonomy_term.edit_form', ['taxonomy_term' => $term->id()], $url_options)->toString();
           break;
 
         case 'parents':
-          if ($parents = token_taxonomy_term_load_all_parents($term->id())) {
+          if ($parents = token_taxonomy_term_load_all_parents($term->id(), $langcode)) {
             $replacements[$original] = token_render_array($parents, $options);
           }
           break;
@@ -516,7 +563,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     }
     // [term:parents:*] chained tokens.
     if ($parents_tokens = \Drupal::token()->findWithPrefix($tokens, 'parents')) {
-      if ($parents = token_taxonomy_term_load_all_parents($term->id())) {
+      if ($parents = token_taxonomy_term_load_all_parents($term->id(), $langcode)) {
         $replacements += \Drupal::token()->generate('array', $parents_tokens, array('array' => $parents), $options, $bubbleable_metadata);
       }
     }
@@ -539,7 +586,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $replacements[$original] = $vocabulary->id();
           break;
         case 'edit-url':
-          $replacements[$original] = \Drupal::url('entity.taxonomy_vocabulary.edit_form', ['taxonomy_vocabulary' => $vocabulary->id()], $url_options);
+          $replacements[$original] = Url::fromRoute('entity.taxonomy_vocabulary.edit_form', ['taxonomy_vocabulary' => $vocabulary->id()], $url_options)->toString();
           break;
       }
     }
@@ -636,7 +683,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $replacements[$original] = $link->getPluginId();
           break;
         case 'title':
-          $replacements[$original] = $link->getTitle();
+          $replacements[$original] = token_menu_link_translated_title($link, $langcode);
           break;
         case 'url':
           $replacements[$original] = $link->getUrlObject()->setAbsolute()->toString();
@@ -645,18 +692,18 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
 
           /** @var \Drupal\Core\Menu\MenuLinkInterface $parent */
           if ($link->getParent() && $parent = $menu_link_manager->createInstance($link->getParent())) {
-            $replacements[$original] = $parent->getTitle();
+            $replacements[$original] = token_menu_link_translated_title($parent, $langcode);
           }
           break;
         case 'parents':
-          if ($parents = token_menu_link_load_all_parents($link->getPluginId())) {
+          if ($parents = token_menu_link_load_all_parents($link->getPluginId(), $langcode)) {
             $replacements[$original] = token_render_array($parents, $options);
           }
           break;
         case 'root';
-          if ($link->getParent() && $parent_ids = array_keys(token_menu_link_load_all_parents($link->getPluginId()))) {
+          if ($link->getParent() && $parent_ids = array_keys(token_menu_link_load_all_parents($link->getPluginId(), $langcode))) {
             $root = $menu_link_manager->createInstance(array_shift($parent_ids));
-            $replacements[$original] = $root->getTitle();
+            $replacements[$original] = token_menu_link_translated_title($root, $langcode);
           }
           break;
       }
@@ -669,11 +716,11 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
     }
     // [menu-link:parents:*] chained tokens.
     if ($parents_tokens = \Drupal::token()->findWithPrefix($tokens, 'parents')) {
-      if ($parents = token_menu_link_load_all_parents($link->getPluginId())) {
+      if ($parents = token_menu_link_load_all_parents($link->getPluginId(), $langcode)) {
         $replacements += \Drupal::token()->generate('array', $parents_tokens, array('array' => $parents), $options, $bubbleable_metadata);
       }
     }
-    if (($root_tokens = \Drupal::token()->findWithPrefix($tokens, 'root')) && $link->getParent() && $parent_ids = array_keys(token_menu_link_load_all_parents($link->getPluginId()))) {
+    if (($root_tokens = \Drupal::token()->findWithPrefix($tokens, 'root')) && $link->getParent() && $parent_ids = array_keys(token_menu_link_load_all_parents($link->getPluginId(), $langcode))) {
       $root = $menu_link_manager->createInstance(array_shift($parent_ids));
       $replacements += \Drupal::token()->generate('menu-link', $root_tokens, array('menu-link' => $root), $options, $bubbleable_metadata);
     }
@@ -691,7 +738,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
           $request = \Drupal::request();
           $route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT);
           $title = \Drupal::service('title_resolver')->getTitle($request, $route);
-          $replacements[$original] = $title;
+          $replacements[$original] = token_render_array_value($title);
           break;
         case 'url':
           $replacements[$original] = Url::fromRoute('<current>', [], $url_options)->toString();
@@ -815,7 +862,7 @@ function token_tokens($type, array $tokens, array $data = array(), array $option
 
     // [entity:url:*] chained tokens.
     if (($url_tokens = \Drupal::token()->findWithPrefix($tokens, 'url')) && _token_module($type, 'url') == 'token') {
-      $replacements += \Drupal::token()->generate('url', $url_tokens, array('url' => $entity->urlInfo()), $options, $bubbleable_metadata);
+      $replacements += \Drupal::token()->generate('url', $url_tokens, array('url' => $entity->toUrl()), $options, $bubbleable_metadata);
     }
 
     // [entity:original:*] chained tokens.
@@ -1060,20 +1107,35 @@ function menu_ui_tokens($type, $tokens, array $data = array(), array $options = 
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'menu-link':
-          $url = $node->urlInfo();
-          if ($links = $menu_link_manager->loadLinksByRoute($url->getRouteName(), $url->getRouteParameters())) {
-            $link = reset($links);
-            $replacements[$original] = $link->getTitle();
+          // On node-form save we populate a calculated field with a menu_link
+          // references.
+          // @see token_node_menu_link_submit()
+          if ($node->getFieldDefinition('menu_link') && $menu_link = $node->menu_link->entity) {
+            /** @var \Drupal\menu_link_content\MenuLinkContentInterface $menu_link */
+            $replacements[$original] = $menu_link->getTitle();
+          }
+          else {
+            $url = $node->toUrl();
+            if ($links = $menu_link_manager->loadLinksByRoute($url->getRouteName(), $url->getRouteParameters())) {
+              $link = reset($links);
+              $replacements[$original] = token_menu_link_translated_title($link, $langcode);
+            }
           }
           break;
       }
 
       // Chained token relationships.
       if ($menu_tokens = \Drupal::token()->findWithPrefix($tokens, 'menu-link')) {
-        $url = $node->urlInfo();
-        if ($links = $menu_link_manager->loadLinksByRoute($url->getRouteName(), $url->getRouteParameters())) {
-          $link = reset($links);
-          $replacements += \Drupal::token()->generate('menu-link', $menu_tokens, array('menu-link' => $link), $options, $bubbleable_metadata);
+        if ($node->getFieldDefinition('menu_link') && $menu_link = $node->menu_link->entity) {
+          /** @var \Drupal\menu_link_content\MenuLinkContentInterface $menu_link */
+          $replacements += \Drupal::token()->generate('menu-link', $menu_tokens, array('menu-link' => $menu_link), $options, $bubbleable_metadata);
+        }
+        else {
+          $url = $node->urlInfo();
+          if ($links = $menu_link_manager->loadLinksByRoute($url->getRouteName(), $url->getRouteParameters())) {
+            $link = reset($links);
+            $replacements += \Drupal::token()->generate('menu-link', $menu_tokens, array('menu-link' => $link), $options, $bubbleable_metadata);
+          }
         }
       }
     }
@@ -1132,7 +1194,7 @@ function menu_ui_tokens($type, $tokens, array $data = array(), array $options = 
           break;
 
         case 'edit-url':
-          $replacements[$original] = \Drupal::url('entity.menu.edit_form', ['menu' => $menu->id()], $url_options);
+          $replacements[$original] = Url::fromRoute('entity.menu.edit_form', ['menu' => $menu->id()], $url_options)->toString();
           break;
       }
     }
@@ -1151,7 +1213,7 @@ function field_token_info_alter(&$info) {
   $type_info = \Drupal::service('plugin.manager.field.field_type')->getDefinitions();
 
   // Attach field tokens to their respecitve entity tokens.
-  foreach (\Drupal::entityManager()->getDefinitions() as $entity_type_id => $entity_type) {
+  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
     if (!$entity_type->isSubclassOf('\Drupal\Core\Entity\ContentEntityInterface')) {
       continue;
     }
@@ -1162,18 +1224,26 @@ function field_token_info_alter(&$info) {
       continue;
     }
 
-    $fields = \Drupal::entityManager()->getFieldStorageDefinitions($entity_type_id);
+    $fields = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions($entity_type_id);
     foreach ($fields as $field_name => $field) {
-      if (!($field instanceof FieldStorageConfigInterface)) {
-        continue;
-      }
-      // If a token already exists for this field, then don't add it.
-      if (isset($info['tokens'][$token_type][$field_name])) {
+      /** @var \Drupal\field\FieldStorageConfigInterface $field */
+      // Ensure the token type exists.
+      if (!isset($info['types'][$token_type])) {
         continue;
       }
 
-      // Ensure the tokens exist.
-      if (!isset($info['types'][$token_type]) || !isset($info['tokens'][$token_type])) {
+      // Ensure the token implements FieldStorageConfigInterface or is defined
+      // in token module.
+      $provider = '';
+      if (isset($info['types'][$token_type]['module'])) {
+        $provider = $info['types'][$token_type]['module'];
+      }
+      if (!($field instanceof FieldStorageConfigInterface) && $provider != 'token') {
+        continue;
+      }
+
+      // If a token already exists for this field, then don't add it.
+      if (isset($info['tokens'][$token_type][$field_name])) {
         continue;
       }
 
@@ -1182,8 +1252,12 @@ function field_token_info_alter(&$info) {
         continue;
       }
 
-      // Generate a description for the token.
+      // Do not define the token type if the field has no properties.
+      if (!$field->getPropertyDefinitions()) {
+        continue;
+      }
 
+      // Generate a description for the token.
       $labels = _token_field_label($entity_type_id, $field_name);
       $label = array_shift($labels);
       $params['@type'] = $type_info[$field->getType()]['label'];
@@ -1195,11 +1269,76 @@ function field_token_info_alter(&$info) {
         $description = t('@type field.', $params);
       }
 
+      $cardinality = $field->getCardinality();
+      $cardinality = ($cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED || $cardinality > 3) ? 3 : $cardinality;
+      $field_token_name = $token_type . '-' . $field_name;
       $info['tokens'][$token_type][$field_name] = array(
-        'name' => SafeMarkup::checkPlain($label),
+        'name' => Html::escape($label),
         'description' => $description,
         'module' => 'token',
+        // For multivalue fields the field token is a list type.
+        'type' => $cardinality > 1 ? "list<$field_token_name>" : $field_token_name,
       );
+
+      // Field token type.
+      $info['types'][$field_token_name] = [
+        'name' => Html::escape($label),
+        'description' => t('@label tokens.', ['@label' => Html::escape($label)]),
+        'needs-data' => $field_token_name,
+        'nested' => TRUE,
+      ];
+      // Field list token type.
+      if ($cardinality > 1) {
+        $info['types']["list<$field_token_name>"] = array(
+          'name' => t('List of @type values', array('@type' => Html::escape($label))),
+          'description' => t('Tokens for lists of @type values.', array('@type' => Html::escape($label))),
+          'needs-data' => "list<$field_token_name>",
+          'nested' => TRUE,
+        );
+      }
+
+      // Show a different token for each field delta.
+      if ($cardinality > 1) {
+        for ($delta = 0; $delta < $cardinality; $delta++) {
+          $info['tokens']["list<$field_token_name>"][$delta] = [
+            'name' => t('@type type with delta @delta', ['@type' => Html::escape($label), '@delta' => $delta]),
+            'module' => 'token',
+            'type' => $field_token_name,
+          ];
+        }
+      }
+
+      // Property tokens.
+      foreach ($field->getPropertyDefinitions() as $property => $property_definition) {
+        if (is_subclass_of($property_definition->getClass(), 'Drupal\Core\TypedData\PrimitiveInterface')) {
+          $info['tokens'][$field_token_name][$property] = [
+            'name' => $property_definition->getLabel(),
+            'description' => $property_definition->getDescription(),
+            'module' => 'token',
+          ];
+        }
+        elseif (($property_definition instanceof DataReferenceDefinitionInterface) && ($property_definition->getTargetDefinition() instanceof EntityDataDefinitionInterface)) {
+          $referenced_entity_type = $property_definition->getTargetDefinition()->getEntityTypeId();
+          $referenced_token_type = \Drupal::service('token.entity_mapper')->getTokenTypeForEntityType($referenced_entity_type);
+          $info['tokens'][$field_token_name][$property] = [
+            'name' => $property_definition->getLabel(),
+            'description' => $property_definition->getDescription(),
+            'module' => 'token',
+            'type' => $referenced_token_type,
+          ];
+        }
+      }
+      // Provide image_with_image_style tokens for image fields.
+      if ($field->getType() == 'image') {
+        $image_styles = image_style_options(FALSE);
+        foreach ($image_styles as $style => $description) {
+          $info['tokens'][$field_token_name][$style] = [
+            'name' => $description,
+            'description' => t('Represents the image in the given image style.'),
+            'type' => 'image_with_image_style',
+          ];
+        }
+      }
     }
   }
 }
@@ -1209,7 +1348,9 @@ function field_token_info_alter(&$info) {
  *
  * Therefore it looks up in all bundles to find the most used instance.
  *
- * Based on field_views_field_label().
+ * Based on views_entity_field_label().
+ *
+ * @todo Resync this method with views_entity_field_label().
  */
 function _token_field_label($entity_type, $field_name) {
   $labels = [];
@@ -1218,7 +1359,7 @@ function _token_field_label($entity_type, $field_name) {
     $bundle_instances = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type, $bundle);
     if (isset($bundle_instances[$field_name])) {
       $instance = $bundle_instances[$field_name];
-      $label = $instance->getLabel();
+      $label = (string) $instance->getLabel();
       $labels[$label] = isset($labels[$label]) ? ++$labels[$label] : 1;
     }
   }
@@ -1238,63 +1379,197 @@ function _token_field_label($entity_type, $field_name) {
 function field_tokens($type, $tokens, array $data = array(), array $options = array(), BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
   $langcode = isset($options['langcode']) ? $options['langcode'] : NULL;
-
-  $renderer = \Drupal::service('renderer');
-
   // Entity tokens.
   if ($type == 'entity' && !empty($data['entity_type']) && !empty($data['entity']) && !empty($data['token_type'])) {
-    // The field API does weird stuff to the entity, so let's clone it.
     /* @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-    $entity = clone $data['entity'];
+    $entity = $data['entity'];
     if (!($entity instanceof ContentEntityInterface)) {
       return $replacements;
     }
 
-    // Reset the prepared view flag in case token generation is called from
-    // inside field_attach_view().
-    unset($entity->_field_view_prepared);
+    if (!isset($options['langcode'])) {
+      // Set the active language in $options, so that it is passed along.
+      $langcode = $options['langcode'] = $entity->language()->getId();
+    }
+    // Obtain the entity with the correct language.
+    $entity = \Drupal::service('entity.repository')->getTranslationFromContext($entity, $langcode);
 
-    $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display')
-      ->load($entity->getEntityTypeId() . '.' . $entity->bundle() . '.token');
+    $view_mode_name = $entity->getEntityTypeId() . '.' . $entity->bundle() . '.token';
+    $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display')->load($view_mode_name);
     $token_view_display = (!empty($view_display) && $view_display->status());
-    /** @var \Drupal\Core\Field\FieldTypePluginManager $fieldTypeManager */
-    $fieldTypeManager = \Drupal::service('plugin.manager.field.field_type');
-
     foreach ($tokens as $name => $original) {
-      // Replace the [entity:field-name] token only if token module added this
-      // token.
-      if ($entity->hasField($name) && _token_module($data['token_type'], $name) == 'token') {
-
-        // Do not continue if the field is empty or not a configurable field.
-        if ($entity->get($name)->isEmpty() || !($entity->getFieldDefinition($name) instanceof FieldConfigInterface)) {
-          continue;
+      // For the [entity:field_name] token.
+      if (strpos($name, ':') === FALSE) {
+        $field_name = $name;
+        $token_name = $name;
+      }
+      // For [entity:field_name:0], [entity:field_name:0:value] and
+      // [entity:field_name:value] tokens.
+      else {
+        list($field_name, $delta) = explode(':', $name, 2);
+        if (!is_numeric($delta)) {
+          unset($delta);
         }
+        $token_name = $field_name;
+      }
+      // Ensure the entity has the requested field and that the token for it is
+      // defined by token.module.
+      if (!$entity->hasField($field_name) || _token_module($data['token_type'], $token_name) != 'token') {
+        continue;
+      }
 
-        $display_options = 'token';
+      $display_options = 'token';
+      // Do not continue if the field is empty.
+      if ($entity->get($field_name)->isEmpty()) {
+        continue;
+      }
+      // Handle [entity:field_name] and [entity:field_name:0] tokens.
+      if ($field_name === $name || isset($delta)) {
         if (!$token_view_display) {
           // We don't have the token view display and should fall back on
           // default formatters. If the field has specified a specific formatter
           // to be used by default with tokens, use that, otherwise use the
           // default formatter.
-          $field_type_definition = $fieldTypeManager->getDefinition($entity->getFieldDefinition($name)->getType());
-
+          /** @var \Drupal\Core\Field\FieldTypePluginManager $field_type_manager */
+          $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
+          $field_type_definition = $field_type_manager->getDefinition($entity->getFieldDefinition($field_name)->getType());
           $display_options = [
             'type' => !empty($field_type_definition['default_token_formatter']) ? $field_type_definition['default_token_formatter'] : $field_type_definition['default_formatter'],
             'label' => 'hidden',
           ];
         }
 
-        $field_output = $entity->$name->view($display_options);
+        // Render only one delta.
+        if (isset($delta)) {
+          if ($field_delta = $entity->{$field_name}[$delta]) {
+            $field_output = $field_delta->view($display_options);
+          }
+          // If no such delta exists, let's not replace the token.
+          else {
+            continue;
+          }
+        }
+        // Render the whole field (with all deltas).
+        else {
+          $field_output = $entity->$field_name->view($display_options);
+          // If we are displaying all field items we need this #pre_render
+          // callback.
+          $field_output['#pre_render'][] = 'token_pre_render_field_token';
+        }
         $field_output['#token_options'] = $options;
-        $field_output['#pre_render'][] = 'token_pre_render_field_token';
-        $replacements[$original] = $renderer->renderPlain($field_output);
+        $replacements[$original] = \Drupal::service('renderer')->renderPlain($field_output);
+      }
+      // Handle [entity:field_name:value] and [entity:field_name:0:value]
+      // tokens.
+      else if ($field_tokens = \Drupal::token()->findWithPrefix($tokens, $field_name)) {
+        $property_token_data = [
+          'field_property' => TRUE,
+          $data['entity_type'] . '-' . $field_name => $entity->$field_name,
+          'field_name' => $data['entity_type'] . '-' . $field_name,
+        ];
+        $replacements += \Drupal::token()->generate($field_name, $field_tokens, $property_token_data, $options, $bubbleable_metadata);
       }
     }
 
     // Remove the cloned object from memory.
     unset($entity);
   }
+  elseif (!empty($data['field_property'])) {
+    foreach ($tokens as $token => $original) {
+      $filtered_tokens = $tokens;
+      $delta = 0;
+      $parts = explode(':', $token);
+      if (is_numeric($parts[0])) {
+        if (count($parts) > 1) {
+          $delta = $parts[0];
+          $property_name = $parts[1];
+          // Pre-filter the tokens to select those with the correct delta.
+          $filtered_tokens = \Drupal::token()->findWithPrefix($tokens, $delta);
+          // Remove the delta to unify between having and not having one.
+          array_shift($parts);
+        }
+        else {
+          // Token is fieldname:delta, which is invalid.
+          continue;
+        }
+      }
+      else {
+        $property_name = $parts[0];
+      }
 
+      if (isset($data[$data['field_name']][$delta])) {
+        $field_item = $data[$data['field_name']][$delta];
+      }
+      else {
+        // The field has no such delta, abort replacement.
+        continue;
+      }
+
+      if (isset($field_item->$property_name) && ($field_item->$property_name instanceof FieldableEntityInterface)) {
+        // Entity reference field.
+        $entity = $field_item->$property_name;
+        // Obtain the referenced entity with the correct language.
+        $entity = \Drupal::service('entity.repository')->getTranslationFromContext($entity, $langcode);
+
+        if (count($parts) > 1) {
+          $field_tokens = \Drupal::token()->findWithPrefix($filtered_tokens, $property_name);
+          $token_type = \Drupal::service('token.entity_mapper')->getTokenTypeForEntityType($entity->getEntityTypeId(), TRUE);
+          $replacements += \Drupal::token()->generate($token_type, $field_tokens, [$token_type => $entity], $options, $bubbleable_metadata);
+        }
+        else {
+          $replacements[$original] = $entity->label();
+        }
+      }
+      elseif (($field_item->getFieldDefinition()->getType() == 'image') && ($style = ImageStyle::load($property_name))) {
+        // Handle [node:field_name:image_style:property] tokens and multivalued
+        // [node:field_name:delta:image_style:property] tokens. If the token is
+        // of the form [node:field_name:image_style], provide the URL as a
+        // replacement.
+        $property_name = isset($parts[1]) ? $parts[1] : 'url';
+        $entity = $field_item->entity;
+        $original_uri = $entity->getFileUri();
+
+        // Only generate the image derivative if needed.
+        if ($property_name === 'width' || $property_name === 'height') {
+          $dimensions = [
+            'width' => $field_item->width,
+            'height' => $field_item->height,
+          ];
+          $style->transformDimensions($dimensions, $original_uri);
+          $replacements[$original] = $dimensions[$property_name];
+        }
+        elseif ($property_name === 'uri') {
+          $replacements[$original] = $style->buildUri($original_uri);
+        }
+        elseif ($property_name === 'url') {
+          $replacements[$original] = $style->buildUrl($original_uri);
+        }
+        else {
+          // Generate the image derivative, if it doesn't already exist.
+          $derivative_uri = $style->buildUri($original_uri);
+          $derivative_exists = TRUE;
+          if (!file_exists($derivative_uri)) {
+            $derivative_exists = $style->createDerivative($original_uri, $derivative_uri);
+          }
+          if ($derivative_exists) {
+            $image = \Drupal::service('image.factory')->get($derivative_uri);
+            // Provide the replacement.
+            switch ($property_name) {
+              case 'mimetype':
+                $replacements[$original] = $image->getMimeType();
+                break;
+              case 'filesize' :
+                $replacements[$original] = $image->getFileSize();
+                break;
+            }
+          }
+        }
+      }
+      else {
+        $replacements[$original] = $field_item->$property_name;
+      }
+    }
+  }
   return $replacements;
 }
 

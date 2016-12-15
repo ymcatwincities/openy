@@ -60,6 +60,9 @@ purge_purger_http.settings.*:
     #
     # Performance settings:
     #
+    runtime_measurement:
+      type: boolean
+      translatable: false
     timeout:
       type: float
       translatable: false

@@ -109,6 +109,33 @@ abstract class InlineEntityFormTestBase extends WebTestBase {
   }
 
   /**
+   * Ensures that an entity with a specific label exists.
+   *
+   * @param string $label
+   *   The label of the entity.
+   * @param string $entity_type_id
+   *   The entity type ID.
+   * @param string $bundle
+   *   (optional) The bundle this entity should have.
+   */
+  protected function assertEntityByLabel($label, $entity_type_id = 'node', $bundle = NULL) {
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    $label_key = $entity_type->getKey('label');
+    $bundle_key = $entity_type->getKey('bundle');
+
+    $query = $entity_type_manager->getStorage($entity_type_id)->getQuery();
+    $query->condition($label_key, $label);
+
+    if ($bundle && $bundle_key) {
+      $query->condition($bundle_key, $bundle);
+    }
+
+    $result = $query->execute();
+    $this->assertTrue(!empty($result));
+  }
+
+  /**
    * Checks for check correct fields on form displays based on exported config
    * in inline_entity_form_test module.
    *

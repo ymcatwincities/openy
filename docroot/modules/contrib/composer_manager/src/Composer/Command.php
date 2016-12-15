@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\composer_manager\Composer\Command.
- */
-
 namespace Drupal\composer_manager\Composer;
 
 use Composer\Script\Event;
 use Composer\Console\Application;
 use Drupal\Component\FileCache\FileCacheFactory;
+use Drupal\composer_manager\PackageManager;
 
 /**
  * Callbacks for Composer commands defined by Composer Manager.
@@ -58,7 +54,7 @@ class Command {
     // YAML discovery in core uses FileCache which is not available.
     FileCacheFactory::setConfiguration(['default' => ['class' => '\Drupal\Component\FileCache\NullFileCache']]);
 
-    return new \Drupal\composer_manager\PackageManager($root);
+    return new PackageManager($root);
   }
 
 }
