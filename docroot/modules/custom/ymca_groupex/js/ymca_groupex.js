@@ -102,7 +102,10 @@
 
       $('.groupex-form-full select').change(function() {
         $('.groupex-form-full select').attr('readonly', true);
+        $('div.groupex-results').hide();
+
         $(document).ajaxSuccess(function() {
+          $('div.groupex-results').show();
           $('.groupex-form-full select').removeAttr('readonly');
         });
       });
