@@ -100,7 +100,7 @@ class PopupsController extends ControllerBase {
       $locations = $locations['branch'] + $locations['camp'];
       if (!$locations) {
         // Show 'Class unavailable' popup.
-        return new InvokeCommand('#class-unavailable-modal', 'modal', ['show']);
+        return new InvokeCommand('#class-expired-modal', 'modal', ['show']);
       }
       elseif (count($locations) == 1) {
         // Automatically select the only available location.
