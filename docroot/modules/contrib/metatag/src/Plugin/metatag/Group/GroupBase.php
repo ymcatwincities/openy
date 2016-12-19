@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Group\GroupBase.
- */
 
 /**
  * Each group will extend this base.
