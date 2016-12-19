@@ -1,0 +1,9 @@
+selector:
+  version: 1.0
+  js:
+    js/ygs-branch-selector.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.history
+    - core/drupal
+    - core/drupalSettings
