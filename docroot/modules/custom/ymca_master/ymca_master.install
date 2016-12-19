@@ -4502,3 +4502,21 @@ function ymca_master_update_8199() {
 function ymca_master_update_8200() {
   \Drupal::service('module_installer')->install(['memcache'], TRUE);
 }
+
+/**
+ * Import metatags configs.
+ */
+function ymca_master_update_8201() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'field.field.node.article.field_page_meta.yml',
+      YGTC_CONFDIR . 'field.field.node.blog.field_blog_meta.yml',
+      YGTC_CONFDIR . 'field.field.node.camp.field_meta.yml',
+      YGTC_CONFDIR . 'field.field.node.location.field_location_meta.yml',
+      YGTC_CONFDIR . 'field.storage.node.field_blog_meta.yml',
+      YGTC_CONFDIR . 'field.storage.node.field_camp_meta.yml',
+      YGTC_CONFDIR . 'field.storage.node.field_location_meta.yml',
+      YGTC_CONFDIR . 'field.storage.node.field_page_meta.yml',
+    ]
+  );
+}
