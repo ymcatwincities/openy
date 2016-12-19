@@ -29,7 +29,6 @@ module:
   csv_serialization: 0
   ctools: 0
   datetime: 0
-  dblog: 0
   dbsize: 0
   default_content: 0
   draggableviews: 0
@@ -66,6 +65,7 @@ module:
   link: 0
   logger_entity: 0
   mailsystem: 0
+  memcache: 0
   menu_ui: 0
   metatag: 0
   metatag_open_graph: 0
