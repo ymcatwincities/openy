@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\Rights.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
@@ -16,7 +12,8 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
  *   name = "rights",
  *   group = "advanced",
  *   weight = 5,
- *   image = FALSE,
+ *   type = "label",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

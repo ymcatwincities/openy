@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\MetatagDefaultsInterface.
- */
-
 namespace Drupal\metatag;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;

@@ -42,6 +42,9 @@ settings:
       value: Hudson
       label: Hudson
     -
+      value: 'Maplewood Community Center'
+      label: 'Maplewood Community Center'
+    -
       value: 'Lino Lakes'
       label: 'Lino Lakes'
     -
