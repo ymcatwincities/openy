@@ -1,4 +1,4 @@
-uuid: 73ad39fc-2a73-4cf1-b66c-e112cb67a45e
+uuid: 651698ef-12b8-420e-b3ff-441b024f825f
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ id: node.camp.field_camp_meta
 field_name: field_camp_meta
 entity_type: node
 bundle: camp
-label: 'Meta Tags'
+label: 'Camp Meta'
 description: 'Enter here meta values which are going to override global settings.'
 required: false
 translatable: false
