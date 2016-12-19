@@ -1,7 +1,6 @@
 {% extends "generator.php.twig" %}
 
-{% block file_path %}
-\Drupal\{{ module }}\Plugin\metatag\Tag\{{ class_name }}.
+{% block prefix %}{{ prefix }}
 {% endblock %}
 
 {% block namespace_class %}
@@ -23,7 +22,8 @@ use \Drupal\metatag\Plugin\metatag\Tag\{{ base_class }};
  *   name = "{{ name }}",
  *   group = "{{ group }}",
  *   weight = {{ weight }},
- *   image = {{ image }},
+ *   type = "{{ type }}",
+ *   secure = {{ secure }},
  *   multiple = {{ multiple }}
  * )
  */
