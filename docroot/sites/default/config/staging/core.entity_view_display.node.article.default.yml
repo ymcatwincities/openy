@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.article.field_header_image
     - field.field.node.article.field_header_variant
     - field.field.node.article.field_lead_description
-    - field.field.node.article.field_page_meta
     - field.field.node.article.field_promo_slideshow
     - field.field.node.article.field_related
     - field.field.node.article.field_secondary_sidebar
@@ -23,7 +22,6 @@ dependencies:
     - node.type.article
   module:
     - image
-    - metatag
     - options
     - text
     - user
@@ -72,12 +70,6 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-  field_page_meta:
-    weight: 15
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
   field_promo_slideshow:
     type: entity_reference_label
     weight: 9
