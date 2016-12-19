@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.camp.field_include_general_blog_posts
     - field.field.node.camp.field_location
     - field.field.node.camp.field_main_promos
+    - field.field.node.camp.field_camp_meta
     - field.field.node.camp.field_phone
     - field.field.node.camp.field_promo_slideshow
     - field.field.node.camp.field_registration_block
@@ -20,9 +21,10 @@ dependencies:
   module:
     - address
     - inline_entity_form
+    - metatag
     - path
-    - telephone
     - text
+    - ymca_alters
 id: node.camp.default
 targetEntityType: node
 bundle: camp
@@ -104,6 +106,11 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+  field_camp_meta:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   field_phone:
     weight: 21
     settings:
