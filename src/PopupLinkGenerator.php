@@ -72,10 +72,7 @@ class PopupLinkGenerator {
     if (!empty($_REQUEST['location'])) {
       $show_popup = FALSE;
     }
-    if (!empty($_COOKIE['ygs_preferred_branch'])) {
-      $show_popup = FALSE;
-    }
-    if (!empty($node = \Drupal::routeMatch()->getParameter('node')) && $node->bundle() == 'branch') {
+    if (!empty($node = \Drupal::routeMatch()->getParameter('node')) && in_array($node->bundle(), ['branch', 'camp'])) {
       $show_popup = FALSE;
     }
     return $show_popup;
