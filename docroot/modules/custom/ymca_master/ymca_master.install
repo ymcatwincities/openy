@@ -4511,7 +4511,7 @@ function ymca_master_update_8201() {
     [
       YGTC_CONFDIR . 'field.field.node.article.field_page_meta.yml',
       YGTC_CONFDIR . 'field.field.node.blog.field_blog_meta.yml',
-      YGTC_CONFDIR . 'field.field.node.camp.field_meta.yml',
+      YGTC_CONFDIR . 'field.field.node.camp.field_camp_meta.yml',
       YGTC_CONFDIR . 'field.field.node.location.field_location_meta.yml',
       YGTC_CONFDIR . 'field.storage.node.field_blog_meta.yml',
       YGTC_CONFDIR . 'field.storage.node.field_camp_meta.yml',
