@@ -55,7 +55,7 @@ default_value:
     option_select: 0
     option_name: 'Lino Lakes'
     option_reference: '13'
-    option_emails: Evan.Plotz@ymcamn.org
+    option_emails: Rachel.Bents@ymcamn.org
   -
     option_select: 0
     option_name: 'Minneapolis Downtown'
@@ -65,7 +65,7 @@ default_value:
     option_select: 0
     option_name: 'New Hope'
     option_reference: '16'
-    option_emails: Tami.Koehler@ymcamn.org
+    option_emails: Kathy.Rothstein@ymcamn.org
   -
     option_select: 0
     option_name: 'Ridgedale - Minnetonka'
@@ -115,7 +115,7 @@ default_value:
     option_select: 0
     option_name: Woodbury
     option_reference: '26'
-    option_emails: monique.johnson@ymcamn.org
+    option_emails: Pauline.Alba@ymcamn.org
   -
     option_select: 0
     option_name: 'Harold Mezile North Community YMCA Youth & Teen Enrichment Center'
@@ -131,6 +131,11 @@ default_value:
     option_name: 'Forest Lake'
     option_reference: '2746'
     option_emails: Emily.Ayotte@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Maplewood Community Center'
+    option_reference: '4581'
+    option_emails: Jana.Krautkramer@ymcamn.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item

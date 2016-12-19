@@ -131,6 +131,10 @@ default_value:
     option_name: 'Forest Lake'
     option_reference: '2746'
     option_emails: forestlakesales@ymcamn.org
+  -
+    option_name: 'Maplewood Community Center'
+    option_reference: '4581'
+    option_emails: Chris.Danch@ymcamn.org
 default_value_callback: ''
 settings: {  }
 field_type: options_email_item
