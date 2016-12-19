@@ -4,7 +4,6 @@ namespace Drupal\ygs_popups\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\ygs_alters\AnonymousStartSession;
 
 /**
  * Block with popup link.
@@ -16,7 +15,6 @@ use Drupal\ygs_alters\AnonymousStartSession;
  * )
  */
 class LocationPopupLink extends BlockBase {
-  use AnonymousStartSession;
 
   /**
    * {@inheritdoc}
