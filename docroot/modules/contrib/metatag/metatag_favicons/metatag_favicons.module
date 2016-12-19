@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains metatag_favicons.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function metatag_favicons_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the metatag_favicons module.
+    case 'help.page.metatag_favicons':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides support for many different favicons.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
