@@ -148,16 +148,20 @@
     </div>
 
     <footer class="footer">
-      <div class="container">
-        <div class="col-sm-2 col-xs-4 hidden-sm hidden-md">
-          <a href="{{ base }}" class="footer__brand brand" title="{{ "YMCA Seattle"|t }}"></a>
+      <div class="inner-footer">
+        <div class="inner-footer--left">
+          <div class="logo">
+            {{ page.logo }}
+          </div>
+
+          <div class="inner-footer--nav">
+            <div class="row">
+              {{ page.footer_menus }}
+            </div>
+          </div>
         </div>
-        <nav class="col-xs-8 col-sm-12 col-md-7 col-lg-6">
-          <nav class="footer__nav row">
-            {{ page.footer_menus }}
-          </nav>
-        </nav>
-        <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 footer__social">
+
+        <div class="inner-footer--right">
           {{ page.footer_social }}
         </div>
       </div>
