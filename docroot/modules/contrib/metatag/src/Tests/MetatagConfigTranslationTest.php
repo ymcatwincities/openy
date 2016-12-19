@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Tests\MetatagConfigTranslationTest.
- */
 
 namespace Drupal\metatag\Tests;
 
@@ -11,7 +7,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Ensures that the Metatag config translations work correctly.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagConfigTranslationTest extends WebTestBase {
 
@@ -66,13 +62,15 @@ class MetatagConfigTranslationTest extends WebTestBase {
     $this->drupalLogin($this->adminUser);
 
     // Enable the French language.
-    $edit = array(
+    $this->drupalGet('admin/config/regional/language/add');
+    $this->assertResponse(200);
+    $edit = [
       'predefined_langcode' => 'fr',
-    );
-    $this->drupalPostForm('admin/config/regional/language/add', $edit, t('Add language'));
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Add language'));
     $this->assertRaw(t(
       'The language %language has been created and can now be used.',
-      array('%language' => t('French'))
+      ['%language' => t('French')]
     ));
   }
 
@@ -121,11 +119,13 @@ class MetatagConfigTranslationTest extends WebTestBase {
    */
   public function testConfigTranslations() {
     // Add something to the Global config.
-    $values = array(
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
+    $values = [
       'title' => 'Test title',
       'description' => 'Test description',
-    );
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, t('Save'));
+    ];
+    $this->drupalPostForm(NULL, $values, t('Save'));
     $this->assertResponse(200);
     $this->assertText(t('Saved the Global Metatag defaults.'));
 
@@ -146,10 +146,10 @@ class MetatagConfigTranslationTest extends WebTestBase {
     $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][description]', $values['description']);
 
     // Confirm the form can be saved correctly.
-    $values = array(
+    $values = [
       'translation[config_names][metatag.metatag_defaults.global][tags][title]' => 'Le title',
       'translation[config_names][metatag.metatag_defaults.global][tags][description]' => 'Le description',
-    );
+    ];
     $this->drupalPostForm(NULL, $values, t('Save translation'));
     $this->assertResponse(200);
     $this->assertText(t('Successfully saved French translation'));

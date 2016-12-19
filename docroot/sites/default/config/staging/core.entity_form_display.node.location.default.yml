@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
     - field.field.node.location.field_location
+    - field.field.node.location.field_location_meta
     - field.field.node.location.field_main_promos
     - field.field.node.location.field_membership_block
     - field.field.node.location.field_phone
@@ -22,6 +23,7 @@ dependencies:
     - address
     - entity_browser
     - inline_entity_form
+    - metatag
     - path
     - text
     - ymca_alters
@@ -88,6 +90,11 @@ content:
       default_country: null
     third_party_settings: {  }
     type: address_default
+  field_location_meta:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   field_main_promos:
     weight: 9
     settings:

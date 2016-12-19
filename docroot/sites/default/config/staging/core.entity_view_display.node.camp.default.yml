@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.camp.field_alternate_location
     - field.field.node.camp.field_body
     - field.field.node.camp.field_camp_links
+    - field.field.node.camp.field_camp_meta
     - field.field.node.camp.field_content
     - field.field.node.camp.field_facebook_page_id
     - field.field.node.camp.field_include_general_blog_posts
@@ -19,6 +20,7 @@ dependencies:
     - node.type.camp
   module:
     - address
+    - metatag
     - text
     - user
 id: node.camp.default
@@ -51,6 +53,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_camp_meta:
+    weight: 13
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
   field_content:
     weight: 1
     label: above
