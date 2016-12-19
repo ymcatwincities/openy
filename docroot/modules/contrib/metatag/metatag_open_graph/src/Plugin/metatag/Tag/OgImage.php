@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag_open_graph\Plugin\metatag\Tag\OgImage.
- */
 
 namespace Drupal\metatag_open_graph\Plugin\metatag\Tag;
 
@@ -18,7 +14,8 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   name = "og:image",
  *   group = "open_graph",
  *   weight = 9,
- *   image = TRUE,
+ *   type = "image",
+ *   secure = FALSE,
  *   multiple = TRUE
  * )
  */

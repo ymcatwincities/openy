@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaHttpEquivBase.
- */
 
 /**
  * This base plugin allows "http-equiv"-style meta tags, e.g. the content
@@ -21,13 +17,13 @@ abstract class MetaHttpEquivBase extends MetaNameBase {
       $element = '';
     }
     else {
-      $element = array(
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'http-equiv' => $this->name,
           'content' => $this->value(),
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

@@ -98,9 +98,6 @@ entity_types:
         1132:
           index: 0
           priority: 0.5
-        500:
-          index: 0
-          priority: 0.5
         494:
           index: 0
           priority: 0.5
