@@ -12,7 +12,7 @@ field_name: field_price_available_to
 entity_type: mapping
 bundle: personify_product
 label: 'Available To'
-description: ''
+description: 'Set last date when the special price will be still applicable.'
 required: false
 translatable: false
 default_value: {  }
