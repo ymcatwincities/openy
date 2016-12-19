@@ -1,0 +1,23 @@
+uuid: 73ad39fc-2a73-4cf1-b66c-e112cb67a45e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_camp_meta
+    - node.type.camp
+  module:
+    - metatag
+id: node.camp.field_camp_meta
+field_name: field_camp_meta
+entity_type: node
+bundle: camp
+label: 'Meta Tags'
+description: 'Enter here meta values which are going to override global settings.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 'a:0:{}'
+default_value_callback: ''
+settings: {  }
+field_type: metatag
