@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase.
- */
 
 /**
  * Each meta tag will extend this base.
@@ -12,8 +8,12 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 abstract class MetaNameBase extends PluginBase {
+
+  use StringTranslationTrait;
+
   /**
    * Machine name of the meta tag plugin.
    *
@@ -54,11 +54,18 @@ abstract class MetaNameBase extends PluginBase {
   protected $group;
 
   /**
-   * True if an image URL needs to be parsed out.
+   * Type of the value being stored.
+   *
+   * @var string
+   */
+  protected $type;
+
+  /**
+   * True if URL must use HTTPS.
    *
    * @var boolean
    */
-  protected $image;
+  protected $secure;
 
   /**
    * True if more than one is allowed.
@@ -88,7 +95,8 @@ abstract class MetaNameBase extends PluginBase {
     $this->description = $plugin_definition['description'];
     $this->group = $plugin_definition['group'];
     $this->weight = $plugin_definition['weight'];
-    $this->image = $plugin_definition['image'];
+    $this->type = $plugin_definition['type'];
+    $this->secure = $plugin_definition['secure'];
     $this->multiple = $plugin_definition['multiple'];
   }
 
@@ -110,8 +118,11 @@ abstract class MetaNameBase extends PluginBase {
   public function weight() {
     return $this->weight;
   }
-  public function image() {
-    return $this->image;
+  public function type() {
+    return $this->type;
+  }
+  public function secure() {
+    return $this->secure;
   }
   public function multiple() {
     return $this->multiple;
@@ -128,25 +139,30 @@ abstract class MetaNameBase extends PluginBase {
   /**
    * Generate a form element for this meta tag.
    */
-  public function form(array $element = array()) {
-    $form = array(
+  public function form(array $element = []) {
+    $form = [
       '#type' => 'textfield',
       '#title' => $this->label(),
       '#default_value' => $this->value(),
       '#maxlength' => 255,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->description(),
-      '#element_validate' => array(array(get_class($this), 'validateTag')),
-    );
+      '#element_validate' => [[get_class($this), 'validateTag']],
+    ];
 
     // Optional handling for items that allow multiple values.
     if (!empty($this->multiple)) {
-      $form['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
+      $form['#description'] .= ' ' . $this->t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
     }
 
     // Optional handling for images.
-    if (!empty($this->image)) {
-      $form['#description'] .= ' ' . t('This will be able to extract the URL from an image field.');
+    if ((!empty($this->type())) && ($this->type() === 'image')) {
+      $form['#description'] .= ' ' . $this->t('This will be able to extract the URL from an image field.');
+    }
+
+    // Optional handling for secure paths.
+    if (!empty($this->secure)) {
+      $form['#description'] .= ' ' . $this->t('Any links containing http:// will be converted to https://');
     }
 
     return $form;
@@ -160,6 +176,10 @@ abstract class MetaNameBase extends PluginBase {
     $this->value = $value;
   }
 
+  private function tidy($value) {
+    return trim($value);
+  }
+
   public function output() {
     if (empty($this->value)) {
       // If there is no value, we don't want a tag output.
@@ -169,13 +189,20 @@ abstract class MetaNameBase extends PluginBase {
       // Parse out the image URL, if needed.
       $value = $this->parseImageURL();
 
-      $element = array(
+      $value = $this->tidy($value);
+
+      // If tag must be secure, convert all http:// to https://.
+      if ($this->secure() && strpos($value, 'http://') !== FALSE) {
+        $value = str_replace('http://', 'https://', $value);
+      }
+
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'name' => $this->name,
           'content' => $value,
-        )
-      );
+        ]
+      ];
     }
 
     return $element;
@@ -193,26 +220,45 @@ abstract class MetaNameBase extends PluginBase {
     //@TODO: If there is some common validation, put it here. Otherwise, make it abstract?
   }
 
+  /**
+   * Extract any image URLs that might be found in a meta tag.
+   *
+   * @return string
+   *   A comma separated list of any image URLs found in the meta tag's value,
+   *   or the original string if no images were identified.
+   */
   protected function parseImageURL() {
     $value = $this->value();
 
     // If this contains embedded image tags, extract the image URLs.
-    if ($this->image()) {
+    if ($this->type() === 'image') {
+      // If image tag src is relative (starts with /), convert to an absolute
+      // link.
+      global $base_root;
+      if (strpos($value, '<img src="/') !== FALSE) {
+        $value = str_replace('<img src="/', '<img src="' . $base_root . '/', $value);
+      }
+
       if (strip_tags($value) != $value) {
         if ($this->multiple()) {
           $values = explode(',', $value);
         }
         else {
-          $values = array($value);
+          $values = [$value];
         }
+
+        // Check through the value(s) to see if there are any image tags.
         foreach ($values as $key => $val) {
-          $matches = array();
+          $matches = [];
           preg_match('/src="([^"]*)"/', $val, $matches);
           if (!empty($matches[1])) {
             $values[$key] = $matches[1];
           }
         }
         $value = implode(',', $values);
+
+        // Remove any HTML tags that might remain.
+        $value = strip_tags($value);
       }
     }
 
