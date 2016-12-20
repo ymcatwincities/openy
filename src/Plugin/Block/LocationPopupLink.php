@@ -58,11 +58,17 @@ class LocationPopupLink extends BlockBase {
   public function build() {
     $config = $this->getConfiguration();
     $nid = 0;
+    $type = '';
+    $node = \Drupal::routeMatch()->getParameter('node');
     if ($config['filter'] == 'by_class') {
-      $node = \Drupal::routeMatch()->getParameter('node');
       if ($node && $node->getType() == 'class') {
+        $type = 'class';
         $nid = $node->id();
       }
+    }
+    if ($node && $node->getType() == 'program_subcategory') {
+      $type = 'category';
+      $nid = $node->id();
     }
 
     $block = [
@@ -70,7 +76,7 @@ class LocationPopupLink extends BlockBase {
         '#lazy_builder' => [
           // @see \Drupal\ygs_popups\PopupLinkGenerator
           'ygs_popups.popup_link_generator:generateLink',
-          [$nid],
+          [$type, $nid],
         ],
         '#create_placeholder' => TRUE,
       ],
