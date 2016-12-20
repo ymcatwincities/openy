@@ -15,10 +15,10 @@ class PopupLinkGenerator {
   /**
    * Generate link for My YMCA location.
    *
-   * @param int $nid
-   *   Class node ID.
    * @param string $type
    *   Type of link.
+   * @param int $nid
+   *   Class node ID.
    *
    * @return array
    *   Render array with link.
