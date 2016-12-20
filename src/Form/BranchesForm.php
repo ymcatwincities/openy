@@ -20,7 +20,7 @@ class BranchesForm extends FormBase {
    *
    * @var int
    */
-  protected $node_id;
+  protected $nodeId;
 
   /**
    * The entity query factory.
@@ -51,7 +51,7 @@ class BranchesForm extends FormBase {
     $query = parent::getRequest();
     $parameters = $query->query->all();
     if (!empty($parameters['node'])) {
-      $this->node_id = $parameters['node'];
+      $this->nodeId = $parameters['node'];
     }
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
@@ -124,7 +124,7 @@ class BranchesForm extends FormBase {
     ];
 
     $db = \Drupal::database();
-    if (!empty($this->node_id) && $node = $this->entityTypeManager->getStorage('node')->load($this->node_id)) {
+    if (!empty($this->nodeId) && $node = $this->entityTypeManager->getStorage('node')->load($this->nodeId)) {
       if (!empty($pid = $node->field_program->target_id)) {
         $query = $db->select('node_field_data', 'n');
         $query->leftJoin('node__field_class', 'fc', 'n.nid = fc.entity_id');
@@ -135,7 +135,7 @@ class BranchesForm extends FormBase {
         $query->fields('fl', ['field_location_target_id']);
         $query->condition('n.type', 'session');
         $query->condition('fp.field_program_target_id', $pid);
-        $query->condition('fps.field_program_subcategory_target_id', $this->node_id);
+        $query->condition('fps.field_program_subcategory_target_id', $this->nodeId);
         $query->condition('status', 1);
         $query->isNotNull('fl.field_location_target_id');
         $items = $query->execute()->fetchAll();
