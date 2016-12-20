@@ -17,15 +17,13 @@ class PopupLinkGenerator {
    *
    * @param int $nid
    *   Class node ID.
-   *
    * @param string $type
    *   Type of link.
-   *
    *
    * @return array
    *   Render array with link.
    */
-  public function generateLink($nid = 0, $type) {
+  public function generateLink($type, $nid = 0) {
     // Get destination with query string.
     $destination = \Drupal::request()->getRequestUri();
     // Create popup link url.
