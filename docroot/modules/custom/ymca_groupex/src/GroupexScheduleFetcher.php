@@ -260,16 +260,31 @@ class GroupexScheduleFetcher {
       case 'instructor':
         // Filter classes by instructor.
         $schedule['days'] = [];
+
         foreach ($items as $id => $class) {
           if ($class['#class']['instructor'] == $this->parameters['instructor']) {
+            $class_date = DrupalDateTime::createFromFormat(
+              GroupexRequestTrait::$dateFullFormat,
+              $this->enrichedData[$id]->day,
+              $this->timezone
+            );
+
             $schedule['days'][$this->enrichedData[$id]->day]['classes'][] = $class;
-            $schedule['days'][$this->enrichedData[$id]->day]['day_short'] = DrupalDateTime::createFromFormat(GroupexRequestTrait::$dateFullFormat, $this->enrichedData[$id]->day, $this->timezone)->format('l, F j');
-            $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
+            $schedule['days'][$this->enrichedData[$id]->day]['day_short'] = $class_date->format('l, F j');
+
+            // Adjust query options to fit class date.
+            $date_url_options['filter_date'] = $class_date->format(GroupexRequestTrait::$dateFilterFormat);
+            $date_url_options['filter_timestamp'] = $class_date->format('U');
+
+            $url = Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options));
+            $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = $url;
           }
         }
+
         $schedule['instructor_location'] = t('Schedule for !name', [
           '!name' => '<span class="name"><span class="icon icon-user"></span>' . reset($schedule['days'])['classes'][0]['#class']['instructor'] . '</span>',
         ]);
+
         // Pass 'View This Week’s PDF' href if some location selected.
         if (!empty($this->parameters['location'])) {
           $location = $this->parameters['location'];
