@@ -128,7 +128,11 @@ class BranchesForm extends FormBase {
       if (!empty($pid = $node->field_program->target_id)) {
         $query = $db->select('node_field_data', 'n');
         $query->leftJoin('node__field_class', 'fc', 'n.nid = fc.entity_id');
+        $query->innerJoin('node_field_data', 'fdc', 'fc.entity_id = fdc.nid');
+        $query->condition('fdc.status', 1);
         $query->leftJoin('node__field_activity', 'fa', 'fc.field_class_target_id = fa.entity_id');
+        $query->innerJoin('node_field_data', 'fda', 'fa.entity_id = fda.nid');
+        $query->condition('fda.status', 1);
         $query->leftJoin('node__field_program_subcategory', 'fps', 'fa.field_activity_target_id = fps.entity_id');
         $query->leftJoin('node__field_program', 'fp', 'fps.field_program_subcategory_target_id = fp.entity_id');
         $query->leftJoin('node__field_location', 'fl', 'n.nid = fl.entity_id');
@@ -136,7 +140,7 @@ class BranchesForm extends FormBase {
         $query->condition('n.type', 'session');
         $query->condition('fp.field_program_target_id', $pid);
         $query->condition('fps.field_program_subcategory_target_id', $this->nodeId);
-        $query->condition('status', 1);
+        $query->condition('n.status', 1);
         $query->isNotNull('fl.field_location_target_id');
         $items = $query->execute()->fetchAll();
 

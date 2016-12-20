@@ -18,15 +18,18 @@ class PopupLinkGenerator {
    * @param int $nid
    *   Class node ID.
    *
+   * @param string $type
+   *   Type of link.
+   *
+   *
    * @return array
    *   Render array with link.
    */
-  public function generateLink($nid = 0) {
+  public function generateLink($nid = 0, $type) {
     // Get destination with query string.
     $destination = \Drupal::request()->getRequestUri();
-    $node = \Drupal::routeMatch()->getParameter('node');
     // Create popup link url.
-    if ($nid) {
+    if ($nid && $type == 'class') {
       // For class branches.
       $url = Url::fromRoute('ygs_popups.class_branch', array(
         'node' => $nid,
@@ -34,9 +37,9 @@ class PopupLinkGenerator {
         'destination' => $destination,
       ));
     }
-    elseif ($node && $node->getType() == 'program_subcategory') {
+    elseif ($nid && $type == 'category') {
       $url = Url::fromRoute('ygs_popups.branch', array(
-        'node' => $node->id(),
+        'node' => $nid,
         'js' => 'nojs',
         'destination' => $destination,
       ));
