@@ -24,12 +24,19 @@ class PopupLinkGenerator {
   public function generateLink($nid = 0) {
     // Get destination with query string.
     $destination = \Drupal::request()->getRequestUri();
-
+    $node = \Drupal::routeMatch()->getParameter('node');
     // Create popup link url.
     if ($nid) {
       // For class branches.
       $url = Url::fromRoute('ygs_popups.class_branch', array(
         'node' => $nid,
+        'js' => 'nojs',
+        'destination' => $destination,
+      ));
+    }
+    elseif ($node && $node->getType() == 'program_subcategory') {
+      $url = Url::fromRoute('ygs_popups.branch', array(
+        'node' => $node->id(),
         'js' => 'nojs',
         'destination' => $destination,
       ));
