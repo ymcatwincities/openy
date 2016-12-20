@@ -422,6 +422,6 @@ process:
       migration: yghc_menu_link_content
       source: parent_id
     -
-      plugin: ygh_content_menu_link_content_parent
+      plugin: menu_link_content_parent
 destination:
   plugin: entity:menu_link_content
