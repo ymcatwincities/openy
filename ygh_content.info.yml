@@ -4,3 +4,6 @@ description: Implements static migrations to add YMCA Houston content.
 core: 8.x
 package: OpenY
 version: 8.x-1.0
+dependencies:
+dependencies:
+  - openy_migrate
