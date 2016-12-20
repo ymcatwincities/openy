@@ -15,20 +15,28 @@ class PopupLinkGenerator {
   /**
    * Generate link for My YMCA location.
    *
+   * @param string $type
+   *   Type of link.
    * @param int $nid
    *   Class node ID.
    *
    * @return array
    *   Render array with link.
    */
-  public function generateLink($nid = 0) {
+  public function generateLink($type, $nid = 0) {
     // Get destination with query string.
     $destination = \Drupal::request()->getRequestUri();
-
     // Create popup link url.
-    if ($nid) {
+    if ($nid && $type == 'class') {
       // For class branches.
       $url = Url::fromRoute('ygs_popups.class_branch', array(
+        'node' => $nid,
+        'js' => 'nojs',
+        'destination' => $destination,
+      ));
+    }
+    elseif ($nid && $type == 'category') {
+      $url = Url::fromRoute('ygs_popups.branch', array(
         'node' => $nid,
         'js' => 'nojs',
         'destination' => $destination,
