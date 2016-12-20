@@ -1,3 +1,5 @@
-app_mode: 'sandbox'
-platform_name: 'YMCA_Test'
-platform_key: 'QuQWOTG33omdus25bqWRu1MBxDv9FC2xvu0IKPmkjhRBeVXg8aL8mS31To'
+app_mode: production
+platform_name: YMCA_Prod
+platform_key: sUIh0EmJEn6ae2dNrVEWFmx8qN6TuGNyO2eGKgMr7IsR1BtyAE4GOSqk
+account: '6'
+campaign: '1'

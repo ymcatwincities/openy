@@ -150,6 +150,11 @@ nav#block-footermenuright {
     }
     &.sidebar-in #sidebar {
       margin-top: 39px;
+      height: calc(100vh - 39px);
+
+      .news {
+        padding-bottom: 50px;
+      }
     }
   }
   .toolbar-vertical.toolbar-fixed {
