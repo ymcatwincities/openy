@@ -1,0 +1,7 @@
+.toolbar-bar .acquia-inactive-subscription:before {
+  background-image:url(/core/misc/icons/e32700/error.svg);
+}
+
+.toolbar-bar .acquia-active-subscription:before {
+  background-image:url(/core/misc/icons/73b355/check.svg);
+}

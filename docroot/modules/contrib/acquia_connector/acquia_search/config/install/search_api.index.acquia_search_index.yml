@@ -1,0 +1,41 @@
+id: acquia_search_index
+name: 'Acquia Search Solr Index'
+uuid: c39b2493-bdfb-4045-b200-c8517ff04658
+description: ''
+read_only: false
+options:
+  index_directly: false
+  cron_limit: 50
+  processors:
+    language:
+      status: '1'
+      weight: -50
+      settings: {  }
+      processorPluginId: language
+  fields:
+    search_api_language:
+      type: string
+    'entity:node/body':
+      type: text
+    'entity:node/title':
+      type: string
+  'additional fields': {  }
+datasources:
+  - 'entity:node'
+datasource_configs:
+  'entity:node':
+    default: '1'
+    bundles:
+      article: '0'
+      page: '0'
+tracker: default
+tracker_config: {  }
+server: acquia_search_server
+status: false
+langcode: en
+dependencies:
+  config:
+    - search_api.server.acquia_search_server
+  enforced:
+    module:
+      - acquia_search
