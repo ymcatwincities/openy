@@ -143,7 +143,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
 
       $form['start_date'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Payment Receipt Date From'),
+        '#title' => $this->t('Payment Date Range From'),
         '#default_value' => isset($values['start_date']) ? $values['start_date'] : '',
         '#ajax' => [
           'callback' => [$this, 'rebuildAjaxCallback'],
@@ -159,7 +159,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
 
       $form['end_date'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Payment Receipt Date To'),
+        '#title' => $this->t('Payment Date Range To'),
         '#default_value' => isset($values['end_date']) ? $values['end_date'] : '',
         '#ajax' => [
           'callback' => [$this, 'rebuildAjaxCallback'],
