@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase.
- */
 
 /**
  * This base plugin allows "property"-style meta tags, e.g. Open Graph tags, to
@@ -24,13 +20,18 @@ abstract class MetaPropertyBase extends MetaNameBase {
       // Parse out the image URL, if needed.
       $value = $this->parseImageURL();
 
-      $element = array(
+      // If tag must be secure, convert all http:// to https://.
+      if ($this->secure() && strpos($value, 'http://') !== FALSE) {
+        $value = str_replace('http://', 'https://', $value);
+      }
+
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'property' => $this->name,
           'content' => $value,
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

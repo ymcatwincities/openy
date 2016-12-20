@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Group\Facebook.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Group;
 

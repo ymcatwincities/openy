@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\Field\FieldType\MetatagFieldItem.
- */
-
 namespace Drupal\metatag\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
@@ -28,15 +23,15 @@ class MetatagFieldItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return array(
-      'columns' => array(
-        'value' => array(
+    return [
+      'columns' => [
+        'value' => [
           'type' => 'text',
           'size' => 'big',
           'not null' => FALSE,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
   }
 
   /**
@@ -73,7 +68,7 @@ class MetatagFieldItem extends FieldItemBase {
 
     // Only include values that differ from the default.
     // @TODO: When site defaults are added, account for those.
-    $tags_to_save = array();
+    $tags_to_save = [];
     foreach ($current_tags as $tag_id => $tag_value) {
       if (!isset($default_tags[$tag_id]) || ($tag_value != $default_tags[$tag_id])) {
         $tags_to_save[$tag_id] = $tag_value;
