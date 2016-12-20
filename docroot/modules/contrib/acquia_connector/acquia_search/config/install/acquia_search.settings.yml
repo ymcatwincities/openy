@@ -1,0 +1,5 @@
+host: search.acquia.com
+path: ''
+derived_key_salt: ''
+derived_key: ''
+version: 8.x

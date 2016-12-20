@@ -1,0 +1,173 @@
+# Schema for the configuration files of the acquia_connector module.
+
+acquia_connector.settings:
+  type: mapping
+  label: 'Acquia connector settings'
+  mapping:
+    cloud_migration:
+      type: sequence
+      label: 'Acquia connector migration data'
+    identifier:
+      type: string
+      label: 'Acquia Subscription ID'
+    key:
+      type: string
+      label: 'Acquia Subscription key'
+    subscription_data:
+      label: 'Acquia subscription data'
+      type: mapping
+      mapping:
+        timestamp:
+          type: integer
+        active:
+          type: boolean
+        href:
+          type: string
+        uuid:
+          type: string
+        subscription_name:
+          type: string
+        expiration_date:
+          type: mapping
+          mapping:
+            value:
+              type: string
+              label: 'Acquia subscription expiration date'
+        product:
+          type: mapping
+          mapping:
+            view:
+              type: string
+        derived_key_salt:
+          type: string
+        update_service:
+          type: string
+        search_service_enabled:
+          type: integer
+        rpc_version:
+          type: string
+        update:
+          type: sequence
+        heartbeat_data:
+          type: mapping
+          mapping:
+            search_service_enabled:
+              type: integer
+            search_cores:
+              type: mapping
+              mapping:
+                mapping:
+                  balancer:
+                    type: string
+                  core_id:
+                    type: string
+    subscription_name:
+      type: string
+      lable: 'Acquia Subscripiton Name'
+    debug:
+      type: boolean
+      label: 'Is debug mode active'
+    cron_interval:
+      type: integer
+      label: 'Interval for sending site profile, minutes'
+    cron_interval_override:
+      type: integer
+      label: 'Override for cron_interval, minutes'
+    banner_service:
+      type: string
+      label: 'Acquia banner service uri'
+    migrate:
+      type: mapping
+      label: 'Migrate'
+      mapping:
+        files:
+          type: integer
+          label: 'Migrate files directory'
+    hide_signup_messages:
+      type: integer
+      label: 'Hide signup messages'
+    spi:
+      type: mapping
+      label: 'SPI'
+      mapping:
+        server:
+          type: string
+          label: 'Acquia SPI server'
+        ssl_override:
+          type: boolean
+          label: 'Do not requre secure connection'
+        ssl_verify:
+          type: boolean
+          label: 'Verify SSL'
+        def_vars:
+          type: sequence
+          label: 'SPI definition variables'
+          sequence:
+            - type: mapping
+              label: 'Variable'
+              mapping:
+                optional:
+                  type: integer
+                descripiton:
+                  type: string
+        def_waived_vars:
+          type: sequence
+          label: 'Waived vars'
+          sequence:
+            - type: string
+              label: 'Variable'
+        def_timestamp:
+          type: integer
+          label: 'Last update of SPI definition data'
+        new_optional_data:
+          type: integer
+          label: 'New optional data'
+        admin_priv:
+          type: integer
+          label: 'Allow collection of Admin privileges'
+        send_node_user:
+          type: integer
+          label: 'Allow collection of Nodes and users'
+        send_watchdog:
+          type: integer
+          label: 'Allow collection of Watchdog logs'
+        module_diff_data:
+          type: integer
+          label: 'Allow collection of Source code'
+        use_cron:
+          type: integer
+          label: 'Send via Drupal cron'
+        dynamic_banner:
+          type: integer
+          label: 'Receive updates from Acquia Subscription'
+        set_variables_override:
+          type: integer
+          label: 'Allow Insight to update list of approved variables'
+        set_variables_automatic:
+          type: sequence
+          label: 'List of approved variables'
+          sequence:
+            - type: string
+              label: 'Variable'
+        ignored_set_variables:
+          type: sequence
+          label: 'List of ignored variables'
+        saved_variables:
+          type: mapping
+          label: 'Saved variables'
+          mapping:
+            variables:
+              type: sequence
+              label: 'Saved variables from the Acquia Subscription'
+              sequence:
+                - type: string
+                  label: 'Variable'
+            time:
+              type: integer
+              label: 'Last update of variables'
+        cron_interval:
+          type: integer
+          label: 'Cron interval for failed logins data, sec'
+    mapping: # @todo
+      type: sequence
+      label: 'D7 to D8 variables mapping'
