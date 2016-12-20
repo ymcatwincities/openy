@@ -1,5 +1,171 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2823811 by Michelle: metatag_open_graph_preprocess_html() was misspelled.
+#2654148 by penyaskito, DamienMcKenna: Not all entity.*.add paths are tied to a
+  specific entity form, so don't assume they are; this fixes compatibility with
+  the Lingotek module, possibly others.
+By DamienMcKenna: Fixed a typo in README.txt.
+#2824442 by jiff: image_src should be a 'link' tag.
+#2821476 by DamienMcKenna, Daniel_Rose: Added tests to confirm entity defaults
+  inherit properly.
+#2836124 by DamienMcKenna: Fixed tests for the Dublin Core meta tags.
+#2786625 by DamienMcKenna: Added the hreflang=x-default meta tag.
+#2532588 by DamienMcKenna, renatog, cebasqueira: Added the Google CSE meta tags.
+#2563631 by DamienMcKenna: Added a placeholder to store the AppLinks meta tags.
+#2809351 by DamienMcKenna: Added a placeholder to store the DC Advanced meta
+  tags.
+#2835925 by DamienMcKenna: Added a placeholder to store the OG Products meta
+  tags.
+#2563633 by DamienMcKenna: Added a placeholder to store the favicon meta tags.
+#2532588 by DamienMcKenna: Follow-up to fix the group assignment of the Google
+  CSE meta tags.
+#2786625 by DamienMcKenna: Follow-up to fix the group assignment of the hreflang
+  x-default meta tag.
+
+
+Metatag 8.x-1.0-beta11, 2016-10-31
+----------------------------------
+#2786795 by agoradesign, heddn: Temporarily disable the DrupalConsole
+  integration.
+#2709985 by DamienMcKenna: Moved the two FB meta tags into a new submodule,
+  Metatag Facebook, added the fb_pages meta tag.
+#2709985 by DamienMcKenna: Fixed the fb:pages meta tag description.
+By DamienMcKenna: Updated the description of content-language to clarify its
+  usage and the fact that Bing may still use it.
+#1865228 by DamienMcKenna: Moved the Author meta tag into the GoolgePlus
+  submodule.
+#2797069 by Internet, DamienMcKenna: Corrected the URL to Wikipedia's ICBM page.
+#2801023 by trobey: Provide namespaces in dependencies to avoid ambiguity.
+#2563627 by gaurav.goyal, DamienMcKenna, cilefen: Added all of the basic Dublin
+  Core meta tags.
+#2795983 by dbungard: Improved help message on the main configuration page.
+#2786795 by -enzo-: Fixed Drupal Console integration; now requires rc1.
+#2663974 by dawehmer, DamienMcKenna: Added the og:video meta tags.
+#2819549 by chr.fritsch: Fixed entity API changes in metatag_update_8103.
+#2817309 by chr.fritsch, DamienMcKenna: Fixed default value handling for all
+  entity forms. Greatly extended the entity field tests for nodes, terms, users
+  and the entity_test entity.
+#2654148 by bmcclure, DamienMcKenna, miiimooo, JeroenT, agoradesign: Improved
+  support for all entities, exclude certain core entity types, only support
+  ContentEntityType entities that have 'links' defined.
+#2816553 by andyrigby: Renamed article:tags to be article:tag.
+#2796701 by jiff, DamienMcKenna: Added tests to cover XSS via meta tag values.
+#2796701 by DamienMcKenna: Added tests to cover XSS on the page title and entity
+  values.
+
+
+Metatag 8.x-1.0-beta10, 2016-08-22
+----------------------------------
+#2747793 by rajeshwari10, cilefen, DamienMcKenna: Removed the @file docblocks.
+#2764163 by chrisfree, markdorison: Allow the 'referrer' meta tag to not have a
+  value selected.
+#2762981 by felribeiro, DamienMcKenna: Changed codebase to only use short array
+  syntax.
+#2753595 by sylus: Moved the extra XML namespaces to the OpenGraph module.
+#2765137 by balsama: Don't display the installation message during site install,
+  it looks funny.
+#2759843 by DamienMcKenna: Removed the Alexa verification tag.
+#2759855 by DamienMcKenna: Removed the Yahoo verification tag.
+#2759917 by Nikhilesh Gupta, cilefen: Remove unused imports / 'use' statements.
+#2759927 by Nikhilesh Gupta: Replace deprecated \Drupal::entityManager()
+  with \Drupal::entityTypeManager().
+#2759919 by Nikhilesh Gupta: Replace deprecated entity->urlInfo() with
+  entity->toUrl().
+#2755225 by jlbellido: Corrected the 'type' tag generator definition in
+  tag.php.twig.
+#2759931 by Nikhilesh Gupta: Replace deprecated ConfigEntityListBuilder::
+  getLabel() with entity->label().
+#2761231 by ashwin.shaharkar: Minor fix to image tag form selection logic.
+#2745177 by DamienMcKenna, cilefen: Added tests for each submodule to ensure
+  they can be enabled and that each meta tag can be used.
+#2750705 by susannecoates, jalpesh: Updated description of the Google Play app
+  ID meta tag.
+#2752239 by Saphyel, sylus, DamienMcKenna: Temporary fix for DrupalConsole
+  integration.
+#2775245 by DamienMcKenna: Fix tests.
+#2776407 by cilefen: Module names must be wrapped in quotes if they contain
+  certain characters.
+By DamienMcKenna: Renamed the custom routes module.
+#2745173 by jibellido: Tag generator now appends metatag_tag.schema.yml.
+#2673902 by DamienMcKenna: Confirm that forum posts can be loaded when the
+  module is enabled and outputting meta tags.
+#2707791 by ashwin.shaharkar, DamienMcKenna, Shreya Shetty, MattDanger: Changed
+  the Description and Abstract meta tags to use a textarea, matching the D7
+  branch.
+#2780025 by DamienMcKenna: Basic tests for the output of every meta tag. Fixes
+  the output of all Google Plus tags. Fixed the test route module.
+#2746031 by jalpesh, cilefen, DamienMcKenna, susannecoates: Fixed output of all
+  Twitter Cards meta tags.
+#2780109 by DamienMcKenna: Always run drupalGet() before drupalPostForm() to
+  ensure the form loads correctly.
+#2748615 by yannickoo, DamienMcKenna, agentrickard, SteffenR, paulmckibben: Try
+  generating an empty entity on entity-add (e.g. node/add/*) so default values
+  can be filled in.
+#2775441 by tom_ek, DamienMcKenna: Replace deprecated core entity APIs with the
+  newer ones.
+#2762981 by DamienMcKenna: More codebase changes to only use short array syntax.
+#2774807 by DamienMcKenna, Berdir, hussainweb: Token browser showed items that
+  were irrelevant, and didn't show the correct entities on default config forms.
+#2748615 by yannickoo, DamienMcKenna, SteffenR: The default configurations were
+  not loading properly in entity form fields.
+#2752239 by DamienMcKenna: Fixes to Drupal:Console integration.
+#1865228 by DamienMcKenna, greggles: Added the Author meta tag.
+#2493711 by DamienMcKenna: Added the geographical meta tags.
+#1343914 by DamienMcKenna, Dave Reid: Added the (Google+) Publisher meta tag.
+By DamienMcKenna: Corrected the changelog comment for #2759927.
+
+
+Metatag 8.x-1.0-beta9, 2016-06-02
+---------------------------------
+#2725895 by DamienMcKenna: Fixed the name of the Validation submodule to avoid
+  YAML validation errors. Yes, somewhat ironic.
+#2725989 by dbt102, DamienMcKenna, neerusrijan: Improve hook_help().
+
+
+Metatag 8.x-1.0-beta8, 2016-05-14
+---------------------------------
+#2723319 by itmaybejj: Fixed misspelling of 'its'.
+#2619450 by paulmckibben: Remove core's Canonical URL tag if Metatag is adding
+  one.
+#2712277 by markdorison: Twitter Card Type meta tag wasn't updating.
+#2650408 by Raphael Apard, DamienMcKenna, gaurav.goyal, dpacassi, kyberman:
+  A node's meta tags should not override the front page defaults unless the
+  defaults are disabled/deleted.
+#2684479 by mikeyk, DamienMcKenna, aspilicious: Added 'secure' option as some
+  meta tags require HTTPS URLs.
+#2699297 by DamienMcKenna: Added tests to ensure submodules can be enabled.
+#2663974 by IT-Cru, DamienMcKenna: Added the og 'article' meta tags.
+#2650848 by ivanjaros, DamienMcKenna: Only show appropriate entities in the
+  token browser.
+#2705851 by vasi: Load field definitions, not field values, when getting a list
+  of Metatag fields on an entity.
+#2708511 by DamienMcKenna: Added the referrer meta tag.
+#2563629 by Jim.M, DamienMcKenna: Added site verification tags.
+#2721857 by marvin_B8, DamienMcKenna: Added Google+ meta tags.
+
+
+Metatag 8.x-1.0-beta7, 2016-04-03
+---------------------------------
+#2699173 by DamienMcKenna: Fixed OgUpdatedTime annotations.
+
+
+Metatag 8.x-1.0-beta6, 2016-04-02
+---------------------------------
+#2689543 by kplanz: Fixed paths in image meta tags when the site is in a
+  subdirectory.
+By DamienMcKenna: Added a CODE_OF_CONDUCT.txt file that references the Drupal
+  code of conduct page.
+#2690973 by DamienMcKenna: Added schema.yml values for all meta tags to make
+  them more easily translatable.
+#2688963 by DamienMcKenna: Added a note about the Yoast SEO module.
+#2696445 by DuaelFr, Simon Georges, DamienMcKenna: Added the twitter:image:alt
+  meta tag.
+#2692117 by penyaskito, DamienMcKenna: Replaced the 'image' attribute with a
+  general 'type' attribute.
+
+
+Metatag 8.x-1.0-beta5, 2016-03-11
+---------------------------------
 #2563623/2674732/2675208 by DamienMcKenna, esclapes, NickWilde, achton: Quote
   submodule strings to avoid YAML compatibility problems.
 #2658242 by mr.baileys: Default meta tags were not translated into the entity's
@@ -7,6 +173,24 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
 #2664276 by DamienMcKenna, StevenPatz, rajeev_drupal: Wrong default base class
   for generated tag plugins.
+#2665790 by benjy, Sam152: Use StringTranslationTrait in MetaNameBase.
+#2666384 by mr.baileys, Rudrasis, danisha: Added 'configure' link to the module
+  on the Extend page.
+#2563625 by mr.baileys, juliencarnot: All Twitter Cards have been ported.
+#2674078 by Raphael Apard: The Generator meta tag is a META tag, not a LINK tag.
+#2664448 by mr.baileys: DrupalConsole generator for meta tag groups.
+#2663650 by mr.baileys: Caught another small bug in the tag generator.
+#2672892 by borisson_: Replaced usage of LoggerChannelFactory with
+  LoggerChannelFactoryInterface.
+#2678196 by mr.baileys: Simplified usage of isAdminRoute().
+#2631408 by mikeyk, juampynr, DamienMcKenna: Filter out HTML from meta tags and
+  improve image meta tag handling.
+#2631826 by juampynr, DamienMcKenna, pguillard: Require the Token module.
+#2667850 by mikeyk: Token method was not renamed properly.
+By DamienMcKenna: Fixed group name on MetatagTranslationTest.
+#2684495 by mikeyk, DamienMcKenna: Fixed bug in translations that was causing
+  the tests to fail. Also tidied up the tests a little.
+#2685355 by mikeyk: Fix image identification.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06
