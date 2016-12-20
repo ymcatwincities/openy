@@ -491,6 +491,9 @@ body {
   background: #414141;
   -webkit-overflow-scrolling: touch;
 }
+.sidebar .news {
+  padding-bottom: 50px;
+}
 .sidebar.collapsing-out {
   -webkit-transition: visibility 0s .4s linear;
   -moz-transition: visibility 0s .4s linear;
@@ -7729,6 +7732,10 @@ nav#block-footermenuright {
   }
   .toolbar-vertical.sidebar-in #sidebar {
     margin-top: 39px;
+    height: calc(100vh - 39px);
+  }
+  .toolbar-vertical.sidebar-in #sidebar .news {
+    padding-bottom: 50px;
   }
 
   .toolbar-vertical.toolbar-fixed #page-head .top-navs.navbar-fixed-top.affix .nav-global {
@@ -9416,6 +9423,9 @@ body .ajax-progress-throbber .throbber {
 
 .groupex-form-full {
   padding-top: 15px;
+}
+.groupex-form-full select {
+  font-size: 16px;
 }
 .groupex-form-full #location-select-wrapper {
   padding-right: 30px;
