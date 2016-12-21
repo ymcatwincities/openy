@@ -11,16 +11,12 @@ language: php
 sudo: false
 
 php:
-  - 5.5
-  - 5.6
   - 7
-  - hhvm
+  - 5.6
+  - 5.5
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: hhvm
-    - php: 7
 
 env:
   global:
@@ -40,6 +36,7 @@ env:
 
     # The environment to use, supported are: drupal-7, drupal-8
     - DRUPAL_TI_ENVIRONMENT="drupal-8"
+    - DRUPAL_TI_CORE_BRANCH="8.2.x"
 
     # Drupal specific variables.
     - DRUPAL_TI_DB="drupal_travis_db"
@@ -87,7 +84,7 @@ env:
   matrix:
     # [[[ SELECT ANY OR MORE OPTIONS ]]]
     #- DRUPAL_TI_RUNNERS="phpunit"
-    - DRUPAL_TI_RUNNERS="phpunit-core simpletest"
+    - DRUPAL_TI_RUNNERS="phpunit-core"
     #- DRUPAL_TI_RUNNERS="behat"
     #- DRUPAL_TI_RUNNERS="phpunit simpletest behat"
 
@@ -102,7 +99,8 @@ before_install:
   # Add the oauth token to prevent GitHub timeouts.
   - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
   - composer self-update
-  - composer global require "lionsad/drupal_ti:1.*"
+  - composer global require "hirak/prestissimo:^0.3"
+  - composer global require "lionsad/drupal_ti:dev-master"
   - drupal-ti before_install
 
 install:

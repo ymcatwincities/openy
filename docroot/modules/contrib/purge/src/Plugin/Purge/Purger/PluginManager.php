@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Purger\PluginManager.
- */
-
 namespace Drupal\purge\Plugin\Purge\Purger;
 
 use Drupal\Core\Plugin\DefaultPluginManager;

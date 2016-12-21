@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Invalidation\WildcardUrlInvalidationTest.
- */
-
 namespace Drupal\purge\Tests\Invalidation;
 
 use Drupal\purge\Tests\Invalidation\PluginTestBase;
@@ -23,7 +18,7 @@ class WildcardUrlInvalidationTest extends PluginTestBase {
     '',
     'http:// /aa',
     'http://www.test.com',
-    'https://domain/path'
+    'https://domain/path',
   ];
 
 }

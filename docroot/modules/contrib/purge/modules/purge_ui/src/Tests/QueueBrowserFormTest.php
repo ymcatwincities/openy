@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\QueueBrowserFormTest.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Url;
@@ -44,7 +39,7 @@ class QueueBrowserFormTest extends WebTestBase {
   /**
    * Setup the test.
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->initializeQueuersService();
     $this->queuer = $this->purgeQueuers->get('a');

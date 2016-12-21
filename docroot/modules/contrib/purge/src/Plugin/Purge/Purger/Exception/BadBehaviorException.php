@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Purger\Exception\BadBehaviorException.
- */
-
 namespace Drupal\purge\Plugin\Purge\Purger\Exception;
 
 /**

@@ -1,12 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManager\Layout.
- */
 
 namespace Drupal\layout_plugin;
-
-use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
 
 /**
  * Class Layout.

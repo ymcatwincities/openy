@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_http\Form\HttpPurgerForm.
- */
-
 namespace Drupal\purge_purger_http\Form;
 
 use Drupal\purge_purger_http\Form\HttpPurgerFormBase;
@@ -17,9 +12,9 @@ class HttpPurgerForm extends HttpPurgerFormBase {
   /**
    * The token group names this purger supports replacing tokens for.
    *
-   * @see purge_tokens_token_info()
-   *
    * @var string[]
+   *
+   * @see purge_tokens_token_info()
    */
   protected $tokenGroups = ['invalidation'];
 

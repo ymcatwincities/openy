@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Purger\PurgerSettingsBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\Purger;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;

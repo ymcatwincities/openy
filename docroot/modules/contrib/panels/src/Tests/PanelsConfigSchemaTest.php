@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Tests\PanelsConfigSchemaTest.
- */
-
 namespace Drupal\panels\Tests;
 
 use Drupal\KernelTests\KernelTestBase;

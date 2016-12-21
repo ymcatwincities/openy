@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\token\Kernel\ArrayTest.
- */
 namespace Drupal\Tests\token\Kernel;
 
 /**

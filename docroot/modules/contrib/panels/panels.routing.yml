@@ -1,0 +1,28 @@
+panels.select_block:
+  path: '/admin/structure/panels/{tempstore_id}/{machine_name}/select_block'
+  defaults:
+    _controller: '\Drupal\panels\Controller\Panels::selectBlock'
+    _title: 'Select block'
+  requirements:
+    _ctools_access: 'machine_name'
+panels.add_block:
+  path: '/admin/structure/panels/{tempstore_id}/{machine_name}/add/{block_id}'
+  defaults:
+    _form: '\Drupal\panels\Form\PanelsAddBlockForm'
+    _title: 'Add block'
+  requirements:
+    _ctools_access: 'machine_name'
+panels.edit_block:
+  path: '/admin/structure/panels/{tempstore_id}/{machine_name}/edit/{block_id}'
+  defaults:
+    _form: '\Drupal\panels\Form\PanelsEditBlockForm'
+    _title: 'Edit block'
+  requirements:
+    _ctools_access: 'machine_name'
+panels.delete_block:
+  path: '/admin/structure/panels/{tempstore_id}/{machine_name}/delete/{block_id}'
+  defaults:
+    _form: '\Drupal\panels\Form\PanelsDeleteBlockForm'
+    _title: 'Delete block'
+  requirements:
+    _ctools_access: 'machine_name'

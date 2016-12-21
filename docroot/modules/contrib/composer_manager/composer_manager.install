@@ -5,6 +5,8 @@
  * Install, update, and uninstall functions for the Composer Manager module.
  */
 
+use Drupal\Core\Url;
+
 /**
  * Implements hook_requirements().
  */
@@ -42,7 +44,7 @@ function composer_manager_requirements($phase) {
   }
   else {
     $requirements['composer_manager']['value'] = t('Dependencies installed');
-    $requirements['composer_manager']['description'] =  t('Visit the <a href="@url">package status page</a> to view the status of individual packages.', ['@url' => \Drupal::url('composer_manager.packages_page')]);
+    $requirements['composer_manager']['description'] =  t('Visit the <a href="@url">package status page</a> to view the status of individual packages.', ['@url' => Url::fromRoute('composer_manager.packages_page')]);
     $requirements['composer_manager']['severity'] = REQUIREMENT_INFO;
   }
 
