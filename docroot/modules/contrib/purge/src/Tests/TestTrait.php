@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\TestTrait.
- */
-
 namespace Drupal\purge\Tests;
 
 /**
@@ -19,6 +14,11 @@ trait TestTrait {
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
+
+  /**
+   * @var \Drupal\purge\Logger\LoggerServiceInterface
+   */
+  protected $purgeLogger;
 
   /**
    * @var \Drupal\purge\Plugin\Purge\Processor\ProcessorsServiceInterface
@@ -59,6 +59,68 @@ trait TestTrait {
    * @var \Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticsServiceInterface
    */
   protected $purgeDiagnostics;
+
+  /**
+   * @var \Drupal\purge\Plugin\Purge\TagsHeader\TagsHeadersServiceInterface
+   */
+  protected $purgeTagsHeaders;
+
+  /**
+   * Assert that the named exception is thrown.
+   *
+   * @param string $exception
+   *   The full name of the exception to be thrown.
+   * @param callable $call
+   *   The callable to call from within the try statement.
+   * @param mixed[] $args
+   *   Arguments to be passed to the callable.
+   *
+   * @return void
+   */
+  protected function assertException($exception, callable $call, $args = []) {
+    $thrown = FALSE;
+    eval("
+      try {
+        call_user_func_array(\$call, \$args);
+      }
+      catch ($exception \$e) {
+        \$thrown = TRUE;
+      }");
+    $this->assertTrue($thrown, "Exception $exception thrown.");
+  }
+
+  /**
+   * Assert that the named exception is thrown.
+   *
+   * @param string $exception
+   *   The full name of the exception to be thrown.
+   * @param callable $call
+   *   The callable to call from within the try statement.
+   * @param mixed[] $args
+   *   Arguments to be passed to the callable.
+   *
+   * @return void
+   */
+  protected function assertNoException($exception, callable $call, $args = []) {
+    $thrown = FALSE;
+    eval("
+      try {
+        call_user_func_array(\$call, \$args);
+      }
+      catch ($exception \$e) {
+        \$thrown = TRUE;
+      }");
+    $this->assertFalse($thrown, "Exception $exception isn't thrown.");
+  }
+
+  /**
+   * Make $this->purgeLogger available.
+   */
+  protected function initializeLoggerService() {
+    if (is_null($this->purgeLogger)) {
+      $this->purgeLogger = $this->container->get('purge.logger');
+    }
+  }
 
   /**
    * Make $this->purgeProcessors available.
@@ -146,6 +208,18 @@ trait TestTrait {
     }
     else {
       $this->purgeDiagnostics->reload();
+    }
+  }
+
+  /**
+   * Make $this->purgeTagsheaders available.
+   */
+  protected function initializeTagsHeadersService() {
+    if (is_null($this->purgeTagsHeaders)) {
+      $this->purgeTagsHeaders = $this->container->get('purge.tagsheaders');
+    }
+    else {
+      $this->purgeTagsHeaders->reload();
     }
   }
 

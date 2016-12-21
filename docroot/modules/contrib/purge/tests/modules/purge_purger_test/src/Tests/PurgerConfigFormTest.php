@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_test\Tests\PurgerConfigFormTest.
- */
-
 namespace Drupal\purge_purger_test\Tests;
 
 use Drupal\purge_ui\Tests\PurgerConfigFormTestBase;
@@ -12,7 +7,7 @@ use Drupal\purge_ui\Tests\PurgerConfigFormTestBase;
 /**
  * Tests \Drupal\purge_purger_test\Form\PurgerConfigForm.
  *
- * @group purge_ui
+ * @group purge_purger_test
  */
 class PurgerConfigFormTest extends PurgerConfigFormTestBase {
 
@@ -55,7 +50,8 @@ class PurgerConfigFormTest extends PurgerConfigFormTestBase {
     $form_state = $this->getFormStateInstance();
     $form_state->addBuildInfo('args', [$this->formArgs]);
     $form_state->setValues([
-        'textfield' => "The moose in the noose ate the goose who was loose."]);
+      'textfield' => "The moose in the noose ate the goose who was loose.",
+    ]);
     $form = $this->getFormInstance();
     $this->formBuilder->submitForm($form, $form_state);
     $errors = $form_state->getErrors();
@@ -68,7 +64,8 @@ class PurgerConfigFormTest extends PurgerConfigFormTestBase {
   public function testFormSubmit() {
     $this->drupalLogin($this->admin_user);
     $edit = [
-        'textfield' => "The moose in the noose ate the goose who was loose."];
+      'textfield' => "The moose in the noose ate the goose who was loose.",
+    ];
     $this->drupalPostForm($this->route, $edit, t('Save configuration'));
   }
 

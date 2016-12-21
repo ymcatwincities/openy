@@ -1,0 +1,12 @@
+common:
+  version: VERSION
+  js:
+    js/dropzonejs_eb_widget.common.js: {}
+  dependencies:
+    - dropzonejs/integration
+ief_edit:
+  version: VERSION
+  js:
+    js/dropzonejs_eb_widget.ief_edit.js: {}
+  dependencies:
+    - dropzonejs_eb_widget/common

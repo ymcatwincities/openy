@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\ModifiableServiceInterface.
- */
-
 namespace Drupal\purge;
 
 use Drupal\Component\Plugin\PluginManagerInterface;

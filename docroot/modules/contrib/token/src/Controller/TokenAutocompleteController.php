@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Controller\TokenAutocompleteController.
- */
-
 namespace Drupal\token\Controller;
 
 use Drupal\Component\Utility\Unicode;

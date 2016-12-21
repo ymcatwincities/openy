@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_processor_test\Form\ProcessorConfigForm.
- */
-
 namespace Drupal\purge_processor_test\Form;
 
 use Drupal\Core\Form\FormStateInterface;

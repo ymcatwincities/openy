@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_check_test\Plugin\Purge\DiagnosticCheck\AlwaysOkDiagnosticCheck.
- */
-
 namespace Drupal\purge_check_test\Plugin\Purge\DiagnosticCheck;
 
 use Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticCheckInterface;

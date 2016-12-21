@@ -20,7 +20,7 @@ function purge_drush_drush_help($command) {
 }
 
 /**
- * Implementation of hook_drush_command().
+ * Implements hook_drush_command().
  */
 function purge_drush_drush_command() {
   $items = [];
@@ -108,6 +108,104 @@ function purge_drush_drush_command() {
       ],
     ],
     'aliases' => ['ppro'],
+    'core' => ['8+'],
+  ];
+  $items['p-purgers'] = [
+    'description' => 'List all configured purgers in order of execution.',
+    'callback' => 'purge_drush_callback_router',
+    'callback services' => ['purge.purgers'],
+    'arguments' => [],
+    'required-arguments' => 0,
+    'options' => [],
+    'examples' => [
+      'drush p-purgers' => 'List all configured purgers in order of execution.',
+      'drush p-purgers --format=json' => 'Export as JSON.',
+      'drush p-purgers --format=yaml' => 'Export as YAML.',
+    ],
+    '_outputformats' => ['table', 'yaml', 'json', 'list'],
+    'outputformat' => [
+      'default' => 'table',
+      'pipe-format' => 'list',
+      'field-labels' => [
+        'instance_id' => 'Instance',
+        'plugin_id' => 'Plugin',
+        'label' => 'Label',
+        'description' => 'Description',
+      ],
+    ],
+    'aliases' => ['ppu'],
+    'core' => ['8+'],
+  ];
+  $items['p-purgers-available'] = [
+    'description' => 'List all plugin IDs for which purgers can be created.',
+    'callback' => 'purge_drush_callback_router',
+    'callback services' => ['purge.purgers'],
+    'arguments' => [],
+    'required-arguments' => 0,
+    'options' => [],
+    'examples' => [
+      'drush p-purgers' => 'List all plugin IDs for which purgers can be created.',
+      'drush p-purgers --format=json' => 'Export as JSON.',
+      'drush p-purgers --format=yaml' => 'Export as YAML.',
+    ],
+    '_outputformats' => ['table', 'yaml', 'json', 'list'],
+    'outputformat' => [
+      'default' => 'table',
+      'pipe-format' => 'list',
+      'field-labels' => [
+        'plugin_id' => 'Plugin',
+        'label' => 'Label',
+        'description' => 'Description',
+      ],
+    ],
+    'aliases' => ['ppua'],
+    'core' => ['8+'],
+  ];
+  $items['p-purger-add'] = [
+    'description' => 'Create a new purger instance.',
+    'callback' => 'purge_drush_callback_router',
+    'callback services' => ['purge.purgers'],
+    'arguments' => [
+      'id' => 'The plugin ID of the purger instance to create.',
+    ],
+    'required-arguments' => 1,
+    'options' => [
+      'if-not-exists' => [
+        'description' => "Don't create a new purger if one of this type exists.",
+        'value' => FALSE,
+        '_default' => FALSE,
+      ],
+    ],
+    'examples' => [
+      'drush p-purger-add ID' => 'Add a purger of type ID.',
+      'drush p-purger-add --if-not-exists ID' => 'Create purger ID if it does not exist.',
+    ],
+    '_outputformats' => ['string', 'yaml', 'json'],
+    'outputformat' => [
+      'default' => 'string',
+      'pipe-format' => 'yaml',
+    ],
+    'aliases' => ['ppa'],
+    'core' => ['8+'],
+  ];
+  $items['p-purger-rm'] = [
+    'description' => 'Remove a purger instance.',
+    'callback' => 'purge_drush_callback_router',
+    'callback services' => ['purge.purgers'],
+    'arguments' => [
+      'id' => 'The instance ID of the purger to remove.',
+    ],
+    'required-arguments' => 1,
+    'options' => [],
+    'examples' => [
+      'drush p-purger-remove ID' => 'Remove the given purger.',
+    ],
+    '_outputformats' => ['string', 'yaml', 'json'],
+    'outputformat' => [
+      'default' => 'string',
+      'pipe-format' => 'yaml',
+    ],
+    'aliases' => ['ppr'],
     'core' => ['8+'],
   ];
   $items['p-queue-add'] = [
@@ -283,7 +381,7 @@ function purge_drush_drush_command() {
 }
 
 /**
- * Implementation of hook_drush_command_alter().
+ * Implements hook_drush_command_alter().
  */
 function purge_drush_drush_command_alter(&$command) {
 

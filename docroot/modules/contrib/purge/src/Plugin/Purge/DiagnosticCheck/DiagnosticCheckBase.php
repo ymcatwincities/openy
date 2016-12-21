@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticCheckBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\DiagnosticCheck;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -160,7 +155,7 @@ abstract class DiagnosticCheckBase extends PluginBase implements DiagnosticCheck
       'title' => $this->t('Purge - @title', ['@title' => $this->getTitle()]),
       'value' => (string) $this->getValue(),
       'description' => (string) $this->getRecommendation(),
-      'severity' => $this->getRequirementsSeverity()
+      'severity' => $this->getRequirementsSeverity(),
     ];
   }
 
@@ -173,7 +168,7 @@ abstract class DiagnosticCheckBase extends PluginBase implements DiagnosticCheck
       'title' => (string) $this->getTitle(),
       'value' => (string) $this->getValue(),
       'description' => (string) $this->getRecommendation(),
-      'severity' => $this->getRequirementsSeverity()
+      'severity' => $this->getRequirementsSeverity(),
     ];
   }
 

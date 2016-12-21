@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\inline_entity_form\TranslationHelper;
 
 /**
  * Simple inline widget.
@@ -34,7 +35,13 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
     $ief_id = sha1(implode('-', $parents));
     $form_state->set(['inline_entity_form', $ief_id], []);
 
-    $element['#type'] = 'fieldset';
+    $element = [
+      '#type' => 'fieldset',
+      '#field_title' => $this->fieldDefinition->getLabel(),
+      '#after_build' => [
+        [get_class($this), 'removeTranslatabilityClue'],
+      ],
+    ] + $element;
     $item = $items->get($delta);
     if ($item->target_id && !$item->entity) {
       $element['warning']['#markup'] = $this->t('Unable to load the referenced entity.');
@@ -42,14 +49,14 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
     }
     $entity = $item->entity;
     $op = $entity ? 'edit' : 'add';
-    $language = $items->getParent()->getValue()->language()->getId();
+    $langcode = $items->getEntity()->language()->getId();
     $parents = array_merge($element['#field_parents'], [
       $items->getName(),
       $delta,
       'inline_entity_form'
     ]);
-    $bundle = reset($this->getFieldSetting('handler_settings')['target_bundles']);
-    $element['inline_entity_form'] = $this->getInlineEntityForm($op, $bundle, $language, $delta, $parents, $entity);
+    $bundle = !empty($this->getFieldSetting('handler_settings')['target_bundles']) ? reset($this->getFieldSetting('handler_settings')['target_bundles']) : NULL;
+    $element['inline_entity_form'] = $this->getInlineEntityForm($op, $bundle, $langcode, $delta, $parents, $entity);
 
     if ($op == 'edit') {
       /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
@@ -148,6 +155,7 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
       'entities' => [],
     ];
     foreach ($items as $delta => $value) {
+      TranslationHelper::updateEntityLangcode($value->entity, $form_state);
       $widget_state['entities'][$delta] = [
         'entity' => $value->entity,
         'needs_save' => TRUE,
@@ -160,9 +168,8 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
     $field_state = WidgetBase::getWidgetState($form['#parents'], $field_name, $form_state);
     foreach ($items as $delta => $item) {
       $field_state['original_deltas'][$delta] = isset($item->_original_delta) ? $item->_original_delta : $delta;
-      unset($item->_original_delta, $item->_weight);
+      unset($item->_original_delta, $item->weight);
     }
-
     WidgetBase::setWidgetState($form['#parents'], $field_name, $form_state, $field_state);
   }
 
@@ -170,15 +177,14 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
-    if (!$field_definition->isRequired()) {
-      return FALSE;
+    $handler_settings = $field_definition->getSettings()['handler_settings'];
+    $target_entity_type_id = $field_definition->getFieldStorageDefinition()->getSetting('target_type');
+    $target_entity_type = \Drupal::entityTypeManager()->getDefinition($target_entity_type_id);
+    // The target entity type doesn't use bundles, no need to validate them.
+    if (!$target_entity_type->getKey('bundle')) {
+      return TRUE;
     }
 
-    $handler_settings = $field_definition->getSettings()['handler_settings'];
-    // Entity types without bundles will throw notices on next condition so let's
-    // stop before they do. We should support this kind of entities too. See
-    // https://www.drupal.org/node/2569193 and remove this check once that issue
-    // lands.
     if (empty($handler_settings['target_bundles'])) {
       return FALSE;
     }

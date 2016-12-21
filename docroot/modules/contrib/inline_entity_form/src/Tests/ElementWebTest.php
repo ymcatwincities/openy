@@ -31,9 +31,7 @@ class ElementWebTest extends InlineEntityFormTestBase {
 
     $this->drupalLogin($this->user);
 
-    $this->fieldStorageConfigStorage = $this->container
-      ->get('entity_type.manager')
-      ->getStorage('field_storage_config');
+    $this->fieldStorageConfigStorage = $this->container->get('entity_type.manager')->getStorage('field_storage_config');
   }
 
   /**
@@ -54,8 +52,6 @@ class ElementWebTest extends InlineEntityFormTestBase {
       $edit = [];
       $this->drupalPostForm('ief-test', $edit, t('Save'));
       $this->assertText('Title field is required.');
-      // Currently this assert will fail
-      //$this->assertNoText('This value should not be null.');
       $this->assertNoNodeByTitle($title);
 
       $edit['inline_entity_form[title][0][value]'] = $title;
@@ -74,7 +70,6 @@ class ElementWebTest extends InlineEntityFormTestBase {
         $this->drupalGet("ief-edit-test/{$node->id()}/$form_mode_possibility");
         $this->assertFieldByName('inline_entity_form[title][0][value]', $title, 'Node title appears in form.');
         $this->checkFormDisplayFields("node.ief_test_custom.$form_mode_possibility", 'inline_entity_form');
-        //$this->assertText($title, 'Node title appears in form.');
         $this->assertFieldByName('inline_entity_form[positive_int][0][value]', 11, 'Positive int field appears in form.');
         $updated_title = $title . ' - updated';
         $edit['inline_entity_form[title][0][value]'] = $updated_title;

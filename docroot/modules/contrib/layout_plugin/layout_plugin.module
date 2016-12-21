@@ -1,10 +1,29 @@
 <?php
+
 /**
  * @file
  * Hook implementations for Layout Plugin module.
  */
 
+use \Drupal\Core\Routing\RouteMatchInterface;
 use \Drupal\layout_plugin\Layout;
+
+/**
+ * Implements hook_help();
+ */
+function layout_plugin_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.layout_plugin':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Layout Plugin allows modules or themes to register layouts, and for other modules to list the available layouts and render them. For more information, see the <a href=":layout-plugin-documentation">online documentation for the Layout Plugin module</a>.', [':layout-plugin-documentation' => 'https://www.drupal.org/node/2619128']) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('This is an API module which serves as the plugin manager for layouts. API modules provide a common set of routines, protocols, and tools developers use for building specific features into modules for your site. See the Layout Plugin project page for a complete listing of <a href=":layout_plugin">Modules that use Layout Plugin</a>.', [':layout_plugin' => 'https://www.drupal.org/project/layout_plugin'])  . '</p>';
+      $output .= '<p>' . t('<em>Registering</em> a Layout Plugin - There are several ways to register your layout. For more information of the simplest, most common case and then building up to some of the more advanced techniques, see <a href=":register">How to register layouts with Layout Plugin</a>.', [':layout_plugin' => 'https://www.drupal.org/node/2578731'])  . '</p>';
+      $output .= '<p>' . t('<em>Rendering</em>  a Layout Plugin -  To render a layout plugin you first get the layout plugin manager, then list available layouts and instantiate the layout plugin.  Rendering is then possible and a configuration display for showing and storing layouts is made available. For more information on rendering layouts, see  <a href=":render">How to render layouts using Layout Plugin</a>.', [':layout_plugin' => 'https://www.drupal.org/node/2619168'])  . '</p>';
+      return $output;
+  }
+}
 
 /**
  * Implements hook_theme().

@@ -20,8 +20,8 @@ class Schema extends DatabaseSchema {
   /**
    * A cache of information about blob columns and sequences of tables.
    *
-   * This is collected by DatabaseConnection_pgsql->queryTableInformation(),
-   * by introspecting the database.
+   * This is collected by Schema::queryTableInformation(), by introspecting the
+   * database.
    *
    * @see \Drupal\Core\Database\Driver\pgsql\Schema::queryTableInformation()
    * @var array
@@ -529,6 +529,11 @@ class Schema extends DatabaseSchema {
     if (isset($spec['initial'])) {
       $this->connection->update($table)
         ->fields(array($field => $spec['initial']))
+        ->execute();
+    }
+    if (isset($spec['initial_from_field'])) {
+      $this->connection->update($table)
+        ->expression($field, $spec['initial_from_field'])
         ->execute();
     }
     if ($fixnull) {

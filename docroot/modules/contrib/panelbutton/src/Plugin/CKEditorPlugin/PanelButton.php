@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panelbutton\Plugin\CKEditorPlugin\PanelButton.
- */
-
 namespace Drupal\panelbutton\Plugin\CKEditorPlugin;
 
 use Drupal\ckeditor\CKEditorPluginBase;
@@ -23,7 +18,7 @@ class PanelButton extends CKEditorPluginBase {
    * {@inheritdoc}
    */
   public function getFile() {
-    return base_path() . 'libraries/panelbutton/plugin.js';
+    return 'libraries/panelbutton/plugin.js';
   }
 
   /**

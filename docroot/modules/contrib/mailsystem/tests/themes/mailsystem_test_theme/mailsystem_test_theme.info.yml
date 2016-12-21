@@ -15,8 +15,8 @@ regions_hidden:
   - sidebar_first
   - sidebar_second
 
-# Information added by Drupal.org packaging script on 2016-01-13
-version: '8.x-4.0-alpha1'
+# Information added by Drupal.org packaging script on 2016-07-08
+version: '8.x-4.1'
 core: '8.x'
 project: 'mailsystem'
-datestamp: 1452701662
+datestamp: 1467993737

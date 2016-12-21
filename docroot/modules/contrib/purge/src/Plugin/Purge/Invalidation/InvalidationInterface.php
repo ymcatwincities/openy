@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Invalidation\InvalidationInterface.
- */
-
 namespace Drupal\purge\Plugin\Purge\Invalidation;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -21,12 +16,50 @@ use Drupal\purge\Plugin\Purge\Invalidation\ImmutableInvalidationInterface;
 interface InvalidationInterface extends ImmutableInvalidationInterface, ContainerFactoryPluginInterface {
 
   /**
+   * Delete a purger specific property.
+   *
+   * Once ::setStateContext() has been called, purgers can call ::setProperty()
+   * and ::getProperty() to store specific metadata on the invalidation. The
+   * most common usecase for setting properties is for multi-step cache
+   * invalidation, for instance CDNs returning IDs to check against later.
+   *
+   * @param string $key
+   *   The key of the stored property, unique to the current purger context.
+   *
+   * @throws \LogicException
+   *   Thrown when operating in general context, call ::setStateContext() first.
+   *
+   * @return void
+   */
+  public function deleteProperty($key);
+
+  /**
    * Get the instance ID.
    *
    * @return int
    *   Unique integer ID for this object instance (during runtime).
    */
   public function getId();
+
+  /**
+   * Set a purger specific property.
+   *
+   * Once ::setStateContext() has been called, purgers can call ::setProperty()
+   * and ::getProperty() to store specific metadata on the invalidation. The
+   * most common usecase for setting properties is for multi-step cache
+   * invalidation, for instance CDNs returning IDs to check against later.
+   *
+   * @param string $key
+   *   The key of the property to set, unique to the current purger context.
+   * @param mixed $value
+   *   The value of the property.
+   *
+   * @throws \LogicException
+   *   Thrown when operating in general context, call ::setStateContext() first.
+   *
+   * @return void
+   */
+  public function setProperty($key, $value);
 
   /**
    * Set the state of the invalidation.

@@ -34,7 +34,7 @@
 </div>
 
 {% macro block_content(image, header, content) %}
-  {% if image.0 %}
+  {% if image[0] %}
     <div class="img-crop img-crop-horizontal">
       {{ image }}
     </div>

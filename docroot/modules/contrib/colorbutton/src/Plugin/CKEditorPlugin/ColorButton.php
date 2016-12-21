@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\colorbutton\Plugin\CKEditorPlugin\ColorButton.
- */
-
 namespace Drupal\colorbutton\Plugin\CKEditorPlugin;
 
 use Drupal\ckeditor\CKEditorPluginBase;
@@ -32,7 +27,7 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
    * {@inheritdoc}
    */
   public function getFile() {
-    return base_path() . 'libraries/colorbutton/plugin.js';
+    return 'libraries/colorbutton/plugin.js';
   }
 
   /**
@@ -60,12 +55,12 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
   public function getButtons() {
     return [
       'TextColor' => array(
-        'label' => t('Text Color'),
-        'image' => base_path() . 'libraries/colorbutton/icons/textcolor.png',
+        'label' => $this->t('Text Color'),
+        'image' => 'libraries/colorbutton/icons/textcolor.png',
       ),
       'BGColor' => array(
-        'label' => t('Background Color'),
-        'image' => base_path() . 'libraries/colorbutton/icons/bgcolor.png',
+        'label' => $this->t('Background Color'),
+        'image' => 'libraries/colorbutton/icons/bgcolor.png',
       ),
     ];
   }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\TreeBuilderInterface.
- */
-
 namespace Drupal\token;
 
 interface TreeBuilderInterface {
@@ -59,6 +54,8 @@ interface TreeBuilderInterface {
    *     allow inserting tokens in fields by clicking on them.
    *   - 'show_restricted' (defaults to FALSE): Show restricted tokens in the
    *     tree.
+   *   - 'show_nested' (defaults to FALSE): If this token is nested and should
+   *     therefor not show on the token browser as a top level token.
    *   - 'recursion_limit' (defaults to 3): Only show tokens up to the specified
    *     depth.
    *

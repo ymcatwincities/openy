@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_processor_lateruntime\Plugin\Purge\Processor\LateRuntimeProcessor.
- */
-
 namespace Drupal\purge_processor_lateruntime\Plugin\Purge\Processor;
 
 use Drupal\purge\Plugin\Purge\Processor\ProcessorInterface;

@@ -5,7 +5,6 @@
  */
 
 use Drupal\Component\Serialization\Yaml;
-use Drupal\layout_plugin\Layout;
 
 /**
  * Implements hook_drush_command().

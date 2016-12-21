@@ -1,0 +1,7 @@
+views.field.contact_form:
+  type: views_field
+  label: 'Contact form'
+
+views.field.message_bulk_form:
+  type: views_field_bulk_form
+  label: 'Contact Message bulk form'
