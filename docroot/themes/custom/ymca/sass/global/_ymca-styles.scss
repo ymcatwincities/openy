@@ -114,11 +114,12 @@ nav#block-footermenuright {
   }
 }
 
-.toolbar-fixed.toolbar-horizontal.page_home .nav-home.affix {
-  top: 90px;
-}
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-home.affix#masthead-menu {
   top: 130px;
+}
+
+.toolbar-fixed .nav-home.affix#masthead-menu {
+  top: 90px;
 }
 .no-touch .toolbar-fixed.toolbar-vertical.toolbar-tray-open .nav-home.affix {
   position: fixed;
