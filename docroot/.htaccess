@@ -81,7 +81,7 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
   RewriteCond %{HTTPS} off
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  RewriteRule ^(.*)$ https://www.ymcamn.org/$1 [L,R=301,NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
