@@ -6,7 +6,7 @@
 
 namespace Drupal\Tests\mailsystem\Unit;
 
-use Drupal\Core\Theme\Registry;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Theme\ThemeInitialization;
 use Drupal\Core\Theme\ThemeManager;
 use Drupal\mailsystem\MailsystemManager;
@@ -68,10 +68,14 @@ class MailsystemManagerTest extends UnitTestCase {
 
     $theme_manager = $this->prophesize(ThemeManager::class);
     $theme_initialization = $this->prophesize(ThemeInitialization::class);
-    $default_theme_registry = $this->prophesize(Registry::class);
-    $mail_theme_registry = $this->prophesize(Registry::class);
 
-    $this->mailManager = new MailsystemManager($namespaces, $cache_backend, $module_handler, $this->configFactory, $logger_factory, $string_translation, $theme_manager->reveal(), $theme_initialization->reveal(), $default_theme_registry->reveal(), $mail_theme_registry->reveal());
+    // The additional renderer argument only exists in 8.2.x, but the additional
+    // argument is ignored in 8.1.x.
+    $renderer = $this->prophesize(RendererInterface::class);
+    $this->mailManager = new MailsystemManager($namespaces, $cache_backend, $module_handler, $this->configFactory, $logger_factory, $string_translation, $renderer->reveal());
+
+    $this->mailManager->setThemeInitialization($theme_initialization->reveal());
+    $this->mailManager->setThemeManager($theme_manager->reveal());
   }
 
   public function testGetInstances_Default() {

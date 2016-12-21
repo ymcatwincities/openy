@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\DiagnosticCheck\PluginManager.
- */
-
 namespace Drupal\purge\Plugin\Purge\DiagnosticCheck;
 
 use Drupal\Core\Plugin\DefaultPluginManager;

@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-sm-8">
 				<span class="masthead-brand">
-					{% if node.field_subtitle.0.value is not empty %}
+					{% if node.field_subtitle[0]['value'] is not empty %}
 					<article class="richtext">
 						<p>{{ node.label }}<br><span>{{ node.field_subtitle.0.value }}</span></p>
 					</article>
@@ -20,7 +20,7 @@
 				</span>
 			</div>
 			<div class="col-sm-4 text-center masthead-button" id="masthead-button">
-				{% if not node.field_register_button_link.0.uri %}
+				{% if not node.field_register_button_link[0]['uri'] %}
 					<a id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
 				{% else %}
 					<a href="{{ node.field_register_button_link.0.uri }}" id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>

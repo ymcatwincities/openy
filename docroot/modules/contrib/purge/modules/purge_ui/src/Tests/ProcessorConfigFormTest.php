@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\ProcessorConfigFormTest.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Url;
@@ -77,7 +72,7 @@ class ProcessorConfigFormTest extends WebTestBase {
   /**
    * Setup the test.
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->initializeProcessorsService(['c', $this->processor]);
     $this->urlValid = Url::fromRoute($this->route, ['id' => $this->processor]);

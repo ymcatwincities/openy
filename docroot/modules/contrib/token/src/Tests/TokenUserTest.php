@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Tests\TokenUserTest.
- */
-
 namespace Drupal\token\Tests;
 
 use Drupal\Core\Session\AnonymousUserSession;
@@ -57,7 +52,7 @@ class TokenUserTest extends TokenTestBase {
     $edit = array('files[user_picture_0]' => drupal_realpath($image->uri));
     $this->drupalPostForm('user/' . $this->account->id() . '/edit', $edit, t('Save'));
 
-    $storage = \Drupal::entityManager()->getStorage('user');
+    $storage = \Drupal::entityTypeManager()->getStorage('user');
 
     // Load actual user data from database.
     $storage->resetCache();

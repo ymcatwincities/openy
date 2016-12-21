@@ -8,6 +8,7 @@
 namespace Drupal\sitemap\Tests;
 
 use Drupal\simpletest\WebTestBase;
+use Drupal\filter\Entity\FilterFormat;
 
 /**
  * Test page content provided via sitemap settings.
@@ -33,7 +34,7 @@ class SitemapContentTest extends WebTestBase {
     $this->drupalPlaceBlock('page_title_block');
 
     // Create filter format.
-    $restricted_html_format = entity_create('filter_format', array(
+    $restricted_html_format = FilterFormat::create(array(
       'format' => 'restricted_html',
       'name' => 'Restricted HTML',
       'filters' => array(
@@ -62,7 +63,7 @@ class SitemapContentTest extends WebTestBase {
 
     // Create user then login.
     $this->user = $this->drupalCreateUser(array(
-      'administer site configuration',
+      'administer sitemap',
       'access sitemap',
       $restricted_html_format->getPermissionName(),
     ));

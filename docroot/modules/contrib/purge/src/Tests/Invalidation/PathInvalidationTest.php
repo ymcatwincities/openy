@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Invalidation\PathInvalidationTest.
- */
-
 namespace Drupal\purge\Tests\Invalidation;
 
 use Drupal\purge\Tests\Invalidation\PluginTestBase;
@@ -24,14 +19,14 @@ class PathInvalidationTest extends PluginTestBase {
     'news/',
     '012/442',
     'news/article-1',
-    'news/article-1?page=0&secondparam=1'
+    'news/article-1?page=0&secondparam=1',
   ];
   protected $expressionsInvalid = [
     NULL,
     '/news',
     'news/*',
     '/news/*',
-    '*'
+    '*',
   ];
 
 }

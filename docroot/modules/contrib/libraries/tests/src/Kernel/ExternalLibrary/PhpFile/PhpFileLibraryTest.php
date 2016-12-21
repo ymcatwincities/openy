@@ -1,32 +1,16 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\libraries\Kernel\ExternalLibrary\PhpFile\PhpFileLibraryTest.
- */
-
 namespace Drupal\Tests\libraries\Kernel\ExternalLibrary\PhpFile;
 
-use Drupal\Tests\libraries\Kernel\ExternalLibraryKernelTestBase;
+use Drupal\Tests\libraries\Kernel\ExternalLibrary\TestLibraryFilesStream;
+use Drupal\Tests\libraries\Kernel\LibraryTypeKernelTestBase;
 
 /**
  * Tests that the external library manager properly loads PHP file libraries.
  *
  * @group libraries
  */
-class PhpFileLibraryTest extends ExternalLibraryKernelTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public static $modules = ['libraries', 'libraries_test'];
-
-  /**
-   * The external library manager.
-   *
-   * @var \Drupal\libraries\ExternalLibrary\ExternalLibraryManagerInterface
-   */
-  protected $externalLibraryManager;
+class PhpFileLibraryTest extends LibraryTypeKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -34,19 +18,40 @@ class PhpFileLibraryTest extends ExternalLibraryKernelTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->externalLibraryManager = $this->container->get('libraries.manager');
-
-    $this->container->set('stream_wrapper.php_library_files', new TestPhpLibraryFilesStream());
+    $this->container->set('stream_wrapper.php_file_libraries', new TestLibraryFilesStream(
+      $this->container->get('module_handler'),
+      $this->container->get('string_translation'),
+      'libraries'
+    ));
   }
 
   /**
-   * Tests that the external library manager properly loads PHP file libraries.
+   * {@inheritdoc}
+   */
+  protected function getLibraryTypeId() {
+    return 'php_file';
+  }
+
+  /**
+   * Tests that the list of PHP files is correctly gathered.
+   */
+  public function testPhpFileInfo() {
+    /** @var \Drupal\libraries\ExternalLibrary\PhpFile\PhpFileLibrary $library */
+    $library = $this->getLibrary();
+    $this->assertTrue($library->isInstalled());
+    $library_path = $this->modulePath . '/tests/libraries/test_php_file_library';
+    $this->assertEquals($library_path, $library->getLocalPath());
+    $this->assertEquals(["$library_path/test_php_file_library.php"], $library->getPhpFiles());
+  }
+
+  /**
+   * Tests that the external library manager properly loads PHP files.
    *
    * @see \Drupal\libraries\ExternalLibrary\ExternalLibraryManager
    * @see \Drupal\libraries\ExternalLibrary\ExternalLibraryTrait
    * @see \Drupal\libraries\ExternalLibrary\PhpFile\PhpRequireLoader
    */
-  public function testPhpFileLibrary() {
+  public function testFileLoading() {
     $function_name = '_libraries_test_php_function';
     if (function_exists($function_name)) {
       $this->markTestSkipped('Cannot test file inclusion if the file to be included has already been included prior.');
@@ -54,7 +59,7 @@ class PhpFileLibraryTest extends ExternalLibraryKernelTestBase {
     }
 
     $this->assertFalse(function_exists($function_name));
-    $this->externalLibraryManager->load('test_php_file_library');
+    $this->libraryManager->load('test_php_file_library');
     $this->assertTrue(function_exists($function_name));
   }
 

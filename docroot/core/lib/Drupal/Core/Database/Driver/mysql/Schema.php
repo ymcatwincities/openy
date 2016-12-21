@@ -120,7 +120,7 @@ class Schema extends DatabaseSchema {
     // By default, MySQL uses the default collation for new tables, which is
     // 'utf8mb4_general_ci' for utf8mb4. If an alternate collation has been
     // set, it needs to be explicitly specified.
-    // @see DatabaseConnection_mysql
+    // @see \Drupal\Core\Database\Driver\mysql\Schema
     if (!empty($info['collation'])) {
       $sql .= ' COLLATE ' . $info['collation'];
     }
@@ -409,6 +409,11 @@ class Schema extends DatabaseSchema {
     if (isset($spec['initial'])) {
       $this->connection->update($table)
         ->fields(array($field => $spec['initial']))
+        ->execute();
+    }
+    if (isset($spec['initial_from_field'])) {
+      $this->connection->update($table)
+        ->expression($field, $spec['initial_from_field'])
         ->execute();
     }
     if ($fixnull) {

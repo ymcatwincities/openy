@@ -1,12 +1,21 @@
-parameters:
-
-  # Enable Drupal's X-Drupal-Cache-Tags response header. This HTTP response
-  # header describes what got rendered onto every page with descriptive text
-  # keys uniquely identifying every rendered object. This then enables external
-  # caching platforms - exactly what this module is for - to leverage this.
-  http.response.debug_cacheability_headers: true
-
 services:
+
+  # PURGE.LOGGER
+  #
+  # Provides logging services to purge and its submodules, via a single channel.
+  purge.logger:
+    class: Drupal\purge\Logger\LoggerService
+    arguments: ['@config.factory', '@purge.logger.parts_factory']
+    tags:
+      - { name: needs_destruction }
+  purge.logger.parts_factory:
+    class: Drupal\purge\Logger\LoggerChannelPartFactory
+    arguments: ['@logger.channel.purge']
+    public: false
+  logger.channel.purge:
+    parent: logger.channel_base
+    arguments: ['purge']
+    public: false
 
   # PURGE.QUEUERS
   #
@@ -14,7 +23,6 @@ services:
   # interfaces and allowing users to disable/enable them.
   purge.queuers:
     class: Drupal\purge\Plugin\Purge\Queuer\QueuersService
-    public: true
     arguments: ['@plugin.manager.purge.queuer', '@config.factory']
   plugin.manager.purge.queuer:
     class: Drupal\purge\Plugin\Purge\Queuer\PluginManager
@@ -41,12 +49,11 @@ services:
   # objects returning from 'purge.purgers'.
   purge.queue:
     class: Drupal\purge\Plugin\Purge\Queue\QueueService
-    arguments: ['@plugin.manager.purge.queue', '@config.factory', '@purge.queue.txbuffer',  '@purge.queue.stats', '@purge.invalidation.factory', '@purge.purgers']
+    arguments: ['@plugin.manager.purge.queue', '@purge.logger', '@config.factory', '@purge.queue.txbuffer',  '@purge.queue.stats', '@purge.invalidation.factory', '@purge.purgers']
     tags:
       - { name: needs_destruction }
   purge.queue.txbuffer:
     class: Drupal\purge\Plugin\Purge\Queue\TxBuffer
-    public: false
   purge.queue.stats:
     class: Drupal\purge\Plugin\Purge\Queue\StatsTracker
     arguments: ['@state']
@@ -88,18 +95,33 @@ services:
   # The executive service which lets enabled purgers invalidate external caches.
   purge.purgers:
     class: Drupal\purge\Plugin\Purge\Purger\PurgersService
-    arguments: ['@plugin.manager.purge.purgers', '@config.factory', '@lock', '@purge.diagnostics']
+    arguments: ['@plugin.manager.purge.purgers', '@purge.logger', '@purge.purgers.tracker.capacity', '@purge.purgers.tracker.runtime_measurement', '@config.factory', '@lock', '@purge.diagnostics']
+  purge.purgers.tracker.capacity:
+    class: Drupal\purge\Plugin\Purge\Purger\CapacityTracker
+  purge.purgers.tracker.runtime_measurement:
+    class: Drupal\purge\Plugin\Purge\Purger\RuntimeMeasurementTracker
+    arguments: ['@state']
+    tags:
+      - { name: needs_destruction }
   plugin.manager.purge.purgers:
     class: Drupal\purge\Plugin\Purge\Purger\PluginManager
     parent: default_plugin_manager
     public: false
 
-  # LOGGER.CHANNEL.PURGE
+  # PURGE.TAGSHEADERS
   #
-  # Unified logger channel for the purge module and all its submodules. The core
-  # purge APIs won't log anything at all, but leaves that up to purgers,
-  # processing policies and other submodules.
-  logger.channel.purge:
-    parent: logger.channel_base
-    arguments: ['purge']
+  # Discovered tagsheader plugins, register required response headers using the
+  # CacheableResponseSubscriber declared below. Each plugin defines the name
+  # of the header to be send out and can override header value formatting.
+  purge.tagsheaders:
+    class: Drupal\purge\Plugin\Purge\TagsHeader\TagsHeadersService
+    arguments: ['@plugin.manager.purge.tagsheader']
+  purge.tagsheaders.cacheable_response_subscriber:
+    class: Drupal\purge\EventSubscriber\CacheableResponseSubscriber
+    arguments: ['@purge.tagsheaders']
+    tags:
+      - { name: event_subscriber }
+  plugin.manager.purge.tagsheader:
+    class: Drupal\purge\Plugin\Purge\TagsHeader\PluginManager
+    parent: default_plugin_manager
     public: false

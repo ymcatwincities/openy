@@ -1,6 +1,26 @@
 
 Libraries 8.x-3.x, xxxx-xx-xx
 -----------------------------
+#2833756 by 20th: Check that public://library-definitions directory does not exist
+#2825940 by tstoeckler, rjacobs: Remove LibrariesServiceProvider
+#2816115 by rjacobs: Remove ExtensionHandler service
+#2770983 by rjacobs: Update services.yml to reference new registry URL of http://cgit.drupalcode.org/libraries_registry/plain/registry/8
+#2770983 by rjacobs: Update shipped config to reference new registry URL of http://cgit.drupalcode.org/libraries_registry/plain/registry/8
+#2815189 by rjacobs, tstoeckler: Library dependency checking can fail for install profile
+#2770983 by tstoeckler, rjacobs: Fetch definitions remotely and store them locally.
+#2770983 by tstoeckler: Make Libraries API work on Windows.
+#2770983 by tstoeckler: Allow libraries to be symlinked to their right place.
+#2756265 by rajeshwari10: Replace deprecated usage of SafeMarkup::checkPlain().
+#2742333 by jrockowitz: Fix missing @group in LinePatternDetectorTest
+by tstoeckler: Document plugin alter hooks
+by tstoeckler: Fix coding standards
+by tstoeckler: Split out library dependencies to a separate interface
+by tstoeckler: Implement version detection for libraries
+by tstoeckler: Add deprecation notices to all legacy functions and hooks
+#2090623 by tstoeckler: Introduce the notion of library types
+#2090623 by tstoeckler: Provide support for remote asset libraries
+#2090623 by tstoeckler: Introduce a stream wrapper for asset libraries
+#2090623 by tstoeckler: Introduce the concept of locators
 #2606420 by googletorp, tstoeckler: Fix profile library detection
 #2090623 by tstoeckler: Add an external library registry
 #2572401 by rjacobs, yas: Fix missing @group annotation in PhpFileLibraryTest

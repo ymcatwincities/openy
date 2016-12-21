@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\composer_manager\Unit\PackageManagerTest.
- */
-
 namespace Drupal\Tests\composer_manager\Unit;
 
 use Drupal\composer_manager\PackageManager;

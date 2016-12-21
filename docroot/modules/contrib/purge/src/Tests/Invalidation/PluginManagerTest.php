@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Invalidation\PluginManagerTest.
- */
-
 namespace Drupal\purge\Tests\Invalidation;
 
 use Drupal\purge\Tests\KernelServiceTestBase;
@@ -35,7 +30,7 @@ class PluginManagerTest extends KernelServiceTestBase {
     'examples',
     'expression_required',
     'expression_can_be_empty',
-    'expression_must_be_string'
+    'expression_must_be_string',
   ];
 
   /**
@@ -51,7 +46,7 @@ class PluginManagerTest extends KernelServiceTestBase {
     'tag',
     'url',
     'wildcardpath',
-    'wildcardurl'
+    'wildcardurl',
   ];
 
   /**

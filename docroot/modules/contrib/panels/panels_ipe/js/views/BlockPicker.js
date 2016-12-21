@@ -34,7 +34,7 @@
      */
     template_plugin: _.template(
       '<div class="ipe-block-plugin ipe-blockpicker-item">' +
-      '  <a data-plugin-id="<%- plugin_id %>">' +
+      '  <a href="javascript:;" data-plugin-id="<%- plugin_id %>">' +
       '    <div class="ipe-block-plugin-info">' +
       '      <h5 title="<%- label %>"><%- trimmed_label %></h5>' +
       '    </div>' +
@@ -47,7 +47,7 @@
      */
     template_content_type: _.template(
       '<div class="ipe-block-type ipe-blockpicker-item">' +
-      '  <a data-block-type="<%- id %>">' +
+      '  <a href="javascript:;" data-block-type="<%- id %>">' +
       '    <div class="ipe-block-content-type-info">' +
       '      <h5 title="<%- label %>"><%- label %></h5>' +
       '      <p title="<%- description %>"><%- trimmed_description %></p>' +
@@ -60,7 +60,7 @@
      * @type {function}
      */
     template_create_button: _.template(
-      '<a class="ipe-create-category ipe-category<% if (active) { %> active<% } %>" data-category="<%- name %>">' +
+      '<a href="javascript:;" class="ipe-create-category ipe-category<% if (active) { %> active<% } %>" data-category="<%- name %>">' +
       '  <span class="ipe-icon ipe-icon-create_content"></span>' +
       '  <%- name %>' +
       '</a>'
@@ -139,11 +139,13 @@
       // Add a unique class to our top region to scope CSS.
       this.$el.addClass('ipe-block-picker-list');
 
-      // Prepend a custom button for creating content.
-      this.$('.ipe-categories').prepend(this.template_create_button({
-        name: 'Create Content',
-        active: create_active
-      }));
+      // Prepend a custom button for creating content, if the user has access.
+      if (drupalSettings.panels_ipe.user_permission.create_content) {
+        this.$('.ipe-categories').prepend(this.template_create_button({
+          name: 'Create Content',
+          active: create_active
+        }));
+      }
 
       // If the create content category is active, render items in our top
       // region.
@@ -171,6 +173,9 @@
       }
 
       this.trigger('render');
+
+      // Focus on the current category.
+      this.$('.ipe-category.active').focus();
 
       return this;
     },
@@ -241,7 +246,7 @@
       var collection;
       var self = this;
 
-      if (type == 'default') {
+      if (type === 'default') {
         // Indicate an AJAX request.
         this.$el.html(this.template_loading());
 

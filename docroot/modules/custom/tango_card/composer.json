@@ -6,7 +6,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/bember/TangoCardPHPSD"
+            "url": "git@github.com:bember/TangoCardPHPSDK.git"
         }
     ],
     "require": {

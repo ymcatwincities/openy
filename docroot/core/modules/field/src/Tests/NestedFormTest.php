@@ -71,17 +71,16 @@ class NestedFormTest extends FieldTestBase {
 
     // Create two entities.
     $entity_type = 'entity_test';
-    $entity_1 = $this->container->get('entity_type.manager')
-      ->getStorage($entity_type)
-      ->create(array('id' => 1));
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage($entity_type);
+
+    $entity_1 = $storage->create(['id' => 1]);
     $entity_1->enforceIsNew();
     $entity_1->field_single->value = 0;
     $entity_1->field_unlimited->value = 1;
     $entity_1->save();
 
-    $entity_2 = $this->container->get('entity_type.manager')
-      ->getStorage($entity_type)
-      ->create(array('id' => 2));
+    $entity_2 = $storage->create(array('id' => 2));
     $entity_2->enforceIsNew();
     $entity_2->field_single->value = 10;
     $entity_2->field_unlimited->value = 11;
@@ -104,8 +103,8 @@ class NestedFormTest extends FieldTestBase {
       'entity_2[field_unlimited][1][value]' => 13,
     );
     $this->drupalPostForm(NULL, $edit, t('Save'));
-    $entity_1 = entity_load($entity_type, 1);
-    $entity_2 = entity_load($entity_type, 2);
+    $entity_1 = $storage->load(1);
+    $entity_2 = $storage->load(2);
     $this->assertFieldValues($entity_1, 'field_single', array(1));
     $this->assertFieldValues($entity_1, 'field_unlimited', array(2, 3));
     $this->assertFieldValues($entity_2, 'field_single', array(11));
@@ -164,6 +163,32 @@ class NestedFormTest extends FieldTestBase {
     $this->drupalPostForm(NULL, array(), t('Save'));
     $this->assertFieldValues($entity_1, 'field_unlimited', array(3, 2));
     $this->assertFieldValues($entity_2, 'field_unlimited', array(13, 14, 15));
+  }
+
+  /**
+   * Tests entity level validation within subforms.
+   */
+  public function testNestedEntityFormEntityLevelValidation() {
+    // Create two entities.
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('entity_test_constraints');
+
+    $entity_1 = $storage->create();
+    $entity_1->save();
+
+    $entity_2 = $storage->create();
+    $entity_2->save();
+
+    // Display the 'combined form'.
+    $this->drupalGet("test-entity-constraints/nested/{$entity_1->id()}/{$entity_2->id()}");
+    $this->assertFieldByName('entity_2[changed]', 0, 'Entity 2: changed value appears correctly in the form.');
+
+    // Submit the form and check that the entities are updated accordingly.
+    $edit = ['entity_2[changed]' => REQUEST_TIME - 86400];
+    $this->drupalPostForm(NULL, $edit, t('Save'));
+
+    $elements = $this->cssSelect('.entity-2.error');
+    $this->assertEqual(1, count($elements), 'The whole nested entity form has been correctly flagged with an error class.');
   }
 
 }

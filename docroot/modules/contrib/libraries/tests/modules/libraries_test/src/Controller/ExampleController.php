@@ -1,16 +1,12 @@
 <?php
 
-/**
- * @file
- * Provides any admin-specific functionality
- */
-
 namespace Drupal\libraries_test\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ExampleController implements ContainerInjectionInterface {
+
   /**
    * Injects BookManager Service.
    */
@@ -94,4 +90,5 @@ class ExampleController implements ContainerInjectionInterface {
   public function cache() {
     return $this->buildPage('example_callback');
   }
+
 }

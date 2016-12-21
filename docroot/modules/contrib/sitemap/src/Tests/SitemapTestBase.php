@@ -7,6 +7,7 @@
 
 namespace Drupal\sitemap\Tests;
 
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\taxonomy\Tests\TaxonomyTestBase;
 
@@ -42,7 +43,7 @@ abstract class SitemapTestBase extends TaxonomyTestBase {
     // Create the entity reference field for terms.
     $this->createEntityReferenceField('node', 'article', $this->field_tags_name, 'Tags', 'taxonomy_term', 'default', $handler_settings, FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
     // Configure for autocomplete display.
-    entity_get_form_display('node', 'article', 'default')
+    EntityFormDisplay::load('node.article.default')
       ->setComponent($this->field_tags_name, array(
         'type' => 'entity_reference_autocomplete_tags',
       ))
@@ -50,7 +51,7 @@ abstract class SitemapTestBase extends TaxonomyTestBase {
 
     // Create user, then login.
     $this->user = $this->drupalCreateUser(array(
-      'administer site configuration',
+      'administer sitemap',
       'access sitemap',
       'administer nodes',
       'create article content',

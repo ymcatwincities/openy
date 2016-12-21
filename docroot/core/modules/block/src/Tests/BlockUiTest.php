@@ -17,7 +17,7 @@ class BlockUiTest extends WebTestBase {
    *
    * @var array
    */
-  public static $modules = array('block', 'block_test', 'help');
+  public static $modules = array('block', 'block_test', 'help', 'condition_test');
 
   protected $regions;
 
@@ -248,6 +248,11 @@ class BlockUiTest extends WebTestBase {
     $this->drupalGet('');
     $this->assertText('No context mapping selected.');
     $this->assertNoText('User context found.');
+
+    // Tests that conditions with missing context are not displayed.
+    $this->drupalGet('admin/structure/block/manage/testcontextawareblock');
+    $this->assertNoRaw('No existing type');
+    $this->assertNoFieldByXPath('//*[@name="visibility[condition_test_no_existing_type][negate]"]');
   }
 
   /**
@@ -286,6 +291,22 @@ class BlockUiTest extends WebTestBase {
     // Resaving the block page will remove the block indicator.
     $this->drupalPostForm(NULL, array(), t('Save blocks'));
     $this->assertUrl('admin/structure/block/list/classy');
+  }
+
+  /**
+   * Tests if validation errors are passed plugin form to the parent form.
+   */
+  public function testBlockValidateErrors() {
+    $this->drupalPostForm('admin/structure/block/add/test_settings_validation/classy', ['settings[digits]' => 'abc'], t('Save block'));
+
+    $arguments = [':message' => 'Only digits are allowed'];
+    $pattern = '//div[contains(@class,"messages messages--error")]/div[contains(text()[2],:message)]';
+    $elements = $this->xpath($pattern, $arguments);
+    $this->assertTrue($elements, 'Plugin error message found in parent form.');
+
+    $error_class_pattern = '//div[contains(@class,"form-item-settings-digits")]/input[contains(@class,"error")]';
+    $error_class = $this->xpath($error_class_pattern);
+    $this->assertTrue($error_class, 'Plugin error class found in parent form.');
   }
 
 }

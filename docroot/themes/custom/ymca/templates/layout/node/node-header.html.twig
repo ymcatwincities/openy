@@ -1,12 +1,12 @@
 {% if is_front %}
   {% set variant = 'front' %}
 {% else %}
-  {% set variant = node.field_header_variant.0.value %}
+  {% set variant = node.field_header_variant[0]['value'] %}
 {% endif %}
-{% if (variant == 'image' and content.field_header_image.0 is not defined) %}
+{% if (variant == 'image' and content.field_header_image[0] is not defined) %}
   {% set variant = 'none' %}
 {% endif %}
-{% if (variant == 'button' and content.field_header_button.0 is not defined) %}
+{% if (variant == 'button' and content.field_header_button[0] is not defined) %}
   {% set variant = 'none' %}
 {% endif %}
 
@@ -24,12 +24,12 @@
 
 {% block label_and_description %}
   <h1>{{ label }}</h1>
-  {% if content.field_title_description.0 %}
+  {% if content.field_title_description[0] %}
   <article class="richtext">
     <p>{{ content.field_title_description }}</p>
   </article>
   {% endif %}
-  {% if variant == 'front' and node.field_header_button.title %}
+  {% if variant == 'front' and node.field_header_button['title'] %}
     <br>
     {{ link(node.field_header_button.title, node.field_header_button.uri, {'class':['btn', 'btn-primary', 'btn-lg']}) }}
   {% endif %}

@@ -5,10 +5,10 @@ services:
   ctools.wizard.entity.form:
     class: Drupal\ctools\Controller\WizardEntityFormController
     arguments: ['@controller_resolver', '@form_builder', '@ctools.wizard.factory', '@entity.manager']
-  ctools.wizard.controller_subscriber:
-    class: Drupal\ctools\EventSubscriber\WizardControllerSubscriber
+  ctools.wizard_enhancer:
+    class: Drupal\ctools\Routing\Enhancer\WizardEnhancer
     tags:
-      - { name: event_subscriber }
+      - { name: route_enhancer }
   ctools.wizard.factory:
     class: Drupal\ctools\Wizard\WizardFactory
     arguments: ['@form_builder', '@event_dispatcher']

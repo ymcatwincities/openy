@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Panels\PanelsDisplayManager.
- */
-
 namespace Drupal\panels;
 
 use Drupal\Core\Config\Schema\SchemaCheckTrait;

@@ -83,6 +83,11 @@ env:
     # etc. to only output those channels.
     #- DRUPAL_TI_DEBUG_FILE_OUTPUT="selenium xvfb webserver"
 
+    # Can be removed after https://github.com/LionsAd/drupal_ti/pull/75 is merged.
+    # Export
+    - SIMPLETEST_BASE_URL=http://127.0.0.1:8080
+    - SIMPLETEST_DB=mysql://root:@127.0.0.1/drupal_travis_db
+
   matrix:
     # [[[ SELECT ANY OR MORE OPTIONS ]]]
     #- DRUPAL_TI_RUNNERS="phpunit"
