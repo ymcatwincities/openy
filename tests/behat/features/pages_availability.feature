@@ -27,7 +27,6 @@ Feature: Check pages avilability
       | suppliers |
       | blog |
       | privacy_policy |
-      | diabetes_prevention |
       | uy_news |
       | camps/camp_st_croix/schools_retreats__group_rentals/adult_retreats/activities_equipment_facilities |
       | camps/camp_st_croix/schools_retreats__group_rentals/adult_retreats/cabins_pricing_registration |
