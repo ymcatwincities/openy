@@ -7697,7 +7697,7 @@ nav#block-footermenuright {
   top: 90px;
 }
 
-.toolbar-fixed.toolbar-horizontal.page_home.toolbar-tray-open .nav-home.affix {
+.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-home.affix#masthead-menu {
   top: 130px;
 }
 
