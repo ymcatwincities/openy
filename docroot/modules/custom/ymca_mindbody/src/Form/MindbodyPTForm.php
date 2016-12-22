@@ -479,7 +479,7 @@ class MindbodyPTForm extends FormBase {
           '#title' => $this->t('Date range'),
           '#options' => [
             '3days' => $this->t('Next 3 days'),
-            'week' => $this->t('Next week'),
+            'week' => $this->t('Next 7 days'),
             '3weeks' => $this->t('Next 3 weeks'),
           ],
           '#default_value' => isset($values['mb_date_range']) ? $values['mb_date_range'] : $this::DEFAULT_DATE_RANGE,
