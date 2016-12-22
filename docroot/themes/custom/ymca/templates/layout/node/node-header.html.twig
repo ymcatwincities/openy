@@ -1,7 +1,7 @@
 {% if is_front %}
   {% set variant = 'front' %}
 {% else %}
-  {% set variant = node.field_header_variant[0]['value'] %}
+  {% set variant = node.field_header_variant.0.value %}
 {% endif %}
 {% if (variant == 'image' and content.field_header_image[0] is not defined) %}
   {% set variant = 'none' %}
