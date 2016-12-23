@@ -19,7 +19,7 @@ class ChildcarePaymentHistoryRequest {
   /**
    * Test childcare user ID.
    */
-  const TEST_USER_ID = '1023827800';
+  const TEST_USER_ID = '2015228900';
 
   /**
    * Http client.
