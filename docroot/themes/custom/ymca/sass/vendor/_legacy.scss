@@ -483,6 +483,12 @@ body {
   background: #e5e5e5;
 }
 
+.toolbar-vertical {
+  .page-middle {
+
+  }
+}
+
 .page_home .page-head {
   position: relative;
   padding-bottom: 60px;
@@ -5340,8 +5346,26 @@ a.wrapper:hover {
       -o-transform: none;
       transform: none;
     }
-    .landing-template .page-middle, .campaign-template .page-middle, .internal-template .page-middle, .schedules-template .page-middle {
-      margin-top: 145px;
+
+    .landing-template .page-middle,
+    .campaign-template .page-middle,
+    .internal-template .page-middle,
+    .schedules-template .page-middle {
+      margin-top: 144px;
+    }
+
+    .landing-template.toolbar-horizontal .page-middle,
+    .campaign-template.toolbar-horizontal .page-middle,
+    .internal-template.toolbar-horizontal .page-middle,
+    .schedules-template.toolbar-horizontal .page-middle {
+      margin-top: 144px;
+    }
+
+    .landing-template.toolbar-vertical .page-middle,
+    .campaign-template.toolbar-vertical .page-middle,
+    .internal-template.toolbar-vertical .page-middle,
+    .schedules-template.toolbar-vertical .page-middle {
+      margin-top: 184px;
     }
     .touch .page-middle, .ancestor-camps .page-middle, .ancestor-locations .page-middle {
       margin-top: 0;
