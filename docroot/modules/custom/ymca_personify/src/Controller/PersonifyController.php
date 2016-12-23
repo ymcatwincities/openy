@@ -202,8 +202,8 @@ class PersonifyController extends ControllerBase {
       $content['end_date'] = $parameters['end_date'];
       $content['child'] = $parameters['child'];
       foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
-        // Skip not chosen children.
-        if ($parameters['child'] !== 'all' && $parameters['child'] !== $receipt['ShipMasterCustomerId']) {
+        // Skip not chosen children, skip receipts with 0.00 Paid Amount.
+        if ($receipt['ActualPostedPaidAmount'] == 0.00 || ($parameters['child'] !== 'all' && $parameters['child'] !== $receipt['ShipMasterCustomerId'])) {
           continue;
         }
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
