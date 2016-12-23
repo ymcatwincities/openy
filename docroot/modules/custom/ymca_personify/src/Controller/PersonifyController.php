@@ -208,7 +208,7 @@ class PersonifyController extends ControllerBase {
         }
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
-        $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
+        $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['ReceiptStatusDate']))->format('Y-m-d');
         $content['today_date'] = date('F d, Y');
         $content['customer_info'] = [
           'name' => $receipt['BillCustomerFirstName'] . ' ' . $receipt['BillCustomerLastName'],
@@ -229,6 +229,15 @@ class PersonifyController extends ControllerBase {
         ];
       }
       $content['total'] = number_format($content['total'], 2, '.', '');
+    }
+    if (!empty($content['children'])) {
+      // Sort by date.
+      foreach ($content['children'] as $key => $child) {
+        usort($child['receipts'], function ($a, $b) {
+          return strtotime($a["date"]) - strtotime($b["date"]);
+        });
+        $content['children'][$key]['receipts'] = $child['receipts'];
+      }
     }
     return $content;
   }
