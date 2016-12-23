@@ -79,7 +79,7 @@ class PopupsController extends ControllerBase {
     return array(
       'dialogClass' => 'branch-popup',
       'width' => '65%',
-      'closeOnEscape' => TRUE,
+      'closeOnEscape' => FALSE,
       'autoOpen' => TRUE,
       'position' => [
         'my' => 'center top',

@@ -13,7 +13,6 @@
         // Open popup.
         $('a.location-popup-link').once().click();
         $(document).on('click', 'body > .ui-widget-overlay', function() {
-          $('.ui-dialog-content').dialog('close');
           return false;
         });
       }
