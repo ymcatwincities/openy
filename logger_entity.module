@@ -60,7 +60,7 @@ function logger_entity_theme_suggestions_logger_entity(array $variables) {
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK().
+ * Implements template_preprocess_views_view_table().
  */
 function logger_entity_preprocess_views_view_table(&$vars) {
   $displays = ['full', 'fail', 'ok'];
