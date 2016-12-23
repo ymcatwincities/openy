@@ -5650,7 +5650,7 @@ a.wrapper:hover {
   }
 
   .promos {
-    padding-bottom: 0;
+    padding-bottom: 30px;
     text-align: center;
   }
   .promos li {
