@@ -4529,3 +4529,14 @@ function ymca_master_update_8201() {
     ]
   );
 }
+
+/**
+ * Update Mindbody Log view.
+ */
+function ymca_master_update_8202() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      YGTC_CONFDIR . 'views.view.mindbody_booking_log.yml',
+    ]
+  );
+}
