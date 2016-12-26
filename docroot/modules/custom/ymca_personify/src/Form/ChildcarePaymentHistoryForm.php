@@ -214,6 +214,10 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $content['total'] = 0;
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
       foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+        // Skip receipts with 0.00 Paid Amount.
+        if ($receipt['ActualPostedPaidAmount'] == 0.00) {
+          continue;
+        }
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
         $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['ReceiptStatusDate']))->format('Y-m-d');
