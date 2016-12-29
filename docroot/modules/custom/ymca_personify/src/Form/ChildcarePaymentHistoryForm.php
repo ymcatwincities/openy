@@ -213,7 +213,11 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $content = [];
     $content['total'] = 0;
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
-      foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+      $receipts = $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'];
+      if (array_key_exists('BillMasterCustomerId', $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+        $receipts = [$data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts']];
+      }
+      foreach ($receipts as $receipt) {
         // Skip receipts with 0.00 Paid Amount.
         if ($receipt['ActualPostedPaidAmount'] == 0.00) {
           continue;
